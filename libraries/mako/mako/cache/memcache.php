@@ -14,7 +14,7 @@ namespace mako\cache
 	* @license    http://www.makoframework.com/license
 	*/
 
-	class Memcache extends \mako\cache\Core
+	class Memcache extends \mako\cache\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

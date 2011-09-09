@@ -12,7 +12,7 @@ namespace mako\cache
 	* @license    http://www.makoframework.com/license
 	*/
 
-	class Memory extends \mako\cache\Core
+	class Memory extends \mako\cache\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

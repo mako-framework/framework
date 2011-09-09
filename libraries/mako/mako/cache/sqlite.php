@@ -14,7 +14,7 @@ namespace mako\cache
 	* @license    http://www.makoframework.com/license
 	*/
 	
-	class SQLite extends \mako\cache\Core
+	class SQLite extends \mako\cache\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

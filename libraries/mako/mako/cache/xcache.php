@@ -13,7 +13,7 @@ namespace mako\cache
 	* @license    http://www.makoframework.com/license
 	*/
 
-	class XCache extends \mako\cache\Core
+	class XCache extends \mako\cache\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

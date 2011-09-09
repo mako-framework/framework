@@ -12,7 +12,7 @@ namespace mako\cache
 	* @license    http://www.makoframework.com/license
 	*/
 
-	class WinCache extends \mako\cache\Core
+	class WinCache extends \mako\cache\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

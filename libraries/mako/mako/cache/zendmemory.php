@@ -12,7 +12,7 @@ namespace mako\cache
 	* @license    http://www.makoframework.com/license
 	*/
 
-	class ZendMemory extends \mako\cache\Core
+	class ZendMemory extends \mako\cache\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

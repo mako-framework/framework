@@ -12,7 +12,7 @@ namespace mako\cache
 	* @license    http://www.makoframework.com/license
 	*/
 
-	class ZendDisk extends \mako\cache\Core
+	class ZendDisk extends \mako\cache\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

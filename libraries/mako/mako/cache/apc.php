@@ -12,7 +12,7 @@ namespace mako\cache
 	* @license    http://www.makoframework.com/license
 	*/
 
-	class APC extends \mako\cache\Core
+	class APC extends \mako\cache\Adapter
 	{
 		//---------------------------------------------
 		// Class variables
