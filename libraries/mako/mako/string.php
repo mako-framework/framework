@@ -141,20 +141,6 @@ namespace mako
 		}
 
 		/**
-		* Remove excessive spaces from string, cut it to desired length and then trim it.
-		*
-		* @access  public
-		* @param   string  The input string
-		* @param   int     Desired string length
-		* @return  string
-		*/
-
-		public static function cutAndTrim($string, $stop)
-		{
-			return trim(mb_substr(preg_replace('/\s{2,}/', ' ', $string), 0, $stop));
-		}
-
-		/**
 		* Creates url friendly string.
 		*
 		* @access  public
