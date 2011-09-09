@@ -31,6 +31,10 @@ function __($string, array $vars = null)
 
 spl_autoload_register(array('Doctrine', 'autoload'));*/
 
+// Swift Mailer
+
+/*require MAKO_LIBRARIES_PATH . '/swiftmailer/swift_required.php';*/
+
 // Zend Framework
 
 /*set_include_path(get_include_path() . PATH_SEPARATOR . MAKO_LIBRARIES_PATH);
