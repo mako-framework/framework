@@ -65,7 +65,7 @@ namespace mako\cache
 		{
 			$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 
-			$data = "<?php defined('MAKO_APPLICATION') or die();return array('lifetime' => {$ttl}, 'data' => '".base64_encode(serialize($value))."');";
+			$data = "<?php defined('MAKO_APPLICATION') or die(); ?>\n{$ttl}\n" . serialize($value);
 
 			return is_int(file_put_contents("{$this->path}/mako_{$this->identifier}_{$key}.php", $data, LOCK_EX));
 		}
@@ -83,14 +83,25 @@ namespace mako\cache
 			if(file_exists("{$this->path}/mako_{$this->identifier}_{$key}.php"))
 			{
 				// Cache exists
+				
+				$handle = fopen("{$this->path}/mako_{$this->identifier}_{$key}.php", 'r');
 
-				$cache = include("{$this->path}/mako_{$this->identifier}_{$key}.php");
+				fgets($handle); // skip first line
 
-				if(time() < $cache['lifetime'])
+				if(time() < (int) fgets($handle))
 				{
 					// Cache has not expired ... fetch it
 
-					return unserialize(base64_decode($cache['data']));
+					$cache = '';
+
+					while(!feof($handle))
+					{
+						$cache .= fgets($handle);
+					}
+
+					fclose($handle);
+
+					return unserialize($cache);
 				}
 				else
 				{
