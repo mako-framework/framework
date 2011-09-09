@@ -199,6 +199,9 @@ namespace mako
 				case 'alpha':
 					$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 				break;
+				case 'hexdec':
+					$pool = '0123456789abcdef';
+				break;
 				case 'numeric':
 					$pool = '0123456789';
 				break;
