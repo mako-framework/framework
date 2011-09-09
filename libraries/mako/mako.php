@@ -106,7 +106,7 @@ class Mako
 		// Include required files to speed things up a bit
 		
 		require MAKO_FRAMEWORK_PATH . '/mako/cache.php';
-		require MAKO_FRAMEWORK_PATH . '/mako/cache/core.php';
+		require MAKO_FRAMEWORK_PATH . '/mako/cache/adapter.php';
 		require MAKO_FRAMEWORK_PATH . '/mako/utf8.php';
 		require MAKO_FRAMEWORK_PATH . '/mako/request.php';
 		require MAKO_FRAMEWORK_PATH . '/mako/response.php';
