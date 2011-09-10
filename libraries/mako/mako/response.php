@@ -29,6 +29,12 @@ namespace mako
 		*/
 		
 		protected $assetLocation;
+
+		/**
+		* Check ETag?
+		*/
+
+		protected $checkEtag = false;
 		
 		/**
 		* Compress output?
@@ -216,6 +222,17 @@ namespace mako
 			
 			exit();
 		}
+
+		/**
+		* Will enable response cache using ETags.
+		*
+		* @access  public
+		*/
+
+		public function cache()
+		{
+			$this->checkEtag = true;
+		}
 		
 		/**
 		* Send output to browser.
@@ -260,6 +277,22 @@ namespace mako
 				if(!empty($this->outputFilter))
 				{
 					$output = call_user_func($this->outputFilter, $output);
+				}
+
+				// Check ETag
+
+				if($this->checkEtag === true)
+				{
+					$hash = sha1($output);
+
+					header('ETag: ' . $hash);
+
+					if(isset($_SERVER['HTTP_IF_NONE_MATCH']) && $hash === $_SERVER['HTTP_IF_NONE_MATCH'])
+					{
+						$this->status(304);
+
+						return; // Don't send any output
+					}
 				}
 
 				// Compress output (if enabled)
