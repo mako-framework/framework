@@ -283,7 +283,7 @@ namespace mako
 
 				if($this->checkEtag === true)
 				{
-					$hash = sha1($output);
+					$hash = '"' . sha1($output) . '"';
 
 					header('ETag: ' . $hash);
 
