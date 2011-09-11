@@ -66,6 +66,12 @@ namespace mako
 		protected static $method = 'GET';
 
 		/**
+		* Was the request made using HTTPS?
+		*/
+
+		protected static $secure = false;
+
+		/**
 		* Array holding all the URL segments.
 		*/
 
@@ -156,6 +162,10 @@ namespace mako
 					// Which request method was used?
 
 					static::$method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'UNKNOWN';
+
+					// Was the request made using HTTPS?
+
+					static::$secure = (!empty($_SERVER['HTTPS']) && filter_var($_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
 				}
 			}
 			else
@@ -533,6 +543,18 @@ namespace mako
 		public static function method()
 		{
 			return static::$method;
+		}
+
+		/**
+		* Was the reqeust made using HTTPS?
+		*
+		* @access  public
+		* @return  boolean
+		*/
+
+		public static function isSecure()
+		{
+			return static::$secure;
 		}
 
 		/**
