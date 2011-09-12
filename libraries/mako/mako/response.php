@@ -217,6 +217,11 @@ namespace mako
 		public function redirect($location, $statusCode = 302)
 		{
 			$this->status($statusCode);
+
+			if(strpos($location, '://') === false)
+			{
+				$location = Mako::url($location);
+			}
 			
 			header('Location: ' . $location);
 			
