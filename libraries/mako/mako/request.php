@@ -54,22 +54,28 @@ namespace mako
 		protected static $ip = '127.0.0.1';
 
 		/**
-		* Is this an Ajax request?
+		* From where did the request originate?
 		*/
 
-		protected static $isAjax = false;
+		protected static $referer;
 
 		/**
 		* Which request method was used?
 		*/
 
-		protected static $method = 'GET';
+		protected static $method;
+
+		/**
+		* Is this an Ajax request?
+		*/
+
+		protected static $isAjax;
 
 		/**
 		* Was the request made using HTTPS?
 		*/
 
-		protected static $secure = false;
+		protected static $secure;
 
 		/**
 		* Array holding all the URL segments.
@@ -154,14 +160,18 @@ namespace mako
 					{
 						static::$ip = $ip;
 					}
+
+					// From where did the request originate?
+
+					static::$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+
+					// Which request method was used?
+
+					static::$method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
 					
 					// Is this an Ajax request?
 
 					static::$isAjax = (bool) (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
-
-					// Which request method was used?
-
-					static::$method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'UNKNOWN';
 
 					// Was the request made using HTTPS?
 
@@ -522,15 +532,15 @@ namespace mako
 		}
 
 		/**
-		* Is this an Ajax request?
+		* From where did the request originate?
 		*
 		* @access  public
 		* @return  boolean
 		*/
 
-		public static function isAjax()
+		public static function referer()
 		{
-			return static::$isAjax;
+			return static::$referer;
 		}
 
 		/**
@@ -543,6 +553,18 @@ namespace mako
 		public static function method()
 		{
 			return static::$method;
+		}
+
+		/**
+		* Is this an Ajax request?
+		*
+		* @access  public
+		* @return  boolean
+		*/
+
+		public static function isAjax()
+		{
+			return static::$isAjax;
 		}
 
 		/**
