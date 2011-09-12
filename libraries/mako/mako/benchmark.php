@@ -22,7 +22,7 @@ namespace mako
 		* Array of benchmarks.
 		*/
 
-		protected static $benchmarks = array();
+		protected static $timers = array();
 
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
@@ -42,7 +42,7 @@ namespace mako
 		//---------------------------------------------
 
 		/**
-		* Start a benchmark.
+		* Start a timer.
 		*
 		* @access  public
 		* @param   string  Benchmark name
@@ -50,7 +50,7 @@ namespace mako
 
 		public static function start($name)
 		{
-			static::$benchmarks[$name] = array
+			static::$timers[$name] = array
 			(
 				'start'        => microtime(true),
 				'stop'         => false
@@ -58,14 +58,38 @@ namespace mako
 		}
 
 		/**
-		* Stop a benchmark.
+		* Get the elapsed time in seconds of a running timer.
+		*
+		* @access  public
+		* @param   string  Benchmark name
+		* @param   int     (optional) Benchmark precision
+		* @return  int
+		*/
+
+		public static function check($name, $precision = 4)
+		{
+			if(isset(static::$timers[$name]['start']) === false)
+			{
+				throw new BenchmarkException(__CLASS__ . ": The '{$name}' benchmark has not been started.");
+			}
+
+			if(static::$timers[$name]['stop'] !== false)
+			{
+				throw new BenchmarkException(__CLASS__ . ": The '{$name}' benchmark has been stopped.");
+			}
+
+			return round(microtime(true) - static::$timers[$name]['start'], $precision);
+		}
+
+		/**
+		* Stop a timer.
 		*
 		* @access  public
 		*/
 
 		public static function stop($name)
 		{
-			static::$benchmarks[$name]['stop'] = microtime(true);
+			static::$timers[$name]['stop'] = microtime(true);
 		}
 
 		/**
@@ -79,17 +103,17 @@ namespace mako
 
 		public static function get($name, $precision = 4)
 		{
-			if(isset(static::$benchmarks[$name]['start']) === false)
+			if(isset(static::$timers[$name]['start']) === false)
 			{
 				return false;
 			}
 
-			if(static::$benchmarks[$name]['stop'] === false)
+			if(static::$timers[$name]['stop'] === false)
 			{
-				throw new BenchmarkException(__CLASS__.": The '{$name}' benchmark has not been stopped.");
+				throw new BenchmarkException(__CLASS__ . ": The '{$name}' benchmark has not been stopped.");
 			}
 
-			return round(static::$benchmarks[$name]['stop'] - static::$benchmarks[$name]['start'], $precision);
+			return round(static::$timers[$name]['stop'] - static::$timers[$name]['start'], $precision);
 		}
 
 		/**
@@ -104,7 +128,7 @@ namespace mako
 		{
 			$benchmarks = array();
 
-			foreach(static::$benchmarks as $k => $v)
+			foreach(static::$timers as $k => $v)
 			{
 				$benchmarks[$k] = static::get($k, $precision);
 			}
