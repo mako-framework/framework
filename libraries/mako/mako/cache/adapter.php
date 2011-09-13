@@ -3,7 +3,7 @@
 namespace mako\cache
 {
 	use \Closure;
-	use \mako\cache\Exception as CacheException;
+	use \InvalidArgumentException;
 
 	/**
 	* Cache adapter core.
@@ -138,7 +138,7 @@ namespace mako\cache
 			{
 				if(!($closure instanceof Closure))
 				{
-					throw new CacheException(__CLASS__.': ' . __METHOD__ . ' expects a closure.');
+					throw new InvalidArgumentException(__CLASS__.': ' . __METHOD__ . ' expects a closure.');
 				}
 				
 				$this->write($key, call_user_func($closure), $ttl);
