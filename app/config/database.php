@@ -20,18 +20,23 @@ return array
 	(
 		'test' => array
 		(
-			'dsn' => 'mysql:dbname=test;host=localhost;port=3306',
-			'username' => 'username',
-			'password' => 'password',
+			'dsn'        => 'mysql:dbname=test;host=localhost;port=3306',
+			'username'   => 'username',
+			'password'   => 'password',
 			'persistent' => false,
-			'charset' => 'utf8',
-			'table_prefix' => 'mako_',
+			'queries'    => array
+			(
+				"SET NAMES UTF8",
+			),
 		),
 
 		'sqlite' => array
 		(
-			'dsn' => 'sqlite:/' . MAKO_APPLICATION . '/storage/test.sqlite',
-			'charset' => 'UTF-8',
+			'dsn'     => 'sqlite:/' . MAKO_APPLICATION . '/storage/test.sqlite',
+			'queries' => array
+			(
+				"PRAGMA encoding = 'UTF8'",
+			),
 		),	
 	),
 );

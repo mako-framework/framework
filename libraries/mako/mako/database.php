@@ -99,7 +99,7 @@ namespace mako
 				
 				if(isset(static::$config['configurations'][$name]) === false)
 				{
-					throw new DatabaseException(__CLASS__.": '{$name}' has not been defined in the database configuration.");
+					throw new DatabaseException(__CLASS__ . ": '{$name}' has not been defined in the database configuration.");
 				}
 				
 				static::connect($name);
@@ -137,29 +137,16 @@ namespace mako
 			}
 			catch(PDOException $e)
 			{
-				throw new DatabaseException(__CLASS__.": Failed to connect to the {$name} database.<br /><br />".$e->getMessage());
+				throw new DatabaseException(__CLASS__ . ": Failed to connect to the {$name} database.<br /><br />" . $e->getMessage());
 			}
 
-			// Set charset if its defined in the config
+			// Run queries
 
-			if(isset($config['charset']))
+			if(isset($config['queries']))
 			{
-				$db = explode(':', $config['dsn']);
-
-				switch($db[0])
+				foreach($config['queries'] as $query)
 				{
-					case 'mysql':
-					case 'pgsql':
-						static::$databases[$name]->exec("SET NAMES '{$config['charset']}'");
-					break;
-					case 'sqlite':
-						static::$databases[$name]->exec("PRAGMA encoding = '{$config['charset']}'");
-					break;
-					case 'oci':
-						// Don't do anything as the charset is set in the DSN.
-					break;
-					default:
-						throw new DatabaseException(__CLASS__.": Automatic setting of charset for {$db[0]} is currently not supported.");
+					static::$databases[$name]->exec($query);
 				}
 			}
 
