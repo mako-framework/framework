@@ -37,7 +37,7 @@ namespace mako
 		* Holds all the database objects.
 		*/
 
-		protected static $databases = array();
+		protected static $connections = array();
 
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
@@ -62,7 +62,7 @@ namespace mako
 
 		public function __destruct()
 		{
-			foreach(static::$databases as $k => $v)
+			foreach(static::$connections as $k => $v)
 			{
 				static::close($k);
 			}
@@ -89,9 +89,9 @@ namespace mako
 				static::$config = Mako::config('database');
 			}
 			
-			if(isset(static::$databases[$name]))
+			if(isset(static::$connections[$name]))
 			{
-				return static::$databases[$name];
+				return static::$connections[$name];
 			}
 			else
 			{
@@ -104,7 +104,7 @@ namespace mako
 				
 				static::connect($name);
 				
-				return static::$databases[$name];
+				return static::$connections[$name];
 			}
 		}
 
@@ -133,7 +133,7 @@ namespace mako
 
 			try
 			{
-				static::$databases[$name] = new PDO($config['dsn'], $user, $pass, $options);
+				static::$connections[$name] = new PDO($config['dsn'], $user, $pass, $options);
 			}
 			catch(PDOException $e)
 			{
@@ -146,7 +146,7 @@ namespace mako
 			{
 				foreach($config['queries'] as $query)
 				{
-					static::$databases[$name]->exec($query);
+					static::$connections[$name]->exec($query);
 				}
 			}
 		}
@@ -155,7 +155,7 @@ namespace mako
 		* Closes the connection to a database and destroys the object.
 		*
 		* @access  public
-		* @param   string    Database name as defined in the database config file.
+		* @param   string   Database name as defined in the database config file.
 		* @return  boolean
 		*/
 
@@ -163,11 +163,11 @@ namespace mako
 		{
 			$name = ($name === null) ? static::$config['default'] : $name;
 			
-			if(isset(static::$databases[$name]))
+			if(isset(static::$connections[$name]))
 			{
-				static::$databases[$name] = null;
+				static::$connections[$name] = null;
 
-				unset(static::$databases[$name]);
+				unset(static::$connections[$name]);
 
 				return true;
 			}
