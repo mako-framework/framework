@@ -12,28 +12,7 @@ namespace mako
 
 	class Exception extends \Exception
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
-		// Nothing here
-
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Constructor.
-		*
-		* @access  public
-		* @param   string  Exception message
-		* @param   int     Exception code
-		*/
-
-		public function __construct($message, $code = 0)
-		{
-			parent::__construct($message, $code);
-		}
+		
 	}	
 }
 
