@@ -35,7 +35,7 @@ return array
 			'dsn'     => 'sqlite:/' . MAKO_APPLICATION . '/storage/test.sqlite',
 			'queries' => array
 			(
-				"PRAGMA encoding = 'UTF8'",
+				"PRAGMA encoding = 'UTF-8'",
 			),
 		),	
 	),
