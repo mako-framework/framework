@@ -149,29 +149,19 @@ namespace mako
 					static::$databases[$name]->exec($query);
 				}
 			}
-
-			// Set table prefix and database name
-
-			static::$databases[$name]->prefix = isset($config['table_prefix']) ? $config['table_prefix'] : '';
-			static::$databases[$name]->name   = $name;
 		}
 
 		/**
 		* Closes the connection to a database and destroys the object.
 		*
 		* @access  public
-		* @param   mixed    (optional) Database name as defined in the database config file or database object.
+		* @param   string    Database name as defined in the database config file.
 		* @return  boolean
 		*/
 
 		public static function close($name = null)
 		{
 			$name = ($name === null) ? static::$config['default'] : $name;
-			
-			if($name instanceof PDO)
-			{
-				$name = $name->name;	
-			}
 			
 			if(isset(static::$databases[$name]))
 			{
