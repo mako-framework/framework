@@ -140,8 +140,10 @@ namespace mako\cache
 				{
 					throw new InvalidArgumentException(__CLASS__.': ' . __METHOD__ . ' expects a closure.');
 				}
+
+				$item = call_user_func($closure);
 				
-				$this->write($key, call_user_func($closure), $ttl);
+				$this->write($key, $item, $ttl);
 			}
 			
 			return $item;
