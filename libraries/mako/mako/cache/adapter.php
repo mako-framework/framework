@@ -2,6 +2,9 @@
 
 namespace mako\cache
 {
+	use \Closure;
+	use \mako\cache\Exception as CacheException;
+
 	/**
 	* Cache adapter core.
 	*
@@ -121,21 +124,24 @@ namespace mako\cache
 		* Fetches variable from cache and stores it if it doesn't exist.
 		*
 		* @access  public
-		* @param   string  Cache key
-		* @param   mixed   Value to store if it doesn't already exist
-		* @param   int     (optional) Time to live
+		* @param   string   Cache key
+		* @param   closure  Closure (anonymous function) that returns value to store if it doesn't already exist
+		* @param   int      (optional) Time to live
 		* @return  mixed
 		*/
 		
-		final public function remember($key, $value, $ttl = 0)
+		final public function remember($key, $closure, $ttl = 0)
 		{
 			$item = $this->read($key);
 			
 			if($item === false)
 			{
-				$item = is_callable($value) ? call_user_func($value) : $value;
+				if(!($closure instanceof Closure))
+				{
+					throw new CacheException(__CLASS__.': ' . __METHOD__ . ' expects a closure.');
+				}
 				
-				$this->write($key, $item, $ttl);
+				$this->write($key, call_user_func($closure), $ttl);
 			}
 			
 			return $item;
