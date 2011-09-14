@@ -2,8 +2,7 @@
 
 namespace mako
 {
-	use \mako\benchmark\Exception as BenchmarkException;
-	
+	use \Exception;
 	/**
 	* Simple benchmarking/timer class.
 	*
@@ -70,12 +69,12 @@ namespace mako
 		{
 			if(isset(static::$timers[$name]['start']) === false)
 			{
-				throw new BenchmarkException(__CLASS__ . ": The '{$name}' benchmark has not been started.");
+				throw new Exception(__CLASS__ . ": The '{$name}' benchmark has not been started.");
 			}
 
 			if(static::$timers[$name]['stop'] !== false)
 			{
-				throw new BenchmarkException(__CLASS__ . ": The '{$name}' benchmark has been stopped.");
+				throw new Exception(__CLASS__ . ": The '{$name}' benchmark has been stopped.");
 			}
 
 			return round(microtime(true) - static::$timers[$name]['start'], $precision);
@@ -110,7 +109,7 @@ namespace mako
 
 			if(static::$timers[$name]['stop'] === false)
 			{
-				throw new BenchmarkException(__CLASS__ . ": The '{$name}' benchmark has not been stopped.");
+				throw new Exception(__CLASS__ . ": The '{$name}' benchmark has not been stopped.");
 			}
 
 			return round(static::$timers[$name]['stop'] - static::$timers[$name]['start'], $precision);

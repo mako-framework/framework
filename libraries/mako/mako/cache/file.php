@@ -2,7 +2,7 @@
 
 namespace mako\cache
 {
-	use \mako\cache\Exception as CacheException;
+	use \Exception;
 	
 	/**
 	* File based cache adapter.
@@ -43,7 +43,7 @@ namespace mako\cache
 
 			if(file_exists($this->path) === false || is_readable($this->path) === false || is_writable($this->path) === false)
 			{
-				throw new CacheException(__CLASS__.': Cache directory is not writable.');
+				throw new Exception(__CLASS__ . ": Cache directory is not writable.");
 			}
 		}
 

@@ -4,7 +4,7 @@ namespace mako
 {
 	use \Mako;
 	use \mako\UTF8;
-	use \mako\growl\Exception as GrowlException;
+	use \Exception;
 	
 	/**
 	* Sends messages to the Growl (http://growl.info/) notification system.
@@ -134,7 +134,7 @@ namespace mako
 				
 				if(isset(static::$config['configurations'][$name]) === false)
 				{
-					throw new GrowlException(__CLASS__.": '{$name}' has not been defined in the growl configuration.");
+					throw new Exception(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
 				}
 				
 				static::$instances[$name] = new static(static::$config['configurations'][$name]);

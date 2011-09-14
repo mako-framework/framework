@@ -1,9 +1,7 @@
 <?php
 
 namespace mako\cache
-{
-	use \mako\cache\Exception as CacheException;
-	
+{	
 	/**
 	* Non-persistent memory based cache.
 	*

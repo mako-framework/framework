@@ -6,7 +6,6 @@ use \mako\View;
 use \mako\Cache;
 use \mako\Request;
 use \mako\Response;
-use \mako\Exception as MakoException;
 
 /**
 * Core methods used throughout the framework.
@@ -317,7 +316,7 @@ class Mako
 				
 			if(file_exists($file) === false)
 			{
-				throw new MakoException(__CLASS__ . ": The '" . basename($file) . "' config file does not exist.");			
+				throw new Exception(__CLASS__ . ": The '" . basename($file) . "' config file does not exist.");			
 			}	
 
 			static::$config[$group] = new ArrayObject(include($file), ArrayObject::ARRAY_AS_PROPS);

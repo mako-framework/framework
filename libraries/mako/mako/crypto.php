@@ -3,7 +3,7 @@
 namespace mako
 {
 	use \Mako;
-	use \mako\crypto\Exception as CryptoException;
+	use \Exception;
 	
 	/**
 	* Cryptography class.
@@ -74,7 +74,7 @@ namespace mako
 				
 				if(isset(static::$config['configurations'][$name]) === false)
 				{
-					throw new CryptoException(__CLASS__.": '{$name}' has not been defined in the crypto configuration.");
+					throw new Exception(__CLASS__ . ": '{$name}' has not been defined in the crypto configuration.");
 				}
 				
 				$class = '\mako\crypto\\' . static::$config['configurations'][$name]['library'];

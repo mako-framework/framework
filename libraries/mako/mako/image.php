@@ -2,7 +2,7 @@
 
 namespace mako
 {
-	use \mako\image\Exception as ImageException;
+	use \Exception;
 	
 	/**
 	* Image factory class.
@@ -117,7 +117,7 @@ namespace mako
 
 			if(file_exists($file) === false)
 			{
-				throw new ImageException(__CLASS__.": Image file ('{$file}') does not exist.");
+				throw new Exception(__CLASS__ . ": Image file ('{$file}') does not exist.");
 			}
 
 			// Create and return image object

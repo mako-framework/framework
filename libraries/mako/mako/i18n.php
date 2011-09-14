@@ -4,7 +4,7 @@ namespace mako
 {
 	use \Mako;
 	use \mako\Cache;
-	use \mako\i18n\Exception as I18nException;
+	use \Exception;
 	
 	/**
 	* Internationalization class.
@@ -68,7 +68,7 @@ namespace mako
 
 				if(preg_match('/^[a-z]{2}[_][A-Z]{2}$/', $language) === 0)
 				{
-					throw new I18nException(__CLASS__ . ': Invalid i18n language pack name.');
+					throw new Exception(__CLASS__ . ": Invalid i18n language pack name.");
 				}
 
 				if(is_dir(MAKO_APPLICATION.'/i18n/' . $language))
@@ -77,7 +77,7 @@ namespace mako
 				}
 				else
 				{
-					throw new I18nException(__CLASS__ . ": The '{$language}' i18n language pack does not exist.");
+					throw new Exception(__CLASS__ . ": The '{$language}' i18n language pack does not exist.");
 				}
 
 				static::$translationTable = array(); // Reset the translation table

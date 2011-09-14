@@ -5,9 +5,10 @@ namespace mako
 	use \Mako;
 	use \mako\View;
 	use \mako\Response;
+	use \Exception;
 	use \ReflectionClass;
 	use \ReflectionException;
-	use \mako\request\Exception as RequestException;
+	use \BadMethodCallException;
 	
 	/**
 	* Routes the request and executes the controller.
@@ -330,7 +331,7 @@ namespace mako
 
 			if(mb_substr(realpath($controllerPath), 0, mb_strlen(realpath($controllerRootPath))) !== realpath($controllerRootPath))
 			{
-				throw new RequestException(__CLASS__ . ': Directory traversal detected.');
+				throw new Exception(__CLASS__ . ": Directory traversal detected.");
 			}
 
 			// Check if file exists
@@ -362,18 +363,11 @@ namespace mako
 
 			// Validate controller class
 
-			try
-			{
-				$controllerClass = new ReflectionClass($this->namespace . $this->controller);
-			}
-			catch(ReflectionException $e)
-			{
-				throw new RequestException(__CLASS__ . ': ' . $e->getMessage());
-			}
+			$controllerClass = new ReflectionClass($this->namespace . $this->controller);
 
 			if($controllerClass->isSubClassOf('\mako\Controller') === false)
 			{
-				throw new RequestException(__CLASS__ . ': The controller class needs to be a subclass of mako\Controller.');
+				throw new Exception(__CLASS__ . ": The controller class needs to be a subclass of mako\Controller.");
 			}
 
 			// Check if class is abstract
@@ -441,7 +435,7 @@ namespace mako
 			}
 			else
 			{
-				throw new RequestException(__CLASS__ . ' Subrequest failed. The requested controller action does not exist.');
+				throw new BadMethodCallException(__CLASS__ . " Subrequest failed. The requested controller action does not exist.");
 			}
 		}
 
@@ -463,7 +457,7 @@ namespace mako
 			}
 			else
 			{
-				throw new RequestException(__CLASS__ . ' Subrequest failed. The requested controller action is protected or private.');
+				throw new BadMethodCallException(__CLASS__ . " Subrequest failed. The requested controller action is protected or private.");
 			}
 		}
 

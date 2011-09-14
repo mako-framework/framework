@@ -3,7 +3,7 @@
 namespace mako\image
 {
 	use \mako\Image;
-	use \mako\image\Exception as ImageException;
+	use \Exception;
 	
 	/**
 	* Class that manipulates images using ImageMagick.
@@ -52,7 +52,7 @@ namespace mako\image
 			{	
 				if(function_exists('exec') === false)
 				{
-					throw new ImageException(__CLASS__.": The 'exec' function has been disabled.");
+					throw new Exception(__CLASS__ . ": The 'exec' function has been disabled.");
 				}
 
 				$check = true;
@@ -168,7 +168,7 @@ namespace mako\image
 			
 			if(file_exists($file) === false)
 			{
-				throw new ImageException(__CLASS__.": Image file ('{$file}') does not exist.");
+				throw new Exception(__CLASS__ . ": Image file ('{$file}') does not exist.");
 			}
 			
 			// Make sure that opacity is between 0 and 100
@@ -246,7 +246,7 @@ namespace mako\image
 
 			if(!is_writable($pathInfo['dirname']))
 			{
-				throw new ImageException(__CLASS__.": '{$pathInfo['dirname']}' is not writable.");
+				throw new Exception(__CLASS__ . ": '{$pathInfo['dirname']}' is not writable.");
 			}
 			
 			// Make sure that quality is between 0 and 100
@@ -265,7 +265,7 @@ namespace mako\image
 			{
 				$error = ($code === 127) ? 'ImageMagick could not be found.' : 'An error occured.';
 
-				throw new ImageException(__CLASS__.": {$error}");
+				throw new Exception(__CLASS__ . ": {$error}");
 			}
 		}
 	}

@@ -3,7 +3,7 @@
 namespace mako\cache
 {
 	use \Mako;
-	use \mako\cache\Exception as CacheException;
+	use \Exception;
 	
 	/**
 	* XCache adapter.
@@ -52,7 +52,7 @@ namespace mako\cache
 			
 			if(function_exists('xcache_get') === false)
 			{
-				throw new CacheException(__CLASS__.': XCache is not available.');
+				throw new Exception(__CLASS__ . ": XCache is not available.");
 			}
 		}
 

@@ -3,7 +3,8 @@
 namespace mako\image
 {
 	use \mako\Image;
-	use \mako\image\Exception as ImageException;
+	use \Exception;
+	use \InvalidArgumentException;
 	
 	/**
 	* Class that manipulates images using GD2.
@@ -52,7 +53,7 @@ namespace mako\image
 			{	
 				if(defined('GD_VERSION') === false || version_compare(GD_VERSION, '2.0.0', '>=') === false)
 				{
-					throw new ImageException(__CLASS__.': GD 2.0.0 or higher is required.');
+					throw new Exception(__CLASS__ . ": GD 2.0.0 or higher is required.");
 				}
 
 				$check = true;
@@ -94,7 +95,7 @@ namespace mako\image
 			
 			if($this->imageInfo === false)
 			{
-				throw new ImageException(__CLASS__.": Unable to process the image ('{$file}').");
+				throw new Exception(__CLASS__ . ": Unable to process the image ('{$file}').");
 			}
 
 			// Create image from file
@@ -111,7 +112,7 @@ namespace mako\image
 					return imagecreatefrompng($file);
 				break;
 				default:
-					throw new ImageException(__CLASS__.": Unable to open '{$pathInfo['extension']}'. Unsupported image type.");
+					throw new Exception(__CLASS__ . ": Unable to open '{$pathInfo['extension']}'. Unsupported image type.");
 			}
 		}
 		
@@ -130,7 +131,7 @@ namespace mako\image
 			
 			if(preg_match('/^([a-f0-9]{3}){1,2}$/i', $hex) === 0)
 			{
-				throw new ImageException(__CLASS__.": Invalid colour code.");
+				throw new InvalidArgumentException(__CLASS__ . ": Invalid colour code.");
 			}
 			
 			if(strlen($hex) === 3)
@@ -165,7 +166,7 @@ namespace mako\image
 		{
 			if(GD_BUNDLED === 0)
 			{
-				throw new ImageException(__CLASS__.": This method requires the 'imagerotate' function which is only available in the bundled version of GD.");
+				throw new Exception(__CLASS__ . ": This method requires the 'imagerotate' function which is only available in the bundled version of GD.");
 			}
 			
 			$w = imagesx($this->image);
@@ -326,7 +327,7 @@ namespace mako\image
 
 			if(file_exists($file) === false)
 			{
-				throw new ImageException(__CLASS__.": Image file ('{$file}') does not exist.");
+				throw new Exception(__CLASS__ . ": Image file ('{$file}') does not exist.");
 			}
 			
 			$watermark = $this->createImage($file);
@@ -342,7 +343,7 @@ namespace mako\image
 			{
 				if(GD_BUNDLED === 0)
 				{
-					throw new ImageException(__CLASS__.": Setting watermak opacity requires the 'imagelayereffect' function which is only available in the bundled version of GD.");
+					throw new Exception(__CLASS__ . ": Setting watermak opacity requires the 'imagelayereffect' function which is only available in the bundled version of GD.");
 				}
 				
 				// Convert alpha to 0-127
@@ -494,7 +495,7 @@ namespace mako\image
 
 			if(!is_writable($pathInfo['dirname']))
 			{
-				throw new ImageException(__CLASS__.": '{$pathInfo['dirname']}' is not writable.");
+				throw new Exception(__CLASS__ . ": '{$pathInfo['dirname']}' is not writable.");
 			}
 			
 			// Make sure that quality is between 0 and 100
@@ -518,7 +519,7 @@ namespace mako\image
 					imagepng($this->image, $file, (9 - (round(($quality / 100) * 9))));
 				break;
 				default:
-					throw new ImageException(__CLASS__.": Unable to save to '{$pathInfo['extension']}'. Unsupported image type.");
+					throw new Exception(__CLASS__ . ": Unable to save to '{$pathInfo['extension']}'. Unsupported image type.");
 			}
 		}
 	}

@@ -3,7 +3,7 @@
 namespace mako
 {
 	use \Mako;
-	use \mako\log\Exception as LogException;
+	use \Exception;
 	
 	/**
 	* Logginger class.
@@ -122,7 +122,7 @@ namespace mako
 				
 				if(isset(static::$config['configurations'][$name]) === false)
 				{
-					throw new LogException(__CLASS__.": '{$name}' has not been defined in the log configuration.");
+					throw new Exception(__CLASS__ . ": '{$name}' has not been defined in the log configuration.");
 				}
 				
 				$class = '\mako\log\\' . static::$config['configurations'][$name]['type'];

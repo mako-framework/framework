@@ -3,7 +3,6 @@
 namespace mako
 {
 	use \Exception;
-	use \mako\view\Exception as ViewException;
 	
 	/**
 	* View/template class.
@@ -60,7 +59,7 @@ namespace mako
 
 			if(file_exists($this->viewFile) === false)
 			{
-				throw new ViewException(__CLASS__ . ": The '{$view}.php' view file does not exist.");
+				throw new Exception(__CLASS__ . ": The '{$view}.php' view file does not exist.");
 			}
 		}
 

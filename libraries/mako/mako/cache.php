@@ -3,7 +3,7 @@
 namespace mako
 {
 	use \Mako;
-	use \mako\cache\Exception as CacheException;
+	use \Exception;
 	
 	/**
 	* Cache class.
@@ -74,7 +74,7 @@ namespace mako
 				
 				if(isset(static::$config['configurations'][$name]) === false)
 				{
-					throw new CacheException(__CLASS__.": '{$name}' has not been defined in the cache configuration.");
+					throw new Exception(__CLASS__ . ": '{$name}' has not been defined in the cache configuration.");
 				}
 				
 				$class = '\mako\cache\\' . static::$config['configurations'][$name]['type'];
