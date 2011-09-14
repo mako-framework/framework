@@ -4,21 +4,24 @@
 // Define global convenience functions
 //------------------------------------------------------------------------------------------
 
-/**
-* Alias of mako\I18n::getText()
-*
-* Returns a translated string of the current language. 
-* If no translation exists then the submitted string will be returned.
-*
-* @access  public
-* @param   string  Text to translate
-* @param   array  (optional) Value or array of values to replace in the translated text
-* @return  string
-*/
-
-function __($string, array $vars = null)
+if(!function_exists('__'))
 {
-	return mako\I18n::getText($string, $vars);
+	/**
+	* Alias of mako\I18n::getText()
+	*
+	* Returns a translated string of the current language. 
+	* If no translation exists then the submitted string will be returned.
+	*
+	* @access  public
+	* @param   string  Text to translate
+	* @param   array  (optional) Value or array of values to replace in the translated text
+	* @return  string
+	*/
+
+	function __($string, array $vars = null)
+	{
+		return mako\I18n::getText($string, $vars);
+	}	
 }
 
 //------------------------------------------------------------------------------------------

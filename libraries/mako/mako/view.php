@@ -2,6 +2,7 @@
 
 namespace mako
 {
+	use \Mako;
 	use \Exception;
 	
 	/**
@@ -217,9 +218,7 @@ namespace mako
 			}
 			catch(Exception $e)
 			{
-				ob_end_clean();
-
-				return 'Uncaught exception: ' . $e->getMessage() . ' in ' . $e->getFile() . ' (line ' . $e->getLine() . ').';
+				Mako::exceptionHandler($e);
 			}
 		}
 	}
