@@ -64,7 +64,7 @@ namespace mako
 		* @return  Validate
 		*/
 
-		public static function factory(array $input)
+		public static function factory(array & $input)
 		{
 			return new static($input);
 		}
