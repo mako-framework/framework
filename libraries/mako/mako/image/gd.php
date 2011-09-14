@@ -14,17 +14,11 @@ namespace mako\image
 	* @license    http://www.makoframework.com/license
 	*/
 
-	class GD
+	class GD extends \mako\image\Adapter
 	{
 		//---------------------------------------------
 		// Class variables
 		//---------------------------------------------
-
-		/**
-		* Temporary image resource.
-		*/
-
-		protected $image;
 
 		/**
 		* Holds info about the image.

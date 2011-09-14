@@ -15,17 +15,13 @@ namespace mako\image
 	* @license    http://www.makoframework.com/license
 	*/
 
-	class Imagick
+	class Imagick extends \mako\image\Adapter
 	{
 		//---------------------------------------------
 		// Class variables
 		//---------------------------------------------
 
-		/**
-		* Temporary image object.
-		*/
-
-		protected $image;
+		// Nothing here
 
 		//---------------------------------------------
 		// Class constructor, destructor etc ...

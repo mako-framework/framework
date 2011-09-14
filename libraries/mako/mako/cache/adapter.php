@@ -6,7 +6,7 @@ namespace mako\cache
 	use \InvalidArgumentException;
 
 	/**
-	* Cache adapter core.
+	* Cache adapter.
 	*
 	* @author     Frederic G. Østby
 	* @copyright  (c) 2008-2011 Frederic G. Østby

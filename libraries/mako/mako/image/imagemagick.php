@@ -13,17 +13,11 @@ namespace mako\image
 	* @license    http://www.makoframework.com/license
 	*/
 
-	class ImageMagick
+	class ImageMagick extends \mako\image\Adapter
 	{
 		//---------------------------------------------
 		// Class variables
 		//---------------------------------------------
-
-		/**
-		* Path to the image.
-		*/
-
-		protected $image;
 
 		/**
 		* Holds the all the options passed to ImageMagick.
