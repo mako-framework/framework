@@ -12,7 +12,7 @@ namespace mako\crypto
 	* @license    http://www.makoframework.com/license
 	*/
 	
-	class Mcrypt
+	class Mcrypt extends \mako\crypto\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

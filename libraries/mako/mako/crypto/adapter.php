@@ -1,9 +1,9 @@
 <?php
 
-namespace mako\image
+namespace mako\crypto
 {
 	/**
-	* Image adapter.
+	* Crypto adapter.
 	*
 	* @author     Frederic G. Østby
 	* @copyright  (c) 2008-2011 Frederic G. Østby
@@ -16,37 +16,21 @@ namespace mako\image
 		// Class variables
 		//---------------------------------------------
 
-		/**
-		* Temporary image object.
-		*/
-
-		protected $image;
+		// Nothing here
 
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
 		//---------------------------------------------
 
-		abstract public function __construct($file);
+		abstract public function __construct(array $config);
 
 		//---------------------------------------------
 		// Class methods
 		//---------------------------------------------
 
-		abstract public function rotate($degrees);
+		abstract public function encrypt($string);
 
-		abstract public function resize($width, $height = null, $aspectRatio = null);
-
-		//abstract public function crop($width, $height, $x, $y);
-
-		abstract public function flip($direction = null);
-
-		abstract public function watermark($file, $position = null, $opacity = 100);
-
-		abstract public function greyscale();
-
-		abstract public function border($colour = '#000', $thickness = 5);
-
-		abstract public function save($file, $quality = 85);
+		abstract public function decrypt($string);
 	}
 }
 

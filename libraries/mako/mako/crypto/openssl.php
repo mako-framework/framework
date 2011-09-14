@@ -12,7 +12,7 @@ namespace mako\crypto
 	* @license    http://www.makoframework.com/license
 	*/
 	
-	class OpenSSL
+	class OpenSSL extends \mako\crypto\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

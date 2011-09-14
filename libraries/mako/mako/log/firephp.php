@@ -12,7 +12,7 @@ namespace mako\log
 	* @license    http://www.makoframework.com/license
 	*/
 	
-	class FirePHP
+	class FirePHP extends \mako\log\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

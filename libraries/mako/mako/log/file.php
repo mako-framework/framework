@@ -12,7 +12,7 @@ namespace mako\log
 	* @license    http://www.makoframework.com/license
 	*/
 	
-	class File
+	class File extends \mako\log\Adapter
 	{
 		//---------------------------------------------
 		// Class variables

@@ -14,7 +14,7 @@ namespace mako\log
 	* @license    http://www.makoframework.com/license
 	*/
 	
-	class Growl
+	class Growl extends \mako\log\Adapter
 	{
 		//---------------------------------------------
 		// Class variables
