@@ -418,9 +418,9 @@ class Mako
 			{
 				$lines[] = array
 				(
-					'number'      => $currentLine,
+					'number'      => str_pad($currentLine, 4, '0', STR_PAD_LEFT),
 					'highlighted' => ($currentLine === $line),
-					'code'        => htmlspecialchars($temp),
+					'code'        => str_replace("\t", '    ', htmlspecialchars($temp)),
 				);
 			}
 		}
