@@ -55,7 +55,9 @@ namespace mako\image
 			
 			// Create image
 
-			$this->image = $this->createImage($file);
+			$this->imageInfo = $this->imageInfo($file);
+
+			$this->image = $this->createImage($file, $this->imageInfo);
 		}
 
 		/**
@@ -72,29 +74,41 @@ namespace mako\image
 		//---------------------------------------------
 		// Class methods
 		//---------------------------------------------
+
+		/**
+		* Returns information about the image.
+		*
+		* @access  protected
+		* @param   string     Path to the image file
+		* @return  array
+		*/
+
+		protected function imageInfo($file)
+		{
+			$imageInfo = getimagesize($file);
+			
+			if($imageInfo === false)
+			{
+				throw new Exception(__CLASS__ . ": Unable to process the image ('{$file}').");
+			}
+
+			return $imageInfo;
+		}
 		
 		/**
 		* Create a new image from file.
 		*
 		* @access  protected
 		* @param   string     Path to the image file
+		* @param   array      Image info
 		* @return  resource
 		*/
 		
-		protected function createImage($file)
+		protected function createImage($file, $imageInfo)
 		{
-			// Get image info
-
-			$this->imageInfo = getimagesize($file);
-			
-			if($this->imageInfo === false)
-			{
-				throw new Exception(__CLASS__ . ": Unable to process the image ('{$file}').");
-			}
-
 			// Create image from file
 
-			switch($this->imageInfo[2])
+			switch($imageInfo[2])
 			{
 				case IMAGETYPE_JPEG:
 					return imagecreatefromjpeg($file);
@@ -324,7 +338,7 @@ namespace mako\image
 				throw new Exception(__CLASS__ . ": Image file ('{$file}') does not exist.");
 			}
 			
-			$watermark = $this->createImage($file);
+			$watermark = $this->createImage($file, $this->imageInfo($file));
 			
 			$watermarkW = imagesx($watermark);
 			$watermarkH = imagesy($watermark);
