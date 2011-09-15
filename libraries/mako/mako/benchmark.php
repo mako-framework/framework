@@ -18,7 +18,7 @@ namespace mako
 		//---------------------------------------------
 
 		/**
-		* Array of benchmarks.
+		* Array of timers.
 		*/
 
 		protected static $timers = array();
@@ -49,6 +49,11 @@ namespace mako
 
 		public static function start($name)
 		{
+			if(isset(static::$timers[$name]) === true)
+			{
+				throw new Exception(__CLASS__ . ": A timer named '{$name}' already exists.");
+			}
+
 			static::$timers[$name] = array
 			(
 				'start'        => microtime(true),
@@ -62,33 +67,48 @@ namespace mako
 		* @access  public
 		* @param   string  Benchmark name
 		* @param   int     (optional) Benchmark precision
-		* @return  int
+		* @return  double
 		*/
 
 		public static function check($name, $precision = 4)
 		{
-			if(isset(static::$timers[$name]['start']) === false)
+			if(isset(static::$timers[$name]) === false)
 			{
-				throw new Exception(__CLASS__ . ": The '{$name}' benchmark has not been started.");
+				throw new Exception(__CLASS__ . ": The '{$name}' timer has not been started.");
 			}
 
 			if(static::$timers[$name]['stop'] !== false)
 			{
-				throw new Exception(__CLASS__ . ": The '{$name}' benchmark has been stopped.");
+				throw new Exception(__CLASS__ . ": The '{$name}' timer has been stopped.");
 			}
 
 			return round(microtime(true) - static::$timers[$name]['start'], $precision);
 		}
 
 		/**
-		* Stop a timer.
+		* Stop a timer and get elapsed time in seconds.
 		*
 		* @access  public
+		* @param   string  Benchmark name
+		* @param   int     (optional) Benchmark precision
+		* @return  double
 		*/
 
-		public static function stop($name)
+		public static function stop($name, $precision = 4)
 		{
+			if(isset(static::$timers[$name]) === false)
+			{
+				throw new Exception(__CLASS__ . ": The '{$name}' timer has not been started.");
+			}
+
+			if(static::$timers[$name]['stop'] !== false)
+			{
+				throw new Exception(__CLASS__ . ": The '{$name}' timer has already been stopped.");
+			}
+
 			static::$timers[$name]['stop'] = microtime(true);
+
+			return round(static::$timers[$name]['stop'] - static::$timers[$name]['start'], $precision);
 		}
 
 		/**
@@ -97,19 +117,19 @@ namespace mako
 		* @access  public
 		* @param   string  Benchmark name
 		* @param   int     (optional) Benchmark precision
-		* @return  int
+		* @return  double
 		*/
 
 		public static function get($name, $precision = 4)
 		{
-			if(isset(static::$timers[$name]['start']) === false)
+			if(isset(static::$timers[$name]) === false)
 			{
-				return false;
+				throw new Exception(__CLASS__ . ": The '{$name}' timer has not been started.");
 			}
 
 			if(static::$timers[$name]['stop'] === false)
 			{
-				throw new Exception(__CLASS__ . ": The '{$name}' benchmark has not been stopped.");
+				throw new Exception(__CLASS__ . ": The '{$name}' timer has not been stopped.");
 			}
 
 			return round(static::$timers[$name]['stop'] - static::$timers[$name]['start'], $precision);
@@ -140,7 +160,7 @@ namespace mako
 		*
 		* @access  public
 		* @param   int     (optional) Benchmark precision
-		* @return  int
+		* @return  double
 		*/
 
 		public static function totalTime($precision = 4)
