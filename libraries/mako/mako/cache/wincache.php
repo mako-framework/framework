@@ -2,7 +2,7 @@
 
 namespace mako\cache
 {
-	use \Exception;
+	use \RuntimeException;
 	
 	/**
 	* WinCache adapter.
@@ -37,7 +37,7 @@ namespace mako\cache
 			
 			if(function_exists('wincache_ucache_get') === false)
 			{
-				throw new Exception(__CLASS__ . ": WinCache is not available.");
+				throw new RuntimeException(__CLASS__ . ": WinCache is not available.");
 			}
 		}
 

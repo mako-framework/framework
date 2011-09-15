@@ -2,7 +2,7 @@
 
 namespace mako\cache
 {
-	use \Exception;
+	use \RuntimeException;
 	
 	/**
 	* Zend Data (memory) Cache adapter.
@@ -37,7 +37,7 @@ namespace mako\cache
 			
 			if(function_exists('zend_shm_cache_fetch') === false)
 			{
-				throw new Exception(__CLASS__ . ": Zend Data Cache is not available.");
+				throw new RuntimeException(__CLASS__ . ": Zend Data Cache is not available.");
 			}
 		}
 

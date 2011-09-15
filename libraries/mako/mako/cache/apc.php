@@ -2,7 +2,7 @@
 
 namespace mako\cache
 {
-	use \Exception;
+	use \RuntimeException;
 	
 	/**
 	* Alternative PHP Cache adapter.
@@ -37,7 +37,7 @@ namespace mako\cache
 			
 			if(function_exists('apc_fetch') === false)
 			{
-				throw new Exception(__CLASS__ . ": APC is not available.");
+				throw new RuntimeException(__CLASS__ . ": APC is not available.");
 			}
 		}
 

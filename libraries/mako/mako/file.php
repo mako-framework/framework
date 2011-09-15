@@ -3,7 +3,7 @@
 namespace mako
 {
 	use \Mako;
-	use \Exception;
+	use \RuntimeException;
 	
 	/**
 	* Collection of file related methods.
@@ -137,7 +137,7 @@ namespace mako
 
 			if(file_exists($file) === false || is_readable($file) === false)
 			{
-				throw new Exception(__CLASS__ . ": Failed to open stream.");
+				throw new RuntimeException(__CLASS__ . ": Failed to open stream.");
 			}
 
 			// Empty output buffers

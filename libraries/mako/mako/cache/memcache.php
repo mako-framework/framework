@@ -4,7 +4,7 @@ namespace mako\cache
 {
 	use \Mako;
 	use \Memcache as PHP_Memcache;
-	use \Exception;
+	use \RuntimeException;
 	
 	/**
 	* Memcache adapter.
@@ -49,7 +49,7 @@ namespace mako\cache
 			
 			if(class_exists('\Memcache', false) === false)
 			{
-				throw new Exception(__CLASS__ . ": Memcache is not available.");
+				throw new RuntimeException(__CLASS__ . ": Memcache is not available.");
 			}
 			
 			$this->memcache = new PHP_Memcache();

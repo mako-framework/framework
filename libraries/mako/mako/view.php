@@ -4,6 +4,7 @@ namespace mako
 {
 	use \Mako;
 	use \Exception;
+	use \RuntimeException;
 	
 	/**
 	* View/template class.
@@ -60,7 +61,7 @@ namespace mako
 
 			if(file_exists($this->viewFile) === false)
 			{
-				throw new Exception(__CLASS__ . ": The '{$view}.php' view file does not exist.");
+				throw new RuntimeException(__CLASS__ . ": The '{$view}.php' view file does not exist.");
 			}
 		}
 

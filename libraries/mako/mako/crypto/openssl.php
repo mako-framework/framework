@@ -2,7 +2,7 @@
 
 namespace mako\crypto
 {
-	use \Exception;
+	use \RuntimeException;
 
 	/**
 	* OpenSSL cryptography adapter.
@@ -45,7 +45,7 @@ namespace mako\crypto
 		{
 			if(extension_loaded('openssl') === false)
 			{
-				throw new Exception(__CLASS__ . ": OpenSSL is not available.");
+				throw new RuntimeException(__CLASS__ . ": OpenSSL is not available.");
 			}
 			
 			$this->key      = $config['key'];

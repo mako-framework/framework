@@ -2,7 +2,7 @@
 
 namespace mako\crypto
 {
-	use \Exception;
+	use \RuntimeException;
 
 	/**
 	* Mcrypt cryptography adapter.
@@ -57,7 +57,7 @@ namespace mako\crypto
 		{
 			if(extension_loaded('mcrypt') === false)
 			{
-				throw new Exception(__CLASS__ . ": Mcrypt is not available.");
+				throw new RuntimeException(__CLASS__ . ": Mcrypt is not available.");
 			}
 			
 			$maxSize = mcrypt_get_key_size($config['cipher'], $config['mode']);

@@ -5,7 +5,7 @@ namespace mako\image
 	use \ImagickPixel;
 	use \Imagick as PHP_Imagick;
 	use \mako\Image;
-	use \Exception;
+	use \RuntimeException;
 	
 	/**
 	* Class that manipulates images using Imagick.
@@ -44,7 +44,7 @@ namespace mako\image
 			{	
 				if(class_exists('\Imagick', false) === false)
 				{
-					throw new Exception(__CLASS__ . ": Imagick is not available.");
+					throw new RuntimeException(__CLASS__ . ": Imagick is not available.");
 				}
 
 				$check = true;
@@ -185,7 +185,7 @@ namespace mako\image
 
 			if(file_exists($file) === false)
 			{
-				throw new Exception(__CLASS__ . ": Image file ('{$file}') does not exist.");
+				throw new RuntimeException(__CLASS__ . ": Image file ('{$file}') does not exist.");
 			}
 			
 			$watermark = new PHP_Imagick($file);
@@ -282,7 +282,7 @@ namespace mako\image
 
 			if(!is_writable($pathInfo['dirname']))
 			{
-				throw new Exception(__CLASS__ . ": '{$pathInfo['dirname']}' is not writable.");
+				throw new RuntimeException(__CLASS__ . ": '{$pathInfo['dirname']}' is not writable.");
 			}
 			
 			// Make sure that quality is between 0 and 100

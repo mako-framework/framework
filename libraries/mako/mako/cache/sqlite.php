@@ -4,7 +4,7 @@ namespace mako\cache
 {
 	use \PDO;
 	use \PDOException;
-	use \Exception;
+	use \RuntimeException;
 	
 	/**
 	* SQLite based cache adapter.
@@ -49,7 +49,7 @@ namespace mako\cache
 			
 			if(extension_loaded('PDO') === false)
 			{
-				throw new Exception(__CLASS__ . ": PDO is not available.");
+				throw new RuntimeException(__CLASS__ . ": PDO is not available.");
 			}
 
 			try
@@ -70,7 +70,7 @@ namespace mako\cache
 			}
 			catch(PDOException $e)
 			{
-				throw new Exception(__CLASS__ . ": Unable to create cache database.<br /><br />" . $e->getMessage());
+				throw new RuntimeException(__CLASS__ . ": Unable to create cache database.<br /><br />" . $e->getMessage());
 			}
 		}
 		

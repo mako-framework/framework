@@ -316,7 +316,7 @@ class Mako
 				
 			if(file_exists($file) === false)
 			{
-				throw new Exception(__CLASS__ . ": The '" . basename($file) . "' config file does not exist.");			
+				throw new RuntimeException(__CLASS__ . ": The '" . basename($file) . "' config file does not exist.");			
 			}	
 
 			static::$config[$group] = new ArrayObject(include($file), ArrayObject::ARRAY_AS_PROPS);

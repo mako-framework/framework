@@ -4,7 +4,7 @@ namespace mako
 {
 	use \Mako;
 	use \mako\Curl;
-	use \Exception;
+	use \RuntimeException;
 	
 	/**
 	* Class that makes it easy to implement reCAPTCHA in your application.
@@ -66,7 +66,7 @@ namespace mako
 			
 			if($this->config['public_key'] === '' || $this->config['private_key'] === '')
 			{
-				throw new Exception(__CLASS__ . ": No API key defined in the config.");
+				throw new RuntimeException(__CLASS__ . ": No API key defined in the config.");
 			}
 		}
 

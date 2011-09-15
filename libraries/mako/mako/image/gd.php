@@ -3,7 +3,7 @@
 namespace mako\image
 {
 	use \mako\Image;
-	use \Exception;
+	use \RuntimeException;
 	use \InvalidArgumentException;
 	
 	/**
@@ -47,7 +47,7 @@ namespace mako\image
 			{	
 				if(defined('GD_VERSION') === false || version_compare(GD_VERSION, '2.0.0', '>=') === false)
 				{
-					throw new Exception(__CLASS__ . ": GD 2.0.0 or higher is required.");
+					throw new RuntimeException(__CLASS__ . ": GD 2.0.0 or higher is required.");
 				}
 
 				$check = true;
@@ -89,7 +89,7 @@ namespace mako\image
 			
 			if($imageInfo === false)
 			{
-				throw new Exception(__CLASS__ . ": Unable to process the image ('{$file}').");
+				throw new RuntimeException(__CLASS__ . ": Unable to process the image ('{$file}').");
 			}
 
 			return $imageInfo;
@@ -120,7 +120,7 @@ namespace mako\image
 					return imagecreatefrompng($file);
 				break;
 				default:
-					throw new Exception(__CLASS__ . ": Unable to open '{$pathInfo['extension']}'. Unsupported image type.");
+					throw new RuntimeException(__CLASS__ . ": Unable to open '{$pathInfo['extension']}'. Unsupported image type.");
 			}
 		}
 		
@@ -174,7 +174,7 @@ namespace mako\image
 		{
 			if(GD_BUNDLED === 0)
 			{
-				throw new Exception(__CLASS__ . ": This method requires the 'imagerotate' function which is only available in the bundled version of GD.");
+				throw new RuntimeException(__CLASS__ . ": This method requires the 'imagerotate' function which is only available in the bundled version of GD.");
 			}
 			
 			$w = imagesx($this->image);
@@ -335,7 +335,7 @@ namespace mako\image
 
 			if(file_exists($file) === false)
 			{
-				throw new Exception(__CLASS__ . ": Image file ('{$file}') does not exist.");
+				throw new RuntimeException(__CLASS__ . ": Image file ('{$file}') does not exist.");
 			}
 			
 			$watermark = $this->createImage($file, $this->imageInfo($file));
@@ -351,7 +351,7 @@ namespace mako\image
 			{
 				if(GD_BUNDLED === 0)
 				{
-					throw new Exception(__CLASS__ . ": Setting watermak opacity requires the 'imagelayereffect' function which is only available in the bundled version of GD.");
+					throw new RuntimeException(__CLASS__ . ": Setting watermak opacity requires the 'imagelayereffect' function which is only available in the bundled version of GD.");
 				}
 				
 				// Convert alpha to 0-127
@@ -503,7 +503,7 @@ namespace mako\image
 
 			if(!is_writable($pathInfo['dirname']))
 			{
-				throw new Exception(__CLASS__ . ": '{$pathInfo['dirname']}' is not writable.");
+				throw new RuntimeException(__CLASS__ . ": '{$pathInfo['dirname']}' is not writable.");
 			}
 			
 			// Make sure that quality is between 0 and 100
@@ -527,7 +527,7 @@ namespace mako\image
 					imagepng($this->image, $file, (9 - (round(($quality / 100) * 9))));
 				break;
 				default:
-					throw new Exception(__CLASS__ . ": Unable to save to '{$pathInfo['extension']}'. Unsupported image type.");
+					throw new RuntimeException(__CLASS__ . ": Unable to save to '{$pathInfo['extension']}'. Unsupported image type.");
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 
 namespace mako
 {
-	use \Exception;
+	use \RuntimeException;
 	/**
 	* Simple benchmarking/timer class.
 	*
@@ -51,7 +51,7 @@ namespace mako
 		{
 			if(isset(static::$timers[$name]) === true)
 			{
-				throw new Exception(__CLASS__ . ": A timer named '{$name}' already exists.");
+				throw new RuntimeException(__CLASS__ . ": A timer named '{$name}' already exists.");
 			}
 
 			static::$timers[$name] = array
@@ -74,12 +74,12 @@ namespace mako
 		{
 			if(isset(static::$timers[$name]) === false)
 			{
-				throw new Exception(__CLASS__ . ": The '{$name}' timer has not been started.");
+				throw new RuntimeException(__CLASS__ . ": The '{$name}' timer has not been started.");
 			}
 
 			if(static::$timers[$name]['stop'] !== false)
 			{
-				throw new Exception(__CLASS__ . ": The '{$name}' timer has been stopped.");
+				throw new RuntimeException(__CLASS__ . ": The '{$name}' timer has been stopped.");
 			}
 
 			return round(microtime(true) - static::$timers[$name]['start'], $precision);
@@ -98,12 +98,12 @@ namespace mako
 		{
 			if(isset(static::$timers[$name]) === false)
 			{
-				throw new Exception(__CLASS__ . ": The '{$name}' timer has not been started.");
+				throw new RuntimeException(__CLASS__ . ": The '{$name}' timer has not been started.");
 			}
 
 			if(static::$timers[$name]['stop'] !== false)
 			{
-				throw new Exception(__CLASS__ . ": The '{$name}' timer has already been stopped.");
+				throw new RuntimeException(__CLASS__ . ": The '{$name}' timer has already been stopped.");
 			}
 
 			static::$timers[$name]['stop'] = microtime(true);
@@ -124,12 +124,12 @@ namespace mako
 		{
 			if(isset(static::$timers[$name]) === false)
 			{
-				throw new Exception(__CLASS__ . ": The '{$name}' timer has not been started.");
+				throw new RuntimeException(__CLASS__ . ": The '{$name}' timer has not been started.");
 			}
 
 			if(static::$timers[$name]['stop'] === false)
 			{
-				throw new Exception(__CLASS__ . ": The '{$name}' timer has not been stopped.");
+				throw new RuntimeException(__CLASS__ . ": The '{$name}' timer has not been stopped.");
 			}
 
 			return round(static::$timers[$name]['stop'] - static::$timers[$name]['start'], $precision);

@@ -5,7 +5,7 @@ namespace mako
 	use \Mako;
 	use \PDO;
 	use \PDOException;
-	use \Exception;
+	use \RuntimeException;
 	
 	/**
 	* Class that handles database connections.
@@ -99,7 +99,7 @@ namespace mako
 				
 				if(isset(static::$config['configurations'][$name]) === false)
 				{
-					throw new Exception(__CLASS__ . ": '{$name}' has not been defined in the database configuration.");
+					throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the database configuration.");
 				}
 				
 				static::connect($name);
@@ -137,7 +137,7 @@ namespace mako
 			}
 			catch(PDOException $e)
 			{
-				throw new Exception(__CLASS__ . ": Failed to connect to the {$name} database.<br /><br />" . $e->getMessage());
+				throw new RuntimeException(__CLASS__ . ": Failed to connect to the {$name} database.<br /><br />" . $e->getMessage());
 			}
 
 			// Run queries
