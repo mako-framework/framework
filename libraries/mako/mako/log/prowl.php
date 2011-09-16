@@ -79,7 +79,7 @@ namespace mako\log
 		{
 			$priorities = array_combine(array_keys($this->types), array(2, 1, 2, 1, 1, 0, 0, 0));
 			
-			Grrr::factory($this->configuration)->notify($this->types[$type], $message, null, $priorities[$type]);					
+			Grrr::factory($this->configuration)->notify($this->types[$type], $message, null, $priorities[$type]);
 		}
 	}
 }
