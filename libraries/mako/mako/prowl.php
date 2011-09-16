@@ -220,7 +220,7 @@ namespace mako
 		}
 
 		/**
-		* Get an API key from a the token retrieved by retrieveToken.
+		* Get an API key from the token retrieved by retrieveToken.
 		*
 		* @access  public
 		* @param   string  Registration token
