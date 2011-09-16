@@ -34,9 +34,24 @@ return array
 			'password'      => '',
 			'notifications' => array
 			(
-				'Alert' => true,
 				'Info'  => true,
-				'Debug' => true,
+			),
+		),
+
+		'logger' => array
+		(
+			'host'          => '127.0.0.1',
+			'password'      => '',
+			'notifications' => array
+			(
+				'Emergency' => true,
+				'Alert'     => true,
+				'Critical'  => true,
+				'Error'     => true,
+				'Warning'   => true,
+				'Notice'    => true,
+				'Info'      => true,
+				'Debug'     => true,
 			),
 		),
 	),

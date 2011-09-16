@@ -4,17 +4,17 @@ namespace mako\log
 {
 	use \Mako;
 	use \mako\Log;
-	use \mako\Growl as Grrr;
+	use \mako\Prowl as Grrr;
 	
 	/**
-	* Growl adapter.
+	* Prowl adapter.
 	*
 	* @author     Frederic G. Østby
 	* @copyright  (c) 2008-2011 Frederic G. Østby
 	* @license    http://www.makoframework.com/license
 	*/
 	
-	class Growl extends \mako\log\Adapter
+	class Prowl extends \mako\log\Adapter
 	{
 		//---------------------------------------------
 		// Class variables
@@ -79,7 +79,7 @@ namespace mako\log
 		{
 			$priorities = array_combine(array_keys($this->types), array(2, 1, 2, 1, 1, 0, 0, 0));
 			
-			Grrr::factory($this->configuration)->notify($this->types[$type], $this->types[$type], $message, false, $priorities[$type]);					
+			Grrr::factory($this->configuration)->notify($this->types[$type], $message, null, $priorities[$type]);					
 		}
 	}
 }
