@@ -89,7 +89,7 @@ namespace mako\log
 			
 			$priorities = array_combine(array_keys($this->types), array(2, 1, 2, 1, 1, 0, 0, 0));
 			
-			Grrr::instance($id)->notify($this->types[$type], $this->types[$type], $message, false, $priorities[$type]);			
+			Grrr::factory($id)->notify($this->types[$type], $this->types[$type], $message, false, $priorities[$type]);			
 						
 			unset(Mako::config('growl')->configurations[$id]); // Unset so it doesn't get cached
 		}
