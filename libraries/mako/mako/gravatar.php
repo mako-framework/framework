@@ -17,13 +17,13 @@ namespace mako
 		//---------------------------------------------
 
 		/**
-		* Url to the api server.
+		* URL to the API server.
 		*/
 
 		const API_SERVER = 'http://www.gravatar.com/avatar/';
 
 		/**
-		*
+		* URL to the secure API server.
 		*/
 
 		const API_SECURE_SERVER = 'https://secure.gravatar.com/avatar/';

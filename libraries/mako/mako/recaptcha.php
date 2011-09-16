@@ -21,13 +21,13 @@ namespace mako
 		//---------------------------------------------
 
 		/**
-		* Url to the api server.
+		* URL to the API server.
 		*/
 
 		const API_SERVER = 'http://api.recaptcha.net';
 
 		/**
-		* Url to the secure api server.
+		* URL to the secure API server.
 		*/
 
 		const API_SECURE_SERVER = 'https://api-secure.recaptcha.net';

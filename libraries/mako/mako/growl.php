@@ -57,18 +57,6 @@ namespace mako
 		const PORT = 9887;
 		
 		/**
-		* Holds the configuration.
-		*/
-
-		protected static $config;
-		
-		/**
-		* Instances.
-		*/
-		
-		protected static $instances = array();
-		
-		/**
 		* Application identifier.
 		*/
 		
@@ -97,51 +85,40 @@ namespace mako
 		* @param   array   Configuration
 		*/
 		
-		protected function __construct(array $config)
+		public function __construct($name = null)
 		{
-			$this->identifier = UTF8::clean(static::$config['identifier']);
-			$this->host       = $config['host'];
-			$this->password   = $config['password'];
+			$config = Mako::config('growl');
+
+			$name = ($name === null) ? $config['default'] : $name;
+
+			if(isset($config['configurations'][$name]) === false)
+			{
+					throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
+			}
+
+			$this->identifier = UTF8::clean($config['identifier']);
+			$this->host       = $config['configurations'][$name]['host'];
+			$this->password   = $config['configurations'][$name]['password'];
 			
-			$this->register($config['notifications']);
+			$this->register($config['configurations'][$name]['notifications']);
+		}
+
+		/**
+		* Factory method making method chaining possible right off the bat.
+		*
+		* @access  public
+		* @param   string   (optional) Gowl configuration name
+		* @return  Growl
+		*/
+
+		public static function factory($name = null)
+		{
+			return new static($name);
 		}
 		
 		//---------------------------------------------
 		// Class methods
 		//---------------------------------------------
-		
-		/**
-		* Returns an instance of the requested Frowl configuration.
-		*
-		* @param   string  (optional) Growl configuration name
-		* @return  Growl
-		*/
-		
-		public static function instance($name = null)
-		{
-			if(isset(static::$instances[$name]))
-			{
-				return static::$instances[$name];
-			}
-			else
-			{
-				if(empty(static::$config))
-				{
-					static::$config = Mako::config('growl');
-				}
-				
-				$name = ($name === null) ? static::$config['default'] : $name;
-				
-				if(isset(static::$config['configurations'][$name]) === false)
-				{
-					throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
-				}
-				
-				static::$instances[$name] = new static(static::$config['configurations'][$name]);
-				
-				return static::$instances[$name];
-			}
-		}
 		
 		/**
 		* Sends data to the Growl server.
