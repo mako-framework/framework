@@ -1,5 +1,9 @@
 <?php
 
+//---------------------------------------------
+// Prowl configuration
+//---------------------------------------------
+
 return array
 (
 	/**
@@ -14,7 +18,7 @@ return array
 	
 	'identifier' => 'Mako Framework',
 
-	/*
+	/**
 	* Provider key. Register at http://www.prowlapp.com/ to get one.
 	*/
 
@@ -34,3 +38,5 @@ return array
 		),
 	)
 );
+
+/** -------------------- End of file --------------------**/
