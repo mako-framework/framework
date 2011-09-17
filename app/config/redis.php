@@ -14,6 +14,11 @@ return array
 
 	/**
 	* You can define as many Redis configurations as you want.
+	*
+	* host    : IP address or hostname of the Redis server.
+	* port    : Port of the Redis server.
+	* password: (optional) Password of the Redis server.
+	* datanase: (optional) Database index to use for the connection.
 	*/
 
 	'configurations' => array
@@ -23,6 +28,15 @@ return array
 			'host'     => 'localhost',
 			'port'     => 6379,
 			'password' => '',
+			'database' => 0,
+		),
+
+		'cache' => array
+		(
+			'host'     => 'localhost',
+			'port'     => 6379,
+			'password' => '',
+			'database' => 1,
 		),
 	)
 );

@@ -53,19 +53,16 @@ namespace mako
 				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
 			}
 
-			$this->connection = @fsockopen('tcp://' . $config['configurations'][$name]['host'], $config['configurations'][$name]['port'], $errNo, $errStr);
-
-			if(!$this->connection)
-			{
-				throw new RuntimeException(__CLASS__ . ": {$errStr}.");
-			}
+			$this->connection = fsockopen('tcp://' . $config['configurations'][$name]['host'], $config['configurations'][$name]['port']);
 
 			if(!empty($config['configurations'][$name]['password']))
 			{
-				if($this->auth($config['configurations'][$name]['password']) !== 'OK')
-				{
-					throw new RuntimeException(__CLASS__ . ": Invalid password.");
-				}
+				$this->auth($config['configurations'][$name]['password']);
+			}
+
+			if(!empty($config['configurations'][$name]['database']) && $config['configurations'][$name]['database'] !== 0)
+			{
+				$this->select($config['configurations'][$name]['database']);
 			}
 		}
 
@@ -133,7 +130,7 @@ namespace mako
 			switch(substr($response, 0, 1))
 			{
 				case '-': // error message
-					throw new RuntimeException(__CLASS__ . ": " . substr($response, 5));
+					throw new RuntimeException(__CLASS__ . ": " . substr($response, 5) . ".");
 				break;
 				case '+': // single line reply
 				case ':': // integer number reply
