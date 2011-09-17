@@ -82,7 +82,7 @@ namespace mako
 		* Constructor.
 		*
 		* @access  public
-		* @param   array   Configuration
+		* @param   string  (optional) Gowl configuration name
 		*/
 		
 		public function __construct($name = null)
@@ -93,7 +93,7 @@ namespace mako
 
 			if(isset($config['configurations'][$name]) === false)
 			{
-					throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
+				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
 			}
 
 			$this->identifier = UTF8::convert($config['identifier']);
@@ -107,7 +107,7 @@ namespace mako
 		* Factory method making method chaining possible right off the bat.
 		*
 		* @access  public
-		* @param   string   (optional) Gowl configuration name
+		* @param   string  (optional) Gowl configuration name
 		* @return  Growl
 		*/
 
