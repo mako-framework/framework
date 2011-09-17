@@ -4,7 +4,7 @@ namespace mako\cache
 {
 	use \Mako;
 	use \Memcached as PHP_Memcached;
-	use \mako\cache\Exception as CacheException;
+	use \RuntimeException;
 	
 	/**
 	* Memcached adapter.
@@ -43,7 +43,7 @@ namespace mako\cache
 			
 			if(class_exists('\Memcached', false) === false)
 			{
-				throw new CacheException(__CLASS__.': Memcached is not available.');
+				throw new RuntimeException(__CLASS__.': Memcached is not available.');
 			}
 			
 			$this->memcached = new PHP_Memcached();

@@ -4,7 +4,6 @@ namespace mako\cache
 {
 	use \Mako;
 	use \mako\Redis as MRedis;
-	use \RuntimeException;
 	
 	/**
 	* Redis adapter.
