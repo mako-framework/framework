@@ -139,7 +139,7 @@ namespace mako
 				case ':': // integer number reply
 					return substr($response, 1);
 				break;
-				case '$'; // bulk reply
+				case '$': // bulk reply
 					if($response === '$-1')
 					{
 						return null;
