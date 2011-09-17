@@ -53,7 +53,12 @@ namespace mako
 				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
 			}
 
-			$this->connection = fsockopen('tcp://' . $config['configurations'][$name]['host'], $config['configurations'][$name]['port']);
+			$this->connection = @fsockopen('tcp://' . $config['configurations'][$name]['host'], $config['configurations'][$name]['port'], $errNo, $errStr);
+
+			if(!$this->connection)
+			{
+				throw new RuntimeException(__CLASS__ . ": {$errStr}.");
+			}
 
 			if(!empty($config['configurations'][$name]['password']))
 			{
