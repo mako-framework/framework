@@ -15,7 +15,7 @@ return array
 	/**
 	* You can define as many cache configurations as you want.
 	*
-	* The supported cache types are: "apc", "memcache", "memcached", "memory", "xcache", "wincache", "zendmemory", "zenddisk", "sqlite" and "file".
+	* The supported cache types are: "apc", "file", "memcache", "memcached", "memory", "redis", "sqlite", "wincache", "xcache", "zenddisk" and "zendmemory".
 	*
 	* type         : Cache type you want to use.
 	* identifier   : Cache identifier that should be unique to your application to avoid conflicts.
@@ -23,6 +23,7 @@ return array
 	* compress_data: Compress stored items? (this requires zlib and is only available when using "memcache" or "memcached" cache).
 	* timeout      : Value in seconds which will be used for connecting to the daemon (only required when using "memcache" or "memcached" cache).
 	* servers      : Cache servers (you can use multiple servers and it is only required when using "memcache" or "memcached" cache).
+	* configuration: Redis configuration to use for caching (only required when using "redis" cache).
 	* username     : Cache username (only required when using "xcache" cache).
 	* password     : Cache password (only required when using "xcache" cache).
 	*/
@@ -80,6 +81,13 @@ return array
 		'memory' => array
 		(
 			'type' => 'memory',
+		),
+
+		'redis' => array
+		(
+			'type'          => 'redis',
+			'identifier'    => MAKO_APPLICATION,
+			'configuration' => 'cache',
 		),
 
 		'sqlite' => array
