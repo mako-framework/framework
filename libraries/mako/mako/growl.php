@@ -129,22 +129,16 @@ namespace mako
 		
 		protected function send($data)
 		{
-			if(function_exists('socket_create') && function_exists('socket_sendto'))
+			$socket = @fsockopen('udp://' . $this->host, static::PORT, $errNo, $errStr);
+
+			if(!$socket)
 			{
-				$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-				
-				socket_sendto($socket, $data, strlen($data), 0x100, $this->host, static::PORT);
-				
-				socket_close($socket);
+				throw new RuntimeException(__CLASS__ . ": {$errStr}.");
 			}
-			else if(function_exists('fsockopen'))
-			{
-				$socket = fsockopen('udp://' . $this->host, static::PORT);
 				
-				fwrite($socket, $data);
+			fwrite($socket, $data);
 				
-				fclose($socket);
-			}
+			fclose($socket);
 		}
 		
 		/**
