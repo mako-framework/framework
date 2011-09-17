@@ -68,6 +68,19 @@ namespace mako
 			
 			return $str;
 		}
+
+		/**
+		* Converts a string to UTF-8.
+		*
+		* @access  public
+		* @param   string  String to convert
+		* @return  string
+		*/
+
+		public static function convert($str)
+		{
+			return mb_convert_encoding($str, 'UTF-8', mb_detect_encoding($str));
+		}
 	}
 }
 

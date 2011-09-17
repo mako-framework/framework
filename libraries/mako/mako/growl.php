@@ -96,7 +96,7 @@ namespace mako
 					throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
 			}
 
-			$this->identifier = UTF8::clean($config['identifier']);
+			$this->identifier = UTF8::convert($config['identifier']);
 			$this->host       = $config['configurations'][$name]['host'];
 			$this->password   = $config['configurations'][$name]['password'];
 			
@@ -162,7 +162,7 @@ namespace mako
 			
 			foreach($notifications as $key => $value)
 			{
-				$notification = UTF8::clean($key);
+				$notification = UTF8::convert($key);
 				
 				$data .= pack('n', strlen($notification)) . $notification;
 				
@@ -193,9 +193,9 @@ namespace mako
 		
 		public function notify($notification, $title, $message, $sticky = false, $priority = Growl::NORMAL)
 		{
-			$notification  = UTF8::clean($notification);
-			$title         = UTF8::clean($title);
-			$message       = UTF8::clean($message);
+			$notification  = UTF8::convert($notification);
+			$title         = UTF8::convert($title);
+			$message       = UTF8::convert($message);
 			$priority      = (int) $priority;
 
 			$flags = ($priority & 7) * 2;

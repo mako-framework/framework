@@ -113,7 +113,7 @@ namespace mako
 					throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the prowl configuration.");
 			}
 
-			$this->identifier  = mb_substr(UTF8::clean($config['identifier']), 0, 256);
+			$this->identifier  = mb_substr(UTF8::convert($config['identifier']), 0, 256);
 			$this->providerKey = $config['provider_key'];
 			$this->apiKey      = $config['configurations'][$name]['api_key'];
 		}
@@ -153,11 +153,11 @@ namespace mako
 				'apikey'      => $this->apiKey,
 				'priority'    => $priority,
 				'application' => $this->identifier,
-				'event'       => mb_substr(UTF8::clean($event), 0, 1024),
-				'description' => mb_substr(UTF8::clean($description), 0, 10000),
+				'event'       => mb_substr(UTF8::convert($event), 0, 1024),
+				'description' => mb_substr(UTF8::convert($description), 0, 10000),
 			);
 
-			!empty($url) && $data['url'] = mb_substr(UTF8::clean($url), 0, 512);
+			!empty($url) && $data['url'] = mb_substr(UTF8::convert($url), 0, 512);
 
 			!empty($this->providerKey) && $data['providerkey'] = $this->providerKey;
 

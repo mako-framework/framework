@@ -19,17 +19,7 @@ namespace mako
 		// Class variables
 		//---------------------------------------------
 		
-		/**
-		* Holds the configuration.
-		*/
-
-		protected static $config;
-		
-		/**
-		* Holds all the cryptography objects.
-		*/
-		
-		protected static $instances = array();
+		// Nothing here
 
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
@@ -57,32 +47,20 @@ namespace mako
 		* @return  object
 		*/
 		
-		public static function instance($name = null)
+		public static function factory($name = null)
 		{
-			if(isset(static::$instances[$name]))
+			$config = Mako::config('crypto');
+
+			$name = ($name === null) ? $config['default'] : $name;
+
+			if(isset($config['configurations'][$name]) === false)
 			{
-				return static::$instances[$name];
+				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the crypto configuration.");
 			}
-			else
-			{
-				if(empty(static::$config))
-				{
-					static::$config = Mako::config('crypto');
-				}
-				
-				$name = ($name === null) ? static::$config['default'] : $name;
-				
-				if(isset(static::$config['configurations'][$name]) === false)
-				{
-					throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the crypto configuration.");
-				}
-				
-				$class = '\mako\crypto\\' . static::$config['configurations'][$name]['library'];
-				
-				static::$instances[$name] = new $class(static::$config['configurations'][$name]);
-				
-				return static::$instances[$name];
-			}
+
+			$class = '\mako\crypto\\' . $config['configurations'][$name]['library'];
+
+			return new $class($config['configurations'][$name]);
 		}
 	}
 }
