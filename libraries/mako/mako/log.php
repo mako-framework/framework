@@ -132,6 +132,25 @@ namespace mako
 				return static::$instances[$name];
 			}
 		}
+
+		/**
+		* "Magick" shortcut for writing to logs.
+		*
+		* @access  public
+		* @param   string   Message type name
+		* @param   string   The message to write to the log
+		* @return  boolean
+		*/
+
+		public static function __callStatic($name, $args)
+		{
+			if(!defined('static::' . strtoupper($name)))
+			{
+				throw new RuntimeException(__CLASS__ . ": No such log level exists.");
+			}
+
+			return static::instance()->write($args[0], constant('static::' . strtoupper($name)));
+		}
 	}
 }
 

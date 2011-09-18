@@ -4,7 +4,7 @@ namespace mako\log
 {
 	use \Mako;
 	use \mako\Log;
-	use \mako\Prowl as Grrr;
+	use \mako\Prowl as MProwl;
 	
 	/**
 	* Prowl adapter.
@@ -79,7 +79,7 @@ namespace mako\log
 		{
 			$priorities = array_combine(array_keys($this->types), array(2, 1, 2, 1, 1, 0, 0, 0));
 			
-			Grrr::factory($this->configuration)->notify($this->types[$type], $message, null, $priorities[$type]);
+			return MProwl::factory($this->configuration)->notify($this->types[$type], $message, null, $priorities[$type]);
 		}
 	}
 }

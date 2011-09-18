@@ -4,7 +4,7 @@ namespace mako\log
 {
 	use \Mako;
 	use \mako\Log;
-	use \mako\Growl as Grrr;
+	use \mako\Growl as MGrowl;
 	
 	/**
 	* Growl adapter.
@@ -79,7 +79,9 @@ namespace mako\log
 		{
 			$priorities = array_combine(array_keys($this->types), array(2, 1, 2, 1, 1, 0, 0, 0));
 			
-			Grrr::factory($this->configuration)->notify($this->types[$type], $this->types[$type], $message, false, $priorities[$type]);					
+			MGrowl::factory($this->configuration)->notify($this->types[$type], $this->types[$type], $message, false, $priorities[$type]);
+
+			return true;
 		}
 	}
 }
