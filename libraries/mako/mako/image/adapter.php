@@ -44,7 +44,7 @@ namespace mako\image
 
 		abstract public function greyscale();
 
-		abstract public function border($colour = '#000', $thickness = 5);
+		abstract public function border($color = '#000', $thickness = 5);
 
 		abstract public function save($file, $quality = 85);
 	}

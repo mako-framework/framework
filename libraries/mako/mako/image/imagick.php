@@ -252,16 +252,16 @@ namespace mako\image
 		* Adds a border to the image.
 		*
 		* @access  public
-		* @param   string   Hex code for the colour
+		* @param   string   Hex code for the color
 		* @param   int      Thickness of the frame in pixels
 		* @return  Imagick
 		*/
 		
-		public function border($colour = '#000', $thickness = 5)
+		public function border($color = '#000', $thickness = 5)
 		{
 			$this->image->shaveImage($thickness, $thickness);
 			
-			$this->image->borderImage($colour, $thickness, $thickness);
+			$this->image->borderImage($color, $thickness, $thickness);
 			
 			return $this;
 		}

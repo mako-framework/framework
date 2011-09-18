@@ -212,14 +212,14 @@ namespace mako\image
 		* Adds a border to the image.
 		*
 		* @access  public
-		* @param   string  Hex code for the colour
+		* @param   string  Hex code for the color
 		* @param   int     Thickness of the frame in pixels
 		* @return  ImageMagick
 		*/
 		
-		public function border($colour = '#000', $thickness = 5)
+		public function border($color = '#000', $thickness = 5)
 		{
-			$this->cmd .= '-shave ' . escapeshellarg($thickness . 'x' . $thickness) . ' -bordercolor ' . escapeshellarg($colour) . ' -border ' . escapeshellarg($thickness) . ' ';
+			$this->cmd .= '-shave ' . escapeshellarg($thickness . 'x' . $thickness) . ' -bordercolor ' . escapeshellarg($color) . ' -border ' . escapeshellarg($thickness) . ' ';
 			
 			return $this;
 		}

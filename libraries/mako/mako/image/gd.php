@@ -125,21 +125,21 @@ namespace mako\image
 		}
 		
 		/**
-		* Creates a colour based on a hex value.
+		* Creates a color based on a hex value.
 		*
 		* @access  protected
-		* @param   string     Hex code of the colour
+		* @param   string     Hex code of the color
 		* @param   int        Alpha
 		* @return  int
 		*/
 		
-		protected function createColour($hex, $alpha = 100)
+		protected function createColor($hex, $alpha = 100)
 		{
 			$hex = str_replace('#', '', $hex);
 			
 			if(preg_match('/^([a-f0-9]{3}){1,2}$/i', $hex) === 0)
 			{
-				throw new InvalidArgumentException(__CLASS__ . ": Invalid colour code.");
+				throw new InvalidArgumentException(__CLASS__ . ": Invalid color code.");
 			}
 			
 			if(strlen($hex) === 3)
@@ -456,17 +456,17 @@ namespace mako\image
 		* Adds a border to the image.
 		*
 		* @access  public
-		* @param   string  Hex code for the colour
+		* @param   string  Hex code for the color
 		* @param   int     Thickness of the frame in pixels
 		* @return  GD
 		*/
 		
-		public function border($colour = '#000', $thickness = 5)
+		public function border($color = '#000', $thickness = 5)
 		{
 			$w = imagesx($this->image);
 			$h = imagesy($this->image);
 			
-			$colour = static::createColour($colour);
+			$color = static::createColor($color);
 			
 			for($i = 0; $i < $thickness; $i++) 
 			{
@@ -481,7 +481,7 @@ namespace mako\image
 					$y = --$h;
 				}
 				
-				imagerectangle($this->image, $i, $i, $x, $y, $colour); 
+				imagerectangle($this->image, $i, $i, $x, $y, $color); 
 			}
 			
 			return $this;
