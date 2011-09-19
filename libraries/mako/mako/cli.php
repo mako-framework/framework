@@ -2,6 +2,7 @@
 
 namespace mako
 {
+	use \Mako;
 	use \RuntimeException;
 
 	/**
@@ -11,6 +12,8 @@ namespace mako
 	* @copyright  (c) 2008-2011 Frederic G. Østby
 	* @license    http://www.makoframework.com/license
 	*/
+
+	if(!Mako::isCli()) { throw new RuntimeException('The CLI class can only be used when Mako is executed from the command-line interface.'); }
 
 	class CLI
 	{
