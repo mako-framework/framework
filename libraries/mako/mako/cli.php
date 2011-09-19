@@ -25,13 +25,13 @@ namespace mako
 		protected static $textColors = array
 		(
 			'black'  => '0;30',
-			'white'  => '0;37',
-			'green'  => '0;32',
 			'red'    => '0;31',
-			'blue'   => '0;34',
-			'cyan'   => '0;36',
+			'green'  => '0;32',
 			'yellow' => '0;33',
+			'blue'   => '0;34',
 			'purple' => '0;35',
+			'cyan'   => '0;36',
+			'white'  => '0;37',
 		);
 
 		/**
@@ -41,13 +41,13 @@ namespace mako
 		protected static $backgroundColors = array
 		(
 			'black'  => '40',
-			'white'  => '47',
-			'green'  => '42',
 			'red'    => '41',
-			'blue'   => '44',
-			'cyan'   => '46',
+			'green'  => '42',
 			'yellow' => '43',
+			'blue'   => '44',
 			'purple' => '45',
+			'cyan'   => '46',
+			'white'  => '47',
 		);
 
 		//---------------------------------------------
@@ -104,6 +104,39 @@ namespace mako
 			}
 
 			return $color . $str . "\033[0m";
+		}
+
+		/**
+		* Return value of named parameters (--<name>=<value>).
+		*
+		* @access public
+		* @param  string  Parameter name
+		* @param  string  (optional) Default value
+		* @return string
+		*/
+
+		public static function param($name, $default = null)
+		{
+			static $parameters = false;
+
+			// Only parse parameters once
+
+			if($parameters === false)
+			{
+				$parameters = array();
+
+				foreach($_SERVER['argv'] as $arg)
+				{
+					if(substr($arg, 0, 2) === '--')
+					{
+						$arg = explode('=', substr($arg, 2), 2);
+
+						$parameters[$arg[0]] = isset($arg[1]) ? $arg[1] : true;
+					}
+				}	
+			}
+
+			return isset($parameters[$name]) ? $parameters[$name] : $default;
 		}
 
 		/**
