@@ -3,6 +3,7 @@
 namespace mako
 {
 	use \Mako;
+	use \mako\Request;
 	use \RuntimeException;
 
 	/**
@@ -13,7 +14,7 @@ namespace mako
 	* @license    http://www.makoframework.com/license
 	*/
 
-	if(!Mako::isCli()) { throw new RuntimeException('The CLI class can only be used when Mako is executed from the command-line interface.'); }
+	if(!Request::isCli()) { throw new RuntimeException('The CLI class can only be used when Mako is executed from the command-line interface.'); }
 
 	class CLI
 	{
@@ -84,6 +85,11 @@ namespace mako
 
 		protected static function color($str, $textColor, $backgroundColor)
 		{
+			if(Mako::isWindows())
+			{
+				return $str;
+			}
+			
 			$color = "";
 
 			if($textColor !== null)

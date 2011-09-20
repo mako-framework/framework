@@ -82,10 +82,6 @@ class Mako
 		
 		ob_start();
 		
-		// Are we running in CLI mode?
-		
-		static::$isCli = (PHP_SAPI === 'cli');
-		
 		// Are we running on windows?
 		
 		static::$isWindows = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
@@ -207,18 +203,6 @@ class Mako
 			
 			$run = true;
 		}
-	}
-	
-	/**
-	* Returns true if we are in CLI mode and false if not.
-	*
-	* @access  public
-	* @return  boolean
-	*/
-	
-	public static function isCli()
-	{
-		return static::$isCli;
 	}
 	
 	/**
@@ -639,15 +623,15 @@ class Mako
 				$error['backtrace']   = static::formatBacktrace($error['backtrace']);
 				$error['highlighted'] = static::highlightCode($error['file'], $error['line']);
 
-				if(Mako::isCli())
+				if(Request::isCli())
 				{
 					if(empty($error['file']))
 					{
-						echo "\n{$error['type']}: {$error['message']}\n\n";
+						fwrite(STDERR, "{$error['type']}: {$error['message']}" . PHP_EOL);
 					}
 					else
 					{
-						echo "\n{$error['type']}: {$error['message']} in {$error['file']} at line {$error['line']}\n\n";
+						fwrite(STDERR, "{$error['type']}: {$error['message']} in {$error['file']} at line {$error['line']}" . PHP_EOL);
 					}
 				}
 				else
@@ -657,9 +641,9 @@ class Mako
 			}
 			else
 			{
-				if(Mako::isCli())
+				if(Request::isCli())
 				{
-					echo "\nAn error has occured\n\n";
+					fwrite(STDERR, "An error has occured." . PHP_EOL);
 				}
 				else
 				{
