@@ -89,7 +89,7 @@ namespace mako
 			{
 				return $str;
 			}
-			
+
 			$color = "";
 
 			if($textColor !== null)
@@ -254,7 +254,7 @@ namespace mako
 				sleep(1);
 			}
 
-			fwrite(STDOUT, "\r");
+			fwrite(STDOUT, "\r\033[0K");
 		}
 	}
 }
