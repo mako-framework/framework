@@ -89,7 +89,7 @@ namespace mako
 			{
 				return $str;
 			}
-
+			
 			$color = "";
 
 			if($textColor !== null)
