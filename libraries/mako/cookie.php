@@ -2,7 +2,7 @@
 
 namespace mako
 {
-	use \Mako;
+	use \mako\Mako;
 	
 	/**
 	* Class that allows you to set and read signed cookies.

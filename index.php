@@ -50,6 +50,6 @@ define('MAKO_APPLICATION_NAME', 'app');
 
 require MAKO_LIBRARIES_PATH . '/mako/mako.php';
 
-Mako::run();
+\mako\Mako::run();
 
 /** -------------------- End of file --------------------**/

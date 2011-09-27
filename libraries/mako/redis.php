@@ -2,7 +2,7 @@
 
 namespace mako
 {
-	use \Mako;
+	use \mako\Mako;
 	use \RuntimeException;
 
 	/**

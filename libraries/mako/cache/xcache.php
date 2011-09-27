@@ -2,7 +2,6 @@
 
 namespace mako\cache
 {
-	use \Mako;
 	use \RuntimeException;
 	
 	/**

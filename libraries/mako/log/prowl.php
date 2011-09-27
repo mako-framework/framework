@@ -2,7 +2,7 @@
 
 namespace mako\log
 {
-	use \Mako;
+	use \mako\Mako;
 	use \mako\Log;
 	use \mako\Prowl as MProwl;
 	

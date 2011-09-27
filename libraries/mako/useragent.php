@@ -2,7 +2,7 @@
 
 namespace mako
 {
-	use \Mako;
+	use \mako\Mako;
 	
 	/**
 	* Class that helps identifying the device or type of device that made the request.

@@ -2,7 +2,6 @@
 
 namespace mako\cache
 {
-	use \Mako;
 	use \Memcached as PHP_Memcached;
 	use \RuntimeException;
 	

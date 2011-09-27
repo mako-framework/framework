@@ -2,7 +2,7 @@
 
 namespace mako
 {
-	use \Mako;
+	use \mako\Mako;
 	use \PDO;
 	use \PDOException;
 	use \RuntimeException;
