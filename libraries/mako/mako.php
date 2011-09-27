@@ -234,24 +234,41 @@ namespace mako
 		
 		public static function classLoader($className)
 		{
-			$path = str_replace('\\', '/', mb_strtolower($className));
-			
-			if(file_exists(MAKO_LIBRARIES_PATH . '/' . $path . '.php'))
+			$className = ltrim($className, '\\');
+
+			$fileName  = '';
+			$namespace = '';
+
+			if($lastNsPos = strripos($className, '\\'))
 			{
-				include(MAKO_LIBRARIES_PATH . '/' . $path . '.php');
+				$namespace = substr($className, 0, $lastNsPos);
+				$className = substr($className, $lastNsPos + 1);
+				$fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+			}
+
+			$fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+
+			// Try to load library class
+
+			if(file_exists(MAKO_LIBRARIES_PATH . '/' . $fileName))
+			{
+				include(MAKO_LIBRARIES_PATH . '/' . $fileName);
 				
 				return true;
 			}
-			else if(file_exists(MAKO_APPLICATION_PATH . '/' . $path . '.php'))
+
+			// Try to load application class
+
+			if(file_exists(MAKO_APPLICATION_PATH . '/' . $fileName))
 			{
-				include(MAKO_APPLICATION_PATH . '/' . $path . '.php');
+				include(MAKO_APPLICATION_PATH . '/' . $fileName);
 				
 				return true;
 			}
-			else
-			{
-				return false;
-			}
+
+			// Nothing was found
+
+			return false;
 		}
 		
 		/**
