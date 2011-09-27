@@ -259,6 +259,8 @@ namespace mako
 
 			// Try to load application class
 
+			$fileName = strtolower($fileName); // app class file names should be lowercase to maintain backwards compatibility
+
 			if(file_exists(MAKO_APPLICATION_PATH . '/' . $fileName))
 			{
 				include(MAKO_APPLICATION_PATH . '/' . $fileName);
