@@ -236,8 +236,8 @@ namespace mako
 		* Display countdown for n seconds.
 		*
 		* @access  public
-		* param    int      Number of seconds to wait
-		* param    boolean  (optional) Enable beep?
+		* @param    int      Number of seconds to wait
+		* @param    boolean  (optional) Enable beep?
 		*/
 
 		public static function wait($seconds = 5, $withBeep = false)
