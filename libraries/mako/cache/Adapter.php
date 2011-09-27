@@ -130,17 +130,12 @@ namespace mako\cache
 		* @return  mixed
 		*/
 		
-		final public function remember($key, $closure, $ttl = 0)
+		final public function remember($key, Closure $closure, $ttl = 0)
 		{
 			$item = $this->read($key);
 			
 			if($item === false)
 			{
-				if(!($closure instanceof Closure))
-				{
-					throw new InvalidArgumentException(__CLASS__.': ' . __METHOD__ . ' expects a closure.');
-				}
-
 				$item = call_user_func($closure);
 				
 				$this->write($key, $item, $ttl);
