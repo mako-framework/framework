@@ -111,7 +111,7 @@ namespace mako
 		* @return  object
 		*/
 
-		public static function factory($file, $library = 'gd')
+		public static function factory($file, $library = 'GD')
 		{
 			// Check if the image exists
 
