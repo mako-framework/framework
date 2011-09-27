@@ -243,10 +243,10 @@ namespace mako
 			{
 				$namespace = substr($className, 0, $lastNsPos);
 				$className = substr($className, $lastNsPos + 1);
-				$fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+				$fileName  = str_replace('\\', '/', $namespace) . '/';
 			}
 
-			$fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+			$fileName .= str_replace('_', '/', $className) . '.php';
 
 			// Try to load library class
 
