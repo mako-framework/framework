@@ -15,9 +15,9 @@ return array
 	/**
 	* You can define as many cache configurations as you want.
 	*
-	* The supported cache types are: "apc", "file", "memcache", "memcached", "memory", "redis", "sqlite", "wincache", "xcache", "zenddisk" and "zendmemory".
+	* The supported cache types are: "APC", "File", "Memcache", "Memcached", "Memory", "Redis", "SQLite", "WinCache", "XCache", "ZendDisk" and "ZendMemory".
 	*
-	* type         : Cache type you want to use.
+	* type         : Cache type you want to use (case-sensitive).
 	* identifier   : Cache identifier that should be unique to your application to avoid conflicts.
 	* path         : Cache path (only required when using "file" cache).
 	* compress_data: Compress stored items? (this requires zlib and is only available when using "memcache" or "memcached" cache).
@@ -32,20 +32,20 @@ return array
 	(
 		'apc' => array
 		(
-			'type'       => 'apc',
+			'type'       => 'APC',
 			'identifier' => MAKO_APPLICATION,
 		),
 
 		'file' => array
 		(
-			'type'       => 'file',
+			'type'       => 'File',
 			'identifier' => MAKO_APPLICATION,
 			'path'       => MAKO_APPLICATION . '/storage/cache',
 		),
 
 		'memcache' => array
 		(
-			'type'          => 'memcache',
+			'type'          => 'Memcache',
 			'identifier'    => MAKO_APPLICATION,
 			'compress_data' => false,
 			'timeout'       => 1,
@@ -63,7 +63,7 @@ return array
 		
 		'memcached' => array
 		(
-			'type'          => 'memcached',
+			'type'          => 'Memcached',
 			'identifier'    => MAKO_APPLICATION,
 			'compress_data' => false,
 			'timeout'       => 1,
@@ -80,31 +80,31 @@ return array
 		
 		'memory' => array
 		(
-			'type' => 'memory',
+			'type' => 'Memory',
 		),
 
 		'redis' => array
 		(
-			'type'          => 'redis',
+			'type'          => 'Redis',
 			'identifier'    => MAKO_APPLICATION,
 			'configuration' => 'cache',
 		),
 
 		'sqlite' => array
 		(
-			'type'       => 'sqlite',
+			'type'       => 'SQLite',
 			'identifier' => MAKO_APPLICATION,
 		),
 
 		'wincache' => array
 		(
-			'type'       => 'wincache',
+			'type'       => 'WinCache',
 			'identifier' => MAKO_APPLICATION,
 		),
 
 		'xcache' => array
 		(
-			'type'       => 'xcache',
+			'type'       => 'XCache',
 			'identifier' => MAKO_APPLICATION,
 			'username'   => 'xcache',
 			'password'   => 'xcache',
@@ -112,13 +112,13 @@ return array
 
 		'zenddisk' => array
 		(
-			'type'       => 'zenddisk',
+			'type'       => 'ZendDisk',
 			'identifier' => MAKO_APPLICATION,
 		),
 
 		'zendmemory' => array
 		(
-			'type'       => 'zendmemory',
+			'type'       => 'ZendMemory',
 			'identifier' => MAKO_APPLICATION,
 		),
 	),
