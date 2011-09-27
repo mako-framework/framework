@@ -104,12 +104,12 @@ namespace mako
 			
 			// Include required files to speed things up a bit
 			
-			require MAKO_LIBRARIES_PATH . '/mako/cache.php';
-			require MAKO_LIBRARIES_PATH . '/mako/cache/adapter.php';
-			require MAKO_LIBRARIES_PATH . '/mako/utf8.php';
-			require MAKO_LIBRARIES_PATH . '/mako/request.php';
-			require MAKO_LIBRARIES_PATH . '/mako/response.php';
-			require MAKO_LIBRARIES_PATH . '/mako/controller.php';
+			require MAKO_LIBRARIES_PATH . '/mako/Cache.php';
+			require MAKO_LIBRARIES_PATH . '/mako/cache/Adapter.php';
+			require MAKO_LIBRARIES_PATH . '/mako/UTF8.php';
+			require MAKO_LIBRARIES_PATH . '/mako/Request.php';
+			require MAKO_LIBRARIES_PATH . '/mako/Response.php';
+			require MAKO_LIBRARIES_PATH . '/mako/Controller.php';
 			
 			// Load config
 			
