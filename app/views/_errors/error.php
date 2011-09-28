@@ -40,7 +40,7 @@ hr
 <div id="message">
 <h1>Error</h1>
 <hr />
-<p>Aw, snap! An error has occured while rendering this webpage.</p>
+<p>Aw, snap! An error has occurred while processing your request.</p>
 </div>
 
 </body>
