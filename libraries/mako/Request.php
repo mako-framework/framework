@@ -5,6 +5,7 @@ namespace mako
 	use \mako\Mako;
 	use \mako\View;
 	use \mako\Response;
+	use \Closure;
 	use \RuntimeException;
 	use \ReflectionClass;
 	use \ReflectionException;
@@ -267,16 +268,27 @@ namespace mako
 			{
 				foreach($this->customRoutes as $pattern => $realRoute)
 				{		
-					if(preg_match('#^' . $pattern . '$#iu', $route) === 1)
-					{							
-						if(strpos($realRoute, '$') !== false)
+					if(preg_match('#^' . $pattern . '$#iu', $route, $matches) === 1)
+					{
+						if($realRoute instanceof Closure)
 						{
-							$realRoute = preg_replace('#^' . $pattern . '$#iu', $realRoute, $route);
+							array_shift($matches); // Remove route from array
+
+							call_user_func_array($realRoute, $matches);
+
+							exit();
 						}
+						else
+						{
+							if(strpos($realRoute, '$') !== false)
+							{
+								$realRoute = preg_replace('#^' . $pattern . '$#iu', $realRoute, $route);
+							}
 
-						$route = trim($realRoute, '/');
+							$route = trim($realRoute, '/');
 
-						break;
+							break;	
+						}
 					}
 				}
 			}
