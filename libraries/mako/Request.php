@@ -86,12 +86,6 @@ namespace mako
 		protected static $secure;
 
 		/**
-		* Array holding all the URL segments.
-		*/
-
-		protected $urlSegments;
-
-		/**
 		* Array holding the arguments of the action method.
 		*/
 
@@ -295,7 +289,7 @@ namespace mako
 
 			// Get the URL segments
 
-			$this->urlSegments = $segments = explode('/', $route, 100);
+			$segments = explode('/', $route, 100);
 
 			// Route the request
 
@@ -481,22 +475,6 @@ namespace mako
 			{
 				throw new BadMethodCallException(__CLASS__ . " Subrequest failed. The requested controller action is protected or private.");
 			}
-		}
-
-		/**
-		* Returns the value of the URL segment or a preset default value.
-		*
-		* @access  public
-		* @param   int     URL segment number you wish to retrieve
-		* @param   mixed   (optional) Default value to return if the segment doesn't exist
-		* @return  mixed
-		*/
-
-		public function urlSegment($key, $default = 0)
-		{
-			$key = (int) $key - 1;
-
-			return isset($this->urlSegments[$key]) ? $this->urlSegments[$key] : $default;
 		}
 
 		/**
