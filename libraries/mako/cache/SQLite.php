@@ -56,12 +56,13 @@ namespace mako\cache
 			{
 				$options = array
 				(
-					PDO::ATTR_ERRMODE    => PDO::ERRMODE_EXCEPTION
+					PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+					PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
 				);
 				
 				$this->sqlite = new PDO('sqlite:' . MAKO_APPLICATION . '/storage/cache/mako_' . $this->identifier . '.sqlite', null, null, $options);
 								
-				$table = $this->sqlite->query("SELECT * FROM sqlite_master WHERE type = 'table' AND name = 'cache' LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+				$table = $this->sqlite->query("SELECT * FROM sqlite_master WHERE type = 'table' AND name = 'cache' LIMIT 1")->fetch();
 								
 				if($table === false)
 				{
@@ -139,13 +140,13 @@ namespace mako\cache
 				
 				$stmt->execute();
 				
-				$cache = $stmt->fetch(PDO::FETCH_ASSOC);
+				$cache = $stmt->fetch();
 				
 				if($cache !== false)
 				{
-					if(time() < $cache['lifetime'])
+					if(time() < $cache->lifetime)
 					{
-						return unserialize($cache['data']);
+						return unserialize($cache->data);
 					}
 					else
 					{
