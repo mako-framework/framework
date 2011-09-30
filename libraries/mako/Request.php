@@ -266,8 +266,6 @@ namespace mako
 					{
 						if($realRoute instanceof Closure)
 						{
-							array_shift($matches); // Remove route from array
-
 							call_user_func_array($realRoute, $matches);
 
 							exit();
