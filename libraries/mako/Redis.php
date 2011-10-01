@@ -85,10 +85,7 @@ namespace mako
 
 		public function __destruct()
 		{
-			if(is_resource($this->connection))
-			{
-				fclose($this->connection);	
-			}
+			$this->disconnect();
 		}
 
 		//---------------------------------------------
@@ -98,7 +95,7 @@ namespace mako
 		/**
 		* Connects to the Redis server.
 		*
-		* @access protected
+		* @access  protected
 		*/
 
 		protected function connect()
@@ -118,6 +115,20 @@ namespace mako
 			if(!empty($this->config['database']) && $this->config['database'] !== 0)
 			{
 				$this->select($this->config['database']);
+			}
+		}
+
+		/**
+		* Closes connection to the Redis server.
+		*
+		* @access  protected
+		*/
+
+		protected function disconnect()
+		{
+			if(is_resource($this->connection))
+			{
+				fclose($this->connection);	
 			}
 		}
 
