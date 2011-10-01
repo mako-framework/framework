@@ -21,7 +21,7 @@ namespace mako\log
 		//---------------------------------------------
 		
 		/**
-		*Growl server hostname or IP.
+		* Configuration name.
 		*/
 		
 		protected $configuration;

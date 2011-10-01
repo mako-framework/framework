@@ -26,6 +26,12 @@ namespace mako
 		const CRLF = "\r\n";
 
 		/**
+		* Holds the configuration.
+		*/
+
+		protected $config;
+
+		/**
 		* Socket connection.
 		*/
 
@@ -53,22 +59,9 @@ namespace mako
 				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
 			}
 
-			$this->connection = @fsockopen('tcp://' . $config['configurations'][$name]['host'], $config['configurations'][$name]['port'], $errNo, $errStr);
+			$this->config = $config['configurations'][$name];
 
-			if(!$this->connection)
-			{
-				throw new RuntimeException(__CLASS__ . ": {$errStr}.");
-			}
-
-			if(!empty($config['configurations'][$name]['password']))
-			{
-				$this->auth($config['configurations'][$name]['password']);
-			}
-
-			if(!empty($config['configurations'][$name]['database']) && $config['configurations'][$name]['database'] !== 0)
-			{
-				$this->select($config['configurations'][$name]['database']);
-			}
+			$this->connect();
 		}
 
 		/**
@@ -101,6 +94,32 @@ namespace mako
 		//---------------------------------------------
 		// Class methods
 		//---------------------------------------------
+
+		/**
+		* Connects to the Redis server.
+		*
+		* @access protected
+		*/
+
+		protected function connect()
+		{
+			$this->connection = @fsockopen('tcp://' . $this->config['host'], $this->config['port'], $errNo, $errStr);
+
+			if(!$this->connection)
+			{
+				throw new RuntimeException(__CLASS__ . ": {$errStr}.");
+			}
+
+			if(!empty($this->config['password']))
+			{
+				$this->auth($this->config['password']);
+			}
+
+			if(!empty($this->config['database']) && $this->config['database'] !== 0)
+			{
+				$this->select($this->config['database']);
+			}
+		}
 
 		/**
 		* Sends command to Redis server and returns response.
