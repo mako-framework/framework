@@ -376,13 +376,13 @@ namespace mako
 		{	
 			if($route === '')
 			{
-				$url = static::$config['mako']['base_url'] . '/';
+				$url = static::$config['mako']['base_url'];
 			}
 			else
 			{
 				$url = static::$config['mako']['clean_urls'] === true ? 
-				       static::$config['mako']['base_url'] . '/' . $route . '/' : 
-				       static::$config['mako']['base_url'] . '/index.php/' . $route . '/';
+				       static::$config['mako']['base_url'] . '/' . $route : 
+				       static::$config['mako']['base_url'] . '/index.php/' . $route;
 			}
 			
 			if($params !== null)
