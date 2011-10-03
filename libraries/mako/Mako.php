@@ -10,6 +10,7 @@ namespace mako
 	use \mako\Response;
 	use \Exception;
 	use \ErrorException;
+	use \RuntimeException;
 	use \ArrayObject;
 
 	/**
