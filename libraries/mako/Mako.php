@@ -626,9 +626,9 @@ namespace mako
 					$error['type'] = get_class($exception);
 				}
 
-				// Write to error log (disabled for E_COMPILE_ERROR as it causes problems with autoloader)
+				// Write to error log (disabled for E_COMPILE_ERROR and E_ERROR as it causes problems with autoloader)
 
-				if(static::$config['mako']['error_handler']['log_errors'] === true && $error['code'] !== E_COMPILE_ERROR)
+				if(static::$config['mako']['error_handler']['log_errors'] === true && !in_array($error['code'], array(E_COMPILE_ERROR, E_ERROR)))
 				{
 					Log::instance()->write("{$error['type']}: {$error['message']} in {$error['file']} at line {$error['line']}");
 				}
