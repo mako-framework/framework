@@ -57,8 +57,8 @@ namespace mako
 		*
 		* @access  public
 		* @param   array   Array to convert
-		* @param   string  Root node name
-		* @param   string  Unknown node name
+		* @param   string  (optional) Root node name
+		* @param   string  (optional) Unknown node name
 		* @return  string
 		*/
 

@@ -99,7 +99,7 @@ namespace mako
 		* Constructor.
 		*
 		* @access  public
-		* @param   string   (optional) Prowl configuration name
+		* @param   string  (optional) Prowl configuration name
 		*/
 
 		public function __construct($name = null)
@@ -142,7 +142,7 @@ namespace mako
 		* @param   string   The name of the event or subject of the notification.
 		* @param   string   A description of the event, generally terse.
 		* @param   string   (optional) URL which will be attached to the notification.
-		* @param   int      Message priority
+		* @param   int      (optional) Message priority
 		* @return  boolean
 		*/
 

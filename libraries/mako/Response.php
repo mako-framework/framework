@@ -210,8 +210,8 @@ namespace mako
 		* Redirects to another location.
 		*
 		* @access  public
-		* @param   string  Location
-		* @param   int     HTTP status code
+		* @param   string  (optional) Location
+		* @param   int     (optional) HTTP status code
 		*/
 		
 		public function redirect($location = '', $statusCode = 302)
