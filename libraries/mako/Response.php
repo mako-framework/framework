@@ -214,7 +214,7 @@ namespace mako
 		* @param   int     HTTP status code
 		*/
 		
-		public function redirect($location, $statusCode = 302)
+		public function redirect($location = '', $statusCode = 302)
 		{
 			$this->status($statusCode);
 
