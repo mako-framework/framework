@@ -128,7 +128,7 @@ namespace mako\image
 		* @param   int      Height of the crop
 		* @param   int      The X coordinate of the cropped region's top left corner
 		* @param   int      The Y coordinate of the cropped region's top left corner
-		* @return  Imagick
+		* @return  ImageMagick
 		*/
 
 		public function crop($width, $height, $x, $y)

@@ -281,6 +281,39 @@ namespace mako\image
 		}
 
 		/**
+		* Crops the image.
+		*
+		* @access  public
+		* @param   int      Width of the crop
+		* @param   int      Height of the crop
+		* @param   int      The X coordinate of the cropped region's top left corner
+		* @param   int      The Y coordinate of the cropped region's top left corner
+		* @return  GD
+		*/
+
+		public function crop($width, $height, $x, $y)
+		{			
+			$w = imagesx($this->image);
+			$h = imagesy($this->image);
+
+			$crop = imagecreatetruecolor($width, $height);
+
+			$transparent = imagecolorallocatealpha($crop, 0, 0, 0, 127);
+
+			imagefill($crop, 0, 0, $transparent);
+
+			imagecopy($crop, $this->image, 0, 0, $x, $y, $w, $h);
+
+			imagedestroy($this->image);
+
+			imagecolortransparent($crop, $transparent);
+
+			$this->image = $crop;
+			
+			return $this;
+		}
+
+		/**
 		* Flips the image.
 		*
 		* @access  public  
