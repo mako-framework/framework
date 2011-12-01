@@ -130,10 +130,11 @@ namespace mako\image
 		* @access  protected
 		* @param   string     Hex code of the color
 		* @param   int        Alpha
+		* @param   boolean    FALSE returns a color identifier, TRUE returns a RGB array
 		* @return  int
 		*/
 		
-		protected function createColor($hex, $alpha = 100)
+		protected function createColor($hex, $alpha = 100, $returnRGB = false)
 		{
 			$hex = str_replace('#', '', $hex);
 			
@@ -154,12 +155,19 @@ namespace mako\image
 				$g = hexdec(substr($hex, 2, 2));
 				$b = hexdec(substr($hex, 4, 2));
 			}
+
+			if($returnRGB === true)
+			{
+				return array('r' => $r, 'g' => $g, 'b' => $b);
+			}
+			else
+			{
+				// Convert alpha to 0-127
 			
-			// Convert alpha to 0-127
+				$alpha = min(round(abs(($alpha * 127 / 100) - 127)), 127);
 			
-			$alpha = min(round(abs(($alpha * 127 / 100) - 127)), 127);
-			
-			return imagecolorallocatealpha($this->image, $r, $g, $b, $alpha);
+				return imagecolorallocatealpha($this->image, $r, $g, $b, $alpha);
+			}
 		}
 
 		/**
@@ -451,6 +459,28 @@ namespace mako\image
 						
 			return $this;
 		}
+
+		/**
+		* Colorize an image.
+		*
+		* @access  public
+		* @param   string  Hex code for the color
+		* @return  GD
+		*/
+
+		public function colorize($color)
+		{
+			if(GD_BUNDLED === 0)
+			{
+				throw new RuntimeException(__CLASS__ . ": This method requires the 'imagefilter' function which is only available in the bundled version of GD.");
+			}
+			
+			$color = $this->createColor($color, 0, true);
+
+			imagefilter($this->image, IMG_FILTER_COLORIZE, $color['r'], $color['g'], $color['b'], 0);
+
+			return $this;
+		}
 		
 		/**
 		* Adds a border to the image.
@@ -466,7 +496,7 @@ namespace mako\image
 			$w = imagesx($this->image);
 			$h = imagesy($this->image);
 			
-			$color = static::createColor($color);
+			$color = $this->createColor($color);
 			
 			for($i = 0; $i < $thickness; $i++) 
 			{

@@ -44,7 +44,7 @@ namespace mako\image
 
 		abstract public function greyscale();
 
-		//abstract public function colorize($color);
+		abstract public function colorize($color);
 
 		abstract public function border($color = '#000', $thickness = 5);
 
