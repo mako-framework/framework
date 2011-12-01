@@ -207,6 +207,21 @@ namespace mako\image
 			
 			return $this;
 		}
+
+		/**
+		* Colorize an image.
+		*
+		* @access  public
+		* @param   string  Hex code for the color
+		* @return  Imagick
+		*/
+
+		public function colorize($color)
+		{
+			$this->cmd .= '-fill ' . escapeshellarg($color) . ' -colorize 50% ';
+
+			return $this;
+		}
 		
 		/**
 		* Adds a border to the image.
