@@ -69,7 +69,7 @@ namespace mako\image
 
 		public function rotate($degrees)
 		{		
-			$this->cmd .= '-rotate '.escapeshellarg((360 - $degrees)).' ';
+			$this->cmd .= '-rotate ' . escapeshellarg((360 - $degrees)) . ' ';
 
 			return $this;
 		}
@@ -87,7 +87,7 @@ namespace mako\image
 		{
 			if($height === null)
 			{				
-				$this->cmd .= '-resize '.escapeshellarg((int) $width.'%').' ';
+				$this->cmd .= '-resize ' . escapeshellarg((int) $width . '%') . ' ';
 			}
 			else
 			{
@@ -95,28 +95,46 @@ namespace mako\image
 				{
 					// Calculate smallest size based on given height and width while maintaining aspect ratio
 
-					$this->cmd .= '-resize '.escapeshellarg((int) $width.'x'.(int) $height).' ';
+					$this->cmd .= '-resize ' . escapeshellarg((int) $width . 'x' . (int) $height) . ' ';
 				}
 				else if($aspectRatio === Image::WIDTH)
 				{
 					// Base new size on given width while maintaining aspect ratio
 
-					$this->cmd .= '-resize '.escapeshellarg((int) $width).' ';
+					$this->cmd .= '-resize ' . escapeshellarg((int) $width) . ' ';
 				}
 				else if($aspectRatio === Image::HEIGHT)
 				{
 					// Base new size on given height while maintaining aspect ratio
 
-					$this->cmd .= '-resize '.escapeshellarg('x'.(int) $height).' ';
+					$this->cmd .= '-resize ' . escapeshellarg('x' . (int) $height) . ' ';
 				}
 				else
 				{
 					// Ignone aspect ratio
 					
-					$this->cmd .= '-resize '.escapeshellarg((int) $width.'x'.(int) $height.'!').' ';
+					$this->cmd .= '-resize ' . escapeshellarg((int) $width . 'x' . (int) $height . '!') . ' ';
 				}						
 			}
 
+			return $this;
+		}
+
+		/**
+		* Crops the image.
+		*
+		* @access  public
+		* @param   int      Width of the crop
+		* @param   int      Height of the crop
+		* @param   int      The X coordinate of the cropped region's top left corner
+		* @param   int      The Y coordinate of the cropped region's top left corner
+		* @return  Imagick
+		*/
+
+		public function crop($width, $height, $x, $y)
+		{			
+			$this->cmd .= '-crop ' . escapeshellarg((int) $width . 'x' . (int) $height . '+' . (int) $x . '+' . (int) $y) . ' ';
+			
 			return $this;
 		}
 

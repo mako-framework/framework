@@ -144,6 +144,24 @@ namespace mako\image
 		}
 
 		/**
+		* Crops the image.
+		*
+		* @access  public
+		* @param   int      Width of the crop
+		* @param   int      Height of the crop
+		* @param   int      The X coordinate of the cropped region's top left corner
+		* @param   int      The Y coordinate of the cropped region's top left corner
+		* @return  Imagick
+		*/
+
+		public function crop($width, $height, $x, $y)
+		{			
+			$this->image->cropImage($width, $height, $x, $y);
+			
+			return $this;
+		}
+
+		/**
 		* Flips the image.
 		*
 		* @access  public  

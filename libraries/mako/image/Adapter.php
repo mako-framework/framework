@@ -36,7 +36,7 @@ namespace mako\image
 
 		abstract public function resize($width, $height = null, $aspectRatio = null);
 
-		//abstract public function crop($width, $height, $x, $y);
+		abstract public function crop($width, $height, $x, $y);
 
 		abstract public function flip($direction = null);
 
