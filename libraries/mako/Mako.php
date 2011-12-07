@@ -34,12 +34,6 @@ namespace mako
 		const VERSION = '1.5.0';
 		
 		/**
-		* Are we running in CLI mode?
-		*/
-		
-		protected static $isCli;
-		
-		/**
 		* Are we running on Windows?
 		*/
 		
