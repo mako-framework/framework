@@ -50,7 +50,9 @@ namespace mako\cache
 
 		public function write($key, $value, $ttl = 0)
 		{
-			$this->cache[$key] = $value;
+			$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
+
+			$this->cache[$key] = array('data' => $value, 'ttl' => $ttl);
 			
 			return true;
 		}
@@ -65,7 +67,23 @@ namespace mako\cache
 
 		public function read($key)
 		{
-			return isset($this->cache[$key]) ? $this->cache[$key] : false;
+			if(isset($this->cache[$key]))
+			{
+				if($this->cache[$key]['ttl'] > time())
+				{
+					return $this->cache[$key]['data'];
+				}
+				else
+				{
+					$this->delete($key);
+
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		/**
