@@ -242,9 +242,11 @@ namespace mako
 
 		public static function wait($seconds = 5, $withBeep = false)
 		{
+			$length = strlen($seconds);
+
 			while($seconds > 0)
 			{
-				fwrite(STDOUT, "\rPlease wait ... [ " . $seconds-- . " ] ");
+				fwrite(STDOUT, "\rPlease wait ... [ " . str_pad($seconds--, $length, 0, STR_PAD_LEFT) . ' ]');
 
 				if($withBeep === true)
 				{
