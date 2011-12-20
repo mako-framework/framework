@@ -3,6 +3,7 @@
 namespace mako
 {
 	use \mako\Mako;
+	use \mako\I18n;
 	use \mako\Request;
 	use \RuntimeException;
 
@@ -173,18 +174,16 @@ namespace mako
 
 		public static function confirm($question)
 		{
-			fwrite(STDOUT, $question . '? [Y/N]: ');
+			fwrite(STDOUT, $question . ' [' . I18n::getText('Y') . '/' . I18n::getText('N') . ']: ');
 
 			$input = trim(fgets(STDIN));
 
-			switch($input)
+			switch(mb_strtoupper($input))
 			{
-				case 'y':
-				case 'Y':
+				case I18n::getText('Y'):
 					return true;
 				break;
-				case 'n':
-				case 'N':
+				case I18n::getText('N'):
 					return false;
 				break;
 				default:
@@ -246,7 +245,7 @@ namespace mako
 
 			while($seconds > 0)
 			{
-				fwrite(STDOUT, "\rPlease wait ... [ " . str_pad($seconds--, $length, 0, STR_PAD_LEFT) . ' ]');
+				fwrite(STDOUT, "\r" . I18n::getText('Please wait ...') . ' [ ' . str_pad($seconds--, $length, 0, STR_PAD_LEFT) . ' ]');
 
 				if($withBeep === true)
 				{
