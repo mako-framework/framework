@@ -168,6 +168,23 @@ namespace mako
 		}
 
 		/**
+		* Returns a masked string where only the last n characters are visible.
+		*
+		* @access  public
+		* @param   string  String to mask
+		* @param   int     (optional) Number of characters to show
+		* @param   string  (optional) Character used to replace remaining characters
+		* @return  string
+		*/
+
+		public static function mask($string, $visible = 3, $mask = '*')
+		{
+			$substr = mb_substr($string, -$visible);
+
+			return str_pad($substr, (mb_strlen($string) + (strlen($substr) - mb_strlen($substr))), $mask, STR_PAD_LEFT);
+		}
+
+		/**
 		* Returns a random string of the selected type and length.
 		*
 		* @param   string  Type of character pool to use or user defined character pool
