@@ -173,7 +173,7 @@ namespace mako
 			{
 				//extract(array_merge($this->vars, static::$globalVars), EXTR_REFS); // Extract variables as references
 				
-				$vars = array_merge($this->vars, static::$globalVars);
+				$vars = array_merge(static::$globalVars, $this->vars);
 				
 				extract($vars, EXTR_REFS); // Extract variables as references
 				
