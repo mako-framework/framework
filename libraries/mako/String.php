@@ -44,7 +44,7 @@ namespace mako
 		* ASCII symbols.
 		*/
 
-		const SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿×';
+		const SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
