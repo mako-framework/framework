@@ -16,7 +16,35 @@ namespace mako
 		// Class variables
 		//---------------------------------------------
 
-		// Nothing here
+		/**
+		* Alphanumeric characters.
+		*/
+
+		const ALNUM = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+		/**
+		* Alphanetic characters.
+		*/
+
+		const ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+		/**
+		* hexadecimal characters.
+		*/
+		
+		const HEXDEC = '0123456789abcdef';
+
+		/**
+		* Numeric characters.
+		*/
+
+		const NUMERIC = '0123456789';
+
+		/**
+		* ASCII symbols.
+		*/
+
+		const SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿×';
 
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
@@ -192,26 +220,8 @@ namespace mako
 		* @return  string
 		*/
 
-		public static function random($type = 'alnum', $length = 16)
+		public static function random($pool = String::ALNUM, $length = 16)
 		{
-			switch($type)
-			{
-				case 'alnum':
-					$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-				break;
-				case 'alpha':
-					$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-				break;
-				case 'hexdec':
-					$pool = '0123456789abcdef';
-				break;
-				case 'numeric':
-					$pool = '0123456789';
-				break;
-				default:
-					$pool = (string) $type;
-			}
-
 			$string = '';
 
 			$poolSize = mb_strlen($pool) - 1;
