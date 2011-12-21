@@ -23,7 +23,7 @@ namespace mako
 		const ALNUM = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 		/**
-		* Alphanetic characters.
+		* Alphabetic characters.
 		*/
 
 		const ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
