@@ -29,7 +29,7 @@ namespace mako
 		const ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 		/**
-		* hexadecimal characters.
+		* Hexadecimal characters.
 		*/
 		
 		const HEXDEC = '0123456789abcdef';
@@ -215,12 +215,12 @@ namespace mako
 		/**
 		* Returns a random string of the selected type and length.
 		*
-		* @param   string  Type of character pool to use or user defined character pool
+		* @param   string  Character pool to use
 		* @param   int     (optional) Desired string length
 		* @return  string
 		*/
 
-		public static function random($pool = String::ALNUM, $length = 16)
+		public static function random($pool = String::ALNUM, $length = 32)
 		{
 			$string = '';
 
