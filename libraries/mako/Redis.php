@@ -56,7 +56,7 @@ namespace mako
 
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
+				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the redis configuration.");
 			}
 
 			$this->config = $config['configurations'][$name];
