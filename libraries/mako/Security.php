@@ -2,6 +2,8 @@
 
 namespace mako
 {
+	use \mako\Session;
+
 	/**
 	* Class containing security related methods.
 	*
@@ -49,7 +51,7 @@ namespace mako
 		{
 			if(session_id() === '')
 			{
-				session_start();
+				Session::start();
 			}
 		}
 		

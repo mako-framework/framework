@@ -2,6 +2,8 @@
 
 namespace mako
 {
+	use \mako\Session;
+
 	/**
 	* Class that handles notifications (aka "flash messages").
 	*
@@ -47,7 +49,7 @@ namespace mako
 		{
 			if(session_id() === '')
 			{
-				session_start();
+				Session::start();
 			}
 		}
 
