@@ -3,8 +3,7 @@
 namespace mako\cache
 {
 	use \Closure;
-	use \InvalidArgumentException;
-
+	
 	/**
 	* Cache adapter.
 	*
