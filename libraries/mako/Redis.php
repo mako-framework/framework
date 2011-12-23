@@ -180,7 +180,7 @@ namespace mako
 					{
 						$length = substr($response, 1) + 1;
 
-						return fgets($this->connection, $length);
+						return trim(fgets($this->connection, $length + strlen(static::CRLF)));
 					}
 				break;
 				case '*': // multi-bulk reply
