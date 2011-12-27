@@ -81,7 +81,18 @@ namespace mako\session
 
 		abstract public function destroy($id);
 
-		abstract public function gc($maxLifetime);
+		/**
+		* Garbage collector.
+		*
+		* @access  public
+		* @param   int      Lifetime in secods
+		* @return  boolean
+		*/
+
+		public function gc($maxLifetime)
+		{
+			return true;
+		}
 	}
 }
 

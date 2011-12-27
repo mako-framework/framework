@@ -101,19 +101,6 @@ namespace mako\session
 		{
 			return (bool) $this->redis->del('sess_' . $id);
 		}
-
-		/**
-		* Garbage collector.
-		*
-		* @access  public
-		* @param   int      Lifetime in secods
-		* @return  boolean
-		*/
-
-		public function gc($maxLifetime)
-		{
-			return true;
-		}
 	}
 }
 

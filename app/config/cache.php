@@ -53,10 +53,10 @@ return array
 			(
 				'server_1' => array
 				(
-					'server' => 'localhost',
-					'port' => '11211',
+					'server'                => 'localhost',
+					'port'                  => '11211',
 					'persistent_connection' => false,
-					'weight' => 1,
+					'weight'                => 1,
 				),
 			),
 		),
@@ -72,7 +72,7 @@ return array
 				'server_1' => array
 				(
 					'server' => 'localhost',
-					'port' => '11211',
+					'port'   => '11211',
 					'weight' => 1,
 				),
 			),
