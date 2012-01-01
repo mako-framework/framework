@@ -26,6 +26,12 @@ namespace mako\session
 
 		protected $db;
 
+		/**
+		* Session table.
+		*/
+
+		protected $table;
+
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
 		//---------------------------------------------
@@ -42,6 +48,8 @@ namespace mako\session
 			parent::__construct();
 
 			$this->db = MDatabase::instance($config['configuration']);
+
+			$this->table = $config['table'];
 		}
 
 		/**
@@ -78,7 +86,7 @@ namespace mako\session
 		{
 			try
 			{
-				$stmt = $this->db->prepare("SELECT data FROM sessions WHERE id = :id");
+				$stmt = $this->db->prepare("SELECT data FROM {$this->table} WHERE id = :id");
 
 				$stmt->bindParam(':id', $id, PDO::PARAM_STR);
 
@@ -113,7 +121,7 @@ namespace mako\session
 		{
 			try
 			{
-				$stmt = $this->db->prepare("SELECT id FROM sessions WHERE id = :id");
+				$stmt = $this->db->prepare("SELECT id FROM {$this->table} WHERE id = :id");
 
 				$stmt->bindParam(':id', $id, PDO::PARAM_STR);
 
@@ -121,7 +129,7 @@ namespace mako\session
 
 				if($stmt->rowCount() > 0)
 				{
-					$stmt = $this->db->prepare("UPDATE sessions SET data = :data, expires = :expires WHERE id = :id");
+					$stmt = $this->db->prepare("UPDATE {$this->table} SET data = :data, expires = :expires WHERE id = :id");
 
 					$stmt->bindParam(':id', $id, PDO::PARAM_STR);
 					$stmt->bindParam(':data', $data, PDO::PARAM_STR);
@@ -131,7 +139,7 @@ namespace mako\session
 				}
 				else
 				{
-					$stmt = $this->db->prepare("INSERT INTO sessions (id, data, expires) VALUES (:id, :data, :expires)");
+					$stmt = $this->db->prepare("INSERT INTO {$this->table} (id, data, expires) VALUES (:id, :data, :expires)");
 
 					$stmt->bindParam(':id', $id, PDO::PARAM_STR);
 					$stmt->bindParam(':data', $data, PDO::PARAM_STR);
@@ -158,7 +166,7 @@ namespace mako\session
 		{
 			try
 			{
-				$stmt = $this->db->prepare("DELETE FROM sessions WHERE id = :id");
+				$stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE id = :id");
 
 				$stmt->bindParam(':id', $id, PDO::PARAM_STR);
 
@@ -184,7 +192,7 @@ namespace mako\session
 		{
 			try
 			{
-				$stmt = $this->db->prepare("DELETE FROM sessions WHERE expires < :expires");
+				$stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE expires < :expires");
 
 				$stmt->bindValue(':expires', time(), PDO::PARAM_INT);
 

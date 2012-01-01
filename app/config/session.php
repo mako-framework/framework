@@ -19,6 +19,7 @@ return array
 	*
 	* type         : Session type you want to use (case-sensitive).
 	* configuration: Database or redis configuration to use for sessions (only required when using "datbase" or "redis" sessions).
+	* table        : Name of the database table (only required when using "database" sessions).
 	*/
 	
 	'configurations' => array
@@ -27,6 +28,7 @@ return array
 		(
 			'type'          => 'Database',
 			'configuration' => 'test',
+			'table'         => 'mako_sessions',
 		),
 
 		'native' => array

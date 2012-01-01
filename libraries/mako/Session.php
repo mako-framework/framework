@@ -63,16 +63,16 @@ namespace mako
 			{
 				$class = '\mako\session\\' . $type;
 
-				$adapter = new $class($config['configurations'][$name]);
+				$handler = new $class($config['configurations'][$name]);
 
 				session_set_save_handler
 				(
-					array($adapter, 'open'), 
-					array($adapter, 'close'), 
-					array($adapter, 'read'), 
-					array($adapter, 'write'), 
-					array($adapter, 'destroy'), 
-					array($adapter, 'gc')
+					array($handler, 'open'), 
+					array($handler, 'close'), 
+					array($handler, 'read'), 
+					array($handler, 'write'), 
+					array($handler, 'destroy'), 
+					array($handler, 'gc')
 				);
 			}
 
