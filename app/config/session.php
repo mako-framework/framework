@@ -13,11 +13,11 @@ return array
 	'default' => 'native',
 	
 	/**
-	* You can define as many cache configurations as you want.
+	* You can define as many session configurations as you want.
 	*
-	* The supported cache types are: "Database", "Native" and "Redis".
+	* The supported session types are: "Database", "Native" and "Redis".
 	*
-	* type         : Cache type you want to use (case-sensitive).
+	* type         : Session type you want to use (case-sensitive).
 	* configuration: Database or redis configuration to use for sessions (only required when using "datbase" or "redis" sessions).
 	*/
 	
