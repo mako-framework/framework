@@ -10,7 +10,7 @@ namespace mako
 	* Sends messages to the Growl (http://growl.info/) notification system.
 	*
 	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2011 Frederic G. Østby
+	* @copyright  (c) 2008-2012 Frederic G. Østby
 	* @license    http://www.makoframework.com/license
 	*/
 	

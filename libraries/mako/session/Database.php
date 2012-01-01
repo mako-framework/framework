@@ -10,7 +10,7 @@ namespace mako\session
 	* Redis adapter.
 	*
 	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2011 Frederic G. Østby
+	* @copyright  (c) 2008-2012 Frederic G. Østby
 	* @license    http://www.makoframework.com/license
 	*/
 
@@ -127,7 +127,7 @@ namespace mako\session
 					$stmt->bindParam(':data', $data, PDO::PARAM_STR);
 					$stmt->bindValue(':expires', (time() + $this->maxLifetime), PDO::PARAM_INT);
 
-					$stmt->execute();
+					return $stmt->execute();
 				}
 				else
 				{

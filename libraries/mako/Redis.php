@@ -9,7 +9,7 @@ namespace mako
 	* Simple Redis client based on protocol specification at http://redis.io/topics/protocol.
 	*
 	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2011 Frederic G. Østby
+	* @copyright  (c) 2008-2012 Frederic G. Østby
 	* @license    http://www.makoframework.com/license
 	*/
 
