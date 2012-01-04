@@ -43,7 +43,7 @@ namespace mako
 		/**
 		* Starts a session using the chosen type of storage.
 		*
-		* @param   string  (optional) Encryption configuration name
+		* @param   string  (optional) Session configuration name
 		*/
 		
 		public static function start($name = null)
