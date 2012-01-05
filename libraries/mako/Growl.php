@@ -189,7 +189,7 @@ namespace mako
 			$hash = empty($this->password) ? '' : $this->hash($this->password);
 
 			$data  = trim('GNTP/' . static::VERSION . ' ' . $type . ' ' . $this->encryption . ' ' . $hash) . static::CRLF;
-			$data .= 'Application-Name: ' . UTF8::convert($this->application) . static::CRLF;
+			$data .= 'Application-Name: ' . $this->application . static::CRLF;
 
 			if(!empty($this->icon))
 			{
