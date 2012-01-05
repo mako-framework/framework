@@ -31,7 +31,7 @@ namespace mako
 		* Mako version number
 		*/
 		
-		const VERSION = '1.5.0';
+		const VERSION = '1.6.0';
 		
 		/**
 		* Are we running on Windows?
