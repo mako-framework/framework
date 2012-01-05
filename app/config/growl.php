@@ -26,6 +26,7 @@ return array
 
 	/**
 	* Password hash to use.
+	* The supported hashing methods are "md5", "sha1", "sha256" and "sha512".
 	*/
 
 	'hash' => 'sha1',
