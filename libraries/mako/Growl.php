@@ -81,6 +81,12 @@ namespace mako
 		protected $application;
 
 		/**
+		* URL to application icon.
+		*/
+
+		protected $icon;
+
+		/**
 		* Host address.
 		*/
 
@@ -138,6 +144,7 @@ namespace mako
 			}
 
 			$this->application   = UTF8::convert($config['application_name']);
+			$this->icon          = UTF8::convert($config['application_icon']);
 			$this->hash          = $config['hash'];
 			$this->host          = $config['configurations'][$name]['host'];
 			$this->password      = $config['configurations'][$name]['password'];
@@ -183,6 +190,11 @@ namespace mako
 
 			$data  = trim('GNTP/' . static::VERSION . ' ' . $type . ' ' . $this->encryption . ' ' . $hash) . static::CRLF;
 			$data .= 'Application-Name: ' . UTF8::convert($this->application) . static::CRLF;
+
+			if(!empty($this->icon))
+			{
+				$data .= 'Application-Icon: ' . $this->icon . static::CRLF;
+			}
 
 			$data .= $headers;
 			

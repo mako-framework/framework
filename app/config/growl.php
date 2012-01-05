@@ -19,6 +19,12 @@ return array
 	'application_name' => 'Mako Framework',
 
 	/**
+	* URL to application icon.
+	*/
+
+	'application_icon' => '',
+
+	/**
 	* Password hash to use.
 	*/
 
