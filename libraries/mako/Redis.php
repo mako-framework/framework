@@ -168,8 +168,10 @@ namespace mako
 					throw new RuntimeException(__CLASS__ . ": " . substr($response, 5) . ".");
 				break;
 				case '+': // single line reply
-				case ':': // integer number reply
 					return substr($response, 1);
+				break;
+				case ':': // integer number reply
+					return (int) substr($response, 1);
 				break;
 				case '$': // bulk reply
 					if($response === '$-1')
