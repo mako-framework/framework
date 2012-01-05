@@ -224,15 +224,15 @@ namespace mako
 			$salt = mt_rand(268435456, mt_getrandmax());
 
 			$saltHex   = dechex($salt);
-        	$saltBytes = pack("H*", $saltHex);
+			$saltBytes = pack("H*", $saltHex);
 
-        	$passHex   = bin2hex($this->password);
-        	$passBytes = pack("H*", $passHex);
-        	
-        	$keyBasis  = $passBytes . $saltBytes;
+			$passHex   = bin2hex($this->password);
+			$passBytes = pack("H*", $passHex);
 
-        	$key     = hash($this->hash, $keyBasis, true);
-        	$keyHash = hash($this->hash, $key);
+			$keyBasis  = $passBytes . $saltBytes;
+
+			$key     = hash($this->hash, $keyBasis, true);
+			$keyHash = hash($this->hash, $key);
 
 			return strtoupper($this->hash . ':' . $keyHash . '.' . $saltHex);
 		}
