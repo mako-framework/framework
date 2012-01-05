@@ -10,70 +10,100 @@ namespace mako
 	* Sends messages to the Growl (http://growl.info/) notification system.
 	*
 	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
+	* @copyright  (c) 2008-2011 Frederic G. Østby
 	* @license    http://www.makoframework.com/license
 	*/
-	
+
 	class Growl
 	{
 		//---------------------------------------------
 		// Class variables
 		//---------------------------------------------
-		
+
 		/**
-		* Message priority.
+		* GNTP version.
 		*/
-		
-		const LOW = -2;
-		
+
+		const VERSION = '1.0';
+
 		/**
-		* Message priority.
+		* CRLF.
 		*/
-		
-		const MODERATE = -1;
-		
-		/**
-		* Message priority.
-		*/
-		
-		const NORMAL = 0;
-		
-		/**
-		* Message priority.
-		*/
-		
-		const HIGH = 1;
-		
-		/**
-		* Message priority.
-		*/
-		
-		const EMERGENCY = 2;
-		
+
+		const CRLF = "\r\n";
+
 		/**
 		* Growl port.
 		*/
-		
-		const PORT = 9887;
-		
+
+		const PORT = 23053;
+
 		/**
-		* Application identifier.
+		* Message priority.
 		*/
-		
-		protected $identifier;
-		
+
+		const LOW = -2;
+
+		/**
+		* Message priority.
+		*/
+
+		const MODERATE = -1;
+
+		/**
+		* Message priority.
+		*/
+
+		const NORMAL = 0;
+
+		/**
+		* Message priority.
+		*/
+
+		const HIGH = 1;
+
+		/**
+		* Message priority.
+		*/
+
+		const EMERGENCY = 2;
+
+		/**
+		* Supported hash algorithms.
+		*/
+
+		protected $hashAlgorithms = array('md5', 'sha1', 'sha256', 'sha512');
+
+		/**
+		* Application name.
+		*/
+
+		protected $application;
+
 		/**
 		* Host address.
 		*/
-		
+
 		protected $host;
-		
+
+		/**
+		* Hash.
+		*/
+
+		protected $hash;
+
+		/**
+		* Encryption.
+		*/
+
+		protected $encryption = 'NONE';
+
 		/**
 		* Server password.
 		*/
-		
+
 		protected $password;
-		
+
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
 		//---------------------------------------------
@@ -96,10 +126,16 @@ namespace mako
 				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
 			}
 
-			$this->identifier = UTF8::convert($config['identifier']);
-			$this->host       = $config['configurations'][$name]['host'];
-			$this->password   = $config['configurations'][$name]['password'];
-			
+			if(!in_array($config['hash'], $this->hashAlgorithms))
+			{
+				throw new RuntimeException(__CLASS__ . ": Unsupported hash algorithm.");
+			}
+
+			$this->application = UTF8::convert($config['application_name']);
+			$this->hash        = $config['hash'];
+			$this->host        = $config['configurations'][$name]['host'];
+			$this->password    = $config['configurations'][$name]['password'];
+
 			$this->register($config['configurations'][$name]['notifications']);
 		}
 
@@ -115,100 +151,131 @@ namespace mako
 		{
 			return new static($name);
 		}
-		
+
 		//---------------------------------------------
 		// Class methods
 		//---------------------------------------------
-		
+
 		/**
 		* Sends data to the Growl server.
 		*
 		* @access  protected
 		* @param   string     Data to send
 		*/
-		
-		protected function send($data)
+
+		protected function send($type, $headers)
 		{
-			$socket = @fsockopen('udp://' . $this->host, static::PORT, $errNo, $errStr);
+			$socket = @fsockopen('tcp://' . $this->host, static::PORT, $errNo, $errStr);
 
 			if(!$socket)
 			{
 				throw new RuntimeException(__CLASS__ . ": {$errStr}.");
 			}
-				
+
+			$hash = empty($this->password) ? '' : $this->hash($this->password);
+
+			$data  = trim('GNTP/' . static::VERSION . ' ' . $type . ' ' . $this->encryption . ' ' . $hash) . static::CRLF;
+			$data .= 'Application-Name: ' . UTF8::convert($this->application) . static::CRLF;
+
+			$data .= $headers;
+			
+			$data .= 'Origin-Software-Name: Mako Framework' . static::CRLF;
+			$data .= 'Origin-Software-Version: ' . Mako::VERSION . static::CRLF;
+
 			fwrite($socket, $data);
-				
+
+			while(($response = fgets($socket)) != false)
+			{
+				// Mac version of Growl doesn't work if you don't read the response
+			}
+
 			fclose($socket);
 		}
-		
+
 		/**
-		* Registers the application with the Growl server.
+		* Generate necessary hashes for authentication.
 		*
 		* @access  protected
-		* @param   array      Array of notification types.
+		* @param   string     Growl password
+		* @return  string
 		*/
-		
-		protected function register(array $notifications)
+
+		protected function hash($password)
 		{
-			$data         = '';
-			$count        = 0;
-			$defaults     = '';
+			$salt = mt_rand(268435456, mt_getrandmax());
+
+			$saltHex   = dechex($salt);
+        	$saltBytes = pack("H*", $saltHex);
+
+        	$passHex   = bin2hex($this->password);
+        	$passBytes = pack("H*", $passHex);
+        	
+        	$keyBasis  = $passBytes . $saltBytes;
+
+        	$key     = hash($this->hash, $keyBasis, true);
+        	$keyHash = hash($this->hash, $key);
+
+			return strtoupper($this->hash . ':' . $keyHash . '.' . $saltHex);
+		}
+
+		/**
+		* Converts boolean values to text equivalent.
+		*
+		* @access  protected
+		* @param   boolean    Boolean value
+		* @return  string
+		*/
+
+		protected function convertBool($bool)
+		{
+			return $bool ? 'True' : 'False';
+		}
+
+		/**
+		* Builds and sends registration headers.
+		*
+		* @access  protected
+		* @param   array      Array of notifications to register
+		*/
+
+		protected function register($notifications)
+		{
+			$headers = 'Notifications-Count: ' . count($notifications) . static::CRLF;
 			
+			$headers .= static::CRLF;
+
 			foreach($notifications as $key => $value)
 			{
-				$notification = UTF8::convert($key);
-				
-				$data .= pack('n', strlen($notification)) . $notification;
-				
-				if($value === true)
-				{
-					$defaults .= pack('c', $count);
-
-					$count++;
-				}
+				$headers .= 'Notification-Name: ' . UTF8::convert($key) . static::CRLF;
+				$headers .= 'Notification-Display-Name: ' . UTF8::convert($key) . static::CRLF;
+				$headers .= 'Notification-Enabled: ' . $this->convertBool($value) . static::CRLF;
+				$headers .= static::CRLF;
 			}
-						
-			$data  = pack('c2nc2', 1, 0, strlen($this->identifier), count($notifications), $count) . $this->identifier . $data . $defaults;
-			$data .= pack('H32', md5($data . $this->password));
-			
-			$this->send($data);
+
+			$this->send('REGISTER', $headers);
 		}
-		
+
 		/**
-		* Sends a message to the Growl server.
+		* Builds and sends notification headers.
 		*
 		* @access  public
 		* @param   string   Notification type
 		* @param   string   Notification title
 		* @param   string   Notification message
-		* @param   boolean  Make notification sticky?
-		* @param   int      Notification priority
+		* @param   boolean  (optional) Make notification sticky?
+		* @param   int      (optional) Notification priority
 		*/
-		
+
 		public function notify($notification, $title, $message, $sticky = false, $priority = Growl::NORMAL)
 		{
-			$notification  = UTF8::convert($notification);
-			$title         = UTF8::convert($title);
-			$message       = UTF8::convert($message);
-			$priority      = (int) $priority;
+			$headers  = 'Notification-Name: ' . UTF8::convert($notification) . static::CRLF;
+			$headers .= 'Notification-Title: ' . UTF8::convert($title) . static::CRLF;
+			$headers .= 'Notification-Text: ' . UTF8::convert($message) . static::CRLF;
+			$headers .= 'Notification-Sticky: ' . $this->convertBool($sticky) . static::CRLF;
+			$headers .= 'Notification-Priority: ' . (int) $priority . static::CRLF;
+			$headers .= static::CRLF;
 
-			$flags = ($priority & 7) * 2;
-			
-			if($priority < 0)
-			{
-				$flags |= 8;
-			}
-			
-			if($sticky === true)
-			{
-				$flags |= 256;
-			}
-
-			$data  = pack('c2n5', 1, 1, $flags, strlen($notification), strlen($title), strlen($message), strlen($this->identifier));
-			$data .= $notification . $title . $message . $this->identifier;
-			$data .= pack('H32', md5($data . $this->password));
-			
-			$this->send($data);
+			$this->send('NOTIFY', $headers);
 		}
 	}
 }

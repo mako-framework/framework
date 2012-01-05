@@ -7,16 +7,22 @@
 return array
 (
 	/**
-	* Application identifier.
-	*/
-	
-	'identifier' => 'Mako Framework',
-	
-	/**
 	* Default configuration to use.
 	*/
 
 	'default' => 'localhost',
+	
+	/**
+	* Application identifier.
+	*/
+	
+	'application_name' => 'Mako Framework',
+
+	/**
+	* Password hash to use.
+	*/
+
+	'hash' => 'sha1',
 	
 	/**
 	* You can define as many Growl configurations as you want.
