@@ -104,6 +104,12 @@ namespace mako
 
 		protected $password;
 
+		/**
+		* Array of notification to register with the Growl server.
+		*/
+
+		protected $notifications;
+
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
 		//---------------------------------------------
@@ -131,12 +137,13 @@ namespace mako
 				throw new RuntimeException(__CLASS__ . ": Unsupported hash algorithm.");
 			}
 
-			$this->application = UTF8::convert($config['application_name']);
-			$this->hash        = $config['hash'];
-			$this->host        = $config['configurations'][$name]['host'];
-			$this->password    = $config['configurations'][$name]['password'];
+			$this->application   = UTF8::convert($config['application_name']);
+			$this->hash          = $config['hash'];
+			$this->host          = $config['configurations'][$name]['host'];
+			$this->password      = $config['configurations'][$name]['password'];
+			$this->notifications = $config['configurations'][$name]['notifications'];
 
-			$this->register($config['configurations'][$name]['notifications']);
+			$this->register();
 		}
 
 		/**
@@ -238,13 +245,13 @@ namespace mako
 		* @param   array      Array of notifications to register
 		*/
 
-		protected function register($notifications)
+		protected function register()
 		{
-			$headers = 'Notifications-Count: ' . count($notifications) . static::CRLF;
+			$headers = 'Notifications-Count: ' . count($this->notifications) . static::CRLF;
 			
 			$headers .= static::CRLF;
 
-			foreach($notifications as $key => $value)
+			foreach($this->notifications as $key => $value)
 			{
 				$headers .= 'Notification-Name: ' . UTF8::convert($key) . static::CRLF;
 				$headers .= 'Notification-Display-Name: ' . UTF8::convert($key) . static::CRLF;
@@ -268,6 +275,11 @@ namespace mako
 
 		public function notify($notification, $title, $message, $sticky = false, $priority = Growl::NORMAL)
 		{
+			if(!isset($this->notifications[$notification]))
+			{
+				throw new RuntimeException(__CLASS__ . ": Invalid notification name. '{$notification}' has not been defined in the configuration.");
+			}
+
 			$headers  = 'Notification-Name: ' . UTF8::convert($notification) . static::CRLF;
 			$headers .= 'Notification-Title: ' . UTF8::convert($title) . static::CRLF;
 			$headers .= 'Notification-Text: ' . UTF8::convert($message) . static::CRLF;
