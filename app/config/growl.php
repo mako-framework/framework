@@ -13,7 +13,7 @@ return array
 	'default' => 'localhost',
 	
 	/**
-	* Application identifier.
+	* Application name.
 	*/
 	
 	'application_name' => 'Mako Framework',
