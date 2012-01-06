@@ -122,7 +122,7 @@ namespace mako
 				
 				if(isset(static::$config['configurations'][$name]) === false)
 				{
-					throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the log configuration.");
+					throw new RuntimeException(vsprintf("%s: '%s' has not been defined in the log configuration.", array(__CLASS__, $name)));
 				}
 				
 				$class = '\mako\log\\' . static::$config['configurations'][$name]['type'];
@@ -146,7 +146,7 @@ namespace mako
 		{
 			if(!defined('static::' . strtoupper($name)))
 			{
-				throw new RuntimeException(__CLASS__ . ": No such log level exists.");
+				throw new RuntimeException(vsprintf("%s: Invalid log type.", array(__CLASS__)));
 			}
 
 			return static::instance()->write($args[0], constant('static::' . strtoupper($name)));
