@@ -117,7 +117,7 @@ namespace mako
 
 			if(file_exists($file) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": Image file ('{$file}') does not exist.");
+				throw new RuntimeException(vsprintf("%s: Image file ('%s') does not exist.", array(__CLASS__, $file)));
 			}
 
 			// Create and return image object
