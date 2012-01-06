@@ -74,7 +74,7 @@ namespace mako
 				
 				if(isset(static::$config['configurations'][$name]) === false)
 				{
-					throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the cache configuration.");
+					throw new RuntimeException(vsprintf("%s: '%s' has not been defined in the cache configuration.", array(__CLASS__, $name)));
 				}
 				
 				$class = '\mako\cache\\' . static::$config['configurations'][$name]['type'];
