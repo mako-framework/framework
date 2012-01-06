@@ -135,12 +135,12 @@ namespace mako
 
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the growl configuration.");
+				throw new RuntimeException(vsprintf("%s: '%s' has not been defined in the growl configuration.", array(__CLASS__, $name)));
 			}
 
 			if(!in_array($config['hash'], $this->hashAlgorithms))
 			{
-				throw new RuntimeException(__CLASS__ . ": Unsupported hash algorithm.");
+				throw new RuntimeException(vsprintf("%s: Unsupported hash algorithm.", array(__CLASS__)));
 			}
 
 			$this->application   = UTF8::convert($config['application_name']);
