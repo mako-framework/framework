@@ -97,7 +97,7 @@ namespace mako
 			{
 				if(!isset(static::$textColors[$textColor]))
 				{
-					throw new RuntimeException(__CLASS__ . ": Invalid text color.");
+					throw new RuntimeException(vsprintf("%s: Invalid text color.", array(__CLASS__)));
 				}
 
 				$color .= "\033[" . static::$textColors[$textColor] . "m";
@@ -107,7 +107,7 @@ namespace mako
 			{
 				if(!isset(static::$backgroundColors[$backgroundColor]))
 				{
-					throw new RuntimeException(__CLASS__ . ": Invalid background color.");
+					throw new RuntimeException(vsprintf("%s: Invalid background color.", array(__CLASS__)));
 				}
 
 				$color .= "\033[" . static::$backgroundColors[$backgroundColor] . "m";
