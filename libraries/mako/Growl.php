@@ -247,7 +247,6 @@ namespace mako
 				$error = preg_match('/Error-Description:(.*)/', $response, $matches);
 
 				throw new RuntimeException(vsprintf("%s: %s.", array(__CLASS__, trim($matches[1]))));
-				
 			}
 		}
 
