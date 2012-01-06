@@ -137,7 +137,7 @@ namespace mako
 
 			if(file_exists($file) === false || is_readable($file) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": Failed to open stream.");
+				throw new RuntimeException(vsprintf("%s: Failed to open stream.", array(__CLASS__)));
 			}
 
 			// Empty output buffers
