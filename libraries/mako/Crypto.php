@@ -55,7 +55,7 @@ namespace mako
 
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the crypto configuration.");
+				throw new RuntimeException(vsprintf("%s: '%s' has not been defined in the crypto configuration.", array(__CLASS__, $name)));
 			}
 
 			$class = '\mako\crypto\\' . $config['configurations'][$name]['library'];
