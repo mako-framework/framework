@@ -24,7 +24,7 @@ namespace mako
 		* GNTP version.
 		*/
 
-		const VERSION = '1.0';
+		const PROTOCOL_VERSION = '1.0';
 
 		/**
 		* CRLF.
@@ -171,56 +171,19 @@ namespace mako
 		//---------------------------------------------
 
 		/**
-		* Sends data to the Growl server.
+		* Generates necessary hashes for authentication.
 		*
 		* @access  protected
-		* @param   string     Data to send
-		*/
-
-		protected function send($type, $headers)
-		{
-			$socket = @fsockopen('tcp://' . $this->host, static::PORT, $errNo, $errStr);
-
-			if(!$socket)
-			{
-				throw new RuntimeException(__CLASS__ . ": {$errStr}.");
-			}
-
-			$hash = empty($this->password) ? '' : $this->hash($this->password);
-
-			$data  = trim('GNTP/' . static::VERSION . ' ' . $type . ' ' . $this->encryption . ' ' . $hash) . static::CRLF;
-			$data .= 'Application-Name: ' . $this->application . static::CRLF;
-
-			if(!empty($this->icon))
-			{
-				$data .= 'Application-Icon: ' . $this->icon . static::CRLF;
-			}
-
-			$data .= $headers;
-			
-			$data .= 'Origin-Software-Name: Mako Framework' . static::CRLF;
-			$data .= 'Origin-Software-Version: ' . Mako::VERSION . static::CRLF;
-
-			fwrite($socket, $data);
-
-			while(($response = fgets($socket)) != false)
-			{
-				// Mac version of Growl doesn't work if you don't read the response
-			}
-
-			fclose($socket);
-		}
-
-		/**
-		* Generate necessary hashes for authentication.
-		*
-		* @access  protected
-		* @param   string     Growl password
 		* @return  string
 		*/
 
-		protected function hash($password)
+		protected function hash()
 		{
+			if(empty($this->password))
+			{
+				return '';
+			}
+			
 			$salt = mt_rand(268435456, mt_getrandmax());
 
 			$saltHex   = dechex($salt);
@@ -235,6 +198,57 @@ namespace mako
 			$keyHash = hash($this->hash, $key);
 
 			return strtoupper($this->hash . ':' . $keyHash . '.' . $saltHex);
+		}
+
+		/**
+		* Sends data to the Growl server.
+		*
+		* @access  protected
+		* @param   string     Data to send
+		*/
+
+		protected function send($type, $headers)
+		{
+			$socket = @fsockopen('tcp://' . $this->host, static::PORT, $errNo, $errStr);
+
+			if(!$socket)
+			{
+				throw new RuntimeException(vsprintf("%s: %s.", array(__CLASS__, $errStr)));
+			}
+
+			$data  = trim('GNTP/' . static::PROTOCOL_VERSION . ' ' . $type . ' ' . $this->encryption . ' ' . $this->hash()) . static::CRLF;
+			$data .= 'Application-Name: ' . $this->application . static::CRLF;
+
+			if(!empty($this->icon))
+			{
+				$data .= 'Application-Icon: ' . $this->icon . static::CRLF;
+			}
+
+			$data .= $headers;
+			
+			$data .= 'Origin-Software-Name: Mako Framework' . static::CRLF;
+			$data .= 'Origin-Software-Version: ' . Mako::VERSION . static::CRLF;
+
+			fwrite($socket, $data);
+
+			$response = '';
+
+			while(($line = fgets($socket)) != false)
+			{
+				$response .= $line;
+			}
+
+			fclose($socket);
+
+			// Check if response contains an error.
+
+			if(strpos($response, '-ERROR') !== false)
+			{
+				$error = preg_match('/Error-Description:(.*)/', $response, $matches);
+
+				throw new RuntimeException(vsprintf("%s: %s.", array(__CLASS__, trim($matches[1]))));
+				
+			}
 		}
 
 		/**
@@ -259,8 +273,7 @@ namespace mako
 
 		protected function register()
 		{
-			$headers = 'Notifications-Count: ' . count($this->notifications) . static::CRLF;
-			
+			$headers  = 'Notifications-Count: ' . count($this->notifications) . static::CRLF;
 			$headers .= static::CRLF;
 
 			foreach($this->notifications as $key => $value)
@@ -289,7 +302,7 @@ namespace mako
 		{
 			if(!isset($this->notifications[$notification]))
 			{
-				throw new RuntimeException(__CLASS__ . ": Invalid notification name. '{$notification}' has not been defined in the configuration.");
+				throw new RuntimeException(vsprintf("%s: Invalid notification name. '%s' has not been defined in the configuration.", array(__CLASS__, $notification)));
 			}
 
 			$headers  = 'Notification-Name: ' . UTF8::convert($notification) . static::CRLF;
