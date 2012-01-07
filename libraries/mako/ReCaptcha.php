@@ -66,7 +66,7 @@ namespace mako
 			
 			if($this->config['public_key'] === '' || $this->config['private_key'] === '')
 			{
-				throw new RuntimeException(__CLASS__ . ": No API key defined in the config.");
+				throw new RuntimeException(vsprintf("%s(): An API key is required.", array(__METHOD__)));
 			}
 		}
 

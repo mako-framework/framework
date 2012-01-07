@@ -99,7 +99,7 @@ namespace mako
 				
 				if(isset(static::$config['configurations'][$name]) === false)
 				{
-					throw new RuntimeException(vsprintf("%s: '%s' has not been defined in the database configuration.", array(__CLASS__, $name)));
+					throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the database configuration.", array(__METHOD__, $name)));
 				}
 				
 				static::connect($name);
@@ -137,7 +137,7 @@ namespace mako
 			}
 			catch(PDOException $e)
 			{
-				throw new RuntimeException(vsprintf("%s: Failed to connect to the '%s' database.<br /><br />%s", array(__CLASS__, $name, $e->getMessage())));
+				throw new RuntimeException(vsprintf("%s(): Failed to connect to the '%s' database.<br /><br />%s", array(__METHOD__, $name, $e->getMessage())));
 			}
 
 			// Run queries

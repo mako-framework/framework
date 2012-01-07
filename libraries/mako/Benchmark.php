@@ -51,7 +51,7 @@ namespace mako
 		{
 			if(isset(static::$timers[$name]) === true)
 			{
-				throw new RuntimeException(vsprintf("%s: A timer named '%s' already exists.", array(__CLASS__, $name)));
+				throw new RuntimeException(vsprintf("%s(): A timer named '%s' already exists.", array(__METHOD__, $name)));
 			}
 
 			static::$timers[$name] = array
@@ -74,12 +74,12 @@ namespace mako
 		{
 			if(isset(static::$timers[$name]) === false)
 			{
-				throw new RuntimeException(vsprintf("%s: The '%s' timer has not been started.", array(__CLASS__, $name)));
+				throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been started.", array(__METHOD__, $name)));
 			}
 
 			if(static::$timers[$name]['stop'] !== false)
 			{
-				throw new RuntimeException(vsprintf("%s: The '%s' timer has been stopped.", array(__CLASS__, $name)));
+				throw new RuntimeException(vsprintf("%s(): The '%s' timer has been stopped.", array(__METHOD__, $name)));
 			}
 
 			return round(microtime(true) - static::$timers[$name]['start'], $precision);
@@ -98,12 +98,12 @@ namespace mako
 		{
 			if(isset(static::$timers[$name]) === false)
 			{
-				throw new RuntimeException(vsprintf("%s: The '%s' timer has not been started.", array(__CLASS__, $name)));
+				throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been started.", array(__METHOD__, $name)));
 			}
 
 			if(static::$timers[$name]['stop'] !== false)
 			{
-				throw new RuntimeException(vsprintf("%s: The '%s' timer has already been stopped.", array(__CLASS__, $name)));
+				throw new RuntimeException(vsprintf("%s(): The '%s' timer has already been stopped.", array(__METHOD__, $name)));
 			}
 
 			static::$timers[$name]['stop'] = microtime(true);
@@ -124,12 +124,12 @@ namespace mako
 		{
 			if(isset(static::$timers[$name]) === false)
 			{
-				throw new RuntimeException(vsprintf("%s: The '%s' timer has not been started.", array(__CLASS__, $name)));
+				throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been started.", array(__METHOD__, $name)));
 			}
 
 			if(static::$timers[$name]['stop'] === false)
 			{
-				throw new RuntimeException(vsprintf("%s: The '%s' timer has not been stopped.", array(__CLASS__, $name)));
+				throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been stopped.", array(__METHOD__, $name)));
 			}
 
 			return round(static::$timers[$name]['stop'] - static::$timers[$name]['start'], $precision);

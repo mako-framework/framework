@@ -53,7 +53,7 @@ namespace mako
 
 			if($int < 1 || $int > 3999)
 			{
-				throw new InvalidArgumentException(__CLASS__.": the number must be between 1 and 3999.");
+				throw new InvalidArgumentException(vsprintf("%s(): The number must be between 1 and 3999.", array(__METHOD__)));
 			}
 
 			$numerals = array
@@ -109,7 +109,7 @@ namespace mako
 		{
 			if(empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) === 0)
 			{
-				throw new InvalidArgumentException(__CLASS__.": Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.");
+				throw new InvalidArgumentException(vsprintf("%s(): Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.", array(__METHOD__)));
 			}
 
 			$numerals = array

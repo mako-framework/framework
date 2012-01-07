@@ -110,7 +110,7 @@ namespace mako
 
 			if(isset($config['configurations'][$name]) === false)
 			{
-					throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the prowl configuration.");
+				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the prowl configuration.", array(__METHOD__, $name)));
 			}
 
 			$this->identifier  = mb_substr(UTF8::convert($config['identifier']), 0, 256);
@@ -199,7 +199,7 @@ namespace mako
 		{
 			if(empty($this->providerKey))
 			{
-				throw new RuntimeException(__CLASS__ . ": A provider key is required.");
+				throw new RuntimeException(vsprintf("%s(): A provider key is required.", array(__METHOD__)));
 			}
 
 			$data = array
@@ -231,7 +231,7 @@ namespace mako
 		{
 			if(empty($this->providerKey))
 			{
-				throw new RuntimeException(__CLASS__ . ": A provider key is required.");
+				throw new RuntimeException(vsprintf("%s(): A provider key is required.", array(__METHOD__)));
 			}
 
 			$data = array

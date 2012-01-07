@@ -68,7 +68,7 @@ namespace mako
 
 				if(preg_match('/^[a-z]{2}[_][A-Z]{2}$/', $language) === 0)
 				{
-					throw new RuntimeException(vsprintf("%s: Invalid i18n language name.", array(__CLASS__)));
+					throw new RuntimeException(vsprintf("%s(): Invalid i18n language name.", array(__METHOD__)));
 				}
 
 				if(is_dir(MAKO_APPLICATION.'/i18n/' . $language))
@@ -77,7 +77,7 @@ namespace mako
 				}
 				else
 				{
-					throw new RuntimeException(vsprintf("%s: The '%s' language pack does not exist.", array(__CLASS__, $language)));
+					throw new RuntimeException(vsprintf("%s(): The '%s' language pack does not exist.", array(__METHOD__, $language)));
 				}
 
 				static::$translationTable = array(); // Reset the translation table

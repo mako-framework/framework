@@ -56,7 +56,7 @@ namespace mako
 
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": '{$name}' has not been defined in the redis configuration.");
+				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the redis configuration.", array(__METHOD__, $name)));
 			}
 
 			$this->config = $config['configurations'][$name];
@@ -104,7 +104,7 @@ namespace mako
 
 			if(!$this->connection)
 			{
-				throw new RuntimeException(__CLASS__ . ": {$errStr}.");
+				throw new RuntimeException(vsprintf("%s(): %s", array(__METHOD__, $errStr)));
 			}
 
 			if(!empty($this->config['password']))
@@ -165,7 +165,7 @@ namespace mako
 			switch(substr($response, 0, 1))
 			{
 				case '-': // error message
-					throw new RuntimeException(__CLASS__ . ": " . substr($response, 5) . ".");
+					throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, substr($response, 5))));
 				break;
 				case '+': // single line reply
 					return substr($response, 1);
@@ -205,7 +205,7 @@ namespace mako
 					return $data;
 				break;
 				default:
-					throw new RuntimeException(__CLASS__ . ": Unable to handle server response.");
+					throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", array(__METHOD__)));
 			}
 		}
 	}

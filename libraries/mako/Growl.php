@@ -135,12 +135,12 @@ namespace mako
 
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(vsprintf("%s: '%s' has not been defined in the growl configuration.", array(__CLASS__, $name)));
+				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the growl configuration.", array(__METHOD__, $name)));
 			}
 
 			if(!in_array($config['hash'], $this->hashAlgorithms))
 			{
-				throw new RuntimeException(vsprintf("%s: Unsupported hash algorithm.", array(__CLASS__)));
+				throw new RuntimeException(vsprintf("%s(): Unsupported hash algorithm.", array(__METHOD__)));
 			}
 
 			$this->application   = UTF8::convert($config['application_name']);
@@ -213,7 +213,7 @@ namespace mako
 
 			if(!$socket)
 			{
-				throw new RuntimeException(vsprintf("%s: %s.", array(__CLASS__, $errStr)));
+				throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, $errStr)));
 			}
 
 			$data  = trim('GNTP/' . static::PROTOCOL_VERSION . ' ' . $type . ' ' . $this->encryption . ' ' . $this->hash()) . static::CRLF;
@@ -246,7 +246,7 @@ namespace mako
 			{
 				$error = preg_match('/Error-Description:(.*)/', $response, $matches);
 
-				throw new RuntimeException(vsprintf("%s: %s.", array(__CLASS__, trim($matches[1]))));
+				throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, trim($matches[1]))));
 			}
 		}
 
@@ -301,7 +301,7 @@ namespace mako
 		{
 			if(!isset($this->notifications[$notification]))
 			{
-				throw new RuntimeException(vsprintf("%s: Invalid notification name. '%s' has not been defined in the configuration.", array(__CLASS__, $notification)));
+				throw new RuntimeException(vsprintf("%s(): Invalid notification name. '%s' has not been defined in the configuration.", array(__METHOD__, $notification)));
 			}
 
 			$headers  = 'Notification-Name: ' . UTF8::convert($notification) . static::CRLF;
