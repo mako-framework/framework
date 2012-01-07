@@ -46,7 +46,7 @@ namespace mako\image
 			{	
 				if(function_exists('exec') === false)
 				{
-					throw new RuntimeException(__CLASS__ . ": The 'exec' function has been disabled.");
+					throw new RuntimeException(vsprintf("%s(): The 'exec' function has been disabled.", array(__METHOD__)));
 				}
 
 				$check = true;
@@ -180,7 +180,7 @@ namespace mako\image
 			
 			if(file_exists($file) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": Image file ('{$file}') does not exist.");
+				throw new RuntimeException(vsprintf("%s(): The image file ('%s') does not exist.", array(__METHOD__, $file)));
 			}
 			
 			// Make sure that opacity is between 0 and 100
@@ -273,7 +273,7 @@ namespace mako\image
 
 			if(!is_writable($pathInfo['dirname']))
 			{
-				throw new RuntimeException(__CLASS__ . ": '{$pathInfo['dirname']}' is not writable.");
+				throw new RuntimeException(vsprintf("%s(): '%s' is not writable.", array(__METHOD__, $pathInfo['dirname'])));
 			}
 			
 			// Make sure that quality is between 0 and 100
@@ -292,7 +292,7 @@ namespace mako\image
 			{
 				$error = ($code === 127) ? 'ImageMagick could not be found.' : 'An error occured.';
 
-				throw new RuntimeException(__CLASS__ . ": {$error}");
+				throw new RuntimeException(vsprintf("%s(): %s", array(__METHOD__, $error)));
 			}
 		}
 	}

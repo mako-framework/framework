@@ -47,7 +47,7 @@ namespace mako\image
 			{	
 				if(defined('GD_VERSION') === false || version_compare(GD_VERSION, '2.0.0', '>=') === false)
 				{
-					throw new RuntimeException(__CLASS__ . ": GD 2.0.0 or higher is required.");
+					throw new RuntimeException(vsprintf("%s(): GD 2.0.0 or higher is required.", array(__METHOD__)));
 				}
 
 				$check = true;
@@ -89,7 +89,7 @@ namespace mako\image
 			
 			if($imageInfo === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": Unable to process the image ('{$file}').");
+				throw new RuntimeException(vsprintf("%s(): Unable to process the image ('%s').", array(__METHOD__, $file)));
 			}
 
 			return $imageInfo;
@@ -120,7 +120,7 @@ namespace mako\image
 					return imagecreatefrompng($file);
 				break;
 				default:
-					throw new RuntimeException(__CLASS__ . ": Unable to open '{$pathInfo['extension']}'. Unsupported image type.");
+					throw new RuntimeException(vsprintf("%s(): Unable to open '%s'. Unsupported image type.", array(__METHOD__, $pathInfo['extension'])));
 			}
 		}
 		
@@ -140,7 +140,7 @@ namespace mako\image
 			
 			if(preg_match('/^([a-f0-9]{3}){1,2}$/i', $hex) === 0)
 			{
-				throw new InvalidArgumentException(__CLASS__ . ": Invalid color code.");
+				throw new InvalidArgumentException(vsprintf("%s(): Invalid color code ('%s').", array(__METHOD__, $hex)));
 			}
 			
 			if(strlen($hex) === 3)
@@ -182,7 +182,7 @@ namespace mako\image
 		{
 			if(GD_BUNDLED === 0)
 			{
-				throw new RuntimeException(__CLASS__ . ": This method requires the 'imagerotate' function which is only available in the bundled version of GD.");
+				throw new RuntimeException(vsprintf("%s(): This method required the 'imagerotate' function which is only available in the bundled version of GD.", array(__METHOD__)));
 			}
 			
 			$w = imagesx($this->image);
@@ -376,7 +376,7 @@ namespace mako\image
 
 			if(file_exists($file) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": Image file ('{$file}') does not exist.");
+				throw new RuntimeException(vsprintf("%s(): The image file ('%s') does not exist.", array(__METHOD__, $file)));
 			}
 			
 			$watermark = $this->createImage($file, $this->imageInfo($file));
@@ -392,7 +392,7 @@ namespace mako\image
 			{
 				if(GD_BUNDLED === 0)
 				{
-					throw new RuntimeException(__CLASS__ . ": Setting watermak opacity requires the 'imagelayereffect' function which is only available in the bundled version of GD.");
+					throw new RuntimeException(vsprintf("%s(): Setting watermark opacity required the 'imagelayereffect' function which is only available in the bundled version of GD.", array(__METHOD__)));
 				}
 				
 				// Convert alpha to 0-127
@@ -505,7 +505,7 @@ namespace mako\image
 		{
 			if(GD_BUNDLED === 0)
 			{
-				throw new RuntimeException(__CLASS__ . ": This method requires the 'imagefilter' function which is only available in the bundled version of GD.");
+				throw new RuntimeException(vsprintf("%s(): This method requires the 'imagefilter' function which is only available in the bundled version of GD.", array(__METHOD__)));
 			}
 			
 			$color = $this->createColor($color, 0, true);
@@ -566,7 +566,7 @@ namespace mako\image
 
 			if(!is_writable($pathInfo['dirname']))
 			{
-				throw new RuntimeException(__CLASS__ . ": '{$pathInfo['dirname']}' is not writable.");
+				throw new RuntimeException(vsprintf("%s(): '%s' is not writable.", array(__METHOD__, $pathInfo['dirname'])));
 			}
 			
 			// Make sure that quality is between 0 and 100
@@ -590,7 +590,7 @@ namespace mako\image
 					imagepng($this->image, $file, (9 - (round(($quality / 100) * 9))));
 				break;
 				default:
-					throw new RuntimeException(__CLASS__ . ": Unable to save to '{$pathInfo['extension']}'. Unsupported image type.");
+					throw new RuntimeException(vsprintf("%s(): Unable to save to '%s'. Unsupported image format.", array(__METHOD__, $pathInfo['extension'])));
 			}
 		}
 	}

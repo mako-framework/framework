@@ -44,7 +44,7 @@ namespace mako\image
 			{	
 				if(class_exists('\Imagick', false) === false)
 				{
-					throw new RuntimeException(__CLASS__ . ": Imagick is not available.");
+					throw new RuntimeException(vsprintf("%s(): Imagick is not available.", array(__METHOD__)));
 				}
 
 				$check = true;
@@ -203,7 +203,7 @@ namespace mako\image
 
 			if(file_exists($file) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": Image file ('{$file}') does not exist.");
+				throw new RuntimeException(vsprintf("%s(): The image file ('%s') does not exist.", array(__METHOD__, $file)));
 			}
 			
 			$watermark = new PHP_Imagick($file);
@@ -315,7 +315,7 @@ namespace mako\image
 
 			if(!is_writable($pathInfo['dirname']))
 			{
-				throw new RuntimeException(__CLASS__ . ": '{$pathInfo['dirname']}' is not writable.");
+				throw new RuntimeException(vsprintf("%s(): '%s' is not writable.", array(__METHOD__, $pathInfo['dirname'])));
 			}
 			
 			// Make sure that quality is between 0 and 100
