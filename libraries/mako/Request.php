@@ -346,7 +346,7 @@ namespace mako
 
 			if(mb_substr(realpath($controllerPath), 0, mb_strlen(realpath($controllerRootPath))) !== realpath($controllerRootPath))
 			{
-				throw new RuntimeException(__CLASS__ . ": Directory traversal detected.");
+				throw new RuntimeException(vsprintf("%s(): Directory traversal detected.", array(__METHOD__)));
 			}
 
 			// Check if file exists
@@ -382,7 +382,7 @@ namespace mako
 
 			if($controllerClass->isSubClassOf('\mako\Controller') === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": The controller class needs to be a subclass of mako\Controller.");
+				throw new RuntimeException(vsprintf("%s(): The controller class needs to be a subclass of mako\Controller.", array(__METHOD__)));
 			}
 
 			// Check if class is abstract
@@ -450,7 +450,7 @@ namespace mako
 			}
 			else
 			{
-				throw new BadMethodCallException(__CLASS__ . " Subrequest failed. The requested controller action does not exist.");
+				throw new BadMethodCallException(vsprintf("%s(): Subrequest failed. The requested controller action does not exist.", array(__METHOD__)));
 			}
 		}
 
@@ -472,7 +472,7 @@ namespace mako
 			}
 			else
 			{
-				throw new BadMethodCallException(__CLASS__ . " Subrequest failed. The requested controller action is protected or private.");
+				throw new BadMethodCallException(vsprintf("%s(): Subrequest failed. The requested controller action is protected or private.", array(__METHOD__)));
 			}
 		}
 

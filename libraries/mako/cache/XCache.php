@@ -51,7 +51,7 @@ namespace mako\cache
 			
 			if(function_exists('xcache_get') === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": XCache is not available.");
+				throw new RuntimeException(vsprintf("%s(): XCache is not available.", array(__METHOD__)));
 			}
 		}
 

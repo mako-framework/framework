@@ -61,7 +61,7 @@ namespace mako
 
 			if(file_exists($this->viewFile) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": The '{$view}.php' view file does not exist.");
+				throw new RuntimeException(vsprintf("%s(): The '%s' view does not exist.", array(__METHOD__, $view)));
 			}
 		}
 

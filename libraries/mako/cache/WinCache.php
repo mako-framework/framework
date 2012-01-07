@@ -37,7 +37,7 @@ namespace mako\cache
 			
 			if(function_exists('wincache_ucache_get') === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": WinCache is not available.");
+				throw new RuntimeException(vsprintf("%s(): WinCache is not available.", array(__METHOD__)));
 			}
 		}
 

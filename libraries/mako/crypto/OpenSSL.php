@@ -45,7 +45,7 @@ namespace mako\crypto
 		{
 			if(extension_loaded('openssl') === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": OpenSSL is not available.");
+				throw new RuntimeException(vsprintf("%s(): OpenSSL is not available.", array(__METHOD__)));
 			}
 			
 			$this->key      = $config['key'];

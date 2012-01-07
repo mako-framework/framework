@@ -42,7 +42,7 @@ namespace mako\cache
 			
 			if(class_exists('\Memcached', false) === false)
 			{
-				throw new RuntimeException(__CLASS__.': Memcached is not available.');
+				throw new RuntimeException(vsprintf("%s(): Memcached is not available.", array(__METHOD__)));
 			}
 			
 			$this->memcached = new PHP_Memcached();

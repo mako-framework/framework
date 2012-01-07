@@ -43,7 +43,7 @@ namespace mako\cache
 
 			if(file_exists($this->path) === false || is_readable($this->path) === false || is_writable($this->path) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": Cache directory is not writable.");
+				throw new RuntimeException(vsprintf("%s(): Cache directory ('%s') is not writable.", array(__METHOD__, $this->path)));
 			}
 		}
 

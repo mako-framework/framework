@@ -49,7 +49,7 @@ namespace mako\cache
 			
 			if(extension_loaded('PDO') === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": PDO is not available.");
+				throw new RuntimeException(vsprintf("%s(): PDO is not available.", array(__METHOD__)));
 			}
 
 			try
@@ -71,7 +71,7 @@ namespace mako\cache
 			}
 			catch(PDOException $e)
 			{
-				throw new RuntimeException(__CLASS__ . ": Unable to create cache database.<br /><br />" . $e->getMessage());
+				throw new RuntimeException(vsprintf("%s(): Unable to create cache database.<br /><br />%s", array(__METHOD__, $e->getMessage())));
 			}
 		}
 		

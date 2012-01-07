@@ -57,7 +57,7 @@ namespace mako\crypto
 		{
 			if(extension_loaded('mcrypt') === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": Mcrypt is not available.");
+				throw new RuntimeException(vsprintf("%s(): Mcrypt is not available.", array(__METHOD__)));
 			}
 			
 			$maxSize = mcrypt_get_key_size($config['cipher'], $config['mode']);

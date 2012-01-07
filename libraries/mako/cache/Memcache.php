@@ -48,7 +48,7 @@ namespace mako\cache
 			
 			if(class_exists('\Memcache', false) === false)
 			{
-				throw new RuntimeException(__CLASS__ . ": Memcache is not available.");
+				throw new RuntimeException(vsprintf("%s(): Memcache is not available.", array(__METHOD__)));
 			}
 			
 			$this->memcache = new PHP_Memcache();
