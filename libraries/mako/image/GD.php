@@ -182,7 +182,7 @@ namespace mako\image
 		{
 			if(GD_BUNDLED === 0)
 			{
-				throw new RuntimeException(vsprintf("%s(): This method required the 'imagerotate' function which is only available in the bundled version of GD.", array(__METHOD__)));
+				throw new RuntimeException(vsprintf("%s(): This method requires the 'imagerotate' function which is only available in the bundled version of GD.", array(__METHOD__)));
 			}
 			
 			$w = imagesx($this->image);
@@ -392,7 +392,7 @@ namespace mako\image
 			{
 				if(GD_BUNDLED === 0)
 				{
-					throw new RuntimeException(vsprintf("%s(): Setting watermark opacity required the 'imagelayereffect' function which is only available in the bundled version of GD.", array(__METHOD__)));
+					throw new RuntimeException(vsprintf("%s(): Setting watermark opacity requires the 'imagelayereffect' function which is only available in the bundled version of GD.", array(__METHOD__)));
 				}
 				
 				// Convert alpha to 0-127

@@ -71,7 +71,7 @@ namespace mako\cache
 			}
 			catch(PDOException $e)
 			{
-				throw new RuntimeException(vsprintf("%s(): Unable to create cache database.<br /><br />%s", array(__METHOD__, $e->getMessage())));
+				throw new RuntimeException(vsprintf("%s(): Unable to create cache database. %s", array(__METHOD__, $e->getMessage())));
 			}
 		}
 		

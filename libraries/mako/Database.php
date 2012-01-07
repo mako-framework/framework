@@ -137,7 +137,7 @@ namespace mako
 			}
 			catch(PDOException $e)
 			{
-				throw new RuntimeException(vsprintf("%s(): Failed to connect to the '%s' database.<br /><br />%s", array(__METHOD__, $name, $e->getMessage())));
+				throw new RuntimeException(vsprintf("%s(): Failed to connect to the '%s' database. %s", array(__METHOD__, $name, $e->getMessage())));
 			}
 
 			// Run queries
