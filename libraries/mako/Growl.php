@@ -216,6 +216,8 @@ namespace mako
 				throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, $errStr)));
 			}
 
+			// Build headers and send data to server
+
 			$data  = trim('GNTP/' . static::PROTOCOL_VERSION . ' ' . $type . ' ' . $this->encryption . ' ' . $this->hash()) . static::CRLF;
 			$data .= 'Application-Name: ' . $this->application . static::CRLF;
 
@@ -230,6 +232,8 @@ namespace mako
 			$data .= 'Origin-Software-Version: ' . Mako::VERSION . static::CRLF;
 
 			fwrite($socket, $data);
+
+			// Read response and close socket
 
 			$response = '';
 
