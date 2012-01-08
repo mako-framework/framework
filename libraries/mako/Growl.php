@@ -233,7 +233,7 @@ namespace mako
 
 			$response = '';
 
-			while(($line = fgets($socket)) != false)
+			while(($line = fgets($socket)) !== false)
 			{
 				$response .= $line;
 			}
@@ -244,7 +244,7 @@ namespace mako
 
 			if(strpos($response, '-ERROR') !== false)
 			{
-				$error = preg_match('/Error-Description:(.*)/', $response, $matches);
+				preg_match('/Error-Description:(.*)/', $response, $matches);
 
 				throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, trim($matches[1]))));
 			}
