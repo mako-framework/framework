@@ -1,7 +1,7 @@
 <style type="text/css">
 #mako-error 
 {
-	background:#fff;
+	background:#eee;
 	color:333;
 	width:90%;
 	margin:20px auto;
@@ -11,13 +11,13 @@
 #mako-error pre {font-family:"Andale Mono", "Courier New", Courier;font-size:12px;margin:0px;padding:0px;}
 #mako-error a {color:#cc0a0a;text-decoration:none;}
 #mako-error #error {background:#cc0a0a;padding:10px;color:#fff;font-size:24px;font-weight:bold;}
-#mako-error .body {border:0px solid #ccc;background: #fff;padding:10px;}
+#mako-error .body {border:0px solid #ccc;padding:10px;}
 #mako-error .code {background:#fff;border:1px solid #ccc;overflow:auto;}
 #mako-error .heading {background:#444;padding:10px;color:#fff;font-size:18px;font-weight:bold;}
 #mako-error .highlighted {background:#fceb71;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;}
-#mako-error .backtrace {background:#ededed;padding:10px;margin-bottom:10px;border:1px solid #ccc;}
+#mako-error .backtrace {background:#fff;padding:10px;margin-bottom:10px;border:1px solid #ccc;}
 #mako-error table {border-spacing:0;border-collapse: collapse;border-color: #ddd;border-width: 0 0 1px 1px;border-style: solid;}
-#mako-error td {font-size:14px;background:#f1f1f1;border-color: #ddd;border-width: 1px 1px 0 0;border-style: solid;margin: 0;padding: 4px;}
+#mako-error td {font-size:14px;background:#fff;border-color: #ddd;border-width: 1px 1px 0 0;border-style: solid;margin: 0;padding: 4px;}
 </style>
 
 <div id="mako-error">
