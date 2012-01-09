@@ -213,6 +213,23 @@ namespace mako
 		}
 
 		/**
+		* Increments a string by appending a number to it or increasing the number.
+		*
+		* @access  public
+		* @param   string  String to increment
+		* @param   int     Starting number
+		* @param   string  Separator
+		* @return  string
+		*/
+
+		public static function increment($string, $start = 1, $separator = '_')
+		{
+			preg_match('/(.+)' . preg_quote($separator) . '([0-9]+)$/', $string, $matches);
+
+			return isset($matches[2]) ? $matches[1] . $separator . ((int) $matches[2] + 1) : $string . $separator . $start;
+		}
+
+		/**
 		* Returns a random string of the selected type and length.
 		*
 		* @param   string  Character pool to use
