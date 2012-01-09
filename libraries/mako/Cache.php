@@ -20,12 +20,6 @@ namespace mako
 		//---------------------------------------------
 		
 		/**
-		* Holds the configuration.
-		*/
-
-		protected static $config;
-		
-		/**
 		* Holds all the cache objects.
 		*/
 		
@@ -65,21 +59,18 @@ namespace mako
 			}
 			else
 			{
-				if(empty(static::$config))
-				{
-					static::$config = Mako::config('cache');
-				}
+				$config = Mako::config('cache');
 				
-				$name = ($name === null) ? static::$config['default'] : $name;
+				$name = ($name === null) ? $config['default'] : $name;
 				
-				if(isset(static::$config['configurations'][$name]) === false)
+				if(isset($config['configurations'][$name]) === false)
 				{
 					throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the cache configuration.", array(__METHOD__, $name)));
 				}
 				
-				$class = '\mako\cache\\' . static::$config['configurations'][$name]['type'];
+				$class = '\mako\cache\\' . $config['configurations'][$name]['type'];
 				
-				static::$instances[$name] = new $class(static::$config['configurations'][$name]);
+				static::$instances[$name] = new $class($config['configurations'][$name]);
 				
 				return static::$instances[$name];
 			}

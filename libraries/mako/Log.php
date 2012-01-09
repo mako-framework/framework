@@ -68,12 +68,6 @@ namespace mako
 		const DEBUG = 8;
 		
 		/**
-		* Holds the configuration.
-		*/
-
-		protected static $config;
-		
-		/**
 		* Holds all the logger objects.
 		*/
 		
@@ -113,21 +107,18 @@ namespace mako
 			}
 			else
 			{
-				if(empty(static::$config))
-				{
-					static::$config = Mako::config('log');
-				}
+				$config = Mako::config('log');
 				
-				$name = ($name === null) ? static::$config['default'] : $name;
+				$name = ($name === null) ? $config['default'] : $name;
 				
-				if(isset(static::$config['configurations'][$name]) === false)
+				if(isset($config['configurations'][$name]) === false)
 				{
 					throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the log configuration.", array(__METHOD__, $name)));
 				}
 				
-				$class = '\mako\log\\' . static::$config['configurations'][$name]['type'];
+				$class = '\mako\log\\' . $config['configurations'][$name]['type'];
 				
-				static::$instances[$name] = new $class(static::$config['configurations'][$name]);
+				static::$instances[$name] = new $class($config['configurations'][$name]);
 				
 				return static::$instances[$name];
 			}
