@@ -186,7 +186,7 @@ namespace mako
 					}
 				break;
 				case '*': // multi-bulk reply
-					if($response === '*-1' || $response === '*0')
+					if($response === '*-1')
 					{
 						return null;
 					}
