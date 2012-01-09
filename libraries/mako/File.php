@@ -235,6 +235,88 @@ namespace mako
 
 			exit();
 		}
+
+		/**
+		* Splits a file into multiple pieces.
+		*
+		* @access  public
+		* @param   string  Full path to file
+		* @param   int     (optional) Piece size in MiB
+		*/
+
+		public static function split($file, $size = 10)
+		{
+			if(file_exists($file) === false || is_readable($file) === false)
+			{
+				throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
+			}
+
+			$read = 0; // Number of bytes read
+
+			$piece = 1; // Current piece
+
+			$length = 1024 * 8; // Number of bytes to read
+
+			$size = floor($size * 1024 * 1024); // Max size of each piece
+
+			$handle = fopen($file, 'rb');
+
+			while(!feof($handle))
+			{
+				$data = fread($handle, $length);
+
+				if(strlen($data) === 0)
+				{
+					break; // Prevents empty files
+				}
+
+				file_put_contents($file . '.' . str_pad($piece, 4, '0', STR_PAD_LEFT), $data, FILE_APPEND);
+
+				$read += $length;
+
+				if($read >= $size)
+				{
+					$piece++;
+
+					$read = 0;
+				}
+			}
+
+			fclose($handle);
+		}
+
+		/**
+		* Merge files that have been split using the File::split method.
+		*
+		* @access  public
+		* @param   string  Full path to file
+		*/
+
+		public static function merge($file)
+		{
+			if(file_exists($file . '.0001') === false || is_readable($file . '.0001') === false)
+			{
+				throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
+			}
+
+			$piece = 1; // Current piece
+			
+			$length = 1024 * 8; // Number of bytes to read
+
+			while(is_file($file . '.' . str_pad($piece, 4, '0', STR_PAD_LEFT)))
+			{
+				$handle = fopen($file . '.' . str_pad($piece, 4, '0', STR_PAD_LEFT), 'rb');
+
+				while(!feof($handle))
+				{
+					file_put_contents($file, fread($handle, $length), FILE_APPEND);
+				}
+
+				fclose($handle);
+
+				$piece++;
+			}
+		}
 	}
 }
 
