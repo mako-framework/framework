@@ -122,6 +122,51 @@ namespace mako
 		}
 
 		/**
+		* Display a file in the browser.
+		*
+		* @access  public
+		* @param   string  Full path to file
+		* @param   string  (optional) Content type of the file
+		* @param   string  (optional) Filename of the download
+		*/
+
+		public static function display($file, $contentType = null, $filename = null)
+		{
+			// Check that the file exists and that its readable
+
+			if(file_exists($file) === false || is_readable($file) === false)
+			{
+				throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
+			}
+
+			// Empty output buffers
+
+			while(ob_get_level() > 0) ob_end_clean();
+
+			// Send headers
+			
+			if($contentType === null)
+			{
+				$contentType = static::mime($file);
+			}
+
+			if($filename === null)
+			{
+				$filename = basename($file);
+			}
+
+			header('Content-type: ' . $contentType);
+			header('Content-Disposition: inline; filename="' . $filename . '"');
+			header('Content-Length: ' . filesize($file));
+
+			// Read file and write to output
+
+			readfile($file);
+
+			exit();
+		}
+
+		/**
 		* Forces a file to be downloaded.
 		*
 		* @access  public
