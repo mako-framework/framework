@@ -74,7 +74,6 @@ Backtrace <a href="#" onclick="return toggle('backtrace', this);" style="float:r
 </div>
 <?php endif; ?>
 
-<br />
 <div class="heading">
 Superglobals <a href="#" onclick="return toggle('superglobals', this);" style="float:right">+</a>
 </div>
@@ -179,7 +178,6 @@ Superglobals <a href="#" onclick="return toggle('superglobals', this);" style="f
 <?php endif; ?>
 </div>
 
-<br />
 <div class="heading">
 Included Files <a href="#" onclick="return toggle('files', this);" style="float:right">+</a>
 </div>
