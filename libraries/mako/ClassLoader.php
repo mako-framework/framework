@@ -114,15 +114,15 @@ namespace mako
 			$fileName = MAKO_APPLICATION_PATH . '/' . str_replace('\\', '/', mb_strtolower($className)) . '.php';
 
 			if(file_exists($fileName))
-            {
-                include $fileName;
-                        
-                return true;
-            }
+			{
+				include $fileName;
 
-            // Try to load class from a PSR-0 compatible library
+				return true;
+			}
 
-            $className = ltrim($className, '\\');
+			// Try to load class from a PSR-0 compatible library
+
+			$className = ltrim($className, '\\');
 
 			$fileName  = '';
 			$namespace = '';
