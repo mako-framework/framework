@@ -14,9 +14,7 @@ namespace mako
 	* @copyright  (c) 2008-2012 Frederic G. Østby
 	* @license    http://www.makoframework.com/license
 	*/
-
-	if(!Request::isCli()) { throw new RuntimeException('The CLI class can only be used when Mako is executed from the command-line interface.'); }
-
+	
 	class CLI
 	{
 		//---------------------------------------------
