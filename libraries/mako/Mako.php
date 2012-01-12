@@ -228,6 +228,13 @@ namespace mako
 			// Set locale
 			
 			static::locale(static::$config['mako']['locale']['locales'], static::$config['mako']['locale']['lc_numeric']);
+
+			// Initialize bundles
+
+			foreach(static::$config['mako']['bundles'] as $bundle)
+			{
+				static::bundle($bundle);
+			}
 		}
 		
 		/**
@@ -352,6 +359,22 @@ namespace mako
 			}
 				
 			return static::$config[$file];
+		}
+
+		/**
+		*
+		*/
+
+		public static function bundle($bundle)
+		{
+			$file = MAKO_BUNDLES . '/' . $bundle . '/init.php';
+
+			if(file_exists($file))
+			{
+				return include $file;
+			}
+
+			throw new RuntimeException(vsprintf("%s(): Unable to initialize the '%s' bundle. Make sure that it has been installed.", array(__METHOD__, $bundle)));
 		}
 		
 		/**

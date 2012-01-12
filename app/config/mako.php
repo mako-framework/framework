@@ -38,6 +38,15 @@ return array
 	*/
 	
 	'timezone' => 'UTC',
+
+	/**
+	* Bundles to initialize by default.
+	*/
+
+	'bundles' => array
+	(
+		
+	),
 	
 	/**
 	* Error handler settings.
