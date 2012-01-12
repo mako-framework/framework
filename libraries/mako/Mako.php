@@ -131,7 +131,6 @@ namespace mako
 				'mako\Curl'              => MAKO_LIBRARIES_PATH . '/mako/Curl.php',
 				'mako\Database'          => MAKO_LIBRARIES_PATH . '/mako/Database.php',
 				'mako\DateTime'          => MAKO_LIBRARIES_PATH . '/mako/DateTime.php',
-				//'mako\Gravatar'          => MAKO_LIBRARIES_PATH . '/mako/Gravatar.php',
 				'mako\Growl'             => MAKO_LIBRARIES_PATH . '/mako/Growl.php',
 				'mako\I18n'              => MAKO_LIBRARIES_PATH . '/mako/I18n.php',
 				'mako\Image'             => MAKO_LIBRARIES_PATH . '/mako/Image.php',
