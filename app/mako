@@ -146,9 +146,9 @@ class CliTool
 	public static function help()
 	{
 		CLI::stdout('Mako CLI Tool', 'white', 'blue');
-		CLI::stdout('');
+		CLI::stdout();
 		CLI::stdout('Valid commands are:');
-		CLI::stdout('');
+		CLI::stdout();
 		CLI::stdout('php mako help');
 		CLI::stdout('php mako bundle install <bundle_name>');
 		CLI::stdout('php mako bundle remove <bundle_name>');
@@ -166,7 +166,7 @@ class CliTool
 	}
 }
 
-CLI::stdout('');
+CLI::stdout();
 
 CliTool::$action();
 
