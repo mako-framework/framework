@@ -1,0 +1,162 @@
+<?php
+
+namespace mako;
+
+//------------------------------------------------------------------------------------------
+// START OF USER CONFIGURABLE SECTION
+//------------------------------------------------------------------------------------------
+
+/**
+* Define the path to the libraries directory (without trailing slash).
+*/
+
+define('MAKO_LIBRARIES_PATH', realpath('../../mako/libraries'));
+
+//------------------------------------------------------------------------------------------
+// END OF USER CONFIGURABLE SECTION
+//------------------------------------------------------------------------------------------
+
+define('MAKO_INTERNAL_CACHE', false);
+define('MAKO_APPLICATION_PATH', dirname(__DIR__));
+define('MAKO_APPLICATION_NAME', basename(__DIR__));
+
+require MAKO_LIBRARIES_PATH . '/mako/Mako.php';
+
+Mako::init();
+
+use \mako\CLI;
+
+$action = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 'help';
+
+class CliTool
+{
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
+	/**
+	* API server
+	*/
+
+	const API = 'http://bundles.makoframework.com/get/';
+
+	/**
+	* Install command for linux/unix
+	*/
+	
+	const INSTALL = 'git clone --depth 1 git://github.com/%1$s.git %2$s/%3$s/ && rm -rf %2$s/%3$s/.git';
+
+	/**
+	* Remove command for linux/unix
+	*/
+
+	const REMOVE = 'rm -rfv %s/%s';
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+
+	/**
+	* Handles bundle commands.
+	*
+	* @access  public
+	*/
+
+	public static function bundle()
+	{
+		if(!isset($_SERVER['argv'][2], $_SERVER['argv'][3]) || !in_array($_SERVER['argv'][2], array('install', 'i', 'remove', 'r')))
+		{
+			static::help();
+		}
+
+		switch($_SERVER['argv'][2])
+		{
+			case 'install':
+			case 'i':
+				foreach(array_slice($_SERVER['argv'], 3) as $bundle)
+				{
+					static::install($bundle);
+				}
+				
+			break;
+			case 'remove':
+			case 'r':
+				static::remove($_SERVER['argv'][3]);
+			break;
+		}
+	}
+
+	/**
+	* Installs a bundle.
+	*
+	* @access  public
+	* @param   string  Bundle name
+	*/
+
+	protected static function install($bundle)
+	{
+		$response = array('repo' => 'mako-framework/recaptcha', 'name' => 'recaptcha'); // Dummy response
+
+		if(is_dir(MAKO_BUNDLES . '/' . $bundle))
+		{
+			CLI::stderr('The ' . $bundle . ' bundle has already been installed');
+		}
+		else
+		{
+			passthru(sprintf(static::INSTALL, $response['repo'], MAKO_BUNDLES, $response['name']));
+		}
+	}
+
+	/**
+	* Removes a bundle.
+	*
+	* @access  public
+	* @param   string  Bundle name
+	*/
+
+	protected static function remove($bundle)
+	{
+		if(!is_dir(MAKO_BUNDLES . '/' . $bundle))
+		{
+			CLI::stderr('The ' . $bundle . ' bundle is not installed');
+		}
+		else
+		{
+			 passthru(sprintf(static::REMOVE, MAKO_BUNDLES, $bundle));
+		}
+	}
+
+	/**
+	* Displays help.
+	*
+	* @access  public
+	*/
+
+	public static function help()
+	{
+		CLI::stdout('Mako CLI Tool', 'white', 'blue');
+		CLI::stdout('');
+		CLI::stdout('Valid commands are:');
+		CLI::stdout('');
+		CLI::stdout('php mako help');
+		CLI::stdout('php mako bundle install <bundle_name>');
+		CLI::stdout('php mako bundle remove <bundle_name>');
+	}
+
+	/**
+	* Handles all unknown commands.
+	*
+	* @access  public
+	*/
+
+	public static function __callStatic($name, $arguments)
+	{
+		static::help();
+	}
+}
+
+CLI::stdout('');
+
+CliTool::$action();
+
+echo "\n";

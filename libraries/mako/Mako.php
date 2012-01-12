@@ -688,7 +688,7 @@ namespace mako
 					$error['backtrace']   = static::formatBacktrace($error['backtrace']);
 					$error['highlighted'] = static::highlightCode($error['file'], $error['line']);
 
-					if(Request::isCli())
+					if(PHP_SAPI === 'cli')
 					{
 						if(empty($error['file']))
 						{
@@ -706,7 +706,7 @@ namespace mako
 				}
 				else
 				{
-					if(Request::isCli())
+					if(PHP_SAPI === 'cli')
 					{
 						fwrite(STDERR, "An error has occured." . PHP_EOL);
 					}
