@@ -81,7 +81,10 @@ class CliTool
 			break;
 			case 'remove':
 			case 'r':
-				static::remove($_SERVER['argv'][3]);
+				foreach(array_slice($_SERVER['argv'], 3) as $bundle)
+				{
+					static::remove($bundle);
+				}
 			break;
 		}
 	}
