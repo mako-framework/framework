@@ -165,13 +165,13 @@ namespace mako
 				'mako\View'              => MAKO_LIBRARIES_PATH . '/mako/View.php',
 			));
 
-			// Include bootstrap file
-			
-			require MAKO_APPLICATION . '/bootstrap.php';
-
 			// Set up autoloader
 			
 			spl_autoload_register('\mako\ClassLoader::autoLoad');
+
+			// Include bootstrap file
+			
+			require MAKO_APPLICATION . '/bootstrap.php';
 			
 			// Load config
 			
@@ -190,7 +190,7 @@ namespace mako
 				static::config('mako');	
 			}
 
-			// Setup class aliases
+			// Setup class alias to maintain backwards compability
 
 			class_alias('\mako\Mako', 'Mako');
 			
@@ -322,26 +322,36 @@ namespace mako
 		* @return  array
 		*/
 		
-		public static function config($group)
+		public static function config($file)
 		{
-			if(isset(static::$config[$group]) === false)
+			if(isset(static::$config[$file]) === false)
 			{
-				$file = MAKO_APPLICATION . '/config/' . $group . '.php';
-					
-				if(file_exists($file) === false)
+				if(strrpos($file, '::') !== false)
 				{
-					throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $group)));
+					list($bundle, $file) = explode('::', $file);
+
+					$path = MAKO_BUNDLES . '/' . $bundle . '/config/' . $file . '.php';
+				}
+				else
+				{
+					$path = MAKO_APPLICATION . '/config/' . $file . '.php';
+				}
+				
+					
+				if(file_exists($path) === false)
+				{
+					throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $file)));
 				}	
 
-				static::$config[$group] = new ArrayObject(include($file), ArrayObject::ARRAY_AS_PROPS);
+				static::$config[$file] = new ArrayObject(include($path), ArrayObject::ARRAY_AS_PROPS);
 					
-				if($group !== 'cache')
+				if($file !== 'cache')
 				{
 					static::$updateCache = true;
 				}
 			}
 				
-			return static::$config[$group];
+			return static::$config[$file];
 		}
 		
 		/**

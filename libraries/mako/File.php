@@ -107,7 +107,7 @@ namespace mako
 
 					if(empty($mimeTypes))
 					{
-						$mimeTypes = Mako::config('file/mime_types');
+						$mimeTypes = Mako::config('mimes');
 					}
 
 					$extension = pathinfo($file, PATHINFO_EXTENSION);
