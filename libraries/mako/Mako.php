@@ -153,7 +153,6 @@ namespace mako
 				'mako\Num'               => MAKO_LIBRARIES_PATH . '/mako/Num.php',
 				'mako\Pagination'        => MAKO_LIBRARIES_PATH . '/mako/Pagination.php',
 				'mako\Prowl'             => MAKO_LIBRARIES_PATH . '/mako/Prowl.php',
-				//'mako\ReCaptcha'         => MAKO_LIBRARIES_PATH . '/mako/ReCaptcha.php',
 				'mako\Redis'             => MAKO_LIBRARIES_PATH . '/mako/Redis.php',
 				'mako\Request'           => MAKO_LIBRARIES_PATH . '/mako/Request.php',
 				'mako\Response'          => MAKO_LIBRARIES_PATH . '/mako/Response.php',
