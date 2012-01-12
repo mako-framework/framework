@@ -362,7 +362,10 @@ namespace mako
 		}
 
 		/**
+		* Initialize bundle.
 		*
+		* @access  public
+		* @param   string  Budle name
 		*/
 
 		public static function bundle($bundle)
