@@ -193,12 +193,12 @@ namespace mako
 		* Print message to STDOUT.
 		*
 		* @access  public
-		* @param   string  Message to print
+		* @param   string  (optional) Message to print
 		* @param   string  (optional) Text color
 		* @param   string  (optional) Background color
 		*/
 
-		public static function stdout($message, $textColor = null, $backgroundColor = null)
+		public static function stdout($message = '', $textColor = null, $backgroundColor = null)
 		{
 			fwrite(STDOUT, static::color($message, $textColor, $backgroundColor) . PHP_EOL);
 		}
