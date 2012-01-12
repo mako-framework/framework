@@ -14,6 +14,10 @@ namespace mako
 	use \RuntimeException;
 	use \ArrayObject;
 
+	// Setup class alias to maintain backwards compability
+
+	class_alias('\mako\Mako', 'Mako');
+
 	/**
 	* Class containing core methods that are used throughout the framework.
 	*
@@ -127,8 +131,8 @@ namespace mako
 				'mako\Curl'              => MAKO_LIBRARIES_PATH . '/mako/Curl.php',
 				'mako\Database'          => MAKO_LIBRARIES_PATH . '/mako/Database.php',
 				'mako\DateTime'          => MAKO_LIBRARIES_PATH . '/mako/DateTime.php',
-				//'mako\Gravatar'          => MAKO_LIBRARIES_PATH . '/mako/File.php',
-				'mako\Growl'             => MAKO_LIBRARIES_PATH . '/mako/Gravatar.php',
+				//'mako\Gravatar'          => MAKO_LIBRARIES_PATH . '/mako/Gravatar.php',
+				'mako\Growl'             => MAKO_LIBRARIES_PATH . '/mako/Growl.php',
 				'mako\I18n'              => MAKO_LIBRARIES_PATH . '/mako/I18n.php',
 				'mako\Image'             => MAKO_LIBRARIES_PATH . '/mako/Image.php',
 				'mako\image\Adapter'     => MAKO_LIBRARIES_PATH . '/mako/image/Adapter.php',
@@ -189,10 +193,6 @@ namespace mako
 			{
 				static::config('mako');	
 			}
-
-			// Setup class alias to maintain backwards compability
-
-			class_alias('\mako\Mako', 'Mako');
 			
 			// Setup error handling
 			
