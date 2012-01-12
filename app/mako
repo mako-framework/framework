@@ -95,7 +95,7 @@ class CliTool
 
 	protected static function install($bundle)
 	{
-		$response = array('repo' => 'mako-framework/recaptcha', 'name' => 'recaptcha'); // Dummy response
+		$response = array('repo' => 'mako-framework/recaptcha', 'name' => 'recaptcha', 'requires' => '1.6.0'); // Dummy response
 
 		if(is_dir(MAKO_BUNDLES . '/' . $bundle))
 		{
@@ -103,6 +103,11 @@ class CliTool
 		}
 		else
 		{
+			if(version_compare(Mako::VERSION, $response['requires']) === -1)
+			{
+				return CLI::stderr('The ' . $bundle . ' bundle requires Mako Framework ' . $response['requires'] . ' or greater. You have version ' . Mako::VERSION);
+			}
+
 			passthru(sprintf(static::INSTALL, $response['repo'], MAKO_BUNDLES, $response['name']));
 		}
 	}
