@@ -136,8 +136,6 @@ namespace mako
 
 			$fileName .= str_replace('_', '/', $className) . '.php';
 
-			// Try to load library class
-
 			if(file_exists(MAKO_LIBRARIES_PATH . '/' . $fileName))
 			{
 				include(MAKO_LIBRARIES_PATH . '/' . $fileName);
