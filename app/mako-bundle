@@ -86,7 +86,7 @@ class BundleInstaller
 		
 		if(($response = @file_get_contents(static::API . $bundle)) === false)
 		{
-			return fwrite(STDERR, 'Unable to contact server');
+			return fwrite(STDERR, 'No response from server');
 		}
 			
 		$response = json_decode($response);
