@@ -1,0 +1,211 @@
+<?php
+
+/**
+* Command line installer for Mako Framework bundles.
+*/
+
+define(BUNDLES, __DIR__ . '/bundles');
+
+class BundleInstaller
+{
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
+	/**
+	* API server
+	*/
+
+	const API = 'http://bundles.makoframework.com/get/';
+
+	/**
+	* Install command for linux/unix
+	*/
+	
+	const INSTALL_X = 'git clone --depth 1 git://github.com/%1$s.git %2$s/%3$s/ && rm -rf %2$s/%3$s/.git';
+
+	/**
+	* Install command for windows
+	*/
+	
+	const INSTALL_W = 'git clone --depth 1 git://github.com/%1$s.git %2$s/%3$s/ && rmdir /s /q %2$s/%3$s/.git';
+
+	/**
+	* Remove command for linux/unix
+	*/
+
+	const REMOVE_X = 'rm -rfv %s/%s';
+
+	/**
+	* Remove command for windows
+	*/
+
+	const REMOVE_W = 'rmdir /s /q %s/%s';
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+
+	/**
+	* Installs bundle(s).
+	*
+	* @access  public
+	*/
+
+	public static function install()
+	{
+		// Check if required arguments are used
+
+		if(!isset($_SERVER['argv'][2]))
+		{
+			return static::help();
+		}
+
+		// Install bundles
+
+		foreach(array_slice($_SERVER['argv'], 2) as $bundle)
+		{
+			static::_install($bundle);
+		}
+	}
+
+	/**
+	* Installs a bundle.
+	*
+	* @access  protected
+	* @param   string     Bundle name
+	* @param   boolean    (optional) Silent install?
+	*/
+
+	protected static function _install($bundle, $silent = false)
+	{
+		if(is_dir(BUNDLES . '/' . $bundle))
+		{
+			return ($silent) ? null : fwrite(STDERR, 'The ' . $bundle . ' bundle has already been installed' . PHP_EOL);
+		}
+		
+		if(($response = @file_get_contents(static::API . $bundle)) === false)
+		{
+			return fwrite(STDERR, 'Unable to contact server');
+		}
+			
+		$response = json_decode($response);
+
+		if($response->status !== 'ok')
+		{
+			return fwrite(STDERR, 'The ' . $bundle . ' bundle does not exist' . PHP_EOL);
+		}
+
+		foreach($response->bundle->dependencies as $dep)
+		{
+				static::_install($dep, true);
+		}
+
+		passthru(sprintf((DIRECTORY_SEPARATOR == '\\') ? static::INSTALL_W : static::INSTALL_X, $response->bundle->repo, BUNDLES, $response->bundle->name));
+
+		@file_put_contents(BUNDLES . '/' . $bundle . '/bundle.json', json_encode($response->bundle));
+	}
+
+	/**
+	* Removes bundle(s)
+	*
+	* @access  public
+	*/
+
+	public static function remove()
+	{
+		// Check if required arguments are used
+
+		if(!isset($_SERVER['argv'][2]))
+		{
+			return static::help();
+		}
+
+		// Remove bundle(s)
+
+		if(static::confirm('Are you sure you want to remove the ['. trim(implode(', ', array_slice($_SERVER['argv'], 2))) . '] bundle(s)?'))
+		{
+			foreach(array_slice($_SERVER['argv'], 2) as $bundle)
+			{
+				static::_remove($bundle);
+			}
+		}
+	}
+		
+
+	/**
+	* Removes a bundle.
+	*
+	* @access  public
+	* @param   string  Bundle name
+	*/
+
+	protected static function _remove($bundle)
+	{
+		if(!is_dir(BUNDLES . '/' . $bundle))
+		{
+			return fwrite(STDERR, 'The ' . $bundle . ' bundle is not installed' . PHP_EOL);
+		}
+		
+		passthru(sprintf((DIRECTORY_SEPARATOR == '\\') ? static::REMOVE_W : static::REMOVE_X, BUNDLES, $bundle));
+	}
+
+	/**
+	* Displays a confirm dialog.
+	*
+	* @access  protected
+	* @param   string     Question
+	* @return  boolean
+	*/
+
+	protected static function confirm($message)
+	{
+		fwrite(STDOUT, $message . ' [Y/N]: ');
+
+		switch(strtoupper(trim(fgets(STDIN))))
+		{
+			case 'Y':
+				return true;
+			break;
+			case 'N':
+				return false;
+			break;
+			default:
+				return static::confirm($message);
+		}
+	}
+
+	/**
+	* Displays help.
+	*
+	* @access  public
+	*/
+
+	public static function help()
+	{
+		fwrite(STDOUT, "Mako Framework bundle installer" . PHP_EOL . PHP_EOL);
+		fwrite(STDOUT, "Valid commands are:" . PHP_EOL . PHP_EOL);
+		fwrite(STDOUT, "php mako help" . PHP_EOL);
+		fwrite(STDOUT, "php mako bundle install <bundle_name>" . PHP_EOL);
+		fwrite(STDOUT, "php mako bundle remove <bundle_name>" . PHP_EOL);
+	}
+
+	/**
+	* Handles all unknown commands.
+	*
+	* @access  public
+	*/
+
+	public static function __callStatic($name, $arguments)
+	{
+		static::help();
+	}
+}
+
+$action = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 'help';
+
+fwrite(STDOUT, PHP_EOL);
+
+BundleInstaller::$action();
+
+fwrite(STDOUT, PHP_EOL);
