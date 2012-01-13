@@ -57,8 +57,17 @@ namespace mako
 
 		public function __construct($view)
 		{
-			$this->viewFile = MAKO_APPLICATION . '/views/' . $view . '.php';
+			if(strrpos($view, '::') !== false)
+			{
+				list($bundle, $view) = explode('::', $view);
 
+				$this->viewFile = MAKO_BUNDLES . '/' . $bundle . '/views/' . $file . '.php';
+			}
+			else
+			{
+				$this->viewFile = MAKO_APPLICATION . '/views/' . $view . '.php';
+			}
+			
 			if(file_exists($this->viewFile) === false)
 			{
 				throw new RuntimeException(vsprintf("%s(): The '%s' view does not exist.", array(__METHOD__, $view)));
