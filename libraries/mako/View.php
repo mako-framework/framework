@@ -61,7 +61,7 @@ namespace mako
 			{
 				list($bundle, $view) = explode('::', $view);
 
-				$this->viewFile = MAKO_BUNDLES . '/' . $bundle . '/views/' . $file . '.php';
+				$this->viewFile = MAKO_BUNDLES . '/' . $bundle . '/views/' . $view . '.php';
 			}
 			else
 			{
