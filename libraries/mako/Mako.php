@@ -449,8 +449,8 @@ namespace mako
 
 			$highlight = function($string)
 			{
-				$search  = array("\t", "\n", '<code>', '</code>', '<span style="color: #0000BB">&lt;?php&nbsp;');
-				$replace = array('    ', '', '', '', '<span style="color: #0000BB">');
+				$search  = array("\n", '<code>', '</code>', '<span style="color: #0000BB">&lt;?php&nbsp;');
+				$replace = array('', '', '', '<span style="color: #0000BB">');
 
 				return str_replace($search, $replace, highlight_string('<?php ' . $string, true));	
 			};
