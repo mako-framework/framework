@@ -4,7 +4,7 @@
 * Command line installer for Mako Framework bundles.
 */
 
-define(BUNDLES, __DIR__ . '/bundles');
+define(BUNDLES, __DIR__ . DIRECTORY_SEPARATOR . 'bundles');
 
 class BundleInstaller
 {
@@ -28,7 +28,7 @@ class BundleInstaller
 	* Install command for windows
 	*/
 	
-	const INSTALL_W = 'git clone --depth 1 git://github.com/%1$s.git %2$s/%3$s/ && rmdir /s /q %2$s/%3$s/.git';
+	const INSTALL_W = 'git clone --depth 1 git://github.com/%1$s.git %2$s\%3$s\ && rmdir /s /q %2$s\%3$s\.git';
 
 	/**
 	* Remove command for linux/unix
@@ -40,7 +40,7 @@ class BundleInstaller
 	* Remove command for windows
 	*/
 
-	const REMOVE_W = 'rmdir /s /q %s/%s';
+	const REMOVE_W = 'rmdir /s /q %s\%s';
 
 	//---------------------------------------------
 	// Class methods
@@ -79,7 +79,7 @@ class BundleInstaller
 
 	protected static function _install($bundle, $silent = false)
 	{
-		if(is_dir(BUNDLES . '/' . $bundle))
+		if(is_dir(BUNDLES . DIRECTORY_SEPARATOR . $bundle))
 		{
 			return ($silent) ? null : fwrite(STDERR, 'The ' . $bundle . ' bundle has already been installed' . PHP_EOL);
 		}
@@ -103,7 +103,7 @@ class BundleInstaller
 
 		passthru(sprintf((DIRECTORY_SEPARATOR == '\\') ? static::INSTALL_W : static::INSTALL_X, $response->bundle->repo, BUNDLES, $response->bundle->name));
 
-		@file_put_contents(BUNDLES . '/' . $bundle . '/bundle.json', json_encode($response->bundle));
+		@file_put_contents(BUNDLES . DIRECTORY_SEPARATOR . $bundle . DIRECTORY_SEPARATOR . 'bundle.json', json_encode($response->bundle));
 	}
 
 	/**
@@ -142,7 +142,7 @@ class BundleInstaller
 
 	protected static function _remove($bundle)
 	{
-		if(!is_dir(BUNDLES . '/' . $bundle))
+		if(!is_dir(BUNDLES . DIRECTORY_SEPARATOR . $bundle))
 		{
 			return fwrite(STDERR, 'The ' . $bundle . ' bundle is not installed' . PHP_EOL);
 		}
