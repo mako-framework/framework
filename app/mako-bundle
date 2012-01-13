@@ -185,9 +185,9 @@ class BundleInstaller
 	{
 		fwrite(STDOUT, "Mako Framework bundle installer" . PHP_EOL . PHP_EOL);
 		fwrite(STDOUT, "Valid commands are:" . PHP_EOL . PHP_EOL);
-		fwrite(STDOUT, "php mako help" . PHP_EOL);
-		fwrite(STDOUT, "php mako bundle install <bundle_name>" . PHP_EOL);
-		fwrite(STDOUT, "php mako bundle remove <bundle_name>" . PHP_EOL);
+		fwrite(STDOUT, "php mako-bundle help" . PHP_EOL);
+		fwrite(STDOUT, "php mako-bundle install <bundle_name>" . PHP_EOL);
+		fwrite(STDOUT, "php mako-bundle remove <bundle_name>" . PHP_EOL);
 	}
 
 	/**

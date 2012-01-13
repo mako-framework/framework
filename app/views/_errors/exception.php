@@ -14,6 +14,7 @@
 #mako-error .body {border:0px solid #ccc;padding:10px;}
 #mako-error .code {background:#fff;border:1px solid #ccc;overflow:auto;}
 #mako-error .heading {background:#444;padding:10px;color:#fff;font-size:18px;font-weight:bold;}
+#mako-error .line {background:#777;color:#fff;padding-left:4px;padding-right:4px;}
 #mako-error .highlighted {background:#fceb71;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;}
 #mako-error .backtrace {background:#fff;padding:10px;margin-bottom:10px;border:1px solid #ccc;}
 #mako-error table {border-spacing:0;border-collapse: collapse;border-color: #ddd;border-width: 0 0 1px 1px;border-style: solid;}
@@ -37,7 +38,7 @@
 <br /><br />
 <div class="code">
 <?php foreach($error['highlighted'] as $line): ?>
-<pre<?php if($line['highlighted']): ?> class="highlighted"<?php endif; ?>>[<?php echo $line['number']; ?>] <?php echo $line['code']; ?></pre>
+<pre<?php if($line['highlighted']): ?> class="highlighted"<?php endif; ?>><span class="line"><?php echo $line['number']; ?></span> <?php echo $line['code']; ?></pre>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
@@ -65,7 +66,7 @@ Backtrace <a href="#" onclick="return toggle('backtrace', this);" style="float:r
 <p><strong>Location:</strong> <?php echo $trace['location']['file']; ?> (<a href="#" onclick="return toggle('<?php echo $id; ?>');">line <?php echo $trace['location']['line']; ?></a>)</p>
 <div class="code" style="display:none" id="<?php echo $id; ?>">
 <?php foreach($trace['location']['code'] as $line): ?>
-<pre<?php if($line['highlighted']): ?> class="highlighted"<?php endif; ?>>[<?php echo $line['number']; ?>] <?php echo $line['code']; ?></pre>
+<pre<?php if($line['highlighted']): ?> class="highlighted"<?php endif; ?>><span class="line"><?php echo $line['number']; ?></span> <?php echo $line['code']; ?></pre>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>

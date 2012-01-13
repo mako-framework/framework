@@ -81,7 +81,7 @@ namespace mako
 		* @access  protected
 		*/
 		
-		public static function init()
+		protected static function init()
 		{
 			// Start output buffering
 			
@@ -447,6 +447,14 @@ namespace mako
 				return false;
 			}
 
+			$highlight = function($string)
+			{
+				$search  = array("\t", "\n", '<code>', '</code>', '<span style="color: #0000BB">&lt;?php&nbsp;');
+				$replace = array('    ', '', '', '', '<span style="color: #0000BB">');
+
+				return str_replace($search, $replace, highlight_string('<?php ' . $string, true));	
+			};
+
 			$handle      = fopen($file, 'r');
 			$lines       = array();
 			$currentLine = 0;
@@ -466,9 +474,9 @@ namespace mako
 				{
 					$lines[] = array
 					(
-						'number'      => str_pad($currentLine, 4, '0', STR_PAD_LEFT),
+						'number'      => str_pad($currentLine, 4, ' ', STR_PAD_LEFT),
 						'highlighted' => ($currentLine === $line),
-						'code'        => str_replace("\t", '    ', htmlspecialchars($temp)),
+						'code'        => $highlight($temp),
 					);
 				}
 			}
