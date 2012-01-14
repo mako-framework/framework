@@ -60,7 +60,7 @@ namespace mako\cache
 					PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
 				);
 				
-				$this->sqlite = new PDO('sqlite:' . MAKO_APPLICATION . '/storage/cache/mako_' . $this->identifier . '.sqlite', null, null, $options);
+				$this->sqlite = new PDO('sqlite:' . MAKO_APPLICATION . '/storage/database/cache_' . $this->identifier . '.sqlite', null, null, $options);
 								
 				$table = $this->sqlite->query("SELECT * FROM sqlite_master WHERE type = 'table' AND name = 'cache' LIMIT 1")->fetch();
 								

@@ -32,7 +32,7 @@ return array
 
 		'sqlite' => array
 		(
-			'dsn'     => 'sqlite:/' . MAKO_APPLICATION . '/storage/test.sqlite',
+			'dsn'     => 'sqlite:/' . MAKO_APPLICATION . '/storage/database/test.sqlite',
 			'queries' => array
 			(
 				"PRAGMA encoding = 'UTF-8'",
