@@ -531,12 +531,13 @@ namespace mako
 		* From where did the request originate?
 		*
 		* @access  public
-		* @return  boolean
+		* @param   string  (optional) Value to return if no referer is set
+		* @return  string
 		*/
 
-		public static function referer()
+		public static function referer($default = '')
 		{
-			return static::$referer;
+			return empty(static::$referer) ? $default : static::$referer;
 		}
 
 		/**
