@@ -44,12 +44,6 @@ namespace mako
 		protected $customRoutes;
 
 		/**
-		* Was the request made from the CLI?
-		*/
-
-		protected static $isCli;
-
-		/**
 		* Is this a subrequest?
 		*/
 
@@ -135,11 +129,7 @@ namespace mako
 
 			if($mainRequest === true)
 			{
-				// Was the request made from the CLI?
-
-				static::$isCli = (PHP_SAPI === 'cli');
-
-				if(static::isCli() === false)
+				if(MAKO_IS_CLI === false)
 				{
 					// Get the ip of the client that made the request
 					
@@ -227,7 +217,7 @@ namespace mako
 
 			$route = '';
 
-			if(static::isCli() && $this->isSubrequest === false)
+			if(MAKO_IS_CLI && $this->isSubrequest === false)
 			{
 				if(!empty($_SERVER['argv'][1]))
 				{
@@ -444,7 +434,7 @@ namespace mako
 			{
 				Response::instance()->status(404);
 
-				echo static::isCli() ? 'Request failed. The requested controller action does not exist.' . PHP_EOL : View::factory('_errors/404');
+				echo MAKO_IS_CLI ? 'Request failed. The requested controller action does not exist.' . PHP_EOL : View::factory('_errors/404');
 
 				exit();
 			}
@@ -466,7 +456,7 @@ namespace mako
 			{
 				Response::instance()->status(403);
 				
-				echo static::isCli() ? 'Request failed. The requested controller action is protected or private.' . PHP_EOL : View::factory('_errors/403');
+				echo MAKO_IS_CLI ? 'Request failed. The requested controller action is protected or private.' . PHP_EOL : View::factory('_errors/403');
 
 				exit();
 			}
@@ -509,7 +499,7 @@ namespace mako
 	
 		public static function isCli()
 		{
-			return static::$isCli;
+			return MAKO_IS_CLI;
 		}
 
 		/**

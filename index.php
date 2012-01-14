@@ -48,8 +48,8 @@ define('MAKO_APPLICATION_NAME', 'app');
 // END OF USER CONFIGURABLE SECTION
 //------------------------------------------------------------------------------------------
 
-require MAKO_LIBRARIES_PATH . '/mako/Mako.php';
+require MAKO_LIBRARIES_PATH . '/mako/_init.php';
 
-Mako::run();
+mako\Mako::run();
 
 /** -------------------- End of file --------------------**/

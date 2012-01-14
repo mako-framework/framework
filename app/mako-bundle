@@ -1,10 +1,26 @@
 <?php
 
+//------------------------------------------------------------------------------------------
+// START OF USER CONFIGURABLE SECTION
+//------------------------------------------------------------------------------------------
+
 /**
-* Command line installer for Mako Framework bundles.
+* Define the path to the libraries directory (without trailing slash).
 */
 
-define(BUNDLES, __DIR__ . DIRECTORY_SEPARATOR . 'bundles');
+define('MAKO_LIBRARIES_PATH', dirname(__DIR__) . '/libraries');
+
+//------------------------------------------------------------------------------------------
+// END OF USER CONFIGURABLE SECTION
+//------------------------------------------------------------------------------------------
+
+define('MAKO_INTERNAL_CACHE', false);
+define('MAKO_APPLICATION_PATH', dirname(__DIR__));
+define('MAKO_APPLICATION_NAME', basename(__DIR__));
+
+require MAKO_LIBRARIES_PATH . '/mako/_init.php';
+
+use mako\CLI;
 
 class BundleInstaller
 {
@@ -79,21 +95,23 @@ class BundleInstaller
 
 	protected static function _install($bundle, $silent = false)
 	{
-		if(is_dir(BUNDLES . DIRECTORY_SEPARATOR . $bundle))
+		if(is_dir(MAKO_BUNDLES . DIRECTORY_SEPARATOR . $bundle))
 		{
-			return ($silent) ? null : fwrite(STDERR, 'The ' . $bundle . ' bundle has already been installed' . PHP_EOL);
+			return ($silent) ? null : CLI::stderr('The ' . $bundle . ' bundle has already been installed');
 		}
+
+		CLI::stdout('[ MAKO ] Fetching bundle info from bundles.makoframework.com ...');
 		
 		if(($response = @file_get_contents(static::API . $bundle)) === false)
 		{
-			return fwrite(STDERR, 'No response from server');
+			return CLI::stderr('No response from server');
 		}
 			
 		$response = json_decode($response);
 
 		if($response->status !== 'ok')
 		{
-			return fwrite(STDERR, 'The ' . $bundle . ' bundle does not exist' . PHP_EOL);
+			return CLI::stderr('The ' . $bundle . ' bundle does not exist');
 		}
 
 		foreach($response->bundle->dependencies as $dep)
@@ -101,9 +119,13 @@ class BundleInstaller
 				static::_install($dep, true);
 		}
 
-		passthru(sprintf((DIRECTORY_SEPARATOR == '\\') ? static::INSTALL_W : static::INSTALL_X, $response->bundle->repo, BUNDLES, $response->bundle->name));
+		CLI::stdout('[ MAKO ] Fetching bundle from github.com ...');
 
-		@file_put_contents(BUNDLES . DIRECTORY_SEPARATOR . $bundle . DIRECTORY_SEPARATOR . 'bundle.json', json_encode($response->bundle));
+		passthru(sprintf(MAKO_IS_WINDOWS ? static::INSTALL_W : static::INSTALL_X, $response->bundle->repo, MAKO_BUNDLES, $response->bundle->name));
+
+		@file_put_contents(MAKO_BUNDLES . DIRECTORY_SEPARATOR . $bundle . DIRECTORY_SEPARATOR . 'bundle.json', json_encode($response->bundle));
+
+		CLI::stdout('[ MAKO ] The '. $bundle . ' bundle has been installed');
 	}
 
 	/**
@@ -123,7 +145,7 @@ class BundleInstaller
 
 		// Remove bundle(s)
 
-		if(static::confirm('Are you sure you want to remove the ['. trim(implode(', ', array_slice($_SERVER['argv'], 2))) . '] bundle(s)?'))
+		if(CLI::confirm('[ MAKO ] Are you sure you want to remove the '. trim(implode(', ', array_slice($_SERVER['argv'], 2))) . ' bundle(s)?'))
 		{
 			foreach(array_slice($_SERVER['argv'], 2) as $bundle)
 			{
@@ -142,37 +164,16 @@ class BundleInstaller
 
 	protected static function _remove($bundle)
 	{
-		if(!is_dir(BUNDLES . DIRECTORY_SEPARATOR . $bundle))
+		CLI::stdout('[ MAKO ] Deleting ' . $bundle . ' files ...');
+
+		if(!is_dir(MAKO_BUNDLES . DIRECTORY_SEPARATOR . $bundle))
 		{
-			return fwrite(STDERR, 'The ' . $bundle . ' bundle is not installed' . PHP_EOL);
+			return CLI::stderr('[ MAKO ] The ' . $bundle . ' bundle is not installed');
 		}
 		
-		passthru(sprintf((DIRECTORY_SEPARATOR == '\\') ? static::REMOVE_W : static::REMOVE_X, BUNDLES, $bundle));
-	}
+		passthru(sprintf(MAKO_IS_WINDOWS ? static::REMOVE_W : static::REMOVE_X, MAKO_BUNDLES, $bundle));
 
-	/**
-	* Displays a confirm dialog.
-	*
-	* @access  protected
-	* @param   string     Question
-	* @return  boolean
-	*/
-
-	protected static function confirm($message)
-	{
-		fwrite(STDOUT, $message . ' [Y/N]: ');
-
-		switch(strtoupper(trim(fgets(STDIN))))
-		{
-			case 'Y':
-				return true;
-			break;
-			case 'N':
-				return false;
-			break;
-			default:
-				return static::confirm($message);
-		}
+		CLI::stdout('[ MAKO ] The ' . $bundle . ' bundle has been removed');
 	}
 
 	/**
@@ -183,11 +184,11 @@ class BundleInstaller
 
 	public static function help()
 	{
-		fwrite(STDOUT, "Mako Framework bundle installer" . PHP_EOL . PHP_EOL);
-		fwrite(STDOUT, "Valid commands are:" . PHP_EOL . PHP_EOL);
-		fwrite(STDOUT, "php mako-bundle help" . PHP_EOL);
-		fwrite(STDOUT, "php mako-bundle install <bundle_name>" . PHP_EOL);
-		fwrite(STDOUT, "php mako-bundle remove <bundle_name>" . PHP_EOL);
+		CLI::stdout("Mako Framework bundle installer" . PHP_EOL, 'white', 'blue');
+		CLI::stdout("Valid commands are:" . PHP_EOL);
+		CLI::stdout("php mako-bundle help");
+		CLI::stdout("php mako-bundle install <bundle_name>");
+		CLI::stdout("php mako-bundle remove <bundle_name>");
 	}
 
 	/**
@@ -204,8 +205,4 @@ class BundleInstaller
 
 $action = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 'help';
 
-fwrite(STDOUT, PHP_EOL);
-
 BundleInstaller::$action();
-
-fwrite(STDOUT, PHP_EOL);

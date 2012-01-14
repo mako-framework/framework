@@ -84,7 +84,7 @@ namespace mako
 
 		protected static function color($str, $textColor, $backgroundColor)
 		{
-			if(Mako::isWindows())
+			if(MAKO_IS_WINDOWS)
 			{
 				return $str;
 			}
