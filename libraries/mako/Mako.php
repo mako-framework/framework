@@ -78,7 +78,7 @@ namespace mako
 		{
 			// Start output buffering
 			
-			ob_start();
+			(MAKO_IS_CLI === false) && ob_start();
 
 			// Include bootstrap file
 			
