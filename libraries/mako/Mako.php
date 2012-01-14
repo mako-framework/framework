@@ -549,6 +549,7 @@ namespace mako
 						E_ERROR             => 'Fatal Error',
 						E_PARSE             => 'Parse Error',
 						E_COMPILE_ERROR     => 'Compile Error',
+						E_COMPILE_WARNING   => 'Compile Warning',
 						E_STRICT            => 'Strict Mode Error',
 						E_NOTICE            => 'Notice',
 						E_WARNING           => 'Warning',
