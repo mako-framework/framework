@@ -18,10 +18,7 @@ return array
 
 	'custom_routes' => array
 	(
-		'hello_world' => function()
-		{
-			echo 'Hello World!';
-		},
+		
 	),
 );
 

@@ -254,25 +254,16 @@ namespace mako
 			{
 				foreach($this->customRoutes as $pattern => $realRoute)
 				{		
-					if(preg_match('#^' . $pattern . '$#iu', $route, $matches) === 1)
+					if(preg_match('#^' . $pattern . '$#iu', $route) === 1)
 					{
-						if($realRoute instanceof Closure)
+						if(strpos($realRoute, '$') !== false)
 						{
-							call_user_func_array($realRoute, $matches);
-
-							exit();
+							$realRoute = preg_replace('#^' . $pattern . '$#iu', $realRoute, $route);
 						}
-						else
-						{
-							if(strpos($realRoute, '$') !== false)
-							{
-								$realRoute = preg_replace('#^' . $pattern . '$#iu', $realRoute, $route);
-							}
 
-							$route = trim($realRoute, '/');
+						$route = trim($realRoute, '/');
 
-							break;	
-						}
+						break;
 					}
 				}
 			}
