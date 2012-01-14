@@ -206,5 +206,3 @@ class BundleInstaller
 $action = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 'help';
 
 BundleInstaller::$action();
-
-var_dump(get_included_files());
