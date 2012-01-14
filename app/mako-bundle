@@ -164,12 +164,12 @@ class BundleInstaller
 
 	protected static function _remove($bundle)
 	{
-		CLI::stdout('[ MAKO ] Deleting ' . $bundle . ' files ...');
-
 		if(!is_dir(MAKO_BUNDLES . DIRECTORY_SEPARATOR . $bundle))
 		{
 			return CLI::stderr('[ MAKO ] The ' . $bundle . ' bundle is not installed');
 		}
+
+		CLI::stdout('[ MAKO ] Deleting ' . $bundle . ' files ...');
 		
 		passthru(sprintf(MAKO_IS_WINDOWS ? static::REMOVE_W : static::REMOVE_X, MAKO_BUNDLES, $bundle));
 
@@ -206,3 +206,5 @@ class BundleInstaller
 $action = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 'help';
 
 BundleInstaller::$action();
+
+var_dump(get_included_files());

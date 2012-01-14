@@ -6,7 +6,6 @@ namespace mako
 	use \mako\UTF8;
 	use \mako\View;
 	use \mako\Cache;
-	use \mako\ClassLoader;
 	use \mako\Request;
 	use \mako\Response;
 	use \Exception;
