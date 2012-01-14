@@ -2,6 +2,7 @@
 
 namespace mako
 {
+	use \mako\CLI;
 	use \mako\Mako;
 	use \mako\View;
 	use \mako\Response;
@@ -434,7 +435,7 @@ namespace mako
 			{
 				Response::instance()->status(404);
 
-				echo MAKO_IS_CLI ? 'Request failed. The requested controller action does not exist.' . PHP_EOL : View::factory('_errors/404');
+				MAKO_IS_CLI ? CLI::stderr('Request failed. The requested controller action does not exist.') : View::factory('_errors/404')->display();
 
 				exit();
 			}
@@ -456,7 +457,7 @@ namespace mako
 			{
 				Response::instance()->status(403);
 				
-				echo MAKO_IS_CLI ? 'Request failed. The requested controller action is protected or private.' . PHP_EOL : View::factory('_errors/403');
+				 MAKO_IS_CLI ? CLI::stderr('Request failed. The requested controller action is protected or private.') : View::factory('_errors/403')->display();
 
 				exit();
 			}
