@@ -169,7 +169,7 @@ namespace mako
 		}
 
 		/**
-		* Limits the number of characters in a string.
+		* Truncates a string to the desired length.
 		*
 		* @access  public
 		* @param   string  The input string
@@ -177,7 +177,7 @@ namespace mako
 		* @param   string  (optional) Sufix to add if number of characters is reduced
 		*/
 
-		public static function limitCharacters($string, $length, $sufix = '...')
+		public static function truncate($string, $length, $sufix = '...')
 		{
 			return (mb_strlen($string) > $length) ? trim(mb_substr($string, 0, $length)) . $sufix : $string;
 		}
