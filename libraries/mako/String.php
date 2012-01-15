@@ -169,6 +169,41 @@ namespace mako
 		}
 
 		/**
+		* Limits the number of characters in a string.
+		*
+		* @access  public
+		* @param   string  The input string
+		* @param   int     (optional) Number of characters to allow
+		* @param   string  (optional) Sufix to add if number of characters is reduced
+		*/
+
+		public static function limitCharacters($string, $length, $sufix = '...')
+		{
+			return (mb_strlen($string) > $length) ? trim(mb_substr($string, 0, $length)) . $sufix : $string;
+		}
+
+		/**
+		* Limits the number of words in a string.
+		*
+		* @access  public
+		* @param   string  The input string
+		* @param   int     (optional) Number of words to allow
+		* @param   string  (optional) Sufix to add if number of words is reduced
+		*/
+
+		public static function limitWords($string, $words = 100, $sufix = '...')
+		{
+			preg_match('/^\s*+(?:\S++\s*+){1,' . $words . '}/', $string, $matches);
+
+			if(isset($matches[0]) && mb_strlen($matches[0]) < mb_strlen($string))
+			{
+				return trim($matches[0]) . $sufix;
+			}
+
+			return $string;
+		}
+
+		/**
 		* Creates url friendly string.
 		*
 		* @access  public
