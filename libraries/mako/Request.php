@@ -256,6 +256,18 @@ namespace mako
 				{		
 					if(preg_match('#^' . $pattern . '$#iu', $route) === 1)
 					{
+						if(is_array($realRoute))
+						{
+							if(isset($realRoute[$this->method()]))
+							{
+								$realRoute = $realRoute[$this->method()];
+							}
+							else
+							{
+								return false;
+							}
+						}
+						
 						if(strpos($realRoute, '$') !== false)
 						{
 							$realRoute = preg_replace('#^' . $pattern . '$#iu', $realRoute, $route);
