@@ -129,7 +129,7 @@ namespace mako
 
 				// Fetch strings from bundles
 
-				$files = glob(MAKO_BUNDLES . '/*/i18n/' . static::$language . '/*.php');
+				$files = glob(MAKO_BUNDLES . '/*/i18n/' . static::$language . '/*.php', GLOB_NOSORT);
 
 				foreach($files as $file)
 				{
@@ -138,7 +138,7 @@ namespace mako
 
 				// Fetch strings from application
 
-				$files = glob(MAKO_APPLICATION . '/i18n/' . static::$language . '/*.php');
+				$files = glob(MAKO_APPLICATION . '/i18n/' . static::$language . '/*.php', GLOB_NOSORT);
 
 				foreach($files as $file)
 				{
