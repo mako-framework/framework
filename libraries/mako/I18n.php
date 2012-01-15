@@ -127,18 +127,22 @@ namespace mako
 			{
 				static::$translationTable = array();
 
-				$files = scandir(MAKO_APPLICATION . '/i18n/' . static::$language);
+				// Fetch strings from bundles
+
+				$files = glob(MAKO_BUNDLES . '/*/i18n/' . static::$language . '/*.php');
 
 				foreach($files as $file)
 				{
-					if($file[0] !== '.')
-					{
-						$lang = include(MAKO_APPLICATION . '/i18n/' .static::$language . '/' . $file);
+					static::$translationTable = array_merge(static::$translationTable, include($file));
+				}
 
-						static::$translationTable = array_merge(static::$translationTable, $lang);
+				// Fetch strings from application
 
-						unset($lang);
-					}
+				$files = glob(MAKO_APPLICATION . '/i18n/' . static::$language . '/*.php');
+
+				foreach($files as $file)
+				{
+					static::$translationTable = array_merge(static::$translationTable, include($file));
 				}
 
 				if(MAKO_INTERNAL_CACHE === true)
