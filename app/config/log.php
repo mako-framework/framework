@@ -17,6 +17,8 @@ return array
 	*
 	* The supported log types are: "File", "FirePHP", "Growl", "Prowl" and "Syslog".
 	*
+	* Growl and Prowl logging requires the official Growl and Prowl bundles.
+	*
 	* type         : Log type you want to use (case-sensitive).
 	* path         : Location where you want to write the logs (only required when using "file" logs).
 	* configuration: Growl/Prowl configuration to use for logging (only required when using "growl" or "prowl" logs).
@@ -37,7 +39,7 @@ return array
 			'type' => 'FirePHP',
 		),
 
-		'growl' => array
+		/*'growl' => array
 		(
 			'type'          => 'Growl',
 			'configuration' => 'logger',
@@ -47,7 +49,7 @@ return array
 		(
 			'type'          => 'Prowl',
 			'configuration' => 'my_iphone',
-		),
+		),*/
 
 		'syslog' => array
 		(
