@@ -177,7 +177,7 @@ namespace mako
 		* @param   string  (optional) Sufix to add if number of characters is reduced
 		*/
 
-		public static function limitChars($string, $length, $sufix = '...')
+		public static function limitChars($string, $characters = 100, $sufix = '...')
 		{
 			return (mb_strlen($string) > $length) ? trim(mb_substr($string, 0, $length)) . $sufix : $string;
 		}
