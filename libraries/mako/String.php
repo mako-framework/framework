@@ -224,7 +224,7 @@ namespace mako
 		* @return  string
 		*/
 
-		public static function toAscii($string)
+		public static function ascii($string)
 		{
 			return preg_replace('/[^\x0-\x7F]/', '', $string);
 		}
