@@ -89,21 +89,16 @@ namespace mako
 		* @param   array      (optional) Tag attributes
 		*/
 
-		protected static function buildMedia($type, $file, $attributes)
+		protected static function buildMedia($type, $files, $attributes)
 		{
-			$sources = function($files)
+			$sources = '';
+
+			foreach((array) $files as $file)
 			{
-				$sources = '';
-
-				foreach((array) $files as $file)
-				{
-					$sources .= HTML::tag('source', array('src' => $file));
-				}
-
-				return $sources;
-			};
+				$sources .= HTML::tag('source', array('src' => $file));
+			}
 			
-			return static::tag($type, $attributes, $sources($file));
+			return static::tag($type, $attributes, $sources);
 		}
 
 		/**
