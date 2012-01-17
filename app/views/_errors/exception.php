@@ -30,12 +30,12 @@
 <strong>Message:</strong> <?php echo htmlspecialchars($error['message'], ENT_COMPAT, mb_internal_encoding(), false); ?>
 
 <?php if(!empty($error['file'])): ?>
-<br /><br />
+<br><br>
 <strong>Location:</strong> <?php echo $error['file']; ?> (line <?php echo $error['line']; ?>)
 <?php endif; ?>
 
 <?php if(!empty($error['highlighted'])): ?>
-<br /><br />
+<br><br>
 <div class="code">
 <?php foreach($error['highlighted'] as $line): ?>
 <pre<?php if($line['highlighted']): ?> class="highlighted"<?php endif; ?>><span class="line"><?php echo $line['number']; ?></span> <?php echo $line['code']; ?></pre>
