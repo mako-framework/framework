@@ -42,6 +42,7 @@ mako\ClassLoader::addClasses(array
 	'mako\Curl'              => MAKO_LIBRARIES_PATH . '/mako/Curl.php',
 	'mako\Database'          => MAKO_LIBRARIES_PATH . '/mako/Database.php',
 	'mako\DateTime'          => MAKO_LIBRARIES_PATH . '/mako/DateTime.php',
+	'mako\HTML'              => MAKO_LIBRARIES_PATH . '/mako/HTML.php',
 	'mako\I18n'              => MAKO_LIBRARIES_PATH . '/mako/I18n.php',
 	'mako\Image'             => MAKO_LIBRARIES_PATH . '/mako/Image.php',
 	'mako\image\Adapter'     => MAKO_LIBRARIES_PATH . '/mako/image/Adapter.php',
