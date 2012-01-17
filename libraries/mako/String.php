@@ -215,6 +215,19 @@ namespace mako
 		{
 			return mb_strtolower(preg_replace('/\s{1,}/', '-', trim(preg_replace('/[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]/', '', $string))));
 		}
+
+		/**
+		* Strips all non-ASCII characters.
+		*
+		* @access  public
+		* @param   string  The input string
+		* @return  string
+		*/
+
+		public static function toAscii($string)
+		{
+			return preg_replace('/[^\x0-\x7F]/', '', $string);
+		}
 		
 		/**
 		* Converts URLs in a text into clickable links.
