@@ -228,6 +228,24 @@ namespace mako
 		{
 			return preg_replace('/[^\x0-\x7F]/', '', $string);
 		}
+
+		/**
+		* Alternates between two or more strings.
+		*
+		* @access  public
+		* @param   array    Array of strings to alternate between
+		* @param   boolean  (optional) Reset alternator?
+		* @return  string
+		*/
+
+		public static function alternate(array $strings, $reset = false)
+		{
+			static $i = 0;
+
+			$reset && $i = 0;
+
+			return $strings[($i++ % count($strings))];
+		}
 		
 		/**
 		* Converts URLs in a text into clickable links.
