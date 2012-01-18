@@ -58,7 +58,22 @@ namespace mako
 		//---------------------------------------------
 
 		/**
-		* Set language to use. It will return the name of the current language.
+		* Checks a language pack exists and throws an exception if it doesnt.
+		*
+		* @access  protected
+		* @param   string     Name of the language pack
+		*/
+
+		protected static function languageExists($language)
+		{
+			if(!is_dir(MAKO_APPLICATION.'/i18n/' . $language))
+			{
+				throw new RuntimeException(vsprintf("%s(): The '%s' language pack does not exist.", array(__METHOD__, $language)));
+			}
+		}
+
+		/**
+		* Set and/or get the default language.
 		*
 		* @access  public
 		* @param   string  (optional) Name of the language pack
@@ -69,14 +84,9 @@ namespace mako
 		{
 			if($language !== null)
 			{
-				if(is_dir(MAKO_APPLICATION.'/i18n/' . $language))
-				{
-					static::$language = $language;
-				}
-				else
-				{
-					throw new RuntimeException(vsprintf("%s(): The '%s' language pack does not exist.", array(__METHOD__, $language)));
-				}
+				static::languageExists($language);
+
+				static::$language = $language;
 			}
 
 			return static::$language;
@@ -138,6 +148,8 @@ namespace mako
 
 		protected static function loadInflection($language)
 		{
+			static::languageExists($language);
+
 			if(file_exists(MAKO_APPLICATION . '/i18n/' . $language . '/inflection.php'))
 			{
 				static::$inflection[$language] = include(MAKO_APPLICATION . '/i18n/' . $language . '/inflection.php');
@@ -157,6 +169,8 @@ namespace mako
 
 		protected static function loadStrings($language)
 		{
+			static::languageExists($language);
+
 			static::$strings[$language] = false;
 
 			if(MAKO_INTERNAL_CACHE === true)

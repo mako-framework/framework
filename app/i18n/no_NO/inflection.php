@@ -23,12 +23,14 @@ return array
 		'irregular' => array
 		(
 			'and'  => 'ender',
+			'barn' => 'barn',
 			'bok'  => 'bøker',
 			'fisk' => 'fisk',
 			'fot'  => 'føtter',
 			'gås'  => 'gjess',
 			'hus'  => 'hus',
 			'land' => 'land',
+			'ris'  => 'ris',
 			'tann' => 'tenner',
 			'tre'  => 'trær',
 			'tå'   => 'tær',
