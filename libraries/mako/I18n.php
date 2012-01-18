@@ -58,7 +58,7 @@ namespace mako
 		//---------------------------------------------
 
 		/**
-		* Checks a language pack exists and throws an exception if it doesnt.
+		* Checks if a language pack exists and throws an exception if it doesn't.
 		*
 		* @access  protected
 		* @param   string     Name of the language pack
