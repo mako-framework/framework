@@ -51,7 +51,6 @@ return array
 			'man'         => 'men',
 			'money'       => 'money',
 			'police'      => 'police',
-			'rice'        => 'rice',
 			'series'      => 'series',
 			'sex'         => 'sexes',
 			'sheep'       => 'sheep',
