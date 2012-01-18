@@ -179,7 +179,7 @@ namespace mako
 
 		public static function limitChars($string, $characters = 100, $sufix = '...')
 		{
-			return (mb_strlen($string) > $length) ? trim(mb_substr($string, 0, $length)) . $sufix : $string;
+			return (mb_strlen($string) > $characters) ? trim(mb_substr($string, 0, $characters)) . $sufix : $string;
 		}
 
 		/**
