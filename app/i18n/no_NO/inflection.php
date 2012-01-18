@@ -14,8 +14,9 @@ return array
 
 		'plural' => array
 		(
-			'/e$/i' => "er",
-			'/$/'   => "er",
+			'/er$/i' => "re",
+			'/e$/i'  => "er",
+			'/$/'    => "er",
 		),
 
 		// Irregular words
@@ -31,6 +32,7 @@ return array
 			'gås'   => 'gjess',
 			'hus'   => 'hus',
 			'land'  => 'land',
+			'lærer' => 'lærere',
 			'ris'   => 'ris',
 			'tann'  => 'tenner',
 			'tre'   => 'trær',
