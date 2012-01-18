@@ -13,14 +13,15 @@ if(!function_exists('__'))
 	* If no translation exists then the submitted string will be returned.
 	*
 	* @access  public
-	* @param   string  Text to translate
-	* @param   array  (optional) Value or array of values to replace in the translated text
+	* @param   string   Text to translate
+	* @param   array   (optional) Value or array of values to replace in the translated text
+	* @param   string  (optional) Name of the language you want to translate to
 	* @return  string
 	*/
 
-	function __($string, array $vars = null)
+	function __($string, array $vars = null, $language = null)
 	{
-		return mako\I18n::getText($string, $vars);
+		return mako\I18n::getText($string, $vars, $language);
 	}	
 }
 

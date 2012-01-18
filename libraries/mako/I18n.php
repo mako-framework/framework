@@ -27,10 +27,16 @@ namespace mako
 		protected static $language = 'en_GB';
 
 		/**
-		* Array holding the translation tables.
+		* Array holding the language strings.
 		*/
 
-		protected static $translationTable = array();
+		protected static $strings = array();
+
+		/**
+		* Array holding inflection rules.
+		*/
+
+		protected static $inflection = array();
 
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
@@ -63,14 +69,6 @@ namespace mako
 		{
 			if($language !== null)
 			{
-				// Validate language pack name to avoid potential directory traversal exploits
-				// if language name comes from untrusted input such as cookies.
-
-				if(preg_match('/^[a-z]{2}[_][A-Z]{2}$/', $language) === 0)
-				{
-					throw new RuntimeException(vsprintf("%s(): Invalid i18n language name.", array(__METHOD__)));
-				}
-
 				if(is_dir(MAKO_APPLICATION.'/i18n/' . $language))
 				{
 					static::$language = $language;
@@ -79,8 +77,6 @@ namespace mako
 				{
 					throw new RuntimeException(vsprintf("%s(): The '%s' language pack does not exist.", array(__METHOD__, $language)));
 				}
-
-				static::$translationTable = array(); // Reset the translation table
 			}
 
 			return static::$language;
@@ -92,62 +88,107 @@ namespace mako
 		*
 		* @access  public
 		* @param   string  Text to translate
-		* @param   arrray  (optional) Value or array of values to replace in the translated text
+		* @param   array   (optional) Value or array of values to replace in the translated text
+		* @param   string  (optional) Name of the language you want to translate to
 		* @return  string
 		*/
 
-		public static function getText($string, array $vars = null)
-		{	
-			if(empty(static::$translationTable))
+		public static function getText($string, array $vars = null, $language = null)
+		{
+			$language = $language === null ? static::$language : $language;
+
+			if(empty(static::$strings[$language]))
 			{			
-				static::load();
+				static::loadStrings($language);
 			}
 
-			$string = isset(static::$translationTable[$string]) ? static::$translationTable[$string] : $string;
+			$string = isset(static::$strings[$language][$string]) ? static::$strings[$language][$string] : $string;
 
 			return ($vars === null) ? $string : vsprintf($string, $vars);
 		}
 
 		/**
-		* Loads the translation tables for the current language.
+		* Returns the plural form of a noun.
 		*
-		* @access  protected
+		* @access  public
+		* @param   string  Noun to pluralize
+		* @param   int     (optional) Number of "<noun>s"
+		* @param   string  (optional) Language rules to use for pluralization
+		* @return  string
 		*/
 
-		protected static function load()
-		{	
-			static::$translationTable = false;
+		public static function plural($word, $count = null, $language = null)
+		{
+			$language = $language === null ? static::$language : $language;
+
+			if(empty(static::$inflection[$language]))
+			{			
+				static::loadInflection($language);
+			}
+
+			return call_user_func(static::$inflection[$language]['pluralize'], $word, $count, static::$inflection[$language]['rules']);
+		}
+
+		/**
+		* Loads the inflection rules for the requested language.
+		*
+		* @access  protected
+		* @param   string     Name of the language pack
+		*/
+
+		protected static function loadInflection($language)
+		{
+			if(file_exists(MAKO_APPLICATION . '/i18n/' . $language . '/inflection.php'))
+			{
+				static::$inflection[$language] = include(MAKO_APPLICATION . '/i18n/' . $language . '/inflection.php');
+			}
+			else
+			{
+				throw new RuntimeException(vsprintf("%s:(): The '%s' language pack does not contain any inflection rules.", array(__METHOD__, $language)));
+			}
+		}
+
+		/**
+		* Loads the translation strings for the requested language.
+		*
+		* @access  protected
+		* @param   string     Name of the language pack
+		*/
+
+		protected static function loadStrings($language)
+		{
+			static::$strings[$language] = false;
 
 			if(MAKO_INTERNAL_CACHE === true)
 			{
-				static::$translationTable = Cache::instance()->read(MAKO_APPLICATION_ID . '_lang_' . static::$language);
+				static::$strings[$language] = Cache::instance()->read(MAKO_APPLICATION_ID . '_lang_' . $language);
 			}
 
-			if(static::$translationTable === false)
+			if(static::$strings[$language] === false)
 			{
-				static::$translationTable = array();
+				static::$strings[$language] = array();
 
 				// Fetch strings from bundles
 
-				$files = glob(MAKO_BUNDLES . '/*/i18n/' . static::$language . '/*.php', GLOB_NOSORT);
+				$files = glob(MAKO_BUNDLES . '/*/i18n/' . $language . '/strings/*.php', GLOB_NOSORT);
 
 				foreach($files as $file)
 				{
-					static::$translationTable = array_merge(static::$translationTable, include($file));
+					static::$strings[$language] = array_merge(static::$strings[$language], include($file));
 				}
 
 				// Fetch strings from application
 
-				$files = glob(MAKO_APPLICATION . '/i18n/' . static::$language . '/*.php', GLOB_NOSORT);
+				$files = glob(MAKO_APPLICATION . '/i18n/' . $language . '/strings/*.php', GLOB_NOSORT);
 
 				foreach($files as $file)
 				{
-					static::$translationTable = array_merge(static::$translationTable, include($file));
+					static::$strings[$language] = array_merge(static::$strings[$language], include($file));
 				}
 
 				if(MAKO_INTERNAL_CACHE === true)
 				{
-					Cache::instance()->write(MAKO_APPLICATION_ID . '_lang_' .static::$language, static::$translationTable, 3600);
+					Cache::instance()->write(MAKO_APPLICATION_ID . '_lang_' . $language, static::$strings[$language], 3600);
 				}
 			}
 		}
