@@ -75,7 +75,7 @@ return array
 			{
 				foreach($rules['plural'] as $search => $replace)
 				{
-					if (preg_match($search, $word))
+					if(preg_match($search, $word))
 					{
 						$word = preg_replace($search, $replace, $word);
 
