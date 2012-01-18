@@ -269,7 +269,7 @@ namespace mako
 
 			if(file_exists($file))
 			{
-				return include $file;
+				return include_once $file;
 			}
 
 			throw new RuntimeException(vsprintf("%s(): Unable to initialize the '%s' bundle. Make sure that it has been installed.", array(__METHOD__, $bundle)));
