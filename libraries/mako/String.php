@@ -126,7 +126,7 @@ namespace mako
 		* @return  string
 		*/
 
-		public static function nl2Br($string)
+		public static function nl2br($string)
 		{
 			return str_replace(array("\r\n", "\n\r", "\n", "\r"), HTML::tag('br'), $string);
 		}
@@ -139,7 +139,7 @@ namespace mako
 		* @return  string
 		*/
 
-		public static function br2Nl($string)
+		public static function br2nl($string)
 		{
 			return str_replace(array('<br>', '<br />'), "\n", $string);
 		}
