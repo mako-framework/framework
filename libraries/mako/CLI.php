@@ -76,13 +76,13 @@ namespace mako
 		* Add text color and background color to a string.
 		*
 		* @access  public
-		* @param   string     String to colorize
-		* @param   string     Text color name
-		* @param   string     Background color name
+		* @param   string  String to colorize
+		* @param   string  (optional) Text color name
+		* @param   string  (optional) Background color name
 		* @return  string
 		*/
 
-		public static function color($str, $textColor, $backgroundColor)
+		public static function color($str, $textColor = null, $backgroundColor = null)
 		{
 			if(MAKO_IS_WINDOWS)
 			{
