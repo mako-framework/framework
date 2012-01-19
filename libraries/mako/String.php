@@ -128,7 +128,7 @@ namespace mako
 
 		public static function nl2br($string)
 		{
-			return str_replace(array("\r\n", "\n\r", "\n", "\r"), HTML::tag('br'), $string);
+			return str_replace(array("\r\n", "\n\r", "\n", "\r"), (defined('MAKO_XHTML') ? '<br/>' : '<br>'), $string);
 		}
 
 		/**
@@ -141,7 +141,7 @@ namespace mako
 
 		public static function br2nl($string)
 		{
-			return str_replace(array('<br>', '<br />'), "\n", $string);
+			return str_replace(array('<br>', '<br/>', '<br />'), "\n", $string);
 		}
 
 		/**

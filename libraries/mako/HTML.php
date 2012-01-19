@@ -75,7 +75,7 @@ namespace mako
 
 		public static function tag($name, array $attributes = null, $content = null)
 		{
-			$close = defined('MAKO_XHTML') ? ' />' : '>';
+			$close = defined('MAKO_XHTML') ? '/>' : '>';
 
 			return '<' . $name . static::attributes($attributes) . (empty($content) ? $close : '>' . $content . '</' . $name . '>');
 		}
