@@ -2,6 +2,8 @@
 
 namespace mako
 {
+	use \mako\HTML;
+
 	/**
 	* Collection of string manipulation methods.
 	*
@@ -117,7 +119,7 @@ namespace mako
 		}
 
 		/**
-		* Replaces newline with <br />.
+		* Replaces newline with <br> or <br />.
 		*
 		* @access  public
 		* @param   string  The input string
@@ -126,7 +128,7 @@ namespace mako
 
 		public static function nl2Br($string)
 		{
-			return str_replace(array("\r\n", "\n\r", "\n", "\r"), '<br />', $string);
+			return str_replace(array("\r\n", "\n\r", "\n", "\r"), HTML::tag('br'), $string);
 		}
 
 		/**
