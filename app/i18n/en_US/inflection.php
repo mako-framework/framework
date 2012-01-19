@@ -1,7 +1,7 @@
 <?php
 
 //---------------------------------------------
-// en_GB inflection rules
+// en_US inflection rules
 //---------------------------------------------
 
 return array
