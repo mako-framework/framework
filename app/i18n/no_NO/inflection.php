@@ -14,7 +14,7 @@ return array
 
 		'plural' => array
 		(
-			'/er$/i' => "re",
+			'/er$/i' => "ere",
 			'/e$/i'  => "er",
 			'/$/'    => "er",
 		),
@@ -33,7 +33,6 @@ return array
 			'gås'   => 'gjess',
 			'hus'   => 'hus',
 			'land'  => 'land',
-			'lærer' => 'lærere',
 			'tann'  => 'tenner',
 			'tre'   => 'trær',
 			'tå'    => 'tær',
