@@ -81,7 +81,7 @@ a.active
 <p>You have successfully installed the framework. Check out the <a href="http://makoframework.com/docs">documentation</a> and start developing!</p>
 
 <?php if(!is_writable(MAKO_APPLICATION . '/storage/logs') || !is_writable(MAKO_APPLICATION . '/storage/logs')): ?>
-<p class="error">Mako sure that the <strong>application/storage/cache</strong> and <strong>application/storage/cache</strong> directories are writable.</p>
+<p class="error">Make sure that the <strong>application/storage/cache</strong> and <strong>application/storage/cache</strong> directories are writable.</p>
 <?php endif; ?>
 
 </div>
