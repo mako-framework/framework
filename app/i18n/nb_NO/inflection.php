@@ -1,7 +1,7 @@
 <?php
 
 //---------------------------------------------
-// no_NO inflection rules
+// nb_NO inflection rules
 //---------------------------------------------
 
 return array

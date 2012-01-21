@@ -24,7 +24,7 @@ namespace mako
 		* Current language.
 		*/
 
-		protected static $language = 'en_GB';
+		protected static $language = 'en_US';
 
 		/**
 		* Array holding the language strings.
