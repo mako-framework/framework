@@ -78,6 +78,43 @@ namespace mako
 
 			session_start();
 		}
+
+		/**
+		* Sets a session flash message. 
+		* If no string is passed then the flash message is returned and deleted.
+		*
+		* @access  public
+		* @param   string    (optional) Flash message
+		* @param   retururn  string
+		*/
+
+		public static function flash($message = '')
+		{
+			if(session_id() === '')
+			{
+				Session::start();
+			}
+
+			if(!empty($message))
+			{
+				$_SESSION[MAKO_APPLICATION_ID . '_flash'] = $message;
+			}
+			else
+			{
+				if(isset($_SESSION[MAKO_APPLICATION_ID . '_flash']))
+				{
+					$message = $_SESSION[MAKO_APPLICATION_ID . '_flash'];
+
+					unset($_SESSION[MAKO_APPLICATION_ID . '_flash']);
+
+					return $message;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
 	}
 }
 
