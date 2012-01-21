@@ -27,7 +27,7 @@ h1
 	background:#0350a6;
 	margin:0px;
 	padding:20px;
-	text-shadow: 0px 1px 0px #000;
+	text-shadow: 0px 3px 0px #000;
 }
 a
 {
@@ -46,7 +46,7 @@ a.active
 {
 	width: 60%;
 	text-align:right;
-	margin: 10% auto;
+	margin:15% auto;
 }
 #content
 {
@@ -66,6 +66,70 @@ a.active
 	padding: 4px;
 	border-radius: 4px;
 }
+
+/**
+* Awesome CSS animation by http://daneden.me/animate/
+*/
+
+.animated
+{
+	-webkit-animation-fill-mode: both;
+	-moz-animation-fill-mode: both;
+	-ms-animation-fill-mode: both;
+	-o-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation: 1s ease;
+	-moz-animation: 1s ease;
+	-ms-animation: 1s ease;
+	-o-animation: 1s ease;
+	animation: 1s ease;
+}
+.animated.hinge
+{
+	-webkit-animation: 2s ease;
+	-moz-animation: 2s ease;
+	-ms-animation: 2s ease;
+	-o-animation: 2s ease;
+	animation: 2s ease;
+}
+@-webkit-keyframes shake
+{
+	0%, 100% {-webkit-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-webkit-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-webkit-transform: translateX(10px);}
+}
+@-moz-keyframes shake
+{
+	0%, 100% {-moz-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-moz-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-moz-transform: translateX(10px);}
+}
+@-ms-keyframes shake
+{
+	0%, 100% {-ms-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-ms-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-ms-transform: translateX(10px);}
+}
+@-o-keyframes shake
+{
+	0%, 100% {-o-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-o-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-o-transform: translateX(10px);}
+}
+@keyframes shake
+{
+	0%, 100% {transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {transform: translateX(10px);}
+}
+.shake
+{
+	-webkit-animation-name: shake;
+	-moz-animation-name: shake;
+	-ms-animation-name: shake;
+	-o-animation-name: shake;
+	animation-name: shake;
+}
 </style>
 
 </head>
@@ -81,7 +145,7 @@ a.active
 <p>You have successfully installed the framework. Check out the <a href="http://makoframework.com/docs">documentation</a> and start developing!</p>
 
 <?php if(!is_writable(MAKO_APPLICATION . '/storage/logs') || !is_writable(MAKO_APPLICATION . '/storage/logs')): ?>
-<p class="error">Make sure that the <strong>application/storage/cache</strong> and <strong>application/storage/cache</strong> directories are writable.</p>
+<p class="error animated shake">Make sure that the <strong>application/storage/cache</strong> and <strong>application/storage/cache</strong> directories are writable.</p>
 <?php endif; ?>
 
 </div>
