@@ -57,7 +57,6 @@ mako\ClassLoader::addClasses(array
 	'mako\log\Syslog'        => MAKO_LIBRARIES_PATH . '/mako/log/Syslog.php',
 	'mako\Mako'              => MAKO_LIBRARIES_PATH . '/mako/Mako.php',
 	'mako\Model'             => MAKO_LIBRARIES_PATH . '/mako/Model.php',
-	'mako\Notification'      => MAKO_LIBRARIES_PATH . '/mako/Notification.php',
 	'mako\Num'               => MAKO_LIBRARIES_PATH . '/mako/Num.php',
 	'mako\Pagination'        => MAKO_LIBRARIES_PATH . '/mako/Pagination.php',
 	'mako\Redis'             => MAKO_LIBRARIES_PATH . '/mako/Redis.php',
