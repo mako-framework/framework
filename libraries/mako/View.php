@@ -53,9 +53,10 @@ namespace mako
 		*
 		* @access  public
 		* @param   string  Name of the view file
+		* @param   array   (optional) Array of view variables
 		*/
 
-		public function __construct($view)
+		public function __construct($view, array $variables = array())
 		{
 			if(strrpos($view, '::') !== false)
 			{
@@ -72,6 +73,8 @@ namespace mako
 			{
 				throw new RuntimeException(vsprintf("%s(): The '%s' view does not exist.", array(__METHOD__, $view)));
 			}
+
+			$this->vars = $variables;
 		}
 
 		/**
@@ -79,12 +82,13 @@ namespace mako
 		*
 		* @access  public
 		* @param   string  Name of the view file
+		* @param   array   (optional) Array of view variables
 		* @return  View
 		*/
 
-		public static function factory($view)
+		public static function factory($view, array $variables = array())
 		{
-			return new static($view);
+			return new static($view, $variables);
 		}
 
 		//---------------------------------------------
