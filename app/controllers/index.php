@@ -8,9 +8,7 @@ namespace app\controllers
 	{
 		public function _index()
 		{
-			View::factory('welcome')
-			->assign('welcome', 'Welcome to the Mako Framework!')
-			->display();
+			echo new View('welcome', array('welcome' => 'Welcome to the Mako Framework!'));
 		}
 	}
 }
