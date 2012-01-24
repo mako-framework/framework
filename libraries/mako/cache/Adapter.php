@@ -179,7 +179,7 @@ namespace mako\cache
 
 		final public function __isset($key)
 		{
-			return ($this->read($key) !== false)
+			return ($this->read($key) !== false);
 		}
 
 		/**
