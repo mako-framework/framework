@@ -3,7 +3,7 @@
 namespace mako
 {
 	/**
-	* Class loader.
+	* Classloader.
 	*
 	* @author     Frederic G. Østby
 	* @copyright  (c) 2008-2012 Frederic G. Østby
