@@ -170,6 +170,19 @@ namespace mako\cache
 		}
 
 		/**
+		* Magic isset.
+		*
+		* @access  public
+		* @param   string   Cache key
+		* @param   boolean
+		*/
+
+		final public function __isset($key)
+		{
+			return ($this->read($key) !== false)
+		}
+
+		/**
 		* Magic unsetter.
 		*
 		* @access  public
