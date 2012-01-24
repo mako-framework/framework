@@ -267,13 +267,14 @@ namespace mako
 		{
 			$file = MAKO_BUNDLES . '/' . $bundle . '/_init.php';
 
-			if(file_exists($file))
+			if(!file_exists($file))
 			{
-				return include_once $file;
+				throw new RuntimeException(vsprintf("%s(): Unable to initialize the '%s' bundle. Make sure that it has been installed.", array(__METHOD__, $bundle)));
 			}
 
-			throw new RuntimeException(vsprintf("%s(): Unable to initialize the '%s' bundle. Make sure that it has been installed.", array(__METHOD__, $bundle)));
+			include_once $file;
 		}
+			
 		
 		/**
 		* Set locale information.
