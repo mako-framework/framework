@@ -144,35 +144,6 @@ namespace mako
 		}
 
 		/**
-		* Magic setter function that assigns a view variable.
-		*
-		* @access  public
-		* @param   string  Variable name
-		* @param   mixed   View variable
-		*/
-
-		public function __set($key, $value)
-		{
-			$this->vars[$key] = $value;
-		}
-
-		/**
-		* Magic getter function that returns a view variable.
-		*
-		* @access  public
-		* @param   string  Variable name
-		* @return  mixed
-		*/
-
-		public function __get($key)
-		{
-			if(isset($this->vars[$key]))
-			{
-				return $this->vars[$key];
-			}
-		}
-
-		/**
 		* Include the view file and extracts the view variables before returning the generated output.
 		*
 		* @access  public
@@ -184,11 +155,7 @@ namespace mako
 		{
 			if(empty($this->output))
 			{
-				//extract(array_merge($this->vars, static::$globalVars), EXTR_REFS); // Extract variables as references
-				
-				$vars = array_merge(static::$globalVars, $this->vars);
-				
-				extract($vars, EXTR_REFS); // Extract variables as references
+				extract(array_merge($this->vars, static::$globalVars), EXTR_REFS); // Extract variables as references
 				
 				ob_start();
 
@@ -215,6 +182,60 @@ namespace mako
 		public function display($filter = null)
 		{
 			echo $this->render($filter);
+		}
+
+		/**
+		* Magic setter method that assigns a view variable.
+		*
+		* @access  public
+		* @param   string  Variable name
+		* @param   mixed   View variable
+		*/
+
+		public function __set($key, $value)
+		{
+			$this->vars[$key] = $value;
+		}
+
+		/**
+		* Magic getter method that returns a view variable.
+		*
+		* @access  public
+		* @param   string  Variable name
+		* @return  mixed
+		*/
+
+		public function __get($key)
+		{
+			if(isset($this->vars[$key]))
+			{
+				return $this->vars[$key];
+			}
+		}
+
+		/**
+		* Magic isset method that checks if a view variable is set.
+		*
+		* @access  public
+		* @param   string   Variable name
+		* @return  boolean
+		*/
+
+		public function __isset($key)
+		{
+			return isset($this->vars[$key]);
+		}
+
+		/**
+		* Magic unset method that unsets a view variable.
+		*
+		* @access  public
+		* @param   string   Variable name
+		*/
+
+		public function __unset($key)
+		{
+			unset($this->vars[$key]);
 		}
 
 		/**
