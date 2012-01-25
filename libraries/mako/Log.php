@@ -128,19 +128,19 @@ namespace mako
 		* "Magick" shortcut for writing to logs.
 		*
 		* @access  public
-		* @param   string   Message type name
-		* @param   string   The message to write to the log
+		* @param   string   Name of the log type
+		* @param   string   Method arguments
 		* @return  boolean
 		*/
 
-		public static function __callStatic($name, $args)
+		public static function __callStatic($name, $arguments)
 		{
 			if(!defined('static::' . strtoupper($name)))
 			{
 				throw new RuntimeException(vsprintf("%s(): Invalid log type.", array(__METHOD__)));
 			}
 
-			return static::instance()->write($args[0], constant('static::' . strtoupper($name)));
+			return static::instance()->write($arguments[0], constant('static::' . strtoupper($name)));
 		}
 	}
 }

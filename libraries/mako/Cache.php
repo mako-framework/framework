@@ -75,6 +75,20 @@ namespace mako
 				return static::$instances[$name];
 			}
 		}
+
+		/**
+		* "Magick" method for easy access to the default cache instance.
+		*
+		* @access  public
+		* @param   string  Method name
+		* @param   array   Method arguments
+		* @return  mixed
+		*/
+
+		public static function __callStatic($name, $arguments)
+		{
+			return call_user_func_array(array(Cache::instance(), $name), $arguments);
+		}
 	}
 }
 
