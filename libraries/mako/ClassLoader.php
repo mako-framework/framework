@@ -21,6 +21,15 @@ namespace mako
 		*/
 
 		protected static $classes = array();
+
+		/**
+		* PSR-0 directories.
+		*/
+
+		protected static $psr0 = array
+		(
+			MAKO_LIBRARIES_PATH
+		);
 		
 		//---------------------------------------------
 		// Class constructor, destructor etc ...
@@ -70,26 +79,15 @@ namespace mako
 		}
 
 		/**
-		* Load a class that has been mapped.
+		* Adds a PSR-0 directory path.
 		*
 		* @access  public
-		* @param   string   Class name
-		* @return  boolean
+		* @param   string  Path to PSR-0 directory
 		*/
 
-		public static function load($className)
+		public static function addPsr0($path)
 		{
-			if(isset(static::$classes[$className]))
-			{
-				if(file_exists(static::$classes[$className]))
-				{
-					include static::$classes[$className];
-
-					return true;
-				}
-			}
-
-			return false;
+			static::$psr0[] = $path;
 		}
 
 		/**
@@ -104,9 +102,14 @@ namespace mako
 		{
 			// Try to load a mapped class
 
-			if(static::load($className))
+			if(isset(static::$classes[$className]))
 			{
-				return true;
+				if(file_exists(static::$classes[$className]))
+				{
+					include static::$classes[$className];
+
+					return true;
+				}
 			}
 
 			// Try to load an application class
@@ -136,11 +139,14 @@ namespace mako
 
 			$fileName .= str_replace('_', '/', $className) . '.php';
 
-			if(file_exists(MAKO_LIBRARIES_PATH . '/' . $fileName))
+			foreach(static::$psr0 as $path)
 			{
-				include(MAKO_LIBRARIES_PATH . '/' . $fileName);
+				if(file_exists($path . '/' . $fileName))
+				{
+					include($path . '/' . $fileName);
 
-				return true;
+					return true;
+				}	
 			}
 
 			return false;
