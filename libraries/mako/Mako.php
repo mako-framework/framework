@@ -4,7 +4,6 @@ namespace mako
 {
 	use \mako\Log;
 	use \mako\UTF8;
-	use \mako\View;
 	use \mako\Cache;
 	use \mako\Request;
 	use \mako\Response;
