@@ -78,7 +78,7 @@ namespace mako
 		{
 			// Start output buffering
 			
-			(MAKO_IS_CLI === false) && ob_start();
+			ob_start();
 
 			// Include bootstrap file
 			
@@ -594,32 +594,11 @@ namespace mako
 					$error['backtrace']   = static::formatBacktrace($error['backtrace']);
 					$error['highlighted'] = static::highlightCode($error['file'], $error['line']);
 
-					if(MAKO_IS_CLI)
-					{
-						if(empty($error['file']))
-						{
-							fwrite(STDERR, "{$error['type']}: {$error['message']}" . PHP_EOL);
-						}
-						else
-						{
-							fwrite(STDERR, "{$error['type']}: {$error['message']} in {$error['file']} at line {$error['line']}" . PHP_EOL);
-						}
-					}
-					else
-					{
-						include MAKO_APPLICATION . '/views/_errors/exception.php'; // Include file instead of using view class as it can cause problems with fatal errors.
-					}
+					include MAKO_APPLICATION . '/views/_errors/exception.php'; // Include file instead of using view class as it can cause problems with fatal errors.
 				}
 				else
 				{
-					if(MAKO_IS_CLI)
-					{
-						fwrite(STDERR, "An error has occured." . PHP_EOL);
-					}
-					else
-					{
-						include MAKO_APPLICATION . '/views/_errors/error.php'; // Include file instead of using view class as it can cause problems with fatal errors.
-					}
+					include MAKO_APPLICATION . '/views/_errors/error.php'; // Include file instead of using view class as it can cause problems with fatal errors.
 				}
 			}
 			catch(Exception $e)

@@ -5,7 +5,6 @@
 define('MAKO_START', microtime(true));
 define('MAKO_MAGIC_QUOTES', get_magic_quotes_gpc());
 define('MAKO_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
-define('MAKO_IS_CLI', (PHP_SAPI === 'cli'));
 define('MAKO_APPLICATION', MAKO_APPLICATION_PATH . '/' . MAKO_APPLICATION_NAME);
 define('MAKO_APPLICATION_ID', md5(MAKO_APPLICATION));
 define('MAKO_BUNDLES', MAKO_APPLICATION . '/bundles');

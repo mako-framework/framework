@@ -130,51 +130,48 @@ namespace mako
 
 			if($mainRequest === true)
 			{
-				if(MAKO_IS_CLI === false)
+				// Get the ip of the client that made the request
+				
+				if(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
 				{
-					// Get the ip of the client that made the request
+					$ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
 					
-					if(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-					{
-						$ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-						
-						$ip = array_pop($ip);
-					}
-					else if(!empty($_SERVER['HTTP_CLIENT_IP']))
-					{
-						$ip = $_SERVER['HTTP_CLIENT_IP'];
-					}
-					else if(!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
-					{
-						$ip = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
-					}
-					else if(!empty($_SERVER['REMOTE_ADDR']))
-					{
-						$ip = $_SERVER['REMOTE_ADDR'];
-					}
-					
-					if(isset($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false)
-					{
-						static::$ip = $ip;
-					}
-
-					// From where did the request originate?
-
-					static::$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-
-					// Which request method was used?
-
-					static::$method = isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) : 
-					                  (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET');
-					
-					// Is this an Ajax request?
-
-					static::$isAjax = (bool) (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
-
-					// Was the request made using HTTPS?
-
-					static::$secure = (!empty($_SERVER['HTTPS']) && filter_var($_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
+					$ip = array_pop($ip);
 				}
+				else if(!empty($_SERVER['HTTP_CLIENT_IP']))
+				{
+					$ip = $_SERVER['HTTP_CLIENT_IP'];
+				}
+				else if(!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
+				{
+					$ip = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+				}
+				else if(!empty($_SERVER['REMOTE_ADDR']))
+				{
+					$ip = $_SERVER['REMOTE_ADDR'];
+				}
+				
+				if(isset($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false)
+				{
+					static::$ip = $ip;
+				}
+
+				// From where did the request originate?
+
+				static::$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+
+				// Which request method was used?
+
+				static::$method = isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) : 
+				                  (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET');
+				
+				// Is this an Ajax request?
+
+				static::$isAjax = (bool) (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
+
+				// Was the request made using HTTPS?
+
+				static::$secure = (!empty($_SERVER['HTTPS']) && filter_var($_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
 			}
 			else
 			{
@@ -218,27 +215,17 @@ namespace mako
 
 			$route = '';
 
-			if(MAKO_IS_CLI && $this->isSubrequest === false)
+			if($this->route !== null)
 			{
-				if(!empty($_SERVER['argv'][1]))
-				{
-					$route = $_SERVER['argv'][1];
-				}
+				$route = $this->route;
 			}
-			else
+			else if(isset($_SERVER['PATH_INFO']))
 			{
-				if($this->route !== null)
-				{
-					$route = $this->route;
-				}
-				else if(isset($_SERVER['PATH_INFO']))
-				{
-					$route = $_SERVER['PATH_INFO'];
-				}
-				else if(isset($_SERVER['PHP_SELF']))
-				{
-					$route = mb_substr($_SERVER['PHP_SELF'], mb_strlen($_SERVER['SCRIPT_NAME']));
-				}
+				$route = $_SERVER['PATH_INFO'];
+			}
+			else if(isset($_SERVER['PHP_SELF']))
+			{
+				$route = mb_substr($_SERVER['PHP_SELF'], mb_strlen($_SERVER['SCRIPT_NAME']));
 			}
 
 			$route = trim($route, '/');
@@ -438,7 +425,7 @@ namespace mako
 			{
 				Response::instance()->status(404);
 
-				MAKO_IS_CLI ? CLI::stderr('Request failed. The requested controller action does not exist.') : View::factory('_errors/404')->display();
+				View::factory('_errors/404')->display();
 
 				exit();
 			}
@@ -460,7 +447,7 @@ namespace mako
 			{
 				Response::instance()->status(403);
 				
-				 MAKO_IS_CLI ? CLI::stderr('Request failed. The requested controller action is protected or private.') : View::factory('_errors/403')->display();
+				View::factory('_errors/403')->display();
 
 				exit();
 			}
@@ -492,18 +479,6 @@ namespace mako
 		public function controller()
 		{
 			return $this->controller;
-		}
-
-		/**
-		* Was the request made from the CLI?
-		*
-		* @access  public
-		* @return  boolean
-		*/
-	
-		public static function isCli()
-		{
-			return MAKO_IS_CLI;
 		}
 
 		/**
