@@ -79,7 +79,7 @@ namespace mako\reactor
 				{
 					case 'v':
 					case 'version':
-						return CLI::stdout('Mako v'. Mako::VERSION . ' (PHP v' . phpversion() . ' | ' . PHP_OS . ')');
+						return CLI::stdout('Mako '. Mako::VERSION . ' (PHP ' . phpversion() . ' | Zend Engine ' . zend_version() . ' | ' . PHP_OS . ')');
 					break;
 					case 'b':
 					case 'bundle':
