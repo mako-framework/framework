@@ -6,6 +6,7 @@ namespace mako\reactor
 	use \mako\CLI;
 	use \mako\reactor\Reactor;
 	use \ReflectionClass;
+	use \RuntimeException;
 
 	/**
 	* Task handler.
@@ -57,7 +58,14 @@ namespace mako\reactor
 				{
 					list($bundle, $task) = explode('::', $arguments[0]);
 
-					Mako::bundle($bundle);
+					try
+					{
+						Mako::bundle($bundle);
+					}
+					catch(RuntimeException $e)
+					{
+						return CLI::stderr($e->getMessage());
+					}
 				}
 				else
 				{
