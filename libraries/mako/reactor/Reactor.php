@@ -123,16 +123,16 @@ namespace mako\reactor
 
 		public static function help()
 		{
-			$str  = 'Reactor CLI tool' . PHP_EOL;
-			$str .= '-------------------------------------------------------' . PHP_EOL . PHP_EOL;
-			$str .= 'Valid commands are:'  . PHP_EOL . PHP_EOL;
-			$str .= '   php reactor version'  . PHP_EOL;
-			$str .= '   php reactor task <taskname>'  . PHP_EOL;
-			$str .= '   php reactor bundle install <bundlename>' . PHP_EOL;
-			$str .= '   php reactor bundle remove <bundlename>' . PHP_EOL . PHP_EOL;
-			$str .= 'Mako framework documentation at http://makoframework.com/docs';
+			$help  = 'Reactor CLI tool' . PHP_EOL;
+			$help .= '-------------------------------------------------------' . PHP_EOL . PHP_EOL;
+			$help .= 'Valid commands are:'  . PHP_EOL . PHP_EOL;
+			$help .= '   php reactor version'  . PHP_EOL;
+			$help .= '   php reactor task <taskname>'  . PHP_EOL;
+			$help .= '   php reactor bundle install <bundlename>' . PHP_EOL;
+			$help .= '   php reactor bundle remove <bundlename>' . PHP_EOL . PHP_EOL;
+			$help .= 'Mako framework documentation at http://makoframework.com/docs';
 
-			CLI::stdout($str);
+			CLI::stdout($help);
 		}
 	}
 }

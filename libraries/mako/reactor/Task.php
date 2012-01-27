@@ -2,6 +2,7 @@
 
 namespace mako\reactor
 {
+	use \mako\CLI;
 	use \mako\reactor\Reactor;
 
 	/**
@@ -46,7 +47,7 @@ namespace mako\reactor
 
 		public function __call($name, $arguments)
 		{
-			Reactor::help();
+			CLI::stderr(vsprintf("Unknown task action '%s'", array($name)));
 		}
 	}	
 }
