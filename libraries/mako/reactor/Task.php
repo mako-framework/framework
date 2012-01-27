@@ -3,8 +3,7 @@
 namespace mako\reactor
 {
 	use \mako\CLI;
-	use \mako\reactor\Reactor;
-
+	
 	/**
 	* Base task.
 	*

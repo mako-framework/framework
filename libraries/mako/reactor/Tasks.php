@@ -5,7 +5,6 @@ namespace mako\reactor
 	use \mako\Mako;
 	use \mako\CLI;
 	use \mako\reactor\Reactor;
-	use \mako\reactor\Task;
 	use \ReflectionClass;
 
 	/**
