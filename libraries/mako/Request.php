@@ -2,11 +2,9 @@
 
 namespace mako
 {
-	use \mako\CLI;
 	use \mako\Mako;
 	use \mako\View;
 	use \mako\Response;
-	use \Closure;
 	use \RuntimeException;
 	use \ReflectionClass;
 	use \ReflectionException;
