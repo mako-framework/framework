@@ -98,18 +98,15 @@ namespace mako
 		* @return  boolean
 		*/
 
-		public static function autoLoad($className)
+		public static function load($className)
 		{
 			// Try to load a mapped class
 
-			if(isset(static::$classes[$className]))
+			if(isset(static::$classes[$className]) && file_exists(static::$classes[$className]))
 			{
-				if(file_exists(static::$classes[$className]))
-				{
-					include static::$classes[$className];
+				include static::$classes[$className];
 
-					return true;
-				}
+				return true;
 			}
 
 			// Try to load an application class

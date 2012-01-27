@@ -79,4 +79,4 @@ mako\ClassLoader::addClasses(array
 
 // Set up autoloader
 
-spl_autoload_register('mako\ClassLoader::autoLoad');
+spl_autoload_register('mako\ClassLoader::load');
