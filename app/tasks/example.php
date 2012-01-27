@@ -12,6 +12,10 @@ class Example extends \mako\reactor\Task
 
 	public function random()
 	{
-		CLI::stdout('Random purple string: ' . CLI::color(String::random(), 'purple'));
+		$colors = array('red', 'purple', 'cyan', 'green', 'yellow', 'blue');
+		
+		$key = array_rand($colors);
+
+		CLI::stdout('Random ' . $colors[$key] . ' string: ' . CLI::color(String::random(), $colors[$key]));
 	}
 }
