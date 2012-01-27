@@ -96,7 +96,7 @@ namespace mako\reactor
 
 				$task = $taskClass->newInstance();
 
-				call_user_func_array(array($task, empty($method) ? 'run' : $method), array_slice($arguments, 1));
+				call_user_func_array(array($task, (empty($method) ? 'run' : $method)), array_slice($arguments, 1));
 			}
 			else
 			{
