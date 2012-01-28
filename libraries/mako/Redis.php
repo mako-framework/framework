@@ -199,7 +199,7 @@ namespace mako
 					{
 						$length = (int) substr(trim(fgets($this->connection)), 1);
 
-						if($length === -1)
+						if($length === -1 || $length === 0)
 						{
 							$data[] = null;
 						}
