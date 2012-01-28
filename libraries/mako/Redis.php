@@ -168,6 +168,11 @@ namespace mako
 
 		protected function bulk($response)
 		{
+			if($response === '$-1')
+			{
+				return null;
+			}
+
 			$length = (int) substr($response, 1);
 
 			return substr(fread($this->connection, $length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
@@ -215,14 +220,7 @@ namespace mako
 					return $this->integer($response);
 				break;
 				case '$': // bulk reply
-					if($response === '$-1')
-					{
-						return null;
-					}
-					else
-					{
-						return $this->bulk($response);
-					}
+					return $this->bulk($response);
 				break;
 				case '*': // multi-bulk reply
 					if($response === '*-1')
@@ -244,14 +242,7 @@ namespace mako
 								$data[] = $this->integer($response);
 							break;
 							case '$': // bulk reply
-								if($response === '$-1')
-								{
-									$data[] = null;
-								}
-								else
-								{
-									$data[] = $this->bulk($response);
-								}
+								$data[] = $this->bulk($response);
 							break;
 						}
 					}
