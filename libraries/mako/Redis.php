@@ -133,6 +133,47 @@ namespace mako
 		}
 
 		/**
+		* Returns the value of a single line reply.
+		*
+		* @access  protected
+		* @param   string     Redis reply
+		* @return  string
+		*/
+
+		protected function singleLine($response)
+		{
+			return substr($response, 1);
+		}
+
+		/**
+		* Returns the value of a integer reply.
+		*
+		* @access  protected
+		* @param   string     Redis reply
+		* @return  int
+		*/
+
+		protected function integer($response)
+		{
+			return (int) substr($response, 1);
+		}
+
+		/**
+		* Returns the value of a bulk reply.
+		*
+		* @access  protected
+		* @param   string     Redis response
+		* @return  string
+		*/
+
+		protected function bulk($response)
+		{
+			$length = (int) substr($response, 1);
+
+			return substr(fread($this->connection, $length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
+		}
+
+		/**
 		* Sends command to Redis server and returns response.
 		*
 		* @access  public
@@ -168,10 +209,10 @@ namespace mako
 					throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, substr($response, 5))));
 				break;
 				case '+': // single line reply
-					return substr($response, 1);
+					return $this->singleLine($response);
 				break;
-				case ':': // integer number reply
-					return (int) substr($response, 1);
+				case ':': // integer reply
+					return $this->integer($response);
 				break;
 				case '$': // bulk reply
 					if($response === '$-1')
@@ -180,9 +221,7 @@ namespace mako
 					}
 					else
 					{
-						$length = (int) substr($response, 1);
-
-						return substr(fread($this->connection, $length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
+						return $this->bulk($response);
 					}
 				break;
 				case '*': // multi-bulk reply
@@ -197,15 +236,23 @@ namespace mako
 
 					for($i = 0; $i < $count; $i++)
 					{
-						$length = (int) substr(trim(fgets($this->connection)), 1);
+						$response = fgets($this->connection);
 
-						if($length === -1 || $length === 0)
+						switch(substr($response, 0, 1))
 						{
-							$data[] = null;
-						}
-						else
-						{
-							$data[] = substr(fread($this->connection, $length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
+							case ':': // integer reply
+								$data[] = $this->integer($response);
+							break;
+							case '$': // bulk reply
+								if($response === '$-1')
+								{
+									$data[] = null;
+								}
+								else
+								{
+									$data[] = $this->bulk($response);
+								}
+							break;
 						}
 					}
 
