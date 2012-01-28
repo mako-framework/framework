@@ -179,6 +179,49 @@ namespace mako
 		}
 
 		/**
+		* Returns the value of a multi-bulk reply.
+		*
+		* @access  protected
+		* @param   string     Redis response
+		* @return  array
+		*/
+
+		protected function multiBulk($response)
+		{
+			if($response === '*-1')
+			{
+				return null;
+			}
+
+			$data = array();
+
+			$count = substr($response, 1);
+
+			for($i = 0; $i < $count; $i++)
+			{
+				$response = fgets($this->connection);
+
+				switch(substr($response, 0, 1))
+				{
+					case '+': // single line reply
+						$data[] = $this->singleLine($response);
+					break;
+					case ':': // integer reply
+						$data[] = $this->integer($response);
+					break;
+					case '$': // bulk reply
+						$data[] = $this->bulk($response);
+					break;
+					case '*':
+						$data[] = $this->multiBulk($response);
+					break;
+				}
+			}
+
+			return $data;
+		}
+
+		/**
 		* Sends command to Redis server and returns response.
 		*
 		* @access  public
@@ -223,34 +266,7 @@ namespace mako
 					return $this->bulk($response);
 				break;
 				case '*': // multi-bulk reply
-					if($response === '*-1')
-					{
-						return null;
-					}
-
-					$data = array();
-
-					$count = substr($response, 1);
-
-					for($i = 0; $i < $count; $i++)
-					{
-						$response = fgets($this->connection);
-
-						switch(substr($response, 0, 1))
-						{
-							case '+': // single line reply
-								return $this->singleLine($response);
-							break;
-							case ':': // integer reply
-								$data[] = $this->integer($response);
-							break;
-							case '$': // bulk reply
-								$data[] = $this->bulk($response);
-							break;
-						}
-					}
-
-					return $data;
+					return $this->multiBulk($response);
 				break;
 				default:
 					throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", array(__METHOD__)));
