@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\reactor
+namespace mako\reactor\handlers
 {
 	use \mako\Mako;
 	use \mako\CLI;

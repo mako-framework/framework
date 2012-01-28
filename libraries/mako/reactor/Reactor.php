@@ -4,8 +4,8 @@ namespace mako\reactor
 {
 	use \mako\Mako;
 	use \mako\CLI;
-	use \mako\reactor\Tasks;
-	use \mako\reactor\Bundles;
+	use \mako\reactor\handlers\Tasks;
+	use \mako\reactor\handlers\Bundles;
 
 	/**
 	* Reactor core class.
