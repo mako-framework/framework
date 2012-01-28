@@ -142,7 +142,7 @@ namespace mako
 
 		protected function singleLine($response)
 		{
-			return substr($response, 1);
+			return trim(substr($response, 1));
 		}
 
 		/**
@@ -155,7 +155,7 @@ namespace mako
 
 		protected function integer($response)
 		{
-			return (int) substr($response, 1);
+			return (int) trim(substr($response, 1));
 		}
 
 		/**
@@ -238,6 +238,9 @@ namespace mako
 
 						switch(substr($response, 0, 1))
 						{
+							case '+': // single line reply
+								return $this->singleLine($response);
+							break;
 							case ':': // integer reply
 								$data[] = $this->integer($response);
 							break;
