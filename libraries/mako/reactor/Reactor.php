@@ -65,11 +65,17 @@ namespace mako\reactor
 
 			Mako::locale($config['locale']['locales'], $config['locale']['lc_numeric']);
 
-			// Remove options from argument list
+			// Remove options from argument list so that it doesnt matter what order they come in
 
-			$arguments = static::stripOptions($arguments);
+			foreach($arguments as $key => $value)
+			{
+				if(substr($value, 0, 2) == '--')
+				{
+					unset($arguments[$key]);
+				}
+			}
 
-			// Handle input
+			// Handle commands
 
 			CLI::stdout();
 
@@ -92,27 +98,6 @@ namespace mako\reactor
 			}
 			
 			static::help();
-		}
-
-		/**
-		* Strips options from the argument list.
-		*
-		* @access  protected
-		* @param   array      Array to clean
-		* @return  array
-		*/
-
-		protected static function stripOptions($arguments)
-		{
-			foreach($arguments as $key => $value)
-			{
-				if(substr($value, 0, 2) == '--')
-				{
-					unset($arguments[$key]);
-				}
-			}
-
-			return $arguments;
 		}
 
 		/**

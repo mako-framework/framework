@@ -29,13 +29,13 @@ namespace mako\reactor\handlers
 		* Install command for linux/unix
 		*/
 
-		const INSTALL_X = 'git clone --depth 1 git://github.com/%1$s.git %2$s/%3$s/ && rm -rf %2$s/%3$s/.git';
+		const INSTALL_X = 'git clone --depth 1 %1$s %2$s/%3$s/ && rm -rf %2$s/%3$s/.git';
 
 		/**
 		* Install command for windows
 		*/
 
-		const INSTALL_W = 'git clone --depth 1 git://github.com/%1$s.git %2$s\%3$s\ && rmdir /s /q %2$s\%3$s\.git';
+		const INSTALL_W = 'git clone --depth 1 %1$s %2$s\%3$s\ && rmdir /s /q %2$s\%3$s\.git';
 
 		/**
 		* Remove command for linux/unix
@@ -114,35 +114,63 @@ namespace mako\reactor\handlers
 
 		protected static function install($bundle, $silent = false)
 		{
+			$repo = true;
+
+			if(strpos($bundle, '://'))
+			{
+				$repo = false;
+
+				$url = $bundle;
+
+				preg_match('/^(.*):\/\/(.*)\/(.*).git$/i', $bundle, $matches);
+
+				if(empty($matches))
+				{
+					return CLI::stderr('Invalid bundle URL');
+				}
+
+				$name = $bundle = $matches[3];
+			}
+
 			if(is_dir(MAKO_BUNDLES . DIRECTORY_SEPARATOR . $bundle))
 			{
 				return ($silent) ? null : CLI::stderr('The ' . $bundle . ' bundle has already been installed');
 			}
 
-			CLI::stdout('Fetching bundle info from bundles.makoframework.com ...');
-
-			if(($response = @file_get_contents(static::API . $bundle)) === false)
+			if($repo === true)
 			{
-				return CLI::stderr('No response from server');
+				CLI::stdout('Fetching bundle info from bundles.makoframework.com ...');
+
+				if(($response = @file_get_contents(static::API . $bundle)) === false)
+				{
+					return CLI::stderr('No response from server');
+				}
+
+				$response = json_decode($response);
+
+				if($response->status !== 'ok')
+				{
+					return CLI::stderr('The ' . $bundle . ' bundle does not exist');
+				}
+
+				foreach($response->bundle->dependencies as $dep)
+				{
+						static::_install($dep, true);
+				}
+
+				$url = sprintf('git://github.com/%s.git', $response->bundle->repo);
+
+				$name = $response->bundle->name;
 			}
 
-			$response = json_decode($response);
+			CLI::stdout(sprintf('Fetching bundle from %s ...', $url));
 
-			if($response->status !== 'ok')
+			passthru(sprintf(MAKO_IS_WINDOWS ? static::INSTALL_W : static::INSTALL_X, $url, MAKO_BUNDLES, $name));
+
+			if($repo === true)
 			{
-				return CLI::stderr('The ' . $bundle . ' bundle does not exist');
+				@file_put_contents(MAKO_BUNDLES . DIRECTORY_SEPARATOR . $bundle . DIRECTORY_SEPARATOR . 'bundle.json', json_encode($response->bundle));
 			}
-
-			foreach($response->bundle->dependencies as $dep)
-			{
-					static::_install($dep, true);
-			}
-
-			CLI::stdout('Fetching bundle from github.com ...');
-
-			passthru(sprintf(MAKO_IS_WINDOWS ? static::INSTALL_W : static::INSTALL_X, $response->bundle->repo, MAKO_BUNDLES, $response->bundle->name));
-
-			@file_put_contents(MAKO_BUNDLES . DIRECTORY_SEPARATOR . $bundle . DIRECTORY_SEPARATOR . 'bundle.json', json_encode($response->bundle));
 
 			CLI::stdout('The '. $bundle . ' bundle has been installed');
 		}

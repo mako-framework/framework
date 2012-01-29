@@ -2,9 +2,7 @@
 
 namespace mako
 {
-	use \mako\Mako;
 	use \mako\I18n;
-	use \mako\Request;
 	use \RuntimeException;
 
 	/**
