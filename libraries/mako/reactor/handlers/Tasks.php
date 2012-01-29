@@ -54,7 +54,7 @@ namespace mako\reactor\handlers
 		{
 			if(!empty($arguments))
 			{
-				if(strrpos($arguments[0], '::'))
+				if(strpos($arguments[0], '::') !== false)
 				{
 					list($bundle, $task) = explode('::', $arguments[0]);
 

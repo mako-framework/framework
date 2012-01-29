@@ -227,7 +227,7 @@ namespace mako
 		{
 			if(isset(static::$config[$file]) === false)
 			{
-				if(strrpos($file, '::') !== false)
+				if(strpos($file, '::') !== false)
 				{
 					list($bundle, $file) = explode('::', $file);
 

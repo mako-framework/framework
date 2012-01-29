@@ -116,7 +116,7 @@ namespace mako\reactor\handlers
 		{
 			$repo = true;
 
-			if(strpos($bundle, '://'))
+			if(strpos($bundle, '://') !== false)
 			{
 				$repo = false;
 

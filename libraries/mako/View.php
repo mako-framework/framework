@@ -58,7 +58,7 @@ namespace mako
 
 		public function __construct($view, array $variables = array())
 		{
-			if(strrpos($view, '::') !== false)
+			if(strpos($view, '::') !== false)
 			{
 				list($bundle, $view) = explode('::', $view);
 
