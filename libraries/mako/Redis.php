@@ -133,92 +133,57 @@ namespace mako
 		}
 
 		/**
-		* Returns the value of a single line reply.
+		* Returns response from redis server.
 		*
 		* @access  protected
-		* @param   string     Redis reply
-		* @return  string
+		* @return  mixed
 		*/
 
-		protected function singleLine($response)
+		protected function response()
 		{
-			return trim(substr($response, 1));
-		}
+			$response = trim(fgets($this->connection));
 
-		/**
-		* Returns the value of a integer reply.
-		*
-		* @access  protected
-		* @param   string     Redis reply
-		* @return  int
-		*/
-
-		protected function integer($response)
-		{
-			return (int) trim(substr($response, 1));
-		}
-
-		/**
-		* Returns the value of a bulk reply.
-		*
-		* @access  protected
-		* @param   string     Redis response
-		* @return  string
-		*/
-
-		protected function bulk($response)
-		{
-			if($response === '$-1')
+			switch(substr($response, 0, 1))
 			{
-				return null;
+				case '-': // error reply
+					throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, substr($response, 5))));
+				break;
+				case '+': // status reply
+					return trim(substr($response, 1));
+				break;
+				case ':': // integer reply
+					return (int) trim(substr($response, 1));
+				break;
+				case '$': // bulk reply
+					if($response === '$-1')
+					{
+						return null;
+					}
+
+					$length = (int) substr($response, 1);
+
+					return substr(fread($this->connection, $length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
+				break;
+				case '*': // multi-bulk reply
+					if($response === '*-1')
+					{
+						return null;
+					}
+
+					$data = array();
+
+					$count = substr($response, 1);
+
+					for($i = 0; $i < $count; $i++)
+					{
+						$data[] = $this->response();
+					}
+
+					return $data;
+				break;
+				default:
+					throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", array(__METHOD__)));
 			}
-
-			$length = (int) substr($response, 1);
-
-			return substr(fread($this->connection, $length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
-		}
-
-		/**
-		* Returns the value of a multi-bulk reply.
-		*
-		* @access  protected
-		* @param   string     Redis response
-		* @return  array
-		*/
-
-		protected function multiBulk($response)
-		{
-			if($response === '*-1')
-			{
-				return null;
-			}
-
-			$data = array();
-
-			$count = substr($response, 1);
-
-			for($i = 0; $i < $count; $i++)
-			{
-				$response = fgets($this->connection);
-
-				switch(substr($response, 0, 1))
-				{
-					case '+': // single line reply
-						$data[] = $this->singleLine($response);
-					break;
-					case ':': // integer reply
-						$data[] = $this->integer($response);
-					break;
-					case '$': // bulk reply
-						$data[] = $this->bulk($response);
-					break;
-					case '*':
-						$data[] = $this->multiBulk($response);
-					break;
-				}
-			}
-
-			return $data;
 		}
 
 		/**
@@ -247,30 +212,9 @@ namespace mako
 
 			fwrite($this->connection, $command);
 
-			$response = trim(fgets($this->connection));
+			// Return response
 
-			// Handle response
-
-			switch(substr($response, 0, 1))
-			{
-				case '-': // error message
-					throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, substr($response, 5))));
-				break;
-				case '+': // single line reply
-					return $this->singleLine($response);
-				break;
-				case ':': // integer reply
-					return $this->integer($response);
-				break;
-				case '$': // bulk reply
-					return $this->bulk($response);
-				break;
-				case '*': // multi-bulk reply
-					return $this->multiBulk($response);
-				break;
-				default:
-					throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", array(__METHOD__)));
-			}
+			return $this->response();
 		}
 	}
 }
