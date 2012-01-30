@@ -9,6 +9,10 @@ define('MAKO_APPLICATION', MAKO_APPLICATION_PATH . '/' . MAKO_APPLICATION_NAME);
 define('MAKO_APPLICATION_ID', md5(MAKO_APPLICATION));
 define('MAKO_BUNDLES', MAKO_APPLICATION . '/bundles');
 
+// Set path for error logs
+
+ini_set('error_log', MAKO_APPLICATION . '/storage/logs/error_' . gmdate('Y_m_d') . '.log');
+
 // Map all core classes
 
 include MAKO_LIBRARIES_PATH . '/mako/ClassLoader.php';

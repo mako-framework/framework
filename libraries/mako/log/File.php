@@ -73,7 +73,7 @@ namespace mako\log
 		{
 			$file = rtrim($this->path, '/') . '/' . $this->types[$type] . '_' . gmdate('Y_m_d') . '.log';
 			
-			$message = gmdate('Y/m/d H:i:s') . ' --- ' . $message . PHP_EOL;
+			$message = '[' . gmdate('d-M-Y H:i:s') . '] ' . $message . PHP_EOL;
 			
 			return (bool) file_put_contents($file, $message, FILE_APPEND);
 		}
