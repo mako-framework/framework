@@ -77,7 +77,7 @@ namespace mako
 		}
 
 		/**
-		* "Magick" method for easy access to the default cache instance.
+		* Magic shortcut to the default cache instance.
 		*
 		* @access  public
 		* @param   string  Method name

@@ -62,6 +62,20 @@ namespace mako
 
 			return new $class($config['configurations'][$name]);
 		}
+
+		/**
+		* Magic shortcut to the default crypto configuration.
+		*
+		* @access  public
+		* @param   string  Method name
+		* @param   array   Method arguments
+		* @return  mixed
+		*/
+
+		public static function __callStatic($name, $arguments)
+		{
+			return call_user_func_array(array(Crypto::factory(), $name), $arguments);
+		}
 	}
 }
 

@@ -125,7 +125,7 @@ namespace mako
 		}
 
 		/**
-		* "Magick" shortcut for writing to logs.
+		* Magic shortcut for writing to logs.
 		*
 		* @access  public
 		* @param   string   Name of the log type
