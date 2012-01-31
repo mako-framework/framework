@@ -34,7 +34,7 @@ namespace mako
 		* Mako version number
 		*/
 		
-		const VERSION = '1.6.1';
+		const VERSION = '1.6.2';
 		
 		/**
 		* Array holding all config variables
