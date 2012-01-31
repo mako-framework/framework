@@ -71,6 +71,33 @@ namespace mako
 		//---------------------------------------------
 
 		/**
+		* Returns the screen size.
+		*
+		* @access  public
+		* @return  array
+		*/
+
+		public function screenSize()
+		{
+			$size = array('width' => 0, 'height' => 0);
+
+			if(function_exists('ncurses_getmaxyx'))
+			{
+				ncurses_getmaxyx(STDSCR, $size['height'], $size['width']);
+			}
+			else
+			{
+				if(!MAKO_IS_WINDOWS)
+				{
+					$size['width']  = exec('tput cols');
+					$size['height'] = exec('tput lines');
+				}
+			}
+
+			return $size;
+		}
+
+		/**
 		* Add text color and background color to a string.
 		*
 		* @access  public

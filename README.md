@@ -9,7 +9,7 @@ Mako is a lightweight UTF-8 compatible and easy to use PHP5 framework based on t
 
 ## Requirements?
 
-* PHP 5.3.0 or higher
+* PHP 5.3.1 or higher
 * iconv
 * mbstring
 * PDO \*
