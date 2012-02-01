@@ -3,6 +3,7 @@
 namespace mako\reactor\handlers
 {
 	use \mako\CLI;
+	use \mako\Curl;
 	use \mako\reactor\Reactor;
 
 	/**
@@ -141,7 +142,9 @@ namespace mako\reactor\handlers
 			{
 				CLI::stdout('Fetching bundle info from bundles.makoframework.com ...');
 
-				if(($response = @file_get_contents(static::API . $bundle)) === false)
+				$response = Curl::get(static::API . $bundle);
+
+				if(Curl::getInfo('http_code') != 200)
 				{
 					return CLI::stderr('No response from server');
 				}
