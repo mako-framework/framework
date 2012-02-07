@@ -266,18 +266,6 @@ class Request
 			{		
 				if(preg_match('#^' . $pattern . '$#iu', $route) === 1)
 				{
-					if(is_array($realRoute))
-					{
-						if(isset($realRoute[$this->method()]))
-						{
-							$realRoute = $realRoute[$this->method()];
-						}
-						else
-						{
-							return false;
-						}
-					}
-					
 					if(strpos($realRoute, '$') !== false)
 					{
 						$realRoute = preg_replace('#^' . $pattern . '$#iu', $realRoute, $route);
@@ -339,7 +327,10 @@ class Request
 
 		$this->action = array_shift($segments);
 
-		$this->action = ($this->action === null) ? 'action_index' : 'action_' . $this->action;
+		if($this->action === null)
+		{
+			$this->action = 'index';
+		}
 
 		// Remaining segments are passed as parameters to the action
 
@@ -394,6 +385,17 @@ class Request
 		$response = new Response();
 
 		$controller = $controllerClass->newInstance($this, $response);
+
+		// Prefix controller action
+
+		if($controller instanceof \mako\controller\Rest)
+		{
+			$this->action = $this->method() . '_' . $this->action;
+		}
+		else
+		{
+			$this->action = 'action_' . $this->action;
+		}
 
 		// Check that action exists
 

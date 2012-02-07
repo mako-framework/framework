@@ -58,14 +58,6 @@ abstract class Controller
 	//---------------------------------------------
 
 	/**
-	* Index action must always be included.
-	*
-	* @access  public
-	*/
-
-	abstract public function action_index();
-
-	/**
 	* This method runs before the action.
 	*
 	* @access  public
