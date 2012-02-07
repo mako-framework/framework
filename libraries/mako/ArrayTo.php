@@ -78,7 +78,7 @@ namespace mako
 					}
 					else
 					{
-						$xml->addChild($key, $value);
+						$xml->addChild($key, htmlspecialchars($value, ENT_NOQUOTES | ENT_XML1, 'UTF-8', false));
 					}
 				}
 
