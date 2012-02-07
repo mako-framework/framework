@@ -12,7 +12,7 @@ namespace mako\controller;
 
 abstract class Rest extends \mako\Controller
 {
-
+	
 }
 
 /** -------------------- End of file --------------------**/
