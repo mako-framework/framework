@@ -390,7 +390,7 @@ class Request
 
 		if($controller instanceof \mako\controller\Rest)
 		{
-			$this->action = $this->method() . '_' . $this->action;
+			$this->action = strtolower($this->method()) . '_' . $this->action;
 		}
 		else
 		{
