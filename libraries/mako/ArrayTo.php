@@ -119,7 +119,7 @@ class ArrayTo
 			fputcsv($handle, $fields);
 		}
 
-		fseek($handle, 0);
+		rewind($handle);
 
 		$csv = stream_get_contents($handle);
 
