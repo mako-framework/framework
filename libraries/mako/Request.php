@@ -390,21 +390,21 @@ class Request
 
 		if($controller instanceof \mako\controller\Rest)
 		{
-			$this->action = strtolower($this->method()) . '_' . $this->action;
+			$action = strtolower($this->method()) . '_' . $this->action;
 		}
 		else
 		{
-			$this->action = 'action_' . $this->action;
+			$action = 'action_' . $this->action;
 		}
 
 		// Check that action exists
 
-		if($controllerClass->hasMethod($this->action) === false)
+		if($controllerClass->hasMethod($action) === false)
 		{
 			throw new RequestException(404);
 		}
 
-		$controllerAction = $controllerClass->getMethod($this->action);
+		$controllerAction = $controllerClass->getMethod($action);
 		
 		// Check if number of parameters match
 		
@@ -432,13 +432,12 @@ class Request
 	* Returns the name of the requested action.
 	*
 	* @access  public
-	* @param   boolean  (optional) Strip "action_" prefix?
 	* @return  string
 	*/
 
-	public function action($stripPrefix = true)
+	public function action($stripPrefix)
 	{
-		return $stripPrefix ? str_replace('action_', '', $this->action) : $this->action;
+		return $this->action;
 	}
 
 	/**
