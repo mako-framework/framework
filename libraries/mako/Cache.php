@@ -1,94 +1,95 @@
 <?php
 
-namespace mako
+namespace mako;
+
+use \mako\Mako;
+use \RuntimeException;
+
+/**
+* Cache class.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Cache
 {
-	use \mako\Mako;
-	use \RuntimeException;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
 	
 	/**
-	* Cache class.
+	* Holds all the cache objects.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var array
+	*/
+	
+	protected static $instances = array();
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Protected constructor since this is a static class.
+	*
+	* @access  protected
 	*/
 
-	class Cache
+	protected function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-		
-		/**
-		* Holds all the cache objects.
-		*/
-		
-		protected static $instances = array();
+		// Nothing here
+	}
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		/**
-		* Protected constructor since this is a static class.
-		*
-		* @access  protected
-		*/
+	/**
+	* Returns an instance of the requested cache configuration.
+	*
+	* @param   string              (optional) Cache configuration name
+	* @return  mako\cache\Adapter
+	*/
 
-		protected function __construct()
+	public static function instance($name = null)
+	{
+		if(isset(static::$instances[$name]))
 		{
-			// Nothing here
+			return static::$instances[$name];
 		}
-
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-
-		/**
-		* Returns an instance of the requested cache configuration.
-		*
-		* @param   string  (optional) Cache configuration name
-		* @return  object
-		*/
-
-		public static function instance($name = null)
+		else
 		{
-			if(isset(static::$instances[$name]))
+			$config = Mako::config('cache');
+			
+			$name = ($name === null) ? $config['default'] : $name;
+			
+			if(isset($config['configurations'][$name]) === false)
 			{
-				return static::$instances[$name];
+				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the cache configuration.", array(__METHOD__, $name)));
 			}
-			else
-			{
-				$config = Mako::config('cache');
-				
-				$name = ($name === null) ? $config['default'] : $name;
-				
-				if(isset($config['configurations'][$name]) === false)
-				{
-					throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the cache configuration.", array(__METHOD__, $name)));
-				}
-				
-				$class = '\mako\cache\\' . $config['configurations'][$name]['type'];
-				
-				static::$instances[$name] = new $class($config['configurations'][$name]);
-				
-				return static::$instances[$name];
-			}
+			
+			$class = '\mako\cache\\' . $config['configurations'][$name]['type'];
+			
+			static::$instances[$name] = new $class($config['configurations'][$name]);
+			
+			return static::$instances[$name];
 		}
+	}
 
-		/**
-		* Magic shortcut to the default cache instance.
-		*
-		* @access  public
-		* @param   string  Method name
-		* @param   array   Method arguments
-		* @return  mixed
-		*/
+	/**
+	* Magic shortcut to the default cache instance.
+	*
+	* @access  public
+	* @param   string  Method name
+	* @param   array   Method arguments
+	* @return  mixed
+	*/
 
-		public static function __callStatic($name, $arguments)
-		{
-			return call_user_func_array(array(Cache::instance(), $name), $arguments);
-		}
+	public static function __callStatic($name, $arguments)
+	{
+		return call_user_func_array(array(Cache::instance(), $name), $arguments);
 	}
 }
 

@@ -27,7 +27,7 @@ return array
 	
 	'locale' => array
 	(
-		'locales'    => array('en_GB.UTF-8', 'en_GB.utf8', 'C'),
+		'locales'    => array('en_US.UTF-8', 'en_US.utf8', 'C'),
 		'lc_numeric' => false,
 	),
 	

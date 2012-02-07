@@ -1,147 +1,148 @@
 <?php
 
-namespace mako\cache
+namespace mako\cache;
+
+use \Memcached as PHP_Memcached;
+use \RuntimeException;
+
+/**
+* Memcached adapter.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Memcached extends \mako\cache\Adapter
 {
-	use \Memcached as PHP_Memcached;
-	use \RuntimeException;
-	
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
 	/**
-	* Memcached adapter.
+	* Memcached object.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var Memcached
 	*/
 
-	class Memcached extends \mako\cache\Adapter
+	protected $memcached;
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Constructor.
+	*
+	* @access  public
+	* @param   array   Configuration
+	*/
+
+	public function __construct(array $config)
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
-		/**
-		* Memcached object.
-		*/
-
-		protected $memcached;
-
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Constructor.
-		*
-		* @access  public
-		* @param   array   Configuration
-		*/
-
-		public function __construct(array $config)
+		parent::__construct($config['identifier']);
+		
+		if(class_exists('\Memcached', false) === false)
 		{
-			parent::__construct($config['identifier']);
-			
-			if(class_exists('\Memcached', false) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): Memcached is not available.", array(__METHOD__)));
-			}
-			
-			$this->memcached = new PHP_Memcached();
-			
-			if($config['compress_data'] !== 1)
-			{
-				$this->memcached->setOption(PHP_Memcached::OPT_CONNECT_TIMEOUT, ($config['timeout'] * 1000)); // Multiply by 1000 to convert to ms
-			}
-
-			if($config['compress_data'] === false)
-			{
-				$this->memcached->setOption(PHP_Memcached::OPT_COMPRESSION, false);
-			}
-
-			// Add servers to the connection pool
-
-			foreach($config['servers'] as $server)
-			{
-				$this->memcached->addServer($server['server'], $server['port'], $server['weight']);
-			}
+			throw new RuntimeException(vsprintf("%s(): Memcached is not available.", array(__METHOD__)));
+		}
+		
+		$this->memcached = new PHP_Memcached();
+		
+		if($config['compress_data'] !== 1)
+		{
+			$this->memcached->setOption(PHP_Memcached::OPT_CONNECT_TIMEOUT, ($config['timeout'] * 1000)); // Multiply by 1000 to convert to ms
 		}
 
-		/**
-		* Destructor.
-		*
-		* @access  public
-		*/
-
-		public function __destruct()
+		if($config['compress_data'] === false)
 		{
-			$this->memcached = null;
+			$this->memcached->setOption(PHP_Memcached::OPT_COMPRESSION, false);
 		}
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
+		// Add servers to the connection pool
 
-		/**
-		* Store variable in the cache.
-		*
-		* @access  public
-		* @param   string   Cache key
-		* @param   mixed    The variable to store
-		* @param   int      (optional) Time to live
-		* @return  boolean
-		*/
-
-		public function write($key, $value, $ttl = 0)
+		foreach($config['servers'] as $server)
 		{
-			if($ttl !== 0)
-			{
-				$ttl += time();
-			}
+			$this->memcached->addServer($server['server'], $server['port'], $server['weight']);
+		}
+	}
 
-			if($this->memcached->replace("{$this->identifier}_{$key}", $value, $ttl) === false)
-			{
-				return $this->memcached->set("{$this->identifier}_{$key}", $value, $ttl);
-			}
+	/**
+	* Destructor.
+	*
+	* @access  public
+	*/
 
-			return true;
+	public function __destruct()
+	{
+		$this->memcached = null;
+	}
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+
+	/**
+	* Store variable in the cache.
+	*
+	* @access  public
+	* @param   string   Cache key
+	* @param   mixed    The variable to store
+	* @param   int      (optional) Time to live
+	* @return  boolean
+	*/
+
+	public function write($key, $value, $ttl = 0)
+	{
+		if($ttl !== 0)
+		{
+			$ttl += time();
 		}
 
-		/**
-		* Fetch variable from the cache.
-		*
-		* @access  public
-		* @param   string  Cache key
-		* @return  mixed
-		*/
-
-		public function read($key)
+		if($this->memcached->replace("{$this->identifier}_{$key}", $value, $ttl) === false)
 		{
-			return $this->memcached->get("{$this->identifier}_{$key}");
+			return $this->memcached->set("{$this->identifier}_{$key}", $value, $ttl);
 		}
 
-		/**
-		* Delete a variable from the cache.
-		*
-		* @access  public
-		* @param   string   Cache key
-		* @return  boolean
-		*/
+		return true;
+	}
 
-		public function delete($key)
-		{
-			return $this->memcached->delete("{$this->identifier}_{$key}", 0);
-		}
+	/**
+	* Fetch variable from the cache.
+	*
+	* @access  public
+	* @param   string  Cache key
+	* @return  mixed
+	*/
 
-		/**
-		* Clears the user cache.
-		*
-		* @access  public
-		* @return  boolean
-		*/
+	public function read($key)
+	{
+		return $this->memcached->get("{$this->identifier}_{$key}");
+	}
 
-		public function clear()
-		{
-			return $this->memcached->flush();
-		}
+	/**
+	* Delete a variable from the cache.
+	*
+	* @access  public
+	* @param   string   Cache key
+	* @return  boolean
+	*/
+
+	public function delete($key)
+	{
+		return $this->memcached->delete("{$this->identifier}_{$key}", 0);
+	}
+
+	/**
+	* Clears the user cache.
+	*
+	* @access  public
+	* @return  boolean
+	*/
+
+	public function clear()
+	{
+		return $this->memcached->flush();
 	}
 }
 

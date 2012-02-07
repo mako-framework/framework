@@ -1,55 +1,56 @@
 <?php
 
-namespace mako\image
+namespace mako\image;
+
+/**
+* Image adapter.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+abstract class Adapter
 {
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
 	/**
-	* Image adapter.
+	* Temporary image object.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var resource
 	*/
 
-	abstract class Adapter
-	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
+	protected $image;
 
-		/**
-		* Temporary image object.
-		*/
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
 
-		protected $image;
+	abstract public function __construct($file);
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		abstract public function __construct($file);
+	abstract public function rotate($degrees);
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
+	abstract public function resize($width, $height = null, $aspectRatio = null);
 
-		abstract public function rotate($degrees);
+	abstract public function crop($width, $height, $x, $y);
 
-		abstract public function resize($width, $height = null, $aspectRatio = null);
+	abstract public function flip($direction = null);
 
-		abstract public function crop($width, $height, $x, $y);
+	abstract public function watermark($file, $position = null, $opacity = 100);
 
-		abstract public function flip($direction = null);
+	abstract public function greyscale();
 
-		abstract public function watermark($file, $position = null, $opacity = 100);
+	abstract public function colorize($color);
 
-		abstract public function greyscale();
+	abstract public function border($color = '#000', $thickness = 5);
 
-		abstract public function colorize($color);
-
-		abstract public function border($color = '#000', $thickness = 5);
-
-		abstract public function save($file, $quality = 85);
-	}
+	abstract public function save($file, $quality = 85);
 }
 
 /** -------------------- End of file --------------------**/

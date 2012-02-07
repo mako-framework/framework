@@ -1,147 +1,164 @@
 <?php
 
-namespace mako
+namespace mako;
+
+use \mako\Mako;
+use \RuntimeException;
+
+/**
+* Logginger class.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Log
 {
-	use \mako\Mako;
-	use \RuntimeException;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
 	
 	/**
-	* Logginger class.
+	* Log level.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var int
+	*/
+	
+	const EMERGENCY = 1;
+	
+	/**
+	* Log level.
+	*
+	* @var int
+	*/
+	
+	const ALERT = 2;
+	
+	/**
+	* Log level.
+	*
+	* @var int
+	*/
+	
+	const CRITICAL = 3;
+	
+	/**
+	* Log level.
+	*
+	* @var int
+	*/
+	
+	const ERROR = 4;
+	
+	/**
+	* Log level.
+	*
+	* @var int
+	*/
+	
+	const WARNING = 5;
+	
+	/**
+	* Log level.
+	*
+	* @var int
+	*/
+	
+	const NOTICE = 6;
+	
+	/**
+	* Log level.
+	*
+	* @var int
+	*/
+	
+	const INFO = 7;
+	
+	/**
+	* Log level.
+	*
+	* @var int
+	*/
+	
+	const DEBUG = 8;
+	
+	/**
+	* Holds all the logger objects.
+	*
+	* @var array
+	*/
+	
+	protected static $instances = array();
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Protected constructor since this is a static class.
+	*
+	* @access  protected
 	*/
 
-	class Log
+	protected function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-		
-		/**
-		* Log level.
-		*/
-		
-		const EMERGENCY = 1;
-		
-		/**
-		* Log level.
-		*/
-		
-		const ALERT = 2;
-		
-		/**
-		* Log level.
-		*/
-		
-		const CRITICAL = 3;
-		
-		/**
-		* Log level.
-		*/
-		
-		const ERROR = 4;
-		
-		/**
-		* Log level.
-		*/
-		
-		const WARNING = 5;
-		
-		/**
-		* Log level.
-		*/
-		
-		const NOTICE = 6;
-		
-		/**
-		* Log level.
-		*/
-		
-		const INFO = 7;
-		
-		/**
-		* Log level.
-		*/
-		
-		const DEBUG = 8;
-		
-		/**
-		* Holds all the logger objects.
-		*/
-		
-		protected static $instances = array();
-
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Protected constructor since this is a static class.
-		*
-		* @access  protected
-		*/
-
-		protected function __construct()
+		// Nothing here
+	}
+	
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+	
+	/**
+	* Returns an instance of the requested log configuration.
+	*
+	* @param   string            (optional) Log configuration name
+	* @return  mako\log\Adapter
+	*/
+	
+	public static function instance($name = null)
+	{
+		if(isset(static::$instances[$name]))
 		{
-			// Nothing here
+			return static::$instances[$name];
 		}
-		
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-		
-		/**
-		* Returns an instance of the requested log configuration.
-		*
-		* @param   string  (optional) Log configuration name
-		* @return  object
-		*/
-		
-		public static function instance($name = null)
+		else
 		{
-			if(isset(static::$instances[$name]))
+			$config = Mako::config('log');
+			
+			$name = ($name === null) ? $config['default'] : $name;
+			
+			if(isset($config['configurations'][$name]) === false)
 			{
-				return static::$instances[$name];
+				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the log configuration.", array(__METHOD__, $name)));
 			}
-			else
-			{
-				$config = Mako::config('log');
-				
-				$name = ($name === null) ? $config['default'] : $name;
-				
-				if(isset($config['configurations'][$name]) === false)
-				{
-					throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the log configuration.", array(__METHOD__, $name)));
-				}
-				
-				$class = '\mako\log\\' . $config['configurations'][$name]['type'];
-				
-				static::$instances[$name] = new $class($config['configurations'][$name]);
-				
-				return static::$instances[$name];
-			}
+			
+			$class = '\mako\log\\' . $config['configurations'][$name]['type'];
+			
+			static::$instances[$name] = new $class($config['configurations'][$name]);
+			
+			return static::$instances[$name];
+		}
+	}
+
+	/**
+	* Magic shortcut for writing to logs.
+	*
+	* @access  public
+	* @param   string   Name of the log type
+	* @param   string   Method arguments
+	* @return  boolean
+	*/
+
+	public static function __callStatic($name, $arguments)
+	{
+		if(!defined('static::' . strtoupper($name)))
+		{
+			throw new RuntimeException(vsprintf("%s(): Invalid log type.", array(__METHOD__)));
 		}
 
-		/**
-		* Magic shortcut for writing to logs.
-		*
-		* @access  public
-		* @param   string   Name of the log type
-		* @param   string   Method arguments
-		* @return  boolean
-		*/
-
-		public static function __callStatic($name, $arguments)
-		{
-			if(!defined('static::' . strtoupper($name)))
-			{
-				throw new RuntimeException(vsprintf("%s(): Invalid log type.", array(__METHOD__)));
-			}
-
-			return static::instance()->write($arguments[0], constant('static::' . strtoupper($name)));
-		}
+		return static::instance()->write($arguments[0], constant('static::' . strtoupper($name)));
 	}
 }
 

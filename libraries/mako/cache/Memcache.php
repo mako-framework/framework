@@ -1,151 +1,154 @@
 <?php
 
-namespace mako\cache
+namespace mako\cache;
+
+use \Memcache as PHP_Memcache;
+use \RuntimeException;
+
+/**
+* Memcache adapter.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Memcache extends \mako\cache\Adapter
 {
-	use \Memcache as PHP_Memcache;
-	use \RuntimeException;
-	
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
 	/**
-	* Memcache adapter.
+	* Memcache object.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var Memcache
 	*/
 
-	class Memcache extends \mako\cache\Adapter
+	protected $memcache;
+
+	/**
+	* Compression level.
+	*
+	* @var int
+	*/
+
+	protected $compression = 0;
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Constructor.
+	*
+	* @access  public
+	* @param   array   Configuration
+	*/
+
+	public function __construct(array $config)
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
-		/**
-		* Memcache object.
-		*/
-
-		protected $memcache;
-
-		/**
-		* Compression level.
-		*/
-
-		protected $compression = 0;
-
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Constructor.
-		*
-		* @access  public
-		* @param   array   Configuration
-		*/
-
-		public function __construct(array $config)
+		parent::__construct($config['identifier']);
+		
+		if(class_exists('\Memcache', false) === false)
 		{
-			parent::__construct($config['identifier']);
-			
-			if(class_exists('\Memcache', false) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): Memcache is not available.", array(__METHOD__)));
-			}
-			
-			$this->memcache = new PHP_Memcache();
+			throw new RuntimeException(vsprintf("%s(): Memcache is not available.", array(__METHOD__)));
+		}
+		
+		$this->memcache = new PHP_Memcache();
 
-			if($config['compress_data'] !== false)
-			{
-				$this->compression = MEMCACHE_COMPRESSED;
-			}
-
-			// Add servers to the connection pool
-
-			foreach($config['servers'] as $server)
-			{
-				$this->memcache->addServer($server['server'], $server['port'], $server['persistent_connection'], $server['weight'], $config['timeout']);
-			}
+		if($config['compress_data'] !== false)
+		{
+			$this->compression = MEMCACHE_COMPRESSED;
 		}
 
-		/**
-		* Destructor.
-		*
-		* @access  public
-		*/
+		// Add servers to the connection pool
 
-		public function __destruct()
+		foreach($config['servers'] as $server)
 		{
-			if($this->memcache !== null)
-			{
-				$this->memcache->close();
-			}
+			$this->memcache->addServer($server['server'], $server['port'], $server['persistent_connection'], $server['weight'], $config['timeout']);
+		}
+	}
+
+	/**
+	* Destructor.
+	*
+	* @access  public
+	*/
+
+	public function __destruct()
+	{
+		if($this->memcache !== null)
+		{
+			$this->memcache->close();
+		}
+	}
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+
+	/**
+	* Store variable in the cache.
+	*
+	* @access  public
+	* @param   string   Cache key
+	* @param   mixed    The variable to store
+	* @param   int      (optional) Time to live
+	* @return  boolean
+	*/
+
+	public function write($key, $value, $ttl = 0)
+	{
+		if($ttl !== 0)
+		{
+			$ttl += time();
 		}
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-
-		/**
-		* Store variable in the cache.
-		*
-		* @access  public
-		* @param   string   Cache key
-		* @param   mixed    The variable to store
-		* @param   int      (optional) Time to live
-		* @return  boolean
-		*/
-
-		public function write($key, $value, $ttl = 0)
+		if($this->memcache->replace("{$this->identifier}_{$key}", $value, $this->compression, $ttl) === false)
 		{
-			if($ttl !== 0)
-			{
-				$ttl += time();
-			}
-
-			if($this->memcache->replace("{$this->identifier}_{$key}", $value, $this->compression, $ttl) === false)
-			{
-				return $this->memcache->set("{$this->identifier}_{$key}", $value, $this->compression, $ttl);
-			}
-
-			return true;
+			return $this->memcache->set("{$this->identifier}_{$key}", $value, $this->compression, $ttl);
 		}
 
-		/**
-		* Fetch variable from the cache.
-		*
-		* @access  public
-		* @param   string  Cache key
-		* @return  mixed
-		*/
+		return true;
+	}
 
-		public function read($key)
-		{
-			return $this->memcache->get("{$this->identifier}_{$key}");
-		}
+	/**
+	* Fetch variable from the cache.
+	*
+	* @access  public
+	* @param   string  Cache key
+	* @return  mixed
+	*/
 
-		/**
-		* Delete a variable from the cache.
-		*
-		* @access  public
-		* @param   string   Cache key
-		* @return  boolean
-		*/
+	public function read($key)
+	{
+		return $this->memcache->get("{$this->identifier}_{$key}");
+	}
 
-		public function delete($key)
-		{
-			return $this->memcache->delete("{$this->identifier}_{$key}", 0);
-		}
+	/**
+	* Delete a variable from the cache.
+	*
+	* @access  public
+	* @param   string   Cache key
+	* @return  boolean
+	*/
 
-		/**
-		* Clears the user cache.
-		*
-		* @access  public
-		* @return  boolean
-		*/
+	public function delete($key)
+	{
+		return $this->memcache->delete("{$this->identifier}_{$key}", 0);
+	}
 
-		public function clear()
-		{
-			return $this->memcache->flush();
-		}
+	/**
+	* Clears the user cache.
+	*
+	* @access  public
+	* @return  boolean
+	*/
+
+	public function clear()
+	{
+		return $this->memcache->flush();
 	}
 }
 

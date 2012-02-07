@@ -1,221 +1,226 @@
 <?php
 
-namespace mako
+namespace mako;
+
+use \mako\Mako;
+use \RuntimeException;
+
+/**
+* Redis client based on protocol specification at http://redis.io/topics/protocol.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Redis
 {
-	use \mako\Mako;
-	use \RuntimeException;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
 
 	/**
-	* Simple Redis client based on protocol specification at http://redis.io/topics/protocol.
+	* Command terminator.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var string
 	*/
 
-	class Redis
+	const CRLF = "\r\n";
+
+	/**
+	* Holds the configuration.
+	*
+	* @var array
+	*/
+
+	protected $config;
+
+	/**
+	* Socket connection.
+	*
+	* @var resource
+	*/
+
+	protected $connection;
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Constructor.
+	*
+	* @access  public
+	* @param   string  (optional) Redis configuration name
+	*/
+
+	public function __construct($name = null)
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
+		$config = Mako::config('redis');
 
-		/**
-		* Command terminator.
-		*/
+		$name = ($name === null) ? $config['default'] : $name;
 
-		const CRLF = "\r\n";
-
-		/**
-		* Holds the configuration.
-		*/
-
-		protected $config;
-
-		/**
-		* Socket connection.
-		*/
-
-		protected $connection;
-
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Constructor.
-		*
-		* @access  public
-		* @param   string  (optional) Redis configuration name
-		*/
-
-		public function __construct($name = null)
+		if(isset($config['configurations'][$name]) === false)
 		{
-			$config = Mako::config('redis');
-
-			$name = ($name === null) ? $config['default'] : $name;
-
-			if(isset($config['configurations'][$name]) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the redis configuration.", array(__METHOD__, $name)));
-			}
-
-			$this->config = $config['configurations'][$name];
-
-			$this->connect();
+			throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the redis configuration.", array(__METHOD__, $name)));
 		}
 
-		/**
-		* Factory method making method chaining possible right off the bat.
-		*
-		* @access  public
-		* @param   string  (optional) Redis configuration name
-		* @return  Redis
-		*/
+		$this->config = $config['configurations'][$name];
 
-		public static function factory($name = null)
+		$this->connect();
+	}
+
+	/**
+	* Factory method making method chaining possible right off the bat.
+	*
+	* @access  public
+	* @param   string      (optional) Redis configuration name
+	* @return  mako\Redis
+	*/
+
+	public static function factory($name = null)
+	{
+		return new static($name);
+	}
+
+	/**
+	* Destructor.
+	*
+	* @access  public
+	*/
+
+	public function __destruct()
+	{
+		$this->disconnect();
+	}
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+
+	/**
+	* Connects to the Redis server.
+	*
+	* @access  protected
+	*/
+
+	protected function connect()
+	{
+		$this->connection = @fsockopen('tcp://' . $this->config['host'], $this->config['port'], $errNo, $errStr);
+
+		if(!$this->connection)
 		{
-			return new static($name);
+			throw new RuntimeException(vsprintf("%s(): %s", array(__METHOD__, $errStr)));
 		}
 
-		/**
-		* Destructor.
-		*
-		* @access  public
-		*/
-
-		public function __destruct()
+		if(!empty($this->config['password']))
 		{
-			$this->disconnect();
+			$this->auth($this->config['password']);
 		}
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-
-		/**
-		* Connects to the Redis server.
-		*
-		* @access  protected
-		*/
-
-		protected function connect()
+		if(!empty($this->config['database']) && $this->config['database'] !== 0)
 		{
-			$this->connection = @fsockopen('tcp://' . $this->config['host'], $this->config['port'], $errNo, $errStr);
+			$this->select($this->config['database']);
+		}
+	}
 
-			if(!$this->connection)
-			{
-				throw new RuntimeException(vsprintf("%s(): %s", array(__METHOD__, $errStr)));
-			}
+	/**
+	* Closes connection to the Redis server.
+	*
+	* @access  protected
+	*/
 
-			if(!empty($this->config['password']))
-			{
-				$this->auth($this->config['password']);
-			}
+	protected function disconnect()
+	{
+		if(is_resource($this->connection))
+		{
+			fclose($this->connection);	
+		}
+	}
 
-			if(!empty($this->config['database']) && $this->config['database'] !== 0)
-			{
-				$this->select($this->config['database']);
-			}
+	/**
+	* Returns response from redis server.
+	*
+	* @access  protected
+	* @return  mixed
+	*/
+
+	protected function response()
+	{
+		$response = trim(fgets($this->connection));
+
+		switch(substr($response, 0, 1))
+		{
+			case '-': // error reply
+				throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, substr($response, 5))));
+			break;
+			case '+': // status reply
+				return trim(substr($response, 1));
+			break;
+			case ':': // integer reply
+				return (int) trim(substr($response, 1));
+			break;
+			case '$': // bulk reply
+				if($response === '$-1')
+				{
+					return null;
+				}
+
+				$length = (int) substr($response, 1);
+
+				return substr(fread($this->connection, $length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
+			break;
+			case '*': // multi-bulk reply
+				if($response === '*-1')
+				{
+					return null;
+				}
+
+				$data = array();
+
+				$count = substr($response, 1);
+
+				for($i = 0; $i < $count; $i++)
+				{
+					$data[] = $this->response();
+				}
+
+				return $data;
+			break;
+			default:
+				throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", array(__METHOD__)));
+		}
+	}
+
+	/**
+	* Sends command to Redis server and returns response.
+	*
+	* @access  public
+	* @param   string  Command name
+	* @param   array   Command parameters
+	* @return  mixed  
+	*/
+
+	public function __call($name, $args)
+	{
+		// Build command
+
+		array_unshift($args, strtoupper($name));
+
+		$command = '*' . count($args) . static::CRLF;
+
+		foreach($args as $arg)
+		{
+			$command .= '$' . strlen($arg) . static::CRLF . $arg . static::CRLF;
 		}
 
-		/**
-		* Closes connection to the Redis server.
-		*
-		* @access  protected
-		*/
+		// Send command to server
 
-		protected function disconnect()
-		{
-			if(is_resource($this->connection))
-			{
-				fclose($this->connection);	
-			}
-		}
+		fwrite($this->connection, $command);
 
-		/**
-		* Returns response from redis server.
-		*
-		* @access  protected
-		* @return  mixed
-		*/
+		// Return response
 
-		protected function response()
-		{
-			$response = trim(fgets($this->connection));
-
-			switch(substr($response, 0, 1))
-			{
-				case '-': // error reply
-					throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, substr($response, 5))));
-				break;
-				case '+': // status reply
-					return trim(substr($response, 1));
-				break;
-				case ':': // integer reply
-					return (int) trim(substr($response, 1));
-				break;
-				case '$': // bulk reply
-					if($response === '$-1')
-					{
-						return null;
-					}
-
-					$length = (int) substr($response, 1);
-
-					return substr(fread($this->connection, $length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
-				break;
-				case '*': // multi-bulk reply
-					if($response === '*-1')
-					{
-						return null;
-					}
-
-					$data = array();
-
-					$count = substr($response, 1);
-
-					for($i = 0; $i < $count; $i++)
-					{
-						$data[] = $this->response();
-					}
-
-					return $data;
-				break;
-				default:
-					throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", array(__METHOD__)));
-			}
-		}
-
-		/**
-		* Sends command to Redis server and returns response.
-		*
-		* @access  public
-		* @param   string  Command name
-		* @param   array   Command parameters
-		* @return  mixed  
-		*/
-
-		public function __call($name, $args)
-		{
-			// Build command
-
-			array_unshift($args, strtoupper($name));
-
-			$command = '*' . count($args) . static::CRLF;
-
-			foreach($args as $arg)
-			{
-				$command .= '$' . strlen($arg) . static::CRLF . $arg . static::CRLF;
-			}
-
-			// Send command to server
-
-			fwrite($this->connection, $command);
-
-			// Return response
-
-			return $this->response();
-		}
+		return $this->response();
 	}
 }
 

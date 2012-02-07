@@ -1,260 +1,255 @@
 <?php
 
-namespace mako
+namespace mako;
+
+use \mako\Mako;
+use \Exception;
+use \RuntimeException;
+
+/**
+* View/template class.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class View
 {
-	use \mako\Mako;
-	use \Exception;
-	use \RuntimeException;
-	
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
 	/**
-	* View/template class.
+	* Path to view file.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var string
 	*/
 
-	class View
+	protected $viewFile;
+
+	/**
+	* View variables.
+	*
+	* @var array
+	*/
+
+	protected $vars = array();
+
+	/**
+	* Global view variables.
+	*
+	* @var array
+	*/
+
+	protected static $globalVars = array();
+
+	/**
+	* The output.
+	*
+	* @var string
+	*/
+
+	protected $output;
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Create a new view object.
+	*
+	* @access  public
+	* @param   string  Name of the view file
+	* @param   array   (optional) Array of view variables
+	*/
+
+	public function __construct($view, array $variables = array())
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
-		/**
-		* Path to view file.
-		*/
-
-		protected $viewFile;
-
-		/**
-		* View variables.
-		*/
-
-		protected $vars = array();
-
-		/**
-		* Global view variables.
-		*/
-
-		protected static $globalVars = array();
-
-		/**
-		* The output.
-		*/
-
-		protected $output;
-
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Create a new view object.
-		*
-		* @access  public
-		* @param   string  Name of the view file
-		* @param   array   (optional) Array of view variables
-		*/
-
-		public function __construct($view, array $variables = array())
+		if(strpos($view, '::') !== false)
 		{
-			if(strpos($view, '::') !== false)
-			{
-				list($bundle, $view) = explode('::', $view);
+			list($bundle, $view) = explode('::', $view);
 
-				$this->viewFile = MAKO_BUNDLES . '/' . $bundle . '/views/' . $view . '.php';
-			}
-			else
-			{
-				$this->viewFile = MAKO_APPLICATION . '/views/' . $view . '.php';
-			}
-			
-			if(file_exists($this->viewFile) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' view does not exist.", array(__METHOD__, $view)));
-			}
-
-			$this->vars = $variables;
+			$this->viewFile = MAKO_BUNDLES . '/' . $bundle . '/views/' . $view . '.php';
 		}
-
-		/**
-		* Factory method making method chaining possible right off the bat.
-		*
-		* @access  public
-		* @param   string  Name of the view file
-		* @param   array   (optional) Array of view variables
-		* @return  View
-		*/
-
-		public static function factory($view, array $variables = array())
+		else
 		{
-			return new static($view, $variables);
-		}
-
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-
-		/**
-		* Assign a view variable.
-		*
-		* @access  public
-		* @param   string   Variable name
-		* @param   mixed    View variable
-		* @param   boolean  (optional) True to make variable available in all views
-		* @return  View
-		*/
-
-		public function assign($key, $value, $global = false)
-		{
-			if($global === false)
-			{
-				$this->vars[$key] = $value;
-			}
-			else
-			{
-				static::$globalVars[$key] = $value; // Available to all views
-			}
-
-			return $this;
+			$this->viewFile = MAKO_APPLICATION . '/views/' . $view . '.php';
 		}
 		
-		/**
-		* Assign a view variable by reference.
-		*
-		* @access  public
-		* @param   string   Variable name
-		* @param   mixed    View variable
-		* @param   boolean  (optional) True to make variable available in all views
-		* @return  View
-		*/
-
-		public function assignByRef($key, &$value, $global = false)
+		if(file_exists($this->viewFile) === false)
 		{
-			if($global === false)
-			{
-				$this->vars[$key] =& $value;
-			}
-			else
-			{
-				static::$globalVars[$key] =& $value; // Available to all views
-			}
-
-			return $this;
+			throw new RuntimeException(vsprintf("%s(): The '%s' view does not exist.", array(__METHOD__, $view)));
 		}
 
-		/**
-		* Include the view file and extracts the view variables before returning the generated output.
-		*
-		* @access  public
-		* @param   callback  (optional) Callback function used to filter output
-		* @return  string
-		*/
+		$this->vars = $variables;
+	}
 
-		public function render($filter = null)
-		{
-			if(empty($this->output))
-			{
-				extract(array_merge($this->vars, static::$globalVars), EXTR_REFS); // Extract variables as references
-				
-				ob_start();
+	/**
+	* Factory method making method chaining possible right off the bat.
+	*
+	* @access  public
+	* @param   string     Name of the view file
+	* @param   array      (optional) Array of view variables
+	* @return  mako\View
+	*/
 
-				include($this->viewFile);
+	public static function factory($view, array $variables = array())
+	{
+		return new static($view, $variables);
+	}
 
-				$this->output = ob_get_clean();
-			}
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-			if($filter !== null)
-			{
-				$this->output = call_user_func($filter, $this->output);
-			}
+	/**
+	* Assign a view variable.
+	*
+	* @access  public
+	* @param   string     Variable name
+	* @param   mixed      View variable
+	* @param   boolean    (optional) True to make variable available in all views
+	* @return  mako\View
+	*/
 
-			return $this->output;
-		}
-
-		/**
-		* Prints the rendered view to the browser.
-		*
-		* @access  public
-		* @param   callback  (optional) Callback function used to filter output
-		*/
-
-		public function display($filter = null)
-		{
-			echo $this->render($filter);
-		}
-
-		/**
-		* Magic setter method that assigns a view variable.
-		*
-		* @access  public
-		* @param   string  Variable name
-		* @param   mixed   View variable
-		*/
-
-		public function __set($key, $value)
+	public function assign($key, $value, $global = false)
+	{
+		if($global === false)
 		{
 			$this->vars[$key] = $value;
 		}
-
-		/**
-		* Magic getter method that returns a view variable.
-		*
-		* @access  public
-		* @param   string  Variable name
-		* @return  mixed
-		*/
-
-		public function __get($key)
+		else
 		{
-			if(isset($this->vars[$key]))
-			{
-				return $this->vars[$key];
-			}
+			static::$globalVars[$key] = $value; // Available to all views
 		}
 
-		/**
-		* Magic isset method that checks if a view variable is set.
-		*
-		* @access  public
-		* @param   string   Variable name
-		* @return  boolean
-		*/
+		return $this;
+	}
+	
+	/**
+	* Assign a view variable by reference.
+	*
+	* @access  public
+	* @param   string     Variable name
+	* @param   mixed      View variable
+	* @param   boolean    (optional) True to make variable available in all views
+	* @return  mako\View
+	*/
 
-		public function __isset($key)
+	public function assignByRef($key, &$value, $global = false)
+	{
+		if($global === false)
 		{
-			return isset($this->vars[$key]);
+			$this->vars[$key] =& $value;
+		}
+		else
+		{
+			static::$globalVars[$key] =& $value; // Available to all views
 		}
 
-		/**
-		* Magic unset method that unsets a view variable.
-		*
-		* @access  public
-		* @param   string   Variable name
-		*/
+		return $this;
+	}
 
-		public function __unset($key)
+	/**
+	* Include the view file and extracts the view variables before returning the generated output.
+	*
+	* @access  public
+	* @param   callback  (optional) Callback function used to filter output
+	* @return  string
+	*/
+
+	public function render($filter = null)
+	{
+		if(empty($this->output))
 		{
-			unset($this->vars[$key]);
+			extract(array_merge($this->vars, static::$globalVars), EXTR_REFS); // Extract variables as references
+			
+			ob_start();
+
+			include($this->viewFile);
+
+			$this->output = ob_get_clean();
 		}
 
-		/**
-		* Method that magically converts the view object into a string.
-		*
-		* @access  public
-		* @return  string
-		*/
-
-		public function __toString()
+		if($filter !== null)
 		{
-			try
-			{
-				return $this->render();
-			}
-			catch(Exception $e)
-			{
-				Mako::exceptionHandler($e);
-			}
+			$this->output = call_user_func($filter, $this->output);
+		}
+
+		return $this->output;
+	}
+
+	/**
+	* Magic setter method that assigns a view variable.
+	*
+	* @access  public
+	* @param   string  Variable name
+	* @param   mixed   View variable
+	*/
+
+	public function __set($key, $value)
+	{
+		$this->vars[$key] = $value;
+	}
+
+	/**
+	* Magic getter method that returns a view variable.
+	*
+	* @access  public
+	* @param   string  Variable name
+	* @return  mixed
+	*/
+
+	public function __get($key)
+	{
+		if(isset($this->vars[$key]))
+		{
+			return $this->vars[$key];
+		}
+	}
+
+	/**
+	* Magic isset method that checks if a view variable is set.
+	*
+	* @access  public
+	* @param   string   Variable name
+	* @return  boolean
+	*/
+
+	public function __isset($key)
+	{
+		return isset($this->vars[$key]);
+	}
+
+	/**
+	* Magic unset method that unsets a view variable.
+	*
+	* @access  public
+	* @param   string   Variable name
+	*/
+
+	public function __unset($key)
+	{
+		unset($this->vars[$key]);
+	}
+
+	/**
+	* Method that magically converts the view object into a string.
+	*
+	* @access  public
+	* @return  string
+	*/
+
+	public function __toString()
+	{
+		try
+		{
+			return $this->render();
+		}
+		catch(Exception $e)
+		{
+			Mako::exceptionHandler($e);
 		}
 	}
 }

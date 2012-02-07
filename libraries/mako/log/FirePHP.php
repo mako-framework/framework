@@ -1,92 +1,95 @@
 <?php
 
-namespace mako\log
+namespace mako\log;
+
+use \mako\Log;
+
+/**
+* FirePHP adapter.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class FirePHP extends \mako\log\Adapter
 {
-	use \mako\Log;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
 	
 	/**
-	* FirePHP adapter.
+	* Log types.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var array
 	*/
 	
-	class FirePHP extends \mako\log\Adapter
+	protected $types = array
+	(
+		Log::EMERGENCY => 'ERROR',
+		Log::ALERT     => 'ERROR',
+		Log::CRITICAL  => 'ERROR',
+		Log::ERROR     => 'ERROR',
+		Log::WARNING   => 'WARN',
+		Log::NOTICE    => 'INFO',
+		Log::INFO      => 'INFO',
+		Log::DEBUG     => 'LOG',
+	);
+	
+	/**
+	* Counter.
+	*
+	* @var int
+	*/
+	
+	protected $counter = 0;
+	
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+	
+	/**
+	* Constructor.
+	*
+	* @access  public
+	* @param   array   Configuration
+	*/
+	
+	public function __construct(array $config)
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-		
-		/**
-		* Log types.
-		*/
-		
-		protected $types = array
-		(
-			Log::EMERGENCY => 'ERROR',
-			Log::ALERT     => 'ERROR',
-			Log::CRITICAL  => 'ERROR',
-			Log::ERROR     => 'ERROR',
-			Log::WARNING   => 'WARN',
-			Log::NOTICE    => 'INFO',
-			Log::INFO      => 'INFO',
-			Log::DEBUG     => 'LOG',
-		);
-		
-		/**
-		* Counter.
-		*/
-		
-		protected $counter = 0;
-		
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-		
-		/**
-		* Constructor.
-		*
-		* @access  public
-		* @param   array   Configuration
-		*/
-		
-		public function __construct(array $config)
+		if(!headers_sent())
 		{
-			if(!headers_sent())
-			{
-				header('X-Wf-Protocol-1: http://meta.wildfirehq.org/Protocol/JsonStream/0.2');
-				header('X-Wf-1-Plugin-1: http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3');
-				header('X-Wf-1-Structure-1: http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1');
-			}
+			header('X-Wf-Protocol-1: http://meta.wildfirehq.org/Protocol/JsonStream/0.2');
+			header('X-Wf-1-Plugin-1: http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3');
+			header('X-Wf-1-Structure-1: http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1');
 		}
-		
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-		
-		/**
-		* Writes message to log.
-		*
-		* @access  public
-		* @param   string   The message to write to the log
-		* @param   int      (optional) Message type
-		* @return  boolean  TRUE on success or FALSE on failure.
-		*/
-		
-		public function write($message, $type = Log::ERROR)
-		{
-			if(!headers_sent())
-			{				
-				$content = json_encode(array(array('Type' => $this->types[$type]), $message));
-								
-				header('X-Wf-1-1-1-' . ++$this->counter . ': ' . strlen($content) . '|' . $content . '|');
+	}
+	
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+	
+	/**
+	* Writes message to log.
+	*
+	* @access  public
+	* @param   string   The message to write to the log
+	* @param   int      (optional) Message type
+	* @return  boolean  TRUE on success or FALSE on failure.
+	*/
+	
+	public function write($message, $type = Log::ERROR)
+	{
+		if(!headers_sent())
+		{				
+			$content = json_encode(array(array('Type' => $this->types[$type]), $message));
 							
-				return true;
-			}
-			
-			return false;
+			header('X-Wf-1-1-1-' . ++$this->counter . ': ' . strlen($content) . '|' . $content . '|');
+						
+			return true;
 		}
+		
+		return false;
 	}
 }
 

@@ -1,111 +1,110 @@
 <?php
 
-namespace mako\cache
+namespace mako\cache;
+
+use \RuntimeException;
+
+/**
+* WinCache adapter.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class WinCache extends \mako\cache\Adapter
 {
-	use \RuntimeException;
-	
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
+	// Nothing here
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
 	/**
-	* WinCache adapter.
+	* Constructor.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @access  public
+	* @param   array   Configuration
 	*/
 
-	class WinCache extends \mako\cache\Adapter
+	public function __construct(array $config)
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
-		// Nothing here
-
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Constructor.
-		*
-		* @access  public
-		* @param   array   Configuration
-		*/
-
-		public function __construct(array $config)
+		parent::__construct($config['identifier']);
+		
+		if(function_exists('wincache_ucache_get') === false)
 		{
-			parent::__construct($config['identifier']);
-			
-			if(function_exists('wincache_ucache_get') === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): WinCache is not available.", array(__METHOD__)));
-			}
+			throw new RuntimeException(vsprintf("%s(): WinCache is not available.", array(__METHOD__)));
 		}
+	}
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		/**
-		* Store variable in the cache.
-		*
-		* @access  public
-		* @param   string   Cache key
-		* @param   mixed    The variable to store
-		* @param   int      (optional) Time to live
-		* @return  boolean
-		*/
+	/**
+	* Store variable in the cache.
+	*
+	* @access  public
+	* @param   string   Cache key
+	* @param   mixed    The variable to store
+	* @param   int      (optional) Time to live
+	* @return  boolean
+	*/
 
-		public function write($key, $value, $ttl = 0)
+	public function write($key, $value, $ttl = 0)
+	{
+		return wincache_ucache_set("{$this->identifier}_{$key}", $value, $ttl);
+	}
+
+	/**
+	* Fetch variable from the cache.
+	*
+	* @access  public
+	* @param   string  Cache key
+	* @return  mixed
+	*/
+
+	public function read($key)
+	{
+		$cache = wincache_ucache_get("{$this->identifier}_{$key}", $success);
+		
+		if($success === true)
 		{
-			return wincache_ucache_set("{$this->identifier}_{$key}", $value, $ttl);
+			return $cache;
 		}
-
-		/**
-		* Fetch variable from the cache.
-		*
-		* @access  public
-		* @param   string  Cache key
-		* @return  mixed
-		*/
-
-		public function read($key)
+		else
 		{
-			$cache = wincache_ucache_get("{$this->identifier}_{$key}", $success);
-			
-			if($success === true)
-			{
-				return $cache;
-			}
-			else
-			{
-				return false;
-			}
+			return false;
 		}
+	}
 
-		/**
-		* Delete a variable from the cache.
-		*
-		* @access  public
-		* @param   string   Cache key
-		* @return  boolean
-		*/
+	/**
+	* Delete a variable from the cache.
+	*
+	* @access  public
+	* @param   string   Cache key
+	* @return  boolean
+	*/
 
-		public function delete($key)
-		{
-			return wincache_ucache_delete("{$this->identifier}_{$key}");
-		}
+	public function delete($key)
+	{
+		return wincache_ucache_delete("{$this->identifier}_{$key}");
+	}
 
-		/**
-		* Clears the user cache.
-		*
-		* @access  public
-		* @return  boolean
-		*/
+	/**
+	* Clears the user cache.
+	*
+	* @access  public
+	* @return  boolean
+	*/
 
-		public function clear()
-		{
-			return wincache_ucache_clear();
-		}
+	public function clear()
+	{
+		return wincache_ucache_clear();
 	}
 }
 

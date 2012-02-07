@@ -1,183 +1,182 @@
 <?php
 
-namespace mako
+namespace mako;
+
+use \mako\Mako;
+
+/**
+* Class that helps identifying the device or type of device that made the request.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class UserAgent
 {
-	use \mako\Mako;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
+	// Nothing here
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Protected constructor since this is a static class.
+	*/
+
+	protected function __construct()
+	{
+		// Nothing here
+	}
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 	
 	/**
-	* Class that helps identifying the device or type of device that made the request.
+	* Searches for a string in the user agent string.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @access  protected
+	* @param   array      Array of strings to look for
+	* @return  boolean
 	*/
 	
-	class UserAgent
+	protected static function find($what)
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
-		// Nothing here
-
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Protected constructor since this is a static class.
-		*/
-
-		protected function __construct()
+		if(isset($_SERVER['HTTP_USER_AGENT']))
 		{
-			// Nothing here
-		}
-
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-		
-		/**
-		* Searches for a string in the user agent string.
-		*
-		* @access  protected
-		* @param   array      Array of strings to look for
-		* @return  boolean
-		*/
-		
-		protected static function find($what)
-		{
-			if(isset($_SERVER['HTTP_USER_AGENT']))
+			foreach($what as $find)
 			{
-				foreach($what as $find)
+				if(stripos($_SERVER['HTTP_USER_AGENT'], $find) !== false)
 				{
-					if(stripos($_SERVER['HTTP_USER_AGENT'], $find) !== false)
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			
-			return false;
 		}
 		
-		/**
-		* Converts the HTTP_ACCEPT headers into an array.
-		*
-		* @access  protected
-		* @param   string     Array key
-		* @param   string     (optional) String to look for
-		* @param   mixed
-		*/
-		
-		protected static function accept($header, $what = null)
+		return false;
+	}
+	
+	/**
+	* Converts the HTTP_ACCEPT headers into an array.
+	*
+	* @access  protected
+	* @param   string     Array key
+	* @param   string     (optional) String to look for
+	* @param   mixed
+	*/
+	
+	protected static function accept($header, $what = null)
+	{
+		if(isset($_SERVER[$header]))
 		{
-			if(isset($_SERVER[$header]))
+			$accepts = explode(',', preg_replace('/(;q=[0-9\.]+)/i', '', strtolower(trim($_SERVER[$header]))));
+			
+			if($what === null && !empty($accepts))
 			{
-				$accepts = explode(',', preg_replace('/(;q=[0-9\.]+)/i', '', strtolower(trim($_SERVER[$header]))));
-				
-				if($what === null && !empty($accepts))
-				{
-					return $accepts;
-				}
-				else
-				{
-					return in_array(strtolower($what), $accepts);
-				}
+				return $accepts;
 			}
-			
-			return false;
+			else
+			{
+				return in_array(strtolower($what), $accepts);
+			}
 		}
 		
-		/**
-		* Returns true if the user agent that made the request is identified as a mobile device.
-		*
-		* @access  public
-		* @return  boolean
-		*/
-		
-		public static function isMobile()
-		{
-			return static::find(Mako::config('user_agents')->mobiles);
-		}
-		
-		/**
-		* Returns true if the user agent that made the request is identified as a robot/crawler.
-		*
-		* @access  public
-		* @return  boolean
-		*/
-		
-		public static function isRobot()
-		{
-			return static::find(Mako::config('user_agents')->robots);
-		}
-		
-		/**
-		* Returns TRUE if the string you're looking for exists in the user agent string and FALSE if not.
-		* Can be used to detect the type of device (UserAgent::is('iphone') or UserAgent::is(array('iphone', 'ipod'))).
-		*
-		* @access  public
-		* @param   mixed    String or array of strings you're looking for
-		* @return  boolean
-		*/
-		
-		public static function is($device)
-		{
-			return static::find((array) $device);
-		}
-		
-		/**
-		* Returns list of accepted content types or boolean value if you are looking for a content type.
-		*
-		* @access  public
-		* @param   string  (optional) Language to look for.
-		* @return  mixed
-		*/
-		
-		public static function accepts($content = null)
-		{
-			return static::accept('HTTP_ACCEPT', $content);
-		}
-		
-		/**
-		* Returns list of accepted languages or boolean value if you are looking for a language.
-		*
-		* @access  public
-		* @param   string  (optional) Language to look for.
-		* @return  mixed
-		*/
-		
-		public static function acceptsLanguage($language = null)
-		{
-			return static::accept('HTTP_ACCEPT_LANGUAGE', $language);
-		}
-		
-		/**
-		* Returns list of accepted character sets or boolean value if you are looking for a character set.
-		*
-		* @access  public
-		* @param   string  (optional) Character set to look for.
-		* @return  mixed
-		*/
-		
-		public static function acceptsCharset($charset = null)
-		{
-			return static::accept('HTTP_ACCEPT_CHARSET', $charset);
-		}
-		
-		/**
-		* Returns list of accepted encodings or boolean value if you are looking for an encoding.
-		*
-		* @access  public
-		* @param   string  (optional) Language to look for.
-		* @return  mixed
-		*/
-		
-		public static function acceptsEncoding($encoding = null)
-		{
-			return static::accept('HTTP_ACCEPT_ENCODING', $encoding);
-		}
+		return false;
+	}
+	
+	/**
+	* Returns true if the user agent that made the request is identified as a mobile device.
+	*
+	* @access  public
+	* @return  boolean
+	*/
+	
+	public static function isMobile()
+	{
+		return static::find(Mako::config('user_agents')->mobiles);
+	}
+	
+	/**
+	* Returns true if the user agent that made the request is identified as a robot/crawler.
+	*
+	* @access  public
+	* @return  boolean
+	*/
+	
+	public static function isRobot()
+	{
+		return static::find(Mako::config('user_agents')->robots);
+	}
+	
+	/**
+	* Returns TRUE if the string you're looking for exists in the user agent string and FALSE if not.
+	* Can be used to detect the type of device (UserAgent::is('iphone') or UserAgent::is(array('iphone', 'ipod'))).
+	*
+	* @access  public
+	* @param   mixed    String or array of strings you're looking for
+	* @return  boolean
+	*/
+	
+	public static function is($device)
+	{
+		return static::find((array) $device);
+	}
+	
+	/**
+	* Returns list of accepted content types or boolean value if you are looking for a content type.
+	*
+	* @access  public
+	* @param   string  (optional) Language to look for.
+	* @return  mixed
+	*/
+	
+	public static function accepts($content = null)
+	{
+		return static::accept('HTTP_ACCEPT', $content);
+	}
+	
+	/**
+	* Returns list of accepted languages or boolean value if you are looking for a language.
+	*
+	* @access  public
+	* @param   string  (optional) Language to look for.
+	* @return  mixed
+	*/
+	
+	public static function acceptsLanguage($language = null)
+	{
+		return static::accept('HTTP_ACCEPT_LANGUAGE', $language);
+	}
+	
+	/**
+	* Returns list of accepted character sets or boolean value if you are looking for a character set.
+	*
+	* @access  public
+	* @param   string  (optional) Character set to look for.
+	* @return  mixed
+	*/
+	
+	public static function acceptsCharset($charset = null)
+	{
+		return static::accept('HTTP_ACCEPT_CHARSET', $charset);
+	}
+	
+	/**
+	* Returns list of accepted encodings or boolean value if you are looking for an encoding.
+	*
+	* @access  public
+	* @param   string  (optional) Language to look for.
+	* @return  mixed
+	*/
+	
+	public static function acceptsEncoding($encoding = null)
+	{
+		return static::accept('HTTP_ACCEPT_ENCODING', $encoding);
 	}
 }
 

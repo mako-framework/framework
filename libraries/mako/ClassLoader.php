@@ -1,153 +1,156 @@
 <?php
 
-namespace mako
+namespace mako;
+
+/**
+* Classloader.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class ClassLoader
 {
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
 	/**
-	* Classloader.
+	* Mapping from class names to paths.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var array
 	*/
 
-	class ClassLoader
+	protected static $classes = array();
+
+	/**
+	* PSR-0 directories.
+	*
+	* @var array
+	*/
+
+	protected static $psr0 = array
+	(
+		MAKO_LIBRARIES_PATH
+	);
+	
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Protected constructor since this is a static class.
+	*
+	* @access  protected
+	*/
+
+	protected function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
+		// Nothing here
+	}
 
-		/**
-		* Mapping from class names to paths.
-		*/
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		protected static $classes = array();
+	/**
+	* Add class to mapping.
+	*
+	* @access  public
+	* @param   string  Class name
+	* @param   string  Full path to class
+	*/
 
-		/**
-		* PSR-0 directories.
-		*/
+	public static function addClass($className, $classPath)
+	{
+		static::$classes[$className] = $classPath;
+	}
 
-		protected static $psr0 = array
-		(
-			MAKO_LIBRARIES_PATH
-		);
+	/**
+	* Add multiple classes to mapping.
+	*
+	* @access  public
+	* @param   array   Array of classes to map (key = class name and value = class path)
+	*/
+
+	public static function addClasses(array $classes)
+	{
+		foreach($classes as $name => $path)
+		{
+			static::$classes[$name] = $path;
+		}
+	}
+
+	/**
+	* Adds a PSR-0 directory path.
+	*
+	* @access  public
+	* @param   string  Path to PSR-0 directory
+	*/
+
+	public static function addPsr0($path)
+	{
+		static::$psr0[] = $path;
+	}
+
+	/**
+	* Autoloader.
+	*
+	* @access  public
+	* @param   string   Class name
+	* @return  boolean
+	*/
+
+	public static function load($className)
+	{
+		$className = ltrim($className, '\\');
 		
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+		// Try to load a mapped class
 
-		/**
-		* Protected constructor since this is a static class.
-		*
-		* @access  protected
-		*/
-
-		protected function __construct()
+		if(isset(static::$classes[$className]) && file_exists(static::$classes[$className]))
 		{
-			// Nothing here
+			include static::$classes[$className];
+
+			return true;
 		}
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
+		// Try to load an application class
 
-		/**
-		* Add class to mapping.
-		*
-		* @access  public
-		* @param   string  Class name
-		* @param   string  Full path to class
-		*/
+		$fileName = MAKO_APPLICATION_PATH . '/' . str_replace('\\', '/', strtolower($className)) . '.php';
 
-		public static function addClass($className, $classPath)
+		if(file_exists($fileName))
 		{
-			static::$classes[$className] = $classPath;
+			include $fileName;
+
+			return true;
 		}
 
-		/**
-		* Add multiple classes to mapping.
-		*
-		* @access  public
-		* @param   array   Array of classes to map (key = class name and value = class path)
-		*/
+		// Try to load class from a PSR-0 compatible library
 
-		public static function addClasses(array $classes)
+		$fileName  = '';
+		$namespace = '';
+
+		if($lastNsPos = strripos($className, '\\'))
 		{
-			foreach($classes as $name => $path)
+			$namespace = substr($className, 0, $lastNsPos);
+			$className = substr($className, $lastNsPos + 1);
+			$fileName  = str_replace('\\', '/', $namespace) . '/';
+		}
+
+		$fileName .= str_replace('_', '/', $className) . '.php';
+
+		foreach(static::$psr0 as $path)
+		{
+			if(file_exists($path . '/' . $fileName))
 			{
-				static::$classes[$name] = $path;
-			}
-		}
-
-		/**
-		* Adds a PSR-0 directory path.
-		*
-		* @access  public
-		* @param   string  Path to PSR-0 directory
-		*/
-
-		public static function addPsr0($path)
-		{
-			static::$psr0[] = $path;
-		}
-
-		/**
-		* Autoloader.
-		*
-		* @access  public
-		* @param   string   Class name
-		* @return  boolean
-		*/
-
-		public static function load($className)
-		{
-			// Try to load a mapped class
-
-			if(isset(static::$classes[$className]) && file_exists(static::$classes[$className]))
-			{
-				include static::$classes[$className];
+				include($path . '/' . $fileName);
 
 				return true;
-			}
-
-			// Try to load an application class
-
-			$fileName = MAKO_APPLICATION_PATH . '/' . str_replace('\\', '/', mb_strtolower($className)) . '.php';
-
-			if(file_exists($fileName))
-			{
-				include $fileName;
-
-				return true;
-			}
-
-			// Try to load class from a PSR-0 compatible library
-
-			$className = ltrim($className, '\\');
-
-			$fileName  = '';
-			$namespace = '';
-
-			if($lastNsPos = strripos($className, '\\'))
-			{
-				$namespace = substr($className, 0, $lastNsPos);
-				$className = substr($className, $lastNsPos + 1);
-				$fileName  = str_replace('\\', '/', $namespace) . '/';
-			}
-
-			$fileName .= str_replace('_', '/', $className) . '.php';
-
-			foreach(static::$psr0 as $path)
-			{
-				if(file_exists($path . '/' . $fileName))
-				{
-					include($path . '/' . $fileName);
-
-					return true;
-				}	
-			}
-
-			return false;
+			}	
 		}
+
+		return false;
 	}
 }
 

@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="UTF-8">
+<meta charset="[mako:charset]">
 
 <title>Welcome!</title>
 

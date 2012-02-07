@@ -27,7 +27,7 @@
 <?php echo $error['type']; ?><?php if(isset($error['code'])): ?> <span style="color:#e1e1e1;padding:0px">[<?php echo $error['code']; ?>]</span><?php endif; ?>
 </div>
 <div class="body">
-<strong>Message:</strong> <?php echo htmlspecialchars($error['message'], ENT_COMPAT, mb_internal_encoding(), false); ?>
+<strong>Message:</strong> <?php echo htmlspecialchars($error['message'], ENT_COMPAT, MAKO_CHARSET, false); ?>
 
 <?php if(!empty($error['file'])): ?>
 <br><br>

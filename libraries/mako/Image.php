@@ -1,131 +1,152 @@
 <?php
 
-namespace mako
+namespace mako;
+
+use \RuntimeException;
+
+/**
+* Image factory class.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Image
 {
-	use \RuntimeException;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
 	
 	/**
-	* Image factory class.
+	* Resizing contraint.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var int
+	*/
+	
+	const IGNORE = 10;
+	
+	/**
+	* Resizing contraint.
+	*
+	* @var int
+	*/
+	
+	const AUTO = 11;
+	
+	/**
+	* Resizing contraint.
+	*
+	* @var int
+	*/
+	
+	const WIDTH = 12;
+	
+	/**
+	* Resizing contraint.
+	*
+	* @var int
+	*/
+	
+	const HEIGHT = 13;
+	
+	/**
+	* Watermark position.
+	*
+	* @var int
 	*/
 
-	class Image
+	const TOP_LEFT = 20;
+	
+	/**
+	* Watermark position.
+	*
+	* @var int
+	*/
+	
+	const TOP_RIGHT = 21;
+	
+	/**
+	* Watermark position.
+	*
+	* @var int
+	*/
+	
+	const BOTTOM_LEFT = 22;
+	
+	/**
+	* Watermark position.
+	*
+	* @var int
+	*/
+	
+	const BOTTOM_RIGHT = 23;
+	
+	/**
+	* Watermark position.
+	*
+	* @var int
+	*/
+	
+	const CENTER = 24;
+	
+	/**
+	* Flip direction.
+	*
+	* @var int
+	*/
+	
+	const VERTICAL = 30;
+	
+	/**
+	* Flip direction.
+	*
+	* @var int
+	*/
+	
+	const HORIZONTAL = 31;
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Protected constructor since this is a static class.
+	*
+	* @access  protected
+	*/
+
+	protected function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-		
-		/**
-		* Resizing contraint.
-		*/
-		
-		const IGNORE = 10;
-		
-		/**
-		* Resizing contraint.
-		*/
-		
-		const AUTO = 11;
-		
-		/**
-		* Resizing contraint.
-		*/
-		
-		const WIDTH = 12;
-		
-		/**
-		* Resizing contraint.
-		*/
-		
-		const HEIGHT = 13;
-		
-		/**
-		* Watermark position.
-		*/
+		// Nothing here
+	}
 
-		const TOP_LEFT = 20;
-		
-		/**
-		* Watermark position.
-		*/
-		
-		const TOP_RIGHT = 21;
-		
-		/**
-		* Watermark position.
-		*/
-		
-		const BOTTOM_LEFT = 22;
-		
-		/**
-		* Watermark position.
-		*/
-		
-		const BOTTOM_RIGHT = 23;
-		
-		/**
-		* Watermark position.
-		*/
-		
-		const CENTER = 24;
-		
-		/**
-		* Flip direction.
-		*/
-		
-		const VERTICAL = 30;
-		
-		/**
-		* Flip direction.
-		*/
-		
-		const HORIZONTAL = 31;
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+	/**
+	* Factory method that returns a image object.
+	*
+	* @param   string              Path to the image file
+	* @param   string              (optional) Image library
+	* @return  mako\image\Adapter
+	*/
 
-		/**
-		* Protected constructor since this is a static class.
-		*
-		* @access  protected
-		*/
+	public static function factory($file, $library = 'GD')
+	{
+		// Check if the image exists
 
-		protected function __construct()
+		if(file_exists($file) === false)
 		{
-			// Nothing here
+			throw new RuntimeException(vsprintf("%s(): The image file ('%s') does not exist.", array(__METHOD__, $file)));
 		}
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
+		// Create and return image object
 
-		/**
-		* Factory method that returns a image object.
-		*
-		* @param   string  Path to the image file
-		* @param   string  (optional) Image library
-		* @return  object
-		*/
+		$class = '\mako\image\\' . $library;
 
-		public static function factory($file, $library = 'GD')
-		{
-			// Check if the image exists
-
-			if(file_exists($file) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The image file ('%s') does not exist.", array(__METHOD__, $file)));
-			}
-
-			// Create and return image object
-
-			$class = '\mako\image\\' . $library;
-
-			return new $class($file);
-		}
+		return new $class($file);
 	}
 }
 

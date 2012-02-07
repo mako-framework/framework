@@ -20,6 +20,12 @@ error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', true);
 
 /**
+* Define the default charset used internally in the framework.
+*/
+
+define('MAKO_CHARSET', 'UTF-8');
+
+/**
 * Setting this value to true can speed up execution by reducing the 
 * number of config and language files to include.
 */

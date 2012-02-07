@@ -1,173 +1,174 @@
 <?php
 
-namespace mako
+namespace mako;
+
+use \RuntimeException;
+/**
+* Benchmarking/timer class.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Benchmark
 {
-	use \RuntimeException;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
 	/**
-	* Simple benchmarking/timer class.
+	* Array of timers.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var array
 	*/
 
-	class Benchmark
+	protected static $timers = array();
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Protected constructor since this is a static class.
+	*/
+
+	protected function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
+		// Nothing here
+	}
 
-		/**
-		* Array of timers.
-		*/
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		protected static $timers = array();
+	/**
+	* Start a timer.
+	*
+	* @access  public
+	* @param   string  Benchmark name
+	*/
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Protected constructor since this is a static class.
-		*/
-
-		protected function __construct()
+	public static function start($name)
+	{
+		if(isset(static::$timers[$name]) === true)
 		{
-			// Nothing here
+			throw new RuntimeException(vsprintf("%s(): A timer named '%s' already exists.", array(__METHOD__, $name)));
 		}
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
+		static::$timers[$name] = array
+		(
+			'start'        => microtime(true),
+			'stop'         => false
+		);
+	}
 
-		/**
-		* Start a timer.
-		*
-		* @access  public
-		* @param   string  Benchmark name
-		*/
+	/**
+	* Get the elapsed time in seconds of a running timer.
+	*
+	* @access  public
+	* @param   string  Benchmark name
+	* @param   int     (optional) Benchmark precision
+	* @return  double
+	*/
 
-		public static function start($name)
+	public static function check($name, $precision = 4)
+	{
+		if(isset(static::$timers[$name]) === false)
 		{
-			if(isset(static::$timers[$name]) === true)
-			{
-				throw new RuntimeException(vsprintf("%s(): A timer named '%s' already exists.", array(__METHOD__, $name)));
-			}
-
-			static::$timers[$name] = array
-			(
-				'start'        => microtime(true),
-				'stop'         => false
-			);
+			throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been started.", array(__METHOD__, $name)));
 		}
 
-		/**
-		* Get the elapsed time in seconds of a running timer.
-		*
-		* @access  public
-		* @param   string  Benchmark name
-		* @param   int     (optional) Benchmark precision
-		* @return  double
-		*/
-
-		public static function check($name, $precision = 4)
+		if(static::$timers[$name]['stop'] !== false)
 		{
-			if(isset(static::$timers[$name]) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been started.", array(__METHOD__, $name)));
-			}
-
-			if(static::$timers[$name]['stop'] !== false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' timer has been stopped.", array(__METHOD__, $name)));
-			}
-
-			return round(microtime(true) - static::$timers[$name]['start'], $precision);
+			throw new RuntimeException(vsprintf("%s(): The '%s' timer has been stopped.", array(__METHOD__, $name)));
 		}
 
-		/**
-		* Stop a timer and get elapsed time in seconds.
-		*
-		* @access  public
-		* @param   string  Benchmark name
-		* @param   int     (optional) Benchmark precision
-		* @return  double
-		*/
+		return round(microtime(true) - static::$timers[$name]['start'], $precision);
+	}
 
-		public static function stop($name, $precision = 4)
+	/**
+	* Stop a timer and get elapsed time in seconds.
+	*
+	* @access  public
+	* @param   string  Benchmark name
+	* @param   int     (optional) Benchmark precision
+	* @return  double
+	*/
+
+	public static function stop($name, $precision = 4)
+	{
+		if(isset(static::$timers[$name]) === false)
 		{
-			if(isset(static::$timers[$name]) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been started.", array(__METHOD__, $name)));
-			}
-
-			if(static::$timers[$name]['stop'] !== false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' timer has already been stopped.", array(__METHOD__, $name)));
-			}
-
-			static::$timers[$name]['stop'] = microtime(true);
-
-			return round(static::$timers[$name]['stop'] - static::$timers[$name]['start'], $precision);
+			throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been started.", array(__METHOD__, $name)));
 		}
 
-		/**
-		* Get the elapsed time in seconds.
-		*
-		* @access  public
-		* @param   string  Benchmark name
-		* @param   int     (optional) Benchmark precision
-		* @return  double
-		*/
-
-		public static function get($name, $precision = 4)
+		if(static::$timers[$name]['stop'] !== false)
 		{
-			if(isset(static::$timers[$name]) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been started.", array(__METHOD__, $name)));
-			}
-
-			if(static::$timers[$name]['stop'] === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been stopped.", array(__METHOD__, $name)));
-			}
-
-			return round(static::$timers[$name]['stop'] - static::$timers[$name]['start'], $precision);
+			throw new RuntimeException(vsprintf("%s(): The '%s' timer has already been stopped.", array(__METHOD__, $name)));
 		}
 
-		/**
-		* Returns an array containing all the benchmarks.
-		*
-		* @access  public
-		* @param   int     (optional) Benchmark precision
-		* @return  array
-		*/
+		static::$timers[$name]['stop'] = microtime(true);
 
-		public static function getAll($precision = 4)
+		return round(static::$timers[$name]['stop'] - static::$timers[$name]['start'], $precision);
+	}
+
+	/**
+	* Get the elapsed time in seconds.
+	*
+	* @access  public
+	* @param   string  Benchmark name
+	* @param   int     (optional) Benchmark precision
+	* @return  double
+	*/
+
+	public static function get($name, $precision = 4)
+	{
+		if(isset(static::$timers[$name]) === false)
 		{
-			$benchmarks = array();
-
-			foreach(static::$timers as $k => $v)
-			{
-				$benchmarks[$k] = static::get($k, $precision);
-			}
-
-			return $benchmarks;
+			throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been started.", array(__METHOD__, $name)));
 		}
 
-		/**
-		* Returns the sum of all the benchmark times.
-		*
-		* @access  public
-		* @param   int     (optional) Benchmark precision
-		* @return  double
-		*/
-
-		public static function totalTime($precision = 4)
+		if(static::$timers[$name]['stop'] === false)
 		{
-			return array_sum(static::getAll($precision));
+			throw new RuntimeException(vsprintf("%s(): The '%s' timer has not been stopped.", array(__METHOD__, $name)));
 		}
-	}	
+
+		return round(static::$timers[$name]['stop'] - static::$timers[$name]['start'], $precision);
+	}
+
+	/**
+	* Returns an array containing all the benchmarks.
+	*
+	* @access  public
+	* @param   int     (optional) Benchmark precision
+	* @return  array
+	*/
+
+	public static function getAll($precision = 4)
+	{
+		$benchmarks = array();
+
+		foreach(static::$timers as $k => $v)
+		{
+			$benchmarks[$k] = static::get($k, $precision);
+		}
+
+		return $benchmarks;
+	}
+
+	/**
+	* Returns the sum of all the benchmark times.
+	*
+	* @access  public
+	* @param   int     (optional) Benchmark precision
+	* @return  double
+	*/
+
+	public static function totalTime($precision = 4)
+	{
+		return array_sum(static::getAll($precision));
+	}
 }
 
 /** -------------------- End of file --------------------**/

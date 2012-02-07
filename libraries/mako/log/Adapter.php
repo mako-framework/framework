@@ -1,37 +1,36 @@
 <?php
 
-namespace mako\log
+namespace mako\log;
+
+use \mako\Log;
+
+/**
+* Log adapter.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+abstract class Adapter
 {
-	use \mako\Log;
-	
-	/**
-	* Log adapter.
-	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
-	*/
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
 
-	abstract class Adapter
-	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
+	// Nothing here
 
-		// Nothing here
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+	abstract public function __construct(array $config);
 
-		abstract public function __construct(array $config);
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-
-		abstract public function write($message, $type = Log::ERROR);
-	}
+	abstract public function write($message, $type = Log::ERROR);
 }
 
 /** -------------------- End of file --------------------**/

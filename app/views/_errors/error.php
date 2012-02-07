@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="<?=MAKO_CHARSET;?>">
 <title>Error</title>
 
 <style type="text/css">

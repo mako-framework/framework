@@ -1,106 +1,107 @@
 <?php
 
-namespace mako\session
+namespace mako\session;
+
+use \mako\Redis as MRedis;
+
+/**
+* Redis adapter.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Redis extends \mako\session\Adapter
 {
-	use \mako\Redis as MRedis;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
 
 	/**
-	* Redis adapter.
+	* Redis object.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var mako\Redis
 	*/
 
-	class Redis extends \mako\session\Adapter
+	protected $redis;
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Constructor.
+	*
+	* @access  public
+	* @param   array   Configuration
+	*/
+
+	public function __construct(array $config)
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
+		parent::__construct();
 
-		/**
-		* Redis object.
-		*/
+		$this->redis = new MRedis($config['configuration']);
+	}
 
-		protected $redis;
+	/**
+	* Destructor.
+	*
+	* @access  public
+	*/
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+	public function __destruct()
+	{
+		session_write_close();
 
-		/**
-		* Constructor.
-		*
-		* @access  public
-		* @param   array   Configuration
-		*/
+		$this->redis = null;
+	}
 
-		public function __construct(array $config)
-		{
-			parent::__construct();
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-			$this->redis = new MRedis($config['configuration']);
-		}
+	/**
+	* Returns session data.
+	*
+	* @access  public
+	* @param   string  Session id
+	* @return  string
+	*/
 
-		/**
-		* Destructor.
-		*
-		* @access  public
-		*/
+	public function read($id)
+	{
+		return (string) $this->redis->get('sess_' . $id);
+	}
 
-		public function __destruct()
-		{
-			session_write_close();
+	/**
+	* Writes data to the session.
+	*
+	* @access  public
+	* @param   string  Session id
+	* @param   string  Session data
+	*/
 
-			$this->redis = null;
-		}
+	public function write($id, $data)
+	{
+		$this->redis->set('sess_' . $id, $data);
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
+		$this->redis->expire('sess_' . $id, $this->maxLifetime);
 
-		/**
-		* Returns session data.
-		*
-		* @access  public
-		* @param   string  Session id
-		* @return  string
-		*/
+		return true;
+	}
 
-		public function read($id)
-		{
-			return (string) $this->redis->get('sess_' . $id);
-		}
+	/**
+	* Destroys the session.
+	*
+	* @access  public
+	* @param   string   Session id
+	* @return  boolean
+	*/
 
-		/**
-		* Writes data to the session.
-		*
-		* @access  public
-		* @param   string  Session id
-		* @param   string  Session data
-		*/
-
-		public function write($id, $data)
-		{
-			$this->redis->set('sess_' . $id, $data);
-
-			$this->redis->expire('sess_' . $id, $this->maxLifetime);
-
-			return true;
-		}
-
-		/**
-		* Destroys the session.
-		*
-		* @access  public
-		* @param   string   Session id
-		* @return  boolean
-		*/
-
-		public function destroy($id)
-		{
-			return (bool) $this->redis->del('sess_' . $id);
-		}
+	public function destroy($id)
+	{
+		return (bool) $this->redis->del('sess_' . $id);
 	}
 }
 

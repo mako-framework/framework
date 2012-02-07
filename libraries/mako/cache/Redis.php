@@ -1,126 +1,127 @@
 <?php
 
-namespace mako\cache
+namespace mako\cache;
+
+use \mako\Redis as MRedis;
+
+/**
+* Redis adapter.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Redis extends \mako\cache\Adapter
 {
-	use \mako\Redis as MRedis;
-	
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
 	/**
-	* Redis adapter.
+	* Redis object.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var mako\Redis
 	*/
 
-	class Redis extends \mako\cache\Adapter
+	protected $redis;
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Constructor.
+	*
+	* @access  public
+	* @param   array   Configuration
+	*/
+
+	public function __construct(array $config)
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
+		parent::__construct($config['identifier']);
+		
+		$this->redis = new MRedis($config['configuration']);
+	}
 
-		/**
-		* Redis object.
-		*/
+	/**
+	* Destructor.
+	*
+	* @access  public
+	*/
 
-		protected $redis;
-
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Constructor.
-		*
-		* @access  public
-		* @param   array   Configuration
-		*/
-
-		public function __construct(array $config)
+	public function __destruct()
+	{
+		if($this->redis !== null)
 		{
-			parent::__construct($config['identifier']);
-			
-			$this->redis = new MRedis($config['configuration']);
+			$this->redis = null;
+		}
+	}
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+
+	/**
+	* Store variable in the cache.
+	*
+	* @access  public
+	* @param   string   Cache key
+	* @param   mixed    The variable to store
+	* @param   int      (optional) Time to live
+	* @return  boolean
+	*/
+
+	public function write($key, $value, $ttl = 0)
+	{
+		$this->redis->set("{$this->identifier}_{$key}", serialize($value));
+		
+		if($ttl !== 0)
+		{
+			$this->redis->expire("{$this->identifier}_{$key}", $ttl);
 		}
 
-		/**
-		* Destructor.
-		*
-		* @access  public
-		*/
+		return true;
+	}
 
-		public function __destruct()
-		{
-			if($this->redis !== null)
-			{
-				$this->redis = null;
-			}
-		}
+	/**
+	* Fetch variable from the cache.
+	*
+	* @access  public
+	* @param   string  Cache key
+	* @return  mixed
+	*/
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
+	public function read($key)
+	{
+		$data = $this->redis->get("{$this->identifier}_{$key}");
 
-		/**
-		* Store variable in the cache.
-		*
-		* @access  public
-		* @param   string   Cache key
-		* @param   mixed    The variable to store
-		* @param   int      (optional) Time to live
-		* @return  boolean
-		*/
+		return ($data === null) ? false : unserialize($data);
+	}
 
-		public function write($key, $value, $ttl = 0)
-		{
-			$this->redis->set("{$this->identifier}_{$key}", serialize($value));
-			
-			if($ttl !== 0)
-			{
-				$this->redis->expire("{$this->identifier}_{$key}", $ttl);
-			}
+	/**
+	* Delete a variable from the cache.
+	*
+	* @access  public
+	* @param   string   Cache key
+	* @return  boolean
+	*/
 
-			return true;
-		}
+	public function delete($key)
+	{
+		return (bool) $this->redis->del("{$this->identifier}_{$key}");
+	}
 
-		/**
-		* Fetch variable from the cache.
-		*
-		* @access  public
-		* @param   string  Cache key
-		* @return  mixed
-		*/
+	/**
+	* Clears the user cache.
+	*
+	* @access  public
+	* @return  boolean
+	*/
 
-		public function read($key)
-		{
-			$data = $this->redis->get("{$this->identifier}_{$key}");
-
-			return ($data === null) ? false : unserialize($data);
-		}
-
-		/**
-		* Delete a variable from the cache.
-		*
-		* @access  public
-		* @param   string   Cache key
-		* @return  boolean
-		*/
-
-		public function delete($key)
-		{
-			return (bool) $this->redis->del("{$this->identifier}_{$key}");
-		}
-
-		/**
-		* Clears the user cache.
-		*
-		* @access  public
-		* @return  boolean
-		*/
-
-		public function clear()
-		{
-			return (bool) $this->redis->flushdb();
-		}
+	public function clear()
+	{
+		return (bool) $this->redis->flushdb();
 	}
 }
 

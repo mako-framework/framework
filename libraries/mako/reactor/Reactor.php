@@ -1,124 +1,123 @@
 <?php
 
-namespace mako\reactor
+namespace mako\reactor;
+
+use \mako\Mako;
+use \mako\CLI;
+use \mako\reactor\handlers\Tasks;
+use \mako\reactor\handlers\Bundles;
+
+/**
+* Reactor core class.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Reactor
 {
-	use \mako\Mako;
-	use \mako\CLI;
-	use \mako\reactor\handlers\Tasks;
-	use \mako\reactor\handlers\Bundles;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
+	// Nothing here
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
 
 	/**
-	* Reactor core class.
+	* Protected constructor since this is a static class.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @access  protected
 	*/
 
-	class Reactor
+	protected function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
 		// Nothing here
+	}
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		/**
-		* Protected constructor since this is a static class.
-		*
-		* @access  protected
-		*/
+	/**
+	* Sets up the CLI environment and runs the commands.
+	*
+	* @access  public
+	* @param   array   Arguments
+	*/
 
-		protected function __construct()
+	public static function run($arguments)
+	{
+		// Set internal encoding
+
+		mb_language('uni');
+		mb_regex_encoding(MAKO_CHARSET);
+		mb_internal_encoding(MAKO_CHARSET);
+
+		// Set timezone and locale settings
+
+		$config = Mako::config('mako');
+
+		date_default_timezone_set($config['timezone']);
+
+		Mako::locale($config['locale']['locales'], $config['locale']['lc_numeric']);
+
+		// Remove options from argument list so that it doesnt matter what order they come in
+
+		foreach($arguments as $key => $value)
 		{
-			// Nothing here
-		}
-
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-
-		/**
-		* Sets up the CLI environment and runs the commands.
-		*
-		* @access  public
-		* @param   array   Arguments
-		*/
-
-		public static function run($arguments)
-		{
-			// Set internal encoding
-
-			mb_language('uni');
-			mb_regex_encoding('UTF-8');
-			mb_internal_encoding('UTF-8');
-
-			// Set timezone and locale settings
-
-			$config = Mako::config('mako');
-
-			date_default_timezone_set($config['timezone']);
-
-			Mako::locale($config['locale']['locales'], $config['locale']['lc_numeric']);
-
-			// Remove options from argument list so that it doesnt matter what order they come in
-
-			foreach($arguments as $key => $value)
+			if(substr($value, 0, 2) == '--')
 			{
-				if(substr($value, 0, 2) == '--')
-				{
-					unset($arguments[$key]);
-				}
+				unset($arguments[$key]);
 			}
-
-			// Handle commands
-
-			CLI::stdout();
-
-			if(!empty($arguments))
-			{
-				switch($arguments[0])
-				{
-					case 'v':
-					case 'version':
-						return CLI::stdout('Mako '. Mako::VERSION . ' (PHP ' . phpversion() . ' | Zend Engine ' . zend_version() . ' | ' . PHP_OS . ')');
-					break;
-					case 'b':
-					case 'bundle':
-						return Bundles::run(array_slice($arguments, 1));
-					break;
-					case 't':
-					case 'task':
-						return Tasks::run(array_slice($arguments, 1));
-				}
-			}
-			
-			static::help();
 		}
 
-		/**
-		* Displays help.
-		*
-		* @access  public
-		*/
+		// Handle commands
 
-		public static function help()
+		CLI::stdout();
+
+		if(!empty($arguments))
 		{
-			$help  = 'Reactor CLI tool' . PHP_EOL;
-			$help .= '-------------------------------------------------------' . PHP_EOL . PHP_EOL;
-			$help .= 'Valid commands are:'  . PHP_EOL . PHP_EOL;
-			$help .= '   php reactor version'  . PHP_EOL;
-			$help .= '   php reactor task <taskname>'  . PHP_EOL;
-			$help .= '   php reactor bundle install <bundlename>' . PHP_EOL;
-			$help .= '   php reactor bundle remove <bundlename>' . PHP_EOL . PHP_EOL;
-			$help .= 'Mako framework documentation at http://makoframework.com/docs';
-
-			CLI::stdout($help);
+			switch($arguments[0])
+			{
+				case 'v':
+				case 'version':
+					return CLI::stdout('Mako '. Mako::VERSION . ' (PHP ' . phpversion() . ' | Zend Engine ' . zend_version() . ' | ' . PHP_OS . ')');
+				break;
+				case 'b':
+				case 'bundle':
+					return Bundles::run(array_slice($arguments, 1));
+				break;
+				case 't':
+				case 'task':
+					return Tasks::run(array_slice($arguments, 1));
+			}
 		}
+		
+		static::help();
+	}
+
+	/**
+	* Displays help.
+	*
+	* @access  public
+	*/
+
+	public static function help()
+	{
+		$help  = 'Reactor CLI tool' . PHP_EOL;
+		$help .= '-------------------------------------------------------' . PHP_EOL . PHP_EOL;
+		$help .= 'Valid commands are:'  . PHP_EOL . PHP_EOL;
+		$help .= '   php reactor version'  . PHP_EOL;
+		$help .= '   php reactor task <taskname>'  . PHP_EOL;
+		$help .= '   php reactor bundle install <bundlename>' . PHP_EOL;
+		$help .= '   php reactor bundle remove <bundlename>' . PHP_EOL . PHP_EOL;
+		$help .= 'Mako framework documentation at http://makoframework.com/docs';
+
+		CLI::stdout($help);
 	}
 }
 

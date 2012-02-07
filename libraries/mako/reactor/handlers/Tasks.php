@@ -1,107 +1,106 @@
 <?php
 
-namespace mako\reactor\handlers
+namespace mako\reactor\handlers;
+
+use \mako\Mako;
+use \mako\CLI;
+use \mako\reactor\Reactor;
+use \ReflectionClass;
+use \RuntimeException;
+
+/**
+* Task handler.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Tasks
 {
-	use \mako\Mako;
-	use \mako\CLI;
-	use \mako\reactor\Reactor;
-	use \ReflectionClass;
-	use \RuntimeException;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
+	// Nothing here
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
 
 	/**
-	* Task handler.
+	* Protected constructor since this is a static class.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @access  protected
 	*/
 
-	class Tasks
+	protected function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
 		// Nothing here
+	}
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		/**
-		* Protected constructor since this is a static class.
-		*
-		* @access  protected
-		*/
+	/**
+	* Runs the chosen task.
+	*
+	* @access  public
+	* @param   array   Arguments
+	*/
 
-		protected function __construct()
+	public static function run($arguments)
+	{
+		if(!empty($arguments))
 		{
-			// Nothing here
-		}
-
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-
-		/**
-		* Runs the chosen task.
-		*
-		* @access  public
-		* @param   array   Arguments
-		*/
-
-		public static function run($arguments)
-		{
-			if(!empty($arguments))
+			if(strpos($arguments[0], '::') !== false)
 			{
-				if(strpos($arguments[0], '::') !== false)
+				list($bundle, $task) = explode('::', $arguments[0]);
+
+				try
 				{
-					list($bundle, $task) = explode('::', $arguments[0]);
-
-					try
-					{
-						Mako::bundle($bundle);
-					}
-					catch(RuntimeException $e)
-					{
-						return CLI::stderr($e->getMessage());
-					}
+					Mako::bundle($bundle);
 				}
-				else
+				catch(RuntimeException $e)
 				{
-					$task = $arguments[0];
+					return CLI::stderr($e->getMessage());
 				}
-
-				list($task, $method) = explode(':', $task);
-
-				$file = (!empty($bundle) ? MAKO_BUNDLES . '/' . $bundle : MAKO_APPLICATION ) . '/tasks/' . $task . '.php';
-
-				if(!file_exists($file))
-				{
-					return CLI::stderr(vsprintf("The '%s' task does not exist", array($task)));
-				}
-
-				include $file;
-
-				// Validate task class
-
-				$taskClass = new ReflectionClass($task);
-
-				if($taskClass->isSubClassOf('\mako\reactor\Task') === false)
-				{
-					return CLI::stderr(vsprintf("The '%s' task needs to extend the mako\\reactor\Task class", array($task)));
-				}
-
-				// Run task
-
-				$task = $taskClass->newInstance();
-
-				call_user_func_array(array($task, (empty($method) ? 'run' : $method)), array_slice($arguments, 1));
 			}
 			else
 			{
-				Reactor::help();
+				$task = $arguments[0];
 			}
+
+			list($task, $method) = explode(':', $task);
+
+			$file = (!empty($bundle) ? MAKO_BUNDLES . '/' . $bundle : MAKO_APPLICATION ) . '/tasks/' . $task . '.php';
+
+			if(!file_exists($file))
+			{
+				return CLI::stderr(vsprintf("The '%s' task does not exist.", array($task)));
+			}
+
+			include $file;
+
+			// Validate task class
+
+			$taskClass = new ReflectionClass($task);
+
+			if($taskClass->isSubClassOf('\mako\reactor\Task') === false)
+			{
+				return CLI::stderr(vsprintf("The '%s' task needs to extend the mako\\reactor\Task class.", array($task)));
+			}
+
+			// Run task
+
+			$task = $taskClass->newInstance();
+
+			call_user_func_array(array($task, (empty($method) ? 'run' : $method)), array_slice($arguments, 1));
+		}
+		else
+		{
+			Reactor::help();
 		}
 	}
 }

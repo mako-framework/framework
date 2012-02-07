@@ -1,193 +1,202 @@
 <?php
 
-namespace mako
+namespace mako;
+
+use \mako\Mako;
+use \mako\I18n;
+
+/**
+* Pagination class.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Pagination
 {
-	use \mako\Mako;
-	use \mako\I18n;
-	
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
 	/**
-	* Pagination class.
+	* Name of the $_GET key holding the current page number.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var string
 	*/
 
-	class Pagination
+	protected $key;
+
+	/**
+	* Offset.
+	*
+	* @var int
+	*/
+
+	protected $offset;
+	
+	/**
+	* Current page.
+	*
+	* @var int
+	*/
+
+	protected $currentPage;
+
+	/**
+	* Number of pages.
+	*
+	* @var int
+	*/
+
+	protected $pages;
+	
+	/**
+	* Number of items per page.
+	*
+	* @var int
+	*/
+	
+	protected $itemsPerPage;
+	
+	/**
+	* Maximum number of page links.
+	*
+	* @var int
+	*/
+	
+	protected $maxPageLinks;
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Constructor.
+	*
+	* @access  public
+	*/
+
+	public function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
-		/**
-		* Name of the $_GET key holding the current page number.
-		*/
-
-		protected $key;
-
-		/**
-		* Offset.
-		*/
-
-		protected $offset;
+		$config = Mako::config('pagination');
 		
-		/**
-		* Current page.
-		*/
+		$this->key          = $config['page_key'];
+		$this->currentPage  = max((int) (isset($_GET[$this->key]) ? $_GET[$this->key] : 1), 1);
+		$this->itemsPerPage = $config['items_per_page'];
+		$this->maxPageLinks = $config['max_page_links'];
+	}
 
-		protected $currentPage;
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		/**
-		* Number of pages.
-		*/
+	/**
+	* Calculates the offset and number of pages and returns the offset.
+	*
+	* @access  public
+	* @param   int     Number of items
+	* @param   int     Number of items to display on each page
+	* @return  int
+	*/
 
-		protected $pages;
-		
-		/**
-		* Number of items per page.
-		*/
-		
-		protected $itemsPerPage;
-		
-		/**
-		* Maximum number of page links.
-		*/
-		
-		protected $maxPageLinks;
+	public function getOffset($itemCount, $itemsPerPage = null)
+	{
+		$itemsPerPage = ($itemsPerPage === null) ? max($this->itemsPerPage, 1) : max($itemsPerPage, 1);
+		$this->pages  = ceil(($itemCount / $itemsPerPage));
+		$this->offset = ($this->currentPage - 1) * $itemsPerPage;
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+		return $this->offset;
+	}
 
-		/**
-		* Constructor.
-		*
-		* @access  public
-		*/
+	/**
+	* Returns an associative array of pagination links.
+	*
+	* @access  public
+	* @param   string  (optional) URL segments
+	* @param   array   (optional) Associative array used to build URL-encoded query string
+	* @param   string  (optional) Argument separator
+	* @return  array
+	*/
 
-		public function __construct()
-		{
-			$config = Mako::config('pagination');
-			
-			$this->key          = $config['page_key'];
-			$this->currentPage  = max((int) (isset($_GET[$this->key]) ? $_GET[$this->key] : 1), 1);
-			$this->itemsPerPage = $config['items_per_page'];
-			$this->maxPageLinks = $config['max_page_links'];
-		}
-
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-
-		/**
-		* Calculates the offset and number of pages and returns the offset.
-		*
-		* @access  public
-		* @param   int     Number of items
-		* @param   int     Number of items to display on each page
-		* @return  int
-		*/
-
-		public function getOffset($itemCount, $itemsPerPage = null)
-		{
-			$itemsPerPage = ($itemsPerPage === null) ? max($this->itemsPerPage, 1) : max($itemsPerPage, 1);
-			$this->pages  = ceil(($itemCount / $itemsPerPage));
-			$this->offset = ($this->currentPage - 1) * $itemsPerPage;
-
-			return $this->offset;
-		}
-
-		/**
-		* Returns an associative array of pagination links.
-		*
-		* @access  public
-		* @param   string  (optional) URL segments
-		* @param   array   (optional) Associative array used to build URL-encoded query string
-		* @param   string  (optional) Argument separator
-		* @return  array
-		*/
-
-		public function getLinks($url = '', array $params = null, $separator = '&amp;')
-		{
-			$links = array();
-			
-			$params = (array) $params; // Cast params to array
-			
-			// Number of pages
-			
-			$links['num_pages'] = I18n::getText('%d Pages', array($this->pages));
-			
-			// First and previous page
-			
-			if($this->currentPage > 1)
-			{
-				$links['first_page'] = array
-				(
-					'name' => I18n::getText('First Page'), 
-					'url'  => Mako::url($url, array_merge($params, array($this->key => 1)), $separator),
-				);
+	public function getLinks($url = '', array $params = array(), $separator = '&amp;')
+	{
+		$links = array();
 				
-				$links['previous_page'] = array
-				(
-					'name' => '&laquo;',
-					'url'  => Mako::url($url, array_merge($params, array($this->key => ($this->currentPage - 1))), $separator),
-				);
-			}
+		// Number of pages
+		
+		$links['num_pages'] = I18n::getText('%d Pages', array($this->pages));
+		
+		// First and previous page
+		
+		if($this->currentPage > 1)
+		{
+			$links['first_page'] = array
+			(
+				'name' => I18n::getText('First Page'), 
+				'url'  => Mako::url($url, array_merge($params, array($this->key => 1)), $separator),
+			);
 			
-			// Last and next page
+			$links['previous_page'] = array
+			(
+				'name' => '&laquo;',
+				'url'  => Mako::url($url, array_merge($params, array($this->key => ($this->currentPage - 1))), $separator),
+			);
+		}
+		
+		// Last and next page
+		
+		if($this->currentPage < $this->pages)
+		{
+			$links['last_page'] = array
+			(
+				'name' => I18n::getText('Last Page'),
+				'url'  => Mako::url($url, array_merge($params, array($this->key => $this->pages)), $separator),
+			);
 			
-			if($this->currentPage < $this->pages)
+			$links['next_page'] = array
+			(
+				'name' => '&raquo;',
+				'url'  => Mako::url($url, array_merge($params, array($this->key => ($this->currentPage + 1))), $separator),
+			);
+		}
+		
+		// Page links
+		
+		if($this->pages > $this->maxPageLinks)
+		{
+			$start = max(($this->currentPage) - ceil($this->maxPageLinks / 2), 0);
+
+			$end = $start + $this->maxPageLinks;
+
+			if($end > $this->pages)
 			{
-				$links['last_page'] = array
-				(
-					'name' => I18n::getText('Last Page'),
-					'url'  => Mako::url($url, array_merge($params, array($this->key => $this->pages)), $separator),
-				);
-				
-				$links['next_page'] = array
-				(
-					'name' => '&raquo;',
-					'url'  => Mako::url($url, array_merge($params, array($this->key => ($this->currentPage + 1))), $separator),
-				);
-			}
-			
-			// Page links
-			
-			if($this->pages > $this->maxPageLinks)
-			{
-				$start = max(($this->currentPage) - ceil($this->maxPageLinks / 2), 0);
-
-				$end = $start + $this->maxPageLinks;
-
-				if($end > $this->pages)
-				{
-					$end = $this->pages;
-				}
-
-				if($start > ($end - $this->maxPageLinks))
-				{
-					$start = $end - $this->maxPageLinks;
-				}
-			}
-			else
-			{
-				$start = 0;
-
 				$end = $this->pages;
 			}
-			
-			for($i = $start + 1; $i <= $end; $i++)
+
+			if($start > ($end - $this->maxPageLinks))
 			{
-				$links['pages'][] = array
-				(
-					'name'    => $i,
-					'url'     => Mako::url($url, array_merge($params, array($this->key => $i)), $separator),
-					'is_current' => ($i == $this->currentPage),
-				);
+				$start = $end - $this->maxPageLinks;
 			}
-						
-			return $links;
 		}
+		else
+		{
+			$start = 0;
+
+			$end = $this->pages;
+		}
+		
+		for($i = $start + 1; $i <= $end; $i++)
+		{
+			$links['pages'][] = array
+			(
+				'name'    => $i,
+				'url'     => Mako::url($url, array_merge($params, array($this->key => $i)), $separator),
+				'is_current' => ($i == $this->currentPage),
+			);
+		}
+					
+		return $links;
 	}
 }
 

@@ -1,321 +1,320 @@
 <?php
 
-namespace mako
+namespace mako;
+
+use \mako\Mako;
+use \RuntimeException;
+
+/**
+* Collection of file related methods.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class File
 {
-	use \mako\Mako;
-	use \RuntimeException;
-	
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
+	// Nothing here
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
 	/**
-	* Collection of file related methods.
+	* Protected constructor since this is a static class.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @access  protected
 	*/
 
-	class File
+	protected function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
 		// Nothing here
+	}
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		/**
-		* Protected constructor since this is a static class.
-		*
-		* @access  protected
-		*/
+	/**
+	* Will convert bytes to a more human friendly format.
+	*
+	* @access  public
+	* @param   int      Filesize in bytes
+	* @param   boolean  (optional) True to use binary prefixes and false to use decimal prefixes
+	* @return  string
+	*/
 
-		protected function __construct()
+	public static function humanSize($bytes, $binary = true)
+	{
+		if($bytes > 0)
 		{
-			// Nothing here
-		}
-
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-
-		/**
-		* Will convert bytes to a more human friendly format.
-		*
-		* @access  public
-		* @param   int      Filesize in bytes
-		* @param   boolean  (optional) True to use binary prefixes and false to use decimal prefixes
-		* @return  string
-		*/
-
-		public static function humanSize($bytes, $binary = true)
-		{
-			if($bytes > 0)
+			if($binary === true)
 			{
-				if($binary === true)
-				{
-					$base  = 1024;
-					$terms = array('byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB');
-				}
-				else
-				{
-					$base  = 1000;
-					$terms = array('byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-				}
-
-				$e = floor(log($bytes, $base));
-
-				return round($bytes / pow($base, $e), 2) . ' ' . $terms[$e];
+				$base  = 1024;
+				$terms = array('byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB');
 			}
 			else
 			{
-				return '0 byte';
+				$base  = 1000;
+				$terms = array('byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 			}
+
+			$e = floor(log($bytes, $base));
+
+			return round($bytes / pow($base, $e), 2) . ' ' . $terms[$e];
 		}
-		
-		/**
-		* Returns the mime type of a file. Returns false if the mime type is not found.
-		*
-		* @access  public
-		* @param   string   Full path to the file
-		* @param   boolean  (optional) Set to false to disable mime type guessing
-		* @return  string
-		*/
-		
-		public static function mime($file, $guess = true)
+		else
 		{
-			if(function_exists('finfo_open'))
-			{
-				// Get mime using the file information functions
-				
-				$info = finfo_open(FILEINFO_MIME_TYPE);
-				
-				$mime = finfo_file($info, $file);
-				
-				finfo_close($info);
-				
-				return $mime;
-			}
-			else
-			{
-				if($guess === true)
-				{
-					// Just guess mime by using the file extension
-
-					static $mimeTypes;
-
-					if(empty($mimeTypes))
-					{
-						$mimeTypes = Mako::config('mimes');
-					}
-
-					$extension = pathinfo($file, PATHINFO_EXTENSION);
-
-					return isset($mimeTypes[$extension]) ? $mimeTypes[$extension] : false;
-				}
-				else
-				{
-					return false;
-				}
-			}
+			return '0 byte';
 		}
-
-		/**
-		* Display a file in the browser.
-		*
-		* @access  public
-		* @param   string  Full path to file
-		* @param   string  (optional) Content type of the file
-		* @param   string  (optional) Filename of the download
-		*/
-
-		public static function display($file, $contentType = null, $filename = null)
+	}
+	
+	/**
+	* Returns the mime type of a file. Returns false if the mime type is not found.
+	*
+	* @access  public
+	* @param   string   Full path to the file
+	* @param   boolean  (optional) Set to false to disable mime type guessing
+	* @return  string
+	*/
+	
+	public static function mime($file, $guess = true)
+	{
+		if(function_exists('finfo_open'))
 		{
-			// Check that the file exists and that its readable
-
-			if(file_exists($file) === false || is_readable($file) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
-			}
-
-			// Empty output buffers
-
-			while(ob_get_level() > 0) ob_end_clean();
-
-			// Send headers
+			// Get mime using the file information functions
 			
-			if($contentType === null)
+			$info = finfo_open(FILEINFO_MIME_TYPE);
+			
+			$mime = finfo_file($info, $file);
+			
+			finfo_close($info);
+			
+			return $mime;
+		}
+		else
+		{
+			if($guess === true)
 			{
-				$contentType = static::mime($file);
-			}
+				// Just guess mime by using the file extension
 
-			if($filename === null)
+				static $mimeTypes;
+
+				if(empty($mimeTypes))
+				{
+					$mimeTypes = Mako::config('mimes');
+				}
+
+				$extension = pathinfo($file, PATHINFO_EXTENSION);
+
+				return isset($mimeTypes[$extension]) ? $mimeTypes[$extension] : false;
+			}
+			else
 			{
-				$filename = basename($file);
+				return false;
 			}
+		}
+	}
 
-			header('Content-type: ' . $contentType);
-			header('Content-Disposition: inline; filename="' . $filename . '"');
-			header('Content-Length: ' . filesize($file));
+	/**
+	* Display a file in the browser.
+	*
+	* @access  public
+	* @param   string  Full path to file
+	* @param   string  (optional) Content type of the file
+	* @param   string  (optional) Filename of the download
+	*/
 
-			// Read file and write to output
+	public static function display($file, $contentType = null, $filename = null)
+	{
+		// Check that the file exists and that its readable
 
+		if(file_exists($file) === false || is_readable($file) === false)
+		{
+			throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
+		}
+
+		// Empty output buffers
+
+		while(ob_get_level() > 0) ob_end_clean();
+
+		// Send headers
+		
+		if($contentType === null)
+		{
+			$contentType = static::mime($file);
+		}
+
+		if($filename === null)
+		{
+			$filename = basename($file);
+		}
+
+		header('Content-type: ' . $contentType);
+		header('Content-Disposition: inline; filename="' . $filename . '"');
+		header('Content-Length: ' . filesize($file));
+
+		// Read file and write to output
+
+		readfile($file);
+
+		exit();
+	}
+
+	/**
+	* Forces a file to be downloaded.
+	*
+	* @access  public
+	* @param   string  Full path to file
+	* @param   string  (optional) Content type of the file
+	* @param   string  (optional) Filename of the download
+	* @param   int     (optional) Max download speed in KiB/s
+	*/
+
+	public static function download($file, $contentType = null, $filename = null, $kbps = 0)
+	{
+		// Check that the file exists and that its readable
+
+		if(file_exists($file) === false || is_readable($file) === false)
+		{
+			throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
+		}
+
+		// Empty output buffers
+
+		while(ob_get_level() > 0) ob_end_clean();
+
+		// Send headers
+		
+		if($contentType === null)
+		{
+			$contentType = static::mime($file);
+		}
+
+		if($filename === null)
+		{
+			$filename = basename($file);
+		}
+
+		header('Content-type: ' . $contentType);
+		header('Content-Disposition: attachment; filename="' . $filename . '"');
+		header('Content-Length: ' . filesize($file));
+
+		// Read file and write it to the output
+
+		set_time_limit(0);
+
+		if($kbps === 0)
+		{
 			readfile($file);
-
-			exit();
 		}
-
-		/**
-		* Forces a file to be downloaded.
-		*
-		* @access  public
-		* @param   string  Full path to file
-		* @param   string  (optional) Content type of the file
-		* @param   string  (optional) Filename of the download
-		* @param   int     (optional) Max download speed in KiB/s
-		*/
-
-		public static function download($file, $contentType = null, $filename = null, $kbps = 0)
+		else
 		{
-			// Check that the file exists and that its readable
+			$handle = fopen($file, 'r');
 
-			if(file_exists($file) === false || is_readable($file) === false)
+			while(!feof($handle) && !connection_aborted())
 			{
-				throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
-			}
+				$s = microtime(true);
 
-			// Empty output buffers
+				echo fread($handle, round($kbps * 1024));
 
-			while(ob_get_level() > 0) ob_end_clean();
-
-			// Send headers
-			
-			if($contentType === null)
-			{
-				$contentType = static::mime($file);
-			}
-
-			if($filename === null)
-			{
-				$filename = basename($file);
-			}
-
-			header('Content-type: ' . $contentType);
-			header('Content-Disposition: attachment; filename="' . $filename . '"');
-			header('Content-Length: ' . filesize($file));
-
-			// Read file and write it to the output
-
-			set_time_limit(0);
-
-			if($kbps === 0)
-			{
-				readfile($file);
-			}
-			else
-			{
-				$handle = fopen($file, 'r');
-
-				while(!feof($handle) && !connection_aborted())
+				if(($wait = 1e6 - (microtime(true) - $s)) > 0)
 				{
-					$s = microtime(true);
-
-					echo fread($handle, round($kbps * 1024));
-
-					if(($wait = 1e6 - (microtime(true) - $s)) > 0)
-					{
-						usleep($wait);
-					}
-					
+					usleep($wait);
 				}
-
-				fclose($handle);
-			}
-
-			exit();
-		}
-
-		/**
-		* Splits a file into multiple pieces.
-		*
-		* @access  public
-		* @param   string  Full path to file
-		* @param   int     (optional) Piece size in MiB
-		*/
-
-		public static function split($file, $size = 10)
-		{
-			if(file_exists($file) === false || is_readable($file) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
-			}
-
-			$read = 0; // Number of bytes read
-
-			$piece = 1; // Current piece
-
-			$length = 1024 * 8; // Number of bytes to read
-
-			$size = floor($size * 1024 * 1024); // Max size of each piece
-
-			$handle = fopen($file, 'rb');
-
-			while(!feof($handle))
-			{
-				$data = fread($handle, $length);
-
-				if(strlen($data) === 0)
-				{
-					break; // Prevents empty files
-				}
-
-				file_put_contents($file . '.' . str_pad($piece, 4, '0', STR_PAD_LEFT), $data, FILE_APPEND);
-
-				$read += $length;
-
-				if($read >= $size)
-				{
-					$piece++;
-
-					$read = 0;
-				}
+				
 			}
 
 			fclose($handle);
 		}
 
-		/**
-		* Merge files that have been split using the File::split method.
-		*
-		* @access  public
-		* @param   string  Full path to file
-		*/
+		exit();
+	}
 
-		public static function merge($file)
+	/**
+	* Splits a file into multiple pieces.
+	*
+	* @access  public
+	* @param   string  Full path to file
+	* @param   int     (optional) Piece size in MiB
+	*/
+
+	public static function split($file, $size = 10)
+	{
+		if(file_exists($file) === false || is_readable($file) === false)
 		{
-			if(file_exists($file . '.0001') === false || is_readable($file . '.0001') === false)
+			throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
+		}
+
+		$read = 0; // Number of bytes read
+
+		$piece = 1; // Current piece
+
+		$length = 1024 * 8; // Number of bytes to read
+
+		$size = floor($size * 1024 * 1024); // Max size of each piece
+
+		$handle = fopen($file, 'rb');
+
+		while(!feof($handle))
+		{
+			$data = fread($handle, $length);
+
+			if(strlen($data) === 0)
 			{
-				throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
+				break; // Prevents empty files
 			}
 
-			$piece = 1; // Current piece
-			
-			$length = 1024 * 8; // Number of bytes to read
+			file_put_contents($file . '.' . str_pad($piece, 4, '0', STR_PAD_LEFT), $data, FILE_APPEND);
 
-			while(is_file($file . '.' . str_pad($piece, 4, '0', STR_PAD_LEFT)))
+			$read += $length;
+
+			if($read >= $size)
 			{
-				$handle = fopen($file . '.' . str_pad($piece, 4, '0', STR_PAD_LEFT), 'rb');
-
-				while(!feof($handle))
-				{
-					file_put_contents($file, fread($handle, $length), FILE_APPEND);
-				}
-
-				fclose($handle);
-
 				$piece++;
+
+				$read = 0;
 			}
+		}
+
+		fclose($handle);
+	}
+
+	/**
+	* Merge files that have been split using the File::split method.
+	*
+	* @access  public
+	* @param   string  Full path to file
+	*/
+
+	public static function merge($file)
+	{
+		if(file_exists($file . '.0001') === false || is_readable($file . '.0001') === false)
+		{
+			throw new RuntimeException(vsprintf("%s(): Failed to open stream.", array(__METHOD__)));
+		}
+
+		$piece = 1; // Current piece
+		
+		$length = 1024 * 8; // Number of bytes to read
+
+		while(is_file($file . '.' . str_pad($piece, 4, '0', STR_PAD_LEFT)))
+		{
+			$handle = fopen($file . '.' . str_pad($piece, 4, '0', STR_PAD_LEFT), 'rb');
+
+			while(!feof($handle))
+			{
+				file_put_contents($file, fread($handle, $length), FILE_APPEND);
+			}
+
+			fclose($handle);
+
+			$piece++;
 		}
 	}
 }

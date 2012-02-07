@@ -1,110 +1,111 @@
 <?php
 
-namespace mako
-{
-	use \mako\Session;
+namespace mako;
 
+use \mako\Session;
+
+/**
+* Class containing security related methods.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Security
+{
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+	
 	/**
-	* Class containing security related methods.
+	* Maximum number of tokens stored per session.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var int
 	*/
 	
-	class Security
+	const MAX_TOKENS = 20;
+	
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Protected constructor since this is a static class.
+	*/
+
+	protected function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-		
-		/**
-		* Maximum number of tokens stored per session.
-		*/
-		
-		const MAX_TOKENS = 20;
-		
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
-
-		/**
-		* Protected constructor since this is a static class.
-		*/
-
-		protected function __construct()
+		// Nothing here
+	}
+	
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+	
+	/**
+	* Starts session if it doesn't exist.
+	*
+	* @access  protected
+	*/
+	
+	protected static function sessionStart()
+	{
+		if(session_id() === '')
 		{
-			// Nothing here
+			Session::start();
+		}
+	}
+	
+	/**
+	* Returns random security token.
+	*
+	* @access  public
+	* @return  string
+	*/
+	
+	public static function getToken()
+	{
+		static::sessionStart();
+		
+		if(!isset($_SESSION[MAKO_APPLICATION_ID . '_token']))
+		{
+			$_SESSION[MAKO_APPLICATION_ID . '_token'] = array();	
+		}
+		else
+		{
+			$_SESSION[MAKO_APPLICATION_ID . '_token'] = array_slice($_SESSION[MAKO_APPLICATION_ID . '_token'], 0, (static::MAX_TOKENS - 1)); // Only store MAX_TOKENS tokens per session
 		}
 		
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
+		$token = md5(uniqid('token', true));
 		
-		/**
-		* Starts session if it doesn't exist.
-		*
-		* @access  protected
-		*/
+		array_unshift($_SESSION[MAKO_APPLICATION_ID . '_token'], $token);
 		
-		protected static function sessionStart()
+		return $token;
+	}
+	
+	/**
+	* Validates security token.
+	*
+	* @access  public
+	* @param   string   Security token
+	* @return  boolean
+	*/
+	
+	public static function validateToken($token)
+	{
+		static::sessionStart();
+		
+		$key = array_search($token, $_SESSION[MAKO_APPLICATION_ID . '_token']);
+		
+		if($key !== false)
 		{
-			if(session_id() === '')
-			{
-				Session::start();
-			}
+			unset($token, $_SESSION[MAKO_APPLICATION_ID . '_token'][$key]);
+			
+			return true;
 		}
 		
-		/**
-		* Returns random security token.
-		*
-		* @access  public
-		* @return  string
-		*/
-		
-		public static function getToken()
-		{
-			static::sessionStart();
-			
-			if(!isset($_SESSION[MAKO_APPLICATION_ID . '_token']))
-			{
-				$_SESSION[MAKO_APPLICATION_ID . '_token'] = array();	
-			}
-			else
-			{
-				$_SESSION[MAKO_APPLICATION_ID . '_token'] = array_slice($_SESSION[MAKO_APPLICATION_ID . '_token'], 0, (static::MAX_TOKENS - 1)); // Only store MAX_TOKENS tokens per session
-			}
-			
-			$token = md5(uniqid('token', true));
-			
-			array_unshift($_SESSION[MAKO_APPLICATION_ID . '_token'], $token);
-			
-			return $token;
-		}
-		
-		/**
-		* Validates security token.
-		*
-		* @access  public
-		* @param   string   Security token
-		* @return  boolean
-		*/
-		
-		public static function validateToken($token)
-		{
-			static::sessionStart();
-			
-			$key = array_search($token, $_SESSION[MAKO_APPLICATION_ID . '_token']);
-			
-			if($key !== false)
-			{
-				unset($token, $_SESSION[MAKO_APPLICATION_ID . '_token'][$key]);
-				
-				return true;
-			}
-			
-			return false;
-		}
+		return false;
 	}
 }
 

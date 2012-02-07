@@ -19,10 +19,10 @@ if(!function_exists('__'))
 	* @return  string
 	*/
 
-	function __($string, array $vars = null, $language = null)
+	function __($string, array $vars = array(), $language = null)
 	{
 		return mako\I18n::getText($string, $vars, $language);
-	}	
+	}
 }
 
 //------------------------------------------------------------------------------------------

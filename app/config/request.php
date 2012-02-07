@@ -10,7 +10,7 @@ return array
 	* Set the default route.
 	*/
 
-	'default_route' => 'index/_index',
+	'default_route' => 'index/index',
 
 	/**
 	* You can add your own custom routes here.

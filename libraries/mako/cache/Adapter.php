@@ -1,198 +1,199 @@
 <?php
 
-namespace mako\cache
+namespace mako\cache;
+
+use \Closure;
+
+/**
+* Cache adapter.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+abstract class Adapter
 {
-	use \Closure;
-	
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
 	/**
-	* Cache adapter.
+	* Cache identifier.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @var string
 	*/
 
-	abstract class Adapter
+	protected $identifier;
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	* Constructor.
+	*
+	* @access  public
+	* @param   string  Cache identifier
+	*/
+	
+	public function __construct($identifier)
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
+		$this->identifier = md5($identifier);
+	}
 
-		/**
-		* Cache identifier.
-		*/
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		protected $identifier;
+	abstract public function write($key, $value, $ttl = 0);
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+	abstract public function read($key);
 
-		/**
-		* Constructor.
-		*
-		* @access  public
-		* @param   string  Cache identifier
-		*/
+	abstract public function delete($key);
+
+	abstract public function clear();
+
+	/**
+	* Store multiple variables in the cache.
+	*
+	* @access  public
+	* @param   array    An array of cache keys
+	* @param   int      (optional) Time to live
+	* @return  boolean
+	*/
+
+	final public function writeMulti(array $items, $ttl = 0)
+	{
+		$success = true;
 		
-		public function __construct($identifier)
+		foreach($items as $key => $value)
 		{
-			$this->identifier = md5($identifier);
-		}
-
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
-
-		abstract public function write($key, $value, $ttl = 0);
-
-		abstract public function read($key);
-
-		abstract public function delete($key);
-
-		abstract public function clear();
-
-		/**
-		* Store multiple variables in the cache.
-		*
-		* @access  public
-		* @param   array    An array of cache keys
-		* @param   int      (optional) Time to live
-		* @return  boolean
-		*/
-
-		final public function writeMulti(array $items, $ttl = 0)
-		{
-			$success = true;
-			
-			foreach($items as $key => $value)
+			if($this->write($key, $value, $ttl) === false)
 			{
-				if($this->write($key, $value, $ttl) === false)
-				{
-					$success = false;
-				}
+				$success = false;
 			}
-
-			return $success;
 		}
 
-		/**
-		* Fetch multiple variables from the cache.
-		*
-		* @access  public
-		* @param   array   An array of cache keys
-		* @return  array
-		*/
+		return $success;
+	}
 
-		final public function readMulti(array $keys)
+	/**
+	* Fetch multiple variables from the cache.
+	*
+	* @access  public
+	* @param   array   An array of cache keys
+	* @return  array
+	*/
+
+	final public function readMulti(array $keys)
+	{
+		$cache = array();
+
+		foreach($keys as $key)
 		{
-			$cache = array();
+			$cache[$key] = $this->read($key);
+		}
 
-			foreach($keys as $key)
+		return $cache;
+	}
+	
+	/**
+	* Delete multiple variables from the cache.
+	*
+	* @access  public
+	* @param   array    An array of cache keys
+	* @return  boolean
+	*/
+	
+	final public function deleteMulti(array $keys)
+	{
+		$success = true;
+		
+		foreach($keys as $key)
+		{
+			if($this->delete($key) === false)
 			{
-				$cache[$key] = $this->read($key);
+				$success = false;
 			}
-
-			return $cache;
 		}
+
+		return $success;
+	}
+
+	/**
+	* Fetches variable from cache and stores it if it doesn't exist.
+	*
+	* @access  public
+	* @param   string   Cache key
+	* @param   closure  Closure (anonymous function) that returns value to store if it doesn't already exist
+	* @param   int      (optional) Time to live
+	* @return  mixed
+	*/
+	
+	final public function remember($key, Closure $closure, $ttl = 0)
+	{
+		$item = $this->read($key);
 		
-		/**
-		* Delete multiple variables from the cache.
-		*
-		* @access  public
-		* @param   array    An array of cache keys
-		* @return  boolean
-		*/
-		
-		final public function deleteMulti(array $keys)
+		if($item === false)
 		{
-			$success = true;
+			$item = call_user_func($closure);
 			
-			foreach($keys as $key)
-			{
-				if($this->delete($key) === false)
-				{
-					$success = false;
-				}
-			}
-
-			return $success;
-		}
-
-		/**
-		* Fetches variable from cache and stores it if it doesn't exist.
-		*
-		* @access  public
-		* @param   string   Cache key
-		* @param   closure  Closure (anonymous function) that returns value to store if it doesn't already exist
-		* @param   int      (optional) Time to live
-		* @return  mixed
-		*/
-		
-		final public function remember($key, Closure $closure, $ttl = 0)
-		{
-			$item = $this->read($key);
-			
-			if($item === false)
-			{
-				$item = call_user_func($closure);
-				
-				$this->write($key, $item, $ttl);
-			}
-			
-			return $item;
+			$this->write($key, $item, $ttl);
 		}
 		
-		/**
-		* Magic setter.
-		*
-		* @access  public
-		* @param   string  Cache key
-		* @param   mixed   The variable to store
-		*/
+		return $item;
+	}
+	
+	/**
+	* Magic setter.
+	*
+	* @access  public
+	* @param   string  Cache key
+	* @param   mixed   The variable to store
+	*/
 
-		final public function __set($key, $value)
-		{
-			$this->write($key, $value);
-		}
+	final public function __set($key, $value)
+	{
+		$this->write($key, $value);
+	}
 
-		/**
-		* Magic getter.
-		*
-		* @access  public
-		* @param   string  Cache key
-		* @return  mixed
-		*/
+	/**
+	* Magic getter.
+	*
+	* @access  public
+	* @param   string  Cache key
+	* @return  mixed
+	*/
 
-		final public function __get($key)
-		{
-			return $this->read($key);
-		}
+	final public function __get($key)
+	{
+		return $this->read($key);
+	}
 
-		/**
-		* Magic isset.
-		*
-		* @access  public
-		* @param   string   Cache key
-		* @param   boolean
-		*/
+	/**
+	* Magic isset.
+	*
+	* @access  public
+	* @param   string   Cache key
+	* @param   boolean
+	*/
 
-		final public function __isset($key)
-		{
-			return ($this->read($key) !== false);
-		}
+	final public function __isset($key)
+	{
+		return ($this->read($key) !== false);
+	}
 
-		/**
-		* Magic unsetter.
-		*
-		* @access  public
-		* @param   string  Cache key
-		*/
+	/**
+	* Magic unsetter.
+	*
+	* @access  public
+	* @param   string  Cache key
+	*/
 
-		final public function __unset($key)
-		{
-			$this->delete($key);
-		}
+	final public function __unset($key)
+	{
+		$this->delete($key);
 	}
 }
 

@@ -1,14 +1,13 @@
 <?php
 
-namespace app\controllers
-{
-	use \mako\View;
+namespace app\controllers;
+
+use \mako\View;
 	
-	class Index extends \mako\Controller
+class Index extends \mako\Controller
+{
+	public function action_index()
 	{
-		public function _index()
-		{
-			echo new View('welcome', array('welcome' => 'Welcome to the Mako Framework!'));
-		}
+		return new View('welcome', array('welcome' => 'Welcome to the Mako Framework!'));
 	}
 }

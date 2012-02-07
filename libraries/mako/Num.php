@@ -1,146 +1,145 @@
 <?php
 
-namespace mako
+namespace mako;
+
+use \InvalidArgumentException;
+
+/**
+* Class containing number helper methods.
+*
+* @author     Frederic G. Østby
+* @copyright  (c) 2008-2012 Frederic G. Østby
+* @license    http://www.makoframework.com/license
+*/
+
+class Num
 {
-	use \InvalidArgumentException;
+	//---------------------------------------------
+	// Class variables
+	//---------------------------------------------
+
+	// Nothing here
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
 
 	/**
-	* Class containing number helper methods.
+	* Protected constructor since this is a static class.
 	*
-	* @author     Frederic G. Østby
-	* @copyright  (c) 2008-2012 Frederic G. Østby
-	* @license    http://www.makoframework.com/license
+	* @access  protected
 	*/
 
-	class Num
+	protected function __construct()
 	{
-		//---------------------------------------------
-		// Class variables
-		//---------------------------------------------
-
 		// Nothing here
+	}
 
-		//---------------------------------------------
-		// Class constructor, destructor etc ...
-		//---------------------------------------------
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
-		/**
-		* Protected constructor since this is a static class.
-		*
-		* @access  protected
-		*/
+	/**
+	* Converts arabic numerals (1-3999) to roman numerals.
+	*
+	* @access  public
+	* @param   int     Arabic numeral to convert
+	* @return  string
+	*/
 
-		protected function __construct()
+	public static function arabic2roman($int)
+	{
+		$int = (int) $int;
+
+		if($int < 1 || $int > 3999)
 		{
-			// Nothing here
+			throw new InvalidArgumentException(vsprintf("%s(): The number must be between 1 and 3999.", array(__METHOD__)));
 		}
 
-		//---------------------------------------------
-		// Class methods
-		//---------------------------------------------
+		$numerals = array
+		(
+			'M'  => 1000,
+			'CM' => 900,
+			'D'  => 500,
+			'CD' => 400,
+			'C'  => 100,
+			'XC' => 90,
+			'L'  => 50,
+			'XL' => 40,
+			'X'  => 10,
+			'IX' => 9,
+			'V'  => 5,
+			'IV' => 4,
+			'I'  => 1
+		);
 
-		/**
-		* Converts arabic numerals (1-3999) to roman numerals.
-		*
-		* @access  public
-		* @param   int     Arabic numeral to convert
-		* @return  string
-		*/
+		$romanNumeral = '';
 
-		public static function arabic2roman($int)
+		foreach($numerals as $roman => $arabic)
 		{
-			$int = (int) $int;
+			$count = (int) ($int / $arabic);
 
-			if($int < 1 || $int > 3999)
+			if($count === 0)
 			{
-				throw new InvalidArgumentException(vsprintf("%s(): The number must be between 1 and 3999.", array(__METHOD__)));
+				continue;
 			}
 
-			$numerals = array
-			(
-				'M'  => 1000,
-				'CM' => 900,
-				'D'  => 500,
-				'CD' => 400,
-				'C'  => 100,
-				'XC' => 90,
-				'L'  => 50,
-				'XL' => 40,
-				'X'  => 10,
-				'IX' => 9,
-				'V'  => 5,
-				'IV' => 4,
-				'I'  => 1
-			);
+			$romanNumeral .= str_repeat($roman, $count);
 
-			$romanNumeral = '';
+			$int %= $arabic;
 
-			foreach($numerals as $roman => $arabic)
+			if($int === 0)
 			{
-				$count = (int) ($int / $arabic);
-
-				if($count === 0)
-				{
-					continue;
-				}
-
-				$romanNumeral .= str_repeat($roman, $count);
-
-				$int %= $arabic;
-
-				if($int === 0)
-				{
-					break;
-				}
+				break;
 			}
-
-			return $romanNumeral;
 		}
 
-		/**
-		* Converts roman numerals (I-MMMCMXCIX) to arabic numerals.
-		*
-		* @access  public
-		* @param   string  Roman numeral to convert
-		* @return  int
-		*/
+		return $romanNumeral;
+	}
 
-		public static function roman2arabic($str)
+	/**
+	* Converts roman numerals (I-MMMCMXCIX) to arabic numerals.
+	*
+	* @access  public
+	* @param   string  Roman numeral to convert
+	* @return  int
+	*/
+
+	public static function roman2arabic($str)
+	{
+		if(empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) === 0)
 		{
-			if(empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) === 0)
-			{
-				throw new InvalidArgumentException(vsprintf("%s(): Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.", array(__METHOD__)));
-			}
-
-			$numerals = array
-			(
-				'M'  => 1000,
-				'D'  => 500,
-				'C'  => 100,
-				'L'  => 50,
-				'X'  => 10,
-				'V'  => 5,
-				'I'  => 1
-			);
-
-			$arabicNumeral = 0;
-
-			$previous = 0;
-
-			foreach(str_split($str) as $numeral)
-			{
-				$arabicNumeral += $numerals[$numeral];
-
-				if($previous < $numerals[$numeral])
-				{
-					$arabicNumeral -= ($previous * 2);
-				}
-
-				$previous = $numerals[$numeral];
-			}
-
-			return $arabicNumeral;
+			throw new InvalidArgumentException(vsprintf("%s(): Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.", array(__METHOD__)));
 		}
+
+		$numerals = array
+		(
+			'M'  => 1000,
+			'D'  => 500,
+			'C'  => 100,
+			'L'  => 50,
+			'X'  => 10,
+			'V'  => 5,
+			'I'  => 1
+		);
+
+		$arabicNumeral = 0;
+
+		$previous = 0;
+
+		foreach(str_split($str) as $numeral)
+		{
+			$arabicNumeral += $numerals[$numeral];
+
+			if($previous < $numerals[$numeral])
+			{
+				$arabicNumeral -= ($previous * 2);
+			}
+
+			$previous = $numerals[$numeral];
+		}
+
+		return $arabicNumeral;
 	}
 }
 

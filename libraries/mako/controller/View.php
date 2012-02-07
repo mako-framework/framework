@@ -1,39 +1,38 @@
 <?php
 
-namespace mako;
+namespace mako\controller;
 
-use \mako\Request;
-use \mako\Response;
+use \mako\View as Vista;
 
 /**
-* Base controller that all application controllers must extend.
+* View controller.
 *
 * @author     Frederic G. Østby
 * @copyright  (c) 2008-2012 Frederic G. Østby
 * @license    http://www.makoframework.com/license
 */
 
-abstract class Controller
+abstract class View extends \mako\Controller
 {
 	//---------------------------------------------
 	// Class variables
 	//---------------------------------------------
 
 	/**
-	* Holds the request object that loaded the controller.
+	* View instance.
 	*
-	* @var mako\Request
+	* @var  mako\View
 	*/
 
-	protected $request;
-	
+	protected $view;
+
 	/**
-	* Holds request response object.
+	* View name.
 	*
-	* @var mako\Response
+	* @var string
 	*/
-	
-	protected $reponse;
+
+	protected $viewName;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -47,34 +46,16 @@ abstract class Controller
 	* @param   mako\Response  A response object
 	*/
 
-	public function __construct(Request $request, Response $response)
+	public function __construct($request, $response)
 	{
-		$this->request  = $request;
-		$this->response = $response;
+		parent::__construct($request, $response);
+
+		$this->view = new Vista($this->viewName);
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
-	/**
-	* Index action must always be included.
-	*
-	* @access  public
-	*/
-
-	abstract public function action_index();
-
-	/**
-	* This method runs before the action.
-	*
-	* @access  public
-	*/
-
-	public function before()
-	{
-
-	}
 
 	/**
 	* This method runs after the action.
@@ -84,7 +65,7 @@ abstract class Controller
 
 	public function after()
 	{
-
+		$this->response->body($this->view);
 	}
 }
 
