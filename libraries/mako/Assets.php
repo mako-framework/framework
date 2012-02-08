@@ -92,7 +92,7 @@ class Assets
 	{
 		// Prefix source with asset view tag if it's not a URL
 
-		if(strpos('://', $source) === false)
+		if(strpos($source, '://') === false)
 		{
 			$source = '[mako:assets]' . $source;
 		}
