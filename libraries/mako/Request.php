@@ -435,7 +435,7 @@ class Request
 	* @return  string
 	*/
 
-	public function action($stripPrefix)
+	public function action()
 	{
 		return $this->action;
 	}
