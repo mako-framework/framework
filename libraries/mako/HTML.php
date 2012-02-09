@@ -173,7 +173,7 @@ class HTML
 	* @access  public
 	* @param   array   List items
 	* @param   array   List attributes
-	* @param   string
+	* @return  string
 	*/
 
 	public static function ol(array $items, array $attributes = array())
