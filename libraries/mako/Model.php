@@ -46,8 +46,8 @@ abstract class Model
 	* Factory method making method chaining possible right off the bat.
 	*
 	* @access  public
-	* @param   string  (optional) Name of the database to use (as defined in the config)
-	* @return  Model
+	* @param   string      (optional) Name of the database to use (as defined in the config)
+	* @return  mako\Model
 	*/
 	
 	public static function factory($database = null)
