@@ -69,7 +69,7 @@ class Rest
 	* @access  public
 	* @param   string     URL
 	* @param   array      (optional) cURL options
-	* @return  mako\Curl
+	* @return  mako\Rest
 	*/
 
 	public static function factory($url, array $options = array())

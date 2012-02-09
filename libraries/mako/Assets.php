@@ -61,8 +61,8 @@ class Assets
 	* Returns the instance of the chosen asset group.
 	*
 	* @access  public
-	* @param   string  Group name
-	* @return  Assets
+	* @param   string       Group name
+	* @return  mako\Assets
 	*/
 
 	public static function group($name = 'default')
