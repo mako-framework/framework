@@ -109,7 +109,7 @@ abstract class Adapter
 	*
 	* @access  public
 	* @param   string   Cache key
-	* @param   boolean
+	* @return  boolean
 	*/
 
 	final public function __isset($key)

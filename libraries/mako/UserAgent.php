@@ -67,7 +67,7 @@ class UserAgent
 	* @access  protected
 	* @param   string     Array key
 	* @param   string     (optional) String to look for
-	* @param   mixed
+	* @return  mixed
 	*/
 	
 	protected static function accept($header, $what = null)
