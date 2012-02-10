@@ -89,7 +89,7 @@ class ClassLoader
 	* @param   string  Path to PSR-0 directory
 	*/
 
-	public static function addPsr0($path)
+	public static function addPsr($path)
 	{
 		static::$psr0[] = $path;
 	}
