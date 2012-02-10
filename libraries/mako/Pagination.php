@@ -100,7 +100,7 @@ class Pagination
 	* @return  int
 	*/
 
-	public function getOffset($itemCount, $itemsPerPage = null)
+	public function offset($itemCount, $itemsPerPage = null)
 	{
 		$itemsPerPage = ($itemsPerPage === null) ? max($this->itemsPerPage, 1) : max($itemsPerPage, 1);
 		$this->pages  = ceil(($itemCount / $itemsPerPage));
@@ -119,7 +119,7 @@ class Pagination
 	* @return  array
 	*/
 
-	public function getLinks($url = '', array $params = array(), $separator = '&amp;')
+	public function links($url = '', array $params = array(), $separator = '&amp;')
 	{
 		$links = array();
 				
