@@ -97,7 +97,7 @@ class Assets
 			$source = '[mako:assets]' . $source;
 		}
 
-		if(substr($source, -4) === '.css')
+		if(pathinfo(parse_url($source, PHP_URL_PATH), PATHINFO_EXTENSION) === 'css')
 		{
 			!isset($attributes['media']) && $attributes['media'] = 'all';
 
