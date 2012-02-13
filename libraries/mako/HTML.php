@@ -142,11 +142,11 @@ class HTML
 		{
 			if(is_array($item))
 			{
-				$list .= static::tag('li', null, static::buildList($type, $item, null));
+				$list .= static::tag('li', array(), static::buildList($type, $item, array()));
 			}
 			else
 			{
-				$list .= static::tag('li', null, $item);
+				$list .= static::tag('li', array(), $item);
 			}
 		}
 
