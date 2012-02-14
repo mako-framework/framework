@@ -59,27 +59,35 @@ class Package
 	}
 
 	/**
-	* Returns path to a package or application directory.
+	* Returns TRUE if package is installed and FALSE if not.
 	*
 	* @access  public
-	* @param   string  Path
-	* @param   string  String
-	* @return  string
+	* @param   string   Package name
+	* @return  boolean
 	*/
 
-	public static function path($path, $string)
+	public static function installed($name)
 	{
-		if(strpos($string, '::') !== false)
-		{
-			list($package, $file) = explode('::', $string);
+		return is_dir(MAKO_PACKAGES . '/' . $name);
+	}
 
-			$path = MAKO_PACKAGES . '/' . $package . '/' . $path . '/' . $file . '.php';
-		}
-		else
+	/**
+	* Returns info about a package. FALSE is returned if no info file is found.
+	*
+	* @access  public
+	* @param   string  Package name
+	* @return  array
+	*/
+
+	public static function info($name)
+	{
+		$path = MAKO_PACKAGES . '/' . $name . '/package.json';
+
+		if(file_exists($path))
 		{
-			$path = MAKO_APPLICATION . '/' . $path . '/' . $string . '.php';
+			return json_decode(file_get_contents($path), true);
 		}
 
-		return $path;
+		return false;
 	}
 }

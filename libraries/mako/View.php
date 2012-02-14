@@ -67,7 +67,7 @@ class View
 
 	public function __construct($view, array $variables = array())
 	{
-		$this->viewFile = Package::path('views', $view);
+		$this->viewFile = Mako::path('views', $view);
 		
 		if(file_exists($this->viewFile) === false)
 		{

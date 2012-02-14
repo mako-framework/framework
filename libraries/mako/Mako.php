@@ -200,6 +200,31 @@ class Mako
 			}
 		}
 	}
+
+	/**
+	* Returns path to a package or application directory.
+	*
+	* @access  public
+	* @param   string  Path
+	* @param   string  String
+	* @return  string
+	*/
+
+	public static function path($path, $string)
+	{
+		if(strpos($string, '::') !== false)
+		{
+			list($package, $file) = explode('::', $string);
+
+			$path = MAKO_PACKAGES . '/' . $package . '/' . $path . '/' . $file . '.php';
+		}
+		else
+		{
+			$path = MAKO_APPLICATION . '/' . $path . '/' . $string . '.php';
+		}
+
+		return $path;
+	}
 	
 	/**
 	* Returns an array of lines from a file.

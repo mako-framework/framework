@@ -62,7 +62,7 @@ class Config
 
 		if(!isset(static::$config[$keys[0]]))
 		{
-			$path = Package::path('config', $keys[0]);
+			$path = Mako::path('config', $keys[0]);
 
 			if(file_exists($path) === false)
 			{
