@@ -82,15 +82,6 @@ class URL
 		
 		return $url;
 	}
-
-	/**
-	*
-	*/
-
-	public static function current()
-	{
-		
-	}
 }
 
 /** -------------------- End of file --------------------**/
