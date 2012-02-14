@@ -19,6 +19,7 @@ include MAKO_LIBRARIES_PATH . '/mako/ClassLoader.php';
 
 mako\ClassLoader::addClasses(array
 (
+	'mako\Arr'                       => MAKO_LIBRARIES_PATH . '/mako/Arr.php',
 	'mako\ArrayTo'                   => MAKO_LIBRARIES_PATH . '/mako/ArrayTo.php',
 	'mako\Assets'                    => MAKO_LIBRARIES_PATH . '/mako/Assets.php',
 	'mako\Cache'                     => MAKO_LIBRARIES_PATH . '/mako/Cache.php',
