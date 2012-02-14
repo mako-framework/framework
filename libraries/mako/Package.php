@@ -2,6 +2,8 @@
 
 namespace mako;
 
+use \RuntimeException;
+
 /**
 * Package class.
 *
