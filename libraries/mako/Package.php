@@ -91,3 +91,5 @@ class Package
 		return false;
 	}
 }
+
+/** -------------------- End of file --------------------**/
