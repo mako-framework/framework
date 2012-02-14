@@ -62,6 +62,19 @@ class Arr
 
 		return $array;
 	}
+
+	/**
+	* Returns a random value from an array.
+	*
+	* @access  public
+	* @param   array   Array you want to pick a random value from
+	* @return  mixed
+	*/
+
+	public static function random(array $array)
+	{
+		return $array[array_rand($array)];
+	}
 }
 
 /** -------------------- End of file --------------------**/
