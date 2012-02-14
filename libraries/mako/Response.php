@@ -285,7 +285,6 @@ class Response
 				'[mako:exe_time]',
 				'[mako:assets]',
 				'[mako:version]',
-				'[mako:base_url]',
 				'[mako:charset]',
 			);
 
@@ -294,7 +293,6 @@ class Response
 				round(microtime(true) - MAKO_START, 4),
 				$this->assetLocation,
 				Mako::VERSION,
-				Config::get('mako.base_url'),
 				MAKO_CHARSET,
 			);
 
