@@ -64,6 +64,63 @@ class Arr
 	}
 
 	/**
+	* Sets an array value using "dot notation".
+	*
+	* @access  public
+	* @param   array    Array you want to modify
+	* @param   string   Array path
+	* @param   mixed    Value to set
+	*/
+
+	public static function set(array & $array, $path, $value)
+	{
+		$segments = explode('.', $path);
+
+		while(count($segments) > 1)
+		{
+			$segment = array_shift($segments);
+
+			if (!isset($array[$segment]) || !is_array($array[$segment]))
+			{
+				$array[$segment] = array();
+			}
+
+			$array =& $array[$segment];
+		}
+
+		$array[array_shift($segments)] = $value;
+	}
+
+	/**
+	* Deletes an array value using "dot notation".
+	*
+	* @access  public
+	* @param   array    Array you want to modify
+	* @param   string   Array path
+	*/
+
+	public static function delete(array & $array, $path)
+	{
+		$segments = explode('.', $path);
+		
+		while(count($segments) > 1)
+		{
+			$segment = array_shift($segments);
+
+			if (!isset($array[$segment]) || ! is_array($array[$segment]))
+			{
+				return false;
+			}
+
+			$array =& $array[$segment];
+		}
+
+		unset($array[array_shift($segments)]);
+
+		return true;
+	}
+
+	/**
 	* Returns a random value from an array.
 	*
 	* @access  public
