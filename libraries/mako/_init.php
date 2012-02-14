@@ -21,7 +21,6 @@ mako\ClassLoader::addClasses(array
 (
 	'mako\ArrayTo'                   => MAKO_LIBRARIES_PATH . '/mako/ArrayTo.php',
 	'mako\Assets'                    => MAKO_LIBRARIES_PATH . '/mako/Assets.php',
-	'mako\Benchmark'                 => MAKO_LIBRARIES_PATH . '/mako/Benchmark.php',
 	'mako\Cache'                     => MAKO_LIBRARIES_PATH . '/mako/Cache.php',
 	'mako\cache\APC'                 => MAKO_LIBRARIES_PATH . '/mako/cache/APC.php',
 	'mako\cache\Adapter'             => MAKO_LIBRARIES_PATH . '/mako/cache/Adapter.php',
