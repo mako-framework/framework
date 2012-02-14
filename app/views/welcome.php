@@ -150,7 +150,7 @@ a.active
 
 </div>
 
-<p>Page rendered in <a href="[mako:base_url]" title="reload page">[mako:exe_time]</a> seconds</p>
+<p>Page rendered in [mako:exe_time] seconds</p>
 
 </div>
 
