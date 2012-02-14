@@ -1,6 +1,7 @@
 <?php
 
 use \mako\CLI;
+use \mako\Arr;
 use \mako\String;
 
 class Example extends \mako\reactor\Task
@@ -12,10 +13,8 @@ class Example extends \mako\reactor\Task
 
 	public function random()
 	{
-		$colors = array('red', 'purple', 'cyan', 'green', 'yellow', 'blue');
-		
-		$key = array_rand($colors);
+		$color = Arr::random(array('red', 'purple', 'cyan', 'green', 'yellow', 'blue'));
 
-		CLI::stdout('Random ' . $colors[$key] . ' string: ' . CLI::color(String::random(), $colors[$key]));
+		CLI::stdout('Random ' . $color . ' string: ' . CLI::color(String::random(), $color));
 	}
 }
