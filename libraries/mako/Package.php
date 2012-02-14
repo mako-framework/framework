@@ -57,7 +57,7 @@ class Package
 	}
 
 	/**
-	* Returns a path to the application or bundle path.
+	* Returns path to a package or application directory.
 	*
 	* @access  public
 	* @param   string  Path
