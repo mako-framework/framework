@@ -3,9 +3,10 @@
 namespace mako\reactor;
 
 use \mako\Mako;
+use \mako\Config;
 use \mako\CLI;
 use \mako\reactor\handlers\Tasks;
-use \mako\reactor\handlers\Bundles;
+use \mako\reactor\handlers\Packages;
 
 /**
 * Reactor core class.
@@ -59,7 +60,7 @@ class Reactor
 
 		// Set timezone and locale settings
 
-		$config = Mako::config('mako');
+		$config = Config::get('mako');
 
 		date_default_timezone_set($config['timezone']);
 
@@ -87,9 +88,9 @@ class Reactor
 				case 'version':
 					return CLI::stdout('Mako '. Mako::VERSION . ' (PHP ' . phpversion() . ' | Zend Engine ' . zend_version() . ' | ' . PHP_OS . ')');
 				break;
-				case 'b':
-				case 'bundle':
-					return Bundles::run(array_slice($arguments, 1));
+				case 'p':
+				case 'package':
+					return Packages::run(array_slice($arguments, 1));
 				break;
 				case 't':
 				case 'task':
@@ -113,8 +114,8 @@ class Reactor
 		$help .= 'Valid commands are:'  . PHP_EOL . PHP_EOL;
 		$help .= '   php reactor version'  . PHP_EOL;
 		$help .= '   php reactor task <taskname>'  . PHP_EOL;
-		$help .= '   php reactor bundle install <bundlename>' . PHP_EOL;
-		$help .= '   php reactor bundle remove <bundlename>' . PHP_EOL . PHP_EOL;
+		$help .= '   php reactor package install <package name>' . PHP_EOL;
+		$help .= '   php reactor package remove <package name>' . PHP_EOL . PHP_EOL;
 		$help .= 'Mako framework documentation at http://makoframework.com/docs';
 
 		CLI::stdout($help);

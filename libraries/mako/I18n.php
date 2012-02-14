@@ -188,9 +188,9 @@ class I18n
 		{
 			static::$strings[$language] = array();
 
-			// Fetch strings from bundles
+			// Fetch strings from packages
 
-			$files = glob(MAKO_BUNDLES . '/*/i18n/' . $language . '/strings/*.php', GLOB_NOSORT);
+			$files = glob(MAKO_PACKAGES . '/*/i18n/' . $language . '/strings/*.php', GLOB_NOSORT);
 
 			foreach($files as $file)
 			{

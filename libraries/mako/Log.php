@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 use \RuntimeException;
 
 /**
@@ -125,7 +125,7 @@ class Log
 		}
 		else
 		{
-			$config = Mako::config('log');
+			$config = Config::get('log');
 			
 			$name = ($name === null) ? $config['default'] : $name;
 			

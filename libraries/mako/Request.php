@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 use \mako\Response;
 use \RuntimeException;
 use \ReflectionClass;
@@ -142,7 +142,7 @@ class Request
 	{
 		$this->route = $route;
 		
-		$config = Mako::config('request');
+		$config = Config::get('request');
 		
 		$this->defaultRoute = $config['default_route'];
 		$this->customRoutes = $config['custom_routes'];

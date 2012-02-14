@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 use \RuntimeException;
 
 /**
@@ -49,7 +49,7 @@ class Crypto
 	
 	public static function factory($name = null)
 	{
-		$config = Mako::config('crypto');
+		$config = Config::get('crypto');
 
 		$name = ($name === null) ? $config['default'] : $name;
 

@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\Mako;
+use \mako\Package;
 use \Exception;
 use \RuntimeException;
 
@@ -66,16 +67,7 @@ class View
 
 	public function __construct($view, array $variables = array())
 	{
-		if(strpos($view, '::') !== false)
-		{
-			list($bundle, $view) = explode('::', $view);
-
-			$this->viewFile = MAKO_BUNDLES . '/' . $bundle . '/views/' . $view . '.php';
-		}
-		else
-		{
-			$this->viewFile = MAKO_APPLICATION . '/views/' . $view . '.php';
-		}
+		$this->viewFile = Package::path('views', $view);
 		
 		if(file_exists($this->viewFile) === false)
 		{

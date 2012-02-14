@@ -40,10 +40,20 @@ return array
 	'timezone' => 'UTC',
 
 	/**
-	* Bundles to initialize by default.
+	* Class aliases used by the autoloader.
+	* The key is the original class name and the value is the alias.
 	*/
 
-	'bundles' => array
+	'aliases' => array
+	(
+		'mako\URL' => 'URL',
+	),
+
+	/**
+	* Packages to initialize by default.
+	*/
+
+	'packages' => array
 	(
 		
 	),

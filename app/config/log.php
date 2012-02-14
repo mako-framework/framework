@@ -17,7 +17,7 @@ return array
 	*
 	* The supported log types are: "File", "FirePHP", "Growl", "Prowl" and "Syslog".
 	*
-	* Growl and Prowl logging requires the official Growl and Prowl bundles.
+	* Growl and Prowl logging requires the official Growl and Prowl packages.
 	*
 	* type         : Log type you want to use (case-sensitive).
 	* path         : Location where you want to write the logs (only required when using "file" logs).

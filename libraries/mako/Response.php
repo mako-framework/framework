@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 
 /**
 * Mako response class.
@@ -152,7 +152,7 @@ class Response
 	
 	public function __construct($body = null)
 	{
-		$config = Mako::config('response');
+		$config = Config::get('response');
 		
 		$this->assetLocation  = $config['asset_location'];
 		$this->compressOutput = $config['compress_output'];
@@ -243,7 +243,7 @@ class Response
 
 		if(strpos($location, '://') === false)
 		{
-			$location = Mako::url($location);
+			$location = URL::to($location);
 		}
 		
 		header('Location: ' . $location);
@@ -294,7 +294,7 @@ class Response
 				round(microtime(true) - MAKO_START, 4),
 				$this->assetLocation,
 				Mako::VERSION,
-				Mako::url(),
+				Config::get('mako.base_url'),
 				MAKO_CHARSET,
 			);
 

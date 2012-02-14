@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 use \RuntimeException;
 
 /**
@@ -61,7 +61,7 @@ class Cache
 		}
 		else
 		{
-			$config = Mako::config('cache');
+			$config = Config::get('cache');
 			
 			$name = ($name === null) ? $config['default'] : $name;
 			

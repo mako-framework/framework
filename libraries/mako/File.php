@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 use \RuntimeException;
 
 /**
@@ -107,7 +107,7 @@ class File
 
 				if(empty($mimeTypes))
 				{
-					$mimeTypes = Mako::config('mimes');
+					$mimeTypes = Config::get('mimes');
 				}
 
 				$extension = pathinfo($file, PATHINFO_EXTENSION);

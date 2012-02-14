@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 use \RuntimeException;
 
 /**
@@ -48,7 +48,7 @@ class Session
 	
 	public static function start($name = null)
 	{
-		$config = Mako::config('session');
+		$config = Config::get('session');
 
 		$name = ($name === null) ? $config['default'] : $name;
 

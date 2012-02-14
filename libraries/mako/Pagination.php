@@ -2,7 +2,8 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\URL;
+use \mako\Config;
 use \mako\I18n;
 
 /**
@@ -79,7 +80,7 @@ class Pagination
 
 	public function __construct()
 	{
-		$config = Mako::config('pagination');
+		$config = Config::get('pagination');
 		
 		$this->key          = $config['page_key'];
 		$this->currentPage  = max((int) (isset($_GET[$this->key]) ? $_GET[$this->key] : 1), 1);
@@ -134,13 +135,13 @@ class Pagination
 			$links['first_page'] = array
 			(
 				'name' => I18n::getText('First Page'), 
-				'url'  => Mako::url($url, array_merge($params, array($this->key => 1)), $separator),
+				'url'  => URL::to($url, array_merge($params, array($this->key => 1)), $separator),
 			);
 			
 			$links['previous_page'] = array
 			(
 				'name' => '&laquo;',
-				'url'  => Mako::url($url, array_merge($params, array($this->key => ($this->currentPage - 1))), $separator),
+				'url'  => URL::to($url, array_merge($params, array($this->key => ($this->currentPage - 1))), $separator),
 			);
 		}
 		
@@ -151,13 +152,13 @@ class Pagination
 			$links['last_page'] = array
 			(
 				'name' => I18n::getText('Last Page'),
-				'url'  => Mako::url($url, array_merge($params, array($this->key => $this->pages)), $separator),
+				'url'  => URL::to($url, array_merge($params, array($this->key => $this->pages)), $separator),
 			);
 			
 			$links['next_page'] = array
 			(
 				'name' => '&raquo;',
-				'url'  => Mako::url($url, array_merge($params, array($this->key => ($this->currentPage + 1))), $separator),
+				'url'  => URL::to($url, array_merge($params, array($this->key => ($this->currentPage + 1))), $separator),
 			);
 		}
 		
@@ -191,7 +192,7 @@ class Pagination
 			$links['pages'][] = array
 			(
 				'name'    => $i,
-				'url'     => Mako::url($url, array_merge($params, array($this->key => $i)), $separator),
+				'url'     => URL::to($url, array_merge($params, array($this->key => $i)), $separator),
 				'is_current' => ($i == $this->currentPage),
 			);
 		}

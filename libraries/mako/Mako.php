@@ -2,19 +2,16 @@
 
 namespace mako;
 
+use \mako\Package;
+use \mako\Config;
+use \mako\ClassLoader;
 use \mako\Log;
-use \mako\Cache;
 use \mako\Request;
 use \mako\RequestException;
 use \mako\Response;
 use \Exception;
 use \ErrorException;
 use \RuntimeException;
-use \ArrayObject;
-
-// Setup class alias to maintain backwards compability and ease of use in views
-
-class_alias('\mako\Mako', 'Mako');
 
 /**
 * Class containing core methods that are used throughout the framework.
@@ -37,22 +34,14 @@ class Mako
 	*/
 	
 	const VERSION = '2.0.0';
-	
+
 	/**
-	* Array holding all config variables
+	* Configuration.
 	*
 	* @var array
 	*/
-	
-	protected static $config = array();
-	
-	/**
-	* Does the config cache need to be updated?
-	*
-	* @var boolean
-	*/
-	
-	protected static $updateCache = false;
+
+	protected static $config;
 	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -88,27 +77,14 @@ class Mako
 		// Include bootstrap file
 		
 		require MAKO_APPLICATION . '/bootstrap.php';
-		
+
 		// Load config
-		
-		if(MAKO_INTERNAL_CACHE === true)
-		{
-			$cache = Cache::instance()->read(MAKO_APPLICATION_ID . '_config');
-			
-			if($cache !== false)
-			{
-				static::$config = $cache;
-			}
-		}
-		
-		if(isset(static::$config['mako']) === false)
-		{
-			static::config('mako');	
-		}
+
+		static::$config = Config::get('mako');
 		
 		// Setup error handling
 		
-		if(static::$config['mako']['error_handler']['enable'] === true)
+		if(static::$config['error_handler']['enable'] === true)
 		{
 			set_error_handler('\mako\Mako::errorHandler');
 			
@@ -137,33 +113,24 @@ class Mako
 
 		// Set default timezone
 		
-		date_default_timezone_set(static::$config['mako']['timezone']);
+		date_default_timezone_set(static::$config['timezone']);
 		
 		// Set locale
 		
-		static::locale(static::$config['mako']['locale']['locales'], static::$config['mako']['locale']['lc_numeric']);
+		static::locale(static::$config['locale']['locales'], static::$config['locale']['lc_numeric']);
 
-		// Initialize bundles
+		// Set up class aliases
 
-		foreach(static::$config['mako']['bundles'] as $bundle)
+		foreach(static::$config['aliases'] as $className => $alias)
 		{
-			static::bundle($bundle);
+			ClassLoader::alias($className, $alias);
 		}
-	}
-	
-	/**
-	* Performs tasks that need to be done before sending output.
-	*
-	* @access  protected
-	*/
-	
-	protected static function cleanup()
-	{
-		// Save or update config cache if needed
-		
-		if(MAKO_INTERNAL_CACHE === true && static::$updateCache === true)
+
+		// Initialize packages
+
+		foreach(static::$config['packages'] as $package)
 		{
-			Cache::instance()->write(MAKO_APPLICATION_ID . '_config', static::$config, 3600);
+			Package::init($package);
 		}
 	}
 	
@@ -185,10 +152,7 @@ class Mako
 		catch(RequestException $e)
 		{
 			Response::factory(new View('_errors/' . $e->getMessage()))->send($e->getMessage());
-		}
-		
-			
-		static::cleanup();
+		}	
 	}
 	
 	/**
@@ -214,67 +178,7 @@ class Mako
 		}
 		
 		return $input;
-	}
-	
-	/**
-	* Returns a config group.
-	*
-	* @access  public
-	* @param   string  Name of the config file
-	* @return  array
-	*/
-	
-	public static function config($file)
-	{
-		if(isset(static::$config[$file]) === false)
-		{
-			if(strpos($file, '::') !== false)
-			{
-				list($bundle, $file) = explode('::', $file);
-
-				$path = MAKO_BUNDLES . '/' . $bundle . '/config/' . $file . '.php';
-			}
-			else
-			{
-				$path = MAKO_APPLICATION . '/config/' . $file . '.php';
-			}
-			
-				
-			if(file_exists($path) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $file)));
-			}	
-
-			static::$config[$file] = new ArrayObject(include($path), ArrayObject::ARRAY_AS_PROPS);
-				
-			if($file !== 'cache')
-			{
-				static::$updateCache = true;
-			}
-		}
-			
-		return static::$config[$file];
-	}
-
-	/**
-	* Initialize bundle.
-	*
-	* @access  public
-	* @param   string  Budle name
-	*/
-
-	public static function bundle($bundle)
-	{
-		$file = MAKO_BUNDLES . '/' . $bundle . '/_init.php';
-
-		if(!file_exists($file))
-		{
-			throw new RuntimeException(vsprintf("%s(): Unable to initialize the '%s' bundle. Make sure that it has been installed.", array(__METHOD__, $bundle)));
-		}
-
-		include_once $file;
-	}
-		
+	}	
 	
 	/**
 	* Set locale information.
@@ -295,37 +199,6 @@ class Mako
 				setlocale(LC_NUMERIC, 'C');
 			}
 		}
-	}
-	
-	/**
-	* Returns a mako framework url.
-	*
-	* @access  public
-	* @param   string   URL segments
-	* @param   array    (optional) Associative array used to build URL-encoded query string
-	* @param   string   (optional) Argument separator
-	* @return  string
-	*/
-	
-	public static function url($route = '', array $params = array(), $separator = '&amp;')
-	{	
-		if($route === '')
-		{
-			$url = static::$config['mako']['base_url'];
-		}
-		else
-		{
-			$url = static::$config['mako']['clean_urls'] === true ? 
-			       static::$config['mako']['base_url'] . '/' . $route : 
-			       static::$config['mako']['base_url'] . '/index.php/' . $route;
-		}
-		
-		if(!empty($params))
-		{
-			$url .= '?' . http_build_query($params, '', $separator);
-		}
-		
-		return $url;
 	}
 	
 	/**
@@ -571,7 +444,7 @@ class Mako
 
 			// Write to error log (disabled for E_COMPILE_ERROR and E_ERROR as it causes problems with autoloader)
 
-			if(static::$config['mako']['error_handler']['log_errors'] === true && !in_array($error['code'], array(E_COMPILE_ERROR, E_ERROR)))
+			if(static::$config['error_handler']['log_errors'] === true && !in_array($error['code'], array(E_COMPILE_ERROR, E_ERROR)))
 			{
 				Log::error("{$error['type']}: {$error['message']} in {$error['file']} at line {$error['line']}");
 			}
@@ -582,7 +455,7 @@ class Mako
 
 			@header(isset($_SERVER['FCGI_SERVER_VERSION']) ? 'Status:' : (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1') . ' 500 Internal Server Error');
 
-			if(static::$config['mako']['error_handler']['display_errors'] === true)
+			if(static::$config['error_handler']['display_errors'] === true)
 			{
 				$error['backtrace'] = $exception->getTrace();
 

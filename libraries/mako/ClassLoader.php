@@ -30,10 +30,18 @@ class ClassLoader
 	* @var array
 	*/
 
-	protected static $psr0 = array
+	protected static $psr = array
 	(
 		MAKO_LIBRARIES_PATH
 	);
+
+	/**
+	* Class aliases.
+	*
+	* @var array
+	*/
+
+	protected static $aliases = array();
 	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -91,7 +99,20 @@ class ClassLoader
 
 	public static function addPsr($path)
 	{
-		static::$psr0[] = $path;
+		static::$psr[] = $path;
+	}
+
+	/**
+	* Set an alias for a class.
+	*
+	* @access  public
+	* @param   string  Class name
+	* @param   string  Class alias
+	*/
+
+	public static function alias($className, $alias)
+	{
+		static::$aliases[$alias] = $className;
 	}
 
 	/**
@@ -105,6 +126,13 @@ class ClassLoader
 	public static function load($className)
 	{
 		$className = ltrim($className, '\\');
+
+		// Try to autoload an aliased class
+
+		if(isset(static::$aliases[$className]))
+		{
+			class_alias(static::$aliases[$className], $className);
+		}
 		
 		// Try to load a mapped class
 
@@ -140,7 +168,7 @@ class ClassLoader
 
 		$fileName .= str_replace('_', '/', $className) . '.php';
 
-		foreach(static::$psr0 as $path)
+		foreach(static::$psr as $path)
 		{
 			if(file_exists($path . '/' . $fileName))
 			{

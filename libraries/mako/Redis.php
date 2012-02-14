@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 use \RuntimeException;
 
 /**
@@ -56,7 +56,7 @@ class Redis
 
 	public function __construct($name = null)
 	{
-		$config = Mako::config('redis');
+		$config = Config::get('redis');
 
 		$name = ($name === null) ? $config['default'] : $name;
 

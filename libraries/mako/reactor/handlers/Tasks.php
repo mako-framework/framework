@@ -2,8 +2,8 @@
 
 namespace mako\reactor\handlers;
 
-use \mako\Mako;
 use \mako\CLI;
+use \mako\Package;
 use \mako\reactor\Reactor;
 use \ReflectionClass;
 use \RuntimeException;
@@ -56,11 +56,11 @@ class Tasks
 		{
 			if(strpos($arguments[0], '::') !== false)
 			{
-				list($bundle, $task) = explode('::', $arguments[0]);
+				list($package, $task) = explode('::', $arguments[0]);
 
 				try
 				{
-					Mako::bundle($bundle);
+					Package::init($package);
 				}
 				catch(RuntimeException $e)
 				{
@@ -74,7 +74,7 @@ class Tasks
 
 			list($task, $method) = explode(':', $task);
 
-			$file = (!empty($bundle) ? MAKO_BUNDLES . '/' . $bundle : MAKO_APPLICATION ) . '/tasks/' . $task . '.php';
+			$file = (!empty($package) ? MAKO_PACKAGES . '/' . $package : MAKO_APPLICATION ) . '/tasks/' . $task . '.php';
 
 			if(!file_exists($file))
 			{

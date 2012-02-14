@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 
 /**
 * Class that allows you to set and read signed cookies.
@@ -58,7 +58,7 @@ class Cookie
 	{
 		if(empty(static::$config))
 		{
-			static::$config = Mako::config('cookie');
+			static::$config = Config::get('cookie');
 		}
 		
 		return base64_encode(sha1($name . $value . static::$config['secret'], true)); // use binary output and encode using base64 to save a few bytes
@@ -123,7 +123,7 @@ class Cookie
 	{
 		if(empty(static::$config))
 		{
-			static::$config = Mako::config('cookie');
+			static::$config = Config::get('cookie');
 		}
 		
 		setcookie($name, '', time() - 3600, static::$config['path'], static::$config['domain']);

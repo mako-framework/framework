@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 
 /**
 * Class that helps identifying the device or type of device that made the request.
@@ -98,7 +98,7 @@ class UserAgent
 	
 	public static function isMobile()
 	{
-		return static::find(Mako::config('user_agents')->mobiles);
+		return static::find(Config::get('user_agents.mobiles'));
 	}
 	
 	/**
@@ -110,7 +110,7 @@ class UserAgent
 	
 	public static function isRobot()
 	{
-		return static::find(Mako::config('user_agents')->robots);
+		return static::find(Config::get('user_agents.robots'));
 	}
 	
 	/**

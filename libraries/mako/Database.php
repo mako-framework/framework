@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\Config;
 use \PDO;
 use \PDOException;
 use \RuntimeException;
@@ -92,7 +92,7 @@ class Database
 		{
 			static::$instance = new static();
 			
-			static::$config = Mako::config('database');
+			static::$config = Config::get('database');
 		}
 		
 		if(isset(static::$connections[$name]))
