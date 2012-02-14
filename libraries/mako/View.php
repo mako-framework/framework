@@ -3,7 +3,6 @@
 namespace mako;
 
 use \mako\Mako;
-use \mako\Package;
 use \Exception;
 use \RuntimeException;
 

@@ -11,7 +11,7 @@ namespace mako;
 */
 
 use \mako\Arr;
-use \mako\Package;
+use \mako\Mako;
 use \RuntimeException;
 
 class Config
