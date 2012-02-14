@@ -58,28 +58,61 @@ class Config
 
 	public static function get($key, $default = null)
 	{
-		$key = explode('.', $key, 2);
+		$keys = explode('.', $key, 2);
 
-		if(!isset(static::$config[$key[0]]))
+		if(!isset(static::$config[$keys[0]]))
 		{
-			$path = Package::path('config', $key[0]);
+			$path = Package::path('config', $keys[0]);
 
 			if(file_exists($path) === false)
 			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $key[0])));
+				throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $keys[0])));
 			}	
 
-			static::$config[$key[0]] = include($path);
+			static::$config[$keys[0]] = include($path);
 		}
 
-		if(!isset($key[1]))
+		if(!isset($keys[1]))
 		{
-			return static::$config[$key[0]];
+			return static::$config[$keys[0]];
 		}
 		else
 		{
-			return Arr::get(static::$config[$key[0]], $key[1], $default);
+			return Arr::get(static::$config, $key);
 		}
+	}
+
+	/**
+	* Sets a config value.
+	*
+	* @access  public
+	* @param   string  Config key
+	* @param   mixed   Config value
+	*/
+
+	public static function set($key, $value)
+	{
+		$config = strtok($key, '.');
+
+		if(!isset(static::$config[$config]))
+		{
+			static::get($config);
+		}
+
+		Arr::set(static::$config, $key, $value);
+	}
+
+	/**
+	* Deletes a value from the configuration.
+	*
+	* @access  public
+	* @param   string   Config key
+	* @return  boolean
+	*/
+
+	public static function delete($key)
+	{
+		return Arr::delete(static::$config, $key);
 	}
 }
 
