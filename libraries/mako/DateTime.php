@@ -176,11 +176,11 @@ class DateTime
 		
 		if($diff < 120)
 		{
-			 return I18n::getText('a minute ago');
+			 return I18n::translate('a minute ago');
 		}
 		else if($diff < 3600)
 		{
-			return I18n::getText('%u minutes ago', array($diff / 60));
+			return I18n::translate('%u minutes ago', array($diff / 60));
 		}
 		
 		if($fullFuzzy === true)
@@ -189,27 +189,27 @@ class DateTime
 			
 			if($diff < 7200)
 			{
-				return I18n::getText('an hour ago');
+				return I18n::translate('an hour ago');
 			}
 			else if($diff < 86400)
 			{
-				return I18n::getText('%u hours ago', array($diff / 3600));
+				return I18n::translate('%u hours ago', array($diff / 3600));
 			}
 			else if($diff < 172800)
 			{
-				$date = I18n::getText('a day ago');
+				$date = I18n::translate('a day ago');
 			}
 			else if($diff < 604800)
 			{
-				$date = I18n::getText('%u days ago', array($diff / 86400));
+				$date = I18n::translate('%u days ago', array($diff / 86400));
 			}
 			else if($diff < 1209600)
 			{
-				$date = I18n::getText('a week ago');
+				$date = I18n::translate('a week ago');
 			}
 			else if($diff < 3024000)
 			{
-				$date = I18n::getText('%u weeks ago', array($diff / 604800));
+				$date = I18n::translate('%u weeks ago', array($diff / 604800));
 			}
 			else
 			{
@@ -224,11 +224,11 @@ class DateTime
 
 			if(gmdate('jny', ($now + $offset)) == $compare)
 			{
-				$date = I18n::getText('today');
+				$date = I18n::translate('today');
 			}
 			else if(gmdate('jny', (($now + $offset) - 86400)) == $compare)
 			{
-				$date = I18n::getText('yesterday');
+				$date = I18n::translate('yesterday');
 			}
 			else
 			{

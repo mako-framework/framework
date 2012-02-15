@@ -201,16 +201,16 @@ class CLI
 
 	public static function confirm($question)
 	{
-		fwrite(STDOUT, $question . ' [' . I18n::getText('Y') . '/' . I18n::getText('N') . ']: ');
+		fwrite(STDOUT, $question . ' [' . I18n::translate('Y') . '/' . I18n::translate('N') . ']: ');
 
 		$input = trim(fgets(STDIN));
 
 		switch(mb_strtoupper($input))
 		{
-			case I18n::getText('Y'):
+			case I18n::translate('Y'):
 				return true;
 			break;
-			case I18n::getText('N'):
+			case I18n::translate('N'):
 				return false;
 			break;
 			default:
@@ -272,7 +272,7 @@ class CLI
 
 		while($seconds > 0)
 		{
-			fwrite(STDOUT, "\r" . I18n::getText('Please wait ...') . ' [ ' . str_pad($seconds--, $length, 0, STR_PAD_LEFT) . ' ]');
+			fwrite(STDOUT, "\r" . I18n::translate('Please wait ...') . ' [ ' . str_pad($seconds--, $length, 0, STR_PAD_LEFT) . ' ]');
 
 			if($withBeep === true)
 			{

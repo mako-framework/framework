@@ -7,7 +7,7 @@
 if(!function_exists('__'))
 {
 	/**
-	* Alias of mako\I18n::getText()
+	* Alias of mako\I18n::translate()
 	*
 	* Returns a translated string of the current language. 
 	* If no translation exists then the submitted string will be returned.
@@ -21,7 +21,7 @@ if(!function_exists('__'))
 
 	function __($string, array $vars = array(), $language = null)
 	{
-		return mako\I18n::getText($string, $vars, $language);
+		return mako\I18n::translate($string, $vars, $language);
 	}
 }
 

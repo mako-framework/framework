@@ -109,7 +109,7 @@ class I18n
 	* @return  string
 	*/
 
-	public static function getText($string, array $vars = array(), $language = null)
+	public static function translate($string, array $vars = array(), $language = null)
 	{
 		$language = $language === null ? static::$language : $language;
 

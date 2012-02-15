@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="[mako:charset]">
+<meta charset="<?php echo MAKO_CHARSET; ?>">
 
 <title>Welcome!</title>
 
@@ -142,7 +142,7 @@ a.active
 
 <h1><?php echo $welcome; ?></h1>
 
-<p>You have successfully installed the framework. Check out the <a href="http://makoframework.com/docs">documentation</a> and start developing!</p>
+<p>You have successfully installed the framework. Check out the <a href="http://makoframework.com/docs">documentation</a> and create something awesome!</p>
 
 <?php if(!is_writable(MAKO_APPLICATION . '/storage/logs') || !is_writable(MAKO_APPLICATION . '/storage/logs')): ?>
 <p class="error animated shake">Make sure that the <strong>application/storage/cache</strong> and <strong>application/storage/cache</strong> directories are writable.</p>
@@ -150,7 +150,7 @@ a.active
 
 </div>
 
-<p>Page rendered in <?=round(microtime(true) - MAKO_START, 4);?> seconds</p>
+<p>Page rendered in <?php echo round(microtime(true) - MAKO_START, 4); ?> seconds</p>
 
 </div>
 
