@@ -5,14 +5,14 @@ namespace mako;
 use \SimpleXMLElement;
 
 /**
-* Convert arrays to different formats.
+* Converts arrays to different data formats.
 *
 * @author     Frederic G. Østby
 * @copyright  (c) 2008-2012 Frederic G. Østby
 * @license    http://www.makoframework.com/license
 */
 
-class ArrayTo
+class Format
 {
 	//---------------------------------------------
 	// Class variables

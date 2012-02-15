@@ -20,7 +20,6 @@ include MAKO_LIBRARIES_PATH . '/mako/ClassLoader.php';
 mako\ClassLoader::addClasses(array
 (
 	'mako\Arr'                       => MAKO_LIBRARIES_PATH . '/mako/Arr.php',
-	'mako\ArrayTo'                   => MAKO_LIBRARIES_PATH . '/mako/ArrayTo.php',
 	'mako\Assets'                    => MAKO_LIBRARIES_PATH . '/mako/Assets.php',
 	'mako\Cache'                     => MAKO_LIBRARIES_PATH . '/mako/Cache.php',
 	'mako\cache\APC'                 => MAKO_LIBRARIES_PATH . '/mako/cache/APC.php',
@@ -50,6 +49,7 @@ mako\ClassLoader::addClasses(array
 	'mako\Database'                  => MAKO_LIBRARIES_PATH . '/mako/Database.php',
 	'mako\DateTime'                  => MAKO_LIBRARIES_PATH . '/mako/DateTime.php',
 	'mako\Event'                     => MAKO_LIBRARIES_PATH . '/mako/Event.php',
+	'mako\Format '                   => MAKO_LIBRARIES_PATH . '/mako/Format.php',
 	'mako\HTML'                      => MAKO_LIBRARIES_PATH . '/mako/HTML.php',
 	'mako\I18n'                      => MAKO_LIBRARIES_PATH . '/mako/I18n.php',
 	'mako\Image'                     => MAKO_LIBRARIES_PATH . '/mako/Image.php',
