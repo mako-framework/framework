@@ -110,7 +110,7 @@ class Assets
 
 	protected function add($name, $source, array $attributes = array())
 	{
-		// Prefix source with asset view tag if it's not a URL
+		// Prefix source with asset location if it's not a URL
 
 		if(strpos($source, '://') === false)
 		{
