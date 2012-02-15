@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="[mako:charset]">
+<meta charset="<?php echo MAKO_CHARSET; ?>">
 <title>403 Forbidden</title>
 
 <style type="text/css">
