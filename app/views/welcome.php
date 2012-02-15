@@ -150,7 +150,7 @@ a.active
 
 </div>
 
-<p>Page rendered in [mako:exe_time] seconds</p>
+<p>Page rendered in <?=round(microtime(true) - MAKO_START, 4);?> seconds</p>
 
 </div>
 

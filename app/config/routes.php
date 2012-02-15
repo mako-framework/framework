@@ -1,7 +1,7 @@
 <?php
 
 //---------------------------------------------
-// Request configuration
+// Routing configuration
 //---------------------------------------------
 
 return array

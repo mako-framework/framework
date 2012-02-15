@@ -25,14 +25,6 @@ class Response
 	*/
 	
 	protected $body = '';
-	
-	/**
-	* Asset location.
-	*
-	* @var string
-	*/
-	
-	protected $assetLocation;
 
 	/**
 	* Check ETag?
@@ -41,14 +33,6 @@ class Response
 	*/
 
 	protected $checkEtag = false;
-	
-	/**
-	* Compress output?
-	*
-	* @var boolean
-	*/
-	
-	protected $compressOutput;
 	
 	/**
 	* List of HTTP status codes.
@@ -152,11 +136,6 @@ class Response
 	
 	public function __construct($body = null)
 	{
-		$config = Config::get('response');
-		
-		$this->assetLocation  = $config['asset_location'];
-		$this->compressOutput = $config['compress_output'];
-
 		if($body !== null)
 		{
 			$this->body($body);
@@ -279,25 +258,7 @@ class Response
 		// Print output to browser (if there is any)
 
 		if($this->body !== '')
-		{
-			$search  = array
-			(
-				'[mako:exe_time]',
-				'[mako:assets]',
-				'[mako:version]',
-				'[mako:charset]',
-			);
-
-			$replace = array
-			(
-				round(microtime(true) - MAKO_START, 4),
-				$this->assetLocation,
-				Mako::VERSION,
-				MAKO_CHARSET,
-			);
-
-			$this->body = str_ireplace($search, $replace, $this->body);
-			
+		{	
 			// Pass output through filter
 			
 			if(!empty($this->outputFilter))
@@ -323,7 +284,7 @@ class Response
 
 			// Compress output (if enabled)
 
-			if($this->compressOutput === true)
+			if(Config::get('mako.compress_output') === true)
 			{
 				ob_start('ob_gzhandler');
 			}

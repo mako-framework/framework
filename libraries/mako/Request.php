@@ -142,7 +142,7 @@ class Request
 	{
 		$this->route = $route;
 		
-		$config = Config::get('request');
+		$config = Config::get('routes');
 		
 		$this->defaultRoute = $config['default_route'];
 		$this->customRoutes = $config['custom_routes'];

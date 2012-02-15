@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\HTML;
+use \mako\Config;
 
 /**
 * Asset manager.
@@ -12,7 +13,7 @@ use \mako\HTML;
 * @license    http://www.makoframework.com/license
 */
 
-class Assets
+class Asset
 {
 	//---------------------------------------------
 	// Class variables
@@ -80,6 +81,25 @@ class Assets
 	//---------------------------------------------
 
 	/**
+	* Returns the path or URL of the assets.
+	*
+	* @access  public
+	* @return  string
+	*/
+
+	public static function location()
+	{
+		static $location;
+
+		if($location === null)
+		{
+			$location = Config::get('mako.asset_location');
+		}
+
+		return $location;
+	}
+
+	/**
 	* Add an asset.
 	*
 	* @access  public
@@ -94,7 +114,7 @@ class Assets
 
 		if(strpos($source, '://') === false)
 		{
-			$source = '[mako:assets]' . $source;
+			$source = static::location() . $source;
 		}
 
 		if(pathinfo(strtok($source, '?'), PATHINFO_EXTENSION) === 'css')
