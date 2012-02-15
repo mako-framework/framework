@@ -26,8 +26,7 @@ ini_set('display_errors', true);
 define('MAKO_CHARSET', 'UTF-8');
 
 /**
-* Setting this value to true can speed up execution by reducing the 
-* number of config and language files to include.
+* Setting this value to true can speed up execution by reducing the language files to include.
 */
 
 define('MAKO_INTERNAL_CACHE', false);
