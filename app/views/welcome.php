@@ -150,7 +150,7 @@ a.active
 
 </div>
 
-<p>Page rendered in <?php echo round(microtime(true) - MAKO_START, 5); ?> seconds</p>
+<p>Page rendered in <?php echo round(microtime(true) - MAKO_START, 4); ?> seconds</p>
 
 </div>
 
