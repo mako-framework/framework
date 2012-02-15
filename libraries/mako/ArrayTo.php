@@ -49,7 +49,14 @@ class ArrayTo
 
 	public static function json(array $data)
 	{
-		return json_encode($data);
+		$data = json_encode($data);
+
+		if(isset($_GET['jsoncallback']))
+		{
+			$data = $_GET['jsoncallback'] . '(' . $data . ')';
+		}
+
+		return $data;
 	}
 
 	/**
