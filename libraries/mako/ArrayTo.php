@@ -51,7 +51,7 @@ class ArrayTo
 	{
 		$data = json_encode($data);
 
-		if(isset($_GET['jsoncallback']))
+		if(!empty($_GET['jsoncallback']))
 		{
 			$data = $_GET['jsoncallback'] . '(' . $data . ')';
 		}
