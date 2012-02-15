@@ -13,7 +13,7 @@ use \mako\Config;
 * @license    http://www.makoframework.com/license
 */
 
-class Asset
+class Assets
 {
 	//---------------------------------------------
 	// Class variables
