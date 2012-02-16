@@ -83,7 +83,7 @@ Superglobals <a href="#" onclick="return toggle('superglobals', this);" style="f
 <?php if(!empty($_SERVER)): ?>
 <p><b>$_SERVER [<a href="#" onclick="return toggle('_server', this);">+</a>]</b></p>
 <div id="_server" style="display:none">
-<table width="">
+<table width="100%">
 <?php foreach($_SERVER as $k => $v): ?>
 <tr>
 <td width="15%"><?php echo htmlspecialchars($k); ?></td>
