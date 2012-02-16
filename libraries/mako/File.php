@@ -41,17 +41,22 @@ class File
 	//---------------------------------------------
 
 	/**
-	* Will convert bytes to a more human friendly format.
+	* Returns filesize in a human friendly format.
 	*
 	* @access  public
-	* @param   int      Filesize in bytes
+	* @param   mixed    Path to file or size in bytes
 	* @param   boolean  (optional) True to use binary prefixes and false to use decimal prefixes
 	* @return  string
 	*/
 
-	public static function humanSize($bytes, $binary = true)
+	public static function size($size, $binary = true)
 	{
-		if($bytes > 0)
+		if(!is_int($size) && is_file($size))
+		{
+			$size = filesize($size);
+		}
+
+		if($size > 0)
 		{
 			if($binary === true)
 			{
@@ -64,9 +69,9 @@ class File
 				$terms = array('byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 			}
 
-			$e = floor(log($bytes, $base));
+			$e = floor(log($size, $base));
 
-			return round($bytes / pow($base, $e), 2) . ' ' . $terms[$e];
+			return round($size / pow($base, $e), 2) . ' ' . $terms[$e];
 		}
 		else
 		{
