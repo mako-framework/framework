@@ -3,7 +3,6 @@
 namespace mako\reactor;
 
 use \mako\Mako;
-use \mako\Config;
 use \mako\CLI;
 use \mako\reactor\handlers\Tasks;
 use \mako\reactor\handlers\Packages;
@@ -52,19 +51,7 @@ class Reactor
 
 	public static function run($arguments)
 	{
-		// Set internal encoding
-
-		mb_language('uni');
-		mb_regex_encoding(MAKO_CHARSET);
-		mb_internal_encoding(MAKO_CHARSET);
-
-		// Set timezone and locale settings
-
-		$config = Config::get('mako');
-
-		date_default_timezone_set($config['timezone']);
-
-		Mako::locale($config['locale']['locales'], $config['locale']['lc_numeric']);
+		Mako::init();
 
 		// Remove options from argument list so that it doesnt matter what order they come in
 

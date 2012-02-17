@@ -20,18 +20,6 @@ error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', true);
 
 /**
-* Define the default charset used internally in the framework.
-*/
-
-define('MAKO_CHARSET', 'UTF-8');
-
-/**
-* Setting this value to true can speed up execution by reducing the language files to include.
-*/
-
-define('MAKO_INTERNAL_CACHE', false);
-
-/**
 * Define the path to the libraries directory (without trailing slash).
 */
 

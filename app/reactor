@@ -10,17 +10,10 @@
 
 define('MAKO_LIBRARIES_PATH', dirname(__DIR__) . '/libraries');
 
-/**
-* Define the default charset used internally in the framework.
-*/
-
-define('MAKO_CHARSET', 'UTF-8');
-
 //------------------------------------------------------------------------------------------
 // END OF USER CONFIGURABLE SECTION
 //------------------------------------------------------------------------------------------
 
-define('MAKO_INTERNAL_CACHE', false);
 define('MAKO_APPLICATION_PATH', dirname(__DIR__));
 define('MAKO_APPLICATION_NAME', basename(__DIR__));
 

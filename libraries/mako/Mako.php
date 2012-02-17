@@ -68,12 +68,8 @@ class Mako
 	* @access  protected
 	*/
 	
-	protected static function init()
+	public static function init()
 	{
-		// Start output buffering
-		
-		ob_start();
-
 		// Include bootstrap file
 		
 		require MAKO_APPLICATION . '/bootstrap.php';
@@ -81,34 +77,45 @@ class Mako
 		// Load config
 
 		static::$config = Config::get('mako');
-		
-		// Setup error handling
-		
-		if(static::$config['error_handler']['enable'] === true)
-		{
-			set_error_handler('\mako\Mako::errorHandler');
-			
-			register_shutdown_function('\mako\Mako::fatalErrorHandler');
-			
-			set_exception_handler('\mako\Mako::exceptionHandler');
-		}
-		
-		// Send default header and set internal encoding
-		
-		header('Content-Type: text/html; charset=' . MAKO_CHARSET);
-		
+
+		// Set internal charset
+
+		define('MAKO_CHARSET', static::$config['charset']);
+
 		mb_language('uni');
 		mb_regex_encoding(MAKO_CHARSET);
 		mb_internal_encoding(MAKO_CHARSET);
-				
-		// Clean input
 
-		if(MAKO_MAGIC_QUOTES === 1)
+		if(PHP_SAPI !== 'cli')
 		{
-			$_GET     = static::cleanInput($_GET);
-			$_POST    = static::cleanInput($_POST);
-			$_COOKIE  = static::cleanInput($_COOKIE);
-			$_REQUEST = static::cleanInput($_REQUEST);
+			// Start output buffering
+
+			ob_start();
+
+			// Setup error handling
+			
+			if(static::$config['error_handler']['enable'] === true)
+			{
+				set_error_handler('\mako\Mako::errorHandler');
+				
+				register_shutdown_function('\mako\Mako::fatalErrorHandler');
+				
+				set_exception_handler('\mako\Mako::exceptionHandler');
+			}
+			
+			// Send default header
+			
+			header('Content-Type: text/html; charset=' . MAKO_CHARSET);
+					
+			// Clean input
+
+			if(MAKO_MAGIC_QUOTES === 1)
+			{
+				$_GET     = static::cleanInput($_GET);
+				$_POST    = static::cleanInput($_POST);
+				$_COOKIE  = static::cleanInput($_COOKIE);
+				$_REQUEST = static::cleanInput($_REQUEST);
+			}
 		}
 
 		// Set default timezone

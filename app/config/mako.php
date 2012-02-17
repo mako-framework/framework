@@ -25,11 +25,10 @@ return array
 	'asset_location' => '/mako/assets',
 
 	/**
-	* Compress output?
-	* Setting this to true will reduce bandwidth usage while slightly increasing the CPU usage.
+	* Default character set used internally in the framework.
 	*/
 
-	'compress_output' => false,
+	'charset' => 'UTF-8',
 	
 	/**
 	* Locale settings.
@@ -54,7 +53,6 @@ return array
 
 	/**
 	* Class aliases used by the autoloader.
-	* The key is the original class name and the value is the alias.
 	*/
 
 	'aliases' => array
@@ -70,6 +68,20 @@ return array
 	(
 		
 	),
+
+	/**
+	* Cache language files?
+	* Setting this value to true can speed up execution by reducing the language files to include.
+	*/
+
+	'lang_cache' => false,
+
+	/**
+	* Compress output?
+	* Setting this to true will reduce bandwidth usage while slightly increasing the CPU usage.
+	*/
+
+	'compress_output' => false,
 	
 	/**
 	* Error handler settings.
