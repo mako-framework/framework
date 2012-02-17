@@ -252,8 +252,8 @@ class Mako
 
 		$highlight = function($string)
 		{
-			$search  = array("\n", '<code>', '</code>', '<span style="color: #0000BB">&lt;?php&nbsp;', '#$@r4!/*');
-			$replace = array('', '', '', '<span style="color: #0000BB">', '/*');
+			$search  = array("\r\n", "\n\r", "\r", "\n", '<code>', '</code>', '<span style="color: #0000BB">&lt;?php&nbsp;', '#$@r4!/*');
+			$replace = array('', '', '', '', '', '', '<span style="color: #0000BB">', '/*');
 
 			return str_replace($search, $replace, highlight_string('<?php ' . str_replace('/*', '#$@r4!/*', $string), true));	
 		};
