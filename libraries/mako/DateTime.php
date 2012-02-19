@@ -309,7 +309,7 @@ class DateTime
 	* @return  int
 	*/
 
-	public static function unix2Dos($timestamp = null)
+	public static function unix2dos($timestamp = null)
 	{
 		$time = ($timestamp === null) ? getdate() : getdate($timestamp);
 
@@ -334,7 +334,7 @@ class DateTime
 	* @return  int
 	*/
 
-	public static function dos2Unix($timestamp)
+	public static function dos2unix($timestamp)
 	{
 		$year     = (($timestamp >> 25) & 0x7f) + 1980;
 		$mon      = ($timestamp >> 21) & 0x0f;

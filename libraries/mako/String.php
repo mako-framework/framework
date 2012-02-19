@@ -268,7 +268,7 @@ class String
 	* @return  string
 	*/
 	
-	public static function autoLink($string, array $attributes = array())
+	public static function autolink($string, array $attributes = array())
 	{
 		return preg_replace_callback('#\b(?<!href="|">)[a-z]+://\S+(?:/|\b)#i', function($matches) use ($attributes)
 		{
