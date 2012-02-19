@@ -106,11 +106,11 @@ class ClassLoader
 	* Set an alias for a class.
 	*
 	* @access  public
-	* @param   string  Class name
 	* @param   string  Class alias
+	* @param   string  Class name
 	*/
 
-	public static function alias($className, $alias)
+	public static function alias($alias, $className)
 	{
 		static::$aliases[$alias] = $className;
 	}

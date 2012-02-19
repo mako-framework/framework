@@ -57,8 +57,8 @@ return array
 
 	'aliases' => array
 	(
-		'mako\URL'    => 'URL',
-		'mako\Assets' => 'Assets',
+		'URL'    => 'mako\URL',
+		'Assets' => 'mako\Assets',
 	),
 
 	/**

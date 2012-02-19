@@ -128,9 +128,9 @@ class Mako
 
 		// Set up class aliases
 
-		foreach(static::$config['aliases'] as $className => $alias)
+		foreach(static::$config['aliases'] as $alias => $className)
 		{
-			ClassLoader::alias($className, $alias);
+			ClassLoader::alias($alias, $className);
 		}
 
 		// Initialize packages
