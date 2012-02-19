@@ -155,32 +155,6 @@ class String
 	}
 
 	/**
-	* Converts & to &amp;.
-	*
-	* @access  public
-	* @param   string  The input string
-	* @return  string
-	*/
-
-	public static function ampEncode($string)
-	{
-		return str_replace('&', '&amp;', $string);
-	}
-
-	/**
-	* Converts &amp; to &.
-	*
-	* @access  public
-	* @param   string  The input string
-	* @return  string
-	*/
-
-	public static function ampDecode($string)
-	{
-		return str_replace('&amp;', '&', $string);
-	}
-
-	/**
 	* Converts camel case to underscored.
 	*
 	* @access  public
