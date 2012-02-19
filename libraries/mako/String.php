@@ -223,7 +223,7 @@ class String
 	* @return  string
 	*/
 
-	public static function urlFriendly($string)
+	public static function slug($string)
 	{
 		return mb_strtolower(preg_replace('/\s{1,}/', '-', trim(preg_replace('/[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]/', '', $string))));
 	}
