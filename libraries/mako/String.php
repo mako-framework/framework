@@ -181,6 +181,32 @@ class String
 	}
 
 	/**
+	* Converts camel case to underscored.
+	*
+	* @access  public
+	* @param   string  The input string
+	* @return  string
+	*/
+
+	public static function camel2underscored($string)
+	{
+		return mb_strtolower(preg_replace('/([^A-Z])([A-Z])/u', "$1_$2", $string));
+	}
+
+	/**
+	* Converts underscored to camel case.
+	*
+	* @access  public
+	* @param   string  The input string
+	* @return  string
+	*/
+
+	public static function underscored2camel($string, $upper = false)
+	{
+		return $upper ? preg_replace('/(?:^|_)(.?)/ue', "mb_strtoupper('$1')", $string) : preg_replace('/_(.?)/ue', "mb_strtoupper('$1')", $string);
+	}
+
+	/**
 	* Limits the number of characters in a string.
 	*
 	* @access  public
