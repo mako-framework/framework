@@ -74,7 +74,7 @@ class Crypto
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(Crypto::factory(), $name), $arguments);
+		return call_user_func_array(array(static::factory(), $name), $arguments);
 	}
 }
 

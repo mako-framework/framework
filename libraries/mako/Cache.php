@@ -89,7 +89,7 @@ class Cache
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(Cache::instance(), $name), $arguments);
+		return call_user_func_array(array(static::instance(), $name), $arguments);
 	}
 }
 

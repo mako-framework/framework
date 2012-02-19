@@ -222,6 +222,20 @@ class Redis
 
 		return $this->response();
 	}
+
+	/**
+	* Magic shortcut to the default redis configuration.
+	*
+	* @access  public
+	* @param   string  Method name
+	* @param   array   Method arguments
+	* @return  mixed
+	*/
+
+	public static function __callStatic($name, $arguments)
+	{
+		return call_user_func_array(array(static::factory(), $name), $arguments);
+	}
 }
 
 /** -------------------- End of file --------------------**/
