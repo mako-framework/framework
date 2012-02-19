@@ -64,7 +64,7 @@ class Security
 	* @return  string
 	*/
 	
-	public static function getToken()
+	public static function generateToken()
 	{
 		static::sessionStart();
 		
