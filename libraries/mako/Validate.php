@@ -85,7 +85,7 @@ class Validate
 
 	public function rule($field, $function, $error)
 	{
-		$function = (array) $function; // Cast to array
+		!is_array($function) && $function = array($function);
 
 		if(is_string($function[0]) && method_exists(__CLASS__, $function[0]))
 		{

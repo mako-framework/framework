@@ -78,7 +78,7 @@ class Input
 	
 	public function filter($field, $function)
 	{
-		$function = (array) $function; // Cast to array
+		!is_array($function) && $function = array($function);
 
 		$callback['function'] = $function[0];
 		$callback['params']   = isset($function[1]) ? $function[1] : array();
