@@ -2,8 +2,10 @@
 
 namespace mako;
 
+use \mako\Arr;
+
 /**
-* Class for filtering and validating input.
+* Input filtering and helpers.
 *
 * @author     Frederic G. Østby
 * @copyright  (c) 2008-2012 Frederic G. Østby
@@ -23,14 +25,6 @@ class Input
 	*/
 
 	protected $input;
-
-	/**
-	* Holds the returned errors.
-	*
-	* @var array
-	*/
-
-	protected $errors = array();
 	
 	/**
 	* Holds all the callback filtering functions that need to be run.
@@ -39,14 +33,6 @@ class Input
 	*/
 	
 	protected $filters = array();
-
-	/**
-	* Holds all the callback validation functions that need to be run.
-	*
-	* @var array
-	*/
-
-	protected $rules = array();
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -85,18 +71,19 @@ class Input
 	* Adds a filter to the list of callbacks.
 	*
 	* @access  public
-	* @param   mixed          Field name - if set to TRUE then the filter will be run on all fields
+	* @param   mixed          Field name
 	* @param   callback       Filter function
-	* @param   array          (optional) Extra parameters for the callback function
 	* @return  mako\Validate
 	*/
 	
-	public function filter($field, $function, array $params = array())
+	public function filter($field, $function)
 	{
-		$callback['function'] = $function;
-		$callback['params']   = $params;
+		$function = (array) $function; // Cast to array
+
+		$callback['function'] = $function[0];
+		$callback['params']   = isset($function[1]) ? $function[1] : array();
 		
-		if($field === true)
+		if($field === '*')
 		{
 			foreach(array_keys($this->input) as $field)
 			{
@@ -112,46 +99,7 @@ class Input
 	}
 
 	/**
-	* Adds a validation rule to the list of callbacks.
-	*
-	* @access  public
-	* @param   mixed          Field name - if set to TRUE then validation rule will be run on all fields
-	* @param   callback       Function to use for validation
-	* @param   array          (optional) Extra parameters for the callback function
-	* @param   string         Error message to return if validation fails
-	* @return  mako\Validate
-	*/
-
-	public function validate($field, $function, array $params = array(), $error)
-	{
-		if(is_string($function) && method_exists(__CLASS__, $function))
-		{
-			$function = array(__CLASS__, $function);
-		}
-
-		$callback['function'] = $function;
-		$callback['params']   = $params;
-		$callback['error']    = $error;
-		
-		if($field === true)
-		{
-			foreach(array_keys($this->input) as $field)
-			{
-				$this->rules[$field][] = $callback;
-			}
-		}
-		else
-		{
-			$this->rules[$field][] = $callback;
-		}
-
-		return $this;
-	}
-
-	/**
-	* Runs all filters and validation rules.
-	* Returns an array populated with error messages 
-	* if errors are found or an empty array if not.
+	* Runs all input filters.
 	*
 	* @access  public
 	* @return  array
@@ -159,180 +107,128 @@ class Input
 
 	public function process()
 	{
-		// Run filter callbacks
-		
 		foreach($this->filters as $field => $filters)
 		{
 			foreach($filters as $callback)
 			{
 				$params = array_merge(array($this->input[$field]), $callback['params']);
-				
+								
 				$this->input[$field] = call_user_func_array($callback['function'], $params);
 			}
 		}
-		
-		// Run validation callbacks
-		
-		foreach($this->rules as $field => $rules)
-		{
-			foreach($rules as $callback)
-			{
-				$params = array_merge(array($this->input[$field]), $callback['params']);
-
-				if(call_user_func_array($callback['function'], $params) === false)
-				{
-					$this->errors[$field] = $callback['error'];
-
-					break; // Jump to next field if an error is found
-				}
-			}
-		}
-
-		return $this->errors;
-	}
-	
-	/**
-	* Checks if field is empty or not
-	*
-	* @access  protected
-	* @param   string     The input string
-	* @return  boolean
-	*/
-
-	protected function required($input)
-	{
-		return ! empty($input);
 	}
 
 	/**
-	* Checks if input is long enough.
-	*
-	* @access  protected
-	* @param   string     The input string
-	* @param   int        Required min length
-	* @return  boolean
-	*/
-
-	protected function minLength($input, $length)
-	{
-		return (mb_strlen($input) >= $length);
-	}
-
-	/**
-	* Checks if input is short enough.
-	*
-	* @access  protected
-	* @param   string     The input string
-	* @param   int        Required max length
-	* @return  boolean  
-	*/
-
-	protected function maxLength($input, $length)
-	{
-		return (mb_strlen($input) <= $length);
-	}
-	
-	/**
-	* Checks if input is of the right length.
-	*
-	* @access  protected
-	* @param   string     The input string
-	* @param   int        The required length
-	* @return  boolean
-	*/
-	
-	protected function exactLength($input, $length)
-	{
-		return (mb_strlen($input) === $length);
-	}
-	
-	/**
-	* Check if field matches another field.
-	*
-	* @access  protected
-	* @param   string     The input string
-	* @param   string     Field name to match against
-	* @return  boolean
-	*/
-
-	protected function match($input, $field)
-	{
-		return ($input === $this->input[$field]);
-	}
-
-	/**
-	* Check if a field matches a custom regex pattern.
-	*
-	* @access  protected
-	* @param   string     The input string
-	* @param   string     Regex pattern to match against
-	* @return  boolean
-	*/
-
-	protected function regex($input, $pattern)
-	{
-		return (bool) preg_match($pattern, $input);
-	}
-
-	/**
-	* Validates an email address using PHPs own email validation filter.
+	* Fetch data from the $_GET array.
 	*
 	* @access  public
-	* @param   string   The input string
-	* @return  boolean
+	* @param   string  (optional) Array key
+	* @param   mixed   (optional) Default value
+	* @return  mixed
 	*/
 
-	public static function email($input)
+	public static function get($key = null, $default = null)
 	{
-		return (bool) filter_var($input, FILTER_VALIDATE_EMAIL);
+		return $key === null ? $_GET : Arr::get($_GET, $key, $default);
 	}
 
 	/**
-	* Validates an email domain by looking for a MX reccord.
+	* Fetch data from the $_POST array.
 	*
 	* @access  public
-	* @param   string   The input string
-	* @return  boolean
+	* @param   string  (optional) Array key
+	* @param   mixed   (optional) Default value
+	* @return  mixed
 	*/
 
-	public static function emailDomain($input)
+	public static function post($key = null, $default = null)
 	{
-		if(empty($input))
-		{
-			return false;
-		}
+		return $key === null ? $_POST : Arr::get($_POST, $key, $default);
+	}
 
-		$email = explode('@', $input);
+	/**
+	* Fetch data from the $_COOKIE array.
+	*
+	* @access  public
+	* @param   string  (optional) Array key
+	* @param   mixed   (optional) Default value
+	* @return  mixed
+	*/
 
-		return checkdnsrr(array_pop($email), 'MX');
+	public static function cookie($key = null, $default = null)
+	{
+		return $key === null ? $_COOKIE : Arr::get($_COOKIE, $key, $default);
+	}
+
+	/**
+	* Fetch data from the $_FILES array.
+	*
+	* @access  public
+	* @param   string  (optional) Array key
+	* @param   mixed   (optional) Default value
+	* @return  mixed
+	*/
+
+	public static function files($key = null, $default = null)
+	{
+		return $key === null ? $_FILES : Arr::get($_FILES, $key, $default);
+	}
+
+	/**
+	* Fetch data from the $_SERVER array.
+	*
+	* @access  public
+	* @param   string  (optional) Array key
+	* @param   mixed   (optional) Default value
+	* @return  mixed
+	*/
+
+	public static function server($key = null, $default = null)
+	{
+		return $key === null ? $_SERVER : Arr::get($_SERVER, $key, $default);
+	}
+
+	/**
+	* Fetch data from the $_ENV array.
+	*
+	* @access  public
+	* @param   string  (optional) Array key
+	* @param   mixed   (optional) Default value
+	* @return  mixed
+	*/
+
+	public static function env($key = null, $default = null)
+	{
+		return $key === null ? $_ENV : Arr::get($_ENV, $key, $default);
+	}
+
+	/**
+	* Fetch data from the $_SESSION array.
+	*
+	* @access  public
+	* @param   string  (optional) Array key
+	* @param   mixed   (optional) Default value
+	* @return  mixed
+	*/
+
+	public static function session($key = null, $default = null)
+	{
+		return $key === null ? $_SESSION : Arr::get($_SESSION, $key, $default);
 	}
 	
 	/**
-	* Validates an IP using PHPs own IP validation filter.
+	* Returns PUT data.
 	*
 	* @access  public
-	* @param   string   IP address
-	* @param   int      Flags
-	* @return  boolean
+	* @param   mixed    (optional) Default value
+	* @return  mixed
 	*/
-	
-	public function ip($input, $flags = null)
+
+	public static function put($default = null)
 	{
-		return (bool) filter_var($input, FILTER_VALIDATE_IP, $flags);
-	}
-	
-	/**
-	* Validates an URL using PHPs own URL validation filter.
-	*
-	* @access  public
-	* @param   string   URL
-	* @param   int      Flags
-	* @return  boolean
-	*/
-	
-	public function url($input, $flags = null)
-	{
-		return (bool) filter_var($input, FILTER_VALIDATE_URL, $flags);
+		$data = file_get_contents('php://input');
+
+		return !empty($data) ? $data : $default;
 	}
 }
 
