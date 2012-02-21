@@ -108,16 +108,9 @@ class File
 			{
 				// Just guess mime by using the file extension
 
-				static $mimeTypes;
-
-				if(empty($mimeTypes))
-				{
-					$mimeTypes = Config::get('mimes');
-				}
-
 				$extension = pathinfo($file, PATHINFO_EXTENSION);
 
-				return isset($mimeTypes[$extension]) ? $mimeTypes[$extension] : false;
+				return Config::get('mimes.' . $extension, false);
 			}
 			else
 			{

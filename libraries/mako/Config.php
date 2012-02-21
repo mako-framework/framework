@@ -78,7 +78,7 @@ class Config
 		}
 		else
 		{
-			return Arr::get(static::$config[$keys[0]], $keys[1]);
+			return Arr::get(static::$config[$keys[0]], $keys[1], $default);
 		}
 	}
 
