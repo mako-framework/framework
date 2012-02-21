@@ -85,6 +85,7 @@ mako\ClassLoader::addClasses(array
 	'mako\URL'                       => MAKO_LIBRARIES_PATH . '/mako/URL.php',
 	'mako\UUID'                      => MAKO_LIBRARIES_PATH . '/mako/UUID.php',
 	'mako\UserAgent'                 => MAKO_LIBRARIES_PATH . '/mako/UserAgent.php',
+	'mako\Validate'                  => MAKO_LIBRARIES_PATH . '/mako/Validate.php',
 	'mako\View'                      => MAKO_LIBRARIES_PATH . '/mako/View.php',
 ));
 
