@@ -56,6 +56,15 @@ class URL
 		{
 			$base  = Config::get('mako.base_url');
 			$clean = Config::get('mako.clean_urls');
+
+			// Try to autodetect base url if its not configured
+
+			if($base === '' && isset($_SERVER['HTTP_HOST']))
+			{
+				$script = $_SERVER['SCRIPT_NAME'];
+				
+				$base = rtrim($_SERVER['HTTP_HOST'] . str_replace(basename($script), '', $script), '/');
+			}
 		}
 
 		return ($index && !$clean) ? $base . '/index.php' : $base;

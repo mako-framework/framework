@@ -10,7 +10,7 @@ return array
 	* Base url of your application (without trailing slash).
 	*/
 	
-	'base_url' => 'http://' . $_SERVER['HTTP_HOST'] . '/mako',
+	'base_url' => '',
 	
 	/**
 	* Set to true to hide "index.php" from your urls (this requires mod_rewrite).
