@@ -259,7 +259,12 @@ class Request
 			$route = mb_substr($_SERVER['PHP_SELF'], mb_strlen($_SERVER['SCRIPT_NAME']));
 		}
 
-		static::$mainRoute = $route = trim($route, '/');
+		$route = trim($route, '/');
+
+		if($this->isMain())
+		{
+			static::$mainRoute = $route
+		}
 
 		if($route === '')
 		{
