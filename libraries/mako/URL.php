@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\Config;
+use \mako\Request;
 
 /**
 * URL helper.
@@ -47,27 +48,31 @@ class URL
 	* @return  string
 	*/
 
-	public static function base($index = false)
+	public static function base()
 	{
-		static $base  = false;
-		static $clean = false;
+		static $base = false;
 
 		if($base === false)
 		{
 			$base  = Config::get('mako.base_url');
-			$clean = Config::get('mako.clean_urls');
 
 			// Try to autodetect base url if its not configured
 
 			if($base === '' && isset($_SERVER['HTTP_HOST']))
 			{
+				$protocol = Request::isSecure() ? 'https' : 'http';
+
 				$script = $_SERVER['SCRIPT_NAME'];
 				
-				$base = rtrim($_SERVER['HTTP_HOST'] . str_replace(basename($script), '', $script), '/');
+				$base = rtrim($protocol . '://' . $_SERVER['HTTP_HOST'] . str_replace(basename($script), '', $script), '/');
 			}
+
+			// Add index.php?
+
+			!Config::get('mako.clean_urls') && $base .= '/index.php';
 		}
 
-		return ($index && !$clean) ? $base . '/index.php' : $base;
+		return $base;
 	}
 
 	/**
@@ -82,7 +87,7 @@ class URL
 
 	public static function to($route = '', array $params = array(), $separator = '&amp;')
 	{
-		$url = static::base(true) . '/' . $route;
+		$url = static::base() . '/' . $route;
 		
 		if(!empty($params))
 		{
