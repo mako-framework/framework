@@ -177,7 +177,7 @@ class String
 
 	public static function underscored2camel($string, $upper = false)
 	{
-		return $upper ? preg_replace('/(?:^|_)(.?)/ue', "mb_strtoupper('$1')", $string) : preg_replace('/_(.?)/ue', "mb_strtoupper('$1')", $string);
+		return preg_replace_callback(($upper ? '/(?:^|_)(.?)/u' : '/_(.?)/u'), function($matches){ return mb_strtoupper($matches[1]); }, $string);
 	}
 
 	/**
