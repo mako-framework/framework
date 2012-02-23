@@ -76,7 +76,7 @@ class URL
 	}
 
 	/**
-	* Returns a mako framework url.
+	* Returns a mako framework URL.
 	*
 	* @access  public
 	* @param   string   URL segments
@@ -95,6 +95,20 @@ class URL
 		}
 		
 		return $url;
+	}
+
+	/**
+	* Returns the current URL of the main request.
+	*
+	* @access  public
+	* @param   array    (optional) Associative array used to build URL-encoded query string
+	* @param   string   (optional) Argument separator
+	* @return  string
+	*/
+
+	public static function current(array $params = array(), $separator = '&amp;')
+	{
+		return static::to(Request::route(), $params, $separator);
 	}
 }
 

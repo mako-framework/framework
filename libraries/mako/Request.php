@@ -30,6 +30,14 @@ class Request
 	*/
 
 	protected $route;
+
+	/**
+	* Holds the route to the main request.
+	*
+	* @var string
+	*/
+
+	protected static $mainRoute;
 	
 	/**
 	* Default route.
@@ -228,7 +236,7 @@ class Request
 	* @return  boolean
 	*/
 
-	protected function route()
+	protected function router()
 	{
 		// Set root path
 		
@@ -251,7 +259,7 @@ class Request
 			$route = mb_substr($_SERVER['PHP_SELF'], mb_strlen($_SERVER['SCRIPT_NAME']));
 		}
 
-		$route = trim($route, '/');
+		static::$mainRoute = $route = trim($route, '/');
 
 		if($route === '')
 		{
@@ -359,7 +367,7 @@ class Request
 	{
 		// Route request
 
-		if($this->route() === false)
+		if($this->router() === false)
 		{
 			throw new RequestException(404);
 		}
@@ -487,6 +495,18 @@ class Request
 	public static function referer($default = '')
 	{
 		return empty(static::$referer) ? $default : static::$referer;
+	}
+
+	/**
+	* Returns the route of the main request.
+	*
+	* @access  public
+	* @return  string
+	*/
+
+	public static function route()
+	{
+		return static::$mainRoute;
 	}
 
 	/**
