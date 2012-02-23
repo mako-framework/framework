@@ -49,6 +49,7 @@ mako\ClassLoader::addClasses(array
 	'mako\Database'                  => MAKO_LIBRARIES_PATH . '/mako/Database.php',
 	'mako\DateTime'                  => MAKO_LIBRARIES_PATH . '/mako/DateTime.php',
 	'mako\Event'                     => MAKO_LIBRARIES_PATH . '/mako/Event.php',
+	'mako\File '                     => MAKO_LIBRARIES_PATH . '/mako/File.php',
 	'mako\Format '                   => MAKO_LIBRARIES_PATH . '/mako/Format.php',
 	'mako\HTML'                      => MAKO_LIBRARIES_PATH . '/mako/HTML.php',
 	'mako\I18n'                      => MAKO_LIBRARIES_PATH . '/mako/I18n.php',

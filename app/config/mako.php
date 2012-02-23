@@ -29,6 +29,14 @@ return array
 	*/
 
 	'charset' => 'UTF-8',
+
+	/**
+	* Set the default timezone used by various PHP date functions.
+	*
+	* @see http://php.net/manual/en/timezones.php
+	*/
+	
+	'timezone' => 'UTC',
 	
 	/**
 	* Locale settings.
@@ -42,14 +50,6 @@ return array
 		'locales'    => array('en_US.UTF-8', 'en_US.utf8', 'C'),
 		'lc_numeric' => false,
 	),
-	
-	/**
-	* Set the default timezone used by various PHP date functions.
-	*
-	* @see http://php.net/manual/en/timezones.php
-	*/
-	
-	'timezone' => 'UTC',
 
 	/**
 	* Class aliases used by the autoloader.
