@@ -263,7 +263,7 @@ class Request
 
 		if($this->isMain())
 		{
-			static::$mainRoute = $route
+			static::$mainRoute = $route;
 		}
 
 		if($route === '')
