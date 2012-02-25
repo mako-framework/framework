@@ -55,11 +55,7 @@ class Cache
 
 	public static function instance($name = null)
 	{
-		if(isset(static::$instances[$name]))
-		{
-			return static::$instances[$name];
-		}
-		else
+		if(!isset(static::$instances[$name]))
 		{
 			$config = Config::get('cache');
 			
@@ -73,9 +69,9 @@ class Cache
 			$class = '\mako\cache\\' . $config['configurations'][$name]['type'];
 			
 			static::$instances[$name] = new $class($config['configurations'][$name]);
-			
-			return static::$instances[$name];
 		}
+
+		return static::$instances[$name];
 	}
 
 	/**

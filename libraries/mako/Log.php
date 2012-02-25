@@ -119,11 +119,7 @@ class Log
 	
 	public static function instance($name = null)
 	{
-		if(isset(static::$instances[$name]))
-		{
-			return static::$instances[$name];
-		}
-		else
+		if(!isset(static::$instances[$name]))
 		{
 			$config = Config::get('log');
 			
@@ -137,9 +133,9 @@ class Log
 			$class = '\mako\log\\' . $config['configurations'][$name]['type'];
 			
 			static::$instances[$name] = new $class($config['configurations'][$name]);
-			
-			return static::$instances[$name];
 		}
+
+		return static::$instances[$name];
 	}
 
 	/**
