@@ -44,7 +44,7 @@ class Event
 	//---------------------------------------------
 
 	/**
-	* Adds an event to the queue.
+	* Adds an event listener to the queue.
 	*
 	* @access  public
 	* @param   string    Event name
@@ -57,7 +57,7 @@ class Event
 	}
 
 	/**
-	* Returns TRUE if an event is registered and FALSE if not.
+	* Returns TRUE if an event listener is registered for the event and FALSE if not.
 	*
 	* @access  public
 	* @param   string   Event name
@@ -67,6 +67,18 @@ class Event
 	public static function registered($name)
 	{
 		return isset(static::$events[$name]);
+	}
+
+	/**
+	* Clears all event listeners for an event.
+	*
+	* @access  public
+	* @param   string  Event name
+	**/
+
+	public static function clear($name)
+	{
+		unset(static::$events[$name]);
 	}
 
 	/**
