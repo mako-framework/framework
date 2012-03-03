@@ -55,12 +55,12 @@ class Cache
 
 	public static function instance($name = null)
 	{
+		$config = Config::get('cache');
+			
+		$name = ($name === null) ? $config['default'] : $name;
+
 		if(!isset(static::$instances[$name]))
-		{
-			$config = Config::get('cache');
-			
-			$name = ($name === null) ? $config['default'] : $name;
-			
+		{	
 			if(isset($config['configurations'][$name]) === false)
 			{
 				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the cache configuration.", array(__METHOD__, $name)));

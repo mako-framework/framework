@@ -119,12 +119,12 @@ class Log
 	
 	public static function instance($name = null)
 	{
+		$config = Config::get('log');
+			
+		$name = ($name === null) ? $config['default'] : $name;
+		
 		if(!isset(static::$instances[$name]))
-		{
-			$config = Config::get('log');
-			
-			$name = ($name === null) ? $config['default'] : $name;
-			
+		{	
 			if(isset($config['configurations'][$name]) === false)
 			{
 				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the log configuration.", array(__METHOD__, $name)));
