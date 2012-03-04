@@ -3,8 +3,8 @@
 namespace mako;
 
 use \mako\Config;
-use \PDO;
-use \PDOException;
+use \mako\database\Connection;
+use \mako\database\query\Expression;
 use \RuntimeException;
 
 /**
@@ -22,35 +22,43 @@ class Database
 	//---------------------------------------------
 
 	/**
-	* Holds instance of itself.
-	*
-	* @var mako\Database
-	*/
-
-	protected static $instance = null;
-
-	/**
-	* Holds the configuration.
-	*
-	* @var array
-	*/
-
-	protected static $config;
-
-	/**
-	* Holds all the database objects.
+	* Holds all the connection objects.
 	*
 	* @var array
 	*/
 
 	protected static $connections = array();
 
+	/**
+	* Fetch all.
+	*
+	* @var int
+	*/
+
+	const FETCH_ALL = 10;
+
+	/**
+	* Fetch.
+	*
+	* @var int
+	*/
+
+	const FETCH = 11;
+
+	/**
+	* Fetch column.
+	*
+	* @var int
+	*/
+
+	const FETCH_COLUMN = 12;
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
 	/**
-	* Protected constructor that prevents direct creation of object.
+	* Protected constructor since this is a static class.
 	*
 	* @access  protected
 	*/
@@ -58,20 +66,6 @@ class Database
 	protected function __construct()
 	{
 		// Nothing here
-	}
-
-	/**
-	* Closes all database connections.
-	*
-	* @access  public
-	*/
-
-	public function __destruct()
-	{
-		foreach(static::$connections as $k => $v)
-		{
-			static::close($k);
-		}
 	}
 
 	//---------------------------------------------
@@ -86,101 +80,50 @@ class Database
 	* @return  PDO
 	*/
 
-	public static function instance($name = null)
+	public static function connection($name = null)
 	{
-		if(static::$instance === null)
-		{
-			static::$instance = new static();
+		$config = Config::get('database');
 			
-			static::$config = Config::get('database');
-		}
-		
-		if(isset(static::$connections[$name]))
-		{
-			return static::$connections[$name];
-		}
-		else
-		{
-			$name = ($name === null) ? static::$config['default'] : $name;
-			
-			if(isset(static::$config['configurations'][$name]) === false)
+		$name = ($name === null) ? $config['default'] : $name;
+
+		if(!isset(static::$connections[$name]))
+		{	
+			if(isset($config['configurations'][$name]) === false)
 			{
 				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the database configuration.", array(__METHOD__, $name)));
 			}
 			
-			static::connect($name);
-			
-			return static::$connections[$name];
+			static::$connections[$name] = new Connection($name, $config['configurations'][$name]);			
 		}
+
+		return static::$connections[$name];
 	}
 
 	/**
-	* Connect to database using PDO.
-	*
-	* @access  protected
-	* @param   string     Database name as defined in the database config file
-	*/
-
-	protected static function connect($name)
-	{
-		$config = static::$config['configurations'][$name];
-
-		// Connect to the database
-
-		$user = isset($config['username']) ? $config['username'] : null;
-		$pass = isset($config['password']) ? $config['password'] : null;
-
-		$options = array
-		(
-			PDO::ATTR_PERSISTENT         => isset($config['persistent']) ? $config['persistent'] : false,
-			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-			PDO::ATTR_DEFAULT_FETCH_MODE => $config['fetch_mode'],
-		);
-
-		try
-		{
-			static::$connections[$name] = new PDO($config['dsn'], $user, $pass, $options);
-		}
-		catch(PDOException $e)
-		{
-			throw new RuntimeException(vsprintf("%s(): Failed to connect to the '%s' database. %s", array(__METHOD__, $name, $e->getMessage())));
-		}
-
-		// Run queries
-
-		if(isset($config['queries']))
-		{
-			foreach($config['queries'] as $query)
-			{
-				static::$connections[$name]->exec($query);
-			}
-		}
-	}
-
-	/**
-	* Closes the connection to a database and destroys the object.
+	* Returns a database expression.
 	*
 	* @access  public
-	* @param   string   Database name as defined in the database config file.
-	* @return  boolean
+	* @param   string                          Raw SQL
+	* @return  mako\database\query\Expression 
 	*/
 
-	public static function close($name = null)
+	public static function expression($expression)
 	{
-		$name = ($name === null) ? static::$config['default'] : $name;
-		
-		if(isset(static::$connections[$name]))
-		{
-			static::$connections[$name] = null;
+		return new Expression($expression);
+	}
 
-			unset(static::$connections[$name]);
+	/**
+	* Magic shortcut to the default database connection.
+	*
+	* @access  public
+	* @param   string  Method name
+	* @param   array   Method arguments
+	* @return  mixed
+	*/
 
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+	public static function __callStatic($name, $arguments)
+	{
+		return call_user_func_array(array(static::connection(), $name), $arguments);
 	}
 }
 
