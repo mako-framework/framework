@@ -60,14 +60,6 @@ class Query
 	public $columns;
 
 	/**
-	* Query parameters.
-	*
-	* @var array
-	*/
-
-	public $params = array();
-
-	/**
 	* WHERE clauses.
 	*
 	* @var array
@@ -397,11 +389,11 @@ class Query
 	{
 		$this->columns = $columns;
 
-		$sql = $this->compiler->select();
+		$query = $this->compiler->select();
 
-		#return $sql;
+		#return $query['sql'];
 
-		return $this->connection->query($sql, $this->params, Database::FETCH_ALL);
+		return $this->connection->query($query['sql'], $query['params'], Database::FETCH_ALL);
 	}
 
 	/**
@@ -416,9 +408,9 @@ class Query
 	{
 		$this->columns = $columns;
 
-		$sql = $this->compiler->select();
+		$query = $this->compiler->select();
 
-		return $this->connection->query($sql, $this->params, Database::FETCH);
+		return $this->connection->query($query['sql'], $query['params'], Database::FETCH);
 	}
 
 	/**
@@ -433,9 +425,9 @@ class Query
 	{
 		$this->columns = array($column);
 
-		$sql = $this->compiler->select();
+		$query = $this->compiler->select();
 
-		return $this->connection->query($sql, $this->params, Database::FETCH_COLUMN);
+		return $this->connection->query($query['sql'], $query['params'], Database::FETCH_COLUMN);
 	}
 
 	/**
@@ -444,9 +436,9 @@ class Query
 
 	public function insert(array $values)
 	{
-		$sql = $this->compiler->insert($values);
+		$query = $this->compiler->insert($values);
 
-		return $this->connection->query($sql, $this->params);
+		return $this->connection->query($query['sql'], $query['params']);
 	}
 
 	/**
@@ -455,9 +447,9 @@ class Query
 
 	public function update(array $values)
 	{
-		$sql = $this->compiler->update($values);
+		$query = $this->compiler->update($values);
 
-		return $this->connection->query($sql, $this->params);
+		return $this->connection->query($query['sql'], $query['params']);
 	}
 
 	/**
@@ -466,9 +458,9 @@ class Query
 
 	public function delete()
 	{
-		$sql = $this->compiler->delete();
+		$query = $this->compiler->delete();
 
-		return $this->connection->query($sql, $this->params);
+		return $this->connection->query($query['sql'], $query['params']);
 	}
 }
 
