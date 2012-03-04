@@ -84,7 +84,7 @@ class Query
 	public $groupings = array();
 
 	/**
-	* HAVING BY clauses.
+	* HAVING clauses.
 	*
 	* @var array
 	*/
