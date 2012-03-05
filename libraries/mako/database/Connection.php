@@ -113,13 +113,6 @@ class Connection
 			}
 		}
 
-		// Remove expressions from parameters
-
-		$params = array_values(array_filter($params, function($param)
-		{
-			return ! $param instanceof Expression;
-		}));
-
 		// Prepare and execute query
 
 		$stmt = $this->pdo->prepare($query);

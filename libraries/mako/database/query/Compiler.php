@@ -118,7 +118,16 @@ class Compiler
 
 	protected function param($param)
 	{
-		return ($param instanceof Expression) ? $param->get() : '?';
+		if($param instanceof Expression)
+		{
+			return $param->get();
+		}
+		else
+		{
+			$this->params[] = $param;
+
+			return '?';
+		}
 	}
 
 	/**
@@ -136,8 +145,6 @@ class Compiler
 
 	protected function where($where)
 	{
-		$this->params[] = $where['value'];
-
 		return $this->wrap($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
 	}
 
@@ -147,9 +154,6 @@ class Compiler
 
 	protected function between($where)
 	{
-		$this->params[] = $where['value1'];
-		$this->params[] = $where['value2'];
-
 		return $this->wrap($where['column']) . ' BETWEEN ' . $this->param($where['value1']) . ' AND ' . $this->param($where['value2']);
 	}
 
@@ -159,8 +163,6 @@ class Compiler
 
 	protected function in($where)
 	{
-		$this->params = array_merge($this->params, $where['values']);
-
 		return $this->wrap($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . '(' . $this->params($where['values']) . ')';
 	}
 
@@ -239,8 +241,6 @@ class Compiler
 
 	protected function having($having)
 	{
-		$this->params[] = $having['value'];
-
 		$sql  = ($having['column'] instanceof Expression) ? $having['column']->get() : $this->wrap($having['column']);
 		$sql .= ' ' . $having['operator'] . ' ' . $this->param($having['value']);
 
@@ -333,7 +333,7 @@ class Compiler
 		$sql .= 'VALUES';
 		$sql .= ' (' . $this->params($values) . ')';
 
-		return array('sql' => $sql, 'params' => array_values($values));
+		return array('sql' => $sql, 'params' => $this->params);
 	}
 
 	/**
@@ -360,7 +360,7 @@ class Compiler
 		$sql .= $columns . ' ';
 		$sql .= $this->wheres();
 
-		return array('sql' => $sql, 'params' => array_merge(array_values($values), $this->params));
+		return array('sql' => $sql, 'params' => $this->params);
 	}
 
 	/**
