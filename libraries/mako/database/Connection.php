@@ -92,7 +92,7 @@ class Connection
 
 	public function query($query, array $params = array(), $fetch = Database::FETCH_ALL)
 	{
-		// Replace IN clause placeholder with values
+		// Replace IN clause placeholder with escaped values
 
 		if(strpos($query, '(...)') !== false)
 		{
