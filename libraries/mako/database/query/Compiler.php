@@ -70,11 +70,7 @@ class Compiler
 
 	protected function wrap($value)
 	{
-		if($value === '*')
-		{
-			return $value;
-		}
-		elseif($value instanceof Raw)
+		if($value instanceof Raw)
 		{
 			return $value->get();
 		}
