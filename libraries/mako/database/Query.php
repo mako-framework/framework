@@ -391,8 +391,6 @@ class Query
 
 		$query = $this->compiler->select();
 
-		#return $query['sql'];
-
 		return $this->connection->query($query['sql'], $query['params'], Database::FETCH_ALL);
 	}
 

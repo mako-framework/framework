@@ -303,7 +303,7 @@ class Compiler
 		$sql .= $this->orderings();
 		$sql .= $this->havings();
 		$sql .= $this->limit();
-		$sql .= $this->offset();
+		$sql .= $this->offset(); var_dump($sql);
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
@@ -319,9 +319,9 @@ class Compiler
 	{
 		$sql  = 'INSERT INTO ';
 		$sql .= $this->wrap($this->query->table);
-		$sql .= ' (' . $this->columns(array_keys($values)) . ') ';
-		$sql .= 'VALUES';
-		$sql .= ' (' . $this->params($values) . ')';
+		$sql .= ' (' . $this->columns(array_keys($values)) . ')';
+		$sql .= ' VALUES';
+		$sql .= ' (' . $this->params($values) . ')'; var_dump($sql);
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
@@ -347,8 +347,8 @@ class Compiler
 		$sql  = 'UPDATE ';
 		$sql .= $this->wrap($this->query->table);
 		$sql .= ' SET ';
-		$sql .= $columns . ' ';
-		$sql .= $this->wheres();
+		$sql .= $columns;
+		$sql .= $this->wheres(); var_dump($sql);
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
@@ -364,8 +364,7 @@ class Compiler
 	{
 		$sql  = 'DELETE FROM ';
 		$sql .= $this->wrap($this->query->table);
-		$sql .= ' ';
-		$sql .= $this->wheres();
+		$sql .= $this->wheres(); var_dump($sql);
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
