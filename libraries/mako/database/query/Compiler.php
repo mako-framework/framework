@@ -76,7 +76,7 @@ class Compiler
 		}
 		else
 		{
-			if(strpos(strtolower($value), ' as ') !== false)
+			if(stripos($value, ' as ') !== false)
 			{
 				$values = explode(' ', $value);
 
