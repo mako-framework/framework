@@ -236,18 +236,6 @@ class Compiler
 	}
 
 	/**
-	*
-	*/
-
-	protected function having($having)
-	{
-		$sql  = ($having['column'] instanceof Expression) ? $having['column']->get() : $this->wrap($having['column']);
-		$sql .= ' ' . $having['operator'] . ' ' . $this->param($having['value']);
-
-		return $sql;
-	}
-
-	/**
 	* Compiles HAVING clauses.
 	*
 	* @access  protected
@@ -265,7 +253,9 @@ class Compiler
 
 		foreach($this->query->havings as $having)
 		{
-			$sql[] = $having['separator'] . ' ' . $this->having($having); 
+			$column  = ($having['column'] instanceof Expression) ? $having['column']->get() : $this->wrap($having['column']);
+
+			$sql[] = $having['separator'] . ' ' . $column . ' ' . $having['operator'] . ' ' . $this->param($having['value']);; 
 		}
 
 		return ' HAVING ' . preg_replace('/AND |OR /', '', implode(' ', $sql), 1);
