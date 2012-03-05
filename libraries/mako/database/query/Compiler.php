@@ -172,22 +172,31 @@ class Compiler
 	}
 
 	/**
+	*
+	*/
+
+	protected function parenthesizedWhere($where)
+	{
+		return '(' . preg_replace('/ WHERE /', '', $this->wheres($where['query']->wheres), 1) . ')';
+	}
+
+	/**
 	* Compiles WHERE clauses.
 	*
 	* @access  protected
 	* @return  string
 	*/
 
-	protected function wheres()
+	protected function wheres($wheres)
 	{
-		if(empty($this->query->wheres))
+		if(empty($wheres))
 		{
 			return '';
 		}
 
 		$sql = array();
 
-		foreach($this->query->wheres as $where)
+		foreach($wheres as $where)
 		{
 			$sql[] = $where['separator'] . ' ' . $this->$where['type']($where);
 		}
@@ -202,9 +211,9 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function groupings()
+	protected function groupings($groupings)
 	{
-		return empty($this->query->groupings) ? '' : ' GROUP BY ' . $this->columns($this->query->groupings);
+		return empty($groupings) ? '' : ' GROUP BY ' . $this->columns($groupings);
 	}
 
 	/**
@@ -214,16 +223,16 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function orderings()
+	protected function orderings($orderings)
 	{
-		if(empty($this->query->orderings))
+		if(empty($orderings))
 		{
 			return '';
 		}
 
 		$sql = array();
 
-		foreach($this->query->orderings as $order)
+		foreach($orderings as $order)
 		{
 			$sql[] = $this->wrap($order['column']) . ' ' . strtoupper($order['order']);
 		}
@@ -238,16 +247,16 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function havings()
+	protected function havings($havings)
 	{
-		if(empty($this->query->havings))
+		if(empty($havings))
 		{
 			return '';
 		}
 
 		$sql = array();
 
-		foreach($this->query->havings as $having)
+		foreach($havings as $having)
 		{
 			$column  = ($having['column'] instanceof Raw) ? $having['column']->get() : $this->wrap($having['column']);
 
@@ -264,9 +273,9 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function limit()
+	protected function limit($limit)
 	{
-		return empty($this->query->limit) ? '' : ' LIMIT ' . $this->query->limit;
+		return empty($limit) ? '' : ' LIMIT ' . $limit;
 	}
 
 	/**
@@ -276,9 +285,9 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function offset()
+	protected function offset($offset)
 	{
-		return empty($this->query->offset) ? '' : ' OFFSET ' . $this->query->offset;
+		return empty($offset) ? '' : ' OFFSET ' . $offset;
 	}	
 
 	/**
@@ -294,12 +303,14 @@ class Compiler
 		$sql .= $this->columns($this->query->columns);
 		$sql .= ' FROM ';
 		$sql .= $this->wrap($this->query->table);
-		$sql .= $this->wheres();
-		$sql .= $this->groupings();
-		$sql .= $this->orderings();
-		$sql .= $this->havings();
-		$sql .= $this->limit();
-		$sql .= $this->offset(); var_dump($sql);
+		$sql .= $this->wheres($this->query->wheres);
+		$sql .= $this->groupings($this->query->groupings);
+		$sql .= $this->orderings($this->query->orderings);
+		$sql .= $this->havings($this->query->havings);
+		$sql .= $this->limit($this->query->limit);
+		$sql .= $this->offset($this->query->offset);
+
+		var_dump($sql);
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
@@ -317,7 +328,9 @@ class Compiler
 		$sql .= $this->wrap($this->query->table);
 		$sql .= ' (' . $this->columns(array_keys($values)) . ')';
 		$sql .= ' VALUES';
-		$sql .= ' (' . $this->params($values) . ')'; var_dump($sql);
+		$sql .= ' (' . $this->params($values) . ')';
+
+		var_dump($sql);
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
@@ -344,7 +357,9 @@ class Compiler
 		$sql .= $this->wrap($this->query->table);
 		$sql .= ' SET ';
 		$sql .= $columns;
-		$sql .= $this->wheres(); var_dump($sql);
+		$sql .= $this->wheres($this->query->wheres);
+
+		var_dump($sql);
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
@@ -360,7 +375,9 @@ class Compiler
 	{
 		$sql  = 'DELETE FROM ';
 		$sql .= $this->wrap($this->query->table);
-		$sql .= $this->wheres(); var_dump($sql);
+		$sql .= $this->wheres($this->query->wheres);
+
+		var_dump($sql);
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}

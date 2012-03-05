@@ -3,6 +3,7 @@
 namespace mako\database;
 
 use \PDO;
+use \Closure;
 use \mako\Database;
 
 /**
@@ -89,7 +90,7 @@ class Query
 	* @var array
 	*/
 
-	public $orderingss = array();
+	public $orderings = array();
 
 	/**
 	* Limit.
@@ -164,16 +165,32 @@ class Query
 	*
 	*/
 
-	public function where($column, $operator, $value, $separator = 'AND')
+	public function where($column, $operator = null, $value = null, $separator = 'AND')
 	{
-		$this->wheres[] = array
-		(
-			'type'      => 'where',
-			'column'    => $column,
-			'operator'  => $operator,
-			'value'     => $value,
-			'separator' => $separator,
-		);
+		if($column instanceof Closure)
+		{
+			$query = new static($this->table, $this->connection);
+
+			call_user_func($column, $query);
+
+			$this->wheres[] = array
+			(
+				'type'      => 'parenthesizedWhere',
+				'query'     => $query,
+				'separator' => $separator,
+			);
+		}
+		else
+		{
+			$this->wheres[] = array
+			(
+				'type'      => 'where',
+				'column'    => $column,
+				'operator'  => $operator,
+				'value'     => $value,
+				'separator' => $separator,
+			);
+		}
 		
 		return $this;
 	}
@@ -182,7 +199,7 @@ class Query
 	*
 	*/
 
-	public function orWhere($column, $operator, $value)
+	public function orWhere($column, $operator = null, $value = null)
 	{
 		return $this->where($column, $operator, $value, 'OR');
 	}
