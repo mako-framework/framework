@@ -4,7 +4,7 @@ namespace mako;
 
 use \mako\Config;
 use \mako\database\Connection;
-use \mako\database\query\Expression;
+use \mako\database\query\Raw;
 use \RuntimeException;
 
 /**
@@ -100,16 +100,16 @@ class Database
 	}
 
 	/**
-	* Returns a database expression.
+	* Returns a database raw sql container.
 	*
 	* @access  public
-	* @param   string                          Raw SQL
-	* @return  mako\database\query\Expression 
+	* @param   string                   Raw SQL
+	* @return  mako\database\query\Raw
 	*/
 
-	public static function expression($expression)
+	public static function raw($sql)
 	{
-		return new Expression($expression);
+		return new Raw($sql);
 	}
 
 	/**

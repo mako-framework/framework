@@ -2,7 +2,7 @@
 
 namespace mako\database\query;
 
-use \mako\database\query\Expression;
+use \mako\database\query\Raw;
 
 /**
 * Compiles SQL queries.
@@ -74,7 +74,7 @@ class Compiler
 		{
 			return $value;
 		}
-		elseif($value instanceof Expression)
+		elseif($value instanceof Raw)
 		{
 			return $value->get();
 		}
@@ -118,7 +118,7 @@ class Compiler
 
 	protected function param($param)
 	{
-		if($param instanceof Expression)
+		if($param instanceof Raw)
 		{
 			return $param->get();
 		}
@@ -253,7 +253,7 @@ class Compiler
 
 		foreach($this->query->havings as $having)
 		{
-			$column  = ($having['column'] instanceof Expression) ? $having['column']->get() : $this->wrap($having['column']);
+			$column  = ($having['column'] instanceof Raw) ? $having['column']->get() : $this->wrap($having['column']);
 
 			$sql[] = $having['separator'] . ' ' . $column . ' ' . $having['operator'] . ' ' . $this->param($having['value']);; 
 		}

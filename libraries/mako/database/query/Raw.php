@@ -3,14 +3,14 @@
 namespace mako\database\query;
 
 /**
-* Query expression.
+* Raw SQL container.
 *
 * @author     Frederic G. Østby
 * @copyright  (c) 2008-2012 Frederic G. Østby
 * @license    http://www.makoframework.com/license
 */
 
-class Expression
+class Raw
 {
 	//---------------------------------------------
 	// Class variables
@@ -20,7 +20,7 @@ class Expression
 	*
 	*/
 
-	protected $expression;
+	protected $sql;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -30,9 +30,9 @@ class Expression
 	*
 	*/
 
-	public function __construct($expression)
+	public function __construct($sql)
 	{
-		$this->expression = $expression;
+		$this->sql = $sql;
 	}
 
 	//---------------------------------------------
@@ -45,7 +45,7 @@ class Expression
 
 	public function get()
 	{
-		return $this->expression;
+		return $this->sql;
 	}
 }
 

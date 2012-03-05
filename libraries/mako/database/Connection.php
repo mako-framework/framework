@@ -5,7 +5,6 @@ namespace mako\database;
 use \mako\Config;
 use \mako\Database;
 use \mako\database\Query;
-use \mako\database\query\Expression;
 use \PDO;
 use \PDOException;
 use \RuntimeException;

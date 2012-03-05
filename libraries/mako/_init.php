@@ -53,7 +53,7 @@ mako\ClassLoader::addClasses(array
 	'mako\database\query\compiler\MySQL'     => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/MySQL.php',
 	'mako\database\query\compiler\Oracle'    => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/Oracle.php',
 	'mako\database\query\compiler\SQLServer' => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/SQLServer.php',
-	'mako\database\query\Expression'         => MAKO_LIBRARIES_PATH . '/mako/database/query/Expression.php',
+	'mako\database\query\Raw'                => MAKO_LIBRARIES_PATH . '/mako/database/query/Raw.php',
 	'mako\DateTime'                          => MAKO_LIBRARIES_PATH . '/mako/DateTime.php',
 	'mako\Event'                             => MAKO_LIBRARIES_PATH . '/mako/Event.php',
 	'mako\File '                             => MAKO_LIBRARIES_PATH . '/mako/File.php',
