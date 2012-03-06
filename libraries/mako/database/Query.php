@@ -69,6 +69,14 @@ class Query
 	public $wheres = array();
 
 	/**
+	* JOIN clauses.
+	*
+	* @var array
+	*/
+
+	public $joins = array();
+
+	/**
 	* GROUP BY clauses.
 	*
 	* @var array

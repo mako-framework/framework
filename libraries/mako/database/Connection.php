@@ -205,7 +205,7 @@ class Connection
 	}
 
 	/**
-	* Performs calls on the pdo instance. This is mainly to contain backwards compatibility.
+	* Performs calls on the pdo instance. This is mainly to maintain backwards compatibility.
 	*
 	* @access  public
 	* @param   string  Method name
