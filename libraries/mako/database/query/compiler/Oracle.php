@@ -61,12 +61,17 @@ class Oracle extends \mako\database\query\Compiler
 
 	public function select()
 	{
-		if(empty($this->query->limit) && empty($this->query->offset))
+		if(empty($this->query->limit))
 		{
+			// No limit so we can just execute a normal query
+
 			return parent::select();
 		}
 		else
 		{
+			// Oracle doesn't support the LIMIT/OFFSET syntax 
+			// so we need to do some changes to the query to achieve the same result
+
 			$query = parent::select();
 
 			$limit = $this->query->limit;
