@@ -68,7 +68,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function wrap($value)
+	public function wrap($value)
 	{
 		if($value instanceof Raw)
 		{

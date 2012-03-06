@@ -449,6 +449,64 @@ class Query
 	*
 	*/
 
+	protected function aggregate($column, $function)
+	{
+		$this->columns = array(Database::raw($function . '(' . $this->compiler->wrap($column) . ')'));
+
+		$query = $this->compiler->select();
+
+		return $this->connection->query($query['sql'], $query['params'], Database::FETCH_COLUMN);
+	}
+
+	/**
+	*
+	*/
+
+	public function min($column)
+	{
+		return $this->aggregate($column, 'MIN');
+	}
+
+	/**
+	*
+	*/
+
+	public function max($column)
+	{
+		return $this->aggregate($column, 'MAX');
+	}
+
+	/**
+	*
+	*/
+
+	public function sum($column)
+	{
+		return $this->aggregate($column, 'SUM');
+	}
+
+	/**
+	*
+	*/
+
+	public function avg($column)
+	{
+		return $this->aggregate($column, 'AVG');
+	}
+
+	/**
+	*
+	*/
+
+	public function count($column = '*')
+	{
+		return $this->aggregate($column, 'COUNT');
+	}
+
+	/**
+	*
+	*/
+
 	public function insert(array $values)
 	{
 		$query = $this->compiler->insert($values);
