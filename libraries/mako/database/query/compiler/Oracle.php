@@ -29,6 +29,30 @@ class Oracle extends \mako\database\query\Compiler
 	//---------------------------------------------
 
 	/**
+	* Compiles LIMIT clauses.
+	*
+	* @access  protected
+	* @return  string
+	*/
+
+	protected function limit($limit)
+	{
+		return '';
+	}
+
+	/**
+	* Compiles OFFSET clause.
+	*
+	* @access  protected
+	* @return  string
+	*/
+
+	protected function offset($offset)
+	{
+		return '';
+	}
+
+	/**
 	* Compiles a SELECT query.
 	*
 	* @access  public
@@ -37,7 +61,23 @@ class Oracle extends \mako\database\query\Compiler
 
 	public function select()
 	{
-		// See http://stackoverflow.com/questions/595123/is-there-an-ansi-sql-alternative-to-the-mysql-limit-keyword
+		if(empty($this->query->limit) && empty($this->query->offset))
+		{
+			return parent::select();
+		}
+		else
+		{
+			// This solution is based on the implementation found in the Zend Framework (http://framework.zend.com/)
+
+			$query = parent::select();
+
+			$limit  = $this->query->limit;
+			$offset = empty($this->query->offset) ? 0 : $this->query->offset;
+
+			$sql = 'SELECT m2.* FROM (SELECT m1.*, ROWNUM AS "mako_rownum" FROM (' . $query['sql'] . ') m1) m2 WHERE m2."mako_rownum" BETWEEN ' . ($offset + 1) . ' AND ' . ($offset + $limit);
+
+			exit($sql);return array('sql' => $sql, 'params', $query['params']);
+		}
 	}
 }
 
