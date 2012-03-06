@@ -205,6 +205,31 @@ class Compiler
 	}
 
 	/**
+	* Compiles JOIN clauses.
+	*
+	* @access  protected
+	* @param   array      Joins
+	* @return  string
+	*/
+
+	protected function joins($joins)
+	{
+		if(empty($joins))
+		{
+			return '';
+		}
+
+		$sql = array();
+
+		foreach($joins as $join)
+		{
+			$sql[] = $join['type'] . ' JOIN ' . $this->wrap($join['table']) . ' ON ' . $this->wrap($join['column1']) . ' ' . $join['operator'] . ' ' . $this->wrap($join['column2']);
+		}
+
+		return ' ' . implode(' ', $sql);
+	}
+
+	/**
 	* Compiles GROUP BY clauses.
 	*
 	* @access  protected
@@ -303,6 +328,7 @@ class Compiler
 		$sql .= $this->columns($this->query->columns);
 		$sql .= ' FROM ';
 		$sql .= $this->wrap($this->query->table);
+		$sql .= $this->joins($this->query->joins);
 		$sql .= $this->wheres($this->query->wheres);
 		$sql .= $this->groupings($this->query->groupings);
 		$sql .= $this->orderings($this->query->orderings);

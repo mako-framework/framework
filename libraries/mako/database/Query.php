@@ -332,6 +332,51 @@ class Query
 	*
 	*/
 
+	public function join($table, $column1, $operator, $column2, $type = 'INNER')
+	{
+		$this->joins[] = array
+		(
+			'type'     => $type,
+			'table'    => $table,
+			'column1'  => $column1,
+			'column2'  => $column2,
+			'operator' => $operator,
+		);
+
+		return $this;
+	}
+
+	/**
+	*
+	*/
+
+	public function innerJoin($table, $column1, $operator, $column2)
+	{
+		return $this->join($table, $column1, $operator, $column2, 'INNER');
+	}
+
+	/**
+	*
+	*/
+
+	public function leftJoin($table, $column1, $operator, $column2)
+	{
+		return $this->join($table, $column1, $operator, $column2, 'LEFT');
+	}
+
+	/**
+	*
+	*/
+
+	public function leftOuterJoin($table, $column1, $operator, $column2)
+	{
+		return $this->join($table, $column1, $operator, $column2, 'LEFT OUTER');
+	}
+
+	/**
+	*
+	*/
+
 	public function groupBy($column)
 	{
 		$this->groupings[] = $column;
