@@ -451,11 +451,7 @@ class Query
 
 	protected function aggregate($column, $function)
 	{
-		$this->columns = array(Database::raw($function . '(' . $this->compiler->wrap($column) . ')'));
-
-		$query = $this->compiler->select();
-
-		return $this->connection->query($query['sql'], $query['params'], Database::FETCH_COLUMN);
+		return $this->column(Database::raw($function . '(' . $this->compiler->wrap($column) . ')'));
 	}
 
 	/**
