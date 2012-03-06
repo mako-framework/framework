@@ -76,7 +76,7 @@ class Oracle extends \mako\database\query\Compiler
 
 			$sql = 'SELECT m2.* FROM (SELECT m1.*, ROWNUM AS "mako_rownum" FROM (' . $query['sql'] . ') m1) m2 WHERE m2."mako_rownum" BETWEEN ' . ($offset + 1) . ' AND ' . ($offset + $limit);
 
-			exit($sql);return array('sql' => $sql, 'params', $query['params']);
+			return array('sql' => $sql, 'params', $query['params']);
 		}
 	}
 }
