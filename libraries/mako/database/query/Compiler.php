@@ -38,7 +38,7 @@ class Compiler
 	* @var array
 	*/
 
-	public $params = array();
+	protected $params = array();
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -166,7 +166,7 @@ class Compiler
 	*
 	*/
 
-	public function null($where)
+	protected function null($where)
 	{
 		return $this->wrap($where['column']) . ($where['not'] ? ' IS NOT NULL' : ' IS NULL');
 	}
