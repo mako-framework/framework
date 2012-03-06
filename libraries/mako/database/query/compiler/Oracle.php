@@ -67,11 +67,10 @@ class Oracle extends \mako\database\query\Compiler
 		}
 		else
 		{
-			// This solution is based on the implementation found in the Zend Framework (http://framework.zend.com/)
-
 			$query = parent::select();
 
-			$limit  = $this->query->limit;
+			$limit = $this->query->limit;
+
 			$offset = empty($this->query->offset) ? 0 : $this->query->offset;
 
 			$sql = 'SELECT m2.* FROM (SELECT m1.*, ROWNUM AS "mako_rownum" FROM (' . $query['sql'] . ') m1) m2 WHERE m2."mako_rownum" BETWEEN ' . ($offset + 1) . ' AND ' . ($offset + $limit);
