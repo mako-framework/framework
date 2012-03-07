@@ -39,7 +39,8 @@ class Connection
 	* Constructor.
 	*
 	* @access  public
-	* @param   array   Configuration
+	* @param   string  Connection name
+	* @param   array   Connection configuration
 	*/
 
 	public function __construct($name, array $config)
