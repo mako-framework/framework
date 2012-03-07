@@ -624,7 +624,12 @@ class Query
 	}
 
 	/**
+	* Executes a aggregate query and returns the result.
 	*
+	* @access  public
+	* @param   string  Column
+	* @param   string  Aggregate function
+	* @return  mixed
 	*/
 
 	protected function aggregate($column, $function)
@@ -633,7 +638,11 @@ class Query
 	}
 
 	/**
+	* Returns the minimum value for the chosen column.
 	*
+	* @access  public
+	* @param   string  Column name
+	* @return  int
 	*/
 
 	public function min($column)
@@ -642,7 +651,11 @@ class Query
 	}
 
 	/**
+	* Returns the maximum value for the chosen column.
 	*
+	* @access  public
+	* @param   string  Column name
+	* @return  int
 	*/
 
 	public function max($column)
@@ -651,7 +664,11 @@ class Query
 	}
 
 	/**
+	* Returns sum of all the values in the chosen column.
 	*
+	* @access  public
+	* @param   string  Column name
+	* @return  int
 	*/
 
 	public function sum($column)
@@ -660,7 +677,11 @@ class Query
 	}
 
 	/**
+	* Returns the average value for the chosen column.
 	*
+	* @access  public
+	* @param   string  Column name
+	* @return  float
 	*/
 
 	public function avg($column)
@@ -669,7 +690,11 @@ class Query
 	}
 
 	/**
+	* Returns the number of rows.
 	*
+	* @access  public
+	* @param   string  (optional) Column name
+	* @return  float
 	*/
 
 	public function count($column = '*')
@@ -678,7 +703,11 @@ class Query
 	}
 
 	/**
+	* Inserts data into the chosen table.
 	*
+	* @access  public
+	* @param   array    Associative array of column values
+	* @return  boolean
 	*/
 
 	public function insert(array $values)
@@ -689,7 +718,11 @@ class Query
 	}
 
 	/**
+	* Updates data from the chosen table.
 	*
+	* @access  public
+	* @param   array    Associative array of column values
+	* @return  int
 	*/
 
 	public function update(array $values)
@@ -700,7 +733,10 @@ class Query
 	}
 
 	/**
+	* Deletes data from the chosen table.
 	*
+	* @access  public
+	* @return  int
 	*/
 
 	public function delete()
