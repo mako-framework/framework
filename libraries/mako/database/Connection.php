@@ -116,7 +116,7 @@ class Connection
 
 		$stmt = $this->pdo->prepare($query);
 
-		$result = $stmt->execute(array_values($params));
+		$result = $stmt->execute($params);
 
 		// Return results for selects, row count for updates and deletes and boolean for the rest
 
