@@ -27,7 +27,9 @@ class Compiler
 	protected $wrapper = '"%s"';
 
 	/**
+	* Query builder.
 	*
+	* @var mako\database\Query
 	*/
 
 	protected $query;
@@ -100,7 +102,11 @@ class Compiler
 	}
 
 	/**
+	* Returns a comma-separated list of columns.
 	*
+	* @access  protected
+	* @param   array      Array of columns
+	* @return  string
 	*/
 
 	protected function columns($columns)
@@ -109,7 +115,11 @@ class Compiler
 	}
 
 	/**
+	* Returns raw SQL or a paramter placeholder.
 	*
+	* @access  protected  
+	* @param   mixed      Parameter
+	* @return  string
 	*/
 
 	protected function param($param)
@@ -127,7 +137,11 @@ class Compiler
 	}
 
 	/**
+	* Returns a comma-separated list of parameters.
 	*
+	* @access  protected
+	* @param   array   Array of parameters
+	* @return  string
 	*/
 
 	protected function params($params)
@@ -136,7 +150,11 @@ class Compiler
 	}
 
 	/**
+	* Compiles WHERE clauses.
 	*
+	* @access  protected
+	* @param   array      Where clause
+	* @return  string
 	*/
 
 	protected function where($where)
@@ -145,7 +163,11 @@ class Compiler
 	}
 
 	/**
+	* Compiles BETWEEN clauses.
 	*
+	* @access  protected
+	* @param   array      Where clause
+	* @return  string
 	*/
 
 	protected function between($where)
@@ -154,7 +176,11 @@ class Compiler
 	}
 
 	/**
+	* Compiles IN clauses.
 	*
+	* @access  protected
+	* @param   array      Where clause
+	* @return  string
 	*/
 
 	protected function in($where)
@@ -163,7 +189,11 @@ class Compiler
 	}
 
 	/**
+	* Compiles IS NULL clauses.
 	*
+	* @access  protected
+	* @param   array      Where clause
+	* @return  string
 	*/
 
 	protected function null($where)
@@ -172,7 +202,11 @@ class Compiler
 	}
 
 	/**
+	* Compiles nested WHERE clauses.
 	*
+	* @access  protected
+	* @param   array      Where clause
+	* @return  string
 	*/
 
 	protected function parenthesizedWhere($where)
@@ -184,6 +218,7 @@ class Compiler
 	* Compiles WHERE clauses.
 	*
 	* @access  protected
+	* @param   array      Array of where clauses
 	* @return  string
 	*/
 
@@ -208,7 +243,7 @@ class Compiler
 	* Compiles JOIN clauses.
 	*
 	* @access  protected
-	* @param   array      Joins
+	* @param   array      Array of joins
 	* @return  string
 	*/
 
@@ -245,6 +280,7 @@ class Compiler
 	* Compiles ORDER BY clauses.
 	*
 	* @access  protected
+	* @param   array      Array of order by clauses
 	* @return  string
 	*/
 
@@ -269,6 +305,7 @@ class Compiler
 	* Compiles HAVING clauses.
 	*
 	* @access  protected
+	* @param   array      Array of having clauses
 	* @return  string
 	*/
 
@@ -295,6 +332,7 @@ class Compiler
 	* Compiles LIMIT clauses.
 	*
 	* @access  protected
+	* @param   int        Limit
 	* @return  string
 	*/
 
@@ -304,9 +342,10 @@ class Compiler
 	}
 
 	/**
-	* Compiles OFFSET clause.
+	* Compiles OFFSET clauses.
 	*
 	* @access  protected
+	* @param   int        Limit
 	* @return  string
 	*/
 
@@ -345,6 +384,7 @@ class Compiler
 	* Compiles a INSERT query.
 	*
 	* @access  public
+	* @param   array   Array of values
 	* @return  string
 	*/
 
@@ -365,6 +405,7 @@ class Compiler
 	* Compiles a UPDATE query.
 	*
 	* @access  public
+	* @param   array   Array of values
 	* @return  string
 	*/
 

@@ -35,6 +35,32 @@ class SQLServer extends \mako\database\query\Compiler
 	//---------------------------------------------
 
 	/**
+	* Compiles LIMIT clauses.
+	*
+	* @access  protected
+	* @param   int        Limit
+	* @return  string
+	*/
+
+	protected function limit($limit)
+	{
+		return '';
+	}
+
+	/**
+	* Compiles OFFSET clause.
+	*
+	* @access  protected
+	* @param   int        Offset
+	* @return  string
+	*/
+
+	protected function offset($offset)
+	{
+		return '';
+	}
+
+	/**
 	* Compiles a SELECT query.
 	*
 	* @access  public

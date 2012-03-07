@@ -17,7 +17,9 @@ class Raw
 	//---------------------------------------------
 
 	/**
+	* Raw SQL
 	*
+	* @var string
 	*/
 
 	protected $sql;
@@ -27,7 +29,10 @@ class Raw
 	//---------------------------------------------
 
 	/**
+	* Constructor.
 	*
+	* @access  public
+	* @param   string   Raw SQL
 	*/
 
 	public function __construct($sql)
@@ -40,7 +45,10 @@ class Raw
 	//---------------------------------------------
 
 	/**
+	* Returns the raw SQL.
 	*
+	* @access  public
+	* @return  string
 	*/
 
 	public function get()

@@ -32,6 +32,7 @@ class Oracle extends \mako\database\query\Compiler
 	* Compiles LIMIT clauses.
 	*
 	* @access  protected
+	* @param   int        Limit
 	* @return  string
 	*/
 
@@ -44,6 +45,7 @@ class Oracle extends \mako\database\query\Compiler
 	* Compiles OFFSET clause.
 	*
 	* @access  protected
+	* @param   int        Offset
 	* @return  string
 	*/
 
