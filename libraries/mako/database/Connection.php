@@ -187,7 +187,11 @@ class Connection
 	}
 
 	/**
+	* Returns a query builder instance.
 	*
+	* @access  public
+	* @param   string               Table name
+	* @return  mako\database\Query
 	*/
 
 	public function from($table)
@@ -196,7 +200,11 @@ class Connection
 	}
 
 	/**
+	* Alias of mako\database\Connection::from.
 	*
+	* @access  public
+	* @param   string               Table name
+	* @return  mako\database\Query
 	*/
 
 	public function to($table)

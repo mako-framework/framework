@@ -170,7 +170,14 @@ class Query
 	}
 
 	/**
+	* Adds a WHERE clause.
 	*
+	* @access  public
+	* @param   mixed                Column name or closure
+	* @param   string               (optional) Operator
+	* @param   mixed                (optional) Value
+	* @param   string               (optional) Clause separator
+	* @return  mako\database\Query
 	*/
 
 	public function where($column, $operator = null, $value = null, $separator = 'AND')
@@ -204,7 +211,13 @@ class Query
 	}
 
 	/**
+	* Adds a OR WHERE clause.
 	*
+	* @access  public
+	* @param   mixed                Column name or closure
+	* @param   string               (optional) Operator
+	* @param   mixed                (optional) Value
+	* @return  mako\database\Query
 	*/
 
 	public function orWhere($column, $operator = null, $value = null)
@@ -213,7 +226,14 @@ class Query
 	}
 
 	/**
+	* Adds a BETWEEN clause.
 	*
+	* @access  public
+	* @param   string               Column name
+	* @param   mixed                First value
+	* @param   mixed                Second value
+	* @param   string               (optional) Clause separator
+	* @return  mako\database\Query
 	*/
 
 	public function between($column, $value1, $value2, $separator = 'AND')
@@ -231,7 +251,13 @@ class Query
 	}
 
 	/**
+	* Adds a OR BETWEEN clause.
 	*
+	* @access  public
+	* @param   string               Column name
+	* @param   mixed                First value
+	* @param   mixed                Second value
+	* @return  mako\database\Query
 	*/
 
 	public function orBetween($column, $value1, $value2)
@@ -240,7 +266,14 @@ class Query
 	}
 
 	/**
+	* Adds a IN clause.
 	*
+	* @access  public
+	* @param   string               Column name
+	* @param   array                Array of values
+	* @param   string               (optional) Clause separator
+	* @param   boolean              (optional) Not in?
+	* @return  mako\database\Query
 	*/
 
 	public function in($column, array $values, $separator = 'AND', $not = false)
@@ -258,7 +291,12 @@ class Query
 	}
 
 	/**
+	* Adds a OR IN clause.
 	*
+	* @access  public
+	* @param   mixed                Column name
+	* @param   array                Array of values
+	* @return  mako\database\Query
 	*/
 
 	public function orIn($column, array $values)
@@ -267,7 +305,12 @@ class Query
 	}
 
 	/**
+	* Adds a NOT IN clause.
 	*
+	* @access  public
+	* @param   mixed                Column name
+	* @param   array                Array of values
+	* @return  mako\database\Query
 	*/
 
 	public function notIn($column, array $values)
@@ -276,7 +319,12 @@ class Query
 	}
 
 	/**
+	* Adds a OR NOT IN clause.
 	*
+	* @access  public
+	* @param   mixed                Column name
+	* @param   array                Array of values
+	* @return  mako\database\Query
 	*/
 
 	public function orNotIn($column, array $values)
@@ -285,7 +333,13 @@ class Query
 	}
 
 	/**
+	* Adds a IS NULL clause.
 	*
+	* @access  public
+	* @param   mixed                Column name
+	* @param   string               (optional) Clause separator
+	* @param   boolean              (boolean) Not in?
+	* @return  mako\database\Query
 	*/
 
 	public function null($column, $separator = 'AND', $not = false)
@@ -302,7 +356,11 @@ class Query
 	}
 
 	/**
+	* Adds a OR IS NULL clause.
 	*
+	* @access  public
+	* @param   mixed                Column name
+	* @return  mako\database\Query
 	*/
 
 	public function orNull($column)
@@ -311,7 +369,11 @@ class Query
 	}
 
 	/**
+	* Adds a IS NOT NULL clause.
 	*
+	* @access  public
+	* @param   mixed                Column name
+	* @return  mako\database\Query
 	*/
 
 	public function notNull($column)
@@ -320,7 +382,11 @@ class Query
 	}
 
 	/**
+	* Adds a OR IS NOT NULL clause.
 	*
+	* @access  public
+	* @param   mixed                Column name
+	* @return  mako\database\Query
 	*/
 
 	public function orNotNull($column)
@@ -329,7 +395,15 @@ class Query
 	}
 
 	/**
+	* Adds a JOIN clause.
 	*
+	* @access  public
+	* @param   string               Table name
+	* @param   string               Column name
+	* @param   string               Operator
+	* @param   string               Column name
+	* @param   string               (optional) Join type
+	* @return  mako\database\Query
 	*/
 
 	public function join($table, $column1, $operator, $column2, $type = 'INNER')
@@ -347,7 +421,14 @@ class Query
 	}
 
 	/**
+	* Adds a INNER JOIN clause.
 	*
+	* @access  public
+	* @param   string               Table name
+	* @param   string               Column name
+	* @param   string               Operator
+	* @param   string               Column name
+	* @return  mako\database\Query
 	*/
 
 	public function innerJoin($table, $column1, $operator, $column2)
@@ -356,7 +437,14 @@ class Query
 	}
 
 	/**
+	* Adds a LEFT JOIN clause.
 	*
+	* @access  public
+	* @param   string               Table name
+	* @param   string               Column name
+	* @param   string               Operator
+	* @param   string               Column name
+	* @return  mako\database\Query
 	*/
 
 	public function leftJoin($table, $column1, $operator, $column2)
@@ -365,7 +453,14 @@ class Query
 	}
 
 	/**
+	* Adds a LEFT OUTER JOIN clause.
 	*
+	* @access  public
+	* @param   string               Table name
+	* @param   string               Column name
+	* @param   string               Operator
+	* @param   string               Column name
+	* @return  mako\database\Query
 	*/
 
 	public function leftOuterJoin($table, $column1, $operator, $column2)
@@ -374,7 +469,11 @@ class Query
 	}
 
 	/**
+	* Adds a GROUP BY clause.
 	*
+	* @access  public
+	* @param   string                Column name
+	* @return  mako\database\Query
 	*/
 
 	public function groupBy($column)
@@ -385,7 +484,14 @@ class Query
 	}
 
 	/**
+	* Adds a HAVING clause.
 	*
+	* @access  public
+	* @param   string               Column name
+	* @param   string               Operator
+	* @param   mixed                Value
+	* @param   string               (optional) Clause separator
+	* @return  mako\database\Query
 	*/
 
 	public function having($column, $operator, $value, $separator = 'AND')
@@ -402,7 +508,13 @@ class Query
 	}
 
 	/**
+	* Adds a OR HAVING clause.
 	*
+	* @access  public
+	* @param   string               Column name
+	* @param   string               Operator
+	* @param   mixed                Value
+	* @return  mako\database\Query
 	*/
 
 	public function orHaving($column, $operator, $value)
@@ -411,7 +523,12 @@ class Query
 	}
 
 	/**
+	* Adds a ORDER BY clause.
 	*
+	* @access  public
+	* @param   string               Column name
+	* @param   string               Sorint order
+	* @return  mako\database\Query
 	*/
 
 	public function orderBy($column, $order)
@@ -426,7 +543,11 @@ class Query
 	}
 
 	/**
+	* Adds a LIMIT clause.
 	*
+	* @access  public
+	* @param   int                  Limit
+	* @return  mako\database\Query
 	*/
 
 	public function limit($limit)
@@ -437,7 +558,11 @@ class Query
 	}
 
 	/**
+	* Adds a OFFSET clause.
 	*
+	* @access  public
+	* @param   int                  Offset
+	* @return  mako\database\Query
 	*/
 
 	public function offset($offset)
