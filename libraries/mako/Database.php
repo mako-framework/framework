@@ -76,8 +76,8 @@ class Database
 	* Opens a new connection or returns existing connection if it already exists.
 	*
 	* @access  public
-	* @param   string  (optional) Database configuration name
-	* @return  PDO
+	* @param   string                    (optional) Database configuration name
+	* @return  mako\database\Connection
 	*/
 
 	public static function connection($name = null)
@@ -97,6 +97,20 @@ class Database
 		}
 
 		return static::$connections[$name];
+	}
+
+	/**
+	* Returns PDO instance to maintain backwards compatibility.
+	*
+	* @deprecated
+	* @access  public
+	* @param   string  (optional) Database configuration name
+	* @return  PDO
+	*/
+
+	public static function instance($name = null)
+	{
+		return static::connection($name)->pdo;
 	}
 
 	/**
