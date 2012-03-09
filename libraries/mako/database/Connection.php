@@ -212,20 +212,6 @@ class Connection
 	{
 		return $this->from($table);
 	}
-
-	/**
-	* Performs calls on the pdo instance. This is mainly to maintain backwards compatibility.
-	*
-	* @access  public
-	* @param   string  Method name
-	* @param   array   Method arguments
-	* @return  mixed
-	*/
-
-	public function __call($name, $arguments)
-	{
-		return call_user_func_array(array($this->pdo, $name), $arguments);
-	}
 }
 
 /** -------------------- End of file --------------------**/
