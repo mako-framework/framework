@@ -195,22 +195,9 @@ class Connection
 	* @return  mako\database\Query
 	*/
 
-	public function from($table)
+	public function table($table)
 	{
 		return new Query($table, $this);
-	}
-
-	/**
-	* Alias of mako\database\Connection::from.
-	*
-	* @access  public
-	* @param   string               Table name
-	* @return  mako\database\Query
-	*/
-
-	public function to($table)
-	{
-		return $this->from($table);
 	}
 }
 
