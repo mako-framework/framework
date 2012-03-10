@@ -733,6 +733,34 @@ class Query
 	}
 
 	/**
+	* Icrements column value.
+	*
+	* @access  public
+	* @param   string  Column name
+	* @param   int     (optional) Icrement value
+	* @return  int
+	*/
+
+	public function increment($column, $increment = 1)
+	{
+		return $this->update(array($column => Database::raw($this->compiler->wrap($column) . ' + ' . (int) $increment)));
+	}
+
+	/**
+	* Decrements column value.
+	*
+	* @access  public
+	* @param   string  Column name
+	* @param   int     (optional) Decrement value
+	* @return  int
+	*/
+
+	public function decrement($column, $decrement = 1)
+	{
+		return $this->update(array($column => Database::raw($this->compiler->wrap($column) . ' - ' . (int) $decrement)));
+	}
+
+	/**
 	* Deletes data from the chosen table.
 	*
 	* @access  public
