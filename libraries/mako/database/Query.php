@@ -5,6 +5,7 @@ namespace mako\database;
 use \PDO;
 use \Closure;
 use \mako\Database;
+use \mako\database\query\Join;
 
 /**
 * Query builder.
@@ -399,23 +400,27 @@ class Query
 	*
 	* @access  public
 	* @param   string               Table name
-	* @param   string               Column name
-	* @param   string               Operator
-	* @param   string               Column name
+	* @param   mixed                (optional) Column name
+	* @param   string               (optional) Operator
+	* @param   string               (optional) Column name
 	* @param   string               (optional) Join type
 	* @return  mako\database\Query
 	*/
 
-	public function join($table, $column1, $operator, $column2, $type = 'INNER')
+	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER')
 	{
-		$this->joins[] = array
-		(
-			'type'     => $type,
-			'table'    => $table,
-			'column1'  => $column1,
-			'column2'  => $column2,
-			'operator' => $operator,
-		);
+		$join = new Join($type, $table);
+
+		if($column1 instanceof Closure)
+		{
+			call_user_func($column1, $join);
+		}
+		else
+		{
+			$join->on($column1, $operator, $column2);
+		}
+
+		$this->joins[] = $join;
 
 		return $this;
 	}
@@ -425,13 +430,13 @@ class Query
 	*
 	* @access  public
 	* @param   string               Table name
-	* @param   string               Column name
-	* @param   string               Operator
-	* @param   string               Column name
+	* @param   mixed                (optional) Column name
+	* @param   string               (optional) Operator
+	* @param   string               (optional) Column name
 	* @return  mako\database\Query
 	*/
 
-	public function innerJoin($table, $column1, $operator, $column2)
+	public function innerJoin($table, $column1 = null, $operator = null, $column2 = null)
 	{
 		return $this->join($table, $column1, $operator, $column2, 'INNER');
 	}
@@ -441,13 +446,13 @@ class Query
 	*
 	* @access  public
 	* @param   string               Table name
-	* @param   string               Column name
-	* @param   string               Operator
-	* @param   string               Column name
+	* @param   mixed                (optional) Column name
+	* @param   string               (optional) Operator
+	* @param   string               (optional) Column name
 	* @return  mako\database\Query
 	*/
 
-	public function leftJoin($table, $column1, $operator, $column2)
+	public function leftJoin($table, $column1 = null, $operator = null, $column2 = null)
 	{
 		return $this->join($table, $column1, $operator, $column2, 'LEFT');
 	}
@@ -457,13 +462,13 @@ class Query
 	*
 	* @access  public
 	* @param   string               Table name
-	* @param   string               Column name
-	* @param   string               Operator
-	* @param   string               Column name
+	* @param   mixed                (optional) Column name
+	* @param   string               (optional) Operator
+	* @param   string               (optional) Column name
 	* @return  mako\database\Query
 	*/
 
-	public function leftOuterJoin($table, $column1, $operator, $column2)
+	public function leftOuterJoin($table, $column1 = null, $operator = null, $column2 = null)
 	{
 		return $this->join($table, $column1, $operator, $column2, 'LEFT OUTER');
 	}
