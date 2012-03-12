@@ -211,7 +211,7 @@ class Compiler
 
 	protected function parenthesizedWhere($where)
 	{
-		return '(' . substr($this->wheres($where['query']->wheres), 7) . ')';
+		return '(' . substr($this->wheres($where['query']->wheres), 7) . ')'; // substr to remove " WHERE "
 	}
 
 	/**
@@ -236,7 +236,7 @@ class Compiler
 			$sql[] = $where['separator'] . ' ' . $this->$where['type']($where);
 		}
 
-		return ' WHERE ' . substr(implode(' ', $sql), 4);
+		return ' WHERE ' . substr(implode(' ', $sql), 4); // substr to remove "AND "
 	}
 
 	/**
@@ -265,7 +265,7 @@ class Compiler
 				$clauses[] = $clause['separator'] . ' ' . $this->wrap($clause['column1']) . ' ' . $clause['operator'] . ' ' . $this->wrap($clause['column2']);
 			}
 
-			$sql[] = $join->type . ' JOIN ' . $this->wrap($join->table) . ' ON ' . substr(implode(' ', $clauses), 4);
+			$sql[] = $join->type . ' JOIN ' . $this->wrap($join->table) . ' ON ' . substr(implode(' ', $clauses), 4); // substr to remove "AND "
 		}
 
 		return ' ' . implode(' ', $sql);
@@ -332,7 +332,7 @@ class Compiler
 			$sql[] = $having['separator'] . ' ' . $column . ' ' . $having['operator'] . ' ' . $this->param($having['value']);; 
 		}
 
-		return ' HAVING ' . substr(implode(' ', $sql), 4);
+		return ' HAVING ' . substr(implode(' ', $sql), 4); // substr to remove "AND "
 	}
 
 	/**
