@@ -103,7 +103,7 @@ class Connection
 				{
 					foreach($value as $k => $v)
 					{
-						!is_numeric($v) && $value[$k] = $this->pdo->quote($v);
+						$value[$k] = $this->pdo->quote($v);
 					}
 
 					$query = preg_replace('/\(\.\.\.\)/', '(' . implode(',', $value) . ')', $query, 1);
