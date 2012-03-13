@@ -87,8 +87,8 @@ class SQLServer extends \mako\database\query\Compiler
 				$sql .= $this->groupings($this->query->groupings);
 				$sql .= $this->havings($this->query->havings);
 
-                $limit  = $this->query->offset + $this->query->limit;
-                $offset = $this->query->offset + 1;
+				$limit  = $this->query->offset + $this->query->limit;
+				$offset = $this->query->offset + 1;
 
 				$sql = 'SELECT * FROM (SELECT ROW_NUMBER() OVER (' . $order . ') AS mako_rownum, ' . $sql . ') AS m1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
 			}
