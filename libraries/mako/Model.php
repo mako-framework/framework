@@ -19,12 +19,12 @@ abstract class Model
 	//---------------------------------------------
 
 	/**
-	* Database object (PDO).
+	* Database connection object.
 	*
-	* @var PDO
+	* @var mako\database\Connection
 	*/
 
-	protected $db;
+	protected $connection;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -34,25 +34,25 @@ abstract class Model
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  (optional) Name of the database to use (as defined in the config)
+	* @param   string  (optional) Name of the database connection to use (as defined in the config)
 	*/
 
-	public function __construct($database = null)
+	public function __construct($connection = null)
 	{
-		$this->db = Database::instance($database);
+		$this->connection = Database::connection($connection);
 	}
 	
 	/**
 	* Factory method making method chaining possible right off the bat.
 	*
 	* @access  public
-	* @param   string      (optional) Name of the database to use (as defined in the config)
+	* @param   string      (optional) Name of the database connection to use (as defined in the config)
 	* @return  mako\Model
 	*/
 	
-	public static function factory($database = null)
+	public static function factory($connection = null)
 	{
-		return new static($database);
+		return new static($connection);
 	}
 }
 

@@ -4,7 +4,7 @@ namespace mako\session;
 
 use \PDO;
 use \PDOException;
-use \mako\Database as MDatabase;
+use \mako\Database as DB;
 
 /**
 * Redis adapter.
@@ -21,12 +21,12 @@ class Database extends \mako\session\Adapter
 	//---------------------------------------------
 
 	/**
-	* Database object.
+	* Database connection object.
 	*
-	* @var PDO
+	* @var mako\database\Connection
 	*/
 
-	protected $db;
+	protected $connection;
 
 	/**
 	* Session table.
@@ -51,7 +51,7 @@ class Database extends \mako\session\Adapter
 	{
 		parent::__construct();
 
-		$this->db = MDatabase::instance($config['configuration']);
+		$this->connection = DB::connection($config['configuration']);
 
 		$this->table = $config['table'];
 	}
@@ -90,22 +90,9 @@ class Database extends \mako\session\Adapter
 	{
 		try
 		{
-			$stmt = $this->db->prepare("SELECT data FROM {$this->table} WHERE id = :id");
+			$data = $this->connection->table($this->table)->where('id', '=', $id)->column('data');
 
-			$stmt->bindParam(':id', $id, PDO::PARAM_STR);
-
-			$stmt->execute();
-
-			$session = $stmt->fetch();
-
-			if($session !== false)
-			{
-				return $session->data;
-			}
-			else
-			{
-				return '';
-			}
+			return ($data !== false) ? $data : '';
 		}
 		catch(PDOException $e)
 		{
@@ -125,31 +112,13 @@ class Database extends \mako\session\Adapter
 	{
 		try
 		{
-			$stmt = $this->db->prepare("SELECT id FROM {$this->table} WHERE id = :id");
-
-			$stmt->bindParam(':id', $id, PDO::PARAM_STR);
-
-			$stmt->execute();
-
-			if($stmt->rowCount() > 0)
+			if($this->connection->table($this->table)->where('id', '=', $id)->count() != 0)
 			{
-				$stmt = $this->db->prepare("UPDATE {$this->table} SET data = :data, expires = :expires WHERE id = :id");
-
-				$stmt->bindParam(':id', $id, PDO::PARAM_STR);
-				$stmt->bindParam(':data', $data, PDO::PARAM_STR);
-				$stmt->bindValue(':expires', (time() + $this->maxLifetime), PDO::PARAM_INT);
-
-				return $stmt->execute();
+				return (bool) $this->connection->table($this->table)->where('id', '=', $id)->update(array('data' => $data, 'expires' => (time() + $this->maxLifetime)));
 			}
 			else
 			{
-				$stmt = $this->db->prepare("INSERT INTO {$this->table} (id, data, expires) VALUES (:id, :data, :expires)");
-
-				$stmt->bindParam(':id', $id, PDO::PARAM_STR);
-				$stmt->bindParam(':data', $data, PDO::PARAM_STR);
-				$stmt->bindValue(':expires', (time() + $this->maxLifetime), PDO::PARAM_INT);
-
-				return $stmt->execute();
+				return $this->connection->table($this->table)->insert(array('id' => $id, 'data' => $data, 'expires' => (time() + $this->maxLifetime)));
 			}
 		}
 		catch(PDOException $e)
@@ -170,13 +139,7 @@ class Database extends \mako\session\Adapter
 	{
 		try
 		{
-			$stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE id = :id");
-
-			$stmt->bindParam(':id', $id, PDO::PARAM_STR);
-
-			$stmt->execute();
-
-			return (bool) $stmt->rowCount();
+			return (bool) $this->connection->table($this->table)->where('id', '=', $id)->delete();
 		}
 		catch(PDOException $e)
 		{
@@ -196,11 +159,7 @@ class Database extends \mako\session\Adapter
 	{
 		try
 		{
-			$stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE expires < :expires");
-
-			$stmt->bindValue(':expires', time(), PDO::PARAM_INT);
-
-			return $stmt->execute();
+			return (bool) $this->connection->table($this->table)->where('expires', '<', time())->delete();
 		}
 		catch(PDOException $e)
 		{
