@@ -79,6 +79,18 @@ class Database extends \mako\session\Adapter
 	//---------------------------------------------
 
 	/**
+	* Returns a query builder instance.
+	*
+	* @access  protected
+	* @return  mako\database\Query
+	*/
+
+	protected function table()
+	{
+		return $this->connection->table($this->table);
+	}
+
+	/**
 	* Returns session data.
 	*
 	* @access  public
@@ -90,7 +102,7 @@ class Database extends \mako\session\Adapter
 	{
 		try
 		{
-			$data = $this->connection->table($this->table)->where('id', '=', $id)->column('data');
+			$data = $this->table()->where('id', '=', $id)->column('data');
 
 			return ($data !== false) ? $data : '';
 		}
@@ -112,13 +124,13 @@ class Database extends \mako\session\Adapter
 	{
 		try
 		{
-			if($this->connection->table($this->table)->where('id', '=', $id)->count() != 0)
+			if($this->table()->where('id', '=', $id)->count() != 0)
 			{
-				return (bool) $this->connection->table($this->table)->where('id', '=', $id)->update(array('data' => $data, 'expires' => (time() + $this->maxLifetime)));
+				return (bool) $this->table()->where('id', '=', $id)->update(array('data' => $data, 'expires' => (time() + $this->maxLifetime)));
 			}
 			else
 			{
-				return $this->connection->table($this->table)->insert(array('id' => $id, 'data' => $data, 'expires' => (time() + $this->maxLifetime)));
+				return $this->table()->insert(array('id' => $id, 'data' => $data, 'expires' => (time() + $this->maxLifetime)));
 			}
 		}
 		catch(PDOException $e)
@@ -139,7 +151,7 @@ class Database extends \mako\session\Adapter
 	{
 		try
 		{
-			return (bool) $this->connection->table($this->table)->where('id', '=', $id)->delete();
+			return (bool) $this->table()->where('id', '=', $id)->delete();
 		}
 		catch(PDOException $e)
 		{
@@ -159,7 +171,7 @@ class Database extends \mako\session\Adapter
 	{
 		try
 		{
-			return (bool) $this->connection->table($this->table)->where('expires', '<', time())->delete();
+			return (bool) $this->table()->where('expires', '<', time())->delete();
 		}
 		catch(PDOException $e)
 		{
