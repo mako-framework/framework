@@ -382,8 +382,6 @@ class Compiler
 		$sql .= $this->limit($this->query->limit);
 		$sql .= $this->offset($this->query->offset);
 
-		var_dump($sql);
-
 		return array('sql' => $sql, 'params' => $this->params);
 	}
 
@@ -402,8 +400,6 @@ class Compiler
 		$sql .= ' (' . $this->columns(array_keys($values)) . ')';
 		$sql .= ' VALUES';
 		$sql .= ' (' . $this->params($values) . ')';
-
-		var_dump($sql);
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
@@ -433,8 +429,6 @@ class Compiler
 		$sql .= $columns;
 		$sql .= $this->wheres($this->query->wheres);
 
-		var_dump($sql);
-
 		return array('sql' => $sql, 'params' => $this->params);
 	}
 
@@ -450,8 +444,6 @@ class Compiler
 		$sql  = 'DELETE FROM ';
 		$sql .= $this->wrap($this->query->table);
 		$sql .= $this->wheres($this->query->wheres);
-
-		var_dump($sql);
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}

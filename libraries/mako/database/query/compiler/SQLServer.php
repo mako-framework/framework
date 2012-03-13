@@ -71,7 +71,7 @@ class SQLServer extends \mako\database\query\Compiler
 			{
 				// There is an offset so we need to emulate the OFFSET clause with ANSI-SQL
 
-				$order = $this->orderings($this->query->orderings);
+				$order = trim($this->orderings($this->query->orderings));
 
 				if(empty($order))
 				{
