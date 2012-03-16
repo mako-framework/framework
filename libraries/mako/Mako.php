@@ -33,7 +33,7 @@ class Mako
 	* @var string
 	*/
 	
-	const VERSION = '2.0.1';
+	const VERSION = '2.1.0';
 
 	/**
 	* Configuration.
