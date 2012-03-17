@@ -191,7 +191,7 @@ class Query
 
 			$this->wheres[] = array
 			(
-				'type'      => 'parenthesizedWhere',
+				'type'      => 'nestedWhere',
 				'query'     => $query,
 				'separator' => $separator,
 			);

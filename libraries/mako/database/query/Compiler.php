@@ -209,7 +209,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function parenthesizedWhere($where)
+	protected function nestedWhere($where)
 	{
 		return '(' . substr($this->wheres($where['query']->wheres), 7) . ')'; // substr to remove " WHERE "
 	}
