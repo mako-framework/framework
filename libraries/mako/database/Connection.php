@@ -6,6 +6,7 @@ use \mako\Config;
 use \mako\Database;
 use \mako\database\Query;
 use \PDO;
+use \Closure;
 use \PDOException;
 use \RuntimeException;
 
@@ -198,6 +199,34 @@ class Connection
 	public function table($table)
 	{
 		return new Query($table, $this);
+	}
+
+	/**
+	* Executes queries and rolls back the transaction if any of them fail.
+	*
+	* @access  public
+	* @param   Closure  Queries
+	* @return  boolean
+	*/
+
+	public function transaction(Closure $queries)
+	{
+		try
+		{
+			$this->pdo->beginTransaction();
+
+			call_user_func($queries, $this);
+
+			$this->pdo->commit();
+
+			return true;
+		}
+		catch(PDOException $e)
+		{
+			$this->pdo->rollBack();
+
+			return false;
+		}
 	}
 }
 
