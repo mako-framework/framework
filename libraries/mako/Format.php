@@ -107,14 +107,14 @@ class Format
 
 	public static function csv(array $data)
 	{
-		if(!isset($data[0]) || !is_array($data[0]))
+		if(!isset($data[0]) || (!is_array($data[0]) && !is_object($data[0])))
 		{
-			$data = array($data);	
+			$data = array($data);
 		}
 
-		if(is_string(key($data[0])))
+		if(is_string(key((array) $data[0])))
 		{
-			$fields = array_keys($data[0]);
+			$fields = array_keys((array) $data[0]);
 
 			array_unshift($data, $fields);	
 		}
@@ -123,7 +123,7 @@ class Format
 
 		foreach($data as $fields)
 		{
-			fputcsv($handle, $fields);
+			fputcsv($handle, (array) $fields);
 		}
 
 		rewind($handle);
