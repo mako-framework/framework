@@ -79,9 +79,9 @@ class Format
 			{
 				$key = preg_replace('/[^_\-0-9-a-z]/i', '', is_int($key) ? $unknownNode : $key);
 
-				if(is_array($value))
+				if(is_array($value) || is_object($value))
 				{
-					$func($value, $xml->addChild($key));
+					$func((array) $value, $xml->addChild($key));
 				}
 				else
 				{
