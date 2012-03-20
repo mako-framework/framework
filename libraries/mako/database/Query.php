@@ -148,6 +148,9 @@ class Query
 			case 'oci':
 				$this->compiler = new \mako\database\query\compiler\Oracle($this);
 			break;
+			case 'firebird':
+				$this->compiler = new \mako\database\query\compiler\Firebird($this);
+			break;
 			default:
 				$this->compiler = new \mako\database\query\Compiler($this);
 		}
@@ -396,7 +399,7 @@ class Query
 	}
 
 	/**
-	* Adds a JOIN clause.
+	* Adds a INNER JOIN clause.
 	*
 	* @access  public
 	* @param   string               Table name
@@ -426,38 +429,6 @@ class Query
 	}
 
 	/**
-	* Adds a INNER JOIN clause.
-	*
-	* @access  public
-	* @param   string               Table name
-	* @param   mixed                (optional) Column name
-	* @param   string               (optional) Operator
-	* @param   string               (optional) Column name
-	* @return  mako\database\Query
-	*/
-
-	public function innerJoin($table, $column1 = null, $operator = null, $column2 = null)
-	{
-		return $this->join($table, $column1, $operator, $column2, 'INNER');
-	}
-
-	/**
-	* Adds a LEFT JOIN clause.
-	*
-	* @access  public
-	* @param   string               Table name
-	* @param   mixed                (optional) Column name
-	* @param   string               (optional) Operator
-	* @param   string               (optional) Column name
-	* @return  mako\database\Query
-	*/
-
-	public function leftJoin($table, $column1 = null, $operator = null, $column2 = null)
-	{
-		return $this->join($table, $column1, $operator, $column2, 'LEFT');
-	}
-
-	/**
 	* Adds a LEFT OUTER JOIN clause.
 	*
 	* @access  public
@@ -468,7 +439,7 @@ class Query
 	* @return  mako\database\Query
 	*/
 
-	public function leftOuterJoin($table, $column1 = null, $operator = null, $column2 = null)
+	public function leftJoin($table, $column1 = null, $operator = null, $column2 = null)
 	{
 		return $this->join($table, $column1, $operator, $column2, 'LEFT OUTER');
 	}
