@@ -33,6 +33,7 @@ class Firebird extends \mako\database\query\Compiler
 	*
 	* @access  protected
 	* @param   int        Limit
+	* @param   int        Offset
 	* @return  string
 	*/
 
@@ -46,6 +47,7 @@ class Firebird extends \mako\database\query\Compiler
 	*
 	* @access  protected
 	* @param   int        Offset
+	* @param   int        Limit
 	* @return  string
 	*/
 
