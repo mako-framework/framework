@@ -11,12 +11,6 @@ return array
 	*/
 	
 	'default' => 'test',
-
-	/**
-	* Default fetch mode to use.
-	*/
-
-	'fetch_mode' => PDO::FETCH_OBJ,
 	
 	/**
 	* You can define as many database configurations as you want.

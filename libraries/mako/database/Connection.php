@@ -55,7 +55,7 @@ class Connection
 		(
 			PDO::ATTR_PERSISTENT         => isset($config['persistent']) ? $config['persistent'] : false,
 			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-			PDO::ATTR_DEFAULT_FETCH_MODE => Config::get('database.fetch_mode'),
+			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
 			PDO::ATTR_STRINGIFY_FETCHES  => false,
 		);
 
