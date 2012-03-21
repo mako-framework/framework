@@ -3,14 +3,14 @@
 namespace mako\database\query\compiler;
 
 /**
-* Compiles Oracle queries.
+* Compiles DB2 queries.
 *
 * @author     Frederic G. Østby
 * @copyright  (c) 2008-2012 Frederic G. Østby
 * @license    http://www.makoframework.com/license
 */
 
-class Oracle extends \mako\database\query\Compiler
+class DB2 extends \mako\database\query\Compiler
 {
 	//---------------------------------------------
 	// Class variables

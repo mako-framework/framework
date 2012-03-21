@@ -151,6 +151,10 @@ class Query
 			case 'firebird':
 				$this->compiler = new \mako\database\query\compiler\Firebird($this);
 			break;
+			case 'ibm':
+			case 'odbc':
+				$this->compiler = new \mako\database\query\compiler\DB2($this);
+			break;
 			default:
 				$this->compiler = new \mako\database\query\Compiler($this);
 		}

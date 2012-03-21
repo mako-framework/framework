@@ -53,7 +53,7 @@ class Firebird extends \mako\database\query\Compiler
 
 	protected function offset($offset, $limit = null)
 	{
-		return empty($offset) ? empty($limit) ? '' :' ROWS 1 ' : ' ROWS ' . $offset;
+		return empty($offset) ? empty($limit) ? '' :' ROWS 1 ' : ' ROWS ' . ($offset + 1);
 	}
 
 	/**

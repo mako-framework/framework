@@ -80,6 +80,7 @@ class SQLServer extends \mako\database\query\Compiler
 
 				$sql  = $this->query->distinct ? 'SELECT DISTINCT ' : 'SELECT ';
 				$sql .= $this->columns($this->query->columns);
+				$sql .= ', ROW_NUMBER() OVER (' . $order . ') AS mako_rownum';
 				$sql .= ' FROM ';
 				$sql .= $this->wrap($this->query->table);
 				$sql .= $this->joins($this->query->joins);
@@ -90,7 +91,7 @@ class SQLServer extends \mako\database\query\Compiler
 				$limit  = $this->query->offset + $this->query->limit;
 				$offset = $this->query->offset + 1;
 
-				$sql = 'SELECT * FROM (SELECT ROW_NUMBER() OVER (' . $order . ') AS mako_rownum, ' . $sql . ') AS m1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
+				$sql = 'SELECT * FROM (' . $sql . ') AS m1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
 			}
 
 			return array('sql' => $sql, 'params' => $this->params);
