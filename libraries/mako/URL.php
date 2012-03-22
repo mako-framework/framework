@@ -44,7 +44,6 @@ class URL
 	* Returns the base URL of the application.
 	*
 	* @access  public
-	* @param   boolean  (optional) Include 'index.php' if clean URLs are disabled?
 	* @return  string
 	*/
 
