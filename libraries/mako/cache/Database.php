@@ -1,24 +1,24 @@
 <?php
 
-namespace mako\session;
+namespace mako\cache;
 
 use \PDOException;
 use \mako\Database as DB;
 
 /**
-* Redis adapter.
+* Database based cache adapter.
 *
 * @author     Frederic G. Østby
 * @copyright  (c) 2008-2012 Frederic G. Østby
 * @license    http://www.makoframework.com/license
 */
 
-class Database extends \mako\session\Adapter
+class Database extends \mako\cache\Adapter
 {
 	//---------------------------------------------
 	// Class variables
 	//---------------------------------------------
-
+	
 	/**
 	* Database connection object.
 	*
@@ -28,51 +28,33 @@ class Database extends \mako\session\Adapter
 	protected $connection;
 
 	/**
-	* Session table.
+	* Cache table.
 	*
 	* @var string
 	*/
 
 	protected $table;
-
+	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
-
+	
 	/**
 	* Constructor.
 	*
 	* @access  public
 	* @param   array   Configuration
 	*/
-
+	
 	public function __construct(array $config)
 	{
-		parent::__construct();
-
+		parent::__construct($config['identifier']);
+		
 		$this->connection = DB::connection($config['configuration']);
 
 		$this->table = $config['table'];
 	}
-
-	/**
-	* Destructor.
-	*
-	* @access  public
-	*/
-
-	public function __destruct()
-	{
-		session_write_close();
-
-		// Fixes issue with Debian and Ubuntu session garbage collection
-
-		if(mt_rand(1, 100) === 100)
-		{
-			$this->gc(0);
-		}
-	}
-
+	
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
@@ -88,89 +70,105 @@ class Database extends \mako\session\Adapter
 	{
 		return $this->connection->table($this->table);
 	}
-
+	
 	/**
-	* Returns session data.
+	* Store variable in the cache.
 	*
 	* @access  public
-	* @param   string  Session id
-	* @return  string
+	* @param   string   Cache key
+	* @param   mixed    The variable to store
+	* @param   int      (optional) Time to live
+	* @return  boolean
 	*/
-
-	public function read($id)
+	
+	public function write($key, $value, $ttl = 0)
 	{
+		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
+		
 		try
 		{
-			$data = $this->table()->where('id', '=', $id)->column('data');
+			$this->delete($key);
 
-			return ($data !== false) ? $data : '';
+			return $this->table()->insert(array('key' => $key, 'data' => serialize($value), 'lifetime' => $ttl));
 		}
 		catch(PDOException $e)
 		{
-			return '';
+			return false;
 		}
 	}
-
+	
 	/**
-	* Writes data to the session.
+	* Fetch variable from the cache.
 	*
 	* @access  public
-	* @param   string  Session id
-	* @param   string  Session data
+	* @param   string  Cache key
+	* @return  mixed
 	*/
-
-	public function write($id, $data)
+	
+	public function read($key)
 	{
 		try
 		{
-			if($this->table()->where('id', '=', $id)->count() != 0)
+			$cache = $this->table()->where('key', '=', $key)->first();
+
+			if($cache !== false)
 			{
-				return (bool) $this->table()->where('id', '=', $id)->update(array('data' => $data, 'expires' => (time() + $this->maxLifetime)));
+				if(time() < $cache->lifetime)
+				{
+					return unserialize($cache->data);
+				}
+				else
+				{
+					$this->delete($key);
+					
+					return false;
+				}
 			}
 			else
 			{
-				return $this->table()->insert(array('id' => $id, 'data' => $data, 'expires' => (time() + $this->maxLifetime)));
+				return false;
 			}
 		}
 		catch(PDOException $e)
 		{
-			return false;
+			 return false;
 		}
 	}
-
+	
 	/**
-	* Destroys the session.
+	* Delete a variable from the cache.
 	*
 	* @access  public
-	* @param   string   Session id
+	* @param   string   Cache key
 	* @return  boolean
 	*/
-
-	public function destroy($id)
+	
+	public function delete($key)
 	{
 		try
 		{
-			return (bool) $this->table()->where('id', '=', $id)->delete();
+			return (bool) $this->table()->where('key', '=', $key)->delete();
 		}
 		catch(PDOException $e)
 		{
 			return false;
 		}
 	}
-
+	
 	/**
-	* Garbage collector.
+	* Clears the user cache.
 	*
 	* @access  public
-	* @param   int      Lifetime in secods
 	* @return  boolean
 	*/
-
-	public function gc($maxLifetime)
+	
+	public function clear()
 	{
 		try
 		{
-			return (bool) $this->table()->where('expires', '<', time())->delete();
+			$this->table()->delete();
+											
+			return true;
 		}
 		catch(PDOException $e)
 		{
