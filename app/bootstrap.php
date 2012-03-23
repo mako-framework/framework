@@ -25,6 +25,25 @@ if(!function_exists('__'))
 	}
 }
 
+if(!function_exists('dump_var'))
+{
+	/**
+	* Works like var_dump except that it wraps the variable in <pre> tags.
+	*
+	* @access  public
+	* @param   mixed   Variable you want to dump
+	*/
+
+	function dump_var()
+	{
+		ob_start();
+
+		call_user_func_array('var_dump', func_get_args());
+
+		echo '<pre>' . ob_get_clean() . '</pre>';
+	}
+}
+
 //------------------------------------------------------------------------------------------
 // Setup autoloading of third party libraries
 //------------------------------------------------------------------------------------------
