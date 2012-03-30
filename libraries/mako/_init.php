@@ -50,6 +50,8 @@ mako\ClassLoader::addClasses(array
 	'mako\database\Connection'               => MAKO_LIBRARIES_PATH . '/mako/database/Connection.php',
 	'mako\database\Query'                    => MAKO_LIBRARIES_PATH . '/mako/database/Query.php',
 	'mako\database\query\Compiler'           => MAKO_LIBRARIES_PATH . '/mako/database/query/Compiler.php',
+	'mako\database\query\compiler\DB2'       => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/DB2.php',
+	'mako\database\query\compiler\Firebird'  => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/Firebird.php',
 	'mako\database\query\compiler\MySQL'     => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/MySQL.php',
 	'mako\database\query\compiler\Oracle'    => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/Oracle.php',
 	'mako\database\query\compiler\SQLServer' => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/SQLServer.php',
