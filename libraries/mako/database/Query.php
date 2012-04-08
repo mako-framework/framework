@@ -583,7 +583,7 @@ class Query
 
 		$query = $this->compiler->select();
 
-		return $this->connection->query($query['sql'], $query['params'], Database::FETCH);
+		return $this->connection->query($query['sql'], $query['params'], Database::FETCH_FIRST);
 	}
 
 	/**

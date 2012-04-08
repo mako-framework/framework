@@ -126,7 +126,7 @@ class Connection
 		{
 			switch($fetch)
 			{
-				case Database::FETCH:
+				case Database::FETCH_FIRST:
 					return $stmt->fetch();
 				break;
 				case Database::FETCH_COLUMN:
@@ -171,7 +171,7 @@ class Connection
 
 	public function first($query, array $params = array())
 	{
-		return $this->query($query, $params, Database::FETCH);
+		return $this->query($query, $params, Database::FETCH_FIRST);
 	}
 
 	/**

@@ -38,12 +38,12 @@ class Database
 	const FETCH_ALL = 10;
 
 	/**
-	* Fetch.
+	* Fetch first.
 	*
 	* @var int
 	*/
 
-	const FETCH = 11;
+	const FETCH_FIRST = 11;
 
 	/**
 	* Fetch column.
