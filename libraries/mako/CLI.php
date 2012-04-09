@@ -282,7 +282,7 @@ class CLI
 	* @param   array   (optional) Text options
 	*/
 
-	public static function stdout($message = '', $textColor = null, $backgroundColor = null, $textOptions = array())
+	public static function stdout($message = '', $textColor = null, $backgroundColor = null, array $textOptions = array())
 	{
 		fwrite(STDOUT, static::color($message, $textColor, $backgroundColor, $textOptions) . PHP_EOL);
 	}
@@ -297,7 +297,7 @@ class CLI
 	* @param   array   (optional) Text options
 	*/
 
-	public static function stderr($message, $textColor = 'red', $backgroundColor = null, $textOptions = array())
+	public static function stderr($message, $textColor = 'red', $backgroundColor = null, array $textOptions = array())
 	{
 		fwrite(STDERR, static::color($message, $textColor, $backgroundColor, $textOptions) . PHP_EOL);	
 	}
