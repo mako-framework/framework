@@ -96,14 +96,19 @@ class Reactor
 
 	public static function help()
 	{
-		$help  = 'Reactor CLI tool' . PHP_EOL;
-		$help .= '-------------------------------------------------------' . PHP_EOL . PHP_EOL;
+		$screenSize = CLI::screenSize();
+
+		$width = $screenSize['width'] === 0 ? 50 : $screenSize['width'];
+
+		$help  = CLI::color(str_repeat('—', $width), null, null, array('bold')) . PHP_EOL;
+		$help .= CLI::color('Reactor CLI tool', null, null, array('bold')) . PHP_EOL;
+		$help .= CLI::color(str_repeat('—', $width), null, null, array('bold')) . PHP_EOL . PHP_EOL;
 		$help .= 'Valid commands are:'  . PHP_EOL . PHP_EOL;
-		$help .= '   php reactor version'  . PHP_EOL;
-		$help .= '   php reactor task <taskname>'  . PHP_EOL;
-		$help .= '   php reactor package install <package name>' . PHP_EOL;
-		$help .= '   php reactor package remove <package name>' . PHP_EOL . PHP_EOL;
-		$help .= 'Mako framework documentation at http://makoframework.com/docs';
+		$help .= '   * php reactor version'  . PHP_EOL;
+		$help .= '   * php reactor task <taskname>'  . PHP_EOL;
+		$help .= '   * php reactor package install <package name>' . PHP_EOL;
+		$help .= '   * php reactor package remove <package name>' . PHP_EOL . PHP_EOL;
+		$help .= 'Mako framework documentation: ' . CLI::color('http://makoframework.com/docs', null, null, array('bold', 'underlined'));
 
 		CLI::stdout($help);
 	}

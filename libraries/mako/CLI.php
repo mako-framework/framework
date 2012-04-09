@@ -27,14 +27,14 @@ class CLI
 
 	protected static $textColors = array
 	(
-		'black'  => '0;30',
-		'red'    => '0;31',
-		'green'  => '0;32',
-		'yellow' => '0;33',
-		'blue'   => '0;34',
-		'purple' => '0;35',
-		'cyan'   => '0;36',
-		'white'  => '0;37',
+		'black'  => '30',
+		'red'    => '31',
+		'green'  => '32',
+		'yellow' => '33',
+		'blue'   => '34',
+		'purple' => '35',
+		'cyan'   => '36',
+		'white'  => '37',
 	);
 
 	/**
@@ -53,6 +53,22 @@ class CLI
 		'purple' => '45',
 		'cyan'   => '46',
 		'white'  => '47',
+	);
+
+	/**
+	* Text options.
+	*
+	* @var array
+	*/
+
+	protected static $textOptions = array
+	(
+		'bold'       => 1,
+		'faded'      => 2,
+		'underlined' => 4,
+		'blinking'   => 5,
+		'reversed'   => 7,
+		'hidden'     => 8,
 	);
 
 	//---------------------------------------------
@@ -108,39 +124,77 @@ class CLI
 	* @param   string  String to colorize
 	* @param   string  (optional) Text color name
 	* @param   string  (optional) Background color name
+	* @param   array   (optional) Text options
 	* @return  string
 	*/
 
-	public static function color($str, $textColor = null, $backgroundColor = null)
+	public static function color($str, $textColor = null, $backgroundColor = null, array $textOptions = array())
 	{
 		if(MAKO_IS_WINDOWS)
 		{
 			return $str;
 		}
-		
-		$color = "";
+
+		$style = array();
+
+		// Font color
 
 		if($textColor !== null)
 		{
 			if(!isset(static::$textColors[$textColor]))
 			{
-				throw new RuntimeException(vsprintf("%s(): Invalid text color.", array(__METHOD__)));
+				throw new RuntimeException(vsprintf("%s(): Invalid text color. Only the following colors are valid: %s.", array
+				(
+					__METHOD__,
+					implode(', ', array_keys(static::$textColors))
+				)));
 			}
 
-			$color .= "\033[" . static::$textColors[$textColor] . "m";
+			$style[] = static::$textColors[$textColor];
 		}
+
+		// Background color
 
 		if($backgroundColor !== null)
 		{
 			if(!isset(static::$backgroundColors[$backgroundColor]))
 			{
-				throw new RuntimeException(vsprintf("%s(): Invalid background color.", array(__METHOD__)));
+				throw new RuntimeException(vsprintf("%s(): Invalid background color.  Only the following colors are valid: %s.", array
+				(
+					__METHOD__,
+					implode(', ', array_keys(static::$backgroundColors))
+				)));
 			}
 
-			$color .= "\033[" . static::$backgroundColors[$backgroundColor] . "m";
+			$style[] = static::$backgroundColors[$backgroundColor];
 		}
 
-		return $color . $str . "\033[0m";
+		// Text options
+
+		if($textOptions !== null)
+		{
+			$options = array();
+
+			foreach($textOptions as $option)
+			{
+				if(!isset(static::$textOptions[$option]))
+				{
+					throw new RuntimeException(vsprintf("%s(): Invalid text option. Only the following options are valid: %s.", array
+					(
+						__METHOD__,
+						implode(', ', array_keys(static::$textOptions))
+					)));
+				}
+
+				$options[] = static::$textOptions[$option];
+			}
+
+			$style = array_merge($style, $options);
+		}
+
+		// Wrap text in style "tags"
+
+		return sprintf("\033[%sm%s\033[0m", implode(';', $style), $str);
 	}
 
 	/**
@@ -225,11 +279,12 @@ class CLI
 	* @param   string  (optional) Message to print
 	* @param   string  (optional) Text color
 	* @param   string  (optional) Background color
+	* @param   array   (optional) Text options
 	*/
 
-	public static function stdout($message = '', $textColor = null, $backgroundColor = null)
+	public static function stdout($message = '', $textColor = null, $backgroundColor = null, $textOptions = array())
 	{
-		fwrite(STDOUT, static::color($message, $textColor, $backgroundColor) . PHP_EOL);
+		fwrite(STDOUT, static::color($message, $textColor, $backgroundColor, $textOptions) . PHP_EOL);
 	}
 
 	/**
@@ -239,11 +294,12 @@ class CLI
 	* @param   string  Message to print
 	* @param   string  (optional) Text color
 	* @param   string  (optional) Background color
+	* @param   array   (optional) Text options
 	*/
 
-	public static function stderr($message, $textColor = 'red', $backgroundColor = null)
+	public static function stderr($message, $textColor = 'red', $backgroundColor = null, $textOptions = array())
 	{
-		fwrite(STDERR, static::color($message, $textColor, $backgroundColor) . PHP_EOL);	
+		fwrite(STDERR, static::color($message, $textColor, $backgroundColor, $textOptions) . PHP_EOL);	
 	}
 
 	/**
