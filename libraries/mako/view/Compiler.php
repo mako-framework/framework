@@ -148,8 +148,8 @@ class Compiler
 	{
 		$storageName = MAKO_APPLICATION . '/storage/templates/' . md5($fileName) . '.php';
 
-		#if(!file_exists($storageName) || static::isExpired($fileName, $storageName))
-		#{
+		if(!file_exists($storageName) || static::isExpired($fileName, $storageName))
+		{
 			// Get teplate contents
 			
 			$template = file_get_contents($fileName);
@@ -164,7 +164,7 @@ class Compiler
 			// Store compiled template
 
 			file_put_contents($storageName, trim($template));
-		#}
+		}
 
 		return $storageName;
 	}
