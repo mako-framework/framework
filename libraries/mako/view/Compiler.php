@@ -86,11 +86,11 @@ class Compiler
 
 	protected static function controlStructures($template)
 	{
-		// Compile loops and conditional statement openings
+		// Compile control structures openings
 
 		$template = preg_replace('/{{((foreach|for|while|if|else( )?if|else)(.*?)?)}}/i', '<?php $1: ?>', $template);
 
-		// Compile loops and conditional statement endings
+		// Compile control structures endings
 
 		return preg_replace('/{{(endforeach|endfor|endwhile|endif)}}/i', '<?php $1; ?>', $template);
 	}
