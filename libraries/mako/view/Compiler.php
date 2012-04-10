@@ -17,22 +17,6 @@ class Compiler
 	//---------------------------------------------
 
 	/**
-	* Raw echo.
-	*
-	* @var string
-	*/
-
-	const RAW_ECHO = '<?php echo %s; ?>';
-
-	/**
-	* Escaped echo.
-	*
-	* @var string
-	*/
-
-	const ESCAPED_ECHO = '<?php echo htmlspecialchars(%s, ENT_COMPAT, MAKO_CHARSET); ?>';
-
-	/**
 	* Compilation order.
 	*
 	* @var array
@@ -123,17 +107,11 @@ class Compiler
 	{
 		// Compile raw echos
 
-		$template = preg_replace_callback('/{{raw:(.*?)}}/', function($matches)
-		{
-			return sprintf(Compiler::RAW_ECHO, $matches[1]);
-		}, $template);
+		$template = preg_replace('/{{raw:(.*?)}}/', '<?php echo $1; ?>', $template);
 
 		// Compile escaped echos
 
-		return preg_replace_callback('/{{(.*?)}}/', function($matches)
-		{
-			return sprintf(Compiler::ESCAPED_ECHO, $matches[1]);
-		}, $template);
+		return preg_replace('/{{(.*?)}}/', '<?php echo htmlspecialchars($1, ENT_COMPAT, MAKO_CHARSET); ?>', $template);
 	}
 
 	/**
