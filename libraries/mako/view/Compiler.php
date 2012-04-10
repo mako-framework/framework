@@ -105,13 +105,29 @@ class Compiler
 
 	protected static function echos($template)
 	{
-		// Compile raw echos
+		$emptyElse = function($matches)
+		{
+			if(preg_match('/(.*)\|\|(.*)/', $matches) !== 0)
+			{
+				return preg_replace('/(.*)\|\|(.*)/', '(!empty($1) ? $1 : $2)', $matches);
+			}
+			else
+			{
+				return $matches;
+			}
+		};
 
-		$template = preg_replace('/{{raw:(.*?)}}/', '<?php echo $1; ?>', $template);
-
-		// Compile escaped echos
-
-		return preg_replace('/{{(.*?)}}/', '<?php echo htmlspecialchars($1, ENT_COMPAT, MAKO_CHARSET); ?>', $template);
+		return preg_replace_callback('/{{(.*?)}}/', function($matches) use ($emptyElse)
+		{
+			if(preg_match('/raw:(.*)/', $matches[1]))
+			{
+				return sprintf('<?php echo %s; ?>', $emptyElse(substr($matches[1], 4)));
+			}
+			else
+			{
+				return sprintf('<?php echo htmlspecialchars(%s, ENT_COMPAT, MAKO_CHARSET); ?>', $emptyElse($matches[1]));
+			}
+		}, $template);
 	}
 
 	/**
