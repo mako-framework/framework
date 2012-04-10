@@ -30,7 +30,7 @@ class Compiler
 	* @var string
 	*/
 
-	const ESCAPED_ECHO = '<?php echo htmlspecialchars(%s, ENT_COMPAT, MAKO_CHARSET, false); ?>';
+	const ESCAPED_ECHO = '<?php echo htmlspecialchars(%s, ENT_COMPAT, MAKO_CHARSET); ?>';
 
 	/**
 	* Compilation order.
@@ -104,7 +104,7 @@ class Compiler
 	{
 		// Compile loops and conditional statement openings
 
-		$template = preg_replace('/{{((foreach|for|while|if|else( )?if|else)(.*)?)}}/i', '<?php $1: ?>', $template);
+		$template = preg_replace('/{{((foreach|for|while|if|else( )?if|else)(.*?)?)}}/i', '<?php $1: ?>', $template);
 
 		// Compile loops and conditional statement endings
 
@@ -123,24 +123,14 @@ class Compiler
 	{
 		// Compile raw echos
 
-		$template = preg_replace_callback('/{{raw:(.*)\|\|(.*)}}/', function($matches)
-		{
-			return sprintf(Compiler::RAW_ECHO, '(!empty(' . $matches[1] . ') ? ' . $matches[1] . ' : ' . (!empty($matches[2]) ? $matches[2] : "''") . ')');
-		}, $template);
-
-		$template = preg_replace_callback('/{{raw:(.*)}}/', function($matches)
+		$template = preg_replace_callback('/{{raw:(.*?)}}/', function($matches)
 		{
 			return sprintf(Compiler::RAW_ECHO, $matches[1]);
 		}, $template);
 
 		// Compile escaped echos
 
-		$template = preg_replace_callback('/{{(.*)\|\|(.*)}}/', function($matches)
-		{
-			return sprintf(Compiler::ESCAPED_ECHO, '(!empty(' . $matches[1] . ') ? ' . $matches[1] . ' : ' . (!empty($matches[2]) ? $matches[2] : "''") . ')');
-		}, $template);
-
-		return preg_replace_callback('/{{(.*)}}/', function($matches)
+		return preg_replace_callback('/{{(.*?)}}/', function($matches)
 		{
 			return sprintf(Compiler::ESCAPED_ECHO, $matches[1]);
 		}, $template);
@@ -158,8 +148,8 @@ class Compiler
 	{
 		$storageName = MAKO_APPLICATION . '/storage/templates/' . md5($fileName) . '.php';
 
-		if(!file_exists($storageName) || static::isExpired($fileName, $storageName))
-		{
+		#if(!file_exists($storageName) || static::isExpired($fileName, $storageName))
+		#{
 			// Get teplate contents
 			
 			$template = file_get_contents($fileName);
@@ -174,7 +164,7 @@ class Compiler
 			// Store compiled template
 
 			file_put_contents($storageName, trim($template));
-		}
+		#}
 
 		return $storageName;
 	}
