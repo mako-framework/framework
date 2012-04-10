@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\Mako;
+use \mako\view\Compiler;
 use \Exception;
 use \RuntimeException;
 
@@ -66,12 +67,28 @@ class View
 
 	public function __construct($view, array $variables = array())
 	{
-		$this->viewFile = Mako::path('views', $view);
-		
-		if(file_exists($this->viewFile) === false)
+		// Check if view file exists
+
+		if(file_exists($file = Mako::path('views', $view)))
+		{
+			$this->viewFile = $file;
+		}
+
+		// No view, check if template exists
+
+		elseif(file_exists($file = Mako::path('views', $view . '.tpl')))
+		{
+			$this->viewFile = Compiler::compile($file);
+		}
+
+		// No view or template. Throw exception
+
+		else
 		{
 			throw new RuntimeException(vsprintf("%s(): The '%s' view does not exist.", array(__METHOD__, $view)));
 		}
+
+		// Assign view variables
 
 		$this->vars = $variables;
 	}
