@@ -88,11 +88,11 @@ class Compiler
 	{
 		// Compile control structures openings
 
-		$template = preg_replace('/{{((foreach|for|while|if|else( )?if|else)(.*?)?)}}/i', '<?php $1: ?>', $template);
+		$template = preg_replace('/{{((foreach|for|while|if|else( )?if|else|switch|case|default)(.*?)?)}}/i', '<?php $1: ?>', $template);
 
 		// Compile control structures endings
 
-		return preg_replace('/{{(endforeach|endfor|endwhile|endif)}}/i', '<?php $1; ?>', $template);
+		return preg_replace('/{{(endforeach|endfor|endwhile|endif|endswitch|break|continue)}}/i', '<?php $1; ?>', $template);
 	}
 
 	/**
