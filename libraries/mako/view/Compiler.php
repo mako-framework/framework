@@ -73,7 +73,7 @@ class Compiler
 	{
 		// Strip comments from templates
 
-		return preg_replace('/{\*.*?\*}/s', '', $template);
+		return preg_replace('/{\*(.*?)\*}/s', '', $template);
 	}
 
 	/**
