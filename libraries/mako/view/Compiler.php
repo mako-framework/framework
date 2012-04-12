@@ -88,11 +88,11 @@ class Compiler
 	{
 		// Compile control structures openings
 
-		$template = preg_replace('/{{\s{0,1}((foreach|for|while|if|else( )?if|else|switch|case|default)(.*?)?)\s{0,1}}}/i', '<?php $1: ?>', $template);
+		$template = preg_replace('/{{\s{0,}((foreach|for|while|if|else( )?if|else|switch|case|default)(.*?)?)\s{0,}}}/i', '<?php $1: ?>', $template);
 
 		// Compile control structures endings
 
-		return preg_replace('/{{\s{0,1}(endforeach|endfor|endwhile|endif|endswitch|break|continue)\s{0,1}}}/i', '<?php $1; ?>', $template);
+		return preg_replace('/{{\s{0,}(endforeach|endfor|endwhile|endif|endswitch|break|continue)\s{0,}}}/i', '<?php $1; ?>', $template);
 	}
 
 	/**
@@ -109,7 +109,7 @@ class Compiler
 		{
 			if(preg_match('/(.*)\|\|(.*)/', $matches) !== 0)
 			{
-				return preg_replace('/(.*)\s{0,1}\|\|\s{0,1}(.*)/', '(!empty($1) ? $1 : $2)', $matches);
+				return preg_replace('/(.*)\s{0,}\|\|\s{0,}(.*)/', '(!empty($1) ? $1 : $2)', $matches);
 			}
 			else
 			{
@@ -117,7 +117,7 @@ class Compiler
 			}
 		};
 
-		return preg_replace_callback('/{{\s{0,1}(.*?)\s{0,1}}}/', function($matches) use ($emptyElse)
+		return preg_replace_callback('/{{\s{0,}(.*?)\s{0,}}}/', function($matches) use ($emptyElse)
 		{
 			if(preg_match('/raw:(.*)/i', $matches[1]))
 			{
