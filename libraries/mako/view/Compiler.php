@@ -119,7 +119,7 @@ class Compiler
 
 		return preg_replace_callback('/{{(.*?)}}/', function($matches) use ($emptyElse)
 		{
-			if(preg_match('/raw:(.*)/', $matches[1]))
+			if(preg_match('/raw:(.*)/i', $matches[1]))
 			{
 				return sprintf('<?php echo %s; ?>', $emptyElse(substr($matches[1], 4)));
 			}
