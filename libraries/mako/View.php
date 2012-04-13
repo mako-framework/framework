@@ -171,7 +171,19 @@ class View
 	{
 		if(empty($this->output))
 		{
-			extract(array_merge($this->vars, static::$globalVars), EXTR_REFS); // Extract variables as references
+			$variables = array_merge($this->vars, static::$globalVars);
+
+			// Render child views before parent view to allow content block injections
+
+			foreach($variables as $key => $variable)
+			{
+				if($variable instanceof View)
+				{
+					$variables[$key] = $variable->render();
+				}
+			}
+
+			extract($variables, EXTR_REFS); // Extract variables as references
 			
 			ob_start();
 

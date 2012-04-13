@@ -25,6 +25,7 @@ class Compiler
 	protected static $compileOrder = array
 	(
 		'comments',
+		'blocks',
 		'controlStructures',
 		'echos',
 	);
@@ -77,6 +78,23 @@ class Compiler
 	}
 
 	/**
+	* Compiles blocks.
+	*
+	* @access  protected
+	* @param   string     Template
+	* @return  string     Compiled template
+	*/
+
+	protected static function blocks($template)
+	{
+		// Compile blocks
+
+		$template = preg_replace('/{%\s{0,}block:(.*?)\s{0,}%}(.*?){%\s{0,}endblock\s{0,}%}/s', '<?php mako\view\Block::open(\'$1\'); ?>$2<?php mako\view\Block::close(); ?>', $template);
+
+		return preg_replace('/{{\s{0,}block:(.*?)\s{0,}}}/', '<?php echo mako\view\Block::get(\'$1\'); ?>', $template);
+	}
+
+	/**
 	* Compiles control structures.
 	*
 	* @access  protected
@@ -88,11 +106,11 @@ class Compiler
 	{
 		// Compile control structures openings
 
-		$template = preg_replace('/{{\s{0,}((foreach|for|while|if|else( )?if|else|switch|case|default)(.*?)?)\s{0,}}}/i', '<?php $1: ?>', $template);
+		$template = preg_replace('/{%\s{0,}((foreach|for|while|if|else( )?if|else)(.*?)?)\s{0,}%}/i', '<?php $1: ?>', $template);
 
 		// Compile control structures endings
 
-		return preg_replace('/{{\s{0,}(endforeach|endfor|endwhile|endif|endswitch|break|continue)\s{0,}}}/i', '<?php $1; ?>', $template);
+		return preg_replace('/{%\s{0,}(endforeach|endfor|endwhile|endif|break|continue)\s{0,}%}/i', '<?php $1; ?>', $template);
 	}
 
 	/**
