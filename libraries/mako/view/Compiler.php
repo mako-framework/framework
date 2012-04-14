@@ -91,6 +91,8 @@ class Compiler
 
 		$template = preg_replace('/{%\s{0,}block:(.*?)\s{0,}%}(.*?){%\s{0,}endblock\s{0,}%}/s', '<?php mako\view\Block::open(\'$1\'); ?>$2<?php mako\view\Block::close(); ?>', $template);
 
+		// Compile block output
+
 		return preg_replace('/{{\s{0,}block:(.*?)\s{0,}}}/', '<?php echo mako\view\Block::get(\'$1\'); ?>', $template);
 	}
 
