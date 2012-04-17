@@ -91,10 +91,10 @@ class Compiler
 	{
 		// Replace first occurance of extends tag with an empty string
 		// and append the template with a view tag
-		
-		if(preg_match('/^{%\s{0,}extends:(.*?)\s{0,}%}/', $template, $matches) > 0)
+
+		if(preg_match('/^{%\s{0,}extends:(.*?)\s{0,}%}/i', $template, $matches) > 0)
 		{
-			$template = preg_replace('/^{%\s{0,}extends:(.*?)\s{0,}%}/', '', $template, 1);
+			$template = preg_replace('/^{%\s{0,}extends:(.*?)\s{0,}%}/i', '', $template, 1);
 
 			$template .= PHP_EOL . '{{view:' . $matches[1] . '}}';
 		}
@@ -114,7 +114,7 @@ class Compiler
 	{
 		// Replace view tags with view redering
 
-		return preg_replace('/{{\s{0,}view:(.*?)\s{0,}}}/', '<?php echo new mako\View(\'$1\', get_defined_vars()); ?>', $template);
+		return preg_replace('/{{\s{0,}view:(.*?)\s{0,}}}/i', '<?php echo new mako\View(\'$1\', get_defined_vars()); ?>', $template);
 	}
 
 	/**
