@@ -97,6 +97,7 @@ mako\ClassLoader::addClasses(array
 	'mako\UserAgent'                         => MAKO_LIBRARIES_PATH . '/mako/UserAgent.php',
 	'mako\Validate'                          => MAKO_LIBRARIES_PATH . '/mako/Validate.php',
 	'mako\View'                              => MAKO_LIBRARIES_PATH . '/mako/View.php',
+	'mako\view\Block'                        => MAKO_LIBRARIES_PATH . '/mako/view/Block.php',
 	'mako\view\Compiler'                     => MAKO_LIBRARIES_PATH . '/mako/view/Compiler.php',
 ));
 
