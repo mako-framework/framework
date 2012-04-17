@@ -25,6 +25,8 @@ class Compiler
 	protected static $compileOrder = array
 	(
 		'comments',
+		'extensions',
+		'views',
 		'blocks',
 		'controlStructures',
 		'echos',
@@ -75,6 +77,44 @@ class Compiler
 		// Strip comments from templates
 
 		return preg_replace('/{\*(.*?)\*}/s', '', $template);
+	}
+
+	/**
+	* Compiles template extensions.
+	*
+	* @access  protected
+	* @param   string     Template
+	* @return  string     Compiled template
+	*/
+
+	protected static function extensions($template)
+	{
+		// Replace first occurance of extends tag with an empty string
+		// and append the template with a view tag
+		
+		if(preg_match('/^{%\s{0,}extends:(.*?)\s{0,}%}/', $template, $matches) > 0)
+		{
+			$template = preg_replace('/^{%\s{0,}extends:(.*?)\s{0,}%}/', '', $template, 1);
+
+			$template .= PHP_EOL . '{{view:' . $matches[1] . '}}';
+		}
+
+		return $template;
+	}
+
+	/**
+	* Compiles view includes.
+	*
+	* @access  protected
+	* @param   string     Template
+	* @return  string     Compiled template
+	*/
+
+	protected static function views($template)
+	{
+		// Replace view tags with view redering
+
+		return preg_replace('/{{\s{0,}view:(.*?)\s{0,}}}/', '<?php echo new mako\View(\'$1\', get_defined_vars()); ?>', $template);
 	}
 
 	/**
@@ -139,7 +179,7 @@ class Compiler
 
 		return preg_replace_callback('/{{\s{0,}(.*?)\s{0,}}}/', function($matches) use ($emptyElse)
 		{
-			if(preg_match('/raw:(.*)/i', $matches[1]))
+			if(preg_match('/raw:(.*)/i', $matches[1]) > 0)
 			{
 				return sprintf('<?php echo %s; ?>', $emptyElse(substr($matches[1], 4)));
 			}
