@@ -165,6 +165,8 @@ class Compiler
 
 	protected static function echos($template)
 	{
+		// Closure that matches the "empty else" syntax
+
 		$emptyElse = function($matches)
 		{
 			if(preg_match('/(.*)\|\|(.*)/', $matches) !== 0)
@@ -176,6 +178,8 @@ class Compiler
 				return $matches;
 			}
 		};
+
+		// Compiles echo tags
 
 		return preg_replace_callback('/{{\s{0,}(.*?)\s{0,}}}/', function($matches) use ($emptyElse)
 		{
