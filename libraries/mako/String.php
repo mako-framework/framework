@@ -78,57 +78,6 @@ class String
 	//---------------------------------------------
 
 	/**
-	* Alias of htmlspecialchars but it also works on arrays.
-	*
-	* @access  public
-	* @param   mixed    String or array to encode
-	* @param   boolean  (optional) True to enable double encoding of entities and false to disable
-	* @return  mixed
-	*/
-
-	public static function specialCharsEncode($input, $doubleEncode = true)
-	{
-		if(is_array($input))
-		{
-			foreach($input as $k => $v)
-			{
-				$input[$k] = static::specialCharsEncode($v, $doubleEncode);
-			}
-		}
-		else
-		{
-			$input = htmlspecialchars($input, ENT_COMPAT, MAKO_CHARSET, $doubleEncode);
-		}
-
-		return $input;
-	}
-
-	/**
-	* Alias of htmlspecialchars_decode but it also works on arrays.
-	*
-	* @access  public
-	* @param   mixed  String or array to decode
-	* @return  mixed
-	*/
-
-	public static function specialCharsDecode($input)
-	{
-		if(is_array($input))
-		{
-			foreach($input as $k => $v)
-			{
-				$input[$k] = static::specialCharsDecode($v);
-			}
-		}
-		else
-		{
-			$input = htmlspecialchars_decode($input, ENT_COMPAT);
-		}
-
-		return $input;
-	}
-
-	/**
 	* Replaces newline with <br> or <br />.
 	*
 	* @access  public
