@@ -185,7 +185,7 @@ class Compiler
 			}
 			else
 			{
-				return sprintf('<?php echo htmlspecialchars(%s, ENT_COMPAT, MAKO_CHARSET, false); ?>', $emptyElse($matches[1]));
+				return sprintf('<?php echo htmlspecialchars(%s, ENT_QUOTES, MAKO_CHARSET); ?>', $emptyElse($matches[1]));
 			}
 		}, $template);
 	}
