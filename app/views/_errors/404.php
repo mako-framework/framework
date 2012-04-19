@@ -66,7 +66,7 @@ hr
 <p>The page you requested could not be found. It may have been moved or deleted.</p>
 </div>
 
-<div id="back-home"><small>Would you like to <a href="<?php echo URL::base(); ?>">go back home</a>?</div>
+<div id="back-home"><small>Would you like to <a href="<?php echo URL::base(); ?>">go back home</a>?</small></div>
 
 </body>
 </html>

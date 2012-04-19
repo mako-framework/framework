@@ -66,7 +66,7 @@ hr
 <p>Aw, snap! An error has occurred while processing your request.</p>
 </div>
 
-<div id="back-home"><small>Would you like to <a href="<?php echo URL::base(); ?>">go back home</a>?</div>
+<div id="back-home"><small>Would you like to <a href="<?php echo URL::base(); ?>">go back home</a>?</small></div>
 
 </body>
 </html>
