@@ -72,7 +72,7 @@ return array
 
 	/**
 	* Cache language files?
-	* Setting this value to true can speed up execution by reducing the language files to include.
+	* Setting this value to true can speed up execution by reducing the number of language files to include.
 	*/
 
 	'lang_cache' => false,
