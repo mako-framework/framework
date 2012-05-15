@@ -75,6 +75,19 @@ class Block
 	}
 
 	/**
+	* Returns TRUE if the block exists and FALSE if not.
+	*
+	* @access  public
+	* @param   string   Block name
+	* @return  boolean
+	*/
+
+	public static function exists($name)
+	{
+		return isset(static::$blocks[$name]);
+	}
+
+	/**
 	* Returns the contents of a view block.
 	*
 	* @access  public
