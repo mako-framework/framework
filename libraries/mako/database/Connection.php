@@ -102,9 +102,7 @@ class Connection
 			{
 				if(is_array($value))
 				{
-					unset($params[$key]);
-
-					array_splice($params, $key, 0, $value);
+					array_splice($params, $key, 1, $value);
 
 					$query = preg_replace('/\(\.\.\.\)/', '(' . trim(str_repeat('?, ', count($value)), ', ') . ')', $query, 1);
 				}
