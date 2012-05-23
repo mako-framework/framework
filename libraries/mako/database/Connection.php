@@ -102,14 +102,11 @@ class Connection
 			{
 				if(is_array($value))
 				{
-					foreach($value as $k => $v)
-					{
-						$value[$k] = $this->pdo->quote($v);
-					}
-
-					$query = preg_replace('/\(\.\.\.\)/', '(' . implode(',', $value) . ')', $query, 1);
-
 					unset($params[$key]);
+
+					array_splice($params, $key, 0, $value);
+
+					$query = preg_replace('/\(\.\.\.\)/', '(' . trim(str_repeat('?, ', count($value)), ', ') . ')', $query, 1);
 				}
 			}
 		}
