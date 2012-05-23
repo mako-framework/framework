@@ -507,11 +507,11 @@ class Query
 	*
 	* @access  public
 	* @param   string               Column name
-	* @param   string               Sorint order
+	* @param   string               (optional) Sorting order
 	* @return  mako\database\Query
 	*/
 
-	public function orderBy($column, $order)
+	public function orderBy($column, $order = 'asc')
 	{
 		$this->orderings[] = array
 		(
