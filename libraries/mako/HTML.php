@@ -191,7 +191,11 @@ class HTML
 	}
 
 	/**
+	* Registers a new HTML macro.
 	*
+	* @access  public
+	* @param   string   Macro name
+	* @param   Closure  Macro closure
 	*/
 
 	public static function macro($name, Closure $macro)
@@ -200,7 +204,12 @@ class HTML
 	}
 
 	/**
+	* Magic shortcut to the custom HTML macros.
 	*
+	* @access  public
+	* @param   string  Method name
+	* @param   array   Method arguments
+	* @return  mixed
 	*/
 
 	public static function __callStatic($name, $arguments)
