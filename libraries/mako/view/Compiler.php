@@ -96,7 +96,7 @@ class Compiler
 		{
 			$template = preg_replace('/^{%\s{0,}extends:(.*?)\s{0,}%}/i', '', $template, 1);
 
-			$template .= PHP_EOL . '{{view:' . $matches[1] . '}}';
+			$template .= PHP_EOL . '<?php echo new mako\View(\'' . $matches[1] . '\'); ?>';
 		}
 
 		return $template;
