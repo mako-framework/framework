@@ -2,6 +2,9 @@
 
 namespace mako;
 
+use \Closure;
+use \RuntimeException;
+
 /**
 * HTML helper.
 *
@@ -16,7 +19,13 @@ class HTML
 	// Class variables
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	* Custom macros.
+	*
+	* @var array
+	*/
+
+	protected static $macros = array();
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -179,6 +188,29 @@ class HTML
 	public static function ol(array $items, array $attributes = array())
 	{
 		return static::buildList('ol', $items, $attributes);
+	}
+
+	/**
+	*
+	*/
+
+	public static function macro($name, Closure $macro)
+	{
+		static::$macros[$name] = $macro;
+	}
+
+	/**
+	*
+	*/
+
+	public static function __callStatic($name, $arguments)
+	{
+		if(!isset(static::$macros[$name]))
+		{
+			throw new RuntimeException(vsprintf("Call to undefined method %s::%s().", array(__CLASS__, $name)));
+		}
+
+		return call_user_func_array(static::$macros[$name], $arguments);
 	}
 }
 
