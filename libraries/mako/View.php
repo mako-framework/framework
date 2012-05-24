@@ -121,23 +121,37 @@ class View
 	* @return  mako\View
 	*/
 
-	public function assign($key, $value, $global = false)
+	public function assign($name, $value, $global = false)
 	{
 		if($global === false)
 		{
-			$this->vars[$key] = $value;
+			$this->vars[$name] = $value;
 		}
 		else
 		{
-			static::$globalVars[$key] = $value; // Available to all views
+			static::$globalVars[$name] = $value; // Available to all views
 		}
 
 		return $this;
+	}
+
+	/**
+	* Assign a global view variable that will be available in all views.
+	*
+	* @access  public
+	* @param   string  Variable name
+	* @param   mixed   View variable
+	*/
+
+	public static function assignGlobal($name, $value)
+	{
+		static::$globalVars[$name] = $value;
 	}
 	
 	/**
 	* Assign a view variable by reference.
 	*
+	* @deprecated
 	* @access  public
 	* @param   string     Variable name
 	* @param   mixed      View variable
@@ -145,15 +159,15 @@ class View
 	* @return  mako\View
 	*/
 
-	public function assignByRef($key, &$value, $global = false)
+	public function assignByRef($name, &$value, $global = false)
 	{
 		if($global === false)
 		{
-			$this->vars[$key] =& $value;
+			$this->vars[$name] =& $value;
 		}
 		else
 		{
-			static::$globalVars[$key] =& $value; // Available to all views
+			static::$globalVars[$name] =& $value; // Available to all views
 		}
 
 		return $this;
@@ -196,9 +210,9 @@ class View
 	* @param   mixed   View variable
 	*/
 
-	public function __set($key, $value)
+	public function __set($name, $value)
 	{
-		$this->vars[$key] = $value;
+		$this->vars[$name] = $value;
 	}
 
 	/**
@@ -209,11 +223,11 @@ class View
 	* @return  mixed
 	*/
 
-	public function __get($key)
+	public function __get($name)
 	{
-		if(isset($this->vars[$key]))
+		if(isset($this->vars[$name]))
 		{
-			return $this->vars[$key];
+			return $this->vars[$name];
 		}
 	}
 
@@ -225,9 +239,9 @@ class View
 	* @return  boolean
 	*/
 
-	public function __isset($key)
+	public function __isset($name)
 	{
-		return isset($this->vars[$key]);
+		return isset($this->vars[$name]);
 	}
 
 	/**
@@ -237,9 +251,9 @@ class View
 	* @param   string   Variable name
 	*/
 
-	public function __unset($key)
+	public function __unset($name)
 	{
-		unset($this->vars[$key]);
+		unset($this->vars[$name]);
 	}
 
 	/**
