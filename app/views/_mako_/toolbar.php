@@ -111,12 +111,12 @@ var Mako =
 }
 #mako-debug table td:first-child
 {
-	width: 25%;
+	width: 20%;
 	vertical-align: top;
 }
 #mako-debug table td:last-child
 {
-	width: 75%;
+	width: 80%;
 	white-space: pre-wrap;
 }
 #mako-debug table tr:last-child td
