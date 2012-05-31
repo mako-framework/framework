@@ -306,7 +306,7 @@ var Mako =
 <?php foreach(get_included_files() as $key => $value): ?>
 <tr>
 <td><?php echo $key + 1; ?></td>
-<td><?php echo htmlspecialchars(print_r($value, true), ENT_QUOTES, MAKO_CHARSET); ?></td>
+<td><?php echo htmlspecialchars($value, ENT_QUOTES, MAKO_CHARSET); ?></td>
 </tr>
 <?php endforeach; ?>
 </table>
