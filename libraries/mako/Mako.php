@@ -158,7 +158,7 @@ class Mako
 		}
 		catch(RequestException $e)
 		{
-			Response::factory(new View('_errors/' . $e->getMessage()))->send($e->getMessage());
+			Response::factory(new View('_mako_/errors/' . $e->getMessage()))->send($e->getMessage());
 		}	
 	}
 	
@@ -499,11 +499,11 @@ class Mako
 				$error['backtrace']   = static::formatBacktrace($error['backtrace']);
 				$error['highlighted'] = static::highlightCode($error['file'], $error['line']);
 
-				include MAKO_APPLICATION . '/views/_errors/exception.php'; // Include file instead of using view class as it can cause problems with fatal errors.
+				include MAKO_APPLICATION . '/views/_mako_/errors/exception.php'; // Include file instead of using view class as it can cause problems with fatal errors.
 			}
 			else
 			{
-				include MAKO_APPLICATION . '/views/_errors/error.php'; // Include file instead of using view class as it can cause problems with fatal errors.
+				include MAKO_APPLICATION . '/views/_mako_/errors/error.php'; // Include file instead of using view class as it can cause problems with fatal errors.
 			}
 		}
 		catch(Exception $e)
