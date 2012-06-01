@@ -38,8 +38,8 @@ var Mako =
 	right:0;
 	z-index: 9999;
 	color: #fff;
-	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 100%;
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif !important;
+	font-size: 16px !important;
 }
 #mako-debug .mako-strong
 {
