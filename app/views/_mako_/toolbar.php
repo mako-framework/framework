@@ -118,6 +118,8 @@ var Mako =
 {
 	width: 80%;
 	white-space: pre-wrap;
+	word-wrap: break-word;
+	word-break: break-all;
 }
 #mako-debug table tr:last-child td
 {
@@ -151,7 +153,7 @@ var Mako =
 	padding: 12px;
 	overflow: auto;
 	background: #eee;
-	background: rgba(250, 250, 250, 0.90);
+	background: rgba(250, 250, 250, 0.95);
 	border-top: 2px solid #555;
 	color: #222;
 	font-size: 0.9em;
@@ -184,7 +186,23 @@ var Mako =
 <div id="mako-debug">
 
 <div class="mako-content mako-toggle" id="mako-queries">
+<?php if(empty($queries)): ?>
 <div class="mako-empty mako-title">No database queries...</div>
+<?php else: ?>
+<p><span class="mako-title">DATABASE QUERIES</span></p>
+<table class="mako-table">
+<tr>
+<th>Time</th>
+<th>Query</th>
+</tr>
+<?php foreach($queries as $query): ?>
+<tr>
+<td><?php echo round($query['time'], 5); ?> seconds</td>
+<td><?php echo htmlspecialchars(print_r($query['query'], true), ENT_QUOTES, MAKO_CHARSET); ?></td>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php endif; ?>
 </div>
 
 <div class="mako-content mako-toggle" id="mako-log">
@@ -217,6 +235,40 @@ var Mako =
 <th>Value</th>
 </tr>
 <?php foreach($_COOKIE as $key => $value): ?>
+<tr>
+<td><?php echo htmlspecialchars($key, ENT_QUOTES, MAKO_CHARSET); ?></td>
+<td><?php echo htmlspecialchars(print_r($value, true), ENT_QUOTES, MAKO_CHARSET); ?></td>
+</tr>
+<?php endforeach; ?>
+</table>
+<br>
+<?php endif; ?>
+
+<?php if(!empty($_ENV)): ?>
+<p><span class="mako-title">ENV</span></p>
+<table class="mako-table">
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+<?php foreach($_ENV as $key => $value): ?>
+<tr>
+<td><?php echo htmlspecialchars($key, ENT_QUOTES, MAKO_CHARSET); ?></td>
+<td><?php echo htmlspecialchars(print_r($value, true), ENT_QUOTES, MAKO_CHARSET); ?></td>
+</tr>
+<?php endforeach; ?>
+</table>
+<br>
+<?php endif; ?>
+
+<?php if(!empty($_FILES)): ?>
+<p><span class="mako-title">FILES</span></p>
+<table class="mako-table">
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+<?php foreach($_FILES as $key => $value): ?>
 <tr>
 <td><?php echo htmlspecialchars($key, ENT_QUOTES, MAKO_CHARSET); ?></td>
 <td><?php echo htmlspecialchars(print_r($value, true), ENT_QUOTES, MAKO_CHARSET); ?></td>
@@ -314,7 +366,7 @@ var Mako =
 
 <div class="mako-toolbar">
 <div class="mako-time">rendered in <?php echo $time; ?> seconds</div>
-<a class="mako-button" href="#" onclick="Mako.toggleDisplay('mako-queries')"><span class="mako-strong">0</span> database queries</a>
+<a class="mako-button" href="#" onclick="Mako.toggleDisplay('mako-queries')"><span class="mako-strong"><?php echo count($queries); ?></span> database queries</a>
 <a class="mako-button" href="#" onclick="Mako.toggleDisplay('mako-log')"><span class="mako-strong"><?php echo count($logs); ?></span> log entries</a>
 <a class="mako-button" href="#" onclick="Mako.toggleDisplay('mako-variables')">superglobals</a>
 <a class="mako-button" href="#" onclick="Mako.toggleDisplay('mako-files')">included files</a>

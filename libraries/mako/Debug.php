@@ -88,12 +88,6 @@ class Debug
 
 	protected static $logs = array();
 
-	/**
-	*
-	*/
-
-	protected static $timers = array();
-
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -130,9 +124,9 @@ class Debug
 	{
 		echo new View('_mako_/toolbar', array
 		(
-			'time'   => round(microtime(true) - MAKO_START, 4), 
-			'logs'   => static::$logs,
-			'timers' => static::$timers
+			'time'    => round(microtime(true) - MAKO_START, 4),
+			'logs'    => static::$logs,
+			'queries' => Database::profiler()
 		));
 	}
 }

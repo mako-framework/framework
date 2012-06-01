@@ -32,6 +32,22 @@ class Connection
 
 	public $pdo;
 
+	/**
+	* Enable query profiler?
+	*
+	* @var boolean
+	*/
+
+	protected $profiler;
+
+	/**
+	* Query log.
+	*
+	* @var array
+	*/
+
+	protected $log = array();
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -40,12 +56,15 @@ class Connection
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  Connection name
-	* @param   array   Connection configuration
+	* @param   string   Connection name
+	* @param   array    Connection configuration
+	* @param   boolean  Enable profiling?
 	*/
 
-	public function __construct($name, array $config)
+	public function __construct($name, array $config, $profiler)
 	{
+		$this->profiler = $profiler;
+
 		// Connect to the database
 
 		$user = isset($config['username']) ? $config['username'] : null;
@@ -84,6 +103,17 @@ class Connection
 	//---------------------------------------------
 
 	/**
+	* Returns the query log for the connection.
+	*
+	* @return  array
+	*/
+
+	public function profiler()
+	{
+		return $this->log;
+	}
+
+	/**
 	* Executes a query and returns the results.
 	*
 	* @access  public
@@ -113,7 +143,17 @@ class Connection
 
 		$stmt = $this->pdo->prepare($query);
 
+		if($this->profiler)
+		{
+			$start = microtime(true);
+		}
+
 		$result = $stmt->execute($params);
+
+		if($this->profiler)
+		{
+			$this->log[] = array('query' => $query, 'time' => (microtime(true) - $start));
+		}
 
 		// Return results for selects, row count for updates and deletes and boolean for the rest
 

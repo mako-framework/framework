@@ -71,6 +71,24 @@ class Database
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	* Returns the query log for all connections.
+	*
+	* @return  array
+	*/
+
+	public static function profiler()
+	{
+		$log = array();
+
+		foreach(static::$connections as $connection)
+		{
+			$log = array_merge($log, $connection->profiler());
+		}
+
+		return $log;
+	}
 	
 	/**
 	* Opens a new connection or returns existing connection if it already exists.
@@ -93,7 +111,7 @@ class Database
 				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the database configuration.", array(__METHOD__, $name)));
 			}
 			
-			static::$connections[$name] = new Connection($name, $config['configurations'][$name]);			
+			static::$connections[$name] = new Connection($name, $config['configurations'][$name], $config['profiler']);			
 		}
 
 		return static::$connections[$name];

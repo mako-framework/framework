@@ -11,6 +11,12 @@ return array
 	*/
 	
 	'default' => 'test',
+
+	/**
+	* Enable the query profiler?
+	*/
+
+	'profiler' => false,
 	
 	/**
 	* You can define as many database configurations as you want.
