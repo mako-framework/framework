@@ -41,6 +41,11 @@ var Mako =
 	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif !important;
 	font-size: 16px !important;
 }
+#mako-debug p
+{
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
 #mako-debug .mako-strong
 {
 	font-weight: bold;
