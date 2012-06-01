@@ -83,7 +83,9 @@ class Debug
 	const DEBUG = 'debug';
 
 	/**
+	* Log entries.
 	*
+	* @var array
 	*/
 
 	protected static $logs = array();
