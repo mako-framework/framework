@@ -108,7 +108,11 @@ class Debug
 	//---------------------------------------------
 
 	/**
+	* Add entry to the debug log.
 	*
+	* @access  public
+	* @param   mixed   Variable to debug
+	* @param   string  Log type
 	*/
 
 	public static function log($message, $type = Debug::DEBUG)
@@ -117,17 +121,20 @@ class Debug
 	}
 
 	/**
+	* Returns the rendered toolbar.
 	*
+	* @access  public
+	* @return  string
 	*/
 
 	public static function render()
 	{
-		echo new View('_mako_/toolbar', array
+		return View::factory('_mako_/toolbar', array
 		(
 			'time'    => round(microtime(true) - MAKO_START, 4),
 			'logs'    => static::$logs,
 			'queries' => Database::profiler()
-		));
+		))->render();
 	}
 }
 

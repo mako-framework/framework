@@ -71,6 +71,13 @@ return array
 	),
 
 	/**
+	* Enable the debug toolbar?
+	* Note that response cache using ETags might not work as expected when the debug toolbar is enabled.
+	*/
+
+	'debug_toolbar' => false, // It is recommended to set this value to false when you are in production.
+
+	/**
 	* Cache language files?
 	* Setting this value to true can speed up execution by reducing the number of language files to include.
 	*/

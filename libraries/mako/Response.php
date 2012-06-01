@@ -3,6 +3,8 @@
 namespace mako;
 
 use \mako\Config;
+use \mako\Debug;
+use \mako\Request;
 
 /**
 * Mako response class.
@@ -266,6 +268,13 @@ class Response
 				$this->body = call_user_func($this->outputFilter, $this->body);
 			}
 
+			// Add debug toolbar?
+
+			if(Config::get('mako.debug_toolbar') === true && Request::isAjax() === false)
+			{
+				$this->body = str_replace('</body>', Debug::render() . '</body>', $this->body);
+			}
+
 			// Check ETag
 
 			if($this->checkEtag === true)
@@ -288,6 +297,8 @@ class Response
 			{
 				ob_start('ob_gzhandler');
 			}
+
+			// Send output
 
 			echo $this->body;
 		}
