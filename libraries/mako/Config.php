@@ -48,6 +48,36 @@ class Config
 	//---------------------------------------------
 
 	/**
+	* Returns the path to the configuration file.
+	*
+	* @access  protected
+	* @param   string    File name
+	* @return  string    File path
+	*/
+
+	protected static function file($file)
+	{
+		$paths = array('config');
+
+		if(!empty($_SERVER['MAKO_ENV']))
+		{
+			array_unshift($paths, 'config/' . $_SERVER['MAKO_ENV']);
+		}
+
+		foreach($paths as $path)
+		{
+			$path = Mako::path($path, $file);
+
+			if(file_exists($path))
+			{
+				return $path;
+			}
+		}
+
+		throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $file)));
+	}
+
+	/**
 	* Returns config value or entire config array from a file.
 	*
 	* @access  public
@@ -62,16 +92,7 @@ class Config
 
 		if(!isset(static::$config[$keys[0]]))
 		{
-			$path = !empty($_SERVER['MAKO_ENV']) ? 'config/' . $_SERVER['MAKO_ENV'] : 'config';
-
-			$path = Mako::path($path, $keys[0]);
-
-			if(file_exists($path) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $keys[0])));
-			}	
-
-			static::$config[$keys[0]] = include($path);
+			static::$config[$keys[0]] = include(static::file($keys[0]));
 		}
 
 		if(!isset($keys[1]))
