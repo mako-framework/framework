@@ -51,6 +51,15 @@ class Reactor
 
 	public static function run($arguments)
 	{
+		// Override environment?
+
+		$env = CLI::param('env', false);
+
+		if($env !== false)
+		{
+			$_SERVER['MAKO_ENV'] = $env;
+		}
+
 		Mako::init();
 
 		// Remove options from argument list so that it doesnt matter what order they come in

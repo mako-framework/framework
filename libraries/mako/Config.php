@@ -62,7 +62,9 @@ class Config
 
 		if(!isset(static::$config[$keys[0]]))
 		{
-			$path = Mako::path('config', $keys[0]);
+			$path = !empty($_SERVER['MAKO_ENV']) ? 'config/' . $_SERVER['MAKO_ENV'] : 'config';
+
+			$path = Mako::path($path, $keys[0]);
 
 			if(file_exists($path) === false)
 			{
