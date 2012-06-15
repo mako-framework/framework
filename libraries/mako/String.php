@@ -191,8 +191,27 @@ class String
 	}
 
 	/**
+	* Returns a closure that will alternate between the defined strings.
+	*
+	* @access  public
+	* @param   array    Array of strings to alternate between
+	* @return  Closure
+	*/
+
+	public static function alternator(array $strings)
+	{
+		return function() use ($strings)
+		{
+			static $i = 0;
+
+			return $strings[($i++ % count($strings))];
+		};
+	}
+
+	/**
 	* Alternates between two or more strings.
 	*
+	* @deprecated
 	* @access  public
 	* @param   array    Array of strings to alternate between
 	* @param   boolean  (optional) Reset alternator?
