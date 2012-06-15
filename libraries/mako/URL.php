@@ -109,6 +109,19 @@ class URL
 	{
 		return static::to(Request::route(), $params, $separator);
 	}
+
+	/**
+	* Returns TRUE if the pattern matches the current URL and FALSE if not.
+	*
+	* @access  public
+	* @param   string   Pattern to match
+	* @return  boolean
+	*/
+
+	public static function matches($pattern)
+	{
+		return (boolean) preg_match('#' . $pattern . '#', Request::route());
+	}
 }
 
 /** -------------------- End of file --------------------**/
