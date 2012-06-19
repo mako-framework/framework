@@ -713,11 +713,11 @@ class Query
 	}
 
 	/**
-	* Icrements column value.
+	* Increments column value.
 	*
 	* @access  public
 	* @param   string  Column name
-	* @param   int     (optional) Icrement value
+	* @param   int     (optional) Increment value
 	* @return  int
 	*/
 
