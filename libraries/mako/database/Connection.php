@@ -120,7 +120,9 @@ class Connection
 
 		$query = preg_replace_callback('/\?/', function($matches) use (&$params, $pdo)
 		{
-			return $pdo->quote(array_shift($params));
+			$param = array_shift($params);
+
+			return (is_int($param) || is_float($param)) ? $param : $pdo->quote($param);
 		}, $query);
 
 		$this->log[] = compact('query', 'time');
