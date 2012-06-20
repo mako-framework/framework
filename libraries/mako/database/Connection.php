@@ -118,7 +118,7 @@ class Connection
 
 		$time = microtime(true) - $start;
 
-		$query = preg_replace_callback('/\?/', function($matches) use(&$params, $pdo)
+		$query = preg_replace_callback('/\?/', function($matches) use (&$params, $pdo)
 		{
 			return $pdo->quote(array_shift($params));
 		}, $query);
