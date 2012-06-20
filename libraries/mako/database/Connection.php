@@ -76,6 +76,7 @@ class Connection
 			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
 			PDO::ATTR_STRINGIFY_FETCHES  => false,
+			PDO::ATTR_EMULATE_PREPARES   => false,
 		);
 
 		try
@@ -103,8 +104,32 @@ class Connection
 	//---------------------------------------------
 
 	/**
+	* Adds a query to the query log.
+	*
+	* @access  protected
+	* @param   string     SQL query
+	* @param   array      Query parameters
+	* @param   int        Start time in microseconds
+	*/
+
+	protected function log($query, $params, $start)
+	{
+		$pdo = $this->pdo;
+
+		$time = microtime(true) - $start;
+
+		$query = preg_replace_callback('/\?/', function($matches) use(&$params, $pdo)
+		{
+			return $pdo->quote(array_shift($params));
+		}, $query);
+
+		$this->log[] = compact($query, $time);
+	}
+
+	/**
 	* Returns the query log for the connection.
 	*
+	* @access  public
 	* @return  array
 	*/
 
@@ -118,7 +143,7 @@ class Connection
 	*
 	* @access  public
 	* @param   string  SQL query
-	* @param   string  Query parameters
+	* @param   array   Query parameters
 	* @return  mixed
 	*/
 
@@ -152,7 +177,7 @@ class Connection
 
 		if($this->profiler)
 		{
-			$this->log[] = array('query' => $query, 'time' => (microtime(true) - $start));
+			$this->log($query, $params, $start);
 		}
 
 		// Return results for selects, row count for updates and deletes and boolean for the rest
