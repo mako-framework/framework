@@ -240,7 +240,7 @@ class Request
 	{
 		// Set root path
 		
-		$controllerPath = $controllerRootPath = MAKO_APPLICATION . '/controllers/';
+		$controllerPath = MAKO_APPLICATION . '/controllers/';
 
 		// Get the route
 
