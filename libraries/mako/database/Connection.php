@@ -123,7 +123,7 @@ class Connection
 			return $pdo->quote(array_shift($params));
 		}, $query);
 
-		$this->log[] = compact($query, $time);
+		$this->log[] = compact('query', 'time');
 	}
 
 	/**
