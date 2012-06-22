@@ -64,7 +64,7 @@ class Compiler
 	//---------------------------------------------
 
 	/**
-	* Compiles and returns subquery SQL and merges parameters.
+	* Compiles subquery, merges parameters and returns subquery SQL.
 	*
 	* @access  protected
 	* @param   mako\database\query\Subquery  Subquery container
