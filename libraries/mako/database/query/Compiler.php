@@ -3,6 +3,7 @@
 namespace mako\database\query;
 
 use \mako\database\query\Raw;
+use \mako\database\query\Subquery;
 
 /**
 * Compiles SQL queries.
@@ -63,6 +64,23 @@ class Compiler
 	//---------------------------------------------
 
 	/**
+	* Compiles and returns subquery SQL and merges parameters.
+	*
+	* @access  protected
+	* @param   mako\database\query\Subquery  Subquery container
+	* @return  string
+	*/
+
+	protected function subquery($query)
+	{
+		$query = $query->get();
+
+		$this->params = array_merge($this->params, $query['params']);
+
+		return $query['sql'];
+	}
+
+	/**
 	* Wraps table and column names with dialect specific escape characters.
 	*
 	* @access  public
@@ -75,6 +93,10 @@ class Compiler
 		if($value instanceof Raw)
 		{
 			return $value->get();
+		}
+		elseif($value instanceof Subquery)
+		{
+			return $this->subquery($value);
 		}
 		else
 		{
@@ -128,6 +150,10 @@ class Compiler
 		{
 			return $param->get();
 		}
+		elseif($param instanceof Subquery)
+		{
+			return $this->subquery($param);
+		}
 		else
 		{
 			$this->params[] = $param;
@@ -140,13 +166,20 @@ class Compiler
 	* Returns a comma-separated list of parameters.
 	*
 	* @access  protected
-	* @param   array   Array of parameters
+	* @param   mixed      Array of parameters or subquery
 	* @return  string
 	*/
 
 	protected function params($params)
 	{
-		return implode(', ', array_map(array($this, 'param'), $params));
+		if($params instanceof Subquery)
+		{
+			return $this->subquery($params);
+		}
+		else
+		{
+			return implode(', ', array_map(array($this, 'param'), $params));
+		}
 	}
 
 	/**

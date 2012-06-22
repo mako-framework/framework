@@ -4,7 +4,9 @@ namespace mako;
 
 use \mako\Config;
 use \mako\database\Connection;
+use \mako\database\Query;
 use \mako\database\query\Raw;
+use \mako\database\query\Subquery;
 use \RuntimeException;
 
 /**
@@ -132,7 +134,7 @@ class Database
 	}
 
 	/**
-	* Returns a database raw sql container.
+	* Returns a raw sql container.
 	*
 	* @access  public
 	* @param   string                   Raw SQL
@@ -142,6 +144,20 @@ class Database
 	public static function raw($sql)
 	{
 		return new Raw($sql);
+	}
+
+	/**
+	* Returns a subquery container.
+	*
+	* @access  public
+	* @param   mako\database\Query           Subquery
+	* @param   string                        (optional) Alias
+	* @return  mako\database\query\Subquery
+	*/
+
+	public static function subquery(Query $query, $alias = null)
+	{
+		return new Subquery($query, $alias);
 	}
 
 	/**

@@ -59,7 +59,7 @@ class Query
 	* @var array
 	*/
 
-	public $columns;
+	public $columns = array('*');
 
 	/**
 	* WHERE clauses.
@@ -163,6 +163,24 @@ class Query
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	* Sets the columns we want to select.
+	*
+	* @access  public
+	* @param   array                Array of columns
+	* @return  mako\database\Query
+	*/
+
+	public function columns(array $columns)
+	{
+		if(!empty($columns))
+		{
+			$this->columns = $columns;
+		}
+
+		return $this;
+	}
 
 	/**
 	* Select distinct?
@@ -278,13 +296,13 @@ class Query
 	*
 	* @access  public
 	* @param   string               Column name
-	* @param   array                Array of values
+	* @param   mixed                Array of values or Subquery
 	* @param   string               (optional) Clause separator
 	* @param   boolean              (optional) Not in?
 	* @return  mako\database\Query
 	*/
 
-	public function in($column, array $values, $separator = 'AND', $not = false)
+	public function in($column, $values, $separator = 'AND', $not = false)
 	{
 		$this->wheres[] = array
 		(
@@ -303,11 +321,11 @@ class Query
 	*
 	* @access  public
 	* @param   mixed                Column name
-	* @param   array                Array of values
+	* @param   mixed                Array of values or Subquery
 	* @return  mako\database\Query
 	*/
 
-	public function orIn($column, array $values)
+	public function orIn($column, $values)
 	{
 		return $this->in($column, $values, 'OR');
 	}
@@ -317,11 +335,11 @@ class Query
 	*
 	* @access  public
 	* @param   mixed                Column name
-	* @param   array                Array of values
+	* @param   mixed                Array of values or Subquery
 	* @return  mako\database\Query
 	*/
 
-	public function notIn($column, array $values)
+	public function notIn($column, $values)
 	{
 		return $this->in($column, $values, 'AND', true);
 	}
@@ -331,11 +349,11 @@ class Query
 	*
 	* @access  public
 	* @param   mixed                Column name
-	* @param   array                Array of values
+	* @param   mixed                Array of values or Subquery
 	* @return  mako\database\Query
 	*/
 
-	public function orNotIn($column, array $values)
+	public function orNotIn($column, $values)
 	{
 		return $this->in($column, $values, 'OR', true);
 	}
@@ -560,9 +578,9 @@ class Query
 	* @return  array
 	*/
 
-	public function all(array $columns = array('*'))
+	public function all(array $columns = array())
 	{
-		$this->columns = $columns;
+		$this->columns($columns);
 
 		$query = $this->compiler->select();
 
@@ -577,9 +595,9 @@ class Query
 	* @return  mixed
 	*/
 
-	public function first(array $columns = array('*'))
+	public function first(array $columns = array())
 	{
-		$this->columns = $columns;
+		$this->columns($columns);
 
 		$query = $this->compiler->select();
 
@@ -596,7 +614,7 @@ class Query
 
 	public function column($column)
 	{
-		$this->columns = array($column);
+		$this->columns(array($column));
 
 		$query = $this->compiler->select();
 
