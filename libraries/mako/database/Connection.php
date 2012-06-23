@@ -213,7 +213,7 @@ class Connection
 	*
 	* @access  public
 	* @param   string  SQL query
-	* @param   string  Query parameters
+	* @param   array   Query parameters
 	* @return  array
 	*/
 
@@ -241,7 +241,7 @@ class Connection
 	*
 	* @access  public
 	* @param   string  SQL query
-	* @param   string  Query parameters
+	* @param   array   Query parameters
 	* @return  mixed
 	*/
 
@@ -260,7 +260,7 @@ class Connection
 
 	public function table($table)
 	{
-		return new Query($table, $this);
+		return new Query($this, $table);
 	}
 
 	/**

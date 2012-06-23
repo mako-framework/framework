@@ -5,6 +5,7 @@ namespace mako\database;
 use \PDO;
 use \Closure;
 use \mako\Database;
+use \mako\database\Connection;
 use \mako\database\query\Join;
 
 /**
@@ -125,11 +126,11 @@ class Query
 	* Constructor.
 	*
 	* @access  public
-	* @param   string                    Database table
 	* @param   mako\database\Conenction  Database connection
+	* @param   string                    Database table
 	*/
 
-	public function __construct($table, $connection)
+	public function __construct(Connection $connection, $table)
 	{
 		$this->table = $table;
 

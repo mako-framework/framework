@@ -2,6 +2,7 @@
 
 namespace mako\database\query;
 
+use \mako\database\Query;
 use \mako\database\query\Raw;
 use \mako\database\query\Subquery;
 
@@ -54,7 +55,7 @@ class Compiler
 	* @param   mako\database\Query  Query builder
 	*/
 
-	public function __construct($query)
+	public function __construct(Query $query)
 	{
 		$this->query = $query;
 	}
@@ -71,7 +72,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function subquery($query)
+	protected function subquery(Subquery $query)
 	{
 		$query = $query->get();
 
@@ -131,7 +132,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function columns($columns)
+	protected function columns(array $columns)
 	{
 		return implode(', ', array_map(array($this, 'wrap'), $columns));
 	}
@@ -190,7 +191,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function where($where)
+	protected function where(array $where)
 	{
 		return $this->wrap($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
 	}
@@ -203,7 +204,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function between($where)
+	protected function between(array $where)
 	{
 		return $this->wrap($where['column']) . ' BETWEEN ' . $this->param($where['value1']) . ' AND ' . $this->param($where['value2']);
 	}
@@ -216,7 +217,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function in($where)
+	protected function in(array $where)
 	{
 		return $this->wrap($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . '(' . $this->params($where['values']) . ')';
 	}
@@ -229,7 +230,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function null($where)
+	protected function null(array $where)
 	{
 		return $this->wrap($where['column']) . ($where['not'] ? ' IS NOT NULL' : ' IS NULL');
 	}
@@ -242,7 +243,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function nestedWhere($where)
+	protected function nestedWhere(array $where)
 	{
 		return '(' . substr($this->wheres($where['query']->wheres), 7) . ')'; // substr to remove " WHERE "
 	}
@@ -255,7 +256,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function wheres($wheres)
+	protected function wheres(array $wheres)
 	{
 		if(empty($wheres))
 		{
@@ -280,7 +281,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function joins($joins)
+	protected function joins(array $joins)
 	{
 		if(empty($joins))
 		{
@@ -308,10 +309,11 @@ class Compiler
 	* Compiles GROUP BY clauses.
 	*
 	* @access  protected
+	* @param   array      Array of column names
 	* @return  string
 	*/
 
-	protected function groupings($groupings)
+	protected function groupings(array $groupings)
 	{
 		return empty($groupings) ? '' : ' GROUP BY ' . $this->columns($groupings);
 	}
@@ -324,7 +326,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function orderings($orderings)
+	protected function orderings(array $orderings)
 	{
 		if(empty($orderings))
 		{
@@ -349,7 +351,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected function havings($havings)
+	protected function havings(array $havings)
 	{
 		if(empty($havings))
 		{
@@ -360,9 +362,7 @@ class Compiler
 
 		foreach($havings as $having)
 		{
-			$column  = ($having['column'] instanceof Raw) ? $having['column']->get() : $this->wrap($having['column']);
-
-			$sql[] = $having['separator'] . ' ' . $column . ' ' . $having['operator'] . ' ' . $this->param($having['value']);; 
+			$sql[] = $having['separator'] . ' ' . $this->wrap($having['column']) . ' ' . $having['operator'] . ' ' . $this->param($having['value']);; 
 		}
 
 		return ' HAVING ' . substr(implode(' ', $sql), 4); // substr to remove "AND "
@@ -426,7 +426,7 @@ class Compiler
 	* @return  string
 	*/
 
-	public function insert($values)
+	public function insert(array $values)
 	{
 		$sql  = 'INSERT INTO ';
 		$sql .= $this->wrap($this->query->table);
@@ -445,7 +445,7 @@ class Compiler
 	* @return  string
 	*/
 
-	public function update($values)
+	public function update(array $values)
 	{
 		$columns = array();
 
