@@ -254,7 +254,7 @@ class Connection
 	* Returns a query builder instance.
 	*
 	* @access  public
-	* @param   string               Table name
+	* @param   mixed                Table name or subquery
 	* @return  mako\database\Query
 	*/
 

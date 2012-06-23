@@ -41,7 +41,7 @@ class Query
 	/**
 	* Database table.
 	*
-	* @var string
+	* @var mixed
 	*/
 
 	public $table;
@@ -127,7 +127,7 @@ class Query
 	*
 	* @access  public
 	* @param   mako\database\Conenction  Database connection
-	* @param   string                    Database table
+	* @param   mixed                     Database table or subquery
 	*/
 
 	public function __construct(Connection $connection, $table)
