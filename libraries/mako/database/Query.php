@@ -7,6 +7,7 @@ use \Closure;
 use \mako\Database;
 use \mako\database\Connection;
 use \mako\database\query\Join;
+use \mako\database\query\Subquery;
 
 /**
 * Query builder.
@@ -305,6 +306,11 @@ class Query
 
 	public function in($column, $values, $separator = 'AND', $not = false)
 	{
+		if($values instanceof Subquery)
+		{
+			$values = array($values);
+		}
+		
 		$this->wheres[] = array
 		(
 			'type'      => 'in',

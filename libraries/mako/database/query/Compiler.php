@@ -173,14 +173,7 @@ class Compiler
 
 	protected function params($params)
 	{
-		if($params instanceof Subquery)
-		{
-			return $this->subquery($params);
-		}
-		else
-		{
-			return implode(', ', array_map(array($this, 'param'), $params));
-		}
+		return implode(', ', array_map(array($this, 'param'), $params));
 	}
 
 	/**
