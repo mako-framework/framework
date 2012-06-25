@@ -428,6 +428,66 @@ class Query
 	}
 
 	/**
+	* Adds a EXISTS clause.
+	*
+	* @access  public
+	* @param   mako\database\query\Subquery  Subquery
+	* @return  mako\database\Query
+	*/
+
+	public function exists(Subquery $query, $separator = 'AND', $not = false)
+	{
+		$this->wheres[] = array
+		(
+			'type'      => 'exists',
+			'query'     => $query,
+			'separator' => $separator,
+			'not'       => $not,
+		);
+
+		return $this;
+	}
+
+	/**
+	* Adds a OR EXISTS clause.
+	*
+	* @access  public
+	* @param   mako\database\query\Subquery  Subquery
+	* @return  mako\database\Query
+	*/
+
+	public function orExists(Subquery $query)
+	{
+		return $this->exists($query, 'OR');
+	}
+
+	/**
+	* Adds a NOT EXISTS clause.
+	*
+	* @access  public
+	* @param   mako\database\query\Subquery  Subquery
+	* @return  mako\database\Query
+	*/
+
+	public function notExists(Subquery $query)
+	{
+		return $this->exists($query, 'AND', true);
+	}
+
+	/**
+	* Adds a OR NOT EXISTS clause.
+	*
+	* @access  public
+	* @param   mako\database\query\Subquery  Subquery
+	* @return  mako\database\Query
+	*/
+
+	public function orNotExists(Subquery $query)
+	{
+		return $this->exists($query, 'or', true);
+	}
+
+	/**
 	* Adds a INNER JOIN clause.
 	*
 	* @access  public

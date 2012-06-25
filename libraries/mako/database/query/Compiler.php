@@ -229,6 +229,19 @@ class Compiler
 	}
 
 	/**
+	* Compiles EXISTS clauses.
+	*
+	* @access  protected
+	* @param   array      Exists clause
+	* @return  string
+	*/
+
+	protected function exists($where)
+	{
+		return ($where['not'] ? 'NOT EXISTS ' : 'EXISTS ') . $this->subquery($where['query']);
+	}
+
+	/**
 	* Compiles nested WHERE clauses.
 	*
 	* @access  protected
