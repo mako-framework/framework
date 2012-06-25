@@ -42,7 +42,8 @@ class Subquery
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  Raw SQL
+	* @param   mako\database\Query  Query builder
+	* @param   string               Subquery alias
 	*/
 
 	public function __construct(Query $query, $alias = null)
@@ -59,7 +60,7 @@ class Subquery
 	* Returns the compiled query.
 	*
 	* @access  public
-	* @return  string
+	* @return  array
 	*/
 
 	public function get()
