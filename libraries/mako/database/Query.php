@@ -261,10 +261,11 @@ class Query
 	* @param   mixed                First value
 	* @param   mixed                Second value
 	* @param   string               (optional) Clause separator
+	* @param   boolean              Not between?
 	* @return  mako\database\Query
 	*/
 
-	public function between($column, $value1, $value2, $separator = 'AND')
+	public function between($column, $value1, $value2, $separator = 'AND', $not = false)
 	{
 		$this->wheres[] = array
 		(
@@ -273,6 +274,7 @@ class Query
 			'value1'    => $value1,
 			'value2'    => $value2,
 			'separator' => $separator,
+			'not'       => $not,
 		);
 
 		return $this;
@@ -291,6 +293,36 @@ class Query
 	public function orBetween($column, $value1, $value2)
 	{
 		return $this->between($column, $value1, $value2, 'OR');
+	}
+
+	/**
+	* Adds a NOT BETWEEN clause.
+	*
+	* @access  public
+	* @param   string               Column name
+	* @param   mixed                First value
+	* @param   mixed                Second value
+	* @return  mako\database\Query
+	*/
+
+	public function notBetween($column, $value1, $value2)
+	{
+		return $this->between($column, $value1, $value2, 'AND', true);
+	}
+
+	/**
+	* Adds a OR NOT BETWEEN clause.
+	*
+	* @access  public
+	* @param   string               Column name
+	* @param   mixed                First value
+	* @param   mixed                Second value
+	* @return  mako\database\Query
+	*/
+
+	public function orNotBetween($column, $value1, $value2)
+	{
+		return $this->between($column, $value1, $value2, 'OR', true);
 	}
 
 	/**
