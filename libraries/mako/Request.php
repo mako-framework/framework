@@ -143,7 +143,7 @@ class Request
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  (optional) URL segments
+	* @param   string  $route  (optional) URL segments
 	*/
 
 	public function __construct($route = null)
@@ -216,7 +216,7 @@ class Request
 	* Factory method making method chaining possible right off the bat.
 	*
 	* @access  public
-	* @param   string        (optional) URL segments
+	* @param   string        $route  (optional) URL segments
 	* @return  mako\Request
 	*/
 
@@ -493,7 +493,7 @@ class Request
 	* From where did the request originate?
 	*
 	* @access  public
-	* @param   string  (optional) Value to return if no referer is set
+	* @param   string  $default  (optional) Value to return if no referer is set
 	* @return  string
 	*/
 

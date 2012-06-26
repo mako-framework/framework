@@ -43,7 +43,7 @@ class Package
 	* Initializes a package.
 	*
 	* @access  public
-	* @param   string  Package name
+	* @param   string  $name  Package name
 	*/
 
 	public static function init($name)
@@ -62,7 +62,7 @@ class Package
 	* Returns TRUE if package is installed and FALSE if not.
 	*
 	* @access  public
-	* @param   string   Package name
+	* @param   string   $name  Package name
 	* @return  boolean
 	*/
 
@@ -75,7 +75,7 @@ class Package
 	* Returns info about a package. FALSE is returned if no info file is found.
 	*
 	* @access  public
-	* @param   string  Package name
+	* @param   string  $name  Package name
 	* @return  array
 	*/
 

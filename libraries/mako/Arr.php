@@ -41,9 +41,9 @@ class Arr
 	* Returns value from array using "dot notation".
 	*
 	* @access  public
-	* @param   array   Array we're going to search
-	* @param   string  Array path
-	* @param   mixed   Default return value
+	* @param   array   $array    Array we're going to search
+	* @param   string  $path     Array path
+	* @param   mixed   $default  Default return value
 	* @return  mixed
 	*/
 	public static function get(array $array, $path, $default = null)
@@ -67,9 +67,9 @@ class Arr
 	* Sets an array value using "dot notation".
 	*
 	* @access  public
-	* @param   array    Array you want to modify
-	* @param   string   Array path
-	* @param   mixed    Value to set
+	* @param   array    $array  Array you want to modify
+	* @param   string   $path   Array path
+	* @param   mixed    $value  Value to set
 	*/
 
 	public static function set(array & $array, $path, $value)
@@ -95,8 +95,8 @@ class Arr
 	* Deletes an array value using "dot notation".
 	*
 	* @access  public
-	* @param   array    Array you want to modify
-	* @param   string   Array path
+	* @param   array    $array  Array you want to modify
+	* @param   string   $path   Array path
 	*/
 
 	public static function delete(array & $array, $path)
@@ -124,7 +124,7 @@ class Arr
 	* Returns a random value from an array.
 	*
 	* @access  public
-	* @param   array   Array you want to pick a random value from
+	* @param   array   $array  Array you want to pick a random value from
 	* @return  mixed
 	*/
 

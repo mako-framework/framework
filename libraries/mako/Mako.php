@@ -145,7 +145,7 @@ class Mako
 	* Executes request and sends response.
 	*
 	* @access  public
-	* @param   string  (optional) URL segments passed to the request handler.
+	* @param   string  $route  (optional) URL segments passed to the request handler.
 	*/
 	
 	public static function run($route = null)
@@ -166,7 +166,7 @@ class Mako
 	* Removes slashes added by magic quotes.
 	*
 	* @access  protected
-	* @param   mixed    String or array to clean
+	* @param   mixed    $input  String or array to clean
 	* @return  mixed
 	*/
 	
@@ -191,8 +191,8 @@ class Mako
 	* Set locale information.
 	*
 	* @access  public
-	* @param   mixed    (optional) Locale or array of locales to try until success
-	* @param   boolean  (optional) Set to false to use the 'C' locale for LC_NUMERIC
+	* @param   mixed    $locale   (optional) Locale or array of locales to try until success
+	* @param   boolean  $numeric  (optional) Set to false to use the 'C' locale for LC_NUMERIC
 	*/
 	
 	public static function locale($locale = null, $numeric = false)
@@ -212,8 +212,8 @@ class Mako
 	* Returns path to a package or application directory.
 	*
 	* @access  public
-	* @param   string  Path
-	* @param   string  String
+	* @param   string  $path    Path
+	* @param   string  $string  String
 	* @return  string
 	*/
 
@@ -237,9 +237,9 @@ class Mako
 	* Returns an array of lines from a file.
 	*
 	* @access  public
-	* @param   string   File in which you want to highlight a line
-	* @param   int      Line number to highlight
-	* @param   int      (optional) Number of padding lines
+	* @param   string   $file     File in which you want to highlight a line
+	* @param   int      $line     Line number to highlight
+	* @param   int      $padding  (optional) Number of padding lines
 	* @return  array
 	*/
 
@@ -293,7 +293,7 @@ class Mako
 	* Returns a backtrace array.
 	*
 	* @access  protected
-	* @param   array    Array returned by the getTrace() method of an exception object
+	* @param   array      $backtrace  Array returned by the getTrace() method of an exception object
 	* @return  array
 	*/
 
@@ -376,10 +376,10 @@ class Mako
 	* Converts errors to ErrorExceptions.
 	*
 	* @access  public
-	* @param   int      The error code
-	* @param   str      The error message
-	* @param   str      The filename where the error occurred
-	* @param   int      The line number where the error occurred
+	* @param   int      $code     The error code
+	* @param   str      $message  The error message
+	* @param   str      $file     The filename where the error occurred
+	* @param   int      $line     The line number where the error occurred
 	* @return  boolean
 	*/
 
@@ -426,7 +426,7 @@ class Mako
 	* Handles uncaught exceptions and returns a pretty error screen.
 	*
 	* @access  public
-	* @param   Exception  An exception object
+	* @param   Exception  $exception  An exception object
 	*/
 
 	public static function exceptionHandler($exception)

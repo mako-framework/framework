@@ -133,7 +133,7 @@ class Response
 	* Constructor.
 	*
 	* @access  protected
-	* @param   string     (optional) Response body
+	* @param   string     $body  (optional) Response body
 	*/
 	
 	public function __construct($body = null)
@@ -148,7 +148,7 @@ class Response
 	* Factory method making method chaining possible right off the bat.
 	*
 	* @access  public
-	* @param   string         (optional) Response body
+	* @param   string         $body  (optional) Response body
 	* @return  mako\Response
 	*/
 
@@ -165,7 +165,7 @@ class Response
 	* Sets the response body.
 	*
 	* @access  public
-	* @param   string    Response body
+	* @param   string    $body  Response body
 	*/
 
 	public function body($body)
@@ -177,7 +177,7 @@ class Response
 	* Adds output filter that all output will be passed through before being sent.
 	*
 	* @access  public
-	* @param   callback  Callback function used to filter output
+	* @param   callback  $filter  Callback function used to filter output
 	*/
 	
 	public function filter($filter)
@@ -214,8 +214,8 @@ class Response
 	* Redirects to another location.
 	*
 	* @access  public
-	* @param   string  (optional) Location
-	* @param   int     (optional) HTTP status code
+	* @param   string  $location    (optional) Location
+	* @param   int     $statusCode  (optional) HTTP status code
 	*/
 	
 	public function redirect($location = '', $statusCode = 302)
@@ -247,7 +247,7 @@ class Response
 	* Send output to browser.
 	*
 	* @access  public
-	* @param   int     (optional) HTTP status code
+	* @param   int     $statusCode  (optional) HTTP status code
 	*/
 	
 	public function send($statusCode = null)

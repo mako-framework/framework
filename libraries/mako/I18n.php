@@ -67,7 +67,7 @@ class I18n
 	* Checks if a language pack exists and throws an exception if it doesn't.
 	*
 	* @access  protected
-	* @param   string     Name of the language pack
+	* @param   string     $language  Name of the language pack
 	*/
 
 	protected static function languageExists($language)
@@ -82,7 +82,7 @@ class I18n
 	* Set and/or get the default language.
 	*
 	* @access  public
-	* @param   string  (optional) Name of the language pack
+	* @param   string  $language  (optional) Name of the language pack
 	* @return  string
 	*/
 
@@ -103,9 +103,9 @@ class I18n
 	* If no translation exists then the submitted string will be returned.
 	*
 	* @access  public
-	* @param   string  Text to translate
-	* @param   array   (optional) Value or array of values to replace in the translated text
-	* @param   string  (optional) Name of the language you want to translate to
+	* @param   string  $string    Text to translate
+	* @param   array   $vars      (optional) Value or array of values to replace in the translated text
+	* @param   string  $language  (optional) Name of the language you want to translate to
 	* @return  string
 	*/
 
@@ -127,9 +127,9 @@ class I18n
 	* Returns the plural form of a noun.
 	*
 	* @access  public
-	* @param   string  Noun to pluralize
-	* @param   int     (optional) Number of "<noun>s"
-	* @param   string  (optional) Language rules to use for pluralization
+	* @param   string  $word      Noun to pluralize
+	* @param   int     $count     (optional) Number of "<noun>s"
+	* @param   string  $language  (optional) Language rules to use for pluralization
 	* @return  string
 	*/
 
@@ -149,7 +149,7 @@ class I18n
 	* Loads the inflection rules for the requested language.
 	*
 	* @access  protected
-	* @param   string     Name of the language pack
+	* @param   string     $language  Name of the language pack
 	*/
 
 	protected static function loadInflection($language)
@@ -170,7 +170,7 @@ class I18n
 	* Loads the translation strings for the requested language.
 	*
 	* @access  protected
-	* @param   string     Name of the language pack
+	* @param   string     $language  Name of the language pack
 	*/
 
 	protected static function loadStrings($language)

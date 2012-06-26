@@ -51,8 +51,8 @@ class Config
 	* Returns the path to the configuration file.
 	*
 	* @access  protected
-	* @param   string    File name
-	* @return  string    File path
+	* @param   string    $file  File name
+	* @return  string
 	*/
 
 	protected static function file($file)
@@ -81,8 +81,8 @@ class Config
 	* Returns config value or entire config array from a file.
 	*
 	* @access  public
-	* @param   string  Config key
-	* @param   mixed   (optional) Default value to return if config value doesn't exist
+	* @param   string  $key      Config key
+	* @param   mixed   $default  (optional) Default value to return if config value doesn't exist
 	* @return  mixed
 	*/
 
@@ -109,8 +109,8 @@ class Config
 	* Sets a config value.
 	*
 	* @access  public
-	* @param   string  Config key
-	* @param   mixed   Config value
+	* @param   string  $key    Config key
+	* @param   mixed   $value  Config value
 	*/
 
 	public static function set($key, $value)
@@ -129,7 +129,7 @@ class Config
 	* Deletes a value from the configuration.
 	*
 	* @access  public
-	* @param   string   Config key
+	* @param   string   $key  Config key
 	* @return  boolean
 	*/
 

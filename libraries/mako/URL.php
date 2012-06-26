@@ -78,9 +78,9 @@ class URL
 	* Returns a mako framework URL.
 	*
 	* @access  public
-	* @param   string   URL segments
-	* @param   array    (optional) Associative array used to build URL-encoded query string
-	* @param   string   (optional) Argument separator
+	* @param   string   $route      URL segments
+	* @param   array    $params     (optional) Associative array used to build URL-encoded query string
+	* @param   string   $separator  (optional) Argument separator
 	* @return  string
 	*/
 
@@ -100,8 +100,8 @@ class URL
 	* Returns the current URL of the main request.
 	*
 	* @access  public
-	* @param   array    (optional) Associative array used to build URL-encoded query string
-	* @param   string   (optional) Argument separator
+	* @param   array    $params     (optional) Associative array used to build URL-encoded query string
+	* @param   string   $separator  (optional) Argument separator
 	* @return  string
 	*/
 
@@ -114,7 +114,7 @@ class URL
 	* Returns TRUE if the pattern matches the current URL and FALSE if not.
 	*
 	* @access  public
-	* @param   string   Pattern to match
+	* @param   string   $pattern  Pattern to match
 	* @return  boolean
 	*/
 

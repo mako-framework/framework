@@ -43,7 +43,7 @@ class Format
 	* Converts an array to JSON.
 	*
 	* @access  public
-	* @param   array   Array to convert
+	* @param   array   $data  Array to convert
 	* @return  string
 	*/
 
@@ -63,9 +63,10 @@ class Format
 	* Converts an array to XML.
 	*
 	* @access  public
-	* @param   array   Array to convert
-	* @param   string  (optional) Root node name
-	* @param   string  (optional) Unknown node name
+	* @param   array   $data         Array to convert
+	* @param   string  $rootNode     (optional) Root node name
+	* @param   string  $unknownNode  (optional) Unknown node name
+	* @param   string  $charset      (optional) Character set
 	* @return  string
 	*/
 
@@ -101,7 +102,7 @@ class Format
 	* Converts an array to CSV.
 	*
 	* @access  public
-	* @param   array   Array to convert
+	* @param   array   $data  Array to convert
 	* @return  string
 	*/
 

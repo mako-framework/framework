@@ -113,7 +113,7 @@ class Log
 	/**
 	* Returns an instance of the requested log configuration.
 	*
-	* @param   string            (optional) Log configuration name
+	* @param   string            $name  (optional) Log configuration name
 	* @return  mako\log\Adapter
 	*/
 	
@@ -142,8 +142,8 @@ class Log
 	* Magic shortcut for writing to logs.
 	*
 	* @access  public
-	* @param   string   Name of the log type
-	* @param   string   Method arguments
+	* @param   string   $name       Name of the log type
+	* @param   string   $arguments  Method arguments
 	* @return  boolean
 	*/
 

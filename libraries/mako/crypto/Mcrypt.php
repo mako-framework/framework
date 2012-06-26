@@ -58,7 +58,7 @@ class Mcrypt extends \mako\crypto\Adapter
 	* Constructor.
 	*
 	* @access  public
-	* @param   array   Configuration
+	* @param   array   $config  Configuration
 	*/
 	
 	public function __construct(array $config)
@@ -89,7 +89,7 @@ class Mcrypt extends \mako\crypto\Adapter
 	* Encrypts data.
 	*
 	* @access  public
-	* @param   string  String to encrypt
+	* @param   string  $string  String to encrypt
 	* @return  string
 	*/
 	
@@ -104,7 +104,7 @@ class Mcrypt extends \mako\crypto\Adapter
 	* Decrypts data.
 	*
 	* @access  public
-	* @param   string  String to decrypt
+	* @param   string  $string  String to decrypt
 	* @return  string
 	*/
 	

@@ -113,8 +113,8 @@ class Debug
 	* Add entry to the debug log.
 	*
 	* @access  public
-	* @param   mixed   Variable to debug
-	* @param   string  Log type
+	* @param   mixed   $message  Variable to debug
+	* @param   string  $type     Log type
 	*/
 
 	public static function log($message, $type = Debug::DEBUG)

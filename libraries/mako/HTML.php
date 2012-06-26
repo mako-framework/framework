@@ -51,7 +51,7 @@ class HTML
 	* Takes an array of attributes and turns it into a string.
 	*
 	* @access  public
-	* @param   array   Array of tags
+	* @param   array   $attributes  Array of tags
 	* @return  string
 	*/
 
@@ -76,9 +76,9 @@ class HTML
 	* Creates a HTML5 tag.
 	*
 	* @access  public
-	* @param   string  Tag name
-	* @param   array   (optional) Tag attributes
-	* @param   string  (optional) Tag content
+	* @param   string  $name        Tag name
+	* @param   array   $attributes  (optional) Tag attributes
+	* @param   string  $content     (optional) Tag content
 	* @return  string
 	*/
 
@@ -91,9 +91,9 @@ class HTML
 	* Helper method for building media tags.
 	*
 	* @access  protected
-	* @param   string     Tag type
-	* @param   mixed      File or array of files
-	* @param   array      (optional) Tag attributes
+	* @param   string     $type        Tag type
+	* @param   mixed      $files       File or array of files
+	* @param   array      $attributes  (optional) Tag attributes
 	*/
 
 	protected static function buildMedia($type, $files, $attributes)
@@ -112,8 +112,8 @@ class HTML
 	* Creates audio tag with support for multiple sources.
 	*
 	* @access  public
-	* @param   mixed   File or array of files
-	* @param   array   (optional) Tag attributes
+	* @param   mixed   $files       File or array of files
+	* @param   array   $attributes  (optional) Tag attributes
 	*/
 
 	public static function audio($files, array $attributes = array())
@@ -125,8 +125,8 @@ class HTML
 	* Creates video tag with support for multiple sources.
 	*
 	* @access  public
-	* @param   mixed   File or array of files
-	* @param   array   (optional) Tag attributes
+	* @param   mixed   $files       File or array of files
+	* @param   array   $attributes  (optional) Tag attributes
 	*/
 
 	public static function video($files, array $attributes = array())
@@ -138,9 +138,9 @@ class HTML
 	* Helper method for building list tags.
 	*
 	* @access  protected
-	* @param   string     Tag type
-	* @param   mixed      File or array of files
-	* @param   array      (optional) Tag attributes
+	* @param   string     $type        Tag type
+	* @param   mixed      $items       File or array of files
+	* @param   array      $attributes  (optional) Tag attributes
 	*/
 
 	protected static function buildList($type, $items, $attributes)
@@ -166,8 +166,8 @@ class HTML
 	* Builds an un-ordered list.
 	*
 	* @access  public
-	* @param   array   List items
-	* @param   array   List attributes
+	* @param   array   $items       List items
+	* @param   array   $attributes  List attributes
 	* @return  string
 	*/
 
@@ -180,8 +180,8 @@ class HTML
 	* Builds am ordered list.
 	*
 	* @access  public
-	* @param   array   List items
-	* @param   array   List attributes
+	* @param   array   $items       List items
+	* @param   array   $attributes  List attributes
 	* @return  string
 	*/
 
@@ -194,8 +194,8 @@ class HTML
 	* Registers a new HTML macro.
 	*
 	* @access  public
-	* @param   string   Macro name
-	* @param   Closure  Macro closure
+	* @param   string   $name     Macro name
+	* @param   Closure  $closure  Macro closure
 	*/
 
 	public static function macro($name, Closure $macro)
@@ -207,8 +207,8 @@ class HTML
 	* Magic shortcut to the custom HTML macros.
 	*
 	* @access  public
-	* @param   string  Method name
-	* @param   array   Method arguments
+	* @param   string  $name       Method name
+	* @param   array   $arguments  Method arguments
 	* @return  mixed
 	*/
 

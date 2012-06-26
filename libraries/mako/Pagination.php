@@ -96,8 +96,8 @@ class Pagination
 	* Calculates the offset and number of pages and returns the offset.
 	*
 	* @access  public
-	* @param   int     Number of items
-	* @param   int     Number of items to display on each page
+	* @param   int     $itemCount     Number of items
+	* @param   int     $itemsPerPage  Number of items to display on each page
 	* @return  int
 	*/
 
@@ -114,9 +114,9 @@ class Pagination
 	* Returns an associative array of pagination links.
 	*
 	* @access  public
-	* @param   string  (optional) URL segments
-	* @param   array   (optional) Associative array used to build URL-encoded query string
-	* @param   string  (optional) Argument separator
+	* @param   string  $url        (optional) URL segments
+	* @param   array   $params     (optional) Associative array used to build URL-encoded query string
+	* @param   string  $separator  (optional) Argument separator
 	* @return  array
 	*/
 

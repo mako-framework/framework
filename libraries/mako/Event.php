@@ -47,8 +47,8 @@ class Event
 	* Adds an event listener to the queue.
 	*
 	* @access  public
-	* @param   string    Event name
-	* @param   callback  Event callback
+	* @param   string    $name      Event name
+	* @param   callback  $callback  Event callback
 	*/
 
 	public static function register($name, $callback)
@@ -60,7 +60,7 @@ class Event
 	* Returns TRUE if an event listener is registered for the event and FALSE if not.
 	*
 	* @access  public
-	* @param   string   Event name
+	* @param   string   $name  Event name
 	* @return  boolean
 	*/
 
@@ -73,7 +73,7 @@ class Event
 	* Clears all event listeners for an event.
 	*
 	* @access  public
-	* @param   string  Event name
+	* @param   string  $name  Event name
 	**/
 
 	public static function clear($name)
@@ -86,8 +86,8 @@ class Event
 	* contaning the return values of each callback.
 	*
 	* @access  public
-	* @param   string  Event name
-	* @param   array   (optional) Callback parameters
+	* @param   string  $name    Event name
+	* @param   array   $params  (optional) Callback parameters
 	* @return  array
 	*/
 

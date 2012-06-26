@@ -66,8 +66,8 @@ class ClassLoader
 	* Add class to mapping.
 	*
 	* @access  public
-	* @param   string  Class name
-	* @param   string  Full path to class
+	* @param   string  $className  Class name
+	* @param   string  $classPath  Full path to class
 	*/
 
 	public static function addClass($className, $classPath)
@@ -79,7 +79,7 @@ class ClassLoader
 	* Add multiple classes to mapping.
 	*
 	* @access  public
-	* @param   array   Array of classes to map (key = class name and value = class path)
+	* @param   array   $classes  Array of classes to map (key = class name and value = class path)
 	*/
 
 	public static function addClasses(array $classes)
@@ -94,7 +94,7 @@ class ClassLoader
 	* Adds a PSR-0 directory path.
 	*
 	* @access  public
-	* @param   string  Path to PSR-0 directory
+	* @param   string  $path  Path to PSR-0 directory
 	*/
 
 	public static function directory($path)
@@ -106,8 +106,8 @@ class ClassLoader
 	* Set an alias for a class.
 	*
 	* @access  public
-	* @param   string  Class alias
-	* @param   string  Class name
+	* @param   string  $alias      Class alias
+	* @param   string  $className  Class name
 	*/
 
 	public static function alias($alias, $className)
@@ -119,7 +119,7 @@ class ClassLoader
 	* Autoloader.
 	*
 	* @access  public
-	* @param   string   Class name
+	* @param   string   $className  Class name
 	* @return  boolean
 	*/
 

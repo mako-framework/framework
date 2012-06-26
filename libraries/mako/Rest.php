@@ -53,8 +53,8 @@ class Rest
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  URL
-	* @param   array   (optional) cURL options
+	* @param   string  $url      URL
+	* @param   array   $options  (optional) cURL options
 	*/
 
 	public function __construct($url, array $options = array())
@@ -67,8 +67,8 @@ class Rest
 	* Factory method making method chaining possible right off the bat.
 	*
 	* @access  public
-	* @param   string     URL
-	* @param   array      (optional) cURL options
+	* @param   string     $url      URL
+	* @param   array      $options  (optional) cURL options
 	* @return  mako\Rest
 	*/
 
@@ -85,7 +85,7 @@ class Rest
 	* Executes cURL request and returns the response.
 	*
 	* @access  protected
-	* @param   array      $info is filled with info about the request
+	* @param   array      $info  $info is filled with info about the request
 	* @return  string
 	*/
 
@@ -119,7 +119,7 @@ class Rest
 	* http://php.net/manual/en/function.http-parse-headers.php
 	*
 	* @access  protected
-	* @param   string      HTTP headers
+	* @param   string      $headers  HTTP headers
 	* @return  array
 	*/
 
@@ -158,7 +158,7 @@ class Rest
 	* Returns info about the last cURL request.
 	*
 	* @access  public
-	* @param   string  (optional) Array key
+	* @param   string  $key  (optional) Array key
 	* @return  mixed
 	*/
 
@@ -176,9 +176,10 @@ class Rest
 	* Sets username and password for HTTP authentication.
 	*
 	* @access  public
-	* @param   string  Username
-	* @param   string  Password
-	* @param   int     (optional) Authenication method
+	* @param   string     $username  Username
+	* @param   string     $password  Password
+	* @param   int        $method    (optional) Authenication method
+	* @return  mako\Rest
 	*/
 
 	public function authenticate($username, $password, $method = CURLAUTH_ANY)
@@ -193,8 +194,8 @@ class Rest
 	* Performs a GET request and returns the response.
 	*
 	* @access  public
-	* @param   array   (optional) If $info is provided, then it is filled with info about the request
-	* @param   return  sting
+	* @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
+	* @return  string
 	*/
 
 	public function get(& $info = null)
@@ -206,8 +207,8 @@ class Rest
 	* Performs a HEAD request and returns an array containing the response headers.
 	*
 	* @access  public
-	* @param   array   (optional) If $info is provided, then it is filled with info about the request
-	* @param   return  array
+	* @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
+	* @return  array
 	*/
 
 	public function head(& $info = null)
@@ -222,9 +223,9 @@ class Rest
 	* Performs a POST request and returns the response.
 	*
 	* @access  public
-	* @param   array    (optional) Post data
-	* @param   boolean  (optional) True to send data as multipart/form-data and false to send as application/x-www-form-urlencoded
-	* @param   array    (optional) If $info is provided, then it is filled with info about the request
+	* @param   array    $data       (optional) Post data
+	* @param   boolean  $multipart  (optional) True to send data as multipart/form-data and false to send as application/x-www-form-urlencoded
+	* @param   array    $info       (optional) If $info is provided, then it is filled with info about the request
 	* @return  string
 	*/
 
@@ -240,8 +241,8 @@ class Rest
 	* Performs a PUT request and returns the response.
 	*
 	* @access  public
-	* @param   mixed   Put data
-	* @param   array   (optional) If $info is provided, then it is filled with info about the request
+	* @param   mixed   $data  Put data
+	* @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
 	* @return  string
 	*/
 
@@ -267,7 +268,7 @@ class Rest
 	* Performs a DELETE request and returns the response.
 	*
 	* @access  public
-	* @param   array   (optional) If $info is provided, then it is filled with info about the request
+	* @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
 	* @return  string
 	*/
 

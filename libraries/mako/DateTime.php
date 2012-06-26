@@ -90,9 +90,9 @@ class DateTime
 	* Returns a localized date (based on the locale).
 	*
 	* @access  public
-	* @param   string  Date format (http://php.net/manual/en/function.strftime.php)
-	* @param   int     Unix timestamp
-	* @param   int     (optional) Offset in seconds
+	* @param   string  $dateFormat  Date format (http://php.net/manual/en/function.strftime.php)
+	* @param   int     $timestamp   Unix timestamp
+	* @param   int     $offset      (optional) Offset in seconds
 	* @return  string
 	*/
 
@@ -161,11 +161,11 @@ class DateTime
 	* Returns a "fuzzy date".
 	*
 	* @access  public
-	* @param   int      Unix timestamp
-	* @param   string   Date format used for non-fuzy dates
-	* @param   int      (optional) Offset in seconds
-	* @param   boolean  (optional) Enable full fuzziness
-	* @param   string   (optional) Clock format for fuzzy dates - set to false to disable
+	* @param   int      $timestamp    Unix timestamp
+	* @param   string   $dateFormat   Date format used for non-fuzy dates
+	* @param   int      $offset       (optional) Offset in seconds
+	* @param   boolean  $fullFuzzy    (optional) Enable full fuzziness
+	* @param   string   $clockFormat  (optional) Clock format for fuzzy dates - set to false to disable
 	* @return  string
 	*/
 
@@ -248,7 +248,7 @@ class DateTime
 	* Returns true if year is leap year and false if not.
 	*
 	* @access  public
-	* @param   int      The year you want to check
+	* @param   int      $year  The year you want to check
 	* @return  boolean
 	*/
 
@@ -266,8 +266,8 @@ class DateTime
 	* Returns the number of days in the chosen month.
 	*
 	* @access  public
-	* @param   int     (optional) Numeric representation of a month without leading zeros
-	* @param   int     (optional) Full numeric representation of a year
+	* @param   int     $month  (optional) Numeric representation of a month without leading zeros
+	* @param   int     $year   (optional) Full numeric representation of a year
 	* @return  int
 	*/
 
@@ -305,7 +305,7 @@ class DateTime
 	* Converts a UNIX timestamp to a DOS timestamp.
 	*
 	* @access  public
-	* @param   int     Unix timestamp
+	* @param   int     $timestamp  Unix timestamp
 	* @return  int
 	*/
 
@@ -330,7 +330,7 @@ class DateTime
 	* Converts a DOS timestamp to a UNIX timestamp.
 	*
 	* @access  public
-	* @param   int     DOS timestamp
+	* @param   int     $timestamp  DOS timestamp
 	* @return  int
 	*/
 

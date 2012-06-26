@@ -41,7 +41,7 @@ class UserAgent
 	* Searches for a string in the user agent string.
 	*
 	* @access  protected
-	* @param   array      Array of strings to look for
+	* @param   array      $what  Array of strings to look for
 	* @return  boolean
 	*/
 	
@@ -65,8 +65,8 @@ class UserAgent
 	* Converts the HTTP_ACCEPT headers into an array.
 	*
 	* @access  protected
-	* @param   string     Array key
-	* @param   string     (optional) String to look for
+	* @param   string     $header  Array key
+	* @param   string     $what    (optional) String to look for
 	* @return  mixed
 	*/
 	
@@ -118,7 +118,7 @@ class UserAgent
 	* Can be used to detect the type of device (UserAgent::is('iphone') or UserAgent::is(array('iphone', 'ipod'))).
 	*
 	* @access  public
-	* @param   mixed    String or array of strings you're looking for
+	* @param   mixed    $device  String or array of strings you're looking for
 	* @return  boolean
 	*/
 	
@@ -131,7 +131,7 @@ class UserAgent
 	* Returns list of accepted content types or boolean value if you are looking for a content type.
 	*
 	* @access  public
-	* @param   string  (optional) Language to look for.
+	* @param   string  $content  (optional) Language to look for.
 	* @return  mixed
 	*/
 	
@@ -144,7 +144,7 @@ class UserAgent
 	* Returns list of accepted languages or boolean value if you are looking for a language.
 	*
 	* @access  public
-	* @param   string  (optional) Language to look for.
+	* @param   string  $language  (optional) Language to look for.
 	* @return  mixed
 	*/
 	
@@ -157,7 +157,7 @@ class UserAgent
 	* Returns list of accepted character sets or boolean value if you are looking for a character set.
 	*
 	* @access  public
-	* @param   string  (optional) Character set to look for.
+	* @param   string  $charset  (optional) Character set to look for.
 	* @return  mixed
 	*/
 	
@@ -170,7 +170,7 @@ class UserAgent
 	* Returns list of accepted encodings or boolean value if you are looking for an encoding.
 	*
 	* @access  public
-	* @param   string  (optional) Language to look for.
+	* @param   string  $encoding  (optional) Language to look for.
 	* @return  mixed
 	*/
 	

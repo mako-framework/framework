@@ -121,10 +121,10 @@ class CLI
 	* Add text color and background color to a string.
 	*
 	* @access  public
-	* @param   string  String to colorize
-	* @param   string  (optional) Text color name
-	* @param   string  (optional) Background color name
-	* @param   array   (optional) Text options
+	* @param   string  $str              String to colorize
+	* @param   string  $textColor        (optional) Text color name
+	* @param   string  $backgroundColor  (optional) Background color name
+	* @param   array   $textOptions      (optional) Text options
 	* @return  string
 	*/
 
@@ -201,8 +201,8 @@ class CLI
 	* Return value of named parameters (--<name>=<value>).
 	*
 	* @access public
-	* @param  string  Parameter name
-	* @param  string  (optional) Default value
+	* @param  string  $name     Parameter name
+	* @param  string  $default  (optional) Default value
 	* @return string
 	*/
 
@@ -234,7 +234,7 @@ class CLI
 	* Prompt user for input.
 	*
 	* @access  public
-	* @param   string  Question for the user
+	* @param   string  $question  Question for the user
 	* @return  string
 	*/
 
@@ -249,7 +249,7 @@ class CLI
 	* Prompt user a confirmation.
 	*
 	* @access  public
-	* @param   string   Question for the user
+	* @param   string   $question  Question for the user
 	* @return  boolean
 	*/
 
@@ -276,10 +276,10 @@ class CLI
 	* Print message to STDOUT.
 	*
 	* @access  public
-	* @param   string  (optional) Message to print
-	* @param   string  (optional) Text color
-	* @param   string  (optional) Background color
-	* @param   array   (optional) Text options
+	* @param   string  $message          (optional) Message to print
+	* @param   string  $textColor        (optional) Text color
+	* @param   string  $backgroundColor  (optional) Background color
+	* @param   array   $textOptions      (optional) Text options
 	*/
 
 	public static function stdout($message = '', $textColor = null, $backgroundColor = null, array $textOptions = array())
@@ -291,10 +291,10 @@ class CLI
 	* Print message to STDERR.
 	*
 	* @access  public
-	* @param   string  Message to print
-	* @param   string  (optional) Text color
-	* @param   string  (optional) Background color
-	* @param   array   (optional) Text options
+	* @param   string  $message          Message to print
+	* @param   string  $textColor        (optional) Text color
+	* @param   string  $backgroundColor  (optional) Background color
+	* @param   array   $textOptions      (optional) Text options
 	*/
 
 	public static function stderr($message, $textColor = 'red', $backgroundColor = null, array $textOptions = array())
@@ -306,7 +306,7 @@ class CLI
 	* Sytem Beep.
 	*
 	* @access  public
-	* @param   int     (optional) Number of system beeps
+	* @param   int     $beeps  (optional) Number of system beeps
 	*/
 
 	public static function beep($beeps = 1)
@@ -318,8 +318,8 @@ class CLI
 	* Display countdown for n seconds.
 	*
 	* @access  public
-	* @param   int      Number of seconds to wait
-	* @param   boolean  (optional) Enable beep?
+	* @param   int      $seconds   Number of seconds to wait
+	* @param   boolean  $withBeep  (optional) Enable beep?
 	*/
 
 	public static function wait($seconds = 5, $withBeep = false)

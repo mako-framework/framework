@@ -49,7 +49,7 @@ class Cache
 	/**
 	* Returns an instance of the requested cache configuration.
 	*
-	* @param   string              (optional) Cache configuration name
+	* @param   string              $name  (optional) Cache configuration name
 	* @return  mako\cache\Adapter
 	*/
 
@@ -78,8 +78,8 @@ class Cache
 	* Magic shortcut to the default cache instance.
 	*
 	* @access  public
-	* @param   string  Method name
-	* @param   array   Method arguments
+	* @param   string  $name       Method name
+	* @param   array   $arguments  Method arguments
 	* @return  mixed
 	*/
 

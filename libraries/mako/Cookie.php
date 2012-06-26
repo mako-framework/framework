@@ -49,9 +49,9 @@ class Cookie
 	* Returns the cookie signature.
 	*
 	* @access  protected
-	* @param   string     Cookie name
-	* @param   string     Cookie value
-	* @return  string     Cookie signature
+	* @param   string     $name   Cookie name
+	* @param   string     $value  Cookie value
+	* @return  string
 	*/
 	
 	protected static function signature($name, $value)
@@ -68,11 +68,11 @@ class Cookie
 	* Sets a signed cookie.
 	*
 	* @access  public
-	* @param   string   Cookie name
-	* @param   string   Cookie value
-	* @param   int      (optional) Time to live - if omitted or set to 0 the cookie will expire when the browser closes
-	* @param   boolean  (optional) HTTPS only - if set to TRUE then the cookie should only be transmitted over a secure connection from the client
-	* @param   boolean  (optional) HTTP only - if set to TRUE the cookie will be made accessible only through the HTTP protocol
+	* @param   string   $name       Cookie name
+	* @param   string   $value      Cookie value
+	* @param   int      $ttl        (optional) Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	* @param   boolean  $secure     (optional) HTTPS only - if set to TRUE then the cookie should only be transmitted over a secure connection from the client
+	* @param   boolean  $httpOpnly  (optional) HTTP only - if set to TRUE the cookie will be made accessible only through the HTTP protocol
 	*/
 	
 	public static function set($name, $value, $ttl = 0, $secure = false, $httpOnly = false)
@@ -88,8 +88,8 @@ class Cookie
 	* Reads a signed cookie. Cookies that are unsigned or have an invalid signature will be ignored.
 	*
 	* @access  public
-	* @param   string  Cookie name
-	* @param   mixed   (optional) Default value to return if the cookie doesn't exist or if the signature is invalid
+	* @param   string  $name     Cookie name
+	* @param   mixed   $default  (optional) Default value to return if the cookie doesn't exist or if the signature is invalid
 	* @return  mixed
 	*/
 	
@@ -116,7 +116,7 @@ class Cookie
 	* Deletes a cookie.
 	*
 	* @access  public
-	* @param   string  Cookie name
+	* @param   string  $name  Cookie name
 	*/
 	
 	public static function delete($name)

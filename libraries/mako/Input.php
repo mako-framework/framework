@@ -42,7 +42,7 @@ class Input
 	* Class constructor.
 	*
 	* @access  public
-	* @param   array  Array to validate
+	* @param   array  $input  Array to validate
 	*/
 
 	public function __construct(array & $input)
@@ -54,7 +54,7 @@ class Input
 	* Factory method making method chaining possible right off the bat.
 	*
 	* @access  public
-	* @param   array          Array to validate
+	* @param   array          $input  Array to validate
 	* @return  mako\Validate
 	*/
 
@@ -71,8 +71,8 @@ class Input
 	* Adds a filter to the list of callbacks.
 	*
 	* @access  public
-	* @param   mixed          Field name
-	* @param   callback       Filter function
+	* @param   mixed          $field     Field name
+	* @param   callback       $function  Filter function
 	* @return  mako\Validate
 	*/
 	
@@ -122,8 +122,8 @@ class Input
 	* Fetch data from the $_GET array.
 	*
 	* @access  public
-	* @param   string  (optional) Array key
-	* @param   mixed   (optional) Default value
+	* @param   string  $key      (optional) Array key
+	* @param   mixed   $default  (optional) Default value
 	* @return  mixed
 	*/
 
@@ -136,8 +136,8 @@ class Input
 	* Fetch data from the $_POST array.
 	*
 	* @access  public
-	* @param   string  (optional) Array key
-	* @param   mixed   (optional) Default value
+	* @param   string  $key      (optional) Array key
+	* @param   mixed   $default  (optional) Default value
 	* @return  mixed
 	*/
 
@@ -150,8 +150,8 @@ class Input
 	* Fetch data from the $_COOKIE array.
 	*
 	* @access  public
-	* @param   string  (optional) Array key
-	* @param   mixed   (optional) Default value
+	* @param   string  $key      (optional) Array key
+	* @param   mixed   $default  (optional) Default value
 	* @return  mixed
 	*/
 
@@ -164,8 +164,8 @@ class Input
 	* Fetch data from the $_FILES array.
 	*
 	* @access  public
-	* @param   string  (optional) Array key
-	* @param   mixed   (optional) Default value
+	* @param   string  $key      (optional) Array key
+	* @param   mixed   $default  (optional) Default value
 	* @return  mixed
 	*/
 
@@ -178,8 +178,8 @@ class Input
 	* Fetch data from the $_SERVER array.
 	*
 	* @access  public
-	* @param   string  (optional) Array key
-	* @param   mixed   (optional) Default value
+	* @param   string  $key      (optional) Array key
+	* @param   mixed   $default  (optional) Default value
 	* @return  mixed
 	*/
 
@@ -192,8 +192,8 @@ class Input
 	* Fetch data from the $_ENV array.
 	*
 	* @access  public
-	* @param   string  (optional) Array key
-	* @param   mixed   (optional) Default value
+	* @param   string  $key      (optional) Array key
+	* @param   mixed   $default  (optional) Default value
 	* @return  mixed
 	*/
 
@@ -206,8 +206,8 @@ class Input
 	* Fetch data from the $_SESSION array.
 	*
 	* @access  public
-	* @param   string  (optional) Array key
-	* @param   mixed   (optional) Default value
+	* @param   string  $key      (optional) Array key
+	* @param   mixed   $default  (optional) Default value
 	* @return  mixed
 	*/
 
@@ -220,7 +220,7 @@ class Input
 	* Returns PUT data.
 	*
 	* @access  public
-	* @param   mixed    (optional) Default value
+	* @param   mixed   $default  (optional) Default value
 	* @return  mixed
 	*/
 

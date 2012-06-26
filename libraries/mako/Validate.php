@@ -48,7 +48,7 @@ class Validate
 	* Class constructor.
 	*
 	* @access  public
-	* @param   array  Array to validate
+	* @param   array  $input  Array to validate
 	*/
 
 	public function __construct(array $input)
@@ -60,7 +60,7 @@ class Validate
 	* Factory method making method chaining possible right off the bat.
 	*
 	* @access  public
-	* @param   array          Array to validate
+	* @param   array          $input  Array to validate
 	* @return  mako\Validate
 	*/
 
@@ -77,9 +77,9 @@ class Validate
 	* Adds a validation rule to the list of callbacks.
 	*
 	* @access  public
-	* @param   mixed          Field name
-	* @param   callback       Function to use for validation
-	* @param   string         Error message to return if validation fails
+	* @param   mixed          $field     Field name
+	* @param   callback       $function  Function to use for validation
+	* @param   string         $error     Error message to return if validation fails
 	* @return  mako\Validate
 	*/
 
@@ -115,7 +115,7 @@ class Validate
 	* Runs all validation rules. Returns TRUE if all rules passed and FALSE if validation failed.
 	*
 	* @access  public
-	* @param   array    (optional) If $errors is provided, then it is filled with all the error messages
+	* @param   array    $errors  (optional) If $errors is provided, then it is filled with all the error messages
 	* @return  boolean
 	*/
 
@@ -145,7 +145,7 @@ class Validate
 	* Checks if field is empty or not
 	*
 	* @access  protected
-	* @param   string     The input string
+	* @param   string     $input  The input string
 	* @return  boolean
 	*/
 
@@ -158,8 +158,8 @@ class Validate
 	* Checks if input is long enough.
 	*
 	* @access  protected
-	* @param   string     The input string
-	* @param   int        Required min length
+	* @param   string     $input   The input string
+	* @param   int        $length  Required min length
 	* @return  boolean
 	*/
 
@@ -172,8 +172,8 @@ class Validate
 	* Checks if input is short enough.
 	*
 	* @access  protected
-	* @param   string     The input string
-	* @param   int        Required max length
+	* @param   string     $input   The input string
+	* @param   int        $length  Required max length
 	* @return  boolean  
 	*/
 
@@ -186,8 +186,8 @@ class Validate
 	* Checks if input is of the right length.
 	*
 	* @access  protected
-	* @param   string     The input string
-	* @param   int        The required length
+	* @param   string     $input   The input string
+	* @param   int        $length  The required length
 	* @return  boolean
 	*/
 	
@@ -200,8 +200,8 @@ class Validate
 	* Check if field matches another field.
 	*
 	* @access  protected
-	* @param   string     The input string
-	* @param   string     Field name to match against
+	* @param   string     $input  The input string
+	* @param   string     $field  Field name to match against
 	* @return  boolean
 	*/
 
@@ -214,8 +214,8 @@ class Validate
 	* Check if a field matches a custom regex pattern.
 	*
 	* @access  protected
-	* @param   string     The input string
-	* @param   string     Regex pattern to match against
+	* @param   string     $input    The input string
+	* @param   string     $pattern  Regex pattern to match against
 	* @return  boolean
 	*/
 
@@ -228,7 +228,7 @@ class Validate
 	* Validates an email address using PHPs own email validation filter.
 	*
 	* @access  public
-	* @param   string   Email address to validate
+	* @param   string   $input Email address to validate
 	* @return  boolean
 	*/
 
@@ -241,7 +241,7 @@ class Validate
 	* Validates an email domain by looking for a MX reccord.
 	*
 	* @access  public
-	* @param   string   Email address to validate
+	* @param   string   $input  Email address to validate
 	* @return  boolean
 	*/
 
@@ -261,7 +261,7 @@ class Validate
 	* Validates an IP using PHPs own IP validation filter.
 	*
 	* @access  public
-	* @param   string   IP address to validate
+	* @param   string   $input  IP address to validate
 	* @return  boolean
 	*/
 	
@@ -274,7 +274,7 @@ class Validate
 	* Validates an URL using PHPs own URL validation filter.
 	*
 	* @access  public
-	* @param   string   URL to validate
+	* @param   string   $input  URL to validate
 	* @return  boolean
 	*/
 	

@@ -81,7 +81,7 @@ class String
 	* Replaces newline with <br> or <br />.
 	*
 	* @access  public
-	* @param   string  The input string
+	* @param   string  $string  The input string
 	* @return  string
 	*/
 
@@ -94,7 +94,7 @@ class String
 	* Replaces <br> and <br /> with newline.
 	*
 	* @access  public
-	* @param   string  The input string
+	* @param   string  $string  The input string
 	* @return  string
 	*/
 
@@ -107,7 +107,7 @@ class String
 	* Converts camel case to underscored.
 	*
 	* @access  public
-	* @param   string  The input string
+	* @param   string  $string  The input string
 	* @return  string
 	*/
 
@@ -120,7 +120,8 @@ class String
 	* Converts underscored to camel case.
 	*
 	* @access  public
-	* @param   string  The input string
+	* @param   string   $string  The input string
+	* @param   boolean  $upper   (optional) Return upper case camelCase?
 	* @return  string
 	*/
 
@@ -133,9 +134,9 @@ class String
 	* Limits the number of characters in a string.
 	*
 	* @access  public
-	* @param   string  The input string
-	* @param   int     (optional) Number of characters to allow
-	* @param   string  (optional) Sufix to add if number of characters is reduced
+	* @param   string  $string      The input string
+	* @param   int     $characters  (optional) Number of characters to allow
+	* @param   string  $sufix       (optional) Sufix to add if number of characters is reduced
 	*/
 
 	public static function limitChars($string, $characters = 100, $sufix = '...')
@@ -147,9 +148,9 @@ class String
 	* Limits the number of words in a string.
 	*
 	* @access  public
-	* @param   string  The input string
-	* @param   int     (optional) Number of words to allow
-	* @param   string  (optional) Sufix to add if number of words is reduced
+	* @param   string  $string  The input string
+	* @param   int     $words   (optional) Number of words to allow
+	* @param   string  $sufix   (optional) Sufix to add if number of words is reduced
 	*/
 
 	public static function limitWords($string, $words = 100, $sufix = '...')
@@ -168,7 +169,7 @@ class String
 	* Creates url friendly string.
 	*
 	* @access  public
-	* @param   string  The input string
+	* @param   string  $string  The input string
 	* @return  string
 	*/
 
@@ -181,7 +182,7 @@ class String
 	* Strips all non-ASCII characters.
 	*
 	* @access  public
-	* @param   string  The input string
+	* @param   string  $string  The input string
 	* @return  string
 	*/
 
@@ -194,7 +195,7 @@ class String
 	* Returns a closure that will alternate between the defined strings.
 	*
 	* @access  public
-	* @param   array    Array of strings to alternate between
+	* @param   array    $strings  Array of strings to alternate between
 	* @return  Closure
 	*/
 
@@ -213,8 +214,8 @@ class String
 	*
 	* @deprecated
 	* @access  public
-	* @param   array    Array of strings to alternate between
-	* @param   boolean  (optional) Reset alternator?
+	* @param   array    $strings  Array of strings to alternate between
+	* @param   boolean  $reset    (optional) Reset alternator?
 	* @return  string
 	*/
 
@@ -231,8 +232,8 @@ class String
 	* Converts URLs in a text into clickable links.
 	*
 	* @access  public
-	* @param   string   Text to scan for links
-	* @param   boolean  (optional) Anchor attributes
+	* @param   string   $string      Text to scan for links
+	* @param   boolean  $attributes  (optional) Anchor attributes
 	* @return  string
 	*/
 	
@@ -248,9 +249,9 @@ class String
 	* Returns a masked string where only the last n characters are visible.
 	*
 	* @access  public
-	* @param   string  String to mask
-	* @param   int     (optional) Number of characters to show
-	* @param   string  (optional) Character used to replace remaining characters
+	* @param   string  $string   String to mask
+	* @param   int     $visible  (optional) Number of characters to show
+	* @param   string  $mask     (optional) Character used to replace remaining characters
 	* @return  string
 	*/
 
@@ -265,9 +266,9 @@ class String
 	* Increments a string by appending a number to it or increasing the number.
 	*
 	* @access  public
-	* @param   string  String to increment
-	* @param   int     Starting number
-	* @param   string  Separator
+	* @param   string  $string     String to increment
+	* @param   int     $start      Starting number
+	* @param   string  $separator  Separator
 	* @return  string
 	*/
 
@@ -281,8 +282,8 @@ class String
 	/**
 	* Returns a random string of the selected type and length.
 	*
-	* @param   string  Character pool to use
-	* @param   int     (optional) Desired string length
+	* @param   string  $pool    Character pool to use
+	* @param   int     $length  (optional) Desired string length
 	* @return  string
 	*/
 

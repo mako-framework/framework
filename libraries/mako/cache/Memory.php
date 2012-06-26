@@ -32,7 +32,7 @@ class Memory extends \mako\cache\Adapter
 	* Constructor.
 	*
 	* @access  public
-	* @param   array   Configuration
+	* @param   array   $config  Configuration
 	*/
 
 	public function __construct(array $config)
@@ -48,9 +48,9 @@ class Memory extends \mako\cache\Adapter
 	* Store variable in the cache.
 	*
 	* @access  public
-	* @param   string   Cache key
-	* @param   mixed    The variable to store
-	* @param   int      (optional) Time to live
+	* @param   string   $key    Cache key
+	* @param   mixed    $value  The variable to store
+	* @param   int      $ttl    (optional) Time to live
 	* @return  boolean
 	*/
 
@@ -67,7 +67,7 @@ class Memory extends \mako\cache\Adapter
 	* Fetch variable from the cache.
 	*
 	* @access  public
-	* @param   string  Cache key
+	* @param   string  $key  Cache key
 	* @return  mixed
 	*/
 
@@ -96,7 +96,7 @@ class Memory extends \mako\cache\Adapter
 	* Delete a variable from the cache.
 	*
 	* @access  public
-	* @param   string   Cache key
+	* @param   string   $key  Cache key
 	* @return  boolean
 	*/
 

@@ -43,7 +43,7 @@ class Session
 	/**
 	* Starts a session using the chosen type of storage.
 	*
-	* @param   string  (optional) Session configuration name
+	* @param   string  $name  (optional) Session configuration name
 	*/
 	
 	public static function start($name = null)
@@ -83,7 +83,7 @@ class Session
 	* Sets or gets flash data.
 	*
 	* @access  public
-	* @param   mixed   (optional) Flash data
+	* @param   mixed   $data  (optional) Flash data
 	* @return  mixed
 	*/
 

@@ -34,7 +34,7 @@ abstract class Model
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  (optional) Name of the database connection to use (as defined in the config)
+	* @param   string  $connection  (optional) Name of the database connection to use (as defined in the config)
 	*/
 
 	public function __construct($connection = null)
@@ -46,7 +46,7 @@ abstract class Model
 	* Factory method making method chaining possible right off the bat.
 	*
 	* @access  public
-	* @param   string      (optional) Name of the database connection to use (as defined in the config)
+	* @param   string      $connection  (optional) Name of the database connection to use (as defined in the config)
 	* @return  mako\Model
 	*/
 	

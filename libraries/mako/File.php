@@ -44,8 +44,8 @@ class File
 	* Returns filesize in a human friendly format.
 	*
 	* @access  public
-	* @param   mixed    Path to file or size in bytes
-	* @param   boolean  (optional) True to use binary prefixes and false to use decimal prefixes
+	* @param   int|string  $size    Path to file or size in bytes
+	* @param   boolean     $binary  (optional) True to use binary prefixes and false to use decimal prefixes
 	* @return  string
 	*/
 
@@ -83,8 +83,8 @@ class File
 	* Returns the mime type of a file. Returns false if the mime type is not found.
 	*
 	* @access  public
-	* @param   string   Full path to the file
-	* @param   boolean  (optional) Set to false to disable mime type guessing
+	* @param   string   $file   Full path to the file
+	* @param   boolean  $guess  (optional) Set to false to disable mime type guessing
 	* @return  string
 	*/
 	
@@ -123,9 +123,9 @@ class File
 	* Display a file in the browser.
 	*
 	* @access  public
-	* @param   string  Full path to file
-	* @param   string  (optional) Content type of the file
-	* @param   string  (optional) Filename of the download
+	* @param   string  $file         Full path to file
+	* @param   string  $contentType  (optional) Content type of the file
+	* @param   string  $filename     (optional) Filename of the download
 	*/
 
 	public static function display($file, $contentType = null, $filename = null)
@@ -168,10 +168,10 @@ class File
 	* Forces a file to be downloaded.
 	*
 	* @access  public
-	* @param   string  Full path to file
-	* @param   string  (optional) Content type of the file
-	* @param   string  (optional) Filename of the download
-	* @param   int     (optional) Max download speed in KiB/s
+	* @param   string  $file         Full path to file
+	* @param   string  $contentType  (optional) Content type of the file
+	* @param   string  $filename     (optional) Filename of the download
+	* @param   int     $kbps         (optional) Max download speed in KiB/s
 	*/
 
 	public static function download($file, $contentType = null, $filename = null, $kbps = 0)
@@ -238,8 +238,8 @@ class File
 	* Splits a file into multiple pieces.
 	*
 	* @access  public
-	* @param   string  Full path to file
-	* @param   int     (optional) Piece size in MiB
+	* @param   string  $file  Full path to file
+	* @param   int     $size  (optional) Piece size in MiB
 	*/
 
 	public static function split($file, $size = 10)
@@ -287,7 +287,7 @@ class File
 	* Merge files that have been split using the File::split method.
 	*
 	* @access  public
-	* @param   string  Full path to file
+	* @param   string  $file  Full path to file
 	*/
 
 	public static function merge($file)

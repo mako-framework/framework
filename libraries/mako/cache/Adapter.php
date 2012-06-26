@@ -34,7 +34,7 @@ abstract class Adapter
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  Cache identifier
+	* @param   string  $identifier Cache identifier
 	*/
 	
 	public function __construct($identifier)
@@ -58,9 +58,9 @@ abstract class Adapter
 	* Fetches variable from cache and stores it if it doesn't exist.
 	*
 	* @access  public
-	* @param   string   Cache key
-	* @param   closure  Closure (anonymous function) that returns value to store if it doesn't already exist
-	* @param   int      (optional) Time to live
+	* @param   string   $key      Cache key
+	* @param   closure  $closure  Closure (anonymous function) that returns value to store if it doesn't already exist
+	* @param   int      $ttl      (optional) Time to live
 	* @return  mixed
 	*/
 	
@@ -82,8 +82,8 @@ abstract class Adapter
 	* Magic setter.
 	*
 	* @access  public
-	* @param   string  Cache key
-	* @param   mixed   The variable to store
+	* @param   string  $key    Cache key
+	* @param   mixed   $value  The variable to store
 	*/
 
 	final public function __set($key, $value)
@@ -95,7 +95,7 @@ abstract class Adapter
 	* Magic getter.
 	*
 	* @access  public
-	* @param   string  Cache key
+	* @param   string  $key  Cache key
 	* @return  mixed
 	*/
 
@@ -108,7 +108,7 @@ abstract class Adapter
 	* Magic isset.
 	*
 	* @access  public
-	* @param   string   Cache key
+	* @param   string   $key  Cache key
 	* @return  boolean
 	*/
 
@@ -121,7 +121,7 @@ abstract class Adapter
 	* Magic unsetter.
 	*
 	* @access  public
-	* @param   string  Cache key
+	* @param   string  $key  Cache key
 	*/
 
 	final public function __unset($key)

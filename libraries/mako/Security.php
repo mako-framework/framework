@@ -88,7 +88,7 @@ class Security
 	* Validates security token.
 	*
 	* @access  public
-	* @param   string   Security token
+	* @param   string   $token  Security token
 	* @return  boolean
 	*/
 	

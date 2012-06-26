@@ -40,7 +40,7 @@ class Charset
 	/**
 	* Check if a string only contains ascii characters.
 	*
-	* @param   string   The input string
+	* @param   string   $str  The input string
 	* @return  boolean
 	*/
 
@@ -53,8 +53,8 @@ class Charset
 	* Silently remove all invalid characters.
 	*
 	* @access  public
-	* @param   string  The input string
-	* @param   string  (optional) Expected charset
+	* @param   string  $str      The input string
+	* @param   string  $charset  (optional) Expected charset
 	* @return  string
 	*/
 
@@ -73,8 +73,8 @@ class Charset
 	* Converts a string to the chosen charset.
 	*
 	* @access  public
-	* @param   string  String to convert
-	* @param   string  (optional) Character set to convert to
+	* @param   string  $str      String to convert
+	* @param   string  $charset  (optional) Character set to convert to
 	* @return  string
 	*/
 

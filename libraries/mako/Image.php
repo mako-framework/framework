@@ -128,8 +128,8 @@ class Image
 	/**
 	* Factory method that returns a image object.
 	*
-	* @param   string              Path to the image file
-	* @param   string              (optional) Image library
+	* @param   string              $file     Path to the image file
+	* @param   string              $library  (optional) Image library
 	* @return  mako\image\Adapter
 	*/
 

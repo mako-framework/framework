@@ -62,7 +62,7 @@ class Assets
 	* Returns the instance of the chosen asset group.
 	*
 	* @access  public
-	* @param   string       Group name
+	* @param   string       $name  Group name
 	* @return  mako\Assets
 	*/
 
@@ -103,9 +103,9 @@ class Assets
 	* Add an asset.
 	*
 	* @access  public
-	* @param   string  Asset name
-	* @param   string  Asset source
-	* @param   array   (optional) Asset attributes
+	* @param   string  $name        Asset name
+	* @param   string  $source      Asset source
+	* @param   array   $attributes  (optional) Asset attributes
 	*/
 
 	protected function add($name, $source, array $attributes = array())
@@ -137,7 +137,7 @@ class Assets
 	* Get one or all CSS assets.
 	*
 	* @access  public
-	* @param   string  (optional) Asset name
+	* @param   string  $name  (optional) Asset name
 	* @return  string
 	*/
 
@@ -167,7 +167,7 @@ class Assets
 	* Get one or all JavaScript assets.
 	*
 	* @access  public
-	* @param   string  (optional) Asset name
+	* @param   string  $name  (optional) Asset name
 	* @return  string
 	*/
 
@@ -209,8 +209,8 @@ class Assets
 	* Performs calls on the chosen group instance.
 	*
 	* @access  public
-	* @param   string  Method name
-	* @param   array   Method arguments
+	* @param   string  $name       Method name
+	* @param   array   $arguments  Method arguments
 	* @return  mixed
 	*/
 
@@ -223,8 +223,8 @@ class Assets
 	* Performs calls on the default group instance.
 	*
 	* @access  public
-	* @param   string  Method name
-	* @param   array   Method arguments
+	* @param   string  $name       Method name
+	* @param   array   $arguments  Method arguments
 	* @return  mixed
 	*/
 

@@ -43,7 +43,7 @@ class Crypto
 	/**
 	* Returns an instance of the requested encryption configuration.
 	*
-	* @param                        string  (optional) Encryption configuration name
+	* @param                        string  $name  (optional) Encryption configuration name
 	* @return  mako\crypto\Adapter
 	*/
 	
@@ -67,8 +67,8 @@ class Crypto
 	* Magic shortcut to the default crypto configuration.
 	*
 	* @access  public
-	* @param   string  Method name
-	* @param   array   Method arguments
+	* @param   string  $name       Method name
+	* @param   array   $arguments  Method arguments
 	* @return  mixed
 	*/
 

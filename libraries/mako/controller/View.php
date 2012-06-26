@@ -42,8 +42,8 @@ abstract class View extends \mako\Controller
 	* Constructor.
 	*
 	* @access  public
-	* @param   mako\Request   A request object
-	* @param   mako\Response  A response object
+	* @param   mako\Request   $request   A request object
+	* @param   mako\Response  $response  A response object
 	*/
 
 	public function __construct($request, $response)

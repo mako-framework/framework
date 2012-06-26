@@ -51,7 +51,7 @@ class Redis
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  (optional) Redis configuration name
+	* @param   string  $name  (optional) Redis configuration name
 	*/
 
 	public function __construct($name = null)
@@ -74,7 +74,7 @@ class Redis
 	* Factory method making method chaining possible right off the bat.
 	*
 	* @access  public
-	* @param   string      (optional) Redis configuration name
+	* @param   string      $name  (optional) Redis configuration name
 	* @return  mako\Redis
 	*/
 
@@ -196,8 +196,8 @@ class Redis
 	* Sends command to Redis server and returns response.
 	*
 	* @access  public
-	* @param   string  Command name
-	* @param   array   Command parameters
+	* @param   string  $name  Command name
+	* @param   array   $args  Command parameters
 	* @return  mixed  
 	*/
 
@@ -227,8 +227,8 @@ class Redis
 	* Magic shortcut to the default redis configuration.
 	*
 	* @access  public
-	* @param   string  Method name
-	* @param   array   Method arguments
+	* @param   string  $name       Method name
+	* @param   array   $arguments  Method arguments
 	* @return  mixed
 	*/
 
