@@ -65,7 +65,7 @@ class Redis extends \mako\session\Adapter
 	* Returns session data.
 	*
 	* @access  public
-	* @param   string  Session id
+	* @param   string  $id  Session id
 	* @return  string
 	*/
 
@@ -78,8 +78,8 @@ class Redis extends \mako\session\Adapter
 	* Writes data to the session.
 	*
 	* @access  public
-	* @param   string  Session id
-	* @param   string  Session data
+	* @param   string  $id    Session id
+	* @param   string  $data  Session data
 	*/
 
 	public function write($id, $data)
@@ -95,7 +95,7 @@ class Redis extends \mako\session\Adapter
 	* Destroys the session.
 	*
 	* @access  public
-	* @param   string   Session id
+	* @param   string   $id  Session id
 	* @return  boolean
 	*/
 

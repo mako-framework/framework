@@ -43,7 +43,7 @@ class Database extends \mako\session\Adapter
 	* Constructor.
 	*
 	* @access  public
-	* @param   array   Configuration
+	* @param   array   $config  Configuration
 	*/
 
 	public function __construct(array $config)
@@ -93,7 +93,7 @@ class Database extends \mako\session\Adapter
 	* Returns session data.
 	*
 	* @access  public
-	* @param   string  Session id
+	* @param   string  $id  Session id
 	* @return  string
 	*/
 
@@ -115,8 +115,8 @@ class Database extends \mako\session\Adapter
 	* Writes data to the session.
 	*
 	* @access  public
-	* @param   string  Session id
-	* @param   string  Session data
+	* @param   string  $id    Session id
+	* @param   string  $data  Session data
 	*/
 
 	public function write($id, $data)
@@ -142,7 +142,7 @@ class Database extends \mako\session\Adapter
 	* Destroys the session.
 	*
 	* @access  public
-	* @param   string   Session id
+	* @param   string   $id  Session id
 	* @return  boolean
 	*/
 
@@ -162,7 +162,7 @@ class Database extends \mako\session\Adapter
 	* Garbage collector.
 	*
 	* @access  public
-	* @param   int      Lifetime in secods
+	* @param   int      $maxLifetime  Lifetime in secods
 	* @return  boolean
 	*/
 

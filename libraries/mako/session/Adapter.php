@@ -55,8 +55,8 @@ abstract class Adapter
 	* Session "constructor".
 	*
 	* @access  public
-	* @param   string   Save path
-	* @param   string   Session name
+	* @param   string   $savePath     Save path
+	* @param   string   $sessionName  Session name
 	* @return  boolean
 	*/
 
@@ -83,7 +83,7 @@ abstract class Adapter
 	* Garbage collector.
 	*
 	* @access  public
-	* @param   int      Lifetime in secods
+	* @param   int      $maxLifetime  Lifetime in secods
 	* @return  boolean
 	*/
 
