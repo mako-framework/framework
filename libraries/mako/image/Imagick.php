@@ -31,7 +31,7 @@ class Imagick extends \mako\image\Adapter
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  Path to the image file
+	* @param   string  $file  Path to the image file
 	*/
 
 	public function __construct($file)
@@ -74,7 +74,7 @@ class Imagick extends \mako\image\Adapter
 	* Rotates the image using the given angle in degrees.
 	*
 	* @access  public
-	* @param   int                 Degrees to rotate the image
+	* @param   int                 $degrees  Degrees to rotate the image
 	* @return  mako\image\Imagick
 	*/
 
@@ -88,9 +88,9 @@ class Imagick extends \mako\image\Adapter
 	/**
 	* Resizes the image to the chosen size. 
 	*
-	* @param   int                 Width of the image
-	* @param   int                 (optional) Height of the image
-	* @param   int                 (optional) Aspect ratio
+	* @param   int                 $width        Width of the image
+	* @param   int                 $height       (optional) Height of the image
+	* @param   int                 $aspectRatio  (optional) Aspect ratio
 	* @return  mako\image\Imagick
 	*/
 
@@ -147,10 +147,10 @@ class Imagick extends \mako\image\Adapter
 	* Crops the image.
 	*
 	* @access  public
-	* @param   int                 Width of the crop
-	* @param   int                 Height of the crop
-	* @param   int                 The X coordinate of the cropped region's top left corner
-	* @param   int                 The Y coordinate of the cropped region's top left corner
+	* @param   int                 $width   Width of the crop
+	* @param   int                 $height  Height of the crop
+	* @param   int                 $x       The X coordinate of the cropped region's top left corner
+	* @param   int                 $y       The Y coordinate of the cropped region's top left corner
 	* @return  mako\image\Imagick
 	*/
 
@@ -165,7 +165,7 @@ class Imagick extends \mako\image\Adapter
 	* Flips the image.
 	*
 	* @access  public  
-	* @param   int                 (optional) Direction to flip the image
+	* @param   int                 $direction  (optional) Direction to flip the image
 	* @return  mako\image\Imagick
 	*/
 
@@ -191,9 +191,9 @@ class Imagick extends \mako\image\Adapter
 	* Adds a watermark to the image.
 	*
 	* @access  public
-	* @param   string              Path to the image file
-	* @param   int                 (optional) Position of the watermark
-	* @param   int                 (optional) Opacity of the watermark in percent
+	* @param   string              $file      Path to the image file
+	* @param   int                 $position  (optional) Position of the watermark
+	* @param   int                 $opacity   (optional) Opacity of the watermark in percent
 	* @return  mako\image\Imagick
 	*/
 	
@@ -270,7 +270,7 @@ class Imagick extends \mako\image\Adapter
 	* Colorize an image.
 	*
 	* @access  public
-	* @param   string              Hex code for the color
+	* @param   string              $color  Hex code for the color
 	* @return  mako\image\Imagick
 	*/
 
@@ -285,8 +285,8 @@ class Imagick extends \mako\image\Adapter
 	* Adds a border to the image.
 	*
 	* @access  public
-	* @param   string             Hex code for the color
-	* @param   int                Thickness of the frame in pixels
+	* @param   string             $color      Hex code for the color
+	* @param   int                $thickness  Thickness of the frame in pixels
 	* @return  mako\image\Imagick
 	*/
 	
@@ -303,8 +303,8 @@ class Imagick extends \mako\image\Adapter
 	* Saves image to file and in the specified quality (quality only affects jpg/jpeg and png).
 	*
 	* @access  public
-	* @param   string  Path to the image file
-	* @param   int     (optional) Image quality in percent
+	* @param   string  $file     Path to the image file
+	* @param   int     $quality  (optional) Image quality in percent
 	*/
 
 	public function save($file, $quality = 85)
