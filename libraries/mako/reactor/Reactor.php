@@ -46,7 +46,7 @@ class Reactor
 	* Sets up the CLI environment and runs the commands.
 	*
 	* @access  public
-	* @param   array   Arguments
+	* @param   array   $arguments  Arguments
 	*/
 
 	public static function run($arguments)

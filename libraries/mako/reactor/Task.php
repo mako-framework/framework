@@ -42,6 +42,8 @@ abstract class Task
 	* Display help if non-existant method is called.
 	*
 	* @access  public
+	* @param  string  $name       Method name
+	* @param  array   $arguments  Method arguments
 	*/
 
 	public function __call($name, $arguments)

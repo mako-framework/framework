@@ -47,7 +47,7 @@ class Tasks
 	* Runs the chosen task.
 	*
 	* @access  public
-	* @param   array   Arguments
+	* @param   array   $arguments  Arguments
 	*/
 
 	public static function run($arguments)

@@ -52,7 +52,7 @@ class File extends \mako\log\Adapter
 	* Constructor.
 	*
 	* @access  public
-	* @param   array   Configuration
+	* @param   array   $config  Configuration
 	*/
 	
 	public function __construct(array $config)
@@ -68,9 +68,9 @@ class File extends \mako\log\Adapter
 	* Writes message to log.
 	*
 	* @access  public
-	* @param   string   The message to write to the log
-	* @param   int      (optional) Message type
-	* @return  boolean  TRUE on success or FALSE on failure.
+	* @param   string   $message  The message to write to the log
+	* @param   int      $type     (optional) Message type
+	* @return  boolean
 	*/
 	
 	public function write($message, $type = Log::ERROR)

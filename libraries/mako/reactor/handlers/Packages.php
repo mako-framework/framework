@@ -83,7 +83,7 @@ class Packages
 	* Installs or uninstalls the requested package.
 	*
 	* @access  public
-	* @param   array   Arguments
+	* @param   array   $arguments  Arguments
 	*/
 
 	public static function run($arguments)
@@ -119,8 +119,8 @@ class Packages
 	* Installs a package.
 	*
 	* @access  protected
-	* @param   string     Package name
-	* @param   boolean    (optional) Silent install?
+	* @param   string     $package  Package name
+	* @param   boolean    $silent   (optional) Silent install?
 	*/
 
 	protected static function install($package, $silent = false)
@@ -192,7 +192,7 @@ class Packages
 	* Removes a package.
 	*
 	* @access  public
-	* @param   string  Package name
+	* @param   string  $package  Package name
 	*/
 
 	protected static function remove($package)
