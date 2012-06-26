@@ -96,7 +96,7 @@ class Database
 	* Opens a new connection or returns existing connection if it already exists.
 	*
 	* @access  public
-	* @param   string                    (optional) Database configuration name
+	* @param   string                    $name  (optional) Database configuration name
 	* @return  mako\database\Connection
 	*/
 
@@ -124,7 +124,7 @@ class Database
 	*
 	* @deprecated
 	* @access  public
-	* @param   string  (optional) Database configuration name
+	* @param   string  (optional) $name  Database configuration name
 	* @return  PDO
 	*/
 
@@ -137,7 +137,7 @@ class Database
 	* Returns a raw sql container.
 	*
 	* @access  public
-	* @param   string                   Raw SQL
+	* @param   string                   $sql  Raw SQL
 	* @return  mako\database\query\Raw
 	*/
 
@@ -150,8 +150,8 @@ class Database
 	* Returns a subquery container.
 	*
 	* @access  public
-	* @param   mako\database\Query           Subquery
-	* @param   string                        (optional) Alias
+	* @param   mako\database\Query           $query  Subquery
+	* @param   string                        $alias  (optional) Alias
 	* @return  mako\database\query\Subquery
 	*/
 
@@ -164,8 +164,8 @@ class Database
 	* Magic shortcut to the default database connection.
 	*
 	* @access  public
-	* @param   string  Method name
-	* @param   array   Method arguments
+	* @param   string  $name       Method name
+	* @param   array   $arguments  Method arguments
 	* @return  mixed
 	*/
 

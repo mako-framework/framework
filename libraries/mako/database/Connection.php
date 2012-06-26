@@ -56,9 +56,9 @@ class Connection
 	* Constructor.
 	*
 	* @access  public
-	* @param   string   Connection name
-	* @param   array    Connection configuration
-	* @param   boolean  Enable profiling?
+	* @param   string   $name      Connection name
+	* @param   array    $config    Connection configuration
+	* @param   boolean  $profiler  Enable profiling?
 	*/
 
 	public function __construct($name, array $config, $profiler)
@@ -107,9 +107,9 @@ class Connection
 	* Adds a query to the query log.
 	*
 	* @access  protected
-	* @param   string     SQL query
-	* @param   array      Query parameters
-	* @param   int        Start time in microseconds
+	* @param   string     $query   SQL query
+	* @param   array      $params  Query parameters
+	* @param   int        $start   Start time in microseconds
 	*/
 
 	protected function log($query, $params, $start)
@@ -144,8 +144,9 @@ class Connection
 	* Executes a query and returns the results.
 	*
 	* @access  public
-	* @param   string  SQL query
-	* @param   array   Query parameters
+	* @param   string  $query   SQL query
+	* @param   array   $params  Query parameters
+	* @param   int     $fetch   Fetch mode
 	* @return  mixed
 	*/
 
@@ -212,8 +213,8 @@ class Connection
 	* Returns an array containing all of the result set rows.
 	*
 	* @access  public
-	* @param   string  SQL query
-	* @param   array   Query parameters
+	* @param   string  $query   SQL query
+	* @param   array   $params  Query parameters
 	* @return  array
 	*/
 
@@ -226,8 +227,8 @@ class Connection
 	* Returns the first row of the result set.
 	*
 	* @access  public
-	* @param   string  SQL query
-	* @param   array   Query params
+	* @param   string  $query   SQL query
+	* @param   array   $params  Query params
 	* @return  mixed
 	*/
 
@@ -240,8 +241,8 @@ class Connection
 	* Returns the value of the first column of the first row of the result set.
 	*
 	* @access  public
-	* @param   string  SQL query
-	* @param   array   Query parameters
+	* @param   string  $query   SQL query
+	* @param   array   $params  Query parameters
 	* @return  mixed
 	*/
 
@@ -254,7 +255,7 @@ class Connection
 	* Returns a query builder instance.
 	*
 	* @access  public
-	* @param   mixed                Table name or subquery
+	* @param   mixed                $table  Table name or subquery
 	* @return  mako\database\Query
 	*/
 
@@ -267,7 +268,7 @@ class Connection
 	* Executes queries and rolls back the transaction if any of them fail.
 	*
 	* @access  public
-	* @param   Closure  Queries
+	* @param   Closure  $queries  Queries
 	* @return  boolean
 	*/
 
