@@ -42,8 +42,8 @@ class Subquery
 	* Constructor.
 	*
 	* @access  public
-	* @param   mako\database\Query  Query builder
-	* @param   string               Subquery alias
+	* @param   mako\database\Query  $query  Query builder
+	* @param   string               $alias  Subquery alias
 	*/
 
 	public function __construct(Query $query, $alias = null)

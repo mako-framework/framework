@@ -48,8 +48,8 @@ class Join
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  Join type
-	* @param   string  Table we are joining
+	* @param   string  $type  Join type
+	* @param   string  $table  Table we are joining
 	*/
 
 	public function __construct($type, $table)
@@ -66,10 +66,10 @@ class Join
 	* Adds a ON clause to the join.
 	*
 	* @access  public
-	* @param   string  Column name
-	* @param   string  Operator
-	* @param   string  Column name
-	* @param   string  (optional) Clause separator
+	* @param   string  $column1    Column name
+	* @param   string  $operator   Operator
+	* @param   string  $column2    Column name
+	* @param   string  $separator  (optional) Clause separator
 	*/
 
 	public function on($column1, $operator, $column2, $separator = 'AND')
@@ -89,9 +89,9 @@ class Join
 	* Adds a OR ON clause to the join.
 	*
 	* @access  public
-	* @param   string  Column name
-	* @param   string  Operator
-	* @param   string  Column name
+	* @param   string  $column1   Column name
+	* @param   string  $operator  Operator
+	* @param   string  $column2   Column name
 	*/
 
 	public function orOn($column1, $operator, $column2)

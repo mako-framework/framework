@@ -32,7 +32,7 @@ class Raw
 	* Constructor.
 	*
 	* @access  public
-	* @param   string  Raw SQL
+	* @param   string  $sql  Raw SQL
 	*/
 
 	public function __construct($sql)
