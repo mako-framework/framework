@@ -127,8 +127,8 @@ class Query
 	* Constructor.
 	*
 	* @access  public
-	* @param   mako\database\Conenction  Database connection
-	* @param   mixed                     Database table or subquery
+	* @param   mako\database\Conenction  $connection  Database connection
+	* @param   mixed                     $table       Database table or subquery
 	*/
 
 	public function __construct(Connection $connection, $table)
@@ -170,7 +170,7 @@ class Query
 	* Sets the columns we want to select.
 	*
 	* @access  public
-	* @param   array                Array of columns
+	* @param   array                $columns  Array of columns
 	* @return  mako\database\Query
 	*/
 
@@ -201,10 +201,10 @@ class Query
 	* Adds a WHERE clause.
 	*
 	* @access  public
-	* @param   mixed                Column name or closure
-	* @param   string               (optional) Operator
-	* @param   mixed                (optional) Value
-	* @param   string               (optional) Clause separator
+	* @param   string|Closure       $column     Column name or closure
+	* @param   string               $operator   (optional) Operator
+	* @param   mixed                $value      (optional) Value
+	* @param   string               $separator  (optional) Clause separator
 	* @return  mako\database\Query
 	*/
 
@@ -242,9 +242,9 @@ class Query
 	* Adds a OR WHERE clause.
 	*
 	* @access  public
-	* @param   mixed                Column name or closure
-	* @param   string               (optional) Operator
-	* @param   mixed                (optional) Value
+	* @param   string|Closure       $column    Column name or closure
+	* @param   string               $operator  (optional) Operator
+	* @param   mixed                $value     (optional) Value
 	* @return  mako\database\Query
 	*/
 
@@ -257,11 +257,11 @@ class Query
 	* Adds a BETWEEN clause.
 	*
 	* @access  public
-	* @param   string               Column name
-	* @param   mixed                First value
-	* @param   mixed                Second value
-	* @param   string               (optional) Clause separator
-	* @param   boolean              Not between?
+	* @param   string               $column     Column name
+	* @param   mixed                $value1     First value
+	* @param   mixed                $value2     Second value
+	* @param   string               $separator  (optional) Clause separator
+	* @param   boolean              $not        Not between?
 	* @return  mako\database\Query
 	*/
 
@@ -284,9 +284,9 @@ class Query
 	* Adds a OR BETWEEN clause.
 	*
 	* @access  public
-	* @param   string               Column name
-	* @param   mixed                First value
-	* @param   mixed                Second value
+	* @param   string               $column  Column name
+	* @param   mixed                $value1  First value
+	* @param   mixed                $value2  Second value
 	* @return  mako\database\Query
 	*/
 
@@ -299,9 +299,9 @@ class Query
 	* Adds a NOT BETWEEN clause.
 	*
 	* @access  public
-	* @param   string               Column name
-	* @param   mixed                First value
-	* @param   mixed                Second value
+	* @param   string               $column  Column name
+	* @param   mixed                $value1  First value
+	* @param   mixed                $value2  Second value
 	* @return  mako\database\Query
 	*/
 
@@ -314,9 +314,9 @@ class Query
 	* Adds a OR NOT BETWEEN clause.
 	*
 	* @access  public
-	* @param   string               Column name
-	* @param   mixed                First value
-	* @param   mixed                Second value
+	* @param   string               $column  Column name
+	* @param   mixed                $value1  First value
+	* @param   mixed                $value2  Second value
 	* @return  mako\database\Query
 	*/
 
@@ -329,10 +329,10 @@ class Query
 	* Adds a IN clause.
 	*
 	* @access  public
-	* @param   string               Column name
-	* @param   mixed                Array of values or Subquery
-	* @param   string               (optional) Clause separator
-	* @param   boolean              (optional) Not in?
+	* @param   string               $column     Column name
+	* @param   mixed                $values     Array of values or Subquery
+	* @param   string               $separator  (optional) Clause separator
+	* @param   boolean              $not        (optional) Not in?
 	* @return  mako\database\Query
 	*/
 
@@ -359,8 +359,8 @@ class Query
 	* Adds a OR IN clause.
 	*
 	* @access  public
-	* @param   mixed                Column name
-	* @param   mixed                Array of values or Subquery
+	* @param   string               $column  Column name
+	* @param   mixed                $values  Array of values or Subquery
 	* @return  mako\database\Query
 	*/
 
@@ -373,8 +373,8 @@ class Query
 	* Adds a NOT IN clause.
 	*
 	* @access  public
-	* @param   mixed                Column name
-	* @param   mixed                Array of values or Subquery
+	* @param   string               $column  Column name
+	* @param   mixed                $values  Array of values or Subquery
 	* @return  mako\database\Query
 	*/
 
@@ -387,8 +387,8 @@ class Query
 	* Adds a OR NOT IN clause.
 	*
 	* @access  public
-	* @param   mixed                Column name
-	* @param   mixed                Array of values or Subquery
+	* @param   string               $column  Column name
+	* @param   mixed                $values  Array of values or Subquery
 	* @return  mako\database\Query
 	*/
 
@@ -401,9 +401,9 @@ class Query
 	* Adds a IS NULL clause.
 	*
 	* @access  public
-	* @param   mixed                Column name
-	* @param   string               (optional) Clause separator
-	* @param   boolean              (boolean) Not in?
+	* @param   mixed                $column     Column name
+	* @param   string               $separator  (optional) Clause separator
+	* @param   boolean              $not        (boolean) Not in?
 	* @return  mako\database\Query
 	*/
 
@@ -424,7 +424,7 @@ class Query
 	* Adds a OR IS NULL clause.
 	*
 	* @access  public
-	* @param   mixed                Column name
+	* @param   mixed                $column  Column name
 	* @return  mako\database\Query
 	*/
 
@@ -437,7 +437,7 @@ class Query
 	* Adds a IS NOT NULL clause.
 	*
 	* @access  public
-	* @param   mixed                Column name
+	* @param   mixed                $column  Column name
 	* @return  mako\database\Query
 	*/
 
@@ -450,7 +450,7 @@ class Query
 	* Adds a OR IS NOT NULL clause.
 	*
 	* @access  public
-	* @param   mixed                Column name
+	* @param   mixed                $column  Column name
 	* @return  mako\database\Query
 	*/
 
@@ -463,7 +463,9 @@ class Query
 	* Adds a EXISTS clause.
 	*
 	* @access  public
-	* @param   mako\database\query\Subquery  Subquery
+	* @param   mako\database\query\Subquery  $query      Subquery
+	* @param   string                        $separator  (optional) Clause separator
+	* @param   boolean                       $not        (boolean) Not exists?
 	* @return  mako\database\Query
 	*/
 
@@ -484,7 +486,7 @@ class Query
 	* Adds a OR EXISTS clause.
 	*
 	* @access  public
-	* @param   mako\database\query\Subquery  Subquery
+	* @param   mako\database\query\Subquery  $query  Subquery
 	* @return  mako\database\Query
 	*/
 
@@ -497,7 +499,7 @@ class Query
 	* Adds a NOT EXISTS clause.
 	*
 	* @access  public
-	* @param   mako\database\query\Subquery  Subquery
+	* @param   mako\database\query\Subquery  $query  Subquery
 	* @return  mako\database\Query
 	*/
 
@@ -510,7 +512,7 @@ class Query
 	* Adds a OR NOT EXISTS clause.
 	*
 	* @access  public
-	* @param   mako\database\query\Subquery  Subquery
+	* @param   mako\database\query\Subquery  $query  Subquery
 	* @return  mako\database\Query
 	*/
 
@@ -523,11 +525,11 @@ class Query
 	* Adds a INNER JOIN clause.
 	*
 	* @access  public
-	* @param   string               Table name
-	* @param   mixed                (optional) Column name
-	* @param   string               (optional) Operator
-	* @param   string               (optional) Column name
-	* @param   string               (optional) Join type
+	* @param   string               $table     Table name
+	* @param   string|Closure       $column1   (optional) Column name or closure
+	* @param   string               $operator  (optional) Operator
+	* @param   string               $column2   (optional) Column name
+	* @param   string               $type      (optional) Join type
 	* @return  mako\database\Query
 	*/
 
@@ -553,10 +555,10 @@ class Query
 	* Adds a LEFT OUTER JOIN clause.
 	*
 	* @access  public
-	* @param   string               Table name
-	* @param   mixed                (optional) Column name
-	* @param   string               (optional) Operator
-	* @param   string               (optional) Column name
+	* @param   string               $table     Table name
+	* @param   string|Closure       $column1   (optional) Column name or closure
+	* @param   string               $operator  (optional) Operator
+	* @param   string               $column2   (optional) Column name
 	* @return  mako\database\Query
 	*/
 
@@ -589,10 +591,10 @@ class Query
 	* Adds a HAVING clause.
 	*
 	* @access  public
-	* @param   string               Column name
-	* @param   string               Operator
-	* @param   mixed                Value
-	* @param   string               (optional) Clause separator
+	* @param   string               $column     Column name
+	* @param   string               $operator   Operator
+	* @param   mixed                $value      Value
+	* @param   string               $separator  (optional) Clause separator
 	* @return  mako\database\Query
 	*/
 
@@ -613,9 +615,9 @@ class Query
 	* Adds a OR HAVING clause.
 	*
 	* @access  public
-	* @param   string               Column name
-	* @param   string               Operator
-	* @param   mixed                Value
+	* @param   string               $column    Column name
+	* @param   string               $operator  Operator
+	* @param   mixed                $value     Value
 	* @return  mako\database\Query
 	*/
 
@@ -639,7 +641,7 @@ class Query
 		{
 			$columns = array($columns);
 		}
-		
+
 		$this->orderings[] = array
 		(
 			'column' => $columns,
@@ -653,7 +655,7 @@ class Query
 	* Adds a LIMIT clause.
 	*
 	* @access  public
-	* @param   int                  Limit
+	* @param   int                  $limit  Limit
 	* @return  mako\database\Query
 	*/
 
@@ -668,7 +670,7 @@ class Query
 	* Adds a OFFSET clause.
 	*
 	* @access  public
-	* @param   int                  Offset
+	* @param   int                  $offset  Offset
 	* @return  mako\database\Query
 	*/
 
@@ -683,7 +685,7 @@ class Query
 	* Executes a SELECT query and returns an array containing all of the result set rows.
 	*
 	* @access  public
-	* @param   array   Array of column names
+	* @param   array   $columns  Array of column names
 	* @return  array
 	*/
 
@@ -700,7 +702,7 @@ class Query
 	* Executes a SELECT query and returns the first row of the result set.
 	*
 	* @access  public
-	* @param   array   Array of column names
+	* @param   array   $columns  Array of column names
 	* @return  mixed
 	*/
 
@@ -717,7 +719,7 @@ class Query
 	* Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
 	*
 	* @access  public
-	* @param   string   Column name
+	* @param   string   $column  Column name
 	* @return  mixed
 	*/
 
@@ -734,8 +736,8 @@ class Query
 	* Executes a aggregate query and returns the result.
 	*
 	* @access  public
-	* @param   string  Column
-	* @param   string  Aggregate function
+	* @param   string  $column    Column
+	* @param   string  $function  Aggregate function
 	* @return  mixed
 	*/
 
@@ -748,7 +750,7 @@ class Query
 	* Returns the minimum value for the chosen column.
 	*
 	* @access  public
-	* @param   string  Column name
+	* @param   string  $column  Column name
 	* @return  int
 	*/
 
@@ -761,7 +763,7 @@ class Query
 	* Returns the maximum value for the chosen column.
 	*
 	* @access  public
-	* @param   string  Column name
+	* @param   string  $column  Column name
 	* @return  int
 	*/
 
@@ -774,7 +776,7 @@ class Query
 	* Returns sum of all the values in the chosen column.
 	*
 	* @access  public
-	* @param   string  Column name
+	* @param   string  $column  Column name
 	* @return  int
 	*/
 
@@ -787,7 +789,7 @@ class Query
 	* Returns the average value for the chosen column.
 	*
 	* @access  public
-	* @param   string  Column name
+	* @param   string  $column  Column name
 	* @return  float
 	*/
 
@@ -800,7 +802,7 @@ class Query
 	* Returns the number of rows.
 	*
 	* @access  public
-	* @param   string  (optional) Column name
+	* @param   string  $column  (optionall Column name
 	* @return  float
 	*/
 
@@ -813,7 +815,7 @@ class Query
 	* Inserts data into the chosen table.
 	*
 	* @access  public
-	* @param   array    Associative array of column values
+	* @param   array    $values  Associative array of column values
 	* @return  boolean
 	*/
 
@@ -828,7 +830,7 @@ class Query
 	* Updates data from the chosen table.
 	*
 	* @access  public
-	* @param   array    Associative array of column values
+	* @param   array    $values  Associative array of column values
 	* @return  int
 	*/
 
@@ -843,8 +845,8 @@ class Query
 	* Increments column value.
 	*
 	* @access  public
-	* @param   string  Column name
-	* @param   int     (optional) Increment value
+	* @param   string  $column     Column name
+	* @param   int     $increment  (optional) Increment value
 	* @return  int
 	*/
 
@@ -857,8 +859,8 @@ class Query
 	* Decrements column value.
 	*
 	* @access  public
-	* @param   string  Column name
-	* @param   int     (optional) Decrement value
+	* @param   string  $column     Column name
+	* @param   int     $decrement  (optional) Decrement value
 	* @return  int
 	*/
 
