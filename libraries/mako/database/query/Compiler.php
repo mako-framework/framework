@@ -52,7 +52,7 @@ class Compiler
 	* Constructor.
 	*
 	* @access  public
-	* @param   mako\database\Query  Query builder
+	* @param   mako\database\Query  $query  Query builder
 	*/
 
 	public function __construct(Query $query)
@@ -68,7 +68,7 @@ class Compiler
 	* Compiles subquery, merges parameters and returns subquery SQL.
 	*
 	* @access  protected
-	* @param   mako\database\query\Subquery  Subquery container
+	* @param   mako\database\query\Subquery  $query  Subquery container
 	* @return  string
 	*/
 
@@ -85,7 +85,7 @@ class Compiler
 	* Wraps table and column names with dialect specific escape characters.
 	*
 	* @access  public
-	* @param   mixed   Value to wrap
+	* @param   mixed   $value  Value to wrap
 	* @return  string
 	*/
 
@@ -128,7 +128,7 @@ class Compiler
 	* Returns a comma-separated list of columns.
 	*
 	* @access  protected
-	* @param   array      Array of columns
+	* @param   array      $columns  Array of columns
 	* @return  string
 	*/
 
@@ -141,7 +141,7 @@ class Compiler
 	* Returns raw SQL or a paramter placeholder.
 	*
 	* @access  protected  
-	* @param   mixed      Parameter
+	* @param   mixed      $param  Parameter
 	* @return  string
 	*/
 
@@ -167,7 +167,7 @@ class Compiler
 	* Returns a comma-separated list of parameters.
 	*
 	* @access  protected
-	* @param   mixed      Array of parameters or subquery
+	* @param   mixed      $params  Array of parameters or subquery
 	* @return  string
 	*/
 
@@ -180,7 +180,7 @@ class Compiler
 	* Compiles WHERE clauses.
 	*
 	* @access  protected
-	* @param   array      Where clause
+	* @param   array      $where  Where clause
 	* @return  string
 	*/
 
@@ -193,7 +193,7 @@ class Compiler
 	* Compiles BETWEEN clauses.
 	*
 	* @access  protected
-	* @param   array      Where clause
+	* @param   array      $where  Where clause
 	* @return  string
 	*/
 
@@ -206,7 +206,7 @@ class Compiler
 	* Compiles IN clauses.
 	*
 	* @access  protected
-	* @param   array      Where clause
+	* @param   array      $where  Where clause
 	* @return  string
 	*/
 
@@ -219,7 +219,7 @@ class Compiler
 	* Compiles IS NULL clauses.
 	*
 	* @access  protected
-	* @param   array      Where clause
+	* @param   array      $where  Where clause
 	* @return  string
 	*/
 
@@ -232,7 +232,7 @@ class Compiler
 	* Compiles EXISTS clauses.
 	*
 	* @access  protected
-	* @param   array      Exists clause
+	* @param   array      $where  Exists clause
 	* @return  string
 	*/
 
@@ -245,7 +245,7 @@ class Compiler
 	* Compiles nested WHERE clauses.
 	*
 	* @access  protected
-	* @param   array      Where clause
+	* @param   array      $where  Where clause
 	* @return  string
 	*/
 
@@ -258,7 +258,7 @@ class Compiler
 	* Compiles WHERE clauses.
 	*
 	* @access  protected
-	* @param   array      Array of where clauses
+	* @param   array      $wheres  Array of where clauses
 	* @return  string
 	*/
 
@@ -283,7 +283,7 @@ class Compiler
 	* Compiles JOIN clauses.
 	*
 	* @access  protected
-	* @param   array      Array of joins
+	* @param   array      $joins  Array of joins
 	* @return  string
 	*/
 
@@ -315,7 +315,7 @@ class Compiler
 	* Compiles GROUP BY clauses.
 	*
 	* @access  protected
-	* @param   array      Array of column names
+	* @param   array      $groupings  Array of column names
 	* @return  string
 	*/
 
@@ -328,7 +328,7 @@ class Compiler
 	* Compiles ORDER BY clauses.
 	*
 	* @access  protected
-	* @param   array      Array of order by clauses
+	* @param   array      $orderings  Array of order by clauses
 	* @return  string
 	*/
 
@@ -353,7 +353,7 @@ class Compiler
 	* Compiles HAVING clauses.
 	*
 	* @access  protected
-	* @param   array      Array of having clauses
+	* @param   array      $havings  Array of having clauses
 	* @return  string
 	*/
 
@@ -378,7 +378,7 @@ class Compiler
 	* Compiles LIMIT clauses.
 	*
 	* @access  protected
-	* @param   int        Limit
+	* @param   int        $limit  Limit
 	* @return  string
 	*/
 
@@ -391,7 +391,7 @@ class Compiler
 	* Compiles OFFSET clauses.
 	*
 	* @access  protected
-	* @param   int        Limit
+	* @param   int        $offset  Limit
 	* @return  string
 	*/
 
@@ -428,7 +428,7 @@ class Compiler
 	* Compiles a INSERT query.
 	*
 	* @access  public
-	* @param   array   Array of values
+	* @param   array   $values  Array of values
 	* @return  string
 	*/
 
@@ -447,7 +447,7 @@ class Compiler
 	* Compiles a UPDATE query.
 	*
 	* @access  public
-	* @param   array   Array of values
+	* @param   array   $values  Array of values
 	* @return  string
 	*/
 
