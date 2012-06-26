@@ -43,7 +43,7 @@ class Arr
 	* @access  public
 	* @param   array   $array    Array we're going to search
 	* @param   string  $path     Array path
-	* @param   mixed   $default  Default return value
+	* @param   mixed   $default  (optional) Default return value
 	* @return  mixed
 	*/
 	public static function get(array $array, $path, $default = null)
