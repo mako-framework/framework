@@ -55,8 +55,8 @@ class Compiler
 	* Returns true if the template has been modified since the last compile.
 	*
 	* @access  protected
-	* @param  string      Path to template
-	* @param  string      Path to compiled view
+	* @param  string      $fileName     Path to template
+	* @param  string      $storageName  Path to compiled view
 	*/
 
 	protected static function isExpired($fileName, $storageName)
@@ -68,8 +68,8 @@ class Compiler
 	* Compiles comments.
 	*
 	* @access  protected
-	* @param   string     Template
-	* @return  string     Compiled template
+	* @param   string     $template  Template
+	* @return  string
 	*/
 
 	protected static function comments($template)
@@ -83,8 +83,8 @@ class Compiler
 	* Compiles template extensions.
 	*
 	* @access  protected
-	* @param   string     Template
-	* @return  string     Compiled template
+	* @param   string     $template  Template
+	* @return  string
 	*/
 
 	protected static function extensions($template)
@@ -106,8 +106,8 @@ class Compiler
 	* Compiles view includes.
 	*
 	* @access  protected
-	* @param   string     Template
-	* @return  string     Compiled template
+	* @param   string     $template  Template
+	* @return  string
 	*/
 
 	protected static function views($template)
@@ -121,8 +121,8 @@ class Compiler
 	* Compiles blocks.
 	*
 	* @access  protected
-	* @param   string     Template
-	* @return  string     Compiled template
+	* @param   string     $template  Template
+	* @return  string
 	*/
 
 	protected static function blocks($template)
@@ -142,8 +142,8 @@ class Compiler
 	* Compiles control structures.
 	*
 	* @access  protected
-	* @param   string     Template
-	* @return  string     Compiled template
+	* @param   string     $template  Template
+	* @return  string
 	*/
 
 	protected static function controlStructures($template)
@@ -161,8 +161,8 @@ class Compiler
 	* Compiles echos.
 	*
 	* @access  protected
-	* @param   string     Template
-	* @return  string     Compiled template
+	* @param   string     $template  Template
+	* @return  string
 	*/
 
 	protected static function echos($template)
@@ -197,11 +197,11 @@ class Compiler
 	}
 
 	/**
-	* Compiles templates into views
+	* Compiles templates into views and returns the path to the compiled template.
 	*
 	* @access  public
-	* @param   string  Path to template
-	* @return  string  Path to the compiled view
+	* @param   string  $fileName  Path to template
+	* @return  string
 	*/
 
 	public static function compile($fileName)

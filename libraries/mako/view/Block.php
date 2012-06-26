@@ -55,7 +55,7 @@ class Block
 	* Opens a view block.
 	*
 	* @access  public
-	* @param   string  Block name
+	* @param   string  $name  Block name
 	*/
 
 	public static function open($name)
@@ -78,7 +78,7 @@ class Block
 	* Returns TRUE if the block exists and FALSE if not.
 	*
 	* @access  public
-	* @param   string   Block name
+	* @param   string   $name  Block name
 	* @return  boolean
 	*/
 
@@ -91,7 +91,7 @@ class Block
 	* Returns the contents of a view block.
 	*
 	* @access  public
-	* @param   string  Block name
+	* @param   string  $name  Block name
 	* @return  string
 	*/
 
