@@ -569,13 +569,18 @@ class Query
 	* Adds a GROUP BY clause.
 	*
 	* @access  public
-	* @param   string                Column name
+	* @param   string|array         $columns  Column name or array of column names
 	* @return  mako\database\Query
 	*/
 
-	public function groupBy($column)
+	public function groupBy($columns)
 	{
-		$this->groupings[] = $column;
+		if(!is_array($columns))
+		{
+			$columns = array($columns);
+		}
+
+		$this->groupings = $columns;
 
 		return $this;
 	}
@@ -623,16 +628,21 @@ class Query
 	* Adds a ORDER BY clause.
 	*
 	* @access  public
-	* @param   string               Column name
-	* @param   string               (optional) Sorting order
+	* @param   string|array         $columns  Column name or array of column names
+	* @param   string               $order    (optional) Sorting order
 	* @return  mako\database\Query
 	*/
 
-	public function orderBy($column, $order = 'asc')
+	public function orderBy($columns, $order = 'asc')
 	{
+		if(!is_array($columns))
+		{
+			$columns = array($columns);
+		}
+		
 		$this->orderings[] = array
 		(
-			'column' => $column,
+			'column' => $columns,
 			'order'  => $order,
 		);
 
@@ -673,7 +683,7 @@ class Query
 	* Executes a SELECT query and returns an array containing all of the result set rows.
 	*
 	* @access  public
-	* @param   array   Column names
+	* @param   array   Array of column names
 	* @return  array
 	*/
 
@@ -690,7 +700,7 @@ class Query
 	* Executes a SELECT query and returns the first row of the result set.
 	*
 	* @access  public
-	* @param   array   Column names
+	* @param   array   Array of column names
 	* @return  mixed
 	*/
 

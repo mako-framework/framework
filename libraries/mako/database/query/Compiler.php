@@ -343,7 +343,7 @@ class Compiler
 
 		foreach($orderings as $order)
 		{
-			$sql[] = $this->wrap($order['column']) . ' ' . strtoupper($order['order']);
+			$sql[] = $this->columns($order['column']) . ' ' . strtoupper($order['order']);
 		}
 
 		return ' ORDER BY ' . implode(', ', $sql);
