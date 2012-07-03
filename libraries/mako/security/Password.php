@@ -96,7 +96,7 @@ class Password
 
 	public static function check($password, $hash, Closure $legacyCheck = null)
 	{
-		if(stripos($hash, '$2a$') === false)
+		if(stripos($hash, '$2a$') !== 0)
 		{
 			return call_user_func($legacyCheck, $password, $hash);
 		}
