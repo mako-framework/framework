@@ -46,7 +46,6 @@ class HTML
 	// Class methods
 	//---------------------------------------------
 
-
 	/**
 	* Takes an array of attributes and turns it into a string.
 	*
