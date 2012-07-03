@@ -47,7 +47,7 @@ class Password
 	//---------------------------------------------
 
 	/**
-	* Returns a salted BCrypt hash of the password.
+	* Returns a bcrypt hash of the password.
 	*
 	* @access  public
 	* @param   string  $password  Password
@@ -85,7 +85,7 @@ class Password
 	}
 
 	/**
-	* Validates a BCrypt hash.
+	* Validates a password hash.
 	*
 	* @access  public
 	* @param   string   $password     Password
@@ -94,7 +94,7 @@ class Password
 	* @return  boolean
 	*/
 
-	public static function check($password, $hash, Closure $legacyCheck = null)
+	public static function validate($password, $hash, Closure $legacyCheck = null)
 	{
 		if(stripos($hash, '$2a$') !== 0)
 		{
