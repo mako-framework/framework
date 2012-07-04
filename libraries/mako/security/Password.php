@@ -47,6 +47,19 @@ class Password
 	//---------------------------------------------
 
 	/**
+	* Checks if a hash generated using something other than bcrypt.
+	*
+	* @access  public
+	* @param   string   $hash  Hash to check
+	* @return  boolean
+	*/
+
+	public static function isLegacyHash($hash)
+	{
+		return stripos($hash, '$2a$') !== 0;
+	}
+
+	/**
 	* Returns a bcrypt hash of the password.
 	*
 	* @access  public
@@ -77,7 +90,7 @@ class Password
 			$salt = String::random();
 		}
 
-		$salt = substr(strtr(base64_encode($salt), '+', '.'), 0, 22);
+		$salt = substr(str_replace('+', '.', base64_encode($salt)), 0, 22);
 
 		// Return hash
 
@@ -96,7 +109,7 @@ class Password
 
 	public static function validate($password, $hash, Closure $legacyCheck = null)
 	{
-		if(stripos($hash, '$2a$') !== 0)
+		if(!is_null($legacyCheck) && static::isLegacyHash($hash))
 		{
 			return call_user_func($legacyCheck, $password, $hash);
 		}
