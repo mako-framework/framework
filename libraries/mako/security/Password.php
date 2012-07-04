@@ -47,7 +47,7 @@ class Password
 	//---------------------------------------------
 
 	/**
-	* Checks if a hash generated using something other than bcrypt.
+	* Checks if a hash is generated using something other than bcrypt.
 	*
 	* @access  public
 	* @param   string   $hash  Hash to check
