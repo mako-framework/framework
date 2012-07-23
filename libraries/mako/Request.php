@@ -250,6 +250,10 @@ class Request
 		{
 			$route = $this->route;
 		}
+		else if(isset($_SERVER['REQUEST_URI']) && $this->isMain())
+		{
+			$route = $_SERVER['REQUEST_URI'];
+		}
 		else if(isset($_SERVER['PATH_INFO']) && $this->isMain())
 		{
 			$route = $_SERVER['PATH_INFO'];
