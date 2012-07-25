@@ -4,6 +4,7 @@ namespace mako;
 
 use \mako\Config;
 use \mako\Response;
+use \mako\URL;
 use \RuntimeException;
 use \ReflectionClass;
 
@@ -258,7 +259,7 @@ class Request
 		{
 			if($requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
 			{
-				$route = mb_substr(rawurldecode($requestUri), mb_strlen(parse_url(\mako\URL::base(), PHP_URL_PATH)));
+				$route = mb_substr(rawurldecode($requestUri), mb_strlen(parse_url(URL::base(), PHP_URL_PATH)));
 			}
 		}
 
