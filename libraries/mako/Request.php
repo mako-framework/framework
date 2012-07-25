@@ -250,17 +250,16 @@ class Request
 		{
 			$route = $this->route;
 		}
-		else if(isset($_SERVER['REQUEST_URI']) && $this->isMain())
-		{
-			$route = $_SERVER['REQUEST_URI'];
-		}
 		else if(isset($_SERVER['PATH_INFO']) && $this->isMain())
 		{
 			$route = $_SERVER['PATH_INFO'];
 		}
-		else if(isset($_SERVER['PHP_SELF']) && $this->isMain())
+		else if(isset($_SERVER['REQUEST_URI']) && $this->isMain())
 		{
-			$route = mb_substr($_SERVER['PHP_SELF'], mb_strlen($_SERVER['SCRIPT_NAME']));
+			if($requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
+			{
+				$route = mb_substr(rawurldecode($requestUri), mb_strlen(parse_url(\mako\URL::base(), PHP_URL_PATH)));
+			}
 		}
 
 		$route = trim($route, '/');
