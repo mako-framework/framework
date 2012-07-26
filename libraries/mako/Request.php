@@ -259,7 +259,14 @@ class Request
 		{
 			if($requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
 			{
-				$route = mb_substr(rawurldecode($requestUri), mb_strlen(parse_url(URL::base(), PHP_URL_PATH)));
+				$baseURL = URL::base();
+
+				if(stripos($requestURI, $baseURL) === 0)
+				{
+					$requestUri = mb_substr($requestUri, mb_strlen(parse_url($baseURL, PHP_URL_PATH)));
+				}
+
+				$route = rawurldecode($requestUri);
 			}
 		}
 
