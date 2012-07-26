@@ -257,16 +257,16 @@ class Request
 		}
 		else if(isset($_SERVER['REQUEST_URI']) && $this->isMain())
 		{
-			if($requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
+			if($uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
 			{
-				$baseURL = URL::base();
+				$base = parse_url(URL::base(), PHP_URL_PATH);
 
-				if(stripos($requestURI, $baseURL) === 0)
+				if(stripos($uri, $base) === 0)
 				{
-					$requestUri = mb_substr($requestUri, mb_strlen(parse_url($baseURL, PHP_URL_PATH)));
+					$uri = mb_substr($uri, mb_strlen($base));
 				}
 
-				$route = rawurldecode($requestUri);
+				$route = rawurldecode($uri);
 			}
 		}
 
