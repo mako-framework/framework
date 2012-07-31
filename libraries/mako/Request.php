@@ -270,9 +270,9 @@ class Request
 
 				// Removes "/index.php" from uri
 
-				if(stripos($route, '/index.php') === 0)
+				if(stripos($uri, '/index.php') === 0)
 				{
-					$route = substr($route, 10);
+					$uri = substr($uri, 10);
 				}
 
 				$route = rawurldecode($uri);
