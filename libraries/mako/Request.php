@@ -272,7 +272,7 @@ class Request
 
 				if(stripos($uri, '/index.php') === 0)
 				{
-					$uri = substr($uri, 10);
+					$uri = mb_substr($uri, 10);
 				}
 
 				$route = rawurldecode($uri);
