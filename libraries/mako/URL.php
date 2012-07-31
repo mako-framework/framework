@@ -72,7 +72,7 @@ class URL
 				$base = rtrim($protocol . '://' . $_SERVER['HTTP_HOST'] . str_replace(basename($script), '', $script), '/');
 			}
 
-			// Are we using Clean URLs?
+			// Are we using clean URLs?
 
 			static::$clean = Config::get('mako.clean_urls');
 		}
