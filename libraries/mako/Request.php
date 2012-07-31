@@ -259,6 +259,8 @@ class Request
 		{
 			if($uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
 			{
+				// Remove base uri
+
 				$base = parse_url(URL::base(), PHP_URL_PATH);
 
 				if(stripos($uri, $base) === 0)
@@ -267,6 +269,13 @@ class Request
 				}
 
 				$route = rawurldecode($uri);
+
+				// Remove "/index.php" from the uri if its included
+
+				if(stripos($route, '/index.php') === 0)
+				{
+					$route = substr($route, 10);
+				}
 			}
 		}
 

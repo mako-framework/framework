@@ -19,7 +19,13 @@ class URL
 	// Class variables
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	* Are we using clean URLs?
+	*
+	* @var boolean
+	*/
+
+	protected static $clean;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -66,9 +72,9 @@ class URL
 				$base = rtrim($protocol . '://' . $_SERVER['HTTP_HOST'] . str_replace(basename($script), '', $script), '/');
 			}
 
-			// Add index.php?
+			// Are we using Clean URLs?
 
-			!Config::get('mako.clean_urls') && $base .= '/index.php';
+			static::$clean = Config::get('mako.clean_urls');
 		}
 
 		return $base;
@@ -86,14 +92,14 @@ class URL
 
 	public static function to($route = '', array $params = array(), $separator = '&amp;')
 	{
-		$url = static::base() . '/' . $route;
+		$url = static::base() . (static::$clean ? '' : '/index.php') . '/' . $route;
 		
 		if(!empty($params))
 		{
 			$url .= '?' . http_build_query($params, '', $separator);
 		}
 		
-		return $url;
+		return rtrim($url, '/');
 	}
 
 	/**
