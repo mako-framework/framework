@@ -97,6 +97,7 @@ class Arr
 	* @access  public
 	* @param   array    $array  Array you want to modify
 	* @param   string   $path   Array path
+	* @return  boolean
 	*/
 
 	public static function delete(array & $array, $path)
@@ -107,7 +108,7 @@ class Arr
 		{
 			$segment = array_shift($segments);
 
-			if (!isset($array[$segment]) || ! is_array($array[$segment]))
+			if (!isset($array[$segment]) || !is_array($array[$segment]))
 			{
 				return false;
 			}
