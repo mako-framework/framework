@@ -64,22 +64,12 @@ if(!function_exists('e'))
 // Setup autoloading of third party libraries
 //------------------------------------------------------------------------------------------
 
-// Doctrine
+// Zend Framework
 
-/*require MAKO_LIBRARIES_PATH . '/doctrine/Doctrine.php';
-
-spl_autoload_register(array('Doctrine', 'autoload'));*/
+//mako\ClassLoader::directory(MAKO_LIBRARIES_PATH . '/Zend');
 
 // Swift Mailer
 
-/*require MAKO_LIBRARIES_PATH . '/swiftmailer/swift_required.php';*/
-
-// Zend Framework
-
-/*set_include_path(get_include_path() . PATH_SEPARATOR . MAKO_LIBRARIES_PATH);
-
-require MAKO_LIBRARIES_PATH . '/Zend/Loader/Autoloader.php';
-
-Zend_Loader_Autoloader::getInstance();*/
+//require MAKO_LIBRARIES_PATH . '/swiftmailer/swift_required.php'
 
 /** -------------------- End of file --------------------**/
