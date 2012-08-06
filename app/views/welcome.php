@@ -40,11 +40,29 @@ a.active
 {
 	color: #444;
 }
-#container
+#welcome
 {
+	text-align: center;
 	width: 980px;
 	margin: 0px auto;
-	margin-top: 25%;
+	margin-top: 20%;
+	background: #DCDCDC;
+	padding: 30px;
+	border-radius: 4px;
+	box-shadow: 0px 3px 3px 1px #aaa;
+	-moz-transform:rotate(-5deg);
+    -webkit-transform:rotate(-5deg);
+    -o-transform:rotate(-5deg);
+    -ms-transform:rotate(-5deg);
+}
+#footer
+{
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	padding: 10px;
+	text-align: right;
+	font-size: 0.8em;
 }
 .error
 {
@@ -123,7 +141,7 @@ a.active
 
 <body>
 
-<div id="container">
+<div id="welcome">
 <h1>Mako Framework</h1>
 
 <?php if(!is_writable(MAKO_APPLICATION . '/storage/logs') || !is_writable(MAKO_APPLICATION . '/storage/logs')): ?>
@@ -131,6 +149,10 @@ a.active
 <?php endif; ?>
 
 <p>You have successfully installed the framework. Check out the <a href="http://makoframework.com/docs">documentation</a> and create something awesome!</p>
+</div>
+
+<div id="footer">
+<?php echo mako\Mako::VERSION; ?>
 </div>
 
 </body>
