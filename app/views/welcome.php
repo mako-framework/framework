@@ -45,15 +45,40 @@ a.active
 	text-align: center;
 	width: 980px;
 	margin: 0px auto;
-	margin-top: 20%;
+	margin-top: 15%;
 	background: #DCDCDC;
 	padding: 30px;
 	border-radius: 4px;
-	box-shadow: 0px 3px 3px 1px #aaa;
+	box-shadow: 0px 3px 3px 1px #AAA;
 	-moz-transform:rotate(-5deg);
     -webkit-transform:rotate(-5deg);
     -o-transform:rotate(-5deg);
     -ms-transform:rotate(-5deg);
+}
+.tape
+{
+	position: absolute;
+	height: 40px;
+	width: 200px;
+	background-color:#fff;
+	opacity:0.6;
+	border-left: 1px dashed rgba(0, 0, 0, 0.1);
+	border-right: 1px dashed rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 0px 1px 0px #888;
+	-moz-transform:rotate(-30deg) skew(0,0) translate(0%,-5px);
+    -webkit-transform:rotate(30deg) skew(0,0) translate(0%,-5px);
+    -o-transform:rotate(-30deg) skew(0,0) translate(0%,-5px);
+    -ms-transform:rotate(-30deg) skew(0,0) translate(0%,-5px);
+}
+.tape.top
+{
+	top: 10px;
+	right: -60px;
+}
+.tape.bottom
+{
+	bottom: 0px;
+	left: -70px;
 }
 #footer
 {
@@ -142,6 +167,8 @@ a.active
 <body>
 
 <div id="welcome">
+<div class="tape top"></div>
+<div class="tape bottom"></div>
 <h1>Mako Framework</h1>
 
 <?php if(!is_writable(MAKO_APPLICATION . '/storage/logs') || !is_writable(MAKO_APPLICATION . '/storage/logs')): ?>
