@@ -43,17 +43,17 @@ a.active
 #welcome
 {
 	text-align: center;
-	width: 980px;
+	width: 900px;
 	margin: 0px auto;
 	margin-top: 15%;
 	background: #DCDCDC;
 	padding: 30px;
 	border-radius: 4px;
 	box-shadow: 0px 3px 3px 1px #AAA;
-	-moz-transform:rotate(-5deg);
-    -webkit-transform:rotate(-5deg);
-    -o-transform:rotate(-5deg);
-    -ms-transform:rotate(-5deg);
+	-moz-transform:rotate(-3deg);
+    -webkit-transform:rotate(-3deg);
+    -o-transform:rotate(-3deg);
+    -ms-transform:rotate(-3deg);
 }
 .tape
 {
