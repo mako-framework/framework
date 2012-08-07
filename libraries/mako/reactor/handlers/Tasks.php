@@ -72,7 +72,14 @@ class Tasks
 				$task = $arguments[0];
 			}
 
-			list($task, $method) = explode(':', $task);
+			if(strpos($task, ':') !== false)
+			{
+				list($task, $method) = explode(':', $task);
+			}
+			else
+			{
+				$method = 'run';
+			}
 
 			$file = (!empty($package) ? MAKO_PACKAGES . '/' . $package : MAKO_APPLICATION ) . '/tasks/' . $task . '.php';
 
@@ -96,7 +103,7 @@ class Tasks
 
 			$task = $taskClass->newInstance();
 
-			call_user_func_array(array($task, (empty($method) ? 'run' : $method)), array_slice($arguments, 1));
+			call_user_func_array(array($task, $method), array_slice($arguments, 1));
 		}
 		else
 		{

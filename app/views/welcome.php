@@ -88,6 +88,7 @@ a.active
 	padding: 10px;
 	text-align: right;
 	font-size: 0.8em;
+	color: #999;
 }
 .error
 {
@@ -179,7 +180,7 @@ a.active
 </div>
 
 <div id="footer">
-<?php echo mako\Mako::VERSION; ?>
+page rendered in <?php echo round(microtime(true) - MAKO_START, 4); ?> seconds | <?php echo mako\Mako::VERSION; ?>
 </div>
 
 </body>
