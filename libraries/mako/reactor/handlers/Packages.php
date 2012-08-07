@@ -168,7 +168,7 @@ class Packages
 
 			foreach($response->package->dependencies as $dep)
 			{
-					static::_install($dep, true);
+					static::install($dep, true);
 			}
 
 			$url = sprintf('git://github.com/%s.git', $response->package->repo);
