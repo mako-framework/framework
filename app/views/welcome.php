@@ -51,9 +51,9 @@ a.active
 	border-radius: 4px;
 	box-shadow: 0px 3px 3px 1px #AAA;
 	-moz-transform:rotate(-3deg);
-    -webkit-transform:rotate(-3deg);
-    -o-transform:rotate(-3deg);
-    -ms-transform:rotate(-3deg);
+	-webkit-transform:rotate(-3deg);
+	-o-transform:rotate(-3deg);
+	-ms-transform:rotate(-3deg);
 }
 .tape
 {
@@ -66,9 +66,9 @@ a.active
 	border-right: 1px dashed rgba(0, 0, 0, 0.1);
 	box-shadow: 0px 0px 1px 0px #888;
 	-moz-transform:rotate(30deg);
-    -webkit-transform:rotate(30deg);
-    -o-transform:rotate(30deg);
-    -ms-transform:rotate(30deg);
+	-webkit-transform:rotate(30deg);
+	-o-transform:rotate(30deg);
+	-ms-transform:rotate(30deg);
 }
 .tape.top
 {
