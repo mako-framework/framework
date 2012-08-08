@@ -191,6 +191,11 @@ class Package extends \mako\reactor\Task
 
 	public function install($package)
 	{
+		if(!is_writable(MAKO_PACKAGES))
+		{
+			return CLI::stderr('The package directory isn\'t writable.');
+		}
+
 		if(strpos($package, '://') !== false)
 		{
 			$success = $this->url($package);
