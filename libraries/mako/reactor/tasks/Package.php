@@ -64,7 +64,9 @@ class Package extends \mako\reactor\Task
 	//---------------------------------------------
 
 	/**
+	* Default method that displays basic help.
 	*
+	* @access  public
 	*/
 
 	public function run()
