@@ -72,27 +72,138 @@ class Package extends \mako\reactor\Task
 		
 		CLI::stdout('Mako package installer:', null, null, array('bold'));		
 		CLI::stdout();
-		CLI::stdout('* php reactor package.search  <package name>');
+		CLI::stdout('* php reactor package.search "<search terms>"');
 		CLI::stdout('* php reactor package.install <package name> or <repository url>');
-		CLI::stdout('* php reactor package.remove  <package name>');
+		CLI::stdout('* php reactor package.remove <package name>');
 	}
 
 	/**
+	* Search the Mako package repository and display results.
 	*
+	* @access  public
+	* @param   string  $package  Package name
 	*/
 
-	public function search()
+	public function search($package)
 	{
 		CLI::stderr('Package search has not been implemented yet.');
 	}
 
 	/**
+	* Installs package from the Mako repository.
 	*
+	* @access  protected
+	* @param   string     $package  Package name
+	* @param   string     $silent   (optional) Silent mode?
+	* @return  boolean
 	*/
 
-	public function install()
+	protected function repository($package, $silent = false)
 	{
+		if(is_dir(MAKO_PACKAGES . DIRECTORY_SEPARATOR . $package))
+		{
+			!$silent && CLI::stderr('The ' . $package . ' package has already been installed.');
 
+			return false;
+		}
+
+		CLI::stdout('Fetching package info from packages.makoframework.com ...');
+
+		$response = Rest::factory(static::API . $package)->get($info);
+
+		if($info['http_code'] != 200)
+		{
+			CLI::stderr('No response from server.');
+
+			return false;
+		}
+
+		$response = json_decode($response);
+
+		if($response->status !== 'ok')
+		{
+			CLI::stderr('The ' . $package . ' package does not exist.');
+
+			return false;
+		}
+
+		foreach($response->package->dependencies as $dep)
+		{
+			$this->repository($dep, true);
+		}
+
+		$url = sprintf('git://github.com/%s.git', $response->package->repo);
+
+		$name = $response->package->name;
+
+		CLI::stdout(sprintf('Fetching package from %s ...', $url));
+
+		passthru(sprintf(MAKO_IS_WINDOWS ? static::INSTALL_W : static::INSTALL_X, $url, MAKO_PACKAGES, $name));
+
+		file_put_contents(MAKO_PACKAGES . DIRECTORY_SEPARATOR . $package . DIRECTORY_SEPARATOR . 'package.json', json_encode($response->package));
+
+		return true;
+	}
+
+	/**
+	* Installs package from a URL.
+	*
+	* @access  protected
+	* @param   string     $package  Package URL
+	* @return  boolean
+	*/
+
+	protected function url($package)
+	{
+		$url = $package;
+
+		preg_match('/^(.*):\/\/(.*)\/(.*).git$/i', $package, $matches);
+
+		if(empty($matches))
+		{
+			CLI::stderr('Invalid package URL.');
+
+			return false;
+		}
+
+		$package = $matches[3];
+
+		if(is_dir(MAKO_PACKAGES . DIRECTORY_SEPARATOR . $package))
+		{
+			!$silent && CLI::stderr('The ' . $package . ' package has already been installed.');
+
+			return false;
+		}
+
+		CLI::stdout(sprintf('Fetching package from %s ...', $url));
+
+		passthru(sprintf(MAKO_IS_WINDOWS ? static::INSTALL_W : static::INSTALL_X, $url, MAKO_PACKAGES, $package));
+
+		return true;
+	}
+
+	/**
+	* Installs a package.
+	*
+	* @access  public
+	* @param   string  $package  Package name or URL
+	*/
+
+	public function install($package)
+	{
+		if(strpos($package, '://') !== false)
+		{
+			$success = $this->url($package);
+		}
+		else
+		{
+			$success = $this->repository($package);
+		}
+
+		if($success)
+		{
+			CLI::stdout('The package has successfully been installed!');
+		}
 	}
 
 	/**
