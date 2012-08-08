@@ -65,10 +65,10 @@ a.active
 	border-left: 1px dashed rgba(0, 0, 0, 0.1);
 	border-right: 1px dashed rgba(0, 0, 0, 0.1);
 	box-shadow: 0px 0px 1px 0px #888;
-	-moz-transform:rotate(-30deg) skew(0,0) translate(0%,-5px);
-    -webkit-transform:rotate(30deg) skew(0,0) translate(0%,-5px);
-    -o-transform:rotate(-30deg) skew(0,0) translate(0%,-5px);
-    -ms-transform:rotate(-30deg) skew(0,0) translate(0%,-5px);
+	-moz-transform:rotate(30deg);
+    -webkit-transform:rotate(30deg);
+    -o-transform:rotate(30deg);
+    -ms-transform:rotate(30deg);
 }
 .tape.top
 {
