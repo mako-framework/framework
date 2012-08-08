@@ -2,10 +2,12 @@
 
 namespace mako\reactor;
 
-use \mako\Mako;
 use \mako\CLI;
-use \mako\reactor\handlers\Tasks;
-use \mako\reactor\handlers\Packages;
+use \mako\Mako;
+use \mako\Config;
+use \mako\Package;
+use \ReflectionClass;
+use \RuntimeException;
 
 /**
 * Reactor core class.
@@ -21,7 +23,18 @@ class Reactor
 	// Class variables
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	* Mako Reactor core tasks.
+	*
+	* @var array
+	*/
+
+	protected static $coreTasks = array
+	(
+		//'migration' =>  'Migration',
+		'package'   =>  'Package',
+		//'test'      =>  'Test',
+	);
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -60,6 +73,17 @@ class Reactor
 			$_SERVER['MAKO_ENV'] = $env;
 		}
 
+		// Override default database?
+
+		$database = CLI::param('database', false);
+
+		if($database !== false)
+		{
+			Config::set('database.default', $database);
+		}
+
+		// Initialize the framework
+
 		Mako::init();
 
 		// Remove options from argument list so that it doesnt matter what order they come in
@@ -72,54 +96,92 @@ class Reactor
 			}
 		}
 
-		// Handle commands
+		// Run task
 
 		CLI::stdout();
 
-		if(!empty($arguments))
-		{
-			switch($arguments[0])
-			{
-				case 'v':
-				case 'version':
-					return CLI::stdout('Mako '. Mako::VERSION . ' (PHP ' . phpversion() . ' | Zend Engine ' . zend_version() . ' | ' . PHP_OS . ')');
-				break;
-				case 'p':
-				case 'package':
-					return Packages::run(array_slice($arguments, 1));
-				break;
-				case 't':
-				case 'task':
-					return Tasks::run(array_slice($arguments, 1));
-			}
-		}
-		
-		static::help();
+		static::task($arguments);
+
+		CLI::stdout();
 	}
 
 	/**
-	* Displays help.
+	* Returns an instance of the chosen task.
 	*
-	* @access  public
+	* @access  protected
+	* @param   string     $task  Task name
+	* @return  mixed
 	*/
 
-	public static function help()
+	protected static function resolve($task)
 	{
-		$screenSize = CLI::screenSize();
+		if(isset(static::$coreTasks[$task]))
+		{
+			$task = '\mako\reactor\tasks\\' . static::$coreTasks[$task];
+		}
+		else
+		{
+			$file = Mako::path('tasks', $task);
 
-		$width = $screenSize['width'] === 0 ? 50 : $screenSize['width'];
+			if(!file_exists($file))
+			{
+				CLI::stderr(vsprintf("The '%s' task does not exist.", array($task)));
 
-		$help  = CLI::color(str_repeat('—', $width), null, null, array('bold')) . PHP_EOL;
-		$help .= CLI::color('Reactor CLI tool', null, null, array('bold')) . PHP_EOL;
-		$help .= CLI::color(str_repeat('—', $width), null, null, array('bold')) . PHP_EOL . PHP_EOL;
-		$help .= 'Valid commands are:'  . PHP_EOL . PHP_EOL;
-		$help .= '   * php reactor version'  . PHP_EOL;
-		$help .= '   * php reactor task <taskname>'  . PHP_EOL;
-		$help .= '   * php reactor package install <package name>' . PHP_EOL;
-		$help .= '   * php reactor package remove <package name>' . PHP_EOL . PHP_EOL;
-		$help .= 'Mako framework documentation: ' . CLI::color('http://makoframework.com/docs', null, null, array('bold', 'underlined'));
+				return false;
+			}
 
-		CLI::stdout($help);
+			if(strpos($task, '::'))
+			{
+				list($package, $task) = explode('::', $task, 2);
+
+				Package::init($package);
+			}
+
+			include $file;
+		}
+
+		$task = new ReflectionClass($task);
+
+		if($task->isSubClassOf('\mako\reactor\Task') === false)
+		{
+			CLI::stderr(vsprintf("The '%s' task needs to extend the mako\\reactor\Task class.", array($task)));
+
+			return false;
+		}
+
+		return $task->newInstance();
+	}
+
+	/**
+	* Runs the chosen task.
+	*
+	* @access  protected
+	* @param   array      $arguments  Arguments
+	*/
+
+	protected static function task($arguments)
+	{
+		if(!empty($arguments))
+		{
+			if(strpos($arguments[0], '.') !== false)
+			{
+				list($task, $method) = explode('.', $arguments[0], 2);
+			}
+			else
+			{
+				$task   = $arguments[0];
+				$method = 'run';
+			}
+
+			if(($task = static::resolve($task)) !== false)
+			{
+				call_user_func_array(array($task, $method), array_slice($arguments, 1));
+			}
+		}
+		else
+		{
+			CLI::stderr('You need to provide a task name.');
+		}
 	}
 }
 

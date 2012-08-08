@@ -48,7 +48,7 @@ abstract class Task
 
 	public function __call($name, $arguments)
 	{
-		CLI::stderr(vsprintf("Unknown task action '%s'", array($name)));
+		CLI::stderr(vsprintf("Unknown task action '%s'.", array($name)));
 	}
 }
 

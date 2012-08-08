@@ -21,6 +21,4 @@ require MAKO_LIBRARIES_PATH . '/mako/_init.php';
 
 mako\reactor\Reactor::run(array_slice($_SERVER['argv'], 1));
 
-echo PHP_EOL;
-
 /** -------------------- End of file --------------------**/
