@@ -75,8 +75,6 @@ mako\ClassLoader::addClasses(array
 	'mako\Num'                               => MAKO_LIBRARIES_PATH . '/mako/Num.php',
 	'mako\Package'                           => MAKO_LIBRARIES_PATH . '/mako/Package.php',
 	'mako\Pagination'                        => MAKO_LIBRARIES_PATH . '/mako/Pagination.php',
-	'mako\reactor\handlers\Packages'         => MAKO_LIBRARIES_PATH . '/mako/reactor/handlers/Packages.php',
-	'mako\reactor\handlers\Tasks'            => MAKO_LIBRARIES_PATH . '/mako/reactor/handlers/Tasks.php',
 	'mako\reactor\Reactor'                   => MAKO_LIBRARIES_PATH . '/mako/reactor/Reactor.php',
 	'mako\reactor\Task'                      => MAKO_LIBRARIES_PATH . '/mako/reactor/Task.php',
 	'mako\Redis'                             => MAKO_LIBRARIES_PATH . '/mako/Redis.php',
