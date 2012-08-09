@@ -26,7 +26,7 @@ class Migrate extends \mako\reactor\Task
 	* @var mako\database\Connection
 	*/
 
-	protected $database;
+	protected $connection;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -40,12 +40,24 @@ class Migrate extends \mako\reactor\Task
 
 	public function __construct()
 	{
-		$this->database = Database::connection();
+		$this->connection = Database::connection();
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	* Returns a query builder instance.
+	*
+	* @access  protected
+	* @return  mako\database\Query
+	*/
+
+	protected function table()
+	{
+		return $this->connection->table('mako_migrations');
+	}
 
 	/**
 	* Returns list of all outstanding migrations.
@@ -87,7 +99,7 @@ class Migrate extends \mako\reactor\Task
 
 		$ran = array();
 
-		foreach($this->database->table('mako_migrations')->all() as $migration)
+		foreach($this->table()->all() as $migration)
 		{
 			$ran[] = $migration->name;
 		}
@@ -157,13 +169,13 @@ class Migrate extends \mako\reactor\Task
 			return CLI::stdout('There are no outstanding migrations.');
 		}
 
-		$batch = $this->database->table('mako_migrations')->max('batch') + 1;
+		$batch = $this->table()->max('batch') + 1;
 
 		foreach($migrations as $migration)
 		{
 			$migration['instance']->up();
 
-			$this->database->table('mako_migrations')->insert(array('batch' => $batch, 'package' => $migration['package'], 'name' => $migration['name']));
+			$this->table()->insert(array('batch' => $batch, 'package' => $migration['package'], 'name' => $migration['name']));
 
 			CLI::stdout('Ran the ' . $migration['name'] . ' migration.');
 		}
@@ -177,8 +189,8 @@ class Migrate extends \mako\reactor\Task
 
 	public function rollback()
 	{
-		$migrations = $this->database->table('mako_migrations')
-			->where('batch', '=', $this->database->table('mako_migrations')->max('batch'))
+		$migrations = $this->table()
+			->where('batch', '=', $this->table()->max('batch'))
 			->orderBy('name', 'desc')
 			->all(array('name', 'package'));
 
@@ -195,7 +207,7 @@ class Migrate extends \mako\reactor\Task
 		{
 			$migration['instance']->down();
 
-			$this->database->table('mako_migrations')->where('name', '=', $migration['name'])->delete();
+			$this->table()->where('name', '=', $migration['name'])->delete();
 
 			CLI::stdout('Rolled back the ' . $migration['name'] . ' migration.');
 		}
