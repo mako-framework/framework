@@ -67,6 +67,8 @@ class View
 
 	public function __construct($view, array $variables = array())
 	{
+		$view = str_replace('.', '/', $view);
+		
 		// Check if view file exists
 
 		if(file_exists($file = Mako::path('views', $view)))
