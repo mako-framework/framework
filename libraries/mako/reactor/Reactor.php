@@ -33,7 +33,6 @@ class Reactor
 	(
 		'migrate' =>  'Migrate',
 		'package' =>  'Package',
-		//'test'    =>  'Test',
 	);
 
 	//---------------------------------------------
