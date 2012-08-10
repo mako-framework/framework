@@ -128,7 +128,7 @@ class UserAgent
 	}
 	
 	/**
-	* Returns list of accepted content types or boolean value if you are looking for a content type.
+	* Returns array of accepted content types or boolean value if you are looking for a content type.
 	*
 	* @access  public
 	* @param   string  $content  (optional) Language to look for.
@@ -141,7 +141,7 @@ class UserAgent
 	}
 	
 	/**
-	* Returns list of accepted languages or boolean value if you are looking for a language.
+	* Returns array of accepted languages or boolean value if you are looking for a language.
 	*
 	* @access  public
 	* @param   string  $language  (optional) Language to look for.
@@ -154,7 +154,7 @@ class UserAgent
 	}
 	
 	/**
-	* Returns list of accepted character sets or boolean value if you are looking for a character set.
+	* Returns array of accepted character sets or boolean value if you are looking for a character set.
 	*
 	* @access  public
 	* @param   string  $charset  (optional) Character set to look for.
@@ -167,7 +167,7 @@ class UserAgent
 	}
 	
 	/**
-	* Returns list of accepted encodings or boolean value if you are looking for an encoding.
+	* Returns array of accepted encodings or boolean value if you are looking for an encoding.
 	*
 	* @access  public
 	* @param   string  $encoding  (optional) Language to look for.
