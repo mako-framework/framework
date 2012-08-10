@@ -8,7 +8,7 @@ use \Exception;
 use \RuntimeException;
 
 /**
-* View/template class.
+* View class.
 *
 * @author     Frederic G. Østby
 * @copyright  (c) 2008-2012 Frederic G. Østby
@@ -22,12 +22,12 @@ class View
 	//---------------------------------------------
 
 	/**
-	* Path to view file.
+	* Path to view.
 	*
 	* @var string
 	*/
 
-	protected $viewFile;
+	protected $view;
 
 	/**
 	* View variables.
@@ -73,14 +73,23 @@ class View
 
 		if(file_exists($file = Mako::path('views', $view)))
 		{
-			$this->viewFile = $file;
+			$this->view = $file;
 		}
 
 		// No view, check if template exists
 
 		elseif(file_exists($file = Mako::path('views', $view . '.tpl')))
 		{
-			$this->viewFile = Compiler::compile($file);
+			$this->view = MAKO_APPLICATION . '/storage/templates/' . md5($file) . '.php';
+
+			// Check if compiled template exists and that it's up to date. If not compile
+
+			if(!file_exists($this->view) || filemtime($file) > filemtime($this->view))
+			{
+				$compiler = new Compiler($file, $this->view);
+				
+				$compiler->compile();
+			}
 		}
 
 		// No view or template. Throw exception
@@ -191,7 +200,7 @@ class View
 			
 			ob_start();
 
-			include($this->viewFile);
+			include($this->view);
 
 			$this->output = ob_get_clean();
 		}

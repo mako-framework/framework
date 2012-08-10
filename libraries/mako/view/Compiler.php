@@ -17,12 +17,28 @@ class Compiler
 	//---------------------------------------------
 
 	/**
+	* Path to raw template.
+	*
+	* @var string
+	*/
+
+	protected $template;
+
+	/**
+	* Path to compiled template.
+	*
+	* @var string
+	*/
+
+	protected $compiled;
+
+	/**
 	* Compilation order.
 	*
 	* @var array
 	*/
 
-	protected static $compileOrder = array
+	protected $compileOrder = array
 	(
 		'comments',
 		'extensions',
@@ -37,32 +53,22 @@ class Compiler
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
+	* Constructor.
 	*
-	* @access  protected
+	* @access  public
+	* @param   string  $template  Path to raw template
+	* @param   string  $storage   Path to compiled template
 	*/
 
-	protected function __construct()
+	public function __construct($template, $compiled)
 	{
-		// Nothing here
+		$this->template = $template;
+		$this->compiled = $compiled;
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
-	/**
-	* Returns true if the template has been modified since the last compile.
-	*
-	* @access  protected
-	* @param  string      $fileName     Path to template
-	* @param  string      $storageName  Path to compiled view
-	*/
-
-	protected static function isExpired($fileName, $storageName)
-	{
-		return filemtime($fileName) > filemtime($storageName);
-	}
 
 	/**
 	* Compiles comments.
@@ -72,7 +78,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected static function comments($template)
+	protected function comments($template)
 	{
 		// Strip comments from templates
 
@@ -87,7 +93,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected static function extensions($template)
+	protected function extensions($template)
 	{
 		// Replace first occurance of extends tag with an empty string
 		// and append the template with a view tag
@@ -110,7 +116,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected static function views($template)
+	protected function views($template)
 	{
 		// Replace view tags with view redering
 
@@ -125,7 +131,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected static function blocks($template)
+	protected function blocks($template)
 	{
 		// Compile blocks
 
@@ -146,7 +152,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected static function controlStructures($template)
+	protected function controlStructures($template)
 	{
 		// Compile control structures openings
 
@@ -165,7 +171,7 @@ class Compiler
 	* @return  string
 	*/
 
-	protected static function echos($template)
+	protected function echos($template)
 	{
 		// Closure that matches the "empty else" syntax
 
@@ -197,36 +203,29 @@ class Compiler
 	}
 
 	/**
-	* Compiles templates into views and returns the path to the compiled template.
+	* Compiles templates into views.
 	*
 	* @access  public
 	* @param   string  $fileName  Path to template
 	* @return  string
 	*/
 
-	public static function compile($fileName)
+	public function compile()
 	{
-		$storageName = MAKO_APPLICATION . '/storage/templates/' . md5($fileName) . '.php';
-
-		if(!file_exists($storageName) || static::isExpired($fileName, $storageName))
-		{
-			// Get teplate contents
+		// Get teplate contents
 			
-			$template = file_get_contents($fileName);
+		$contents = file_get_contents($this->template);
 
-			// Compile template
+		// Compile template
 
-			foreach(static::$compileOrder as $method)
-			{
-				$template = static::$method($template);
-			}
-
-			// Store compiled template
-
-			file_put_contents($storageName, trim($template));
+		foreach($this->compileOrder as $method)
+		{
+			$contents = $this->$method($contents);
 		}
 
-		return $storageName;
+		// Store compiled template
+
+		file_put_contents($this->compiled, trim($contents));
 	}
 }
 
