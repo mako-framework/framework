@@ -146,7 +146,7 @@ class Migrate extends \mako\reactor\Task
 
 			include Mako::path('migrations', $file);
 
-			$class = 'Migration_' . array_shift(explode('_', $migration['name'], 2));
+			$class = '\Migration_' . array_shift(explode('_', $migration['name'], 2));
 
 			$migration['instance'] = new $class();
 		}
