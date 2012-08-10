@@ -97,7 +97,7 @@ class CLI
 	* @return  array
 	*/
 
-	public function screenSize()
+	public static function screenSize()
 	{
 		$size = array('width' => 0, 'height' => 0);
 
