@@ -65,7 +65,7 @@ class Migrate extends \mako\reactor\Task
 	* @access  protected
 	*/
 
-	protected function findOutstanding()
+	protected function getOutstanding()
 	{
 		$migrations = array();
 
@@ -162,7 +162,7 @@ class Migrate extends \mako\reactor\Task
 
 	public function run()
 	{
-		$migrations = $this->resolve($this->findOutstanding());
+		$migrations = $this->resolve($this->getOutstanding());
 
 		if(empty($migrations))
 		{
@@ -262,7 +262,7 @@ class Migrate extends \mako\reactor\Task
 
 		// Get file path
 
-		$timestamp = time();
+		$timestamp = gmdate('YmdHis');
 
 		if(stripos($name, '::') !== false)
 		{
