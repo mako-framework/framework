@@ -73,7 +73,7 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Returns list of all outstanding migrations.
+	* Returns array of all outstanding migrations.
 	*
 	* @access  protected
 	*/
