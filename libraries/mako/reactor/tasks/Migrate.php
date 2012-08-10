@@ -2,6 +2,7 @@
 
 namespace mako\reactor\tasks;
 
+use \StdClass;
 use \mako\CLI;
 use \mako\Mako;
 use \mako\Database;
@@ -88,7 +89,12 @@ class Migrate extends \mako\reactor\Task
 
 		foreach($files as $file)
 		{
-			$migrations[] = array('name' => basename($file, '.php'), 'package' => '');
+			$migration = new StdClass();
+			
+			$migration->name    = basename($file, '.php');
+			$migration->package = '';
+
+			$migrations[] = $migration;
 		}
 
 		// Get package migrations
@@ -103,7 +109,12 @@ class Migrate extends \mako\reactor\Task
 
 				foreach($files as $file)
 				{
-					$migrations[] = array('name' => basename($file, '.php'), 'package' => basename($package));
+					$migration = new StdClass();
+
+					$migration->name    = basename($file, '.php');
+					$migration->package = basename($package);
+
+					$migrations[] = $migration;
 				}
 			}
 		}
@@ -119,7 +130,7 @@ class Migrate extends \mako\reactor\Task
 
 		foreach($migrations as $key => $value)
 		{
-			if(in_array($value['name'], $ran))
+			if(in_array($value->name, $ran))
 			{
 				unset($migrations[$key]);
 			}
@@ -129,7 +140,7 @@ class Migrate extends \mako\reactor\Task
 
 		usort($migrations, function($a, $b)
 		{
-			return strcmp($a['name'], $b['name']);
+			return strcmp($a->name, $b->name);
 		});
 
 		return $migrations;
@@ -139,25 +150,24 @@ class Migrate extends \mako\reactor\Task
 	* Returns a migration instance.
 	*
 	* @access  protected
-	* @param   mixed      $migration  Migration object or migration array
+	* @param   StdClass   $migration  Migration object
+	* @return  Migration
 	*/
 
 	protected function resolve($migration)
 	{
-		$migration = (array) $migration;
-
-		if(!empty($migration['package']))
+		if(!empty($migration->package))
 		{
-			$file = $migration['package'] . '::' . $migration['name'];
+			$file = $migration->package . '::' . $migration->name;
 		}
 		else
 		{
-			$file = $migration['name'];
+			$file = $migration->name;
 		}
 
 		include Mako::path('migrations', $file);
 
-		$class = '\Migration_' . $this->timestamp($migration['name']);
+		$class = '\Migration_' . $this->timestamp($migration->name);
 
 		return new $class();
 	}
@@ -183,9 +193,9 @@ class Migrate extends \mako\reactor\Task
 		{
 			$this->resolve($migration)->up();
 
-			$this->table()->insert(array('batch' => $batch, 'package' => $migration['package'], 'name' => $migration['name']));
+			$this->table()->insert(array('batch' => $batch, 'package' => $migration->package, 'name' => $migration->name));
 
-			CLI::stdout('Ran the ' . $migration['name'] . ' migration.');
+			CLI::stdout('Ran the ' . $migration->name . ' migration.');
 		}
 	}
 
