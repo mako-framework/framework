@@ -136,35 +136,30 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Returns array of migration instances.
+	* Returns a migration instance.
 	*
 	* @access  protected
-	* @param   array      $array  Array of migration names
+	* @param   mixed      $migration  Migration object or migration array
 	*/
 
-	protected function resolve(array $migrations)
+	protected function resolve($migration)
 	{
-		foreach($migrations as &$migration)
+		$migration = (array) $migration;
+
+		if(!empty($migration['package']))
 		{
-			$migration = (array) $migration;
-
-			if(!empty($migration['package']))
-			{
-				$file = $migration['package'] . '::' . $migration['name'];
-			}
-			else
-			{
-				$file = $migration['name'];
-			}
-
-			include Mako::path('migrations', $file);
-
-			$class = '\Migration_' . $this->timestamp($migration['name']);
-
-			$migration['instance'] = new $class();
+			$file = $migration['package'] . '::' . $migration['name'];
+		}
+		else
+		{
+			$file = $migration['name'];
 		}
 
-		return $migrations;
+		include Mako::path('migrations', $file);
+
+		$class = '\Migration_' . $this->timestamp($migration['name']);
+
+		return new $class();
 	}
 
 	/**
@@ -175,7 +170,7 @@ class Migrate extends \mako\reactor\Task
 
 	public function run()
 	{
-		$migrations = $this->resolve($this->getOutstanding());
+		$migrations = $this->getOutstanding();
 
 		if(empty($migrations))
 		{
@@ -186,7 +181,7 @@ class Migrate extends \mako\reactor\Task
 
 		foreach($migrations as $migration)
 		{
-			$migration['instance']->up();
+			$this->resolve($migration)->up();
 
 			$this->table()->insert(array('batch' => $batch, 'package' => $migration['package'], 'name' => $migration['name']));
 
@@ -207,8 +202,6 @@ class Migrate extends \mako\reactor\Task
 			->orderBy('name', 'desc')
 			->all(array('name', 'package'));
 
-		$migrations = $this->resolve($migrations);
-
 		if(empty($migrations))
 		{
 			CLI::stdout('There are no migrations to roll back.');
@@ -218,11 +211,11 @@ class Migrate extends \mako\reactor\Task
 
 		foreach($migrations as $migration)
 		{
-			$migration['instance']->down();
+			$this->resolve($migration)->down();
 
-			$this->table()->where('name', '=', $migration['name'])->delete();
+			$this->table()->where('name', '=', $migration->name)->delete();
 
-			CLI::stdout('Rolled back the ' . $migration['name'] . ' migration.');
+			CLI::stdout('Rolled back the ' . $migration->name . ' migration.');
 		}
 
 		return true;
