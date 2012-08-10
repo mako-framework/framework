@@ -60,6 +60,19 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
+	* Returns the timestamp part of the migration name.
+	*
+	* @access  protected
+	* @param   string     $name  Migration name
+	* @return  int
+	*/
+
+	protected function timestamp($name)
+	{
+		return array_shift(explode('_', $name, 2));
+	}
+
+	/**
 	* Returns list of all outstanding migrations.
 	*
 	* @access  protected
@@ -146,7 +159,7 @@ class Migrate extends \mako\reactor\Task
 
 			include Mako::path('migrations', $file);
 
-			$class = '\Migration_' . array_shift(explode('_', $migration['name'], 2));
+			$class = '\Migration_' . $this->timestamp($migration['name']);
 
 			$migration['instance'] = new $class();
 		}
