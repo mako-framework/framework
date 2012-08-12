@@ -241,7 +241,7 @@ class Migrate extends \mako\reactor\Task
 	{
 		while($this->rollback())
 		{
-			// Rolling back untill there's no more migrations
+			// Rolling back all migrations
 		}
 	}
 
