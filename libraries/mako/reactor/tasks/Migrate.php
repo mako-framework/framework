@@ -147,6 +147,24 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
+	* Displays the number of outstanding migrations.
+	*
+	* @access  public
+	*/
+
+	public function status()
+	{
+		if(($count = count($this->getOutstanding())) > 0)
+		{
+			CLI::stdout(sprintf(($count === 1 ? 'There is %d outstanding migration.' : 'There are %d outstanding migrations.'), $count));
+		}
+		else
+		{
+			CLI::stdout('There are no outstanding migrations.');
+		}
+	}
+
+	/**
 	* Returns a migration instance.
 	*
 	* @access  protected
