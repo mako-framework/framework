@@ -2,7 +2,7 @@
 
 use \mako\Database;
 
-class Migration_{{timestamp}}
+class Migration_{{version}}
 {
 	/**
 	* Makes changes to the database structure.

@@ -61,19 +61,6 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Returns the timestamp part of the migration name.
-	*
-	* @access  protected
-	* @param   string     $name  Migration name
-	* @return  int
-	*/
-
-	protected function timestamp($name)
-	{
-		return array_shift(explode('_', $name, 2));
-	}
-
-	/**
 	* Returns array of all outstanding migrations.
 	*
 	* @access  protected
@@ -85,13 +72,13 @@ class Migrate extends \mako\reactor\Task
 
 		// Get application migrations
 
-		$files = glob(MAKO_APPLICATION . '/migrations/*_*.php');
+		$files = glob(MAKO_APPLICATION . '/migrations/*.php');
 
 		foreach($files as $file)
 		{
 			$migration = new StdClass();
 			
-			$migration->name    = basename($file, '.php');
+			$migration->version = basename($file, '.php');
 			$migration->package = '';
 
 			$migrations[] = $migration;
@@ -105,13 +92,13 @@ class Migrate extends \mako\reactor\Task
 		{
 			if(is_dir($package))
 			{
-				$files = glob($package . '/migrations/*_*.php');
+				$files = glob($package . '/migrations/*.php');
 
 				foreach($files as $file)
 				{
 					$migration = new StdClass();
 
-					$migration->name    = basename($file, '.php');
+					$migration->version = basename($file, '.php');
 					$migration->package = basename($package);
 
 					$migrations[] = $migration;
@@ -119,28 +106,24 @@ class Migrate extends \mako\reactor\Task
 			}
 		}
 
-		// Remove migrations that have already been ran
+		// Remove migrations that have already been executed
 
-		$ran = array();
-
-		foreach($this->table()->all() as $migration)
+		foreach($this->table()->all() as $ran)
 		{
-			$ran[] = $migration->name;
-		}
-
-		foreach($migrations as $key => $value)
-		{
-			if(in_array($value->name, $ran))
+			foreach($migrations as $key => $migration)
 			{
-				unset($migrations[$key]);
+				if($ran->package === $migration->package && $ran->version === $migration->version)
+				{
+					unset($migrations[$key]);
+				}
 			}
 		}
 
-		// Sort migrations so that they get executed in the right order
+		// Sort remaining migrations so that they get executed in the right order
 
 		usort($migrations, function($a, $b)
 		{
-			return strcmp($a->name, $b->name);
+			return strcmp($a->version, $b->version);
 		});
 
 		return $migrations;
@@ -174,18 +157,16 @@ class Migrate extends \mako\reactor\Task
 
 	protected function resolve($migration)
 	{
+		$file = $migration->version;
+
 		if(!empty($migration->package))
 		{
-			$file = $migration->package . '::' . $migration->name;
-		}
-		else
-		{
-			$file = $migration->name;
+			$file = $migration->package . '::' . $file;
 		}
 
 		include Mako::path('migrations', $file);
 
-		$class = '\Migration_' . $this->timestamp($migration->name);
+		$class = '\Migration_' . $migration->version;
 
 		return new $class();
 	}
@@ -211,9 +192,16 @@ class Migrate extends \mako\reactor\Task
 		{
 			$this->resolve($migration)->up();
 
-			$this->table()->insert(array('batch' => $batch, 'package' => $migration->package, 'name' => $migration->name));
+			$this->table()->insert(array('batch' => $batch, 'package' => $migration->package, 'version' => $migration->version));
 
-			CLI::stdout('Ran the ' . $migration->name . ' migration.');
+			$name = $migration->version;
+
+			if(!empty($migration->package))
+			{
+				$name = $migration->package . '::' . $name;
+			}
+
+			CLI::stdout('Ran the ' . $name . ' migration.');
 		}
 	}
 
@@ -227,8 +215,8 @@ class Migrate extends \mako\reactor\Task
 	{
 		$migrations = $this->table()
 			->where('batch', '=', $this->table()->max('batch'))
-			->orderBy('name', 'desc')
-			->all(array('name', 'package'));
+			->orderBy('version', 'desc')
+			->all(array('version', 'package'));
 
 		if(empty($migrations))
 		{
@@ -241,9 +229,16 @@ class Migrate extends \mako\reactor\Task
 		{
 			$this->resolve($migration)->down();
 
-			$this->table()->where('name', '=', $migration->name)->delete();
+			$this->table()->where('version', '=', $migration->version)->delete();
 
-			CLI::stdout('Rolled back the ' . $migration->name . ' migration.');
+			$name = $migration->version;
+
+			if(!empty($migration->package))
+			{
+				$name = $migration->package . '::' . $name;
+			}
+
+			CLI::stdout('Rolled back the ' . $name . ' migration.');
 		}
 
 		return true;
@@ -274,7 +269,7 @@ class Migrate extends \mako\reactor\Task
 		/*CREATE TABLE `mako_migrations` (
 		  `batch` int(10) unsigned NOT NULL,
 		  `package` varchar(255) NOT NULL,
-		  `name` varchar(255) NOT NULL
+		  `version` varchar(255) NOT NULL
 		);*/
 
 		CLI::stderr('Migration installation has not been implemented yet.');
@@ -284,43 +279,32 @@ class Migrate extends \mako\reactor\Task
 	* Creates a migration template.
 	*
 	* @access  public
-	* @param   string  $name  Migration name
+	* @param   string  $package  (optional) Package name
 	*/
 
-	public function create($name = '')
+	public function create($package = '')
 	{
-		if(empty($name))
-		{
-			return CLI::stderr('You need to provide a migration name.');
-		}
-
 		// Get file path
 
-		$timestamp = gmdate('YmdHis');
+		$file = $version = gmdate('YmdHis');
 
-		if(stripos($name, '::') !== false)
+		if(!empty($package))
 		{
-			$name = explode('::', $name, 2);
-
-			$name = implode('::', array($name[0], $timestamp . '_' . $name[1]));
-		}
-		else
-		{
-			$name = $timestamp . '_' . $name;
+			$file = $package . '::' . $version;
 		}
 
-		$file = Mako::path('migrations', $name);
+		$file = Mako::path('migrations', $file);
 
 		// Create migration
 
-		$migration = str_replace('{{timestamp}}', $timestamp, file_get_contents(__DIR__ . '/migrate/migration.tpl'));
+		$migration = str_replace('{{version}}', $version, file_get_contents(__DIR__ . '/migrate/migration.tpl'));
 
 		if(!@file_put_contents($file, $migration))
 		{
 			return CLI::stderr('Failed to create migration. Make sure that the migrations directory is writable.');
 		}
 
-		CLI::stdout('Migration created!');
+		CLI::stdout(sprintf('Migration created at "%s"', $file));
 	}
 }
 
