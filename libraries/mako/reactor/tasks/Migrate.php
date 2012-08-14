@@ -290,7 +290,7 @@ class Migrate extends \mako\reactor\Task
 
 		if(!empty($package))
 		{
-			$file = $package . '::' . $version;
+			$file = $package . '::' . $file;
 		}
 
 		$file = Mako::path('migrations', $file);
