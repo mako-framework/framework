@@ -304,7 +304,7 @@ class Migrate extends \mako\reactor\Task
 			return CLI::stderr('Failed to create migration. Make sure that the migrations directory is writable.');
 		}
 
-		CLI::stdout(sprintf('Migration created at "%s"', $file));
+		CLI::stdout(sprintf('Migration created at "%s".', $file));
 	}
 }
 
