@@ -212,7 +212,7 @@ class Query
 	{
 		if($column instanceof Closure)
 		{
-			$query = new static($this->table, $this->connection);
+			$query = new static($this->connection, $this->table);
 
 			call_user_func($column, $query);
 
