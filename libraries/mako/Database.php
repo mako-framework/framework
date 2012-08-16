@@ -124,7 +124,7 @@ class Database
 	*
 	* @deprecated
 	* @access  public
-	* @param   string  (optional) $name  Database configuration name
+	* @param   string  $name  (optional) Database configuration name
 	* @return  PDO
 	*/
 
