@@ -181,11 +181,9 @@ class Redis
 
 		$commands = count($this->commands);
 
-		// Send all commands to server
+		// Send all commands to server and fetch responses
 
 		fwrite($this->connection, implode('', $this->commands));
-
-		// Fetch responses
 
 		for($i = 0; $i < $commands; $i++)
 		{
@@ -289,11 +287,9 @@ class Redis
 		}
 		else
 		{
-			// Send command to server
+			// Send command to server and return response
 
 			fwrite($this->connection, $command);
-
-			// Return response
 
 			return $this->response();
 		}
