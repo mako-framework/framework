@@ -36,6 +36,22 @@ class Redis
 	protected $config;
 
 	/**
+	* Is pipelining enabled?
+	*
+	* @var boolean
+	*/
+
+	protected $pipelined = false;
+
+	/**
+	* Pipelined commands
+	*
+	* @var array
+	*/
+
+	protected $commands = array();
+
+	/**
 	* Socket connection.
 	*
 	* @var resource
@@ -139,6 +155,55 @@ class Redis
 	}
 
 	/**
+	* Enable pipelining
+	*
+	* @access  public
+	* @return  mako\Redis
+	*/
+
+	public function pipeline()
+	{
+		$this->pipelined = true;
+
+		return $this;
+	}
+
+	/**
+	* Send pipelined commands to server and return responses.
+	*
+	* @access  public
+	* @return  array
+	*/
+
+	public function valve()
+	{
+		$responses = array();
+
+		$commands = count($this->commands);
+
+		// Send all commands to server
+
+		fwrite($this->connection, implode('', $this->commands));
+
+		// Fetch responses
+
+		for($i = 0; $i < $commands; $i++)
+		{
+			$responses[] = $this->response();
+		}
+
+		// Reset pipelining
+
+		$this->commands = array();
+
+		$this->pipelined = false;
+
+		// Return array of responses
+
+		return $responses;
+	}
+
+	/**
 	* Returns response from redis server.
 	*
 	* @access  protected
@@ -214,13 +279,24 @@ class Redis
 			$command .= '$' . strlen($arg) . static::CRLF . $arg . static::CRLF;
 		}
 
-		// Send command to server
+		if($this->pipelined)
+		{
+			// Pipeline commands
 
-		fwrite($this->connection, $command);
+			$this->commands[] = $command;
 
-		// Return response
+			return $this;
+		}
+		else
+		{
+			// Send command to server
 
-		return $this->response();
+			fwrite($this->connection, $command);
+
+			// Return response
+
+			return $this->response();
+		}
 	}
 
 	/**
