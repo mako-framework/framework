@@ -155,53 +155,6 @@ class Redis
 	}
 
 	/**
-	* Enable pipelining
-	*
-	* @access  public
-	* @return  mako\Redis
-	*/
-
-	public function pipeline()
-	{
-		$this->pipelined = true;
-
-		return $this;
-	}
-
-	/**
-	* Send pipelined commands to server and return responses.
-	*
-	* @access  public
-	* @return  array
-	*/
-
-	public function valve()
-	{
-		$responses = array();
-
-		$commands = count($this->commands);
-
-		// Send all commands to server and fetch responses
-
-		fwrite($this->connection, implode('', $this->commands));
-
-		for($i = 0; $i < $commands; $i++)
-		{
-			$responses[] = $this->response();
-		}
-
-		// Reset pipelining
-
-		$this->commands = array();
-
-		$this->pipelined = false;
-
-		// Return array of responses
-
-		return $responses;
-	}
-
-	/**
 	* Returns response from redis server.
 	*
 	* @access  protected
@@ -253,6 +206,53 @@ class Redis
 			default:
 				throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", array(__METHOD__)));
 		}
+	}
+
+	/**
+	* Enable pipelining
+	*
+	* @access  public
+	* @return  mako\Redis
+	*/
+
+	public function pipeline()
+	{
+		$this->pipelined = true;
+
+		return $this;
+	}
+
+	/**
+	* Send pipelined commands to server and return responses.
+	*
+	* @access  public
+	* @return  array
+	*/
+
+	public function valve()
+	{
+		$responses = array();
+
+		$commands = count($this->commands);
+
+		// Send all commands to server and fetch responses
+
+		fwrite($this->connection, implode('', $this->commands));
+
+		for($i = 0; $i < $commands; $i++)
+		{
+			$responses[] = $this->response();
+		}
+
+		// Reset pipelining
+
+		$this->commands = array();
+
+		$this->pipelined = false;
+
+		// Return array of responses
+
+		return $responses;
 	}
 
 	/**
