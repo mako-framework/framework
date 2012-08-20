@@ -4,7 +4,6 @@ namespace mako\reactor\tasks;
 
 use \StdClass;
 use \mako\CLI;
-use \mako\Mako;
 use \mako\Database;
 
 /**
@@ -164,7 +163,7 @@ class Migrate extends \mako\reactor\Task
 			$file = $migration->package . '::' . $file;
 		}
 
-		include Mako::path('migrations', $file);
+		include mako_path('migrations', $file);
 
 		$class = '\Migration_' . $migration->version;
 
@@ -293,7 +292,7 @@ class Migrate extends \mako\reactor\Task
 			$file = $package . '::' . $file;
 		}
 
-		$file = Mako::path('migrations', $file);
+		$file = mako_path('migrations', $file);
 
 		// Create migration
 

@@ -3,7 +3,6 @@
 namespace mako\reactor;
 
 use \mako\CLI;
-use \mako\Mako;
 use \mako\Config;
 use \mako\Package;
 use \ReflectionClass;
@@ -81,10 +80,6 @@ class Reactor
 			Config::set('database.default', $database);
 		}
 
-		// Initialize the framework
-
-		Mako::init();
-
 		// Remove options from argument list so that it doesnt matter what order they come in
 
 		foreach($arguments as $key => $value)
@@ -120,7 +115,7 @@ class Reactor
 		}
 		else
 		{
-			$file = Mako::path('tasks', $task);
+			$file = mako_path('tasks', $task);
 
 			if(!file_exists($file))
 			{

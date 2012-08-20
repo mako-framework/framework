@@ -180,7 +180,7 @@ a.active
 </div>
 
 <div id="footer">
-page rendered in <?php echo round(microtime(true) - MAKO_START, 4); ?> seconds | <?php echo mako\Mako::VERSION; ?>
+page rendered in <?php echo round(microtime(true) - MAKO_START, 4); ?> seconds | <?php echo MAKO_VERSION; ?>
 </div>
 
 </body>

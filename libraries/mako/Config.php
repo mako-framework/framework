@@ -11,7 +11,6 @@ namespace mako;
 */
 
 use \mako\Arr;
-use \mako\Mako;
 use \RuntimeException;
 
 class Config
@@ -66,7 +65,7 @@ class Config
 
 		foreach($paths as $path)
 		{
-			$path = Mako::path($path, $file);
+			$path = mako_path($path, $file);
 
 			if(file_exists($path))
 			{

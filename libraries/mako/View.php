@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Mako;
+use \mako\ErrorHandler;
 use \mako\view\Compiler;
 use \Exception;
 use \RuntimeException;
@@ -71,14 +71,14 @@ class View
 		
 		// Check if view file exists
 
-		if(file_exists($file = Mako::path('views', $view)))
+		if(file_exists($file = mako_path('views', $view)))
 		{
 			$this->view = $file;
 		}
 
 		// No view, check if template exists
 
-		elseif(file_exists($file = Mako::path('views', $view . '.tpl')))
+		elseif(file_exists($file = mako_path('views', $view . '.tpl')))
 		{
 			$this->view = MAKO_APPLICATION . '/storage/templates/' . md5($file) . '.php';
 
@@ -282,7 +282,7 @@ class View
 		}
 		catch(Exception $e)
 		{
-			Mako::exceptionHandler($e);
+			ErrorHandler::exception($e);
 		}
 	}
 }
