@@ -1,4 +1,4 @@
-# Mako Framework
+# Mako
 
 * [Website](http://makoframework.com)
 * [Documentation](http://makoframework.com/docs)
@@ -9,7 +9,7 @@ Mako is a lightweight UTF-8 compatible and easy to use PHP5 framework based on t
 
 ## Requirements?
 
-* PHP 5.3.1 or higher
+* PHP 5.3.1 or higher (PHP 5.3.7 or higher is recommended)
 * mbstring
 * PDO \*
 
@@ -17,4 +17,4 @@ Mako is a lightweight UTF-8 compatible and easy to use PHP5 framework based on t
 
 ## License?
 
-The Mako Framework is licensed under the [BSD License](http://makoframework.com/license/).
+The Mako framework is licensed under the [BSD License](http://makoframework.com/license/).
