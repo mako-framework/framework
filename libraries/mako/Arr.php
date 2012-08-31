@@ -133,6 +133,19 @@ class Arr
 	{
 		return $array[array_rand($array)];
 	}
+
+	/**
+	* Returns TRUE if the array is associative and FALSE if not.
+	*
+	* @access  public
+	* @param   array    $array  Array to check
+	* @return  boolean
+	*/
+
+	public static function isAssoc(array $array)
+	{
+	  return (bool) count(array_filter(array_keys($array), 'is_string'));
+	}
 }
 
 /** -------------------- End of file --------------------**/
