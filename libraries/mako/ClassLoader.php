@@ -37,6 +37,14 @@ class ClassLoader
 	);
 
 	/**
+	* Registered namespaces.
+	*
+	* @var array
+	*/
+
+	protected static $namespaces = array();
+
+	/**
 	* Class aliases.
 	*
 	* @var array
@@ -104,6 +112,19 @@ class ClassLoader
 	}
 
 	/**
+	* Registers a namespace.
+	*
+	* @access  public
+	* @param   string  $namespace  Namespace
+	* @param   string  $path       Path
+	*/
+
+	public static function registerNamespace($namespace, $path)
+	{
+		static::$namespaces[trim($namespace, '\\') . '\\'] = rtrim($path, '/');
+	}
+
+	/**
 	* Set an alias for a class.
 	*
 	* @access  public
@@ -121,10 +142,11 @@ class ClassLoader
 	*
 	* @access  protected
 	* @param   string     $className  Class name
+	* @param   string     $directory  (Optional) Overrides the array of PSR-0 paths
 	* @return  boolean
 	*/
 
-	protected static function loadPSR0($className)
+	protected static function loadPSR0($className, $directory = null)
 	{
 		$classPath = '';
 
@@ -137,7 +159,9 @@ class ClassLoader
 
 		$classPath .= str_replace('_', '/', $className) . '.php';
 
-		foreach(static::$directories as $directory)
+		$directories = ($directory === null) ? static::$directories : array($directory);
+
+		foreach($directories as $directory)
 		{
 			if(file_exists($directory . '/' . $classPath))
 			{
@@ -176,6 +200,19 @@ class ClassLoader
 			include static::$classes[$className];
 
 			return true;
+		}
+
+		// Try to load class from a registered namespace
+
+		foreach(static::$namespaces as $namespace => $path)
+		{
+			if(strpos($className, $namespace) === 0)
+			{
+				if(static::loadPSR0(substr($className, strlen($namespace)), $path))
+				{
+					return true;
+				}
+			}
 		}
 
 		// Try to load a PSR-0 compatible class
