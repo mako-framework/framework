@@ -79,7 +79,7 @@ class ClassLoader
 	* @param   string  $classPath  Full path to class
 	*/
 
-	public static function addClass($className, $classPath)
+	public static function mapClass($className, $classPath)
 	{
 		static::$classes[$className] = $classPath;
 	}
@@ -91,7 +91,7 @@ class ClassLoader
 	* @param   array   $classes  Array of classes to map (key = class name and value = class path)
 	*/
 
-	public static function addClasses(array $classes)
+	public static function mapClasses(array $classes)
 	{
 		foreach($classes as $name => $path)
 		{

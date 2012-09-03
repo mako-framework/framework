@@ -4,7 +4,7 @@
 // Define some constants
 //------------------------------------------------------------------------------------------
 
-define('MAKO_VERSION', '2.3.2');
+define('MAKO_VERSION', '2.3.3');
 define('MAKO_START', microtime(true));
 define('MAKO_MAGIC_QUOTES', get_magic_quotes_gpc());
 define('MAKO_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
@@ -34,7 +34,7 @@ ini_set('error_log', MAKO_APPLICATION . '/storage/logs/error_' . gmdate('Y_m_d')
 
 include MAKO_LIBRARIES_PATH . '/mako/ClassLoader.php';
 
-mako\ClassLoader::addClasses(array
+mako\ClassLoader::mapClasses(array
 (
 	'mako\Arr'                               => MAKO_LIBRARIES_PATH . '/mako/Arr.php',
 	'mako\Assets'                            => MAKO_LIBRARIES_PATH . '/mako/Assets.php',
