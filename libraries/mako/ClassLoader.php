@@ -30,9 +30,10 @@ class ClassLoader
 	* @var array
 	*/
 
-	protected static $psr = array
+	protected static $directories = array
 	(
-		MAKO_LIBRARIES_PATH
+		MAKO_LIBRARIES_PATH,
+		MAKO_APPLICATION_PATH,
 	);
 
 	/**
@@ -99,7 +100,7 @@ class ClassLoader
 
 	public static function directory($path)
 	{
-		static::$psr[] = $path;
+		static::$directories[] = $path;
 	}
 
 	/**
@@ -113,6 +114,40 @@ class ClassLoader
 	public static function alias($alias, $className)
 	{
 		static::$aliases[$alias] = $className;
+	}
+
+	/**
+	* Try to load a PSR-0 compatible class.
+	*
+	* @access  protected
+	* @param   string     $className  Class name
+	* @return  boolean
+	*/
+
+	protected static function loadPSR0($className)
+	{
+		$classPath = '';
+
+		if(($pos = strripos($className, '\\')) !== false)
+		{
+			$namespace = substr($className, 0, $pos);
+			$className = substr($className, $pos + 1);
+			$classPath = str_replace('\\', '/', $namespace) . '/';
+		}
+
+		$classPath .= str_replace('_', '/', $className) . '.php';
+
+		foreach(static::$directories as $directory)
+		{
+			if(file_exists($directory . '/' . $classPath))
+			{
+				include($directory . '/' . $classPath);
+
+				return true;
+			}	
+		}
+
+		return false;
 	}
 
 	/**
@@ -143,39 +178,12 @@ class ClassLoader
 			return true;
 		}
 
-		// Try to load an application class
+		// Try to load a PSR-0 compatible class
+		// The second call to the loadPSR0 method is used as a last resort to autoload legacy code
 
-		$fileName = MAKO_APPLICATION_PATH . '/' . str_replace('\\', '/', strtolower($className)) . '.php';
-
-		if(file_exists($fileName))
+		if(static::loadPSR0($className) || static::loadPSR0(strtolower($className)))
 		{
-			include $fileName;
-
 			return true;
-		}
-
-		// Try to load class from a PSR-0 compatible library
-
-		$fileName  = '';
-		$namespace = '';
-
-		if($lastNsPos = strripos($className, '\\'))
-		{
-			$namespace = substr($className, 0, $lastNsPos);
-			$className = substr($className, $lastNsPos + 1);
-			$fileName  = str_replace('\\', '/', $namespace) . '/';
-		}
-
-		$fileName .= str_replace('_', '/', $className) . '.php';
-
-		foreach(static::$psr as $path)
-		{
-			if(file_exists($path . '/' . $fileName))
-			{
-				include($path . '/' . $fileName);
-
-				return true;
-			}	
 		}
 
 		return false;
