@@ -108,7 +108,7 @@ class ClassLoader
 
 	public static function directory($path)
 	{
-		static::$directories[] = $path;
+		static::$directories[] = rtrim($path, '/');
 	}
 
 	/**
