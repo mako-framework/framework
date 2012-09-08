@@ -54,6 +54,59 @@ class Reactor
 	//---------------------------------------------
 
 	/**
+	 * Sets up the CLI environment and runs the commands.
+	 *
+	 * @access  public
+	 * @param   array   $arguments  Arguments
+	 */
+
+	public static function run($arguments)
+	{
+		// Override environment?
+
+		$env = CLI::param('env', false);
+
+		if($env !== false)
+		{
+			$_SERVER['MAKO_ENV'] = $env;
+		}
+
+		// Override default database?
+
+		$database = CLI::param('database', false);
+
+		if($database !== false)
+		{
+			Config::set('database.default', $database);
+		}
+
+		// Remove options from argument list so that it doesnt matter what order they come in
+
+		foreach($arguments as $key => $value)
+		{
+			if(substr($value, 0, 2) == '--')
+			{
+				unset($arguments[$key]);
+			}
+		}
+
+		// Run task
+
+		CLI::stdout();
+
+		try
+		{
+			static::task($arguments);
+		}
+		catch(Exception $e)
+		{
+			CLI::stderr($e->getMessage() . str_repeat(PHP_EOL, 2) . $e->getTraceAsString());
+		}
+
+		CLI::stdout();
+	}
+
+	/**
 	 * Help command that lists all available tasks.
 	 * 
 	 * @access  public
@@ -115,59 +168,6 @@ class Reactor
 				CLI::stdout(str_repeat(' ', 4) . CLI::color('*', 'yellow') . ' ' . $task);
 			}
 		}
-	}
-
-	/**
-	 * Sets up the CLI environment and runs the commands.
-	 *
-	 * @access  public
-	 * @param   array   $arguments  Arguments
-	 */
-
-	public static function run($arguments)
-	{
-		// Override environment?
-
-		$env = CLI::param('env', false);
-
-		if($env !== false)
-		{
-			$_SERVER['MAKO_ENV'] = $env;
-		}
-
-		// Override default database?
-
-		$database = CLI::param('database', false);
-
-		if($database !== false)
-		{
-			Config::set('database.default', $database);
-		}
-
-		// Remove options from argument list so that it doesnt matter what order they come in
-
-		foreach($arguments as $key => $value)
-		{
-			if(substr($value, 0, 2) == '--')
-			{
-				unset($arguments[$key]);
-			}
-		}
-
-		// Run task
-
-		CLI::stdout();
-
-		try
-		{
-			static::task($arguments);
-		}
-		catch(Exception $e)
-		{
-			CLI::stderr($e->getMessage() . str_repeat(PHP_EOL, 2) . $e->getTraceAsString());
-		}
-
-		CLI::stdout();
 	}
 
 	/**
