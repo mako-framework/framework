@@ -14,8 +14,7 @@ define('MAKO_LIBRARIES_PATH', dirname(__DIR__) . '/libraries');
 // END OF USER CONFIGURABLE SECTION
 //------------------------------------------------------------------------------------------
 
-define('MAKO_APPLICATION_PATH', dirname(__DIR__));
-define('MAKO_APPLICATION_NAME', basename(__DIR__));
+define('MAKO_APPLICATION_PATH', __DIR__);
 
 require MAKO_LIBRARIES_PATH . '/mako/_init.php';
 

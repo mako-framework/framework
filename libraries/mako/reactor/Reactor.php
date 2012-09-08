@@ -31,7 +31,6 @@ class Reactor
 	protected static $coreTasks = array
 	(
 		'migrate' =>  'Migrate',
-		'package' =>  'Package',
 	);
 
 	//---------------------------------------------

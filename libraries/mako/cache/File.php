@@ -67,7 +67,7 @@ class File extends \mako\cache\Adapter
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 
-		$data = "<?php defined('MAKO_APPLICATION') or die(); ?>\n{$ttl}\n" . serialize($value);
+		$data = "<?php defined('MAKO_APPLICATION_PATH') or die(); ?>\n{$ttl}\n" . serialize($value);
 
 		return is_int(file_put_contents("{$this->path}/mako_{$this->identifier}_{$key}.php", $data, LOCK_EX));
 	}

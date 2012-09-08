@@ -71,7 +71,7 @@ class Migrate extends \mako\reactor\Task
 
 		// Get application migrations
 
-		$files = glob(MAKO_APPLICATION . '/migrations/*.php');
+		$files = glob(MAKO_APPLICATION_PATH . '/migrations/*.php');
 
 		foreach($files as $file)
 		{
@@ -85,7 +85,7 @@ class Migrate extends \mako\reactor\Task
 
 		// Get package migrations
 
-		$packages = glob(MAKO_PACKAGES . '/*');
+		$packages = glob(MAKO_PACKAGES_PATH . '/*');
 
 		foreach($packages as $package)
 		{

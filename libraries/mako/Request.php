@@ -156,7 +156,7 @@ class Request
 		$this->defaultRoute = $config['default_route'];
 		$this->customRoutes = $config['custom_routes'];
 		
-		$this->namespace = '\\' . MAKO_APPLICATION_NAME . '\controllers\\';
+		$this->namespace = '\app\controllers\\';
 		
 		static $mainRequest = true;
 
@@ -241,7 +241,7 @@ class Request
 	{
 		// Set root path
 		
-		$controllerPath = MAKO_APPLICATION . '/controllers/';
+		$controllerPath = MAKO_APPLICATION_PATH . '/controllers/';
 
 		// Get the route
 

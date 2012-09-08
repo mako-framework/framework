@@ -48,7 +48,7 @@ class Package
 
 	public static function init($name)
 	{
-		$path = MAKO_PACKAGES . '/' . $name . '/_init.php';
+		$path = MAKO_PACKAGES_PATH . '/' . $name . '/_init.php';
 
 		if(!file_exists($path))
 		{
@@ -68,7 +68,7 @@ class Package
 
 	public static function installed($name)
 	{
-		return is_dir(MAKO_PACKAGES . '/' . $name);
+		return is_dir(MAKO_PACKAGES_PATH . '/' . $name);
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Package
 
 	public static function info($name)
 	{
-		$path = MAKO_PACKAGES . '/' . $name . '/package.json';
+		$path = MAKO_PACKAGES_PATH . '/' . $name . '/package.json';
 
 		if(file_exists($path))
 		{

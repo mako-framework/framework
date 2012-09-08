@@ -72,7 +72,7 @@ class I18n
 
 	protected static function languageExists($language)
 	{
-		if(!is_dir(MAKO_APPLICATION.'/i18n/' . $language))
+		if(!is_dir(MAKO_APPLICATION_PATH . '/i18n/' . $language))
 		{
 			throw new RuntimeException(vsprintf("%s(): The '%s' language pack does not exist.", array(__METHOD__, $language)));
 		}
@@ -156,9 +156,9 @@ class I18n
 	{
 		static::languageExists($language);
 
-		if(file_exists(MAKO_APPLICATION . '/i18n/' . $language . '/inflection.php'))
+		if(file_exists(MAKO_APPLICATION_PATH . '/i18n/' . $language . '/inflection.php'))
 		{
-			static::$inflection[$language] = include(MAKO_APPLICATION . '/i18n/' . $language . '/inflection.php');
+			static::$inflection[$language] = include(MAKO_APPLICATION_PATH . '/i18n/' . $language . '/inflection.php');
 		}
 		else
 		{
@@ -190,7 +190,7 @@ class I18n
 
 			// Fetch strings from packages
 
-			$files = glob(MAKO_PACKAGES . '/*/i18n/' . $language . '/strings/*.php', GLOB_NOSORT);
+			$files = glob(MAKO_PACKAGES_PATH . '/*/i18n/' . $language . '/strings/*.php', GLOB_NOSORT);
 
 			foreach($files as $file)
 			{
@@ -199,7 +199,7 @@ class I18n
 
 			// Fetch strings from application
 
-			$files = glob(MAKO_APPLICATION . '/i18n/' . $language . '/strings/*.php', GLOB_NOSORT);
+			$files = glob(MAKO_APPLICATION_PATH . '/i18n/' . $language . '/strings/*.php', GLOB_NOSORT);
 
 			foreach($files as $file)
 			{

@@ -8,9 +8,9 @@ define('MAKO_VERSION', '2.4.0');
 define('MAKO_START', microtime(true));
 define('MAKO_MAGIC_QUOTES', get_magic_quotes_gpc());
 define('MAKO_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
-define('MAKO_APPLICATION', MAKO_APPLICATION_PATH . '/' . MAKO_APPLICATION_NAME);
-define('MAKO_APPLICATION_ID', md5(MAKO_APPLICATION));
-define('MAKO_PACKAGES', MAKO_APPLICATION . '/packages');
+define('MAKO_APPLICATION_PARENT_PATH', dirname(MAKO_APPLICATION_PATH));
+define('MAKO_APPLICATION_ID', md5(MAKO_APPLICATION_PATH));
+define('MAKO_PACKAGES_PATH', MAKO_APPLICATION_PATH . '/packages');
 
 //------------------------------------------------------------------------------------------
 // Convert all errors to ErrorExceptions and set path for error logs
@@ -26,7 +26,7 @@ set_error_handler(function($code, $message, $file, $line)
 	return true;
 });
 
-ini_set('error_log', MAKO_APPLICATION . '/storage/logs/error_' . gmdate('Y_m_d') . '.log');
+ini_set('error_log', MAKO_APPLICATION_PATH . '/storage/logs/error_' . gmdate('Y_m_d') . '.log');
 
 //------------------------------------------------------------------------------------------
 // Map all core classes and set up autoloading
@@ -138,11 +138,11 @@ function mako_path($path, $string)
 	{
 		list($package, $file) = explode('::', $string);
 
-		$path = MAKO_PACKAGES . '/' . $package . '/' . $path . '/' . $file . '.php';
+		$path = MAKO_PACKAGES_PATH . '/' . $package . '/' . $path . '/' . $file . '.php';
 	}
 	else
 	{
-		$path = MAKO_APPLICATION . '/' . $path . '/' . $string . '.php';
+		$path = MAKO_APPLICATION_PATH . '/' . $path . '/' . $string . '.php';
 	}
 
 	return $path;
@@ -192,7 +192,7 @@ if(!function_exists('dump_var'))
 // Include application bootstrap file
 //------------------------------------------------------------------------------------------
 		
-require MAKO_APPLICATION . '/bootstrap.php';
+require MAKO_APPLICATION_PATH . '/bootstrap.php';
 
 //------------------------------------------------------------------------------------------
 // Configure the core

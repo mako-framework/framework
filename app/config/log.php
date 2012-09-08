@@ -31,7 +31,7 @@ return array
 		'file' => array
 		(
 			'type'  => 'File',
-			'path'  => MAKO_APPLICATION . '/storage/logs',
+			'path'  => MAKO_APPLICATION_PATH . '/storage/logs',
 		),
 		
 		'firephp' => array

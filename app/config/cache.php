@@ -34,13 +34,13 @@ return array
 		'apc' => array
 		(
 			'type'       => 'APC',
-			'identifier' => MAKO_APPLICATION,
+			'identifier' => MAKO_APPLICATION_ID,
 		),
 
 		'database' => array
 		(
 			'type'          => 'Database',
-			'identifier'    => MAKO_APPLICATION,
+			'identifier'    => MAKO_APPLICATION_ID,
 			'configuration' => 'test',
 			'table'         => 'mako_cache',
 		),
@@ -48,14 +48,14 @@ return array
 		'file' => array
 		(
 			'type'       => 'File',
-			'identifier' => MAKO_APPLICATION,
-			'path'       => MAKO_APPLICATION . '/storage/cache',
+			'identifier' => MAKO_APPLICATION_ID,
+			'path'       => MAKO_APPLICATION_PATH . '/storage/cache',
 		),
 
 		'memcache' => array
 		(
 			'type'          => 'Memcache',
-			'identifier'    => MAKO_APPLICATION,
+			'identifier'    => MAKO_APPLICATION_ID,
 			'compress_data' => false,
 			'timeout'       => 1,
 			'servers'       => array
@@ -73,7 +73,7 @@ return array
 		'memcached' => array
 		(
 			'type'          => 'Memcached',
-			'identifier'    => MAKO_APPLICATION,
+			'identifier'    => MAKO_APPLICATION_ID,
 			'compress_data' => false,
 			'timeout'       => 1,
 			'servers'       => array
@@ -95,20 +95,20 @@ return array
 		'redis' => array
 		(
 			'type'          => 'Redis',
-			'identifier'    => MAKO_APPLICATION,
+			'identifier'    => MAKO_APPLICATION_ID,
 			'configuration' => 'cache',
 		),
 
 		'wincache' => array
 		(
 			'type'       => 'WinCache',
-			'identifier' => MAKO_APPLICATION,
+			'identifier' => MAKO_APPLICATION_ID,
 		),
 
 		'xcache' => array
 		(
 			'type'       => 'XCache',
-			'identifier' => MAKO_APPLICATION,
+			'identifier' => MAKO_APPLICATION_ID,
 			'username'   => 'xcache',
 			'password'   => 'xcache',
 		),
@@ -116,13 +116,13 @@ return array
 		'zenddisk' => array
 		(
 			'type'       => 'ZendDisk',
-			'identifier' => MAKO_APPLICATION,
+			'identifier' => MAKO_APPLICATION_ID,
 		),
 
 		'zendmemory' => array
 		(
 			'type'       => 'ZendMemory',
-			'identifier' => MAKO_APPLICATION,
+			'identifier' => MAKO_APPLICATION_ID,
 		),
 	),
 );

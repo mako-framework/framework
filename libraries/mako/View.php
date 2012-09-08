@@ -80,7 +80,7 @@ class View
 
 		elseif(file_exists($file = mako_path('views', $view . '.tpl')))
 		{
-			$this->view = MAKO_APPLICATION . '/storage/templates/' . md5($file) . '.php';
+			$this->view = MAKO_APPLICATION_PATH . '/storage/templates/' . md5($file) . '.php';
 
 			// Check if compiled template exists and that it's up to date. If not compile
 

@@ -26,16 +26,10 @@ ini_set('display_errors', true);
 define('MAKO_LIBRARIES_PATH', __DIR__ . '/libraries');
 
 /**
-* Define the path to the parent directory of the app directory (without trailing slash).
+* Define the path to the app directory (without trailing slash).
 */
 
-define('MAKO_APPLICATION_PATH', __DIR__);
-
-/**
-* Define the name of your application. The name must match the name of the app directory.
-*/
-
-define('MAKO_APPLICATION_NAME', 'app');
+define('MAKO_APPLICATION_PATH', __DIR__ . '/app');
 
 //------------------------------------------------------------------------------------------
 // END OF USER CONFIGURABLE SECTION
