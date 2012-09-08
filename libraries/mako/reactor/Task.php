@@ -42,7 +42,7 @@ abstract class Task
 	abstract public function run();
 
 	/**
-	* Display help if non-existant method is called.
+	* Display list of available actions if non-existant method is called.
 	*
 	* @access  public
 	* @param  string  $name       Method name
@@ -54,7 +54,7 @@ abstract class Task
 		CLI::stderr(vsprintf("Unknown task action '%s'.", array($name)));
 
 		$reflectionClass = new ReflectionClass($this);
-		
+
 		$actions = array();
 		$methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
 
