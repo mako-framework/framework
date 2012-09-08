@@ -1,7 +1,7 @@
 <?php
 
 //---------------------------------------------
-// Core configuration
+// Application configuration
 //---------------------------------------------
 
 return array

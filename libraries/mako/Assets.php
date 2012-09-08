@@ -93,7 +93,7 @@ class Assets
 
 		if($location === null)
 		{
-			$location = Config::get('mako.asset_location');
+			$location = Config::get('application.asset_location');
 		}
 
 		return $location;

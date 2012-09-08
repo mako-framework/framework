@@ -179,7 +179,7 @@ class I18n
 
 		static::$strings[$language] = false;
 
-		if(Config::get('mako.lang_cache'))
+		if(Config::get('application.lang_cache'))
 		{
 			static::$strings[$language] = Cache::instance()->read(MAKO_APPLICATION_ID . '_lang_' . $language);
 		}
@@ -206,7 +206,7 @@ class I18n
 				static::$strings[$language] = array_merge(static::$strings[$language], include($file));
 			}
 
-			if(Config::get('mako.lang_cache'))
+			if(Config::get('application.lang_cache'))
 			{
 				Cache::instance()->write(MAKO_APPLICATION_ID . '_lang_' . $language, static::$strings[$language], 3600);
 			}

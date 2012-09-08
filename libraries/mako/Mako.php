@@ -61,7 +61,7 @@ class Mako
 
 		// Setup error handling if enabled
 			
-		if(Config::get('mako.error_handler.enable') === true)
+		if(Config::get('application.error_handler.enable') === true)
 		{
 			register_shutdown_function(function()
 			{

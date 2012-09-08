@@ -270,7 +270,7 @@ class Response
 
 			// Add debug toolbar?
 
-			if(Config::get('mako.debug_toolbar') === true && Request::isAjax() === false)
+			if(Config::get('application.debug_toolbar') === true && Request::isAjax() === false)
 			{
 				$this->body = str_replace('</body>', Debug::render() . '</body>', $this->body);
 			}
@@ -293,7 +293,7 @@ class Response
 
 			// Compress output (if enabled)
 
-			if(Config::get('mako.compress_output') === true)
+			if(Config::get('application.compress_output') === true)
 			{
 				ob_start('ob_gzhandler');
 			}

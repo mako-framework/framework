@@ -59,7 +59,7 @@ class URL
 
 		if($base === false)
 		{
-			$base  = Config::get('mako.base_url');
+			$base  = Config::get('application.base_url');
 
 			// Try to autodetect base url if its not configured
 
@@ -74,7 +74,7 @@ class URL
 
 			// Are we using clean URLs?
 
-			static::$clean = Config::get('mako.clean_urls');
+			static::$clean = Config::get('application.clean_urls');
 		}
 
 		return $base;

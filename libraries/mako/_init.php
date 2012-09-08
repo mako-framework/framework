@@ -198,7 +198,7 @@ require MAKO_APPLICATION . '/bootstrap.php';
 // Configure the core
 //------------------------------------------------------------------------------------------
 
-$config = mako\Config::get('mako');
+$config = mako\Config::get('application');
 
 // Set internal charset
 

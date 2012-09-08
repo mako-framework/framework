@@ -236,7 +236,7 @@ class ErrorHandler
 
 			// Write to error log
 
-			if(Config::get('mako.error_handler.log_errors') === true)
+			if(Config::get('application.error_handler.log_errors') === true)
 			{
 				Log::error("{$error['type']}: {$error['message']} in {$error['file']} at line {$error['line']}");
 			}
@@ -245,7 +245,7 @@ class ErrorHandler
 
 			@header('Content-Type: text/html; charset=' . MAKO_CHARSET);
 
-			if(Config::get('mako.error_handler.display_errors') === true)
+			if(Config::get('application.error_handler.display_errors') === true)
 			{
 				$error['backtrace'] = $exception->getTrace();
 
