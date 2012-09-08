@@ -3,6 +3,8 @@
 namespace mako\reactor;
 
 use \mako\CLI;
+use \ReflectionClass;
+use \ReflectionMethod;
 
 /**
 * Base task.
@@ -49,6 +51,43 @@ abstract class Task
 	public function __call($name, $arguments)
 	{
 		CLI::stderr(vsprintf("Unknown task action '%s'.", array($name)));
+
+		$reflectionClass = new ReflectionClass($this);
+
+		// Print list of available task actions
+
+		$actions = array();
+		$methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
+
+		if(!empty($methods))
+		{
+			foreach($methods as $method)
+			{
+				if(!in_array($method->name, array('__construct', '__destruct', '__call')))
+				{
+					$action = strtolower($reflectionClass->getShortName()) . ($method->name === 'run' ? '' : '.' . $method->name);
+
+					foreach($method->getParameters() as $parameter)
+					{
+						$action .= $parameter->isOptional() ? ' [<' . $parameter->getName() . '>]' : ' <' . $parameter->getName() . '>';
+					}
+
+					$actions[] = $action;
+				}
+			}
+
+			if(!empty($actions))
+			{
+				CLI::stdout(PHP_EOL . 'The available actions for the ' . CLI::color(strtolower($reflectionClass->getShortName()), null, null, array('bold', 'underlined')) . ' task are:' . PHP_EOL);
+
+				sort($actions);
+
+				foreach($actions as $action)
+				{
+					CLI::stdout(str_repeat(' ', 4) . CLI::color('*', 'yellow') . ' ' . $action);
+				}
+			}
+		}
 	}
 }
 
