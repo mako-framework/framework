@@ -5,6 +5,7 @@ namespace mako\reactor;
 use \mako\CLI;
 use \mako\Config;
 use \mako\Package;
+use \Exception;
 use \ReflectionClass;
 use \RuntimeException;
 
@@ -93,7 +94,14 @@ class Reactor
 
 		CLI::stdout();
 
-		static::task($arguments);
+		try
+		{
+			static::task($arguments);
+		}
+		catch(Exception $e)
+		{
+			CLI::stderr($e->getMessage() . str_repeat(PHP_EOL, 2) . $e->getTraceAsString());
+		}
 
 		CLI::stdout();
 	}
