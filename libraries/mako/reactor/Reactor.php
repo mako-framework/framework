@@ -59,7 +59,7 @@ class Reactor
 	 * @access  public
 	 */
 
-	public static function help()
+	protected static function help()
 	{
 		// Find application tasks
 
