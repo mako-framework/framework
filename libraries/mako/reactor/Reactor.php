@@ -10,12 +10,12 @@ use \ReflectionClass;
 use \RuntimeException;
 
 /**
-* Reactor core class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Reactor core class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Reactor
 {
@@ -24,10 +24,10 @@ class Reactor
 	//---------------------------------------------
 
 	/**
-	* Mako Reactor core tasks.
-	*
-	* @var array
-	*/
+	 * Mako Reactor core tasks.
+	 *
+	 * @var array
+	 */
 
 	protected static $coreTasks = array
 	(
@@ -39,10 +39,10 @@ class Reactor
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -54,11 +54,75 @@ class Reactor
 	//---------------------------------------------
 
 	/**
-	* Sets up the CLI environment and runs the commands.
-	*
-	* @access  public
-	* @param   array   $arguments  Arguments
-	*/
+	 * Help command that lists all available tasks.
+	 * 
+	 * @access  public
+	 */
+
+	public static function help()
+	{
+		// Find application tasks
+
+		$appTasks = array_map(function($task)
+		{
+			return basename($task, '.php');
+		}, glob(MAKO_APPLICATION_PATH . '/tasks/*.php'));
+
+		// Find package tasks
+
+		$packageTasks = array();
+
+		$packages = glob(MAKO_PACKAGES_PATH . '/*');
+
+		foreach($packages as $package)
+		{
+			if(is_dir($package))
+			{
+				$tasks = glob($package . '/tasks/*.php');
+
+				foreach($tasks as $task)
+				{
+					$packageTasks[] = basename($package) . '::' . basename($task, '.php');
+				}
+			}
+		}
+		
+		// Print list of available tasks
+
+		CLI::stdout('Core tasks:' . PHP_EOL);
+
+		foreach(static::$coreTasks as $task)
+		{
+			CLI::stdout(str_repeat(' ', 4) . CLI::color('*', 'yellow') . ' ' . strtolower($task));
+		}
+
+		if(!empty($appTasks))
+		{
+			CLI::stdout(PHP_EOL . 'Application tasks:' . PHP_EOL);
+
+			foreach($appTasks as $task)
+			{
+				CLI::stdout(str_repeat(' ', 4) . CLI::color('*', 'yellow') . ' ' . $task);
+			}
+		}
+
+		if(!empty($packageTasks))
+		{
+			CLI::stdout(PHP_EOL . 'Package tasks:' . PHP_EOL);
+
+			foreach($packageTasks as $task)
+			{
+				CLI::stdout(str_repeat(' ', 4) . CLI::color('*', 'yellow') . ' ' . $task);
+			}
+		}
+	}
+
+	/**
+	 * Sets up the CLI environment and runs the commands.
+	 *
+	 * @access  public
+	 * @param   array   $arguments  Arguments
+	 */
 
 	public static function run($arguments)
 	{
@@ -107,12 +171,12 @@ class Reactor
 	}
 
 	/**
-	* Returns an instance of the chosen task.
-	*
-	* @access  protected
-	* @param   string     $task  Task name
-	* @return  mixed
-	*/
+	 * Returns an instance of the chosen task.
+	 *
+	 * @access  protected
+	 * @param   string     $task  Task name
+	 * @return  mixed
+	 */
 
 	protected static function resolve($task)
 	{
@@ -126,7 +190,9 @@ class Reactor
 
 			if(!file_exists($file))
 			{
-				CLI::stderr(vsprintf("The '%s' task does not exist.", array($task)));
+				CLI::stderr(vsprintf("The '%s' task does not exist.", array($task)) . PHP_EOL);
+
+				static::help();
 
 				return false;
 			}
@@ -154,11 +220,11 @@ class Reactor
 	}
 
 	/**
-	* Runs the chosen task.
-	*
-	* @access  protected
-	* @param   array      $arguments  Arguments
-	*/
+	 * Runs the chosen task.
+	 *
+	 * @access  protected
+	 * @param   array      $arguments  Arguments
+	 */
 
 	protected static function task($arguments)
 	{
@@ -181,7 +247,9 @@ class Reactor
 		}
 		else
 		{
-			CLI::stderr('You need to provide a task name.');
+			CLI::stderr('You need to provide a task name.' . PHP_EOL);
+
+			static::help();
 		}
 	}
 }

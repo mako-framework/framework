@@ -8,12 +8,12 @@ use \ReflectionClass;
 use \ReflectionMethod;
 
 /**
-* Base task.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Base task.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 abstract class Task
 {
@@ -34,20 +34,20 @@ abstract class Task
 	//---------------------------------------------
 
 	/**
-	* Run method must always be included.
-	*
-	* @access  public
-	*/
+	 * Run method must always be included.
+	 *
+	 * @access  public
+	 */
 
 	abstract public function run();
 
 	/**
-	* Display list of available actions if non-existant method is called.
-	*
-	* @access  public
-	* @param  string  $name       Method name
-	* @param  array   $arguments  Method arguments
-	*/
+	 * Display list of available actions if non-existant method is called.
+	 *
+	 * @access  public
+	 * @param  string  $name       Method name
+	 * @param  array   $arguments  Method arguments
+	 */
 
 	public function __call($name, $arguments)
 	{
