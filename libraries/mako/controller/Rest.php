@@ -10,7 +10,7 @@ namespace mako\controller;
 * @license    http://www.makoframework.com/license
 */
 
-abstract class Rest extends \mako\Controller
+interface Rest
 {
 	
 }
