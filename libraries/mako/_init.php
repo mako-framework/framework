@@ -120,15 +120,6 @@ mako\ClassLoader::mapClasses(array
 spl_autoload_register('mako\ClassLoader::load');
 
 //------------------------------------------------------------------------------------------
-// Setup autoloading of composer classes
-//------------------------------------------------------------------------------------------
-
-if(file_exists(MAKO_LIBRARIES_PATH . '/composer/autoload.php'))
-{
-	include MAKO_LIBRARIES_PATH . '/composer/autoload.php';
-}
-
-//------------------------------------------------------------------------------------------
 // Define helper functions
 //------------------------------------------------------------------------------------------
 

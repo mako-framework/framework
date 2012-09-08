@@ -17,18 +17,18 @@ class ClassLoader
 	//---------------------------------------------
 
 	/**
-	* Mapping from class names to paths.
-	*
-	* @var array
-	*/
+	 * Mapping from class names to paths.
+	 *
+	 * @var array
+	 */
 
 	protected static $classes = array();
 
 	/**
-	* PSR-0 directories.
-	*
-	* @var array
-	*/
+	 * PSR-0 directories.
+	 *
+	 * @var array
+	 */
 
 	protected static $directories = array
 	(
@@ -37,18 +37,18 @@ class ClassLoader
 	);
 
 	/**
-	* Registered namespaces.
-	*
-	* @var array
-	*/
+	 * Registered namespaces.
+	 *
+	 * @var array
+	 */
 
 	protected static $namespaces = array();
 
 	/**
-	* Class aliases.
-	*
-	* @var array
-	*/
+	 * Class aliases.
+	 *
+	 * @var array
+	 */
 
 	protected static $aliases = array();
 	
@@ -57,10 +57,10 @@ class ClassLoader
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -72,12 +72,12 @@ class ClassLoader
 	//---------------------------------------------
 
 	/**
-	* Add class to mapping.
-	*
-	* @access  public
-	* @param   string  $className  Class name
-	* @param   string  $classPath  Full path to class
-	*/
+	 * Add class to mapping.
+	 *
+	 * @access  public
+	 * @param   string  $className  Class name
+	 * @param   string  $classPath  Full path to class
+	 */
 
 	public static function mapClass($className, $classPath)
 	{
@@ -85,11 +85,11 @@ class ClassLoader
 	}
 
 	/**
-	* Add multiple classes to mapping.
-	*
-	* @access  public
-	* @param   array   $classes  Array of classes to map (key = class name and value = class path)
-	*/
+	 * Add multiple classes to mapping.
+	 *
+	 * @access  public
+	 * @param   array   $classes  Array of classes to map (key = class name and value = class path)
+	 */
 
 	public static function mapClasses(array $classes)
 	{
@@ -100,11 +100,11 @@ class ClassLoader
 	}
 
 	/**
-	* Adds a PSR-0 directory path.
-	*
-	* @access  public
-	* @param   string  $path  Path to PSR-0 directory
-	*/
+	 * Adds a PSR-0 directory path.
+	 *
+	 * @access  public
+	 * @param   string  $path  Path to PSR-0 directory
+	 */
 
 	public static function directory($path)
 	{
@@ -112,12 +112,12 @@ class ClassLoader
 	}
 
 	/**
-	* Registers a namespace.
-	*
-	* @access  public
-	* @param   string  $namespace  Namespace
-	* @param   string  $path       Path
-	*/
+	 * Registers a namespace.
+	 *
+	 * @access  public
+	 * @param   string  $namespace  Namespace
+	 * @param   string  $path       Path
+	 */
 
 	public static function registerNamespace($namespace, $path)
 	{
@@ -125,12 +125,12 @@ class ClassLoader
 	}
 
 	/**
-	* Set an alias for a class.
-	*
-	* @access  public
-	* @param   string  $alias      Class alias
-	* @param   string  $className  Class name
-	*/
+	 * Set an alias for a class.
+	 *
+	 * @access  public
+	 * @param   string  $alias      Class alias
+	 * @param   string  $className  Class name
+	 */
 
 	public static function alias($alias, $className)
 	{
@@ -138,13 +138,13 @@ class ClassLoader
 	}
 
 	/**
-	* Try to load a PSR-0 compatible class.
-	*
-	* @access  protected
-	* @param   string     $className  Class name
-	* @param   string     $directory  (Optional) Overrides the array of PSR-0 paths
-	* @return  boolean
-	*/
+	 * Try to load a PSR-0 compatible class.
+	 *
+	 * @access  protected
+	 * @param   string     $className  Class name
+	 * @param   string     $directory  (Optional) Overrides the array of PSR-0 paths
+	 * @return  boolean
+	 */
 
 	protected static function loadPSR0($className, $directory = null)
 	{
@@ -175,12 +175,30 @@ class ClassLoader
 	}
 
 	/**
-	* Autoloader.
-	*
-	* @access  public
-	* @param   string   $className  Class name
-	* @return  boolean
-	*/
+	 * Enable autoloading of Composer packages.
+	 *
+	 * @access  protected 
+	 */
+
+	protected static function enableComposer()
+	{
+		static $enabled = false;
+
+		if(!$enabled && file_exists(MAKO_LIBRARIES_PATH . '/composer/autoload.php'))
+		{
+			include_once MAKO_LIBRARIES_PATH . '/composer/autoload.php';
+
+			$enabled = true;
+		}
+	}
+
+	/**
+	 * Autoloader.
+	 *
+	 * @access  public
+	 * @param   string   $className  Class name
+	 * @return  boolean
+	 */
 
 	public static function load($className)
 	{
@@ -216,12 +234,16 @@ class ClassLoader
 		}
 
 		// Try to load a PSR-0 compatible class
-		// The second call to the loadPSR0 method is used as a last resort to autoload legacy code
+		// The second call to the loadPSR0 method is used to autoload legacy code
 
 		if(static::loadPSR0($className) || static::loadPSR0(strtolower($className)))
 		{
 			return true;
 		}
+
+		// Enable composer autoloading as a last resort
+
+		static::enableComposer();
 
 		return false;
 	}
