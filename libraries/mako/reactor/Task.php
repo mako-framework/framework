@@ -3,6 +3,7 @@
 namespace mako\reactor;
 
 use \mako\CLI;
+use \mako\String;
 use \ReflectionClass;
 use \ReflectionMethod;
 
@@ -69,7 +70,9 @@ abstract class Task
 
 					foreach($method->getParameters() as $parameter)
 					{
-						$action .= $parameter->isOptional() ? ' [<' . $parameter->getName() . '>]' : ' <' . $parameter->getName() . '>';
+						$parameterName = String::camel2underscored($parameter->getName());
+
+						$action .= $parameter->isOptional() ? ' [<' . $parameterName . '>]' : ' <' . $parameterName . '>';
 					}
 
 					$actions[] = $action;
