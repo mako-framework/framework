@@ -54,9 +54,7 @@ abstract class Task
 		CLI::stderr(vsprintf("Unknown task action '%s'.", array($name)));
 
 		$reflectionClass = new ReflectionClass($this);
-
-		// Print list of available task actions
-
+		
 		$actions = array();
 		$methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
 
