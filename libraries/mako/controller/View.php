@@ -20,18 +20,18 @@ abstract class View extends \mako\Controller
 	//---------------------------------------------
 
 	/**
-	* View instance.
-	*
-	* @var  mako\View
-	*/
+	 * View instance.
+	 *
+	 * @var  mako\View
+	 */
 
 	protected $view;
 
 	/**
-	* View name.
-	*
-	* @var string
-	*/
+	 * View name.
+	 *
+	 * @var string
+	 */
 
 	protected $viewName;
 
@@ -40,12 +40,12 @@ abstract class View extends \mako\Controller
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   mako\Request   $request   A request object
-	* @param   mako\Response  $response  A response object
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   mako\Request   $request   A request object
+	 * @param   mako\Response  $response  A response object
+	 */
 
 	public function __construct($request, $response)
 	{
@@ -59,10 +59,10 @@ abstract class View extends \mako\Controller
 	//---------------------------------------------
 
 	/**
-	* This method runs after the action.
-	*
-	* @access  public
-	*/
+	 * This method runs after the action.
+	 *
+	 * @access  public
+	 */
 
 	public function after()
 	{
