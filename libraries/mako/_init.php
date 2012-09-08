@@ -57,6 +57,7 @@ mako\ClassLoader::mapClasses(array
 	'mako\Config'                            => MAKO_LIBRARIES_PATH . '/mako/Config.php',
 	'mako\Controller'                        => MAKO_LIBRARIES_PATH . '/mako/Controller.php',
 	'mako\controller\Rest'                   => MAKO_LIBRARIES_PATH . '/mako/controller/Rest.php',
+	'mako\controller\View'                   => MAKO_LIBRARIES_PATH . '/mako/controller/View.php',
 	'mako\Cookie'                            => MAKO_LIBRARIES_PATH . '/mako/Cookie.php',
 	'mako\Crypto'                            => MAKO_LIBRARIES_PATH . '/mako/Crypto.php',
 	'mako\crypto\Adapter'                    => MAKO_LIBRARIES_PATH . '/mako/crypto/Adapter.php',
