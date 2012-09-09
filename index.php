@@ -37,6 +37,6 @@ define('MAKO_APPLICATION_PATH', __DIR__ . '/app');
 
 require MAKO_LIBRARIES_PATH . '/mako/_init.php';
 
-mako\Mako::run();
+mako\Mako::factory()->run();
 
 /** -------------------- End of file --------------------**/

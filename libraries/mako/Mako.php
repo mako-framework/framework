@@ -10,12 +10,12 @@ use \mako\ErrorHandler;
 use \ErrorException;
 
 /**
-* Mako.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Mako.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Mako
 {
@@ -30,14 +30,25 @@ class Mako
 	//---------------------------------------------
 	
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  public
+	 */
 	
-	protected function __construct()
+	public function __construct()
 	{
 		// Nothing here
+	}
+
+	/**
+	 * Factory method making method chaining possible right off the bat.
+	 * 
+	 * @access  public
+	 */
+
+	public static function factory()
+	{
+		return new static();
 	}
 	
 	//---------------------------------------------
@@ -45,13 +56,13 @@ class Mako
 	//---------------------------------------------
 	
 	/**
-	* Executes request and sends response.
-	*
-	* @access  public
-	* @param   string  $route  (optional) URL segments passed to the request handler.
-	*/
+	 * Executes request and sends response.
+	 *
+	 * @access  public
+	 * @param   string  $route  (optional) URL segments passed to the request handler.
+	 */
 	
-	public static function run($route = null)
+	public function run($route = null)
 	{
 		// Start output buffering and send default header
 
