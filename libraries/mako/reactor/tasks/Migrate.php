@@ -7,12 +7,12 @@ use \mako\CLI;
 use \mako\Database;
 
 /**
-* Database migrations.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Database migrations.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Migrate extends \mako\reactor\Task
 {
@@ -21,10 +21,10 @@ class Migrate extends \mako\reactor\Task
 	//---------------------------------------------
 
 	/**
-	* Database connection.
-	*
-	* @var mako\database\Connection
-	*/
+	 * Database connection.
+	 *
+	 * @var mako\database\Connection
+	 */
 
 	protected $connection;
 
@@ -33,10 +33,10 @@ class Migrate extends \mako\reactor\Task
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 */
 
 	public function __construct()
 	{
@@ -48,11 +48,11 @@ class Migrate extends \mako\reactor\Task
 	//---------------------------------------------
 
 	/**
-	* Returns a query builder instance.
-	*
-	* @access  protected
-	* @return  mako\database\Query
-	*/
+	 * Returns a query builder instance.
+	 *
+	 * @access  protected
+	 * @return  mako\database\Query
+	 */
 
 	protected function table()
 	{
@@ -60,10 +60,10 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Returns array of all outstanding migrations.
-	*
-	* @access  protected
-	*/
+	 * Returns array of all outstanding migrations.
+	 *
+	 * @access  protected
+	 */
 
 	protected function getOutstanding()
 	{
@@ -129,10 +129,10 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Displays the number of outstanding migrations.
-	*
-	* @access  public
-	*/
+	 * Displays the number of outstanding migrations.
+	 *
+	 * @access  public
+	 */
 
 	public function status()
 	{
@@ -147,12 +147,12 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Returns a migration instance.
-	*
-	* @access  protected
-	* @param   StdClass   $migration  Migration object
-	* @return  Migration
-	*/
+	 * Returns a migration instance.
+	 *
+	 * @access  protected
+	 * @param   StdClass   $migration  Migration object
+	 * @return  Migration
+	 */
 
 	protected function resolve($migration)
 	{
@@ -171,10 +171,10 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Runs all outstanding migrations.
-	*
-	* @access  public
-	*/
+	 * Runs all outstanding migrations.
+	 *
+	 * @access  public
+	 */
 
 	public function run()
 	{
@@ -205,10 +205,10 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Rolls back the last migration batch.
-	*
-	* @access  public
-	*/
+	 * Rolls back the last migration batch.
+	 *
+	 * @access  public
+	 */
 
 	public function rollback()
 	{
@@ -244,10 +244,10 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Rolls back all migrations.
-	*
-	* @access  public
-	*/
+	 * Rolls back all migrations.
+	 *
+	 * @access  public
+	 */
 
 	public function reset()
 	{
@@ -258,10 +258,10 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Creates the migration log table.
-	*
-	* @access  public
-	*/
+	 * Creates the migration log table.
+	 *
+	 * @access  public
+	 */
 
 	public function install()
 	{
@@ -275,11 +275,11 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	* Creates a migration template.
-	*
-	* @access  public
-	* @param   string  $package  (optional) Package name
-	*/
+	 * Creates a migration template.
+	 *
+	 * @access  public
+	 * @param   string  $package  (optional) Package name
+	 */
 
 	public function create($package = '')
 	{

@@ -37,7 +37,7 @@ abstract class Task
 	 * Constructor
 	 * 
 	 * @access  public
-	 * @param   mako\reactor\CLI  $cli CLI
+	 * @param   mako\reactor\CLI  $cli  CLI
 	 */
 
 	public function __construct(CLI $cli)
