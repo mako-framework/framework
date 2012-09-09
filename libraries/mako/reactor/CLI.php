@@ -355,6 +355,22 @@ class CLI
 	}
 
 	/**
+	 * Clears the screen.
+	 * 
+	 * @access  public
+	 */
+
+	public function clearScreen()
+	{
+		if(MAKO_IS_WINDOWS)
+		{
+			return $this->newLine(50);
+		}
+
+		fwrite(STDOUT, "\033[H\033[2J");
+	}
+
+	/**
 	 * Sytem Beep.
 	 *
 	 * @access  public
