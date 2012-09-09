@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\reactor;
 
 use \mako\I18n;
 use \RuntimeException;
@@ -25,7 +25,7 @@ class CLI
 	 * @var array
 	 */
 
-	protected static $textColors = array
+	protected $textColors = array
 	(
 		'black'  => '30',
 		'red'    => '31',
@@ -43,7 +43,7 @@ class CLI
 	 * @var array
 	 */
 
-	protected static $backgroundColors = array
+	protected $backgroundColors = array
 	(
 		'black'  => '40',
 		'red'    => '41',
@@ -61,7 +61,7 @@ class CLI
 	 * @var array
 	 */
 
-	protected static $textOptions = array
+	protected $textOptions = array
 	(
 		'bold'       => 1,
 		'faded'      => 2,
@@ -76,12 +76,12 @@ class CLI
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
+	 * Constructor.
 	 *
-	 * @access  protected
+	 * @access  public
 	 */
 
-	protected function __construct()
+	public function __construct()
 	{
 		// Nothing here
 	}
@@ -97,7 +97,7 @@ class CLI
 	 * @return  array
 	 */
 
-	public static function screenSize()
+	public function screenSize()
 	{
 		$size = array('width' => 0, 'height' => 0);
 
@@ -124,9 +124,9 @@ class CLI
 	 * @return  int
 	 */
 
-	public static function screenWidth()
+	public function screenWidth()
 	{
-		$size = static::screenSize();
+		$size = $this->screenSize();
 
 		return $size['width'];
 	}
@@ -138,9 +138,9 @@ class CLI
 	 * @return  int
 	 */
 
-	public static function screenHeight()
+	public function screenHeight()
 	{
-		$size = static::screenSize();
+		$size = $this->screenSize();
 
 		return $size['height'];
 	}
@@ -155,7 +155,7 @@ class CLI
 	 * @return  string
 	 */
 
-	public static function color($str, $textColor = null, $backgroundColor = null)
+	public function color($str, $textColor = null, $backgroundColor = null)
 	{
 		if(MAKO_IS_WINDOWS)
 		{
@@ -168,32 +168,32 @@ class CLI
 
 		if($textColor !== null)
 		{
-			if(!isset(static::$textColors[$textColor]))
+			if(!isset($this->textColors[$textColor]))
 			{
 				throw new RuntimeException(vsprintf("%s(): Invalid text color. Only the following colors are valid: %s.", array
 				(
 					__METHOD__,
-					implode(', ', array_keys(static::$textColors))
+					implode(', ', array_keys($this->textColors))
 				)));
 			}
 
-			$style[] = static::$textColors[$textColor];
+			$style[] = $this->textColors[$textColor];
 		}
 
 		// Background color
 
 		if($backgroundColor !== null)
 		{
-			if(!isset(static::$backgroundColors[$backgroundColor]))
+			if(!isset($this->backgroundColors[$backgroundColor]))
 			{
 				throw new RuntimeException(vsprintf("%s(): Invalid background color.  Only the following colors are valid: %s.", array
 				(
 					__METHOD__,
-					implode(', ', array_keys(static::$backgroundColors))
+					implode(', ', array_keys($this->backgroundColors))
 				)));
 			}
 
-			$style[] = static::$backgroundColors[$backgroundColor];
+			$style[] = $this->backgroundColors[$backgroundColor];
 		}
 
 		return sprintf("\033[%sm%s\033[0m", implode(';', $style), $str);
@@ -208,7 +208,7 @@ class CLI
 	 * @return  string
 	 */
 
-	public static function style($str, array $options)
+	public function style($str, array $options)
 	{
 		if(MAKO_IS_WINDOWS)
 		{
@@ -219,16 +219,16 @@ class CLI
 
 		foreach($options as $option)
 		{
-			if(!isset(static::$textOptions[$option]))
+			if(!isset($this->textOptions[$option]))
 			{
 				throw new RuntimeException(vsprintf("%s(): Invalid text option. Only the following options are valid: %s.", array
 				(
 					__METHOD__,
-					implode(', ', array_keys(static::$textOptions))
+					implode(', ', array_keys($this->textOptions))
 				)));
 			}
 
-			$style[] = static::$textOptions[$option];
+			$style[] = $this->textOptions[$option];
 		}
 
 		return sprintf("\033[%sm%s\033[0m", implode(';', $style), $str); 
@@ -243,7 +243,7 @@ class CLI
 	 * @return string
 	 */
 
-	public static function param($name, $default = null)
+	public function param($name, $default = null)
 	{
 		static $parameters = false;
 
@@ -275,7 +275,7 @@ class CLI
 	 * @return  string
 	 */
 
-	public static function input($question)
+	public function input($question)
 	{
 		fwrite(STDOUT, $question . ': ');
 
@@ -290,7 +290,7 @@ class CLI
 	 * @return  boolean
 	 */
 
-	public static function confirm($question)
+	public function confirm($question)
 	{
 		fwrite(STDOUT, $question . ' [' . I18n::translate('Y') . '/' . I18n::translate('N') . ']: ');
 
@@ -305,7 +305,7 @@ class CLI
 				return false;
 			break;
 			default:
-				return static::confirm($question);
+				return $this->confirm($question);
 		}
 	}
 
@@ -319,9 +319,9 @@ class CLI
 	 * @param   array   $textOptions      (optional) Text options
 	 */
 
-	public static function stdout($message = '', $textColor = null, $backgroundColor = null, array $textOptions = array())
+	public function stdout($message = '', $textColor = null, $backgroundColor = null, array $textOptions = array())
 	{
-		fwrite(STDOUT, static::style(static::color($message, $textColor, $backgroundColor), $textOptions) . PHP_EOL);
+		fwrite(STDOUT, $this->style($this->color($message, $textColor, $backgroundColor), $textOptions) . PHP_EOL);
 	}
 
 	/**
@@ -334,9 +334,9 @@ class CLI
 	 * @param   array   $textOptions      (optional) Text options
 	 */
 
-	public static function stderr($message, $textColor = 'red', $backgroundColor = null, array $textOptions = array())
+	public function stderr($message, $textColor = 'red', $backgroundColor = null, array $textOptions = array())
 	{
-		fwrite(STDERR, static::style(static::color($message, $textColor, $backgroundColor), $textOptions) . PHP_EOL);	
+		fwrite(STDERR, $this->style($this->color($message, $textColor, $backgroundColor), $textOptions) . PHP_EOL);	
 	}
 
 	/**
@@ -346,7 +346,7 @@ class CLI
 	 * @param   int     $beeps  (optional) Number of system beeps
 	 */
 
-	public static function beep($beeps = 1)
+	public function beep($beeps = 1)
 	{
 		fwrite(STDOUT, str_repeat("\x07", $beeps));
 	}
@@ -359,7 +359,7 @@ class CLI
 	 * @param   boolean  $withBeep  (optional) Enable beep?
 	 */
 
-	public static function wait($seconds = 5, $withBeep = false)
+	public function wait($seconds = 5, $withBeep = false)
 	{
 		$length = strlen($seconds);
 
@@ -369,7 +369,7 @@ class CLI
 
 			if($withBeep === true)
 			{
-				static::beep();	
+				$this->beep();	
 			}
 
 			sleep(1);

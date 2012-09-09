@@ -2,9 +2,9 @@
 
 namespace mako\reactor;
 
-use \mako\CLI;
 use \mako\Config;
 use \mako\Package;
+use \mako\reactor\CLI;
 use \Exception;
 use \ReflectionClass;
 use \RuntimeException;
@@ -62,9 +62,11 @@ class Reactor
 
 	public static function run($arguments)
 	{
+		$cli = new CLI();
+
 		// Override environment?
 
-		$env = CLI::param('env', false);
+		$env = $cli->param('env', false);
 
 		if($env !== false)
 		{
@@ -73,7 +75,7 @@ class Reactor
 
 		// Override default database?
 
-		$database = CLI::param('database', false);
+		$database = $cli->param('database', false);
 
 		if($database !== false)
 		{
@@ -92,27 +94,28 @@ class Reactor
 
 		// Run task
 
-		CLI::stdout();
+		$cli->stdout();
 
 		try
 		{
-			static::task($arguments);
+			static::task($cli, $arguments);
 		}
 		catch(Exception $e)
 		{
-			CLI::stderr($e->getMessage() . str_repeat(PHP_EOL, 2) . $e->getTraceAsString());
+			$cli->stderr($e->getMessage() . str_repeat(PHP_EOL, 2) . $e->getTraceAsString());
 		}
 
-		CLI::stdout();
+		$cli->stdout();
 	}
 
 	/**
 	 * Help command that lists all available tasks.
 	 * 
+	 * @param   mako\reactor\CLI  $cli  CLI
 	 * @access  public
 	 */
 
-	protected static function help()
+	protected static function help(CLI $cli)
 	{
 		// Find application tasks
 
@@ -142,30 +145,30 @@ class Reactor
 		
 		// Print list of available tasks
 
-		CLI::stdout('Core tasks:' . PHP_EOL);
+		$cli->stdout('Core tasks:' . PHP_EOL);
 
 		foreach(static::$coreTasks as $task)
 		{
-			CLI::stdout(str_repeat(' ', 4) . CLI::color('*', 'yellow') . ' ' . strtolower($task));
+			$cli->stdout(str_repeat(' ', 4) . $cli->color('*', 'yellow') . ' ' . strtolower($task));
 		}
 
 		if(!empty($appTasks))
 		{
-			CLI::stdout(PHP_EOL . 'Application tasks:' . PHP_EOL);
+			$cli->stdout(PHP_EOL . 'Application tasks:' . PHP_EOL);
 
 			foreach($appTasks as $task)
 			{
-				CLI::stdout(str_repeat(' ', 4) . CLI::color('*', 'yellow') . ' ' . $task);
+				$cli->stdout(str_repeat(' ', 4) . $cli->color('*', 'yellow') . ' ' . $task);
 			}
 		}
 
 		if(!empty($packageTasks))
 		{
-			CLI::stdout(PHP_EOL . 'Package tasks:' . PHP_EOL);
+			$cli->stdout(PHP_EOL . 'Package tasks:' . PHP_EOL);
 
 			foreach($packageTasks as $task)
 			{
-				CLI::stdout(str_repeat(' ', 4) . CLI::color('*', 'yellow') . ' ' . $task);
+				$cli->stdout(str_repeat(' ', 4) . $cli->color('*', 'yellow') . ' ' . $task);
 			}
 		}
 	}
@@ -174,11 +177,12 @@ class Reactor
 	 * Returns an instance of the chosen task.
 	 *
 	 * @access  protected
-	 * @param   string     $task  Task name
+	 * @param   mako\reactor\CLI  $cli   CLI
+	 * @param   string            $task  Task name
 	 * @return  mixed
 	 */
 
-	protected static function resolve($task)
+	protected static function resolve(CLI $cli, $task)
 	{
 		if(isset(static::$coreTasks[$task]))
 		{
@@ -190,9 +194,9 @@ class Reactor
 
 			if(!file_exists($file))
 			{
-				CLI::stderr(vsprintf("The '%s' task does not exist.", array($task)) . PHP_EOL);
+				$cli->stderr(vsprintf("The '%s' task does not exist.", array($task)) . PHP_EOL);
 
-				static::help();
+				static::help($cli);
 
 				return false;
 			}
@@ -211,22 +215,23 @@ class Reactor
 
 		if($task->isSubClassOf('\mako\reactor\Task') === false)
 		{
-			CLI::stderr(vsprintf("The '%s' task needs to extend the mako\\reactor\Task class.", array($task)));
+			$cli->stderr(vsprintf("The '%s' task needs to extend the mako\\reactor\Task class.", array($task)));
 
 			return false;
 		}
 
-		return $task->newInstance();
+		return $task->newInstance($cli);
 	}
 
 	/**
 	 * Runs the chosen task.
 	 *
 	 * @access  protected
-	 * @param   array      $arguments  Arguments
+	 * @param   mako\reactor\CLI  $cli        CLI
+	 * @param   array             $arguments  Arguments
 	 */
 
-	protected static function task($arguments)
+	protected static function task(CLI $cli, $arguments)
 	{
 		if(!empty($arguments))
 		{
@@ -240,16 +245,16 @@ class Reactor
 				$method = 'run';
 			}
 
-			if(($task = static::resolve($task)) !== false)
+			if(($task = static::resolve($cli, $task)) !== false)
 			{
 				call_user_func_array(array($task, $method), array_slice($arguments, 1));
 			}
 		}
 		else
 		{
-			CLI::stderr('You need to provide a task name.' . PHP_EOL);
+			$cli->stderr('You need to provide a task name.' . PHP_EOL);
 
-			static::help();
+			static::help($cli);
 		}
 	}
 }

@@ -2,8 +2,8 @@
 
 namespace mako\reactor;
 
-use \mako\CLI;
 use \mako\String;
+use \mako\reactor\CLI;
 use \ReflectionClass;
 use \ReflectionMethod;
 
@@ -21,13 +21,29 @@ abstract class Task
 	// Class variables
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * CLI
+	 * 
+	 * @var mako\reactor\CLI
+	 */
+
+	protected $cli;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Constructor
+	 * 
+	 * @access  public
+	 * @param   mako\reactor\CLI  $cli CLI
+	 */
+
+	public function __construct(CLI $cli)
+	{
+		$this->cli = $cli;
+	}
 
 	//---------------------------------------------
 	// Class methods
@@ -51,7 +67,7 @@ abstract class Task
 
 	public function __call($name, $arguments)
 	{
-		CLI::stderr(vsprintf("Unknown task action '%s'.", array($name)));
+		$this->cli->stderr(vsprintf("Unknown task action '%s'.", array($name)));
 
 		$reflectionClass = new ReflectionClass($this);
 
@@ -79,13 +95,13 @@ abstract class Task
 
 			if(!empty($actions))
 			{
-				CLI::stdout(PHP_EOL . 'The available actions for the ' . CLI::color(strtolower($reflectionClass->getShortName()), null, null, array('bold', 'underlined')) . ' task are:' . PHP_EOL);
+				$this->cli->stdout(PHP_EOL . 'The available actions for the ' . $this->cli->color(strtolower($reflectionClass->getShortName()), null, null, array('bold', 'underlined')) . ' task are:' . PHP_EOL);
 
 				sort($actions);
 
 				foreach($actions as $action)
 				{
-					CLI::stdout(str_repeat(' ', 4) . CLI::color('*', 'yellow') . ' ' . $action);
+					$this->cli->stdout(str_repeat(' ', 4) . $this->cli->color('*', 'yellow') . ' ' . $action);
 				}
 			}
 		}

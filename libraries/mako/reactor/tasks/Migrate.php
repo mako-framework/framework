@@ -138,11 +138,11 @@ class Migrate extends \mako\reactor\Task
 	{
 		if(($count = count($this->getOutstanding())) > 0)
 		{
-			CLI::stdout(sprintf(($count === 1 ? 'There is %d outstanding migration.' : 'There are %d outstanding migrations.'), $count));
+			$this->cli->stdout(sprintf(($count === 1 ? 'There is %d outstanding migration.' : 'There are %d outstanding migrations.'), $count));
 		}
 		else
 		{
-			CLI::stdout('There are no outstanding migrations.');
+			$this->cli->stdout('There are no outstanding migrations.');
 		}
 	}
 
@@ -182,7 +182,7 @@ class Migrate extends \mako\reactor\Task
 
 		if(empty($migrations))
 		{
-			return CLI::stdout('There are no outstanding migrations.');
+			return $this->cli->stdout('There are no outstanding migrations.');
 		}
 
 		$batch = $this->table()->max('batch') + 1;
@@ -200,7 +200,7 @@ class Migrate extends \mako\reactor\Task
 				$name = $migration->package . '::' . $name;
 			}
 
-			CLI::stdout('Ran the ' . $name . ' migration.');
+			$this->cli->stdout('Ran the ' . $name . ' migration.');
 		}
 	}
 
@@ -219,7 +219,7 @@ class Migrate extends \mako\reactor\Task
 
 		if(empty($migrations))
 		{
-			CLI::stdout('There are no migrations to roll back.');
+			$this->cli->stdout('There are no migrations to roll back.');
 
 			return false;
 		}
@@ -237,7 +237,7 @@ class Migrate extends \mako\reactor\Task
 				$name = $migration->package . '::' . $name;
 			}
 
-			CLI::stdout('Rolled back the ' . $name . ' migration.');
+			$this->cli->stdout('Rolled back the ' . $name . ' migration.');
 		}
 
 		return true;
@@ -271,7 +271,7 @@ class Migrate extends \mako\reactor\Task
 		  `version` varchar(255) NOT NULL
 		);*/
 
-		CLI::stderr('Migration installation has not been implemented yet.');
+		$this->cli->stderr('Migration installation has not been implemented yet.');
 	}
 
 	/**
@@ -300,10 +300,10 @@ class Migrate extends \mako\reactor\Task
 
 		if(!@file_put_contents($file, $migration))
 		{
-			return CLI::stderr('Failed to create migration. Make sure that the migrations directory is writable.');
+			return $this->cli->stderr('Failed to create migration. Make sure that the migrations directory is writable.');
 		}
 
-		CLI::stdout(sprintf('Migration created at "%s".', $file));
+		$this->cli->stdout(sprintf('Migration created at "%s".', $file));
 	}
 }
 
