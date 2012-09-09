@@ -95,7 +95,7 @@ abstract class Task
 
 			if(!empty($actions))
 			{
-				$this->cli->stdout(PHP_EOL . 'The available actions for the ' . $this->cli->color(strtolower($reflectionClass->getShortName()), null, null, array('bold', 'underlined')) . ' task are:' . PHP_EOL);
+				$this->cli->stdout(PHP_EOL . 'The available actions for the ' . $this->cli->style(strtolower($reflectionClass->getShortName()), array('bold', 'underlined')) . ' task are:' . PHP_EOL);
 
 				sort($actions);
 
