@@ -16,4 +16,12 @@ class Example extends \mako\reactor\Task
 
 		$this->cli->stdout('Random ' . $color . ' string: ' . $this->cli->color(String::random(), $color));
 	}
+
+	public function confirm()
+	{
+		$name = $this->cli->input('Enter your name');
+		$like = $this->cli->confirm('Do you like beer?');
+
+		$this->cli->stdout($name . ($like ? ' likes beer' : ' doesn\'t like beer'));
+	}
 }
