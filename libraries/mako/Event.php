@@ -17,10 +17,10 @@ class Event
 	//---------------------------------------------
 
 	/**
-	* Array of events.
-	*
-	* @var array
-	*/
+	 * Array of events.
+	 *
+	 * @var array
+	 */
 
 	protected static $events = array();
 
@@ -29,10 +29,10 @@ class Event
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -44,12 +44,12 @@ class Event
 	//---------------------------------------------
 
 	/**
-	* Adds an event listener to the queue.
-	*
-	* @access  public
-	* @param   string    $name      Event name
-	* @param   callback  $callback  Event callback
-	*/
+	 * Adds an event listener to the queue.
+	 *
+	 * @access  public
+	 * @param   string    $name      Event name
+	 * @param   callback  $callback  Event callback
+	 */
 
 	public static function register($name, $callback)
 	{
@@ -57,12 +57,12 @@ class Event
 	}
 
 	/**
-	* Returns TRUE if an event listener is registered for the event and FALSE if not.
-	*
-	* @access  public
-	* @param   string   $name  Event name
-	* @return  boolean
-	*/
+	 * Returns TRUE if an event listener is registered for the event and FALSE if not.
+	 *
+	 * @access  public
+	 * @param   string   $name  Event name
+	 * @return  boolean
+	 */
 
 	public static function registered($name)
 	{
@@ -70,11 +70,11 @@ class Event
 	}
 
 	/**
-	* Clears all event listeners for an event.
-	*
-	* @access  public
-	* @param   string  $name  Event name
-	**/
+	 * Clears all event listeners for an event.
+	 *
+	 * @access  public
+	 * @param   string  $name  Event name
+	 */
 
 	public static function clear($name)
 	{
@@ -82,14 +82,29 @@ class Event
 	}
 
 	/**
-	* Runs all callbacks for an event and returns an array 
-	* contaning the return values of each callback.
-	*
-	* @access  public
-	* @param   string  $name    Event name
-	* @param   array   $params  (optional) Callback parameters
-	* @return  array
-	*/
+	 * Overrides an event.
+	 * 
+	 * @access  public
+	 * @param   string    $name      Event name
+	 * @param   callback  $callback  Event callback
+	 */
+
+	public static function override($name, $callback)
+	{
+		static::clear($name);
+
+		static::register($name, $callback);
+	}
+
+	/**
+	 * Runs all callbacks for an event and returns an array 
+	 * contaning the return values of each callback.
+	 *
+	 * @access  public
+	 * @param   string  $name    Event name
+	 * @param   array   $params  (optional) Callback parameters
+	 * @return  array
+	 */
 
 	public static function trigger($name, array $params = array())
 	{
@@ -104,6 +119,23 @@ class Event
 		}
 
 		return $values;
+	}
+
+	/**
+	 * Runs all callbacks for an event and returns the result
+	 * of the first callback
+	 * 
+	 * @access  public
+	 * @param   string  $name    Event name
+	 * @param   array   $params  (optional) Callback parameters
+	 * @return  mixed
+	 */
+
+	public static function first($name, array $params = array())
+	{
+		$results = static::trigger($name, $params);
+
+		return empty($results) ? null : $results[0];
 	}
 }
 
