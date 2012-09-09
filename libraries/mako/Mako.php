@@ -30,7 +30,7 @@ class Mako
 	//---------------------------------------------
 	
 	/**
-	 * Protected constructor since this is a static class.
+	 * Constructor.
 	 *
 	 * @access  public
 	 */
