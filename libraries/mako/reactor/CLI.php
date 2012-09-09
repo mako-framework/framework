@@ -348,10 +348,7 @@ class CLI
 
 	public function newLine($lines = 1)
 	{
-		for($i = 0; $i < $lines; $i++)
-		{
-			$this->stdout();
-		}
+		fwrite(STDOUT, str_repeat(PHP_EOL, $lines));
 	}
 
 	/**
