@@ -364,10 +364,12 @@ class CLI
 	{
 		if(MAKO_IS_WINDOWS)
 		{
-			return $this->newLine(50);
+			$this->newLine(50);
 		}
-
-		fwrite(STDOUT, "\033[H\033[2J");
+		else
+		{
+			fwrite(STDOUT, "\033[H\033[2J");
+		}
 	}
 
 	/**
