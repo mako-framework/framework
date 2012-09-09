@@ -24,12 +24,20 @@ class Reactor
 	//---------------------------------------------
 
 	/**
+	 * CLI
+	 * 
+	 * @var mako\reactor\CLI
+	 */
+
+	protected $cli;
+
+	/**
 	 * Mako Reactor core tasks.
 	 *
 	 * @var array
 	 */
 
-	protected static $coreTasks = array
+	protected $coreTasks = array
 	(
 		'migrate' =>  'Migrate',
 	);
@@ -39,14 +47,25 @@ class Reactor
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
+	 * Constructor.
 	 *
-	 * @access  protected
+	 * @access  public
 	 */
 
-	protected function __construct()
+	public function __construct()
 	{
-		// Nothing here
+		$this->cli = new CLI();
+	}
+
+	/**
+	 * Factory method making method chaining possible right off the bat.
+	 * 
+	 * @access  public
+	 */
+
+	public static function factory()
+	{
+		return new static();
 	}
 
 	//---------------------------------------------
@@ -60,13 +79,11 @@ class Reactor
 	 * @param   array   $arguments  Arguments
 	 */
 
-	public static function run($arguments)
+	public function run($arguments)
 	{
-		$cli = new CLI();
-
 		// Override environment?
 
-		$env = $cli->param('env', false);
+		$env = $this->cli->param('env', false);
 
 		if($env !== false)
 		{
@@ -75,7 +92,7 @@ class Reactor
 
 		// Override default database?
 
-		$database = $cli->param('database', false);
+		$database = $this->cli->param('database', false);
 
 		if($database !== false)
 		{
@@ -94,28 +111,27 @@ class Reactor
 
 		// Run task
 
-		$cli->stdout();
+		$this->cli->stdout();
 
 		try
 		{
-			static::task($cli, $arguments);
+			$this->task($arguments);
 		}
 		catch(Exception $e)
 		{
-			$cli->stderr($e->getMessage() . str_repeat(PHP_EOL, 2) . $e->getTraceAsString());
+			$this->cli->stderr($e->getMessage() . str_repeat(PHP_EOL, 2) . $e->getTraceAsString());
 		}
 
-		$cli->stdout();
+		$this->cli->stdout();
 	}
 
 	/**
 	 * Help command that lists all available tasks.
 	 * 
-	 * @param   mako\reactor\CLI  $cli  CLI
 	 * @access  public
 	 */
 
-	protected static function help(CLI $cli)
+	protected function help()
 	{
 		// Find application tasks
 
@@ -145,30 +161,30 @@ class Reactor
 		
 		// Print list of available tasks
 
-		$cli->stdout('Core tasks:' . PHP_EOL);
+		$this->cli->stdout('Core tasks:' . PHP_EOL);
 
-		foreach(static::$coreTasks as $task)
+		foreach($this->coreTasks as $task)
 		{
-			$cli->stdout(str_repeat(' ', 4) . $cli->color('*', 'yellow') . ' ' . strtolower($task));
+			$this->cli->stdout(str_repeat(' ', 4) . $this->cli->color('*', 'yellow') . ' ' . strtolower($task));
 		}
 
 		if(!empty($appTasks))
 		{
-			$cli->stdout(PHP_EOL . 'Application tasks:' . PHP_EOL);
+			$this->cli->stdout(PHP_EOL . 'Application tasks:' . PHP_EOL);
 
 			foreach($appTasks as $task)
 			{
-				$cli->stdout(str_repeat(' ', 4) . $cli->color('*', 'yellow') . ' ' . $task);
+				$this->cli->stdout(str_repeat(' ', 4) . $this->cli->color('*', 'yellow') . ' ' . $task);
 			}
 		}
 
 		if(!empty($packageTasks))
 		{
-			$cli->stdout(PHP_EOL . 'Package tasks:' . PHP_EOL);
+			$this->cli->stdout(PHP_EOL . 'Package tasks:' . PHP_EOL);
 
 			foreach($packageTasks as $task)
 			{
-				$cli->stdout(str_repeat(' ', 4) . $cli->color('*', 'yellow') . ' ' . $task);
+				$this->cli->stdout(str_repeat(' ', 4) . $this->cli->color('*', 'yellow') . ' ' . $task);
 			}
 		}
 	}
@@ -177,16 +193,15 @@ class Reactor
 	 * Returns an instance of the chosen task.
 	 *
 	 * @access  protected
-	 * @param   mako\reactor\CLI  $cli   CLI
-	 * @param   string            $task  Task name
+	 * @param   string     $task  Task name
 	 * @return  mixed
 	 */
 
-	protected static function resolve(CLI $cli, $task)
+	protected function resolve($task)
 	{
-		if(isset(static::$coreTasks[$task]))
+		if(isset($this->coreTasks[$task]))
 		{
-			$task = '\mako\reactor\tasks\\' . static::$coreTasks[$task];
+			$task = '\mako\reactor\tasks\\' . $this->coreTasks[$task];
 		}
 		else
 		{
@@ -194,9 +209,7 @@ class Reactor
 
 			if(!file_exists($file))
 			{
-				$cli->stderr(vsprintf("The '%s' task does not exist.", array($task)) . PHP_EOL);
-
-				static::help($cli);
+				$this->cli->stderr(vsprintf("The '%s' task does not exist.", array($task)));
 
 				return false;
 			}
@@ -215,23 +228,22 @@ class Reactor
 
 		if($task->isSubClassOf('\mako\reactor\Task') === false)
 		{
-			$cli->stderr(vsprintf("The '%s' task needs to extend the mako\\reactor\Task class.", array($task)));
+			$this->cli->stderr(vsprintf("The '%s' task needs to extend the mako\\reactor\Task class.", array($task)));
 
 			return false;
 		}
 
-		return $task->newInstance($cli);
+		return $task->newInstance($this->cli);
 	}
 
 	/**
 	 * Runs the chosen task.
 	 *
 	 * @access  protected
-	 * @param   mako\reactor\CLI  $cli        CLI
-	 * @param   array             $arguments  Arguments
+	 * @param   array      $arguments  Arguments
 	 */
 
-	protected static function task(CLI $cli, $arguments)
+	protected function task($arguments)
 	{
 		if(!empty($arguments))
 		{
@@ -245,16 +257,14 @@ class Reactor
 				$method = 'run';
 			}
 
-			if(($task = static::resolve($cli, $task)) !== false)
+			if(($task = $this->resolve($task)) !== false)
 			{
 				call_user_func_array(array($task, $method), array_slice($arguments, 1));
 			}
 		}
 		else
 		{
-			$cli->stderr('You need to provide a task name.' . PHP_EOL);
-
-			static::help($cli);
+			$this->help();
 		}
 	}
 }

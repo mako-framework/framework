@@ -31,6 +31,6 @@ define('MAKO_APPLICATION_PATH', __DIR__);
 
 require MAKO_LIBRARIES_PATH . '/mako/_init.php';
 
-mako\reactor\Reactor::run(array_slice($_SERVER['argv'], 1));
+mako\reactor\Reactor::factory()->run(array_slice($_SERVER['argv'], 1));
 
 /** -------------------- End of file --------------------**/
