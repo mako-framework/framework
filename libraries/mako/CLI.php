@@ -6,12 +6,12 @@ use \mako\I18n;
 use \RuntimeException;
 
 /**
-* Helper class for working with CLI.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Helper class for working with CLI.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class CLI
 {
@@ -20,10 +20,10 @@ class CLI
 	//---------------------------------------------
 
 	/**
-	* Text colors.
-	*
-	* @var array
-	*/
+	 * Text colors.
+	 *
+	 * @var array
+	 */
 
 	protected static $textColors = array
 	(
@@ -38,10 +38,10 @@ class CLI
 	);
 
 	/**
-	* Background colors.
-	*
-	* @var array
-	*/
+	 * Background colors.
+	 *
+	 * @var array
+	 */
 
 	protected static $backgroundColors = array
 	(
@@ -56,10 +56,10 @@ class CLI
 	);
 
 	/**
-	* Text options.
-	*
-	* @var array
-	*/
+	 * Text options.
+	 *
+	 * @var array
+	 */
 
 	protected static $textOptions = array
 	(
@@ -76,10 +76,10 @@ class CLI
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -91,11 +91,11 @@ class CLI
 	//---------------------------------------------
 
 	/**
-	* Returns the screen size.
-	*
-	* @access  public
-	* @return  array
-	*/
+	 * Returns the screen size.
+	 *
+	 * @access  public
+	 * @return  array
+	 */
 
 	public static function screenSize()
 	{
@@ -118,17 +118,44 @@ class CLI
 	}
 
 	/**
-	* Add text color and background color to a string.
-	*
-	* @access  public
-	* @param   string  $str              String to colorize
-	* @param   string  $textColor        (optional) Text color name
-	* @param   string  $backgroundColor  (optional) Background color name
-	* @param   array   $textOptions      (optional) Text options
-	* @return  string
-	*/
+	 * Returns the screen width.
+	 * 
+	 * @access  public
+	 * @return  int
+	 */
 
-	public static function color($str, $textColor = null, $backgroundColor = null, array $textOptions = array())
+	public static function screenWidth()
+	{
+		$size = static::screenSize();
+
+		return $size['width'];
+	}
+
+	/**
+	 * Returns the screen height.
+	 * 
+	 * @access  public
+	 * @return  int
+	 */
+
+	public static function screenHeight()
+	{
+		$size = static::screenSize();
+
+		return $size['height'];
+	}
+
+	/**
+	 * Add text color and background color to a string.
+	 *
+	 * @access  public
+	 * @param   string  $str              String to colorize
+	 * @param   string  $textColor        (optional) Text color name
+	 * @param   string  $backgroundColor  (optional) Background color name
+	 * @return  string
+	 */
+
+	public static function color($str, $textColor = null, $backgroundColor = null)
 	{
 		if(MAKO_IS_WINDOWS)
 		{
@@ -169,42 +196,52 @@ class CLI
 			$style[] = static::$backgroundColors[$backgroundColor];
 		}
 
-		// Text options
-
-		if($textOptions !== null)
-		{
-			$options = array();
-
-			foreach($textOptions as $option)
-			{
-				if(!isset(static::$textOptions[$option]))
-				{
-					throw new RuntimeException(vsprintf("%s(): Invalid text option. Only the following options are valid: %s.", array
-					(
-						__METHOD__,
-						implode(', ', array_keys(static::$textOptions))
-					)));
-				}
-
-				$options[] = static::$textOptions[$option];
-			}
-
-			$style = array_merge($style, $options);
-		}
-
-		// Wrap text in style "tags"
-
 		return sprintf("\033[%sm%s\033[0m", implode(';', $style), $str);
 	}
 
 	/**
-	* Return value of named parameters (--<name>=<value>).
-	*
-	* @access public
-	* @param  string  $name     Parameter name
-	* @param  string  $default  (optional) Default value
-	* @return string
-	*/
+	 * Add styles to a string.
+	 *
+	 * @access  public
+	 * @param   string  $str      String to colorize 
+	 * @param   array   $options  (optional) Text options
+	 * @return  string
+	 */
+
+	public static function style($str, array $options)
+	{
+		if(MAKO_IS_WINDOWS)
+		{
+			return $str;
+		}
+
+		$style = array();
+
+		foreach($options as $option)
+		{
+			if(!isset(static::$textOptions[$option]))
+			{
+				throw new RuntimeException(vsprintf("%s(): Invalid text option. Only the following options are valid: %s.", array
+				(
+					__METHOD__,
+					implode(', ', array_keys(static::$textOptions))
+				)));
+			}
+
+			$style[] = static::$textOptions[$option];
+		}
+
+		return sprintf("\033[%sm%s\033[0m", implode(';', $style), $str); 
+	}
+
+	/**
+	 * Return value of named parameters (--<name>=<value>).
+	 *
+	 * @access public
+	 * @param  string  $name     Parameter name
+	 * @param  string  $default  (optional) Default value
+	 * @return string
+	 */
 
 	public static function param($name, $default = null)
 	{
@@ -231,12 +268,12 @@ class CLI
 	}
 
 	/**
-	* Prompt user for input.
-	*
-	* @access  public
-	* @param   string  $question  Question for the user
-	* @return  string
-	*/
+	 * Prompt user for input.
+	 *
+	 * @access  public
+	 * @param   string  $question  Question for the user
+	 * @return  string
+	 */
 
 	public static function input($question)
 	{
@@ -246,12 +283,12 @@ class CLI
 	}
 
 	/**
-	* Prompt user a confirmation.
-	*
-	* @access  public
-	* @param   string   $question  Question for the user
-	* @return  boolean
-	*/
+	 * Prompt user a confirmation.
+	 *
+	 * @access  public
+	 * @param   string   $question  Question for the user
+	 * @return  boolean
+	 */
 
 	public static function confirm($question)
 	{
@@ -273,41 +310,41 @@ class CLI
 	}
 
 	/**
-	* Print message to STDOUT.
-	*
-	* @access  public
-	* @param   string  $message          (optional) Message to print
-	* @param   string  $textColor        (optional) Text color
-	* @param   string  $backgroundColor  (optional) Background color
-	* @param   array   $textOptions      (optional) Text options
-	*/
+	 * Print message to STDOUT.
+	 *
+	 * @access  public
+	 * @param   string  $message          (optional) Message to print
+	 * @param   string  $textColor        (optional) Text color
+	 * @param   string  $backgroundColor  (optional) Background color
+	 * @param   array   $textOptions      (optional) Text options
+	 */
 
 	public static function stdout($message = '', $textColor = null, $backgroundColor = null, array $textOptions = array())
 	{
-		fwrite(STDOUT, static::color($message, $textColor, $backgroundColor, $textOptions) . PHP_EOL);
+		fwrite(STDOUT, static::style(static::color($message, $textColor, $backgroundColor), $textOptions) . PHP_EOL);
 	}
 
 	/**
-	* Print message to STDERR.
-	*
-	* @access  public
-	* @param   string  $message          Message to print
-	* @param   string  $textColor        (optional) Text color
-	* @param   string  $backgroundColor  (optional) Background color
-	* @param   array   $textOptions      (optional) Text options
-	*/
+	 * Print message to STDERR.
+	 *
+	 * @access  public
+	 * @param   string  $message          Message to print
+	 * @param   string  $textColor        (optional) Text color
+	 * @param   string  $backgroundColor  (optional) Background color
+	 * @param   array   $textOptions      (optional) Text options
+	 */
 
 	public static function stderr($message, $textColor = 'red', $backgroundColor = null, array $textOptions = array())
 	{
-		fwrite(STDERR, static::color($message, $textColor, $backgroundColor, $textOptions) . PHP_EOL);	
+		fwrite(STDERR, static::style(static::color($message, $textColor, $backgroundColor), $textOptions) . PHP_EOL);	
 	}
 
 	/**
-	* Sytem Beep.
-	*
-	* @access  public
-	* @param   int     $beeps  (optional) Number of system beeps
-	*/
+	 * Sytem Beep.
+	 *
+	 * @access  public
+	 * @param   int     $beeps  (optional) Number of system beeps
+	 */
 
 	public static function beep($beeps = 1)
 	{
@@ -315,12 +352,12 @@ class CLI
 	}
 
 	/**
-	* Display countdown for n seconds.
-	*
-	* @access  public
-	* @param   int      $seconds   Number of seconds to wait
-	* @param   boolean  $withBeep  (optional) Enable beep?
-	*/
+	 * Display countdown for n seconds.
+	 *
+	 * @access  public
+	 * @param   int      $seconds   Number of seconds to wait
+	 * @param   boolean  $withBeep  (optional) Enable beep?
+	 */
 
 	public static function wait($seconds = 5, $withBeep = false)
 	{

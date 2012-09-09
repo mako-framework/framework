@@ -5,8 +5,21 @@
 //------------------------------------------------------------------------------------------
 
 /**
-* Define the path to the libraries directory (without trailing slash).
-*/
+ * Set which PHP errors are reported.
+ * @see http://php.net/manual/en/function.error-reporting.php
+ */
+
+error_reporting(E_ALL | E_STRICT);
+
+/**
+ * Display errors?
+ */
+
+ini_set('display_errors', true);
+
+/**
+ * Define the path to the libraries directory (without trailing slash).
+ */
 
 define('MAKO_LIBRARIES_PATH', dirname(__DIR__) . '/libraries');
 
