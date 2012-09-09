@@ -25,7 +25,7 @@ class CLI
 	 * @var array
 	 */
 
-	protected $textColors = array
+	protected $foregroundColors = array
 	(
 		'black'  => '30',
 		'red'    => '31',
@@ -149,13 +149,13 @@ class CLI
 	 * Add text color and background color to a string.
 	 *
 	 * @access  public
-	 * @param   string  $str              String to colorize
-	 * @param   string  $textColor        (optional) Text color name
-	 * @param   string  $backgroundColor  (optional) Background color name
+	 * @param   string  $str         String to colorize
+	 * @param   string  $foreground  (optional) Text color name
+	 * @param   string  $background  (optional) Background color name
 	 * @return  string
 	 */
 
-	public function color($str, $textColor = null, $backgroundColor = null)
+	public function color($str, $foreground = null, $background = null)
 	{
 		if(MAKO_IS_WINDOWS)
 		{
@@ -166,25 +166,25 @@ class CLI
 
 		// Font color
 
-		if($textColor !== null)
+		if($foreground !== null)
 		{
-			if(!isset($this->textColors[$textColor]))
+			if(!isset($this->foregroundColors[$foreground]))
 			{
 				throw new RuntimeException(vsprintf("%s(): Invalid text color. Only the following colors are valid: %s.", array
 				(
 					__METHOD__,
-					implode(', ', array_keys($this->textColors))
+					implode(', ', array_keys($this->foregroundColors))
 				)));
 			}
 
-			$style[] = $this->textColors[$textColor];
+			$style[] = $this->foregroundColors[$foreground];
 		}
 
 		// Background color
 
-		if($backgroundColor !== null)
+		if($background !== null)
 		{
-			if(!isset($this->backgroundColors[$backgroundColor]))
+			if(!isset($this->backgroundColors[$background]))
 			{
 				throw new RuntimeException(vsprintf("%s(): Invalid background color.  Only the following colors are valid: %s.", array
 				(
@@ -193,7 +193,7 @@ class CLI
 				)));
 			}
 
-			$style[] = $this->backgroundColors[$backgroundColor];
+			$style[] = $this->backgroundColors[$background];
 		}
 
 		return sprintf("\033[%sm%s\033[0m", implode(';', $style), $str);
@@ -203,7 +203,7 @@ class CLI
 	 * Add styles to a string.
 	 *
 	 * @access  public
-	 * @param   string  $str      String to colorize 
+	 * @param   string  $str      String to style 
 	 * @param   array   $options  (optional) Text options
 	 * @return  string
 	 */
@@ -313,30 +313,45 @@ class CLI
 	 * Print message to STDOUT.
 	 *
 	 * @access  public
-	 * @param   string  $message          (optional) Message to print
-	 * @param   string  $textColor        (optional) Text color
-	 * @param   string  $backgroundColor  (optional) Background color
-	 * @param   array   $textOptions      (optional) Text options
+	 * @param   string  $message      (optional) Message to print
+	 * @param   string  $foreground   (optional) Text color
+	 * @param   string  $background   (optional) Background color
+	 * @param   array   $textOptions  (optional) Text options
 	 */
 
-	public function stdout($message = '', $textColor = null, $backgroundColor = null, array $textOptions = array())
+	public function stdout($message = '', $foreground = null, $background = null, array $textOptions = array())
 	{
-		fwrite(STDOUT, $this->style($this->color($message, $textColor, $backgroundColor), $textOptions) . PHP_EOL);
+		fwrite(STDOUT, $this->style($this->color($message, $foreground, $background), $textOptions) . PHP_EOL);
 	}
 
 	/**
 	 * Print message to STDERR.
 	 *
 	 * @access  public
-	 * @param   string  $message          Message to print
-	 * @param   string  $textColor        (optional) Text color
-	 * @param   string  $backgroundColor  (optional) Background color
-	 * @param   array   $textOptions      (optional) Text options
+	 * @param   string  $message      Message to print
+	 * @param   string  $foreground   (optional) Text color
+	 * @param   string  $background   (optional) Background color
+	 * @param   array   $textOptions  (optional) Text options
 	 */
 
-	public function stderr($message, $textColor = 'red', $backgroundColor = null, array $textOptions = array())
+	public function stderr($message, $foreground = 'red', $background = null, array $textOptions = array())
 	{
-		fwrite(STDERR, $this->style($this->color($message, $textColor, $backgroundColor), $textOptions) . PHP_EOL);	
+		fwrite(STDERR, $this->style($this->color($message, $foreground, $background), $textOptions) . PHP_EOL);	
+	}
+
+	/**
+	 * Outputs n empty lines.
+	 * 
+	 * @access  public
+	 * @param   int     $lines  Number of empty lines
+	 */
+
+	public function newLine($lines = 1)
+	{
+		for($i = 0; $i < $lines; $i++)
+		{
+			$this->stdout();
+		}
 	}
 
 	/**
