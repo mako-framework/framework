@@ -5,12 +5,12 @@ namespace mako;
 use \RuntimeException;
 
 /**
-* Package class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Package class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Package
 {
@@ -25,10 +25,10 @@ class Package
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -72,20 +72,21 @@ class Package
 	}
 
 	/**
-	* Returns info about a package. FALSE is returned if no info file is found.
+	* Returns info about a package. FALSE is returned if no composer.json file is found.
 	*
 	* @access  public
-	* @param   string  $name  Package name
-	* @return  array
+	* @param   string  $name      Package name
+	* @param   boolean  $asArray  (optional) Return as array?
+	* @return  object
 	*/
 
-	public static function info($name)
+	public static function info($name, $asArray = false)
 	{
-		$path = MAKO_PACKAGES_PATH . '/' . $name . '/package.json';
+		$path = MAKO_PACKAGES_PATH . '/' . $name . '/composer.json';
 
 		if(file_exists($path))
 		{
-			return json_decode(file_get_contents($path), true);
+			return json_decode(file_get_contents($path), $asArray);
 		}
 
 		return false;
