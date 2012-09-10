@@ -7,43 +7,43 @@
 return array
 (
 	/**
-	* Base url of your application (without trailing slash).
-	*/
+	 * Base url of your application (without trailing slash).
+	 */
 	
 	'base_url' => '',
 	
 	/**
-	* Set to true to hide "index.php" from your urls (this requires mod_rewrite).
-	*/
+	 * Set to true to hide "index.php" from your urls (this requires mod_rewrite).
+	 */
 
 	'clean_urls' => false,
 
 	/**
-	* URL or path to your asset directory (without trailing slash).
-	*/
+	 * URL or path to your asset directory (without trailing slash).
+	 */
 
 	'asset_location' => '/mako/assets',
 
 	/**
-	* Default character set used internally in the framework.
-	*/
+	 * Default character set used internally in the framework.
+	 */
 
 	'charset' => 'UTF-8',
 
 	/**
-	* Set the default timezone used by various PHP date functions.
-	*
-	* @see http://php.net/manual/en/timezones.php
-	*/
+	 * Set the default timezone used by various PHP date functions.
+	 *
+	 * @see http://php.net/manual/en/timezones.php
+	 */
 	
 	'timezone' => 'UTC',
 	
 	/**
-	* Locale settings.
-	*
-	* locales   : Array of locales to try until success. You can also set the value to "NULL" to use the default locale.
-	* lc_numeric: Set to true to set LC_NUMERIC to the locale you specified.
-	*/
+	 * Locale settings.
+	 *
+	 * locales   : Array of locales to try until success. You can also set the value to "NULL" to use the default locale.
+	 * lc_numeric: Set to true to set LC_NUMERIC to the locale you specified.
+	 */
 	
 	'locale' => array
 	(
@@ -52,8 +52,8 @@ return array
 	),
 
 	/**
-	* Class aliases used by the autoloader.
-	*/
+	 * Class aliases used by the autoloader.
+	 */
 
 	'aliases' => array
 	(
@@ -62,8 +62,8 @@ return array
 	),
 
 	/**
-	* Packages to initialize by default.
-	*/
+	 * Packages to initialize by default.
+	 */
 
 	'packages' => array
 	(
@@ -71,33 +71,33 @@ return array
 	),
 
 	/**
-	* Enable the debug toolbar?
-	* Note that response cache using ETags might not work as expected when the debug toolbar is enabled.
-	*/
+	 * Enable the debug toolbar?
+	 * Note that response cache using ETags might not work as expected when the debug toolbar is enabled.
+	 */
 
 	'debug_toolbar' => false, // It is recommended to set this value to false when you are in production.
 
 	/**
-	* Cache language files?
-	* Setting this value to true can speed up execution by reducing the number of language files to include.
-	*/
+	 * Cache language files?
+	 * Setting this value to true can speed up execution by reducing the number of language files to include.
+	 */
 
 	'lang_cache' => false,
 
 	/**
-	* Compress output?
-	* Setting this to true will reduce bandwidth usage while slightly increasing the CPU usage.
-	*/
+	 * Compress output?
+	 * Setting this to true will reduce bandwidth usage while slightly increasing the CPU usage.
+	 */
 
 	'compress_output' => false,
 	
 	/**
-	* Error handler settings.
-	*
-	* enable        : Set to true to enable the Mako error handler.
-	* display_errors: Set to true to display errors caught by the mako error handlers.
-	* log_errors    : Set to true if you want to log errors caught by the Mako errors handlers.
-	*/
+	 * Error handler settings.
+	 *
+	 * enable        : Set to true to enable the Mako error handler.
+	 * display_errors: Set to true to display errors caught by the mako error handlers.
+	 * log_errors    : Set to true if you want to log errors caught by the Mako errors handlers.
+	 */
 	
 	'error_handler' => array
 	(

@@ -7,8 +7,8 @@
 return array
 (
 	/**
-	* Common mobile user agents.
-	*/
+	 * Common mobile user agents.
+	 */
 	
 	'mobiles' => array
 	(
@@ -46,8 +46,8 @@ return array
 	),
 	
 	/**
-	* Common robot/crawler user agents.
-	*/
+	 * Common robot/crawler user agents.
+	 */
 	
 	'robots' => array
 	(

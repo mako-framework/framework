@@ -7,21 +7,21 @@
 return array
 (
 	/**
-	* Default configuration to use.
-	*/
+	 * Default configuration to use.
+	 */
 	
 	'default' => 'mcrypt',
 	
 	/**
-	* You can define as many cryptography configurations as you want.
-	*
-	* The supported cryptography libraries are: "Mcrypt", and "OpenSSL".
-	*
-	* library: Cryptography library you want to use (case-sensitive).
-	* cipher : The cipher method to use for encryption.
-	* key    : Key used to encrypt/decrypt data. You should NOT use the key included with the framwork in a production environment!
-	* mode   : Encryption mode (only required when using the "mcrypt" library).
-	*/
+	 * You can define as many cryptography configurations as you want.
+	 *
+	 * The supported cryptography libraries are: "Mcrypt", and "OpenSSL".
+	 *
+	 * library: Cryptography library you want to use (case-sensitive).
+	 * cipher : The cipher method to use for encryption.
+	 * key    : Key used to encrypt/decrypt data. You should NOT use the key included with the framwork in a production environment!
+	 * mode   : Encryption mode (only required when using the "mcrypt" library).
+	 */
 	
 	'configurations' => array
 	(

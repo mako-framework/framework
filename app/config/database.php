@@ -7,26 +7,26 @@
 return array
 (
 	/**
-	* Default configuration to use.
-	*/
+	 * Default configuration to use.
+	 */
 	
 	'default' => 'test',
 
 	/**
-	* Enable the query profiler?
-	*/
+	 * Enable the query profiler?
+	 */
 
 	'profiler' => false,
 	
 	/**
-	* You can define as many database configurations as you want.
-	*
-	* dsn       : PDO data source name
-	* username  : (optional) Username of the database server
-	* password  : (optional) Password of the database server
-	* persistent: (optional) Set to true to make the connection persistent
-	* queries   : (optional) Queries that will be executed right after a connection has been made
-	*/
+	 * You can define as many database configurations as you want.
+	 *
+	 * dsn       : PDO data source name
+	 * username  : (optional) Username of the database server
+	 * password  : (optional) Password of the database server
+	 * persistent: (optional) Set to true to make the connection persistent
+	 * queries   : (optional) Queries that will be executed right after a connection has been made
+	 */
 	
 	'configurations' => array
 	(
