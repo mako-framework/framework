@@ -22,7 +22,7 @@ class Join
 	* @var string
 	*/
 
-	public $type;
+	protected $type;
 
 	/**
 	* Table we are joining.
@@ -30,7 +30,7 @@ class Join
 	* @var string
 	*/
 
-	public $table;
+	protected $table;
 
 	/**
 	* ON clauses.
@@ -38,7 +38,7 @@ class Join
 	* @var array
 	*/
 
-	public $clauses = array();
+	protected $clauses = array();
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -61,6 +61,42 @@ class Join
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns the join type.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getType()
+	{
+		return $this->type;
+	}
+
+	/**
+	 * Returns the table name
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getTable()
+	{
+		return $this->table;
+	}
+
+	/**
+	 * Returns ON clauses.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getClauses()
+	{
+		return $this->clauses;
+	}
 
 	/**
 	* Adds a ON clause to the join.

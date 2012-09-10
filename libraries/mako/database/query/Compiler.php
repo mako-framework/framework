@@ -300,12 +300,12 @@ class Compiler
 		{
 			$clauses = array();
 
-			foreach($join->clauses as $clause)
+			foreach($join->getClauses() as $clause)
 			{
 				$clauses[] = $clause['separator'] . ' ' . $this->wrap($clause['column1']) . ' ' . $clause['operator'] . ' ' . $this->wrap($clause['column2']);
 			}
 
-			$sql[] = $join->type . ' JOIN ' . $this->wrap($join->table) . ' ON ' . substr(implode(' ', $clauses), 4); // substr to remove "AND "
+			$sql[] = $join->getType() . ' JOIN ' . $this->wrap($join->getTable()) . ' ON ' . substr(implode(' ', $clauses), 4); // substr to remove "AND "
 		}
 
 		return ' ' . implode(' ', $sql);
