@@ -5,12 +5,12 @@ namespace mako\cache;
 use \Closure;
 
 /**
-* Cache adapter.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Cache adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 abstract class Adapter
 {
@@ -19,10 +19,10 @@ abstract class Adapter
 	//---------------------------------------------
 
 	/**
-	* Cache identifier.
-	*
-	* @var string
-	*/
+	 * Cache identifier.
+	 *
+	 * @var string
+	 */
 
 	protected $identifier;
 
@@ -31,11 +31,11 @@ abstract class Adapter
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   string  $identifier Cache identifier
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string  $identifier Cache identifier
+	 */
 	
 	public function __construct($identifier)
 	{
@@ -55,14 +55,14 @@ abstract class Adapter
 	abstract public function clear();
 
 	/**
-	* Fetches variable from cache and stores it if it doesn't exist.
-	*
-	* @access  public
-	* @param   string   $key      Cache key
-	* @param   closure  $closure  Closure (anonymous function) that returns value to store if it doesn't already exist
-	* @param   int      $ttl      (optional) Time to live
-	* @return  mixed
-	*/
+	 * Fetches variable from cache and stores it if it doesn't exist.
+	 *
+	 * @access  public
+	 * @param   string   $key      Cache key
+	 * @param   closure  $closure  Closure (anonymous function) that returns value to store if it doesn't already exist
+	 * @param   int      $ttl      (optional) Time to live
+	 * @return  mixed
+	 */
 	
 	final public function remember($key, Closure $closure, $ttl = 0)
 	{
@@ -79,12 +79,12 @@ abstract class Adapter
 	}
 	
 	/**
-	* Magic setter.
-	*
-	* @access  public
-	* @param   string  $key    Cache key
-	* @param   mixed   $value  The variable to store
-	*/
+	 * Magic setter.
+	 *
+	 * @access  public
+	 * @param   string  $key    Cache key
+	 * @param   mixed   $value  The variable to store
+	 */
 
 	final public function __set($key, $value)
 	{
@@ -92,12 +92,12 @@ abstract class Adapter
 	}
 
 	/**
-	* Magic getter.
-	*
-	* @access  public
-	* @param   string  $key  Cache key
-	* @return  mixed
-	*/
+	 * Magic getter.
+	 *
+	 * @access  public
+	 * @param   string  $key  Cache key
+	 * @return  mixed
+	 */
 
 	final public function __get($key)
 	{
@@ -105,12 +105,12 @@ abstract class Adapter
 	}
 
 	/**
-	* Magic isset.
-	*
-	* @access  public
-	* @param   string   $key  Cache key
-	* @return  boolean
-	*/
+	 * Magic isset.
+	 *
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
 
 	final public function __isset($key)
 	{
@@ -118,11 +118,11 @@ abstract class Adapter
 	}
 
 	/**
-	* Magic unsetter.
-	*
-	* @access  public
-	* @param   string  $key  Cache key
-	*/
+	 * Magic unsetter.
+	 *
+	 * @access  public
+	 * @param   string  $key  Cache key
+	 */
 
 	final public function __unset($key)
 	{

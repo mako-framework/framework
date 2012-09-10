@@ -6,12 +6,12 @@ use \PDOException;
 use \mako\Database as DB;
 
 /**
-* Database based cache adapter.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Database based cache adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Database extends \mako\cache\Adapter
 {
@@ -20,18 +20,18 @@ class Database extends \mako\cache\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Database connection object.
-	*
-	* @var mako\database\Connection
-	*/
+	 * Database connection object.
+	 *
+	 * @var mako\database\Connection
+	 */
 
 	protected $connection;
 
 	/**
-	* Cache table.
-	*
-	* @var string
-	*/
+	 * Cache table.
+	 *
+	 * @var string
+	 */
 
 	protected $table;
 	
@@ -40,11 +40,11 @@ class Database extends \mako\cache\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   array   $config  Configuration
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   array   $config  Configuration
+	 */
 	
 	public function __construct(array $config)
 	{
@@ -60,11 +60,11 @@ class Database extends \mako\cache\Adapter
 	//---------------------------------------------
 
 	/**
-	* Returns a query builder instance.
-	*
-	* @access  protected
-	* @return  mako\database\Query
-	*/
+	 * Returns a query builder instance.
+	 *
+	 * @access  protected
+	 * @return  mako\database\Query
+	 */
 
 	protected function table()
 	{
@@ -72,14 +72,14 @@ class Database extends \mako\cache\Adapter
 	}
 	
 	/**
-	* Store variable in the cache.
-	*
-	* @access  public
-	* @param   string   $key    Cache key
-	* @param   mixed    $value  The variable to store
-	* @param   int      $ttl    (optional) Time to live
-	* @return  boolean
-	*/
+	 * Store variable in the cache.
+	 *
+	 * @access  public
+	 * @param   string   $key    Cache key
+	 * @param   mixed    $value  The variable to store
+	 * @param   int      $ttl    (optional) Time to live
+	 * @return  boolean
+	 */
 	
 	public function write($key, $value, $ttl = 0)
 	{
@@ -98,12 +98,12 @@ class Database extends \mako\cache\Adapter
 	}
 	
 	/**
-	* Fetch variable from the cache.
-	*
-	* @access  public
-	* @param   string  $key  Cache key
-	* @return  mixed
-	*/
+	 * Fetch variable from the cache.
+	 *
+	 * @access  public
+	 * @param   string  $key  Cache key
+	 * @return  mixed
+	 */
 	
 	public function read($key)
 	{
@@ -136,12 +136,12 @@ class Database extends \mako\cache\Adapter
 	}
 	
 	/**
-	* Delete a variable from the cache.
-	*
-	* @access  public
-	* @param   string   $key  Cache key
-	* @return  boolean
-	*/
+	 * Delete a variable from the cache.
+	 *
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
 	
 	public function delete($key)
 	{
@@ -156,11 +156,11 @@ class Database extends \mako\cache\Adapter
 	}
 	
 	/**
-	* Clears the user cache.
-	*
-	* @access  public
-	* @return  boolean
-	*/
+	 * Clears the user cache.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
 	
 	public function clear()
 	{

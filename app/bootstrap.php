@@ -7,12 +7,12 @@
 if(!function_exists('e'))
 {
 	/**
-	* Returns a string where special characters have been converted to HTML entities.
-	*
-	* @access  public
-	* @param   string   The string being converted.
-	* @return  string
-	*/
+	 * Returns a string where special characters have been converted to HTML entities.
+	 *
+	 * @access  public
+	 * @param   string   The string being converted.
+	 * @return  string
+	 */
 
 	function e($string)
 	{

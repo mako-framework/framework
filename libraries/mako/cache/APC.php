@@ -5,12 +5,12 @@ namespace mako\cache;
 use \RuntimeException;
 
 /**
-* Alternative PHP Cache adapter.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Alternative PHP Cache adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class APC extends \mako\cache\Adapter
 {
@@ -25,11 +25,11 @@ class APC extends \mako\cache\Adapter
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   array   $config  Configuration
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   array   $config  Configuration
+	 */
 
 	public function __construct(array $config)
 	{
@@ -46,14 +46,14 @@ class APC extends \mako\cache\Adapter
 	//---------------------------------------------
 
 	/**
-	* Store variable in the cache.
-	*
-	* @access  public
-	* @param   string   $key    Cache key
-	* @param   mixed    $value  The variable to store
-	* @param   int      $ttl    (optional) Time to live
-	* @return  boolean
-	*/
+	 * Store variable in the cache.
+	 *
+	 * @access  public
+	 * @param   string   $key    Cache key
+	 * @param   mixed    $value  The variable to store
+	 * @param   int      $ttl    (optional) Time to live
+	 * @return  boolean
+	 */
 
 	public function write($key, $value, $ttl = 0)
 	{
@@ -61,12 +61,12 @@ class APC extends \mako\cache\Adapter
 	}
 
 	/**
-	* Fetch variable from the cache.
-	*
-	* @access  public
-	* @param   string  $key  Cache key
-	* @return  mixed
-	*/
+	 * Fetch variable from the cache.
+	 *
+	 * @access  public
+	 * @param   string  $key  Cache key
+	 * @return  mixed
+	 */
 
 	public function read($key)
 	{
@@ -74,12 +74,12 @@ class APC extends \mako\cache\Adapter
 	}
 
 	/**
-	* Delete a variable from the cache.
-	*
-	* @access  public
-	* @param   string   $key  Cache key
-	* @return  boolean
-	*/
+	 * Delete a variable from the cache.
+	 *
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
 
 	public function delete($key)
 	{
@@ -87,11 +87,11 @@ class APC extends \mako\cache\Adapter
 	}
 
 	/**
-	* Clears the user cache.
-	*
-	* @access  public
-	* @return  boolean
-	*/
+	 * Clears the user cache.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
 
 	public function clear()
 	{
