@@ -3,12 +3,12 @@
 namespace mako;
 
 /**
-* Charset helper.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Charset helper.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Charset
 {
@@ -23,10 +23,10 @@ class Charset
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -38,11 +38,11 @@ class Charset
 	//---------------------------------------------
 
 	/**
-	* Check if a string only contains ascii characters.
-	*
-	* @param   string   $str  The input string
-	* @return  boolean
-	*/
+	 * Check if a string only contains ascii characters.
+	 *
+	 * @param   string   $str  The input string
+	 * @return  boolean
+	 */
 
 	public static function isAscii($str)
 	{
@@ -50,13 +50,13 @@ class Charset
 	}
 
 	/**
-	* Silently remove all invalid characters.
-	*
-	* @access  public
-	* @param   string  $str      The input string
-	* @param   string  $charset  (optional) Expected charset
-	* @return  string
-	*/
+	 * Silently remove all invalid characters.
+	 *
+	 * @access  public
+	 * @param   string  $str      The input string
+	 * @param   string  $charset  (optional) Expected charset
+	 * @return  string
+	 */
 
 	public static function clean($str, $charset = MAKO_CHARSET)
 	{
@@ -70,13 +70,13 @@ class Charset
 	}
 
 	/**
-	* Converts a string to the chosen charset.
-	*
-	* @access  public
-	* @param   string  $str      String to convert
-	* @param   string  $charset  (optional) Character set to convert to
-	* @return  string
-	*/
+	 * Converts a string to the chosen charset.
+	 *
+	 * @access  public
+	 * @param   string  $str      String to convert
+	 * @param   string  $charset  (optional) Character set to convert to
+	 * @return  string
+	 */
 
 	public static function convert($str, $charset = MAKO_CHARSET)
 	{

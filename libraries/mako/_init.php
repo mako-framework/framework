@@ -123,13 +123,13 @@ spl_autoload_register('mako\ClassLoader::load');
 //------------------------------------------------------------------------------------------
 
 /**
-* Returns path to a package or application directory.
-*
-* @access  public
-* @param   string  $path    Path
-* @param   string  $string  String
-* @return  string
-*/
+ * Returns path to a package or application directory.
+ *
+ * @access  public
+ * @param   string  $path    Path
+ * @param   string  $string  String
+ * @return  string
+ */
 
 function mako_path($path, $string)
 {
@@ -150,17 +150,17 @@ function mako_path($path, $string)
 if(!function_exists('__'))
 {
 	/**
-	* Alias of mako\I18n::translate()
-	*
-	* Returns a translated string of the current language. 
-	* If no translation exists then the submitted string will be returned.
-	*
-	* @access  public
-	* @param   string   Text to translate
-	* @param   array   (optional) Value or array of values to replace in the translated text
-	* @param   string  (optional) Name of the language you want to translate to
-	* @return  string
-	*/
+	 * Alias of mako\I18n::translate()
+	 *
+	 * Returns a translated string of the current language. 
+	 * If no translation exists then the submitted string will be returned.
+	 *
+	 * @access  public
+	 * @param   string   Text to translate
+	 * @param   array   (optional) Value or array of values to replace in the translated text
+	 * @param   string  (optional) Name of the language you want to translate to
+	 * @return  string
+	 */
 
 	function __($string, array $vars = array(), $language = null)
 	{
@@ -171,11 +171,11 @@ if(!function_exists('__'))
 if(!function_exists('dump_var'))
 {
 	/**
-	* Works like var_dump except that it wraps the variable in <pre> tags.
-	*
-	* @access  public
-	* @param   mixed   Variable you want to dump
-	*/
+	 * Works like var_dump except that it wraps the variable in <pre> tags.
+	 *
+	 * @access  public
+	 * @param   mixed   Variable you want to dump
+	 */
 
 	function dump_var()
 	{

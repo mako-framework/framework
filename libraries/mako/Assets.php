@@ -6,12 +6,12 @@ use \mako\HTML;
 use \mako\Config;
 
 /**
-* Asset manager.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Asset manager.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Assets
 {
@@ -20,10 +20,10 @@ class Assets
 	//---------------------------------------------
 
 	/**
-	* Array of asset groups.
-	*
-	* @var array
-	*/
+	 * Array of asset groups.
+	 *
+	 * @var array
+	 */
 
 	protected static $groups = array();
 
@@ -36,10 +36,10 @@ class Assets
 	protected $css = array();
 
 	/**
-	* Array of JavaScript assets.
-	*
-	* @var array
-	*/
+	 * Array of JavaScript assets.
+	 *
+	 * @var array
+	 */
 
 	protected $js = array();
 
@@ -48,10 +48,10 @@ class Assets
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  protected
-	*/
+	 * Constructor.
+	 *
+	 * @access  protected
+	 */
 
 	public function __construct()
 	{
@@ -59,12 +59,12 @@ class Assets
 	}
 
 	/**
-	* Returns the instance of the chosen asset group.
-	*
-	* @access  public
-	* @param   string       $name  Group name
-	* @return  mako\Assets
-	*/
+	 * Returns the instance of the chosen asset group.
+	 *
+	 * @access  public
+	 * @param   string       $name  Group name
+	 * @return  mako\Assets
+	 */
 
 	public static function group($name = 'default')
 	{
@@ -81,11 +81,11 @@ class Assets
 	//---------------------------------------------
 
 	/**
-	* Returns the path or URL of the assets.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Returns the path or URL of the assets.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public static function location()
 	{
@@ -100,13 +100,13 @@ class Assets
 	}
 
 	/**
-	* Add an asset.
-	*
-	* @access  public
-	* @param   string  $name        Asset name
-	* @param   string  $source      Asset source
-	* @param   array   $attributes  (optional) Asset attributes
-	*/
+	 * Add an asset.
+	 *
+	 * @access  public
+	 * @param   string  $name        Asset name
+	 * @param   string  $source      Asset source
+	 * @param   array   $attributes  (optional) Asset attributes
+	 */
 
 	protected function add($name, $source, array $attributes = array())
 	{
@@ -134,12 +134,12 @@ class Assets
 	}
 
 	/**
-	* Get one or all CSS assets.
-	*
-	* @access  public
-	* @param   string  $name  (optional) Asset name
-	* @return  string
-	*/
+	 * Get one or all CSS assets.
+	 *
+	 * @access  public
+	 * @param   string  $name  (optional) Asset name
+	 * @return  string
+	 */
 
 	protected function css($name = null)
 	{
@@ -164,12 +164,12 @@ class Assets
 	}
 
 	/**
-	* Get one or all JavaScript assets.
-	*
-	* @access  public
-	* @param   string  $name  (optional) Asset name
-	* @return  string
-	*/
+	 * Get one or all JavaScript assets.
+	 *
+	 * @access  public
+	 * @param   string  $name  (optional) Asset name
+	 * @return  string
+	 */
 
 	protected function js($name = null)
 	{
@@ -194,11 +194,11 @@ class Assets
 	}
 
 	/**
-	* Get all assets.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Get all assets.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	protected function all()
 	{
@@ -206,13 +206,13 @@ class Assets
 	}
 
 	/**
-	* Performs calls on the chosen group instance.
-	*
-	* @access  public
-	* @param   string  $name       Method name
-	* @param   array   $arguments  Method arguments
-	* @return  mixed
-	*/
+	 * Performs calls on the chosen group instance.
+	 *
+	 * @access  public
+	 * @param   string  $name       Method name
+	 * @param   array   $arguments  Method arguments
+	 * @return  mixed
+	 */
 
 	public function __call($name, $arguments)
 	{
@@ -220,13 +220,13 @@ class Assets
 	}
 
 	/**
-	* Performs calls on the default group instance.
-	*
-	* @access  public
-	* @param   string  $name       Method name
-	* @param   array   $arguments  Method arguments
-	* @return  mixed
-	*/
+	 * Performs calls on the default group instance.
+	 *
+	 * @access  public
+	 * @param   string  $name       Method name
+	 * @param   array   $arguments  Method arguments
+	 * @return  mixed
+	 */
 
 	public static function __callStatic($name, $arguments)
 	{

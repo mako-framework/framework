@@ -3,12 +3,12 @@
 namespace mako;
 
 /**
-* Config class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Config class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 use \mako\Arr;
 use \RuntimeException;
@@ -20,10 +20,10 @@ class Config
 	//---------------------------------------------
 
 	/**
-	* Config array.
-	*
-	* @var array
-	*/
+	 * Config array.
+	 *
+	 * @var array
+	 */
 
 	protected static $config;
 
@@ -32,10 +32,10 @@ class Config
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -47,12 +47,12 @@ class Config
 	//---------------------------------------------
 
 	/**
-	* Returns the path to the configuration file.
-	*
-	* @access  protected
-	* @param   string    $file  File name
-	* @return  string
-	*/
+	 * Returns the path to the configuration file.
+	 *
+	 * @access  protected
+	 * @param   string    $file  File name
+	 * @return  string
+	 */
 
 	protected static function file($file)
 	{
@@ -77,13 +77,13 @@ class Config
 	}
 
 	/**
-	* Returns config value or entire config array from a file.
-	*
-	* @access  public
-	* @param   string  $key      Config key
-	* @param   mixed   $default  (optional) Default value to return if config value doesn't exist
-	* @return  mixed
-	*/
+	 * Returns config value or entire config array from a file.
+	 *
+	 * @access  public
+	 * @param   string  $key      Config key
+	 * @param   mixed   $default  (optional) Default value to return if config value doesn't exist
+	 * @return  mixed
+	 */
 
 	public static function get($key, $default = null)
 	{
@@ -105,12 +105,12 @@ class Config
 	}
 
 	/**
-	* Sets a config value.
-	*
-	* @access  public
-	* @param   string  $key    Config key
-	* @param   mixed   $value  Config value
-	*/
+	 * Sets a config value.
+	 *
+	 * @access  public
+	 * @param   string  $key    Config key
+	 * @param   mixed   $value  Config value
+	 */
 
 	public static function set($key, $value)
 	{
@@ -125,12 +125,12 @@ class Config
 	}
 
 	/**
-	* Deletes a value from the configuration.
-	*
-	* @access  public
-	* @param   string   $key  Config key
-	* @return  boolean
-	*/
+	 * Deletes a value from the configuration.
+	 *
+	 * @access  public
+	 * @param   string   $key  Config key
+	 * @return  boolean
+	 */
 
 	public static function delete($key)
 	{

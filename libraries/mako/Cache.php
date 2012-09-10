@@ -6,12 +6,12 @@ use \mako\Config;
 use \RuntimeException;
 
 /**
-* Cache class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Cache class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Cache
 {
@@ -20,10 +20,10 @@ class Cache
 	//---------------------------------------------
 	
 	/**
-	* Holds all the cache objects.
-	*
-	* @var array
-	*/
+	 * Holds all the cache objects.
+	 *
+	 * @var array
+	 */
 	
 	protected static $instances = array();
 
@@ -32,10 +32,10 @@ class Cache
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -47,11 +47,11 @@ class Cache
 	//---------------------------------------------
 
 	/**
-	* Returns an instance of the requested cache configuration.
-	*
-	* @param   string              $name  (optional) Cache configuration name
-	* @return  mako\cache\Adapter
-	*/
+	 * Returns an instance of the requested cache configuration.
+	 *
+	 * @param   string              $name  (optional) Cache configuration name
+	 * @return  mako\cache\Adapter
+	 */
 
 	public static function instance($name = null)
 	{
@@ -75,13 +75,13 @@ class Cache
 	}
 
 	/**
-	* Magic shortcut to the default cache instance.
-	*
-	* @access  public
-	* @param   string  $name       Method name
-	* @param   array   $arguments  Method arguments
-	* @return  mixed
-	*/
+	 * Magic shortcut to the default cache instance.
+	 *
+	 * @access  public
+	 * @param   string  $name       Method name
+	 * @param   array   $arguments  Method arguments
+	 * @return  mixed
+	 */
 
 	public static function __callStatic($name, $arguments)
 	{

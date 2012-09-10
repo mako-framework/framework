@@ -3,12 +3,12 @@
 namespace mako;
 
 /**
-* Array helper.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Array helper.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Arr
 {
@@ -23,10 +23,10 @@ class Arr
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -38,14 +38,15 @@ class Arr
 	//---------------------------------------------
 
 	/**
-	* Returns value from array using "dot notation".
-	*
-	* @access  public
-	* @param   array   $array    Array we're going to search
-	* @param   string  $path     Array path
-	* @param   mixed   $default  (optional) Default return value
-	* @return  mixed
-	*/
+	 * Returns value from array using "dot notation".
+	 *
+	 * @access  public
+	 * @param   array   $array    Array we're going to search
+	 * @param   string  $path     Array path
+	 * @param   mixed   $default  (optional) Default return value
+	 * @return  mixed
+	 */
+
 	public static function get(array $array, $path, $default = null)
 	{
 		$segments = explode('.', $path);
@@ -64,13 +65,13 @@ class Arr
 	}
 
 	/**
-	* Sets an array value using "dot notation".
-	*
-	* @access  public
-	* @param   array    $array  Array you want to modify
-	* @param   string   $path   Array path
-	* @param   mixed    $value  Value to set
-	*/
+	 * Sets an array value using "dot notation".
+	 *
+	 * @access  public
+	 * @param   array    $array  Array you want to modify
+	 * @param   string   $path   Array path
+	 * @param   mixed    $value  Value to set
+	 */
 
 	public static function set(array & $array, $path, $value)
 	{
@@ -92,13 +93,13 @@ class Arr
 	}
 
 	/**
-	* Deletes an array value using "dot notation".
-	*
-	* @access  public
-	* @param   array    $array  Array you want to modify
-	* @param   string   $path   Array path
-	* @return  boolean
-	*/
+	 * Deletes an array value using "dot notation".
+	 *
+	 * @access  public
+	 * @param   array    $array  Array you want to modify
+	 * @param   string   $path   Array path
+	 * @return  boolean
+	 */
 
 	public static function delete(array & $array, $path)
 	{
@@ -122,12 +123,12 @@ class Arr
 	}
 
 	/**
-	* Returns a random value from an array.
-	*
-	* @access  public
-	* @param   array   $array  Array you want to pick a random value from
-	* @return  mixed
-	*/
+	 * Returns a random value from an array.
+	 *
+	 * @access  public
+	 * @param   array   $array  Array you want to pick a random value from
+	 * @return  mixed
+	 */
 
 	public static function random(array $array)
 	{
@@ -135,12 +136,12 @@ class Arr
 	}
 
 	/**
-	* Returns TRUE if the array is associative and FALSE if not.
-	*
-	* @access  public
-	* @param   array    $array  Array to check
-	* @return  boolean
-	*/
+	 * Returns TRUE if the array is associative and FALSE if not.
+	 *
+	 * @access  public
+	 * @param   array    $array  Array to check
+	 * @return  boolean
+	 */
 
 	public static function isAssoc(array $array)
 	{

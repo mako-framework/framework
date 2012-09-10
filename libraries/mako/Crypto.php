@@ -6,12 +6,12 @@ use \mako\Config;
 use \RuntimeException;
 
 /**
-* Cryptography class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Cryptography class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Crypto
 {
@@ -26,10 +26,10 @@ class Crypto
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -41,11 +41,11 @@ class Crypto
 	//---------------------------------------------
 	
 	/**
-	* Returns an instance of the requested encryption configuration.
-	*
-	* @param                        string  $name  (optional) Encryption configuration name
-	* @return  mako\crypto\Adapter
-	*/
+	 * Returns an instance of the requested encryption configuration.
+	 *
+	 * @param                        string  $name  (optional) Encryption configuration name
+	 * @return  mako\crypto\Adapter
+	 */
 	
 	public static function factory($name = null)
 	{
@@ -64,13 +64,13 @@ class Crypto
 	}
 
 	/**
-	* Magic shortcut to the default crypto configuration.
-	*
-	* @access  public
-	* @param   string  $name       Method name
-	* @param   array   $arguments  Method arguments
-	* @return  mixed
-	*/
+	 * Magic shortcut to the default crypto configuration.
+	 *
+	 * @access  public
+	 * @param   string  $name       Method name
+	 * @param   array   $arguments  Method arguments
+	 * @return  mixed
+	 */
 
 	public static function __callStatic($name, $arguments)
 	{

@@ -5,12 +5,12 @@ namespace mako;
 use \mako\Database;
 
 /**
-* Debug toolbar.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Debug toolbar.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Debug
 {
@@ -19,74 +19,74 @@ class Debug
 	//---------------------------------------------
 
 	/**
-	* Log level.
-	*
-	* @var string
-	*/
+	 * Log level.
+	 *
+	 * @var string
+	 */
 
 	const EMERGENCY = 'emergency';
 
 	/**
-	* Log level.
-	*
-	* @var string
-	*/
+	 * Log level.
+	 *
+	 * @var string
+	 */
 
 	const ALERT = 'alert';
 
 	/**
-	* Log level.
-	*
-	* @var string
-	*/
+	 * Log level.
+	 *
+	 * @var string
+	 */
 
 	const CRITICAL = 'critical';
 
 	/**
-	* Log level.
-	*
-	* @var string
-	*/
+	 * Log level.
+	 *
+	 * @var string
+	 */
 
 	const ERROR = 'error';
 
 	/**
-	* Log level.
-	*
-	* @var string
-	*/
+	 * Log level.
+	 *
+	 * @var string
+	 */
 
 	const WARNING = 'warning';
 
 	/**
-	* Log level.
-	*
-	* @var string
-	*/
+	 * Log level.
+	 *
+	 * @var string
+	 */
 
 	const NOTICE = 'notice';
 
 	/**
-	* Log level.
-	*
-	* @var string
-	*/
+	 * Log level.
+	 *
+	 * @var string
+	 */
 
 	const INFO = 'info';
 
 	/**
-	* Log level.
-	*
-	* @var string
-	*/
+	 * Log level.
+	 *
+	 * @var string
+	 */
 
 	const DEBUG = 'debug';
 
 	/**
-	* Log entries.
-	*
-	* @var array
-	*/
+	 * Log entries.
+	 *
+	 * @var array
+	 */
 
 	protected static $logs = array();
 
@@ -95,10 +95,10 @@ class Debug
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -110,12 +110,12 @@ class Debug
 	//---------------------------------------------
 
 	/**
-	* Add entry to the debug log.
-	*
-	* @access  public
-	* @param   mixed   $message  Variable to debug
-	* @param   string  $type     Log type
-	*/
+	 * Add entry to the debug log.
+	 *
+	 * @access  public
+	 * @param   mixed   $message  Variable to debug
+	 * @param   string  $type     Log type
+	 */
 
 	public static function log($message, $type = Debug::DEBUG)
 	{
@@ -123,11 +123,11 @@ class Debug
 	}
 
 	/**
-	* Returns the rendered toolbar.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Returns the rendered toolbar.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public static function render()
 	{

@@ -20,50 +20,50 @@ class DateTime
 	//---------------------------------------------
 	
 	/**
-	* Number of seconds in a minute.
-	*
-	* @var int
-	*/
+	 * Number of seconds in a minute.
+	 *
+	 * @var int
+	 */
 	
 	const MINUTE = 60;
 	
 	/**
-	* Number of seconds in an hour.
-	*
-	* @var int
-	*/
+	 * Number of seconds in an hour.
+	 *
+	 * @var int
+	 */
 	
 	const HOUR = 3600;
 	
 	/**
-	* Number of seconds in a day.
-	*
-	* @var int
-	*/
+	 * Number of seconds in a day.
+	 *
+	 * @var int
+	 */
 	
 	const DAY = 86400;
 	
 	/**
-	* Number of seconds in a week.
-	*
-	* @var int
-	*/
+	 * Number of seconds in a week.
+	 *
+	 * @var int
+	 */
 	
 	const WEEK = 604800;
 	
 	/**
-	* Number of seconds in a month.
-	*
-	* @var int
-	*/
+	 * Number of seconds in a month.
+	 *
+	 * @var int
+	 */
 	
 	const MONTH = 2629744;
 	
 	/**
-	* Number of seconds in a year.
-	*
-	* @var int
-	*/
+	 * Number of seconds in a year.
+	 *
+	 * @var int
+	 */
 	
 	const YEAR = 31556926;
 
@@ -72,10 +72,10 @@ class DateTime
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -87,14 +87,14 @@ class DateTime
 	//---------------------------------------------
 
 	/**
-	* Returns a localized date (based on the locale).
-	*
-	* @access  public
-	* @param   string  $dateFormat  Date format (http://php.net/manual/en/function.strftime.php)
-	* @param   int     $timestamp   Unix timestamp
-	* @param   int     $offset      (optional) Offset in seconds
-	* @return  string
-	*/
+	 * Returns a localized date (based on the locale).
+	 *
+	 * @access  public
+	 * @param   string  $dateFormat  Date format (http://php.net/manual/en/function.strftime.php)
+	 * @param   int     $timestamp   Unix timestamp
+	 * @param   int     $offset      (optional) Offset in seconds
+	 * @return  string
+	 */
 
 	public static function utcDate($dateFormat, $timestamp, $offset = 0)
 	{
@@ -102,11 +102,11 @@ class DateTime
 	}
 
 	/**
-	* Returns an array with all UTC timezones (keys are offset seconds from UTC).
-	*
-	* @access  public
-	* @return  array
-	*/
+	 * Returns an array with all UTC timezones (keys are offset seconds from UTC).
+	 *
+	 * @access  public
+	 * @return  array
+	 */
 
 	public static function utcTimeZones()
 	{
@@ -158,16 +158,16 @@ class DateTime
 	}
 
 	/**
-	* Returns a "fuzzy date".
-	*
-	* @access  public
-	* @param   int      $timestamp    Unix timestamp
-	* @param   string   $dateFormat   Date format used for non-fuzy dates
-	* @param   int      $offset       (optional) Offset in seconds
-	* @param   boolean  $fullFuzzy    (optional) Enable full fuzziness
-	* @param   string   $clockFormat  (optional) Clock format for fuzzy dates - set to false to disable
-	* @return  string
-	*/
+	 * Returns a "fuzzy date".
+	 *
+	 * @access  public
+	 * @param   int      $timestamp    Unix timestamp
+	 * @param   string   $dateFormat   Date format used for non-fuzy dates
+	 * @param   int      $offset       (optional) Offset in seconds
+	 * @param   boolean  $fullFuzzy    (optional) Enable full fuzziness
+	 * @param   string   $clockFormat  (optional) Clock format for fuzzy dates - set to false to disable
+	 * @return  string
+	 */
 
 	public static function fuzzy($timestamp, $dateFormat, $offset = 0, $fullFuzzy = false, $clockFormat = ', %R %p')
 	{
@@ -245,12 +245,12 @@ class DateTime
 	}
 
 	/**
-	* Returns true if year is leap year and false if not.
-	*
-	* @access  public
-	* @param   int      $year  The year you want to check
-	* @return  boolean
-	*/
+	 * Returns true if year is leap year and false if not.
+	 *
+	 * @access  public
+	 * @param   int      $year  The year you want to check
+	 * @return  boolean
+	 */
 
 	public static function isLeapYear($year)
 	{
@@ -263,13 +263,13 @@ class DateTime
 	}
 
 	/**
-	* Returns the number of days in the chosen month.
-	*
-	* @access  public
-	* @param   int     $month  (optional) Numeric representation of a month without leading zeros
-	* @param   int     $year   (optional) Full numeric representation of a year
-	* @return  int
-	*/
+	 * Returns the number of days in the chosen month.
+	 *
+	 * @access  public
+	 * @param   int     $month  (optional) Numeric representation of a month without leading zeros
+	 * @param   int     $year   (optional) Full numeric representation of a year
+	 * @return  int
+	 */
 
 	public static function daysInMonth($month = null, $year = null)
 	{
@@ -302,12 +302,12 @@ class DateTime
 	}
 
 	/**
-	* Converts a UNIX timestamp to a DOS timestamp.
-	*
-	* @access  public
-	* @param   int     $timestamp  Unix timestamp
-	* @return  int
-	*/
+	 * Converts a UNIX timestamp to a DOS timestamp.
+	 *
+	 * @access  public
+	 * @param   int     $timestamp  Unix timestamp
+	 * @return  int
+	 */
 
 	public static function unix2dos($timestamp = null)
 	{
@@ -327,12 +327,12 @@ class DateTime
 	}
 
 	/**
-	* Converts a DOS timestamp to a UNIX timestamp.
-	*
-	* @access  public
-	* @param   int     $timestamp  DOS timestamp
-	* @return  int
-	*/
+	 * Converts a DOS timestamp to a UNIX timestamp.
+	 *
+	 * @access  public
+	 * @param   int     $timestamp  DOS timestamp
+	 * @return  int
+	 */
 
 	public static function dos2unix($timestamp)
 	{

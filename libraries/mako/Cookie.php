@@ -5,12 +5,12 @@ namespace mako;
 use \mako\Config;
 
 /**
-* Class that allows you to set and read signed cookies.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Class that allows you to set and read signed cookies.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Cookie
 {	
@@ -19,10 +19,10 @@ class Cookie
 	//---------------------------------------------
 	
 	/**
-	* Holds the configuration.
-	*
-	* @var array
-	*/
+	 * Holds the configuration.
+	 *
+	 * @var array
+	 */
 	
 	protected static $config;
 	
@@ -31,10 +31,10 @@ class Cookie
 	//---------------------------------------------
 	
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 	
 	protected function __construct()
 	{
@@ -46,13 +46,13 @@ class Cookie
 	//---------------------------------------------
 	
 	/**
-	* Returns the cookie signature.
-	*
-	* @access  protected
-	* @param   string     $name   Cookie name
-	* @param   string     $value  Cookie value
-	* @return  string
-	*/
+	 * Returns the cookie signature.
+	 *
+	 * @access  protected
+	 * @param   string     $name   Cookie name
+	 * @param   string     $value  Cookie value
+	 * @return  string
+	 */
 	
 	protected static function signature($name, $value)
 	{
@@ -65,15 +65,15 @@ class Cookie
 	}
 	
 	/**
-	* Sets a signed cookie.
-	*
-	* @access  public
-	* @param   string   $name       Cookie name
-	* @param   string   $value      Cookie value
-	* @param   int      $ttl        (optional) Time to live - if omitted or set to 0 the cookie will expire when the browser closes
-	* @param   boolean  $secure     (optional) HTTPS only - if set to TRUE then the cookie should only be transmitted over a secure connection from the client
-	* @param   boolean  $httpOpnly  (optional) HTTP only - if set to TRUE the cookie will be made accessible only through the HTTP protocol
-	*/
+	 * Sets a signed cookie.
+	 *
+	 * @access  public
+	 * @param   string   $name       Cookie name
+	 * @param   string   $value      Cookie value
+	 * @param   int      $ttl        (optional) Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	 * @param   boolean  $secure     (optional) HTTPS only - if set to TRUE then the cookie should only be transmitted over a secure connection from the client
+	 * @param   boolean  $httpOpnly  (optional) HTTP only - if set to TRUE the cookie will be made accessible only through the HTTP protocol
+	 */
 	
 	public static function set($name, $value, $ttl = 0, $secure = false, $httpOnly = false)
 	{			
@@ -85,13 +85,13 @@ class Cookie
 	}
 	
 	/**
-	* Reads a signed cookie. Cookies that are unsigned or have an invalid signature will be ignored.
-	*
-	* @access  public
-	* @param   string  $name     Cookie name
-	* @param   mixed   $default  (optional) Default value to return if the cookie doesn't exist or if the signature is invalid
-	* @return  mixed
-	*/
+	 * Reads a signed cookie. Cookies that are unsigned or have an invalid signature will be ignored.
+	 *
+	 * @access  public
+	 * @param   string  $name     Cookie name
+	 * @param   mixed   $default  (optional) Default value to return if the cookie doesn't exist or if the signature is invalid
+	 * @return  mixed
+	 */
 	
 	public static function get($name, $default = null)
 	{
@@ -113,11 +113,11 @@ class Cookie
 	}
 	
 	/**
-	* Deletes a cookie.
-	*
-	* @access  public
-	* @param   string  $name  Cookie name
-	*/
+	 * Deletes a cookie.
+	 *
+	 * @access  public
+	 * @param   string  $name  Cookie name
+	 */
 	
 	public static function delete($name)
 	{
