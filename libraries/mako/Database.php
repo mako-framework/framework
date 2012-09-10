@@ -10,12 +10,12 @@ use \mako\database\query\Subquery;
 use \RuntimeException;
 
 /**
-* Class that handles database connections.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Class that handles database connections.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Database
 {
@@ -24,34 +24,34 @@ class Database
 	//---------------------------------------------
 
 	/**
-	* Holds all the connection objects.
-	*
-	* @var array
-	*/
+	 * Holds all the connection objects.
+	 *
+	 * @var array
+	 */
 
 	protected static $connections = array();
 
 	/**
-	* Fetch all.
-	*
-	* @var int
-	*/
+	 * Fetch all.
+	 *
+	 * @var int
+	 */
 
 	const FETCH_ALL = 10;
 
 	/**
-	* Fetch first.
-	*
-	* @var int
-	*/
+	 * Fetch first.
+	 *
+	 * @var int
+	 */
 
 	const FETCH_FIRST = 11;
 
 	/**
-	* Fetch column.
-	*
-	* @var int
-	*/
+	 * Fetch column.
+	 *
+	 * @var int
+	 */
 
 	const FETCH_COLUMN = 12;
 
@@ -60,10 +60,10 @@ class Database
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -75,10 +75,10 @@ class Database
 	//---------------------------------------------
 
 	/**
-	* Returns the query log for all connections.
-	*
-	* @return  array
-	*/
+	 * Returns the query log for all connections.
+	 *
+	 * @return  array
+	 */
 
 	public static function profiler()
 	{
@@ -93,12 +93,12 @@ class Database
 	}
 	
 	/**
-	* Opens a new connection or returns existing connection if it already exists.
-	*
-	* @access  public
-	* @param   string                    $name  (optional) Database configuration name
-	* @return  mako\database\Connection
-	*/
+	 * Opens a new connection or returns existing connection if it already exists.
+	 *
+	 * @access  public
+	 * @param   string                    $name  (optional) Database configuration name
+	 * @return  mako\database\Connection
+	 */
 
 	public static function connection($name = null)
 	{
@@ -120,13 +120,13 @@ class Database
 	}
 
 	/**
-	* Returns PDO instance to maintain backwards compatibility.
-	*
-	* @deprecated
-	* @access  public
-	* @param   string  $name  (optional) Database configuration name
-	* @return  PDO
-	*/
+	 * Returns PDO instance to maintain backwards compatibility.
+	 *
+	 * @deprecated
+	 * @access  public
+	 * @param   string  $name  (optional) Database configuration name
+	 * @return  PDO
+	 */
 
 	public static function instance($name = null)
 	{
@@ -134,12 +134,12 @@ class Database
 	}
 
 	/**
-	* Returns a raw sql container.
-	*
-	* @access  public
-	* @param   string                   $sql  Raw SQL
-	* @return  mako\database\query\Raw
-	*/
+	 * Returns a raw sql container.
+	 *
+	 * @access  public
+	 * @param   string                   $sql  Raw SQL
+	 * @return  mako\database\query\Raw
+	 */
 
 	public static function raw($sql)
 	{
@@ -147,13 +147,13 @@ class Database
 	}
 
 	/**
-	* Returns a subquery container.
-	*
-	* @access  public
-	* @param   mako\database\Query           $query  Subquery
-	* @param   string                        $alias  (optional) Alias
-	* @return  mako\database\query\Subquery
-	*/
+	 * Returns a subquery container.
+	 *
+	 * @access  public
+	 * @param   mako\database\Query           $query  Subquery
+	 * @param   string                        $alias  (optional) Alias
+	 * @return  mako\database\query\Subquery
+	 */
 
 	public static function subquery(Query $query, $alias = null)
 	{
@@ -161,13 +161,13 @@ class Database
 	}
 
 	/**
-	* Magic shortcut to the default database connection.
-	*
-	* @access  public
-	* @param   string  $name       Method name
-	* @param   array   $arguments  Method arguments
-	* @return  mixed
-	*/
+	 * Magic shortcut to the default database connection.
+	 *
+	 * @access  public
+	 * @param   string  $name       Method name
+	 * @param   array   $arguments  Method arguments
+	 * @return  mixed
+	 */
 
 	public static function __callStatic($name, $arguments)
 	{

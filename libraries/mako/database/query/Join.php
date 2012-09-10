@@ -3,12 +3,12 @@
 namespace mako\database\query;
 
 /**
-* Table join.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Table join.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Join
 {
@@ -17,26 +17,26 @@ class Join
 	//---------------------------------------------
 
 	/**
-	* Join type.
-	*
-	* @var string
-	*/
+	 * Join type.
+	 *
+	 * @var string
+	 */
 
 	protected $type;
 
 	/**
-	* Table we are joining.
-	*
-	* @var string
-	*/
+	 * Table we are joining.
+	 *
+	 * @var string
+	 */
 
 	protected $table;
 
 	/**
-	* ON clauses.
-	*
-	* @var array
-	*/
+	 * ON clauses.
+	 *
+	 * @var array
+	 */
 
 	protected $clauses = array();
 
@@ -45,12 +45,12 @@ class Join
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   string  $type  Join type
-	* @param   string  $table  Table we are joining
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string  $type  Join type
+	 * @param   string  $table  Table we are joining
+	 */
 
 	public function __construct($type, $table)
 	{
@@ -99,14 +99,14 @@ class Join
 	}
 
 	/**
-	* Adds a ON clause to the join.
-	*
-	* @access  public
-	* @param   string  $column1    Column name
-	* @param   string  $operator   Operator
-	* @param   string  $column2    Column name
-	* @param   string  $separator  (optional) Clause separator
-	*/
+	 * Adds a ON clause to the join.
+	 *
+	 * @access  public
+	 * @param   string  $column1    Column name
+	 * @param   string  $operator   Operator
+	 * @param   string  $column2    Column name
+	 * @param   string  $separator  (optional) Clause separator
+	 */
 
 	public function on($column1, $operator, $column2, $separator = 'AND')
 	{
@@ -122,13 +122,13 @@ class Join
 	}
 
 	/**
-	* Adds a OR ON clause to the join.
-	*
-	* @access  public
-	* @param   string  $column1   Column name
-	* @param   string  $operator  Operator
-	* @param   string  $column2   Column name
-	*/
+	 * Adds a OR ON clause to the join.
+	 *
+	 * @access  public
+	 * @param   string  $column1   Column name
+	 * @param   string  $operator  Operator
+	 * @param   string  $column2   Column name
+	 */
 
 	public function orOn($column1, $operator, $column2)
 	{

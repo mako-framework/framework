@@ -7,12 +7,12 @@ use \mako\database\query\Raw;
 use \mako\database\query\Subquery;
 
 /**
-* Compiles SQL queries.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Compiles SQL queries.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Compiler
 {
@@ -21,26 +21,26 @@ class Compiler
 	//---------------------------------------------
 
 	/**
-	* Wrapper used to escape table and column names.
-	*
-	* @var string
-	*/
+	 * Wrapper used to escape table and column names.
+	 *
+	 * @var string
+	 */
 
 	protected $wrapper = '"%s"';
 
 	/**
-	* Query builder.
-	*
-	* @var mako\database\Query
-	*/
+	 * Query builder.
+	 *
+	 * @var mako\database\Query
+	 */
 
 	protected $query;
 
 	/**
-	* Query parameters.
-	*
-	* @var array
-	*/
+	 * Query parameters.
+	 *
+	 * @var array
+	 */
 
 	protected $params = array();
 
@@ -49,11 +49,11 @@ class Compiler
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   mako\database\Query  $query  Query builder
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   mako\database\Query  $query  Query builder
+	 */
 
 	public function __construct(Query $query)
 	{
@@ -65,12 +65,12 @@ class Compiler
 	//---------------------------------------------
 
 	/**
-	* Compiles subquery, merges parameters and returns subquery SQL.
-	*
-	* @access  protected
-	* @param   mako\database\query\Subquery  $query  Subquery container
-	* @return  string
-	*/
+	 * Compiles subquery, merges parameters and returns subquery SQL.
+	 *
+	 * @access  protected
+	 * @param   mako\database\query\Subquery  $query  Subquery container
+	 * @return  string
+	 */
 
 	protected function subquery(Subquery $query)
 	{
@@ -82,12 +82,12 @@ class Compiler
 	}
 
 	/**
-	* Wraps table and column names with dialect specific escape characters.
-	*
-	* @access  public
-	* @param   mixed   $value  Value to wrap
-	* @return  string
-	*/
+	 * Wraps table and column names with dialect specific escape characters.
+	 *
+	 * @access  public
+	 * @param   mixed   $value  Value to wrap
+	 * @return  string
+	 */
 
 	public function wrap($value)
 	{
@@ -125,12 +125,12 @@ class Compiler
 	}
 
 	/**
-	* Returns a comma-separated list of columns.
-	*
-	* @access  protected
-	* @param   array      $columns  Array of columns
-	* @return  string
-	*/
+	 * Returns a comma-separated list of columns.
+	 *
+	 * @access  protected
+	 * @param   array      $columns  Array of columns
+	 * @return  string
+	 */
 
 	protected function columns(array $columns)
 	{
@@ -138,12 +138,12 @@ class Compiler
 	}
 
 	/**
-	* Returns raw SQL or a paramter placeholder.
-	*
-	* @access  protected  
-	* @param   mixed      $param  Parameter
-	* @return  string
-	*/
+	 * Returns raw SQL or a paramter placeholder.
+	 *
+	 * @access  protected  
+	 * @param   mixed      $param  Parameter
+	 * @return  string
+	 */
 
 	protected function param($param)
 	{
@@ -164,12 +164,12 @@ class Compiler
 	}
 
 	/**
-	* Returns a comma-separated list of parameters.
-	*
-	* @access  protected
-	* @param   mixed      $params  Array of parameters or subquery
-	* @return  string
-	*/
+	 * Returns a comma-separated list of parameters.
+	 *
+	 * @access  protected
+	 * @param   mixed      $params  Array of parameters or subquery
+	 * @return  string
+	 */
 
 	protected function params($params)
 	{
@@ -177,12 +177,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles WHERE clauses.
-	*
-	* @access  protected
-	* @param   array      $where  Where clause
-	* @return  string
-	*/
+	 * Compiles WHERE clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $where  Where clause
+	 * @return  string
+	 */
 
 	protected function where(array $where)
 	{
@@ -190,12 +190,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles BETWEEN clauses.
-	*
-	* @access  protected
-	* @param   array      $where  Where clause
-	* @return  string
-	*/
+	 * Compiles BETWEEN clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $where  Where clause
+	 * @return  string
+	 */
 
 	protected function between(array $where)
 	{
@@ -203,12 +203,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles IN clauses.
-	*
-	* @access  protected
-	* @param   array      $where  Where clause
-	* @return  string
-	*/
+	 * Compiles IN clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $where  Where clause
+	 * @return  string
+	 */
 
 	protected function in(array $where)
 	{
@@ -216,12 +216,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles IS NULL clauses.
-	*
-	* @access  protected
-	* @param   array      $where  Where clause
-	* @return  string
-	*/
+	 * Compiles IS NULL clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $where  Where clause
+	 * @return  string
+	 */
 
 	protected function null(array $where)
 	{
@@ -229,12 +229,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles EXISTS clauses.
-	*
-	* @access  protected
-	* @param   array      $where  Exists clause
-	* @return  string
-	*/
+	 * Compiles EXISTS clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $where  Exists clause
+	 * @return  string
+	 */
 
 	protected function exists($where)
 	{
@@ -242,12 +242,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles nested WHERE clauses.
-	*
-	* @access  protected
-	* @param   array      $where  Where clause
-	* @return  string
-	*/
+	 * Compiles nested WHERE clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $where  Where clause
+	 * @return  string
+	 */
 
 	protected function nestedWhere(array $where)
 	{
@@ -255,12 +255,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles WHERE clauses.
-	*
-	* @access  protected
-	* @param   array      $wheres  Array of where clauses
-	* @return  string
-	*/
+	 * Compiles WHERE clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $wheres  Array of where clauses
+	 * @return  string
+	 */
 
 	protected function wheres(array $wheres)
 	{
@@ -280,12 +280,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles JOIN clauses.
-	*
-	* @access  protected
-	* @param   array      $joins  Array of joins
-	* @return  string
-	*/
+	 * Compiles JOIN clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $joins  Array of joins
+	 * @return  string
+	 */
 
 	protected function joins(array $joins)
 	{
@@ -312,12 +312,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles GROUP BY clauses.
-	*
-	* @access  protected
-	* @param   array      $groupings  Array of column names
-	* @return  string
-	*/
+	 * Compiles GROUP BY clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $groupings  Array of column names
+	 * @return  string
+	 */
 
 	protected function groupings(array $groupings)
 	{
@@ -325,12 +325,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles ORDER BY clauses.
-	*
-	* @access  protected
-	* @param   array      $orderings  Array of order by clauses
-	* @return  string
-	*/
+	 * Compiles ORDER BY clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $orderings  Array of order by clauses
+	 * @return  string
+	 */
 
 	protected function orderings(array $orderings)
 	{
@@ -350,12 +350,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles HAVING clauses.
-	*
-	* @access  protected
-	* @param   array      $havings  Array of having clauses
-	* @return  string
-	*/
+	 * Compiles HAVING clauses.
+	 *
+	 * @access  protected
+	 * @param   array      $havings  Array of having clauses
+	 * @return  string
+	 */
 
 	protected function havings(array $havings)
 	{
@@ -375,12 +375,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles LIMIT clauses.
-	*
-	* @access  protected
-	* @param   int        $limit  Limit
-	* @return  string
-	*/
+	 * Compiles LIMIT clauses.
+	 *
+	 * @access  protected
+	 * @param   int        $limit  Limit
+	 * @return  string
+	 */
 
 	protected function limit($limit)
 	{
@@ -388,12 +388,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles OFFSET clauses.
-	*
-	* @access  protected
-	* @param   int        $offset  Limit
-	* @return  string
-	*/
+	 * Compiles OFFSET clauses.
+	 *
+	 * @access  protected
+	 * @param   int        $offset  Limit
+	 * @return  string
+	 */
 
 	protected function offset($offset)
 	{
@@ -401,11 +401,11 @@ class Compiler
 	}	
 
 	/**
-	* Compiles a SELECT query.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Compiles a SELECT query.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public function select()
 	{
@@ -425,12 +425,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles a INSERT query.
-	*
-	* @access  public
-	* @param   array   $values  Array of values
-	* @return  string
-	*/
+	 * Compiles a INSERT query.
+	 *
+	 * @access  public
+	 * @param   array   $values  Array of values
+	 * @return  string
+	 */
 
 	public function insert(array $values)
 	{
@@ -444,12 +444,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles a UPDATE query.
-	*
-	* @access  public
-	* @param   array   $values  Array of values
-	* @return  string
-	*/
+	 * Compiles a UPDATE query.
+	 *
+	 * @access  public
+	 * @param   array   $values  Array of values
+	 * @return  string
+	 */
 
 	public function update(array $values)
 	{
@@ -472,11 +472,11 @@ class Compiler
 	}
 
 	/**
-	* Compiles a DELETE query.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Compiles a DELETE query.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public function delete()
 	{

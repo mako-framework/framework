@@ -3,12 +3,12 @@
 namespace mako\database\query\compiler;
 
 /**
-* Compiles DB2 queries.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Compiles DB2 queries.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class DB2 extends \mako\database\query\Compiler
 {
@@ -29,11 +29,11 @@ class DB2 extends \mako\database\query\Compiler
 	//---------------------------------------------
 
 	/**
-	* Compiles a SELECT query.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Compiles a SELECT query.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public function select()
 	{

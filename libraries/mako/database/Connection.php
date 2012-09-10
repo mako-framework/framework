@@ -11,12 +11,12 @@ use \PDOException;
 use \RuntimeException;
 
 /**
-* Database connection.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Database connection.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Connection
 {
@@ -25,26 +25,26 @@ class Connection
 	//---------------------------------------------
 
 	/**
-	* PDO object.
-	*
-	* @var PDO
-	*/
+	 * PDO object.
+	 *
+	 * @var PDO
+	 */
 
 	public $pdo;
 
 	/**
-	* Enable query profiler?
-	*
-	* @var boolean
-	*/
+	 * Enable query profiler?
+	 *
+	 * @var boolean
+	 */
 
 	protected $profiler;
 
 	/**
-	* Query log.
-	*
-	* @var array
-	*/
+	 * Query log.
+	 *
+	 * @var array
+	 */
 
 	protected $log = array();
 
@@ -53,13 +53,13 @@ class Connection
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   string   $name      Connection name
-	* @param   array    $config    Connection configuration
-	* @param   boolean  $profiler  Enable profiling?
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string   $name      Connection name
+	 * @param   array    $config    Connection configuration
+	 * @param   boolean  $profiler  Enable profiling?
+	 */
 
 	public function __construct($name, array $config, $profiler)
 	{
@@ -104,13 +104,13 @@ class Connection
 	//---------------------------------------------
 
 	/**
-	* Adds a query to the query log.
-	*
-	* @access  protected
-	* @param   string     $query   SQL query
-	* @param   array      $params  Query parameters
-	* @param   int        $start   Start time in microseconds
-	*/
+	 * Adds a query to the query log.
+	 *
+	 * @access  protected
+	 * @param   string     $query   SQL query
+	 * @param   array      $params  Query parameters
+	 * @param   int        $start   Start time in microseconds
+	 */
 
 	protected function log($query, $params, $start)
 	{
@@ -129,11 +129,11 @@ class Connection
 	}
 
 	/**
-	* Returns the query log for the connection.
-	*
-	* @access  public
-	* @return  array
-	*/
+	 * Returns the query log for the connection.
+	 *
+	 * @access  public
+	 * @return  array
+	 */
 
 	public function profiler()
 	{
@@ -141,14 +141,14 @@ class Connection
 	}
 
 	/**
-	* Executes a query and returns the results.
-	*
-	* @access  public
-	* @param   string  $query   SQL query
-	* @param   array   $params  Query parameters
-	* @param   int     $fetch   Fetch mode
-	* @return  mixed
-	*/
+	 * Executes a query and returns the results.
+	 *
+	 * @access  public
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  Query parameters
+	 * @param   int     $fetch   Fetch mode
+	 * @return  mixed
+	 */
 
 	public function query($query, array $params = array(), $fetch = Database::FETCH_ALL)
 	{
@@ -210,13 +210,13 @@ class Connection
 	}
 
 	/**
-	* Returns an array containing all of the result set rows.
-	*
-	* @access  public
-	* @param   string  $query   SQL query
-	* @param   array   $params  Query parameters
-	* @return  array
-	*/
+	 * Returns an array containing all of the result set rows.
+	 *
+	 * @access  public
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  Query parameters
+	 * @return  array
+	 */
 
 	public function all($query, array $params = array())
 	{
@@ -224,13 +224,13 @@ class Connection
 	}
 
 	/**
-	* Returns the first row of the result set.
-	*
-	* @access  public
-	* @param   string  $query   SQL query
-	* @param   array   $params  Query params
-	* @return  mixed
-	*/
+	 * Returns the first row of the result set.
+	 *
+	 * @access  public
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  Query params
+	 * @return  mixed
+	 */
 
 	public function first($query, array $params = array())
 	{
@@ -238,13 +238,13 @@ class Connection
 	}
 
 	/**
-	* Returns the value of the first column of the first row of the result set.
-	*
-	* @access  public
-	* @param   string  $query   SQL query
-	* @param   array   $params  Query parameters
-	* @return  mixed
-	*/
+	 * Returns the value of the first column of the first row of the result set.
+	 *
+	 * @access  public
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  Query parameters
+	 * @return  mixed
+	 */
 
 	public function column($query, array $params = array())
 	{
@@ -252,12 +252,12 @@ class Connection
 	}
 
 	/**
-	* Returns a query builder instance.
-	*
-	* @access  public
-	* @param   mixed                $table  Table name or subquery
-	* @return  mako\database\Query
-	*/
+	 * Returns a query builder instance.
+	 *
+	 * @access  public
+	 * @param   mixed                $table  Table name or subquery
+	 * @return  mako\database\Query
+	 */
 
 	public function table($table)
 	{
@@ -265,12 +265,12 @@ class Connection
 	}
 
 	/**
-	* Executes queries and rolls back the transaction if any of them fail.
-	*
-	* @access  public
-	* @param   Closure  $queries  Queries
-	* @return  boolean
-	*/
+	 * Executes queries and rolls back the transaction if any of them fail.
+	 *
+	 * @access  public
+	 * @param   Closure  $queries  Queries
+	 * @return  boolean
+	 */
 
 	public function transaction(Closure $queries)
 	{

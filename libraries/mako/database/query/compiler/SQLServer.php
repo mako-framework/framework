@@ -3,12 +3,12 @@
 namespace mako\database\query\compiler;
 
 /**
-* Compiles SQL Server queries.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Compiles SQL Server queries.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class SQLServer extends \mako\database\query\Compiler
 {
@@ -17,10 +17,10 @@ class SQLServer extends \mako\database\query\Compiler
 	//---------------------------------------------
 
 	/**
-	* Wrapper used to escape table and column names.
-	*
-	* @var string
-	*/
+	 * Wrapper used to escape table and column names.
+	 *
+	 * @var string
+	 */
 	
 	protected $wrapper = '[%s]';
 
@@ -35,11 +35,11 @@ class SQLServer extends \mako\database\query\Compiler
 	//---------------------------------------------
 
 	/**
-	* Compiles a SELECT query.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Compiles a SELECT query.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public function select()
 	{

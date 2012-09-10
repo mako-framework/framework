@@ -5,12 +5,12 @@ namespace mako\database\query;
 use \mako\database\Query;
 
 /**
-* Subquery container.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Subquery container.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Subquery
 {
@@ -19,18 +19,18 @@ class Subquery
 	//---------------------------------------------
 
 	/**
-	* Query builder.
-	*
-	* @var mako\database\Query
-	*/
+	 * Query builder.
+	 *
+	 * @var mako\database\Query
+	 */
 
 	protected $query;
 
 	/**
-	* Alias.
-	*
-	* @var string
-	*/
+	 * Alias.
+	 *
+	 * @var string
+	 */
 
 	protected $alias = null;
 
@@ -39,12 +39,12 @@ class Subquery
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   mako\database\Query  $query  Query builder
-	* @param   string               $alias  Subquery alias
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   mako\database\Query  $query  Query builder
+	 * @param   string               $alias  Subquery alias
+	 */
 
 	public function __construct(Query $query, $alias = null)
 	{
@@ -57,11 +57,11 @@ class Subquery
 	//---------------------------------------------
 
 	/**
-	* Returns the compiled query.
-	*
-	* @access  public
-	* @return  array
-	*/
+	 * Returns the compiled query.
+	 *
+	 * @access  public
+	 * @return  array
+	 */
 
 	public function get()
 	{

@@ -3,12 +3,12 @@
 namespace mako\database\query\compiler;
 
 /**
-* Compiles Oracle queries.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Compiles Oracle queries.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Oracle extends \mako\database\query\Compiler
 {
@@ -29,11 +29,11 @@ class Oracle extends \mako\database\query\Compiler
 	//---------------------------------------------
 
 	/**
-	* Compiles a SELECT query.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Compiles a SELECT query.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public function select()
 	{

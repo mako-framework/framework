@@ -3,12 +3,12 @@
 namespace mako\database\query;
 
 /**
-* Raw SQL container.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Raw SQL container.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Raw
 {
@@ -17,10 +17,10 @@ class Raw
 	//---------------------------------------------
 
 	/**
-	* Raw SQL
-	*
-	* @var string
-	*/
+	 * Raw SQL
+	 *
+	 * @var string
+	 */
 
 	protected $sql;
 
@@ -29,11 +29,11 @@ class Raw
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   string  $sql  Raw SQL
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string  $sql  Raw SQL
+	 */
 
 	public function __construct($sql)
 	{
@@ -45,11 +45,11 @@ class Raw
 	//---------------------------------------------
 
 	/**
-	* Returns the raw SQL.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Returns the raw SQL.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public function get()
 	{
