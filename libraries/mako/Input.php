@@ -5,12 +5,12 @@ namespace mako;
 use \mako\Arr;
 
 /**
-* Input filtering and helpers.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Input filtering and helpers.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Input
 {
@@ -19,18 +19,18 @@ class Input
 	//---------------------------------------------
 
 	/**
-	* Holds the input array.
-	*
-	* @var array
-	*/
+	 * Holds the input array.
+	 *
+	 * @var array
+	 */
 
 	protected $input;
 	
 	/**
-	* Holds all the callback filtering functions that need to be run.
-	*
-	* @var array
-	*/
+	 * Holds all the callback filtering functions that need to be run.
+	 *
+	 * @var array
+	 */
 	
 	protected $filters = array();
 
@@ -39,11 +39,11 @@ class Input
 	//---------------------------------------------
 
 	/**
-	* Class constructor.
-	*
-	* @access  public
-	* @param   array  $input  Array to validate
-	*/
+	 * Class constructor.
+	 *
+	 * @access  public
+	 * @param   array  $input  Array to validate
+	 */
 
 	public function __construct(array & $input)
 	{
@@ -51,12 +51,12 @@ class Input
 	}
 
 	/**
-	* Factory method making method chaining possible right off the bat.
-	*
-	* @access  public
-	* @param   array          $input  Array to validate
-	* @return  mako\Validate
-	*/
+	 * Factory method making method chaining possible right off the bat.
+	 *
+	 * @access  public
+	 * @param   array          $input  Array to validate
+	 * @return  mako\Validate
+	 */
 
 	public static function factory(array & $input)
 	{
@@ -68,13 +68,13 @@ class Input
 	//---------------------------------------------
 	
 	/**
-	* Adds a filter to the list of callbacks.
-	*
-	* @access  public
-	* @param   mixed          $field     Field name
-	* @param   callback       $function  Filter function
-	* @return  mako\Validate
-	*/
+	 * Adds a filter to the list of callbacks.
+	 *
+	 * @access  public
+	 * @param   mixed          $field     Field name
+	 * @param   callback       $function  Filter function
+	 * @return  mako\Validate
+	 */
 	
 	public function filter($field, $function)
 	{
@@ -99,11 +99,11 @@ class Input
 	}
 
 	/**
-	* Runs all input filters.
-	*
-	* @access  public
-	* @return  array
-	*/
+	 * Runs all input filters.
+	 *
+	 * @access  public
+	 * @return  array
+	 */
 
 	public function process()
 	{
@@ -119,13 +119,13 @@ class Input
 	}
 
 	/**
-	* Fetch data from the $_GET array.
-	*
-	* @access  public
-	* @param   string  $key      (optional) Array key
-	* @param   mixed   $default  (optional) Default value
-	* @return  mixed
-	*/
+	 * Fetch data from the $_GET array.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
 
 	public static function get($key = null, $default = null)
 	{
@@ -133,13 +133,13 @@ class Input
 	}
 
 	/**
-	* Fetch data from the $_POST array.
-	*
-	* @access  public
-	* @param   string  $key      (optional) Array key
-	* @param   mixed   $default  (optional) Default value
-	* @return  mixed
-	*/
+	 * Fetch data from the $_POST array.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
 
 	public static function post($key = null, $default = null)
 	{
@@ -147,13 +147,13 @@ class Input
 	}
 
 	/**
-	* Fetch data from the $_COOKIE array.
-	*
-	* @access  public
-	* @param   string  $key      (optional) Array key
-	* @param   mixed   $default  (optional) Default value
-	* @return  mixed
-	*/
+	 * Fetch data from the $_COOKIE array.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
 
 	public static function cookie($key = null, $default = null)
 	{
@@ -161,13 +161,13 @@ class Input
 	}
 
 	/**
-	* Fetch data from the $_FILES array.
-	*
-	* @access  public
-	* @param   string  $key      (optional) Array key
-	* @param   mixed   $default  (optional) Default value
-	* @return  mixed
-	*/
+	 * Fetch data from the $_FILES array.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
 
 	public static function files($key = null, $default = null)
 	{
@@ -175,13 +175,13 @@ class Input
 	}
 
 	/**
-	* Fetch data from the $_SERVER array.
-	*
-	* @access  public
-	* @param   string  $key      (optional) Array key
-	* @param   mixed   $default  (optional) Default value
-	* @return  mixed
-	*/
+	 * Fetch data from the $_SERVER array.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
 
 	public static function server($key = null, $default = null)
 	{
@@ -189,13 +189,13 @@ class Input
 	}
 
 	/**
-	* Fetch data from the $_ENV array.
-	*
-	* @access  public
-	* @param   string  $key      (optional) Array key
-	* @param   mixed   $default  (optional) Default value
-	* @return  mixed
-	*/
+	 * Fetch data from the $_ENV array.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
 
 	public static function env($key = null, $default = null)
 	{
@@ -203,13 +203,13 @@ class Input
 	}
 
 	/**
-	* Fetch data from the $_SESSION array.
-	*
-	* @access  public
-	* @param   string  $key      (optional) Array key
-	* @param   mixed   $default  (optional) Default value
-	* @return  mixed
-	*/
+	 * Fetch data from the $_SESSION array.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
 
 	public static function session($key = null, $default = null)
 	{
@@ -217,12 +217,12 @@ class Input
 	}
 	
 	/**
-	* Returns PUT data.
-	*
-	* @access  public
-	* @param   mixed   $default  (optional) Default value
-	* @return  mixed
-	*/
+	 * Returns PUT data.
+	 *
+	 * @access  public
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
 
 	public static function put($default = null)
 	{

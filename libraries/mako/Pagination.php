@@ -7,12 +7,12 @@ use \mako\Config;
 use \mako\I18n;
 
 /**
-* Pagination class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Pagination class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Pagination
 {
@@ -21,50 +21,50 @@ class Pagination
 	//---------------------------------------------
 
 	/**
-	* Name of the $_GET key holding the current page number.
-	*
-	* @var string
-	*/
+	 * Name of the $_GET key holding the current page number.
+	 *
+	 * @var string
+	 */
 
 	protected $key;
 
 	/**
-	* Offset.
-	*
-	* @var int
-	*/
+	 * Offset.
+	 *
+	 * @var int
+	 */
 
 	protected $offset;
 	
 	/**
-	* Current page.
-	*
-	* @var int
-	*/
+	 * Current page.
+	 *
+	 * @var int
+	 */
 
 	protected $currentPage;
 
 	/**
-	* Number of pages.
-	*
-	* @var int
-	*/
+	 * Number of pages.
+	 *
+	 * @var int
+	 */
 
 	protected $pages;
 	
 	/**
-	* Number of items per page.
-	*
-	* @var int
-	*/
+	 * Number of items per page.
+	 *
+	 * @var int
+	 */
 	
 	protected $itemsPerPage;
 	
 	/**
-	* Maximum number of page links.
-	*
-	* @var int
-	*/
+	 * Maximum number of page links.
+	 *
+	 * @var int
+	 */
 	
 	protected $maxPageLinks;
 
@@ -73,10 +73,10 @@ class Pagination
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 */
 
 	public function __construct()
 	{
@@ -93,13 +93,13 @@ class Pagination
 	//---------------------------------------------
 
 	/**
-	* Calculates the offset and number of pages and returns the offset.
-	*
-	* @access  public
-	* @param   int     $itemCount     Number of items
-	* @param   int     $itemsPerPage  Number of items to display on each page
-	* @return  int
-	*/
+	 * Calculates the offset and number of pages and returns the offset.
+	 *
+	 * @access  public
+	 * @param   int     $itemCount     Number of items
+	 * @param   int     $itemsPerPage  Number of items to display on each page
+	 * @return  int
+	 */
 
 	public function offset($itemCount, $itemsPerPage = null)
 	{
@@ -111,14 +111,14 @@ class Pagination
 	}
 
 	/**
-	* Returns an associative array of pagination links.
-	*
-	* @access  public
-	* @param   string  $url        (optional) URL segments
-	* @param   array   $params     (optional) Associative array used to build URL-encoded query string
-	* @param   string  $separator  (optional) Argument separator
-	* @return  array
-	*/
+	 * Returns an associative array of pagination links.
+	 *
+	 * @access  public
+	 * @param   string  $url        (optional) URL segments
+	 * @param   array   $params     (optional) Associative array used to build URL-encoded query string
+	 * @param   string  $separator  (optional) Argument separator
+	 * @return  array
+	 */
 
 	public function links($url = '', array $params = array(), $separator = '&amp;')
 	{

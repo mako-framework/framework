@@ -5,12 +5,12 @@ namespace mako;
 use \SimpleXMLElement;
 
 /**
-* Converts arrays to different data formats.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Converts arrays to different data formats.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Format
 {
@@ -25,10 +25,10 @@ class Format
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -40,12 +40,12 @@ class Format
 	//---------------------------------------------
 
 	/**
-	* Converts an array to JSON.
-	*
-	* @access  public
-	* @param   array   $data  Array to convert
-	* @return  string
-	*/
+	 * Converts an array to JSON.
+	 *
+	 * @access  public
+	 * @param   array   $data  Array to convert
+	 * @return  string
+	 */
 
 	public static function json(array $data)
 	{
@@ -60,15 +60,15 @@ class Format
 	}
 
 	/**
-	* Converts an array to XML.
-	*
-	* @access  public
-	* @param   array   $data         Array to convert
-	* @param   string  $rootNode     (optional) Root node name
-	* @param   string  $unknownNode  (optional) Unknown node name
-	* @param   string  $charset      (optional) Character set
-	* @return  string
-	*/
+	 * Converts an array to XML.
+	 *
+	 * @access  public
+	 * @param   array   $data         Array to convert
+	 * @param   string  $rootNode     (optional) Root node name
+	 * @param   string  $unknownNode  (optional) Unknown node name
+	 * @param   string  $charset      (optional) Character set
+	 * @return  string
+	 */
 
 	public static function xml(array $data, $rootNode = 'items', $unknownNode = 'item', $charset = MAKO_CHARSET)
 	{
@@ -99,12 +99,12 @@ class Format
 	}
 
 	/**
-	* Converts an array to CSV.
-	*
-	* @access  public
-	* @param   array   $data  Array to convert
-	* @return  string
-	*/
+	 * Converts an array to CSV.
+	 *
+	 * @access  public
+	 * @param   array   $data  Array to convert
+	 * @return  string
+	 */
 
 	public static function csv(array $data)
 	{

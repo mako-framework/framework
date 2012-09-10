@@ -6,12 +6,12 @@ use \mako\Config;
 use \RuntimeException;
 
 /**
-* Collection of file related methods.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Collection of file related methods.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class File
 {
@@ -26,10 +26,10 @@ class File
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -41,13 +41,13 @@ class File
 	//---------------------------------------------
 
 	/**
-	* Returns filesize in a human friendly format.
-	*
-	* @access  public
-	* @param   int|string  $size    Path to file or size in bytes
-	* @param   boolean     $binary  (optional) True to use binary prefixes and false to use decimal prefixes
-	* @return  string
-	*/
+	 * Returns filesize in a human friendly format.
+	 *
+	 * @access  public
+	 * @param   int|string  $size    Path to file or size in bytes
+	 * @param   boolean     $binary  (optional) True to use binary prefixes and false to use decimal prefixes
+	 * @return  string
+	 */
 
 	public static function size($size, $binary = true)
 	{
@@ -80,13 +80,13 @@ class File
 	}
 	
 	/**
-	* Returns the mime type of a file. Returns false if the mime type is not found.
-	*
-	* @access  public
-	* @param   string   $file   Full path to the file
-	* @param   boolean  $guess  (optional) Set to false to disable mime type guessing
-	* @return  string
-	*/
+	 * Returns the mime type of a file. Returns false if the mime type is not found.
+	 *
+	 * @access  public
+	 * @param   string   $file   Full path to the file
+	 * @param   boolean  $guess  (optional) Set to false to disable mime type guessing
+	 * @return  string
+	 */
 	
 	public static function mime($file, $guess = true)
 	{
@@ -120,13 +120,13 @@ class File
 	}
 
 	/**
-	* Display a file in the browser.
-	*
-	* @access  public
-	* @param   string  $file         Full path to file
-	* @param   string  $contentType  (optional) Content type of the file
-	* @param   string  $filename     (optional) Filename of the download
-	*/
+	 * Display a file in the browser.
+	 *
+	 * @access  public
+	 * @param   string  $file         Full path to file
+	 * @param   string  $contentType  (optional) Content type of the file
+	 * @param   string  $filename     (optional) Filename of the download
+	 */
 
 	public static function display($file, $contentType = null, $filename = null)
 	{
@@ -165,14 +165,14 @@ class File
 	}
 
 	/**
-	* Forces a file to be downloaded.
-	*
-	* @access  public
-	* @param   string  $file         Full path to file
-	* @param   string  $contentType  (optional) Content type of the file
-	* @param   string  $filename     (optional) Filename of the download
-	* @param   int     $kbps         (optional) Max download speed in KiB/s
-	*/
+	 * Forces a file to be downloaded.
+	 *
+	 * @access  public
+	 * @param   string  $file         Full path to file
+	 * @param   string  $contentType  (optional) Content type of the file
+	 * @param   string  $filename     (optional) Filename of the download
+	 * @param   int     $kbps         (optional) Max download speed in KiB/s
+	 */
 
 	public static function download($file, $contentType = null, $filename = null, $kbps = 0)
 	{
@@ -235,12 +235,12 @@ class File
 	}
 
 	/**
-	* Splits a file into multiple pieces.
-	*
-	* @access  public
-	* @param   string  $file  Full path to file
-	* @param   int     $size  (optional) Piece size in MiB
-	*/
+	 * Splits a file into multiple pieces.
+	 *
+	 * @access  public
+	 * @param   string  $file  Full path to file
+	 * @param   int     $size  (optional) Piece size in MiB
+	 */
 
 	public static function split($file, $size = 10)
 	{
@@ -284,11 +284,11 @@ class File
 	}
 
 	/**
-	* Merge files that have been split using the File::split method.
-	*
-	* @access  public
-	* @param   string  $file  Full path to file
-	*/
+	 * Merge files that have been split using the File::split method.
+	 *
+	 * @access  public
+	 * @param   string  $file  Full path to file
+	 */
 
 	public static function merge($file)
 	{

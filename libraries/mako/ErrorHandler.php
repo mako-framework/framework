@@ -9,12 +9,12 @@ use \Exception;
 use \ErrorException;
 
 /**
-* Error handler.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Error handler.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class ErrorHandler
 {
@@ -29,10 +29,10 @@ class ErrorHandler
 	//---------------------------------------------
 	
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 	
 	protected function __construct()
 	{
@@ -44,14 +44,14 @@ class ErrorHandler
 	//---------------------------------------------
 
 	/**
-	* Returns an array of lines from a file.
-	*
-	* @access  public
-	* @param   string   $file     File in which you want to highlight a line
-	* @param   int      $line     Line number to highlight
-	* @param   int      $padding  (optional) Number of padding lines
-	* @return  array
-	*/
+	 * Returns an array of lines from a file.
+	 *
+	 * @access  public
+	 * @param   string   $file     File in which you want to highlight a line
+	 * @param   int      $line     Line number to highlight
+	 * @param   int      $padding  (optional) Number of padding lines
+	 * @return  array
+	 */
 
 	protected static function highlightCode($file, $line, $padding = 6)
 	{
@@ -100,12 +100,12 @@ class ErrorHandler
 	}
 	
 	/**
-	* Modifies the backtrace array.
-	*
-	* @access  protected
-	* @param   array      $backtrace  Array returned by the getTrace() method of an exception object
-	* @return  array
-	*/
+	 * Modifies the backtrace array.
+	 *
+	 * @access  protected
+	 * @param   array      $backtrace  Array returned by the getTrace() method of an exception object
+	 * @return  array
+	 */
 
 	protected static function formatBacktrace($backtrace)
 	{
@@ -183,11 +183,11 @@ class ErrorHandler
 	}
 	
 	/**
-	* Handles uncaught exceptions and returns a pretty error screen.
-	*
-	* @access  public
-	* @param   Exception  $exception  An exception object
-	*/
+	 * Handles uncaught exceptions and returns a pretty error screen.
+	 *
+	 * @access  public
+	 * @param   Exception  $exception  An exception object
+	 */
 
 	public static function exception($exception)
 	{

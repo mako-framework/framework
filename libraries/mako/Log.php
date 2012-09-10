@@ -6,12 +6,12 @@ use \mako\Config;
 use \RuntimeException;
 
 /**
-* Logginger class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Logginger class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Log
 {
@@ -20,74 +20,74 @@ class Log
 	//---------------------------------------------
 	
 	/**
-	* Log level.
-	*
-	* @var int
-	*/
+	 * Log level.
+	 *
+	 * @var int
+	 */
 	
 	const EMERGENCY = 1;
 	
 	/**
-	* Log level.
-	*
-	* @var int
-	*/
+	 * Log level.
+	 *
+	 * @var int
+	 */
 	
 	const ALERT = 2;
 	
 	/**
-	* Log level.
-	*
-	* @var int
-	*/
+	 * Log level.
+	 *
+	 * @var int
+	 */
 	
 	const CRITICAL = 3;
 	
 	/**
-	* Log level.
-	*
-	* @var int
-	*/
+	 * Log level.
+	 *
+	 * @var int
+	 */
 	
 	const ERROR = 4;
 	
 	/**
-	* Log level.
-	*
-	* @var int
-	*/
+	 * Log level.
+	 *
+	 * @var int
+	 */
 	
 	const WARNING = 5;
 	
 	/**
-	* Log level.
-	*
-	* @var int
-	*/
+	 * Log level.
+	 *
+	 * @var int
+	 */
 	
 	const NOTICE = 6;
 	
 	/**
-	* Log level.
-	*
-	* @var int
-	*/
+	 * Log level.
+	 *
+	 * @var int
+	 */
 	
 	const INFO = 7;
 	
 	/**
-	* Log level.
-	*
-	* @var int
-	*/
+	 * Log level.
+	 *
+	 * @var int
+	 */
 	
 	const DEBUG = 8;
 	
 	/**
-	* Holds all the logger objects.
-	*
-	* @var array
-	*/
+	 * Holds all the logger objects.
+	 *
+	 * @var array
+	 */
 	
 	protected static $instances = array();
 
@@ -96,10 +96,10 @@ class Log
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -111,11 +111,11 @@ class Log
 	//---------------------------------------------
 	
 	/**
-	* Returns an instance of the requested log configuration.
-	*
-	* @param   string            $name  (optional) Log configuration name
-	* @return  mako\log\Adapter
-	*/
+	 * Returns an instance of the requested log configuration.
+	 *
+	 * @param   string            $name  (optional) Log configuration name
+	 * @return  mako\log\Adapter
+	 */
 	
 	public static function instance($name = null)
 	{
@@ -139,13 +139,13 @@ class Log
 	}
 
 	/**
-	* Magic shortcut for writing to logs.
-	*
-	* @access  public
-	* @param   string   $name       Name of the log type
-	* @param   string   $arguments  Method arguments
-	* @return  boolean
-	*/
+	 * Magic shortcut for writing to logs.
+	 *
+	 * @access  public
+	 * @param   string   $name       Name of the log type
+	 * @param   string   $arguments  Method arguments
+	 * @return  boolean
+	 */
 
 	public static function __callStatic($name, $arguments)
 	{

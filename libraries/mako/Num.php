@@ -5,12 +5,12 @@ namespace mako;
 use \InvalidArgumentException;
 
 /**
-* Class containing number helper methods.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Class containing number helper methods.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Num
 {
@@ -25,10 +25,10 @@ class Num
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -40,12 +40,12 @@ class Num
 	//---------------------------------------------
 
 	/**
-	* Converts arabic numerals (1-3999) to roman numerals.
-	*
-	* @access  public
-	* @param   int     $int  Arabic numeral to convert
-	* @return  string
-	*/
+	 * Converts arabic numerals (1-3999) to roman numerals.
+	 *
+	 * @access  public
+	 * @param   int     $int  Arabic numeral to convert
+	 * @return  string
+	 */
 
 	public static function arabic2roman($int)
 	{
@@ -98,12 +98,12 @@ class Num
 	}
 
 	/**
-	* Converts roman numerals (I-MMMCMXCIX) to arabic numerals.
-	*
-	* @access  public
-	* @param   string  $str  Roman numeral to convert
-	* @return  int
-	*/
+	 * Converts roman numerals (I-MMMCMXCIX) to arabic numerals.
+	 *
+	 * @access  public
+	 * @param   string  $str  Roman numeral to convert
+	 * @return  int
+	 */
 
 	public static function roman2arabic($str)
 	{

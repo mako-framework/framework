@@ -7,12 +7,12 @@ use \mako\Cache;
 use \RuntimeException;
 
 /**
-* Internationalization class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Internationalization class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class I18n
 {
@@ -21,26 +21,26 @@ class I18n
 	//---------------------------------------------
 
 	/**
-	* Current language.
-	*
-	* @var string
-	*/
+	 * Current language.
+	 *
+	 * @var string
+	 */
 
 	protected static $language = 'en_US';
 
 	/**
-	* Array holding the language strings.
-	*
-	* @var array
-	*/
+	 * Array holding the language strings.
+	 *
+	 * @var array
+	 */
 
 	protected static $strings = array();
 
 	/**
-	* Array holding inflection rules.
-	*
-	* @var array
-	*/
+	 * Array holding inflection rules.
+	 *
+	 * @var array
+	 */
 
 	protected static $inflection = array();
 
@@ -49,10 +49,10 @@ class I18n
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -64,11 +64,11 @@ class I18n
 	//---------------------------------------------
 
 	/**
-	* Checks if a language pack exists and throws an exception if it doesn't.
-	*
-	* @access  protected
-	* @param   string     $language  Name of the language pack
-	*/
+	 * Checks if a language pack exists and throws an exception if it doesn't.
+	 *
+	 * @access  protected
+	 * @param   string     $language  Name of the language pack
+	 */
 
 	protected static function languageExists($language)
 	{
@@ -79,12 +79,12 @@ class I18n
 	}
 
 	/**
-	* Set and/or get the default language.
-	*
-	* @access  public
-	* @param   string  $language  (optional) Name of the language pack
-	* @return  string
-	*/
+	 * Set and/or get the default language.
+	 *
+	 * @access  public
+	 * @param   string  $language  (optional) Name of the language pack
+	 * @return  string
+	 */
 
 	public static function language($language = null)
 	{
@@ -99,15 +99,15 @@ class I18n
 	}
 
 	/**
-	* Returns a translated string of the current language. 
-	* If no translation exists then the submitted string will be returned.
-	*
-	* @access  public
-	* @param   string  $string    Text to translate
-	* @param   array   $vars      (optional) Value or array of values to replace in the translated text
-	* @param   string  $language  (optional) Name of the language you want to translate to
-	* @return  string
-	*/
+	 * Returns a translated string of the current language. 
+	 * If no translation exists then the submitted string will be returned.
+	 *
+	 * @access  public
+	 * @param   string  $string    Text to translate
+	 * @param   array   $vars      (optional) Value or array of values to replace in the translated text
+	 * @param   string  $language  (optional) Name of the language you want to translate to
+	 * @return  string
+	 */
 
 	public static function translate($string, array $vars = array(), $language = null)
 	{
@@ -124,14 +124,14 @@ class I18n
 	}
 
 	/**
-	* Returns the plural form of a noun.
-	*
-	* @access  public
-	* @param   string  $word      Noun to pluralize
-	* @param   int     $count     (optional) Number of "<noun>s"
-	* @param   string  $language  (optional) Language rules to use for pluralization
-	* @return  string
-	*/
+	 * Returns the plural form of a noun.
+	 *
+	 * @access  public
+	 * @param   string  $word      Noun to pluralize
+	 * @param   int     $count     (optional) Number of "<noun>s"
+	 * @param   string  $language  (optional) Language rules to use for pluralization
+	 * @return  string
+	 */
 
 	public static function plural($word, $count = null, $language = null)
 	{
@@ -146,11 +146,11 @@ class I18n
 	}
 
 	/**
-	* Loads the inflection rules for the requested language.
-	*
-	* @access  protected
-	* @param   string     $language  Name of the language pack
-	*/
+	 * Loads the inflection rules for the requested language.
+	 *
+	 * @access  protected
+	 * @param   string     $language  Name of the language pack
+	 */
 
 	protected static function loadInflection($language)
 	{
@@ -167,11 +167,11 @@ class I18n
 	}
 
 	/**
-	* Loads the translation strings for the requested language.
-	*
-	* @access  protected
-	* @param   string     $language  Name of the language pack
-	*/
+	 * Loads the translation strings for the requested language.
+	 *
+	 * @access  protected
+	 * @param   string     $language  Name of the language pack
+	 */
 
 	protected static function loadStrings($language)
 	{
