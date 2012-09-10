@@ -3,12 +3,12 @@
 namespace mako\view;
 
 /**
-* Template compiler.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Template compiler.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Compiler
 {
@@ -17,26 +17,26 @@ class Compiler
 	//---------------------------------------------
 
 	/**
-	* Path to raw template.
-	*
-	* @var string
-	*/
+	 * Path to raw template.
+	 *
+	 * @var string
+	 */
 
 	protected $template;
 
 	/**
-	* Path to compiled template.
-	*
-	* @var string
-	*/
+	 * Path to compiled template.
+	 *
+	 * @var string
+	 */
 
 	protected $compiled;
 
 	/**
-	* Compilation order.
-	*
-	* @var array
-	*/
+	 * Compilation order.
+	 *
+	 * @var array
+	 */
 
 	protected $compileOrder = array
 	(
@@ -53,12 +53,12 @@ class Compiler
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   string  $template  Path to raw template
-	* @param   string  $storage   Path to compiled template
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string  $template  Path to raw template
+	 * @param   string  $storage   Path to compiled template
+	 */
 
 	public function __construct($template, $compiled)
 	{
@@ -71,12 +71,12 @@ class Compiler
 	//---------------------------------------------
 
 	/**
-	* Compiles comments.
-	*
-	* @access  protected
-	* @param   string     $template  Template
-	* @return  string
-	*/
+	 * Compiles comments.
+	 *
+	 * @access  protected
+	 * @param   string     $template  Template
+	 * @return  string
+	 */
 
 	protected function comments($template)
 	{
@@ -86,12 +86,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles template extensions.
-	*
-	* @access  protected
-	* @param   string     $template  Template
-	* @return  string
-	*/
+	 * Compiles template extensions.
+	 *
+	 * @access  protected
+	 * @param   string     $template  Template
+	 * @return  string
+	 */
 
 	protected function extensions($template)
 	{
@@ -109,12 +109,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles view includes.
-	*
-	* @access  protected
-	* @param   string     $template  Template
-	* @return  string
-	*/
+	 * Compiles view includes.
+	 *
+	 * @access  protected
+	 * @param   string     $template  Template
+	 * @return  string
+	 */
 
 	protected function views($template)
 	{
@@ -124,12 +124,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles blocks.
-	*
-	* @access  protected
-	* @param   string     $template  Template
-	* @return  string
-	*/
+	 * Compiles blocks.
+	 *
+	 * @access  protected
+	 * @param   string     $template  Template
+	 * @return  string
+	 */
 
 	protected function blocks($template)
 	{
@@ -145,12 +145,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles control structures.
-	*
-	* @access  protected
-	* @param   string     $template  Template
-	* @return  string
-	*/
+	 * Compiles control structures.
+	 *
+	 * @access  protected
+	 * @param   string     $template  Template
+	 * @return  string
+	 */
 
 	protected function controlStructures($template)
 	{
@@ -164,12 +164,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles echos.
-	*
-	* @access  protected
-	* @param   string     $template  Template
-	* @return  string
-	*/
+	 * Compiles echos.
+	 *
+	 * @access  protected
+	 * @param   string     $template  Template
+	 * @return  string
+	 */
 
 	protected function echos($template)
 	{
@@ -203,12 +203,12 @@ class Compiler
 	}
 
 	/**
-	* Compiles templates into views.
-	*
-	* @access  public
-	* @param   string  $fileName  Path to template
-	* @return  string
-	*/
+	 * Compiles templates into views.
+	 *
+	 * @access  public
+	 * @param   string  $fileName  Path to template
+	 * @return  string
+	 */
 
 	public function compile()
 	{

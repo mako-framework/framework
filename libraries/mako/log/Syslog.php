@@ -5,12 +5,12 @@ namespace mako\log;
 use \mako\Log;
 
 /**
-* Syslog adapter.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Syslog adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Syslog extends \mako\log\Adapter
 {
@@ -19,10 +19,10 @@ class Syslog extends \mako\log\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Log types.
-	*
-	* @var array
-	*/
+	 * Log types.
+	 *
+	 * @var array
+	 */
 	
 	protected $types = array
 	(
@@ -41,11 +41,11 @@ class Syslog extends \mako\log\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   array   $config  Configuration
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   array   $config  Configuration
+	 */
 	
 	public function __construct(array $config)
 	{
@@ -53,10 +53,10 @@ class Syslog extends \mako\log\Adapter
 	}
 	
 	/**
-	* Destructor
-	*
-	* @access public
-	*/
+	 * Destructor
+	 *
+	 * @access public
+	 */
 	
 	public function __destruct()
 	{
@@ -68,13 +68,13 @@ class Syslog extends \mako\log\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Writes message to log.
-	*
-	* @access  public
-	* @param   string   $message  The message to write to the log
-	* @param   int      $type     (optional) Message type
-	* @return  boolean
-	*/
+	 * Writes message to log.
+	 *
+	 * @access  public
+	 * @param   string   $message  The message to write to the log
+	 * @param   int      $type     (optional) Message type
+	 * @return  boolean
+	 */
 	
 	public function write($message, $type = Log::ERROR)
 	{

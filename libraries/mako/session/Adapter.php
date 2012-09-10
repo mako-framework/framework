@@ -3,12 +3,12 @@
 namespace mako\session;
 
 /**
-* Session adapter.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Session adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 abstract class Adapter
 {
@@ -17,18 +17,18 @@ abstract class Adapter
 	//---------------------------------------------
 
 	/**
-	* Max session lifetime.
-	*
-	* @var int
-	*/
+	 * Max session lifetime.
+	 *
+	 * @var int
+	 */
 
 	protected $maxLifetime;
 
 	/**
-	* Session name.
-	*
-	* @var string
-	*/
+	 * Session name.
+	 *
+	 * @var string
+	 */
 
 	protected $sessionName;
 
@@ -37,10 +37,10 @@ abstract class Adapter
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 */
 	
 	public function __construct()
 	{
@@ -52,13 +52,13 @@ abstract class Adapter
 	//---------------------------------------------
 
 	/**
-	* Session "constructor".
-	*
-	* @access  public
-	* @param   string   $savePath     Save path
-	* @param   string   $sessionName  Session name
-	* @return  boolean
-	*/
+	 * Session "constructor".
+	 *
+	 * @access  public
+	 * @param   string   $savePath     Save path
+	 * @param   string   $sessionName  Session name
+	 * @return  boolean
+	 */
 
 	public function open($savePath, $sessionName)
 	{
@@ -68,11 +68,11 @@ abstract class Adapter
 	}
 
 	/**
-	* Session "destructor".
-	*
-	* @access  public
-	* @return  boolean
-	*/
+	 * Session "destructor".
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
 
 	public function close()
 	{
@@ -80,12 +80,12 @@ abstract class Adapter
 	}
 
 	/**
-	* Garbage collector.
-	*
-	* @access  public
-	* @param   int      $maxLifetime  Lifetime in secods
-	* @return  boolean
-	*/
+	 * Garbage collector.
+	 *
+	 * @access  public
+	 * @param   int      $maxLifetime  Lifetime in secods
+	 * @return  boolean
+	 */
 
 	public function gc($maxLifetime)
 	{

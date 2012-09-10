@@ -5,12 +5,12 @@ namespace mako\session;
 use \mako\Redis as MRedis;
 
 /**
-* Redis adapter.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Redis adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Redis extends \mako\session\Adapter
 {
@@ -19,10 +19,10 @@ class Redis extends \mako\session\Adapter
 	//---------------------------------------------
 
 	/**
-	* Redis object.
-	*
-	* @var mako\Redis
-	*/
+	 * Redis object.
+	 *
+	 * @var mako\Redis
+	 */
 
 	protected $redis;
 
@@ -31,11 +31,11 @@ class Redis extends \mako\session\Adapter
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   array   Configuration
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   array   Configuration
+	 */
 
 	public function __construct(array $config)
 	{
@@ -45,10 +45,10 @@ class Redis extends \mako\session\Adapter
 	}
 
 	/**
-	* Destructor.
-	*
-	* @access  public
-	*/
+	 * Destructor.
+	 *
+	 * @access  public
+	 */
 
 	public function __destruct()
 	{
@@ -62,12 +62,12 @@ class Redis extends \mako\session\Adapter
 	//---------------------------------------------
 
 	/**
-	* Returns session data.
-	*
-	* @access  public
-	* @param   string  $id  Session id
-	* @return  string
-	*/
+	 * Returns session data.
+	 *
+	 * @access  public
+	 * @param   string  $id  Session id
+	 * @return  string
+	 */
 
 	public function read($id)
 	{
@@ -75,12 +75,12 @@ class Redis extends \mako\session\Adapter
 	}
 
 	/**
-	* Writes data to the session.
-	*
-	* @access  public
-	* @param   string  $id    Session id
-	* @param   string  $data  Session data
-	*/
+	 * Writes data to the session.
+	 *
+	 * @access  public
+	 * @param   string  $id    Session id
+	 * @param   string  $data  Session data
+	 */
 
 	public function write($id, $data)
 	{
@@ -92,12 +92,12 @@ class Redis extends \mako\session\Adapter
 	}
 
 	/**
-	* Destroys the session.
-	*
-	* @access  public
-	* @param   string   $id  Session id
-	* @return  boolean
-	*/
+	 * Destroys the session.
+	 *
+	 * @access  public
+	 * @param   string   $id  Session id
+	 * @return  boolean
+	 */
 
 	public function destroy($id)
 	{

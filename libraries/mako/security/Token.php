@@ -5,12 +5,12 @@ namespace mako\security;
 use \mako\Session;
 
 /**
-* Generate and validate security tokens.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Generate and validate security tokens.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Token
 {
@@ -19,10 +19,10 @@ class Token
 	//---------------------------------------------
 	
 	/**
-	* Maximum number of tokens stored per session.
-	*
-	* @var int
-	*/
+	 * Maximum number of tokens stored per session.
+	 *
+	 * @var int
+	 */
 	
 	const MAX_TOKENS = 20;
 	
@@ -31,8 +31,10 @@ class Token
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*/
+	 * Protected constructor since this is a static class.
+	 * 
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -44,10 +46,10 @@ class Token
 	//---------------------------------------------
 	
 	/**
-	* Starts session if it doesn't exist.
-	*
-	* @access  protected
-	*/
+	 * Starts session if it doesn't exist.
+	 *
+	 * @access  protected
+	 */
 	
 	protected static function sessionStart()
 	{
@@ -58,11 +60,11 @@ class Token
 	}
 	
 	/**
-	* Returns random security token.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Returns random security token.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 	
 	public static function generate()
 	{
@@ -85,12 +87,12 @@ class Token
 	}
 	
 	/**
-	* Validates security token.
-	*
-	* @access  public
-	* @param   string   $token  Security token
-	* @return  boolean
-	*/
+	 * Validates security token.
+	 *
+	 * @access  public
+	 * @param   string   $token  Security token
+	 * @return  boolean
+	 */
 	
 	public static function validate($token)
 	{

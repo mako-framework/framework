@@ -6,12 +6,12 @@ use \PDOException;
 use \mako\Database as DB;
 
 /**
-* Redis adapter.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Database adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Database extends \mako\session\Adapter
 {
@@ -20,18 +20,18 @@ class Database extends \mako\session\Adapter
 	//---------------------------------------------
 
 	/**
-	* Database connection object.
-	*
-	* @var mako\database\Connection
-	*/
+	 * Database connection object.
+	 *
+	 * @var mako\database\Connection
+	 */
 
 	protected $connection;
 
 	/**
-	* Session table.
-	*
-	* @var string
-	*/
+	 * Session table.
+	 *
+	 * @var string
+	 */
 
 	protected $table;
 
@@ -40,11 +40,11 @@ class Database extends \mako\session\Adapter
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   array   $config  Configuration
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   array   $config  Configuration
+	 */
 
 	public function __construct(array $config)
 	{
@@ -56,10 +56,10 @@ class Database extends \mako\session\Adapter
 	}
 
 	/**
-	* Destructor.
-	*
-	* @access  public
-	*/
+	 * Destructor.
+	 *
+	 * @access  public
+	 */
 
 	public function __destruct()
 	{
@@ -78,11 +78,11 @@ class Database extends \mako\session\Adapter
 	//---------------------------------------------
 
 	/**
-	* Returns a query builder instance.
-	*
-	* @access  protected
-	* @return  mako\database\Query
-	*/
+	 * Returns a query builder instance.
+	 *
+	 * @access  protected
+	 * @return  mako\database\Query
+	 */
 
 	protected function table()
 	{
@@ -90,12 +90,12 @@ class Database extends \mako\session\Adapter
 	}
 
 	/**
-	* Returns session data.
-	*
-	* @access  public
-	* @param   string  $id  Session id
-	* @return  string
-	*/
+	 * Returns session data.
+	 *
+	 * @access  public
+	 * @param   string  $id  Session id
+	 * @return  string
+	 */
 
 	public function read($id)
 	{
@@ -112,12 +112,12 @@ class Database extends \mako\session\Adapter
 	}
 
 	/**
-	* Writes data to the session.
-	*
-	* @access  public
-	* @param   string  $id    Session id
-	* @param   string  $data  Session data
-	*/
+	 * Writes data to the session.
+	 *
+	 * @access  public
+	 * @param   string  $id    Session id
+	 * @param   string  $data  Session data
+	 */
 
 	public function write($id, $data)
 	{
@@ -139,12 +139,12 @@ class Database extends \mako\session\Adapter
 	}
 
 	/**
-	* Destroys the session.
-	*
-	* @access  public
-	* @param   string   $id  Session id
-	* @return  boolean
-	*/
+	 * Destroys the session.
+	 *
+	 * @access  public
+	 * @param   string   $id  Session id
+	 * @return  boolean
+	 */
 
 	public function destroy($id)
 	{
@@ -159,12 +159,12 @@ class Database extends \mako\session\Adapter
 	}
 
 	/**
-	* Garbage collector.
-	*
-	* @access  public
-	* @param   int      $maxLifetime  Lifetime in secods
-	* @return  boolean
-	*/
+	 * Garbage collector.
+	 *
+	 * @access  public
+	 * @param   int      $maxLifetime  Lifetime in secods
+	 * @return  boolean
+	 */
 
 	public function gc($maxLifetime)
 	{

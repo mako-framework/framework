@@ -5,12 +5,12 @@ namespace mako\crypto;
 use \RuntimeException;
 
 /**
-* Mcrypt cryptography adapter.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Mcrypt cryptography adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Mcrypt extends \mako\crypto\Adapter
 {
@@ -19,34 +19,34 @@ class Mcrypt extends \mako\crypto\Adapter
 	//---------------------------------------------
 	
 	/**
-	* The cipher method to use for encryption.
-	*
-	* @var int
-	*/
+	 * The cipher method to use for encryption.
+	 *
+	 * @var int
+	 */
 	
 	protected $cipher;
 	
 	/**
-	* Key used to encrypt/decrypt data.
-	*
-	* @var string
-	*/
+	 * Key used to encrypt/decrypt data.
+	 *
+	 * @var string
+	 */
 	
 	protected $key;
 	
 	/**
-	* Encryption mode.
-	*
-	* @var int
-	*/
+	 * Encryption mode.
+	 *
+	 * @var int
+	 */
 	
 	protected $mode;
 	
 	/**
-	* Initialization vector size.
-	*
-	* @var string
-	*/
+	 * Initialization vector size.
+	 *
+	 * @var string
+	 */
 	
 	protected $ivSize;
 	
@@ -55,11 +55,11 @@ class Mcrypt extends \mako\crypto\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   array   $config  Configuration
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   array   $config  Configuration
+	 */
 	
 	public function __construct(array $config)
 	{
@@ -86,12 +86,12 @@ class Mcrypt extends \mako\crypto\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Encrypts data.
-	*
-	* @access  public
-	* @param   string  $string  String to encrypt
-	* @return  string
-	*/
+	 * Encrypts data.
+	 *
+	 * @access  public
+	 * @param   string  $string  String to encrypt
+	 * @return  string
+	 */
 	
 	public function encrypt($string)
 	{
@@ -101,12 +101,12 @@ class Mcrypt extends \mako\crypto\Adapter
 	}
 	
 	/**
-	* Decrypts data.
-	*
-	* @access  public
-	* @param   string  $string  String to decrypt
-	* @return  string
-	*/
+	 * Decrypts data.
+	 *
+	 * @access  public
+	 * @param   string  $string  String to decrypt
+	 * @return  string
+	 */
 	
 	public function decrypt($string)
 	{

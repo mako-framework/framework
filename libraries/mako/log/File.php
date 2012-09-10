@@ -5,12 +5,12 @@ namespace mako\log;
 use \mako\Log;
 
 /**
-* File adapter.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * File adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class File extends \mako\log\Adapter
 {
@@ -19,18 +19,18 @@ class File extends \mako\log\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Path to the logs.
-	*
-	* @var string
-	*/
+	 * Path to the logs.
+	 *
+	 * @var string
+	 */
 	
 	protected $path;
 	
 	/**
-	* Log types.
-	*
-	* @var array
-	*/
+	 * Log types.
+	 *
+	 * @var array
+	 */
 	
 	protected $types = array
 	(
@@ -49,11 +49,11 @@ class File extends \mako\log\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   array   $config  Configuration
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   array   $config  Configuration
+	 */
 	
 	public function __construct(array $config)
 	{
@@ -65,13 +65,13 @@ class File extends \mako\log\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Writes message to log.
-	*
-	* @access  public
-	* @param   string   $message  The message to write to the log
-	* @param   int      $type     (optional) Message type
-	* @return  boolean
-	*/
+	 * Writes message to log.
+	 *
+	 * @access  public
+	 * @param   string   $message  The message to write to the log
+	 * @param   int      $type     (optional) Message type
+	 * @return  boolean
+	 */
 	
 	public function write($message, $type = Log::ERROR)
 	{

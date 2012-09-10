@@ -3,12 +3,12 @@
 namespace mako\view;
 
 /**
-* View blocks.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * View blocks.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Block
 {
@@ -17,18 +17,18 @@ class Block
 	//---------------------------------------------
 
 	/**
-	* View blocks.
-	*
-	* @var array 
-	*/
+	 * View blocks.
+	 *
+	 * @var array 
+	 */
 
 	protected static $blocks = array();
 
 	/**
-	* Open view blocks.
-	*
-	* @var array
-	*/
+	 * Open view blocks.
+	 *
+	 * @var array
+	 */
 
 	protected static $openBlocks = array();
 
@@ -37,10 +37,10 @@ class Block
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -52,11 +52,11 @@ class Block
 	//---------------------------------------------
 
 	/**
-	* Opens a view block.
-	*
-	* @access  public
-	* @param   string  $name  Block name
-	*/
+	 * Opens a view block.
+	 *
+	 * @access  public
+	 * @param   string  $name  Block name
+	 */
 
 	public static function open($name)
 	{
@@ -64,10 +64,10 @@ class Block
 	}
 
 	/**
-	* Closes a view block.
-	*
-	* @access  public
-	*/
+	 * Closes a view block.
+	 *
+	 * @access  public
+	 */
 
 	public static function close()
 	{
@@ -75,12 +75,12 @@ class Block
 	}
 
 	/**
-	* Returns TRUE if the block exists and FALSE if not.
-	*
-	* @access  public
-	* @param   string   $name  Block name
-	* @return  boolean
-	*/
+	 * Returns TRUE if the block exists and FALSE if not.
+	 *
+	 * @access  public
+	 * @param   string   $name  Block name
+	 * @return  boolean
+	 */
 
 	public static function exists($name)
 	{
@@ -88,12 +88,12 @@ class Block
 	}
 
 	/**
-	* Returns the contents of a view block.
-	*
-	* @access  public
-	* @param   string  $name  Block name
-	* @return  string
-	*/
+	 * Returns the contents of a view block.
+	 *
+	 * @access  public
+	 * @param   string  $name  Block name
+	 * @return  string
+	 */
 
 	public static function get($name)
 	{

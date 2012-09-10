@@ -6,12 +6,12 @@ use \Closure;
 use \mako\String;
 
 /**
-* Secure password hashing and validation.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Secure password hashing and validation.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Password
 {
@@ -20,10 +20,10 @@ class Password
 	//---------------------------------------------
 
 	/**
-	* Default computing cost.
-	*
-	* @var int
-	*/
+	 * Default computing cost.
+	 *
+	 * @var int
+	 */
 
 	const COST = 10;
 
@@ -32,10 +32,10 @@ class Password
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -47,12 +47,12 @@ class Password
 	//---------------------------------------------
 
 	/**
-	* Checks if a hash is generated using something other than bcrypt.
-	*
-	* @access  public
-	* @param   string   $hash  Hash to check
-	* @return  boolean
-	*/
+	 * Checks if a hash is generated using something other than bcrypt.
+	 *
+	 * @access  public
+	 * @param   string   $hash  Hash to check
+	 * @return  boolean
+	 */
 
 	public static function isLegacyHash($hash)
 	{
@@ -60,13 +60,13 @@ class Password
 	}
 
 	/**
-	* Returns a bcrypt hash of the password.
-	*
-	* @access  public
-	* @param   string  $password  Password
-	* @param   int     $cost      (optional) Computing cost
-	* @return  string
-	*/
+	 * Returns a bcrypt hash of the password.
+	 *
+	 * @access  public
+	 * @param   string  $password  Password
+	 * @param   int     $cost      (optional) Computing cost
+	 * @return  string
+	 */
 
 	public static function hash($password, $cost = Password::COST)
 	{
@@ -98,14 +98,14 @@ class Password
 	}
 
 	/**
-	* Validates a password hash.
-	*
-	* @access  public
-	* @param   string   $password     Password
-	* @param   string   $hash         Password hash
-	* @param   Closure  $legacyCheck  (optional) Legacy check
-	* @return  boolean
-	*/
+	 * Validates a password hash.
+	 *
+	 * @access  public
+	 * @param   string   $password     Password
+	 * @param   string   $hash         Password hash
+	 * @param   Closure  $legacyCheck  (optional) Legacy check
+	 * @return  boolean
+	 */
 
 	public static function validate($password, $hash, Closure $legacyCheck = null)
 	{

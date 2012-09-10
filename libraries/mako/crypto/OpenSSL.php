@@ -5,12 +5,12 @@ namespace mako\crypto;
 use \RuntimeException;
 
 /**
-* OpenSSL cryptography adapter.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * OpenSSL cryptography adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class OpenSSL extends \mako\crypto\Adapter
 {
@@ -19,18 +19,18 @@ class OpenSSL extends \mako\crypto\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Key used to encrypt/decrypt data.
-	*
-	* @var string
-	*/
+	 * Key used to encrypt/decrypt data.
+	 *
+	 * @var string
+	 */
 	
 	protected $key;
 	
 	/**
-	* The cipher method to use for encryption.
-	*
-	* @var string
-	*/
+	 * The cipher method to use for encryption.
+	 *
+	 * @var string
+	 */
 	
 	protected $cipher;
 	
@@ -39,11 +39,11 @@ class OpenSSL extends \mako\crypto\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   array   $config  Configuration
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   array   $config  Configuration
+	 */
 	
 	public function __construct(array $config)
 	{
@@ -61,12 +61,12 @@ class OpenSSL extends \mako\crypto\Adapter
 	//---------------------------------------------
 	
 	/**
-	* Encrypts data.
-	*
-	* @access  public
-	* @param   string  $string  String to encrypt
-	* @return  string
-	*/
+	 * Encrypts data.
+	 *
+	 * @access  public
+	 * @param   string  $string  String to encrypt
+	 * @return  string
+	 */
 	
 	public function encrypt($string)
 	{
@@ -74,12 +74,12 @@ class OpenSSL extends \mako\crypto\Adapter
 	}
 	
 	/**
-	* Decrypts data.
-	*
-	* @access  public
-	* @param   string  $string  String to decrypt
-	* @return  string
-	*/
+	 * Decrypts data.
+	 *
+	 * @access  public
+	 * @param   string  $string  String to decrypt
+	 * @return  string
+	 */
 	
 	public function decrypt($string)
 	{
