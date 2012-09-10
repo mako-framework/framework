@@ -6,12 +6,12 @@ use \mako\Config;
 use \mako\Request;
 
 /**
-* URL helper.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * URL helper.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class URL
 {
@@ -20,10 +20,10 @@ class URL
 	//---------------------------------------------
 
 	/**
-	* Are we using clean URLs?
-	*
-	* @var boolean
-	*/
+	 * Are we using clean URLs?
+	 *
+	 * @var boolean
+	 */
 
 	protected static $clean;
 
@@ -32,10 +32,10 @@ class URL
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -47,11 +47,11 @@ class URL
 	//---------------------------------------------
 
 	/**
-	* Returns the base URL of the application.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Returns the base URL of the application.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public static function base()
 	{
@@ -81,14 +81,14 @@ class URL
 	}
 
 	/**
-	* Returns a mako framework URL.
-	*
-	* @access  public
-	* @param   string   $route      URL segments
-	* @param   array    $params     (optional) Associative array used to build URL-encoded query string
-	* @param   string   $separator  (optional) Argument separator
-	* @return  string
-	*/
+	 * Returns a mako framework URL.
+	 *
+	 * @access  public
+	 * @param   string   $route      URL segments
+	 * @param   array    $params     (optional) Associative array used to build URL-encoded query string
+	 * @param   string   $separator  (optional) Argument separator
+	 * @return  string
+	 */
 
 	public static function to($route = '', array $params = array(), $separator = '&amp;')
 	{
@@ -103,13 +103,13 @@ class URL
 	}
 
 	/**
-	* Returns the current URL of the main request.
-	*
-	* @access  public
-	* @param   array    $params     (optional) Associative array used to build URL-encoded query string
-	* @param   string   $separator  (optional) Argument separator
-	* @return  string
-	*/
+	 * Returns the current URL of the main request.
+	 *
+	 * @access  public
+	 * @param   array    $params     (optional) Associative array used to build URL-encoded query string
+	 * @param   string   $separator  (optional) Argument separator
+	 * @return  string
+	 */
 
 	public static function current(array $params = array(), $separator = '&amp;')
 	{
@@ -117,12 +117,12 @@ class URL
 	}
 
 	/**
-	* Returns TRUE if the pattern matches the current URL and FALSE if not.
-	*
-	* @access  public
-	* @param   string   $pattern  Pattern to match
-	* @return  boolean
-	*/
+	 * Returns TRUE if the pattern matches the current URL and FALSE if not.
+	 *
+	 * @access  public
+	 * @param   string   $pattern  Pattern to match
+	 * @return  boolean
+	 */
 
 	public static function matches($pattern)
 	{

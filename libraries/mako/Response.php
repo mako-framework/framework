@@ -7,12 +7,12 @@ use \mako\Debug;
 use \mako\Request;
 
 /**
-* Mako response class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Mako response class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Response
 {
@@ -21,26 +21,26 @@ class Response
 	//---------------------------------------------
 	
 	/**
-	* Holds the response body.
-	*
-	* @var string
-	*/
+	 * Holds the response body.
+	 *
+	 * @var string
+	 */
 	
 	protected $body = '';
 
 	/**
-	* Check ETag?
-	*
-	* @var boolean
-	*/
+	 * Check ETag?
+	 *
+	 * @var boolean
+	 */
 
 	protected $checkEtag = false;
 	
 	/**
-	* List of HTTP status codes.
-	*
-	* @var array
-	*/
+	 * List of HTTP status codes.
+	 *
+	 * @var array
+	 */
 	
 	protected $statusCodes = array
 	(
@@ -118,10 +118,10 @@ class Response
 	);
 	
 	/**
-	* Output filter (callback function).
-	*
-	* @var callback
-	*/
+	 * Output filter (callback function).
+	 *
+	 * @var callback
+	 */
 	
 	protected $outputFilter;
 	
@@ -130,11 +130,11 @@ class Response
 	//---------------------------------------------
 	
 	/**
-	* Constructor.
-	*
-	* @access  protected
-	* @param   string     $body  (optional) Response body
-	*/
+	 * Constructor.
+	 *
+	 * @access  protected
+	 * @param   string     $body  (optional) Response body
+	 */
 	
 	public function __construct($body = null)
 	{
@@ -145,12 +145,12 @@ class Response
 	}
 
 	/**
-	* Factory method making method chaining possible right off the bat.
-	*
-	* @access  public
-	* @param   string         $body  (optional) Response body
-	* @return  mako\Response
-	*/
+	 * Factory method making method chaining possible right off the bat.
+	 *
+	 * @access  public
+	 * @param   string         $body  (optional) Response body
+	 * @return  mako\Response
+	 */
 
 	public static function factory($body = null)
 	{
@@ -162,11 +162,11 @@ class Response
 	//---------------------------------------------
 
 	/**
-	* Sets the response body.
-	*
-	* @access  public
-	* @param   string    $body  Response body
-	*/
+	 * Sets the response body.
+	 *
+	 * @access  public
+	 * @param   string    $body  Response body
+	 */
 
 	public function body($body)
 	{
@@ -174,11 +174,11 @@ class Response
 	}
 	
 	/**
-	* Adds output filter that all output will be passed through before being sent.
-	*
-	* @access  public
-	* @param   callback  $filter  Callback function used to filter output
-	*/
+	 * Adds output filter that all output will be passed through before being sent.
+	 *
+	 * @access  public
+	 * @param   callback  $filter  Callback function used to filter output
+	 */
 	
 	public function filter($filter)
 	{
@@ -186,11 +186,11 @@ class Response
 	}
 	
 	/**
-	* Sends HTTP status header.
-	*
-	* @access  public
-	* @param   int     HTTP status code
-	*/
+	 * Sends HTTP status header.
+	 *
+	 * @access  public
+	 * @param   int     HTTP status code
+	 */
 	
 	public function status($statusCode)
 	{
@@ -211,12 +211,12 @@ class Response
 	}
 	
 	/**
-	* Redirects to another location.
-	*
-	* @access  public
-	* @param   string  $location    (optional) Location
-	* @param   int     $statusCode  (optional) HTTP status code
-	*/
+	 * Redirects to another location.
+	 *
+	 * @access  public
+	 * @param   string  $location    (optional) Location
+	 * @param   int     $statusCode  (optional) HTTP status code
+	 */
 	
 	public function redirect($location = '', $statusCode = 302)
 	{
@@ -233,10 +233,10 @@ class Response
 	}
 
 	/**
-	* Will enable response cache using ETags.
-	*
-	* @access  public
-	*/
+	 * Will enable response cache using ETags.
+	 *
+	 * @access  public
+	 */
 
 	public function cache()
 	{
@@ -244,11 +244,11 @@ class Response
 	}
 	
 	/**
-	* Send output to browser.
-	*
-	* @access  public
-	* @param   int     $statusCode  (optional) HTTP status code
-	*/
+	 * Send output to browser.
+	 *
+	 * @access  public
+	 * @param   int     $statusCode  (optional) HTTP status code
+	 */
 	
 	public function send($statusCode = null)
 	{
@@ -305,11 +305,11 @@ class Response
 	}
 
 	/**
-	* Method that magically converts the response object into a string.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Method that magically converts the response object into a string.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public function __toString()
 	{

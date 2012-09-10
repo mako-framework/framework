@@ -11,12 +11,12 @@ use \ReflectionClass;
 class RequestException extends RuntimeException{}
 
 /**
-* Routes the request and executes the controller.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Routes the request and executes the controller.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Request
 {
@@ -25,114 +25,114 @@ class Request
 	//---------------------------------------------
 	
 	/**
-	* Holds the route passed to the constructor.
-	*
-	* @var string
-	*/
+	 * Holds the route passed to the constructor.
+	 *
+	 * @var string
+	 */
 
 	protected $route;
 
 	/**
-	* Holds the route to the main request.
-	*
-	* @var string
-	*/
+	 * Holds the route to the main request.
+	 *
+	 * @var string
+	 */
 
 	protected static $mainRoute;
 	
 	/**
-	* Default route.
-	*
-	* @var string
-	*/
+	 * Default route.
+	 *
+	 * @var string
+	 */
 	
 	protected $defaultRoute;
 	
 	/**
-	* Custom routes.
-	*
-	* @var array
-	*/
+	 * Custom routes.
+	 *
+	 * @var array
+	 */
 	
 	protected $customRoutes;
 
 	/**
-	* Is this the main request?
-	*
-	* @var array
-	*/
+	 * Is this the main request?
+	 *
+	 * @var array
+	 */
 
 	protected $isMain = true;
 	
 	/**
-	* Ip address of the cilent that made the request.
-	*
-	* @var string
-	*/
+	 * Ip address of the cilent that made the request.
+	 *
+	 * @var string
+	 */
 	
 	protected static $ip = '127.0.0.1';
 
 	/**
-	* From where did the request originate?
-	*
-	* @var string
-	*/
+	 * From where did the request originate?
+	 *
+	 * @var string
+	 */
 
 	protected static $referer;
 
 	/**
-	* Which request method was used?
-	*
-	* @var string
-	*/
+	 * Which request method was used?
+	 *
+	 * @var string
+	 */
 
 	protected static $method;
 
 	/**
-	* Is this an Ajax request?
-	*
-	* @var boolean
-	*/
+	 * Is this an Ajax request?
+	 *
+	 * @var boolean
+	 */
 
 	protected static $isAjax;
 
 	/**
-	* Was the request made using HTTPS?
-	*
-	* @var boolean
-	*/
+	 * Was the request made using HTTPS?
+	 *
+	 * @var boolean
+	 */
 
 	protected static $secure;
 
 	/**
-	* Array holding the arguments of the action method.
-	*
-	* @var array
-	*/
+	 * Array holding the arguments of the action method.
+	 *
+	 * @var array
+	 */
 
 	protected $actionArgs;
 
 	/**
-	* Name of the controller.
-	*
-	* @var string
-	*/
+	 * Name of the controller.
+	 *
+	 * @var string
+	 */
 
 	protected $controller;
 
 	/**
-	* Name of the action.
-	*
-	* @var string
-	*/
+	 * Name of the action.
+	 *
+	 * @var string
+	 */
 
 	protected $action;
 
 	/**
-	* Namespace of the controller class.
-	*
-	* @var string
-	*/
+	 * Namespace of the controller class.
+	 *
+	 * @var string
+	 */
 
 	protected $namespace;
 
@@ -141,11 +141,11 @@ class Request
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   string  $route  (optional) URL segments
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string  $route  (optional) URL segments
+	 */
 
 	public function __construct($route = null)
 	{
@@ -214,12 +214,12 @@ class Request
 	}
 
 	/**
-	* Factory method making method chaining possible right off the bat.
-	*
-	* @access  public
-	* @param   string        $route  (optional) URL segments
-	* @return  mako\Request
-	*/
+	 * Factory method making method chaining possible right off the bat.
+	 *
+	 * @access  public
+	 * @param   string        $route  (optional) URL segments
+	 * @return  mako\Request
+	 */
 
 	public static function factory($route = null)
 	{
@@ -231,11 +231,11 @@ class Request
 	//---------------------------------------------
 
 	/**
-	* Routes the request to the appropriate controller action.
-	*
-	* @access  protected
-	* @return  boolean
-	*/
+	 * Routes the request to the appropriate controller action.
+	 *
+	 * @access  protected
+	 * @return  boolean
+	 */
 
 	protected function router()
 	{
@@ -382,11 +382,11 @@ class Request
 	}
 
 	/**
-	* Executes the controller and action found by the route method.
-	*
-	* @access  public
-	* @return  mako\Response
-	*/
+	 * Executes the controller and action found by the route method.
+	 *
+	 * @access  public
+	 * @return  mako\Response
+	 */
 
 	public function execute()
 	{
@@ -462,11 +462,11 @@ class Request
 	}
 
 	/**
-	* Returns the name of the requested action.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Returns the name of the requested action.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public function action()
 	{
@@ -474,11 +474,11 @@ class Request
 	}
 
 	/**
-	* Returns the name of the requested controller.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Returns the name of the requested controller.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public function controller()
 	{
@@ -486,11 +486,11 @@ class Request
 	}
 
 	/**
-	* Is this the main request?
-	*
-	* @access  public
-	* @return  boolean
-	*/
+	 * Is this the main request?
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
 
 	public function isMain()
 	{
@@ -498,11 +498,11 @@ class Request
 	}
 	
 	/**
-	* Returns the ip of the client that made the request.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Returns the ip of the client that made the request.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 	
 	public static function ip()
 	{
@@ -510,12 +510,12 @@ class Request
 	}
 
 	/**
-	* From where did the request originate?
-	*
-	* @access  public
-	* @param   string  $default  (optional) Value to return if no referer is set
-	* @return  string
-	*/
+	 * From where did the request originate?
+	 *
+	 * @access  public
+	 * @param   string  $default  (optional) Value to return if no referer is set
+	 * @return  string
+	 */
 
 	public static function referer($default = '')
 	{
@@ -523,11 +523,11 @@ class Request
 	}
 
 	/**
-	* Returns the route of the main request.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Returns the route of the main request.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public static function route()
 	{
@@ -535,11 +535,11 @@ class Request
 	}
 
 	/**
-	* Which request method was used?
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Which request method was used?
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public static function method()
 	{
@@ -547,11 +547,11 @@ class Request
 	}
 
 	/**
-	* Is this an Ajax request?
-	*
-	* @access  public
-	* @return  boolean
-	*/
+	 * Is this an Ajax request?
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
 
 	public static function isAjax()
 	{
@@ -559,11 +559,11 @@ class Request
 	}
 
 	/**
-	* Was the reqeust made using HTTPS?
-	*
-	* @access  public
-	* @return  boolean
-	*/
+	 * Was the reqeust made using HTTPS?
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
 
 	public static function isSecure()
 	{

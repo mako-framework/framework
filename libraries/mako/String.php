@@ -5,12 +5,12 @@ namespace mako;
 use \mako\HTML;
 
 /**
-* Collection of string manipulation methods.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Collection of string manipulation methods.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class String
 {
@@ -19,42 +19,42 @@ class String
 	//---------------------------------------------
 
 	/**
-	* Alphanumeric characters.
-	*
-	* @var string
-	*/
+	 * Alphanumeric characters.
+	 *
+	 * @var string
+	 */
 
 	const ALNUM = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	/**
-	* Alphabetic characters.
-	*
-	* @var string
-	*/
+	 * Alphabetic characters.
+	 *
+	 * @var string
+	 */
 
 	const ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	/**
-	* Hexadecimal characters.
-	*
-	* @var string
-	*/
+	 * Hexadecimal characters.
+	 *
+	 * @var string
+	 */
 	
 	const HEXDEC = '0123456789abcdef';
 
 	/**
-	* Numeric characters.
-	*
-	* @var string
-	*/
+	 * Numeric characters.
+	 *
+	 * @var string
+	 */
 
 	const NUMERIC = '0123456789';
 
 	/**
-	* ASCII symbols.
-	*
-	* @var string
-	*/
+	 * ASCII symbols.
+	 *
+	 * @var string
+	 */
 
 	const SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
@@ -63,10 +63,10 @@ class String
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -78,12 +78,12 @@ class String
 	//---------------------------------------------
 
 	/**
-	* Replaces newline with <br> or <br />.
-	*
-	* @access  public
-	* @param   string  $string  The input string
-	* @return  string
-	*/
+	 * Replaces newline with <br> or <br />.
+	 *
+	 * @access  public
+	 * @param   string  $string  The input string
+	 * @return  string
+	 */
 
 	public static function nl2br($string)
 	{
@@ -91,12 +91,12 @@ class String
 	}
 
 	/**
-	* Replaces <br> and <br /> with newline.
-	*
-	* @access  public
-	* @param   string  $string  The input string
-	* @return  string
-	*/
+	 * Replaces <br> and <br /> with newline.
+	 *
+	 * @access  public
+	 * @param   string  $string  The input string
+	 * @return  string
+	 */
 
 	public static function br2nl($string)
 	{
@@ -104,12 +104,12 @@ class String
 	}
 
 	/**
-	* Converts camel case to underscored.
-	*
-	* @access  public
-	* @param   string  $string  The input string
-	* @return  string
-	*/
+	 * Converts camel case to underscored.
+	 *
+	 * @access  public
+	 * @param   string  $string  The input string
+	 * @return  string
+	 */
 
 	public static function camel2underscored($string)
 	{
@@ -117,13 +117,13 @@ class String
 	}
 
 	/**
-	* Converts underscored to camel case.
-	*
-	* @access  public
-	* @param   string   $string  The input string
-	* @param   boolean  $upper   (optional) Return upper case camelCase?
-	* @return  string
-	*/
+	 * Converts underscored to camel case.
+	 *
+	 * @access  public
+	 * @param   string   $string  The input string
+	 * @param   boolean  $upper   (optional) Return upper case camelCase?
+	 * @return  string
+	 */
 
 	public static function underscored2camel($string, $upper = false)
 	{
@@ -131,13 +131,13 @@ class String
 	}
 
 	/**
-	* Limits the number of characters in a string.
-	*
-	* @access  public
-	* @param   string  $string      The input string
-	* @param   int     $characters  (optional) Number of characters to allow
-	* @param   string  $sufix       (optional) Sufix to add if number of characters is reduced
-	*/
+	 * Limits the number of characters in a string.
+	 *
+	 * @access  public
+	 * @param   string  $string      The input string
+	 * @param   int     $characters  (optional) Number of characters to allow
+	 * @param   string  $sufix       (optional) Sufix to add if number of characters is reduced
+	 */
 
 	public static function limitChars($string, $characters = 100, $sufix = '...')
 	{
@@ -145,13 +145,13 @@ class String
 	}
 
 	/**
-	* Limits the number of words in a string.
-	*
-	* @access  public
-	* @param   string  $string  The input string
-	* @param   int     $words   (optional) Number of words to allow
-	* @param   string  $sufix   (optional) Sufix to add if number of words is reduced
-	*/
+	 * Limits the number of words in a string.
+	 *
+	 * @access  public
+	 * @param   string  $string  The input string
+	 * @param   int     $words   (optional) Number of words to allow
+	 * @param   string  $sufix   (optional) Sufix to add if number of words is reduced
+	 */
 
 	public static function limitWords($string, $words = 100, $sufix = '...')
 	{
@@ -166,12 +166,12 @@ class String
 	}
 
 	/**
-	* Creates url friendly string.
-	*
-	* @access  public
-	* @param   string  $string  The input string
-	* @return  string
-	*/
+	 * Creates url friendly string.
+	 *
+	 * @access  public
+	 * @param   string  $string  The input string
+	 * @return  string
+	 */
 
 	public static function slug($string)
 	{
@@ -179,12 +179,12 @@ class String
 	}
 
 	/**
-	* Strips all non-ASCII characters.
-	*
-	* @access  public
-	* @param   string  $string  The input string
-	* @return  string
-	*/
+	 * Strips all non-ASCII characters.
+	 *
+	 * @access  public
+	 * @param   string  $string  The input string
+	 * @return  string
+	 */
 
 	public static function ascii($string)
 	{
@@ -192,12 +192,12 @@ class String
 	}
 
 	/**
-	* Returns a closure that will alternate between the defined strings.
-	*
-	* @access  public
-	* @param   array    $strings  Array of strings to alternate between
-	* @return  Closure
-	*/
+	 * Returns a closure that will alternate between the defined strings.
+	 *
+	 * @access  public
+	 * @param   array    $strings  Array of strings to alternate between
+	 * @return  Closure
+	 */
 
 	public static function alternator(array $strings)
 	{
@@ -210,14 +210,14 @@ class String
 	}
 
 	/**
-	* Alternates between two or more strings.
-	*
-	* @deprecated
-	* @access  public
-	* @param   array    $strings  Array of strings to alternate between
-	* @param   boolean  $reset    (optional) Reset alternator?
-	* @return  string
-	*/
+	 * Alternates between two or more strings.
+	 *
+	 * @deprecated
+	 * @access  public
+	 * @param   array    $strings  Array of strings to alternate between
+	 * @param   boolean  $reset    (optional) Reset alternator?
+	 * @return  string
+	 */
 
 	public static function alternate(array $strings, $reset = false)
 	{
@@ -229,13 +229,13 @@ class String
 	}
 	
 	/**
-	* Converts URLs in a text into clickable links.
-	*
-	* @access  public
-	* @param   string   $string      Text to scan for links
-	* @param   boolean  $attributes  (optional) Anchor attributes
-	* @return  string
-	*/
+	 * Converts URLs in a text into clickable links.
+	 *
+	 * @access  public
+	 * @param   string   $string      Text to scan for links
+	 * @param   boolean  $attributes  (optional) Anchor attributes
+	 * @return  string
+	 */
 	
 	public static function autolink($string, array $attributes = array())
 	{
@@ -246,14 +246,14 @@ class String
 	}
 
 	/**
-	* Returns a masked string where only the last n characters are visible.
-	*
-	* @access  public
-	* @param   string  $string   String to mask
-	* @param   int     $visible  (optional) Number of characters to show
-	* @param   string  $mask     (optional) Character used to replace remaining characters
-	* @return  string
-	*/
+	 * Returns a masked string where only the last n characters are visible.
+	 *
+	 * @access  public
+	 * @param   string  $string   String to mask
+	 * @param   int     $visible  (optional) Number of characters to show
+	 * @param   string  $mask     (optional) Character used to replace remaining characters
+	 * @return  string
+	 */
 
 	public static function mask($string, $visible = 3, $mask = '*')
 	{
@@ -263,14 +263,14 @@ class String
 	}
 
 	/**
-	* Increments a string by appending a number to it or increasing the number.
-	*
-	* @access  public
-	* @param   string  $string     String to increment
-	* @param   int     $start      Starting number
-	* @param   string  $separator  Separator
-	* @return  string
-	*/
+	 * Increments a string by appending a number to it or increasing the number.
+	 *
+	 * @access  public
+	 * @param   string  $string     String to increment
+	 * @param   int     $start      Starting number
+	 * @param   string  $separator  Separator
+	 * @return  string
+	 */
 
 	public static function increment($string, $start = 1, $separator = '_')
 	{
@@ -280,12 +280,12 @@ class String
 	}
 
 	/**
-	* Returns a random string of the selected type and length.
-	*
-	* @param   string  $pool    Character pool to use
-	* @param   int     $length  (optional) Desired string length
-	* @return  string
-	*/
+	 * Returns a random string of the selected type and length.
+	 *
+	 * @param   string  $pool    Character pool to use
+	 * @param   int     $length  (optional) Desired string length
+	 * @return  string
+	 */
 
 	public static function random($pool = String::ALNUM, $length = 32)
 	{

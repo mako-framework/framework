@@ -5,12 +5,12 @@ namespace mako;
 use \mako\Config;
 
 /**
-* Class that helps identifying the device or type of device that made the request.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Class that helps identifying the device or type of device that made the request.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class UserAgent
 {
@@ -25,8 +25,10 @@ class UserAgent
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*/
+	 * Protected constructor since this is a static class.
+	 * 
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -38,12 +40,12 @@ class UserAgent
 	//---------------------------------------------
 	
 	/**
-	* Searches for a string in the user agent string.
-	*
-	* @access  protected
-	* @param   array      $what  Array of strings to look for
-	* @return  boolean
-	*/
+	 * Searches for a string in the user agent string.
+	 *
+	 * @access  protected
+	 * @param   array      $what  Array of strings to look for
+	 * @return  boolean
+	 */
 	
 	protected static function find($what)
 	{
@@ -62,13 +64,13 @@ class UserAgent
 	}
 	
 	/**
-	* Converts the HTTP_ACCEPT headers into an array.
-	*
-	* @access  protected
-	* @param   string     $header  Array key
-	* @param   string     $what    (optional) String to look for
-	* @return  mixed
-	*/
+	 * Converts the HTTP_ACCEPT headers into an array.
+	 *
+	 * @access  protected
+	 * @param   string     $header  Array key
+	 * @param   string     $what    (optional) String to look for
+	 * @return  mixed
+	 */
 	
 	protected static function accept($header, $what = null)
 	{
@@ -90,11 +92,11 @@ class UserAgent
 	}
 	
 	/**
-	* Returns true if the user agent that made the request is identified as a mobile device.
-	*
-	* @access  public
-	* @return  boolean
-	*/
+	 * Returns true if the user agent that made the request is identified as a mobile device.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
 	
 	public static function isMobile()
 	{
@@ -102,11 +104,11 @@ class UserAgent
 	}
 	
 	/**
-	* Returns true if the user agent that made the request is identified as a robot/crawler.
-	*
-	* @access  public
-	* @return  boolean
-	*/
+	 * Returns true if the user agent that made the request is identified as a robot/crawler.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
 	
 	public static function isRobot()
 	{
@@ -114,13 +116,13 @@ class UserAgent
 	}
 	
 	/**
-	* Returns TRUE if the string you're looking for exists in the user agent string and FALSE if not.
-	* Can be used to detect the type of device (UserAgent::is('iphone') or UserAgent::is(array('iphone', 'ipod'))).
-	*
-	* @access  public
-	* @param   mixed    $device  String or array of strings you're looking for
-	* @return  boolean
-	*/
+	 * Returns TRUE if the string you're looking for exists in the user agent string and FALSE if not.
+	 * Can be used to detect the type of device (UserAgent::is('iphone') or UserAgent::is(array('iphone', 'ipod'))).
+	 *
+	 * @access  public
+	 * @param   mixed    $device  String or array of strings you're looking for
+	 * @return  boolean
+	 */
 	
 	public static function is($device)
 	{
@@ -128,12 +130,12 @@ class UserAgent
 	}
 	
 	/**
-	* Returns array of accepted content types or boolean value if you are looking for a content type.
-	*
-	* @access  public
-	* @param   string  $content  (optional) Language to look for.
-	* @return  mixed
-	*/
+	 * Returns array of accepted content types or boolean value if you are looking for a content type.
+	 *
+	 * @access  public
+	 * @param   string  $content  (optional) Language to look for.
+	 * @return  mixed
+	 */
 	
 	public static function accepts($content = null)
 	{
@@ -141,12 +143,12 @@ class UserAgent
 	}
 	
 	/**
-	* Returns array of accepted languages or boolean value if you are looking for a language.
-	*
-	* @access  public
-	* @param   string  $language  (optional) Language to look for.
-	* @return  mixed
-	*/
+	 * Returns array of accepted languages or boolean value if you are looking for a language.
+	 *
+	 * @access  public
+	 * @param   string  $language  (optional) Language to look for.
+	 * @return  mixed
+	 */
 	
 	public static function acceptsLanguage($language = null)
 	{
@@ -154,12 +156,12 @@ class UserAgent
 	}
 	
 	/**
-	* Returns array of accepted character sets or boolean value if you are looking for a character set.
-	*
-	* @access  public
-	* @param   string  $charset  (optional) Character set to look for.
-	* @return  mixed
-	*/
+	 * Returns array of accepted character sets or boolean value if you are looking for a character set.
+	 *
+	 * @access  public
+	 * @param   string  $charset  (optional) Character set to look for.
+	 * @return  mixed
+	 */
 	
 	public static function acceptsCharset($charset = null)
 	{
@@ -167,12 +169,12 @@ class UserAgent
 	}
 	
 	/**
-	* Returns array of accepted encodings or boolean value if you are looking for an encoding.
-	*
-	* @access  public
-	* @param   string  $encoding  (optional) Language to look for.
-	* @return  mixed
-	*/
+	 * Returns array of accepted encodings or boolean value if you are looking for an encoding.
+	 *
+	 * @access  public
+	 * @param   string  $encoding  (optional) Language to look for.
+	 * @return  mixed
+	 */
 	
 	public static function acceptsEncoding($encoding = null)
 	{

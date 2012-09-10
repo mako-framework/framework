@@ -6,12 +6,12 @@ use \mako\Config;
 use \RuntimeException;
 
 /**
-* Session class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Session class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Session
 {
@@ -26,10 +26,10 @@ class Session
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -41,10 +41,10 @@ class Session
 	//---------------------------------------------
 	
 	/**
-	* Starts a session using the chosen type of storage.
-	*
-	* @param   string  $name  (optional) Session configuration name
-	*/
+	 * Starts a session using the chosen type of storage.
+	 *
+	 * @param   string  $name  (optional) Session configuration name
+	 */
 	
 	public static function start($name = null)
 	{
@@ -80,12 +80,12 @@ class Session
 	}
 
 	/**
-	* Sets or gets flash data.
-	*
-	* @access  public
-	* @param   mixed   $data  (optional) Flash data
-	* @return  mixed
-	*/
+	 * Sets or gets flash data.
+	 *
+	 * @access  public
+	 * @param   mixed   $data  (optional) Flash data
+	 * @return  mixed
+	 */
 
 	public static function flash($data = null)
 	{

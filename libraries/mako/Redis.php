@@ -6,12 +6,12 @@ use \mako\Config;
 use \RuntimeException;
 
 /**
-* Redis client based on protocol specification at http://redis.io/topics/protocol.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Redis client based on protocol specification at http://redis.io/topics/protocol.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Redis
 {
@@ -20,42 +20,42 @@ class Redis
 	//---------------------------------------------
 
 	/**
-	* Command terminator.
-	*
-	* @var string
-	*/
+	 * Command terminator.
+	 *
+	 * @var string
+	 */
 
 	const CRLF = "\r\n";
 
 	/**
-	* Holds the configuration.
-	*
-	* @var array
-	*/
+	 * Holds the configuration.
+	 *
+	 * @var array
+	 */
 
 	protected $config;
 
 	/**
-	* Is pipelining enabled?
-	*
-	* @var boolean
-	*/
+	 * Is pipelining enabled?
+	 *
+	 * @var boolean
+	 */
 
 	protected $pipelined = false;
 
 	/**
-	* Pipelined commands
-	*
-	* @var array
-	*/
+	 * Pipelined commands
+	 *
+	 * @var array
+	 */
 
 	protected $commands = array();
 
 	/**
-	* Socket connection.
-	*
-	* @var resource
-	*/
+	 * Socket connection.
+	 *
+	 * @var resource
+	 */
 
 	protected $connection;
 
@@ -64,11 +64,11 @@ class Redis
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   string  $name  (optional) Redis configuration name
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string  $name  (optional) Redis configuration name
+	 */
 
 	public function __construct($name = null)
 	{
@@ -87,12 +87,12 @@ class Redis
 	}
 
 	/**
-	* Factory method making method chaining possible right off the bat.
-	*
-	* @access  public
-	* @param   string      $name  (optional) Redis configuration name
-	* @return  mako\Redis
-	*/
+	 * Factory method making method chaining possible right off the bat.
+	 *
+	 * @access  public
+	 * @param   string      $name  (optional) Redis configuration name
+	 * @return  mako\Redis
+	 */
 
 	public static function factory($name = null)
 	{
@@ -100,10 +100,10 @@ class Redis
 	}
 
 	/**
-	* Destructor.
-	*
-	* @access  public
-	*/
+	 * Destructor.
+	 *
+	 * @access  public
+	 */
 
 	public function __destruct()
 	{
@@ -115,10 +115,10 @@ class Redis
 	//---------------------------------------------
 
 	/**
-	* Connects to the Redis server.
-	*
-	* @access  protected
-	*/
+	 * Connects to the Redis server.
+	 *
+	 * @access  protected
+	 */
 
 	protected function connect()
 	{
@@ -141,10 +141,10 @@ class Redis
 	}
 
 	/**
-	* Closes connection to the Redis server.
-	*
-	* @access  protected
-	*/
+	 * Closes connection to the Redis server.
+	 *
+	 * @access  protected
+	 */
 
 	protected function disconnect()
 	{
@@ -155,11 +155,11 @@ class Redis
 	}
 
 	/**
-	* Returns response from redis server.
-	*
-	* @access  protected
-	* @return  mixed
-	*/
+	 * Returns response from redis server.
+	 *
+	 * @access  protected
+	 * @return  mixed
+	 */
 
 	protected function response()
 	{
@@ -209,11 +209,11 @@ class Redis
 	}
 
 	/**
-	* Enable pipelining
-	*
-	* @access  public
-	* @return  mako\Redis
-	*/
+	 * Enable pipelining
+	 *
+	 * @access  public
+	 * @return  mako\Redis
+	 */
 
 	public function pipeline()
 	{
@@ -223,11 +223,11 @@ class Redis
 	}
 
 	/**
-	* Send pipelined commands to server and return responses.
-	*
-	* @access  public
-	* @return  array
-	*/
+	 * Send pipelined commands to server and return responses.
+	 *
+	 * @access  public
+	 * @return  array
+	 */
 
 	public function valve()
 	{
@@ -256,13 +256,13 @@ class Redis
 	}
 
 	/**
-	* Sends command to Redis server and returns response.
-	*
-	* @access  public
-	* @param   string  $name  Command name
-	* @param   array   $args  Command parameters
-	* @return  mixed  
-	*/
+	 * Sends command to Redis server and returns response.
+	 *
+	 * @access  public
+	 * @param   string  $name  Command name
+	 * @param   array   $args  Command parameters
+	 * @return  mixed  
+	 */
 
 	public function __call($name, $args)
 	{
@@ -296,13 +296,13 @@ class Redis
 	}
 
 	/**
-	* Magic shortcut to the default redis configuration.
-	*
-	* @access  public
-	* @param   string  $name       Method name
-	* @param   array   $arguments  Method arguments
-	* @return  mixed
-	*/
+	 * Magic shortcut to the default redis configuration.
+	 *
+	 * @access  public
+	 * @param   string  $name       Method name
+	 * @param   array   $arguments  Method arguments
+	 * @return  mixed
+	 */
 
 	public static function __callStatic($name, $arguments)
 	{

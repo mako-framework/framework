@@ -3,12 +3,12 @@
 namespace mako;
 
 /**
-* REST client.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * REST client.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class Rest
 {
@@ -17,18 +17,18 @@ class Rest
 	//---------------------------------------------
 
 	/**
-	* URL.
-	*
-	* @var string
-	*/
+	 * URL.
+	 *
+	 * @var string
+	 */
 
 	protected $url;
 
 	/**
-	* cURL options.
-	*
-	* @var array
-	*/
+	 * cURL options.
+	 *
+	 * @var array
+	 */
 
 	protected $options = array
 	(
@@ -38,10 +38,10 @@ class Rest
 	);
 
 	/**
-	* Array holding information about the last transfer.
-	*
-	* @var array
-	*/
+	 * Array holding information about the last transfer.
+	 *
+	 * @var array
+	 */
 
 	protected $info;
 
@@ -50,12 +50,12 @@ class Rest
 	//---------------------------------------------
 
 	/**
-	* Constructor.
-	*
-	* @access  public
-	* @param   string  $url      URL
-	* @param   array   $options  (optional) cURL options
-	*/
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string  $url      URL
+	 * @param   array   $options  (optional) cURL options
+	 */
 
 	public function __construct($url, array $options = array())
 	{
@@ -64,13 +64,13 @@ class Rest
 	}
 
 	/**
-	* Factory method making method chaining possible right off the bat.
-	*
-	* @access  public
-	* @param   string     $url      URL
-	* @param   array      $options  (optional) cURL options
-	* @return  mako\Rest
-	*/
+	 * Factory method making method chaining possible right off the bat.
+	 *
+	 * @access  public
+	 * @param   string     $url      URL
+	 * @param   array      $options  (optional) cURL options
+	 * @return  mako\Rest
+	 */
 
 	public static function factory($url, array $options = array())
 	{
@@ -82,12 +82,12 @@ class Rest
 	//---------------------------------------------
 
 	/**
-	* Executes cURL request and returns the response.
-	*
-	* @access  protected
-	* @param   array      $info  $info is filled with info about the request
-	* @return  string
-	*/
+	 * Executes cURL request and returns the response.
+	 *
+	 * @access  protected
+	 * @param   array      $info  $info is filled with info about the request
+	 * @return  string
+	 */
 
 	protected function execute(& $info)
 	{
@@ -114,14 +114,14 @@ class Rest
 	}
 
 	/**
-	* Parses HTTP headers and returns a nice array.
-	*
-	* http://php.net/manual/en/function.http-parse-headers.php
-	*
-	* @access  protected
-	* @param   string      $headers  HTTP headers
-	* @return  array
-	*/
+	 * Parses HTTP headers and returns a nice array.
+	 *
+	 * http://php.net/manual/en/function.http-parse-headers.php
+	 *
+	 * @access  protected
+	 * @param   string      $headers  HTTP headers
+	 * @return  array
+	 */
 
 	protected function parseHeaders($headers)
 	{
@@ -155,12 +155,12 @@ class Rest
 	}
 
 	/**
-	* Returns info about the last cURL request.
-	*
-	* @access  public
-	* @param   string  $key  (optional) Array key
-	* @return  mixed
-	*/
+	 * Returns info about the last cURL request.
+	 *
+	 * @access  public
+	 * @param   string  $key  (optional) Array key
+	 * @return  mixed
+	 */
 
 	public function info($key = null)
 	{
@@ -173,14 +173,14 @@ class Rest
 	}
 
 	/**
-	* Sets username and password for HTTP authentication.
-	*
-	* @access  public
-	* @param   string     $username  Username
-	* @param   string     $password  Password
-	* @param   int        $method    (optional) Authenication method
-	* @return  mako\Rest
-	*/
+	 * Sets username and password for HTTP authentication.
+	 *
+	 * @access  public
+	 * @param   string     $username  Username
+	 * @param   string     $password  Password
+	 * @param   int        $method    (optional) Authenication method
+	 * @return  mako\Rest
+	 */
 
 	public function authenticate($username, $password, $method = CURLAUTH_ANY)
 	{
@@ -191,12 +191,12 @@ class Rest
 	}
 
 	/**
-	* Performs a GET request and returns the response.
-	*
-	* @access  public
-	* @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
-	* @return  string
-	*/
+	 * Performs a GET request and returns the response.
+	 *
+	 * @access  public
+	 * @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
+	 * @return  string
+	 */
 
 	public function get(& $info = null)
 	{
@@ -204,12 +204,12 @@ class Rest
 	}
 
 	/**
-	* Performs a HEAD request and returns an array containing the response headers.
-	*
-	* @access  public
-	* @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
-	* @return  array
-	*/
+	 * Performs a HEAD request and returns an array containing the response headers.
+	 *
+	 * @access  public
+	 * @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
+	 * @return  array
+	 */
 
 	public function head(& $info = null)
 	{
@@ -220,14 +220,14 @@ class Rest
 	}
 
 	/**
-	* Performs a POST request and returns the response.
-	*
-	* @access  public
-	* @param   array    $data       (optional) Post data
-	* @param   boolean  $multipart  (optional) True to send data as multipart/form-data and false to send as application/x-www-form-urlencoded
-	* @param   array    $info       (optional) If $info is provided, then it is filled with info about the request
-	* @return  string
-	*/
+	 * Performs a POST request and returns the response.
+	 *
+	 * @access  public
+	 * @param   array    $data       (optional) Post data
+	 * @param   boolean  $multipart  (optional) True to send data as multipart/form-data and false to send as application/x-www-form-urlencoded
+	 * @param   array    $info       (optional) If $info is provided, then it is filled with info about the request
+	 * @return  string
+	 */
 
 	public function post(array $data = array(), $multipart = false, & $info = null)
 	{
@@ -238,13 +238,13 @@ class Rest
 	}
 
 	/**
-	* Performs a PUT request and returns the response.
-	*
-	* @access  public
-	* @param   mixed   $data  Put data
-	* @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
-	* @return  string
-	*/
+	 * Performs a PUT request and returns the response.
+	 *
+	 * @access  public
+	 * @param   mixed   $data  Put data
+	 * @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
+	 * @return  string
+	 */
 
 	public function put($data, & $info = null)
 	{
@@ -265,12 +265,12 @@ class Rest
 	}
 
 	/**
-	* Performs a DELETE request and returns the response.
-	*
-	* @access  public
-	* @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
-	* @return  string
-	*/
+	 * Performs a DELETE request and returns the response.
+	 *
+	 * @access  public
+	 * @param   array   $info  (optional) If $info is provided, then it is filled with info about the request
+	 * @return  string
+	 */
 
 	public function delete(& $info = null)
 	{

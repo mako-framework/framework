@@ -5,13 +5,13 @@ namespace mako;
 use \InvalidArgumentException;
 
 /**
-* Class that generates and validates UUIDs.
-*
-* @author     Frederic G. Østby
-* @author     Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license    
-*/
+ * Class that generates and validates UUIDs.
+ *
+ * @author     Frederic G. Østby
+ * @author     Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license    
+ */
 
 class UUID
 {
@@ -20,34 +20,34 @@ class UUID
 	//---------------------------------------------
 
 	/**
-	* DNS namespace.
-	*
-	* @var string
-	*/
+	 * DNS namespace.
+	 *
+	 * @var string
+	 */
 
 	const DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
-	* URL namespace.
-	*
-	* @var string
-	*/
+	 * URL namespace.
+	 *
+	 * @var string
+	 */
 
 	const URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
-	* ISO OID namespace.
-	*
-	* @var string
-	*/
+	 * ISO OID namespace.
+	 *
+	 * @var string
+	 */
 
 	const OID = '6ba7b812-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
-	* X.500 DN namespace.
-	*
-	* @var string
-	*/
+	 * X.500 DN namespace.
+	 *
+	 * @var string
+	 */
 
 	const X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
 
@@ -56,10 +56,10 @@ class UUID
 	//---------------------------------------------
 
 	/**
-	* Protected constructor since this is a static class.
-	*
-	* @access  protected
-	*/
+	 * Protected constructor since this is a static class.
+	 *
+	 * @access  protected
+	 */
 
 	protected function __construct()
 	{
@@ -71,12 +71,12 @@ class UUID
 	//---------------------------------------------
 
 	/**
-	* Checks if a UUID is valid.
-	*
-	* @access  public
-	* @param   string   $str  The UUID to validate
-	* @return  boolean
-	*/
+	 * Checks if a UUID is valid.
+	 *
+	 * @access  public
+	 * @param   string   $str  The UUID to validate
+	 * @return  boolean
+	 */
 
 	public static function valid($str)
 	{
@@ -84,12 +84,12 @@ class UUID
 	}
 
 	/**
-	* Converts UUID to binary.
-	*
-	* @access  protected
-	* @param   string     $namespace  UUID
-	* @return  string
-	*/
+	 * Converts UUID to binary.
+	 *
+	 * @access  protected
+	 * @param   string     $namespace  UUID
+	 * @return  string
+	 */
 
 	protected static function toBin($namespace)
 	{
@@ -117,13 +117,13 @@ class UUID
 	}
 
 	/**
-	* Returns a V3 UUID.
-	*
-	* @access  public
-	* @param   string  $namespace  Namespace
-	* @param   string  $name       Name
-	* @return  string
-	*/
+	 * Returns a V3 UUID.
+	 *
+	 * @access  public
+	 * @param   string  $namespace  Namespace
+	 * @param   string  $name       Name
+	 * @return  string
+	 */
 
 	public static function v3($namespace, $name)
 	{
@@ -161,11 +161,11 @@ class UUID
 	}
 
 	/**
-	* Returns a V4 UUID.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Returns a V4 UUID.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public static function v4()
 	{
@@ -202,13 +202,13 @@ class UUID
 	}
 
 	/**
-	* Returns a V5 UUID.
-	*
-	* @access  public
-	* @param   string  $namespace  Namespace
-	* @param   string  $name       Name
-	* @return  string
-	*/
+	 * Returns a V5 UUID.
+	 *
+	 * @access  public
+	 * @param   string  $namespace  Namespace
+	 * @param   string  $name       Name
+	 * @return  string
+	 */
 
 	public static function v5($namespace, $name)
 	{

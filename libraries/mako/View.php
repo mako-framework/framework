@@ -8,12 +8,12 @@ use \Exception;
 use \RuntimeException;
 
 /**
-* View class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2012 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * View class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class View
 {
@@ -22,34 +22,34 @@ class View
 	//---------------------------------------------
 
 	/**
-	* Path to view.
-	*
-	* @var string
-	*/
+	 * Path to view.
+	 *
+	 * @var string
+	 */
 
 	protected $view;
 
 	/**
-	* View variables.
-	*
-	* @var array
-	*/
+	 * View variables.
+	 *
+	 * @var array
+	 */
 
 	protected $vars = array();
 
 	/**
-	* Global view variables.
-	*
-	* @var array
-	*/
+	 * Global view variables.
+	 *
+	 * @var array
+	 */
 
 	protected static $globalVars = array();
 
 	/**
-	* The output.
-	*
-	* @var string
-	*/
+	 * The output.
+	 *
+	 * @var string
+	 */
 
 	protected $output;
 
@@ -58,12 +58,12 @@ class View
 	//---------------------------------------------
 
 	/**
-	* Create a new view object.
-	*
-	* @access  public
-	* @param   string  $view       Name of the view file
-	* @param   array   $variables  (optional) Array of view variables
-	*/
+	 * Create a new view object.
+	 *
+	 * @access  public
+	 * @param   string  $view       Name of the view file
+	 * @param   array   $variables  (optional) Array of view variables
+	 */
 
 	public function __construct($view, array $variables = array())
 	{
@@ -105,13 +105,13 @@ class View
 	}
 
 	/**
-	* Factory method making method chaining possible right off the bat.
-	*
-	* @access  public
-	* @param   string     $view       Name of the view file
-	* @param   array      $variables  (optional) Array of view variables
-	* @return  mako\View
-	*/
+	 * Factory method making method chaining possible right off the bat.
+	 *
+	 * @access  public
+	 * @param   string     $view       Name of the view file
+	 * @param   array      $variables  (optional) Array of view variables
+	 * @return  mako\View
+	 */
 
 	public static function factory($view, array $variables = array())
 	{
@@ -123,14 +123,14 @@ class View
 	//---------------------------------------------
 
 	/**
-	* Assign a view variable.
-	*
-	* @access  public
-	* @param   string     $name    Variable name
-	* @param   mixed      $value   View variable
-	* @param   boolean    $global  (optional) True to make variable available in all views
-	* @return  mako\View
-	*/
+	 * Assign a view variable.
+	 *
+	 * @access  public
+	 * @param   string     $name    Variable name
+	 * @param   mixed      $value   View variable
+	 * @param   boolean    $global  (optional) True to make variable available in all views
+	 * @return  mako\View
+	 */
 
 	public function assign($name, $value, $global = false)
 	{
@@ -147,12 +147,12 @@ class View
 	}
 
 	/**
-	* Assign a global view variable that will be available in all views.
-	*
-	* @access  public
-	* @param   string  $name   Variable name
-	* @param   mixed   $value  View variable
-	*/
+	 * Assign a global view variable that will be available in all views.
+	 *
+	 * @access  public
+	 * @param   string  $name   Variable name
+	 * @param   mixed   $value  View variable
+	 */
 
 	public static function assignGlobal($name, $value)
 	{
@@ -160,15 +160,15 @@ class View
 	}
 	
 	/**
-	* Assign a view variable by reference.
-	*
-	* @deprecated
-	* @access  public
-	* @param   string     $name    Variable name
-	* @param   mixed      $value   View variable
-	* @param   boolean    $global  (optional) True to make variable available in all views
-	* @return  mako\View
-	*/
+	 * Assign a view variable by reference.
+	 *
+	 * @deprecated
+	 * @access  public
+	 * @param   string     $name    Variable name
+	 * @param   mixed      $value   View variable
+	 * @param   boolean    $global  (optional) True to make variable available in all views
+	 * @return  mako\View
+	 */
 
 	public function assignByRef($name, &$value, $global = false)
 	{
@@ -185,12 +185,12 @@ class View
 	}
 
 	/**
-	* Include the view file and extracts the view variables before returning the generated output.
-	*
-	* @access  public
-	* @param   callback  $filter  (optional) Callback function used to filter output
-	* @return  string
-	*/
+	 * Include the view file and extracts the view variables before returning the generated output.
+	 *
+	 * @access  public
+	 * @param   callback  $filter  (optional) Callback function used to filter output
+	 * @return  string
+	 */
 
 	public function render($filter = null)
 	{
@@ -214,12 +214,12 @@ class View
 	}
 
 	/**
-	* Magic setter method that assigns a view variable.
-	*
-	* @access  public
-	* @param   string  $name   Variable name
-	* @param   mixed   $value  View variable
-	*/
+	 * Magic setter method that assigns a view variable.
+	 *
+	 * @access  public
+	 * @param   string  $name   Variable name
+	 * @param   mixed   $value  View variable
+	 */
 
 	public function __set($name, $value)
 	{
@@ -227,12 +227,12 @@ class View
 	}
 
 	/**
-	* Magic getter method that returns a view variable.
-	*
-	* @access  public
-	* @param   string  $name  Variable name
-	* @return  mixed
-	*/
+	 * Magic getter method that returns a view variable.
+	 *
+	 * @access  public
+	 * @param   string  $name  Variable name
+	 * @return  mixed
+	 */
 
 	public function __get($name)
 	{
@@ -243,12 +243,12 @@ class View
 	}
 
 	/**
-	* Magic isset method that checks if a view variable is set.
-	*
-	* @access  public
-	* @param   string   $name  Variable name
-	* @return  boolean
-	*/
+	 * Magic isset method that checks if a view variable is set.
+	 *
+	 * @access  public
+	 * @param   string   $name  Variable name
+	 * @return  boolean
+	 */
 
 	public function __isset($name)
 	{
@@ -256,11 +256,11 @@ class View
 	}
 
 	/**
-	* Magic unset method that unsets a view variable.
-	*
-	* @access  public
-	* @param   string   $name  Variable name
-	*/
+	 * Magic unset method that unsets a view variable.
+	 *
+	 * @access  public
+	 * @param   string   $name  Variable name
+	 */
 
 	public function __unset($name)
 	{
@@ -268,11 +268,11 @@ class View
 	}
 
 	/**
-	* Method that magically converts the view object into a string.
-	*
-	* @access  public
-	* @return  string
-	*/
+	 * Method that magically converts the view object into a string.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
 
 	public function __toString()
 	{
