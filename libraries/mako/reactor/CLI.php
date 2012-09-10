@@ -395,7 +395,7 @@ class CLI
 
 		while($seconds > 0)
 		{
-			fwrite(STDOUT, "\r" . I18n::translate('Please wait ...') . ' [ ' . str_pad($seconds--, $length, 0, STR_PAD_LEFT) . ' ]');
+			fwrite(STDOUT, "\r" . I18n::translate('Please wait ...') . ' [ ' . $this->color(str_pad($seconds--, $length, 0, STR_PAD_LEFT), 'yellow') . ' ]');
 
 			if($withBeep === true)
 			{
