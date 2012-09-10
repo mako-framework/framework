@@ -37,7 +37,7 @@ class Oracle extends \mako\database\query\Compiler
 
 	public function select()
 	{
-		if(empty($this->query->limit))
+		if($this->query->getLimit() === null)
 		{
 			// No limit so we can just execute a normal query
 
@@ -47,26 +47,26 @@ class Oracle extends \mako\database\query\Compiler
 		{
 			// There is a limit so we need to emulate the LIMIT/OFFSET clause with ANSI-SQL
 
-			$order = trim($this->orderings($this->query->orderings));
+			$order = trim($this->orderings($this->query->getOrderings()));
 
 			if(empty($order))
 			{
 				$order = 'ORDER BY (SELECT 0)';
 			}
 
-			$sql  = $this->query->distinct ? 'SELECT DISTINCT ' : 'SELECT ';
-			$sql .= $this->columns($this->query->columns);
+			$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
+			$sql .= $this->columns($this->query->getColumns());
 			$sql .= ', ROW_NUMBER() OVER (' . $order . ') AS mako_rownum';
 			$sql .= ' FROM ';
-			$sql .= $this->wrap($this->query->table);
-			$sql .= $this->joins($this->query->joins);
-			$sql .= $this->wheres($this->query->wheres);
-			$sql .= $this->groupings($this->query->groupings);
-			$sql .= $this->havings($this->query->havings);
+			$sql .= $this->wrap($this->query->getTable());
+			$sql .= $this->joins($this->query->getJoins());
+			$sql .= $this->wheres($this->query->getWheres());
+			$sql .= $this->groupings($this->query->getGroupings());
+			$sql .= $this->havings($this->query->getHavings());
 
-			$offset = empty($this->query->offset) ? 0 : $this->query->offset;
+			$offset = ($this->query->getOffset() === null) ? 0 : $this->query->getOffset();
 
-			$limit  = $offset + $this->query->limit;
+			$limit  = $offset + $this->query->getLimit();
 			$offset = $offset + 1;
 
 			$sql = 'SELECT * FROM (' . $sql . ') AS m1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;

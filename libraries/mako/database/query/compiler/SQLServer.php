@@ -43,7 +43,7 @@ class SQLServer extends \mako\database\query\Compiler
 
 	public function select()
 	{
-		if(empty($this->query->limit))
+		if($this->query->getLimit() === null)
 		{
 			// No limit so we can just execute a normal query
 
@@ -52,44 +52,44 @@ class SQLServer extends \mako\database\query\Compiler
 		else
 		{
 
-			if(empty($this->query->offset))
+			if($this->query->getOffset() === null)
 			{
 				// No offset so we can just use the TOP clause
 
-				$sql  = $this->query->distinct ? 'SELECT DISTINCT ' : 'SELECT ';
-				$sql .= 'TOP ' . $this->query->limit . ' ';
-				$sql .= $this->columns($this->query->columns);
+				$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
+				$sql .= 'TOP ' . $this->query->getLimit() . ' ';
+				$sql .= $this->columns($this->query->getColumns());
 				$sql .= ' FROM ';
-				$sql .= $this->wrap($this->query->table);
-				$sql .= $this->joins($this->query->joins);
-				$sql .= $this->wheres($this->query->wheres);
-				$sql .= $this->groupings($this->query->groupings);
-				$sql .= $this->orderings($this->query->orderings);
-				$sql .= $this->havings($this->query->havings);
+				$sql .= $this->wrap($this->query->getTable());
+				$sql .= $this->joins($this->query->getJoins());
+				$sql .= $this->wheres($this->query->getWheres());
+				$sql .= $this->groupings($this->query->getGroupings());
+				$sql .= $this->orderings($this->query->getOrderings());
+				$sql .= $this->havings($this->query->getHavings());
 			}
 			else
 			{
 				// There is an offset so we need to emulate the OFFSET clause with ANSI-SQL
 
-				$order = trim($this->orderings($this->query->orderings));
+				$order = trim($this->orderings($this->query->getOrderings()));
 
 				if(empty($order))
 				{
 					$order = 'ORDER BY (SELECT 0)';
 				}
 
-				$sql  = $this->query->distinct ? 'SELECT DISTINCT ' : 'SELECT ';
-				$sql .= $this->columns($this->query->columns);
+				$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
+				$sql .= $this->columns($this->query->getColumns());
 				$sql .= ', ROW_NUMBER() OVER (' . $order . ') AS mako_rownum';
 				$sql .= ' FROM ';
-				$sql .= $this->wrap($this->query->table);
-				$sql .= $this->joins($this->query->joins);
-				$sql .= $this->wheres($this->query->wheres);
-				$sql .= $this->groupings($this->query->groupings);
-				$sql .= $this->havings($this->query->havings);
+				$sql .= $this->wrap($this->query->getTable());
+				$sql .= $this->joins($this->query->getJoins());
+				$sql .= $this->wheres($this->query->getWheres());
+				$sql .= $this->groupings($this->query->getGroupings());
+				$sql .= $this->havings($this->query->getHavings());
 
-				$limit  = $this->query->offset + $this->query->limit;
-				$offset = $this->query->offset + 1;
+				$limit  = $this->query->getOffset() + $this->query->getLimit();
+				$offset = $this->query->getOffset() + 1;
 
 				$sql = 'SELECT * FROM (' . $sql . ') AS m1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
 			}

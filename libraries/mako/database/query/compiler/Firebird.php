@@ -39,7 +39,7 @@ class Firebird extends \mako\database\query\Compiler
 
 	protected function limit($limit, $offset = null)
 	{
-		return empty($limit) ? '' : ' TO ' . ($limit + (empty($offset) ? 0 : $offset));
+		return ($limit === null) ? '' : ' TO ' . ($limit + (($offset === null) ? 0 : $offset));
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Firebird extends \mako\database\query\Compiler
 
 	protected function offset($offset, $limit = null)
 	{
-		return empty($offset) ? empty($limit) ? '' :' ROWS 1 ' : ' ROWS ' . ($offset + 1);
+		return ($offset === null) ? ($limit === null) ? '' :' ROWS 1 ' : ' ROWS ' . ($offset + 1);
 	}
 
 	/**
@@ -65,17 +65,17 @@ class Firebird extends \mako\database\query\Compiler
 
 	public function select()
 	{
-		$sql  = $this->query->distinct ? 'SELECT DISTINCT ' : 'SELECT ';
-		$sql .= $this->columns($this->query->columns);
+		$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
+		$sql .= $this->columns($this->query->getColumns());
 		$sql .= ' FROM ';
-		$sql .= $this->wrap($this->query->table);
-		$sql .= $this->joins($this->query->joins);
-		$sql .= $this->wheres($this->query->wheres);
-		$sql .= $this->groupings($this->query->groupings);
-		$sql .= $this->orderings($this->query->orderings);
-		$sql .= $this->havings($this->query->havings);
-		$sql .= $this->offset($this->query->offset, $this->query->limit);
-		$sql .= $this->limit($this->query->limit, $this->query->offset);
+		$sql .= $this->wrap($this->query->getTable());
+		$sql .= $this->joins($this->query->getJoins());
+		$sql .= $this->wheres($this->query->getWheres());
+		$sql .= $this->groupings($this->query->getGroupings());
+		$sql .= $this->orderings($this->query->getOrderings());
+		$sql .= $this->havings($this->query->getHavings());
+		$sql .= $this->offset($this->query->getOffset(), $this->query->getLimit());
+		$sql .= $this->limit($this->query->getLimit(), $this->query->getOffset());
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}

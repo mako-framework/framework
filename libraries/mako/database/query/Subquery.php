@@ -65,13 +65,13 @@ class Subquery
 
 	public function get()
 	{
-		$query = $this->query->compiler->select();
+		$query = $this->query->getCompiler()->select();
 
 		$query['sql'] = '(' . $query['sql'] . ')';
 
 		if($this->alias !== null)
 		{
-			$query['sql'] .= ' AS ' . $this->query->compiler->wrap($this->alias);
+			$query['sql'] .= ' AS ' . $this->query->getCompiler()->wrap($this->alias);
 		}
 
 		return $query;

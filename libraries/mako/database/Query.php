@@ -29,7 +29,7 @@ class Query
 	* @var mako\database\Connection
 	*/
 
-	public $connection;
+	protected $connection;
 
 	/**
 	* Query compiler
@@ -37,7 +37,7 @@ class Query
 	* @var mako\database\query\Compiler
 	*/
 
-	public $compiler;
+	protected $compiler;
 
 	/**
 	* Database table.
@@ -45,7 +45,7 @@ class Query
 	* @var mixed
 	*/
 
-	public $table;
+	protected $table;
 
 	/**
 	* Select distinct?
@@ -53,7 +53,7 @@ class Query
 	* @var boolean
 	*/
 
-	public $distinct = false;
+	protected $distinct = false;
 
 	/**
 	* Columns from which we are fetching data.
@@ -61,7 +61,7 @@ class Query
 	* @var array
 	*/
 
-	public $columns = array('*');
+	protected $columns = array('*');
 
 	/**
 	* WHERE clauses.
@@ -69,7 +69,7 @@ class Query
 	* @var array
 	*/
 
-	public $wheres = array();
+	protected $wheres = array();
 
 	/**
 	* JOIN clauses.
@@ -77,7 +77,7 @@ class Query
 	* @var array
 	*/
 
-	public $joins = array();
+	protected $joins = array();
 
 	/**
 	* GROUP BY clauses.
@@ -85,7 +85,7 @@ class Query
 	* @var array
 	*/
 
-	public $groupings = array();
+	protected $groupings = array();
 
 	/**
 	* HAVING clauses.
@@ -93,7 +93,7 @@ class Query
 	* @var array
 	*/
 
-	public $havings = array();
+	protected $havings = array();
 
 	/**
 	* ORDER BY clauses.
@@ -101,7 +101,7 @@ class Query
 	* @var array
 	*/
 
-	public $orderings = array();
+	protected $orderings = array();
 
 	/**
 	* Limit.
@@ -109,7 +109,7 @@ class Query
 	* @var int
 	*/
 
-	public $limit;
+	protected $limit = null;
 
 	/**
 	* Offset
@@ -117,7 +117,7 @@ class Query
 	* @var int
 	*/
 
-	public $offset;
+	protected $offset = null;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -165,6 +165,138 @@ class Query
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns query compiler instance.
+	 * 
+	 * @access  public
+	 * @return  mako\database\query\Compiler
+	 */
+
+	public function getComiler()
+	{
+		return $this->compiler;
+	}
+
+	/**
+	 * Returns the database table.
+	 * 
+	 * @access  public
+	 * @return  mixed
+	 */
+
+	public function getTable()
+	{
+		return $this->table;
+	}
+
+	/**
+	 * Is it a distict select?
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function isDistinct()
+	{
+		return $this->distinct;
+	}
+
+	/**
+	 * Returns the columns from which we are fetching data.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getColumns()
+	{
+		return $this->columns;
+	}
+
+	/**
+	 * Returns WHERE clauses.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getWheres()
+	{
+		return $this->wheres;
+	}
+
+	/**
+	 * Returns JOIN clauses.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getJoins()
+	{
+		return $this->joins;
+	}
+
+	/**
+	 * Returns GROUP BY clauses.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getGroupings()
+	{
+		return $this->groupings;
+	}
+
+	/**
+	 * Returns HAVING clauses.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getHavings()
+	{
+		return $this->havings;
+	}
+
+	/**
+	 * Returns ORDER BY clauses.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getOrderings()
+	{
+		return $this->orderings;
+	}
+
+	/**
+	 * Returns the limit.
+	 * 
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function getLimit()
+	{
+		return $this->limit;
+	}
+
+	/**
+	 * Returns the offset.
+	 * 
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function getOffset()
+	{
+		return $this->offset;
+	}
 
 	/**
 	* Sets the columns we want to select.

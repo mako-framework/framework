@@ -384,7 +384,7 @@ class Compiler
 
 	protected function limit($limit)
 	{
-		return empty($limit) ? '' : ' LIMIT ' . $limit;
+		return ($limit === null) ? '' : ' LIMIT ' . $limit;
 	}
 
 	/**
@@ -397,7 +397,7 @@ class Compiler
 
 	protected function offset($offset)
 	{
-		return empty($offset) ? '' : ' OFFSET ' . $offset;
+		return ($offset === null) ? '' : ' OFFSET ' . $offset;
 	}	
 
 	/**
@@ -409,17 +409,17 @@ class Compiler
 
 	public function select()
 	{
-		$sql  = $this->query->distinct ? 'SELECT DISTINCT ' : 'SELECT ';
-		$sql .= $this->columns($this->query->columns);
+		$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
+		$sql .= $this->columns($this->query->getColumns());
 		$sql .= ' FROM ';
-		$sql .= $this->wrap($this->query->table);
-		$sql .= $this->joins($this->query->joins);
-		$sql .= $this->wheres($this->query->wheres);
-		$sql .= $this->groupings($this->query->groupings);
-		$sql .= $this->orderings($this->query->orderings);
-		$sql .= $this->havings($this->query->havings);
-		$sql .= $this->limit($this->query->limit);
-		$sql .= $this->offset($this->query->offset);
+		$sql .= $this->wrap($this->query->getTable());
+		$sql .= $this->joins($this->query->getJoins());
+		$sql .= $this->wheres($this->query->getWheres());
+		$sql .= $this->groupings($this->query->getGroupings());
+		$sql .= $this->orderings($this->query->getOrderings());
+		$sql .= $this->havings($this->query->getHavings());
+		$sql .= $this->limit($this->query->getLimit());
+		$sql .= $this->offset($this->query->getOffset());
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
@@ -435,7 +435,7 @@ class Compiler
 	public function insert(array $values)
 	{
 		$sql  = 'INSERT INTO ';
-		$sql .= $this->wrap($this->query->table);
+		$sql .= $this->wrap($this->query->getTable());
 		$sql .= ' (' . $this->columns(array_keys($values)) . ')';
 		$sql .= ' VALUES';
 		$sql .= ' (' . $this->params($values) . ')';
@@ -463,10 +463,10 @@ class Compiler
 		$columns = implode(', ', $columns);
 
 		$sql  = 'UPDATE ';
-		$sql .= $this->wrap($this->query->table);
+		$sql .= $this->wrap($this->query->getTable());
 		$sql .= ' SET ';
 		$sql .= $columns;
-		$sql .= $this->wheres($this->query->wheres);
+		$sql .= $this->wheres($this->query->getWheres());
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
@@ -481,8 +481,8 @@ class Compiler
 	public function delete()
 	{
 		$sql  = 'DELETE FROM ';
-		$sql .= $this->wrap($this->query->table);
-		$sql .= $this->wheres($this->query->wheres);
+		$sql .= $this->wrap($this->query->getTable());
+		$sql .= $this->wheres($this->query->getWheres());
 
 		return array('sql' => $sql, 'params' => $this->params);
 	}
