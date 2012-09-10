@@ -20,7 +20,7 @@ use \RuntimeException;
 class Reactor
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

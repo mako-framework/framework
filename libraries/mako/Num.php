@@ -15,7 +15,7 @@ use \InvalidArgumentException;
 class Num
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

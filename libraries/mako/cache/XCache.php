@@ -15,7 +15,7 @@ use \RuntimeException;
 class XCache extends \mako\cache\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

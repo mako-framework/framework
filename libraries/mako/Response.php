@@ -17,7 +17,7 @@ use \mako\Request;
 class Response
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

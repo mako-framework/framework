@@ -17,7 +17,7 @@ use \RuntimeException;
 class I18n
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

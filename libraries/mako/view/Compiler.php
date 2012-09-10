@@ -13,7 +13,7 @@ namespace mako\view;
 class Compiler
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

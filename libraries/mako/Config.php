@@ -16,7 +16,7 @@ use \RuntimeException;
 class Config
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

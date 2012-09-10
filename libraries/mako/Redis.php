@@ -16,7 +16,7 @@ use \RuntimeException;
 class Redis
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

@@ -13,7 +13,7 @@ namespace mako\database\query\compiler;
 class DB2 extends \mako\database\query\Compiler
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

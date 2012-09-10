@@ -17,7 +17,7 @@ use \mako\database\query\Subquery;
 class Compiler
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

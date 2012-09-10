@@ -16,7 +16,7 @@ use \OutOfRangeException;
 class DateTime
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

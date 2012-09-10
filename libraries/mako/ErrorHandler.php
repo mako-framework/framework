@@ -19,7 +19,7 @@ use \ErrorException;
 class ErrorHandler
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	// Nothing here

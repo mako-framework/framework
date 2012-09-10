@@ -16,7 +16,7 @@ use \InvalidArgumentException;
 class UUID
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

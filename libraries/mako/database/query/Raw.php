@@ -13,7 +13,7 @@ namespace mako\database\query;
 class Raw
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

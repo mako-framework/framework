@@ -13,7 +13,7 @@ namespace mako;
 class ClassLoader
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

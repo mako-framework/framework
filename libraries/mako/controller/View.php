@@ -16,7 +16,7 @@ use \mako\View as Vista;
 abstract class View extends \mako\Controller
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

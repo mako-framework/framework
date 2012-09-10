@@ -18,7 +18,7 @@ use \RuntimeException;
 class View
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

@@ -13,7 +13,7 @@ namespace mako\session;
 abstract class Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

@@ -15,7 +15,7 @@ use \mako\Database;
 class Debug
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

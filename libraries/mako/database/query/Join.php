@@ -13,7 +13,7 @@ namespace mako\database\query;
 class Join
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

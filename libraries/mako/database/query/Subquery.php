@@ -15,7 +15,7 @@ use \mako\database\Query;
 class Subquery
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

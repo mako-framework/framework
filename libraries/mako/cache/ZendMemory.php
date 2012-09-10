@@ -15,7 +15,7 @@ use \RuntimeException;
 class ZendMemory extends \mako\cache\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

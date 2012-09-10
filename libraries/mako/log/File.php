@@ -15,7 +15,7 @@ use \mako\Log;
 class File extends \mako\log\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

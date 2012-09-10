@@ -16,7 +16,7 @@ use \RuntimeException;
 class File
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

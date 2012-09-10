@@ -21,7 +21,7 @@ class RequestException extends RuntimeException{}
 class Request
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

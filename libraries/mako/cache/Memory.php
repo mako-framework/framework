@@ -13,7 +13,7 @@ namespace mako\cache;
 class Memory extends \mako\cache\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

@@ -13,7 +13,7 @@ namespace mako;
 class Event
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

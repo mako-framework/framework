@@ -20,7 +20,7 @@ use \ErrorException;
 class Mako
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	// Nothing here

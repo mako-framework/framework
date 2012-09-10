@@ -13,7 +13,7 @@ namespace mako;
 class Validate
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

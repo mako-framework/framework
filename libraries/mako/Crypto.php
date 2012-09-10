@@ -16,7 +16,7 @@ use \RuntimeException;
 class Crypto
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	// Nothing here

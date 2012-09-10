@@ -21,7 +21,7 @@ use \RuntimeException;
 class Connection
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

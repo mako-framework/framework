@@ -13,7 +13,7 @@ namespace mako;
 class Arr
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

@@ -13,7 +13,7 @@ namespace mako\crypto;
 abstract class Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

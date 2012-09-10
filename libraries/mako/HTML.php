@@ -16,7 +16,7 @@ use \RuntimeException;
 class HTML
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

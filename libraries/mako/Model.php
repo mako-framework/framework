@@ -15,7 +15,7 @@ use \mako\Database;
 abstract class Model
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

@@ -15,7 +15,7 @@ use \mako\Config;
 class UserAgent
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

@@ -20,7 +20,7 @@ use \mako\database\query\Subquery;
 class Query
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

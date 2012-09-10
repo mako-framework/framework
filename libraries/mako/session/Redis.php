@@ -15,7 +15,7 @@ use \mako\Redis as MRedis;
 class Redis extends \mako\session\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

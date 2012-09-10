@@ -15,7 +15,7 @@ use \RuntimeException;
 class WinCache extends \mako\cache\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

@@ -16,7 +16,7 @@ use \mako\Response;
 abstract class Controller
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

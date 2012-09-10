@@ -15,7 +15,7 @@ use \RuntimeException;
 class ZendDisk extends \mako\cache\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

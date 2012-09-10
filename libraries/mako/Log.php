@@ -16,7 +16,7 @@ use \RuntimeException;
 class Log
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

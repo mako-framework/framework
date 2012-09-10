@@ -15,7 +15,7 @@ use \mako\Config;
 class Cookie
 {	
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

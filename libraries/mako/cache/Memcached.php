@@ -16,7 +16,7 @@ use \RuntimeException;
 class Memcached extends \mako\cache\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

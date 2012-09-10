@@ -15,7 +15,7 @@ use \mako\Log;
 abstract class Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

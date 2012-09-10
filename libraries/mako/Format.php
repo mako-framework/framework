@@ -15,7 +15,7 @@ use \SimpleXMLElement;
 class Format
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

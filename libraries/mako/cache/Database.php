@@ -16,7 +16,7 @@ use \mako\Database as DB;
 class Database extends \mako\cache\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

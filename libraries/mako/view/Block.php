@@ -13,7 +13,7 @@ namespace mako\view;
 class Block
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

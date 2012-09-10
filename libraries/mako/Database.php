@@ -20,7 +20,7 @@ use \RuntimeException;
 class Database
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

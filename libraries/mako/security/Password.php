@@ -16,7 +16,7 @@ use \mako\String;
 class Password
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

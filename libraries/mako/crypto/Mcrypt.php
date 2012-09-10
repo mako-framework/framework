@@ -15,7 +15,7 @@ use \RuntimeException;
 class Mcrypt extends \mako\crypto\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

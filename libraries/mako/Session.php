@@ -16,7 +16,7 @@ use \RuntimeException;
 class Session
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	// Nothing here

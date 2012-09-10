@@ -15,7 +15,7 @@ use \RuntimeException;
 class OpenSSL extends \mako\crypto\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

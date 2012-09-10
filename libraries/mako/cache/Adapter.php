@@ -15,7 +15,7 @@ use \Closure;
 abstract class Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

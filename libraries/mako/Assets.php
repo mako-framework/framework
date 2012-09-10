@@ -16,7 +16,7 @@ use \mako\Config;
 class Assets
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

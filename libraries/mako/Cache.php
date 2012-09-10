@@ -16,7 +16,7 @@ use \RuntimeException;
 class Cache
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

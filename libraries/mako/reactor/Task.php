@@ -18,7 +18,7 @@ use \ReflectionMethod;
 abstract class Task
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

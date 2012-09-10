@@ -15,7 +15,7 @@ use \mako\Session;
 class Token
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 	
 	/**

@@ -15,7 +15,7 @@ use \RuntimeException;
 class Package
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

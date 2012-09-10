@@ -15,7 +15,7 @@ use \RuntimeException;
 class File extends \mako\cache\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

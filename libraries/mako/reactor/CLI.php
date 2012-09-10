@@ -16,7 +16,7 @@ use \RuntimeException;
 class CLI
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

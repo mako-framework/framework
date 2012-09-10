@@ -13,7 +13,7 @@ namespace mako;
 class Charset
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	// Nothing here

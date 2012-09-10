@@ -16,7 +16,7 @@ use \mako\Database as DB;
 class Database extends \mako\session\Adapter
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**

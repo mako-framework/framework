@@ -17,7 +17,7 @@ use \mako\Database;
 class Migrate extends \mako\reactor\Task
 {
 	//---------------------------------------------
-	// Class variables
+	// Class properties
 	//---------------------------------------------
 
 	/**
