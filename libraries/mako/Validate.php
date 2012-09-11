@@ -101,7 +101,7 @@ class Validate
 
 	protected function validateRequired($input, $parameters)
 	{
-		return ! empty($input);
+		return ! in_array($input, array('', array(), null), true);
 	}
 
 	/**
