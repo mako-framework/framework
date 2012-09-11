@@ -101,7 +101,7 @@ class Validate
 
 	protected function validateRequired($input, $parameters)
 	{
-		return ! in_array($input, array('', array(), null), true);
+		return ! in_array($input, array('', null, array()), true);
 	}
 
 	/**
@@ -426,7 +426,7 @@ class Validate
 
 		foreach($rules as $field => $validators)
 		{
-			if(empty($this->input[$field]) && !array_key_exists('required', $validators))
+			if(in_array($this->input[$field], array('', null, array()), true) && !array_key_exists('required', $validators))
 			{
 				continue; // Only run validation fields that are required or not empty
 			}
