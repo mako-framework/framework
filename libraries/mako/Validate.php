@@ -231,6 +231,32 @@ class Validate
 	}
 
 	/**
+	 * Checks that the field value is a integer.
+	 * 
+	 * @access  protected
+	 * @param   string     $inut        Field value
+	 * @param   array      $parameters  Validator parameters
+	 */
+
+	protected function validateInteger($input, $parameters)
+	{
+		return (bool) preg_match('/(^(\-?)0$)|(^(\-?)[1-9]\d+$)/', $input);
+	}
+
+	/**
+	 * Checks that the field value is a float.
+	 * 
+	 * @access  protected
+	 * @param   string     $inut        Field value
+	 * @param   array      $parameters  Validator parameters
+	 */
+
+	protected function validateFloat($input, $parameters)
+	{
+		return (bool) preg_match('/(^(\-?)0\.\d+$)|(^(\-?)[1-9]\d+\.\d$)/', $input);
+	}
+
+	/**
 	 * Checks that the field value is valid HEX.
 	 * 
 	 * @access  protected
