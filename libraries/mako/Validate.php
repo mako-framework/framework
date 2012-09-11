@@ -253,7 +253,7 @@ class Validate
 
 	protected function validateFloat($input, $parameters)
 	{
-		return (bool) preg_match('/(^(\-?)0\.\d+$)|(^(\-?)[1-9]\d+\.\d$)/', $input);
+		return (bool) preg_match('/(^(\-?)0\.\d+$)|(^(\-?)[1-9]\d+\.\d+$)/', $input);
 	}
 
 	/**
@@ -415,7 +415,7 @@ class Validate
 
 		foreach($this->rules as $key => $value)
 		{
-			foreach(explode('|', trim($value, '|')) as $rule)
+			foreach(str_getcsv(trim($value, '|'), '|') as $rule)
 			{
 				list($validator, $params) = explode(':', $rule, 2) + array(null, null);
 
