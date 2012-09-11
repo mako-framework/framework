@@ -157,7 +157,7 @@ class Validate
 
 	protected function validateLessThan($input, $parameters)
 	{
-		return ((int) $input < (int) $parameters[0]);
+		return ($input < $parameters[0]);
 	}
 
 	/**
@@ -171,7 +171,7 @@ class Validate
 
 	protected function validateGreaterThan($input, $parameters)
 	{
-		return ((int) $input > (int) $parameters[0]);
+		return ($input > $parameters[0]);
 	}
 
 	/**
@@ -185,7 +185,7 @@ class Validate
 
 	protected function validateBetween($input, $parameters)
 	{
-		return ((int) $input >= (int) $parameters[0] && (int) $input <= (int) $parameters[1]);
+		return ($input >= $parameters[0] && $input <= $parameters[1]);
 	}
 
 	/**
