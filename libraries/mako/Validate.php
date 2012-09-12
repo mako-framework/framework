@@ -326,6 +326,34 @@ class Validate
 	}
 
 	/**
+	 * Checks that the field value only contains valid alpha characters.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateAlpha($input, $parameters)
+	{
+		return (bool) preg_match('/^[a-z]+$/i', $input);
+	}
+
+	/**
+	 * Checks that the field value only contains valid alpha unicode characters.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateAlphaUnicode($input, $parameters)
+	{
+		return (bool) preg_match('/^\pL+$/u', $input);
+	}
+
+	/**
 	 * Checks that the field value is a valid email address.
 	 * 
 	 * @access  protected
