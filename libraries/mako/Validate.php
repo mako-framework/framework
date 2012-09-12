@@ -382,6 +382,34 @@ class Validate
 	}
 
 	/**
+	 * Checks that the field value only contains valid alphanumeric, dash and underscore characters.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateAlphaDash($input, $parameters)
+	{
+		return (bool) preg_match('/^[a-z0-9_-]+$/i', $input);
+	}
+
+	/**
+	 * Checks that the field value only contains valid alphanumeric unicode, dash and underscore characters.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateAlphaDashUnicode($input, $parameters)
+	{
+		return (bool) preg_match('/^[\pL0-9_-]+$/u', $input);
+	}
+
+	/**
 	 * Checks that the field value is a valid email address.
 	 * 
 	 * @access  protected
