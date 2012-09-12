@@ -3,7 +3,7 @@
 namespace mako;
 
 use \Closure;
-use \RuntimeException;
+use \BadMethodCallException;
 
 /**
  * HTML helper.
@@ -215,7 +215,7 @@ class HTML
 	{
 		if(!isset(static::$macros[$name]))
 		{
-			throw new RuntimeException(vsprintf("Call to undefined method %s::%s().", array(__CLASS__, $name)));
+			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", array(__CLASS__, $name)));
 		}
 
 		return call_user_func_array(static::$macros[$name], $arguments);

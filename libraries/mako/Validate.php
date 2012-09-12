@@ -7,6 +7,7 @@ use \mako\String;
 use \mako\security\Token;
 use \Closure;
 use \DateTime;
+use \BadMethodCallException;
 
 /**
  * Input/data validation.
@@ -575,7 +576,10 @@ class Validate
 
 	public function __call($name, $arguments)
 	{
-		throw new \Exception('wtf');
+		if(!isset(static::$validators[$name]))
+		{
+			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", array(__CLASS__, $name)));
+		}
 	}
 }
 
