@@ -10,7 +10,7 @@ use \DateTime;
 use \BadMethodCallException;
 
 /**
- * Input/data validation.
+ * Input validation.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2012 Frederic G. Østby
@@ -640,25 +640,25 @@ class Validate
 	{
 		if(isset($this->messages[$field . '.' . $validator]))
 		{
-			// Return custom field validation error message
+			// Return custom field specific error message
 
 			return $this->messages[$field . '.' . $validator];
 		}
 		elseif(isset($this->messages[$validator]))
 		{
-			// Return custom validation error message
+			// Return custom error message
 
 			return $this->messages[$validator];
 		}
 		elseif(I18n::has('validate.' . $field . '.' . $validator))
 		{
-			// Return custom field validation error message from the language files
+			// Return custom field specific error message from the language file
 
 			return I18n::get('validate.' . $field . '.' . $validator, array_merge(array($field), $parameters));
 		}
 		else
 		{
-			// Return default validation error message from the language files
+			// Return default validation error message from the language file
 
 			return I18n::get('validate.' . $validator, array_merge(array($field), $parameters));
 		}
