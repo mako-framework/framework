@@ -616,6 +616,21 @@ class Validate
 	}
 
 	/**
+	 * Returns the error message.
+	 * 
+	 * @access  protected
+	 * @param   string     $field       Field name
+	 * @param   string     $validator   Validator name
+	 * @param   array      $parameters  Validator parameters
+	 * @return  string
+	 */
+
+	protected function getError($field, $validator, $parameters)
+	{
+		return I18n::translate('validate.' . $validator, array_merge(array($field), $parameters));
+	}
+
+	/**
 	 * Runs all validation rules. Returns TRUE if all rules passed and FALSE if validation failed.
 	 *
 	 * @access  public
@@ -636,7 +651,7 @@ class Validate
 			{
 				if($this->{'validate' . String::underscored2camel($validator, true)}($this->input[$field], $parameters) === false)
 				{
-					$this->errors[$field] = 'validate_' . $validator;
+					$this->errors[$field] = $this->getError($field, $validator, $parameters);
 
 					break; // Jump to next field if an error is found
 				}
