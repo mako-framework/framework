@@ -2,7 +2,7 @@
 
 return array
 (
-	'validate.required'                 => '%1$s field is required.',
+	'validate.required'                 => 'The %1$s field is required.',
 	'validate.min_length'               => '%1$s must be at least %2$s characters long.',
 	'validate.max_length'               => '%1$s must be less than %2$s characters long.',
 	'validate.exact_length'             => '%1$s must be exacly %2$s characters long.',
