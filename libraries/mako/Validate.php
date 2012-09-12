@@ -625,7 +625,7 @@ class Validate
 	 * @return  string
 	 */
 
-	protected function getError($field, $validator, $parameters)
+	protected function getErrorMessage($field, $validator, $parameters)
 	{
 		return I18n::translate('validate.' . $validator, array_merge(array($field), $parameters));
 	}
@@ -651,7 +651,7 @@ class Validate
 			{
 				if($this->{'validate' . String::underscored2camel($validator, true)}($this->input[$field], $parameters) === false)
 				{
-					$this->errors[$field] = $this->getError($field, $validator, $parameters);
+					$this->errors[$field] = $this->getErrorMessage($field, $validator, $parameters);
 
 					break; // Jump to next field if an error is found
 				}
