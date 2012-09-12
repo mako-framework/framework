@@ -35,4 +35,6 @@ return array
 	'validate.before'                   => 'The %1$s must be a date before %3$s.',
 	'validate.after'                    => 'The %1$s must be a date after %3$s.',
 	'validate.token'                    => 'Invalid security token.',
+	'validate.unique'                   => 'The %1$s must be unique.',
+	'validate.exists'                   => 'The %1$s doesn\'t exist.',
 );
