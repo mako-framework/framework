@@ -268,7 +268,7 @@ class Validate
 
 	protected function validateInteger($input, $parameters)
 	{
-		return (bool) preg_match('/(^(\-?)0$)|(^(\-?)[1-9]\d+$)/', $input);
+		return (bool) preg_match('/(^(\-?)0$)|(^(\-?)[1-9]\d*$)/', $input);
 	}
 
 	/**
@@ -281,7 +281,33 @@ class Validate
 
 	protected function validateFloat($input, $parameters)
 	{
-		return (bool) preg_match('/(^(\-?)0\.\d+$)|(^(\-?)[1-9]\d+\.\d+$)/', $input);
+		return (bool) preg_match('/(^(\-?)0\.\d+$)|(^(\-?)[1-9]\d*\.\d+$)/', $input);
+	}
+
+	/**
+	 * Checks that the field value is a natural.
+	 * 
+	 * @access  protected
+	 * @param   string     $inut        Field value
+	 * @param   array      $parameters  Validator parameters
+	 */
+
+	protected function validateNatural($input, $parameters)
+	{
+		return (bool) preg_match('/(^0$)|(^[1-9]\d*$)/', $input);
+	}
+
+	/**
+	 * Checks that the field value is a natural non zero.
+	 * 
+	 * @access  protected
+	 * @param   string     $inut        Field value
+	 * @param   array      $parameters  Validator parameters
+	 */
+
+	protected function validateNaturalNonZero($input, $parameters)
+	{
+		return (bool) preg_match('/(^[1-9]\d*$)/', $input);
 	}
 
 	/**
