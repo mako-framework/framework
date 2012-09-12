@@ -430,7 +430,12 @@ class Validate
 	}
 
 	/**
+	 * Checks that the field value is a valid date before the provided date.
 	 * 
+	 * @access  protected
+	 * @param   string     $input       Field valies
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
 	 */
 
 	protected function validateBefore($input, $parameters)
@@ -444,7 +449,12 @@ class Validate
 	}
 
 	/**
+	 * Checks that the field value is a valid date after the provided date.
 	 * 
+	 * @access  protected
+	 * @param   string     $input       Field valies
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
 	 */
 
 	protected function validateAfter($input, $parameters)
