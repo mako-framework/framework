@@ -6,14 +6,16 @@
 
 return array
 (
-	'a minute ago' => 'a minute ago',
-	'%u minutes ago' => '%u minutes ago',
-	'an hour ago' => 'an hour ago',
-	'%u hours ago' => '%u hours ago',
-	'a day ago' => 'a day ago',
-	'%u days ago' => '%u days ago',
-	'a week ago' => 'a week ago',
-	'%u weeks ago' => '%u weeks ago',
+	'datetime.today'       => 'today',
+	'datetime.yesterday'   => 'yesterday',
+	'datetime.minute_ago'  => 'a minute ago',
+	'datetime.minutes_ago' => '%u minutes ago',
+	'datetime.hour_ago'    => 'an hour ago',
+	'datetime.hours_ago'   => '%u hours ago',
+	'datetime.day_ago'     => 'a day ago',
+	'datetime.days_ago'    => '%u days ago',
+	'datetime.week_ago'    => 'a week ago',
+	'datetime.weeks_ago'   => '%u weeks ago',
 );
 
 /** -------------------- End of file --------------------**/

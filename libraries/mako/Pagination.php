@@ -126,7 +126,7 @@ class Pagination
 				
 		// Number of pages
 		
-		$links['num_pages'] = I18n::translate('%d Pages', array($this->pages));
+		$links['num_pages'] = I18n::get('pagination.pages', array($this->pages));
 		
 		// First and previous page
 		
@@ -134,7 +134,7 @@ class Pagination
 		{
 			$links['first_page'] = array
 			(
-				'name' => I18n::translate('First Page'), 
+				'name' => I18n::get('pagination.first'), 
 				'url'  => URL::to($url, array_merge($params, array($this->key => 1)), $separator),
 			);
 			
@@ -151,7 +151,7 @@ class Pagination
 		{
 			$links['last_page'] = array
 			(
-				'name' => I18n::translate('Last Page'),
+				'name' => I18n::get('pagination.last'),
 				'url'  => URL::to($url, array_merge($params, array($this->key => $this->pages)), $separator),
 			);
 			

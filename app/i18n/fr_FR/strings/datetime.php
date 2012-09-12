@@ -6,14 +6,16 @@
 
 return array
 (
-	'a minute ago' => 'il ya une minute',
-	'%u minutes ago' => 'il ya %u minutes',
-	'an hour ago' => 'il ya une heure',
-	'%u hours ago' => 'il ya %u heures',
-	'a day ago' => 'il ya un jour',
-	'%u days ago' => 'il ya %u jours',
-	'a week ago' => 'il ya une semaine',
-	'%u weeks ago' => 'il ya %u semaines',
+	'datetime.today'       => 'aujourd\'hui',
+	'datetime.yesterday'   => 'hier',
+	'datetime.minute_ago'  => 'il ya une minute',
+	'datetime.minutes_ago' => 'il ya %u minutes',
+	'datetime.hour_ago'    => 'il ya une heure',
+	'datetime.hours_ago'   => 'il ya %u heures',
+	'datetime.day_ago'     => 'il ya un jour',
+	'datetime.days_ago'    => 'il ya %u jours',
+	'datetime.week_ago'    => 'il ya une semaine',
+	'datetime.weeks_ago'   => 'il ya %u semaines',
 );
 
 /** -------------------- End of file --------------------**/

@@ -292,16 +292,16 @@ class CLI
 
 	public function confirm($question)
 	{
-		fwrite(STDOUT, $question . ' [' . I18n::translate('Y') . '/' . I18n::translate('N') . ']: ');
+		fwrite(STDOUT, $question . ' [' . I18n::get('cli.y') . '/' . I18n::get('cli.n') . ']: ');
 
 		$input = trim(fgets(STDIN));
 
 		switch(mb_strtoupper($input))
 		{
-			case I18n::translate('Y'):
+			case I18n::get('cli.y'):
 				return true;
 			break;
-			case I18n::translate('N'):
+			case I18n::get('cli.n'):
 				return false;
 			break;
 			default:
@@ -395,7 +395,7 @@ class CLI
 
 		while($seconds > 0)
 		{
-			fwrite(STDOUT, "\r" . I18n::translate('Please wait ...') . ' [ ' . $this->color(str_pad($seconds--, $length, 0, STR_PAD_LEFT), 'yellow') . ' ]');
+			fwrite(STDOUT, "\r" . I18n::get('cli.wait') . ' [ ' . $this->color(str_pad($seconds--, $length, 0, STR_PAD_LEFT), 'yellow') . ' ]');
 
 			if($withBeep === true)
 			{

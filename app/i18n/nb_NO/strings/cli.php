@@ -6,9 +6,9 @@
 
 return array
 (
-	'Please wait ...' => 'Vennligst vent ...',
-	'Y'               => 'J',
-	'N'               => 'N',
+	'cli.wait' => 'Vennligst vent ...',
+	'cli.y'    => 'J',
+	'cli.n'    => 'N',
 );
 
 /** -------------------- End of file --------------------**/

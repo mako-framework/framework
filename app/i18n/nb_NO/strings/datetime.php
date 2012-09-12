@@ -6,14 +6,16 @@
 
 return array
 (
-	'a minute ago' => 'et minutt siden',
-	'%u minutes ago' => '%u minutter siden',
-	'an hour ago' => 'en time siden',
-	'%u hours ago' => '%u timer siden',
-	'a day ago' => 'en dag siden',
-	'%u days ago' => '%u dager siden',
-	'a week ago' => 'en uke siden',
-	'%u weeks ago' => '%u uker siden',
+	'datetime.today'       => 'i dag',
+	'datetime.yesterday'   => 'i går',
+	'datetime.minute_ago'  => 'et minutt siden',
+	'datetime.minutes_ago' => '%u minutter siden',
+	'datetime.hour_ago'    => 'en time siden',
+	'datetime.hours_ago'   => '%u timer siden',
+	'datetime.day_ago'     => 'en dag siden',
+	'datetime.days_ago'    => '%u dager siden',
+	'datetime.week_ago'    => 'en uke siden',
+	'datetime.weeks_ago'   => '%u uker siden',
 );
 
 /** -------------------- End of file --------------------**/

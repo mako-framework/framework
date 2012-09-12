@@ -6,9 +6,9 @@
 
 return array
 (
-	'%d Pages' => '%d Sider', 
-	'First Page' => 'Første Side', 
-	'Last Page'  => 'Siste Side',
+	'pagination.pages' => '%d Sider', 
+	'pagination.first' => 'Første Side', 
+	'pagination.last'  => 'Siste Side',
 );
 
 /** -------------------- End of file --------------------**/

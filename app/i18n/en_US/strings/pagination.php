@@ -6,9 +6,9 @@
 
 return array
 (
-	'%d Pages' => '%d Pages', 
-	'First Page' => 'First Page', 
-	'Last Page'  => 'Last Page',
+	'pagination.pages' => '%d Pages', 
+	'pagination.first' => 'First Page', 
+	'pagination.last'  => 'Last Page',
 );
 
 /** -------------------- End of file --------------------**/
