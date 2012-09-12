@@ -625,9 +625,7 @@ class Validate
 
 	public function process(& $errors = null)
 	{
-		$rules = $this->parseRules();
-
-		foreach($rules as $field => $validators)
+		foreach($this->parseRules() as $field => $validators)
 		{
 			if(in_array($this->input[$field], array('', null, array()), true) && !array_key_exists('required', $validators))
 			{
