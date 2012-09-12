@@ -430,6 +430,34 @@ class Validate
 	}
 
 	/**
+	 * 
+	 */
+
+	protected function validateBefore($input, $parameters)
+	{
+		if(($date = DateTime::createFromFormat($parameters[0], $input)) === false)
+		{
+			return false;
+		}
+
+		return ($date->getTimestamp() < DateTime::createFromFormat($parameters[0], $parameters[1])->getTimestamp());
+	}
+
+	/**
+	 * 
+	 */
+
+	protected function validateAfter($input, $parameters)
+	{
+		if(($date = DateTime::createFromFormat($parameters[0], $input)) === false)
+		{
+			return false;
+		}
+
+		return ($date->getTimestamp() > DateTime::createFromFormat($parameters[0], $parameters[1])->getTimestamp());
+	}
+
+	/**
 	 * Checks that the field value matches a valid security token.
 	 * 
 	 * @access  protected
