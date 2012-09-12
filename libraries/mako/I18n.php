@@ -99,11 +99,27 @@ class I18n
 	}
 
 	/**
-	 * Returns a translated string of the current language. 
-	 * If no translation exists then the submitted string will be returned.
-	 *
+	 * Returns TRUE if the string exists and FALSE if not.
+	 * 
 	 * @access  public
-	 * @param   string  $string    Text to translate
+	 * @param   string   $string    String to translate
+	 * @param   string   $language  (optional) Name of the language you want to translate to
+	 * @return  boolean
+	 */
+
+	public static function has($string, $language = null)
+	{
+		$language = $language === null ? static::$language : $language;
+
+		return isset(static::$strings[$language][$string]);
+	}
+
+	/**
+	 * Returns a translated string of the current language. 
+	 *
+	 * @deprecated
+	 * @access  public
+	 * @param   string  $string    String to translate
 	 * @param   array   $vars      (optional) Value or array of values to replace in the translated text
 	 * @param   string  $language  (optional) Name of the language you want to translate to
 	 * @return  string
@@ -111,14 +127,27 @@ class I18n
 
 	public static function translate($string, array $vars = array(), $language = null)
 	{
+		return static::get($string, $vars, $language);
+	}
+
+	/**
+	 * Returns a translated string of the current language. 
+	 *
+	 * @access  public
+	 * @param   string  $string    String to translate
+	 * @param   array   $vars      (optional) Value or array of values to replace in the translated text
+	 * @param   string  $language  (optional) Name of the language you want to translate to
+	 * @return  string
+	 */
+
+	public static function get($string, array $vars = array(), $language = null)
+	{
 		$language = $language === null ? static::$language : $language;
 
 		if(empty(static::$strings[$language]))
 		{			
 			static::loadStrings($language);
 		}
-
-		$string = isset(static::$strings[$language][$string]) ? static::$strings[$language][$string] : $string;
 
 		return (empty($vars)) ? $string : vsprintf($string, $vars);
 	}
