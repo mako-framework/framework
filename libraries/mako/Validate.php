@@ -350,7 +350,35 @@ class Validate
 
 	protected function validateAlphaUnicode($input, $parameters)
 	{
-		return (bool) preg_match('/^\pL+$/u', $input);
+		return (bool) preg_match('/^[\pL]+$/u', $input);
+	}
+
+	/**
+	 * Checks that the field value only contains valid alphanumeric characters.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateAlphanumeric($input, $parameters)
+	{
+		return (bool) preg_match('/^[a-z0-9]+$/i', $input);
+	}
+
+	/**
+	 * Checks that the field value only contains valid alphanumeric unicode characters.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateAlphanumericUnicode($input, $parameters)
+	{
+		return (bool) preg_match('/^[\pL0-9]+$/u', $input);
 	}
 
 	/**
