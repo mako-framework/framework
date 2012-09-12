@@ -576,7 +576,7 @@ class Validate
 
 	public static function registerValidator($name, Closure $validator)
 	{
-		static::$validators[String::underscored2camel($name, true)] = $validator;
+		static::$validators['validate' . String::underscored2camel($name, true)] = $validator;
 	}
 
 	/**
@@ -664,6 +664,8 @@ class Validate
 		{
 			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", array(__CLASS__, $name)));
 		}
+
+		return call_user_func_array(static::$validators[$name], $arguments);
 	}
 }
 
