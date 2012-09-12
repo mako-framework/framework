@@ -654,7 +654,7 @@ class Validate
 		{
 			// Return default validation error message from the language files
 
-			return I18n::translate('validate.' . $validator, array_merge(array($field), $parameters));
+			return I18n::get('validate.' . $validator, array_merge(array($field), $parameters));
 		}
 	}
 

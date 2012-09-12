@@ -149,6 +149,8 @@ class I18n
 			static::loadStrings($language);
 		}
 
+		$string = isset(static::$strings[$language][$string]) ? static::$strings[$language][$string] : $string;
+
 		return (empty($vars)) ? $string : vsprintf($string, $vars);
 	}
 
@@ -217,22 +219,20 @@ class I18n
 		{
 			static::$strings[$language] = array();
 
-			// Fetch strings from packages
+			$locations = array
+			(
+				MAKO_PACKAGES_PATH . '/*/i18n/' . $language . '/strings/*.php',
+				MAKO_APPLICATION_PATH . '/i18n/' . $language . '/strings/*.php',
+			);
 
-			$files = glob(MAKO_PACKAGES_PATH . '/*/i18n/' . $language . '/strings/*.php', GLOB_NOSORT);
-
-			foreach($files as $file)
+			foreach($locations as $location)
 			{
-				static::$strings[$language] = array_merge(static::$strings[$language], include($file));
-			}
+				$files = glob($location, GLOB_NOSORT);
 
-			// Fetch strings from application
-
-			$files = glob(MAKO_APPLICATION_PATH . '/i18n/' . $language . '/strings/*.php', GLOB_NOSORT);
-
-			foreach($files as $file)
-			{
-				static::$strings[$language] = array_merge(static::$strings[$language], include($file));
+				foreach($files as $file)
+				{
+					static::$strings[$language] = array_merge(static::$strings[$language], include($file));
+				}
 			}
 
 			if(Config::get('application.lang_cache'))
