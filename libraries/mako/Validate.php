@@ -650,6 +650,12 @@ class Validate
 
 			return $this->messages[$validator];
 		}
+		elseif(I18n::has('validate.' . $field . '.' . $validator))
+		{
+			// Return custom field validation error message from the language files
+
+			return I18n::get('validate.' . $field . '.' . $validator, array_merge(array($field), $parameters));
+		}
 		else
 		{
 			// Return default validation error message from the language files
