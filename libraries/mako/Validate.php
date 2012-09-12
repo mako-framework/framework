@@ -32,20 +32,28 @@ class Validate
 	protected $input;
 
 	/**
+	 * Holds all the validation functions that need to be run.
+	 *
+	 * @var array
+	 */
+
+	protected $rules = array();
+
+	/**
+	 * Array of custom error messages.
+	 * 
+	 * @var array
+	 */
+
+	protected $messages = array();
+
+	/**
 	 * Holds the returned errors.
 	 *
 	 * @var array
 	 */
 
 	protected $errors = array();
-
-	/**
-	 * Holds all the callback validation functions that need to be run.
-	 *
-	 * @var array
-	 */
-
-	protected $rules = array();
 
 	/**
 	 * Custom validators.
@@ -63,28 +71,31 @@ class Validate
 	 * Class constructor.
 	 *
 	 * @access  public
-	 * @param   array  $input  Array to validate
-	 * @param   array  $rules  Array of validation rules
+	 * @param   array  $input     Array to validate
+	 * @param   array  $rules     Array of validation rules
+	 * @param   array  $messages  (optional) Array of error messages
 	 */
 
-	public function __construct(array $input, array $rules)
+	public function __construct(array $input, array $rules, array $messages = array())
 	{
-		$this->input = $input;
-		$this->rules = $rules;
+		$this->input    = $input;
+		$this->rules    = $rules;
+		$this->messages = $messages;
 	}
 
 	/**
 	 * Factory method making method chaining possible right off the bat.
 	 *
 	 * @access  public
-	 * @param   array          $input  Array to validate
-	 * @param   array          $rules  Array of validation rules
+	 * @param   array  $input     Array to validate
+	 * @param   array  $rules     Array of validation rules
+	 * @param   array  $messages  (optional) Array of error messages
 	 * @return  mako\Validate
 	 */
 
-	public static function factory(array $input, array $rules)
+	public static function factory(array $input, array $rules, array $messages = array())
 	{
-		return new static($input, $rules);
+		return new static($input, $rules, $messages);
 	}
 
 	//---------------------------------------------
@@ -627,7 +638,24 @@ class Validate
 
 	protected function getErrorMessage($field, $validator, $parameters)
 	{
-		return I18n::translate('validate.' . $validator, array_merge(array($field), $parameters));
+		if(isset($this->messages[$field . '.' . $validator]))
+		{
+			// Return custom field validation error message
+
+			return $this->messages[$field . '.' . $validator];
+		}
+		elseif(isset($this->messages[$validator]))
+		{
+			// Return custom validation error message
+
+			return $this->messages[$validator];
+		}
+		else
+		{
+			// Return default validation error message from the language files
+
+			return I18n::translate('validate.' . $validator, array_merge(array($field), $parameters));
+		}
 	}
 
 	/**
