@@ -161,6 +161,20 @@ class Validate
 	}
 
 	/**
+	 * Checks that the field value is less than or equal to x.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateLessThanOrEqualTo($input, $parameters)
+	{
+		return ($input <= $parameters[0]);
+	}
+
+	/**
 	 * Checks that the field value is greater than x.
 	 * 
 	 * @access  protected
@@ -172,6 +186,20 @@ class Validate
 	protected function validateGreaterThan($input, $parameters)
 	{
 		return ($input > $parameters[0]);
+	}
+
+	/**
+	 * Checks that the field value is greater than or equal to x.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateGreaterThanOrEqualTo($input, $parameters)
+	{
+		return ($input >= $parameters[0]);
 	}
 
 	/**
