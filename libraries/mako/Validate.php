@@ -40,14 +40,6 @@ class Validate
 	protected $rules = array();
 
 	/**
-	 * Array of custom error messages.
-	 * 
-	 * @var array
-	 */
-
-	protected $messages = array();
-
-	/**
 	 * Holds the returned errors.
 	 *
 	 * @var array
@@ -71,31 +63,28 @@ class Validate
 	 * Class constructor.
 	 *
 	 * @access  public
-	 * @param   array  $input     Array to validate
-	 * @param   array  $rules     Array of validation rules
-	 * @param   array  $messages  (optional) Array of error messages
+	 * @param   array  $input  Array to validate
+	 * @param   array  $rules  Array of validation rules
 	 */
 
-	public function __construct(array $input, array $rules, array $messages = array())
+	public function __construct(array $input, array $rules)
 	{
-		$this->input    = $input;
-		$this->rules    = $rules;
-		$this->messages = $messages;
+		$this->input = $input;
+		$this->rules = $rules;
 	}
 
 	/**
 	 * Factory method making method chaining possible right off the bat.
 	 *
 	 * @access  public
-	 * @param   array  $input     Array to validate
-	 * @param   array  $rules     Array of validation rules
-	 * @param   array  $messages  (optional) Array of error messages
+	 * @param   array  $input  Array to validate
+	 * @param   array  $rules  Array of validation rules
 	 * @return  mako\Validate
 	 */
 
-	public static function factory(array $input, array $rules, array $messages = array())
+	public static function factory(array $input, array $rules)
 	{
-		return new static($input, $rules, $messages);
+		return new static($input, $rules);
 	}
 
 	//---------------------------------------------
@@ -638,19 +627,7 @@ class Validate
 
 	protected function getErrorMessage($field, $validator, $parameters)
 	{
-		if(isset($this->messages[$field . '.' . $validator]))
-		{
-			// Return custom field specific error message
-
-			return $this->messages[$field . '.' . $validator];
-		}
-		elseif(isset($this->messages[$validator]))
-		{
-			// Return custom error message
-
-			return $this->messages[$validator];
-		}
-		elseif(I18n::has('validate.' . $field . '.' . $validator))
+		if(I18n::has('validate.' . $field . '.' . $validator))
 		{
 			// Return custom field specific error message from the language file
 
@@ -659,6 +636,15 @@ class Validate
 		else
 		{
 			// Return default validation error message from the language file
+
+			if(I18n::has('validate.field.' . $field))
+			{
+				$field = I18n::get('validate.field.' . $field);
+			}
+			else
+			{
+				$field = str_replace('_', ' ', $field);
+			}
 
 			return I18n::get('validate.' . $validator, array_merge(array($field), $parameters));
 		}
