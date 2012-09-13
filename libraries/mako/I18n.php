@@ -111,6 +111,11 @@ class I18n
 	{
 		$language = $language === null ? static::$language : $language;
 
+		if(empty(static::$strings[$language]))
+		{			
+			static::loadStrings($language);
+		}
+
 		return isset(static::$strings[$language][$string]);
 	}
 
