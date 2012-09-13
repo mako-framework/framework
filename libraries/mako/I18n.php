@@ -154,7 +154,7 @@ class I18n
 			static::loadStrings($language);
 		}
 
-		$string = isset(static::$strings[$language][$string]) ? static::$strings[$language][$string] : $string;
+		$string = static::has($string, $language) ? static::$strings[$language][$string] : $string;
 
 		return (empty($vars)) ? $string : vsprintf($string, $vars);
 	}
