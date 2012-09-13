@@ -2,7 +2,7 @@
 
 return array
 (
-	'validate.required'                 => '%1$s feltet er obligatorisk.',
+	'validate.required'                 => '%1$sfeltet er obligatorisk.',
 	'validate.min_length'               => '%1$s må være minst %2$s tegn langt.',
 	'validate.max_length'               => '%1$s må være kortere enn %2$s tegn.',
 	'validate.exact_length'             => '%1$s må være akkurat %2$s tegn langt.',
