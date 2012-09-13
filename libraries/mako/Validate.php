@@ -631,7 +631,7 @@ class Validate
 		{
 			// Return custom field specific error message from the language file
 
-			return I18n::get('validate.' . $field . '.' . $validator, array_merge(array($field), $parameters));
+			return I18n::translate('validate.' . $field . '.' . $validator, array_merge(array($field), $parameters));
 		}
 		else
 		{
@@ -639,14 +639,14 @@ class Validate
 
 			if(I18n::has('validate.field.' . $field))
 			{
-				$field = I18n::get('validate.field.' . $field);
+				$field = I18n::translate('validate.field.' . $field);
 			}
 			else
 			{
 				$field = str_replace('_', ' ', $field);
 			}
 
-			return I18n::get('validate.' . $validator, array_merge(array($field), $parameters));
+			return I18n::translate('validate.' . $validator, array_merge(array($field), $parameters));
 		}
 	}
 

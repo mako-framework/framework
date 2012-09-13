@@ -122,7 +122,6 @@ class I18n
 	/**
 	 * Returns a translated string of the current language. 
 	 *
-	 * @deprecated
 	 * @access  public
 	 * @param   string  $string    String to translate
 	 * @param   array   $vars      (optional) Value or array of values to replace in the translated text
@@ -131,21 +130,6 @@ class I18n
 	 */
 
 	public static function translate($string, array $vars = array(), $language = null)
-	{
-		return static::get($string, $vars, $language);
-	}
-
-	/**
-	 * Returns a translated string of the current language. 
-	 *
-	 * @access  public
-	 * @param   string  $string    String to translate
-	 * @param   array   $vars      (optional) Value or array of values to replace in the translated text
-	 * @param   string  $language  (optional) Name of the language you want to translate to
-	 * @return  string
-	 */
-
-	public static function get($string, array $vars = array(), $language = null)
 	{
 		$language = $language === null ? static::$language : $language;
 
