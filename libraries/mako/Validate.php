@@ -4,6 +4,7 @@ namespace mako;
 
 use \mako\I18n;
 use \mako\String;
+use \mako\Database;
 use \mako\security\Token;
 use \Closure;
 use \DateTime;
@@ -564,6 +565,34 @@ class Validate
 	protected function validateToken($input, $parameters)
 	{
 		return Token::validate($input);
+	}
+
+	/**
+	 * Checks that the field value doesn't exist in the database.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateUnique($input, $parameters)
+	{
+		return (Database::connection()->table($parameters[0])->where($parameters[1], '=', $input)->count() == 0);
+	}
+
+	/**
+	 * Checks that the field value exist in the database.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateExists($input, $parameters)
+	{
+		return (Database::connection()->table($parameters[0])->where($parameters[1], '=', $input)->count() != 0);
 	}
 
 	/**

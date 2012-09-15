@@ -935,7 +935,7 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string  $column  (optionall Column name
-	 * @return  float
+	 * @return  int
 	 */
 
 	public function count($column = '*')
