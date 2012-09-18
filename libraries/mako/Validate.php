@@ -680,11 +680,9 @@ class Validate
 	}
 
 	/**
-	 * Runs all validation rules. Returns TRUE if all rules passed and FALSE if validation failed.
+	 * Runs all validation rules.
 	 *
 	 * @access  public
-	 * @param   array    $errors  (optional) If $errors is provided, then it is filled with all the error messages
-	 * @return  boolean
 	 */
 
 	protected function process()
