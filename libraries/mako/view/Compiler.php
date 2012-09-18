@@ -139,9 +139,7 @@ class Compiler
 
 		// Compile block output
 
-		$template = preg_replace('/{{\s{0,}block:(.*?)\s{0,}}}(.*?){{\s{0,}endblock\s{0,}}}/is', '<?php if(mako\view\Block::exists(\'$1\')): ?>{{block:$1}}<?php else: ?>$2<?php endif; ?>', $template);
-
-		return preg_replace('/{{\s{0,}block:(.*?)\s{0,}}}/i', '<?php echo mako\view\Block::get(\'$1\'); ?>', $template);
+		return preg_replace('/{{\s{0,}block:(.*?)\s{0,}}}(.*?){{\s{0,}endblock\s{0,}}}/is', '<?php if(mako\view\Block::exists(\'$1\')): ?><?php echo mako\view\Block::get(\'$1\'); ?><?php else: ?>$2<?php endif; ?>', $template);
 	}
 
 	/**
