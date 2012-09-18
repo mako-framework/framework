@@ -89,7 +89,7 @@ class Rest
 	 * @return  string
 	 */
 
-	protected function execute(& $info)
+	protected function execute(&$info)
 	{
 		// Limit the number of redirects if option is not set
 
@@ -198,7 +198,7 @@ class Rest
 	 * @return  string
 	 */
 
-	public function get(& $info = null)
+	public function get(&$info = null)
 	{
 		return $this->execute($info);
 	}
@@ -211,7 +211,7 @@ class Rest
 	 * @return  array
 	 */
 
-	public function head(& $info = null)
+	public function head(&$info = null)
 	{
 		$this->options[CURLOPT_HEADER] = true;
 		$this->options[CURLOPT_NOBODY] = true;
@@ -229,7 +229,7 @@ class Rest
 	 * @return  string
 	 */
 
-	public function post(array $data = array(), $multipart = false, & $info = null)
+	public function post(array $data = array(), $multipart = false, &$info = null)
 	{
 		$this->options[CURLOPT_POST]       = true;
 		$this->options[CURLOPT_POSTFIELDS] = ($multipart === true) ? $data : http_build_query($data);
@@ -246,7 +246,7 @@ class Rest
 	 * @return  string
 	 */
 
-	public function put($data, & $info = null)
+	public function put($data, &$info = null)
 	{
 		$this->options[CURLOPT_CUSTOMREQUEST] = 'PUT';
 
@@ -272,7 +272,7 @@ class Rest
 	 * @return  string
 	 */
 
-	public function delete(& $info = null)
+	public function delete(&$info = null)
 	{
 		$this->options[CURLOPT_CUSTOMREQUEST] = 'DELETE';
 

@@ -45,9 +45,9 @@ class Input
 	 * @param   array  $input  Array to validate
 	 */
 
-	public function __construct(array & $input)
+	public function __construct(array &$input)
 	{
-		$this->input = & $input;
+		$this->input =& $input;
 	}
 
 	/**
@@ -58,7 +58,7 @@ class Input
 	 * @return  mako\Validate
 	 */
 
-	public static function factory(array & $input)
+	public static function factory(array &$input)
 	{
 		return new static($input);
 	}

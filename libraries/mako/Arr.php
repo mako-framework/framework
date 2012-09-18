@@ -73,7 +73,7 @@ class Arr
 	 * @param   mixed    $value  Value to set
 	 */
 
-	public static function set(array & $array, $path, $value)
+	public static function set(array &$array, $path, $value)
 	{
 		$segments = explode('.', $path);
 
@@ -101,7 +101,7 @@ class Arr
 	 * @return  boolean
 	 */
 
-	public static function delete(array & $array, $path)
+	public static function delete(array &$array, $path)
 	{
 		$segments = explode('.', $path);
 		
