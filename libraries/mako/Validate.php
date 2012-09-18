@@ -687,7 +687,7 @@ class Validate
 	 * @return  boolean
 	 */
 
-	public function process(& $errors = null)
+	protected function process()
 	{
 		foreach($this->parseRules() as $field => $validators)
 		{
@@ -706,10 +706,52 @@ class Validate
 				}
 			}
 		}
+	}
+
+	/**
+	 * Returns TRUE if all rules passed and FALSE if validation failed.
+	 *
+	 * @access  public
+	 * @param   array    $errors  (optional) If $errors is provided, then it is filled with all the error messages
+	 * @return  boolean
+	 */
+
+	public function successful(&$errors = null)
+	{
+		$this->process();
 
 		$errors = $this->errors;
 
 		return empty($this->errors);
+	}
+
+	/**
+	 * Returns FALSE if all rules passed and TRUE if validation failed.
+	 *
+	 * @access  public
+	 * @param   array    $errors  (optional) If $errors is provided, then it is filled with all the error messages
+	 * @return  boolean
+	 */
+
+	public function failed(&$errors = null)
+	{
+		$this->process();
+
+		$errors = $this->errors;
+
+		return !empty($this->errors);
+	}
+
+	/**
+	 * Returns the validation errors.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function errors()
+	{
+		return $this->errors;
 	}
 
 	/**
