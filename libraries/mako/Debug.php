@@ -2,6 +2,7 @@
 
 namespace mako;
 
+use \mako\Arr;
 use \mako\Database;
 
 /**
@@ -131,11 +132,15 @@ class Debug
 
 	public static function render()
 	{
+		$queries = Database::profiler();
+		
 		return View::factory('_mako_/toolbar', array
 		(
-			'time'    => round(microtime(true) - MAKO_START, 4),
-			'logs'    => static::$logs,
-			'queries' => Database::profiler()
+			'time'       => round(microtime(true) - MAKO_START, 4),
+			'logs'       => static::$logs,
+			'queries'    => $queries,
+			'db_time'    => round(array_sum(Arr::pluck($queries, 'time')), 4),
+			'files'      => get_included_files(),
 		))->render();
 	}
 }
