@@ -147,6 +147,23 @@ class Arr
 	{
 		return (bool) count(array_filter(array_keys($array), 'is_string'));
 	}
+
+	/**
+	 * Returns an array of values from an array.
+	 * 
+	 * @access  public
+	 * @param   array   $array  Array to pluck from
+	 * @param   string  $key    Array key
+	 * @return  array
+	 */
+
+	public static function pluck(array $array, $key)
+	{
+		return array_map(function($value) use ($key)
+		{
+			return is_object($value) ? $value->$key : $value[$key];
+		}, $array);
+	}
 }
 
 /** -------------------- End of file --------------------**/
