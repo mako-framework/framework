@@ -149,7 +149,7 @@ class Arr
 	}
 
 	/**
-	 * Returns an array of values from an array.
+	 * Returns the values from a single column of the input array, identified by the key.
 	 * 
 	 * @access  public
 	 * @param   array   $array  Array to pluck from
