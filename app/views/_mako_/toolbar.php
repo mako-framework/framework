@@ -47,6 +47,7 @@ var Mako =
 }
 #mako-debug a
 {
+	color: #ccc;
 	text-decoration: none;
 }
 #mako-debug p
@@ -102,6 +103,26 @@ var Mako =
 	-moz-border-radius-bottomleft: 1px;
 	border-top-left-radius: 1px;
 	border-bottom-left-radius: 1px;
+}
+#mako-debug .mako-close
+{
+	background:#333;
+	color:#fff;
+	display:inline-block;
+	padding:10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	position:absolute;
+	top:0px;
+	right:0px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-left-radius: 5px;
+}
+#mako-debug .mako-close a
+{
+	color: #fff;
+	text-shadow: 0px 1px 0px #000;
 }
 #mako-debug .mako-log
 {
@@ -237,6 +258,7 @@ var Mako =
 <div id="mako-debug">
 
 <div class="mako-content mako-toggle" id="mako-queries">
+<div class="mako-close"><a href="#" onclick="Mako.toggleDisplay('mako-queries')">close</a></div>
 <?php if(empty($queries)): ?>
 <div class="mako-empty mako-title">No database queries...</div>
 <?php else: ?>
@@ -257,6 +279,7 @@ var Mako =
 </div>
 
 <div class="mako-content mako-toggle" id="mako-log">
+<div class="mako-close"><a href="#" onclick="Mako.toggleDisplay('mako-log')">close</a></div>
 <?php if(empty($logs)): ?>
 <div class="mako-empty mako-title">No log entries...</div>
 <?php else: ?>
@@ -277,7 +300,7 @@ var Mako =
 </div>
 
 <div class="mako-content mako-toggle" id="mako-variables">
-
+<div class="mako-close"><a href="#" onclick="Mako.toggleDisplay('mako-variables')">close</a></div>
 <?php if(!empty($_COOKIE)): ?>
 <p><span class="mako-title">COOKIE</span></p>
 <table class="mako-table">
@@ -346,8 +369,6 @@ var Mako =
 <br>
 <?php endif; ?>
 
-
-
 <?php if(!empty($_POST)): ?>
 <p><span class="mako-title">POST</span></p>
 <table class="mako-table">
@@ -400,6 +421,7 @@ var Mako =
 </div>
 
 <div class="mako-content mako-toggle" id="mako-files">
+<div class="mako-close"><a href="#" onclick="Mako.toggleDisplay('mako-files')">close</a></div>
 <p><span class="mako-title">INCLUDED FILES</span></p>
 <table class="mako-table">
 <tr>
