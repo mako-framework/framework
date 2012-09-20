@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\Arr;
+use \mako\File;
 use \mako\Database;
 
 /**
@@ -137,10 +138,11 @@ class Debug
 		return View::factory('_mako_/toolbar', array
 		(
 			'time'       => round(microtime(true) - MAKO_START, 4),
+			'files'      => get_included_files(),
+			'memory'     => File::size(memory_get_peak_usage()),
 			'logs'       => static::$logs,
 			'queries'    => $queries,
 			'db_time'    => round(array_sum(Arr::pluck($queries, 'time')), 4),
-			'files'      => get_included_files(),
 		))->render();
 	}
 }
