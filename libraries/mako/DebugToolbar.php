@@ -14,7 +14,7 @@ use \mako\Database;
  * @license    http://www.makoframework.com/license
  */
 
-class Debug
+class DebugToolbar
 {
 	//---------------------------------------------
 	// Class properties
@@ -119,7 +119,7 @@ class Debug
 	 * @param   string  $type     Log type
 	 */
 
-	public static function log($message, $type = Debug::DEBUG)
+	public static function log($message, $type = DebugToolbar::DEBUG)
 	{
 		static::$logs[] = array('message' => $message, 'type' => $type);
 	}

@@ -15,7 +15,7 @@ return array
 	/**
 	 * You can define as many logging configurations as you want.
 	 *
-	 * The supported log types are: "File", "FirePHP", "Growl", "Prowl" and "Syslog".
+	 * The supported log types are: "DebugToolbar", "File", "FirePHP", "Growl", "Prowl" and "Syslog".
 	 *
 	 * Growl and Prowl logging requires the official Growl and Prowl packages.
 	 *
@@ -28,6 +28,10 @@ return array
 	
 	'configurations' => array
 	(
+		'toolbar' => array
+		(
+			'type' => 'DebugToolbar',
+		),
 		'file' => array
 		(
 			'type'  => 'File',

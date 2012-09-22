@@ -3,8 +3,8 @@
 namespace mako;
 
 use \mako\Config;
-use \mako\Debug;
 use \mako\Request;
+use \mako\DebugToolbar;
 
 /**
  * Mako response class.
@@ -272,7 +272,7 @@ class Response
 
 			if(Config::get('application.debug_toolbar') === true && Request::isAjax() === false)
 			{
-				$this->body = str_replace('</body>', Debug::render() . '</body>', $this->body);
+				$this->body = str_replace('</body>', DebugToolbar::render() . '</body>', $this->body);
 			}
 
 			// Check ETag
