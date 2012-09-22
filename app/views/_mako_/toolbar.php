@@ -30,229 +30,229 @@
 </script>
 
 <style>
-#mako-debug
-{
-	width: 100%;
-	position: fixed;
-	bottom: 0;
-	right:0;
-	z-index: 9999;
-	color: #fff;
-	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif !important;
-	font-size: 16px !important;
-}
-#mako-debug img
-{
-	vertical-align: middle;
-}
-#mako-debug a
-{
-	color: #ccc;
-	text-decoration: none;
-}
-#mako-debug p
-{
-	margin-top: 1em;
-	margin-bottom: 1em;
-}
-#mako-debug .mako-strong
-{
-	font-weight: bold;
-}
-#mako-debug .mako-small
-{
-	font-size: 0.85em;
-}
-#mako-debug .mako-right
-{
-	float: right;
-	margin-top: -2px;
-}
-#mako-debug .mako-right span
-{
-	float:left;
-	clear:none;
-	padding: 5px;
-	padding-left: 8px;
-	padding-right: 8px;
-	color: #aaa;
-	background: #1c1c1c;
-	border-bottom: 1px solid #333;
-	-moz-box-shadow: inset 0 3px 5px #111;
-	-webkit-box-shadow: inset 0 3px 5px #111;
-	box-shadow: inset 0 3px 5px #111;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-}
-#mako-debug .mako-right span:not(:last-child)
-{
-	-webkit-border-top-right-radius: 0px;
-	-webkit-border-bottom-right-radius: 0px;
-	-moz-border-radius-topright: 0px;
-	-moz-border-radius-bottomright: 0px;
-	border-top-right-radius: 0px;
-	border-bottom-right-radius: 0px;
-	border-right: 1px solid #222;
-}
-#mako-debug .mako-right span:not(:first-child)
-{
-	-webkit-border-top-left-radius: 1px;
-	-webkit-border-bottom-left-radius: 1px;
-	-moz-border-radius-topleft: 1px;
-	-moz-border-radius-bottomleft: 1px;
-	border-top-left-radius: 1px;
-	border-bottom-left-radius: 1px;
-}
-#mako-debug .mako-close
-{
-	background:#333;
-	color:#fff;
-	display:inline-block;
-	padding:10px;
-	padding-left: 20px;
-	padding-right: 20px;
-	position:absolute;
-	top:0px;
-	right:0px;
-	-webkit-border-bottom-left-radius: 5px;
-	-moz-border-radius-bottomleft: 5px;
-	border-bottom-left-radius: 5px;
-}
-#mako-debug .mako-close a
-{
-	color: #fff;
-	text-shadow: 0px 1px 0px #000;
-}
-#mako-debug .mako-log
-{
-	color: #fff;
-	text-shadow: 0px 1px 0px #000;
-}
-#mako-debug .mako-notice
-{
-	background: #999999;
-}
-#mako-debug .mako-critical
-{
-	background: #B94A48;
-}
-#mako-debug .mako-alert
-{
-	background: #F89406;
-}
-#mako-debug .mako-emergency
-{
-	background: #B94A48;
-}
-#mako-debug .mako-error
-{
-	background: #B94A48;
-}
-#mako-debug .mako-warning
-{
-	background: #F89406;
-}
-#mako-debug .mako-info
-{
-	background: #3A87AD;
-}
-#mako-debug .mako-debug
-{
-	background: #468847;
-}
-#mako-debug .mako-title
-{
-	color: #aaa;
-	font-size: 2.0em;
-	text-align: center;
-	text-shadow: 0px 2px 0px #fff;
-}
-#mako-debug .mako-empty
-{
-	margin: 150px auto;
-}
-#mako-debug .mako-table
-{
-	width: 100%;
-	border: 1px solid #ccc;
-	background: #fff;
-}
-#mako-debug table td
-{
-	padding: 4px;
-	border-bottom: 1px solid #ccc;
-}
-#mako-debug table td:first-child
-{
-	width: 20%;
-	vertical-align: top;
-}
-#mako-debug table td:last-child
-{
-	width: 80%;
-	white-space: pre-wrap;
-	word-wrap: break-word;
-	word-break: break-all;
-}
-#mako-debug table tr:last-child td
-{
-	border: 0px;
-}
-#mako-debug table tr:nth-child(odd)
-{
-	background: #efefef;
-}
-#mako-debug table tr th
-{
-	text-align: left;
-	padding: 4px;
-}
-#mako-debug .mako-toolbar
-{
-	padding: 12px;
-	background: #111;
-	background: -webkit-linear-gradient(bottom, #1c1c1c, #3c3c3c);
-	background: -moz-linear-gradient(bottom, #1c1c1c, #3c3c3c);
-	background: -ms-linear-gradient(bottom, #1c1c1c, #3c3c3c);
-	background: -o-linear-gradient(bottom, #1c1c1c, #3c3c3c);
-	border-top: 1px solid #000;
-	font-size: 0.8em;
-	text-shadow: 0px 1px 0px #000;
-}
-#mako-debug .mako-panel
-{
-	display: none;
-	height: 400px;
-	padding: 12px;
-	overflow: auto;
-	background: #eee;
-	background: rgba(250, 250, 250, 0.95);
-	border-top: 2px solid #555;
-	color: #222;
-	font-size: 0.9em;
-	text-shadow: 0px 1px 0px #fff;
-}
-#mako-debug a.mako-button
-{
-	color: #bbb;
-	padding: 5px;
-	border-right: 1px solid #222;
-	-webkit-box-shadow: 1px 0px 0px #444;
-	-moz-box-shadow: 1px 0px 0px #444;
-	box-shadow: 1px 0px 0px #444;
-}
-#mako-debug a.mako-button:hover
-{
-	color: #eee;
-}
-#mako-debug a.mako-button:last-child
-{
-	border-right: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-}
+	#mako-debug
+	{
+		width: 100%;
+		position: fixed;
+		bottom: 0;
+		right:0;
+		z-index: 9999;
+		color: #fff;
+		font-family:"Helvetica Neue",Helvetica,Arial,sans-serif !important;
+		font-size: 16px !important;
+	}
+	#mako-debug img
+	{
+		vertical-align: middle;
+	}
+	#mako-debug a
+	{
+		color: #ccc;
+		text-decoration: none;
+	}
+	#mako-debug p
+	{
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+	#mako-debug .mako-strong
+	{
+		font-weight: bold;
+	}
+	#mako-debug .mako-small
+	{
+		font-size: 0.85em;
+	}
+	#mako-debug .mako-right
+	{
+		float: right;
+		margin-top: -2px;
+	}
+	#mako-debug .mako-right span
+	{
+		float:left;
+		clear:none;
+		padding: 5px;
+		padding-left: 8px;
+		padding-right: 8px;
+		color: #aaa;
+		background: #1c1c1c;
+		border-bottom: 1px solid #333;
+		-moz-box-shadow: inset 0 3px 5px #111;
+		-webkit-box-shadow: inset 0 3px 5px #111;
+		box-shadow: inset 0 3px 5px #111;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+	}
+	#mako-debug .mako-right span:not(:last-child)
+	{
+		-webkit-border-top-right-radius: 0px;
+		-webkit-border-bottom-right-radius: 0px;
+		-moz-border-radius-topright: 0px;
+		-moz-border-radius-bottomright: 0px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-right: 1px solid #222;
+	}
+	#mako-debug .mako-right span:not(:first-child)
+	{
+		-webkit-border-top-left-radius: 1px;
+		-webkit-border-bottom-left-radius: 1px;
+		-moz-border-radius-topleft: 1px;
+		-moz-border-radius-bottomleft: 1px;
+		border-top-left-radius: 1px;
+		border-bottom-left-radius: 1px;
+	}
+	#mako-debug .mako-close
+	{
+		background:#333;
+		color:#fff;
+		display:inline-block;
+		padding:10px;
+		padding-left: 20px;
+		padding-right: 20px;
+		position:absolute;
+		top:0px;
+		right:0px;
+		-webkit-border-bottom-left-radius: 5px;
+		-moz-border-radius-bottomleft: 5px;
+		border-bottom-left-radius: 5px;
+	}
+	#mako-debug .mako-close a
+	{
+		color: #fff;
+		text-shadow: 0px 1px 0px #000;
+	}
+	#mako-debug .mako-log
+	{
+		color: #fff;
+		text-shadow: 0px 1px 0px #000;
+	}
+	#mako-debug .mako-notice
+	{
+		background: #999999;
+	}
+	#mako-debug .mako-critical
+	{
+		background: #B94A48;
+	}
+	#mako-debug .mako-alert
+	{
+		background: #F89406;
+	}
+	#mako-debug .mako-emergency
+	{
+		background: #B94A48;
+	}
+	#mako-debug .mako-error
+	{
+		background: #B94A48;
+	}
+	#mako-debug .mako-warning
+	{
+		background: #F89406;
+	}
+	#mako-debug .mako-info
+	{
+		background: #3A87AD;
+	}
+	#mako-debug .mako-debug
+	{
+		background: #468847;
+	}
+	#mako-debug .mako-title
+	{
+		color: #aaa;
+		font-size: 2.0em;
+		text-align: center;
+		text-shadow: 0px 2px 0px #fff;
+	}
+	#mako-debug .mako-empty
+	{
+		margin: 150px auto;
+	}
+	#mako-debug .mako-table
+	{
+		width: 100%;
+		border: 1px solid #ccc;
+		background: #fff;
+	}
+	#mako-debug table td
+	{
+		padding: 4px;
+		border-bottom: 1px solid #ccc;
+	}
+	#mako-debug table td:first-child
+	{
+		width: 20%;
+		vertical-align: top;
+	}
+	#mako-debug table td:last-child
+	{
+		width: 80%;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+		word-break: break-all;
+	}
+	#mako-debug table tr:last-child td
+	{
+		border: 0px;
+	}
+	#mako-debug table tr:nth-child(odd)
+	{
+		background: #efefef;
+	}
+	#mako-debug table tr th
+	{
+		text-align: left;
+		padding: 4px;
+	}
+	#mako-debug .mako-toolbar
+	{
+		padding: 12px;
+		background: #111;
+		background: -webkit-linear-gradient(bottom, #1c1c1c, #3c3c3c);
+		background: -moz-linear-gradient(bottom, #1c1c1c, #3c3c3c);
+		background: -ms-linear-gradient(bottom, #1c1c1c, #3c3c3c);
+		background: -o-linear-gradient(bottom, #1c1c1c, #3c3c3c);
+		border-top: 1px solid #000;
+		font-size: 0.8em;
+		text-shadow: 0px 1px 0px #000;
+	}
+	#mako-debug .mako-panel
+	{
+		display: none;
+		height: 400px;
+		padding: 12px;
+		overflow: auto;
+		background: #eee;
+		background: rgba(250, 250, 250, 0.95);
+		border-top: 2px solid #555;
+		color: #222;
+		font-size: 0.9em;
+		text-shadow: 0px 1px 0px #fff;
+	}
+	#mako-debug a.mako-button
+	{
+		color: #bbb;
+		padding: 5px;
+		border-right: 1px solid #222;
+		-webkit-box-shadow: 1px 0px 0px #444;
+		-moz-box-shadow: 1px 0px 0px #444;
+		box-shadow: 1px 0px 0px #444;
+	}
+	#mako-debug a.mako-button:hover
+	{
+		color: #eee;
+	}
+	#mako-debug a.mako-button:last-child
+	{
+		border-right: none;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
 </style>
 
 <div id="mako-debug">
