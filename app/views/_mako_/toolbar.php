@@ -135,31 +135,31 @@
 }
 #mako-debug .mako-critical
 {
-    background: #B94A48;
+	background: #B94A48;
 }
 #mako-debug .mako-alert
 {
-    background: #F89406;
+	background: #F89406;
 }
 #mako-debug .mako-emergency
 {
-    background: #B94A48;
+	background: #B94A48;
 }
 #mako-debug .mako-error
 {
-    background: #B94A48;
+	background: #B94A48;
 }
 #mako-debug .mako-warning
 {
-    background: #F89406;
+	background: #F89406;
 }
 #mako-debug .mako-info
 {
-    background: #3A87AD;
+	background: #3A87AD;
 }
 #mako-debug .mako-debug
 {
-    background: #468847;
+	background: #468847;
 }
 #mako-debug .mako-title
 {
@@ -280,7 +280,6 @@
 
 	<div class="mako-panel" id="mako-log">
 		<div class="mako-close"><a href="#" onclick="Mako.toggleDisplay('mako-log')">close</a></div>
-		
 		<?php if(empty($logs)): ?>
 		<div class="mako-empty mako-title">No log entries...</div>
 		<?php else: ?>
