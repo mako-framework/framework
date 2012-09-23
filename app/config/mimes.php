@@ -26,6 +26,8 @@ return array
 	'h'          => 'text/x-c',
 	'htm'        => 'text/html',
 	'html'       => 'text/html',
+	'ics'        => 'text/calendar',
+	'ical'       => 'text/calendar',
 	'ini'        => 'text/plain',
 	'jar'        => 'application/java-archive',
 	'java'       => 'text/x-java',
@@ -38,9 +40,11 @@ return array
 	'mka'        => 'audio/x-matroska',
 	'mkv'        => 'video/x-matroska',
 	'mp3'        => 'audio/mpeg',
-	'mp4'        => 'application/mp4',
+	'mp4'        => 'video/mp4',
 	'mpeg'       => 'video/mpeg',
 	'mpg'        => 'video/mpeg',
+	'm4a'        => 'video/mp4',
+	'm4v'        => 'video/mp4',
 	'odt'        => 'application/vnd.oasis.opendocument.text',
 	'ogg'        => 'audio/ogg',
 	'pdf'        => 'application/pdf',
@@ -67,6 +71,8 @@ return array
 	'xls'        => 'application/vnd.ms-excel',
 	'xml'        => 'text/xml',
 	'zip'        => 'application/zip',
+	'3gp'        => 'video/3gpp',
+	'3g2'        => 'video/3gpp2',
 );
 
 /** -------------------- End of file --------------------**/
