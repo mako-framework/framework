@@ -35,6 +35,7 @@ return array
 	'jpg'        => 'image/jpeg',
 	'js'         => 'text/javascript',
 	'json'       => 'application/json',
+	'jp2'        => 'image/jp2',
 	'mid'        => 'audio/midi',
 	'midi'       => 'audio/midi',
 	'mka'        => 'audio/x-matroska',
