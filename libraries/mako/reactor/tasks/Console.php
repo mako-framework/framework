@@ -195,7 +195,7 @@ class Console extends \mako\reactor\Task
 			return false;
 		}
 
-		$kw = preg_split('[^A-Za-z0-9_]', $code);
+		$kw = preg_split('/[^A-Za-z0-9_]/', $code);
 
 		foreach($kw as $i)
 		{
