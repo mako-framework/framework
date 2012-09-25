@@ -59,6 +59,10 @@ class Console extends \mako\reactor\Task
 		}
 
 		ob_implicit_flush(true);
+
+		// Read history
+
+		readline_read_history(MAKO_APPLICATION_PATH . '/storage/console_history');
 	}
 
 	//---------------------------------------------
@@ -285,6 +289,8 @@ class Console extends \mako\reactor\Task
 
 			unset($__output);
 		}
+
+		readline_write_history(MAKO_APPLICATION_PATH . '/storage/console_history');
 
 		$this->cli->stdout('Goodbye!');
 	}
