@@ -58,12 +58,15 @@ class Console extends \mako\reactor\Task
 
 		ob_implicit_flush(true);
 
-		if(!$this->cli->param('fresh', false))
+		if($this->readline)
 		{
-			@readline_read_history(MAKO_APPLICATION_PATH . '/storage/console_history');
-		}
+			if(!$this->cli->param('fresh', false))
+			{
+				@readline_read_history(MAKO_APPLICATION_PATH . '/storage/console_history');
+			}
 
-		readline_completion_function(array($this, 'autocomplete'));
+			readline_completion_function(array($this, 'autocomplete'));	
+		}
 	}
 
 	/**
@@ -74,7 +77,7 @@ class Console extends \mako\reactor\Task
 
 	public function __destruct()
 	{
-		if(!$this->cli->param('forget', false))
+		if($this->readline && !$this->cli->param('forget', false))
 		{
 			@readline_write_history(MAKO_APPLICATION_PATH . '/storage/console_history');
 		}
