@@ -44,8 +44,6 @@ class Console extends \mako\reactor\Task
 	{
 		parent::__construct($cli);
 
-		// Set up environment
-
 		$this->readline = extension_loaded('readline');
 
 		error_reporting(E_ALL | E_STRICT);
@@ -60,11 +58,25 @@ class Console extends \mako\reactor\Task
 
 		ob_implicit_flush(true);
 
-		// Read history
-
 		if(!$this->cli->param('fresh', false))
 		{
 			@readline_read_history(MAKO_APPLICATION_PATH . '/storage/console_history');
+		}
+
+		readline_completion_function(array($this, 'autocomplete'));
+	}
+
+	/**
+	 * Destructor.
+	 * 
+	 * @access  public
+	 */
+
+	public function __destruct()
+	{
+		if(!$this->cli->param('forget', false))
+		{
+			@readline_write_history(MAKO_APPLICATION_PATH . '/storage/console_history');
 		}
 	}
 
@@ -207,10 +219,6 @@ class Console extends \mako\reactor\Task
 
 		while(true)
 		{
-			readline_completion_function(array($this, 'autocomplete'));
-
-			// Get input
-
 			if($this->readline)
 			{
 				$__input = readline('<< ');
@@ -229,21 +237,15 @@ class Console extends \mako\reactor\Task
 				continue;
 			}
 
-			// Exit loop?
-
 			if(in_array($__input, array('exit', 'quit')))
 			{
 				break;
 			}
 
-			// Add to history
-
 			if($this->readline)
 			{
 				readline_add_history($__input);
 			}
-
-			// Process input
 
 			if($this->isImmediate($__input))
 			{
@@ -291,11 +293,6 @@ class Console extends \mako\reactor\Task
 			}
 
 			unset($__output);
-		}
-
-		if(!$this->cli->param('forget', false))
-		{
-			@readline_write_history(MAKO_APPLICATION_PATH . '/storage/console_history');
 		}
 
 		$this->cli->stdout('Goodbye!');
