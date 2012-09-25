@@ -34,7 +34,7 @@ abstract class Task
 	//---------------------------------------------
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 * 
 	 * @access  public
 	 * @param   mako\reactor\CLI  $cli  CLI

@@ -2,9 +2,9 @@
 
 namespace mako\reactor\tasks;
 
-use \StdClass;
-use \mako\CLI;
 use \mako\Database;
+use \mako\reactor\CLI;
+use \StdClass;
 
 /**
  * Database migrations.
@@ -34,12 +34,15 @@ class Migrate extends \mako\reactor\Task
 
 	/**
 	 * Constructor.
-	 *
+	 * 
 	 * @access  public
+	 * @param   mako\reactor\CLI  $cli  CLI
 	 */
 
-	public function __construct()
+	public function __construct(CLI $cli)
 	{
+		parent::__construct($cli);
+
 		$this->connection = Database::connection();
 	}
 
