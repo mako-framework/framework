@@ -95,19 +95,19 @@ class Console extends \mako\reactor\Task
 
 	protected function welcome()
 	{
-		$welcome  = ' __  __       _            ____                      _      '   . PHP_EOL;
-		$welcome .= '|  \/  | __ _| | _____    / ___|___  _ __  ___  ___ | | ___ '   . PHP_EOL;
-		$welcome .= '| |\/| |/ _` | |/ / _ \  | |   / _ \| \'_ \/ __|/ _ \| |/ _ \\' . PHP_EOL;
-		$welcome .= '| |  | | (_| |   < (_) | | |__| (_) | | | \__ \ (_) | |  __/'   . PHP_EOL;
-		$welcome .= '|_|  |_|\__,_|_|\_\___/   \____\___/|_| |_|___/\___/|_|\___|'   . PHP_EOL;
+		$welcome  = '  __  __       _         ' . PHP_EOL;
+		$welcome .= ' |  \/  | __ _| | _____  ' . PHP_EOL;
+		$welcome .= ' | |\/| |/ _` | |/ / _ \ ' . PHP_EOL;
+		$welcome .= ' | |  | | (_| |   < (_) |' . PHP_EOL;
+		$welcome .= ' |_|  |_|\__,_|_|\_\___/  (' . MAKO_VERSION . ')' . PHP_EOL;
 
 		$welcome .= PHP_EOL . PHP_EOL;
 
-		$welcome .= 'Welcome to the ' . $this->cli->style($this->cli->color('Mako', 'green'), array('bold', 'underlined')) . ' interactive console (Mako ' . MAKO_VERSION . ')!' . PHP_EOL;
+		$welcome .= 'Welcome to the ' . $this->cli->style($this->cli->color('Mako', 'green'), array('bold', 'underlined')) . ' interactive console!' . PHP_EOL;
 
 		$welcome .= PHP_EOL;
 
-		$welcome .= 'To exit the shell, type ' . $this->cli->color('exit', 'yellow') . ' or ' . $this->cli->color('quit', 'yellow') . '.' . PHP_EOL;
+		$welcome .= 'Type ' . $this->cli->color('exit', 'yellow') . ' or ' . $this->cli->color('quit', 'yellow') . ' to exit.' . PHP_EOL;
 
 		$this->cli->stdout($welcome);
 	}
