@@ -62,7 +62,10 @@ class Console extends \mako\reactor\Task
 
 		// Read history
 
-		readline_read_history(MAKO_APPLICATION_PATH . '/storage/console_history');
+		if(!$this->cli->param('fresh', false))
+		{
+			@readline_read_history(MAKO_APPLICATION_PATH . '/storage/console_history');
+		}
 	}
 
 	//---------------------------------------------
@@ -77,11 +80,11 @@ class Console extends \mako\reactor\Task
 
 	protected function welcome()
 	{
-		$welcome  = ' __  __       _            ____                      _      ' . PHP_EOL;
-		$welcome .= '|  \/  | __ _| | _____    / ___|___  _ __  ___  ___ | | ___ ' . PHP_EOL;
+		$welcome  = ' __  __       _            ____                      _      '   . PHP_EOL;
+		$welcome .= '|  \/  | __ _| | _____    / ___|___  _ __  ___  ___ | | ___ '   . PHP_EOL;
 		$welcome .= '| |\/| |/ _` | |/ / _ \  | |   / _ \| \'_ \/ __|/ _ \| |/ _ \\' . PHP_EOL;
-		$welcome .= '| |  | | (_| |   < (_) | | |__| (_) | | | \__ \ (_) | |  __/' . PHP_EOL;
-		$welcome .= '|_|  |_|\__,_|_|\_\___/   \____\___/|_| |_|___/\___/|_|\___|' . PHP_EOL;
+		$welcome .= '| |  | | (_| |   < (_) | | |__| (_) | | | \__ \ (_) | |  __/'   . PHP_EOL;
+		$welcome .= '|_|  |_|\__,_|_|\_\___/   \____\___/|_| |_|___/\___/|_|\___|'   . PHP_EOL;
 
 		$welcome .= PHP_EOL . PHP_EOL;
 
@@ -290,7 +293,10 @@ class Console extends \mako\reactor\Task
 			unset($__output);
 		}
 
-		readline_write_history(MAKO_APPLICATION_PATH . '/storage/console_history');
+		if(!$this->cli->param('forget', false))
+		{
+			@readline_write_history(MAKO_APPLICATION_PATH . '/storage/console_history');
+		}
 
 		$this->cli->stdout('Goodbye!');
 	}
