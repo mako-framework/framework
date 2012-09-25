@@ -53,12 +53,12 @@ class Console extends \mako\reactor\Task
 		ini_set('log_errors', 1);
 		ini_set('display_errors', 0);
 
-        while (ob_get_level())
-        {
-        	ob_end_clean();
-        }
+		while (ob_get_level())
+		{
+			ob_end_clean();
+		}
 
-        ob_implicit_flush(true);
+		ob_implicit_flush(true);
 	}
 
 	//---------------------------------------------
