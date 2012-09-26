@@ -8,7 +8,7 @@ use \Exception;
 /**
  * Interactive debug console.
  * 
- * Based on PHPA by Dadiv Phillips (http://david.acz.org/)
+ * Based on PHPA by Dadiv Phillips (http://david.acz.org/).
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2012 Frederic G. Østby
