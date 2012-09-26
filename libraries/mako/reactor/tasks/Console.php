@@ -290,7 +290,7 @@ class Console extends \mako\reactor\Task
 
 			ob_end_clean();
 
-			if((strlen($__output) > 0) && (substr($__output, -1) != PHP_EOL))
+			if((strlen($__output) > 0))
 			{
 				$this->output($__output);
 			}
