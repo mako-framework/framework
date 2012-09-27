@@ -2,6 +2,8 @@
 
 namespace mako;
 
+use \Closure;
+
 /**
  * Event class.
  *
@@ -47,13 +49,13 @@ class Event
 	 * Adds an event listener to the queue.
 	 *
 	 * @access  public
-	 * @param   string    $name      Event name
-	 * @param   callback  $callback  Event callback
+	 * @param   string   $name     Event name
+	 * @param   Closure  $closure  Event handler
 	 */
 
-	public static function register($name, $callback)
+	public static function register($name, Closure $closure)
 	{
-		static::$events[$name][] = $callback;
+		static::$events[$name][] = $closure;
 	}
 
 	/**
@@ -85,24 +87,24 @@ class Event
 	 * Overrides an event.
 	 * 
 	 * @access  public
-	 * @param   string    $name      Event name
-	 * @param   callback  $callback  Event callback
+	 * @param   string   $name     Event name
+	 * @param   Closure  $closure  Event handler
 	 */
 
-	public static function override($name, $callback)
+	public static function override($name, Closure $closure)
 	{
 		static::clear($name);
 
-		static::register($name, $callback);
+		static::register($name, $closure);
 	}
 
 	/**
-	 * Runs all callbacks for an event and returns an array 
-	 * contaning the return values of each callback.
+	 * Runs all closures for an event and returns an array 
+	 * contaning the return values of each event handler.
 	 *
 	 * @access  public
 	 * @param   string  $name    Event name
-	 * @param   array   $params  (optional) Callback parameters
+	 * @param   array   $params  (optional) Closure parameters
 	 * @return  array
 	 */
 
@@ -122,12 +124,12 @@ class Event
 	}
 
 	/**
-	 * Runs all callbacks for an event and returns the result
-	 * of the first callback
+	 * Runs all closures for an event and returns the result
+	 * of the first event handler.
 	 * 
 	 * @access  public
 	 * @param   string  $name    Event name
-	 * @param   array   $params  (optional) Callback parameters
+	 * @param   array   $params  (optional) Closure parameters
 	 * @return  mixed
 	 */
 
