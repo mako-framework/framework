@@ -56,12 +56,12 @@ class CLI
 	);
 
 	/**
-	 * Text options.
+	 * Text styles.
 	 *
 	 * @var array
 	 */
 
-	protected $textOptions = array
+	protected $textStyles = array
 	(
 		'bold'       => 1,
 		'faded'      => 2,
@@ -204,11 +204,11 @@ class CLI
 	 *
 	 * @access  public
 	 * @param   string  $str      String to style 
-	 * @param   array   $options  (optional) Text options
+	 * @param   array   $styles  (optional) Text styles
 	 * @return  string
 	 */
 
-	public function style($str, array $options)
+	public function style($str, array $styles)
 	{
 		if(MAKO_IS_WINDOWS)
 		{
@@ -217,18 +217,18 @@ class CLI
 
 		$style = array();
 
-		foreach($options as $option)
+		foreach($styles as $style)
 		{
-			if(!isset($this->textOptions[$option]))
+			if(!isset($this->textStyles[$style]))
 			{
-				throw new RuntimeException(vsprintf("%s(): Invalid text option. Only the following options are valid: %s.", array
+				throw new RuntimeException(vsprintf("%s(): Invalid text option. Only the following styles are valid: %s.", array
 				(
 					__METHOD__,
-					implode(', ', array_keys($this->textOptions))
+					implode(', ', array_keys($this->textStyles))
 				)));
 			}
 
-			$style[] = $this->textOptions[$option];
+			$style[] = $this->textStyles[$style];
 		}
 
 		return sprintf("\033[%sm%s\033[0m", implode(';', $style), $str); 
@@ -313,30 +313,30 @@ class CLI
 	 * Print message to STDOUT.
 	 *
 	 * @access  public
-	 * @param   string  $message      (optional) Message to print
-	 * @param   string  $foreground   (optional) Text color
-	 * @param   string  $background   (optional) Background color
-	 * @param   array   $textOptions  (optional) Text options
+	 * @param   string  $message     (optional) Message to print
+	 * @param   string  $foreground  (optional) Text color
+	 * @param   string  $background  (optional) Background color
+	 * @param   array   $styles      (optional) Text styles
 	 */
 
-	public function stdout($message = '', $foreground = null, $background = null, array $textOptions = array())
+	public function stdout($message = '', $foreground = null, $background = null, array $styles = array())
 	{
-		fwrite(STDOUT, $this->style($this->color($message, $foreground, $background), $textOptions) . PHP_EOL);
+		fwrite(STDOUT, $this->style($this->color($message, $foreground, $background), $styles) . PHP_EOL);
 	}
 
 	/**
 	 * Print message to STDERR.
 	 *
 	 * @access  public
-	 * @param   string  $message      Message to print
-	 * @param   string  $foreground   (optional) Text color
-	 * @param   string  $background   (optional) Background color
-	 * @param   array   $textOptions  (optional) Text options
+	 * @param   string  $message     Message to print
+	 * @param   string  $foreground  (optional) Text color
+	 * @param   string  $background  (optional) Background color
+	 * @param   array   $styles      (optional) Text styles
 	 */
 
-	public function stderr($message, $foreground = 'red', $background = null, array $textOptions = array())
+	public function stderr($message, $foreground = 'red', $background = null, array $styles = array())
 	{
-		fwrite(STDERR, $this->style($this->color($message, $foreground, $background), $textOptions) . PHP_EOL);	
+		fwrite(STDERR, $this->style($this->color($message, $foreground, $background), $styles) . PHP_EOL);	
 	}
 
 	/**
