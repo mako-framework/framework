@@ -208,7 +208,7 @@ class ClassLoader
 
 		if(isset(static::$aliases[$className]))
 		{
-			class_alias(static::$aliases[$className], $className);
+			return class_alias(static::$aliases[$className], $className);
 		}
 		
 		// Try to load a mapped class
