@@ -691,7 +691,7 @@ class Validate
 		{
 			if(in_array($this->input[$field], array('', null, array()), true) && !array_key_exists('required', $validators))
 			{
-				continue; // Only run validation on fields that are required or not empty
+				continue; // Only validate fields that are required or not empty
 			}
 
 			foreach($validators as $validator => $parameters)
