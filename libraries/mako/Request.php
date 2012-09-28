@@ -421,7 +421,7 @@ class Request
 
 		// Prefix controller action
 
-		if($controllerClass->implementsInterface('\mako\controller\Rest') === true)
+		if($controller instanceof \mako\controller\Rest)
 		{
 			$action = strtolower($this->method()) . '_' . $this->action;
 		}
