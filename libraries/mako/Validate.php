@@ -70,7 +70,7 @@ class Validate
 
 	public function __construct(array $input, array $rules)
 	{
-		$this->input = $input;
+		$this->input = $input + array_fill_keys(array_keys($rules), null);
 		$this->rules = $rules;
 	}
 
