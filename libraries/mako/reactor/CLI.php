@@ -162,7 +162,7 @@ class CLI
 			return $str;
 		}
 
-		$style = array();
+		$ansiCodes = array();
 
 		// Font color
 
@@ -177,7 +177,7 @@ class CLI
 				)));
 			}
 
-			$style[] = $this->foregroundColors[$foreground];
+			$ansiCodes[] = $this->foregroundColors[$foreground];
 		}
 
 		// Background color
@@ -193,10 +193,10 @@ class CLI
 				)));
 			}
 
-			$style[] = $this->backgroundColors[$background];
+			$ansiCodes[] = $this->backgroundColors[$background];
 		}
 
-		return sprintf("\033[%sm%s\033[0m", implode(';', $style), $str);
+		return sprintf("\033[%sm%s\033[0m", implode(';', $ansiCodes), $str);
 	}
 
 	/**
@@ -215,7 +215,7 @@ class CLI
 			return $str;
 		}
 
-		$style = array();
+		$ansiCodes = array();
 
 		foreach($styles as $style)
 		{
@@ -228,10 +228,10 @@ class CLI
 				)));
 			}
 
-			$style[] = $this->textStyles[$style];
+			$ansiCodes[] = $this->textStyles[$style];
 		}
 
-		return sprintf("\033[%sm%s\033[0m", implode(';', $style), $str); 
+		return sprintf("\033[%sm%s\033[0m", implode(';', $ansiCodes), $str); 
 	}
 
 	/**
