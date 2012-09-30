@@ -124,7 +124,11 @@ class View
 	//---------------------------------------------
 
 	/**
+	 * Registers a custom view renderer.
 	 * 
+	 * @access  public
+	 * @param   string  $extension  Extension to handle
+	 * @param   string  $renderer   Renderer
 	 */
 
 	public static function registerRenderer($extension, $renderer)
