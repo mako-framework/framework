@@ -1,9 +1,9 @@
 <?php
 
-namespace mako\view;
+namespace mako\view\renderer\template;
 
 /**
- * View blocks.
+ * Template blocks.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2012 Frederic G. Østby
@@ -17,7 +17,7 @@ class Block
 	//---------------------------------------------
 
 	/**
-	 * View blocks.
+	 * Template blocks.
 	 *
 	 * @var array 
 	 */
@@ -25,7 +25,7 @@ class Block
 	protected static $blocks = array();
 
 	/**
-	 * Open view blocks.
+	 * Open template blocks.
 	 *
 	 * @var array
 	 */
@@ -52,7 +52,7 @@ class Block
 	//---------------------------------------------
 
 	/**
-	 * Opens a view block.
+	 * Opens a template block.
 	 *
 	 * @access  public
 	 * @param   string  $name  Block name
@@ -64,7 +64,7 @@ class Block
 	}
 
 	/**
-	 * Closes a view block.
+	 * Closes a template block.
 	 *
 	 * @access  public
 	 */
@@ -88,7 +88,7 @@ class Block
 	}
 
 	/**
-	 * Returns the contents of a view block.
+	 * Returns the contents of a template block.
 	 *
 	 * @access  public
 	 * @param   string  $name  Block name

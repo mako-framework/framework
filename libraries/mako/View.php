@@ -46,12 +46,24 @@ class View
 	protected static $globalVars = array();
 
 	/**
-	 * The output.
-	 *
-	 * @var string
+	 * View renderers.
+	 * 
+	 * @var array
 	 */
 
-	protected $output;
+	protected static $renderers = array
+	(
+		''     => '\mako\view\renderer\PHP',
+		'.tpl' => '\mako\view\renderer\Template',
+	);
+
+	/**
+	 * View renderer.
+	 * 
+	 * @var \mako\view\renderer\RendererInterface
+	 */
+
+	protected $renderer;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -67,41 +79,30 @@ class View
 
 	public function __construct($view, array $variables = array())
 	{
-		$view = str_replace('.', '/', $view);
-		
-		// Check if view file exists
-
-		if(file_exists($file = mako_path('views', $view)))
-		{
-			$this->view = $file;
-		}
-
-		// No view, check if template exists
-
-		elseif(file_exists($file = mako_path('views', $view . '.tpl')))
-		{
-			$this->view = MAKO_APPLICATION_PATH . '/storage/templates/' . md5($file) . '.php';
-
-			// Check if compiled template exists and that it's up to date. If not compile
-
-			if(!file_exists($this->view) || filemtime($file) > filemtime($this->view))
-			{
-				$compiler = new Compiler($file, $this->view);
-				
-				$compiler->compile();
-			}
-		}
-
-		// No view or template. Throw exception
-
-		else
-		{
-			throw new RuntimeException(vsprintf("%s(): The '%s' view does not exist.", array(__METHOD__, $view)));
-		}
-
 		// Assign view variables
 
 		$this->vars = $variables;
+
+		// Find appropriate renderer
+
+		$view = str_replace('.', '/', $view);
+
+		foreach(static::$renderers as $extension => $renderer)
+		{
+			if(file_exists($file = mako_path('views', $view . $extension)))
+			{
+				$this->renderer = new $renderer($file);
+
+				break;
+			}
+		}
+
+		// View not found ... throw exception
+
+		if($this->renderer === null)
+		{
+			throw new RuntimeException(vsprintf("%s(): The '%s' view does not exist.", array(__METHOD__, $view)));
+		}
 	}
 
 	/**
@@ -121,6 +122,15 @@ class View
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * 
+	 */
+
+	public static function registerRenderer($extension, $renderer)
+	{
+		static::$renderers[$extension] = $renderer;
+	}
 
 	/**
 	 * Assign a view variable.
@@ -194,23 +204,14 @@ class View
 
 	public function render($filter = null)
 	{
-		if(empty($this->output))
-		{
-			extract(array_merge($this->vars, static::$globalVars), EXTR_REFS); // Extract variables as references
-			
-			ob_start();
-
-			include($this->view);
-
-			$this->output = ob_get_clean();
-		}
+		$output = $this->renderer->render(array_merge($this->vars, static::$globalVars));
 
 		if($filter !== null)
 		{
-			$this->output = call_user_func($filter, $this->output);
+			$output = call_user_func($filter, $output);
 		}
 
-		return $this->output;
+		return $output;
 	}
 
 	/**

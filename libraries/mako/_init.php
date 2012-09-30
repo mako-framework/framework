@@ -115,8 +115,11 @@ mako\ClassLoader::mapClasses(array
 	'mako\UserAgent'                         => MAKO_LIBRARIES_PATH . '/mako/UserAgent.php',
 	'mako\Validate'                          => MAKO_LIBRARIES_PATH . '/mako/Validate.php',
 	'mako\View'                              => MAKO_LIBRARIES_PATH . '/mako/View.php',
-	'mako\view\Block'                        => MAKO_LIBRARIES_PATH . '/mako/view/Block.php',
-	'mako\view\Compiler'                     => MAKO_LIBRARIES_PATH . '/mako/view/Compiler.php',
+	'mako\view\compiler\Template'            => MAKO_LIBRARIES_PATH . '/mako/view/compiler/Template.php',
+	'mako\view\renderer\PHP'                 => MAKO_LIBRARIES_PATH . '/mako/view/renderer/PHP.php',
+	'mako\view\renderer\RendererInterface'   => MAKO_LIBRARIES_PATH . '/mako/view/renderer/RendererInterface.php',
+	'mako\view\renderer\Template'            => MAKO_LIBRARIES_PATH . '/mako/view/renderer/Template.php',
+	'mako\view\renderer\template\Block'      => MAKO_LIBRARIES_PATH . '/mako/view/renderer/template/Block.php',
 ));
 
 spl_autoload_register('mako\ClassLoader::load');
