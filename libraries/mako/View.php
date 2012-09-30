@@ -199,7 +199,7 @@ class View
 	}
 
 	/**
-	 * Include the view file and extracts the view variables before returning the generated output.
+	 * Returns a rendered view.
 	 *
 	 * @access  public
 	 * @param   callback  $filter  (optional) Callback function used to filter output
