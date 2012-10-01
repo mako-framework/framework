@@ -50,7 +50,7 @@ class Template implements \mako\view\renderer\RendererInterface
 	 * Returns the rendered view.
 	 * 
 	 * @access  public
-	 * @param   array   $variables  View variables
+	 * @param   array   $variables        View variables
 	 * @param   array   $globalVariables  Global view variables
 	 * @return  string
 	 */
