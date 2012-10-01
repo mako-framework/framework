@@ -51,10 +51,11 @@ class Template implements \mako\view\renderer\RendererInterface
 	 * 
 	 * @access  public
 	 * @param   array   $variables  View variables
+	 * @param   array   $globalVariables  Global view variables
 	 * @return  string
 	 */
 
-	public function render(array $variables)
+	public function render(array $variables, array $globalVariables)
 	{
 		$view = MAKO_APPLICATION_PATH . '/storage/templates/' . md5($this->view) . '.php';
 
@@ -69,7 +70,7 @@ class Template implements \mako\view\renderer\RendererInterface
 
 		// Render view
 
-		extract($variables, EXTR_REFS); // Extract variables as references
+		extract(array_merge($variables, $globalVariables), EXTR_REFS); // Extract variables as references
 		
 		ob_start();
 

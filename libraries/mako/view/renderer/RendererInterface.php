@@ -13,7 +13,7 @@ namespace mako\view\renderer;
 interface RendererInterface
 {
 	public function __construct($view);
-	public function render(array $variables);
+	public function render(array $variables, array $globalVariables);
 }
 
 /** -------------------- End of file --------------------**/

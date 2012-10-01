@@ -208,7 +208,7 @@ class View
 
 	public function render($filter = null)
 	{
-		$output = $this->renderer->render(array_merge($this->vars, static::$globalVars));
+		$output = $this->renderer->render($this->vars, static::$globalVars);
 
 		if($filter !== null)
 		{

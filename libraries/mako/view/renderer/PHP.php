@@ -48,13 +48,14 @@ class PHP implements \mako\view\renderer\RendererInterface
 	 * Returns the rendered view.
 	 * 
 	 * @access  public
-	 * @param   array   $variables  View variables
+	 * @param   array   $variables        View variables
+	 * @param   array   $globalVariables  Global view variables
 	 * @return  string
 	 */
 
-	public function render(array $variables)
+	public function render(array $variables, array $globalVariables)
 	{
-		extract($variables, EXTR_REFS); // Extract variables as references
+		extract(array_merge($variables, $globalVariables), EXTR_REFS); // Extract variables as references
 		
 		ob_start();
 
