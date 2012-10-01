@@ -26,6 +26,22 @@ class Template implements \mako\view\renderer\RendererInterface
 
 	protected $view;
 
+	/**
+	 * View variables.
+	 * 
+	 * @var string
+	 */
+
+	protected $variables;
+
+	/**
+	 * Global view variables.
+	 * 
+	 * @var string
+	 */
+
+	protected $globalVariables;
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -34,12 +50,16 @@ class Template implements \mako\view\renderer\RendererInterface
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $view  View path
+	 * @param   string  $view             View path
+	 * @param   array   $variables        View variables
+	 * @param   array   $globalVariables  Global view variables
 	 */
 
-	public function __construct($view)
+	public function __construct($view, array $variables, array $globalVariables)
 	{
-		$this->view = $view;
+		$this->view            = $view;
+		$this->variables       = $variables;
+		$this->globalVariables = $globalVariables;
 	}
 
 	//---------------------------------------------
@@ -47,34 +67,40 @@ class Template implements \mako\view\renderer\RendererInterface
 	//---------------------------------------------
 
 	/**
-	 * Returns the rendered view.
+	 * Compiles the template if needed before returning the path to the compiled template.
 	 * 
-	 * @access  public
-	 * @param   array   $variables        View variables
-	 * @param   array   $globalVariables  Global view variables
+	 * @access  protected
 	 * @return  string
 	 */
 
-	public function render(array $variables, array $globalVariables)
+	protected function compile()
 	{
-		$view = MAKO_APPLICATION_PATH . '/storage/templates/' . md5($this->view) . '.php';
+		$compiled = MAKO_APPLICATION_PATH . '/storage/templates/' . md5($this->view) . '.php';
 
-		// Check if compiled template exists and that it's up to date. If not compile
-
-		if(!file_exists($view) || filemtime($view) < filemtime($this->view))
+		if(!file_exists($compiled) || filemtime($compiled) < filemtime($this->view))
 		{
-			$compiler = new Compiler($this->view, $view);
+			$compiler = new Compiler($this->view, $compiled);
 			
 			$compiler->compile();
 		}
 
-		// Render view
+		return $compiled;
+	}
 
-		extract(array_merge($variables, $globalVariables), EXTR_REFS); // Extract variables as references
+	/**
+	 * Returns the rendered view.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function render()
+	{
+		extract(array_merge($this->variables, $this->globalVariables), EXTR_REFS);
 		
 		ob_start();
 
-		include($view);
+		include($this->compile());
 
 		return ob_get_clean();
 	}

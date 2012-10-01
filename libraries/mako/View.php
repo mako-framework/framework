@@ -89,9 +89,9 @@ class View
 
 		foreach(static::$renderers as $extension => $renderer)
 		{
-			if(file_exists($file = mako_path('views', $view . $extension)))
+			if(file_exists($this->view = mako_path('views', $view . $extension)))
 			{
-				$this->renderer = new $renderer($file);
+				$this->renderer = $renderer;
 
 				break;
 			}
@@ -208,7 +208,9 @@ class View
 
 	public function render($filter = null)
 	{
-		$output = $this->renderer->render($this->vars, static::$globalVars);
+		$renderer = new $this->renderer($this->view, $this->vars, static::$globalVars);
+
+		$output = $renderer->render();
 
 		if($filter !== null)
 		{

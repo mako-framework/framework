@@ -24,6 +24,22 @@ class PHP implements \mako\view\renderer\RendererInterface
 
 	protected $view;
 
+	/**
+	 * View variables.
+	 * 
+	 * @var string
+	 */
+
+	protected $variables;
+
+	/**
+	 * Global view variables.
+	 * 
+	 * @var string
+	 */
+
+	protected $globalVariables;
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -32,12 +48,16 @@ class PHP implements \mako\view\renderer\RendererInterface
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $view  View path
+	 * @param   string  $view             View path
+	 * @param   array   $variables        View variables
+	 * @param   array   $globalVariables  Global view variables
 	 */
 
-	public function __construct($view)
+	public function __construct($view, array $variables, array $globalVariables)
 	{
-		$this->view = $view;
+		$this->view            = $view;
+		$this->variables       = $variables;
+		$this->globalVariables = $globalVariables;
 	}
 
 	//---------------------------------------------
@@ -48,14 +68,12 @@ class PHP implements \mako\view\renderer\RendererInterface
 	 * Returns the rendered view.
 	 * 
 	 * @access  public
-	 * @param   array   $variables        View variables
-	 * @param   array   $globalVariables  Global view variables
 	 * @return  string
 	 */
 
-	public function render(array $variables, array $globalVariables)
+	public function render()
 	{
-		extract(array_merge($variables, $globalVariables), EXTR_REFS); // Extract variables as references
+		extract(array_merge($this->variables, $this->globalVariables), EXTR_REFS);
 		
 		ob_start();
 
