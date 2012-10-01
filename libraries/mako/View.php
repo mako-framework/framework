@@ -60,7 +60,7 @@ class View
 	/**
 	 * View renderer.
 	 * 
-	 * @var \mako\view\renderer\RendererInterface
+	 * @var string
 	 */
 
 	protected $renderer;
