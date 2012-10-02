@@ -103,7 +103,7 @@ class Console extends \mako\reactor\Task
 
 		$welcome .= PHP_EOL . PHP_EOL;
 
-		$welcome .= 'Welcome to the ' . $this->cli->style($this->cli->color('Mako', 'green'), array('bold', 'underlined')) . ' interactive console!' . PHP_EOL;
+		$welcome .= 'Welcome to the ' . $this->cli->color('Mako', 'green') . ' interactive console!' . PHP_EOL;
 
 		$welcome .= PHP_EOL;
 
