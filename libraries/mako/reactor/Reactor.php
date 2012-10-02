@@ -162,7 +162,9 @@ class Reactor
 		
 		// Print list of available tasks
 
-		$this->cli->stdout('Core tasks:' . PHP_EOL);
+		$this->cli->stdout($this->cli->color('Mako Framework', 'green') . ' version ' . $this->cli->color(MAKO_VERSION, 'yellow') . PHP_EOL);
+
+		$this->cli->stdout('Available core tasks:' . PHP_EOL);
 
 		foreach($this->coreTasks as $task)
 		{
@@ -171,7 +173,7 @@ class Reactor
 
 		if(!empty($appTasks))
 		{
-			$this->cli->stdout(PHP_EOL . 'Application tasks:' . PHP_EOL);
+			$this->cli->stdout(PHP_EOL . 'Available application tasks:' . PHP_EOL);
 
 			foreach($appTasks as $task)
 			{
@@ -181,7 +183,7 @@ class Reactor
 
 		if(!empty($packageTasks))
 		{
-			$this->cli->stdout(PHP_EOL . 'Package tasks:' . PHP_EOL);
+			$this->cli->stdout(PHP_EOL . 'Available package tasks:' . PHP_EOL);
 
 			foreach($packageTasks as $task)
 			{
