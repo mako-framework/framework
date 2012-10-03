@@ -3,8 +3,10 @@
 namespace mako;
 
 use \mako\URL;
+use \mako\View;
 use \mako\Config;
-use \mako\I18n;
+use \mako\ErrorHandler;
+use \Exception;
 
 /**
  * Pagination class.
@@ -21,36 +23,28 @@ class Pagination
 	//---------------------------------------------
 
 	/**
+	 * Pagination view.
+	 * 
+	 * @var string
+	 */
+
+	protected $view;
+
+	/**
+	 * Number of items.
+	 * 
+	 * @var int
+	 */
+
+	protected $count;
+
+	/**
 	 * Name of the $_GET key holding the current page number.
 	 *
 	 * @var string
 	 */
 
 	protected $key;
-
-	/**
-	 * Offset.
-	 *
-	 * @var int
-	 */
-
-	protected $offset;
-	
-	/**
-	 * Current page.
-	 *
-	 * @var int
-	 */
-
-	protected $currentPage;
-
-	/**
-	 * Number of pages.
-	 *
-	 * @var int
-	 */
-
-	protected $pages;
 	
 	/**
 	 * Number of items per page.
@@ -68,6 +62,30 @@ class Pagination
 	
 	protected $maxPageLinks;
 
+	/**
+	 * Current page.
+	 *
+	 * @var int
+	 */
+
+	protected $currentPage;
+
+	/**
+	 * Number of pages.
+	 *
+	 * @var int
+	 */
+
+	protected $pages;
+
+	/**
+	 * Offset.
+	 *
+	 * @var int
+	 */
+
+	protected $offset;
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -78,14 +96,16 @@ class Pagination
 	 * @access  public
 	 */
 
-	public function __construct()
+	public function __construct($view, $count, $itemsPerPage = null)
 	{
 		$config = Config::get('pagination');
-		
+
+		$this->view         = $view;
+		$this->count        = $count;
 		$this->key          = $config['page_key'];
-		$this->currentPage  = max((int) (isset($_GET[$this->key]) ? $_GET[$this->key] : 1), 1);
-		$this->itemsPerPage = $config['items_per_page'];
+		$this->itemsPerPage = ($itemsPerPage === null) ? max($config['items_per_page'], 1) : max($itemsPerPage, 1);
 		$this->maxPageLinks = $config['max_page_links'];
+		$this->currentPage  = max((int) (isset($_GET[$this->key]) ? $_GET[$this->key] : 1), 1);
 	}
 
 	//---------------------------------------------
@@ -96,74 +116,44 @@ class Pagination
 	 * Calculates the offset and number of pages and returns the offset.
 	 *
 	 * @access  public
-	 * @param   int     $itemCount     Number of items
-	 * @param   int     $itemsPerPage  Number of items to display on each page
 	 * @return  int
 	 */
 
-	public function offset($itemCount, $itemsPerPage = null)
+	public function offset()
 	{
-		$itemsPerPage = ($itemsPerPage === null) ? max($this->itemsPerPage, 1) : max($itemsPerPage, 1);
-		$this->pages  = ceil(($itemCount / $itemsPerPage));
-		$this->offset = ($this->currentPage - 1) * $itemsPerPage;
+		$this->pages  = ceil(($this->count / $this->itemsPerPage));
+		$this->offset = ($this->currentPage - 1) * $this->itemsPerPage;
 
 		return $this->offset;
 	}
 
 	/**
-	 * Returns an associative array of pagination links.
-	 *
-	 * @access  public
-	 * @param   string  $url        (optional) URL segments
-	 * @param   array   $params     (optional) Associative array used to build URL-encoded query string
-	 * @param   string  $separator  (optional) Argument separator
+	 * Builds and returns the pagination array.
+	 * 
+	 * @access  protected
 	 * @return  array
 	 */
 
-	public function links($url = '', array $params = array(), $separator = '&amp;')
+	protected function paginate()
 	{
-		$links = array();
-				
-		// Number of pages
-		
-		$links['num_pages'] = I18n::translate('pagination.pages', array($this->pages));
-		
-		// First and previous page
-		
+		$pagination = array();
+
+		$pagination['count'] = $this->pages;
+
+		$params = isset($_GET) ? $_GET : array();
+
 		if($this->currentPage > 1)
 		{
-			$links['first_page'] = array
-			(
-				'name' => I18n::translate('pagination.first'), 
-				'url'  => URL::to($url, array_merge($params, array($this->key => 1)), $separator),
-			);
-			
-			$links['previous_page'] = array
-			(
-				'name' => '&laquo;',
-				'url'  => URL::to($url, array_merge($params, array($this->key => ($this->currentPage - 1))), $separator),
-			);
+			$pagination['first']    = URL::current(array_merge($params, array($this->key => 1)));
+			$pagination['previous'] = URL::current(array_merge($params, array($this->key => $this->currentPage - 1)));
 		}
-		
-		// Last and next page
-		
+
 		if($this->currentPage < $this->pages)
 		{
-			$links['last_page'] = array
-			(
-				'name' => I18n::translate('pagination.last'),
-				'url'  => URL::to($url, array_merge($params, array($this->key => $this->pages)), $separator),
-			);
-			
-			$links['next_page'] = array
-			(
-				'name' => '&raquo;',
-				'url'  => URL::to($url, array_merge($params, array($this->key => ($this->currentPage + 1))), $separator),
-			);
+			$pagination['last'] = URL::current(array_merge($params, array($this->key => $this->pages)));
+			$pagination['next'] = URL::current(array_merge($params, array($this->key => ($this->currentPage + 1))));
 		}
-		
-		// Page links
-		
+
 		if($this->pages > $this->maxPageLinks)
 		{
 			$start = max(($this->currentPage) - ceil($this->maxPageLinks / 2), 0);
@@ -186,18 +176,54 @@ class Pagination
 
 			$end = $this->pages;
 		}
-		
+
 		for($i = $start + 1; $i <= $end; $i++)
 		{
-			$links['pages'][] = array
+			$pagination['pages'][] = array
 			(
-				'name'    => $i,
-				'url'     => URL::to($url, array_merge($params, array($this->key => $i)), $separator),
+				'url'        => URL::current(array_merge($params, array($this->key => $i))),
+				'number'     => $i,
 				'is_current' => ($i == $this->currentPage),
 			);
 		}
-					
-		return $links;
+
+		return $pagination;
+	}
+
+	/**
+	 * Returns the rendered pagination view.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function render()
+	{
+		if($this->offset === null)
+		{
+			$this->offset();
+		}
+
+		return View::factory($this->view, $this->paginate())->render();
+	}
+
+	/**
+	 * Method that magically converts the pagination object into a string.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function __toString()
+	{
+		try
+		{
+			return $this->render();
+		}
+		catch(Exception $e)
+		{
+			ErrorHandler::exception($e);
+		}
 	}
 }
 
