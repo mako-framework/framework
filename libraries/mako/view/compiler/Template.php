@@ -189,9 +189,13 @@ class Template
 
 		return preg_replace_callback('/{{\s{0,}(.*?)\s{0,}}}/', function($matches) use ($emptyElse)
 		{
-			if(preg_match('/raw:(.*)/i', $matches[1]) > 0)
+			if(preg_match('/raw\s{0,}:(.*)/i', $matches[1]) > 0)
 			{
-				return sprintf('<?php echo %s; ?>', $emptyElse(substr($matches[1], 4)));
+				return sprintf('<?php echo %s; ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
+			}
+			elseif(preg_match('/preserve\s{0,}:(.*)/i', $matches[1]) > 0)
+			{
+				return sprintf('<?php echo htmlspecialchars(%s, ENT_QUOTES, MAKO_CHARSET, false); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
 			else
 			{
