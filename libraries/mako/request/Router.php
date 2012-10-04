@@ -4,6 +4,8 @@ namespace mako\request;
 
 use \mako\Config;
 use \mako\Request;
+use \mako\Package;
+use \mako\ClassLoader;
 
 /**
  * Request router.
@@ -92,7 +94,7 @@ class Router
 		}
 		else
 		{
-			$route = $this->route;
+			$route = trim($this->route, '/');
 		}
 
 		// Remap custom routes
@@ -115,17 +117,39 @@ class Router
 			}
 		}
 
-		// Get the URL segments
+		// Is the route pointing to a package?
 
-		$segments = explode('/', $route, 100);
+		if($this->package === null)
+		{
+			if(!empty($this->config['packages']))
+			{
+				foreach($this->config['packages'] as $pattern => $package)
+				{
+					if(strpos($route, $pattern) === 0)
+					{
+						ClassLoader::registerNamespace($package . '\controllers', MAKO_PACKAGES_PATH . '/' . $package . '/controllers');
+						
+						Package::init($package);
+
+						$router = new static($this->request, mb_substr($route, mb_strlen($pattern)), $package);
+
+						return $router->route();
+					}
+				}
+			}
+		}
 
 		// Route the request
 
-		$namespace        = '\app\controllers\\';
+		$namespace        = $this->package === null ? '\app\controllers\\' : '\\' . $this->package . '\controllers\\';
 		$controller       = '';
 		$action           = '';
 		$actionParameters = array();
-		$controllerPath   = MAKO_APPLICATION_PATH . '/controllers/';
+		$controllerPath   = $this->package === null ? MAKO_APPLICATION_PATH . '/controllers/' : MAKO_PACKAGES_PATH . '/' . $this->package . '/controllers/';
+
+		// Get the URL segments
+
+		$segments = explode('/', $route, 100);
 
 		foreach($segments as $segment)
 		{
