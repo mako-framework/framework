@@ -2,16 +2,17 @@
 
 namespace mako;
 
+use \mako\URL;
 use \mako\Config;
 use \mako\Response;
-use \mako\URL;
+use \mako\request\Router;
 use \RuntimeException;
 use \ReflectionClass;
 
 class RequestException extends RuntimeException{}
 
 /**
- * Routes the request and executes the controller.
+ * Executes requets.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2012 Frederic G. Østby
@@ -39,22 +40,6 @@ class Request
 	 */
 
 	protected static $mainRoute;
-	
-	/**
-	 * Default route.
-	 *
-	 * @var string
-	 */
-	
-	protected $defaultRoute;
-	
-	/**
-	 * Custom routes.
-	 *
-	 * @var array
-	 */
-	
-	protected $customRoutes;
 
 	/**
 	 * Is this the main request?
@@ -105,12 +90,12 @@ class Request
 	protected static $secure;
 
 	/**
-	 * Array holding the arguments of the action method.
+	 * Namespace of the controller class.
 	 *
-	 * @var array
+	 * @var string
 	 */
 
-	protected $actionArgs;
+	protected $namespace;
 
 	/**
 	 * Name of the controller.
@@ -129,12 +114,12 @@ class Request
 	protected $action;
 
 	/**
-	 * Namespace of the controller class.
+	 * Array holding the parameters of the action method.
 	 *
-	 * @var string
+	 * @var array
 	 */
 
-	protected $namespace;
+	protected $actionParameters;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -151,59 +136,11 @@ class Request
 	{
 		$this->route = $route;
 		
-		$config = Config::get('routes');
-		
-		$this->defaultRoute = $config['default_route'];
-		$this->customRoutes = $config['custom_routes'];
-		
-		$this->namespace = '\app\controllers\\';
-		
 		static $mainRequest = true;
 
 		if($mainRequest === true)
 		{
-			// Get the ip of the client that made the request
-			
-			if(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-			{
-				$ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-				
-				$ip = array_pop($ip);
-			}
-			else if(!empty($_SERVER['HTTP_CLIENT_IP']))
-			{
-				$ip = $_SERVER['HTTP_CLIENT_IP'];
-			}
-			else if(!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
-			{
-				$ip = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
-			}
-			else if(!empty($_SERVER['REMOTE_ADDR']))
-			{
-				$ip = $_SERVER['REMOTE_ADDR'];
-			}
-			
-			if(isset($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false)
-			{
-				static::$ip = $ip;
-			}
-
-			// From where did the request originate?
-
-			static::$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-
-			// Which request method was used?
-
-			static::$method = isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) : 
-			                  (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET');
-			
-			// Is this an Ajax request?
-
-			static::$isAjax = (bool) (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
-
-			// Was the request made using HTTPS?
-
-			static::$secure = (!empty($_SERVER['HTTPS']) && filter_var($_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
+			$this->requestInfo();
 		}
 		else
 		{
@@ -231,18 +168,114 @@ class Request
 	//---------------------------------------------
 
 	/**
-	 * Routes the request to the appropriate controller action.
-	 *
-	 * @access  protected
-	 * @return  boolean
+	 * Sets the controller namespace
+	 * 
+	 * @access  public
+	 * @param   string  $namespace  Controller namespace
 	 */
 
-	protected function router()
+	public function setNamespace($namespace)
 	{
-		// Set root path
-		
-		$controllerPath = MAKO_APPLICATION_PATH . '/controllers/';
+		$this->namespace = $namespace;
+	}
 
+	/**
+	 * Sets the controller class.
+	 * 
+	 * @access  public
+	 * @param   string  $controller  Controller class
+	 */
+
+	public function setController($controller)
+	{
+		$this->controller = $controller;
+	}
+
+	/**
+	 * Sets the controller action.
+	 * 
+	 * @access  public
+	 * @param   string  $action  Controller action
+	 */
+
+	public function setAction($action)
+	{
+		$this->action = $action;
+	}
+
+	/**
+	 * Sets the controller action parameters.
+	 * 
+	 * @access public
+	 * @param  array   $parameters  Controller action parameters
+	 */
+
+	public function setActionParameters(array $parameters)
+	{
+		$this->actionParameters = $parameters;
+	}
+
+	/**
+	 * Gets information about the request.
+	 * 
+	 * @access protected
+	 */
+
+	protected function requestInfo()
+	{
+		// Get the ip of the client that made the request
+		
+		if(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+		{
+			$ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+			
+			$ip = array_pop($ip);
+		}
+		else if(!empty($_SERVER['HTTP_CLIENT_IP']))
+		{
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		}
+		else if(!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
+		{
+			$ip = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+		}
+		else if(!empty($_SERVER['REMOTE_ADDR']))
+		{
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
+		
+		if(isset($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false)
+		{
+			static::$ip = $ip;
+		}
+
+		// From where did the request originate?
+
+		static::$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+
+		// Which request method was used?
+
+		static::$method = isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) : 
+		                  (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET');
+		
+		// Is this an Ajax request?
+
+		static::$isAjax = (bool) (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
+
+		// Was the request made using HTTPS?
+
+		static::$secure = (!empty($_SERVER['HTTPS']) && filter_var($_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
+	}
+
+	/**
+	 * Returns the requested route.
+	 *
+	 * @access  protected
+	 * @return  string
+	 */
+
+	protected function getRoute()
+	{
 		// Get the route
 
 		$route = '';
@@ -286,103 +319,11 @@ class Request
 			static::$mainRoute = $route;
 		}
 
-		if($route === '')
-		{
-			$route = trim($this->defaultRoute, '/');
-		}
-
-		// Remap custom routes
-
-		if(count($this->customRoutes) > 0)
-		{
-			foreach($this->customRoutes as $pattern => $realRoute)
-			{		
-				if(preg_match('#^' . $pattern . '$#iu', $route) === 1)
-				{
-					if(strpos($realRoute, '$') !== false)
-					{
-						$realRoute = preg_replace('#^' . $pattern . '$#iu', $realRoute, $route);
-					}
-
-					$route = trim($realRoute, '/');
-
-					break;
-				}
-			}
-		}
-
-		// Get the URL segments
-
-		$segments = explode('/', $route, 100);
-
-		// Route the request
-
-		foreach($segments as $segment)
-		{
-			$path = $controllerPath . $segment;
-
-			if(is_dir($path))
-			{
-				// Just a directory - Jump to next iteration
-
-				$controllerPath  .= $segment . '/';
-
-				$this->namespace .= $segment . '\\';
-
-				array_shift($segments);
-
-				continue;
-			}
-			else if(is_file($path . '.php'))
-			{
-				// We have found our controller - Exit loop
-
-				$this->controller = $segment;
-
-				array_shift($segments);
-
-				break;
-			}
-			else
-			{
-				// No directory or controller - Stop routing
-
-				return false;
-			}
-		}
-		
-		if(empty($this->controller))
-		{
-			$this->controller = 'index'; // default controller
-		}
-
-		// Get the action we want to execute
-
-		$this->action = array_shift($segments);
-
-		if($this->action === null)
-		{
-			$this->action = 'index';
-		}
-
-		// Remaining segments are passed as parameters to the action
-
-		$this->actionArgs = $segments;
-
-		// Check if file exists
-
-		if(file_exists($controllerPath . $this->controller . '.php') === false)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return $route;
 	}
 
 	/**
-	 * Executes the controller and action found by the route method.
+	 * Executes request.
 	 *
 	 * @access  public
 	 * @return  mako\Response
@@ -390,9 +331,11 @@ class Request
 
 	public function execute()
 	{
-		// Route request
+		// Route the request
 
-		if($this->router() === false)
+		$router = new Router($this, $this->getRoute());
+
+		if($router->route() === false)
 		{
 			throw new RequestException(404);
 		}
@@ -441,7 +384,7 @@ class Request
 		
 		// Check if number of parameters match
 		
-		if(count($this->actionArgs) < $controllerAction->getNumberOfRequiredParameters() || count($this->actionArgs) > $controllerAction->getNumberOfParameters())
+		if(count($this->actionParameters) < $controllerAction->getNumberOfRequiredParameters() || count($this->actionParameters) > $controllerAction->getNumberOfParameters())
 		{
 			throw new RequestException(404);
 		}
@@ -452,7 +395,7 @@ class Request
 		
 		// Run action
 
-		$response->body($controllerAction->invokeArgs($controller, $this->actionArgs));
+		$response->body($controllerAction->invokeArgs($controller, $this->actionParameters));
 
 		// Run post-action method
 

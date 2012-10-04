@@ -101,6 +101,7 @@ mako\ClassLoader::mapClasses(array
 	'mako\reactor\tasks\Migrate'             => MAKO_LIBRARIES_PATH . '/mako/reactor/tasks/Migrate.php',
 	'mako\Redis'                             => MAKO_LIBRARIES_PATH . '/mako/Redis.php',
 	'mako\Request'                           => MAKO_LIBRARIES_PATH . '/mako/Request.php',
+	'mako\request\Router'                    => MAKO_LIBRARIES_PATH . '/mako/request/Router.php',
 	'mako\Response'                          => MAKO_LIBRARIES_PATH . '/mako/Response.php',
 	'mako\Rest'                              => MAKO_LIBRARIES_PATH . '/mako/Rest.php',
 	'mako\security\Password'                 => MAKO_LIBRARIES_PATH . '/mako/security/Password.php',
