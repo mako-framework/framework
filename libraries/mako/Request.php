@@ -276,8 +276,6 @@ class Request
 
 	protected function getRoute()
 	{
-		// Get the route
-
 		$route = '';
 
 		if($this->route !== null)
