@@ -53,6 +53,14 @@ class Router
 
 	protected $config;
 
+	/**
+	 * Base routes of the routable packages.
+	 *
+	 * @var arary
+	 */
+
+	protected static $packageBaseRoutes;
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -73,11 +81,29 @@ class Router
 		$this->package = $package;
 		$this->config  = Config::get(($package !== null ? $package . '::' : '') . 'routes');
 
+		if($this->request->isMain() && $package === null)
+		{
+			static::$packageBaseRoutes = array_flip($this->config['packages']);
+		}
+
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns the base route for a package.
+	 * 
+	 * @access  public
+	 * @param   string  $package  Package name
+	 * @return  string
+	 */
+
+	public static function packageBaseRoute($package)
+	{
+		return isset(static::$packageBaseRoutes[$package]) ? static::$packageBaseRoutes[$package] : '';
+	}
 
 	/**
 	 * Routes the request. Returns TRUE if a controller is found and FALSE if not.

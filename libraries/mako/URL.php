@@ -4,6 +4,7 @@ namespace mako;
 
 use \mako\Config;
 use \mako\Request;
+use \mako\request\Router;
 
 /**
  * URL helper.
@@ -92,6 +93,20 @@ class URL
 
 	public static function to($route = '', array $params = array(), $separator = '&amp;')
 	{
+		// Replace package prefix with package base route
+
+		if(strpos($route, '::') !== false)
+		{
+			$route = preg_replace_callback('/^([a-z_0-9]+::)/', function($matches)
+			{
+				$base = Router::packageBaseRoute(substr($matches[1], 0, -2));
+
+				return !empty($base) ? $base . '/' : $matches[1];
+			}, $route, 1);
+		}
+
+		// Build and return url
+
 		$url = static::base() . (static::$clean ? '' : '/index.php') . '/' . $route;
 		
 		if(!empty($params))
