@@ -7,19 +7,6 @@
 return array
 (
 	/**
-	 * Locales.
-	 * 
-	 * If the first segment of the route matches the language 
-	 * then the corresponding language pack will be loaded.
-	 */
-
-	'languages' => array
-	(
-		//'no' => 'nb_NO',
-		//'fr' => 'fr_FR',
-	),
-
-	/**
 	 * Default route.
 	 */
 
@@ -32,6 +19,19 @@ return array
 	'custom_routes' => array
 	(
 		
+	),
+
+	/**
+	 * Languages.
+	 * 
+	 * If the first segment of the route matches the language 
+	 * then the corresponding language pack will be loaded.
+	 */
+
+	'languages' => array
+	(
+		//'no' => 'nb_NO',
+		//'fr' => 'fr_FR',
 	),
 
 	/**
