@@ -58,7 +58,7 @@ class I18n
 	 * @var mako\I18n
 	 */
 
-	protected static $instance = null;
+	protected static $instance;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -87,7 +87,7 @@ class I18n
 
 	public static function instance()
 	{
-		if(static::$instance === null)
+		if(empty(static::$instance))
 		{
 			static::$instance = new static();
 		}
