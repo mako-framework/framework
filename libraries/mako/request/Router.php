@@ -149,15 +149,15 @@ class Router
 		{
 			if(!empty($this->config['packages']))
 			{
-				foreach($this->config['packages'] as $pattern => $package)
+				foreach($this->config['packages'] as $base => $package)
 				{
-					if(strpos($route, $pattern) === 0)
+					if(strpos($route, $base) === 0)
 					{
 						ClassLoader::registerNamespace($package . '\controllers', MAKO_PACKAGES_PATH . '/' . $package . '/controllers');
 						
 						Package::init($package);
 
-						$router = new static($this->request, mb_substr($route, mb_strlen($pattern)), $package);
+						$router = new static($this->request, mb_substr($route, mb_strlen($base)), $package);
 
 						return $router->route();
 					}
