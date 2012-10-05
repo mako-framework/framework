@@ -22,7 +22,9 @@ return array
 	),
 
 	/**
-	 * Routable packages.
+	 * Route requests to packages.
+	 * The array key is the base route you want the package 
+	 * to respond to and the value is the package name.
 	 */
 
 	'packages' => array

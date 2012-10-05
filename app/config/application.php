@@ -8,6 +8,7 @@ return array
 (
 	/**
 	 * Base url of your application (without trailing slash).
+	 * The framework will try to autodetect the url if the value is left empty.
 	 */
 	
 	'base_url' => '',
