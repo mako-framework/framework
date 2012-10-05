@@ -631,9 +631,9 @@ class Validate
 
 				if($key === '*')
 				{
-					foreach(array_keys($this->input) as $key)
+					foreach(array_keys($this->input) as $_key)
 					{
-						$rules[$key][$validator] = $params;
+						$rules[$_key][$validator] = $params;
 					}
 				}
 				else
