@@ -72,6 +72,8 @@ class Validate
 	{
 		$this->input = $input + array_fill_keys(array_keys($rules), null);
 		$this->rules = $rules;
+
+		unset($this->input['*']);
 	}
 
 	/**
