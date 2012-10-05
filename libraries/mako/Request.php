@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\URL;
+use \mako\I18n;
 use \mako\Config;
 use \mako\Response;
 use \mako\request\Router;
@@ -32,6 +33,14 @@ class Request
 	 */
 
 	protected $route;
+
+	/**
+	 * Request language.
+	 * 
+	 * @var string
+	 */
+
+	protected static $language;
 
 	/**
 	 * Holds the route to the main request.
@@ -314,6 +323,20 @@ class Request
 
 		if($this->isMain())
 		{
+			foreach(Config::get('routes.languages', array()) as $key => $language)
+			{
+				if($route === $key || strpos($route, $key . '/') === 0)
+				{
+					static::$language = $key;
+
+					I18n::language($language);
+
+					$route = trim(mb_substr($route, mb_strlen($key)), '/');
+
+					break;
+				}
+			}
+
 			static::$mainRoute = $route;
 		}
 
@@ -461,6 +484,18 @@ class Request
 	public static function referer($default = '')
 	{
 		return empty(static::$referer) ? $default : static::$referer;
+	}
+
+	/**
+	 * Returns the request language.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public static function language()
+	{
+		return static::$language;
 	}
 
 	/**

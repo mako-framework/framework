@@ -7,13 +7,26 @@
 return array
 (
 	/**
-	 * Set the default route.
+	 * Locales.
+	 * 
+	 * If the first segment of the route matches the language 
+	 * then the corresponding language pack will be loaded.
+	 */
+
+	'languages' => array
+	(
+		//'no' => 'nb_NO',
+		//'fr' => 'fr_FR',
+	),
+
+	/**
+	 * Default route.
 	 */
 
 	'default_route' => 'index/index',
 
 	/**
-	 * You can add your own custom routes here.
+	 * Custom routes.
 	 */
 
 	'custom_routes' => array
@@ -22,8 +35,9 @@ return array
 	),
 
 	/**
-	 * Route requests to packages.
-	 * The array key is the base route you want the package 
+	 * Package base routes.
+	 * 
+	 * The array key is the base route that you want the package 
 	 * to respond to and the value is the package name.
 	 */
 
