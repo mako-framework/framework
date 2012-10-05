@@ -38,6 +38,14 @@ return array
 	 */
 	
 	'timezone' => 'UTC',
+
+	/**
+	 * Default language.
+	 * 
+	 * Default language pack loaded by the i18n class.
+	 */
+
+	'default_language' => 'en_US',
 	
 	/**
 	 * Locale settings.
@@ -83,7 +91,7 @@ return array
 	 * Setting this value to true can speed up execution by reducing the number of language files to include.
 	 */
 
-	'lang_cache' => false,
+	'language_cache' => false,
 
 	/**
 	 * Compress output?

@@ -26,7 +26,15 @@ class I18n
 	 * @var string
 	 */
 
-	protected static $language = 'en_US';
+	protected $language;
+
+	/**
+	 * Enable caching?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $cache;
 
 	/**
 	 * Array holding the language strings.
@@ -34,7 +42,7 @@ class I18n
 	 * @var array
 	 */
 
-	protected static $strings = array();
+	protected $strings = array();
 
 	/**
 	 * Array holding inflection rules.
@@ -42,21 +50,49 @@ class I18n
 	 * @var array
 	 */
 
-	protected static $inflection = array();
+	protected $inflection = array();
+
+	/**
+	 * Singleton instance.
+	 * 
+	 * @var mako\I18n
+	 */
+
+	protected static $instance = null;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
+	 * Protected constructor since this is a singleton.
 	 *
 	 * @access  protected
 	 */
 
 	protected function __construct()
 	{
-		// Nothing here
+		$config = Config::get('application');
+
+		$this->language = $config['default_language'];
+		$this->cache    = $config['language_cache'];
+	}
+
+	/**
+	 * Returns singleton instance of the I18n class.
+	 * 
+	 * @access  public
+	 * @return  mako\I18n
+	 */
+
+	public static function instance()
+	{
+		if(static::$instance === null)
+		{
+			static::$instance = new static();
+		}
+
+		return static::$instance;
 	}
 
 	//---------------------------------------------
@@ -70,7 +106,7 @@ class I18n
 	 * @param   string     $language  Name of the language pack
 	 */
 
-	protected static function languageExists($language)
+	protected function languageExists($language)
 	{
 		if(!is_dir(MAKO_APPLICATION_PATH . '/i18n/' . $language))
 		{
@@ -86,16 +122,16 @@ class I18n
 	 * @return  string
 	 */
 
-	public static function language($language = null)
+	protected function language($language = null)
 	{
 		if($language !== null)
 		{
-			static::languageExists($language);
+			$this->languageExists($language);
 
-			static::$language = $language;
+			$this->language = $language;
 		}
 
-		return static::$language;
+		return $this->language;
 	}
 
 	/**
@@ -107,16 +143,16 @@ class I18n
 	 * @return  boolean
 	 */
 
-	public static function has($string, $language = null)
+	protected function has($string, $language = null)
 	{
-		$language = $language === null ? static::$language : $language;
+		$language = $language === null ? $this->language : $language;
 
-		if(empty(static::$strings[$language]))
+		if(empty($this->strings[$language]))
 		{			
-			static::loadStrings($language);
+			$this->loadStrings($language);
 		}
 
-		return isset(static::$strings[$language][$string]);
+		return isset($this->strings[$language][$string]);
 	}
 
 	/**
@@ -129,16 +165,16 @@ class I18n
 	 * @return  string
 	 */
 
-	public static function translate($string, array $vars = array(), $language = null)
+	protected function translate($string, array $vars = array(), $language = null)
 	{
-		$language = $language === null ? static::$language : $language;
+		$language = $language === null ? $this->language : $language;
 
-		if(empty(static::$strings[$language]))
+		if(empty($this->strings[$language]))
 		{			
-			static::loadStrings($language);
+			$this->loadStrings($language);
 		}
 
-		$string = static::has($string, $language) ? static::$strings[$language][$string] : $string;
+		$string = $this->has($string, $language) ? $this->strings[$language][$string] : $string;
 
 		return (empty($vars)) ? $string : vsprintf($string, $vars);
 	}
@@ -153,16 +189,16 @@ class I18n
 	 * @return  string
 	 */
 
-	public static function plural($word, $count = null, $language = null)
+	protected function plural($word, $count = null, $language = null)
 	{
-		$language = $language === null ? static::$language : $language;
+		$language = $language === null ? $this->language : $language;
 
-		if(empty(static::$inflection[$language]))
+		if(empty($this->inflection[$language]))
 		{			
-			static::loadInflection($language);
+			$this->loadInflection($language);
 		}
 
-		return call_user_func(static::$inflection[$language]['pluralize'], $word, $count, static::$inflection[$language]['rules']);
+		return call_user_func($this->inflection[$language]['pluralize'], $word, $count, $this->inflection[$language]['rules']);
 	}
 
 	/**
@@ -172,13 +208,13 @@ class I18n
 	 * @param   string     $language  Name of the language pack
 	 */
 
-	protected static function loadInflection($language)
+	protected function loadInflection($language)
 	{
-		static::languageExists($language);
+		$this->languageExists($language);
 
 		if(file_exists(MAKO_APPLICATION_PATH . '/i18n/' . $language . '/inflection.php'))
 		{
-			static::$inflection[$language] = include(MAKO_APPLICATION_PATH . '/i18n/' . $language . '/inflection.php');
+			$this->inflection[$language] = include(MAKO_APPLICATION_PATH . '/i18n/' . $language . '/inflection.php');
 		}
 		else
 		{
@@ -193,20 +229,20 @@ class I18n
 	 * @param   string     $language  Name of the language pack
 	 */
 
-	protected static function loadStrings($language)
+	protected function loadStrings($language)
 	{
-		static::languageExists($language);
+		$this->languageExists($language);
 
-		static::$strings[$language] = false;
+		$this->strings[$language] = false;
 
-		if(Config::get('application.lang_cache'))
+		if($this->cache)
 		{
-			static::$strings[$language] = Cache::instance()->read(MAKO_APPLICATION_ID . '_lang_' . $language);
+			$this->strings[$language] = Cache::instance()->read(MAKO_APPLICATION_ID . '_lang_' . $language);
 		}
 
-		if(static::$strings[$language] === false)
+		if($this->strings[$language] === false)
 		{
-			static::$strings[$language] = array();
+			$this->strings[$language] = array();
 
 			$locations = array
 			(
@@ -220,15 +256,28 @@ class I18n
 
 				foreach($files as $file)
 				{
-					static::$strings[$language] = array_merge(static::$strings[$language], include($file));
+					$this->strings[$language] = array_merge($this->strings[$language], include($file));
 				}
 			}
 
-			if(Config::get('application.lang_cache'))
+			if($this->cache)
 			{
-				Cache::instance()->write(MAKO_APPLICATION_ID . '_lang_' . $language, static::$strings[$language], 3600);
+				Cache::instance()->write(MAKO_APPLICATION_ID . '_lang_' . $language, $this->strings[$language], 3600);
 			}
 		}
+	}
+
+	/**
+	 * Static interface to the I18n singleton instance.
+	 * 
+	 * @access  public
+	 * @param   string  $name       Method name
+	 * @param   array   $arguments  Method arguments
+	 */
+
+	public static function __callStatic($name, $arguments)
+	{
+		return call_user_func_array(array(static::instance(), $name), $arguments);
 	}
 }
 
