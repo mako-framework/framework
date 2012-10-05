@@ -145,7 +145,7 @@ class I18n
 
 	protected function has($string, $language = null)
 	{
-		$language = $language === null ? $this->language : $language;
+		$language = $language ?: $this->language;
 
 		if(empty($this->strings[$language]))
 		{			
@@ -167,7 +167,7 @@ class I18n
 
 	protected function translate($string, array $vars = array(), $language = null)
 	{
-		$language = $language === null ? $this->language : $language;
+		$language = $language ?: $this->language;
 
 		if(empty($this->strings[$language]))
 		{			
@@ -191,7 +191,7 @@ class I18n
 
 	protected function plural($word, $count = null, $language = null)
 	{
-		$language = $language === null ? $this->language : $language;
+		$language = $language ?: $this->language;
 
 		if(empty($this->inflection[$language]))
 		{			
