@@ -123,12 +123,12 @@ class Request
 	protected $action;
 
 	/**
-	 * Array holding the parameters of the action method.
+	 * Array holding the arguments of the action method.
 	 *
 	 * @var array
 	 */
 
-	protected $actionParameters;
+	protected $actionArguments;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -213,15 +213,15 @@ class Request
 	}
 
 	/**
-	 * Sets the controller action parameters.
+	 * Sets the controller action arguments.
 	 * 
 	 * @access public
-	 * @param  array   $parameters  Controller action parameters
+	 * @param  array   $arguments  Controller action arguments
 	 */
 
-	public function setActionParameters(array $parameters)
+	public function setActionArguments(array $arguments)
 	{
-		$this->actionParameters = $parameters;
+		$this->actionArguments = $arguments;
 	}
 
 	/**
@@ -403,9 +403,9 @@ class Request
 
 		$controllerAction = $controllerClass->getMethod($action);
 		
-		// Check if number of parameters match
+		// Check if number of arguments match
 		
-		if(count($this->actionParameters) < $controllerAction->getNumberOfRequiredParameters() || count($this->actionParameters) > $controllerAction->getNumberOfParameters())
+		if(count($this->actionArguments) < $controllerAction->getNumberOfRequiredParameters() || count($this->actionArguments) > $controllerAction->getNumberOfParameters())
 		{
 			throw new RequestException(404);
 		}
@@ -416,7 +416,7 @@ class Request
 		
 		// Run action
 
-		$response->body($controllerAction->invokeArgs($controller, $this->actionParameters));
+		$response->body($controllerAction->invokeArgs($controller, $this->actionArguments));
 
 		// Run post-action method
 

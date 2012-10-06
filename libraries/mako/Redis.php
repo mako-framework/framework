@@ -259,22 +259,22 @@ class Redis
 	 * Sends command to Redis server and returns response.
 	 *
 	 * @access  public
-	 * @param   string  $name  Command name
-	 * @param   array   $args  Command parameters
+	 * @param   string  $name       Command name
+	 * @param   array   $arguments  Command arguments
 	 * @return  mixed  
 	 */
 
-	public function __call($name, $args)
+	public function __call($name, $arguments)
 	{
 		// Build command
 
-		array_unshift($args, strtoupper($name));
+		array_unshift($arguments, strtoupper($name));
 
-		$command = '*' . count($args) . static::CRLF;
+		$command = '*' . count($arguments) . static::CRLF;
 
-		foreach($args as $arg)
+		foreach($arguments as $argument)
 		{
-			$command .= '$' . strlen($arg) . static::CRLF . $arg . static::CRLF;
+			$command .= '$' . strlen($argument) . static::CRLF . $argument . static::CRLF;
 		}
 
 		if($this->pipelined)

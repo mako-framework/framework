@@ -170,7 +170,7 @@ class Router
 		$namespace        = $this->package === null ? '\app\controllers\\' : '\\' . $this->package . '\controllers\\';
 		$controller       = '';
 		$action           = '';
-		$actionParameters = array();
+		$actionArguments = array();
 		$controllerPath   = $this->package === null ? MAKO_APPLICATION_PATH . '/controllers/' : MAKO_PACKAGES_PATH . '/' . $this->package . '/controllers/';
 
 		// Get the URL segments
@@ -224,9 +224,9 @@ class Router
 			$action = 'index';
 		}
 
-		// Remaining segments are passed as parameters to the action
+		// Remaining segments are passed as arguments to the action
 
-		$actionParameters = $segments;
+		$actionArguments = $segments;
 
 		// Check if file exists
 
@@ -239,7 +239,7 @@ class Router
 			$this->request->setNamespace($namespace);
 			$this->request->setController($controller);
 			$this->request->setAction($action);
-			$this->request->setActionParameters($actionParameters);
+			$this->request->setActionArguments($actionArguments);
 
 			return true;
 		}
