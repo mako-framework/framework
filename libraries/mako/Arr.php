@@ -81,7 +81,7 @@ class Arr
 		{
 			$segment = array_shift($segments);
 
-			if (!isset($array[$segment]) || !is_array($array[$segment]))
+			if(!isset($array[$segment]) || !is_array($array[$segment]))
 			{
 				$array[$segment] = array();
 			}
@@ -109,7 +109,7 @@ class Arr
 		{
 			$segment = array_shift($segments);
 
-			if (!isset($array[$segment]) || !is_array($array[$segment]))
+			if(!isset($array[$segment]) || !is_array($array[$segment]))
 			{
 				return false;
 			}

@@ -163,7 +163,7 @@ class Console extends \mako\reactor\Task
 
 		$code = '';
 
-		for ($i = 0; $i < strlen($line); $i++)
+		for($i = 0; $i < strlen($line); $i++)
 		{
 			$c = $line{$i};
 
@@ -177,7 +177,7 @@ class Console extends \mako\reactor\Task
 			}
 			elseif(($sq) || ($dq))
 			{
-				if ($c == '\\')
+				if($c == '\\')
 				{
 					$i++;
 				}
@@ -190,7 +190,7 @@ class Console extends \mako\reactor\Task
 
 		$code = str_replace($okeq, '', $code);
 
-		if (strcspn($code, ';{=') != strlen($code))
+		if(strcspn($code, ';{=') != strlen($code))
 		{
 			return false;
 		}
@@ -199,7 +199,7 @@ class Console extends \mako\reactor\Task
 
 		foreach($kw as $i)
 		{
-			if (in_array($i, $skip))
+			if(in_array($i, $skip))
 			{
 				return false;
 			}

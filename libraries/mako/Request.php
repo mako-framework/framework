@@ -240,15 +240,15 @@ class Request
 			
 			$ip = array_pop($ip);
 		}
-		else if(!empty($_SERVER['HTTP_CLIENT_IP']))
+		elseif(!empty($_SERVER['HTTP_CLIENT_IP']))
 		{
 			$ip = $_SERVER['HTTP_CLIENT_IP'];
 		}
-		else if(!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
+		elseif(!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
 		{
 			$ip = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
 		}
-		else if(!empty($_SERVER['REMOTE_ADDR']))
+		elseif(!empty($_SERVER['REMOTE_ADDR']))
 		{
 			$ip = $_SERVER['REMOTE_ADDR'];
 		}
@@ -291,11 +291,11 @@ class Request
 		{
 			$route = $this->route;
 		}
-		else if(isset($_SERVER['PATH_INFO']) && $this->isMain())
+		elseif(isset($_SERVER['PATH_INFO']) && $this->isMain())
 		{
 			$route = $_SERVER['PATH_INFO'];
 		}
-		else if(isset($_SERVER['REQUEST_URI']) && $this->isMain())
+		elseif(isset($_SERVER['REQUEST_URI']) && $this->isMain())
 		{
 			if($uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
 			{

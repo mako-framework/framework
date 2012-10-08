@@ -178,7 +178,7 @@ class DateTime
 		{
 			 return I18n::translate('datetime.minute_ago');
 		}
-		else if($diff < 3600)
+		elseif($diff < 3600)
 		{
 			return I18n::translate('datetime.minutes_ago', array($diff / 60));
 		}
@@ -191,23 +191,23 @@ class DateTime
 			{
 				return I18n::translate('datetime.hour_ago');
 			}
-			else if($diff < 86400)
+			elseif($diff < 86400)
 			{
 				return I18n::translate('datetime.hours_ago', array($diff / 3600));
 			}
-			else if($diff < 172800)
+			elseif($diff < 172800)
 			{
 				$date = I18n::translate('datetime.day_ago');
 			}
-			else if($diff < 604800)
+			elseif($diff < 604800)
 			{
 				$date = I18n::translate('datetime.days_ago', array($diff / 86400));
 			}
-			else if($diff < 1209600)
+			elseif($diff < 1209600)
 			{
 				$date = I18n::translate('datetime.week_ago');
 			}
-			else if($diff < 3024000)
+			elseif($diff < 3024000)
 			{
 				$date = I18n::translate('datetime.weeks_ago', array($diff / 604800));
 			}
@@ -226,7 +226,7 @@ class DateTime
 			{
 				$date = I18n::translate('datetime.today');
 			}
-			else if(gmdate('jny', (($now + $offset) - 86400)) == $compare)
+			elseif(gmdate('jny', (($now + $offset) - 86400)) == $compare)
 			{
 				$date = I18n::translate('datetime.yesterday');
 			}

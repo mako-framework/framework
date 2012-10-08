@@ -192,7 +192,7 @@ class Router
 
 				continue;
 			}
-			else if(is_file($path . '.php'))
+			elseif(is_file($path . '.php'))
 			{
 				// We have found our controller - Exit loop
 
