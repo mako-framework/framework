@@ -120,20 +120,6 @@ class Database
 	}
 
 	/**
-	 * Returns PDO instance to maintain backwards compatibility.
-	 *
-	 * @deprecated
-	 * @access  public
-	 * @param   string  $name  (optional) Database configuration name
-	 * @return  PDO
-	 */
-
-	public static function instance($name = null)
-	{
-		return static::connection($name)->pdo;
-	}
-
-	/**
 	 * Returns a raw sql container.
 	 *
 	 * @access  public

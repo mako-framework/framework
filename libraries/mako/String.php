@@ -208,25 +208,6 @@ class String
 			return $strings[($i++ % count($strings))];
 		};
 	}
-
-	/**
-	 * Alternates between two or more strings.
-	 *
-	 * @deprecated
-	 * @access  public
-	 * @param   array    $strings  Array of strings to alternate between
-	 * @param   boolean  $reset    (optional) Reset alternator?
-	 * @return  string
-	 */
-
-	public static function alternate(array $strings, $reset = false)
-	{
-		static $i = 0;
-
-		$reset && $i = 0;
-
-		return $strings[($i++ % count($strings))];
-	}
 	
 	/**
 	 * Converts URLs in a text into clickable links.

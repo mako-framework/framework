@@ -146,16 +146,9 @@ class View
 	 * @return  mako\View
 	 */
 
-	public function assign($name, $value, $global = false)
+	public function assign($name, $value)
 	{
-		if($global === false)
-		{
-			$this->vars[$name] = $value;
-		}
-		else
-		{
-			static::$globalVars[$name] = $value; // Available to all views
-		}
+		$this->vars[$name] = $value;
 
 		return $this;
 	}
@@ -171,31 +164,6 @@ class View
 	public static function assignGlobal($name, $value)
 	{
 		static::$globalVars[$name] = $value;
-	}
-	
-	/**
-	 * Assign a view variable by reference.
-	 *
-	 * @deprecated
-	 * @access  public
-	 * @param   string     $name    Variable name
-	 * @param   mixed      $value   View variable
-	 * @param   boolean    $global  (optional) True to make variable available in all views
-	 * @return  mako\View
-	 */
-
-	public function assignByRef($name, &$value, $global = false)
-	{
-		if($global === false)
-		{
-			$this->vars[$name] =& $value;
-		}
-		else
-		{
-			static::$globalVars[$name] =& $value; // Available to all views
-		}
-
-		return $this;
 	}
 
 	/**
