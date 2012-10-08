@@ -78,6 +78,10 @@ class I18n
 		$this->cache    = $config['language_cache'];
 	}
 
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+
 	/**
 	 * Returns singleton instance of the I18n class.
 	 * 
@@ -94,10 +98,6 @@ class I18n
 
 		return static::$instance;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Checks if a language pack exists and throws an exception if it doesn't.
