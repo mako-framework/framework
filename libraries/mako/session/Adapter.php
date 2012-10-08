@@ -15,22 +15,14 @@ abstract class Adapter
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-
+	
 	/**
-	 * Max session lifetime.
-	 *
-	 * @var int
+	 * Configuration.
+	 * 
+	 * @var array
 	 */
 
-	protected $maxLifetime;
-
-	/**
-	 * Session name.
-	 *
-	 * @var string
-	 */
-
-	protected $sessionName;
+	protected $config;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -40,63 +32,137 @@ abstract class Adapter
 	 * Constructor.
 	 *
 	 * @access  public
+	 * @param   array   $config  Configuration
 	 */
-	
-	public function __construct()
-	{
-		$this->maxLifetime = ini_get('session.gc_maxlifetime');
-	}
 
+	public function __construct(array $config)
+	{
+		$this->config = $config;
+	}
+	
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
 
 	/**
-	 * Session "constructor".
-	 *
+	 * Store a value in the session.
+	 * 
 	 * @access  public
-	 * @param   string   $savePath     Save path
-	 * @param   string   $sessionName  Session name
-	 * @return  boolean
+	 * @param   string  $key    Session key
+	 * @param   mixed   $value  Session data
 	 */
 
-	public function open($savePath, $sessionName)
+	public function remember($key, $value)
 	{
-		$this->sessionName = $sessionName;
-
-		return true;
+		$_SESSION[$key] = $value;
 	}
 
 	/**
-	 * Session "destructor".
-	 *
+	 * Removes a value from the session.
+	 * 
 	 * @access  public
-	 * @return  boolean
+	 * @param   string  $key  Session key
 	 */
 
-	public function close()
+	public function forget($key)
 	{
-		return true;
+		unset($_SESSION[$key]);
 	}
 
 	/**
-	 * Garbage collector.
-	 *
+	 * Returns TRUE if key exists in the session and FALSE if not.
+	 * 
 	 * @access  public
-	 * @param   int      $maxLifetime  Lifetime in secods
+	 * @param   string   $key  Session key
 	 * @return  boolean
 	 */
 
-	public function gc($maxLifetime)
+	public function has($key)
 	{
-		return true;
+		return isset($_SESSION[$key]);
 	}
 
-	abstract public function read($id);
+	/**
+	 * Returns a value from the session.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Session key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
 
-	abstract public function write($id, $data);
+	public function get($key, $default = null)
+	{
+		return isset($_SESSION[$key]) ? $_SESSION[$key] : $default;
+	}
 
-	abstract public function destroy($id);
+	/**
+	 * Sets or gets flash data from the session.
+	 *
+	 * @access  public
+	 * @param   mixed   $data  (optional) Flash data
+	 * @return  mixed
+	 */
+
+	public function flash($data = null)
+	{
+		if($data !== null)
+		{
+			$_SESSION[MAKO_APPLICATION_ID . '_flash'] = $data;
+		}
+		else
+		{
+			if(isset($_SESSION[MAKO_APPLICATION_ID . '_flash']))
+			{
+				$data = $_SESSION[MAKO_APPLICATION_ID . '_flash'];
+
+				unset($_SESSION[MAKO_APPLICATION_ID . '_flash']);
+
+				return $data;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * Returns the session id.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function id()
+	{
+		return session_id();
+	}
+
+	/**
+	 * Regenerates the session id.
+	 * 
+	 * @access  public
+	 * @param   boolean  $deleteOld  (optional)  Delete the session associated with the old id?
+	 * @return  boolean
+	 */
+
+	public function regenerate($deleteOld = false)
+	{
+		return session_regenerate_id($deleteOld);
+	}
+
+	/**
+	 *  Destroys all data registered to the session.
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function destroy()
+	{
+		return session_destroy();
+	}
 }
 
 /** -------------------- End of file --------------------**/

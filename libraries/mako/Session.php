@@ -19,19 +19,26 @@ class Session
 	// Class properties
 	//---------------------------------------------
 	
-	// Nothing here
+	/**
+	 * Session instance.
+	 * 
+	 * @var mako\session\Adapter
+	 */
+
+	protected static $instance;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
+	 * Constructor.
 	 *
-	 * @access  protected
+	 * @access  public
+	 * @param   array   $config  Configuration
 	 */
 
-	protected function __construct()
+	protected function __construct(array $config)
 	{
 		// Nothing here
 	}
@@ -39,80 +46,66 @@ class Session
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-	
+
 	/**
-	 * Starts a session using the chosen type of storage.
-	 *
-	 * @param   string  $name  (optional) Session configuration name
+	 * Returns the session instance.
+	 * 
+	 * @access  public
+	 * @return  mako\session\Adapter
 	 */
-	
-	public static function start($name = null)
+
+	public static function instance()
 	{
-		$config = Config::get('session');
-
-		$name = ($name === null) ? $config['default'] : $name;
-
-		if(isset($config['configurations'][$name]) === false)
+		if(empty(static::$instance))
 		{
-			throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the session configuration.", array(__METHOD__, $name)));
-		}
+			$config = Config::get('session');
 
-		$type = $config['configurations'][$name]['type'];
+			$name = $config['default'];
 
-		if(strtolower($type) !== 'native')
-		{
+			if(isset($config['configurations'][$name]) === false)
+			{
+				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the session configuration.", array(__METHOD__, $name)));
+			}
+
+			$type = $config['configurations'][$name]['type'];
+
 			$class = '\mako\session\\' . $type;
 
-			$handler = new $class($config['configurations'][$name]);
+			$adapter = new $class($config['configurations'][$name]);
 
-			session_set_save_handler
-			(
-				array($handler, 'open'), 
-				array($handler, 'close'), 
-				array($handler, 'read'), 
-				array($handler, 'write'), 
-				array($handler, 'destroy'), 
-				array($handler, 'gc')
-			);
+			if($type !== 'Native')
+			{
+				session_set_save_handler
+				(
+					array($adapter, 'sessionOpen'), 
+					array($adapter, 'sessionClose'), 
+					array($adapter, 'sessionRead'), 
+					array($adapter, 'sessionWrite'), 
+					array($adapter, 'sessionDestroy'), 
+					array($adapter, 'sessionGarbage')
+				);
+			}
+
+			session_start();
+
+			static::$instance = $adapter;
 		}
 
-		session_start();
+		return static::$instance;
 	}
 
 	/**
-	 * Sets or gets flash data.
+	 * Magic shortcut to the session instance.
 	 *
 	 * @access  public
-	 * @param   mixed   $data  (optional) Flash data
+	 * @param   string  $name       Method name
+	 * @param   array   $arguments  Method arguments
 	 * @return  mixed
 	 */
 
-	public static function flash($data = null)
+	public static function __callStatic($name, $arguments)
 	{
-		if(session_id() === '')
-		{
-			Session::start();
-		}
-
-		if($data !== null)
-		{
-			$_SESSION[MAKO_APPLICATION_ID . '_flash'] = $data;
-		}
-		else
-		{
-			if(isset($_SESSION[MAKO_APPLICATION_ID . '_flash']))
-			{
-				$data = $_SESSION[MAKO_APPLICATION_ID . '_flash'];
-
-				unset($_SESSION[MAKO_APPLICATION_ID . '_flash']);
-
-				return $data;
-			}
-			else
-			{
-				return false;
-			}
-		}
+		return call_user_func_array(array(static::instance(), $name), $arguments);
 	}
 }
 

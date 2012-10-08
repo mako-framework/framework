@@ -6,14 +6,14 @@ use \PDOException;
 use \mako\Database as DB;
 
 /**
- * Database adapter.
+ * Database session adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2012 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Database extends \mako\session\Adapter
+class Database extends \mako\session\Adapter implements \mako\session\HandlerInterface
 {
 	//---------------------------------------------
 	// Class properties
@@ -28,12 +28,12 @@ class Database extends \mako\session\Adapter
 	protected $connection;
 
 	/**
-	 * Session table.
+	 * Max session lifetime.
 	 *
-	 * @var string
+	 * @var int
 	 */
 
-	protected $table;
+	protected $maxLifetime;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -48,11 +48,11 @@ class Database extends \mako\session\Adapter
 
 	public function __construct(array $config)
 	{
-		parent::__construct();
+		parent::__construct($config);
 
 		$this->connection = DB::connection($config['configuration']);
 
-		$this->table = $config['table'];
+		$this->maxLifetime = ini_get('session.gc_maxlifetime');
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Database extends \mako\session\Adapter
 
 		if(mt_rand(1, 100) === 100)
 		{
-			$this->gc(0);
+			$this->sessionGarbage(0);
 		}
 	}
 
@@ -86,7 +86,33 @@ class Database extends \mako\session\Adapter
 
 	protected function table()
 	{
-		return $this->connection->table($this->table);
+		return $this->connection->table($this->config['table']);
+	}
+
+	/**
+	 * Open session.
+	 *
+	 * @access  public
+	 * @param   string   $savePath     Save path
+	 * @param   string   $sessionName  Session name
+	 * @return  boolean
+	 */
+
+	public function sessionOpen($savePath, $sessionName)
+	{
+		return true;
+	}
+
+	/**
+	 * Close session.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function sessionClose()
+	{
+		return true;
 	}
 
 	/**
@@ -97,7 +123,7 @@ class Database extends \mako\session\Adapter
 	 * @return  string
 	 */
 
-	public function read($id)
+	public function sessionRead($id)
 	{
 		try
 		{
@@ -119,7 +145,7 @@ class Database extends \mako\session\Adapter
 	 * @param   string  $data  Session data
 	 */
 
-	public function write($id, $data)
+	public function sessionWrite($id, $data)
 	{
 		try
 		{
@@ -146,7 +172,7 @@ class Database extends \mako\session\Adapter
 	 * @return  boolean
 	 */
 
-	public function destroy($id)
+	public function sessionDestroy($id)
 	{
 		try
 		{
@@ -166,7 +192,7 @@ class Database extends \mako\session\Adapter
 	 * @return  boolean
 	 */
 
-	public function gc($maxLifetime)
+	public function sessionGarbage($maxLifetime)
 	{
 		try
 		{
