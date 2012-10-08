@@ -192,7 +192,7 @@ class Database extends \mako\session\Adapter implements \mako\session\HandlerInt
 	 * @return  boolean
 	 */
 
-	public function sessionGarbage($maxLifetime)
+	public function sessionGarbageCollector($maxLifetime)
 	{
 		try
 		{

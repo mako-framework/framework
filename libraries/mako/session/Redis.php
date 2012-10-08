@@ -146,7 +146,7 @@ class Redis extends \mako\session\Adapter implements \mako\session\HandlerInterf
 	 * @return  boolean
 	 */
 
-	public function sessionGarbage($maxLifetime)
+	public function sessionGarbageCollector($maxLifetime)
 	{
 		return true;
 	}

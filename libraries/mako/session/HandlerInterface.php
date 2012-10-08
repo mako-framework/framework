@@ -17,7 +17,7 @@ interface HandlerInterface
 	public function sessionRead($key);
 	public function sessionWrite($key, $data);
 	public function sessionDestroy($id);
-	public function sessionGarbage($maxLifetime);
+	public function sessionGarbageCollector($maxLifetime);
 }
 
 /** -------------------- End of file --------------------**/

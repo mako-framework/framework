@@ -82,7 +82,7 @@ class Session
 					array($adapter, 'sessionRead'), 
 					array($adapter, 'sessionWrite'), 
 					array($adapter, 'sessionDestroy'), 
-					array($adapter, 'sessionGarbage')
+					array($adapter, 'sessionGarbageCollector')
 				);
 			}
 
