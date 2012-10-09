@@ -128,6 +128,17 @@ abstract class Adapter
 	}
 
 	/**
+	 * Deletes all session data.
+	 * 
+	 * @access  public
+	 */
+
+	public function clear()
+	{
+		$_SESSION = array();
+	}
+
+	/**
 	 * Returns the session id.
 	 * 
 	 * @access  public
