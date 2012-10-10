@@ -71,7 +71,7 @@ class Database extends \mako\session\Adapter implements \mako\session\HandlerInt
 
 		if(mt_rand(1, 100) === 100)
 		{
-			$this->sessionGarbage(0);
+			$this->sessionGarbageCollector(0);
 		}
 	}
 
