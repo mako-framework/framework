@@ -171,7 +171,7 @@ abstract class Adapter
 	 * Regenerates the session id.
 	 * 
 	 * @access  public
-	 * @param   boolean  $deleteOld  (optional)  Keep the session data associated with the old id?
+	 * @param   boolean  $deleteOld  (optional)  Delete the session data associated with the old id?
 	 * @return  boolean
 	 */
 
