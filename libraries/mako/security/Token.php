@@ -46,20 +46,6 @@ class Token
 	//---------------------------------------------
 	
 	/**
-	 * Starts session if it doesn't exist.
-	 *
-	 * @access  protected
-	 */
-	
-	protected static function sessionStart()
-	{
-		if(session_id() === '')
-		{
-			Session::start();
-		}
-	}
-	
-	/**
 	 * Returns random security token.
 	 *
 	 * @access  public
@@ -68,21 +54,19 @@ class Token
 	
 	public static function generate()
 	{
-		static::sessionStart();
-		
-		if(!isset($_SESSION[MAKO_APPLICATION_ID . '_token']))
+		$tokens = Session::get('#security_tokens#', array());
+
+		if(!empty($tokens))
 		{
-			$_SESSION[MAKO_APPLICATION_ID . '_token'] = array();	
+			$tokens = array_slice($tokens, 0, (static::MAX_TOKENS - 1)); // Only store MAX_TOKENS tokens per session
 		}
-		else
-		{
-			$_SESSION[MAKO_APPLICATION_ID . '_token'] = array_slice($_SESSION[MAKO_APPLICATION_ID . '_token'], 0, (static::MAX_TOKENS - 1)); // Only store MAX_TOKENS tokens per session
-		}
-		
+
 		$token = md5(uniqid('token', true));
-		
-		array_unshift($_SESSION[MAKO_APPLICATION_ID . '_token'], $token);
-		
+
+		array_unshift($tokens, $token);
+
+		Session::remember('#security_tokens#', $tokens);
+
 		return $token;
 	}
 	
@@ -96,17 +80,19 @@ class Token
 	
 	public static function validate($token)
 	{
-		static::sessionStart();
-		
-		$key = array_search($token, $_SESSION[MAKO_APPLICATION_ID . '_token']);
-		
+		$tokens = Session::get('#security_tokens#', array());
+
+		$key = array_search($token, $tokens);
+
 		if($key !== false)
 		{
-			unset($token, $_SESSION[MAKO_APPLICATION_ID . '_token'][$key]);
-			
+			unset($tokens[$key]);
+
+			Session::remember('#security_tokens#', $tokens);
+
 			return true;
 		}
-		
+
 		return false;
 	}
 }
