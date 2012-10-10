@@ -24,10 +24,11 @@ return array
 	/**
 	 * You can define as many session configurations as you want.
 	 *
-	 * The supported session types are: "Database", "Native" and "Redis".
+	 * The supported session types are: "Database", "File", "Native" and "Redis".
 	 *
 	 * type         : Session type you want to use (case-sensitive).
 	 * configuration: Database or redis configuration to use for sessions (only required when using "Database" or "Redis" sessions).
+	 * path         : Save path for session files (only required when using "File" sessions).
 	 * table        : Name of the database table (only required when using "Database" sessions).
 	 */
 	
@@ -38,6 +39,12 @@ return array
 			'type'          => 'Database',
 			'configuration' => 'test',
 			'table'         => 'mako_sessions',
+		),
+
+		'file' => array
+		(
+			'type' => 'File',
+			'path' => MAKO_APPLICATION_PATH . '/storage/sessions',
 		),
 
 		'native' => array
