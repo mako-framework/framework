@@ -11,6 +11,15 @@ return array
 	 */
 	
 	'default' => 'native',
+
+	/**
+	 * Session name. 
+	 * 
+	 * Using a unique session name will prevent session collisions with other applications.
+	 * Note that only alphanumeric characters can be used in the session name.
+	 */
+
+	'session_name' => 'mako_session',
 	
 	/**
 	 * You can define as many session configurations as you want.

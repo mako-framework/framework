@@ -60,6 +60,8 @@ class Redis extends \mako\session\Adapter implements \mako\session\HandlerInterf
 
 	public function __destruct()
 	{
+		parent::__destruct();
+		
 		session_write_close();
 
 		$this->redis = null;

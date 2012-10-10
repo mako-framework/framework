@@ -39,10 +39,35 @@ abstract class Adapter
 	{
 		$this->config = $config;
 	}
+
+	/**
+	 * Destructor.
+	 * 
+	 * @access  public
+	 */
+
+	public function __destruct()
+	{
+		unset($_SESSION['#old_flashdata#']);
+	}
 	
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Initialize the session.
+	 */
+
+	public function init()
+	{
+		if(isset($_SESSION['#new_flashdata#']))
+		{
+			$_SESSION['#old_flashdata#'] = $_SESSION['#new_flashdata#'];
+
+			unset($_SESSION['#new_flashdata#']);
+		}
+	}
 
 	/**
 	 * Store a value in the session.
@@ -100,30 +125,20 @@ abstract class Adapter
 	 * Sets or gets flash data from the session.
 	 *
 	 * @access  public
+	 * @param   string  $key   Session flash key
 	 * @param   mixed   $data  (optional) Flash data
 	 * @return  mixed
 	 */
 
-	public function flash($data = null)
+	public function flash($key, $data = null)
 	{
-		if($data !== null)
+		if($data === null)
 		{
-			$_SESSION[MAKO_APPLICATION_ID . '_flash'] = $data;
+			return isset($_SESSION['#old_flashdata#'][$key]) ? $_SESSION['#old_flashdata#'][$key] : false;
 		}
 		else
 		{
-			if(isset($_SESSION[MAKO_APPLICATION_ID . '_flash']))
-			{
-				$data = $_SESSION[MAKO_APPLICATION_ID . '_flash'];
-
-				unset($_SESSION[MAKO_APPLICATION_ID . '_flash']);
-
-				return $data;
-			}
-			else
-			{
-				return false;
-			}
+			$_SESSION['#new_flashdata#'][$key] = $data;
 		}
 	}
 

@@ -63,6 +63,8 @@ class Database extends \mako\session\Adapter implements \mako\session\HandlerInt
 
 	public function __destruct()
 	{
+		parent::__destruct();
+		
 		session_write_close();
 
 		// Fixes issue with Debian and Ubuntu session garbage collection
