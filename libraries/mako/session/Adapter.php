@@ -57,6 +57,8 @@ abstract class Adapter
 
 	/**
 	 * Initialize the session.
+	 * 
+	 * @access  public
 	 */
 
 	public function init()
