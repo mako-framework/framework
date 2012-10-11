@@ -24,6 +24,14 @@ abstract class Adapter
 
 	protected $config;
 
+	/**
+	 * Flashdata.
+	 * 
+	 * @var array
+	 */
+
+	protected $flashdata = array();
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -48,28 +56,14 @@ abstract class Adapter
 
 	public function __destruct()
 	{
-		unset($_SESSION['#old_flashdata#']);
+		unset($_SESSION['#flashdata#']);
+
+		$_SESSION['#flashdata#'] = $this->flashdata;
 	}
 	
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
-	/**
-	 * Initialize the session.
-	 * 
-	 * @access  public
-	 */
-
-	public function init()
-	{
-		if(isset($_SESSION['#new_flashdata#']))
-		{
-			$_SESSION['#old_flashdata#'] = $_SESSION['#new_flashdata#'];
-
-			unset($_SESSION['#new_flashdata#']);
-		}
-	}
 
 	/**
 	 * Store a value in the session.
@@ -136,11 +130,11 @@ abstract class Adapter
 	{
 		if($data === null)
 		{
-			return isset($_SESSION['#old_flashdata#'][$key]) ? $_SESSION['#old_flashdata#'][$key] : false;
+			return isset($_SESSION['#flashdata#'][$key]) ? $_SESSION['#flashdata#'][$key] : false;
 		}
 		else
 		{
-			$_SESSION['#new_flashdata#'][$key] = $data;
+			$this->flashdata[$key] = $data;
 		}
 	}
 

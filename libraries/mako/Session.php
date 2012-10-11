@@ -89,9 +89,7 @@ class Session
 			session_name($config['session_name']);
 
 			session_start();
-
-			$adapter->init();
-
+			
 			static::$instance = $adapter;
 		}
 
