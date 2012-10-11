@@ -18,13 +18,7 @@ class Cookie
 	// Class properties
 	//---------------------------------------------
 	
-	/**
-	 * Holds the configuration.
-	 *
-	 * @var array
-	 */
-	
-	protected static $config;
+	// Nothing here
 	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -56,32 +50,32 @@ class Cookie
 	
 	protected static function signature($name, $value)
 	{
-		if(empty(static::$config))
-		{
-			static::$config = Config::get('cookie');
-		}
-		
-		return base64_encode(sha1($name . $value . static::$config['secret'], true)); // use binary output and encode using base64 to save a few bytes
+		return base64_encode(sha1($name . $value . Config::get('cookie.secret'), true)); // use binary output and encode using base64 to save a few bytes
 	}
 	
 	/**
 	 * Sets a signed cookie.
 	 *
 	 * @access  public
-	 * @param   string   $name       Cookie name
-	 * @param   string   $value      Cookie value
-	 * @param   int      $ttl        (optional) Time to live - if omitted or set to 0 the cookie will expire when the browser closes
-	 * @param   boolean  $secure     (optional) HTTPS only - if set to TRUE then the cookie should only be transmitted over a secure connection from the client
-	 * @param   boolean  $httpOpnly  (optional) HTTP only - if set to TRUE the cookie will be made accessible only through the HTTP protocol
+	 * @param   string  $name     Cookie name
+	 * @param   string  $value    Cookie value
+	 * @param   int     $ttl      (optional) Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	 * @param   array   $options  (optional) Cookie options
 	 */
-	
-	public static function set($name, $value, $ttl = 0, $secure = false, $httpOnly = false)
-	{			
-		$ttl = ($ttl > 0) ? (time() + $ttl) : 0;
-		
+
+	public static function set($name, $value, $ttl = 0, array $options = array())
+	{
+		$options = $options + array
+		(
+			'path'     => Config::get('cookie.path'),
+			'domain'   => Config::get('cookie.domain'),
+			'secure'   => Config::get('cookie.secure'),
+			'httponly' => Config::get('cookie.httponly'),
+		);
+
 		$value = static::signature($name, $value) . $value;
-		
-		setcookie($name, $value, $ttl, static::$config['path'], static::$config['domain'], $secure, $httpOnly);
+
+		setcookie($name, $value, $ttl, $options['path'], $options['domain'], $options['secure'], $options['httponly']);
 	}
 	
 	/**
@@ -121,12 +115,7 @@ class Cookie
 	
 	public static function delete($name)
 	{
-		if(empty(static::$config))
-		{
-			static::$config = Config::get('cookie');
-		}
-		
-		setcookie($name, '', time() - 3600, static::$config['path'], static::$config['domain']);
+		setcookie($name, '', time() - 3600, Config::get('cookie.path'), Config::get('cookie.domain'));
 	}
 }
 
