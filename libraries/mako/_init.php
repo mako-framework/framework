@@ -108,6 +108,7 @@ mako\ClassLoader::mapClasses(array
 	'mako\Session'                           => MAKO_LIBRARIES_PATH . '/mako/Session.php',
 	'mako\session\Adapter'                   => MAKO_LIBRARIES_PATH . '/mako/session/Adapter.php',
 	'mako\session\Database'                  => MAKO_LIBRARIES_PATH . '/mako/session/Database.php',
+	'mako\session\File'                      => MAKO_LIBRARIES_PATH . '/mako/session/File.php',
 	'mako\session\HandlerInterface'          => MAKO_LIBRARIES_PATH . '/mako/session/HandlerInterface.php',
 	'mako\session\Native'                    => MAKO_LIBRARIES_PATH . '/mako/session/Native.php',
 	'mako\session\Redis'                     => MAKO_LIBRARIES_PATH . '/mako/session/Redis.php',
