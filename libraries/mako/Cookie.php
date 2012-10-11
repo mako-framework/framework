@@ -110,12 +110,21 @@ class Cookie
 	 * Deletes a cookie.
 	 *
 	 * @access  public
-	 * @param   string  $name  Cookie name
+	 * @param   string  $name     Cookie name
+	 * @param   array   $options  (optional) Cookie options
 	 */
 	
-	public static function delete($name)
+	public static function delete($name, array $options = array())
 	{
-		setcookie($name, '', time() - 3600, Config::get('cookie.path'), Config::get('cookie.domain'));
+		$options = $options + array
+		(
+			'path'     => Config::get('cookie.path'),
+			'domain'   => Config::get('cookie.domain'),
+			'secure'   => Config::get('cookie.secure'),
+			'httponly' => Config::get('cookie.httponly'),
+		);
+		
+		setcookie($name, '', time() - 3600, $options['path'], $options['domain'], $options['secure'], $options['httponly']);
 	}
 }
 
