@@ -251,7 +251,7 @@ class Compiler
 
 	protected function nestedWhere(array $where)
 	{
-		return '(' . substr($this->wheres($where['query']->wheres), 7) . ')'; // substr to remove " WHERE "
+		return '(' . substr($this->wheres($where['query']->getWheres()), 7) . ')'; // substr to remove " WHERE "
 	}
 
 	/**
