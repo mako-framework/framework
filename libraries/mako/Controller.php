@@ -20,6 +20,14 @@ abstract class Controller
 	//---------------------------------------------
 
 	/**
+	 * Is this a restful controller?
+	 * 
+	 * @var boolean
+	 */
+
+	const RESTFUL = false;
+
+	/**
 	 * Holds the request object that loaded the controller.
 	 *
 	 * @var mako\Request
