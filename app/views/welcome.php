@@ -172,8 +172,8 @@ a.active
 <div class="tape bottom"></div>
 <h1>Mako Framework</h1>
 
-<?php if(!is_writable(MAKO_APPLICATION_PATH . '/storage/logs') || !is_writable(MAKO_APPLICATION_PATH . '/storage/logs')): ?>
-<p class="animated shake"><span class="error">Make sure that the <strong>application/storage/cache</strong> and <strong>application/storage/cache</strong> directories are writable.</span></p>
+<?php if(!is_writable(MAKO_APPLICATION_PATH . '/storage/cache') || !is_writable(MAKO_APPLICATION_PATH . '/storage/logs')): ?>
+<p class="animated shake"><span class="error">Make sure that the <strong>application/storage/*</strong> directories are writable.</span></p>
 <?php endif; ?>
 
 <p>You have successfully installed the framework. Check out the <a href="http://makoframework.com/docs">documentation</a> and create something awesome!</p>
