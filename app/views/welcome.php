@@ -174,9 +174,9 @@ a.active
 
 <?php foreach(array('cache', 'database', 'logs', 'sessions', 'templates') as $dir): ?>
 
-	<?php if(!is_writable(MAKO_APPLICATION_PATH . '/storage/' . $dir)): ?>
-	<p class="animated shake"><span class="error">Make sure that the <strong>application/storage/*</strong> directories are writable.</span></p>
-	<?php break; endif; ?>
+<?php if(!is_writable(MAKO_APPLICATION_PATH . '/storage/' . $dir)): ?>
+<p class="animated shake"><span class="error">Make sure that the <strong>application/storage/*</strong> directories are writable.</span></p>
+<?php break; endif; ?>
 
 <?php endforeach; ?>
 
