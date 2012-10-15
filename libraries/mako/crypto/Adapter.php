@@ -35,7 +35,7 @@ abstract class Adapter
 	abstract public function decrypt($string);
 
 	/**
-	 * Encrypt and sign string.
+	 * Encrypts and signs string.
 	 * 
 	 * @access  public
 	 * @param   string  $string  String to encrypt
