@@ -48,7 +48,7 @@ abstract class Adapter
 	}
 
 	/**
-	 * Validats and decrypts data.
+	 * Validates and decrypts string.
 	 *
 	 * @access  public
 	 * @param   string  $string  String to decrypt
@@ -58,7 +58,7 @@ abstract class Adapter
 	public function validateAndDecrypt($string)
 	{
 		$string = MAC::validate($string);
-		
+
 		return ($string === false) ? false : $this->decrypt($string);
 	}
 }

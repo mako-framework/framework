@@ -61,7 +61,7 @@ class OpenSSL extends \mako\crypto\Adapter
 	//---------------------------------------------
 	
 	/**
-	 * Encrypts data.
+	 * Encrypts string.
 	 *
 	 * @access  public
 	 * @param   string  $string  String to encrypt
@@ -74,7 +74,7 @@ class OpenSSL extends \mako\crypto\Adapter
 	}
 	
 	/**
-	 * Decrypts data.
+	 * Decrypts string.
 	 *
 	 * @access  public
 	 * @param   string  $string  String to decrypt
