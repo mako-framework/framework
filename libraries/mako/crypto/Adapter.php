@@ -2,6 +2,8 @@
 
 namespace mako\crypto;
 
+use \mako\security\MAC;
+
 /**
  * Crypto adapter.
  *
@@ -31,6 +33,34 @@ abstract class Adapter
 	abstract public function encrypt($string);
 
 	abstract public function decrypt($string);
+
+	/**
+	 * Encrypt and sign string.
+	 * 
+	 * @access  public
+	 * @param   string  $string  String to encrypt
+	 * @return  string
+	 */
+
+	public function encryptAndSign($string)
+	{
+		return MAC::sign($this->encrypt($string));
+	}
+
+	/**
+	 * Validats and decrypts data.
+	 *
+	 * @access  public
+	 * @param   string  $string  String to decrypt
+	 * @return  string
+	 */
+
+	public function validateAndDecrypt($string)
+	{
+		$string = MAC::validate($string);
+		
+		return ($string === false) ? false : $this->decrypt($string);
+	}
 }
 
 /** -------------------- End of file --------------------**/
