@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\Config;
+use \mako\security\MAC;
 
 /**
  * Class that allows you to set and read signed cookies.
@@ -40,20 +41,6 @@ class Cookie
 	//---------------------------------------------
 	
 	/**
-	 * Returns the cookie signature.
-	 *
-	 * @access  protected
-	 * @param   string     $name   Cookie name
-	 * @param   string     $value  Cookie value
-	 * @return  string
-	 */
-	
-	protected static function signature($name, $value)
-	{
-		return base64_encode(sha1($name . $value . Config::get('cookie.secret'), true)); // use binary output and encode using base64 to save a few bytes
-	}
-	
-	/**
 	 * Sets a signed cookie.
 	 *
 	 * @access  public
@@ -73,9 +60,7 @@ class Cookie
 			'httponly' => Config::get('cookie.httponly'),
 		);
 
-		$value = static::signature($name, $value) . $value;
-
-		setcookie($name, $value, $ttl, $options['path'], $options['domain'], $options['secure'], $options['httponly']);
+		setcookie($name, MAC::sign($value), $ttl, $options['path'], $options['domain'], $options['secure'], $options['httponly']);
 	}
 	
 	/**
@@ -94,9 +79,7 @@ class Cookie
 			return $default;
 		}
 					
-		$value = substr($_COOKIE[$name], 28);
-					
-		if(static::signature($name, $value) === substr($_COOKIE[$name], 0, 28))
+		if(($value = MAC::validate($_COOKIE[$name])) !== false)
 		{
 			return $value;
 		}

@@ -26,10 +26,11 @@ return array
 	'asset_location' => '/mako/assets',
 
 	/**
-	 * Default character set used internally in the framework.
+	 * Secret used to provide cryptographic signing, and should be set to a unique, unpredictable value.
+	 * You should NOT use the secret included with the framwork in a production environment!
 	 */
-
-	'charset' => 'UTF-8',
+	
+	'secret'   => 'oib[H7:Jqn2QcMv77>qMpc<gTLFndNLd',
 
 	/**
 	 * Set the default timezone used by various PHP date functions.
@@ -38,6 +39,12 @@ return array
 	 */
 	
 	'timezone' => 'UTC',
+
+	/**
+	 * Default character set used internally in the framework.
+	 */
+
+	'charset' => 'UTF-8',
 
 	/**
 	 * Default language.

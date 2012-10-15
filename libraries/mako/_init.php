@@ -102,6 +102,7 @@ mako\ClassLoader::mapClasses(array
 	'mako\request\Router'                    => MAKO_LIBRARIES_PATH . '/mako/request/Router.php',
 	'mako\Response'                          => MAKO_LIBRARIES_PATH . '/mako/Response.php',
 	'mako\Rest'                              => MAKO_LIBRARIES_PATH . '/mako/Rest.php',
+	'mako\security\MAC'                      => MAKO_LIBRARIES_PATH . '/mako/security/MAC.php',
 	'mako\security\Password'                 => MAKO_LIBRARIES_PATH . '/mako/security/Password.php',
 	'mako\security\Token'                    => MAKO_LIBRARIES_PATH . '/mako/security/Token.php',
 	'mako\Session'                           => MAKO_LIBRARIES_PATH . '/mako/Session.php',
