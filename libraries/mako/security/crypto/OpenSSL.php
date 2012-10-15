@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\crypto;
+namespace mako\security\crypto;
 
 use \RuntimeException;
 
@@ -12,7 +12,7 @@ use \RuntimeException;
  * @license    http://www.makoframework.com/license
  */
 
-class OpenSSL extends \mako\crypto\Adapter
+class OpenSSL extends \mako\security\crypto\Adapter
 {
 	//---------------------------------------------
 	// Class properties

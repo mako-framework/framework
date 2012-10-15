@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\security;
 
 use \mako\Config;
 use \RuntimeException;
@@ -43,8 +43,8 @@ class Crypto
 	/**
 	 * Returns an instance of the requested encryption configuration.
 	 *
-	 * @param                        string  $name  (optional) Encryption configuration name
-	 * @return  mako\crypto\Adapter
+	 * @param   string                        $name  (optional) Encryption configuration name
+	 * @return  mako\security\crypto\Adapter
 	 */
 	
 	public static function factory($name = null)
@@ -58,7 +58,7 @@ class Crypto
 			throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the crypto configuration.", array(__METHOD__, $name)));
 		}
 
-		$class = '\mako\crypto\\' . $config['configurations'][$name]['library'];
+		$class = '\mako\security\crypto\\' . $config['configurations'][$name]['library'];
 
 		return new $class($config['configurations'][$name]);
 	}
