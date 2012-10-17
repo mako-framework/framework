@@ -51,6 +51,23 @@ class Migrate extends \mako\reactor\Task
 	//---------------------------------------------
 
 	/**
+	 * Creates the migration log table.
+	 *
+	 * @access  public
+	 */
+
+	public function install()
+	{
+		/*CREATE TABLE `mako_migrations` (
+		  `batch` int(10) unsigned NOT NULL,
+		  `package` varchar(255) NOT NULL,
+		  `version` varchar(255) NOT NULL
+		);*/
+
+		$this->cli->stderr('Migration installation has not been implemented yet.');
+	}
+
+	/**
 	 * Returns a query builder instance.
 	 *
 	 * @access  protected
@@ -66,6 +83,7 @@ class Migrate extends \mako\reactor\Task
 	 * Returns array of all outstanding migrations.
 	 *
 	 * @access  protected
+	 * @return  array
 	 */
 
 	protected function getOutstanding()
@@ -132,21 +150,23 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	 * Displays the number of outstanding migrations.
-	 *
-	 * @access  public
+	 * Returns an array of migrations to roll back.
+	 * 
+	 * @access  protected
+	 * @param   int        $batches  Number of batches to roll back
+	 * @return  array
 	 */
 
-	public function status()
+	protected function getBatch($batches = 1)
 	{
-		if(($count = count($this->getOutstanding())) > 0)
+		$query = $this->table();
+
+		if($batches > 0)
 		{
-			$this->cli->stdout(sprintf(($count === 1 ? 'There is %d outstanding migration.' : 'There are %d outstanding migrations.'), $count));
+			$query->where('batch', '>', ($this->table()->max('batch') - $batches));
 		}
-		else
-		{
-			$this->cli->stdout('There are no outstanding migrations.');
-		}
+
+		return $query->orderBy('version', 'desc')->all(array('version', 'package'));
 	}
 
 	/**
@@ -174,6 +194,24 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
+	 * Displays the number of outstanding migrations.
+	 *
+	 * @access  public
+	 */
+
+	public function status()
+	{
+		if(($count = count($this->getOutstanding())) > 0)
+		{
+			$this->cli->stdout(sprintf(($count === 1 ? 'There is %s outstanding migration.' : 'There are %s outstanding migrations.'), $this->cli->color($count, 'green')));
+		}
+		else
+		{
+			$this->cli->stdout('There are no outstanding migrations.', 'yellow');
+		}
+	}
+
+	/**
 	 * Runs all outstanding migrations.
 	 *
 	 * @access  public
@@ -185,7 +223,7 @@ class Migrate extends \mako\reactor\Task
 
 		if(empty($migrations))
 		{
-			return $this->cli->stdout('There are no outstanding migrations.');
+			return $this->cli->stdout('There are no outstanding migrations.', 'yellow');
 		}
 
 		$batch = $this->table()->max('batch') + 1;
@@ -208,23 +246,19 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	 * Rolls back the last migration batch.
+	 * Rolls back the n last migration batches.
 	 *
 	 * @access  public
+	 * @param   int     $batches  Number of batches to roll back
 	 */
 
-	public function rollback()
+	public function rollback($batches = 1)
 	{
-		$migrations = $this->table()
-			->where('batch', '=', $this->table()->max('batch'))
-			->orderBy('version', 'desc')
-			->all(array('version', 'package'));
+		$migrations = $this->getBatch($batches);
 
 		if(empty($migrations))
 		{
-			$this->cli->stdout('There are no migrations to roll back.');
-
-			return false;
+			$this->cli->stdout('There are no migrations to roll back.', 'yellow');
 		}
 
 		foreach($migrations as $migration)
@@ -242,8 +276,6 @@ class Migrate extends \mako\reactor\Task
 
 			$this->cli->stdout('Rolled back the ' . $name . ' migration.');
 		}
-
-		return true;
 	}
 
 	/**
@@ -254,27 +286,10 @@ class Migrate extends \mako\reactor\Task
 
 	public function reset()
 	{
-		while($this->rollback())
+		if($this->cli->param('force', false) || $this->cli->confirm('Are you sure you want to reset your database?'))
 		{
-			// Rolling back all migrations
+			$this->rollback(0);
 		}
-	}
-
-	/**
-	 * Creates the migration log table.
-	 *
-	 * @access  public
-	 */
-
-	public function install()
-	{
-		/*CREATE TABLE `mako_migrations` (
-		  `batch` int(10) unsigned NOT NULL,
-		  `package` varchar(255) NOT NULL,
-		  `version` varchar(255) NOT NULL
-		);*/
-
-		$this->cli->stderr('Migration installation has not been implemented yet.');
 	}
 
 	/**

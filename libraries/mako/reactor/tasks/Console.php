@@ -298,7 +298,7 @@ class Console extends \mako\reactor\Task
 			unset($__output);
 		}
 
-		$this->cli->stdout('Goodbye!');
+		$this->cli->stdout(PHP_EOL . 'Goodbye!');
 	}
 }
 
