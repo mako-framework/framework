@@ -119,17 +119,15 @@ class Assets
 
 		if(pathinfo(strtok($source, '?'), PATHINFO_EXTENSION) === 'css')
 		{
-			!isset($attributes['media']) && $attributes['media'] = 'all';
-
 			defined('MAKO_XHTML') && $attributes['type'] = 'text/css';
 
-			$this->css[$name] = array('href' => $source, 'rel' => 'stylesheet') + $attributes;
+			$this->css[$name] = $attributes + array('href' => $source, 'rel' => 'stylesheet', 'media' => 'all');
 		}
 		else
 		{
 			defined('MAKO_XHTML') && $attributes['type'] = 'text/javascript';
 
-			$this->js[$name] = array('src' => $source) + $attributes;
+			$this->js[$name] = $attributes + array('src' => $source);
 		}
 	}
 
