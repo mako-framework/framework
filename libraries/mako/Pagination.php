@@ -177,6 +177,8 @@ class Pagination
 			$end = $this->pages;
 		}
 
+		$pagination['pages'] = array();
+
 		for($i = $start + 1; $i <= $end; $i++)
 		{
 			$pagination['pages'][] = array
