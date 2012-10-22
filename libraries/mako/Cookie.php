@@ -52,6 +52,8 @@ class Cookie
 
 	public static function set($name, $value, $ttl = 0, array $options = array())
 	{
+		$ttl = ($ttl > 0) ? (time() + $ttl) : 0;
+		
 		$options = $options + array
 		(
 			'path'     => Config::get('cookie.path'),
