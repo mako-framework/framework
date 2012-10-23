@@ -182,11 +182,11 @@
 	{
 		padding: 4px;
 		border-bottom: 1px solid #ccc;
+		vertical-align: top;
 	}
 	#mako-debug table td:first-child
 	{
 		width: 20%;
-		vertical-align: top;
 	}
 	#mako-debug table td:last-child
 	{
@@ -287,12 +287,16 @@
 		<table class="mako-table">
 			<tr>
 				<th>Type</th>
-				<th>Message</th>
+				<th>File</th>
+				<th>Line</th>
+				<th>Logged</th>
 			</tr>
 			<?php foreach($logs as $log): ?>
 			<tr>
 				<td class="mako-log mako-<?php echo $log['type']; ?>"><?php echo $log['type']; ?></td>
-				<td><?php echo htmlspecialchars(print_r($log['message'], true), ENT_QUOTES, MAKO_CHARSET); ?></td>
+				<td><?php echo $log['file']; ?></td>
+				<td><?php echo $log['line']; ?></td>
+				<td><?php echo htmlspecialchars(print_r($log['log'], true), ENT_QUOTES, MAKO_CHARSET); ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</table>

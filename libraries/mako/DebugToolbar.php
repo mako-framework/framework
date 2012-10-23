@@ -112,16 +112,25 @@ class DebugToolbar
 	//---------------------------------------------
 
 	/**
-	 * Add entry to the debug log.
+	 * Add entry to the debug toolbar log.
 	 *
 	 * @access  public
-	 * @param   mixed   $message  Variable to debug
-	 * @param   string  $type     Log type
+	 * @param   mixed    $log      Item you want to log
+	 * @param   string   $type     Log type
+	 * @param   boolean  $skip     (optional) Skip the first frame of the backtrace?
+	 * @return  mixed
 	 */
 
-	public static function log($message, $type = DebugToolbar::DEBUG)
+	public static function log($log, $type = DebugToolbar::DEBUG, $skip = false)
 	{
-		static::$logs[] = array('message' => $message, 'type' => $type);
+		$backtrace = debug_backtrace();
+
+		$file = str_replace(array(MAKO_APPLICATION_PATH, MAKO_LIBRARIES_PATH), array('APP', 'LIBRARIES'), $backtrace[$skip ? 1 : 0]['file']);
+		$line = $backtrace[$skip ? 1 : 0]['line'];
+
+		static::$logs[] = compact('log', 'file', 'line', 'type');
+
+		return $log;
 	}
 
 	/**

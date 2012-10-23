@@ -196,6 +196,23 @@ if(!function_exists('dump_var'))
 	}
 }
 
+if(!function_exists('debug'))
+{
+	/**
+	 * Add entry to the debug toolbar log.
+	 *
+	 * @access  public
+	 * @param   mixed    $log      Item you want to log
+	 * @param   string   $type     Log type
+	 * @return  mixed
+	 */
+
+	function debug($log, $type = mako\DebugToolbar::DEBUG)
+	{
+		return mako\DebugToolbar::log($log, $type, true);
+	}
+}
+
 //------------------------------------------------------------------------------------------
 // Include application bootstrap file
 //------------------------------------------------------------------------------------------
