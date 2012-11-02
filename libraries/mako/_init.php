@@ -76,6 +76,7 @@ mako\ClassLoader::mapClasses(array
 	'mako\Format'                            => MAKO_LIBRARIES_PATH . '/mako/Format.php',
 	'mako\HTML'                              => MAKO_LIBRARIES_PATH . '/mako/HTML.php',
 	'mako\I18n'                              => MAKO_LIBRARIES_PATH . '/mako/I18n.php',
+	'mako\Language'                          => MAKO_LIBRARIES_PATH . '/mako/i18n/Language.php',
 	'mako\Input'                             => MAKO_LIBRARIES_PATH . '/mako/Input.php',
 	'mako\Log'                               => MAKO_LIBRARIES_PATH . '/mako/Log.php',
 	'mako\log\Adapter'                       => MAKO_LIBRARIES_PATH . '/mako/log/Adapter.php',
