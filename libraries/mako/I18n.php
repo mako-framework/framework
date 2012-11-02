@@ -70,7 +70,7 @@ class I18n
 	}
 
 	/**
-	 * Returns instance of the chosen language.
+	 * Returns the instance of the chosen language.
 	 * 
 	 * @access  public
 	 * @param   string              $language  Name of the language pack

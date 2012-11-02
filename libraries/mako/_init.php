@@ -38,6 +38,7 @@ mako\ClassLoader::mapClasses(array
 (
 	'mako\Arr'                               => MAKO_LIBRARIES_PATH . '/mako/Arr.php',
 	'mako\Assets'                            => MAKO_LIBRARIES_PATH . '/mako/Assets.php',
+	'mako\assets\Container'                  => MAKO_LIBRARIES_PATH . '/mako/assets/Container.php',
 	'mako\Cache'                             => MAKO_LIBRARIES_PATH . '/mako/Cache.php',
 	'mako\cache\APC'                         => MAKO_LIBRARIES_PATH . '/mako/cache/APC.php',
 	'mako\cache\Adapter'                     => MAKO_LIBRARIES_PATH . '/mako/cache/Adapter.php',
@@ -76,7 +77,7 @@ mako\ClassLoader::mapClasses(array
 	'mako\Format'                            => MAKO_LIBRARIES_PATH . '/mako/Format.php',
 	'mako\HTML'                              => MAKO_LIBRARIES_PATH . '/mako/HTML.php',
 	'mako\I18n'                              => MAKO_LIBRARIES_PATH . '/mako/I18n.php',
-	'mako\Language'                          => MAKO_LIBRARIES_PATH . '/mako/i18n/Language.php',
+	'mako\i18n\Language'                     => MAKO_LIBRARIES_PATH . '/mako/i18n/Language.php',
 	'mako\Input'                             => MAKO_LIBRARIES_PATH . '/mako/Input.php',
 	'mako\Log'                               => MAKO_LIBRARIES_PATH . '/mako/Log.php',
 	'mako\log\Adapter'                       => MAKO_LIBRARIES_PATH . '/mako/log/Adapter.php',
