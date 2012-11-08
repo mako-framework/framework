@@ -93,16 +93,23 @@ class Router
 	//---------------------------------------------
 
 	/**
-	 * Returns the base route for a package.
+	 * Replaces the package prefix with the package base route.
 	 * 
 	 * @access  public
-	 * @param   string  $package  Package name
+	 * @param   string  $route  Route
 	 * @return  string
 	 */
 
-	public static function packageBaseRoute($package)
+	public static function packageRoute($route)
 	{
-		return isset(static::$packageBaseRoutes[$package]) ? static::$packageBaseRoutes[$package] : '';
+		$packageBaseRoutes = static::$packageBaseRoutes;
+
+		return preg_replace_callback('/^([a-z_0-9]+::)/', function($matches) use ($packageBaseRoutes)
+		{
+			$package = substr($matches[1], 0, -2);
+
+			return isset($packageBaseRoutes[$package]) ? $packageBaseRoutes[$package] . '/' : $matches[1];
+		}, $route, 1);
 	}
 
 	/**
@@ -121,6 +128,13 @@ class Router
 		else
 		{
 			$route = trim($this->route, '/');
+		}
+
+		// Replace the package prefix with the package base route
+
+		if(!$this->request->isMain() && strpos($route, '::') !== false)
+		{
+			$route = static::packageRoute($route);
 		}
 
 		// Remap custom routes

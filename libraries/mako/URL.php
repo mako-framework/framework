@@ -111,16 +111,11 @@ class URL
 
 	public static function to($route = '', array $params = array(), $separator = '&amp;', $language = true)
 	{
-		// Replace package prefix with package base route
+		// Replace the package prefix with the package base route
 
 		if(strpos($route, '::') !== false)
 		{
-			$route = preg_replace_callback('/^([a-z_0-9]+::)/', function($matches)
-			{
-				$base = Router::packageBaseRoute(substr($matches[1], 0, -2));
-
-				return !empty($base) ? $base . '/' : $matches[1];
-			}, $route, 1);
+			$route = Router::packageRoute($route);
 		}
 
 		// Build and return url
