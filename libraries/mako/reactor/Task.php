@@ -43,6 +43,13 @@ abstract class Task
 	public function __construct(CLI $cli)
 	{
 		$this->cli = $cli;
+
+		if($this->cli->param('list-actions', false))
+		{
+			$this->__call(null, null);
+
+			exit();
+		}
 	}
 
 	//---------------------------------------------
@@ -67,7 +74,10 @@ abstract class Task
 
 	public function __call($name, $arguments)
 	{
-		$this->cli->stderr(vsprintf("Unknown task action '%s'.", array($name)));
+		if($name !== null)
+		{
+			$this->cli->stderr(vsprintf("Unknown task action '%s'.", array($name)));
+		}
 
 		$reflectionClass = new ReflectionClass($this);
 
