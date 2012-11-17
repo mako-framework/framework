@@ -46,9 +46,7 @@ abstract class Task
 
 		if($this->cli->param('list-actions', false))
 		{
-			$this->__call(null, null);
-
-			exit();
+			$this->listActions(null, null);
 		}
 	}
 
@@ -65,20 +63,13 @@ abstract class Task
 	abstract public function run();
 
 	/**
-	 * Display list of available actions if non-existant method is called.
+	 * Display list of available actions.
 	 *
-	 * @access  public
-	 * @param  string  $name       Method name
-	 * @param  array   $arguments  Method arguments
+	 * @access  protected
 	 */
 
-	public function __call($name, $arguments)
+	protected function listActions()
 	{
-		if($name !== null)
-		{
-			$this->cli->stderr(vsprintf("Unknown task action '%s'.", array($name)));
-		}
-
 		$reflectionClass = new ReflectionClass($this);
 
 		$actions = array();
@@ -115,6 +106,23 @@ abstract class Task
 				}
 			}
 		}
+
+		exit(PHP_EOL);
+	}
+
+	/**
+	 * Display list of available actions if non-existant method is called.
+	 *
+	 * @access  public
+	 * @param  string  $name       Method name
+	 * @param  array   $arguments  Method arguments
+	 */
+
+	public function __call($name, $arguments)
+	{
+		$this->cli->stderr(vsprintf("Unknown task action '%s'.", array($name)));
+
+		$this->listActions();
 	}
 }
 
