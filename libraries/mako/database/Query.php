@@ -173,7 +173,7 @@ class Query
 	 * @return  mako\database\query\Compiler
 	 */
 
-	public function getComiler()
+	public function getCompiler()
 	{
 		return $this->compiler;
 	}
