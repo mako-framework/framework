@@ -5,7 +5,7 @@ return array
 	'validate.required'                 => 'The %1$s field is required.',
 	'validate.min_length'               => 'The value of the %1$s field must be at least %2$s characters long.',
 	'validate.max_length'               => 'The value of the %1$s field must be less than %2$s characters long.',
-	'validate.exact_length'             => 'The value of the %1$s field must be exacly %2$s characters long.',
+	'validate.exact_length'             => 'The value of the %1$s field must be exactly %2$s characters long.',
 	'validate.less_than'                => 'The value of the %1$s field must be less than %2$s.',
 	'validate.less_than_or_equal_to'    => 'The value of the %1$s field must be less than or equal to %2$s.',
 	'validate.greater_than'             => 'The value of the %1$s field must be greater than %2$s.',
