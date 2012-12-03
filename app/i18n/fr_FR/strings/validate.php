@@ -27,7 +27,7 @@ return array
 	'validate.alpha_dash_unicode'       => 'Le champ %1$s ne peut contenir que des lettres, chiffres et traits d’union.',
 	'validate.email'                    => 'Le champ %1$s doit contenir une adresse mail valable.',
 	'validate.email_domain'             => 'Le champ %1$s doit contenir une adresse mail valable.',
-	'validate.url'                      => 'Le champ %1$s doit contenir doit être un URL valable.',
+	'validate.url'                      => 'Le champ %1$s doit contenir un URL valable.',
 	'validate.ip'                       => 'Le champ %1$s doit contenir une adresse IP valable.',
 	'validate.in'                       => 'Le champ %1$s doit contenir une des alternatives disponibles.',
 	'validate.not_in'                   => 'Le champ %1$s contient une valeur non valable.',
