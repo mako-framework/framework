@@ -3,9 +3,9 @@
 return array
 (
 	'validate.required'                 => 'Le champ %1$s est obligatoire.',
-	'validate.min_length'               => 'Le champ %1$s doit avoir une longueur d’au moins %2$ caractères.',
-	'validate.max_length'               => 'Le champ %1$s doit être plus court que %2$s caractères.',
-	'validate.exact_length'             => 'Le champ %1$s doit avoir une longueur d’exactement %2$s caractères.',
+	'validate.min_length'               => 'La valeur du champ %1$s doit avoir une longueur d’au moins %2$ caractères.',
+	'validate.max_length'               => 'La valeur du champ %1$s doit être plus court que %2$s caractères.',
+	'validate.exact_length'             => 'La valeur du champ %1$s doit avoir une longueur d’exactement %2$s caractères.',
 	'validate.less_than'                => 'La valeur du champ %1$s doit être inférieur à %2$s.',
 	'validate.less_than_or_equal_to'    => 'La valeur du champ %1$s doit être inférieur ou égal à %2$s.',
 	'validate.greater_than'             => 'La valeur du champ %1$s doit être supérieur à %2$s.',
