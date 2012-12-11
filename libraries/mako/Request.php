@@ -285,6 +285,14 @@ class Request
 
 	protected function getRoute()
 	{
+
+		// Ignore "/index.php"
+
+		if (isset($_SERVER['REQUEST_URI']) && stripos($_SERVER['REQUEST_URI'], '/index.php') === 0)
+		{
+			throw new RequestException(404);
+		}
+
 		$route = '';
 
 		if($this->route !== null)
