@@ -35,6 +35,7 @@ return array
 	'validate.before'                   => '%1$s må være en dato før %3$s.',
 	'validate.after'                    => '%1$s må være en dato etter %3$s.',
 	'validate.token'                    => 'Ugyldig sikkerhetskode.',
+	'validate.token'                    => 'Ugyldig UUID.',
 	'validate.unique'                   => '%1$s må være unik.',
 	'validate.exists'                   => '%1$s finnes ikke.',
 );

@@ -35,6 +35,7 @@ return array
 	'validate.before'                   => 'Le champ %1$s doit être une date avant le %3$s.',
 	'validate.after'                    => 'Le champ %1$s doit être une date après le %3$s.',
 	'validate.token'                    => 'Code de sécurité invalide.',
+	'validate.uuid'                     => 'UUID invalide.',
 	'validate.unique'                   => 'La valeur du champ %1$s doit être unique.',
 	'validate.exists'                   => 'La valeur du champ %1$s n’existe pas.',
 );

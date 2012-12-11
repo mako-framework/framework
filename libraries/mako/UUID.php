@@ -78,7 +78,7 @@ class UUID
 	 * @return  boolean
 	 */
 
-	public static function valid($str)
+	public static function validate($str)
 	{
 		return (bool) preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i', $str);
 	}

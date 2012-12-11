@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\I18n;
+use \mako\UUID;
 use \mako\String;
 use \mako\Database;
 use \mako\security\Token;
@@ -570,6 +571,20 @@ class Validate
 	}
 
 	/**
+	 * Checks that the field value is a valid UUID.
+	 * 
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
+	 */
+
+	protected function validateUuid($input, $parameters)
+	{
+		return UUID::validate($input);
+	}
+
+	/**
 	 * Checks that the field value doesn't exist in the database.
 	 * 
 	 * @access  protected
@@ -666,18 +681,34 @@ class Validate
 		}
 		else
 		{
-			// Return default validation error message from the language file
+			// Try to translate field name
 
-			if(I18n::has('validate.field.' . $field))
+			$translateFieldName = function($field)
 			{
-				$field = I18n::translate('validate.field.' . $field);
+				if(I18n::has('validate.field.' . $field))
+				{
+					$field = I18n::translate('validate.field.' . $field);
+				}
+				else
+				{
+					$field = str_replace('_', ' ', $field);
+				}
+
+				return $field;
+			};
+
+			if(in_array($validator, array('match', 'different')))
+			{
+				$field = array($translateFieldName($field), $translateFieldName(array_shift($parameters)));
 			}
 			else
 			{
-				$field = str_replace('_', ' ', $field);
+				$field = $translateFieldName($field);
 			}
 
-			return I18n::translate('validate.' . $validator, array_merge(array($field), $parameters));
+			// Return default validation error message from the language file
+
+			return I18n::translate('validate.' . $validator, array_merge((array) $field, $parameters));
 		}
 	}
 
