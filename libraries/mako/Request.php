@@ -316,13 +316,6 @@ class Request
 					$uri = mb_substr($uri, mb_strlen($base));
 				}
 
-				// Removes "/index.php" from uri
-
-				if(stripos($uri, '/index.php') === 0)
-				{
-					$uri = mb_substr($uri, 10);
-				}
-
 				$route = rawurldecode($uri);
 			}
 		}
