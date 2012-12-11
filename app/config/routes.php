@@ -7,10 +7,16 @@
 return array
 (
 	/**
-	 * Default route.
+	 * Use default routing?
 	 */
 
-	'default_route' => 'index/index',
+	'default_route' => true,
+
+	/**
+	 * Index route.
+	 */
+
+	'index_route' => 'index/index',
 
 	/**
 	 * Custom routes.
