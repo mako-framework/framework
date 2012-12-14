@@ -285,14 +285,6 @@ class Request
 
 	protected function getRoute()
 	{
-
-		// Ignore "/index.php"
-
-		if (isset($_SERVER['REQUEST_URI']) && stripos($_SERVER['REQUEST_URI'], '/index.php') === 0)
-		{
-			throw new RequestException(404);
-		}
-
 		$route = '';
 
 		if($this->route !== null)
@@ -314,6 +306,13 @@ class Request
 				if(stripos($uri, $base) === 0)
 				{
 					$uri = mb_substr($uri, mb_strlen($base));
+				}
+
+				// Removes "/index.php" from uri
+
+				if(stripos($uri, '/index.php') === 0)
+				{
+					$uri = mb_substr($uri, 10);
 				}
 
 				$route = rawurldecode($uri);

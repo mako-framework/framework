@@ -38,14 +38,6 @@ class Router
 	protected $route;
 
 	/**
-	 * Is this the custom request route?
-	 * 
-	 * @var boolean
-	 */
-
-	protected $isCustom = false;
-
-	/**
 	 * Package name
 	 * 
 	 * @var string
@@ -131,7 +123,7 @@ class Router
 	{
 		if($this->route === '')
 		{
-			$route = trim($this->config['index_route'], '/');
+			$route = trim($this->config['default_route'], '/');
 		}
 		else
 		{
@@ -160,18 +152,9 @@ class Router
 
 					$route = trim($realRoute, '/');
 
-					$this->isCustom = true;
-
 					break;
 				}
 			}
-		}
-
-		// Use default routing?
-
-		if ($this->request->isMain() && !$this->isCustom() && !$this->config['default_route'])
-		{
-			return false;
 		}
 
 		// Is the route pointing to a package?
@@ -274,18 +257,6 @@ class Router
 
 			return true;
 		}
-	}
-
-	/**
-	 * Is this the custom request route?
-	 * 
-	 * @access public
-	 * @return boolean
-	 */
-
-	public function isCustom()
-	{
-		return $this->isCustom;
 	}
 }
 
