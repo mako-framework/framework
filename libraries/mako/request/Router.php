@@ -139,10 +139,12 @@ class Router
 
 		// Remap custom routes
 
+		$mapped = false;
+
 		if(!empty($this->config['custom_routes']))
 		{
 			foreach($this->config['custom_routes'] as $pattern => $realRoute)
-			{		
+			{
 				if(preg_match('#^' . $pattern . '$#iu', $route) === 1)
 				{
 					if(strpos($realRoute, '$') !== false)
@@ -152,9 +154,16 @@ class Router
 
 					$route = trim($realRoute, '/');
 
+					$mapped = true;
+
 					break;
 				}
 			}
+		}
+
+		if($this->request->isMain() && !$this->config['automap'] && !$mapped)
+		{
+			return false;
 		}
 
 		// Is the route pointing to a package?
