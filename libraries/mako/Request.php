@@ -287,6 +287,15 @@ class Request
 	{
 		$route = '';
 
+		if(Config::get('application.clean_urls') && isset($_SERVER['REQUEST_URI']) && $this->isMain())
+		{
+			if(stripos($_SERVER['REQUEST_URI'], '/index.php') === 0)
+			{
+				$response = new Response();
+				$response->redirect(URL::base() . substr($_SERVER['REQUEST_URI'], 10));
+			}
+		}
+
 		if($this->route !== null)
 		{
 			$route = $this->route;
