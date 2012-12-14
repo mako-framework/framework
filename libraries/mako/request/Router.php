@@ -206,6 +206,11 @@ class Router
 
 			if(is_dir($path))
 			{
+				if($segment == '.' || $segment == '..')
+				{
+					return false;
+				}
+
 				// Just a directory - Jump to next iteration
 
 				$controllerPath .= $segment . '/';
@@ -232,7 +237,7 @@ class Router
 				return false;
 			}
 		}
-		
+
 		if(empty($controller))
 		{
 			$controller = 'index'; // default controller
