@@ -6,7 +6,6 @@
 
 return array
 (
-
 	/**
 	 * Automatically map routes to controllers.
 	 * 
