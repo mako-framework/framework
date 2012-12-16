@@ -8,9 +8,11 @@ return array
 (
 
 	/**
-	* Automatically map routes to controllers.
-	* If set to false then only routes matching one of the custom routes will be considered valid.
-	*/
+	 * Automatically map routes to controllers.
+	 * 
+	 * Only routes matching one of the custom routes will be considered valid when set to FALSE.
+	 * Automapping will still be enabled for internal subrequests.
+	 */
 
 	'automap' => true,
 
