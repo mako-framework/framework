@@ -6,6 +6,14 @@
 
 return array
 (
+
+	/**
+	* Automatically map routes to controllers.
+	* If set to false then only routes matching one of the custom routes will be considered valid.
+	*/
+
+	'automap' => true,
+
 	/**
 	 * Default route.
 	 */
