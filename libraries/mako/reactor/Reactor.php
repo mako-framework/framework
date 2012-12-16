@@ -82,6 +82,19 @@ class Reactor
 
 	public function run($arguments)
 	{
+		// List the available tasks
+
+		if($this->cli->param('list-tasks', false))
+		{
+			$this->cli->stdout();
+
+			$this->help();
+
+			$this->cli->stdout();
+
+			return;
+		}
+
 		// Override environment?
 
 		$env = $this->cli->param('env', false);
