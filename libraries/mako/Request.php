@@ -287,15 +287,6 @@ class Request
 	{
 		$route = '';
 
-		if(Config::get('application.clean_urls') && isset($_SERVER['REQUEST_URI']) && $this->isMain())
-		{
-			if(stripos($_SERVER['REQUEST_URI'], '/index.php') === 0)
-			{
-				$response = new Response();
-				$response->redirect(URL::base() . substr($_SERVER['REQUEST_URI'], 10));
-			}
-		}
-
 		if($this->route !== null)
 		{
 			$route = $this->route;
@@ -332,6 +323,20 @@ class Request
 
 		if($this->isMain())
 		{
+			// Redirects to the current URL without index.php if clean URLs are enabled
+
+			if(Config::get('application.clean_urls') && isset($_SERVER['REQUEST_URI']) && stripos($_SERVER['REQUEST_URI'], 'index.php') !== false)
+			{
+				$path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+
+				if(stripos(ltrim(substr($_SERVER['REQUEST_URI'], strlen($path)), '/'), 'index.php') === 0 && stripos($route, 'index.php.') !== 0)
+				{
+					Response::factory()->redirect($route, 301);
+				}
+			}
+
+			// Removes the locale segment from the route
+			
 			foreach(Config::get('routes.languages', array()) as $key => $language)
 			{
 				if($route === $key || strpos($route, $key . '/') === 0)

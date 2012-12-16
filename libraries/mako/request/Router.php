@@ -123,7 +123,7 @@ class Router
 	{
 		if($this->route === '')
 		{
-			$route = trim($this->config['default_route'], '/');
+			$route = $this->config['default_route'];
 		}
 		else
 		{
@@ -137,9 +137,9 @@ class Router
 			$route = static::packageRoute($route);
 		}
 
-		// Remap custom routes
+		// Re-route custom routes
 
-		$mapped = false;
+		$matched = false;
 
 		if(!empty($this->config['custom_routes']))
 		{
@@ -154,14 +154,16 @@ class Router
 
 					$route = trim($realRoute, '/');
 
-					$mapped = true;
+					$matched = true;
 
 					break;
 				}
 			}
 		}
 
-		if($this->request->isMain() && !$this->config['automap'] && !$mapped)
+		// Return false if none of the custom routes matched when automapping is disabled
+
+		if($this->request->isMain() && !$this->config['automap'] && !$matched && $route !== $this->config['default_route'])
 		{
 			return false;
 		}
@@ -202,15 +204,17 @@ class Router
 
 		foreach($segments as $segment)
 		{
+			// PATH_INFO is handled differently on windows so we need to check for '.' and '..'
+
+			if($segment == '.' || $segment == '..')
+			{
+				return false;
+			}
+
 			$path = $controllerPath . $segment;
 
 			if(is_dir($path))
 			{
-				if($segment == '.' || $segment == '..')
-				{
-					return false;
-				}
-
 				// Just a directory - Jump to next iteration
 
 				$controllerPath .= $segment . '/';

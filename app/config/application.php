@@ -17,7 +17,7 @@ return array
 	 * Set to true to hide "index.php" from your urls (this requires mod_rewrite).
 	 */
 
-	'clean_urls' => true,
+	'clean_urls' => false,
 
 	/**
 	 * URL or path to your asset directory (without trailing slash).

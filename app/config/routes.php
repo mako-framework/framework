@@ -26,7 +26,7 @@ return array
 
 	'custom_routes' => array
 	(
-		
+
 	),
 
 	/**
