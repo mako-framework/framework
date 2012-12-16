@@ -206,7 +206,7 @@ class Router
 		{
 			// PATH_INFO is handled differently on windows so we need to check for '.' and '..'
 
-			if($segment == '.' || $segment == '..')
+			if($segment === '.' || $segment === '..')
 			{
 				return false;
 			}
