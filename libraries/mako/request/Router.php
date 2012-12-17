@@ -161,13 +161,6 @@ class Router
 			}
 		}
 
-		// Return false if none of the custom routes matched when automapping is disabled
-
-		if($this->request->isMain() && !$this->config['automap'] && !$matched && $route !== $this->config['default_route'])
-		{
-			return false;
-		}
-
 		// Is the route pointing to a package?
 
 		if($this->package === null)
@@ -190,12 +183,19 @@ class Router
 			}
 		}
 
+		// Return false if none of the custom routes matched when automapping is disabled
+
+		if($this->request->isMain() && !Config::get('routes.automap') && !$matched && $route !== $this->config['default_route'])
+		{
+			return false;
+		}
+
 		// Route the request
 
 		$namespace        = $this->package === null ? '\app\controllers\\' : '\\' . $this->package . '\controllers\\';
 		$controller       = '';
 		$action           = '';
-		$actionArguments = array();
+		$actionArguments  = array();
 		$controllerPath   = $this->package === null ? MAKO_APPLICATION_PATH . '/controllers/' : MAKO_PACKAGES_PATH . '/' . $this->package . '/controllers/';
 
 		// Get the URL segments

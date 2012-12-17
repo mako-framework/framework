@@ -329,7 +329,7 @@ class Request
 			{
 				$path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
-				if(stripos(ltrim(substr($_SERVER['REQUEST_URI'], strlen($path)), '/'), 'index.php') === 0 && stripos($route, 'index.php.') !== 0)
+				if(stripos(ltrim(mb_substr($_SERVER['REQUEST_URI'], mb_strlen($path)), '/'), 'index.php') === 0 && stripos($route, 'index.php.') !== 0)
 				{
 					Response::factory()->redirect($route, 301);
 				}
