@@ -383,12 +383,12 @@
 		<div class="mako-icon" title="Mako <?php echo MAKO_VERSION; ?>" onclick="Mako.toggleToolbar(1);"></div>
 	</div>
 
-	<div id="mako-toolbar" onclick="Mako.toggleToolbar(0);">
+	<div id="mako-toolbar">
 		<div class="mako-right">
 			<span title="peak memory usage"><?php echo $memory; ?></span>
 			<span title="total execution time"><?php echo $time; ?> seconds</span>
 		</div>
-		<div class="mako-icon" title="Mako <?php echo MAKO_VERSION; ?>"></div>
+		<div class="mako-icon" title="Mako <?php echo MAKO_VERSION; ?>" onclick="Mako.toggleToolbar(0);"></div>
 		<a class="mako-button" onclick="Mako.togglePanel('mako-queries')"><span class="mako-strong"><?php echo count($queries); ?></span> database queries<?php if(count($queries) != 0): ?> <span class="mako-small">( <?php echo $db_time; ?> seconds )</span><?php endif; ?></a>
 		<a class="mako-button" onclick="Mako.togglePanel('mako-log')"><span class="mako-strong"><?php echo count($logs); ?></span> log entries</a>
 		<a class="mako-button" onclick="Mako.togglePanel('mako-files')"><span class="mako-strong"><?php echo count($files); ?></span> included files</a>
