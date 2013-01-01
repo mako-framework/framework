@@ -35,6 +35,30 @@ class Response
 	 */
 
 	protected $checkEtag = false;
+
+	/**
+	 * Compress output?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $outputCompression;
+
+	/**
+	 * Enable response cache?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $responseCache;
+
+	/**
+	 * Output filter (callback function).
+	 *
+	 * @var callback
+	 */
+	
+	protected $outputFilter;
 	
 	/**
 	 * List of HTTP status codes.
@@ -117,14 +141,6 @@ class Response
 		'530' => 'User access denied',
 	);
 	
-	/**
-	 * Output filter (callback function).
-	 *
-	 * @var callback
-	 */
-	
-	protected $outputFilter;
-	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -142,6 +158,11 @@ class Response
 		{
 			$this->body($body);
 		}
+
+		$config = Config::get('application');
+
+		$this->outputCompression = $config['compress_output'];
+		$this->responseCache     = $config['response_cache'];
 	}
 
 	/**
@@ -233,14 +254,47 @@ class Response
 	}
 
 	/**
-	 * Will enable response cache using ETags.
+	 * Enables ETag response cache.
 	 *
 	 * @access  public
 	 */
 
 	public function cache()
 	{
-		$this->checkEtag = true;
+		$this->responseCache = true;
+	}
+
+	/**
+	 * Disables ETag response cache.
+	 *
+	 * @access  public
+	 */
+
+	public function disableCaching()
+	{
+		$this->responseCache = false;
+	}
+
+	/**
+	 * Enables output compression.
+	 * 
+	 * @access  public
+	 */
+
+	public function compress()
+	{
+		$this->outputCompression = true;
+	}
+
+	/**
+	 * Disables output compression.
+	 * 
+	 * @access  public
+	 */
+
+	public function disableCompression()
+	{
+		$this->outputCompression = false;
 	}
 	
 	/**
@@ -277,7 +331,7 @@ class Response
 
 			// Check ETag
 
-			if($this->checkEtag === true)
+			if($this->responseCache === true)
 			{
 				$hash = '"' . sha1($this->body) . '"';
 
@@ -293,7 +347,7 @@ class Response
 
 			// Compress output (if enabled)
 
-			if(Config::get('application.compress_output') === true)
+			if($this->outputCompression)
 			{
 				ob_start('ob_gzhandler');
 			}
