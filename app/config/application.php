@@ -106,6 +106,13 @@ return array
 	 */
 
 	'compress_output' => false,
+
+	/**
+	 * Enable ETag response cache?
+	 * Setting this to true will reduce bandwidth usage while slightly increasing the CPU usage.
+	 */
+
+	'response_cache' => false,
 	
 	/**
 	 * Error handler settings.
