@@ -337,7 +337,7 @@ class Response
 				}
 			}
 
-			// Compress output (if enabled)
+			// Compress output
 
 			if($this->outputCompression)
 			{
