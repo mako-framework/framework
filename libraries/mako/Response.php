@@ -247,19 +247,62 @@ class Response
 	}
 
 	/**
+	 * Sets the response content type.
+	 * 
+	 * @access  public
+	 * @param   string  $contentType  Content type
+	 * @param   string  $charset      (optional) Charset
+	 */
+
+	public function type($contentType, $charset = null)
+	{
+		$this->contentType = $contentType;
+
+		if($charset !== null)
+		{
+			$this->charset = $charset;
+		}
+	}
+
+	/**
+	 * Sets the response charset.
+	 * 
+	 * @access  public
+	 * @param   string  $charset  Charset
+	 */
+
+	public function charset($charset)
+	{
+		$this->charset = $charset;
+	}
+
+	/**
 	 * Sends response headers.
 	 * 
-	 * @access protected
+	 * @access  protected
 	 */
 
 	protected function sendHeaders()
 	{
+		// Send content type header
+
+		$contentType = $this->contentType;
+
+		if(stripos($contentType, 'text/') === 0 || in_array($contentType, array('application/json', 'application/xml')))
+		{
+			$contentType .= '; charset=' . $this->charset;
+		}
+
+		header('Content-Type: ' . $contentType);
+
+		// Send other headers
+
 		foreach($this->responseHeaders as $name => $value)
 		{
 			header($name . ': ' . $value);
 		}
 	}
-	
+
 	/**
 	 * Sends HTTP status header.
 	 *
@@ -305,54 +348,6 @@ class Response
 		header('Location: ' . $location);
 		
 		exit();
-	}
-
-	/**
-	 * Sets the response content type.
-	 * 
-	 * @access  public
-	 * @param   string  $contentType  Content type
-	 * @param   string  $charset      (optional) Charset
-	 */
-
-	public function type($contentType, $charset = null)
-	{
-		$this->contentType = $contentType;
-
-		if($charset !== null)
-		{
-			$this->charset = $charset;
-		}
-	}
-
-	/**
-	 * Sets the response charset.
-	 * 
-	 * @access  public
-	 * @param   string  $charset  Charset
-	 */
-
-	public function charset($charset)
-	{
-		$this->charset = $charset;
-	}
-
-	/**
-	 * Sends the content type header.
-	 * 
-	 * @access  protected
-	 */
-
-	protected function sendContentType()
-	{
-		$contentType = $this->contentType;
-
-		if(stripos($contentType, 'text/') === 0 || in_array($contentType, array('application/json', 'application/xml')))
-		{
-			$contentType .= '; charset=' . $this->charset;
-		}
-
-		header('Content-Type: ' . $contentType);
 	}
 
 	/**
@@ -412,10 +407,6 @@ class Response
 		{
 			$this->status($statusCode);
 		}
-
-		// Send content type header
-
-		$this->sendContentType();
 
 		// Send response headers
 
