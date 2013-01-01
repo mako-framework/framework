@@ -29,6 +29,22 @@ class Response
 	protected $body = '';
 
 	/**
+	 * Response content type.
+	 * 
+	 * @var string
+	 */
+
+	protected $contentType = 'text/html';
+
+	/**
+	 * Response charset.
+	 * 
+	 * @var string
+	 */
+
+	protected $charset = MAKO_CHARSET;
+
+	/**
 	 * Compress output?
 	 * 
 	 * @var boolean
@@ -51,6 +67,14 @@ class Response
 	 */
 	
 	protected $outputFilter;
+
+	/**
+	 * Response headers.
+	 * 
+	 * @var array
+	 */
+
+	protected $responseHeaders = array();
 	
 	/**
 	 * List of HTTP status codes.
@@ -197,6 +221,44 @@ class Response
 	{
 		$this->outputFilter = $filter;
 	}
+
+	/**
+	 * Sets a response header.
+	 * 
+	 * @access  public
+	 * @param   string  $name   Header name
+	 * @param   string  $value  Header value
+	 */
+
+	public function header($name, $value)
+	{
+		$this->responseHeaders[$name] = $value;
+	}
+
+	/**
+	 * Clear the response headers.
+	 * 
+	 * @access  public
+	 */
+
+	public function clearHeaders()
+	{
+		$this->responseHeaders = array();
+	}
+
+	/**
+	 * Sends response headers.
+	 * 
+	 * @access protected
+	 */
+
+	protected function sendHeaders()
+	{
+		foreach($this->responseHeaders as $name => $value)
+		{
+			header($name . ': ' . $value);
+		}
+	}
 	
 	/**
 	 * Sends HTTP status header.
@@ -243,6 +305,54 @@ class Response
 		header('Location: ' . $location);
 		
 		exit();
+	}
+
+	/**
+	 * Sets the response content type.
+	 * 
+	 * @access  public
+	 * @param   string  $contentType  Content type
+	 * @param   string  $charset      (optional) Charset
+	 */
+
+	public function type($contentType, $charset = null)
+	{
+		$this->contentType = $contentType;
+
+		if($charset !== null)
+		{
+			$this->charset = $charset;
+		}
+	}
+
+	/**
+	 * Sets the response charset.
+	 * 
+	 * @access  public
+	 * @param   string  $charset  Charset
+	 */
+
+	public function charset($charset)
+	{
+		$this->charset = $charset;
+	}
+
+	/**
+	 * Sends the content type header.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function sendContentType()
+	{
+		$contentType = $this->contentType;
+
+		if(stripos($contentType, 'text/') === 0 || in_array($contentType, array('application/json', 'application/xml')))
+		{
+			$contentType .= '; charset=' . $this->charset;
+		}
+
+		header('Content-Type: ' . $contentType);
 	}
 
 	/**
@@ -302,6 +412,14 @@ class Response
 		{
 			$this->status($statusCode);
 		}
+
+		// Send content type header
+
+		$this->sendContentType();
+
+		// Send response headers
+
+		$this->sendHeaders();
 
 		// Print output to browser (if there is any)
 

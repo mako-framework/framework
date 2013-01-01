@@ -64,11 +64,9 @@ class Mako
 	
 	public function run($route = null)
 	{
-		// Start output buffering and send default header
+		// Start output buffering
 
 		ob_start();
-
-		header('Content-Type: text/html; charset=' . MAKO_CHARSET);
 
 		// Setup error handling if enabled
 			
