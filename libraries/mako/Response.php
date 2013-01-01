@@ -29,14 +29,6 @@ class Response
 	protected $body = '';
 
 	/**
-	 * Check ETag?
-	 *
-	 * @var boolean
-	 */
-
-	protected $checkEtag = false;
-
-	/**
 	 * Compress output?
 	 * 
 	 * @var boolean
