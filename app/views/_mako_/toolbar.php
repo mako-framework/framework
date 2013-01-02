@@ -3,25 +3,28 @@
 	{
 		togglePanel : function(id)
 		{
-			var element = document.getElementById(id);
+			if(id !== undefined)
+			{
+				var element = document.getElementById(id);
+
+				if(window.getComputedStyle(element).getPropertyValue('display') == 'none')
+				{
+					element.style.display = 'block';
+				}
+				else
+				{
+					element.style.display = 'none';	
+				}
+			}
 
 			var elements = document.getElementsByClassName('mako-panel');
 
 			for(var i = 0; i < elements.length; i++)
 			{
-			    if(element !== elements[i])
+			    if(id === undefined || element !== elements[i])
 			    {
 			    	elements[i].style.display = 'none';
 			    }
-			}
-
-			if(window.getComputedStyle(element).getPropertyValue('display') == 'none')
-			{
-				element.style.display = 'block';
-			}
-			else
-			{
-				element.style.display = 'none';	
 			}
 
 			return false;
@@ -30,6 +33,8 @@
 		{
 			if(state === 0)
 			{
+				this.togglePanel();
+
 				document.getElementById('mako-toolbar').style.display = 'none';
 				document.getElementById('mako-toolbar-hidden').style.display = 'block';
 			}
