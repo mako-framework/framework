@@ -39,8 +39,9 @@ class Reactor
 
 	protected $coreTasks = array
 	(
-		'migrate' => 'Migrate',
 		'console' => 'Console',
+		'migrate' => 'Migrate',
+		'server'  => 'Server',
 	);
 
 	//---------------------------------------------
