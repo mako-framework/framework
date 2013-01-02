@@ -9,7 +9,7 @@ use \InvalidArgumentException;
  *
  * @author     Frederic G. Østby
  * @author     Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
- * @copyright  (c) 2008-2012 Frederic G. Østby
+ * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license    
  */
 
