@@ -48,11 +48,12 @@ class Server extends \mako\reactor\Task
 		// Start server
 
 		$port    = $this->cli->param('port', 8000);
+		$address = $this->cli->param('address', 'localhost');
 		$docroot = $this->cli->param('docroot', MAKO_APPLICATION_PARENT_PATH);
 
-		$this->cli->stdout($this->cli->color('Mako', 'green') . ' is running at http://localhost:' . $port . ' ' . $this->cli->color('(CTRL+C to quit)', 'yellow') . ' ...');
+		$this->cli->stdout('Starting ' . $this->cli->color('Mako', 'green') . ' development server at ' . $this->cli->style('http://' . $address . ':' . $port, array('underlined')) . ' ' . $this->cli->color('(CTRL+C to stop)', 'yellow') . ' ...');
 
-		passthru('php -S 0.0.0.0:' . $port . ' -t ' . $docroot . ' ' . __DIR__ . '/server/router.php');
+		passthru('php -S ' . $address . ':' . $port . ' -t ' . $docroot . ' ' . __DIR__ . '/server/router.php');
 	}
 }
 
