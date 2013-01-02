@@ -39,7 +39,7 @@ class Server extends \mako\reactor\Task
 	public function run()
 	{
 		// Check if PHP version requirement is met
-		
+
 		if(version_compare(PHP_VERSION, '5.4.0', '<'))
 		{
 			return $this->cli->stderr('PHP 5.4.0 or greater is required.');
@@ -47,7 +47,7 @@ class Server extends \mako\reactor\Task
 
 		// Start server
 
-		$port    = $this->cli->param('port', 8080);
+		$port    = $this->cli->param('port', 8000);
 		$docroot = $this->cli->param('docroot', MAKO_APPLICATION_PARENT_PATH);
 
 		$this->cli->stdout($this->cli->color('Mako', 'green') . ' is running at http://localhost:' . $port . ' ' . $this->cli->color('(CTRL+C to quit)', 'yellow') . ' ...');
