@@ -75,7 +75,7 @@ class Package
 	* Returns info about a package. FALSE is returned if no composer.json file is found.
 	*
 	* @access  public
-	* @param   string  $name      Package name
+	* @param   string   $name     Package name
 	* @param   boolean  $asArray  (optional) Return as array?
 	* @return  object
 	*/
