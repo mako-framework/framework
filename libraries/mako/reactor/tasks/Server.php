@@ -51,7 +51,7 @@ class Server extends \mako\reactor\Task
 		$address = $this->cli->param('address', 'localhost');
 		$docroot = $this->cli->param('docroot', MAKO_APPLICATION_PARENT_PATH);
 
-		$host = $address == '0.0.0.0' ? gethostbyname(gethostname()) : $address;
+		$host = ($address === '0.0.0.0') ? gethostbyname(gethostname()) : $address;
 
 		$this->cli->stdout('Starting ' . $this->cli->color('Mako', 'green') . ' development server at ' . $this->cli->style('http://' . $host . ':' . $port, array('underlined')) . ' ' . $this->cli->color('(CTRL+C to stop)', 'yellow') . ' ...' . PHP_EOL);
 
