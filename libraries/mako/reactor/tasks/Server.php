@@ -53,7 +53,11 @@ class Server extends \mako\reactor\Task
 
 		$host = ($address === '0.0.0.0') ? gethostbyname(gethostname()) : $address;
 
-		$this->cli->stdout('Starting ' . $this->cli->color('Mako', 'green') . ' development server at ' . $this->cli->style('http://' . $host . ':' . $port, array('underlined')) . ' ' . $this->cli->color('(ctrl+c to stop)', 'yellow') . ' ...' . PHP_EOL);
+		$message  = 'Starting ' . $this->cli->color('Mako', 'green') . ' development server at ';
+		$message .= $this->cli->style('http://' . $host . ':' . $port, array('underlined')) . ' ';
+		$message .= $this->cli->color('(ctrl+c to stop)', 'yellow') . ' ...' . PHP_EOL;
+		
+		$this->cli->stdout($message);
 
 		passthru('php -S ' . $address . ':' . $port . ' -t ' . $docroot . ' ' . __DIR__ . '/server/router.php');
 	}
