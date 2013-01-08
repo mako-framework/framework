@@ -142,12 +142,12 @@ class Language
 
 		if(!empty($vars))
 		{
-			$that = $this;
-
 			$string = vsprintf($string, $vars);
-			
+
 			if(stripos($string, '</pluralize>') !== false)
 			{
+				$that = $this;
+				
 				$string = preg_replace_callback('/\<pluralize:([0-9]+)\>(.*)\<\/pluralize\>/iu', function($matches) use ($that)
 				{
 					return $that->pluralize($matches[2], (int) $matches[1]);
