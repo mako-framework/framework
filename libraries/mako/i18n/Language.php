@@ -140,7 +140,22 @@ class Language
 	{
 		$string = $this->has($string) ? $this->strings[$string] : $string;
 
-		return (empty($vars)) ? $string : vsprintf($string, $vars);
+		if(!empty($vars))
+		{
+			$that = $this;
+
+			$string = vsprintf($string, $vars);
+			
+			if(stripos($string, '</pluralize>') !== false)
+			{
+				$string = preg_replace_callback('/\<pluralize:([0-9]+)\>(.*)\<\/pluralize\>/iu', function($matches) use ($that)
+				{
+					return $that->pluralize($matches[2], (int) $matches[1]);
+				}, $string);
+			}
+		}
+
+		return $string;
 	}
 
 	/**
@@ -152,7 +167,7 @@ class Language
 	 * @return  string
 	 */
 
-	public function plural($word, $count = null)
+	public function pluralize($word, $count = null)
 	{
 		if(empty($this->inflection))
 		{			

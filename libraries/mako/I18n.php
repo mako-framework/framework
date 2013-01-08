@@ -133,9 +133,9 @@ class I18n
 	 * @return  string
 	 */
 
-	public static function plural($word, $count = null, $language = null)
+	public static function pluralize($word, $count = null, $language = null)
 	{
-		return static::lang($language)->plural($word, $count);
+		return static::lang($language)->pluralize($word, $count);
 	}
 }
 
