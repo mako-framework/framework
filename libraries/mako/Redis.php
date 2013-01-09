@@ -44,7 +44,7 @@ class Redis
 	protected $pipelined = false;
 
 	/**
-	 * Pipelined commands
+	 * Pipelined commands.
 	 *
 	 * @var array
 	 */
