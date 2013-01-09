@@ -42,7 +42,7 @@ class Server extends \mako\reactor\Task
 
 		if(version_compare(PHP_VERSION, '5.4.0', '<'))
 		{
-			return $this->cli->stderr('PHP 5.4.0 or greater is required.');
+			return $this->cli->stderr('You need PHP 5.4.0 or greater to use the development server.');
 		}
 
 		// Start server
