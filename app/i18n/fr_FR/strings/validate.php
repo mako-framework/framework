@@ -1,5 +1,9 @@
 <?php
 
+//---------------------------------------------
+// Language file used by mako\Validate
+//---------------------------------------------
+
 return array
 (
 	'validate.required'                 => 'Le champ %1$s est obligatoire.',
@@ -39,3 +43,5 @@ return array
 	'validate.unique'                   => 'La valeur du champ %1$s doit être unique.',
 	'validate.exists'                   => 'La valeur du champ %1$s n’existe pas.',
 );
+
+/** -------------------- End of file --------------------**/
