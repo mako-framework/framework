@@ -83,7 +83,7 @@ class HTML
 
 	public static function tag($name, array $attributes = array(), $content = null)
 	{
-		return '<' . $name . static::attributes($attributes) . (($content === null) ? (defined('MAKO_XHTML') ? '/>' : '>') : '>' . $content . '</' . $name . '>');
+		return '<' . $name . static::attributes($attributes) . (($content === null) ? (defined('MAKO_XHTML') ? ' />' : '>') : '>' . $content . '</' . $name . '>');
 	}
 
 	/**
