@@ -242,9 +242,7 @@ class ErrorHandler
 			}
 
 			// Send headers and output
-
-			@header('Content-Type: text/html; charset=' . MAKO_CHARSET);
-
+			
 			if(Config::get('application.error_handler.display_errors') === true)
 			{
 				$error['backtrace'] = $exception->getTrace();
