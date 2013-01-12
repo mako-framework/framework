@@ -137,7 +137,6 @@ spl_autoload_register('mako\ClassLoader::load');
 /**
  * Returns path to a package or application directory.
  *
- * @access  public
  * @param   string  $path    Path
  * @param   string  $string  String
  * @return  string
@@ -159,6 +158,17 @@ function mako_path($path, $string)
 	return $path;
 }
 
+/**
+ * Returns the Mako environment. NULL is returned if no environment is specified.
+ * 
+ * @return  mixed
+ */
+
+function mako_env()
+{
+	return isset($_SERVER['MAKO_ENV']) ? $_SERVER['MAKO_ENV'] : null;
+}
+
 if(!function_exists('__'))
 {
 	/**
@@ -167,8 +177,7 @@ if(!function_exists('__'))
 	 * Returns a translated string of the current language. 
 	 * If no translation exists then the submitted string will be returned.
 	 *
-	 * @access  public
-	 * @param   string   Text to translate
+	 * @param   string  Text to translate
 	 * @param   array   (optional) Value or array of values to replace in the translated text
 	 * @param   string  (optional) Name of the language you want to translate to
 	 * @return  string
@@ -185,7 +194,6 @@ if(!function_exists('dump_var'))
 	/**
 	 * Works like var_dump except that it wraps the variable in <pre> tags.
 	 *
-	 * @access  public
 	 * @param   mixed   Variable you want to dump
 	 */
 
@@ -204,9 +212,8 @@ if(!function_exists('debug'))
 	/**
 	 * Add entry to the debug toolbar log.
 	 *
-	 * @access  public
-	 * @param   mixed    $log      Item you want to log
-	 * @param   string   $type     Log type
+	 * @param   mixed   $log   Item you want to log
+	 * @param   string  $type  Log type
 	 * @return  mixed
 	 */
 
