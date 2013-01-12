@@ -142,7 +142,6 @@ class View
 	 * @access  public
 	 * @param   string     $name    Variable name
 	 * @param   mixed      $value   View variable
-	 * @param   boolean    $global  (optional) True to make variable available in all views
 	 * @return  mako\View
 	 */
 
