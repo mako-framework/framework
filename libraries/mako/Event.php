@@ -72,15 +72,22 @@ class Event
 	}
 
 	/**
-	 * Clears all event listeners for an event.
+	 * Clears all events or just the events for a specific trigger.
 	 *
 	 * @access  public
-	 * @param   string  $name  Event name
+	 * @param   string  $name  (optional) Event name
 	 */
 
-	public static function clear($name)
+	public static function clear($name = null)
 	{
-		unset(static::$events[$name]);
+		if($name === null)
+		{
+			static::$events = array();
+		}
+		else
+		{
+			unset(static::$events[$name]);
+		}
 	}
 
 	/**
