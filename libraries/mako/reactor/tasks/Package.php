@@ -97,7 +97,7 @@ class Package extends \mako\reactor\Task
 		}
 		elseif(!is_link($assetsDir . '/' . $package))
 		{
-			return $this->cli->stderr(vsprintf("The '%s' package assets isn't linked.", array($package)));
+			return $this->cli->stderr(vsprintf("The '%s' package assets aren't linked.", array($package)));
 		}
 		elseif(!is_writable($assetsDir . '/' . $package))
 		{
