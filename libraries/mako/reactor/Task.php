@@ -96,7 +96,7 @@ abstract class Task
 
 			if(!empty($actions))
 			{
-				$this->cli->stdout(PHP_EOL . 'The available actions for the ' . $this->cli->style($this->cli->color(strtolower($reflectionClass->getShortName()), 'green'), array('underlined')) . ' task are:' . PHP_EOL);
+				$this->cli->stdout('The available actions for the ' . $this->cli->style($this->cli->color(strtolower($reflectionClass->getShortName()), 'green'), array('underlined')) . ' task are:' . PHP_EOL);
 
 				sort($actions);
 
@@ -120,7 +120,7 @@ abstract class Task
 
 	public function __call($name, $arguments)
 	{
-		$this->cli->stderr(vsprintf("Unknown task action '%s'.", array($name)));
+		$this->cli->stderr(vsprintf("Unknown task action '%s'." . PHP_EOL, array($name)));
 
 		$this->listActions();
 	}
