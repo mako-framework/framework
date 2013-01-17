@@ -41,7 +41,7 @@ abstract class Controller
 	 * @var mako\Response
 	 */
 	
-	protected $reponse;
+	protected $response;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
