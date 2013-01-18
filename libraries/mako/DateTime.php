@@ -119,9 +119,9 @@ class DateTime extends \DateTime
 
 	public static function createFromDate($year, $month = null, $day = null, $timeZone = null)
 	{
-		$date = $year . '-' . ($month ?: date('m')) . '-' . ($day ?: date('d'));
+		$now = static::now($timeZone);
 
-		return new static($date, $timeZone);
+		return $now->setDate($year, $month ?: $now->format('m'), $day ?: $now->format('d'));
 	}
 
 	/**
