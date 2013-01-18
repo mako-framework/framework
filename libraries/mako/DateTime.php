@@ -195,6 +195,24 @@ class DateTime extends \DateTime
 	}
 
 	/**
+	 * Sets the time zone for the DateTime object
+	 * 
+	 * @access  public
+	 * @param   mixed          $timeZone  A valid time zone or a DateTimeZone object
+	 * @return  mako\DateTime
+	 */
+
+	public function setTimeZone($timeZone)
+	{
+		if(!is_object($timeZone))
+		{
+			$timeZone = new DateTimeZone($timeZone);
+		}
+
+		return parent::setTimeZone($timeZone);
+	}
+
+	/**
 	 * Returns a list of time zones where the key is
 	 * a valid PHP time zone while the value is a presentable name.
 	 * 
