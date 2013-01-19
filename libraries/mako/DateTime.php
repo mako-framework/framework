@@ -6,12 +6,12 @@ use \mako\I18n;
 use \DateTimeZone;
 
 /**
-* Extension of the PHP DateTime class.
-*
-* @author     Frederic G. Østby
-* @copyright  (c) 2008-2013 Frederic G. Østby
-* @license    http://www.makoframework.com/license
-*/
+ * Extension of the PHP DateTime class.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2013 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
 class DateTime extends \DateTime
 {
