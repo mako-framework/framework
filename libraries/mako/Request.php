@@ -57,7 +57,7 @@ class Request
 	 */
 
 	protected $isMain = true;
-	
+
 	/**
 	 * Ip address of the cilent that made the request.
 	 *
@@ -440,6 +440,35 @@ class Request
 	}
 
 	/**
+	 * Returns specified request method's data.
+	 *
+	 * @access  public
+	 * @param   array   $keys  (optional) Keys
+	 * @param   array   $data  (optional) Input data
+	 * @return  array
+	 */
+
+	public function data($keys = array(), $data = null)
+	{
+		if($data === null)
+		{
+			$data = call_user_func('mako\Input::' . strtolower(static::$method));
+		}
+
+		if(empty($keys))
+		{
+			return $data;
+		}
+
+		foreach($keys as $index => $key)
+		{
+			$assoc[$key] = isset($data[$key]) ? $data[$key] : null;
+		}
+
+		return $assoc;
+	}
+
+	/**
 	 * Returns the name of the requested action.
 	 *
 	 * @access  public
@@ -474,7 +503,7 @@ class Request
 	{
 		return $this->isMain;
 	}
-	
+
 	/**
 	 * Returns the ip of the client that made the request.
 	 *
