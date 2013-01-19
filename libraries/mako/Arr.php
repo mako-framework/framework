@@ -173,8 +173,13 @@ class Arr
 	 * @return  \mako\ArrObject
 	 */
 
-	public static function toObject(array $array)
+	public static function toObject($array = null)
 	{
+		if($array === null)
+		{
+			return new ArrObject(array());
+		}
+
 		return new ArrObject($array);
 	}
 }
