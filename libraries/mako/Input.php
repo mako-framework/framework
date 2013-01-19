@@ -25,6 +25,14 @@ class Input
 	 */
 
 	protected $input;
+
+	/**
+	 * Holds the PUT method's data.
+	 *
+	 * @var array
+	 */
+
+	protected static $put;
 	
 	/**
 	 * Holds all the callback filtering functions that need to be run.
@@ -220,15 +228,21 @@ class Input
 	 * Returns PUT data.
 	 *
 	 * @access  public
+	 * @param   string  $key      (optional) Array key
 	 * @param   mixed   $default  (optional) Default value
 	 * @return  mixed
 	 */
 
-	public static function put($default = null)
+	public static function put($key = null, $default = null)
 	{
-		$data = file_get_contents('php://input');
+		if(static::$put === null)
+		{
+			static::$put = array();
 
-		return !empty($data) ? $data : $default;
+			parse_str(file_get_contents('php://input'), static::$put);
+		}
+
+		return $key === null ? static::$put : Arr::get(static::$put, $key, $default);
 	}
 }
 
