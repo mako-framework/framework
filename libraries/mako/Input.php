@@ -33,6 +33,14 @@ class Input
 	 */
 
 	protected static $put;
+
+	/**
+	 * Holds the DELETE method's data.
+	 *
+	 * @var array
+	 */
+
+	protected static $delete;
 	
 	/**
 	 * Holds all the callback filtering functions that need to be run.
@@ -243,6 +251,27 @@ class Input
 		}
 
 		return $key === null ? static::$put : Arr::get(static::$put, $key, $default);
+	}
+
+	/**
+	 * Returns DELETE data.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public static function delete($key = null, $default = null)
+	{
+		if(static::$delete === null)
+		{
+			static::$delete = array();
+
+			parse_str(file_get_contents('php://input'), static::$delete);
+		}
+
+		return $key === null ? static::$delete : Arr::get(static::$delete, $key, $default);
 	}
 }
 
