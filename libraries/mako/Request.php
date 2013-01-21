@@ -3,7 +3,6 @@
 namespace mako;
 
 use \mako\URL;
-use \mako\Arr;
 use \mako\I18n;
 use \mako\Config;
 use \mako\Response;
@@ -455,7 +454,7 @@ class Request
 	 * @param   array    $keys    (optional) Keys
 	 * @param   array    $data    (optional) Input data
 	 * @param   boolean  $nulled  (optional) Replace not existed values with null
-	 * @return  \mako\ArrObject
+	 * @return  array
 	 */
 
 	public function data($keys = array(), $data = null, $nulled = false)
@@ -477,7 +476,7 @@ class Request
 				$assoc[$key] = isset($data[$key]) ? $data[$key] : null;
 			}
 
-			return Arr::toObject($assoc);
+			return $assoc;
 		}
 
 		$matched = array_keys($data);
@@ -493,7 +492,7 @@ class Request
 			$assoc[$key] = $data[$key];
 		}
 
-		return Arr::toObject($assoc);
+		return $assoc;
 	}
 
 	/**
