@@ -164,19 +164,6 @@ class Arr
 			return is_object($value) ? $value->$key : $value[$key];
 		}, $array);
 	}
-
-	/**
-	 * Returns the object with camelCase properties converted from keys of the array.
-	 *
-	 * @access  public
-	 * @param   array            $array Array to convert from
-	 * @return  \mako\ArrObject
-	 */
-
-	public static function toObject(array $array)
-	{
-		return new ArrObject($array);
-	}
 }
 
 /** -------------------- End of file --------------------**/
