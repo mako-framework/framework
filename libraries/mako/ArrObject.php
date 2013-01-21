@@ -24,7 +24,7 @@ class ArrObject
 	 * @var array
 	 */
 
-	protected $array;
+	protected static $array;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -39,7 +39,7 @@ class ArrObject
 
 	public function __construct(array $array)
 	{
-		$this->array = $array;
+		static::$array = $array;
 	}
 
 	/**
@@ -51,7 +51,7 @@ class ArrObject
 
 	public function toArray()
 	{
-		return $this->array;
+		return static::$array;
 	}
 
 	/**
@@ -66,7 +66,7 @@ class ArrObject
 	{
 		$name = String::camel2underscored($name);
 
-		$this->array[$name] = $value;
+		static::$array[$name] = $value;
 	}
 
 	/**
@@ -81,9 +81,9 @@ class ArrObject
 	{
 		$name = String::camel2underscored($name);
 
-		if(isset($this->array[$name]))
+		if(isset(static::$array[$name]))
 		{
-			return $this->array[$name];
+			return static::$array[$name];
 		}
 	}
 }
