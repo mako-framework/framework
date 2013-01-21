@@ -451,13 +451,12 @@ class Request
 	 * Returns specified request method's data.
 	 *
 	 * @access  public
-	 * @param   array    $keys    (optional) Keys
-	 * @param   array    $data    (optional) Input data
-	 * @param   boolean  $nulled  (optional) Replace not existed values with null
+	 * @param   array   $keys  (optional) Keys
+	 * @param   array   $data  (optional) Input data
 	 * @return  array
 	 */
 
-	public function data($keys = array(), $data = null, $nulled = false)
+	public function data($keys = array(), $data = null)
 	{
 		if($data === null)
 		{
@@ -469,27 +468,9 @@ class Request
 			return $data;
 		}
 
-		if($nulled === true)
+		foreach($keys as $index => $key)
 		{
-			foreach($keys as $index => $key)
-			{
-				$assoc[$key] = isset($data[$key]) ? $data[$key] : null;
-			}
-
-			return $assoc;
-		}
-
-		$matched = array_keys($data);
-		$matched = array_intersect($keys, $matched);
-
-		if(count($keys) !== count($matched))
-		{
-			return array();
-		}
-
-		foreach($matched as $index => $key)
-		{
-			$assoc[$key] = $data[$key];
+			$assoc[$key] = isset($data[$key]) ? $data[$key] : null;
 		}
 
 		return $assoc;
