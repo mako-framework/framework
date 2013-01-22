@@ -448,20 +448,6 @@ class Request
 	}
 
 	/**
-	 * Returns request method's data.
-	 *
-	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public function data($key = null, $default = null)
-	{
-		return call_user_func('mako\Input::' . strtolower(static::$method), $key, $default);
-	}
-
-	/**
 	 * Returns the name of the requested action.
 	 *
 	 * @access  public
