@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\Arr;
+use \mako\Request;
 
 /**
  * Input filtering and helpers.
@@ -272,6 +273,20 @@ class Input
 		}
 
 		return $key === null ? static::$delete : Arr::get(static::$delete, $key, $default);
+	}
+
+	/**
+	 * Returns the current request method's data.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public static function data($key = null, $default = null)
+	{
+		return call_user_func('static::' . strtolower(Request::method()), $key, $default);
 	}
 }
 
