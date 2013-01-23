@@ -146,9 +146,9 @@ class Request
 	{
 		$this->route = $route;
 
-		$this->method = $method ?:
-		                (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) :
-		                (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET'));
+		$this->method = strtoupper($this->isMain ? 
+		                ($method ?: (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) :
+		                (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET'))) : ($method ?: static::$main->method()));
 
 		static $mainRequest = true;
 
