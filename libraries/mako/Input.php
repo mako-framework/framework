@@ -20,14 +20,6 @@ class Input
 	//---------------------------------------------
 
 	/**
-	 * Holds the input array.
-	 *
-	 * @var array
-	 */
-
-	protected $input;
-
-	/**
 	 * Holds the PUT method's data.
 	 *
 	 * @var array
@@ -56,84 +48,19 @@ class Input
 	//---------------------------------------------
 
 	/**
-	 * Class constructor.
+	 * Protected constructor since this is a static class.
 	 *
-	 * @access  public
-	 * @param   array  $input  Array to validate
+	 * @access  protected
 	 */
 
-	public function __construct(array &$input)
+	protected function __construct()
 	{
-		$this->input =& $input;
-	}
-
-	/**
-	 * Factory method making method chaining possible right off the bat.
-	 *
-	 * @access  public
-	 * @param   array          $input  Array to validate
-	 * @return  mako\Validate
-	 */
-
-	public static function factory(array &$input)
-	{
-		return new static($input);
+		// Nothing here
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-	
-	/**
-	 * Adds a filter to the list of callbacks.
-	 *
-	 * @access  public
-	 * @param   mixed          $field     Field name
-	 * @param   callback       $function  Filter function
-	 * @return  mako\Validate
-	 */
-	
-	public function filter($field, $function)
-	{
-		!is_array($function) && $function = array($function);
-
-		$callback['function'] = $function[0];
-		$callback['params']   = isset($function[1]) ? $function[1] : array();
-		
-		if($field === '*')
-		{
-			foreach(array_keys($this->input) as $field)
-			{
-				$this->filters[$field][] = $callback;
-			}
-		}
-		else
-		{
-			$this->filters[$field][] = $callback;
-		}
-		
-		return $this;
-	}
-
-	/**
-	 * Runs all input filters.
-	 *
-	 * @access  public
-	 * @return  array
-	 */
-
-	public function process()
-	{
-		foreach($this->filters as $field => $filters)
-		{
-			foreach($filters as $callback)
-			{
-				$params = array_merge(array($this->input[$field]), $callback['params']);
-								
-				$this->input[$field] = call_user_func_array($callback['function'], $params);
-			}
-		}
-	}
 
 	/**
 	 * Fetch data from the $_GET array.
@@ -290,7 +217,7 @@ class Input
 	}
 
 	/**
-	 * Checks if the keys exist in the request method data
+	 * Checks if the keys exist in the request method data.
 	 *
 	 * @access  public
 	 * @param   mixed    $key     Key or array of keys
