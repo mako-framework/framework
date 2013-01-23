@@ -213,7 +213,9 @@ class Input
 
 	public static function data($key = null, $default = null)
 	{
-		return call_user_func('static::' . strtolower(Request::method()), $key, $default);
+		$method = strtolower(Request::main()->method());
+
+		return static::$method($key, $default);
 	}
 
 	/**
@@ -229,7 +231,7 @@ class Input
 	{
 		$keys = (array) $key;
 
-		$method = strtolower($method ?: Request::method());
+		$method = strtolower($method ?: Request::main()->method());
 
 		$data = static::$method();
 

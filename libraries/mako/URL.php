@@ -158,7 +158,7 @@ class URL
 
 	public static function current(array $params = array(), $separator = '&amp;', $language = true)
 	{
-		return static::to(Request::route(), $params, $separator, $language);
+		return static::to(Request::main()->route(), $params, $separator, $language);
 	}
 
 	/**
@@ -186,7 +186,7 @@ class URL
 
 	public static function matches($pattern)
 	{
-		return (boolean) preg_match('#' . $pattern . '#', Request::route());
+		return (boolean) preg_match('#' . $pattern . '#', Request::main()->route());
 	}
 }
 

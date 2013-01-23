@@ -35,20 +35,28 @@ class Request
 	protected $route;
 
 	/**
+	 * Which request method was used?
+	 *
+	 * @var string
+	 */
+
+	protected $method;
+
+	/**
+	 * Holds the main request instance.
+	 * 
+	 * @var mako\Request
+	 */
+
+	protected static $main;
+
+	/**
 	 * Request language.
 	 * 
 	 * @var string
 	 */
 
 	protected static $language;
-
-	/**
-	 * Holds the route to the main request.
-	 *
-	 * @var string
-	 */
-
-	protected static $mainRoute;
 
 	/**
 	 * Is this the main request?
@@ -73,14 +81,6 @@ class Request
 	 */
 
 	protected static $referer;
-
-	/**
-	 * Which request method was used?
-	 *
-	 * @var string
-	 */
-
-	protected static $method;
 
 	/**
 	 * Is this an Ajax request?
@@ -146,15 +146,16 @@ class Request
 	{
 		$this->route = $route;
 
-		if($method !== null)
-		{
-			static::$method = $method;
-		}
+		$this->method = $method ?:
+		                (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) :
+		                (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET'));
 
 		static $mainRequest = true;
 
 		if($mainRequest === true)
 		{
+			static::$main = $this;
+
 			$this->requestInfo();
 		}
 		else
@@ -268,12 +269,6 @@ class Request
 		// From where did the request originate?
 
 		static::$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-
-		// Which request method was used?
-
-		static::$method = static::$method === null ?
-		                  (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) :
-		                  (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET')) : static::$method;
 		
 		// Is this an Ajax request?
 
@@ -359,7 +354,7 @@ class Request
 				}
 			}
 
-			static::$mainRoute = $route;
+			$this->route = $route;
 		}
 
 		return $route;
@@ -472,6 +467,30 @@ class Request
 	}
 
 	/**
+	 * Returns the route of the request.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function route()
+	{
+		return $this->route;
+	}
+
+	/**
+	 * Which request method was used?
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function method()
+	{
+		return $this->method;
+	}
+
+	/**
 	 * Is this the main request?
 	 *
 	 * @access  public
@@ -481,6 +500,18 @@ class Request
 	public function isMain()
 	{
 		return $this->isMain;
+	}
+
+	/**
+	 * Returns the main request.
+	 * 
+	 * @access  public
+	 * @return  mako\Request
+	 */
+
+	public static function main()
+	{
+		return static::$main;
 	}
 	
 	/**
@@ -518,30 +549,6 @@ class Request
 	public static function language()
 	{
 		return static::$language;
-	}
-
-	/**
-	 * Returns the route of the main request.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public static function route()
-	{
-		return static::$mainRoute;
-	}
-
-	/**
-	 * Which request method was used?
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public static function method()
-	{
-		return static::$method;
 	}
 
 	/**
