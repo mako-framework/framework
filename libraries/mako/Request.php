@@ -138,13 +138,19 @@ class Request
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $route  (optional) URL segments
+	 * @param   string  $route   (optional) URL segments
+	 * @param   string  $method  (optional) Request method
 	 */
 
-	public function __construct($route = null)
+	public function __construct($route = null, $method = null)
 	{
 		$this->route = $route;
-		
+
+		if($method !== null)
+		{
+			static::$method = $method;
+		}
+
 		static $mainRequest = true;
 
 		if($mainRequest === true)
@@ -163,13 +169,14 @@ class Request
 	 * Factory method making method chaining possible right off the bat.
 	 *
 	 * @access  public
-	 * @param   string        $route  (optional) URL segments
+	 * @param   string        $route   (optional) URL segments
+	 * @param   string        $method  (optional) Request method
 	 * @return  mako\Request
 	 */
 
-	public static function factory($route = null)
+	public static function factory($route = null, $method = null)
 	{
-		return new static($route);
+		return new static($route, $method);
 	}
 
 	//---------------------------------------------
@@ -264,8 +271,9 @@ class Request
 
 		// Which request method was used?
 
-		static::$method = isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) : 
-		                  (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET');
+		static::$method = static::$method === null ?
+		                  (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) :
+		                  (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET')) : static::$method;
 		
 		// Is this an Ajax request?
 

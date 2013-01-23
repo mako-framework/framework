@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\Arr;
+use \mako\Request;
 
 /**
  * Input filtering and helpers.
@@ -25,6 +26,22 @@ class Input
 	 */
 
 	protected $input;
+
+	/**
+	 * Holds the PUT method's data.
+	 *
+	 * @var array
+	 */
+
+	protected static $put;
+
+	/**
+	 * Holds the DELETE method's data.
+	 *
+	 * @var array
+	 */
+
+	protected static $delete;
 	
 	/**
 	 * Holds all the callback filtering functions that need to be run.
@@ -220,15 +237,84 @@ class Input
 	 * Returns PUT data.
 	 *
 	 * @access  public
+	 * @param   string  $key      (optional) Array key
 	 * @param   mixed   $default  (optional) Default value
 	 * @return  mixed
 	 */
 
-	public static function put($default = null)
+	public static function put($key = null, $default = null)
 	{
-		$data = file_get_contents('php://input');
+		if(static::$put === null)
+		{
+			static::$put = array();
 
-		return !empty($data) ? $data : $default;
+			parse_str(file_get_contents('php://input'), static::$put);
+		}
+
+		return $key === null ? static::$put : Arr::get(static::$put, $key, $default);
+	}
+
+	/**
+	 * Returns DELETE data.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public static function delete($key = null, $default = null)
+	{
+		if(static::$delete === null)
+		{
+			static::$delete = array();
+
+			parse_str(file_get_contents('php://input'), static::$delete);
+		}
+
+		return $key === null ? static::$delete : Arr::get(static::$delete, $key, $default);
+	}
+
+	/**
+	 * Returns the current request method's data.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public static function data($key = null, $default = null)
+	{
+		return call_user_func('static::' . strtolower(Request::method()), $key, $default);
+	}
+
+	/**
+	 * Checks if the keys exist in the request method data
+	 *
+	 * @access  public
+	 * @param   mixed    $key     Key or array of keys
+	 * @param   string   $method  (optional) Request method
+	 * @return  boolean
+	 */
+
+	public static function has($key, $method = null)
+	{
+		$keys = (array) $key;
+
+		$method = strtolower($method ?: Request::method());
+
+		$data = static::$method();
+
+		foreach($keys as $key)
+		{
+			if(!isset($data[$key]))
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
 
