@@ -288,6 +288,34 @@ class Input
 	{
 		return call_user_func('static::' . strtolower(Request::method()), $key, $default);
 	}
+
+	/**
+	 * Checks if the keys exist in the request method data
+	 *
+	 * @access  public
+	 * @param   mixed    $key     Key or array of keys
+	 * @param   string   $method  (optional) Request method
+	 * @return  boolean
+	 */
+
+	public static function has($key, $method = null)
+	{
+		$keys = (array) $key;
+
+		$method = strtolower($method ?: Request::method());
+
+		$data = static::$method();
+
+		foreach($keys as $key)
+		{
+			if(!isset($data[$key]))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
 
 /** -------------------- End of file --------------------**/
