@@ -95,7 +95,6 @@ mako\ClassLoader::mapClasses(array
 	'mako\reactor\Task'                      => MAKO_LIBRARIES_PATH . '/mako/reactor/Task.php',
 	'mako\reactor\tasks\Console'             => MAKO_LIBRARIES_PATH . '/mako/reactor/tasks/Console.php',
 	'mako\reactor\tasks\Migrate'             => MAKO_LIBRARIES_PATH . '/mako/reactor/tasks/Migrate.php',
-	'mako\reactor\tasks\Package'             => MAKO_LIBRARIES_PATH . '/mako/reactor/tasks/Package.php',
 	'mako\reactor\tasks\Server'              => MAKO_LIBRARIES_PATH . '/mako/reactor/tasks/Server.php',
 	'mako\Redis'                             => MAKO_LIBRARIES_PATH . '/mako/Redis.php',
 	'mako\Request'                           => MAKO_LIBRARIES_PATH . '/mako/Request.php',

@@ -41,7 +41,6 @@ class Reactor
 	(
 		'console' => 'Console',
 		'migrate' => 'Migrate',
-		'package' => 'Package',
 		'server'  => 'Server',
 	);
 
