@@ -5,10 +5,10 @@ use \mako\Database;
 class Migration_{{version}}
 {
 	/**
-	* Makes changes to the database structure.
-	*
-	* @access  public
-	*/
+	 * Makes changes to the database structure.
+	 *
+	 * @access  public
+	 */
 
 	public function up()
 	{
@@ -16,10 +16,10 @@ class Migration_{{version}}
 	}
 
 	/**
-	* Reverts the database changes.
-	*
-	* @access  public
-	*/
+	 * Reverts the database changes.
+	 *
+	 * @access  public
+	 */
 
 	public function down()
 	{
