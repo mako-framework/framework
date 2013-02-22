@@ -2,6 +2,7 @@
 
 namespace mako;
 
+use \Closure;
 use \mako\Config;
 use \mako\String;
 use \RuntimeException;
@@ -210,33 +211,28 @@ class Redis
 	}
 
 	/**
-	 * Enable pipelining
+	 * Pipeline commands.
 	 *
 	 * @access  public
-	 * @return  mako\Redis
-	 */
-
-	public function pipeline()
-	{
-		$this->pipelined = true;
-
-		return $this;
-	}
-
-	/**
-	 * Send pipelined commands to server and return responses.
-	 *
-	 * @access  public
+	 * @param   Closure  $pipeline  Pipelined commands
 	 * @return  array
 	 */
 
-	public function valve()
+	public function pipeline(Closure $pipeline)
 	{
+		// Enable pipelining
+
+		$this->pipelined = true;
+
+		// Build commands
+
+		$pipeline($this);
+
+		// Send all commands to server and fetch responses
+
 		$responses = array();
 
 		$commands = count($this->commands);
-
-		// Send all commands to server and fetch responses
 
 		fwrite($this->connection, implode('', $this->commands));
 
