@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\Config;
+use \mako\String;
 use \RuntimeException;
 
 /**
@@ -267,8 +268,8 @@ class Redis
 	public function __call($name, $arguments)
 	{
 		// Build command
-
-		array_unshift($arguments, strtoupper($name));
+		
+		$arguments = array_merge(explode(' ', strtoupper(str_replace('_', ' ', String::camel2underscored($name)))), $arguments);
 
 		$command = '*' . count($arguments) . static::CRLF;
 
