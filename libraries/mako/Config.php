@@ -54,7 +54,7 @@ class Config
 	 * @return  array
 	 */
 
-	public static function load($file)
+	protected static function load($file)
 	{
 		if(!file_exists($path = mako_path('config', $file)))
 		{
