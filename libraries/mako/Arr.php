@@ -182,7 +182,7 @@ class Arr
 
 		foreach($arrays as $array)
 		{
-			foreach($array as $key => &$value)
+			foreach($array as $key => $value)
 			{
 				if(is_array($value) && isset($merged[$key]) && is_array($merged[$key]))
 				{
