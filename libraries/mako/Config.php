@@ -47,33 +47,28 @@ class Config
 	//---------------------------------------------
 
 	/**
-	 * Returns the path to the configuration file.
+	 * Loads the configuration file.
 	 *
 	 * @access  protected
-	 * @param   string    $file  File name
-	 * @return  string
+	 * @param   string     $file  File name
+	 * @return  array
 	 */
 
-	protected static function file($file)
+	public static function load($file)
 	{
-		$paths = array('config');
-
-		if(!empty($_SERVER['MAKO_ENV']))
+		if(!file_exists($path = mako_path('config', $file)))
 		{
-			array_unshift($paths, 'config/' . $_SERVER['MAKO_ENV']);
+			throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $file)));
 		}
 
-		foreach($paths as $path)
-		{
-			$path = mako_path($path, $file);
+		$config = include($path);
 
-			if(file_exists($path))
-			{
-				return $path;
-			}
+		if(mako_env() !== null && file_exists($path = mako_path('config/' . mako_env(), $file)))
+		{
+			$config = Arr::mergeRecursively($config, include($path));
 		}
 
-		throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $file)));
+		return $config;
 	}
 
 	/**
@@ -91,7 +86,7 @@ class Config
 
 		if(!isset(static::$config[$keys[0]]))
 		{
-			static::$config[$keys[0]] = include(static::file($keys[0]));
+			static::$config[$keys[0]] = static::load($keys[0]);
 		}
 
 		if(!isset($keys[1]))
