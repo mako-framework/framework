@@ -34,14 +34,6 @@ class Input
 	 */
 
 	protected static $delete;
-	
-	/**
-	 * Holds all the callback filtering functions that need to be run.
-	 *
-	 * @var array
-	 */
-	
-	protected $filters = array();
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...

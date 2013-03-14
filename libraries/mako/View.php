@@ -2,10 +2,11 @@
 
 namespace mako;
 
-use \mako\ErrorHandler;
-use \mako\view\Compiler;
+use \Closure;
 use \Exception;
 use \RuntimeException;
+use \mako\ErrorHandler;
+use \mako\view\Compiler;
 
 /**
  * View class.
@@ -169,11 +170,11 @@ class View
 	 * Returns a rendered view.
 	 *
 	 * @access  public
-	 * @param   callback  $filter  (optional) Callback function used to filter output
+	 * @param   Closure  $filter  (optional) Closure used to filter output
 	 * @return  string
 	 */
 
-	public function render($filter = null)
+	public function render(Closure $filter = null)
 	{
 		$renderer = new $this->renderer($this->view, $this->vars, static::$globalVars);
 
@@ -181,7 +182,7 @@ class View
 
 		if($filter !== null)
 		{
-			$output = call_user_func($filter, $output);
+			$output = $filter($output);
 		}
 
 		return $output;

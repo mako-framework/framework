@@ -174,7 +174,9 @@ class Language
 			$this->loadInflection();
 		}
 
-		return call_user_func($this->inflection['pluralize'], $word, $count, $this->inflection['rules']);
+		$pluralizer = $this->inflection['pluralize'];
+
+		return $pluralizer($word, $count, $this->inflection['rules']);
 	}
 }
 

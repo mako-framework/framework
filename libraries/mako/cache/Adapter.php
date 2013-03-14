@@ -59,7 +59,7 @@ abstract class Adapter
 	 *
 	 * @access  public
 	 * @param   string   $key      Cache key
-	 * @param   closure  $closure  Closure (anonymous function) that returns value to store if it doesn't already exist
+	 * @param   Closure  $closure  Closure that returns value to store if it doesn't already exist
 	 * @param   int      $ttl      (optional) Time to live
 	 * @return  mixed
 	 */
@@ -70,7 +70,7 @@ abstract class Adapter
 		
 		if($item === false)
 		{
-			$item = call_user_func($closure);
+			$item = $closure();
 			
 			$this->write($key, $item, $ttl);
 		}

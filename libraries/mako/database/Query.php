@@ -346,7 +346,7 @@ class Query
 		{
 			$query = new static($this->connection, $this->table);
 
-			call_user_func($column, $query);
+			$column($query);
 
 			$this->wheres[] = array
 			(
@@ -671,7 +671,7 @@ class Query
 
 		if($column1 instanceof Closure)
 		{
-			call_user_func($column1, $join);
+			$column1($join);
 		}
 		else
 		{

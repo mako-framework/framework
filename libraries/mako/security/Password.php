@@ -111,7 +111,7 @@ class Password
 	{
 		if(!is_null($legacyCheck) && static::isLegacyHash($hash))
 		{
-			return call_user_func($legacyCheck, $password, $hash);
+			return $legacyCheck($password, $hash);
 		}
 
 		return crypt($password, $hash) === $hash;

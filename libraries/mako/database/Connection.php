@@ -2,13 +2,13 @@
 
 namespace mako\database;
 
-use \mako\Config;
-use \mako\Database;
-use \mako\database\Query;
 use \PDO;
 use \Closure;
 use \PDOException;
 use \RuntimeException;
+use \mako\Config;
+use \mako\Database;
+use \mako\database\Query;
 
 /**
  * Database connection.
@@ -278,7 +278,7 @@ class Connection
 		{
 			$this->pdo->beginTransaction();
 
-			call_user_func($queries, $this);
+			$queries($this);
 
 			$this->pdo->commit();
 

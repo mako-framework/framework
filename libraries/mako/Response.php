@@ -2,6 +2,7 @@
 
 namespace mako;
 
+use \Closure;
 use \mako\Config;
 use \mako\Request;
 use \mako\DebugToolbar;
@@ -61,9 +62,9 @@ class Response
 	protected $responseCache;
 
 	/**
-	 * Output filter (callback function).
+	 * Output filter.
 	 *
-	 * @var callback
+	 * @var Closure
 	 */
 	
 	protected $outputFilter;
@@ -214,10 +215,10 @@ class Response
 	 * Adds output filter that all output will be passed through before being sent.
 	 *
 	 * @access  public
-	 * @param   callback  $filter  Callback function used to filter output
+	 * @param   Closure  $filter  Closure used to filter output
 	 */
 	
-	public function filter($filter)
+	public function filter(Closure $filter)
 	{
 		$this->outputFilter = $filter;
 	}
@@ -420,7 +421,9 @@ class Response
 			
 			if(!empty($this->outputFilter))
 			{
-				$this->body = call_user_func($this->outputFilter, $this->body);
+				$filter = $this->outputFilter;
+
+				$this->body = $filter($this->body);
 			}
 
 			// Add debug toolbar?
