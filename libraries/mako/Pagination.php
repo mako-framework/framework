@@ -94,6 +94,9 @@ class Pagination
 	 * Constructor.
 	 *
 	 * @access  public
+	 * @param   string  $view          View name
+	 * @param   int     $cont          Number of items
+	 * @param   int     $itemsPerPage  (optional) Number of items to display on a page
 	 */
 
 	public function __construct($view, $count, $itemsPerPage = null)
@@ -111,6 +114,18 @@ class Pagination
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns the limit.
+	 * 
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function limit()
+	{
+		return $this->itemsPerPage;
+	}
 
 	/**
 	 * Calculates the offset and number of pages and returns the offset.
