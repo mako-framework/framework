@@ -4,7 +4,7 @@
 // Define some constants
 //------------------------------------------------------------------------------------------
 
-define('MAKO_VERSION', '3.2.1');
+define('MAKO_VERSION', '3.2.2');
 define('MAKO_START', microtime(true));
 define('MAKO_MAGIC_QUOTES', get_magic_quotes_gpc());
 define('MAKO_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
