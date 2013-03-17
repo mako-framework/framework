@@ -60,7 +60,7 @@ class ExceptionHandler
 	 * @return  string
 	 */
 
-	protected function getCode($file, $line, $padding = 6)
+	protected function getCode($file, $line, $padding = 5)
 	{
 		if(!is_readable($file))
 		{

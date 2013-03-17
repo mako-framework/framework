@@ -264,8 +264,8 @@
 	</table>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
 
 <script>
 	prettyPrint();
