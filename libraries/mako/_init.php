@@ -4,7 +4,7 @@
 // Define some constants
 //------------------------------------------------------------------------------------------
 
-define('MAKO_VERSION', '3.2.2');
+define('MAKO_VERSION', '3.3.0');
 define('MAKO_START', microtime(true));
 define('MAKO_MAGIC_QUOTES', get_magic_quotes_gpc());
 define('MAKO_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
@@ -224,12 +224,6 @@ if(!function_exists('debug'))
 }
 
 //------------------------------------------------------------------------------------------
-// Include application bootstrap file
-//------------------------------------------------------------------------------------------
-		
-require MAKO_APPLICATION_PATH . '/bootstrap.php';
-
-//------------------------------------------------------------------------------------------
 // Configure the core
 //------------------------------------------------------------------------------------------
 
@@ -256,6 +250,10 @@ if($config['locale']['lc_numeric'] === false)
 	setlocale(LC_NUMERIC, 'C');
 }
 
+// Register the error handler
+
+mako\ErrorHandler::register();
+
 // Set up class aliases
 
 foreach($config['aliases'] as $alias => $className)
@@ -271,5 +269,11 @@ foreach($config['packages'] as $package)
 }
 
 unset($config);
+
+//------------------------------------------------------------------------------------------
+// Include application bootstrap file
+//------------------------------------------------------------------------------------------
+		
+require MAKO_APPLICATION_PATH . '/bootstrap.php';
 
 /** -------------------- End of file --------------------**/

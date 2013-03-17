@@ -257,7 +257,7 @@ class View
 		}
 		catch(Exception $e)
 		{
-			ErrorHandler::exception($e);
+			ErrorHandler::handler($e);
 		}
 	}
 }

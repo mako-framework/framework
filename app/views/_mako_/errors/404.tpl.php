@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="<?php echo MAKO_CHARSET; ?>">
+<meta charset="{{MAKO_CHARSET}}">
 <title>404 Not Found</title>
 
 <style type="text/css">
-
 body
 {
         height:100%;
@@ -66,7 +65,7 @@ hr
 <p>The page you requested could not be found. It may have been moved or deleted.</p>
 </div>
 
-<div id="back-home"><small>Would you like to <a href="<?php echo URL::base(); ?>">go back home</a>?</small></div>
+<div id="back-home"><small>Would you like to <a href="{{URL::base()}}">go back home</a>?</small></div>
 
 </body>
 </html>

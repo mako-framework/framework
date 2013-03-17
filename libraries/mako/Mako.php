@@ -2,12 +2,9 @@
 
 namespace mako;
 
-use \mako\Config;
 use \mako\Request;
-use \mako\RequestException;
-use \mako\Response;
 use \mako\ErrorHandler;
-use \ErrorException;
+use \mako\errorhandler\RequestExceptionHandler;
 
 /**
  * Mako.
@@ -67,29 +64,7 @@ class Mako
 		// Start output buffering
 
 		ob_start();
-
-		// Setup error handling if enabled
-			
-		if(Config::get('application.error_handler.enable') === true)
-		{
-			register_shutdown_function(function()
-			{
-				$e = error_get_last();
 				
-				if($e !== null && (error_reporting() & $e['type']) !== 0)
-				{
-					ErrorHandler::exception(new ErrorException($e['message'], $e['type'], 0, $e['file'], $e['line']));
-
-					exit(1);
-				}
-			});
-			
-			set_exception_handler(function($e)
-			{
-				ErrorHandler::exception($e);
-			});
-		}			
-					
 		// Removes slashes added to the superglobals by magic quotes
 
 		if(MAKO_MAGIC_QUOTES === 1)
@@ -107,16 +82,20 @@ class Mako
 			unset($superglobals);
 		}
 
+		// Register the RequestException handler
+
+		ErrorHandler::handle('\mako\request\RequestException', function($exception)
+		{
+			$handler = new RequestExceptionHandler($exception);
+
+			$handler->handle();
+
+			return true; // Return true to stop further handling of the RequestException
+		});
+
 		// Execute the request
 
-		try
-		{
-			Request::factory($route)->execute()->send();
-		}
-		catch(RequestException $e)
-		{
-			Response::factory(new View('_mako_.errors.' . $e->getMessage()))->send($e->getMessage());
-		}	
+		Request::factory($route)->execute()->send();	
 	}
 }
 

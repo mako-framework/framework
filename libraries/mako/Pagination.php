@@ -239,7 +239,7 @@ class Pagination
 		}
 		catch(Exception $e)
 		{
-			ErrorHandler::exception($e);
+			ErrorHandler::handler($e);
 		}
 	}
 }

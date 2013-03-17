@@ -7,10 +7,9 @@ use \mako\I18n;
 use \mako\Config;
 use \mako\Response;
 use \mako\request\Router;
+use \mako\request\RequestException;
 use \RuntimeException;
 use \ReflectionClass;
-
-class RequestException extends RuntimeException{}
 
 /**
  * Executes requets.

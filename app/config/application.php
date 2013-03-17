@@ -117,14 +117,12 @@ return array
 	/**
 	 * Error handler settings.
 	 *
-	 * enable        : Set to true to enable the Mako error handler.
 	 * display_errors: Set to true to display errors caught by the mako error handlers.
 	 * log_errors    : Set to true if you want to log errors caught by the Mako errors handlers.
 	 */
 	
 	'error_handler' => array
 	(
-		'enable'         => true,
 		'display_errors' => true, // It is recommended to set this value to false when you are in production.
 		'log_errors'     => true,
 	),
