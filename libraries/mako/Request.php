@@ -414,7 +414,7 @@ class Request
 
 		if($controllerClass->hasMethod($action) === false)
 		{
-			throw new RequestException(404);
+			throw new RequestException(($controller::RESTFUL ? 405 : 404));
 		}
 
 		$controllerAction = $controllerClass->getMethod($action);

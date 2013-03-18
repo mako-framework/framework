@@ -60,7 +60,7 @@ hr
 <body>
 
 <div id="message">
-<h1>405 <small>Method Not Allowed/small></h1>
+<h1>405 <small>Method Not Allowed</small></h1>
 <hr>
 <p>The request method that was used is not supported by this resource.</p>
 </div>
