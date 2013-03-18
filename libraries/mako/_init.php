@@ -100,6 +100,7 @@ mako\ClassLoader::mapClasses(array
 	'mako\reactor\tasks\Server'                 => MAKO_LIBRARIES_PATH . '/mako/reactor/tasks/Server.php',
 	'mako\Redis'                                => MAKO_LIBRARIES_PATH . '/mako/Redis.php',
 	'mako\Request'                              => MAKO_LIBRARIES_PATH . '/mako/Request.php',
+	'mako\request\RequestException'             => MAKO_LIBRARIES_PATH . '/mako/request/RequestException.php',
 	'mako\request\Router'                       => MAKO_LIBRARIES_PATH . '/mako/request/Router.php',
 	'mako\Response'                             => MAKO_LIBRARIES_PATH . '/mako/Response.php',
 	'mako\Rest'                                 => MAKO_LIBRARIES_PATH . '/mako/Rest.php',
