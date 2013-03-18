@@ -416,11 +416,11 @@ class Request
 		{
 			if($controller::RESTFUL === true)
 			{
-				$requestTypes = array('get', 'post', 'put', 'delete', 'patch');
+				$requestMethods = array('get', 'post', 'put', 'delete', 'patch');
 
-				foreach($requestTypes as $requestType)
+				foreach($requestMethods as $requestMethod)
 				{
-					if($controllerClass->hasMethod($requestType . '_' . $this->action))
+					if($controllerClass->hasMethod($requestMethod . '_' . $this->action))
 					{
 						throw new RequestException(405); // Only throw 405 if the controller has an action that can respond to the requested route
 					}
