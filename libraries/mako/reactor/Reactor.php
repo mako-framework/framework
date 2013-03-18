@@ -128,14 +128,7 @@ class Reactor
 
 		$this->cli->stdout();
 
-		try
-		{
-			$this->task($arguments);
-		}
-		catch(Exception $e)
-		{
-			$this->cli->stderr($e->getMessage() . str_repeat(PHP_EOL, 2) . $e->getTraceAsString());
-		}
+		$this->task($arguments);
 
 		$this->cli->stdout();
 	}

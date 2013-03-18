@@ -4,9 +4,11 @@ namespace mako\errorhandler;
 
 use \Exception;
 use \ErrorException;
+use \mako\Log;
 use \mako\View;
 use \mako\Config;
 use \mako\Response;
+use \mako\reactor\CLI;
 
 /**
  * Exception handler.
@@ -185,7 +187,18 @@ class ExceptionHandler
 
 	protected function displayCLI($error)
 	{
+		$cli = new CLI();
 
+		$code = $this->getCode($error['file'], $error['line'], 0);
+
+		$output  = $error['type'] . PHP_EOL . PHP_EOL;
+		$output .= $error['message'] . ' in ' . $error['file'] . ' on line ' . $error['line'] . PHP_EOL . PHP_EOL;
+		$output .= str_repeat('-', $cli->screenWidth()) . PHP_EOL . PHP_EOL;
+		$output .=  '    ' . trim($code['code']) . PHP_EOL . PHP_EOL;
+		$output .= str_repeat('-', $cli->screenWidth()) . PHP_EOL . PHP_EOL;
+		$output .= $this->exception->getTraceAsString() . PHP_EOL;
+
+		$cli->stderr($output);
 	}
 
 	/**
@@ -283,6 +296,13 @@ class ExceptionHandler
 		else
 		{
 			$error['type'] = get_class($this->exception);
+		}
+
+		// Write to error log
+
+		if(Config::get('application.error_handler.log_errors') === true)
+		{
+			Log::error("{$error['type']}: {$error['message']} in {$error['file']} at line {$error['line']}");
 		}
 
 		// Display error
