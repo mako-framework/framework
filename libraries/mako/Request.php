@@ -422,7 +422,7 @@ class Request
 				{
 					if($controllerClass->hasMethod($requestType . '_' . $this->action))
 					{
-						throw new RequestException(405); // Only throw 405 if the controller as an action that can respond to the requested route
+						throw new RequestException(405); // Only throw 405 if the controller has an action that can respond to the requested route
 					}
 				}
 			}
