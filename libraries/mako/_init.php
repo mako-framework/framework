@@ -131,7 +131,8 @@ mako\ClassLoader::mapClasses(array
 	'mako\view\renderer\template\Block'         => MAKO_LIBRARIES_PATH . '/mako/view/renderer/template/Block.php',
 ));
 
-spl_autoload_register('mako\ClassLoader::load');
+
+mako\ClassLoader::register();
 
 //------------------------------------------------------------------------------------------
 // Define helper functions

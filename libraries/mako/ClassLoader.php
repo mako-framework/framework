@@ -72,6 +72,22 @@ class ClassLoader
 	//---------------------------------------------
 
 	/**
+	 * Registers the autoloader.
+	 * 
+	 * @access  public
+	 */
+
+	public static function register()
+	{
+		if(file_exists(MAKO_LIBRARIES_PATH . '/composer/autoload.php'))
+		{
+			include_once MAKO_LIBRARIES_PATH . '/composer/autoload.php';
+		}
+
+		spl_autoload_register('mako\ClassLoader::load', true, true);
+	}
+
+	/**
 	 * Add class to mapping.
 	 *
 	 * @access  public
@@ -175,24 +191,6 @@ class ClassLoader
 	}
 
 	/**
-	 * Enable autoloading of Composer packages.
-	 *
-	 * @access  protected 
-	 */
-
-	protected static function enableComposer()
-	{
-		static $enabled = false;
-
-		if(!$enabled && file_exists(MAKO_LIBRARIES_PATH . '/composer/autoload.php'))
-		{
-			include_once MAKO_LIBRARIES_PATH . '/composer/autoload.php';
-
-			$enabled = true;
-		}
-	}
-
-	/**
 	 * Autoloader.
 	 *
 	 * @access  public
@@ -240,10 +238,6 @@ class ClassLoader
 		{
 			return true;
 		}
-
-		// Enable composer autoloading as a last resort
-
-		static::enableComposer();
 
 		return false;
 	}
