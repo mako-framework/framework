@@ -237,6 +237,34 @@ class Input
 
 		return true;
 	}
+
+	/**
+	 * Returns input data where keys not in the whitelist have been removed.
+	 * 
+	 * @access  public
+	 * @param   array  $keys      Keys to whitelist
+	 * @param   array  $defaults  (optional) Default values
+	 * @return  array
+	 */
+
+	public static function whitelist(array $keys, array $defaults = array())
+	{
+		return array_intersect_key(static::data(), array_flip($keys)) + $defaults;
+	}
+
+	/**
+	 * Returns input data where keys in the blacklist have been removed.
+	 * 
+	 * @access  public
+	 * @param   array  $keys      Keys to whitelist
+	 * @param   array  $defaults  (optional) Default values
+	 * @return  array
+	 */
+
+	public static function blacklist(array $keys, array $defaults = array())
+	{
+		return array_diff_key(static::data(), array_flip($keys)) + $defaults;
+	}
 }
 
 /** -------------------- End of file --------------------**/
