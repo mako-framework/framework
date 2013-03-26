@@ -16,7 +16,7 @@ return array
 	 * Enable the query log?
 	 */
 
-	'query_log' => false,
+	'log_queries' => false,
 	
 	/**
 	 * You can define as many database configurations as you want.
