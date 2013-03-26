@@ -80,13 +80,13 @@ class Database
 	 * @return  array
 	 */
 
-	public static function profiler()
+	public static function getLog()
 	{
 		$log = array();
 
 		foreach(static::$connections as $connection)
 		{
-			$log = array_merge($log, $connection->profiler());
+			$log = array_merge($log, $connection->getLog());
 		}
 
 		return $log;
@@ -113,7 +113,7 @@ class Database
 				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the database configuration.", array(__METHOD__, $name)));
 			}
 			
-			static::$connections[$name] = new Connection($name, $config['configurations'][$name], $config['profiler']);			
+			static::$connections[$name] = new Connection($name, $config['configurations'][$name], $config['query_log']);			
 		}
 
 		return static::$connections[$name];

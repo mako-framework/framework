@@ -33,12 +33,12 @@ class Connection
 	public $pdo;
 
 	/**
-	 * Enable query profiler?
+	 * Enable the query log?
 	 *
 	 * @var boolean
 	 */
 
-	protected $profiler;
+	protected $enableLog;
 
 	/**
 	 * Query log.
@@ -56,14 +56,14 @@ class Connection
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string   $name      Connection name
-	 * @param   array    $config    Connection configuration
-	 * @param   boolean  $profiler  Enable profiling?
+	 * @param   string   $name       Connection name
+	 * @param   array    $config     Connection configuration
+	 * @param   boolean  $enableLog  Enable the query log?
 	 */
 
-	public function __construct($name, array $config, $profiler)
+	public function __construct($name, array $config, $enableLog)
 	{
-		$this->profiler = $profiler;
+		$this->enableLog = $enableLog;
 
 		// Connect to the database
 
@@ -104,6 +104,28 @@ class Connection
 	//---------------------------------------------
 
 	/**
+	 * Enables the query log.
+	 * 
+	 * @access  public
+	 */
+
+	public function enableLog()
+	{
+		$this->enableLog = true;
+	}
+
+	/**
+	 * Disables the query log.
+	 * 
+	 * @access  public
+	 */
+
+	public function disableLog()
+	{
+		$this->enableLog = false;
+	}
+
+	/**
 	 * Adds a query to the query log.
 	 *
 	 * @access  protected
@@ -135,7 +157,7 @@ class Connection
 	 * @return  array
 	 */
 
-	public function profiler()
+	public function getLog()
 	{
 		return $this->log;
 	}
@@ -171,14 +193,14 @@ class Connection
 
 		$stmt = $this->pdo->prepare($query);
 
-		if($this->profiler)
+		if($this->enableLog)
 		{
 			$start = microtime(true);
 		}
 
 		$result = $stmt->execute($params);
 
-		if($this->profiler)
+		if($this->enableLog)
 		{
 			$this->log($query, $params, $start);
 		}

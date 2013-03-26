@@ -13,10 +13,10 @@ return array
 	'default' => 'test',
 
 	/**
-	 * Enable the query profiler?
+	 * Enable the query log?
 	 */
 
-	'profiler' => false,
+	'query_log' => false,
 	
 	/**
 	 * You can define as many database configurations as you want.

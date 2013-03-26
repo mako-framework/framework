@@ -142,7 +142,7 @@ class DebugToolbar
 
 	public static function render()
 	{
-		$queries = Database::profiler();
+		$queries = Database::getLog();
 		
 		return View::factory('_mako_/toolbar', array
 		(
