@@ -49,7 +49,7 @@ class Memcached extends \mako\cache\Adapter
 		
 		$this->memcached = new PHP_Memcached();
 		
-		if($config['compress_data'] !== 1)
+		if($config['timeout'] !== 1)
 		{
 			$this->memcached->setOption(PHP_Memcached::OPT_CONNECT_TIMEOUT, ($config['timeout'] * 1000)); // Multiply by 1000 to convert to ms
 		}
