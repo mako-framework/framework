@@ -74,11 +74,11 @@ class Redis extends \mako\cache\Adapter
 
 	public function write($key, $value, $ttl = 0)
 	{
-		$this->redis->set("{$this->identifier}_{$key}", serialize($value));
+		$this->redis->set($this->identifier . $key, serialize($value));
 		
 		if($ttl !== 0)
 		{
-			$this->redis->expire("{$this->identifier}_{$key}", $ttl);
+			$this->redis->expire($this->identifier . $key, $ttl);
 		}
 
 		return true;
@@ -94,9 +94,22 @@ class Redis extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		$data = $this->redis->get("{$this->identifier}_{$key}");
+		$data = $this->redis->get($this->identifier . $key);
 
 		return ($data === null) ? false : unserialize($data);
+	}
+
+	/**
+	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		return (bool) $this->redis->exists($this->identifier . $key);
 	}
 
 	/**
@@ -109,7 +122,7 @@ class Redis extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		return (bool) $this->redis->del("{$this->identifier}_{$key}");
+		return (bool) $this->redis->del($this->identifier . $key);
 	}
 
 	/**

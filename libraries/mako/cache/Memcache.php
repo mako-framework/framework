@@ -105,9 +105,9 @@ class Memcache extends \mako\cache\Adapter
 			$ttl += time();
 		}
 
-		if($this->memcache->replace("{$this->identifier}_{$key}", $value, $this->compression, $ttl) === false)
+		if($this->memcache->replace($this->identifier . $key, $value, $this->compression, $ttl) === false)
 		{
-			return $this->memcache->set("{$this->identifier}_{$key}", $value, $this->compression, $ttl);
+			return $this->memcache->set($this->identifier . $key, $value, $this->compression, $ttl);
 		}
 
 		return true;
@@ -123,7 +123,20 @@ class Memcache extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		return $this->memcache->get("{$this->identifier}_{$key}");
+		return $this->memcache->get($this->identifier . $key);
+	}
+
+	/**
+	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		return ($this->memcache->get($this->identifier . $key) !== false);
 	}
 
 	/**
@@ -136,7 +149,7 @@ class Memcache extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		return $this->memcache->delete("{$this->identifier}_{$key}", 0);
+		return $this->memcache->delete($this->identifier . $key, 0);
 	}
 
 	/**

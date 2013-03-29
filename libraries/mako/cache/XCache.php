@@ -75,7 +75,7 @@ class XCache extends \mako\cache\Adapter
 
 	public function write($key, $value, $ttl = 0)
 	{
-		return xcache_set("{$this->identifier}_{$key}", serialize($value), $ttl);
+		return xcache_set($this->identifier . $key, serialize($value), $ttl);
 	}
 
 	/**
@@ -88,7 +88,20 @@ class XCache extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		return unserialize(xcache_get("{$this->identifier}_{$key}"));
+		return unserialize(xcache_get($this->identifier . $key));
+	}
+
+	/**
+	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		return xcache_isset($this->identifier . $key);
 	}
 
 	/**
@@ -101,7 +114,7 @@ class XCache extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		return xcache_unset("{$this->identifier}_{$key}");
+		return xcache_unset($this->identifier . $key);
 	}
 
 	/**

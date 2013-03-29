@@ -57,7 +57,7 @@ class ZendMemory extends \mako\cache\Adapter
 
 	public function write($key, $value, $ttl = 0)
 	{
-		return zend_shm_cache_store("{$this->identifier}_{$key}", $value, $ttl);
+		return zend_shm_cache_store($this->identifier . $key, $value, $ttl);
 	}
 
 	/**
@@ -70,7 +70,20 @@ class ZendMemory extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		return zend_shm_cache_fetch("{$this->identifier}_{$key}");
+		return zend_shm_cache_fetch($this->identifier . $key);
+	}
+
+	/**
+	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		return (zend_disk_cache_fetch($this->identifier . $key) !== false);
 	}
 
 	/**
@@ -83,7 +96,7 @@ class ZendMemory extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		return zend_shm_cache_delete("{$this->identifier}_{$key}");
+		return zend_shm_cache_delete($this->identifier . $key);
 	}
 
 	/**

@@ -134,6 +134,19 @@ class Database extends \mako\cache\Adapter
 			 return false;
 		}
 	}
+
+	/**
+	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		return (bool) $this->table()->where('key', '=', $key)->where('lifetime', '>', time())->count();
+	}
 	
 	/**
 	 * Delete a variable from the cache.

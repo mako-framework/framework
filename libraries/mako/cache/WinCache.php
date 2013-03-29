@@ -57,7 +57,7 @@ class WinCache extends \mako\cache\Adapter
 
 	public function write($key, $value, $ttl = 0)
 	{
-		return wincache_ucache_set("{$this->identifier}_{$key}", $value, $ttl);
+		return wincache_ucache_set($this->identifier . $key, $value, $ttl);
 	}
 
 	/**
@@ -70,7 +70,7 @@ class WinCache extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		$cache = wincache_ucache_get("{$this->identifier}_{$key}", $success);
+		$cache = wincache_ucache_get($this->identifier . $key, $success);
 		
 		if($success === true)
 		{
@@ -83,6 +83,19 @@ class WinCache extends \mako\cache\Adapter
 	}
 
 	/**
+	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		return wincache_ucache_exists($this->identifier . $key);
+	}
+
+	/**
 	 * Delete a variable from the cache.
 	 *
 	 * @access  public
@@ -92,7 +105,7 @@ class WinCache extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		return wincache_ucache_delete("{$this->identifier}_{$key}");
+		return wincache_ucache_delete($this->identifier . $key);
 	}
 
 	/**

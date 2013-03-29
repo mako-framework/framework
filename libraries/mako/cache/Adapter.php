@@ -50,6 +50,8 @@ abstract class Adapter
 
 	abstract public function read($key);
 
+	abstract public function has($key);
+
 	abstract public function delete($key);
 
 	abstract public function clear();

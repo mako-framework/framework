@@ -93,6 +93,19 @@ class Memory extends \mako\cache\Adapter
 	}
 
 	/**
+	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		return isset($this->cache[$key]);
+	}
+
+	/**
 	 * Delete a variable from the cache.
 	 *
 	 * @access  public

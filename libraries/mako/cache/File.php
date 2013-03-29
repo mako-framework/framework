@@ -54,6 +54,19 @@ class File extends \mako\cache\Adapter
 	//---------------------------------------------
 
 	/**
+	 * Returns the path to the cache file.
+	 * 
+	 * @access  public
+	 * @param   string  $key  Cache key
+	 * @return  string
+	 */
+
+	protected function cacheFile($key)
+	{
+		return $this->path . '/mako_' . $this->identifier . $key . '.php';
+	}
+
+	/**
 	 * Store variable in the cache.
 	 *
 	 * @access  public
@@ -69,7 +82,7 @@ class File extends \mako\cache\Adapter
 
 		$data = "<?php defined('MAKO_APPLICATION_PATH') or die(); ?>\n{$ttl}\n" . serialize($value);
 
-		return is_int(file_put_contents("{$this->path}/mako_{$this->identifier}_{$key}.php", $data, LOCK_EX));
+		return is_int(file_put_contents($this->cacheFile($key), $data, LOCK_EX));
 	}
 
 	/**
@@ -82,11 +95,11 @@ class File extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		if(file_exists("{$this->path}/mako_{$this->identifier}_{$key}.php"))
+		if(file_exists($this->cacheFile($key)))
 		{
 			// Cache exists
 			
-			$handle = fopen("{$this->path}/mako_{$this->identifier}_{$key}.php", 'r');
+			$handle = fopen($this->cacheFile($key), 'r');
 
 			fgets($handle); // skip first line
 
@@ -109,7 +122,7 @@ class File extends \mako\cache\Adapter
 			{
 				// Cache has expired ... delete it
 
-				unlink("{$this->path}/mako_{$this->identifier}_{$key}.php");
+				unlink($this->cacheFile($key));
 
 				return false;
 			}
@@ -123,6 +136,19 @@ class File extends \mako\cache\Adapter
 	}
 
 	/**
+	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		return file_exists($this->cacheFile($key));
+	}
+
+	/**
 	 * Delete a variable from the cache.
 	 *
 	 * @access  public
@@ -132,9 +158,9 @@ class File extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		if(file_exists("{$this->path}/mako_{$this->identifier}_{$key}.php"))
+		if(file_exists($this->cacheFile($key)))
 		{
-			return unlink("{$this->path}/mako_{$this->identifier}_{$key}.php");
+			return unlink($this->cacheFile($key));
 		}
 
 		return false;
@@ -157,7 +183,7 @@ class File extends \mako\cache\Adapter
 			{
 				if(mb_substr($file, 0, 5) === 'mako_')
 				{
-					if(unlink("{$this->path}/{$file}") === false)
+					if(unlink($this->path . '/' . $file) === false)
 					{
 						return false;
 					}

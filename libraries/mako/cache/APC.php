@@ -57,7 +57,7 @@ class APC extends \mako\cache\Adapter
 
 	public function write($key, $value, $ttl = 0)
 	{
-		return apc_store("{$this->identifier}_{$key}", $value, $ttl);
+		return apc_store($this->identifier . $key, $value, $ttl);
 	}
 
 	/**
@@ -70,7 +70,20 @@ class APC extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		return apc_fetch("{$this->identifier}_{$key}");
+		return apc_fetch($this->identifier . $key);
+	}
+
+	/**
+	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		return apc_exists($this->identifier . $key);
 	}
 
 	/**
@@ -83,7 +96,7 @@ class APC extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		return apc_delete("{$this->identifier}_{$key}");
+		return apc_delete($this->identifier . $key);
 	}
 
 	/**

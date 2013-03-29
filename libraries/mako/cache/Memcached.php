@@ -99,9 +99,9 @@ class Memcached extends \mako\cache\Adapter
 			$ttl += time();
 		}
 
-		if($this->memcached->replace("{$this->identifier}_{$key}", $value, $ttl) === false)
+		if($this->memcached->replace($this->identifier . $key, $value, $ttl) === false)
 		{
-			return $this->memcached->set("{$this->identifier}_{$key}", $value, $ttl);
+			return $this->memcached->set($this->identifier . $key, $value, $ttl);
 		}
 
 		return true;
@@ -117,7 +117,20 @@ class Memcached extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		return $this->memcached->get("{$this->identifier}_{$key}");
+		return $this->memcached->get($this->identifier . $key);
+	}
+
+	/**
+	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Cache key
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		return ($this->memcached->get($this->identifier . $key) !== false);
 	}
 
 	/**
@@ -130,7 +143,7 @@ class Memcached extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		return $this->memcached->delete("{$this->identifier}_{$key}", 0);
+		return $this->memcached->delete($this->identifier . $key, 0);
 	}
 
 	/**
