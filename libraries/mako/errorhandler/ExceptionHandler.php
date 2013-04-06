@@ -70,7 +70,7 @@ class ExceptionHandler
 		}
 
 		$handle      = fopen($file, 'r');
-		$code        = '';
+		$code        = array();
 		$currentLine = 0;
 
 		while(!feof($handle))
@@ -86,7 +86,7 @@ class ExceptionHandler
 
 			if($currentLine >= ($line - $padding) && $currentLine <= ($line + $padding))
 			{
-				$code .= $temp;
+				$code[] = array('current' => $currentLine, 'line' => $temp);
 			}
 		}
 
@@ -191,10 +191,19 @@ class ExceptionHandler
 
 		$code = $this->getCode($error['file'], $error['line'], 0);
 
+		if(!empty($code))
+		{
+			$code = trim($code['code'][0]['line']);
+		}
+		else
+		{
+			$code = 'Unable to retrieve source code';
+		}
+
 		$output  = $error['type'] . PHP_EOL . PHP_EOL;
 		$output .= $error['message'] . ' in ' . $error['file'] . ' on line ' . $error['line'] . PHP_EOL . PHP_EOL;
 		$output .= str_repeat('-', $cli->screenWidth()) . PHP_EOL . PHP_EOL;
-		$output .=  '    ' . trim($code['code']) . PHP_EOL . PHP_EOL;
+		$output .=  '    ' . $code . PHP_EOL . PHP_EOL;
 		$output .= str_repeat('-', $cli->screenWidth()) . PHP_EOL . PHP_EOL;
 		$output .= $this->exception->getTraceAsString() . PHP_EOL;
 

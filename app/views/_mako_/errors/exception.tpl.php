@@ -37,6 +37,10 @@
 	}
 	pre
 	{
+		background: #1D1F21;
+		color: #ccc;
+		padding: 20px;
+		margin-top: 0px;
 		overflow: auto;
 		word-wrap: normal;
 		white-space: pre;
@@ -45,7 +49,6 @@
 		tab-size: 4;
 		border-bottom-right-radius: 4px;
 		border-bottom-left-radius: 4px;
-		margin-top: 0px;
 	}
 	pre::-webkit-scrollbar
 	{
@@ -63,6 +66,12 @@
 		border-radius:8px !important;
 		border:2px solid white !important;
 		background-color:rgba(0,0,0,.5) !important
+	}
+	pre div.error
+	{
+		background: rgba(204, 10, 20, 0.3);
+		padding: 5px;
+		border-radius: 4px;
 	}
 	a
 	{
@@ -147,25 +156,6 @@
 		border: none;
 		padding-bottom: 0px;
 	}
-	.prettyprint.linenums{box-shadow: inset 50px 0 0 #2D3033, inset 51px 0 0 transparent;}
-	ol.linenums{margin: 0 0 0 0px;}
-	ol.linenums li {padding-left: 12px;color: #bebec5;line-height: 18px;text-shadow: 0 1px 0 #000;}
-	.pln{color:#c5c8c6}@media screen{.str{color:#b5bd68}
-	.kwd{color:#b294bb}
-	.com{color:#969896}
-	.typ{color:#81a2be}
-	.lit{color:#de935f}
-	.pun{color:#c5c8c6}
-	.opn{color:#c5c8c6}
-	.clo{color:#c5c8c6}
-	.tag{color:#c66}
-	.atn{color:#de935f}
-	.atv{color:#8abeb7}
-	.dec{color:#de935f}
-	.var{color:#c66}
-	.fun{color:#81a2be}}
-	pre.prettyprint{background:#1d1f21;border:0 solid #000;padding:10px}
-	ol.linenums{color:rgba(255,255,255,0.5);margin-top:0;margin-bottom:0}
 </style>
 
 </head>
@@ -180,7 +170,7 @@
 
 	{% if(!empty($error['source'])) %}
 		<div class="where code">{{$error['file']}} on line {{$error['line']}}</div>
-		<pre class="prettyprint linenums:{{$error['source']['start']}} linenums">{{$error['source']['code']}}</pre>
+		<pre>{% foreach($error['source']['code'] as $code) %}{% if($code['current'] == $error['line']) %}<div class="error">{{$code['line']}}</div>{% else %}{{$code['line']}}{% endif %}{% endforeach %}</pre>
 	{% else %}
 		<div class="where">{{$error['file']}} on line {{$error['line']}}</div>
 	{% endif %}
@@ -208,7 +198,7 @@
 
 				{% if(!empty($frame['location'])) %}
 					<div class="where code">{{$frame['location']['file']}} on line {{$frame['location']['line']}}</div>
-					<pre class="prettyprint linenums:{{$frame['location']['source']['start']}} linenums">{{trim($frame['location']['source']['code'])}}</pre>
+					<pre>{{trim($frame['location']['source']['code'][0]['line'])}}</pre>
 				{% endif %}
 			</div>
 		{% endforeach %}
@@ -264,31 +254,33 @@
 	</table>
 </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
-
 <script>
-	prettyPrint();
 
-	$('.hidden').hide();
+	// Register onclick events
 
-	$('.group').click(function(e)
+	var groups = document.getElementsByClassName('group');
+
+	for(var i = 0; i < groups.length; i++)
 	{
-		var parent = this;
-		var target = '.info' + '#' + $(this).data('target');
-
-		$(target).slideToggle('fast', function()
+		groups[i].onclick = function(e)
 		{
-			if($(target).is(":visible"))
-			{
-				$(parent).children('span').html('-');
-			}
-			else
-			{
-				$(parent).children('span').html('+');
-			}
-		});
-	});
+			var group = document.getElementById(e.target.getAttribute('data-target'));
+
+			e.target.getElementsByTagName('span')[0].innerHTML = (group.style.display === 'none' ? '-' : '+');
+
+			group.style.display = (group.style.display === 'none' ? 'block' : 'none');
+		};
+	}
+
+	// Hide groups
+
+	var hidden = document.getElementsByClassName('hidden');
+
+	for(var i = 0; i < hidden.length; i++)
+	{
+		hidden[i].style.display = 'none';
+	}
+
 </script>
 
 </body>
