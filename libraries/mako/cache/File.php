@@ -122,6 +122,8 @@ class File extends \mako\cache\Adapter
 			{
 				// Cache has expired ... delete it
 
+				fclose($handle);
+
 				unlink($this->cacheFile($key));
 
 				return false;
@@ -145,7 +147,20 @@ class File extends \mako\cache\Adapter
 
 	public function has($key)
 	{
-		return file_exists($this->cacheFile($key));
+		if(file_exists($this->cacheFile($key))
+		{
+			$handle = fopen($this->cacheFile($key), 'r');
+
+			fgets($handle); // skip first line
+
+			$expired = (time() < (int) fgets($handle));
+
+			fclose($handle);
+
+			return $expired;
+		}
+
+		return false;
 	}
 
 	/**
