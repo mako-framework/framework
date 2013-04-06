@@ -136,6 +136,12 @@ mako\ClassLoader::mapClasses(array
 mako\ClassLoader::register();
 
 //------------------------------------------------------------------------------------------
+// Register the error handler
+//------------------------------------------------------------------------------------------
+
+mako\ErrorHandler::register();
+
+//------------------------------------------------------------------------------------------
 // Define helper functions
 //------------------------------------------------------------------------------------------
 
@@ -254,10 +260,6 @@ if($config['locale']['lc_numeric'] === false)
 {
 	setlocale(LC_NUMERIC, 'C');
 }
-
-// Register the error handler
-
-mako\ErrorHandler::register();
 
 // Set up class aliases
 
