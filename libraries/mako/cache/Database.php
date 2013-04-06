@@ -177,7 +177,12 @@ class Database extends \mako\cache\Adapter
 
 		try
 		{
-			$this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
+			$success = (bool) $this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
+
+			if(!$success)
+			{
+				return false;
+			}
 		}
 		catch(PDOException $e)
 		{
@@ -209,7 +214,12 @@ class Database extends \mako\cache\Adapter
 
 		try
 		{
-			$this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
+			$success = (bool) $this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
+
+			if(!$success)
+			{
+				return false;
+			}
 		}
 		catch(PDOException $e)
 		{
