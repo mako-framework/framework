@@ -103,7 +103,7 @@ class File extends \mako\cache\Adapter
 
 			fgets($handle); // skip first line
 
-			if(time() < (int) fgets($handle))
+			if(time() < (int) trim(fgets($handle)))
 			{
 				// Cache has not expired ... fetch it
 
@@ -147,13 +147,13 @@ class File extends \mako\cache\Adapter
 
 	public function has($key)
 	{
-		if(file_exists($this->cacheFile($key))
+		if(file_exists($this->cacheFile($key)))
 		{
 			$handle = fopen($this->cacheFile($key), 'r');
 
 			fgets($handle); // skip first line
 
-			$expired = (time() < (int) fgets($handle));
+			$expired = (time() < (int) trim(fgets($handle)));
 
 			fclose($handle);
 
@@ -161,6 +161,89 @@ class File extends \mako\cache\Adapter
 		}
 
 		return false;
+	}
+
+	/**
+	 * Updates the stored value while keeping the ttl.
+	 * 
+	 * @access  protected
+	 * @param   string     $key    Cache key
+	 * @param   mixed      $value  The variable to store
+	 */
+
+	protected function update($key, $value)
+	{
+		$handle = fopen($this->cacheFile($key), 'r+');
+
+		fgets($handle); // skip first line
+
+		// Fetch the ttl
+
+		$ttl = trim(fgets($handle));
+
+		// Truncate the file
+
+		rewind($handle);
+
+		ftruncate($handle, 0);
+
+		// Write the data and close the handle
+
+		$data = "<?php defined('MAKO_APPLICATION_PATH') or die(); ?>\n{$ttl}\n" . serialize($value);
+
+		fwrite($handle, $data);
+
+		fclose($handle);
+	}
+
+	/**
+	 * Increases a stored number. Will return the incremented value on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Cache key
+	 * @param   string  $ammount  (optional) Ammoun that the number should be increased by
+	 * @return  mixed
+	 */
+
+	public function increment($key, $ammount = 1)
+	{
+		$value = $this->read($key);
+
+		if($value === false || !is_numeric($value))
+		{
+			return false;
+		}
+
+		$value += $ammount;
+
+		$this->update($key, $value);
+
+		return (int) $value;
+	}
+
+	/**
+	 * Decrements a stored number. Will return the decremented value on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Cache key
+	 * @param   string  $ammount  (optional) Ammoun that the number should be decremented by
+	 * @return  mixed
+	 */
+
+	public function decrement($key, $ammount = 1)
+	{
+		$value = $this->read($key);
+
+		if($value === false || !is_numeric($value))
+		{
+			return false;
+		}
+
+		$value -= $ammount;
+
+		$this->update($key, $value);
+
+		return (int) $value;
 	}
 
 	/**
