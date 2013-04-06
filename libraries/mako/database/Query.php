@@ -157,6 +157,9 @@ class Query
 			case 'odbc':
 				$this->compiler = new \mako\database\query\compiler\DB2($this);
 			break;
+			case 'nuodb':
+				$this->compiler = new \mako\database\query\compiler\NuoDB($this);
+			break;
 			default:
 				$this->compiler = new \mako\database\query\Compiler($this);
 		}
