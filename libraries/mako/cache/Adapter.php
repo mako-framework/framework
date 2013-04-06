@@ -52,6 +52,10 @@ abstract class Adapter
 
 	abstract public function has($key);
 
+	abstract public function increment($key, $ammount = 1);
+
+	abstract public function decrement($key, $ammount = 1);
+
 	abstract public function delete($key);
 
 	abstract public function clear();
