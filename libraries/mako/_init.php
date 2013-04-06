@@ -66,6 +66,7 @@ mako\ClassLoader::mapClasses(array
 	'mako\database\query\compiler\DB2'          => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/DB2.php',
 	'mako\database\query\compiler\Firebird'     => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/Firebird.php',
 	'mako\database\query\compiler\MySQL'        => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/MySQL.php',
+	'mako\database\query\compiler\NuoDB'        => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/NuoDB.php',
 	'mako\database\query\compiler\Oracle'       => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/Oracle.php',
 	'mako\database\query\compiler\SQLServer'    => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/SQLServer.php',
 	'mako\database\query\Raw'                   => MAKO_LIBRARIES_PATH . '/mako/database/query/Raw.php',
