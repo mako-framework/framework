@@ -137,22 +137,24 @@ class Query
 
 		$this->connection = $connection;
 
-		switch($this->connection->pdo->getAttribute(PDO::ATTR_DRIVER_NAME))
+		switch($this->connection->getDriver())
 		{
 			case 'mysql':
 				$this->compiler = new \mako\database\query\compiler\MySQL($this);
 			break;
-			case 'mssql':
 			case 'dblib':
+			case 'mssql':
 			case 'sqlsrv':
 				$this->compiler = new \mako\database\query\compiler\SQLServer($this);
 			break;
 			case 'oci':
+			case 'oracle':
 				$this->compiler = new \mako\database\query\compiler\Oracle($this);
 			break;
 			case 'firebird':
 				$this->compiler = new \mako\database\query\compiler\Firebird($this);
 			break;
+			case 'db2':
 			case 'ibm':
 			case 'odbc':
 				$this->compiler = new \mako\database\query\compiler\DB2($this);

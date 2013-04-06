@@ -33,6 +33,14 @@ class Connection
 	public $pdo;
 
 	/**
+	 * Driver name.
+	 * 
+	 * @var string
+	 */
+
+	protected $driver;
+
+	/**
 	 * Enable the query log?
 	 *
 	 * @var boolean
@@ -97,11 +105,27 @@ class Connection
 				$this->pdo->exec($query);
 			}
 		}
+
+		// Set the driver name
+
+		$this->driver = isset($config['driver']) ? $config['driver'] : $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns the driver name.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getDriver()
+	{
+		return $this->driver;
+	}
 
 	/**
 	 * Enables the query log.
