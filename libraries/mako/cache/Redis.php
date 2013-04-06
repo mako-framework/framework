@@ -3,6 +3,7 @@
 namespace mako\cache;
 
 use \mako\Redis as MRedis;
+use \RuntimeException;
 
 /**
  * Redis adapter.
@@ -74,7 +75,7 @@ class Redis extends \mako\cache\Adapter
 
 	public function write($key, $value, $ttl = 0)
 	{
-		$this->redis->set($this->identifier . $key, serialize($value));
+		$this->redis->set($this->identifier . $key, (is_numeric($value) ? $value : serialize($value)));
 		
 		if($ttl !== 0)
 		{
@@ -96,7 +97,7 @@ class Redis extends \mako\cache\Adapter
 	{
 		$data = $this->redis->get($this->identifier . $key);
 
-		return ($data === null) ? false : unserialize($data);
+		return ($data === null) ? false : (is_numeric($data) ? $data : unserialize($data));
 	}
 
 	/**
@@ -110,6 +111,49 @@ class Redis extends \mako\cache\Adapter
 	public function has($key)
 	{
 		return (bool) $this->redis->exists($this->identifier . $key);
+	}
+
+	/**
+	 * Increases a stored number. Will return the incremented value on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Cache key
+	 * @param   string  $ammount  (optional) Ammoun that the number should be increased by
+	 * @return  mixed
+	 */
+
+	public function increment($key, $ammount = 1)
+	{
+		try
+		{
+			return $this->redis->incrby($this->identifier . $key, $ammount);
+		}
+		catch(RuntimeException $e)
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Decrements a stored number. Will return the decremented value on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Cache key
+	 * @param   string  $ammount  (optional) Ammoun that the number should be decremented by
+	 * @return  mixed
+	 */
+
+	public function decrement($key, $ammount = 1)
+	{
+		try
+		{
+			return $this->redis->decrby($this->identifier . $key, $ammount);
+		}
+		catch(RuntimeException $e)
+		{
+			return false;
+		}
+		
 	}
 
 	/**
