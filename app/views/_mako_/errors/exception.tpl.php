@@ -188,8 +188,8 @@
 					<table width="100%">
 						{% foreach($frame['arguments'] as $k => $v) %}
 						<tr>
-							<td width="5%">{{$k+1}}</td>
-							<td width="95%">{{raw:$v}}</td>
+							<td width="20%">{{$k+1}}</td>
+							<td width="80%">{{raw:$v}}</td>
 						</tr>
 						{% endforeach %}
 					</table>
@@ -202,6 +202,23 @@
 				{% endif %}
 			</div>
 		{% endforeach %}
+	</div>
+{% endif %}
+
+{% if(!empty($error['queries'])) %}
+	<div class="group" data-target="queries">Database queries <span class="toggle">+</span></div>
+
+	<div class="info hidden" id="queries">
+
+		<table width="100%">
+			{% foreach($error['queries'] as $query) %}
+				<tr>
+					<td width="20%">{{round($query['time'], 5)}} seconds</td>
+					<td width="80%">{{$query['query']}}</td>
+				</tr>
+			{% endforeach %}
+		</table>
+
 	</div>
 {% endif %}
 
@@ -229,8 +246,8 @@
 			<table width="100%">
 				{% foreach($global as $k => $v) %}
 				<tr>
-					<td width="5%">{{$k}}</td>
-					<td width="95%">{{print_r($v, true)}}</td>
+					<td width="20%">{{$k}}</td>
+					<td width="80%">{{print_r($v, true)}}</td>
 				</tr>
 				{% endforeach %}
 			</table>
@@ -247,8 +264,8 @@
 	<table width="100%">
 		{% foreach(get_included_files() as $k => $v) %}
 		<tr>
-			<td width="5%">{{$k + 1}}</td>
-			<td width="95%">{{$v}}</td>
+			<td width="20%">{{$k + 1}}</td>
+			<td width="80%">{{$v}}</td>
 		</tr>
 		{% endforeach %}
 	</table>

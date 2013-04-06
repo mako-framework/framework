@@ -7,6 +7,7 @@ use \ErrorException;
 use \mako\Log;
 use \mako\View;
 use \mako\Config;
+use \mako\Database;
 use \mako\Response;
 use \mako\reactor\CLI;
 
@@ -222,6 +223,8 @@ class ExceptionHandler
 		if(Config::get('application.error_handler.display_errors') === true)
 		{
 			$error['source'] = $this->getCode($error['file'], $error['line']);
+
+			$error['queries'] = Database::getLog();
 
 			$backtrace = $this->exception->getTrace();
 
