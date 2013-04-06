@@ -134,6 +134,34 @@ class Memcached extends \mako\cache\Adapter
 	}
 
 	/**
+	 * Increases a stored number. Will return the incremented value on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Cache key
+	 * @param   string  $ammount  (optional) Ammoun that the number should be increased by
+	 * @return  mixed
+	 */
+
+	public function increment($key, $ammount = 1)
+	{
+		return $this->memcache->increment($this->identifier . $key, $ammount);
+	}
+
+	/**
+	 * Decrements a stored number. Will return the decremented value on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Cache key
+	 * @param   string  $ammount  (optional) Ammoun that the number should be decremented by
+	 * @return  mixed
+	 */
+
+	public function decrement($key, $ammount = 1)
+	{
+		return $this->memcache->decrement($this->identifier . $key, $ammount);
+	}
+
+	/**
 	 * Delete a variable from the cache.
 	 *
 	 * @access  public
