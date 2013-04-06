@@ -97,7 +97,7 @@ class APC extends \mako\cache\Adapter
 
 	public function increment($key, $ammount = 1)
 	{
-		return apc_inc($this->identifier . $key);
+		return apc_inc($this->identifier . $key, $ammount);
 	}
 
 	/**
@@ -111,7 +111,7 @@ class APC extends \mako\cache\Adapter
 
 	public function decrement($key, $ammount = 1)
 	{
-		return apc_dec($this->identifier . $key);
+		return apc_dec($this->identifier . $key, $ammount);
 	}
 
 	/**
