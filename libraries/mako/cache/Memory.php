@@ -102,7 +102,49 @@ class Memory extends \mako\cache\Adapter
 
 	public function has($key)
 	{
-		return isset($this->cache[$key]);
+		return (isset($this->cache[$key]) && $this->cache[$key]['ttl'] > time());
+	}
+
+	/**
+	 * Increases a stored number. Will return the incremented value on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Cache key
+	 * @param   string  $ammount  (optional) Ammoun that the number should be increased by
+	 * @return  mixed
+	 */
+
+	public function increment($key, $ammount = 1)
+	{
+		if(!$this->has($key) || !is_numeric($this->cache['key']['data']))
+		{
+			return false;
+		}
+
+		$this->cache[$key]['data'] += $ammount;
+
+		return (int) $this->cache[$key]['data'];
+	}
+
+	/**
+	 * Decrements a stored number. Will return the decremented value on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Cache key
+	 * @param   string  $ammount  (optional) Ammoun that the number should be decremented by
+	 * @return  mixed
+	 */
+
+	public function decrement($key, $ammount = 1)
+	{
+		if(!$this->has($key) || !is_numeric($this->cache[$key]['data']))
+		{
+			return false;
+		}
+
+		$this->cache[$key]['data'] -= $ammount;
+
+		return (int) $this->cache[$key]['data'];
 	}
 
 	/**
