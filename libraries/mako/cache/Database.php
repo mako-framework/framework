@@ -89,7 +89,7 @@ class Database extends \mako\cache\Adapter
 		{
 			$this->delete($key);
 
-			return $this->table()->insert(array('key' => $key, 'data' => serialize($value), 'lifetime' => $ttl));
+			return $this->table()->insert(array('key' => $this->identifier . $key, 'data' => serialize($value), 'lifetime' => $ttl));
 		}
 		catch(PDOException $e)
 		{
@@ -109,7 +109,7 @@ class Database extends \mako\cache\Adapter
 	{
 		try
 		{
-			$cache = $this->table()->where('key', '=', $key)->first();
+			$cache = $this->table()->where('key', '=', $this->identifier . $key)->first();
 
 			if($cache !== false)
 			{
@@ -145,7 +145,78 @@ class Database extends \mako\cache\Adapter
 
 	public function has($key)
 	{
-		return (bool) $this->table()->where('key', '=', $key)->where('lifetime', '>', time())->count();
+		try
+		{
+			return (bool) $this->table()->where('key', '=', $this->identifier . $key)->where('lifetime', '>', time())->count();
+		}
+		catch(PDOException $e)
+		{
+			 return false;
+		}
+	}
+
+	/**
+	 * Increases a stored number. Will return the incremented value on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Cache key
+	 * @param   string  $ammount  (optional) Ammoun that the number should be increased by
+	 * @return  mixed
+	 */
+
+	public function increment($key, $ammount = 1)
+	{
+		$value = $this->read($key);
+
+		if($value === false || !is_numeric($value))
+		{
+			return false;
+		}
+
+		$value += $ammount;
+
+		try
+		{
+			$this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
+		}
+		catch(PDOException $e)
+		{
+			 return false;
+		}
+
+		return (int) $value;
+	}
+
+	/**
+	 * Decrements a stored number. Will return the decremented value on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Cache key
+	 * @param   string  $ammount  (optional) Ammoun that the number should be decremented by
+	 * @return  mixed
+	 */
+
+	public function decrement($key, $ammount = 1)
+	{
+		$value = $this->read($key);
+
+		if($value === false || !is_numeric($value))
+		{
+			return false;
+		}
+
+		$value -= $ammount;
+
+		try
+		{
+			$this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
+		}
+		catch(PDOException $e)
+		{
+			 return false;
+		}
+
+		return (int) $value;
 	}
 	
 	/**
@@ -160,7 +231,7 @@ class Database extends \mako\cache\Adapter
 	{
 		try
 		{
-			return (bool) $this->table()->where('key', '=', $key)->delete();
+			return (bool) $this->table()->where('key', '=', $this->identifier . $key)->delete();
 		}
 		catch(PDOException $e)
 		{
