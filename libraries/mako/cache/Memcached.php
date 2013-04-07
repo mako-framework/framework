@@ -144,7 +144,12 @@ class Memcached extends \mako\cache\Adapter
 
 	public function increment($key, $ammount = 1)
 	{
-		return $this->memcache->increment($this->identifier . $key, $ammount);
+		if($this->has($key))
+		{
+			return $this->memcached->increment($this->identifier . $key, $ammount);
+		}
+
+		return false;
 	}
 
 	/**
@@ -158,7 +163,12 @@ class Memcached extends \mako\cache\Adapter
 
 	public function decrement($key, $ammount = 1)
 	{
-		return $this->memcache->decrement($this->identifier . $key, $ammount);
+		if($this->has($key))
+		{
+			return $this->memcached->decrement($this->identifier . $key, $ammount);
+		}
+
+		return false;
 	}
 
 	/**
