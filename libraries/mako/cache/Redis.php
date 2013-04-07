@@ -126,7 +126,21 @@ class Redis extends \mako\cache\Adapter
 	{
 		try
 		{
-			return $this->redis->incrby($this->identifier . $key, $ammount);
+			if($this->has($key))
+			{
+				$incremented = $this->redis->incrby($this->identifier . $key, $ammount);
+
+				$ttl = $this->redis->ttl($this->identifier . $key);
+
+				if($ttl > 0)
+				{
+					$this->redis->expire($this->identifier . $key, $ttl);
+				}
+
+				return $incremented;
+			}
+
+			return false;
 		}
 		catch(RuntimeException $e)
 		{
@@ -147,13 +161,26 @@ class Redis extends \mako\cache\Adapter
 	{
 		try
 		{
-			return $this->redis->decrby($this->identifier . $key, $ammount);
+			if($this->has($key))
+			{
+				$incremented = $this->redis->decrby($this->identifier . $key, $ammount);
+
+				$ttl = $this->redis->ttl($this->identifier . $key);
+
+				if($ttl > 0)
+				{
+					$this->redis->expire($this->identifier . $key, $ttl);
+				}
+
+				return $incremented;
+			}
+
+			return false;
 		}
 		catch(RuntimeException $e)
 		{
 			return false;
 		}
-		
 	}
 
 	/**
