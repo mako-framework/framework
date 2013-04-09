@@ -170,9 +170,7 @@ class Router
 				foreach($this->config['packages'] as $base => $package)
 				{
 					if($route === $base || strpos($route, $base . '/') === 0)
-					{
-						ClassLoader::registerNamespace($package . '\controllers', MAKO_PACKAGES_PATH . '/' . $package . '/controllers');
-						
+					{	
 						Package::init($package);
 
 						$router = new static($this->request, trim(mb_substr($route, mb_strlen($base)), '/'), $package);

@@ -34,6 +34,7 @@ class ClassLoader
 	(
 		MAKO_LIBRARIES_PATH,
 		MAKO_APPLICATION_PARENT_PATH,
+		MAKO_PACKAGES_PATH,
 	);
 
 	/**
