@@ -109,8 +109,8 @@ class CLI
 		{
 			if(!MAKO_IS_WINDOWS)
 			{
-				$size['width']  = exec('tput cols');
-				$size['height'] = exec('tput lines');
+				$size['width']  = (int) exec('tput cols');
+				$size['height'] = (int) exec('tput lines');
 			}
 		}
 
