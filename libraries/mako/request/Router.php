@@ -54,6 +54,38 @@ class Router
 	protected $config;
 
 	/**
+	 * Controller namespace.
+	 * 
+	 * @var string
+	 */
+
+	protected $namespace;
+
+	/**
+	 * Controller name.
+	 * 
+	 * @var string
+	 */
+
+	protected $controller;
+
+	/**
+	 * Controller action.
+	 * 
+	 * @var string
+	 */
+
+	protected $action;
+
+	/**
+	 * Controller arguments.
+	 * 
+	 * @var array
+	 */
+
+	protected $actionArguments = array();
+
+	/**
 	 * Base routes of the routable packages.
 	 *
 	 * @var arary
@@ -91,6 +123,54 @@ class Router
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns the controller namespace.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getNamespace()
+	{
+		return $this->namespace;
+	}
+
+	/**
+	 * Returns the controller name.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getController()
+	{
+		return $this->controller;
+	}
+
+	/**
+	 * Returns the controller action.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getAction()
+	{
+		return $this->action;
+	}
+
+	/**
+	 * Returns the action arguments.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getActionArguments()
+	{
+		return $this->actionArguments;
+	}
 
 	/**
 	 * Replaces the package prefix with the package base route.
@@ -190,11 +270,8 @@ class Router
 
 		// Route the request
 
-		$namespace        = $this->package === null ? '\app\controllers\\' : '\\' . $this->package . '\controllers\\';
-		$controller       = '';
-		$action           = '';
-		$actionArguments  = array();
-		$controllerPath   = $this->package === null ? MAKO_APPLICATION_PATH . '/controllers/' : MAKO_PACKAGES_PATH . '/' . $this->package . '/controllers/';
+		$this->namespace = $this->package === null ? '\app\controllers\\' : '\\' . $this->package . '\controllers\\';
+		$controllerPath  = $this->package === null ? MAKO_APPLICATION_PATH . '/controllers/' : MAKO_PACKAGES_PATH . '/' . $this->package . '/controllers/';
 
 		// Get the URL segments
 
@@ -214,7 +291,7 @@ class Router
 				// Just a directory - Jump to next iteration
 
 				$controllerPath .= $segment . '/';
-				$namespace      .= $segment . '\\';
+				$this->namespace      .= $segment . '\\';
 
 				array_shift($segments);
 
@@ -224,7 +301,7 @@ class Router
 			{
 				// We have found our controller - Exit loop
 
-				$controller = $segment;
+				$this->controller = $segment;
 
 				array_shift($segments);
 
@@ -238,37 +315,32 @@ class Router
 			}
 		}
 
-		if(empty($controller))
+		if(empty($this->controller))
 		{
-			$controller = 'index'; // default controller
+			$this->controller = 'index'; // default controller
 		}
 
 		// Get the action we want to execute
 
-		$action = array_shift($segments);
+		$this->action = array_shift($segments);
 
-		if($action === null)
+		if($this->action === null)
 		{
-			$action = 'index';
+			$this->action = 'index';
 		}
 
 		// Remaining segments are passed as arguments to the action
 
-		$actionArguments = $segments;
+		$this->actionArguments = $segments;
 
 		// Check if file exists
 
-		if(!file_exists($controllerPath . $controller . '.php'))
+		if(!file_exists($controllerPath . $this->controller . '.php'))
 		{
 			return false;
 		}
 		else
 		{
-			$this->request->setNamespace($namespace);
-			$this->request->setController($controller);
-			$this->request->setAction($action);
-			$this->request->setActionArguments($actionArguments);
-
 			return true;
 		}
 	}

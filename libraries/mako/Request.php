@@ -98,15 +98,7 @@ class Request
 	protected static $secure;
 
 	/**
-	 * Namespace of the controller class.
-	 *
-	 * @var string
-	 */
-
-	protected $namespace;
-
-	/**
-	 * Name of the controller.
+	 * Controller name.
 	 *
 	 * @var string
 	 */
@@ -114,20 +106,12 @@ class Request
 	protected $controller;
 
 	/**
-	 * Name of the action.
+	 * Controller action.
 	 *
 	 * @var string
 	 */
 
 	protected $action;
-
-	/**
-	 * Array holding the arguments of the action method.
-	 *
-	 * @var array
-	 */
-
-	protected $actionArguments;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -182,54 +166,6 @@ class Request
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
-	/**
-	 * Sets the controller namespace
-	 * 
-	 * @access  public
-	 * @param   string  $namespace  Controller namespace
-	 */
-
-	public function setNamespace($namespace)
-	{
-		$this->namespace = $namespace;
-	}
-
-	/**
-	 * Sets the controller class.
-	 * 
-	 * @access  public
-	 * @param   string  $controller  Controller class
-	 */
-
-	public function setController($controller)
-	{
-		$this->controller = $controller;
-	}
-
-	/**
-	 * Sets the controller action.
-	 * 
-	 * @access  public
-	 * @param   string  $action  Controller action
-	 */
-
-	public function setAction($action)
-	{
-		$this->action = $action;
-	}
-
-	/**
-	 * Sets the controller action arguments.
-	 * 
-	 * @access public
-	 * @param  array   $arguments  Controller action arguments
-	 */
-
-	public function setActionArguments(array $arguments)
-	{
-		$this->actionArguments = $arguments;
-	}
 
 	/**
 	 * Gets information about the request.
@@ -377,9 +313,12 @@ class Request
 			throw new RequestException(404);
 		}
 
+		$this->controller = $router->getController();
+		$this->action     = $router->getAction();
+
 		// Validate controller class
 
-		$controllerClass = new ReflectionClass($this->namespace . $this->controller);
+		$controllerClass = new ReflectionClass($router->getNamespace() . $this->controller);
 
 		if($controllerClass->isSubClassOf('\mako\Controller') === false)
 		{
@@ -431,10 +370,11 @@ class Request
 		}
 
 		$controllerAction = $controllerClass->getMethod($action);
+		$actionArguments  = $router->getActionArguments();
 		
 		// Check if number of arguments match
 		
-		if(count($this->actionArguments) < $controllerAction->getNumberOfRequiredParameters() || count($this->actionArguments) > $controllerAction->getNumberOfParameters())
+		if(count($actionArguments) < $controllerAction->getNumberOfRequiredParameters() || count($actionArguments) > $controllerAction->getNumberOfParameters())
 		{
 			throw new RequestException(404);
 		}
@@ -445,7 +385,7 @@ class Request
 		
 		// Run action
 
-		$response->body($controllerAction->invokeArgs($controller, $this->actionArguments));
+		$response->body($controllerAction->invokeArgs($controller, $actionArguments));
 
 		// Run post-action method
 
