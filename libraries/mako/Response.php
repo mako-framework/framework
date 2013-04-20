@@ -352,6 +352,18 @@ class Response
 	}
 
 	/**
+	 * Redirects the user back to the previous page.
+	 * 
+	 * @access  public
+	 * @param   int     $statusCode  (optional) HTTP status code
+	 */
+
+	public function back($statusCode = 302)
+	{
+		$this->redirect(Request::referer(), $statusCode);
+	}
+
+	/**
 	 * Enables ETag response cache.
 	 *
 	 * @access  public
