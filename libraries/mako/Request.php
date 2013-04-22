@@ -3,6 +3,7 @@
 namespace mako;
 
 use \mako\URL;
+use \mako\Arr;
 use \mako\I18n;
 use \mako\Config;
 use \mako\Response;
@@ -24,6 +25,22 @@ class Request
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Holds the main request instance.
+	 * 
+	 * @var mako\Request
+	 */
+
+	protected static $main;
+
+	/**
+	 * Is this the main request?
+	 *
+	 * @var array
+	 */
+
+	protected $isMain = true;
 	
 	/**
 	 * Holds the route passed to the constructor.
@@ -42,28 +59,12 @@ class Request
 	protected $method;
 
 	/**
-	 * Holds the main request instance.
+	 * Request headers.
 	 * 
-	 * @var mako\Request
-	 */
-
-	protected static $main;
-
-	/**
-	 * Request language.
-	 * 
-	 * @var string
-	 */
-
-	protected static $language;
-
-	/**
-	 * Is this the main request?
-	 *
 	 * @var array
 	 */
 
-	protected $isMain = true;
+	protected static $headers = array();
 	
 	/**
 	 * Ip address of the cilent that made the request.
@@ -72,14 +73,6 @@ class Request
 	 */
 	
 	protected static $ip = '127.0.0.1';
-
-	/**
-	 * From where did the request originate?
-	 *
-	 * @var string
-	 */
-
-	protected static $referer;
 
 	/**
 	 * Is this an Ajax request?
@@ -96,6 +89,14 @@ class Request
 	 */
 
 	protected static $secure;
+
+	/**
+	 * Request language.
+	 * 
+	 * @var string
+	 */
+
+	protected static $language;
 
 	/**
 	 * Controller name.
@@ -168,6 +169,42 @@ class Request
 	//---------------------------------------------
 
 	/**
+	 * Collects and returns all the request headers.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function collectHeaders()
+	{
+		$headers = array();
+
+		foreach($_SERVER as $key => $value)
+		{
+			if(strpos($key, 'HTTP_') === 0)
+			{
+				$headers[substr($key, 5)] = $value;
+			}
+			elseif(in_array($key, array('CONTENT_LENGTH', 'CONTENT_MD5', 'CONTENT_TYPE')))
+			{
+                $headers[$key] = $value;
+            }
+		}
+
+		if(isset($_SERVER['PHP_AUTH_USER']))
+		{
+			$headers['PHP_AUTH_USER'] = $_SERVER['PHP_AUTH_USER'];
+
+			if(isset($_SERVER['PHP_AUTH_PW']))
+			{
+				$headers['PHP_AUTH_PW'] = $_SERVER['PHP_AUTH_PW'];
+			}
+		}
+
+		return $headers;
+	}
+
+	/**
 	 * Gets information about the request.
 	 * 
 	 * @access protected
@@ -175,6 +212,10 @@ class Request
 
 	protected function requestInfo()
 	{
+		// Get the request headers
+
+		static::$headers = $this->collectHeaders();
+
 		// Get the ip of the client that made the request
 		
 		if(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
@@ -200,10 +241,6 @@ class Request
 		{
 			static::$ip = $ip;
 		}
-
-		// From where did the request originate?
-
-		static::$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 		
 		// Is this an Ajax request?
 
@@ -395,51 +432,15 @@ class Request
 	}
 
 	/**
-	 * Returns the name of the requested action.
-	 *
+	 * Returns the main request.
+	 * 
 	 * @access  public
-	 * @return  string
+	 * @return  mako\Request
 	 */
 
-	public function action()
+	public static function main()
 	{
-		return $this->action;
-	}
-
-	/**
-	 * Returns the name of the requested controller.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function controller()
-	{
-		return $this->controller;
-	}
-
-	/**
-	 * Returns the route of the request.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function route()
-	{
-		return $this->route;
-	}
-
-	/**
-	 * Which request method was used?
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function method()
-	{
-		return $this->method;
+		return static::$main;
 	}
 
 	/**
@@ -455,15 +456,67 @@ class Request
 	}
 
 	/**
-	 * Returns the main request.
-	 * 
+	 * Returns the route of the request.
+	 *
 	 * @access  public
-	 * @return  mako\Request
+	 * @return  string
 	 */
 
-	public static function main()
+	public function route()
 	{
-		return static::$main;
+		return $this->route;
+	}
+
+	/**
+	 * Returns the name of the requested controller.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function controller()
+	{
+		return $this->controller;
+	}
+
+	/**
+	 * Returns the name of the requested action.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function action()
+	{
+		return $this->action;
+	}
+
+	/**
+	 * Which request method was used?
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function method()
+	{
+		return $this->method;
+	}
+
+	/**
+	 * Returns a request header.
+	 * 
+	 * @access  public
+	 * @param   string  $name     Header name
+	 * @param   mixed   $default  Default value
+	 * @return  mixed
+	 */
+
+	public static function header($name, $default = null)
+	{
+		$name = strtoupper(str_replace('-', '_', $name));
+
+		return isset(static::$headers[$name]) ? static::$headers[$name] : $default;
 	}
 	
 	/**
@@ -488,7 +541,7 @@ class Request
 
 	public static function referer($default = '')
 	{
-		return empty(static::$referer) ? $default : static::$referer;
+		return static::header('referer', $default);
 	}
 
 	/**

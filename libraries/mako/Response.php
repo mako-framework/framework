@@ -453,7 +453,7 @@ class Response
 
 				header('ETag: ' . $hash);
 
-				if(isset($_SERVER['HTTP_IF_NONE_MATCH']) && $hash === $_SERVER['HTTP_IF_NONE_MATCH'])
+				if(Request::header('if-none-match') === $hash)
 				{
 					$this->status(304);
 
