@@ -59,6 +59,22 @@ class Request
 	protected $method;
 
 	/**
+	 * Controller name.
+	 *
+	 * @var string
+	 */
+
+	protected $controller;
+
+	/**
+	 * Controller action.
+	 *
+	 * @var string
+	 */
+
+	protected $action;
+
+	/**
 	 * Request headers.
 	 * 
 	 * @var array
@@ -88,7 +104,7 @@ class Request
 	 * @var boolean
 	 */
 
-	protected static $secure;
+	protected static $isSecure;
 
 	/**
 	 * Request language.
@@ -97,22 +113,6 @@ class Request
 	 */
 
 	protected static $language;
-
-	/**
-	 * Controller name.
-	 *
-	 * @var string
-	 */
-
-	protected $controller;
-
-	/**
-	 * Controller action.
-	 *
-	 * @var string
-	 */
-
-	protected $action;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -169,13 +169,13 @@ class Request
 	//---------------------------------------------
 
 	/**
-	 * Collects and returns all the request headers.
+	 * Returns all the request headers.
 	 * 
 	 * @access  protected
 	 * @return  array
 	 */
 
-	protected function collectHeaders()
+	protected function headers()
 	{
 		$headers = array();
 
@@ -214,7 +214,7 @@ class Request
 	{
 		// Get the request headers
 
-		static::$headers = $this->collectHeaders();
+		static::$headers = $this->headers();
 
 		// Get the ip of the client that made the request
 		
@@ -248,7 +248,7 @@ class Request
 
 		// Was the request made using HTTPS?
 
-		static::$secure = (!empty($_SERVER['HTTPS']) && filter_var($_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
+		static::$isSecure = (!empty($_SERVER['HTTPS']) && filter_var($_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
 	}
 
 	/**
@@ -577,7 +577,7 @@ class Request
 
 	public static function isSecure()
 	{
-		return static::$secure;
+		return static::$isSecure;
 	}
 }
 
