@@ -3,7 +3,6 @@
 namespace mako;
 
 use \mako\URL;
-use \mako\Arr;
 use \mako\I18n;
 use \mako\Config;
 use \mako\Response;
