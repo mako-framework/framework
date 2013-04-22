@@ -68,7 +68,7 @@ class URL
 
 		if($base === false)
 		{
-			$base  = Config::get('application.base_url');
+			$base = Config::get('application.base_url');
 
 			// Try to autodetect base url if its not configured
 
