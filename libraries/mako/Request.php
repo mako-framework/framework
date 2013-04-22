@@ -187,8 +187,8 @@ class Request
 			}
 			elseif(in_array($key, array('CONTENT_LENGTH', 'CONTENT_MD5', 'CONTENT_TYPE')))
 			{
-                $headers[$key] = $value;
-            }
+				$headers[$key] = $value;
+			}
 		}
 
 		if(isset($_SERVER['PHP_AUTH_USER']))
