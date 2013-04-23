@@ -110,12 +110,13 @@ class Event
 	 * contaning the return values of each event handler.
 	 *
 	 * @access  public
-	 * @param   string  $name    Event name
-	 * @param   array   $params  (optional) Closure parameters
+	 * @param   string   $name    Event name
+	 * @param   array    $params  (optional) Closure parameters
+	 * @param   boolean  $break   (optional) Break if one of the closures returns false?
 	 * @return  array
 	 */
 
-	public static function trigger($name, array $params = array())
+	public static function trigger($name, array $params = array(), $break = false)
 	{
 		$values = array();
 
@@ -123,7 +124,14 @@ class Event
 		{
 			foreach(static::$events[$name] as $event)
 			{
-				$values[] = call_user_func_array($event, $params);
+				$result = call_user_func_array($event, $params);
+
+				if($break && $result === false)
+				{
+					return false;
+				}
+
+				$values[] = $result;
 			}
 		}
 
@@ -137,12 +145,13 @@ class Event
 	 * @access  public
 	 * @param   string  $name    Event name
 	 * @param   array   $params  (optional) Closure parameters
+	 * @param   boolean  $break   (optional) Break if one of the closures returns false?
 	 * @return  mixed
 	 */
 
-	public static function first($name, array $params = array())
+	public static function first($name, array $params = array(), $break = false)
 	{
-		$results = static::trigger($name, $params);
+		$results = static::trigger($name, $params, $break);
 
 		return empty($results) ? null : $results[0];
 	}
