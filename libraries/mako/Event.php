@@ -124,14 +124,12 @@ class Event
 		{
 			foreach(static::$events[$name] as $event)
 			{
-				$result = call_user_func_array($event, $params);
+				$values[] = $last = call_user_func_array($event, $params);
 
-				if($break && $result === false)
+				if($break && $last === false)
 				{
-					return false;
+					return $values;
 				}
-
-				$values[] = $result;
 			}
 		}
 
