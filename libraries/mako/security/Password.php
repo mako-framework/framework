@@ -109,7 +109,7 @@ class Password
 
 	public static function validate($password, $hash, Closure $legacyCheck = null)
 	{
-		if(!is_null($legacyCheck) && static::isLegacyHash($hash))
+		if($legacyCheck !== null && static::isLegacyHash($hash))
 		{
 			return $legacyCheck($password, $hash);
 		}
