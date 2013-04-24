@@ -102,16 +102,13 @@ class Router
 	 * 
 	 * @access  public
 	 * @param   mako\Request  $request  Request that instantiated the router
-	 * @param   string        $route    Request route
-	 * @param   string        $package  (optional) Package name
 	 */
 
-	public function __construct(Request $request, $route, $package = null)
+	public function __construct(Request $request)
 	{
 		$this->request = $request;
-		$this->route   = $route;
-		$this->package = $package;
-		$this->config  = Config::get(($package !== null ? $package . '::' : '') . 'routes');
+		$this->route   = $request->getRoute();
+		$this->config  = Config::get('routes');
 
 		if($this->request->isMain() && $package === null)
 		{
@@ -255,6 +252,7 @@ class Router
 
 						$this->route   = trim(mb_substr($route, mb_strlen($base)), '/');
 						$this->package = $package;
+						$this->config  = Config::get($package . '::routes');
 
 						return $this->route();
 					}

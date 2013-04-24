@@ -332,7 +332,7 @@ class Request
 	{
 		// Route the request
 
-		$router = new Router($this, $this->getRoute());
+		$router = new Router($this);
 
 		if($router->route() === false)
 		{
