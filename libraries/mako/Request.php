@@ -190,16 +190,6 @@ class Request
 			}
 		}
 
-		if(isset($_SERVER['PHP_AUTH_USER']))
-		{
-			$headers['PHP_AUTH_USER'] = $_SERVER['PHP_AUTH_USER'];
-
-			if(isset($_SERVER['PHP_AUTH_PW']))
-			{
-				$headers['PHP_AUTH_PW'] = $_SERVER['PHP_AUTH_PW'];
-			}
-		}
-
 		return $headers;
 	}
 
@@ -516,6 +506,30 @@ class Request
 		$name = strtoupper(str_replace('-', '_', $name));
 
 		return isset(static::$headers[$name]) ? static::$headers[$name] : $default;
+	}
+
+	/**
+	 * Returns the basic HTTP authentication username or NULL.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public static function username()
+	{
+		return isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : null;
+	}
+
+	/**
+	 * Returns the basic HTTP authentication password or NULL.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public static function password()
+	{
+		return isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null;
 	}
 	
 	/**
