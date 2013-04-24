@@ -127,13 +127,13 @@ class Request
 
 	public function __construct($route = null, $method = null)
 	{
-		$this->route = $route;
+		static $mainRequest = true;
+
+		$this->route = $this->getRoute($route);
 
 		$this->method = strtoupper($this->isMain ? 
 		                ($method ?: (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) :
 		                (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET'))) : ($method ?: static::$main->method()));
-
-		static $mainRequest = true;
 
 		if($mainRequest === true)
 		{
@@ -168,13 +168,90 @@ class Request
 	//---------------------------------------------
 
 	/**
+	 * Returns the requested route.
+	 *
+	 * @access  protected
+	 * @param   string     $route  The requested route
+	 * @return  string
+	 */
+
+	protected function getRoute($route)
+	{
+		if(empty($route))
+		{
+			if(isset($_SERVER['PATH_INFO']) && $this->isMain())
+			{
+				$route = $_SERVER['PATH_INFO'];
+			}
+			elseif(isset($_SERVER['REQUEST_URI']) && $this->isMain())
+			{
+				if($uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
+				{
+					// Removes base url from uri
+
+					$base = parse_url(URL::base(), PHP_URL_PATH);
+
+					if(stripos($uri, $base) === 0)
+					{
+						$uri = mb_substr($uri, mb_strlen($base));
+					}
+
+					// Removes "/index.php" from uri
+
+					if(stripos($uri, '/index.php') === 0)
+					{
+						$uri = mb_substr($uri, 10);
+					}
+
+					$route = rawurldecode($uri);
+				}
+			}
+		}
+
+		$route = trim($route, '/');
+
+		if($this->isMain())
+		{
+			// Redirects to the current URL without index.php if clean URLs are enabled
+
+			if(Config::get('application.clean_urls') && isset($_SERVER['REQUEST_URI']) && stripos($_SERVER['REQUEST_URI'], 'index.php') !== false)
+			{
+				$path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+
+				if(stripos(ltrim(mb_substr($_SERVER['REQUEST_URI'], mb_strlen($path)), '/'), 'index.php') === 0 && stripos($route, 'index.php.') !== 0)
+				{
+					Response::factory()->redirect($route, 301);
+				}
+			}
+
+			// Removes the locale segment from the route
+			
+			foreach(Config::get('routes.languages', array()) as $key => $language)
+			{
+				if($route === $key || strpos($route, $key . '/') === 0)
+				{
+					static::$language = $key;
+
+					I18n::language($language);
+
+					$route = trim(mb_substr($route, mb_strlen($key)), '/');
+
+					break;
+				}
+			}
+		}
+
+		return $route;
+	}
+
+	/**
 	 * Returns all the request headers.
 	 * 
 	 * @access  protected
 	 * @return  array
 	 */
 
-	protected function headers()
+	protected function getHeaders()
 	{
 		$headers = array();
 
@@ -203,7 +280,7 @@ class Request
 	{
 		// Get the request headers
 
-		static::$headers = $this->headers();
+		static::$headers = $this->getHeaders();
 
 		// Get the ip of the client that made the request
 		
@@ -241,87 +318,6 @@ class Request
 	}
 
 	/**
-	 * Returns the requested route.
-	 *
-	 * @access  protected
-	 * @return  string
-	 */
-
-	protected function getRoute()
-	{
-		$route = '';
-
-		if($this->route !== null)
-		{
-			$route = $this->route;
-		}
-		elseif(isset($_SERVER['PATH_INFO']) && $this->isMain())
-		{
-			$route = $_SERVER['PATH_INFO'];
-		}
-		elseif(isset($_SERVER['REQUEST_URI']) && $this->isMain())
-		{
-			if($uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
-			{
-				// Removes base url from uri
-
-				$base = parse_url(URL::base(), PHP_URL_PATH);
-
-				if(stripos($uri, $base) === 0)
-				{
-					$uri = mb_substr($uri, mb_strlen($base));
-				}
-
-				// Removes "/index.php" from uri
-
-				if(stripos($uri, '/index.php') === 0)
-				{
-					$uri = mb_substr($uri, 10);
-				}
-
-				$route = rawurldecode($uri);
-			}
-		}
-
-		$route = trim($route, '/');
-
-		if($this->isMain())
-		{
-			// Redirects to the current URL without index.php if clean URLs are enabled
-
-			if(Config::get('application.clean_urls') && isset($_SERVER['REQUEST_URI']) && stripos($_SERVER['REQUEST_URI'], 'index.php') !== false)
-			{
-				$path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
-
-				if(stripos(ltrim(mb_substr($_SERVER['REQUEST_URI'], mb_strlen($path)), '/'), 'index.php') === 0 && stripos($route, 'index.php.') !== 0)
-				{
-					Response::factory()->redirect($route, 301);
-				}
-			}
-
-			// Removes the locale segment from the route
-			
-			foreach(Config::get('routes.languages', array()) as $key => $language)
-			{
-				if($route === $key || strpos($route, $key . '/') === 0)
-				{
-					static::$language = $key;
-
-					I18n::language($language);
-
-					$route = trim(mb_substr($route, mb_strlen($key)), '/');
-
-					break;
-				}
-			}
-
-			$this->route = $route;
-		}
-
-		return $route;
-	}
-
-	/**
 	 * Executes request.
 	 *
 	 * @access  public
@@ -332,7 +328,7 @@ class Request
 	{
 		// Route the request
 
-		$router = new Router($this, $this->getRoute());
+		$router = new Router($this);
 
 		if($router->route() === false)
 		{
