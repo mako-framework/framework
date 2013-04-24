@@ -253,9 +253,10 @@ class Router
 					{	
 						Package::init($package);
 
-						$router = new static($this->request, trim(mb_substr($route, mb_strlen($base)), '/'), $package);
+						$this->route   = trim(mb_substr($route, mb_strlen($base)), '/');
+						$this->package = $package;
 
-						return $router->route();
+						return $this->route();
 					}
 				}
 			}
