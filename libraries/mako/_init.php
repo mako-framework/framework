@@ -148,25 +148,53 @@ mako\ErrorHandler::register();
 /**
  * Returns path to a package or application directory.
  *
- * @param   string  $path    Path
- * @param   string  $string  String
+ * @param   string  $path  Path
+ * @param   string  $file  File
  * @return  string
  */
 
-function mako_path($path, $string)
+function mako_path($path, $file)
 {
-	if(strpos($string, '::') !== false)
+	if(strpos($file, '::') !== false)
 	{
-		list($package, $file) = explode('::', $string);
+		list($package, $file) = explode('::', $file);
 
 		$path = MAKO_PACKAGES_PATH . '/' . $package . '/' . $path . '/' . $file . '.php';
 	}
 	else
 	{
-		$path = MAKO_APPLICATION_PATH . '/' . $path . '/' . $string . '.php';
+		$path = MAKO_APPLICATION_PATH . '/' . $path . '/' . $file . '.php';
 	}
 
 	return $path;
+}
+
+/**
+ * Returns an array of cascading paths to a package or application directory.
+ *
+ * @param   string  $path  Path
+ * @param   string  $file  String
+ * @return  array
+ */
+
+function mako_cascading_path($path, $file)
+{
+	$paths = array();
+
+	if(strpos($file, '::') !== false)
+	{
+		list($package, $file) = explode('::', $file);
+
+		$paths[] = MAKO_APPLICATION_PATH . '/' . $path . '/packages/' . $package . '/' . $file . '.php';
+
+		$paths[] = MAKO_PACKAGES_PATH . '/' . $package . '/' . $path . '/' . $file . '.php';
+	}
+	else
+	{
+		$paths[] = MAKO_APPLICATION_PATH . '/' . $path . '/' . $file . '.php';
+	}
+
+	return $paths;
 }
 
 /**

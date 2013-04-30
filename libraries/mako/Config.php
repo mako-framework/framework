@@ -56,17 +56,43 @@ class Config
 
 	protected static function load($file)
 	{
-		if(!file_exists($path = mako_path('config', $file)))
+		$found = false;
+		$paths = mako_cascading_path('config', $file);
+
+		foreach($paths as $path)
+		{
+			if(file_exists($path))
+			{
+				$found  = true;
+				$config = include($path);
+
+				break;
+			}
+		}
+
+		if(!$found)
 		{
 			throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $file)));
 		}
 
-		$config = include($path);
+		// Merge environment specific configuration
 
-		if(mako_env() !== null && file_exists($path = mako_path('config/' . mako_env(), $file)))
+		if(mako_env() !== null)
 		{
-			$config = Arr::mergeRecursively($config, include($path));
+			$paths = mako_cascading_path('config/' . mako_env(), $file);
+
+			foreach($paths as $path)
+			{
+				if(file_exists($path))
+				{
+					$config = Arr::mergeRecursively($config, include($path));
+
+					break;
+				}
+			}
 		}
+
+		// Return configuration
 
 		return $config;
 	}
