@@ -89,7 +89,6 @@ mako\ClassLoader::mapClasses(array
 	'mako\log\FirePHP'                          => MAKO_LIBRARIES_PATH . '/mako/log/FirePHP.php',
 	'mako\log\Syslog'                           => MAKO_LIBRARIES_PATH . '/mako/log/Syslog.php',
 	'mako\Mako'                                 => MAKO_LIBRARIES_PATH . '/mako/Mako.php',
-	'mako\Model'                                => MAKO_LIBRARIES_PATH . '/mako/Model.php',
 	'mako\Num'                                  => MAKO_LIBRARIES_PATH . '/mako/Num.php',
 	'mako\Package'                              => MAKO_LIBRARIES_PATH . '/mako/Package.php',
 	'mako\Pagination'                           => MAKO_LIBRARIES_PATH . '/mako/Pagination.php',
