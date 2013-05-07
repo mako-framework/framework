@@ -63,7 +63,8 @@ class Config
 		{
 			if(file_exists($path))
 			{
-				$found  = true;
+				$found = true;
+
 				$config = include($path);
 
 				break;
