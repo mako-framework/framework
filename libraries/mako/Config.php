@@ -85,7 +85,7 @@ class Config
 			{
 				if(file_exists($path))
 				{
-					$config = Arr::mergeRecursively($config, include($path));
+					$config = array_replace_recursive($config, include($path));
 
 					break;
 				}

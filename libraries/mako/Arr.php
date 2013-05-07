@@ -190,39 +190,6 @@ class Arr
 			return is_object($value) ? $value->$key : $value[$key];
 		}, $array);
 	}
-
-	/**
-	 * Merges two or more arrays recursively.
-	 * 
-	 * @access  public
-	 * @param   array   $array1  Array to merge into
-	 * @param   array   $array2  Array to merge
-	 * @return  array
-	 */
-
-	public static function mergeRecursively()
-	{
-		$arrays = func_get_args();
-
-		$merged = array();
-
-		foreach($arrays as $array)
-		{
-			foreach($array as $key => $value)
-			{
-				if(is_array($value) && isset($merged[$key]) && is_array($merged[$key]))
-				{
-					$merged[$key] = static::mergeRecursively($merged[$key], $value);
-				}
-				else
-				{
-					$merged[$key] = $value;
-				}
-			}
-		}
-
-		return $merged;
-	}
 }
 
 /** -------------------- End of file --------------------**/
