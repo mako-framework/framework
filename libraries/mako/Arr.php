@@ -38,33 +38,6 @@ class Arr
 	//---------------------------------------------
 
 	/**
-	 * Returns value from array using "dot notation".
-	 *
-	 * @access  public
-	 * @param   array   $array    Array we're going to search
-	 * @param   string  $path     Array path
-	 * @param   mixed   $default  (optional) Default return value
-	 * @return  mixed
-	 */
-
-	public static function get(array $array, $path, $default = null)
-	{
-		$segments = explode('.', $path);
-
-		foreach($segments as $segment)
-		{
-			if(!is_array($array) || !isset($array[$segment]))
-			{
-				return $default;
-			}
-
-			$array = $array[$segment];
-		}
-
-		return $array;
-	}
-
-	/**
 	 * Sets an array value using "dot notation".
 	 *
 	 * @access  public
@@ -90,6 +63,59 @@ class Arr
 		}
 
 		$array[array_shift($segments)] = $value;
+	}
+
+	/**
+	 * Search for an array value using "dot notation". Returns TRUE if the array key exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   array    $array  Array we're goint to search
+	 * @param   string   $path   Array path
+	 * @return  boolean
+	 */
+
+	public static function has(array $array, $path)
+	{
+		$segments = explode('.', $path);
+
+		foreach($segments as $segment)
+		{
+			if(!is_array($array) || !isset($array[$segment]))
+			{
+				return false;
+			}
+
+			$array = $array[$segment];
+		}
+
+		return true;
+	}
+
+	/**
+	 * Returns value from array using "dot notation".
+	 *
+	 * @access  public
+	 * @param   array   $array    Array we're going to search
+	 * @param   string  $path     Array path
+	 * @param   mixed   $default  (optional) Default return value
+	 * @return  mixed
+	 */
+
+	public static function get(array $array, $path, $default = null)
+	{
+		$segments = explode('.', $path);
+
+		foreach($segments as $segment)
+		{
+			if(!is_array($array) || !isset($array[$segment]))
+			{
+				return $default;
+			}
+
+			$array = $array[$segment];
+		}
+
+		return $array;
 	}
 
 	/**
