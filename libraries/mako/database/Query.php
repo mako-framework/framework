@@ -772,7 +772,7 @@ class Query
 	 * @return  mako\database\Query
 	 */
 
-	public function orderBy($columns, $order = 'asc')
+	public function orderBy($columns, $order = 'ASC')
 	{
 		if(!is_array($columns))
 		{
@@ -786,6 +786,32 @@ class Query
 		);
 
 		return $this;
+	}
+
+	/**
+	 * Adds a ascending ORDER BY clause.
+	 *
+	 * @access  public
+	 * @param   string|array         $columns  Column name or array of column names
+	 * @return  mako\database\Query
+	 */
+
+	public function ascending($columns)
+	{
+		return $this->orderBy($columns, 'ASC');
+	}
+
+	/**
+	 * Adds a descending ORDER BY clause.
+	 *
+	 * @access  public
+	 * @param   string|array         $columns  Column name or array of column names
+	 * @return  mako\database\Query
+	 */
+
+	public function descending($columns)
+	{
+		return $this->orderBy($columns, 'DESC');
 	}
 
 	/**
