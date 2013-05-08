@@ -22,7 +22,7 @@ class Database extends \mako\cache\Adapter
 	/**
 	 * Database connection object.
 	 *
-	 * @var mako\database\Connection
+	 * @var \mako\database\Connection
 	 */
 
 	protected $connection;
@@ -63,7 +63,7 @@ class Database extends \mako\cache\Adapter
 	 * Returns a query builder instance.
 	 *
 	 * @access  protected
-	 * @return  mako\database\Query
+	 * @return  \mako\database\Query
 	 */
 
 	protected function table()

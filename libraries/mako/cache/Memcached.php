@@ -22,7 +22,7 @@ class Memcached extends \mako\cache\Adapter
 	/**
 	 * Memcached object.
 	 *
-	 * @var Memcached
+	 * @var \Memcached
 	 */
 
 	protected $memcached;

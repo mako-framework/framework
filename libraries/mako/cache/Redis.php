@@ -22,7 +22,7 @@ class Redis extends \mako\cache\Adapter
 	/**
 	 * Redis object.
 	 *
-	 * @var mako\Redis
+	 * @var \mako\Redis
 	 */
 
 	protected $redis;
