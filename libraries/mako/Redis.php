@@ -92,8 +92,8 @@ class Redis
 	 * Factory method making method chaining possible right off the bat.
 	 *
 	 * @access  public
-	 * @param   string      $name  (optional) Redis configuration name
-	 * @return  mako\Redis
+	 * @param   string       $name  (optional) Redis configuration name
+	 * @return  \mako\Redis
 	 */
 
 	public static function factory($name = null)

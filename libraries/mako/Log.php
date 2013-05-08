@@ -113,8 +113,8 @@ class Log
 	/**
 	 * Returns an instance of the requested log configuration.
 	 *
-	 * @param   string            $name  (optional) Log configuration name
-	 * @return  mako\log\Adapter
+	 * @param   string             $name  (optional) Log configuration name
+	 * @return  \mako\log\Adapter
 	 */
 	
 	public static function instance($name = null)

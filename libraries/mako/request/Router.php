@@ -24,7 +24,7 @@ class Router
 	/**
 	 * Request that instantiated the router.
 	 * 
-	 * @var mako\Request
+	 * @var \mako\Request
 	 */
 
 	protected $request;
@@ -101,7 +101,7 @@ class Router
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   mako\Request  $request  Request that instantiated the router
+	 * @param   \mako\Request  $request  Request that instantiated the router
 	 */
 
 	public function __construct(Request $request)

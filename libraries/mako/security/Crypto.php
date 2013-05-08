@@ -43,8 +43,8 @@ class Crypto
 	/**
 	 * Returns an instance of the requested encryption configuration.
 	 *
-	 * @param   string                        $name  (optional) Encryption configuration name
-	 * @return  mako\security\crypto\Adapter
+	 * @param   string                         $name  (optional) Encryption configuration name
+	 * @return  \mako\security\crypto\Adapter
 	 */
 	
 	public static function factory($name = null)

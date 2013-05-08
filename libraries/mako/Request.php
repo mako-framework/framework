@@ -28,7 +28,7 @@ class Request
 	/**
 	 * Holds the main request instance.
 	 * 
-	 * @var mako\Request
+	 * @var \mako\Request
 	 */
 
 	protected static $main;
@@ -153,9 +153,9 @@ class Request
 	 * Factory method making method chaining possible right off the bat.
 	 *
 	 * @access  public
-	 * @param   string        $route   (optional) URL segments
-	 * @param   string        $method  (optional) Request method
-	 * @return  mako\Request
+	 * @param   string         $route   (optional) URL segments
+	 * @param   string         $method  (optional) Request method
+	 * @return  \mako\Request
 	 */
 
 	public static function factory($route = null, $method = null)
@@ -321,7 +321,7 @@ class Request
 	 * Executes request.
 	 *
 	 * @access  public
-	 * @return  mako\Response
+	 * @return  \mako\Response
 	 */
 
 	public function execute()
@@ -420,7 +420,7 @@ class Request
 	 * Returns the main request.
 	 * 
 	 * @access  public
-	 * @return  mako\Request
+	 * @return  \mako\Request
 	 */
 
 	public static function main()

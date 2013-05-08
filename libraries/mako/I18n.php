@@ -73,8 +73,8 @@ class I18n
 	 * Returns the instance of the chosen language.
 	 * 
 	 * @access  public
-	 * @param   string              $language  Name of the language pack
-	 * @return  mako\i18n\Language
+	 * @param   string               $language  Name of the language pack
+	 * @return  \mako\i18n\Language
 	 */
 
 	protected static function lang($language)

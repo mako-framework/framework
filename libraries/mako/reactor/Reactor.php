@@ -26,7 +26,7 @@ class Reactor
 	/**
 	 * CLI
 	 * 
-	 * @var mako\reactor\CLI
+	 * @var \mako\reactor\CLI
 	 */
 
 	protected $cli;

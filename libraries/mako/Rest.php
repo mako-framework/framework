@@ -176,10 +176,10 @@ class Rest
 	 * Sets username and password for HTTP authentication.
 	 *
 	 * @access  public
-	 * @param   string     $username  Username
-	 * @param   string     $password  Password
-	 * @param   int        $method    (optional) Authenication method
-	 * @return  mako\Rest
+	 * @param   string      $username  Username
+	 * @param   string      $password  Password
+	 * @param   int         $method    (optional) Authenication method
+	 * @return  \mako\Rest
 	 */
 
 	public function authenticate($username, $password, $method = CURLAUTH_ANY)

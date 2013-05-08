@@ -186,8 +186,8 @@ class Response
 	 * Factory method making method chaining possible right off the bat.
 	 *
 	 * @access  public
-	 * @param   string         $body  (optional) Response body
-	 * @return  mako\Response
+	 * @param   string          $body  (optional) Response body
+	 * @return  \mako\Response
 	 */
 
 	public static function factory($body = null)
@@ -215,7 +215,7 @@ class Response
 	 * Adds output filter that all output will be passed through before being sent.
 	 *
 	 * @access  public
-	 * @param   Closure  $filter  Closure used to filter output
+	 * @param   \Closure  $filter  Closure used to filter output
 	 */
 	
 	public function filter(Closure $filter)

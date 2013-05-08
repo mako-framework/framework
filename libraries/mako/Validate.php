@@ -81,9 +81,9 @@ class Validate
 	 * Factory method making method chaining possible right off the bat.
 	 *
 	 * @access  public
-	 * @param   array  $input  Array to validate
-	 * @param   array  $rules  Array of validation rules
-	 * @return  mako\Validate
+	 * @param   array           $input  Array to validate
+	 * @param   array           $rules  Array of validation rules
+	 * @return  \mako\Validate
 	 */
 
 	public static function factory(array $input, array $rules)

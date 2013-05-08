@@ -110,9 +110,9 @@ class View
 	 * Factory method making method chaining possible right off the bat.
 	 *
 	 * @access  public
-	 * @param   string     $view       Name of the view file
-	 * @param   array      $variables  (optional) Array of view variables
-	 * @return  mako\View
+	 * @param   string      $view       Name of the view file
+	 * @param   array       $variables  (optional) Array of view variables
+	 * @return  \mako\View
 	 */
 
 	public static function factory($view, array $variables = array())
@@ -141,9 +141,9 @@ class View
 	 * Assign a view variable.
 	 *
 	 * @access  public
-	 * @param   string     $name    Variable name
-	 * @param   mixed      $value   View variable
-	 * @return  mako\View
+	 * @param   string      $name   Variable name
+	 * @param   mixed       $value  View variable
+	 * @return  \mako\View
 	 */
 
 	public function assign($name, $value)
@@ -170,7 +170,7 @@ class View
 	 * Returns a rendered view.
 	 *
 	 * @access  public
-	 * @param   Closure  $filter  (optional) Closure used to filter output
+	 * @param   \Closure  $filter  (optional) Closure used to filter output
 	 * @return  string
 	 */
 

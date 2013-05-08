@@ -21,7 +21,7 @@ class Redis extends \mako\session\Adapter implements \mako\session\HandlerInterf
 	/**
 	 * Redis object.
 	 *
-	 * @var mako\Redis
+	 * @var \mako\Redis
 	 */
 
 	protected $redis;

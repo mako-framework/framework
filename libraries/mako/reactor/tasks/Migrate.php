@@ -23,7 +23,7 @@ class Migrate extends \mako\reactor\Task
 	/**
 	 * Database connection.
 	 *
-	 * @var mako\database\Connection
+	 * @var \mako\database\Connection
 	 */
 
 	protected $connection;
@@ -36,7 +36,7 @@ class Migrate extends \mako\reactor\Task
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   mako\reactor\CLI  $cli  CLI
+	 * @param   \mako\reactor\CLI  $cli  CLI
 	 */
 
 	public function __construct(CLI $cli)
@@ -71,7 +71,7 @@ class Migrate extends \mako\reactor\Task
 	 * Returns a query builder instance.
 	 *
 	 * @access  protected
-	 * @return  mako\database\Query
+	 * @return  \mako\database\Query
 	 */
 
 	protected function table()

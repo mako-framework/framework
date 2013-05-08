@@ -28,9 +28,9 @@ class RequestException extends \RuntimeException
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   int     $code        Exception code
-	 * @param   string  $message     Exception message
-	 * @param   Exception $previous  (optional) Previous exception
+	 * @param   int     $code         Exception code
+	 * @param   string  $message      Exception message
+	 * @param   \Exception $previous  (optional) Previous exception
 	 */
 
 	public function __construct($code, $message = null, Exception $previous = null)

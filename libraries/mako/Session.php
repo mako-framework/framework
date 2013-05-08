@@ -22,7 +22,7 @@ class Session
 	/**
 	 * Session instance.
 	 * 
-	 * @var mako\session\Adapter
+	 * @var \mako\session\Adapter
 	 */
 
 	protected static $instance;
@@ -51,7 +51,7 @@ class Session
 	 * Returns the session instance.
 	 * 
 	 * @access  public
-	 * @return  mako\session\Adapter
+	 * @return  \mako\session\Adapter
 	 */
 
 	public static function instance()
