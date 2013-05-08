@@ -60,7 +60,7 @@ class Firebird extends \mako\database\query\Compiler
 	 * Compiles a SELECT query.
 	 *
 	 * @access  public
-	 * @return  string
+	 * @return  array
 	 */
 
 	public function select()

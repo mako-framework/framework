@@ -27,7 +27,7 @@ class Connection
 	/**
 	 * PDO object.
 	 *
-	 * @var PDO
+	 * @var \PDO
 	 */
 
 	public $pdo;
@@ -301,8 +301,8 @@ class Connection
 	 * Returns a query builder instance.
 	 *
 	 * @access  public
-	 * @param   mixed                $table  Table name or subquery
-	 * @return  mako\database\Query
+	 * @param   mixed                 $table  Table name or subquery
+	 * @return  \mako\database\Query
 	 */
 
 	public function table($table)
@@ -314,7 +314,7 @@ class Connection
 	 * Executes queries and rolls back the transaction if any of them fail.
 	 *
 	 * @access  public
-	 * @param   Closure  $queries  Queries
+	 * @param   \Closure  $queries  Queries
 	 * @return  boolean
 	 */
 

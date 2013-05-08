@@ -404,7 +404,7 @@ class Compiler
 	 * Compiles a SELECT query.
 	 *
 	 * @access  public
-	 * @return  string
+	 * @return  array
 	 */
 
 	public function select()
@@ -429,7 +429,7 @@ class Compiler
 	 *
 	 * @access  public
 	 * @param   array   $values  Array of values
-	 * @return  string
+	 * @return  array
 	 */
 
 	public function insert(array $values)
@@ -448,7 +448,7 @@ class Compiler
 	 *
 	 * @access  public
 	 * @param   array   $values  Array of values
-	 * @return  string
+	 * @return  array
 	 */
 
 	public function update(array $values)
@@ -475,7 +475,7 @@ class Compiler
 	 * Compiles a DELETE query.
 	 *
 	 * @access  public
-	 * @return  string
+	 * @return  array
 	 */
 
 	public function delete()

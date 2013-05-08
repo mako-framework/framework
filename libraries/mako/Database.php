@@ -96,8 +96,8 @@ class Database
 	 * Opens a new connection or returns existing connection if it already exists.
 	 *
 	 * @access  public
-	 * @param   string                    $name  (optional) Database configuration name
-	 * @return  mako\database\Connection
+	 * @param   string                     $name  (optional) Database configuration name
+	 * @return  \mako\database\Connection
 	 */
 
 	public static function connection($name = null)
@@ -123,8 +123,8 @@ class Database
 	 * Returns a raw sql container.
 	 *
 	 * @access  public
-	 * @param   string                   $sql  Raw SQL
-	 * @return  mako\database\query\Raw
+	 * @param   string                    $sql  Raw SQL
+	 * @return  \mako\database\query\Raw
 	 */
 
 	public static function raw($sql)
@@ -136,9 +136,9 @@ class Database
 	 * Returns a subquery container.
 	 *
 	 * @access  public
-	 * @param   mako\database\Query           $query  Subquery
-	 * @param   string                        $alias  (optional) Alias
-	 * @return  mako\database\query\Subquery
+	 * @param   \mako\database\Query           $query  Subquery
+	 * @param   string                         $alias  (optional) Alias
+	 * @return  \mako\database\query\Subquery
 	 */
 
 	public static function subquery(Query $query, $alias = null)
