@@ -49,8 +49,8 @@ class Cache
 	/**
 	 * Returns an instance of the requested cache configuration.
 	 *
-	 * @param   string              $name  (optional) Cache configuration name
-	 * @return  mako\cache\Adapter
+	 * @param   string               $name  (optional) Cache configuration name
+	 * @return  \mako\cache\Adapter
 	 */
 
 	public static function instance($name = null)
