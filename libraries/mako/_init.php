@@ -141,7 +141,6 @@ mako\ClassLoader::mapClasses(array
 	'mako\view\renderer\template\Block'         => MAKO_LIBRARIES_PATH . '/mako/view/renderer/template/Block.php',
 ));
 
-
 mako\ClassLoader::register();
 
 //------------------------------------------------------------------------------------------
