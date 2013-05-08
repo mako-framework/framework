@@ -240,22 +240,19 @@ class Router
 
 		// Is the route pointing to a package?
 
-		if($this->package === null)
+		if($this->package === null && !empty($this->config['packages']))
 		{
-			if(!empty($this->config['packages']))
+			foreach($this->config['packages'] as $base => $package)
 			{
-				foreach($this->config['packages'] as $base => $package)
-				{
-					if($route === $base || strpos($route, $base . '/') === 0)
-					{	
-						Package::init($package);
+				if($route === $base || strpos($route, $base . '/') === 0)
+				{	
+					Package::init($package);
 
-						$this->route   = trim(mb_substr($route, mb_strlen($base)), '/');
-						$this->package = $package;
-						$this->config  = Config::get($package . '::routes');
+					$this->route   = trim(mb_substr($route, mb_strlen($base)), '/');
+					$this->package = $package;
+					$this->config  = Config::get($package . '::routes');
 
-						return $this->route();
-					}
+					return $this->route();
 				}
 			}
 		}
@@ -289,8 +286,8 @@ class Router
 			{
 				// Just a directory - Jump to next iteration
 
-				$controllerPath .= $segment . '/';
-				$this->namespace      .= $segment . '\\';
+				$controllerPath  .= $segment . '/';
+				$this->namespace .= $segment . '\\';
 
 				array_shift($segments);
 
