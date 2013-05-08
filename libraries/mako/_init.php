@@ -13,8 +13,18 @@ define('MAKO_APPLICATION_ID', md5(MAKO_APPLICATION_PATH));
 define('MAKO_PACKAGES_PATH', MAKO_APPLICATION_PATH . '/packages');
 
 //------------------------------------------------------------------------------------------
-// Convert all errors to ErrorExceptions and set path for error logs
+// Set up autoloading
 //------------------------------------------------------------------------------------------
+
+include MAKO_LIBRARIES_PATH . '/mako/ClassLoader.php';
+
+mako\ClassLoader::register();
+
+//------------------------------------------------------------------------------------------
+// Set up error handling
+//------------------------------------------------------------------------------------------
+
+// Convert all errors to ErrorExceptions
 
 set_error_handler(function($code, $message, $file, $line)
 {
@@ -26,126 +36,11 @@ set_error_handler(function($code, $message, $file, $line)
 	return true;
 });
 
+// Set default path for error logs
+
 ini_set('error_log', MAKO_APPLICATION_PATH . '/storage/logs/error_' . gmdate('Y_m_d') . '.log');
 
-//------------------------------------------------------------------------------------------
-// Map all core classes and set up autoloading
-//------------------------------------------------------------------------------------------
-
-include MAKO_LIBRARIES_PATH . '/mako/ClassLoader.php';
-
-mako\ClassLoader::mapClasses(array
-(
-	'mako\Arr'                                  => MAKO_LIBRARIES_PATH . '/mako/Arr.php',
-	'mako\Assets'                               => MAKO_LIBRARIES_PATH . '/mako/Assets.php',
-	'mako\assets\Container'                     => MAKO_LIBRARIES_PATH . '/mako/assets/Container.php',
-	'mako\Cache'                                => MAKO_LIBRARIES_PATH . '/mako/Cache.php',
-	'mako\cache\APC'                            => MAKO_LIBRARIES_PATH . '/mako/cache/APC.php',
-	'mako\cache\Adapter'                        => MAKO_LIBRARIES_PATH . '/mako/cache/Adapter.php',
-	'mako\cache\Database'                       => MAKO_LIBRARIES_PATH . '/mako/cache/Database.php',
-	'mako\cache\File'                           => MAKO_LIBRARIES_PATH . '/mako/cache/File.php',
-	'mako\cache\Memcache'                       => MAKO_LIBRARIES_PATH . '/mako/cache/Memcache.php',
-	'mako\cache\Memcached'                      => MAKO_LIBRARIES_PATH . '/mako/cache/Memcached.php',
-	'mako\cache\Memory'                         => MAKO_LIBRARIES_PATH . '/mako/cache/Memory.php',
-	'mako\cache\Redis'                          => MAKO_LIBRARIES_PATH . '/mako/cache/Redis.php',
-	'mako\cache\WinCache'                       => MAKO_LIBRARIES_PATH . '/mako/cache/WinCache.php',
-	'mako\cache\XCache'                         => MAKO_LIBRARIES_PATH . '/mako/cache/XCache.php',
-	'mako\cache\ZendDisk'                       => MAKO_LIBRARIES_PATH . '/mako/cache/ZendDisk.php',
-	'mako\cache\ZendMemory'                     => MAKO_LIBRARIES_PATH . '/mako/cache/ZendMemory.php',
-	//'mako\ClassLoader'                          => MAKO_LIBRARIES_PATH . '/mako/ClassLoader.php',
-	'mako\Charset'                              => MAKO_LIBRARIES_PATH . '/mako/Charset.php',
-	'mako\Config'                               => MAKO_LIBRARIES_PATH . '/mako/Config.php',
-	'mako\Controller'                           => MAKO_LIBRARIES_PATH . '/mako/Controller.php',
-	'mako\Cookie'                               => MAKO_LIBRARIES_PATH . '/mako/Cookie.php',
-	'mako\Database'                             => MAKO_LIBRARIES_PATH . '/mako/Database.php',
-	'mako\database\Connection'                  => MAKO_LIBRARIES_PATH . '/mako/database/Connection.php',
-	'mako\database\ORM'                         => MAKO_LIBRARIES_PATH . '/mako/database/ORM.php',
-	'mako\database\orm\Hydrator'                => MAKO_LIBRARIES_PATH . '/mako/database/orm/Hydrator.php',
-	'mako\database\orm\ResultSet'               => MAKO_LIBRARIES_PATH . '/mako/database/orm/ResultSet.php',
-	'mako\database\orm\StaleRecordException'    => MAKO_LIBRARIES_PATH . '/mako/database/orm/StaleRecordException.php',
-	'mako\database\orm\relations\BelongsTo'     => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/BelongsTo.php',
-	'mako\database\orm\relations\HasMany'       => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/HasMany.php',
-	'mako\database\orm\relations\HasOne'        => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/HasOne.php',
-	'mako\database\orm\relations\HasOneOrMany'  => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/HasOneOrMany.php',
-	'mako\database\orm\relations\ManyToMany'    => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/ManyToMany.php',
-	'mako\database\orm\relations\Relation'      => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/Relation.php',
-	'mako\database\Query'                       => MAKO_LIBRARIES_PATH . '/mako/database/Query.php',
-	'mako\database\query\Compiler'              => MAKO_LIBRARIES_PATH . '/mako/database/query/Compiler.php',
-	'mako\database\query\Join'                  => MAKO_LIBRARIES_PATH . '/mako/database/query/Join.php',
-	'mako\database\query\Subquery'              => MAKO_LIBRARIES_PATH . '/mako/database/query/Subquery.php',
-	'mako\database\query\compiler\DB2'          => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/DB2.php',
-	'mako\database\query\compiler\Firebird'     => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/Firebird.php',
-	'mako\database\query\compiler\MySQL'        => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/MySQL.php',
-	'mako\database\query\compiler\NuoDB'        => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/NuoDB.php',
-	'mako\database\query\compiler\Oracle'       => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/Oracle.php',
-	'mako\database\query\compiler\SQLServer'    => MAKO_LIBRARIES_PATH . '/mako/database/query/compiler/SQLServer.php',
-	'mako\database\query\Raw'                   => MAKO_LIBRARIES_PATH . '/mako/database/query/Raw.php',
-	'mako\DateTime'                             => MAKO_LIBRARIES_PATH . '/mako/DateTime.php',
-	'mako\DebugToolbar'                         => MAKO_LIBRARIES_PATH . '/mako/DebugToolbar.php',
-	'mako\ErrorHandler'                         => MAKO_LIBRARIES_PATH . '/mako/ErrorHandler.php',
-	'mako\errorhandler\ExceptionHandler'        => MAKO_LIBRARIES_PATH . '/mako/errorhandler/ExceptionHandler.php',
-	'mako\errorhandler\RequestExceptionHandler' => MAKO_LIBRARIES_PATH . '/mako/errorhandler/RequestExceptionHandler.php',
-	'mako\Event'                                => MAKO_LIBRARIES_PATH . '/mako/Event.php',
-	'mako\File'                                 => MAKO_LIBRARIES_PATH . '/mako/File.php',
-	'mako\Format'                               => MAKO_LIBRARIES_PATH . '/mako/Format.php',
-	'mako\HTML'                                 => MAKO_LIBRARIES_PATH . '/mako/HTML.php',
-	'mako\I18n'                                 => MAKO_LIBRARIES_PATH . '/mako/I18n.php',
-	'mako\i18n\Language'                        => MAKO_LIBRARIES_PATH . '/mako/i18n/Language.php',
-	'mako\Input'                                => MAKO_LIBRARIES_PATH . '/mako/Input.php',
-	'mako\Log'                                  => MAKO_LIBRARIES_PATH . '/mako/Log.php',
-	'mako\log\Adapter'                          => MAKO_LIBRARIES_PATH . '/mako/log/Adapter.php',
-	'mako\log\DebugToolbar'                     => MAKO_LIBRARIES_PATH . '/mako/log/DebugToolbar.php',
-	'mako\log\File'                             => MAKO_LIBRARIES_PATH . '/mako/log/File.php',
-	'mako\log\FirePHP'                          => MAKO_LIBRARIES_PATH . '/mako/log/FirePHP.php',
-	'mako\log\Syslog'                           => MAKO_LIBRARIES_PATH . '/mako/log/Syslog.php',
-	'mako\Mako'                                 => MAKO_LIBRARIES_PATH . '/mako/Mako.php',
-	'mako\Num'                                  => MAKO_LIBRARIES_PATH . '/mako/Num.php',
-	'mako\Package'                              => MAKO_LIBRARIES_PATH . '/mako/Package.php',
-	'mako\Pagination'                           => MAKO_LIBRARIES_PATH . '/mako/Pagination.php',
-	'mako\reactor\CLI'                          => MAKO_LIBRARIES_PATH . '/mako/reactor/CLI.php',
-	'mako\reactor\Reactor'                      => MAKO_LIBRARIES_PATH . '/mako/reactor/Reactor.php',
-	'mako\reactor\Task'                         => MAKO_LIBRARIES_PATH . '/mako/reactor/Task.php',
-	'mako\reactor\tasks\Console'                => MAKO_LIBRARIES_PATH . '/mako/reactor/tasks/Console.php',
-	'mako\reactor\tasks\Migrate'                => MAKO_LIBRARIES_PATH . '/mako/reactor/tasks/Migrate.php',
-	'mako\reactor\tasks\Server'                 => MAKO_LIBRARIES_PATH . '/mako/reactor/tasks/Server.php',
-	'mako\Redis'                                => MAKO_LIBRARIES_PATH . '/mako/Redis.php',
-	'mako\Request'                              => MAKO_LIBRARIES_PATH . '/mako/Request.php',
-	'mako\request\RequestException'             => MAKO_LIBRARIES_PATH . '/mako/request/RequestException.php',
-	'mako\request\Router'                       => MAKO_LIBRARIES_PATH . '/mako/request/Router.php',
-	'mako\Response'                             => MAKO_LIBRARIES_PATH . '/mako/Response.php',
-	'mako\Rest'                                 => MAKO_LIBRARIES_PATH . '/mako/Rest.php',
-	'mako\security\Crypto'                      => MAKO_LIBRARIES_PATH . '/mako/security/Crypto.php',
-	'mako\security\crypto\Adapter'              => MAKO_LIBRARIES_PATH . '/mako/security/crypto/Adapter.php',
-	'mako\security\crypto\Mcrypt'               => MAKO_LIBRARIES_PATH . '/mako/security/crypto/Mcrypt.php',
-	'mako\security\crypto\OpenSSL'              => MAKO_LIBRARIES_PATH . '/mako/security/crypto/OpenSSL.php',
-	'mako\security\MAC'                         => MAKO_LIBRARIES_PATH . '/mako/security/MAC.php',
-	'mako\security\Password'                    => MAKO_LIBRARIES_PATH . '/mako/security/Password.php',
-	'mako\security\Token'                       => MAKO_LIBRARIES_PATH . '/mako/security/Token.php',
-	'mako\Session'                              => MAKO_LIBRARIES_PATH . '/mako/Session.php',
-	'mako\session\Adapter'                      => MAKO_LIBRARIES_PATH . '/mako/session/Adapter.php',
-	'mako\session\Database'                     => MAKO_LIBRARIES_PATH . '/mako/session/Database.php',
-	'mako\session\File'                         => MAKO_LIBRARIES_PATH . '/mako/session/File.php',
-	'mako\session\HandlerInterface'             => MAKO_LIBRARIES_PATH . '/mako/session/HandlerInterface.php',
-	'mako\session\Native'                       => MAKO_LIBRARIES_PATH . '/mako/session/Native.php',
-	'mako\session\Redis'                        => MAKO_LIBRARIES_PATH . '/mako/session/Redis.php',
-	'mako\String'                               => MAKO_LIBRARIES_PATH . '/mako/String.php',
-	'mako\URL'                                  => MAKO_LIBRARIES_PATH . '/mako/URL.php',
-	'mako\UUID'                                 => MAKO_LIBRARIES_PATH . '/mako/UUID.php',
-	'mako\UserAgent'                            => MAKO_LIBRARIES_PATH . '/mako/UserAgent.php',
-	'mako\Validate'                             => MAKO_LIBRARIES_PATH . '/mako/Validate.php',
-	'mako\View'                                 => MAKO_LIBRARIES_PATH . '/mako/View.php',
-	'mako\view\compiler\Template'               => MAKO_LIBRARIES_PATH . '/mako/view/compiler/Template.php',
-	'mako\view\renderer\PHP'                    => MAKO_LIBRARIES_PATH . '/mako/view/renderer/PHP.php',
-	'mako\view\renderer\RendererInterface'      => MAKO_LIBRARIES_PATH . '/mako/view/renderer/RendererInterface.php',
-	'mako\view\renderer\Template'               => MAKO_LIBRARIES_PATH . '/mako/view/renderer/Template.php',
-	'mako\view\renderer\template\Block'         => MAKO_LIBRARIES_PATH . '/mako/view/renderer/template/Block.php',
-));
-
-mako\ClassLoader::register();
-
-//------------------------------------------------------------------------------------------
-// Register the error handler
-//------------------------------------------------------------------------------------------
+// Register error handler
 
 mako\ErrorHandler::register();
 
