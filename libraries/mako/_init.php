@@ -4,7 +4,7 @@
 // Define some constants
 //------------------------------------------------------------------------------------------
 
-define('MAKO_VERSION', '3.3.2');
+define('MAKO_VERSION', '3.4.0');
 define('MAKO_START', microtime(true));
 define('MAKO_MAGIC_QUOTES', get_magic_quotes_gpc());
 define('MAKO_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
@@ -59,6 +59,16 @@ mako\ClassLoader::mapClasses(array
 	'mako\Cookie'                               => MAKO_LIBRARIES_PATH . '/mako/Cookie.php',
 	'mako\Database'                             => MAKO_LIBRARIES_PATH . '/mako/Database.php',
 	'mako\database\Connection'                  => MAKO_LIBRARIES_PATH . '/mako/database/Connection.php',
+	'mako\database\ORM'                         => MAKO_LIBRARIES_PATH . '/mako/database/ORM.php',
+	'mako\database\orm\Hydrator'                => MAKO_LIBRARIES_PATH . '/mako/database/orm/Hydrator.php',
+	'mako\database\orm\ResultSet'               => MAKO_LIBRARIES_PATH . '/mako/database/orm/ResultSet.php',
+	'mako\database\orm\StaleRecordException'    => MAKO_LIBRARIES_PATH . '/mako/database/orm/StaleRecordException.php',
+	'mako\database\orm\relations\BelongsTo'     => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/BelongsTo.php',
+	'mako\database\orm\relations\HasMany'       => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/HasMany.php',
+	'mako\database\orm\relations\HasOne'        => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/HasOne.php',
+	'mako\database\orm\relations\HasOneOrMany'  => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/HasOneOrMany.php',
+	'mako\database\orm\relations\ManyToMany'    => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/ManyToMany.php',
+	'mako\database\orm\relations\Relation'      => MAKO_LIBRARIES_PATH . '/mako/database/orm/relations/Relation.php',
 	'mako\database\Query'                       => MAKO_LIBRARIES_PATH . '/mako/database/Query.php',
 	'mako\database\query\Compiler'              => MAKO_LIBRARIES_PATH . '/mako/database/query/Compiler.php',
 	'mako\database\query\Join'                  => MAKO_LIBRARIES_PATH . '/mako/database/query/Join.php',
