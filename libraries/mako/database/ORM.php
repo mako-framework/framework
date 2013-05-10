@@ -163,7 +163,7 @@ abstract class ORM
 
 	public function __construct(array $columns = array(), $raw = false, $whitelist = true, $exists = false)
 	{
-		$this->populate($columns, $raw, $whitelist);
+		$this->assign($columns, $raw, $whitelist);
 
 		if($exists)
 		{
@@ -343,6 +343,30 @@ abstract class ORM
 	}
 
 	/**
+	 * Returns the columns array.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getColumns()
+	{
+		return $this->columns;
+	}
+
+	/**
+	 * Returns the related records array.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getRelated()
+	{
+		return $this->related;
+	}
+
+	/**
 	 * Sets a column value.
 	 * 
 	 * @access  public
@@ -405,7 +429,7 @@ abstract class ORM
 	}
 
 	/**
-	 * Populates the columns
+	 * Assigns the column values to the mode.
 	 * 
 	 * @access  public
 	 * @param   array               $columns    Column values
@@ -414,7 +438,7 @@ abstract class ORM
 	 * @return  \mako\database\ORM
 	 */
 
-	public function populate(array $columns, $raw = false, $whitelist = true)
+	public function assign(array $columns, $raw = false, $whitelist = true)
 	{
 		// Remove columns that are not in the whitelist
 
@@ -522,9 +546,9 @@ abstract class ORM
 
 			if($model !== false)
 			{
-				$this->original = $this->columns = $model->toArray(false, true);
+				$this->original = $this->columns = $model->getColumns();
 
-				$this->related = array(); // Reset cached relations
+				$this->related = $model->getRelated();
 
 				return true;
 			}
