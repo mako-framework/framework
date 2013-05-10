@@ -70,33 +70,6 @@ class Hydrator
 	}
 
 	/**
-	 * Returns hydrated models.
-	 * 
-	 * @access  protected
-	 * @param   mixed      $results  Database results
-	 * @return  array
-	 */
-
-	protected function hydrate($results)
-	{
-		$hydrated = array();
-
-		if(!is_array($results))
-		{
-			$results = array($results);
-		}
-
-		foreach($results as $result)
-		{
-			$model = $this->model->getClass();
-
-			$hydrated[] = new $model((array) $result, true, false, true);
-		}
-
-		return $hydrated;
-	}
-
-	/**
 	 * Sets the relations to eager load.
 	 * 
 	 * @access  public
@@ -170,6 +143,40 @@ class Hydrator
 	}
 
 	/**
+	 * Returns hydrated models.
+	 * 
+	 * @access  protected
+	 * @param   mixed      $results  Database results
+	 * @return  array
+	 */
+
+	protected function hydrate($results)
+	{
+		$hydrated = array();
+
+		if(!is_array($results))
+		{
+			$results = array($results);
+		}
+
+		foreach($results as $result)
+		{
+			$model = $this->model->getClass();
+
+			$hydrated[] = new $model((array) $result, true, false, true);
+		}
+
+		if(!empty($hydrated))
+		{
+			// Eager load related records
+
+			$this->loadIncludes($hydrated);
+		}
+
+		return $hydrated;
+	}
+
+	/**
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
@@ -184,7 +191,7 @@ class Hydrator
 		{
 			$hydrated = $this->hydrate($result);
 
-			return end($hydrated);
+			return $hydrated[0];
 		}
 
 		return false;
@@ -206,10 +213,6 @@ class Hydrator
 			// Hydrate results
 
 			$results = $this->hydrate($results);
-
-			// Eager load related records
-
-			$this->loadIncludes($results);
 		}
 
 		return new ResultSet($results);
