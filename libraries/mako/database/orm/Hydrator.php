@@ -77,9 +77,24 @@ class Hydrator
 	 * @return  \mako\database\orm\Hydrator
 	 */
 
-	public function includes($includes)
+	public function including($includes)
 	{
 		$this->model->setIncludes((array) $includes);
+
+		return $this;
+	}
+
+	/**
+	 * Removes relations to eager load.
+	 * 
+	 * @access  public
+	 * @param   mixed                        $excludes  Relation or array of relations to exclude from eager loading
+	 * @return  \mako\database\orm\Hydrator
+	 */
+
+	public function excluding($excludes)
+	{
+		$this->model->setIncludes(array_diff_key($this->model->getIncludes(), array_flip((array) $excludes)));
 
 		return $this;
 	}
