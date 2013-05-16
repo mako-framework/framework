@@ -82,7 +82,7 @@ class Request
 	protected static $headers = array();
 	
 	/**
-	 * Ip address of the cilent that made the request.
+	 * Ip address of the client that made the request.
 	 *
 	 * @var string
 	 */
