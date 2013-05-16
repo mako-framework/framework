@@ -170,6 +170,8 @@ abstract class Relation extends \mako\database\orm\Hydrator
 
 	public function __call($name, $arguments)
 	{
+		$name = strtolower($name);
+		
 		if(in_array($name, array('count', 'min', 'max', 'avg', 'column', 'delete', 'update', 'increment', 'decrement')))
 		{
 			// Set the lazy criterion to make sure these methods are executed on the related records

@@ -35,6 +35,14 @@ class Hydrator
 
 	protected $query;
 
+	/**
+	 * Columns to select.
+	 * 
+	 * @var array
+	 */
+
+	protected $columns = array('*');
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -200,7 +208,7 @@ class Hydrator
 
 	public function first()
 	{
-		$result = $this->query->first();
+		$result = $this->query->first($this->columns);
 
 		if($result !== false)
 		{
@@ -221,7 +229,7 @@ class Hydrator
 
 	public function all()
 	{
-		$results = $this->query->all();
+		$results = $this->query->all($this->columns);
 
 		if(!empty($results))
 		{
@@ -244,7 +252,16 @@ class Hydrator
 
 	public function __call($name, $arguments)
 	{
+		$name = strtolower($name);
+		
 		$result = call_user_func_array(array($this->query, $name), $arguments);
+
+		if(in_array($name, array('join', 'leftjoin')))
+		{
+			// Ensure that only the model columns get selected when performing joins
+
+			$this->columns = array($this->model->getTable() . '.*');
+		}
 
 		if(in_array($name, array('count', 'min', 'max', 'avg', 'column', 'delete', 'update', 'increment', 'decrement')))
 		{
