@@ -27,7 +27,7 @@ return array
 
 	/**
 	 * Secret used to provide cryptographic signing, and should be set to a unique, unpredictable value.
-	 * You should NOT use the secret included with the framwork in a production environment!
+	 * You should NOT use the secret included with the framework in a production environment!
 	 */
 	
 	'secret'   => 'oib[H7:Jqn2QcMv77>qMpc<gTLFndNLd',
