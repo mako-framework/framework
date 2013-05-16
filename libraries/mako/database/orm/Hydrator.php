@@ -94,7 +94,7 @@ class Hydrator
 
 	public function excluding($excludes)
 	{
-		$this->model->setIncludes(array_diff_key($this->model->getIncludes(), array_flip((array) $excludes)));
+		$this->model->setIncludes(array_diff($this->model->getIncludes(), (array) $excludes));
 
 		return $this;
 	}
