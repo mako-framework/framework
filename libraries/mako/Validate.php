@@ -428,7 +428,7 @@ class Validate
 	}
 
 	/**
-	 * Checks that the field value contains a valid MX reccord.
+	 * Checks that the field value contains a valid MX record.
 	 * 
 	 * @access  protected
 	 * @param   string     $input       Field value
