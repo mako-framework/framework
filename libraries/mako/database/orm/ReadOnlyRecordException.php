@@ -3,7 +3,7 @@
 namespace mako\database\orm;
 
 /**
- * Stale record exception.
+ * Read-only record exception.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
