@@ -44,7 +44,7 @@ class ResultSet implements \ArrayAccess, \Countable, \IteratorAggregate
 	}
 
 	/**
-	 * Clone all results when cloning the result set.
+	 * Clones all results when cloning the result set.
 	 * 
 	 * @access  public
 	 */
@@ -135,7 +135,7 @@ class ResultSet implements \ArrayAccess, \Countable, \IteratorAggregate
 	 * Retruns an array iterator object.
 	 * 
 	 * @access  public
-	 * @return  ArrayIterator
+	 * @return  \ArrayIterator
 	 */
 
 	public function getIterator()

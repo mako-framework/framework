@@ -82,7 +82,7 @@ class BelongsTo extends \mako\database\orm\relations\Relation
 	 * Sets the criterion used when eager loading related records.
 	 * 
 	 * @access  protected
-	 * @param   array                                  $keys  Parent keys
+	 * @param   array                                   $keys  Parent keys
 	 * @return  \mako\database\orm\relations\BelongsTo
 	 */
 

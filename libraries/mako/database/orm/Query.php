@@ -34,7 +34,7 @@ class Query extends \mako\database\Query
 	/**
 	 * Should hydrated models be made read only?
 	 * 
-	 * @var  boolean
+	 * @var boolean
 	 */
 
 	protected $makeReadOnly;
@@ -69,7 +69,7 @@ class Query extends \mako\database\Query
 	 *
 	 * @access  public
 	 * @param   string                $table     Table name
-	 * @param   string|Closure        $column1   (optional) Column name or closure
+	 * @param   string|\Closure        $column1   (optional) Column name or closure
 	 * @param   string                $operator  (optional) Operator
 	 * @param   string                $column2   (optional) Column name
 	 * @param   string                $type      (optional) Join type

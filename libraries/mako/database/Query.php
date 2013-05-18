@@ -659,11 +659,11 @@ class Query
 	}
 
 	/**
-	 * Adds a INNER JOIN clause.
+	 * Adds a JOIN clause.
 	 *
 	 * @access  public
 	 * @param   string                $table     Table name
-	 * @param   string|Closure        $column1   (optional) Column name or closure
+	 * @param   string|\Closure        $column1   (optional) Column name or closure
 	 * @param   string                $operator  (optional) Operator
 	 * @param   string                $column2   (optional) Column name
 	 * @param   string                $type      (optional) Join type
@@ -693,7 +693,7 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string                $table     Table name
-	 * @param   string|Closure        $column1   (optional) Column name or closure
+	 * @param   string|\Closure        $column1   (optional) Column name or closure
 	 * @param   string                $operator  (optional) Operator
 	 * @param   string                $column2   (optional) Column name
 	 * @return  \mako\database\Query
