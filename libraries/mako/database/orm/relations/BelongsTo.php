@@ -2,6 +2,8 @@
 
 namespace mako\database\orm\relations;
 
+use \mako\database\Connection;
+
 /**
  * Belongs to relation.
  *
@@ -16,32 +18,13 @@ class BelongsTo extends \mako\database\orm\relations\Relation
 	// Class properties
 	//---------------------------------------------
 
-	/**
-	 * Related record.
-	 * 
-	 * @var \mako\database\ORM
-	 */
-
-	protected $related;
+	// Nothing here
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	/**
-	 * Constructor.
-	 * 
-	 * @access  public
-	 * @param   \mako\database\ORM  $related  Related record
-	 * @param   string              $parent   Parent class name
-	 */
-
-	public function __construct(\mako\database\ORM $related, $parent)
-	{
-		parent::__construct(new $parent);
-
-		$this->related = $related;
-	}
+	// Nothing here
 
 	//---------------------------------------------
 	// Class methods
@@ -88,14 +71,11 @@ class BelongsTo extends \mako\database\orm\relations\Relation
 	 * Sets the criterion used when lazy loading related records.
 	 * 
 	 * @access  protected
-	 * @return  \mako\database\orm\relations\BelongsTo 
 	 */
 
 	protected function lazyCriterion()
 	{
-		$this->query->where($this->model->getPrimaryKey(), '=', $this->related->getColumn($this->getForeignKey()));
-
-		return $this;
+		$this->where($this->model->getPrimaryKey(), '=', $this->parent->getColumn($this->getForeignKey()));
 	}
 
 	/**
@@ -128,12 +108,12 @@ class BelongsTo extends \mako\database\orm\relations\Relation
 	public function eagerLoad(&$results, $relation, $criteria, $includes)
 	{
 		$this->model->setIncludes($includes);
-
+		
 		$grouped = array();
 
 		if($criteria !== null)
 		{
-			$criteria($this->query);
+			$criteria($this);
 		}
 
 		foreach($this->eagerCriterion($this->keys($results))->all() as $related)

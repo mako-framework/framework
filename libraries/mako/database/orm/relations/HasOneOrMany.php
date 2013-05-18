@@ -2,6 +2,8 @@
 
 namespace mako\database\orm\relations;
 
+use \mako\database\Connection;
+
 /**
  * Has one or has many relation.
  *
@@ -16,32 +18,13 @@ abstract class HasOneOrMany extends \mako\database\orm\relations\Relation
 	// Class properties
 	//---------------------------------------------
 
-	/**
-	 * Parent record.
-	 * 
-	 * @var \mako\database\ORM
-	 */
-
-	protected $parent;
+	// Nothing here
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	/**
-	 * Constructor.
-	 * 
-	 * @access  public
-	 * @param   \mako\database\ORM  $parent   Parent record
-	 * @param   string              $related  Related class name
-	 */
-
-	public function __construct(\mako\database\ORM $parent, $related)
-	{
-		parent::__construct(new $related);
-
-		$this->parent = $parent;
-	}
+	// Nothing here
 
 	//---------------------------------------------
 	// Class methods

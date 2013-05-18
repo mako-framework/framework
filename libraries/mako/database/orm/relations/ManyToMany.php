@@ -3,6 +3,7 @@
 namespace mako\database\orm\relations;
 
 use \mako\Database;
+use \mako\database\Connection;
 use \mako\database\orm\ResultSet;
 
 /**
@@ -18,14 +19,6 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-
-	/**
-	 * Parent record.
-	 * 
-	 * @var \mako\database\ORM
-	 */
-
-	protected $parent;
 
 	/**
 	 * Junction table.
@@ -47,20 +40,7 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	/**
-	 * Constructor.
-	 * 
-	 * @access  public
-	 * @param   \mako\database\ORM  $parent   Parent record
-	 * @param   string              $related  Related class name
-	 */
-
-	public function __construct(\mako\database\ORM $parent, $related)
-	{
-		parent::__construct(new $related);
-
-		$this->parent = $parent;
-	}
+	// Nothing here
 
 	//---------------------------------------------
 	// Class methods
@@ -142,21 +122,18 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 
 	protected function junctionJoin()
 	{
-		$this->query->join($this->getJunctionTable(), $this->getJunctionTable() . '.' . $this->getJunctionKey(), '=', $this->model->getTable() . '.' . $this->model->getPrimaryKey());
+		$this->join($this->getJunctionTable(), $this->getJunctionTable() . '.' . $this->getJunctionKey(), '=', $this->model->getTable() . '.' . $this->model->getPrimaryKey());
 	}
 
 	/**
 	 * Sets the criterion used when lazy loading related records.
 	 * 
 	 * @access  protected
-	 * @return  \mako\database\orm\relations\HasMany
 	 */
 
 	protected function lazyCriterion()
 	{
-		$this->query->where($this->getJunctionTable() . '.' . $this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
-
-		return $this;
+		$this->where($this->getJunctionTable() . '.' . $this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
 	}
 
 	/**
@@ -171,28 +148,9 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	{
 		$this->lazy = false;
 
-		$this->query->in($this->getJunctionTable() . '.' . $this->getForeignKey(), $keys);
+		$this->in($this->getJunctionTable() . '.' . $this->getForeignKey(), $keys);
 
 		return $this;
-	}
-
-	/**
-	 * Returns the columns to fetch.
-	 * 
-	 * @access  protected
-	 * @return  array
-	 */
-
-	protected function getColumns()
-	{
-		if($this->lazy)
-		{
-			return array($this->model->getTable() . '.*');
-		}
-		else
-		{
-			return array($this->model->getTable() . '.*', $this->getJunctionTable() . '.' . $this->getForeignKey());
-		}
 	}
 
 	/**
@@ -213,7 +171,7 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 
 		if($criteria !== null)
 		{
-			$criteria($this->query);
+			$criteria($this);
 		}
 
 		foreach($this->eagerCriterion($this->keys($results))->all() as $related)
@@ -237,31 +195,43 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	}
 
 	/**
+	 * Returns the columns to fetch.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function select()
+	{
+		if($this->lazy)
+		{
+			return array($this->model->getTable() . '.*');
+		}
+		else
+		{
+			return array($this->model->getTable() . '.*', $this->getJunctionTable() . '.' . $this->getForeignKey());
+		}
+	}
+
+	/**
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
 	 * @return  \mako\database\ORM
 	 */
 
-	public function first()
+	public function first(array $columns = array())
 	{
 		$this->junctionJoin();
 
-		if($this->lazy)
+		if(!$this->lazy)
 		{
-			$this->lazyCriterion();
+			array_shift($this->wheres);
 		}
 
-		$result = $this->query->first($this->getColumns());
+		$this->columns = $this->select();
 
-		if($result !== false)
-		{
-			$hydrated = $this->hydrate($result);
-
-			return end($hydrated);
-		}
-
-		return false;
+		return parent::first($columns);
 	}
 
 	/**
@@ -271,29 +241,18 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	 * @return  \mako\database\orm\ResultSet
 	 */
 
-	public function all()
+	public function all(array $columns = array())
 	{
 		$this->junctionJoin();
 
-		if($this->lazy)
+		if(!$this->lazy)
 		{
-			$this->lazyCriterion();
+			array_shift($this->wheres);
 		}
 
-		$results = $this->query->all($this->getColumns());
+		$this->columns = $this->select();
 
-		if(!empty($results))
-		{
-			// Hydrate results
-
-			$results = $this->hydrate($results);
-
-			// Eager load related records
-
-			$this->loadIncludes($results);
-		}
-
-		return new ResultSet($results);
+		return parent::all($columns);
 	}
 
 	/**

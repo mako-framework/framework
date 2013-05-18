@@ -2,6 +2,8 @@
 
 namespace mako\database\orm\relations;
 
+use \mako\database\Connection;
+
 /**
  * Base relation.
  *
@@ -10,11 +12,19 @@ namespace mako\database\orm\relations;
  * @license    http://www.makoframework.com/license
  */
 
-abstract class Relation extends \mako\database\orm\Hydrator
+abstract class Relation extends \mako\database\orm\Query
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Parent record.
+	 * 
+	 * @var \mako\database\ORM
+	 */
+
+	protected $parent;
 
 	/**
 	 * Foreign key.
@@ -36,7 +46,23 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Constructor.
+	 * 
+	 * @access  public
+	 * @param   \mako\database\Connection  $connection  Database connection
+	 * @param   \mako\database\ORM         $parent      Parent model
+	 * @param   \mako\database\ORM         $related     Related model
+	 */
+
+	public function __construct(Connection $connection, \mako\database\ORM $parent, \mako\database\ORM $related)
+	{
+		$this->parent = $parent;
+
+		parent::__construct($connection, $related);
+
+		$this->lazyCriterion();
+	}
 
 	//---------------------------------------------
 	// Class methods
@@ -98,14 +124,11 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	 * Sets the criterion used when lazy loading related records.
 	 * 
 	 * @access  protected
-	 * @return  \mako\database\orm\relations\Relation 
 	 */
 
 	protected function lazyCriterion()
 	{
-		$this->query->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
-
-		return $this;
+		$this->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
 	}
 
 	/**
@@ -120,7 +143,7 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	{
 		$this->lazy = false;
 
-		$this->query->in($this->getForeignKey(), $keys);
+		$this->in($this->getForeignKey(), $keys);
 
 		return $this;
 	}
@@ -129,57 +152,36 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
+	 * @param   array               $columns  (optional) Columns to select
 	 * @return  \mako\database\ORM
 	 */
 
-	public function first()
+	public function first(array $columns = array())
 	{
-		if($this->lazy)
+		if(!$this->lazy)
 		{
-			$this->lazyCriterion();
+			array_shift($this->wheres);
 		}
 
-		return parent::first();
+		return parent::first($columns);
 	}
 
 	/**
 	 * Returns a result set from the database.
 	 * 
 	 * @access  public
+	 * @param   array                         $columns  (optional) Columns to select
 	 * @return  \mako\database\orm\ResultSet
 	 */
 
-	public function all()
+	public function all(array $columns = array())
 	{
-		if($this->lazy)
+		if(!$this->lazy)
 		{
-			$this->lazyCriterion();
+			array_shift($this->wheres);
 		}
 
-		return parent::all();
-	}
-
-	/**
-	 * Forwards method calls to the query builder instance.
-	 * 
-	 * @access  public
-	 * @param   string  $name       Method name
-	 * @param   array   $arguments  Method arguments
-	 * @return  mixed
-	 */
-
-	public function __call($name, $arguments)
-	{
-		$name = strtolower($name);
-		
-		if(in_array($name, array('count', 'min', 'max', 'avg', 'column', 'delete', 'update', 'increment', 'decrement')))
-		{
-			// Set the lazy criterion to make sure these methods are executed on the related records
-
-			$this->lazyCriterion();
-		}
-		
-		return parent::__call($name, $arguments);
+		return parent::all($columns);
 	}
 }
 

@@ -6,7 +6,7 @@ use \mako\I18n;
 use \mako\String;
 use \mako\Validate;
 use \mako\Database;
-use \mako\database\orm\Hydrator;
+use \mako\database\orm\Query;
 use \mako\database\orm\relations\HasOne;
 use \mako\database\orm\relations\HasMany;
 use \mako\database\orm\relations\ManyToMany;
@@ -92,6 +92,14 @@ abstract class ORM
 	protected $exists = false;
 
 	/**
+	 * Is this a read only record?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $readOnly = false;
+
+	/**
 	 * Column values.
 	 * 
 	 * @var array
@@ -113,7 +121,7 @@ abstract class ORM
 	 * @var array
 	 */
 
-	protected $includes = array();
+	protected $including = array();
 
 	/**
 	 * Related records.
@@ -159,9 +167,10 @@ abstract class ORM
 	 * @param   boolean  $raw        (optional) Set raw values?
 	 * @param   boolean  $whitelist  (optional) Remove columns that are not in the whitelist?
 	 * @param   boolean  $exists     (optional) Does the record come from a database?
+	 * @param   mixed    $readOnly   (optional) Is this a read-only record?
 	 */
 
-	public function __construct(array $columns = array(), $raw = false, $whitelist = true, $exists = false)
+	public function __construct(array $columns = array(), $raw = false, $whitelist = true, $exists = false, $readOnly = null)
 	{
 		$this->assign($columns, $raw, $whitelist);
 
@@ -170,6 +179,11 @@ abstract class ORM
 			$this->original = $this->columns;
 
 			$this->exists = true;
+
+			if($readOnly !== null)
+			{
+				$this->readOnly = $readOnly;
+			}
 		}
 	}
 
@@ -306,6 +320,18 @@ abstract class ORM
 	}
 
 	/**
+	 * Is this a read-only record?
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function isReadOnly()
+	{
+		return $this->readOnly;
+	}
+
+	/**
 	 * Sets the relations to eager load.
 	 * 
 	 * @access  public
@@ -314,7 +340,7 @@ abstract class ORM
 
 	public function setIncludes(array $includes)
 	{
-		$this->includes = $includes;
+		$this->including = $includes;
 	}
 
 	/**
@@ -326,7 +352,7 @@ abstract class ORM
 
 	public function getIncludes()
 	{
-		return $this->includes;
+		return $this->including;
 	}
 
 	/**
@@ -515,6 +541,18 @@ abstract class ORM
 	}
 
 	/**
+	 * Returns a query builder instance.
+	 * 
+	 * @access  protected
+	 * @return  \mako\database\orm\Query
+	 */
+
+	protected function query()
+	{
+		return new Query(Database::connection($this->connection), $this);
+	}
+
+	/**
 	 * Returns a record using the value of its primary key.
 	 * 
 	 * @access  public
@@ -526,9 +564,7 @@ abstract class ORM
 	{
 		$instance = new static();
 
-		$hydrator = new Hydrator($instance);
-
-		return $hydrator->where($instance->getPrimaryKey(), '=', $id)->first();
+		return $instance->query()->where($instance->getPrimaryKey(), '=', $id)->first();
 	}
 
 	/**
@@ -586,7 +622,9 @@ abstract class ORM
 
 	protected function hasOne($model)
 	{
-		return new HasOne($this, $model);
+		$related = new $model;
+
+		return new HasOne(Database::connection($related->getConnection()), $this, $related);
 	}
 
 	/**
@@ -599,7 +637,9 @@ abstract class ORM
 
 	protected function hasMany($model)
 	{
-		return new HasMany($this, $model);
+		$related = new $model;
+
+		return new HasMany(Database::connection($related->getConnection()), $this, $related);
 	}
 
 	/**
@@ -612,7 +652,9 @@ abstract class ORM
 
 	protected function manyToMany($model)
 	{
-		return new ManyToMany($this, $model);
+		$related = new $model;
+
+		return new ManyToMany(Database::connection($related->getConnection()), $this, $related);
 	}
 
 	/**
@@ -625,7 +667,9 @@ abstract class ORM
 
 	protected function belongsTo($model)
 	{
-		return new BelongsTo($this, $model);
+		$related = new $model;
+
+		return new BelongsTo(Database::connection($related->getConnection()), $this, $related);
 	}
 
 	/**
@@ -704,13 +748,13 @@ abstract class ORM
 		
 		if($this->isModified())
 		{
-			$connection = Database::connection($this->connection);
+			$query = $this->query();
 
 			if($this->exists)
 			{
 				// This record already exists in the database so all we have to do is update it.
 
-				$query = $connection->table($this->getTable())->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
+				$query->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
 
 				if($this->enableLocking)
 				{
@@ -735,7 +779,7 @@ abstract class ORM
 				
 				$this->exists = true;
 
-				$connection->table($this->getTable())->insert($this->columns);
+				$query->insert($this->columns);
 
 				if($this->incrementing)
 				{
@@ -760,7 +804,7 @@ abstract class ORM
 	{
 		if($this->exists)
 		{
-			$query = Database::connection($this->connection)->table($this->getTable());
+			$query = $this->query();
 
 			if($this->enableLocking)
 			{
@@ -866,7 +910,7 @@ abstract class ORM
 	}
 
 	/**
-	 * Forwards static method calls to the hydrator.
+	 * Forwards static method calls to the query builder.
 	 * 
 	 * @access  public
 	 * @param   string  $name       Method name
@@ -876,7 +920,9 @@ abstract class ORM
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(new Hydrator(new static()), $name), $arguments);
+		$instance = new static();
+
+		return call_user_func_array(array($instance->query(), $name), $arguments);
 	}
 }
 

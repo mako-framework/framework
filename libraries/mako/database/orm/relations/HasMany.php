@@ -48,7 +48,7 @@ class HasMany extends \mako\database\orm\relations\HasOneOrMany
 
 		if($criteria !== null)
 		{
-			$criteria($this->query);
+			$criteria($this);
 		}
 
 		foreach($this->eagerCriterion($this->keys($results))->all() as $related)
