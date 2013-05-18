@@ -12,6 +12,7 @@ namespace mako\database\orm;
 
 use \mako\Database;
 use \mako\database\Connection;
+use \mako\database\ORM;
 use \mako\database\orm\ResultSet;
 use \mako\database\orm\ReadOnlyRecordException;
 use \BadMethodCallException;
@@ -50,7 +51,7 @@ class Query extends \mako\database\Query
 	 * @param   \mako\database\ORM         $model       Model to hydrate
 	 */
 
-	public function __construct(Connection $connection, \mako\database\ORM $model)
+	public function __construct(Connection $connection, ORM $model)
 	{
 		$this->model = $model;
 

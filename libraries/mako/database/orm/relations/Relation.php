@@ -3,6 +3,7 @@
 namespace mako\database\orm\relations;
 
 use \mako\database\Connection;
+use \mako\database\ORM;
 
 /**
  * Base relation.
@@ -55,7 +56,7 @@ abstract class Relation extends \mako\database\orm\Query
 	 * @param   \mako\database\ORM         $related     Related model
 	 */
 
-	public function __construct(Connection $connection, \mako\database\ORM $parent, \mako\database\ORM $related)
+	public function __construct(Connection $connection, ORM $parent, ORM $related)
 	{
 		$this->parent = $parent;
 
