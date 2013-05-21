@@ -108,7 +108,7 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	{
 		if($this->junctionKey === null)
 		{
-			$this->junctionKey = $this->model->getTable(true) . '_id';
+			$this->junctionKey = $this->model->getForeignKey();
 		}
 
 		return $this->junctionKey;

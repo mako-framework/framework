@@ -230,22 +230,14 @@ abstract class ORM
 	 * Returns the table name of the model.
 	 * 
 	 * @access  public
-	 * @param   boolean  $singular  (optional) Return the singular form of the table name?
 	 * @return  string
 	 */
 
-	public function getTable($singular = false)
+	public function getTable()
 	{
-		if($this->tableName === null || $singular === true)
+		if($this->tableName === null)
 		{
-			$table = String::camel2underscored(end((explode('\\', get_class($this)))));
-
-			if(!$singular)
-			{
-				$table = I18n::pluralize($table, null, $this->language);
-			}
-
-			return $table;
+			$this->tableName = I18n::pluralize(String::camel2underscored(end((explode('\\', get_class($this))))), null, $this->language);
 		}
 		
 		return $this->tableName;
@@ -273,6 +265,18 @@ abstract class ORM
 	public function getPrimaryKeyValue()
 	{
 		return $this->columns[$this->primaryKey];
+	}
+
+	/**
+	 * Returns the foreign key of the table.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getForeignKey()
+	{
+		return strtolower(end((explode('\\', get_class($this))))) . '_id';
 	}
 
 	/**

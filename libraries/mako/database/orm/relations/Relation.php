@@ -95,7 +95,7 @@ abstract class Relation extends \mako\database\orm\Query
 	{
 		if($this->foreignKey === null)
 		{
-			$this->foreignKey = $this->parent->getTable(true) . '_id';
+			$this->foreignKey = $this->parent->getForeignKey();
 		}
 
 		return $this->foreignKey;

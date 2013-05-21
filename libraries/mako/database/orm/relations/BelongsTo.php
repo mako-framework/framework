@@ -41,7 +41,7 @@ class BelongsTo extends \mako\database\orm\relations\Relation
 	{
 		if($this->foreignKey === null)
 		{
-			$this->foreignKey = $this->model->getTable(true) . '_id';
+			$this->foreignKey = $this->model->getForeignKey();
 		}
 
 		return $this->foreignKey;
