@@ -349,7 +349,7 @@ class Query
 	{
 		if($column instanceof Closure)
 		{
-			$query = new static($this->connection, $this->table);
+			$query = new self($this->connection, $this->table);
 
 			$column($query);
 
