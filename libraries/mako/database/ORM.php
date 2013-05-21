@@ -783,7 +783,7 @@ abstract class ORM
 
 				if($this->incrementing)
 				{
-					$this->columns[$this->primaryKey] = $connection->pdo->lastInsertId($this->primaryKey);
+					$this->columns[$this->primaryKey] = Database::connection($this->connection)->pdo->lastInsertId($this->primaryKey);
 				}
 			}
 
