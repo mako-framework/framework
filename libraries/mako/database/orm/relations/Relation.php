@@ -62,7 +62,6 @@ abstract class Relation extends \mako\database\orm\Query
 
 		parent::__construct($connection, $related);
 
-		$this->lazyCriterion();
 	}
 
 	//---------------------------------------------
@@ -159,9 +158,9 @@ abstract class Relation extends \mako\database\orm\Query
 
 	public function first(array $columns = array())
 	{
-		if(!$this->lazy)
+		if($this->lazy)
 		{
-			array_shift($this->wheres);
+			$this->lazyCriterion();
 		}
 
 		return parent::first($columns);
@@ -177,9 +176,9 @@ abstract class Relation extends \mako\database\orm\Query
 
 	public function all(array $columns = array())
 	{
-		if(!$this->lazy)
+		if($this->lazy)
 		{
-			array_shift($this->wheres);
+			$this->lazyCriterion();
 		}
 
 		return parent::all($columns);
