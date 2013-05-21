@@ -13,7 +13,7 @@ use \mako\database\ORM;
  * @license    http://www.makoframework.com/license
  */
 
-abstract class Relation extends \mako\database\orm\Query
+abstract class Relation extends \mako\database\orm\Hydrator
 {
 	//---------------------------------------------
 	// Class properties

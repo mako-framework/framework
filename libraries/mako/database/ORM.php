@@ -6,7 +6,7 @@ use \mako\I18n;
 use \mako\String;
 use \mako\Validate;
 use \mako\Database;
-use \mako\database\orm\Query;
+use \mako\database\orm\Hydrator;
 use \mako\database\orm\relations\HasOne;
 use \mako\database\orm\relations\HasMany;
 use \mako\database\orm\relations\ManyToMany;
@@ -545,15 +545,15 @@ abstract class ORM
 	}
 
 	/**
-	 * Returns a query builder instance.
+	 * Returns a hydrator instance.
 	 * 
 	 * @access  protected
-	 * @return  \mako\database\orm\Query
+	 * @return  \mako\database\orm\Hydrator
 	 */
 
-	protected function query()
+	protected function hydrator()
 	{
-		return new Query(Database::connection($this->connection), $this);
+		return new Hydrator(Database::connection($this->connection), $this);
 	}
 
 	/**
@@ -568,7 +568,7 @@ abstract class ORM
 	{
 		$instance = new static();
 
-		return $instance->query()->where($instance->getPrimaryKey(), '=', $id)->first();
+		return $instance->hydrator()->where($instance->getPrimaryKey(), '=', $id)->first();
 	}
 
 	/**
@@ -752,7 +752,7 @@ abstract class ORM
 		
 		if($this->isModified())
 		{
-			$query = $this->query();
+			$query = $this->hydrator();
 
 			if($this->exists)
 			{
@@ -808,7 +808,7 @@ abstract class ORM
 	{
 		if($this->exists)
 		{
-			$query = $this->query();
+			$query = $this->hydrator();
 
 			if($this->enableLocking)
 			{
@@ -926,7 +926,7 @@ abstract class ORM
 	{
 		$instance = new static();
 
-		return call_user_func_array(array($instance->query(), $name), $arguments);
+		return call_user_func_array(array($instance->hydrator(), $name), $arguments);
 	}
 }
 

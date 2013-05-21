@@ -3,7 +3,7 @@
 namespace mako\database\orm;
 
 /**
- * Query builder.
+ * Hydrator.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
@@ -17,7 +17,7 @@ use \mako\database\orm\ResultSet;
 use \mako\database\orm\ReadOnlyRecordException;
 use \BadMethodCallException;
 
-class Query extends \mako\database\Query
+class Hydrator extends \mako\database\Query
 {
 	//---------------------------------------------
 	// Class properties
@@ -144,7 +144,7 @@ class Query extends \mako\database\Query
 	 * 
 	 * @access  public
 	 * @param   string|array              $includes  Relation or array of relations to eager load
-	 * @return  \mako\database\orm\Query
+	 * @return  \mako\database\orm\Hydrator
 	 */
 
 	public function including($includes)
@@ -159,7 +159,7 @@ class Query extends \mako\database\Query
 	 * 
 	 * @access  public
 	 * @param   string|array              $excludes  Relation or array of relations to exclude from eager loading
-	 * @return  \mako\database\orm\Query
+	 * @return  \mako\database\orm\Hydrator
 	 */
 
 	public function excluding($excludes)
@@ -315,9 +315,9 @@ class Query extends \mako\database\Query
 	 * Magic method that allows us to call model scopes.
 	 * 
 	 * @access  public
-	 * @param   string                    $name       Method name
-	 * @param   array                     $arguments  Method arguments
-	 * @return  \mako\database\orm\Query
+	 * @param   string                       $name       Method name
+	 * @param   array                        $arguments  Method arguments
+	 * @return  \mako\database\orm\Hydrator
 	 */
 
 	public function __call($name, $arguments)
