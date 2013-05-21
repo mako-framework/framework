@@ -3,7 +3,6 @@
 namespace mako\database\orm\relations;
 
 use \mako\Database;
-use \mako\database\Connection;
 use \mako\database\orm\ResultSet;
 
 /**

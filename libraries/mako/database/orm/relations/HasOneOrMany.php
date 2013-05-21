@@ -2,8 +2,6 @@
 
 namespace mako\database\orm\relations;
 
-use \mako\database\Connection;
-
 /**
  * Has one or has many relation.
  *

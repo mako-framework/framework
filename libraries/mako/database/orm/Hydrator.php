@@ -10,7 +10,6 @@ namespace mako\database\orm;
  * @license    http://www.makoframework.com/license
  */
 
-use \mako\Database;
 use \mako\database\Connection;
 use \mako\database\ORM;
 use \mako\database\orm\ResultSet;
