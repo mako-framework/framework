@@ -224,11 +224,6 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	{
 		$this->junctionJoin();
 
-		if(!$this->lazy)
-		{
-			array_shift($this->wheres);
-		}
-
 		$this->columns = $this->select();
 
 		return parent::first($columns);
@@ -244,11 +239,6 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	public function all(array $columns = array())
 	{
 		$this->junctionJoin();
-
-		if(!$this->lazy)
-		{
-			array_shift($this->wheres);
-		}
 
 		$this->columns = $this->select();
 
