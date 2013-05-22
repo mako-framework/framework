@@ -282,8 +282,13 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 		{
 			$id = $id->getPrimaryKeyValue();
 		}
+		
+		if($this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue())->where($this->getJunctionKey(), '=', $id)->count() == 0)
+		{
+			return $this->junction()->insert(array($this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $id));
+		}
 
-		return $this->junction()->insert(array($this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $id));
+		return false;
 	}
 
 	/**
