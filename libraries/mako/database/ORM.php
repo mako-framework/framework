@@ -821,6 +821,7 @@ abstract class ORM
 			{				
 				$this->exists   = false;
 				$this->original = array();
+				$this->related  = array();
 			}
 			else
 			{
