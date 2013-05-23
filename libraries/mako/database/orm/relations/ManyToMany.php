@@ -244,19 +244,7 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	}
 
 	/**
-	 * Returns a result set from the database.
-	 * 
-	 * @access  public
-	 * @return  \mako\database\ORM
-	 */ 
-
-	public function get()
-	{
-		return $this->all();
-	}
-
-	/**
-	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
+	 * Returns the value of the chosen column of the first row of the result set.
 	 *
 	 * @access  public
 	 * @param   string   $column  Column to select
@@ -268,6 +256,18 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 		$this->junctionJoin();
 		
 		return parent::column($column);
+	}
+
+	/**
+	 * Returns a result set from the database.
+	 * 
+	 * @access  public
+	 * @return  \mako\database\ORM
+	 */ 
+
+	public function get()
+	{
+		return $this->all();
 	}
 
 	/**

@@ -185,7 +185,7 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	}
 
 	/**
-	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
+	 * Returns the value of the chosen column of the first row of the result set.
 	 *
 	 * @access  public
 	 * @param   string   $column  Column to select
