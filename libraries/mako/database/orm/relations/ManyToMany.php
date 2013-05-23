@@ -2,7 +2,6 @@
 
 namespace mako\database\orm\relations;
 
-use \mako\Database;
 use \mako\database\orm\ResultSet;
 
 /**
@@ -257,6 +256,21 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	}
 
 	/**
+	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
+	 *
+	 * @access  public
+	 * @param   string   $column  Column to select
+	 * @return  mixed
+	 */
+
+	public function column($column)
+	{
+		$this->junctionJoin();
+		
+		return parent::column($column);
+	}
+
+	/**
 	 * Returns a query builder instance to the junction table.
 	 * 
 	 * @access  protected
@@ -265,7 +279,7 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 
 	protected function junction()
 	{
-		return Database::connection($this->model->getConnection())->table($this->getJunctionTable());
+		return $this->connection->table($this->getJunctionTable());
 	}
 
 	/**
@@ -314,21 +328,6 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 		}
 
 		return (bool) $query->delete();
-	}
-
-	/**
-	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
-	 *
-	 * @access  public
-	 * @param   string   $column  Column to select
-	 * @return  mixed
-	 */
-
-	public function column($column)
-	{
-		$this->junctionJoin();
-		
-		return parent::column($column);
 	}
 }
 
