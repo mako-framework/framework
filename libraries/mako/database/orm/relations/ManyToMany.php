@@ -315,6 +315,21 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 
 		return (bool) $query->delete();
 	}
+
+	/**
+	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
+	 *
+	 * @access  public
+	 * @param   string   $column  Column to select
+	 * @return  mixed
+	 */
+
+	public function column($column)
+	{
+		$this->junctionJoin();
+		
+		return parent::column($column);
+	}
 }
 
 /** -------------------- End of file --------------------**/

@@ -183,6 +183,50 @@ abstract class Relation extends \mako\database\orm\Hydrator
 
 		return parent::all($columns);
 	}
+
+	/**
+	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
+	 *
+	 * @access  public
+	 * @param   string   $column  Column to select
+	 * @return  mixed
+	 */
+
+	public function column($column)
+	{
+		$this->lazyCriterion();
+
+		return parent::column($column);
+	}
+
+	/**
+	 * Updates data from the chosen table.
+	 *
+	 * @access  public
+	 * @param   array    $values  Associative array of column values
+	 * @return  int
+	 */
+
+	public function update(array $values)
+	{
+		$this->lazyCriterion();
+
+		return parent::update($values);
+	}
+
+	/**
+	 * Deletes data from the chosen table.
+	 *
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function delete()
+	{
+		$this->lazyCriterion();
+
+		return parent::delete();
+	}
 }
 
 /** -------------------- End of file --------------------**/
