@@ -167,10 +167,10 @@ abstract class ORM
 	 * @param   boolean  $raw        (optional) Set raw values?
 	 * @param   boolean  $whitelist  (optional) Remove columns that are not in the whitelist?
 	 * @param   boolean  $exists     (optional) Does the record come from a database?
-	 * @param   mixed    $readOnly   (optional) Is this a read-only record?
+	 * @param   boolean  $readOnly   (optional) Is this a read-only record?
 	 */
 
-	public function __construct(array $columns = array(), $raw = false, $whitelist = true, $exists = false, $readOnly = null)
+	public function __construct(array $columns = array(), $raw = false, $whitelist = true, $exists = false, $readOnly = false)
 	{
 		$this->assign($columns, $raw, $whitelist);
 
@@ -180,10 +180,7 @@ abstract class ORM
 
 			$this->exists = true;
 
-			if($readOnly !== null)
-			{
-				$this->readOnly = $readOnly;
-			}
+			$this->readOnly = $this->readOnly || $readOnly;
 		}
 	}
 

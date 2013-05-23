@@ -36,7 +36,7 @@ class Hydrator extends \mako\database\Query
 	 * @var boolean
 	 */
 
-	protected $makeReadOnly;
+	protected $makeReadOnly = false;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
