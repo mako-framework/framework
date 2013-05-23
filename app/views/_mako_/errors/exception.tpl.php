@@ -9,7 +9,6 @@
 	{
 		height:100%;
 		background:#eee;
-		padding:40px;
 		margin:0px;
 		height: 100%;
 		font-size: 100%;
@@ -47,8 +46,6 @@
 		-moz-tab-size: 4;
 		-o-tab-size: 4;
 		tab-size: 4;
-		border-bottom-right-radius: 4px;
-		border-bottom-left-radius: 4px;
 	}
 	pre::-webkit-scrollbar
 	{
@@ -71,7 +68,6 @@
 	{
 		background: rgba(204, 10, 20, 0.3);
 		padding: 5px;
-		border-radius: 4px;
 	}
 	a
 	{
@@ -90,8 +86,6 @@
 		color:#fff;
 		font-size:2.5em;
 		font-weight:bold;
-		border-top-left-radius: 8px;
-		border-top-right-radius: 8px;
 		text-shadow: 1px 2px 0px #333;
 	}
 	#error span.code
@@ -100,7 +94,6 @@
 		padding: 5px;
 		padding-left: 20px;
 		padding-right: 20px;
-		border-radius: 4px;
 		box-shadow: 1px 2px 0px 0px #75000B;
 	}
 	.info
@@ -114,16 +107,7 @@
 	{
 		background:#eee;
 		padding:10px;
-		border-radius: 4px;
-		border-radius: 4px;
 		border: 1px solid #ccc;
-	}
-	.where.code
-	{
-		border-radius: 0px;
-		border-top-left-radius: 4px;
-		border-top-right-radius: 4px;
-		border-bottom: 0px;
 	}
 	.group
 	{
