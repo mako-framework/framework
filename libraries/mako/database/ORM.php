@@ -617,60 +617,66 @@ abstract class ORM
 	 * Returns a HasOne relation.
 	 * 
 	 * @access  protected
-	 * @param   string                              $model  Related model
+	 * @param   string                              $model       Related model
+	 * @param   string|null                         $foreignKey  (optional) Foreign key name
 	 * @return  \mako\database\orm\relation\HasOne
 	 */
 
-	protected function hasOne($model)
+	protected function hasOne($model, $foreignKey = null)
 	{
 		$related = new $model;
 
-		return new HasOne(Database::connection($related->getConnection()), $this, $related);
+		return new HasOne(Database::connection($related->getConnection()), $this, $related, $foreignKey);
 	}
 
 	/**
 	 * Returns a HasMany relation.
 	 * 
 	 * @access  protected
-	 * @param   string                               $model  Related model
+	 * @param   string                               $model       Related model
+	 * @param   string|null                          $foreignKey  (optional) Foreign key name
 	 * @return  \mako\database\orm\relation\HasMany
 	 */
 
-	protected function hasMany($model)
+	protected function hasMany($model, $foreignKey = null)
 	{
 		$related = new $model;
 
-		return new HasMany(Database::connection($related->getConnection()), $this, $related);
+		return new HasMany(Database::connection($related->getConnection()), $this, $related, $foreignKey);
 	}
 
 	/**
 	 * Returns a ManyToMany relation.
 	 * 
 	 * @access  protected
-	 * @param   string                                  $model  Related model
+	 * @param   string                                  $model          Related model
+	 * @param   string|null                             $foreignKey     (optional) Foreign key name
+	 * @param   string|null                             $junctionTable  (optional) Junction table name
+	 * @param   string|null                             $junctionKey    (optional) Junction key name
 	 * @return  \mako\database\orm\relation\ManyToMany
 	 */
 
-	protected function manyToMany($model)
+	protected function manyToMany($model, $foreignKey = null, $junctionTable = null, $junctionKey = null)
 	{
 		$related = new $model;
 
-		return new ManyToMany(Database::connection($related->getConnection()), $this, $related);
+		return new ManyToMany(Database::connection($related->getConnection()), $this, $related, $foreignKey, $junctionTable, $junctionKey);
 	}
 
 	/**
 	 * Returns a BelongsTo relation.
 	 * 
 	 * @access  protected
-	 * @param   string                                 $model  Related model
+	 * @param   string                                 $model       Related model
+	 * @param   string|null                            $foreignKey  (optional) Foreign key name
 	 * @return  \mako\database\orm\relation\BelongsTo
 	 */
 
-	protected function belongsTo($model)
+	protected function belongsTo($model, $foreignKey = null)
 	{
 		$related = new $model;
 
-		return new BelongsTo(Database::connection($related->getConnection()), $this, $related);
+		return new BelongsTo(Database::connection($related->getConnection()), $this, $related, $foreignKey);
 	}
 
 	/**
