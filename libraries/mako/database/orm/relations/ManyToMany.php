@@ -2,6 +2,8 @@
 
 namespace mako\database\orm\relations;
 
+use \mako\database\Connection;
+use \mako\database\ORM;
 use \mako\database\orm\ResultSet;
 
 /**
@@ -38,26 +40,32 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Constructor.
+	 * 
+	 * @access  public
+	 * @param   \mako\database\Connection  $connection     Database connection
+	 * @param   \mako\database\ORM         $parent         Parent model
+	 * @param   \mako\database\ORM         $related        Related model
+	 * @param   string|null                $foreignKey     (optional) Foreign key name
+	 * @param   string|null                $junctionTable  (optional) Junction table name
+	 * @param   string|null                $junctionKey    (optional) Junction key name
+	 */
+
+	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null, $junctionTable = null, $junctionKey = null)
+	{
+		$this->junctionTable = $junctionTable;
+
+		$this->junctionKey = $junctionKey;
+
+		parent::__construct($connection, $parent, $related, $foreignKey);
+
+		$this->junctionJoin();
+	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
-	/**
-	 * Sets the junction table.
-	 * 
-	 * @access  public
-	 * @param   string                                   $junctionTable  Junction table
-	 * @return  \mako\database\orm\relations\ManyToMany
-	 */
-
-	public function setJunctionTable($junctionTable)
-	{
-		$this->junctionTable = $junctionTable;
-
-		return $this;
-	}
 
 	/**
 	 * Returns the the junction table.
@@ -78,21 +86,6 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 		}
 
 		return $this->junctionTable;
-	}
-
-	/**
-	 * Sets the junction key.
-	 * 
-	 * @access  public
-	 * @param   string                                   $junctionKey  Junction key
-	 * @return  \mako\database\orm\relations\ManyToMany
-	 */
-
-	public function setJunctionKey($junctionKey)
-	{
-		$this->junctionKey = $junctionKey;
-
-		return $this;
 	}
 
 	/**
@@ -220,8 +213,6 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 
 	public function first(array $columns = array())
 	{
-		$this->junctionJoin();
-
 		$this->columns = $this->select();
 
 		return parent::first($columns);
@@ -236,26 +227,9 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 
 	public function all(array $columns = array())
 	{
-		$this->junctionJoin();
-
 		$this->columns = $this->select();
 
 		return parent::all($columns);
-	}
-
-	/**
-	 * Returns the value of the chosen column of the first row of the result set.
-	 *
-	 * @access  public
-	 * @param   string   $column  Column to select
-	 * @return  mixed
-	 */
-
-	public function column($column)
-	{
-		$this->junctionJoin();
-		
-		return parent::column($column);
 	}
 
 	/**

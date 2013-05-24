@@ -54,34 +54,23 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	 * @param   \mako\database\Connection  $connection  Database connection
 	 * @param   \mako\database\ORM         $parent      Parent model
 	 * @param   \mako\database\ORM         $related     Related model
+	 * @param   string|null                $foreignKey  (optional) Foreign key name
 	 */
 
-	public function __construct(Connection $connection, ORM $parent, ORM $related)
+	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null)
 	{
 		$this->parent = $parent;
 
+		$this->foreignKey = $foreignKey;
+
 		parent::__construct($connection, $related);
 
+		$this->lazyCriterion();
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
-	/**
-	 * Sets the foreign key.
-	 * 
-	 * @access  public
-	 * @param   string                       $foreignKey  Foreign key
-	 * @return  \mako\database\orm\Relation
-	 */
-
-	public function setForeignKey($foreignKey)
-	{
-		$this->foreignKey = $foreignKey;
-
-		return $this;
-	}
 
 	/**
 	 * Returns the foreign key.
@@ -158,9 +147,9 @@ abstract class Relation extends \mako\database\orm\Hydrator
 
 	public function first(array $columns = array())
 	{
-		if($this->lazy)
+		if(!$this->lazy)
 		{
-			$this->lazyCriterion();
+			array_shift($this->wheres);
 		}
 
 		return parent::first($columns);
@@ -176,56 +165,12 @@ abstract class Relation extends \mako\database\orm\Hydrator
 
 	public function all(array $columns = array())
 	{
-		if($this->lazy)
+		if(!$this->lazy)
 		{
-			$this->lazyCriterion();
+			array_shift($this->wheres);
 		}
 
 		return parent::all($columns);
-	}
-
-	/**
-	 * Returns the value of the chosen column of the first row of the result set.
-	 *
-	 * @access  public
-	 * @param   string   $column  Column to select
-	 * @return  mixed
-	 */
-
-	public function column($column)
-	{
-		$this->lazyCriterion();
-
-		return parent::column($column);
-	}
-
-	/**
-	 * Updates data from the chosen table.
-	 *
-	 * @access  public
-	 * @param   array    $values  Associative array of column values
-	 * @return  int
-	 */
-
-	public function update(array $values)
-	{
-		$this->lazyCriterion();
-
-		return parent::update($values);
-	}
-
-	/**
-	 * Deletes data from the chosen table.
-	 *
-	 * @access  public
-	 * @return  int
-	 */
-
-	public function delete()
-	{
-		$this->lazyCriterion();
-
-		return parent::delete();
 	}
 }
 
