@@ -68,7 +68,7 @@ class Hydrator extends \mako\database\Query
 	 *
 	 * @access  public
 	 * @param   string                $table     Table name
-	 * @param   string|\Closure        $column1   (optional) Column name or closure
+	 * @param   string|\Closure       $column1   (optional) Column name or closure
 	 * @param   string                $operator  (optional) Operator
 	 * @param   string                $column2   (optional) Column name
 	 * @param   string                $type      (optional) Join type
@@ -142,7 +142,7 @@ class Hydrator extends \mako\database\Query
 	 * Sets the relations to eager load.
 	 * 
 	 * @access  public
-	 * @param   string|array              $includes  Relation or array of relations to eager load
+	 * @param   string|array                 $includes  Relation or array of relations to eager load
 	 * @return  \mako\database\orm\Hydrator
 	 */
 
@@ -157,7 +157,7 @@ class Hydrator extends \mako\database\Query
 	 * Removes relations to eager load.
 	 * 
 	 * @access  public
-	 * @param   string|array              $excludes  Relation or array of relations to exclude from eager loading
+	 * @param   string|array                 $excludes  Relation or array of relations to exclude from eager loading
 	 * @return  \mako\database\orm\Hydrator
 	 */
 
