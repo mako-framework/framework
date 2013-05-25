@@ -186,7 +186,7 @@ class URL
 
 	public static function matches($pattern)
 	{
-		return (boolean) preg_match('#' . $pattern . '#', Request::main()->route());
+		return (bool) preg_match('#' . $pattern . '#', Request::main()->route());
 	}
 }
 

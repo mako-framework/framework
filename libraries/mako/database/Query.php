@@ -540,7 +540,7 @@ class Query
 	 * @access  public
 	 * @param   mixed                 $column     Column name
 	 * @param   string                $separator  (optional) Clause separator
-	 * @param   boolean               $not        (boolean) Not in?
+	 * @param   boolean               $not        (optional) Not in?
 	 * @return  \mako\database\Query
 	 */
 
@@ -602,7 +602,7 @@ class Query
 	 * @access  public
 	 * @param   \mako\database\query\Subquery  $query      Subquery
 	 * @param   string                         $separator  (optional) Clause separator
-	 * @param   boolean                        $not        (boolean) Not exists?
+	 * @param   boolean                        $not        (optional) Not exists?
 	 * @return  \mako\database\Query
 	 */
 
