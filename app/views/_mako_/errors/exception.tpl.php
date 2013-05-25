@@ -173,7 +173,7 @@
 						{% foreach($frame['arguments'] as $k => $v) %}
 						<tr>
 							<td width="20%">{{$k+1}}</td>
-							<td width="80%">{{raw:$v}}</td>
+							<td width="80%">{{preserve:$v}}</td>
 						</tr>
 						{% endforeach %}
 					</table>
