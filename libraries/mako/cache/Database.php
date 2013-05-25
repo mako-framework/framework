@@ -160,7 +160,7 @@ class Database extends \mako\cache\Adapter
 	 * 
 	 * @access  public
 	 * @param   string  $key      Cache key
-	 * @param   string  $ammount  (optional) Ammoun that the number should be increased by
+	 * @param   int     $ammount  (optional) Ammoun that the number should be increased by
 	 * @return  mixed
 	 */
 
@@ -197,7 +197,7 @@ class Database extends \mako\cache\Adapter
 	 * 
 	 * @access  public
 	 * @param   string  $key      Cache key
-	 * @param   string  $ammount  (optional) Ammoun that the number should be decremented by
+	 * @param   int     $ammount  (optional) Ammoun that the number should be decremented by
 	 * @return  mixed
 	 */
 
