@@ -126,8 +126,8 @@ return array
 	'error_handler' => array
 	(
 		'log_errors'          => true,
-		'display_errors'      => true,       // It is recommended to set this value to false when you are in production.
-		'syntax_highlighting' => true,       // Loads third party javascript from the cloudflare CDN. Set to false to disable.
+		'display_errors'      => true, // It is recommended to set this value to false when you are in production.
+		'syntax_highlighting' => true, // Loads third party javascript from the cloudflare CDN. Set to false to disable.
 		'open_with'           => 'subl://open?url=file://%s&line=%s',
 	),
 );
