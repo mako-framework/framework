@@ -117,16 +117,18 @@ return array
 	/**
 	 * Error handler settings.
 	 *
+	 * log_errors         : Set to true if you want to log errors caught by the Mako errors handler.
 	 * display_errors     : Set to true to display errors caught by the mako error handlers.
 	 * syntax_highlighting: set to true to enable syntax highlighting of code in the exception view.
-	 * log_errors         : Set to true if you want to log errors caught by the Mako errors handlers.
+	 * open_with          : Allows you to open the failing code with your preferred text editor.
 	 */
 	
 	'error_handler' => array
 	(
-		'display_errors'      => true, // It is recommended to set this value to false when you are in production.
-		'syntax_highlighting' => true, // Loads third party javascript from the cloudflare CDN. Set to false to disable.
 		'log_errors'          => true,
+		'display_errors'      => true,       // It is recommended to set this value to false when you are in production.
+		'syntax_highlighting' => true,       // Loads third party javascript from the cloudflare CDN. Set to false to disable.
+		'open_with'           => 'sublime',  // The supported editors are "emacs", "macvim", "sublime", and "textmate".
 	),
 );
 

@@ -104,6 +104,10 @@
 		padding:10px;
 		border: 1px solid #ccc;
 	}
+	.where a
+	{
+		color: #555;
+	}
 	.group
 	{
 		color: #333;
@@ -173,8 +177,12 @@
 	<br>
 
 	{% if(!empty($error['source'])) %}
-		<div class="where code">{{$error['file']}} on line {{$error['line']}}</div>
-		<pre class="prettyprint linenums:{{$error['source']['start']}} linenums">{{$error['source']['code']}}</pre>
+		<div class="where code">
+			<a href="{{$open_with($error['file'], $error['line'])}}">{{$error['file']}} on line {{$error['line']}}</a>
+		</div>
+		<pre class="prettyprint linenums:{{$error['source']['start']}} linenums">
+			{{$error['source']['code']}}
+		</pre>
 	{% else %}
 		<div class="where">{{$error['file']}} on line {{$error['line']}}</div>
 	{% endif %}
@@ -201,8 +209,12 @@
 				{% endif %}
 
 				{% if(!empty($frame['location'])) %}
-					<div class="where code">{{$frame['location']['file']}} on line {{$frame['location']['line']}}</div>
-					<pre class="prettyprint linenums:{{$frame['location']['source']['start']}} linenums">{{$frame['location']['source']['code']}}</pre>
+					<div class="where code">
+						<a href="{{$open_with($frame['location']['file'], $frame['location']['line'])}}">{{$frame['location']['file']}} on line {{$frame['location']['line']}}</a>
+					</div>
+					<pre class="prettyprint linenums:{{$frame['location']['source']['start']}} linenums">
+						{{$frame['location']['source']['code']}}
+					</pre>
 				{% endif %}
 			</div>
 		{% endforeach %}
