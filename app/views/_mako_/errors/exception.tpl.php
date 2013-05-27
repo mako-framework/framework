@@ -180,9 +180,7 @@
 		<div class="where code">
 			<a href="{{$open_with($error['file'], $error['line'])}}">{{$error['file']}} on line {{$error['line']}}</a>
 		</div>
-		<pre class="prettyprint linenums:{{$error['source']['start']}} linenums">
-			{{$error['source']['code']}}
-		</pre>
+		<pre class="prettyprint linenums:{{$error['source']['start']}} linenums">{{$error['source']['code']}}</pre>
 	{% else %}
 		<div class="where">{{$error['file']}} on line {{$error['line']}}</div>
 	{% endif %}
@@ -212,9 +210,7 @@
 					<div class="where code">
 						<a href="{{$open_with($frame['location']['file'], $frame['location']['line'])}}">{{$frame['location']['file']}} on line {{$frame['location']['line']}}</a>
 					</div>
-					<pre class="prettyprint linenums:{{$frame['location']['source']['start']}} linenums">
-						{{$frame['location']['source']['code']}}
-					</pre>
+					<pre class="prettyprint linenums:{{$frame['location']['source']['start']}} linenums">{{$frame['location']['source']['code']}}</pre>
 				{% endif %}
 			</div>
 		{% endforeach %}
