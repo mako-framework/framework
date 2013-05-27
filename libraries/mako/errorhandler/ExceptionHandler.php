@@ -240,26 +240,7 @@ class ExceptionHandler
 				'error'     => $error,
 				'open_with' => function($file, $line)
 				{
-					switch(Config::get('application.error_handler.open_with'))
-					{
-						case 'sublime':
-							return 'subl://open?url=file://' . $file . '&line=' . $line;
-						break;
-						case 'textmate':
-							return 'txmt://open?url=file://' . $file . '&line=' . $line;
-						break;
-						case 'macvim':
-							return 'mvim://open?url=file://' . $file . '&line=' . $line;
-						break;
-						case 'emacs':
-							return 'emacs://open?url=file://' . $file . '&line=' . $line;
-						break;
-						case 'editor':
-							return 'editor://open?url=file://' . $file . '&line=' . $line;
-						break;
-						default:
-							return '#';
-					}
+					return sprintf(Config::get('application.error_handler.open_with'), $file, $line);
 				},
 			)))->send(500);
 		}
