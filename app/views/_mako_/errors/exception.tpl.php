@@ -39,13 +39,13 @@
 		background: #1D1F21;
 		color: #ccc;
 		padding: 20px;
-		margin-top: 0px;
 		overflow: auto;
 		word-wrap: normal;
 		white-space: pre;
 		-moz-tab-size: 4;
 		-o-tab-size: 4;
 		tab-size: 4;
+		border-radius: 5px;
 	}
 	pre::-webkit-scrollbar
 	{
@@ -103,6 +103,7 @@
 		background:#eee;
 		padding:10px;
 		border: 1px solid #ccc;
+		border-radius: 5px;
 	}
 	.where a
 	{
@@ -170,19 +171,14 @@
 </div>
 
 <div class="info">
-	<p>
-		<strong>{{$error['message']}}</strong>
-	</p>
+	<p><strong>{{$error['message']}}</strong></p>
 
-	<br>
+	<div class="where">
+		<a href="{{$open_with($error['file'], $error['line'])}}">{{$error['file']}} on line {{$error['line']}}</a>
+	</div>
 
 	{% if(!empty($error['source'])) %}
-		<div class="where code">
-			<a href="{{$open_with($error['file'], $error['line'])}}">{{$error['file']}} on line {{$error['line']}}</a>
-		</div>
 		<pre class="prettyprint linenums:{{$error['source']['start']}} linenums">{{$error['source']['code']}}</pre>
-	{% else %}
-		<div class="where">{{$error['file']}} on line {{$error['line']}}</div>
 	{% endif %}
 </div>
 
@@ -207,7 +203,7 @@
 				{% endif %}
 
 				{% if(!empty($frame['location'])) %}
-					<div class="where code">
+					<div class="where">
 						<a href="{{$open_with($frame['location']['file'], $frame['location']['line'])}}">{{$frame['location']['file']}} on line {{$frame['location']['line']}}</a>
 					</div>
 					<pre class="prettyprint linenums:{{$frame['location']['source']['start']}} linenums">{{$frame['location']['source']['code']}}</pre>
