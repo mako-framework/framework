@@ -71,7 +71,7 @@ class ExceptionHandler
 		}
 
 		$handle      = fopen($file, 'r');
-		$code        = array();
+		$code        = '';
 		$currentLine = 0;
 
 		while(!feof($handle))
@@ -87,7 +87,7 @@ class ExceptionHandler
 
 			if($currentLine >= ($line - $padding) && $currentLine <= ($line + $padding))
 			{
-				$code[] = array('current' => $currentLine, 'line' => $temp);
+				$code .= $temp;
 			}
 		}
 
@@ -163,7 +163,7 @@ class ExceptionHandler
 			{
 				$location['file']   = $entry['file'];
 				$location['line']   = $entry['line'];
-				$location['source'] = $this->getCode($entry['file'], $entry['line'], 0);
+				$location['source'] = $this->getCode($entry['file'], $entry['line']);
 			}
 			
 			// Compile into array
@@ -194,7 +194,7 @@ class ExceptionHandler
 
 		if(!empty($code))
 		{
-			$code = trim($code['code'][0]['line']);
+			$code = trim($code['code']);
 		}
 		else
 		{

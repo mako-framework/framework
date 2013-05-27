@@ -64,11 +64,6 @@
 		border:2px solid white !important;
 		background-color:rgba(0,0,0,.5) !important
 	}
-	pre div.error
-	{
-		background: rgba(204, 10, 20, 0.3);
-		padding: 5px;
-	}
 	a
 	{
 		color:#0088cc;
@@ -140,21 +135,46 @@
 		border: none;
 		padding-bottom: 0px;
 	}
+	{% if(mako\Config::get('application.error_handler.syntax_highlighting')) %}
+	.prettyprint.linenums{box-shadow: inset 60px 0 0 #2D3033, inset 50px 0 0 transparent;}
+	ol.linenums li{padding-left: 10px; color: #bebec5;line-height: 18px;text-shadow: 0 1px 0 #000;}
+	.pln{color:#c5c8c6}
+	.str{color:#b5bd68}
+	.kwd{color:#b294bb}
+	.com{color:#969896}
+	.typ{color:#81a2be}
+	.lit{color:#de935f}
+	.pun{color:#c5c8c6}
+	.opn{color:#c5c8c6}
+	.clo{color:#c5c8c6}
+	.tag{color:#c66}
+	.atn{color:#de935f}
+	.atv{color:#8abeb7}
+	.dec{color:#de935f}
+	.var{color:#c66}
+	.fun{color:#81a2be}
+	pre.prettyprint{background:#1d1f21;border:0 solid #000;padding:20px}
+	ol.linenums{color:rgba(255,255,255,0.5);margin-top:0;margin-bottom:0}
+	{% endif %}
 </style>
 
 </head>
 <body>
 
 <div id="error">
-        {{$error['type']}} {% if(isset($error['code'])) %}<span class="code">{{$error['code']}}</span>{% endif %}
+	{{$error['type']}} {% if(isset($error['code'])) %}<span class="code">{{$error['code']}}</span>{% endif %}
 </div>
 
 <div class="info">
-	<p><strong>{{$error['message']}}</strong></p>
+	<p>
+		<strong>{{$error['message']}}</strong>
+	</p>
+
+	<br>
 
 	{% if(!empty($error['source'])) %}
 		<div class="where code">{{$error['file']}} on line {{$error['line']}}</div>
-		<pre>{% foreach($error['source']['code'] as $code) %}{% if($code['current'] == $error['line']) %}<div class="error">{{$code['line']}}</div>{% else %}{{$code['line']}}{% endif %}{% endforeach %}</pre>
+		<pre class="prettyprint linenums:{{$error['source']['start']}} linenums">{{$error['source']['code']}}</pre>
 	{% else %}
 		<div class="where">{{$error['file']}} on line {{$error['line']}}</div>
 	{% endif %}
@@ -182,7 +202,7 @@
 
 				{% if(!empty($frame['location'])) %}
 					<div class="where code">{{$frame['location']['file']}} on line {{$frame['location']['line']}}</div>
-					<pre>{{trim($frame['location']['source']['code'][0]['line'])}}</pre>
+					<pre class="prettyprint linenums:{{$frame['location']['source']['start']}} linenums">{{$frame['location']['source']['code']}}</pre>
 				{% endif %}
 			</div>
 		{% endforeach %}
@@ -283,6 +303,11 @@
 	}
 
 </script>
+
+{% if(mako\Config::get('application.error_handler.syntax_highlighting')) %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script>prettyPrint();</script>
+{% endif %}
 
 </body>
 </html>
