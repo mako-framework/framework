@@ -179,7 +179,7 @@
 	</div>
 
 	{% if(!empty($error['source'])) %}
-		<pre class="prettyprint linenums:{{$error['source']['start'] + 1}} linenums">{{$error['source']['code']}}</pre>
+		<pre class="prettyprint linenums:{{$error['source']['start']}} linenums">{{$error['source']['code']}}</pre>
 	{% endif %}
 </div>
 
@@ -211,7 +211,7 @@
 				<div class="where">
 					<a href="{{$open_with($frame['location']['file'], $frame['location']['line'])}}">{{$frame['location']['file']}} on line {{$frame['location']['line']}}</a>
 				</div>
-				<pre class="prettyprint linenums:{{$frame['location']['source']['start'] + 1}} linenums">{{$frame['location']['source']['code']}}</pre>
+				<pre class="prettyprint linenums:{{$frame['location']['source']['start']}} linenums">{{$frame['location']['source']['code']}}</pre>
 			{% else %}
 				Empty stack frame.
 			{% endif %}
