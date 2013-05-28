@@ -87,7 +87,7 @@ class ExceptionHandler
 
 			if($currentLine >= ($line - $padding) && $currentLine <= ($line + $padding))
 			{
-				$code .= $temp;
+				$code .= (trim($temp) === '') ? " \n" : $temp; // Workaround for prettify bug
 			}
 		}
 
