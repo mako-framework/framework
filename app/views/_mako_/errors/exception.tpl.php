@@ -90,6 +90,7 @@
 		padding-left: 20px;
 		padding-right: 20px;
 		box-shadow: 1px 2px 0px 0px #75000B;
+		border-radius: 5px;
 	}
 	.info
 	{
@@ -178,7 +179,7 @@
 	</div>
 
 	{% if(!empty($error['source'])) %}
-		<pre class="prettyprint linenums:{{$error['source']['start']}} linenums">{{$error['source']['code']}}</pre>
+		<pre class="prettyprint linenums:{{$error['source']['start'] + 1}} linenums">{{$error['source']['code']}}</pre>
 	{% endif %}
 </div>
 
@@ -187,10 +188,16 @@
 
 	<div class="info hidden" id="backtrace">
 		{% foreach($error['backtrace'] as $key => $frame) %}
-			<div class="frame">
-				<p><strong>{{$frame['function']}}</strong></p>
 
+		<div class="group" data-target="backtrace-{{$key}}">{{$frame['function']}}<span class="toggle">+</span></div>
+
+		<div class="info hidden" id="backtrace-{{$key}}">
+			{% if(!empty($frame['location'])) %}
 				{% if(!empty($frame['arguments'])) %}
+					<div class="where">
+						Arguments
+					</div>
+					<br>
 					<table width="100%">
 						{% foreach($frame['arguments'] as $k => $v) %}
 						<tr>
@@ -201,14 +208,15 @@
 					</table>
 					<br>
 				{% endif %}
+				<div class="where">
+					<a href="{{$open_with($frame['location']['file'], $frame['location']['line'])}}">{{$frame['location']['file']}} on line {{$frame['location']['line']}}</a>
+				</div>
+				<pre class="prettyprint linenums:{{$frame['location']['source']['start'] + 1}} linenums">{{$frame['location']['source']['code']}}</pre>
+			{% else %}
+				Empty stack frame.
+			{% endif %}
+		</div>
 
-				{% if(!empty($frame['location'])) %}
-					<div class="where">
-						<a href="{{$open_with($frame['location']['file'], $frame['location']['line'])}}">{{$frame['location']['file']}} on line {{$frame['location']['line']}}</a>
-					</div>
-					<pre class="prettyprint linenums:{{$frame['location']['source']['start']}} linenums">{{$frame['location']['source']['code']}}</pre>
-				{% endif %}
-			</div>
 		{% endforeach %}
 	</div>
 {% endif %}
