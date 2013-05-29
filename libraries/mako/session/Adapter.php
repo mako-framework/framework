@@ -56,9 +56,9 @@ abstract class Adapter
 
 	public function __destruct()
 	{
-		unset($_SESSION['#flashdata#']);
+		unset($_SESSION['mako.flashdata']);
 
-		$_SESSION['#flashdata#'] = $this->flashdata;
+		$_SESSION['mako.flashdata'] = $this->flashdata;
 	}
 	
 	//---------------------------------------------
@@ -130,7 +130,7 @@ abstract class Adapter
 	{
 		if($data === null)
 		{
-			return isset($_SESSION['#flashdata#'][$key]) ? $_SESSION['#flashdata#'][$key] : false;
+			return isset($_SESSION['mako.flashdata'][$key]) ? $_SESSION['mako.flashdata'][$key] : false;
 		}
 		else
 		{
@@ -139,7 +139,21 @@ abstract class Adapter
 	}
 
 	/**
-	 * Deletes all session data.
+	 * Extends the lifetime of the flash data by one request.
+	 * 
+	 * @access  public
+	 * @param   array   $keys  (optional) Keys to preserve
+	 */
+
+	public function reflash(array $keys = array())
+	{
+		$flashdata = empty($keys) ? $_SESSION['mako.flashdata'] : array_intersect_key($_SESSION['mako.flashdata'], array_flip($keys));
+
+		$this->flashdata = array_merge($this->flashdata, $flashdata);
+	}
+
+	/**
+	 * Clears all session data.
 	 * 
 	 * @access  public
 	 */
@@ -175,7 +189,7 @@ abstract class Adapter
 	}
 
 	/**
-	 *  Destroys all data registered to the session.
+	 * Destroys all data registered to the session.
 	 * 
 	 * @access  public
 	 * @return  boolean

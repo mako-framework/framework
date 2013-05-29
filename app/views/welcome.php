@@ -32,7 +32,7 @@
 				width: 900px;
 				position: absolute;
 				margin: 0px auto;
-				top: 50%;
+				top: 45%;
 				left: 50%;
 				margin-top: -175px;
 				margin-left: -450px;
