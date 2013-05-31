@@ -29,6 +29,25 @@ class Console extends \mako\reactor\Task
 
 	protected $readline;
 
+	/**
+	 * Task information.
+	 * 
+	 * @var array
+	 */
+
+	protected $taskInfo = array
+	(
+		'run' => array
+		(
+			'description' => 'Starts a a debug console.',
+			'options'     => array
+			(
+				'fresh'  => 'Start without the console history.',
+				'forget' => 'Discard the console history upon exit.',
+			),
+		),
+	);
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------

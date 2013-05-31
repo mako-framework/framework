@@ -8,6 +8,7 @@ use \mako\reactor\CLI;
 use \Exception;
 use \ReflectionClass;
 use \RuntimeException;
+use \ReflectionException;
 
 /**
  * Reactor core class.
@@ -32,16 +33,28 @@ class Reactor
 	protected $cli;
 
 	/**
-	 * Mako Reactor core tasks.
+	 * Reactor core tasks.
 	 *
 	 * @var array
 	 */
 
 	protected $coreTasks = array
 	(
-		'console' => 'Console',
-		'migrate' => 'Migrate',
-		'server'  => 'Server',
+		'console' => '\mako\reactor\tasks\Console',
+		'migrate' => '\mako\reactor\tasks\Migrate',
+		'server'  => '\mako\reactor\tasks\Server',
+	);
+
+	/**
+	 * Global reactor options.
+	 * 
+	 * @var array
+	 */
+
+	protected $globalOptions = array
+	(
+		'env'      => 'Allows you to override the default environment.',
+		'database' => 'Allows you to override the default database connection.',
 	);
 
 	//---------------------------------------------
@@ -83,19 +96,6 @@ class Reactor
 
 	public function run($arguments)
 	{
-		// List the available tasks
-
-		if($this->cli->param('list-tasks', false))
-		{
-			$this->cli->stdout();
-
-			$this->help();
-
-			$this->cli->stdout();
-
-			return;
-		}
-
 		// Override environment?
 
 		$env = $this->cli->param('env', false);
@@ -134,69 +134,130 @@ class Reactor
 	}
 
 	/**
-	 * Help command that lists all available tasks.
+	 * Finds all tasks.
 	 * 
-	 * @access  public
+	 * @access  protected
+	 * @return  array
 	 */
 
-	protected function help()
+	protected function findTasks()
 	{
-		// Find application tasks
+		$tasks = $this->coreTasks;
 
-		$appTasks = array_map(function($task)
+		// Find all application tasks
+
+		foreach(glob(MAKO_APPLICATION_PATH . '/tasks/*.php') as $task)
 		{
-			return basename($task, '.php');
-		}, glob(MAKO_APPLICATION_PATH . '/tasks/*.php'));
+			$tasks[] = '\app\tasks\\' . basename($task, '.php');
+		}
 
-		// Find package tasks
+		// Find all package tasks
 
-		$packageTasks = array();
-
-		$packages = glob(MAKO_PACKAGES_PATH . '/*');
-
-		foreach($packages as $package)
+		foreach(glob(MAKO_PACKAGES_PATH . '/*') as $package)
 		{
 			if(is_dir($package))
 			{
-				$tasks = glob($package . '/tasks/*.php');
+				$packageTasks = glob($package . '/tasks/*.php');
 
-				foreach($tasks as $task)
+				foreach($packageTasks as $packageTask)
 				{
-					$packageTasks[] = basename($package) . '::' . basename($task, '.php');
+					$tasks[] = '\\' . basename($package) . '\tasks\\' . basename($packageTask, '.php');
 				}
 			}
 		}
-		
-		// Print list of available tasks
 
-		$this->cli->stdout($this->cli->color('Mako Framework', 'green') . ' version ' . $this->cli->color(MAKO_VERSION, 'yellow') . PHP_EOL);
+		return $tasks;
+	}
 
-		$this->cli->stdout('Available core tasks:' . PHP_EOL);
+	/**
+	 * Lists all available tasks.
+	 * 
+	 * @access  protected
+	 */
 
-		foreach($this->coreTasks as $task)
+	protected function listTasks()
+	{
+		// Loop through tasks and fetch info
+
+		$info = array();
+
+		foreach($this->findTasks() as $task)
 		{
-			$this->cli->stdout(str_repeat(' ', 4) . $this->cli->color('*', 'yellow') . ' ' . strtolower($task));
+			$task = new ReflectionClass($task);
+
+			if($task->isAbstract())
+			{
+				continue;
+			}
+
+			$instance = $task->newInstance($this->cli);
+
+
+			$taskInfo = $instance->getTaskInfo();
+
+			if(empty($taskInfo))
+			{
+				continue;
+			}
+
+			$info[strtolower($task->getShortName())] = $taskInfo;
 		}
 
-		if(!empty($appTasks))
-		{
-			$this->cli->stdout(PHP_EOL . 'Available application tasks:' . PHP_EOL);
+		// Find longest task name
 
-			foreach($appTasks as $task)
+		$longestName = 0;
+
+		foreach($info as $taskName => $taskInfo)
+		{
+			foreach($taskInfo as $actionName => $actionInfo)
 			{
-				$this->cli->stdout(str_repeat(' ', 4) . $this->cli->color('*', 'yellow') . ' ' . $task);
+				$length = strlen($taskName . '.' . $actionName) + 2;
+
+				if($length > $longestName)
+				{
+					$longestName = $length;
+				}
 			}
 		}
 
-		if(!empty($packageTasks))
-		{
-			$this->cli->stdout(PHP_EOL . 'Available package tasks:' . PHP_EOL);
+		// Display available tasks with descriptions
 
-			foreach($packageTasks as $task)
-			{
-				$this->cli->stdout(str_repeat(' ', 4) . $this->cli->color('*', 'yellow') . ' ' . $task);
-			}
+		$this->cli->stdout('Usage:', 'yellow');
+
+		$this->cli->newLine();
+
+		$this->cli->stdout(' php reactor <action> [arguments] [options]');
+
+		$this->cli->newLine();
+
+		$this->cli->stdout('Global options:', 'yellow');
+
+		$this->cli->newLine();
+
+		foreach($this->globalOptions as $optionName => $optionDescription)
+		{
+			$this->cli->stdout(' ' . $this->cli->color(str_pad('--' . $optionName, $longestName, ' '), 'green') . $optionDescription);
 		}
+
+		$this->cli->newLine();
+
+		$this->cli->stdout('Available actions:', 'yellow');
+
+		$this->cli->newLine();
+
+		foreach($info as $taskName => $taskInfo)
+		{
+			foreach($taskInfo as $actionName => $actionInfo)
+			{
+				$actionName = $actionName === 'run' ? '' : '.' . $actionName;
+
+				$this->cli->stdout(' ' . $this->cli->color(str_pad($taskName . $actionName, $longestName, ' '), 'green') . $actionInfo['description']);
+			}
+
+			$this->cli->newline();
+		}
+
+		exit;
 	}
 
 	/**
@@ -211,30 +272,34 @@ class Reactor
 	{
 		if(isset($this->coreTasks[$task]))
 		{
-			$task = '\mako\reactor\tasks\\' . $this->coreTasks[$task];
+			$task = $this->coreTasks[$task];
 		}
 		else
 		{
-			$file = mako_path('tasks', $task);
-
-			if(!file_exists($file))
-			{
-				$this->cli->stderr(vsprintf("The '%s' task does not exist.", array($task)));
-
-				return false;
-			}
-
 			if(strpos($task, '::'))
 			{
 				list($package, $task) = explode('::', $task, 2);
 
 				Package::init($package);
-			}
 
-			include $file;
+				$task = '\\' . $package . '\tasks\\' . $task;
+			}
+			else
+			{
+				$task = '\app\tasks\\' . $task;
+			}
 		}
 
-		$task = new ReflectionClass($task);
+		try
+		{
+			$task = new ReflectionClass($task);
+		}
+		catch(ReflectionException $e)
+		{
+			$this->cli->stderr(vsprintf("The '%s' task does not exist.", array(end((explode('\\', $task))))));
+
+			return false;
+		}
 
 		if($task->isSubClassOf('\mako\reactor\Task') === false)
 		{
@@ -274,7 +339,7 @@ class Reactor
 		}
 		else
 		{
-			$this->help();
+			$this->listTasks();
 		}
 	}
 }

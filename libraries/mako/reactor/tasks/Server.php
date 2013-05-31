@@ -18,7 +18,25 @@ class Server extends \mako\reactor\Task
 	// Class properties
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Task information.
+	 * 
+	 * @var array
+	 */
+
+	protected $taskInfo = array
+	(
+		'run' => array
+		(
+			'description' => 'Starts a local development server.',
+			'options'     => array
+			(
+				'port'    => 'Port to run the server on.',
+				'address' => 'Address to run the server on.',
+				'docroot' => 'Path to the document root.',
+			),
+		),
+	);
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...

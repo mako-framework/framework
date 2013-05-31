@@ -29,6 +29,14 @@ abstract class Task
 
 	protected $cli;
 
+	/**
+	 * Task information.
+	 * 
+	 * @var array
+	 */
+
+	protected $taskInfo = array();
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -44,9 +52,13 @@ abstract class Task
 	{
 		$this->cli = $cli;
 
-		if($this->cli->param('list-actions', false))
+		if($this->cli->param('task-info', false))
 		{
-			$this->listActions(null, null);
+			$this->displayTaskInfo();
+
+			$this->cli->newLine();
+
+			exit;
 		}
 	}
 
@@ -55,59 +67,66 @@ abstract class Task
 	//---------------------------------------------
 
 	/**
-	 * Run method must always be included.
-	 *
+	 * Returns the task info.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getTaskInfo()
+	{
+		return $this->taskInfo;
+	}
+
+	/**
+	 * Displays task info.
+	 * 
 	 * @access  public
 	 */
 
-	abstract public function run();
-
-	/**
-	 * Display list of available actions.
-	 *
-	 * @access  protected
-	 */
-
-	protected function listActions()
+	protected function displayTaskInfo()
 	{
-		$reflectionClass = new ReflectionClass($this);
+		$taskName = strtolower(end((explode('\\', get_class($this)))));
 
-		$actions = array();
-		$methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
+		$longestName = max(array_map('strlen', array_keys($this->taskInfo))) + strlen($taskName) + 3;
 
-		if(!empty($methods))
+		$this->cli->stdout('Available actions in the "' . $taskName . '" task:', 'yellow');
+
+		$this->cli->newLine();
+
+		foreach($this->taskInfo as $actionName => $actionInfo)
 		{
-			foreach($methods as $method)
+			$actionName = $actionName === 'run' ? '' : '.' . $actionName;
+
+			$this->cli->stdout(' ' . $this->cli->color(str_pad($taskName . $actionName, $longestName, ' '), 'green') . $actionInfo['description']);
+
+			$this->cli->newline();
+
+			if(!empty($actionInfo['options']))
 			{
-				if(!in_array($method->name, array('__construct', '__destruct', '__call')))
+				$longestOptionName = max(array_map('strlen', array_keys($actionInfo['options']))) + 5;
+
+				foreach($actionInfo['options'] as $optionName => $optionDescription)
 				{
-					$action = strtolower($reflectionClass->getShortName()) . ($method->name === 'run' ? '' : '.' . $method->name);
-
-					foreach($method->getParameters() as $parameter)
-					{
-						$parameterName = String::camel2underscored($parameter->getName());
-
-						$action .= $parameter->isOptional() ? ' [<' . $parameterName . '>]' : ' <' . $parameterName . '>';
-					}
-
-					$actions[] = $action;
+					$this->cli->stdout(str_repeat(' ', $longestName) . $this->cli->color(str_pad(' --' .$optionName, $longestOptionName, ' '), 'blue') . $optionDescription);
 				}
-			}
 
-			if(!empty($actions))
-			{
-				$this->cli->stdout('The available actions for the ' . $this->cli->style($this->cli->color(strtolower($reflectionClass->getShortName()), 'green'), array('underlined')) . ' task are:' . PHP_EOL);
-
-				sort($actions);
-
-				foreach($actions as $action)
-				{
-					$this->cli->stdout(str_repeat(' ', 4) . $this->cli->color('*', 'yellow') . ' ' . $action);
-				}
+				$this->cli->newline();
 			}
 		}
 
-		exit(PHP_EOL);
+		exit;
+	}
+
+	/**
+	 * Default action.
+	 * 
+	 * @access  public
+	 */
+
+	public function run()
+	{
+		$this->displayTaskInfo();
 	}
 
 	/**
@@ -120,9 +139,11 @@ abstract class Task
 
 	public function __call($name, $arguments)
 	{
-		$this->cli->stderr(vsprintf("Unknown task action '%s'." . PHP_EOL, array($name)));
+		$this->cli->stderr(vsprintf("Unknown task action '%s'.", array($name)));
 
-		$this->listActions();
+		$this->cli->newLine();
+
+		$this->displayTaskInfo();
 	}
 }
 

@@ -28,6 +28,40 @@ class Migrate extends \mako\reactor\Task
 
 	protected $connection;
 
+	/**
+	 * Task information.
+	 * 
+	 * @var array
+	 */
+
+	protected $taskInfo = array
+	(
+		'status' => array
+		(
+			'description' => 'Checks if there are any outstanding migrations.'
+		),
+		'create' => array
+		(
+			'description' => 'Creates a new migration.',
+		),
+		'up' => array
+		(
+			'description' => 'Runs all outstanding migrations.',
+		),
+		'down' => array
+		(
+			'description' => 'Rolls back the last batch of migrations.'
+		),
+		'reset' => array
+		(
+			'description' => 'Rolls back all migrations.',
+			'options'     => array
+			(
+				'force' => 'Force the schema reset?'
+			),
+		),
+	);
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -42,8 +76,6 @@ class Migrate extends \mako\reactor\Task
 	public function __construct(CLI $cli)
 	{
 		parent::__construct($cli);
-
-		$this->connection = Database::connection();
 	}
 
 	//---------------------------------------------
@@ -51,20 +83,20 @@ class Migrate extends \mako\reactor\Task
 	//---------------------------------------------
 
 	/**
-	 * Creates the migration log table.
-	 *
-	 * @access  public
+	 * Returns the database connection.
+	 * 
+	 * @access  protected
+	 * @return  \mako\database\Connection
 	 */
 
-	public function install()
+	protected function connection()
 	{
-		/*CREATE TABLE `mako_migrations` (
-		  `batch` int(10) unsigned NOT NULL,
-		  `package` varchar(255) NOT NULL,
-		  `version` varchar(255) NOT NULL
-		);*/
+		if(empty($this->connection))
+		{
+			$this->connection = Database::connection();
+		}
 
-		$this->cli->stderr('Migration installation has not been implemented yet.');
+		return $this->connection;
 	}
 
 	/**
@@ -76,7 +108,7 @@ class Migrate extends \mako\reactor\Task
 
 	protected function table()
 	{
-		return $this->connection->table('mako_migrations');
+		return $this->connection()->table('mako_migrations');
 	}
 
 	/**
@@ -194,6 +226,23 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
+	 * Creates the migration log table.
+	 *
+	 * @access  public
+	 */
+
+	public function install()
+	{
+		/*CREATE TABLE `mako_migrations` (
+		  `batch` int(10) unsigned NOT NULL,
+		  `package` varchar(255) NOT NULL,
+		  `version` varchar(255) NOT NULL
+		);*/
+
+		$this->cli->stderr('Migration installation has not been implemented yet.');
+	}
+
+	/**
 	 * Displays the number of outstanding migrations.
 	 *
 	 * @access  public
@@ -217,7 +266,7 @@ class Migrate extends \mako\reactor\Task
 	 * @access  public
 	 */
 
-	public function run()
+	public function up()
 	{
 		$migrations = $this->getOutstanding();
 
@@ -252,7 +301,7 @@ class Migrate extends \mako\reactor\Task
 	 * @param   int     $batches  Number of batches to roll back
 	 */
 
-	public function rollback($batches = 1)
+	public function down($batches = 1)
 	{
 		$migrations = $this->getBatch($batches);
 
@@ -288,7 +337,7 @@ class Migrate extends \mako\reactor\Task
 	{
 		if($this->cli->param('force', false) || $this->cli->confirm('Are you sure you want to reset your database?'))
 		{
-			$this->rollback(0);
+			$this->down(0);
 		}
 	}
 
