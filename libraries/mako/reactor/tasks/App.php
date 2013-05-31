@@ -5,7 +5,7 @@ namespace mako\reactor\tasks;
 use \mako\reactor\CLI;
 
 /**
- * App tasks.
+ * App task.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
