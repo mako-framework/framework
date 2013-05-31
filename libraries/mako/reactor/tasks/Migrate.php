@@ -34,7 +34,7 @@ class Migrate extends \mako\reactor\Task
 	 * @var array
 	 */
 
-	protected $taskInfo = array
+	protected static $taskInfo = array
 	(
 		'status' => array
 		(

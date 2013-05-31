@@ -24,7 +24,7 @@ class Server extends \mako\reactor\Task
 	 * @var array
 	 */
 
-	protected $taskInfo = array
+	protected static $taskInfo = array
 	(
 		'run' => array
 		(

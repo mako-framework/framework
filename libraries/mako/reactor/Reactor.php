@@ -190,10 +190,11 @@ class Reactor
 				continue;
 			}
 
-			$instance = $task->newInstance($this->cli);
+			$taskInfo = $task->getProperty('taskInfo');
 
+			$taskInfo->setAccessible(true);
 
-			$taskInfo = $instance->getTaskInfo();
+			$taskInfo = $taskInfo->getValue();
 
 			if(empty($taskInfo))
 			{

@@ -35,7 +35,7 @@ abstract class Task
 	 * @var array
 	 */
 
-	protected $taskInfo = array();
+	protected static $taskInfo = array();
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -67,18 +67,6 @@ abstract class Task
 	//---------------------------------------------
 
 	/**
-	 * Returns the task info.
-	 * 
-	 * @access  public
-	 * @return  array
-	 */
-
-	public function getTaskInfo()
-	{
-		return $this->taskInfo;
-	}
-
-	/**
 	 * Displays task info.
 	 * 
 	 * @access  public
@@ -88,13 +76,13 @@ abstract class Task
 	{
 		$taskName = strtolower(end((explode('\\', get_class($this)))));
 
-		$longestName = max(array_map('strlen', array_keys($this->taskInfo))) + strlen($taskName) + 3;
+		$longestName = max(array_map('strlen', array_keys(static::$taskInfo))) + strlen($taskName) + 3;
 
 		$this->cli->stdout('Available actions in the "' . $taskName . '" task:', 'yellow');
 
 		$this->cli->newLine();
 
-		foreach($this->taskInfo as $actionName => $actionInfo)
+		foreach(static::$taskInfo as $actionName => $actionInfo)
 		{
 			$actionName = $actionName === 'run' ? '' : '.' . $actionName;
 
