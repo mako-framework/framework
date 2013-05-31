@@ -70,7 +70,7 @@ class App extends \mako\reactor\Task
 		{
 			if(!is_writable($this->lockFile()))
 			{
-				return $this->cli->stderr('Unable to delete the lock file. Please check file permissions.');
+				return $this->cli->stderr('Unable to delete the lock file. Make sure that your "app/storage" directory is writable.');
 			}
 
 			unlink($this->lockFile());
@@ -89,7 +89,7 @@ class App extends \mako\reactor\Task
 	{
 		if(!is_writable(MAKO_APPLICATION_PATH . '/storage'))
 		{
-			return $this->cli->stderr('Unable to create the lock file. Please check file permissions.');
+			return $this->cli->stderr('Unable to create the lock file. Make sure that your "app/storage" directory is writable.');
 		}
 
 		touch($this->lockFile());
