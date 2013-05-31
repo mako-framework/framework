@@ -183,14 +183,14 @@ class Reactor
 
 		foreach($this->findTasks() as $task)
 		{
-			$task = new ReflectionClass($task);
+			$reflection = new ReflectionClass($task);
 
-			if($task->isAbstract())
+			if($reflection->isAbstract())
 			{
 				continue;
 			}
 
-			$taskInfo = $task->getProperty('taskInfo');
+			$taskInfo = $reflection->getProperty('taskInfo');
 
 			$taskInfo->setAccessible(true);
 
@@ -200,8 +200,10 @@ class Reactor
 			{
 				continue;
 			}
+			
+			$prefix = (strpos($task, '\app') === 0 || strpos($task, '\mako') === 0) ? '' : strstr(trim($task, '\\'), '\\', true) . '::';
 
-			$info[strtolower($task->getShortName())] = $taskInfo;
+			$info[strtolower($prefix . $reflection->getShortName())] = $taskInfo;
 		}
 
 		// Find longest task name
