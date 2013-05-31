@@ -39,7 +39,7 @@ class Console extends \mako\reactor\Task
 	(
 		'run' => array
 		(
-			'description' => 'Starts a a debug console.',
+			'description' => 'Starts a debug console.',
 			'options'     => array
 			(
 				'fresh'  => 'Start without the console history.',
