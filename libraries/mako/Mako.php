@@ -4,6 +4,7 @@ namespace mako;
 
 use \mako\Request;
 use \mako\ErrorHandler;
+use \mako\request\RequestException;
 use \mako\errorhandler\RequestExceptionHandler;
 
 /**
@@ -92,6 +93,13 @@ class Mako
 
 			return true; // Return true to stop further handling of the RequestException
 		});
+
+		// Check if the application is offline
+
+		if(file_exists(MAKO_APPLICATION_PATH . '/storage/offline'))
+		{
+			throw new RequestException(503);
+		}
 
 		// Execute the request
 

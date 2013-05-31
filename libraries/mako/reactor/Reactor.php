@@ -40,6 +40,7 @@ class Reactor
 
 	protected $coreTasks = array
 	(
+		'app'     => '\mako\reactor\tasks\App',
 		'console' => '\mako\reactor\tasks\Console',
 		'migrate' => '\mako\reactor\tasks\Migrate',
 		'server'  => '\mako\reactor\tasks\Server',

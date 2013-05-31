@@ -1,2 +1,3 @@
 .DS_Store
-console_history
+app/storage/console_history
+app/storage/offline
