@@ -214,7 +214,7 @@ class String
 	 *
 	 * @access  public
 	 * @param   string   $string      Text to scan for links
-	 * @param   boolean  $attributes  (optional) Anchor attributes
+	 * @param   array    $attributes  (optional) Anchor attributes
 	 * @return  string
 	 */
 	
