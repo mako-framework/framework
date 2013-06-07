@@ -16,7 +16,7 @@ define('MAKO_PACKAGES_PATH', MAKO_APPLICATION_PATH . '/packages');
 // Set up autoloading
 //------------------------------------------------------------------------------------------
 
-include MAKO_LIBRARIES_PATH . '/mako/ClassLoader.php';
+include  __DIR__ . 'ClassLoader.php';
 
 mako\ClassLoader::register();
 

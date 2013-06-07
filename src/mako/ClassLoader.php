@@ -32,7 +32,6 @@ class ClassLoader
 
 	protected static $directories = array
 	(
-		MAKO_LIBRARIES_PATH,
 		MAKO_APPLICATION_PARENT_PATH,
 		MAKO_PACKAGES_PATH,
 	);
@@ -80,12 +79,9 @@ class ClassLoader
 
 	public static function register()
 	{
-		if(file_exists(MAKO_LIBRARIES_PATH . '/composer/autoload.php'))
-		{
-			include_once MAKO_LIBRARIES_PATH . '/composer/autoload.php';
-		}
+		include realpath(__DIR__ . '/../../../autoload.php');
 
-		spl_autoload_register('mako\ClassLoader::load', true, true);
+		spl_autoload_register('mako\ClassLoader::load');
 	}
 
 	/**
@@ -212,7 +208,7 @@ class ClassLoader
 		
 		// Try to load a mapped class
 
-		if(isset(static::$classes[$className]) && file_exists(static::$classes[$className]))
+		if(isset(static::$classes[$className]))
 		{
 			include static::$classes[$className];
 

@@ -125,7 +125,7 @@ class DebugToolbar
 	{
 		$backtrace = debug_backtrace();
 
-		$file = str_replace(array(MAKO_APPLICATION_PATH, MAKO_LIBRARIES_PATH), array('APP', 'LIBRARIES'), $backtrace[$skip ? 1 : 0]['file']);
+		$file = $backtrace[$skip ? 1 : 0]['file'];
 		$line = $backtrace[$skip ? 1 : 0]['line'];
 
 		static::$logs[] = compact('log', 'file', 'line', 'type');
