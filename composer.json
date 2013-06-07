@@ -18,12 +18,12 @@
 		"php": ">=5.3.1"
 	},
 	"autoload": {
-        "psr-0": {
-            "mako": "src/"
-        }
-    },
+		"psr-0": {
+			"mako": "src/"
+		}
+	},
 	"config": {
-	    "preferred-install": "dist"
+		"preferred-install": "dist"
 	},
 	"minimum-stability": "dev"
 }
