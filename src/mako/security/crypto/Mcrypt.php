@@ -125,4 +125,4 @@ class Mcrypt extends \mako\security\crypto\Adapter
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

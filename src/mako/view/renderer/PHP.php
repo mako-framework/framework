@@ -83,4 +83,4 @@ class PHP implements \mako\view\renderer\RendererInterface
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

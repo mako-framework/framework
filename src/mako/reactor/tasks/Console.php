@@ -321,4 +321,4 @@ class Console extends \mako\reactor\Task
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

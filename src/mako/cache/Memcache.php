@@ -193,4 +193,4 @@ class Memcache extends \mako\cache\Adapter
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

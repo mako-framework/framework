@@ -16,7 +16,7 @@ define('MAKO_PACKAGES_PATH', MAKO_APPLICATION_PATH . '/packages');
 // Set up autoloading
 //------------------------------------------------------------------------------------------
 
-include  __DIR__ . 'ClassLoader.php';
+include  __DIR__ . '/ClassLoader.php';
 
 mako\ClassLoader::register();
 
@@ -214,4 +214,4 @@ unset($config);
 		
 require MAKO_APPLICATION_PATH . '/bootstrap.php';
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

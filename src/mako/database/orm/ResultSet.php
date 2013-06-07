@@ -215,4 +215,4 @@ class ResultSet implements \ArrayAccess, \Countable, \IteratorAggregate
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

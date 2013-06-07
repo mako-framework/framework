@@ -80,4 +80,4 @@ class HasOne extends \mako\database\orm\relations\HasOneOrMany
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

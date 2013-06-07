@@ -87,4 +87,4 @@ class OpenSSL extends \mako\security\crypto\Adapter
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

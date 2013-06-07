@@ -305,4 +305,4 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

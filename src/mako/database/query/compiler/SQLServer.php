@@ -99,4 +99,4 @@ class SQLServer extends \mako\database\query\Compiler
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

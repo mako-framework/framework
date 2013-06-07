@@ -74,4 +74,4 @@ class DebugToolbar extends \mako\log\Adapter
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

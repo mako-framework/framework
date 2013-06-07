@@ -53,4 +53,4 @@ abstract class HasOneOrMany extends \mako\database\orm\relations\Relation
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

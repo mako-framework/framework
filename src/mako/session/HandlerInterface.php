@@ -20,4 +20,4 @@ interface HandlerInterface
 	public function sessionGarbageCollector($maxLifetime);
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

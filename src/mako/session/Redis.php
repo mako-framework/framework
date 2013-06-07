@@ -154,4 +154,4 @@ class Redis extends \mako\session\Adapter implements \mako\session\HandlerInterf
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

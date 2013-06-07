@@ -81,4 +81,4 @@ class Server extends \mako\reactor\Task
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

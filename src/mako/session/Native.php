@@ -31,4 +31,4 @@ class Native extends \mako\session\Adapter
 	// Nothing here
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

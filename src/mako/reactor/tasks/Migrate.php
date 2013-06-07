@@ -374,4 +374,4 @@ class Migrate extends \mako\reactor\Task
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

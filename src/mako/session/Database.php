@@ -207,4 +207,4 @@ class Database extends \mako\session\Adapter implements \mako\session\HandlerInt
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

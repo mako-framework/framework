@@ -76,4 +76,4 @@ class DB2 extends \mako\database\query\Compiler
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

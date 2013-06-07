@@ -31,4 +31,4 @@ class StaleRecordException extends \RuntimeException
 	// Nothing here
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

@@ -145,4 +145,4 @@ class BelongsTo extends \mako\database\orm\relations\Relation
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

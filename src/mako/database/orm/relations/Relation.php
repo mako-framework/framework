@@ -174,4 +174,4 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

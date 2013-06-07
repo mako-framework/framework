@@ -37,4 +37,4 @@ class MySQL extends \mako\database\query\Compiler
 	// Nothing here
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

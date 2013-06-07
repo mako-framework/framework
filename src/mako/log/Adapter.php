@@ -33,4 +33,4 @@ abstract class Adapter
 	abstract public function write($message, $type = Log::ERROR);
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/

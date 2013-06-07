@@ -152,4 +152,4 @@ class File extends \mako\session\Adapter implements \mako\session\HandlerInterfa
 	}
 }
 
-/** -------------------- End of file --------------------**/
+/** -------------------- End of file -------------------- **/
