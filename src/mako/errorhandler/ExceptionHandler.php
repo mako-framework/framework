@@ -85,6 +85,8 @@ class ExceptionHandler
 
 	protected function displayWeb()
 	{
+		$request = Request::main();
+
 		$response = new Response();
 
 		if(Config::get('application.error_handler.display_errors') === true)
@@ -95,7 +97,7 @@ class ExceptionHandler
 
 			$whoops->writeToOutput(false);
 
-			if(($request = Request::main()) instanceof Request && $request->isAjax())
+			if($request instanceof Request && $request->isAjax())
 			{
 				$handler = new JsonResponseHandler();
 
@@ -127,7 +129,22 @@ class ExceptionHandler
 		}
 		else
 		{
-			$response->body(new View('_mako_.errors.error'));
+			if($request instanceof Request && $request->isAjax())
+			{
+				$response->body(json_encode(array('error' => array
+				(
+					'type'    => 'Error',
+					'message' => 'Aw, snap! An error has occurred while processing your request.',
+					'file'    => null,
+					'line'    => null,
+				))));
+
+				$response->type('application/json');
+			}
+			else
+			{
+				$response->body(new View('_mako_.errors.error'));
+			}
 		}
 
 		$response->send(500);
