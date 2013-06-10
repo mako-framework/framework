@@ -14,14 +14,14 @@
 			"homepage": "http://makoframework.com/contributors"
 		}
 	],
-	"require": {
-		"php": ">=5.3.1",
-		"filp/whoops": "1.0.6"
-	},
 	"autoload": {
 		"psr-0": {
 			"mako": "src/"
 		}
+	},
+	"require": {
+		"php": ">=5.3.1",
+		"filp/whoops": "1.0.6"
 	},
 	"config": {
 		"preferred-install": "dist"
