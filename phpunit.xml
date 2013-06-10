@@ -1,0 +1,7 @@
+<phpunit colors="true" bootstrap="tests/bootstrap.php">
+	<testsuites>
+		<testsuite name="Mako Framework Tests">
+			<directory>tests/cases</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
