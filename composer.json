@@ -24,7 +24,6 @@
 		"filp/whoops": "1.0.6"
 	},
 	"require-dev": {
-		"mako/app": "dev-master@dev",
 		"phpunit/phpunit": "3.7.*",
 		"mockery/mockery": "0.8.*"
 	},

@@ -211,7 +211,10 @@ unset($config);
 //------------------------------------------------------------------------------------------
 // Include application bootstrap file
 //------------------------------------------------------------------------------------------
-		
-require MAKO_APPLICATION_PATH . '/bootstrap.php';
+
+if(file_exists(MAKO_APPLICATION_PATH . '/bootstrap.php'))
+{
+	include MAKO_APPLICATION_PATH . '/bootstrap.php';
+}
 
 /** -------------------- End of file -------------------- **/
