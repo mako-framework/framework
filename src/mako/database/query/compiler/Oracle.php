@@ -57,10 +57,14 @@ class Oracle extends \mako\database\query\Compiler
 
 			if($this->query->getOffset() === null)
 			{
+				// No offset so we only need a simple subquery to emulate the LIMIT clause
+
 				$sql = 'SELECT m1.* FROM (' . $sql . ') m1 WHERE rownum <= ' . $this->query->getLimit();
 			}
 			else
 			{
+				// There is an offset so we need to make a bunch of subqueries to emulate the LIMIT and OFFSET clauses
+
 				$limit  = $this->query->getLimit() + $this->query->getOffset();
 				$offset = $this->query->getOffset() + 1;
 
