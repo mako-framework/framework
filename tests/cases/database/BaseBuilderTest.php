@@ -56,6 +56,22 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testDistinctSelect()
+	{
+		$query = $this->getBuilder();
+
+		$query->distinct();
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT DISTINCT * FROM "foobar"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testSelectWithCloumns()
 	{
 		$query = $this->getBuilder();
@@ -382,5 +398,198 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = "foobar"."id" OR "barfoo"."foobar_id" != "foobar"."id"', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithGroupBy()
+	{
+		$query = $this->getBuilder('orders');
+
+		$query->groupBy('customer');
+		$query->columns(array('customer', Database::raw('SUM(price) as sum')));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithGroupByArray()
+	{
+		$query = $this->getBuilder('orders');
+
+		$query->groupBy(array('customer', 'order_date'));
+		$query->columns(array('customer', 'order_date', Database::raw('SUM(price) as sum')));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "customer", "order_date", SUM(price) as sum FROM "orders" GROUP BY "customer", "order_date"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithHaving()
+	{
+		$query = $this->getBuilder('orders');
+
+		$query->groupBy('customer');
+		$query->having(Database::raw('SUM(price)'), '<', 2000);
+		$query->columns(array('customer', Database::raw('SUM(price) as sum')));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer" HAVING SUM(price) < ?', $query['sql']);
+		$this->assertEquals(array(2000), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithOrder()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderBy('foo');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" ASC', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithOrderArray()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderBy(array('foo', 'bar'), 'DESC');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo", "bar" DESC', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithOrderDescending()
+	{
+		$query = $this->getBuilder();
+
+		$query->descending('foo');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" DESC', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithOrderAscending()
+	{
+		$query = $this->getBuilder();
+
+		$query->ascending('foo');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" ASC', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithMultipleOrder()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderBy('foo');
+		$query->orderBy('bar', 'DESC');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" ASC, "bar" DESC', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testBasicDelete()
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->delete();
+
+		$this->assertEquals('DELETE FROM "foobar"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testDeleteWithWhere()
+	{
+		$query = $this->getBuilder();
+
+		$query->where('id', '=', 1);
+
+		$query = $query->getCompiler()->delete();
+
+		$this->assertEquals('DELETE FROM "foobar" WHERE "id" = ?', $query['sql']);
+		$this->assertEquals(array(1), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testBasicUpdate()
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->update(array('foo' => 'bar'));
+
+		$this->assertEquals('UPDATE "foobar" SET "foo" = ?', $query['sql']);
+		$this->assertEquals(array('bar'), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testUpdateWithWhere()
+	{
+		$query = $this->getBuilder();
+
+		$query->where('id', '=', 1);
+
+		$query = $query->getCompiler()->update(array('foo' => 'bar'));
+
+		$this->assertEquals('UPDATE "foobar" SET "foo" = ? WHERE "id" = ?', $query['sql']);
+		$this->assertEquals(array('bar', 1), $query['params']);
 	}
 }
