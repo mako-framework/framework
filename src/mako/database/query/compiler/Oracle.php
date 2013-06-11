@@ -45,31 +45,27 @@ class Oracle extends \mako\database\query\Compiler
 		}
 		else
 		{
-			// There is a limit so we need to emulate the LIMIT/OFFSET clause with ANSI-SQL
-
-			$order = trim($this->orderings($this->query->getOrderings()));
-
-			if(empty($order))
-			{
-				$order = 'ORDER BY (SELECT 0)';
-			}
-
 			$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
 			$sql .= $this->columns($this->query->getColumns());
-			$sql .= ', ROW_NUMBER() OVER (' . $order . ') AS mako_rownum';
 			$sql .= ' FROM ';
 			$sql .= $this->wrap($this->query->getTable());
 			$sql .= $this->joins($this->query->getJoins());
 			$sql .= $this->wheres($this->query->getWheres());
 			$sql .= $this->groupings($this->query->getGroupings());
+			$sql .= $this->orderings($this->query->getOrderings());
 			$sql .= $this->havings($this->query->getHavings());
 
-			$offset = ($this->query->getOffset() === null) ? 0 : $this->query->getOffset();
+			if($this->query->getOffset() === null)
+			{
+				$sql = 'SELECT m1.* FROM (' . $sql . ') m1 WHERE rownum <= ' . $this->query->getLimit();
+			}
+			else
+			{
+				$limit  = $this->query->getLimit() + $this->query->getOffset();
+				$offset = $this->query->getOffset() + 1;
 
-			$limit  = $offset + $this->query->getLimit();
-			$offset = $offset + 1;
-
-			$sql = 'SELECT * FROM (' . $sql . ') AS m1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
+				$sql = 'SELECT * FROM (SELECT m1.*, rownum AS mako_rownum FROM (' . $sql . ') m1 WHERE rownum <= ' . $limit . ') WHERE mako_rownum >= ' . $offset;
+			}
 
 			return array('sql' => $sql, 'params' => $this->params);
 		}
