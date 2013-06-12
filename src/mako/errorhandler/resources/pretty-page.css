@@ -2,8 +2,8 @@
 body {
   font-size: 14px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #2B2B2B;
-  background-color: #D4D4D4;
+  color: #444;
+  background-color: #eee;
   padding:0;
   margin: 0;
   max-height: 100%;
@@ -81,7 +81,7 @@ header {
 }
   .frame {
     padding: 14px;
-    background: #F3F3F3;
+    background: #fefefe;
     cursor: pointer;
   }
     .frame.active {
@@ -132,7 +132,7 @@ header {
 
     .frame-code {
       padding: 15px;
-      background: #f3f3f3;
+      background: #fefefe;
       display: none;
       border-left: 5px solid #1FA57D;
     }
