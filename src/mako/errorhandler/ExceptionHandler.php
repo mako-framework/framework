@@ -107,6 +107,8 @@ class ExceptionHandler
 			{
 				$handler = new PrettyPageHandler();
 
+				$handler->setResourcesPath(__DIR__ . '/resources');
+
 				switch($editor = Config::get('application.error_handler.open_with'))
 				{
 					case 'emacs':
