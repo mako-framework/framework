@@ -1,6 +1,7 @@
 .cf:before, .cf:after {content: " ";display: table;} .cf:after {clear: both;} .cf {*zoom: 1;}
 body {
-  font: 14px helvetica, arial, sans-serif;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #2B2B2B;
   background-color: #D4D4D4;
   padding:0;
