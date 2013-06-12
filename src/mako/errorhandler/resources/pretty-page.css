@@ -117,7 +117,7 @@ header {
     }
 
       .frame-file .editor-link {
-        color: #272727;
+        color: #c3c3c3;
       }
 
     .frame-line {
@@ -134,7 +134,8 @@ header {
       padding: 15px;
       background: #fefefe;
       display: none;
-      border-left: 5px solid #1FA57D;
+      border-left: 5px solid #E49999;
+      background-color: #F3D6D6;
     }
 
     .frame-code.active {
@@ -142,10 +143,9 @@ header {
     }
 
     .frame-code .frame-file {
-      background: #ddd;
-      color: #525252;
-      text-shadow: 0 1px 0 #E7E7E7;
-      padding: 10px 10px 5px 10px;
+      background: #404040;
+      color: #A8A8A8;
+      padding: 10px;
 
       border-top-right-radius: 6px;
       border-top-left-radius:  6px;
@@ -157,7 +157,6 @@ header {
     .code-block {
       padding: 10px;
       margin: 0;
-      box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     }
 
     .linenums {
@@ -166,7 +165,6 @@ header {
     }
 
     .frame-comments {
-      box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
       border: 1px solid rgba(0, 0, 0, .2);
       border-top: none;
 
