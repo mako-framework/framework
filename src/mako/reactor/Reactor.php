@@ -103,7 +103,7 @@ class Reactor
 
 		if($env !== false)
 		{
-			$_SERVER['MAKO_ENV'] = $env;
+			putenv('MAKO_ENV=' . $env);
 		}
 
 		// Override default database?

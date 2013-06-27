@@ -108,7 +108,7 @@ function mako_cascading_path($path, $file)
 
 function mako_env()
 {
-	return isset($_SERVER['MAKO_ENV']) ? $_SERVER['MAKO_ENV'] : null;
+	return getenv('MAKO_ENV') ? getenv('MAKO_ENV') : null;
 }
 
 if(!function_exists('__'))
