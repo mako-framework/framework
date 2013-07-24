@@ -98,9 +98,9 @@ class Template
 		// Replace first occurance of extends tag with an empty string
 		// and append the template with a view tag
 
-		if(preg_match('/^{%\s{0,}extends:(.*?)\s{0,}%}/i', $template, $matches) > 0)
+		if(preg_match('/^{%\s*extends:(.*?)\s*%}/i', $template, $matches) > 0)
 		{
-			$template = preg_replace('/^{%\s{0,}extends:(.*?)\s{0,}%}/i', '', $template, 1);
+			$template = preg_replace('/^{%\s*extends:(.*?)\s*%}/i', '', $template, 1);
 
 			$template .= PHP_EOL . '<?php echo new mako\View(\'' . $matches[1] . '\', get_defined_vars()); ?>';
 		}
@@ -120,7 +120,7 @@ class Template
 	{
 		// Replace view tags with view redering
 
-		return preg_replace('/{{\s{0,}view:(.*?)\s{0,}}}/i', '<?php echo new mako\View(\'$1\', get_defined_vars()); ?>', $template);
+		return preg_replace('/{{\s*view:(.*?)\s*}}/i', '<?php echo new mako\View(\'$1\', get_defined_vars()); ?>', $template);
 	}
 
 	/**
@@ -135,11 +135,11 @@ class Template
 	{
 		// Compile blocks
 
-		$template = preg_replace('/{%\s{0,}block:(.*?)\s{0,}%}(.*?){%\s{0,}endblock\s{0,}%}/is', '<?php mako\view\renderer\template\Block::open(\'$1\'); ?>$2<?php mako\view\renderer\template\Block::close(); ?>', $template);
+		$template = preg_replace('/{%\s*block:(.*?)\s*%}(.*?){%\s*endblock\s*%}/is', '<?php mako\view\renderer\template\Block::open(\'$1\'); ?>$2<?php mako\view\renderer\template\Block::close(); ?>', $template);
 
 		// Compile block output
 
-		return preg_replace('/{{\s{0,}block:(.*?)\s{0,}}}(.*?){{\s{0,}endblock\s{0,}}}/is', '<?php if(mako\view\renderer\template\Block::exists(\'$1\')): ?><?php echo mako\view\renderer\template\Block::get(\'$1\'); ?><?php else: ?>$2<?php endif; ?>', $template);
+		return preg_replace('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', '<?php if(mako\view\renderer\template\Block::exists(\'$1\')): ?><?php echo mako\view\renderer\template\Block::get(\'$1\'); ?><?php else: ?>$2<?php endif; ?>', $template);
 	}
 
 	/**
@@ -154,11 +154,11 @@ class Template
 	{
 		// Compile control structures openings
 
-		$template = preg_replace('/{%\s{0,}((foreach|for|while|if|else( )?if|else)(.*?)?)\s{0,}%}/i', '<?php $1: ?>', $template);
+		$template = preg_replace('/{%\s*((foreach|for|while|if|else( )?if|else)(.*?)?)\s*%}/i', '<?php $1: ?>', $template);
 
 		// Compile control structures endings
 
-		return preg_replace('/{%\s{0,}(endforeach|endfor|endwhile|endif|break|continue)\s{0,}%}/i', '<?php $1; ?>', $template);
+		return preg_replace('/{%\s*(endforeach|endfor|endwhile|endif|break|continue)\s*%}/i', '<?php $1; ?>', $template);
 	}
 
 	/**
@@ -177,7 +177,7 @@ class Template
 		{
 			if(preg_match('/(.*)\|\|(.*)/', $matches) !== 0)
 			{
-				return preg_replace('/(.*)\s{0,}\|\|\s{0,}(.*)/', '(!empty($1) ? $1 : $2)', $matches);
+				return preg_replace('/(.*)\s*\|\|\s*(.*)/', '(!empty($1) ? $1 : $2)', $matches);
 			}
 			else
 			{
@@ -187,13 +187,13 @@ class Template
 
 		// Compiles echo tags
 
-		return preg_replace_callback('/{{\s{0,}(.*?)\s{0,}}}/', function($matches) use ($emptyElse)
+		return preg_replace_callback('/{{\s*(.*?)\s*}}/', function($matches) use ($emptyElse)
 		{
-			if(preg_match('/raw\s{0,}:(.*)/i', $matches[1]) > 0)
+			if(preg_match('/raw\s*:(.*)/i', $matches[1]) > 0)
 			{
 				return sprintf('<?php echo %s; ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/preserve\s{0,}:(.*)/i', $matches[1]) > 0)
+			elseif(preg_match('/preserve\s*:(.*)/i', $matches[1]) > 0)
 			{
 				return sprintf('<?php echo htmlspecialchars(%s, ENT_QUOTES, MAKO_CHARSET, false); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
