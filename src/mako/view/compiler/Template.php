@@ -102,7 +102,7 @@ class Template
 		{
 			$template = preg_replace('/^{%\s{0,}extends:(.*?)\s{0,}%}/i', '', $template, 1);
 
-			$template .= PHP_EOL . '<?php echo new mako\View(\'' . $matches[1] . '\'); ?>';
+			$template .= PHP_EOL . '<?php echo new mako\View(\'' . $matches[1] . '\', get_defined_vars()); ?>';
 		}
 
 		return $template;
