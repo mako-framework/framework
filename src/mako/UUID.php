@@ -93,7 +93,7 @@ class UUID
 
 	protected static function toBin($namespace)
 	{
-		if(!static::valid($namespace))
+		if(!static::validate($namespace))
 		{
 			throw new InvalidArgumentException(vsprintf("%s(): Provided namespace is not a valid UUID.", array(__METHOD__)));
 		}
