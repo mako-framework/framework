@@ -126,34 +126,43 @@ class Migrate extends \mako\reactor\Task
 
 		$files = glob(MAKO_APPLICATION_PATH . '/migrations/*.php');
 
-		foreach($files as $file)
+		if(is_array($files))
 		{
-			$migration = new StdClass();
-			
-			$migration->version = basename($file, '.php');
-			$migration->package = '';
+			foreach($files as $file)
+			{
+				$migration = new StdClass();
+				
+				$migration->version = basename($file, '.php');
+				$migration->package = '';
 
-			$migrations[] = $migration;
+				$migrations[] = $migration;
+			}
 		}
 
 		// Get package migrations
 
 		$packages = glob(MAKO_PACKAGES_PATH . '/*');
 
-		foreach($packages as $package)
+		if(is_array($packages))
 		{
-			if(is_dir($package))
+			foreach($packages as $package)
 			{
-				$files = glob($package . '/migrations/*.php');
-
-				foreach($files as $file)
+				if(is_dir($package))
 				{
-					$migration = new StdClass();
+					$files = glob($package . '/migrations/*.php');
 
-					$migration->version = basename($file, '.php');
-					$migration->package = basename($package);
+					if(is_array($files))
+					{
+						foreach($files as $file)
+						{
+							$migration = new StdClass();
 
-					$migrations[] = $migration;
+							$migration->version = basename($file, '.php');
+							$migration->package = basename($package);
+
+							$migrations[] = $migration;
+						}
+					}
 				}
 			}
 		}

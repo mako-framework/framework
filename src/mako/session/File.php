@@ -140,11 +140,16 @@ class File extends \mako\session\Adapter implements \mako\session\HandlerInterfa
 
 	public function sessionGarbageCollector($maxLifetime)
 	{
-		foreach(glob($this->config['path'] . '/*') as $file)
+		$files = glob($this->config['path'] . '/*');
+
+		if(is_array($files))
 		{
-			if((filemtime($file) + $maxLifetime) < time() && is_writable($file))
+			foreach($files as $file)
 			{
-				unlink($file);
+				if((filemtime($file) + $maxLifetime) < time() && is_writable($file))
+				{
+					unlink($file);
+				}
 			}
 		}
 

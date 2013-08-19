@@ -147,22 +147,35 @@ class Reactor
 
 		// Find all application tasks
 
-		foreach(glob(MAKO_APPLICATION_PATH . '/tasks/*.php') as $task)
+		$appTasks = glob(MAKO_APPLICATION_PATH . '/tasks/*.php');
+
+		if(is_array($appTasks))
 		{
-			$tasks[] = '\app\tasks\\' . basename($task, '.php');
+			foreach($appTasks as $task)
+			{
+				$tasks[] = '\app\tasks\\' . basename($task, '.php');
+			}
 		}
 
 		// Find all package tasks
 
-		foreach(glob(MAKO_PACKAGES_PATH . '/*') as $package)
-		{
-			if(is_dir($package))
-			{
-				$packageTasks = glob($package . '/tasks/*.php');
+		$packages = glob(MAKO_PACKAGES_PATH . '/*');
 
-				foreach($packageTasks as $packageTask)
+		if(is_array($packages))
+		{
+			foreach($packages as $package)
+			{
+				if(is_dir($package))
 				{
-					$tasks[] = '\\' . basename($package) . '\tasks\\' . basename($packageTask, '.php');
+					$packageTasks = glob($package . '/tasks/*.php');
+
+					if(is_array($packageTasks))
+					{
+						foreach($packageTasks as $task)
+						{
+							$tasks[] = '\\' . basename($package) . '\tasks\\' . basename($task, '.php');
+						}
+					}
 				}
 			}
 		}
