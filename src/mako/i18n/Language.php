@@ -79,10 +79,12 @@ class Language
 				$files = glob($location, GLOB_NOSORT);
 
 				if(is_array($files))
+				{
 					foreach($files as $file)
 					{
 						$this->strings = array_merge($this->strings, include($file));
 					}
+				}
 			}
 
 			if($cache)
