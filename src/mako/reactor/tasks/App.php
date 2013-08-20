@@ -2,7 +2,7 @@
 
 namespace mako\reactor\tasks;
 
-use \mako\reactor\CLI;
+use \mako\String;
 
 /**
  * App task.
@@ -33,6 +33,10 @@ class App extends \mako\reactor\Task
 		'down' => array
 		(
 			'description' => 'Takes the application offline.',
+		),
+		'generate_secret' => array
+		(
+			'description' => 'Generates a new application secret.',
 		),
 	);
 
@@ -95,6 +99,30 @@ class App extends \mako\reactor\Task
 		touch($this->lockFile());
 
 		$this->cli->stdout('Your application is now ' . $this->cli->color('offline', 'red') . '.');
+	}
+
+	/**
+	 * 
+	 */
+
+	public function generate_secret()
+	{
+		$configFile = MAKO_APPLICATION_PATH . '/config/application.php';
+
+		if(!is_writable($configFile))
+		{
+			return $this->cli->stderr('Unable to generate a new secret. Make sure that the "app/config/application.php" file is writable.');
+		}
+
+		$secret = str_replace(array('"', '\''), array('|', '/'), String::random(String::ALNUM . String::SYMBOLS, 32));
+
+		$contents = file_get_contents($configFile);
+
+		$contents = preg_replace('/\'secret\'(\s*)=>(\s*)\'(.*)\',/', '\'secret\'$1=>$2\'' . $secret . '\',', $contents);
+
+		file_put_contents($configFile, $contents);
+
+		$this->cli->stdout('A new secret has been generated.');
 	}
 }
 
