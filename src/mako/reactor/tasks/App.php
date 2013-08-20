@@ -102,7 +102,9 @@ class App extends \mako\reactor\Task
 	}
 
 	/**
+	 * Generates a new application secret.
 	 * 
+	 * @access  public
 	 */
 
 	public function generate_secret()
