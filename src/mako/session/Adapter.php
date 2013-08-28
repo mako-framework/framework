@@ -56,9 +56,9 @@ abstract class Adapter
 
 	public function __destruct()
 	{
-		unset($_SESSION['mako.flashdata']);
+		unset($_SESSION['mako:flashdata']);
 
-		$_SESSION['mako.flashdata'] = $this->flashdata;
+		$_SESSION['mako:flashdata'] = $this->flashdata;
 	}
 	
 	//---------------------------------------------
@@ -130,7 +130,7 @@ abstract class Adapter
 	{
 		if($data === null)
 		{
-			return isset($_SESSION['mako.flashdata'][$key]) ? $_SESSION['mako.flashdata'][$key] : false;
+			return isset($_SESSION['mako:flashdata'][$key]) ? $_SESSION['mako:flashdata'][$key] : false;
 		}
 		else
 		{
@@ -147,7 +147,7 @@ abstract class Adapter
 
 	public function reflash(array $keys = array())
 	{
-		$flashdata = empty($keys) ? $_SESSION['mako.flashdata'] : array_intersect_key($_SESSION['mako.flashdata'], array_flip($keys));
+		$flashdata = empty($keys) ? $_SESSION['mako:flashdata'] : array_intersect_key($_SESSION['mako:flashdata'], array_flip($keys));
 
 		$this->flashdata = array_merge($this->flashdata, $flashdata);
 	}

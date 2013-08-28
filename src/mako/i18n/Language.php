@@ -2,6 +2,7 @@
 
 namespace mako\i18n;
 
+use \mako\Arr;
 use \mako\Cache;
 use \RuntimeException;
 
@@ -20,6 +21,14 @@ class Language
 	//---------------------------------------------
 
 	/**
+	 * Cache strings?
+	 *
+	 * @var boolean
+	 */
+
+	protected $useCache;
+
+	/**
 	 * Language name.
 	 * 
 	 * @var string
@@ -33,7 +42,7 @@ class Language
 	 * @var array
 	 */
 
-	protected $strings = false;
+	protected $strings = array();
 
 	/**
 	 * Array holding inflection rules.
@@ -52,46 +61,14 @@ class Language
 	 * 
 	 * @access  public
 	 * @param   string   $language  Name of the language pack
-	 * @param   boolean  $cache     Enable language cache?
+	 * @param   boolean  $useCache  Enable language cache?
 	 */
 
-	public function __construct($language, $cache)
+	public function __construct($language, $useCache)
 	{
 		$this->language = $language;
 
-		if($cache)
-		{
-			$this->strings = Cache::instance()->read(MAKO_APPLICATION_ID . '_lang_' . $this->language);
-		}
-
-		if($this->strings === false)
-		{
-			$this->strings = array();
-
-			$locations = array
-			(
-				MAKO_PACKAGES_PATH . '/*/i18n/' . $this->language . '/strings/*.php',
-				MAKO_APPLICATION_PATH . '/i18n/' . $this->language . '/strings/*.php',
-			);
-
-			foreach($locations as $location)
-			{
-				$files = glob($location, GLOB_NOSORT);
-
-				if(is_array($files))
-				{
-					foreach($files as $file)
-					{
-						$this->strings = array_merge($this->strings, include($file));
-					}
-				}
-			}
-
-			if($cache)
-			{
-				Cache::instance()->write(MAKO_APPLICATION_ID . '_lang_' . $language, $this->strings, 3600);
-			}
-		}
+		$this->useCache = $useCache;
 	}
 
 	//---------------------------------------------
@@ -102,7 +79,6 @@ class Language
 	 * Loads the inflection rules for the requested language.
 	 *
 	 * @access  protected
-	 * @param   string     $language  Name of the language pack
 	 */
 
 	protected function loadInflection()
@@ -115,50 +91,6 @@ class Language
 		{
 			throw new RuntimeException(vsprintf("%s:(): The '%s' language pack does not contain any inflection rules.", array(__METHOD__, $this->language)));
 		}
-	}
-
-	/**
-	 * Returns TRUE if the string exists and FALSE if not.
-	 * 
-	 * @access  public
-	 * @param   string   $string  String to translate
-	 * @return  boolean
-	 */
-
-	public function has($string)
-	{
-		return isset($this->strings[$string]);
-	}
-
-	/**
-	 * Returns a translated string of the current language. 
-	 *
-	 * @access  public
-	 * @param   string  $string  String to translate
-	 * @param   array   $vars    (optional) Value or array of values to replace in the translated text
-	 * @return  string
-	 */
-
-	public function translate($string, array $vars = array())
-	{
-		$string = $this->has($string) ? $this->strings[$string] : $string;
-
-		if(!empty($vars))
-		{
-			$string = vsprintf($string, $vars);
-
-			if(stripos($string, '</pluralize>') !== false)
-			{
-				$that = $this;
-				
-				$string = preg_replace_callback('/\<pluralize:([0-9]+)\>(.*)\<\/pluralize\>/iu', function($matches) use ($that)
-				{
-					return $that->pluralize($matches[2], (int) $matches[1]);
-				}, $string);
-			}
-		}
-
-		return $string;
 	}
 
 	/**
@@ -180,6 +112,127 @@ class Language
 		$pluralizer = $this->inflection['pluralize'];
 
 		return $pluralizer($word, $count, $this->inflection['rules']);
+	}
+
+	/**
+	 * Loads all strings.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function loadStrings()
+	{
+		// Load string from cache if its enabled
+
+		if($this->useCache)
+		{
+			$this->strings = Cache::instance()->read(MAKO_APPLICATION_ID . '_lang_' . $this->language);
+		}
+
+		if($this->strings === false || empty($this->strings))
+		{
+			// Load language files from the application
+
+			$this->strings = array();
+
+			$files = glob(MAKO_APPLICATION_PATH . '/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
+
+			if(is_array($files))
+			{
+				foreach($files as $file)
+				{
+					$this->strings[basename($file, '.php')] = include($file);
+				}
+			}
+
+			// Load language files from installed packages
+
+			$files = glob(MAKO_PACKAGES_PATH . '/*/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
+
+			if(is_array($files))
+			{
+				foreach($files as $file)
+				{
+					preg_match('/(.*)\/(.*)\/i18n\/' . $this->language . '\/strings\/(.*).php/', $file, $matches);
+
+					$this->strings['mako:packages'][$matches[2]][$matches[3]] = include($file);
+				}
+			}
+
+			// Write to cache if its enabled
+
+			if($this->useCache)
+			{
+				Cache::instance()->write(MAKO_APPLICATION_ID . '_lang_' . $language, $this->strings, 3600);
+			}
+		}
+	}
+
+	/**
+	 * Returns TRUE if the string exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  String to look for
+	 * @return  boolean
+	 */
+
+	public function has($key)
+	{
+		if(stripos($key, '::'))
+		{
+			$keys = explode('::', $key, 2);
+
+			return Arr::has($this->strings['mako:packages'][$keys[0]], $keys[1]);
+		}
+		else
+		{
+			return Arr::has($this->strings, $key);
+		}
+	}
+
+	/**
+	 * Returns a translated string of the current language. 
+	 *
+	 * @access  public
+	 * @param   string  $key   String to translate
+	 * @param   array   $vars  (optional) Value or array of values to replace in the translated text
+	 * @return  string
+	 */
+
+	public function translate($key, array $vars = array())
+	{
+		if(empty($this->strings))
+		{
+			$this->loadStrings();
+		}
+
+		if(stripos($key, '::'))
+		{
+			$keys = explode('::', $key, 2);
+
+			$string = Arr::get($this->strings['mako:packages'][$keys[0]], $keys[1], $key);
+		}
+		else
+		{
+			$string = Arr::get($this->strings, $key, $key);
+		}
+
+		if(!empty($vars))
+		{
+			$string = vsprintf($string, $vars);
+
+			if(stripos($string, '</pluralize>') !== false)
+			{
+				$that = $this;
+				
+				$string = preg_replace_callback('/\<pluralize:([0-9]+)\>(.*)\<\/pluralize\>/iu', function($matches) use ($that)
+				{
+					return $that->pluralize($matches[2], (int) $matches[1]);
+				}, $string);
+			}
+		}
+
+		return $string;
 	}
 }
 
