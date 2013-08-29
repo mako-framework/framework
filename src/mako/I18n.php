@@ -88,7 +88,7 @@ class I18n
 				throw new RuntimeException(vsprintf("%s(): The '%s' language pack does not exist.", array(__METHOD__, $language)));
 			}
 
-			static::$languages[$language] = new Language($language, Config::get('application.language_cache'));
+			static::$languages[$language] = new Language($language);
 		}
 
 		return static::$languages[$language];

@@ -4,6 +4,7 @@ namespace mako\i18n;
 
 use \mako\Arr;
 use \mako\Cache;
+use \mako\Config;
 use \RuntimeException;
 
 /**
@@ -61,14 +62,13 @@ class Language
 	 * 
 	 * @access  public
 	 * @param   string   $language  Name of the language pack
-	 * @param   boolean  $useCache  Enable language cache?
 	 */
 
-	public function __construct($language, $useCache)
+	public function __construct($language)
 	{
 		$this->language = $language;
 
-		$this->useCache = $useCache;
+		$this->useCache = Config::get('application.language_cache');
 	}
 
 	//---------------------------------------------
@@ -122,7 +122,7 @@ class Language
 
 	protected function loadStrings()
 	{
-		// Load string from cache if its enabled
+		// Load strings from cache if language cache is enabled
 
 		if($this->useCache)
 		{
@@ -133,7 +133,7 @@ class Language
 		{
 			// Load language files from the application
 
-			$this->strings = array();
+			$this->strings = array('mako:packages' => array());
 
 			$files = glob(MAKO_APPLICATION_PATH . '/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
@@ -159,7 +159,7 @@ class Language
 				}
 			}
 
-			// Write to cache if its enabled
+			// Write strings to cache if language cache is enabled
 
 			if($this->useCache)
 			{
@@ -178,6 +178,11 @@ class Language
 
 	public function has($key)
 	{
+		if(empty($this->strings))
+		{
+			$this->loadStrings();
+		}
+		
 		if(stripos($key, '::'))
 		{
 			$keys = explode('::', $key, 2);
