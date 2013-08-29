@@ -185,9 +185,7 @@ class Language
 		
 		if(stripos($key, '::'))
 		{
-			$keys = explode('::', $key, 2);
-
-			return Arr::has($this->strings['mako:packages'][$keys[0]], $keys[1]);
+			return Arr::has($this->strings['mako:packages'], str_replace('::', '.', $key));
 		}
 		else
 		{
@@ -213,9 +211,7 @@ class Language
 
 		if(stripos($key, '::'))
 		{
-			$keys = explode('::', $key, 2);
-
-			$string = Arr::get($this->strings['mako:packages'][$keys[0]], $keys[1], $key);
+			$string = Arr::get($this->strings['mako:packages'], str_replace('::', '.', $key), $key);
 		}
 		else
 		{
