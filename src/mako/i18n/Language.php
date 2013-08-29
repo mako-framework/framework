@@ -131,9 +131,9 @@ class Language
 
 		if($this->strings === false || empty($this->strings))
 		{
-			// Load language files from the application
-
 			$this->strings = array('mako:packages' => array());
+			
+			// Load language files from the application
 
 			$files = glob(MAKO_APPLICATION_PATH . '/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
