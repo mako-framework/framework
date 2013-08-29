@@ -622,6 +622,8 @@ class Validate
 
 	public static function registerValidator($name, Closure $validator)
 	{
+		$name = str_replace('::', '_', $name);
+
 		static::$validators['validate' . String::underscored2camel($name, true)] = $validator;
 	}
 
@@ -640,20 +642,34 @@ class Validate
 		{
 			foreach(str_getcsv(trim($value, '|'), '|') as $rule)
 			{
+				$package = null;
+
+				if(preg_match('/^([0-9a-z_]+::)(.*)$/i', $rule, $matches) !== 0)
+				{
+					$package = substr($matches[1], 0, -2);
+
+					$rule = $matches[2];
+				}
+
 				list($validator, $params) = explode(':', $rule, 2) + array(null, null);
 
-				$params = !empty($params) ? str_getcsv($params) : array();
+				$rule = array
+				(
+					'package'    => $package,
+					'name'       => $validator,
+					'parameters' => !empty($params) ? str_getcsv($params) : array(),
+				);
 
 				if($key === '*')
 				{
-					foreach(array_keys($this->input) as $_key)
+					foreach(array_keys($this->input) as $key)
 					{
-						$rules[$_key][$validator] = $params;
+						$rules[$key][$validator] = $rule;
 					}
 				}
 				else
 				{
-					$rules[$key][$validator] = $params;
+					$rules[$key][$validator] = $rule;
 				}
 			}
 		}
@@ -666,28 +682,31 @@ class Validate
 	 * 
 	 * @access  protected
 	 * @param   string     $field       Field name
+	 * @param   string     $package     Package name
 	 * @param   string     $validator   Validator name
 	 * @param   array      $parameters  Validator parameters
 	 * @return  string
 	 */
 
-	protected function getErrorMessage($field, $validator, $parameters)
+	protected function getErrorMessage($field, $package, $validator, $parameters)
 	{
-		if(I18n::has('validate.' . $field . '.' . $validator))
+		$package = empty($package) ? '' : $package . '::';
+
+		if(I18n::has($package . 'validate.' . $field . '.' . $validator))
 		{
 			// Return custom field specific error message from the language file
 
-			return I18n::translate('validate.' . $field . '.' . $validator, array_merge(array($field), $parameters));
+			return I18n::translate($package . 'validate.' . $field . '.' . $validator, array_merge(array($field), $parameters));
 		}
 		else
 		{
 			// Try to translate field name
 
-			$translateFieldName = function($field)
+			$translateFieldName = function($field) use ($package)
 			{
-				if(I18n::has('validate.field.' . $field))
+				if(I18n::has($package . 'validate.field.' . $field))
 				{
-					$field = I18n::translate('validate.field.' . $field);
+					$field = I18n::translate($package . 'validate.field.' . $field);
 				}
 				else
 				{
@@ -708,7 +727,7 @@ class Validate
 
 			// Return default validation error message from the language file
 
-			return I18n::translate('validate.' . $validator, array_merge((array) $field, $parameters));
+			return I18n::translate($package . 'validate.' . $validator, array_merge((array) $field, $parameters));
 		}
 	}
 
@@ -727,11 +746,13 @@ class Validate
 				continue; // Only validate fields that are required or not empty
 			}
 
-			foreach($validators as $validator => $parameters)
+			foreach($validators as $validator)
 			{
-				if($this->{'validate' . String::underscored2camel($validator, true)}($this->input[$field], $parameters) === false)
+				$package = empty($validator['package']) ? '' : $validator['package'] . '_';
+
+				if($this->{'validate' . String::underscored2camel($package . $validator['name'], true)}($this->input[$field], $validator['parameters']) === false)
 				{
-					$this->errors[$field] = $this->getErrorMessage($field, $validator, $parameters);
+					$this->errors[$field] = $this->getErrorMessage($field, $validator['package'], $validator['name'], $validator['parameters']);
 
 					break; // Jump to next field if an error is found
 				}
