@@ -692,11 +692,11 @@ class Validate
 	{
 		$package = empty($package) ? '' : $package . '::';
 
-		if(I18n::has($package . 'validate.' . $field . '.' . $validator))
+		if(I18n::has($package . 'validate.overrides.messages.' . $field . '.' . $validator))
 		{
 			// Return custom field specific error message from the language file
 
-			return I18n::translate($package . 'validate.' . $field . '.' . $validator, array_merge(array($field), $parameters));
+			return I18n::translate($package . 'validate.overrides.messages.' . $field . '.' . $validator, array_merge(array($field), $parameters));
 		}
 		else
 		{
@@ -704,9 +704,9 @@ class Validate
 
 			$translateFieldName = function($field) use ($package)
 			{
-				if(I18n::has($package . 'validate.field.' . $field))
+				if(I18n::has($package . 'validate.overrides.fieldnames.' . $field))
 				{
-					$field = I18n::translate($package . 'validate.field.' . $field);
+					$field = I18n::translate($package . 'validate.overrides.fieldnames.' . $field);
 				}
 				else
 				{
