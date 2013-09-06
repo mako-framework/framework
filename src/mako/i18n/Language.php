@@ -194,15 +194,15 @@ class Language
 	}
 
 	/**
-	 * Returns a translated string of the current language. 
+	 * Returns the chosen string. 
 	 *
 	 * @access  public
-	 * @param   string  $key   String to translate
+	 * @param   string  $key   String to get
 	 * @param   array   $vars  (optional) Value or array of values to replace in the translated text
 	 * @return  string
 	 */
 
-	public function translate($key, array $vars = array())
+	public function get($key, array $vars = array())
 	{
 		if(empty($this->strings))
 		{

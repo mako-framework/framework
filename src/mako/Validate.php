@@ -696,7 +696,7 @@ class Validate
 		{
 			// Return custom field specific error message from the language file
 
-			return I18n::translate($package . 'validate.overrides.messages.' . $field . '.' . $validator, array_merge(array($field), $parameters));
+			return I18n::get($package . 'validate.overrides.messages.' . $field . '.' . $validator, array_merge(array($field), $parameters));
 		}
 		else
 		{
@@ -706,7 +706,7 @@ class Validate
 			{
 				if(I18n::has($package . 'validate.overrides.fieldnames.' . $field))
 				{
-					$field = I18n::translate($package . 'validate.overrides.fieldnames.' . $field);
+					$field = I18n::get($package . 'validate.overrides.fieldnames.' . $field);
 				}
 				else
 				{
@@ -727,7 +727,7 @@ class Validate
 
 			// Return default validation error message from the language file
 
-			return I18n::translate($package . 'validate.' . $validator, array_merge((array) $field, $parameters));
+			return I18n::get($package . 'validate.' . $validator, array_merge((array) $field, $parameters));
 		}
 	}
 

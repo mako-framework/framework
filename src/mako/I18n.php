@@ -98,29 +98,29 @@ class I18n
 	 * Returns TRUE if the string exists and FALSE if not.
 	 * 
 	 * @access  public
-	 * @param   string   $string    String to translate
+	 * @param   string   $key       String to translate
 	 * @param   string   $language  (optional) Name of the language you want to translate to
 	 * @return  boolean
 	 */
 
-	public static function has($string, $language = null)
+	public static function has($key, $language = null)
 	{
-		return static::lang($language)->has($string);
+		return static::lang($language)->has($key);
 	}
 
 	/**
-	 * Returns a translated string of the current language. 
+	 * Returns the chosen string from the current language. 
 	 *
 	 * @access  public
-	 * @param   string  $string    String to translate
+	 * @param   string  $key       String to translate
 	 * @param   array   $vars      (optional) Value or array of values to replace in the translated text
 	 * @param   string  $language  (optional) Name of the language you want to translate to
 	 * @return  string
 	 */
 
-	public static function translate($string, array $vars = array(), $language = null)
+	public static function get($key, array $vars = array(), $language = null)
 	{
-		return static::lang($language)->translate($string, $vars);
+		return static::lang($language)->get($key, $vars);
 	}
 
 	/**
