@@ -9,8 +9,6 @@ use \mako\http\Response;
 use \mako\http\RequestException;
 use \mako\http\routing\Router;
 use \mako\http\routing\Dispatcher;
-use \RuntimeException;
-use \ReflectionClass;
 
 /**
  * Executes requets.
