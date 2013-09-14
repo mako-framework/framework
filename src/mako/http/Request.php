@@ -194,7 +194,7 @@ class Request
 			}
 		}
 
-		// Redirects to the current URL without index.php if clean URLs are enabled
+		// Redirect to the current URL without "index.php" if clean URLs are enabled
 
 		if(Config::get('application.clean_urls') && isset($_SERVER['REQUEST_URI']) && stripos($_SERVER['REQUEST_URI'], 'index.php') !== false)
 		{
@@ -206,7 +206,7 @@ class Request
 			}
 		}
 
-		// Removes the locale segment from the route
+		// Remove the locale segment from the route
 			
 		foreach(Config::get('application.languages') as $key => $language)
 		{
