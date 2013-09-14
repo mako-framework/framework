@@ -53,13 +53,34 @@ class Dispatcher
 	public function __construct(Request $request, Route $route)
 	{
 		$this->request = $request;
-
-		$this->route = $route;
+		$this->route   = $route;
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Executes "before filters".
+	 * 
+	 * @access  protected
+	 */
+
+	protected function beforeFilters()
+	{
+
+	}
+
+	/**
+	 * Executes "after filters".
+	 * 
+	 * @access  protected
+	 */
+
+	protected function afterFilters()
+	{
+
+	}
 
 	/**
 	 * Dispatch a closure controller action.
@@ -111,7 +132,7 @@ class Dispatcher
 	{
 		$response = new Response();
 
-		# Run before filters here $this->beforeFilters();
+		$this->beforeFilters();
 
 		$action = $this->route->getAction();
 
@@ -124,7 +145,7 @@ class Dispatcher
 			$this->dispatchController($action, $response);
 		}
 
-		# Run after filters here $this->afterFilters();
+		$this->afterFilters();
 
 		return $response;
 	}

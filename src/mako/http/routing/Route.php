@@ -62,8 +62,7 @@ class Route
 
 	public function __construct($route, $action)
 	{
-		$this->route = $route;
-
+		$this->route  = $route;
 		$this->action = $action;
 	}
 
