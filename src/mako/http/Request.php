@@ -59,20 +59,12 @@ class Request
 	protected $method;
 
 	/**
-	 * Controller name.
-	 *
-	 * @var string
+	 * Request parameters.
+	 * 
+	 * @var array
 	 */
 
-	protected $controller;
-
-	/**
-	 * Controller action.
-	 *
-	 * @var string
-	 */
-
-	protected $action;
+	protected $parameters = array();
 
 	/**
 	 * Request headers.
@@ -342,6 +334,20 @@ class Request
 	public static function main()
 	{
 		return static::$main;
+	}
+
+	/**
+	 * Returns a request parameter.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Parameter name
+	 * @param   mixed   $default  Default value
+	 * @return  mixed
+	 */
+
+	public function param($key, $default = null)
+	{
+		return isset($this->parameters[$key]) ? $this->parameters[$key] : $default;
 	}
 
 	/**

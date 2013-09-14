@@ -86,11 +86,11 @@ class Dispatcher
 	 * Dispatch a closure controller action.
 	 * 
 	 * @access  protected
-	 * @param   \Closure             $closure   Closure  
 	 * @param   \mako\http\Response  $response  Response
+	 * @param   \Closure             $closure   Closure  
 	 */
 
-	protected function dispatchClosure(Closure $closure, $response)
+	protected function dispatchClosure(Response $response, Closure $closure)
 	{
 		$response->body(call_user_func_array($closure, array_merge(array($this->request, $response), $this->route->getParameters())));
 	}
@@ -99,11 +99,11 @@ class Dispatcher
 	 * Dispatch a controller action.
 	 * 
 	 * @access  protected
-	 * @param   string               $controller  Controller
 	 * @param   \mako\http\Response  $response    Response
+	 * @param   string               $controller  Controller
 	 */
 
-	protected function dispatchController($controller, $response)
+	protected function dispatchController(Response $response, $controller)
 	{
 		list($controller, $method) = explode('::', $controller, 2);
 
@@ -146,11 +146,11 @@ class Dispatcher
 
 		if($action instanceof Closure)
 		{
-			$this->dispatchClosure($action, $response);
+			$this->dispatchClosure($response, $action);
 		}
 		else
 		{
-			$this->dispatchController($action, $response);
+			$this->dispatchController($response, $action);
 		}
 
 		// Execute after filters
