@@ -322,7 +322,7 @@ class Request
 	}
 
 	/**
-	 * Executes request.
+	 * Executes the request.
 	 *
 	 * @access  public
 	 * @return  \mako\http\Response
@@ -354,20 +354,6 @@ class Request
 	}
 
 	/**
-	 * Returns a request parameter.
-	 * 
-	 * @access  public
-	 * @param   string  $key      Parameter name
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
-	 */
-
-	public function param($key, $default = null)
-	{
-		return isset($this->parameters[$key]) ? $this->parameters[$key] : $default;
-	}
-
-	/**
 	 * Is this the main request?
 	 *
 	 * @access  public
@@ -392,30 +378,6 @@ class Request
 	}
 
 	/**
-	 * Returns the name of the requested controller.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function controller()
-	{
-		return $this->controller;
-	}
-
-	/**
-	 * Returns the name of the requested action.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function action()
-	{
-		return $this->action;
-	}
-
-	/**
 	 * Which request method was used?
 	 *
 	 * @access  public
@@ -425,6 +387,20 @@ class Request
 	public function method()
 	{
 		return $this->method;
+	}
+
+	/**
+	 * Returns a request parameter.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Parameter name
+	 * @param   mixed   $default  Default value
+	 * @return  mixed
+	 */
+
+	public function param($key, $default = null)
+	{
+		return isset($this->parameters[$key]) ? $this->parameters[$key] : $default;
 	}
 
 	/**
