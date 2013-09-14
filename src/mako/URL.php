@@ -3,8 +3,7 @@
 namespace mako;
 
 use \mako\Config;
-use \mako\Request;
-use \mako\request\Router;
+use \mako\http\Request;
 
 /**
  * URL helper.
@@ -111,13 +110,6 @@ class URL
 
 	public static function to($route = '', array $params = array(), $separator = '&amp;', $language = true)
 	{
-		// Replace the package prefix with the package base route
-
-		if(strpos($route, '::') !== false)
-		{
-			$route = Router::packageRoute($route);
-		}
-
 		// Build and return url
 
 		$url = static::base() . (static::$clean ? '' : '/index.php') . ($language === true ? static::$language : (!$language ? '' : '/' . $language)) . '/' . $route;

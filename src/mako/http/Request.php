@@ -1,13 +1,14 @@
 <?php
 
-namespace mako;
+namespace mako\http;
 
 use \mako\URL;
 use \mako\I18n;
 use \mako\Config;
-use \mako\Response;
-use \mako\request\Router;
-use \mako\request\RequestException;
+use \mako\http\Response;
+use \mako\http\RequestException;
+use \mako\http\routing\Router;
+use \mako\http\routing\Dispatcher;
 use \RuntimeException;
 use \ReflectionClass;
 
@@ -208,8 +209,6 @@ class Request
 			}
 		}
 
-		$route = trim($route, '/');
-
 		if($this->isMain())
 		{
 			// Redirects to the current URL without index.php if clean URLs are enabled
@@ -226,15 +225,15 @@ class Request
 
 			// Removes the locale segment from the route
 			
-			foreach(Config::get('routes.languages', array()) as $key => $language)
+			foreach(Config::get('application.languages') as $key => $language)
 			{
-				if($route === $key || strpos($route, $key . '/') === 0)
+				if($route === '/' . $key || strpos($route, '/' . $key . '/') === 0)
 				{
 					static::$language = $key;
 
 					I18n::language($language);
 
-					$route = trim(mb_substr($route, mb_strlen($key)), '/');
+					$route = mb_substr($route, (mb_strlen($key) + 1));
 
 					break;
 				}
@@ -326,94 +325,15 @@ class Request
 
 	public function execute()
 	{
-		// Route the request
-
 		$router = new Router($this);
 
-		if($router->route() === false)
-		{
-			throw new RequestException(404);
-		}
+		$route = $router->route();
 
-		$this->controller = $router->getController();
-		$this->action     = $router->getAction();
+		$this->parameters = $route->getParameters();
 
-		// Validate controller class
+		$dispatcher = new Dispatcher($this, $route);
 
-		$controllerClass = new ReflectionClass($router->getNamespace() . $this->controller);
-
-		if($controllerClass->isSubClassOf('\mako\Controller') === false)
-		{
-			throw new RuntimeException(vsprintf("%s(): The controller class needs to be a subclass of mako\Controller.", array(__METHOD__)));
-		}
-
-		// Check if class is abstract
-
-		if($controllerClass->isAbstract())
-		{
-			throw new RequestException(404);
-		}
-
-		// Instantiate controller
-
-		$response = new Response();
-
-		$controller = $controllerClass->newInstance($this, $response);
-
-		// Prefix controller action
-
-		if($controller::RESTFUL === true)
-		{
-			$action = strtolower($this->method()) . '_' . $this->action;
-		}
-		else
-		{
-			$action = 'action_' . $this->action;
-		}
-
-		// Check that action exists
-
-		if($controllerClass->hasMethod($action) === false)
-		{
-			if($controller::RESTFUL === true)
-			{
-				$requestMethods = array('get', 'post', 'put', 'delete', 'patch');
-
-				foreach($requestMethods as $requestMethod)
-				{
-					if($controllerClass->hasMethod($requestMethod . '_' . $this->action))
-					{
-						throw new RequestException(405); // Only throw 405 if the controller has an action that can respond to the requested route
-					}
-				}
-			}
-
-			throw new RequestException(404);
-		}
-
-		$controllerAction = $controllerClass->getMethod($action);
-		$actionArguments  = $router->getActionArguments();
-		
-		// Check if number of arguments match
-		
-		if(count($actionArguments) < $controllerAction->getNumberOfRequiredParameters() || count($actionArguments) > $controllerAction->getNumberOfParameters())
-		{
-			throw new RequestException(404);
-		}
-		
-		// Run pre-action method
-
-		$controller->before();
-		
-		// Run action
-
-		$response->body($controllerAction->invokeArgs($controller, $actionArguments));
-
-		// Run post-action method
-
-		$controller->after();
-
-		return $response;
+		return $dispatcher->dispatch();
 	}
 
 	/**

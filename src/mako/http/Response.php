@@ -1,10 +1,10 @@
 <?php
 
-namespace mako;
+namespace mako\http;
 
 use \Closure;
 use \mako\Config;
-use \mako\Request;
+use \mako\http\Request;
 use \mako\DebugToolbar;
 
 /**

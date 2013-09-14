@@ -3,7 +3,7 @@
 namespace mako;
 
 use \mako\Arr;
-use \mako\Request;
+use \mako\http\Request;
 
 /**
  * Input filtering and helpers.

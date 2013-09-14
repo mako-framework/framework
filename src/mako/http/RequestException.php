@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\request;
+namespace mako\http;
 
 use \Exception;
 

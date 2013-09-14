@@ -1,9 +1,9 @@
 <?php
 
-namespace mako;
+namespace mako\http\routing;
 
-use \mako\Request;
-use \mako\Response;
+use \mako\http\Request;
+use \mako\http\Response;
 
 /**
  * Base controller that all application controllers must extend.
@@ -18,14 +18,6 @@ abstract class Controller
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-
-	/**
-	 * Is this a restful controller?
-	 * 
-	 * @var boolean
-	 */
-
-	const RESTFUL = false;
 
 	/**
 	 * Holds the request object that loaded the controller.
@@ -71,7 +63,7 @@ abstract class Controller
 	 * @access  public
 	 */
 
-	public function before()
+	public function beforeFilter()
 	{
 
 	}
@@ -82,7 +74,7 @@ abstract class Controller
 	 * @access  public
 	 */
 
-	public function after()
+	public function afterFilter()
 	{
 
 	}

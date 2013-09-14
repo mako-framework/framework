@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Request;
+use \mako\http\Request;
 use \mako\ErrorHandler;
 use \mako\request\RequestException;
 use \mako\errorhandler\RequestExceptionHandler;
@@ -85,7 +85,7 @@ class Mako
 
 		// Register the RequestException handler
 
-		ErrorHandler::handle('\mako\request\RequestException', function($exception)
+		ErrorHandler::handle('\mako\http\RequestException', function($exception)
 		{
 			$handler = new RequestExceptionHandler($exception);
 

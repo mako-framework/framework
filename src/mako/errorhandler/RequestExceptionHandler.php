@@ -4,7 +4,7 @@ namespace mako\errorhandler;
 
 use \Exception;
 use \mako\View;
-use \mako\Response;
+use \mako\http\Response;
 
 /**
  * RequestException handler.
