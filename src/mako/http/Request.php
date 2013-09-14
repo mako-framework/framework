@@ -35,38 +35,6 @@ class Request
 	protected static $main;
 
 	/**
-	 * Is this the main request?
-	 *
-	 * @var array
-	 */
-
-	protected $isMain = true;
-	
-	/**
-	 * Holds the route passed to the constructor.
-	 *
-	 * @var string
-	 */
-
-	protected $route;
-
-	/**
-	 * Which request method was used?
-	 *
-	 * @var string
-	 */
-
-	protected $method;
-
-	/**
-	 * Request parameters.
-	 * 
-	 * @var array
-	 */
-
-	protected $parameters = array();
-
-	/**
 	 * Request headers.
 	 * 
 	 * @var array
@@ -106,6 +74,38 @@ class Request
 
 	protected static $language;
 
+	/**
+	 * Is this the main request?
+	 *
+	 * @var array
+	 */
+
+	protected $isMain = true;
+	
+	/**
+	 * Holds the route passed to the constructor.
+	 *
+	 * @var string
+	 */
+
+	protected $route;
+
+	/**
+	 * Which request method was used?
+	 *
+	 * @var string
+	 */
+
+	protected $method;
+
+	/**
+	 * Request parameters.
+	 * 
+	 * @var array
+	 */
+
+	protected $parameters = array();
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -120,26 +120,22 @@ class Request
 
 	public function __construct($route = null, $method = null)
 	{
-		static $mainRequest = true;
+		static $isMainRequest = true; // The first request will be treated as the main request
 
-		$this->route = ($mainRequest && empty($route)) ? $this->getRoute() : $route;
-
-		$this->method = strtoupper($mainRequest ? 
-		                ($method ?: (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) :
-		                (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET'))) : ($method ?: static::$main->method()));
-
-		if($mainRequest === true)
+		if($isMainRequest)
 		{
 			static::$main = $this;
 
-			$this->requestInfo();
-		}
-		else
-		{
-			$this->isMain = false;
+			$this->collectRequestInfo();
 		}
 
-		$mainRequest = false; // Subsequent requests will be treated as subrequests
+		$this->route = ($isMainRequest && empty($route)) ? $this->getRoute() : $route;
+
+		$this->method = ($isMainRequest && empty($method)) ? $this->detectMethod() : ($method ?: static::$main->method());
+
+		$this->isMain = $isMainRequest;
+
+		$isMainRequest = false; // Subsequent requests will be treated as subrequests
 	}
 
 	/**
@@ -232,13 +228,36 @@ class Request
 	}
 
 	/**
+	 * Detects the request method.
+	 * 
+	 * @access  protected
+	 * @return  string
+	 */
+
+	protected function detectMethod()
+	{
+		$method = 'GET';
+
+		if(isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']))
+		{
+			$method = $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'];
+		}
+		elseif(isset($_SERVER['REQUEST_METHOD']))
+		{
+			$method = $_SERVER['REQUEST_METHOD'];
+		}
+
+		return strtoupper($method);
+	}
+
+	/**
 	 * Returns all the request headers.
 	 * 
 	 * @access  protected
 	 * @return  array
 	 */
 
-	protected function getHeaders()
+	protected function collectHeaders()
 	{
 		$headers = array();
 
@@ -258,18 +277,18 @@ class Request
 	}
 
 	/**
-	 * Gets information about the request.
+	 * Collects information about the request.
 	 * 
 	 * @access protected
 	 */
 
-	protected function requestInfo()
+	protected function collectRequestInfo()
 	{
-		// Get the request headers
+		// Collect the request headers
 
-		static::$headers = $this->getHeaders();
+		static::$headers = $this->collectHeaders();
 
-		// Get the ip of the client that made the request
+		// Get the IP address of the client that made the request
 		
 		if(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
 		{
@@ -297,7 +316,7 @@ class Request
 		
 		// Is this an Ajax request?
 
-		static::$isAjax = (bool) (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
+		static::$isAjax = (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 
 		// Was the request made using HTTPS?
 
