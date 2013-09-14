@@ -57,7 +57,7 @@ class Mako
 	 * Executes request and sends response.
 	 *
 	 * @access  public
-	 * @param   string  $route  (optional) URL segments passed to the request handler.
+	 * @param   string  $route  (optional) Route passed to the request handler.
 	 */
 	
 	public function run($route = null)

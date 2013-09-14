@@ -61,7 +61,7 @@ class Dispatcher
 	//---------------------------------------------
 
 	/**
-	 * Executes "before filters".
+	 * Executes before filters.
 	 * 
 	 * @access  protected
 	 */
@@ -72,7 +72,7 @@ class Dispatcher
 	}
 
 	/**
-	 * Executes "after filters".
+	 * Executes after filters.
 	 * 
 	 * @access  protected
 	 */
@@ -109,10 +109,14 @@ class Dispatcher
 
 		$controller = new $controller($this->request, $response);
 
+		// Check that the controller extends the base controller
+
 		if(!($controller instanceof \mako\http\routing\Controller))
 		{
 			throw new RuntimeException(vsprintf("%s(): All controllers must extend mako\http\routing\Controller.", array(__METHOD__)));
 		}
+
+		// Execute the before filter, the controller action and finally the after filter
 
 		$controller->beforeFilter();
 
@@ -132,7 +136,11 @@ class Dispatcher
 	{
 		$response = new Response();
 
+		// Execute before filters
+
 		$this->beforeFilters();
+
+		// Execute the route action
 
 		$action = $this->route->getAction();
 
@@ -145,7 +153,11 @@ class Dispatcher
 			$this->dispatchController($action, $response);
 		}
 
+		// Execute after filters
+
 		$this->afterFilters();
+
+		// Return the response
 
 		return $response;
 	}
