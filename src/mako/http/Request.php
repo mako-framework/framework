@@ -2,7 +2,6 @@
 
 namespace mako\http;
 
-use \mako\URL;
 use \mako\I18n;
 use \mako\Config;
 use \mako\http\Response;
@@ -166,31 +165,31 @@ class Request
 	{
 		$route = '/';
 
-		if(isset($_SERVER['PATH_INFO']) && $this->isMain())
+		if(isset($_SERVER['PATH_INFO']))
 		{
 			$route = $_SERVER['PATH_INFO'];
 		}
-		elseif(isset($_SERVER['REQUEST_URI']) && $this->isMain())
+		elseif(isset($_SERVER['REQUEST_URI']))
 		{
-			if($uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
+			if($route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
 			{
-				// Removes base url from uri
+				// Remove base path from route
 
-				$base = parse_url(URL::base(), PHP_URL_PATH);
+				$basePath = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
-				if(stripos($uri, $base) === 0)
+				if(stripos($route, $basePath) === 0)
 				{
-					$uri = mb_substr($uri, mb_strlen($base));
+					$route = mb_substr($route, mb_strlen($basePath));
 				}
 
-				// Removes "/index.php" from uri
+				// Remove "/index.php" from route
 
-				if(stripos($uri, '/index.php') === 0)
+				if(stripos($route, '/index.php') === 0)
 				{
-					$uri = mb_substr($uri, 10);
+					$route = mb_substr($route, 10);
 				}
 
-				$route = rawurldecode($uri);
+				$route = rawurldecode($route);
 			}
 		}
 
@@ -200,7 +199,7 @@ class Request
 		{
 			$path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
-			if(stripos(ltrim(mb_substr($_SERVER['REQUEST_URI'], mb_strlen($path)), '/'), 'index.php') === 0 && stripos($route, 'index.php.') !== 0)
+			if(stripos(mb_substr($_SERVER['REQUEST_URI'], mb_strlen($path)), '/index.php') === 0)
 			{
 				Response::factory()->redirect($route, 301);
 			}
