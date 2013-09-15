@@ -10,7 +10,7 @@ namespace mako;
  * @license    http://www.makoframework.com/license
  */
 
-class Rest
+class Repose
 {
 	//---------------------------------------------
 	// Class properties
