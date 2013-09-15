@@ -3,6 +3,7 @@
 namespace mako\http;
 
 use \Closure;
+use \mako\URL;
 use \mako\Config;
 use \mako\http\Request;
 use \mako\DebugToolbar;
