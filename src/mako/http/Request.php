@@ -215,7 +215,7 @@ class Request
 
 				I18n::language($language);
 
-				$route = mb_substr($route, (mb_strlen($key) + 1));
+				$route = '/' . ltrim(mb_substr($route, (mb_strlen($key) + 1)), '/');
 
 				break;
 			}
