@@ -110,16 +110,14 @@ class URL
 
 	public static function to($route = '', array $params = array(), $separator = '&amp;', $language = true)
 	{
-		// Build and return url
-
-		$url = static::base() . (static::$clean ? '' : '/index.php') . ($language === true ? static::$language : (!$language ? '' : '/' . $language)) . '/' . $route;
+		$url = static::base() . (static::$clean ? '' : '/index.php') . ($language === true ? static::$language : (!$language ? '' : '/' . $language)) . $route;
 		
 		if(!empty($params))
 		{
 			$url .= '?' . http_build_query($params, '', $separator);
 		}
 		
-		return rtrim($url, '/');
+		return $url;
 	}
 
 	/**
