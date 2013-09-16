@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\database;
 
 use \Closure;
 use \mako\Config;

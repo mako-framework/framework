@@ -2,7 +2,7 @@
 
 namespace mako\caching\adapters;
 
-use \mako\Redis as MRedis;
+use \mako\database\Redis as Sider;
 use \RuntimeException;
 
 /**
@@ -42,7 +42,7 @@ class Redis extends \mako\caching\adapters\Adapter
 	{
 		parent::__construct($config['identifier']);
 		
-		$this->redis = new MRedis($config['configuration']);
+		$this->redis = new Sider($config['configuration']);
 	}
 
 	/**

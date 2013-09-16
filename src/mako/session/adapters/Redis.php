@@ -2,7 +2,7 @@
 
 namespace mako\session\adapters;
 
-use \mako\Redis as Sider;
+use \mako\database\Redis as Sider;
 
 /**
  * Redis session adapter.
