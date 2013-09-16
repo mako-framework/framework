@@ -20,12 +20,12 @@ class HTML
 	//---------------------------------------------
 
 	/**
-	 * Custom macros.
+	 * Custom tags.
 	 *
 	 * @var array
 	 */
 
-	protected static $macros = array();
+	protected static $tags = array();
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -190,16 +190,16 @@ class HTML
 	}
 
 	/**
-	 * Registers a new HTML macro.
+	 * Registers a new HTML tag.
 	 *
 	 * @access  public
-	 * @param   string   $name     Macro name
-	 * @param   Closure  $closure  Macro closure
+	 * @param   string   $name     Tag name
+	 * @param   \Closure  $closure  Tag closure
 	 */
 
-	public static function macro($name, Closure $macro)
+	public static function registerTag($name, Closure $tag)
 	{
-		static::$macros[$name] = $macro;
+		static::$tags[$name] = $tag;
 	}
 
 	/**
@@ -213,12 +213,12 @@ class HTML
 
 	public static function __callStatic($name, $arguments)
 	{
-		if(!isset(static::$macros[$name]))
+		if(!isset(static::$tags[$name]))
 		{
 			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", array(__CLASS__, $name)));
 		}
 
-		return call_user_func_array(static::$macros[$name], $arguments);
+		return call_user_func_array(static::$tags[$name], $arguments);
 	}
 }
 
