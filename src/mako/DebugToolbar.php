@@ -3,7 +3,7 @@
 namespace mako;
 
 use \mako\utility\Arr;
-use \mako\File;
+use \mako\utility\File;
 use \mako\Database;
 
 /**

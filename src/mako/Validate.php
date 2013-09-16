@@ -3,7 +3,7 @@
 namespace mako;
 
 use \mako\I18n;
-use \mako\UUID;
+use \mako\utility\UUID;
 use \mako\utility\String;
 use \mako\Database;
 use \mako\security\Token;

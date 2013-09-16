@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\utility;
 
 use \mako\I18n;
 use \DateTimeZone;
