@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use \mako\Database;
+use \mako\database\Database;
 use \mako\database\Query;
 use \mako\database\query\Subquery;
 

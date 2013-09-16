@@ -4,7 +4,7 @@ namespace mako;
 
 use \mako\utility\Arr;
 use \mako\utility\File;
-use \mako\Database;
+use \mako\database\Database;
 
 /**
  * Debug toolbar.

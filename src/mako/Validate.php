@@ -5,7 +5,7 @@ namespace mako;
 use \mako\i18n\I18n;
 use \mako\utility\UUID;
 use \mako\utility\String;
-use \mako\Database;
+use \mako\database\Database;
 use \mako\security\Token;
 use \Closure;
 use \DateTime;

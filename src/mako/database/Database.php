@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\database;
 
 use \mako\Config;
 use \mako\database\Connection;

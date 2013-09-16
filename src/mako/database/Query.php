@@ -4,7 +4,7 @@ namespace mako\database;
 
 use \PDO;
 use \Closure;
-use \mako\Database;
+use \mako\database\Database;
 use \mako\database\Connection;
 use \mako\database\query\Join;
 use \mako\database\query\Subquery;

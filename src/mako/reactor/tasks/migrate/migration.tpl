@@ -1,6 +1,6 @@
 <?php
 
-use \mako\Database;
+use \mako\database\Database;
 
 class Migration_{{version}}
 {

@@ -3,7 +3,7 @@
 namespace mako\session\adapters;
 
 use \PDOException;
-use \mako\Database as DB;
+use \mako\database\Database as DB;
 
 /**
  * Database session adapter.

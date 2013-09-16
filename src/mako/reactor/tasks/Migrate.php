@@ -2,7 +2,7 @@
 
 namespace mako\reactor\tasks;
 
-use \mako\Database;
+use \mako\database\Database;
 use \mako\reactor\CLI;
 use \StdClass;
 

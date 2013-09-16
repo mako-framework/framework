@@ -7,7 +7,7 @@ use \Closure;
 use \PDOException;
 use \RuntimeException;
 use \mako\Config;
-use \mako\Database;
+use \mako\database\Database;
 use \mako\database\Query;
 
 /**
