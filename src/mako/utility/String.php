@@ -1,8 +1,8 @@
 <?php
 
-namespace mako;
+namespace mako\utility;
 
-use \mako\HTML;
+use \mako\utility\HTML;
 
 /**
  * Collection of string manipulation methods.

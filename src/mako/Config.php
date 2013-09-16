@@ -10,7 +10,7 @@ namespace mako;
  * @license    http://www.makoframework.com/license
  */
 
-use \mako\Arr;
+use \mako\utility\Arr;
 use \RuntimeException;
 
 class Config

@@ -2,7 +2,7 @@
 
 namespace mako\reactor\tasks;
 
-use \mako\String;
+use \mako\utility\String;
 
 /**
  * App task.

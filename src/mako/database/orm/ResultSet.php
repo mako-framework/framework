@@ -2,7 +2,7 @@
 
 namespace mako\database\orm;
 
-use \mako\Arr;
+use \mako\utility\Arr;
 use \ArrayIterator;
 
 /**

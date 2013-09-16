@@ -3,7 +3,7 @@
 namespace mako\database;
 
 use \mako\I18n;
-use \mako\String;
+use \mako\utility\String;
 use \mako\Validate;
 use \mako\Database;
 use \mako\database\orm\Hydrator;

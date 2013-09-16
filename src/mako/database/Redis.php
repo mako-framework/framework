@@ -4,7 +4,7 @@ namespace mako\database;
 
 use \Closure;
 use \mako\Config;
-use \mako\String;
+use \mako\utility\String;
 use \RuntimeException;
 
 /**

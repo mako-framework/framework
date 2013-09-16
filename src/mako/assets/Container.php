@@ -2,8 +2,8 @@
 
 namespace mako\assets;
 
-use \mako\HTML;
 use \mako\Assets;
+use \mako\utility\HTML;
 
 /**
  * Asset container.

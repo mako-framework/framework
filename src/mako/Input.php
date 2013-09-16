@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Arr;
+use \mako\utility\Arr;
 use \mako\http\Request;
 
 /**

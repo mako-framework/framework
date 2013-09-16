@@ -1,6 +1,6 @@
 <?php
 
-use \mako\Num;
+use \mako\utility\Num;
 
 class NumTest extends PHPUnit_Framework_TestCase
 {

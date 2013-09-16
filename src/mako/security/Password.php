@@ -3,7 +3,7 @@
 namespace mako\security;
 
 use \Closure;
-use \mako\String;
+use \mako\utility\String;
 
 /**
  * Secure password hashing and validation.

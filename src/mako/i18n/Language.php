@@ -2,7 +2,7 @@
 
 namespace mako\i18n;
 
-use \mako\Arr;
+use \mako\utility\Arr;
 use \mako\Config;
 use \mako\caching\Cache;
 use \RuntimeException;
