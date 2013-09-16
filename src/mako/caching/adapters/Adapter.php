@@ -59,30 +59,6 @@ abstract class Adapter
 	abstract public function delete($key);
 
 	abstract public function clear();
-
-	/**
-	 * Fetches variable from cache and stores it if it doesn't exist.
-	 *
-	 * @access  public
-	 * @param   string   $key      Cache key
-	 * @param   Closure  $closure  Closure that returns value to store if it doesn't already exist
-	 * @param   int      $ttl      (optional) Time to live
-	 * @return  mixed
-	 */
-	
-	final public function remember($key, Closure $closure, $ttl = 0)
-	{
-		$item = $this->read($key);
-		
-		if($item === false)
-		{
-			$item = $closure();
-			
-			$this->write($key, $item, $ttl);
-		}
-		
-		return $item;
-	}
 	
 	/**
 	 * Magic setter.
