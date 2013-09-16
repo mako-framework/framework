@@ -3,8 +3,8 @@
 namespace mako\reactor;
 
 use \mako\Config;
-use \mako\Package;
 use \mako\reactor\CLI;
+use \mako\core\Package;
 use \Exception;
 use \ReflectionClass;
 use \RuntimeException;

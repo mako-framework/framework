@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\core;
 
 use \RuntimeException;
 

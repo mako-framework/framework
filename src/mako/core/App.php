@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\core;
 
 use \mako\http\Request;
 use \mako\ErrorHandler;
@@ -15,7 +15,7 @@ use \mako\errorhandler\RequestExceptionHandler;
  * @license    http://www.makoframework.com/license
  */
 
-class Mako
+class App
 {
 	//---------------------------------------------
 	// Class properties
