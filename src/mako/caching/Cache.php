@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\caching;
 
 use \mako\Config;
 use \RuntimeException;
@@ -66,7 +66,7 @@ class Cache
 				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the cache configuration.", array(__METHOD__, $name)));
 			}
 			
-			$class = '\mako\cache\\' . $config['configurations'][$name]['type'];
+			$class = '\mako\caching\adapters\\' . $config['configurations'][$name]['type'];
 			
 			static::$instances[$name] = new $class($config['configurations'][$name]);
 		}

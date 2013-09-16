@@ -1,38 +1,31 @@
 <?php
 
-namespace mako\cache;
+namespace mako\caching\adapters;
 
+use \Memcached as PHP_Memcached;
 use \RuntimeException;
 
 /**
- * XCache adapter.
+ * Memcached adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class XCache extends \mako\cache\Adapter
+class Memcached extends \mako\caching\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-	
+
 	/**
-	 * XCache username.
+	 * Memcached object.
 	 *
-	 * @var string
+	 * @var \Memcached
 	 */
 
-	protected $username;
-	
-	/**
-	 * XCache password.
-	 *
-	 * @var string
-	 */
-	
-	protected $password;
+	protected $memcached;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -49,14 +42,40 @@ class XCache extends \mako\cache\Adapter
 	{
 		parent::__construct($config['identifier']);
 		
-		$this->username = $config['username'];
-		
-		$this->password = $config['password'];
-		
-		if(function_exists('xcache_get') === false)
+		if(class_exists('\Memcached', false) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): XCache is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): Memcached is not available.", array(__METHOD__)));
 		}
+		
+		$this->memcached = new PHP_Memcached();
+		
+		if($config['timeout'] !== 1)
+		{
+			$this->memcached->setOption(PHP_Memcached::OPT_CONNECT_TIMEOUT, ($config['timeout'] * 1000)); // Multiply by 1000 to convert to ms
+		}
+
+		if($config['compress_data'] === false)
+		{
+			$this->memcached->setOption(PHP_Memcached::OPT_COMPRESSION, false);
+		}
+
+		// Add servers to the connection pool
+
+		foreach($config['servers'] as $server)
+		{
+			$this->memcached->addServer($server['server'], $server['port'], $server['weight']);
+		}
+	}
+
+	/**
+	 * Destructor.
+	 *
+	 * @access  public
+	 */
+
+	public function __destruct()
+	{
+		$this->memcached = null;
 	}
 
 	//---------------------------------------------
@@ -75,7 +94,17 @@ class XCache extends \mako\cache\Adapter
 
 	public function write($key, $value, $ttl = 0)
 	{
-		return xcache_set($this->identifier . $key, serialize($value), $ttl);
+		if($ttl !== 0)
+		{
+			$ttl += time();
+		}
+
+		if($this->memcached->replace($this->identifier . $key, $value, $ttl) === false)
+		{
+			return $this->memcached->set($this->identifier . $key, $value, $ttl);
+		}
+
+		return true;
 	}
 
 	/**
@@ -88,7 +117,7 @@ class XCache extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		return unserialize(xcache_get($this->identifier . $key));
+		return $this->memcached->get($this->identifier . $key);
 	}
 
 	/**
@@ -101,7 +130,7 @@ class XCache extends \mako\cache\Adapter
 
 	public function has($key)
 	{
-		return xcache_isset($this->identifier . $key);
+		return ($this->memcached->get($this->identifier . $key) !== false);
 	}
 
 	/**
@@ -115,7 +144,12 @@ class XCache extends \mako\cache\Adapter
 
 	public function increment($key, $ammount = 1)
 	{
-		return xcache_inc($this->identifier . $key, $ammount);
+		if($this->has($key))
+		{
+			return $this->memcached->increment($this->identifier . $key, $ammount);
+		}
+
+		return false;
 	}
 
 	/**
@@ -129,7 +163,12 @@ class XCache extends \mako\cache\Adapter
 
 	public function decrement($key, $ammount = 1)
 	{
-		return xcache_dec($this->identifier . $key, $ammount);
+		if($this->has($key))
+		{
+			return $this->memcached->decrement($this->identifier . $key, $ammount);
+		}
+
+		return false;
 	}
 
 	/**
@@ -142,7 +181,7 @@ class XCache extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		return xcache_unset($this->identifier . $key);
+		return $this->memcached->delete($this->identifier . $key, 0);
 	}
 
 	/**
@@ -154,52 +193,7 @@ class XCache extends \mako\cache\Adapter
 
 	public function clear()
 	{
-		$cleared = true;
-
-		// Set XCache password
-
-		$tempUsername = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : false;
-		$tempPassword = isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : false;
-
-		$_SERVER['PHP_AUTH_USER'] = $this->username;
-		$_SERVER['PHP_AUTH_PW']   = $this->password;
-
-		// Clear Cache
-
-		$cacheCount = xcache_count(XC_TYPE_VAR);
-
-		for($i = 0; $i < $cacheCount; $i++)
-		{
-			if(@xcache_clear_cache(XC_TYPE_VAR, $i) === false)
-			{
-				$cleared = false;
-				break;
-			}
-		}
-
-		// Reset PHP_AUTH username/password
-
-		if($tempUsername !== false)
-		{
-			$_SERVER['PHP_AUTH_USER'] = $tempUsername;
-		}
-		else
-		{
-			unset($_SERVER['PHP_AUTH_USER']);
-		}
-
-		if($tempPassword !== false)
-		{
-			$_SERVER['PHP_AUTH_PW'] = $tempPassword;
-		}
-		else
-		{
-			unset($_SERVER['PHP_AUTH_PW']);
-		}
-
-		// Return result
-
-		return $cleared;
+		return $this->memcached->flush();
 	}
 }
 

@@ -1,76 +1,49 @@
 <?php
 
-namespace mako\cache;
-
-use \PDOException;
-use \mako\Database as DB;
+namespace mako\caching\adapters;
 
 /**
- * Database based cache adapter.
+ * Non-persistent memory based cache.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Database extends \mako\cache\Adapter
+class Memory extends \mako\caching\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-	
-	/**
-	 * Database connection object.
-	 *
-	 * @var \mako\database\Connection
-	 */
-
-	protected $connection;
 
 	/**
-	 * Cache table.
+	 * Cache data.
 	 *
-	 * @var string
+	 * @var array
 	 */
 
-	protected $table;
-	
+	protected $cache = array();
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
-	
+
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
 	 * @param   array   $config  Configuration
 	 */
-	
+
 	public function __construct(array $config)
 	{
-		parent::__construct($config['identifier']);
-		
-		$this->connection = DB::connection($config['configuration']);
-
-		$this->table = $config['table'];
+		// Nothing here
 	}
-	
+
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
 
-	/**
-	 * Returns a query builder instance.
-	 *
-	 * @access  protected
-	 * @return  \mako\database\Query
-	 */
-
-	protected function table()
-	{
-		return $this->connection->table($this->table);
-	}
-	
 	/**
 	 * Store variable in the cache.
 	 *
@@ -80,23 +53,16 @@ class Database extends \mako\cache\Adapter
 	 * @param   int      $ttl    (optional) Time to live
 	 * @return  boolean
 	 */
-	
+
 	public function write($key, $value, $ttl = 0)
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
-		
-		try
-		{
-			$this->delete($key);
 
-			return $this->table()->insert(array('key' => $this->identifier . $key, 'data' => serialize($value), 'lifetime' => $ttl));
-		}
-		catch(PDOException $e)
-		{
-			return false;
-		}
+		$this->cache[$key] = array('data' => $value, 'ttl' => $ttl);
+		
+		return true;
 	}
-	
+
 	/**
 	 * Fetch variable from the cache.
 	 *
@@ -104,34 +70,25 @@ class Database extends \mako\cache\Adapter
 	 * @param   string  $key  Cache key
 	 * @return  mixed
 	 */
-	
+
 	public function read($key)
 	{
-		try
+		if(isset($this->cache[$key]))
 		{
-			$cache = $this->table()->where('key', '=', $this->identifier . $key)->first();
-
-			if($cache !== false)
+			if($this->cache[$key]['ttl'] > time())
 			{
-				if(time() < $cache->lifetime)
-				{
-					return unserialize($cache->data);
-				}
-				else
-				{
-					$this->delete($key);
-					
-					return false;
-				}
+				return $this->cache[$key]['data'];
 			}
 			else
 			{
+				$this->delete($key);
+
 				return false;
 			}
 		}
-		catch(PDOException $e)
+		else
 		{
-			 return false;
+			return false;
 		}
 	}
 
@@ -145,14 +102,7 @@ class Database extends \mako\cache\Adapter
 
 	public function has($key)
 	{
-		try
-		{
-			return (bool) $this->table()->where('key', '=', $this->identifier . $key)->where('lifetime', '>', time())->count();
-		}
-		catch(PDOException $e)
-		{
-			 return false;
-		}
+		return (isset($this->cache[$key]) && $this->cache[$key]['ttl'] > time());
 	}
 
 	/**
@@ -166,30 +116,14 @@ class Database extends \mako\cache\Adapter
 
 	public function increment($key, $ammount = 1)
 	{
-		$value = $this->read($key);
-
-		if($value === false || !is_numeric($value))
+		if(!$this->has($key) || !is_numeric($this->cache['key']['data']))
 		{
 			return false;
 		}
 
-		$value += $ammount;
+		$this->cache[$key]['data'] += $ammount;
 
-		try
-		{
-			$success = (bool) $this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
-
-			if(!$success)
-			{
-				return false;
-			}
-		}
-		catch(PDOException $e)
-		{
-			 return false;
-		}
-
-		return (int) $value;
+		return (int) $this->cache[$key]['data'];
 	}
 
 	/**
@@ -203,32 +137,16 @@ class Database extends \mako\cache\Adapter
 
 	public function decrement($key, $ammount = 1)
 	{
-		$value = $this->read($key);
-
-		if($value === false || !is_numeric($value))
+		if(!$this->has($key) || !is_numeric($this->cache[$key]['data']))
 		{
 			return false;
 		}
 
-		$value -= $ammount;
+		$this->cache[$key]['data'] -= $ammount;
 
-		try
-		{
-			$success = (bool) $this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
-
-			if(!$success)
-			{
-				return false;
-			}
-		}
-		catch(PDOException $e)
-		{
-			 return false;
-		}
-
-		return (int) $value;
+		return (int) $this->cache[$key]['data'];
 	}
-	
+
 	/**
 	 * Delete a variable from the cache.
 	 *
@@ -236,38 +154,33 @@ class Database extends \mako\cache\Adapter
 	 * @param   string   $key  Cache key
 	 * @return  boolean
 	 */
-	
+
 	public function delete($key)
 	{
-		try
+		if(isset($this->cache[$key]))
 		{
-			return (bool) $this->table()->where('key', '=', $this->identifier . $key)->delete();
+			unset($this->cache[$key]);
+			
+			return true;
 		}
-		catch(PDOException $e)
+		else
 		{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Clears the user cache.
 	 *
 	 * @access  public
 	 * @return  boolean
 	 */
-	
+
 	public function clear()
 	{
-		try
-		{
-			$this->table()->delete();
-											
-			return true;
-		}
-		catch(PDOException $e)
-		{
-			return false;
-		}
+		$this->cache = array();
+		
+		return true;
 	}
 }
 

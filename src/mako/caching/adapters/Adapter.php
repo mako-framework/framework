@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\cache;
+namespace mako\caching\adapters;
 
 use \Closure;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\cache;
+namespace mako\caching\adapters;
 
 use \mako\Redis as MRedis;
 use \RuntimeException;
@@ -13,7 +13,7 @@ use \RuntimeException;
  * @license    http://www.makoframework.com/license
  */
 
-class Redis extends \mako\cache\Adapter
+class Redis extends \mako\caching\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties

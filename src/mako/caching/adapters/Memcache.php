@@ -1,31 +1,39 @@
 <?php
 
-namespace mako\cache;
+namespace mako\caching\adapters;
 
-use \Memcached as PHP_Memcached;
+use \Memcache as PHP_Memcache;
 use \RuntimeException;
 
 /**
- * Memcached adapter.
+ * Memcache adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Memcached extends \mako\cache\Adapter
+class Memcache extends \mako\caching\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
 	/**
-	 * Memcached object.
+	 * Memcache object.
 	 *
-	 * @var \Memcached
+	 * @var \Memcache
 	 */
 
-	protected $memcached;
+	protected $memcache;
+
+	/**
+	 * Compression level.
+	 *
+	 * @var int
+	 */
+
+	protected $compression = 0;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -42,28 +50,23 @@ class Memcached extends \mako\cache\Adapter
 	{
 		parent::__construct($config['identifier']);
 		
-		if(class_exists('\Memcached', false) === false)
+		if(class_exists('\Memcache', false) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Memcached is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): Memcache is not available.", array(__METHOD__)));
 		}
 		
-		$this->memcached = new PHP_Memcached();
-		
-		if($config['timeout'] !== 1)
-		{
-			$this->memcached->setOption(PHP_Memcached::OPT_CONNECT_TIMEOUT, ($config['timeout'] * 1000)); // Multiply by 1000 to convert to ms
-		}
+		$this->memcache = new PHP_Memcache();
 
-		if($config['compress_data'] === false)
+		if($config['compress_data'] !== false)
 		{
-			$this->memcached->setOption(PHP_Memcached::OPT_COMPRESSION, false);
+			$this->compression = MEMCACHE_COMPRESSED;
 		}
 
 		// Add servers to the connection pool
 
 		foreach($config['servers'] as $server)
 		{
-			$this->memcached->addServer($server['server'], $server['port'], $server['weight']);
+			$this->memcache->addServer($server['server'], $server['port'], $server['persistent_connection'], $server['weight'], $config['timeout']);
 		}
 	}
 
@@ -75,7 +78,10 @@ class Memcached extends \mako\cache\Adapter
 
 	public function __destruct()
 	{
-		$this->memcached = null;
+		if($this->memcache !== null)
+		{
+			$this->memcache->close();
+		}
 	}
 
 	//---------------------------------------------
@@ -99,9 +105,9 @@ class Memcached extends \mako\cache\Adapter
 			$ttl += time();
 		}
 
-		if($this->memcached->replace($this->identifier . $key, $value, $ttl) === false)
+		if($this->memcache->replace($this->identifier . $key, $value, $this->compression, $ttl) === false)
 		{
-			return $this->memcached->set($this->identifier . $key, $value, $ttl);
+			return $this->memcache->set($this->identifier . $key, $value, $this->compression, $ttl);
 		}
 
 		return true;
@@ -117,7 +123,7 @@ class Memcached extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		return $this->memcached->get($this->identifier . $key);
+		return $this->memcache->get($this->identifier . $key);
 	}
 
 	/**
@@ -130,7 +136,7 @@ class Memcached extends \mako\cache\Adapter
 
 	public function has($key)
 	{
-		return ($this->memcached->get($this->identifier . $key) !== false);
+		return ($this->memcache->get($this->identifier . $key) !== false);
 	}
 
 	/**
@@ -144,12 +150,7 @@ class Memcached extends \mako\cache\Adapter
 
 	public function increment($key, $ammount = 1)
 	{
-		if($this->has($key))
-		{
-			return $this->memcached->increment($this->identifier . $key, $ammount);
-		}
-
-		return false;
+		return $this->memcache->increment($this->identifier . $key, $ammount);
 	}
 
 	/**
@@ -163,12 +164,7 @@ class Memcached extends \mako\cache\Adapter
 
 	public function decrement($key, $ammount = 1)
 	{
-		if($this->has($key))
-		{
-			return $this->memcached->decrement($this->identifier . $key, $ammount);
-		}
-
-		return false;
+		return $this->memcache->decrement($this->identifier . $key, $ammount);
 	}
 
 	/**
@@ -181,7 +177,7 @@ class Memcached extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		return $this->memcached->delete($this->identifier . $key, 0);
+		return $this->memcache->delete($this->identifier . $key, 0);
 	}
 
 	/**
@@ -193,7 +189,7 @@ class Memcached extends \mako\cache\Adapter
 
 	public function clear()
 	{
-		return $this->memcached->flush();
+		return $this->memcache->flush();
 	}
 }
 

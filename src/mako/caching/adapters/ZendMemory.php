@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\cache;
+namespace mako\caching\adapters;
 
 use \RuntimeException;
 
@@ -12,7 +12,7 @@ use \RuntimeException;
  * @license    http://www.makoframework.com/license
  */
 
-class ZendMemory extends \mako\cache\Adapter
+class ZendMemory extends \mako\caching\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties

@@ -1,18 +1,18 @@
 <?php
 
-namespace mako\cache;
+namespace mako\caching\adapters;
 
 use \RuntimeException;
 
 /**
- * Alternative PHP Cache adapter.
+ * Zend Data (disk) Cache adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class APC extends \mako\cache\Adapter
+class ZendDisk extends \mako\caching\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties
@@ -35,9 +35,9 @@ class APC extends \mako\cache\Adapter
 	{
 		parent::__construct($config['identifier']);
 		
-		if(function_exists('apc_fetch') === false)
+		if(function_exists('zend_disk_cache_fetch') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): APC is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): Zend Data Cache is not available.", array(__METHOD__)));
 		}
 	}
 
@@ -57,7 +57,7 @@ class APC extends \mako\cache\Adapter
 
 	public function write($key, $value, $ttl = 0)
 	{
-		return apc_store($this->identifier . $key, $value, $ttl);
+		return zend_disk_cache_store($this->identifier . $key, $value, $ttl);
 	}
 
 	/**
@@ -70,7 +70,7 @@ class APC extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		return apc_fetch($this->identifier . $key);
+		return zend_disk_cache_fetch($this->identifier . $key);
 	}
 
 	/**
@@ -83,7 +83,7 @@ class APC extends \mako\cache\Adapter
 
 	public function has($key)
 	{
-		return apc_exists($this->identifier . $key);
+		return (zend_disk_cache_fetch($this->identifier . $key) !== false);
 	}
 
 	/**
@@ -97,12 +97,18 @@ class APC extends \mako\cache\Adapter
 
 	public function increment($key, $ammount = 1)
 	{
-		if($this->has($key))
+		$value = $this->read($key);
+
+		if($value === false || !is_numeric($value))
 		{
-			return apc_inc($this->identifier . $key, $ammount);
+			return false;
 		}
-		
-		return false;
+
+		$value += $ammount;
+
+		$this->write($key, $value);
+
+		return (int) $value;
 	}
 
 	/**
@@ -116,12 +122,18 @@ class APC extends \mako\cache\Adapter
 
 	public function decrement($key, $ammount = 1)
 	{
-		if($this->has($key))
+		$value = $this->read($key);
+
+		if($value === false || !is_numeric($value))
 		{
-			return apc_dec($this->identifier . $key, $ammount);
+			return false;
 		}
-		
-		return false;
+
+		$value -= $ammount;
+
+		$this->write($key, $value);
+
+		return (int) $value;
 	}
 
 	/**
@@ -134,7 +146,7 @@ class APC extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		return apc_delete($this->identifier . $key);
+		return zend_disk_cache_delete($this->identifier . $key);
 	}
 
 	/**
@@ -146,7 +158,7 @@ class APC extends \mako\cache\Adapter
 
 	public function clear()
 	{
-		return apc_clear_cache('user');
+		return zend_disk_cache_clear();
 	}
 }
 

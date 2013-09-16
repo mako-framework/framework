@@ -1,28 +1,24 @@
 <?php
 
-namespace mako\cache;
+namespace mako\caching\adapters;
+
+use \RuntimeException;
 
 /**
- * Non-persistent memory based cache.
+ * Alternative PHP Cache adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Memory extends \mako\cache\Adapter
+class APC extends \mako\caching\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
-	/**
-	 * Cache data.
-	 *
-	 * @var array
-	 */
-
-	protected $cache = array();
+	// Nothing here
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -37,7 +33,12 @@ class Memory extends \mako\cache\Adapter
 
 	public function __construct(array $config)
 	{
-		// Nothing here
+		parent::__construct($config['identifier']);
+		
+		if(function_exists('apc_fetch') === false)
+		{
+			throw new RuntimeException(vsprintf("%s(): APC is not available.", array(__METHOD__)));
+		}
 	}
 
 	//---------------------------------------------
@@ -56,11 +57,7 @@ class Memory extends \mako\cache\Adapter
 
 	public function write($key, $value, $ttl = 0)
 	{
-		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
-
-		$this->cache[$key] = array('data' => $value, 'ttl' => $ttl);
-		
-		return true;
+		return apc_store($this->identifier . $key, $value, $ttl);
 	}
 
 	/**
@@ -73,23 +70,7 @@ class Memory extends \mako\cache\Adapter
 
 	public function read($key)
 	{
-		if(isset($this->cache[$key]))
-		{
-			if($this->cache[$key]['ttl'] > time())
-			{
-				return $this->cache[$key]['data'];
-			}
-			else
-			{
-				$this->delete($key);
-
-				return false;
-			}
-		}
-		else
-		{
-			return false;
-		}
+		return apc_fetch($this->identifier . $key);
 	}
 
 	/**
@@ -102,7 +83,7 @@ class Memory extends \mako\cache\Adapter
 
 	public function has($key)
 	{
-		return (isset($this->cache[$key]) && $this->cache[$key]['ttl'] > time());
+		return apc_exists($this->identifier . $key);
 	}
 
 	/**
@@ -116,14 +97,12 @@ class Memory extends \mako\cache\Adapter
 
 	public function increment($key, $ammount = 1)
 	{
-		if(!$this->has($key) || !is_numeric($this->cache['key']['data']))
+		if($this->has($key))
 		{
-			return false;
+			return apc_inc($this->identifier . $key, $ammount);
 		}
-
-		$this->cache[$key]['data'] += $ammount;
-
-		return (int) $this->cache[$key]['data'];
+		
+		return false;
 	}
 
 	/**
@@ -137,14 +116,12 @@ class Memory extends \mako\cache\Adapter
 
 	public function decrement($key, $ammount = 1)
 	{
-		if(!$this->has($key) || !is_numeric($this->cache[$key]['data']))
+		if($this->has($key))
 		{
-			return false;
+			return apc_dec($this->identifier . $key, $ammount);
 		}
-
-		$this->cache[$key]['data'] -= $ammount;
-
-		return (int) $this->cache[$key]['data'];
+		
+		return false;
 	}
 
 	/**
@@ -157,16 +134,7 @@ class Memory extends \mako\cache\Adapter
 
 	public function delete($key)
 	{
-		if(isset($this->cache[$key]))
-		{
-			unset($this->cache[$key]);
-			
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return apc_delete($this->identifier . $key);
 	}
 
 	/**
@@ -178,9 +146,7 @@ class Memory extends \mako\cache\Adapter
 
 	public function clear()
 	{
-		$this->cache = array();
-		
-		return true;
+		return apc_clear_cache('user');
 	}
 }
 

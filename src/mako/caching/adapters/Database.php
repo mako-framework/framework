@@ -1,50 +1,76 @@
 <?php
 
-namespace mako\cache;
+namespace mako\caching\adapters;
 
-use \RuntimeException;
+use \PDOException;
+use \mako\Database as DB;
 
 /**
- * Zend Data (disk) Cache adapter.
+ * Database based cache adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class ZendDisk extends \mako\cache\Adapter
+class Database extends \mako\caching\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+	
+	/**
+	 * Database connection object.
+	 *
+	 * @var \mako\database\Connection
+	 */
 
-	// Nothing here
+	protected $connection;
 
+	/**
+	 * Cache table.
+	 *
+	 * @var string
+	 */
+
+	protected $table;
+	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
-
+	
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
 	 * @param   array   $config  Configuration
 	 */
-
+	
 	public function __construct(array $config)
 	{
 		parent::__construct($config['identifier']);
 		
-		if(function_exists('zend_disk_cache_fetch') === false)
-		{
-			throw new RuntimeException(vsprintf("%s(): Zend Data Cache is not available.", array(__METHOD__)));
-		}
-	}
+		$this->connection = DB::connection($config['configuration']);
 
+		$this->table = $config['table'];
+	}
+	
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
 
+	/**
+	 * Returns a query builder instance.
+	 *
+	 * @access  protected
+	 * @return  \mako\database\Query
+	 */
+
+	protected function table()
+	{
+		return $this->connection->table($this->table);
+	}
+	
 	/**
 	 * Store variable in the cache.
 	 *
@@ -54,12 +80,23 @@ class ZendDisk extends \mako\cache\Adapter
 	 * @param   int      $ttl    (optional) Time to live
 	 * @return  boolean
 	 */
-
+	
 	public function write($key, $value, $ttl = 0)
 	{
-		return zend_disk_cache_store($this->identifier . $key, $value, $ttl);
-	}
+		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
+		
+		try
+		{
+			$this->delete($key);
 
+			return $this->table()->insert(array('key' => $this->identifier . $key, 'data' => serialize($value), 'lifetime' => $ttl));
+		}
+		catch(PDOException $e)
+		{
+			return false;
+		}
+	}
+	
 	/**
 	 * Fetch variable from the cache.
 	 *
@@ -67,10 +104,35 @@ class ZendDisk extends \mako\cache\Adapter
 	 * @param   string  $key  Cache key
 	 * @return  mixed
 	 */
-
+	
 	public function read($key)
 	{
-		return zend_disk_cache_fetch($this->identifier . $key);
+		try
+		{
+			$cache = $this->table()->where('key', '=', $this->identifier . $key)->first();
+
+			if($cache !== false)
+			{
+				if(time() < $cache->lifetime)
+				{
+					return unserialize($cache->data);
+				}
+				else
+				{
+					$this->delete($key);
+					
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		catch(PDOException $e)
+		{
+			 return false;
+		}
 	}
 
 	/**
@@ -83,7 +145,14 @@ class ZendDisk extends \mako\cache\Adapter
 
 	public function has($key)
 	{
-		return (zend_disk_cache_fetch($this->identifier . $key) !== false);
+		try
+		{
+			return (bool) $this->table()->where('key', '=', $this->identifier . $key)->where('lifetime', '>', time())->count();
+		}
+		catch(PDOException $e)
+		{
+			 return false;
+		}
 	}
 
 	/**
@@ -106,7 +175,19 @@ class ZendDisk extends \mako\cache\Adapter
 
 		$value += $ammount;
 
-		$this->write($key, $value);
+		try
+		{
+			$success = (bool) $this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
+
+			if(!$success)
+			{
+				return false;
+			}
+		}
+		catch(PDOException $e)
+		{
+			 return false;
+		}
 
 		return (int) $value;
 	}
@@ -131,11 +212,23 @@ class ZendDisk extends \mako\cache\Adapter
 
 		$value -= $ammount;
 
-		$this->write($key, $value);
+		try
+		{
+			$success = (bool) $this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
+
+			if(!$success)
+			{
+				return false;
+			}
+		}
+		catch(PDOException $e)
+		{
+			 return false;
+		}
 
 		return (int) $value;
 	}
-
+	
 	/**
 	 * Delete a variable from the cache.
 	 *
@@ -143,22 +236,38 @@ class ZendDisk extends \mako\cache\Adapter
 	 * @param   string   $key  Cache key
 	 * @return  boolean
 	 */
-
+	
 	public function delete($key)
 	{
-		return zend_disk_cache_delete($this->identifier . $key);
+		try
+		{
+			return (bool) $this->table()->where('key', '=', $this->identifier . $key)->delete();
+		}
+		catch(PDOException $e)
+		{
+			return false;
+		}
 	}
-
+	
 	/**
 	 * Clears the user cache.
 	 *
 	 * @access  public
 	 * @return  boolean
 	 */
-
+	
 	public function clear()
 	{
-		return zend_disk_cache_clear();
+		try
+		{
+			$this->table()->delete();
+											
+			return true;
+		}
+		catch(PDOException $e)
+		{
+			return false;
+		}
 	}
 }
 
