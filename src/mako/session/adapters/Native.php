@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\session;
+namespace mako\session\adapters;
 
 /**
  * Native session adapter.
@@ -10,7 +10,7 @@ namespace mako\session;
  * @license    http://www.makoframework.com/license
  */
 
-class Native extends \mako\session\Adapter
+class Native extends \mako\session\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties

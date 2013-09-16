@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\session;
+namespace mako\session\adapters;
 
 use \mako\Redis as Sider;
 
@@ -12,7 +12,7 @@ use \mako\Redis as Sider;
  * @license    http://www.makoframework.com/license
  */
 
-class Redis extends \mako\session\Adapter implements \mako\session\HandlerInterface
+class Redis extends \mako\session\adapters\Adapter implements \mako\session\HandlerInterface
 {
 	//---------------------------------------------
 	// Class properties

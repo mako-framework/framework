@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\session;
+namespace mako\session\adapters;
 
 /**
  * Session adapter.

@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\session;
 
 use \mako\Config;
 use \RuntimeException;
@@ -69,7 +69,7 @@ class Session
 
 			$type = $config['configurations'][$name]['type'];
 
-			$class = '\mako\session\\' . $type;
+			$class = '\mako\session\adapters\\' . $type;
 
 			$adapter = new $class($config['configurations'][$name]);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\session;
+namespace mako\session\adapters;
 
 use \PDOException;
 use \mako\Database as DB;
@@ -13,7 +13,7 @@ use \mako\Database as DB;
  * @license    http://www.makoframework.com/license
  */
 
-class Database extends \mako\session\Adapter implements \mako\session\HandlerInterface
+class Database extends \mako\session\adapters\Adapter implements \mako\session\HandlerInterface
 {
 	//---------------------------------------------
 	// Class properties
