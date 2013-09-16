@@ -2,7 +2,7 @@
 
 namespace mako\utility;
 
-use \mako\I18n;
+use \mako\i18n\I18n;
 use \DateTimeZone;
 
 /**

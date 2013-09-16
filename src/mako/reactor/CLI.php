@@ -2,7 +2,7 @@
 
 namespace mako\reactor;
 
-use \mako\I18n;
+use \mako\i18n\I18n;
 use \RuntimeException;
 
 /**

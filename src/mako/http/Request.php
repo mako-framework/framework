@@ -2,7 +2,7 @@
 
 namespace mako\http;
 
-use \mako\I18n;
+use \mako\i18n\I18n;
 use \mako\Config;
 use \mako\http\Response;
 use \mako\http\RequestException;

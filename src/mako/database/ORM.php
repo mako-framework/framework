@@ -2,7 +2,7 @@
 
 namespace mako\database;
 
-use \mako\I18n;
+use \mako\i18n\I18n;
 use \mako\utility\String;
 use \mako\Validate;
 use \mako\Database;

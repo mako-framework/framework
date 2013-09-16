@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\i18n;
 
 use \mako\Config;
 use \mako\i18n\Language;

@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\I18n;
+use \mako\i18n\I18n;
 use \mako\utility\UUID;
 use \mako\utility\String;
 use \mako\Database;
