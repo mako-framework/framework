@@ -3,9 +3,9 @@
 namespace mako\core;
 
 use \mako\http\Request;
-use \mako\ErrorHandler;
 use \mako\request\RequestException;
-use \mako\errorhandler\RequestExceptionHandler;
+use \mako\core\errorhandler\ErrorHandler;
+use \mako\core\errorhandler\handlers\RequestExceptionHandler;
 
 /**
  * Mako.

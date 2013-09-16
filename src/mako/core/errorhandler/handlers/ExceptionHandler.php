@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\errorhandler;
+namespace mako\core\errorhandler\handlers;
 
 use \Exception;
 use \mako\Log;

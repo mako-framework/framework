@@ -5,7 +5,7 @@ namespace mako;
 use \Closure;
 use \Exception;
 use \RuntimeException;
-use \mako\ErrorHandler;
+use \mako\core\errorhandler\ErrorHandler;
 use \mako\view\Compiler;
 
 /**

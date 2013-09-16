@@ -1,12 +1,11 @@
 <?php
 
-namespace mako;
+namespace mako\core\errorhandler;
 
 use \Closure;
 use \Exception;
 use \ErrorException;
-use \mako\errorhandler\ExceptionHandler;
-use \mako\errorhandler\RequestExceptionHandler;
+use \mako\core\errorhandler\handlers\ExceptionHandler;
 
 /**
  * Error handler.

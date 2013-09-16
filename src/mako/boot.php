@@ -42,7 +42,7 @@ ini_set('error_log', MAKO_APPLICATION_PATH . '/storage/logs/error_' . gmdate('Y_
 
 // Register error handler
 
-mako\ErrorHandler::register();
+mako\core\errorhandler\ErrorHandler::register();
 
 //------------------------------------------------------------------------------------------
 // Define helper functions
