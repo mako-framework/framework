@@ -16,9 +16,9 @@ define('MAKO_PACKAGES_PATH', MAKO_APPLICATION_PATH . '/packages');
 // Set up autoloading
 //------------------------------------------------------------------------------------------
 
-include  __DIR__ . '/ClassLoader.php';
+include  __DIR__ . '/core/ClassLoader.php';
 
-mako\ClassLoader::register();
+mako\core\ClassLoader::register();
 
 //------------------------------------------------------------------------------------------
 // Set up error handling
@@ -196,14 +196,14 @@ if($config['locale']['lc_numeric'] === false)
 
 foreach($config['aliases'] as $alias => $className)
 {
-	mako\ClassLoader::alias($alias, $className);
+	mako\core\ClassLoader::alias($alias, $className);
 }
 
 // Initialize packages
 
 foreach($config['packages'] as $package)
 {
-	mako\Package::init($package);
+	mako\core\Package::init($package);
 }
 
 unset($config);

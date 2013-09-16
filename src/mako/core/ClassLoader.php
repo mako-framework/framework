@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\core;
 
 /**
  * Classloader.
@@ -79,9 +79,9 @@ class ClassLoader
 
 	public static function register()
 	{
-		include realpath(__DIR__ . '/../../../../autoload.php');
+		include realpath(__DIR__ . '/../../../../../autoload.php');
 
-		spl_autoload_register('mako\ClassLoader::load');
+		spl_autoload_register('mako\core\ClassLoader::load');
 	}
 
 	/**
