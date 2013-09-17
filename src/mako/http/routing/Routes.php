@@ -2,6 +2,8 @@
 
 namespace mako\http\routing;
 
+use \Closure;
+
 /**
  * Route collection.
  * 
