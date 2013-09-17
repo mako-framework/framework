@@ -163,7 +163,7 @@ class Language
 
 			if($this->useCache)
 			{
-				Cache::instance()->write(MAKO_APPLICATION_ID . '_lang_' . $language, $this->strings, 3600);
+				Cache::instance()->write(MAKO_APPLICATION_ID . '_lang_' . $this->language, $this->strings, 3600);
 			}
 		}
 	}
