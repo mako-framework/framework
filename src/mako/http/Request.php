@@ -64,20 +64,20 @@ class Request
 	protected static $isSecure;
 
 	/**
+	 * The actual request method that was used.
+	 * 
+	 * @var string
+	 */
+
+	protected static $realMethod;
+
+	/**
 	 * Request language.
 	 * 
 	 * @var string
 	 */
 
 	protected static $language;
-
-	/**
-	 * Is this the main request?
-	 *
-	 * @var array
-	 */
-
-	protected $isMain = true;
 	
 	/**
 	 * Holds the route passed to the constructor.
@@ -129,8 +129,6 @@ class Request
 		$this->route = ($isMainRequest && empty($route)) ? $this->getRoute() : $route;
 
 		$this->method = ($isMainRequest && empty($method)) ? $this->detectMethod() : ($method ?: static::$main->method());
-
-		$this->isMain = $isMainRequest;
 
 		$isMainRequest = false; // Subsequent requests will be treated as subrequests
 	}
@@ -326,6 +324,10 @@ class Request
 		// Was the request made using HTTPS?
 
 		static::$isSecure = (!empty($_SERVER['HTTPS']) && filter_var($_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
+
+		// Get the real request method that was used
+
+		static::$realMethod = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
 	}
 
 	/**
@@ -369,7 +371,83 @@ class Request
 
 	public function isMain()
 	{
-		return $this->isMain;
+		return (static::$main === $this);
+	}
+
+	/**
+	 * Returns a request header.
+	 * 
+	 * @access  public
+	 * @param   string  $name     Header name
+	 * @param   mixed   $default  Default value
+	 * @return  mixed
+	 */
+
+	public static function header($name, $default = null)
+	{
+		$name = strtoupper(str_replace('-', '_', $name));
+
+		return isset(static::$headers[$name]) ? static::$headers[$name] : $default;
+	}
+
+	/**
+	 * Returns the ip of the client that made the request.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+	
+	public static function ip()
+	{
+		return static::$ip;
+	}
+
+	/**
+	 * Returns TRUE if the request was made using Ajax and FALSE if not.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public static function isAjax()
+	{
+		return static::$isAjax;
+	}
+
+	/**
+	 * Returns TRUE if the request made using HTTPS and FALSE if not.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public static function isSecure()
+	{
+		return static::$isSecure;
+	}
+
+	/**
+	 * Returns the real request method that was used.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public static function realMethod()
+	{
+		return static::$realMethod;
+	}
+
+	/**
+	 * Returns the request language.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public static function language()
+	{
+		return static::$language;
 	}
 
 	/**
@@ -397,18 +475,6 @@ class Request
 	}
 
 	/**
-	 * Returns the real request method that was used.
-	 * 
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function realMethod()
-	{
-		return isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
-	}
-
-	/**
 	 * Returns a request parameter.
 	 * 
 	 * @access  public
@@ -420,22 +486,6 @@ class Request
 	public function param($key, $default = null)
 	{
 		return isset($this->parameters[$key]) ? $this->parameters[$key] : $default;
-	}
-
-	/**
-	 * Returns a request header.
-	 * 
-	 * @access  public
-	 * @param   string  $name     Header name
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
-	 */
-
-	public static function header($name, $default = null)
-	{
-		$name = strtoupper(str_replace('-', '_', $name));
-
-		return isset(static::$headers[$name]) ? static::$headers[$name] : $default;
 	}
 
 	/**
@@ -461,18 +511,6 @@ class Request
 	{
 		return isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null;
 	}
-	
-	/**
-	 * Returns the ip of the client that made the request.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-	
-	public static function ip()
-	{
-		return static::$ip;
-	}
 
 	/**
 	 * Returns the referer.
@@ -485,42 +523,6 @@ class Request
 	public static function referer($default = '')
 	{
 		return static::header('referer', $default);
-	}
-
-	/**
-	 * Returns the request language.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public static function language()
-	{
-		return static::$language;
-	}
-
-	/**
-	 * Returns TRUE if the request was made using Ajax and FALSE if not.
-	 *
-	 * @access  public
-	 * @return  boolean
-	 */
-
-	public static function isAjax()
-	{
-		return static::$isAjax;
-	}
-
-	/**
-	 * Returns TRUE if the request made using HTTPS and FALSE if not.
-	 *
-	 * @access  public
-	 * @return  boolean
-	 */
-
-	public static function isSecure()
-	{
-		return static::$isSecure;
 	}
 }
 

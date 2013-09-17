@@ -205,7 +205,7 @@ class Input
 
 	public static function data($key = null, $default = null)
 	{
-		$method = strtolower(Request::main()->realMethod());
+		$method = strtolower(Request::realMethod());
 
 		return static::$method($key, $default);
 	}
@@ -221,7 +221,7 @@ class Input
 
 	public static function has($key, $method = null)
 	{
-		$method = strtolower($method ?: Request::main()->realMethod());
+		$method = strtolower($method ?: Request::realMethod());
 
 		return Arr::has(static::$method(), $key)
 	}
