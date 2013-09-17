@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\http;
 
 use \mako\Config;
 use \mako\security\MAC;
