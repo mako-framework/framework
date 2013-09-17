@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\logging;
 
 use \mako\Config;
 use \RuntimeException;
@@ -130,7 +130,7 @@ class Log
 				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the log configuration.", array(__METHOD__, $name)));
 			}
 			
-			$class = '\mako\log\\' . $config['configurations'][$name]['type'];
+			$class = '\mako\logging\adapters\\' . $config['configurations'][$name]['type'];
 			
 			static::$instances[$name] = new $class($config['configurations'][$name]);
 		}

@@ -1,8 +1,8 @@
 <?php
 
-namespace mako\log;
+namespace mako\logging\adapters;
 
-use \mako\Log;
+use \mako\logging\Log;
 use \mako\DebugToolbar as Toolbar;
 
 /**
@@ -13,7 +13,7 @@ use \mako\DebugToolbar as Toolbar;
  * @license    http://www.makoframework.com/license
  */
 
-class DebugToolbar extends \mako\log\Adapter
+class DebugToolbar extends \mako\logging\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties

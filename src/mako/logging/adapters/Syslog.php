@@ -1,18 +1,18 @@
 <?php
 
-namespace mako\log;
+namespace mako\logging\adapters;
 
-use \mako\Log;
+use \mako\logging\Log;
 
 /**
- * FirePHP adapter.
+ * Syslog adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class FirePHP extends \mako\log\Adapter
+class Syslog extends \mako\logging\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties
@@ -26,23 +26,15 @@ class FirePHP extends \mako\log\Adapter
 	
 	protected $types = array
 	(
-		Log::EMERGENCY => 'ERROR',
-		Log::ALERT     => 'ERROR',
-		Log::CRITICAL  => 'ERROR',
-		Log::ERROR     => 'ERROR',
-		Log::WARNING   => 'WARN',
-		Log::NOTICE    => 'INFO',
-		Log::INFO      => 'INFO',
-		Log::DEBUG     => 'LOG',
+		Log::EMERGENCY => LOG_EMERG,
+		Log::ALERT     => LOG_ALERT,
+		Log::CRITICAL  => LOG_CRIT,
+		Log::ERROR     => LOG_ERR,
+		Log::WARNING   => LOG_WARNING,
+		Log::NOTICE    => LOG_NOTICE,
+		Log::INFO      => LOG_INFO,
+		Log::DEBUG     => LOG_DEBUG,
 	);
-	
-	/**
-	 * Counter.
-	 *
-	 * @var int
-	 */
-	
-	protected $counter = 0;
 	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -57,12 +49,18 @@ class FirePHP extends \mako\log\Adapter
 	
 	public function __construct(array $config)
 	{
-		if(!headers_sent())
-		{
-			header('X-Wf-Protocol-1: http://meta.wildfirehq.org/Protocol/JsonStream/0.2');
-			header('X-Wf-1-Plugin-1: http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3');
-			header('X-Wf-1-Structure-1: http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1');
-		}
+		openlog($config['identifier'], LOG_CONS, $config['facility']);
+	}
+	
+	/**
+	 * Destructor
+	 *
+	 * @access public
+	 */
+	
+	public function __destruct()
+	{
+		closelog();
 	}
 	
 	//---------------------------------------------
@@ -80,16 +78,7 @@ class FirePHP extends \mako\log\Adapter
 	
 	public function write($message, $type = Log::ERROR)
 	{
-		if(!headers_sent())
-		{				
-			$content = json_encode(array(array('Type' => $this->types[$type]), $message));
-							
-			header('X-Wf-1-1-1-' . ++$this->counter . ': ' . strlen($content) . '|' . $content . '|');
-						
-			return true;
-		}
-		
-		return false;
+		return syslog($this->types[$type], $message);
 	}
 }
 

@@ -3,9 +3,9 @@
 namespace mako\core\errorhandler\handlers;
 
 use \Exception;
-use \mako\Log;
 use \mako\View;
 use \mako\Config;
+use \mako\logging\Log;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\reactor\CLI;

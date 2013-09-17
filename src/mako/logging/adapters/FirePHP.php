@@ -1,30 +1,22 @@
 <?php
 
-namespace mako\log;
+namespace mako\logging\adapters;
 
-use \mako\Log;
+use \mako\logging\Log;
 
 /**
- * File adapter.
+ * FirePHP adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class File extends \mako\log\Adapter
+class FirePHP extends \mako\logging\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-	
-	/**
-	 * Path to the logs.
-	 *
-	 * @var string
-	 */
-	
-	protected $path;
 	
 	/**
 	 * Log types.
@@ -34,15 +26,23 @@ class File extends \mako\log\Adapter
 	
 	protected $types = array
 	(
-		Log::EMERGENCY => 'emergency',
-		Log::ALERT     => 'alert',
-		Log::CRITICAL  => 'critical',
-		Log::ERROR     => 'error',
-		Log::WARNING   => 'warning',
-		Log::NOTICE    => 'notice',
-		Log::INFO      => 'info',
-		Log::DEBUG     => 'debug',
+		Log::EMERGENCY => 'ERROR',
+		Log::ALERT     => 'ERROR',
+		Log::CRITICAL  => 'ERROR',
+		Log::ERROR     => 'ERROR',
+		Log::WARNING   => 'WARN',
+		Log::NOTICE    => 'INFO',
+		Log::INFO      => 'INFO',
+		Log::DEBUG     => 'LOG',
 	);
+	
+	/**
+	 * Counter.
+	 *
+	 * @var int
+	 */
+	
+	protected $counter = 0;
 	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -57,7 +57,12 @@ class File extends \mako\log\Adapter
 	
 	public function __construct(array $config)
 	{
-		$this->path = $config['path'];
+		if(!headers_sent())
+		{
+			header('X-Wf-Protocol-1: http://meta.wildfirehq.org/Protocol/JsonStream/0.2');
+			header('X-Wf-1-Plugin-1: http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3');
+			header('X-Wf-1-Structure-1: http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1');
+		}
 	}
 	
 	//---------------------------------------------
@@ -75,11 +80,16 @@ class File extends \mako\log\Adapter
 	
 	public function write($message, $type = Log::ERROR)
 	{
-		$file = rtrim($this->path, '/') . '/' . $this->types[$type] . '_' . gmdate('Y_m_d') . '.log';
+		if(!headers_sent())
+		{				
+			$content = json_encode(array(array('Type' => $this->types[$type]), $message));
+							
+			header('X-Wf-1-1-1-' . ++$this->counter . ': ' . strlen($content) . '|' . $content . '|');
+						
+			return true;
+		}
 		
-		$message = '[' . gmdate('d-M-Y H:i:s') . '] ' . $message . PHP_EOL;
-		
-		return (bool) file_put_contents($file, $message, FILE_APPEND);
+		return false;
 	}
 }
 

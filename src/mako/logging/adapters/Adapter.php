@@ -1,8 +1,8 @@
 <?php
 
-namespace mako\log;
+namespace mako\logging\adapters;
 
-use \mako\Log;
+use \mako\logging\Log;
 
 /**
  * Log adapter.

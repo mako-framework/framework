@@ -1,22 +1,30 @@
 <?php
 
-namespace mako\log;
+namespace mako\logging\adapters;
 
-use \mako\Log;
+use \mako\logging\Log;
 
 /**
- * Syslog adapter.
+ * File adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Syslog extends \mako\log\Adapter
+class File extends \mako\logging\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+	
+	/**
+	 * Path to the logs.
+	 *
+	 * @var string
+	 */
+	
+	protected $path;
 	
 	/**
 	 * Log types.
@@ -26,14 +34,14 @@ class Syslog extends \mako\log\Adapter
 	
 	protected $types = array
 	(
-		Log::EMERGENCY => LOG_EMERG,
-		Log::ALERT     => LOG_ALERT,
-		Log::CRITICAL  => LOG_CRIT,
-		Log::ERROR     => LOG_ERR,
-		Log::WARNING   => LOG_WARNING,
-		Log::NOTICE    => LOG_NOTICE,
-		Log::INFO      => LOG_INFO,
-		Log::DEBUG     => LOG_DEBUG,
+		Log::EMERGENCY => 'emergency',
+		Log::ALERT     => 'alert',
+		Log::CRITICAL  => 'critical',
+		Log::ERROR     => 'error',
+		Log::WARNING   => 'warning',
+		Log::NOTICE    => 'notice',
+		Log::INFO      => 'info',
+		Log::DEBUG     => 'debug',
 	);
 	
 	//---------------------------------------------
@@ -49,18 +57,7 @@ class Syslog extends \mako\log\Adapter
 	
 	public function __construct(array $config)
 	{
-		openlog($config['identifier'], LOG_CONS, $config['facility']);
-	}
-	
-	/**
-	 * Destructor
-	 *
-	 * @access public
-	 */
-	
-	public function __destruct()
-	{
-		closelog();
+		$this->path = $config['path'];
 	}
 	
 	//---------------------------------------------
@@ -78,7 +75,11 @@ class Syslog extends \mako\log\Adapter
 	
 	public function write($message, $type = Log::ERROR)
 	{
-		return syslog($this->types[$type], $message);
+		$file = rtrim($this->path, '/') . '/' . $this->types[$type] . '_' . gmdate('Y_m_d') . '.log';
+		
+		$message = '[' . gmdate('d-M-Y H:i:s') . '] ' . $message . PHP_EOL;
+		
+		return (bool) file_put_contents($file, $message, FILE_APPEND);
 	}
 }
 
