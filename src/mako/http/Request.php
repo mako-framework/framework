@@ -240,9 +240,9 @@ class Request
 
 		if($method === 'POST')
 		{
-			if(isset($_POST['_request_method_']))
+			if(isset($_POST['request_method_override']))
 			{
-				$method = $_POST['_request_method_'];
+				$method = $_POST['request_method_override'];
 			}
 			elseif(isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']))
 			{
