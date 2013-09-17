@@ -205,7 +205,7 @@ class Input
 
 	public static function data($key = null, $default = null)
 	{
-		$method = strtolower(Request::main()->method());
+		$method = strtolower(Request::main()->realMethod());
 
 		return static::$method($key, $default);
 	}
@@ -214,28 +214,16 @@ class Input
 	 * Checks if the keys exist in the request method data.
 	 *
 	 * @access  public
-	 * @param   mixed    $key     Key or array of keys
+	 * @param   string   $key     Array key
 	 * @param   string   $method  (optional) Request method
 	 * @return  boolean
 	 */
 
 	public static function has($key, $method = null)
 	{
-		$keys = (array) $key;
+		$method = strtolower($method ?: Request::main()->realMethod());
 
-		$method = strtolower($method ?: Request::main()->method());
-
-		$data = static::$method();
-
-		foreach($keys as $key)
-		{
-			if(!isset($data[$key]))
-			{
-				return false;
-			}
-		}
-
-		return true;
+		return Arr::has(static::$method(), $key)
 	}
 
 	/**

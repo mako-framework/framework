@@ -235,13 +235,21 @@ class Request
 	{
 		$method = 'GET';
 
-		if(isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']))
+		if(isset($_SERVER['REQUEST_METHOD']))
 		{
-			$method = $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'];
+			$method = strtoupper($_SERVER['REQUEST_METHOD']);
 		}
-		elseif(isset($_SERVER['REQUEST_METHOD']))
+
+		if($method === 'POST')
 		{
-			$method = $_SERVER['REQUEST_METHOD'];
+			if(isset($_POST['_request_method_']))
+			{
+				$method = $_POST['_request_method_'];
+			}
+			elseif(isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']))
+			{
+				$method = $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'];
+			}
 		}
 
 		return strtoupper($method);
@@ -353,7 +361,7 @@ class Request
 	}
 
 	/**
-	 * Is this the main request?
+	 * Returns TRUE if this is the main request and FALSE if not.
 	 *
 	 * @access  public
 	 * @return  boolean
@@ -377,7 +385,7 @@ class Request
 	}
 
 	/**
-	 * Which request method was used?
+	 * Returns the request method that was used.
 	 *
 	 * @access  public
 	 * @return  string
@@ -386,6 +394,18 @@ class Request
 	public function method()
 	{
 		return $this->method;
+	}
+
+	/**
+	 * Returns the real request method that was used.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function realMethod()
+	{
+		return isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
 	}
 
 	/**
@@ -455,7 +475,7 @@ class Request
 	}
 
 	/**
-	 * From where did the request originate?
+	 * Returns the referer.
 	 *
 	 * @access  public
 	 * @param   string  $default  (optional) Value to return if no referer is set
@@ -480,7 +500,7 @@ class Request
 	}
 
 	/**
-	 * Is this an Ajax request?
+	 * Returns TRUE if the request was made using Ajax and FALSE if not.
 	 *
 	 * @access  public
 	 * @return  boolean
@@ -492,7 +512,7 @@ class Request
 	}
 
 	/**
-	 * Was the reqeust made using HTTPS?
+	 * Returns TRUE if the request made using HTTPS and FALSE if not.
 	 *
 	 * @access  public
 	 * @return  boolean
