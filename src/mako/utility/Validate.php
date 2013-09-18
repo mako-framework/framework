@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\utility;
 
 use \mako\i18n\I18n;
 use \mako\utility\UUID;

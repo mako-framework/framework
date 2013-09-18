@@ -4,7 +4,7 @@ namespace mako\database;
 
 use \mako\i18n\I18n;
 use \mako\utility\String;
-use \mako\Validate;
+use \mako\utility\Validate;
 use \mako\database\Database;
 use \mako\database\orm\Hydrator;
 use \mako\database\orm\relations\HasOne;

@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\utility;
 
 use \mako\URL;
 use \mako\Config;
