@@ -479,7 +479,7 @@ class Request
 	 * 
 	 * @access  public
 	 * @param   string  $key      Parameter name
-	 * @param   mixed   $default  Default value
+	 * @param   mixed   $default  (optional) Default value
 	 * @return  mixed
 	 */
 
