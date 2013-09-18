@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\http\routing;
 
 use \mako\core\Config;
 use \mako\http\Request;

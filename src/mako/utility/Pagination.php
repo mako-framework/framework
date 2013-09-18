@@ -2,9 +2,9 @@
 
 namespace mako\utility;
 
-use \mako\URL;
-use \mako\core\Config;
 use \mako\view\View;
+use \mako\core\Config;
+use \mako\http\routing\URL;
 use \mako\core\errorhandler\ErrorHandler;
 use \Exception;
 

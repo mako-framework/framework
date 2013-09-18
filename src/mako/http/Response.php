@@ -3,9 +3,9 @@
 namespace mako\http;
 
 use \Closure;
-use \mako\URL;
 use \mako\core\Config;
 use \mako\http\Request;
+use \mako\http\routing\URL;
 use \mako\core\DebugToolbar;
 
 /**
