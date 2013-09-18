@@ -1,9 +1,9 @@
 <?php
 
-namespace mako\assets;
+namespace mako\utility\assets;
 
-use \mako\Assets;
 use \mako\utility\HTML;
+use \mako\utility\Assets;
 
 /**
  * Asset container.

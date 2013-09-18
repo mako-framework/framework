@@ -1,9 +1,9 @@
 <?php
 
-namespace mako;
+namespace mako\utility;
 
 use \mako\Config;
-use \mako\assets\Container;
+use \mako\utility\assets\Container;
 
 /**
  * Asset manager.
