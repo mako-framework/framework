@@ -1,6 +1,6 @@
 <?php
 
-namespace mako;
+namespace mako\core;
 
 use \mako\utility\Arr;
 use \mako\utility\File;

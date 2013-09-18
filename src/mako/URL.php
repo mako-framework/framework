@@ -2,7 +2,7 @@
 
 namespace mako;
 
-use \mako\Config;
+use \mako\core\Config;
 use \mako\http\Request;
 
 /**

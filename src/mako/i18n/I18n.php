@@ -2,7 +2,7 @@
 
 namespace mako\i18n;
 
-use \mako\Config;
+use \mako\core\Config;
 use \mako\i18n\Language;
 use \RuntimeException;
 

@@ -2,7 +2,7 @@
 
 namespace mako\reactor;
 
-use \mako\Config;
+use \mako\core\Config;
 use \mako\reactor\CLI;
 use \mako\core\Package;
 use \Exception;

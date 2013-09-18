@@ -2,7 +2,7 @@
 
 namespace mako\http;
 
-use \mako\Config;
+use \mako\core\Config;
 
 /**
  * Class that helps identifying the device or type of device that made the request.

@@ -2,7 +2,7 @@
 
 namespace mako\session;
 
-use \mako\Config;
+use \mako\core\Config;
 use \RuntimeException;
 
 /**

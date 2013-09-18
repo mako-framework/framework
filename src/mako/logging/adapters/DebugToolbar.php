@@ -3,7 +3,7 @@
 namespace mako\logging\adapters;
 
 use \mako\logging\Log;
-use \mako\DebugToolbar as Toolbar;
+use \mako\core\DebugToolbar as Toolbar;
 
 /**
  * Debug toolbar adapter.

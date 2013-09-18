@@ -3,7 +3,7 @@
 namespace mako\utility;
 
 use \mako\URL;
-use \mako\Config;
+use \mako\core\Config;
 use \mako\view\View;
 use \mako\core\errorhandler\ErrorHandler;
 use \Exception;

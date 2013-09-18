@@ -169,7 +169,7 @@ if(!function_exists('debug'))
 // Configure the core
 //------------------------------------------------------------------------------------------
 
-$config = mako\Config::get('application');
+$config = mako\core\Config::get('application');
 
 // Set internal charset
 

@@ -2,7 +2,7 @@
 
 namespace mako\utility;
 
-use \mako\Config;
+use \mako\core\Config;
 use \Closure;
 use \RuntimeException;
 

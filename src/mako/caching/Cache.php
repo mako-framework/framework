@@ -2,7 +2,7 @@
 
 namespace mako\caching;
 
-use \mako\Config;
+use \mako\core\Config;
 use \RuntimeException;
 
 /**

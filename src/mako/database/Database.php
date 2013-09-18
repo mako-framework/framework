@@ -2,7 +2,7 @@
 
 namespace mako\database;
 
-use \mako\Config;
+use \mako\core\Config;
 use \mako\database\Connection;
 use \mako\database\Query;
 use \mako\database\query\Raw;
