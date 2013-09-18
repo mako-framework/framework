@@ -150,7 +150,7 @@ class URL
 
 		if(strpos($route, '?') !== false)
 		{
-			$route = preg_replace('/{\w+}\?/', '', $route);
+			$route = preg_replace('/\/{\w+}\?/', '', $route);
 		}
 
 		return URL::to($route, $queryParams, $separator, $language);
