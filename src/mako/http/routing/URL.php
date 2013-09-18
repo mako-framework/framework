@@ -126,7 +126,7 @@ class URL
 	 * Returns the URL of a named route.
 	 * 
 	 * @access  public
-	 * @param   string  $routeName  Route name
+	 * @param   string  $routeName    Route name
 	 * @param   array   $routeParams  (optional) Route parameters
 	 * @param   array   $queryParams  (optional) Associative array used to build URL-encoded query string
 	 * @param   string  $separator    (optional) Argument separator
