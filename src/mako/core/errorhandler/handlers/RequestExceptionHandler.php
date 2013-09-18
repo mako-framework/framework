@@ -3,7 +3,7 @@
 namespace mako\core\errorhandler\handlers;
 
 use \Exception;
-use \mako\View;
+use \mako\view\View;
 use \mako\http\Response;
 
 /**

@@ -1,12 +1,11 @@
 <?php
 
-namespace mako;
+namespace mako\view;
 
 use \Closure;
 use \Exception;
 use \RuntimeException;
 use \mako\core\errorhandler\ErrorHandler;
-use \mako\view\Compiler;
 
 /**
  * View class.

@@ -3,8 +3,8 @@
 namespace mako;
 
 use \mako\URL;
-use \mako\View;
 use \mako\Config;
+use \mako\view\View;
 use \mako\core\errorhandler\ErrorHandler;
 use \Exception;
 
