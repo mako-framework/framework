@@ -14,6 +14,11 @@
 			"homepage": "http://makoframework.com/contributors"
 		}
 	],
+	"support": {
+		"issues": "https://github.com/mako-framework/framework/issues",
+		"forum": "http://forum.makoframework.com/",
+		"source": "https://github.com/mako-framework/framework"
+	},
 	"autoload": {
 		"psr-0": {
 			"mako": "src/"
@@ -30,5 +35,10 @@
 	"config": {
 		"preferred-install": "dist"
 	},
-	"minimum-stability": "dev"
+	"minimum-stability": "dev",
+	"extra": {
+		"branch-alias": {
+			 "dev-master": "4.0-dev"
+		}
+	}
 }
