@@ -790,14 +790,15 @@ abstract class ORM
 
 				if($this->incrementing)
 				{
-					switch (Database::connection($this->connection)->pdo->getAttribute(\PDO::ATTR_DRIVER_NAME))
+					switch(Database::connection($this->connection)->pdo->getAttribute(\PDO::ATTR_DRIVER_NAME))
 					{
 						case 'pgsql':
-							$lastInsertName = $this->tableName . "_" . $this->primaryKey . "_seq";
-							break;
+							$lastInsertName = $this->getTable() . '_' . $this->primaryKey . '_seq';
+						break;
 						default:
 							$lastInsertName = $this->primaryKey;
 					}
+
 					$this->columns[$this->primaryKey] = Database::connection($this->connection)->pdo->lastInsertId($lastInsertName);
 				}
 			}
