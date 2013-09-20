@@ -2,6 +2,7 @@
 
 namespace mako\database;
 
+use \PDO;
 use \mako\i18n\I18n;
 use \mako\utility\String;
 use \mako\utility\Validate;
@@ -790,15 +791,16 @@ abstract class ORM
 
 				if($this->incrementing)
 				{
-					switch (Database::connection($this->connection)->pdo->getAttribute(\PDO::ATTR_DRIVER_NAME))
+					switch(Database::connection($this->connection)->pdo->getAttribute(PDO::ATTR_DRIVER_NAME))
 					{
 						case 'pgsql':
-							$lastInsertName = $this->tableName . "_" . $this->primaryKey . "_seq";
-							break;
+							$sequence = $this->getTable() . '_' . $this->primaryKey . '_seq';
+						break;
 						default:
-							$lastInsertName = $this->primaryKey;
+							$sequence = null;
 					}
-					$this->columns[$this->primaryKey] = Database::connection($this->connection)->pdo->lastInsertId($lastInsertName);
+
+					$this->columns[$this->primaryKey] = Database::connection($this->connection)->pdo->lastInsertId($sequence);
 				}
 			}
 
