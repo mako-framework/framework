@@ -744,6 +744,67 @@ abstract class ORM
 	}
 
 	/**
+	 * Updates an existing record.
+	 * 
+	 * @access  protected
+	 * @return  boolean
+	 */
+
+	protected function updateRecord()
+	{
+		$query = $this->hydrator();
+
+		$query->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
+
+		if($this->enableLocking)
+		{
+			$lockVersion = $this->columns[$this->lockingColumn]++;
+
+			$query->where($this->lockingColumn, '=', $lockVersion);
+		}
+
+		$result = $query->update($this->getModified());
+
+		if($this->enableLocking && $result === 0)
+		{
+			$this->columns[$this->lockingColumn]--;
+
+			throw new StaleRecordException(vsprintf("%s(): Attempted to update a stale record.", array(__METHOD__)));
+		}
+
+		return (bool) $result;
+	}
+
+	/**
+	 * Inserts a new record into the database.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function createRecord()
+	{
+		$this->exists = true;
+
+		$this->hydrator()->insert($this->columns);
+
+		if($this->incrementing)
+		{
+			$pdo = Database::connection($this->connection)->pdo;
+
+			switch($pdo->getAttribute(PDO::ATTR_DRIVER_NAME))
+			{
+				case 'pgsql':
+					$sequence = $this->getTable() . '_' . $this->primaryKey . '_seq';
+				break;
+				default:
+					$sequence = null;
+			}
+
+			$this->columns[$this->primaryKey] = $pdo->lastInsertId($sequence);
+		}
+	}
+
+	/**
 	 * Saves the record to the database.
 	 * 
 	 * @access  public
@@ -752,62 +813,27 @@ abstract class ORM
 
 	public function save()
 	{
-		$result = true;
+		$success = true;
 		
 		if($this->isModified())
 		{
-			$query = $this->hydrator();
-
-			if($this->exists)
-			{
-				// This record already exists in the database so all we have to do is update it.
-
-				$query->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
-
-				if($this->enableLocking)
-				{
-					$lockVersion = $this->columns[$this->lockingColumn]++;
-
-					$query->where($this->lockingColumn, '=', $lockVersion);
-				}
-
-				$result = $query->update($this->getModified());
-
-				if($this->enableLocking && $result === 0)
-				{
-					$this->columns[$this->lockingColumn]--;
-
-					throw new StaleRecordException(vsprintf("%s(): Attempted to update a stale record.", array(__METHOD__)));
-				}
-
-			}
-			else
+			if(!$this->exists)
 			{
 				// This is a new record so we need to insert it into the database.
 				
-				$this->exists = true;
+				$this->createRecord();
+			}
+			else
+			{
+				// This record already exists in the database so all we have to do is update it.
 
-				$query->insert($this->columns);
-
-				if($this->incrementing)
-				{
-					switch(Database::connection($this->connection)->pdo->getAttribute(PDO::ATTR_DRIVER_NAME))
-					{
-						case 'pgsql':
-							$sequence = $this->getTable() . '_' . $this->primaryKey . '_seq';
-						break;
-						default:
-							$sequence = null;
-					}
-
-					$this->columns[$this->primaryKey] = Database::connection($this->connection)->pdo->lastInsertId($sequence);
-				}
+				$success = $this->updateRecord();
 			}
 
 			$this->original = $this->columns;
 		}
 		
-		return (bool) $result;
+		return $success;
 	}
 
 	/**
