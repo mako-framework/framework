@@ -41,6 +41,14 @@ class Connection
 	protected $driver;
 
 	/**
+	 * Compiler name.
+	 * 
+	 * @var string
+	 */
+
+	protected $compiler;
+
+	/**
 	 * Enable the query log?
 	 *
 	 * @var boolean
@@ -108,7 +116,11 @@ class Connection
 
 		// Set the driver name
 
-		$this->driver = isset($config['driver']) ? $config['driver'] : $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+		$this->driver = $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+
+		// Set the compiler name
+
+		$this->compiler = isset($config['compiler']) ? $config['compiler'] : $this->driver;
 	}
 
 	//---------------------------------------------
@@ -125,6 +137,18 @@ class Connection
 	public function getDriver()
 	{
 		return $this->driver;
+	}
+
+	/**
+	 * Returns the compiler name.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getCompiler()
+	{
+		return $this->compiler;
 	}
 
 	/**

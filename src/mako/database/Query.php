@@ -137,7 +137,7 @@ class Query
 
 		$this->connection = $connection;
 
-		switch($this->connection->getDriver())
+		switch($this->connection->getCompiler())
 		{
 			case 'mysql':
 				$this->compiler = new \mako\database\query\compiler\MySQL($this);

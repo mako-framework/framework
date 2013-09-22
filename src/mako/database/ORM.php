@@ -2,7 +2,6 @@
 
 namespace mako\database;
 
-use \PDO;
 use \mako\i18n\I18n;
 use \mako\utility\String;
 use \mako\utility\Validate;
@@ -789,9 +788,9 @@ abstract class ORM
 
 		if($this->incrementing)
 		{
-			$pdo = Database::connection($this->connection)->pdo;
+			$connection = Database::connection($this->connection);
 
-			switch($pdo->getAttribute(PDO::ATTR_DRIVER_NAME))
+			switch($connection->getDriver())
 			{
 				case 'pgsql':
 					$sequence = $this->getTable() . '_' . $this->primaryKey . '_seq';
@@ -800,7 +799,7 @@ abstract class ORM
 					$sequence = null;
 			}
 
-			$this->columns[$this->primaryKey] = $pdo->lastInsertId($sequence);
+			$this->columns[$this->primaryKey] = $connection->pdo->lastInsertId($sequence);
 		}
 	}
 
