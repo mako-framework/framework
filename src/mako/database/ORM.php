@@ -3,6 +3,7 @@
 namespace mako\database;
 
 use \mako\i18n\I18n;
+use \mako\utility\UUID;
 use \mako\utility\String;
 use \mako\utility\Validate;
 use \mako\database\Database;
@@ -12,6 +13,7 @@ use \mako\database\orm\relations\HasMany;
 use \mako\database\orm\relations\ManyToMany;
 use \mako\database\orm\relations\BelongsTo;
 use \mako\database\orm\StaleRecordException;
+use \RuntimeException;
 
 /**
  * ORM.
@@ -97,7 +99,7 @@ abstract class ORM
 	 * @var boolean
 	 */
 
-	protected $incrementing = true;
+	protected $primaryKeyType = ORM::PRIMARY_KEY_TYPE_INCREMENTING;
 
 	/**
 	 * Enable optimistic locking?
@@ -807,18 +809,40 @@ abstract class ORM
 	}
 
 	/**
+	 * Generates a primary key.
+	 * 
+	 * @access  protected
+	 * @return  string|int
+	 */
+
+	protected function generatePrimaryKey()
+	{
+		throw new RuntimeException(vsprintf("%s(): The '%s::generatePrimaryKey()' method must be implemented.", array(__METHOD__, get_class($this))));
+	}
+
+	/**
 	 * Inserts a new record into the database.
 	 * 
 	 * @access  protected
 	 */
 
-	protected function createRecord()
+	protected function insertRecord()
 	{
 		$this->exists = true;
 
+		switch($this->primaryKeyType)
+		{
+			case static::PRIMARY_KEY_TYPE_UUID:
+				$this->columns[$this->primaryKey] = UUID::v4();
+			break;
+			case static::PRIMARY_KEY_TYPE_CUSTOM:
+				$this->columns[$this->primaryKey] = $this->generatePrimaryKey();
+			break;
+		}
+
 		$this->hydrator()->insert($this->columns);
 
-		if($this->incrementing)
+		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
 		{
 			$connection = Database::connection($this->connection);
 
@@ -852,7 +876,7 @@ abstract class ORM
 			{
 				// This is a new record so we need to insert it into the database.
 				
-				$this->createRecord();
+				$this->insertRecord();
 			}
 			else
 			{
