@@ -22,7 +22,7 @@ class DB2BuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getDriver')->andReturn('db2');
+		$connection->shouldReceive('getCompiler')->andReturn('db2');
 
 		return $connection;
 	}

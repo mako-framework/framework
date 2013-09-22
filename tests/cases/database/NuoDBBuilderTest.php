@@ -22,7 +22,7 @@ class NuoDBBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getDriver')->andReturn('nuodb');
+		$connection->shouldReceive('getCompiler')->andReturn('nuodb');
 
 		return $connection;
 	}

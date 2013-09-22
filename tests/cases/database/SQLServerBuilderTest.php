@@ -22,7 +22,7 @@ class SQLServerBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getDriver')->andReturn('sqlsrv');
+		$connection->shouldReceive('getCompiler')->andReturn('sqlsrv');
 
 		return $connection;
 	}

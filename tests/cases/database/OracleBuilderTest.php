@@ -22,7 +22,7 @@ class OracleBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getDriver')->andReturn('oracle');
+		$connection->shouldReceive('getCompiler')->andReturn('oracle');
 
 		return $connection;
 	}

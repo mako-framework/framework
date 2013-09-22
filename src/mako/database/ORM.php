@@ -28,6 +28,38 @@ abstract class ORM
 	//---------------------------------------------
 
 	/**
+	 * Incrementing primary key.
+	 * 
+	 * @var int
+	 */
+
+	const PRIMARY_KEY_TYPE_INCREMENTING = 1000;
+
+	/**
+	 * UUID primary key.
+	 * 
+	 * @var int
+	 */
+
+	const PRIMARY_KEY_TYPE_UUID = 1001;
+
+	/**
+	 * Custom primary key.
+	 * 
+	 * @var int
+	 */
+
+	const PRIMARY_KEY_TYPE_CUSTOM = 1002;
+
+	/**
+	 * No primary key.
+	 * 
+	 * @var int
+	 */
+
+	const PRIMARY_KEY_TYPE_NONE = 1003;
+
+	/**
 	 * Connection to use for the model.
 	 * 
 	 * @var string

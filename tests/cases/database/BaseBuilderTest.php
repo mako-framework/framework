@@ -24,7 +24,7 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getDriver')->andReturn('sqlite');
+		$connection->shouldReceive('getCompiler')->andReturn('sqlite');
 
 		return $connection;
 	}

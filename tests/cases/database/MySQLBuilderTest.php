@@ -22,7 +22,7 @@ class MySQLBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getDriver')->andReturn('mysql');
+		$connection->shouldReceive('getCompiler')->andReturn('mysql');
 
 		return $connection;
 	}
