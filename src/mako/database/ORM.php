@@ -777,38 +777,6 @@ abstract class ORM
 	}
 
 	/**
-	 * Updates an existing record.
-	 * 
-	 * @access  protected
-	 * @return  boolean
-	 */
-
-	protected function updateRecord()
-	{
-		$query = $this->hydrator();
-
-		$query->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
-
-		if($this->enableLocking)
-		{
-			$lockVersion = $this->columns[$this->lockingColumn]++;
-
-			$query->where($this->lockingColumn, '=', $lockVersion);
-		}
-
-		$result = $query->update($this->getModified());
-
-		if($this->enableLocking && $result === 0)
-		{
-			$this->columns[$this->lockingColumn]--;
-
-			throw new StaleRecordException(vsprintf("%s(): Attempted to update a stale record.", array(__METHOD__)));
-		}
-
-		return (bool) $result;
-	}
-
-	/**
 	 * Generates a primary key.
 	 * 
 	 * @access  protected
@@ -857,6 +825,38 @@ abstract class ORM
 
 			$this->columns[$this->primaryKey] = $connection->pdo->lastInsertId($sequence);
 		}
+	}
+
+	/**
+	 * Updates an existing record.
+	 * 
+	 * @access  protected
+	 * @return  boolean
+	 */
+
+	protected function updateRecord()
+	{
+		$query = $this->hydrator();
+
+		$query->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
+
+		if($this->enableLocking)
+		{
+			$lockVersion = $this->columns[$this->lockingColumn]++;
+
+			$query->where($this->lockingColumn, '=', $lockVersion);
+		}
+
+		$result = $query->update($this->getModified());
+
+		if($this->enableLocking && $result === 0)
+		{
+			$this->columns[$this->lockingColumn]--;
+
+			throw new StaleRecordException(vsprintf("%s(): Attempted to update a stale record.", array(__METHOD__)));
+		}
+
+		return (bool) $result;
 	}
 
 	/**
