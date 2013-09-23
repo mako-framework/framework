@@ -99,8 +99,8 @@ class Routes
 	 * Adds a grouped set of routes to the colleciton.
 	 * 
 	 * @access  public
-	 * @param   array    $options  Group options
-	 * @param   Closure  $routes   Route closure
+	 * @param   array     $options  Group options
+	 * @param   \Closure  $routes   Route closure
 	 */
 
 	public static function group(array $options, Closure $routes)
@@ -116,10 +116,10 @@ class Routes
 	 * Adds a route to the collection.
 	 * 
 	 * @access  public
-	 * @param   array           $methods  HTTP methods
-	 * @param   string          $route    Route
-	 * @param   string|Closure  $action   Route action
-	 * @param   string          $name     (optional) Route name
+	 * @param   array            $methods  HTTP methods
+	 * @param   string           $route    Route
+	 * @param   string|\Closure  $action   Route action
+	 * @param   string           $name     (optional) Route name
 	 */
 
 	protected static function addRoute(array $methods, $route, $action, $name = null)
@@ -154,9 +154,9 @@ class Routes
 	 * Adds a route that responds to GET requests to the collection.
 	 * 
 	 * @access  public
-	 * @param   string          $route   Route
-	 * @param   string|Closure  $action  Route action
-	 * @param   string          $name    (optional) Route name
+	 * @param   string           $route   Route
+	 * @param   string|\Closure  $action  Route action
+	 * @param   string           $name    (optional) Route name
 	 */
 
 	public static function get($route, $action, $name = null)
@@ -168,9 +168,9 @@ class Routes
 	 * Adds a route that responds to POST requests to the collection.
 	 * 
 	 * @access  public
-	 * @param   string          $route   Route
-	 * @param   string|Closure  $action  Route action
-	 * @param   string          $name    (optional) Route name
+	 * @param   string           $route   Route
+	 * @param   string|\Closure  $action  Route action
+	 * @param   string           $name    (optional) Route name
 	 */
 
 	public static function post($route, $action, $name = null)
@@ -182,9 +182,9 @@ class Routes
 	 * Adds a route that responds to PUT requests to the collection.
 	 * 
 	 * @access  public
-	 * @param   string          $route   Route
-	 * @param   string|Closure  $action  Route action
-	 * @param   string          $name    (optional) Route name
+	 * @param   string           $route   Route
+	 * @param   string|\Closure  $action  Route action
+	 * @param   string           $name    (optional) Route name
 	 */
 
 	public static function put($route, $action, $name = null)
@@ -196,9 +196,9 @@ class Routes
 	 * Adds a route that responds to PATCH requests to the collection.
 	 * 
 	 * @access  public
-	 * @param   string          $route   Route
-	 * @param   string|Closure  $action  Route action
-	 * @param   string          $name    (optional) Route name
+	 * @param   string           $route   Route
+	 * @param   string|\Closure  $action  Route action
+	 * @param   string           $name    (optional) Route name
 	 */
 
 	public static function patch($route, $action, $name = null)
@@ -210,9 +210,9 @@ class Routes
 	 * Adds a route that responds to DELETE requests to the collection.
 	 * 
 	 * @access  public
-	 * @param   string          $route   Route
-	 * @param   string|Closure  $action  Route action
-	 * @param   string          $name    (optional) Route name
+	 * @param   string           $route   Route
+	 * @param   string|\Closure  $action  Route action
+	 * @param   string           $name    (optional) Route name
 	 */
 
 	public static function delete($route, $action, $name = null)
@@ -224,9 +224,9 @@ class Routes
 	 * Adds a route that responts to all HTTP methods to the collection.
 	 * 
 	 * @access  public
-	 * @param   string          $route   Route
-	 * @param   string|Closure  $action  Route action
-	 * @param   string          $name    (optional) Route name
+	 * @param   string           $route   Route
+	 * @param   string|\Closure  $action  Route action
+	 * @param   string           $name    (optional) Route name
 	 */
 
 	public static function all($route, $action, $name = null)
@@ -238,10 +238,10 @@ class Routes
 	 * Adds a route that respodns to the chosen HTTP methods to the collection.
 	 * 
 	 * @access  public
-	 * @param   array           $methods  Array of HTTP methods the route should respond to
-	 * @param   string          $route    Route
-	 * @param   string|Closure  $action   Route action
-	 * @param   string          $name     (optional) Route name
+	 * @param   array            $methods  Array of HTTP methods the route should respond to
+	 * @param   string           $route    Route
+	 * @param   string|\Closure  $action   Route action
+	 * @param   string           $name     (optional) Route name
 	 */
 
 	public static function methods(array $methods, $route, $action, $name = null)

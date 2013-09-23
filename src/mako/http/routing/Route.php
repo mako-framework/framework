@@ -27,7 +27,7 @@ class Route
 	/**
 	 * Route action.
 	 * 
-	 * @var string|Closure
+	 * @var string|\Closure
 	 */
 
 	protected $action;
@@ -57,7 +57,7 @@ class Route
 	 * 
 	 * @access  public
 	 * @param   string          $route   Route
-	 * @param   string|Closure  $action  Route action
+	 * @param   string|\Closure  $action  Route action
 	 */
 
 	public function __construct($route, $action)
@@ -86,7 +86,7 @@ class Route
 	 * Returns the route action.
 	 * 
 	 * @access  public
-	 * @return  string|Closure
+	 * @return  string|\Closure
 	 */
 
 	public function getAction()
@@ -110,8 +110,8 @@ class Route
 	 * Adds a prefix to the route.
 	 * 
 	 * @access  public
-	 * @param   string  $prefix  Route prefix
-	 * @return  Route
+	 * @param   string                    $prefix  Route prefix
+	 * @return  \mako\http\routing\Route
 	 */
 
 	public function prefix($prefix)
@@ -125,8 +125,8 @@ class Route
 	 * Sets the custom constraints.
 	 * 
 	 * @access  public
-	 * @param   array  $constraints  Array of constraints
-	 * @return  Route
+	 * @param   array  $constraints       Array of constraints
+	 * @return  \mako\http\routing\Route
 	 */
 
 	public function constraints(array $constraints)
