@@ -41,6 +41,22 @@ class Route
 	protected $constraints;
 
 	/**
+	 * Before filters.
+	 * 
+	 * @var array
+	 */
+
+	protected $beforeFilters = array();
+
+	/**
+	 * After filters.
+	 * 
+	 * @var array
+	 */
+
+	protected $afterFilters = array();
+
+	/**
 	 * Matched parameters.
 	 * 
 	 * @var array
@@ -62,7 +78,8 @@ class Route
 
 	public function __construct($route, $action)
 	{
-		$this->route  = $route;
+		$this->route = $route;
+		
 		$this->action = $action;
 	}
 
@@ -95,6 +112,30 @@ class Route
 	}
 
 	/**
+	 * Returns the before filters.
+	 * 
+	 * @access  public
+	 * @return  aray
+	 */
+
+	public function getBeforeFilters()
+	{
+		return $this->beforeFilters;
+	}
+
+	/**
+	 * Returns the after filters.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getAfterFilters()
+	{
+		return $this->afterFilters;
+	}
+
+	/**
 	 * Returns the matched parameters.
 	 * 
 	 * @access  public
@@ -104,6 +145,36 @@ class Route
 	public function getParameters()
 	{
 		return $this->parameters;
+	}
+
+	/**
+	 * Adds a set of before filters.
+	 * 
+	 * @access  public
+	 * @param   array                     $filters  Filters
+	 * @return  \mako\http\routing\Route
+	 */
+
+	public function before(array $filters)
+	{
+		$this->beforeFilters = array_merge($this->beforeFilters, $filters);
+
+		return $this;
+	}
+
+	/**
+	 * Adds a set of after filters.
+	 * 
+	 * @access  public
+	 * @param   array                     $filters  Filters
+	 * @return  \mako\http\routing\Route
+	 */
+
+	public function after(array $filters)
+	{
+		$this->afterFilters = array_merge($this->afterFilters, $filters);
+
+		return $this;
 	}
 
 	/**

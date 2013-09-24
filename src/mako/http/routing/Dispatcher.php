@@ -6,6 +6,7 @@ use \Closure;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\routing\Route;
+use \mako\http\routing\Routes;
 use \RuntimeException;
 
 /**
@@ -31,6 +32,14 @@ class Dispatcher
 	protected $request;
 
 	/**
+	 * Response.
+	 * 
+	 * @var \mako\http\Response
+	 */
+
+	protected $response;
+
+	/**
 	 * Route.
 	 * 
 	 * @var \mako\http\routing\Route
@@ -53,12 +62,36 @@ class Dispatcher
 	public function __construct(Request $request, Route $route)
 	{
 		$this->request = $request;
-		$this->route   = $route;
+
+		$this->route = $route;
+
+		$this->response = new Response();
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Executes a filter.
+	 * 
+	 * @access  protected
+	 * @param   string|\Closure  $filter  Filter
+	 */
+
+	protected function executeFilter($filter)
+	{
+		if($filter instanceof Closure)
+		{
+			$filter($this->request, $this->response);
+		}
+		else
+		{
+			$filter = Routes::getFilter($filter);
+
+			$filter($this->request, $this->response);
+		}
+	}
 
 	/**
 	 * Executes before filters.
@@ -68,7 +101,10 @@ class Dispatcher
 
 	protected function beforeFilters()
 	{
-
+		foreach($this->route->getBeforeFilters() as $filter)
+		{
+			$this->executeFilter($filter);
+		}
 	}
 
 	/**
@@ -79,48 +115,45 @@ class Dispatcher
 
 	protected function afterFilters()
 	{
-
+		foreach($this->route->getAfterFilters() as $filter)
+		{
+			$this->executeFilter($filter);
+		}
 	}
 
 	/**
 	 * Dispatch a closure controller action.
 	 * 
 	 * @access  protected
-	 * @param   \mako\http\Response  $response  Response
-	 * @param   \Closure             $closure   Closure  
+	 * @param   \Closure   $closure  Closure  
 	 */
 
-	protected function dispatchClosure(Response $response, Closure $closure)
+	protected function dispatchClosure(Closure $closure)
 	{
-		$response->body(call_user_func_array($closure, array_merge(array($this->request, $response), $this->route->getParameters())));
+		$this->response->body(call_user_func_array($closure, array_merge(array($this->request, $this->response), $this->route->getParameters())));
 	}
 
 	/**
 	 * Dispatch a controller action.
 	 * 
 	 * @access  protected
-	 * @param   \mako\http\Response  $response    Response
-	 * @param   string               $controller  Controller
+	 * @param   string     $controller  Controller
 	 */
 
-	protected function dispatchController(Response $response, $controller)
+	protected function dispatchController($controller)
 	{
 		list($controller, $method) = explode('::', $controller, 2);
 
-		$controller = new $controller($this->request, $response);
-
-		// Check that the controller extends the base controller
+		$controller = new $controller($this->request, $this->response);
 
 		if(!($controller instanceof \mako\http\routing\Controller))
 		{
 			throw new RuntimeException(vsprintf("%s(): All controllers must extend mako\http\routing\Controller.", array(__METHOD__)));
 		}
 
-		// Execute the before filter, the controller action and finally the after filter
-
 		$controller->beforeFilter();
 
-		$response->body(call_user_func_array(array($controller, $method), $this->route->getParameters()));
+		$this->response->body(call_user_func_array(array($controller, $method), $this->route->getParameters()));
 
 		$controller->afterFilter();
 	}
@@ -134,32 +167,22 @@ class Dispatcher
 
 	public function dispatch()
 	{
-		$response = new Response();
-
-		// Execute before filters
-
 		$this->beforeFilters();
-
-		// Execute the route action
 
 		$action = $this->route->getAction();
 
 		if($action instanceof Closure)
 		{
-			$this->dispatchClosure($response, $action);
+			$this->dispatchClosure($action);
 		}
 		else
 		{
-			$this->dispatchController($response, $action);
+			$this->dispatchController($action);
 		}
-
-		// Execute after filters
 
 		$this->afterFilters();
 
-		// Return the response
-
-		return $response;
+		return $this->response;
 	}
 }
 

@@ -3,6 +3,7 @@
 namespace mako\http\routing;
 
 use \Closure;
+use \RuntimeException;
 
 /**
  * Route collection.
@@ -17,6 +18,14 @@ class Routes
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Filters.
+	 * 
+	 * @var array
+	 */
+
+	protected static $filters = array();
 
 	/**
 	 * Route groups.
@@ -70,6 +79,24 @@ class Routes
 	//---------------------------------------------
 
 	/**
+	 * Returns the chosen filter.
+	 * 
+	 * @access  public
+	 * @param   string    $filter  Filter name
+	 * @return  \Closure
+	 */
+
+	public static function getFilter($filter)
+	{
+		if(!isset(static::$filters[$filter]))
+		{
+			throw new RuntimeException(vsprintf("%s(): No filter named '%s' has been defined.", array(__METHOD__, $filter)));
+		}
+		
+		return static::$filters[$filter];
+	}
+
+	/**
 	 * Returns the registered routes.
 	 * 
 	 * @access  public
@@ -93,6 +120,19 @@ class Routes
 	public static function getNamedRoute($name)
 	{
 		return isset(static::$namedRoutes[$name]) ? static::$namedRoutes[$name] : false;
+	}
+
+	/**
+	 * Adds a filter.
+	 * 
+	 * @access  public
+	 * @param   string    $name    Filter name
+	 * @param   \Closure  $filter  Filter
+	 */
+
+	public static function filter($name, Closure $filter)
+	{
+		static::$filters[$name] = $filter;
 	}
 
 	/**
