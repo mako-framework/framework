@@ -151,13 +151,13 @@ class Route
 	 * Adds a set of before filters.
 	 * 
 	 * @access  public
-	 * @param   array                     $filters  Filters
+	 * @param   array|string|\Closure     $filters  Filters
 	 * @return  \mako\http\routing\Route
 	 */
 
-	public function before(array $filters)
+	public function before($filters)
 	{
-		$this->beforeFilters = array_merge($this->beforeFilters, $filters);
+		$this->beforeFilters = array_merge($this->beforeFilters, (array) $filters);
 
 		return $this;
 	}
@@ -166,13 +166,13 @@ class Route
 	 * Adds a set of after filters.
 	 * 
 	 * @access  public
-	 * @param   array                     $filters  Filters
+	 * @param   array|string|\Closure     $filters  Filters
 	 * @return  \mako\http\routing\Route
 	 */
 
 	public function after(array $filters)
 	{
-		$this->afterFilters = array_merge($this->afterFilters, $filters);
+		$this->afterFilters = array_merge($this->afterFilters, (array) $filters);
 
 		return $this;
 	}
