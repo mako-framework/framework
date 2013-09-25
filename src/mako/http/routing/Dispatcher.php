@@ -8,6 +8,7 @@ use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\routing\Route;
 use \mako\http\routing\Routes;
+use \mako\http\routing\Controller;
 
 /**
  * Route.
@@ -146,9 +147,9 @@ class Dispatcher
 
 		$controller = new $controller($this->request, $this->response);
 
-		if(!($controller instanceof \mako\http\routing\Controller))
+		if(!($controller instanceof Controller))
 		{
-			throw new RuntimeException(vsprintf("%s(): All controllers must extend mako\http\routing\Controller.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): All controllers must extend the mako\http\\routing\Controller class.", array(__METHOD__)));
 		}
 
 		$controller->beforeFilter();
