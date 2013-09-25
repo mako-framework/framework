@@ -33,7 +33,7 @@ class Route
 	protected $action;
 
 	/**
-	 * Prefix.
+	 * Route prefix.
 	 * 
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Route
 	protected $prefix;
 
 	/**
-	 * Custom constraints.
+	 * Route constraints.
 	 * 
 	 * @var array
 	 */
