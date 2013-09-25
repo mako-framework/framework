@@ -33,6 +33,14 @@ class Route
 	protected $action;
 
 	/**
+	 * Prefix.
+	 * 
+	 * @var string
+	 */
+
+	protected $prefix;
+
+	/**
 	 * Custom constraints.
 	 * 
 	 * @var array
@@ -96,7 +104,7 @@ class Route
 
 	public function getRoute()
 	{
-		return $this->route;
+		return $this->prefix . $this->route;
 	}
 
 	/**
@@ -187,7 +195,7 @@ class Route
 
 	public function prefix($prefix)
 	{
-		$this->route = '/' . ltrim($prefix . $this->route, '/');
+		$this->prefix .= '/' . trim($prefix, '/');
 
 		return $this;
 	}
@@ -216,7 +224,7 @@ class Route
 
 	protected function getRouteRegex()
 	{
-		$route = $this->route;
+		$route = $this->getRoute();
 
 		if(strpos($route, '?'))
 		{
