@@ -46,7 +46,7 @@ class Route
 	 * @var array
 	 */
 
-	protected $constraints;
+	protected $constraints = array();
 
 	/**
 	 * Before filters.
@@ -210,7 +210,7 @@ class Route
 
 	public function constraints(array $constraints)
 	{
-		$this->constraints = $constraints;
+		$this->constraints = $constraints + $this->constraints;
 
 		return $this;
 	}
