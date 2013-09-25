@@ -80,7 +80,7 @@ class Route
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string          $route   Route
+	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
 	 */
 
