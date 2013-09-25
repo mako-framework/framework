@@ -170,7 +170,7 @@ class Route
 	 * @return  \mako\http\routing\Route
 	 */
 
-	public function after(array $filters)
+	public function after($filters)
 	{
 		$this->afterFilters = array_merge($this->afterFilters, (array) $filters);
 
