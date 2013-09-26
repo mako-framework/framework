@@ -195,8 +195,11 @@ class Route
 
 	public function prefix($prefix)
 	{
-		$this->prefix .= '/' . trim($prefix, '/');
-
+		if(!empty($prefix))
+		{
+			$this->prefix .= '/' . trim($prefix, '/');
+		}
+		
 		return $this;
 	}
 
