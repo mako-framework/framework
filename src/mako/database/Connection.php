@@ -339,7 +339,7 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   \Closure  $queries  Queries
-	 * @return  boolean
+	 * @return  mixed
 	 */
 
 	public function transaction(Closure $queries)
@@ -351,8 +351,6 @@ class Connection
 			$result = $queries($this);
 
 			$this->pdo->commit();
-
-			return true;
 		}
 		catch(PDOException $e)
 		{
