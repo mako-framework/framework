@@ -348,7 +348,7 @@ class Connection
 		{
 			$this->pdo->beginTransaction();
 
-			$queries($this);
+			$result = $queries($this);
 
 			$this->pdo->commit();
 
@@ -358,8 +358,10 @@ class Connection
 		{
 			$this->pdo->rollBack();
 
-			return false;
+			throw $e;
 		}
+
+		return $result;
 	}
 }
 
