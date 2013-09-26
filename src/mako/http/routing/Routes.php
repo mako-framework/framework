@@ -119,7 +119,12 @@ class Routes
 
 	public static function getNamedRoute($name)
 	{
-		return isset(static::$namedRoutes[$name]) ? static::$namedRoutes[$name] : false;
+		if(!isset(static::$namedRoutes[$name]))
+		{
+			throw new RuntimeException(vsprintf("%s(): No route named '%s' has been defined.", array(__METHOD__, $name)));
+		}
+
+		return static::$namedRoutes[$name];
 	}
 
 	/**

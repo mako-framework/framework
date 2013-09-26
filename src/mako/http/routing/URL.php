@@ -136,12 +136,7 @@ class URL
 
 	public static function toRoute($routeName, array $routeParams = array(), $queryParams = array(), $separator = '&amp;', $language = true)
 	{
-		if(!($route = Routes::getNamedRoute($routeName)))
-		{
-			throw new RuntimeException(vsprintf("%s(): No route named '%s' has been defined.", array(__METHOD__, $routeName)));
-		}
-
-		$route = $route->getRoute();
+		$route = Routes::getNamedRoute($routeName)->getRoute();
 
 		foreach($routeParams as $key => $value)
 		{
