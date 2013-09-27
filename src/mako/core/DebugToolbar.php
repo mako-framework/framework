@@ -2,6 +2,7 @@
 
 namespace mako\core;
 
+use \mako\view\View;
 use \mako\utility\Arr;
 use \mako\utility\File;
 use \mako\database\Database;
