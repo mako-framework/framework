@@ -349,7 +349,7 @@ class Connection
 	}
 
 	/**
-	 * Execute query and return number of affected rows.
+	 * Executes the query and return number of affected rows.
 	 * 
 	 * @access  protected
 	 * @param   string     $query   SQL query
