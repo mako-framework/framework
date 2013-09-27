@@ -31,30 +31,6 @@ class Database
 
 	protected static $connections = array();
 
-	/**
-	 * Fetch all.
-	 *
-	 * @var int
-	 */
-
-	const FETCH_ALL = 10;
-
-	/**
-	 * Fetch first.
-	 *
-	 * @var int
-	 */
-
-	const FETCH_FIRST = 11;
-
-	/**
-	 * Fetch column.
-	 *
-	 * @var int
-	 */
-
-	const FETCH_COLUMN = 12;
-
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------

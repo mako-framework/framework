@@ -858,7 +858,7 @@ class Query
 
 		$query = $this->compiler->select();
 
-		return $this->connection->query($query['sql'], $query['params'], Database::FETCH_ALL);
+		return $this->connection->all($query['sql'], $query['params']);
 	}
 
 	/**
@@ -875,7 +875,7 @@ class Query
 
 		$query = $this->compiler->select();
 
-		return $this->connection->query($query['sql'], $query['params'], Database::FETCH_FIRST);
+		return $this->connection->first($query['sql'], $query['params']);
 	}
 
 	/**
@@ -892,7 +892,7 @@ class Query
 
 		$query = $this->compiler->select();
 
-		return $this->connection->query($query['sql'], $query['params'], Database::FETCH_COLUMN);
+		return $this->connection->column($query['sql'], $query['params']);
 	}
 
 	/**
@@ -986,7 +986,7 @@ class Query
 	{
 		$query = $this->compiler->insert($values);
 
-		return $this->connection->query($query['sql'], $query['params']);
+		return $this->connection->insert($query['sql'], $query['params']);
 	}
 
 	/**
@@ -1001,7 +1001,7 @@ class Query
 	{
 		$query = $this->compiler->update($values);
 
-		return $this->connection->query($query['sql'], $query['params']);
+		return $this->connection->update($query['sql'], $query['params']);
 	}
 
 	/**
@@ -1043,7 +1043,7 @@ class Query
 	{
 		$query = $this->compiler->delete();
 
-		return $this->connection->query($query['sql'], $query['params']);
+		return $this->connection->delete($query['sql'], $query['params']);
 	}
 }
 

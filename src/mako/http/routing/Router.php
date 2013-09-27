@@ -65,13 +65,15 @@ class Router
 		// Check if the route could have matched had the 
 		// request method been any of the remaining ones
 
+		$requestedRoute = $this->request->route();
+
 		foreach($methods as $method)
 		{
 			$routes = Routes::getRoutes($method);
 
 			foreach($routes as $route)
 			{
-				if($route->isMatch($this->request->route()))
+				if($route->isMatch($requestedRoute))
 				{
 					return true;
 				}

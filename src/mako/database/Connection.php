@@ -211,16 +211,15 @@ class Connection
 	}
 
 	/**
-	 * Executes a query and returns the results.
-	 *
-	 * @access  public
-	 * @param   string  $query   SQL query
-	 * @param   array   $params  Query parameters
-	 * @param   int     $fetch   Fetch mode
-	 * @return  mixed
+	 * Prepares a query.
+	 * 
+	 * @access  protected
+	 * @param   string     $query   SQL query
+	 * @param   array      $params  Query parameters
+	 * @return  array
 	 */
 
-	public function query($query, array $params = array(), $fetch = Database::FETCH_ALL)
+	protected function prepare($query, array $params)
 	{
 		// Replace IN clause placeholder with escaped values
 
@@ -237,46 +236,62 @@ class Connection
 			}
 		}
 
-		// Prepare and execute query
+		// Return query, parameters and the prepared statement
 
-		$stmt = $this->pdo->prepare($query);
+		return array('query' => $query, 'params' => $params, 'statement' => $this->pdo->prepare($query));
+	}
 
+	/**
+	 * Executes the prepared query and returns TRUE on success or FALSE on failure.
+	 *
+	 * @access  protected
+	 * @param   array      $prepared  Prepared query
+	 * @return  boolean
+	 */
+
+	protected function execute(array $prepared)
+	{
 		if($this->enableLog)
 		{
 			$start = microtime(true);
 		}
 
-		$result = $stmt->execute($params);
+		$result = $prepared['statement']->execute($prepared['params']);
 
 		if($this->enableLog)
 		{
-			$this->log($query, $params, $start);
+			$this->log($prepared['query'], $prepared['params'], $start);
 		}
 
-		// Return results for selects, row count for updates and deletes and boolean for the rest
+		return $result;
+	}
 
-		if(stripos($query, 'select') === 0)
-		{
-			switch($fetch)
-			{
-				case Database::FETCH_FIRST:
-					return $stmt->fetch();
-				break;
-				case Database::FETCH_COLUMN:
-					return $stmt->fetchColumn();
-				break;
-				default:
-					return $stmt->fetchAll();
-			}
-		}
-		elseif(stripos($query, 'update') === 0 || stripos($query, 'delete') === 0)
-		{
-			return $stmt->rowCount();
-		}
-		else
-		{
-			return $result;
-		}
+	/**
+	 * Executes a query and returns the results.
+	 *
+	 * @access  public
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  (optional) Query parameters
+	 * @return  mixed
+	 */
+
+	public function query($query, array $params = array())
+	{
+		return $this->execute($this->prepare($query, $params));
+	}
+
+	/**
+	 * Executes the query and returns TRUE on success or FALSE on failure.
+	 *
+	 * @access  public
+	 * @param   string   $query   SQL query
+	 * @param   array    $params  (optional) Query parameters
+	 * @return  boolean
+	 */
+
+	public function insert($query, array $params = array())
+	{
+		return $this->query($query, $params);
 	}
 
 	/**
@@ -284,13 +299,17 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   string  $query   SQL query
-	 * @param   array   $params  Query parameters
+	 * @param   array   $params  (optional) Query parameters
 	 * @return  array
 	 */
 
 	public function all($query, array $params = array())
 	{
-		return $this->query($query, $params, Database::FETCH_ALL);
+		$prepared = $this->prepare($query, $params);
+
+		$this->execute($prepared);
+
+		return $prepared['statement']->fetchAll();
 	}
 
 	/**
@@ -298,13 +317,17 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   string  $query   SQL query
-	 * @param   array   $params  Query params
+	 * @param   array   $params  (optional) Query params
 	 * @return  mixed
 	 */
 
 	public function first($query, array $params = array())
 	{
-		return $this->query($query, $params, Database::FETCH_FIRST);
+		$prepared = $this->prepare($query, $params);
+
+		$this->execute($prepared);
+
+		return $prepared['statement']->fetch();
 	}
 
 	/**
@@ -312,13 +335,63 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   string  $query   SQL query
-	 * @param   array   $params  Query parameters
+	 * @param   array   $params  (optional) Query parameters
 	 * @return  mixed
 	 */
 
 	public function column($query, array $params = array())
 	{
-		return $this->query($query, $params, Database::FETCH_COLUMN);
+		$prepared = $this->prepare($query, $params);
+
+		$this->execute($prepared);
+
+		return $prepared['statement']->fetchColumn();
+	}
+
+	/**
+	 * Execute query and return number of affected rows.
+	 * 
+	 * @access  protected
+	 * @param   string     $query   SQL query
+	 * @param   array      $params  (optional) Query parameters
+	 * @return  int
+	 */
+
+	protected function executeAndCount($query, array $params)
+	{
+		$prepared = $this->prepare($query, $params);
+
+		$this->execute($prepared);
+
+		return $prepared['statement']->rowCount();
+	}
+
+	/**
+	 * Executes the query and returns the number of updated records.
+	 *
+	 * @access  public
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  (optional) Query parameters
+	 * @return  int
+	 */
+
+	public function update($query, array $params = array())
+	{
+		return $this->executeAndCount($query, $params);
+	}
+
+	/**
+	 * Executes the query and returns the number of deleted records.
+	 *
+	 * @access  public
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  (optional) Query parameters
+	 * @return  int
+	 */
+
+	public function delete($query, array $params = array())
+	{
+		return $this->executeAndCount($query, $params);
 	}
 
 	/**
