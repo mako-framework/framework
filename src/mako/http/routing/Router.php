@@ -3,7 +3,9 @@
 namespace mako\http\routing;
 
 use \mako\http\Request;
+use \mako\http\Response;
 use \mako\http\RequestException;
+use \mako\http\routing\URL;
 
 /**
  * Route.
@@ -100,6 +102,11 @@ class Router
 		{
 			if($route->isMatch($requestedRoute))
 			{
+				if($route->hasTrailingSlash() && substr($requestedRoute, -1) !== '/')
+				{
+					Response::factory()->redirect(URL::to($requestedRoute . '/', $_GET, '&'), 301);
+				}
+
 				return $route;
 			}
 		}

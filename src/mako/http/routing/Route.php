@@ -41,6 +41,14 @@ class Route
 	protected $prefix;
 
 	/**
+	 * Does the route have a trailing slash?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $hasTrailingSlash;
+
+	/**
 	 * Route constraints.
 	 * 
 	 * @var array
@@ -89,6 +97,8 @@ class Route
 		$this->route = $route;
 		
 		$this->action = $action;
+
+		$this->hasTrailingSlash = (substr($route, -1) === '/');
 	}
 
 	//---------------------------------------------
@@ -117,6 +127,18 @@ class Route
 	public function getAction()
 	{
 		return $this->action;
+	}
+
+	/**
+	 * Returns TRUE if the route has a trailing slash and FALSE if not.
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function hasTrailingSlash()
+	{
+		return $this->hasTrailingSlash;
 	}
 
 	/**
@@ -242,7 +264,14 @@ class Route
 			}
 		}
 
-		return '#^' . preg_replace('/{(\w+)}/', '(?P<$1>[^/]++)', $route) . '$#s';
+		$route = preg_replace('/{(\w+)}/', '(?P<$1>[^/]++)', $route);
+
+		if($this->hasTrailingSlash)
+		{
+			$route .= '?';
+		}
+
+		return '#^' . $route . '$#s';
 	}
 
 	/**
