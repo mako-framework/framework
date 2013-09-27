@@ -92,9 +92,11 @@ class Router
 	{
 		$routes = Routes::getRoutes($this->request->method());
 
+		$requestedRoute = $this->request->route();
+
 		foreach($routes as $route)
 		{
-			if($route->isMatch($this->request->route()))
+			if($route->isMatch($requestedRoute))
 			{
 				return $route;
 			}
