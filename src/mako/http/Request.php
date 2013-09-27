@@ -6,6 +6,7 @@ use \mako\i18n\I18n;
 use \mako\core\Config;
 use \mako\http\Response;
 use \mako\http\RequestException;
+use \mako\http\routing\URL;
 use \mako\http\routing\Router;
 use \mako\http\routing\Dispatcher;
 
@@ -199,7 +200,7 @@ class Request
 
 			if(stripos(mb_substr($_SERVER['REQUEST_URI'], mb_strlen($path)), '/index.php') === 0)
 			{
-				Response::factory()->redirect($route, 301);
+				Response::factory()->redirect(URL::to($route, $_GET, '&'), 301);
 			}
 		}
 
