@@ -267,7 +267,7 @@ class Connection
 	}
 
 	/**
-	 * Executes a query and returns the results.
+	 * Executes the query and returns TRUE on success or FALSE on failure.
 	 *
 	 * @access  public
 	 * @param   string  $query   SQL query
