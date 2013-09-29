@@ -11,7 +11,7 @@ use \mako\http\routing\Routes;
 use \mako\http\routing\Controller;
 
 /**
- * Route.
+ * Route dispatcher.
  * 
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
@@ -78,19 +78,20 @@ class Dispatcher
 	 * 
 	 * @access  protected
 	 * @param   string|\Closure  $filter  Filter
+	 * @return  mixed
 	 */
 
 	protected function executeFilter($filter)
 	{
 		if($filter instanceof Closure)
 		{
-			$filter($this->request, $this->response);
+			return $filter($this->request, $this->response);
 		}
 		else
 		{
 			$filter = Routes::getFilter($filter);
 
-			$filter($this->request, $this->response);
+			return $filter($this->request, $this->response);
 		}
 	}
 
@@ -98,14 +99,24 @@ class Dispatcher
 	 * Executes before filters.
 	 * 
 	 * @access  protected
+	 * @return  mixed
 	 */
 
 	protected function beforeFilters()
 	{
+		$returnValue = null;
+
 		foreach($this->route->getBeforeFilters() as $filter)
 		{
-			$this->executeFilter($filter);
+			$returnValue = $this->executeFilter($filter);
+
+			if(!empty($returnValue))
+			{
+				break;
+			}
 		}
+
+		return $returnValue;
 	}
 
 	/**
@@ -126,12 +137,13 @@ class Dispatcher
 	 * Dispatch a closure controller action.
 	 * 
 	 * @access  protected
-	 * @param   \Closure   $closure  Closure  
+	 * @param   \Closure   $closure  Closure
+	 * @return  mixed
 	 */
 
 	protected function dispatchClosure(Closure $closure)
 	{
-		$this->response->body(call_user_func_array($closure, array_merge(array($this->request, $this->response), $this->route->getParameters())));
+		return call_user_func_array($closure, array_merge(array($this->request, $this->response), $this->route->getParameters()));
 	}
 
 	/**
@@ -139,6 +151,7 @@ class Dispatcher
 	 * 
 	 * @access  protected
 	 * @param   string     $controller  Controller
+	 * @return  mixed
 	 */
 
 	protected function dispatchController($controller)
@@ -152,11 +165,16 @@ class Dispatcher
 			throw new RuntimeException(vsprintf("%s(): All controllers must extend the mako\http\\routing\Controller class.", array(__METHOD__)));
 		}
 
-		$controller->beforeFilter();
+		$returnValue = $controller->beforeFilter();
 
-		$this->response->body(call_user_func_array(array($controller, $method), $this->route->getParameters()));
+		if(empty($returnValue))
+		{
+			$returnValue = call_user_func_array(array($controller, $method), $this->route->getParameters());
 
-		$controller->afterFilter();
+			$controller->afterFilter();
+		}
+
+		return $returnValue;
 	}
 
 	/**
@@ -168,20 +186,27 @@ class Dispatcher
 
 	public function dispatch()
 	{
-		$this->beforeFilters();
+		$returnValue = $this->beforeFilters();
 
-		$action = $this->route->getAction();
-
-		if($action instanceof Closure)
+		if(!empty($returnValue))
 		{
-			$this->dispatchClosure($action);
+			$this->response->body($returnValue);
 		}
 		else
 		{
-			$this->dispatchController($action);
-		}
+			$action = $this->route->getAction();
 
-		$this->afterFilters();
+			if($action instanceof Closure)
+			{
+				$this->response->body($this->dispatchClosure($action));
+			}
+			else
+			{
+				$this->response->body($this->dispatchController($action));
+			}
+
+			$this->afterFilters();
+		}
 
 		return $this->response;
 	}
