@@ -48,6 +48,14 @@ class Dispatcher
 
 	protected $route;
 
+	/**
+	 * Should the after filters be skipped?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $skipAfterFilters = false;
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -112,7 +120,7 @@ class Dispatcher
 
 			if(!empty($returnValue))
 			{
-				break;
+				break; // Stop further execution of filters if one of them return data
 			}
 		}
 
@@ -169,9 +177,17 @@ class Dispatcher
 
 		if(empty($returnValue))
 		{
+			// The before filter didn't return any data so we can execute the route action and after filter
+
 			$returnValue = call_user_func_array(array($controller, $method), $this->route->getParameters());
 
 			$controller->afterFilter();
+		}
+		else
+		{
+			// The before filter returned data so we need to skip the after filters
+
+			$this->skipAfterFilters = true;
 		}
 
 		return $returnValue;
@@ -205,7 +221,10 @@ class Dispatcher
 				$this->response->body($this->dispatchController($action));
 			}
 
-			$this->afterFilters();
+			if(!$this->skipAfterFilters)
+			{
+				$this->afterFilters();
+			}
 		}
 
 		return $this->response;
