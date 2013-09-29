@@ -8,7 +8,7 @@ use \mako\http\RequestException;
 use \mako\http\routing\URL;
 
 /**
- * Route.
+ * Router.
  * 
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
