@@ -110,19 +110,21 @@ class Router
 				return $route;
 			}
 		}
-
-		// Throw a 405 exception if the route could have
-		// been matched had the request method been different
-
+		
 		if($this->canRespondToDifferentMethod())
 		{
+			// The route could been matched using a different request method
+			// so we'll throw a 405 exception
+
 			throw new RequestException(405);
 		}
-
-		// The route could have not been matched using a different request method
-		// so we'll just throw a 404 exception
-		
-		throw new RequestException(404);
+		else
+		{
+			// The route could have not been matched using a different request method
+			// so we'll just throw a 404 exception
+			
+			throw new RequestException(404);
+		}
 	}
 }
 
