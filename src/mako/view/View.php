@@ -53,8 +53,8 @@ class View
 
 	protected static $renderers = array
 	(
-		''     => '\mako\view\renderer\PHP',
-		'.tpl' => '\mako\view\renderer\Template',
+		'.php'     => '\mako\view\renderer\PHP',
+		'.tpl.php' => '\mako\view\renderer\Template',
 	);
 
 	/**
@@ -89,7 +89,7 @@ class View
 
 		foreach(static::$renderers as $extension => $renderer)
 		{
-			if(file_exists($this->view = mako_path('views', $view . $extension)))
+			if(file_exists($this->view = mako_path('views', $view, $extension)))
 			{
 				$this->renderer = $renderer;
 
