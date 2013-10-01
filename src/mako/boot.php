@@ -53,20 +53,21 @@ mako\core\errorhandler\ErrorHandler::register();
  *
  * @param   string  $path  Path
  * @param   string  $file  File
+ * @param   string  $ext   (optional) File extension
  * @return  string
  */
 
-function mako_path($path, $file)
+function mako_path($path, $file, $ext = '.php')
 {
 	if(strpos($file, '::') !== false)
 	{
 		list($package, $file) = explode('::', $file);
 
-		$path = MAKO_PACKAGES_PATH . '/' . $package . '/' . $path . '/' . $file . '.php';
+		$path = MAKO_PACKAGES_PATH . '/' . $package . '/' . $path . '/' . $file . $ext;
 	}
 	else
 	{
-		$path = MAKO_APPLICATION_PATH . '/' . $path . '/' . $file . '.php';
+		$path = MAKO_APPLICATION_PATH . '/' . $path . '/' . $file . $ext;
 	}
 
 	return $path;
@@ -77,10 +78,11 @@ function mako_path($path, $file)
  *
  * @param   string  $path  Path
  * @param   string  $file  String
+ * @param   string  $ext   (optional) File extension
  * @return  array
  */
 
-function mako_cascading_path($path, $file)
+function mako_cascading_paths($path, $file, $ext = '.php')
 {
 	$paths = array();
 
@@ -88,13 +90,13 @@ function mako_cascading_path($path, $file)
 	{
 		list($package, $file) = explode('::', $file);
 
-		$paths[] = MAKO_APPLICATION_PATH . '/' . $path . '/packages/' . $package . '/' . $file . '.php';
+		$paths[] = MAKO_APPLICATION_PATH . '/' . $path . '/packages/' . $package . '/' . $file . $ext;
 
-		$paths[] = MAKO_PACKAGES_PATH . '/' . $package . '/' . $path . '/' . $file . '.php';
+		$paths[] = MAKO_PACKAGES_PATH . '/' . $package . '/' . $path . '/' . $file . $ext;
 	}
 	else
 	{
-		$paths[] = MAKO_APPLICATION_PATH . '/' . $path . '/' . $file . '.php';
+		$paths[] = MAKO_APPLICATION_PATH . '/' . $path . '/' . $file . $ext;
 	}
 
 	return $paths;

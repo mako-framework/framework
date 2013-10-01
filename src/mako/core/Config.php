@@ -57,7 +57,7 @@ class Config
 	protected static function load($file)
 	{
 		$found = false;
-		$paths = mako_cascading_path('config', $file);
+		$paths = mako_cascading_paths('config', $file);
 
 		foreach($paths as $path)
 		{
@@ -80,7 +80,7 @@ class Config
 
 		if(mako_env() !== null)
 		{
-			$paths = mako_cascading_path('config/' . mako_env(), $file);
+			$paths = mako_cascading_paths('config/' . mako_env(), $file);
 
 			foreach($paths as $path)
 			{
