@@ -72,7 +72,7 @@ class Container
 			$source = Assets::location() . $source;
 		}
 
-		if(pathinfo(strtok($source, '?'), PATHINFO_EXTENSION) === 'css')
+		if((pathinfo(strtok($source, '?'), PATHINFO_EXTENSION) === 'css') or (in_array('text/css', $attributes)))
 		{
 			defined('MAKO_XHTML') && $attributes['type'] = 'text/css';
 
