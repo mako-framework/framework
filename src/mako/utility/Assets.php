@@ -3,7 +3,7 @@
 namespace mako\utility;
 
 use \mako\core\Config;
-use \mako\utility\assets\Container;
+use \mako\utility\assets\Group;
 
 /**
  * Asset manager.
@@ -69,15 +69,15 @@ class Assets
 	 * Returns the instance of the chosen asset group.
 	 *
 	 * @access  public
-	 * @param   string                  $name  (optional) Group name
-	 * @return  \mako\assets\Container
+	 * @param   string              $name  (optional) Group name
+	 * @return  \mako\assets\Group
 	 */
 
 	public static function group($name = 'default')
 	{
 		if(!isset(static::$groups[$name]))
 		{
-			static::$groups[$name] = new Container();
+			static::$groups[$name] = new Group();
 		}
 
 		return static::$groups[$name];
