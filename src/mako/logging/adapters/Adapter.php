@@ -38,7 +38,7 @@ abstract class Adapter
 	 * 
 	 * @access  public
 	 * @param   string|\Exception  $message  Message to log
-	 * @param   int                $type     Log type
+	 * @param   int                $type     (optional) Log type
 	 * @return  boolean
 	 */
 
