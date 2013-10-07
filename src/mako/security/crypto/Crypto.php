@@ -1,8 +1,9 @@
 <?php
 
-namespace mako\security;
+namespace mako\security\crypto;
 
 use \mako\core\Config;
+use \mako\security\crypto\adapters\Adapter;
 use \RuntimeException;
 
 /**
@@ -18,8 +19,18 @@ class Crypto
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Crypto adapters.
+	 * 
+	 * @var array
+	 */
 	
-	// Nothing here
+	protected static $adapters = array
+	(
+		'mcrypt'  => '\mako\security\crypto\adapters\Mcrypt',
+		'openssl' => '\mako\security\crypto\adapters\OpenSSL',
+	);
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -51,16 +62,36 @@ class Crypto
 	{
 		$config = Config::get('crypto');
 
-		$name = ($name === null) ? $config['default'] : $name;
+		$name = $name ?: $config['default'];
 
 		if(isset($config['configurations'][$name]) === false)
 		{
 			throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the crypto configuration.", array(__METHOD__, $name)));
 		}
 
-		$class = '\mako\security\crypto\\' . $config['configurations'][$name]['library'];
+		$adapter = static::$adapters[$config['configurations'][$name]['library']];
 
-		return new $class($config['configurations'][$name]);
+		$adapter = new $adapter($config['configurations'][$name]);
+
+		if(!($adapter instanceof Adapter))
+		{
+			throw new RuntimeException(vsprintf("%s(): The crypto adapter must extend the \mako\security\crypto\adapters\Adapter class.", array(__METHOD__)));
+		}
+
+		return $adapter;
+	}
+
+	/**
+	 * Registers a new Crypto adapter.
+	 * 
+	 * @access  public
+	 * @param   string  $name   Adapter name
+	 * @param   string  $class  Adapter class
+	 */
+
+	public static function registerAdapter($name, $class)
+	{
+		static::$adapters[$name] = $class;
 	}
 
 	/**

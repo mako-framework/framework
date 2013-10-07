@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\security\crypto;
+namespace mako\security\crypto\adapters;
 
 use \mako\security\MAC;
 

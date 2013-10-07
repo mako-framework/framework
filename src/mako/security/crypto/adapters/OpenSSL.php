@@ -1,30 +1,22 @@
 <?php
 
-namespace mako\security\crypto;
+namespace mako\security\crypto\adapters;
 
 use \RuntimeException;
 
 /**
- * Mcrypt cryptography adapter.
+ * OpenSSL cryptography adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Mcrypt extends \mako\security\crypto\Adapter
+class OpenSSL extends \mako\security\crypto\adapters\Adapter
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-	
-	/**
-	 * The cipher method to use for encryption.
-	 *
-	 * @var int
-	 */
-	
-	protected $cipher;
 	
 	/**
 	 * Key used to encrypt/decrypt data.
@@ -35,13 +27,13 @@ class Mcrypt extends \mako\security\crypto\Adapter
 	protected $key;
 	
 	/**
-	 * Encryption mode.
+	 * The cipher method to use for encryption.
 	 *
-	 * @var int
+	 * @var string
 	 */
 	
-	protected $mode;
-	
+	protected $cipher;
+
 	/**
 	 * Initialization vector size.
 	 *
@@ -63,22 +55,14 @@ class Mcrypt extends \mako\security\crypto\Adapter
 	
 	public function __construct(array $config)
 	{
-		if(extension_loaded('mcrypt') === false)
+		if(extension_loaded('openssl') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Mcrypt is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): OpenSSL is not available.", array(__METHOD__)));
 		}
 		
-		$maxSize = mcrypt_get_key_size($config['cipher'], $config['mode']);
-		
-		if(mb_strlen($config['key']) > $maxSize)
-		{
-			$config['key'] = substr($config['key'], 0, $maxSize);
-		}
-		
-		$this->cipher = $config['cipher'];
 		$this->key    = $config['key'];
-		$this->mode   = $config['mode'];
-		$this->ivSize = mcrypt_get_iv_size($this->cipher, $this->mode);
+		$this->cipher = $config['cipher'];
+		$this->ivSize = openssl_cipher_iv_length($this->cipher);
 	}
 	
 	//---------------------------------------------
@@ -95,9 +79,9 @@ class Mcrypt extends \mako\security\crypto\Adapter
 	
 	public function encrypt($string)
 	{
-		$iv = mcrypt_create_iv($this->ivSize, MCRYPT_DEV_URANDOM);
-		
-		return base64_encode($iv . mcrypt_encrypt($this->cipher, $this->key, $string, $this->mode, $iv));
+		$iv = openssl_random_pseudo_bytes($this->ivSize);
+
+		return base64_encode($iv . openssl_encrypt($string, $this->cipher, $this->key, 0, $iv));
 	}
 	
 	/**
@@ -116,12 +100,12 @@ class Mcrypt extends \mako\security\crypto\Adapter
 		{
 			return false;
 		}
-		
+
 		$iv = substr($string, 0, $this->ivSize);
 		
 		$string = substr($string, $this->ivSize);
-		
-		return rtrim(mcrypt_decrypt($this->cipher, $this->key, $string, $this->mode, $iv), "\0");
+
+		return openssl_decrypt($string, $this->cipher, $this->key, 0, $iv);
 	}
 }
 
