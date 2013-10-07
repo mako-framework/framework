@@ -3,6 +3,7 @@
 namespace mako\logging\adapters;
 
 use \mako\logging\Log;
+use \Exception;
 
 /**
  * Log adapter.
@@ -30,7 +31,137 @@ abstract class Adapter
 	// Class methods
 	//---------------------------------------------
 
-	abstract public function write($message, $type = Log::ERROR);
+	abstract protected function writeLog($message, $type);
+
+	/**
+	 * Write a message to the log.
+	 * 
+	 * @access  public
+	 * @param   string|\Exception  $message  Message to log
+	 * @param   int                $type     Log type
+	 * @return  boolean
+	 */
+
+	public function write($message, $type = Log::ERROR)
+	{
+		if($message instanceof Exception)
+		{
+			$message = vsprintf('%s: %s in %s at line %s' . PHP_EOL . '%s', array
+			(
+				get_class($message),
+				$message->getMessage(),
+				$message->getFile(),
+				$message->getLine(),
+				$message->getTraceAsString(),
+			));
+		}
+
+		return $this->writeLog($message, $type);
+	}
+
+	/**
+	 * Write a emergency message to the log.
+	 * 
+	 * @access  public
+	 * @param   string|\Exception  $message  Message to log
+	 * @return  boolean
+	 */
+
+	public function emergency($message)
+	{
+		return $this->write($message, Log::EMERGENCY);
+	}
+
+	/**
+	 * Write an alert message to the log.
+	 * 
+	 * @access  public
+	 * @param   string|\Exception  $message  Message to log
+	 * @return  boolean
+	 */
+
+	public function alert($message)
+	{
+		return $this->write($message, Log::ALERT);
+	}
+
+	/**
+	 * Write a critical message to the log.
+	 * 
+	 * @access  public
+	 * @param   string|\Exception  $message  Message to log
+	 * @return  boolean
+	 */
+
+	public function critical($message)
+	{
+		return $this->write($message, Log::CRITICAL);
+	}
+
+	/**
+	 * Write an error message to the log.
+	 * 
+	 * @access  public
+	 * @param   string|\Exception  $message  Message to log
+	 * @return  boolean
+	 */
+
+	public function error($message)
+	{
+		return $this->write($message, Log::ERROR);
+	}
+
+	/**
+	 * Write a warning message to the log.
+	 * 
+	 * @access  public
+	 * @param   string|\Exception  $message  Message to log
+	 * @return  boolean
+	 */
+
+	public function warning($message)
+	{
+		return $this->write($message, Log::WARNING);
+	}
+
+	/**
+	 * Write a notice message to the log.
+	 * 
+	 * @access  public
+	 * @param   string|\Exception  $message  Message to log
+	 * @return  boolean
+	 */
+
+	public function notice($message)
+	{
+		return $this->write($message, Log::NOTICE);
+	}
+
+	/**
+	 * Write an info message to the log.
+	 * 
+	 * @access  public
+	 * @param   string|\Exception  $message  Message to log
+	 * @return  boolean
+	 */
+
+	public function info($message)
+	{
+		return $this->write($message, Log::INFO);
+	}
+
+	/**
+	 * Write a debug message to the log.
+	 * 
+	 * @access  public
+	 * @param   string|\Exception  $message  Message to log
+	 * @return  boolean
+	 */
+
+	public function debug($message)
+	{
+		return $this->write($message, Log::DEBUG);
+	}
 }
 
 /** -------------------- End of file -------------------- **/

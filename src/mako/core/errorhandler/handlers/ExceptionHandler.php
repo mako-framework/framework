@@ -175,15 +175,7 @@ class ExceptionHandler
 
 		if(Config::get('application.error_handler.log_errors') === true)
 		{
-			$message = vsprintf('%s: %s in %s at line %s', array
-			(
-				get_class($this->exception),
-				$this->exception->getMessage(),
-				$this->exception->getFile(),
-				$this->exception->getLine(),
-			));
-
-			Log::error($message);
+			Log::error($this->exception);
 		}
 	}
 }

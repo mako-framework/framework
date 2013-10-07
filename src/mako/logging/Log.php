@@ -182,12 +182,7 @@ class Log
 
 	public static function __callStatic($name, $arguments)
 	{
-		if(!defined('static::' . strtoupper($name)))
-		{
-			throw new RuntimeException(vsprintf("%s(): Invalid log type.", array(__METHOD__)));
-		}
-
-		return static::instance()->write($arguments[0], constant('static::' . strtoupper($name)));
+		return call_user_func_array(array(static::instance(), $name), $arguments);
 	}
 }
 

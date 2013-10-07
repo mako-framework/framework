@@ -74,11 +74,11 @@ class FirePHP extends \mako\logging\adapters\Adapter
 	 *
 	 * @access  public
 	 * @param   string   $message  The message to write to the log
-	 * @param   int      $type     (optional) Message type
+	 * @param   int      $type     Log type
 	 * @return  boolean
 	 */
 	
-	public function write($message, $type = Log::ERROR)
+	protected function writeLog($message, $type)
 	{
 		if(!headers_sent())
 		{				

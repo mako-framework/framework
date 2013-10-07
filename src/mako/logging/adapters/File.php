@@ -69,15 +69,15 @@ class File extends \mako\logging\adapters\Adapter
 	 *
 	 * @access  public
 	 * @param   string   $message  The message to write to the log
-	 * @param   int      $type     (optional) Message type
+	 * @param   int      $type     Log type
 	 * @return  boolean
 	 */
 	
-	public function write($message, $type = Log::ERROR)
+	protected function writeLog($message, $type)
 	{
 		$file = rtrim($this->path, '/') . '/' . $this->types[$type] . '_' . gmdate('Y_m_d') . '.log';
 		
-		$message = '[' . gmdate('d-M-Y H:i:s') . '] ' . $message . PHP_EOL;
+		$message = '[' . gmdate('d-M-Y H:i:s') . '] ' . $message . PHP_EOL . PHP_EOL;
 		
 		return (bool) file_put_contents($file, $message, FILE_APPEND);
 	}
