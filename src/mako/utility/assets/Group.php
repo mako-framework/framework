@@ -3,7 +3,7 @@
 namespace mako\utility\assets;
 
 use \mako\utility\HTML;
-use \mako\utility\Assets;
+use \mako\utility\assets\Assets;
 
 /**
  * Asset container.

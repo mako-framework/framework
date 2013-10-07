@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\utility;
+namespace mako\utility\assets;
 
 use \mako\core\Config;
 use \mako\utility\assets\Group;
