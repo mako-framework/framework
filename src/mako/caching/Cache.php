@@ -3,6 +3,7 @@
 namespace mako\caching;
 
 use \mako\core\Config;
+use \mako\caching\adapters\Adapter;
 use \RuntimeException;
 
 /**
@@ -18,6 +19,27 @@ class Cache
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Crypto adapters.
+	 * 
+	 * @var array
+	 */
+	
+	protected static $adapters = array
+	(
+		'apc'        => '\mako\caching\adapters\APC',
+		'database'   => '\mako\caching\adapters\Database',
+		'file'       => '\mako\caching\adapters\File',
+		'memcache'   => '\mako\caching\adapters\Memcache',
+		'memcached'  => '\mako\caching\adapters\Memcached',
+		'memory'     => '\mako\caching\adapters\Memory',
+		'redis'      => '\mako\caching\adapters\Redis',
+		'wincache'   => '\mako\caching\adapters\WinCache',
+		'xcache'     => '\mako\caching\adapters\XCache',
+		'zenddisk'   => '\mako\caching\adapters\ZendDisk',
+		'zendmemory' => '\mako\caching\adapters\ZendMemory',
+	);
 	
 	/**
 	 * Holds all the cache objects.
@@ -56,22 +78,40 @@ class Cache
 	public static function instance($name = null)
 	{
 		$config = Config::get('cache');
-			
-		$name = ($name === null) ? $config['default'] : $name;
+
+		$name = $name ?: $config['default'];
 
 		if(!isset(static::$instances[$name]))
-		{	
+		{
 			if(isset($config['configurations'][$name]) === false)
 			{
 				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the cache configuration.", array(__METHOD__, $name)));
 			}
-			
-			$class = '\mako\caching\adapters\\' . $config['configurations'][$name]['type'];
-			
-			static::$instances[$name] = new $class($config['configurations'][$name]);
+
+			$adapter = static::$adapters[$config['configurations'][$name]['type']];
+
+			static::$instances[$name] = new $adapter($config['configurations'][$name]);
+
+			if(!(static::$instances[$name] instanceof Adapter))
+			{
+				throw new RuntimeException(vsprintf("%s(): The cache adapter must extend the \mako\caching\adapters\Adapter class.", array(__METHOD__)));
+			}
 		}
 
 		return static::$instances[$name];
+	}
+
+	/**
+	 * Registers a new cache adapter.
+	 * 
+	 * @access  public
+	 * @param   string  $name   Adapter name
+	 * @param   string  $class  Adapter class
+	 */
+
+	public static function registerAdapter($name, $class)
+	{
+		static::$adapters[$name] = $class;
 	}
 
 	/**

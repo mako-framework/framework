@@ -82,7 +82,7 @@ class Crypto
 	}
 
 	/**
-	 * Registers a new Crypto adapter.
+	 * Registers a new crypto adapter.
 	 * 
 	 * @access  public
 	 * @param   string  $name   Adapter name
