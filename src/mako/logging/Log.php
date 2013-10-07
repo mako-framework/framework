@@ -3,6 +3,7 @@
 namespace mako\logging;
 
 use \mako\core\Config;
+use \mako\logging\adapters\Adapter;
 use \RuntimeException;
 
 /**
@@ -82,6 +83,20 @@ class Log
 	 */
 	
 	const DEBUG = 8;
+
+	/**
+	 * Crypto adapters.
+	 * 
+	 * @var array
+	 */
+	
+	protected static $adapters = array
+	(
+		'file'    => '\mako\logging\adapters\File',
+		'firephp' => '\mako\logging\adapters\FirePHP',
+		'syslog'  => '\mako\logging\adapters\Syslog',
+		'toolbar' => '\mako\logging\adapters\DebugToolbar',
+	);
 	
 	/**
 	 * Holds all the logger objects.
@@ -120,22 +135,40 @@ class Log
 	public static function instance($name = null)
 	{
 		$config = Config::get('log');
-			
-		$name = ($name === null) ? $config['default'] : $name;
-		
+
+		$name = $name ?: $config['default'];
+
 		if(!isset(static::$instances[$name]))
-		{	
+		{
 			if(isset($config['configurations'][$name]) === false)
 			{
 				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the log configuration.", array(__METHOD__, $name)));
 			}
-			
-			$class = '\mako\logging\adapters\\' . $config['configurations'][$name]['type'];
-			
-			static::$instances[$name] = new $class($config['configurations'][$name]);
+
+			$adapter = static::$adapters[$config['configurations'][$name]['type']];
+
+			static::$instances[$name] = new $adapter($config['configurations'][$name]);
+
+			if(!(static::$instances[$name] instanceof Adapter))
+			{
+				throw new RuntimeException(vsprintf("%s(): The log adapter must extend the \mako\logging\adapters\Adapter class.", array(__METHOD__)));
+			}
 		}
 
 		return static::$instances[$name];
+	}
+
+	/**
+	 * Registers a new log adapter.
+	 * 
+	 * @access  public
+	 * @param   string  $name   Adapter name
+	 * @param   string  $class  Adapter class
+	 */
+
+	public static function registerAdapter($name, $class)
+	{
+		static::$adapters[$name] = $class;
 	}
 
 	/**
