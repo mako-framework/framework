@@ -1,16 +1,16 @@
 <?php
 
-namespace mako\database\query\compiler;
+namespace mako\database\query\compilers;
 
 /**
- * Compiles NuoDB queries.
+ * Compiles MySQL queries.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class NuoDB extends \mako\database\query\Compiler
+class MySQL extends \mako\database\query\Compiler
 {
 	//---------------------------------------------
 	// Class properties
@@ -22,7 +22,7 @@ class NuoDB extends \mako\database\query\Compiler
 	 * @var string
 	 */
 	
-	protected $wrapper = '"%s"';
+	protected $wrapper = '`%s`';
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -34,31 +34,7 @@ class NuoDB extends \mako\database\query\Compiler
 	// Class methods
 	//---------------------------------------------
 
-	/**
-	 * Compiles LIMIT clauses.
-	 *
-	 * @access  protected
-	 * @param   int        $limit  Limit
-	 * @return  string
-	 */
-
-	protected function limit($limit)
-	{
-		return ($limit === null) ? '' : ' FETCH ' . $limit;
-	}
-
-	/**
-	 * Compiles OFFSET clauses.
-	 *
-	 * @access  protected
-	 * @param   int        $offset  Limit
-	 * @return  string
-	 */
-
-	protected function offset($offset)
-	{
-		return ($offset === null) ? '' : ' OFFSET ' . $offset;
-	}
+	// Nothing here
 }
 
 /** -------------------- End of file -------------------- **/

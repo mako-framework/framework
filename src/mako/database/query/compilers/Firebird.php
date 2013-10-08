@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\database\query\compiler;
+namespace mako\database\query\compilers;
 
 /**
  * Compiles Firebird queries.
