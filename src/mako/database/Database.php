@@ -89,7 +89,7 @@ class Database
 				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the database configuration.", array(__METHOD__, $name)));
 			}
 			
-			static::$connections[$name] = new Connection($name, $config['configurations'][$name], $config['log_queries']);			
+			static::$connections[$name] = new Connection($name, $config['configurations'][$name]);			
 		}
 
 		return static::$connections[$name];

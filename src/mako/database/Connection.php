@@ -74,12 +74,13 @@ class Connection
 	 * @access  public
 	 * @param   string   $name       Connection name
 	 * @param   array    $config     Connection configuration
-	 * @param   boolean  $enableLog  Enable the query log?
 	 */
 
-	public function __construct($name, array $config, $enableLog)
+	public function __construct($name, array $config)
 	{
-		$this->enableLog = $enableLog;
+		// Enable query log?
+
+		$this->enableLog = isset($config['log_queries']) ? $config['log_queries'] : false;
 
 		// Connect to the database
 
