@@ -258,6 +258,8 @@ class Connection
 	{
 		// Replace IN clause placeholder with escaped values
 
+		replace:
+
 		if(strpos($query, '([?])') !== false)
 		{
 			foreach($params as $key => $value)
@@ -267,6 +269,8 @@ class Connection
 					array_splice($params, $key, 1, $value);
 
 					$query = preg_replace('/\(\[\?\]\)/', '(' . trim(str_repeat('?, ', count($value)), ', ') . ')', $query, 1);
+					
+					goto replace;
 				}
 			}
 		}
