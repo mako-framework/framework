@@ -143,16 +143,32 @@ class DebugToolbar
 
 	public static function render()
 	{
-		$queries = Database::getLog();
+		// Get query logs
+
+		$queryLogs = Database::getLog(true);
+
+		$queryTime  = 0;
+		$queryCount = 0;
+
+		// Sum up query times and count queries
+
+		foreach($queryLogs as $queryLog)
+		{
+			$queryTime  += array_sum(Arr::pluck($queryLog, 'time'));
+			$queryCount += count($queryLog);
+		}
+
+		// Render and return toolbar
 		
 		return View::factory('_mako_/toolbar', array
 		(
-			'time'       => round(microtime(true) - MAKO_START, 4),
-			'files'      => get_included_files(),
-			'memory'     => File::size(memory_get_peak_usage(true)),
-			'logs'       => static::$logs,
-			'queries'    => $queries,
-			'db_time'    => round(array_sum(Arr::pluck($queries, 'time')), 4),
+			'time'        => round(microtime(true) - MAKO_START, 4),
+			'files'       => get_included_files(),
+			'memory'      => File::size(memory_get_peak_usage(true)),
+			'logs'        => static::$logs,
+			'query_logs'  => $queryLogs,
+			'query_time'  => round($queryTime, 4),
+			'query_count' => $queryCount,
 		))->render();
 	}
 }
