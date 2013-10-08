@@ -30,7 +30,7 @@ class Connection
 	 * @var \PDO
 	 */
 
-	public $pdo;
+	protected $pdo;
 
 	/**
 	 * Driver name.
@@ -126,6 +126,18 @@ class Connection
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns the PDO instance.
+	 * 
+	 * @access  public
+	 * @return  \PDO
+	 */
+
+	public function getPDO()
+	{
+		return $this->pdo;
+	}
 
 	/**
 	 * Returns the driver name.

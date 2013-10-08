@@ -823,7 +823,7 @@ abstract class ORM
 					$sequence = null;
 			}
 
-			$this->columns[$this->primaryKey] = $connection->pdo->lastInsertId($sequence);
+			$this->columns[$this->primaryKey] = $connection->getPDO()->lastInsertId($sequence);
 		}
 	}
 
@@ -869,21 +869,23 @@ abstract class ORM
 	public function save()
 	{
 		$success = true;
-		
-		if($this->isModified())
-		{
-			if(!$this->exists)
-			{
-				// This is a new record so we need to insert it into the database.
-				
-				$this->insertRecord();
-			}
-			else
-			{
-				// This record already exists in the database so all we have to do is update it.
 
-				$success = $this->updateRecord();
-			}
+		if(!$this->exists)
+		{
+			// This is a new record so we need to insert it into the database.
+				
+			$this->insertRecord();
+		}
+		elseif($this->isModified())
+		{
+			// This record exists and is modified so all we have to do is update it.
+
+			$success = $this->updateRecord();
+		}
+
+		if($success)
+		{
+			// Sync up if save was successful
 
 			$this->original = $this->columns;
 		}
