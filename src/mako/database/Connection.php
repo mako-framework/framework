@@ -25,6 +25,14 @@ class Connection
 	//---------------------------------------------
 
 	/**
+	 * Connection name.
+	 * 
+	 * @var string
+	 */
+
+	protected $name;
+
+	/**
 	 * PDO object.
 	 *
 	 * @var \PDO
@@ -78,6 +86,8 @@ class Connection
 
 	public function __construct($name, array $config)
 	{
+		$this->name = $name;
+
 		// Enable query log?
 
 		$this->enableLog = isset($config['log_queries']) ? $config['log_queries'] : false;
@@ -102,7 +112,7 @@ class Connection
 		}
 		catch(PDOException $e)
 		{
-			throw new RuntimeException(vsprintf("%s(): Failed to connect to the '%s' database. %s", array(__METHOD__, $name, $e->getMessage())));
+			throw new RuntimeException(vsprintf("%s(): Failed to connect to the '%s' database. %s", array(__METHOD__, $this->name, $e->getMessage())));
 		}
 
 		// Run queries
@@ -127,6 +137,18 @@ class Connection
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns the connection name.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getName()
+	{
+		return $this->name;
+	}
 
 	/**
 	 * Returns the PDO instance.

@@ -53,16 +53,28 @@ class Database
 	/**
 	 * Returns the query log for all connections.
 	 *
+	 * @access  public
+	 * @param   boolean  $groupedByConnection  (optional) Group logs by connection?
 	 * @return  array
 	 */
 
-	public static function getLog()
+	public static function getLog($groupedByConnection = false)
 	{
 		$log = array();
 
-		foreach(static::$connections as $connection)
+		if($groupedByConnection)
 		{
-			$log = array_merge($log, $connection->getLog());
+			foreach(static::$connections as $connection)
+			{
+				$log[$connection->getName()] = $connection->getLog();
+			}
+		}
+		else
+		{
+			foreach(static::$connections as $connection)
+			{
+				$log = array_merge($log, $connection->getLog());
+			}
 		}
 
 		return $log;

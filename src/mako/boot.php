@@ -161,9 +161,9 @@ if(!function_exists('debug'))
 	 * @return  mixed
 	 */
 
-	function debug($log, $type = mako\DebugToolbar::DEBUG)
+	function debug($log, $type = mako\core\DebugToolbar::DEBUG)
 	{
-		return mako\DebugToolbar::log($log, $type, true);
+		return mako\core\DebugToolbar::log($log, $type, true);
 	}
 }
 
