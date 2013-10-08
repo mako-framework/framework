@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\view\renderer;
+namespace mako\view\renderers;
 
 /**
  * Renderer interface.

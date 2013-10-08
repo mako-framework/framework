@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\view\renderer\template;
+namespace mako\view\renderers\template;
 
 /**
  * Template blocks.

@@ -1,8 +1,8 @@
 <?php
 
-namespace mako\view\renderer;
+namespace mako\view\renderers;
 
-use \mako\view\compiler\Template as Compiler;
+use \mako\view\compilers\Template as Compiler;
 
 /**
  * Mako template view renderer.
@@ -12,7 +12,7 @@ use \mako\view\compiler\Template as Compiler;
  * @license    http://www.makoframework.com/license
  */
 
-class Template implements \mako\view\renderer\RendererInterface
+class Template implements \mako\view\renderers\RendererInterface
 {
 	//---------------------------------------------
 	// Class properties

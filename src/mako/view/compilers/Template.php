@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\view\compiler;
+namespace mako\view\compilers;
 
 /**
  * Template compiler.
@@ -135,11 +135,11 @@ class Template
 	{
 		// Compile blocks
 
-		$template = preg_replace('/{%\s*block:(.*?)\s*%}(.*?){%\s*endblock\s*%}/is', '<?php mako\view\renderer\template\Block::open(\'$1\'); ?>$2<?php mako\view\renderer\template\Block::close(); ?>', $template);
+		$template = preg_replace('/{%\s*block:(.*?)\s*%}(.*?){%\s*endblock\s*%}/is', '<?php mako\view\renderers\template\Block::open(\'$1\'); ?>$2<?php mako\view\renderers\template\Block::close(); ?>', $template);
 
 		// Compile block output
 
-		return preg_replace('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', '<?php if(mako\view\renderer\template\Block::exists(\'$1\')): ?><?php echo mako\view\renderer\template\Block::get(\'$1\'); ?><?php else: ?>$2<?php endif; ?>', $template);
+		return preg_replace('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', '<?php if(mako\view\renderers\template\Block::exists(\'$1\')): ?><?php echo mako\view\renderers\template\Block::get(\'$1\'); ?><?php else: ?>$2<?php endif; ?>', $template);
 	}
 
 	/**

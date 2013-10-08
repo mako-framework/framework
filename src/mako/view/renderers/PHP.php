@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\view\renderer;
+namespace mako\view\renderers;
 
 /**
  * Plain PHP view renderer.
@@ -10,7 +10,7 @@ namespace mako\view\renderer;
  * @license    http://www.makoframework.com/license
  */
 
-class PHP implements \mako\view\renderer\RendererInterface
+class PHP implements \mako\view\renderers\RendererInterface
 {
 	//---------------------------------------------
 	// Class properties
