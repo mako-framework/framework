@@ -51,6 +51,33 @@ class Database
 	//---------------------------------------------
 
 	/**
+	 * Opens a new connection or returns existing connection if it already exists.
+	 *
+	 * @access  public
+	 * @param   string                     $name  (optional) Database configuration name
+	 * @return  \mako\database\Connection
+	 */
+
+	public static function connection($name = null)
+	{
+		$config = Config::get('database');
+			
+		$name = $name ?: $config['default'];
+
+		if(!isset(static::$connections[$name]))
+		{	
+			if(isset($config['configurations'][$name]) === false)
+			{
+				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the database configuration.", array(__METHOD__, $name)));
+			}
+			
+			static::$connections[$name] = new Connection($name, $config['configurations'][$name]);			
+		}
+
+		return static::$connections[$name];
+	}
+
+	/**
 	 * Returns the query log for all connections.
 	 *
 	 * @access  public
@@ -78,33 +105,6 @@ class Database
 		}
 
 		return $log;
-	}
-	
-	/**
-	 * Opens a new connection or returns existing connection if it already exists.
-	 *
-	 * @access  public
-	 * @param   string                     $name  (optional) Database configuration name
-	 * @return  \mako\database\Connection
-	 */
-
-	public static function connection($name = null)
-	{
-		$config = Config::get('database');
-			
-		$name = ($name === null) ? $config['default'] : $name;
-
-		if(!isset(static::$connections[$name]))
-		{	
-			if(isset($config['configurations'][$name]) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the database configuration.", array(__METHOD__, $name)));
-			}
-			
-			static::$connections[$name] = new Connection($name, $config['configurations'][$name]);			
-		}
-
-		return static::$connections[$name];
 	}
 
 	/**
