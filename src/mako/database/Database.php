@@ -4,7 +4,7 @@ namespace mako\database;
 
 use \mako\core\Config;
 use \mako\database\Connection;
-use \mako\database\Query;
+use \mako\database\query\Query;
 use \mako\database\query\Raw;
 use \mako\database\query\Subquery;
 use \RuntimeException;
@@ -112,7 +112,7 @@ class Database
 	 * Returns a subquery container.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Query           $query  Subquery
+	 * @param   \mako\database\query\Query     $query  Subquery
 	 * @param   string                         $alias  (optional) Alias
 	 * @return  \mako\database\query\Subquery
 	 */

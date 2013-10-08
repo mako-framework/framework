@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\database;
+namespace mako\database\query;
 
 use \PDO;
 use \Closure;
@@ -307,8 +307,8 @@ class Query
 	 * Sets the columns we want to select.
 	 *
 	 * @access  public
-	 * @param   array                 $columns  Array of columns
-	 * @return  \mako\database\Query
+	 * @param   array                       $columns  Array of columns
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function columns(array $columns)
@@ -324,7 +324,7 @@ class Query
 	/**
 	 * Select distinct?
 	 *
-	 * @return  \mako\database\Query
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function distinct()
@@ -338,11 +338,11 @@ class Query
 	 * Adds a WHERE clause.
 	 *
 	 * @access  public
-	 * @param   string|\Closure        $column     Column name or closure
-	 * @param   string                 $operator   (optional) Operator
-	 * @param   mixed                  $value      (optional) Value
-	 * @param   string                 $separator  (optional) Clause separator
-	 * @return  \mako\database\Query
+	 * @param   string|\Closure             $column     Column name or closure
+	 * @param   string                      $operator   (optional) Operator
+	 * @param   mixed                       $value      (optional) Value
+	 * @param   string                      $separator  (optional) Clause separator
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function where($column, $operator = null, $value = null, $separator = 'AND')
@@ -379,10 +379,10 @@ class Query
 	 * Adds a OR WHERE clause.
 	 *
 	 * @access  public
-	 * @param   string|\Closure       $column    Column name or closure
-	 * @param   string                $operator  (optional) Operator
-	 * @param   mixed                 $value     (optional) Value
-	 * @return  \mako\database\Query
+	 * @param   string|\Closure             $column    Column name or closure
+	 * @param   string                      $operator  (optional) Operator
+	 * @param   mixed                       $value     (optional) Value
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orWhere($column, $operator = null, $value = null)
@@ -394,12 +394,12 @@ class Query
 	 * Adds a BETWEEN clause.
 	 *
 	 * @access  public
-	 * @param   string                $column     Column name
-	 * @param   mixed                 $value1     First value
-	 * @param   mixed                 $value2     Second value
-	 * @param   string                $separator  (optional) Clause separator
-	 * @param   boolean               $not        Not between?
-	 * @return  \mako\database\Query
+	 * @param   string                      $column     Column name
+	 * @param   mixed                       $value1     First value
+	 * @param   mixed                       $value2     Second value
+	 * @param   string                      $separator  (optional) Clause separator
+	 * @param   boolean                     $not        Not between?
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function between($column, $value1, $value2, $separator = 'AND', $not = false)
@@ -421,10 +421,10 @@ class Query
 	 * Adds a OR BETWEEN clause.
 	 *
 	 * @access  public
-	 * @param   string                $column  Column name
-	 * @param   mixed                 $value1  First value
-	 * @param   mixed                 $value2  Second value
-	 * @return  \mako\database\Query
+	 * @param   string                      $column  Column name
+	 * @param   mixed                       $value1  First value
+	 * @param   mixed                       $value2  Second value
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orBetween($column, $value1, $value2)
@@ -436,10 +436,10 @@ class Query
 	 * Adds a NOT BETWEEN clause.
 	 *
 	 * @access  public
-	 * @param   string                $column  Column name
-	 * @param   mixed                 $value1  First value
-	 * @param   mixed                 $value2  Second value
-	 * @return  \mako\database\Query
+	 * @param   string                      $column  Column name
+	 * @param   mixed                       $value1  First value
+	 * @param   mixed                       $value2  Second value
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function notBetween($column, $value1, $value2)
@@ -451,10 +451,10 @@ class Query
 	 * Adds a OR NOT BETWEEN clause.
 	 *
 	 * @access  public
-	 * @param   string                $column  Column name
-	 * @param   mixed                 $value1  First value
-	 * @param   mixed                 $value2  Second value
-	 * @return  \mako\database\Query
+	 * @param   string                      $column  Column name
+	 * @param   mixed                       $value1  First value
+	 * @param   mixed                       $value2  Second value
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orNotBetween($column, $value1, $value2)
@@ -466,11 +466,11 @@ class Query
 	 * Adds a IN clause.
 	 *
 	 * @access  public
-	 * @param   string                $column     Column name
-	 * @param   mixed                 $values     Array of values or Subquery
-	 * @param   string                $separator  (optional) Clause separator
-	 * @param   boolean               $not        (optional) Not in?
-	 * @return  \mako\database\Query
+	 * @param   string                      $column     Column name
+	 * @param   mixed                       $values     Array of values or Subquery
+	 * @param   string                      $separator  (optional) Clause separator
+	 * @param   boolean                     $not        (optional) Not in?
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function in($column, $values, $separator = 'AND', $not = false)
@@ -496,9 +496,9 @@ class Query
 	 * Adds a OR IN clause.
 	 *
 	 * @access  public
-	 * @param   string                $column  Column name
-	 * @param   mixed                 $values  Array of values or Subquery
-	 * @return  \mako\database\Query
+	 * @param   string                      $column  Column name
+	 * @param   mixed                       $values  Array of values or Subquery
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orIn($column, $values)
@@ -510,9 +510,9 @@ class Query
 	 * Adds a NOT IN clause.
 	 *
 	 * @access  public
-	 * @param   string                $column  Column name
-	 * @param   mixed                 $values  Array of values or Subquery
-	 * @return  \mako\database\Query
+	 * @param   string                      $column  Column name
+	 * @param   mixed                       $values  Array of values or Subquery
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function notIn($column, $values)
@@ -524,9 +524,9 @@ class Query
 	 * Adds a OR NOT IN clause.
 	 *
 	 * @access  public
-	 * @param   string                $column  Column name
-	 * @param   mixed                 $values  Array of values or Subquery
-	 * @return  \mako\database\Query
+	 * @param   string                      $column  Column name
+	 * @param   mixed                       $values  Array of values or Subquery
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orNotIn($column, $values)
@@ -538,10 +538,10 @@ class Query
 	 * Adds a IS NULL clause.
 	 *
 	 * @access  public
-	 * @param   mixed                 $column     Column name
-	 * @param   string                $separator  (optional) Clause separator
-	 * @param   boolean               $not        (optional) Not in?
-	 * @return  \mako\database\Query
+	 * @param   mixed                       $column     Column name
+	 * @param   string                      $separator  (optional) Clause separator
+	 * @param   boolean                     $not        (optional) Not in?
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function null($column, $separator = 'AND', $not = false)
@@ -561,8 +561,8 @@ class Query
 	 * Adds a OR IS NULL clause.
 	 *
 	 * @access  public
-	 * @param   mixed                 $column  Column name
-	 * @return  \mako\database\Query
+	 * @param   mixed                       $column  Column name
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orNull($column)
@@ -574,8 +574,8 @@ class Query
 	 * Adds a IS NOT NULL clause.
 	 *
 	 * @access  public
-	 * @param   mixed                 $column  Column name
-	 * @return  \mako\database\Query
+	 * @param   mixed                       $column  Column name
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function notNull($column)
@@ -587,8 +587,8 @@ class Query
 	 * Adds a OR IS NOT NULL clause.
 	 *
 	 * @access  public
-	 * @param   mixed                 $column  Column name
-	 * @return  \mako\database\Query
+	 * @param   mixed                        $column  Column name
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orNotNull($column)
@@ -603,7 +603,7 @@ class Query
 	 * @param   \mako\database\query\Subquery  $query      Subquery
 	 * @param   string                         $separator  (optional) Clause separator
 	 * @param   boolean                        $not        (optional) Not exists?
-	 * @return  \mako\database\Query
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function exists(Subquery $query, $separator = 'AND', $not = false)
@@ -624,7 +624,7 @@ class Query
 	 *
 	 * @access  public
 	 * @param   \mako\database\query\Subquery  $query  Subquery
-	 * @return  \mako\database\Query
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orExists(Subquery $query)
@@ -637,7 +637,7 @@ class Query
 	 *
 	 * @access  public
 	 * @param   \mako\database\query\Subquery  $query  Subquery
-	 * @return  \mako\database\Query
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function notExists(Subquery $query)
@@ -650,7 +650,7 @@ class Query
 	 *
 	 * @access  public
 	 * @param   \mako\database\query\Subquery  $query  Subquery
-	 * @return  \mako\database\Query
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orNotExists(Subquery $query)
@@ -662,12 +662,12 @@ class Query
 	 * Adds a JOIN clause.
 	 *
 	 * @access  public
-	 * @param   string                $table     Table name
-	 * @param   string|\Closure        $column1   (optional) Column name or closure
-	 * @param   string                $operator  (optional) Operator
-	 * @param   string                $column2   (optional) Column name
-	 * @param   string                $type      (optional) Join type
-	 * @return  \mako\database\Query
+	 * @param   string                      $table     Table name
+	 * @param   string|\Closure             $column1   (optional) Column name or closure
+	 * @param   string                      $operator  (optional) Operator
+	 * @param   string                      $column2   (optional) Column name
+	 * @param   string                      $type      (optional) Join type
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER')
@@ -692,11 +692,11 @@ class Query
 	 * Adds a LEFT OUTER JOIN clause.
 	 *
 	 * @access  public
-	 * @param   string                $table     Table name
-	 * @param   string|\Closure        $column1   (optional) Column name or closure
-	 * @param   string                $operator  (optional) Operator
-	 * @param   string                $column2   (optional) Column name
-	 * @return  \mako\database\Query
+	 * @param   string                      $table     Table name
+	 * @param   string|\Closure             $column1   (optional) Column name or closure
+	 * @param   string                      $operator  (optional) Operator
+	 * @param   string                      $column2   (optional) Column name
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function leftJoin($table, $column1 = null, $operator = null, $column2 = null)
@@ -708,8 +708,8 @@ class Query
 	 * Adds a GROUP BY clause.
 	 *
 	 * @access  public
-	 * @param   string|array          $columns  Column name or array of column names
-	 * @return  \mako\database\Query
+	 * @param   string|array                $columns  Column name or array of column names
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function groupBy($columns)
@@ -728,11 +728,11 @@ class Query
 	 * Adds a HAVING clause.
 	 *
 	 * @access  public
-	 * @param   string                $column     Column name
-	 * @param   string                $operator   Operator
-	 * @param   mixed                 $value      Value
-	 * @param   string                $separator  (optional) Clause separator
-	 * @return  \mako\database\Query
+	 * @param   string                      $column     Column name
+	 * @param   string                      $operator   Operator
+	 * @param   mixed                       $value      Value
+	 * @param   string                      $separator  (optional) Clause separator
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function having($column, $operator, $value, $separator = 'AND')
@@ -752,10 +752,10 @@ class Query
 	 * Adds a OR HAVING clause.
 	 *
 	 * @access  public
-	 * @param   string                $column    Column name
-	 * @param   string                $operator  Operator
-	 * @param   mixed                 $value     Value
-	 * @return  \mako\database\Query
+	 * @param   string                      $column    Column name
+	 * @param   string                      $operator  Operator
+	 * @param   mixed                       $value     Value
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orHaving($column, $operator, $value)
@@ -767,9 +767,9 @@ class Query
 	 * Adds a ORDER BY clause.
 	 *
 	 * @access  public
-	 * @param   string|array          $columns  Column name or array of column names
-	 * @param   string                $order    (optional) Sorting order
-	 * @return  \mako\database\Query
+	 * @param   string|array                $columns  Column name or array of column names
+	 * @param   string                      $order    (optional) Sorting order
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function orderBy($columns, $order = 'ASC')
@@ -792,8 +792,8 @@ class Query
 	 * Adds a ascending ORDER BY clause.
 	 *
 	 * @access  public
-	 * @param   string|array          $columns  Column name or array of column names
-	 * @return  \mako\database\Query
+	 * @param   string|array                $columns  Column name or array of column names
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function ascending($columns)
@@ -805,8 +805,8 @@ class Query
 	 * Adds a descending ORDER BY clause.
 	 *
 	 * @access  public
-	 * @param   string|array          $columns  Column name or array of column names
-	 * @return  \mako\database\Query
+	 * @param   string|array                $columns  Column name or array of column names
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function descending($columns)
@@ -818,8 +818,8 @@ class Query
 	 * Adds a LIMIT clause.
 	 *
 	 * @access  public
-	 * @param   int                   $limit  Limit
-	 * @return  \mako\database\Query
+	 * @param   int                         $limit  Limit
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function limit($limit)
@@ -833,8 +833,8 @@ class Query
 	 * Adds a OFFSET clause.
 	 *
 	 * @access  public
-	 * @param   int                   $offset  Offset
-	 * @return  \mako\database\Query
+	 * @param   int                         $offset  Offset
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function offset($offset)

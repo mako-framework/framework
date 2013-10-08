@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use \mako\database\Query;
+use \mako\database\query\Query;
 
 class OracleBuilderTest extends PHPUnit_Framework_TestCase
 {

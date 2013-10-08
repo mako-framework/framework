@@ -83,7 +83,7 @@ class Database extends \mako\session\adapters\Adapter implements \mako\session\H
 	 * Returns a query builder instance.
 	 *
 	 * @access  protected
-	 * @return  \mako\database\Query
+	 * @return  \mako\database\query\Query
 	 */
 
 	protected function table()

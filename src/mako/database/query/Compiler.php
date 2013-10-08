@@ -2,7 +2,7 @@
 
 namespace mako\database\query;
 
-use \mako\database\Query;
+use \mako\database\query\Query;
 use \mako\database\query\Raw;
 use \mako\database\query\Subquery;
 
@@ -31,7 +31,7 @@ class Compiler
 	/**
 	 * Query builder.
 	 *
-	 * @var mako\database\Query
+	 * @var mako\database\query\Query
 	 */
 
 	protected $query;
@@ -52,7 +52,7 @@ class Compiler
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   mako\database\Query  $query  Query builder
+	 * @param   mako\database\query\Query  $query  Query builder
 	 */
 
 	public function __construct(Query $query)

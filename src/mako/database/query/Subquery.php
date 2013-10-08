@@ -2,7 +2,7 @@
 
 namespace mako\database\query;
 
-use \mako\database\Query;
+use \mako\database\query\Query;
 
 /**
  * Subquery container.
@@ -21,7 +21,7 @@ class Subquery
 	/**
 	 * Query builder.
 	 *
-	 * @var \mako\database\Query
+	 * @var \mako\database\query\Query
 	 */
 
 	protected $query;
@@ -42,8 +42,8 @@ class Subquery
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Query  $query  Query builder
-	 * @param   string                $alias  Subquery alias
+	 * @param   \mako\database\query\Query  $query  Query builder
+	 * @param   string                      $alias  Subquery alias
 	 */
 
 	public function __construct(Query $query, $alias = null)

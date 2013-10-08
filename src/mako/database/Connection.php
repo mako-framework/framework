@@ -8,7 +8,7 @@ use \PDOException;
 use \RuntimeException;
 use \mako\core\Config;
 use \mako\database\Database;
-use \mako\database\Query;
+use \mako\database\query\Query;
 
 /**
  * Database connection.
@@ -398,8 +398,8 @@ class Connection
 	 * Returns a query builder instance.
 	 *
 	 * @access  public
-	 * @param   mixed                 $table  Table name or subquery
-	 * @return  \mako\database\Query
+	 * @param   mixed                       $table  Table name or subquery
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function table($table)

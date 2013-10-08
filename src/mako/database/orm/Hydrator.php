@@ -16,7 +16,7 @@ use \mako\database\orm\ResultSet;
 use \mako\database\orm\ReadOnlyRecordException;
 use \BadMethodCallException;
 
-class Hydrator extends \mako\database\Query
+class Hydrator extends \mako\database\query\Query
 {
 	//---------------------------------------------
 	// Class properties
@@ -67,12 +67,12 @@ class Hydrator extends \mako\database\Query
 	 * Adds a JOIN clause.
 	 *
 	 * @access  public
-	 * @param   string                $table     Table name
-	 * @param   string|\Closure       $column1   (optional) Column name or closure
-	 * @param   string                $operator  (optional) Operator
-	 * @param   string                $column2   (optional) Column name
-	 * @param   string                $type      (optional) Join type
-	 * @return  \mako\database\Query
+	 * @param   string                      $table     Table name
+	 * @param   string|\Closure             $column1   (optional) Column name or closure
+	 * @param   string                      $operator  (optional) Operator
+	 * @param   string                      $column2   (optional) Column name
+	 * @param   string                      $type      (optional) Join type
+	 * @return  \mako\database\query\Query
 	 */
 
 	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER')

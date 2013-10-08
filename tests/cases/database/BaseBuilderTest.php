@@ -2,7 +2,7 @@
 
 use Mockery as m;
 use \mako\database\Database;
-use \mako\database\Query;
+use \mako\database\query\Query;
 use \mako\database\query\Subquery;
 
 class BaseBuilderTest extends PHPUnit_Framework_TestCase

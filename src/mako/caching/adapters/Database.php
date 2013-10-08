@@ -63,7 +63,7 @@ class Database extends \mako\caching\adapters\Adapter
 	 * Returns a query builder instance.
 	 *
 	 * @access  protected
-	 * @return  \mako\database\Query
+	 * @return  \mako\database\query\Query
 	 */
 
 	protected function table()
