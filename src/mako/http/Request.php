@@ -344,11 +344,18 @@ class Request
 
 		$route = $router->route();
 
-		$this->parameters = $route->getParameters();
+		if($this->method === 'OPTIONS' && $this->isMain())
+		{
+			return Response::factory()->header('Allow', implode(', ', $route->allows()));
+		}
+		else
+		{
+			$this->parameters = $route->getParameters();
 
-		$dispatcher = new Dispatcher($this, $route);
+			$dispatcher = new Dispatcher($this, $route);
 
-		return $dispatcher->dispatch();
+			return $dispatcher->dispatch();
+		}
 	}
 
 	/**

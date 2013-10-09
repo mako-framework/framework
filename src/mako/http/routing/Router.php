@@ -4,7 +4,8 @@ namespace mako\http\routing;
 
 use \mako\http\Request;
 use \mako\http\Response;
-use \mako\http\RequestException;
+use \mako\http\routing\PageNotFoundException;
+use \mako\http\routing\MethodNotAllowedException;
 use \mako\http\routing\URL;
 
 /**
@@ -50,42 +51,6 @@ class Router
 	//---------------------------------------------
 
 	/**
-	 * Checks if the route could have responded if the request method was different.
-	 * 
-	 * @access  protected
-	 * @return  boolean
-	 */
-
-	protected function canRespondToDifferentMethod()
-	{
-		$methods = array('HEAD', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE');
-
-		// Remove the current request method from the array of possible methods
-
-		$methods = array_diff($methods, array($this->request->method()));
-
-		// Check if the route could have matched had the 
-		// request method been any of the remaining ones
-
-		$requestedRoute = $this->request->route();
-
-		foreach($methods as $method)
-		{
-			$routes = Routes::getRoutes($method);
-
-			foreach($routes as $route)
-			{
-				if($route->isMatch($requestedRoute))
-				{
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * Matches and returns the appropriate route.
 	 * 
 	 * @access  public
@@ -94,7 +59,9 @@ class Router
 
 	public function route()
 	{
-		$routes = Routes::getRoutes($this->request->method());
+		$routes = Routes::getRoutes();
+
+		$requestMethod = $this->request->method();
 
 		$requestedRoute = $this->request->route();
 
@@ -102,29 +69,27 @@ class Router
 		{
 			if($route->isMatch($requestedRoute))
 			{
+				if(!$route->allows($requestMethod))
+				{
+					// The matched route does not allow the request method so we'll throw an exception
+
+					throw new MethodNotAllowedException($route->allows());
+				}
+
 				if($route->hasTrailingSlash() && substr($requestedRoute, -1) !== '/')
 				{
+					// Redirect to URL with trailing slash if the route should have one
+
 					Response::factory()->redirect(URL::to($requestedRoute . '/', $_GET, '&'), 301);
 				}
 
 				return $route;
 			}
 		}
-		
-		if($this->canRespondToDifferentMethod())
-		{
-			// The route could been matched using a different request method
-			// so we'll throw a 405 exception
 
-			throw new RequestException(405);
-		}
-		else
-		{
-			// The route could have not been matched using a different request method
-			// so we'll just throw a 404 exception
-			
-			throw new RequestException(404);
-		}
+		// No routes matched so we'll throw an exception
+		
+		throw new PageNotFoundException();
 	}
 }
 

@@ -17,6 +17,14 @@ class Route
 	//---------------------------------------------
 
 	/**
+	 * Methods.
+	 * 
+	 * @var array
+	 */
+
+	protected $methods;
+
+	/**
 	 * Route.
 	 * 
 	 * @var string
@@ -31,6 +39,14 @@ class Route
 	 */
 
 	protected $action;
+
+	/**
+	 * Route name.
+	 * 
+	 * @var string
+	 */
+
+	protected $name;
 
 	/**
 	 * Route prefix.
@@ -88,15 +104,21 @@ class Route
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string           $route   Route
-	 * @param   string|\Closure  $action  Route action
+	 * @param   array            $methods  Route methods
+	 * @param   string           $route    Route
+	 * @param   string|\Closure  $action   Route action
+	 * @param   string           $name     Route name
 	 */
 
-	public function __construct($route, $action)
+	public function __construct(array $methods, $route, $action, $name = null)
 	{
+		$this->methods = $methods;
+
 		$this->route = $route;
 		
 		$this->action = $action;
+
+		$this->name = $name;
 
 		$this->hasTrailingSlash = (substr($route, -1) === '/');
 	}
@@ -104,6 +126,25 @@ class Route
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns all allowed methods if no parameter is specified. 
+	 * Returns TRUE if the route allows the specified method or FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string         $method  (optional) Method
+	 * @return  array|boolean
+	 */
+
+	public function allows($method = null)
+	{
+		if($method !== null)
+		{
+			return in_array($method, $this->methods);
+		}
+
+		return $this->methods;
+	}
 
 	/**
 	 * Returns the route.
@@ -127,6 +168,18 @@ class Route
 	public function getAction()
 	{
 		return $this->action;
+	}
+
+	/**
+	 * Returns the route name.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getName()
+	{
+		return $this->name;
 	}
 
 	/**

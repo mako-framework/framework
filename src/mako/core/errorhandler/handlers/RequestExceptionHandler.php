@@ -5,6 +5,7 @@ namespace mako\core\errorhandler\handlers;
 use \Exception;
 use \mako\view\View;
 use \mako\http\Response;
+use \mako\http\routing\MethodNotAllowedException;
 
 /**
  * RequestException handler.
@@ -56,7 +57,14 @@ class RequestExceptionHandler
 
 	public function handle()
 	{
-		Response::factory(new View('_mako_.errors.' . $this->exception->getCode()))->send($this->exception->getCode());
+		$response = new Response(new View('_mako_.errors.' . $this->exception->getCode()));
+
+		if($this->exception instanceof MethodNotAllowedException)
+		{
+			$response->header('Allow', implode(', ', $this->exception->getAllowedMethods()));
+		}
+
+		$response->send($this->exception->getCode());
 	}
 }
 

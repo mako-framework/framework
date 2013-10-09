@@ -204,56 +204,69 @@ class Response
 	 * Sets the response body.
 	 *
 	 * @access  public
-	 * @param   string    $body  Response body
+	 * @param   string               $body  Response body
+	 * @return  \mako\http\Response
 	 */
 
 	public function body($body)
 	{
 		$this->body = (string) $body;
+
+		return $this;
 	}
 	
 	/**
 	 * Adds output filter that all output will be passed through before being sent.
 	 *
 	 * @access  public
-	 * @param   \Closure  $filter  Closure used to filter output
+	 * @param   \Closure             $filter  Closure used to filter output
+	 * @return  \mako\http\Response
 	 */
 	
 	public function filter(Closure $filter)
 	{
 		$this->outputFilter = $filter;
+
+		return $this;
 	}
 
 	/**
 	 * Sets a response header.
 	 * 
 	 * @access  public
-	 * @param   string  $name   Header name
-	 * @param   string  $value  Header value
+	 * @param   string               $name   Header name
+	 * @param   string               $value  Header value
+	 * @return  \mako\http\Response
 	 */
 
 	public function header($name, $value)
 	{
 		$this->responseHeaders[$name] = $value;
+
+		return $this;
 	}
 
 	/**
 	 * Clear the response headers.
 	 * 
 	 * @access  public
+	 * @return  \mako\http\Response
 	 */
 
 	public function clearHeaders()
 	{
 		$this->responseHeaders = array();
+
+		return $this;
 	}
 
 	/**
 	 * Sets the response content type.
 	 * 
 	 * @access  public
-	 * @param   string  $contentType  Content type
-	 * @param   string  $charset      (optional) Charset
+	 * @param   string                $contentType  Content type
+	 * @param   string                $charset      (optional) Charset
+	 * @return  \mako\http\Response
 	 */
 
 	public function type($contentType, $charset = null)
@@ -264,18 +277,23 @@ class Response
 		{
 			$this->charset = $charset;
 		}
+
+		return $this;
 	}
 
 	/**
 	 * Sets the response charset.
 	 * 
 	 * @access  public
-	 * @param   string  $charset  Charset
+	 * @param   string               $charset  Charset
+	 * @return  \mako\http\Response
 	 */
 
 	public function charset($charset)
 	{
 		$this->charset = $charset;
+
+		return $this;
 	}
 
 	/**
@@ -309,7 +327,8 @@ class Response
 	 * Sends HTTP status header.
 	 *
 	 * @access  public
-	 * @param   int     HTTP status code
+	 * @param   int                  $statusCode  HTTP status code
+	 * @return  \mako\http\Response
 	 */
 	
 	public function status($statusCode)
@@ -328,6 +347,8 @@ class Response
 			
 			header($protocol . ' ' . $statusCode . ' '. $this->statusCodes[$statusCode]);
 		}
+
+		return $this;
 	}
 	
 	/**
@@ -368,44 +389,56 @@ class Response
 	 * Enables ETag response cache.
 	 *
 	 * @access  public
+	 * @return  \mako\http\Response
 	 */
 
 	public function cache()
 	{
 		$this->responseCache = true;
+
+		return $this;
 	}
 
 	/**
 	 * Disables ETag response cache.
 	 *
 	 * @access  public
+	 * @return  \mako\http\Response
 	 */
 
 	public function disableCaching()
 	{
 		$this->responseCache = false;
+
+		return $this;
 	}
 
 	/**
 	 * Enables output compression.
 	 * 
 	 * @access  public
+	 * @return  \mako\http\Response
 	 */
 
 	public function compress()
 	{
 		$this->outputCompression = true;
+
+		return $this;
 	}
 
 	/**
 	 * Disables output compression.
 	 * 
 	 * @access  public
+	 * @return  \mako\http\Response
 	 */
 
 	public function disableCompression()
 	{
 		$this->outputCompression = false;
+
+		return $this;
 	}
 	
 	/**
