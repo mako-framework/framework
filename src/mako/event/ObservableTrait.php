@@ -66,7 +66,7 @@ trait ObservableTrait
 	 * Detach an observer.
 	 * 
 	 * @access  public
-	 * @param   object  $observer  Observer instance
+	 * @param   object|string  $observer  Observer instance or observer class name
 	 */
 
 	public function detachObserver($observer)
@@ -84,7 +84,7 @@ trait ObservableTrait
 	 * Detach a static observer.
 	 * 
 	 * @access  public
-	 * @param   object  $observer  Observer instance
+	 * @param   object|string  $observer  Observer instance or observer class name
 	 */
 
 	public static function detachStaticObserver($observer)
