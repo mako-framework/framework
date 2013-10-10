@@ -108,7 +108,7 @@ trait ObservableTrait
 	{
 		$event = String::underscored2camel(str_replace('.', '_', $event));
 
-		foreach(($this->_observers + static::$_staticObservers) as $observer)
+		foreach(array_merge($this->_observers, static::$_staticObservers) as $observer)
 		{
 			if(method_exists($observer, $event))
 			{
