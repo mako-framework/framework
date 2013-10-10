@@ -6,7 +6,6 @@ use \Closure;
 use \RuntimeException;
 use \mako\http\Request;
 use \mako\http\Response;
-use \mako\http\routing\Route;
 use \mako\http\routing\Routes;
 use \mako\http\routing\Controller;
 
@@ -64,15 +63,14 @@ class Dispatcher
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Reqeust        $request  Request
-	 * @param   \mako\http\routing\Route  $route    Route
+	 * @param   \mako\http\Reqeust  $request  Request
 	 */
 
-	public function __construct(Request $request, Route $route)
+	public function __construct(Request $request)
 	{
 		$this->request = $request;
 
-		$this->route = $route;
+		$this->route = $request->matchedRoute();
 
 		$this->response = new Response();
 	}

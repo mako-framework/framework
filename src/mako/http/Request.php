@@ -97,6 +97,14 @@ class Request
 	protected $method;
 
 	/**
+	 * Matched route.
+	 * 
+	 * @var \mako\http\routing\Route
+	 */
+
+	protected $matchedRoute;
+
+	/**
 	 * Request parameters.
 	 * 
 	 * @var array
@@ -342,17 +350,17 @@ class Request
 	{
 		$router = new Router($this);
 
-		$route = $router->route();
+		$this->matchedRoute = $router->route();
 
 		if($this->method === 'OPTIONS' && $this->isMain())
 		{
-			return Response::factory()->header('Allow', implode(', ', $route->allows()));
+			return Response::factory()->header('Allow', implode(', ', $this->matchedRoute->allows()));
 		}
 		else
 		{
-			$this->parameters = $route->getParameters();
+			$this->parameters = $this->matchedRoute->getParameters();
 
-			$dispatcher = new Dispatcher($this, $route);
+			$dispatcher = new Dispatcher($this);
 
 			return $dispatcher->dispatch();
 		}
@@ -480,6 +488,18 @@ class Request
 	public function method()
 	{
 		return $this->method;
+	}
+
+	/**
+	 * Returns the matched route.
+	 * 
+	 * @access  public
+	 * @return  \mako\http\routing\Route
+	 */
+
+	public function matchedRoute()
+	{
+		return $this->matchedRoute;
 	}
 
 	/**
