@@ -73,7 +73,7 @@ trait ObservableTrait
 	{
 		foreach($this->_observers as $key => $_observer)
 		{
-			if($observer instanceof $_observer)
+			if($_observer instanceof $observer)
 			{
 				unset($this->_observers[$key]);
 			}
@@ -91,7 +91,7 @@ trait ObservableTrait
 	{
 		foreach(static::$_staticObservers as $key => $_observer)
 		{
-			if($observer instanceof $_observer)
+			if($_observer instanceof $observer)
 			{
 				unset(static::$_staticObservers[$key]);
 			}
