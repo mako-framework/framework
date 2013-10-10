@@ -1,18 +1,18 @@
 <?php
 
-namespace mako\core;
+namespace mako\event;
 
 use \Closure;
 
 /**
- * Event class.
+ * Event listener.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Event
+class Listener
 {
 	//---------------------------------------------
 	// Class properties
@@ -134,24 +134,6 @@ class Event
 		}
 
 		return $values;
-	}
-
-	/**
-	 * Runs all closures for an event and returns the result
-	 * of the first event handler.
-	 * 
-	 * @access  public
-	 * @param   string  $name    Event name
-	 * @param   array   $params  (optional) Closure parameters
-	 * @param   boolean  $break   (optional) Break if one of the closures returns false?
-	 * @return  mixed
-	 */
-
-	public static function first($name, array $params = array(), $break = false)
-	{
-		$results = static::trigger($name, $params, $break);
-
-		return empty($results) ? null : $results[0];
 	}
 }
 
