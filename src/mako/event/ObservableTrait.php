@@ -71,11 +71,12 @@ trait ObservableTrait
 
 	public function detachObserver($observer)
 	{
-		$key = array_search($observer, $this->_observers, true);
-
-		if($key !== false)
+		foreach($this->_observers as $key => $_observer)
 		{
-			unset($this->observers[$key]);
+			if($observer instanceof $_observer)
+			{
+				unset($this->_observers[$key]);
+			}
 		}
 	}
 
@@ -88,11 +89,12 @@ trait ObservableTrait
 
 	public static function detachStaticObserver($observer)
 	{
-		$key = array_search($observer, static::$_staticObservers, true);
-
-		if($key !== false)
+		foreach(static::$_staticObservers as $key => $_observer)
 		{
-			unset(static::$_staticObservers[$key]);
+			if($observer instanceof $_observer)
+			{
+				unset(static::$_staticObservers[$key]);
+			}
 		}
 	}
 
