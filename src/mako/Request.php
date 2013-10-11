@@ -339,7 +339,7 @@ class Request
 		$this->action     = $router->getAction();
 
 		// Validate controller class
-
+	
 		$controllerClass = new ReflectionClass($router->getNamespace() . $this->controller);
 
 		if($controllerClass->isSubClassOf('\mako\Controller') === false)
@@ -364,6 +364,7 @@ class Request
 
 		if($controller::RESTFUL === true)
 		{
+	
 			$action = strtolower($this->method()) . '_' . $this->action;
 		}
 		else
@@ -375,6 +376,7 @@ class Request
 
 		if($controllerClass->hasMethod($action) === false)
 		{
+			unset($action);
 			if($controller::RESTFUL === true)
 			{
 				$requestMethods = array('get', 'post', 'put', 'delete', 'patch');
@@ -386,13 +388,24 @@ class Request
 						throw new RequestException(405); // Only throw 405 if the controller has an action that can respond to the requested route
 					}
 				}
-			}
 
-			throw new RequestException(404);
+				if ($controllerClass->hasMethod(strtolower($this->method()) . '_index')) {
+					$actionArguments = array($this->action);
+					$action = $this->action = strtolower($this->method()). '_index';
+				}
+				else
+				{
+					throw new RequestException(404);
+				}
+			}
 		}
 
 		$controllerAction = $controllerClass->getMethod($action);
-		$actionArguments  = $router->getActionArguments();
+	
+		if (!isset($actionArguments))
+		{
+			$actionArguments  = $router->getActionArguments();
+		}
 		
 		// Check if number of arguments match
 		
