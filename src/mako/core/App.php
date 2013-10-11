@@ -101,6 +101,10 @@ class App
 			throw new RequestException(503);
 		}
 
+		// Include routes
+
+		include MAKO_APPLICATION_PATH . '/routes.php';
+
 		// Execute the request
 
 		Request::factory($route)->execute()->send();	
