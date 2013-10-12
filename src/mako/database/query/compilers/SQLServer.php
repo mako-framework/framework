@@ -17,6 +17,14 @@ class SQLServer extends \mako\database\query\Compiler
 	//---------------------------------------------
 
 	/**
+	 * Date format.
+	 * 
+	 * @var string
+	 */
+
+	protected static $dateForamt = 'Y-m-d H:i:s.0000000';
+
+	/**
 	 * Wrapper used to escape table and column names.
 	 *
 	 * @var string
