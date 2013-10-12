@@ -2,6 +2,7 @@
 
 namespace mako\database\query;
 
+use \DateTime;
 use \mako\database\query\Query;
 use \mako\database\query\Raw;
 use \mako\database\query\Subquery;
@@ -19,6 +20,14 @@ class Compiler
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Date format.
+	 * 
+	 * @var string
+	 */
+
+	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
 	 * Wrapper used to escape table and column names.
@@ -63,6 +72,31 @@ class Compiler
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Sets the date format.
+	 * 
+	 * @access  public
+	 * @param   string  $dateFormat  Date format
+	 * @return  string
+	 */
+
+	public static function setDateFormat($dateFormat)
+	{
+		static::$dateFormat = $dateFormat;
+	}
+
+	/**
+	 * Gets the date format.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public static function getDateFormat()
+	{
+		return static::$dateFormat;
+	}
 
 	/**
 	 * Compiles subquery, merges parameters and returns subquery SQL.
@@ -154,6 +188,12 @@ class Compiler
 		elseif($param instanceof Subquery)
 		{
 			return $this->subquery($param);
+		}
+		elseif($param instanceof DateTime)
+		{
+			$this->params[] = $param->format(static::$dateFormat);
+
+			return '?';
 		}
 		else
 		{
