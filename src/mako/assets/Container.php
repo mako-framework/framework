@@ -67,7 +67,7 @@ class Container
 	{
 		// Prefix source with asset location if it's not a URL
 
-		if(strpos($source, '://') === false)
+		if(strpos($source, '://') === false && substr($source, 0, 2) !== "//")
 		{
 			$source = Assets::location() . $source;
 		}
