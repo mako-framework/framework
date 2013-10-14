@@ -64,7 +64,7 @@ class Group
 
 	protected function prefixSource($source)
 	{
-		if(strpos($source, '://') === false || substr($source, 0, 2) !== '//')
+		if(strpos($source, '://') === false && substr($source, 0, 2) !== '//')
 		{
 			$source = Assets::location() . $source;
 		}
