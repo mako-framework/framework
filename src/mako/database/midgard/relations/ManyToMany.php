@@ -208,6 +208,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
+	 * @param   array                       $columns  (optional)  Columns to select
 	 * @return  \mako\database\midgard\ORM
 	 */
 
@@ -222,6 +223,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	 * Returns a result set from the database.
 	 * 
 	 * @access  public
+	 * @param   array                             $columns  (optional)  Columns to select
 	 * @return  \mako\database\midgard\ResultSet
 	 */
 
