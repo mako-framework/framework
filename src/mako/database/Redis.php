@@ -214,7 +214,7 @@ class Redis
 	 * Pipeline commands.
 	 *
 	 * @access  public
-	 * @param   Closure  $pipeline  Pipelined commands
+	 * @param   \Closure  $pipeline  Pipelined commands
 	 * @return  array
 	 */
 

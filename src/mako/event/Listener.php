@@ -49,8 +49,8 @@ class Listener
 	 * Adds an event listener to the queue.
 	 *
 	 * @access  public
-	 * @param   string   $name     Event name
-	 * @param   Closure  $closure  Event handler
+	 * @param   string    $name     Event name
+	 * @param   \Closure  $closure  Event handler
 	 */
 
 	public static function register($name, Closure $closure)
@@ -94,8 +94,8 @@ class Listener
 	 * Overrides an event.
 	 * 
 	 * @access  public
-	 * @param   string   $name     Event name
-	 * @param   Closure  $closure  Event handler
+	 * @param   string    $name     Event name
+	 * @param   \Closure  $closure  Event handler
 	 */
 
 	public static function override($name, Closure $closure)

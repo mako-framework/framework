@@ -124,10 +124,10 @@ class File
 	 * Display a file in the browser.
 	 *
 	 * @access  public
-	 * @param   string   $file         Full path to file
-	 * @param   string   $contentType  (optional) Content type of the file
-	 * @param   string   $filename     (optional) Filename of the download
-	 * @param   Closure  $callback     (optional) Callback that will be executed after the file has been sent
+	 * @param   string    $file         Full path to file
+	 * @param   string    $contentType  (optional) Content type of the file
+	 * @param   string    $filename     (optional) Filename of the download
+	 * @param   \Closure  $callback     (optional) Callback that will be executed after the file has been sent
 	 */
 
 	public static function display($file, $contentType = null, $filename = null, Closure $callback = null)
@@ -177,11 +177,11 @@ class File
 	 * Forces a file to be downloaded.
 	 *
 	 * @access  public
-	 * @param   string   $file         Full path to file
-	 * @param   string   $contentType  (optional) Content type of the file
-	 * @param   string   $filename     (optional) Filename of the download
-	 * @param   int      $kbps         (optional) Max download speed in KiB/s
-	 * @param   Closure  $callback     (optional) Callback that will be executed after the file has been sent
+	 * @param   string    $file         Full path to file
+	 * @param   string    $contentType  (optional) Content type of the file
+	 * @param   string    $filename     (optional) Filename of the download
+	 * @param   int       $kbps         (optional) Max download speed in KiB/s
+	 * @param   \Closure  $callback     (optional) Callback that will be executed after the file has been sent
 	 */
 
 	public static function download($file, $contentType = null, $filename = null, $kbps = 0, Closure $callback = null)

@@ -91,8 +91,8 @@ class ErrorHandler
 	 * Prepends an exception handler to the stack.
 	 * 
 	 * @access  public
-	 * @param   string   $exception  Exception type
-	 * @param   Closure  $handler    Exception handler
+	 * @param   string    $exception  Exception type
+	 * @param   \Closure  $handler    Exception handler
 	 */
 
 	public static function handle($exception, Closure $handler)

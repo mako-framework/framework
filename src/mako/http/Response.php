@@ -65,7 +65,7 @@ class Response
 	/**
 	 * Output filter.
 	 *
-	 * @var Closure
+	 * @var \Closure
 	 */
 	
 	protected $outputFilter;

@@ -101,9 +101,9 @@ class Password
 	 * Validates a password hash.
 	 *
 	 * @access  public
-	 * @param   string   $password     Password
-	 * @param   string   $hash         Password hash
-	 * @param   Closure  $legacyCheck  (optional) Legacy check
+	 * @param   string    $password     Password
+	 * @param   string    $hash         Password hash
+	 * @param   \Closure  $legacyCheck  (optional) Legacy check
 	 * @return  boolean
 	 */
 

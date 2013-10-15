@@ -616,8 +616,8 @@ class Validate
 	 * Registers a custom validator.
 	 * 
 	 * @access  public
-	 * @param   string   $name       Validator name
-	 * @param   Closure  $validator  Validator
+	 * @param   string    $name       Validator name
+	 * @param   \Closure  $validator  Validator
 	 */
 
 	public static function registerValidator($name, Closure $validator)

@@ -195,8 +195,8 @@ class String
 	 * Returns a closure that will alternate between the defined strings.
 	 *
 	 * @access  public
-	 * @param   array    $strings  Array of strings to alternate between
-	 * @return  Closure
+	 * @param   array     $strings  Array of strings to alternate between
+	 * @return  \Closure
 	 */
 
 	public static function alternator(array $strings)
