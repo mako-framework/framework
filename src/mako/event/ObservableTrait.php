@@ -2,7 +2,8 @@
 
 namespace mako\event;
 
-use \mako\utility\String;
+use \Closure;
+use \RuntimeExcepion;
 
 /**
  * Observable trait.
@@ -42,40 +43,48 @@ trait ObservableTrait
 	 * Attach an observer.
 	 * 
 	 * @access  public
-	 * @param   object  $observer  Observer instance
+	 * @param   string                  $event     Event name
+	 * @param   string|object|\Closure  $observer  Observer instance
 	 */
 
-	public function attachObserver($observer)
+	public function attachObserver($event, $observer)
 	{
-		$this->_observers[] = $observer;
+		$this->_observers[$event][] = $observer;
 	}
 
 	/**
 	 * Attach a static observer.
 	 * 
 	 * @access  public
-	 * @param   object  $observer  Observer instance
+	 * @param   string                  $event     Event name
+	 * @param   string|object|\Closure  $observer  Observer instance
 	 */
 
-	public static function attachStaticObserver($observer)
+	public static function attachStaticObserver($event, $observer)
 	{
-		static::$_staticObservers[] = $observer;
+		static::$_staticObservers[$event][] = $observer;
 	}
 
 	/**
 	 * Detach an observer.
 	 * 
 	 * @access  public
-	 * @param   object|string  $observer  Observer instance or observer class name
+	 * @param   string         $event     Event name
+	 * @param   string|object  $observer  Observer instance or observer class name
 	 */
 
-	public function detachObserver($observer)
+	public function detachObserver($event, $observer)
 	{
-		foreach($this->_observers as $key => $_observer)
+		if(!isset($this->_observers[$event]))
 		{
-			if($_observer instanceof $observer)
+			throw new RuntimeException(vsprintf("%s(): The '%s' event does not exist.", array(__METHOD__, $event)));
+		}
+
+		foreach($this->_observers[$event] as $key => $_observer)
+		{
+			if($_observer instanceof $observer || $_observer === $observer)
 			{
-				unset($this->_observers[$key]);
+				unset($this->_observers[$event][$key]);
 			}
 		}
 	}
@@ -84,39 +93,139 @@ trait ObservableTrait
 	 * Detach a static observer.
 	 * 
 	 * @access  public
+	 * @param   string         $event     Event name
 	 * @param   object|string  $observer  Observer instance or observer class name
 	 */
 
-	public static function detachStaticObserver($observer)
+	public static function detachStaticObserver($event, $observer)
 	{
-		foreach(static::$_staticObservers as $key => $_observer)
+		if(!isset(static::$_staticObservers[$event]))
 		{
-			if($_observer instanceof $observer)
+			throw new RuntimeException(vsprintf("%s(): The '%s' event does not exist.", array(__METHOD__, $event)));
+		}
+
+		foreach(static::$_staticObservers[$event] as $key => $_observer)
+		{
+			if($_observer instanceof $observer || $_observer === $observer)
 			{
-				unset(static::$_staticObservers[$key]);
+				unset(static::$_staticObservers[$event][$key]);
 			}
 		}
+	}
+
+	/**
+	 * Clear all observers.
+	 * 
+	 * @access  public
+	 * @param   string  $event  (optional) Event name
+	 */
+
+	public function clearObservers($event = null)
+	{
+		if($event === null)
+		{
+			$this->_observers = array();
+		}
+		else
+		{
+			$this->_observers[$event] = array();
+		}
+	}
+
+	/**
+	 * Clear all static observers.
+	 * 
+	 * @access  public
+	 * @param   string  $event  (optional) Event name
+	 */
+
+	public static function clearStaticObservers($event = null)
+	{
+		if($event === null)
+		{
+			static::$_staticObservers = array();
+		}
+		else
+		{
+			static::$_staticObservers[$event] = array();
+		}
+	}
+
+	/**
+	 * Overrides an observer.
+	 * 
+	 * @access  public
+	 * @param   string                  $event    Event name
+	 * @param   string|object|\Closure  $closure  Event handler
+	 */
+
+	public function overrideObservers($event, $observer)
+	{
+		$this->clearObservers($event);
+
+		$this->attachObserver($event, $observer);
+	}
+
+	/**
+	 * Overrides a static observer.
+	 * 
+	 * @access  public
+	 * @param   string                  $event    Event name
+	 * @param   string|object|\Closure  $closure  Event handler
+	 */
+
+	public static function overrideStaticObservers($event, $observer)
+	{
+		static::clearStaticObservers($event);
+
+		static::attachStaticObserver($event, $observer);
 	}
 
 	/**
 	 * Notify all observers.
 	 * 
 	 * @access  public
-	 * @param   string  $event       Event
-	 * @param   array   $parameters  (optional) Parameters
+	 * @param   string   $event       Event name
+	 * @param   array    $parameters  (optional) Parameters
+	 * @param   boolean  $break       (optional) Break if one of the observers returns false?
 	 */
 
-	protected function notifyObservers($event, array $parameters = array())
+	protected function notifyObservers($event, array $parameters = array(), $break = false)
 	{
-		$event = String::underscored2camel(str_replace('.', '_', $event));
+		$returnValues = array();
 
-		foreach(array_merge($this->_observers, static::$_staticObservers) as $observer)
+		// Merge observers and static observers
+
+		$observers = array_merge
+		(
+			isset($this->_observers[$event]) ? $this->_observers[$event] : array(),
+			isset(static::$_staticObservers[$event]) ? static::$_staticObservers[$event] : array()
+		);
+
+		// Notify observers
+
+		foreach($observers as $observer)
 		{
-			if(method_exists($observer, $event))
+			if(!is_object($observer))
 			{
-				call_user_func_array(array($observer, $event), $parameters);
+				$observer = array(new $observer, 'update');
+			}
+			elseif(!($observer instanceof Closure))
+			{
+				$observer = array($observer, 'update');
+			}
+
+			$returnValues[] = $last = call_user_func_array($observer, $parameters);
+
+			if($break && $last === false)
+			{
+				break;
 			}
 		}
+
+		// Return all return values from the observers
+
+		return $returnValues;
 	}
 }
 
