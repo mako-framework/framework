@@ -4,7 +4,7 @@ namespace mako\database;
 
 use \Closure;
 use \mako\core\Config;
-use \mako\utility\String;
+use \mako\utility\Str;
 use \RuntimeException;
 
 /**
@@ -265,7 +265,7 @@ class Redis
 	{
 		// Build command
 		
-		$arguments = array_merge(explode(' ', strtoupper(str_replace('_', ' ', String::camel2underscored($name)))), $arguments);
+		$arguments = array_merge(explode(' ', strtoupper(str_replace('_', ' ', Str::camel2underscored($name)))), $arguments);
 
 		$command = '*' . count($arguments) . static::CRLF;
 

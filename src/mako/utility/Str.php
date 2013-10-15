@@ -268,7 +268,7 @@ class String
 	 * @return  string
 	 */
 
-	public static function random($pool = String::ALNUM, $length = 32)
+	public static function random($pool = Str::ALNUM, $length = 32)
 	{
 		$string = '';
 

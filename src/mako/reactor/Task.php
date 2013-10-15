@@ -2,7 +2,7 @@
 
 namespace mako\reactor;
 
-use \mako\utility\String;
+use \mako\utility\Str;
 use \mako\reactor\CLI;
 use \ReflectionClass;
 use \ReflectionMethod;

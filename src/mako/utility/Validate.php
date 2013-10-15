@@ -3,8 +3,8 @@
 namespace mako\utility;
 
 use \mako\i18n\I18n;
+use \mako\utility\Str;
 use \mako\utility\UUID;
-use \mako\utility\String;
 use \mako\database\Database;
 use \mako\security\Token;
 use \Closure;
@@ -624,7 +624,7 @@ class Validate
 	{
 		$name = str_replace('::', '_', $name);
 
-		static::$validators['validate' . String::underscored2camel($name, true)] = $validator;
+		static::$validators['validate' . Str::underscored2camel($name, true)] = $validator;
 	}
 
 	/**
@@ -750,7 +750,7 @@ class Validate
 			{
 				$package = empty($validator['package']) ? '' : $validator['package'] . '_';
 
-				if($this->{'validate' . String::underscored2camel($package . $validator['name'], true)}($this->input[$field], $validator['parameters']) === false)
+				if($this->{'validate' . Str::underscored2camel($package . $validator['name'], true)}($this->input[$field], $validator['parameters']) === false)
 				{
 					$this->errors[$field] = $this->getErrorMessage($field, $validator['package'], $validator['name'], $validator['parameters']);
 

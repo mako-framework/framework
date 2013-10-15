@@ -3,8 +3,8 @@
 namespace mako\database;
 
 use \mako\i18n\I18n;
+use \mako\utility\Str;
 use \mako\utility\UUID;
-use \mako\utility\String;
 use \mako\utility\Validate;
 use \mako\database\Database;
 use \mako\database\orm\Hydrator;
@@ -268,7 +268,7 @@ abstract class ORM
 	{
 		if($this->tableName === null)
 		{
-			$this->tableName = I18n::pluralize(String::camel2underscored(end((explode('\\', get_class($this))))), null, $this->language);
+			$this->tableName = I18n::pluralize(Str::camel2underscored(end((explode('\\', get_class($this))))), null, $this->language);
 		}
 		
 		return $this->tableName;

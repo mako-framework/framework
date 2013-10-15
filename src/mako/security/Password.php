@@ -3,7 +3,7 @@
 namespace mako\security;
 
 use \Closure;
-use \mako\utility\String;
+use \mako\utility\Str;
 
 /**
  * Secure password hashing and validation.
@@ -87,7 +87,7 @@ class Password
 		}
 		else
 		{
-			$salt = String::random();
+			$salt = Str::random();
 		}
 
 		$salt = substr(str_replace('+', '.', base64_encode($salt)), 0, 22);
