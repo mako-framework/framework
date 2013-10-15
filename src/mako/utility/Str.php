@@ -12,7 +12,7 @@ use \mako\utility\HTML;
  * @license    http://www.makoframework.com/license
  */
 
-class String
+class Str
 {
 	//---------------------------------------------
 	// Class properties
