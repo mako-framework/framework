@@ -124,7 +124,7 @@ abstract class Relation extends \mako\database\midgard\Hydrator
 	 * Sets the criterion used when eager loading related records.
 	 * 
 	 * @access  protected
-	 * @param   array                                  $keys  Parent keys
+	 * @param   array                                      $keys  Parent keys
 	 * @return  \mako\database\midgard\relations\Relation
 	 */
 
@@ -159,7 +159,7 @@ abstract class Relation extends \mako\database\midgard\Hydrator
 	 * Returns a result set from the database.
 	 * 
 	 * @access  public
-	 * @param   array                         $columns  (optional) Columns to select
+	 * @param   array                             $columns  (optional) Columns to select
 	 * @return  \mako\database\midgard\ResultSet
 	 */
 
