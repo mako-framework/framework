@@ -1,18 +1,16 @@
 <?php
 
-namespace mako\database\orm\relations;
-
-use \mako\database\orm\ResultSet;
+namespace mako\database\midgard\relations;
 
 /**
- * Has many relation.
+ * Has one relation.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class HasMany extends \mako\database\orm\relations\HasOneOrMany
+class HasOne extends \mako\database\midgard\relations\HasOneOrMany
 {
 	//---------------------------------------------
 	// Class properties
@@ -34,10 +32,10 @@ class HasMany extends \mako\database\orm\relations\HasOneOrMany
 	 * Eager loads related records and matches them with their parent records.
 	 * 
 	 * @access  public
-	 * @param   \mako\database\orm\ResultSet  $results   Parent records
-	 * @param   string                        $relation  Relation name
-	 * @param   mixed                         $criteria  Relation criteria
-	 * @param   array                         $includes  Includes passed from the parent record
+	 * @param   \mako\database\midgard\ResultSet  $results   Parent records
+	 * @param   string                            $relation  Relation name
+	 * @param   mixed                             $criteria  Relation criteria 
+	 * @param   array                             $includes  Includes passed from the parent record
 	 */
 
 	public function eagerLoad(&$results, $relation, $criteria, $includes)
@@ -53,32 +51,32 @@ class HasMany extends \mako\database\orm\relations\HasOneOrMany
 
 		foreach($this->eagerCriterion($this->keys($results))->all() as $related)
 		{
-			$grouped[$related->getColumn($this->getForeignKey())][] = $related;
+			$grouped[$related->getColumn($this->getForeignKey())] = $related;
 		}
 
 		foreach($results as $result)
 		{
 			if(isset($grouped[$result->getPrimaryKeyValue()]))
 			{
-				$result->setRelated($relation, new ResultSet($grouped[$result->getPrimaryKeyValue()]));
+				$result->setRelated($relation, $grouped[$result->getPrimaryKeyValue()]);
 			}
 			else
 			{
-				$result->setRelated($relation, new ResultSet());
+				$result->setRelated($relation, false);
 			}
 		}
 	}
 
 	/**
-	 * Returns a result set from the database.
+	 * Returns a record from the database.
 	 * 
 	 * @access  public
-	 * @return  \mako\database\orm\ResultSet
+	 * @return  \mako\database\midgard\ResultSet
 	 */
 
 	public function get()
 	{
-		return $this->all();
+		return $this->first();
 	}
 }
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace mako\database\orm;
+namespace mako\database\midgard;
 
 /**
- * Read-only record exception.
+ * Stale record exception.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class ReadOnlyRecordException extends \RuntimeException
+class StaleRecordException extends \RuntimeException
 {
 	//---------------------------------------------
 	// Class properties

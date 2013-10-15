@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\database\orm;
+namespace mako\database\midgard;
 
 /**
  * Hydrator.
@@ -11,9 +11,9 @@ namespace mako\database\orm;
  */
 
 use \mako\database\Connection;
-use \mako\database\ORM;
-use \mako\database\orm\ResultSet;
-use \mako\database\orm\ReadOnlyRecordException;
+use \mako\database\midgard\ORM;
+use \mako\database\midgard\ResultSet;
+use \mako\database\midgard\ReadOnlyRecordException;
 use \BadMethodCallException;
 
 class Hydrator extends \mako\database\query\Query
@@ -25,7 +25,7 @@ class Hydrator extends \mako\database\query\Query
 	/**
 	 * Instance of the model to hydrate.
 	 * 
-	 * @var \mako\database\ORM
+	 * @var \mako\database\midgard\ORM
 	 */
 
 	protected $model;
@@ -46,8 +46,8 @@ class Hydrator extends \mako\database\query\Query
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\database\Connection  $connection  Database connection
-	 * @param   \mako\database\ORM         $model       Model to hydrate
+	 * @param   \mako\database\Connection   $connection  Database connection
+	 * @param   \mako\database\midgard\ORM  $model       Model to hydrate
 	 */
 
 	public function __construct(Connection $connection, ORM $model)
@@ -142,8 +142,8 @@ class Hydrator extends \mako\database\query\Query
 	 * Sets the relations to eager load.
 	 * 
 	 * @access  public
-	 * @param   string|array                 $includes  Relation or array of relations to eager load
-	 * @return  \mako\database\orm\Hydrator
+	 * @param   string|array                     $includes  Relation or array of relations to eager load
+	 * @return  \mako\database\midgard\Hydrator
 	 */
 
 	public function including($includes)
@@ -157,8 +157,8 @@ class Hydrator extends \mako\database\query\Query
 	 * Removes relations to eager load.
 	 * 
 	 * @access  public
-	 * @param   string|array                 $excludes  Relation or array of relations to exclude from eager loading
-	 * @return  \mako\database\orm\Hydrator
+	 * @param   string|array                     $excludes  Relation or array of relations to exclude from eager loading
+	 * @return  \mako\database\midgard\Hydrator
 	 */
 
 	public function excluding($excludes)
@@ -262,8 +262,8 @@ class Hydrator extends \mako\database\query\Query
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
-	 * @param   array               $columns  (optional) Columns to select
-	 * @return  \mako\database\ORM
+	 * @param   array                       $columns  (optional) Columns to select
+	 * @return  \mako\database\midgard\ORM
 	 */
 
 	public function first(array $columns = array())
@@ -289,8 +289,8 @@ class Hydrator extends \mako\database\query\Query
 	 * Returns a result set from the database.
 	 * 
 	 * @access  public
-	 * @param   array                         $columns  (optional) Columns to select
-	 * @return  \mako\database\orm\ResultSet
+	 * @param   array                             $columns  (optional) Columns to select
+	 * @return  \mako\database\midgard\ResultSet
 	 */
 
 	public function all(array $columns = array())
@@ -314,9 +314,9 @@ class Hydrator extends \mako\database\query\Query
 	 * Magic method that allows us to call model scopes.
 	 * 
 	 * @access  public
-	 * @param   string                       $name       Method name
-	 * @param   array                        $arguments  Method arguments
-	 * @return  \mako\database\orm\Hydrator
+	 * @param   string                           $name       Method name
+	 * @param   array                            $arguments  Method arguments
+	 * @return  \mako\database\midgard\Hydrator
 	 */
 
 	public function __call($name, $arguments)

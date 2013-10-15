@@ -3,7 +3,7 @@
 namespace mako\database\orm\relations;
 
 use \mako\database\Connection;
-use \mako\database\ORM;
+use \mako\database\midgard\ORM;
 
 /**
  * Base relation.
@@ -13,7 +13,7 @@ use \mako\database\ORM;
  * @license    http://www.makoframework.com/license
  */
 
-abstract class Relation extends \mako\database\orm\Hydrator
+abstract class Relation extends \mako\database\midgard\Hydrator
 {
 	//---------------------------------------------
 	// Class properties
@@ -22,7 +22,7 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	/**
 	 * Parent record.
 	 * 
-	 * @var \mako\database\ORM
+	 * @var \mako\database\midgard\ORM
 	 */
 
 	protected $parent;
@@ -51,10 +51,10 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\database\Connection  $connection  Database connection
-	 * @param   \mako\database\ORM         $parent      Parent model
-	 * @param   \mako\database\ORM         $related     Related model
-	 * @param   string|null                $foreignKey  (optional) Foreign key name
+	 * @param   \mako\database\Connection   $connection  Database connection
+	 * @param   \mako\database\midgard\ORM  $parent      Parent model
+	 * @param   \mako\database\midgard\ORM  $related     Related model
+	 * @param   string|null                 $foreignKey  (optional) Foreign key name
 	 */
 
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null)
@@ -93,7 +93,7 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	 * Returns the keys used to eagerly load records.
 	 * 
 	 * @access  protected
-	 * @param   \mako\database\orm\ResultSet  $results  Result set
+	 * @param   \mako\database\midgard\ResultSet  $results  Result set
 	 * @return  array
 	 */
 
@@ -125,7 +125,7 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	 * 
 	 * @access  protected
 	 * @param   array                                  $keys  Parent keys
-	 * @return  \mako\database\orm\relations\Relation
+	 * @return  \mako\database\midgard\relations\Relation
 	 */
 
 	protected function eagerCriterion($keys)
@@ -141,8 +141,8 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
-	 * @param   array               $columns  (optional) Columns to select
-	 * @return  \mako\database\ORM
+	 * @param   array                       $columns  (optional) Columns to select
+	 * @return  \mako\database\midgard\ORM
 	 */
 
 	public function first(array $columns = array())
@@ -160,7 +160,7 @@ abstract class Relation extends \mako\database\orm\Hydrator
 	 * 
 	 * @access  public
 	 * @param   array                         $columns  (optional) Columns to select
-	 * @return  \mako\database\orm\ResultSet
+	 * @return  \mako\database\midgard\ResultSet
 	 */
 
 	public function all(array $columns = array())

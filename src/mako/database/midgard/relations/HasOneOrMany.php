@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\database\orm\relations;
+namespace mako\database\midgard\relations;
 
 /**
  * Has one or has many relation.
@@ -10,7 +10,7 @@ namespace mako\database\orm\relations;
  * @license    http://www.makoframework.com/license
  */
 
-abstract class HasOneOrMany extends \mako\database\orm\relations\Relation
+abstract class HasOneOrMany extends \mako\database\midgard\relations\Relation
 {
 	//---------------------------------------------
 	// Class properties
@@ -32,8 +32,8 @@ abstract class HasOneOrMany extends \mako\database\orm\relations\Relation
 	 * Creates a related record.
 	 * 
 	 * @access  public
-	 * @param   mixed                $related  Related record
-	 * @return  \mako\database\ORM
+	 * @param   mixed                    $related  Related record
+	 * @return  \mako\database\midgard
 	 */
 
 	public function create($related)

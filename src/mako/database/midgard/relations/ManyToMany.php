@@ -1,10 +1,10 @@
 <?php
 
-namespace mako\database\orm\relations;
+namespace mako\database\midgard\relations;
 
 use \mako\database\Connection;
-use \mako\database\ORM;
-use \mako\database\orm\ResultSet;
+use \mako\database\midgard\ORM;
+use \mako\database\midgard\ResultSet;
 
 /**
  * Many to many relation.
@@ -14,7 +14,7 @@ use \mako\database\orm\ResultSet;
  * @license    http://www.makoframework.com/license
  */
 
-class ManyToMany extends \mako\database\orm\relations\Relation
+class ManyToMany extends \mako\database\midgard\relations\Relation
 {
 	//---------------------------------------------
 	// Class properties
@@ -44,12 +44,12 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\database\Connection  $connection     Database connection
-	 * @param   \mako\database\ORM         $parent         Parent model
-	 * @param   \mako\database\ORM         $related        Related model
-	 * @param   string|null                $foreignKey     (optional) Foreign key name
-	 * @param   string|null                $junctionTable  (optional) Junction table name
-	 * @param   string|null                $junctionKey    (optional) Junction key name
+	 * @param   \mako\database\Connection   $connection     Database connection
+	 * @param   \mako\database\midgard\ORM  $parent         Parent model
+	 * @param   \mako\database\midgard\ORM  $related        Related model
+	 * @param   string|null                 $foreignKey     (optional) Foreign key name
+	 * @param   string|null                 $junctionTable  (optional) Junction table name
+	 * @param   string|null                 $junctionKey    (optional) Junction key name
 	 */
 
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null, $junctionTable = null, $junctionKey = null)
@@ -131,8 +131,8 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	 * Sets the criterion used when eager loading related records.
 	 * 
 	 * @access  protected
-	 * @param   array                                 $keys  Parent keys
-	 * @return  \mako\database\orm\relations\HasMany
+	 * @param   array                                     $keys  Parent keys
+	 * @return  \mako\database\midgard\relations\HasMany
 	 */
 
 	protected function eagerCriterion($keys)
@@ -148,10 +148,10 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	 * Eager loads related records and matches them with their parent records.
 	 * 
 	 * @access  public
-	 * @param   \mako\database\orm\ResultSet  $results   Parent records
-	 * @param   string                        $relation  Relation name
-	 * @param   mixed                         $criteria  Relation criteria
-	 * @param   array                         $includes  Includes passed from the parent record
+	 * @param   \mako\database\midgard\ResultSet  $results   Parent records
+	 * @param   string                            $relation  Relation name
+	 * @param   mixed                             $criteria  Relation criteria
+	 * @param   array                             $includes  Includes passed from the parent record
 	 */
 
 	public function eagerLoad(&$results, $relation, $criteria, $includes)
@@ -208,7 +208,7 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
-	 * @return  \mako\database\ORM
+	 * @return  \mako\database\midgard\ORM
 	 */
 
 	public function first(array $columns = array())
@@ -222,7 +222,7 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	 * Returns a result set from the database.
 	 * 
 	 * @access  public
-	 * @return  \mako\database\orm\ResultSet
+	 * @return  \mako\database\midgard\ResultSet
 	 */
 
 	public function all(array $columns = array())
@@ -236,7 +236,7 @@ class ManyToMany extends \mako\database\orm\relations\Relation
 	 * Returns a result set from the database.
 	 * 
 	 * @access  public
-	 * @return  \mako\database\ORM
+	 * @return  \mako\database\midgard\ORM
 	 */ 
 
 	public function get()

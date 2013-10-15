@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\database\orm;
+namespace mako\database\midgard;
 
 use \mako\utility\Arr;
 use \ArrayIterator;

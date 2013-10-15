@@ -1,18 +1,18 @@
 <?php
 
-namespace mako\database;
+namespace mako\database\midgard;
 
 use \mako\i18n\I18n;
 use \mako\utility\Str;
 use \mako\utility\UUID;
 use \mako\utility\Validate;
 use \mako\database\Database;
-use \mako\database\orm\Hydrator;
-use \mako\database\orm\relations\HasOne;
-use \mako\database\orm\relations\HasMany;
-use \mako\database\orm\relations\ManyToMany;
-use \mako\database\orm\relations\BelongsTo;
-use \mako\database\orm\StaleRecordException;
+use \mako\database\midgard\Hydrator;
+use \mako\database\midgard\relations\HasOne;
+use \mako\database\midgard\relations\HasMany;
+use \mako\database\midgard\relations\ManyToMany;
+use \mako\database\midgard\relations\BelongsTo;
+use \mako\database\midgard\StaleRecordException;
 use \RuntimeException;
 
 /**
@@ -493,10 +493,10 @@ abstract class ORM
 	 * Assigns the column values to the mode.
 	 * 
 	 * @access  public
-	 * @param   array               $columns    Column values
-	 * @param   boolean             $raw        (optional) Set raw values?
-	 * @param   boolean             $whitelist  (optional) Remove columns that are not in the whitelist?
-	 * @return  \mako\database\ORM
+	 * @param   array                       $columns    Column values
+	 * @param   boolean                     $raw        (optional) Set raw values?
+	 * @param   boolean                     $whitelist  (optional) Remove columns that are not in the whitelist?
+	 * @return  \mako\database\midgard\ORM
 	 */
 
 	public function assign(array $columns, $raw = false, $whitelist = true)
@@ -579,7 +579,7 @@ abstract class ORM
 	 * Returns a hydrator instance.
 	 * 
 	 * @access  protected
-	 * @return  \mako\database\orm\Hydrator
+	 * @return  \mako\database\midgard\Hydrator
 	 */
 
 	protected function hydrator()
@@ -591,8 +591,8 @@ abstract class ORM
 	 * Returns a record using the value of its primary key.
 	 * 
 	 * @access  public
-	 * @param   int                 $id  Primary key
-	 * @return  \mako\database\ORM
+	 * @param   int                         $id  Primary key
+	 * @return  \mako\database\midgard\ORM
 	 */
 
 	public static function get($id)
@@ -632,10 +632,10 @@ abstract class ORM
 	 * Creates a new record and returns the model.
 	 * 
 	 * @access  public
-	 * @param   array               $columns    Column values
-	 * @param   boolean             $raw        (optional) Set raw values?
-	 * @param   boolean             $whitelsit  (optional) Remove columns that are not in the whitelist?
-	 * @return  \mako\database\ORM
+	 * @param   array                       $columns    Column values
+	 * @param   boolean                     $raw        (optional) Set raw values?
+	 * @param   boolean                     $whitelsit  (optional) Remove columns that are not in the whitelist?
+	 * @return  \mako\database\midgard\ORM
 	 */
 
 	public static function create(array $columns, $raw = false, $whitelist = true)
@@ -651,9 +651,9 @@ abstract class ORM
 	 * Returns a HasOne relation.
 	 * 
 	 * @access  protected
-	 * @param   string                              $model       Related model
-	 * @param   string|null                         $foreignKey  (optional) Foreign key name
-	 * @return  \mako\database\orm\relation\HasOne
+	 * @param   string                                  $model       Related model
+	 * @param   string|null                             $foreignKey  (optional) Foreign key name
+	 * @return  \mako\database\midgard\relation\HasOne
 	 */
 
 	protected function hasOne($model, $foreignKey = null)
@@ -667,9 +667,9 @@ abstract class ORM
 	 * Returns a HasMany relation.
 	 * 
 	 * @access  protected
-	 * @param   string                               $model       Related model
-	 * @param   string|null                          $foreignKey  (optional) Foreign key name
-	 * @return  \mako\database\orm\relation\HasMany
+	 * @param   string                                   $model       Related model
+	 * @param   string|null                              $foreignKey  (optional) Foreign key name
+	 * @return  \mako\database\midgard\relation\HasMany
 	 */
 
 	protected function hasMany($model, $foreignKey = null)
@@ -683,11 +683,11 @@ abstract class ORM
 	 * Returns a ManyToMany relation.
 	 * 
 	 * @access  protected
-	 * @param   string                                  $model          Related model
-	 * @param   string|null                             $foreignKey     (optional) Foreign key name
-	 * @param   string|null                             $junctionTable  (optional) Junction table name
-	 * @param   string|null                             $junctionKey    (optional) Junction key name
-	 * @return  \mako\database\orm\relation\ManyToMany
+	 * @param   string                                      $model          Related model
+	 * @param   string|null                                 $foreignKey     (optional) Foreign key name
+	 * @param   string|null                                 $junctionTable  (optional) Junction table name
+	 * @param   string|null                                 $junctionKey    (optional) Junction key name
+	 * @return  \mako\database\midgard\relation\ManyToMany
 	 */
 
 	protected function manyToMany($model, $foreignKey = null, $junctionTable = null, $junctionKey = null)
@@ -701,9 +701,9 @@ abstract class ORM
 	 * Returns a BelongsTo relation.
 	 * 
 	 * @access  protected
-	 * @param   string                                 $model       Related model
-	 * @param   string|null                            $foreignKey  (optional) Foreign key name
-	 * @return  \mako\database\orm\relation\BelongsTo
+	 * @param   string                                     $model       Related model
+	 * @param   string|null                                $foreignKey  (optional) Foreign key name
+	 * @return  \mako\database\midgard\relation\BelongsTo
 	 */
 
 	protected function belongsTo($model, $foreignKey = null)

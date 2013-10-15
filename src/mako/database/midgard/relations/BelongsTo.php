@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\database\orm\relations;
+namespace mako\database\midgard\relations;
 
 /**
  * Belongs to relation.
@@ -10,7 +10,7 @@ namespace mako\database\orm\relations;
  * @license    http://www.makoframework.com/license
  */
 
-class BelongsTo extends \mako\database\orm\relations\Relation
+class BelongsTo extends \mako\database\midgard\relations\Relation
 {
 	//---------------------------------------------
 	// Class properties
@@ -49,7 +49,7 @@ class BelongsTo extends \mako\database\orm\relations\Relation
 	 * Returns the keys used to eagerly load records.
 	 * 
 	 * @access  protected
-	 * @param   \mako\database\orm\ResultSet  $results  Result set
+	 * @param   \mako\database\midgard\ResultSet  $results  Result set
 	 * @return  array
 	 */
 
@@ -80,8 +80,8 @@ class BelongsTo extends \mako\database\orm\relations\Relation
 	 * Sets the criterion used when eager loading related records.
 	 * 
 	 * @access  protected
-	 * @param   array                                   $keys  Parent keys
-	 * @return  \mako\database\orm\relations\BelongsTo
+	 * @param   array                                       $keys  Parent keys
+	 * @return  \mako\database\midgard\relations\BelongsTo
 	 */
 
 	protected function eagerCriterion($keys)
@@ -97,10 +97,10 @@ class BelongsTo extends \mako\database\orm\relations\Relation
 	 * Eager loads related records and matches them with their parent records.
 	 * 
 	 * @access  public
-	 * @param   \mako\database\orm\ResultSet  $results   Parent records
-	 * @param   string                        $relation  Relation name
-	 * @param   mixed                         $criteria  Relation criteria 
-	 * @param   array                         $includes  Includes passed from the parent record
+	 * @param   \mako\database\midgard\ResultSet  $results   Parent records
+	 * @param   string                            $relation  Relation name
+	 * @param   mixed                             $criteria  Relation criteria 
+	 * @param   array                             $includes  Includes passed from the parent record
 	 */
 
 	public function eagerLoad(&$results, $relation, $criteria, $includes)
@@ -136,7 +136,7 @@ class BelongsTo extends \mako\database\orm\relations\Relation
 	 * Returns a record from the database.
 	 * 
 	 * @access  public
-	 * @return  \mako\database\orm\ResultSet
+	 * @return  \mako\database\midgard\ResultSet
 	 */ 
 
 	public function get()
