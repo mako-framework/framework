@@ -91,6 +91,25 @@ class Package
 
 		return false;
 	}
+
+	/**
+	 * Find and include all package routes.
+	 * 
+	 * @access  public
+	 */
+
+	public static function loadRoutes()
+	{
+		$routeFiles = glob(MAKO_PACKAGES_PATH . '/*/routes.php');
+
+		if(is_array($routeFiles))
+		{
+			foreach($routeFiles as $routeFile)
+			{
+				include_once $routeFile;
+			}
+		}
+	}
 }
 
 /** -------------------- End of file -------------------- **/
