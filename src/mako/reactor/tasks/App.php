@@ -3,6 +3,8 @@
 namespace mako\reactor\tasks;
 
 use \mako\utility\Str;
+use \mako\http\routing\Routes;
+use \Closure;
 
 /**
  * App task.
@@ -37,6 +39,10 @@ class App extends \mako\reactor\Task
 		'generate_secret' => array
 		(
 			'description' => 'Generates a new application secret.',
+		),
+		'routes' => array
+		(
+			'description' => 'Lists the registered routes of the application.',
 		),
 	);
 
@@ -125,6 +131,62 @@ class App extends \mako\reactor\Task
 		file_put_contents($configFile, $contents);
 
 		$this->output->writeln('A new secret has been generated.');
+	}
+
+	/**
+	 * Lists the registered routes of the application.
+	 * 
+	 * @access  public
+	 */
+
+	public function routes()
+	{
+		// Include routes file
+
+		include MAKO_APPLICATION_PATH . '/routes.php';
+
+		// Display registered routes
+
+		$routes = array();
+
+		foreach(Routes::getRoutes() as $route)
+		{
+			// Normalize action name
+
+			$action = ($route->getAction() instanceof Closure) ? 'Closure' : $route->getAction();
+
+			// Normalize before filter names
+
+			$beforeFilters = array();
+
+			foreach($route->getBeforeFilters() as $filter)
+			{
+				$beforeFilters[] = ($filter instanceof Closure) ? 'Closure' : $filter;
+			}
+
+			// Normalize after filter names
+
+			$afterFilters = array();
+
+			foreach($route->getAfterFilters() as $filter)
+			{
+				$beforeFilters[] = ($filter instanceof Closure) ? 'Closure' : $filter;
+			}
+
+			// Build table row
+
+			$routes[] = array
+			(
+				$route->getRoute(),
+				implode(', ', $route->allows()),
+				$action,
+				implode(', ', $beforeFilters),
+				implode(', ', $afterFilters),
+				(string) $route->getName()
+			);
+		}
+
+		$this->output->table(array('Route', 'Allowed methods', 'Action', 'Before filters', 'After filters', 'Name'), $routes);
 	}
 }
 
