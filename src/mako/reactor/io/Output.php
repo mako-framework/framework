@@ -129,7 +129,7 @@ class Output extends \mako\reactor\io\StdOut
 
 		$progress->setProgressCharacter('|');
 
-		// Start, display and return objcect
+		// Start, display and return progress helper instance
 
 		$progress->start($this, $itemCount);
 
