@@ -8,7 +8,7 @@ use \mako\view\View;
 use \mako\logging\Log;
 use \mako\http\Request;
 use \mako\http\Response;
-use \mako\reactor\CLI;
+use \mako\reactor\io\Output;
 use \Whoops\Run as Whoops;
 use \Whoops\Handler\PrettyPageHandler;
 use \Whoops\Handler\JsonResponseHandler;
@@ -63,7 +63,7 @@ class ExceptionHandler
 
 	protected function displayCLI()
 	{
-		$cli = new CLI();
+		$output = new Output();
 
 		$message = vsprintf('%s: %s in %s at line %s' . PHP_EOL . PHP_EOL . '%s', array
 		(
@@ -74,7 +74,7 @@ class ExceptionHandler
 			$this->exception->getTraceAsString(),
 		));
 
-		$cli->stderr($message . PHP_EOL);
+		$output->error($message);
 	}
 
 	/**

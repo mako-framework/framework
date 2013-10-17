@@ -3,8 +3,9 @@
 namespace mako\reactor;
 
 use \mako\core\Config;
-use \mako\reactor\CLI;
 use \mako\core\Package;
+use \mako\reactor\io\Input;
+use \mako\reactor\io\Output;
 use \Exception;
 use \ReflectionClass;
 use \RuntimeException;
@@ -25,12 +26,20 @@ class Reactor
 	//---------------------------------------------
 
 	/**
-	 * CLI
+	 * Output.
 	 * 
-	 * @var \mako\reactor\CLI
+	 * @var \mako\reactor\io\Output;
 	 */
 
-	protected $cli;
+	protected $output;
+
+	/**
+	 * Input.
+	 * 
+	 * @var \mako\reactor\io\Input;
+	 */
+
+	protected $input;
 
 	/**
 	 * Reactor core tasks.
@@ -41,9 +50,8 @@ class Reactor
 	protected $coreTasks = array
 	(
 		'app'     => '\mako\reactor\tasks\App',
-		'console' => '\mako\reactor\tasks\Console',
+		'mako'    => '\mako\reactor\tasks\Mako',
 		'migrate' => '\mako\reactor\tasks\Migrate',
-		'server'  => '\mako\reactor\tasks\Server',
 	);
 
 	/**
@@ -54,8 +62,9 @@ class Reactor
 
 	protected $globalOptions = array
 	(
-		'env'      => 'Allows you to override the default environment.',
-		'database' => 'Allows you to override the default database connection.',
+		array('--env', 'Allows you to override the default environment.'),
+		array('--database', 'Allows you to override the default database connection.'),
+		array('--hush', 'Disables all output'),
 	);
 
 	//---------------------------------------------
@@ -70,7 +79,9 @@ class Reactor
 
 	public function __construct()
 	{
-		$this->cli = new CLI();
+		$this->output = new Output();
+
+		$this->input = new Input($this->output);
 	}
 
 	/**
@@ -89,7 +100,7 @@ class Reactor
 	//---------------------------------------------
 
 	/**
-	 * Sets up the CLI environment and runs the commands.
+	 * Sets up the reactor environment and runs the commands.
 	 *
 	 * @access  public
 	 * @param   array   $arguments  Arguments
@@ -99,7 +110,7 @@ class Reactor
 	{
 		// Override environment?
 
-		$env = $this->cli->param('env', false);
+		$env = $this->input->param('env', false);
 
 		if($env !== false)
 		{
@@ -108,11 +119,22 @@ class Reactor
 
 		// Override default database?
 
-		$database = $this->cli->param('database', false);
+		$database = $this->input->param('database', false);
 
 		if($database !== false)
 		{
 			Config::set('database.default', $database);
+		}
+
+		// Disable output?
+
+		$hush = $this->input->param('hush', false);
+
+		if($hush !== false)
+		{
+			$this->output->setVerbosity(Output::VERBOSITY_QUIET);
+
+			$this->output->stderr()->setVerbosity(Output::VERBOSITY_QUIET);
 		}
 
 		// Remove options from argument list so that it doesnt matter what order they come in
@@ -127,11 +149,11 @@ class Reactor
 
 		// Run task
 
-		$this->cli->stdout();
+		$this->output->nl();
 
 		$this->task($arguments);
 
-		$this->cli->stdout();
+		$this->output->nl();
 	}
 
 	/**
@@ -191,9 +213,33 @@ class Reactor
 
 	protected function listTasks()
 	{
-		// Loop through tasks and fetch info
+		// Print basic usage info
 
-		$info = array();
+		$this->output->writeln('<yellow>Usage:</yellow>');
+
+		$this->output->nl();
+
+		$this->output->writeln('<blue>php reactor <action> [arguments] [options]</blue>');
+
+		$this->output->nl();
+
+		// Print list of global options
+
+		$this->output->writeln('<yellow>Global options:</yellow>');
+
+		$this->output->nl();
+
+		$this->output->table(array('Option', 'Description'), $this->globalOptions);
+
+		$this->output->nl();
+
+		// Print task list
+
+		$this->output->writeln('<yellow>Available actions:</yellow>');
+
+		$this->output->nl();
+
+		$tasks = array();
 
 		foreach($this->findTasks() as $task)
 		{
@@ -204,75 +250,24 @@ class Reactor
 				continue;
 			}
 
-			$taskInfo = $reflection->getProperty('taskInfo');
-
-			$taskInfo->setAccessible(true);
-
-			$taskInfo = $taskInfo->getValue();
+			$taskInfo = $task::getTaskInfo();
 
 			if(empty($taskInfo))
 			{
 				continue;
 			}
-			
+
 			$prefix = (strpos($task, '\app') === 0 || strpos($task, '\mako') === 0) ? '' : strstr(trim($task, '\\'), '\\', true) . '::';
 
-			$info[strtolower($prefix . $reflection->getShortName())] = $taskInfo;
-		}
-
-		// Find longest task name
-
-		$longestName = 0;
-
-		foreach($info as $taskName => $taskInfo)
-		{
-			foreach($taskInfo as $actionName => $actionInfo)
+			foreach($taskInfo as $key => $info)
 			{
-				$length = strlen($taskName . '.' . $actionName) + 2;
-
-				if($length > $longestName)
-				{
-					$longestName = $length;
-				}
+				$tasks[] = array(strtolower($prefix . $reflection->getShortName()) . '.' . $key, $info['description']);
 			}
 		}
 
-		// Display available tasks with descriptions
+		$this->output->table(array('Action', 'Description'), $tasks);
 
-		$this->cli->stdout('Usage:', 'yellow');
-
-		$this->cli->newLine();
-
-		$this->cli->stdout(' php reactor <action> [arguments] [options]');
-
-		$this->cli->newLine();
-
-		$this->cli->stdout('Global options:', 'yellow');
-
-		$this->cli->newLine();
-
-		foreach($this->globalOptions as $optionName => $optionDescription)
-		{
-			$this->cli->stdout(' ' . $this->cli->color(str_pad('--' . $optionName, $longestName, ' '), 'green') . $optionDescription);
-		}
-
-		$this->cli->newLine();
-
-		$this->cli->stdout('Available actions:', 'yellow');
-
-		$this->cli->newLine();
-
-		foreach($info as $taskName => $taskInfo)
-		{
-			foreach($taskInfo as $actionName => $actionInfo)
-			{
-				$actionName = $actionName === 'run' ? '' : '.' . $actionName;
-
-				$this->cli->stdout(' ' . $this->cli->color(str_pad($taskName . $actionName, $longestName, ' '), 'green') . $actionInfo['description']);
-			}
-
-			$this->cli->newline();
-		}
+		$this->output->nl();
 
 		exit;
 	}
@@ -313,19 +308,19 @@ class Reactor
 		}
 		catch(ReflectionException $e)
 		{
-			$this->cli->stderr(vsprintf("The '%s' task does not exist.", array(end((explode('\\', $task))))));
+			$this->output->error(vsprintf("The '%s' task does not exist.", array(end((explode('\\', $task))))));
 
 			return false;
 		}
 
 		if($task->isSubClassOf('\mako\reactor\Task') === false)
 		{
-			$this->cli->stderr(vsprintf("The '%s' task needs to extend the mako\\reactor\Task class.", array($task)));
+			$this->output->error(vsprintf("The '%s' task needs to extend the mako\\reactor\Task class.", array($task)));
 
 			return false;
 		}
 
-		return $task->newInstance($this->cli);
+		return $task->newInstance($this->input, $this->output);
 	}
 
 	/**

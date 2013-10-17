@@ -3,7 +3,6 @@
 namespace mako\reactor\tasks;
 
 use \mako\database\Database;
-use \mako\reactor\CLI;
 use \StdClass;
 
 /**
@@ -66,17 +65,7 @@ class Migrate extends \mako\reactor\Task
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	/**
-	 * Constructor.
-	 * 
-	 * @access  public
-	 * @param   \mako\reactor\CLI  $cli  CLI
-	 */
-
-	public function __construct(CLI $cli)
-	{
-		parent::__construct($cli);
-	}
+	// Nothing here
 
 	//---------------------------------------------
 	// Class methods
@@ -248,7 +237,7 @@ class Migrate extends \mako\reactor\Task
 		  `version` varchar(255) NOT NULL
 		);*/
 
-		$this->cli->stderr('Migration installation has not been implemented yet.');
+		$this->output->error('Migration installation has not been implemented yet.');
 	}
 
 	/**
@@ -261,11 +250,11 @@ class Migrate extends \mako\reactor\Task
 	{
 		if(($count = count($this->getOutstanding())) > 0)
 		{
-			$this->cli->stdout(sprintf(($count === 1 ? 'There is %s outstanding migration.' : 'There are %s outstanding migrations.'), $this->cli->color($count, 'green')));
+			$this->output->writeln(vsprintf(($count === 1 ? 'There is %s outstanding migration.' : 'There are %s outstanding migrations.'), array('<yellow>' . $count . '</yellow>')));
 		}
 		else
 		{
-			$this->cli->stdout('There are no outstanding migrations.', 'yellow');
+			$this->output->writeln('<green>There are no outstanding migrations.</green>');
 		}
 	}
 
@@ -281,7 +270,7 @@ class Migrate extends \mako\reactor\Task
 
 		if(empty($migrations))
 		{
-			return $this->cli->stdout('There are no outstanding migrations.', 'yellow');
+			return $this->output->writeln('<blue>There are no outstanding migrations.</blue>');
 		}
 
 		$batch = $this->table()->max('batch') + 1;
@@ -299,7 +288,7 @@ class Migrate extends \mako\reactor\Task
 				$name = $migration->package . '::' . $name;
 			}
 
-			$this->cli->stdout('Ran the ' . $name . ' migration.');
+			$this->output->writeln('Ran the ' . $name . ' migration.');
 		}
 	}
 
@@ -316,7 +305,7 @@ class Migrate extends \mako\reactor\Task
 
 		if(empty($migrations))
 		{
-			$this->cli->stdout('There are no migrations to roll back.', 'yellow');
+			$this->output->writeln('<blue>There are no migrations to roll back.</blue>');
 		}
 
 		foreach($migrations as $migration)
@@ -332,7 +321,7 @@ class Migrate extends \mako\reactor\Task
 				$name = $migration->package . '::' . $name;
 			}
 
-			$this->cli->stdout('Rolled back the ' . $name . ' migration.');
+			$this->output->writeln('Rolled back the ' . $name . ' migration.');
 		}
 	}
 
@@ -344,7 +333,7 @@ class Migrate extends \mako\reactor\Task
 
 	public function reset()
 	{
-		if($this->cli->param('force', false) || $this->cli->confirm('Are you sure you want to reset your database?'))
+		if($this->input->param('force', false) || $this->input->confirm('Are you sure you want to reset your database?'))
 		{
 			$this->down(0);
 		}
@@ -376,10 +365,10 @@ class Migrate extends \mako\reactor\Task
 
 		if(!@file_put_contents($file, $migration))
 		{
-			return $this->cli->stderr('Failed to create migration. Make sure that the migrations directory is writable.');
+			return $this->output->error('Failed to create migration. Make sure that the migrations directory is writable.');
 		}
 
-		$this->cli->stdout(sprintf('Migration created at "%s".', $file));
+		$this->output->writeln(vsprintf('Migration created at "%s".', array($file)));
 	}
 }
 

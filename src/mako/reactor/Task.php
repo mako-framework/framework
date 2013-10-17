@@ -3,7 +3,8 @@
 namespace mako\reactor;
 
 use \mako\utility\Str;
-use \mako\reactor\CLI;
+use \mako\reactor\io\Input;
+use \mako\reactor\io\Output;
 use \ReflectionClass;
 use \ReflectionMethod;
 
@@ -22,12 +23,20 @@ abstract class Task
 	//---------------------------------------------
 
 	/**
-	 * CLI
+	 * Input
 	 * 
-	 * @var \mako\reactor\CLI
+	 * @var \mako\reactor\io\Input
 	 */
 
-	protected $cli;
+	protected $input;
+
+	/**
+	 * Output
+	 * 
+	 * @var \mako\reactor\io\Output
+	 */
+
+	protected $output;
 
 	/**
 	 * Task information.
@@ -45,26 +54,39 @@ abstract class Task
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\reactor\CLI  $cli  CLI
+	 * @param   \mako\reactor\io\Input   $input   Input
+	 * @param   \mako\reactor\io\Output  $output  Output
 	 */
 
-	public function __construct(CLI $cli)
+	public function __construct(Input $input, Output $output)
 	{
-		$this->cli = $cli;
+		$this->input = $input;
 
-		if($this->cli->param('task-info', false))
+		$this->output = $output;
+
+		// Display task info?
+
+		if($this->input->param('task-info', false))
 		{
 			$this->displayTaskInfo();
-
-			$this->cli->newLine();
-
-			exit;
 		}
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Gets the task info.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public static function getTaskInfo()
+	{
+		return static::$taskInfo;
+	}
 
 	/**
 	 * Displays task info.
@@ -74,32 +96,34 @@ abstract class Task
 
 	protected function displayTaskInfo()
 	{
-		$taskName = strtolower(end((explode('\\', get_class($this)))));
+		$className = get_class($this);
 
-		$longestName = max(array_map('strlen', array_keys(static::$taskInfo))) + strlen($taskName) + 3;
+		$prefix = (strpos($className, 'app') === 0 || strpos($className, 'mako') === 0) ? '' : strstr(trim($className, '\\'), '\\', true) . '::';
 
-		$this->cli->stdout('Available actions in the "' . $taskName . '" task:', 'yellow');
+		$taskName = strtolower(end((explode('\\', $className))));
 
-		$this->cli->newLine();
+		$this->output->writeln('<yellow>Available actions in the "' . $prefix . $taskName . '" task:</yellow>');
 
-		foreach(static::$taskInfo as $actionName => $actionInfo)
+		$this->output->nl();
+
+		foreach(static::$taskInfo as $action => $info)
 		{
-			$actionName = $actionName === 'run' ? '' : '.' . $actionName;
+			$this->output->writeln('<green>' . $prefix . $taskName . '.' . $action . '</green> ' . $info['description']);
 
-			$this->cli->stdout(' ' . $this->cli->color(str_pad($taskName . $actionName, $longestName, ' '), 'green') . $actionInfo['description']);
+			$this->output->nl();
 
-			$this->cli->newline();
-
-			if(!empty($actionInfo['options']))
+			if(!empty($info['options']))
 			{
-				$longestOptionName = max(array_map('strlen', array_keys($actionInfo['options']))) + 5;
+				$options = array();
 
-				foreach($actionInfo['options'] as $optionName => $optionDescription)
+				foreach($info['options'] as $name => $description)
 				{
-					$this->cli->stdout(str_repeat(' ', $longestName) . $this->cli->color(str_pad(' --' .$optionName, $longestOptionName, ' '), 'blue') . $optionDescription);
+					$options[] = array('--' . $name, $description);
 				}
 
-				$this->cli->newline();
+				$this->output->table(array('Option', 'Description'), $options);
+
+				$this->output->nl();
 			}
 		}
 
@@ -127,9 +151,9 @@ abstract class Task
 
 	public function __call($name, $arguments)
 	{
-		$this->cli->stderr(vsprintf("Unknown task action '%s'.", array($name)));
+		$this->output->error(vsprintf("Unknown task action '%s'.", array($name)));
 
-		$this->cli->newLine();
+		$this->output->nl();
 
 		$this->displayTaskInfo();
 	}

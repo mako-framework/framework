@@ -74,13 +74,13 @@ class App extends \mako\reactor\Task
 		{
 			if(!is_writable($this->lockFile()))
 			{
-				return $this->cli->stderr('Unable to delete the lock file. Make sure that your "app/storage" directory is writable.');
+				return $this->output->error('Unable to delete the lock file. Make sure that your "app/storage" directory is writable.');
 			}
 
 			unlink($this->lockFile());
 		}
 
-		$this->cli->stdout('Your application is now ' . $this->cli->color('online', 'green') . '.');
+		$this->output->writeln('Your application is now <green>online</green>.');
 	}
 
 	/**
@@ -93,12 +93,12 @@ class App extends \mako\reactor\Task
 	{
 		if(!is_writable(MAKO_APPLICATION_PATH . '/storage'))
 		{
-			return $this->cli->stderr('Unable to create the lock file. Make sure that your "app/storage" directory is writable.');
+			return $this->output->error('Unable to create the lock file. Make sure that your "app/storage" directory is writable.');
 		}
 
 		touch($this->lockFile());
 
-		$this->cli->stdout('Your application is now ' . $this->cli->color('offline', 'red') . '.');
+		$this->output->writeln('Your application is now <red>offline</red>.');
 	}
 
 	/**
@@ -113,7 +113,7 @@ class App extends \mako\reactor\Task
 
 		if(!is_writable($configFile))
 		{
-			return $this->cli->stderr('Unable to generate a new secret. Make sure that the "app/config/application.php" file is writable.');
+			return $this->output->error('Unable to generate a new secret. Make sure that the "app/config/application.php" file is writable.');
 		}
 
 		$secret = str_replace(array('"', '\''), array('|', '/'), Str::random(Str::ALNUM . Str::SYMBOLS, 32));
@@ -124,7 +124,7 @@ class App extends \mako\reactor\Task
 
 		file_put_contents($configFile, $contents);
 
-		$this->cli->stdout('A new secret has been generated.');
+		$this->output->writeln('A new secret has been generated.');
 	}
 }
 

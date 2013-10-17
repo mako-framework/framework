@@ -1,8 +1,9 @@
 <?php
 
-namespace mako\reactor\tasks;
+namespace mako\reactor\tasks\console;
 
-use \mako\reactor\CLI;
+use \mako\reactor\io\Input;
+use \mako\reactor\io\Output;
 use \Exception;
 
 /**
@@ -15,11 +16,27 @@ use \Exception;
  * @license    http://www.makoframework.com/license
  */
 
-class Console extends \mako\reactor\Task
+class Console
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Input
+	 * 
+	 * @var \mako\reactor\io\Input
+	 */
+
+	protected $input;
+
+	/**
+	 * Output
+	 * 
+	 * @var \mako\reactor\io\Output
+	 */
+
+	protected $output;
 
 	/**
 	 * Is readline available?
@@ -29,25 +46,6 @@ class Console extends \mako\reactor\Task
 
 	protected $readline;
 
-	/**
-	 * Task information.
-	 * 
-	 * @var array
-	 */
-
-	protected static $taskInfo = array
-	(
-		'run' => array
-		(
-			'description' => 'Starts a debug console.',
-			'options'     => array
-			(
-				'fresh'  => 'Start without the console history.',
-				'forget' => 'Discard the console history upon exit.',
-			),
-		),
-	);
-
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -56,12 +54,15 @@ class Console extends \mako\reactor\Task
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\reactor\CLI  $cli  CLI
+	 * @param   \mako\reactor\io\Input   $input   Input
+	 * @param   \mako\reactor\io\Output  $output  Output
 	 */
 
-	public function __construct(CLI $cli)
+	public function __construct(Input $input, Output $output)
 	{
-		parent::__construct($cli);
+		$this->input = $input;
+
+		$this->output = $output;
 
 		$this->readline = extension_loaded('readline');
 
@@ -79,7 +80,7 @@ class Console extends \mako\reactor\Task
 
 		if($this->readline)
 		{
-			if(!$this->cli->param('fresh', false))
+			if(!$this->input->param('fresh', false))
 			{
 				@readline_read_history(MAKO_APPLICATION_PATH . '/storage/console_history');
 			}
@@ -96,7 +97,7 @@ class Console extends \mako\reactor\Task
 
 	public function __destruct()
 	{
-		if($this->readline && !$this->cli->param('forget', false))
+		if($this->readline && !$this->input->param('forget', false))
 		{
 			@readline_write_history(MAKO_APPLICATION_PATH . '/storage/console_history');
 		}
@@ -114,21 +115,9 @@ class Console extends \mako\reactor\Task
 
 	protected function welcome()
 	{
-		$welcome  = '  __  __       _         ' . PHP_EOL;
-		$welcome .= ' |  \/  | __ _| | _____  ' . PHP_EOL;
-		$welcome .= ' | |\/| |/ _` | |/ / _ \ ' . PHP_EOL;
-		$welcome .= ' | |  | | (_| |   < (_) |' . PHP_EOL;
-		$welcome .= ' |_|  |_|\__,_|_|\_\___/  (' . MAKO_VERSION . ')' . PHP_EOL;
+		$this->output->writeln('Welcome to the <green>Mako</green> REPL. Type <yellow>exit</yellow> or <yellow>quit</yellow> to exit.');
 
-		$welcome .= PHP_EOL . PHP_EOL;
-
-		$welcome .= 'Welcome to the ' . $this->cli->color('Mako', 'green') . ' interactive console!' . PHP_EOL;
-
-		$welcome .= PHP_EOL;
-
-		$welcome .= 'Type ' . $this->cli->color('exit', 'yellow') . ' or ' . $this->cli->color('quit', 'yellow') . ' to exit.' . PHP_EOL;
-
-		$this->cli->stdout($welcome);
+		$this->output->nl();
 	}
 
 	/**
@@ -155,7 +144,7 @@ class Console extends \mako\reactor\Task
 
 	protected function output($output)
 	{
-		$this->cli->stdout('>> ' . $output);
+		$this->output->writeln('>> ' . $output);
 	}
 
 	/**
@@ -235,7 +224,7 @@ class Console extends \mako\reactor\Task
 
 	public function run()
 	{
-		$this->cli->clearScreen();
+		$this->output->clearScreen();
 
 		$this->welcome();
 
@@ -282,7 +271,7 @@ class Console extends \mako\reactor\Task
 			}
 			catch(Exception $e)
 			{
-				$this->cli->stderr('>> ' . $e->getMessage());
+				$this->output->error('>> ' . $e->getMessage());
 
 				continue;
 			}
@@ -317,7 +306,7 @@ class Console extends \mako\reactor\Task
 			unset($__output);
 		}
 
-		$this->cli->stdout(PHP_EOL . 'Goodbye!');
+		$this->output->writeln(PHP_EOL . 'Goodbye!');
 	}
 }
 
