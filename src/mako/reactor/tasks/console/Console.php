@@ -115,7 +115,7 @@ class Console
 
 	protected function welcome()
 	{
-		$this->output->writeln('Welcome to the <green>Mako</green> REPL. Type <yellow>exit</yellow> or <yellow>quit</yellow> to exit.');
+		$this->output->writeln('Welcome to the <green>Mako</green> debug console. Type <yellow>exit</yellow> or <yellow>quit</yellow> to exit.');
 
 		$this->output->nl();
 	}

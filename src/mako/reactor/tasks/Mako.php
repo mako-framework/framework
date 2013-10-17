@@ -28,7 +28,7 @@ class Mako extends \mako\reactor\Task
 	(
 		'console' => array
 		(
-			'description' => 'Starts a debug console.',
+			'description' => 'Starts the debug console.',
 			'options'     => array
 			(
 				'fresh'  => 'Start without the console history.',
@@ -37,7 +37,7 @@ class Mako extends \mako\reactor\Task
 		),
 		'server' => array
 		(
-			'description' => 'Starts a local development server.',
+			'description' => 'Starts the local development server.',
 			'options'     => array
 			(
 				'port'    => 'Port to run the server on.',
