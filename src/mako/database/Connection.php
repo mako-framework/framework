@@ -209,6 +209,27 @@ class Connection
 	}
 
 	/**
+	 * Replace placeholders with parameteters.
+	 * 
+	 * @access  protected
+	 * @param   string     $query   SQL query
+	 * @param   array      $params  Query paramaters
+	 * @return  string
+	 */
+
+	protected function replaceParams($query, array $params)
+	{
+		$pdo = $this->pdo;
+
+		return preg_replace_callback('/\?/', function($matches) use (&$params, $pdo)
+		{
+			$param = array_shift($params);
+
+			return (is_int($param) || is_float($param)) ? $param : $pdo->quote($param);
+		}, $query);
+	}
+
+	/**
 	 * Adds a query to the query log.
 	 *
 	 * @access  protected
@@ -217,18 +238,13 @@ class Connection
 	 * @param   int        $start   Start time in microseconds
 	 */
 
-	protected function log($query, $params, $start)
+	protected function log($query, array $params, $start)
 	{
 		$pdo = $this->pdo;
 
 		$time = microtime(true) - $start;
 
-		$query = preg_replace_callback('/\?/', function($matches) use (&$params, $pdo)
-		{
-			$param = array_shift($params);
-
-			return (is_int($param) || is_float($param)) ? $param : $pdo->quote($param);
-		}, $query);
+		$query = $this->replaceParams($query, $params);
 
 		$this->log[] = compact('query', 'time');
 	}
@@ -275,9 +291,20 @@ class Connection
 			}
 		}
 
+		// Prepare statement
+
+		try
+		{
+			$this->pdo->prepare($query);
+		}
+		catch(PDOException $e)
+		{
+			throw new PDOException($e->getMessage() . ' [ ' . $this->replaceParams($query, $params) . ' ] ', (int) $e->getCode(), $e->getPrevious());
+		}
+
 		// Return query, parameters and the prepared statement
 
-		return array('query' => $query, 'params' => $params, 'statement' => $this->pdo->prepare($query));
+		return array('query' => $query, 'params' => $params, 'statement' => $statement);
 	}
 
 	/**
