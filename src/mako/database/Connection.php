@@ -225,7 +225,7 @@ class Connection
 		{
 			$param = array_shift($params);
 
-			return (is_int($param) || is_float($param)) ? $param : $pdo->quote($param);
+			return (is_int($param) || is_float($param)) ? $param : $pdo->quote(is_object($param) ? get_class($param) : $param);
 		}, $query);
 	}
 
