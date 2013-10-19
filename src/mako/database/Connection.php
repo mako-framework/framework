@@ -295,7 +295,7 @@ class Connection
 
 		try
 		{
-			$this->pdo->prepare($query);
+			$statement = $this->pdo->prepare($query);
 		}
 		catch(PDOException $e)
 		{
