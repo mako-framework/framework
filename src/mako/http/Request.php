@@ -354,7 +354,7 @@ class Request
 
 		if($this->method === 'OPTIONS' && $this->isMain())
 		{
-			return Response::factory()->header('Allow', implode(', ', $this->matchedRoute->allows()));
+			return Response::factory()->header('Allow', implode(', ', $this->matchedRoute->getMethods()));
 		}
 		else
 		{

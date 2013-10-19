@@ -73,7 +73,7 @@ class Router
 				{
 					// The matched route does not allow the request method so we'll throw an exception
 
-					throw new MethodNotAllowedException($route->allows());
+					throw new MethodNotAllowedException($route->getMethods());
 				}
 
 				if($route->hasTrailingSlash() && substr($requestedRoute, -1) !== '/')

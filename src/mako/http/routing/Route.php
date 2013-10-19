@@ -128,21 +128,14 @@ class Route
 	//---------------------------------------------
 
 	/**
-	 * Returns all allowed methods if no parameter is specified. 
-	 * Returns TRUE if the route allows the specified method or FALSE if not.
+	 * Returns the HTTP methods the route responds to.
 	 * 
 	 * @access  public
-	 * @param   string         $method  (optional) Method
-	 * @return  array|boolean
+	 * @return  array
 	 */
 
-	public function allows($method = null)
+	public function getMethods()
 	{
-		if($method !== null)
-		{
-			return in_array($method, $this->methods);
-		}
-
 		return $this->methods;
 	}
 
@@ -180,18 +173,6 @@ class Route
 	public function getName()
 	{
 		return $this->name;
-	}
-
-	/**
-	 * Returns TRUE if the route has a trailing slash and FALSE if not.
-	 * 
-	 * @access  public
-	 * @return  boolean
-	 */
-
-	public function hasTrailingSlash()
-	{
-		return $this->hasTrailingSlash;
 	}
 
 	/**
@@ -291,6 +272,31 @@ class Route
 		$this->constraints = $constraints + $this->constraints;
 
 		return $this;
+	}
+
+	/**
+	 * Returns TRUE if the route allows the specified method or FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $method  Method
+	 * @return  boolean
+	 */
+
+	public function allows($method)
+	{
+		return in_array($method, $this->methods);
+	}
+
+	/**
+	 * Returns TRUE if the route has a trailing slash and FALSE if not.
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function hasTrailingSlash()
+	{
+		return $this->hasTrailingSlash;
 	}
 
 	/**

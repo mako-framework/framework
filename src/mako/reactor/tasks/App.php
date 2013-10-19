@@ -178,7 +178,7 @@ class App extends \mako\reactor\Task
 			$routes[] = array
 			(
 				$route->getRoute(),
-				implode(', ', $route->allows()),
+				implode(', ', $route->getMethods()),
 				$action,
 				implode(', ', $beforeFilters),
 				implode(', ', $afterFilters),
