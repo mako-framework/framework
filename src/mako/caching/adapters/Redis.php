@@ -128,16 +128,7 @@ class Redis extends \mako\caching\adapters\Adapter
 		{
 			if($this->has($key))
 			{
-				$incremented = $this->redis->incrby($this->identifier . $key, $ammount);
-
-				$ttl = $this->redis->ttl($this->identifier . $key);
-
-				if($ttl > 0)
-				{
-					$this->redis->expire($this->identifier . $key, $ttl);
-				}
-
-				return $incremented;
+				return $this->redis->incrby($this->identifier . $key, $ammount);
 			}
 
 			return false;
@@ -163,16 +154,7 @@ class Redis extends \mako\caching\adapters\Adapter
 		{
 			if($this->has($key))
 			{
-				$incremented = $this->redis->decrby($this->identifier . $key, $ammount);
-
-				$ttl = $this->redis->ttl($this->identifier . $key);
-
-				if($ttl > 0)
-				{
-					$this->redis->expire($this->identifier . $key, $ttl);
-				}
-
-				return $incremented;
+				return $this->redis->decrby($this->identifier . $key, $ammount);
 			}
 
 			return false;
