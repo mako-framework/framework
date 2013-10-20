@@ -124,19 +124,12 @@ class Redis extends \mako\caching\adapters\Adapter
 
 	public function increment($key, $ammount = 1)
 	{
-		try
+		if($this->has($key))
 		{
-			if($this->has($key))
-			{
-				return $this->redis->incrby($this->identifier . $key, $ammount);
-			}
+			return $this->redis->incrby($this->identifier . $key, $ammount);
+		}
 
-			return false;
-		}
-		catch(RuntimeException $e)
-		{
-			return false;
-		}
+		return false;
 	}
 
 	/**
@@ -150,19 +143,12 @@ class Redis extends \mako\caching\adapters\Adapter
 
 	public function decrement($key, $ammount = 1)
 	{
-		try
+		if($this->has($key))
 		{
-			if($this->has($key))
-			{
-				return $this->redis->decrby($this->identifier . $key, $ammount);
-			}
+			return $this->redis->decrby($this->identifier . $key, $ammount);
+		}
 
-			return false;
-		}
-		catch(RuntimeException $e)
-		{
-			return false;
-		}
+		return false;
 	}
 
 	/**
