@@ -74,14 +74,6 @@ class Request
 	protected $isSecure;
 
 	/**
-	 * The actual request method that was used.
-	 * 
-	 * @var string
-	 */
-
-	protected static $realMethod;
-
-	/**
 	 * Request language.
 	 * 
 	 * @var string
@@ -104,6 +96,14 @@ class Request
 	 */
 
 	protected $method;
+
+	/**
+	 * The actual request method that was used.
+	 * 
+	 * @var string
+	 */
+
+	protected $realMethod;
 
 	/**
 	 * Matched route.
@@ -131,13 +131,19 @@ class Request
 	 * @access  public
 	 * @param   string  $route   (optional) Request route
 	 * @param   string  $method  (optional) Request method
+	 * @param   array   $get     (optional) GET parameters
+	 * @param   array   $post    (optional) POST parameters
+	 * @param   array   $cookies (optional) Cookies
+	 * @param   array   $files   (optional) Files
+	 * @param   array   server   (optional) Server info
+	 * @param   string  $body    (optional) Request body
 	 */
 
-	public function __construct($route = null, $method = null)
+	public function __construct($route = null, $method = null, array $get = array(), array $post = array(), array $cookies = array(), array $files = array(), array $server = array(), $body = null)
 	{
-		// The first request will be treated as the main request
-
 		static $isMainRequest = true;
+
+		// Referece to the main request
 
 		if($isMainRequest)
 		{
@@ -146,7 +152,11 @@ class Request
 
 		// Create request input object
 
-		$this->input = new Input($this);
+		$this->input = new Input($this, $get, $post, $cookies, $files, $server, $body);
+
+		// Collect the request headers
+
+		$this->headers = $this->collectHeaders();
 
 		// Collect request info
 
@@ -323,10 +333,6 @@ class Request
 
 	protected function collectRequestInfo()
 	{
-		// Collect the request headers
-
-		$this->headers = $this->collectHeaders();
-
 		// Get the IP address of the client that made the request
 
 		$server = $this->input->server();
@@ -365,7 +371,7 @@ class Request
 
 		// Get the real request method that was used
 
-		static::$realMethod = isset($server['REQUEST_METHOD']) ? strtoupper($server['REQUEST_METHOD']) : 'GET';
+		$this->realMethod = isset($server['REQUEST_METHOD']) ? strtoupper($server['REQUEST_METHOD']) : 'GET';
 	}
 
 	/**
@@ -417,6 +423,18 @@ class Request
 	public function isMain()
 	{
 		return (static::$main === $this);
+	}
+
+	/**
+	 * Returns the input instance.
+	 * 
+	 * @access  public
+	 * @return  \mako\http\Input
+	 */
+
+	public function input()
+	{
+		return $this->input;
 	}
 
 	/**
@@ -472,18 +490,6 @@ class Request
 	}
 
 	/**
-	 * Returns the real request method that was used.
-	 * 
-	 * @access  public
-	 * @return  string
-	 */
-
-	public static function realMethod()
-	{
-		return static::$realMethod;
-	}
-
-	/**
 	 * Returns the request language.
 	 *
 	 * @access  public
@@ -517,6 +523,30 @@ class Request
 	public function method()
 	{
 		return $this->method;
+	}
+
+	/**
+	 * Returns the real request method that was used.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function realMethod()
+	{
+		return $this->realMethod;
+	}
+
+	/**
+	 * Returns TRUE if the request method has been faked and FALSE if not.
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function isFaked()
+	{
+		return $this->realMethod !== $this->method;
 	}
 
 	/**

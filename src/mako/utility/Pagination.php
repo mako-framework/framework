@@ -4,6 +4,8 @@ namespace mako\utility;
 
 use \mako\view\View;
 use \mako\core\Config;
+use \mako\http\Input;
+use \mako\http\Request;
 use \mako\http\routing\URL;
 use \mako\core\errors\ErrorHandler;
 use \Exception;
@@ -53,6 +55,14 @@ class Pagination
 	 */
 	
 	protected $itemsPerPage;
+
+	/**
+	 * Request input instance.
+	 * 
+	 * @var \mako\http\Input
+	 */
+
+	protected $input;
 	
 	/**
 	 * Maximum number of page links.
@@ -94,21 +104,24 @@ class Pagination
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $view          View name
-	 * @param   int     $cont          Number of items
-	 * @param   int     $itemsPerPage  (optional) Number of items to display on a page
+	 * @param   string            $view          View name
+	 * @param   int               $cont          Number of items
+	 * @param   int               $itemsPerPage  (optional) Number of items to display on a page
+	 * @param   \mako\http\Input  $input         (optional) Request input
 	 */
 
-	public function __construct($view, $count, $itemsPerPage = null)
+	public function __construct($view, $count, $itemsPerPage = null, Input $input = null)
 	{
 		$config = Config::get('pagination');
+
+		$this->input = $input ?: Request::main()->input();
 
 		$this->view         = $view;
 		$this->count        = $count;
 		$this->key          = $config['page_key'];
 		$this->itemsPerPage = ($itemsPerPage === null) ? max($config['items_per_page'], 1) : max($itemsPerPage, 1);
 		$this->maxPageLinks = $config['max_page_links'];
-		$this->currentPage  = max((int) (isset($_GET[$this->key]) ? $_GET[$this->key] : 1), 1);
+		$this->currentPage  = max((int) $this->input->get($this->key, 1), 1);
 	}
 
 	//---------------------------------------------
@@ -155,7 +168,7 @@ class Pagination
 
 		$pagination['count'] = $this->pages;
 
-		$params = isset($_GET) ? $_GET : array();
+		$params = $this->input->get();
 
 		if($this->currentPage > 1)
 		{

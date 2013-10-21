@@ -80,7 +80,7 @@ class Router
 				{
 					// Redirect to URL with trailing slash if the route should have one
 
-					Response::factory()->redirect(URL::to($requestedRoute . '/', $_GET, '&'), 301);
+					Response::factory()->redirect(URL::to($requestedRoute . '/', $this->request->input()->get(), '&'), 301);
 				}
 
 				return $route;

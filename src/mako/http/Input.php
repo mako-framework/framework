@@ -92,12 +92,12 @@ class Input
 	 * 
 	 * @access public
 	 * @param  \mako\http\Request  $request  Request object
-	 * @param  array               $get      GET parameters
-	 * @param  array               $post     POST parameters
-	 * @param  array               $cookies  Cookies
-	 * @param  array               $files    Files
-	 * @param  array               $server   Server info
-	 * @param  string              $body     Request body
+	 * @param  array               $get      (optional) GET parameters
+	 * @param  array               $post     (optional) POST parameters
+	 * @param  array               $cookies  (optional) Cookies
+	 * @param  array               $files    (optional) Files
+	 * @param  array               $server   (optional) Server info
+	 * @param  string              $body     (optional) Request body
 	 */
 
 	public function __construct(Request $request, array $get = array(), array $post = array(), array $cookies = array(), array $files = array(), array $server = array(), $body = null)
@@ -279,6 +279,66 @@ class Input
 	public function server($key = null, $default = null)
 	{
 		return ($key === null) ? $this->server : Arr::get($this->server, $key, $default);
+	}
+
+	/**
+	 * Fetch data the current request method.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function data($key = null, $default = null)
+	{
+		$method = strtolower($this->request->realMethod());
+
+		return $this->$method($key, $default);
+	}
+
+	/**
+	 * Checks if the keys exist in the data of the current request method.
+	 *
+	 * @access  public
+	 * @param   string   $key     Array key
+	 * @param   string   $method  (optional) Request method
+	 * @return  boolean
+	 */
+
+	public function has($key, $method = null)
+	{
+		$method = strtolower($this->request->realMethod());
+
+		return Arr::has($this->$method(), $key);
+	}
+
+	/**
+	 * Returns request data where keys not in the whitelist have been removed.
+	 * 
+	 * @access  public
+	 * @param   array  $keys      Keys to whitelist
+	 * @param   array  $defaults  (optional) Default values
+	 * @return  array
+	 */
+
+	public function whitelist(array $keys, array $defaults = array())
+	{
+		return array_intersect_key($this->data(), array_flip($keys)) + $defaults;
+	}
+
+	/**
+	 * Returns request data where keys in the blacklist have been removed.
+	 * 
+	 * @access  public
+	 * @param   array  $keys      Keys to whitelist
+	 * @param   array  $defaults  (optional) Default values
+	 * @return  array
+	 */
+
+	public function blacklist(array $keys, array $defaults = array())
+	{
+		return array_diff_key($this->data(), array_flip($keys)) + $defaults;
 	}
 }
 
