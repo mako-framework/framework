@@ -122,6 +122,23 @@ class Input
 	//---------------------------------------------
 
 	/**
+	 * Returns the raw request body.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function body()
+	{
+		if($this->body === null)
+		{
+			$this->body = file_get_contents('php://input');
+		}
+
+		return $this->body;
+	}
+
+	/**
 	 * Parses the request body and returns the chosen value.
 	 * 
 	 * @access  protected
@@ -150,23 +167,6 @@ class Input
 		}
 
 		return ($key === null) ? $this->parsedBody : Arr::get($this->parsedBody, $key, $default);
-	}
-
-	/**
-	 * Returns the raw request body.
-	 * 
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function body()
-	{
-		if($this->body === null)
-		{
-			$this->body = file_get_contents('php://input');
-		}
-
-		return $this->body;
 	}
 
 	/**
@@ -282,22 +282,6 @@ class Input
 	}
 
 	/**
-	 * Fetch data the current request method.
-	 *
-	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public function data($key = null, $default = null)
-	{
-		$method = strtolower($this->request->realMethod());
-
-		return $this->$method($key, $default);
-	}
-
-	/**
 	 * Checks if the keys exist in the data of the current request method.
 	 *
 	 * @access  public
@@ -314,6 +298,22 @@ class Input
 	}
 
 	/**
+	 * Fetch data the current request method.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function data($key = null, $default = null)
+	{
+		$method = strtolower($this->request->realMethod());
+
+		return $this->$method($key, $default);
+	}
+
+	/**
 	 * Returns request data where keys not in the whitelist have been removed.
 	 * 
 	 * @access  public
@@ -322,7 +322,7 @@ class Input
 	 * @return  array
 	 */
 
-	public function whitelist(array $keys, array $defaults = array())
+	public function whitelisted(array $keys, array $defaults = array())
 	{
 		return array_intersect_key($this->data(), array_flip($keys)) + $defaults;
 	}
@@ -336,7 +336,7 @@ class Input
 	 * @return  array
 	 */
 
-	public function blacklist(array $keys, array $defaults = array())
+	public function blacklisted(array $keys, array $defaults = array())
 	{
 		return array_diff_key($this->data(), array_flip($keys)) + $defaults;
 	}
