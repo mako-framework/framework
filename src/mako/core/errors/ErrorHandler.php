@@ -1,11 +1,11 @@
 <?php
 
-namespace mako\core\errorhandler;
+namespace mako\core\errors;
 
 use \Closure;
 use \Exception;
 use \ErrorException;
-use \mako\core\errorhandler\handlers\ExceptionHandler;
+use \mako\core\errors\handlers\ExceptionHandler;
 
 /**
  * Error handler.
@@ -98,6 +98,39 @@ class ErrorHandler
 	public static function handle($exception, Closure $handler)
 	{
 		array_unshift(static::$handlers, compact('exception', 'handler'));
+	}
+
+	/**
+	 * Clears all error handlers for an exception type.
+	 * 
+	 * @access  public
+	 * @param   string  $exception  Exception type
+	 */
+
+	public static function clearHandlers($exception)
+	{
+		foreach(static::$handlers as $key => $handler)
+		{
+			if($handler['exception'] === $exception)
+			{
+				unset(static::$handlers[$key]);
+			}
+		}
+	}
+
+	/**
+	 * Replaces all error handlers for an exception type with a new one.
+	 * 
+	 * @access  public
+	 * @param   string    $exception  Exception type
+	 * @param   \Closure  $handler    Exception handler
+	 */
+
+	public static function replaceHandlers($exception, Closure $handler)
+	{
+		static::clearHandlers($exception);
+
+		static::handle($exception, $handler);
 	}
 
 	/**
