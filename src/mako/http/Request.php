@@ -4,6 +4,7 @@ namespace mako\http;
 
 use \mako\i18n\I18n;
 use \mako\core\Config;
+use \mako\http\Input;
 use \mako\http\Response;
 use \mako\http\RequestException;
 use \mako\http\routing\URL;
@@ -27,10 +28,18 @@ class Request
 	/**
 	 * Holds the main request instance.
 	 * 
-	 * @var \mako\Request
+	 * @var \mako\http\Request
 	 */
 
 	protected static $main;
+
+	/**
+	 * Request input.
+	 * 
+	 * @var \mako\http\Input
+	 */
+
+	protected $input;
 
 	/**
 	 * Request headers.
@@ -38,7 +47,7 @@ class Request
 	 * @var array
 	 */
 
-	protected static $headers = array();
+	protected $headers = array();
 	
 	/**
 	 * Ip address of the client that made the request.
@@ -46,7 +55,7 @@ class Request
 	 * @var string
 	 */
 	
-	protected static $ip = '127.0.0.1';
+	protected $ip = '127.0.0.1';
 
 	/**
 	 * Is this an Ajax request?
@@ -54,7 +63,7 @@ class Request
 	 * @var boolean
 	 */
 
-	protected static $isAjax;
+	protected $isAjax;
 
 	/**
 	 * Was the request made using HTTPS?
@@ -62,7 +71,7 @@ class Request
 	 * @var boolean
 	 */
 
-	protected static $isSecure;
+	protected $isSecure;
 
 	/**
 	 * The actual request method that was used.
@@ -78,7 +87,7 @@ class Request
 	 * @var string
 	 */
 
-	protected static $language;
+	protected $language;
 	
 	/**
 	 * Holds the route passed to the constructor.
@@ -120,26 +129,38 @@ class Request
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $route   (optional) URL segments
+	 * @param   string  $route   (optional) Request route
 	 * @param   string  $method  (optional) Request method
 	 */
 
 	public function __construct($route = null, $method = null)
 	{
-		static $isMainRequest = true; // The first request will be treated as the main request
+		// The first request will be treated as the main request
+
+		static $isMainRequest = true;
 
 		if($isMainRequest)
 		{
 			static::$main = $this;
-
-			$this->collectRequestInfo();
 		}
+
+		// Create request input object
+
+		$this->input = new Input($this);
+
+		// Collect request info
+
+		$this->collectRequestInfo();
+
+		// Set the request route and method
 
 		$this->route = ($isMainRequest && empty($route)) ? $this->getRoute() : $route;
 
 		$this->method = ($isMainRequest && empty($method)) ? $this->detectMethod() : ($method ?: static::$main->method());
 
-		$isMainRequest = false; // Subsequent requests will be treated as subrequests
+		// Subsequent requests will be treated as subrequests
+
+		$isMainRequest = false;
 	}
 
 	/**
@@ -172,17 +193,19 @@ class Request
 	{
 		$route = '/';
 
-		if(isset($_SERVER['PATH_INFO']))
+		$server = $this->input->server();
+
+		if(isset($server['PATH_INFO']))
 		{
-			$route = $_SERVER['PATH_INFO'];
+			$route = $server['PATH_INFO'];
 		}
-		elseif(isset($_SERVER['REQUEST_URI']))
+		elseif(isset($server['REQUEST_URI']))
 		{
-			if($route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
+			if($route = parse_url($server['REQUEST_URI'], PHP_URL_PATH))
 			{
 				// Remove base path from route
 
-				$basePath = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+				$basePath = pathinfo($server['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
 				if(stripos($route, $basePath) === 0)
 				{
@@ -202,13 +225,13 @@ class Request
 
 		// Redirect to the current URL without "index.php" if clean URLs are enabled
 
-		if(Config::get('application.clean_urls') && isset($_SERVER['REQUEST_URI']) && stripos($_SERVER['REQUEST_URI'], 'index.php') !== false)
+		if(Config::get('application.clean_urls') && isset($server['REQUEST_URI']) && stripos($server['REQUEST_URI'], 'index.php') !== false)
 		{
-			$path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+			$path = pathinfo($server['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
-			if(stripos(mb_substr($_SERVER['REQUEST_URI'], mb_strlen($path)), '/index.php') === 0)
+			if(stripos(mb_substr($server['REQUEST_URI'], mb_strlen($path)), '/index.php') === 0)
 			{
-				Response::factory()->redirect(URL::to($route, $_GET, '&'), 301);
+				Response::factory()->redirect(URL::to($route, $this->input->get(), '&'), 301);
 			}
 		}
 
@@ -218,7 +241,7 @@ class Request
 		{
 			if($route === '/' . $key || strpos($route, '/' . $key . '/') === 0)
 			{
-				static::$language = $key;
+				$this->language = $key;
 
 				I18n::language($language);
 
@@ -242,20 +265,24 @@ class Request
 	{
 		$method = 'GET';
 
-		if(isset($_SERVER['REQUEST_METHOD']))
+		$server = $this->input->server();
+
+		if(isset($server['REQUEST_METHOD']))
 		{
-			$method = strtoupper($_SERVER['REQUEST_METHOD']);
+			$method = strtoupper($server['REQUEST_METHOD']);
 		}
 
 		if($method === 'POST')
 		{
-			if(isset($_POST['REQUEST_METHOD_OVERRIDE']))
+			$post = $this->input->post();
+
+			if(isset($post['REQUEST_METHOD_OVERRIDE']))
 			{
-				$method = $_POST['REQUEST_METHOD_OVERRIDE'];
+				$method = $post['REQUEST_METHOD_OVERRIDE'];
 			}
-			elseif(isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']))
+			elseif(isset($server['HTTP_X_HTTP_METHOD_OVERRIDE']))
 			{
-				$method = $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'];
+				$method = $server['HTTP_X_HTTP_METHOD_OVERRIDE'];
 			}
 		}
 
@@ -273,7 +300,7 @@ class Request
 	{
 		$headers = array();
 
-		foreach($_SERVER as $key => $value)
+		foreach($this->input->server() as $key => $value)
 		{
 			if(strpos($key, 'HTTP_') === 0)
 			{
@@ -298,45 +325,47 @@ class Request
 	{
 		// Collect the request headers
 
-		static::$headers = $this->collectHeaders();
+		$this->headers = $this->collectHeaders();
 
 		// Get the IP address of the client that made the request
+
+		$server = $this->input->server();
 		
-		if(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+		if(!empty($server['HTTP_X_FORWARDED_FOR']))
 		{
-			$ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+			$ip = explode(',', $server['HTTP_X_FORWARDED_FOR']);
 			
 			$ip = array_pop($ip);
 		}
-		elseif(!empty($_SERVER['HTTP_CLIENT_IP']))
+		elseif(!empty($server['HTTP_CLIENT_IP']))
 		{
-			$ip = $_SERVER['HTTP_CLIENT_IP'];
+			$ip = $server['HTTP_CLIENT_IP'];
 		}
-		elseif(!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
+		elseif(!empty($server['HTTP_X_CLUSTER_CLIENT_IP']))
 		{
-			$ip = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+			$ip = $server['HTTP_X_CLUSTER_CLIENT_IP'];
 		}
-		elseif(!empty($_SERVER['REMOTE_ADDR']))
+		elseif(!empty($server['REMOTE_ADDR']))
 		{
-			$ip = $_SERVER['REMOTE_ADDR'];
+			$ip = $server['REMOTE_ADDR'];
 		}
 		
 		if(isset($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false)
 		{
-			static::$ip = $ip;
+			$this->ip = $ip;
 		}
 		
 		// Is this an Ajax request?
 
-		static::$isAjax = (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
+		$this->isAjax = (isset($server['HTTP_X_REQUESTED_WITH']) && ($server['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 
 		// Was the request made using HTTPS?
 
-		static::$isSecure = (!empty($_SERVER['HTTPS']) && filter_var($_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
+		$this->isSecure = (!empty($server['HTTPS']) && filter_var($server['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
 
 		// Get the real request method that was used
 
-		static::$realMethod = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
+		static::$realMethod = isset($server['REQUEST_METHOD']) ? strtoupper($server['REQUEST_METHOD']) : 'GET';
 	}
 
 	/**
@@ -399,11 +428,11 @@ class Request
 	 * @return  mixed
 	 */
 
-	public static function header($name, $default = null)
+	public function header($name, $default = null)
 	{
 		$name = strtoupper(str_replace('-', '_', $name));
 
-		return isset(static::$headers[$name]) ? static::$headers[$name] : $default;
+		return isset($this->headers[$name]) ? $this->headers[$name] : $default;
 	}
 
 	/**
@@ -413,9 +442,9 @@ class Request
 	 * @return  string
 	 */
 	
-	public static function ip()
+	public function ip()
 	{
-		return static::$ip;
+		return $this->ip;
 	}
 
 	/**
@@ -425,9 +454,9 @@ class Request
 	 * @return  boolean
 	 */
 
-	public static function isAjax()
+	public function isAjax()
 	{
-		return static::$isAjax;
+		return $this->isAjax;
 	}
 
 	/**
@@ -437,9 +466,9 @@ class Request
 	 * @return  boolean
 	 */
 
-	public static function isSecure()
+	public function isSecure()
 	{
-		return static::$isSecure;
+		return $this->isSecure;
 	}
 
 	/**
@@ -461,9 +490,9 @@ class Request
 	 * @return  string
 	 */
 
-	public static function language()
+	public function language()
 	{
-		return static::$language;
+		return $this->language;
 	}
 
 	/**
@@ -523,9 +552,9 @@ class Request
 	 * @return  string
 	 */
 
-	public static function username()
+	public function username()
 	{
-		return isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : null;
+		return $this->input->server('PHP_AUTH_USER');
 	}
 
 	/**
@@ -535,9 +564,9 @@ class Request
 	 * @return  string
 	 */
 
-	public static function password()
+	public function password()
 	{
-		return isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null;
+		return $this->input->server('PHP_AUTH_PW');
 	}
 
 	/**
@@ -548,9 +577,9 @@ class Request
 	 * @return  string
 	 */
 
-	public static function referer($default = '')
+	public function referer($default = '')
 	{
-		return static::header('referer', $default);
+		return $this->header('referer', $default);
 	}
 }
 

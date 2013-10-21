@@ -6,7 +6,7 @@ use \mako\utility\Arr;
 use \mako\http\Request;
 
 /**
- * Input filtering and helpers.
+ * HTTP input.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
@@ -20,34 +20,101 @@ class Input
 	//---------------------------------------------
 
 	/**
-	 * Holds the PUT method's data.
-	 *
-	 * @var array
+	 * Request.
+	 * 
+	 * @var \mako\http\Request
 	 */
 
-	protected static $put;
+	protected $request;
 
 	/**
-	 * Holds the DELETE method's data.
-	 *
+	 * Get parameters.
+	 * 
 	 * @var array
 	 */
 
-	protected static $delete;
+	protected $get;
+
+	/**
+	 * Post parameters.
+	 * 
+	 * @var array
+	 */
+
+	protected $post;
+
+	/**
+	 * Cookies.
+	 * 
+	 * @var array
+	 */
+
+	protected $cookies;
+
+	/**
+	 * Files.
+	 * 
+	 * @var array
+	 */
+
+	protected $files;
+
+	/**
+	 * Server info.
+	 * 
+	 * @var array
+	 */
+
+	protected $server;
+
+	/**
+	 * Request body.
+	 * 
+	 * @var array
+	 */
+
+	protected $body;
+
+	/**
+	 * Parsed body.
+	 * 
+	 * @var array
+	 */
+
+	protected $parsedBody;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
-	 *
-	 * @access  protected
+	 * Constructor.
+	 * 
+	 * @access public
+	 * @param  \mako\http\Request  $request  Request object
+	 * @param  array               $get      GET parameters
+	 * @param  array               $post     POST parameters
+	 * @param  array               $cookies  Cookies
+	 * @param  array               $files    Files
+	 * @param  array               $server   Server info
+	 * @param  string              $body     Request body
 	 */
 
-	protected function __construct()
+	public function __construct(Request $request, array $get = array(), array $post = array(), array $cookies = array(), array $files = array(), array $server = array(), $body = null)
 	{
-		// Nothing here
+		$this->request = $request;
+
+		$this->get = $get ?: $_GET;
+
+		$this->post = $post ?: $_POST;
+
+		$this->cookies = $cookies ?: $_COOKIE;
+
+		$this->files = $files ?: $_FILES;
+
+		$this->server = $server ?: $_SERVER;
+
+		$this->body = $body;
 	}
 
 	//---------------------------------------------
@@ -55,147 +122,55 @@ class Input
 	//---------------------------------------------
 
 	/**
-	 * Fetch data from the $_GET array.
-	 *
-	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
+	 * Parses the request body and returns the chosen value.
+	 * 
+	 * @access  protected
+	 * @param   string  $key      Array key
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
-	public static function get($key = null, $default = null)
+	protected function getParsed($key, $default)
 	{
-		return $key === null ? $_GET : Arr::get($_GET, $key, $default);
-	}
-
-	/**
-	 * Fetch data from the $_POST array.
-	 *
-	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public static function post($key = null, $default = null)
-	{
-		return $key === null ? $_POST : Arr::get($_POST, $key, $default);
-	}
-
-	/**
-	 * Fetch data from the $_COOKIE array.
-	 *
-	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public static function cookie($key = null, $default = null)
-	{
-		return $key === null ? $_COOKIE : Arr::get($_COOKIE, $key, $default);
-	}
-
-	/**
-	 * Fetch data from the $_FILES array.
-	 *
-	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public static function files($key = null, $default = null)
-	{
-		return $key === null ? $_FILES : Arr::get($_FILES, $key, $default);
-	}
-
-	/**
-	 * Fetch data from the $_SERVER array.
-	 *
-	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public static function server($key = null, $default = null)
-	{
-		return $key === null ? $_SERVER : Arr::get($_SERVER, $key, $default);
-	}
-
-	/**
-	 * Fetch data from the $_ENV array.
-	 *
-	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public static function env($key = null, $default = null)
-	{
-		return $key === null ? $_ENV : Arr::get($_ENV, $key, $default);
-	}
-
-	/**
-	 * Fetch data from the $_SESSION array.
-	 *
-	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public static function session($key = null, $default = null)
-	{
-		return $key === null ? $_SESSION : Arr::get($_SESSION, $key, $default);
-	}
-	
-	/**
-	 * Returns PUT data.
-	 *
-	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public static function put($key = null, $default = null)
-	{
-		if(static::$put === null)
+		if($this->parsedBody === null)
 		{
-			static::$put = array();
-
-			parse_str(file_get_contents('php://input'), static::$put);
+			switch($this->request->header('content-type'))
+			{
+				case 'application/x-www-form-urlencoded':
+					parse_str($this->body(), $this->parsedBody);
+				break;
+				case 'text/json':
+				case 'application/json':
+					$this->parsedBody = json_decode($this->body(), true);
+				break;
+				default:
+					$this->parsedBody = array();
+			}
+			
 		}
 
-		return $key === null ? static::$put : Arr::get(static::$put, $key, $default);
+		return ($key === null) ? $this->parsedBody : Arr::get($this->parsedBody, $key, $default);
 	}
 
 	/**
-	 * Returns DELETE data.
-	 *
+	 * Returns the raw request body.
+	 * 
 	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
+	 * @return  string
 	 */
 
-	public static function delete($key = null, $default = null)
+	public function body()
 	{
-		if(static::$delete === null)
+		if($this->body === null)
 		{
-			static::$delete = array();
-
-			parse_str(file_get_contents('php://input'), static::$delete);
+			$this->body = file_get_contents('php://input');
 		}
 
-		return $key === null ? static::$delete : Arr::get(static::$delete, $key, $default);
+		return $this->body;
 	}
 
 	/**
-	 * Returns the current request method's data.
+	 * Fetch data from the GET parameters.
 	 *
 	 * @access  public
 	 * @param   string  $key      (optional) Array key
@@ -203,55 +178,107 @@ class Input
 	 * @return  mixed
 	 */
 
-	public static function data($key = null, $default = null)
+	public function get($key = null, $default = null)
 	{
-		$method = strtolower(Request::realMethod());
-
-		return static::$method($key, $default);
+		return ($key === null) ? $this->get : Arr::get($this->get, $key, $default);
 	}
 
 	/**
-	 * Checks if the keys exist in the request method data.
+	 * Fetch data from the POST parameters.
 	 *
 	 * @access  public
-	 * @param   string   $key     Array key
-	 * @param   string   $method  (optional) Request method
-	 * @return  boolean
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
 	 */
 
-	public static function has($key, $method = null)
+	public function post($key = null, $default = null)
 	{
-		$method = strtolower($method ?: Request::realMethod());
-
-		return Arr::has(static::$method(), $key)
+		return ($key === null) ? $this->post : Arr::get($this->post, $key, $default);
 	}
 
 	/**
-	 * Returns input data where keys not in the whitelist have been removed.
-	 * 
+	 * Fetch data from the PUT parameters.
+	 *
 	 * @access  public
-	 * @param   array  $keys      Keys to whitelist
-	 * @param   array  $defaults  (optional) Default values
-	 * @return  array
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
 	 */
 
-	public static function whitelist(array $keys, array $defaults = array())
+	public function put($key = null, $default = null)
 	{
-		return array_intersect_key(static::data(), array_flip($keys)) + $defaults;
+		return $this->getParsed($key, $default);
 	}
 
 	/**
-	 * Returns input data where keys in the blacklist have been removed.
-	 * 
+	 * Fetch data from the PATCH parameters.
+	 *
 	 * @access  public
-	 * @param   array  $keys      Keys to whitelist
-	 * @param   array  $defaults  (optional) Default values
-	 * @return  array
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
 	 */
 
-	public static function blacklist(array $keys, array $defaults = array())
+	public function patch($key = null, $default = null)
 	{
-		return array_diff_key(static::data(), array_flip($keys)) + $defaults;
+		return $this->getParsed($key, $default);
+	}
+
+	/**
+	 * Fetch data from the DELETE parameters.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function delete($key = null, $default = null)
+	{
+		return $this->getParsed($key, $default);
+	}
+
+	/**
+	 * Fetch cookie data.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function cookie($key = null, $default = null)
+	{
+		return ($key === null) ? $this->cookies : Arr::get($this->cookies, $key, $default);
+	}
+
+	/**
+	 * Fetch file data.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function file($key = null, $default = null)
+	{
+		return ($key === null) ? $this->files : Arr::get($this->files, $key, $default);
+	}
+
+	/**
+	 * Fetch server info.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function server($key = null, $default = null)
+	{
+		return ($key === null) ? $this->server : Arr::get($this->server, $key, $default);
 	}
 }
 

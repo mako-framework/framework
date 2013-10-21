@@ -75,7 +75,7 @@ class URL
 
 			if($base === '' && isset($_SERVER['HTTP_HOST']))
 			{
-				$protocol = Request::isSecure() ? 'https' : 'http';
+				$protocol = Request::main()->isSecure() ? 'https' : 'http';
 
 				$script = $_SERVER['SCRIPT_NAME'];
 				
@@ -88,7 +88,7 @@ class URL
 
 			// Add request language to URL?
 
-			$language = Request::language();
+			$language = Request::main()->language();
 
 			if(!empty($language))
 			{

@@ -382,7 +382,7 @@ class Response
 
 	public function back($statusCode = 302)
 	{
-		$this->redirect(Request::referer(), $statusCode);
+		$this->redirect(Request::main()->referer(), $statusCode);
 	}
 
 	/**
@@ -474,7 +474,7 @@ class Response
 
 			// Add debug toolbar?
 
-			if(Config::get('application.debug_toolbar') === true && Request::isAjax() === false)
+			if(Config::get('application.debug_toolbar') === true && Request::main()->isAjax() === false)
 			{
 				$this->body = str_replace('</body>', DebugToolbar::render() . '</body>', $this->body);
 			}
@@ -487,7 +487,7 @@ class Response
 
 				header('ETag: ' . $hash);
 
-				if(Request::header('if-none-match') === $hash)
+				if(Request::main()->header('if-none-match') === $hash)
 				{
 					$this->status(304);
 
