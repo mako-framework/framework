@@ -29,6 +29,7 @@ class Cache
 	protected static $adapters = array
 	(
 		'apc'        => '\mako\caching\adapters\APC',
+		'apcu'       => '\mako\caching\adapters\APCU',
 		'database'   => '\mako\caching\adapters\Database',
 		'file'       => '\mako\caching\adapters\File',
 		'memcache'   => '\mako\caching\adapters\Memcache',
