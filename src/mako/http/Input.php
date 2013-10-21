@@ -70,7 +70,7 @@ class Input
 	/**
 	 * Request body.
 	 * 
-	 * @var array
+	 * @var string
 	 */
 
 	protected $body;
