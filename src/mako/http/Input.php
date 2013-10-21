@@ -292,7 +292,7 @@ class Input
 
 	public function has($key, $method = null)
 	{
-		$method = strtolower($this->request->realMethod());
+		$method = $method ?: strtolower($this->request->realMethod());
 
 		return Arr::has($this->$method(), $key);
 	}
