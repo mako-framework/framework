@@ -6,7 +6,6 @@ use \mako\i18n\I18n;
 use \mako\core\Config;
 use \mako\http\Input;
 use \mako\http\Response;
-use \mako\http\RequestException;
 use \mako\http\routing\URL;
 use \mako\http\routing\Router;
 use \mako\http\routing\Dispatcher;
