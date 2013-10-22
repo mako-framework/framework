@@ -82,12 +82,12 @@ class Request
 	protected $language;
 	
 	/**
-	 * Holds the route passed to the constructor.
+	 * Holds the request path.
 	 *
 	 * @var string
 	 */
 
-	protected $route;
+	protected $path;
 
 	/**
 	 * Which request method was used?
@@ -111,15 +111,7 @@ class Request
 	 * @var \mako\http\routing\Route
 	 */
 
-	protected $matchedRoute;
-
-	/**
-	 * Request parameters.
-	 * 
-	 * @var array
-	 */
-
-	protected $parameters = array();
+	protected $route;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -129,17 +121,17 @@ class Request
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $route   (optional) Request route
+	 * @param   string  $path    (optional) Request path
 	 * @param   string  $method  (optional) Request method
 	 * @param   array   $get     (optional) GET parameters
 	 * @param   array   $post    (optional) POST parameters
 	 * @param   array   $cookies (optional) Cookies
 	 * @param   array   $files   (optional) Files
-	 * @param   array   server   (optional) Server info
+	 * @param   array   $server  (optional) Server info
 	 * @param   string  $body    (optional) Request body
 	 */
 
-	public function __construct($route = null, $method = null, array $get = array(), array $post = array(), array $cookies = array(), array $files = array(), array $server = array(), $body = null)
+	public function __construct($path = null, $method = null, array $get = array(), array $post = array(), array $cookies = array(), array $files = array(), array $server = array(), $body = null)
 	{
 		static $isMainRequest = true;
 
@@ -162,11 +154,11 @@ class Request
 
 		$this->collectRequestInfo();
 
-		// Set the request route and method
+		// Set the request path and method
 
-		$this->route = ($isMainRequest && empty($route)) ? $this->getRoute() : $route;
+		$this->path = ($isMainRequest && empty($path)) ? $this->determinePath() : $path;
 
-		$this->method = ($isMainRequest && empty($method)) ? $this->detectMethod() : ($method ?: static::$main->method());
+		$this->method = ($isMainRequest && empty($method)) ? $this->determineMethod() : ($method ?: static::$main->method());
 
 		// Subsequent requests will be treated as subrequests
 
@@ -177,14 +169,20 @@ class Request
 	 * Factory method making method chaining possible right off the bat.
 	 *
 	 * @access  public
-	 * @param   string         $route   (optional) URL segments
+	 * @param   string         $path    (optional) Request path
 	 * @param   string         $method  (optional) Request method
+	 * @param   array          $get     (optional) GET parameters
+	 * @param   array          $post    (optional) POST parameters
+	 * @param   array          $cookies (optional) Cookies
+	 * @param   array          $files   (optional) Files
+	 * @param   array          $server  (optional) Server info
+	 * @param   string         $body    (optional) Request body
 	 * @return  \mako\Request
 	 */
 
-	public static function factory($route = null, $method = null)
+	public static function factory($path = null, $method = null, array $get = array(), array $post = array(), array $cookies = array(), array $files = array(), array $server = array(), $body = null)
 	{
-		return new static($route, $method);
+		return new static($path, $method);
 	}
 
 	//---------------------------------------------
@@ -192,44 +190,43 @@ class Request
 	//---------------------------------------------
 
 	/**
-	 * Returns the requested route.
+	 * Determines the request path.
 	 *
 	 * @access  protected
-	 * @param   string     $route  The requested route
 	 * @return  string
 	 */
 
-	protected function getRoute()
+	protected function determinePath()
 	{
-		$route = '/';
+		$path = '/';
 
 		$server = $this->input->server();
 
 		if(isset($server['PATH_INFO']))
 		{
-			$route = $server['PATH_INFO'];
+			$path = $server['PATH_INFO'];
 		}
 		elseif(isset($server['REQUEST_URI']))
 		{
-			if($route = parse_url($server['REQUEST_URI'], PHP_URL_PATH))
+			if($path = parse_url($server['REQUEST_URI'], PHP_URL_PATH))
 			{
-				// Remove base path from route
+				// Remove base path from request path
 
 				$basePath = pathinfo($server['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
-				if(stripos($route, $basePath) === 0)
+				if(stripos($path, $basePath) === 0)
 				{
-					$route = mb_substr($route, mb_strlen($basePath));
+					$path = mb_substr($path, mb_strlen($basePath));
 				}
 
-				// Remove "/index.php" from route
+				// Remove "/index.php" from path
 
-				if(stripos($route, '/index.php') === 0)
+				if(stripos($path, '/index.php') === 0)
 				{
-					$route = mb_substr($route, 10);
+					$path = mb_substr($path, 10);
 				}
 
-				$route = rawurldecode($route);
+				$path = rawurldecode($path);
 			}
 		}
 
@@ -241,37 +238,37 @@ class Request
 
 			if(stripos(mb_substr($server['REQUEST_URI'], mb_strlen($path)), '/index.php') === 0)
 			{
-				Response::factory()->redirect(URL::to($route, $this->input->get(), '&'), 301);
+				Response::factory()->redirect(URL::to($path, $this->input->get(), '&'), 301);
 			}
 		}
 
-		// Remove the locale segment from the route
+		// Remove the locale segment from the path
 			
 		foreach(Config::get('application.languages') as $key => $language)
 		{
-			if($route === '/' . $key || strpos($route, '/' . $key . '/') === 0)
+			if($path === '/' . $key || strpos($path, '/' . $key . '/') === 0)
 			{
 				$this->language = $key;
 
 				I18n::language($language);
 
-				$route = '/' . ltrim(mb_substr($route, (mb_strlen($key) + 1)), '/');
+				$path = '/' . ltrim(mb_substr($path, (mb_strlen($key) + 1)), '/');
 
 				break;
 			}
 		}
 
-		return $route;
+		return $path;
 	}
 
 	/**
-	 * Detects the request method.
+	 * Determines the request method.
 	 * 
 	 * @access  protected
 	 * @return  string
 	 */
 
-	protected function detectMethod()
+	protected function determineMethod()
 	{
 		$method = 'GET';
 
@@ -385,16 +382,14 @@ class Request
 	{
 		$router = new Router($this);
 
-		$this->matchedRoute = $router->route();
+		$this->route = $router->route();
 
 		if($this->method === 'OPTIONS' && $this->isMain())
 		{
-			return Response::factory()->header('Allow', implode(', ', $this->matchedRoute->getMethods()));
+			return Response::factory()->header('Allow', implode(', ', $this->route->getMethods()));
 		}
 		else
 		{
-			$this->parameters = $this->matchedRoute->getParameters();
-
 			$dispatcher = new Dispatcher($this);
 
 			return $dispatcher->dispatch();
@@ -478,7 +473,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request made using HTTPS and FALSE if not.
+	 * Returns TRUE if the request was made using HTTPS and FALSE if not.
 	 *
 	 * @access  public
 	 * @return  boolean
@@ -502,15 +497,15 @@ class Request
 	}
 
 	/**
-	 * Returns the route of the request.
+	 * Returns the request path.
 	 *
 	 * @access  public
 	 * @return  string
 	 */
 
-	public function route()
+	public function path()
 	{
-		return $this->route;
+		return $this->path;
 	}
 
 	/**
@@ -556,23 +551,9 @@ class Request
 	 * @return  \mako\http\routing\Route
 	 */
 
-	public function matchedRoute()
+	public function route()
 	{
-		return $this->matchedRoute;
-	}
-
-	/**
-	 * Returns a request parameter.
-	 * 
-	 * @access  public
-	 * @param   string  $key      Parameter name
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public function param($key, $default = null)
-	{
-		return isset($this->parameters[$key]) ? $this->parameters[$key] : $default;
+		return $this->route;
 	}
 
 	/**

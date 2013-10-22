@@ -63,7 +63,7 @@ class Router
 
 		$requestMethod = $this->request->method();
 
-		$requestedRoute = $this->request->route();
+		$requestedRoute = $this->request->path();
 
 		foreach($routes as $route)
 		{

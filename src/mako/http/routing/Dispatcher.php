@@ -63,14 +63,14 @@ class Dispatcher
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Reqeust  $request  Request
+	 * @param   \mako\http\Request  $request  Request
 	 */
 
 	public function __construct(Request $request)
 	{
 		$this->request = $request;
 
-		$this->route = $request->matchedRoute();
+		$this->route = $request->route();
 
 		$this->response = new Response();
 	}

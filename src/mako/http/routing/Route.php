@@ -200,7 +200,7 @@ class Route
 	}
 
 	/**
-	 * Returns the matched parameters.
+	 * Returns the matched route parameters.
 	 * 
 	 * @access  public
 	 * @return  array
@@ -209,6 +209,20 @@ class Route
 	public function getParameters()
 	{
 		return $this->parameters;
+	}
+
+	/**
+	 * Returns a route parameter.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Parameter name
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function param($key, $default = null)
+	{
+		return isset($this->parameters[$key]) ? $this->parameters[$key] : $default;
 	}
 
 	/**
