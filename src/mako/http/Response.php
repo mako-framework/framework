@@ -4,6 +4,7 @@ namespace mako\http;
 
 use \Closure;
 use \mako\core\Config;
+use \mako\security\MAC;
 use \mako\http\Request;
 use \mako\http\routing\URL;
 use \mako\core\DebugToolbar;
@@ -77,6 +78,14 @@ class Response
 	 */
 
 	protected $responseHeaders = array();
+
+	/**
+	 * Cookies.
+	 * 
+	 * @var array
+	 */
+
+	protected $cookies = array();
 	
 	/**
 	 * List of HTTP status codes.
@@ -261,6 +270,74 @@ class Response
 	}
 
 	/**
+	 * Sets an unsigned cookie.
+	 *
+	 * @access  public
+	 * @param   string               $name     Cookie name
+	 * @param   string               $value    Cookie value
+	 * @param   int                  $ttl      (optional) Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	 * @param   array                $options  (optional) Cookie options
+	 * @return  \mako\http\Response
+	 */
+
+	public function unsignedCookie($name, $value, $ttl = 0, array $options = array())
+	{
+		$ttl = ($ttl > 0) ? (time() + $ttl) : 0;
+
+		$this->cookies[] = array('name' => $name, 'value' => $value, 'ttl' => $ttl) + $options + array('path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false);
+
+		return $this;
+	}
+
+	/**
+	 * Sets a signed cookie.
+	 *
+	 * @access  public
+	 * @param   string               $name     Cookie name
+	 * @param   string               $value    Cookie value
+	 * @param   int                  $ttl      (optional) Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	 * @param   array                $options  (optional) Cookie options
+	 * @return  \mako\http\Response
+	 */
+
+	public function cookie($name, $value, $ttl = 0, array $options = array())
+	{
+		$this->unsignedCookie($name, MAC::sign($value), $ttl, $options);
+
+		return $this;
+	}
+
+	/**
+	 * Deletes a cookie.
+	 *
+	 * @access  public
+	 * @param   string               $name     Cookie name
+	 * @param   array                $options  (optional) Cookie options
+	 * @return  \mako\http\Response
+	 */
+
+	public function deleteCookie($name, array $options = array())
+	{
+		$this->unsignedCookie($name, '', time() - 3600, $options);
+
+		return $this;
+	}
+
+	/**
+	 * Clear cookies.
+	 * 
+	 * @access  public
+	 * @return  \mako\http\Response
+	 */
+
+	public function clearCookies()
+	{
+		$this->cookies = array();
+
+		return $this;
+	}
+
+	/**
 	 * Sets the response content type.
 	 * 
 	 * @access  public
@@ -320,6 +397,20 @@ class Response
 		foreach($this->responseHeaders as $name => $value)
 		{
 			header($name . ': ' . $value);
+		}
+	}
+
+	/**
+	 * Sets cookies.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function setCookies()
+	{
+		foreach($this->cookies as $cookie)
+		{
+			setcookie($cookie['name'], $cookie['value'], $cookie['ttl'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
 		}
 	}
 
@@ -458,6 +549,10 @@ class Response
 		// Send response headers
 
 		$this->sendHeaders();
+
+		// Set cookies
+
+		$this->setCookies();
 
 		// Print output to browser (if there is any)
 

@@ -57,12 +57,12 @@ class Pagination
 	protected $itemsPerPage;
 
 	/**
-	 * Request input instance.
+	 * Request instance.
 	 * 
-	 * @var \mako\http\Input
+	 * @var \mako\http\Request
 	 */
 
-	protected $input;
+	protected $request;
 	
 	/**
 	 * Maximum number of page links.
@@ -104,24 +104,24 @@ class Pagination
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string            $view          View name
-	 * @param   int               $cont          Number of items
-	 * @param   int               $itemsPerPage  (optional) Number of items to display on a page
-	 * @param   \mako\http\Input  $input         (optional) Request input
+	 * @param   string              $view          View name
+	 * @param   int                 $cont          Number of items
+	 * @param   int                 $itemsPerPage  (optional) Number of items to display on a page
+	 * @param   \mako\http\Request  $request       (optional) Request instance
 	 */
 
-	public function __construct($view, $count, $itemsPerPage = null, Input $input = null)
+	public function __construct($view, $count, $itemsPerPage = null, Request $request = null)
 	{
 		$config = Config::get('pagination');
 
-		$this->input = $input ?: Request::main()->input();
+		$this->request = $request ?: Request::main();
 
 		$this->view         = $view;
 		$this->count        = $count;
 		$this->key          = $config['page_key'];
 		$this->itemsPerPage = ($itemsPerPage === null) ? max($config['items_per_page'], 1) : max($itemsPerPage, 1);
 		$this->maxPageLinks = $config['max_page_links'];
-		$this->currentPage  = max((int) $this->input->get($this->key, 1), 1);
+		$this->currentPage  = max((int) $this->request->get($this->key, 1), 1);
 	}
 
 	//---------------------------------------------
@@ -168,7 +168,7 @@ class Pagination
 
 		$pagination['count'] = $this->pages;
 
-		$params = $this->input->get();
+		$params = $this->request->get();
 
 		if($this->currentPage > 1)
 		{

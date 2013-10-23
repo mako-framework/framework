@@ -5,7 +5,6 @@ namespace mako\http\routing;
 use \Closure;
 use \RuntimeException;
 use \mako\http\Request;
-use \mako\http\Response;
 use \mako\http\routing\Routes;
 use \mako\http\routing\Controller;
 
@@ -70,9 +69,9 @@ class Dispatcher
 	{
 		$this->request = $request;
 
-		$this->route = $request->route();
+		$this->response = $request->response();
 
-		$this->response = new Response();
+		$this->route = $request->route();
 	}
 
 	//---------------------------------------------

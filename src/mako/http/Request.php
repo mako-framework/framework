@@ -4,7 +4,7 @@ namespace mako\http;
 
 use \mako\i18n\I18n;
 use \mako\core\Config;
-use \mako\http\Input;
+use \mako\security\MAC;
 use \mako\http\Response;
 use \mako\http\routing\URL;
 use \mako\http\routing\Router;
@@ -33,12 +33,68 @@ class Request
 	protected static $main;
 
 	/**
-	 * Request input.
+	 * Response.
 	 * 
-	 * @var \mako\http\Input
+	 * @var \mako\http\Response
 	 */
 
-	protected $input;
+	protected $response;
+
+	/**
+	 * GET data
+	 * 
+	 * @var array
+	 */
+
+	protected $get;
+
+	/**
+	 * POST data
+	 * 
+	 * @var array
+	 */
+
+	protected $post;
+
+	/**
+	 * Cookie data.
+	 * 
+	 * @var array
+	 */
+
+	protected $cookies;
+
+	/**
+	 * File data.
+	 * 
+	 * @var array
+	 */
+
+	protected $files;
+
+	/**
+	 * Server info.
+	 * 
+	 * @var array
+	 */
+
+	protected $server;
+
+	/**
+	 * Raw request body.
+	 * 
+	 * @var string
+	 */
+
+	protected $body;
+
+	/**
+	 * Parsed request body.
+	 * 
+	 * @var array
+	 */
+
+	protected $parsedBody;
 
 	/**
 	 * Request headers.
@@ -122,10 +178,10 @@ class Request
 	 * @access  public
 	 * @param   string  $path    (optional) Request path
 	 * @param   string  $method  (optional) Request method
-	 * @param   array   $get     (optional) GET parameters
-	 * @param   array   $post    (optional) POST parameters
-	 * @param   array   $cookies (optional) Cookies
-	 * @param   array   $files   (optional) Files
+	 * @param   array   $get     (optional) GET data
+	 * @param   array   $post    (optional) POST data
+	 * @param   array   $cookies (optional) Cookie data
+	 * @param   array   $files   (optional) File data
 	 * @param   array   $server  (optional) Server info
 	 * @param   string  $body    (optional) Request body
 	 */
@@ -141,9 +197,14 @@ class Request
 			static::$main = $this;
 		}
 
-		// Create request input object
+		// Collect request data
 
-		$this->input = new Input($this, $get, $post, $cookies, $files, $server, $body);
+		$this->get     = $get     ?: $_GET;
+		$this->post    = $post    ?: $_POST;
+		$this->cookies = $cookies ?: $_COOKIE;
+		$this->files   = $files   ?: $_FILES;
+		$this->server  = $server  ?: $_SERVER;
+		$this->body    = $body;
 
 		// Collect the request headers
 
@@ -158,6 +219,10 @@ class Request
 		$this->path = ($isMainRequest && empty($path)) ? $this->determinePath() : $path;
 
 		$this->method = ($isMainRequest && empty($method)) ? $this->determineMethod() : ($method ?: static::$main->method());
+
+		// Create response
+
+		$this->response = new Response();
 
 		// Subsequent requests will be treated as subrequests
 
@@ -199,19 +264,17 @@ class Request
 	{
 		$path = '/';
 
-		$server = $this->input->server();
-
-		if(isset($server['PATH_INFO']))
+		if(isset($this->server['PATH_INFO']))
 		{
-			$path = $server['PATH_INFO'];
+			$path = $this->server['PATH_INFO'];
 		}
-		elseif(isset($server['REQUEST_URI']))
+		elseif(isset($this->server['REQUEST_URI']))
 		{
-			if($path = parse_url($server['REQUEST_URI'], PHP_URL_PATH))
+			if($path = parse_url($this->server['REQUEST_URI'], PHP_URL_PATH))
 			{
 				// Remove base path from request path
 
-				$basePath = pathinfo($server['SCRIPT_NAME'], PATHINFO_DIRNAME);
+				$basePath = pathinfo($this->server['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
 				if(stripos($path, $basePath) === 0)
 				{
@@ -231,13 +294,13 @@ class Request
 
 		// Redirect to the current URL without "index.php" if clean URLs are enabled
 
-		if(Config::get('application.clean_urls') && isset($server['REQUEST_URI']) && stripos($server['REQUEST_URI'], 'index.php') !== false)
+		if(Config::get('application.clean_urls') && isset($this->server['REQUEST_URI']) && stripos($this->server['REQUEST_URI'], 'index.php') !== false)
 		{
-			$path = pathinfo($server['SCRIPT_NAME'], PATHINFO_DIRNAME);
+			$path = pathinfo($this->server['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
-			if(stripos(mb_substr($server['REQUEST_URI'], mb_strlen($path)), '/index.php') === 0)
+			if(stripos(mb_substr($this->server['REQUEST_URI'], mb_strlen($path)), '/index.php') === 0)
 			{
-				Response::factory()->redirect(URL::to($path, $this->input->get(), '&'), 301);
+				$this->response->redirect(URL::to($path, $this->get, '&'), 301);
 			}
 		}
 
@@ -271,24 +334,22 @@ class Request
 	{
 		$method = 'GET';
 
-		$server = $this->input->server();
-
-		if(isset($server['REQUEST_METHOD']))
+		if(isset($this->server['REQUEST_METHOD']))
 		{
-			$method = strtoupper($server['REQUEST_METHOD']);
+			$method = strtoupper($this->server['REQUEST_METHOD']);
 		}
 
 		if($method === 'POST')
 		{
-			$post = $this->input->post();
+			$post = $this->post;
 
 			if(isset($post['REQUEST_METHOD_OVERRIDE']))
 			{
 				$method = $post['REQUEST_METHOD_OVERRIDE'];
 			}
-			elseif(isset($server['HTTP_X_HTTP_METHOD_OVERRIDE']))
+			elseif(isset($this->server['HTTP_X_HTTP_METHOD_OVERRIDE']))
 			{
-				$method = $server['HTTP_X_HTTP_METHOD_OVERRIDE'];
+				$method = $this->server['HTTP_X_HTTP_METHOD_OVERRIDE'];
 			}
 		}
 
@@ -306,7 +367,7 @@ class Request
 	{
 		$headers = array();
 
-		foreach($this->input->server() as $key => $value)
+		foreach($this->server as $key => $value)
 		{
 			if(strpos($key, 'HTTP_') === 0)
 			{
@@ -330,26 +391,24 @@ class Request
 	protected function collectRequestInfo()
 	{
 		// Get the IP address of the client that made the request
-
-		$server = $this->input->server();
 		
-		if(!empty($server['HTTP_X_FORWARDED_FOR']))
+		if(!empty($this->server['HTTP_X_FORWARDED_FOR']))
 		{
-			$ip = explode(',', $server['HTTP_X_FORWARDED_FOR']);
+			$ip = explode(',', $this->server['HTTP_X_FORWARDED_FOR']);
 			
 			$ip = array_pop($ip);
 		}
-		elseif(!empty($server['HTTP_CLIENT_IP']))
+		elseif(!empty($this->server['HTTP_CLIENT_IP']))
 		{
-			$ip = $server['HTTP_CLIENT_IP'];
+			$ip = $this->server['HTTP_CLIENT_IP'];
 		}
-		elseif(!empty($server['HTTP_X_CLUSTER_CLIENT_IP']))
+		elseif(!empty($this->server['HTTP_X_CLUSTER_CLIENT_IP']))
 		{
-			$ip = $server['HTTP_X_CLUSTER_CLIENT_IP'];
+			$ip = $this->server['HTTP_X_CLUSTER_CLIENT_IP'];
 		}
-		elseif(!empty($server['REMOTE_ADDR']))
+		elseif(!empty($this->server['REMOTE_ADDR']))
 		{
-			$ip = $server['REMOTE_ADDR'];
+			$ip = $this->server['REMOTE_ADDR'];
 		}
 		
 		if(isset($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false)
@@ -359,15 +418,15 @@ class Request
 		
 		// Is this an Ajax request?
 
-		$this->isAjax = (isset($server['HTTP_X_REQUESTED_WITH']) && ($server['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
+		$this->isAjax = (isset($this->server['HTTP_X_REQUESTED_WITH']) && ($this->server['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 
 		// Was the request made using HTTPS?
 
-		$this->isSecure = (!empty($server['HTTPS']) && filter_var($server['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
+		$this->isSecure = (!empty($this->server['HTTPS']) && filter_var($this->server['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
 
 		// Get the real request method that was used
 
-		$this->realMethod = isset($server['REQUEST_METHOD']) ? strtoupper($server['REQUEST_METHOD']) : 'GET';
+		$this->realMethod = isset($this->server['REQUEST_METHOD']) ? strtoupper($this->server['REQUEST_METHOD']) : 'GET';
 	}
 
 	/**
@@ -385,7 +444,7 @@ class Request
 
 		if($this->method === 'OPTIONS' && $this->isMain())
 		{
-			return Response::factory()->header('Allow', implode(', ', $this->route->getMethods()));
+			return $this->response->header('Allow', implode(', ', $this->route->getMethods()));
 		}
 		else
 		{
@@ -399,12 +458,24 @@ class Request
 	 * Returns the main request.
 	 * 
 	 * @access  public
-	 * @return  \mako\Request
+	 * @return  \mako\http\Request
 	 */
 
 	public static function main()
 	{
 		return static::$main;
+	}
+
+	/**
+	 * Returns the request response.
+	 * 
+	 * @access  public
+	 * @return  \mako\http\Response
+	 */
+
+	public function response()
+	{
+		return $this->response;
 	}
 
 	/**
@@ -420,15 +491,244 @@ class Request
 	}
 
 	/**
-	 * Returns the input instance.
+	 * Returns the raw request body.
 	 * 
 	 * @access  public
-	 * @return  \mako\http\Input
+	 * @return  string
 	 */
 
-	public function input()
+	public function body()
 	{
-		return $this->input;
+		if($this->body === null)
+		{
+			$this->body = file_get_contents('php://input');
+		}
+
+		return $this->body;
+	}
+
+	/**
+	 * Parses the request body and returns the chosen value.
+	 * 
+	 * @access  protected
+	 * @param   string  $key      Array key
+	 * @param   mixed   $default  Default value
+	 * @return  mixed
+	 */
+
+	protected function getParsed($key, $default)
+	{
+		if($this->parsedBody === null)
+		{
+			switch($this->header('content-type'))
+			{
+				case 'application/x-www-form-urlencoded':
+					parse_str($this->body(), $this->parsedBody);
+				break;
+				case 'text/json':
+				case 'application/json':
+					$this->parsedBody = json_decode($this->body(), true);
+				break;
+				default:
+					$this->parsedBody = array();
+			}
+			
+		}
+
+		return ($key === null) ? $this->parsedBody : Arr::get($this->parsedBody, $key, $default);
+	}
+
+	/**
+	 * Fetch data from the GET parameters.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function get($key = null, $default = null)
+	{
+		return ($key === null) ? $this->get : Arr::get($this->get, $key, $default);
+	}
+
+	/**
+	 * Fetch data from the POST parameters.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function post($key = null, $default = null)
+	{
+		return ($key === null) ? $this->post : Arr::get($this->post, $key, $default);
+	}
+
+	/**
+	 * Fetch data from the PUT parameters.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function put($key = null, $default = null)
+	{
+		return $this->getParsed($key, $default);
+	}
+
+	/**
+	 * Fetch data from the PATCH parameters.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function patch($key = null, $default = null)
+	{
+		return $this->getParsed($key, $default);
+	}
+
+	/**
+	 * Fetch data from the DELETE parameters.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function delete($key = null, $default = null)
+	{
+		return $this->getParsed($key, $default);
+	}
+
+	/**
+	 * Fetch signed cookie data.
+	 *
+	 * @access  public
+	 * @param   string  $name     (optional) Cookie name
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  string
+	 */
+
+	public function cookie($name = null, $default = null)
+	{
+		if(isset($this->cookies[$name]) && ($value = MAC::validate($this->cookies[$name])) !== false)
+		{
+			return $value;
+		}
+		else
+		{
+			return $default;
+		}
+	}
+
+	/**
+	 * Fetch unsigned cookie data.
+	 *
+	 * @access  public
+	 * @param   string  $name     (optional) Cookie name
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  string
+	 */
+
+	public function unsignedCookie($name = null, $default = null)
+	{
+		return isset($this->cookies[$name]) ? $this->cookies[$name] : $default;
+	}
+
+	/**
+	 * Fetch file data.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function file($key = null, $default = null)
+	{
+		return ($key === null) ? $this->files : Arr::get($this->files, $key, $default);
+	}
+
+	/**
+	 * Fetch server info.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function server($key = null, $default = null)
+	{
+		return ($key === null) ? $this->server : Arr::get($this->server, $key, $default);
+	}
+
+	/**
+	 * Checks if the keys exist in the data of the current request method.
+	 *
+	 * @access  public
+	 * @param   string   $key     Array key
+	 * @param   string   $method  (optional) Request method
+	 * @return  boolean
+	 */
+
+	public function has($key, $method = null)
+	{
+		$method = $method ?: strtolower($this->realMethod);
+
+		return Arr::has($this->$method(), $key);
+	}
+
+	/**
+	 * Fetch data the current request method.
+	 *
+	 * @access  public
+	 * @param   string  $key      (optional) Array key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function data($key = null, $default = null)
+	{
+		$method = strtolower($this->realMethod);
+
+		return $this->$method($key, $default);
+	}
+
+	/**
+	 * Returns request data where keys not in the whitelist have been removed.
+	 * 
+	 * @access  public
+	 * @param   array  $keys      Keys to whitelist
+	 * @param   array  $defaults  (optional) Default values
+	 * @return  array
+	 */
+
+	public function whitelisted(array $keys, array $defaults = array())
+	{
+		return array_intersect_key($this->data(), array_flip($keys)) + $defaults;
+	}
+
+	/**
+	 * Returns request data where keys in the blacklist have been removed.
+	 * 
+	 * @access  public
+	 * @param   array  $keys      Keys to whitelist
+	 * @param   array  $defaults  (optional) Default values
+	 * @return  array
+	 */
+
+	public function blacklisted(array $keys, array $defaults = array())
+	{
+		return array_diff_key($this->data(), array_flip($keys)) + $defaults;
 	}
 
 	/**
@@ -564,7 +864,7 @@ class Request
 
 	public function username()
 	{
-		return $this->input->server('PHP_AUTH_USER');
+		return $this->server('PHP_AUTH_USER');
 	}
 
 	/**
@@ -576,7 +876,7 @@ class Request
 
 	public function password()
 	{
-		return $this->input->server('PHP_AUTH_PW');
+		return $this->server('PHP_AUTH_PW');
 	}
 
 	/**
