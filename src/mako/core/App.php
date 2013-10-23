@@ -3,7 +3,7 @@
 namespace mako\core;
 
 use \mako\http\Request;
-use \mako\request\RequestException;
+use \mako\http\RequestException;
 use \mako\core\errors\ErrorHandler;
 use \mako\core\errors\handlers\RequestExceptionHandler;
 
@@ -94,6 +94,10 @@ class App
 			return true; // Return true to stop further handling of the RequestException
 		});
 
+		// Create request handler instance
+
+		$request = new Request();
+
 		// Check if the application is offline
 
 		if(file_exists(MAKO_APPLICATION_PATH . '/storage/offline'))
@@ -107,7 +111,7 @@ class App
 
 		// Execute the request
 
-		Request::factory($route)->execute()->send();	
+		$request->execute()->send();
 	}
 }
 
