@@ -76,11 +76,11 @@ class Router
 					throw new MethodNotAllowedException($route->getMethods());
 				}
 
-				if($route->hasTrailingSlash() && substr($requestedRoute, -1) !== '/')
+				if($route->hasTrailingSlash() && substr($requestedRoute, -1) !== '/' && $this->request->isMain())
 				{
 					// Redirect to URL with trailing slash if the route should have one
 
-					Response::factory()->redirect(URL::to($requestedRoute . '/', $this->request->input()->get(), '&'), 301);
+					$this->request->response()->redirect(URL::to($requestedRoute . '/', $this->request->get(), '&'), 301);
 				}
 
 				return $route;
