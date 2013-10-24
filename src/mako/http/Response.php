@@ -561,6 +561,8 @@ class Response
 	
 	public function send($statusCode = null)
 	{
+		$skipOutput = false;
+		
 		if($statusCode !== null)
 		{
 			$this->status($statusCode);
@@ -568,45 +570,41 @@ class Response
 
 		$request = Request::main();
 
+		// Pass output through filters
+
+		foreach($this->outputFilters as $outputFilter)
+		{
+			$this->body = $outputFilter($this->body);
+		}
+
+		// Check ETag
+
+		if($this->responseCache === true)
+		{
+			$hash = '"' . sha1($this->body) . '"';
+
+			$this->header('ETag', $hash);
+
+			if($request->header('if-none-match') === $hash)
+			{
+				$this->status(304);
+
+				$skipOutput = true;
+			}
+		}
+
 		// Send response headers
 
 		$this->sendHeaders($request);
 
-		// Print output to browser (if there is any)
+		// Send output
 
-		if($this->body !== '')
-		{	
-			// Pass output through filters
-
-			foreach($this->outputFilters as $outputFilter)
-			{
-				$this->body = $outputFilter($this->body);
-			}
-
-			// Check ETag
-
-			if($this->responseCache === true)
-			{
-				$hash = '"' . sha1($this->body) . '"';
-
-				header('ETag: ' . $hash);
-
-				if($request->header('if-none-match') === $hash)
-				{
-					$this->status(304);
-
-					return; // Don't send any output
-				}
-			}
-
-			// Compress output
-
+		if(!$skipOutput)
+		{
 			if($this->outputCompression)
 			{
 				ob_start('ob_gzhandler');
 			}
-
-			// Send output
 
 			echo $this->body;
 		}
