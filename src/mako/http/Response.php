@@ -7,7 +7,6 @@ use \mako\core\Config;
 use \mako\security\MAC;
 use \mako\http\Request;
 use \mako\http\routing\URL;
-use \mako\core\DebugToolbar;
 
 /**
  * Mako response class.
@@ -88,12 +87,12 @@ class Response
 	protected $responseCache;
 
 	/**
-	 * Output filter.
+	 * Output filters.
 	 *
 	 * @var \Closure
 	 */
 	
-	protected $outputFilter;
+	protected $outputFilters = array();
 	
 	/**
 	 * List of HTTP status codes.
@@ -296,7 +295,21 @@ class Response
 	
 	public function filter(Closure $filter)
 	{
-		$this->outputFilter = $filter;
+		$this->outputFilters[] = $filter;
+
+		return $this;
+	}
+
+	/**
+	 * Clears all output filters.
+	 * 
+	 * @access  public
+	 * @return  \mako\http\Response
+	 */
+
+	public function clearFilters()
+	{
+		$this->outputFilters = array();
 
 		return $this;
 	}
@@ -489,9 +502,10 @@ class Response
 	 * Sends response headers.
 	 * 
 	 * @access  protected
+	 * @param   \mako\http\Request  Main request instance
 	 */
 
-	protected function sendHeaders()
+	protected function sendHeaders($request)
 	{
 		// Send content type header
 
@@ -513,8 +527,6 @@ class Response
 
 		// Send status header
 
-		$request = Request::main();
-
 		if($request->server('FCGI_SERVER_VERSION', false) !== false)
 		{
 			$protocol = 'Status:';
@@ -524,7 +536,7 @@ class Response
 			$protocol = $request->server('SERVER_PROTOCOL', 'HTTP/1.1');
 		}
 
-		header($protocol . ' ' . $this->statusCode . ' '. $this->statusCodes[$this->statusCode]);
+		header($protocol . ' ' . $this->statusCode . ' ' . $this->statusCodes[$this->statusCode]);
 
 		// Send other headers
 
@@ -548,28 +560,21 @@ class Response
 			$this->status($statusCode);
 		}
 
+		$request = Request::main();
+
 		// Send response headers
 
-		$this->sendHeaders();
+		$this->sendHeaders($request);
 
 		// Print output to browser (if there is any)
 
 		if($this->body !== '')
 		{	
-			// Pass output through filter
-			
-			if(!empty($this->outputFilter))
+			// Pass output through filters
+
+			foreach($this->outputFilters as $outputFilter)
 			{
-				$filter = $this->outputFilter;
-
-				$this->body = $filter($this->body);
-			}
-
-			// Add debug toolbar?
-
-			if(Config::get('application.debug_toolbar') === true && Request::main()->isAjax() === false)
-			{
-				$this->body = str_replace('</body>', DebugToolbar::render() . '</body>', $this->body);
+				$this->body = $outputFilter($this->body);
 			}
 
 			// Check ETag
@@ -580,7 +585,7 @@ class Response
 
 				header('ETag: ' . $hash);
 
-				if(Request::main()->header('if-none-match') === $hash)
+				if($request->header('if-none-match') === $hash)
 				{
 					$this->status(304);
 

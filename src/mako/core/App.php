@@ -4,6 +4,8 @@ namespace mako\core;
 
 use \mako\http\Request;
 use \mako\http\RequestException;
+use \mako\core\Config;
+use \mako\core\DebugToolbar;
 use \mako\core\errors\ErrorHandler;
 use \mako\core\errors\handlers\RequestExceptionHandler;
 
@@ -108,6 +110,16 @@ class App
 		// Include routes
 
 		include MAKO_APPLICATION_PATH . '/routes.php';
+
+		// Add debug toolbar to response?
+
+		if(Config::get('application.debug_toolbar') === true && $request->isAjax() === false)
+		{
+			$request->response()->filter(function($body)
+			{
+				return str_replace('</body>', DebugToolbar::render() . '</body>', $body);
+			});
+		}
 
 		// Execute the request
 
