@@ -268,7 +268,7 @@ class Response
 	}
 
 	/**
-	 * Sends HTTP status header.
+	 * Sets the HTTP status code.
 	 *
 	 * @access  public
 	 * @param   int                  $statusCode  HTTP status code
