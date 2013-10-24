@@ -359,7 +359,9 @@ class Response
 	{
 		$ttl = ($ttl > 0) ? (time() + $ttl) : 0;
 
-		$this->cookies[] = array('name' => $name, 'value' => $value, 'ttl' => $ttl) + $options + array('path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false);
+		$defaults = array('path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false);
+
+		$this->cookies[] = array('name' => $name, 'value' => $value, 'ttl' => $ttl) + $options + $defaults;
 
 		return $this;
 	}
