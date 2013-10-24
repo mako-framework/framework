@@ -561,8 +561,8 @@ class Response
 	
 	public function send($statusCode = null)
 	{
-		$skipOutput = false;
-		
+		$sendBody = true;
+
 		if($statusCode !== null)
 		{
 			$this->status($statusCode);
@@ -589,7 +589,7 @@ class Response
 			{
 				$this->status(304);
 
-				$skipOutput = true;
+				$sendBody = false;
 			}
 		}
 
@@ -597,9 +597,9 @@ class Response
 
 		$this->sendHeaders($request);
 
-		// Send output
+		// Send response body
 
-		if(!$skipOutput)
+		if($sendBody)
 		{
 			if($this->outputCompression)
 			{
