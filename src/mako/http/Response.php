@@ -481,7 +481,9 @@ class Response
 			$location = URL::to($location);
 		}
 		
-		header('Location: ' . $location);
+		$this->header('Location', $location);
+
+		$this->sendHeaders();
 		
 		exit();
 	}
@@ -502,11 +504,13 @@ class Response
 	 * Sends response headers.
 	 * 
 	 * @access  protected
-	 * @param   \mako\http\Request  Main request instance
+	 * @param   \mako\http\Request  $request  (optional) Main instance
 	 */
 
-	protected function sendHeaders($request)
+	protected function sendHeaders($request = null)
 	{
+		$request = $request ?: Request::main();
+
 		// Send content type header
 
 		$contentType = $this->contentType;
