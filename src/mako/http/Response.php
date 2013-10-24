@@ -48,6 +48,30 @@ class Response
 	protected $charset = MAKO_CHARSET;
 
 	/**
+	 * Status code.
+	 * 
+	 * @var int
+	 */
+
+	protected $statusCode = 200;
+
+	/**
+	 * Response headers.
+	 * 
+	 * @var array
+	 */
+
+	protected $responseHeaders = array();
+
+	/**
+	 * Cookies.
+	 * 
+	 * @var array
+	 */
+
+	protected $cookies = array();
+
+	/**
 	 * Compress output?
 	 * 
 	 * @var boolean
@@ -70,22 +94,6 @@ class Response
 	 */
 	
 	protected $outputFilter;
-
-	/**
-	 * Response headers.
-	 * 
-	 * @var array
-	 */
-
-	protected $responseHeaders = array();
-
-	/**
-	 * Cookies.
-	 * 
-	 * @var array
-	 */
-
-	protected $cookies = array();
 	
 	/**
 	 * List of HTTP status codes.
@@ -223,6 +231,60 @@ class Response
 
 		return $this;
 	}
+
+	/**
+	 * Sets the response content type.
+	 * 
+	 * @access  public
+	 * @param   string                $contentType  Content type
+	 * @param   string                $charset      (optional) Charset
+	 * @return  \mako\http\Response
+	 */
+
+	public function type($contentType, $charset = null)
+	{
+		$this->contentType = $contentType;
+
+		if($charset !== null)
+		{
+			$this->charset = $charset;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Sets the response charset.
+	 * 
+	 * @access  public
+	 * @param   string               $charset  Charset
+	 * @return  \mako\http\Response
+	 */
+
+	public function charset($charset)
+	{
+		$this->charset = $charset;
+
+		return $this;
+	}
+
+	/**
+	 * Sends HTTP status header.
+	 *
+	 * @access  public
+	 * @param   int                  $statusCode  HTTP status code
+	 * @return  \mako\http\Response
+	 */
+	
+	public function status($statusCode)
+	{
+		if(isset($this->statusCodes[$statusCode]))
+		{
+			$this->statusCode = $statusCode;
+		}
+
+		return $this;
+	}
 	
 	/**
 	 * Adds output filter that all output will be passed through before being sent.
@@ -302,9 +364,7 @@ class Response
 
 	public function cookie($name, $value, $ttl = 0, array $options = array())
 	{
-		$this->unsignedCookie($name, MAC::sign($value), $ttl, $options);
-
-		return $this;
+		return $this->unsignedCookie($name, MAC::sign($value), $ttl, $options);
 	}
 
 	/**
@@ -318,9 +378,7 @@ class Response
 
 	public function deleteCookie($name, array $options = array())
 	{
-		$this->unsignedCookie($name, '', time() - 3600, $options);
-
-		return $this;
+		return $this->unsignedCookie($name, '', time() - 3600, $options);
 	}
 
 	/**
@@ -335,145 +393,6 @@ class Response
 		$this->cookies = array();
 
 		return $this;
-	}
-
-	/**
-	 * Sets the response content type.
-	 * 
-	 * @access  public
-	 * @param   string                $contentType  Content type
-	 * @param   string                $charset      (optional) Charset
-	 * @return  \mako\http\Response
-	 */
-
-	public function type($contentType, $charset = null)
-	{
-		$this->contentType = $contentType;
-
-		if($charset !== null)
-		{
-			$this->charset = $charset;
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Sets the response charset.
-	 * 
-	 * @access  public
-	 * @param   string               $charset  Charset
-	 * @return  \mako\http\Response
-	 */
-
-	public function charset($charset)
-	{
-		$this->charset = $charset;
-
-		return $this;
-	}
-
-	/**
-	 * Sends response headers.
-	 * 
-	 * @access  protected
-	 */
-
-	protected function sendHeaders()
-	{
-		// Send content type header
-
-		$contentType = $this->contentType;
-
-		if(stripos($contentType, 'text/') === 0 || in_array($contentType, array('application/json', 'application/xml')))
-		{
-			$contentType .= '; charset=' . $this->charset;
-		}
-
-		header('Content-Type: ' . $contentType);
-
-		// Send other headers
-
-		foreach($this->responseHeaders as $name => $value)
-		{
-			header($name . ': ' . $value);
-		}
-	}
-
-	/**
-	 * Sets cookies.
-	 * 
-	 * @access  protected
-	 */
-
-	protected function setCookies()
-	{
-		foreach($this->cookies as $cookie)
-		{
-			setcookie($cookie['name'], $cookie['value'], $cookie['ttl'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
-		}
-	}
-
-	/**
-	 * Sends HTTP status header.
-	 *
-	 * @access  public
-	 * @param   int                  $statusCode  HTTP status code
-	 * @return  \mako\http\Response
-	 */
-	
-	public function status($statusCode)
-	{
-		if(isset($this->statusCodes[$statusCode]))
-		{
-			if(isset($_SERVER['FCGI_SERVER_VERSION']))
-			{
-				$protocol = 'Status:';
-			}
-			else
-			{
-				$protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
-			}
-			
-			
-			header($protocol . ' ' . $statusCode . ' '. $this->statusCodes[$statusCode]);
-		}
-
-		return $this;
-	}
-	
-	/**
-	 * Redirects to another location.
-	 *
-	 * @access  public
-	 * @param   string  $location    (optional) Location
-	 * @param   int     $statusCode  (optional) HTTP status code
-	 */
-	
-	public function redirect($location = '', $statusCode = 302)
-	{
-		$this->status($statusCode);
-
-		if(strpos($location, '://') === false)
-		{
-			$location = URL::to($location);
-		}
-		
-		header('Location: ' . $location);
-		
-		exit();
-	}
-
-	/**
-	 * Redirects the user back to the previous page.
-	 * 
-	 * @access  public
-	 * @param   int     $statusCode  (optional) HTTP status code
-	 */
-
-	public function back($statusCode = 302)
-	{
-		$this->redirect(Request::main()->referer(), $statusCode);
 	}
 
 	/**
@@ -531,6 +450,89 @@ class Response
 
 		return $this;
 	}
+
+	/**
+	 * Redirects to another location.
+	 *
+	 * @access  public
+	 * @param   string  $location    (optional) Location
+	 * @param   int     $statusCode  (optional) HTTP status code
+	 */
+	
+	public function redirect($location = '', $statusCode = 302)
+	{
+		$this->status($statusCode);
+
+		if(strpos($location, '://') === false)
+		{
+			$location = URL::to($location);
+		}
+		
+		header('Location: ' . $location);
+		
+		exit();
+	}
+
+	/**
+	 * Redirects the user back to the previous page.
+	 * 
+	 * @access  public
+	 * @param   int     $statusCode  (optional) HTTP status code
+	 */
+
+	public function back($statusCode = 302)
+	{
+		$this->redirect(Request::main()->referer(), $statusCode);
+	}
+
+	/**
+	 * Sends response headers.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function sendHeaders()
+	{
+		// Send content type header
+
+		$contentType = $this->contentType;
+
+		if(stripos($contentType, 'text/') === 0 || in_array($contentType, array('application/json', 'application/xml')))
+		{
+			$contentType .= '; charset=' . $this->charset;
+		}
+
+		header('Content-Type: ' . $contentType);
+
+		// Send cookie headers
+
+		foreach($this->cookies as $cookie)
+		{
+			setcookie($cookie['name'], $cookie['value'], $cookie['ttl'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
+		}
+
+		// Send status header
+
+		$request = Request::main();
+
+		if($request->server('FCGI_SERVER_VERSION', false) !== false)
+		{
+			$protocol = 'Status:';
+		}
+		else
+		{
+			$protocol = $request->server('SERVER_PROTOCOL', 'HTTP/1.1');
+		}
+
+		header($protocol . ' ' . $this->statusCode . ' '. $this->statusCodes[$this->statusCode]);
+
+		// Send other headers
+
+		foreach($this->responseHeaders as $name => $value)
+		{
+			header($name . ': ' . $value);
+		}
+	}
 	
 	/**
 	 * Send output to browser.
@@ -549,10 +551,6 @@ class Response
 		// Send response headers
 
 		$this->sendHeaders();
-
-		// Set cookies
-
-		$this->setCookies();
 
 		// Print output to browser (if there is any)
 

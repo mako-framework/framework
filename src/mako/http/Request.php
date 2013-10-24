@@ -4,6 +4,7 @@ namespace mako\http;
 
 use \mako\i18n\I18n;
 use \mako\core\Config;
+use \mako\utility\Arr;
 use \mako\security\MAC;
 use \mako\http\Response;
 use \mako\http\routing\URL;
@@ -341,11 +342,9 @@ class Request
 
 		if($method === 'POST')
 		{
-			$post = $this->post;
-
-			if(isset($post['REQUEST_METHOD_OVERRIDE']))
+			if(isset($this->post['REQUEST_METHOD_OVERRIDE']))
 			{
-				$method = $post['REQUEST_METHOD_OVERRIDE'];
+				$method = $this->post['REQUEST_METHOD_OVERRIDE'];
 			}
 			elseif(isset($this->server['HTTP_X_HTTP_METHOD_OVERRIDE']))
 			{
