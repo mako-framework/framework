@@ -641,7 +641,7 @@ class Response
 				}
 			}
 
-			if($sendBody)
+			if($sendBody && !in_array($this->statusCode, array(100, 101, 102, 204, 304)))
 			{
 				// Start compressed output buffering if output compression is enabled
 
@@ -662,7 +662,10 @@ class Response
 
 				// Add the content-length header
 
-				$this->header('content-length', ob_get_length());
+				if(!array_key_exists('transfer-encoding', $this->headers))
+				{
+					$this->header('content-length', ob_get_length());
+				}
 			}
 
 			// Send the headers and flush the output buffer
