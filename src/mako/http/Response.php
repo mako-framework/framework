@@ -598,18 +598,34 @@ class Response
 	
 	public function send()
 	{
-		$streamResponse = $this->body instanceof StreamContainer;
-
-		if(!$streamResponse)
+		if($this->body instanceof StreamContainer)
 		{
-			// Pass output through filters
+			// This is a stream response so we'll just send the headers
+			// and start flushing the stream
+
+			$this->sendHeaders();
+
+			$this->body->flow();
+		}
+		else
+		{
+			$sendBody = true;
+
+			// Make sure that output buffering is enabled
+
+			if(ob_get_level() === 0)
+			{
+				ob_start();
+			}
+
+			// Run body through the response filters
 
 			foreach($this->outputFilters as $outputFilter)
 			{
 				$this->body = $outputFilter($this->body);
 			}
 
-			// Check ETag
+			// Check ETag if response cache is enabled
 
 			if($this->responseCache === true)
 			{
@@ -621,54 +637,39 @@ class Response
 				{
 					$this->status(304);
 
-					$this->sendHeaders();
-
-					return;
+					$sendBody = false;
 				}
 			}
-		}
 
-		if($streamResponse)
-		{
-			// This is a stream response so we'll just send the headers
-			// and start flushing the stream
+			if($sendBody)
+			{
+				// Start compressed output buffering if output compression is enabled
+
+				if($this->outputCompression)
+				{
+					ob_start('ob_gzhandler');
+				}
+
+				echo $this->body;
+
+				// If output compression is enabled then we'll have to flush the compressed buffer
+				// so that we can get the compressed content length when setting the content-length header
+
+				if($this->outputCompression)
+				{
+					ob_end_flush();
+				}
+
+				// Add the content-length header
+
+				$this->header('content-length', ob_get_length());
+			}
+
+			// Send the headers and flush the output buffer
 
 			$this->sendHeaders();
 
-			$this->body->flow();
-		}
-		else
-		{
-			// This is a normal response so we'll have to include the
-			// content length header
-
-			if(ob_get_level() === 0)
-			{
-				// Make sure that output buffering is enabled
-
-				ob_start();
-			}
-
-			if($this->outputCompression)
-			{
-				// Enable compressed output buffering
-
-				ob_start('ob_gzhandler');
-			}
-
-			echo $this->body;
-
-			if($this->outputCompression)
-			{
-				// Flush the compressed buffer so we can get the compressed content length
-				// when setting the content-length header
-
-				ob_end_flush();
-			}
-
-			$this->header('content-length', ob_get_length());
-
-			$this->sendHeaders();
+			ob_end_flush();
 		}
 	}
 }
