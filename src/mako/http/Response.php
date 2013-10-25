@@ -69,7 +69,7 @@ class Response
 	 * @var array
 	 */
 
-	protected $responseHeaders = array();
+	protected $headers = array();
 
 	/**
 	 * Cookies.
@@ -353,7 +353,7 @@ class Response
 
 	public function header($name, $value)
 	{
-		$this->responseHeaders[$name] = $value;
+		$this->headers[strtolower($name)] = $value;
 
 		return $this;
 	}
@@ -367,7 +367,7 @@ class Response
 
 	public function clearHeaders()
 	{
-		$this->responseHeaders = array();
+		$this->headers = array();
 
 		return $this;
 	}
@@ -477,9 +477,9 @@ class Response
 
 		header($protocol . ' ' . $this->statusCode . ' ' . $this->statusCodes[$this->statusCode]);
 
-		// Send other headers
+		// Send remaining headers
 
-		foreach($this->responseHeaders as $name => $value)
+		foreach($this->headers as $name => $value)
 		{
 			header($name . ': ' . $value);
 		}
