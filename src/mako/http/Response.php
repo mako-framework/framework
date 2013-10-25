@@ -603,7 +603,7 @@ class Response
 			// This is a stream response so we'll just send the headers
 			// and start flushing the stream
 
-			$this->header('Transfer-Encoding', 'chunked');
+			$this->header('transfer-encoding', 'chunked');
 
 			$this->sendHeaders();
 

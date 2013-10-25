@@ -82,7 +82,7 @@ Class StreamContainer
 
 		$stream($this);
 
-		// Send empty chunk to tell client that we're done
+		// Send empty chunk to tell the client that we're done
 
 		$this->flush(null, true);
 	}
