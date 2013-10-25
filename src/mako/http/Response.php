@@ -9,7 +9,7 @@ use \mako\http\Request;
 use \mako\http\routing\URL;
 
 /**
- * Mako response class.
+ * HTTP response.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
@@ -556,6 +556,19 @@ class Response
 			header($name . ': ' . $value);
 		}
 	}
+
+	/**
+	 * Returns a stream container.
+	 * 
+	 * @access  public
+	 * @param   \Closure                    $stream  Stream
+	 * @return  \mako\http\StreamContainer
+	 */
+
+	public function stream(Closure $stream)
+	{
+		return new StreamContainer($stream);
+	}
 	
 	/**
 	 * Send output to browser.
@@ -567,26 +580,38 @@ class Response
 	{
 		$sendBody = true;
 
-		// Pass output through filters
+		$streamResponse = $this->body instanceof StreamContainer;
 
-		foreach($this->outputFilters as $outputFilter)
+		if(!$streamResponse)
 		{
-			$this->body = $outputFilter($this->body);
-		}
+			// Pass output through filters
 
-		// Check ETag
-
-		if($this->responseCache === true)
-		{
-			$hash = '"' . sha1($this->body) . '"';
-
-			$this->header('ETag', $hash);
-
-			if($this->request->header('if-none-match') === $hash)
+			foreach($this->outputFilters as $outputFilter)
 			{
-				$this->status(304);
+				$this->body = $outputFilter($this->body);
+			}
 
-				$sendBody = false;
+			// Check ETag
+
+			if($this->responseCache === true)
+			{
+				$hash = '"' . sha1($this->body) . '"';
+
+				$this->header('ETag', $hash);
+
+				if($this->request->header('if-none-match') === $hash)
+				{
+					$this->status(304);
+
+					$sendBody = false;
+				}
+			}
+
+			// Enable output compression
+
+			if($this->outputCompression)
+			{
+				ob_start('ob_gzhandler');
 			}
 		}
 
@@ -598,25 +623,15 @@ class Response
 
 		if($sendBody)
 		{
-			if($this->outputCompression)
+			if($streamResponse)
 			{
-				ob_start('ob_gzhandler');
+				$this->body->flow();
 			}
-
-			echo $this->body;
+			else
+			{
+				echo $this->body;
+			}
 		}
-	}
-
-	/**
-	 * Method that magically converts the response object into a string.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function __toString()
-	{
-		return $this->body;
 	}
 }
 
