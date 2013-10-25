@@ -419,6 +419,53 @@ class Response
 	}
 
 	/**
+	 * Sends response headers.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function sendHeaders()
+	{
+		// Send content type header
+
+		$contentType = $this->contentType;
+
+		if(stripos($contentType, 'text/') === 0 || in_array($contentType, array('application/json', 'application/xml')))
+		{
+			$contentType .= '; charset=' . $this->charset;
+		}
+
+		header('Content-Type: ' . $contentType);
+
+		// Send cookie headers
+
+		foreach($this->cookies as $cookie)
+		{
+			setcookie($cookie['name'], $cookie['value'], $cookie['ttl'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
+		}
+
+		// Send status header
+
+		if($this->request->server('FCGI_SERVER_VERSION', false) !== false)
+		{
+			$protocol = 'Status:';
+		}
+		else
+		{
+			$protocol = $this->request->server('SERVER_PROTOCOL', 'HTTP/1.1');
+		}
+
+		header($protocol . ' ' . $this->statusCode . ' ' . $this->statusCodes[$this->statusCode]);
+
+		// Send other headers
+
+		foreach($this->responseHeaders as $name => $value)
+		{
+			header($name . ': ' . $value);
+		}
+	}
+
+	/**
 	 * Enables ETag response cache.
 	 *
 	 * @access  public
@@ -475,6 +522,19 @@ class Response
 	}
 
 	/**
+	 * Returns a stream container.
+	 * 
+	 * @access  public
+	 * @param   \Closure                    $stream  Stream
+	 * @return  \mako\http\StreamContainer
+	 */
+
+	public function stream(Closure $stream)
+	{
+		return new StreamContainer($stream);
+	}
+
+	/**
 	 * Redirects to another location.
 	 *
 	 * @access  public
@@ -508,66 +568,6 @@ class Response
 	public function back($statusCode = 302)
 	{
 		$this->redirect($this->request->referer(), $statusCode);
-	}
-
-	/**
-	 * Sends response headers.
-	 * 
-	 * @access  protected
-	 */
-
-	protected function sendHeaders()
-	{
-		// Send content type header
-
-		$contentType = $this->contentType;
-
-		if(stripos($contentType, 'text/') === 0 || in_array($contentType, array('application/json', 'application/xml')))
-		{
-			$contentType .= '; charset=' . $this->charset;
-		}
-
-		header('Content-Type: ' . $contentType);
-
-		// Send cookie headers
-
-		foreach($this->cookies as $cookie)
-		{
-			setcookie($cookie['name'], $cookie['value'], $cookie['ttl'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
-		}
-
-		// Send status header
-
-		if($this->request->server('FCGI_SERVER_VERSION', false) !== false)
-		{
-			$protocol = 'Status:';
-		}
-		else
-		{
-			$protocol = $this->request->server('SERVER_PROTOCOL', 'HTTP/1.1');
-		}
-
-		header($protocol . ' ' . $this->statusCode . ' ' . $this->statusCodes[$this->statusCode]);
-
-		// Send other headers
-
-		foreach($this->responseHeaders as $name => $value)
-		{
-			header($name . ': ' . $value);
-		}
-	}
-
-	/**
-	 * Returns a stream container.
-	 * 
-	 * @access  public
-	 * @param   \Closure                    $stream  Stream
-	 * @return  \mako\http\StreamContainer
-	 */
-
-	public function stream(Closure $stream)
-	{
-		return new StreamContainer($stream);
 	}
 	
 	/**
