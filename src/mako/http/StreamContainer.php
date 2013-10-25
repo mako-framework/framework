@@ -65,7 +65,11 @@ Class StreamContainer
 
 	public function flow()
 	{
-		while(ob_get_level() > 0) ob_end_clean(); // Erase and close open output buffers
+		// Erase and close open output buffers
+
+		while(ob_get_level() > 0) ob_end_clean();
+
+		// Send the stream
 
 		$stream = $this->stream;
 
