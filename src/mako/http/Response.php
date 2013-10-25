@@ -33,7 +33,7 @@ class Response
 	/**
 	 * Holds the response body.
 	 *
-	 * @var string
+	 * @var mixed
 	 */
 	
 	protected $body = '';
@@ -228,13 +228,13 @@ class Response
 	 * Sets the response body.
 	 *
 	 * @access  public
-	 * @param   string               $body  Response body
+	 * @param   mixed                $body  Response body
 	 * @return  \mako\http\Response
 	 */
 
 	public function body($body)
 	{
-		$this->body = (string) $body;
+		$this->body = $body;
 
 		return $this;
 	}
