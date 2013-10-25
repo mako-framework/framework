@@ -240,6 +240,18 @@ class Response
 	}
 
 	/**
+	 * Returns the response body.
+	 * 
+	 * @access  public
+	 * @return  mixed
+	 */
+
+	public function getBody()
+	{
+		return $this->body;
+	}
+
+	/**
 	 * Sets the response content type.
 	 * 
 	 * @access  public
