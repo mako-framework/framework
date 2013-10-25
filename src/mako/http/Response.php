@@ -32,7 +32,7 @@ class Response
 	protected $request;
 	
 	/**
-	 * Holds the response body.
+	 * Response body.
 	 *
 	 * @var mixed
 	 */
@@ -98,13 +98,13 @@ class Response
 	/**
 	 * Output filters.
 	 *
-	 * @var \Closure
+	 * @var array
 	 */
 	
 	protected $outputFilters = array();
 	
 	/**
-	 * List of HTTP status codes.
+	 * HTTP status codes.
 	 *
 	 * @var array
 	 */
@@ -191,7 +191,7 @@ class Response
 	/**
 	 * Constructor.
 	 *
-	 * @access  protected
+	 * @access  public
 	 * @param   \mako\http\Request  $request  Request instance
 	 * @param   string              $body     (optional) Response body
 	 */
@@ -212,8 +212,8 @@ class Response
 	 * Factory method making method chaining possible right off the bat.
 	 *
 	 * @access  public
-	 * @param   string          $body  (optional) Response body
-	 * @return  \mako\Response
+	 * @param   string               $body  (optional) Response body
+	 * @return  \mako\http\Response
 	 */
 
 	public static function factory($body = null)
