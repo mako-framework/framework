@@ -567,11 +567,6 @@ class Response
 	{
 		$sendBody = true;
 
-		if($statusCode !== null)
-		{
-			$this->status($statusCode);
-		}
-
 		// Pass output through filters
 
 		foreach($this->outputFilters as $outputFilter)
