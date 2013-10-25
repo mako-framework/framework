@@ -446,24 +446,6 @@ class Response
 
 	protected function sendHeaders()
 	{
-		// Send content type header
-
-		$contentType = $this->contentType;
-
-		if(stripos($contentType, 'text/') === 0 || in_array($contentType, array('application/json', 'application/xml')))
-		{
-			$contentType .= '; charset=' . $this->charset;
-		}
-
-		header('Content-Type: ' . $contentType);
-
-		// Send cookie headers
-
-		foreach($this->cookies as $cookie)
-		{
-			setcookie($cookie['name'], $cookie['value'], $cookie['ttl'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
-		}
-
 		// Send status header
 
 		if($this->request->server('FCGI_SERVER_VERSION', false) !== false)
@@ -477,11 +459,29 @@ class Response
 
 		header($protocol . ' ' . $this->statusCode . ' ' . $this->statusCodes[$this->statusCode]);
 
-		// Send remaining headers
+		// Send content type header
+
+		$contentType = $this->contentType;
+
+		if(stripos($contentType, 'text/') === 0 || in_array($contentType, array('application/json', 'application/xml')))
+		{
+			$contentType .= '; charset=' . $this->charset;
+		}
+
+		header('Content-Type: ' . $contentType);
+
+		// Send other headers
 
 		foreach($this->headers as $name => $value)
 		{
 			header($name . ': ' . $value);
+		}
+
+		// Send cookie headers
+
+		foreach($this->cookies as $cookie)
+		{
+			setcookie($cookie['name'], $cookie['value'], $cookie['ttl'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
 		}
 	}
 
