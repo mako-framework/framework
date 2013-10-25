@@ -6,6 +6,7 @@ use \Closure;
 use \mako\core\Config;
 use \mako\security\MAC;
 use \mako\http\Request;
+use \mako\http\StreamContainer;
 use \mako\http\routing\URL;
 
 /**
