@@ -234,7 +234,14 @@ class Response
 
 	public function body($body)
 	{
-		$this->body = $body;
+		if($body instanceof $this)
+		{
+			$this->body = $body->getBody();
+		}
+		else
+		{
+			$this->body = $body;
+		}
 
 		return $this;
 	}
