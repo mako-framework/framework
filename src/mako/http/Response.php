@@ -644,14 +644,14 @@ class Response
 
 			if(ob_get_level() === 0)
 			{
-				// Make sure that there's an output buffer
+				// Make sure that output buffering is enabled
 
 				ob_start();
 			}
 
 			if($this->outputCompression)
 			{
-				// Start a compressed buffer
+				// Enable compressed output buffering
 
 				ob_start('ob_gzhandler');
 			}
@@ -660,7 +660,7 @@ class Response
 
 			if($this->outputCompression)
 			{
-				// Flush the compressed buffer so we can get the compress content length
+				// Flush the compressed buffer so we can get the compressed content length
 				// when setting the content-length header
 
 				ob_end_flush();
