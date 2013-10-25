@@ -47,14 +47,21 @@ Class StreamContainer
 	//---------------------------------------------
 
 	/**
-	 * Flushes the buffer.
+	 * Flushes a chunck of data.
 	 * 
 	 * @access  public
+	 * @param   string   $chunk       Chuncked data to flush
+	 * @param   boolean  $flushEmpty  (optional) Flush empty chunk?
 	 */
 
-	public function flush()
+	public function flush($chunk, $flushEmpty = false)
 	{
-		flush();
+		if(!empty($chunk) || $flushEmpty === true)
+		{
+			printf("%x\r\n%s\r\n", strlen($chunk), $chunk);
+
+			flush();
+		}
 	}
 
 	/**
@@ -65,7 +72,7 @@ Class StreamContainer
 
 	public function flow()
 	{
-		// Erase and close open output buffers
+		// Erase output buffers and disable output buffering
 
 		while(ob_get_level() > 0) ob_end_clean();
 
@@ -74,6 +81,10 @@ Class StreamContainer
 		$stream = $this->stream;
 
 		$stream($this);
+
+		// Send empty chunk to tell client that we're done
+
+		$this->flush(null, true);
 	}
 }
 
