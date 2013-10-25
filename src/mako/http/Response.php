@@ -598,8 +598,6 @@ class Response
 	
 	public function send()
 	{
-		$sendBody = true;
-
 		$streamResponse = $this->body instanceof StreamContainer;
 
 		if(!$streamResponse)
@@ -623,57 +621,54 @@ class Response
 				{
 					$this->status(304);
 
-					$sendBody = false;
+					$this->sendHeaders();
+
+					return;
 				}
 			}
 		}
 
-		// Send response and headers
-
-		if($sendBody)
+		if($streamResponse)
 		{
-			if($streamResponse)
+			// This is a stream response so we'll just send the headers
+			// and start flushing the stream
+
+			$this->sendHeaders();
+
+			$this->body->flow();
+		}
+		else
+		{
+			// This is a normal response so we'll have to include the
+			// content length header
+
+			if(ob_get_level() === 0)
 			{
-				// This is a stream response so we'll just send the headers
-				// and start flushing the stream
+				// Make sure that there's an output buffer
 
-				$this->sendHeaders();
-
-				$this->body->flow();
+				ob_start();
 			}
-			else
+
+			if($this->outputCompression)
 			{
-				// This is a normal response so we'll have to include the
-				// content length header
+				// Start a compressed buffer
 
-				if(ob_get_level() === 0)
-				{
-					// Make sure that there's an output buffer
-
-					ob_start();
-				}
-
-				if($this->outputCompression)
-				{
-					// Start a compressed buffer
-
-					ob_start('ob_gzhandler');
-				}
-
-				echo $this->body;
-
-				if($this->outputCompression)
-				{
-					// Flush the compressed buffer so we can get the compress content length
-					// when setting the content-length header
-
-					ob_end_flush();
-				}
-
-				$this->header('content-length', ob_get_length());
-
-				$this->sendHeaders();
+				ob_start('ob_gzhandler');
 			}
+
+			echo $this->body;
+
+			if($this->outputCompression)
+			{
+				// Flush the compressed buffer so we can get the compress content length
+				// when setting the content-length header
+
+				ob_end_flush();
+			}
+
+			$this->header('content-length', ob_get_length());
+
+			$this->sendHeaders();
 		}
 	}
 }
