@@ -50,7 +50,7 @@ Class StreamContainer
 	 * Flushes a chunck of data.
 	 * 
 	 * @access  public
-	 * @param   string   $chunk       Chuncked data to flush
+	 * @param   string   $chunk       Chunck of data to flush
 	 * @param   boolean  $flushEmpty  (optional) Flush empty chunk?
 	 */
 
