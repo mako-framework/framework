@@ -87,7 +87,7 @@ class ExceptionHandler
 	{
 		$request = Request::main();
 
-		$response = new Response();
+		$response = new Response($request);
 
 		if(Config::get('application.error_handler.display_errors') === true)
 		{
@@ -149,7 +149,7 @@ class ExceptionHandler
 			}
 		}
 
-		$response->send(500);
+		$response->status(500)->send();
 	}
 
 	/**

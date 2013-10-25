@@ -223,7 +223,7 @@ class Request
 
 		// Create response
 
-		$this->response = new Response();
+		$this->response = new Response($this);
 
 		// Subsequent requests will be treated as subrequests
 

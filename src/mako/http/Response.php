@@ -21,6 +21,14 @@ class Response
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Request instance.
+	 * 
+	 * @var \mako\http\Request
+	 */
+
+	protected $request;
 	
 	/**
 	 * Holds the response body.
@@ -183,15 +191,15 @@ class Response
 	 * Constructor.
 	 *
 	 * @access  protected
-	 * @param   string     $body  (optional) Response body
+	 * @param   \mako\http\Request  $request  Request instance
+	 * @param   string              $body     (optional) Response body
 	 */
 	
-	public function __construct($body = null)
+	public function __construct(Request $request, $body = null)
 	{
-		if($body !== null)
-		{
-			$this->body($body);
-		}
+		$this->request = $request;
+
+		$this->body($body);
 
 		$config = Config::get('application');
 
@@ -499,20 +507,17 @@ class Response
 
 	public function back($statusCode = 302)
 	{
-		$this->redirect(Request::main()->referer(), $statusCode);
+		$this->redirect($this->request->referer(), $statusCode);
 	}
 
 	/**
 	 * Sends response headers.
 	 * 
 	 * @access  protected
-	 * @param   \mako\http\Request  $request  (optional) Main instance
 	 */
 
-	protected function sendHeaders($request = null)
+	protected function sendHeaders()
 	{
-		$request = $request ?: Request::main();
-
 		// Send content type header
 
 		$contentType = $this->contentType;
@@ -533,13 +538,13 @@ class Response
 
 		// Send status header
 
-		if($request->server('FCGI_SERVER_VERSION', false) !== false)
+		if($this->request->server('FCGI_SERVER_VERSION', false) !== false)
 		{
 			$protocol = 'Status:';
 		}
 		else
 		{
-			$protocol = $request->server('SERVER_PROTOCOL', 'HTTP/1.1');
+			$protocol = $this->request->server('SERVER_PROTOCOL', 'HTTP/1.1');
 		}
 
 		header($protocol . ' ' . $this->statusCode . ' ' . $this->statusCodes[$this->statusCode]);
@@ -556,10 +561,9 @@ class Response
 	 * Send output to browser.
 	 *
 	 * @access  public
-	 * @param   int     $statusCode  (optional) HTTP status code
 	 */
 	
-	public function send($statusCode = null)
+	public function send()
 	{
 		$sendBody = true;
 
@@ -567,8 +571,6 @@ class Response
 		{
 			$this->status($statusCode);
 		}
-
-		$request = Request::main();
 
 		// Pass output through filters
 
@@ -585,7 +587,7 @@ class Response
 
 			$this->header('ETag', $hash);
 
-			if($request->header('if-none-match') === $hash)
+			if($this->request->header('if-none-match') === $hash)
 			{
 				$this->status(304);
 
@@ -595,7 +597,7 @@ class Response
 
 		// Send response headers
 
-		$this->sendHeaders($request);
+		$this->sendHeaders();
 
 		// Send response body
 
