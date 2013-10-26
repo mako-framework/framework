@@ -6,8 +6,6 @@ use \PDO;
 use \Closure;
 use \PDOException;
 use \RuntimeException;
-use \mako\core\Config;
-use \mako\database\Database;
 use \mako\database\query\Query;
 
 /**
@@ -80,8 +78,8 @@ class Connection
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string   $name       Connection name
-	 * @param   array    $config     Connection configuration
+	 * @param   string  $name    Connection name
+	 * @param   array   $config  Connection configuration
 	 */
 
 	public function __construct($name, array $config)
