@@ -75,29 +75,17 @@ class Block
 	}
 
 	/**
-	 * Returns TRUE if the block exists and FALSE if not.
-	 *
-	 * @access  public
-	 * @param   string   $name  Block name
-	 * @return  boolean
-	 */
-
-	public static function exists($name)
-	{
-		return isset(static::$blocks[$name]);
-	}
-
-	/**
 	 * Returns the contents of a template block.
 	 *
 	 * @access  public
-	 * @param   string  $name  Block name
+	 * @param   string  $name    Block name
+	 * @param   string  $parent  Parent content
 	 * @return  string
 	 */
 
-	public static function get($name)
+	public static function get($name, $parent)
 	{
-		return isset(static::$blocks[$name]) ? static::$blocks[$name] : '';
+		return isset(static::$blocks[$name]) ? str_replace('__PARENT__', stripslashes($parent), static::$blocks[$name]) : stripslashes($parent);
 	}
 }
 

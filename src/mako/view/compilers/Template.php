@@ -102,7 +102,7 @@ class Template
 		{
 			$template = preg_replace('/^{%\s*extends:(.*?)\s*%}/i', '', $template, 1);
 
-			$template .= PHP_EOL . '<?php echo new mako\View(\'' . $matches[1] . '\', get_defined_vars()); ?>';
+			$template .= PHP_EOL . '<?php echo new mako\view\View(\'' . $matches[1] . '\', get_defined_vars()); ?>';
 		}
 
 		return $template;
@@ -120,7 +120,7 @@ class Template
 	{
 		// Replace view tags with view redering
 
-		return preg_replace('/{{\s*view:(.*?)\s*}}/i', '<?php echo new mako\View(\'$1\', get_defined_vars()); ?>', $template);
+		return preg_replace('/{{\s*view:(.*?)\s*}}/i', '<?php echo new mako\view\View(\'$1\', get_defined_vars()); ?>', $template);
 	}
 
 	/**
@@ -139,7 +139,10 @@ class Template
 
 		// Compile block output
 
-		return preg_replace('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', '<?php if(mako\view\renderers\template\Block::exists(\'$1\')): ?><?php echo mako\view\renderers\template\Block::get(\'$1\'); ?><?php else: ?>$2<?php endif; ?>', $template);
+		return preg_replace_callback('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', function($matches)
+		{
+			return vsprintf('<?php echo mako\view\renderers\template\Block::get(\'%s\', \'%s\'); ?>', array($matches[1], addslashes($matches[2])));
+		}, $template);
 	}
 
 	/**
