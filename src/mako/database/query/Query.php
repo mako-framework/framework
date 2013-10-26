@@ -4,8 +4,8 @@ namespace mako\database\query;
 
 use \PDO;
 use \Closure;
-use \mako\database\Database;
 use \mako\database\Connection;
+use \mako\database\query\Raw;
 use \mako\database\query\Join;
 use \mako\database\query\Subquery;
 
@@ -906,7 +906,7 @@ class Query
 
 	protected function aggregate($column, $function)
 	{
-		return $this->column(Database::raw($function . '(' . $this->compiler->wrap($column) . ')'));
+		return $this->column(new Raw($function . '(' . $this->compiler->wrap($column) . ')'));
 	}
 
 	/**
@@ -1015,7 +1015,7 @@ class Query
 
 	public function increment($column, $increment = 1)
 	{
-		return $this->update(array($column => Database::raw($this->compiler->wrap($column) . ' + ' . (int) $increment)));
+		return $this->update(array($column => new Raw($this->compiler->wrap($column) . ' + ' . (int) $increment)));
 	}
 
 	/**
@@ -1029,7 +1029,7 @@ class Query
 
 	public function decrement($column, $decrement = 1)
 	{
-		return $this->update(array($column => Database::raw($this->compiler->wrap($column) . ' - ' . (int) $decrement)));
+		return $this->update(array($column => new Raw($this->compiler->wrap($column) . ' - ' . (int) $decrement)));
 	}
 
 	/**

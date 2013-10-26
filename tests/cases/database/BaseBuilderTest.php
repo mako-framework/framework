@@ -26,6 +26,8 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 
 		$connection->shouldReceive('getCompiler')->andReturn('sqlite');
 
+		$connection->shouldReceive('column')->andReturn(null);
+
 		return $connection;
 	}
 
@@ -591,5 +593,94 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('UPDATE "foobar" SET "foo" = ? WHERE "id" = ?', $query['sql']);
 		$this->assertEquals(array('bar', 1), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testCountAggregate()
+	{
+		$query = $this->getBuilder();
+
+		$query->count();
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT COUNT(*) FROM "foobar"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+
+		$query = $this->getBuilder();
+
+		$query->count('foo');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT COUNT("foo") FROM "foobar"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testAvgAggregate()
+	{
+		$query = $this->getBuilder();
+
+		$query->avg('foo');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT AVG("foo") FROM "foobar"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testMaxAggregate()
+	{
+		$query = $this->getBuilder();
+
+		$query->max('foo');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT MAX("foo") FROM "foobar"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testMinAggregate()
+	{
+		$query = $this->getBuilder();
+
+		$query->min('foo');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT MIN("foo") FROM "foobar"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSumAggregate()
+	{
+		$query = $this->getBuilder();
+
+		$query->sum('foo');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT SUM("foo") FROM "foobar"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
 	}
 }
