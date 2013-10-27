@@ -52,7 +52,7 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 	{
 		if(file_exists($file) === false || is_readable($file) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): File [%s] is not readable.", array(__METHOD__, $file)));
+			throw new RuntimeException(vsprintf("%s(): File [ %s ] is not readable.", array(__METHOD__, $file)));
 		}
 
 		$this->file = $file;
@@ -103,7 +103,7 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 
 	public function send(Response $response)
 	{
-		$response->header('content-type', $this->options['content_type']);
+		$response->type($this->options['content_type']);
 
 		$response->header('content-length', filesize($this->file));
 
