@@ -53,8 +53,9 @@ class View
 
 	protected static $renderers = array
 	(
-		'.php'     => '\mako\view\renderers\PHP',
-		'.tpl.php' => '\mako\view\renderers\Template',
+		'.php'        => '\mako\view\renderers\PHP',
+		'.tpl.php'    => '\mako\view\renderers\Template',
+		'.smarty.php' => '\mako\view\renderers\Smarty'
 	);
 
 	/**
