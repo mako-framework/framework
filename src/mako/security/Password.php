@@ -94,7 +94,7 @@ class Password
 
 		// Return hash
 
-		return crypt($password, '$2a$' . $cost . '$' . $salt);
+		return crypt($password, '$2y$' . $cost . '$' . $salt);
 	}
 
 	/**

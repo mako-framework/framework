@@ -20,7 +20,7 @@
 		}
 	},
 	"require": {
-		"php": ">=5.3.1",
+		"php": ">=5.3.7",
 		"filp/whoops": "1.0.7"
 	},
 	"require-dev": {
