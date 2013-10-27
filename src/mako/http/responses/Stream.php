@@ -1,18 +1,19 @@
 <?php
 
-namespace mako\http;
+namespace mako\http\responses;
 
 use \Closure;
+use \mako\http\Response;
 
 /**
- * Stream container.
+ * Stream response.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-Class StreamContainer
+Class Stream implements \mako\http\responses\ResponseContainerInterface
 {
 	//---------------------------------------------
 	// Class properties
@@ -67,10 +68,10 @@ Class StreamContainer
 	/**
 	 * Sends the stream.
 	 * 
-	 * @access  public
+	 * @access  protected
 	 */
 
-	public function flow()
+	protected function flow()
 	{
 		// Erase output buffers and disable output buffering
 
@@ -85,6 +86,21 @@ Class StreamContainer
 		// Send empty chunk to tell the client that we're done
 
 		$this->flush(null, true);
+	}
+
+	/**
+	 * Sends the response.
+	 * 
+	 * @access  public
+	 */
+
+	public function send(Response $response)
+	{
+		$response->header('transfer-encoding', 'chunked');
+
+		$response->sendHeaders();
+
+		$this->flow();
 	}
 }
 

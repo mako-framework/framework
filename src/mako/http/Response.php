@@ -6,8 +6,10 @@ use \Closure;
 use \mako\core\Config;
 use \mako\security\MAC;
 use \mako\http\Request;
-use \mako\http\StreamContainer;
 use \mako\http\routing\URL;
+use \mako\http\responses\File;
+use \mako\http\responses\Stream;
+use \mako\http\responses\ResponseContainerInterface;
 
 /**
  * HTTP response.
@@ -444,7 +446,7 @@ class Response
 	 * @access  protected
 	 */
 
-	protected function sendHeaders()
+	public function sendHeaders()
 	{
 		// Send status header
 
@@ -542,16 +544,30 @@ class Response
 	}
 
 	/**
+	 * Returns a file container.
+	 * 
+	 * @access  public
+	 * @param   string                    $file     File path
+	 * @param   array                     $options  Options
+	 * @return  \mako\http\response\File
+	 */
+
+	public function file($file, array $options = array())
+	{
+		return new File($file, $options);
+	}
+
+	/**
 	 * Returns a stream container.
 	 * 
 	 * @access  public
 	 * @param   \Closure                    $stream  Stream
-	 * @return  \mako\http\StreamContainer
+	 * @return  \mako\http\response\Stream
 	 */
 
 	public function stream(Closure $stream)
 	{
-		return new StreamContainer($stream);
+		return new Stream($stream);
 	}
 
 	/**
@@ -598,16 +614,12 @@ class Response
 	
 	public function send()
 	{
-		if($this->body instanceof StreamContainer)
+		if($this->body instanceof ResponseContainerInterface)
 		{
-			// This is a stream response so we'll just send the headers
-			// and start flushing the stream
+			// This is a response container so we'll just pass it the response
+			// instance and let it handle the rest itself
 
-			$this->header('transfer-encoding', 'chunked');
-
-			$this->sendHeaders();
-
-			$this->body->flow();
+			$this->body->send($this);
 		}
 		else
 		{
