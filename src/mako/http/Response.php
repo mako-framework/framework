@@ -283,6 +283,18 @@ class Response
 	}
 
 	/**
+	 * Returns the response content type.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getType()
+	{
+		return $this->contentType;
+	}
+
+	/**
 	 * Sets the response charset.
 	 * 
 	 * @access  public
@@ -295,6 +307,18 @@ class Response
 		$this->charset = $charset;
 
 		return $this;
+	}
+
+	/**
+	 * Returns the response charset.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getCharset()
+	{
+		return $this->charset;
 	}
 
 	/**
@@ -314,6 +338,18 @@ class Response
 
 		return $this;
 	}
+
+	/**
+	 * Returns the HTTP status code.
+	 * 
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function getStatus()
+	{
+		return $this->statusCode;
+	}
 	
 	/**
 	 * Adds output filter that all output will be passed through before being sent.
@@ -328,6 +364,18 @@ class Response
 		$this->outputFilters[] = $filter;
 
 		return $this;
+	}
+
+	/**
+	 * Returns the response filters.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getFilters()
+	{
+		return $this->outputFilters;
 	}
 
 	/**
@@ -358,6 +406,18 @@ class Response
 		$this->headers[strtolower($name)] = $value;
 
 		return $this;
+	}
+
+	/**
+	 * Returns the response headers.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getHeaders()
+	{
+		return $this->heades;
 	}
 
 	/**
@@ -424,6 +484,18 @@ class Response
 	public function deleteCookie($name, array $options = array())
 	{
 		return $this->unsignedCookie($name, '', time() - 3600, $options);
+	}
+
+	/**
+	 * Returns the response cookies.
+	 * 
+	 * @access  public
+	 * @return array
+	 */
+
+	public function getCookies()
+	{
+		return $this->cookies;
 	}
 
 	/**
