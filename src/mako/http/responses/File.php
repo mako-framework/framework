@@ -3,6 +3,7 @@
 namespace mako\http\responses;
 
 use \RuntimeException;
+use \mako\http\Request;
 use \mako\http\Response;
 use \mako\utility\File as FileUtility;
 
@@ -99,9 +100,11 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 	 * Sends the response.
 	 * 
 	 * @access  public
+	 * @param   \mako\http\Request
+	 * @param   \mako\http\Response
 	 */
 
-	public function send(Response $response)
+	public function send(Request $request, Response $response)
 	{
 		$response->type($this->options['content_type']);
 

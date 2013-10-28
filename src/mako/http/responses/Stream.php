@@ -3,6 +3,7 @@
 namespace mako\http\responses;
 
 use \Closure;
+use \mako\http\Request;
 use \mako\http\Response;
 
 /**
@@ -92,9 +93,11 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 	 * Sends the response.
 	 * 
 	 * @access  public
+	 * @param   \mako\http\Request
+	 * @param   \mako\http\Response
 	 */
 
-	public function send(Response $response)
+	public function send(Request $request, Response $response)
 	{
 		$response->header('transfer-encoding', 'chunked');
 

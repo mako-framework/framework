@@ -688,10 +688,10 @@ class Response
 	{
 		if($this->body instanceof ResponseContainerInterface)
 		{
-			// This is a response container so we'll just pass it the response
-			// instance and let it handle the rest itself
+			// This is a response container so we'll just pass it the 
+			// request and response instances and let it handle the rest itself
 
-			$this->body->send($this);
+			$this->body->send($this->request, $this);
 		}
 		else
 		{

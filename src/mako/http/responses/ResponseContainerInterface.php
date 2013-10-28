@@ -2,6 +2,7 @@
 
 namespace mako\http\responses;
 
+use \mako\http\Request;
 use \mako\http\Response;
 
 /**
@@ -14,7 +15,7 @@ use \mako\http\Response;
 
 interface ResponseContainerInterface
 {
-	public function send(Response $response);
+	public function send(Request $request, Response $response);
 }
 
 /** -------------------- End of file -------------------- **/
