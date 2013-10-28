@@ -162,16 +162,16 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 
 		// Send the file contents
 
-		$blockSize = 4096;
+		$chunkSize = 4096;
 
 		while(!feof($handle) && ($pos = ftell($handle)) <= $end && !connection_aborted())
 		{
-			if ($pos + $blockSize > $end)
+			if ($pos + $chunkSize > $end)
 			{
-				$blockSize = $end - $pos + 1;
+				$chunkSize = $end - $pos + 1;
 			}
 
-			echo fread($handle, $blockSize);
+			echo fread($handle, $chunkSize);
 
 			flush();
 		}
