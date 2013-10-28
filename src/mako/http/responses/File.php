@@ -99,7 +99,7 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 
 			$range = explode('-', $range, 2);
 
-			// Check if the range contains two values
+			// Check that the range contains two values
 
 			if(count($range) !== 2)
 			{
@@ -123,7 +123,7 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 			$start = (int) $start;
 			$end   = (int) $end;
 
-			// Check that the range is acceptable
+			// Check that the range is satisfiable
 
 			if($start > $end || $end + 1 > $this->fileSize)
 			{
