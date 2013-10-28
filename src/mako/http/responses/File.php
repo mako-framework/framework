@@ -166,7 +166,7 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 
 		while(!feof($handle) && ($pos = ftell($handle)) <= $end && !connection_aborted())
 		{
-			if ($pos + $chunkSize > $end)
+			if($pos + $chunkSize > $end)
 			{
 				$chunkSize = $end - $pos + 1;
 			}
