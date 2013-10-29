@@ -56,7 +56,7 @@ class Password
 
 	public static function isLegacyHash($hash)
 	{
-		return stripos($hash, '$2a$') !== 0;
+		return stripos($hash, '$2y$') !== 0;
 	}
 
 	/**
