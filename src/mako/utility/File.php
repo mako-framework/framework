@@ -202,7 +202,7 @@ class File
 
 	public static function encrypt($file, $configuration = null)
 	{
-		file_put_contents($file, Crypto::encrypt(file_get_contents($file)));
+		file_put_contents($file, Crypto::factory($configuration)->encrypt(file_get_contents($file)));
 	}
 
 	/**
@@ -216,7 +216,7 @@ class File
 
 	public static function decrypt($file, $configuration = null)
 	{
-		if(($decrypted = Crypto::decrypt(file_get_contents($file))) !== false)
+		if(($decrypted = Crypto::factory($configuration)->decrypt(file_get_contents($file))) !== false)
 		{
 			return (bool) file_put_contents($file, $decrypted);
 		}
