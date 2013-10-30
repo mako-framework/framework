@@ -134,7 +134,7 @@ class File
 	}
 
 	/**
-	 * Writes the suplied data to a file.
+	 * Writes the supplied data to a file.
 	 * 
 	 * @access  public
 	 * @param   string       $file  File path
@@ -149,7 +149,7 @@ class File
 	}
 
 	/**
-	 * Prepends the suplied data to a file.
+	 * Prepends the supplied data to a file.
 	 * 
 	 * @access  public
 	 * @param   string       $file  File path
@@ -164,7 +164,7 @@ class File
 	}
 
 	/**
-	 * Appends the suplied data to a file.
+	 * Appends the supplied data to a file.
 	 * 
 	 * @access  public
 	 * @param   string       $file  File path
