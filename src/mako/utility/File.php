@@ -177,6 +177,20 @@ class File
 	{
 		return file_put_contents($file, $data,  $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND);
 	}
+
+	/**
+	 * Truncates a file.
+	 * 
+	 * @access  public
+	 * @param   string  $file  File path
+	 * @param   boolean      $lock  (optional) Acquire an exclusive write lock?
+	 * @return  boolean
+	 */
+
+	public static function truncate($file, $lock = false)
+	{
+		return ! (bool) file_put_contents($file, null, $lock ? LOCK_EX : 0);
+	}
 }
 
 /** -------------------- End of file -------------------- **/
