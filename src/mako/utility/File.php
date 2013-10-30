@@ -2,9 +2,9 @@
 
 namespace mako\utility;
 
-use \mako\core\Config;
 use \Closure;
-use \RuntimeException;
+use \mako\core\Config;
+use \mako\security\crypto\Crypto;
 
 /**
  * Collection of file related methods.
@@ -190,6 +190,40 @@ class File
 	public static function truncate($file, $lock = false)
 	{
 		return ! (bool) file_put_contents($file, null, $lock ? LOCK_EX : 0);
+	}
+
+	/**
+	 * Encrypts a file.
+	 * 
+	 * @access  public
+	 * @param   string  $file           File path
+	 * @param   string  $configuration  (optional) Crypto configration name
+	 */
+
+	public static function encrypt($file, $configuration = null)
+	{
+		file_put_contents($file, Crypto::encrypt(file_get_contents($file)));
+	}
+
+	/**
+	 * Decrypts a file.
+	 * 
+	 * @access  public
+	 * @param   string   $file           File path
+	 * @param   string   $configuration  (optional) Crypto configration name
+	 * @return  boolean
+	 */
+
+	public static function decrypt($file, $configuration = null)
+	{
+		if(($decrypted = Crypto::decrypt(file_get_contents($file))) !== false)
+		{
+			return (bool) file_put_contents($file, $decrypted);
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 
