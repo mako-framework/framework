@@ -121,6 +121,66 @@ class File
 	}
 
 	/**
+	 * Returns the contents of the file.
+	 * 
+	 * @access  public
+	 * @param   string          $file  File path
+	 * @return  string|boolean
+	 */
+
+	public static function get($file)
+	{
+		return file_get_contents($file);
+	}
+
+	/**
+	 * Writes the suplied data to a file.
+	 * 
+	 * @access  public
+	 * @param   string       $file  File path
+	 * @param   mixed        $data  File data
+	 * @param   boolean      $lock  (optional) Acquire an exclusive write lock?
+	 * @return  int|boolean
+	 */
+
+	public static function put($file, $data, $lock = false)
+	{
+		return file_put_contents($file, $data, $lock ? LOCK_EX : 0);
+	}
+
+	/**
+	 * Prepends the suplied data to a file.
+	 * 
+	 * @access  public
+	 * @param   string       $file  File path
+	 * @param   mixed        $data  File data
+	 * @param   boolean      $lock  (optional) Acquire an exclusive write lock?
+	 * @return  int|boolean
+	 */
+
+	public static function prepend($file, $data, $lock = false)
+	{
+		return file_put_contents($file, $data . file_get_contents($file), $lock ? LOCK_EX : 0);
+	}
+
+	/**
+	 * Appends the suplied data to a file.
+	 * 
+	 * @access  public
+	 * @param   string       $file  File path
+	 * @param   mixed        $data  File data
+	 * @param   boolean      $lock  (optional) Acquire an exclusive write lock?
+	 * @return  int|boolean
+	 */
+
+	public static function append($file, $data, $lock = false)
+	{
+		$flags = $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND;
+
+		return file_put_contents($file, $data, $flags);
+	}
+
+	/**
 	 * Splits a file into multiple pieces.
 	 *
 	 * @access  public
