@@ -182,8 +182,8 @@ class File
 	 * Truncates a file.
 	 * 
 	 * @access  public
-	 * @param   string  $file  File path
-	 * @param   boolean      $lock  (optional) Acquire an exclusive write lock?
+	 * @param   string   $file  File path
+	 * @param   boolean  $lock  (optional) Acquire an exclusive write lock?
 	 * @return  boolean
 	 */
 
