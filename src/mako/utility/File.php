@@ -175,9 +175,7 @@ class File
 
 	public static function append($file, $data, $lock = false)
 	{
-		$flags = $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND;
-
-		return file_put_contents($file, $data, $flags);
+		return file_put_contents($file, $data,  $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND);
 	}
 }
 
