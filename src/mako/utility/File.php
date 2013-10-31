@@ -5,6 +5,7 @@ namespace mako\utility;
 use \Closure;
 use \mako\core\Config;
 use \mako\security\crypto\Crypto;
+use \mako\security\crypto\adapters\Adapter;
 
 /**
  * Collection of file related methods.
@@ -189,42 +190,84 @@ class File
 
 	public static function truncate($file, $lock = false)
 	{
-		return ! (bool) file_put_contents($file, null, $lock ? LOCK_EX : 0);
+		return (0 === file_put_contents($file, null, $lock ? LOCK_EX : 0));
 	}
 
 	/**
 	 * Encrypts a file.
 	 * 
 	 * @access  public
-	 * @param   string  $file           File path
-	 * @param   string  $configuration  (optional) Crypto configration name
+	 * @param   string                                   $file    File path
+	 * @param   \mako\security\crypto\adapters\Adapter   $crypto  (optional) Crypto adapter instance
+	 * @return  boolean
 	 */
 
-	public static function encrypt($file, $configuration = null)
+	public static function encrypt($file, Adapter $crypto = null)
 	{
-		$crypto = Crypto::factory($configuration);
+		$crypto = $crypto ?: Crypto::factory();
 
-		file_put_contents($file, $crypto->encrypt(file_get_contents($file)));
+		return (file_put_contents($file, $crypto->encrypt(file_get_contents($file))) !== false);
 	}
 
 	/**
 	 * Decrypts a file.
 	 * 
 	 * @access  public
-	 * @param   string   $file           File path
-	 * @param   string   $configuration  (optional) Crypto configration name
+	 * @param   string                                   $file    File path
+	 * @param   \mako\security\crypto\adapters\Adapter   $crypto  (optional) Crypto adapter instance
 	 * @return  boolean
 	 */
 
-	public static function decrypt($file, $configuration = null)
+	public static function decrypt($file, Adapter $crypto = null)
 	{
-		$crypto = Crypto::factory($configuration);
+		$crypto = $crypto ?: Crypto::factory();
 
 		$decrypted = $crypto->decrypt(file_get_contents($file));
 
 		if($decrypted !== false)
 		{
-			return (bool) file_put_contents($file, $decrypted);
+			return (false !== file_put_contents($file, $decrypted));
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Encrypts and sign a file.
+	 * 
+	 * @access  public
+	 * @param   string                                   $file    File path
+	 * @param   \mako\security\crypto\adapters\Adapter   $crypto  (optional) Crypto adapter instance
+	 * @return  boolean
+	 */
+
+	public static function encryptAndSign($file, Adapter $crypto = null)
+	{
+		$crypto = $crypto ?: Crypto::factory();
+
+		return (file_put_contents($file, $crypto->encryptAndSign(file_get_contents($file))) !== false);
+	}
+
+	/**
+	 * Validates and decrypts a file.
+	 * 
+	 * @access  public
+	 * @param   string                                   $file    File path
+	 * @param   \mako\security\crypto\adapters\Adapter   $crypto  (optional) Crypto adapter instance
+	 * @return  boolean
+	 */
+
+	public static function validateAndDecrypt($file, Adapter $crypto = null)
+	{
+		$crypto = $crypto ?: Crypto::factory();
+
+		$decrypted = $crypto->validateAndDecrypt(file_get_contents($file));
+
+		if($decrypted !== false)
+		{
+			return (false !== file_put_contents($file, $decrypted));
 		}
 		else
 		{
