@@ -235,7 +235,7 @@ class File
 	}
 
 	/**
-	 * Encrypts and sign a file.
+	 * Encrypts and signs a file.
 	 * 
 	 * @access  public
 	 * @param   string                                   $file    File path
