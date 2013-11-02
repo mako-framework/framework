@@ -133,13 +133,13 @@ class BelongsTo extends \mako\database\midgard\relations\Relation
 	}
 
 	/**
-	 * Returns a record from the database.
+	 * Returns related a record from the database.
 	 * 
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */ 
 
-	public function get()
+	public function getRelated()
 	{
 		return $this->first();
 	}

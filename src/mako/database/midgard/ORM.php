@@ -473,7 +473,7 @@ abstract class ORM
 		{
 			// The column is a relation. Lazy load the records and cache them
 
-			return $this->related[$name] = $this->{$name}()->get();
+			return $this->related[$name] = $this->{$name}()->getRelated();
 		}
 		elseif(!$raw && method_exists($this, 'get_' . $name))
 		{
@@ -591,15 +591,16 @@ abstract class ORM
 	 * Returns a record using the value of its primary key.
 	 * 
 	 * @access  public
-	 * @param   int                         $id  Primary key
+	 * @param   int                         $id       Primary key
+	 * @param   array                       $columns  (optional) Columns to select
 	 * @return  \mako\database\midgard\ORM
 	 */
 
-	public static function get($id)
+	public static function get($id, array $columns = array())
 	{
 		$instance = new static();
 
-		return $instance->hydrator()->where($instance->getPrimaryKey(), '=', $id)->first();
+		return $instance->hydrator()->get($id, $columns);
 	}
 
 	/**

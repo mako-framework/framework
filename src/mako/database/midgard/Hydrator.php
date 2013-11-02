@@ -139,6 +139,20 @@ class Hydrator extends \mako\database\query\Query
 	}
 
 	/**
+	 * Returns a record using the value of its primary key.
+	 * 
+	 * @access  public
+	 * @param   int                         $id       Primary key
+	 * @param   array                       $columns  (optional) Columns to select
+	 * @return  \mako\database\midgard\ORM
+	 */
+
+	public function get($id, array $columns = array())
+	{
+		return $this->where($this->model->getPrimaryKey(), '=', $id)->first($columns);
+	}
+
+	/**
 	 * Sets the relations to eager load.
 	 * 
 	 * @access  public

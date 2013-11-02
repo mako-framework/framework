@@ -235,13 +235,13 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	}
 
 	/**
-	 * Returns a result set from the database.
+	 * Returns a related result set from the database.
 	 * 
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */ 
 
-	public function get()
+	public function getRelated()
 	{
 		return $this->all();
 	}

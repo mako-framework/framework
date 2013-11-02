@@ -70,13 +70,13 @@ class HasMany extends \mako\database\midgard\relations\HasOneOrMany
 	}
 
 	/**
-	 * Returns a result set from the database.
+	 * Returns a related result set from the database.
 	 * 
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */
 
-	public function get()
+	public function getRelated()
 	{
 		return $this->all();
 	}
