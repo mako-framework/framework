@@ -215,15 +215,15 @@ class Request
 
 		$this->collectRequestInfo();
 
+		// Create response
+
+		$this->response = new Response($this);
+
 		// Set the request path and method
 
 		$this->path = ($isMainRequest && empty($path)) ? $this->determinePath() : $path;
 
 		$this->method = ($isMainRequest && empty($method)) ? $this->determineMethod() : ($method ?: static::$main->method());
-
-		// Create response
-
-		$this->response = new Response($this);
 
 		// Subsequent requests will be treated as subrequests
 
@@ -297,9 +297,9 @@ class Request
 
 		if(Config::get('application.clean_urls') && isset($this->server['REQUEST_URI']) && stripos($this->server['REQUEST_URI'], 'index.php') !== false)
 		{
-			$path = pathinfo($this->server['SCRIPT_NAME'], PATHINFO_DIRNAME);
+			$scriptPath = pathinfo($this->server['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
-			if(stripos(mb_substr($this->server['REQUEST_URI'], mb_strlen($path)), '/index.php') === 0)
+			if(stripos(mb_substr($this->server['REQUEST_URI'], mb_strlen($scriptPath)), '/index.php') === 0)
 			{
 				$this->response->redirect(URL::to($path, $this->get, '&'), 301);
 			}
