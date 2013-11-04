@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\database\orm\relations;
+namespace mako\database\midgard\relations;
 
 use \mako\database\Connection;
 use \mako\database\midgard\ORM;
