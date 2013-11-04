@@ -274,6 +274,22 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testSelectWithRawIn()
+	{
+		$query = $this->getBuilder();
+
+		$query->in('foo', Database::raw("SELECT id FROM barfoo"));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IN (SELECT id FROM barfoo)', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testSelectWithNotIn()
 	{
 		$query = $this->getBuilder();

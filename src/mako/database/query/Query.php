@@ -475,7 +475,7 @@ class Query
 
 	public function in($column, $values, $separator = 'AND', $not = false)
 	{
-		if($values instanceof Subquery)
+		if($values instanceof Raw || $values instanceof Subquery)
 		{
 			$values = array($values);
 		}
