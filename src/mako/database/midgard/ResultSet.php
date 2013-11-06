@@ -155,6 +155,30 @@ class ResultSet implements \ArrayAccess, \Countable, \IteratorAggregate
 	}
 
 	/**
+	 * Shifts the first value of the result set off and returns it, shortening the result set by one element.
+	 * 
+	 * @access  public
+	 * @return  \mako\database\midgard\ORM
+	 */
+
+	public function shift()
+	{
+		return array_shift($this->results);
+	}
+
+	/**
+	 * Pops and returns the last value of the result set, shortening the result set by one element.
+	 * 
+	 * @access  public
+	 * @return  \mako\database\midgard\ORM
+	 */
+
+	public function pop()
+	{
+		return array_pop($this->results);
+	}
+
+	/**
 	 * Returns an array containing only the values of chosen column.
 	 * 
 	 * @access  public
