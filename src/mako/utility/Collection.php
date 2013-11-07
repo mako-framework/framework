@@ -42,20 +42,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 		$this->items = $items;
 	}
 
-	/**
-	 * Clones all items when cloning the collection.
-	 * 
-	 * @access  public
-	 */
-
-	public function __clone()
-	{
-		foreach($this->items as $key => $value)
-		{
-			$this->items[$key] = clone $value;
-		}
-	}
-
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------

@@ -25,7 +25,19 @@ class ResultSet extends \mako\utility\Collection
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Clones all items when cloning the collection.
+	 * 
+	 * @access  public
+	 */
+
+	public function __clone()
+	{
+		foreach($this->items as $key => $value)
+		{
+			$this->items[$key] = clone $value;
+		}
+	}
 
 	//---------------------------------------------
 	// Class methods
