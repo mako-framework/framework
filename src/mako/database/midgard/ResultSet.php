@@ -3,7 +3,7 @@
 namespace mako\database\midgard;
 
 use \mako\utility\Arr;
-use \ArrayIterator;
+use \mako\utility\Collection;
 
 /**
  * ORM result set.
@@ -13,170 +13,23 @@ use \ArrayIterator;
  * @license    http://www.makoframework.com/license
  */
 
-class ResultSet implements \ArrayAccess, \Countable, \IteratorAggregate
+class ResultSet extends \mako\utility\Collection
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
-	/**
-	 * Database results.
-	 * 
-	 * @var array
-	 */
-
-	protected $results = array();
+	// Nothing here
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	/**
-	 * Constructor.
-	 * 
-	 * @access  public
-	 * @param   array   $results  Database results
-	 */
-
-	public function __construct(array $results = array())
-	{
-		$this->results = $results;
-	}
-
-	/**
-	 * Clones all results when cloning the result set.
-	 * 
-	 * @access  public
-	 */
-
-	public function __clone()
-	{
-		foreach($this->results as $key => $value)
-		{
-			$this->results[$key] = clone $value;
-		}
-	}
+	// Nothing here
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
-	/**
-	 * Checks whether or not an offset exists.
-	 * 
-	 * @access  public
-	 * @param   mixed    $offset  The offset to check for
-	 * @return  boolean
-	 */
-
-	public function offsetExists($offset)
-	{
-		return isset($this->results[$offset]);
-	}
-
-	/**
-	 * Returns the value at the specified offset.
-	 * 
-	 * @access  public
-	 * @param   mixed   $offset  The offset to retrieve
-	 * @return  mixed
-	 */
-
-	public function offsetGet($offset)
-	{
-		return isset($this->results[$offset]) ? $this->results[$offset] : null;
-	}
-
-	/**
-	 * Assigns a value to the specified offset.
-	 * 
-	 * @access  public
-	 * @param   mixed   $offset  The offset to assign the value to
-	 * @param   mixed   $value   The value to set
-	 */
-
-	public function offsetSet($offset, $value)
-	{
-		if(is_null($offset))
-		{
-			$this->results[] = $value;
-		}
-		else
-		{
-			$this->results[$offset] = $value;
-		}
-	}
-
-	/**
-	 * Unsets an offset.
-	 * 
-	 * @access  public
-	 * @param   mixed   $offset  The offset to unset
-	 */
-
-	public function offsetUnset($offset)
-	{
-		unset($this->results[$offset]);
-	}
-
-	/**
-	 * Returns the numner of items in the result set.
-	 * 
-	 * @access  public
-	 * @return  int
-	 */
-
-	public function count()
-	{
-		return count($this->results);
-	}
-
-	/**
-	 * Retruns an array iterator object.
-	 * 
-	 * @access  public
-	 * @return  \ArrayIterator
-	 */
-
-	public function getIterator()
-	{
-		return new ArrayIterator($this->results);
-	}
-
-	/**
-	 * Returns TRUE if the result set is empty and FALSE if not.
-	 * 
-	 * @return  boolean
-	 */
-
-	public function isEmpty()
-	{
-		return empty($this->results);
-	}
-
-	/**
-	 * Shifts the first value of the result set off and returns it, shortening the result set by one element.
-	 * 
-	 * @access  public
-	 * @return  \mako\database\midgard\ORM
-	 */
-
-	public function shift()
-	{
-		return array_shift($this->results);
-	}
-
-	/**
-	 * Pops and returns the last value of the result set, shortening the result set by one element.
-	 * 
-	 * @access  public
-	 * @return  \mako\database\midgard\ORM
-	 */
-
-	public function pop()
-	{
-		return array_pop($this->results);
-	}
 
 	/**
 	 * Returns an array containing only the values of chosen column.
@@ -188,7 +41,7 @@ class ResultSet implements \ArrayAccess, \Countable, \IteratorAggregate
 
 	public function pluck($column)
 	{
-		return Arr::pluck($this->results, $column);
+		return Arr::pluck($this->items, $column);
 	}
 
 	/**
@@ -204,9 +57,9 @@ class ResultSet implements \ArrayAccess, \Countable, \IteratorAggregate
 	{
 		$results = array();
 
-		foreach($this->results as $result)
+		foreach($this->items as $item)
 		{
-			$results[] = $result->toArray($protect, $raw);
+			$results[] = $item->toArray($protect, $raw);
 		}
 
 		return $results;
