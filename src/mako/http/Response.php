@@ -704,6 +704,11 @@ class Response
 				ob_start();
 			}
 
+			// Cast to body to string so that everything is rendered 
+			// before running through response filters
+
+			$this->body = (string) $this->body;
+
 			// Run body through the response filters
 
 			foreach($this->outputFilters as $outputFilter)
