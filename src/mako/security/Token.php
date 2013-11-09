@@ -2,7 +2,7 @@
 
 namespace mako\security;
 
-use \mako\Session;
+use \mako\session\Session;
 
 /**
  * Generate and validate security tokens.
