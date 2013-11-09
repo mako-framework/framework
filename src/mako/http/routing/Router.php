@@ -59,6 +59,8 @@ class Router
 
 	public function route()
 	{
+		$matched = false;
+
 		$routes = Routes::getRoutes();
 
 		$requestMethod = $this->request->method();
@@ -71,9 +73,9 @@ class Router
 			{
 				if(!$route->allows($requestMethod))
 				{
-					// The matched route does not allow the request method so we'll throw an exception
+					$matched = true;
 
-					throw new MethodNotAllowedException($route->getMethods());
+					continue;
 				}
 
 				if($route->hasTrailingSlash() && substr($requestedRoute, -1) !== '/' && $this->request->isMain())
@@ -87,9 +89,18 @@ class Router
 			}
 		}
 
-		// No routes matched so we'll throw an exception
-		
-		throw new PageNotFoundException();
+		if($matched)
+		{
+			// We found a matching route but it does not allow the request method so we'll throw a 405 exception
+
+			throw new MethodNotAllowedException($route->getMethods());
+		}
+		else
+		{
+			// No routes matched so we'll throw a 404 exception
+			
+			throw new PageNotFoundException();
+		}
 	}
 }
 
