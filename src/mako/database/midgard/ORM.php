@@ -735,7 +735,17 @@ abstract class ORM
 
 	protected function getModified()
 	{
-		return array_diff_assoc($this->columns, $this->original);
+		$modified = array();
+
+		foreach($this->columns as $key => $value)
+		{
+			if(!isset($this->original[$key]) || $this->original[$key] != $value)
+			{
+				$modified[$key] = $value;
+			}
+		}
+
+		return $modified;
 	}
 
 	/**
