@@ -192,6 +192,18 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 	{
 		return array_pop($this->items);
 	}
+
+	/**
+	 * Shuffles the items in the collection and returns TRUE on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function shuffle()
+	{
+		return shuffle($this->items);
+	}
 }
 
 /** -------------------- End of file -------------------- **/
