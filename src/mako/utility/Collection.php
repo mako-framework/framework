@@ -2,6 +2,7 @@
 
 namespace mako\utility;
 
+use \Closure;
 use \ArrayIterator;
 
 /**
@@ -194,7 +195,22 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 	}
 
 	/**
-	 * Shuffles the items in the collection and returns TRUE on success and FALSE on failure.
+	 * Sorts the collection using the specified comparator closure 
+	 * and returns TRUE on success and FALSE on failure.
+	 * 
+	 * @access  public
+	 * @param   \Closure  $comparator  Comparator closure
+	 * @return  boolean
+	 */
+
+	public function sort(Closure $comparator)
+	{
+		return uasort($this->items, $comparator);
+	}
+
+	/**
+	 * Shuffles the items in the collection and returns 
+	 * TRUE on success and FALSE on failure.
 	 * 
 	 * @access  public
 	 * @return  boolean
