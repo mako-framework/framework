@@ -117,7 +117,7 @@ class Output extends \mako\reactor\io\StdOut
 
 		// Set redraw frequency
 
-		$progress->setRedrawFrequency($redrawRate ?: ceil(0.01 * $itemCount));
+		$progress->setRedrawFrequency(max($redrawRate ?: ceil(0.01 * $itemCount), 1));
 
 		// Set stome styles
 
