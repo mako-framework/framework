@@ -109,7 +109,7 @@ class Routes
 	 * @return  boolean
 	 */
 
-	public function hasNamedRoute($name)
+	public static function hasNamedRoute($name)
 	{
 		return isset(static::$namedRoutes[$name]);
 	}

@@ -301,7 +301,11 @@ class Request
 
 			if(stripos(mb_substr($this->server['REQUEST_URI'], mb_strlen($scriptPath)), '/index.php') === 0)
 			{
-				$this->response->redirect(URL::to($path, $this->get, '&'), 301);
+				$response = new Response($this, $this->response->redirect($path, array(), $this->get)->status(301));
+
+				$response->send();
+
+				exit;
 			}
 		}
 

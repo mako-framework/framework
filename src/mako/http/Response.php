@@ -6,8 +6,8 @@ use \Closure;
 use \mako\core\Config;
 use \mako\security\MAC;
 use \mako\http\Request;
-use \mako\http\routing\URL;
 use \mako\http\responses\File;
+use \mako\http\responses\Redirect;
 use \mako\http\responses\Stream;
 use \mako\http\responses\ResponseContainerInterface;
 
@@ -646,24 +646,15 @@ class Response
 	 * Redirects to another location.
 	 *
 	 * @access  public
-	 * @param   string  $location    (optional) Location
-	 * @param   int     $statusCode  (optional) HTTP status code
+	 * @param   string                        $location     Location
+	 * @param   array                         $routeParams  (optional) Route parameters
+	 * @param   array                         $queryParams  (optional) Query parameters
+	 * @return  \mako\http\response\Redirect
 	 */
 	
-	public function redirect($location = '', $statusCode = 302)
+	public function redirect($location, array $routeParams = array(), array $queryParams = array())
 	{
-		$this->status($statusCode);
-
-		if(strpos($location, '://') === false)
-		{
-			$location = URL::to($location);
-		}
-		
-		$this->header('Location', $location);
-
-		$this->sendHeaders();
-		
-		exit();
+		return new Redirect($location, $routeParams, $queryParams);
 	}
 
 	/**
@@ -675,7 +666,7 @@ class Response
 
 	public function back($statusCode = 302)
 	{
-		$this->redirect($this->request->referer(), $statusCode);
+		return $this->redirect($this->request->referer())->status($statusCode);
 	}
 	
 	/**

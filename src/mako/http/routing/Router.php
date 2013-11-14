@@ -82,7 +82,11 @@ class Router
 				{
 					// Redirect to URL with trailing slash if the route should have one
 
-					$this->request->response()->redirect(URL::to($requestedRoute . '/', $this->request->get(), '&'), 301);
+					$response = new Response($this->request, $this->request->response()->redirect($requestedRoute . '/', array(), $this->request->get())->status(301));
+
+					$response->send();
+
+					exit;
 				}
 
 				return $route;
