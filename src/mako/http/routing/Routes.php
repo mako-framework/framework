@@ -82,7 +82,7 @@ class Routes
 	{
 		if(!isset(static::$filters[$filter]))
 		{
-			throw new RuntimeException(vsprintf("%s(): No filter named '%s' has been defined.", array(__METHOD__, $filter)));
+			throw new RuntimeException(vsprintf("%s(): No filter named [ %s ] has been defined.", array(__METHOD__, $filter)));
 		}
 		
 		return static::$filters[$filter];
@@ -102,18 +102,31 @@ class Routes
 	}
 
 	/**
+	 * Returns TRUE if the named route exists and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $name  Route name
+	 * @return  boolean
+	 */
+
+	public function hasNamedRoute($name)
+	{
+		return isset(static::$namedRoutes[$name]);
+	}
+
+	/**
 	 * Returns the named route.
 	 * 
 	 * @access  public
-	 * @param   string          $name  Route name
-	 * @return  string|boolean
+	 * @param   string  $name  Route name
+	 * @return  string
 	 */
 
 	public static function getNamedRoute($name)
 	{
 		if(!isset(static::$namedRoutes[$name]))
 		{
-			throw new RuntimeException(vsprintf("%s(): No route named '%s' has been defined.", array(__METHOD__, $name)));
+			throw new RuntimeException(vsprintf("%s(): No route named [ %s ] has been defined.", array(__METHOD__, $name)));
 		}
 
 		return static::$namedRoutes[$name];

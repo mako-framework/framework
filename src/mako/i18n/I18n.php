@@ -85,7 +85,7 @@ class I18n
 		{
 			if(!is_dir(MAKO_APPLICATION_PATH . '/i18n/' . $language))
 			{
-				throw new RuntimeException(vsprintf("%s(): The '%s' language pack does not exist.", array(__METHOD__, $language)));
+				throw new RuntimeException(vsprintf("%s(): The [ %s ] language pack does not exist.", array(__METHOD__, $language)));
 			}
 
 			static::$languages[$language] = new Language($language);

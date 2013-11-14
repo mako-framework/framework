@@ -73,7 +73,7 @@ class Config
 
 		if(!$found)
 		{
-			throw new RuntimeException(vsprintf("%s(): The '%s' config file does not exist.", array(__METHOD__, $file)));
+			throw new RuntimeException(vsprintf("%s(): The [ %s ] config file does not exist.", array(__METHOD__, $file)));
 		}
 
 		// Merge environment specific configuration

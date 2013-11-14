@@ -308,14 +308,14 @@ class Reactor
 		}
 		catch(ReflectionException $e)
 		{
-			$this->output->error(vsprintf("The '%s' task does not exist.", array(end((explode('\\', $task))))));
+			$this->output->error(vsprintf("The [ %s ] task does not exist.", array(end((explode('\\', $task))))));
 
 			return false;
 		}
 
 		if($task->isSubClassOf('\mako\reactor\Task') === false)
 		{
-			$this->output->error(vsprintf("The '%s' task needs to extend the mako\\reactor\Task class.", array($task)));
+			$this->output->error(vsprintf("The [ %s ] task needs to extend the mako\\reactor\Task class.", array($task)));
 
 			return false;
 		}

@@ -89,7 +89,7 @@ class Language
 		}
 		else
 		{
-			throw new RuntimeException(vsprintf("%s:(): The '%s' language pack does not contain any inflection rules.", array(__METHOD__, $this->language)));
+			throw new RuntimeException(vsprintf("%s:(): The [ %s ] language pack does not contain any inflection rules.", array(__METHOD__, $this->language)));
 		}
 	}
 

@@ -86,7 +86,7 @@ class Cache
 		{
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the cache configuration.", array(__METHOD__, $name)));
+				throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the cache configuration.", array(__METHOD__, $name)));
 			}
 
 			$adapter = static::$adapters[$config['configurations'][$name]['type']];

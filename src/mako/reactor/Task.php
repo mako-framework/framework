@@ -151,7 +151,7 @@ abstract class Task
 
 	public function __call($name, $arguments)
 	{
-		$this->output->error(vsprintf("Unknown task action '%s'.", array($name)));
+		$this->output->error(vsprintf("Unknown task action [ %s ].", array($name)));
 
 		$this->output->nl();
 

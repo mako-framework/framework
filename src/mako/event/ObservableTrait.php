@@ -77,7 +77,7 @@ trait ObservableTrait
 	{
 		if(!isset($this->_observers[$event]))
 		{
-			throw new RuntimeException(vsprintf("%s(): The '%s' event does not exist.", array(__METHOD__, $event)));
+			throw new RuntimeException(vsprintf("%s(): The [ %s ] event does not exist.", array(__METHOD__, $event)));
 		}
 
 		foreach($this->_observers[$event] as $key => $_observer)
@@ -101,7 +101,7 @@ trait ObservableTrait
 	{
 		if(!isset(static::$_staticObservers[$event]))
 		{
-			throw new RuntimeException(vsprintf("%s(): The '%s' event does not exist.", array(__METHOD__, $event)));
+			throw new RuntimeException(vsprintf("%s(): The [ %s ] event does not exist.", array(__METHOD__, $event)));
 		}
 
 		foreach(static::$_staticObservers[$event] as $key => $_observer)

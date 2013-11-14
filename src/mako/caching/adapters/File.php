@@ -45,7 +45,7 @@ class File extends \mako\caching\adapters\Adapter
 
 		if(file_exists($this->path) === false || is_readable($this->path) === false || is_writable($this->path) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Cache directory ('%s') is not writable.", array(__METHOD__, $this->path)));
+			throw new RuntimeException(vsprintf("%s(): Cache directory [ %s ] is not writable.", array(__METHOD__, $this->path)));
 		}
 	}
 

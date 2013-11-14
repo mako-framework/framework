@@ -64,7 +64,7 @@ class Session
 
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(vsprintf("%s(): '%s' has not been defined in the session configuration.", array(__METHOD__, $name)));
+				throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the session configuration.", array(__METHOD__, $name)));
 			}
 
 			$type = $config['configurations'][$name]['type'];
