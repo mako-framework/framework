@@ -90,16 +90,16 @@ class APCU extends \mako\caching\adapters\Adapter
 	 * Increases a stored number. Will return the incremented value on success and FALSE on failure.
 	 * 
 	 * @access  public
-	 * @param   string  $key      Cache key
-	 * @param   int     $ammount  (optional) Ammoun that the number should be increased by
+	 * @param   string  $key     Cache key
+	 * @param   int     $amount  (optional) Amount that the number should be increased by
 	 * @return  mixed
 	 */
 
-	public function increment($key, $ammount = 1)
+	public function increment($key, $amount = 1)
 	{
 		if($this->has($key))
 		{
-			return apcu_inc($this->identifier . $key, $ammount);
+			return apcu_inc($this->identifier . $key, $amount);
 		}
 		
 		return false;
@@ -109,16 +109,16 @@ class APCU extends \mako\caching\adapters\Adapter
 	 * Decrements a stored number. Will return the decremented value on success and FALSE on failure.
 	 * 
 	 * @access  public
-	 * @param   string  $key      Cache key
-	 * @param   int     $ammount  (optional) Ammoun that the number should be decremented by
+	 * @param   string  $key     Cache key
+	 * @param   int     $amount  (optional) Amount that the number should be decremented by
 	 * @return  mixed
 	 */
 
-	public function decrement($key, $ammount = 1)
+	public function decrement($key, $amount = 1)
 	{
 		if($this->has($key))
 		{
-			return apcu_dec($this->identifier . $key, $ammount);
+			return apcu_dec($this->identifier . $key, $amount);
 		}
 		
 		return false;
