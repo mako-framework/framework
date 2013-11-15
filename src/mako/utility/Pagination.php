@@ -122,11 +122,37 @@ class Pagination
 		$this->itemsPerPage = ($itemsPerPage === null) ? max($config['items_per_page'], 1) : max($itemsPerPage, 1);
 		$this->maxPageLinks = $config['max_page_links'];
 		$this->currentPage  = max((int) $this->request->get($this->key, 1), 1);
+		$this->pages        = ceil(($this->count / $this->itemsPerPage));
+		$this->offset       = ($this->currentPage - 1) * $this->itemsPerPage;
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns the total amount of pages.
+	 * 
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function pages()
+	{
+		return $this->pages;
+	}
+
+	/**
+	 * Returns the current page.
+	 * 
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function currentPage()
+	{
+		return $this->currentPage;
+	}
 
 	/**
 	 * Returns the limit.
@@ -141,7 +167,7 @@ class Pagination
 	}
 
 	/**
-	 * Calculates the offset and number of pages and returns the offset.
+	 * Returns the offset.
 	 *
 	 * @access  public
 	 * @return  int
@@ -149,9 +175,6 @@ class Pagination
 
 	public function offset()
 	{
-		$this->pages  = ceil(($this->count / $this->itemsPerPage));
-		$this->offset = ($this->currentPage - 1) * $this->itemsPerPage;
-
 		return $this->offset;
 	}
 
