@@ -84,17 +84,6 @@ class Reactor
 		$this->input = new Input($this->output);
 	}
 
-	/**
-	 * Factory method making method chaining possible right off the bat.
-	 * 
-	 * @access  public
-	 */
-
-	public static function factory()
-	{
-		return new static();
-	}
-
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------

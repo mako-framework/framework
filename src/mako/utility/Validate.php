@@ -77,20 +77,6 @@ class Validate
 		unset($this->input['*']);
 	}
 
-	/**
-	 * Factory method making method chaining possible right off the bat.
-	 *
-	 * @access  public
-	 * @param   array           $input  Array to validate
-	 * @param   array           $rules  Array of validation rules
-	 * @return  \mako\Validate
-	 */
-
-	public static function factory(array $input, array $rules)
-	{
-		return new static($input, $rules);
-	}
-
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------

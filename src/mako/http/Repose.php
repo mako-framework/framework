@@ -63,20 +63,6 @@ class Repose
 		$this->options = $options + $this->options;
 	}
 
-	/**
-	 * Factory method making method chaining possible right off the bat.
-	 *
-	 * @access  public
-	 * @param   string     $url      URL
-	 * @param   array      $options  (optional) cURL options
-	 * @return  mako\Rest
-	 */
-
-	public static function factory($url, array $options = array())
-	{
-		return new static($url, $options);
-	}
-
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
