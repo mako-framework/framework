@@ -257,7 +257,7 @@ class Pagination
 			$this->offset();
 		}
 
-		return View::factory($this->view, $this->paginate())->render();
+		return (new View($this->view, $this->paginate()))->render();
 	}
 
 	/**

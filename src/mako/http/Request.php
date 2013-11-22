@@ -230,26 +230,6 @@ class Request
 		$isMainRequest = false;
 	}
 
-	/**
-	 * Factory method making method chaining possible right off the bat.
-	 *
-	 * @access  public
-	 * @param   string         $path    (optional) Request path
-	 * @param   string         $method  (optional) Request method
-	 * @param   array          $get     (optional) GET parameters
-	 * @param   array          $post    (optional) POST parameters
-	 * @param   array          $cookies (optional) Cookies
-	 * @param   array          $files   (optional) Files
-	 * @param   array          $server  (optional) Server info
-	 * @param   string         $body    (optional) Request body
-	 * @return  \mako\Request
-	 */
-
-	public static function factory($path = null, $method = null, array $get = array(), array $post = array(), array $cookies = array(), array $files = array(), array $server = array(), $body = null)
-	{
-		return new static($path, $method);
-	}
-
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
@@ -678,14 +658,13 @@ class Request
 	 * Checks if the keys exist in the data of the current request method.
 	 *
 	 * @access  public
-	 * @param   string   $key     Array key
-	 * @param   string   $method  (optional) Request method
+	 * @param   string   $key  Array key
 	 * @return  boolean
 	 */
 
-	public function has($key, $method = null)
+	public function has($key)
 	{
-		$method = $method ?: strtolower($this->realMethod);
+		$method = strtolower($this->realMethod);
 
 		return Arr::has($this->$method(), $key);
 	}

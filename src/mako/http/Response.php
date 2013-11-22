@@ -209,19 +209,6 @@ class Response
 		$this->outputCompression = $config['compress_output'];
 		$this->responseCache     = $config['response_cache'];
 	}
-
-	/**
-	 * Factory method making method chaining possible right off the bat.
-	 *
-	 * @access  public
-	 * @param   string               $body  (optional) Response body
-	 * @return  \mako\http\Response
-	 */
-
-	public static function factory($body = null)
-	{
-		return new static($body);
-	}
 	
 	//---------------------------------------------
 	// Class methods

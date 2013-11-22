@@ -39,17 +39,6 @@ class App
 	{
 		// Nothing here
 	}
-
-	/**
-	 * Factory method making method chaining possible right off the bat.
-	 * 
-	 * @access  public
-	 */
-
-	public static function factory()
-	{
-		return new static();
-	}
 	
 	//---------------------------------------------
 	// Class methods
@@ -67,23 +56,6 @@ class App
 		// Start output buffering
 
 		ob_start();
-				
-		// Removes slashes added to the superglobals by magic quotes
-
-		if(MAKO_MAGIC_QUOTES === 1)
-		{
-			$superglobals = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
-
-			foreach($superglobals as &$superglobal)
-			{
-				array_walk_recursive($superglobal, function(&$value, $key)
-				{
-					$value = stripslashes($value);
-				});
-			}
-
-			unset($superglobals);
-		}
 
 		// Register the RequestException handler
 

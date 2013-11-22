@@ -105,20 +105,6 @@ class View
 		}
 	}
 
-	/**
-	 * Factory method making method chaining possible right off the bat.
-	 *
-	 * @access  public
-	 * @param   string      $view       Name of the view file
-	 * @param   array       $variables  (optional) Array of view variables
-	 * @return  \mako\View
-	 */
-
-	public static function factory($view, array $variables = array())
-	{
-		return new static($view, $variables);
-	}
-
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------

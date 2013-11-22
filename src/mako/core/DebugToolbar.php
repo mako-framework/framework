@@ -160,7 +160,7 @@ class DebugToolbar
 
 		// Render and return toolbar
 		
-		return View::factory('_mako_/toolbar', array
+		return (new View('_mako_/toolbar', array
 		(
 			'time'        => round(microtime(true) - MAKO_START, 4),
 			'files'       => get_included_files(),
@@ -169,7 +169,7 @@ class DebugToolbar
 			'query_logs'  => $queryLogs,
 			'query_time'  => round($queryTime, 4),
 			'query_count' => $queryCount,
-		))->render();
+		)))->render();
 	}
 }
 

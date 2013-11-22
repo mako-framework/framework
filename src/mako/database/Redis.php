@@ -89,19 +89,6 @@ class Redis
 	}
 
 	/**
-	 * Factory method making method chaining possible right off the bat.
-	 *
-	 * @access  public
-	 * @param   string       $name  (optional) Redis configuration name
-	 * @return  \mako\Redis
-	 */
-
-	public static function factory($name = null)
-	{
-		return new static($name);
-	}
-
-	/**
 	 * Destructor.
 	 *
 	 * @access  public
@@ -303,7 +290,7 @@ class Redis
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(static::factory(), $name), $arguments);
+		return call_user_func_array(array(new static, $name), $arguments);
 	}
 }
 

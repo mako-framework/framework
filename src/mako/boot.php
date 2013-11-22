@@ -6,7 +6,6 @@
 
 define('MAKO_VERSION', '4.0.0');
 define('MAKO_START', microtime(true));
-define('MAKO_MAGIC_QUOTES', get_magic_quotes_gpc());
 define('MAKO_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
 define('MAKO_APPLICATION_PARENT_PATH', dirname(MAKO_APPLICATION_PATH));
 define('MAKO_APPLICATION_ID', md5(MAKO_APPLICATION_PATH));
