@@ -111,7 +111,7 @@ class Language
 
 		$pluralizer = $this->inflection['pluralize'];
 
-		return $pluralizer($word, $count, $this->inflection['rules']);
+		return $pluralizer($word, (int) $count, $this->inflection['rules']);
 	}
 
 	/**
