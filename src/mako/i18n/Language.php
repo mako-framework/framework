@@ -43,7 +43,7 @@ class Language
 	 * @var array
 	 */
 
-	protected $strings = array();
+	protected $strings = [];
 
 	/**
 	 * Array holding inflection rules.
@@ -51,7 +51,7 @@ class Language
 	 * @var array
 	 */
 
-	protected $inflection = array();
+	protected $inflection = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -89,7 +89,7 @@ class Language
 		}
 		else
 		{
-			throw new RuntimeException(vsprintf("%s:(): The [ %s ] language pack does not contain any inflection rules.", array(__METHOD__, $this->language)));
+			throw new RuntimeException(vsprintf("%s:(): The [ %s ] language pack does not contain any inflection rules.", [__METHOD__, $this->language]));
 		}
 	}
 
@@ -131,7 +131,7 @@ class Language
 
 		if($this->strings === false || empty($this->strings))
 		{
-			$this->strings = array('mako:packages' => array());
+			$this->strings = ['mako:packages' => []];
 			
 			// Load language files from the application
 
@@ -202,7 +202,7 @@ class Language
 	 * @return  string
 	 */
 
-	public function get($key, array $vars = array())
+	public function get($key, array $vars = [])
 	{
 		if(empty($this->strings))
 		{

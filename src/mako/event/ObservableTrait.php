@@ -25,7 +25,7 @@ trait ObservableTrait
 	 * @var array
 	 */
 
-	protected $_observers = array();
+	protected $_observers = [];
 
 	/**
 	 * Static (global) observers.
@@ -33,7 +33,7 @@ trait ObservableTrait
 	 * @var array
 	 */
 
-	protected static $_staticObservers = array();
+	protected static $_staticObservers = [];
 
 	//---------------------------------------------
 	// Trait methods
@@ -77,7 +77,7 @@ trait ObservableTrait
 	{
 		if(!isset($this->_observers[$event]))
 		{
-			throw new RuntimeException(vsprintf("%s(): The [ %s ] event does not exist.", array(__METHOD__, $event)));
+			throw new RuntimeException(vsprintf("%s(): The [ %s ] event does not exist.", [__METHOD__, $event]));
 		}
 
 		foreach($this->_observers[$event] as $key => $_observer)
@@ -101,7 +101,7 @@ trait ObservableTrait
 	{
 		if(!isset(static::$_staticObservers[$event]))
 		{
-			throw new RuntimeException(vsprintf("%s(): The [ %s ] event does not exist.", array(__METHOD__, $event)));
+			throw new RuntimeException(vsprintf("%s(): The [ %s ] event does not exist.", [__METHOD__, $event]));
 		}
 
 		foreach(static::$_staticObservers[$event] as $key => $_observer)
@@ -124,11 +124,11 @@ trait ObservableTrait
 	{
 		if($event === null)
 		{
-			$this->_observers = array();
+			$this->_observers = [];
 		}
 		else
 		{
-			$this->_observers[$event] = array();
+			$this->_observers[$event] = [];
 		}
 	}
 
@@ -143,11 +143,11 @@ trait ObservableTrait
 	{
 		if($event === null)
 		{
-			static::$_staticObservers = array();
+			static::$_staticObservers = [];
 		}
 		else
 		{
-			static::$_staticObservers[$event] = array();
+			static::$_staticObservers[$event] = [];
 		}
 	}
 
@@ -190,16 +190,16 @@ trait ObservableTrait
 	 * @param   boolean  $break       (optional) Break if one of the observers returns false?
 	 */
 
-	protected function notifyObservers($event, array $parameters = array(), $break = false)
+	protected function notifyObservers($event, array $parameters = [], $break = false)
 	{
-		$returnValues = array();
+		$returnValues = [];
 
 		// Merge observers and static observers
 
 		$observers = array_merge
 		(
-			isset($this->_observers[$event]) ? $this->_observers[$event] : array(),
-			isset(static::$_staticObservers[$event]) ? static::$_staticObservers[$event] : array()
+			isset($this->_observers[$event]) ? $this->_observers[$event] : [],
+			isset(static::$_staticObservers[$event]) ? static::$_staticObservers[$event] : []
 		);
 
 		// Notify observers
@@ -208,11 +208,11 @@ trait ObservableTrait
 		{
 			if(!is_object($observer))
 			{
-				$observer = array(new $observer, 'update');
+				$observer = [new $observer, 'update'];
 			}
 			elseif(!($observer instanceof Closure))
 			{
-				$observer = array($observer, 'update');
+				$observer = [$observer, 'update'];
 			}
 
 			$returnValues[] = $last = call_user_func_array($observer, $parameters);

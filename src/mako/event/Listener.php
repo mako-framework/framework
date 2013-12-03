@@ -24,7 +24,7 @@ class Listener
 	 * @var array
 	 */
 
-	protected static $events = array();
+	protected static $events = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -82,7 +82,7 @@ class Listener
 	{
 		if($name === null)
 		{
-			static::$events = array();
+			static::$events = [];
 		}
 		else
 		{
@@ -116,9 +116,9 @@ class Listener
 	 * @return  array
 	 */
 
-	public static function trigger($name, array $params = array(), $break = false)
+	public static function trigger($name, array $params = [], $break = false)
 	{
-		$values = array();
+		$values = [];
 
 		if(isset(static::$events[$name]))
 		{

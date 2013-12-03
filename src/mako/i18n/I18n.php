@@ -34,7 +34,7 @@ class I18n
 	 * @var array
 	 */
 
-	protected static $languages;
+	protected static $languages = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -85,7 +85,7 @@ class I18n
 		{
 			if(!is_dir(MAKO_APPLICATION_PATH . '/i18n/' . $language))
 			{
-				throw new RuntimeException(vsprintf("%s(): The [ %s ] language pack does not exist.", array(__METHOD__, $language)));
+				throw new RuntimeException(vsprintf("%s(): The [ %s ] language pack does not exist.", [__METHOD__, $language]));
 			}
 
 			static::$languages[$language] = new Language($language);
@@ -118,7 +118,7 @@ class I18n
 	 * @return  string
 	 */
 
-	public static function get($key, array $vars = array(), $language = null)
+	public static function get($key, array $vars = [], $language = null)
 	{
 		return static::lang($language)->get($key, $vars);
 	}
