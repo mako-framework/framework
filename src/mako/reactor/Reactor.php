@@ -47,12 +47,12 @@ class Reactor
 	 * @var array
 	 */
 
-	protected $coreTasks = array
-	(
+	protected $coreTasks = 
+	[
 		'app'     => '\mako\reactor\tasks\App',
 		'mako'    => '\mako\reactor\tasks\Mako',
 		'migrate' => '\mako\reactor\tasks\Migrate',
-	);
+	];
 
 	/**
 	 * Global reactor options.
@@ -60,12 +60,12 @@ class Reactor
 	 * @var array
 	 */
 
-	protected $globalOptions = array
-	(
-		array('--env', 'Allows you to override the default environment.'),
-		array('--database', 'Allows you to override the default database connection.'),
-		array('--hush', 'Disables all output'),
-	);
+	protected $globalOptions = 
+	[
+		['--env', 'Allows you to override the default environment.'],
+		['--database', 'Allows you to override the default database connection.'],
+		['--hush', 'Disables all output'],
+	];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -218,7 +218,7 @@ class Reactor
 
 		$this->output->nl();
 
-		$this->output->table(array('Option', 'Description'), $this->globalOptions);
+		$this->output->table(['Option', 'Description'], $this->globalOptions);
 
 		$this->output->nl();
 
@@ -228,7 +228,7 @@ class Reactor
 
 		$this->output->nl();
 
-		$tasks = array();
+		$tasks = [];
 
 		foreach($this->findTasks() as $task)
 		{
@@ -250,11 +250,11 @@ class Reactor
 
 			foreach($taskInfo as $key => $info)
 			{
-				$tasks[] = array(strtolower($prefix . $reflection->getShortName()) . '.' . $key, $info['description']);
+				$tasks[] = [strtolower($prefix . $reflection->getShortName()) . '.' . $key, $info['description']];
 			}
 		}
 
-		$this->output->table(array('Action', 'Description'), $tasks);
+		$this->output->table(['Action', 'Description'], $tasks);
 
 		$this->output->nl();
 
@@ -297,14 +297,14 @@ class Reactor
 		}
 		catch(ReflectionException $e)
 		{
-			$this->output->error(vsprintf("The [ %s ] task does not exist.", array(end((explode('\\', $task))))));
+			$this->output->error(vsprintf("The [ %s ] task does not exist.", [end((explode('\\', $task)))]));
 
 			return false;
 		}
 
 		if($task->isSubClassOf('\mako\reactor\Task') === false)
 		{
-			$this->output->error(vsprintf("The [ %s ] task needs to extend the mako\\reactor\Task class.", array($task)));
+			$this->output->error(vsprintf("The [ %s ] task needs to extend the mako\\reactor\Task class.", [$task]));
 
 			return false;
 		}
@@ -335,7 +335,7 @@ class Reactor
 
 			if(($task = $this->resolve($task)) !== false)
 			{
-				call_user_func_array(array($task, $method), array_slice($arguments, 1));
+				call_user_func_array([$task, $method], array_slice($arguments, 1));
 			}
 		}
 		else

@@ -24,28 +24,28 @@ class Mako extends \mako\reactor\Task
 	 * @var array
 	 */
 
-	protected static $taskInfo = array
-	(
-		'console' => array
-		(
+	protected static $taskInfo = 
+	[
+		'console' => 
+		[
 			'description' => 'Starts the debug console.',
-			'options'     => array
-			(
+			'options'     => 
+			[
 				'fresh'  => 'Start without the console history.',
 				'forget' => 'Discard the console history upon exit.',
-			),
-		),
-		'server' => array
-		(
+			],
+		],
+		'server' => 
+		[
 			'description' => 'Starts the local development server.',
-			'options'     => array
-			(
+			'options'     => 
+			[
 				'port'    => 'Port to run the server on.',
 				'address' => 'Address to run the server on.',
 				'docroot' => 'Path to the document root.',
-			),
-		),
-	);
+			],
+		],
+	];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...

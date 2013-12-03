@@ -33,33 +33,33 @@ class Migrate extends \mako\reactor\Task
 	 * @var array
 	 */
 
-	protected static $taskInfo = array
-	(
-		'status' => array
-		(
+	protected static $taskInfo = 
+	[
+		'status' => 
+		[
 			'description' => 'Checks if there are any outstanding migrations.'
-		),
-		'create' => array
-		(
+		],
+		'create' => 
+		[
 			'description' => 'Creates a new migration.',
-		),
-		'up' => array
-		(
+		],
+		'up' => 
+		[
 			'description' => 'Runs all outstanding migrations.',
-		),
-		'down' => array
-		(
+		],
+		'down' => 
+		[
 			'description' => 'Rolls back the last batch of migrations.'
-		),
-		'reset' => array
-		(
+		],
+		'reset' => 
+		[
 			'description' => 'Rolls back all migrations.',
-			'options'     => array
-			(
+			'options'     => 
+			[
 				'force' => 'Force the schema reset?'
-			),
-		),
-	);
+			],
+		],
+	];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...

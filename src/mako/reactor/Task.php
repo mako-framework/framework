@@ -44,7 +44,7 @@ abstract class Task
 	 * @var array
 	 */
 
-	protected static $taskInfo = array();
+	protected static $taskInfo = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -114,14 +114,14 @@ abstract class Task
 
 			if(!empty($info['options']))
 			{
-				$options = array();
+				$options = [];
 
 				foreach($info['options'] as $name => $description)
 				{
-					$options[] = array('--' . $name, $description);
+					$options[] = ['--' . $name, $description];
 				}
 
-				$this->output->table(array('Option', 'Description'), $options);
+				$this->output->table(['Option', 'Description'], $options);
 
 				$this->output->nl();
 			}
@@ -151,7 +151,7 @@ abstract class Task
 
 	public function __call($name, $arguments)
 	{
-		$this->output->error(vsprintf("Unknown task action [ %s ].", array($name)));
+		$this->output->error(vsprintf("Unknown task action [ %s ].", [$name]));
 
 		$this->output->nl();
 

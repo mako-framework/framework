@@ -32,8 +32,8 @@ class File extends \mako\logging\adapters\Adapter
 	 * @var array
 	 */
 	
-	protected $types = array
-	(
+	protected $types = 
+	[
 		Log::EMERGENCY => 'emergency',
 		Log::ALERT     => 'alert',
 		Log::CRITICAL  => 'critical',
@@ -42,7 +42,7 @@ class File extends \mako\logging\adapters\Adapter
 		Log::NOTICE    => 'notice',
 		Log::INFO      => 'info',
 		Log::DEBUG     => 'debug',
-	);
+	];
 	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...

@@ -24,8 +24,8 @@ class FirePHP extends \mako\logging\adapters\Adapter
 	 * @var array
 	 */
 	
-	protected $types = array
-	(
+	protected $types = 
+	[
 		Log::EMERGENCY => 'ERROR',
 		Log::ALERT     => 'ERROR',
 		Log::CRITICAL  => 'ERROR',
@@ -34,7 +34,7 @@ class FirePHP extends \mako\logging\adapters\Adapter
 		Log::NOTICE    => 'INFO',
 		Log::INFO      => 'INFO',
 		Log::DEBUG     => 'LOG',
-	);
+	];
 	
 	/**
 	 * Counter.
@@ -82,7 +82,7 @@ class FirePHP extends \mako\logging\adapters\Adapter
 	{
 		if(!headers_sent())
 		{				
-			$content = json_encode(array(array('Type' => $this->types[$type]), $message));
+			$content = json_encode([['Type' => $this->types[$type]], $message]);
 							
 			header('X-Wf-1-1-1-' . ++$this->counter . ': ' . strlen($content) . '|' . $content . '|');
 						

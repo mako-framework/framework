@@ -74,7 +74,7 @@ class Input
 
 		if($parameters === false)
 		{
-			$parameters = array();
+			$parameters = [];
 
 			foreach($_SERVER['argv'] as $arg)
 			{

@@ -85,7 +85,7 @@ class Console
 				@readline_read_history(MAKO_APPLICATION_PATH . '/storage/console_history');
 			}
 
-			readline_completion_function(array($this, 'autocomplete'));	
+			readline_completion_function([$this, 'autocomplete']);	
 		}
 	}
 
@@ -156,15 +156,15 @@ class Console
 
 	protected function isImmediate($line)
 	{
-		$skip = array
-		(
+		$skip = 
+		[
 			'class', 'declare', 'die', 'echo', 'exit', 'for',
 			'foreach', 'function', 'global', 'if', 'include',
 			'include_once', 'print', 'require', 'require_once',
 			'return', 'static', 'switch', 'unset', 'while'
-		);
+		];
 
-		$okeq = array('===', '!==', '==', '!=', '<=', '>=');
+		$okeq = ['===', '!==', '==', '!=', '<=', '>='];
 
 		$sq = false;
 		$dq = false;
@@ -248,7 +248,7 @@ class Console
 				continue;
 			}
 
-			if(in_array($__input, array('exit', 'quit')))
+			if(in_array($__input, ['exit', 'quit']))
 			{
 				break;
 			}

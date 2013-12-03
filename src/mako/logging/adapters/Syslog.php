@@ -24,8 +24,8 @@ class Syslog extends \mako\logging\adapters\Adapter
 	 * @var array
 	 */
 	
-	protected $types = array
-	(
+	protected $types = 
+	[
 		Log::EMERGENCY => LOG_EMERG,
 		Log::ALERT     => LOG_ALERT,
 		Log::CRITICAL  => LOG_CRIT,
@@ -34,7 +34,7 @@ class Syslog extends \mako\logging\adapters\Adapter
 		Log::NOTICE    => LOG_NOTICE,
 		Log::INFO      => LOG_INFO,
 		Log::DEBUG     => LOG_DEBUG,
-	);
+	];
 	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...

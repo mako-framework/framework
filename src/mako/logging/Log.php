@@ -90,13 +90,13 @@ class Log
 	 * @var array
 	 */
 	
-	protected static $adapters = array
-	(
+	protected static $adapters = 
+	[
 		'file'    => '\mako\logging\adapters\File',
 		'firephp' => '\mako\logging\adapters\FirePHP',
 		'syslog'  => '\mako\logging\adapters\Syslog',
 		'toolbar' => '\mako\logging\adapters\DebugToolbar',
-	);
+	];
 	
 	/**
 	 * Holds all the logger objects.
@@ -104,7 +104,7 @@ class Log
 	 * @var array
 	 */
 	
-	protected static $instances = array();
+	protected static $instances = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -142,7 +142,7 @@ class Log
 		{
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the log configuration.", array(__METHOD__, $name)));
+				throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the log configuration.", [__METHOD__, $name]));
 			}
 
 			$adapter = static::$adapters[$config['configurations'][$name]['type']];
@@ -151,7 +151,7 @@ class Log
 
 			if(!(static::$instances[$name] instanceof Adapter))
 			{
-				throw new RuntimeException(vsprintf("%s(): The log adapter must extend the \mako\logging\adapters\Adapter class.", array(__METHOD__)));
+				throw new RuntimeException(vsprintf("%s(): The log adapter must extend the \mako\logging\adapters\Adapter class.", [__METHOD__]));
 			}
 		}
 
@@ -182,7 +182,7 @@ class Log
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(static::instance(), $name), $arguments);
+		return call_user_func_array([static::instance(), $name], $arguments);
 	}
 }
 

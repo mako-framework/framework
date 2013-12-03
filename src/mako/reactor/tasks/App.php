@@ -26,25 +26,25 @@ class App extends \mako\reactor\Task
 	 * @var array
 	 */
 
-	protected static $taskInfo = array
-	(
-		'up' => array
-		(
+	protected static $taskInfo = 
+	[
+		'up' => 
+		[
 			'description' => 'Takes the application online.',
-		),
-		'down' => array
-		(
+		],
+		'down' => 
+		[
 			'description' => 'Takes the application offline.',
-		),
-		'generate_secret' => array
-		(
+		],
+		'generate_secret' => 
+		[
 			'description' => 'Generates a new application secret.',
-		),
-		'routes' => array
-		(
+		],
+		'routes' => 
+		[
 			'description' => 'Lists the registered routes of the application.',
-		),
-	);
+		],
+	];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -122,7 +122,7 @@ class App extends \mako\reactor\Task
 			return $this->output->error('Unable to generate a new secret. Make sure that the "app/config/application.php" file is writable.');
 		}
 
-		$secret = str_replace(array('"', '\''), array('|', '/'), Str::random(Str::ALNUM . Str::SYMBOLS, 32));
+		$secret = str_replace(['"', '\''], ['|', '/'], Str::random(Str::ALNUM . Str::SYMBOLS, 32));
 
 		$contents = file_get_contents($configFile);
 
@@ -147,7 +147,7 @@ class App extends \mako\reactor\Task
 
 		// Display registered routes
 
-		$routes = array();
+		$routes = [];
 
 		foreach(Routes::getRoutes() as $route)
 		{
@@ -157,7 +157,7 @@ class App extends \mako\reactor\Task
 
 			// Normalize before filter names
 
-			$beforeFilters = array();
+			$beforeFilters = [];
 
 			foreach($route->getBeforeFilters() as $filter)
 			{
@@ -166,7 +166,7 @@ class App extends \mako\reactor\Task
 
 			// Normalize after filter names
 
-			$afterFilters = array();
+			$afterFilters = [];
 
 			foreach($route->getAfterFilters() as $filter)
 			{
@@ -175,18 +175,18 @@ class App extends \mako\reactor\Task
 
 			// Build table row
 
-			$routes[] = array
-			(
+			$routes[] =  
+			[
 				$route->getRoute(),
 				implode(', ', $route->getMethods()),
 				$action,
 				implode(', ', $beforeFilters),
 				implode(', ', $afterFilters),
 				(string) $route->getName()
-			);
+			];
 		}
 
-		$this->output->table(array('Route', 'Allowed methods', 'Action', 'Before filters', 'After filters', 'Name'), $routes);
+		$this->output->table(['Route', 'Allowed methods', 'Action', 'Before filters', 'After filters', 'Name'], $routes);
 	}
 }
 

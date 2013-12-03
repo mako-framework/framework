@@ -46,14 +46,14 @@ abstract class Adapter
 	{
 		if($message instanceof Exception)
 		{
-			$message = vsprintf('%s: %s in %s at line %s' . PHP_EOL . '%s', array
-			(
+			$message = vsprintf('%s: %s in %s at line %s' . PHP_EOL . '%s', 
+			[
 				get_class($message),
 				$message->getMessage(),
 				$message->getFile(),
 				$message->getLine(),
 				$message->getTraceAsString(),
-			));
+			]);
 		}
 
 		return $this->writeLog($message, $type);
