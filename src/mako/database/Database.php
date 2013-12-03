@@ -29,7 +29,7 @@ class Database
 	 * @var array
 	 */
 
-	protected static $connections = array();
+	protected static $connections = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -68,7 +68,7 @@ class Database
 		{	
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the database configuration.", array(__METHOD__, $name)));
+				throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the database configuration.", [__METHOD__, $name]));
 			}
 			
 			static::$connections[$name] = new Connection($name, $config['configurations'][$name]);			
@@ -87,7 +87,7 @@ class Database
 
 	public static function getLog($groupedByConnection = false)
 	{
-		$log = array();
+		$log = [];
 
 		if($groupedByConnection)
 		{
@@ -145,7 +145,7 @@ class Database
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(static::connection(), $name), $arguments);
+		return call_user_func_array([static::connection(), $name], $arguments);
 	}
 }
 

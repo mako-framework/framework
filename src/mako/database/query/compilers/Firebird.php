@@ -77,7 +77,7 @@ class Firebird extends \mako\database\query\Compiler
 		$sql .= $this->offset($this->query->getOffset(), $this->query->getLimit());
 		$sql .= $this->limit($this->query->getLimit(), $this->query->getOffset());
 
-		return array('sql' => $sql, 'params' => $this->params);
+		return ['sql' => $sql, 'params' => $this->params];
 	}
 }
 

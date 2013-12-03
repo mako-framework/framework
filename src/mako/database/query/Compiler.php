@@ -51,7 +51,7 @@ class Compiler
 	 * @var array
 	 */
 
-	protected $params = array();
+	protected $params = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -168,7 +168,7 @@ class Compiler
 
 	protected function columns(array $columns)
 	{
-		return implode(', ', array_map(array($this, 'wrap'), $columns));
+		return implode(', ', array_map([$this, 'wrap'], $columns));
 	}
 
 	/**
@@ -213,7 +213,7 @@ class Compiler
 
 	protected function params($params)
 	{
-		return implode(', ', array_map(array($this, 'param'), $params));
+		return implode(', ', array_map([$this, 'param'], $params));
 	}
 
 	/**
@@ -309,7 +309,7 @@ class Compiler
 			return '';
 		}
 
-		$sql = array();
+		$sql = [];
 
 		foreach($wheres as $where)
 		{
@@ -334,11 +334,11 @@ class Compiler
 			return '';
 		}
 
-		$sql = array();
+		$sql = [];
 
 		foreach($joins as $join)
 		{
-			$clauses = array();
+			$clauses = [];
 
 			foreach($join->getClauses() as $clause)
 			{
@@ -379,7 +379,7 @@ class Compiler
 			return '';
 		}
 
-		$sql = array();
+		$sql = [];
 
 		foreach($orderings as $order)
 		{
@@ -404,7 +404,7 @@ class Compiler
 			return '';
 		}
 
-		$sql = array();
+		$sql = [];
 
 		foreach($havings as $having)
 		{
@@ -461,7 +461,7 @@ class Compiler
 		$sql .= $this->limit($this->query->getLimit());
 		$sql .= $this->offset($this->query->getOffset());
 
-		return array('sql' => $sql, 'params' => $this->params);
+		return ['sql' => $sql, 'params' => $this->params];
 	}
 
 	/**
@@ -480,7 +480,7 @@ class Compiler
 		$sql .= ' VALUES';
 		$sql .= ' (' . $this->params($values) . ')';
 
-		return array('sql' => $sql, 'params' => $this->params);
+		return ['sql' => $sql, 'params' => $this->params];
 	}
 
 	/**
@@ -493,7 +493,7 @@ class Compiler
 
 	public function update(array $values)
 	{
-		$columns = array();
+		$columns = [];
 
 		foreach($values as $column => $value)
 		{
@@ -508,7 +508,7 @@ class Compiler
 		$sql .= $columns;
 		$sql .= $this->wheres($this->query->getWheres());
 
-		return array('sql' => $sql, 'params' => $this->params);
+		return ['sql' => $sql, 'params' => $this->params];
 	}
 
 	/**
@@ -524,7 +524,7 @@ class Compiler
 		$sql .= $this->wrap($this->query->getTable());
 		$sql .= $this->wheres($this->query->getWheres());
 
-		return array('sql' => $sql, 'params' => $this->params);
+		return ['sql' => $sql, 'params' => $this->params];
 	}
 }
 

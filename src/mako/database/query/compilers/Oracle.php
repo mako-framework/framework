@@ -71,7 +71,7 @@ class Oracle extends \mako\database\query\Compiler
 				$sql = 'SELECT * FROM (SELECT m1.*, rownum AS mako_rownum FROM (' . $sql . ') m1 WHERE rownum <= ' . $limit . ') WHERE mako_rownum >= ' . $offset;
 			}
 
-			return array('sql' => $sql, 'params' => $this->params);
+			return ['sql' => $sql, 'params' => $this->params];
 		}
 	}
 }

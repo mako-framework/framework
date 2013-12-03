@@ -38,7 +38,7 @@ class Join
 	 * @var array
 	 */
 
-	protected $clauses = array();
+	protected $clauses = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -110,13 +110,13 @@ class Join
 
 	public function on($column1, $operator, $column2, $separator = 'AND')
 	{
-		$this->clauses[] = array
-		(
+		$this->clauses[] = 
+		[
 			'column1'   => $column1,
 			'operator'  => $operator,
 			'column2'   => $column2,
 			'separator' => $separator,
-		);
+		];
 
 		return $this;
 	}

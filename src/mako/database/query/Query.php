@@ -61,7 +61,7 @@ class Query
 	 * @var array
 	 */
 
-	protected $columns = array('*');
+	protected $columns = ['*'];
 
 	/**
 	 * WHERE clauses.
@@ -69,7 +69,7 @@ class Query
 	 * @var array
 	 */
 
-	protected $wheres = array();
+	protected $wheres = [];
 
 	/**
 	 * JOIN clauses.
@@ -77,7 +77,7 @@ class Query
 	 * @var array
 	 */
 
-	protected $joins = array();
+	protected $joins = [];
 
 	/**
 	 * GROUP BY clauses.
@@ -85,7 +85,7 @@ class Query
 	 * @var array
 	 */
 
-	protected $groupings = array();
+	protected $groupings = [];
 
 	/**
 	 * HAVING clauses.
@@ -93,7 +93,7 @@ class Query
 	 * @var array
 	 */
 
-	protected $havings = array();
+	protected $havings = [];
 
 	/**
 	 * ORDER BY clauses.
@@ -101,7 +101,7 @@ class Query
 	 * @var array
 	 */
 
-	protected $orderings = array();
+	protected $orderings = [];
 
 	/**
 	 * Limit.
@@ -353,23 +353,23 @@ class Query
 
 			$column($query);
 
-			$this->wheres[] = array
-			(
+			$this->wheres[] = 
+			[
 				'type'      => 'nestedWhere',
 				'query'     => $query,
 				'separator' => $separator,
-			);
+			];
 		}
 		else
 		{
-			$this->wheres[] = array
-			(
+			$this->wheres[] = 
+			[
 				'type'      => 'where',
 				'column'    => $column,
 				'operator'  => $operator,
 				'value'     => $value,
 				'separator' => $separator,
-			);
+			];
 		}
 		
 		return $this;
@@ -404,15 +404,15 @@ class Query
 
 	public function between($column, $value1, $value2, $separator = 'AND', $not = false)
 	{
-		$this->wheres[] = array
-		(
+		$this->wheres[] = 
+		[
 			'type'      => 'between',
 			'column'    => $column,
 			'value1'    => $value1,
 			'value2'    => $value2,
 			'separator' => $separator,
 			'not'       => $not,
-		);
+		];
 
 		return $this;
 	}
@@ -477,17 +477,17 @@ class Query
 	{
 		if($values instanceof Raw || $values instanceof Subquery)
 		{
-			$values = array($values);
+			$values = [$values];
 		}
 		
-		$this->wheres[] = array
-		(
+		$this->wheres[] = 
+		[
 			'type'      => 'in',
 			'column'    => $column,
 			'values'    => $values,
 			'separator' => $separator,
 			'not'       => $not,
-		);
+		];
 
 		return $this;
 	}
@@ -546,13 +546,13 @@ class Query
 
 	public function null($column, $separator = 'AND', $not = false)
 	{
-		$this->wheres[] = array
-		(
+		$this->wheres[] = 
+		[
 			'type'      => 'null',
 			'column'    => $column,
 			'separator' => $separator,
 			'not'       => $not,
-		);
+		];
 
 		return $this;
 	}
@@ -608,13 +608,13 @@ class Query
 
 	public function exists(Subquery $query, $separator = 'AND', $not = false)
 	{
-		$this->wheres[] = array
-		(
+		$this->wheres[] = 
+		[
 			'type'      => 'exists',
 			'query'     => $query,
 			'separator' => $separator,
 			'not'       => $not,
-		);
+		];
 
 		return $this;
 	}
@@ -716,7 +716,7 @@ class Query
 	{
 		if(!is_array($columns))
 		{
-			$columns = array($columns);
+			$columns = [$columns];
 		}
 
 		$this->groupings = $columns;
@@ -737,13 +737,13 @@ class Query
 
 	public function having($column, $operator, $value, $separator = 'AND')
 	{
-		$this->havings[] = array
-		(
+		$this->havings[] = 
+		[
 			'column'    => $column,
 			'operator'  => $operator,
 			'value'     => $value,
 			'separator' => $separator,
-		);
+		];
 
 		return $this;
 	}
@@ -776,14 +776,14 @@ class Query
 	{
 		if(!is_array($columns))
 		{
-			$columns = array($columns);
+			$columns = [$columns];
 		}
 
-		$this->orderings[] = array
-		(
+		$this->orderings[] = 
+		[
 			'column' => $columns,
 			'order'  => $order,
-		);
+		];
 
 		return $this;
 	}
@@ -852,7 +852,7 @@ class Query
 	 * @return  array
 	 */
 
-	public function all(array $columns = array())
+	public function all(array $columns = [])
 	{
 		$this->columns($columns);
 
@@ -869,7 +869,7 @@ class Query
 	 * @return  mixed
 	 */
 
-	public function first(array $columns = array())
+	public function first(array $columns = [])
 	{
 		$this->columns($columns);
 
@@ -888,7 +888,7 @@ class Query
 
 	public function column($column)
 	{
-		$this->columns(array($column));
+		$this->columns([$column]);
 
 		$query = $this->compiler->select();
 
@@ -1015,7 +1015,7 @@ class Query
 
 	public function increment($column, $increment = 1)
 	{
-		return $this->update(array($column => new Raw($this->compiler->wrap($column) . ' + ' . (int) $increment)));
+		return $this->update([$column => new Raw($this->compiler->wrap($column) . ' + ' . (int) $increment)]);
 	}
 
 	/**
@@ -1029,7 +1029,7 @@ class Query
 
 	public function decrement($column, $decrement = 1)
 	{
-		return $this->update(array($column => new Raw($this->compiler->wrap($column) . ' - ' . (int) $decrement)));
+		return $this->update([$column => new Raw($this->compiler->wrap($column) . ' - ' . (int) $decrement)]);
 	}
 
 	/**

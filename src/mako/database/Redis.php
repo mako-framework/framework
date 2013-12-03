@@ -51,7 +51,7 @@ class Redis
 	 * @var array
 	 */
 
-	protected $commands = array();
+	protected $commands = [];
 
 	/**
 	 * Socket connection.
@@ -80,7 +80,7 @@ class Redis
 
 		if(isset($config['configurations'][$name]) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the redis configuration.", array(__METHOD__, $name)));
+			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the redis configuration.", [__METHOD__, $name]));
 		}
 
 		$this->config = $config['configurations'][$name];
@@ -115,7 +115,7 @@ class Redis
 
 		if(!$this->connection)
 		{
-			throw new RuntimeException(vsprintf("%s(): %s", array(__METHOD__, $errStr)));
+			throw new RuntimeException(vsprintf("%s(): %s", [__METHOD__, $errStr]));
 		}
 
 		if(!empty($this->config['password']))
@@ -157,7 +157,7 @@ class Redis
 		switch(substr($response, 0, 1))
 		{
 			case '-': // error reply
-				throw new RuntimeException(vsprintf("%s(): %s.", array(__METHOD__, substr($response, 5))));
+				throw new RuntimeException(vsprintf("%s(): %s.", [__METHOD__, substr($response, 5)]));
 			break;
 			case '+': // status reply
 				return trim(substr($response, 1));
@@ -181,7 +181,7 @@ class Redis
 					return null;
 				}
 
-				$data = array();
+				$data = [];
 
 				$count = substr($response, 1);
 
@@ -193,7 +193,7 @@ class Redis
 				return $data;
 			break;
 			default:
-				throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", array(__METHOD__)));
+				throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", [__METHOD__]));
 		}
 	}
 
@@ -217,7 +217,7 @@ class Redis
 
 		// Send all commands to server and fetch responses
 
-		$responses = array();
+		$responses = [];
 
 		$commands = count($this->commands);
 
@@ -230,7 +230,7 @@ class Redis
 
 		// Reset pipelining
 
-		$this->commands = array();
+		$this->commands = [];
 
 		$this->pipelined = false;
 
@@ -290,7 +290,7 @@ class Redis
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(new static, $name), $arguments);
+		return call_user_func_array([new static, $name], $arguments);
 	}
 }
 

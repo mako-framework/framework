@@ -68,7 +68,7 @@ class Connection
 	 * @var array
 	 */
 
-	protected $log = array();
+	protected $log = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -95,14 +95,14 @@ class Connection
 		$user = isset($config['username']) ? $config['username'] : null;
 		$pass = isset($config['password']) ? $config['password'] : null;
 
-		$options = array
-		(
+		$options = 
+		[
 			PDO::ATTR_PERSISTENT         => isset($config['persistent']) ? $config['persistent'] : false,
 			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
 			PDO::ATTR_STRINGIFY_FETCHES  => false,
 			PDO::ATTR_EMULATE_PREPARES   => false,
-		);
+		];
 
 		try
 		{
@@ -110,7 +110,7 @@ class Connection
 		}
 		catch(PDOException $e)
 		{
-			throw new RuntimeException(vsprintf("%s(): Failed to connect to the [ %s ] database. %s", array(__METHOD__, $this->name, $e->getMessage())));
+			throw new RuntimeException(vsprintf("%s(): Failed to connect to the [ %s ] database. %s", [__METHOD__, $this->name, $e->getMessage()]));
 		}
 
 		// Run queries
@@ -302,7 +302,7 @@ class Connection
 
 		// Return query, parameters and the prepared statement
 
-		return array('query' => $query, 'params' => $params, 'statement' => $statement);
+		return ['query' => $query, 'params' => $params, 'statement' => $statement];
 	}
 
 	/**
@@ -339,7 +339,7 @@ class Connection
 	 * @return  mixed
 	 */
 
-	public function query($query, array $params = array())
+	public function query($query, array $params = [])
 	{
 		return $this->execute($this->prepare($query, $params));
 	}
@@ -353,7 +353,7 @@ class Connection
 	 * @return  boolean
 	 */
 
-	public function insert($query, array $params = array())
+	public function insert($query, array $params = [])
 	{
 		return $this->query($query, $params);
 	}
@@ -367,7 +367,7 @@ class Connection
 	 * @return  array
 	 */
 
-	public function all($query, array $params = array())
+	public function all($query, array $params = [])
 	{
 		$prepared = $this->prepare($query, $params);
 
@@ -385,7 +385,7 @@ class Connection
 	 * @return  mixed
 	 */
 
-	public function first($query, array $params = array())
+	public function first($query, array $params = [])
 	{
 		$prepared = $this->prepare($query, $params);
 
@@ -403,7 +403,7 @@ class Connection
 	 * @return  mixed
 	 */
 
-	public function column($query, array $params = array())
+	public function column($query, array $params = [])
 	{
 		$prepared = $this->prepare($query, $params);
 
@@ -417,7 +417,7 @@ class Connection
 	 * 
 	 * @access  protected
 	 * @param   string     $query   SQL query
-	 * @param   array      $params  (optional) Query parameters
+	 * @param   array      $params  Query parameters
 	 * @return  int
 	 */
 
@@ -439,7 +439,7 @@ class Connection
 	 * @return  int
 	 */
 
-	public function update($query, array $params = array())
+	public function update($query, array $params = [])
 	{
 		return $this->executeAndCount($query, $params);
 	}
@@ -453,7 +453,7 @@ class Connection
 	 * @return  int
 	 */
 
-	public function delete($query, array $params = array())
+	public function delete($query, array $params = [])
 	{
 		return $this->executeAndCount($query, $params);
 	}
