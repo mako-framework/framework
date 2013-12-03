@@ -57,22 +57,23 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 	 * @param   array   $options  Options
 	 */
 
-	public function __construct($file, array $options = array())
+	public function __construct($file, array $options = [])
 	{
 		if(file_exists($file) === false || is_readable($file) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): File [ %s ] is not readable.", array(__METHOD__, $file)));
+			throw new RuntimeException(vsprintf("%s(): File [ %s ] is not readable.", [__METHOD__, $file]));
 		}
 
 		$this->filePath = $file;
 		$this->fileSize = filesize($file);
 
-		$this->options = $options + array
-		(
+		$this->options = $options + 
+		[
 			'file_name'    => basename($file),
 			'disposition'  => 'attachment',
 			'content_type' => FileUtility::mime($file) ?: 'application/octet-stream',
-		);
+			'callback'     => null,
+		];
 	}
 
 	//---------------------------------------------
@@ -217,7 +218,7 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 				// No range was provided by the client so we'll just fake one for the sendFile method
 				// and set the content-length header value to the full file size
 
-				$range = array('start' => 0, 'end' => $this->fileSize - 1);
+				$range = ['start' => 0, 'end' => $this->fileSize - 1];
 
 				$response->header('content-length', $this->fileSize);
 			}
@@ -236,6 +237,13 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 			$response->sendHeaders();
 
 			$this->sendFile($range['start'], $range['end']);
+
+			// Execute callback if there is one
+
+			if(!empty($this->options['callback']))
+			{
+				$this->options['callback']($this->filePath);
+			}
 		}
 	}
 }

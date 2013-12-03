@@ -103,7 +103,7 @@ class Request
 	 * @var array
 	 */
 
-	protected $headers = array();
+	protected $headers = [];
 	
 	/**
 	 * Ip address of the client that made the request.
@@ -187,7 +187,7 @@ class Request
 	 * @param   string  $body    (optional) Request body
 	 */
 
-	public function __construct($path = null, $method = null, array $get = array(), array $post = array(), array $cookies = array(), array $files = array(), array $server = array(), $body = null)
+	public function __construct($path = null, $method = null, array $get = [], array $post = [], array $cookies = [], array $files = [], array $server = [], $body = null)
 	{
 		static $isMainRequest = true;
 
@@ -281,7 +281,7 @@ class Request
 
 			if(stripos(mb_substr($this->server['REQUEST_URI'], mb_strlen($scriptPath)), '/index.php') === 0)
 			{
-				$response = new Response($this, $this->response->redirect($path, array(), $this->get)->status(301));
+				$response = new Response($this, $this->response->redirect($path, [], $this->get)->status(301));
 
 				$response->send();
 
@@ -348,7 +348,7 @@ class Request
 
 	protected function collectHeaders()
 	{
-		$headers = array();
+		$headers = [];
 
 		foreach($this->server as $key => $value)
 		{
@@ -356,7 +356,7 @@ class Request
 			{
 				$headers[substr($key, 5)] = $value;
 			}
-			elseif(in_array($key, array('CONTENT_LENGTH', 'CONTENT_MD5', 'CONTENT_TYPE')))
+			elseif(in_array($key, ['CONTENT_LENGTH', 'CONTENT_MD5', 'CONTENT_TYPE']))
 			{
 				$headers[$key] = $value;
 			}
@@ -513,7 +513,7 @@ class Request
 					$this->parsedBody = json_decode($this->body(), true);
 				break;
 				default:
-					$this->parsedBody = array();
+					$this->parsedBody = [];
 			}
 			
 		}
@@ -694,7 +694,7 @@ class Request
 	 * @return  array
 	 */
 
-	public function whitelisted(array $keys, array $defaults = array())
+	public function whitelisted(array $keys, array $defaults = [])
 	{
 		return array_intersect_key($this->data(), array_flip($keys)) + $defaults;
 	}
@@ -708,7 +708,7 @@ class Request
 	 * @return  array
 	 */
 
-	public function blacklisted(array $keys, array $defaults = array())
+	public function blacklisted(array $keys, array $defaults = [])
 	{
 		return array_diff_key($this->data(), array_flip($keys)) + $defaults;
 	}

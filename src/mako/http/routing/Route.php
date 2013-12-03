@@ -70,7 +70,7 @@ class Route
 	 * @var array
 	 */
 
-	protected $constraints = array();
+	protected $constraints = [];
 
 	/**
 	 * Before filters.
@@ -78,7 +78,7 @@ class Route
 	 * @var array
 	 */
 
-	protected $beforeFilters = array();
+	protected $beforeFilters = [];
 
 	/**
 	 * After filters.
@@ -86,7 +86,7 @@ class Route
 	 * @var array
 	 */
 
-	protected $afterFilters = array();
+	protected $afterFilters = [];
 
 	/**
 	 * Matched parameters.
@@ -94,7 +94,7 @@ class Route
 	 * @var array
 	 */
 
-	protected $parameters = array();
+	protected $parameters = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...

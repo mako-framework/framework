@@ -30,12 +30,12 @@ class Repose
 	 * @var array
 	 */
 
-	protected $options = array
-	(
+	protected $options = 
+	[
 		CURLOPT_USERAGENT      => 'Mozilla/5.0 (compatible; Mako Framework; +http://makoframework.com)',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_FOLLOWLOCATION => true
-	);
+	];
 
 	/**
 	 * Array holding information about the last transfer.
@@ -57,7 +57,7 @@ class Repose
 	 * @param   array   $options  (optional) cURL options
 	 */
 
-	public function __construct($url, array $options = array())
+	public function __construct($url, array $options = [])
 	{
 		$this->url     = $url;
 		$this->options = $options + $this->options;
@@ -118,7 +118,7 @@ class Repose
 
 		$fields = explode("\r\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $headers));
 
-		$headers = array();
+		$headers = [];
 
 		foreach($fields as $field)
 		{
@@ -128,7 +128,7 @@ class Repose
 
 				if(isset($headers[$match[1]]))
 				{
-					$headers[$match[1]] = array($headers[$match[1]], $match[2]);
+					$headers[$match[1]] = [$headers[$match[1]], $match[2]];
 				}
 				else
 				{
@@ -215,7 +215,7 @@ class Repose
 	 * @return  string
 	 */
 
-	public function post(array $data = array(), $multipart = false, &$info = null)
+	public function post(array $data = [], $multipart = false, &$info = null)
 	{
 		$this->options[CURLOPT_POST]       = true;
 		$this->options[CURLOPT_POSTFIELDS] = ($multipart === true) ? $data : http_build_query($data);
@@ -241,9 +241,9 @@ class Repose
 			$data = http_build_query($data);
 		}
 
-		!isset($this->options[CURLOPT_HTTPHEADER]) && $this->options[CURLOPT_HTTPHEADER] = array();
+		!isset($this->options[CURLOPT_HTTPHEADER]) && $this->options[CURLOPT_HTTPHEADER] = [];
 
-		$this->options[CURLOPT_HTTPHEADER] = array_merge($this->options[CURLOPT_HTTPHEADER], array('Content-Length: ' . strlen($data)));
+		$this->options[CURLOPT_HTTPHEADER] = array_merge($this->options[CURLOPT_HTTPHEADER], ['Content-Length: ' . strlen($data)]);
 
 		$this->options[CURLOPT_POSTFIELDS] = $data;
 

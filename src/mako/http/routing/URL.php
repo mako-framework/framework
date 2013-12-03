@@ -110,7 +110,7 @@ class URL
 	 * @return  string
 	 */
 
-	public static function to($route = '', array $queryParams = array(), $separator = '&amp;', $language = true)
+	public static function to($route = '', array $queryParams = [], $separator = '&amp;', $language = true)
 	{
 		$url = static::base() . (static::$clean ? '' : '/index.php') . ($language === true ? static::$language : (!$language ? '' : '/' . $language)) . $route;
 		
@@ -134,7 +134,7 @@ class URL
 	 * @return  string
 	 */
 
-	public static function toRoute($routeName, array $routeParams = array(), $queryParams = array(), $separator = '&amp;', $language = true)
+	public static function toRoute($routeName, array $routeParams = [], array $queryParams = [], $separator = '&amp;', $language = true)
 	{
 		$route = Routes::getNamedRoute($routeName)->getRoute();
 
@@ -162,7 +162,7 @@ class URL
 	 * @return  string
 	 */
 
-	public static function toLanguage($route = '', $language = true, array $queryParams = array(), $separator = '&amp;')
+	public static function toLanguage($route = '', $language = true, array $queryParams = [], $separator = '&amp;')
 	{
 		return static::to($route, $queryParams, $separator, $language);
 	}
@@ -179,7 +179,7 @@ class URL
 	 * @return  string
 	 */
 
-	public static function toRouteLanguage($routeName, array $routeParams = array(), $language = true, array $queryParams = array(), $separator = '&amp;')
+	public static function toRouteLanguage($routeName, array $routeParams = [], $language = true, array $queryParams = [], $separator = '&amp;')
 	{
 		return static::toRoute($routeName, $routeParams, $queryParams, $separator, $language);
 	}
@@ -194,7 +194,7 @@ class URL
 	 * @return  string
 	 */
 
-	public static function current(array $queryParams = array(), $separator = '&amp;', $language = true)
+	public static function current(array $queryParams = [], $separator = '&amp;', $language = true)
 	{
 		return static::to(Request::main()->path(), $queryParams, $separator, $language);
 	}
@@ -209,7 +209,7 @@ class URL
 	 * @return  string
 	 */
 
-	public static function currentLanguage($language = true, array $queryParams = array(), $separator = '&amp;')
+	public static function currentLanguage($language = true, array $queryParams = [], $separator = '&amp;')
 	{
 		return static::current($queryParams, $separator, $language);
 	}

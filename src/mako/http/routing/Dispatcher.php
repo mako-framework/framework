@@ -167,7 +167,7 @@ class Dispatcher
 
 		if(!($controller instanceof Controller))
 		{
-			throw new RuntimeException(vsprintf("%s(): All controllers must extend the mako\http\\routing\Controller class.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): All controllers must extend the mako\http\\routing\Controller class.", [__METHOD__]));
 		}
 
 		$returnValue = $controller->beforeFilter();
@@ -176,7 +176,7 @@ class Dispatcher
 		{
 			// The before filter didn't return any data so we can execute the route action and after filter
 
-			$returnValue = call_user_func_array(array($controller, $method), $this->route->getParameters());
+			$returnValue = call_user_func_array([$controller, $method], $this->route->getParameters());
 
 			$controller->afterFilter();
 		}

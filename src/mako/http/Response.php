@@ -71,7 +71,7 @@ class Response
 	 * @var array
 	 */
 
-	protected $headers = array();
+	protected $headers = [];
 
 	/**
 	 * Cookies.
@@ -79,7 +79,7 @@ class Response
 	 * @var array
 	 */
 
-	protected $cookies = array();
+	protected $cookies = [];
 
 	/**
 	 * Compress output?
@@ -103,7 +103,7 @@ class Response
 	 * @var array
 	 */
 	
-	protected $outputFilters = array();
+	protected $outputFilters = [];
 	
 	/**
 	 * HTTP status codes.
@@ -111,8 +111,8 @@ class Response
 	 * @var array
 	 */
 	
-	protected $statusCodes = array
-	(
+	protected $statusCodes = 
+	[
 		// 1xx Informational
 		
 		'100' => 'Continue',
@@ -184,7 +184,7 @@ class Response
 		'509' => 'Bandwidth Limit Exceeded',
 		'510' => 'Not Extended',
 		'530' => 'User access denied',
-	);
+	];
 	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -374,7 +374,7 @@ class Response
 
 	public function clearFilters()
 	{
-		$this->outputFilters = array();
+		$this->outputFilters = [];
 
 		return $this;
 	}
@@ -416,7 +416,7 @@ class Response
 
 	public function clearHeaders()
 	{
-		$this->headers = array();
+		$this->headers = [];
 
 		return $this;
 	}
@@ -432,13 +432,13 @@ class Response
 	 * @return  \mako\http\Response
 	 */
 
-	public function unsignedCookie($name, $value, $ttl = 0, array $options = array())
+	public function unsignedCookie($name, $value, $ttl = 0, array $options = [])
 	{
 		$ttl = ($ttl > 0) ? (time() + $ttl) : 0;
 
-		$defaults = array('path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false);
+		$defaults = ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false];
 
-		$this->cookies[] = array('name' => $name, 'value' => $value, 'ttl' => $ttl) + $options + $defaults;
+		$this->cookies[] = ['name' => $name, 'value' => $value, 'ttl' => $ttl] + $options + $defaults;
 
 		return $this;
 	}
@@ -454,7 +454,7 @@ class Response
 	 * @return  \mako\http\Response
 	 */
 
-	public function cookie($name, $value, $ttl = 0, array $options = array())
+	public function cookie($name, $value, $ttl = 0, array $options = [])
 	{
 		return $this->unsignedCookie($name, MAC::sign($value), $ttl, $options);
 	}
@@ -468,7 +468,7 @@ class Response
 	 * @return  \mako\http\Response
 	 */
 
-	public function deleteCookie($name, array $options = array())
+	public function deleteCookie($name, array $options = [])
 	{
 		return $this->unsignedCookie($name, '', time() - 3600, $options);
 	}
@@ -494,7 +494,7 @@ class Response
 
 	public function clearCookies()
 	{
-		$this->cookies = array();
+		$this->cookies = [];
 
 		return $this;
 	}
@@ -524,7 +524,7 @@ class Response
 
 		$contentType = $this->contentType;
 
-		if(stripos($contentType, 'text/') === 0 || in_array($contentType, array('application/json', 'application/xml')))
+		if(stripos($contentType, 'text/') === 0 || in_array($contentType, ['application/json', 'application/xml']))
 		{
 			$contentType .= '; charset=' . $this->charset;
 		}
@@ -611,7 +611,7 @@ class Response
 	 * @return  \mako\http\response\File
 	 */
 
-	public function file($file, array $options = array())
+	public function file($file, array $options = [])
 	{
 		return new File($file, $options);
 	}
@@ -639,7 +639,7 @@ class Response
 	 * @return  \mako\http\response\Redirect
 	 */
 	
-	public function redirect($location, array $routeParams = array(), array $queryParams = array())
+	public function redirect($location, array $routeParams = [], array $queryParams = [])
 	{
 		return new Redirect($location, $routeParams, $queryParams);
 	}
@@ -710,7 +710,7 @@ class Response
 				}
 			}
 
-			if($sendBody && !in_array($this->statusCode, array(100, 101, 102, 204, 304)))
+			if($sendBody && !in_array($this->statusCode, [100, 101, 102, 204, 304]))
 			{
 				// Start compressed output buffering if output compression is enabled
 

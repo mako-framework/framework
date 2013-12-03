@@ -59,7 +59,7 @@ Class Redirect implements \mako\http\responses\ResponseContainerInterface
 	 * @param   array   $queryParams  (optional) Query parameters
 	 */
 
-	public function __construct($location, array $routeParams = array(), array $queryParams = array())
+	public function __construct($location, array $routeParams = [], array $queryParams = [])
 	{
 		if(strpos($location, '://') === false)
 		{

@@ -25,7 +25,7 @@ class Routes
 	 * @var array
 	 */
 
-	protected static $filters = array();
+	protected static $filters = [];
 
 	/**
 	 * Route groups.
@@ -33,7 +33,7 @@ class Routes
 	 * @var array
 	 */
 
-	protected static $groups = array();
+	protected static $groups = [];
 
 	/**
 	 * Registered routes.
@@ -41,7 +41,7 @@ class Routes
 	 * @var array
 	 */
 
-	protected static $routes = array();
+	protected static $routes = [];
 
 	/**
 	 * Named routes.
@@ -49,7 +49,7 @@ class Routes
 	 * @var array
 	 */
 
-	protected static $namedRoutes = array();
+	protected static $namedRoutes = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -82,7 +82,7 @@ class Routes
 	{
 		if(!isset(static::$filters[$filter]))
 		{
-			throw new RuntimeException(vsprintf("%s(): No filter named [ %s ] has been defined.", array(__METHOD__, $filter)));
+			throw new RuntimeException(vsprintf("%s(): No filter named [ %s ] has been defined.", [__METHOD__, $filter]));
 		}
 		
 		return static::$filters[$filter];
@@ -126,7 +126,7 @@ class Routes
 	{
 		if(!isset(static::$namedRoutes[$name]))
 		{
-			throw new RuntimeException(vsprintf("%s(): No route named [ %s ] has been defined.", array(__METHOD__, $name)));
+			throw new RuntimeException(vsprintf("%s(): No route named [ %s ] has been defined.", [__METHOD__, $name]));
 		}
 
 		return static::$namedRoutes[$name];
@@ -208,7 +208,7 @@ class Routes
 
 	public static function get($route, $action, $name = null)
 	{
-		return static::addRoute(array('GET', 'HEAD', 'OPTIONS'), $route, $action, $name);
+		return static::addRoute(['GET', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -222,7 +222,7 @@ class Routes
 
 	public static function post($route, $action, $name = null)
 	{
-		return static::addRoute(array('POST', 'OPTIONS'), $route, $action, $name);
+		return static::addRoute(['POST', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -236,7 +236,7 @@ class Routes
 
 	public static function put($route, $action, $name = null)
 	{
-		return static::addRoute(array('PUT', 'OPTIONS'), $route, $action, $name);
+		return static::addRoute(['PUT', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -250,7 +250,7 @@ class Routes
 
 	public static function patch($route, $action, $name = null)
 	{
-		return static::addRoute(array('PATCH', 'OPTIONS'), $route, $action, $name);
+		return static::addRoute(['PATCH', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -264,7 +264,7 @@ class Routes
 
 	public static function delete($route, $action, $name = null)
 	{
-		return static::addRoute(array('DELETE', 'OPTIONS'), $route, $action, $name);
+		return static::addRoute(['DELETE', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -278,7 +278,7 @@ class Routes
 
 	public static function all($route, $action, $name = null)
 	{
-		return static::addRoute(array('GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'), $route, $action, $name);
+		return static::addRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
