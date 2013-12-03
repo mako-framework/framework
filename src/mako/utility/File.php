@@ -63,12 +63,12 @@ class File
 			if($binary === true)
 			{
 				$base  = 1024;
-				$terms = array('byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB');
+				$terms = ['byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
 			}
 			else
 			{
 				$base  = 1000;
-				$terms = array('byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+				$terms = ['byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 			}
 
 			$e = floor(log($size, $base));

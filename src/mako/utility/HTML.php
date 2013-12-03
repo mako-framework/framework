@@ -25,7 +25,7 @@ class HTML
 	 * @var array
 	 */
 
-	protected static $tags = array();
+	protected static $tags = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -81,7 +81,7 @@ class HTML
 	 * @return  string
 	 */
 
-	public static function tag($name, array $attributes = array(), $content = null)
+	public static function tag($name, array $attributes = [], $content = null)
 	{
 		return '<' . $name . static::attributes($attributes) . (($content === null) ? (defined('MAKO_XHTML') ? ' />' : '>') : '>' . $content . '</' . $name . '>');
 	}
@@ -101,7 +101,7 @@ class HTML
 
 		foreach((array) $files as $file)
 		{
-			$sources .= HTML::tag('source', array('src' => $file));
+			$sources .= HTML::tag('source', ['src' => $file]);
 		}
 		
 		return static::tag($type, $attributes, $sources);
@@ -115,7 +115,7 @@ class HTML
 	 * @param   array   $attributes  (optional) Tag attributes
 	 */
 
-	public static function audio($files, array $attributes = array())
+	public static function audio($files, array $attributes = [])
 	{
 		return static::buildMedia('audio', $files, $attributes);
 	}
@@ -128,7 +128,7 @@ class HTML
 	 * @param   array   $attributes  (optional) Tag attributes
 	 */
 
-	public static function video($files, array $attributes = array())
+	public static function video($files, array $attributes = [])
 	{
 		return static::buildMedia('video', $files, $attributes);
 	}
@@ -150,11 +150,11 @@ class HTML
 		{
 			if(is_array($item))
 			{
-				$list .= static::tag('li', array(), static::buildList($type, $item, array()));
+				$list .= static::tag('li', [], static::buildList($type, $item, []));
 			}
 			else
 			{
-				$list .= static::tag('li', array(), $item);
+				$list .= static::tag('li', [], $item);
 			}
 		}
 
@@ -170,7 +170,7 @@ class HTML
 	 * @return  string
 	 */
 
-	public static function ul(array $items, array $attributes = array())
+	public static function ul(array $items, array $attributes = [])
 	{
 		return static::buildList('ul', $items, $attributes);
 	}
@@ -184,7 +184,7 @@ class HTML
 	 * @return  string
 	 */
 
-	public static function ol(array $items, array $attributes = array())
+	public static function ol(array $items, array $attributes = [])
 	{
 		return static::buildList('ol', $items, $attributes);
 	}
@@ -215,7 +215,7 @@ class HTML
 	{
 		if(!isset(static::$tags[$name]))
 		{
-			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", array(__CLASS__, $name)));
+			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
 		}
 
 		return call_user_func_array(static::$tags[$name], $arguments);

@@ -53,11 +53,11 @@ class Num
 
 		if($int < 1 || $int > 3999)
 		{
-			throw new InvalidArgumentException(vsprintf("%s(): The number must be between 1 and 3999.", array(__METHOD__)));
+			throw new InvalidArgumentException(vsprintf("%s(): The number must be between 1 and 3999.", [__METHOD__]));
 		}
 
-		$numerals = array
-		(
+		$numerals = 
+		[
 			'M'  => 1000,
 			'CM' => 900,
 			'D'  => 500,
@@ -71,7 +71,7 @@ class Num
 			'V'  => 5,
 			'IV' => 4,
 			'I'  => 1
-		);
+		];
 
 		$romanNumeral = '';
 
@@ -109,11 +109,11 @@ class Num
 	{
 		if(empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) === 0)
 		{
-			throw new InvalidArgumentException(vsprintf("%s(): Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.", array(__METHOD__)));
+			throw new InvalidArgumentException(vsprintf("%s(): Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.", [__METHOD__]));
 		}
 
-		$numerals = array
-		(
+		$numerals = 
+		[
 			'M'  => 1000,
 			'D'  => 500,
 			'C'  => 100,
@@ -121,7 +121,7 @@ class Num
 			'X'  => 10,
 			'V'  => 5,
 			'I'  => 1
-		);
+		];
 
 		$arabicNumeral = 0;
 

@@ -83,7 +83,7 @@ function mako_path($path, $file, $ext = '.php')
 
 function mako_cascading_paths($path, $file, $ext = '.php')
 {
-	$paths = array();
+	$paths = [];
 
 	if(strpos($file, '::') !== false)
 	{
@@ -126,7 +126,7 @@ if(!function_exists('__'))
 	 * @return  string
 	 */
 
-	function __($string, array $vars = array(), $language = null)
+	function __($string, array $vars = [], $language = null)
 	{
 		return mako\I18n::get($string, $vars, $language);
 	}

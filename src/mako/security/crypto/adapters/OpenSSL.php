@@ -57,7 +57,7 @@ class OpenSSL extends \mako\security\crypto\adapters\Adapter
 	{
 		if(extension_loaded('openssl') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): OpenSSL is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): OpenSSL is not available.", [__METHOD__]));
 		}
 		
 		$this->key    = $config['key'];

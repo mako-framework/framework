@@ -25,7 +25,7 @@ class Assets
 	 * @var array
 	 */
 
-	protected static $groups = array();
+	protected static $groups = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -94,7 +94,7 @@ class Assets
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(static::group(), $name), $arguments);
+		return call_user_func_array([static::group(), $name], $arguments);
 	}
 }
 

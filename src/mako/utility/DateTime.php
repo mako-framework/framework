@@ -222,7 +222,7 @@ class DateTime extends \DateTime
 
 	public static function getTimeZones()
 	{
-		$timeZones = array();
+		$timeZones = [];
 
 		foreach(DateTimeZone::listIdentifiers() as $timeZone)
 		{
@@ -242,11 +242,11 @@ class DateTime extends \DateTime
 
 	public static function getGroupedTimeZones()
 	{
-		$timeZones = array();
+		$timeZones = [];
 
 		foreach(DateTimeZone::listIdentifiers() as $timeZone)
 		{
-			list($group, $city) = explode('/', $timeZone, 2) + array(null, null);
+			list($group, $city) = explode('/', $timeZone, 2) + [null, null];
 
 			$timeZones[$group][$timeZone] = str_replace('_', ' ', $city);
 		}
@@ -338,8 +338,8 @@ class DateTime extends \DateTime
 
 	public function daysInMonth()
 	{
-		$days = array
-		(
+		$days = 
+		[
 			31,
 			$this->isLeapYear() ? 29 : 28,
 			31,
@@ -352,7 +352,7 @@ class DateTime extends \DateTime
 			31,
 			30,
 			31
-		);
+		];
 		 
 		return $days[$this->format('n') - 1];
 	}
@@ -380,7 +380,7 @@ class DateTime extends \DateTime
 		}
 		elseif($diff < 3600)
 		{
-			return I18n::get('datetime.minutes_ago', array($diff / 60));
+			return I18n::get('datetime.minutes_ago', [$diff / 60]);
 		}
 		
 		if($fullFuzzy === true)
@@ -393,7 +393,7 @@ class DateTime extends \DateTime
 			}
 			elseif($diff < 86400)
 			{
-				return I18n::get('datetime.hours_ago', array($diff / 3600));
+				return I18n::get('datetime.hours_ago', [$diff / 3600]);
 			}
 			elseif($diff < 172800)
 			{
@@ -401,7 +401,7 @@ class DateTime extends \DateTime
 			}
 			elseif($diff < 604800)
 			{
-				$date = I18n::get('datetime.days_ago', array($diff / 86400));
+				$date = I18n::get('datetime.days_ago', [$diff / 86400]);
 			}
 			elseif($diff < 1209600)
 			{
@@ -409,7 +409,7 @@ class DateTime extends \DateTime
 			}
 			elseif($diff < 3024000)
 			{
-				$date = I18n::get('datetime.weeks_ago', array($diff / 604800));
+				$date = I18n::get('datetime.weeks_ago', [$diff / 604800]);
 			}
 			else
 			{

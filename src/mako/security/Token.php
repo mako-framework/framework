@@ -54,7 +54,7 @@ class Token
 	
 	public static function generate()
 	{
-		$tokens = Session::get('mako:tokens', array());
+		$tokens = Session::get('mako:tokens', []);
 
 		if(!empty($tokens))
 		{
@@ -80,7 +80,7 @@ class Token
 	
 	public static function validate($token)
 	{
-		$tokens = Session::get('mako:tokens', array());
+		$tokens = Session::get('mako:tokens', []);
 
 		$key = array_search($token, $tokens);
 

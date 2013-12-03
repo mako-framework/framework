@@ -25,7 +25,7 @@ class Group
 	* @var array
 	*/
 
-	protected $css = array();
+	protected $css = [];
 
 	/**
 	 * Array of JavaScript assets.
@@ -33,7 +33,7 @@ class Group
 	 * @var array
 	 */
 
-	protected $js = array();
+	protected $js = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -81,13 +81,13 @@ class Group
 	 * @return  \mako\utility\assets\Group
 	 */
 
-	public function addCSS($source, array $attributes = array(), $name = null)
+	public function addCSS($source, array $attributes = [], $name = null)
 	{
 		$source = $this->prefixSource($source);
 
 		defined('MAKO_XHTML') && $attributes['type'] = 'text/css';
 
-		$attributes = $attributes + array('href' => $source, 'rel' => 'stylesheet', 'media' => 'all');
+		$attributes = $attributes + ['href' => $source, 'rel' => 'stylesheet', 'media' => 'all'];
 
 		if($name === null)
 		{
@@ -110,13 +110,13 @@ class Group
 	 * @return  \mako\utility\assets\Group
 	 */
 
-	public function addJS($source, array $attributes = array(), $name = null)
+	public function addJS($source, array $attributes = [], $name = null)
 	{
 		$source = $this->prefixSource($source);
 
 		defined('MAKO_XHTML') && $attributes['type'] = 'text/javascript';
 
-		$attributes = $attributes + array('src' => $source);
+		$attributes = $attributes + ['src' => $source];
 
 		if($name === null)
 		{
@@ -141,7 +141,7 @@ class Group
 	 * @return  \mako\utility\assets\Group
 	 */
 
-	public function add($source, array $attributes = array(), $name = null, $type = null)
+	public function add($source, array $attributes = [], $name = null, $type = null)
 	{
 		if($type === 'css' || pathinfo(strtok($source, '?'), PATHINFO_EXTENSION) === 'css')
 		{
@@ -165,7 +165,7 @@ class Group
 	{
 		if($name === null)
 		{
-			$css = array();
+			$css = [];
 
 			foreach($this->css as $key => $value)
 			{
@@ -195,7 +195,7 @@ class Group
 	{
 		if($name === null)
 		{
-			$js = array();
+			$js = [];
 
 			foreach($this->js as $key => $value)
 			{
@@ -222,7 +222,7 @@ class Group
 
 	public function all()
 	{
-		return trim(implode("\n\n", array($this->css(), $this->js())));
+		return trim(implode("\n\n", [$this->css(), $this->js()]));
 	}
 }
 

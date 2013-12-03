@@ -95,12 +95,12 @@ class UUID
 	{
 		if(!static::validate($namespace))
 		{
-			throw new InvalidArgumentException(vsprintf("%s(): Provided namespace is not a valid UUID.", array(__METHOD__)));
+			throw new InvalidArgumentException(vsprintf("%s(): Provided namespace is not a valid UUID.", [__METHOD__]));
 		}
 
 		// Get hexadecimal components of namespace
 
-		$nhex = str_replace(array('-','{','}'), '', $namespace);
+		$nhex = str_replace(['-','{','}'], '', $namespace);
 
 		// Binary Value
 

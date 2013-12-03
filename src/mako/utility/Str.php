@@ -87,7 +87,7 @@ class Str
 
 	public static function nl2br($string)
 	{
-		return str_replace(array("\r\n", "\n\r", "\n", "\r"), HTML::tag('br'), $string);
+		return str_replace(["\r\n", "\n\r", "\n", "\r"], HTML::tag('br'), $string);
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Str
 
 	public static function br2nl($string)
 	{
-		return str_replace(array('<br>', '<br/>', '<br />'), "\n", $string);
+		return str_replace(['<br>', '<br/>', '<br />'], "\n", $string);
 	}
 
 	/**
@@ -218,11 +218,11 @@ class Str
 	 * @return  string
 	 */
 	
-	public static function autolink($string, array $attributes = array())
+	public static function autolink($string, array $attributes = [])
 	{
 		return preg_replace_callback('#\b(?<!href="|">)[a-z]+://\S+(?:/|\b)#i', function($matches) use ($attributes)
 		{
-			return HTML::tag('a', array('href' => $matches[0]) + $attributes, $matches[0]);
+			return HTML::tag('a', ['href' => $matches[0]] + $attributes, $matches[0]);
 		}, $string);
 	}
 

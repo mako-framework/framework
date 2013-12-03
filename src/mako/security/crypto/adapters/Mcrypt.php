@@ -65,7 +65,7 @@ class Mcrypt extends \mako\security\crypto\adapters\Adapter
 	{
 		if(extension_loaded('mcrypt') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Mcrypt is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): Mcrypt is not available.", [__METHOD__]));
 		}
 		
 		$maxSize = mcrypt_get_key_size($config['cipher'], $config['mode']);

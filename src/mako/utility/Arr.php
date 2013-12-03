@@ -56,7 +56,7 @@ class Arr
 
 			if(!isset($array[$segment]) || !is_array($array[$segment]))
 			{
-				$array[$segment] = array();
+				$array[$segment] = [];
 			}
 
 			$array =& $array[$segment];

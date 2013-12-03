@@ -26,11 +26,11 @@ class Crypto
 	 * @var array
 	 */
 	
-	protected static $adapters = array
-	(
+	protected static $adapters = 
+	[
 		'mcrypt'  => '\mako\security\crypto\adapters\Mcrypt',
 		'openssl' => '\mako\security\crypto\adapters\OpenSSL',
-	);
+	];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -66,7 +66,7 @@ class Crypto
 
 		if(isset($config['configurations'][$name]) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the crypto configuration.", array(__METHOD__, $name)));
+			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the crypto configuration.", [__METHOD__, $name]));
 		}
 
 		$adapter = static::$adapters[$config['configurations'][$name]['library']];
@@ -75,7 +75,7 @@ class Crypto
 
 		if(!($adapter instanceof Adapter))
 		{
-			throw new RuntimeException(vsprintf("%s(): The crypto adapter must extend the \mako\security\crypto\adapters\Adapter class.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): The crypto adapter must extend the \mako\security\crypto\adapters\Adapter class.", [__METHOD__]));
 		}
 
 		return $adapter;
@@ -105,7 +105,7 @@ class Crypto
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(static::factory(), $name), $arguments);
+		return call_user_func_array([static::factory(), $name], $arguments);
 	}
 }
 

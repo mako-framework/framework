@@ -39,7 +39,7 @@ class Validate
 	 * @var array
 	 */
 
-	protected $rules = array();
+	protected $rules = [];
 
 	/**
 	 * Holds the returned errors.
@@ -47,7 +47,7 @@ class Validate
 	 * @var array
 	 */
 
-	protected $errors = array();
+	protected $errors = [];
 
 	/**
 	 * Custom validators.
@@ -55,7 +55,7 @@ class Validate
 	 * @var array
 	 */
 
-	protected static $validators = array();
+	protected static $validators = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -92,7 +92,7 @@ class Validate
 
 	protected function validateRequired($input, $parameters)
 	{
-		return ! in_array($input, array('', null, array()), true);
+		return ! in_array($input, ['', null, []], true);
 	}
 
 	/**
@@ -622,7 +622,7 @@ class Validate
 
 	protected function parseRules()
 	{
-		$rules = array();
+		$rules = [];
 
 		foreach($this->rules as $key => $value)
 		{
@@ -637,14 +637,14 @@ class Validate
 					$rule = $matches[2];
 				}
 
-				list($validator, $params) = explode(':', $rule, 2) + array(null, null);
+				list($validator, $params) = explode(':', $rule, 2) + [null, null];
 
-				$rule = array
-				(
+				$rule = 
+				[
 					'package'    => $package,
 					'name'       => $validator,
-					'parameters' => !empty($params) ? str_getcsv($params) : array(),
-				);
+					'parameters' => !empty($params) ? str_getcsv($params) : [],
+				];
 
 				if($key === '*')
 				{
@@ -682,7 +682,7 @@ class Validate
 		{
 			// Return custom field specific error message from the language file
 
-			return I18n::get($package . 'validate.overrides.messages.' . $field . '.' . $validator, array_merge(array($field), $parameters));
+			return I18n::get($package . 'validate.overrides.messages.' . $field . '.' . $validator, array_merge([$field], $parameters));
 		}
 		else
 		{
@@ -702,9 +702,9 @@ class Validate
 				return $field;
 			};
 
-			if(in_array($validator, array('match', 'different')))
+			if(in_array($validator, ['match', 'different']))
 			{
-				$field = array($translateFieldName($field), $translateFieldName(array_shift($parameters)));
+				$field = [$translateFieldName($field), $translateFieldName(array_shift($parameters))];
 			}
 			else
 			{
@@ -727,7 +727,7 @@ class Validate
 	{
 		foreach($this->parseRules() as $field => $validators)
 		{
-			if(in_array($this->input[$field], array('', null, array()), true) && !array_key_exists('required', $validators))
+			if(in_array($this->input[$field], ['', null, []], true) && !array_key_exists('required', $validators))
 			{
 				continue; // Only validate fields that are required or not empty
 			}
@@ -804,7 +804,7 @@ class Validate
 	{
 		if(!isset(static::$validators[$name]))
 		{
-			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", array(__CLASS__, $name)));
+			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
 		}
 
 		return call_user_func_array(static::$validators[$name], $arguments);

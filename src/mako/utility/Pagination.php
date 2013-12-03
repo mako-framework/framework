@@ -187,7 +187,7 @@ class Pagination
 
 	protected function paginate()
 	{
-		$pagination = array();
+		$pagination = [];
 
 		$pagination['count'] = $this->pages;
 
@@ -195,14 +195,14 @@ class Pagination
 
 		if($this->currentPage > 1)
 		{
-			$pagination['first']    = URL::current(array_merge($params, array($this->key => 1)));
-			$pagination['previous'] = URL::current(array_merge($params, array($this->key => $this->currentPage - 1)));
+			$pagination['first']    = URL::current(array_merge($params, [$this->key => 1]));
+			$pagination['previous'] = URL::current(array_merge($params, [$this->key => ($this->currentPage - 1)]));
 		}
 
 		if($this->currentPage < $this->pages)
 		{
-			$pagination['last'] = URL::current(array_merge($params, array($this->key => $this->pages)));
-			$pagination['next'] = URL::current(array_merge($params, array($this->key => ($this->currentPage + 1))));
+			$pagination['last'] = URL::current(array_merge($params, [$this->key => $this->pages]));
+			$pagination['next'] = URL::current(array_merge($params, [$this->key => ($this->currentPage + 1)]));
 		}
 
 		if($this->pages > $this->maxPageLinks)
@@ -228,16 +228,16 @@ class Pagination
 			$end = $this->pages;
 		}
 
-		$pagination['pages'] = array();
+		$pagination['pages'] = [];
 
 		for($i = $start + 1; $i <= $end; $i++)
 		{
-			$pagination['pages'][] = array
-			(
-				'url'        => URL::current(array_merge($params, array($this->key => $i))),
+			$pagination['pages'][] = 
+			[
+				'url'        => URL::current(array_merge($params, [$this->key => $i])),
 				'number'     => $i,
 				'is_current' => ($i == $this->currentPage),
-			);
+			];
 		}
 
 		return $pagination;

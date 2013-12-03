@@ -35,7 +35,7 @@ class View
 	 * @var array
 	 */
 
-	protected $vars = array();
+	protected $vars = [];
 
 	/**
 	 * Global view variables.
@@ -43,7 +43,7 @@ class View
 	 * @var array
 	 */
 
-	protected static $globalVars = array();
+	protected static $globalVars = [];
 
 	/**
 	 * View renderers.
@@ -51,11 +51,11 @@ class View
 	 * @var array
 	 */
 
-	protected static $renderers = array
-	(
+	protected static $renderers = 
+	[
 		'.php'     => '\mako\view\renderers\PHP',
 		'.tpl.php' => '\mako\view\renderers\Template',
-	);
+	];
 
 	/**
 	 * View renderer.
@@ -77,7 +77,7 @@ class View
 	 * @param   array   $variables  (optional) Array of view variables
 	 */
 
-	public function __construct($view, array $variables = array())
+	public function __construct($view, array $variables = [])
 	{
 		// Assign view variables
 
@@ -101,7 +101,7 @@ class View
 
 		if($this->renderer === null)
 		{
-			throw new RuntimeException(vsprintf("%s(): The [ %s ] view does not exist.", array(__METHOD__, $view)));
+			throw new RuntimeException(vsprintf("%s(): The [ %s ] view does not exist.", [__METHOD__, $view]));
 		}
 	}
 

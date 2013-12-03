@@ -38,15 +38,15 @@ class Template
 	 * @var array
 	 */
 
-	protected $compileOrder = array
-	(
+	protected $compileOrder = 
+	[
 		'comments',
 		'extensions',
 		'views',
 		'blocks',
 		'controlStructures',
 		'echos',
-	);
+	];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -141,7 +141,7 @@ class Template
 
 		return preg_replace_callback('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', function($matches)
 		{
-			return vsprintf('<?php echo mako\view\renderers\template\Block::get(\'%s\', \'%s\'); ?>', array($matches[1], addslashes($matches[2])));
+			return vsprintf('<?php echo mako\view\renderers\template\Block::get(\'%s\', \'%s\'); ?>', [$matches[1], addslashes($matches[2])]);
 		}, $template);
 	}
 
