@@ -65,14 +65,14 @@ class ExceptionHandler
 	{
 		$output = new Output();
 
-		$message = vsprintf('%s: %s in %s at line %s' . PHP_EOL . PHP_EOL . '%s', array
-		(
+		$message = vsprintf('%s: %s in %s at line %s' . PHP_EOL . PHP_EOL . '%s', 
+		[
 			get_class($this->exception),
 			$this->exception->getMessage(),
 			$this->exception->getFile(),
 			$this->exception->getLine(),
 			$this->exception->getTraceAsString(),
-		));
+		]);
 
 		$output->error($message);
 	}
@@ -133,13 +133,13 @@ class ExceptionHandler
 		{
 			if($request instanceof Request && $request->isAjax())
 			{
-				$response->body(json_encode(array('error' => array
-				(
+				$response->body(json_encode(['error' => 
+				[
 					'type'    => 'Error',
 					'message' => 'Aw, snap! An error has occurred while processing your request.',
 					'file'    => null,
 					'line'    => null,
-				))));
+				]]));
 
 				$response->type('application/json');
 			}

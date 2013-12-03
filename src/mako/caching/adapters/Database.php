@@ -89,7 +89,7 @@ class Database extends \mako\caching\adapters\Adapter
 		{
 			$this->delete($key);
 
-			return $this->table()->insert(array('key' => $this->identifier . $key, 'data' => serialize($value), 'lifetime' => $ttl));
+			return $this->table()->insert(['key' => $this->identifier . $key, 'data' => serialize($value), 'lifetime' => $ttl]);
 		}
 		catch(PDOException $e)
 		{
@@ -177,7 +177,7 @@ class Database extends \mako\caching\adapters\Adapter
 
 		try
 		{
-			$success = (bool) $this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
+			$success = (bool) $this->table()->where('key', '=', $this->identifier . $key)->update(['data' => serialize($value)]);
 
 			if(!$success)
 			{
@@ -214,7 +214,7 @@ class Database extends \mako\caching\adapters\Adapter
 
 		try
 		{
-			$success = (bool) $this->table()->where('key', '=', $this->identifier . $key)->update(array('data' => serialize($value)));
+			$success = (bool) $this->table()->where('key', '=', $this->identifier . $key)->update(['data' => serialize($value)]);
 
 			if(!$success)
 			{

@@ -37,7 +37,7 @@ class ZendDisk extends \mako\caching\adapters\Adapter
 		
 		if(function_exists('zend_disk_cache_fetch') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Zend Data Cache is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): Zend Data Cache is not available.", [__METHOD__]));
 		}
 	}
 

@@ -22,7 +22,7 @@ class Memory extends \mako\caching\adapters\Adapter
 	 * @var array
 	 */
 
-	protected $cache = array();
+	protected $cache = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -58,7 +58,7 @@ class Memory extends \mako\caching\adapters\Adapter
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 
-		$this->cache[$key] = array('data' => $value, 'ttl' => $ttl);
+		$this->cache[$key] = ['data' => $value, 'ttl' => $ttl];
 		
 		return true;
 	}
@@ -178,7 +178,7 @@ class Memory extends \mako\caching\adapters\Adapter
 
 	public function clear()
 	{
-		$this->cache = array();
+		$this->cache = [];
 		
 		return true;
 	}

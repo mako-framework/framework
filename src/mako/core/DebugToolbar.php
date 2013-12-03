@@ -91,7 +91,7 @@ class DebugToolbar
 	 * @var array
 	 */
 
-	protected static $logs = array();
+	protected static $logs = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -160,8 +160,8 @@ class DebugToolbar
 
 		// Render and return toolbar
 		
-		return (new View('_mako_/toolbar', array
-		(
+		return (new View('_mako_/toolbar', 
+		[
 			'time'        => round(microtime(true) - MAKO_START, 4),
 			'files'       => get_included_files(),
 			'memory'      => File::size(memory_get_peak_usage(true)),
@@ -169,7 +169,7 @@ class DebugToolbar
 			'query_logs'  => $queryLogs,
 			'query_time'  => round($queryTime, 4),
 			'query_count' => $queryCount,
-		)))->render();
+		]))->render();
 	}
 }
 

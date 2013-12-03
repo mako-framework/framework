@@ -44,7 +44,7 @@ class Memcached extends \mako\caching\adapters\Adapter
 		
 		if(class_exists('\Memcached', false) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Memcached is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): Memcached is not available.", [__METHOD__]));
 		}
 		
 		$this->memcached = new PHP_Memcached();

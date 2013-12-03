@@ -22,7 +22,7 @@ class ClassLoader
 	 * @var array
 	 */
 
-	protected static $classes = array();
+	protected static $classes = [];
 
 	/**
 	 * PSR-0 directories.
@@ -30,11 +30,11 @@ class ClassLoader
 	 * @var array
 	 */
 
-	protected static $directories = array
-	(
+	protected static $directories = 
+	[
 		MAKO_APPLICATION_PARENT_PATH,
 		MAKO_PACKAGES_PATH,
-	);
+	];
 
 	/**
 	 * Registered namespaces.
@@ -42,7 +42,7 @@ class ClassLoader
 	 * @var array
 	 */
 
-	protected static $namespaces = array();
+	protected static $namespaces = [];
 
 	/**
 	 * Class aliases.
@@ -50,7 +50,7 @@ class ClassLoader
 	 * @var array
 	 */
 
-	protected static $aliases = array();
+	protected static $aliases = [];
 	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -172,7 +172,7 @@ class ClassLoader
 
 		$classPath .= str_replace('_', '/', $className) . '.php';
 
-		$directories = ($directory === null) ? static::$directories : array($directory);
+		$directories = ($directory === null) ? static::$directories : [$directory];
 
 		foreach($directories as $directory)
 		{

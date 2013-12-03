@@ -37,7 +37,7 @@ class WinCache extends \mako\caching\adapters\Adapter
 		
 		if(function_exists('wincache_ucache_get') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): WinCache is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): WinCache is not available.", [__METHOD__]));
 		}
 	}
 

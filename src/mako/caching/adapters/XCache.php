@@ -55,7 +55,7 @@ class XCache extends \mako\caching\adapters\Adapter
 		
 		if(function_exists('xcache_get') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): XCache is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): XCache is not available.", [__METHOD__]));
 		}
 	}
 

@@ -37,7 +37,7 @@ class APCU extends \mako\caching\adapters\Adapter
 		
 		if(function_exists('apcu_fetch') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): APCU is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): APCU is not available.", [__METHOD__]));
 		}
 	}
 

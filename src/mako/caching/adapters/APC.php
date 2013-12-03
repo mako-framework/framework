@@ -37,7 +37,7 @@ class APC extends \mako\caching\adapters\Adapter
 		
 		if(function_exists('apc_fetch') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): APC is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): APC is not available.", [__METHOD__]));
 		}
 	}
 

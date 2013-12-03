@@ -26,8 +26,8 @@ class Cache
 	 * @var array
 	 */
 	
-	protected static $adapters = array
-	(
+	protected static $adapters = 
+	[
 		'apc'        => '\mako\caching\adapters\APC',
 		'apcu'       => '\mako\caching\adapters\APCU',
 		'database'   => '\mako\caching\adapters\Database',
@@ -40,7 +40,7 @@ class Cache
 		'xcache'     => '\mako\caching\adapters\XCache',
 		'zenddisk'   => '\mako\caching\adapters\ZendDisk',
 		'zendmemory' => '\mako\caching\adapters\ZendMemory',
-	);
+	];
 	
 	/**
 	 * Holds all the cache objects.
@@ -48,7 +48,7 @@ class Cache
 	 * @var array
 	 */
 	
-	protected static $instances = array();
+	protected static $instances = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -86,7 +86,7 @@ class Cache
 		{
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the cache configuration.", array(__METHOD__, $name)));
+				throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the cache configuration.", [__METHOD__, $name]));
 			}
 
 			$adapter = static::$adapters[$config['configurations'][$name]['type']];
@@ -95,7 +95,7 @@ class Cache
 
 			if(!(static::$instances[$name] instanceof Adapter))
 			{
-				throw new RuntimeException(vsprintf("%s(): The cache adapter must extend the \mako\caching\adapters\Adapter class.", array(__METHOD__)));
+				throw new RuntimeException(vsprintf("%s(): The cache adapter must extend the \mako\caching\adapters\Adapter class.", [__METHOD__]));
 			}
 		}
 
@@ -126,7 +126,7 @@ class Cache
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(static::instance(), $name), $arguments);
+		return call_user_func_array([static::instance(), $name], $arguments);
 	}
 }
 

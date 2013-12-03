@@ -52,7 +52,7 @@ class Package
 
 		if(!file_exists($path))
 		{
-			throw new RuntimeException(vsprintf("%s(): Unable to initialize the [ %s ] package. Make sure that it has been installed.", array(__METHOD__, $name)));
+			throw new RuntimeException(vsprintf("%s(): Unable to initialize the [ %s ] package. Make sure that it has been installed.", [__METHOD__, $name]));
 		}
 
 		include_once $path;

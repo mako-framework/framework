@@ -52,7 +52,7 @@ class Memcache extends \mako\caching\adapters\Adapter
 		
 		if(class_exists('\Memcache', false) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Memcache is not available.", array(__METHOD__)));
+			throw new RuntimeException(vsprintf("%s(): Memcache is not available.", [__METHOD__]));
 		}
 		
 		$this->memcache = new PHP_Memcache();

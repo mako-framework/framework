@@ -27,7 +27,7 @@ class ErrorHandler
 	 * @var array
 	 */
 
-	protected static $handlers = array();
+	protected static $handlers = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
