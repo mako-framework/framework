@@ -106,9 +106,7 @@ class Redis implements \SessionHandlerInterface
 
 	public function write($sessionId, $data)
 	{
-		$this->redis->set('sess_' . $sessionId, $data);
-
-		$this->redis->expire('sess_' . $sessionId, $this->maxLifetime);
+		$this->redis->setex('sess_' . $sessionId, $this->maxLifetime, $data);
 
 		return true;
 	}
