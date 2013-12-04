@@ -224,11 +224,9 @@ class Language
 
 			if(stripos($string, '</pluralize>') !== false)
 			{
-				$that = $this;
-				
-				$string = preg_replace_callback('/\<pluralize:([0-9]+)\>(.*)\<\/pluralize\>/iu', function($matches) use ($that)
+				$string = preg_replace_callback('/\<pluralize:([0-9]+)\>(.*)\<\/pluralize\>/iu', function($matches)
 				{
-					return $that->pluralize($matches[2], (int) $matches[1]);
+					return $this->pluralize($matches[2], (int) $matches[1]);
 				}, $string);
 			}
 		}
