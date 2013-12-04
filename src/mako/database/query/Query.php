@@ -141,27 +141,27 @@ class Query
 		{
 			case 'mysql':
 				$this->compiler = new \mako\database\query\compilers\MySQL($this);
-			break;
+				break;
 			case 'dblib':
 			case 'mssql':
 			case 'sqlsrv':
 				$this->compiler = new \mako\database\query\compilers\SQLServer($this);
-			break;
+				break;
 			case 'oci':
 			case 'oracle':
 				$this->compiler = new \mako\database\query\compilers\Oracle($this);
-			break;
+				break;
 			case 'firebird':
 				$this->compiler = new \mako\database\query\compilers\Firebird($this);
-			break;
+				break;
 			case 'db2':
 			case 'ibm':
 			case 'odbc':
 				$this->compiler = new \mako\database\query\compilers\DB2($this);
-			break;
+				break;
 			case 'nuodb':
 				$this->compiler = new \mako\database\query\compilers\NuoDB($this);
-			break;
+				break;
 			default:
 				$this->compiler = new \mako\database\query\Compiler($this);
 		}

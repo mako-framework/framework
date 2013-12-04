@@ -79,7 +79,7 @@ class Hydrator extends \mako\database\query\Query
 	{
 		if(empty($this->joins))
 		{
-			$this->columns = array($this->model->getTable() . '.*');
+			$this->columns = [$this->model->getTable() . '.*'];
 		}
 
 		return parent::join($table, $column1, $operator, $column2, $type);
@@ -97,7 +97,7 @@ class Hydrator extends \mako\database\query\Query
 	{
 		if($this->model->isReadOnly())
 		{
-			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to crate a read-only record.", array(__METHOD__)));
+			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to crate a read-only record.", [__METHOD__]));
 		}
 
 		return parent::insert($values);
@@ -115,7 +115,7 @@ class Hydrator extends \mako\database\query\Query
 	{
 		if($this->model->isReadOnly())
 		{
-			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to update a read-only record.", array(__METHOD__)));
+			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to update a read-only record.", [__METHOD__]));
 		}
 
 		return parent::update($values);
@@ -147,7 +147,7 @@ class Hydrator extends \mako\database\query\Query
 	 * @return  \mako\database\midgard\ORM
 	 */
 
-	public function get($id, array $columns = array())
+	public function get($id, array $columns = [])
 	{
 		return $this->where($this->model->getPrimaryKey(), '=', $id)->first($columns);
 	}
@@ -191,7 +191,7 @@ class Hydrator extends \mako\database\query\Query
 
 	protected function parseIncludes()
 	{
-		$includes = array('this' => array(), 'forward' => array());
+		$includes = ['this' => [], 'forward' => []];
 
 		foreach($this->model->getIncludes() as $include => $criteria)
 		{
@@ -234,7 +234,7 @@ class Hydrator extends \mako\database\query\Query
 
 		foreach($includes['this'] as $include => $criteria)
 		{
-			$forward = isset($includes['forward'][$include]) ? $includes['forward'][$include] : array();
+			$forward = isset($includes['forward'][$include]) ? $includes['forward'][$include] : [];
 
 			$results[0]->{$include}()->eagerLoad($results, $include, $criteria, $forward);
 		}
@@ -250,11 +250,11 @@ class Hydrator extends \mako\database\query\Query
 
 	protected function hydrate($results)
 	{
-		$hydrated = array();
+		$hydrated = [];
 
 		if(!is_array($results))
 		{
-			$results = array($results);
+			$results = [$results];
 		}
 
 		foreach($results as $result)
@@ -280,7 +280,7 @@ class Hydrator extends \mako\database\query\Query
 	 * @return  \mako\database\midgard\ORM
 	 */
 
-	public function first(array $columns = array())
+	public function first(array $columns = [])
 	{
 		if(!empty($columns))
 		{
@@ -307,7 +307,7 @@ class Hydrator extends \mako\database\query\Query
 	 * @return  \mako\database\midgard\ResultSet
 	 */
 
-	public function all(array $columns = array())
+	public function all(array $columns = [])
 	{
 		if(!empty($columns))
 		{
@@ -337,12 +337,12 @@ class Hydrator extends \mako\database\query\Query
 	{
 		if(!method_exists($this->model, 'scope_' . $name))
 		{
-			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", array(__CLASS__, $name)));
+			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
 		}
 
 		array_unshift($arguments, $this);
 
-		call_user_func_array(array($this->model, 'scope_' . $name), $arguments);
+		call_user_func_array([$this->model, 'scope_' . $name], $arguments);
 
 		return $this;
 	}

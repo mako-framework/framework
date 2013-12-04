@@ -507,11 +507,11 @@ class Request
 			{
 				case 'application/x-www-form-urlencoded':
 					parse_str($this->body(), $this->parsedBody);
-				break;
+					break;
 				case 'text/json':
 				case 'application/json':
 					$this->parsedBody = json_decode($this->body(), true);
-				break;
+					break;
 				default:
 					$this->parsedBody = [];
 			}

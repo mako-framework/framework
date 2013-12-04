@@ -44,7 +44,7 @@ class HasMany extends \mako\database\midgard\relations\HasOneOrMany
 	{
 		$this->model->setIncludes($includes);
 
-		$grouped = array();
+		$grouped = [];
 
 		if($criteria !== null)
 		{

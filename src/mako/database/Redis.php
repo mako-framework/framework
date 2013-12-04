@@ -158,13 +158,13 @@ class Redis
 		{
 			case '-': // error reply
 				throw new RuntimeException(vsprintf("%s(): %s.", [__METHOD__, substr($response, 5)]));
-			break;
+				break;
 			case '+': // status reply
 				return trim(substr($response, 1));
-			break;
+				break;
 			case ':': // integer reply
 				return (int) trim(substr($response, 1));
-			break;
+				break;
 			case '$': // bulk reply
 				if($response === '$-1')
 				{
@@ -174,7 +174,7 @@ class Redis
 				$length = (int) substr($response, 1);
 
 				return substr(fread($this->connection, $length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
-			break;
+				break;
 			case '*': // multi-bulk reply
 				if($response === '*-1')
 				{
@@ -191,7 +191,7 @@ class Redis
 				}
 
 				return $data;
-			break;
+				break;
 			default:
 				throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", [__METHOD__]));
 		}

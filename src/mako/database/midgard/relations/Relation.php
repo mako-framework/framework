@@ -99,7 +99,7 @@ abstract class Relation extends \mako\database\midgard\Hydrator
 
 	protected function keys($results)
 	{
-		$keys = array();
+		$keys = [];
 
 		foreach($results as $result)
 		{
@@ -145,7 +145,7 @@ abstract class Relation extends \mako\database\midgard\Hydrator
 	 * @return  \mako\database\midgard\ORM
 	 */
 
-	public function first(array $columns = array())
+	public function first(array $columns = [])
 	{
 		if(!$this->lazy)
 		{
@@ -163,7 +163,7 @@ abstract class Relation extends \mako\database\midgard\Hydrator
 	 * @return  \mako\database\midgard\ResultSet
 	 */
 
-	public function all(array $columns = array())
+	public function all(array $columns = [])
 	{
 		if(!$this->lazy)
 		{

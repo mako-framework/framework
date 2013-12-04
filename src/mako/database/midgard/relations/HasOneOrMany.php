@@ -48,7 +48,7 @@ abstract class HasOneOrMany extends \mako\database\midgard\relations\Relation
 		}
 		else
 		{
-			return $this->model->create(array($this->getForeignKey() => $this->parent->getPrimaryKeyValue()) + $related);
+			return $this->model->create([$this->getForeignKey() => $this->parent->getPrimaryKeyValue()] + $related);
 		}
 	}
 }

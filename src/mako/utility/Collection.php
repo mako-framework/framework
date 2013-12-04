@@ -25,7 +25,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 	 * @var array
 	 */
 
-	protected $items = array();
+	protected $items = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -38,7 +38,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 	 * @param   array   $items  Collection items
 	 */
 
-	public function __construct(array $items = array())
+	public function __construct(array $items = [])
 	{
 		$this->items = $items;
 	}

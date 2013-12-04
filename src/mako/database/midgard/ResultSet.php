@@ -66,7 +66,7 @@ class ResultSet extends \mako\utility\Collection
 
 	public function toArray($protect = true, $raw = false)
 	{
-		$results = array();
+		$results = [];
 
 		foreach($this->items as $item)
 		{

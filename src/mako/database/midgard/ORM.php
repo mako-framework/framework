@@ -139,7 +139,7 @@ abstract class ORM
 	 * @var array
 	 */
 
-	protected $columns = array();
+	protected $columns = [];
 
 	/**
 	 * Original column values.
@@ -147,7 +147,7 @@ abstract class ORM
 	 * @var array
 	 */
 
-	protected $original = array();
+	protected $original = [];
 
 	/**
 	 * Relations to eager load.
@@ -155,7 +155,7 @@ abstract class ORM
 	 * @var array
 	 */
 
-	protected $including = array();
+	protected $including = [];
 
 	/**
 	 * Related records.
@@ -163,7 +163,7 @@ abstract class ORM
 	 * @var array
 	 */
 
-	protected $related = array();
+	protected $related = [];
 
 	/**
 	 * Columns that can be set through mass assignment.
@@ -171,7 +171,7 @@ abstract class ORM
 	 * @var array
 	 */
 
-	protected $assignable = array();
+	protected $assignable = [];
 
 	/**
 	 * Columns that are excluded from the array and json representations of the record.
@@ -179,7 +179,7 @@ abstract class ORM
 	 * @var array
 	 */
 
-	protected $protected = array();
+	protected $protected = [];
 
 	/**
 	 * Validation rules.
@@ -187,7 +187,7 @@ abstract class ORM
 	 * @var array
 	 */
 
-	protected $rules = array();
+	protected $rules = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -204,7 +204,7 @@ abstract class ORM
 	 * @param   boolean  $readOnly   (optional) Is this a read-only record?
 	 */
 
-	public function __construct(array $columns = array(), $raw = false, $whitelist = true, $exists = false, $readOnly = false)
+	public function __construct(array $columns = [], $raw = false, $whitelist = true, $exists = false, $readOnly = false)
 	{
 		$this->assign($columns, $raw, $whitelist);
 
@@ -229,8 +229,8 @@ abstract class ORM
 		if($this->exists)
 		{
 			$this->exists   = false;
-			$this->original = array();
-			$this->related  = array();
+			$this->original = [];
+			$this->related  = [];
 
 			unset($this->columns[$this->primaryKey]);
 
@@ -596,11 +596,9 @@ abstract class ORM
 	 * @return  \mako\database\midgard\ORM
 	 */
 
-	public static function get($id, array $columns = array())
+	public static function get($id, array $columns = [])
 	{
-		$instance = new static();
-
-		return $instance->hydrator()->get($id, $columns);
+		return (new static)->hydrator()->get($id, $columns);
 	}
 
 	/**
@@ -735,7 +733,7 @@ abstract class ORM
 
 	protected function getModified()
 	{
-		$modified = array();
+		$modified = [];
 
 		foreach($this->columns as $key => $value)
 		{
@@ -756,7 +754,7 @@ abstract class ORM
 	 * @return  boolean
 	 */
 
-	public function isValid(&$errors = array())
+	public function isValid(&$errors = [])
 	{
 		$rules = $this->rules;
 
@@ -796,7 +794,7 @@ abstract class ORM
 
 	protected function generatePrimaryKey()
 	{
-		throw new RuntimeException(vsprintf("%s(): The '%s::generatePrimaryKey()' method must be implemented.", array(__METHOD__, get_class($this))));
+		throw new RuntimeException(vsprintf("%s(): The '%s::generatePrimaryKey()' method must be implemented.", [__METHOD__, get_class($this)]));
 	}
 
 	/**
@@ -813,10 +811,10 @@ abstract class ORM
 		{
 			case static::PRIMARY_KEY_TYPE_UUID:
 				$this->columns[$this->primaryKey] = UUID::v4();
-			break;
+				break;
 			case static::PRIMARY_KEY_TYPE_CUSTOM:
 				$this->columns[$this->primaryKey] = $this->generatePrimaryKey();
-			break;
+				break;
 		}
 
 		$this->hydrator()->insert($this->columns);
@@ -829,7 +827,7 @@ abstract class ORM
 			{
 				case 'pgsql':
 					$sequence = $this->getTable() . '_' . $this->primaryKey . '_seq';
-				break;
+					break;
 				default:
 					$sequence = null;
 			}
@@ -864,7 +862,7 @@ abstract class ORM
 		{
 			$this->columns[$this->lockingColumn]--;
 
-			throw new StaleRecordException(vsprintf("%s(): Attempted to update a stale record.", array(__METHOD__)));
+			throw new StaleRecordException(vsprintf("%s(): Attempted to update a stale record.", [__METHOD__]));
 		}
 
 		return (bool) $result;
@@ -927,14 +925,14 @@ abstract class ORM
 			if($deleted)
 			{				
 				$this->exists   = false;
-				$this->original = array();
-				$this->related  = array();
+				$this->original = [];
+				$this->related  = [];
 			}
 			else
 			{
 				if($this->enableLocking)
 				{
-					throw new StaleRecordException(vsprintf("%s(): Attempted to delete a stale record.", array(__METHOD__)));
+					throw new StaleRecordException(vsprintf("%s(): Attempted to delete a stale record.", [__METHOD__]));
 				}
 			}
 
@@ -961,7 +959,7 @@ abstract class ORM
 		}
 		else
 		{
-			$columns = array();
+			$columns = [];
 
 			foreach($this->columns as $key => $value)
 			{
@@ -1032,9 +1030,7 @@ abstract class ORM
 
 	public static function __callStatic($name, $arguments)
 	{
-		$instance = new static();
-
-		return call_user_func_array(array($instance->hydrator(), $name), $arguments);
+		return call_user_func_array([(new static)->hydrator(), $name], $arguments);
 	}
 }
 

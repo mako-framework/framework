@@ -117,7 +117,7 @@ class ExceptionHandler
 					case 'textmate':
 					case 'xdebug':
 						$handler->setEditor($editor);
-					break;
+						break;
 					default:
 						$handler->setEditor(function($file, $line) use ($editor) {
 							return $editor;

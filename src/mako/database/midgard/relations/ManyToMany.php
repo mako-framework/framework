@@ -78,7 +78,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	{
 		if($this->junctionTable === null)
 		{
-			$tables = array($this->parent->getTable(), $this->model->getTable());
+			$tables = [$this->parent->getTable(), $this->model->getTable()];
 
 			sort($tables);
 
@@ -158,7 +158,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	{
 		$this->model->setIncludes($includes);
 
-		$grouped = array();
+		$grouped = [];
 
 		if($criteria !== null)
 		{
@@ -196,11 +196,11 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	{
 		if($this->lazy)
 		{
-			return array($this->model->getTable() . '.*');
+			return [$this->model->getTable() . '.*'];
 		}
 		else
 		{
-			return array($this->model->getTable() . '.*', $this->getJunctionTable() . '.' . $this->getForeignKey());
+			return [$this->model->getTable() . '.*', $this->getJunctionTable() . '.' . $this->getForeignKey()];
 		}
 	}
 
@@ -212,7 +212,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	 * @return  \mako\database\midgard\ORM
 	 */
 
-	public function first(array $columns = array())
+	public function first(array $columns = [])
 	{
 		$this->columns = $this->select();
 
@@ -227,7 +227,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	 * @return  \mako\database\midgard\ResultSet
 	 */
 
-	public function all(array $columns = array())
+	public function all(array $columns = [])
 	{
 		$this->columns = $this->select();
 
@@ -275,7 +275,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 		
 		if($this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue())->where($this->getJunctionKey(), '=', $id)->count() == 0)
 		{
-			return $this->junction()->insert(array($this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $id));
+			return $this->junction()->insert([$this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $id]);
 		}
 
 		return false;

@@ -55,7 +55,7 @@ class BelongsTo extends \mako\database\midgard\relations\Relation
 
 	protected function keys($results)
 	{
-		$keys = array();
+		$keys = [];
 		
 		foreach($results as $result)
 		{
@@ -107,7 +107,7 @@ class BelongsTo extends \mako\database\midgard\relations\Relation
 	{
 		$this->model->setIncludes($includes);
 		
-		$grouped = array();
+		$grouped = [];
 
 		if($criteria !== null)
 		{
