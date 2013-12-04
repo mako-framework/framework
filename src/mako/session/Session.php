@@ -3,6 +3,8 @@
 namespace mako\session;
 
 use \mako\core\Config;
+use \mako\session\AbstractionLayer;
+use \SessionHandlerInterface;
 use \RuntimeException;
 
 /**
@@ -20,25 +22,38 @@ class Session
 	//---------------------------------------------
 	
 	/**
-	 * Session instance.
+	 * Session abstraction layer instance.
 	 * 
-	 * @var \mako\session\Adapter
+	 * @var \mako\session\AbstractionLayer
 	 */
 
 	protected static $instance;
+
+	/**
+	 * Session handlers.
+	 * 
+	 * @var array
+	 */
+	
+	protected static $handlers = 
+	[
+		'native'   => '\mako\session\handlers\Native',
+		'file'     => '\mako\session\handlers\File',
+		'redis'    => '\mako\session\handlers\Redis',
+		'database' => '\mako\session\handlers\Database',
+	];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
 	/**
-	 * Constructor.
+	 * Protected constructor since this is a static class.
 	 *
-	 * @access  public
-	 * @param   array   $config  Configuration
+	 * @access  protected
 	 */
 
-	protected function __construct(array $config)
+	protected function __construct()
 	{
 		// Nothing here
 	}
@@ -51,7 +66,7 @@ class Session
 	 * Returns the session instance.
 	 * 
 	 * @access  public
-	 * @return  \mako\session\Adapter
+	 * @return  \mako\session\Session
 	 */
 
 	public static function instance()
@@ -64,36 +79,35 @@ class Session
 
 			if(isset($config['configurations'][$name]) === false)
 			{
-				throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the session configuration.", array(__METHOD__, $name)));
+				throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the session configuration.", [__METHOD__, $name]));
 			}
 
-			$type = $config['configurations'][$name]['type'];
+			$handler = static::$handlers[$config['configurations'][$name]['type']];
 
-			$class = '\mako\session\adapters\\' . $type;
+			$handler = new $handler($config['configurations'][$name]);
 
-			$adapter = new $class($config['configurations'][$name]);
-
-			if($type !== 'Native')
+			if(!($handler instanceof SessionHandlerInterface))
 			{
-				session_set_save_handler
-				(
-					array($adapter, 'sessionOpen'), 
-					array($adapter, 'sessionClose'), 
-					array($adapter, 'sessionRead'), 
-					array($adapter, 'sessionWrite'), 
-					array($adapter, 'sessionDestroy'), 
-					array($adapter, 'sessionGarbageCollector')
-				);
+				throw new RuntimeException(vsprintf("%s(): The session handler must implement the \SessionHandlerInterface interface.", [__METHOD__]));
 			}
 
-			session_name($config['session_name']);
-
-			session_start();
-			
-			static::$instance = $adapter;
+			static::$instance = new AbstractionLayer($handler, $config['session_name']);
 		}
 
 		return static::$instance;
+	}
+
+	/**
+	 * Registers a new session handler.
+	 * 
+	 * @access  public
+	 * @param   string  $name   Handler name
+	 * @param   string  $class  Handler class
+	 */
+
+	public static function registerHandler($name, $class)
+	{
+		static::$handlers[$name] = $class;
 	}
 
 	/**
@@ -107,7 +121,7 @@ class Session
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array(array(static::instance(), $name), $arguments);
+		return call_user_func_array([static::instance(), $name], $arguments);
 	}
 }
 

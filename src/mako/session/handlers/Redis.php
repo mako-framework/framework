@@ -1,18 +1,18 @@
 <?php
 
-namespace mako\session\adapters;
+namespace mako\session\handlers;
 
 use \mako\database\Redis as Sider;
 
 /**
- * Redis session adapter.
+ * Redis session handler.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Redis extends \mako\session\adapters\Adapter implements \mako\session\HandlerInterface
+class Redis implements \SessionHandlerInterface
 {
 	//---------------------------------------------
 	// Class properties
@@ -52,21 +52,6 @@ class Redis extends \mako\session\adapters\Adapter implements \mako\session\Hand
 		$this->maxLifetime = ini_get('session.gc_maxlifetime');
 	}
 
-	/**
-	 * Destructor.
-	 *
-	 * @access  public
-	 */
-
-	public function __destruct()
-	{
-		parent::__destruct();
-		
-		session_write_close();
-
-		$this->redis = null;
-	}
-
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
@@ -75,12 +60,12 @@ class Redis extends \mako\session\adapters\Adapter implements \mako\session\Hand
 	 * Open session.
 	 *
 	 * @access  public
-	 * @param   string   $savePath     Save path
-	 * @param   string   $sessionName  Session name
+	 * @param   string   $savePath   Save path
+	 * @param   string   $sessionId  Session id
 	 * @return  boolean
 	 */
 
-	public function sessionOpen($savePath, $sessionName)
+	public function open($savePath, $sessionId)
 	{
 		return true;
 	}
@@ -92,7 +77,7 @@ class Redis extends \mako\session\adapters\Adapter implements \mako\session\Hand
 	 * @return  boolean
 	 */
 
-	public function sessionClose()
+	public function close()
 	{
 		return true;
 	}
@@ -101,28 +86,29 @@ class Redis extends \mako\session\adapters\Adapter implements \mako\session\Hand
 	 * Returns session data.
 	 *
 	 * @access  public
-	 * @param   string  $id  Session id
+	 * @param   string  $sessionId  Session id
 	 * @return  string
 	 */
 
-	public function sessionRead($id)
+	public function read($sessionId)
 	{
-		return (string) $this->redis->get('sess_' . $id);
+		return (string) $this->redis->get('sess_' . $sessionId);
 	}
 
 	/**
 	 * Writes data to the session.
 	 *
 	 * @access  public
-	 * @param   string  $id    Session id
-	 * @param   string  $data  Session data
+	 * @param   string   $sessionId    Session id
+	 * @param   string   $data         Session data
+	 * @return  boolean
 	 */
 
-	public function sessionWrite($id, $data)
+	public function write($sessionId, $data)
 	{
-		$this->redis->set('sess_' . $id, $data);
+		$this->redis->set('sess_' . $sessionId, $data);
 
-		$this->redis->expire('sess_' . $id, $this->maxLifetime);
+		$this->redis->expire('sess_' . $sessionId, $this->maxLifetime);
 
 		return true;
 	}
@@ -131,24 +117,24 @@ class Redis extends \mako\session\adapters\Adapter implements \mako\session\Hand
 	 * Destroys the session.
 	 *
 	 * @access  public
-	 * @param   string   $id  Session id
+	 * @param   string   $sessionId  Session id
 	 * @return  boolean
 	 */
 
-	public function sessionDestroy($id)
+	public function destroy($sessionId)
 	{
-		return (bool) $this->redis->del('sess_' . $id);
+		return (bool) $this->redis->del('sess_' . $sessionId);
 	}
 
 	/**
 	 * Garbage collector.
 	 *
 	 * @access  public
-	 * @param   int      $maxLifetime  Lifetime in secods
+	 * @param   int      $maxLifetime  Max lifetime in secods
 	 * @return  boolean
 	 */
 
-	public function sessionGarbageCollector($maxLifetime)
+	public function gc($maxLifetime)
 	{
 		return true;
 	}

@@ -1,28 +1,30 @@
 <?php
 
-namespace mako\session\adapters;
+namespace mako\session;
+
+use \SessionHandlerInterface;
 
 /**
- * Session adapter.
+ * Session abstraction layer.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-abstract class Adapter
+class AbstractionLayer
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-	
+
 	/**
-	 * Configuration.
+	 * Session handler.
 	 * 
-	 * @var array
+	 * @var \SessionHandlerInterface
 	 */
 
-	protected $config;
+	protected $handler;
 
 	/**
 	 * Flashdata.
@@ -30,7 +32,7 @@ abstract class Adapter
 	 * @var array
 	 */
 
-	protected $flashdata = array();
+	protected $flashdata = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -40,12 +42,30 @@ abstract class Adapter
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   array   $config  Configuration
+	 * @param   \SessionHandlerInterface  $handler      Session handler
+	 * @param   string                    $sessionName  Session name
 	 */
 
-	public function __construct(array $config)
+	public function __construct(SessionHandlerInterface $handler, $sessionName)
 	{
-		$this->config = $config;
+		$this->handler = $handler;
+
+		// Set the session handler, set the session name and start the session
+
+		session_set_save_handler($handler, true);
+
+		session_name($sessionName);
+
+		session_start();
+
+		// Fetch flash data if there is any and unset it
+
+		if(isset($_SESSION['mako:flashdata']))
+		{
+			$this->flashdata = $_SESSION['mako:flashdata'];
+
+			unset($_SESSION['mako:flashdata']);
+		}
 	}
 
 	/**
@@ -56,11 +76,14 @@ abstract class Adapter
 
 	public function __destruct()
 	{
-		unset($_SESSION['mako:flashdata']);
+		// Fixes issue with Debian and Ubuntu session garbage collection
 
-		$_SESSION['mako:flashdata'] = $this->flashdata;
+		if(mt_rand(1, 100) === 100)
+		{
+			$this->handler->gc(ini_get('session.gc_maxlifetime'));
+		}
 	}
-	
+
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
@@ -130,11 +153,11 @@ abstract class Adapter
 	{
 		if($data === null)
 		{
-			return isset($_SESSION['mako:flashdata'][$key]) ? $_SESSION['mako:flashdata'][$key] : false;
+			return isset($this->flashdata[$key]) ? $this->flashdata[$key] : false;
 		}
 		else
 		{
-			$this->flashdata[$key] = $data;
+			$_SESSION['mako:flashdata'][$key] = $data;
 		}
 	}
 
@@ -147,9 +170,9 @@ abstract class Adapter
 
 	public function reflash(array $keys = array())
 	{
-		$flashdata = empty($keys) ? $_SESSION['mako:flashdata'] : array_intersect_key($_SESSION['mako:flashdata'], array_flip($keys));
+		$flashdata = empty($keys) ? $this->flashdata : array_intersect_key($this->flashdata, array_flip($keys));
 
-		$this->flashdata = array_merge($this->flashdata, $flashdata);
+		$_SESSION['mako:flashdata'] = array_merge(isset($_SESSION['mako:flashdata']) ? $_SESSION['mako:flashdata'] : [] , $flashdata);
 	}
 
 	/**

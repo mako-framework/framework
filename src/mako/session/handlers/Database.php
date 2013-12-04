@@ -1,23 +1,31 @@
 <?php
 
-namespace mako\session\adapters;
+namespace mako\session\handlers;
 
 use \PDOException;
 use \mako\database\Database as DB;
 
 /**
- * Database session adapter.
+ * Database session handler.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Database extends \mako\session\adapters\Adapter implements \mako\session\HandlerInterface
+class Database implements \SessionHandlerInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Configuration.
+	 * 
+	 * @var array
+	 */
+
+	protected $config;
 
 	/**
 	 * Database connection object.
@@ -48,31 +56,11 @@ class Database extends \mako\session\adapters\Adapter implements \mako\session\H
 
 	public function __construct(array $config)
 	{
-		parent::__construct($config);
+		$this->config = $config;
 
 		$this->connection = DB::connection($config['configuration']);
 
 		$this->maxLifetime = ini_get('session.gc_maxlifetime');
-	}
-
-	/**
-	 * Destructor.
-	 *
-	 * @access  public
-	 */
-
-	public function __destruct()
-	{
-		parent::__destruct();
-		
-		session_write_close();
-
-		// Fixes issue with Debian and Ubuntu session garbage collection
-
-		if(mt_rand(1, 100) === 100)
-		{
-			$this->sessionGarbageCollector(0);
-		}
 	}
 
 	//---------------------------------------------
@@ -95,12 +83,12 @@ class Database extends \mako\session\adapters\Adapter implements \mako\session\H
 	 * Open session.
 	 *
 	 * @access  public
-	 * @param   string   $savePath     Save path
-	 * @param   string   $sessionName  Session name
+	 * @param   string   $savePath   Save path
+	 * @param   string   $sessionId  Session id
 	 * @return  boolean
 	 */
 
-	public function sessionOpen($savePath, $sessionName)
+	public function open($savePath, $sessionId)
 	{
 		return true;
 	}
@@ -112,7 +100,7 @@ class Database extends \mako\session\adapters\Adapter implements \mako\session\H
 	 * @return  boolean
 	 */
 
-	public function sessionClose()
+	public function close()
 	{
 		return true;
 	}
@@ -121,15 +109,15 @@ class Database extends \mako\session\adapters\Adapter implements \mako\session\H
 	 * Returns session data.
 	 *
 	 * @access  public
-	 * @param   string  $id  Session id
+	 * @param   string  $sessionId  Session id
 	 * @return  string
 	 */
 
-	public function sessionRead($id)
+	public function read($sessionId)
 	{
 		try
 		{
-			$data = $this->table()->where('id', '=', $id)->column('data');
+			$data = $this->table()->where('id', '=', $sessionId)->column('data');
 
 			return ($data !== false) ? $data : '';
 		}
@@ -143,21 +131,22 @@ class Database extends \mako\session\adapters\Adapter implements \mako\session\H
 	 * Writes data to the session.
 	 *
 	 * @access  public
-	 * @param   string  $id    Session id
-	 * @param   string  $data  Session data
+	 * @param   string   $sessionId  Session id
+	 * @param   string   $data       Session data
+	 * @return  boolean
 	 */
 
-	public function sessionWrite($id, $data)
+	public function write($sessionId, $data)
 	{
 		try
 		{
-			if($this->table()->where('id', '=', $id)->count() != 0)
+			if($this->table()->where('id', '=', $sessionId)->count() != 0)
 			{
-				return (bool) $this->table()->where('id', '=', $id)->update(array('data' => $data, 'expires' => (time() + $this->maxLifetime)));
+				return (bool) $this->table()->where('id', '=', $sessionId)->update(array('data' => $data, 'expires' => (time() + $this->maxLifetime)));
 			}
 			else
 			{
-				return $this->table()->insert(array('id' => $id, 'data' => $data, 'expires' => (time() + $this->maxLifetime)));
+				return $this->table()->insert(array('id' => $sessionId, 'data' => $data, 'expires' => (time() + $this->maxLifetime)));
 			}
 		}
 		catch(PDOException $e)
@@ -170,15 +159,15 @@ class Database extends \mako\session\adapters\Adapter implements \mako\session\H
 	 * Destroys the session.
 	 *
 	 * @access  public
-	 * @param   string   $id  Session id
+	 * @param   string   $sessionId  Session id
 	 * @return  boolean
 	 */
 
-	public function sessionDestroy($id)
+	public function destroy($sessionId)
 	{
 		try
 		{
-			return (bool) $this->table()->where('id', '=', $id)->delete();
+			return (bool) $this->table()->where('id', '=', $sessionId)->delete();
 		}
 		catch(PDOException $e)
 		{
@@ -190,11 +179,11 @@ class Database extends \mako\session\adapters\Adapter implements \mako\session\H
 	 * Garbage collector.
 	 *
 	 * @access  public
-	 * @param   int      $maxLifetime  Lifetime in secods
+	 * @param   int      $maxLifetime  Max lifetime in secods
 	 * @return  boolean
 	 */
 
-	public function sessionGarbageCollector($maxLifetime)
+	public function gc($maxLifetime)
 	{
 		try
 		{
