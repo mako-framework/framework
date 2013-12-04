@@ -142,11 +142,11 @@ class Database implements \SessionHandlerInterface
 		{
 			if($this->table()->where('id', '=', $sessionId)->count() != 0)
 			{
-				return (bool) $this->table()->where('id', '=', $sessionId)->update(array('data' => $data, 'expires' => (time() + $this->maxLifetime)));
+				return (bool) $this->table()->where('id', '=', $sessionId)->update(['data' => $data, 'expires' => (time() + $this->maxLifetime)]);
 			}
 			else
 			{
-				return $this->table()->insert(array('id' => $sessionId, 'data' => $data, 'expires' => (time() + $this->maxLifetime)));
+				return $this->table()->insert(['id' => $sessionId, 'data' => $data, 'expires' => (time() + $this->maxLifetime)]);
 			}
 		}
 		catch(PDOException $e)

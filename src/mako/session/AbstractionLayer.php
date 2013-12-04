@@ -168,7 +168,7 @@ class AbstractionLayer
 	 * @param   array   $keys  (optional) Keys to preserve
 	 */
 
-	public function reflash(array $keys = array())
+	public function reflash(array $keys = [])
 	{
 		$flashdata = empty($keys) ? $this->flashdata : array_intersect_key($this->flashdata, array_flip($keys));
 
@@ -183,7 +183,7 @@ class AbstractionLayer
 
 	public function clear()
 	{
-		$_SESSION = array();
+		$_SESSION = [];
 	}
 
 	/**
