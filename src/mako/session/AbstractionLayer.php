@@ -3,6 +3,7 @@
 namespace mako\session;
 
 use \SessionHandlerInterface;
+use \mako\session\handlers\Native;
 
 /**
  * Session abstraction layer.
@@ -52,7 +53,7 @@ class AbstractionLayer
 
 		// Set the session handler, set the session name and start the session
 
-		session_set_save_handler($handler, true);
+		session_set_save_handler($handler, false);
 
 		session_name($sessionName);
 
@@ -76,9 +77,13 @@ class AbstractionLayer
 
 	public function __destruct()
 	{
+		// Write and close session
+
+		session_write_close();
+		
 		// Fixes issue with Debian and Ubuntu session garbage collection
 
-		if(mt_rand(1, 100) === 100)
+		if(mt_rand(1, 100) === 100 && !($this->handler instanceof Native))
 		{
 			$this->handler->gc(ini_get('session.gc_maxlifetime'));
 		}
