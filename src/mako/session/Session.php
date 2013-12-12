@@ -91,7 +91,7 @@ class Session
 				throw new RuntimeException(vsprintf("%s(): The session handler must implement the \SessionHandlerInterface interface.", [__METHOD__]));
 			}
 
-			static::$instance = new AbstractionLayer($handler, $config['session_name']);
+			static::$instance = new AbstractionLayer($handler, $config['session_name'], $config['cookie_parameters']);
 		}
 
 		return static::$instance;

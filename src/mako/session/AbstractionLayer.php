@@ -43,11 +43,12 @@ class AbstractionLayer
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \SessionHandlerInterface  $handler      Session handler
-	 * @param   string                    $sessionName  Session name
+	 * @param   \SessionHandlerInterface  $handler       Session handler
+	 * @param   string                    $sessionName   Session name
+	 * @param   array                     $cookieParams  Cookie parameters
 	 */
 
-	public function __construct(SessionHandlerInterface $handler, $sessionName)
+	public function __construct(SessionHandlerInterface $handler, $sessionName, array $cookieParams)
 	{
 		$this->handler = $handler;
 
@@ -56,6 +57,8 @@ class AbstractionLayer
 		session_set_save_handler($handler, false);
 
 		session_name($sessionName);
+
+		session_set_cookie_params(0, $cookieParams['path'], $cookieParams['domain'], $cookieParams['secure'], $cookieParams['httponly']);
 
 		session_start();
 
