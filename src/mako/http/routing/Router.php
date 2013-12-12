@@ -78,7 +78,7 @@ class Router
 					continue;
 				}
 
-				if($route->hasTrailingSlash() && substr($requestedRoute, -1) !== '/' && $this->request->isMain())
+				if($route->hasTrailingSlash() && !empty($requestedRoute) && substr($requestedRoute, -1) !== '/' && $this->request->isMain())
 				{
 					// Redirect to URL with trailing slash if the route should have one
 
