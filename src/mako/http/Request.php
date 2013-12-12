@@ -279,7 +279,7 @@ class Request
 		{
 			$scriptPath = pathinfo($this->server['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
-			if(stripos(mb_substr($this->server['REQUEST_URI'], mb_strlen($scriptPath)), '/index.php') === 0)
+			if(stripos(mb_substr($this->server['REQUEST_URI'], mb_strlen($scriptPath)), 'index.php') === 0)
 			{
 				$response = new Response($this, $this->response->redirect($path, [], $this->get)->status(301));
 
