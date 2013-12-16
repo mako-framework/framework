@@ -111,7 +111,7 @@ class Gatekeeper
 
 		$config = Config::get('gatekeeper');
 
-		$this->authKey       = $config['auth_key'];
+		$this->authKey          = $config['auth_key'];
 		$this->userModel        = $config['user_model'];
 		$this->cookieParameters = $config['cookie_parameters'];
 
