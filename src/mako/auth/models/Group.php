@@ -1,6 +1,6 @@
 <?php
 
-namespace app\lib\auth;
+namespace mako\auth\models;
 
 use \mako\core\Config;
 

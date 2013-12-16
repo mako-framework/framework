@@ -369,7 +369,7 @@ class Gatekeeper
 
 	protected function httpAuthentication()
 	{
-		$response = new Response('Authentication required.');
+		$response = new Response($this->request, 'Authentication required.');
 			
 		$response->header('www-authenticate', 'basic');
 			
@@ -386,7 +386,7 @@ class Gatekeeper
 
 	public function basicLogin()
 	{
-		if($this->isLoggedIn() || $this->login($this->request->username(), $this->request->password() === true))
+		if($this->isLoggedIn() || $this->login($this->request->username(), $this->request->password()) === true)
 		{
 			return;
 		}
