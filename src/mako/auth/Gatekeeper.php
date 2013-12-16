@@ -201,7 +201,7 @@ class Gatekeeper
 	 * Checks if a user is logged in.
 	 * 
 	 * @access  protected
-	 * @return  \gatekeeper\models\User
+	 * @return  \gatekeeper\models\User|null
 	 */
 
 	protected function check()
@@ -264,7 +264,7 @@ class Gatekeeper
 	 * Returns the authenticated user or NULL if no user is logged in.
 	 * 
 	 * @access  public
-	 * @return  mixed
+	 * @return  null|\mako\auth\models\User
 	 */
 
 	public function user()
@@ -277,10 +277,10 @@ class Gatekeeper
 	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT) will be retured in all other situations.
 	 * 
 	 * @access  protected
-	 * @param   string    $email     User email
-	 * @param   string    $password  User password
-	 * @param   boolean   $force     (optional) Skip the password check?
-	 * @return  mixed
+	 * @param   string       $email     User email
+	 * @param   string       $password  User password
+	 * @param   boolean      $force     (optional) Skip the password check?
+	 * @return  boolean|int
 	 */
 
 	protected function authenticate($email, $password, $force = false)
@@ -315,11 +315,11 @@ class Gatekeeper
 	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT) will be retured in all other situations.
 	 * 
 	 * @access  public
-	 * @param   string   $email     User email
-	 * @param   string   $password  User password
-	 * @param   boolean  $remember  (optional) Set a remember me cookie?
-	 * @param   boolean  $force     (optional) Login the user without checking the password?
-	 * @return  mixed
+	 * @param   string       $email     User email
+	 * @param   string       $password  User password
+	 * @param   boolean      $remember  (optional) Set a remember me cookie?
+	 * @param   boolean      $force     (optional) Login the user without checking the password?
+	 * @return  boolean|int
 	 */
 
 	public function login($email, $password, $remember = false, $force = false)
