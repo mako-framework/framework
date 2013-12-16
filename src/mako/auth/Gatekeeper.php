@@ -63,7 +63,7 @@ class Gatekeeper
 	protected $authKey;
 
 	/**
-	 * User model.
+	 * User model class.
 	 * 
 	 * @var string
 	 */
@@ -71,9 +71,17 @@ class Gatekeeper
 	protected $userModel;
 
 	/**
-	 * User.
+	 * Cookie parameters.
 	 * 
-	 * @var \gatekeeper\models\User
+	 * @var array
+	 */
+
+	protected $cookieParameters;
+
+	/**
+	 * User instance.
+	 * 
+	 * @var \mako\auth\models\User
 	 */
 
 	protected $user;
@@ -81,7 +89,7 @@ class Gatekeeper
 	/**
 	 * Session instance.
 	 * 
-	 * @var \mako\Session
+	 * @var \mako\session\AbstractionLayer
 	 */
 
 	protected $session;
@@ -104,8 +112,8 @@ class Gatekeeper
 		$config = Config::get('gatekeeper');
 
 		$this->authKey       = $config['auth_key'];
-		$this->userModel     = $config['user_model'];
-		$this->cookieOptions = $config['cookie_options'];
+		$this->userModel        = $config['user_model'];
+		$this->cookieParameters = $config['cookie_parameters'];
 
 		$this->session = Session::instance();
 	}
@@ -326,11 +334,11 @@ class Gatekeeper
 
 			if($remember === true)
 			{
-				$this->request->response()->cookie($this->authKey, $this->user->token, (3600 * 24 * 365), $this->cookieOptions);
+				$this->request->response()->cookie($this->authKey, $this->user->token, (3600 * 24 * 365), $this->cookieParameters);
 			}
 			else
 			{
-				$this->request->response()->cookie($this->authKey, $this->user->token, 0, $this->cookieOptions);
+				$this->request->response()->cookie($this->authKey, $this->user->token, 0, $this->cookieParameters);
 			}
 
 			return true;
@@ -398,7 +406,7 @@ class Gatekeeper
 
 		$this->session->forget($this->authKey);
 
-		$this->request->response()->deleteCookie($this->authKey, $this->cookieOptions);
+		$this->request->response()->deleteCookie($this->authKey, $this->cookieParameters);
 
 		$this->user = null;
 	}
