@@ -237,7 +237,7 @@ class Gatekeeper
 	}
 
 	/**
-	 * Returns TRUE if the user is logged in and FALSE if not.
+	 * Returns FALSE if the user is logged in and TRUE if not.
 	 * 
 	 * @access  public
 	 * @return  boolean
@@ -249,7 +249,7 @@ class Gatekeeper
 	}
 
 	/**
-	 * Returns TRUE if the user isn't logged in and FALSE if it is.
+	 * Returns FALSE if the user isn't logged in and TRUE if it is.
 	 * 
 	 * @access  public
 	 * @return  boolean
