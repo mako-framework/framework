@@ -46,7 +46,7 @@ class File
 	 * Returns filesize in a human friendly format.
 	 *
 	 * @access  public
-	 * @param   int|string  $size    Path to file or size in bytes
+	 * @param   int|string  $size    File path or size in bytes
 	 * @param   boolean     $binary  (optional) True to use binary prefixes and false to use decimal prefixes
 	 * @return  string
 	 */
@@ -80,12 +80,25 @@ class File
 			return '0 byte';
 		}
 	}
+
+	/**
+	 * Returns the file extension.
+	 * 
+	 * @access  public
+	 * @param   string  File path
+	 * @return  string
+	 */
+
+	public static function extension($file)
+	{
+		return pathinfo($file, PATHINFO_EXTENSION);
+	}
 	
 	/**
 	 * Returns the mime type of a file. Returns false if the mime type is not found.
 	 *
 	 * @access  public
-	 * @param   string   $file   Full path to the file
+	 * @param   string   $file   File path
 	 * @param   boolean  $guess  (optional) Set to false to disable mime type guessing
 	 * @return  string
 	 */
