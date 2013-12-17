@@ -62,7 +62,7 @@ class ErrorHandler
 		{
 			$e = error_get_last();
 			
-			if($e !== null && (error_reporting() & $e['type']) !== 0)
+			if($e !== null && (error_reporting() & $e['type']) !== 0 && !defined('MAKO_DISABLE_FATAL_ERROR_HANDLER'))
 			{
 				ErrorHandler::handler(new ErrorException($e['message'], $e['type'], 0, $e['file'], $e['line']));
 

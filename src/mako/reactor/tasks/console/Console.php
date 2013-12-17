@@ -108,19 +108,6 @@ class Console
 	//---------------------------------------------
 
 	/**
-	 * Displays welcome message.
-	 * 
-	 * @access  protected
-	 */
-
-	protected function welcome()
-	{
-		$this->output->writeln('Welcome to the <green>Mako</green> debug console. Type <yellow>exit</yellow> or <yellow>quit</yellow> to exit.');
-
-		$this->output->nl();
-	}
-
-	/**
 	 * Returns an array of all the autocomplete items.
 	 * 
 	 * @access protected
@@ -144,7 +131,7 @@ class Console
 
 	protected function output($output)
 	{
-		$this->output->writeln('>> ' . $output);
+		$this->output->writeln(' → ' . $output);
 	}
 
 	/**
@@ -224,19 +211,15 @@ class Console
 
 	public function run()
 	{
-		$this->output->clearScreen();
-
-		$this->welcome();
-
 		while(true)
 		{
 			if($this->readline)
 			{
-				$__input = readline('<< ');
+				$__input = readline('mako> ');
 			}
 			else
 			{
-				fwrite(STDOUT, '<< ');
+				fwrite(STDOUT, 'mako> ');
 
 				$__input = fgets(STDIN);
 			}
@@ -248,7 +231,7 @@ class Console
 				continue;
 			}
 
-			if(in_array($__input, ['exit', 'quit']))
+			if(in_array($__input, ['exit', 'die', 'quit']))
 			{
 				break;
 			}
@@ -271,7 +254,7 @@ class Console
 			}
 			catch(Exception $e)
 			{
-				$this->output->error('>> ' . $e->getMessage());
+				$this->output->error($e->getMessage());
 
 				continue;
 			}
@@ -305,8 +288,6 @@ class Console
 
 			unset($__output);
 		}
-
-		$this->output->writeln(PHP_EOL . 'Goodbye!');
 	}
 }
 
