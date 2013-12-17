@@ -13,7 +13,7 @@ use \mako\session\handlers\Native;
  * @license    http://www.makoframework.com/license
  */
 
-class AbstractionLayer
+class SessionWrapper
 {
 	//---------------------------------------------
 	// Class properties

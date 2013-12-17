@@ -3,7 +3,7 @@
 namespace mako\session;
 
 use \mako\core\Config;
-use \mako\session\AbstractionLayer;
+use \mako\session\SessionWrapper;
 use \SessionHandlerInterface;
 use \RuntimeException;
 
@@ -24,7 +24,7 @@ class Session
 	/**
 	 * Session abstraction layer instance.
 	 * 
-	 * @var \mako\session\AbstractionLayer
+	 * @var \mako\session\SessionWrapper
 	 */
 
 	protected static $instance;
@@ -91,7 +91,7 @@ class Session
 				throw new RuntimeException(vsprintf("%s(): The session handler must implement the \SessionHandlerInterface interface.", [__METHOD__]));
 			}
 
-			static::$instance = new AbstractionLayer($handler, $config['session_name'], $config['cookie_parameters']);
+			static::$instance = new SessionWrapper($handler, $config['session_name'], $config['cookie_parameters']);
 		}
 
 		return static::$instance;

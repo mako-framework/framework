@@ -89,7 +89,7 @@ class Gatekeeper
 	/**
 	 * Session instance.
 	 * 
-	 * @var \mako\session\AbstractionLayer
+	 * @var \mako\session\SessionWrapper
 	 */
 
 	protected $session;
