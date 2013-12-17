@@ -61,15 +61,6 @@ class SessionWrapper
 		session_set_cookie_params(0, $cookieParams['path'], $cookieParams['domain'], $cookieParams['secure'], $cookieParams['httponly']);
 
 		session_start();
-
-		// Fetch flash data if there is any and unset it
-
-		if(isset($_SESSION['mako:flashdata']))
-		{
-			$this->flashdata = $_SESSION['mako:flashdata'];
-
-			unset($_SESSION['mako:flashdata']);
-		}
 	}
 
 	/**
@@ -80,6 +71,11 @@ class SessionWrapper
 
 	public function __destruct()
 	{
+
+		// Replace old flash data with new
+		
+		$_SESSION['mako:flashdata'] = $this->flashdata;
+
 		// Write and close session
 
 		session_write_close();
@@ -95,6 +91,18 @@ class SessionWrapper
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns all session data.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getAll()
+	{
+		return $_SESSION;
+	}
 
 	/**
 	 * Store a value in the session.
@@ -161,11 +169,11 @@ class SessionWrapper
 	{
 		if($data === null)
 		{
-			return isset($this->flashdata[$key]) ? $this->flashdata[$key] : false;
+			return isset($_SESSION['mako:flashdata'][$key]) ? $_SESSION['mako:flashdata'][$key] : false;
 		}
 		else
 		{
-			$_SESSION['mako:flashdata'][$key] = $data;
+			$this->flashdata[$key] = $data;
 		}
 	}
 
@@ -178,9 +186,9 @@ class SessionWrapper
 
 	public function reflash(array $keys = [])
 	{
-		$flashdata = empty($keys) ? $this->flashdata : array_intersect_key($this->flashdata, array_flip($keys));
+		$flashdata = empty($keys) ? $_SESSION['mako:flashdata'] : array_intersect_key($_SESSION['mako:flashdata'], array_flip($keys));
 
-		$_SESSION['mako:flashdata'] = array_merge(isset($_SESSION['mako:flashdata']) ? $_SESSION['mako:flashdata'] : [] , $flashdata);
+		$this->flashdata = array_merge($this->flashdata, $flashdata);
 	}
 
 	/**
