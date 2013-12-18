@@ -69,8 +69,6 @@ class Boris
 		// Set error reporting
 
 		error_reporting(E_ALL | E_STRICT);
-		ini_set('error_log', NULL);
-		ini_set('log_errors', 1);
 
 		// Enable autocompletion
 
