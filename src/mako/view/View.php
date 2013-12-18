@@ -53,8 +53,8 @@ class View
 
 	protected static $renderers = 
 	[
-		'.php'     => '\mako\view\renderers\PHP',
 		'.tpl.php' => '\mako\view\renderers\Template',
+		'.php'     => '\mako\view\renderers\PHP',
 	];
 
 	/**
@@ -113,13 +113,23 @@ class View
 	 * Registers a custom view renderer.
 	 * 
 	 * @access  public
-	 * @param   string  $extension  Extension to handle
-	 * @param   string  $renderer   Renderer
+	 * @param   string   $extension  Extension to handle
+	 * @param   string   $renderer   Renderer
+	 * @param   boolean  $prepend    (optional) Prepend the renderer to the renderer stack?
 	 */
 
-	public static function registerRenderer($extension, $renderer)
+	public static function registerRenderer($extension, $renderer, $prepend = true)
 	{
-		static::$renderers[$extension] = $renderer;
+		if($prepend)
+		{
+			static::$renderers = [$extension => $renderer] + static::$renderers;
+		}
+		else
+		{
+			static::$renderers[$extension] = $renderer;
+		}
+
+		
 	}
 
 	/**
