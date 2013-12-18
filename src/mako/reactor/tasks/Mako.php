@@ -2,8 +2,7 @@
 
 namespace mako\reactor\tasks;
 
-use \Boris\Boris;
-
+use \mako\reactor\tasks\console\Boris;
 use \mako\reactor\tasks\console\Console;
 
 /**
@@ -87,39 +86,25 @@ class Mako extends \mako\reactor\Task
 
 		$this->output->clearScreen();
 
+		// Define path to history file
+
+		$history = MAKO_APPLICATION_PATH . '/storage/console_history';
+
 		// Start Boris if all the requirements are met and fall back to the default console if not
 
 		if(extension_loaded('readline') && extension_loaded('pcntl') && extension_loaded('posix') && !$disabled)
 		{
-			// Print welcome message
-
-			$this->output->writeln('Welcome to the <green>Mako</green> debug console. Type <yellow>exit;</yellow> or <yellow>die;</yellow> to exit.');
-
-			$this->output->nl();
-
-			// Disable mako error handlers
-
-			restore_error_handler();
-			restore_exception_handler();
-			define('MAKO_DISABLE_FATAL_ERROR_HANDLER', true);
-
 			// Start Boris REPL
 
-			$boris = new Boris('mako> ');
-			
-			$boris->start();
+			$console = new Boris($this->input, $this->output, $history);
+
+			$console->run();
 		}
 		else
 		{
-			// Print welcome message
-
-			$this->output->writeln('Welcome to the <green>Mako</green> debug console. Type <yellow>exit</yellow> or <yellow>quit</yellow> to exit.');
-
-			$this->output->nl();
-
 			// Start fallback REPL
 
-			$console = new Console($this->input, $this->output);
+			$console = new Console($this->input, $this->output, $history);
 
 			$console->run();
 		}

@@ -7,7 +7,7 @@ use \mako\reactor\io\Output;
 use \Exception;
 
 /**
- * Interactive debug console.
+ * Interactive REPL console.
  * 
  * Based on PHPA by Dadiv Phillips (http://david.acz.org/).
  *
@@ -23,7 +23,7 @@ class Console
 	//---------------------------------------------
 
 	/**
-	 * Input
+	 * Input.
 	 * 
 	 * @var \mako\reactor\io\Input
 	 */
@@ -31,12 +31,20 @@ class Console
 	protected $input;
 
 	/**
-	 * Output
+	 * Output.
 	 * 
 	 * @var \mako\reactor\io\Output
 	 */
 
 	protected $output;
+
+	/**
+	 * Path to history file.
+	 * 
+	 * @var string
+	 */
+
+	protected $history;
 
 	/**
 	 * Is readline available?
@@ -56,20 +64,27 @@ class Console
 	 * @access  public
 	 * @param   \mako\reactor\io\Input   $input   Input
 	 * @param   \mako\reactor\io\Output  $output  Output
+	 * @param   string                   $history  Path to history file
 	 */
 
-	public function __construct(Input $input, Output $output)
+	public function __construct(Input $input, Output $output, $history)
 	{
 		$this->input = $input;
 
 		$this->output = $output;
 
+		$this->history = $history;
+
 		$this->readline = extension_loaded('readline');
+
+		// Set error reporting
 
 		error_reporting(E_ALL | E_STRICT);
 		ini_set('error_log', NULL);
 		ini_set('log_errors', 1);
 		ini_set('display_errors', 0);
+
+		// Empty output buffers and enable implicit flushing
 
 		while (ob_get_level())
 		{
@@ -80,12 +95,16 @@ class Console
 
 		if($this->readline)
 		{
-			if(!$this->input->param('fresh', false))
-			{
-				@readline_read_history(MAKO_APPLICATION_PATH . '/storage/console_history');
-			}
+			// Enable autocompletion if readline is available
 
-			readline_completion_function([$this, 'autocomplete']);	
+			readline_completion_function(array($this, 'autocomplete'));
+
+			// Delete the history file if the user wants to start a fresh session
+
+			if($this->input->param('fresh', false))
+			{
+				@unlink($this->history);
+			}
 		}
 	}
 
@@ -97,9 +116,11 @@ class Console
 
 	public function __destruct()
 	{
-		if($this->readline && !$this->input->param('forget', false))
+		// Delete the history file if the user wants to forget
+		
+		if($this->readline && $this->input->param('forget', false))
 		{
-			@readline_write_history(MAKO_APPLICATION_PATH . '/storage/console_history');
+			@unlink($this->history);
 		}
 	}
 
@@ -113,7 +134,7 @@ class Console
 	 * @access protected
 	 */
 
-	protected function autocomplete($line, $pos, $cursor)
+	public function autocomplete($line, $pos, $cursor)
 	{
 		$functions = get_defined_functions();
 
@@ -211,6 +232,10 @@ class Console
 
 	public function run()
 	{
+		$this->output->writeln('Welcome to the <green>Mako</green> debug console. Type <yellow>exit</yellow> or <yellow>quit</yellow> to exit.');
+
+		$this->output->nl();
+
 		while(true)
 		{
 			if($this->readline)
