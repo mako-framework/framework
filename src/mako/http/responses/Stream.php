@@ -93,8 +93,8 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 	 * Sends the response.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Request
-	 * @param   \mako\http\Response
+	 * @param   \mako\http\Request   $request  Request instance
+	 * @param   \mako\http\Response  $response  Response instance
 	 */
 
 	public function send(Request $request, Response $response)
