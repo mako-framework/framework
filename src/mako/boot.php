@@ -128,7 +128,7 @@ if(!function_exists('__'))
 
 	function __($string, array $vars = [], $language = null)
 	{
-		return mako\I18n::get($string, $vars, $language);
+		return mako\i18n\I18n::get($string, $vars, $language);
 	}
 }
 
