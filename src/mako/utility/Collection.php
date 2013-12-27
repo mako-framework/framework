@@ -48,6 +48,18 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 	//---------------------------------------------
 
 	/**
+	 * Returns all the items in the collection.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getItems()
+	{
+		return $this->items;
+	}
+
+	/**
 	 * Checks whether or not an offset exists.
 	 * 
 	 * @access  public
