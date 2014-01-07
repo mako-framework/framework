@@ -585,7 +585,7 @@ class Validate
 
 		// Ignore a given value
 		
-		if (isset($parameters[2]))
+		if(isset($parameters[2]))
 		{
 			$query->where($parameters[1], '!=', $parameters[2]);
 		}
