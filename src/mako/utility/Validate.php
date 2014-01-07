@@ -581,7 +581,16 @@ class Validate
 
 	protected function validateUnique($input, $parameters)
 	{
-		return (Database::connection()->table($parameters[0])->where($parameters[1], '=', $input)->count() == 0);
+		$query = Database::connection()->table($parameters[0])->where($parameters[1], '=', $input);
+
+		// Ignore a given value
+		
+		if (isset($parameters[2]))
+		{
+			$query->where($parameters[1], '!=', $parameters[2]);
+		}
+
+		return ($query->count() == 0);
 	}
 
 	/**
