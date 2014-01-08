@@ -139,10 +139,7 @@ class Template
 
 		// Compile block output
 
-		return preg_replace_callback('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', function($matches)
-		{
-			return vsprintf('<?php echo mako\view\renderers\template\Block::get(\'%s\', \'%s\'); ?>', [$matches[1], addslashes($matches[2])]);
-		}, $template);
+		return preg_replace('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', '<?php mako\view\renderers\template\Block::open(\'$1\'); ?>$2<?php mako\view\renderers\template\Block::output(\'$1\'); ?>', $template);
 	}
 
 	/**

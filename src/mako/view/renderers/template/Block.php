@@ -75,17 +75,19 @@ class Block
 	}
 
 	/**
-	 * Returns the contents of a template block.
-	 *
+	 * Output a template block.
+	 * 
 	 * @access  public
-	 * @param   string  $name    Block name
-	 * @param   string  $parent  Parent content
-	 * @return  string
+	 * @param   string  $name  Block name
 	 */
 
-	public static function get($name, $parent)
+	public static function output($name)
 	{
-		return isset(static::$blocks[$name]) ? str_replace('__PARENT__', stripslashes($parent), static::$blocks[$name]) : stripslashes($parent);
+		array_pop(static::$openBlocks);
+
+		$output = ob_get_clean();
+
+		echo isset(static::$blocks[$name]) ? str_replace('__PARENT__', $output, static::$blocks[$name]) : $output;
 	}
 }
 
