@@ -337,7 +337,7 @@ class Route
 			}
 		}
 
-		$route = preg_replace('/{(\w+)}/', '(?P<$1>[^/]++)', $route);
+		$route = preg_replace('/{(!?[^0-9][\w]+)}/', '(?P<$1>[^/]++)', $route);
 
 		if($this->hasTrailingSlash)
 		{
