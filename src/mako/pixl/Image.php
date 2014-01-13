@@ -351,7 +351,7 @@ class Image
 	}
 
 	/**
-	 * Saves image to file and in the specified quality.
+	 * Saves image to file.
 	 *
 	 * @access  public
 	 * @param   string  $file     Path to the image file
