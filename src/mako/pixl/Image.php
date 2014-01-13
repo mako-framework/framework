@@ -198,6 +198,19 @@ class Image
 	}
 
 	/**
+	 * Makes sure that the quality is between 0 and 100.
+	 * 
+	 * @access  protected
+	 * @param   int        $quality  Image quality
+	 * @return  int
+	 */
+
+	protected function normalizeImageQuality($quality)
+	{
+		$quality = max(min((int) $quality, 100), 0);
+	}
+
+	/**
 	 * Rotates the image using the given angle in degrees.
 	 *
 	 * @access  public
@@ -334,13 +347,7 @@ class Image
 
 	public function getImageBlob($type = null, $quality = 95)
 	{
-		// Make sure that quality is between 0 and 100
-
-		$quality = max(min((int) $quality, 100), 0);
-
-		// Return the image blob
-
-		return $this->processor->getImageBlob($type, $quality);
+		return $this->processor->getImageBlob($type, $this->normalizeImageQuality($quality));
 	}
 
 	/**
@@ -357,13 +364,9 @@ class Image
 
 		$this->writeCheck($file);
 
-		// Make sure that quality is between 0 and 100
-
-		$quality = max(min((int) $quality, 100), 0);
-
 		// Save the image
 
-		$this->processor->save($file, $quality);
+		$this->processor->save($file, $this->normalizeImageQuality($quality));
 	}
 }
 
