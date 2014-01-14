@@ -3,7 +3,6 @@
 namespace mako\http;
 
 use \Closure;
-use \mako\core\Config;
 use \mako\security\MAC;
 use \mako\http\Request;
 use \mako\http\responses\File;
@@ -87,7 +86,7 @@ class Response
 	 * @var boolean
 	 */
 
-	protected $outputCompression;
+	protected $outputCompression = false;
 
 	/**
 	 * Enable response cache?
@@ -95,7 +94,7 @@ class Response
 	 * @var boolean
 	 */
 
-	protected $responseCache;
+	protected $responseCache = false;
 
 	/**
 	 * Output filters.
@@ -203,11 +202,6 @@ class Response
 		$this->request = $request;
 
 		$this->body($body);
-
-		$config = Config::get('application');
-
-		$this->outputCompression = $config['compress_output'];
-		$this->responseCache     = $config['response_cache'];
 	}
 	
 	//---------------------------------------------

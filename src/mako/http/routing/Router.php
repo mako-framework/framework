@@ -30,6 +30,14 @@ class Router
 
 	protected $request;
 
+	/**
+	 * Route collection.
+	 * 
+	 * @var \mako\http\routing\Routes
+	 */
+
+	protected $routes;
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -38,12 +46,14 @@ class Router
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Request  $request  Request
+	 * @param   \mako\http\Request         $request  Request
+	 * @param   \mako\http\routing\Routes  $routes   Routes
 	 */
 
-	public function __construct(Request $request)
+	public function __construct(Request $request, Routes $routes)
 	{
 		$this->request = $request;
+		$this->routes  = $routes;
 	}
 
 	//---------------------------------------------
@@ -61,7 +71,7 @@ class Router
 	{
 		$matched = false;
 
-		$routes = Routes::getRoutes();
+		$routes = $this->routes->getRoutes();
 
 		$requestMethod = $this->request->method();
 
@@ -78,13 +88,13 @@ class Router
 					continue;
 				}
 
-				if($route->hasTrailingSlash() && !empty($requestedRoute) && substr($requestedRoute, -1) !== '/' && $this->request->isMain())
+				if($route->hasTrailingSlash() && !empty($requestedRoute) && substr($requestedRoute, -1) !== '/')
 				{
 					// Redirect to URL with trailing slash if the route should have one
 
-					$response = new Response($this->request, $this->request->response()->redirect($requestedRoute . '/', [], $this->request->get())->status(301));
+					/*$response = new Response($this->request, $this->request->response()->redirect($requestedRoute . '/', [], $this->request->get())->status(301));
 
-					$response->send();
+					$response->send();*/
 
 					exit;
 				}

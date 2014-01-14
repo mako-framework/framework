@@ -2,14 +2,8 @@
 
 namespace mako\http;
 
-use \mako\i18n\I18n;
-use \mako\core\Config;
 use \mako\utility\Arr;
 use \mako\security\MAC;
-use \mako\http\Response;
-use \mako\http\routing\URL;
-use \mako\http\routing\Router;
-use \mako\http\routing\Dispatcher;
 
 /**
  * Executes requets.
@@ -24,22 +18,6 @@ class Request
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-
-	/**
-	 * Holds the main request instance.
-	 * 
-	 * @var \mako\http\Request
-	 */
-
-	protected static $main;
-
-	/**
-	 * Response.
-	 * 
-	 * @var \mako\http\Response
-	 */
-
-	protected $response;
 
 	/**
 	 * GET data
@@ -187,25 +165,16 @@ class Request
 	 * @param   string  $body    (optional) Request body
 	 */
 
-	public function __construct($path = null, $method = null, array $get = [], array $post = [], array $cookies = [], array $files = [], array $server = [], $body = null)
+	public function __construct(array $request = [], array $languages = [])
 	{
-		static $isMainRequest = true;
-
-		// Referece to the main request
-
-		if($isMainRequest)
-		{
-			static::$main = $this;
-		}
-
 		// Collect request data
 
-		$this->get     = $get     ?: $_GET;
-		$this->post    = $post    ?: $_POST;
-		$this->cookies = $cookies ?: $_COOKIE;
-		$this->files   = $files   ?: $_FILES;
-		$this->server  = $server  ?: $_SERVER;
-		$this->body    = $body;
+		$this->get     = isset($request['GET']) ? $request['GET'] : $_GET;
+		$this->post    = isset($request['POST']) ? $request['POST'] : $_POST;
+		$this->cookies = isset($request['COOKIE']) ? $request['COOKIE'] : $_COOKIE;
+		$this->files   = isset($request['FILES']) ? $request['FILES'] : $_FILES;
+		$this->server  = isset($request['SERVER']) ? $request['SERVER'] : $_SERVER;
+		$this->body    = isset($request['body']) ? $request['body'] : null;
 
 		// Collect the request headers
 
@@ -215,19 +184,11 @@ class Request
 
 		$this->collectRequestInfo();
 
-		// Create response
-
-		$this->response = new Response($this);
-
 		// Set the request path and method
 
-		$this->path = ($isMainRequest && empty($path)) ? $this->determinePath() : $path;
+		$this->path = isset($request['path']) ? $request['path'] : $this->determinePath($languages);
 
-		$this->method = ($isMainRequest && empty($method)) ? $this->determineMethod() : ($method ?: static::$main->method());
-
-		// Subsequent requests will be treated as subrequests
-
-		$isMainRequest = false;
+		$this->method = isset($request['method']) ? $request['path'] : $this->determineMethod();
 	}
 
 	//---------------------------------------------
@@ -241,7 +202,7 @@ class Request
 	 * @return  string
 	 */
 
-	protected function determinePath()
+	protected function determinePath($languages)
 	{
 		$path = '/';
 
@@ -273,31 +234,13 @@ class Request
 			}
 		}
 
-		// Redirect to the current URL without "index.php" if clean URLs are enabled
-
-		if(Config::get('application.clean_urls') && isset($this->server['REQUEST_URI']) && stripos($this->server['REQUEST_URI'], 'index.php') !== false)
-		{
-			$scriptPath = pathinfo($this->server['SCRIPT_NAME'], PATHINFO_DIRNAME);
-
-			if(stripos(mb_substr($this->server['REQUEST_URI'], mb_strlen($scriptPath)), 'index.php') === 0)
-			{
-				$response = new Response($this, $this->response->redirect($path, [], $this->get)->status(301));
-
-				$response->send();
-
-				exit;
-			}
-		}
-
 		// Remove the locale segment from the path
 			
-		foreach(Config::get('application.languages') as $key => $language)
+		foreach($languages as $key => $language)
 		{
 			if($path === '/' . $key || strpos($path, '/' . $key . '/') === 0)
 			{
-				$this->language = $key;
-
-				I18n::language($language);
+				$this->language = $language;
 
 				$path = '/' . ltrim(mb_substr($path, (mb_strlen($key) + 1)), '/');
 
@@ -435,42 +378,6 @@ class Request
 
 			return $dispatcher->dispatch();
 		}
-	}
-
-	/**
-	 * Returns the main request.
-	 * 
-	 * @access  public
-	 * @return  \mako\http\Request
-	 */
-
-	public static function main()
-	{
-		return static::$main;
-	}
-
-	/**
-	 * Returns the request response.
-	 * 
-	 * @access  public
-	 * @return  \mako\http\Response
-	 */
-
-	public function response()
-	{
-		return $this->response;
-	}
-
-	/**
-	 * Returns TRUE if this is the main request and FALSE if not.
-	 *
-	 * @access  public
-	 * @return  boolean
-	 */
-
-	public function isMain()
-	{
-		return (static::$main === $this);
 	}
 
 	/**
@@ -772,7 +679,7 @@ class Request
 	 * @return  string
 	 */
 
-	public function language()
+	public function getLanguage()
 	{
 		return $this->language;
 	}

@@ -2,6 +2,9 @@
 
 namespace mako\core;
 
+use \mako\utility\Arr;
+use \RuntimeException;
+
 /**
  * Config class.
  *
@@ -10,9 +13,6 @@ namespace mako\core;
  * @license    http://www.makoframework.com/license
  */
 
-use \mako\utility\Arr;
-use \RuntimeException;
-
 class Config
 {
 	//---------------------------------------------
@@ -20,26 +20,35 @@ class Config
 	//---------------------------------------------
 
 	/**
-	 * Config array.
-	 *
+	 * Application path.
+	 * 
+	 * @var string
+	 */
+
+	protected $applicationPath;
+
+	/**
+	 * Configuration.
+	 * 
 	 * @var array
 	 */
 
-	protected static $config = [];
+	protected $config = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
-	 *
-	 * @access  protected
+	 * Constructor.
+	 * 
+	 * @access  public
+	 * @param   string  $applicationPath  Application path
 	 */
 
-	protected function __construct()
+	public function __construct($applicationPath)
 	{
-		// Nothing here
+		$this->applicationPath = $applicationPath;
 	}
 
 	//---------------------------------------------
@@ -54,10 +63,11 @@ class Config
 	 * @return  array
 	 */
 
-	protected static function load($file)
+	protected function load($file)
 	{
 		$found = false;
-		$paths = mako_cascading_paths('config', $file);
+
+		$paths = mako_cascading_paths($this->applicationPath, '/config', $file);
 
 		foreach($paths as $path)
 		{
@@ -80,7 +90,7 @@ class Config
 
 		if(mako_env() !== null)
 		{
-			$paths = mako_cascading_paths('config/' . mako_env(), $file);
+			$paths = mako_cascading_paths($this->applicationPath, '/config/' . mako_env(), $file);
 
 			foreach($paths as $path)
 			{
@@ -107,22 +117,22 @@ class Config
 	 * @return  mixed
 	 */
 
-	public static function get($key, $default = null)
+	public function get($key, $default = null)
 	{
 		$keys = explode('.', $key, 2);
 
-		if(!isset(static::$config[$keys[0]]))
+		if(!isset($this->config[$keys[0]]))
 		{
-			static::$config[$keys[0]] = static::load($keys[0]);
+			$this->config[$keys[0]] = $this->load($keys[0]);
 		}
 
 		if(!isset($keys[1]))
 		{
-			return static::$config[$keys[0]];
+			return $this->config[$keys[0]];
 		}
 		else
 		{
-			return Arr::get(static::$config[$keys[0]], $keys[1], $default);
+			return Arr::get($this->config[$keys[0]], $keys[1], $default);
 		}
 	}
 
@@ -138,12 +148,12 @@ class Config
 	{
 		$config = strtok($key, '.');
 
-		if(!isset(static::$config[$config]))
+		if(!isset($this->config[$config]))
 		{
-			static::get($config);
+			$this->get($config);
 		}
 
-		Arr::set(static::$config, $key, $value);
+		Arr::set($this->config, $key, $value);
 	}
 
 	/**
@@ -154,9 +164,9 @@ class Config
 	 * @return  boolean
 	 */
 
-	public static function delete($key)
+	public function delete($key)
 	{
-		return Arr::delete(static::$config, $key);
+		return Arr::delete($this->config, $key);
 	}
 }
 

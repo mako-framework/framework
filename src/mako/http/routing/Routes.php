@@ -25,7 +25,7 @@ class Routes
 	 * @var array
 	 */
 
-	protected static $filters = [];
+	protected $filters = [];
 
 	/**
 	 * Route groups.
@@ -33,7 +33,7 @@ class Routes
 	 * @var array
 	 */
 
-	protected static $groups = [];
+	protected $groups = [];
 
 	/**
 	 * Registered routes.
@@ -41,7 +41,7 @@ class Routes
 	 * @var array
 	 */
 
-	protected static $routes = [];
+	protected  $routes = [];
 
 	/**
 	 * Named routes.
@@ -49,19 +49,19 @@ class Routes
 	 * @var array
 	 */
 
-	protected static $namedRoutes = [];
+	protected $namedRoutes = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
+	 * Constructor.
 	 *
-	 * @access  protected
+	 * @access  public
 	 */
 
-	protected function __construct()
+	public function __construct()
 	{
 		// Nothing here
 	}
@@ -78,14 +78,14 @@ class Routes
 	 * @return  \Closure
 	 */
 
-	public static function getFilter($filter)
+	public function getFilter($filter)
 	{
-		if(!isset(static::$filters[$filter]))
+		if(!isset($this->filters[$filter]))
 		{
 			throw new RuntimeException(vsprintf("%s(): No filter named [ %s ] has been defined.", [__METHOD__, $filter]));
 		}
 		
-		return static::$filters[$filter];
+		return $this->filters[$filter];
 	}
 
 	/**
@@ -96,9 +96,9 @@ class Routes
 	 * @return  array
 	 */
 
-	public static function getRoutes()
+	public function getRoutes()
 	{
-		return static::$routes;
+		return $this->routes;
 	}
 
 	/**
@@ -109,9 +109,9 @@ class Routes
 	 * @return  boolean
 	 */
 
-	public static function hasNamedRoute($name)
+	public function hasNamedRoute($name)
 	{
-		return isset(static::$namedRoutes[$name]);
+		return isset($this->namedRoutes[$name]);
 	}
 
 	/**
@@ -122,14 +122,14 @@ class Routes
 	 * @return  string
 	 */
 
-	public static function getNamedRoute($name)
+	public function getNamedRoute($name)
 	{
-		if(!isset(static::$namedRoutes[$name]))
+		if(!isset($this->namedRoutes[$name]))
 		{
 			throw new RuntimeException(vsprintf("%s(): No route named [ %s ] has been defined.", [__METHOD__, $name]));
 		}
 
-		return static::$namedRoutes[$name];
+		return $this->namedRoutes[$name];
 	}
 
 	/**
@@ -140,9 +140,9 @@ class Routes
 	 * @param   \Closure  $filter  Filter
 	 */
 
-	public static function filter($name, Closure $filter)
+	public function filter($name, Closure $filter)
 	{
-		static::$filters[$name] = $filter;
+		$this->filters[$name] = $filter;
 	}
 
 	/**
@@ -153,13 +153,13 @@ class Routes
 	 * @param   \Closure  $routes   Route closure
 	 */
 
-	public static function group(array $options, Closure $routes)
+	public function group(array $options, Closure $routes)
 	{
-		static::$groups[] = $options;
+		$this->groups[] = $options;
 
 		$routes();
 
-		array_pop(static::$groups);
+		array_pop($this->groups);
 	}
 
 	/**
@@ -172,20 +172,20 @@ class Routes
 	 * @param   string           $name     (optional) Route name
 	 */
 
-	protected static function addRoute(array $methods, $route, $action, $name = null)
+	protected function addRoute(array $methods, $route, $action, $name = null)
 	{
 		$route = new Route($methods, $route, $action, $name);
 
-		static::$routes[] = $route;
+		$this->routes[] = $route;
 
 		if(!is_null($name))
 		{
-			static::$namedRoutes[$name] = $route;
+			$this->namedRoutes[$name] = $route;
 		}
 
-		if(!empty(static::$groups))
+		if(!empty($this->groups))
 		{
-			foreach(static::$groups as $group)
+			foreach($this->groups as $group)
 			{
 				foreach($group as $option => $value)
 				{
@@ -206,9 +206,9 @@ class Routes
 	 * @param   string           $name    (optional) Route name
 	 */
 
-	public static function get($route, $action, $name = null)
+	public function get($route, $action, $name = null)
 	{
-		return static::addRoute(['GET', 'HEAD', 'OPTIONS'], $route, $action, $name);
+		return $this->addRoute(['GET', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -220,9 +220,9 @@ class Routes
 	 * @param   string           $name    (optional) Route name
 	 */
 
-	public static function post($route, $action, $name = null)
+	public function post($route, $action, $name = null)
 	{
-		return static::addRoute(['POST', 'OPTIONS'], $route, $action, $name);
+		return $this->addRoute(['POST', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -234,9 +234,9 @@ class Routes
 	 * @param   string           $name    (optional) Route name
 	 */
 
-	public static function put($route, $action, $name = null)
+	public function put($route, $action, $name = null)
 	{
-		return static::addRoute(['PUT', 'OPTIONS'], $route, $action, $name);
+		return $this->addRoute(['PUT', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -248,9 +248,9 @@ class Routes
 	 * @param   string           $name    (optional) Route name
 	 */
 
-	public static function patch($route, $action, $name = null)
+	public function patch($route, $action, $name = null)
 	{
-		return static::addRoute(['PATCH', 'OPTIONS'], $route, $action, $name);
+		return $this->addRoute(['PATCH', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -262,9 +262,9 @@ class Routes
 	 * @param   string           $name    (optional) Route name
 	 */
 
-	public static function delete($route, $action, $name = null)
+	public function delete($route, $action, $name = null)
 	{
-		return static::addRoute(['DELETE', 'OPTIONS'], $route, $action, $name);
+		return $this->addRoute(['DELETE', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -276,9 +276,9 @@ class Routes
 	 * @param   string           $name    (optional) Route name
 	 */
 
-	public static function all($route, $action, $name = null)
+	public function all($route, $action, $name = null)
 	{
-		return static::addRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $route, $action, $name);
+		return $this->addRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -291,9 +291,9 @@ class Routes
 	 * @param   string           $name     (optional) Route name
 	 */
 
-	public static function methods(array $methods, $route, $action, $name = null)
+	public function methods(array $methods, $route, $action, $name = null)
 	{
-		return static::addRoute($methods, $route, $action, $name);
+		return $this->addRoute($methods, $route, $action, $name);
 	}
 }
 
