@@ -167,12 +167,11 @@ class Dispatcher
 	 * 
 	 * @access  protected
 	 * @param   \Closure   $closure  Closure
-	 * @return  mixed
 	 */
 
 	protected function dispatchClosure(Closure $closure)
 	{
-		return call_user_func_array($closure, array_merge(array($this->request, $this->response), $this->route->getParameters()));
+		$this->response->body(call_user_func_array($closure, array_merge(array($this->request, $this->response), $this->route->getParameters())));
 	}
 
 	/**
@@ -180,7 +179,6 @@ class Dispatcher
 	 * 
 	 * @access  protected
 	 * @param   string     $controller  Controller
-	 * @return  mixed
 	 */
 
 	protected function dispatchController($controller)
@@ -198,20 +196,22 @@ class Dispatcher
 
 		if(empty($returnValue))
 		{
-			// The before filter didn't return any data so we can execute the route action and after filter
+			// The before filter didn't return any data so we can the response body to whatever the
+			// route action returns before executing its after filter
 
-			$returnValue = call_user_func_array([$controller, $method], $this->route->getParameters());
+			$this->response->body(call_user_func_array([$controller, $method], $this->route->getParameters()));
 
 			$controller->afterFilter();
 		}
 		else
 		{
-			// The before filter returned data so we need to skip the after filters
+			// The before filter returned data so we'll set the response body to whatever it returned
+			// and tell the dispatcher to skip all after filters
+
+			$this->response->body($returnValue);
 
 			$this->skipAfterFilters = true;
 		}
-
-		return $returnValue;
 	}
 
 	/**
@@ -235,11 +235,11 @@ class Dispatcher
 
 			if($action instanceof Closure)
 			{
-				$this->response->body($this->dispatchClosure($action));
+				$this->dispatchClosure($action);
 			}
 			else
 			{
-				$this->response->body($this->dispatchController($action));
+				$this->dispatchController($action);
 			}
 
 			if(!$this->skipAfterFilters)
