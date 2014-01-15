@@ -27,13 +27,13 @@ $app = Application::instance(MAKO_APPLICATION_PATH);
 
 // Register dependencies
 
-$app->registerInstance(['mako\core\Config', 'mako.config'], new Config(MAKO_APPLICATION_PATH));
+$app->registerInstance(['mako\core\Config', 'config'], new Config(MAKO_APPLICATION_PATH));
 
 //------------------------------------------------------------------------------------------
 // Configure stuff
 //------------------------------------------------------------------------------------------
 
-$config = $app->get('mako.config')->get('application');
+$config = $app->get('config')->get('application');
 
 // Set internal charset
 
@@ -62,11 +62,4 @@ if($config['locale']['lc_numeric'] === false)
 
 unset($config);
 
-//------------------------------------------------------------------------------------------
-// Include 
-//------------------------------------------------------------------------------------------
-
-if(file_exists(MAKO_APPLICATION_PATH . '/bootstrap.php'))
-{
-	include MAKO_APPLICATION_PATH . '/bootstrap.php';
-}
+/** -------------------- End of file -------------------- **/

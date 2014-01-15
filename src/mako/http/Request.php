@@ -20,7 +20,7 @@ class Request
 	//---------------------------------------------
 
 	/**
-	 * GET data
+	 * Get data
 	 * 
 	 * @var array
 	 */
@@ -28,7 +28,7 @@ class Request
 	protected $get;
 
 	/**
-	 * POST data
+	 * Post data
 	 * 
 	 * @var array
 	 */
@@ -108,12 +108,12 @@ class Request
 	protected $isSecure;
 
 	/**
-	 * Request language.
+	 * Base URL of the request.
 	 * 
 	 * @var string
 	 */
 
-	protected $language;
+	protected $baseURL;
 	
 	/**
 	 * Holds the request path.
@@ -122,6 +122,22 @@ class Request
 	 */
 
 	protected $path;
+
+	/**
+	 * Request language.
+	 * 
+	 * @var string
+	 */
+
+	protected $language;
+
+	/**
+	 * Request language prefix.
+	 * 
+	 * @var string
+	 */
+
+	protected $languagePrefix;
 
 	/**
 	 * Which request method was used?
@@ -138,14 +154,6 @@ class Request
 	 */
 
 	protected $realMethod;
-
-	/**
-	 * Matched route.
-	 * 
-	 * @var \mako\http\routing\Route
-	 */
-
-	protected $route;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -241,6 +249,8 @@ class Request
 			if($path === '/' . $key || strpos($path, '/' . $key . '/') === 0)
 			{
 				$this->language = $language;
+
+				$this->languagePrefix = $key;
 
 				$path = '/' . ltrim(mb_substr($path, (mb_strlen($key) + 1)), '/');
 
@@ -353,31 +363,6 @@ class Request
 		// Get the real request method that was used
 
 		$this->realMethod = isset($this->server['REQUEST_METHOD']) ? strtoupper($this->server['REQUEST_METHOD']) : 'GET';
-	}
-
-	/**
-	 * Executes the request.
-	 *
-	 * @access  public
-	 * @return  \mako\http\Response
-	 */
-
-	public function execute()
-	{
-		$router = new Router($this);
-
-		$this->route = $router->route();
-
-		if($this->method === 'OPTIONS' && $this->isMain())
-		{
-			return $this->response->header('Allow', implode(', ', $this->route->getMethods()));
-		}
-		else
-		{
-			$dispatcher = new Dispatcher($this);
-
-			return $dispatcher->dispatch();
-		}
 	}
 
 	/**
@@ -673,15 +658,46 @@ class Request
 	}
 
 	/**
-	 * Returns the request language.
-	 *
+	 * Returns the base url of the request.
+	 * 
 	 * @access  public
 	 * @return  string
 	 */
 
-	public function getLanguage()
+	public function baseURL()
 	{
-		return $this->language;
+		if(empty($this->baseURL))
+		{
+			// Get the protocol
+
+			$protocol = $this->isSecure ? 'https://' : 'http://';
+
+			// Get the server name and port
+
+			if(($host = $this->header('host')) !== null)
+			{
+				$host = $this->server('SERVER_NAME');
+
+				$port = $this->server('SERVER_PORT');
+
+				if($port !== null && $port != 80)
+				{
+					$host = $host . ':' . $port;
+				}
+			}
+
+			// Get the base path
+
+			$path = $this->server('SCRIPT_NAME');
+
+			$path = str_replace(basename($path), '', $path);
+
+			// Put them all together
+
+			$this->baseURL = rtrim($protocol . $host . $path, '/');
+		}
+
+		return $this->baseURL;
 	}
 
 	/**
@@ -694,6 +710,30 @@ class Request
 	public function path()
 	{
 		return $this->path;
+	}
+
+	/**
+	 * Returns the request language.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function language()
+	{
+		return $this->language;
+	}
+
+	/**
+	 * Returns the request language prefix.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function languagePrefix()
+	{
+		return $this->languagePrefix;
 	}
 
 	/**
@@ -730,18 +770,6 @@ class Request
 	public function isFaked()
 	{
 		return $this->realMethod !== $this->method;
-	}
-
-	/**
-	 * Returns the matched route.
-	 * 
-	 * @access  public
-	 * @return  \mako\http\routing\Route
-	 */
-
-	public function route()
-	{
-		return $this->route;
 	}
 
 	/**

@@ -4,7 +4,10 @@ namespace mako\http\routing;
 
 use \Closure;
 use \RuntimeException;
+use \mako\core\Syringe;
 use \mako\http\Request;
+use \mako\http\Response;
+use \mako\http\routing\Route;
 use \mako\http\routing\Routes;
 use \mako\http\routing\Controller;
 
@@ -23,6 +26,23 @@ class Dispatcher
 	//---------------------------------------------
 
 	/**
+	 * Route collection.
+	 * 
+	 * @var \mako\http\routing\Routes
+	 */
+
+	protected $routes;
+
+
+	/**
+	 * Route to be dispatched.
+	 * 
+	 * @var \mako\http\routing\Route
+	 */
+
+	protected $route;
+
+	/**
 	 * Request.
 	 * 
 	 * @var \mako\http\Request
@@ -39,12 +59,12 @@ class Dispatcher
 	protected $response;
 
 	/**
-	 * Route.
+	 * Syringe instance.
 	 * 
-	 * @var \mako\http\routing\Route
+	 * @var \mako\core\Syringe
 	 */
 
-	protected $route;
+	protected $syringe;
 
 	/**
 	 * Should the after filters be skipped?
@@ -62,16 +82,20 @@ class Dispatcher
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Request  $request  Request
+	 * @param   \mako\http\routing\Routes  $routes    Route collection
+	 * @param   \mako\http\routing\Route   $route     The route we're dispatching
+	 * @param   \mako\http\Request         $request   Request instance
+	 * @param   \mako\http\Response        $response  (optional) Response instance
+	 * @param   \mako\core\Syringe         $syringe   (optional) Syringe instance
 	 */
 
-	public function __construct(Request $request)
+	public function __construct(Routes $routes, Route $route, Request $request, Response $response = null, Syringe $syringe = null)
 	{
-		$this->request = $request;
-
-		$this->response = $request->response();
-
-		$this->route = $request->route();
+		$this->routes   = $routes;
+		$this->route    = $route;
+		$this->request  = $request;
+		$this->response = $response ?: new Response($request);
+		$this->syringe  = $syringe  ?: new Syringe;
 	}
 
 	//---------------------------------------------
@@ -94,7 +118,7 @@ class Dispatcher
 		}
 		else
 		{
-			$filter = Routes::getFilter($filter);
+			$filter = $this->routes->getFilter($filter);
 
 			return $filter($this->request, $this->response);
 		}
@@ -163,7 +187,7 @@ class Dispatcher
 	{
 		list($controller, $method) = explode('::', $controller, 2);
 
-		$controller = new $controller($this->request, $this->response);
+		$controller = $this->syringe->get($controller, [$this->request, $this->response]);
 
 		if(!($controller instanceof Controller))
 		{

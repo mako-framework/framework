@@ -123,6 +123,22 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
+	 * Loads the application bootstrap file.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function bootstrap()
+	{
+		$bootstrap = function($app)
+		{
+			include $this->applicationPath . '/bootstrap.php';
+		};
+
+		$bootstrap($this);
+	}
+
+	/**
 	 * Boot the application core.
 	 * 
 	 * @access  protected
@@ -132,7 +148,11 @@ class Application extends \mako\core\Syringe
 	{
 		// Register self so that the application instance can be resolved
 
-		$this->registerInstance(['mako\core\Application', 'mako.app'], $this);
+		$this->registerInstance(['mako\core\Application', 'app'], $this);
+
+		// Load application bootstrap file
+
+		$this->bootstrap();
 	}
 
 	/**
@@ -148,7 +168,7 @@ class Application extends \mako\core\Syringe
 			include $this->applicationPath . '/routes.php';
 		};
 
-		$loader($this, $this->get('mako.routes'));
+		$loader($this, $this->get('routes'));
 	}
 
 	/**
@@ -165,8 +185,8 @@ class Application extends \mako\core\Syringe
 
 		if($request === null)
 		{
-			$request  = $this->get('mako.request');
-			$response = $this->get('mako.response');
+			$request  = $this->get('request');
+			$response = $this->get('response');
 		}
 		else
 		{
@@ -175,13 +195,15 @@ class Application extends \mako\core\Syringe
 
 		// Route the request
 
-		$router = new Router($request, $this->get('mako.routes'));
+		$routes = $this->get('routes');
+
+		$router = new Router($request, $routes);
 
 		$route = $router->route();
 
 		// Dispatch the request
 
-		$response->body((new Dispatcher($route))->dispatch());
+		$response->body((new Dispatcher($routes, $route, $request, $response, $this))->dispatch());
 
 		// Return the response
 
@@ -196,25 +218,27 @@ class Application extends \mako\core\Syringe
 
 	public function run()
 	{
+		ob_start();
+
 		// Register route collection
 
-		$this->registerInstance(['mako\http\routing\Routes', 'mako.routes'], new Routes);
+		$this->registerInstance(['mako\http\routing\Routes', 'routes'], new Routes);
 
 		// Create request instance
 
-		$request = new Request([], $this->get('mako.config')->get('application.languages'));
-
+		$request = new Request([], $this->get('config')->get('application.languages'));
+		
 		// Override the application language?
 
-		if(($language = $request->getLanguage()) !== null)
+		if(($language = $request->language()) !== null)
 		{
 			$this->setLanguage($language);
 		}
 
 		// Register the main request and response instances
 
-		$this->registerInstance(['mako\http\Request', 'mako.request'], $request);
-		$this->registerInstance(['mako\http\Response', 'mako.response'], new Response($request));
+		$this->registerInstance(['mako\http\Request', 'request'], $request);
+		$this->registerInstance(['mako\http\Response', 'response'], new Response($request));
 
 		// Load routes and dispatch the request
 

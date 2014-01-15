@@ -6,7 +6,6 @@ use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\routing\PageNotFoundException;
 use \mako\http\routing\MethodNotAllowedException;
-use \mako\http\routing\URL;
 
 /**
  * Router.
@@ -61,6 +60,33 @@ class Router
 	//---------------------------------------------
 
 	/**
+	 * Redirects to the requested route and adds a trailing slash.
+	 * 
+	 * @access  protected
+	 * @param   string     $requestedRoute  The requested route
+	 */
+
+	protected function addTrailingSlash($requestedRoute)
+	{
+		$response = new Response($this->request);
+
+		$url = $this->request->baseURL() . rtrim('/' . $this->request->languagePrefix(), '/') . $requestedRoute . '/';
+
+		$get = $this->request->get();
+
+		if(!empty($get))
+		{
+			$url = $url . '?' . http_build_query($get);
+		}
+
+		$response->body($response->redirect($url)->status(301));
+
+		$response->send();
+
+		exit;
+	}
+
+	/**
 	 * Matches and returns the appropriate route.
 	 * 
 	 * @access  public
@@ -92,11 +118,7 @@ class Router
 				{
 					// Redirect to URL with trailing slash if the route should have one
 
-					/*$response = new Response($this->request, $this->request->response()->redirect($requestedRoute . '/', [], $this->request->get())->status(301));
-
-					$response->send();*/
-
-					exit;
+					$this->addTrailingSlash($requestedRoute);
 				}
 
 				return $route;
