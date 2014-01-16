@@ -1,7 +1,6 @@
 <?php
 
 use mako\core\Application;
-use mako\core\Config;
 
 //------------------------------------------------------------------------------------------
 // Define some constants
@@ -24,10 +23,6 @@ include realpath(__DIR__ . '/../../../../autoload.php');
 //------------------------------------------------------------------------------------------
 
 $app = Application::instance(MAKO_APPLICATION_PATH);
-
-// Register dependencies
-
-$app->registerInstance(['mako\core\Config', 'config'], new Config(MAKO_APPLICATION_PATH));
 
 //------------------------------------------------------------------------------------------
 // Configure stuff

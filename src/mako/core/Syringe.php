@@ -2,6 +2,7 @@
 
 namespace mako\core;
 
+use \Closure;
 use \ReflectionClass;
 use \ReflectionParameter;
 use \RuntimeException;

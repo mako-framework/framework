@@ -2,11 +2,13 @@
 
 namespace mako\core;
 
+use \mako\core\Config;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\routing\Dispatcher;
 use \mako\http\routing\Router;
 use \mako\http\routing\Routes;
+use \mako\http\routing\URLBuilder;
 
 /**
  * Application.
@@ -29,6 +31,14 @@ class Application extends \mako\core\Syringe
 	 */
 
 	protected static $instance;
+
+	/**
+	 * Config instance.
+	 * 
+	 * @var \mako\core\Config
+	 */
+
+	protected $config;
 
 	/**
 	 * Application language.
@@ -123,6 +133,22 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
+	 * Register classes that are likely to be used in the dependency injection container.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function registerCommonClasses()
+	{
+		// Register the URL builder
+
+		$this->registerSingleton(['mako\http\routing\URLBuilder', 'urlbuilder'], function($app)
+		{
+			return new URLBuilder($this->get('mako\http\Request'), $this->get('mako\http\routing\Routes'), $this->config->get('application.clean_urls'));
+		});
+	}
+
+	/**
 	 * Loads the application bootstrap file.
 	 * 
 	 * @access  protected
@@ -149,6 +175,14 @@ class Application extends \mako\core\Syringe
 		// Register self so that the application instance can be resolved
 
 		$this->registerInstance(['mako\core\Application', 'app'], $this);
+
+		// Register config instance
+
+		$this->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
+
+		// Register common classes
+
+		$this->registerCommonClasses();
 
 		// Load application bootstrap file
 
@@ -226,7 +260,7 @@ class Application extends \mako\core\Syringe
 
 		// Create request instance
 
-		$request = new Request([], $this->get('config')->get('application.languages'));
+		$request = new Request([], $this->config->get('application.languages'));
 		
 		// Override the application language?
 
