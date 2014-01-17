@@ -2,8 +2,10 @@
 
 namespace mako\http;
 
+use \RuntimeException;
+
+use \mako\security\Signer;
 use \mako\utility\Arr;
-use \mako\security\MAC;
 
 /**
  * Executes requets.
@@ -66,6 +68,14 @@ class Request
 	 */
 
 	protected $body;
+
+	/**
+	 * Signer instance.
+	 * 
+	 * @var \mako\security\Signer
+	 */
+
+	protected $signer;
 
 	/**
 	 * Parsed request body.
@@ -163,17 +173,11 @@ class Request
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $path    (optional) Request path
-	 * @param   string  $method  (optional) Request method
-	 * @param   array   $get     (optional) GET data
-	 * @param   array   $post    (optional) POST data
-	 * @param   array   $cookies (optional) Cookie data
-	 * @param   array   $files   (optional) File data
-	 * @param   array   $server  (optional) Server info
-	 * @param   string  $body    (optional) Request body
+	 * @param   array                  $request  Request data and options
+	 * @param   \mako\security\Signer  $signer   (optional) Signer instance used to validate signed cookies
 	 */
 
-	public function __construct(array $request = [], array $languages = [])
+	public function __construct(array $request = [], Signer $signer = null)
 	{
 		// Collect request data
 
@@ -183,6 +187,10 @@ class Request
 		$this->files   = isset($request['FILES']) ? $request['FILES'] : $_FILES;
 		$this->server  = isset($request['SERVER']) ? $request['SERVER'] : $_SERVER;
 		$this->body    = isset($request['body']) ? $request['body'] : null;
+
+		// Set the Signer instance
+
+		$this->signer = $signer;
 
 		// Collect the request headers
 
@@ -194,9 +202,11 @@ class Request
 
 		// Set the request path and method
 
+		$languages = isset($request['languages']) ? $request['languages'] : [];
+
 		$this->path = isset($request['path']) ? $request['path'] : $this->determinePath($languages);
 
-		$this->method = isset($request['method']) ? $request['path'] : $this->determineMethod();
+		$this->method = isset($request['method']) ? $request['method'] : $this->determineMethod();
 	}
 
 	//---------------------------------------------
@@ -492,9 +502,14 @@ class Request
 	 * @return  string
 	 */
 
-	public function cookie($name = null, $default = null)
+	public function signedCookie($name = null, $default = null)
 	{
-		if(isset($this->cookies[$name]) && ($value = MAC::validate($this->cookies[$name])) !== false)
+		if(empty($this->signer))
+		{
+			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to read signed cookies.", [__METHOD__]));
+		}
+
+		if(isset($this->cookies[$name]) && ($value = $this->signer->validate($this->cookies[$name])) !== false)
 		{
 			return $value;
 		}
@@ -513,7 +528,7 @@ class Request
 	 * @return  string
 	 */
 
-	public function unsignedCookie($name = null, $default = null)
+	public function cookie($name = null, $default = null)
 	{
 		return isset($this->cookies[$name]) ? $this->cookies[$name] : $default;
 	}

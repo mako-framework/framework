@@ -22,7 +22,7 @@ include realpath(__DIR__ . '/../../../../autoload.php');
 // Boot the application
 //------------------------------------------------------------------------------------------
 
-$app = Application::instance(MAKO_APPLICATION_PATH);
+$app = Application::start(MAKO_APPLICATION_PATH);
 
 //------------------------------------------------------------------------------------------
 // Configure stuff

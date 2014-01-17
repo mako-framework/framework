@@ -3,12 +3,14 @@
 namespace mako\http;
 
 use \Closure;
-use \mako\security\MAC;
+use \RuntimeException;
+
 use \mako\http\Request;
 use \mako\http\responses\File;
 use \mako\http\responses\Redirect;
-use \mako\http\responses\Stream;
 use \mako\http\responses\ResponseContainerInterface;
+use \mako\http\responses\Stream;
+use \mako\security\Signer;
 
 /**
  * HTTP response.
@@ -31,6 +33,14 @@ class Response
 	 */
 
 	protected $request;
+
+	/**
+	 * Signer instance.
+	 * 
+	 * @var \mako\security\Signer
+	 */
+
+	protected $signer;
 	
 	/**
 	 * Response body.
@@ -193,15 +203,14 @@ class Response
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\http\Request  $request  Request instance
-	 * @param   string              $body     (optional) Response body
+	 * @param   \mako\http\Request     $request  Request instance
+	 * @param   \mako\security\Signer  $signer   (optional) Signer instance used to sign cookies
 	 */
 	
-	public function __construct(Request $request, $body = null)
+	public function __construct(Request $request, Signer $signer = null)
 	{
 		$this->request = $request;
-
-		$this->body($body);
+		$this->signer  = $signer;
 	}
 	
 	//---------------------------------------------
@@ -426,7 +435,7 @@ class Response
 	 * @return  \mako\http\Response
 	 */
 
-	public function unsignedCookie($name, $value, $ttl = 0, array $options = [])
+	public function cookie($name, $value, $ttl = 0, array $options = [])
 	{
 		$ttl = ($ttl > 0) ? (time() + $ttl) : 0;
 
@@ -448,9 +457,14 @@ class Response
 	 * @return  \mako\http\Response
 	 */
 
-	public function cookie($name, $value, $ttl = 0, array $options = [])
+	public function signedCookie($name, $value, $ttl = 0, array $options = [])
 	{
-		return $this->unsignedCookie($name, MAC::sign($value), $ttl, $options);
+		if(empty($this->signer))
+		{
+			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to read signed cookies.", [__METHOD__]));
+		}
+		
+		return $this->cookie($name, $this->signer->sign($value), $ttl, $options);
 	}
 
 	/**

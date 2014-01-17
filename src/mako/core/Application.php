@@ -2,6 +2,8 @@
 
 namespace mako\core;
 
+use \LogicException;
+
 use \mako\core\Config;
 use \mako\http\Request;
 use \mako\http\Response;
@@ -9,6 +11,7 @@ use \mako\http\routing\Dispatcher;
 use \mako\http\routing\Router;
 use \mako\http\routing\Routes;
 use \mako\http\routing\URLBuilder;
+use \mako\security\Signer;
 
 /**
  * Application.
@@ -75,18 +78,35 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
-	 * Returns singleton instance of the application.
+	 * Starts the application and returns a singleton instance of the application.
 	 * 
 	 * @access  public
 	 * @param   string                  $applicationPath  Application path
 	 * @return  \mako\core\Application
 	 */
 
-	public static function instance($applicationPath)
+	public static function start($applicationPath)
+	{
+		if(!empty(static::$instance))
+		{
+			throw new LogicException(vsprintf("%s(): The application has already been started.", [__METHOD__]));
+		}
+
+		return static::$instance = new static($applicationPath);
+	}
+
+	/**
+	 * Returns singleton instance of the application.
+	 * 
+	 * @access  public
+	 * @return  \mako\core\Application
+	 */
+
+	public static function instance()
 	{
 		if(empty(static::$instance))
 		{
-			static::$instance = new static($applicationPath);
+			throw new LogicException(vsprintf("%s(): The application has not been started yet.", [__METHOD__]));
 		}
 
 		return static::$instance;
@@ -138,13 +158,35 @@ class Application extends \mako\core\Syringe
 	 * @access  protected
 	 */
 
-	protected function registerCommonClasses()
+	protected function registerCommon()
 	{
+		// Register the signer class
+
+		$this->registerSingleton(['mako\security\Signer', 'signer'], function()
+		{
+			return new Signer($this->config->get('application.secret'));
+		});
+
+		// Register the request class
+
+		$this->registerSingleton(['mako\http\Request', 'request'], function()
+		{
+			return new Request(['languages' => $this->config->get('application.languages')], $this->get('signer'));
+		});
+
+		// Register the response class
+
+		$this->registerSingleton(['mako\http\Response', 'response'], 'mako\http\Response');
+
+		// Register the route collection
+
+		$this->registerSingleton(['mako\http\routing\Routes', 'routes'], 'mako\http\routing\Routes');
+
 		// Register the URL builder
 
-		$this->registerSingleton(['mako\http\routing\URLBuilder', 'urlbuilder'], function($app)
+		$this->registerSingleton(['mako\http\routing\URLBuilder', 'urlbuilder'], function()
 		{
-			return new URLBuilder($this->get('mako\http\Request'), $this->get('mako\http\routing\Routes'), $this->config->get('application.clean_urls'));
+			return new URLBuilder($this->get('request'), $this->get('routes'), $this->config->get('application.clean_urls'));
 		});
 	}
 
@@ -182,7 +224,7 @@ class Application extends \mako\core\Syringe
 
 		// Register common classes
 
-		$this->registerCommonClasses();
+		$this->registerCommon();
 
 		// Load application bootstrap file
 
@@ -206,30 +248,31 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
-	 * Dispatches a request and returns its response.
+	 * Dispatches the request and returns its response.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Request   $request  (optional) Request instance
 	 * @return  \mako\http\Response
 	 */
 
-	public function dispatch(Request $request = null)
+	public function dispatch()
 	{
-		// If no request instance is passed then we'll use the default request and response instances
+		$request  = $this->get('request');
+		$response = $this->get('response');
 
-		if($request === null)
+		// Override the application language?
+
+		if(($language = $request->language()) !== null)
 		{
-			$request  = $this->get('request');
-			$response = $this->get('response');
-		}
-		else
-		{
-			$response = new Response($request);
+			$this->setLanguage($language);
 		}
 
-		// Route the request
+		// Load routes
 
 		$routes = $this->get('routes');
+
+		$this->loadRoutes();
+
+		// Route the request
 
 		$router = new Router($request, $routes);
 
@@ -254,29 +297,7 @@ class Application extends \mako\core\Syringe
 	{
 		ob_start();
 
-		// Register route collection
-
-		$this->registerInstance(['mako\http\routing\Routes', 'routes'], new Routes);
-
-		// Create request instance
-
-		$request = new Request([], $this->config->get('application.languages'));
-		
-		// Override the application language?
-
-		if(($language = $request->language()) !== null)
-		{
-			$this->setLanguage($language);
-		}
-
-		// Register the main request and response instances
-
-		$this->registerInstance(['mako\http\Request', 'request'], $request);
-		$this->registerInstance(['mako\http\Response', 'response'], new Response($request));
-
-		// Load routes and dispatch the request
-
-		$this->loadRoutes();
+		// Dispatch the request
 
 		$this->dispatch()->send();
 	}

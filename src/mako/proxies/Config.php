@@ -23,7 +23,7 @@ class Config extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance(null)->get('config');
+		return Application::instance()->get('config');
 	}
 }
 

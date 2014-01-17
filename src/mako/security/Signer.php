@@ -2,8 +2,6 @@
 
 namespace mako\security;
 
-use \mako\core\Config;
-
 /**
  * Signs and validates strings using MACs (message authentication codes).
  *
@@ -12,27 +10,34 @@ use \mako\core\Config;
  * @license    http://www.makoframework.com/license
  */
 
-class MAC
+class Signer
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 	
-	// Nothing here
+	/**
+	 * Secret used to sign and validate strings.
+	 * 
+	 * @var string
+	 */
+
+	protected $secret;
 	
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
+	 * Constructor.
 	 * 
-	 * @access  protected
+	 * @access  public
+	 * @param   string  $secret  Secret used to sign and validate strings
 	 */
 
-	protected function __construct()
+	public function __construct($secret)
 	{
-		// Nothing here
+		$this->secret = $secret;
 	}
 	
 	//---------------------------------------------
@@ -47,9 +52,9 @@ class MAC
 	 * @return  string
 	 */
 
-	protected static function signature($string)
+	protected function getSignature($string)
 	{
-		return hash_hmac('sha1', $string, Config::get('application.secret'));
+		return hash_hmac('sha1', $string, $this->secret);
 	}
 	
 	/**
@@ -60,9 +65,9 @@ class MAC
 	 * @return  string
 	 */
 
-	public static function sign($string)
+	public function sign($string)
 	{
-		return static::signature($string) . $string;
+		return $this->getSignature($string) . $string;
 	}
 
 	/**
@@ -73,11 +78,11 @@ class MAC
 	 * @return  mixed
 	 */
 
-	public static function validate($string)
+	public function validate($string)
 	{
 		$validated = substr($string, 40);
 
-		if(static::signature($validated) === substr($string, 0, 40))
+		if($this->getSignature($validated) === substr($string, 0, 40))
 		{
 			return $validated;
 		}
