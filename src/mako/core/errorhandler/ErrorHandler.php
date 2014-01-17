@@ -42,6 +42,17 @@ class ErrorHandler
 	
 	public function __construct()
 	{
+		// Add a basic exception handler to the stack
+
+		$this->handle('\Exception', function($e)
+		{
+			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]'; 
+			echo PHP_EOL;
+			echo $e->getTraceAsString();
+		});
+		
+		// Registers the exception handler
+
 		$this->register();
 	}
 
@@ -69,15 +80,6 @@ class ErrorHandler
 
 				exit(1);
 			}
-		});
-
-		// Add a basic exception handler to the stack
-
-		$this->handle('\Exception', function($e)
-		{
-			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]'; 
-			echo PHP_EOL;
-			echo $e->getTraceAsString();
 		});
 
 		// Set the exception handler

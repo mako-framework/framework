@@ -478,7 +478,7 @@ class Response
 
 	public function deleteCookie($name, array $options = [])
 	{
-		return $this->unsignedCookie($name, '', time() - 3600, $options);
+		return $this->cookie($name, '', time() - 3600, $options);
 	}
 
 	/**
