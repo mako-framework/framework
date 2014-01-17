@@ -2,9 +2,11 @@
 
 namespace mako\core;
 
+use \Closure;
 use \LogicException;
 
 use \mako\core\Config;
+use \mako\core\errorhandler\ErrorHandler;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\routing\Dispatcher;
@@ -96,7 +98,7 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
-	 * Returns singleton instance of the application.
+	 * Returns a singleton instance of the application.
 	 * 
 	 * @access  public
 	 * @return  \mako\core\Application
@@ -153,13 +155,25 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
-	 * Register classes that are likely to be used in the dependency injection container.
+	 * Register classes in the dependency injection container.
 	 * 
 	 * @access  protected
 	 */
 
-	protected function registerCommon()
+	protected function registerClasses()
 	{
+		// Register self so that the application instance can be injected
+
+		$this->registerInstance(['mako\core\Application', 'app'], $this);
+
+		// Register error handler instance
+
+		$this->registerInstance(['mako\core\errorhandler\ErrorHandler', 'errorhandler'], new ErrorHandler());
+
+		// Register config instance
+
+		$this->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
+
 		// Register the signer class
 
 		$this->registerSingleton(['mako\security\Signer', 'signer'], function()
@@ -207,32 +221,37 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
-	 * Boot the application core.
+	 * Boots the application.
 	 * 
 	 * @access  protected
 	 */
 
 	protected function boot()
 	{
-		// Register self so that the application instance can be resolved
+		// Register classes in the dependency injection container
 
-		$this->registerInstance(['mako\core\Application', 'app'], $this);
+		$this->registerClasses();
 
-		// Register config instance
-
-		$this->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
-
-		// Register common classes
-
-		$this->registerCommon();
-
-		// Load application bootstrap file
+		// Load the application bootstrap file
 
 		$this->bootstrap();
 	}
 
 	/**
-	 * Load application paths.
+	 * Prepends an exception handler to the stack.
+	 * 
+	 * @access  public
+	 * @param   string    $exception  Exception type
+	 * @param   \Closure  $handler    Exception handler
+	 */
+
+	public function handle($exception, Closure $handler)
+	{
+		$this->get('errorhandler')->handle($exception, $handler);
+	}
+
+	/**
+	 * Loads application routes.
 	 * 
 	 * @access  public
 	 */
@@ -254,10 +273,9 @@ class Application extends \mako\core\Syringe
 	 * @return  \mako\http\Response
 	 */
 
-	public function dispatch()
+	protected function dispatch()
 	{
-		$request  = $this->get('request');
-		$response = $this->get('response');
+		$request = $this->get('request');
 
 		// Override the application language?
 
@@ -268,9 +286,9 @@ class Application extends \mako\core\Syringe
 
 		// Load routes
 
-		$routes = $this->get('routes');
-
 		$this->loadRoutes();
+
+		$routes = $this->get('routes');
 
 		// Route the request
 
@@ -278,13 +296,9 @@ class Application extends \mako\core\Syringe
 
 		$route = $router->route();
 
-		// Dispatch the request
+		// Dispatch the request and return the response
 
-		$response->body((new Dispatcher($routes, $route, $request, $response, $this))->dispatch());
-
-		// Return the response
-
-		return $response;
+		return (new Dispatcher($routes, $route, $request, $this->get('response'), $this))->dispatch();
 	}
 
 	/**

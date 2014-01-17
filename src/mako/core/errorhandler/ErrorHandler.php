@@ -1,11 +1,12 @@
 <?php
 
-namespace mako\core\errors;
+namespace mako\core\errorhandler;
 
 use \Closure;
-use \Exception;
 use \ErrorException;
-use \mako\core\errors\handlers\ExceptionHandler;
+use \Exception;
+
+use \mako\core\errorhandler\handlers\ExceptionHandler;
 
 /**
  * Error handler.
@@ -27,21 +28,21 @@ class ErrorHandler
 	 * @var array
 	 */
 
-	protected static $handlers = [];
+	protected $handlers = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 	
 	/**
-	 * Protected constructor since this is a static class.
+	 * Constructor.
 	 *
-	 * @access  protected
+	 * @access  public
 	 */
 	
-	protected function __construct()
+	public function __construct()
 	{
-		// Nothing here
+		$this->register();
 	}
 
 	//---------------------------------------------
@@ -51,10 +52,10 @@ class ErrorHandler
 	/**
 	 * Registers the exception handler.
 	 * 
-	 * @access  public
+	 * @access  protected
 	 */
 
-	public static function register()
+	protected function register()
 	{
 		// Allows us to handle "fatal" errors
 
@@ -64,27 +65,24 @@ class ErrorHandler
 			
 			if($e !== null && (error_reporting() & $e['type']) !== 0 && !defined('MAKO_DISABLE_FATAL_ERROR_HANDLER'))
 			{
-				ErrorHandler::handler(new ErrorException($e['message'], $e['type'], 0, $e['file'], $e['line']));
+				$this->handler(new ErrorException($e['message'], $e['type'], 0, $e['file'], $e['line']));
 
 				exit(1);
 			}
 		});
 
+		// Add a basic exception handler to the stack
+
+		$this->handle('\Exception', function($e)
+		{
+			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]'; 
+			echo PHP_EOL;
+			echo $e->getTraceAsString();
+		});
+
 		// Set the exception handler
 		
-		set_exception_handler(function($e)
-		{
-			ErrorHandler::handler($e);
-		});
-
-		// Registers the default exception handler
-
-		static::handle('\Exception', function($exception)
-		{
-			$handler = new ExceptionHandler($exception);
-
-			$handler->handle();
-		});
+		set_exception_handler([$this, 'handler']);
 	}
 
 	/**
@@ -95,9 +93,9 @@ class ErrorHandler
 	 * @param   \Closure  $handler    Exception handler
 	 */
 
-	public static function handle($exception, Closure $handler)
+	public function handle($exception, Closure $handler)
 	{
-		array_unshift(static::$handlers, compact('exception', 'handler'));
+		array_unshift($this->handlers, compact('exception', 'handler'));
 	}
 
 	/**
@@ -107,13 +105,13 @@ class ErrorHandler
 	 * @param   string  $exception  Exception type
 	 */
 
-	public static function clearHandlers($exception)
+	public function clearHandlers($exception)
 	{
-		foreach(static::$handlers as $key => $handler)
+		foreach($this->handlers as $key => $handler)
 		{
 			if($handler['exception'] === $exception)
 			{
-				unset(static::$handlers[$key]);
+				unset($this->handlers[$key]);
 			}
 		}
 	}
@@ -126,11 +124,11 @@ class ErrorHandler
 	 * @param   \Closure  $handler    Exception handler
 	 */
 
-	public static function replaceHandlers($exception, Closure $handler)
+	public function replaceHandlers($exception, Closure $handler)
 	{
-		static::clearHandlers($exception);
+		$this->clearHandlers($exception);
 
-		static::handle($exception, $handler);
+		$this->handle($exception, $handler);
 	}
 
 	/**
@@ -140,7 +138,7 @@ class ErrorHandler
 	 * @param   Exception  $exception  An exception object
 	 */
 
-	public static function handler($exception)
+	public function handler($exception)
 	{
 		try
 		{
@@ -150,7 +148,7 @@ class ErrorHandler
 
 			// Loop through the exception handlers
 
-			foreach(static::$handlers as $handler)
+			foreach($this->handlers as $handler)
 			{
 				if($exception instanceof $handler['exception'])
 				{
