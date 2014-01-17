@@ -15,6 +15,9 @@ use \mako\http\routing\Routes;
 use \mako\http\routing\URLBuilder;
 use \mako\security\Signer;
 
+use \Monolog\Logger;
+use \Monolog\Handler\StreamHandler;
+
 /**
  * Application.
  *
@@ -173,6 +176,17 @@ class Application extends \mako\core\Syringe
 		// Register config instance
 
 		$this->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
+
+		// Register logger
+
+		$this->registerSingleton(['Psr\Log\LoggerInterface', 'logger'], function()
+		{
+			$logger = new Logger('mako');
+
+			$logger->pushHandler(new StreamHandler($this->applicationPath . '/storage/logs/' . date('Y-m-d') . '.mako', Logger::DEBUG));
+
+			return $logger;
+		});
 
 		// Register the signer class
 
