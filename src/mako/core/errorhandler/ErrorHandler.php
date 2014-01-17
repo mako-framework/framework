@@ -163,7 +163,7 @@ class ErrorHandler
 		{
 			while(ob_get_level() > 0) ob_end_clean();
 
-			echo $e->getMessage() . ' in ' . $e->getFile() . ' (line ' . $e->getLine() . ').';
+			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]'; 
 		}
 
 		exit(1);
