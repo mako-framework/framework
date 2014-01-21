@@ -183,7 +183,7 @@ class Syringe
 	{
 		if(($paramterClass = $parameter->getClass()) !== null)
 		{
-			// The parameter should a class instance. Try to resolve it though the container
+			// The parameter should be a class instance. Try to resolve it though the container
 
 			return $this->get($paramterClass->getName());
 		}
