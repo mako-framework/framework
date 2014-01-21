@@ -2,6 +2,8 @@
 
 namespace mako\core\services;
 
+use \mako\http\Response;
+
 /**
  * Response service.
  *
@@ -36,7 +38,10 @@ class ResponseService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\http\Response', 'response'], 'mako\http\Response');
+		$this->application->registerSingleton(['mako\http\Response', 'response'], function()
+		{
+			return new Response($this->application->get('request'), $this->application->get('signer'), $this->application->getCharset());
+		});
 	}
 }
 

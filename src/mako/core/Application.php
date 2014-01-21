@@ -42,6 +42,14 @@ class Application extends \mako\core\Syringe
 	protected $config;
 
 	/**
+	 * Application charset.
+	 * 
+	 * @var string
+	 */
+
+	protected $charset;
+
+	/**
 	 * Application language.
 	 * 
 	 * @var string
@@ -126,6 +134,18 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
+	 * Returns the application charset.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getCharset()
+	{
+		return $this->charset;
+	}
+
+	/**
 	 * Returns the application language.
 	 * 
 	 * @access  public
@@ -159,6 +179,40 @@ class Application extends \mako\core\Syringe
 	public function getApplicationPath()
 	{
 		return $this->applicationPath;
+	}
+
+	/**
+	 * Configure PHP
+	 * 
+	 * @access  protected
+	 */
+
+	protected function configurePHP()
+	{
+		$config = $this->config->get('application');
+
+		// Set internal charset
+
+		$this->charset = $config['charset'];
+
+		mb_language('uni');
+		mb_regex_encoding($this->charset);
+		mb_internal_encoding($this->charset);
+
+		// Set default timezone
+
+		date_default_timezone_set($config['timezone']);
+
+		// Set locale information
+
+		$this->language = $config['default_language'];
+
+		setlocale(LC_ALL, $config['locale']['locales']);
+
+		if($config['locale']['lc_numeric'] === false)
+		{
+			setlocale(LC_NUMERIC, 'C');
+		}
 	}
 
 	/**
@@ -206,6 +260,10 @@ class Application extends \mako\core\Syringe
 		// Register config instance
 
 		$this->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
+
+		// Configure PHP
+
+		$this->configurePHP();
 
 		// Register services in the dependency injection container
 

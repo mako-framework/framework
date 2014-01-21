@@ -64,7 +64,7 @@ class Response
 	 * @var string
 	 */
 
-	protected $charset = MAKO_CHARSET;
+	protected $charset;
 
 	/**
 	 * Status code.
@@ -205,12 +205,14 @@ class Response
 	 * @access  public
 	 * @param   \mako\http\Request     $request  Request instance
 	 * @param   \mako\security\Signer  $signer   (optional) Signer instance used to sign cookies
+	 * @param   string                 $charset  (optional) Response charset
 	 */
 	
-	public function __construct(Request $request, Signer $signer = null)
+	public function __construct(Request $request, Signer $signer = null, $charset = 'UTF-8')
 	{
 		$this->request = $request;
 		$this->signer  = $signer;
+		$this->charset = $charset;
 	}
 	
 	//---------------------------------------------
