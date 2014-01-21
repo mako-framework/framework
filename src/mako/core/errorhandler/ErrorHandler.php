@@ -46,7 +46,7 @@ class ErrorHandler
 
 		$this->handle('\Exception', function($e)
 		{
-			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]'; 
+			echo '[ ' . get_class($e) . '] ' . $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]'; 
 			echo PHP_EOL;
 			echo $e->getTraceAsString();
 		});
