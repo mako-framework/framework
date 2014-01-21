@@ -2,7 +2,7 @@
 
 namespace mako\core\services;
 
-use \mako\core\errorhandler\ErrorHandler;
+use \mako\core\error\ErrorHandler;
 
 /**
  * Error handler service.
@@ -38,7 +38,7 @@ class ErrorHandlerService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerInstance(['mako\core\errorhandler\ErrorHandler', 'errorhandler'], new ErrorHandler());
+		$this->application->registerInstance(['mako\core\error\ErrorHandler', 'errorhandler'], new ErrorHandler());
 	}
 }
 

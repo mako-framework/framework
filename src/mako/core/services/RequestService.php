@@ -38,9 +38,9 @@ class RequestService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\http\Request', 'request'], function()
+		$this->application->registerSingleton(['mako\http\Request', 'request'], function($app)
 		{
-			return new Request(['languages' => $this->application->getConfig()->get('application.languages')], $this->application->get('signer'));
+			return new Request(['languages' => $app->getConfig()->get('application.languages')], $app->get('signer'));
 		});
 	}
 }

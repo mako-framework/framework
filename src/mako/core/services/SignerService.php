@@ -38,9 +38,9 @@ class SignerService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\security\Signer', 'signer'], function()
+		$this->application->registerSingleton(['mako\security\Signer', 'signer'], function($app)
 		{
-			return new Signer($this->application->getConfig()->get('application.secret'));
+			return new Signer($app->getConfig()->get('application.secret'));
 		});
 	}
 }

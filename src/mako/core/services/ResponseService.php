@@ -38,9 +38,9 @@ class ResponseService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\http\Response', 'response'], function()
+		$this->application->registerSingleton(['mako\http\Response', 'response'], function($app)
 		{
-			return new Response($this->application->get('request'), $this->application->get('signer'), $this->application->getCharset());
+			return new Response($app->get('request'), $app->get('signer'), $app->getCharset());
 		});
 	}
 }
