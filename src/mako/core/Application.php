@@ -205,7 +205,7 @@ class Application extends \mako\core\Syringe
 
 		// Set locale information
 
-		$this->language = $config['default_language'];
+		$this->setLanguage($config['default_language']);
 
 		setlocale(LC_ALL, $config['locale']['locales']);
 
@@ -321,7 +321,6 @@ class Application extends \mako\core\Syringe
 	 * Dispatches the request and returns its response.
 	 * 
 	 * @access  public
-	 * @return  \mako\http\Response
 	 */
 
 	protected function dispatch()
