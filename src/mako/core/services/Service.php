@@ -1,46 +1,58 @@
 <?php
 
-namespace mako\proxies;
+namespace mako\core\services;
 
 use \mako\core\Application;
 
 /**
- * Config proxy.
+ * Abstract service.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Config extends \mako\proxies\Proxy
+abstract class Service
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Application instance
+	 * 
+	 * @var \mako\core\Application
+	 */
+
+	protected $application;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Constructor.
+	 * 
+	 * @access  public
+	 * @param   \mako\core\Application  $application  Application instance
+	 */
+
+	public function __construct(Application $application)
+	{
+		$this->application = $application;
+	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-	
+
 	/**
-	 * Returns instance of the class we're proxying.
+	 * Registers the service.
 	 * 
-	 * @access  protected
-	 * @return  \mako\core\Config
+	 * @access  public
 	 */
 
-	protected static function instance()
-	{
-		return Application::instance()->get('config');
-	}
+	abstract public function register();
 }
 
 /** -------------------- End of file -------------------- **/

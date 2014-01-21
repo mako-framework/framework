@@ -1,18 +1,16 @@
 <?php
 
-namespace mako\proxies;
-
-use \mako\core\Application;
+namespace mako\core\services;
 
 /**
- * Config proxy.
+ * Response service.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Config extends \mako\proxies\Proxy
+class ResponseService extends \mako\core\services\Service
 {
 	//---------------------------------------------
 	// Class properties
@@ -31,15 +29,14 @@ class Config extends \mako\proxies\Proxy
 	//---------------------------------------------
 	
 	/**
-	 * Returns instance of the class we're proxying.
+	 * Registers the service.
 	 * 
-	 * @access  protected
-	 * @return  \mako\core\Config
+	 * @access  public
 	 */
 
-	protected static function instance()
+	public function register()
 	{
-		return Application::instance()->get('config');
+		$this->application->registerSingleton(['mako\http\Response', 'response'], 'mako\http\Response');
 	}
 }
 

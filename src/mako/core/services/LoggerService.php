@@ -1,18 +1,19 @@
 <?php
 
-namespace mako\proxies;
+namespace mako\core\services;
 
-use \mako\core\Application;
+use \Monolog\Logger;
+use \Monolog\Handler\StreamHandler;
 
 /**
- * Config proxy.
+ * Logger service.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Config extends \mako\proxies\Proxy
+class LoggerService extends \mako\core\services\Service
 {
 	//---------------------------------------------
 	// Class properties
@@ -31,15 +32,21 @@ class Config extends \mako\proxies\Proxy
 	//---------------------------------------------
 	
 	/**
-	 * Returns instance of the class we're proxying.
+	 * Registers the service.
 	 * 
-	 * @access  protected
-	 * @return  \mako\core\Config
+	 * @access  public
 	 */
 
-	protected static function instance()
+	public function register()
 	{
-		return Application::instance()->get('config');
+		$this->application->registerSingleton(['Psr\Log\LoggerInterface', 'logger'], function()
+		{
+			$logger = new Logger('mako');
+
+			$logger->pushHandler(new StreamHandler($this->application->getApplicationPath() . '/storage/logs/' . date('Y-m-d') . '.mako', Logger::DEBUG));
+
+			return $logger;
+		});
 	}
 }
 

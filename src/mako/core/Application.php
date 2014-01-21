@@ -6,17 +6,10 @@ use \Closure;
 use \LogicException;
 
 use \mako\core\Config;
-use \mako\core\errorhandler\ErrorHandler;
-use \mako\http\Request;
-use \mako\http\Response;
 use \mako\http\routing\Dispatcher;
 use \mako\http\routing\Router;
-use \mako\http\routing\Routes;
-use \mako\http\routing\URLBuilder;
-use \mako\security\Signer;
 
-use \Monolog\Logger;
-use \Monolog\Handler\StreamHandler;
+use \Monolog\Handler\HandlerInterface;
 
 /**
  * Application.
@@ -33,7 +26,7 @@ class Application extends \mako\core\Syringe
 	//---------------------------------------------
 
 	/**
-	 * Singleton instance.
+	 * Singleton instance of self.
 	 * 
 	 * @var \mako\core\Application
 	 */
@@ -122,6 +115,17 @@ class Application extends \mako\core\Syringe
 	//---------------------------------------------
 
 	/**
+	 * Returns the config instance.
+	 * 
+	 * @return \mako\core\Config
+	 */
+
+	public function getConfig()
+	{
+		return $this->config;
+	}
+
+	/**
 	 * Returns the application language.
 	 * 
 	 * @access  public
@@ -158,64 +162,17 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
-	 * Register classes in the dependency injection container.
+	 * Register services in the dependency injection container.
 	 * 
 	 * @access  protected
 	 */
 
-	protected function registerClasses()
+	protected function registerServices()
 	{
-		// Register self so that the application instance can be injected
-
-		$this->registerInstance(['mako\core\Application', 'app'], $this);
-
-		// Register error handler instance
-
-		$this->registerInstance(['mako\core\errorhandler\ErrorHandler', 'errorhandler'], new ErrorHandler());
-
-		// Register config instance
-
-		$this->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
-
-		// Register logger
-
-		$this->registerSingleton(['Psr\Log\LoggerInterface', 'logger'], function()
+		foreach($this->config->get('application.services') as $service)
 		{
-			$logger = new Logger('mako');
-
-			$logger->pushHandler(new StreamHandler($this->applicationPath . '/storage/logs/' . date('Y-m-d') . '.mako', Logger::DEBUG));
-
-			return $logger;
-		});
-
-		// Register the signer class
-
-		$this->registerSingleton(['mako\security\Signer', 'signer'], function()
-		{
-			return new Signer($this->config->get('application.secret'));
-		});
-
-		// Register the request class
-
-		$this->registerSingleton(['mako\http\Request', 'request'], function()
-		{
-			return new Request(['languages' => $this->config->get('application.languages')], $this->get('signer'));
-		});
-
-		// Register the response class
-
-		$this->registerSingleton(['mako\http\Response', 'response'], 'mako\http\Response');
-
-		// Register the route collection
-
-		$this->registerSingleton(['mako\http\routing\Routes', 'routes'], 'mako\http\routing\Routes');
-
-		// Register the URL builder
-
-		$this->registerSingleton(['mako\http\routing\URLBuilder', 'urlbuilder'], function()
-		{
-			return new URLBuilder($this->get('request'), $this->get('routes'), $this->config->get('application.clean_urls'));
-		});
+			(new $service($this))->register();
+		}
 	}
 
 	/**
@@ -242,9 +199,17 @@ class Application extends \mako\core\Syringe
 
 	protected function boot()
 	{
-		// Register classes in the dependency injection container
+		// Register self so that the application instance can be injected
 
-		$this->registerClasses();
+		$this->registerInstance(['mako\core\Application', 'app'], $this);
+
+		// Register config instance
+
+		$this->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
+
+		// Register services in the dependency injection container
+
+		$this->registerServices();
 
 		// Load the application bootstrap file
 
@@ -265,19 +230,33 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
-	 * Loads application routes.
+	 * Attaches a monolog log handler to the stack.
 	 * 
 	 * @access  public
+	 * @param   \Monolog\Handler\HandlerInterface $logger  Monolog log handler instance
 	 */
 
-	public function loadRoutes()
+	public function attachLogger(HandlerInterface $logger)
+	{
+		$this->get('logger')->pushHandler($logger);
+	}
+
+	/**
+	 * Loads application routes.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function loadRoutes()
 	{
 		$loader = function($app, $routes)
 		{
 			include $this->applicationPath . '/routes.php';
+
+			return $routes;
 		};
 
-		$loader($this, $this->get('routes'));
+		return $loader($this, $this->get('routes'));
 	}
 
 	/**
@@ -300,9 +279,7 @@ class Application extends \mako\core\Syringe
 
 		// Load routes
 
-		$this->loadRoutes();
-
-		$routes = $this->get('routes');
+		$routes = $this->loadRoutes();
 
 		// Route the request
 

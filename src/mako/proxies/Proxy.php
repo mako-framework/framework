@@ -14,6 +14,31 @@ use \RuntimeException;
 
 abstract class Proxy
 {
+	//---------------------------------------------
+	// Class properties
+	//---------------------------------------------
+
+	// Nothing here
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	/**
+	 * Protected constructor since this is a static class.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function __construct()
+	{
+		// Nothing here
+	}
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+	
 	/**
 	 * Returns instance of the class we're proxying.
 	 * 

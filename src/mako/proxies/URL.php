@@ -14,6 +14,22 @@ use \mako\core\Application;
 
 class URL extends \mako\proxies\Proxy
 {
+	//---------------------------------------------
+	// Class properties
+	//---------------------------------------------
+
+	// Nothing here
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
+	// Nothing here
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
+	
 	/**
 	 * Returns instance of the class we're proxying.
 	 * 

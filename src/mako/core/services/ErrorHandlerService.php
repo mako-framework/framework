@@ -1,18 +1,18 @@
 <?php
 
-namespace mako\proxies;
+namespace mako\core\services;
 
-use \mako\core\Application;
+use \mako\core\errorhandler\ErrorHandler;
 
 /**
- * Config proxy.
+ * Error handler service.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Config extends \mako\proxies\Proxy
+class ErrorHandlerService extends \mako\core\services\Service
 {
 	//---------------------------------------------
 	// Class properties
@@ -31,15 +31,14 @@ class Config extends \mako\proxies\Proxy
 	//---------------------------------------------
 	
 	/**
-	 * Returns instance of the class we're proxying.
+	 * Registers the service.
 	 * 
-	 * @access  protected
-	 * @return  \mako\core\Config
+	 * @access  public
 	 */
 
-	protected static function instance()
+	public function register()
 	{
-		return Application::instance()->get('config');
+		$this->application->registerInstance(['mako\core\errorhandler\ErrorHandler', 'errorhandler'], new ErrorHandler());
 	}
 }
 
