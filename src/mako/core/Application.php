@@ -182,12 +182,12 @@ class Application extends \mako\core\Syringe
 	}
 
 	/**
-	 * Configure PHP
+	 * Configure.
 	 * 
 	 * @access  protected
 	 */
 
-	protected function configurePHP()
+	protected function configure()
 	{
 		$config = $this->config->get('application');
 
@@ -261,9 +261,9 @@ class Application extends \mako\core\Syringe
 
 		$this->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
 
-		// Configure PHP
+		// Configure
 
-		$this->configurePHP();
+		$this->configure();
 
 		// Register services in the dependency injection container
 
@@ -345,9 +345,9 @@ class Application extends \mako\core\Syringe
 
 		$route = $router->route();
 
-		// Dispatch the request and return the response
+		// Dispatch the request and send the response
 
-		return (new Dispatcher($routes, $route, $request, $this->get('response'), $this))->dispatch();
+		(new Dispatcher($routes, $route, $request, $this->get('response'), $this))->dispatch()->send();
 	}
 
 	/**
@@ -362,7 +362,7 @@ class Application extends \mako\core\Syringe
 
 		// Dispatch the request
 
-		$this->dispatch()->send();
+		$this->dispatch();
 	}
 }
 
