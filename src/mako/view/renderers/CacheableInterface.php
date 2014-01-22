@@ -3,17 +3,16 @@
 namespace mako\view\renderers;
 
 /**
- * Renderer interface.
+ * Cacheable interface.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-interface RendererInterface
+interface CacheableInterface
 {
-	public function __construct($view, array $variables);
-	public function render();
+	public function setCachePath($path);
 }
 
 /** -------------------- End of file -------------------- **/

@@ -12,7 +12,7 @@ use \mako\view\compilers\Template as Compiler;
  * @license    http://www.makoframework.com/license
  */
 
-class Template implements \mako\view\renderers\RendererInterface
+class Template implements \mako\view\renderers\RendererInterface, \mako\view\renderers\CacheableInterface
 {
 	//---------------------------------------------
 	// Class properties
@@ -35,12 +35,28 @@ class Template implements \mako\view\renderers\RendererInterface
 	protected $variables;
 
 	/**
-	 * Global view variables.
+	 * Cache path.
 	 * 
 	 * @var string
 	 */
 
-	protected $globalVariables;
+	protected $cachePath;
+
+	/**
+	 * Template blocks.
+	 *
+	 * @var array 
+	 */
+
+	protected $blocks = array();
+
+	/**
+	 * Open template blocks.
+	 *
+	 * @var array
+	 */
+
+	protected $openBlocks = array();
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -50,21 +66,35 @@ class Template implements \mako\view\renderers\RendererInterface
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $view             View path
-	 * @param   array   $variables        View variables
-	 * @param   array   $globalVariables  Global view variables
+	 * @param   string  $view       View path
+	 * @param   array   $variables  View variables
 	 */
 
-	public function __construct($view, array $variables, array $globalVariables)
+	public function __construct($view, array $variables)
 	{
-		$this->view            = $view;
-		$this->variables       = $variables;
-		$this->globalVariables = $globalVariables;
+		$this->view = $view;
+
+		$this->variables = $variables;
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Sets the cache path.
+	 * 
+	 * @access  public
+	 * @param   string                         $path  Cache path
+	 * @return 	\mako\view\renderers\Template
+	 */
+
+	public function setCachePath($path)
+	{
+		$this->cachePath = $path;
+
+		return $this;
+	}
 
 	/**
 	 * Compiles the template if needed before returning the path to the compiled template.
@@ -75,16 +105,53 @@ class Template implements \mako\view\renderers\RendererInterface
 
 	protected function compile()
 	{
-		$compiled = MAKO_APPLICATION_PATH . '/storage/templates/' . md5($this->view) . '.php';
+		$compiled = $this->cachePath . '/' . md5($this->view) . '.php';
 
 		if(!file_exists($compiled) || filemtime($compiled) < filemtime($this->view))
 		{
-			$compiler = new Compiler($this->view, $compiled);
-			
-			$compiler->compile();
+			(new Compiler($this->cachePath, $this->view))->compile();
 		}
 
 		return $compiled;
+	}
+
+	/**
+	 * Opens a template block.
+	 *
+	 * @access  public
+	 * @param   string  $name  Block name
+	 */
+
+	public function open($name)
+	{
+		ob_start() && $this->openBlocks[] = $name;
+	}
+
+	/**
+	 * Closes a template block.
+	 *
+	 * @access  public
+	 */
+
+	public function close()
+	{
+		$this->blocks[array_pop($this->openBlocks)] = ob_get_clean();
+	}
+
+	/**
+	 * Output a template block.
+	 * 
+	 * @access  public
+	 * @param   string  $name  Block name
+	 */
+
+	public function output($name)
+	{
+		array_pop($this->openBlocks);
+
+		$output = ob_get_clean();
+
+		echo isset($this->blocks[$name]) ? str_replace('__PARENT__', $output, $this->blocks[$name]) : $output;
 	}
 
 	/**
@@ -96,7 +163,7 @@ class Template implements \mako\view\renderers\RendererInterface
 
 	public function render()
 	{
-		extract(array_merge($this->variables, $this->globalVariables), EXTR_REFS);
+		extract(array_merge($this->variables, ['__renderer__' => $this]), EXTR_REFS);
 		
 		ob_start();
 

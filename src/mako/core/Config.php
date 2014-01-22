@@ -67,7 +67,7 @@ class Config
 	{
 		$found = false;
 
-		$paths = mako_cascading_paths($this->applicationPath, '/config', $file);
+		$paths = mako_cascading_paths($this->applicationPath, 'config', $file);
 
 		foreach($paths as $path)
 		{

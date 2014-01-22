@@ -30,7 +30,7 @@ class Template
 	 * @var string
 	 */
 
-	protected $compiled;
+	protected $cachePath;
 
 	/**
 	 * Compilation order.
@@ -60,10 +60,11 @@ class Template
 	 * @param   string  $storage   Path to compiled template
 	 */
 
-	public function __construct($template, $compiled)
+	public function __construct($cachePath, $template)
 	{
+		$this->cachePath = $cachePath;
+
 		$this->template = $template;
-		$this->compiled = $compiled;
 	}
 
 	//---------------------------------------------
@@ -102,7 +103,9 @@ class Template
 		{
 			$template = preg_replace('/^{%\s*extends:(.*?)\s*%}/i', '', $template, 1);
 
-			$template .= PHP_EOL . '<?php echo new mako\view\View(\'' . $matches[1] . '\', get_defined_vars()); ?>';
+			$template = '<?php $__renderer__ = $__viewfactory__->create(\'' . $matches[1] . '\', get_defined_vars()); ?>' . $template;
+
+			$template .= '<?php echo $__renderer__->render(); ?>';
 		}
 
 		return $template;
@@ -120,7 +123,7 @@ class Template
 	{
 		// Replace view tags with view redering
 
-		return preg_replace('/{{\s*view:(.*?)\s*}}/i', '<?php echo new mako\view\View(\'$1\', get_defined_vars()); ?>', $template);
+		return preg_replace('/{{\s*view:(.*?)\s*}}/i', '<?php echo $__viewfactory__->create(\'$1\', get_defined_vars())->render(); ?>', $template);
 	}
 
 	/**
@@ -135,11 +138,11 @@ class Template
 	{
 		// Compile blocks
 
-		$template = preg_replace('/{%\s*block:(.*?)\s*%}(.*?){%\s*endblock\s*%}/is', '<?php mako\view\renderers\template\Block::open(\'$1\'); ?>$2<?php mako\view\renderers\template\Block::close(); ?>', $template);
+		$template = preg_replace('/{%\s*block:(.*?)\s*%}(.*?){%\s*endblock\s*%}/is', '<?php $__renderer__->open(\'$1\'); ?>$2<?php $__renderer__->close(); ?>', $template);
 
 		// Compile block output
 
-		return preg_replace('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', '<?php mako\view\renderers\template\Block::open(\'$1\'); ?>$2<?php mako\view\renderers\template\Block::output(\'$1\'); ?>', $template);
+		return preg_replace('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', '<?php $__renderer__->open(\'$1\'); ?>$2<?php $__renderer__->output(\'$1\'); ?>', $template);
 	}
 
 	/**
@@ -195,11 +198,11 @@ class Template
 			}
 			elseif(preg_match('/preserve\s*:(.*)/i', $matches[1]) > 0)
 			{
-				return sprintf('<?php echo htmlspecialchars(%s, ENT_QUOTES, MAKO_CHARSET, false); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
+				return sprintf('<?php echo htmlspecialchars(%s, ENT_QUOTES, $__charset__, false); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
 			else
 			{
-				return sprintf('<?php echo htmlspecialchars(%s, ENT_QUOTES, MAKO_CHARSET); ?>', $emptyElse($matches[1]));
+				return sprintf('<?php echo htmlspecialchars(%s, ENT_QUOTES, $__charset__); ?>', $emptyElse($matches[1]));
 			}
 		}, $template);
 	}
@@ -227,7 +230,7 @@ class Template
 
 		// Store compiled template
 
-		file_put_contents($this->compiled, trim($contents));
+		file_put_contents($this->cachePath . '/' . md5($this->template) . '.php', trim($contents));
 	}
 }
 
