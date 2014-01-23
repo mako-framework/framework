@@ -87,7 +87,6 @@ class File implements \mako\session\store\StoreInterface
 	 *
 	 * @access  public
 	 * @param   string   $sessionId  Session id
-	 * @return  boolean
 	 */
 
 	public function delete($sessionId)
