@@ -101,9 +101,7 @@ class Template
 
 		if(preg_match('/^{%\s*extends:(.*?)\s*%}/i', $template, $matches) > 0)
 		{
-			$template = preg_replace('/^{%\s*extends:(.*?)\s*%}/i', '', $template, 1);
-
-			$template = '<?php $__renderer__ = $__viewfactory__->create(\'' . $matches[1] . '\', get_defined_vars()); ?>' . $template;
+			$template = preg_replace('/^{%\s*extends:(.*?)\s*%}/i', '<?php $__renderer__ = $__viewfactory__->create(\'' . $matches[1] . '\'); ?>', $template, 1);
 
 			$template .= '<?php echo $__renderer__->render(); ?>';
 		}
