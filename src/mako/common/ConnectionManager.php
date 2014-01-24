@@ -67,7 +67,7 @@ abstract class ConnectionManager
 	 * Adds a configuration.
 	 * 
 	 * @access  public
-	 * @param   string  $name           Configuration name
+	 * @param   string  $name           Connection name
 	 * @param   array   $configuration  Configuration
 	 */
 
@@ -77,15 +77,16 @@ abstract class ConnectionManager
 	}
 
 	/**
-	 * Removes a configuration.
+	 * Removes a configuration. 
+	 * It will also remove any active connection linked to the configuration.
 	 * 
 	 * @access  public
-	 * @param   string  $name  Configuration name
+	 * @param   string  $name  Connection name
 	 */
 
 	public function removeConfiguration($name)
 	{
-		unset($this->configurations[$name]);
+		unset($this->configurations[$name], $this->connections[$name]);
 	}
 
 	/**
