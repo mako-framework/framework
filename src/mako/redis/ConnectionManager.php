@@ -71,7 +71,7 @@ class ConnectionManager
 	 * Connects to the chosen redis configuration and returns the connection.
 	 * 
 	 * @access  public
-	 * @param   string                    $connection  Connection name
+	 * @param   string             $connection  Connection name
 	 * @return  \mako\redis\Redis
 	 */
 
@@ -89,7 +89,7 @@ class ConnectionManager
 	 * Returns the chosen connection.
 	 * 
 	 * @access  public
-	 * @param   string                    $connection  (optional) Connection name
+	 * @param   string             $connection  (optional) Connection name
 	 * @return  \mako\redis\Redis
 	 */
 
