@@ -73,12 +73,12 @@ class SessionService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$config = $this->application->getConfig()->get('session');
-
-		$this->registerSessionStore($config);
-
-		$this->application->registerSingleton(['mako\session\Session', 'session'], function($app) use ($config)
+		$this->application->registerSingleton(['mako\session\Session', 'session'], function($app)
 		{
+			$config = $this->application->getConfig()->get('session');
+
+			$this->registerSessionStore($config);
+
 			$session = new Session($app->get('request'), $app->get('response'), $app->get('session.store'));
 
 			$session->setCookieName($config['session_name']);

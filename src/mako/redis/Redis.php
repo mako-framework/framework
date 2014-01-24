@@ -1,14 +1,13 @@
 <?php
 
-namespace mako\database;
+namespace mako\redis;
 
 use \Closure;
-use \mako\core\Config;
 use \mako\utility\Str;
 use \RuntimeException;
 
 /**
- * Redis client based on protocol specification at http://redis.io/topics/protocol.
+ * Redis client based on the protocol specification at http://redis.io/topics/protocol.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
@@ -28,14 +27,6 @@ class Redis
 	 */
 
 	const CRLF = "\r\n";
-
-	/**
-	 * Holds the configuration.
-	 *
-	 * @var array
-	 */
-
-	protected $config;
 
 	/**
 	 * Is pipelining enabled?
@@ -69,23 +60,12 @@ class Redis
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $name  (optional) Redis configuration name
+	 * @param   array   $configuration  Redis configuration
 	 */
 
-	public function __construct($name = null)
+	public function __construct(array $configuration)
 	{
-		$config = Config::get('redis');
-
-		$name = ($name === null) ? $config['default'] : $name;
-
-		if(isset($config['configurations'][$name]) === false)
-		{
-			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the redis configuration.", [__METHOD__, $name]));
-		}
-
-		$this->config = $config['configurations'][$name];
-
-		$this->connect();
+		$this->connection = $this->connect($configuration);
 	}
 
 	/**
@@ -107,26 +87,30 @@ class Redis
 	 * Connects to the Redis server.
 	 *
 	 * @access  protected
+	 * @param   array     $configuration  Redis configuration
+	 * @return  resource
 	 */
 
-	protected function connect()
+	protected function connect($configuration)
 	{
-		$this->connection = @fsockopen('tcp://' . $this->config['host'], $this->config['port'], $errNo, $errStr);
+		$connection = @fsockopen('tcp://' . $configuration['host'], $configuration['port'], $errNo, $errStr);
 
-		if(!$this->connection)
+		if(!$connection)
 		{
 			throw new RuntimeException(vsprintf("%s(): %s", [__METHOD__, $errStr]));
 		}
 
-		if(!empty($this->config['password']))
+		if(!empty($configuration['password']))
 		{
-			$this->auth($this->config['password']);
+			$this->auth($configuration['password']);
 		}
 
-		if(!empty($this->config['database']) && $this->config['database'] !== 0)
+		if(!empty($configuration['database']) && $configuration['database'] !== 0)
 		{
-			$this->select($this->config['database']);
+			$this->select($configuration['database']);
 		}
+
+		return $connection;
 	}
 
 	/**
@@ -277,20 +261,6 @@ class Redis
 
 			return $this->response();
 		}
-	}
-
-	/**
-	 * Magic shortcut to the default redis configuration.
-	 *
-	 * @access  public
-	 * @param   string  $name       Method name
-	 * @param   array   $arguments  Method arguments
-	 * @return  mixed
-	 */
-
-	public static function __callStatic($name, $arguments)
-	{
-		return call_user_func_array([new static, $name], $arguments);
 	}
 }
 
