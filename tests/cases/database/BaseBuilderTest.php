@@ -3,6 +3,7 @@
 use Mockery as m;
 use \mako\database\Database;
 use \mako\database\query\Query;
+use \mako\database\query\Raw;
 use \mako\database\query\Subquery;
 
 class BaseBuilderTest extends PHPUnit_Framework_TestCase
@@ -278,7 +279,7 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->in('foo', Database::raw("SELECT id FROM barfoo"));
+		$query->in('foo', new Raw("SELECT id FROM barfoo"));
 
 		$query = $query->getCompiler()->select();
 
@@ -342,7 +343,7 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->exists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', Database::raw('foobar.id'))));
+		$query->exists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'))));
 
 		$query = $query->getCompiler()->select();
 
@@ -358,7 +359,7 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->notExists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', Database::raw('foobar.id'))));
+		$query->notExists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'))));
 
 		$query = $query->getCompiler()->select();
 
@@ -427,7 +428,7 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 		$query = $this->getBuilder('orders');
 
 		$query->groupBy('customer');
-		$query->columns(array('customer', Database::raw('SUM(price) as sum')));
+		$query->columns(array('customer', new Raw('SUM(price) as sum')));
 
 		$query = $query->getCompiler()->select();
 
@@ -444,7 +445,7 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 		$query = $this->getBuilder('orders');
 
 		$query->groupBy(array('customer', 'order_date'));
-		$query->columns(array('customer', 'order_date', Database::raw('SUM(price) as sum')));
+		$query->columns(array('customer', 'order_date', new Raw('SUM(price) as sum')));
 
 		$query = $query->getCompiler()->select();
 
@@ -461,8 +462,8 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 		$query = $this->getBuilder('orders');
 
 		$query->groupBy('customer');
-		$query->having(Database::raw('SUM(price)'), '<', 2000);
-		$query->columns(array('customer', Database::raw('SUM(price) as sum')));
+		$query->having(new Raw('SUM(price)'), '<', 2000);
+		$query->columns(array('customer', new Raw('SUM(price) as sum')));
 
 		$query = $query->getCompiler()->select();
 
