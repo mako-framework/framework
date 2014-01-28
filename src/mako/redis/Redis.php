@@ -66,7 +66,7 @@ class Redis
 
 	public function __construct(array $configuration)
 	{
-		$this->connection = $this->connect($configuration);
+		$this->connect($configuration);
 	}
 
 	/**
@@ -94,9 +94,9 @@ class Redis
 
 	protected function connect($configuration)
 	{
-		$connection = @fsockopen('tcp://' . $configuration['host'], $configuration['port'], $errNo, $errStr);
+		$this->connection = @fsockopen('tcp://' . $configuration['host'], $configuration['port'], $errNo, $errStr);
 
-		if(!$connection)
+		if(!$this->connection)
 		{
 			throw new RuntimeException(vsprintf("%s(): %s", [__METHOD__, $errStr]));
 		}
@@ -111,7 +111,7 @@ class Redis
 			$this->select($configuration['database']);
 		}
 
-		return $connection;
+		return $this->connection;
 	}
 
 	/**
