@@ -2,6 +2,8 @@
 
 namespace mako\session\store;
 
+use \mako\redis\Redis as RedisClient;
+
 /**
  * File store.
  *
@@ -10,19 +12,19 @@ namespace mako\session\store;
  * @license    http://www.makoframework.com/license
  */
 
-class File implements \mako\session\store\StoreInterface
+class Redis implements \mako\session\store\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
 	/**
-	 * Session path.
+	 * Redis client
 	 * 
-	 * @var string
+	 * @var \mako\redis\Redis
 	 */
 
-	protected $sessionPath;
+	protected $redis;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -32,12 +34,12 @@ class File implements \mako\session\store\StoreInterface
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $sessionPath  Session path
+	 * @param   \mako\redis\Redis  $redis  Redis client
 	 */
 
-	public function __construct($sessionPath)
+	public function __construct(RedisClient $redis)
 	{
-		$this->sessionPath = $sessionPath;
+		$this->redis = $redis;
 	}
 
 	//---------------------------------------------
@@ -55,10 +57,7 @@ class File implements \mako\session\store\StoreInterface
 
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
-		if(is_writable($this->sessionPath))
-		{
-			file_put_contents($this->sessionPath . '/' . $sessionId, serialize($sessionData)) === false ? false : true;
-		}
+		$this->redis->setex('sess_' . $sessionId, $dataTTL, serialize($sessionData));
 	}
 
 	/**
@@ -71,14 +70,7 @@ class File implements \mako\session\store\StoreInterface
 
 	public function read($sessionId)
 	{
-		$sessionData = [];
-
-		if(file_exists($this->sessionPath . '/' . $sessionId) && is_readable($this->sessionPath . '/' . $sessionId))
-		{
-			$sessionData = unserialize(file_get_contents($this->sessionPath . '/' . $sessionId));
-		}
-
-		return $sessionData;
+		return unserialize($this->redis->get('sess_' . $sessionId));
 	}
 
 	/**
@@ -90,10 +82,7 @@ class File implements \mako\session\store\StoreInterface
 
 	public function delete($sessionId)
 	{
-		if(file_exists($this->sessionPath . '/' . $sessionId) && is_writable($this->sessionPath . '/' . $sessionId))
-		{
-			unlink($this->sessionPath . '/' . $sessionId);
-		}
+		$this->redis->del('sess_' . $sessionId);
 	}
 
 	/**
@@ -105,18 +94,7 @@ class File implements \mako\session\store\StoreInterface
 
 	public function gc($dataTTL)
 	{
-		$files = glob($this->sessionPath . '/*');
-
-		if(is_array($files))
-		{
-			foreach($files as $file)
-			{
-				if((filemtime($file) + $dataTTL) < time() && is_writable($file))
-				{
-					unlink($file);
-				}
-			}
-		}
+		// Nothing here since redis handles this automatically
 	}
 }
 
