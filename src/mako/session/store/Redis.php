@@ -5,7 +5,7 @@ namespace mako\session\store;
 use \mako\redis\Redis as RedisClient;
 
 /**
- * File store.
+ * Redis store.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
@@ -70,7 +70,9 @@ class Redis implements \mako\session\store\StoreInterface
 
 	public function read($sessionId)
 	{
-		return unserialize($this->redis->get('sess_' . $sessionId));
+		$sessionData = $this->redis->get('sess_' . $sessionId);
+
+		return ($sessionData !== null) ? unserialize($sessionData) : [];
 	}
 
 	/**
