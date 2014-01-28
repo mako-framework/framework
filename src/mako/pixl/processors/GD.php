@@ -364,10 +364,6 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 		
 		$watermarkW = imagesx($watermark);
 		$watermarkH = imagesy($watermark);
-		
-		// Make sure that opacity is between 0 and 100
-		
-		$opacity = max(min((int) $opacity, 100), 0);
 			
 		if($opacity < 100)
 		{

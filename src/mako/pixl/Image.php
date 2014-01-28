@@ -286,6 +286,12 @@ class Image
 
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
+		// Make sure that opacity is between 0 and 100
+		
+		$opacity = max(min((int) $opacity, 100), 0);
+
+		// Add watermark to the image
+
 		$this->processor->watermark($file, $position, $opacity);
 
 		return $this;

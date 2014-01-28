@@ -239,10 +239,6 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 		$watermarkW = $watermark->getImageWidth();
 		$watermarkH = $watermark->getImageHeight();
 		
-		// Make sure that opacity is between 0 and 100
-		
-		$opacity = max(min((int) $opacity, 100), 0);
-		
 		if($opacity < 100)
 		{				
 			$watermark->evaluateImage(Imagick::EVALUATE_MULTIPLY, ($opacity / 100), Imagick::CHANNEL_ALPHA);
