@@ -3,6 +3,7 @@
 namespace mako\core\services;
 
 use \mako\session\Session;
+use \mako\session\store\Database;
 use \mako\session\store\File;
 use \mako\session\store\Redis;
 
@@ -33,6 +34,21 @@ class SessionService extends \mako\core\services\Service
 	//---------------------------------------------
 
 	/**
+	 * Register the database session store.
+	 * 
+	 * @access  protected
+	 * @param   array      $config  Store configuration
+	 */
+
+	protected function registerDatabaseStore($config)
+	{
+		$this->application->register(['mako\session\store\StoreInterface', 'session.store'], function($app) use ($config)
+		{
+			return new Database($app->get('database')->connection($config['configuration']), $config['table']);
+		});
+	}
+
+	/**
 	 * Retister the file session store.
 	 * 
 	 * @access  protected
@@ -48,7 +64,7 @@ class SessionService extends \mako\core\services\Service
 	}
 
 	/**
-	 * Retister the redis session store.
+	 * Register the redis session store.
 	 * 
 	 * @access  protected
 	 * @param   array      $config  Store configuration
@@ -75,6 +91,9 @@ class SessionService extends \mako\core\services\Service
 
 		switch($config['type'])
 		{
+			case 'database':
+				$this->registerDatabaseStore($config);
+				break;
 			case 'file':
 				$this->registerFileStore($config);
 				break;
