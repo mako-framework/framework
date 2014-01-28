@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\core;
+namespace mako\syringe;
 
 use \Closure;
 use \ReflectionClass;

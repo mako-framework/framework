@@ -19,7 +19,7 @@ use \Monolog\Handler\HandlerInterface;
  * @license    http://www.makoframework.com/license
  */
 
-class Application extends \mako\core\Syringe
+class Application extends \mako\syringe\Syringe
 {
 	//---------------------------------------------
 	// Class properties

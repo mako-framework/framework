@@ -4,12 +4,13 @@ namespace mako\http\routing;
 
 use \Closure;
 use \RuntimeException;
-use \mako\core\Syringe;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\routing\Route;
 use \mako\http\routing\Routes;
 use \mako\http\routing\Controller;
+use \mako\syringe\Syringe;
+
 
 /**
  * Route dispatcher.
@@ -61,7 +62,7 @@ class Dispatcher
 	/**
 	 * Syringe instance.
 	 * 
-	 * @var \mako\core\Syringe
+	 * @var \mako\syringe\Syringe
 	 */
 
 	protected $syringe;
@@ -86,7 +87,7 @@ class Dispatcher
 	 * @param   \mako\http\routing\Route   $route     The route we're dispatching
 	 * @param   \mako\http\Request         $request   Request instance
 	 * @param   \mako\http\Response        $response  (optional) Response instance
-	 * @param   \mako\core\Syringe         $syringe   (optional) Syringe instance
+	 * @param   \mako\syringe\Syringe      $syringe   (optional) Syringe instance
 	 */
 
 	public function __construct(Routes $routes, Route $route, Request $request, Response $response = null, Syringe $syringe = null)
