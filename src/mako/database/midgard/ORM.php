@@ -2,18 +2,18 @@
 
 namespace mako\database\midgard;
 
-use \mako\i18n\I18n;
+use \RuntimeException;
+
+use \mako\database\ConnectionManager;
+use \mako\database\midgard\Hydrator;
+use \mako\database\midgard\relations\BelongsTo;
+use \mako\database\midgard\relations\HasMany;
+use \mako\database\midgard\relations\HasOne;
+use \mako\database\midgard\relations\ManyToMany;
+use \mako\database\midgard\StaleRecordException;
+use \mako\proxies\Database;
 use \mako\utility\Str;
 use \mako\utility\UUID;
-use \mako\utility\Validate;
-use \mako\database\Database;
-use \mako\database\midgard\Hydrator;
-use \mako\database\midgard\relations\HasOne;
-use \mako\database\midgard\relations\HasMany;
-use \mako\database\midgard\relations\ManyToMany;
-use \mako\database\midgard\relations\BelongsTo;
-use \mako\database\midgard\StaleRecordException;
-use \RuntimeException;
 
 /**
  * ORM.
@@ -62,20 +62,20 @@ abstract class ORM
 	const PRIMARY_KEY_TYPE_NONE = 1003;
 
 	/**
-	 * Connection to use for the model.
+	 * Connection name to use for the model.
 	 * 
 	 * @var string
 	 */
 
-	protected $connection = null;
+	protected $connectionName = null;
 
 	/**
-	 * Language to use when pluralizing the table name.
+	 * Connection manager instance.
 	 * 
-	 * @var string
+	 * @var \mako\database\ConnectionManager
 	 */
 
-	protected $language = 'en_US';
+	protected static $connectionManager = null;
 
 	/**
 	 * Table name.
@@ -181,14 +181,6 @@ abstract class ORM
 
 	protected $protected = [];
 
-	/**
-	 * Validation rules.
-	 * 
-	 * @var array
-	 */
-
-	protected $rules = [];
-
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -246,15 +238,27 @@ abstract class ORM
 	//---------------------------------------------
 
 	/**
-	 * Returns the connection name of the model.
+	 * Set the connection manager.
 	 * 
 	 * @access  public
-	 * @return  string
+	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
+	 */
+
+	public static function setConnectionManager(ConnectionManager $connectionManager)
+	{
+		static::$connectionManager = $connectionManager;
+	}
+
+	/**
+	 * Returns the connection of the model.
+	 * 
+	 * @access  public
+	 * @return  \mako\database\Connection
 	 */
 
 	public function getConnection()
 	{
-		return $this->connection;
+		return !empty(static::$connectionManager) ? static::$connectionManager->connection($this->connectionName) : Database::connection($this->connectionName);
 	}
 
 	/**
@@ -268,7 +272,7 @@ abstract class ORM
 	{
 		if($this->tableName === null)
 		{
-			$this->tableName = I18n::pluralize(Str::camel2underscored(end((explode('\\', get_class($this))))), null, $this->language);
+			throw new RuntimeException(vsprintf("%s(): You need to define the table name.", [__METHOD__, get_class($this)]));
 		}
 		
 		return $this->tableName;
@@ -584,7 +588,7 @@ abstract class ORM
 
 	protected function hydrator()
 	{
-		return new Hydrator(Database::connection($this->connection), $this);
+		return new Hydrator($this->getConnection(), $this);
 	}
 
 	/**
@@ -659,7 +663,7 @@ abstract class ORM
 	{
 		$related = new $model;
 
-		return new HasOne(Database::connection($related->getConnection()), $this, $related, $foreignKey);
+		return new HasOne($related->getConnection(), $this, $related, $foreignKey);
 	}
 
 	/**
@@ -675,7 +679,7 @@ abstract class ORM
 	{
 		$related = new $model;
 
-		return new HasMany(Database::connection($related->getConnection()), $this, $related, $foreignKey);
+		return new HasMany($related->getConnection(), $this, $related, $foreignKey);
 	}
 
 	/**
@@ -693,7 +697,7 @@ abstract class ORM
 	{
 		$related = new $model;
 
-		return new ManyToMany(Database::connection($related->getConnection()), $this, $related, $foreignKey, $junctionTable, $junctionKey);
+		return new ManyToMany($related->getConnection(), $this, $related, $foreignKey, $junctionTable, $junctionKey);
 	}
 
 	/**
@@ -709,7 +713,7 @@ abstract class ORM
 	{
 		$related = new $model;
 
-		return new BelongsTo(Database::connection($related->getConnection()), $this, $related, $foreignKey);
+		return new BelongsTo($related->getConnection(), $this, $related, $foreignKey);
 	}
 
 	/**
@@ -744,45 +748,6 @@ abstract class ORM
 		}
 
 		return $modified;
-	}
-
-	/**
-	 * Returns TRUE if all validation rules passed and FALSE if validation failed.
-	 *
-	 * @access  public
-	 * @param   array    $errors  (optional) If $errors is provided, then it is filled with all the error messages
-	 * @return  boolean
-	 */
-
-	public function isValid(&$errors = [])
-	{
-		$rules = $this->rules;
-
-		if($this->exists)
-		{
-			// Only validate modified columns if the record already exists
-
-			$rules = array_intersect_key($rules, $this->getModified());
-
-			$columns = $this->getModified();
-		}
-		else
-		{
-			// Validate all columns since this is a new record
-
-			$columns = $this->columns;
-		}
-
-		if(empty($rules))
-		{
-			// Return true if there are no rules to validate against
-
-			return true;
-		}
-
-		$validation = new Validate($columns, $rules);
-
-		return $validation->successful($errors);
 	}
 
 	/**
@@ -821,7 +786,7 @@ abstract class ORM
 
 		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
 		{
-			$connection = Database::connection($this->connection);
+			$connection = $this->getConnection();
 
 			switch($connection->getDriver())
 			{
