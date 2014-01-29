@@ -2,10 +2,9 @@
 
 namespace mako\i18n;
 
-use \mako\utility\Arr;
-use \mako\core\Config;
-use \mako\caching\Cache;
 use \RuntimeException;
+
+use \mako\utility\Arr;
 
 /**
  * Language container.
@@ -22,16 +21,16 @@ class Language
 	//---------------------------------------------
 
 	/**
-	 * Cache strings?
-	 *
-	 * @var boolean
+	 * Application path.
+	 * 
+	 * @var string
 	 */
 
-	protected $useCache;
+	protected $applicationPath;
 
 	/**
-	 * Language name.
-	 * 
+	 * Current language.
+	 *
 	 * @var string
 	 */
 
@@ -61,14 +60,19 @@ class Language
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string   $language  Name of the language pack
+	 * @param   string  $applicationPath  Application path
+	 * @param   string  $language         Name of the language pack
 	 */
 
-	public function __construct($language)
+	public function __construct($applicationPath, $language)
 	{
+		$this->applicationPath = $applicationPath;
+
 		$this->language = $language;
 
-		$this->useCache = Config::get('application.language_cache');
+		$this->strings = $this->loadStrings();
+
+		$this->inflection = $this->loadInflection();
 	}
 
 	//---------------------------------------------
@@ -76,20 +80,61 @@ class Language
 	//---------------------------------------------
 
 	/**
+	 * Loads all strings.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function loadStrings()
+	{
+		$strings = ['mako:packages' => []];
+		
+		// Load language files from the application
+
+		$files = glob($this->applicationPath . '/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
+
+		if(is_array($files))
+		{
+			foreach($files as $file)
+			{
+				$strings[basename($file, '.php')] = include($file);
+			}
+		}
+
+		// Load language files from installed packages
+
+		$files = glob($this->applicationPath . '/*/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
+
+		if(is_array($files))
+		{
+			foreach($files as $file)
+			{
+				preg_match('/(.*)\/(.*)\/i18n\/' . $this->language . '\/strings\/(.*).php/', $file, $matches);
+
+				$strings['mako:packages'][$matches[2]][$matches[3]] = include($file);
+			}
+		}
+
+		return $strings;
+	}
+
+	/**
 	 * Loads the inflection rules for the requested language.
 	 *
 	 * @access  protected
+	 * @return  array
 	 */
 
 	protected function loadInflection()
 	{
-		if(file_exists(MAKO_APPLICATION_PATH . '/i18n/' . $this->language . '/inflection.php'))
+		if(file_exists($this->applicationPath . '/i18n/' . $this->language . '/inflection.php'))
 		{
-			$this->inflection = include(MAKO_APPLICATION_PATH . '/i18n/' . $this->language . '/inflection.php');
+			return include($this->applicationPath . '/i18n/' . $this->language . '/inflection.php');
 		}
 		else
 		{
-			throw new RuntimeException(vsprintf("%s:(): The [ %s ] language pack does not contain any inflection rules.", [__METHOD__, $this->language]));
+			return [];
 		}
 	}
 
@@ -106,66 +151,12 @@ class Language
 	{
 		if(empty($this->inflection))
 		{			
-			$this->loadInflection();
+			throw new RuntimeException(vsprintf("%s:(): The [ %s ] language pack does not contain any inflection rules.", [__METHOD__, $this->language]));
 		}
 
 		$pluralizer = $this->inflection['pluralize'];
 
 		return $pluralizer($word, (int) $count, $this->inflection['rules']);
-	}
-
-	/**
-	 * Loads all strings.
-	 * 
-	 * @access  protected
-	 */
-
-	protected function loadStrings()
-	{
-		// Load strings from cache if language cache is enabled
-
-		if($this->useCache)
-		{
-			$this->strings = Cache::instance()->read(MAKO_APPLICATION_ID . '_lang_' . $this->language);
-		}
-
-		if($this->strings === false || empty($this->strings))
-		{
-			$this->strings = ['mako:packages' => []];
-			
-			// Load language files from the application
-
-			$files = glob(MAKO_APPLICATION_PATH . '/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
-
-			if(is_array($files))
-			{
-				foreach($files as $file)
-				{
-					$this->strings[basename($file, '.php')] = include($file);
-				}
-			}
-
-			// Load language files from installed packages
-
-			$files = glob(MAKO_PACKAGES_PATH . '/*/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
-
-			if(is_array($files))
-			{
-				foreach($files as $file)
-				{
-					preg_match('/(.*)\/(.*)\/i18n\/' . $this->language . '\/strings\/(.*).php/', $file, $matches);
-
-					$this->strings['mako:packages'][$matches[2]][$matches[3]] = include($file);
-				}
-			}
-
-			// Write strings to cache if language cache is enabled
-
-			if($this->useCache)
-			{
-				Cache::instance()->write(MAKO_APPLICATION_ID . '_lang_' . $this->language, $this->strings, 3600);
-			}
-		}
 	}
 
 	/**
@@ -178,11 +169,6 @@ class Language
 
 	public function has($key)
 	{
-		if(empty($this->strings))
-		{
-			$this->loadStrings();
-		}
-		
 		if(stripos($key, '::'))
 		{
 			return Arr::has($this->strings['mako:packages'], str_replace('::', '.', $key));
@@ -204,11 +190,6 @@ class Language
 
 	public function get($key, array $vars = [])
 	{
-		if(empty($this->strings))
-		{
-			$this->loadStrings();
-		}
-
 		if(stripos($key, '::'))
 		{
 			$string = Arr::get($this->strings['mako:packages'], str_replace('::', '.', $key), $key);

@@ -2,9 +2,9 @@
 
 namespace mako\i18n;
 
-use \mako\core\Config;
-use \mako\i18n\Language;
 use \RuntimeException;
+
+use \mako\i18n\Language;
 
 /**
  * Internationalization class.
@@ -21,12 +21,20 @@ class I18n
 	//---------------------------------------------
 
 	/**
+	 * Application path.
+	 * 
+	 * @var string
+	 */
+
+	protected $applicationPath;
+
+	/**
 	 * Current language.
 	 *
 	 * @var string
 	 */
 
-	protected static $language;
+	protected $language;
 
 	/**
 	 * Loaded languages.
@@ -34,64 +42,74 @@ class I18n
 	 * @var array
 	 */
 
-	protected static $languages = [];
+	protected $languages = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Constructor.
+	 * 
+	 * @access  public
+	 * @param   string  $applicationPath  Application path
+	 * @param   string  $language         Name of the language pack
+	 */
+
+	public function __construct($applicationPath, $language)
+	{
+		$this->applicationPath = $applicationPath;
+
+		$this->language = $language;
+	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
 
 	/**
-	 * Set and/or get the current language.
-	 *
+	 * Gets the current language
+	 * 
 	 * @access  public
-	 * @param   string  $language  (optional) Name of the language pack
-	 * @return  string
+	 * @param   string  $language  Name of the language pack
 	 */
 
-	public static function language($language = null)
+	public function getLanguage()
 	{
-		if($language !== null)
-		{
-			static::$language = $language;
-		}
-
-		if(empty(static::$language))
-		{
-			static::$language = Config::get('application.default_language');
-		}
-
-		return static::$language;
+		return $this->language;
 	}
 
 	/**
-	 * Returns the instance of the chosen language.
-	 * 
+	 * Sets the current language
+	 *
 	 * @access  public
+	 * @param   string  $language  Name of the language pack
+	 * @return  string
+	 */
+
+	public function setLanguage($language = null)
+	{
+		$this->language = $language;
+	}
+
+	/**
+	 * Returns the chosen language.
+	 * 
+	 * @access  protected
 	 * @param   string               $language  Name of the language pack
 	 * @return  \mako\i18n\Language
 	 */
 
-	protected static function lang($language)
+	protected function language($language = null)
 	{
-		$language = $language ?: static::language();
+		$language = $language ?: $this->language;
 
-		if(empty(static::$languages[$language]))
+		if(!isset($this->languages[$language]))
 		{
-			if(!is_dir(MAKO_APPLICATION_PATH . '/i18n/' . $language))
-			{
-				throw new RuntimeException(vsprintf("%s(): The [ %s ] language pack does not exist.", [__METHOD__, $language]));
-			}
-
-			static::$languages[$language] = new Language($language);
+			$this->languages[$language] = new Language($this->applicationPath, $language);
 		}
 
-		return static::$languages[$language];
+		return $this->languages[$language];
 	}
 
 	/**
@@ -103,9 +121,9 @@ class I18n
 	 * @return  boolean
 	 */
 
-	public static function has($key, $language = null)
+	public function has($key, $language = null)
 	{
-		return static::lang($language)->has($key);
+		return $this->language($language)->has($key);
 	}
 
 	/**
@@ -118,9 +136,9 @@ class I18n
 	 * @return  string
 	 */
 
-	public static function get($key, array $vars = [], $language = null)
+	public function get($key, array $vars = [], $language = null)
 	{
-		return static::lang($language)->get($key, $vars);
+		return $this->language($language)->get($key, $vars);
 	}
 
 	/**
@@ -133,9 +151,9 @@ class I18n
 	 * @return  string
 	 */
 
-	public static function pluralize($word, $count = null, $language = null)
+	public function pluralize($word, $count = null, $language = null)
 	{
-		return static::lang($language)->pluralize($word, $count);
+		return $this->language($language)->pluralize($word, $count);
 	}
 }
 
