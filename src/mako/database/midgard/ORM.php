@@ -4,6 +4,7 @@ namespace mako\database\midgard;
 
 use \RuntimeException;
 
+use \mako\core\Application;
 use \mako\database\ConnectionManager;
 use \mako\database\midgard\Hydrator;
 use \mako\database\midgard\relations\BelongsTo;
@@ -11,7 +12,6 @@ use \mako\database\midgard\relations\HasMany;
 use \mako\database\midgard\relations\HasOne;
 use \mako\database\midgard\relations\ManyToMany;
 use \mako\database\midgard\StaleRecordException;
-use \mako\proxies\Database;
 use \mako\utility\Str;
 use \mako\utility\UUID;
 
@@ -258,7 +258,12 @@ abstract class ORM
 
 	public function getConnection()
 	{
-		return !empty(static::$connectionManager) ? static::$connectionManager->connection($this->connectionName) : Database::connection($this->connectionName);
+		if(empty(static::$connectionManager))
+		{
+			static::$connectionManager = Application::instance()->get('database');
+		}
+		
+		return static::$connectionManager->connection($this->connectionName);
 	}
 
 	/**
