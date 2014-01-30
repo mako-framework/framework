@@ -24,6 +24,14 @@ class Session
 	//---------------------------------------------
 
 	/**
+	 * Maximum number of tokens stored per session.
+	 *
+	 * @var int
+	 */
+	
+	const MAX_TOKENS = 20;
+
+	/**
 	 * Has the session been started yet?
 	 * 
 	 * @var boolean
@@ -534,6 +542,56 @@ class Session
 		$this->response->deleteCookie($this->cookieName, $this->cookieOptions);
 
 		$this->destroyed = true;
+	}
+
+	/**
+	 * Returns random security token.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function generateToken()
+	{
+		if(!empty($this->sessionData['mako:tokens']))
+		{
+			$this->sessionData['mako:tokens'] = array_slice($this->sessionData['mako:tokens'], 0, (static::MAX_TOKENS - 1)); // Only store MAX_TOKENS tokens per session
+		}
+		else
+		{
+			$this->sessionData['mako:tokens'] = [];
+		}
+
+		$token = $this->generateId();
+
+		array_unshift($this->sessionData['mako:tokens'], $token);
+
+		return $token;
+	}
+
+	/**
+	 * Validates security token.
+	 *
+	 * @access  public
+	 * @param   string   $token  Security token
+	 * @return  boolean
+	 */
+
+	public function validateToken($token)
+	{
+		if(!empty($this->sessionData['mako:tokens']))
+		{
+			$key = array_search($token, $this->sessionData['mako:tokens']);
+
+			if($key !== false)
+			{
+				unset($this->sessionData['mako:tokens'][$key]);
+				
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
 
