@@ -76,7 +76,7 @@ class CacheManager extends \mako\common\AdapterManager
 
 		$configuration = $this->configurations[$configuration];
 
-		$factoryMethod = $configuration['type'] . 'Adapter';
+		$factoryMethod = $this->getFactoryMethodName($configuration['type']);
 
 		return new Cache($this->$factoryMethod($configuration), $configuration['prefix']);
 	}

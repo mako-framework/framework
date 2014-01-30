@@ -70,6 +70,26 @@ abstract class AdapterManager
 	//---------------------------------------------
 
 	/**
+	 * Returns the factory method name.
+	 * 
+	 * @access  public
+	 * @param   string  $type  Cache type
+	 * @return  string
+	 */
+
+	protected function getFactoryMethodName($type)
+	{
+		$method = $type . 'Adapter';
+
+		if(!method_exists($this, $method))
+		{
+			throw new RuntimeException(vsprintf("%s(): There is no factory method defined for a [ %s ] adapter.", [__METHOD__, $type]));
+		}
+
+		return $method;
+	}
+
+	/**
 	 * Returns a new adapter instance.
 	 * 
 	 * @access  public
