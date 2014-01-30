@@ -4,6 +4,14 @@ namespace mako\cache\adapters;
 
 use \mako\redis\Redis as RedisClient;
 
+/**
+ * Redis adapter.
+ *
+ * @author     Frederic G. Østby
+ * @copyright  (c) 2008-2013 Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 class Redis implements \mako\cache\adapters\AdapterInterface
 {
 	//---------------------------------------------
