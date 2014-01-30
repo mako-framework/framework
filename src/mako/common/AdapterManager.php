@@ -85,7 +85,7 @@ abstract class AdapterManager
 
 		if(!method_exists($this, $method))
 		{
-			throw new RuntimeException(vsprintf("%s(): There is no factory method defined for a [ %s ] adapter.", [__METHOD__, $type]));
+			throw new RuntimeException(vsprintf("%s(): A factory method for the [ %s ] adapter has not been defined.", [__METHOD__, $type]));
 		}
 
 		return $method;
