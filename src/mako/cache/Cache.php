@@ -67,7 +67,7 @@ class Cache
 
 	protected function prefixedKey($key)
 	{
-		return $this->prefix . ':' . $key;
+		return empty($this->prefix) ? $key : $this->prefix . ':' . $key;
 	}
 
 	/**
