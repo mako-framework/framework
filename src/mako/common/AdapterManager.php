@@ -2,6 +2,8 @@
 
 namespace mako\common;
 
+use \RuntimeException;
+
 use \mako\syringe\Syringe;
 
 /**
