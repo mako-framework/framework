@@ -98,7 +98,7 @@ class Database implements \mako\cache\adapters\AdapterInterface
 
 	public function has($key)
 	{
-		return (bool) $this->table()->where('key', '=', $this->identifier . $key)->where('lifetime', '>', time())->count();
+		return (bool) $this->table()->where('key', '=', $key)->where('lifetime', '>', time())->count();
 	}
 
 	/**
