@@ -2,22 +2,20 @@
 
 namespace mako\security\crypto\adapters;
 
-use \RuntimeException;
-
 /**
- * Mcrypt cryptography adapter.
+ * MCrypt adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class Mcrypt extends \mako\security\crypto\adapters\Adapter
+class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-	
+
 	/**
 	 * The cipher method to use for encryption.
 	 *
@@ -49,86 +47,86 @@ class Mcrypt extends \mako\security\crypto\adapters\Adapter
 	 */
 	
 	protected $ivSize;
-	
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
-	
+
 	/**
 	 * Constructor.
-	 *
+	 * 
 	 * @access  public
-	 * @param   array   $config  Configuration
+	 * @param   string  $key     Encryption key
+	 * @param   int     $cipher  (optional) Cipher
+	 * @param   int     $mode    (optional) Mode
 	 */
-	
-	public function __construct(array $config)
+
+	public function __construct($key, $cipher = null, $mode = null)
 	{
-		if(extension_loaded('mcrypt') === false)
+		$this->key = $key;
+
+		$this->cipher = $cipher ?: MCRYPT_RIJNDAEL_256;
+
+		$this->mode = $mode ?: MCRYPT_MODE_ECB;
+
+		$maxSize = mcrypt_get_key_size($this->cipher, $this->mode);
+		
+		if(mb_strlen($this->key) > $maxSize)
 		{
-			throw new RuntimeException(vsprintf("%s(): Mcrypt is not available.", [__METHOD__]));
+			$this->key = substr($this->key, 0, $maxSize);
 		}
-		
-		$maxSize = mcrypt_get_key_size($config['cipher'], $config['mode']);
-		
-		if(mb_strlen($config['key']) > $maxSize)
-		{
-			$config['key'] = substr($config['key'], 0, $maxSize);
-		}
-		
-		$this->cipher = $config['cipher'];
-		$this->key    = $config['key'];
-		$this->mode   = $config['mode'];
+
 		$this->ivSize = mcrypt_get_iv_size($this->cipher, $this->mode);
 	}
-	
+
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-	
+
 	/**
-	 * Encrypts string.
+	 * Encrypts data.
 	 *
 	 * @access  public
-	 * @param   string  $string  String to encrypt
+	 * @param   string  $data  Data to encrypt
 	 * @return  string
 	 */
 	
-	public function encrypt($string)
+	public function encrypt($data)
 	{
 		$iv = mcrypt_create_iv($this->ivSize, MCRYPT_DEV_URANDOM);
 		
-		return base64_encode($iv . mcrypt_encrypt($this->cipher, $this->key, $string, $this->mode, $iv));
+		return base64_encode($iv . mcrypt_encrypt($this->cipher, $this->key, $data, $this->mode, $iv));
 	}
-	
+
 	/**
-	 * Decrypts string.
+	 * Decrypts data.
 	 *
 	 * @access  public
-	 * @param   string  $string  String to decrypt
+	 * @param   string  $data  Data to decrypt
 	 * @return  string
 	 */
 	
-	public function decrypt($string)
+	public function decrypt($data)
 	{
-		$string = base64_decode($string, true);
+		$data = base64_decode($data, true);
 		
-		if($string === false)
+		if($data === false)
 		{
 			return false;
 		}
 		
-		$iv = substr($string, 0, $this->ivSize);
+		$iv = substr($data, 0, $this->ivSize);
 		
-		$string = substr($string, $this->ivSize);
+		$data = substr($data, $this->ivSize);
 
-		$string = mcrypt_decrypt($this->cipher, $this->key, $string, $this->mode, $iv);
+		$data = mcrypt_decrypt($this->cipher, $this->key, $data, $this->mode, $iv);
 
-		if($string === false)
+		if($data === false)
 		{
 			return false;
 		}
 		
-		return rtrim($string, "\0");
+		return rtrim($data, "\0");
 	}
 }
 

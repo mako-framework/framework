@@ -2,22 +2,20 @@
 
 namespace mako\security\crypto\adapters;
 
-use \RuntimeException;
-
 /**
- * OpenSSL cryptography adapter.
+ * OpenSSL adapter.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class OpenSSL extends \mako\security\crypto\adapters\Adapter
+class OpenSSL implements \mako\security\crypto\adapters\AdapterInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-	
+
 	/**
 	 * Key used to encrypt/decrypt data.
 	 *
@@ -41,71 +39,69 @@ class OpenSSL extends \mako\security\crypto\adapters\Adapter
 	 */
 	
 	protected $ivSize;
-	
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
-	
+
 	/**
 	 * Constructor.
-	 *
+	 * 
 	 * @access  public
-	 * @param   array   $config  Configuration
+	 * @param   string  $key     Encryption key
+	 * @param   int     $cipher  (optional) Cipher
 	 */
-	
-	public function __construct(array $config)
+
+	public function __construct($key, $cipher = null)
 	{
-		if(extension_loaded('openssl') === false)
-		{
-			throw new RuntimeException(vsprintf("%s(): OpenSSL is not available.", [__METHOD__]));
-		}
-		
-		$this->key    = $config['key'];
-		$this->cipher = $config['cipher'];
+		$this->key = $key;
+
+		$this->cipher = $cipher ?: 'AES-256-OFB';
+
 		$this->ivSize = openssl_cipher_iv_length($this->cipher);
 	}
-	
+
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-	
+
 	/**
-	 * Encrypts string.
+	 * Encrypts data.
 	 *
 	 * @access  public
-	 * @param   string  $string  String to encrypt
+	 * @param   string  $data  Data to encrypt
 	 * @return  string
 	 */
 	
-	public function encrypt($string)
+	public function encrypt($data)
 	{
 		$iv = openssl_random_pseudo_bytes($this->ivSize);
 
-		return base64_encode($iv . openssl_encrypt($string, $this->cipher, $this->key, 0, $iv));
+		return base64_encode($iv . openssl_encrypt($data, $this->cipher, $this->key, 0, $iv));
 	}
-	
+
 	/**
-	 * Decrypts string.
+	 * Decrypts data.
 	 *
 	 * @access  public
-	 * @param   string  $string  String to decrypt
+	 * @param   string  $data  Data to decrypt
 	 * @return  string
 	 */
 	
-	public function decrypt($string)
+	public function decrypt($data)
 	{
-		$string = base64_decode($string, true);
+		$data = base64_decode($data, true);
 		
-		if($string === false)
+		if($data === false)
 		{
 			return false;
 		}
 
-		$iv = substr($string, 0, $this->ivSize);
+		$iv = substr($data, 0, $this->ivSize);
 		
-		$string = substr($string, $this->ivSize);
+		$data = substr($data, $this->ivSize);
 
-		return openssl_decrypt($string, $this->cipher, $this->key, 0, $iv);
+		return openssl_decrypt($data, $this->cipher, $this->key, 0, $iv);
 	}
 }
 

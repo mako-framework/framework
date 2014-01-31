@@ -2,12 +2,13 @@
 
 namespace mako\security\crypto;
 
-use \mako\core\Config;
-use \mako\security\crypto\adapters\Adapter;
 use \RuntimeException;
 
+use \mako\security\crypto\adapters\AdapterInterface;
+use \mako\security\Signer;
+
 /**
- * Cryptography class.
+ * Crypto wrapper.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
@@ -21,91 +22,106 @@ class Crypto
 	//---------------------------------------------
 
 	/**
-	 * Crypto adapters.
+	 * Cache adapter.
 	 * 
-	 * @var array
+	 * @var \mako\security\crypto\adapters\AdapterInterface
 	 */
-	
-	protected static $adapters = 
-	[
-		'mcrypt'  => '\mako\security\crypto\adapters\Mcrypt',
-		'openssl' => '\mako\security\crypto\adapters\OpenSSL',
-	];
+
+	protected $adapter;
+
+	/**
+	 * Signer.
+	 * 
+	 * @var \mako\security\Signer
+	 */
+
+	protected $signer;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
-	 *
-	 * @access  protected
+	 * Constructor.
+	 * 
+	 * @access  public
+	 * @param   \mako\security\crypto\adapters\AdapterInterface  $adapter  Crypto adapter
+	 * @param   \mako\security\Signer                            $signer   (optional) Signer instance.
 	 */
 
-	protected function __construct()
+	public function __construct(AdapterInterface $adapter, Signer $signer = null)
 	{
-		// Nothing here
+		$this->adapter = $adapter;
+
+		$this->signer = $signer;
 	}
-	
+
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-	
+
 	/**
-	 * Returns an instance of the requested encryption configuration.
+	 * Encrypts data.
 	 *
-	 * @param   string                         $name  (optional) Encryption configuration name
-	 * @return  \mako\security\crypto\Adapter
+	 * @access  public
+	 * @param   string  $data  Data to encrypt
+	 * @return  string
 	 */
 	
-	public static function factory($name = null)
+	public function encrypt($data)
 	{
-		$config = Config::get('crypto');
-
-		$name = $name ?: $config['default'];
-
-		if(isset($config['configurations'][$name]) === false)
-		{
-			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the crypto configuration.", [__METHOD__, $name]));
-		}
-
-		$adapter = static::$adapters[$config['configurations'][$name]['library']];
-
-		$adapter = new $adapter($config['configurations'][$name]);
-
-		if(!($adapter instanceof Adapter))
-		{
-			throw new RuntimeException(vsprintf("%s(): The crypto adapter must extend the \mako\security\crypto\adapters\Adapter class.", [__METHOD__]));
-		}
-
-		return $adapter;
+		return $this->adapter->encrypt($data);
 	}
 
 	/**
-	 * Registers a new crypto adapter.
+	 * Decrypts data.
+	 *
+	 * @access  public
+	 * @param   string  $data  Data to decrypt
+	 * @return  string
+	 */
+	
+	public function decrypt($data)
+	{
+		return $this->adapter->decrypt($data);
+	}
+
+	/**
+	 * Encrypts and signs data.
 	 * 
 	 * @access  public
-	 * @param   string  $name   Adapter name
-	 * @param   string  $class  Adapter class
+	 * @param   string  $data  Data to encrypt
+	 * @return  string
 	 */
 
-	public static function registerAdapter($name, $class)
+	public function encryptAndSign($data)
 	{
-		static::$adapters[$name] = $class;
+		if(empty($this->signer))
+		{
+			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to sign data.", [__METHOD__]));
+		}
+
+		return $this->signer->sign($this->encrypt($data));
 	}
 
 	/**
-	 * Magic shortcut to the default crypto configuration.
+	 * Validates and decrypts data.
 	 *
 	 * @access  public
-	 * @param   string  $name       Method name
-	 * @param   array   $arguments  Method arguments
-	 * @return  mixed
+	 * @param   string  $data  String to decrypt
+	 * @return  string
 	 */
 
-	public static function __callStatic($name, $arguments)
+	public function validateAndDecrypt($data)
 	{
-		return call_user_func_array([static::factory(), $name], $arguments);
+		if(empty($this->signer))
+		{
+			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to validate signed data.", [__METHOD__]));
+		}
+
+		$data = $this->signer->validate($data);
+
+		return ($data === false) ? false : $this->decrypt($data);
 	}
 }
 
