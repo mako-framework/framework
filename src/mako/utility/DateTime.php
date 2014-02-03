@@ -2,7 +2,6 @@
 
 namespace mako\utility;
 
-use \mako\i18n\I18n;
 use \DateTimeZone;
 
 /**
@@ -151,7 +150,7 @@ class DateTime extends \DateTime
 	 * @return  \mako\DateTime
 	 */
 
-	public static function createFromDosTimestamp($timestamp, $timeZone = null)
+	public static function createFromDOSTimestamp($timestamp, $timeZone = null)
 	{
 		$year     = (($timestamp >> 25) & 0x7f) + 1980;
 		$mon      = ($timestamp >> 21) & 0x0f;
@@ -264,7 +263,7 @@ class DateTime extends \DateTime
 	 * @return  \mako\DateTime
 	 */
 
-	public function moveForward($seconds)
+	public function forward($seconds)
 	{
 		$this->setTimestamp($this->getTimestamp() + $seconds);
 
@@ -279,7 +278,7 @@ class DateTime extends \DateTime
 	 * @return  \mako\DateTime
 	 */
 
-	public function moveBackward($seconds)
+	public function rewind($seconds)
 	{
 		$this->setTimestamp($this->getTimestamp() - $seconds);
 
@@ -293,7 +292,7 @@ class DateTime extends \DateTime
 	 * @return  int
 	 */
 
-	public function getDosTimestamp()
+	public function getDOSTimestamp()
 	{
 		$time = getdate($this->getTimestamp());
 
@@ -355,93 +354,6 @@ class DateTime extends \DateTime
 		];
 		 
 		return $days[$this->format('n') - 1];
-	}
-
-	/**
-	 * Returns a "fuzzy" date.
-	 *
-	 * @access  public
-	 * @param   boolean  $fullFuzzy    (optional) Enable full fuzziness
-	 * @param   string   $dateFormat   (optional) Date format used for non-fuzy dates
-	 * @param   string   $clockFormat  (optional) Clock format for fuzzy dates - set to false to disable
-	 * @return  string
-	 */
-
-	public function fuzzy($fullFuzzy = false, $dateFormat = 'Y-m-d', $clockFormat = ', H:i a')
-	{
-		$timestamp = $this->getTimestamp();
-
-		$now  = time();
-		$diff = max($now - $timestamp, 0);
-		
-		if($diff < 120)
-		{
-			 return I18n::get('datetime.minute_ago');
-		}
-		elseif($diff < 3600)
-		{
-			return I18n::get('datetime.minutes_ago', [$diff / 60]);
-		}
-		
-		if($fullFuzzy === true)
-		{
-			// Full fuzzy
-			
-			if($diff < 7200)
-			{
-				return I18n::get('datetime.hour_ago');
-			}
-			elseif($diff < 86400)
-			{
-				return I18n::get('datetime.hours_ago', [$diff / 3600]);
-			}
-			elseif($diff < 172800)
-			{
-				$date = I18n::get('datetime.day_ago');
-			}
-			elseif($diff < 604800)
-			{
-				$date = I18n::get('datetime.days_ago', [$diff / 86400]);
-			}
-			elseif($diff < 1209600)
-			{
-				$date = I18n::get('datetime.week_ago');
-			}
-			elseif($diff < 3024000)
-			{
-				$date = I18n::get('datetime.weeks_ago', [$diff / 604800]);
-			}
-			else
-			{
-				$date = $this->format($dateFormat);
-			}
-		}
-		else
-		{
-			// Kinda fuzzy
-			
-			$compare = static::createFromTimestamp($timestamp)->format('jny');
-
-			if(static::now()->format('jny') == $compare)
-			{
-				$date = I18n::get('datetime.today');
-			}
-			elseif(static::now()->moveBackward(86400)->format('jny') == $compare)
-			{
-				$date = I18n::get('datetime.yesterday');
-			}
-			else
-			{
-				$date = $this->format($dateFormat);
-			}
-		}
-		
-		if($clockFormat !== false)
-		{
-			$date .= $this->format($clockFormat);
-		}
-		
-		return $date;
 	}
 }
 
