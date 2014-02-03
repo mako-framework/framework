@@ -1,5 +1,7 @@
 <?php
 
+use mako\ErrorHandler;
+
 //------------------------------------------------------------------------------------------
 // Define some constants
 //------------------------------------------------------------------------------------------
@@ -29,7 +31,9 @@ set_error_handler(function($code, $message, $file, $line)
 {
 	if((error_reporting() & $code) !== 0)
 	{
-		throw new ErrorException($message, $code, 0, $file, $line);
+		$exception = new \Whoops\Exception\ErrorException($message, $code, 0, $file, $line);
+        	ErrorHandler::handler($exception);
+		return false;
 	}
 
 	return true;
