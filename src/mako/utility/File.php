@@ -114,42 +114,15 @@ class File
 	//---------------------------------------------
 
 	/**
-	 * Returns filesize in a human friendly format.
+	 * Returns filesize in bytes.
 	 *
 	 * @access  public
-	 * @param   int|string  $size    File path or size in bytes
-	 * @param   boolean     $binary  (optional) True to use binary prefixes and false to use decimal prefixes
-	 * @return  string
+	 * @return  int
 	 */
 
 	public static function size($size, $binary = true)
 	{
-		if(!is_int($size) && is_file($size))
-		{
-			$size = filesize($size);
-		}
-
-		if($size > 0)
-		{
-			if($binary === true)
-			{
-				$base  = 1024;
-				$terms = ['byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
-			}
-			else
-			{
-				$base  = 1000;
-				$terms = ['byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-			}
-
-			$e = floor(log($size, $base));
-
-			return round($size / pow($base, $e), 2) . ' ' . $terms[$e];
-		}
-		else
-		{
-			return '0 byte';
-		}
+		return filesize($size);
 	}
 
 	/**

@@ -49,6 +49,40 @@ class Humanizer
 	//---------------------------------------------
 
 	/**
+	 * Returns a human friendly file size.
+	 * 
+	 * @access  public
+	 * @param   int      $size    File size in bytes
+	 * @param   boolean  $binary  (optional) True to use binary prefixes and false to use decimal prefixes
+	 * @return  string
+	 */
+
+	public function fileSize($size, $binary = true)
+	{
+		if($size > 0)
+		{
+			if($binary === true)
+			{
+				$base  = 1024;
+				$terms = ['byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+			}
+			else
+			{
+				$base  = 1000;
+				$terms = ['byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+			}
+
+			$e = floor(log($size, $base));
+
+			return round($size / pow($base, $e), 2) . ' ' . $terms[$e];
+		}
+		else
+		{
+			return '0 byte';
+		}
+	}
+
+	/**
 	 * Returns a human friendly representation of the date.
 	 * 
 	 * @access  public
