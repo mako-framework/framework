@@ -54,8 +54,9 @@ abstract class AdapterManager
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $default         Default connection name
-	 * @param   array   $configurations  Configurations
+	 * @param   string                 $default         Default connection name
+	 * @param   array                  $configurations  Configurations
+	 * @param   \mako\syringe\Syringe  $syringe         Syringe instance
 	 */
 
 	public function __construct($default, array $configurations, Syringe $syringe)
@@ -74,8 +75,8 @@ abstract class AdapterManager
 	/**
 	 * Returns the factory method name.
 	 * 
-	 * @access  public
-	 * @param   string  $type  Cache type
+	 * @access  protected
+	 * @param   string     $type  Cache type
 	 * @return  string
 	 */
 
