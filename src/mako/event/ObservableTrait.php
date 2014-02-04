@@ -36,7 +36,7 @@ trait ObservableTrait
 	 * 
 	 * @access  public
 	 * @param   string                  $event     Event name
-	 * @param   string|object|\Closure  $observer  Observer instance
+	 * @param   string|object|\Closure  $observer  Observer class name, observer instance or observer closure
 	 */
 
 	public function attachObserver($event, $observer)
@@ -49,21 +49,19 @@ trait ObservableTrait
 	 * 
 	 * @access  public
 	 * @param   string         $event     Event name
-	 * @param   string|object  $observer  Observer instance or observer class name
+	 * @param   string|object  $observer  Observer class name or observer instance
 	 */
 
 	public function detachObserver($event, $observer)
 	{
-		if(!isset($this->_observers[$event]))
+		if(isset($this->_observers[$event]))
 		{
-			throw new RuntimeException(vsprintf("%s(): The [ %s ] event does not exist.", [__METHOD__, $event]));
-		}
-
-		foreach($this->_observers[$event] as $key => $_observer)
-		{
-			if($_observer instanceof $observer || $_observer === $observer)
+			foreach($this->_observers[$event] as $key => $_observer)
 			{
-				unset($this->_observers[$event][$key]);
+				if($_observer instanceof $observer || $_observer === $observer)
+				{
+					unset($this->_observers[$event][$key]);
+				}
 			}
 		}
 	}
