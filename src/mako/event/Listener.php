@@ -24,19 +24,19 @@ class Listener
 	 * @var array
 	 */
 
-	protected static $events = [];
+	protected $events = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
+	 * Constructor.
 	 *
 	 * @access  protected
 	 */
 
-	protected function __construct()
+	public function __construct()
 	{
 		// Nothing here
 	}
@@ -53,9 +53,9 @@ class Listener
 	 * @param   \Closure  $closure  Event handler
 	 */
 
-	public static function register($name, Closure $closure)
+	public function register($name, Closure $closure)
 	{
-		static::$events[$name][] = $closure;
+		$this->events[$name][] = $closure;
 	}
 
 	/**
@@ -66,9 +66,9 @@ class Listener
 	 * @return  boolean
 	 */
 
-	public static function registered($name)
+	public function registered($name)
 	{
-		return isset(static::$events[$name]);
+		return isset($this->events[$name]);
 	}
 
 	/**
@@ -78,15 +78,15 @@ class Listener
 	 * @param   string  $name  (optional) Event name
 	 */
 
-	public static function clear($name = null)
+	public function clear($name = null)
 	{
 		if($name === null)
 		{
-			static::$events = [];
+			$this->events = [];
 		}
 		else
 		{
-			unset(static::$events[$name]);
+			unset($this->events[$name]);
 		}
 	}
 
@@ -98,11 +98,11 @@ class Listener
 	 * @param   \Closure  $closure  Event handler
 	 */
 
-	public static function override($name, Closure $closure)
+	public function override($name, Closure $closure)
 	{
-		static::clear($name);
+		$this->clear($name);
 
-		static::register($name, $closure);
+		$this->register($name, $closure);
 	}
 
 	/**
@@ -116,13 +116,13 @@ class Listener
 	 * @return  array
 	 */
 
-	public static function trigger($name, array $params = [], $break = false)
+	public function trigger($name, array $params = [], $break = false)
 	{
 		$values = [];
 
-		if(isset(static::$events[$name]))
+		if(isset($this->events[$name]))
 		{
-			foreach(static::$events[$name] as $event)
+			foreach($this->events[$name] as $event)
 			{
 				$values[] = $last = call_user_func_array($event, $params);
 

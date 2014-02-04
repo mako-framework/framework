@@ -27,14 +27,6 @@ trait ObservableTrait
 
 	protected $_observers = [];
 
-	/**
-	 * Static (global) observers.
-	 * 
-	 * @var array
-	 */
-
-	protected static $_staticObservers = [];
-
 	//---------------------------------------------
 	// Trait methods
 	//---------------------------------------------
@@ -51,20 +43,7 @@ trait ObservableTrait
 	{
 		$this->_observers[$event][] = $observer;
 	}
-
-	/**
-	 * Attach a static observer.
-	 * 
-	 * @access  public
-	 * @param   string                  $event     Event name
-	 * @param   string|object|\Closure  $observer  Observer instance
-	 */
-
-	public static function attachStaticObserver($event, $observer)
-	{
-		static::$_staticObservers[$event][] = $observer;
-	}
-
+	
 	/**
 	 * Detach an observer.
 	 * 
@@ -90,30 +69,6 @@ trait ObservableTrait
 	}
 
 	/**
-	 * Detach a static observer.
-	 * 
-	 * @access  public
-	 * @param   string         $event     Event name
-	 * @param   object|string  $observer  Observer instance or observer class name
-	 */
-
-	public static function detachStaticObserver($event, $observer)
-	{
-		if(!isset(static::$_staticObservers[$event]))
-		{
-			throw new RuntimeException(vsprintf("%s(): The [ %s ] event does not exist.", [__METHOD__, $event]));
-		}
-
-		foreach(static::$_staticObservers[$event] as $key => $_observer)
-		{
-			if($_observer instanceof $observer || $_observer === $observer)
-			{
-				unset(static::$_staticObservers[$event][$key]);
-			}
-		}
-	}
-
-	/**
 	 * Clear all observers.
 	 * 
 	 * @access  public
@@ -133,25 +88,6 @@ trait ObservableTrait
 	}
 
 	/**
-	 * Clear all static observers.
-	 * 
-	 * @access  public
-	 * @param   string  $event  (optional) Event name
-	 */
-
-	public static function clearStaticObservers($event = null)
-	{
-		if($event === null)
-		{
-			static::$_staticObservers = [];
-		}
-		else
-		{
-			static::$_staticObservers[$event] = [];
-		}
-	}
-
-	/**
 	 * Overrides an observer.
 	 * 
 	 * @access  public
@@ -167,21 +103,6 @@ trait ObservableTrait
 	}
 
 	/**
-	 * Overrides a static observer.
-	 * 
-	 * @access  public
-	 * @param   string                  $event    Event name
-	 * @param   string|object|\Closure  $closure  Event handler
-	 */
-
-	public static function overrideStaticObservers($event, $observer)
-	{
-		static::clearStaticObservers($event);
-
-		static::attachStaticObserver($event, $observer);
-	}
-
-	/**
 	 * Notify all observers.
 	 * 
 	 * @access  public
@@ -194,32 +115,27 @@ trait ObservableTrait
 	{
 		$returnValues = [];
 
-		// Merge observers and static observers
-
-		$observers = array_merge
-		(
-			isset($this->_observers[$event]) ? $this->_observers[$event] : [],
-			isset(static::$_staticObservers[$event]) ? static::$_staticObservers[$event] : []
-		);
-
 		// Notify observers
 
-		foreach($observers as $observer)
+		if(isset($this->_observers[$event]))
 		{
-			if(!is_object($observer))
+			foreach($this->_observers[$event] as $observer)
 			{
-				$observer = [new $observer, 'update'];
-			}
-			elseif(!($observer instanceof Closure))
-			{
-				$observer = [$observer, 'update'];
-			}
+				if(!is_object($observer))
+				{
+					$observer = [new $observer, 'update'];
+				}
+				elseif(!($observer instanceof Closure))
+				{
+					$observer = [$observer, 'update'];
+				}
 
-			$returnValues[] = $last = call_user_func_array($observer, $parameters);
+				$returnValues[] = $last = call_user_func_array($observer, $parameters);
 
-			if($break && $last === false)
-			{
-				break;
+				if($break && $last === false)
+				{
+					break;
+				}
 			}
 		}
 
