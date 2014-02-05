@@ -173,6 +173,46 @@ class Arr
 	{
 		return (bool) count(array_filter(array_keys($array), 'is_string'));
 	}
+	
+    /**
+     * Query array using validation rules and "dot notation".
+     * 
+     * @access  public
+     * @param   array   $array     Array to query from
+     * @param   string  $path      Array path
+     * @param   string  $rules     Validation rules
+     * @param   string  $preserve  (optional) Preserve original array key
+     * @return  array
+     */
+
+    public static function where(array $array, $path, $rules, $preserve = true)
+    {
+        $validArray = [];
+
+        foreach ($array as $key => $value)
+        {
+            $input = self::get($value, $path);
+            
+            if($input == true)
+            {
+                $validation = new Validate(['check' => $input], ['check' => $rules]);
+
+                if($validation->successful())
+                {
+                    if($preserve === true)
+                    {
+                        $validArray[$key] = $value;
+                    }
+                    else
+                    {
+                        $validArray[] = $value;
+                    }
+                }
+            }           
+        }
+
+        return $validArray;
+    }
 
 	/**
 	 * Returns the values from a single column of the input array, identified by the key.
