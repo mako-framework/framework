@@ -49,10 +49,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 
 	public function __construct()
 	{
-		if(defined('GD_VERSION') === false || version_compare(GD_VERSION, '2.0.0', '>=') === false)
-		{
-			throw new RuntimeException(vsprintf("%s(): GD [ 2.0.0 ] or higher is required.", [__METHOD__]));
-		}
+		// Nothing here
 	}
 
 	/**

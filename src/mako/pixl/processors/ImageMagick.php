@@ -44,10 +44,7 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 
 	public function __construct()
 	{
-		if(class_exists('\Imagick', false) === false)
-		{
-			throw new RuntimeException(vsprintf("%s(): Imagick is not available.", [__METHOD__]));
-		}
+		// Nothing here
 	}
 
 	/**
