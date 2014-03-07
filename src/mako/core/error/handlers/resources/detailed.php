@@ -20,11 +20,11 @@ body
 a
 {
 	cursor: pointer;
-	color: #28A87F;
+	color: #841320;
 }
 a:hover, a:active
 {
-	color: #23C5A0;
+	color: #CD3F3F;
 }
 .pull-right
 {
@@ -44,7 +44,7 @@ a:hover, a:active
 }
 .header .error
 {
-	font-size: 3em;
+	font-size: 3em; /*  */
 	font-weight: bold;
 	margin-bottom: 10px;
 }
@@ -72,7 +72,7 @@ table
 table td:first-child
 {
 	width: 10%;
-	background: #aaa;
+	background: #eee;
 	text-align: center;
 	font-weight: bold;
 }
@@ -83,8 +83,8 @@ table td:last-child
 table td
 {
 	padding: 4px;
-	background: #ddd;
-	border: 1px solid #111;
+	background: #fff;
+	border: 1px solid #999;
 	overflow: auto;
 }
 table td pre
@@ -100,11 +100,11 @@ table td pre
 }
 .frame:not(.frame-active):hover
 {
-	background: #eee;
+	background: #F8E6E8;
 }
 .frame .class, .frame .line
 {
-	color: #aaa;
+	color: #841320;
 	font-weight: bold;
 }
 .frame .type
@@ -119,8 +119,8 @@ table td pre
 {
 	padding-left: 10px;
 	padding-right: 10px;
-	background: #222;
-	border: 1px solid #000;
+	background: #333;
+	border: 1px solid #000000;
 }
 .frame .inspect
 {
@@ -134,17 +134,11 @@ table td pre
 }
 .frame-active
 {
-	color: #F3F3F3;
-	background: #333;
-}
-.frame-active .class, .frame-active .line
-{
-	color: #aaa;
-	font-weight: bold;
+	background: #EAC7C9;
 }
 
 /**
- * Prettyprint styles.
+ * Prettyprint styles
  */
 
 pre { overflow: auto; word-wrap: normal; white-space: pre; -moz-tab-size: 4; -o-tab-size: 4; tab-size: 4; }
@@ -161,7 +155,7 @@ pre .xsl, code .xsl { color: #d0a0d0; }  /* xslt tag */
 pre .atn, code .atn { color: #ef7c61; font-weight: normal;} /* html/xml attribute name */
 pre .atv, code .atv { color: #bcd42a; }  /* html/xml attribute value  */
 pre .dec, code .dec { color: #606; }  /* decimal  */
-pre.prettyprint, code.prettyprint { font-family: 'Source Code Pro', Monaco, Consolas, "Lucida Console", monospace;; background: #222; color: #e9e4e5; font-size: 12px; }
+pre.prettyprint, code.prettyprint { font-family: 'Source Code Pro', Monaco, Consolas, "Lucida Console", monospace;; background: #333; color: #e9e4e5; font-size: 12px; }
 pre.prettyprint { white-space: pre-wrap; }
 pre.prettyprint a, code.prettyprint a { text-decoration:none; }
 .linenums li { color: #A5A5A5; }
