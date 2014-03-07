@@ -280,18 +280,19 @@ class Syringe
 	 * Returns a class instance.
 	 * 
 	 * @access  public
-	 * @param   string  $class       Class name
-	 * @param   array   $parameters  Constructor parameters
+	 * @param   string   $class           Class name
+	 * @param   array    $parameters      Constructor parameters
+	 * @param   boolean  $reuseInstance   (optional) Reuse existing instance?
 	 * @return  object
 	 */
 
-	public function get($class, array $parameters = [])
+	public function get($class, array $parameters = [], $reuseInstance = true)
 	{
 		$class = $this->resolveAlias(ltrim($class, '\\'));
 
 		// If a singleton instance exists then we'll just return it
 
-		if(isset($this->instances[$class]))
+		if($reuseInstance && isset($this->instances[$class]))
 		{
 			return $this->instances[$class];
 		}
@@ -302,7 +303,7 @@ class Syringe
 
 		// Store the instance if its registered as a singleton
 
-		if(isset($this->hints[$class]) && $this->hints[$class]['singleton'])
+		if($reuseInstance && isset($this->hints[$class]) && $this->hints[$class]['singleton'])
 		{
 			$this->instances[$class] = $instance;
 		}
@@ -310,6 +311,20 @@ class Syringe
 		// Return the instance
 
 		return $instance;
+	}
+
+	/**
+	 * Returns a fresh class instance even if the class is registered as a singleton.
+	 * 
+	 * @access  public
+	 * @param   string  $class       Class name
+	 * @param   array   $parameters  Constructor parameters
+	 * @return  object
+	 */
+
+	public function getFresh($class, array $parameters = [])
+	{
+		return $this->get($class, $parameters, false);
 	}
 }
 

@@ -6,6 +6,8 @@ use \Closure;
 use \LogicException;
 
 use \mako\core\Config;
+use \mako\core\error\handlers\WebHandler;
+use \mako\core\error\handlers\CliHandler;
 use \mako\http\routing\Dispatcher;
 use \mako\http\routing\Router;
 
@@ -230,6 +232,35 @@ class Application extends \mako\syringe\Syringe
 	}
 
 	/**
+	 * Register the error handler.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function registerErrorHandler()
+	{
+		$this->get('errorhandler')->handle('\Exception', function($exception)
+		{
+			if(PHP_SAPI === 'cli')
+			{
+				$handler = new CliHandler($exception);
+			}
+			else
+			{
+				$handler = new WebHandler($exception);
+
+				$handler->setRequest($this->get('request'));
+
+				$handler->setResponse($this->getFresh('response'));
+			}
+
+			# TODO: SET LOGGER INSTANCE HERE IF LOGGING IS ENABLED $handler->setLogger(...);
+			
+			return $handler->handle($this->config->get('application.error_handler.display_errors'));
+		});
+	}
+
+	/**
 	 * Loads the application bootstrap file.
 	 * 
 	 * @access  protected
@@ -268,6 +299,10 @@ class Application extends \mako\syringe\Syringe
 		// Register services in the dependency injection container
 
 		$this->registerServices();
+
+		// Register error handler
+
+		$this->registerErrorHandler();
 
 		// Load the application bootstrap file
 
