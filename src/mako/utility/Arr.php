@@ -95,13 +95,14 @@ class Arr
 	 * Returns value from array using "dot notation".
 	 *
 	 * @access  public
-	 * @param   array   $array    Array we're going to search
-	 * @param   string  $path     Array path
-	 * @param   mixed   $default  (optional) Default return value
+	 * @param   array    $array    Array we're going to search
+	 * @param   string   $path     Array path
+	 * @param   mixed    $default  (optional) Default return value
+	 * @param   boolean  $trim     (optional) Returns default value if key segment is set but is empty
 	 * @return  mixed
 	 */
 
-	public static function get(array $array, $path, $default = null)
+	public static function get(array $array, $path, $default = null, $trim = false)
 	{
 		$segments = explode('.', $path);
 
@@ -110,6 +111,13 @@ class Arr
 			if(!is_array($array) || !isset($array[$segment]))
 			{
 				return $default;
+			}
+			elseif(isset($array[$segment]))
+			{
+				if ($trim == true && in_array($array[$segment], ['', null, []], true))
+				{
+					return $default;
+				}
 			}
 
 			$array = $array[$segment];
