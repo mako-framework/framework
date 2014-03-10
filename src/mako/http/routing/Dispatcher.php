@@ -197,8 +197,8 @@ class Dispatcher
 
 		if(empty($returnValue))
 		{
-			// The before filter didn't return any data so we can the response body to whatever the
-			// route action returns before executing its after filter
+			// The before filter didn't return any data so we can set the response body to whatever 
+			// the route action returns before executing its after filter
 
 			$this->response->body(call_user_func_array([$controller, $method], $this->route->getParameters()));
 

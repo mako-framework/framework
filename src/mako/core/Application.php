@@ -252,6 +252,8 @@ class Application extends \mako\syringe\Syringe
 				$handler->setRequest($this->get('request'));
 
 				$handler->setResponse($this->getFresh('response'));
+
+				$handler->setCharset($this->getCharset());
 			}
 
 			# TODO: SET LOGGER INSTANCE HERE IF LOGGING IS ENABLED $handler->setLogger(...);

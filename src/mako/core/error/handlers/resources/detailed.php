@@ -39,7 +39,7 @@ a:hover, a:active
 	background: #cd3f3f;
 	color: #fff;
 	padding: 20px;
-	text-shadow: 0 1px 0px rgba(0, 0, 0, .9);
+	text-shadow: 0 1px 0px #111;
 	border-bottom: 4px solid #841420;
 }
 .header .error
@@ -61,19 +61,26 @@ a:hover, a:active
 {
 	font-size: 1.2em;
 }
+.sub-header
+{
+	background: #333;
+	color: #fff;
+	text-shadow: 0 1px 0px #000;
+	padding: 20px;
+	font-size: 2em;
+}
 table
 {
 	width: 100%;
 	color: #333;
 	padding: 0;
 	margin: 0;
-	margin-bottom: 1em;
+	margin-top: 1em;
 }
 table td:first-child
 {
 	width: 10%;
 	background: #eee;
-	text-align: center;
 	font-weight: bold;
 }
 table td:last-child
@@ -136,6 +143,10 @@ table td pre
 {
 	background: #EAC7C9;
 }
+.toggle-table
+{
+	display: none;
+}
 
 /**
  * Prettyprint styles
@@ -159,8 +170,8 @@ pre.prettyprint, code.prettyprint { font-family: 'Source Code Pro', Monaco, Cons
 pre.prettyprint { white-space: pre-wrap; }
 pre.prettyprint a, code.prettyprint a { text-decoration:none; }
 .linenums li { color: #A5A5A5; }
-.linenums li.current{ background: rgba(255, 100, 100, .07); padding-top: 4px; padding-left: 1px; }
-.linenums li.current.active { background: rgba(255, 100, 100, .17); }
+.linenums li.current{ background: rgba(205, 63, 63, .1); }
+.linenums li.current.active { background: rgba(205, 63, 63, .3); }
 
 </style>
 
@@ -213,9 +224,9 @@ pre.prettyprint a, code.prettyprint a { text-decoration:none; }
 
 	<?php if(!empty($frame['args'])): ?>
 
-		( <a class="args">arguments</a> )
+		<span class="toggle-table">( <a>arguments</a> )</span>
 
-		<br><br>
+		<br>
 
 		<table>
 
@@ -229,6 +240,8 @@ pre.prettyprint a, code.prettyprint a { text-decoration:none; }
 		<?php endforeach; ?>
 
 		</table>
+
+		<br>
 
 	<?php else: ?>
 
@@ -261,7 +274,7 @@ pre.prettyprint a, code.prettyprint a { text-decoration:none; }
 		<br><br>
 
 		<div class="source">
-			<pre class="code-block prettyprint linenums:<?= ($frame['line'] - $frame['source_padding']) ?>"><?= $frame['source'] ?></pre>
+			<pre class="code-block prettyprint linenums:<?= ($frame['line'] - $frame['source_padding']) ?>" data-frame-line="<?= $frame['line'] ?>"><?= implode("\n", array_map(function($line){ return empty(rtrim($line)) ? ' ' : rtrim($line);}, $frame['source'])) ?></pre>
 		</div>
 
 	<?php endif; ?>
@@ -270,38 +283,89 @@ pre.prettyprint a, code.prettyprint a { text-decoration:none; }
 
 <?php endforeach; ?>
 
- <script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
- <script>
+<div class="sub-header">
+	Superglobals
+</div>
 
- 	 $(function()
- 	 {
- 	 	prettyPrint();
+<?php foreach($superglobals as $name => $superglobal): ?>
 
- 	 	$('table').hide();
- 	 	$("div.frame:not(:first) div.source").hide();
- 	 	$("div.frame:not(:first) div.inspect").show();
+<?php if(!empty($superglobal)): ?>
 
- 	 	$("div.frame div.inspect").click(function()
- 	 	{
- 	 		if(!$(this).parent().hasClass('frame-active'))
- 	 		{
- 	 			$('div.frame-active div.source').hide();
- 	 			$('div.frame-active div.inspect').show().parent().removeClass('frame-active');
+	<div class="frame">
 
- 	 			$(this).hide();
- 	 			$(this).parent().addClass('frame-active');
- 	 			$(this).parent().find('div.source').show();
- 	 		}
- 	 	});
+		$_<?= $name ?> <span class="toggle-table">( <a>view data</a> )</span>
 
- 	 	$("div.frame a.args").click(function()
- 	 	{
- 	 		$(this).parent().find('table').toggle();
- 	 	});
- 	 });
- 	
- </script>
+		<table>
+
+		<?php foreach($superglobal as $key => $value): ?>
+
+			<tr>
+				<td><?= $key ?></td>
+				<td><pre><?= htmlspecialchars($value, ENT_QUOTES, $charset) ?></pre></td>
+			</tr>
+
+		<?php endforeach; ?>
+
+		</table>
+
+	</div>
+
+<?php endif; ?>
+
+<?php endforeach; ?>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+	$(function()
+	{
+		prettyPrint();
+
+		$('table').hide();
+		$('span.toggle-table').show();
+		$("div.frame:not(:first) div.source").hide();
+		$("div.frame:not(:first) div.inspect").show();
+
+		// Highlight frame line
+
+		$('div.frame pre.prettyprint').each(function()
+		{
+			var line = $(this).data('frame-line');
+
+			var lines = $(this).find('.linenums li');
+
+			var firstLine = lines.first().val();
+
+			console.log('Line: ' + line + ' first line: ' + firstLine, ' active line: ' + (line - firstLine));
+
+			$(lines[line - firstLine - 1]).addClass('current');
+			$(lines[line - firstLine]).addClass('current active');
+			$(lines[line - firstLine + 1]).addClass('current');
+		});
+
+		// Inspect event
+
+		$("div.frame div.inspect").click(function()
+		{
+			if(!$(this).parent().hasClass('frame-active'))
+			{
+				$('div.frame-active div.source').hide();
+				$('div.frame-active div.inspect').show().parent().removeClass('frame-active');
+
+				$(this).hide();
+				$(this).parent().addClass('frame-active');
+				$(this).parent().find('div.source').show();
+			}
+		});
+
+		// Toggle table event
+
+		$("div.frame > span.toggle-table > a").click(function(e)
+		{
+			$(this).parent().parent().find('table').toggle();
+		});
+	 });
+</script>
 
 </body>
 </html>

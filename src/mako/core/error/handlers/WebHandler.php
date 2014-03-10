@@ -45,6 +45,14 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 
 	protected $response;
 
+	/**
+	 * Response charset.
+	 * 
+	 * @var string
+	 */
+
+	protected $charset = 'UTF-8';
+
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -77,6 +85,17 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 	public function setResponse(Response $response)
 	{
 		$this->response = $response;
+	}
+
+	/**
+	 * Sets the response charset.
+	 * 
+	 * @param  string  $charset  Response charset
+	 */
+
+	public function setCharset($charset)
+	{
+		$this->charset = $charset;
 	}
 
 	/**
@@ -116,7 +135,7 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 		}
 
 		$handle      = fopen($file, 'r');
-		$lines       = array();
+		$lines       = [];
 		$currentLine = 0;
 
 		while(!feof($handle))
@@ -132,20 +151,21 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 
 			if($currentLine >= ($line - static::SOURCE_PADDING) && $currentLine <= ($line + static::SOURCE_PADDING))
 			{
-				$lines[] = htmlspecialchars($sourceCode, ENT_QUOTES, 'UTF-8');
+				$lines[] = htmlspecialchars($sourceCode, ENT_QUOTES, $this->charset);
 			}
 		}
 
 		fclose($handle);
-
-		return implode("", $lines);
+		
+		return $lines;
 	}
 
 	/**
 	 * Fixes the argument data and optionally ads source to each frame.
 	 * 
 	 * @access  protected
-	 * @param   array      $trace  Exception trace
+	 * @param   array      $trace      Exception trace
+	 * @param   boolean    $addSource  (optional) Add source code to each frame?
 	 * @return  array
 	 */
 
@@ -163,7 +183,7 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 
 					var_dump($argument);
 
-					$trace[$frameKey]['args'][$argumentKey] = htmlspecialchars(ob_get_clean(), ENT_QUOTES, 'UTF-8');
+					$trace[$frameKey]['args'][$argumentKey] = htmlspecialchars(ob_get_clean(), ENT_QUOTES, $this->charset);
 				}
 			}
 
@@ -219,7 +239,18 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 		}
 		else
 		{
-			return $this->renderErrorPage('detailed', $data);
+			$superGlobals =
+			[
+				'COOKIE'  => &$_COOKIE,
+				'ENV'     => &$_ENV,
+				'FILES'   => &$_FILES,
+				'GET'     => &$_GET,
+				'POST'    => &$_POST,
+				'SERVER'  => &$_SERVER,
+				'SESSION' => &$_SESSION,
+			];
+
+			return $this->renderErrorPage('detailed', $data + ['charset' => $this->charset, 'superglobals' => $superGlobals]);
 		}
 	}
 
@@ -239,7 +270,7 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 		}
 		else
 		{
-			return $this->renderErrorPage('generic');
+			return $this->renderErrorPage('generic', ['charset' => $this->charset]);
 		}
 	}
 
