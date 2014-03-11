@@ -314,6 +314,29 @@ pre.prettyprint a, code.prettyprint a { text-decoration:none; }
 
 <?php endforeach; ?>
 
+<div class="sub-header">
+	Included files
+</div>
+
+<div class="frame">
+
+	<?= count($included_files) ?> files have been included <span class="toggle-table">( <a>view files</a> )</span>
+
+	<table>
+
+	<?php foreach($included_files as $key => $file): ?>
+
+		<tr>
+			<td><?= $key + 1 ?></td>
+			<td><pre><?= htmlspecialchars($file, ENT_QUOTES, $charset) ?></pre></td>
+		</tr>
+
+	<?php endforeach; ?>
+
+	</table>
+
+</div>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>

@@ -250,7 +250,7 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 				'SESSION' => &$_SESSION,
 			];
 
-			return $this->renderErrorPage('detailed', $data + ['charset' => $this->charset, 'superglobals' => $superGlobals]);
+			return $this->renderErrorPage('detailed', $data + ['charset' => $this->charset, 'superglobals' => $superGlobals, 'included_files' => get_included_files()]);
 		}
 	}
 
