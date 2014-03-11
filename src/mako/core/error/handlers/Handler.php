@@ -4,6 +4,7 @@ namespace mako\core\error\handlers;
 
 use \Exception;
 use \ErrorException;
+use \Psr\Log\LoggerInterface;
 
 /**
  * Base handler.
@@ -13,7 +14,7 @@ use \ErrorException;
  * @license    http://www.makoframework.com/license
  */
 
-abstract class Handler
+abstract class Handler implements \mako\core\error\handlers\HandlerInterface
 {
 	//---------------------------------------------
 	// Class properties
@@ -26,6 +27,14 @@ abstract class Handler
 	 */
 
 	protected $exception;
+
+	/**
+	 * Logger instance.
+	 * 
+	 * @var \Psr\Log\LoggerInterface
+	 */
+
+	protected $logger;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -43,9 +52,34 @@ abstract class Handler
 		$this->exception = $exception;
 	}
 
+	/**
+	 * Destructor.
+	 * 
+	 * @access  public
+	 */
+
+	public function __destruct()
+	{
+		if(!empty($this->logger))
+		{
+			$this->logger->error($this->exception);
+		}
+	}
+
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Set logger instance.
+	 * 
+	 * @var \Psr\Log\LoggerInterface
+	 */
+
+	public function setLogger(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
+	}
 
 	/**
 	 * Determines the exception type.

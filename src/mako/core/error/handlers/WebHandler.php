@@ -6,6 +6,7 @@ use \Exception;
 use \ErrorException;
 use \mako\http\Request;
 use \mako\http\Response;
+use \mako\http\RequestException;
 
 /**
  * Web handler.
@@ -302,9 +303,11 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 			$this->response->body($this->getGenericError($returnJSON));
 		}
 
-		// Send the response along with a status 500 error header
+		// Send the response along with appropriate status header
 
-		$this->response->status(500)->send();
+		$status = ($this->exception instanceof RequestException) ? $this->exception->getCode() : 500;
+
+		$this->response->status($status)->send();
 
 		// Return false to stop further error handling
 

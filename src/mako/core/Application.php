@@ -241,6 +241,8 @@ class Application extends \mako\syringe\Syringe
 	{
 		$this->get('errorhandler')->handle('\Exception', function($exception)
 		{
+			// Create handler instance
+
 			if(PHP_SAPI === 'cli')
 			{
 				$handler = new CliHandler($exception);
@@ -256,7 +258,14 @@ class Application extends \mako\syringe\Syringe
 				$handler->setCharset($this->getCharset());
 			}
 
-			# TODO: SET LOGGER INSTANCE HERE IF LOGGING IS ENABLED $handler->setLogger(...);
+			// Set logger if error logging is enabled
+
+			if($this->config->get('application.error_handler.log_errors'))
+			{
+				$handler->setLogger($this->get('logger'));
+			}
+
+			// Handle the error
 			
 			return $handler->handle($this->config->get('application.error_handler.display_errors'));
 		});

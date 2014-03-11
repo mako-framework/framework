@@ -358,9 +358,7 @@ pre.prettyprint a, code.prettyprint a { text-decoration:none; }
 			var lines = $(this).find('.linenums li');
 
 			var firstLine = lines.first().val();
-
-			console.log('Line: ' + line + ' first line: ' + firstLine, ' active line: ' + (line - firstLine));
-
+			
 			$(lines[line - firstLine - 1]).addClass('current');
 			$(lines[line - firstLine]).addClass('current active');
 			$(lines[line - firstLine + 1]).addClass('current');
