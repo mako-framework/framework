@@ -144,6 +144,8 @@ class Syringe
 
 	protected function resolveAlias($alias)
 	{
+		$alias = ltrim($alias, '\\');
+
 		return isset($this->aliases[$alias]) ? $this->aliases[$alias] : $alias;
 	}
 
@@ -277,6 +279,21 @@ class Syringe
 	}
 
 	/**
+	 * Checks if a class is registered in the container.
+	 * 
+	 * @access  public
+	 * @param   string   $class  Class name
+	 * @return  boolean
+	 */
+
+	public function has($class)
+	{
+		$class = $this->resolveAlias($class);
+
+		return (isset($this->hints[$class]) || isset($this->instances[$class]));
+	}
+
+	/**
 	 * Returns a class instance.
 	 * 
 	 * @access  public
@@ -288,7 +305,7 @@ class Syringe
 
 	public function get($class, array $parameters = [], $reuseInstance = true)
 	{
-		$class = $this->resolveAlias(ltrim($class, '\\'));
+		$class = $this->resolveAlias($class);
 
 		// If a singleton instance exists then we'll just return it
 

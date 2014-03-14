@@ -1,15 +1,14 @@
 <?php
 
-namespace mako\utility;
+namespace mako\validator;
 
-use \mako\i18n\I18n;
-use \mako\utility\Str;
-use \mako\utility\UUID;
-use \mako\database\Database;
-use \mako\security\Token;
 use \Closure;
 use \DateTime;
-use \BadMethodCallException;
+use \mako\i18n\I18n;
+use \mako\utility\Str;
+use \mako\validator\plugins\ValidatorPluginInterface;
+use \RuntimeException;
+
 
 /**
  * Input validation.
@@ -19,14 +18,14 @@ use \BadMethodCallException;
  * @license    http://www.makoframework.com/license
  */
 
-class Validate
+class Validator
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
 	/**
-	 * Holds the input array.
+	 * Holds the input data.
 	 *
 	 * @var array
 	 */
@@ -34,12 +33,20 @@ class Validate
 	protected $input;
 
 	/**
-	 * Holds all the validation functions that need to be run.
+	 * Holds all the validation rules that we're goind to run.
 	 *
 	 * @var array
 	 */
 
 	protected $rules = [];
+
+	/**
+	 * I18n instance.
+	 * 
+	 * @var \mako\i18n\I18n
+	 */
+
+	protected $i18n;
 
 	/**
 	 * Holds the returned errors.
@@ -50,12 +57,12 @@ class Validate
 	protected $errors = [];
 
 	/**
-	 * Custom validators.
+	 * Validator plugins.
 	 * 
 	 * @var array
 	 */
 
-	protected static $validators = [];
+	protected $plugins = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -65,21 +72,36 @@ class Validate
 	 * Class constructor.
 	 *
 	 * @access  public
-	 * @param   array  $input  Array to validate
-	 * @param   array  $rules  Array of validation rules
+	 * @param   array            $input  Array to validate
+	 * @param   array            $rules  Array of validation rules
+	 * @param   \mako\i18n\I18n  $i18n   (optional) I18n instance
 	 */
 
-	public function __construct(array $input, array $rules)
+	public function __construct(array $input, array $rules, I18n $i18n = null)
 	{
 		$this->input = $input + array_fill_keys(array_keys($rules), null);
 		$this->rules = $rules;
 
 		unset($this->input['*']);
+
+		$this->i18n = $i18n;
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Registers a validation plugin.
+	 * 
+	 * @access  public
+	 * @param   \mako\validator\plugins\ValidatorPluginInterface  $plugin  Plugin instance
+	 */
+
+	public function registerPlugin(ValidatorPluginInterface $plugin)
+	{
+		$this->plugins[$plugin->getPackageName() . $plugin->getRuleName()] = $plugin;
+	}
 
 	/**
 	 * Checks that the field isn't empty.
@@ -543,71 +565,6 @@ class Validate
 	}
 
 	/**
-	 * Checks that the field value matches a valid security token.
-	 * 
-	 * @access  protected
-	 * @param   string     $input       Field value
-	 * @param   array      $parameters  Validator parameters
-	 * @return  boolean
-	 */
-
-	protected function validateToken($input, $parameters)
-	{
-		return Token::validate($input);
-	}
-
-	/**
-	 * Checks that the field value is a valid UUID.
-	 * 
-	 * @access  protected
-	 * @param   string     $input       Field value
-	 * @param   array      $parameters  Validator parameters
-	 * @return  boolean
-	 */
-
-	protected function validateUuid($input, $parameters)
-	{
-		return UUID::validate($input);
-	}
-
-	/**
-	 * Checks that the field value doesn't exist in the database.
-	 * 
-	 * @access  protected
-	 * @param   string     $input       Field value
-	 * @param   array      $parameters  Validator parameters
-	 * @return  boolean
-	 */
-
-	protected function validateUnique($input, $parameters)
-	{
-		$query = Database::connection()->table($parameters[0])->where($parameters[1], '=', $input);
-
-		// Ignore a given value
-		
-		if(isset($parameters[2]))
-		{
-			$query->where($parameters[1], '!=', $parameters[2]);
-		}
-
-		return ($query->count() == 0);
-	}
-
-	/**
-	 * Checks that the field value exist in the database.
-	 * 
-	 * @access  protected
-	 * @param   string     $input       Field value
-	 * @param   array      $parameters  Validator parameters
-	 * @return  boolean
-	 */
-
-	protected function validateExists($input, $parameters)
-	{
-		return (Database::connection()->table($parameters[0])->where($parameters[1], '=', $input)->count() != 0);
-	}
-
-	/**
 	 * Registers a custom validator.
 	 * 
 	 * @access  public
@@ -687,11 +644,13 @@ class Validate
 	{
 		$package = empty($package) ? '' : $package . '::';
 
-		if(I18n::has($package . 'validate.overrides.messages.' . $field . '.' . $validator))
+		// We have a i18n instance so we can return a propper error message
+		
+		if($this->i18n->has($package . 'validate.overrides.messages.' . $field . '.' . $validator))
 		{
 			// Return custom field specific error message from the language file
 
-			return I18n::get($package . 'validate.overrides.messages.' . $field . '.' . $validator, array_merge([$field], $parameters));
+			return $this->i18n->get($package . 'validate.overrides.messages.' . $field . '.' . $validator, array_merge([$field], $parameters));
 		}
 		else
 		{
@@ -699,9 +658,9 @@ class Validate
 
 			$translateFieldName = function($field) use ($package)
 			{
-				if(I18n::has($package . 'validate.overrides.fieldnames.' . $field))
+				if($this->i18n->has($package . 'validate.overrides.fieldnames.' . $field))
 				{
-					$field = I18n::get($package . 'validate.overrides.fieldnames.' . $field);
+					$field = $this->i18n->get($package . 'validate.overrides.fieldnames.' . $field);
 				}
 				else
 				{
@@ -722,7 +681,32 @@ class Validate
 
 			// Return default validation error message from the language file
 
-			return I18n::get($package . 'validate.' . $validator, array_merge((array) $field, $parameters));
+			return $this->i18n->get($package . 'validate.' . $validator, array_merge((array) $field, $parameters));
+		}
+	}
+
+	/**
+	 * Excecutes the chosen validation rule.
+	 * 
+	 * @access  protected
+	 * @param   string     $field      Name of the field that we're validating
+	 * @param   array      $validator  Validator
+	 * @return  boolean
+	 */
+
+	public function validate($field, $validator)
+	{
+		if(method_exists($this, $rule = 'validate' . ucfirst($validator['name'])))
+		{
+			return $this->{$rule}($this->input[$field], $validator['parameters']);
+		}
+		elseif(isset($this->plugins[$rule = $validator['package'] . $validator['name']]))
+		{
+			return call_user_func_array([$this->plugins[$rule], 'validate'], [$this->input[$field], $validator['parameters']]);
+		}
+		else
+		{
+			throw new RuntimeException(vsprintf("%s(): Call to undefined validation rule '%s'.", [__METHOD__, trim($validator['package'] . '::' . $validator['name'], '::')]));
 		}
 	}
 
@@ -743,13 +727,11 @@ class Validate
 
 			foreach($validators as $validator)
 			{
-				$package = empty($validator['package']) ? '' : $validator['package'] . '_';
-
-				if($this->{'validate' . Str::underscored2camel($package . $validator['name'], true)}($this->input[$field], $validator['parameters']) === false)
+				if($this->validate($field, $validator) === false)
 				{
 					$this->errors[$field] = $this->getErrorMessage($field, $validator['package'], $validator['name'], $validator['parameters']);
 
-					break; // Jump to next field if an error is found
+					break;
 				}
 			}
 		}
@@ -763,7 +745,7 @@ class Validate
 	 * @return  boolean
 	 */
 
-	public function successful(&$errors = null)
+	public function isValid(&$errors = null)
 	{
 		$this->process();
 
@@ -780,7 +762,7 @@ class Validate
 	 * @return  boolean
 	 */
 
-	public function failed(&$errors = null)
+	public function isInvalid(&$errors = null)
 	{
 		$this->process();
 
@@ -799,24 +781,6 @@ class Validate
 	public function errors()
 	{
 		return $this->errors;
-	}
-
-	/**
-	 * Executes custom validators.
-	 * 
-	 * @param   string   $method     Method name
-	 * @param   array    $arguments  Method arguments
-	 * @return  boolean
-	 */
-
-	public function __call($name, $arguments)
-	{
-		if(!isset(static::$validators[$name]))
-		{
-			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
-		}
-
-		return call_user_func_array(static::$validators[$name], $arguments);
 	}
 }
 
