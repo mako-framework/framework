@@ -2,10 +2,9 @@
 
 namespace mako\validator;
 
-use \Closure;
 use \DateTime;
 use \mako\i18n\I18n;
-use \mako\utility\Str;
+use \mako\utility\UUID;
 use \mako\validator\plugins\ValidatorPluginInterface;
 use \RuntimeException;
 
@@ -565,18 +564,17 @@ class Validator
 	}
 
 	/**
-	 * Registers a custom validator.
+	 * Checks that the field value is a valid UUID.
 	 * 
-	 * @access  public
-	 * @param   string    $name       Validator name
-	 * @param   \Closure  $validator  Validator
+	 * @access  protected
+	 * @param   string     $input       Field value
+	 * @param   array      $parameters  Validator parameters
+	 * @return  boolean
 	 */
 
-	public static function registerValidator($name, Closure $validator)
+	protected function validateUuid($input, $parameters)
 	{
-		$name = str_replace('::', '_', $name);
-
-		static::$validators['validate' . Str::underscored2camel($name, true)] = $validator;
+		return UUID::validate($input);
 	}
 
 	/**

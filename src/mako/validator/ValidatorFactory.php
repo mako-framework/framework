@@ -16,6 +16,10 @@ use \mako\validator\plugins\ValidatorPluginInterface;
 
 class ValidatorFactory
 {
+	//---------------------------------------------
+	// Class properties
+	//---------------------------------------------
+
 	/**
 	 * I18n instance.
 	 * 
@@ -32,6 +36,10 @@ class ValidatorFactory
 
 	protected $plugins = [];
 
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
+
 	/**
 	 * Constructor.
 	 * 
@@ -43,6 +51,10 @@ class ValidatorFactory
 	{
 		$this->i18n = $i18n;
 	}
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
 	/**
 	 * Creates and returns a validator instance.
