@@ -12,27 +12,11 @@ use \mako\view\compilers\Template as Compiler;
  * @license    http://www.makoframework.com/license
  */
 
-class Template implements \mako\view\renderers\RendererInterface, \mako\view\renderers\CacheableInterface
+class Template extends \mako\view\renderers\Renderer implements \mako\view\renderers\RendererInterface, \mako\view\renderers\CacheableInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
-
-	/**
-	 * View path.
-	 * 
-	 * @var string
-	 */
-
-	protected $view;
-
-	/**
-	 * View variables.
-	 * 
-	 * @var string
-	 */
-
-	protected $variables;
 
 	/**
 	 * Cache path.
@@ -62,20 +46,7 @@ class Template implements \mako\view\renderers\RendererInterface, \mako\view\ren
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	/**
-	 * Constructor.
-	 * 
-	 * @access  public
-	 * @param   string  $view       View path
-	 * @param   array   $variables  View variables
-	 */
-
-	public function __construct($view, array $variables)
-	{
-		$this->view = $view;
-
-		$this->variables = $variables;
-	}
+	// Nothing here
 
 	//---------------------------------------------
 	// Class methods

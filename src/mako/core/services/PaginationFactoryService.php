@@ -1,16 +1,18 @@
 <?php
 
-namespace mako\view\renderers;
+namespace mako\core\services;
+
+use \mako\pagination\PaginationFactory;
 
 /**
- * Plain PHP view renderer.
+ * Pagination factory service.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class PHP extends \mako\view\renderers\Renderer implements \mako\view\renderers\RendererInterface
+class PaginationFactoryService extends \mako\core\services\Service
 {
 	//---------------------------------------------
 	// Class properties
@@ -27,23 +29,19 @@ class PHP extends \mako\view\renderers\Renderer implements \mako\view\renderers\
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
+	
 	/**
-	 * Returns the rendered view.
+	 * Registers the service.
 	 * 
 	 * @access  public
-	 * @return  string
 	 */
 
-	public function render()
+	public function register()
 	{
-		extract($this->variables, EXTR_REFS);
-		
-		ob_start();
-
-		include($this->view);
-
-		return ob_get_clean();
+		$this->application->registerSingleton(['mako\pagination\PaginationFactory', 'paginationfactory'], function($app)
+		{
+			return new PaginationFactory($app->get('request'), $app->get('urlbuilder'), $app->get('viewfactory'), $app->getConfig()->get('pagination'));
+		});
 	}
 }
 

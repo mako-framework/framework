@@ -13,6 +13,7 @@ namespace mako\view\renderers;
 interface RendererInterface
 {
 	public function __construct($view, array $variables);
+	public function assign($key, $value);
 	public function render();
 }
 

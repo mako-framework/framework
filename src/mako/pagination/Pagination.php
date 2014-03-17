@@ -1,14 +1,10 @@
 <?php
 
-namespace mako\utility;
+namespace mako\pagination;
 
-use \mako\view\View;
-use \mako\core\Config;
-use \mako\http\Input;
 use \mako\http\Request;
-use \mako\http\routing\URL;
-use \mako\core\errors\ErrorHandler;
-use \Exception;
+use \mako\http\routing\URLBuilder;
+use \mako\view\renderers\RendererInterface;
 
 /**
  * Pagination class.
@@ -25,9 +21,25 @@ class Pagination
 	//---------------------------------------------
 
 	/**
-	 * Pagination view.
+	 * Request instance.
 	 * 
-	 * @var string
+	 * @var \mako\http\Request
+	 */
+
+	protected $request;
+
+	/**
+	 * URL builder instance.
+	 * 
+	 * @var \mako\http\request\URLBuilder
+	 */
+
+	protected $urlBuilder;
+
+	/**
+	 * View renderer instance.
+	 * 
+	 * @var \mako\view\renderers\RendererInterface
 	 */
 
 	protected $view;
@@ -55,14 +67,6 @@ class Pagination
 	 */
 	
 	protected $itemsPerPage;
-
-	/**
-	 * Request instance.
-	 * 
-	 * @var \mako\http\Request
-	 */
-
-	protected $request;
 	
 	/**
 	 * Maximum number of page links.
@@ -102,33 +106,53 @@ class Pagination
 
 	/**
 	 * Constructor.
-	 *
+	 * 
 	 * @access  public
-	 * @param   string              $view          View name
-	 * @param   int                 $cont          Number of items
-	 * @param   int                 $itemsPerPage  (optional) Number of items to display on a page
-	 * @param   \mako\http\Request  $request       (optional) Request instance
+	 * @param
+	 * @param
+	 * @param
+	 * @param
+	 * @param
 	 */
 
-	public function __construct($view, $count, $itemsPerPage = null, Request $request = null)
+	public function __construct(Request $request, URLBuilder $urlBuilder, RendererInterface $view, $count, array $config)
 	{
-		$config = Config::get('pagination');
+		$this->request = $request;
 
-		$this->request = $request ?: Request::main();
+		$this->urlBuilder = $urlBuilder;
 
-		$this->view         = $view;
-		$this->count        = $count;
-		$this->key          = $config['page_key'];
-		$this->itemsPerPage = ($itemsPerPage === null) ? max($config['items_per_page'], 1) : max($itemsPerPage, 1);
+		$this->view = $view;
+
+		$this->count = $count;
+
+		$this->key = $config['page_key'];
+
+		$this->itemsPerPage = max($config['items_per_page'], 1);
+
 		$this->maxPageLinks = $config['max_page_links'];
-		$this->currentPage  = max((int) $this->request->get($this->key, 1), 1);
-		$this->pages        = ceil(($this->count / $this->itemsPerPage));
-		$this->offset       = ($this->currentPage - 1) * $this->itemsPerPage;
+
+		$this->currentPage = max((int) $this->request->get($this->key, 1), 1);
+
+		$this->pages = ceil(($this->count / $this->itemsPerPage));
+
+		$this->offset = ($this->currentPage - 1) * $this->itemsPerPage;
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns the view renderer instance.
+	 * 
+	 * @access  public
+	 * @return  \mako\view\renderers\RendererInterface
+	 */
+
+	public function getView()
+	{
+		return $this->view;
+	}
 
 	/**
 	 * Returns the total amount of pages.
@@ -195,14 +219,14 @@ class Pagination
 
 		if($this->currentPage > 1)
 		{
-			$pagination['first']    = URL::current(array_merge($params, [$this->key => 1]));
-			$pagination['previous'] = URL::current(array_merge($params, [$this->key => ($this->currentPage - 1)]));
+			$pagination['first']    = $this->urlBuilder->current(array_merge($params, [$this->key => 1]));
+			$pagination['previous'] = $this->urlBuilder->current(array_merge($params, [$this->key => ($this->currentPage - 1)]));
 		}
 
 		if($this->currentPage < $this->pages)
 		{
-			$pagination['last'] = URL::current(array_merge($params, [$this->key => $this->pages]));
-			$pagination['next'] = URL::current(array_merge($params, [$this->key => ($this->currentPage + 1)]));
+			$pagination['last'] = $this->urlBuilder->current(array_merge($params, [$this->key => $this->pages]));
+			$pagination['next'] = $this->urlBuilder->current(array_merge($params, [$this->key => ($this->currentPage + 1)]));
 		}
 
 		if($this->pages > $this->maxPageLinks)
@@ -234,7 +258,7 @@ class Pagination
 		{
 			$pagination['pages'][] = 
 			[
-				'url'        => URL::current(array_merge($params, [$this->key => $i])),
+				'url'        => $this->urlBuilder->current(array_merge($params, [$this->key => $i])),
 				'number'     => $i,
 				'is_current' => ($i == $this->currentPage),
 			];
@@ -252,31 +276,12 @@ class Pagination
 
 	public function render()
 	{
-		if($this->offset === null)
+		foreach($this->paginate() as $name => $value)
 		{
-			$this->offset();
+			$this->view->assign($name, $value);
 		}
 
-		return (new View($this->view, $this->paginate()))->render();
-	}
-
-	/**
-	 * Method that magically converts the pagination object into a string.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function __toString()
-	{
-		try
-		{
-			return $this->render();
-		}
-		catch(Exception $e)
-		{
-			ErrorHandler::handler($e);
-		}
+		return $this->view->render();
 	}
 }
 

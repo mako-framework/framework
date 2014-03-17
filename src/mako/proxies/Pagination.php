@@ -1,16 +1,18 @@
 <?php
 
-namespace mako\view\renderers;
+namespace mako\proxies;
+
+use \mako\core\Application;
 
 /**
- * Plain PHP view renderer.
+ * Pagination factory proxy.
  *
  * @author     Frederic G. Østby
  * @copyright  (c) 2008-2013 Frederic G. Østby
  * @license    http://www.makoframework.com/license
  */
 
-class PHP extends \mako\view\renderers\Renderer implements \mako\view\renderers\RendererInterface
+class Pagination extends \mako\proxies\Proxy
 {
 	//---------------------------------------------
 	// Class properties
@@ -27,23 +29,17 @@ class PHP extends \mako\view\renderers\Renderer implements \mako\view\renderers\
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
+	
 	/**
-	 * Returns the rendered view.
+	 * Returns instance of the class we're proxying.
 	 * 
-	 * @access  public
-	 * @return  string
+	 * @access  protected
+	 * @return  \mako\pagination\PaginationFactory
 	 */
 
-	public function render()
+	protected static function instance()
 	{
-		extract($this->variables, EXTR_REFS);
-		
-		ob_start();
-
-		include($this->view);
-
-		return ob_get_clean();
+		return Application::instance()->get('paginationfactory');
 	}
 }
 
