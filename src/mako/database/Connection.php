@@ -238,8 +238,6 @@ class Connection
 
 	protected function log($query, array $params, $start)
 	{
-		$pdo = $this->pdo;
-
 		$time = microtime(true) - $start;
 
 		$query = $this->replaceParams($query, $params);
