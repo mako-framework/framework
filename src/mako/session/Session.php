@@ -553,6 +553,11 @@ class Session
 
 	public function generateToken()
 	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
 		if(!empty($this->sessionData['mako:tokens']))
 		{
 			$this->sessionData['mako:tokens'] = array_slice($this->sessionData['mako:tokens'], 0, (static::MAX_TOKENS - 1)); // Only store MAX_TOKENS tokens per session
@@ -579,6 +584,11 @@ class Session
 
 	public function validateToken($token)
 	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+		
 		if(!empty($this->sessionData['mako:tokens']))
 		{
 			$key = array_search($token, $this->sessionData['mako:tokens']);
