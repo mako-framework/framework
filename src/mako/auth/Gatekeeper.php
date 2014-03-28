@@ -75,7 +75,7 @@ class Gatekeeper
 	 * @var string
 	 */
 
-	protected $authKey;
+	protected $authKey = 'gatekeeper_auth_key';
 
 	/**
 	 * User model class.
@@ -83,15 +83,21 @@ class Gatekeeper
 	 * @var string
 	 */
 
-	protected $userModel;
+	protected $userModel = '\mako\auth\models\User';
 
 	/**
-	 * Cookie parameters.
+	 * Cookie options.
 	 * 
 	 * @var array
 	 */
 
-	protected $cookieParameters;
+	protected $cookieOptions = 
+	[
+		'path'     => '/',
+		'domain'   => '',
+		'secure'   => false,
+		'httponly' => false,
+	];
 
 	/**
 	 * User instance.
@@ -112,23 +118,54 @@ class Gatekeeper
 	 * @param   \mako\http\Request     $request   Request instance
 	 * @param   \mako\http\Response    $response  Response instance
 	 * @param   \mako\session\Session  $session   Session instance
-	 * @param   array                  $config    Config array
 	 */
 
-	public function __construct(Request $request, Response $response, Session $session, array $config)
+	public function __construct(Request $request, Response $response, Session $session)
 	{
 		$this->request  = $request;
 		$this->response = $response;
 		$this->session  = $session;
-
-		$this->authKey          = $config['auth_key'];
-		$this->userModel        = $config['user_model'];
-		$this->cookieParameters = $config['cookie_parameters'];
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Sets the auth key.
+	 * 
+	 * @access  public
+	 * @param   string  $authKey  Auth key
+	 */
+
+	public function setAuthKey($authKey)
+	{
+		$this->authKey = $authKey;
+	}
+
+	/**
+	 * Sets the user model.
+	 * 
+	 * @access  public
+	 * @param   string  $userModel  User model
+	 */
+
+	public function setUserModel($userModel)
+	{
+		$this->userModel = $userModel;
+	}
+
+	/**
+	 * Sets cookie options.
+	 * 
+	 * @access  public
+	 * @param   array   $cookieOptions  Cookie options
+	 */
+
+	public function setCookieOptions(array $cookieOptions)
+	{
+		$this->cookieOptions = $cookieOptions;
+	}
 
 	/**
 	 * Creates a new user and returns the user object.

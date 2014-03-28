@@ -42,7 +42,15 @@ class GatekeeperService extends \mako\core\services\Service
 		{
 			$config = $app->getConfig()->get('gatekeeper');
 
-			return new Gatekeeper($app->get('request'), $app->get('response'), $app->get('session'), $config);
+			$gatekeeper = new Gatekeeper($app->get('request'), $app->get('response'), $app->get('session'));
+
+			$gatekeeper->setAuthKey($config['auth_key']);
+
+			$gatekeeper->setUserModel($config['user_model']);
+
+			$gatekeeper->setCookieOptions($config['cookie_options']);
+
+			return $gatekeeper;
 		});
 	}
 }

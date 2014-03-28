@@ -101,7 +101,13 @@ class Session
 	 * @var array
 	 */
 
-	protected $cookieOptions = [];
+	protected $cookieOptions = 
+	[
+		'path'     => '/',
+		'domain'   => '',
+		'secure'   => false,
+		'httponly' => false,
+	];
 
 	/**
 	 * Session id.

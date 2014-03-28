@@ -121,7 +121,7 @@ class SessionService extends \mako\core\services\Service
 
 			$session->setCookieName($config['session_name']);
 
-			$session->setCookieOptions($config['cookie_parameters']);
+			$session->setCookieOptions($config['cookie_options']);
 
 			$session->start();
 
