@@ -2,8 +2,6 @@
 
 namespace mako\auth\models;
 
-use \mako\core\Config;
-
 /**
  * Gatekeeper group.
  * 
@@ -14,6 +12,18 @@ use \mako\core\Config;
 
 class Group extends \mako\database\midgard\ORM
 {
+	//---------------------------------------------
+	// Class properties
+	//---------------------------------------------
+
+	/**
+	 * Table name.
+	 * 
+	 * @var string
+	 */
+
+	protected $tableName = 'groups';
+
 	//---------------------------------------------
 	// Relations
 	//---------------------------------------------
@@ -27,7 +37,7 @@ class Group extends \mako\database\midgard\ORM
 
 	public function users()
 	{
-		return $this->manyToMany(Config::get('gatekeeper.user_model'));
+		return $this->manyToMany('\mako\auth\models\User');
 	}
 
 	//---------------------------------------------

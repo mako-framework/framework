@@ -2,7 +2,6 @@
 
 namespace mako\auth;
 
-use \mako\core\Config;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\session\Session;
@@ -55,6 +54,22 @@ class Gatekeeper
 	protected $request;
 
 	/**
+	 * Response instance.
+	 * 
+	 * @var \mako\http\Response
+	 */
+
+	protected $response;
+
+	/**
+	 * Session instance.
+	 * 
+	 * @var \mako\session\Session
+	 */
+
+	protected $session;
+
+	/**
 	 * Auth key.
 	 * 
 	 * @var string
@@ -86,14 +101,6 @@ class Gatekeeper
 
 	protected $user;
 
-	/**
-	 * Session instance.
-	 * 
-	 * @var \mako\session\SessionWrapper
-	 */
-
-	protected $session;
-
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -102,20 +109,21 @@ class Gatekeeper
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Request  $request  (optional) Request instance
+	 * @param   \mako\http\Request     $request   Request instance
+	 * @param   \mako\http\Response    $response  Response instance
+	 * @param   \mako\session\Session  $session   Session instance
+	 * @param   array                  $config    Config array
 	 */
 
-	public function __construct(Request $request = null)
+	public function __construct(Request $request, Response $response, Session $session, array $config)
 	{
-		$this->request = $request ?: Request::main();
-
-		$config = Config::get('gatekeeper');
+		$this->request  = $request;
+		$this->response = $response;
+		$this->session  = $session;
 
 		$this->authKey          = $config['auth_key'];
 		$this->userModel        = $config['user_model'];
 		$this->cookieParameters = $config['cookie_parameters'];
-
-		$this->session = Session::instance();
 	}
 
 	//---------------------------------------------
@@ -212,7 +220,7 @@ class Gatekeeper
 
 			if($token === false)
 			{
-				$token = $this->request->cookie($this->authKey, false);
+				$token = $this->request->signedCookie($this->authKey, false);
 
 				if($token !== false)
 				{
@@ -328,17 +336,13 @@ class Gatekeeper
 
 		if($authenticated === true)
 		{
-			$this->session->regenerate();
+			$this->session->regenerateId();
 
 			$this->session->remember($this->authKey, $this->user->token);
 
 			if($remember === true)
 			{
-				$this->request->response()->cookie($this->authKey, $this->user->token, (3600 * 24 * 365), $this->cookieParameters);
-			}
-			else
-			{
-				$this->request->response()->cookie($this->authKey, $this->user->token, 0, $this->cookieParameters);
+				$this->response->signedCookie($this->authKey, $this->user->token, (3600 * 24 * 365), $this->cookieParameters);
 			}
 
 			return true;
@@ -369,7 +373,9 @@ class Gatekeeper
 
 	protected function httpAuthentication()
 	{
-		$response = new Response($this->request, 'Authentication required.');
+		$response = new Response($this->request);
+
+		$response->body('Authentication required.');
 			
 		$response->header('www-authenticate', 'basic');
 			
@@ -384,7 +390,7 @@ class Gatekeeper
 	 * @access  public
 	 */
 
-	public function basicLogin()
+	public function basicAuth()
 	{
 		if($this->isLoggedIn() || $this->login($this->request->username(), $this->request->password()) === true)
 		{
@@ -402,11 +408,11 @@ class Gatekeeper
 
 	public function logout()
 	{
-		$this->session->regenerate();
+		$this->session->regenerateId();
 
 		$this->session->forget($this->authKey);
 
-		$this->request->response()->deleteCookie($this->authKey, $this->cookieParameters);
+		$this->response->deleteCookie($this->authKey, $this->cookieParameters);
 
 		$this->user = null;
 	}
