@@ -122,4 +122,3 @@ class File implements \mako\session\store\StoreInterface
 		}
 	}
 }
-

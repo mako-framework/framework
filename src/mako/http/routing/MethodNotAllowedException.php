@@ -65,4 +65,3 @@ class MethodNotAllowedException extends \mako\http\RequestException
 		return $this->allowedMethods;
 	}
 }
-

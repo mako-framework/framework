@@ -147,4 +147,3 @@ class BelongsTo extends \mako\database\midgard\relations\Relation
 		return $this->first();
 	}
 }
-

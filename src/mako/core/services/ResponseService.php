@@ -47,4 +47,3 @@ class ResponseService extends \mako\core\services\Service
 		});
 	}
 }
-

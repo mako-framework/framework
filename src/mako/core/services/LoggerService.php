@@ -52,4 +52,3 @@ class LoggerService extends \mako\core\services\Service
 		});
 	}
 }
-

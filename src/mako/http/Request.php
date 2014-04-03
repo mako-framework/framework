@@ -827,4 +827,3 @@ class Request
 		return $this->header('referer', $default);
 	}
 }
-

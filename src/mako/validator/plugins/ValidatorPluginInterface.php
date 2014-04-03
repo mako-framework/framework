@@ -19,4 +19,3 @@ interface ValidatorPluginInterface
 	public function getPackageName();
 	public function validate($input, $parameters);
 }
-

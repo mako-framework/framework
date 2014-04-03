@@ -172,4 +172,3 @@ class Config
 		return Arr::delete($this->config, $key);
 	}
 }
-

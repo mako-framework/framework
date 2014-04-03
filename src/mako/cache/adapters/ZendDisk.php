@@ -97,4 +97,3 @@ class ZendDisk implements \mako\cache\adapters\AdapterInterface
 		return zend_disk_cache_clear();
 	}
 }
-

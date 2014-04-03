@@ -71,4 +71,3 @@ class DatabaseExistsValidator extends \mako\validator\plugins\ValidatorPlugin im
 		return ($this->connectionManager->table($parameters[0])->where($parameters[1], '=', $input)->count() != 0);
 	}
 }
-

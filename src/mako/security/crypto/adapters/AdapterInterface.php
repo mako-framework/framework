@@ -18,4 +18,3 @@ interface AdapterInterface
 	public function encrypt($data);
 	public function decrypt($data);
 }
-

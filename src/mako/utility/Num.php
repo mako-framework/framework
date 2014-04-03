@@ -145,4 +145,3 @@ class Num
 		return $arabicNumeral;
 	}
 }
-

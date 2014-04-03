@@ -317,4 +317,3 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 		return false;
 	}
 }
-

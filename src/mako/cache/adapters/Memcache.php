@@ -147,4 +147,3 @@ class Memcache implements \mako\cache\adapters\AdapterInterface
 		return $this->memcache->flush();
 	}
 }
-

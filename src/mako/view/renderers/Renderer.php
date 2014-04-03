@@ -74,4 +74,3 @@ abstract class Renderer implements \mako\view\renderers\RendererInterface
 		return $this;
 	}
 }
-

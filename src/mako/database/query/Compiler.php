@@ -530,4 +530,3 @@ class Compiler
 		return ['sql' => $sql, 'params' => $this->params];
 	}
 }
-

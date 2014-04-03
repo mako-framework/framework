@@ -23,4 +23,3 @@ interface HandlerInterface
 	public function setLogger(LoggerInterface $logger);
 	public function handle($showDetails = true);
 }
-

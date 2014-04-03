@@ -178,4 +178,3 @@ class Humanizer
 		return $dateTime->format($dateFormat);
 	}
 }
-

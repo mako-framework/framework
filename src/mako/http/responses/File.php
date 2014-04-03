@@ -250,4 +250,3 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 		}
 	}
 }
-

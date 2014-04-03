@@ -47,4 +47,3 @@ class PaginationFactoryService extends \mako\core\services\Service
 		});
 	}
 }
-

@@ -42,4 +42,3 @@ class StdErr extends \mako\reactor\io\StreamOutput
 
 	// Nothing here
 }
-

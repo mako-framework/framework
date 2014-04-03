@@ -49,4 +49,3 @@ class CacheService extends \mako\core\services\Service
 		});
 	}
 }
-

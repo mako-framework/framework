@@ -53,4 +53,3 @@ class ConnectionManager extends \mako\common\ConnectionManager
 		return new Redis($this->configurations[$connection]);
 	}
 }
-

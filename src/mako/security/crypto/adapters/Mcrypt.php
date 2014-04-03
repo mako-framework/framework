@@ -132,4 +132,3 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 		return rtrim($data, "\0");
 	}
 }
-

@@ -109,4 +109,3 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 		$this->flow();
 	}
 }
-

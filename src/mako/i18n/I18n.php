@@ -159,4 +159,3 @@ class I18n
 		return $this->language($language)->pluralize($word, $count);
 	}
 }
-

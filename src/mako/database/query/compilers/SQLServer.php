@@ -109,4 +109,3 @@ class SQLServer extends \mako\database\query\Compiler
 		}
 	}
 }
-

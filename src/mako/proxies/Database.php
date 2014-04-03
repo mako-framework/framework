@@ -45,4 +45,3 @@ class Database extends \mako\proxies\Proxy
 		return Application::instance()->get('database');
 	}
 }
-

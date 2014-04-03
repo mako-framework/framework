@@ -78,4 +78,3 @@ class DB2 extends \mako\database\query\Compiler
 		}
 	}
 }
-

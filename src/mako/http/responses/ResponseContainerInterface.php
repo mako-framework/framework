@@ -20,4 +20,3 @@ interface ResponseContainerInterface
 {
 	public function send(Request $request, Response $response);
 }
-

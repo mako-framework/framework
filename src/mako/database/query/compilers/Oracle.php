@@ -78,4 +78,3 @@ class Oracle extends \mako\database\query\Compiler
 		}
 	}
 }
-

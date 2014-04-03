@@ -132,4 +132,3 @@ class SessionService extends \mako\core\services\Service
 		});
 	}
 }
-

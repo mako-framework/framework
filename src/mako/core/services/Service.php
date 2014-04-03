@@ -57,4 +57,3 @@ abstract class Service
 
 	abstract public function register();
 }
-

@@ -413,4 +413,3 @@ class Application extends \mako\syringe\Syringe
 		$this->dispatch();
 	}
 }
-

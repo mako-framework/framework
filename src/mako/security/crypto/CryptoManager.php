@@ -91,4 +91,3 @@ class CryptoManager extends \mako\common\AdapterManager
 		return new Crypto($this->$factoryMethod($configuration), $this->syringe->get('signer'));
 	}
 }
-

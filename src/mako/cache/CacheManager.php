@@ -238,4 +238,3 @@ class CacheManager extends \mako\common\AdapterManager
 		return new Cache($this->$factoryMethod($configuration), $configuration['prefix']);
 	}
 }
-

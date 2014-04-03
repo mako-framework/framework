@@ -45,4 +45,3 @@ class Gatekeeper extends \mako\proxies\Proxy
 		return Application::instance()->get('gatekeeper');
 	}
 }
-

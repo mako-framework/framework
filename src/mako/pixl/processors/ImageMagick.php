@@ -363,4 +363,3 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 		$this->image->writeImage($file);
 	}
 }
-

@@ -347,4 +347,3 @@ class Syringe
 		return $this->get($class, $parameters, false);
 	}
 }
-

@@ -138,4 +138,3 @@ class Join
 		return $this->on($column1, $operator, $column2, 'OR');
 	}
 }
-

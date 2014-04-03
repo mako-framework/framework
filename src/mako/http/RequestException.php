@@ -47,4 +47,3 @@ class RequestException extends \RuntimeException
 
 	// Nothing here
 }
-

@@ -255,4 +255,3 @@ class Dispatcher
 		return $this->response;
 	}
 }
-

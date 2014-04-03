@@ -124,4 +124,3 @@ class Redis implements \mako\cache\adapters\AdapterInterface
 		return (bool) $this->redis->flushdb();
 	}
 }
-

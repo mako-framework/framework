@@ -19,4 +19,3 @@ interface RendererInterface
 	public function assign($key, $value);
 	public function render();
 }
-

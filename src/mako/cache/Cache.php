@@ -139,4 +139,3 @@ class Cache
 		return $this->adapter->clear($this->prefixedKey($key));
 	}
 }
-

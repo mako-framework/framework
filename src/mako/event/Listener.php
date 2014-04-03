@@ -139,4 +139,3 @@ class Listener
 		return $values;
 	}
 }
-

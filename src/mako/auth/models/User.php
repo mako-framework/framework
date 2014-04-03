@@ -278,4 +278,3 @@ class User extends \mako\database\midgard\ORM
 		$this->banned = 0;
 	}
 }
-

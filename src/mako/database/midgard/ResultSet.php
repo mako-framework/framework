@@ -105,4 +105,3 @@ class ResultSet extends \mako\utility\Collection
 		return $this->toJson();
 	}
 }
-

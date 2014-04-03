@@ -21,4 +21,3 @@ interface AdapterInterface
 	public function delete($key);
 	public function clear();
 }
-

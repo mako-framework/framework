@@ -148,4 +148,3 @@ class Input
 		return $response;
 	}
 }
-

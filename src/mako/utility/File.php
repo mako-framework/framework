@@ -253,4 +253,3 @@ class File
 		return (0 === file_put_contents($file, null, $lock ? LOCK_EX : 0));
 	}
 }
-

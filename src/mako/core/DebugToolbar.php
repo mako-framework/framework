@@ -175,4 +175,3 @@ class DebugToolbar
 		]))->render();
 	}
 }
-

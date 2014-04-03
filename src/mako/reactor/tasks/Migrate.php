@@ -374,4 +374,3 @@ class Migrate extends \mako\reactor\Task
 		$this->output->writeln(vsprintf('Migration created at "%s".', array($file)));
 	}
 }
-

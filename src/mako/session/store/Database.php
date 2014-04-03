@@ -138,4 +138,3 @@ class Database implements \mako\session\store\StoreInterface
 		$this->table()->where('expires', '<', time())->delete();
 	}
 }
-

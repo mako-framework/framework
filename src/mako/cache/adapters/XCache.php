@@ -170,4 +170,3 @@ class XCache implements \mako\cache\adapters\AdapterInterface
 		return $cleared;
 	}
 }
-

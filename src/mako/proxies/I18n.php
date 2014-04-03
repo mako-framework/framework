@@ -45,4 +45,3 @@ class I18n extends \mako\proxies\Proxy
 		return Application::instance()->get('i18n');
 	}
 }
-

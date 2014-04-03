@@ -613,4 +613,3 @@ class Session
 		return false;
 	}
 }
-

@@ -49,4 +49,3 @@ class RedisService extends \mako\core\services\Service
 		});
 	}
 }
-

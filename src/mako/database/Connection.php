@@ -500,4 +500,3 @@ class Connection
 		return $result;
 	}
 }
-

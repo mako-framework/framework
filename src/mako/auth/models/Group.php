@@ -71,4 +71,3 @@ class Group extends \mako\database\midgard\ORM
 		return json_decode($permissions, true);
 	}
 }
-

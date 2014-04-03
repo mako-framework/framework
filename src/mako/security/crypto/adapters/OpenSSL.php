@@ -107,4 +107,3 @@ class OpenSSL implements \mako\security\crypto\adapters\AdapterInterface
 		return openssl_decrypt($data, $this->cipher, $this->key, 0, $iv);
 	}
 }
-

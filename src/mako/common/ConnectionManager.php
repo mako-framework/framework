@@ -83,4 +83,3 @@ abstract class ConnectionManager
 		return call_user_func_array([$this->connection(), $name], $arguments);
 	}
 }
-

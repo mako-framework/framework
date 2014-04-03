@@ -47,4 +47,3 @@ class HumanizerService extends \mako\core\services\Service
 		});
 	}
 }
-

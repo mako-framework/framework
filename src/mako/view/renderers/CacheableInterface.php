@@ -17,4 +17,3 @@ interface CacheableInterface
 {
 	public function setCachePath($path);
 }
-

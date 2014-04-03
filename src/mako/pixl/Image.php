@@ -378,4 +378,3 @@ class Image
 		$this->processor->save($file, $this->normalizeImageQuality($quality));
 	}
 }
-

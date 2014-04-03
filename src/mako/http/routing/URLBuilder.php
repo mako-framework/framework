@@ -210,4 +210,3 @@ class URLBuilder
 		return $this->to($this->request->path(), $queryParams, $separator, $language);
 	}
 }
-

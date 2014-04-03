@@ -80,4 +80,3 @@ class ValidatorFactoryService extends \mako\core\services\Service
 		});
 	}
 }
-

@@ -350,4 +350,3 @@ class Hydrator extends \mako\database\query\Query
 		return $this;
 	}
 }
-

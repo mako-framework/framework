@@ -83,4 +83,3 @@ class Firebird extends \mako\database\query\Compiler
 		return ['sql' => $sql, 'params' => $this->params];
 	}
 }
-

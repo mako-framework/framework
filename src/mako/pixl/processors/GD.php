@@ -599,4 +599,3 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 		}
 	}
 }
-

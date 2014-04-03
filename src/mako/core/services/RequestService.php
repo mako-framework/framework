@@ -47,4 +47,3 @@ class RequestService extends \mako\core\services\Service
 		});
 	}
 }
-

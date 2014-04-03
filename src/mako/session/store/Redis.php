@@ -102,4 +102,3 @@ class Redis implements \mako\session\store\StoreInterface
 		// Nothing here since redis handles this automatically
 	}
 }
-

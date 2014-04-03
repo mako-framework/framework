@@ -127,4 +127,3 @@ class Crypto
 		return ($data === false) ? false : $this->decrypt($data);
 	}
 }
-

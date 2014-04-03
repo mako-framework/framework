@@ -97,4 +97,3 @@ class APCU implements \mako\cache\adapters\AdapterInterface
 		return apcu_clear_cache();
 	}
 }
-

@@ -42,4 +42,3 @@ class StdOut extends \mako\reactor\io\StreamOutput
 
 	// Nothing here
 }
-

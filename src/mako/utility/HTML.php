@@ -224,4 +224,3 @@ class HTML
 		return call_user_func_array(static::$tags[$name], $arguments);
 	}
 }
-

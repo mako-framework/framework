@@ -287,4 +287,3 @@ class Pagination
 		return $this->view->render();
 	}
 }
-

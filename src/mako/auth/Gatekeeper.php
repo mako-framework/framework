@@ -488,4 +488,3 @@ class Gatekeeper
 		$this->user = null;
 	}
 }
-

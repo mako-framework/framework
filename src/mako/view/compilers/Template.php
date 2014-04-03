@@ -234,4 +234,3 @@ class Template
 		file_put_contents($this->cachePath . '/' . md5($this->template) . '.php', trim($contents));
 	}
 }
-

@@ -146,4 +146,3 @@ abstract class AdapterManager
 		return call_user_func_array([$this->instance(), $name], $arguments);
 	}
 }
-

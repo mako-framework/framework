@@ -84,4 +84,3 @@ trait ConfigurableManagerTrait
 		unset($this->configurations[$name], $this->connections[$name]);
 	}
 }
-

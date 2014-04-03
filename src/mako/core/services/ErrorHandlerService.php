@@ -44,4 +44,3 @@ class ErrorHandlerService extends \mako\core\services\Service
 		$this->application->registerInstance(['mako\core\error\ErrorHandler', 'errorhandler'], new ErrorHandler());
 	}
 }
-

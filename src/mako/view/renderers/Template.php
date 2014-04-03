@@ -146,4 +146,3 @@ class Template extends \mako\view\renderers\Renderer implements \mako\view\rende
 		return ob_get_clean();
 	}
 }
-

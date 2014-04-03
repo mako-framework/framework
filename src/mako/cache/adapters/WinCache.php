@@ -106,4 +106,3 @@ class WinCache implements \mako\cache\adapters\AdapterInterface
 		return wincache_ucache_clear();
 	}
 }
-

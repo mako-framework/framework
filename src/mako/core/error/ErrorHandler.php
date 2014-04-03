@@ -174,4 +174,3 @@ class ErrorHandler
 		exit(1);
 	}
 }
-

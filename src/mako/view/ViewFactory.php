@@ -183,4 +183,3 @@ class ViewFactory
 		return $renderer;
 	}
 }
-

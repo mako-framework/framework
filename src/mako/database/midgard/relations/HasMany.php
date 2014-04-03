@@ -84,4 +84,3 @@ class HasMany extends \mako\database\midgard\relations\HasOneOrMany
 		return $this->all();
 	}
 }
-

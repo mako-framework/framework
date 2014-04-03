@@ -359,4 +359,3 @@ class DateTime extends \DateTime
 		return $days[$this->format('n') - 1];
 	}
 }
-

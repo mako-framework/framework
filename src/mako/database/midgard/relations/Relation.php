@@ -176,4 +176,3 @@ abstract class Relation extends \mako\database\midgard\Hydrator
 		return parent::all($columns);
 	}
 }
-

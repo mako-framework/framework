@@ -91,4 +91,3 @@ class StreamOutput extends \Symfony\Component\Console\Output\StreamOutput
 		$table->render($this);
 	}
 }
-

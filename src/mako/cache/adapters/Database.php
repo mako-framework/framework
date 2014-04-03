@@ -156,4 +156,3 @@ class Database implements \mako\cache\adapters\AdapterInterface
 		return true;
 	}
 }
-

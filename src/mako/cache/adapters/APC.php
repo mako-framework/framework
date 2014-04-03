@@ -97,4 +97,3 @@ class APC implements \mako\cache\adapters\AdapterInterface
 		return apc_clear_cache('user');
 	}
 }
-

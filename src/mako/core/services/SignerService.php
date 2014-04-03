@@ -47,4 +47,3 @@ class SignerService extends \mako\core\services\Service
 		});
 	}
 }
-

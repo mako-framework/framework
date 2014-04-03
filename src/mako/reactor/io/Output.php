@@ -141,4 +141,3 @@ class Output extends \mako\reactor\io\StdOut
 		return $progress;
 	}
 }
-

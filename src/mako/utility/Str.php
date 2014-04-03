@@ -285,4 +285,3 @@ class Str
 		return $string;
 	}
 }
-

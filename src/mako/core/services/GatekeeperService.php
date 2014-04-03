@@ -57,4 +57,3 @@ class GatekeeperService extends \mako\core\services\Service
 		});
 	}
 }
-

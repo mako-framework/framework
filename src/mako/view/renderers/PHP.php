@@ -49,4 +49,3 @@ class PHP extends \mako\view\renderers\Renderer implements \mako\view\renderers\
 		return ob_get_clean();
 	}
 }
-

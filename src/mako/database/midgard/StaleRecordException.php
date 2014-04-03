@@ -33,4 +33,3 @@ class StaleRecordException extends \RuntimeException
 
 	// Nothing here
 }
-

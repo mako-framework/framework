@@ -45,4 +45,3 @@ class Logger extends \mako\proxies\Proxy
 		return Application::instance()->get('logger');
 	}
 }
-

@@ -45,4 +45,3 @@ class Cache extends \mako\proxies\Proxy
 		return Application::instance()->get('cache');
 	}
 }
-

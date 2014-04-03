@@ -45,4 +45,3 @@ class View extends \mako\proxies\Proxy
 		return Application::instance()->get('viewfactory');
 	}
 }
-

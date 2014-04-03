@@ -102,4 +102,3 @@ Class Redirect implements \mako\http\responses\ResponseContainerInterface
 		$response->sendHeaders();
 	}
 }
-

@@ -242,4 +242,3 @@ class ClassLoader
 		return false;
 	}
 }
-

@@ -78,4 +78,3 @@ class DatabaseUniqueValidator extends \mako\validator\plugins\ValidatorPlugin im
 		return ($query->count() == 0);
 	}
 }
-

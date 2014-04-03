@@ -102,4 +102,3 @@ class PaginationFactory
 		return new Pagination($this->request, $this->urlBuilder, $this->viewFactory->create($partial), $count, $config);
 	}
 }
-

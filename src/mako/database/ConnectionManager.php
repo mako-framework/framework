@@ -83,4 +83,3 @@ class ConnectionManager extends \mako\common\ConnectionManager
 		return $logs;
 	}
 }
-

@@ -192,4 +192,3 @@ class App extends \mako\reactor\Task
 		$this->output->table(['Route', 'Allowed methods', 'Action', 'Before filters', 'After filters', 'Name'], $routes);
 	}
 }
-

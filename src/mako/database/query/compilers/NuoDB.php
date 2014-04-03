@@ -63,4 +63,3 @@ class NuoDB extends \mako\database\query\Compiler
 		return ($offset === null) ? '' : ' OFFSET ' . $offset;
 	}
 }
-

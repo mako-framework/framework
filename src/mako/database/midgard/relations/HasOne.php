@@ -82,4 +82,3 @@ class HasOne extends \mako\database\midgard\relations\HasOneOrMany
 		return $this->first();
 	}
 }
-

@@ -71,4 +71,3 @@ class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements 
 		return $this->session->validateToken($input);
 	}
 }
-

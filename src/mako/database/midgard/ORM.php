@@ -1006,5 +1006,3 @@ abstract class ORM
 		return call_user_func_array([(new static)->hydrator(), $name], $arguments);
 	}
 }
-
-

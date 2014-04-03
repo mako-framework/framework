@@ -92,4 +92,3 @@ class ValidatorFactory
 		$this->plugins[] = $plugin;
 	}
 }
-

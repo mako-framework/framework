@@ -120,4 +120,3 @@ class Password
 		return crypt($password, $hash) === $hash;
 	}
 }
-

@@ -194,4 +194,3 @@ class Arr
 		}, $array);
 	}
 }
-

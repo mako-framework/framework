@@ -69,4 +69,3 @@ abstract class ValidatorPlugin implements \mako\validator\plugins\ValidatorPlugi
 		return $this->packageName;
 	}
 }
-

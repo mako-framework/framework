@@ -299,4 +299,3 @@ class Routes
 		return $this->addRoute($methods, $route, $action, $name);
 	}
 }
-

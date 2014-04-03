@@ -1049,4 +1049,3 @@ class Query
 		return $this->connection->delete($query['sql'], $query['params']);
 	}
 }
-

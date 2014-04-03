@@ -20,4 +20,3 @@ interface StoreInterface
 	public function delete($sessionId);
 	public function gc($dataTTL);
 }
-

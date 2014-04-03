@@ -42,4 +42,3 @@ class RouteService extends \mako\core\services\Service
 		$this->application->registerSingleton(['mako\http\routing\Routes', 'routes'], 'mako\http\routing\Routes');
 	}
 }
-

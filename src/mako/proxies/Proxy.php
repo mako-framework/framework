@@ -68,4 +68,3 @@ abstract class Proxy
 		return call_user_func_array([static::instance(), $name], $arguments);
 	}
 }
-

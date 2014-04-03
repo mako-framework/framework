@@ -236,4 +236,3 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 		return shuffle($this->items);
 	}
 }
-

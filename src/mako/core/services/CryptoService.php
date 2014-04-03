@@ -49,4 +49,3 @@ class CryptoService extends \mako\core\services\Service
 		});
 	}
 }
-

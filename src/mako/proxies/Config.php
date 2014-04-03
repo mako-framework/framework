@@ -45,4 +45,3 @@ class Config extends \mako\proxies\Proxy
 		return Application::instance()->get('config');
 	}
 }
-

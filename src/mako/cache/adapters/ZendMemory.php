@@ -97,4 +97,3 @@ class ZendMemory implements \mako\cache\adapters\AdapterInterface
 		return zend_shm_cache_clear();
 	}
 }
-
