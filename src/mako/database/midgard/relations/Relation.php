@@ -174,4 +174,3 @@ abstract class Relation extends \mako\database\midgard\Hydrator
 	}
 }
 
-/** -------------------- End of file -------------------- **/

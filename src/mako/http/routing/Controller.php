@@ -81,4 +81,3 @@ abstract class Controller
 	}
 }
 
-/** -------------------- End of file -------------------- **/

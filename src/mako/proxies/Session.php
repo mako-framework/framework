@@ -43,4 +43,3 @@ class Session extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/

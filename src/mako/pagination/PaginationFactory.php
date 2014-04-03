@@ -100,4 +100,3 @@ class PaginationFactory
 	}
 }
 
-/** -------------------- End of file -------------------- **/

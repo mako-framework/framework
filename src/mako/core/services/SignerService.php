@@ -45,4 +45,3 @@ class SignerService extends \mako\core\services\Service
 	}
 }
 
-/** -------------------- End of file -------------------- **/

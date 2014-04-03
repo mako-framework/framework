@@ -17,4 +17,3 @@ interface ValidatorPluginInterface
 	public function validate($input, $parameters);
 }
 
-/** -------------------- End of file -------------------- **/

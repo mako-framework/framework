@@ -44,4 +44,3 @@ class PageNotFoundException extends \mako\http\RequestException
 	// Nothing here
 }
 
-/** -------------------- End of file -------------------- **/

@@ -78,4 +78,3 @@ class ValidatorFactoryService extends \mako\core\services\Service
 	}
 }
 
-/** -------------------- End of file -------------------- **/

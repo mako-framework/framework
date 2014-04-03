@@ -61,4 +61,3 @@ class NuoDB extends \mako\database\query\Compiler
 	}
 }
 
-/** -------------------- End of file -------------------- **/

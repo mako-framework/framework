@@ -234,4 +234,3 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 	}
 }
 
-/** -------------------- End of file -------------------- **/

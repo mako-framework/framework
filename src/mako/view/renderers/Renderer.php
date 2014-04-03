@@ -72,4 +72,3 @@ abstract class Renderer implements \mako\view\renderers\RendererInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

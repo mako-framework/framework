@@ -21,4 +21,3 @@ interface HandlerInterface
 	public function handle($showDetails = true);
 }
 
-/** -------------------- End of file -------------------- **/

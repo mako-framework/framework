@@ -145,4 +145,3 @@ class Memcache implements \mako\cache\adapters\AdapterInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

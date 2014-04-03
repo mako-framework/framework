@@ -16,4 +16,3 @@ interface AdapterInterface
 	public function decrypt($data);
 }
 
-/** -------------------- End of file -------------------- **/

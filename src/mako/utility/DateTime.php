@@ -357,4 +357,3 @@ class DateTime extends \DateTime
 	}
 }
 
-/** -------------------- End of file -------------------- **/

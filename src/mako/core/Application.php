@@ -411,4 +411,3 @@ class Application extends \mako\syringe\Syringe
 	}
 }
 
-/** -------------------- End of file -------------------- **/

@@ -43,4 +43,3 @@ class Redis extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/

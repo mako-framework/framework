@@ -144,4 +144,3 @@ abstract class AdapterManager
 	}
 }
 
-/** -------------------- End of file -------------------- **/

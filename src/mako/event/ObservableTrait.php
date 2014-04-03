@@ -143,4 +143,3 @@ trait ObservableTrait
 	}
 }
 
-/** -------------------- End of file -------------------- **/

@@ -43,4 +43,3 @@ class View extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/

@@ -45,4 +45,3 @@ class ViewFactoryService extends \mako\core\services\Service
 	}
 }
 
-/** -------------------- End of file -------------------- **/

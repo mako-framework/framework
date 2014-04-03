@@ -276,4 +276,3 @@ class User extends \mako\database\midgard\ORM
 	}
 }
 
-/** -------------------- End of file --------------------**/

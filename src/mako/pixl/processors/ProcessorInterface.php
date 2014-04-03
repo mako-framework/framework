@@ -39,4 +39,3 @@ interface ProcessorInterface
 	public function save($file, $quality = 95);
 }
 
-/** -------------------- End of file -------------------- **/

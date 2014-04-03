@@ -45,4 +45,3 @@ class I18nService extends \mako\core\services\Service
 	}
 }
 
-/** -------------------- End of file -------------------- **/

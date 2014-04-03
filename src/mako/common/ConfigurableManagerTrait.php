@@ -82,4 +82,3 @@ trait ConfigurableManagerTrait
 	}
 }
 
-/** -------------------- End of file -------------------- **/

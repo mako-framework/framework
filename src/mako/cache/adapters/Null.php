@@ -95,4 +95,3 @@ class Null implements \mako\cache\adapters\AdapterInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

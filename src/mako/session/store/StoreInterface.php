@@ -18,4 +18,3 @@ interface StoreInterface
 	public function gc($dataTTL);
 }
 
-/** -------------------- End of file -------------------- **/

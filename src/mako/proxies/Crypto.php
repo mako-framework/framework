@@ -43,4 +43,3 @@ class Crypto extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/

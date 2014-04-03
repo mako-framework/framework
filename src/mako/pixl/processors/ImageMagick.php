@@ -361,4 +361,3 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

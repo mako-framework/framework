@@ -55,4 +55,3 @@ abstract class Service
 	abstract public function register();
 }
 
-/** -------------------- End of file -------------------- **/

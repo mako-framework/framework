@@ -15,4 +15,3 @@ interface CacheableInterface
 	public function setCachePath($path);
 }
 
-/** -------------------- End of file -------------------- **/

@@ -43,4 +43,3 @@ class Database extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/

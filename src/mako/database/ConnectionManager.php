@@ -81,4 +81,3 @@ class ConnectionManager extends \mako\common\ConnectionManager
 	}
 }
 
-/** -------------------- End of file -------------------- **/

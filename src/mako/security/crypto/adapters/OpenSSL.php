@@ -105,4 +105,3 @@ class OpenSSL implements \mako\security\crypto\adapters\AdapterInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

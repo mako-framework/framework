@@ -143,4 +143,3 @@ class Mako extends \mako\reactor\Task
 	}
 }
 
-/** -------------------- End of file -------------------- **/

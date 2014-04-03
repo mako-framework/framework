@@ -100,4 +100,3 @@ class Redis implements \mako\session\store\StoreInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

@@ -69,4 +69,3 @@ class DatabaseExistsValidator extends \mako\validator\plugins\ValidatorPlugin im
 	}
 }
 
-/** -------------------- End of file -------------------- **/

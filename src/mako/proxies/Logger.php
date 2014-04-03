@@ -43,4 +43,3 @@ class Logger extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/

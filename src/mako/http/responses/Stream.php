@@ -107,4 +107,3 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

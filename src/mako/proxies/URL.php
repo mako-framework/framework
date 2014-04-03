@@ -43,4 +43,3 @@ class URL extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/

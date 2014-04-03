@@ -27,4 +27,3 @@ class Migration_{{version}}
 	}
 }
 
-/** -------------------- End of file -------------------- **/

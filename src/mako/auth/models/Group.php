@@ -69,4 +69,3 @@ class Group extends \mako\database\midgard\ORM
 	}
 }
 
-/** -------------------- End of file --------------------**/

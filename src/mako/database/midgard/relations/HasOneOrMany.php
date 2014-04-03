@@ -53,4 +53,3 @@ abstract class HasOneOrMany extends \mako\database\midgard\relations\Relation
 	}
 }
 
-/** -------------------- End of file -------------------- **/

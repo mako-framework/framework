@@ -145,4 +145,3 @@ class BelongsTo extends \mako\database\midgard\relations\Relation
 	}
 }
 
-/** -------------------- End of file -------------------- **/

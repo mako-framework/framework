@@ -90,4 +90,3 @@ class ValidatorFactory
 	}
 }
 
-/** -------------------- End of file -------------------- **/

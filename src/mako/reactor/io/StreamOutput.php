@@ -89,4 +89,3 @@ class StreamOutput extends \Symfony\Component\Console\Output\StreamOutput
 	}
 }
 
-/** -------------------- End of file -------------------- **/

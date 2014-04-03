@@ -103,4 +103,3 @@ class ResultSet extends \mako\utility\Collection
 	}
 }
 
-/** -------------------- End of file -------------------- **/

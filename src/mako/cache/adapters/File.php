@@ -196,4 +196,3 @@ class File implements \mako\cache\adapters\AdapterInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

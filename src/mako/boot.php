@@ -40,4 +40,3 @@ include realpath(__DIR__ . '/../../../../autoload.php');
 
 $app = Application::start(MAKO_APPLICATION_PATH);
 
-/** -------------------- End of file -------------------- **/

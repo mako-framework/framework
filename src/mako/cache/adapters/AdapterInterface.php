@@ -19,4 +19,3 @@ interface AdapterInterface
 	public function clear();
 }
 
-/** -------------------- End of file -------------------- **/

@@ -43,4 +43,3 @@ class I18n extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/

@@ -144,4 +144,3 @@ class Template extends \mako\view\renderers\Renderer implements \mako\view\rende
 	}
 }
 
-/** -------------------- End of file -------------------- **/

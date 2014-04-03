@@ -2,6 +2,8 @@
 
 namespace mako\auth;
 
+use \LogicException;
+
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\session\Session;
@@ -20,6 +22,14 @@ class Gatekeeper
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Have we checked for a valid login?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $isChecked = false;
 
 	/**
 	 * Status code for banned users.
@@ -140,6 +150,11 @@ class Gatekeeper
 
 	public function setAuthKey($authKey)
 	{
+		if($this->isChecked)
+		{
+			throw new LogicException(vsprintf("%s(): Unable to alter auth key after login check.", [__METHOD__]));
+		}
+
 		$this->authKey = $authKey;
 	}
 
@@ -152,6 +167,11 @@ class Gatekeeper
 
 	public function setUserModel($userModel)
 	{
+		if($this->isChecked)
+		{
+			throw new LogicException(vsprintf("%s(): Unable to alter user model after login check.", [__METHOD__]));
+		}
+
 		$this->userModel = $userModel;
 	}
 
@@ -164,6 +184,11 @@ class Gatekeeper
 
 	public function setCookieOptions(array $cookieOptions)
 	{
+		if($this->isChecked)
+		{
+			throw new LogicException(vsprintf("%s(): Unable to alter cookie options after login check.", [__METHOD__]));
+		}
+
 		$this->cookieOptions = $cookieOptions;
 	}
 
@@ -253,6 +278,8 @@ class Gatekeeper
 	{
 		if(empty($this->user))
 		{
+			// Check if there'a user that can be logged in
+
 			$token = $this->session->get($this->authKey, false);
 
 			if($token === false)
@@ -276,6 +303,10 @@ class Gatekeeper
 					$this->logout();
 				}
 			}
+
+			// Set checked status to TRUE
+
+			$this->isChecked = true;
 		}
 
 		return $this->user;
@@ -455,4 +486,3 @@ class Gatekeeper
 	}
 }
 
-/** -------------------- End of file --------------------**/

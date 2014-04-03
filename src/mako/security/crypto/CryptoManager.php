@@ -89,4 +89,3 @@ class CryptoManager extends \mako\common\AdapterManager
 	}
 }
 
-/** -------------------- End of file -------------------- **/

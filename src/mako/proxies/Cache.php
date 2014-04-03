@@ -43,4 +43,3 @@ class Cache extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/

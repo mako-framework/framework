@@ -121,4 +121,3 @@ abstract class Handler implements \mako\core\error\handlers\HandlerInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

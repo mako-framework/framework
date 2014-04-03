@@ -47,4 +47,3 @@ class RedisService extends \mako\core\services\Service
 	}
 }
 
-/** -------------------- End of file -------------------- **/

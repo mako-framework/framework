@@ -236,4 +236,3 @@ class CacheManager extends \mako\common\AdapterManager
 	}
 }
 
-/** -------------------- End of file -------------------- **/

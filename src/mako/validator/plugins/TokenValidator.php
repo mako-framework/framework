@@ -69,4 +69,3 @@ class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements 
 	}
 }
 
-/** -------------------- End of file -------------------- **/

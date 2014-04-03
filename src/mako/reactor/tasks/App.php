@@ -190,4 +190,3 @@ class App extends \mako\reactor\Task
 	}
 }
 
-/** -------------------- End of file -------------------- **/

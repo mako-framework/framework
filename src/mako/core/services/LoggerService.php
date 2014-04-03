@@ -50,4 +50,3 @@ class LoggerService extends \mako\core\services\Service
 	}
 }
 
-/** -------------------- End of file -------------------- **/

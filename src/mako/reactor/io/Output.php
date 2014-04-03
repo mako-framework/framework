@@ -139,4 +139,3 @@ class Output extends \mako\reactor\io\StdOut
 	}
 }
 
-/** -------------------- End of file -------------------- **/

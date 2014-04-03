@@ -122,4 +122,3 @@ class Redis implements \mako\cache\adapters\AdapterInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

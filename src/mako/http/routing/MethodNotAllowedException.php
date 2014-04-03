@@ -63,4 +63,3 @@ class MethodNotAllowedException extends \mako\http\RequestException
 	}
 }
 
-/** -------------------- End of file -------------------- **/

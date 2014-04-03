@@ -136,4 +136,3 @@ class Database implements \mako\session\store\StoreInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

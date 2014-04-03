@@ -597,4 +597,3 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 }
 
-/** -------------------- End of file -------------------- **/

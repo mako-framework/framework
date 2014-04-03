@@ -81,4 +81,3 @@ abstract class ConnectionManager
 	}
 }
 
-/** -------------------- End of file -------------------- **/

@@ -43,4 +43,3 @@ class Config extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/

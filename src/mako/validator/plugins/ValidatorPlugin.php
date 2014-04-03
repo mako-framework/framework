@@ -67,4 +67,3 @@ abstract class ValidatorPlugin implements \mako\validator\plugins\ValidatorPlugi
 	}
 }
 
-/** -------------------- End of file -------------------- **/

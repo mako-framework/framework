@@ -307,4 +307,3 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	}
 }
 
-/** -------------------- End of file -------------------- **/

@@ -82,4 +82,3 @@ class HasMany extends \mako\database\midgard\relations\HasOneOrMany
 	}
 }
 
-/** -------------------- End of file -------------------- **/

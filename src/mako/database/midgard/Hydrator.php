@@ -348,4 +348,3 @@ class Hydrator extends \mako\database\query\Query
 	}
 }
 
-/** -------------------- End of file -------------------- **/

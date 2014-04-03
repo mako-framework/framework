@@ -47,4 +47,3 @@ class PHP extends \mako\view\renderers\Renderer implements \mako\view\renderers\
 	}
 }
 
-/** -------------------- End of file -------------------- **/

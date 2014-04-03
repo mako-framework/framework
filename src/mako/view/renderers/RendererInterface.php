@@ -17,4 +17,3 @@ interface RendererInterface
 	public function render();
 }
 
-/** -------------------- End of file -------------------- **/

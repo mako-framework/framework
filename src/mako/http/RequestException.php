@@ -45,4 +45,3 @@ class RequestException extends \RuntimeException
 	// Nothing here
 }
 
-/** -------------------- End of file -------------------- **/

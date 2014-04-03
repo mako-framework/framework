@@ -76,4 +76,3 @@ class DatabaseUniqueValidator extends \mako\validator\plugins\ValidatorPlugin im
 	}
 }
 
-/** -------------------- End of file -------------------- **/

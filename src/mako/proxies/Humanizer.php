@@ -43,4 +43,3 @@ class Humanizer extends \mako\proxies\Proxy
 	}
 }
 
-/** -------------------- End of file -------------------- **/
