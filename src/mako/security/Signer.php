@@ -1,13 +1,16 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\security;
 
 /**
  * Signs and validates strings using MACs (message authentication codes).
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class Signer

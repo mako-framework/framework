@@ -1,13 +1,16 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\database\midgard\relations;
 
 /**
  * Has one or has many relation.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 abstract class HasOneOrMany extends \mako\database\midgard\relations\Relation

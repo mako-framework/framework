@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\auth\models;
 
 use \mako\utility\UUID;
@@ -10,9 +15,7 @@ use \LogicException;
 /**
  * Gatekeeper user.
  * 
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class User extends \mako\database\midgard\ORM

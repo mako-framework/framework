@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\reactor\tasks\console;
 
 use \mako\reactor\io\Input;
@@ -11,9 +16,7 @@ use \Exception;
  * 
  * Based on PHPA by Dadiv Phillips (http://david.acz.org/).
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class Console

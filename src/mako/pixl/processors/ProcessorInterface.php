@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\pixl\processors;
 
 use \mako\pixl\Image;
@@ -7,9 +12,7 @@ use \mako\pixl\Image;
 /**
  * Image manipulation processor interface.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2014 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 interface ProcessorInterface

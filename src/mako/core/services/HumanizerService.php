@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\core\services;
 
 use \mako\utility\Humanizer;
@@ -7,9 +12,7 @@ use \mako\utility\Humanizer;
 /**
  * Humanizer service.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class HumanizerService extends \mako\core\services\Service

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\utility;
 
 use \mako\utility\HTML;
@@ -7,9 +12,7 @@ use \mako\utility\HTML;
 /**
  * Collection of string manipulation methods.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class Str

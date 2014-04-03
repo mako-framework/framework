@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 $requestURI   = $_SERVER['REQUEST_URI'];
 $documentRoot = $_SERVER['DOCUMENT_ROOT'];
 

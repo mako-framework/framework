@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\core\services;
 
 use \mako\database\ConnectionManager;
@@ -7,9 +12,7 @@ use \mako\database\ConnectionManager;
 /**
  * Database service.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class DatabaseService extends \mako\core\services\Service

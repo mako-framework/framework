@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\validator;
 
 use \mako\i18n\I18n;
@@ -9,9 +14,7 @@ use \mako\validator\plugins\ValidatorPluginInterface;
 /**
  * Validator factory.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class ValidatorFactory

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\pixl;
 
 use \RuntimeException;
@@ -9,9 +14,7 @@ use \mako\pixl\processors\ProcessorInterface;
 /**
  * Image manipulation class.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2014 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class Image

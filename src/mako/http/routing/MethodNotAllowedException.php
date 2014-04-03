@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\http\routing;
 
 use \Exception;
@@ -7,9 +12,7 @@ use \Exception;
 /**
  * Method not allowed exception.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class MethodNotAllowedException extends \mako\http\RequestException

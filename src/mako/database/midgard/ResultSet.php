@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\database\midgard;
 
 use \mako\utility\Arr;
@@ -7,9 +12,7 @@ use \mako\utility\Arr;
 /**
  * ORM result set.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class ResultSet extends \mako\utility\Collection

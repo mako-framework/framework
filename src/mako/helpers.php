@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
+/**
  * Returns the Mako environment. NULL is returned if no environment is specified.
  * 
  * @return  mixed

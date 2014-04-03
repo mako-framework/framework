@@ -1,13 +1,16 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\validator\plugins;
 
 /**
  * Base plugin.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 abstract class ValidatorPlugin implements \mako\validator\plugins\ValidatorPluginInterface

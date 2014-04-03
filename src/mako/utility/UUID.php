@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\utility;
 
 use \InvalidArgumentException;
@@ -7,10 +12,8 @@ use \InvalidArgumentException;
 /**
  * Class that generates and validates UUIDs.
  *
- * @author     Frederic G. Østby
- * @author     Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license    
+ * @author  Frederic G. Østby
+ * @author  Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
  */
 
 class UUID

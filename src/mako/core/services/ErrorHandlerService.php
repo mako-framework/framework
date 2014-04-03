@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\core\services;
 
 use \mako\core\error\ErrorHandler;
@@ -7,9 +12,7 @@ use \mako\core\error\ErrorHandler;
 /**
  * Error handler service.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class ErrorHandlerService extends \mako\core\services\Service

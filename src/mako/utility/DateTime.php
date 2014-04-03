@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\utility;
 
 use \DateTimeZone;
@@ -7,9 +12,7 @@ use \DateTimeZone;
 /**
  * Extension of the PHP DateTime class.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class DateTime extends \DateTime

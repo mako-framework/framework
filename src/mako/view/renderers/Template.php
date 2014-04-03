@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\view\renderers;
 
 use \mako\view\compilers\Template as Compiler;
@@ -7,9 +12,7 @@ use \mako\view\compilers\Template as Compiler;
 /**
  * Mako template view renderer.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class Template extends \mako\view\renderers\Renderer implements \mako\view\renderers\RendererInterface, \mako\view\renderers\CacheableInterface

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\pixl\processors;
 
 use \InvalidArgumentException;
@@ -10,9 +15,7 @@ use \mako\pixl\Image;
 /**
  * GD processor.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2014 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class GD implements \mako\pixl\processors\ProcessorInterface

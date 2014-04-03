@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\reactor\tasks;
 
 use \mako\reactor\tasks\console\Boris;
@@ -8,9 +13,7 @@ use \mako\reactor\tasks\console\Console;
 /**
  * Mako task.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class Mako extends \mako\reactor\Task

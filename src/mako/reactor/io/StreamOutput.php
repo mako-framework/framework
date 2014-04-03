@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\reactor\io;
 
 use \Symfony\Component\Console\Helper\TableHelper;
@@ -9,9 +14,7 @@ use \Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * Abstract stream output.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class StreamOutput extends \Symfony\Component\Console\Output\StreamOutput

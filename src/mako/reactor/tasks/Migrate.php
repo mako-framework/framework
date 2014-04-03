@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\reactor\tasks;
 
 use \mako\database\Database;
@@ -8,9 +13,7 @@ use \StdClass;
 /**
  * Database migrations.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class Migrate extends \mako\reactor\Task

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\cache\adapters;
 
 use \mako\database\Connection;
@@ -7,9 +12,7 @@ use \mako\database\Connection;
 /**
  * Database adapter.
  *
- * @author     Frederic G. Østby
- * @copyright  (c) 2008-2013 Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @author  Frederic G. Østby
  */
 
 class Database implements \mako\cache\adapters\AdapterInterface
