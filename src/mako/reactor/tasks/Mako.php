@@ -7,6 +7,9 @@
 
 namespace mako\reactor\tasks;
 
+use \mako\core\Application;
+use \mako\reactor\io\Input;
+use \mako\reactor\io\Output;
 use \mako\reactor\tasks\console\Boris;
 use \mako\reactor\tasks\console\Console;
 
@@ -21,6 +24,14 @@ class Mako extends \mako\reactor\Task
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Application instance.
+	 * 
+	 * @var \mako\core\Application
+	 */
+
+	protected $application;
 
 	/**
 	 * Task information.
@@ -55,7 +66,21 @@ class Mako extends \mako\reactor\Task
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Constructor.
+	 * 
+	 * @access  public
+	 * @param   \mako\reactor\io\Input   $input        Input
+	 * @param   \mako\reactor\io\Output  $output       Output
+	 * @param   \mako\core\Application   $application  Application instance
+	 */
+
+	public function __construct(Input $input, Output $output, Application $application)
+	{
+		parent::__construct($input, $output);
+
+		$this->application = $application;
+	}
 
 	//---------------------------------------------
 	// Class methods
@@ -91,7 +116,7 @@ class Mako extends \mako\reactor\Task
 
 		// Define path to history file
 
-		$history = MAKO_APPLICATION_PATH . '/storage/console_history';
+		$history = $this->application->getApplicationPath() . '/storage/console_history';
 
 		// Start Boris if all the requirements are met and fall back to the default console if not
 
@@ -132,7 +157,7 @@ class Mako extends \mako\reactor\Task
 
 		$port    = $this->input->param('port', 8000);
 		$address = $this->input->param('address', 'localhost');
-		$docroot = $this->input->param('docroot', MAKO_APPLICATION_PARENT_PATH);
+		$docroot = $this->input->param('docroot', dirname($this->application->getApplicationPath()));
 
 		$host = ($address === '0.0.0.0') ? gethostbyname(gethostname()) : $address;
 

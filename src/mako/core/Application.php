@@ -12,7 +12,7 @@ use \LogicException;
 
 use \mako\core\Config;
 use \mako\core\error\handlers\WebHandler;
-use \mako\core\error\handlers\CliHandler;
+use \mako\core\error\handlers\CLIHandler;
 use \mako\http\routing\Dispatcher;
 use \mako\http\routing\Router;
 
@@ -24,7 +24,7 @@ use \Monolog\Handler\HandlerInterface;
  * @author  Frederic G. Østby
  */
 
-class Application extends \mako\syringe\Syringe
+abstract class Application extends \mako\syringe\Syringe
 {
 	//---------------------------------------------
 	// Class properties
@@ -248,7 +248,7 @@ class Application extends \mako\syringe\Syringe
 
 			if(PHP_SAPI === 'cli')
 			{
-				$handler = new CliHandler($exception);
+				$handler = new CLIHandler($exception);
 			}
 			else
 			{
@@ -367,49 +367,10 @@ class Application extends \mako\syringe\Syringe
 	}
 
 	/**
-	 * Dispatches the request and returns its response.
-	 * 
-	 * @access  public
-	 */
-
-	protected function dispatch()
-	{
-		$request = $this->get('request');
-
-		// Override the application language?
-
-		if(($language = $request->language()) !== null)
-		{
-			$this->setLanguage($language);
-		}
-
-		// Load routes
-
-		$routes = $this->loadRoutes();
-
-		// Route the request
-
-		$router = new Router($request, $routes);
-
-		$route = $router->route();
-
-		// Dispatch the request and send the response
-
-		(new Dispatcher($routes, $route, $request, $this->get('response'), $this))->dispatch()->send();
-	}
-
-	/**
 	 * Runs the application.
 	 * 
 	 * @access  public
 	 */
 
-	public function run()
-	{
-		ob_start();
-
-		// Dispatch the request
-
-		$this->dispatch();
-	}
+	abstract public function run();
 }

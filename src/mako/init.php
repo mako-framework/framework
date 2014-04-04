@@ -5,14 +5,13 @@
  * @license    http://www.makoframework.com/license
  */
 
-use mako\core\Application;
-
 //------------------------------------------------------------------------------------------
 // Define some constants
 //------------------------------------------------------------------------------------------
 
-define('MAKO_VERSION', '4.0.0');
 define('MAKO_START', microtime(true));
+define('MAKO_VERSION', '4.0.0');
+define('MAKO_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
 define('MAKO_APPLICATION_PARENT_PATH', dirname(MAKO_APPLICATION_PATH));
 
 //------------------------------------------------------------------------------------------
@@ -38,9 +37,3 @@ ini_set('error_log', MAKO_APPLICATION_PATH . '/storage/logs/error_' . gmdate('Y_
 include __DIR__ . '/helpers.php';
 
 include realpath(__DIR__ . '/../../../../autoload.php');
-
-//------------------------------------------------------------------------------------------
-// Boot the application
-//------------------------------------------------------------------------------------------
-
-$app = Application::start(MAKO_APPLICATION_PATH);

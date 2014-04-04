@@ -7,8 +7,11 @@
 
 namespace mako\reactor\tasks;
 
-use \mako\database\Database;
 use \StdClass;
+
+use \mako\core\Application;
+use \mako\reactor\io\Input;
+use \mako\reactor\io\Output;
 
 /**
  * Database migrations.
@@ -21,6 +24,14 @@ class Migrate extends \mako\reactor\Task
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Application instance.
+	 * 
+	 * @var \mako\core\Application
+	 */
+
+	protected $application;
 
 	/**
 	 * Database connection.
@@ -68,7 +79,21 @@ class Migrate extends \mako\reactor\Task
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Constructor.
+	 * 
+	 * @access  public
+	 * @param   \mako\reactor\io\Input   $input        Input
+	 * @param   \mako\reactor\io\Output  $output       Output
+	 * @param   \mako\core\Application   $application  Application instance
+	 */
+
+	public function __construct(Input $input, Output $output, Application $application)
+	{
+		parent::__construct($input, $output);
+
+		$this->application = $application;
+	}
 
 	//---------------------------------------------
 	// Class methods
@@ -85,7 +110,7 @@ class Migrate extends \mako\reactor\Task
 	{
 		if(empty($this->connection))
 		{
-			$this->connection = Database::connection();
+			$this->connection = $this->application->get('database')->connection();
 		}
 
 		return $this->connection;
@@ -116,7 +141,7 @@ class Migrate extends \mako\reactor\Task
 
 		// Get application migrations
 
-		$files = glob(MAKO_APPLICATION_PATH . '/migrations/*.php');
+		$files = glob($this->application->getApplicationPath() . '/migrations/*.php');
 
 		if(is_array($files))
 		{
@@ -133,7 +158,7 @@ class Migrate extends \mako\reactor\Task
 
 		// Get package migrations
 
-		$packages = glob(MAKO_PACKAGES_PATH . '/*');
+		$packages = glob($this->application->getApplicationPath() . '/packages/*');
 
 		if(is_array($packages))
 		{
@@ -219,7 +244,7 @@ class Migrate extends \mako\reactor\Task
 			$file = $migration->package . '::' . $file;
 		}
 
-		include mako_path('migrations', $file);
+		include mako_path($this->application->getApplicationPath(), 'migrations', $file);
 
 		$class = '\Migration_' . $migration->version;
 
@@ -360,7 +385,7 @@ class Migrate extends \mako\reactor\Task
 			$file = $package . '::' . $file;
 		}
 
-		$file = mako_path('migrations', $file);
+		$file = mako_path($this->application->getApplicationPath(), 'migrations', $file);
 
 		// Create migration
 

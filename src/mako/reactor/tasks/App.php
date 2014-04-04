@@ -7,9 +7,12 @@
 
 namespace mako\reactor\tasks;
 
-use \mako\utility\Str;
-use \mako\http\routing\Routes;
 use \Closure;
+
+use \mako\core\Application;
+use \mako\reactor\io\Input;
+use \mako\reactor\io\Output;
+use \mako\utility\Str;
 
 /**
  * App task.
@@ -22,6 +25,14 @@ class App extends \mako\reactor\Task
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * Application instance.
+	 * 
+	 * @var \mako\core\Application
+	 */
+
+	protected $application;
 
 	/**
 	 * Task information.
@@ -53,7 +64,21 @@ class App extends \mako\reactor\Task
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Constructor.
+	 * 
+	 * @access  public
+	 * @param   \mako\reactor\io\Input   $input        Input
+	 * @param   \mako\reactor\io\Output  $output       Output
+	 * @param   \mako\core\Application   $application  Application instance
+	 */
+
+	public function __construct(Input $input, Output $output, Application $application)
+	{
+		parent::__construct($input, $output);
+
+		$this->application = $application;
+	}
 
 	//---------------------------------------------
 	// Class methods
@@ -68,7 +93,7 @@ class App extends \mako\reactor\Task
 
 	protected function lockFile()
 	{
-		return MAKO_APPLICATION_PATH . '/storage/offline';
+		return $this->application->getApplicationPath() . '/storage/offline';
 	}
 
 	/**
@@ -100,7 +125,7 @@ class App extends \mako\reactor\Task
 
 	public function down()
 	{
-		if(!is_writable(MAKO_APPLICATION_PATH . '/storage'))
+		if(!is_writable($this->application->getApplicationPath() . '/storage'))
 		{
 			return $this->output->error('Unable to create the lock file. Make sure that your "app/storage" directory is writable.');
 		}
@@ -118,7 +143,7 @@ class App extends \mako\reactor\Task
 
 	public function generate_secret()
 	{
-		$configFile = MAKO_APPLICATION_PATH . '/config/application.php';
+		$configFile = $this->application->getApplicationPath() . '/config/application.php';
 
 		if(!is_writable($configFile))
 		{
@@ -144,15 +169,7 @@ class App extends \mako\reactor\Task
 
 	public function routes()
 	{
-		// Include routes file
-
-		include MAKO_APPLICATION_PATH . '/routes.php';
-
-		// Display registered routes
-
-		$routes = [];
-
-		foreach(Routes::getRoutes() as $route)
+		foreach($this->application->getRouteCollection()->getRoutes() as $route)
 		{
 			// Normalize action name
 

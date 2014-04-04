@@ -7,14 +7,15 @@
 
 namespace mako\reactor;
 
-use \mako\core\Config;
-use \mako\core\Package;
-use \mako\reactor\io\Input;
-use \mako\reactor\io\Output;
 use \Exception;
 use \ReflectionClass;
 use \RuntimeException;
 use \ReflectionException;
+
+use \mako\core\Application;
+use \mako\reactor\Task;
+use \mako\reactor\io\Input;
+use \mako\reactor\io\Output;
 
 /**
  * Reactor core class.
@@ -29,14 +30,6 @@ class Reactor
 	//---------------------------------------------
 
 	/**
-	 * Output.
-	 * 
-	 * @var \mako\reactor\io\Output;
-	 */
-
-	protected $output;
-
-	/**
 	 * Input.
 	 * 
 	 * @var \mako\reactor\io\Input;
@@ -45,17 +38,28 @@ class Reactor
 	protected $input;
 
 	/**
-	 * Reactor core tasks.
-	 *
+	 * Output.
+	 * 
+	 * @var \mako\reactor\io\Output;
+	 */
+
+	protected $output;
+
+	/**
+	 * Application instance.
+	 * 
+	 * @var \mako\core\Application
+	 */
+
+	protected $application;
+
+	/**
+	 * Avaiable tasks.
+	 * 
 	 * @var array
 	 */
 
-	protected $coreTasks = 
-	[
-		'app'     => '\mako\reactor\tasks\App',
-		'mako'    => '\mako\reactor\tasks\Mako',
-		'migrate' => '\mako\reactor\tasks\Migrate',
-	];
+	protected $tasks;
 
 	/**
 	 * Global reactor options.
@@ -78,13 +82,21 @@ class Reactor
 	 * Constructor.
 	 *
 	 * @access  public
+	 * @param   \mako\reactor\io\Input   $input        Input instance
+	 * @param   \mako\reactor\io\Output  $output       Output instance
+	 * @param   \mako\core\Application   $application  Application instance
+	 * @param   array                    $tasks        Available tasks
 	 */
 
-	public function __construct()
+	public function __construct(Input $input, Output $output, Application $application, array $tasks)
 	{
-		$this->output = new Output();
+		$this->input = $input;
 
-		$this->input = new Input($this->output);
+		$this->output = $output;
+
+		$this->application = $application;
+
+		$this->tasks = $tasks;
 	}
 
 	//---------------------------------------------
@@ -95,11 +107,13 @@ class Reactor
 	 * Sets up the reactor environment and runs the commands.
 	 *
 	 * @access  public
-	 * @param   array   $arguments  Arguments
+	 * @param   array   $arguments  (optional) Arguments
 	 */
 
-	public function run($arguments)
+	public function run(array $arguments = [])
 	{
+		$arguments = $arguments ?: array_slice($_SERVER['argv'], 1);
+
 		// Override environment?
 
 		$env = $this->input->param('env', false);
@@ -115,7 +129,7 @@ class Reactor
 
 		if($database !== false)
 		{
-			Config::set('database.default', $database);
+			$this->application->getConfig()->set('database.default', $database);
 		}
 
 		// Disable output?
@@ -146,55 +160,6 @@ class Reactor
 		$this->task($arguments);
 
 		$this->output->nl();
-	}
-
-	/**
-	 * Finds all tasks.
-	 * 
-	 * @access  protected
-	 * @return  array
-	 */
-
-	protected function findTasks()
-	{
-		$tasks = $this->coreTasks;
-
-		// Find all application tasks
-
-		$appTasks = glob(MAKO_APPLICATION_PATH . '/tasks/*.php');
-
-		if(is_array($appTasks))
-		{
-			foreach($appTasks as $task)
-			{
-				$tasks[] = '\app\tasks\\' . basename($task, '.php');
-			}
-		}
-
-		// Find all package tasks
-
-		$packages = glob(MAKO_PACKAGES_PATH . '/*');
-
-		if(is_array($packages))
-		{
-			foreach($packages as $package)
-			{
-				if(is_dir($package))
-				{
-					$packageTasks = glob($package . '/tasks/*.php');
-
-					if(is_array($packageTasks))
-					{
-						foreach($packageTasks as $task)
-						{
-							$tasks[] = '\\' . basename($package) . '\tasks\\' . basename($task, '.php');
-						}
-					}
-				}
-			}
-		}
-
-		return $tasks;
 	}
 
 	/**
@@ -233,7 +198,7 @@ class Reactor
 
 		$tasks = [];
 
-		foreach($this->findTasks() as $task)
+		foreach($this->tasks as $taskKey => $task)
 		{
 			$reflection = new ReflectionClass($task);
 
@@ -249,11 +214,9 @@ class Reactor
 				continue;
 			}
 
-			$prefix = (strpos($task, '\app') === 0 || strpos($task, '\mako') === 0) ? '' : strstr(trim($task, '\\'), '\\', true) . '::';
-
-			foreach($taskInfo as $key => $info)
+			foreach($taskInfo as $actionKey => $info)
 			{
-				$tasks[] = [strtolower($prefix . $reflection->getShortName()) . '.' . $key, $info['description']];
+				$tasks[] = [$taskKey . '.' . $actionKey, $info['description']];
 			}
 		}
 
@@ -274,45 +237,27 @@ class Reactor
 
 	protected function resolve($task)
 	{
-		if(isset($this->coreTasks[$task]))
+		if(isset($this->tasks[$task]))
 		{
-			$task = $this->coreTasks[$task];
+			$task = $this->tasks[$task];
 		}
 		else
 		{
-			if(strpos($task, '::'))
-			{
-				list($package, $task) = explode('::', $task, 2);
-
-				Package::init($package);
-
-				$task = '\\' . $package . '\tasks\\' . $task;
-			}
-			else
-			{
-				$task = '\app\tasks\\' . $task;
-			}
-		}
-
-		try
-		{
-			$task = new ReflectionClass($task);
-		}
-		catch(ReflectionException $e)
-		{
-			$this->output->error(vsprintf("The [ %s ] task does not exist.", [end((explode('\\', $task)))]));
+			$this->output->error(vsprintf("The [ %s ] task doesn not exist.", [$task]));
 
 			return false;
 		}
 
-		if($task->isSubClassOf('\mako\reactor\Task') === false)
+		$task = $this->application->get($task, [$this->input, $this->output]);
+
+		if(($task instanceof Task) === false)
 		{
-			$this->output->error(vsprintf("The [ %s ] task needs to extend the mako\\reactor\Task class.", [$task]));
+			$this->output->error('All tasks must extend the mako\reactor\Task class.');
 
 			return false;
 		}
 
-		return $task->newInstance($this->input, $this->output);
+		return $task;
 	}
 
 	/**
