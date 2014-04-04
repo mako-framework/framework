@@ -7,14 +7,8 @@
 
 namespace mako\core\error\handlers;
 
-use \Exception;
-use \ErrorException;
-use \mako\http\Request;
-use \mako\http\Response;
-use \mako\http\RequestException;
-
 /**
- * Web handler.
+ * CLI handler.
  * 
  * @author  Frederic G. Østby
  */
@@ -46,7 +40,7 @@ class CLIHandler extends \mako\core\error\handlers\Handler implements \mako\core
 
 	protected function getDetailedError()
 	{
-		echo $this->exception->getMessage() . PHP_EOL;
+		fwrite(STDERR, $this->exception->getMessage() . PHP_EOL . $this->exception->getTraceAsString() . PHP_EOL);
 	}
 
 	/**
@@ -58,7 +52,7 @@ class CLIHandler extends \mako\core\error\handlers\Handler implements \mako\core
 
 	protected function getGenericError()
 	{
-		echo 'An error has occurred while processing your task.' . PHP_EOL;
+		fwrite(STDERR, 'An error has occurred while processing your task.' . PHP_EOL);
 	}
 
 	/**
