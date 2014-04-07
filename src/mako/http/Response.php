@@ -409,6 +409,21 @@ class Response
 	}
 
 	/**
+	 * Removes a response header.
+	 * 
+	 * @access  public
+	 * @param   string               $name   Header name
+	 * @return  \mako\http\Response
+	 */
+
+	public function removeHeader($name)
+	{
+		unset($this->headers[strtolower($name)]);
+
+		return $this;
+	}
+
+	/**
 	 * Returns the response headers.
 	 * 
 	 * @access  public
