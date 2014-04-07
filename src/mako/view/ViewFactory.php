@@ -175,7 +175,7 @@ class ViewFactory
 
 		if($renderer instanceof CacheableInterface)
 		{
-			$renderer->setCachePath($this->applicationPath . '/storage/templates');
+			$renderer->setCachePath($this->applicationPath . '/storage/cache/views');
 		}
 
 		// Return the renderer
