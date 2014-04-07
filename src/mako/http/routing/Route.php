@@ -92,6 +92,14 @@ class Route
 	protected $afterFilters = [];
 
 	/**
+	 * Route response headers.
+	 * 
+	 * @var array
+	 */
+
+	protected $responseHeaders = [];
+
+	/**
 	 * Matched parameters.
 	 * 
 	 * @var array
@@ -203,6 +211,18 @@ class Route
 	}
 
 	/**
+	 * Returns the response headers.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getHeaders()
+	{
+		return $this->responseHeaders;
+	}
+
+	/**
 	 * Returns the matched route parameters.
 	 * 
 	 * @access  public
@@ -226,6 +246,39 @@ class Route
 	public function param($key, $default = null)
 	{
 		return isset($this->parameters[$key]) ? $this->parameters[$key] : $default;
+	}
+
+	/**
+	 * Adds a prefix to the route.
+	 * 
+	 * @access  public
+	 * @param   string                    $prefix  Route prefix
+	 * @return  \mako\http\routing\Route
+	 */
+
+	public function prefix($prefix)
+	{
+		if(!empty($prefix))
+		{
+			$this->prefix .= '/' . trim($prefix, '/');
+		}
+		
+		return $this;
+	}
+
+	/**
+	 * Sets the custom constraints.
+	 * 
+	 * @access  public
+	 * @param   array                     $constraints  Array of constraints
+	 * @return  \mako\http\routing\Route
+	 */
+
+	public function constraints(array $constraints)
+	{
+		$this->constraints = $constraints + $this->constraints;
+
+		return $this;
 	}
 
 	/**
@@ -259,34 +312,16 @@ class Route
 	}
 
 	/**
-	 * Adds a prefix to the route.
+	 * Adds a set of response headers.
 	 * 
 	 * @access  public
-	 * @param   string                    $prefix  Route prefix
+	 * @param   array                     $responseHeaders  Response headers
 	 * @return  \mako\http\routing\Route
 	 */
 
-	public function prefix($prefix)
+	public function headers(array $responseHeaders)
 	{
-		if(!empty($prefix))
-		{
-			$this->prefix .= '/' . trim($prefix, '/');
-		}
-		
-		return $this;
-	}
-
-	/**
-	 * Sets the custom constraints.
-	 * 
-	 * @access  public
-	 * @param   array  $constraints       Array of constraints
-	 * @return  \mako\http\routing\Route
-	 */
-
-	public function constraints(array $constraints)
-	{
-		$this->constraints = $constraints + $this->constraints;
+		$this->responseHeaders = $responseHeaders + $this->responseHeaders;
 
 		return $this;
 	}

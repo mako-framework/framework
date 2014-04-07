@@ -227,30 +227,46 @@ class Dispatcher
 
 	public function dispatch()
 	{
-		$returnValue = $this->beforeFilters();
+		// Add route headers to response
 
-		if(!empty($returnValue))
+		foreach($this->route->getHeaders() as $name => $value)
 		{
-			$this->response->body($returnValue);
+			$this->response->header($name, $value);
+		}
+
+		// Dispatch the request
+
+		if($this->request->method() === 'OPTIONS')
+		{
+			$this->response->header('allow', implode(', ', $this->route->getMethods()));
 		}
 		else
 		{
-			$action = $this->route->getAction();
+			$returnValue = $this->beforeFilters();
 
-			if($action instanceof Closure)
+			if(!empty($returnValue))
 			{
-				$this->dispatchClosure($action);
+				$this->response->body($returnValue);
 			}
 			else
 			{
-				$this->dispatchController($action);
-			}
+				$action = $this->route->getAction();
 
-			if(!$this->skipAfterFilters)
-			{
-				$this->afterFilters();
+				if($action instanceof Closure)
+				{
+					$this->dispatchClosure($action);
+				}
+				else
+				{
+					$this->dispatchController($action);
+				}
+
+				if(!$this->skipAfterFilters)
+				{
+					$this->afterFilters();
+				}
 			}
-		}
+		}		
 
 		return $this->response;
 	}
