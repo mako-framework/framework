@@ -12,7 +12,6 @@
 define('MAKO_START', microtime(true));
 define('MAKO_VERSION', '4.0.0');
 define('MAKO_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
-define('MAKO_APPLICATION_PARENT_PATH', dirname(MAKO_APPLICATION_PATH));
 
 //------------------------------------------------------------------------------------------
 // Convert all errors to ErrorExceptions and override default path for error logs

@@ -243,7 +243,7 @@ class Reactor
 		}
 		else
 		{
-			$this->output->error(vsprintf("The [ %s ] task doesn not exist.", [$task]));
+			$this->output->error(vsprintf("The [ %s ] task doesn't exist.", [$task]));
 
 			return false;
 		}

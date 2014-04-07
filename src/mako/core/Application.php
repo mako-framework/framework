@@ -13,8 +13,6 @@ use \LogicException;
 use \mako\core\Config;
 use \mako\core\error\handlers\WebHandler;
 use \mako\core\error\handlers\CLIHandler;
-use \mako\http\routing\Dispatcher;
-use \mako\http\routing\Router;
 
 use \Monolog\Handler\HandlerInterface;
 
