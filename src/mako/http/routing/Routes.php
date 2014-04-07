@@ -160,7 +160,7 @@ class Routes
 	{
 		$this->groups[] = $options;
 
-		$routes();
+		$routes($this);
 
 		array_pop($this->groups);
 	}
