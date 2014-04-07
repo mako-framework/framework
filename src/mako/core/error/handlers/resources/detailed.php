@@ -274,7 +274,7 @@ pre.prettyprint a, code.prettyprint a { text-decoration:none; }
 		<br><br>
 
 		<div class="source">
-			<pre class="code-block prettyprint linenums:<?= ($frame['line'] - $frame['source_padding']) ?>" data-frame-line="<?= $frame['line'] ?>"><?= implode("\n", array_map(function($line){ return empty(rtrim($line)) ? ' ' : rtrim($line);}, $frame['source'])) ?></pre>
+			<pre class="code-block prettyprint linenums:<?= ($frame['line'] - $frame['source_padding']) ?>" data-frame-line="<?= $frame['line'] ?>"><?= implode("\n", array_map(function($line){ $line = rtrim($line); return empty($line) ? ' ' : $line;}, $frame['source'])) ?></pre>
 		</div>
 
 	<?php endif; ?>
@@ -301,7 +301,7 @@ pre.prettyprint a, code.prettyprint a { text-decoration:none; }
 
 			<tr>
 				<td><?= $key ?></td>
-				<td><pre><?= htmlspecialchars($value, ENT_QUOTES, $charset) ?></pre></td>
+				<td><pre><?= htmlspecialchars(var_export($value, true), ENT_QUOTES, $charset) ?></pre></td>
 			</tr>
 
 		<?php endforeach; ?>
