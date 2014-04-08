@@ -116,16 +116,12 @@ class Dispatcher
 
 	protected function executeFilter($filter)
 	{
-		if($filter instanceof Closure)
-		{
-			return $filter($this->request, $this->response);
-		}
-		else
+		if(($filter instanceof Closure) === false)
 		{
 			$filter = $this->routes->getFilter($filter);
-
-			return $filter($this->request, $this->response);
 		}
+
+		return $filter($this->request, $this->response);
 	}
 
 	/**
