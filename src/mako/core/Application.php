@@ -273,6 +273,24 @@ abstract class Application extends \mako\syringe\Syringe
 	}
 
 	/**
+	 * Registers class aliases.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function registerClassAliases()
+	{
+		$aliases = $this->config->get('application.class_aliases');
+
+		if(!empty($aliases))
+		{
+			$aliasLoader = new AliasLoader($aliases);
+
+			spl_autoload_register([$aliasLoader, 'load']);
+		}
+	}
+
+	/**
 	 * Loads the application bootstrap file.
 	 * 
 	 * @access  protected
@@ -315,6 +333,10 @@ abstract class Application extends \mako\syringe\Syringe
 		// Register error handler
 
 		$this->registerErrorHandler();
+
+		// Register class aliases
+
+		$this->registerClassAliases();
 
 		// Load the application bootstrap file
 

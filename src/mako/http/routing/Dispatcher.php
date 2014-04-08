@@ -16,7 +16,6 @@ use \mako\http\routing\Routes;
 use \mako\http\routing\Controller;
 use \mako\syringe\Syringe;
 
-
 /**
  * Route dispatcher.
  * 
