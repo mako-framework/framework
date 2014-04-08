@@ -237,35 +237,18 @@ class Migrate extends \mako\reactor\Task
 
 	protected function resolve($migration)
 	{
-		$file = $migration->version;
+		$class = $migration->version;
 
-		if(!empty($migration->package))
+		if(empty($migration->package))
 		{
-			$file = $migration->package . '::' . $file;
+			$namespace = '\\app\\migrations\\';
+		}
+		else
+		{
+			$namespace = '\\' . $migration->package . '\\migrations\\';
 		}
 
-		include mako_path($this->application->getApplicationPath(), 'migrations', $file);
-
-		$class = '\Migration_' . $migration->version;
-
-		return new $class();
-	}
-
-	/**
-	 * Creates the migration log table.
-	 *
-	 * @access  public
-	 */
-
-	public function install()
-	{
-		/*CREATE TABLE `mako_migrations` (
-		  `batch` int(10) unsigned NOT NULL,
-		  `package` varchar(255) NOT NULL,
-		  `version` varchar(255) NOT NULL
-		);*/
-
-		$this->output->error('Migration installation has not been implemented yet.');
+		return $this->application->get($namespace . $class);
 	}
 
 	/**
@@ -378,18 +361,29 @@ class Migrate extends \mako\reactor\Task
 	{
 		// Get file path
 
-		$file = $version = gmdate('YmdHis');
+		$file = 'Migration_' . $version = gmdate('YmdHis');
 
-		if(!empty($package))
+		if(empty($package))
+		{
+			$namespace = 'app\migrations';
+		}
+		else
 		{
 			$file = $package . '::' . $file;
+
+			$namespace = $package . '\migrations';
 		}
 
 		$file = mako_path($this->application->getApplicationPath(), 'migrations', $file);
 
 		// Create migration
 
-		$migration = str_replace('{{version}}', $version, file_get_contents(__DIR__ . '/migrate/migration.tpl'));
+		$migration = str_replace
+		(
+			['{{namespace}}', '{{version}}'], 
+			[$namespace, $version], 
+			file_get_contents(__DIR__ . '/migrate/migration.tpl')
+		);
 
 		if(!@file_put_contents($file, $migration))
 		{

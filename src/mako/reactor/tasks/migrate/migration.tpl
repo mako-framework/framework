@@ -1,8 +1,8 @@
 <?php
 
-use \mako\database\Database;
+namespace {{namespace}};
 
-class Migration_{{version}}
+class Migration_{{version}} extends \mako\reactor\tasks\migrate\Migration
 {
 	/**
 	 * Makes changes to the database structure.
