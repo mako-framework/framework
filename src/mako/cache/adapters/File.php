@@ -57,7 +57,7 @@ class File implements \mako\cache\adapters\AdapterInterface
 
 	protected function cacheFile($key)
 	{
-		return $this->cachePath . '/' . str_replace('/', '_', $key) . '.php';
+		return $this->cachePath . '/' . str_replace(['/', ':'], '_', $key) . '.php';
 	}
 
 	/**
