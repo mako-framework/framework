@@ -219,7 +219,7 @@ abstract class Application extends \mako\syringe\Syringe
 	}
 
 	/**
-	 * Register services in the dependency injection container.
+	 * Register services in the IoC container.
 	 * 
 	 * @access  protected
 	 */
@@ -326,7 +326,7 @@ abstract class Application extends \mako\syringe\Syringe
 
 		$this->configure();
 
-		// Register services in the dependency injection container
+		// Register services in the IoC injection container
 
 		$this->registerServices();
 

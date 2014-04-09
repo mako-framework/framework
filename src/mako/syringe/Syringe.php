@@ -13,7 +13,7 @@ use \ReflectionParameter;
 use \RuntimeException;
 
 /**
- * Dependency injection container.
+ * Inversion of control container.
  * 
  * @author  Frederic G. Østby
  */
