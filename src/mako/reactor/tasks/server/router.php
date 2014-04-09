@@ -8,10 +8,10 @@
 $requestURI   = $_SERVER['REQUEST_URI'];
 $documentRoot = $_SERVER['DOCUMENT_ROOT'];
 
-// Strip the query stringso that files can be served even if they have a query string
+// Strip the query string so that files can be served even if they have a query string
 // This can be useful for versioning assets such as images, CSS and JavaScript
 
-if (isset($_SERVER['QUERY_STRING']))
+if(isset($_SERVER['QUERY_STRING']))
 {
 	$requestURI = substr($requestURI, 0, strrpos($requestURI, $_SERVER['QUERY_STRING']) - 1);
 }
