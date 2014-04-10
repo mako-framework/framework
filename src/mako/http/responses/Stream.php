@@ -102,6 +102,7 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 
 	public function send(Request $request, Response $response)
 	{
+		$response->header('content-encoding', 'chunked');
 		$response->header('transfer-encoding', 'chunked');
 
 		$response->sendHeaders();
