@@ -666,15 +666,13 @@ class Response
 	 * Redirects to another location.
 	 *
 	 * @access  public
-	 * @param   string                        $location     Location
-	 * @param   array                         $routeParams  (optional) Route parameters
-	 * @param   array                         $queryParams  (optional) Query parameters
+	 * @param   string                        $location  Location
 	 * @return  \mako\http\response\Redirect
 	 */
 	
-	public function redirect($location, array $routeParams = [], array $queryParams = [])
+	public function redirect($location)
 	{
-		return new Redirect($location, $routeParams, $queryParams);
+		return new Redirect($location);
 	}
 
 	/**
