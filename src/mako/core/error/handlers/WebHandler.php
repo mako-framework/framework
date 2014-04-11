@@ -12,6 +12,7 @@ use \ErrorException;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\RequestException;
+use \mako\http\routing\MethodNotAllowedException;
 
 /**
  * Web handler.
@@ -306,9 +307,21 @@ class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core
 			$this->response->body($this->getGenericError($returnJSON));
 		}
 
-		// Send the response along with appropriate status header
+		// Send the response along with appropriate headers
 
-		$status = ($this->exception instanceof RequestException) ? $this->exception->getCode() : 500;
+		if($this->exception instanceof RequestException)
+		{
+			$status = $this->exception->getCode();
+
+			if($this->exception instanceof MethodNotAllowedException)
+			{
+				$this->response->header('allows', implode(',', $this->exception->getAllowedMethods()));
+			}
+		}
+		else
+		{
+			$status = 500;
+		}
 
 		$this->response->status($status)->send();
 

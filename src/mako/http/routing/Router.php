@@ -138,10 +138,10 @@ class Router
 					continue;
 				}
 
+				// Redirect to URL with trailing slash if the route should have one
+
 				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/')
 				{
-					// Redirect to URL with trailing slash if the route should have one
-
 					$this->addTrailingSlash($requestPath);
 				}
 
@@ -166,7 +166,7 @@ class Router
 		{
 			// We found a matching route but it does not allow the request method so we'll throw a 405 exception
 
-			throw new MethodNotAllowedException($route->getMethods());
+			throw new MethodNotAllowedException($this->getAllowedMethodsForMatchingRoutes($requestPath));
 		}
 		else
 		{
