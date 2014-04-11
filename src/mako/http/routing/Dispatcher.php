@@ -231,11 +231,7 @@ class Dispatcher
 
 		// Dispatch the request
 
-		if($this->request->method() === 'OPTIONS')
-		{
-			$this->response->header('allow', implode(', ', $this->route->getMethods()));
-		}
-		else
+		if($this->request->method() !== 'OPTIONS')
 		{
 			$returnValue = $this->beforeFilters();
 
@@ -261,7 +257,7 @@ class Dispatcher
 					$this->afterFilters();
 				}
 			}
-		}		
+		}	
 
 		return $this->response;
 	}

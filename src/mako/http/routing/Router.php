@@ -63,17 +63,17 @@ class Router
 	//---------------------------------------------
 
 	/**
-	 * Redirects to the requested route and adds a trailing slash.
+	 * Redirects to the requested path and adds a trailing slash.
 	 * 
 	 * @access  protected
-	 * @param   string     $requestedRoute  The requested route
+	 * @param   string     $requestPath  The requested path
 	 */
 
-	protected function addTrailingSlash($requestedRoute)
+	protected function addTrailingSlash($requestPath)
 	{
 		$response = new Response($this->request);
 
-		$url = $this->request->baseURL() . rtrim('/' . $this->request->languagePrefix(), '/') . $requestedRoute . '/';
+		$url = $this->request->baseURL() . rtrim('/' . $this->request->languagePrefix(), '/') . $requestPath . '/';
 
 		$get = $this->request->get();
 
@@ -90,6 +90,29 @@ class Router
 	}
 
 	/**
+	 * Returns an array of all allowed request methods for the requested route.
+	 * 
+	 * @access  protected
+	 * @param   string     $requestPath  The requested path
+	 * @return  array
+	 */
+
+	protected function getAllowedMethodsForMatchingRoutes($requestPath)
+	{
+		$methods = [];
+
+		foreach($this->routes->getRoutes() as $route)
+		{
+			if($route->isMatch($requestPath))
+			{
+				$methods = array_merge($methods, $route->getMethods());
+			}
+		}
+
+		return array_unique($methods);
+	}
+
+	/**
 	 * Matches and returns the appropriate route.
 	 * 
 	 * @access  public
@@ -100,15 +123,13 @@ class Router
 	{
 		$matched = false;
 
-		$routes = $this->routes->getRoutes();
-
 		$requestMethod = $this->request->method();
 
-		$requestedRoute = $this->request->path();
+		$requestPath = $this->request->path();
 
-		foreach($routes as $route)
+		foreach($this->routes->getRoutes() as $route)
 		{
-			if($route->isMatch($requestedRoute))
+			if($route->isMatch($requestPath))
 			{
 				if(!$route->allows($requestMethod))
 				{
@@ -117,12 +138,25 @@ class Router
 					continue;
 				}
 
-				if($route->hasTrailingSlash() && !empty($requestedRoute) && substr($requestedRoute, -1) !== '/')
+				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/')
 				{
 					// Redirect to URL with trailing slash if the route should have one
 
-					$this->addTrailingSlash($requestedRoute);
+					$this->addTrailingSlash($requestPath);
 				}
+
+				// If this is an "OPTIONS" request then well collect all the allowed request methods
+				// from all routes matching the requested path. We'll then add an "allows" header
+				// to the matched route
+
+				if($requestMethod === 'OPTIONS')
+				{
+					$methods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
+
+					$route->headers(['allow' => implode(',', $methods)]);
+				}
+
+				// Return the matched route
 
 				return $route;
 			}
