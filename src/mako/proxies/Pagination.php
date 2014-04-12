@@ -42,6 +42,6 @@ class Pagination extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('paginationfactory');
+		return Application::instance()->getContainer()->get('paginationfactory');
 	}
 }

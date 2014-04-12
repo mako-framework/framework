@@ -96,7 +96,7 @@ class CacheManager extends \mako\common\AdapterManager
 
 	protected function databaseAdapter($configuration)
 	{
-		return new Database($this->syringe->get('database')->connection($configuration['configuration']), $configuration['table']);
+		return new Database($this->container->get('database')->connection($configuration['configuration']), $configuration['table']);
 	}
 
 	/**
@@ -161,7 +161,7 @@ class CacheManager extends \mako\common\AdapterManager
 
 	protected function redisAdapter($configuration)
 	{
-		return new Redis($this->syringe->get('redis')->connection($configuration['configuration']));
+		return new Redis($this->container->get('redis')->connection($configuration['configuration']));
 	}
 
 	/**

@@ -45,9 +45,9 @@ class SessionService extends \mako\core\services\Service
 
 	protected function registerDatabaseStore($config)
 	{
-		$this->application->register(['mako\session\store\StoreInterface', 'session.store'], function($app) use ($config)
+		$this->container->register(['mako\session\store\StoreInterface', 'session.store'], function($container) use ($config)
 		{
-			return new Database($app->get('database')->connection($config['configuration']), $config['table']);
+			return new Database($container->get('database')->connection($config['configuration']), $config['table']);
 		});
 	}
 
@@ -60,7 +60,7 @@ class SessionService extends \mako\core\services\Service
 
 	protected function registerFileStore($config)
 	{
-		$this->application->register(['mako\session\store\StoreInterface', 'session.store'], function() use ($config)
+		$this->container->register(['mako\session\store\StoreInterface', 'session.store'], function($container) use ($config)
 		{
 			return new File($config['path']);
 		});
@@ -75,9 +75,9 @@ class SessionService extends \mako\core\services\Service
 
 	protected function registerRedisStore($config)
 	{
-		$this->application->register(['mako\session\store\StoreInterface', 'session.store'], function($app) use ($config)
+		$this->container->register(['mako\session\store\StoreInterface', 'session.store'], function($container) use ($config)
 		{
-			return new Redis($app->get('redis')->connection($config['configuration']));
+			return new Redis($container->get('redis')->connection($config['configuration']));
 		});
 	}
 
@@ -114,13 +114,13 @@ class SessionService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\session\Session', 'session'], function($app)
+		$this->container->registerSingleton(['mako\session\Session', 'session'], function($container)
 		{
-			$config = $this->application->getConfig()->get('session');
+			$config = $container->get('config')->get('session');
 
 			$this->registerSessionStore($config);
 
-			$session = new Session($app->get('request'), $app->get('response'), $app->get('session.store'));
+			$session = new Session($container->get('request'), $container->get('response'), $container->get('session.store'));
 
 			$session->setCookieName($config['session_name']);
 

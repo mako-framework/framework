@@ -13,6 +13,7 @@ use \LogicException;
 use \mako\core\Config;
 use \mako\core\error\handlers\WebHandler;
 use \mako\core\error\handlers\CLIHandler;
+use \mako\syringe\Syringe;
 
 use \Monolog\Handler\HandlerInterface;
 
@@ -22,7 +23,7 @@ use \Monolog\Handler\HandlerInterface;
  * @author  Frederic G. Østby
  */
 
-abstract class Application extends \mako\syringe\Syringe
+abstract class Application
 {
 	//---------------------------------------------
 	// Class properties
@@ -35,6 +36,14 @@ abstract class Application extends \mako\syringe\Syringe
 	 */
 
 	protected static $instance;
+
+	/**
+	 * IoC container instance.
+	 * 
+	 * @var \mako\syringe\Syringe;
+	 */
+
+	protected $container;
 
 	/**
 	 * Config instance.
@@ -126,9 +135,22 @@ abstract class Application extends \mako\syringe\Syringe
 	//---------------------------------------------
 
 	/**
+	 * Returns the IoC container instance.
+	 * 
+	 * @access  public
+	 * @return  \mako\syringe\Syringe
+	 */
+
+	public function getContainer()
+	{
+		return $this->container;
+	}
+
+	/**
 	 * Returns the config instance.
 	 * 
-	 * @return \mako\core\Config
+	 * @access  public
+	 * @return  \mako\core\Config
 	 */
 
 	public function getConfig()
@@ -228,7 +250,7 @@ abstract class Application extends \mako\syringe\Syringe
 	{
 		foreach($this->config->get('application.services') as $service)
 		{
-			(new $service($this))->register();
+			(new $service($this->container))->register();
 		}
 	}
 
@@ -240,7 +262,7 @@ abstract class Application extends \mako\syringe\Syringe
 
 	protected function registerErrorHandler()
 	{
-		$this->get('errorhandler')->handle('\Exception', function($exception)
+		$this->container->get('errorhandler')->handle('\Exception', function($exception)
 		{
 			// Create handler instance
 
@@ -252,9 +274,9 @@ abstract class Application extends \mako\syringe\Syringe
 			{
 				$handler = new WebHandler($exception);
 
-				$handler->setRequest($this->get('request'));
+				$handler->setRequest($this->container->get('request'));
 
-				$handler->setResponse($this->getFresh('response'));
+				$handler->setResponse($this->container->getFresh('response'));
 
 				$handler->setCharset($this->getCharset());
 			}
@@ -263,7 +285,7 @@ abstract class Application extends \mako\syringe\Syringe
 
 			if($this->config->get('application.error_handler.log_errors'))
 			{
-				$handler->setLogger($this->get('logger'));
+				$handler->setLogger($this->container->get('logger'));
 			}
 
 			// Handle the error
@@ -298,12 +320,12 @@ abstract class Application extends \mako\syringe\Syringe
 
 	protected function bootstrap()
 	{
-		$bootstrap = function($app)
+		$bootstrap = function($app, $container)
 		{
 			include $this->applicationPath . '/bootstrap.php';
 		};
 
-		$bootstrap($this);
+		$bootstrap($this, $this->container);
 	}
 
 	/**
@@ -314,13 +336,19 @@ abstract class Application extends \mako\syringe\Syringe
 
 	protected function boot()
 	{
+		// Create IoC container instance and register it in itself so that it can be injected
+
+		$this->container = new Syringe();
+
+		$this->container->registerInstance(['mako\syringe\Syringe', 'container'], $this->container);
+
 		// Register self so that the application instance can be injected
 
-		$this->registerInstance(['mako\core\Application', 'app'], $this);
+		$this->container->registerInstance(['mako\core\Application', 'app'], $this);
 
 		// Register config instance
 
-		$this->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
+		$this->container->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
 
 		// Configure
 
@@ -344,31 +372,6 @@ abstract class Application extends \mako\syringe\Syringe
 	}
 
 	/**
-	 * Prepends an exception handler to the stack.
-	 * 
-	 * @access  public
-	 * @param   string    $exception  Exception type
-	 * @param   \Closure  $handler    Exception handler
-	 */
-
-	public function handle($exception, Closure $handler)
-	{
-		$this->get('errorhandler')->handle($exception, $handler);
-	}
-
-	/**
-	 * Attaches a monolog log handler to the stack.
-	 * 
-	 * @access  public
-	 * @param   \Monolog\Handler\HandlerInterface $logger  Monolog log handler instance
-	 */
-
-	public function attachLogger(HandlerInterface $logger)
-	{
-		$this->get('logger')->pushHandler($logger);
-	}
-
-	/**
 	 * Loads application routes.
 	 * 
 	 * @access  protected
@@ -376,14 +379,14 @@ abstract class Application extends \mako\syringe\Syringe
 
 	protected function loadRoutes()
 	{
-		$loader = function($app, $routes)
+		$loader = function($app, $container, $routes)
 		{
 			include $this->applicationPath . '/routes.php';
 
 			return $routes;
 		};
 
-		return $loader($this, $this->get('routes'));
+		return $loader($this, $this->container, $this->container->get('routes'));
 	}
 
 	/**

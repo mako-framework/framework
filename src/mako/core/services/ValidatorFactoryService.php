@@ -45,16 +45,16 @@ class ValidatorFactoryService extends \mako\core\services\Service
 
 	protected function registerPlugins(ValidatorFactory $validatorFactory)
 	{
-		if($this->application->has('session'))
+		if($this->container->has('session'))
 		{
-			$validatorFactory->registerPlugin(new TokenValidator($this->application->get('session')));
+			$validatorFactory->registerPlugin(new TokenValidator($this->container->get('session')));
 		}
 
-		if($this->application->has('database'))
+		if($this->container->has('database'))
 		{
-			$validatorFactory->registerPlugin(new DatabaseExistsValidator($this->application->get('database')));
+			$validatorFactory->registerPlugin(new DatabaseExistsValidator($this->container->get('database')));
 
-			$validatorFactory->registerPlugin(new DatabaseUniqueValidator($this->application->get('database')));
+			$validatorFactory->registerPlugin(new DatabaseUniqueValidator($this->container->get('database')));
 		}
 	}
 	
@@ -66,9 +66,9 @@ class ValidatorFactoryService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\validator\ValidatorFactory', 'validatorfactory'], function($app)
+		$this->container->registerSingleton(['mako\validator\ValidatorFactory', 'validatorfactory'], function($container)
 		{
-			$validatorFactory = new ValidatorFactory($app->get('i18n'));
+			$validatorFactory = new ValidatorFactory($container->get('i18n'));
 
 			// Register plugins
 

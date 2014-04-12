@@ -67,7 +67,7 @@ class Dispatcher
 	 * @var \mako\syringe\Syringe
 	 */
 
-	protected $syringe;
+	protected $container;
 
 	/**
 	 * Should the after filters be skipped?
@@ -89,16 +89,16 @@ class Dispatcher
 	 * @param   \mako\http\routing\Route   $route     The route we're dispatching
 	 * @param   \mako\http\Request         $request   Request instance
 	 * @param   \mako\http\Response        $response  (optional) Response instance
-	 * @param   \mako\syringe\Syringe      $syringe   (optional) Syringe instance
+	 * @param   \mako\syringe\Syringe      $container (optional) Syringe instance
 	 */
 
-	public function __construct(Routes $routes, Route $route, Request $request, Response $response = null, Syringe $syringe = null)
+	public function __construct(Routes $routes, Route $route, Request $request, Response $response = null, Syringe $container = null)
 	{
-		$this->routes   = $routes;
-		$this->route    = $route;
-		$this->request  = $request;
-		$this->response = $response ?: new Response($request);
-		$this->syringe  = $syringe  ?: new Syringe;
+		$this->routes     = $routes;
+		$this->route      = $route;
+		$this->request    = $request;
+		$this->response   = $response ?: new Response($request);
+		$this->container  = $container  ?: new Syringe;
 	}
 
 	//---------------------------------------------
@@ -184,7 +184,7 @@ class Dispatcher
 	{
 		list($controller, $method) = explode('::', $controller, 2);
 
-		$controller = $this->syringe->get($controller, [$this->request, $this->response]);
+		$controller = $this->container->get($controller, [$this->request, $this->response]);
 
 		if(!($controller instanceof Controller))
 		{

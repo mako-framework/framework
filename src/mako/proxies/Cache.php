@@ -42,6 +42,6 @@ class Cache extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('cache');
+		return Application::instance()->getContainer()->get('cache');
 	}
 }

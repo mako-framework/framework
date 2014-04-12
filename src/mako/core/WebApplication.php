@@ -46,7 +46,7 @@ class WebApplication extends \mako\core\Application
 
 		// Dispatch the request
 
-		$request = $this->get('request');
+		$request = $this->container->get('request');
 
 		// Override the application language?
 
@@ -67,6 +67,6 @@ class WebApplication extends \mako\core\Application
 
 		// Dispatch the request and send the response
 
-		(new Dispatcher($routes, $route, $request, $this->get('response'), $this))->dispatch()->send();
+		(new Dispatcher($routes, $route, $request, $this->container->get('response'), $this->container))->dispatch()->send();
 	}
 }

@@ -42,6 +42,6 @@ class I18n extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('i18n');
+		return Application::instance()->getContainer()->get('i18n');
 	}
 }

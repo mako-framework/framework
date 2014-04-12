@@ -41,9 +41,9 @@ class RedisService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\redis\ConnectionManager', 'redis'], function($app)
+		$this->container->registerSingleton(['mako\redis\ConnectionManager', 'redis'], function($container)
 		{
-			$config = $app->getConfig()->get('redis');
+			$config = $container->get('config')->get('redis');
 
 			return new ConnectionManager($config['default'], $config['configurations']);
 		});

@@ -41,11 +41,11 @@ class CacheService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\cache\CacheManager', 'cache'], function($app)
+		$this->container->registerSingleton(['mako\cache\CacheManager', 'cache'], function($container)
 		{
-			$config = $app->getConfig()->get('cache');
+			$config = $container->get('config')->get('cache');
 
-			return new CacheManager($config['default'], $config['configurations'], $app);
+			return new CacheManager($config['default'], $config['configurations'], $container);
 		});
 	}
 }

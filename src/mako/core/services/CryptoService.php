@@ -41,11 +41,11 @@ class CryptoService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\security\crypto\CryptoManager', 'crypto'], function($app)
+		$this->container->registerSingleton(['mako\security\crypto\CryptoManager', 'crypto'], function($container)
 		{
-			$config = $app->getConfig()->get('crypto');
+			$config = $container->get('config')->get('crypto');
 
-			return new CryptoManager($config['default'], $config['configurations'], $app);
+			return new CryptoManager($config['default'], $config['configurations'], $container);
 		});
 	}
 }

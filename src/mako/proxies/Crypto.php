@@ -42,6 +42,6 @@ class Crypto extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('crypto');
+		return Application::instance()->getContainer()->get('crypto');
 	}
 }

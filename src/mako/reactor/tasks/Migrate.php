@@ -9,9 +9,9 @@ namespace mako\reactor\tasks;
 
 use \StdClass;
 
-use \mako\core\Application;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
+use \mako\syringe\Syringe;
 
 /**
  * Database migrations.
@@ -24,6 +24,14 @@ class Migrate extends \mako\reactor\Task
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * IoC container instance.
+	 * 
+	 * @var \mako\syringe\Syringe
+	 */
+
+	protected $container;
 
 	/**
 	 * Application instance.
@@ -83,16 +91,18 @@ class Migrate extends \mako\reactor\Task
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\reactor\io\Input   $input        Input
-	 * @param   \mako\reactor\io\Output  $output       Output
-	 * @param   \mako\core\Application   $application  Application instance
+	 * @param   \mako\reactor\io\Input   $input      Input
+	 * @param   \mako\reactor\io\Output  $output     Output
+	 * @param   \mako\syringe\Syringe    $container  IoC container instance
 	 */
 
-	public function __construct(Input $input, Output $output, Application $application)
+	public function __construct(Input $input, Output $output, Syringe $container)
 	{
 		parent::__construct($input, $output);
 
-		$this->application = $application;
+		$this->container = $container;
+
+		$this->application = $container->get('app');
 	}
 
 	//---------------------------------------------
@@ -110,7 +120,7 @@ class Migrate extends \mako\reactor\Task
 	{
 		if(empty($this->connection))
 		{
-			$this->connection = $this->application->get('database')->connection();
+			$this->connection = $this->container->get('database')->connection();
 		}
 
 		return $this->connection;
@@ -248,7 +258,7 @@ class Migrate extends \mako\reactor\Task
 			$namespace = '\\' . $migration->package . '\\migrations\\';
 		}
 
-		return $this->application->get($namespace . $class);
+		return $this->container->get($namespace . $class);
 	}
 
 	/**

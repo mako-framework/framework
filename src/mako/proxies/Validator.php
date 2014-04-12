@@ -42,6 +42,6 @@ class Validator extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('validatorfactory');
+		return Application::instance()->getContainer()->get('validatorfactory');
 	}
 }

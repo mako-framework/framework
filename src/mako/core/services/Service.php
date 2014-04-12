@@ -7,7 +7,7 @@
 
 namespace mako\core\services;
 
-use \mako\core\Application;
+use \mako\syringe\Syringe;
 
 /**
  * Abstract service.
@@ -22,12 +22,12 @@ abstract class Service
 	//---------------------------------------------
 
 	/**
-	 * Application instance
+	 * IoC container instance
 	 * 
-	 * @var \mako\core\Application
+	 * @var \mako\syringe\Syringe
 	 */
 
-	protected $application;
+	protected $container;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -37,12 +37,12 @@ abstract class Service
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\core\Application  $application  Application instance
+	 * @param   \mako\syringe\Syringe  $container  IoC container instance
 	 */
 
-	public function __construct(Application $application)
+	public function __construct(Syringe $container)
 	{
-		$this->application = $application;
+		$this->container = $container;
 	}
 
 	//---------------------------------------------

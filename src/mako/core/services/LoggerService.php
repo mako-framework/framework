@@ -42,11 +42,11 @@ class LoggerService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['Psr\Log\LoggerInterface', 'logger'], function($app)
+		$this->container->registerSingleton(['Psr\Log\LoggerInterface', 'logger'], function($container)
 		{
 			$logger = new Logger('mako');
 
-			$logger->pushHandler(new StreamHandler($app->getApplicationPath() . '/storage/logs/' . date('Y-m-d') . '.mako', Logger::DEBUG));
+			$logger->pushHandler(new StreamHandler($container->get('app')->getApplicationPath() . '/storage/logs/' . date('Y-m-d') . '.mako', Logger::DEBUG));
 
 			return $logger;
 		});

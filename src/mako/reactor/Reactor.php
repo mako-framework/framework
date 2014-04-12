@@ -12,10 +12,10 @@ use \ReflectionClass;
 use \RuntimeException;
 use \ReflectionException;
 
-use \mako\core\Application;
 use \mako\reactor\Task;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
+use \mako\syringe\Syringe;
 
 /**
  * Reactor core class.
@@ -46,12 +46,12 @@ class Reactor
 	protected $output;
 
 	/**
-	 * Application instance.
+	 * IoC container instance.
 	 * 
-	 * @var \mako\core\Application
+	 * @var \mako\syringe\Syringe
 	 */
 
-	protected $application;
+	protected $container;
 
 	/**
 	 * Avaiable tasks.
@@ -82,19 +82,19 @@ class Reactor
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\reactor\io\Input   $input        Input instance
-	 * @param   \mako\reactor\io\Output  $output       Output instance
-	 * @param   \mako\core\Application   $application  Application instance
-	 * @param   array                    $tasks        Available tasks
+	 * @param   \mako\reactor\io\Input   $input      Input instance
+	 * @param   \mako\reactor\io\Output  $output     Output instance
+	 * @param   \mako\syringe\Syringe    $container  IoC container instance
+	 * @param   array                    $tasks      Available tasks
 	 */
 
-	public function __construct(Input $input, Output $output, Application $application, array $tasks)
+	public function __construct(Input $input, Output $output, Syringe $container, array $tasks)
 	{
 		$this->input = $input;
 
 		$this->output = $output;
 
-		$this->application = $application;
+		$this->container = $container;
 
 		$this->tasks = $tasks;
 	}
@@ -129,7 +129,7 @@ class Reactor
 
 		if($database !== false)
 		{
-			$this->application->getConfig()->set('database.default', $database);
+			$this->container->get('config')->set('database.default', $database);
 		}
 
 		// Disable output?
@@ -248,7 +248,7 @@ class Reactor
 			return false;
 		}
 
-		$task = $this->application->get($task, [$this->input, $this->output]);
+		$task = $this->container->get($task, [$this->input, $this->output]);
 
 		if(($task instanceof Task) === false)
 		{

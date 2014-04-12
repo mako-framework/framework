@@ -41,11 +41,11 @@ class GatekeeperService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\auth\Gatekeeper', 'gatekeeper'], function($app)
+		$this->container->registerSingleton(['mako\auth\Gatekeeper', 'gatekeeper'], function($container)
 		{
-			$config = $app->getConfig()->get('gatekeeper');
+			$config = $container->get('config')->get('gatekeeper');
 
-			$gatekeeper = new Gatekeeper($app->get('request'), $app->get('response'), $app->get('session'));
+			$gatekeeper = new Gatekeeper($container->get('request'), $container->get('response'), $container->get('session'));
 
 			$gatekeeper->setAuthKey($config['auth_key']);
 

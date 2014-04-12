@@ -42,6 +42,6 @@ class Session extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('session');
+		return Application::instance()->getContainer()->get('session');
 	}
 }

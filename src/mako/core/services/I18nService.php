@@ -41,8 +41,10 @@ class I18nService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\i18n\I18n', 'i18n'], function($app)
+		$this->container->registerSingleton(['mako\i18n\I18n', 'i18n'], function($container)
 		{
+			$app = $container->get('app');
+
 			return new I18n($app->getApplicationPath(), $app->getLanguage());
 		});
 	}

@@ -62,6 +62,6 @@ class CLIApplication extends \mako\core\Application
 
 		$tasks = (new TaskFinder($this->getApplicationPath()))->find();
 
-		(new Reactor($input, $output, $this, $tasks))->run();
+		(new Reactor($input, $output, $this->container, $tasks))->run();
 	}
 }

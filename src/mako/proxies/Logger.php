@@ -42,6 +42,6 @@ class Logger extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('logger');
+		return Application::instance()->getContainer()->get('logger');
 	}
 }

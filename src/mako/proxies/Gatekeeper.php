@@ -42,6 +42,6 @@ class Gatekeeper extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('gatekeeper');
+		return Application::instance()->getContainer()->get('gatekeeper');
 	}
 }

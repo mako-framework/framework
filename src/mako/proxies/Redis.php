@@ -42,6 +42,6 @@ class Redis extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('redis');
+		return Application::instance()->getContainer()->get('redis');
 	}
 }

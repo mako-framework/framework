@@ -41,8 +41,10 @@ class ViewFactoryService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->application->registerSingleton(['mako\view\ViewFactory', 'viewfactory'], function($app)
+		$this->container->registerSingleton(['mako\view\ViewFactory', 'viewfactory'], function($container)
 		{
+			$app = $container->get('app');
+
 			return new ViewFactory($app->getApplicationPath(), $app->getCharset());
 		});
 	}

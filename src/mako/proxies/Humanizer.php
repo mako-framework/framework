@@ -42,6 +42,6 @@ class Humanizer extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('humanizer');
+		return Application::instance()->getContainer()->get('humanizer');
 	}
 }

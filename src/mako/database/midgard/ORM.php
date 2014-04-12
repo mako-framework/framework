@@ -262,7 +262,7 @@ abstract class ORM
 	{
 		if(empty(static::$connectionManager))
 		{
-			static::$connectionManager = Application::instance()->get('database');
+			static::$connectionManager = Application::instance()->getContainer()->get('database');
 		}
 		
 		return static::$connectionManager->connection($this->connectionName);

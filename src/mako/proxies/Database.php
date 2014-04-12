@@ -42,6 +42,6 @@ class Database extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('database');
+		return Application::instance()->getContainer()->get('database');
 	}
 }

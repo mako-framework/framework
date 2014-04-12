@@ -39,7 +39,7 @@ abstract class AdapterManager
 	 * @var \mako\syringe\Syringe
 	 */
 
-	protected $syringe;
+	protected $container;
 
 	/**
 	 * Connections.
@@ -59,16 +59,16 @@ abstract class AdapterManager
 	 * @access  public
 	 * @param   string                 $default         Default connection name
 	 * @param   array                  $configurations  Configurations
-	 * @param   \mako\syringe\Syringe  $syringe         Syringe instance
+	 * @param   \mako\syringe\Syringe  $container       Syringe instance
 	 */
 
-	public function __construct($default, array $configurations, Syringe $syringe)
+	public function __construct($default, array $configurations, Syringe $container)
 	{
 		$this->default = $default;
 
 		$this->configurations = $configurations;
 
-		$this->syringe = $syringe;
+		$this->container = $container;
 	}
 
 	//---------------------------------------------

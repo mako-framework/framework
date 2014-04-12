@@ -42,6 +42,6 @@ class View extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('viewfactory');
+		return Application::instance()->getContainer()->get('viewfactory');
 	}
 }

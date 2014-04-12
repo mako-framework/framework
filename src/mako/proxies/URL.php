@@ -42,6 +42,6 @@ class URL extends \mako\proxies\Proxy
 
 	protected static function instance()
 	{
-		return Application::instance()->get('urlbuilder');
+		return Application::instance()->getContainer()->get('urlbuilder');
 	}
 }
