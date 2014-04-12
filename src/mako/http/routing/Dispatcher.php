@@ -98,7 +98,7 @@ class Dispatcher
 		$this->route      = $route;
 		$this->request    = $request;
 		$this->response   = $response ?: new Response($request);
-		$this->container  = $container  ?: new Syringe;
+		$this->container  = $container ?: new Syringe;
 	}
 
 	//---------------------------------------------
