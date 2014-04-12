@@ -9,7 +9,7 @@ namespace mako\common;
 
 use \RuntimeException;
 
-use \mako\syringe\Syringe;
+use \mako\syringe\Container;
 
 /**
  * Adapter manager.
@@ -34,9 +34,9 @@ abstract class AdapterManager
 	const REUSE_INSTANCES = true;
 
 	/**
-	 * Syringe instance.
+	 * IoC container instance.
 	 * 
-	 * @var \mako\syringe\Syringe
+	 * @var \mako\syringe\Container
 	 */
 
 	protected $container;
@@ -57,12 +57,12 @@ abstract class AdapterManager
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string                 $default         Default connection name
-	 * @param   array                  $configurations  Configurations
-	 * @param   \mako\syringe\Syringe  $container       Syringe instance
+	 * @param   string                   $default         Default connection name
+	 * @param   array                    $configurations  Configurations
+	 * @param   \mako\syringe\Container  $container       IoC container instance
 	 */
 
-	public function __construct($default, array $configurations, Syringe $container)
+	public function __construct($default, array $configurations, Container $container)
 	{
 		$this->default = $default;
 

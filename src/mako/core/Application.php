@@ -13,7 +13,7 @@ use \LogicException;
 use \mako\core\Config;
 use \mako\core\error\handlers\WebHandler;
 use \mako\core\error\handlers\CLIHandler;
-use \mako\syringe\Syringe;
+use \mako\syringe\Container;
 
 use \Monolog\Handler\HandlerInterface;
 
@@ -40,7 +40,7 @@ abstract class Application
 	/**
 	 * IoC container instance.
 	 * 
-	 * @var \mako\syringe\Syringe;
+	 * @var \mako\syringe\Container;
 	 */
 
 	protected $container;
@@ -138,7 +138,7 @@ abstract class Application
 	 * Returns the IoC container instance.
 	 * 
 	 * @access  public
-	 * @return  \mako\syringe\Syringe
+	 * @return  \mako\syringe\Container
 	 */
 
 	public function getContainer()
@@ -338,9 +338,9 @@ abstract class Application
 	{
 		// Create IoC container instance and register it in itself so that it can be injected
 
-		$this->container = new Syringe();
+		$this->container = new Container();
 
-		$this->container->registerInstance(['mako\syringe\Syringe', 'container'], $this->container);
+		$this->container->registerInstance(['mako\syringe\Container', 'container'], $this->container);
 
 		// Register self so that the application instance can be injected
 

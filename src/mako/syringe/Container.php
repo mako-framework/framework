@@ -12,13 +12,15 @@ use \ReflectionClass;
 use \ReflectionParameter;
 use \RuntimeException;
 
+use \mako\syringe\ContainerAwareTrait;
+
 /**
  * Inversion of control container.
  * 
  * @author  Frederic G. Østby
  */
 
-class Syringe
+class Container
 {
 	//---------------------------------------------
 	// Class properties
@@ -210,6 +212,26 @@ class Syringe
 	}
 
 	/**
+	 * Checks if a class is container aware.
+	 * 
+	 * @access  protected
+	 * @param   object     $instance  Class instance
+	 * @return  boolean
+	 */
+
+	protected function isContainerAware($instance)
+	{
+		$traits = class_uses($instance);
+
+		if(!empty($traits))
+		{
+			return array_key_exists('mako\syringe\ContainerAwareTrait', $traits);
+		}
+
+		return false;
+	}
+
+	/**
 	 * Creates a class instance.
 	 * 
 	 * @access  public
@@ -225,7 +247,7 @@ class Syringe
 			// We got a closure so we'll just call it and 
 			// pass the container as the first parameter followed by the the provided parameters
 
-			return call_user_func_array($class, array_merge([$this], $parameters));
+			$instance = call_user_func_array($class, array_merge([$this], $parameters));
 		}
 		else
 		{
@@ -246,7 +268,7 @@ class Syringe
 			{
 				// No constructor has been defined so we'll just return a new instance
 
-				return $class->newInstance();
+				$instance = $class->newInstance();
 			}
 			else
 			{
@@ -276,9 +298,20 @@ class Syringe
 
 				// Create and return a new instance using our parameters
 
-				return $class->newInstanceArgs($parameters);
+				$instance = $class->newInstanceArgs($parameters);
 			}
 		}
+
+		// Inject container using setter if the class is container aware
+
+		if($this->isContainerAware($instance))
+		{
+			$instance->setContainer($this);
+		}
+
+		// Return the instance
+
+		return $instance;
 	}
 
 	/**

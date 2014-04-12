@@ -14,7 +14,7 @@ use \mako\http\Response;
 use \mako\http\routing\Route;
 use \mako\http\routing\Routes;
 use \mako\http\routing\Controller;
-use \mako\syringe\Syringe;
+use \mako\syringe\Container;
 
 /**
  * Route dispatcher.
@@ -62,9 +62,9 @@ class Dispatcher
 	protected $response;
 
 	/**
-	 * Syringe instance.
+	 * IoC container instance.
 	 * 
-	 * @var \mako\syringe\Syringe
+	 * @var \mako\syringe\Container
 	 */
 
 	protected $container;
@@ -89,16 +89,16 @@ class Dispatcher
 	 * @param   \mako\http\routing\Route   $route     The route we're dispatching
 	 * @param   \mako\http\Request         $request   Request instance
 	 * @param   \mako\http\Response        $response  (optional) Response instance
-	 * @param   \mako\syringe\Syringe      $container (optional) Syringe instance
+	 * @param   \mako\syringe\Container    $container (optional) IoC container
 	 */
 
-	public function __construct(Routes $routes, Route $route, Request $request, Response $response = null, Syringe $container = null)
+	public function __construct(Routes $routes, Route $route, Request $request, Response $response = null, Container $container = null)
 	{
 		$this->routes     = $routes;
 		$this->route      = $route;
 		$this->request    = $request;
 		$this->response   = $response ?: new Response($request);
-		$this->container  = $container ?: new Syringe;
+		$this->container  = $container ?: new Container;
 	}
 
 	//---------------------------------------------

@@ -15,7 +15,7 @@ use \ReflectionException;
 use \mako\reactor\Task;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
-use \mako\syringe\Syringe;
+use \mako\syringe\Container;
 
 /**
  * Reactor core class.
@@ -48,7 +48,7 @@ class Reactor
 	/**
 	 * IoC container instance.
 	 * 
-	 * @var \mako\syringe\Syringe
+	 * @var \mako\syringe\Container
 	 */
 
 	protected $container;
@@ -84,11 +84,11 @@ class Reactor
 	 * @access  public
 	 * @param   \mako\reactor\io\Input   $input      Input instance
 	 * @param   \mako\reactor\io\Output  $output     Output instance
-	 * @param   \mako\syringe\Syringe    $container  IoC container instance
+	 * @param   \mako\syringe\Container  $container  IoC container instance
 	 * @param   array                    $tasks      Available tasks
 	 */
 
-	public function __construct(Input $input, Output $output, Syringe $container, array $tasks)
+	public function __construct(Input $input, Output $output, Container $container, array $tasks)
 	{
 		$this->input = $input;
 

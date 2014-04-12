@@ -11,7 +11,7 @@ use \StdClass;
 
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
-use \mako\syringe\Syringe;
+use \mako\syringe\Container;
 
 /**
  * Database migrations.
@@ -28,7 +28,7 @@ class Migrate extends \mako\reactor\Task
 	/**
 	 * IoC container instance.
 	 * 
-	 * @var \mako\syringe\Syringe
+	 * @var \mako\syringe\Container
 	 */
 
 	protected $container;
@@ -93,10 +93,10 @@ class Migrate extends \mako\reactor\Task
 	 * @access  public
 	 * @param   \mako\reactor\io\Input   $input      Input
 	 * @param   \mako\reactor\io\Output  $output     Output
-	 * @param   \mako\syringe\Syringe    $container  IoC container instance
+	 * @param   \mako\syringe\Containe   $container  IoC container instance
 	 */
 
-	public function __construct(Input $input, Output $output, Syringe $container)
+	public function __construct(Input $input, Output $output, Container $container)
 	{
 		parent::__construct($input, $output);
 
