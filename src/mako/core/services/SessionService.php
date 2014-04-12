@@ -37,71 +37,70 @@ class SessionService extends \mako\core\services\Service
 	//---------------------------------------------
 
 	/**
-	 * Register the database session store.
+	 * Returns a database store instance.
 	 * 
 	 * @access  protected
-	 * @param   array      $config  Store configuration
+	 * @param   \mako\syringe\Syringe         $container  IoC container instance
+	 * @param   array                         $config     Store configuration
+	 * @return  \mako\session\store\Database
 	 */
 
-	protected function registerDatabaseStore($config)
+	protected function getDatabaseStore($container, $config)
 	{
-		$this->container->register(['mako\session\store\StoreInterface', 'session.store'], function($container) use ($config)
-		{
-			return new Database($container->get('database')->connection($config['configuration']), $config['table']);
-		});
+		return new Database($container->get('database')->connection($config['configuration']), $config['table']);
 	}
 
 	/**
-	 * Retister the file session store.
+	 * Returns a file store instance.
 	 * 
 	 * @access  protected
-	 * @param   array      $config  Store configuration
+	 * @param   \mako\syringe\Syringe     $container  IoC container instance
+	 * @param   array                     $config     Store configuration
+	 * @return  \mako\session\store\File
 	 */
 
-	protected function registerFileStore($config)
+	protected function getFileStore($container, $config)
 	{
-		$this->container->register(['mako\session\store\StoreInterface', 'session.store'], function($container) use ($config)
-		{
-			return new File($config['path']);
-		});
+		return new File($config['path']);
 	}
 
 	/**
-	 * Register the redis session store.
+	 * Returns a redis store instance.
 	 * 
 	 * @access  protected
-	 * @param   array      $config  Store configuration
+	 * @param   \mako\syringe\Syringe     $container  IoC container instance
+	 * @param   array                     $config     Store configuration
+	 * @return  \mako\session\store\Redis
 	 */
 
-	protected function registerRedisStore($config)
+	protected function getRedisStore($container, $config)
 	{
-		$this->container->register(['mako\session\store\StoreInterface', 'session.store'], function($container) use ($config)
-		{
-			return new Redis($container->get('redis')->connection($config['configuration']));
-		});
+		return new Redis($container->get('redis')->connection($config['configuration']));
 	}
 
 	/**
-	 * Register the session store.
+	 * Returns a session store instance.
 	 * 
 	 * @access  protected
-	 * @param   array      $config  Session configuration
+	 * @param   \mako\syringe\Syringe               $container  IoC container instance
+	 * @param   array                               $config  Session configuration
+	 * @return  \mako\session\store\StoreInterface
 	 */
 
-	protected function registerSessionStore($config)
+	protected function getSessionStore($container, $config)
 	{
 		$config = $config['configurations'][$config['default']];
 
 		switch($config['type'])
 		{
 			case 'database':
-				$this->registerDatabaseStore($config);
+				return $this->getDatabaseStore($container, $config);
 				break;
 			case 'file':
-				$this->registerFileStore($config);
+				return $this->getFileStore($container, $config);
 				break;
 			case 'redis':
-				$this->registerRedisStore($config);
+				return $this->getRedisStore($container, $config);
 				break;
 		}
 	}
@@ -118,9 +117,7 @@ class SessionService extends \mako\core\services\Service
 		{
 			$config = $container->get('config')->get('session');
 
-			$this->registerSessionStore($config);
-
-			$session = new Session($container->get('request'), $container->get('response'), $container->get('session.store'));
+			$session = new Session($container->get('request'), $container->get('response'), $this->getSessionStore($container, $config));
 
 			$session->setCookieName($config['session_name']);
 
