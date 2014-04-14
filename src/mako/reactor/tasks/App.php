@@ -42,14 +42,6 @@ class App extends \mako\reactor\Task
 
 	protected static $taskInfo = 
 	[
-		'up' => 
-		[
-			'description' => 'Takes the application online.',
-		],
-		'down' => 
-		[
-			'description' => 'Takes the application offline.',
-		],
 		'generate_secret' => 
 		[
 			'description' => 'Generates a new application secret.',
@@ -83,57 +75,6 @@ class App extends \mako\reactor\Task
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
-	/**
-	 * Returns path to the lockfile.
-	 * 
-	 * @access  protected
-	 * @return  string
-	 */
-
-	protected function lockFile()
-	{
-		return $this->application->getApplicationPath() . '/storage/offline';
-	}
-
-	/**
-	 * Takes the application online.
-	 * 
-	 * @access  public
-	 */
-
-	public function up()
-	{
-		if(file_exists($this->lockFile()))
-		{
-			if(!is_writable($this->lockFile()))
-			{
-				return $this->output->error('Unable to delete the lock file. Make sure that your "app/storage" directory is writable.');
-			}
-
-			unlink($this->lockFile());
-		}
-
-		$this->output->writeln('Your application is now <green>online</green>.');
-	}
-
-	/**
-	 * Takes the application offline.
-	 * 
-	 * @access  public
-	 */
-
-	public function down()
-	{
-		if(!is_writable($this->application->getApplicationPath() . '/storage'))
-		{
-			return $this->output->error('Unable to create the lock file. Make sure that your "app/storage" directory is writable.');
-		}
-
-		touch($this->lockFile());
-
-		$this->output->writeln('Your application is now <red>offline</red>.');
-	}
 
 	/**
 	 * Generates a new application secret.
