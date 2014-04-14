@@ -10,6 +10,8 @@ namespace mako\http\routing;
 use \Closure;
 use \RuntimeException;
 
+use \mako\http\routing\Route;
+
 /**
  * Route collection.
  * 
@@ -121,8 +123,8 @@ class Routes
 	 * Returns the named route.
 	 * 
 	 * @access  public
-	 * @param   string  $name  Route name
-	 * @return  string
+	 * @param   string                   $name  Route name
+	 * @return  \mako\http\routes\Route
 	 */
 
 	public function getNamedRoute($name)
