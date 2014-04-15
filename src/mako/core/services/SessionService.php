@@ -89,7 +89,7 @@ class SessionService extends \mako\core\services\Service
 
 	protected function getSessionStore($container, $config)
 	{
-		$config = $config['configurations'][$config['default']];
+		$config = $config['configurations'][$config['configuration']];
 
 		switch($config['type'])
 		{
