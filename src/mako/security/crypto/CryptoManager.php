@@ -88,6 +88,13 @@ class CryptoManager extends \mako\common\AdapterManager
 
 		$factoryMethod = $this->getFactoryMethodName($configuration['library']);
 
-		return new Crypto($this->$factoryMethod($configuration), $this->container->get('signer'));
+		$instance = new Crypto($this->$factoryMethod($configuration));
+
+		if($this->container->has('signer'))
+		{
+			$instance->setSigner($this->container->get('signer'));
+		}
+
+		return $instance;
 	}
 }

@@ -64,6 +64,18 @@ class Crypto
 	//---------------------------------------------
 
 	/**
+	 * Sets the signer instance.
+	 * 
+	 * @access  public
+	 * @param   \mako\security\Signer  $signer  Signer instance
+	 */
+
+	public function setSigner(Signer $signer)
+	{
+		$this->signer = $signer;
+	}
+
+	/**
 	 * Encrypts data.
 	 *
 	 * @access  public
