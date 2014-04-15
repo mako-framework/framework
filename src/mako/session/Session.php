@@ -518,42 +518,6 @@ class Session
 	}
 
 	/**
-	 * Clears all session data.
-	 * 
-	 * @access  public
-	 */
-
-	public function clear()
-	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
-		$this->sessionData = [];
-	}
-
-	/**
-	 * Destroys the session.
-	 * 
-	 * @access  public
-	 */
-
-	public function destroy()
-	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
-		$this->store->delete($this->sessionId);
-
-		$this->response->deleteCookie($this->cookieName, $this->cookieOptions);
-
-		$this->destroyed = true;
-	}
-
-	/**
 	 * Returns random security token.
 	 *
 	 * @access  public
@@ -611,5 +575,41 @@ class Session
 		}
 
 		return false;
+	}
+
+	/**
+	 * Clears all session data.
+	 * 
+	 * @access  public
+	 */
+
+	public function clear()
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		$this->sessionData = [];
+	}
+
+	/**
+	 * Destroys the session.
+	 * 
+	 * @access  public
+	 */
+
+	public function destroy()
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		$this->store->delete($this->sessionId);
+
+		$this->response->deleteCookie($this->cookieName, $this->cookieOptions);
+
+		$this->destroyed = true;
 	}
 }
