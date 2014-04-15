@@ -99,8 +99,8 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 		$blockSize = mcrypt_get_block_size($this->cipher, $this->mode);
 
 		$pad = $blockSize - (strlen($string) % $blockSize);
-        
-        return $string . str_repeat(chr($pad), $pad);
+
+		return $string . str_repeat(chr($pad), $pad);
 	}
 
 	/**
@@ -117,9 +117,9 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 
 		$ascii = ord($last);
 
-		$length  = strlen($string) - $ascii;
+		$length = strlen($string) - $ascii;
 
-		if(substr($string, $length) == str_repeat($last, $ascii))
+		if(substr($string, $length) === str_repeat($last, $ascii))
 		{
 			return substr($string, 0, $length);
 		}
