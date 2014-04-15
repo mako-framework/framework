@@ -18,6 +18,14 @@ class Signer
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
+
+	/**
+	 * MAC length.
+	 * 
+	 * @var int
+	 */
+
+	const MAC_LENGTH = 40;
 	
 	/**
 	 * Secret used to sign and validate strings.
@@ -83,9 +91,9 @@ class Signer
 
 	public function validate($string)
 	{
-		$validated = substr($string, 40);
+		$validated = substr($string, static::MAC_LENGTH);
 
-		if($this->getSignature($validated) === substr($string, 0, 40))
+		if($this->getSignature($validated) === substr($string, 0, static::MAC_LENGTH))
 		{
 			return $validated;
 		}
