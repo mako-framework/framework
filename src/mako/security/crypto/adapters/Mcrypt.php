@@ -74,7 +74,7 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 
 		$maxSize = mcrypt_get_key_size($this->cipher, $this->mode);
 		
-		if(mb_strlen($this->key) > $maxSize)
+		if(strlen($this->key) > $maxSize)
 		{
 			$this->key = substr($this->key, 0, $maxSize);
 		}
