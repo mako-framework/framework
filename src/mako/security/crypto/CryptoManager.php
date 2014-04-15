@@ -12,6 +12,7 @@ use \RuntimeException;
 use \mako\security\crypto\Crypto;
 use \mako\security\crypto\adapters\MCrypt;
 use \mako\security\crypto\adapters\OpenSSL;
+use \mako\security\crypto\padders\PKCS7;
 
 /**
  * Crypto manager.
@@ -53,7 +54,7 @@ class CryptoManager extends \mako\common\AdapterManager
 
 	protected function mcryptAdapter($configuration)
 	{
-		return new MCrypt($configuration['key'], $configuration['cipher'], $configuration['mode']);
+		return new MCrypt($configuration['key'], new PKCS7(), $configuration['cipher'], $configuration['mode']);
 	}
 
 	/**

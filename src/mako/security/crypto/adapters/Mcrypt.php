@@ -7,6 +7,8 @@
 
 namespace mako\security\crypto\adapters;
 
+use \mako\security\crypto\padders\PadderInterface;
+
 /**
  * MCrypt adapter.
  *
@@ -20,20 +22,28 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 	//---------------------------------------------
 
 	/**
-	 * The cipher method to use for encryption.
-	 *
-	 * @var int
-	 */
-	
-	protected $cipher;
-	
-	/**
 	 * Key used to encrypt/decrypt string.
 	 *
 	 * @var string
 	 */
 	
 	protected $key;
+
+	/**
+	 * Padder instance.
+	 * 
+	 * @var \mako\security\crypto\padders\PadderInterface
+	 */
+
+	protected $padder;
+
+	/**
+	 * The cipher method to use for encryption.
+	 *
+	 * @var int
+	 */
+	
+	protected $cipher;
 	
 	/**
 	 * Encryption mode.
@@ -59,14 +69,17 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $key     Encryption key
-	 * @param   int     $cipher  (optional) Cipher
-	 * @param   int     $mode    (optional) Mode
+	 * @param   string                                         $key     Encryption key
+	 * @param   \mako\security\crypto\padders\PadderInterface  $padder  Padder instance
+	 * @param   int                                            $cipher  (optional) Cipher
+	 * @param   int                                            $mode    (optional) Mode
 	 */
 
-	public function __construct($key, $cipher = null, $mode = null)
+	public function __construct($key, PadderInterface $padder, $cipher = null, $mode = null)
 	{
 		$this->key = $key;
+
+		$this->padder = $padder;
 
 		$this->cipher = $cipher ?: MCRYPT_RIJNDAEL_256;
 
@@ -87,47 +100,6 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 	//---------------------------------------------
 
 	/**
-	 * Add PKCS #7 padding.
-	 * 
-	 * @access  protected
-	 * @param   string     $string  String we want to pad
-	 * @return  string
-	 */
-
-	protected function addPadding($string)
-	{
-		$blockSize = mcrypt_get_block_size($this->cipher, $this->mode);
-
-		$pad = $blockSize - (strlen($string) % $blockSize);
-
-		return $string . str_repeat(chr($pad), $pad);
-	}
-
-	/**
-	 * Remove PKCS #7 padding.
-	 * 
-	 * @access  protected
-	 * @param   string          $string  String we want to unpad
-	 * @return  string|boolean
-	 */
-
-	protected function stripPadding($string)
-	{
-		$last = substr($string, -1);
-
-		$ascii = ord($last);
-
-		$length = strlen($string) - $ascii;
-
-		if(substr($string, $length) === str_repeat($last, $ascii))
-		{
-			return substr($string, 0, $length);
-		}
-
-		return false;
-	}
-
-	/**
 	 * Encrypts string.
 	 *
 	 * @access  public
@@ -137,9 +109,11 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 	
 	public function encrypt($string)
 	{
+		$blockSize = mcrypt_get_block_size($this->cipher, $this->mode);
+
 		$iv = mcrypt_create_iv($this->ivSize, MCRYPT_DEV_URANDOM);
 		
-		return base64_encode($iv . mcrypt_encrypt($this->cipher, $this->key, $this->addPadding($string), $this->mode, $iv));
+		return base64_encode($iv . mcrypt_encrypt($this->cipher, $this->key, $this->padder->addPadding($string, $blockSize), $this->mode, $iv));
 	}
 
 	/**
@@ -163,6 +137,6 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 		
 		$string = substr($string, $this->ivSize);
 
-		return $this->stripPadding(mcrypt_decrypt($this->cipher, $this->key, $string, $this->mode, $iv));
+		return $this->padder->stripPadding(mcrypt_decrypt($this->cipher, $this->key, $string, $this->mode, $iv));
 	}
 }
