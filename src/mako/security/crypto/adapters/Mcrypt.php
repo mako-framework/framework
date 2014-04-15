@@ -107,8 +107,8 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 	 * Remove PKCS #7 padding.
 	 * 
 	 * @access  protected
-	 * @param   string     $string  String we want to unpad
-	 * @return  string
+	 * @param   string          $string  String we want to unpad
+	 * @return  string|boolean
 	 */
 
 	protected function stripPadding($string)
