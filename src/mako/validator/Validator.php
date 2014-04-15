@@ -769,7 +769,7 @@ class Validator
 
 		$errors = $this->errors;
 
-		return !empty($this->errors);
+		return ! empty($this->errors);
 	}
 
 	/**

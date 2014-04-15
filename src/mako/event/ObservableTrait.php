@@ -46,6 +46,18 @@ trait ObservableTrait
 	{
 		$this->_observers[$event][] = $observer;
 	}
+
+	/**
+	 * Returns TRUE if the event has any observers and FALSE if not.
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function hasObserver($event)
+	{
+		return ! empty($this->_observers[$event]);
+	}
 	
 	/**
 	 * Detach an observer.

@@ -71,7 +71,7 @@ class Listener
 
 	public function registered($name)
 	{
-		return isset($this->events[$name]);
+		return ! empty($this->events[$name]);
 	}
 
 	/**
