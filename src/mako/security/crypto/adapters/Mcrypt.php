@@ -28,7 +28,7 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 	protected $cipher;
 	
 	/**
-	 * Key used to encrypt/decrypt data.
+	 * Key used to encrypt/decrypt string.
 	 *
 	 * @var string
 	 */
@@ -87,48 +87,82 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 	//---------------------------------------------
 
 	/**
-	 * Encrypts data.
-	 *
-	 * @access  public
-	 * @param   string  $data  Data to encrypt
+	 * Add PKCS #7 padding.
+	 * 
+	 * @access  protected
+	 * @param   string     $string  String we want to pad
 	 * @return  string
 	 */
-	
-	public function encrypt($data)
+
+	protected function addPadding($string)
 	{
-		$iv = mcrypt_create_iv($this->ivSize, MCRYPT_DEV_URANDOM);
-		
-		return base64_encode($iv . mcrypt_encrypt($this->cipher, $this->key, $data, $this->mode, $iv));
+		$blockSize = mcrypt_get_block_size($this->cipher, $this->mode);
+
+		$pad = $blockSize - (strlen($string) % $blockSize);
+        
+        return $string . str_repeat(chr($pad), $pad);
 	}
 
 	/**
-	 * Decrypts data.
+	 * Remove PKCS #7 padding.
+	 * 
+	 * @access  protected
+	 * @param   string     $string  String we want to unpad
+	 * @return  string
+	 */
+
+	protected function stripPadding($string)
+	{
+		$last = substr($string, -1);
+
+		$ascii = ord($last);
+
+		$length  = strlen($string) - $ascii;
+
+		if(substr($string, $length) == str_repeat($last, $ascii))
+		{
+			return substr($string, 0, $length);
+		}
+
+		return false;
+	}
+
+	/**
+	 * Encrypts string.
 	 *
 	 * @access  public
-	 * @param   string  $data  Data to decrypt
+	 * @param   string  $string  String to encrypt
 	 * @return  string
 	 */
 	
-	public function decrypt($data)
+	public function encrypt($string)
 	{
-		$data = base64_decode($data, true);
+		$iv = mcrypt_create_iv($this->ivSize, MCRYPT_DEV_URANDOM);
 		
-		if($data === false)
+		return base64_encode($iv . mcrypt_encrypt($this->cipher, $this->key, $this->addPadding($string), $this->mode, $iv));
+	}
+
+	/**
+	 * Decrypts string.
+	 *
+	 * @access  public
+	 * @param   string          $string  String to decrypt
+	 * @return  string|boolean
+	 */
+	
+	public function decrypt($string)
+	{
+		$string = base64_decode($string, true);
+		
+		if($string === false)
 		{
 			return false;
 		}
 		
-		$iv = substr($data, 0, $this->ivSize);
+		$iv = substr($string, 0, $this->ivSize);
 		
-		$data = substr($data, $this->ivSize);
+		$string = substr($string, $this->ivSize);
 
-		$data = mcrypt_decrypt($this->cipher, $this->key, $data, $this->mode, $iv);
-
-		if($data === false)
-		{
-			return false;
-		}
-		
-		return rtrim($data, "\0");
+		return $this->stripPadding(mcrypt_decrypt($this->cipher, $this->key, $string, $this->mode, $iv));
 	}
 }

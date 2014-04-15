@@ -15,6 +15,6 @@ namespace mako\security\crypto\adapters;
 
 interface AdapterInterface
 {
-	public function encrypt($data);
-	public function decrypt($data);
+	public function encrypt($string);
+	public function decrypt($string);
 }

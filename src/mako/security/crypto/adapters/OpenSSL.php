@@ -20,7 +20,7 @@ class OpenSSL implements \mako\security\crypto\adapters\AdapterInterface
 	//---------------------------------------------
 
 	/**
-	 * Key used to encrypt/decrypt data.
+	 * Key used to encrypt/decrypt string.
 	 *
 	 * @var string
 	 */
@@ -69,41 +69,41 @@ class OpenSSL implements \mako\security\crypto\adapters\AdapterInterface
 	//---------------------------------------------
 
 	/**
-	 * Encrypts data.
+	 * Encrypts string.
 	 *
 	 * @access  public
-	 * @param   string  $data  Data to encrypt
+	 * @param   string  $string  String to encrypt
 	 * @return  string
 	 */
 	
-	public function encrypt($data)
+	public function encrypt($string)
 	{
 		$iv = openssl_random_pseudo_bytes($this->ivSize);
 
-		return base64_encode($iv . openssl_encrypt($data, $this->cipher, $this->key, 0, $iv));
+		return base64_encode($iv . openssl_encrypt($string, $this->cipher, $this->key, 0, $iv));
 	}
 
 	/**
-	 * Decrypts data.
+	 * Decrypts string.
 	 *
 	 * @access  public
-	 * @param   string  $data  Data to decrypt
-	 * @return  string
+	 * @param   string          $string  String to decrypt
+	 * @return  string|boolean
 	 */
 	
-	public function decrypt($data)
+	public function decrypt($string)
 	{
-		$data = base64_decode($data, true);
+		$string = base64_decode($string, true);
 		
-		if($data === false)
+		if($string === false)
 		{
 			return false;
 		}
 
-		$iv = substr($data, 0, $this->ivSize);
+		$iv = substr($string, 0, $this->ivSize);
 		
-		$data = substr($data, $this->ivSize);
+		$string = substr($string, $this->ivSize);
 
-		return openssl_decrypt($data, $this->cipher, $this->key, 0, $iv);
+		return openssl_decrypt($string, $this->cipher, $this->key, 0, $iv);
 	}
 }

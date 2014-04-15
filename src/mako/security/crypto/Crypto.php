@@ -76,66 +76,66 @@ class Crypto
 	}
 
 	/**
-	 * Encrypts data.
+	 * Encrypts string.
 	 *
 	 * @access  public
-	 * @param   string  $data  Data to encrypt
+	 * @param   string  $string  String to encrypt
 	 * @return  string
 	 */
 	
-	public function encrypt($data)
+	public function encrypt($string)
 	{
-		return $this->adapter->encrypt($data);
+		return $this->adapter->encrypt($string);
 	}
 
 	/**
-	 * Decrypts data.
+	 * Decrypts string.
 	 *
 	 * @access  public
-	 * @param   string  $data  Data to decrypt
-	 * @return  string
+	 * @param   string         $string  String to decrypt
+	 * @return  string|boolean
 	 */
 	
-	public function decrypt($data)
+	public function decrypt($string)
 	{
-		return $this->adapter->decrypt($data);
+		return $this->adapter->decrypt($string);
 	}
 
 	/**
-	 * Encrypts and signs data.
+	 * Encrypts and signs string.
 	 * 
 	 * @access  public
-	 * @param   string  $data  Data to encrypt
+	 * @param   string  $string  String to encrypt
 	 * @return  string
 	 */
 
-	public function encryptAndSign($data)
+	public function encryptAndSign($string)
 	{
 		if(empty($this->signer))
 		{
-			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to sign data.", [__METHOD__]));
+			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to sign string.", [__METHOD__]));
 		}
 
-		return $this->signer->sign($this->encrypt($data));
+		return $this->signer->sign($this->encrypt($string));
 	}
 
 	/**
-	 * Validates and decrypts data.
+	 * Validates and decrypts string.
 	 *
 	 * @access  public
-	 * @param   string  $data  String to decrypt
-	 * @return  string
+	 * @param   string          $string  String to decrypt
+	 * @return  string|boolean
 	 */
 
-	public function validateAndDecrypt($data)
+	public function validateAndDecrypt($string)
 	{
 		if(empty($this->signer))
 		{
-			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to validate signed data.", [__METHOD__]));
+			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to validate signed string.", [__METHOD__]));
 		}
 
-		$data = $this->signer->validate($data);
+		$string = $this->signer->validate($string);
 
-		return ($data === false) ? false : $this->decrypt($data);
+		return ($string === false) ? false : $this->decrypt($string);
 	}
 }
