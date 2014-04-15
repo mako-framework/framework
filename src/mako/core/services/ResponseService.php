@@ -43,7 +43,7 @@ class ResponseService extends \mako\core\services\Service
 	{
 		$this->container->registerSingleton(['mako\http\Response', 'response'], function($container)
 		{
-			return new Response($container->get('request'), $container->get('signer'), $container->get('app')->getCharset());
+			return new Response($container->get('request'), $container->get('app')->getCharset(), $container->get('signer'));
 		});
 	}
 }

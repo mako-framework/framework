@@ -208,15 +208,17 @@ class Response
 	 *
 	 * @access  public
 	 * @param   \mako\http\Request     $request  Request instance
-	 * @param   \mako\security\Signer  $signer   (optional) Signer instance used to sign cookies
 	 * @param   string                 $charset  (optional) Response charset
+	 * @param   \mako\security\Signer  $signer   (optional) Signer instance used to sign cookies
 	 */
 	
-	public function __construct(Request $request, Signer $signer = null, $charset = 'UTF-8')
+	public function __construct(Request $request, $charset = 'UTF-8', Signer $signer = null)
 	{
 		$this->request = $request;
-		$this->signer  = $signer;
+
 		$this->charset = $charset;
+
+		$this->signer = $signer;
 	}
 	
 	//---------------------------------------------
