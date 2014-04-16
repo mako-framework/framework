@@ -15,7 +15,7 @@ use \mako\security\crypto\padders\PadderInterface;
  * @author  Frederic G. Østby
  */
 
-class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
+class MCrypt extends\mako\security\crypto\adapters\Encrypter implements \mako\security\crypto\adapters\AdapterInterface
 {
 	//---------------------------------------------
 	// Class properties
@@ -52,6 +52,14 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 	 */
 	
 	protected $mode;
+
+	/**
+	 * Key size.
+	 * 
+	 * @var int
+	 */
+
+	protected $keySize;
 	
 	/**
 	 * Initialization vector size.
@@ -85,12 +93,7 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 
 		$this->mode = $mode ?: MCRYPT_MODE_ECB;
 
-		$maxSize = mcrypt_get_key_size($this->cipher, $this->mode);
-		
-		if(strlen($this->key) > $maxSize)
-		{
-			$this->key = substr($this->key, 0, $maxSize);
-		}
+		$this->keySize = mcrypt_get_key_size($this->cipher, $this->mode);
 
 		$this->ivSize = mcrypt_get_iv_size($this->cipher, $this->mode);
 	}
@@ -111,9 +114,13 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 	{
 		$blockSize = mcrypt_get_block_size($this->cipher, $this->mode);
 
+		$string = $this->padder->addPadding($string, $blockSize);
+
 		$iv = mcrypt_create_iv($this->ivSize, MCRYPT_DEV_URANDOM);
+
+		$key = $this->deriveKey($this->key, $iv, $this->keySize);
 		
-		return base64_encode($iv . mcrypt_encrypt($this->cipher, $this->key, $this->padder->addPadding($string, $blockSize), $this->mode, $iv));
+		return base64_encode($iv . mcrypt_encrypt($this->cipher, $key, $string, $this->mode, $iv));
 	}
 
 	/**
@@ -134,9 +141,11 @@ class MCrypt implements \mako\security\crypto\adapters\AdapterInterface
 		}
 		
 		$iv = substr($string, 0, $this->ivSize);
+
+		$key = $this->deriveKey($this->key, $iv, $this->keySize);
 		
 		$string = substr($string, $this->ivSize);
 
-		return $this->padder->stripPadding(mcrypt_decrypt($this->cipher, $this->key, $string, $this->mode, $iv));
+		return $this->padder->stripPadding(mcrypt_decrypt($this->cipher, $key, $string, $this->mode, $iv));
 	}
 }

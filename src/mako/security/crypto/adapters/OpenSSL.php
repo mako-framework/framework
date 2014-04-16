@@ -13,7 +13,7 @@ namespace mako\security\crypto\adapters;
  * @author  Frederic G. Østby
  */
 
-class OpenSSL implements \mako\security\crypto\adapters\AdapterInterface
+class OpenSSL extends\mako\security\crypto\adapters\Encrypter implements \mako\security\crypto\adapters\AdapterInterface
 {
 	//---------------------------------------------
 	// Class properties
@@ -80,7 +80,9 @@ class OpenSSL implements \mako\security\crypto\adapters\AdapterInterface
 	{
 		$iv = openssl_random_pseudo_bytes($this->ivSize);
 
-		return base64_encode($iv . openssl_encrypt($string, $this->cipher, $this->key, 0, $iv));
+		$key = $this->deriveKey($this->key, $iv, 32);
+
+		return base64_encode($iv . openssl_encrypt($string, $this->cipher, $key, 0, $iv));
 	}
 
 	/**
@@ -104,6 +106,8 @@ class OpenSSL implements \mako\security\crypto\adapters\AdapterInterface
 		
 		$string = substr($string, $this->ivSize);
 
-		return openssl_decrypt($string, $this->cipher, $this->key, 0, $iv);
+		$key = $this->deriveKey($this->key, $iv, 32);
+
+		return openssl_decrypt($string, $this->cipher, $key, 0, $iv);
 	}
 }
