@@ -13,7 +13,7 @@ namespace mako\security\crypto\adapters;
  * @author  Frederic G. Østby
  */
 
-class OpenSSL extends\mako\security\crypto\adapters\Encrypter implements \mako\security\crypto\adapters\AdapterInterface
+class OpenSSL extends \mako\security\crypto\adapters\Encrypter implements \mako\security\crypto\adapters\AdapterInterface
 {
 	//---------------------------------------------
 	// Class properties

@@ -15,7 +15,7 @@ use \mako\security\crypto\padders\PadderInterface;
  * @author  Frederic G. Østby
  */
 
-class MCrypt extends\mako\security\crypto\adapters\Encrypter implements \mako\security\crypto\adapters\AdapterInterface
+class MCrypt extends \mako\security\crypto\adapters\Encrypter implements \mako\security\crypto\adapters\AdapterInterface
 {
 	//---------------------------------------------
 	// Class properties
