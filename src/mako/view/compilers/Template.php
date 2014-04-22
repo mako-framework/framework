@@ -104,7 +104,7 @@ class Template
 
 		if(preg_match('/^{%\s*extends:(.*?)\s*%}/i', $template, $matches) > 0)
 		{
-			$template = preg_replace('/^{%\s*extends:(.*?)\s*%}/i', '<?php $__renderer__ = $__viewfactory__->create(\'' . $matches[1] . '\'); ?>', $template, 1);
+			$template = preg_replace('/^{%\s*extends:(.*?)\s*%}/i', '<?php $__renderer__ = $__viewfactory__->create(' . $matches[1] . '); ?>', $template, 1);
 
 			$template .= '<?php echo $__renderer__->render(); ?>';
 		}
@@ -124,7 +124,7 @@ class Template
 	{
 		// Replace view tags with view redering
 
-		return preg_replace('/{{\s*view:(.*?)\s*}}/i', '<?php echo $__viewfactory__->create(\'$1\', get_defined_vars())->render(); ?>', $template);
+		return preg_replace('/{{\s*view:(.*?)\s*}}/i', '<?php echo $__viewfactory__->create($1, get_defined_vars())->render(); ?>', $template);
 	}
 
 	/**
