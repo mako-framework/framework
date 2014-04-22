@@ -74,8 +74,8 @@ class CryptoManager extends \mako\common\AdapterManager
 	 * Returns a cache instance.
 	 * 
 	 * @access  public
-	 * @param   string             $configuration  Configuration name
-	 * @return  \mako\cache\Cache
+	 * @param   string                        $configuration  Configuration name
+	 * @return  \mako\security\crypto\Crypto
 	 */
 
 	protected function instantiate($configuration)
