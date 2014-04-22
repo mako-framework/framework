@@ -5,15 +5,15 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
+namespace mako\cache\stores;
 
 /**
- * Zend memory adapter.
+ * WinCache store.
  *
  * @author  Frederic G. Østby
  */
 
-class ZendMemory implements \mako\cache\adapters\AdapterInterface
+class WinCache implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
@@ -43,7 +43,7 @@ class ZendMemory implements \mako\cache\adapters\AdapterInterface
 
 	public function write($key, $data, $ttl = 0)
 	{
-		return zend_shm_cache_store($key, $data, $ttl);
+		return wincache_ucache_set($key, $data, $ttl);
 	}
 
 	/**
@@ -56,7 +56,7 @@ class ZendMemory implements \mako\cache\adapters\AdapterInterface
 
 	public function has($key)
 	{
-		return (zend_disk_cache_fetch($key) !== false);
+		return wincache_ucache_exists($key);
 	}
 
 	/**
@@ -69,7 +69,16 @@ class ZendMemory implements \mako\cache\adapters\AdapterInterface
 
 	public function read($key)
 	{
-		return zend_shm_cache_fetch($key);
+		$cache = wincache_ucache_get($key, $success);
+		
+		if($success === true)
+		{
+			return $cache;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -82,7 +91,7 @@ class ZendMemory implements \mako\cache\adapters\AdapterInterface
 
 	public function delete($key)
 	{
-		return zend_shm_cache_delete($key);
+		return wincache_ucache_delete($key);
 	}
 
 	/**
@@ -94,6 +103,6 @@ class ZendMemory implements \mako\cache\adapters\AdapterInterface
 
 	public function clear()
 	{
-		return zend_shm_cache_clear();
+		return wincache_ucache_clear();
 	}
 }

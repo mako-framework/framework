@@ -8,9 +8,9 @@
 namespace mako\core\services;
 
 use \mako\session\Session;
-use \mako\session\store\Database;
-use \mako\session\store\File;
-use \mako\session\store\Redis;
+use \mako\session\stores\Database;
+use \mako\session\stores\File;
+use \mako\session\stores\Redis;
 
 /**
  * Session service.
@@ -40,9 +40,9 @@ class SessionService extends \mako\core\services\Service
 	 * Returns a database store instance.
 	 * 
 	 * @access  protected
-	 * @param   \mako\syringe\Container       $container  IoC container instance
-	 * @param   array                         $config     Store configuration
-	 * @return  \mako\session\store\Database
+	 * @param   \mako\syringe\Container        $container  IoC container instance
+	 * @param   array                          $config     Store configuration
+	 * @return  \mako\session\stores\Database
 	 */
 
 	protected function getDatabaseStore($container, $config)
@@ -54,9 +54,9 @@ class SessionService extends \mako\core\services\Service
 	 * Returns a file store instance.
 	 * 
 	 * @access  protected
-	 * @param   \mako\syringe\Container   $container  IoC container instance
-	 * @param   array                     $config     Store configuration
-	 * @return  \mako\session\store\File
+	 * @param   \mako\syringe\Container    $container  IoC container instance
+	 * @param   array                      $config     Store configuration
+	 * @return  \mako\session\stores\File
 	 */
 
 	protected function getFileStore($container, $config)
@@ -68,9 +68,9 @@ class SessionService extends \mako\core\services\Service
 	 * Returns a redis store instance.
 	 * 
 	 * @access  protected
-	 * @param   \mako\syringe\Container   $container  IoC container instance
-	 * @param   array                     $config     Store configuration
-	 * @return  \mako\session\store\Redis
+	 * @param   \mako\syringe\Container    $container  IoC container instance
+	 * @param   array                      $config     Store configuration
+	 * @return  \mako\session\stores\Redis
 	 */
 
 	protected function getRedisStore($container, $config)
@@ -82,9 +82,9 @@ class SessionService extends \mako\core\services\Service
 	 * Returns a session store instance.
 	 * 
 	 * @access  protected
-	 * @param   \mako\syringe\Container             $container  IoC container instance
-	 * @param   array                               $config     Session configuration
-	 * @return  \mako\session\store\StoreInterface
+	 * @param   \mako\syringe\Container              $container  IoC container instance
+	 * @param   array                                $config     Session configuration
+	 * @return  \mako\session\stores\StoreInterface
 	 */
 
 	protected function getSessionStore($container, $config)

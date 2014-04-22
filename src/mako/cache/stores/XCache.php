@@ -5,37 +5,35 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache;
-
-use \mako\cache\stores\StoreInterface;
+namespace mako\cache\stores;
 
 /**
- * Cache wrapper.
+ * XCache store.
  *
  * @author  Frederic G. Østby
  */
 
-class Cache
+class XCache implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
 	/**
-	 * Cache store.
-	 * 
-	 * @var \mako\cache\stores\StoreInterface
-	 */
-
-	protected $store;
-
-	/**
-	 * Cache prefix.
-	 * 
+	 * XCache username.
+	 *
 	 * @var string
 	 */
 
-	protected $prefix;
+	protected $username;
+	
+	/**
+	 * XCache password.
+	 *
+	 * @var string
+	 */
+	
+	protected $password;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -45,33 +43,20 @@ class Cache
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\cache\stores\StoreInterface  $store   Cache store
-	 * @param   string                             $prefix  (optional) Cache prefix
+	 * @param   string  $username  (optional) Username
+	 * @param   string  $password  (optional) Password
 	 */
 
-	public function __construct(StoreInterface $store, $prefix = null)
+	public function __construct($username = null, $password = null)
 	{
-		$this->store = $store;
+		$this->username = $username;
 
-		$this->prefix = $prefix;
+		$this->password = $password;
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
-	/**
-	 * Returns a prefixed cache key.
-	 * 
-	 * @access  protected
-	 * @param   string     $key  Cache key
-	 * @return  string
-	 */
-
-	protected function prefixedKey($key)
-	{
-		return empty($this->prefix) ? $key : $this->prefix . ':' . $key;
-	}
 
 	/**
 	 * Store data in the cache.
@@ -85,7 +70,7 @@ class Cache
 
 	public function write($key, $data, $ttl = 0)
 	{
-		return $this->store->write($this->prefixedKey($key), $data, $ttl);
+		return xcache_set($key, serialize($data), $ttl);
 	}
 
 	/**
@@ -98,7 +83,7 @@ class Cache
 
 	public function has($key)
 	{
-		return $this->store->has($this->prefixedKey($key));
+		return xcache_isset($key);
 	}
 
 	/**
@@ -111,7 +96,7 @@ class Cache
 
 	public function read($key)
 	{
-		return $this->store->read($this->prefixedKey($key));
+		return unserialize(xcache_get($key));
 	}
 
 	/**
@@ -124,7 +109,7 @@ class Cache
 
 	public function delete($key)
 	{
-		return $this->store->delete($this->prefixedKey($key));
+		return xcache_unset($key);
 	}
 
 	/**
@@ -134,8 +119,54 @@ class Cache
 	 * @return  boolean
 	 */
 
-	public function clear($key)
+	public function clear()
 	{
-		return $this->store->clear($this->prefixedKey($key));
+		$cleared = true;
+
+		// Set XCache password
+
+		$tempUsername = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : false;
+		$tempPassword = isset($_SERVER['PHP_AUTH_PW'])   ? $_SERVER['PHP_AUTH_PW']   : false;
+
+		$_SERVER['PHP_AUTH_USER'] = $this->username;
+		$_SERVER['PHP_AUTH_PW']   = $this->password;
+
+		// Clear Cache
+
+		$cacheCount = xcache_count(XC_TYPE_VAR);
+
+		for($i = 0; $i < $cacheCount; $i++)
+		{
+			if(@xcache_clear_cache(XC_TYPE_VAR, $i) === false)
+			{
+				$cleared = false;
+				
+				break;
+			}
+		}
+
+		// Reset PHP_AUTH username/password
+
+		if($tempUsername !== false)
+		{
+			$_SERVER['PHP_AUTH_USER'] = $tempUsername;
+		}
+		else
+		{
+			unset($_SERVER['PHP_AUTH_USER']);
+		}
+
+		if($tempPassword !== false)
+		{
+			$_SERVER['PHP_AUTH_PW'] = $tempPassword;
+		}
+		else
+		{
+			unset($_SERVER['PHP_AUTH_PW']);
+		}
+
+		// Return result
+
+		return $cleared;
 	}
 }

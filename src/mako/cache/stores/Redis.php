@@ -5,29 +5,29 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
+namespace mako\cache\stores;
 
-use \Memcached as PHP_Memcached;
+use \mako\redis\Redis as RedisClient;
 
 /**
- * Memcached adapter.
+ * Redis store.
  *
  * @author  Frederic G. Østby
  */
 
-class Memcached implements \mako\cache\adapters\AdapterInterface
+class Redis implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
 	/**
-	 * Memcached instance.
-	 *
-	 * @var \Memcached
+	 * Redis client
+	 * 
+	 * @var \mako\redis\Redis
 	 */
 
-	protected $memcached;
+	protected $redis;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -35,33 +35,14 @@ class Memcached implements \mako\cache\adapters\AdapterInterface
 
 	/**
 	 * Constructor.
-	 *
+	 * 
 	 * @access  public
-	 * @param   array    $servers       Memcache servers
-	 * @param   int      $timeout       (optional) Timeout in seconds
-	 * @param   boolean  $compressData  (optional) Compress data?
+	 * @param   \mako\redis\Redis  $redis  Redis client
 	 */
 
-	public function __construct(array $servers, $timeout = 1, $compressData = false)
+	public function __construct(RedisClient $redis)
 	{
-		$this->memcached = new PHP_Memcached();
-		
-		if($timtout !== 1)
-		{
-			$this->memcached->setOption(PHP_Memcached::OPT_CONNECT_TIMEOUT, ($timeout * 1000)); // Multiply by 1000 to convert to ms
-		}
-
-		if($compressData === false)
-		{
-			$this->memcached->setOption(PHP_Memcached::OPT_COMPRESSION, false);
-		}
-
-		// Add servers to the connection pool
-
-		foreach($servers as $server)
-		{
-			$this->memcached->addServer($server['server'], $server['port'], $server['weight']);
-		}
+		$this->redis = $redis;
 	}
 
 	//---------------------------------------------
@@ -80,14 +61,11 @@ class Memcached implements \mako\cache\adapters\AdapterInterface
 
 	public function write($key, $data, $ttl = 0)
 	{
+		$this->redis->set($key, (is_numeric($data) ? $data : serialize($data)));
+		
 		if($ttl !== 0)
 		{
-			$ttl += time();
-		}
-
-		if($this->memcached->replace($key, $data, $ttl) === false)
-		{
-			return $this->memcached->set($key, $data, $ttl);
+			$this->redis->expire($key, $ttl);
 		}
 
 		return true;
@@ -103,7 +81,7 @@ class Memcached implements \mako\cache\adapters\AdapterInterface
 
 	public function has($key)
 	{
-		return ($this->memcached->get($key) !== false);
+		return (bool) $this->redis->exists($key);
 	}
 
 	/**
@@ -116,7 +94,9 @@ class Memcached implements \mako\cache\adapters\AdapterInterface
 
 	public function read($key)
 	{
-		return $this->memcached->get($key);
+		$data = $this->redis->get($key);
+
+		return ($data === null) ? false : (is_numeric($data) ? $data : unserialize($data));
 	}
 
 	/**
@@ -129,7 +109,7 @@ class Memcached implements \mako\cache\adapters\AdapterInterface
 
 	public function delete($key)
 	{
-		return $this->memcached->delete($key, 0);
+		return (bool) $this->redis->del($key);
 	}
 
 	/**
@@ -141,6 +121,6 @@ class Memcached implements \mako\cache\adapters\AdapterInterface
 
 	public function clear()
 	{
-		return $this->memcached->flush();
+		return (bool) $this->redis->flushdb();
 	}
 }

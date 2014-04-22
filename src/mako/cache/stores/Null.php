@@ -5,27 +5,21 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
+namespace mako\cache\stores;
 
 /**
- * Memory adapter.
+ * Null store.
  *
  * @author  Frederic G. Østby
  */
 
-class Null implements \mako\cache\adapters\AdapterInterface
+class Null implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
-	/**
-	 * Cache data.
-	 *
-	 * @var array
-	 */
-
-	protected $cache = [];
+	// Nothing here
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -49,10 +43,6 @@ class Null implements \mako\cache\adapters\AdapterInterface
 
 	public function write($key, $data, $ttl = 0)
 	{
-		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
-
-		$this->cache[$key] = ['data' => $data, 'ttl' => $ttl];
-		
 		return true;
 	}
 
@@ -66,7 +56,7 @@ class Null implements \mako\cache\adapters\AdapterInterface
 
 	public function has($key)
 	{
-		return (isset($this->cache[$key]) && $this->cache[$key]['ttl'] > time());
+		return false;
 	}
 
 	/**
@@ -79,23 +69,7 @@ class Null implements \mako\cache\adapters\AdapterInterface
 
 	public function read($key)
 	{
-		if(isset($this->cache[$key]))
-		{
-			if($this->cache[$key]['ttl'] > time())
-			{
-				return $this->cache[$key]['data'];
-			}
-			else
-			{
-				$this->delete($key);
-
-				return false;
-			}
-		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 
 	/**
@@ -108,16 +82,7 @@ class Null implements \mako\cache\adapters\AdapterInterface
 
 	public function delete($key)
 	{
-		if(isset($this->cache[$key]))
-		{
-			unset($this->cache[$key]);
-			
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return true;
 	}
 
 	/**
@@ -129,8 +94,6 @@ class Null implements \mako\cache\adapters\AdapterInterface
 
 	public function clear()
 	{
-		$this->cache = [];
-		
 		return true;
 	}
 }

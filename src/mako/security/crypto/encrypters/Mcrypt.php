@@ -5,17 +5,17 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\security\crypto\adapters;
+namespace mako\security\crypto\encrypters;
 
 use \mako\security\crypto\padders\PadderInterface;
 
 /**
- * MCrypt adapter.
+ * MCrypt encrypter.
  *
  * @author  Frederic G. Østby
  */
 
-class MCrypt extends \mako\security\crypto\adapters\Encrypter implements \mako\security\crypto\adapters\AdapterInterface
+class MCrypt extends \mako\security\crypto\encrypters\Encrypter implements \mako\security\crypto\encrypters\EncrypterInterface
 {
 	//---------------------------------------------
 	// Class properties

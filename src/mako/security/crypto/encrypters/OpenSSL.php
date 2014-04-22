@@ -5,15 +5,15 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\security\crypto\adapters;
+namespace mako\security\crypto\encrypters;
 
 /**
- * OpenSSL adapter.
+ * OpenSSL encrypter.
  *
  * @author  Frederic G. Østby
  */
 
-class OpenSSL extends \mako\security\crypto\adapters\Encrypter implements \mako\security\crypto\adapters\AdapterInterface
+class OpenSSL extends \mako\security\crypto\encrypters\Encrypter implements \mako\security\crypto\encrypters\EncrypterInterface
 {
 	//---------------------------------------------
 	// Class properties

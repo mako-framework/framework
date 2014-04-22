@@ -5,10 +5,10 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\security\crypto\adapters;
+namespace mako\security\crypto\encrypters;
 
 /**
- * Base encrypter adapter.
+ * Base encrypter.
  *
  * @author  Frederic G. Østby
  */

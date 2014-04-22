@@ -5,27 +5,37 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\session\store;
+namespace mako\session\stores;
+
+use \mako\database\Connection;
 
 /**
- * File store.
+ * Database store.
  *
  * @author  Frederic G. Østby
  */
 
-class File implements \mako\session\store\StoreInterface
+class Database implements \mako\session\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
 	/**
-	 * Session path.
+	 * Database connection
+	 * 
+	 * @var \mako\database\Connection
+	 */
+
+	protected $connection;
+
+	/**
+	 * Database table.
 	 * 
 	 * @var string
 	 */
 
-	protected $sessionPath;
+	protected $table;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -35,17 +45,32 @@ class File implements \mako\session\store\StoreInterface
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $sessionPath  Session path
+	 * @param   \mako\database\Connection  $connection  Database connection
+	 * @param   string                     $table       Database table
 	 */
 
-	public function __construct($sessionPath)
+	public function __construct(Connection $connection, $table)
 	{
-		$this->sessionPath = $sessionPath;
+		$this->connection = $connection;
+
+		$this->table = $table;
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns a query builder instance.
+	 *
+	 * @access  protected
+	 * @return  \mako\database\query\Query
+	 */
+
+	protected function table()
+	{
+		return $this->connection->table($this->table);
+	}
 
 	/**
 	 * Writes session data.
@@ -58,9 +83,19 @@ class File implements \mako\session\store\StoreInterface
 
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
-		if(is_writable($this->sessionPath))
+		$sessionData = serialize($sessionData);
+
+		if($this->table()->where('id', '=', $sessionId)->count() != 0)
 		{
-			file_put_contents($this->sessionPath . '/' . $sessionId, serialize($sessionData)) === false ? false : true;
+			// Update existing session data
+
+			$this->table()->where('id', '=', $sessionId)->update(['data' => $sessionData, 'expires' => (time() + $dataTTL)]);
+		}
+		else
+		{
+			// Insert new session data
+
+			$this->table()->insert(['id' => $sessionId, 'data' => $sessionData, 'expires' => (time() + $dataTTL)]);
 		}
 	}
 
@@ -74,14 +109,9 @@ class File implements \mako\session\store\StoreInterface
 
 	public function read($sessionId)
 	{
-		$sessionData = [];
+		$sessionData = $this->table()->where('id', '=', $sessionId)->column('data');
 
-		if(file_exists($this->sessionPath . '/' . $sessionId) && is_readable($this->sessionPath . '/' . $sessionId))
-		{
-			$sessionData = unserialize(file_get_contents($this->sessionPath . '/' . $sessionId));
-		}
-
-		return $sessionData;
+		return ($sessionData !== false) ? unserialize($sessionData) : [];
 	}
 
 	/**
@@ -93,10 +123,7 @@ class File implements \mako\session\store\StoreInterface
 
 	public function delete($sessionId)
 	{
-		if(file_exists($this->sessionPath . '/' . $sessionId) && is_writable($this->sessionPath . '/' . $sessionId))
-		{
-			unlink($this->sessionPath . '/' . $sessionId);
-		}
+		$this->table()->where('id', '=', $sessionId)->delete();
 	}
 
 	/**
@@ -108,17 +135,6 @@ class File implements \mako\session\store\StoreInterface
 
 	public function gc($dataTTL)
 	{
-		$files = glob($this->sessionPath . '/*');
-
-		if(is_array($files))
-		{
-			foreach($files as $file)
-			{
-				if((filemtime($file) + $dataTTL) < time() && is_writable($file))
-				{
-					unlink($file);
-				}
-			}
-		}
+		$this->table()->where('expires', '<', time())->delete();
 	}
 }

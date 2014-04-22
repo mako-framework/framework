@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\session\store;
+namespace mako\session\stores;
 
 use \mako\redis\Redis as RedisClient;
 
@@ -15,7 +15,7 @@ use \mako\redis\Redis as RedisClient;
  * @author  Frederic G. Østby
  */
 
-class Redis implements \mako\session\store\StoreInterface
+class Redis implements \mako\session\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties

@@ -5,67 +5,27 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
-
-use \Memcache as PHP_Memcache;
+namespace mako\cache\stores;
 
 /**
- * Memcache adapter.
+ * Zend disk store.
  *
  * @author  Frederic G. Østby
  */
 
-class Memcache implements \mako\cache\adapters\AdapterInterface
+class ZendDisk implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
-	/**
-	 * Memcache instance.
-	 *
-	 * @var \Memcache
-	 */
-
-	protected $memcache;
-
-	/**
-	 * Compression level.
-	 *
-	 * @var int
-	 */
-
-	protected $compressionLevel = 0;
+	// Nothing here
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	/**
-	 * Constructor.
-	 *
-	 * @access  public
-	 * @param   array    $servers       Memcache servers
-	 * @param   int      $timeout       (optional) Timeout in seconds
-	 * @param   boolean  $compressData  (optional) Compress data?
-	 */
-
-	public function __construct(array $servers, $timeout = 1, $compressData = false)
-	{
-		$this->memcache = new PHP_Memcache();
-
-		if($compressData === true)
-		{
-			$this->compressionLevel = MEMCACHE_COMPRESSED;
-		}
-
-		// Add servers to the connection pool
-
-		foreach($servers as $server)
-		{
-			$this->memcache->addServer($server['server'], $server['port'], $server['persistent_connection'], $server['weight'], $timeout);
-		}
-	}
+	// Nothing here
 
 	//---------------------------------------------
 	// Class methods
@@ -83,17 +43,7 @@ class Memcache implements \mako\cache\adapters\AdapterInterface
 
 	public function write($key, $data, $ttl = 0)
 	{
-		if($ttl !== 0)
-		{
-			$ttl += time();
-		}
-
-		if($this->memcache->replace($key, $data, $this->compressionLevel, $ttl) === false)
-		{
-			return $this->memcache->set($key, $data, $this->compressionLevel, $ttl);
-		}
-
-		return true;
+		return zend_disk_cache_store($key, $data, $ttl);
 	}
 
 	/**
@@ -106,7 +56,7 @@ class Memcache implements \mako\cache\adapters\AdapterInterface
 
 	public function has($key)
 	{
-		return ($this->memcache->get($key) !== false);
+		return (zend_disk_cache_fetch($key) !== false);
 	}
 
 	/**
@@ -119,7 +69,7 @@ class Memcache implements \mako\cache\adapters\AdapterInterface
 
 	public function read($key)
 	{
-		return $this->memcache->get($key);
+		return zend_disk_cache_fetch($key);
 	}
 
 	/**
@@ -132,7 +82,7 @@ class Memcache implements \mako\cache\adapters\AdapterInterface
 
 	public function delete($key)
 	{
-		return $this->memcache->delete($key, 0);
+		return zend_disk_cache_delete($key);
 	}
 
 	/**
@@ -144,6 +94,6 @@ class Memcache implements \mako\cache\adapters\AdapterInterface
 
 	public function clear()
 	{
-		return $this->memcache->flush();
+		return zend_disk_cache_clear();
 	}
 }

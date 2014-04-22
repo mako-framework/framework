@@ -9,19 +9,19 @@ namespace mako\cache;
 
 use \RuntimeException;
 
-use \mako\cache\adapters\APC;
-use \mako\cache\adapters\APCU;
-use \mako\cache\adapters\Database;
-use \mako\cache\adapters\File;
-use \mako\cache\adapters\Memcache;
-use \mako\cache\adapters\Memcached;
-use \mako\cache\adapters\Memory;
-use \mako\cache\adapters\Null;
-use \mako\cache\adapters\Redis;
-use \mako\cache\adapters\WinCache;
-use \mako\cache\adapters\XCache;
-use \mako\cache\adapters\ZendDisk;
-use \mako\cache\adapters\ZendMemory;
+use \mako\cache\stores\APC;
+use \mako\cache\stores\APCU;
+use \mako\cache\stores\Database;
+use \mako\cache\stores\File;
+use \mako\cache\stores\Memcache;
+use \mako\cache\stores\Memcached;
+use \mako\cache\stores\Memory;
+use \mako\cache\stores\Null;
+use \mako\cache\stores\Redis;
+use \mako\cache\stores\WinCache;
+use \mako\cache\stores\XCache;
+use \mako\cache\stores\ZendDisk;
+use \mako\cache\stores\ZendMemory;
 
 /**
  * Cache manager.
@@ -48,170 +48,170 @@ class CacheManager extends \mako\common\AdapterManager
 	//---------------------------------------------
 
 	/**
-	 * APC adapter factory.
+	 * APC store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                     $configuration  Configuration
-	 * @return  \mako\cache\adapters\APC
+	 * @param   array                   $configuration  Configuration
+	 * @return  \mako\cache\stores\APC
 	 */
 
-	protected function apcAdapter($configuration)
+	protected function apcFactory($configuration)
 	{
 		return new APC();
 	}
 
 	/**
-	 * APCU adapter factory.
+	 * APCU store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                      $configuration  Configuration
-	 * @return  \mako\cache\adapters\APCU
+	 * @param   array                    $configuration  Configuration
+	 * @return  \mako\cache\stores\APCU
 	 */
 
-	protected function apcuAdapter($configuration)
+	protected function apcuFactory($configuration)
 	{
 		return new APCU();
 	}
 
 	/**
-	 * File adapter factory.
+	 * File store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                      $configuration  Configuration
-	 * @return  \mako\cache\adapters\File
+	 * @param   array                    $configuration  Configuration
+	 * @return  \mako\cache\stores\File
 	 */
 
-	protected function fileAdapter($configuration)
+	protected function fileFactory($configuration)
 	{
 		return new File($configuration['path']);
 	}
 
 	/**
-	 * Database adapter factory.
+	 * Database store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                          $configuration  Configuration
-	 * @return  \mako\cache\adapters\Database
+	 * @param   array                        $configuration  Configuration
+	 * @return  \mako\cache\stores\Database
 	 */
 
-	protected function databaseAdapter($configuration)
+	protected function databaseFactory($configuration)
 	{
 		return new Database($this->container->get('database')->connection($configuration['configuration']), $configuration['table']);
 	}
 
 	/**
-	 * Memcache adapter factory.
+	 * Memcache store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                          $configuration  Configuration
-	 * @return  \mako\cache\adapters\Memcache
+	 * @param   array                        $configuration  Configuration
+	 * @return  \mako\cache\stores\Memcache
 	 */
 
-	protected function memcacheAdapter($configuration)
+	protected function memcacheFactory($configuration)
 	{
 		return new Memcache($configuration['servers'], $configuration['timeout'], $configuration['compress_data']);
 	}
 
 	/**
-	 * Memcached adapter factory.
+	 * Memcached store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                           $configuration  Configuration
-	 * @return  \mako\cache\adapters\Memcached
+	 * @param   array                         $configuration  Configuration
+	 * @return  \mako\cache\stores\Memcached
 	 */
 
-	protected function memcachedAdapter($configuration)
+	protected function memcachedFactory($configuration)
 	{
 		return new Memcached($configuration['servers'], $configuration['timeout'], $configuration['compress_data']);
 	}
 
 	/**
-	 * Memory adapter factory.
+	 * Memory store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                        $configuration  Configuration
-	 * @return  \mako\cache\adapters\Memory
+	 * @param   array                      $configuration  Configuration
+	 * @return  \mako\cache\stores\Memory
 	 */
 
-	protected function memoryAdapter($configuration)
+	protected function memoryFactory($configuration)
 	{
 		return new Memory();
 	}
 
 	/**
-	 * Null adapter factory.
+	 * Null store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                        $configuration  Configuration
-	 * @return  \mako\cache\adapters\Null
+	 * @param   array                    $configuration  Configuration
+	 * @return  \mako\cache\stores\Null
 	 */
 
-	protected function nullAdapter($configuration)
+	protected function nullFactory($configuration)
 	{
 		return new Null();
 	}
 
 	/**
-	 * Redis adapter factory.
+	 * Redis store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                       $configuration  Configuration
-	 * @return  \mako\cache\adapters\Redis
+	 * @param   array                     $configuration  Configuration
+	 * @return  \mako\cache\stores\Redis
 	 */
 
-	protected function redisAdapter($configuration)
+	protected function redisFactory($configuration)
 	{
 		return new Redis($this->container->get('redis')->connection($configuration['configuration']));
 	}
 
 	/**
-	 * Windows cache adapter factory.
+	 * Windows cache store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                          $configuration  Configuration
-	 * @return  \mako\cache\adapters\WinCache
+	 * @param   array                        $configuration  Configuration
+	 * @return  \mako\cache\stores\WinCache
 	 */
 
-	protected function wincacheAdapter($configuration)
+	protected function wincacheFactory($configuration)
 	{
 		return new WinCache();
 	}
 
 	/**
-	 * Xcache adapter factory.
+	 * Xcache store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                          $configuration  Configuration
-	 * @return  \mako\cache\adapters\XCache
+	 * @param   array                      $configuration  Configuration
+	 * @return  \mako\cache\stores\XCache
 	 */
 
-	protected function xcacheAdapter($configuration)
+	protected function xcacheFactory($configuration)
 	{
 		return new XCache($configuration['username'], $configuration['password']);
 	}
 
 	/**
-	 * Zend disk adapter factory.
+	 * Zend disk store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                          $configuration  Configuration
-	 * @return  \mako\cache\adapters\ZendDisk
+	 * @param   array                        $configuration  Configuration
+	 * @return  \mako\cache\stores\ZendDisk
 	 */
 
-	protected function zenddiskAdapter($configuration)
+	protected function zenddiskFactory($configuration)
 	{
 		return new ZendDisk();
 	}
 
 	/**
-	 * Zend memory adapter factory.
+	 * Zend memory store factory.
 	 * 
 	 * @access  protected
-	 * @param   array                            $configuration  Configuration
-	 * @return  \mako\cache\adapters\ZendMemory
+	 * @param   array                          $configuration  Configuration
+	 * @return  \mako\cache\stores\ZendMemory
 	 */
 
-	protected function zendmemoryAdapter($configuration)
+	protected function zendmemoryFactory($configuration)
 	{
 		return new ZendMemory();
 	}

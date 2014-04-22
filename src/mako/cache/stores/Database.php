@@ -5,17 +5,17 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
+namespace mako\cache\stores;
 
 use \mako\database\Connection;
 
 /**
- * Database adapter.
+ * Database store.
  *
  * @author  Frederic G. Østby
  */
 
-class Database implements \mako\cache\adapters\AdapterInterface
+class Database implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties

@@ -5,27 +5,64 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
+namespace mako\cache\stores;
+
+use \Memcached as PHP_Memcached;
 
 /**
- * WinCache adapter.
+ * Memcached store.
  *
  * @author  Frederic G. Østby
  */
 
-class WinCache implements \mako\cache\adapters\AdapterInterface
+class Memcached implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Memcached instance.
+	 *
+	 * @var \Memcached
+	 */
+
+	protected $memcached;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   array    $servers       Memcache servers
+	 * @param   int      $timeout       (optional) Timeout in seconds
+	 * @param   boolean  $compressData  (optional) Compress data?
+	 */
+
+	public function __construct(array $servers, $timeout = 1, $compressData = false)
+	{
+		$this->memcached = new PHP_Memcached();
+		
+		if($timtout !== 1)
+		{
+			$this->memcached->setOption(PHP_Memcached::OPT_CONNECT_TIMEOUT, ($timeout * 1000)); // Multiply by 1000 to convert to ms
+		}
+
+		if($compressData === false)
+		{
+			$this->memcached->setOption(PHP_Memcached::OPT_COMPRESSION, false);
+		}
+
+		// Add servers to the connection pool
+
+		foreach($servers as $server)
+		{
+			$this->memcached->addServer($server['server'], $server['port'], $server['weight']);
+		}
+	}
 
 	//---------------------------------------------
 	// Class methods
@@ -43,7 +80,17 @@ class WinCache implements \mako\cache\adapters\AdapterInterface
 
 	public function write($key, $data, $ttl = 0)
 	{
-		return wincache_ucache_set($key, $data, $ttl);
+		if($ttl !== 0)
+		{
+			$ttl += time();
+		}
+
+		if($this->memcached->replace($key, $data, $ttl) === false)
+		{
+			return $this->memcached->set($key, $data, $ttl);
+		}
+
+		return true;
 	}
 
 	/**
@@ -56,7 +103,7 @@ class WinCache implements \mako\cache\adapters\AdapterInterface
 
 	public function has($key)
 	{
-		return wincache_ucache_exists($key);
+		return ($this->memcached->get($key) !== false);
 	}
 
 	/**
@@ -69,16 +116,7 @@ class WinCache implements \mako\cache\adapters\AdapterInterface
 
 	public function read($key)
 	{
-		$cache = wincache_ucache_get($key, $success);
-		
-		if($success === true)
-		{
-			return $cache;
-		}
-		else
-		{
-			return false;
-		}
+		return $this->memcached->get($key);
 	}
 
 	/**
@@ -91,7 +129,7 @@ class WinCache implements \mako\cache\adapters\AdapterInterface
 
 	public function delete($key)
 	{
-		return wincache_ucache_delete($key);
+		return $this->memcached->delete($key, 0);
 	}
 
 	/**
@@ -103,6 +141,6 @@ class WinCache implements \mako\cache\adapters\AdapterInterface
 
 	public function clear()
 	{
-		return wincache_ucache_clear();
+		return $this->memcached->flush();
 	}
 }

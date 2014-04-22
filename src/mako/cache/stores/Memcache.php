@@ -5,35 +5,37 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
+namespace mako\cache\stores;
+
+use \Memcache as PHP_Memcache;
 
 /**
- * XCache adapter.
+ * Memcache store.
  *
  * @author  Frederic G. Østby
  */
 
-class XCache implements \mako\cache\adapters\AdapterInterface
+class Memcache implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
 	/**
-	 * XCache username.
+	 * Memcache instance.
 	 *
-	 * @var string
+	 * @var \Memcache
 	 */
 
-	protected $username;
-	
+	protected $memcache;
+
 	/**
-	 * XCache password.
+	 * Compression level.
 	 *
-	 * @var string
+	 * @var int
 	 */
-	
-	protected $password;
+
+	protected $compressionLevel = 0;
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -41,17 +43,28 @@ class XCache implements \mako\cache\adapters\AdapterInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
-	 * @param   string  $username  (optional) Username
-	 * @param   string  $password  (optional) Password
+	 * @param   array    $servers       Memcache servers
+	 * @param   int      $timeout       (optional) Timeout in seconds
+	 * @param   boolean  $compressData  (optional) Compress data?
 	 */
 
-	public function __construct($username = null, $password = null)
+	public function __construct(array $servers, $timeout = 1, $compressData = false)
 	{
-		$this->username = $username;
+		$this->memcache = new PHP_Memcache();
 
-		$this->password = $password;
+		if($compressData === true)
+		{
+			$this->compressionLevel = MEMCACHE_COMPRESSED;
+		}
+
+		// Add servers to the connection pool
+
+		foreach($servers as $server)
+		{
+			$this->memcache->addServer($server['server'], $server['port'], $server['persistent_connection'], $server['weight'], $timeout);
+		}
 	}
 
 	//---------------------------------------------
@@ -70,7 +83,17 @@ class XCache implements \mako\cache\adapters\AdapterInterface
 
 	public function write($key, $data, $ttl = 0)
 	{
-		return xcache_set($key, serialize($data), $ttl);
+		if($ttl !== 0)
+		{
+			$ttl += time();
+		}
+
+		if($this->memcache->replace($key, $data, $this->compressionLevel, $ttl) === false)
+		{
+			return $this->memcache->set($key, $data, $this->compressionLevel, $ttl);
+		}
+
+		return true;
 	}
 
 	/**
@@ -83,7 +106,7 @@ class XCache implements \mako\cache\adapters\AdapterInterface
 
 	public function has($key)
 	{
-		return xcache_isset($key);
+		return ($this->memcache->get($key) !== false);
 	}
 
 	/**
@@ -96,7 +119,7 @@ class XCache implements \mako\cache\adapters\AdapterInterface
 
 	public function read($key)
 	{
-		return unserialize(xcache_get($key));
+		return $this->memcache->get($key);
 	}
 
 	/**
@@ -109,7 +132,7 @@ class XCache implements \mako\cache\adapters\AdapterInterface
 
 	public function delete($key)
 	{
-		return xcache_unset($key);
+		return $this->memcache->delete($key, 0);
 	}
 
 	/**
@@ -121,52 +144,6 @@ class XCache implements \mako\cache\adapters\AdapterInterface
 
 	public function clear()
 	{
-		$cleared = true;
-
-		// Set XCache password
-
-		$tempUsername = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : false;
-		$tempPassword = isset($_SERVER['PHP_AUTH_PW'])   ? $_SERVER['PHP_AUTH_PW']   : false;
-
-		$_SERVER['PHP_AUTH_USER'] = $this->username;
-		$_SERVER['PHP_AUTH_PW']   = $this->password;
-
-		// Clear Cache
-
-		$cacheCount = xcache_count(XC_TYPE_VAR);
-
-		for($i = 0; $i < $cacheCount; $i++)
-		{
-			if(@xcache_clear_cache(XC_TYPE_VAR, $i) === false)
-			{
-				$cleared = false;
-				
-				break;
-			}
-		}
-
-		// Reset PHP_AUTH username/password
-
-		if($tempUsername !== false)
-		{
-			$_SERVER['PHP_AUTH_USER'] = $tempUsername;
-		}
-		else
-		{
-			unset($_SERVER['PHP_AUTH_USER']);
-		}
-
-		if($tempPassword !== false)
-		{
-			$_SERVER['PHP_AUTH_PW'] = $tempPassword;
-		}
-		else
-		{
-			unset($_SERVER['PHP_AUTH_PW']);
-		}
-
-		// Return result
-
-		return $cleared;
+		return $this->memcache->flush();
 	}
 }

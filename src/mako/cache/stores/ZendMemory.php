@@ -5,15 +5,15 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
+namespace mako\cache\stores;
 
 /**
- * Null adapter.
+ * Zend memory store.
  *
  * @author  Frederic G. Østby
  */
 
-class Null implements \mako\cache\adapters\AdapterInterface
+class ZendMemory implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
@@ -43,7 +43,7 @@ class Null implements \mako\cache\adapters\AdapterInterface
 
 	public function write($key, $data, $ttl = 0)
 	{
-		return true;
+		return zend_shm_cache_store($key, $data, $ttl);
 	}
 
 	/**
@@ -56,7 +56,7 @@ class Null implements \mako\cache\adapters\AdapterInterface
 
 	public function has($key)
 	{
-		return false;
+		return (zend_disk_cache_fetch($key) !== false);
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Null implements \mako\cache\adapters\AdapterInterface
 
 	public function read($key)
 	{
-		return false;
+		return zend_shm_cache_fetch($key);
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Null implements \mako\cache\adapters\AdapterInterface
 
 	public function delete($key)
 	{
-		return true;
+		return zend_shm_cache_delete($key);
 	}
 
 	/**
@@ -94,6 +94,6 @@ class Null implements \mako\cache\adapters\AdapterInterface
 
 	public function clear()
 	{
-		return true;
+		return zend_shm_cache_clear();
 	}
 }

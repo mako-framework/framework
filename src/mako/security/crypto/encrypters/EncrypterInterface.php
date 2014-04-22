@@ -5,15 +5,15 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\security\crypto\adapters;
+namespace mako\security\crypto\encrypters;
 
 /**
- * Adapter interface.
+ * Encrypter interface.
  *
  * @author  Frederic G. Østby
  */
 
-interface AdapterInterface
+interface EncrypterInterface
 {
 	public function encrypt($string);
 	public function decrypt($string);

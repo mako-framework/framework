@@ -5,15 +5,15 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
+namespace mako\cache\stores;
 
 /**
- * Adapter interface.
+ * Store interface.
  *
  * @author  Frederic G. Østby
  */
 
-interface AdapterInterface
+interface StoreInterface
 {
 	public function write($key, $data, $ttl = 0);
 	public function has($key);

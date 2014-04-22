@@ -10,8 +10,8 @@ namespace mako\security\crypto;
 use \RuntimeException;
 
 use \mako\security\crypto\Crypto;
-use \mako\security\crypto\adapters\MCrypt;
-use \mako\security\crypto\adapters\OpenSSL;
+use \mako\security\crypto\encrypters\MCrypt;
+use \mako\security\crypto\encrypters\OpenSSL;
 use \mako\security\crypto\padders\PKCS7;
 
 /**
@@ -45,27 +45,27 @@ class CryptoManager extends \mako\common\AdapterManager
 	//---------------------------------------------
 
 	/**
-	 * MCrypt adapter factory.
+	 * MCrypt encrypter factory.
 	 * 
 	 * @access  protected
-	 * @param   array                                  $configuration  Configuration
-	 * @return  \mako\security\crypto\adapters\MCrypt
+	 * @param   array                                    $configuration  Configuration
+	 * @return  \mako\security\crypto\encrypters\MCrypt
 	 */
 
-	protected function mcryptAdapter($configuration)
+	protected function mcryptFactory($configuration)
 	{
 		return new MCrypt($configuration['key'], new PKCS7(), $configuration['cipher'], $configuration['mode']);
 	}
 
 	/**
-	 * OpenSSL adapter factory.
+	 * OpenSSL encrypter factory.
 	 * 
 	 * @access  protected
-	 * @param   array                                   $configuration  Configuration
-	 * @return  \mako\security\crypto\adapters\OpenSSL
+	 * @param   array                                     $configuration  Configuration
+	 * @return  \mako\security\crypto\encrypters\OpenSSL
 	 */
 
-	protected function opensslAdapter($configuration)
+	protected function opensslFactory($configuration)
 	{
 		return new OpenSSL($configuration['key'], $configuration['cipher']);
 	}

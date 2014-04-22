@@ -5,15 +5,15 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
+namespace mako\cache\stores;
 
 /**
- * File adapter.
+ * File store.
  *
  * @author  Frederic G. Østby
  */
 
-class File implements \mako\cache\adapters\AdapterInterface
+class File implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties

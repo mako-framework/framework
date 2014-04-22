@@ -5,45 +5,33 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
-
-use \mako\redis\Redis as RedisClient;
+namespace mako\cache\stores;
 
 /**
- * Redis adapter.
+ * Memory store.
  *
  * @author  Frederic G. Østby
  */
 
-class Redis implements \mako\cache\adapters\AdapterInterface
+class Null implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
 	//---------------------------------------------
 
 	/**
-	 * Redis client
-	 * 
-	 * @var \mako\redis\Redis
+	 * Cache data.
+	 *
+	 * @var array
 	 */
 
-	protected $redis;
+	protected $cache = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
 
-	/**
-	 * Constructor.
-	 * 
-	 * @access  public
-	 * @param   \mako\redis\Redis  $redis  Redis client
-	 */
-
-	public function __construct(RedisClient $redis)
-	{
-		$this->redis = $redis;
-	}
+	// Nothing here
 
 	//---------------------------------------------
 	// Class methods
@@ -61,13 +49,10 @@ class Redis implements \mako\cache\adapters\AdapterInterface
 
 	public function write($key, $data, $ttl = 0)
 	{
-		$this->redis->set($key, (is_numeric($data) ? $data : serialize($data)));
-		
-		if($ttl !== 0)
-		{
-			$this->redis->expire($key, $ttl);
-		}
+		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 
+		$this->cache[$key] = ['data' => $data, 'ttl' => $ttl];
+		
 		return true;
 	}
 
@@ -81,7 +66,7 @@ class Redis implements \mako\cache\adapters\AdapterInterface
 
 	public function has($key)
 	{
-		return (bool) $this->redis->exists($key);
+		return (isset($this->cache[$key]) && $this->cache[$key]['ttl'] > time());
 	}
 
 	/**
@@ -94,9 +79,23 @@ class Redis implements \mako\cache\adapters\AdapterInterface
 
 	public function read($key)
 	{
-		$data = $this->redis->get($key);
+		if(isset($this->cache[$key]))
+		{
+			if($this->cache[$key]['ttl'] > time())
+			{
+				return $this->cache[$key]['data'];
+			}
+			else
+			{
+				$this->delete($key);
 
-		return ($data === null) ? false : (is_numeric($data) ? $data : unserialize($data));
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -109,7 +108,16 @@ class Redis implements \mako\cache\adapters\AdapterInterface
 
 	public function delete($key)
 	{
-		return (bool) $this->redis->del($key);
+		if(isset($this->cache[$key]))
+		{
+			unset($this->cache[$key]);
+			
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -121,6 +129,8 @@ class Redis implements \mako\cache\adapters\AdapterInterface
 
 	public function clear()
 	{
-		return (bool) $this->redis->flushdb();
+		$this->cache = [];
+		
+		return true;
 	}
 }

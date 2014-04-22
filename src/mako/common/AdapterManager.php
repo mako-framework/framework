@@ -85,7 +85,7 @@ abstract class AdapterManager
 
 	protected function getFactoryMethodName($type)
 	{
-		$method = $type . 'Adapter';
+		$method = $type . 'Factory';
 
 		if(!method_exists($this, $method))
 		{

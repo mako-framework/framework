@@ -9,7 +9,7 @@ namespace mako\security\crypto;
 
 use \RuntimeException;
 
-use \mako\security\crypto\adapters\AdapterInterface;
+use \mako\security\crypto\encrypters\EncrypterInterface;
 use \mako\security\Signer;
 
 /**
@@ -27,7 +27,7 @@ class Crypto
 	/**
 	 * Cache adapter.
 	 * 
-	 * @var \mako\security\crypto\adapters\AdapterInterface
+	 * @var \mako\security\crypto\encrypters\EncrypterInterface
 	 */
 
 	protected $adapter;
@@ -48,11 +48,11 @@ class Crypto
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\security\crypto\adapters\AdapterInterface  $adapter  Crypto adapter
-	 * @param   \mako\security\Signer                            $signer   (optional) Signer instance.
+	 * @param   \mako\security\crypto\encrypters\EncrypterInterface  $adapter  Crypto adapter
+	 * @param   \mako\security\Signer                                $signer   (optional) Signer instance.
 	 */
 
-	public function __construct(AdapterInterface $adapter, Signer $signer = null)
+	public function __construct(EncrypterInterface $adapter, Signer $signer = null)
 	{
 		$this->adapter = $adapter;
 

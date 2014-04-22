@@ -11,7 +11,7 @@ use \LogicException;
 
 use \mako\http\Request;
 use \mako\http\Response;
-use \mako\session\store\StoreInterface;
+use \mako\session\stores\StoreInterface;
 use \mako\utility\UUID;
 
 /**
@@ -69,7 +69,7 @@ class Session
 	/**
 	 * Session store.
 	 * 
-	 * @var \mako\session\store\StoreInterface
+	 * @var \mako\session\stores\StoreInterface
 	 */
 
 	protected $store;
@@ -144,9 +144,9 @@ class Session
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Request                  $request   Request instance
-	 * @param   \mako\http\Response                 $response  Response instance
-	 * @param   \mako\session\store\StoreInterface  $store     Session store instance
+	 * @param   \mako\http\Request                   $request   Request instance
+	 * @param   \mako\http\Response                  $response  Response instance
+	 * @param   \mako\session\stores\StoreInterface  $store     Session store instance
 	 */
 
 	public function __construct(Request $request, Response $response, StoreInterface $store)

@@ -5,15 +5,15 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\cache\adapters;
+namespace mako\cache\stores;
 
 /**
- * APC adapter.
+ * APCU store.
  *
  * @author  Frederic G. Østby
  */
 
-class APC implements \mako\cache\adapters\AdapterInterface
+class APCU implements \mako\cache\stores\StoreInterface
 {
 	//---------------------------------------------
 	// Class properties
@@ -43,7 +43,7 @@ class APC implements \mako\cache\adapters\AdapterInterface
 
 	public function write($key, $data, $ttl = 0)
 	{
-		return apc_store($key, $data, $ttl);
+		return apcu_store($key, $data, $ttl);
 	}
 
 	/**
@@ -56,7 +56,7 @@ class APC implements \mako\cache\adapters\AdapterInterface
 
 	public function has($key)
 	{
-		return apc_exists($key);
+		return apcu_exists($key);
 	}
 
 	/**
@@ -69,7 +69,7 @@ class APC implements \mako\cache\adapters\AdapterInterface
 
 	public function read($key)
 	{
-		return apc_fetch($key);
+		return apcu_fetch($key);
 	}
 
 	/**
@@ -82,7 +82,7 @@ class APC implements \mako\cache\adapters\AdapterInterface
 
 	public function delete($key)
 	{
-		return apc_delete($key);
+		return apcu_delete($key);
 	}
 
 	/**
@@ -94,6 +94,6 @@ class APC implements \mako\cache\adapters\AdapterInterface
 
 	public function clear()
 	{
-		return apc_clear_cache('user');
+		return apcu_clear_cache();
 	}
 }
