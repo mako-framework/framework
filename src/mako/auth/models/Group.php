@@ -42,32 +42,4 @@ class Group extends \mako\database\midgard\ORM
 	{
 		return $this->manyToMany('\mako\auth\models\User');
 	}
-
-	//---------------------------------------------
-	// Getters and setters
-	//---------------------------------------------
-
-	/**
-	 * Persmission setter.
-	 * 
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function set_permissions($permissions)
-	{
-		return json_encode($permissions);
-	}
-
-	/**
-	 * Permission getter.
-	 * 
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function get_permissions($permissions)
-	{
-		return json_decode($permissions, true);
-	}
 }
