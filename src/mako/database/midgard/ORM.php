@@ -957,7 +957,7 @@ abstract class ORM
 
 		foreach($this->related as $relation => $related)
 		{
-			$columns = array_merge($columns, array($relation => $related->toArray($protect, $raw)));
+			$columns = array_merge($columns, [$relation => $related->toArray($protect, $raw)]);
 		}
 
 		// Returns array representation of the record

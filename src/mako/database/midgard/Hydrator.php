@@ -135,7 +135,7 @@ class Hydrator extends \mako\database\query\Query
 	{
 		if($this->model->isReadOnly())
 		{
-			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to delete a read-only record.", array(__METHOD__)));
+			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to delete a read-only record.", [__METHOD__]));
 		}
 
 		return parent::delete();

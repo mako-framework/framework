@@ -75,7 +75,7 @@ class Boris
 
 		// Enable autocompletion
 
-		readline_completion_function(array($this, 'autocomplete'));
+		readline_completion_function([$this, 'autocomplete']);
 
 		// Delete the history file if the user wants to start a fresh session
 

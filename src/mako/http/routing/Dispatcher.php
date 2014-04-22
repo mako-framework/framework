@@ -170,7 +170,7 @@ class Dispatcher
 
 	protected function dispatchClosure(Closure $closure)
 	{
-		$this->response->body(call_user_func_array($closure, array_merge(array($this->request, $this->response), $this->route->getParameters())));
+		$this->response->body(call_user_func_array($closure, array_merge([$this->request, $this->response], $this->route->getParameters())));
 	}
 
 	/**

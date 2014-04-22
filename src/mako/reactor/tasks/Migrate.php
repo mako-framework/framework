@@ -147,7 +147,7 @@ class Migrate extends \mako\reactor\Task
 
 	protected function getOutstanding()
 	{
-		$migrations = array();
+		$migrations = [];
 
 		// Get application migrations
 
@@ -234,7 +234,7 @@ class Migrate extends \mako\reactor\Task
 			$query->where('batch', '>', ($this->table()->max('batch') - $batches));
 		}
 
-		return $query->orderBy('version', 'desc')->all(array('version', 'package'));
+		return $query->orderBy('version', 'desc')->all(['version', 'package']);
 	}
 
 	/**
@@ -271,7 +271,7 @@ class Migrate extends \mako\reactor\Task
 	{
 		if(($count = count($this->getOutstanding())) > 0)
 		{
-			$this->output->writeln(vsprintf(($count === 1 ? 'There is %s outstanding migration.' : 'There are %s outstanding migrations.'), array('<yellow>' . $count . '</yellow>')));
+			$this->output->writeln(vsprintf(($count === 1 ? 'There is %s outstanding migration.' : 'There are %s outstanding migrations.'), ['<yellow>' . $count . '</yellow>']));
 		}
 		else
 		{
@@ -300,7 +300,7 @@ class Migrate extends \mako\reactor\Task
 		{
 			$this->resolve($migration)->up();
 
-			$this->table()->insert(array('batch' => $batch, 'package' => $migration->package, 'version' => $migration->version));
+			$this->table()->insert(['batch' => $batch, 'package' => $migration->package, 'version' => $migration->version]);
 
 			$name = $migration->version;
 
@@ -400,6 +400,6 @@ class Migrate extends \mako\reactor\Task
 			return $this->output->error('Failed to create migration. Make sure that the migrations directory is writable.');
 		}
 
-		$this->output->writeln(vsprintf('Migration created at "%s".', array($file)));
+		$this->output->writeln(vsprintf('Migration created at "%s".', [$file]));
 	}
 }

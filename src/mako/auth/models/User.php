@@ -38,7 +38,7 @@ class User extends \mako\database\midgard\ORM
 	 * @var array
 	 */
 
-	protected $permissions = array();
+	protected $permissions = [];
 
 	//---------------------------------------------
 	// Relations

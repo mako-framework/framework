@@ -35,7 +35,7 @@ class Template extends \mako\view\renderers\Renderer implements \mako\view\rende
 	 * @var array 
 	 */
 
-	protected $blocks = array();
+	protected $blocks = [];
 
 	/**
 	 * Open template blocks.
@@ -43,7 +43,7 @@ class Template extends \mako\view\renderers\Renderer implements \mako\view\rende
 	 * @var array
 	 */
 
-	protected $openBlocks = array();
+	protected $openBlocks = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
