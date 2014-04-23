@@ -52,7 +52,7 @@ class Response
 	 * @var mixed
 	 */
 	
-	protected $body = '';
+	protected $body;
 
 	/**
 	 * Response content type.
@@ -242,6 +242,12 @@ class Response
 		else if($body instanceof $this)
 		{
 			$this->body = $body->getBody();
+
+			$this->outputFilters = array_merge($this->outputFilters, $body->getFilters());
+
+			$this->headers = $this->headers + $body->getHeaders();
+
+			$this->cookies = $this->cookies + $body->getCookies();
 		}
 		else
 		{
@@ -261,6 +267,20 @@ class Response
 	public function getBody()
 	{
 		return $this->body;
+	}
+
+	/**
+	 * Clears the response body.
+	 * 
+	 * @access  public
+	 * @return  \mako\http\Response
+	 */
+
+	public function clearBody()
+	{
+		$this->body = null;
+
+		return $this;
 	}
 
 	/**
@@ -434,7 +454,7 @@ class Response
 
 	public function getHeaders()
 	{
-		return $this->heades;
+		return $this->headers;
 	}
 
 	/**
@@ -468,7 +488,7 @@ class Response
 
 		$defaults = ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false];
 
-		$this->cookies[] = ['name' => $name, 'value' => $value, 'ttl' => $ttl] + $options + $defaults;
+		$this->cookies[$name] = ['name' => $name, 'value' => $value, 'ttl' => $ttl] + $options + $defaults;
 
 		return $this;
 	}
@@ -530,6 +550,23 @@ class Response
 	public function clearCookies()
 	{
 		$this->cookies = [];
+
+		return $this;
+	}
+
+	/**
+	 * Clears the response body, filters, cookies and headers.
+	 * 
+	 * @access  public
+	 * @return  \mako\http\Response
+	 */
+
+	public function clear()
+	{
+		$this->clearBody();
+		$this->clearFilters();
+		$this->clearHeaders();
+		$this->clearCookies();
 
 		return $this;
 	}
