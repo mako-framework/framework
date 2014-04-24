@@ -564,8 +564,58 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 	public function testBody()
 	{
-		$request = new Request(['body' => '{"foo":"bar","baz":"bax"}']);
+		$request = new Request(['body' => '{"foo":"bar","baz":["bax"]}']);
 
-		$this->assertEquals('{"foo":"bar","baz":"bax"}', $request->body());
+		$this->assertEquals('{"foo":"bar","baz":["bax"]}', $request->body());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testJsonPutData()
+	{
+		$body = ['foo' => 'bar', 'baz' => ['bax']];
+
+		$server = $this->getServerData();
+
+		$server['HTTP_CONTENT_TYPE'] = 'application/json';
+
+		$request = new Request(['SERVER' => $server, 'body' => json_encode($body)]);
+
+		$this->assertNull($request->put('bar'));
+
+		$this->assertFalse($request->put('bar', false));
+
+		$this->assertEquals('bar', $request->put('foo'));
+
+		$this->assertEquals('bax', $request->put('baz.0'));
+
+		$this->assertEquals($body, $request->put());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testURLEncodedPutData()
+	{
+		$body = ['foo' => 'bar', 'baz' => ['bax']];
+		
+		$server = $this->getServerData();
+
+		$server['HTTP_CONTENT_TYPE'] = 'application/x-www-form-urlencoded';
+
+		$request = new Request(['SERVER' => $server, 'body' => http_build_query($body)]);
+
+		$this->assertNull($request->put('bar'));
+
+		$this->assertFalse($request->put('bar', false));
+
+		$this->assertEquals('bar', $request->put('foo'));
+
+		$this->assertEquals('bax', $request->put('baz.0'));
+
+		$this->assertEquals($body, $request->put());
 	}
 }
