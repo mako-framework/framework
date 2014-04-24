@@ -239,7 +239,7 @@ class Request
 
 				$basePath = pathinfo($this->server['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
-				if(stripos($path, $basePath) === 0)
+				if($basePath !== '/' && stripos($path, $basePath) === 0)
 				{
 					$path = mb_substr($path, mb_strlen($basePath));
 				}
