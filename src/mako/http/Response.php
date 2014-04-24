@@ -243,6 +243,8 @@ class Response
 		{
 			$this->body = $body->getBody();
 
+			$this->status = $body->getStatus();
+
 			$this->outputFilters = array_merge($this->outputFilters, $body->getFilters());
 
 			$this->headers = $this->headers + $body->getHeaders();

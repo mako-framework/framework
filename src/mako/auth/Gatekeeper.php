@@ -437,12 +437,13 @@ class Gatekeeper
 	}
 
 	/**
-	 * Diplays the basic HTTP authentication form.
+	 * Builds and returns a basic HTTP authentication response.
 	 * 
 	 * @access  protected
+	 * @return  \mako\http\Response
 	 */
 
-	protected function httpAuthentication()
+	protected function basicHTTPAuthenticationResponse()
 	{
 		$response = new Response($this->request);
 
@@ -450,15 +451,16 @@ class Gatekeeper
 			
 		$response->header('www-authenticate', 'basic');
 			
-		$response->send(401);
+		$response->status(401);
 			
-		exit;
+		return $response;
 	}
 
 	/**
-	 * Login using basic HTTP authentication.
+	 * Returns a basic authentication response if login is required and NULL if not.
 	 * 
 	 * @access  public
+	 * @return  \mako\http\Response|null
 	 */
 
 	public function basicAuth()
@@ -468,7 +470,7 @@ class Gatekeeper
 			return;
 		}
 
-		$this->httpAuthentication();
+		return $this->basicHTTPAuthenticationResponse();
 	}
 
 	/**

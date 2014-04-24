@@ -9,6 +9,7 @@ namespace mako\http\routing;
 
 use \mako\http\Request;
 use \mako\http\Response;
+use \mako\http\routing\Route;
 use \mako\http\routing\Routes;
 use \mako\http\routing\PageNotFoundException;
 use \mako\http\routing\MethodNotAllowedException;
@@ -64,30 +65,28 @@ class Router
 	//---------------------------------------------
 
 	/**
-	 * Redirects to the requested path and adds a trailing slash.
+	 * Returns a route with a closure action that redirects to the correct URL.
 	 * 
 	 * @access  protected
-	 * @param   string     $requestPath  The requested path
+	 * @param   string                    $requestPath  The requested path
+	 * @return  \mako\http\routing\Route
 	 */
 
-	protected function addTrailingSlash($requestPath)
+	protected function redirectRoute($requestPath)
 	{
-		$response = new Response($this->request);
-
-		$url = $this->request->baseURL() . rtrim('/' . $this->request->languagePrefix(), '/') . $requestPath . '/';
-
-		$get = $this->request->get();
-
-		if(!empty($get))
+		return new Route([], '', function($request, $response) use ($requestPath)
 		{
-			$url = $url . '?' . http_build_query($get);
-		}
+			$url = $request->baseURL() . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
 
-		$response->body($response->redirect($url)->status(301));
+			$get = $request->get();
 
-		$response->send();
+			if(!empty($get))
+			{
+				$url = $url . '?' . http_build_query($get);
+			}
 
-		exit;
+			return $response->redirect($url)->status(301);
+		});
 	}
 
 	/**
@@ -143,7 +142,7 @@ class Router
 
 				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/')
 				{
-					$this->addTrailingSlash($requestPath);
+					return $this->redirectRoute($requestPath);
 				}
 
 				// If this is an "OPTIONS" request then well collect all the allowed request methods
