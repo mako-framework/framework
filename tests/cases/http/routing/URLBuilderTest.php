@@ -101,9 +101,13 @@ class URLBuilderTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('http://example.org/index.php/no-nb/foo', $urlBuilder->to('/foo', [], '&amp;', 'no-nb'));
 
+		//
+
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes(), true);
 
 		$this->assertEquals('http://example.org/foo', $urlBuilder->to('/foo'));
+
+		//
 
 		$urlBuilder = new URLBuilder($this->getRequest('no-nb'), $this->getRoutes(), true);
 

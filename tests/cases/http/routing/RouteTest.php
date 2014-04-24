@@ -14,11 +14,15 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		$this->assertTrue($route->isMatch('/'));
 
+		//
+
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
 
 		$this->assertTrue($route->isMatch('/foo'));
 
 		$this->assertFalse($route->isMatch('/foo/'));
+
+		//
 
 		$route = new Route(['GET'], '/foo/', 'FooController::fooAction');
 
@@ -40,6 +44,8 @@ class RouteTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse($route->isMatch('/foo/'));
 
 		$this->assertFalse($route->isMatch('/foo/123/'));
+
+		//
 
 		$route = new Route(['GET'], '/foo/{id}/', 'FooController::fooAction');
 
@@ -64,6 +70,8 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		$this->assertFalse($route->isMatch('/foo/123/foo-bar/'));
 
+		//
+
 		$route = new Route(['GET'], '/foo/{id}/{slug}/', 'FooController::fooAction');
 
 		$this->assertTrue($route->isMatch('/foo/123/foo-bar/'));
@@ -86,6 +94,8 @@ class RouteTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($route->isMatch('/foo/123'));
 
 		$this->assertFalse($route->isMatch('/foo/123/'));
+
+		//
 
 		$route = new Route(['GET'], '/foo/{id}/{slug}?/', 'FooController::fooAction');
 
@@ -110,6 +120,8 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		$this->assertFalse($route->isMatch('/foo/abc'));
 
+		//
+
 		$route = (new Route(['GET'], '/foo/{id}/', 'FooController::fooAction'))->constraints(['id' => '[0-9]+']);
 
 		$this->assertTrue($route->isMatch('/foo/123'));
@@ -131,6 +143,8 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		$this->assertFalse($route->hasTrailingSlash());
 
+		//
+
 		$route = new Route(['GET'], '/foo/', 'FooController::fooAction');
 
 		$this->assertTrue($route->hasTrailingSlash());
@@ -148,6 +162,8 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		$this->assertFalse($route->allows('POST'));
 
+		//
+
 		$route = new Route(['GET', 'POST'], '/foo', 'FooController::fooAction');
 
 		$this->assertTrue($route->allows('GET'));
@@ -164,6 +180,8 @@ class RouteTest extends PHPUnit_Framework_TestCase
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
 
 		$this->assertEquals(['GET'], $route->getMethods());
+
+		//
 
 		$route = new Route(['GET', 'POST'], '/foo', 'FooController::fooAction');
 
@@ -213,9 +231,13 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals(['foo'], $route->getBeforeFilters());
 
+		//
+
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->before('foo')->before('bar');
 
 		$this->assertEquals(['foo', 'bar'], $route->getBeforeFilters());
+
+		//
 
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->before(['foo', 'bar']);
 
@@ -232,9 +254,13 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals(['foo'], $route->getAfterFilters());
 
+		//
+
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->after('foo')->after('bar');
 
 		$this->assertEquals(['foo', 'bar'], $route->getAfterFilters());
+
+		//
 
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->after(['foo', 'bar']);
 
@@ -264,9 +290,13 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('/bar/foo', $route->getRoute());
 
+		//
+
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->prefix('/bar');
 
 		$this->assertEquals('/bar/foo', $route->getRoute());
+
+		//
 
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->prefix('bar')->prefix('baz');
 
