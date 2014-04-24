@@ -2,8 +2,19 @@
 
 use \mako\http\Request;
 
+use Mockery as m;
+
 class RequestTest extends PHPUnit_Framework_TestCase
 {
+	/**
+	 * 
+	 */
+
+	public function tearDown()
+	{
+		m::close();
+	}
+
 	/**
 	 * 
 	 */
@@ -410,5 +421,151 @@ class RequestTest extends PHPUnit_Framework_TestCase
 		$request = new Request(['SERVER' => $server]);
 
 		$this->assertEquals('foobar', $request->password());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testCookie()
+	{
+		$cookies = ['foo' => 'bar'];
+
+		$request = new Request(['COOKIE' => $cookies]);
+
+		$this->assertNull($request->cookie('bar'));
+
+		$this->assertFalse($request->cookie('bar', false));
+
+		$this->assertEquals('bar', $request->cookie('foo'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSignedCookie()
+	{
+		$signer = m::mock('\mako\security\Signer');
+
+		$signer->shouldReceive('validate')->withArgs(['bar'])->andReturn('bar');
+
+		$signer->shouldReceive('validate')->withArgs(['bax'])->andReturn(false);
+
+		$cookies = ['foo' => 'bar', 'baz' => 'bax'];
+
+		$request = new Request(['COOKIE' => $cookies], $signer);
+
+		$this->assertNull($request->signedCookie('bar'));
+
+		$this->assertFalse($request->signedCookie('bar', false));
+
+		$this->assertEquals('bar', $request->signedCookie('foo'));
+
+		$this->assertNull($request->signedCookie('baz'));
+
+		$this->assertFalse($request->signedCookie('baz', false));
+	}
+
+	/**
+	 * @expectedException \RuntimeException
+	 */
+
+	public function testSignedCookieException()
+	{
+		$request = new Request();
+
+		$request->signedCookie();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testHeader()
+	{
+		$server = $this->getServerData();
+
+		$request = new Request(['SERVER' => $server]);
+
+		$this->assertNull($request->header('bar'));
+
+		$this->assertFalse($request->header('bar', false));
+
+		$this->assertEquals('keep-alive', $request->header('connection'));
+
+		$this->assertEquals('keep-alive', $request->header('ConNeCtIoN'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testServer()
+	{
+		$server = $this->getServerData();
+
+		$request = new Request(['SERVER' => $server]);
+
+		$this->assertNull($request->server('bar'));
+
+		$this->assertFalse($request->server('bar', false));
+
+		$this->assertEquals('example.local', $request->server('HTTP_HOST'));
+
+		$this->assertEquals($server, $request->server());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testGet()
+	{
+		$get = ['foo' => 'bar', 'baz' => ['bax']];
+
+		$request = new Request(['GET' => $get]);
+
+		$this->assertNull($request->get('bar'));
+
+		$this->assertFalse($request->get('bar', false));
+
+		$this->assertEquals('bar', $request->get('foo'));
+
+		$this->assertEquals('bax', $request->get('baz.0'));
+
+		$this->assertEquals($get, $request->get());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testPost()
+	{
+		$post = ['foo' => 'bar', 'baz' => ['bax']];
+
+		$request = new Request(['POST' => $post]);
+
+		$this->assertNull($request->post('bar'));
+
+		$this->assertFalse($request->post('bar', false));
+
+		$this->assertEquals('bar', $request->post('foo'));
+
+		$this->assertEquals('bax', $request->post('baz.0'));
+
+		$this->assertEquals($post, $request->post());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testBody()
+	{
+		$request = new Request(['body' => '{"foo":"bar","baz":"bax"}']);
+
+		$this->assertEquals('{"foo":"bar","baz":"bax"}', $request->body());
 	}
 }
