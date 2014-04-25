@@ -48,7 +48,7 @@ class DB2BuilderTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY (SELECT 0)) AS mako_rownum FROM "foobar") AS m1 WHERE mako_rownum BETWEEN 1 AND 10', $query['sql']);
+		$this->assertEquals('SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY (SELECT 0)) AS mako_rownum FROM "foobar") AS mako1 WHERE mako_rownum BETWEEN 1 AND 10', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -65,7 +65,7 @@ class DB2BuilderTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY (SELECT 0)) AS mako_rownum FROM "foobar") AS m1 WHERE mako_rownum BETWEEN 11 AND 20', $query['sql']);
+		$this->assertEquals('SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY (SELECT 0)) AS mako_rownum FROM "foobar") AS mako1 WHERE mako_rownum BETWEEN 11 AND 20', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 }

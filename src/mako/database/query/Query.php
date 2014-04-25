@@ -9,6 +9,7 @@ namespace mako\database\query;
 
 use \PDO;
 use \Closure;
+
 use \mako\database\Connection;
 use \mako\database\query\Raw;
 use \mako\database\query\Join;
@@ -130,15 +131,15 @@ class Query
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Conenction  $connection  Database connection
-	 * @param   mixed                      $table       Database table or subquery
+	 * @param   \mako\database\Conenction                      $connection  Database connection
+	 * @param   string|\Closure|\mako\database\query\Subquery  $table       (optional) Database table or subquery
 	 */
 
-	public function __construct(Connection $connection, $table)
+	public function __construct(Connection $connection, $table = '')
 	{
-		$this->table = $table;
-
 		$this->connection = $connection;
+
+		$this->table($table);
 
 		switch($this->connection->getCompiler())
 		{
@@ -307,6 +308,30 @@ class Query
 	}
 
 	/**
+	 * Sets table we want to query.
+	 *
+	 * @access  public
+	 * @param   string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw  $table  (optional) Database table or subquery
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function table($table)
+	{
+		if($table instanceof Closure)
+		{
+			$subquery = new static($this->connection);
+
+			$table($subquery);
+
+			$table = new Subquery($subquery, 'mako0');
+		}
+
+		$this->table = $table;
+
+		return $this;
+	}
+
+	/**
 	 * Sets the columns we want to select.
 	 *
 	 * @access  public
@@ -469,10 +494,10 @@ class Query
 	 * Adds a IN clause.
 	 *
 	 * @access  public
-	 * @param   string                      $column     Column name
-	 * @param   mixed                       $values     Array of values or Subquery
-	 * @param   string                      $separator  (optional) Clause separator
-	 * @param   boolean                     $not        (optional) Not in?
+	 * @param   string                                            $column     Column name
+	 * @param   array|Raw|\Closure|\mako\database\query\Subquery  $values     Array of values or Subquery
+	 * @param   string                                            $separator  (optional) Clause separator
+	 * @param   boolean                                           $not        (optional) Not in?
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -481,6 +506,14 @@ class Query
 		if($values instanceof Raw || $values instanceof Subquery)
 		{
 			$values = [$values];
+		}
+		elseif($values instanceof Closure)
+		{
+			$subquery = new static($this->connection);
+
+			$values($subquery);
+
+			$values = [new Subquery($subquery)];
 		}
 		
 		$this->wheres[] = 
@@ -603,14 +636,23 @@ class Query
 	 * Adds a EXISTS clause.
 	 *
 	 * @access  public
-	 * @param   \mako\database\query\Subquery  $query      Subquery
-	 * @param   string                         $separator  (optional) Clause separator
-	 * @param   boolean                        $not        (optional) Not exists?
+	 * @param   \Closure|\mako\database\query\Subquery  $query      Subquery
+	 * @param   string                                  $separator  (optional) Clause separator
+	 * @param   boolean                                 $not        (optional) Not exists?
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function exists(Subquery $query, $separator = 'AND', $not = false)
+	public function exists($query, $separator = 'AND', $not = false)
 	{
+		if($query instanceof Closure)
+		{
+			$subquery = new static($this->connection);
+
+			$query($subquery);
+
+			$query = new Subquery($subquery);
+		}
+
 		$this->wheres[] = 
 		[
 			'type'      => 'exists',
@@ -626,11 +668,11 @@ class Query
 	 * Adds a OR EXISTS clause.
 	 *
 	 * @access  public
-	 * @param   \mako\database\query\Subquery  $query  Subquery
+	 * @param   \Closure|\mako\database\query\Subquery  $query  Subquery
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function orExists(Subquery $query)
+	public function orExists($query)
 	{
 		return $this->exists($query, 'OR');
 	}
@@ -639,11 +681,11 @@ class Query
 	 * Adds a NOT EXISTS clause.
 	 *
 	 * @access  public
-	 * @param   \mako\database\query\Subquery  $query  Subquery
+	 * @param   \Closure|\mako\database\query\Subquery  $query  Subquery
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function notExists(Subquery $query)
+	public function notExists($query)
 	{
 		return $this->exists($query, 'AND', true);
 	}
@@ -652,11 +694,11 @@ class Query
 	 * Adds a OR NOT EXISTS clause.
 	 *
 	 * @access  public
-	 * @param   \mako\database\query\Subquery  $query  Subquery
+	 * @param   \Closure|\mako\database\query\Subquery  $query  Subquery
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function orNotExists(Subquery $query)
+	public function orNotExists($query)
 	{
 		return $this->exists($query, 'or', true);
 	}

@@ -62,7 +62,7 @@ class Oracle extends \mako\database\query\Compiler
 			{
 				// No offset so we only need a simple subquery to emulate the LIMIT clause
 
-				$sql = 'SELECT m1.* FROM (' . $sql . ') m1 WHERE rownum <= ' . $this->query->getLimit();
+				$sql = 'SELECT mako1.* FROM (' . $sql . ') mako1 WHERE rownum <= ' . $this->query->getLimit();
 			}
 			else
 			{
@@ -71,7 +71,7 @@ class Oracle extends \mako\database\query\Compiler
 				$limit  = $this->query->getLimit() + $this->query->getOffset();
 				$offset = $this->query->getOffset() + 1;
 
-				$sql = 'SELECT * FROM (SELECT m1.*, rownum AS mako_rownum FROM (' . $sql . ') m1 WHERE rownum <= ' . $limit . ') WHERE mako_rownum >= ' . $offset;
+				$sql = 'SELECT * FROM (SELECT mako1.*, rownum AS mako_rownum FROM (' . $sql . ') mako1 WHERE rownum <= ' . $limit . ') WHERE mako_rownum >= ' . $offset;
 			}
 
 			return ['sql' => $sql, 'params' => $this->params];
