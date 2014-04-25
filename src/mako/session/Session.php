@@ -126,7 +126,7 @@ class Session
 	 * @var array
 	 */
 
-	protected $sessionData;
+	protected $sessionData = [];
 
 	/**
 	 * Flashdata.
@@ -134,7 +134,7 @@ class Session
 	 * @var array
 	 */
 
-	protected $flashData;
+	protected $flashData = [];
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -419,68 +419,6 @@ class Session
 	}
 
 	/**
-	 * Sets or gets flash data from the session.
-	 *
-	 * @access  public
-	 * @param   string  $key   Session flash key
-	 * @param   mixed   $data  (optional) Flash data
-	 * @return  mixed
-	 */
-
-	public function flash($key, $data = null)
-	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
-		if($data === null)
-		{
-			return isset($this->sessionData['mako:flashdata'][$key]) ? $this->sessionData['mako:flashdata'][$key] : false;
-		}
-		else
-		{
-			$this->flashData[$key] = $data;
-		}
-	}
-
-	/**
-	 * Extends the lifetime of the flash data by one request.
-	 * 
-	 * @access  public
-	 * @param   array   $keys  (optional) Keys to preserve
-	 */
-
-	public function reflash(array $keys = [])
-	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
-		$flashData = empty($keys) ? $this->sessionData['mako:flashdata'] : array_intersect_key($this->sessionData['mako:flashdata'], array_flip($keys));
-
-		$this->flashData = array_merge($this->flashData, $flashData);
-	}
-
-	/**
-	 * Removes a value from the session.
-	 * 
-	 * @access  public
-	 * @param   string  $key  Session key
-	 */
-
-	public function remove($key)
-	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
-		unset($this->sessionData[$key]);
-	}
-
-	/**
 	 * Returns TRUE if key exists in the session and FALSE if not.
 	 * 
 	 * @access  public
@@ -515,6 +453,117 @@ class Session
 		}
 
 		return isset($this->sessionData[$key]) ? $this->sessionData[$key] : $default;
+	}
+
+	/**
+	 * Removes a value from the session.
+	 * 
+	 * @access  public
+	 * @param   string  $key  Session key
+	 */
+
+	public function remove($key)
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		unset($this->sessionData[$key]);
+	}
+
+	/**
+	 * Store a flash value in the session.
+	 *
+	 * @access  public
+	 * @param   string  $key    Flash key
+	 * @param   mixed   $value  (optional) Flash data
+	 * @return  mixed
+	 */
+
+	public function putFlash($key, $value)
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		$this->flashData[$key] = $value;
+	}
+
+	/**
+	 * Returns TRUE if key exists in the session and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $key  Session key
+	 * @return  boolean
+	 */
+
+	public function hasFlash($key)
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		return isset($this->sessionData['mako:flashdata'][$key]);
+	}
+
+	/**
+	 * Returns a flash value from the session.
+	 * 
+	 * @access  public
+	 * @param   string  $key      Session key
+	 * @param   mixed   $default  (optional) Default value
+	 * @return  mixed
+	 */
+
+	public function getFlash($key, $default = null)
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		return isset($this->sessionData['mako:flashdata'][$key]) ? $this->sessionData['mako:flashdata'][$key] : $default;
+	}
+
+	/**
+	 * Removes a value from the session.
+	 * 
+	 * @access  public
+	 * @param   string  $key  Session key
+	 */
+
+	public function removeFlash($key)
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		unset($this->sessionData['mako:flashdata'][$key]);
+	}
+
+	/**
+	 * Extends the lifetime of the flash data by one request.
+	 * 
+	 * @access  public
+	 * @param   array   $keys  (optional) Keys to preserve
+	 */
+
+	public function reflash(array $keys = [])
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		$flashData = isset($this->sessionData['mako:flashdata']) ? $this->sessionData['mako:flashdata'] : [];
+
+		$flashData = empty($keys) ? $flashData : array_intersect_key($flashData, array_flip($keys));
+		
+		$this->flashData = array_merge($this->flashData, $flashData);
 	}
 
 	/**
