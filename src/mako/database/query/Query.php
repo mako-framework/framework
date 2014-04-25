@@ -319,7 +319,7 @@ class Query
 	{
 		if($table instanceof Closure)
 		{
-			$subquery = new static($this->connection);
+			$subquery = new self($this->connection);
 
 			$table($subquery);
 
@@ -509,7 +509,7 @@ class Query
 		}
 		elseif($values instanceof Closure)
 		{
-			$subquery = new static($this->connection);
+			$subquery = new self($this->connection);
 
 			$values($subquery);
 
@@ -646,7 +646,7 @@ class Query
 	{
 		if($query instanceof Closure)
 		{
-			$subquery = new static($this->connection);
+			$subquery = new self($this->connection);
 
 			$query($subquery);
 
