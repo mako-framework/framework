@@ -68,7 +68,7 @@ class XCache implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function write($key, $data, $ttl = 0)
+	public function put($key, $data, $ttl = 0)
 	{
 		return xcache_set($key, serialize($data), $ttl);
 	}
@@ -94,7 +94,7 @@ class XCache implements \mako\cache\stores\StoreInterface
 	 * @return  mixed
 	 */
 
-	public function read($key)
+	public function get($key)
 	{
 		return unserialize(xcache_get($key));
 	}
@@ -107,7 +107,7 @@ class XCache implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function delete($key)
+	public function remove($key)
 	{
 		return xcache_unset($key);
 	}

@@ -81,7 +81,7 @@ class Memcache implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function write($key, $data, $ttl = 0)
+	public function put($key, $data, $ttl = 0)
 	{
 		if($ttl !== 0)
 		{
@@ -117,7 +117,7 @@ class Memcache implements \mako\cache\stores\StoreInterface
 	 * @return  mixed
 	 */
 
-	public function read($key)
+	public function get($key)
 	{
 		return $this->memcache->get($key);
 	}
@@ -130,7 +130,7 @@ class Memcache implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function delete($key)
+	public function remove($key)
 	{
 		return $this->memcache->delete($key, 0);
 	}

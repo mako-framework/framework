@@ -160,14 +160,14 @@ class Config
 	}
 
 	/**
-	 * Deletes a value from the configuration.
+	 * Removes a value from the configuration.
 	 *
 	 * @access  public
 	 * @param   string   $key  Config key
 	 * @return  boolean
 	 */
 
-	public function delete($key)
+	public function remove($key)
 	{
 		return Arr::delete($this->config, $key);
 	}

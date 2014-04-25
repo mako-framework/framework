@@ -82,11 +82,11 @@ class Database implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function write($key, $data, $ttl = 0)
+	public function put($key, $data, $ttl = 0)
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 		
-		$this->delete($key);
+		$this->remove($key);
 
 		return $this->table()->insert(['key' => $key, 'data' => serialize($data), 'lifetime' => $ttl]);
 	}
@@ -112,7 +112,7 @@ class Database implements \mako\cache\stores\StoreInterface
 	 * @return  mixed
 	 */
 	
-	public function read($key)
+	public function get($key)
 	{
 		$cache = $this->table()->where('key', '=', $key)->first();
 
@@ -123,7 +123,7 @@ class Database implements \mako\cache\stores\StoreInterface
 				return unserialize($cache->data);
 			}
 			
-			$this->delete($key);
+			$this->remove($key);
 		}
 		
 		return false;
@@ -137,7 +137,7 @@ class Database implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 	
-	public function delete($key)
+	public function remove($key)
 	{
 		return (bool) $this->table()->where('key', '=', $key)->delete();
 	}

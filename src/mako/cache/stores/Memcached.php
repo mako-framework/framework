@@ -78,7 +78,7 @@ class Memcached implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function write($key, $data, $ttl = 0)
+	public function put($key, $data, $ttl = 0)
 	{
 		if($ttl !== 0)
 		{
@@ -114,7 +114,7 @@ class Memcached implements \mako\cache\stores\StoreInterface
 	 * @return  mixed
 	 */
 
-	public function read($key)
+	public function get($key)
 	{
 		return $this->memcached->get($key);
 	}
@@ -127,7 +127,7 @@ class Memcached implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function delete($key)
+	public function remove($key)
 	{
 		return $this->memcached->delete($key, 0);
 	}

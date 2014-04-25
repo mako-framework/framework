@@ -83,9 +83,9 @@ class Cache
 	 * @return  boolean
 	 */
 
-	public function write($key, $data, $ttl = 0)
+	public function put($key, $data, $ttl = 0)
 	{
-		return $this->store->write($this->prefixedKey($key), $data, $ttl);
+		return $this->store->put($this->prefixedKey($key), $data, $ttl);
 	}
 
 	/**
@@ -109,9 +109,9 @@ class Cache
 	 * @return  mixed
 	 */
 
-	public function read($key)
+	public function get($key)
 	{
-		return $this->store->read($this->prefixedKey($key));
+		return $this->store->get($this->prefixedKey($key));
 	}
 
 	/**
@@ -122,9 +122,9 @@ class Cache
 	 * @return  boolean
 	 */
 
-	public function delete($key)
+	public function remove($key)
 	{
-		return $this->store->delete($this->prefixedKey($key));
+		return $this->store->remove($this->prefixedKey($key));
 	}
 
 	/**

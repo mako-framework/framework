@@ -408,7 +408,7 @@ class Session
 	 * @param   mixed   $value  Session data
 	 */
 
-	public function remember($key, $value)
+	public function put($key, $value)
 	{
 		if(!$this->started)
 		{
@@ -470,7 +470,7 @@ class Session
 	 * @param   string  $key  Session key
 	 */
 
-	public function forget($key)
+	public function remove($key)
 	{
 		if(!$this->started)
 		{

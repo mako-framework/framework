@@ -41,7 +41,7 @@ class APCU implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function write($key, $data, $ttl = 0)
+	public function put($key, $data, $ttl = 0)
 	{
 		return apcu_store($key, $data, $ttl);
 	}
@@ -67,7 +67,7 @@ class APCU implements \mako\cache\stores\StoreInterface
 	 * @return  mixed
 	 */
 
-	public function read($key)
+	public function get($key)
 	{
 		return apcu_fetch($key);
 	}
@@ -80,7 +80,7 @@ class APCU implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function delete($key)
+	public function remove($key)
 	{
 		return apcu_delete($key);
 	}

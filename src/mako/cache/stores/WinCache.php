@@ -41,7 +41,7 @@ class WinCache implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function write($key, $data, $ttl = 0)
+	public function put($key, $data, $ttl = 0)
 	{
 		return wincache_ucache_set($key, $data, $ttl);
 	}
@@ -67,7 +67,7 @@ class WinCache implements \mako\cache\stores\StoreInterface
 	 * @return  mixed
 	 */
 
-	public function read($key)
+	public function get($key)
 	{
 		$cache = wincache_ucache_get($key, $success);
 		
@@ -89,7 +89,7 @@ class WinCache implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function delete($key)
+	public function remove($key)
 	{
 		return wincache_ucache_delete($key);
 	}

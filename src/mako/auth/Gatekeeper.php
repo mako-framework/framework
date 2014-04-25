@@ -291,7 +291,7 @@ class Gatekeeper
 
 				if($token !== false)
 				{
-					$this->session->remember($this->authKey, $token);
+					$this->session->put($this->authKey, $token);
 				}
 			}
 
@@ -409,7 +409,7 @@ class Gatekeeper
 		{
 			$this->session->regenerateId();
 
-			$this->session->remember($this->authKey, $this->user->token);
+			$this->session->put($this->authKey, $this->user->token);
 
 			if($remember === true)
 			{
@@ -483,7 +483,7 @@ class Gatekeeper
 	{
 		$this->session->regenerateId();
 
-		$this->session->forget($this->authKey);
+		$this->session->remove($this->authKey);
 
 		$this->response->deleteCookie($this->authKey, $this->cookieParameters);
 

@@ -59,7 +59,7 @@ class Redis implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function write($key, $data, $ttl = 0)
+	public function put($key, $data, $ttl = 0)
 	{
 		$this->redis->set($key, (is_numeric($data) ? $data : serialize($data)));
 		
@@ -92,7 +92,7 @@ class Redis implements \mako\cache\stores\StoreInterface
 	 * @return  mixed
 	 */
 
-	public function read($key)
+	public function get($key)
 	{
 		$data = $this->redis->get($key);
 
@@ -107,7 +107,7 @@ class Redis implements \mako\cache\stores\StoreInterface
 	 * @return  boolean
 	 */
 
-	public function delete($key)
+	public function remove($key)
 	{
 		return (bool) $this->redis->del($key);
 	}

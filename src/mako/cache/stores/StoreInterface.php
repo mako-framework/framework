@@ -15,9 +15,9 @@ namespace mako\cache\stores;
 
 interface StoreInterface
 {
-	public function write($key, $data, $ttl = 0);
+	public function put($key, $data, $ttl = 0);
 	public function has($key);
-	public function read($key);
-	public function delete($key);
+	public function get($key);
+	public function remove($key);
 	public function clear();
 }
