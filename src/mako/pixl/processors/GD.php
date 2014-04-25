@@ -230,14 +230,14 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 				$newWidth  = round($w * $percentage);
 				$newHeight = round($h * $percentage);
 			}
-			else if($aspectRatio === Image::RESIZE_WIDTH)
+			elseif($aspectRatio === Image::RESIZE_WIDTH)
 			{
 				// Base new size on given width while maintaining aspect ratio
 
 				$newWidth  = $width;
 				$newHeight = round($h * ($width / $w));
 			}
-			else if($aspectRatio === Image::RESIZE_HEIGHT)
+			elseif($aspectRatio === Image::RESIZE_HEIGHT)
 			{
 				// Base new size on given height while maintaining aspect ratio
 

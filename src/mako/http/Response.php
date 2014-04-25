@@ -239,7 +239,7 @@ class Response
 		{
 			$this->body = $body->render();
 		}
-		else if($body instanceof $this)
+		elseif($body instanceof $this)
 		{
 			$this->body = $body->getBody();
 
