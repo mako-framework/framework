@@ -404,6 +404,22 @@ class Query
 	}
 
 	/**
+	 * Adds a raw WHERE clause
+	 * 
+	 * @access  public
+	 * @param   string|\Closure             $column     Column name or closure
+	 * @param   string                      $operator   Operator
+	 * @param   string                      $raw        Raw SQL
+	 * @param   string                      $separator  (optional) Clause separator
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function whereRaw($column, $operator, $raw, $separator = 'AND')
+	{
+		return $this->where($column, $operator, new Raw($raw), $separator);
+	}
+
+	/**
 	 * Adds a OR WHERE clause.
 	 *
 	 * @access  public
@@ -416,6 +432,21 @@ class Query
 	public function orWhere($column, $operator = null, $value = null)
 	{
 		return $this->where($column, $operator, $value, 'OR');
+	}
+
+	/**
+	 * Adds a raw OR WHERE clause.
+	 *
+	 * @access  public
+	 * @param   string|\Closure             $column    Column name or closure
+	 * @param   string                      $operator  Operator
+	 * @param   string                      $raw       Raw SQL
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function orWhereRaw($column, $operator, $raw)
+	{
+		return $this->whereRaw($column, $operator, $raw, 'OR');
 	}
 
 	/**
@@ -834,7 +865,21 @@ class Query
 	}
 
 	/**
-	 * Adds a ascending ORDER BY clause.
+	 * Adds a raw ORDER BY clause.
+	 *
+	 * @access  public
+	 * @param   string                      $raw    Raw SQL
+	 * @param   string                      $order  (optional) Sorting order
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function orderByRaw($raw, $order = 'ASC')
+	{
+		return $this->orderBy(new Raw($raw));
+	}
+
+	/**
+	 * Adds an ascending ORDER BY clause.
 	 *
 	 * @access  public
 	 * @param   string|array                $columns  Column name or array of column names
@@ -844,6 +889,19 @@ class Query
 	public function ascending($columns)
 	{
 		return $this->orderBy($columns, 'ASC');
+	}
+
+	/**
+	 * Adds a raw ascending ORDER BY clause.
+	 *
+	 * @access  public
+	 * @param   string                     $raw  Raw SQL
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function ascendingRaw($raw)
+	{
+		return $this->ascending(new Raw($raw));
 	}
 
 	/**
@@ -857,6 +915,19 @@ class Query
 	public function descending($columns)
 	{
 		return $this->orderBy($columns, 'DESC');
+	}
+
+	/**
+	 * Adds a raw descending ORDER BY clause.
+	 *
+	 * @access  public
+	 * @param   string                      $raw  Raw SQL
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function descendingRaw($raw)
+	{
+		return $this->descending(new Raw($raw));
 	}
 
 	/**
