@@ -190,6 +190,22 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testSelectWithWhereRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->whereRaw('foo', '=', 'SUBSTRING("foo", 1, 2)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = SUBSTRING("foo", 1, 2)', $query['sql']);
+		$this->assertEmpty($query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testSelectWithWheres()
 	{
 		$query = $this->getBuilder();
@@ -218,6 +234,23 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "foo" = ?', $query['sql']);
 		$this->assertEquals(array('bar', 'baz'), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithOrWhereRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', 'bar');
+		$query->orWhereRaw('foo', '=', 'SUBSTRING("foo", 1, 2)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "foo" = SUBSTRING("foo", 1, 2)', $query['sql']);
+		$this->assertEquals(array('bar'), $query['params']);
 	}
 
 	/**
