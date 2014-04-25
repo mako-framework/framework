@@ -989,7 +989,7 @@ class Query
 	{
 		$query = $this->compiler->insert($values);
 
-		return $this->connection->insert($query['sql'], $query['params']);
+		return $this->connection->query($query['sql'], $query['params']);
 	}
 
 	/**
@@ -1004,7 +1004,7 @@ class Query
 	{
 		$query = $this->compiler->update($values);
 
-		return $this->connection->update($query['sql'], $query['params']);
+		return $this->connection->queryAndCount($query['sql'], $query['params']);
 	}
 
 	/**
@@ -1046,6 +1046,6 @@ class Query
 	{
 		$query = $this->compiler->delete();
 
-		return $this->connection->delete($query['sql'], $query['params']);
+		return $this->connection->queryAndCount($query['sql'], $query['params']);
 	}
 }

@@ -335,9 +335,9 @@ class Connection
 	 * Executes the query and returns TRUE on success or FALSE on failure.
 	 *
 	 * @access  public
-	 * @param   string  $query   SQL query
-	 * @param   array   $params  (optional) Query parameters
-	 * @return  mixed
+	 * @param   string   $query   SQL query
+	 * @param   array    $params  (optional) Query parameters
+	 * @return  boolean
 	 */
 
 	public function query($query, array $params = [])
@@ -346,17 +346,21 @@ class Connection
 	}
 
 	/**
-	 * Executes the query and returns TRUE on success or FALSE on failure.
-	 *
+	 * Executes the query and return number of affected rows.
+	 * 
 	 * @access  public
-	 * @param   string   $query   SQL query
-	 * @param   array    $params  (optional) Query parameters
-	 * @return  boolean
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  (optional) Query parameters
+	 * @return  int
 	 */
 
-	public function insert($query, array $params = [])
+	public function queryAndCount($query, array $params = [])
 	{
-		return $this->query($query, $params);
+		$prepared = $this->prepare($query, $params);
+
+		$this->execute($prepared);
+
+		return $prepared['statement']->rowCount();
 	}
 
 	/**
@@ -411,52 +415,6 @@ class Connection
 		$this->execute($prepared);
 
 		return $prepared['statement']->fetchColumn();
-	}
-
-	/**
-	 * Executes the query and return number of affected rows.
-	 * 
-	 * @access  protected
-	 * @param   string     $query   SQL query
-	 * @param   array      $params  Query parameters
-	 * @return  int
-	 */
-
-	protected function executeAndCount($query, array $params)
-	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
-
-		return $prepared['statement']->rowCount();
-	}
-
-	/**
-	 * Executes the query and returns the number of updated records.
-	 *
-	 * @access  public
-	 * @param   string  $query   SQL query
-	 * @param   array   $params  (optional) Query parameters
-	 * @return  int
-	 */
-
-	public function update($query, array $params = [])
-	{
-		return $this->executeAndCount($query, $params);
-	}
-
-	/**
-	 * Executes the query and returns the number of deleted records.
-	 *
-	 * @access  public
-	 * @param   string  $query   SQL query
-	 * @param   array   $params  (optional) Query parameters
-	 * @return  int
-	 */
-
-	public function delete($query, array $params = [])
-	{
-		return $this->executeAndCount($query, $params);
 	}
 
 	/**
