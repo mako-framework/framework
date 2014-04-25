@@ -59,6 +59,23 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testBasicSelectWithClosure()
+	{
+		$query = $this->getBuilder(function($query)
+		{
+			$query->table('foobar');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM (SELECT * FROM "foobar") AS "mako0"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testDistinctSelect()
 	{
 		$query = $this->getBuilder();
@@ -291,6 +308,25 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testSelectWithClosureIn()
+	{
+		$query = $this->getBuilder();
+
+		$query->in('foo', function($query)
+		{
+			$query->table('barfoo')->columns(['id']);
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IN ((SELECT "id" FROM "barfoo"))', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testSelectWithNotIn()
 	{
 		$query = $this->getBuilder();
@@ -339,11 +375,30 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testSelectWithExists()
+	public function testSelectWithExistsSubquery()
 	{
 		$query = $this->getBuilder();
 
 		$query->exists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'))));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = foobar.id)', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithExistsClosure()
+	{
+		$query = $this->getBuilder();
+
+		$query->exists(function($query)
+		{
+			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
+		});
 
 		$query = $query->getCompiler()->select();
 

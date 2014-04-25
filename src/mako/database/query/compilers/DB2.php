@@ -72,7 +72,7 @@ class DB2 extends \mako\database\query\Compiler
 			$limit  = $offset + $this->query->getLimit();
 			$offset = $offset + 1;
 
-			$sql = 'SELECT * FROM (' . $sql . ') AS m1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
+			$sql = 'SELECT * FROM (' . $sql . ') AS mako1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
 
 			return ['sql' => $sql, 'params' => $this->params];
 		}

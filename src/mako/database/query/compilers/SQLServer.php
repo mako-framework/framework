@@ -102,7 +102,7 @@ class SQLServer extends \mako\database\query\Compiler
 				$limit  = $this->query->getOffset() + $this->query->getLimit();
 				$offset = $this->query->getOffset() + 1;
 
-				$sql = 'SELECT * FROM (' . $sql . ') AS m1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
+				$sql = 'SELECT * FROM (' . $sql . ') AS mako1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
 			}
 
 			return ['sql' => $sql, 'params' => $this->params];

@@ -48,7 +48,7 @@ class OracleBuilderTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT m1.* FROM (SELECT * FROM "foobar") m1 WHERE rownum <= 10', $query['sql']);
+		$this->assertEquals('SELECT mako1.* FROM (SELECT * FROM "foobar") mako1 WHERE rownum <= 10', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -65,7 +65,7 @@ class OracleBuilderTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM (SELECT m1.*, rownum AS mako_rownum FROM (SELECT * FROM "foobar") m1 WHERE rownum <= 20) WHERE mako_rownum >= 11', $query['sql']);
+		$this->assertEquals('SELECT * FROM (SELECT mako1.*, rownum AS mako_rownum FROM (SELECT * FROM "foobar") mako1 WHERE rownum <= 20) WHERE mako_rownum >= 11', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 }
