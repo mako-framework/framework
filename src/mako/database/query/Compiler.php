@@ -119,6 +119,33 @@ class Compiler
 	}
 
 	/**
+	 * Escapes SQL keywords.
+	 *
+	 * @access  protected
+	 * @param   string     $value  Value to escape
+	 * @return  string
+	 */
+
+	protected function escapeKeyword($value)
+	{
+		$wrapped = [];
+
+		foreach(explode('.', $value) as $segment)
+		{
+			if($segment == '*')
+			{
+				$wrapped[] = $segment;
+			}
+			else
+			{
+				$wrapped[] = sprintf($this->wrapper, $segment);
+			}
+		}
+
+		return implode('.', $wrapped);
+	}
+
+	/**
 	 * Wraps table and column names with dialect specific escape characters.
 	 *
 	 * @access  public
@@ -136,28 +163,15 @@ class Compiler
 		{
 			return $this->subquery($value);
 		}
+		elseif(stripos($value, ' as ') !== false)
+		{
+			$values = explode(' ', $value);
+
+			return sprintf('%s AS %s', $this->escapeKeyword($values[0]), $this->escapeKeyword($values[2]));
+		}
 		else
 		{
-			if(stripos($value, ' as ') !== false)
-			{
-				$values = explode(' ', $value);
-
-				return sprintf('%s AS %s', $this->wrap($values[0]), $this->wrap($values[2]));
-			}
-
-			foreach(explode('.', $value) as $segment)
-			{
-				if($segment == '*')
-				{
-					$wrapped[] = $segment;
-				}
-				else
-				{
-					$wrapped[] = sprintf($this->wrapper, $segment);
-				}
-			}
-
-			return implode('.', $wrapped);
+			return $this->escapeKeyword($value);
 		}
 	}
 
