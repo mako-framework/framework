@@ -17,6 +17,7 @@ use \mako\database\Connection;
 use \mako\database\midgard\ORM;
 use \mako\database\midgard\ResultSet;
 use \mako\database\midgard\ReadOnlyRecordException;
+use \mako\pagination\Pagination;
 use \BadMethodCallException;
 
 class Hydrator extends \mako\database\query\Query
@@ -326,6 +327,23 @@ class Hydrator extends \mako\database\query\Query
 
 		return new ResultSet($results);
 	}
+	
+    /**
+     * Parse all pagination parameters using Pagination Object
+     *
+     * @access  public
+     * @param   \mako\pagination\Pagination      $pagination  Pagination Object
+     * @return  \mako\database\midgard\Hydrator
+     */
+
+    public function paginate(Pagination $pagination)
+    {
+        $this->limit = $pagination->limit();
+
+        $this->offset = $pagination->offset();
+
+        return $this;
+    }
 
 	/**
 	 * Magic method that allows us to call model scopes.
