@@ -311,7 +311,7 @@ class Query
 	 * Sets table we want to query.
 	 *
 	 * @access  public
-	 * @param   string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw  $table  (optional) Database table or subquery
+	 * @param   string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw  $table  Database table or subquery
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -407,7 +407,7 @@ class Query
 	 * Adds a raw WHERE clause
 	 * 
 	 * @access  public
-	 * @param   string|\Closure             $column     Column name or closure
+	 * @param   string                      $column     Column name or closure
 	 * @param   string                      $operator   Operator
 	 * @param   string                      $raw        Raw SQL
 	 * @param   string                      $separator  (optional) Clause separator
@@ -438,7 +438,7 @@ class Query
 	 * Adds a raw OR WHERE clause.
 	 *
 	 * @access  public
-	 * @param   string|\Closure             $column    Column name or closure
+	 * @param   string                      $column    Column name or closure
 	 * @param   string                      $operator  Operator
 	 * @param   string                      $raw       Raw SQL
 	 * @return  \mako\database\query\Query
@@ -743,10 +743,11 @@ class Query
 	 * @param   string                      $operator  (optional) Operator
 	 * @param   string                      $column2   (optional) Column name
 	 * @param   string                      $type      (optional) Join type
+	 * @param   boolean                     $raw       (optional) Raw join?
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER')
+	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
 	{
 		$join = new Join($type, $table);
 
@@ -756,12 +757,36 @@ class Query
 		}
 		else
 		{
-			$join->on($column1, $operator, $column2);
+			if($raw)
+			{
+				$join->onRaw($column1, $operator, $column2);
+			}
+			else
+			{
+				$join->on($column1, $operator, $column2);
+			}
 		}
 
 		$this->joins[] = $join;
 
 		return $this;
+	}
+
+	/**
+	 * Adds a raw JOIN clause.
+	 *
+	 * @access  public
+	 * @param   string                      $table     Table name
+	 * @param   string                      $column1   Column name or closure
+	 * @param   string                      $operator  Operator
+	 * @param   string                      $raw       Raw SQL
+	 * @param   string                      $type      Join type
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function joinRaw($table, $column1, $operator, $raw, $type = 'INNER')
+	{
+		return $this->join($table, $column1, $operator, $raw, $type, true);
 	}
 
 	/**
@@ -778,6 +803,22 @@ class Query
 	public function leftJoin($table, $column1 = null, $operator = null, $column2 = null)
 	{
 		return $this->join($table, $column1, $operator, $column2, 'LEFT OUTER');
+	}
+
+	/**
+	 * Adds a raw LEFT OUTER JOIN clause.
+	 *
+	 * @access  public
+	 * @param   string                      $table     Table name
+	 * @param   string                      $column1   Column name or closure
+	 * @param   string                      $operator  Operator
+	 * @param   string                      $raw       Raw SQL
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function leftJoinRaw($table, $column1, $operator, $raw)
+	{
+		return $this->joinRaw($table, $column1, $operator, $raw, 'LEFT OUTER');
 	}
 
 	/**
@@ -875,7 +916,7 @@ class Query
 
 	public function orderByRaw($raw, $order = 'ASC')
 	{
-		return $this->orderBy(new Raw($raw));
+		return $this->orderBy(new Raw($raw), $order);
 	}
 
 	/**
@@ -901,7 +942,7 @@ class Query
 
 	public function ascendingRaw($raw)
 	{
-		return $this->ascending(new Raw($raw));
+		return $this->orderByRaw($raw, 'ASC');
 	}
 
 	/**
@@ -927,7 +968,7 @@ class Query
 
 	public function descendingRaw($raw)
 	{
-		return $this->descending(new Raw($raw));
+		return $this->orderByRaw($raw, 'DESC');
 	}
 
 	/**

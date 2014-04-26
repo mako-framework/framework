@@ -7,6 +7,8 @@
 
 namespace mako\database\query;
 
+use \mako\database\query\Raw;
+
 /**
  * Table join.
  *
@@ -125,6 +127,21 @@ class Join
 	}
 
 	/**
+	 * Adds a raw ON clause to the join.
+	 *
+	 * @access  public
+	 * @param   string  $column1    Column name
+	 * @param   string  $operator   Operator
+	 * @param   string  $raw        Raw SQL
+	 * @param   string  $separator  (optional) Clause separator
+	 */
+
+	public function onRaw($column1, $operator, $raw, $separator = 'AND')
+	{
+		return $this->on($column1, $operator, new Raw($raw), $separator);
+	}
+
+	/**
 	 * Adds a OR ON clause to the join.
 	 *
 	 * @access  public
@@ -136,5 +153,19 @@ class Join
 	public function orOn($column1, $operator, $column2)
 	{
 		return $this->on($column1, $operator, $column2, 'OR');
+	}
+
+	/**
+	 * Adds a raw OR ON clause to the join.
+	 *
+	 * @access  public
+	 * @param   string  $column1   Column name
+	 * @param   string  $operator  Operator
+	 * @param   string  $raw       Raw SQL
+	 */
+
+	public function orOnRaw($column1, $operator, $raw)
+	{
+		return $this->onRaw($column1, $operator, $raw, 'OR');
 	}
 }
