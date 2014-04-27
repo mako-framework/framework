@@ -190,6 +190,22 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testSelectWithWhereRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->whereRaw('foo', '=', 'SUBSTRING("foo", 1, 2)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = SUBSTRING("foo", 1, 2)', $query['sql']);
+		$this->assertEmpty($query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testSelectWithWheres()
 	{
 		$query = $this->getBuilder();
@@ -218,6 +234,23 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "foo" = ?', $query['sql']);
 		$this->assertEquals(array('bar', 'baz'), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithOrWhereRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', 'bar');
+		$query->orWhereRaw('foo', '=', 'SUBSTRING("foo", 1, 2)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "foo" = SUBSTRING("foo", 1, 2)', $query['sql']);
+		$this->assertEquals(array('bar'), $query['params']);
 	}
 
 	/**
@@ -442,6 +475,22 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testSelectWithJoinRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->joinRaw('barfoo', 'barfoo.foobar_id', '=', 'SUBSTRING("foo", 1, 2)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = SUBSTRING("foo", 1, 2)', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testSelectWithLeftJoin()
 	{
 		$query = $this->getBuilder();
@@ -451,6 +500,22 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" LEFT OUTER JOIN "barfoo" ON "barfoo"."foobar_id" = "foobar"."id"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithLeftJoinRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->leftJoinRaw('barfoo', 'barfoo.foobar_id', '=', 'SUBSTRING("foo", 1, 2)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" LEFT OUTER JOIN "barfoo" ON "barfoo"."foobar_id" = SUBSTRING("foo", 1, 2)', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -471,6 +536,26 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = "foobar"."id" OR "barfoo"."foobar_id" != "foobar"."id"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSelectWithComplexRawJoin()
+	{
+		$query = $this->getBuilder();
+
+		$query->join('barfoo', function($join)
+		{
+			$join->onRaw('barfoo.foobar_id', '=', 'SUBSTRING("foo", 1, 2)');
+			$join->orOnRaw('barfoo.foobar_id', '!=', 'SUBSTRING("foo", 1, 2)');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = SUBSTRING("foo", 1, 2) OR "barfoo"."foobar_id" != SUBSTRING("foo", 1, 2)', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -559,6 +644,22 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 *
+	 */
+
+	public function testSelectWithOrderRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByRaw('FIELD(id, 1, 2, 3)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, 1, 2, 3) ASC', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
 	 * 
 	 */
 
@@ -573,7 +674,23 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" DESC', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
+	
+	/**
+	 *
+	 */
 
+	public function testSelectWithOrderDescendingRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->descendingRaw('FIELD(id, 1, 2, 3)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, 1, 2, 3) DESC', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+	
 	/**
 	 * 
 	 */
@@ -587,6 +704,22 @@ class BaseBuilderTest extends PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" ASC', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testSelectWithOrderAscendingRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->ascendingRaw('FIELD(id, 1, 2, 3)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, 1, 2, 3) ASC', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
