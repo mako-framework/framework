@@ -14,6 +14,7 @@ use \mako\database\Connection;
 use \mako\database\query\Raw;
 use \mako\database\query\Join;
 use \mako\database\query\Subquery;
+use \mako\pagination\Pagination;
 
 /**
  * Query builder.
@@ -1000,6 +1001,19 @@ class Query
 
 		return $this;
 	}
+	
+    /**
+     * Parse all pagination parameters using Pagination Object
+     *
+     * @access  public
+     * @param   \mako\pagination\Pagination  $pagination  Pagination Object
+     * @return  \mako\database\query\Query
+     */
+
+    public function paginate(Pagination $pagination)
+    {
+        return $this->limit($pagination->limit())->offset($pagination->offset());
+    }
 
 	/**
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
