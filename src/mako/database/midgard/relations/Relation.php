@@ -62,11 +62,11 @@ abstract class Relation extends \mako\database\midgard\Hydrator
 
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null)
 	{
+		parent::__construct($connection, $related);
+		
 		$this->parent = $parent;
 
 		$this->foreignKey = $foreignKey;
-
-		parent::__construct($connection, $related);
 
 		$this->lazyCriterion();
 	}

@@ -421,13 +421,12 @@ class Connection
 	 * Returns a query builder instance.
 	 *
 	 * @access  public
-	 * @param   mixed                       $table  Table name or subquery
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function table($table)
+	public function builder()
 	{
-		return new Query($this, $table);
+		return new Query($this);
 	}
 
 	/**

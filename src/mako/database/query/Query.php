@@ -132,15 +132,12 @@ class Query
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Conenction                      $connection  Database connection
-	 * @param   string|\Closure|\mako\database\query\Subquery  $table       (optional) Database table or subquery
+	 * @param   \mako\database\Conenction  $connection  Database connection
 	 */
 
-	public function __construct(Connection $connection, $table = '')
+	public function __construct(Connection $connection)
 	{
 		$this->connection = $connection;
-
-		$this->table($table);
 
 		switch($this->connection->getCompiler())
 		{
@@ -378,7 +375,7 @@ class Query
 	{
 		if($column instanceof Closure)
 		{
-			$query = new self($this->connection, $this->table);
+			$query = new self($this->connection);
 
 			$column($query);
 
@@ -1006,7 +1003,7 @@ class Query
      * Paginates the results using a paniation instance.
      *
      * @access  public
-     * @param   \mako\pagination\Pagination $pagination Pagination instance
+     * @param   \mako\pagination\Pagination  $pagination  Pagination instance
      * @return  \mako\database\query\Query
      */
 

@@ -55,11 +55,13 @@ class Hydrator extends \mako\database\query\Query
 
 	public function __construct(Connection $connection, ORM $model)
 	{
+		parent::__construct($connection);
+
 		$this->model = $model;
 
-		$this->makeReadOnly = $this->model->isReadOnly();
+		$this->makeReadOnly = $model->isReadOnly();
 
-		parent::__construct($connection, $this->model->getTable());
+		$this->table = $model->getTable();
 	}
 
 	//---------------------------------------------
@@ -75,17 +77,18 @@ class Hydrator extends \mako\database\query\Query
 	 * @param   string                      $operator  (optional) Operator
 	 * @param   string                      $column2   (optional) Column name
 	 * @param   string                      $type      (optional) Join type
+	 * @param   boolean                     $raw       (optional) Raw join?
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER')
+	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
 	{
 		if(empty($this->joins))
 		{
 			$this->columns = [$this->model->getTable() . '.*'];
 		}
 
-		return parent::join($table, $column1, $operator, $column2, $type);
+		return parent::join($table, $column1, $operator, $column2, $type, $raw);
 	}
 
 	/**
