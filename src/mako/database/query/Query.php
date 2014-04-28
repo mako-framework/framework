@@ -1001,19 +1001,19 @@ class Query
 
 		return $this;
 	}
-	
-    /**
-     * Parse all pagination parameters using Pagination Object
+
+	/**
+     * Paginates the results using a paniation instance.
      *
      * @access  public
-     * @param   \mako\pagination\Pagination  $pagination  Pagination Object
+     * @param   \mako\pagination\Pagination $pagination Pagination instance
      * @return  \mako\database\query\Query
      */
 
-    public function paginate(Pagination $pagination)
-    {
-        return $this->limit($pagination->limit())->offset($pagination->offset());
-    }
+	public function paginate(Pagination $pagination)
+	{
+		return $this->limit($pagination->limit())->offset($pagination->offset());
+	}
 
 	/**
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
