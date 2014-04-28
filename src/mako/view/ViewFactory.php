@@ -7,6 +7,8 @@
 
 namespace mako\view;
 
+use \RuntimeException;
+
 use \mako\view\renderers\CacheableInterface;
 
 /**
