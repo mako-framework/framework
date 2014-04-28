@@ -138,7 +138,7 @@ class Pagination
 
 		$this->pages = ceil(($this->count / $this->itemsPerPage));
 		
-		$this->currentPage = min($this->currentPage, $this->pages);
+		$this->currentPage = ($this->currentPage > $this->pages) && ($this->pages > 0) ? $this->pages : $this->currentPage;
 
 		$this->offset = ($this->currentPage - 1) * $this->itemsPerPage;
 	}
