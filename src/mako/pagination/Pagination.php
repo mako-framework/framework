@@ -137,6 +137,8 @@ class Pagination
 		$this->currentPage = max((int) $this->request->get($this->key, 1), 1);
 
 		$this->pages = ceil(($this->count / $this->itemsPerPage));
+		
+		$this->currentPage = ($this->currentPage > $this->pages) && ($this->pages > 0) ? $this->pages : $this->currentPage;
 
 		$this->offset = ($this->currentPage - 1) * $this->itemsPerPage;
 	}
@@ -155,6 +157,18 @@ class Pagination
 	public function getView()
 	{
 		return $this->view;
+	}
+	
+	/**
+	 * Returns the total amount of items.
+	 *
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function total()
+	{
+		return $this->count;
 	}
 
 	/**
@@ -204,6 +218,30 @@ class Pagination
 	{
 		return $this->offset;
 	}
+	
+	/**
+	 * Returns the number of the first item on the paginator
+	 *
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function from()
+	{
+		return $this->count ? ($this->currentPage - 1) * $this->itemsPerPage + 1 : 0;
+	}
+
+	/**
+	 * Returns the number of the last item on the paginator
+	 *
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function to()
+	{
+		return min($this->count, $this->currentPage * $this->itemsPerPage);
+	}
 
 	/**
 	 * Builds and returns the pagination array.
@@ -217,6 +255,12 @@ class Pagination
 		$pagination = [];
 
 		$pagination['count'] = $this->pages;
+		
+		$pagination['total'] = $this->total();
+
+		$pagination['from'] = $this->from();
+
+		$pagination['to'] = $this->to();
 
 		$params = $this->request->get();
 
