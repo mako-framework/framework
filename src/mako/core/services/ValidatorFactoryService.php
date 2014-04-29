@@ -8,6 +8,8 @@
 namespace mako\core\services;
 
 use \mako\validator\ValidatorFactory;
+use \mako\validator\plugins\ConfigExistsValidator;
+use \mako\validator\plugins\ConfigKeyExistsValidator;
 use \mako\validator\plugins\DatabaseExistsValidator;
 use \mako\validator\plugins\DatabaseUniqueValidator;
 use \mako\validator\plugins\TokenValidator;
@@ -38,7 +40,7 @@ class ValidatorFactoryService extends \mako\core\services\Service
 
 	/**
 	 * Registers plugins.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \mako\validator\ValidatorFactory  $validatorFactory  Validator factory instance
 	 */
@@ -56,11 +58,18 @@ class ValidatorFactoryService extends \mako\core\services\Service
 
 			$validatorFactory->registerPlugin(new DatabaseUniqueValidator($this->container->get('database')));
 		}
+
+		if($this->container->has('config'))
+		{
+			$validatorFactory->registerPlugin(new ConfigExistsValidator($this->container->get('config')));
+
+			$validatorFactory->registerPlugin(new ConfigKeyExistsValidator($this->container->get('config')));
+		}
 	}
-	
+
 	/**
 	 * Registers the service.
-	 * 
+	 *
 	 * @access  public
 	 */
 
