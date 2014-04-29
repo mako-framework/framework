@@ -49,10 +49,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
 			'REQUEST_TIME_FLOAT' => 1398338683.59,
 			'REQUEST_TIME' => 1398338683,
 			'REQUEST_URI' => '/test/',
-  			'SCRIPT_NAME' => '/index.php',
-  			'PHP_SELF' => '/index.php/test/',
-  			'SCRIPT_FILENAME' => '/var/www/index.php',
-  			'PATH_INFO' => '/test/',
+			'SCRIPT_NAME' => '/index.php',
+			'PHP_SELF' => '/index.php/test/',
+			'SCRIPT_FILENAME' => '/var/www/index.php',
+			'PATH_INFO' => '/test/',
 		];
 	}
 
