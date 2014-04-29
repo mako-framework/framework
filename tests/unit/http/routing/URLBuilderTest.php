@@ -4,6 +4,10 @@ use \mako\http\routing\URLBuilder;
 
 use Mockery as m;
 
+/**
+ * @group unit
+ */
+
 class URLBuilderTest extends PHPUnit_Framework_TestCase
 {
 	/**

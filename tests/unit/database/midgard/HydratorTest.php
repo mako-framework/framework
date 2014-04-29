@@ -2,6 +2,10 @@
 
 use Mockery as m;
 
+/**
+ * @group unit
+ */
+
 class HydratorTest extends PHPUnit_Framework_TestCase
 {
 	/**

@@ -6,6 +6,10 @@ use \mako\database\query\Query;
 use \mako\database\query\Raw;
 use \mako\database\query\Subquery;
 
+/**
+ * @group unit
+ */
+
 class BaseBuilderTest extends PHPUnit_Framework_TestCase
 {
 	/**

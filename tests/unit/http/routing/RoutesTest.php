@@ -2,6 +2,10 @@
 
 use \mako\http\routing\Routes;
 
+/**
+ * @group unit
+ */
+
 class RoutesTest extends PHPUnit_Framework_TestCase
 {
 	/**

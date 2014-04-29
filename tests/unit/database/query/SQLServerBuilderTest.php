@@ -3,6 +3,10 @@
 use Mockery as m;
 use \mako\database\query\Query;
 
+/**
+ * @group unit
+ */
+
 class SQLServerBuilderTest extends PHPUnit_Framework_TestCase
 {
 	/**

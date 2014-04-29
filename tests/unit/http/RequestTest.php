@@ -4,6 +4,10 @@ use \mako\http\Request;
 
 use Mockery as m;
 
+/**
+ * @group unit
+ */
+
 class RequestTest extends PHPUnit_Framework_TestCase
 {
 	/**
