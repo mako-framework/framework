@@ -486,7 +486,7 @@ class Response
 
 	public function cookie($name, $value, $ttl = 0, array $options = [])
 	{
-		$ttl = ($ttl > 0) ? (time() + $ttl) : 0;
+		$ttl = ($ttl === 0) ? 0 : (time() + $ttl);
 
 		$defaults = ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false];
 
@@ -527,7 +527,7 @@ class Response
 
 	public function deleteCookie($name, array $options = [])
 	{
-		return $this->cookie($name, '', time() - 3600, $options);
+		return $this->cookie($name, '', -3600, $options);
 	}
 
 	/**
