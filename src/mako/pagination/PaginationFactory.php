@@ -33,6 +33,14 @@ class PaginationFactory
 	protected $request;
 
 	/**
+	 * Configuration.
+	 * 
+	 * @var array
+	 */
+
+	protected $config;
+
+	/**
 	 * URL builder instance.
 	 * 
 	 * @var \mako\http\request\URLBuilder
@@ -48,14 +56,6 @@ class PaginationFactory
 
 	protected $viewFactory;
 
-	/**
-	 * Configuration.
-	 * 
-	 * @var array
-	 */
-
-	protected $config;
-
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -64,21 +64,21 @@ class PaginationFactory
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param
-	 * @param
-	 * @param
-	 * @param
+	 * @param   \mako\http\Request             $request      Request
+	 * @param   array                          $config       (optional) Configuration
+	 * @param   \mako\http\routing\URLBuilder  $urlBuilder   (optional) URL builder instance
+	 * @param   \mako\view\ViewFactory         $viewFactory  (optional) View factory instance
 	 */
 
-	public function __construct(Request $request, URLBuilder $urlBuilder, ViewFactory $viewFactory, array $config)
+	public function __construct(Request $request, array $config = [], URLBuilder $urlBuilder = null, ViewFactory $viewFactory = null)
 	{
 		$this->request = $request;
+
+		$this->config = $config;
 
 		$this->urlBuilder = $urlBuilder;
 
 		$this->viewFactory = $viewFactory;
-
-		$this->config = $config;
 	}
 
 	//---------------------------------------------
@@ -86,19 +86,42 @@ class PaginationFactory
 	//---------------------------------------------
 
 	/**
+	 * Sets the URL builder instance.
+	 * 
+	 * @access  public
+	 * @param   \mako\http\request\URLBuilder  $urlBuilder  URL builder instance
+	 */
+
+	public function setURLBuilder(URLBuilder $urlBuilder)
+	{
+		$this->urlBuilder = $urlBuilder;
+	}
+
+	/**
+	 * Sets the view factory builder instance.
+	 * 
+	 * @access  public
+	 * @param   \mako\view\ViewFactory  $viewFactory  View factory instance
+	 */
+
+	public function setViewFactory(ViewFactory $viewFactory)
+	{
+		$this->viewFactory = $viewFactory;
+	}
+
+	/**
 	 * Creates and returns a pagination instance.
 	 * 
 	 * @access  public
-	 * @param   string                       $view    Pagination partial
 	 * @param   int                          $count   Number of items
 	 * @param   array                        $config  (optional) Override configuration
 	 * @return  \mako\pagination\Pagination
 	 */
 
-	public function create($partial, $count, array $config = [])
+	public function create($count, array $config = [])
 	{
 		$config = $config + $this->config;
 
-		return new Pagination($this->request, $this->urlBuilder, $this->viewFactory->create($partial), $count, $config);
+		return new Pagination($this->request, $count, $config, $this->urlBuilder, $this->viewFactory);
 	}
 }

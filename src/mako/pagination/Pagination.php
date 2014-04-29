@@ -7,9 +7,11 @@
 
 namespace mako\pagination;
 
+use \RuntimeException;
+
 use \mako\http\Request;
 use \mako\http\routing\URLBuilder;
-use \mako\view\renderers\RendererInterface;
+use \mako\view\ViewFactory;
 
 /**
  * Pagination class.
@@ -32,22 +34,6 @@ class Pagination
 	protected $request;
 
 	/**
-	 * URL builder instance.
-	 * 
-	 * @var \mako\http\request\URLBuilder
-	 */
-
-	protected $urlBuilder;
-
-	/**
-	 * View renderer instance.
-	 * 
-	 * @var \mako\view\renderers\RendererInterface
-	 */
-
-	protected $view;
-
-	/**
 	 * Number of items.
 	 * 
 	 * @var int
@@ -56,28 +42,33 @@ class Pagination
 	protected $count;
 
 	/**
-	 * Name of the $_GET key holding the current page number.
-	 *
-	 * @var string
+	 * Configuration.
+	 * 
+	 * @var array
 	 */
 
-	protected $key;
-	
+	protected $config = 
+	[
+		'page_key'       => 'page',
+		'max_page_links' => 5,
+		'items_per_page' => 20,
+	];
+
 	/**
-	 * Number of items per page.
-	 *
-	 * @var int
+	 * URL builder instance.
+	 * 
+	 * @var \mako\http\request\URLBuilder
 	 */
-	
-	protected $itemsPerPage;
-	
+
+	protected $urlBuilder;
+
 	/**
-	 * Maximum number of page links.
-	 *
-	 * @var int
+	 * View factory instance.
+	 * 
+	 * @var \mako\view\ViewFactory
 	 */
-	
-	protected $maxPageLinks;
+
+	protected $viewFactory;
 
 	/**
 	 * Current page.
@@ -111,51 +102,41 @@ class Pagination
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param
-	 * @param
-	 * @param
-	 * @param
-	 * @param
+	 * @param   \mako\http\Request             $request      Request
+	 * @param   int                            $count        Item count
+	 * @param   array                          $config       (optional) Configuration
+	 * @param   \mako\http\routing\URLBuilder  $urlBuilder   (optional) URL builder instance
+	 * @param   \mako\view\ViewFactory         $viewFactory  (optional) View factory instance
 	 */
 
-	public function __construct(Request $request, URLBuilder $urlBuilder, RendererInterface $view, $count, array $config)
+	public function __construct(Request $request, $count, array $config = [], URLBuilder $urlBuilder = null, ViewFactory $viewFactory = null)
 	{
 		$this->request = $request;
 
-		$this->urlBuilder = $urlBuilder;
-
-		$this->view = $view;
-
 		$this->count = $count;
 
-		$this->key = $config['page_key'];
+		$this->config = $config + $this->config;
 
-		$this->itemsPerPage = max($config['items_per_page'], 1);
+		$this->urlBuilder = $urlBuilder;
 
-		$this->maxPageLinks = $config['max_page_links'];
+		$this->viewFactory = $viewFactory;
 
-		$this->currentPage = max((int) $this->request->get($this->key, 1), 1);
+		// Get the current page
 
-		$this->pages = ceil(($this->count / $this->itemsPerPage));
+		$this->currentPage = max((int) $this->request->get($this->config['page_key'], 1), 1);
 
-		$this->offset = ($this->currentPage - 1) * $this->itemsPerPage;
+		// Calculate the number of pages
+
+		$this->pages = ceil(($count / $this->config['items_per_page']));
+
+		// Calculate the offset
+
+		$this->offset = ($this->currentPage - 1) * $this->config['items_per_page'];
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
-
-	/**
-	 * Returns the view renderer instance.
-	 * 
-	 * @access  public
-	 * @return  \mako\view\renderers\RendererInterface
-	 */
-
-	public function getView()
-	{
-		return $this->view;
-	}
 
 	/**
 	 * Returns the total amount of pages.
@@ -190,7 +171,7 @@ class Pagination
 
 	public function limit()
 	{
-		return $this->itemsPerPage;
+		return $this->config['items_per_page'];
 	}
 
 	/**
@@ -214,6 +195,11 @@ class Pagination
 
 	protected function paginate()
 	{
+		if(empty($this->urlBuilder))
+		{
+			throw new RuntimeException(vsprintf("%s(): A [ URLBuilder ] instance is required to render pagination views.", [__METHOD__]));
+		}
+
 		$pagination = [];
 
 		$pagination['count'] = $this->pages;
@@ -222,30 +208,30 @@ class Pagination
 
 		if($this->currentPage > 1)
 		{
-			$pagination['first']    = $this->urlBuilder->current(array_merge($params, [$this->key => 1]));
-			$pagination['previous'] = $this->urlBuilder->current(array_merge($params, [$this->key => ($this->currentPage - 1)]));
+			$pagination['first']    = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => 1]));
+			$pagination['previous'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => ($this->currentPage - 1)]));
 		}
 
 		if($this->currentPage < $this->pages)
 		{
-			$pagination['last'] = $this->urlBuilder->current(array_merge($params, [$this->key => $this->pages]));
-			$pagination['next'] = $this->urlBuilder->current(array_merge($params, [$this->key => ($this->currentPage + 1)]));
+			$pagination['last'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => $this->pages]));
+			$pagination['next'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => ($this->currentPage + 1)]));
 		}
 
-		if($this->pages > $this->maxPageLinks)
+		if($this->pages > $this->config['max_page_links'])
 		{
-			$start = max(($this->currentPage) - ceil($this->maxPageLinks / 2), 0);
+			$start = max(($this->currentPage) - ceil($this->config['max_page_links'] / 2), 0);
 
-			$end = $start + $this->maxPageLinks;
+			$end = $start + $this->config['max_page_links'];
 
 			if($end > $this->pages)
 			{
 				$end = $this->pages;
 			}
 
-			if($start > ($end - $this->maxPageLinks))
+			if($start > ($end - $this->config['max_page_links']))
 			{
-				$start = $end - $this->maxPageLinks;
+				$start = $end - $this->config['max_page_links'];
 			}
 		}
 		else
@@ -261,7 +247,7 @@ class Pagination
 		{
 			$pagination['pages'][] = 
 			[
-				'url'        => $this->urlBuilder->current(array_merge($params, [$this->key => $i])),
+				'url'        => $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => $i])),
 				'number'     => $i,
 				'is_current' => ($i == $this->currentPage),
 			];
@@ -271,19 +257,20 @@ class Pagination
 	}
 
 	/**
-	 * Returns the rendered pagination view.
+	 * Renders and returns the pagination partial.
 	 * 
 	 * @access  public
+	 * @param   string  $view  Pagination view
 	 * @return  string
 	 */
 
-	public function render()
+	public function render($view)
 	{
-		foreach($this->paginate() as $name => $value)
+		if(empty($this->viewFactory))
 		{
-			$this->view->assign($name, $value);
+			throw new RuntimeException(vsprintf("%s(): A [ ViewFactory ] instance is required to render pagination views.", [__METHOD__]));
 		}
 
-		return $this->view->render();
+		return $this->viewFactory->create($view, $this->paginate())->render();
 	}
 }
