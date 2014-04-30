@@ -81,7 +81,7 @@ class ORMTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('foo@example.org', $user->email);
 	}
 
-	public function testGetNonExistant()
+	public function testGetNonExistent()
 	{
 		$user = TestUser::get(999);
 
