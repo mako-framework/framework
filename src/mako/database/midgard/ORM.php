@@ -415,18 +415,6 @@ abstract class ORM
 	}
 
 	/**
-	 * Returns the columns array.
-	 * 
-	 * @access  public
-	 * @return  array
-	 */
-
-	public function getColumns()
-	{
-		return $this->columns;
-	}
-
-	/**
 	 * Returns the related records array.
 	 * 
 	 * @access  public
@@ -436,6 +424,18 @@ abstract class ORM
 	public function getRelated()
 	{
 		return $this->related;
+	}
+
+	/**
+	 * Returns the columns array.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getColumns()
+	{
+		return $this->columns;
 	}
 
 	/**
