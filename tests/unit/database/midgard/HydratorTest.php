@@ -4,6 +4,24 @@ use \mako\database\midgard\Hydrator;
 
 use Mockery as m;
 
+// --------------------------------------------------------------------------
+// START CLASSES
+// --------------------------------------------------------------------------
+
+class HydratorTestScopedModel extends \mako\database\midgard\ORM
+{
+	protected $tableName = 'foos';
+
+	public function scope_Popular($query)
+	{
+		$query->table('barfoo');
+	}
+}
+
+// --------------------------------------------------------------------------
+// END CLASSES
+// --------------------------------------------------------------------------
+
 /**
  * @group unit
  */
@@ -261,5 +279,33 @@ class HydratorTest extends PHPUnit_Framework_TestCase
 		$hydrator = new Hydrator($this->getConnecion(), $model);
 
 		$hydrator->excluding(['foo', 'bar']);
+	}
+
+	/**
+	 * @expectedException \BadMethodCallException
+	 */
+
+	public function testScopeException()
+	{
+		$model = new HydratorTestScopedModel();
+
+		$hydrator = new Hydrator($this->getConnecion(), $model);
+
+		$hydrator->unpopular();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testScope()
+	{
+		$model = new HydratorTestScopedModel();
+
+		$hydrator = new Hydrator($this->getConnecion(), $model);
+
+		$hydrator->popular();
+
+		$this->assertEquals($hydrator->getTable(), 'barfoo');
 	}
 }

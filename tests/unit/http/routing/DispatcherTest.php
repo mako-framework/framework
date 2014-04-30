@@ -8,7 +8,7 @@ use Mockery as m;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class InjectMe
+class DispatcherTestInjectMe
 {
 	public function helloWorld()
 	{
@@ -16,7 +16,7 @@ class InjectMe
 	}
 }
 
-class SimpleController extends \mako\http\routing\Controller
+class DispatcherTestSimpleController extends \mako\http\routing\Controller
 {
 	public function foo()
 	{
@@ -31,7 +31,7 @@ class SimpleController extends \mako\http\routing\Controller
 	}
 }
 
-class ControllerWithBeforeFilter extends \mako\http\routing\Controller
+class DispatcherTestControllerWithBeforeFilter extends \mako\http\routing\Controller
 {
 	public function beforeFilter()
 	{
@@ -44,7 +44,7 @@ class ControllerWithBeforeFilter extends \mako\http\routing\Controller
 	}
 }
 
-class ControllerWithNullBeforeFilter extends \mako\http\routing\Controller
+class DispatcherTestControllerWithNullBeforeFilter extends \mako\http\routing\Controller
 {
 	public function beforeFilter()
 	{
@@ -57,7 +57,7 @@ class ControllerWithNullBeforeFilter extends \mako\http\routing\Controller
 	}
 }
 
-class ControllerWithAfterFilter extends \mako\http\routing\Controller
+class DispatcherTestControllerWithAfterFilter extends \mako\http\routing\Controller
 {
 	public function afterFilter()
 	{
@@ -70,11 +70,11 @@ class ControllerWithAfterFilter extends \mako\http\routing\Controller
 	}
 }
 
-class ControllerWithInjection extends \mako\http\routing\Controller
+class DispatcherTestControllerWithInjection extends \mako\http\routing\Controller
 {
 	protected $injectMe;
 
-	public function __construct($request, $response, InjectMe $injectMe)
+	public function __construct($request, $response, DispatcherTestInjectMe $injectMe)
 	{
 		parent::__construct($request, $response);
 
@@ -194,7 +194,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('SimpleController::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestSimpleController::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -229,7 +229,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('SimpleController::bar');
+		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestSimpleController::bar');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -262,7 +262,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('ControllerWithNullBeforeFilter::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestControllerWithNullBeforeFilter::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -297,7 +297,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('ControllerWithBeforeFilter::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestControllerWithBeforeFilter::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -326,7 +326,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('ControllerWithAfterFilter::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestControllerWithAfterFilter::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -540,7 +540,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('ControllerWithInjection::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestControllerWithInjection::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
