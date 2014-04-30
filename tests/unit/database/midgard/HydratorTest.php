@@ -1,5 +1,7 @@
 <?php
 
+use \mako\database\midgard\Hydrator;
+
 use Mockery as m;
 
 /**
@@ -69,6 +71,76 @@ class HydratorTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testJoin()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
+
+		$model->shouldReceive('getTable')->twice()->andReturn('tests');
+
+		$hydrator = new Hydrator($this->getConnecion(), $model);
+
+		$hydrator->join('foos', 'tests.id', '=', 'foos.id');
+
+		$this->assertEquals(['tests.*'], $hydrator->getColumns());
+	}
+
+	/**
+	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
+	 */
+
+	public function testInsertWithException()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('isReadOnly')->twice()->andReturn(true);
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$hydrator = new Hydrator($this->getConnecion(), $model);
+
+		$hydrator->insert(['foo' => 'bar']);
+	}
+
+	/**
+	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
+	 */
+
+	public function testUpdateWithException()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('isReadOnly')->twice()->andReturn(true);
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$hydrator = new Hydrator($this->getConnecion(), $model);
+
+		$hydrator->update(['foo' => 'bar']);
+	}
+
+	/**
+	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
+	 */
+
+	public function testDeleteWithException()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('isReadOnly')->twice()->andReturn(true);
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$hydrator = new Hydrator($this->getConnecion(), $model);
+
+		$hydrator->delete();
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testGet()
 	{
 		$model = $this->getModel();
@@ -109,5 +181,85 @@ class HydratorTest extends PHPUnit_Framework_TestCase
 		$hydrator->shouldReceive('first')->once()->with(['foo', 'bar'])->andReturn(true);
 
 		$this->assertTrue($hydrator->get(1984, ['foo', 'bar']));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSingleInclude()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('setIncludes')->once()->with(['foo'])->andReturn($model);
+
+		$hydrator = new Hydrator($this->getConnecion(), $model);
+
+		$hydrator->including('foo');
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testIncludes()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('setIncludes')->once()->with(['foo', 'bar'])->andReturn($model);
+
+		$hydrator = new Hydrator($this->getConnecion(), $model);
+
+		$hydrator->including(['foo', 'bar']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSingleExlude()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar']);
+
+		$model->shouldReceive('setIncludes')->once()->with(['foo'])->andReturn($model);
+
+		$hydrator = new Hydrator($this->getConnecion(), $model);
+
+		$hydrator->excluding('bar');
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testExcludes()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar']);
+
+		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
+
+		$hydrator = new Hydrator($this->getConnecion(), $model);
+
+		$hydrator->excluding(['foo', 'bar']);
 	}
 }
