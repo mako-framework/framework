@@ -1,14 +1,16 @@
 <?php
 
+namespace mako\tests\unit\http;
+
 use \mako\http\Response;
 
-use Mockery as m;
+use \Mockery as m;
 
 /**
  * @group unit
  */
 
-class ResponseTest extends PHPUnit_Framework_TestCase
+class ResponseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 

@@ -1,13 +1,16 @@
 <?php
 
-use Mockery as m;
+namespace mako\tests\unit\database\query;
+
 use \mako\database\query\Query;
+
+use \Mockery as m;
 
 /**
  * @group unit
  */
 
-class FirebirdBuilderTest extends PHPUnit_Framework_TestCase
+class FirebirdBuilderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 

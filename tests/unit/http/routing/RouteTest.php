@@ -1,12 +1,14 @@
 <?php
 
+namespace mako\tests\unit\http\routing;
+
 use \mako\http\routing\Route;
 
 /**
  * @group unit
  */
 
-class RouteTest extends PHPUnit_Framework_TestCase
+class RouteTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 

@@ -1,12 +1,14 @@
 <?php
 
+namespace mako\tests\unit\utility;
+
 use \mako\utility\Num;
 
 /**
  * @group unit
  */
 
-class NumTest extends PHPUnit_Framework_TestCase
+class NumTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *

@@ -1,8 +1,10 @@
 <?php
 
+namespace mako\tests\unit\http\routing;
+
 use \mako\http\routing\Dispatcher;
 
-use Mockery as m;
+use \Mockery as m;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -95,7 +97,7 @@ class DispatcherTestControllerWithInjection extends \mako\http\routing\Controlle
  * @group unit
  */
 
-class DispatcherTest extends PHPUnit_Framework_TestCase
+class DispatcherTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 
@@ -194,7 +196,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestSimpleController::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestSimpleController::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -229,7 +231,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestSimpleController::bar');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestSimpleController::bar');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -262,7 +264,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestControllerWithNullBeforeFilter::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestControllerWithNullBeforeFilter::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -297,7 +299,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestControllerWithBeforeFilter::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestControllerWithBeforeFilter::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -326,7 +328,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestControllerWithAfterFilter::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestControllerWithAfterFilter::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -540,7 +542,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('DispatcherTestControllerWithInjection::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestControllerWithInjection::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 

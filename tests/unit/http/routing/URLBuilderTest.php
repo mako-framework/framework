@@ -1,14 +1,16 @@
 <?php
 
+namespace mako\tests\unit\http\routing;
+
 use \mako\http\routing\URLBuilder;
 
-use Mockery as m;
+use \Mockery as m;
 
 /**
  * @group unit
  */
 
-class URLBuilderTest extends PHPUnit_Framework_TestCase
+class URLBuilderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 

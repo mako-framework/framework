@@ -1,6 +1,10 @@
 <?php
 
+namespace mako\tests\integration\database\midgard;
+
 use \mako\database\ConnectionManager;
+
+use \DateTime;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -26,7 +30,7 @@ class TestUser extends TestORM
  * @requires extension pdo_sqlite
  */
 
-class ORMTest extends PHPUnit_Framework_TestCase
+class ORMTest extends \PHPUnit_Framework_TestCase
 {
 	protected $connectionManager;
 
@@ -72,7 +76,7 @@ class ORMTest extends PHPUnit_Framework_TestCase
 	{
 		$user = TestUser::get(1);
 
-		$this->assertInstanceOf('TestUser', $user);
+		$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $user);
 
 		$this->assertEquals(1, $user->id);
 
@@ -192,5 +196,16 @@ class ORMTest extends PHPUnit_Framework_TestCase
 		$user = TestUser::get(1)->toJSON();
 
 		$this->assertEquals('{"id":"1","created_at":"2014-04-30 14:40:01","username":"foo","email":"foo@example.org"}', $user);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testHydratorForwarding()
+	{
+		$user = TestUser::where('id', '=', 1)->first();
+
+		$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $user);
 	}
 }

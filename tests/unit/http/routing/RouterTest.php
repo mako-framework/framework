@@ -1,14 +1,16 @@
 <?php
 
+namespace mako\tests\unit\http\routing;
+
 use \mako\http\routing\Router;
 
-use Mockery as m;
+use \Mockery as m;
 
 /**
  * @group unit
  */
 
-class RouterTest extends PHPUnit_Framework_TestCase
+class RouterTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 

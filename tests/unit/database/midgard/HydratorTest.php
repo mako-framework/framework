@@ -1,8 +1,10 @@
 <?php
 
+namespace mako\tests\unit\database\midgard;
+
 use \mako\database\midgard\Hydrator;
 
-use Mockery as m;
+use \Mockery as m;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -26,7 +28,7 @@ class HydratorTestScopedModel extends \mako\database\midgard\ORM
  * @group unit
  */
 
-class HydratorTest extends PHPUnit_Framework_TestCase
+class HydratorTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 
