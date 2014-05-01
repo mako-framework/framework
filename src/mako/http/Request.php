@@ -345,7 +345,7 @@ class Request
 		{
 			$ip = explode(',', $this->server['HTTP_X_FORWARDED_FOR']);
 			
-			$ip = array_pop($ip);
+			$ip = trim($ip[0]);
 		}
 		elseif(!empty($this->server['HTTP_CLIENT_IP']))
 		{

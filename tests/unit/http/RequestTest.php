@@ -88,7 +88,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$request = new Request(['SERVER' => $server]);
 
-		$this->assertEquals('10.17.12.211', $request->ip());
+		$this->assertEquals('10.17.12.210', $request->ip());
 
 		//
 
