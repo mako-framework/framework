@@ -89,26 +89,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 		$request = new Request(['SERVER' => $server]);
 
 		$this->assertEquals('10.17.12.210', $request->ip());
-
-		//
-
-		unset($server['HTTP_X_FORWARDED_FOR']);
-
-		$server['HTTP_CLIENT_IP'] = '2001:0db8:0000:0000:0000:ff00:0042:8329';
-
-		$request = new Request(['SERVER' => $server]);
-
-		$this->assertEquals('2001:0db8:0000:0000:0000:ff00:0042:8329', $request->ip());
-
-		//
-
-		unset($server['HTTP_CLIENT_IP']);
-
-		$server['HTTP_X_CLUSTER_CLIENT_IP'] = '::1';
-
-		$request = new Request(['SERVER' => $server]);
-
-		$this->assertEquals('::1', $request->ip());
 	}
 
 	/**
