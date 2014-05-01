@@ -413,7 +413,7 @@ class Gatekeeper
 
 			if($remember === true)
 			{
-				$this->response->signedCookie($this->authKey, $this->user->token, (3600 * 24 * 365), $this->cookieParameters);
+				$this->response->signedCookie($this->authKey, $this->user->token, (3600 * 24 * 365), $this->cookieOptions);
 			}
 
 			return true;
@@ -485,7 +485,7 @@ class Gatekeeper
 
 		$this->session->remove($this->authKey);
 
-		$this->response->deleteCookie($this->authKey, $this->cookieParameters);
+		$this->response->deleteCookie($this->authKey, $this->cookieOptions);
 
 		$this->user = null;
 	}
