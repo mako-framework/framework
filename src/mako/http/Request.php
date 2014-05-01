@@ -347,14 +347,6 @@ class Request
 			
 			$ip = trim($ip[0]);
 		}
-		elseif(!empty($this->server['HTTP_CLIENT_IP']))
-		{
-			$ip = $this->server['HTTP_CLIENT_IP'];
-		}
-		elseif(!empty($this->server['HTTP_X_CLUSTER_CLIENT_IP']))
-		{
-			$ip = $this->server['HTTP_X_CLUSTER_CLIENT_IP'];
-		}
 		elseif(!empty($this->server['REMOTE_ADDR']))
 		{
 			$ip = $this->server['REMOTE_ADDR'];
