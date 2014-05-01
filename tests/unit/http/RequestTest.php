@@ -74,7 +74,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('10.17.12.209', $request->ip());
 
-		//
+		// Should fall back to localhost if an invalid IP is detected
 
 		$server['REMOTE_ADDR'] = 'invalid ip';
 
@@ -82,13 +82,31 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('127.0.0.1', $request->ip());
 
-		//
+		// Should ignore the X-Forwarded-For header if no list of trusted proxies is specified
 
-		$server['HTTP_X_FORWARDED_FOR'] = '10.17.12.210,10.17.12.211';
+		$server['REMOTE_ADDR'] = '127.0.0.1';
+
+		$server['HTTP_X_FORWARDED_FOR'] = '10.17.12.211, 10.17.12.212, 10.17.12.213';
 
 		$request = new Request(['SERVER' => $server]);
 
-		$this->assertEquals('10.17.12.210', $request->ip());
+		$this->assertEquals('127.0.0.1', $request->ip());
+
+		// Should return the IP forwarded by the first trusted proxy
+
+		$request = new Request(['SERVER' => $server]);
+
+		$request->setTrustedProxies(['10.17.12.213']);
+
+		$this->assertEquals('10.17.12.212', $request->ip());
+
+		// Should return the IP forwarded by the first trusted proxy
+
+		$request = new Request(['SERVER' => $server]);
+
+		$request->setTrustedProxies(['10.17.12.212', '10.17.12.213']);
+
+		$this->assertEquals('10.17.12.211', $request->ip());
 	}
 
 	/**

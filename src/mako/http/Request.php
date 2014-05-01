@@ -95,6 +95,14 @@ class Request
 	 */
 
 	protected $headers = [];
+
+	/**
+	 * Array of trusted proxy IP addresses.
+	 * 
+	 * @var array
+	 */
+
+	protected $trustedProxies;
 	
 	/**
 	 * Ip address of the client that made the request.
@@ -102,7 +110,7 @@ class Request
 	 * @var string
 	 */
 	
-	protected $ip = '127.0.0.1';
+	protected $ip;
 
 	/**
 	 * Is this an Ajax request?
@@ -339,24 +347,6 @@ class Request
 
 	protected function collectRequestInfo()
 	{
-		// Get the IP address of the client that made the request
-		
-		if(!empty($this->server['HTTP_X_FORWARDED_FOR']))
-		{
-			$ip = explode(',', $this->server['HTTP_X_FORWARDED_FOR']);
-			
-			$ip = trim($ip[0]);
-		}
-		elseif(!empty($this->server['REMOTE_ADDR']))
-		{
-			$ip = $this->server['REMOTE_ADDR'];
-		}
-		
-		if(isset($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false)
-		{
-			$this->ip = $ip;
-		}
-		
 		// Is this an Ajax request?
 
 		$this->isAjax = (isset($this->server['HTTP_X_REQUESTED_WITH']) && ($this->server['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
@@ -632,6 +622,18 @@ class Request
 	}
 
 	/**
+	 * Set the trusted proxies.
+	 * 
+	 * @access  public
+	 * @param   array  $trustedProxies  Array of trusted proxy IP addresses
+	 */
+
+	public function setTrustedProxies(array $trustedProxies)
+	{
+		$this->trustedProxies = $trustedProxies;
+	}
+
+	/**
 	 * Returns the ip of the client that made the request.
 	 *
 	 * @access  public
@@ -640,6 +642,31 @@ class Request
 	
 	public function ip()
 	{
+		if(empty($this->ip))
+		{
+			$ip = $this->server('REMOTE_ADDR');
+
+			if(!empty($this->trustedProxies))
+			{
+				$ips = array_map('trim', explode(',', $this->server('HTTP_X_FORWARDED_FOR')));
+
+				if(!empty($ips))
+				{
+					foreach($ips as $key => $value)
+					{
+						if(in_array($value, $this->trustedProxies))
+						{
+							unset($ips[$key]);
+						}
+					}
+
+					$ip = end($ips);
+				}
+			}
+
+			$this->ip = (filter_var($ip, FILTER_VALIDATE_IP) !== false) ? $ip : '127.0.0.1';
+		}
+
 		return $this->ip;
 	}
 

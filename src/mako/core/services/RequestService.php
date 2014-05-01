@@ -43,7 +43,13 @@ class RequestService extends \mako\core\services\Service
 	{
 		$this->container->registerSingleton(['mako\http\Request', 'request'], function($container)
 		{
-			return new Request(['languages' => $container->get('config')->get('application.languages')], $container->get('signer'));
+			$config = $container->get('config');
+
+			$request = new Request(['languages' => $config->get('application.languages')], $container->get('signer'));
+
+			$request->setTrustedProxies($config->get('application.trusted_proxies'));
+
+			return $request;
 		});
 	}
 }
