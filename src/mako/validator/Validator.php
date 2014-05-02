@@ -8,12 +8,12 @@
 namespace mako\validator;
 
 use \DateTime;
-use \mako\i18n\I18n;
-use \mako\utility\UUID;
-use \mako\utility\Str;
-use \mako\validator\plugins\ValidatorPluginInterface;
 use \RuntimeException;
 
+use \mako\i18n\I18n;
+use \mako\utility\Str;
+use \mako\utility\UUID;
+use \mako\validator\plugins\ValidatorPluginInterface;
 
 /**
  * Input validation.
