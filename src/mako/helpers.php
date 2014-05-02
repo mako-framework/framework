@@ -62,7 +62,7 @@ function mako_cascading_paths($parentPath, $relativePath, $file, $ext = '.php')
 
 		$paths[] = $parentPath . '/' . $relativePath . '/packages/' . $package . '/' . $file . $ext;
 
-		$paths[] = $parentPath . '/' . $package . '/' . $relativePath . '/' . $file . $ext;
+		$paths[] = $parentPath . '/packages/' . $package . '/' . $relativePath . '/' . $file . $ext;
 	}
 	else
 	{
