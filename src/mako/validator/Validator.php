@@ -10,6 +10,7 @@ namespace mako\validator;
 use \DateTime;
 use \mako\i18n\I18n;
 use \mako\utility\UUID;
+use \mako\utility\Str;
 use \mako\validator\plugins\ValidatorPluginInterface;
 use \RuntimeException;
 
@@ -697,7 +698,7 @@ class Validator
 
 	public function validate($field, $validator)
 	{
-		if(method_exists($this, $rule = 'validate' . ucfirst($validator['name'])))
+		if(method_exists($this, $rule = 'validate' . Str::underscored2camel($validator['name'])))
 		{
 			return $this->{$rule}($this->input[$field], $validator['parameters']);
 		}
