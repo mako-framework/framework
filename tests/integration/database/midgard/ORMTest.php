@@ -2,22 +2,27 @@
 
 namespace mako\tests\integration\database\midgard;
 
-use \mako\database\ConnectionManager;
-
 use \DateTime;
 
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class TestORM extends \mako\database\midgard\ORM
-{
-	
-}
-
-class TestUser extends TestORM
+class TestUser extends \TestORM
 {
 	protected $tableName = 'users';
+}
+
+class TestUserReadOnly extends TestUser
+{
+	protected $readOnly = true;
+}
+
+class OptimisticLock extends \TestORM
+{
+	protected $tableName = 'optimistic_locks';
+
+	protected $enableLocking = true;
 }
 
 // --------------------------------------------------------------------------
@@ -31,48 +36,8 @@ class TestUser extends TestORM
  * @requires extension pdo_sqlite
  */
 
-class ORMTest extends \PHPUnit_Framework_TestCase
+class ORMTest extends \ORMTestCase
 {
-	/**
-	 * 
-	 */
-
-	protected $connectionManager;
-
-	/**
-	 * 
-	 */
-
-	public function setup()
-	{
-		// Set up connection manager
-
-		$configs = 
-		[
-			'sqlite' => 
-			[
-				'dsn'         => 'sqlite::memory:',
-				'log_queries' => false,
-				'queries'     => 
-				[
-					"PRAGMA encoding = 'UTF-8'",
-				],
-			],
-		];
-
-		$this->connectionManager = new ConnectionManager('sqlite', $configs);
-
-		// Load test database into memory
-
-		$sql = file_get_contents(MAKO_TESTS_PATH . '/integration/resources/sqlite.sql');
-
-		$this->connectionManager->connection()->getPDO()->exec($sql);
-
-		// Set the connection manager
-
-		TestOrm::setConnectionManager($this->connectionManager);
-	}
-
 	/**
 	 * 
 	 */
@@ -101,6 +66,22 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 		$user = TestUser::get(999);
 
 		$this->assertFalse($user);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testAll()
+	{
+		$users = TestUser::all();
+
+		$this->assertInstanceOf('\mako\database\midgard\ResultSet', $users);
+
+		foreach($users as $user)
+		{
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $user);
+		}
 	}
 
 	/**
@@ -139,13 +120,21 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testCreate()
+	public function testSave()
 	{
 		$dateTime = new DateTime;
 
-		$user = TestUser::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
+		$user = new TestUser();
 
-		$this->assertEquals(4, $user->id);
+		$user->username = 'bax';
+
+		$user->email = 'bax@example.org';
+
+		$user->created_at = $dateTime;
+
+		$user->save();
+
+		$this->assertFalse(empty($user->id));
 
 		$this->assertEquals('bax', $user->username);
 
@@ -154,6 +143,159 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($dateTime, $user->created_at);
 
 		$user->delete();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testCreate()
+	{
+		$dateTime = new DateTime;
+
+		$user = TestUser::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
+
+		$this->assertFalse(empty($user->id));
+
+		$this->assertEquals('bax', $user->username);
+
+		$this->assertEquals('bax@example.org', $user->email);
+
+		$this->assertEquals($dateTime, $user->created_at);
+
+		$user->delete();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testUpdate()
+	{
+		$dateTime = new DateTime;
+
+		$user = TestUser::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
+
+		$id = $user->id;
+
+		$user = TestUser::get($id);
+
+		$user->username = 'foo';
+
+		$user->save();
+
+		$user = TestUser::get($id);
+
+		$this->assertEquals('foo', $user->username);
+
+		$user->delete();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testDelete()
+	{
+		$dateTime = new DateTime;
+
+		$user = TestUser::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
+
+		$count = TestUser::count();
+
+		$user->delete();
+
+		$this->assertEquals(($count - 1), TestUser::count());
+	}
+
+	/**
+	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
+	 */
+
+	public function saveReadOnly()
+	{
+		$dateTime = new DateTime;
+
+		$user = new TestUserReadOnly();
+
+		$user->username = 'bax';
+
+		$user->email = 'bax@example.org';
+
+		$user->created_at = $dateTime;
+
+		$user->save();
+	}
+
+	/**
+	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
+	 */
+
+	public function testCreateReadOnly()
+	{
+		$dateTime = new DateTime;
+
+		$user = TestUserReadOnly::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
+	}
+
+	/**
+	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
+	 */
+
+	public function testUpdateReadOnly()
+	{
+		$user = TestUserReadOnly::get(1);
+
+		$user->username = 'bax';
+
+		$user->save();
+	}
+
+	/**
+	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
+	 */
+
+	public function testDeleteReadOnly()
+	{
+		$user = TestUserReadOnly::get(1);
+
+		$user->delete();
+	}
+
+	/**
+	 * @expectedException \mako\database\midgard\StaleRecordException
+	 */
+
+	public function testOptimisticLockUpdate()
+	{
+		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
+
+		$record2 = OptimisticLock::ascending('id')->limit(1)->first();
+
+		$record1->value = 'bar';
+
+		$record1->save();
+
+		$record2->value = 'bar';
+
+		$record2->save();
+	}
+
+	/**
+	 * @expectedException \mako\database\midgard\StaleRecordException
+	 */
+
+	public function testOptimisticLockDelete()
+	{
+		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
+
+		$record2 = OptimisticLock::ascending('id')->limit(1)->first();
+
+		$record1->value = 'bar';
+
+		$record1->save();
+
+		$record2->delete();
 	}
 
 	/**
@@ -176,7 +318,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$clone->save();
 
-		$this->assertEquals(4, $clone->id);
+		$this->assertFalse(empty($clone->id));
 
 		$clone->delete();
 	}

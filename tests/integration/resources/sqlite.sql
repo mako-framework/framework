@@ -53,3 +53,12 @@ CREATE TABLE "users" (
 INSERT INTO "users" ("id", "created_at", "username", "email") VALUES (1, '2014-04-30 14:40:01', 'foo', 'foo@example.org');
 INSERT INTO "users" ("id", "created_at", "username", "email") VALUES (2, '2014-04-30 14:02:43', 'bar', 'bar@example.org');
 INSERT INTO "users" ("id", "created_at", "username", "email") VALUES (3, '2014-04-30 14:12:43', 'baz', 'baz@example.org');
+
+DROP TABLE IF EXISTS "optimistic_locks";
+CREATE TABLE "optimistic_locks" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "lock_version" integer NOT NULL DEFAULT 0,
+  "value" text NOT NULL
+);
+
+INSERT INTO "optimistic_locks" ("id", "lock_version", "value") VALUES (1, 0, "foo");

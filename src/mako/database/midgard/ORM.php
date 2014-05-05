@@ -789,6 +789,11 @@ abstract class ORM
 				break;
 		}
 
+		if($this->enableLocking)
+		{
+			$this->columns[$this->lockingColumn] = 0;
+		}
+
 		$this->hydrator()->insert($this->columns);
 
 		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
