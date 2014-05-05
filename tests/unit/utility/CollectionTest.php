@@ -1,0 +1,214 @@
+<?php
+
+namespace mako\tests\unit\utility;
+
+use \mako\utility\Collection;
+
+/**
+ * @group unit
+ */
+
+class CollectionTest extends \PHPUnit_Framework_TestCase
+{
+	/**
+	 * 
+	 */
+
+	public function testGetItems()
+	{
+		$collection = new Collection();
+
+		$this->assertEquals([], $collection->getItems());
+
+		//
+
+		$collection = new Collection([1,2,3]);
+
+		$this->assertEquals([1,2,3], $collection->getItems());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testOffsetExists()
+	{
+		$collection = new Collection();
+
+		$this->assertFalse(isset($collection[0]));
+
+		//
+
+		$collection = new Collection([1,2,3]);
+
+		$this->assertTrue(isset($collection[0]));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testOffsetGet()
+	{
+		$collection = new Collection();
+
+		$this->assertNull($collection[0]);
+
+		//
+
+		$collection = new Collection([1,2,3]);
+
+		$this->assertEquals(1, $collection[0]);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testOffsetSet()
+	{
+		$collection = new Collection();
+
+		$collection[4] = 'foobar';
+
+		$this->assertTrue(isset($collection[4]));
+
+		$this->assertEquals('foobar', $collection[4]);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testOffsetUnset()
+	{
+		$collection = new Collection([1,2,3]);
+
+		unset($collection[1]);
+
+		$this->assertFalse(isset($collection[1]));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testCount()
+	{
+		$collection = new Collection();
+
+		$this->assertEquals(0, count($collection));
+
+		$this->assertEquals(0, $collection->count());
+
+		//
+
+		$collection = new Collection([1,2,3]);
+
+		$this->assertEquals(3, count($collection));
+
+		$this->assertEquals(3, $collection->count());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testIteration()
+	{
+		$string = '';
+
+		foreach(new Collection([1,2,3]) as $item)
+		{
+			$string .= $item;
+		}
+
+		$this->assertEquals('123', $string);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testIsEmpty()
+	{
+		$collection = new Collection();
+
+		$this->assertTrue($collection->isEmpty());
+
+		//
+
+		$collection = new Collection([1, 2, 3]);
+
+		$this->assertFalse($collection->isEmpty());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testUnshift()
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$count = $collection->unshift(10);
+
+		$this->assertEquals(4, $count);
+
+		$this->assertEquals([10, 1, 2, 3], $collection->getItems());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testShift()
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$item = $collection->shift();
+
+		$this->assertEquals(1, $item);
+
+		$this->assertEquals([2, 3], $collection->getItems());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testPush()
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$count = $collection->push(10);
+
+		$this->assertEquals(4, $count);
+
+		$this->assertEquals([1, 2, 3, 10], $collection->getItems());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testPop()
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$item = $collection->pop();
+
+		$this->assertEquals(3, $item);
+
+		$this->assertEquals([1, 2], $collection->getItems());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testShuffle()
+	{
+		// Impossible to assert a return value
+	}
+}
