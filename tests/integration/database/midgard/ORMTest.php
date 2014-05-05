@@ -26,12 +26,17 @@ class TestUser extends TestORM
 
 /**
  * @group integration
+ * @group integration:database
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
 
 class ORMTest extends \PHPUnit_Framework_TestCase
 {
+	/**
+	 * 
+	 */
+
 	protected $connectionManager;
 
 	/**
