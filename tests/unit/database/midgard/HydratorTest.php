@@ -10,7 +10,7 @@ use \Mockery as m;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class HydratorTestScopedModel extends \mako\database\midgard\ORM
+class ScopedModel extends \mako\database\midgard\ORM
 {
 	protected $tableName = 'foos';
 
@@ -289,7 +289,7 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 	public function testScopeException()
 	{
-		$model = new HydratorTestScopedModel();
+		$model = new ScopedModel();
 
 		$hydrator = new Hydrator($this->getConnecion(), $model);
 
@@ -302,7 +302,7 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 	public function testScope()
 	{
-		$model = new HydratorTestScopedModel();
+		$model = new ScopedModel();
 
 		$hydrator = new Hydrator($this->getConnecion(), $model);
 

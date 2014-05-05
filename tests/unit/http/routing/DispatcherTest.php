@@ -10,7 +10,7 @@ use \Mockery as m;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class DispatcherTestInjectMe
+class InjectMe
 {
 	public function helloWorld()
 	{
@@ -18,7 +18,7 @@ class DispatcherTestInjectMe
 	}
 }
 
-class DispatcherTestSimpleController extends \mako\http\routing\Controller
+class SimpleController extends \mako\http\routing\Controller
 {
 	public function foo()
 	{
@@ -33,7 +33,7 @@ class DispatcherTestSimpleController extends \mako\http\routing\Controller
 	}
 }
 
-class DispatcherTestControllerWithBeforeFilter extends \mako\http\routing\Controller
+class ControllerWithBeforeFilter extends \mako\http\routing\Controller
 {
 	public function beforeFilter()
 	{
@@ -46,7 +46,7 @@ class DispatcherTestControllerWithBeforeFilter extends \mako\http\routing\Contro
 	}
 }
 
-class DispatcherTestControllerWithNullBeforeFilter extends \mako\http\routing\Controller
+class ControllerWithNullBeforeFilter extends \mako\http\routing\Controller
 {
 	public function beforeFilter()
 	{
@@ -59,7 +59,7 @@ class DispatcherTestControllerWithNullBeforeFilter extends \mako\http\routing\Co
 	}
 }
 
-class DispatcherTestControllerWithAfterFilter extends \mako\http\routing\Controller
+class ControllerWithAfterFilter extends \mako\http\routing\Controller
 {
 	public function afterFilter()
 	{
@@ -72,11 +72,11 @@ class DispatcherTestControllerWithAfterFilter extends \mako\http\routing\Control
 	}
 }
 
-class DispatcherTestControllerWithInjection extends \mako\http\routing\Controller
+class ControllerWithInjection extends \mako\http\routing\Controller
 {
 	protected $injectMe;
 
-	public function __construct($request, $response, DispatcherTestInjectMe $injectMe)
+	public function __construct($request, $response, InjectMe $injectMe)
 	{
 		parent::__construct($request, $response);
 
@@ -196,7 +196,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestSimpleController::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\SimpleController::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -231,7 +231,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestSimpleController::bar');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\SimpleController::bar');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -264,7 +264,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestControllerWithNullBeforeFilter::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithNullBeforeFilter::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -299,7 +299,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestControllerWithBeforeFilter::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithBeforeFilter::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -328,7 +328,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestControllerWithAfterFilter::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithAfterFilter::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
@@ -542,7 +542,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getHeaders')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\DispatcherTestControllerWithInjection::foo');
+		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithInjection::foo');
 
 		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
 
