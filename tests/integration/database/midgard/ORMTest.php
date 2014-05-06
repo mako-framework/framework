@@ -20,6 +20,14 @@ class TestUserReadOnly extends TestUser
 	protected $readOnly = true;
 }
 
+class TestUserScoped extends TestUser
+{
+	public function scope_withArticles($query)
+	{
+		return $query->join('articles', 'articles.user_id', '=', 'users.id')->distinct();
+	}
+}
+
 class OptimisticLock extends \TestORM
 {
 	protected $tableName = 'optimistic_locks';
@@ -391,6 +399,17 @@ class ORMTest extends \ORMTestCase
 		$this->assertFalse(empty($clone->id));
 
 		$clone->delete();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testScoped()
+	{
+		$users = TestUserScoped::withArticles()->all();
+
+		$this->assertEquals(2, count($users));
 	}
 
 	/**
