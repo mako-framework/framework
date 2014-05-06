@@ -6,6 +6,10 @@ use \mako\database\midgard\ResultSet;
 
 use \Mockery as m;
 
+/**
+ * @group unit
+ */
+
 class ResultSetTest extends \PHPUnit_Framework_TestCase
 {
 	/**
