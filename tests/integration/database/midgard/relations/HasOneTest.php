@@ -73,7 +73,7 @@ class HasOneTest extends \ORMTestCase
 	 * 
 	 */
 
-	public function testLoopHasOneRelation()
+	public function testLazyHasOneRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
 
@@ -93,7 +93,7 @@ class HasOneTest extends \ORMTestCase
 	 * 
 	 */
 
-	public function testEagerLoopHasOneRelation()
+	public function testEagerHasOneRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
 

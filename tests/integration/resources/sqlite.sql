@@ -27,9 +27,9 @@ CREATE TABLE "groups_users" (
 );
 
 INSERT INTO "groups_users" ("group_id", "user_id") VALUES (1, 1);
-INSERT INTO "groups_users" ("group_id", "user_id") VALUES (1, 2);
-INSERT INTO "groups_users" ("group_id", "user_id") VALUES (1, 3);
 INSERT INTO "groups_users" ("group_id", "user_id") VALUES (2, 1);
+INSERT INTO "groups_users" ("group_id", "user_id") VALUES (2, 2);
+INSERT INTO "groups_users" ("group_id", "user_id") VALUES (2, 3);
 
 DROP TABLE IF EXISTS "profiles";
 CREATE TABLE "profiles" (
