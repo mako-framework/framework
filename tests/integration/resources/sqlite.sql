@@ -62,3 +62,20 @@ CREATE TABLE "optimistic_locks" (
 );
 
 INSERT INTO "optimistic_locks" ("id", "lock_version", "value") VALUES (1, 0, "foo");
+
+DROP TABLE IF EXISTS "uuid_keys";
+CREATE TABLE "uuid_keys" (
+  "id" text NOT NULL PRIMARY KEY,
+  "value" text NOT NULL
+);
+
+DROP TABLE IF EXISTS "custom_keys";
+CREATE TABLE "custom_keys" (
+  "id" text NOT NULL PRIMARY KEY,
+  "value" text NOT NULL
+);
+
+DROP TABLE IF EXISTS "no_keys";
+CREATE TABLE "no_keys" (
+  "value" text NOT NULL
+);

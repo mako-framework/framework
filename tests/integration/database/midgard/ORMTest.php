@@ -4,6 +4,8 @@ namespace mako\tests\integration\database\midgard;
 
 use \DateTime;
 
+use \mako\utility\UUID;
+
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
@@ -24,6 +26,33 @@ class OptimisticLock extends \TestORM
 
 	protected $enableLocking = true;
 }
+
+class UUIDKey extends \TestORM
+{
+	protected $tableName = 'uuid_keys';
+
+	protected $primaryKeyType = \TestORM::PRIMARY_KEY_TYPE_UUID;
+}
+
+class CustomKey extends \TestORM
+{
+	protected $tableName = 'custom_keys';
+	
+	protected $primaryKeyType = \TestORM::PRIMARY_KEY_TYPE_CUSTOM;
+
+	protected function generatePrimaryKey()
+	{
+		return 'foobarbax';
+	}
+}
+
+class NoKey extends \TestORM
+{
+	protected $tableName = 'no_keys';
+
+	protected $primaryKeyType = \TestORM::PRIMARY_KEY_TYPE_NONE;
+}
+
 
 // --------------------------------------------------------------------------
 // END CLASSES
@@ -82,6 +111,47 @@ class ORMTest extends \ORMTestCase
 		{
 			$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $user);
 		}
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testLimitColumnsFirst()
+	{
+		$user = TestUser::where('id', '=', 1)->first(['username', 'email']);
+
+		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $user->getColumns());
+
+		$this->assertTrue($user->isReadOnly());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testLimitColumnsAll()
+	{
+		$users = TestUser::all(['username', 'email']);
+
+		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getColumns());
+
+		$this->assertTrue($users[0]->isReadOnly());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testJoin()
+	{
+		$users = TestUser::join('articles', 'articles.user_id', '=', 'users.id')->distinct()->all();
+
+		$this->assertEquals(2, count($users));
+
+		$this->assertEquals(['id' => 1, 'created_at' => '2014-04-30 14:40:01', 'username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getColumns());
+
+		$this->assertEquals(['id' => 2, 'created_at' => '2014-04-30 14:02:43', 'username' => 'bar', 'email' => 'bar@example.org'], $users[1]->getColumns());
 	}
 
 	/**
@@ -321,6 +391,51 @@ class ORMTest extends \ORMTestCase
 		$this->assertFalse(empty($clone->id));
 
 		$clone->delete();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testUUIDKey()
+	{
+		$uuid = UUIDKey::create(['value' => 'foo']);
+
+		$this->assertTrue(UUID::validate($uuid->id));
+
+		$uuid = UUIDKey::first();
+
+		$this->assertTrue(UUID::validate($uuid->id));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testCustomKey()
+	{
+		$custom = CustomKey::create(['value' => 'foo']);
+
+		$this->assertEquals('foobarbax', $custom->id);
+
+		$custom = CustomKey::first();
+
+		$this->assertEquals('foobarbax', $custom->id);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testNoKey()
+	{
+		$none = NoKey::create(['value' => 'foo']);
+
+		$this->assertEmpty($none->id);
+
+		$none = NoKey::first();
+
+		$this->assertEmpty($none->id);
 	}
 
 	/**
