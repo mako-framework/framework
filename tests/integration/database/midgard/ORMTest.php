@@ -431,11 +431,15 @@ class ORMTest extends \ORMTestCase
 	{
 		$none = NoKey::create(['value' => 'foo']);
 
-		$this->assertEmpty($none->id);
+		$columns = $none->getColumns();
+
+		$this->assertTrue(empty($columns['id']));
 
 		$none = NoKey::first();
 
-		$this->assertEmpty($none->id);
+		$columns = $none->getColumns();
+
+		$this->assertTrue(empty($columns['id']));
 	}
 
 	/**
