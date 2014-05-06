@@ -19,11 +19,6 @@ class HasOneUser extends \TestORM
 class HasOneProfile extends \TestORM
 {
 	protected $tableName = 'profiles';
-
-	public function user()
-	{
-		return $this->belongsTo('mako\tests\integration\database\relations\midgard\HasOneUser', 'user_id');
-	}
 }
 
 // --------------------------------------------------------------------------
@@ -52,21 +47,6 @@ class HasOneTest extends \ORMTestCase
 		$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasOneProfile', $profile);
 
 		$this->assertEquals('music', $profile->interests);
-	}
-
-	/**
-	 * 
-	 */
-
-	public function testBasicBelongsToRelation()
-	{
-		$profile = HasOneProfile::get(1);
-
-		$user = $profile->user;
-
-		$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasOneUser', $user);
-
-		$this->assertEquals('foo', $user->username);
 	}
 
 	/**

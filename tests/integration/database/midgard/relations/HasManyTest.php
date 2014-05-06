@@ -19,11 +19,6 @@ class HasManyUser extends \TestORM
 class HasManyArticle extends \TestORM
 {
 	protected $tableName = 'articles';
-
-	public function user()
-	{
-		return $this->belongsTo('mako\tests\integration\database\relations\midgard\HasManyUser', 'user_id');
-	}
 }
 
 // --------------------------------------------------------------------------
@@ -57,21 +52,6 @@ class HasManyTest extends \ORMTestCase
 		{
 			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasManyArticle', $article);
 		}
-	}
-
-	/**
-	 * 
-	 */
-
-	public function testBasicBelongsToRelation()
-	{
-		$article = HasManyArticle::get(1);
-
-		$user = $article->user;
-
-		$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasManyUser', $user);
-
-		$this->assertEquals('foo', $user->username);
 	}
 
 	/**
