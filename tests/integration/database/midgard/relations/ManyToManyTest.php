@@ -134,4 +134,75 @@ class ManyToManyTest extends \ORMTestCase
 
 		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
 	}
+
+	/**
+	 * 
+	 */
+
+	public function testLinkAndUnlink()
+	{
+		$user = ManyToManyUser::get(3);
+
+		$group = ManyToManyGroup::get(1);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$this->assertEquals(1, count($group->users()->all()));
+
+		// Link and unlink using object
+
+		$user->groups()->link($group);
+
+		$this->assertEquals(2, count($user->groups()->all()));
+
+		$this->assertEquals(2, count($group->users()->all()));
+
+		$user->groups()->unlink($group);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$this->assertEquals(1, count($group->users()->all()));
+
+		// Link and unlink using id
+
+		$user->groups()->link($group->id);
+
+		$this->assertEquals(2, count($user->groups()->all()));
+
+		$this->assertEquals(2, count($group->users()->all()));
+
+		$user->groups()->unlink($group->id);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$this->assertEquals(1, count($group->users()->all()));
+
+		// Link and unlink using object
+
+		$group->users()->link($user);
+
+		$this->assertEquals(2, count($user->groups()->all()));
+
+		$this->assertEquals(2, count($group->users()->all()));
+
+		$group->users()->unlink($user);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$this->assertEquals(1, count($group->users()->all()));
+
+		// Link and unlink using id
+
+		$group->users()->link($user->id);
+
+		$this->assertEquals(2, count($user->groups()->all()));
+
+		$this->assertEquals(2, count($group->users()->all()));
+
+		$group->users()->unlink($user->id);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$this->assertEquals(1, count($group->users()->all()));
+	}
 }

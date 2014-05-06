@@ -123,4 +123,27 @@ class HasManyTest extends \ORMTestCase
 
 		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
 	}
+
+	/**
+	 * 
+	 */
+
+	public function testCreateRelated()
+	{
+		$user = HasManyUser::get(1);
+
+		$article = new HasManyArticle();
+
+		$article->created_at = '014-04-30 15:02:10';
+
+		$article->title = 'article 4';
+
+		$article->body = 'article 4 body';
+
+		$user->articles()->create($article);
+
+		$this->assertEquals($article->user_id, $user->id);
+
+		$article->delete();
+	}
 }

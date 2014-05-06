@@ -108,4 +108,33 @@ class HasOneTest extends \ORMTestCase
 
 		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
 	}
+
+	/**
+	 * 
+	 */
+
+	public function testCreateRelated()
+	{
+		$user = new HasOneUser();
+
+		$user->created_at = '2014-04-30 14:12:43';
+
+		$user->username = 'bax';
+
+		$user->email = 'bax@example.org';
+
+		$user->save();
+
+		$profile = new HasOneProfile();
+
+		$profile->interests = 'gaming';
+
+		$user->profile()->create($profile);
+
+		$this->assertEquals($user->id, $profile->user_id);
+
+		$profile->delete();
+
+		$user->delete();
+	}
 }
