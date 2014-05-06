@@ -28,7 +28,7 @@ abstract class ORMTestCase extends \PHPUnit_Framework_TestCase
 			'sqlite' => 
 			[
 				'dsn'         => 'sqlite::memory:',
-				'log_queries' => false,
+				'log_queries' => true,
 				'queries'     => 
 				[
 					"PRAGMA encoding = 'UTF-8'",
