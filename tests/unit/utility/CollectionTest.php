@@ -207,6 +207,25 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testChunk()
+	{
+		$collection = new Collection([1, 2, 3, 4, 5, 6]);
+
+		$collection = $collection->chunk(2);
+
+		$this->assertEquals(3, count($collection));
+
+		$this->assertEquals([1, 2], $collection[0]->getItems());
+
+		$this->assertEquals([3, 4], $collection[1]->getItems());
+
+		$this->assertEquals([5, 6], $collection[2]->getItems());
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testShuffle()
 	{
 		// Impossible to assert a return value
