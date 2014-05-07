@@ -917,4 +917,88 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('SELECT SUM("foo") FROM "foobar"', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
+
+	/**
+	 * 
+	 */
+
+	public function testBatch()
+	{
+		$builder = m::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
+
+		$builder->shouldReceive('limit')->once()->with(5);
+
+		$builder->shouldReceive('offset')->once()->with(5);
+
+		$builder->shouldReceive('offset')->once()->with(10);
+
+		$builder->shouldReceive('offset')->once()->with(15);
+
+		$builder->shouldReceive('offset')->once()->with(20);
+
+		$builder->shouldReceive('all')->times(5)->andReturn([5], [5], [5], [5], []);
+
+		$batches = 0;
+
+		$builder->ascending('id')->batch(function($results) use (&$batches)
+		{
+			$this->assertEquals([5], $results);
+
+			$batches++;
+		}, 5);
+
+		$this->assertEquals(4, $batches);
+
+		//
+
+		$builder = m::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
+
+		$builder->shouldReceive('limit')->once()->with(5);
+
+		$builder->shouldReceive('offset')->once()->with(5);
+
+		$builder->shouldReceive('offset')->once()->with(10);
+
+		$builder->shouldReceive('offset')->once()->with(15);
+
+		$builder->shouldReceive('offset')->once()->with(20);
+
+		$builder->shouldReceive('offset')->once()->with(25);
+
+		$builder->shouldReceive('all')->times(5)->andReturn([5], [5], [5], [5], []);
+
+		$batches = 0;
+
+		$builder->ascending('id')->batch(function($results) use (&$batches)
+		{
+			$this->assertEquals([5], $results);
+
+			$batches++;
+		}, 5, 5);
+
+		$this->assertEquals(4, $batches);
+
+		//
+
+		$builder = m::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
+
+		$builder->shouldReceive('limit')->once()->with(5);
+
+		$builder->shouldReceive('offset')->once()->with(5);
+
+		$builder->shouldReceive('offset')->once()->with(10);
+
+		$builder->shouldReceive('all')->times(2)->andReturn([5], [5]);
+
+		$batches = 0;
+
+		$builder->ascending('id')->batch(function($results) use (&$batches)
+		{
+			$this->assertEquals([5], $results);
+
+			$batches++;
+		}, 5, 5, 15);
+
+		$this->assertEquals(2, $batches);
+	}
 }
