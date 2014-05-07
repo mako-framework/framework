@@ -963,9 +963,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$builder->shouldReceive('offset')->once()->with(20);
 
-		$builder->shouldReceive('offset')->once()->with(25);
-
-		$builder->shouldReceive('all')->times(5)->andReturn([5], [5], [5], [5], []);
+		$builder->shouldReceive('all')->times(4)->andReturn([5], [5], [5], []);
 
 		$batches = 0;
 
@@ -976,7 +974,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 			$batches++;
 		}, 5, 5);
 
-		$this->assertEquals(4, $batches);
+		$this->assertEquals(3, $batches);
 
 		//
 
