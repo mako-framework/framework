@@ -227,17 +227,15 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 	 * Chunks the collection into a collection containing $size sized collections.
 	 * 
 	 * @access  public
-	 * @param   int
+	 * @param   int                       $size  Chunk size
 	 * @return  \mako\utility\Collection
 	 */
 
 	public function chunk($size)
 	{
-		$chunks = array_chunk($this->items, $size);
-
 		$collections = [];
 
-		foreach($chunks as $chunk)
+		foreach(array_chunk($this->items, $size) as $chunk)
 		{
 			$collections[] = new static($chunk);
 		}
