@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\tests\integration\database\relations\midgard;
+namespace mako\tests\integration\database\midgard\relations;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -17,7 +17,7 @@ class BelongsToProfile extends \TestORM
 
 	public function user()
 	{
-		return $this->belongsTo('mako\tests\integration\database\relations\midgard\BelongsToUser', 'user_id');
+		return $this->belongsTo('mako\tests\integration\database\midgard\relations\BelongsToUser', 'user_id');
 	}
 }
 
@@ -44,7 +44,7 @@ class BelongsToTest extends \ORMTestCase
 
 		$user = $profile->user;
 
-		$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\BelongsToUser', $user);
+		$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\BelongsToUser', $user);
 
 		$this->assertEquals($profile->user_id, $user->id);
 	}
@@ -61,7 +61,7 @@ class BelongsToTest extends \ORMTestCase
 
 		foreach($profiles as $profile)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\BelongsToUser', $profile->user);
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\BelongsToUser', $profile->user);
 
 			$this->assertEquals($profile->user_id, $profile->user->id);
 		}
@@ -83,7 +83,7 @@ class BelongsToTest extends \ORMTestCase
 
 		foreach($profiles as $profile)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\BelongsToUser', $profile->user);
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\BelongsToUser', $profile->user);
 
 			$this->assertEquals($profile->user_id, $profile->user->id);
 		}

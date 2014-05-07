@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\tests\integration\database\relations\midgard;
+namespace mako\tests\integration\database\midgard\relations;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -12,7 +12,7 @@ class HasManyUser extends \TestORM
 
 	public function articles()
 	{
-		return $this->hasMany('mako\tests\integration\database\relations\midgard\HasManyArticle', 'user_id');
+		return $this->hasMany('mako\tests\integration\database\midgard\relations\HasManyArticle', 'user_id');
 	}
 }
 
@@ -50,7 +50,7 @@ class HasManyTest extends \ORMTestCase
 
 		foreach($articles as $article)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasManyArticle', $article);
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyArticle', $article);
 
 			$this->assertEquals($article->user_id, $user->id);
 		}
@@ -72,7 +72,7 @@ class HasManyTest extends \ORMTestCase
 
 			foreach($user->articles as $article)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasManyArticle', $article);
+				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyArticle', $article);
 
 				$this->assertEquals($article->user_id, $user->id);
 			}
@@ -99,7 +99,7 @@ class HasManyTest extends \ORMTestCase
 
 			foreach($user->articles as $article)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasManyArticle', $article);
+				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyArticle', $article);
 
 				$this->assertEquals($article->user_id, $user->id);
 			}

@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\tests\integration\database\relations\midgard;
+namespace mako\tests\integration\database\midgard\relations;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -12,7 +12,7 @@ class ManyToManyUser extends \TestORM
 
 	public function groups()
 	{
-		return $this->manyToMany('mako\tests\integration\database\relations\midgard\ManyToManyGroup', 'user_id', 'groups_users', 'group_id');
+		return $this->manyToMany('mako\tests\integration\database\midgard\relations\ManyToManyGroup', 'user_id', 'groups_users', 'group_id');
 	}
 }
 
@@ -22,7 +22,7 @@ class ManyToManyGroup extends \TestORM
 
 	public function users()
 	{
-		return $this->manyToMany('mako\tests\integration\database\relations\midgard\ManyToManyUser', 'group_id', 'groups_users', 'user_id');
+		return $this->manyToMany('mako\tests\integration\database\midgard\relations\ManyToManyUser', 'group_id', 'groups_users', 'user_id');
 	}
 }
 
@@ -55,7 +55,7 @@ class ManyToManyTest extends \ORMTestCase
 
 		foreach($groups as $group)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\ManyToManyGroup', $group);
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
 		}
 
 		$this->assertEquals('admin', $groups[0]->name);
@@ -79,7 +79,7 @@ class ManyToManyTest extends \ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\ManyToManyUser', $user);
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyUser', $user);
 		}
 
 		$this->assertEquals('foo', $users[0]->username);
@@ -101,7 +101,7 @@ class ManyToManyTest extends \ORMTestCase
 
 			foreach($user->groups as $group)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\ManyToManyGroup', $group);
+				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
 			}
 		}
 
@@ -126,7 +126,7 @@ class ManyToManyTest extends \ORMTestCase
 
 			foreach($user->groups as $group)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\ManyToManyGroup', $group);
+				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
 			}
 		}
 

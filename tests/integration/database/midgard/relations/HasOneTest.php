@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\tests\integration\database\relations\midgard;
+namespace mako\tests\integration\database\midgard\relations;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -12,7 +12,7 @@ class HasOneUser extends \TestORM
 
 	public function profile()
 	{
-		return $this->hasOne('mako\tests\integration\database\relations\midgard\HasOneProfile', 'user_id');
+		return $this->hasOne('mako\tests\integration\database\midgard\relations\HasOneProfile', 'user_id');
 	}
 }
 
@@ -44,7 +44,7 @@ class HasOneTest extends \ORMTestCase
 
 		$profile = $user->profile;
 
-		$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasOneProfile', $profile);
+		$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasOneProfile', $profile);
 
 		$this->assertEquals($user->id, $profile->user_id);
 	}
@@ -61,7 +61,7 @@ class HasOneTest extends \ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasOneProfile', $user->profile);
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasOneProfile', $user->profile);
 
 			$this->assertEquals($user->id, $user->profile->user_id);
 		}
@@ -83,7 +83,7 @@ class HasOneTest extends \ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasOneProfile', $user->profile);
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasOneProfile', $user->profile);
 
 			$this->assertEquals($user->id, $user->profile->user_id);
 		}

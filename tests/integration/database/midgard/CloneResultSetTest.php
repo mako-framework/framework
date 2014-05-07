@@ -48,8 +48,11 @@ class CloneResultSetTest extends \ORMTestCase
 		foreach($chunkedUsers[0] as $key => $user)
 		{
 			$this->assertNotEquals($user->id, $chunkedUsers[1][$key]->id);
+			
 			$this->assertEquals($user->created_at, $chunkedUsers[1][$key]->created_at);
+			
 			$this->assertEquals($user->username, $chunkedUsers[1][$key]->username);
+			
 			$this->assertEquals($user->email, $chunkedUsers[1][$key]->email);
 		}
 	}
