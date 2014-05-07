@@ -310,4 +310,49 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals($hydrator->getTable(), 'barfoo');
 	}
+
+	/**
+	 * 
+	 */
+
+	public function testBatch()
+	{
+		$model = m::mock('\mako\database\midgard\ORM');
+
+		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getPrimaryKey')->andReturn('foobar');
+
+		$hydrator = m::mock('\mako\database\midgard\Hydrator[all]', [$this->getConnecion(), $model]);
+
+		$hydrator->shouldReceive('all')->once()->andReturn([]);
+
+		$hydrator->batch(function($results)
+		{
+
+		});
+
+		$this->assertEquals([['column' => ['foobar'], 'order' => 'ASC']], $hydrator->getOrderings());
+
+		//
+
+		$model = m::mock('\mako\database\midgard\ORM');
+
+		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$hydrator = m::mock('\mako\database\midgard\Hydrator[all]', [$this->getConnecion(), $model]);
+
+		$hydrator->shouldReceive('all')->once()->andReturn([]);
+
+		$hydrator->descending('barfoo')->batch(function($results)
+		{
+
+		});
+
+		$this->assertEquals([['column' => ['barfoo'], 'order' => 'DESC']], $hydrator->getOrderings());
+	}
 }
