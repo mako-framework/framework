@@ -349,7 +349,7 @@ class Hydrator extends \mako\database\query\Query
 			$this->ascending($this->model->getPrimaryKey());
 		}
 
-		parent::batch($processor, $batchSize, $offsetEnd, $offsetEnd);
+		parent::batch($processor, $batchSize, $offsetStart, $offsetEnd);
 	}
 
 	/**
