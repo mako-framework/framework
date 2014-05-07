@@ -46,7 +46,7 @@ class BelongsToTest extends \ORMTestCase
 
 		$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\BelongsToUser', $user);
 
-		$this->assertEquals('foo', $user->username);
+		$this->assertEquals($profile->user_id, $user->id);
 	}
 
 	/**
@@ -62,6 +62,8 @@ class BelongsToTest extends \ORMTestCase
 		foreach($profiles as $profile)
 		{
 			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\BelongsToUser', $profile->user);
+
+			$this->assertEquals($profile->user_id, $profile->user->id);
 		}
 
 		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
@@ -82,6 +84,8 @@ class BelongsToTest extends \ORMTestCase
 		foreach($profiles as $profile)
 		{
 			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\BelongsToUser', $profile->user);
+
+			$this->assertEquals($profile->user_id, $profile->user->id);
 		}
 
 		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());

@@ -46,7 +46,7 @@ class HasOneTest extends \ORMTestCase
 
 		$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasOneProfile', $profile);
 
-		$this->assertEquals('music', $profile->interests);
+		$this->assertEquals($user->id, $profile->user_id);
 	}
 
 	/**
@@ -62,6 +62,8 @@ class HasOneTest extends \ORMTestCase
 		foreach($users as $user)
 		{
 			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasOneProfile', $user->profile);
+
+			$this->assertEquals($user->id, $user->profile->user_id);
 		}
 
 		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
@@ -82,6 +84,8 @@ class HasOneTest extends \ORMTestCase
 		foreach($users as $user)
 		{
 			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasOneProfile', $user->profile);
+
+			$this->assertEquals($user->id, $user->profile->user_id);
 		}
 
 		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());

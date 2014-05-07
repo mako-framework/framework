@@ -51,6 +51,8 @@ class HasManyTest extends \ORMTestCase
 		foreach($articles as $article)
 		{
 			$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasManyArticle', $article);
+
+			$this->assertEquals($article->user_id, $user->id);
 		}
 	}
 
@@ -71,6 +73,8 @@ class HasManyTest extends \ORMTestCase
 			foreach($user->articles as $article)
 			{
 				$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasManyArticle', $article);
+
+				$this->assertEquals($article->user_id, $user->id);
 			}
 		}
 
@@ -96,6 +100,8 @@ class HasManyTest extends \ORMTestCase
 			foreach($user->articles as $article)
 			{
 				$this->assertInstanceOf('mako\tests\integration\database\relations\midgard\HasManyArticle', $article);
+
+				$this->assertEquals($article->user_id, $user->id);
 			}
 		}
 
