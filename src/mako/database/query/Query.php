@@ -1013,20 +1013,20 @@ class Query
 	}
 
 	/**
-	 * Executes a SELECT query and returns an array containing all of the result set rows.
+	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
 	 *
 	 * @access  public
-	 * @param   array   $columns  (optional) Columns to select
-	 * @return  array
+	 * @param   string   $column  Column to select
+	 * @return  mixed
 	 */
 
-	public function all(array $columns = [])
+	public function column($column)
 	{
-		$this->columns($columns);
+		$this->columns([$column]);
 
 		$query = $this->compiler->select();
 
-		return $this->connection->all($query['sql'], $query['params']);
+		return $this->connection->column($query['sql'], $query['params']);
 	}
 
 	/**
@@ -1047,20 +1047,61 @@ class Query
 	}
 
 	/**
-	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
+	 * Executes a SELECT query and returns an array containing all of the result set rows.
 	 *
 	 * @access  public
-	 * @param   string   $column  Column to select
-	 * @return  mixed
+	 * @param   array   $columns  (optional) Columns to select
+	 * @return  array
 	 */
 
-	public function column($column)
+	public function all(array $columns = [])
 	{
-		$this->columns([$column]);
+		$this->columns($columns);
 
 		$query = $this->compiler->select();
 
-		return $this->connection->column($query['sql'], $query['params']);
+		return $this->connection->all($query['sql'], $query['params']);
+	}
+
+	/**
+	 * Fetches data in batches and passes them to the processor closure.
+	 * 
+	 * @access  public
+	 * @param   \Closure  $processor    Closure that processes the results
+	 * @param   int       $batchSize    (optional) Batch size
+	 * @param   int       $offsetStart  (optional) Offset start
+	 * @param   int       $offsetEnd    (optional) Offset end
+	 */
+
+	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null)
+	{
+		$this->limit($batchSize);
+
+		while(true)
+		{	
+			if($offsetEnd !== null && $offsetStart >= $offsetEnd)
+			{
+				break;
+			}
+			
+			if($offsetStart !== 0)
+			{
+				$this->offset($offsetStart);
+			}
+			
+			$results = $this->all();
+
+			if(count($results) > 0)
+			{
+				$processor($results);
+
+				$offsetStart += $batchSize;
+			}
+			else
+			{
+				break;
+			}
+		}
 	}
 
 	/**

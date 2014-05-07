@@ -7,17 +7,19 @@
 
 namespace mako\database\midgard;
 
-/**
- * Hydrator.
- *
- * @author  Frederic G. Østby
- */
+use \Closure;
 
 use \mako\database\Connection;
 use \mako\database\midgard\ORM;
 use \mako\database\midgard\ResultSet;
 use \mako\database\midgard\ReadOnlyRecordException;
 use \BadMethodCallException;
+
+/**
+ * Hydrator.
+ *
+ * @author  Frederic G. Østby
+ */
 
 class Hydrator extends \mako\database\query\Query
 {
@@ -328,6 +330,26 @@ class Hydrator extends \mako\database\query\Query
 		}
 
 		return new ResultSet($results);
+	}
+
+	/**
+	 * Fetches data in batches and passes them to the processor closure.
+	 * 
+	 * @access  public
+	 * @param   \Closure  $processor    Closure that processes the results
+	 * @param   int       $batchSize    (optional) Batch size
+	 * @param   int       $offsetStart  (optional) Offset start
+	 * @param   int       $offsetEnd    (optional) Offset end
+	 */
+
+	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null)
+	{
+		if(empty($this->orderings))
+		{
+			$this->ascending($this->model->getPrimaryKey());
+		}
+
+		parent::batch($processor, $batchSize, $offsetEnd, $offsetEnd);
 	}
 
 	/**
