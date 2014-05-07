@@ -114,6 +114,31 @@ class HasManyTest extends \ORMTestCase
 	 * 
 	 */
 
+	public function testEagerHasManyRelationWithConstraint()
+	{
+		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
+
+		$users = HasManyUser::including(['articles' => function($query)
+		{
+			$query->where('title', '=', 'does not exist');
+		}])->ascending('id')->all();
+
+		foreach($users as $user)
+		{
+			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->articles);
+
+			$this->assertEquals(0, count($user->articles));
+		}
+
+		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+
+		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testCreateRelated()
 	{
 		$user = HasManyUser::get(1);

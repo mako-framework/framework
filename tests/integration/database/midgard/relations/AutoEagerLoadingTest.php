@@ -71,7 +71,7 @@ class AutoEagerLoadingTest extends \ORMTestCase
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
 
-		$users = AutoEagerLoadingUser::excluding(['articles'])->ascending('id')->all();
+		$users = AutoEagerLoadingUser::excluding('articles')->ascending('id')->all();
 
 		foreach($users as $user)
 		{

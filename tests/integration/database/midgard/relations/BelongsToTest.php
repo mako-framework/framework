@@ -79,13 +79,36 @@ class BelongsToTest extends \ORMTestCase
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
 
-		$profiles = BelongsToProfile::including(['user'])->ascending('id')->all();
+		$profiles = BelongsToProfile::including('user')->ascending('id')->all();
 
 		foreach($profiles as $profile)
 		{
 			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\BelongsToUser', $profile->user);
 
 			$this->assertEquals($profile->user_id, $profile->user->id);
+		}
+
+		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+
+		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testEagerBelongsToRelationWithConstraint()
+	{
+		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
+
+		$profiles = BelongsToProfile::including(['user' => function($query)
+		{
+			$query->where('username', '=', 'does not exist');
+		}])->ascending('id')->all();
+
+		foreach($profiles as $profile)
+		{
+			$this->assertFalse($profile->user);
 		}
 
 		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());

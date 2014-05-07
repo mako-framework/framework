@@ -118,7 +118,7 @@ class ManyToManyTest extends \ORMTestCase
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
 
-		$users = ManyToManyUser::including(['groups'])->ascending('id')->all();
+		$users = ManyToManyUser::including('groups')->ascending('id')->all();
 
 		foreach($users as $user)
 		{
@@ -128,6 +128,31 @@ class ManyToManyTest extends \ORMTestCase
 			{
 				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
 			}
+		}
+
+		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+
+		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testEagerHasManyRelationWithConstraint()
+	{
+		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
+
+		$users = ManyToManyUser::including(['groups' => function($query)
+		{
+			$query->where('name', '=', 'does not exist');
+		}])->ascending('id')->all();
+
+		foreach($users as $user)
+		{
+			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->groups);
+
+			$this->assertEquals(0, count($user->groups));
 		}
 
 		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());

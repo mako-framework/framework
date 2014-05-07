@@ -97,6 +97,29 @@ class HasOneTest extends \ORMTestCase
 	 * 
 	 */
 
+	public function testEagerHasOneRelationWithConstraint()
+	{
+		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
+
+		$users = HasOneUser::including(['profile' => function($query)
+		{
+			$query->where('interests', '=', 'does not exist');
+		}])->ascending('id')->all();
+
+		foreach($users as $user)
+		{
+			$this->assertFalse($user->profile);
+		}
+
+		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+
+		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testCreateRelated()
 	{
 		$user = new HasOneUser();

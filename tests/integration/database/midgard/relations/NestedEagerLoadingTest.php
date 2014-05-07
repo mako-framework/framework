@@ -44,6 +44,10 @@ class NestedEagerLoadingComment extends \TestORM
 
 class NestedEagerLoadingTest extends \ORMTestCase
 {
+	/**
+	 * 
+	 */
+
 	public function testNestedEagerLoading()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -68,6 +72,40 @@ class NestedEagerLoadingTest extends \ORMTestCase
 
 					$this->assertEquals($comment->article_id, $article->id);
 				}
+			}
+		}
+
+		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+
+		$this->assertEquals(3, $queryCountAfter - $queryCountBefore);
+	}
+
+	/**
+	 * 
+	 */
+	
+	public function testNestedEagerLoadingWithConstraints()
+	{
+		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
+
+		$users = NestedEagerLoadingUser::including(['articles', 'articles.comments' => function($query)
+		{
+			$query->where('comment', '=', 'does not exist');
+		}])->ascending('id')->all();
+
+		foreach($users as $user)
+		{
+			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->articles);
+
+			foreach($user->articles as $article)
+			{
+				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\NestedEagerLoadingArticle', $article);
+
+				$this->assertEquals($article->user_id, $user->id);
+
+				$this->assertInstanceOf('mako\database\midgard\ResultSet', $article->comments);
+
+				$this->assertEquals(0, count($article->comments));
 			}
 		}
 
