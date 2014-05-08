@@ -170,7 +170,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 
 		foreach($this->eagerCriterion($this->keys($results))->all() as $related)
 		{
-			$grouped[$related->getColumn($this->getForeignKey())][] = $related;
+			$grouped[$related->getRawColumn($this->getForeignKey())][] = $related;
 
 			unset($related->{$this->getForeignKey()}); // Unset as its not a part of the record
 		}

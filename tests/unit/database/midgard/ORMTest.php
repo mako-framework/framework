@@ -62,6 +62,15 @@ class TestUser4 extends TestUser1
 	}
 }
 
+class Testuser5 extends TestUser1
+{
+	protected static $dateFormat = 'Y-m-d H:i:s';
+
+	protected $dateTimeColumns = ['created_at'];
+
+	protected $columns = ['created_at' => '2014-02-01 13:10:32'];
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -199,13 +208,13 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testGetColumns()
+	public function testGetRawColumns()
 	{
 		$columns = ['id' => '1', 'username' => 'foo'];
 
 		$user = new TestUser1($columns);
 
-		$this->assertEquals($columns, $user->getColumns());
+		$this->assertEquals($columns, $user->getRawColumns());
 	}
 
 	/**
@@ -222,7 +231,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals([1, 2, 3], $user->getColumn('array'));
 
-		$this->assertEquals([1, 2, 3], $user->getColumn('array', true));
+		$this->assertEquals([1, 2, 3], $user->getRawColumn('array'));
 
 		//
 
@@ -234,7 +243,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals([1, 2, 3], $user->getColumn('array'));
 
-		$this->assertEquals([1, 2, 3], $user->getColumn('array', true));
+		$this->assertEquals([1, 2, 3], $user->getRawColumn('array'));
 
 		//
 
@@ -246,7 +255,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals([1, 2, 3], $user->getColumn('array'));
 
-		$this->assertEquals('[1,2,3]', $user->getColumn('array', true));
+		$this->assertEquals('[1,2,3]', $user->getRawColumn('array'));
 
 		//
 
@@ -258,7 +267,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals([1, 2, 3], $user->getColumn('array'));
 
-		$this->assertEquals('[1,2,3]', $user->getColumn('array', true));
+		$this->assertEquals('[1,2,3]', $user->getRawColumn('array'));
 
 		//
 
@@ -266,7 +275,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$user->setColumn('array', [1, 2, 3], true);
 
-		$this->assertEquals([1, 2, 3], $user->getColumn('array', true));
+		$this->assertEquals([1, 2, 3], $user->getRawColumn('array'));
 
 		//
 
@@ -285,13 +294,13 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$user->assign(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1]);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar'], $user->getColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar'], $user->getRawColumns());
 
 		//
 
 		$user = new TestUser3(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1]);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar'], $user->getColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar'], $user->getRawColumns());
 
 		//
 
@@ -299,13 +308,13 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$user->assign(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], false, false);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getRawColumns());
 
 		//
 
 		$user = new TestUser3(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], false, false);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getRawColumns());
 
 		//
 
@@ -313,13 +322,24 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$user->assign(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], false, false);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1], $user->getColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1], $user->getRawColumns());
 
 		//
 
 		$user = new TestUser3(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], false, false, true);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getRawColumns());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testDateTimeColumns()
+	{
+		$user = new TestUser5();
+
+		$this->assertInstanceOf('\mako\utility\DateTime', $user->created_at);
 	}
 
 	/**
@@ -334,7 +354,9 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals(['username' => 'foo', 'password' => 'bar', 'array' => [1, 2, 3]], $user->toArray(false));
 
-		$this->assertEquals(['username' => 'foo', 'password' => 'bar', 'array' => '[1,2,3]'], $user->toArray(false, true));
+		$user = new TestUser5();
+
+		$this->assertEquals(['created_at' => '2014-02-01 13:10:32'], $user->toArray());
 	}
 
 	/**
@@ -349,7 +371,9 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('{"username":"foo","password":"bar","array":[1,2,3]}', $user->toJson(false));
 
-		$this->assertEquals('{"username":"foo","password":"bar","array":"[1,2,3]"}', $user->toJson(false, true));
+		$user = new TestUser5();
+
+		$this->assertEquals('{"created_at":"2014-02-01 13:10:32"}', $user->toJson());
 	}
 
 	/**
@@ -361,5 +385,9 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 		$user = new TestUser4();
 
 		$this->assertEquals('{"username":"foo","array":[1,2,3]}', (string) $user);
+
+		$user = new TestUser5();
+
+		$this->assertEquals('{"created_at":"2014-02-01 13:10:32"}', (string) $user);
 	}
 }

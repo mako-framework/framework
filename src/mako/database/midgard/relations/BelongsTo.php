@@ -62,7 +62,7 @@ class BelongsTo extends \mako\database\midgard\relations\Relation
 		
 		foreach($results as $result)
 		{
-			$keys[] = $result->getColumn($this->getForeignKey());
+			$keys[] = $result->getRawColumn($this->getForeignKey());
 		}
 
 		return array_unique($keys);
@@ -76,7 +76,7 @@ class BelongsTo extends \mako\database\midgard\relations\Relation
 
 	protected function lazyCriterion()
 	{
-		$this->where($this->model->getPrimaryKey(), '=', $this->parent->getColumn($this->getForeignKey()));
+		$this->where($this->model->getPrimaryKey(), '=', $this->parent->getRawColumn($this->getForeignKey()));
 	}
 
 	/**
@@ -124,9 +124,9 @@ class BelongsTo extends \mako\database\midgard\relations\Relation
 
 		foreach($results as $result)
 		{
-			if(isset($grouped[$result->getColumn($this->getForeignKey())]))
+			if(isset($grouped[$result->getRawColumn($this->getForeignKey())]))
 			{
-				$result->setRelated($relation, $grouped[$result->getColumn($this->getForeignKey())]);
+				$result->setRelated($relation, $grouped[$result->getRawColumn($this->getForeignKey())]);
 			}
 			else
 			{

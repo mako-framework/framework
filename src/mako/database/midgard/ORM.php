@@ -7,6 +7,7 @@
 
 namespace mako\database\midgard;
 
+use \DateTime as PHPDateTime;
 use \RuntimeException;
 
 use \mako\core\Application;
@@ -17,6 +18,7 @@ use \mako\database\midgard\relations\HasMany;
 use \mako\database\midgard\relations\HasOne;
 use \mako\database\midgard\relations\ManyToMany;
 use \mako\database\midgard\StaleRecordException;
+use \mako\utility\DateTime;
 use \mako\utility\UUID;
 
 /**
@@ -80,6 +82,14 @@ abstract class ORM
 	protected static $connectionManager = null;
 
 	/**
+	 * Date format.
+	 * 
+	 * @var string
+	 */
+
+	protected static $dateFormat = null;
+
+	/**
 	 * Table name.
 	 * 
 	 * @var string
@@ -118,6 +128,14 @@ abstract class ORM
 	 */
 
 	protected $lockingColumn = 'lock_version';
+
+	/**
+	 * DateTime columns.
+	 * 
+	 * @var array
+	 */
+
+	protected $dateTimeColumns = [];
 
 	/**
 	 * Has the record been loaded from a database?
@@ -269,6 +287,23 @@ abstract class ORM
 	}
 
 	/**
+	 * Gets the DATETIME format from the query compiler.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getDateFormat()
+	{
+		if(empty(static::$dateFormat))
+		{
+			static::$dateFormat = $this->hydrator()->getCompiler()->getDateFormat();
+		}
+
+		return static::$dateFormat;
+	}
+
+	/**
 	 * Returns the table name of the model.
 	 * 
 	 * @access  public
@@ -277,7 +312,7 @@ abstract class ORM
 
 	public function getTable()
 	{
-		if($this->tableName === null)
+		if(empty($this->tableName))
 		{
 			throw new RuntimeException(vsprintf("%s(): You need to define the table name.", [__METHOD__, get_class($this)]));
 		}
@@ -427,18 +462,6 @@ abstract class ORM
 	}
 
 	/**
-	 * Returns the columns array.
-	 * 
-	 * @access  public
-	 * @return  array
-	 */
-
-	public function getColumns()
-	{
-		return $this->columns;
-	}
-
-	/**
 	 * Sets a column value.
 	 * 
 	 * @access  public
@@ -464,17 +487,75 @@ abstract class ORM
 	}
 
 	/**
-	 * Gets a column value.
+	 * Gets a raw column value.
 	 * 
 	 * @access  public
-	 * @param   string   $name  Column name
-	 * @param   boolean  $raw   (optional) Return raw value?
+	 * @param   string  $name  Column name
 	 * @return  mixed
 	 */
 
-	public function getColumn($name, $raw = false)
+	public function getRawColumn($name)
 	{
-		if(isset($this->related[$name]))
+		if(isset($this->columns[$name]))
+		{
+			return $this->columns[$name];
+		}
+		else
+		{
+			throw new RunTimeException(vsprintf("%s(): Unknown column [ %s ].", [__METHOD__, $name]));
+		}
+	}
+
+	/**
+	 * Converts a DATETIME value to a DateTime instance.
+	 * 
+	 * @access  protected
+	 * @param   mixed                   $value  Value
+	 * @return  \mako\utility\DateTime
+	 */
+
+	protected function toDateTime($value)
+	{
+		if(!($value instanceof PHPDateTime))
+		{
+			$value = DateTime::createFromFormat($this->getDateFormat(), $value);
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Gets a column value.
+	 * 
+	 * @access  public
+	 * @param   string  $name  Column name
+	 * @return  mixed
+	 */
+
+	public function getColumn($name)
+	{
+		if(isset($this->columns[$name]))
+		{
+			if(method_exists($this, 'get_' . $name))
+			{
+				// The column has a getter
+
+				return $this->{'get_' . $name}($this->columns[$name]);	
+			}
+			elseif(in_array($name, $this->dateTimeColumns))
+			{
+				// The column value should be converted to a DateTime object
+
+				return $this->toDateTime($this->columns[$name]);
+			}
+			else
+			{
+				// Just a normal column
+
+				return $this->columns[$name];
+			}
+		}
+		elseif(isset($this->related[$name]))
 		{
 			// The column is a cached or eagerly loaded relation
 
@@ -486,18 +567,22 @@ abstract class ORM
 
 			return $this->related[$name] = $this->{$name}()->getRelated();
 		}
-		elseif(!$raw && method_exists($this, 'get_' . $name))
-		{
-			// The column has a getter
-
-			return $this->{'get_' . $name}(isset($this->columns[$name]) ? $this->columns[$name] : null);
-		}
 		else
 		{
-			// Just a normal column
-
-			return $this->columns[$name];
+			throw new RunTimeException(vsprintf("%s(): Unknown column [ %s ].", [__METHOD__, $name]));
 		}
+	}
+
+	/**
+	 * Returns the columns array.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getRawColumns()
+	{
+		return $this->columns;
 	}
 
 	/**
@@ -627,7 +712,7 @@ abstract class ORM
 
 			if($model !== false)
 			{
-				$this->original = $this->columns = $model->getColumns();
+				$this->original = $this->columns = $model->getRawColumns();
 
 				$this->related = $model->getRelated();
 
@@ -924,32 +1009,12 @@ abstract class ORM
 	 * 
 	 * @access  public
 	 * @param   boolean  $protect  (optional) Protect columns?
-	 * @param   boolean  $raw      (optional) Get raw values?
 	 * @return  array
 	 */
 
-	public function toArray($protect = true, $raw = false)
+	public function toArray($protect = true)
 	{
-		if($raw)
-		{
-			$columns = $this->columns;
-		}
-		else
-		{
-			$columns = [];
-
-			foreach($this->columns as $key => $value)
-			{
-				if(method_exists($this, 'get_' . $key))
-				{
-					$columns[$key] = $this->{'get_' . $key}($this->columns[$key]);
-				}
-				else
-				{
-					$columns[$key] = $this->columns[$key];
-				}
-			}
-		}
+		$columns = $this->columns;
 
 		// Removes protected columns from the array
 
@@ -958,11 +1023,25 @@ abstract class ORM
 			$columns = array_diff_key($columns, array_flip($this->protected));
 		}
 
+		// Mutate column values if needed
+
+		foreach($columns as $key => $value)
+		{
+			if(method_exists($this, 'get_' . $key))
+			{
+				$columns[$key] = $this->{'get_' . $key}($this->columns[$key]);
+			}
+			else
+			{
+				$columns[$key] = $this->columns[$key];
+			}
+		}
+
 		// Merge in related records
 
 		foreach($this->related as $relation => $related)
 		{
-			$columns = array_merge($columns, [$relation => $related->toArray($protect, $raw)]);
+			$columns += [$relation => $related->toArray($protect)];
 		}
 
 		// Returns array representation of the record
@@ -975,13 +1054,12 @@ abstract class ORM
 	 * 
 	 * @access  public
 	 * @param   boolean  $protect  (optional) Protect columns?
-	 * @param   boolean  $raw      (optional) Get raw values?
 	 * @return  string
 	 */
 
-	public function toJson($protect = true, $raw = false)
+	public function toJson($protect = true)
 	{
-		return json_encode($this->toArray($protect, $raw));
+		return json_encode($this->toArray($protect));
 	}
 
 	/**

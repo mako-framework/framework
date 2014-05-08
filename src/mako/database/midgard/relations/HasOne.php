@@ -54,7 +54,7 @@ class HasOne extends \mako\database\midgard\relations\HasOneOrMany
 
 		foreach($this->eagerCriterion($this->keys($results))->all() as $related)
 		{
-			$grouped[$related->getColumn($this->getForeignKey())] = $related;
+			$grouped[$related->getRawColumn($this->getForeignKey())] = $related;
 		}
 
 		foreach($results as $result)

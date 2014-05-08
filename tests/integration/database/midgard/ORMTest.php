@@ -28,6 +28,11 @@ class TestUserScoped extends TestUser
 	}
 }
 
+class TestUserDateTime extends TestUser
+{
+	protected $dateTimeColumns = ['created_at'];
+}
+
 class OptimisticLock extends \TestORM
 {
 	protected $tableName = 'optimistic_locks';
@@ -60,7 +65,6 @@ class NoKey extends \TestORM
 
 	protected $primaryKeyType = \TestORM::PRIMARY_KEY_TYPE_NONE;
 }
-
 
 // --------------------------------------------------------------------------
 // END CLASSES
@@ -129,7 +133,7 @@ class ORMTest extends \ORMTestCase
 	{
 		$user = TestUser::where('id', '=', 1)->first(['username', 'email']);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $user->getColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $user->getRawColumns());
 
 		$this->assertTrue($user->isReadOnly());
 	}
@@ -142,7 +146,7 @@ class ORMTest extends \ORMTestCase
 	{
 		$users = TestUser::all(['username', 'email']);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumns());
 
 		$this->assertTrue($users[0]->isReadOnly());
 	}
@@ -157,9 +161,9 @@ class ORMTest extends \ORMTestCase
 
 		$this->assertEquals(2, count($users));
 
-		$this->assertEquals(['id' => 1, 'created_at' => '2014-04-30 14:40:01', 'username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getColumns());
+		$this->assertEquals(['id' => 1, 'created_at' => '2014-04-30 14:40:01', 'username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumns());
 
-		$this->assertEquals(['id' => 2, 'created_at' => '2014-04-30 14:02:43', 'username' => 'bar', 'email' => 'bar@example.org'], $users[1]->getColumns());
+		$this->assertEquals(['id' => 2, 'created_at' => '2014-04-30 14:02:43', 'username' => 'bar', 'email' => 'bar@example.org'], $users[1]->getRawColumns());
 	}
 
 	/**
@@ -416,6 +420,17 @@ class ORMTest extends \ORMTestCase
 	 * 
 	 */
 
+	public function testDateTime()
+	{
+		$user = TestUserDateTime::get(1);
+
+		$this->assertInstanceOf('\mako\utility\DateTime', $user->created_at);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testUUIDKey()
 	{
 		$uuid = UUIDKey::create(['value' => 'foo']);
@@ -450,13 +465,13 @@ class ORMTest extends \ORMTestCase
 	{
 		$none = NoKey::create(['value' => 'foo']);
 
-		$columns = $none->getColumns();
+		$columns = $none->getRawColumns();
 
 		$this->assertTrue(empty($columns['id']));
 
 		$none = NoKey::first();
 
-		$columns = $none->getColumns();
+		$columns = $none->getRawColumns();
 
 		$this->assertTrue(empty($columns['id']));
 	}
