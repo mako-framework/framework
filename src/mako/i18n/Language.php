@@ -107,7 +107,7 @@ class Language
 
 		// Load language files from installed packages
 
-		$files = glob($this->applicationPath . '/*/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
+		$files = glob($this->applicationPath . '/packages/*/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
 		if(is_array($files))
 		{
