@@ -7,7 +7,7 @@
 
 namespace mako\utility;
 
-use \DateTime as PHPDateTime;
+use \DateTime;
 
 use \mako\i18n\I18n;
 
@@ -94,7 +94,7 @@ class Humanizer
 	 * @return  string
 	 */
 
-	public function day(PHPDateTime $dateTime, $dateFormat = 'Y-m-d, H:i')
+	public function day(DateTime $dateTime, $dateFormat = 'Y-m-d, H:i')
 	{
 		if($dateTime->format('Y-m-d') === date('Y-m-d'))
 		{
@@ -124,7 +124,7 @@ class Humanizer
 	 * @return  string
 	 */
 
-	public function time(PHPDateTime $dateTime, $dateFormat = 'Y-m-d, H:i', $clockFormat = ', H:i')
+	public function time(DateTime $dateTime, $dateFormat = 'Y-m-d, H:i', $clockFormat = ', H:i')
 	{
 		$diff = time() - $dateTime->getTimestamp();
 
