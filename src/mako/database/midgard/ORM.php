@@ -462,17 +462,29 @@ abstract class ORM
 	}
 
 	/**
+	 * Sets a raw column value.
+	 * 
+	 * @access  public
+	 * @param   string  $name   Column name
+	 * @param   mixed   $value  Column value
+	 */
+
+	public function setRawColumn($name, $value)
+	{
+		$this->columns[$name] = $value;
+	}
+
+	/**
 	 * Sets a column value.
 	 * 
 	 * @access  public
 	 * @param   string   $name   Column name
 	 * @param   mixed    $value  Column value
-	 * @param   boolean  $raw    (optional) Set raw value?
 	 */
 
-	public function setColumn($name, $value, $raw = false)
+	public function setColumn($name, $value)
 	{
-		if(!$raw && method_exists($this, 'set_' . $name))
+		if(method_exists($this, 'set_' . $name))
 		{
 			// The column has a setter
 
@@ -613,9 +625,16 @@ abstract class ORM
 
 		// Set column values
 
-		foreach($columns as $column => $value)
+		if($raw)
 		{
-			$this->setColumn($column, $value, $raw);
+			$this->columns = $columns;
+		}
+		else
+		{
+			foreach($columns as $column => $value)
+			{
+				$this->setColumn($column, $value);
+			}
 		}
 
 		return $this;

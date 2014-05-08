@@ -273,7 +273,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$user = new TestUser2();
 
-		$user->setColumn('array', [1, 2, 3], true);
+		$user->setRawColumn('array', [1, 2, 3]);
 
 		$this->assertEquals([1, 2, 3], $user->getRawColumn('array'));
 
