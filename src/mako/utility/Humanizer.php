@@ -56,7 +56,7 @@ class Humanizer
 	 * 
 	 * @access  public
 	 * @param   int      $size    File size in bytes
-	 * @param   boolean  $binary  (optional) True to use binary prefixes and false to use decimal prefixes
+	 * @param   boolean  $binary  (optional) True to use binary suffixes and false to use decimal suffixes
 	 * @return  string
 	 */
 
