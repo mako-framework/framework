@@ -363,12 +363,14 @@ class Image
 	 * Saves image to file.
 	 *
 	 * @access  public
-	 * @param   string  $file     Path to the image file
+	 * @param   string  $file     (optional) Path to the image file
 	 * @param   int     $quality  (optional) Image quality 1-100
 	 */
 
-	public function save($file, $quality = 95)
+	public function save($file = null, $quality = 95)
 	{
+		$file = $file ?: $this->image;
+		
 		// Mage sure that the file or directory is writable
 
 		$this->writeCheck($file);
