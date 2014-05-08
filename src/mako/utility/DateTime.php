@@ -186,14 +186,12 @@ class DateTime extends \DateTime
 				$timeZone = new DateTimeZone($timeZone);
 			}
 
-			$dateTime = parent::createFromFormat($format, $time, $timeZone);
+			return parent::createFromFormat($format, $time, $timeZone);
 		}
 		else
 		{
-			$dateTime = parent::createFromFormat($format, $time);
+			return parent::createFromFormat($format, $time);
 		}
-
-		return static::createFromTimestamp($dateTime->getTimestamp(), $dateTime->getTimeZone());
 	}
 
 	/**
