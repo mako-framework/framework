@@ -486,7 +486,7 @@ abstract class ORM
 	{
 		if(method_exists($this, 'set_' . $name))
 		{
-			// The column has a setter
+			// The column has a setter mutator
 
 			$this->columns[$name] = $this->{'set_' . $name}($value);
 		}
@@ -550,7 +550,7 @@ abstract class ORM
 		{
 			if(method_exists($this, 'get_' . $name))
 			{
-				// The column has a getter
+				// The column has a getter mutator
 
 				return $this->{'get_' . $name}($this->columns[$name]);	
 			}
