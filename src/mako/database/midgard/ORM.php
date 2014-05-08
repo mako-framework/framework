@@ -289,11 +289,11 @@ abstract class ORM
 	/**
 	 * Gets the date format from the query compiler.
 	 * 
-	 * @access  public
+	 * @access  protected
 	 * @return  string
 	 */
 
-	public function getDateFormat()
+	protected function getDateFormat()
 	{
 		if(empty(static::$dateFormat))
 		{
