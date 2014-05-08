@@ -7,7 +7,7 @@
 
 namespace mako\cache\stores;
 
-use \Memcache as PHP_Memcache;
+use \Memcache as PHPMemcache;
 
 /**
  * Memcache store.
@@ -52,7 +52,7 @@ class Memcache implements \mako\cache\stores\StoreInterface
 
 	public function __construct(array $servers, $timeout = 1, $compressData = false)
 	{
-		$this->memcache = new PHP_Memcache();
+		$this->memcache = new PHPMemcache();
 
 		if($compressData === true)
 		{

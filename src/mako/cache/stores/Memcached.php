@@ -7,7 +7,7 @@
 
 namespace mako\cache\stores;
 
-use \Memcached as PHP_Memcached;
+use \Memcached as PHPMemcached;
 
 /**
  * Memcached store.
@@ -44,16 +44,16 @@ class Memcached implements \mako\cache\stores\StoreInterface
 
 	public function __construct(array $servers, $timeout = 1, $compressData = false)
 	{
-		$this->memcached = new PHP_Memcached();
+		$this->memcached = new PHPMemcached();
 		
 		if($timtout !== 1)
 		{
-			$this->memcached->setOption(PHP_Memcached::OPT_CONNECT_TIMEOUT, ($timeout * 1000)); // Multiply by 1000 to convert to ms
+			$this->memcached->setOption(PHPMemcached::OPT_CONNECT_TIMEOUT, ($timeout * 1000)); // Multiply by 1000 to convert to ms
 		}
 
 		if($compressData === false)
 		{
-			$this->memcached->setOption(PHP_Memcached::OPT_COMPRESSION, false);
+			$this->memcached->setOption(PHPMemcached::OPT_COMPRESSION, false);
 		}
 
 		// Add servers to the connection pool
