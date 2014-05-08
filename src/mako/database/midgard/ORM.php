@@ -287,7 +287,7 @@ abstract class ORM
 	}
 
 	/**
-	 * Gets the DATETIME format from the query compiler.
+	 * Gets the date format from the query compiler.
 	 * 
 	 * @access  public
 	 * @return  string
