@@ -22,7 +22,7 @@ class TestUserReadOnly extends TestUser
 
 class TestUserScoped extends TestUser
 {
-	public function scope_withArticles($query)
+	public function withArticlesScope($query)
 	{
 		return $query->join('articles', 'articles.user_id', '=', 'users.id')->distinct();
 	}

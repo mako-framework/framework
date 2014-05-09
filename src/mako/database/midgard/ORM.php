@@ -484,11 +484,11 @@ abstract class ORM
 
 	public function setColumn($name, $value)
 	{
-		if(method_exists($this, 'set_' . $name))
+		if(method_exists($this, $name . 'Mutator'))
 		{
-			// The column has a setter mutator
+			// The column has a custom mutator
 
-			$this->columns[$name] = $this->{'set_' . $name}($value);
+			$this->columns[$name] = $this->{$name . 'Mutator'}($value);
 		}
 		else
 		{
@@ -548,11 +548,11 @@ abstract class ORM
 	{
 		if(isset($this->columns[$name]))
 		{
-			if(method_exists($this, 'get_' . $name))
+			if(method_exists($this, $name . 'Accessor'))
 			{
-				// The column has a getter mutator
+				// The column has a custom accessor
 
-				return $this->{'get_' . $name}($this->columns[$name]);	
+				return $this->{$name . 'Accessor'}($this->columns[$name]);	
 			}
 			elseif(in_array($name, $this->dateTimeColumns))
 			{
@@ -1046,9 +1046,9 @@ abstract class ORM
 
 		foreach($columns as $key => $value)
 		{
-			if(method_exists($this, 'get_' . $key))
+			if(method_exists($this, $key . 'Accessor'))
 			{
-				$columns[$key] = $this->{'get_' . $key}($this->columns[$key]);
+				$columns[$key] = $this->{$key . 'Accessor'}($this->columns[$key]);
 			}
 			else
 			{

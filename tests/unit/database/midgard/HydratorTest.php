@@ -14,9 +14,9 @@ class ScopedModel extends \mako\database\midgard\ORM
 {
 	protected $tableName = 'foos';
 
-	public function scope_Popular($query)
+	public function popularScope($query)
 	{
-		$query->table('barfoo');
+		return $query->table('barfoo');
 	}
 }
 

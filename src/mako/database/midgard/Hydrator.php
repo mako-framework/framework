@@ -363,15 +363,13 @@ class Hydrator extends \mako\database\query\Query
 
 	public function __call($name, $arguments)
 	{
-		if(!method_exists($this->model, 'scope_' . $name))
+		if(!method_exists($this->model, $name . 'Scope'))
 		{
 			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
 		}
 
 		array_unshift($arguments, $this);
 
-		call_user_func_array([$this->model, 'scope_' . $name], $arguments);
-
-		return $this;
+		return call_user_func_array([$this->model, $name . 'Scope'], $arguments);
 	}
 }

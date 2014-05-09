@@ -29,12 +29,12 @@ class TestUser2 extends TestUser1
 
 	protected $readOnly = true;
 
-	protected function set_array($array)
+	protected function arrayMutator($array)
 	{
 		return json_encode($array);
 	}
 
-	public function get_array($json)
+	public function arrayAccessor($json)
 	{
 		return json_decode($json, true);
 	}
@@ -56,7 +56,7 @@ class TestUser4 extends TestUser1
 
 	protected $columns = ['username' => 'foo', 'password' => 'bar', 'array' => '[1,2,3]'];
 
-	public function get_array($json)
+	public function arrayAccessor($json)
 	{
 		return json_decode($json, true);
 	}
