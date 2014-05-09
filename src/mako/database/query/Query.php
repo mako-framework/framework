@@ -313,7 +313,7 @@ class Query
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function from($table)
+	public function table($table)
 	{
 		if($table instanceof Closure)
 		{
@@ -327,6 +327,32 @@ class Query
 		$this->table = $table;
 
 		return $this;
+	}
+
+	/**
+	 * Alias of Query::table()
+	 *
+	 * @access  public
+	 * @param   string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw  $table  Database table or subquery
+	 * @return  \mako\database\query\Query
+	 */	
+
+	public function from($table)
+	{
+		return $this->table($table);
+	}
+
+	/**
+	 * Alias of Query::table()
+	 *
+	 * @access  public
+	 * @param   string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw  $table  Database table or subquery
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function into($table)
+	{
+		return $this->table($table);
 	}
 
 	/**

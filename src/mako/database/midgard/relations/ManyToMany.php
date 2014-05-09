@@ -256,7 +256,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 
 	protected function junction()
 	{
-		return $this->connection->builder()->from($this->getJunctionTable());
+		return $this->connection->builder()->table($this->getJunctionTable());
 	}
 
 	/**

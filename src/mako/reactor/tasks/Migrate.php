@@ -135,7 +135,7 @@ class Migrate extends \mako\reactor\Task
 
 	protected function table()
 	{
-		return $this->connection()->builder()->from('mako_migrations');
+		return $this->connection()->builder()->table('mako_migrations');
 	}
 
 	/**

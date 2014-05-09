@@ -45,7 +45,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 
 	protected function getBuilder($table = 'foobar')
 	{
-		return (new Query($this->getConnection()))->from($table);
+		return (new Query($this->getConnection()))->table($table);
 	}
 
 	/**

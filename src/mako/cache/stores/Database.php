@@ -69,7 +69,7 @@ class Database implements \mako\cache\stores\StoreInterface
 
 	protected function table()
 	{
-		return $this->connection->builder()->from($this->table);
+		return $this->connection->builder()->table($this->table);
 	}
 
 	/**
