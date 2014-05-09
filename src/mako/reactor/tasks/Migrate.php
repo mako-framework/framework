@@ -135,7 +135,7 @@ class Migrate extends \mako\reactor\Task
 
 	protected function table()
 	{
-		return $this->connection()->builder()->table('mako_migrations');
+		return $this->connection()->builder()->from('mako_migrations');
 	}
 
 	/**
@@ -234,7 +234,7 @@ class Migrate extends \mako\reactor\Task
 			$query->where('batch', '>', ($this->table()->max('batch') - $batches));
 		}
 
-		return $query->orderBy('version', 'desc')->all(['version', 'package']);
+		return $query->select(['version', 'package'])->orderBy('version', 'desc')->all();
 	}
 
 	/**

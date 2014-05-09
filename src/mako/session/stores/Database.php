@@ -69,7 +69,7 @@ class Database implements \mako\session\stores\StoreInterface
 
 	protected function table()
 	{
-		return $this->connection->builder()->table($this->table);
+		return $this->connection->builder()->from($this->table);
 	}
 
 	/**
@@ -109,7 +109,7 @@ class Database implements \mako\session\stores\StoreInterface
 
 	public function read($sessionId)
 	{
-		$sessionData = $this->table()->where('id', '=', $sessionId)->column('data');
+		$sessionData = $this->table()->select('data')->->where('id', '=', $sessionId)->column();
 
 		return ($sessionData !== false) ? unserialize($sessionData) : [];
 	}

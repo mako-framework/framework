@@ -45,7 +45,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 
 	protected function getBuilder($table = 'foobar')
 	{
-		return (new Query($this->getConnection()))->table($table);
+		return (new Query($this->getConnection()))->from($table);
 	}
 
 	/**
@@ -70,7 +70,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder(function($query)
 		{
-			$query->table('foobar');
+			$query->from('foobar');
 		});
 
 		$query = $query->getCompiler()->select();
@@ -103,7 +103,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->columns(array('foo', 'bar'));
+		$query->select(array('foo', 'bar'));
 
 		$query = $query->getCompiler()->select();
 
@@ -119,7 +119,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->columns(array('foo', 'bar as baz'));
+		$query->select(array('foo', 'bar as baz'));
 
 		$query = $query->getCompiler()->select();
 
@@ -135,7 +135,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->columns(array('foo', 'foobar.bar'));
+		$query->select(array('foo', 'foobar.bar'));
 
 		$query = $query->getCompiler()->select();
 
@@ -376,7 +376,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query->in('foo', function($query)
 		{
-			$query->table('barfoo')->columns(['id']);
+			$query->select(['id'])->from('barfoo');
 		});
 
 		$query = $query->getCompiler()->select();
@@ -459,7 +459,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query->exists(function($query)
 		{
-			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
+			$query->from('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
 		});
 
 		$query = $query->getCompiler()->select();
@@ -596,8 +596,9 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder('orders');
 
+		$query->select(array('customer', new Raw('SUM(price) as sum')));
+
 		$query->groupBy('customer');
-		$query->columns(array('customer', new Raw('SUM(price) as sum')));
 
 		$query = $query->getCompiler()->select();
 
@@ -613,8 +614,9 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder('orders');
 
+		$query->select(array('customer', 'order_date', new Raw('SUM(price) as sum')));
+
 		$query->groupBy(array('customer', 'order_date'));
-		$query->columns(array('customer', 'order_date', new Raw('SUM(price) as sum')));
 
 		$query = $query->getCompiler()->select();
 
@@ -630,9 +632,10 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder('orders');
 
+		$query->select(array('customer', new Raw('SUM(price) as sum')));
+
 		$query->groupBy('customer');
 		$query->having(new Raw('SUM(price)'), '<', 2000);
-		$query->columns(array('customer', new Raw('SUM(price) as sum')));
 
 		$query = $query->getCompiler()->select();
 

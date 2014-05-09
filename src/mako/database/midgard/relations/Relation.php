@@ -144,35 +144,33 @@ abstract class Relation extends \mako\database\midgard\Hydrator
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
-	 * @param   array                       $columns  (optional) Columns to select
 	 * @return  \mako\database\midgard\ORM
 	 */
 
-	public function first(array $columns = [])
+	public function first()
 	{
 		if(!$this->lazy)
 		{
 			array_shift($this->wheres);
 		}
 
-		return parent::first($columns);
+		return parent::first();
 	}
 
 	/**
 	 * Returns a result set from the database.
 	 * 
 	 * @access  public
-	 * @param   array                             $columns  (optional) Columns to select
 	 * @return  \mako\database\midgard\ResultSet
 	 */
 
-	public function all(array $columns = [])
+	public function all()
 	{
 		if(!$this->lazy)
 		{
 			array_shift($this->wheres);
 		}
 
-		return parent::all($columns);
+		return parent::all();
 	}
 }

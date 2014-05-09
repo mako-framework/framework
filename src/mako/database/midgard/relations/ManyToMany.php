@@ -195,7 +195,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	 * @return  array
 	 */
 
-	protected function select()
+	protected function selectColumns()
 	{
 		if($this->lazy)
 		{
@@ -211,30 +211,28 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
-	 * @param   array                       $columns  (optional)  Columns to select
 	 * @return  \mako\database\midgard\ORM
 	 */
 
-	public function first(array $columns = [])
+	public function first()
 	{
-		$this->columns = $this->select();
+		$this->columns = $this->selectColumns();
 
-		return parent::first($columns);
+		return parent::first();
 	}
 
 	/**
 	 * Returns a result set from the database.
 	 * 
 	 * @access  public
-	 * @param   array                             $columns  (optional)  Columns to select
 	 * @return  \mako\database\midgard\ResultSet
 	 */
 
-	public function all(array $columns = [])
+	public function all()
 	{
-		$this->columns = $this->select();
+		$this->columns = $this->selectColumns();
 
-		return parent::all($columns);
+		return parent::all();
 	}
 
 	/**
@@ -258,7 +256,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 
 	protected function junction()
 	{
-		return $this->connection->builder()->table($this->getJunctionTable());
+		return $this->connection->builder()->from($this->getJunctionTable());
 	}
 
 	/**

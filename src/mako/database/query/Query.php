@@ -313,7 +313,7 @@ class Query
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function table($table)
+	public function from($table)
 	{
 		if($table instanceof Closure)
 		{
@@ -333,16 +333,13 @@ class Query
 	 * Sets the columns we want to select.
 	 *
 	 * @access  public
-	 * @param   array                       $columns  Array of columns
+	 * @param   array                       $columns  Array of columns we want to select from
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function columns(array $columns)
+	public function select(array $columns)
 	{
-		if(!empty($columns))
-		{
-			$this->columns = $columns;
-		}
+		$this->columns = $columns;
 
 		return $this;
 	}
@@ -1016,14 +1013,11 @@ class Query
 	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
 	 *
 	 * @access  public
-	 * @param   string   $column  Column to select
 	 * @return  mixed
 	 */
 
-	public function column($column)
+	public function column()
 	{
-		$this->columns([$column]);
-
 		$query = $this->compiler->select();
 
 		return $this->connection->column($query['sql'], $query['params']);
@@ -1033,14 +1027,11 @@ class Query
 	 * Executes a SELECT query and returns the first row of the result set.
 	 *
 	 * @access  public
-	 * @param   array   $columns  (optional) Columns to select
 	 * @return  mixed
 	 */
 
-	public function first(array $columns = [])
+	public function first()
 	{
-		$this->columns($columns);
-
 		$query = $this->compiler->select();
 
 		return $this->connection->first($query['sql'], $query['params']);
@@ -1050,14 +1041,11 @@ class Query
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
 	 *
 	 * @access  public
-	 * @param   array   $columns  (optional) Columns to select
 	 * @return  array
 	 */
 
-	public function all(array $columns = [])
+	public function all()
 	{
-		$this->columns($columns);
-
 		$query = $this->compiler->select();
 
 		return $this->connection->all($query['sql'], $query['params']);
@@ -1115,7 +1103,7 @@ class Query
 
 	protected function aggregate($column, $function)
 	{
-		return $this->column(new Raw($function . '(' . $this->compiler->wrap($column) . ')'));
+		return $this->select([new Raw($function . '(' . $this->compiler->wrap($column) . ')')])->column();
 	}
 
 	/**

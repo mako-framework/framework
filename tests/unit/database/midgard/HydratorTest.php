@@ -16,7 +16,7 @@ class ScopedModel extends \mako\database\midgard\ORM
 
 	public function popularScope($query)
 	{
-		return $query->table('barfoo');
+		return $query->from('barfoo');
 	}
 }
 
@@ -175,7 +175,7 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$hydrator->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($hydrator);
 
-		$hydrator->shouldReceive('first')->once()->with([])->andReturn(true);
+		$hydrator->shouldReceive('first')->once()->andReturn(true);
 
 		$this->assertTrue($hydrator->get(1984));
 	}
@@ -194,11 +194,13 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		$hydrator = m::mock('\mako\database\midgard\Hydrator[where,first]', [$this->getConnecion(), $model]);
+		$hydrator = m::mock('\mako\database\midgard\Hydrator[select,where,first]', [$this->getConnecion(), $model]);
+
+		$hydrator->shouldReceive('select')->once()->with(['foo', 'bar']);
 
 		$hydrator->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($hydrator);
 
-		$hydrator->shouldReceive('first')->once()->with(['foo', 'bar'])->andReturn(true);
+		$hydrator->shouldReceive('first')->once()->andReturn(true);
 
 		$this->assertTrue($hydrator->get(1984, ['foo', 'bar']));
 	}

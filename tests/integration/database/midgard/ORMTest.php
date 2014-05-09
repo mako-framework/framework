@@ -131,7 +131,7 @@ class ORMTest extends \ORMTestCase
 
 	public function testLimitColumnsFirst()
 	{
-		$user = TestUser::where('id', '=', 1)->first(['username', 'email']);
+		$user = TestUser::select(['username', 'email'])->where('id', '=', 1)->first();
 
 		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $user->getRawColumns());
 
@@ -144,7 +144,7 @@ class ORMTest extends \ORMTestCase
 
 	public function testLimitColumnsAll()
 	{
-		$users = TestUser::all(['username', 'email']);
+		$users = TestUser::select(['username', 'email'])->all();
 
 		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumns());
 

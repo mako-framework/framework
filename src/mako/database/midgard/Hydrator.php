@@ -157,7 +157,12 @@ class Hydrator extends \mako\database\query\Query
 
 	public function get($id, array $columns = [])
 	{
-		return $this->where($this->model->getPrimaryKey(), '=', $id)->first($columns);
+		if(!empty($columns))
+		{
+			$this->select($columns);
+		}
+
+		return $this->where($this->model->getPrimaryKey(), '=', $id)->first();
 	}
 
 	/**
@@ -281,21 +286,30 @@ class Hydrator extends \mako\database\query\Query
 	}
 
 	/**
+	 * Sets the columns we want to select.
+	 *
+	 * @access  public
+	 * @param   array                       $columns  Array of columns we want to select from
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function select(array $columns)
+	{
+		$this->makeReadOnly = true;
+
+		return parent::select($columns);
+	}
+
+	/**
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
-	 * @param   array                       $columns  (optional) Columns to select
 	 * @return  \mako\database\midgard\ORM
 	 */
 
-	public function first(array $columns = [])
+	public function first()
 	{
-		if(!empty($columns))
-		{
-			$this->makeReadOnly = true;
-		}
-
-		$result = parent::first($columns ?: $this->columns);
+		$result = parent::first();
 
 		if($result !== false)
 		{
@@ -311,18 +325,12 @@ class Hydrator extends \mako\database\query\Query
 	 * Returns a result set from the database.
 	 * 
 	 * @access  public
-	 * @param   array                             $columns  (optional) Columns to select
 	 * @return  \mako\database\midgard\ResultSet
 	 */
 
-	public function all(array $columns = [])
+	public function all()
 	{
-		if(!empty($columns))
-		{
-			$this->makeReadOnly = true;
-		}
-
-		$results = parent::all($columns ?: $this->columns);
+		$results = parent::all();
 
 		if(!empty($results))
 		{
