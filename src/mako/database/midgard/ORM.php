@@ -15,7 +15,9 @@ use \mako\database\ConnectionManager;
 use \mako\database\midgard\Hydrator;
 use \mako\database\midgard\relations\BelongsTo;
 use \mako\database\midgard\relations\HasMany;
+use \mako\database\midgard\relations\HasManyPolymorphic;
 use \mako\database\midgard\relations\HasOne;
+use \mako\database\midgard\relations\HasOnePolymorphic;
 use \mako\database\midgard\relations\ManyToMany;
 use \mako\database\midgard\StaleRecordException;
 use \mako\utility\DateTime;
@@ -778,6 +780,22 @@ abstract class ORM
 	}
 
 	/**
+	 * Returns a HasOnePolymorphic relation.
+	 * 
+	 * @access  protected
+	 * @param   string                                              $model            Related model
+	 * @param   string                                              $polymorphicType  Polymorphic type
+	 * @return  \mako\database\midgard\relation\HasManyPolymorphic
+	 */
+
+	protected function hasOnePolymorphic($model, $polymorphicType)
+	{
+		$related = new $model;
+
+		return new HasOnePolymorphic($related->getConnection(), $this, $related, $polymorphicType);
+	}
+
+	/**
 	 * Returns a HasMany relation.
 	 * 
 	 * @access  protected
@@ -791,6 +809,22 @@ abstract class ORM
 		$related = new $model;
 
 		return new HasMany($related->getConnection(), $this, $related, $foreignKey);
+	}
+
+	/**
+	 * Returns a HasManyPolymorphic relation.
+	 * 
+	 * @access  protected
+	 * @param   string                                              $model            Related model
+	 * @param   string                                              $polymorphicType  Polymorphic type
+	 * @return  \mako\database\midgard\relation\HasManyPolymorphic
+	 */
+
+	protected function hasManyPolymorphic($model, $polymorphicType)
+	{
+		$related = new $model;
+
+		return new HasManyPolymorphic($related->getConnection(), $this, $related, $polymorphicType);
 	}
 
 	/**

@@ -30,6 +30,22 @@ INSERT INTO "profiles" ("id", "user_id", "interests") VALUES (2, 2, 'movies');
 INSERT INTO "profiles" ("id", "user_id", "interests") VALUES (3, 3, 'hockey');
 
 ------------------------------------------------------------
+-- IMAGES
+------------------------------------------------------------
+
+DROP TABLE IF EXISTS "images";
+CREATE TABLE "images" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "image" text NOT NULL,
+  "imageable_type" text NOT NULL,
+  "imageable_id" text NOT NULL
+);
+
+INSERT INTO "images" ("id", "image", "imageable_type", "imageable_id") VALUES (1, 'foo.png', "\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile", 1);
+INSERT INTO "images" ("id", "image", "imageable_type", "imageable_id") VALUES (2, 'bar.png', "\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile", 2);
+INSERT INTO "images" ("id", "image", "imageable_type", "imageable_id") VALUES (3, 'baz.png', "\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile", 3);
+
+------------------------------------------------------------
 -- GROUPS
 ------------------------------------------------------------
 
@@ -91,6 +107,25 @@ INSERT INTO "article_comments" ("id", "article_id", "user_id", "created_at", "co
 INSERT INTO "article_comments" ("id", "article_id", "user_id", "created_at", "comment") VALUES (2, 1, 2, '2014-04-30 15:02:10', "article 1 comment 2");
 INSERT INTO "article_comments" ("id", "article_id", "user_id", "created_at", "comment") VALUES (3, 2, 1, '2014-04-30 15:02:10', "article 2 comment 1");
 INSERT INTO "article_comments" ("id", "article_id", "user_id", "created_at", "comment") VALUES (4, 3, 3, '2014-04-30 15:02:10', "article 3 comment 1");
+
+------------------------------------------------------------
+-- ARTICLE_COMMENTS
+------------------------------------------------------------
+
+DROP TABLE IF EXISTS "polymorphic_comments";
+CREATE TABLE "polymorphic_comments" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "user_id" integer NOT NULL,
+  "created_at" text NOT NULL,
+  "comment" text NOT NULL,
+  "commentable_type" text NOT NULL,
+  "commentable_id" integer NOT NULL
+);
+
+INSERT INTO "polymorphic_comments" ("id", "user_id", "created_at", "comment", "commentable_type", "commentable_id") VALUES (1, 1, '2014-04-30 15:02:10', "article 1 comment 1", "\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle", 1);
+INSERT INTO "polymorphic_comments" ("id", "user_id", "created_at", "comment", "commentable_type", "commentable_id") VALUES (2, 2, '2014-04-30 15:02:10', "article 1 comment 2", "\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle", 1);
+INSERT INTO "polymorphic_comments" ("id", "user_id", "created_at", "comment", "commentable_type", "commentable_id") VALUES (3, 1, '2014-04-30 15:02:10', "article 2 comment 1", "\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle", 2);
+INSERT INTO "polymorphic_comments" ("id", "user_id", "created_at", "comment", "commentable_type", "commentable_id") VALUES (4, 3, '2014-04-30 15:02:10', "article 2 comment 1", "\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle", 3);
 
 ------------------------------------------------------------
 -- OPTIMISTIC_LOCKS
