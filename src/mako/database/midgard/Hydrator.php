@@ -254,6 +254,21 @@ class Hydrator extends \mako\database\query\Query
 	}
 
 	/**
+	 * Returns a hydrated model.
+	 * 
+	 * @access  protected
+	 * @param   object                      $result  Database result
+	 * @return  \mako\database\midgard\ORM
+	 */
+
+	protected function hydrateModel($result)
+	{
+		$model = $this->model->getClass();
+
+		return new $model((array) $result, true, false, true, $this->makeReadOnly);
+	}
+
+	/**
 	 * Returns hydrated models.
 	 * 
 	 * @access  protected
@@ -272,9 +287,7 @@ class Hydrator extends \mako\database\query\Query
 
 		foreach($results as $result)
 		{
-			$model = $this->model->getClass();
-
-			$hydrated[] = new $model((array) $result, true, false, true, $this->makeReadOnly);
+			$hydrated[] = $this->hydrateModel($result);
 		}
 
 		if(!empty($hydrated))
