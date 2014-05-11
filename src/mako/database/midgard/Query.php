@@ -16,7 +16,7 @@ use \mako\database\midgard\ReadOnlyRecordException;
 use \BadMethodCallException;
 
 /**
- * ORM Query builder.
+ * ORM query builder.
  *
  * @author  Frederic G. Østby
  */
