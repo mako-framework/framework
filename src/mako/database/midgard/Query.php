@@ -16,12 +16,12 @@ use \mako\database\midgard\ReadOnlyRecordException;
 use \BadMethodCallException;
 
 /**
- * Hydrator.
+ * ORM Query builder.
  *
  * @author  Frederic G. Østby
  */
 
-class Hydrator extends \mako\database\query\Query
+class Query extends \mako\database\query\Query
 {
 	//---------------------------------------------
 	// Class properties
@@ -169,8 +169,8 @@ class Hydrator extends \mako\database\query\Query
 	 * Sets the relations to eager load.
 	 * 
 	 * @access  public
-	 * @param   string|array                     $includes  Relation or array of relations to eager load
-	 * @return  \mako\database\midgard\Hydrator
+	 * @param   string|array                  $includes  Relation or array of relations to eager load
+	 * @return  \mako\database\midgard\Query
 	 */
 
 	public function including($includes)
@@ -184,8 +184,8 @@ class Hydrator extends \mako\database\query\Query
 	 * Removes relations to eager load.
 	 * 
 	 * @access  public
-	 * @param   string|array                     $excludes  Relation or array of relations to exclude from eager loading
-	 * @return  \mako\database\midgard\Hydrator
+	 * @param   string|array                  $excludes  Relation or array of relations to exclude from eager loading
+	 * @return  \mako\database\midgard\Query
 	 */
 
 	public function excluding($excludes)
@@ -377,9 +377,9 @@ class Hydrator extends \mako\database\query\Query
 	 * Magic method that allows us to call model scopes.
 	 * 
 	 * @access  public
-	 * @param   string                           $name       Method name
-	 * @param   array                            $arguments  Method arguments
-	 * @return  \mako\database\midgard\Hydrator
+	 * @param   string                        $name       Method name
+	 * @param   array                         $arguments  Method arguments
+	 * @return  \mako\database\midgard\Query
 	 */
 
 	public function __call($name, $arguments)

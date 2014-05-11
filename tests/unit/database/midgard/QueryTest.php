@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\database\midgard;
 
-use \mako\database\midgard\Hydrator;
+use \mako\database\midgard\Query;
 
 use \Mockery as m;
 
@@ -28,7 +28,7 @@ class ScopedModel extends \mako\database\midgard\ORM
  * @group unit
  */
 
-class HydratorTest extends \PHPUnit_Framework_TestCase
+class QeuryTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 
@@ -67,9 +67,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function getHydrator($model)
+	public function getQuery($model)
 	{
-		return m::mock('\mako\database\midgard\Hydrator', [$this->getConnecion(), $model]);
+		return m::mock('\mako\database\midgard\Query', [$this->getConnecion(), $model]);
 	}
 
 	/**
@@ -84,7 +84,7 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$hydrator = $this->getHydrator($model);
+		$query = $this->getQuery($model);
 	}
 
 	/**
@@ -99,11 +99,11 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getTable')->twice()->andReturn('tests');
 
-		$hydrator = new Hydrator($this->getConnecion(), $model);
+		$query = new Query($this->getConnecion(), $model);
 
-		$hydrator->join('foos', 'tests.id', '=', 'foos.id');
+		$query->join('foos', 'tests.id', '=', 'foos.id');
 
-		$this->assertEquals(['tests.*'], $hydrator->getColumns());
+		$this->assertEquals(['tests.*'], $query->getColumns());
 	}
 
 	/**
@@ -118,9 +118,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$hydrator = new Hydrator($this->getConnecion(), $model);
+		$query = new Query($this->getConnecion(), $model);
 
-		$hydrator->insert(['foo' => 'bar']);
+		$query->insert(['foo' => 'bar']);
 	}
 
 	/**
@@ -135,9 +135,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$hydrator = new Hydrator($this->getConnecion(), $model);
+		$query = new Query($this->getConnecion(), $model);
 
-		$hydrator->update(['foo' => 'bar']);
+		$query->update(['foo' => 'bar']);
 	}
 
 	/**
@@ -152,9 +152,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$hydrator = new Hydrator($this->getConnecion(), $model);
+		$query = new Query($this->getConnecion(), $model);
 
-		$hydrator->delete();
+		$query->delete();
 	}
 
 	/**
@@ -171,13 +171,13 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		$hydrator = m::mock('\mako\database\midgard\Hydrator[where,first]', [$this->getConnecion(), $model]);
+		$query = m::mock('\mako\database\midgard\Query[where,first]', [$this->getConnecion(), $model]);
 
-		$hydrator->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($hydrator);
+		$query->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($query);
 
-		$hydrator->shouldReceive('first')->once()->andReturn(true);
+		$query->shouldReceive('first')->once()->andReturn(true);
 
-		$this->assertTrue($hydrator->get(1984));
+		$this->assertTrue($query->get(1984));
 	}
 
 	/**
@@ -194,15 +194,15 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		$hydrator = m::mock('\mako\database\midgard\Hydrator[select,where,first]', [$this->getConnecion(), $model]);
+		$query = m::mock('\mako\database\midgard\Query[select,where,first]', [$this->getConnecion(), $model]);
 
-		$hydrator->shouldReceive('select')->once()->with(['foo', 'bar']);
+		$query->shouldReceive('select')->once()->with(['foo', 'bar']);
 
-		$hydrator->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($hydrator);
+		$query->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($query);
 
-		$hydrator->shouldReceive('first')->once()->andReturn(true);
+		$query->shouldReceive('first')->once()->andReturn(true);
 
-		$this->assertTrue($hydrator->get(1984, ['foo', 'bar']));
+		$this->assertTrue($query->get(1984, ['foo', 'bar']));
 	}
 
 	/**
@@ -219,9 +219,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('setIncludes')->once()->with(['foo'])->andReturn($model);
 
-		$hydrator = new Hydrator($this->getConnecion(), $model);
+		$query = new Query($this->getConnecion(), $model);
 
-		$hydrator->including('foo');
+		$query->including('foo');
 	}
 
 	/**
@@ -238,9 +238,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('setIncludes')->once()->with(['foo', 'bar'])->andReturn($model);
 
-		$hydrator = new Hydrator($this->getConnecion(), $model);
+		$query = new Query($this->getConnecion(), $model);
 
-		$hydrator->including(['foo', 'bar']);
+		$query->including(['foo', 'bar']);
 	}
 
 	/**
@@ -259,9 +259,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('setIncludes')->once()->with(['foo'])->andReturn($model);
 
-		$hydrator = new Hydrator($this->getConnecion(), $model);
+		$query = new Query($this->getConnecion(), $model);
 
-		$hydrator->excluding('bar');
+		$query->excluding('bar');
 	}
 
 	/**
@@ -280,9 +280,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
 
-		$hydrator = new Hydrator($this->getConnecion(), $model);
+		$query = new Query($this->getConnecion(), $model);
 
-		$hydrator->excluding(['foo', 'bar']);
+		$query->excluding(['foo', 'bar']);
 	}
 
 	/**
@@ -293,9 +293,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 	{
 		$model = new ScopedModel();
 
-		$hydrator = new Hydrator($this->getConnecion(), $model);
+		$query = new Query($this->getConnecion(), $model);
 
-		$hydrator->unpopular();
+		$query->unpopular();
 	}
 
 	/**
@@ -306,11 +306,11 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 	{
 		$model = new ScopedModel();
 
-		$hydrator = new Hydrator($this->getConnecion(), $model);
+		$query = new Query($this->getConnecion(), $model);
 
-		$hydrator->popular();
+		$query->popular();
 
-		$this->assertEquals($hydrator->getTable(), 'barfoo');
+		$this->assertEquals($query->getTable(), 'barfoo');
 	}
 
 	/**
@@ -327,16 +327,16 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getPrimaryKey')->andReturn('foobar');
 
-		$hydrator = m::mock('\mako\database\midgard\Hydrator[all]', [$this->getConnecion(), $model]);
+		$query = m::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
 
-		$hydrator->shouldReceive('all')->once()->andReturn([]);
+		$query->shouldReceive('all')->once()->andReturn([]);
 
-		$hydrator->batch(function($results)
+		$query->batch(function($results)
 		{
 
 		});
 
-		$this->assertEquals([['column' => ['foobar'], 'order' => 'ASC']], $hydrator->getOrderings());
+		$this->assertEquals([['column' => ['foobar'], 'order' => 'ASC']], $query->getOrderings());
 
 		//
 
@@ -346,15 +346,15 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$hydrator = m::mock('\mako\database\midgard\Hydrator[all]', [$this->getConnecion(), $model]);
+		$query = m::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
 
-		$hydrator->shouldReceive('all')->once()->andReturn([]);
+		$query->shouldReceive('all')->once()->andReturn([]);
 
-		$hydrator->descending('barfoo')->batch(function($results)
+		$query->descending('barfoo')->batch(function($results)
 		{
 
 		});
 
-		$this->assertEquals([['column' => ['barfoo'], 'order' => 'DESC']], $hydrator->getOrderings());
+		$this->assertEquals([['column' => ['barfoo'], 'order' => 'DESC']], $query->getOrderings());
 	}
 }

@@ -16,7 +16,7 @@ use \mako\database\midgard\ORM;
  * @author  Frederic G. Østby
  */
 
-abstract class Relation extends \mako\database\midgard\Hydrator
+abstract class Relation extends \mako\database\midgard\Query
 {
 	//---------------------------------------------
 	// Class properties

@@ -12,7 +12,7 @@ use \RuntimeException;
 
 use \mako\core\Application;
 use \mako\database\ConnectionManager;
-use \mako\database\midgard\Hydrator;
+use \mako\database\midgard\Query;
 use \mako\database\midgard\relations\BelongsTo;
 use \mako\database\midgard\relations\HasMany;
 use \mako\database\midgard\relations\HasManyPolymorphic;
@@ -289,7 +289,7 @@ abstract class ORM
 	}
 
 	/**
-	 * Gets the date format from the query compiler.
+	 * Gets the date format from the query builder compiler.
 	 * 
 	 * @access  protected
 	 * @return  string
@@ -299,7 +299,7 @@ abstract class ORM
 	{
 		if(empty(static::$dateFormat))
 		{
-			static::$dateFormat = $this->hydrator()->getCompiler()->getDateFormat();
+			static::$dateFormat = $this->builder()->getCompiler()->getDateFormat();
 		}
 
 		return static::$dateFormat;
@@ -693,15 +693,15 @@ abstract class ORM
 	}
 
 	/**
-	 * Returns a hydrator instance.
+	 * Returns a query builder instance.
 	 * 
 	 * @access  protected
-	 * @return  \mako\database\midgard\Hydrator
+	 * @return  \mako\database\midgard\Query
 	 */
 
-	protected function hydrator()
+	protected function builder()
 	{
-		return new Hydrator($this->getConnection(), $this);
+		return new Query($this->getConnection(), $this);
 	}
 
 	/**
@@ -715,7 +715,7 @@ abstract class ORM
 
 	public static function get($id, array $columns = [])
 	{
-		return (new static)->hydrator()->get($id, $columns);
+		return (new static)->builder()->get($id, $columns);
 	}
 
 	/**
@@ -932,7 +932,7 @@ abstract class ORM
 			$this->columns[$this->lockingColumn] = 0;
 		}
 
-		$this->hydrator()->insert($this->columns);
+		$this->builder()->insert($this->columns);
 
 		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
 		{
@@ -960,7 +960,7 @@ abstract class ORM
 
 	protected function updateRecord()
 	{
-		$query = $this->hydrator();
+		$query = $this->builder();
 
 		$query->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
 
@@ -1028,7 +1028,7 @@ abstract class ORM
 	{
 		if($this->exists)
 		{
-			$query = $this->hydrator();
+			$query = $this->builder();
 
 			if($this->enableLocking)
 			{
@@ -1138,6 +1138,6 @@ abstract class ORM
 
 	public static function __callStatic($name, $arguments)
 	{
-		return call_user_func_array([(new static)->hydrator(), $name], $arguments);
+		return call_user_func_array([(new static)->builder(), $name], $arguments);
 	}
 }

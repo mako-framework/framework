@@ -502,7 +502,7 @@ class ORMTest extends \ORMTestCase
 	 * 
 	 */
 
-	public function testHydratorForwarding()
+	public function testQueryForwarding()
 	{
 		$user = TestUser::where('id', '=', 1)->first();
 
