@@ -7,13 +7,13 @@
 
 namespace mako\database\midgard;
 
+use \BadMethodCallException;
 use \Closure;
 
 use \mako\database\Connection;
 use \mako\database\midgard\ORM;
 use \mako\database\midgard\ResultSet;
 use \mako\database\midgard\ReadOnlyRecordException;
-use \BadMethodCallException;
 
 /**
  * ORM query builder.
