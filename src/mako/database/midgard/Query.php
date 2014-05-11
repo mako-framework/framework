@@ -196,6 +196,21 @@ class Query extends \mako\database\query\Query
 	}
 
 	/**
+	 * Returns a hydrated model.
+	 * 
+	 * @access  protected
+	 * @param   object                      $result  Database result
+	 * @return  \mako\database\midgard\ORM
+	 */
+
+	protected function hydrateModel($result)
+	{
+		$model = $this->model->getClass();
+
+		return new $model((array) $result, true, false, true, $this->makeReadOnly);
+	}
+
+	/**
 	 * Parses includes.
 	 * 
 	 * @access  protected
@@ -234,20 +249,6 @@ class Query extends \mako\database\query\Query
 		return $includes;
 	}
 
-	/**
-	 * Returns a hydrated model.
-	 * 
-	 * @access  protected
-	 * @param   object                      $result  Database result
-	 * @return  \mako\database\midgard\ORM
-	 */
-
-	protected function hydrateModel($result)
-	{
-		$model = $this->model->getClass();
-
-		return new $model((array) $result, true, false, true, $this->makeReadOnly);
-	}
 
 	/**
 	 * Load includes.
