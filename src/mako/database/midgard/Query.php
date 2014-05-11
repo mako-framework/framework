@@ -235,6 +235,21 @@ class Query extends \mako\database\query\Query
 	}
 
 	/**
+	 * Returns a hydrated model.
+	 * 
+	 * @access  protected
+	 * @param   object                      $result  Database result
+	 * @return  \mako\database\midgard\ORM
+	 */
+
+	protected function hydrateModel($result)
+	{
+		$model = $this->model->getClass();
+
+		return new $model((array) $result, true, false, true, $this->makeReadOnly);
+	}
+
+	/**
 	 * Load includes.
 	 * 
 	 * @access  protected
@@ -254,21 +269,6 @@ class Query extends \mako\database\query\Query
 	}
 
 	/**
-	 * Returns a hydrated model.
-	 * 
-	 * @access  protected
-	 * @param   object                      $result  Database result
-	 * @return  \mako\database\midgard\ORM
-	 */
-
-	protected function hydrateModel($result)
-	{
-		$model = $this->model->getClass();
-
-		return new $model((array) $result, true, false, true, $this->makeReadOnly);
-	}
-
-	/**
 	 * Returns hydrated models.
 	 * 
 	 * @access  protected
@@ -276,14 +276,9 @@ class Query extends \mako\database\query\Query
 	 * @return  array
 	 */
 
-	protected function hydrate($results)
+	protected function hydrateModelsAndLoadIncludes($results)
 	{
 		$hydrated = [];
-
-		if(!is_array($results))
-		{
-			$results = [$results];
-		}
 
 		foreach($results as $result)
 		{
@@ -326,9 +321,7 @@ class Query extends \mako\database\query\Query
 
 		if($result !== false)
 		{
-			$hydrated = $this->hydrate($result);
-
-			return $hydrated[0];
+			return $this->hydrateModelsAndLoadIncludes([$result])[0];
 		}
 
 		return false;
@@ -347,7 +340,7 @@ class Query extends \mako\database\query\Query
 
 		if(!empty($results))
 		{
-			$results = $this->hydrate($results);
+			$results = $this->hydrateModelsAndLoadIncludes($results);
 		}
 
 		return new ResultSet($results);
