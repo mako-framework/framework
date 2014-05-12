@@ -84,62 +84,57 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 	//---------------------------------------------
 
 	/**
-	 * Determine the content range that should be served.
+	 * Calculates the content range that should be served.
 	 * 
 	 * @access  protected
-	 * @param   \mako\http\Request  $request  Request instance
-	 * @return  null|false|array
+	 * @param   string       $range  Request range
+	 * @return  array|false
 	 */
 
-	protected function getRange(Request $request)
+	protected function calculateRange($range)
 	{
-		if(($range = $request->header('range')) !== null)
+		// Remove the "range=" part of the header value
+
+		$range = substr($range, 6);
+
+		// Split the range starting and ending points
+
+		$range = explode('-', $range, 2);
+
+		// Check that the range contains two values
+
+		if(count($range) !== 2)
 		{
-			// Remove the "range=" part of the header value
-
-			$range = substr($range, 6);
-
-			// Split the range starting and ending points
-
-			$range = explode('-', $range, 2);
-
-			// Check that the range contains two values
-
-			if(count($range) !== 2)
-			{
-				return false;
-			}
-
-			// Determine start and ending points
-
-			$end = $range[1] === '' ? $this->fileSize - 1 : $range[1];
-
-			if($range[0] === '')
-			{
-				$start = $this->fileSize - $end;
-				$end   = $this->fileSize - 1;
-			}
-			else
-			{
-				$start = $range[0];
-			}
-
-			$start = (int) $start;
-			$end   = (int) $end;
-
-			// Check that the range is satisfiable
-
-			if($start > $end || $end + 1 > $this->fileSize)
-			{
-				return false;
-			}
-
-			// Return the range
-
-			return compact('start', 'end');
+			return false;
 		}
 
-		return null; // No range was provided
+		// Determine start and ending points
+
+		$end = $range[1] === '' ? $this->fileSize - 1 : $range[1];
+
+		if($range[0] === '')
+		{
+			$start = $this->fileSize - $end;
+			$end   = $this->fileSize - 1;
+		}
+		else
+		{
+			$start = $range[0];
+		}
+
+		$start = (int) $start;
+		$end   = (int) $end;
+
+		// Check that the range is satisfiable
+
+		if($start > $end || $end + 1 > $this->fileSize)
+		{
+			return false;
+		}
+
+		// Return the range
+
+		return compact('start', 'end');
 	}
 
 	/**
@@ -202,8 +197,13 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 		$response->header('content-disposition', $this->options['disposition'] . '; filename="' . $this->options['file_name'] . '"');
 
 		// Get the requested byte range
+		
+		$range = $request->header('range');
 
-		$range = $this->getRange($request);
+		if($range !== null)
+		{
+			$range = $this->calculateRange($range);
+		}
 
 		if($range === false)
 		{
