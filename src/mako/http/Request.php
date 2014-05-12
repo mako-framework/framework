@@ -361,16 +361,18 @@ class Request
 		{
 			$quality = 1;
 
-			if(strpos($accept, ';q='))
+			if(strpos($accept, ';'))
 			{
-				list($accept, $quality) = explode(';q=', $accept, 2);
+				list($accept, $quality) = explode(';', $accept, 2);
+
+				$quality = substr(trim($quality), 2);
 			}
 
-			$groupedAccepts[trim($quality)][] = trim($accept);
+			$groupedAccepts[$quality][] = trim($accept);
 		}
 
 		ksort($groupedAccepts);
-
+		
 		$accepts = [];
 
 		foreach(array_reverse($groupedAccepts) as $accept)
