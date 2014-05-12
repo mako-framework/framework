@@ -230,6 +230,8 @@ class HTML
 			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
 		}
 
+		array_unshift($arguments, $this);
+
 		return call_user_func_array(static::$tags[$name], $arguments);
 	}
 }
