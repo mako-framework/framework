@@ -7,19 +7,19 @@
 
 namespace mako\reactor\tasks\console;
 
+use \Exception;
+
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
-use \Exception;
 
 /**
  * Interactive REPL console.
- * 
- * Based on PHPA by Dadiv Phillips (http://david.acz.org/).
  *
  * @author  Frederic G. Østby
+ * @author  Dadiv Phillips
  */
 
-class Console
+class REPL
 {
 	//---------------------------------------------
 	// Class properties

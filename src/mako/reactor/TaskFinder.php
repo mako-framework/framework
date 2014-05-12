@@ -136,7 +136,7 @@ class TaskFinder
 	{
 		$baseName = $this->getBasename($task);
 
-		return [strtolower($baseName) => '\mako\reactor\tasks\\' . $baseName];
+		return ['mako::' . strtolower($baseName) => '\mako\reactor\tasks\\' . $baseName];
 	}
 
 	/**

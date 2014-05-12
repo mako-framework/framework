@@ -11,15 +11,15 @@ use \mako\core\Application;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
 use \mako\reactor\tasks\console\Boris;
-use \mako\reactor\tasks\console\Console;
+use \mako\reactor\tasks\console\REPL;
 
 /**
- * Mako task.
+ * Console task.
  *
  * @author  Frederic G. Østby
  */
 
-class Mako extends \mako\reactor\Task
+class Console extends \mako\reactor\Task
 {
 	//---------------------------------------------
 	// Class properties
@@ -41,23 +41,13 @@ class Mako extends \mako\reactor\Task
 
 	protected static $taskInfo = 
 	[
-		'console' => 
+		'start' => 
 		[
 			'description' => 'Starts the debug console.',
 			'options'     => 
 			[
 				'fresh'  => 'Start without the console history.',
 				'forget' => 'Discard the console history upon exit.',
-			],
-		],
-		'server' => 
-		[
-			'description' => 'Starts the local development server.',
-			'options'     => 
-			[
-				'port'    => 'Port to run the server on.',
-				'address' => 'Address to run the server on.',
-				'docroot' => 'Path to the document root.',
 			],
 		],
 	];
@@ -92,7 +82,7 @@ class Mako extends \mako\reactor\Task
 	 * @access  public
 	 */
 
-	public function console()
+	public function start()
 	{
 		// Check if any of the pcntl functions are disabled
 
@@ -132,41 +122,9 @@ class Mako extends \mako\reactor\Task
 		{
 			// Start fallback REPL
 
-			$console = new Console($this->input, $this->output, $history);
+			$console = new REPL($this->input, $this->output, $history);
 
 			$console->run();
 		}
-	}
-
-	/**
-	 * Starts the server.
-	 * 
-	 * @access  public
-	 */
-
-	public function server()
-	{
-		// Check if PHP version requirement is met
-
-		if(version_compare(PHP_VERSION, '5.4.0', '<'))
-		{
-			return $this->output->error('You need PHP 5.4.0 or greater to use the development server.');
-		}
-
-		// Start server
-
-		$port    = $this->input->param('port', 8000);
-		$address = $this->input->param('address', 'localhost');
-		$docroot = $this->input->param('docroot', dirname($this->application->getApplicationPath()));
-
-		$host = ($address === '0.0.0.0') ? gethostbyname(gethostname()) : $address;
-
-		$message  = 'Starting <green>Mako</green> development server at ';
-		$message .= '<options=underscore>http://' . $host . ':' . $port . '</options=underscore> ';
-		$message .= '<yellow>(ctrl+c to stop)</yellow> ...';
-
-		$this->output->writeln($message);
-
-		passthru(PHP_BINDIR . '/php -S ' . $address . ':' . $port . ' -t ' . $docroot . ' ' . __DIR__ . '/server/router.php');
 	}
 }

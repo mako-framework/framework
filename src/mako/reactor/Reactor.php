@@ -16,6 +16,7 @@ use \mako\reactor\Task;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
 use \mako\syringe\Container;
+use \mako\utility\Str;
 
 /**
  * Reactor core class.
@@ -283,7 +284,7 @@ class Reactor
 
 			if(($task = $this->resolve($task)) !== false)
 			{
-				call_user_func_array([$task, $method], array_slice($arguments, 1));
+				call_user_func_array([$task, Str::underscored2camel($method)], array_slice($arguments, 1));
 			}
 		}
 		else

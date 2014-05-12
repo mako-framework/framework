@@ -82,7 +82,7 @@ class App extends \mako\reactor\Task
 	 * @access  public
 	 */
 
-	public function generate_secret()
+	public function generateSecret()
 	{
 		$configFile = $this->application->getApplicationPath() . '/config/application.php';
 
