@@ -84,13 +84,14 @@ class Str
 	 * Replaces newline with <br> or <br />.
 	 *
 	 * @access  public
-	 * @param   string  $string  The input string
+	 * @param   string   $string  The input string
+	 * @param   boolean  $xhtml   (optional) Should we return XHTML?
 	 * @return  string
 	 */
 
-	public static function nl2br($string)
+	public static function nl2br($string, $xhtml = false)
 	{
-		return str_replace(["\r\n", "\n\r", "\n", "\r"], HTML::tag('br'), $string);
+		return str_replace(["\r\n", "\n\r", "\n", "\r"], (new HTML($xhtml))->tag('br'), $string);
 	}
 
 	/**
@@ -218,14 +219,15 @@ class Str
 	 * @access  public
 	 * @param   string   $string      Text to scan for links
 	 * @param   array    $attributes  (optional) Anchor attributes
+	 * @param   boolean  $xhtml       (optional) Should we return XHTML?
 	 * @return  string
 	 */
 	
-	public static function autolink($string, array $attributes = [])
+	public static function autolink($string, array $attributes = [], $xhtml = false)
 	{
 		return preg_replace_callback('#\b(?<!href="|">)[a-z]+://\S+(?:/|\b)#i', function($matches) use ($attributes)
 		{
-			return HTML::tag('a', ['href' => $matches[0]] + $attributes, $matches[0]);
+			return (new HTML($xhtml))->tag('a', ['href' => $matches[0]] + $attributes, $matches[0]);
 		}, $string);
 	}
 

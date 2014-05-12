@@ -23,6 +23,14 @@ class HTML
 	//---------------------------------------------
 
 	/**
+	 * Should we return XHTML?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $xhtml;
+
+	/**
 	 * Custom tags.
 	 *
 	 * @var array
@@ -35,19 +43,33 @@ class HTML
 	//---------------------------------------------
 
 	/**
-	 * Protected constructor since this is a static class.
+	 * Constructor.
 	 *
-	 * @access  protected
+	 * @access  public
+	 * @param   boolean  $xhtml  (optional) Should we return HXML?
 	 */
 
-	protected function __construct()
+	public function __construct($xhtml = false)
 	{
-		// Nothing here
+		$this->xhtml = $xhtml;
 	}
 
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Registers a new HTML tag.
+	 *
+	 * @access  public
+	 * @param   string   $name      Tag name
+	 * @param   \Closure  $closure  Tag closure
+	 */
+
+	public static function registerTag($name, Closure $tag)
+	{
+		static::$tags[$name] = $tag;
+	}
 
 	/**
 	 * Takes an array of attributes and turns it into a string.
@@ -57,7 +79,7 @@ class HTML
 	 * @return  string
 	 */
 
-	protected static function attributes($attributes)
+	protected function attributes($attributes)
 	{
 		$attr = '';
 		
@@ -84,9 +106,9 @@ class HTML
 	 * @return  string
 	 */
 
-	public static function tag($name, array $attributes = [], $content = null)
+	public function tag($name, array $attributes = [], $content = null)
 	{
-		return '<' . $name . static::attributes($attributes) . (($content === null) ? (defined('MAKO_XHTML') ? ' />' : '>') : '>' . $content . '</' . $name . '>');
+		return '<' . $name . $this->attributes($attributes) . (($content === null) ? ($this->xhtml ? ' />' : '>') : '>' . $content . '</' . $name . '>');
 	}
 
 	/**
@@ -98,16 +120,16 @@ class HTML
 	 * @param   array      $attributes  (optional) Tag attributes
 	 */
 
-	protected static function buildMedia($type, $files, $attributes)
+	protected function buildMedia($type, $files, $attributes)
 	{
 		$sources = '';
 
 		foreach((array) $files as $file)
 		{
-			$sources .= HTML::tag('source', ['src' => $file]);
+			$sources .= $this->tag('source', ['src' => $file]);
 		}
 		
-		return static::tag($type, $attributes, $sources);
+		return $this->tag($type, $attributes, $sources);
 	}
 
 	/**
@@ -118,9 +140,9 @@ class HTML
 	 * @param   array   $attributes  (optional) Tag attributes
 	 */
 
-	public static function audio($files, array $attributes = [])
+	public function audio($files, array $attributes = [])
 	{
-		return static::buildMedia('audio', $files, $attributes);
+		return $this->buildMedia('audio', $files, $attributes);
 	}
 
 	/**
@@ -131,9 +153,9 @@ class HTML
 	 * @param   array   $attributes  (optional) Tag attributes
 	 */
 
-	public static function video($files, array $attributes = [])
+	public function video($files, array $attributes = [])
 	{
-		return static::buildMedia('video', $files, $attributes);
+		return $this->buildMedia('video', $files, $attributes);
 	}
 
 	/**
@@ -145,7 +167,7 @@ class HTML
 	 * @param   array      $attributes  (optional) Tag attributes
 	 */
 
-	protected static function buildList($type, $items, $attributes)
+	protected function buildList($type, $items, $attributes)
 	{
 		$list = '';
 
@@ -153,15 +175,15 @@ class HTML
 		{
 			if(is_array($item))
 			{
-				$list .= static::tag('li', [], static::buildList($type, $item, []));
+				$list .= $this->tag('li', [], $this->buildList($type, $item, []));
 			}
 			else
 			{
-				$list .= static::tag('li', [], $item);
+				$list .= $this->tag('li', [], $item);
 			}
 		}
 
-		return static::tag($type, $attributes, $list);
+		return $this->tag($type, $attributes, $list);
 	}
 
 	/**
@@ -173,9 +195,9 @@ class HTML
 	 * @return  string
 	 */
 
-	public static function ul(array $items, array $attributes = [])
+	public function ul(array $items, array $attributes = [])
 	{
-		return static::buildList('ul', $items, $attributes);
+		return $this->buildList('ul', $items, $attributes);
 	}
 
 	/**
@@ -187,22 +209,9 @@ class HTML
 	 * @return  string
 	 */
 
-	public static function ol(array $items, array $attributes = [])
+	public function ol(array $items, array $attributes = [])
 	{
-		return static::buildList('ol', $items, $attributes);
-	}
-
-	/**
-	 * Registers a new HTML tag.
-	 *
-	 * @access  public
-	 * @param   string   $name     Tag name
-	 * @param   \Closure  $closure  Tag closure
-	 */
-
-	public static function registerTag($name, Closure $tag)
-	{
-		static::$tags[$name] = $tag;
+		return $this->buildList('ol', $items, $attributes);
 	}
 
 	/**
@@ -214,7 +223,7 @@ class HTML
 	 * @return  mixed
 	 */
 
-	public static function __callStatic($name, $arguments)
+	public function __call($name, $arguments)
 	{
 		if(!isset(static::$tags[$name]))
 		{
