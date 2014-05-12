@@ -18,6 +18,10 @@ use \mako\database\midgard\ORM;
 
 trait HasOneOrManyPolymorphicTrait
 {
+	//---------------------------------------------
+	// Class properties
+	//---------------------------------------------
+
 	/**
 	 * Polymorphic type.
 	 * 
@@ -25,6 +29,11 @@ trait HasOneOrManyPolymorphicTrait
 	 */
 
 	protected $polymorphicType;
+
+
+	//---------------------------------------------
+	// Class constructor, destructor etc ...
+	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -44,6 +53,10 @@ trait HasOneOrManyPolymorphicTrait
 
 		$this->where($this->polymorphicType, '=', $parent->getClass());
 	}
+
+	//---------------------------------------------
+	// Class methods
+	//---------------------------------------------
 
 	/**
 	 * Creates a related record.
