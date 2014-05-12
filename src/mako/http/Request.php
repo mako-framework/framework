@@ -379,11 +379,11 @@ class Request
 
 		// Sort and flatten array
 
-		ksort($groupedAccepts);
+		krsort($groupedAccepts);
 
 		$accepts = [];
 
-		foreach(array_reverse($groupedAccepts) as $group)
+		foreach($groupedAccepts as $group)
 		{
 			$accepts = array_merge($accepts, $group);
 		}
