@@ -359,7 +359,7 @@ class Request
 
 		// Collect acceptable values
 
-		foreach(explode(',', $headerValue) as $key => $accept)
+		foreach(explode(',', $headerValue) as $accept)
 		{
 			$quality = 1;
 
