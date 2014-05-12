@@ -219,15 +219,14 @@ class Str
 	 * @access  public
 	 * @param   string   $string      Text to scan for links
 	 * @param   array    $attributes  (optional) Anchor attributes
-	 * @param   boolean  $xhtml       (optional) Should we return XHTML?
 	 * @return  string
 	 */
 	
-	public static function autolink($string, array $attributes = [], $xhtml = false)
+	public static function autolink($string, array $attributes = [])
 	{
 		return preg_replace_callback('#\b(?<!href="|">)[a-z]+://\S+(?:/|\b)#i', function($matches) use ($attributes)
 		{
-			return (new HTML($xhtml))->tag('a', ['href' => $matches[0]] + $attributes, $matches[0]);
+			return (new HTML())->tag('a', ['href' => $matches[0]] + $attributes, $matches[0]);
 		}, $string);
 	}
 
