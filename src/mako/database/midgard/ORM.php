@@ -295,7 +295,7 @@ abstract class ORM
 	 * @return  string
 	 */
 
-	protected function getDateFormat()
+	public function getDateFormat()
 	{
 		if(empty(static::$dateFormat))
 		{
@@ -303,6 +303,18 @@ abstract class ORM
 		}
 
 		return static::$dateFormat;
+	}
+
+	/**
+	 * Returns the date time columns.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	protected function getDateTimeColumns()
+	{
+		return $this->dateTimeColumns;
 	}
 
 	/**
@@ -556,7 +568,7 @@ abstract class ORM
 
 				return $this->{$name . 'Accessor'}($this->columns[$name]);	
 			}
-			elseif(in_array($name, $this->dateTimeColumns))
+			elseif(in_array($name, $this->getDateTimeColumns()))
 			{
 				// The column value should be converted to a DateTime object
 
