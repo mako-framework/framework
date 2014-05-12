@@ -11,8 +11,8 @@ use \Closure;
 use \LogicException;
 
 use \mako\config\Config;
-use \mako\core\error\handlers\WebHandler;
-use \mako\core\error\handlers\CLIHandler;
+use \mako\error\handlers\WebHandler;
+use \mako\error\handlers\CLIHandler;
 use \mako\syringe\Container;
 
 use \Monolog\Handler\HandlerInterface;

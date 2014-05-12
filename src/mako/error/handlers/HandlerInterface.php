@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\error\handlers;
+namespace mako\error\handlers;
 
 use \Exception;
 use \Psr\Log\LoggerInterface;

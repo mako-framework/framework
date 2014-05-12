@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\error\handlers;
+namespace mako\error\handlers;
 
 use \Exception;
 use \ErrorException;
@@ -17,7 +17,7 @@ use \Psr\Log\LoggerInterface;
  * @author  Frederic G. Østby
  */
 
-abstract class Handler implements \mako\core\error\handlers\HandlerInterface
+abstract class Handler implements \mako\error\handlers\HandlerInterface
 {
 	//---------------------------------------------
 	// Class properties

@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\error\handlers;
+namespace mako\error\handlers;
 
 /**
  * CLI handler.
@@ -13,7 +13,7 @@ namespace mako\core\error\handlers;
  * @author  Frederic G. Østby
  */
 
-class CLIHandler extends \mako\core\error\handlers\Handler implements \mako\core\error\handlers\HandlerInterface
+class CLIHandler extends \mako\error\handlers\Handler implements \mako\error\handlers\HandlerInterface
 {
 	//---------------------------------------------
 	// Class properties

@@ -5,13 +5,13 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\error;
+namespace mako\error;
 
 use \Closure;
 use \ErrorException;
 use \Exception;
 
-use \mako\core\error\handlers\ExceptionHandler;
+use \mako\error\handlers\ExceptionHandler;
 
 /**
  * Error handler.

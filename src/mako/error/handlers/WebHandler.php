@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\error\handlers;
+namespace mako\error\handlers;
 
 use \Exception;
 use \ErrorException;
@@ -20,7 +20,7 @@ use \mako\http\routing\MethodNotAllowedException;
  * @author  Frederic G. Østby
  */
 
-class WebHandler extends \mako\core\error\handlers\Handler implements \mako\core\error\handlers\HandlerInterface
+class WebHandler extends \mako\error\handlers\Handler implements \mako\error\handlers\HandlerInterface
 {
 	//---------------------------------------------
 	// Class properties
