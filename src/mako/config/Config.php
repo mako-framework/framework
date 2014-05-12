@@ -5,10 +5,11 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core;
+namespace mako\config;
+
+use \RuntimeException;
 
 use \mako\utility\Arr;
-use \RuntimeException;
 
 /**
  * Config class.

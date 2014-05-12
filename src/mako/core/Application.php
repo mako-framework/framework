@@ -10,7 +10,7 @@ namespace mako\core;
 use \Closure;
 use \LogicException;
 
-use \mako\core\Config;
+use \mako\config\Config;
 use \mako\core\error\handlers\WebHandler;
 use \mako\core\error\handlers\CLIHandler;
 use \mako\syringe\Container;
@@ -48,7 +48,7 @@ abstract class Application
 	/**
 	 * Config instance.
 	 * 
-	 * @var \mako\core\Config
+	 * @var \mako\config\Config
 	 */
 
 	protected $config;
@@ -150,7 +150,7 @@ abstract class Application
 	 * Returns the config instance.
 	 * 
 	 * @access  public
-	 * @return  \mako\core\Config
+	 * @return  \mako\config\Config
 	 */
 
 	public function getConfig()
@@ -348,7 +348,7 @@ abstract class Application
 
 		// Register config instance
 
-		$this->container->registerInstance(['mako\core\Config', 'config'], $this->config = new Config($this->applicationPath));
+		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config = new Config($this->applicationPath));
 
 		// Configure
 
