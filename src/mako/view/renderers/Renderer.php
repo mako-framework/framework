@@ -15,10 +15,6 @@ namespace mako\view\renderers;
 
 abstract class Renderer implements \mako\view\renderers\RendererInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * View path.
 	 * 
@@ -35,10 +31,6 @@ abstract class Renderer implements \mako\view\renderers\RendererInterface
 
 	protected $variables;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -53,10 +45,6 @@ abstract class Renderer implements \mako\view\renderers\RendererInterface
 
 		$this->variables = $variables;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Assign a local view variable.

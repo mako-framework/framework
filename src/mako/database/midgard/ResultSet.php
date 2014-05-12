@@ -17,16 +17,6 @@ use \mako\utility\Arr;
 
 class ResultSet extends \mako\utility\Collection
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Clones all items when cloning the collection.
 	 * 
@@ -40,10 +30,6 @@ class ResultSet extends \mako\utility\Collection
 			$this->items[$key] = clone $value;
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns an array containing only the values of chosen column.

@@ -31,22 +31,6 @@ use \mako\cache\stores\ZendMemory;
 
 class CacheManager extends \mako\common\AdapterManager
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * APC store factory.
 	 * 

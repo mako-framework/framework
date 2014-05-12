@@ -18,10 +18,6 @@ use \BadMethodCallException;
 
 class HTML
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Should we return XHTML?
 	 * 
@@ -38,10 +34,6 @@ class HTML
 
 	protected static $tags = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -53,10 +45,6 @@ class HTML
 	{
 		$this->xhtml = $xhtml;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Registers a new HTML tag.

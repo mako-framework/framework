@@ -18,10 +18,6 @@ use \RuntimeExcepion;
 
 trait ObservableTrait
 {
-	//---------------------------------------------
-	// Trait properties
-	//---------------------------------------------
-
 	/**
 	 * Observers.
 	 * 
@@ -29,10 +25,6 @@ trait ObservableTrait
 	 */
 
 	protected $_observers = [];
-
-	//---------------------------------------------
-	// Trait methods
-	//---------------------------------------------
 
 	/**
 	 * Attach an observer.

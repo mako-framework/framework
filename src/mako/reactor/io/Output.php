@@ -18,10 +18,6 @@ use \Symfony\Component\Console\Helper\ProgressHelper;
 
 class Output extends \mako\reactor\io\StdOut
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * StdErr instance.
 	 * 
@@ -29,10 +25,6 @@ class Output extends \mako\reactor\io\StdOut
 	 */
 
 	protected $stderr;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -46,10 +38,6 @@ class Output extends \mako\reactor\io\StdOut
 
 		$this->stderr = new StdErr();
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the stderr instance.

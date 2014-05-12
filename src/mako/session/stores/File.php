@@ -15,10 +15,6 @@ namespace mako\session\stores;
 
 class File implements \mako\session\stores\StoreInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Session path.
 	 * 
@@ -26,10 +22,6 @@ class File implements \mako\session\stores\StoreInterface
 	 */
 
 	protected $sessionPath;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -42,10 +34,6 @@ class File implements \mako\session\stores\StoreInterface
 	{
 		$this->sessionPath = $sessionPath;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Writes session data.

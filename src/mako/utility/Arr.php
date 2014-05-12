@@ -15,16 +15,6 @@ namespace mako\utility;
 
 class Arr
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Protected constructor since this is a static class.
 	 *
@@ -35,10 +25,6 @@ class Arr
 	{
 		// Nothing here
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Sets an array value using "dot notation".

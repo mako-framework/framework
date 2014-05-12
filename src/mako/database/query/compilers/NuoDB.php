@@ -15,27 +15,7 @@ namespace mako\database\query\compilers;
 
 class NuoDB extends \mako\database\query\Compiler
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	/**
-	 * Wrapper used to escape table and column names.
-	 *
-	 * @var string
-	 */
-	
 	protected $wrapper = '"%s"';
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Compiles LIMIT clauses.

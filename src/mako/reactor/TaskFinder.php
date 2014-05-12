@@ -15,10 +15,6 @@ namespace mako\reactor;
 
 class TaskFinder
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Application path.
 	 * 
@@ -26,10 +22,6 @@ class TaskFinder
 	 */
 
 	protected $applicationPath;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -42,10 +34,6 @@ class TaskFinder
 	{
 		$this->applicationPath = $applicationPath;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns task directories.

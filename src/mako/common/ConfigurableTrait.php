@@ -15,10 +15,6 @@ namespace mako\common;
 
 trait ConfigurableTrait
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Name of the default connection.
 	 * 
@@ -35,10 +31,6 @@ trait ConfigurableTrait
 
 	protected $configurations;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -53,10 +45,6 @@ trait ConfigurableTrait
 
 		$this->configurations = $configurations;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Adds a configuration.

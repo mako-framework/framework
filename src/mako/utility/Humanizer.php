@@ -19,10 +19,6 @@ use \mako\i18n\I18n;
 
 class Humanizer
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * I18n instance.
 	 * 
@@ -30,10 +26,6 @@ class Humanizer
 	 */
 
 	protected $i18n;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -46,10 +38,6 @@ class Humanizer
 	{
 		$this->i18n = $i18n;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns a human friendly file size.

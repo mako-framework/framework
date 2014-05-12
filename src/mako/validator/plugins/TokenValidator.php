@@ -17,10 +17,6 @@ use \mako\session\Session;
 
 class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements \mako\validator\plugins\ValidatorPluginInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Rule name.
 	 * 
@@ -37,10 +33,6 @@ class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements 
 
 	protected $session;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -52,10 +44,6 @@ class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements 
 	{
 		$this->session = $session;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Validator.

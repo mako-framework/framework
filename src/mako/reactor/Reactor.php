@@ -26,10 +26,6 @@ use \mako\utility\Str;
 
 class Reactor
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Input.
 	 * 
@@ -75,10 +71,6 @@ class Reactor
 		['--hush', 'Disables all output'],
 	];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -99,11 +91,7 @@ class Reactor
 
 		$this->tasks = $tasks;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
+	
 	/**
 	 * Sets up the reactor environment and runs the commands.
 	 *

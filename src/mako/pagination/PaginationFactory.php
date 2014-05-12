@@ -20,10 +20,6 @@ use \mako\view\ViewFactory;
 
 class PaginationFactory
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Request instance.
 	 * 
@@ -56,10 +52,6 @@ class PaginationFactory
 
 	protected $viewFactory;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -80,11 +72,7 @@ class PaginationFactory
 
 		$this->viewFactory = $viewFactory;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
+	
 	/**
 	 * Sets the URL builder instance.
 	 * 

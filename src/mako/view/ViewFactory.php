@@ -19,10 +19,6 @@ use \mako\view\renderers\CacheableInterface;
 
 class ViewFactory
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Application path.
 	 * 
@@ -59,10 +55,6 @@ class ViewFactory
 
 	protected $globalVariables = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -79,10 +71,6 @@ class ViewFactory
 
 		$this->setCharset($charset);
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the charset.

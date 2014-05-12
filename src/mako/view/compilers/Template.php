@@ -15,10 +15,6 @@ namespace mako\view\compilers;
 
 class Template
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Path to raw template.
 	 *
@@ -51,10 +47,6 @@ class Template
 		'echos',
 	];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -69,10 +61,6 @@ class Template
 
 		$this->template = $template;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Compiles comments.

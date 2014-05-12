@@ -19,22 +19,6 @@ use \mako\database\Connection;
 
 class ConnectionManager extends \mako\common\ConnectionManager
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Connects to the chosen database and returns the connection.
 	 * 

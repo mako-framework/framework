@@ -20,10 +20,6 @@ use \mako\utility\Str;
 
 class Redis
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Command terminator.
 	 *
@@ -56,10 +52,6 @@ class Redis
 
 	protected $connection;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -82,10 +74,6 @@ class Redis
 	{
 		$this->disconnect();
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Connects to the Redis server.

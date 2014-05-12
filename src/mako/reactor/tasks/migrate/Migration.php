@@ -17,10 +17,6 @@ use \mako\database\ConnectionManager;
 
 abstract class Migration
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Connection manager instance.
 	 * 
@@ -28,10 +24,6 @@ abstract class Migration
 	 */
 	
 	protected $database;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -44,10 +36,6 @@ abstract class Migration
 	{
 		$this->database = $connectionManager;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Makes changes to the database structure.

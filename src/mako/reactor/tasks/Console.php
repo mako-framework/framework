@@ -21,10 +21,6 @@ use \mako\reactor\tasks\console\REPL;
 
 class Console extends \mako\reactor\Task
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Application instance.
 	 * 
@@ -52,10 +48,6 @@ class Console extends \mako\reactor\Task
 		],
 	];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -71,10 +63,6 @@ class Console extends \mako\reactor\Task
 
 		$this->application = $application;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Starts the console.

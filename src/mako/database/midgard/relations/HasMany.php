@@ -17,22 +17,6 @@ use \mako\database\midgard\ResultSet;
 
 class HasMany extends \mako\database\midgard\relations\HasOneOrMany
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Eager loads related records and matches them with their parent records.
 	 * 

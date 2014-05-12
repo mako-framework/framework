@@ -20,22 +20,6 @@ use \mako\validator\plugins\TokenValidator;
 
 class ValidatorFactoryService extends \mako\core\services\Service
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Registers plugins.
 	 * 

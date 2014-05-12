@@ -15,10 +15,6 @@ namespace mako\auth\models;
 
 class Group extends \mako\database\midgard\ORM
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Table name.
 	 * 
@@ -26,10 +22,6 @@ class Group extends \mako\database\midgard\ORM
 	 */
 
 	protected $tableName = 'groups';
-
-	//---------------------------------------------
-	// Relations
-	//---------------------------------------------
 
 	/**
 	 * Many to many relation to the users table.

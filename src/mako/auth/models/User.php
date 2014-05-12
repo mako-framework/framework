@@ -20,10 +20,6 @@ use \LogicException;
 
 class User extends \mako\database\midgard\ORM
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Table name.
 	 * 
@@ -40,10 +36,6 @@ class User extends \mako\database\midgard\ORM
 
 	protected $permissions = [];
 
-	//---------------------------------------------
-	// Relations
-	//---------------------------------------------
-
 	/**
 	 * Many to many relation to the groups table.
 	 * 
@@ -56,25 +48,17 @@ class User extends \mako\database\midgard\ORM
 		return $this->manyToMany('\mako\auth\models\Group');
 	}
 
-	//---------------------------------------------
-	// Getters and setters
-	//---------------------------------------------
-
 	/**
-	 * Password setter.
+	 * Password mutator.
 	 * 
 	 * @access  public
 	 * @return  string
 	 */
 
-	public function set_password($password)
+	public function passwordMutator($password)
 	{
 		return Password::hash($password);
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Validates a users password.

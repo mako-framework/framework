@@ -19,10 +19,6 @@ use \mako\i18n\Language;
 
 class I18n
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Application path.
 	 * 
@@ -47,10 +43,6 @@ class I18n
 
 	protected $languages = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -65,10 +57,6 @@ class I18n
 
 		$this->language = $language;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Gets the current language

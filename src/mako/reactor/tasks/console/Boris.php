@@ -20,10 +20,6 @@ use \mako\reactor\io\Output;
 
 class Boris
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Input.
 	 * 
@@ -47,10 +43,6 @@ class Boris
 	 */
 
 	protected $history;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -100,10 +92,6 @@ class Boris
 			@unlink($this->history);
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns an array of all the autocomplete items.

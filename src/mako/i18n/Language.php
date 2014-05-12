@@ -19,10 +19,6 @@ use \mako\utility\Arr;
 
 class Language
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Application path.
 	 * 
@@ -55,10 +51,6 @@ class Language
 
 	protected $inflection = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -77,11 +69,7 @@ class Language
 
 		$this->inflection = $this->loadInflection();
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
+	
 	/**
 	 * Loads all strings.
 	 * 

@@ -13,12 +13,8 @@ namespace mako\cache\stores;
  * @author  Frederic G. Østby
  */
 
-class Null implements \mako\cache\stores\StoreInterface
+class Memory implements \mako\cache\stores\StoreInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Cache data.
 	 *
@@ -26,16 +22,6 @@ class Null implements \mako\cache\stores\StoreInterface
 	 */
 
 	protected $cache = [];
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Store data in the cache.

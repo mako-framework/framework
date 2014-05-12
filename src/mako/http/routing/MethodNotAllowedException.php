@@ -17,10 +17,6 @@ use \Exception;
 
 class MethodNotAllowedException extends \mako\http\RequestException
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Allowed methods.
 	 * 
@@ -28,10 +24,6 @@ class MethodNotAllowedException extends \mako\http\RequestException
 	 */
 	 
 	 protected $allowedMethods;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -48,10 +40,6 @@ class MethodNotAllowedException extends \mako\http\RequestException
 
 		parent::__construct(405, $message, $previous);
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the allowed methods.

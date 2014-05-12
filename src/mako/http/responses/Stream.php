@@ -19,10 +19,6 @@ use \mako\http\Response;
 
 Class Stream implements \mako\http\responses\ResponseContainerInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Stream.
 	 * 
@@ -30,10 +26,6 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 	 */
 
 	protected $stream;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -46,11 +38,7 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 	{
 		$this->stream = $stream;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
+	
 	/**
 	 * Flushes a chunck of data.
 	 * 

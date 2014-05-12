@@ -18,10 +18,6 @@ use \InvalidArgumentException;
 
 class UUID
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * DNS namespace.
 	 *
@@ -54,10 +50,6 @@ class UUID
 
 	const X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Protected constructor since this is a static class.
 	 *
@@ -68,10 +60,6 @@ class UUID
 	{
 		// Nothing here
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Checks if a UUID is valid.

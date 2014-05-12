@@ -15,16 +15,6 @@ namespace mako\reactor\io;
 
 class StdErr extends \mako\reactor\io\StreamOutput
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -35,10 +25,4 @@ class StdErr extends \mako\reactor\io\StreamOutput
 	{
 		parent::__construct(fopen('php://stderr', 'w'));
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
-	// Nothing here
 }

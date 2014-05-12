@@ -23,10 +23,6 @@ use \mako\database\midgard\ReadOnlyRecordException;
 
 class Query extends \mako\database\query\Query
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Instance of the model to hydrate.
 	 * 
@@ -42,10 +38,6 @@ class Query extends \mako\database\query\Query
 	 */
 
 	protected $makeReadOnly = false;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -65,10 +57,6 @@ class Query extends \mako\database\query\Query
 
 		$this->table = $model->getTable();
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Adds a JOIN clause.

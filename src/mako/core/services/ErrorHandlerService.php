@@ -17,22 +17,6 @@ use \mako\error\ErrorHandler;
 
 class ErrorHandlerService extends \mako\core\services\Service
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-	
 	/**
 	 * Registers the service.
 	 * 

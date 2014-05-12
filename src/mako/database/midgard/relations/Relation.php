@@ -18,10 +18,6 @@ use \mako\database\midgard\ORM;
 
 abstract class Relation extends \mako\database\midgard\Query
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Parent record.
 	 * 
@@ -46,10 +42,6 @@ abstract class Relation extends \mako\database\midgard\Query
 
 	protected $lazy = true;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -70,10 +62,6 @@ abstract class Relation extends \mako\database\midgard\Query
 
 		$this->lazyCriterion();
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the foreign key.

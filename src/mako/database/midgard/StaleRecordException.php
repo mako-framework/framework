@@ -15,21 +15,5 @@ namespace mako\database\midgard;
 
 class StaleRecordException extends \RuntimeException
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
-	// Nothing here
+	
 }

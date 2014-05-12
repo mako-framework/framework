@@ -15,10 +15,6 @@ namespace mako\validator\plugins;
 
 abstract class ValidatorPlugin implements \mako\validator\plugins\ValidatorPluginInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Rule name.
 	 * 
@@ -34,16 +30,6 @@ abstract class ValidatorPlugin implements \mako\validator\plugins\ValidatorPlugi
 	 */
 
 	protected $packageName = '';
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returnst the rule name.

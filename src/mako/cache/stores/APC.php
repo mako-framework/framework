@@ -15,22 +15,6 @@ namespace mako\cache\stores;
 
 class APC implements \mako\cache\stores\StoreInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Store data in the cache.
 	 *

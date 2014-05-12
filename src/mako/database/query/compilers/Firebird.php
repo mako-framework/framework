@@ -15,22 +15,6 @@ namespace mako\database\query\compilers;
 
 class Firebird extends \mako\database\query\Compiler
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Compiles LIMIT clauses.
 	 *

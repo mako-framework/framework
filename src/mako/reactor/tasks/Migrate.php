@@ -21,10 +21,6 @@ use \mako\syringe\Container;
 
 class Migrate extends \mako\reactor\Task
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * IoC container instance.
 	 * 
@@ -83,10 +79,6 @@ class Migrate extends \mako\reactor\Task
 		],
 	];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -104,10 +96,6 @@ class Migrate extends \mako\reactor\Task
 
 		$this->application = $container->get('app');
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the database connection.

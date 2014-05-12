@@ -19,10 +19,6 @@ use \mako\cache\stores\StoreInterface;
 
 class Cache
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Cache store.
 	 * 
@@ -39,10 +35,6 @@ class Cache
 
 	protected $prefix;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -57,10 +49,6 @@ class Cache
 
 		$this->prefix = $prefix;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns a prefixed cache key.

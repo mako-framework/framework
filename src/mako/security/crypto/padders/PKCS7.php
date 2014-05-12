@@ -15,22 +15,6 @@ namespace mako\security\crypto\padders;
 
 class PKCS7 implements \mako\security\crypto\padders\PadderInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Adds PKCS7 padding to string.
 	 * 

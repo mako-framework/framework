@@ -19,10 +19,6 @@ use \Psr\Log\LoggerInterface;
 
 abstract class Handler implements \mako\error\handlers\HandlerInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Exception.
 	 * 
@@ -38,10 +34,6 @@ abstract class Handler implements \mako\error\handlers\HandlerInterface
 	 */
 
 	protected $logger;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -68,10 +60,6 @@ abstract class Handler implements \mako\error\handlers\HandlerInterface
 			$this->logger->error($this->exception);
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Set logger instance.

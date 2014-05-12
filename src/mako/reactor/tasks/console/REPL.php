@@ -21,10 +21,6 @@ use \mako\reactor\io\Output;
 
 class REPL
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Input.
 	 * 
@@ -56,10 +52,6 @@ class REPL
 	 */
 
 	protected $readline;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -126,10 +118,6 @@ class REPL
 			@unlink($this->history);
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns an array of all the autocomplete items.

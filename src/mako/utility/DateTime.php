@@ -17,10 +17,6 @@ use \DateTimeZone;
 
 class DateTime extends \DateTime
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Number of seconds in a minute.
 	 *
@@ -69,10 +65,6 @@ class DateTime extends \DateTime
 
 	const YEAR = 31556926;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -90,10 +82,6 @@ class DateTime extends \DateTime
 
 		parent::__construct($time, $timeZone);
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns a new DateTime object.

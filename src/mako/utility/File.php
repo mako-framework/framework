@@ -15,10 +15,6 @@ namespace mako\utility;
 
 class File
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Mime types.
 	 * 
@@ -97,10 +93,6 @@ class File
 		'3g2'        => 'video/3gpp2',
 	];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Protected constructor since this is a static class.
 	 *
@@ -111,10 +103,6 @@ class File
 	{
 		// Nothing here
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns filesize in bytes.

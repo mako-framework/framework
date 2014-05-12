@@ -25,10 +25,6 @@ use \mako\syringe\Container;
 
 class Dispatcher
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Route collection.
 	 * 
@@ -78,10 +74,6 @@ class Dispatcher
 
 	protected $skipAfterFilters = false;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -101,10 +93,6 @@ class Dispatcher
 		$this->response   = $response ?: new Response($request);
 		$this->container  = $container ?: new Container;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Executes a filter.

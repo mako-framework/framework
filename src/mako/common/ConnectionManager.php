@@ -16,10 +16,6 @@ namespace mako\common;
 abstract class ConnectionManager
 {
 	use \mako\common\ConfigurableTrait;
-	
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
 
 	/**
 	 * Connections.
@@ -28,16 +24,6 @@ abstract class ConnectionManager
 	 */
 
 	protected $connections = [];
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Connects to the chosen configuration and returns the connection.

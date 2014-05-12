@@ -21,10 +21,6 @@ abstract class AdapterManager
 {
 	use \mako\common\ConfigurableTrait;
 	
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Reuse instances?
 	 * 
@@ -49,10 +45,6 @@ abstract class AdapterManager
 
 	protected $instances = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -70,10 +62,6 @@ abstract class AdapterManager
 
 		$this->container = $container;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the factory method name.

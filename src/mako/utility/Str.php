@@ -17,10 +17,6 @@ use \mako\utility\HTML;
 
 class Str
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Alphanumeric characters.
 	 *
@@ -61,10 +57,6 @@ class Str
 
 	const SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Protected constructor since this is a static class.
 	 *
@@ -75,10 +67,6 @@ class Str
 	{
 		// Nothing here
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Replaces newline with <br> or <br />.

@@ -17,10 +17,6 @@ use \mako\view\compilers\Template as Compiler;
 
 class Template extends \mako\view\renderers\Renderer implements \mako\view\renderers\RendererInterface, \mako\view\renderers\CacheableInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Cache path.
 	 * 
@@ -44,16 +40,6 @@ class Template extends \mako\view\renderers\Renderer implements \mako\view\rende
 	 */
 
 	protected $openBlocks = [];
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Sets the cache path.

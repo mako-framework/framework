@@ -15,10 +15,6 @@ namespace mako\cache\stores;
 
 class File implements \mako\cache\stores\StoreInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Cache path.
 	 * 
@@ -26,10 +22,6 @@ class File implements \mako\cache\stores\StoreInterface
 	 */
 
 	protected $cachePath;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -42,10 +34,6 @@ class File implements \mako\cache\stores\StoreInterface
 	{
 		$this->cachePath = $cachePath;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the path to the cache file.

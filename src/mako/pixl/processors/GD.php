@@ -20,10 +20,6 @@ use \mako\pixl\Image;
 
 class GD implements \mako\pixl\processors\ProcessorInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Image resource.
 	 * 
@@ -40,21 +36,6 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 
 	protected $imageInfo;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	/**
-	 * Constructor.
-	 *
-	 * @access  public
-	 */
-
-	public function __construct()
-	{
-		// Nothing here
-	}
-
 	/**
 	 * Destructor.
 	 *
@@ -68,10 +49,6 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 			imagedestroy($this->image);
 		}	
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Collects information about the image.

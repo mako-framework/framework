@@ -15,22 +15,6 @@ namespace mako\database\midgard\relations;
 
 abstract class HasOneOrMany extends \mako\database\midgard\relations\Relation
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Creates a related record.
 	 * 

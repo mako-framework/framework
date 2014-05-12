@@ -20,22 +20,6 @@ use \mako\session\stores\Redis;
 
 class SessionService extends \mako\core\services\Service
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Returns a database store instance.
 	 * 

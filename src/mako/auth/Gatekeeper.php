@@ -22,10 +22,6 @@ use \mako\utility\DateTime;
 
 class Gatekeeper
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Have we checked for a valid login?
 	 * 
@@ -120,10 +116,6 @@ class Gatekeeper
 
 	protected $user;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -139,10 +131,6 @@ class Gatekeeper
 		$this->response = $response;
 		$this->session  = $session;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Sets the auth key.

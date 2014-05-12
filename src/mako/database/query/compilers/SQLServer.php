@@ -15,10 +15,6 @@ namespace mako\database\query\compilers;
 
 class SQLServer extends \mako\database\query\Compiler
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Date format.
 	 * 
@@ -34,16 +30,6 @@ class SQLServer extends \mako\database\query\Compiler
 	 */
 	
 	protected $wrapper = '[%s]';
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Compiles a SELECT query.

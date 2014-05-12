@@ -17,10 +17,6 @@ use \Memcache as PHPMemcache;
 
 class Memcache implements \mako\cache\stores\StoreInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Memcache instance.
 	 *
@@ -36,10 +32,6 @@ class Memcache implements \mako\cache\stores\StoreInterface
 	 */
 
 	protected $compressionLevel = 0;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -66,10 +58,6 @@ class Memcache implements \mako\cache\stores\StoreInterface
 			$this->memcache->addServer($server['server'], $server['port'], $server['persistent_connection'], $server['weight'], $timeout);
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Store data in the cache.

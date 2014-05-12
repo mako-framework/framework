@@ -18,10 +18,6 @@ use \mako\utility\Str;
 
 class Password
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Default computing cost.
 	 *
@@ -29,10 +25,6 @@ class Password
 	 */
 
 	const COST = 10;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Protected constructor since this is a static class.
@@ -44,10 +36,6 @@ class Password
 	{
 		// Nothing here
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Checks if a hash is generated using something other than bcrypt.

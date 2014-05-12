@@ -26,10 +26,6 @@ use \mako\view\renderers\RendererInterface;
 
 class Response
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Request instance.
 	 * 
@@ -199,10 +195,6 @@ class Response
 		'530' => 'User access denied',
 	];
 	
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-	
 	/**
 	 * Constructor.
 	 *
@@ -221,10 +213,6 @@ class Response
 		$this->signer = $signer;
 	}
 	
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Sets the response body.
 	 *

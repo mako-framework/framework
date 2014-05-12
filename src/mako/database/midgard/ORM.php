@@ -31,10 +31,6 @@ use \mako\utility\UUID;
 
 abstract class ORM
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Incrementing primary key.
 	 * 
@@ -203,10 +199,6 @@ abstract class ORM
 
 	protected $protected = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -254,11 +246,7 @@ abstract class ORM
 			}
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
+	
 	/**
 	 * Set the connection manager.
 	 * 

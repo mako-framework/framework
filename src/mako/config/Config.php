@@ -19,10 +19,6 @@ use \mako\utility\Arr;
 
 class Config
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Application path.
 	 * 
@@ -39,10 +35,6 @@ class Config
 
 	protected $config = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -54,10 +46,6 @@ class Config
 	{
 		$this->applicationPath = $applicationPath;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Loads the configuration file.

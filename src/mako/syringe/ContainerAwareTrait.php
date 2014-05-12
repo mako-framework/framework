@@ -19,10 +19,6 @@ use \mako\syringe\Container;
 
 trait ContainerAwareTrait
 {
-	//---------------------------------------------
-	// Trait properties
-	//---------------------------------------------
-
 	/**
 	 * IoC container instance.
 	 * 
@@ -30,10 +26,6 @@ trait ContainerAwareTrait
 	 */
 
 	protected $container;
-
-	//---------------------------------------------
-	// Trait methods
-	//---------------------------------------------
 
 	/**
 	 * Sets the container instance.

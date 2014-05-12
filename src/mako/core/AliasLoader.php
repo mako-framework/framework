@@ -15,10 +15,6 @@ namespace mako\core;
 
 class AliasLoader
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Class aliases.
 	 * 
@@ -26,10 +22,6 @@ class AliasLoader
 	 */
 
 	protected $aliases;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -42,10 +34,6 @@ class AliasLoader
 	{
 		$this->aliases = $aliases;
 	}
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Autoloads aliased classes.

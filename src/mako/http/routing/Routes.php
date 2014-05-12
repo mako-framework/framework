@@ -20,10 +20,6 @@ use \mako\http\routing\Route;
 
 class Routes
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Filters.
 	 * 
@@ -55,25 +51,6 @@ class Routes
 	 */
 
 	protected $namedRoutes = [];
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	/**
-	 * Constructor.
-	 *
-	 * @access  public
-	 */
-
-	public function __construct()
-	{
-		// Nothing here
-	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the chosen filter.

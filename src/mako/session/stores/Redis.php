@@ -17,10 +17,6 @@ use \mako\redis\Redis as RedisClient;
 
 class Redis implements \mako\session\stores\StoreInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Redis client
 	 * 
@@ -28,10 +24,6 @@ class Redis implements \mako\session\stores\StoreInterface
 	 */
 
 	protected $redis;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -44,10 +36,6 @@ class Redis implements \mako\session\stores\StoreInterface
 	{
 		$this->redis = $redis;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Writes session data.

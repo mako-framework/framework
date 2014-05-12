@@ -17,16 +17,6 @@ use \Exception;
 
 class PageNotFoundException extends \mako\http\RequestException
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -39,10 +29,4 @@ class PageNotFoundException extends \mako\http\RequestException
 	{
 		parent::__construct(404, $message, $previous);
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
-	// Nothing here
 }

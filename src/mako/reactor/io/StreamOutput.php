@@ -19,17 +19,6 @@ use \Symfony\Component\Console\Formatter\OutputFormatterInterface;
 
 class StreamOutput extends \Symfony\Component\Console\Output\StreamOutput
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-
 	/**
      * Constructor.
      *
@@ -52,10 +41,6 @@ class StreamOutput extends \Symfony\Component\Console\Output\StreamOutput
 		$this->getFormatter()->setStyle('cyan', new OutputFormatterStyle('cyan'));
 		$this->getFormatter()->setStyle('white', new OutputFormatterStyle('white'));
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Outputs n empty lines.

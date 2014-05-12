@@ -17,16 +17,6 @@ use \InvalidArgumentException;
 
 class Num
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Protected constructor since this is a static class.
 	 *
@@ -37,11 +27,7 @@ class Num
 	{
 		// Nothing here
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
+	
 	/**
 	 * Converts arabic numerals (1-3999) to roman numerals.
 	 *

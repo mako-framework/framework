@@ -22,10 +22,6 @@ use \mako\utility\UUID;
 
 class Session
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Maximum number of tokens stored per session.
 	 *
@@ -136,10 +132,6 @@ class Session
 
 	protected $flashData = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -184,10 +176,6 @@ class Session
 			$this->store->gc($this->dataTTL);
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Generates a session id.

@@ -18,10 +18,6 @@ use \ArrayIterator;
 
 class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Collection items.
 	 * 
@@ -29,10 +25,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 	 */
 
 	protected $items = [];
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -45,10 +37,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 	{
 		$this->items = $items;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns all the items in the collection.

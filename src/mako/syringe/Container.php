@@ -22,10 +22,6 @@ use \mako\syringe\ContainerAwareTrait;
 
 class Container
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Registered type hints.
 	 * 
@@ -49,25 +45,6 @@ class Container
 	 */
 
 	protected $instances = [];
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	/**
-	 * Constructor.
-	 * 
-	 * @access  public
-	 */
-
-	public function __construct()
-	{
-		// Nothing here
-	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Parse the hint parameter.

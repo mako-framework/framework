@@ -24,10 +24,6 @@ use \mako\pagination\Pagination;
 
 class Query
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Database connection.
 	 *
@@ -124,10 +120,6 @@ class Query
 
 	protected $offset = null;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -168,10 +160,6 @@ class Query
 				$this->compiler = new \mako\database\query\Compiler($this);
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns query compiler instance.

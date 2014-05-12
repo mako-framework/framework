@@ -22,10 +22,6 @@ use \mako\utility\Str;
 
 class App extends \mako\reactor\Task
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Application instance.
 	 * 
@@ -52,10 +48,6 @@ class App extends \mako\reactor\Task
 		],
 	];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -71,10 +63,6 @@ class App extends \mako\reactor\Task
 
 		$this->application = $application;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Generates a new application secret.

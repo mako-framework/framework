@@ -17,10 +17,6 @@ use \mako\database\ConnectionManager;
 
 class DatabaseUniqueValidator extends \mako\validator\plugins\ValidatorPlugin implements \mako\validator\plugins\ValidatorPluginInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Rule name.
 	 * 
@@ -37,10 +33,6 @@ class DatabaseUniqueValidator extends \mako\validator\plugins\ValidatorPlugin im
 
 	protected $connectionManager;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -52,10 +44,6 @@ class DatabaseUniqueValidator extends \mako\validator\plugins\ValidatorPlugin im
 	{
 		$this->connectionManager = $connectionManager;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Validator.

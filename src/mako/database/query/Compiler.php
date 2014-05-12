@@ -20,10 +20,6 @@ use \mako\database\query\Subquery;
 
 class Compiler
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Date format.
 	 * 
@@ -56,10 +52,6 @@ class Compiler
 
 	protected $params = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -71,10 +63,6 @@ class Compiler
 	{
 		$this->query = $query;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Sets the date format.

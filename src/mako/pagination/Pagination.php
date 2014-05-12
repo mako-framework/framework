@@ -21,10 +21,6 @@ use \mako\view\ViewFactory;
 
 class Pagination
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Request instance.
 	 * 
@@ -94,10 +90,6 @@ class Pagination
 
 	protected $offset;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -133,10 +125,6 @@ class Pagination
 
 		$this->offset = ($this->currentPage - 1) * $this->config['items_per_page'];
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the total amount of pages.

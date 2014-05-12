@@ -17,10 +17,6 @@ use \mako\security\crypto\padders\PadderInterface;
 
 class MCrypt extends \mako\security\crypto\encrypters\Encrypter implements \mako\security\crypto\encrypters\EncrypterInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Key used to encrypt/decrypt string.
 	 *
@@ -69,10 +65,6 @@ class MCrypt extends \mako\security\crypto\encrypters\Encrypter implements \mako
 	
 	protected $ivSize;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -97,10 +89,6 @@ class MCrypt extends \mako\security\crypto\encrypters\Encrypter implements \mako
 
 		$this->ivSize = mcrypt_get_iv_size($this->cipher, $this->mode);
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Encrypts string.

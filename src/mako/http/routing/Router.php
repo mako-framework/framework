@@ -22,10 +22,6 @@ use \mako\http\routing\MethodNotAllowedException;
 
 class Router
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Request.
 	 * 
@@ -42,10 +38,6 @@ class Router
 
 	protected $routes;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -59,10 +51,6 @@ class Router
 		$this->request = $request;
 		$this->routes  = $routes;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns a route with a closure action that redirects to the correct URL.

@@ -15,10 +15,6 @@ namespace mako\cache\stores;
 
 class XCache implements \mako\cache\stores\StoreInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * XCache username.
 	 *
@@ -35,10 +31,6 @@ class XCache implements \mako\cache\stores\StoreInterface
 	
 	protected $password;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -53,10 +45,6 @@ class XCache implements \mako\cache\stores\StoreInterface
 
 		$this->password = $password;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Store data in the cache.

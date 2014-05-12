@@ -15,10 +15,6 @@ namespace mako\security\crypto\encrypters;
 
 abstract class Encrypter
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Derivation hash.
 	 * 
@@ -34,16 +30,6 @@ abstract class Encrypter
 	 */
 
 	const DERIVATION_ITERATIONS = 1024;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Generate a PBKDF2 key derivation of a supplied key.

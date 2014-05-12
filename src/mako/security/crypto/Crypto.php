@@ -20,10 +20,6 @@ use \mako\security\Signer;
 
 class Crypto
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Cache adapter.
 	 * 
@@ -40,10 +36,6 @@ class Crypto
 
 	protected $signer;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -58,10 +50,6 @@ class Crypto
 
 		$this->signer = $signer;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Sets the signer instance.

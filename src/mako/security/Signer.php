@@ -15,10 +15,6 @@ namespace mako\security;
 
 class Signer
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * MAC length.
 	 * 
@@ -35,10 +31,6 @@ class Signer
 
 	protected $secret;
 	
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -51,10 +43,6 @@ class Signer
 		$this->secret = $secret;
 	}
 	
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Returns the signature.
 	 * 

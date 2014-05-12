@@ -17,10 +17,6 @@ use \mako\database\query\Raw;
 
 class Join
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Join type.
 	 *
@@ -45,10 +41,6 @@ class Join
 
 	protected $clauses = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -62,10 +54,6 @@ class Join
 		$this->type  = $type;
 		$this->table = $table;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the join type.

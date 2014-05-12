@@ -18,10 +18,6 @@ use \Symfony\Component\Console\Helper\DialogHelper;
 
 class Input
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * StdOut instance.
 	 * 
@@ -38,10 +34,6 @@ class Input
 
 	protected $dialogHelper;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -55,10 +47,6 @@ class Input
 
 		$this->dialogHelper = new DialogHelper;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Return value of named parameters (--<name>=<value>).

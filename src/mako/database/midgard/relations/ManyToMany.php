@@ -19,10 +19,6 @@ use \mako\database\midgard\ResultSet;
 
 class ManyToMany extends \mako\database\midgard\relations\Relation
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Junction table.
 	 * 
@@ -38,10 +34,6 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	 */
 
 	protected $junctionKey = null;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -65,10 +57,6 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 
 		$this->junctionJoin();
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the the junction table.

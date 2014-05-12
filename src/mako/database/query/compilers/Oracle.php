@@ -15,22 +15,6 @@ namespace mako\database\query\compilers;
 
 class Oracle extends \mako\database\query\Compiler
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Compiles a SELECT query.
 	 *

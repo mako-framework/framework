@@ -17,10 +17,6 @@ use \mako\database\Connection;
 
 class Database implements \mako\session\stores\StoreInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Database connection
 	 * 
@@ -37,10 +33,6 @@ class Database implements \mako\session\stores\StoreInterface
 
 	protected $table;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -55,11 +47,7 @@ class Database implements \mako\session\stores\StoreInterface
 
 		$this->table = $table;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
+	
 	/**
 	 * Returns a query builder instance.
 	 *

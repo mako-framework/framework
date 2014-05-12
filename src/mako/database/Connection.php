@@ -21,10 +21,6 @@ use \mako\database\query\Query;
 
 class Connection
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Connection name.
 	 * 
@@ -72,10 +68,6 @@ class Connection
 	 */
 
 	protected $log = [];
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -134,10 +126,6 @@ class Connection
 
 		$this->compiler = isset($config['compiler']) ? $config['compiler'] : $this->driver;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the connection name.

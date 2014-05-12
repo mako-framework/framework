@@ -15,22 +15,6 @@ namespace mako\view\renderers;
 
 class PHP extends \mako\view\renderers\Renderer implements \mako\view\renderers\RendererInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Returns the rendered view.
 	 * 

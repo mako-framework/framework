@@ -17,10 +17,6 @@ use \Memcached as PHPMemcached;
 
 class Memcached implements \mako\cache\stores\StoreInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Memcached instance.
 	 *
@@ -28,10 +24,6 @@ class Memcached implements \mako\cache\stores\StoreInterface
 	 */
 
 	protected $memcached;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -63,10 +55,6 @@ class Memcached implements \mako\cache\stores\StoreInterface
 			$this->memcached->addServer($server['server'], $server['port'], $server['weight']);
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Store data in the cache.

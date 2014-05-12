@@ -21,10 +21,6 @@ use \mako\error\handlers\ExceptionHandler;
 
 class ErrorHandler
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Exception handlers.
 	 * 
@@ -33,10 +29,6 @@ class ErrorHandler
 
 	protected $handlers = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-	
 	/**
 	 * Constructor.
 	 *
@@ -58,10 +50,6 @@ class ErrorHandler
 
 		$this->register();
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Registers the exception handler.

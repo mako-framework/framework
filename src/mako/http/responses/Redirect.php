@@ -18,10 +18,6 @@ use \mako\http\Response;
 
 Class Redirect implements \mako\http\responses\ResponseContainerInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Location.
 	 * 
@@ -46,10 +42,6 @@ Class Redirect implements \mako\http\responses\ResponseContainerInterface
 
 	protected $flashRequestData = false;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -61,10 +53,6 @@ Class Redirect implements \mako\http\responses\ResponseContainerInterface
 	{
 		$this->location = $location;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Sets the status code.

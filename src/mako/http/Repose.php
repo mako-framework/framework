@@ -15,10 +15,6 @@ namespace mako\http;
 
 class Repose
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * URL.
 	 *
@@ -48,10 +44,6 @@ class Repose
 
 	protected $info;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -65,10 +57,6 @@ class Repose
 		$this->url     = $url;
 		$this->options = $options + $this->options;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Executes cURL request and returns the response.

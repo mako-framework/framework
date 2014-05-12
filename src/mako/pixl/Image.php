@@ -18,11 +18,7 @@ use \mako\pixl\processors\ProcessorInterface;
  */
 
 class Image
-{
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-	
+{	
 	/**
 	 * Resizing constraint.
 	 *
@@ -127,10 +123,6 @@ class Image
 
 	protected $image;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -154,10 +146,6 @@ class Image
 
 		$this->processor->setImage($image);
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Checks if the image exists and throw a RuntimeException if it doesn't.

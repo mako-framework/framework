@@ -20,22 +20,6 @@ use \mako\reactor\io\Output;
 
 class CLIApplication extends \mako\core\Application
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Returns the route collection.
 	 * 

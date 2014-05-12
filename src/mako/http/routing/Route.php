@@ -15,10 +15,6 @@ namespace mako\http\routing;
 
 class Route
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Methods.
 	 * 
@@ -107,10 +103,6 @@ class Route
 
 	protected $parameters = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -133,10 +125,6 @@ class Route
 
 		$this->hasTrailingSlash = (substr($route, -1) === '/');
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the HTTP methods the route responds to.

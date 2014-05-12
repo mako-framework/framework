@@ -17,16 +17,6 @@ use \Exception;
 
 class RequestException extends \RuntimeException
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -40,10 +30,4 @@ class RequestException extends \RuntimeException
 	{
 		parent::__construct($message, $code, $previous);
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
-	// Nothing here
 }

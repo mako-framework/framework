@@ -23,10 +23,6 @@ use \mako\validator\plugins\ValidatorPluginInterface;
 
 class Validator
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Holds the input data.
 	 *
@@ -67,10 +63,6 @@ class Validator
 
 	protected $plugins = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Class constructor.
 	 *
@@ -89,10 +81,6 @@ class Validator
 
 		$this->i18n = $i18n;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Registers a validation plugin.

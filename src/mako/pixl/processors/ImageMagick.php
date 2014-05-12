@@ -22,10 +22,6 @@ use \mako\pixl\Image;
 
 class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Imagick instance.
 	 * 
@@ -33,22 +29,6 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	 */
 
 	protected $image;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//------------------------------------------------
-
-	/**
-	 * Constructor.
-	 *
-	 * @access  public
-	 * @param   string  $file  Path to the image file
-	 */
-
-	public function __construct()
-	{
-		// Nothing here
-	}
 
 	/**
 	 * Destructor.
@@ -63,10 +43,6 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 			$this->image->destroy();
 		}	
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Checks if the HEX value is valid.

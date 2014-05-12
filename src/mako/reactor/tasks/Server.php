@@ -19,10 +19,6 @@ use \mako\reactor\io\Output;
 
 class Server extends \mako\reactor\Task
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Application instance.
 	 * 
@@ -51,10 +47,6 @@ class Server extends \mako\reactor\Task
 		],
 	];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -70,10 +62,6 @@ class Server extends \mako\reactor\Task
 
 		$this->application = $application;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Starts the server.

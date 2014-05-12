@@ -22,10 +22,6 @@ use \mako\security\crypto\padders\PKCS7;
 
 class CryptoManager extends \mako\common\AdapterManager
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Reuse instances?
 	 * 
@@ -33,16 +29,6 @@ class CryptoManager extends \mako\common\AdapterManager
 	 */
 
 	const REUSE_INSTANCES = false;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * MCrypt encrypter factory.

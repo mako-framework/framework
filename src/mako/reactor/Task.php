@@ -21,10 +21,6 @@ use \ReflectionMethod;
 
 abstract class Task
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Input
 	 * 
@@ -49,10 +45,6 @@ abstract class Task
 
 	protected static $taskInfo = [];
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -74,10 +66,6 @@ abstract class Task
 			$this->displayTaskInfo();
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Gets the task info.

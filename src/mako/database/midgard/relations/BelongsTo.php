@@ -15,22 +15,6 @@ namespace mako\database\midgard\relations;
 
 class BelongsTo extends \mako\database\midgard\relations\Relation
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Returns the foreign key.
 	 * 

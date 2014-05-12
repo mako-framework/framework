@@ -18,10 +18,6 @@ use \mako\http\Response;
 
 abstract class Controller
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Holds the request object that loaded the controller.
 	 *
@@ -38,10 +34,6 @@ abstract class Controller
 	
 	protected $response;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -56,10 +48,6 @@ abstract class Controller
 		
 		$this->response = $response;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * This method runs before the action.

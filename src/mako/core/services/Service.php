@@ -17,10 +17,6 @@ use \mako\syringe\Container;
 
 abstract class Service
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * IoC container instance
 	 * 
@@ -28,10 +24,6 @@ abstract class Service
 	 */
 
 	protected $container;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -44,10 +36,6 @@ abstract class Service
 	{
 		$this->container = $container;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Registers the service.

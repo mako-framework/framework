@@ -25,10 +25,6 @@ use \Monolog\Handler\HandlerInterface;
 
 abstract class Application
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Singleton instance of self.
 	 * 
@@ -76,10 +72,6 @@ abstract class Application
 	 */
 
 	protected $applicationPath;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -129,11 +121,7 @@ abstract class Application
 
 		return static::$instance;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
+	
 	/**
 	 * Returns the IoC container instance.
 	 * 

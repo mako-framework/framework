@@ -15,10 +15,6 @@ namespace mako\security\crypto\encrypters;
 
 class OpenSSL extends \mako\security\crypto\encrypters\Encrypter implements \mako\security\crypto\encrypters\EncrypterInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Key used to encrypt/decrypt string.
 	 *
@@ -43,10 +39,6 @@ class OpenSSL extends \mako\security\crypto\encrypters\Encrypter implements \mak
 	
 	protected $ivSize;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -63,10 +55,6 @@ class OpenSSL extends \mako\security\crypto\encrypters\Encrypter implements \mak
 
 		$this->ivSize = openssl_cipher_iv_length($this->cipher);
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Encrypts string.

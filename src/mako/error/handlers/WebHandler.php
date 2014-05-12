@@ -22,10 +22,6 @@ use \mako\http\routing\MethodNotAllowedException;
 
 class WebHandler extends \mako\error\handlers\Handler implements \mako\error\handlers\HandlerInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Source padding.
 	 * 
@@ -57,16 +53,6 @@ class WebHandler extends \mako\error\handlers\Handler implements \mako\error\han
 	 */
 
 	protected $charset = 'UTF-8';
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Sets the request instance.

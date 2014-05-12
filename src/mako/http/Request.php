@@ -20,10 +20,6 @@ use \mako\utility\Arr;
 
 class Request
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Get data
 	 * 
@@ -208,10 +204,6 @@ class Request
 
 	protected $realMethod;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -251,10 +243,6 @@ class Request
 
 		$this->method = isset($request['method']) ? $request['method'] : $this->determineMethod();
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Determines the request path.

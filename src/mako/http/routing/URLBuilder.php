@@ -18,10 +18,6 @@ use \mako\http\routing\Routes;
 
 class URLBuilder
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Request instance.
 	 * 
@@ -54,10 +50,6 @@ class URLBuilder
 
 	protected $languagePrefix;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 * 
@@ -80,10 +72,6 @@ class URLBuilder
 			$this->languagePrefix = '/' . $language;
 		}
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns TRUE if the pattern matches the current route and FALSE if not.

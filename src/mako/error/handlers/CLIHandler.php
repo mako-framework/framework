@@ -15,22 +15,6 @@ namespace mako\error\handlers;
 
 class CLIHandler extends \mako\error\handlers\Handler implements \mako\error\handlers\HandlerInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
 	/**
 	 * Returns a detailed error.
 	 * 

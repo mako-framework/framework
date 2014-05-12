@@ -20,10 +20,6 @@ use \mako\utility\File as FileUtility;
 
 Class File implements \mako\http\responses\ResponseContainerInterface
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * File path.
 	 * 
@@ -47,10 +43,6 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 	 */
 
 	protected $options;
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
 
 	/**
 	 * Constructor.
@@ -78,10 +70,6 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 			'callback'     => null,
 		];
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Calculates the content range that should be served.

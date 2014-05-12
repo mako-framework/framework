@@ -15,10 +15,6 @@ namespace mako\database\query\compilers;
 
 class MySQL extends \mako\database\query\Compiler
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Wrapper used to escape table and column names.
 	 *
@@ -26,16 +22,4 @@ class MySQL extends \mako\database\query\Compiler
 	 */
 	
 	protected $wrapper = '`%s`';
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	// Nothing here
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
-
-	// Nothing here
 }

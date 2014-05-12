@@ -17,10 +17,6 @@ use \mako\database\query\Query;
 
 class Subquery
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Query builder.
 	 *
@@ -37,10 +33,6 @@ class Subquery
 
 	protected $alias = null;
 
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -54,10 +46,6 @@ class Subquery
 		$this->query = $query;
 		$this->alias = $alias;
 	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Returns the compiled query.

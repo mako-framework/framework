@@ -17,10 +17,6 @@ use \Closure;
 
 class Listener
 {
-	//---------------------------------------------
-	// Class properties
-	//---------------------------------------------
-
 	/**
 	 * Array of events.
 	 *
@@ -28,25 +24,6 @@ class Listener
 	 */
 
 	protected $events = [];
-
-	//---------------------------------------------
-	// Class constructor, destructor etc ...
-	//---------------------------------------------
-
-	/**
-	 * Constructor.
-	 *
-	 * @access  protected
-	 */
-
-	public function __construct()
-	{
-		// Nothing here
-	}
-
-	//---------------------------------------------
-	// Class methods
-	//---------------------------------------------
 
 	/**
 	 * Adds an event listener to the queue.
