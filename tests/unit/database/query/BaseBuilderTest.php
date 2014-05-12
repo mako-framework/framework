@@ -70,7 +70,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder(function($query)
 		{
-			$query->from('foobar');
+			$query->table('foobar');
 		});
 
 		$query = $query->getCompiler()->select();
@@ -376,7 +376,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query->in('foo', function($query)
 		{
-			$query->select(['id'])->from('barfoo');
+			$query->table('barfoo')->select(['id']);
 		});
 
 		$query = $query->getCompiler()->select();
@@ -459,7 +459,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query->exists(function($query)
 		{
-			$query->from('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
+			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
 		});
 
 		$query = $query->getCompiler()->select();

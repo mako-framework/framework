@@ -68,7 +68,7 @@ class DatabaseUniqueValidator extends \mako\validator\plugins\ValidatorPlugin im
 
 	public function validate($input, $parameters)
 	{
-		$query = $this->connectionManager->builder()->from($parameters[0])->where($parameters[1], '=', $input);
+		$query = $this->connectionManager->builder()->table($parameters[0])->where($parameters[1], '=', $input);
 		
 		if(isset($parameters[2]))
 		{

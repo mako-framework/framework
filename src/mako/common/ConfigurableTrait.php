@@ -8,12 +8,12 @@
 namespace mako\common;
 
 /**
- * Configurable manager trait.
+ * Configurable trait.
  *
  * @author  Frederic G. Østby
  */
 
-trait ConfigurableManagerTrait
+trait ConfigurableTrait
 {
 	//---------------------------------------------
 	// Class properties

@@ -19,7 +19,7 @@ use \mako\syringe\Container;
 
 abstract class AdapterManager
 {
-	use \mako\common\ConfigurableManagerTrait;
+	use \mako\common\ConfigurableTrait;
 	
 	//---------------------------------------------
 	// Class properties
