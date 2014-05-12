@@ -95,7 +95,8 @@ class WebHandler extends \mako\error\handlers\Handler implements \mako\error\han
 	/**
 	 * Sets the response charset.
 	 * 
-	 * @param  string  $charset  Response charset
+	 * @access  public
+	 * @param   string  $charset  Response charset
 	 */
 
 	public function setCharset($charset)
@@ -104,11 +105,25 @@ class WebHandler extends \mako\error\handlers\Handler implements \mako\error\han
 	}
 
 	/**
+	 * Should we return the error as JSON?
+	 * 
+	 * @access  protected
+	 * @return  boolean
+	 */
+
+	protected function returnAsJson()
+	{
+		$acceptableContentTypes = $this->request->acceptableContentTypes();
+
+		return $this->request->isAjax() || (isset($acceptableContentTypes[0]) && in_array($acceptableContentTypes[0], ['application/json', 'text/json']));
+	}
+
+	/**
 	 * Renders the error page.
 	 * 
-	 * @access  public
-	 * @param   string  $__type__  Error type
-	 * @param   array   $__data__  Error data
+	 * @access  protected
+	 * @param   string     $__type__  Error type
+	 * @param   array      $__data__  Error data
 	 * @return  string
 	 */
 
@@ -208,11 +223,11 @@ class WebHandler extends \mako\error\handlers\Handler implements \mako\error\han
 	 * Returns a detailed error page.
 	 * 
 	 * @access  protected
-	 * @param   boolean    $returnJSON  Should we return JSON?
+	 * @param   boolean    $returnAsJson  Should we return JSON?
 	 * @return  string
 	 */
 
-	protected function getDetailedError($returnJSON)
+	protected function getDetailedError($returnAsJson)
 	{
 		$trace = $this->exception->getTrace();
 
@@ -235,10 +250,10 @@ class WebHandler extends \mako\error\handlers\Handler implements \mako\error\han
 			'type'    => $this->determineExceptionType($this->exception),
 			'code'    => $this->exception->getCode(),
 			'message' => $this->exception->getMessage(),
-			'trace'   => $this->modifyTrace($trace, !$returnJSON),
+			'trace'   => $this->modifyTrace($trace, !$returnAsJson),
 		];
 
-		if($returnJSON)
+		if($returnAsJson)
 		{
 			return json_encode($data);
 		}
@@ -263,13 +278,13 @@ class WebHandler extends \mako\error\handlers\Handler implements \mako\error\han
 	 * Retruns a generic error page.
 	 * 
 	 * @access  protected
-	 * @param   boolean    $returnJSON  Should we return JSON?
+	 * @param   boolean    $returnAsJson  Should we return JSON?
 	 * @return  string
 	 */
 
-	public function getGenericError($returnJSON)
+	protected function getGenericError($returnAsJson)
 	{
-		if($returnJSON)
+		if($returnAsJson)
 		{
 			return json_encode(['message' => 'An error has occurred while processing your request.']);
 		}
@@ -291,7 +306,7 @@ class WebHandler extends \mako\error\handlers\Handler implements \mako\error\han
 	{
 		// Should we return JSON?
 
-		if(($returnJSON = $this->request->isAjax()) === true)
+		if(($returnAsJson = $this->returnAsJson()) === true)
 		{
 			$this->response->type('application/json');
 		}
@@ -300,11 +315,11 @@ class WebHandler extends \mako\error\handlers\Handler implements \mako\error\han
 
 		if($showDetails)
 		{
-			$this->response->body($this->getDetailedError($returnJSON));
+			$this->response->body($this->getDetailedError($returnAsJson));
 		}
 		else
 		{
-			$this->response->body($this->getGenericError($returnJSON));
+			$this->response->body($this->getGenericError($returnAsJson));
 		}
 
 		// Send the response along with appropriate headers

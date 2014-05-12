@@ -97,6 +97,30 @@ class Request
 	protected $headers = [];
 
 	/**
+	 * Array of acceptable content types.
+	 * 
+	 * @var array
+	 */
+
+	protected $acceptableContentTypes;
+
+	/**
+	 * Array of acceptable charsets.
+	 * 
+	 * @var array
+	 */
+
+	protected $acceptableCharsets;
+
+	/**
+	 * Array of acceptable encodings.
+	 * 
+	 * @var array
+	 */
+
+	protected $acceptableEncodings;
+
+	/**
 	 * Array of trusted proxy IP addresses.
 	 * 
 	 * @var array
@@ -311,6 +335,42 @@ class Request
 		}
 
 		return strtoupper($method);
+	}
+
+	/**
+	 * Parses a accpet header and returns the values in preferable order.
+	 * 
+	 * @access  protected
+	 * @param   string
+	 * @return  array
+	 */
+
+	protected function parseAcceptHeader($headerValue)
+	{
+		$groupedAccepts = [];
+
+		foreach(explode(',', $headerValue) as $key => $accept)
+		{
+			$quality = 1;
+
+			if(strpos($accept, ';q='))
+			{
+				list($accept, $quality) = explode(';q=', $accept, 2);
+			}
+
+			$groupedAccepts[trim($quality)][] = trim($accept);
+		}
+
+		ksort($groupedAccepts);
+
+		$accepts = [];
+
+		foreach(array_reverse($groupedAccepts) as $accept)
+		{
+			$accepts = array_merge($accepts, array_values($accept));
+		}
+
+		return $accepts;
 	}
 
 	/**
@@ -619,6 +679,57 @@ class Request
 		$name = strtoupper(str_replace('-', '_', $name));
 
 		return isset($this->headers[$name]) ? $this->headers[$name] : $default;
+	}
+
+	/**
+	 * Returns an array of acceptable content types in preferable order
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function acceptableContentTypes()
+	{
+		if(empty($this->acceptableContentTypes))
+		{
+			$this->acceptableContentTypes = $this->parseAcceptHeader($this->header('accept'));
+		}
+
+		return $this->acceptableContentTypes;
+	}
+
+	/**
+	 * Returns an array of acceptable content types in preferable order
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function acceptableCharsets()
+	{
+		if(empty($this->acceptableCharsets))
+		{
+			$this->acceptableCharsets = $this->parseAcceptHeader($this->header('accept-charset'));
+		}
+
+		return $this->acceptableCharsets;
+	}
+
+	/**
+	 * Returns an array of acceptable content types in preferable order
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function acceptableEncodings()
+	{
+		if(empty($this->acceptableEncodings))
+		{
+			$this->acceptableEncodings = $this->parseAcceptHeader($this->header('accept-encoding'));
+		}
+
+		return $this->acceptableEncodings;	
 	}
 
 	/**
