@@ -30,11 +30,12 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 		return [
 			'HTTP_HOST' => 'example.local',
 			'HTTP_CONNECTION' => 'keep-alive',
-			'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+			'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,foo/bar;q=0.1,application/xml;q=0.9,image/webp,*/*;q=0.8',
 			'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.116 Safari/537.36',
 			'HTTP_DNT' => '1',
-			'HTTP_ACCEPT_ENCODING' => 'gzip,deflate,sdch',
-			'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,da;q=0.6,fr;q=0.4,nb;q=0.2,sv;q=0.2',
+			'HTTP_ACCEPT_CHARSET' => 'UTF-8,FOO-1;q=0.1,UTF-16;q=0.9',
+			'HTTP_ACCEPT_ENCODING' => 'gzip,foobar;q=0.1,deflate,sdch',
+			'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,da;q=0.6,fr;q=0.4,foo;q=0.1,nb;q=0.2,sv;q=0.2',
 			'PATH' => '/usr/local/bin:/usr/bin:/bin',
 			'SERVER_SIGNATURE' => '<address>Apache/2.4.6 (Ubuntu) Server at example.local Port 80</address>',
 			'SERVER_SOFTWARE' => 'Apache/2.4.6 (Ubuntu)',
@@ -66,11 +67,63 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testAcceptableContentTypes()
+	{
+		$server = $this->getServerData();
+
+		$acceptableContentTypes = ['text/html', 'application/xhtml+xml', 'image/webp', 'application/xml', '*/*', 'foo/bar'];
+
+		$this->assertEquals($acceptableContentTypes, (new Request(['server' => $server]))->acceptableContentTypes());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testAcceptableLanguages()
+	{
+		$server = $this->getServerData();
+
+		$acceptableLanguages = ['en-US', 'en', 'da', 'fr', 'nb', 'sv', 'foo'];
+
+		$this->assertEquals($acceptableLanguages, (new Request(['server' => $server]))->acceptableLanguages());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testAcceptableCharsets()
+	{
+		$server = $this->getServerData();
+
+		$acceptableCharsets = ['UTF-8', 'UTF-16', 'FOO-1'];
+
+		$this->assertEquals($acceptableCharsets, (new Request(['server' => $server]))->acceptableCharsets());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testAcceptableEncodings()
+	{
+		$server = $this->getServerData();
+
+		$acceptableEncodings = ['gzip', 'deflate', 'sdch', 'foobar'];
+
+		$this->assertEquals($acceptableEncodings, (new Request(['server' => $server]))->acceptableEncodings());
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testIP()
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('10.17.12.209', $request->ip());
 
@@ -78,7 +131,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['REMOTE_ADDR'] = 'invalid ip';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('127.0.0.1', $request->ip());
 
@@ -88,13 +141,13 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTP_X_FORWARDED_FOR'] = '10.17.12.211, 10.17.12.212, 10.17.12.213';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('127.0.0.1', $request->ip());
 
 		// Should return the IP forwarded by the first trusted proxy
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$request->setTrustedProxies(['10.17.12.213']);
 
@@ -102,7 +155,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		// Should return the IP forwarded by the first trusted proxy
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$request->setTrustedProxies(['10.17.12.212', '10.17.12.213']);
 
@@ -117,7 +170,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertFalse($request->isAjax());
 
@@ -125,7 +178,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertTrue($request->isAjax());
 	}
@@ -138,7 +191,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertFalse($request->isSecure());
 
@@ -146,7 +199,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTPS'] = 'off';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertFalse($request->isSecure());
 
@@ -154,7 +207,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTPS'] = '0';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertFalse($request->isSecure());
 
@@ -162,7 +215,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTPS'] = 'false';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertFalse($request->isSecure());
 
@@ -170,7 +223,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTPS'] = 'on';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertTrue($request->isSecure());
 
@@ -178,7 +231,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTPS'] = '1';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertTrue($request->isSecure());
 
@@ -186,7 +239,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTPS'] = 'true';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertTrue($request->isSecure());
 	}
@@ -199,7 +252,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('http://example.local', $request->baseURL());
 
@@ -207,7 +260,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTPS'] = 'on';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('https://example.local', $request->baseURL());
 
@@ -215,7 +268,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['SERVER_PORT'] = '8080';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('https://example.local:8080', $request->baseURL());
 	}
@@ -228,7 +281,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('/test/', $request->path());
 
@@ -236,13 +289,13 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		unset($server['PATH_INFO']);
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('/test/', $request->path());
 
 		//
 
-		$request = new Request(['SERVER' => $server, 'path' => '/foo/bar']);
+		$request = new Request(['server' => $server, 'path' => '/foo/bar']);
 
 		$this->assertEquals('/foo/bar', $request->path());
 	}
@@ -257,7 +310,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['PATH_INFO'] = '/no/test/';
 
-		$request = new Request(['SERVER' => $server, 'languages' => ['no' => 'nb_NO']]);
+		$request = new Request(['server' => $server, 'languages' => ['no' => 'nb_NO']]);
 
 		$this->assertEquals('/test/', $request->path());
 	}
@@ -272,7 +325,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['PATH_INFO'] = '/no/test/';
 
-		$request = new Request(['SERVER' => $server, 'languages' => ['no' => 'nb_NO']]);
+		$request = new Request(['server' => $server, 'languages' => ['no' => 'nb_NO']]);
 
 		$this->assertEquals('nb_NO', $request->language());
 	}
@@ -287,7 +340,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['PATH_INFO'] = '/no/test/';
 
-		$request = new Request(['SERVER' => $server, 'languages' => ['no' => 'nb_NO']]);
+		$request = new Request(['server' => $server, 'languages' => ['no' => 'nb_NO']]);
 
 		$this->assertEquals('no', $request->languagePrefix());
 	}
@@ -300,13 +353,13 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('GET', $request->method());
 
 		//
 
-		$request = new Request(['SERVER' => $server, 'method' => 'PATCH']);
+		$request = new Request(['server' => $server, 'method' => 'PATCH']);
 
 		$this->assertEquals('PATCH', $request->method());
 
@@ -314,7 +367,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['REQUEST_METHOD'] = 'POST';
 
-		$request = new Request(['SERVER' => $server, 'POST' => ['REQUEST_METHOD_OVERRIDE' => 'PUT']]);
+		$request = new Request(['server' => $server, 'post' => ['REQUEST_METHOD_OVERRIDE' => 'PUT']]);
 
 		$this->assertEquals('PUT', $request->method());
 
@@ -322,7 +375,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTP_X_HTTP_METHOD_OVERRIDE'] = 'OPTIONS';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('OPTIONS', $request->method());
 	}
@@ -335,7 +388,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('GET', $request->realMethod());
 
@@ -343,7 +396,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['REQUEST_METHOD'] = 'POST';
 
-		$request = new Request(['SERVER' => $server, 'POST' => ['REQUEST_METHOD_OVERRIDE' => 'PUT']]);
+		$request = new Request(['server' => $server, 'post' => ['REQUEST_METHOD_OVERRIDE' => 'PUT']]);
 
 		$this->assertEquals('POST', $request->realMethod());
 
@@ -351,7 +404,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTP_X_HTTP_METHOD_OVERRIDE'] = 'OPTIONS';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('POST', $request->realMethod());
 	}
@@ -364,7 +417,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertFalse($request->isFaked());
 
@@ -372,7 +425,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['REQUEST_METHOD'] = 'POST';
 
-		$request = new Request(['SERVER' => $server, 'POST' => ['REQUEST_METHOD_OVERRIDE' => 'PUT']]);
+		$request = new Request(['server' => $server, 'post' => ['REQUEST_METHOD_OVERRIDE' => 'PUT']]);
 
 		$this->assertTrue($request->isFaked());
 
@@ -380,7 +433,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTP_X_HTTP_METHOD_OVERRIDE'] = 'OPTIONS';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertTrue($request->isFaked());
 	}
@@ -393,7 +446,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertNull($request->username());
 
@@ -401,7 +454,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['PHP_AUTH_USER'] = 'foobar';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('foobar', $request->username());
 	}
@@ -414,7 +467,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertNull($request->password());
 
@@ -422,7 +475,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['PHP_AUTH_PW'] = 'foobar';
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('foobar', $request->password());
 	}
@@ -435,7 +488,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$cookies = ['foo' => 'bar'];
 
-		$request = new Request(['COOKIE' => $cookies]);
+		$request = new Request(['cookies' => $cookies]);
 
 		$this->assertNull($request->cookie('bar'));
 
@@ -458,7 +511,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$cookies = ['foo' => 'bar', 'baz' => 'bax'];
 
-		$request = new Request(['COOKIE' => $cookies], $signer);
+		$request = new Request(['cookies' => $cookies], $signer);
 
 		$this->assertNull($request->signedCookie('bar'));
 
@@ -490,7 +543,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertNull($request->header('bar'));
 
@@ -509,7 +562,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$server = $this->getServerData();
 
-		$request = new Request(['SERVER' => $server]);
+		$request = new Request(['server' => $server]);
 
 		$this->assertNull($request->server('bar'));
 
@@ -528,7 +581,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$get = ['foo' => 'bar', 'baz' => ['bax']];
 
-		$request = new Request(['GET' => $get]);
+		$request = new Request(['get' => $get]);
 
 		$this->assertNull($request->get('bar'));
 
@@ -549,7 +602,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$post = ['foo' => 'bar', 'baz' => ['bax']];
 
-		$request = new Request(['POST' => $post]);
+		$request = new Request(['post' => $post]);
 
 		$this->assertNull($request->post('bar'));
 
@@ -585,7 +638,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTP_CONTENT_TYPE'] = 'application/json';
 
-		$request = new Request(['SERVER' => $server, 'body' => json_encode($body)]);
+		$request = new Request(['server' => $server, 'body' => json_encode($body)]);
 
 		$this->assertNull($request->put('bar'));
 
@@ -610,7 +663,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['HTTP_CONTENT_TYPE'] = 'application/x-www-form-urlencoded';
 
-		$request = new Request(['SERVER' => $server, 'body' => http_build_query($body)]);
+		$request = new Request(['server' => $server, 'body' => http_build_query($body)]);
 
 		$this->assertNull($request->put('bar'));
 

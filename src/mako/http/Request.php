@@ -105,6 +105,14 @@ class Request
 	protected $acceptableContentTypes;
 
 	/**
+	 * Array of acceptable languages.
+	 * 
+	 * @var array
+	 */
+
+	protected $acceptableLanguages;
+
+	/**
 	 * Array of acceptable charsets.
 	 * 
 	 * @var array
@@ -216,11 +224,11 @@ class Request
 	{
 		// Collect request data
 
-		$this->get     = isset($request['GET']) ? $request['GET'] : $_GET;
-		$this->post    = isset($request['POST']) ? $request['POST'] : $_POST;
-		$this->cookies = isset($request['COOKIE']) ? $request['COOKIE'] : $_COOKIE;
-		$this->files   = isset($request['FILES']) ? $request['FILES'] : $_FILES;
-		$this->server  = isset($request['SERVER']) ? $request['SERVER'] : $_SERVER;
+		$this->get     = isset($request['get']) ? $request['get'] : $_GET;
+		$this->post    = isset($request['post']) ? $request['post'] : $_POST;
+		$this->cookies = isset($request['cookies']) ? $request['cookies'] : $_COOKIE;
+		$this->files   = isset($request['files']) ? $request['files'] : $_FILES;
+		$this->server  = isset($request['server']) ? $request['server'] : $_SERVER;
 		$this->body    = isset($request['body']) ? $request['body'] : null;
 
 		// Set the Signer instance
@@ -696,6 +704,23 @@ class Request
 		}
 
 		return $this->acceptableContentTypes;
+	}
+
+	/**
+	 * Returns an array of acceptable content types in preferable order
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function acceptableLanguages()
+	{
+		if(empty($this->acceptableLanguages))
+		{
+			$this->acceptableLanguages = $this->parseAcceptHeader($this->header('accept-language'));
+		}
+
+		return $this->acceptableLanguages;
 	}
 
 	/**
