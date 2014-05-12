@@ -346,7 +346,7 @@ class Request
 	}
 
 	/**
-	 * Parses a accpet header and returns the values in preferable order.
+	 * Parses a accpet header and returns the values in descending order of preference.
 	 * 
 	 * @access  protected
 	 * @param   string
@@ -357,13 +357,19 @@ class Request
 	{
 		$groupedAccepts = [];
 
+		// Collect acceptable values
+
 		foreach(explode(',', $headerValue) as $key => $accept)
 		{
 			$quality = 1;
 
 			if(strpos($accept, ';'))
 			{
+				// We have a quality so we need to split some more
+
 				list($accept, $quality) = explode(';', $accept, 2);
+
+				// Strip the "q=" part so that we're left with only the numeric value
 
 				$quality = substr(trim($quality), 2);
 			}
@@ -371,14 +377,18 @@ class Request
 			$groupedAccepts[$quality][] = trim($accept);
 		}
 
+		// Sort and flatten array
+
 		ksort($groupedAccepts);
-		
+
 		$accepts = [];
 
 		foreach(array_reverse($groupedAccepts) as $accept)
 		{
 			$accepts = array_merge($accepts, array_values($accept));
 		}
+
+		// Return in descending order of preference
 
 		return $accepts;
 	}
@@ -692,7 +702,7 @@ class Request
 	}
 
 	/**
-	 * Returns an array of acceptable content types in preferable order
+	 * Returns an array of acceptable content types in descending order of preference.
 	 * 
 	 * @access  public
 	 * @return  array
@@ -709,7 +719,7 @@ class Request
 	}
 
 	/**
-	 * Returns an array of acceptable content types in preferable order
+	 * Returns an array of acceptable content types in descending order of preference.
 	 * 
 	 * @access  public
 	 * @return  array
@@ -726,7 +736,7 @@ class Request
 	}
 
 	/**
-	 * Returns an array of acceptable content types in preferable order
+	 * Returns an array of acceptable content types in descending order of preference.
 	 * 
 	 * @access  public
 	 * @return  array
@@ -743,7 +753,7 @@ class Request
 	}
 
 	/**
-	 * Returns an array of acceptable content types in preferable order
+	 * Returns an array of acceptable content types in descending order of preference.
 	 * 
 	 * @access  public
 	 * @return  array
