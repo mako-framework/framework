@@ -383,9 +383,9 @@ class Request
 
 		$accepts = [];
 
-		foreach(array_reverse($groupedAccepts) as $accept)
+		foreach(array_reverse($groupedAccepts) as $group)
 		{
-			$accepts = array_merge($accepts, array_values($accept));
+			$accepts = array_merge($accepts, $group);
 		}
 
 		// Return in descending order of preference
