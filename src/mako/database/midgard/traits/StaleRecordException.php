@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\database\midgard;
+namespace mako\database\midgard\traits;
 
 /**
  * Stale record exception.

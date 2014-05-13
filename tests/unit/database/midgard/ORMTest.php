@@ -25,7 +25,7 @@ class TestUser1 extends \mako\database\midgard\ORM
 
 class TestUser2 extends TestUser1
 {
-	protected $enableLocking = true;
+	use \mako\database\midgard\traits\OptimisticLockingTrait;
 
 	protected $readOnly = true;
 

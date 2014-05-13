@@ -19,7 +19,6 @@ use \mako\database\midgard\relations\HasManyPolymorphic;
 use \mako\database\midgard\relations\HasOne;
 use \mako\database\midgard\relations\HasOnePolymorphic;
 use \mako\database\midgard\relations\ManyToMany;
-use \mako\database\midgard\StaleRecordException;
 use \mako\utility\DateTime;
 use \mako\utility\UUID;
 
@@ -911,9 +910,10 @@ abstract class ORM
 	 * Inserts a new record into the database.
 	 * 
 	 * @access  protected
+	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 */
 
-	protected function insertRecord()
+	protected function insertRecord($query)
 	{
 		$this->exists = true;
 
@@ -927,12 +927,7 @@ abstract class ORM
 				break;
 		}
 
-		if($this->enableLocking)
-		{
-			$this->columns[$this->lockingColumn] = 0;
-		}
-
-		$this->builder()->insert($this->columns);
+		$query->insert($this->columns);
 
 		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
 		{
@@ -955,32 +950,22 @@ abstract class ORM
 	 * Updates an existing record.
 	 * 
 	 * @access  protected
+	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  boolean
 	 */
 
-	protected function updateRecord()
+	protected function updateRecord($query)
 	{
-		$query = $this->builder();
-
 		$query->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
 
-		if($this->enableLocking)
+		if(!empty($this->onUpdate))
 		{
-			$lockVersion = $this->columns[$this->lockingColumn]++;
+			$onUpdate = $this->onUpdate;
 
-			$query->where($this->lockingColumn, '=', $lockVersion);
+			$onUpdate($query);
 		}
 
-		$result = $query->update($this->getModified());
-
-		if($this->enableLocking && $result === 0)
-		{
-			$this->columns[$this->lockingColumn]--;
-
-			throw new StaleRecordException(vsprintf("%s(): Attempted to update a stale record.", [__METHOD__]));
-		}
-
-		return (bool) $result;
+		return (bool) $query->update($this->getModified());
 	}
 
 	/**
@@ -998,13 +983,13 @@ abstract class ORM
 		{
 			// This is a new record so we need to insert it into the database.
 				
-			$this->insertRecord();
+			$this->insertRecord($this->builder());
 		}
 		elseif($this->isModified())
 		{
 			// This record exists and is modified so all we have to do is update it.
 
-			$success = $this->updateRecord();
+			$success = $this->updateRecord($this->builder());
 		}
 
 		if($success)
@@ -1020,6 +1005,19 @@ abstract class ORM
 	/**
 	 * Deletes a record from the database.
 	 * 
+	 * @access  protected
+	 * @param   \mako\database\midgard\Query  $query  Query builder
+	 * @return  boolean
+	 */
+
+	protected function deleteRecord($query)
+	{
+		return (bool) $query->where($this->primaryKey, '=', $this->columns[$this->primaryKey])->delete();
+	}
+
+	/**
+	 * Deletes a record from the database.
+	 * 
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -1028,27 +1026,13 @@ abstract class ORM
 	{
 		if($this->exists)
 		{
-			$query = $this->builder();
-
-			if($this->enableLocking)
-			{
-				$query->where($this->lockingColumn, '=', $this->columns[$this->lockingColumn]);
-			}
-
-			$deleted = (bool) $query->where($this->primaryKey, '=', $this->columns[$this->primaryKey])->delete();
+			$deleted = $this->deleteRecord($this->builder());
 
 			if($deleted)
 			{				
 				$this->exists   = false;
 				$this->original = [];
 				$this->related  = [];
-			}
-			else
-			{
-				if($this->enableLocking)
-				{
-					throw new StaleRecordException(vsprintf("%s(): Attempted to delete a stale record.", [__METHOD__]));
-				}
 			}
 
 			return $deleted;

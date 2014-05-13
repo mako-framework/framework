@@ -35,9 +35,9 @@ class TestUserDateTime extends TestUser
 
 class OptimisticLock extends \TestORM
 {
-	protected $tableName = 'optimistic_locks';
+	use \mako\database\midgard\traits\OptimisticLockingTrait;
 
-	protected $enableLocking = true;
+	protected $tableName = 'optimistic_locks';
 }
 
 class UUIDKey extends \TestORM
@@ -345,7 +345,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\StaleRecordException
+	 * @expectedException \mako\database\midgard\traits\StaleRecordException
 	 */
 
 	public function testOptimisticLockUpdate()
@@ -364,7 +364,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\StaleRecordException
+	 * @expectedException \mako\database\midgard\traits\StaleRecordException
 	 */
 
 	public function testOptimisticLockDelete()
