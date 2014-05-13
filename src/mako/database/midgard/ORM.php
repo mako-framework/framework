@@ -718,32 +718,6 @@ abstract class ORM
 	}
 
 	/**
-	 * Reloads the record from the database.
-	 * 
-	 * @access  public
-	 * @return  boolean
-	 */
-
-	public function reload()
-	{
-		if($this->exists)
-		{
-			$model = static::get($this->getPrimaryKeyValue());
-
-			if($model !== false)
-			{
-				$this->original = $this->columns = $model->getRawColumns();
-
-				$this->related = $model->getRelated();
-
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * Creates a new record and returns the model.
 	 * 
 	 * @access  public

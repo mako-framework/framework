@@ -18,17 +18,6 @@ use \mako\database\midgard\traits\StaleRecordException;
 trait OptimisticLockingTrait
 {
 	/**
-	 * Returns the optimistic locking column.
-	 * 
-	 * @var string
-	 */
-
-	protected function getLockingColumn()
-	{
-		return isset($this->lockingColumn) ? $this->lockingColumn : 'lock_version';
-	}
-
-	/**
 	 * Making sure that cloning returns a "fresh copy" of the record.
 	 * 
 	 * @access  public
@@ -42,6 +31,43 @@ trait OptimisticLockingTrait
 
 			parent::__clone();
 		}
+	}
+
+	/**
+	 * Returns the optimistic locking column.
+	 * 
+	 * @var string
+	 */
+
+	protected function getLockingColumn()
+	{
+		return isset($this->lockingColumn) ? $this->lockingColumn : 'lock_version';
+	}
+
+	/**
+	 * Reloads the record from the database.
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function reload()
+	{
+		if($this->exists)
+		{
+			$model = static::get($this->getPrimaryKeyValue());
+
+			if($model !== false)
+			{
+				$this->original = $this->columns = $model->getRawColumns();
+
+				$this->related = $model->getRelated();
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
