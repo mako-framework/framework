@@ -170,38 +170,6 @@ class ORMTest extends \ORMTestCase
 	 * 
 	 */
 
-	public function testReload()
-	{
-		$user = TestUser::get(1);
-
-		$user->username = 'bax';
-
-		$this->assertEquals('bax', $user->username);
-
-		$reloaded = $user->reload();
-
-		$this->assertTrue($reloaded);
-
-		$this->assertEquals('foo', $user->username);
-	}
-
-	/**
-	 * 
-	 */
-
-	public function testReloadNonExistent()
-	{
-		$user = new TestUser;
-
-		$reloaded = $user->reload();
-
-		$this->assertFalse($reloaded);
-	}
-
-	/**
-	 * 
-	 */
-
 	public function testSave()
 	{
 		$dateTime = new DateTime;
@@ -378,6 +346,38 @@ class ORMTest extends \ORMTestCase
 		$record1->save();
 
 		$record2->delete();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testOptimisticLocReload()
+	{
+		$optimisticLock = OptimisticLock::get(1);
+
+		$optimisticLock->value = 'bax';
+
+		$this->assertEquals('bax', $optimisticLock->value);
+
+		$reloaded = $optimisticLock->reload();
+
+		$this->assertTrue($reloaded);
+
+		$this->assertEquals('foo', $optimisticLock->value);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testOptimisticLocReloadNonExistent()
+	{
+		$optimisticLock = new OptimisticLock;
+
+		$reloaded = $optimisticLock->reload();
+
+		$this->assertFalse($reloaded);
 	}
 
 	/**
