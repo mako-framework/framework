@@ -81,7 +81,7 @@ trait OptimisticLockingTrait
 	{
 		$this->columns[$this->getLockingColumn()] = 0;
 
-		return parent::insertRecord($query);
+		parent::insertRecord($query);
 	}
 
 	/**
