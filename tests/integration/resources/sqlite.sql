@@ -168,3 +168,34 @@ DROP TABLE IF EXISTS "no_keys";
 CREATE TABLE "no_keys" (
   "value" text NOT NULL
 );
+
+------------------------------------------------------------
+-- TIMESTAMPED_FOOS
+------------------------------------------------------------
+
+DROP TABLE IF EXISTS "timestamped_foos";
+CREATE TABLE "timestamped_foos" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "created_at" text NOT NULL,
+  "updated_at" text NOT NULL,
+  "value" text NOT NULL
+);
+
+INSERT INTO "timestamped_foos" ("id", "created_at", "updated_at", "value") VALUES (1, "2014-05-14 23:00:00", "2014-05-14 23:00:00", "foo");
+INSERT INTO "timestamped_foos" ("id", "created_at", "updated_at", "value") VALUES (2, "2014-05-14 23:00:01", "2014-05-14 23:00:01", "bar");
+INSERT INTO "timestamped_foos" ("id", "created_at", "updated_at", "value") VALUES (3, "2014-05-14 23:00:02", "2014-05-14 23:00:02", "baz");
+
+------------------------------------------------------------
+-- TIMESTAMPED_BARS
+------------------------------------------------------------
+
+DROP TABLE IF EXISTS "timestamped_bars";
+CREATE TABLE "timestamped_bars" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "timestamped_foo_id" integer NOT NULL,
+  "created_at" text NOT NULL,
+  "updated_at" text NOT NULL
+);
+
+INSERT INTO "timestamped_bars" ("id", "timestamped_foo_id", "created_at", "updated_at") VALUES (1, 1, "2014-05-14 23:00:03", "2014-05-14 23:00:03");
+INSERT INTO "timestamped_bars" ("id", "timestamped_foo_id", "created_at", "updated_at") VALUES (2, 2, "2014-05-14 23:00:04", "2014-05-14 23:00:04");
