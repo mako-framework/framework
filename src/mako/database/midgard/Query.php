@@ -59,6 +59,18 @@ class Query extends \mako\database\query\Query
 	}
 
 	/**
+	 * Returns the model.
+	 *
+	 * @access  public
+	 * @return  \mako\database\midgard\ORM
+	 */
+
+	public function getModel()
+	{
+		return $this->model;
+	}
+
+	/**
 	 * Adds a JOIN clause.
 	 *
 	 * @access  public
