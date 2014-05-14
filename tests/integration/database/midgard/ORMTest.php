@@ -33,13 +33,6 @@ class TestUserDateTime extends TestUser
 	protected $dateTimeColumns = ['created_at'];
 }
 
-class OptimisticLock extends \TestORM
-{
-	use \mako\database\midgard\traits\OptimisticLockingTrait;
-
-	protected $tableName = 'optimistic_locks';
-}
-
 class UUIDKey extends \TestORM
 {
 	protected $tableName = 'uuid_keys';
@@ -313,74 +306,6 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\traits\StaleRecordException
-	 */
-
-	public function testOptimisticLockUpdate()
-	{
-		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
-
-		$record2 = OptimisticLock::ascending('id')->limit(1)->first();
-
-		$record1->value = 'bar';
-
-		$record1->save();
-
-		$record2->value = 'bar';
-
-		$record2->save();
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\traits\StaleRecordException
-	 */
-
-	public function testOptimisticLockDelete()
-	{
-		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
-
-		$record2 = OptimisticLock::ascending('id')->limit(1)->first();
-
-		$record1->value = 'bar';
-
-		$record1->save();
-
-		$record2->delete();
-	}
-
-	/**
-	 * 
-	 */
-
-	public function testOptimisticLocReload()
-	{
-		$optimisticLock = OptimisticLock::get(1);
-
-		$optimisticLock->value = 'bax';
-
-		$this->assertEquals('bax', $optimisticLock->value);
-
-		$reloaded = $optimisticLock->reload();
-
-		$this->assertTrue($reloaded);
-
-		$this->assertEquals('foo', $optimisticLock->value);
-	}
-
-	/**
-	 * 
-	 */
-
-	public function testOptimisticLocReloadNonExistent()
-	{
-		$optimisticLock = new OptimisticLock;
-
-		$reloaded = $optimisticLock->reload();
-
-		$this->assertFalse($reloaded);
-	}
-
-	/**
 	 * 
 	 */
 
@@ -403,6 +328,39 @@ class ORMTest extends \ORMTestCase
 		$this->assertFalse(empty($clone->id));
 
 		$clone->delete();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testCloneResultSet()
+	{
+		$count = TestUser::count();
+
+		$clones = clone TestUser::ascending('id')->all();
+
+		foreach($clones as $clone)
+		{
+			$clone->save();
+		}
+
+		$this->assertEquals(($count * 2), TestUser::count());
+
+		$users = TestUser::ascending('id')->all();
+
+		$chunkedUsers = $users->chunk(3);
+
+		foreach($chunkedUsers[0] as $key => $user)
+		{
+			$this->assertNotEquals($user->id, $chunkedUsers[1][$key]->id);
+			
+			$this->assertEquals($user->created_at, $chunkedUsers[1][$key]->created_at);
+			
+			$this->assertEquals($user->username, $chunkedUsers[1][$key]->username);
+			
+			$this->assertEquals($user->email, $chunkedUsers[1][$key]->email);
+		}
 	}
 
 	/**
