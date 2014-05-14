@@ -73,6 +73,37 @@ trait TimestampedTrait
 	}
 
 	/**
+	 * Touches related records.
+	 * 
+	 * @access  protected
+	 * @param   \DateTime  $dateTime  DateTime instance
+	 */
+
+	protected function touchRelated($dateTime)
+	{
+		foreach($this->touch as $touch)
+		{
+			$touch = explode('.', $touch);
+
+			$relation = $this->{array_shift($touch)}();
+
+			foreach($touch as $nested)
+			{
+				$related = $relation->first();
+
+				if($related === false)
+				{
+					continue 2;
+				}
+
+				$relation = $related->$nested();
+			}
+
+			$relation->update([$relation->getModel()->getUpdatedAtColumn() => $dateTime]);
+		}
+	}
+
+	/**
 	 * Saves the record to the database.
 	 * 
 	 * @access  public
@@ -103,12 +134,7 @@ trait TimestampedTrait
 
 		if($saved === true && !empty($this->touch))
 		{
-			foreach($this->touch as $touch)
-			{
-				$relation = $this->$touch();
-
-				$relation->update([$relation->getModel()->getUpdatedAtColumn() => $dateTime]);
-			}
+			$this->touchRelated($dateTime);
 		}
 
 		// Return save status
