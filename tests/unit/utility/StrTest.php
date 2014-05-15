@@ -213,8 +213,12 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 	$this->assertEquals('*********ジー', Str::mask('ファイナルファンタジー', 2));
 
 	 	$this->assertEquals('*****', Str::mask('hello', 0));
-	 	$this->assertEquals('xxxxx', Str::mask('hello', 0, 'x'));
+	 	$this->assertEquals('*****', Str::mask('kølle', 0));
 	 	$this->assertEquals('***********', Str::mask('ファイナルファンタジー', 0));
+
+	 	$this->assertEquals('xxxxx', Str::mask('hello', 0, 'x'));
+	 	$this->assertEquals('xxxxx', Str::mask('kølle', 0, 'x'));
+	 	$this->assertEquals('xxxxxxxxxxx', Str::mask('ファイナルファンタジー', 0, 'x'));
 	 }
 
 	 /**
