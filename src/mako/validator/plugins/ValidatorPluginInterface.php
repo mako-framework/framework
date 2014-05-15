@@ -17,5 +17,5 @@ interface ValidatorPluginInterface
 {
 	public function getRuleName();
 	public function getPackageName();
-	public function validate($input, $parameters);
+	public function validate($input, $parameters, $data);
 }

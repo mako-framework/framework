@@ -19,7 +19,7 @@ class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements 
 {
 	/**
 	 * Rule name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -27,7 +27,7 @@ class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements 
 
 	/**
 	 * Session instance.
-	 * 
+	 *
 	 * @var \mako\session\Session
 	 */
 
@@ -35,7 +35,7 @@ class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements 
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\session\Session  $session  Session instance
 	 */
@@ -47,14 +47,15 @@ class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements 
 
 	/**
 	 * Validator.
-	 * 
+	 *
 	 * @access  public
-	 * @param   string   $input       Input
+	 * @param   string   $input       Input field value
 	 * @param   array    $parameters  Parameters
+	 * @param   array    $data        Input data array
 	 * @return  boolean
 	 */
 
-	public function validate($input, $parameters)
+	public function validate($input, $parameters, $data)
 	{
 		return $this->session->validateToken($input);
 	}

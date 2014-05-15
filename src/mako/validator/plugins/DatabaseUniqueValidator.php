@@ -19,7 +19,7 @@ class DatabaseUniqueValidator extends \mako\validator\plugins\ValidatorPlugin im
 {
 	/**
 	 * Rule name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -27,7 +27,7 @@ class DatabaseUniqueValidator extends \mako\validator\plugins\ValidatorPlugin im
 
 	/**
 	 * Connection manager instance.
-	 * 
+	 *
 	 * @var \mako\database\ConnectionManager
 	 */
 
@@ -35,7 +35,7 @@ class DatabaseUniqueValidator extends \mako\validator\plugins\ValidatorPlugin im
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
 	 */
@@ -47,17 +47,18 @@ class DatabaseUniqueValidator extends \mako\validator\plugins\ValidatorPlugin im
 
 	/**
 	 * Validator.
-	 * 
+	 *
 	 * @access  public
-	 * @param   string   $input       Input
+	 * @param   string   $input       Input field value
 	 * @param   array    $parameters  Parameters
+	 * @param   array    $data        Input data array
 	 * @return  boolean
 	 */
 
-	public function validate($input, $parameters)
+	public function validate($input, $parameters, $data)
 	{
 		$query = $this->connectionManager->builder()->table($parameters[0])->where($parameters[1], '=', $input);
-		
+
 		if(isset($parameters[2]))
 		{
 			$query->where($parameters[1], '!=', $parameters[2]);
