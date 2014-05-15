@@ -15,7 +15,7 @@ use \DateTimeZone;
  * @author  Frederic G. Østby
  */
 
-class DateTime extends \DateTime
+class Time extends \DateTime
 {
 	/**
 	 * Number of seconds in a minute.
@@ -84,11 +84,11 @@ class DateTime extends \DateTime
 	}
 
 	/**
-	 * Returns a new DateTime object.
+	 * Returns a new Time object.
 	 * 
 	 * @access  public
-	 * @param   mixed                   $timeZone  (optional) A valid time zone or a DateTimeZone object
-	 * @return  \mako\utility\DateTime
+	 * @param   mixed               $timeZone  (optional) A valid time zone or a DateTimeZone object
+	 * @return  \mako\utility\Time
 	 */
 
 	public static function now($timeZone = null)
@@ -97,14 +97,14 @@ class DateTime extends \DateTime
 	}
 
 	/**
-	 * Returns new DateTime object according to the specified date.
+	 * Returns new Time object according to the specified date.
 	 * 
 	 * @access  public
-	 * @param   int                     $year      Year
-	 * @param   int                     $month     (optional) Month (1 to 12)
-	 * @param   int                     $day       (optional) Day of month (1 to 31)
-	 * @param   string                  $timeZone  (optional) A valid time zone or a DateTimeZone object
-	 * @return  \mako\utility\DateTime
+	 * @param   int                 $year      Year
+	 * @param   int                 $month     (optional) Month (1 to 12)
+	 * @param   int                 $day       (optional) Day of month (1 to 31)
+	 * @param   string              $timeZone  (optional) A valid time zone or a DateTimeZone object
+	 * @return  \mako\utility\Time
 	 */
 
 	public static function createFromDate($year, $month = null, $day = null, $timeZone = null)
@@ -115,12 +115,12 @@ class DateTime extends \DateTime
 	}
 
 	/**
-	 * Returns new DateTime object according to the specified timestamp.
+	 * Returns new Time object according to the specified timestamp.
 	 * 
 	 * @access  public
-	 * @param   int                     $timestamp  Unix timestamp
-	 * @param   string                  $timeZone   (optional) A valid time zone or a DateTimeZone object
-	 * @return  \mako\utility\DateTime
+	 * @param   int                 $timestamp  Unix timestamp
+	 * @param   string              $timeZone   (optional) A valid time zone or a DateTimeZone object
+	 * @return  \mako\utility\Time
 	 */
 
 	public static function createFromTimestamp($timestamp, $timeZone = null)
@@ -133,12 +133,12 @@ class DateTime extends \DateTime
 	}
 
 	/**
-	 * Returns new DateTime object according to the specified DOS timestamp.
+	 * Returns new Time object according to the specified DOS timestamp.
 	 * 
 	 * @access  public
-	 * @param   int                     $timestamp  DOS timestamp
-	 * @param   string                  $timeZone   (optional) A valid time zone or a DateTimeZone object
-	 * @return  \mako\utility\DateTime
+	 * @param   int                 $timestamp  DOS timestamp
+	 * @param   string              $timeZone   (optional) A valid time zone or a DateTimeZone object
+	 * @return  \mako\utility\Time
 	 */
 
 	public static function createFromDOSTimestamp($timestamp, $timeZone = null)
@@ -156,13 +156,13 @@ class DateTime extends \DateTime
 	}
 
 	/**
-	 * Returns new DateTime object formatted according to the specified format.
+	 * Returns new Time object formatted according to the specified format.
 	 * 
 	 * @access  public
-	 * @param   string                  $format    The format that the passed in string should be in
-	 * @param   string                  $time      String representing the time
-	 * @param   string                  $timeZone  (optional) A valid time zone or a DateTimeZone object
-	 * @return  \mako\utility\DateTime
+	 * @param   string              $format    The format that the passed in string should be in
+	 * @param   string              $time      String representing the time
+	 * @param   string              $timeZone  (optional) A valid time zone or a DateTimeZone object
+	 * @return  \mako\utility\Time
 	 */
 
 	public static function createFromFormat($format, $time, $timeZone = null)
@@ -185,11 +185,11 @@ class DateTime extends \DateTime
 	}
 
 	/**
-	 * Sets the time zone for the DateTime object
+	 * Sets the time zone for the Time object
 	 * 
 	 * @access  public
-	 * @param   mixed                   $timeZone  A valid time zone or a DateTimeZone object
-	 * @return  \mako\utility\DateTime
+	 * @param   mixed               $timeZone  A valid time zone or a DateTimeZone object
+	 * @return  \mako\utility\Time
 	 */
 
 	public function setTimeZone($timeZone)
@@ -250,8 +250,8 @@ class DateTime extends \DateTime
 	 * Move forward in time by x seconds.
 	 * 
 	 * @access  public
-	 * @param   int                     $seconds  Number of seconds
-	 * @return  \mako\utility\DateTime
+	 * @param   int                 $seconds  Number of seconds
+	 * @return  \mako\utility\Time
 	 */
 
 	public function forward($seconds)
@@ -265,8 +265,8 @@ class DateTime extends \DateTime
 	 * Move backward in time by x seconds.
 	 * 
 	 * @access  public
-	 * @param   int                     $seconds  Number of seconds
-	 * @return  \mako\utility\DateTime
+	 * @param   int                 $seconds  Number of seconds
+	 * @return  \mako\utility\Time
 	 */
 
 	public function rewind($seconds)

@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard;
 
-use \DateTime as PHPDateTime;
+use \DateTime;
 use \RuntimeException;
 
 use \mako\core\Application;
@@ -19,8 +19,8 @@ use \mako\database\midgard\relations\HasManyPolymorphic;
 use \mako\database\midgard\relations\HasOne;
 use \mako\database\midgard\relations\HasOnePolymorphic;
 use \mako\database\midgard\relations\ManyToMany;
-use \mako\utility\DateTime;
 use \mako\utility\Str;
+use \mako\utility\Time;
 use \mako\utility\UUID;
 
 /**
@@ -521,18 +521,18 @@ abstract class ORM
 	}
 
 	/**
-	 * Converts a DATETIME value to a DateTime instance.
+	 * Converts a DATETIME value to a Time instance.
 	 * 
 	 * @access  protected
 	 * @param   mixed                   $value  Value
-	 * @return  \mako\utility\DateTime
+	 * @return  \mako\utility\Time
 	 */
 
 	protected function toDateTime($value)
 	{
-		if(!($value instanceof PHPDateTime))
+		if(!($value instanceof DateTime))
 		{
-			$value = DateTime::createFromFormat($this->getDateFormat(), $value);
+			$value = Time::createFromFormat($this->getDateFormat(), $value);
 		}
 
 		return $value;
