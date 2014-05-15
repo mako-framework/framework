@@ -71,6 +71,11 @@ class Testuser5 extends TestUser1
 	protected $columns = ['created_at' => '2014-02-01 13:10:32'];
 }
 
+class ORMTestApple extends \mako\database\midgard\ORM
+{
+
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -329,6 +334,17 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 		$user = new TestUser3(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], false, false, true);
 
 		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getRawColumns());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testTableNameGuessing()
+	{
+		$apple = new ORMTestApple;
+
+		$this->assertEquals('ormtest_apples', $apple->getTable());
 	}
 
 	/**
