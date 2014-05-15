@@ -20,6 +20,7 @@ use \mako\database\midgard\relations\HasOne;
 use \mako\database\midgard\relations\HasOnePolymorphic;
 use \mako\database\midgard\relations\ManyToMany;
 use \mako\utility\DateTime;
+use \mako\utility\Str;
 use \mako\utility\UUID;
 
 /**
@@ -315,7 +316,7 @@ abstract class ORM
 	{
 		if(empty($this->tableName))
 		{
-			throw new RuntimeException(vsprintf("%s(): You need to define the table name.", [__METHOD__, get_class($this)]));
+			$this->tableName = Str::pluralize(Str::camel2underscored(end((explode('\\', get_class($this))))));
 		}
 		
 		return $this->tableName;

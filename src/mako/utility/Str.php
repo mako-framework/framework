@@ -58,6 +58,62 @@ class Str
 	const SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
 	/**
+	 * Pluralization rules.
+	 * 
+	 * @var array
+	 */
+
+	protected static $pluralizationRules = 
+	[
+		'/(quiz)$/i'                     => "$1zes",
+		'/([m|l])ouse$/i'                => "$1ice",
+		'/(.+)(e|i)x$/'                  => "$1ices",
+		'/(z|x|ch|ss|sh)$/i'             => "$1es",
+		'/([^aeiouy]|qu)y$/i'            => "$1ies",
+		'/(hive)$/i'                     => "$1s",
+		'/(?:([^f])fe|([lr])f)$/i'       => "$1$2ves",
+		'/(shea|lea|loa|thie)f$/i'       => "$1ves",
+		'/sis$/i'                        => "ses",
+		'/([ti])um$/i'                   => "$1a",
+		'/(tomat|potat|ech|her|vet)o$/i' => "$1oes",
+		'/(bu)s$/i'                      => "$1ses",
+		'/(octop|vir)us$/'               => "$1i",
+		'/(ax|test)is$/i'                => "$1es",
+		'/(us)$/i'                       => "$1es",
+		'/((.*)(?<!hu))man$/i'           => "$1men",
+		'/s$/i'                          => "s",
+		'/$/'                            => "s",
+	];
+
+	/**
+	 * Irregular noun.
+	 * 
+	 * @var array
+	 */
+
+	protected static $irregulars = 
+	[
+		'alias'       => 'aliases',
+		'audio'       => 'audio',
+		'child'       => 'children',
+		'deer'        => 'deer',
+		'equipment'   => 'equipment',
+		'fish'        => 'fish',
+		'foot'        => 'feet',
+		'goose'       => 'geese',
+		'gold'        => 'gold',
+		'information' => 'information',
+		'money'       => 'money',
+		'ox'          => 'oxen',
+		'police'      => 'police',
+		'series'      => 'series',
+		'sex'         => 'sexes',
+		'sheep'       => 'sheep',
+		'species'     => 'species',
+		'tooth'       => 'teeth',
+	];
+
+	/**
 	 * Protected constructor since this is a static class.
 	 *
 	 * @access  protected
@@ -93,6 +149,40 @@ class Str
 	public static function br2nl($string)
 	{
 		return str_replace(['<br>', '<br/>', '<br />'], "\n", $string);
+	}
+
+	/**
+	 * Returns the plural form of a noun (english only).
+	 * 
+	 * @access  public
+	 * @param   string  $noun   Noun to pluralize
+	 * @param   int     $count  (optional) Number of nouns
+	 * @return  string
+	 */
+
+	public static function pluralize($noun, $count = null)
+	{
+		if($count !== 1)
+		{
+			if(isset(static::$irregulars[$noun]))
+			{
+				$noun = static::$irregulars[$noun];
+			}
+			else
+			{
+				foreach(static::$pluralizationRules as $search => $replace)
+				{
+					if(preg_match($search, $noun))
+					{
+						$noun = preg_replace($search, $replace, $noun);
+
+						break;
+					}
+				}
+			}
+		}
+
+		return $noun;
 	}
 
 	/**
