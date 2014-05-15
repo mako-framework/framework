@@ -320,9 +320,14 @@ class Str
 
 	public static function mask($string, $visible = 3, $mask = '*')
 	{
-		$substr = mb_substr($string, -$visible);
+		if($visible === 0)
+		{
+			return str_repeat($mask, mb_strlen($string));
+		}
 
-		return str_pad($substr, (mb_strlen($string) + (strlen($substr) - mb_strlen($substr))), $mask, STR_PAD_LEFT);
+		$visible = mb_substr($string, -$visible);
+
+		return str_pad($visible, (mb_strlen($string) + (strlen($visible) - mb_strlen($visible))), $mask, STR_PAD_LEFT);
 	}
 
 	/**
