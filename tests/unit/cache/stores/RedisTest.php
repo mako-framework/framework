@@ -10,7 +10,7 @@ use \Mockery as m;
  * @group unit
  */
 
-class ArrTest extends \PHPUnit_Framework_TestCase
+class RedisTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 
@@ -87,11 +87,25 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('exists')->once()->with('foo');
+		$client->shouldReceive('exists')->once()->with('foo')->andReturn(1);
 
 		$redis = new Redis($client);
 
-		$redis->has('foo');
+		$has = $redis->has('foo');
+
+		$this->assertTrue($has);
+
+		//
+
+		$client = $this->getRedisClient();
+
+		$client->shouldReceive('exists')->once()->with('foo')->andReturn(0);
+
+		$redis = new Redis($client);
+
+		$has = $redis->has('foo');
+
+		$this->assertFalse($has);
 	}
 
 	/**
@@ -131,11 +145,25 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('del')->once()->with('foo');
+		$client->shouldReceive('del')->once()->with('foo')->andReturn(1);
 
 		$redis = new Redis($client);
 
-		$redis->remove('foo');
+		$removed = $redis->remove('foo');
+
+		$this->assertTrue($removed);
+
+		//
+
+		$client = $this->getRedisClient();
+
+		$client->shouldReceive('del')->once()->with('foo')->andReturn(0);
+
+		$redis = new Redis($client);
+
+		$removed = $redis->remove('foo');
+
+		$this->assertFalse($removed);
 	}
 
 	/**
