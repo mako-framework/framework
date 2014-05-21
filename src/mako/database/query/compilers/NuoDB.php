@@ -15,8 +15,6 @@ namespace mako\database\query\compilers;
 
 class NuoDB extends \mako\database\query\Compiler
 {
-	protected $wrapper = '"%s"';
-
 	/**
 	 * Compiles LIMIT clauses.
 	 *

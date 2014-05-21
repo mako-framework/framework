@@ -29,14 +29,6 @@ class Compiler
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * Wrapper used to escape table and column names.
-	 *
-	 * @var string
-	 */
-
-	protected $wrapper = '"%s"';
-
-	/**
 	 * Query builder.
 	 *
 	 * @var mako\database\query\Query
@@ -107,14 +99,27 @@ class Compiler
 	}
 
 	/**
-	 * Escapes SQL keywords.
+	 * Returns an escaped identifier.
+	 * 
+	 * @access  protected
+	 * @param   string     $identifier  Identifier to escape
+	 * @return  string
+	 */
+
+	protected function escapeIdentifier($identifier)
+	{
+		return '"' . str_replace('"', '""', $identifier) . '"';
+	}
+
+	/**
+	 * Returns an escaped table or column name.
 	 *
 	 * @access  protected
 	 * @param   string     $value  Value to escape
 	 * @return  string
 	 */
 
-	protected function escapeKeyword($value)
+	protected function escapeTableAndOrColumn($value)
 	{
 		$wrapped = [];
 
@@ -126,7 +131,7 @@ class Compiler
 			}
 			else
 			{
-				$wrapped[] = sprintf($this->wrapper, $segment);
+				$wrapped[] = $this->escapeIdentifier($segment);
 			}
 		}
 
@@ -151,15 +156,15 @@ class Compiler
 		{
 			return $this->subquery($value);
 		}
-		elseif(stripos($value, ' as ') !== false)
+		elseif(stripos($value, ' AS ') !== false)
 		{
 			$values = explode(' ', $value);
 
-			return sprintf('%s AS %s', $this->escapeKeyword($values[0]), $this->escapeKeyword($values[2]));
+			return sprintf('%s AS %s', $this->escapeTableAndOrColumn($values[0]), $this->escapeTableAndOrColumn($values[2]));
 		}
 		else
 		{
-			return $this->escapeKeyword($value);
+			return $this->escapeTableAndOrColumn($value);
 		}
 	}
 

@@ -24,12 +24,17 @@ class SQLServer extends \mako\database\query\Compiler
 	protected static $dateForamt = 'Y-m-d H:i:s.0000000';
 
 	/**
-	 * Wrapper used to escape table and column names.
-	 *
-	 * @var string
+	 * Returns an escaped identifier.
+	 * 
+	 * @access  protected
+	 * @param   string     $identifier  Identifier to escape
+	 * @return  string
 	 */
-	
-	protected $wrapper = '[%s]';
+
+	protected function escapeIdentifier($identifier)
+	{
+		return '[' . str_replace(']', ']]', $identifier) . ']';
+	}
 
 	/**
 	 * Compiles a SELECT query.

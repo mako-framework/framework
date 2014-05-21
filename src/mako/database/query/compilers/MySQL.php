@@ -16,10 +16,15 @@ namespace mako\database\query\compilers;
 class MySQL extends \mako\database\query\Compiler
 {
 	/**
-	 * Wrapper used to escape table and column names.
-	 *
-	 * @var string
+	 * Returns an escaped identifier.
+	 * 
+	 * @access  protected
+	 * @param   string     $identifier  Identifier to escape
+	 * @return  string
 	 */
-	
-	protected $wrapper = '`%s`';
+
+	protected function escapeIdentifier($identifier)
+	{
+		return '`' . str_replace('`', '``', $identifier) . '`';
+	}
 }
