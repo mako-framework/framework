@@ -782,7 +782,7 @@ class Query
 		$this->orderings[] = array
 		(
 			'column' => $columns,
-			'order'  => $order,
+			'order'  => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
 		);
 
 		return $this;
