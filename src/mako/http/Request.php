@@ -847,7 +847,7 @@ class Request
 
 			// Get the server name and port
 
-			if(($host = $this->header('host')) !== null)
+			if(($host = $this->header('host')) === null)
 			{
 				$host = $this->server('SERVER_NAME');
 

@@ -258,6 +258,8 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		//
 
+		$server = $this->getServerData();
+
 		$server['HTTPS'] = 'on';
 
 		$request = new Request(['server' => $server]);
@@ -265,6 +267,36 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('https://example.local', $request->baseURL());
 
 		//
+
+		$server = $this->getServerData();
+
+		$server['HTTPS'] = 'on';
+
+		$server['HTTP_HOST'] = 'example.local:8080';
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertEquals('https://example.local:8080', $request->baseURL());
+
+		//
+
+		$server = $this->getServerData();
+
+		$server['HTTPS'] = 'on';
+
+		unset($server['HTTP_HOST']);
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertEquals('https://example.local', $request->baseURL());
+
+		//
+
+		$server = $this->getServerData();
+
+		$server['HTTPS'] = 'on';
+
+		unset($server['HTTP_HOST']);
 
 		$server['SERVER_PORT'] = '8080';
 
