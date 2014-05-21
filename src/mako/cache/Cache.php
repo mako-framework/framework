@@ -150,8 +150,8 @@ class Cache
 	 * @return  boolean
 	 */
 
-	public function clear($key)
+	public function clear()
 	{
-		return $this->store->clear($this->prefixedKey($key));
+		return $this->store->clear();
 	}
 }
