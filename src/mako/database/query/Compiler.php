@@ -120,7 +120,7 @@ class Compiler
 
 		foreach(explode('.', $value) as $segment)
 		{
-			if($segment == '*')
+			if($segment === '*')
 			{
 				$wrapped[] = $segment;
 			}
@@ -388,7 +388,7 @@ class Compiler
 
 		foreach($orderings as $order)
 		{
-			$sql[] = $this->columns($order['column']) . ' ' . strtoupper($order['order']);
+			$sql[] = $this->columns($order['column']) . ' ' . $order['order'];
 		}
 
 		return ' ORDER BY ' . implode(', ', $sql);

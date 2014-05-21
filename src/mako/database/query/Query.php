@@ -908,7 +908,7 @@ class Query
 		$this->orderings[] = 
 		[
 			'column' => $columns,
-			'order'  => $order,
+			'order'  => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
 		];
 
 		return $this;
