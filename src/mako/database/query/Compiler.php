@@ -21,14 +21,6 @@ class Compiler
 	//---------------------------------------------
 
 	/**
-	 * Wrapper used to escape table and column names.
-	 *
-	 * @var string
-	 */
-
-	protected $wrapper = '"%s"';
-
-	/**
 	 * Query builder.
 	 *
 	 * @var mako\database\Query
@@ -82,6 +74,19 @@ class Compiler
 	}
 
 	/**
+	 * Returns an escaped identifier.
+	 * 
+	 * @access  protected
+	 * @param   string     $identifier  Identifier to escape
+	 * @return  string
+	 */
+
+	protected function escapeIdentifier($identifier)
+	{
+		return '"' . str_replace('"', '""', $identifier) . '"';
+	}
+
+	/**
 	 * Wraps table and column names with dialect specific escape characters.
 	 *
 	 * @access  public
@@ -116,7 +121,7 @@ class Compiler
 				}
 				else
 				{
-					$wrapped[] = sprintf($this->wrapper, $segment);
+					$wrapped[] = $this->escapeIdentifier($segment);
 				}
 			}
 

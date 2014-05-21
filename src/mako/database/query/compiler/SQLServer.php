@@ -16,13 +16,7 @@ class SQLServer extends \mako\database\query\Compiler
 	// Class properties
 	//---------------------------------------------
 
-	/**
-	 * Wrapper used to escape table and column names.
-	 *
-	 * @var string
-	 */
-	
-	protected $wrapper = '[%s]';
+	// Nothing here
 
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
@@ -33,6 +27,19 @@ class SQLServer extends \mako\database\query\Compiler
 	//---------------------------------------------
 	// Class methods
 	//---------------------------------------------
+
+	/**
+	 * Returns an escaped identifier.
+	 * 
+	 * @access  protected
+	 * @param   string     $identifier  Identifier to escape
+	 * @return  string
+	 */
+
+	protected function escapeIdentifier($identifier)
+	{
+		return '[' . str_replace(']', ']]', $identifier) . ']';
+	}
 
 	/**
 	 * Compiles a SELECT query.

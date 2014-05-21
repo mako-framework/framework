@@ -16,14 +16,8 @@ class MySQL extends \mako\database\query\Compiler
 	// Class properties
 	//---------------------------------------------
 
-	/**
-	 * Wrapper used to escape table and column names.
-	 *
-	 * @var string
-	 */
+	// Nothing here
 	
-	protected $wrapper = '`%s`';
-
 	//---------------------------------------------
 	// Class constructor, destructor etc ...
 	//---------------------------------------------
@@ -34,7 +28,18 @@ class MySQL extends \mako\database\query\Compiler
 	// Class methods
 	//---------------------------------------------
 
-	// Nothing here
+	/**
+	 * Returns an escaped identifier.
+	 * 
+	 * @access  protected
+	 * @param   string     $identifier  Identifier to escape
+	 * @return  string
+	 */
+
+	protected function escapeIdentifier($identifier)
+	{
+		return '`' . str_replace('`', '``', $identifier) . '`';
+	}
 }
 
 /** -------------------- End of file -------------------- **/
