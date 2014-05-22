@@ -41,9 +41,9 @@ class Redis implements \mako\session\stores\StoreInterface
 	 * Writes session data.
 	 *
 	 * @access  public
-	 * @param   string   $sessionId    Session id
-	 * @param   string   $sessionData  Session data
-	 * @param   int      $dataTTL      TTL in seconds
+	 * @param   string  $sessionId    Session id
+	 * @param   array   $sessionData  Session data
+	 * @param   int     $dataTTL      TTL in seconds
 	 */
 
 	public function write($sessionId, $sessionData, $dataTTL)
@@ -56,7 +56,7 @@ class Redis implements \mako\session\stores\StoreInterface
 	 *
 	 * @access  public
 	 * @param   string  $sessionId  Session id
-	 * @return  string
+	 * @return  array
 	 */
 
 	public function read($sessionId)
