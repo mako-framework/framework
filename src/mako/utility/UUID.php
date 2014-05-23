@@ -14,6 +14,7 @@ use \InvalidArgumentException;
  *
  * @author  Frederic G. Østby
  * @author  Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
+ * @author  Jack (http://stackoverflow.com/a/15875555)
  */
 
 class UUID
@@ -160,36 +161,53 @@ class UUID
 
 	public static function v4()
 	{
-		return sprintf
-		(
-			'%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+		if(function_exists('openssl_random_pseudo_bytes'))
+		{
+			$random = openssl_random_pseudo_bytes(16);
 
-			// 32 bits for "time_low"
+			// set version to 0100
 
-			mt_rand(0, 65535),
-			mt_rand(0, 65535),
+			$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
 
-			// 16 bits for "time_mid"
+			// set bits 6-7 to 10
 
-			mt_rand(0, 65535),
+			$random[8] = chr(ord($random[8]) & 0x3f | 0x80);
 
-			// 16 bits for "time_hi_and_version",
-			// four most significant bits holds version number 4
+			return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($random), 4));
+		}
+		else
+		{
+			return sprintf
+			(
+				'%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
 
-			mt_rand(16384, 20479),
+				// 32 bits for "time_low"
 
-			// 16 bits, 8 bits for "clk_seq_hi_res",
-			// 8 bits for "clk_seq_low",
-			// two most significant bits holds zero and one for variant DCE1.1
+				mt_rand(0, 65535),
+				mt_rand(0, 65535),
 
-			mt_rand(32768, 49151),
+				// 16 bits for "time_mid"
 
-			// 48 bits for "node"
+				mt_rand(0, 65535),
 
-			mt_rand(0, 65535),
-			mt_rand(0, 65535),
-			mt_rand(0, 65535)
-		);
+				// 16 bits for "time_hi_and_version",
+				// four most significant bits holds version number 4
+
+				mt_rand(16384, 20479),
+
+				// 16 bits, 8 bits for "clk_seq_hi_res",
+				// 8 bits for "clk_seq_low",
+				// two most significant bits holds zero and one for variant DCE1.1
+
+				mt_rand(32768, 49151),
+
+				// 48 bits for "node"
+
+				mt_rand(0, 65535),
+				mt_rand(0, 65535),
+				mt_rand(0, 65535)
+			);
+		}
 	}
 
 	/**
