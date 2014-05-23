@@ -13,7 +13,7 @@
 
 function mako_env()
 {
-        return getenv('MAKO_ENV') ?: null;
+	return getenv('MAKO_ENV') ?: null;
 }
 
 /**
@@ -28,18 +28,18 @@ function mako_env()
 
 function mako_path($parentPath, $relativePath, $file, $ext = '.php')
 {
-        if(strpos($file, '::') !== false)
-        {
-                list($package, $file) = explode('::', $file);
+	if(strpos($file, '::') !== false)
+	{
+		list($package, $file) = explode('::', $file);
 
-                $path = $parentPath . '/' . $package . '/' . $relativePath . '/' . $file . $ext;
-        }
-        else
-        {
-                $path = $parentPath . '/' . $relativePath . '/' . $file . $ext;
-        }
+		$path = $parentPath . '/packages/' . $package . '/' . $relativePath . '/' . $file . $ext;
+	}
+	else
+	{
+		$path = $parentPath . '/' . $relativePath . '/' . $file . $ext;
+	}
 
-        return $path;
+	return $path;
 }
 
 /**
