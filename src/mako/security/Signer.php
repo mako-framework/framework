@@ -21,7 +21,7 @@ class Signer
 	 * @var int
 	 */
 
-	const MAC_LENGTH = 40;
+	const MAC_LENGTH = 64;
 	
 	/**
 	 * Secret used to sign and validate strings.
@@ -53,7 +53,7 @@ class Signer
 
 	protected function getSignature($string)
 	{
-		return hash_hmac('sha1', $string, $this->secret);
+		return hash_hmac('sha256', $string, $this->secret);
 	}
 	
 	/**
