@@ -42,6 +42,10 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 
 	public function testV3()
 	{
+		$this->assertEquals(3, substr(UUID::v3(UUID::DNS, 'hello'), 14, 1));
+
+		$this->assertTrue(in_array(substr(UUID::v3(UUID::DNS, 'hello'), 19, 1), [8, 9, 'a', 'b']));
+
 		$this->assertEquals(UUID::v3(UUID::DNS, 'hello'), UUID::v3(UUID::DNS, 'hello'));
 
 		$this->assertNotEquals(UUID::v3(UUID::DNS, 'hello'), UUID::v3(UUID::URL, 'hello'));
@@ -57,6 +61,10 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 
 	public function testV4()
 	{
+		$this->assertEquals(4, substr(UUID::v4(), 14, 1));
+
+		$this->assertTrue(in_array(substr(UUID::v4(), 19, 1), [8, 9, 'a', 'b']));
+
 		$this->assertTrue(UUID::validate(UUID::v4()));
 	}
 
@@ -66,6 +74,10 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 
 	public function testV5()
 	{
+		$this->assertEquals(5, substr(UUID::v5(UUID::DNS, 'hello'), 14, 1));
+
+		$this->assertTrue(in_array(substr(UUID::v5(UUID::DNS, 'hello'), 19, 1), [8, 9, 'a', 'b']));
+
 		$this->assertEquals(UUID::v5(UUID::DNS, 'hello'), UUID::v5(UUID::DNS, 'hello'));
 
 		$this->assertNotEquals(UUID::v5(UUID::DNS, 'hello'), UUID::v5(UUID::URL, 'hello'));
