@@ -165,11 +165,11 @@ class UUID
 		{
 			$random = openssl_random_pseudo_bytes(16);
 
-			// set version to 0100
+			// Set version to 0100
 
 			$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
 
-			// set bits 6-7 to 10
+			// Set bits 6-7 to 10
 
 			$random[8] = chr(ord($random[8]) & 0x3f | 0x80);
 
