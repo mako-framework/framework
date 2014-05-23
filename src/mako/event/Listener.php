@@ -46,7 +46,7 @@ class Listener
 	 * @return  boolean
 	 */
 
-	public function registered($name)
+	public function has($name)
 	{
 		return ! empty($this->events[$name]);
 	}
@@ -108,7 +108,7 @@ class Listener
 
 				if($break && $last === false)
 				{
-					return $values;
+					break;
 				}
 			}
 		}
