@@ -29,9 +29,9 @@ class PaginationFactoryService extends \mako\core\services\Service
 		{
 			$paginationFactory = new PaginationFactory($container->get('request'), $container->get('config')->get('pagination'));
 
-			if($container->has('urlbuilder'))
+			if($container->has('urlBuilder'))
 			{
-				$paginationFactory->setURLBuilder($container->get('urlbuilder'));
+				$paginationFactory->setURLBuilder($container->get('urlBuilder'));
 			}
 
 			if($container->has('view'))

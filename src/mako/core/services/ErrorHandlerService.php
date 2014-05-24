@@ -25,6 +25,6 @@ class ErrorHandlerService extends \mako\core\services\Service
 
 	public function register()
 	{
-		$this->container->registerInstance(['mako\error\ErrorHandler', 'errorhandler'], new ErrorHandler());
+		$this->container->registerInstance(['mako\error\ErrorHandler', 'errorHandler'], new ErrorHandler());
 	}
 }

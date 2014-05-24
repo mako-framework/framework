@@ -250,7 +250,7 @@ abstract class Application
 
 	protected function registerErrorHandler()
 	{
-		$this->container->get('errorhandler')->handle('\Exception', function($exception)
+		$this->container->get('errorHandler')->handle('\Exception', function($exception)
 		{
 			// Create handler instance
 
