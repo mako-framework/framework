@@ -18,6 +18,11 @@ class Bax
 	}
 }
 
+class BaxChild extends Bax
+{
+
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -37,6 +42,19 @@ class ContainerAwareTest extends \PHPUnit_Framework_TestCase
 		$container = new Container;
 
 		$bax = $container->get('mako\tests\unit\syringe\Bax');
+
+		$this->assertInstanceOf('mako\syringe\Container', $bax->getContainer());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testContainerAwareChild()
+	{
+		$container = new Container;
+
+		$bax = $container->get('mako\tests\unit\syringe\BaxChild');
 
 		$this->assertInstanceOf('mako\syringe\Container', $bax->getContainer());
 	}

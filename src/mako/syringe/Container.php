@@ -192,20 +192,21 @@ class Container
 	 * Checks if a class is container aware.
 	 * 
 	 * @access  protected
-	 * @param   object     $instance  Class instance
+	 * @param   object     $class  Class instance
 	 * @return  boolean
 	 */
 
-	protected function isContainerAware($instance)
+	protected function isContainerAware($class)
 	{
-		$traits = class_uses($instance);
+		$traits = [];
 
-		if(!empty($traits))
+		do
 		{
-			return array_key_exists('mako\syringe\ContainerAwareTrait', $traits);
+			$traits += class_uses($class);
 		}
+		while($class = get_parent_class($class));
 
-		return false;
+		return isset($traits['mako\syringe\ContainerAwareTrait']);
 	}
 
 	/**
