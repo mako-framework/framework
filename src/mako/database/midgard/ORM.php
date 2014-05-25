@@ -510,7 +510,7 @@ abstract class ORM
 
 	public function getRawColumn($name)
 	{
-		if(isset($this->columns[$name]))
+		if(array_key_exists($name, $this->columns))
 		{
 			return $this->columns[$name];
 		}
@@ -548,7 +548,7 @@ abstract class ORM
 
 	public function getColumn($name)
 	{
-		if(isset($this->columns[$name]))
+		if(array_key_exists($name, $this->columns))
 		{
 			if(method_exists($this, $name . 'Accessor'))
 			{
