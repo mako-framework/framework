@@ -54,7 +54,7 @@ class TestUser4 extends TestUser1
 {
 	protected $protected = ['password'];
 
-	protected $columns = ['username' => 'foo', 'password' => 'bar', 'array' => '[1,2,3]'];
+	protected $columns = ['username' => 'foo', 'password' => 'bar', 'array' => '[1,2,3]', 'optional' => null];
 
 	public function arrayAccessor($json)
 	{
@@ -362,13 +362,26 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testGetColumnWithNullValue()
+	{
+		$user = new TestUser4();
+
+		$this->assertNull($user->optional);
+
+		$this->assertNull($user->getRawColumn('optional'));
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testToArray()
 	{
 		$user = new TestUser4();
 
-		$this->assertEquals(['username' => 'foo', 'array' => [1, 2, 3]], $user->toArray());
+		$this->assertEquals(['username' => 'foo', 'array' => [1, 2, 3], 'optional' => null], $user->toArray());
 
-		$this->assertEquals(['username' => 'foo', 'password' => 'bar', 'array' => [1, 2, 3]], $user->toArray(false));
+		$this->assertEquals(['username' => 'foo', 'password' => 'bar', 'array' => [1, 2, 3], 'optional' => null], $user->toArray(false));
 
 		$user = new TestUser5();
 
@@ -383,9 +396,9 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	{
 		$user = new TestUser4();
 
-		$this->assertEquals('{"username":"foo","array":[1,2,3]}', $user->toJson());
+		$this->assertEquals('{"username":"foo","array":[1,2,3],"optional":null}', $user->toJson());
 
-		$this->assertEquals('{"username":"foo","password":"bar","array":[1,2,3]}', $user->toJson(false));
+		$this->assertEquals('{"username":"foo","password":"bar","array":[1,2,3],"optional":null}', $user->toJson(false));
 
 		$user = new TestUser5();
 
@@ -400,7 +413,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	{
 		$user = new TestUser4();
 
-		$this->assertEquals('{"username":"foo","array":[1,2,3]}', (string) $user);
+		$this->assertEquals('{"username":"foo","array":[1,2,3],"optional":null}', (string) $user);
 
 		$user = new TestUser5();
 
