@@ -45,7 +45,7 @@ class SessionService extends \mako\core\services\Service
 
 	protected function getFileStore($container, $config)
 	{
-		return new File($config['path']);
+		return new File($container->get('fileSystem'), $config['path']);
 	}
 
 	/**

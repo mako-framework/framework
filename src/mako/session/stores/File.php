@@ -7,6 +7,8 @@
 
 namespace mako\session\stores;
 
+use \mako\file\FileSystem;
+
 /**
  * File store.
  *
@@ -15,6 +17,14 @@ namespace mako\session\stores;
 
 class File implements \mako\session\stores\StoreInterface
 {
+	/**
+	 * File system instance.
+	 * 
+	 * @var \mako\file\FileSystem
+	 */
+
+	protected $fileSystem;
+
 	/**
 	 * Session path.
 	 * 
@@ -27,11 +37,14 @@ class File implements \mako\session\stores\StoreInterface
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $sessionPath  Session path
+	 * @param   \mako\file\FileSystem  $fileSystem   File system instance
+	 * @param   string                 $sessionPath  Session path
 	 */
 
-	public function __construct($sessionPath)
+	public function __construct(FileSystem $fileSystem, $sessionPath)
 	{
+		$this->fileSystem = $fileSystem;
+
 		$this->sessionPath = $sessionPath;
 	}
 
@@ -46,9 +59,9 @@ class File implements \mako\session\stores\StoreInterface
 
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
-		if(is_writable($this->sessionPath))
+		if($this->fileSystem->isWritable($this->sessionPath))
 		{
-			file_put_contents($this->sessionPath . '/' . $sessionId, serialize($sessionData)) === false ? false : true;
+			$this->fileSystem->putContents($this->sessionPath . '/' . $sessionId, serialize($sessionData)) === false ? false : true;
 		}
 	}
 
@@ -64,9 +77,9 @@ class File implements \mako\session\stores\StoreInterface
 	{
 		$sessionData = [];
 
-		if(file_exists($this->sessionPath . '/' . $sessionId) && is_readable($this->sessionPath . '/' . $sessionId))
+		if($this->fileSystem->exists($this->sessionPath . '/' . $sessionId) && $this->fileSystem->isReadable($this->sessionPath . '/' . $sessionId))
 		{
-			$sessionData = unserialize(file_get_contents($this->sessionPath . '/' . $sessionId));
+			$sessionData = unserialize($this->fileSystem->getContents($this->sessionPath . '/' . $sessionId));
 		}
 
 		return $sessionData;
@@ -81,9 +94,9 @@ class File implements \mako\session\stores\StoreInterface
 
 	public function delete($sessionId)
 	{
-		if(file_exists($this->sessionPath . '/' . $sessionId) && is_writable($this->sessionPath . '/' . $sessionId))
+		if($this->fileSystem->exists($this->sessionPath . '/' . $sessionId) && $this->fileSystem->isWritable($this->sessionPath . '/' . $sessionId))
 		{
-			unlink($this->sessionPath . '/' . $sessionId);
+			$this->fileSystem->delete($this->sessionPath . '/' . $sessionId);
 		}
 	}
 
@@ -96,15 +109,15 @@ class File implements \mako\session\stores\StoreInterface
 
 	public function gc($dataTTL)
 	{
-		$files = glob($this->sessionPath . '/*');
+		$files = $this->fileSystem->glob($this->sessionPath . '/*');
 
 		if(is_array($files))
 		{
 			foreach($files as $file)
 			{
-				if((filemtime($file) + $dataTTL) < time() && is_writable($file))
+				if(($this->fileSystem->lastModified($file) + $dataTTL) < time() && $this->fileSystem->isWritable($file))
 				{
-					unlink($file);
+					$this->fileSystem->delete($file);
 				}
 			}
 		}
