@@ -578,45 +578,50 @@ class Validator
 
 	protected function parseRules()
 	{
-		$rules = [];
+		$parsedRules = [];
 
-		foreach($this->rules as $key => $value)
+		foreach($this->rules as $key => $rules)
 		{
-			foreach(str_getcsv(trim($value, '|'), '|') as $rule)
+			if(is_string($rules))
+			{
+				$rules = str_getcsv(trim($rules, '|'), '|');
+			}
+
+			foreach($rules as $rule)
 			{
 				$package = null;
 
-				if(preg_match('/^([0-9a-z_]+::)(.*)$/i', $rule, $matches) !== 0)
+				if(strpos($rule, '::') !== false)
 				{
-					$package = substr($matches[1], 0, -2);
-
-					$rule = $matches[2];
+					list($package, $rule) = explode('::', $rule, 2);
 				}
 
-				list($validator, $params) = explode(':', $rule, 2) + [null, null];
+				$parameters = [];
 
-				$rule = 
-				[
-					'package'    => $package,
-					'name'       => $validator,
-					'parameters' => !empty($params) ? str_getcsv($params) : [],
-				];
+				if(($position = strpos($rule, '[')) !== false)
+				{
+					$parameters = str_getcsv(substr($rule, $position + 1, -1));
+
+					$rule = substr($rule, 0, $position);
+				}
+
+				$validator = ['package' => $package, 'name' => $rule, 'parameters' => $parameters];
 
 				if($key === '*')
 				{
 					foreach(array_keys($this->input) as $key)
 					{
-						$rules[$key][$validator] = $rule;
+						$parsedRules[$key][$rule] = $validator;
 					}
 				}
 				else
 				{
-					$rules[$key][$validator] = $rule;
+					$parsedRules[$key][$rule] = $validator;
 				}
 			}
 		}
 
-		return $rules;
+		return $parsedRules;
 	}
 
 	/**
@@ -768,7 +773,7 @@ class Validator
 	 * @return  array
 	 */
 
-	public function errors()
+	public function getErrors()
 	{
 		return $this->errors;
 	}
