@@ -8,9 +8,10 @@
 namespace mako\http\responses;
 
 use \RuntimeException;
+
+use \mako\file\FileSystem;
 use \mako\http\Request;
 use \mako\http\Response;
-use \mako\utility\File as FileUtility;
 
 /**
  * File response.
@@ -20,6 +21,14 @@ use \mako\utility\File as FileUtility;
 
 Class File implements \mako\http\responses\ResponseContainerInterface
 {
+	/**
+	 * File system instance.
+	 * 
+	 * @var \mako\file\FileSystem
+	 */
+
+	protected $fileSystem;
+
 	/**
 	 * File path.
 	 * 
@@ -54,21 +63,36 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 
 	public function __construct($file, array $options = [])
 	{
-		if(file_exists($file) === false || is_readable($file) === false)
+		$this->fileSystem = $this->getFileSystem();
+
+		if($this->fileSystem->exists($file) === false || $this->fileSystem->isReadable($file) === false)
 		{
 			throw new RuntimeException(vsprintf("%s(): File [ %s ] is not readable.", [__METHOD__, $file]));
 		}
 
 		$this->filePath = $file;
-		$this->fileSize = filesize($file);
+
+		$this->fileSize = $this->fileSystem->size($file);
 
 		$this->options = $options + 
 		[
 			'file_name'    => basename($file),
 			'disposition'  => 'attachment',
-			'content_type' => FileUtility::mime($file) ?: 'application/octet-stream',
+			'content_type' => $this->fileSystem->mime($file) ?: 'application/octet-stream',
 			'callback'     => null,
 		];
+	}
+
+	/**
+	 * Returns a file system instance.
+	 * 
+	 * @access  protected
+	 * @return  \mako\file\FileSystem
+	 */
+
+	protected function getFileSystem()
+	{
+		return new FileSystem;
 	}
 
 	/**
@@ -139,7 +163,7 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 
 		while(ob_get_level() > 0) ob_end_clean();
 
-		// Open the file handle
+		// Open the file for reading
 
 		$handle = fopen($this->filePath, 'rb');
 
