@@ -7,6 +7,8 @@
 
 namespace mako\cache\stores;
 
+use \mako\file\FileSystem;
+
 /**
  * File store.
  *
@@ -15,6 +17,14 @@ namespace mako\cache\stores;
 
 class File implements \mako\cache\stores\StoreInterface
 {
+	/**
+	 * File system instance.
+	 * 
+	 * @var \mako\file\FileSystem
+	 */
+
+	protected $fileSystem;
+
 	/**
 	 * Cache path.
 	 * 
@@ -27,11 +37,14 @@ class File implements \mako\cache\stores\StoreInterface
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $cachePath  Cache path
+	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
+	 * @param   string                 $cachePath   Cache path
 	 */
 
-	public function __construct($cachePath)
+	public function __construct(FileSystem $fileSystem, $cachePath)
 	{
+		$this->fileSystem = $fileSystem;
+
 		$this->cachePath = $cachePath;
 	}
 
@@ -64,7 +77,7 @@ class File implements \mako\cache\stores\StoreInterface
 
 		$data = $ttl . "\n" . serialize($data);
 
-		return is_int(file_put_contents($this->cacheFile($key), $data, LOCK_EX));
+		return is_int($this->fileSystem->putContents($this->cacheFile($key), $data, LOCK_EX));
 	}
 
 	/**
@@ -77,13 +90,13 @@ class File implements \mako\cache\stores\StoreInterface
 
 	public function has($key)
 	{
-		if(file_exists($this->cacheFile($key)))
+		if($this->fileSystem->exists($this->cacheFile($key)))
 		{
-			$handle = fopen($this->cacheFile($key), 'r');
+			$file = $this->fileSystem->file($this->cacheFile($key), 'r');
 
-			$expired = (time() < (int) trim(fgets($handle)));
+			$expired = (time() < (int) trim($file->fgets()));
 
-			fclose($handle);
+			unset($file);
 
 			return $expired;
 		}
@@ -101,24 +114,24 @@ class File implements \mako\cache\stores\StoreInterface
 
 	public function get($key)
 	{
-		if(file_exists($this->cacheFile($key)))
+		if($this->fileSystem->exists($this->cacheFile($key)))
 		{
 			// Cache exists
 			
-			$handle = fopen($this->cacheFile($key), 'r');
+			$file = $this->fileSystem->file($this->cacheFile($key), 'r');
 
-			if(time() < (int) trim(fgets($handle)))
+			if(time() < (int) trim($file->fgets()))
 			{
 				// Cache has not expired ... fetch it
 
 				$cache = '';
 
-				while(!feof($handle))
+				while(!$file->feof())
 				{
-					$cache .= fgets($handle);
+					$cache .= $file->fgets();
 				}
 
-				fclose($handle);
+				unset($file);
 
 				return unserialize($cache);
 			}
@@ -126,9 +139,9 @@ class File implements \mako\cache\stores\StoreInterface
 			{
 				// Cache has expired ... delete it
 
-				fclose($handle);
+				unset($file);
 
-				unlink($this->cacheFile($key));
+				$this->fileSystem->delete($this->cacheFile($key));
 
 				return false;
 			}
@@ -151,9 +164,9 @@ class File implements \mako\cache\stores\StoreInterface
 
 	public function remove($key)
 	{
-		if(file_exists($this->cacheFile($key)))
+		if($this->fileSystem->exists($this->cacheFile($key)))
 		{
-			return unlink($this->cacheFile($key));
+			return $this->fileSystem->delete($this->cacheFile($key));
 		}
 
 		return false;
@@ -168,7 +181,7 @@ class File implements \mako\cache\stores\StoreInterface
 
 	public function clear()
 	{
-		$files = scandir($this->cachePath);
+		$files = $this->fileSystem->scandir($this->cachePath);
 
 		if($files !== false)
 		{
@@ -176,7 +189,7 @@ class File implements \mako\cache\stores\StoreInterface
 			{
 				$file = $this->cachePath . '/' . $file;
 
-				if(is_file($file) && unlink($file) === false)
+				if($this->fileSystem->isFile($file) && $this->fileSystem->delete($file) === false)
 				{
 					return false;
 				}

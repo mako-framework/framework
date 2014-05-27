@@ -67,7 +67,7 @@ class CacheManager extends \mako\common\AdapterManager
 
 	protected function fileFactory($configuration)
 	{
-		return new File($configuration['path']);
+		return new File($this->container->get('fileSystem'), $configuration['path']);
 	}
 
 	/**
