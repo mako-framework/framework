@@ -9,6 +9,7 @@ namespace mako\config;
 
 use \RuntimeException;
 
+use \mako\file\FileSystem;
 use \mako\utility\Arr;
 
 /**
@@ -19,6 +20,14 @@ use \mako\utility\Arr;
 
 class Config
 {
+	/**
+	 * File system instance.
+	 * 
+	 * @var \mako\file\FileSystem
+	 */
+
+	protected $fileSystem;
+
 	/**
 	 * Application path.
 	 * 
@@ -39,11 +48,14 @@ class Config
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $applicationPath  Application path
+	 * @param   \mako\file\FileSystem  $fileSystem       File system instance
+	 * @param   string                 $applicationPath  Application path
 	 */
 
-	public function __construct($applicationPath)
+	public function __construct(FileSystem $fileSystem, $applicationPath)
 	{
+		$this->fileSystem = $fileSystem;
+
 		$this->applicationPath = $applicationPath;
 	}
 
@@ -63,11 +75,11 @@ class Config
 
 		foreach($paths as $path)
 		{
-			if(file_exists($path))
+			if($this->fileSystem->exists($path))
 			{
 				$found = true;
 
-				$config = include($path);
+				$config = $this->fileSystem->includeFile($path);
 
 				break;
 			}
@@ -82,13 +94,13 @@ class Config
 
 		if(mako_env() !== null)
 		{
-			$paths = mako_cascading_paths($this->applicationPath, '/config/' . mako_env(), $file);
-
+			$paths = mako_cascading_paths($this->applicationPath, 'config/' . mako_env(), $file);
+			
 			foreach($paths as $path)
 			{
-				if(file_exists($path))
+				if($this->fileSystem->exists($path))
 				{
-					$config = array_replace_recursive($config, include($path));
+					$config = array_replace_recursive($config, $this->fileSystem->includeFile($path));
 
 					break;
 				}
@@ -136,7 +148,7 @@ class Config
 	 * @param   mixed   $value  Config value
 	 */
 
-	public static function set($key, $value)
+	public function set($key, $value)
 	{
 		$config = strtok($key, '.');
 

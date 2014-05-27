@@ -13,6 +13,7 @@ use \LogicException;
 use \mako\config\Config;
 use \mako\error\handlers\WebHandler;
 use \mako\error\handlers\CLIHandler;
+use \mako\file\FileSystem;
 use \mako\syringe\Container;
 
 use \Monolog\Handler\HandlerInterface;
@@ -334,9 +335,13 @@ abstract class Application
 
 		$this->container->registerInstance(['mako\core\Application', 'app'], $this);
 
+		// Register file system instance
+
+		$this->container->registerInstance(['mako\file\FileSystem', 'fileSystem'], $fileSystem = new FileSystem());
+
 		// Register config instance
 
-		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config = new Config($this->applicationPath));
+		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config = new Config($fileSystem, $this->applicationPath));
 
 		// Configure
 
