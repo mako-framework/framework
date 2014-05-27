@@ -104,12 +104,27 @@ class Dispatcher
 
 	protected function executeFilter($filter)
 	{
+		$parameters = [];
+
 		if(($filter instanceof Closure) === false)
 		{
+			// Check if we have filter paramters
+
+			if(($position = strpos($filter, '[')) !== false)
+			{
+				$parameters = explode(',', substr($filter, $position + 1, -1));
+
+				$filter = substr($filter, 0, $position);
+			}
+
+			// Get the filter from the route collection
+
 			$filter = $this->routes->getFilter($filter);
 		}
 
-		return $filter($this->request, $this->response);
+		// Execute the filter and return its return value
+
+		return call_user_func_array($filter, array_merge([$this->request, $this->response], $parameters));
 	}
 
 	/**
