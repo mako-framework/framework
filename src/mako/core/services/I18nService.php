@@ -29,7 +29,7 @@ class I18nService extends \mako\core\services\Service
 		{
 			$app = $container->get('app');
 
-			return new I18n($app->getApplicationPath(), $app->getLanguage());
+			return new I18n($container->get('fileSystem'), $app->getApplicationPath(), $app->getLanguage());
 		});
 	}
 }

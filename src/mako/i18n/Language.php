@@ -9,6 +9,7 @@ namespace mako\i18n;
 
 use \RuntimeException;
 
+use \mako\file\FileSystem;
 use \mako\utility\Arr;
 
 /**
@@ -19,6 +20,14 @@ use \mako\utility\Arr;
 
 class Language
 {
+	/**
+	 * File system instance.
+	 * 
+	 * @var \mako\file\FileSystem
+	 */
+
+	protected $fileSystem;
+
 	/**
 	 * Application path.
 	 * 
@@ -55,12 +64,15 @@ class Language
 	 * Constructor.
 	 * 
 	 * @access  public
+	 * @param   string  $fileSystem       File system instance
 	 * @param   string  $applicationPath  Application path
 	 * @param   string  $language         Name of the language pack
 	 */
 
-	public function __construct($applicationPath, $language)
+	public function __construct(FileSystem $fileSystem, $applicationPath, $language)
 	{
+		$this->fileSystem = $fileSystem;
+
 		$this->applicationPath = $applicationPath;
 
 		$this->language = $language;
@@ -83,19 +95,19 @@ class Language
 		
 		// Load language files from the application
 
-		$files = glob($this->applicationPath . '/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
+		$files = $this->fileSystem->glob($this->applicationPath . '/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
 		if(is_array($files))
 		{
 			foreach($files as $file)
 			{
-				$strings[basename($file, '.php')] = include($file);
+				$strings[basename($file, '.php')] = $this->fileSystem->includeFile($file);
 			}
 		}
 
 		// Load language files from installed packages
 
-		$files = glob($this->applicationPath . '/packages/*/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
+		$files = $this->fileSystem->glob($this->applicationPath . '/packages/*/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
 		if(is_array($files))
 		{
@@ -103,7 +115,7 @@ class Language
 			{
 				preg_match('/(.*)\/(.*)\/i18n\/' . $this->language . '\/strings\/(.*).php/', $file, $matches);
 
-				$strings['mako:packages'][$matches[2]][$matches[3]] = include($file);
+				$strings['mako:packages'][$matches[2]][$matches[3]] = $this->fileSystem->includeFile($file);
 			}
 		}
 
@@ -119,9 +131,9 @@ class Language
 
 	protected function loadInflection()
 	{
-		if(file_exists($this->applicationPath . '/i18n/' . $this->language . '/inflection.php'))
+		if($this->fileSystem->exists($this->applicationPath . '/i18n/' . $this->language . '/inflection.php'))
 		{
-			return include($this->applicationPath . '/i18n/' . $this->language . '/inflection.php');
+			return $this->fileSystem->includeFile($this->applicationPath . '/i18n/' . $this->language . '/inflection.php');
 		}
 		else
 		{

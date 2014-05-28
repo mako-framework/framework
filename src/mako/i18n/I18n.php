@@ -9,6 +9,7 @@ namespace mako\i18n;
 
 use \RuntimeException;
 
+use \mako\file\FileSystem;
 use \mako\i18n\Language;
 
 /**
@@ -19,6 +20,14 @@ use \mako\i18n\Language;
 
 class I18n
 {
+	/**
+	 * File system instance.
+	 * 
+	 * @var \mako\file\FileSystem
+	 */
+
+	protected $fileSystem;
+
 	/**
 	 * Application path.
 	 * 
@@ -47,12 +56,15 @@ class I18n
 	 * Constructor.
 	 * 
 	 * @access  public
+	 * @param   string  $fileSystem       File system instance
 	 * @param   string  $applicationPath  Application path
 	 * @param   string  $language         Name of the language pack
 	 */
 
-	public function __construct($applicationPath, $language)
+	public function __construct(FileSystem $fileSystem, $applicationPath, $language)
 	{
+		$this->fileSystem = $fileSystem;
+
 		$this->applicationPath = $applicationPath;
 
 		$this->language = $language;
@@ -97,7 +109,7 @@ class I18n
 
 		if(!isset($this->languages[$language]))
 		{
-			$this->languages[$language] = new Language($this->applicationPath, $language);
+			$this->languages[$language] = new Language($this->fileSystem, $this->applicationPath, $language);
 		}
 
 		return $this->languages[$language];
