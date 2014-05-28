@@ -277,6 +277,13 @@ class Image
 
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
+		// Check if the image exists
+
+		if(file_exists($file) === false)
+		{
+			throw new RuntimeException(vsprintf("%s(): The watermark image [ %s ] does not exist.", [__METHOD__, $file]));
+		}
+		
 		// Make sure that opacity is between 0 and 100
 		
 		$opacity = max(min((int) $opacity, 100), 0);

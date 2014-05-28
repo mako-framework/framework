@@ -330,13 +330,6 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
-		// Check if the image exists
-
-		if(file_exists($file) === false)
-		{
-			throw new RuntimeException(vsprintf("%s(): The watermark image [ %s ] does not exist.", [__METHOD__, $file]));
-		}
-		
 		$watermark = $this->createImage($file, $this->imageInfo($file));
 		
 		$watermarkW = imagesx($watermark);

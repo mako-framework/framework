@@ -10,6 +10,7 @@ namespace mako\reactor\tasks;
 use \Closure;
 
 use \mako\core\Application;
+use \mako\file\FileSystem;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
 use \mako\utility\Str;
@@ -29,6 +30,14 @@ class App extends \mako\reactor\Task
 	 */
 
 	protected $application;
+
+	/**
+	 * File system instance.
+	 * 
+	 * @var \mako\file\FileSystem
+	 */
+
+	protected $fileSystem;
 
 	/**
 	 * Task information.
@@ -57,11 +66,13 @@ class App extends \mako\reactor\Task
 	 * @param   \mako\core\Application   $application  Application instance
 	 */
 
-	public function __construct(Input $input, Output $output, Application $application)
+	public function __construct(Input $input, Output $output, Application $application, FileSystem $fileSystem)
 	{
 		parent::__construct($input, $output);
 
 		$this->application = $application;
+
+		$this->fileSystem = $fileSystem;
 	}
 
 	/**
@@ -81,11 +92,11 @@ class App extends \mako\reactor\Task
 
 		$secret = str_replace(['"', '\''], ['|', '/'], Str::random(Str::ALNUM . Str::SYMBOLS, 32));
 
-		$contents = file_get_contents($configFile);
+		$contents = $this->fileSystem->getContents($configFile);
 
 		$contents = preg_replace('/\'secret\'(\s*)=>(\s*)\'(.*)\',/', '\'secret\'$1=>$2\'' . $secret . '\',', $contents);
 
-		file_put_contents($configFile, $contents);
+		$this->fileSystem->putContents($configFile, $contents);
 
 		$this->output->writeln('A new secret has been generated.');
 	}

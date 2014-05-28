@@ -38,6 +38,14 @@ class Migrate extends \mako\reactor\Task
 	protected $application;
 
 	/**
+	 * File system instance.
+	 * 
+	 * @var \mako\file\FileSystem
+	 */
+
+	protected $fileSystem;
+
+	/**
 	 * Database connection.
 	 *
 	 * @var \mako\database\Connection
@@ -95,6 +103,8 @@ class Migrate extends \mako\reactor\Task
 		$this->container = $container;
 
 		$this->application = $container->get('app');
+
+		$this->fileSystem = $container->get('fileSystem');
 	}
 
 	/**
@@ -380,10 +390,10 @@ class Migrate extends \mako\reactor\Task
 		(
 			['{{namespace}}', '{{version}}'], 
 			[$namespace, $version], 
-			file_get_contents(__DIR__ . '/migrate/migration.tpl')
+			$this->fileSystem->getContents(__DIR__ . '/migrate/migration.tpl')
 		);
 
-		if(!@file_put_contents($file, $migration))
+		if(!@$this->fileSystem->putContents($file, $migration))
 		{
 			return $this->output->error('Failed to create migration. Make sure that the migrations directory is writable.');
 		}

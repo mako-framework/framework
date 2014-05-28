@@ -203,13 +203,6 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
-		// Check if the image exists
-
-		if(file_exists($file) === false)
-		{
-			throw new RuntimeException(vsprintf("%s(): The watermark image [ %s ] does not exist.", [__METHOD__, $file]));
-		}
-		
 		$watermark = new Imagick($file);
 		
 		$watermarkW = $watermark->getImageWidth();
