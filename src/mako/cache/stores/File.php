@@ -181,14 +181,12 @@ class File implements \mako\cache\stores\StoreInterface
 
 	public function clear()
 	{
-		$files = $this->fileSystem->scandir($this->cachePath);
+		$files = $this->fileSystem->glob($this->cachePath . '/*');
 
-		if($files !== false)
+		if(is_array($files))
 		{
 			foreach($files as $file)
 			{
-				$file = $this->cachePath . '/' . $file;
-
 				if($this->fileSystem->isFile($file) && $this->fileSystem->delete($file) === false)
 				{
 					return false;

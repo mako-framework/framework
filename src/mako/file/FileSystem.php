@@ -266,20 +266,6 @@ class FileSystem
 	}
 
 	/**
-	 * Returns an array of files and directories inside the specified path.
-	 * 
-	 * @access  public
-	 * @param   string       $directory     Directory we want to scan
-	 * @param   int          $sortingOrder  (optional) Sorting order
-	 * @return  array|false
-	 */
-
-	public function scandir($directory, $sortingOrder = SCANDIR_SORT_ASCENDING)
-	{
-		return scandir($directory, $sortingOrder);
-	}
-
-	/**
 	 * Returns the contents of the file.
 	 * 
 	 * @access  public

@@ -117,7 +117,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 * @runInSeparateProcess
 	 */
 
 	public function testEvironmentOverride()
@@ -144,7 +144,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 * @runInSeparateProcess
 	 */
 
 	public function testPackageEvironmentOverride()

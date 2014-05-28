@@ -195,7 +195,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('scandir')->once()->with('/cache')->andReturn(['foo.php', 'bar.php']);
+		$fileSystem->shouldReceive('glob')->once()->with('/cache/*')->andReturn(['/cache/foo.php', '/cache/bar.php']);
 
 		$fileSystem->shouldReceive('isFile')->once()->with('/cache/foo.php')->andReturn(true);
 
@@ -213,7 +213,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('scandir')->once()->with('/cache')->andReturn([]);
+		$fileSystem->shouldReceive('glob')->once()->with('/cache/*')->andReturn([]);
 
 		$file = new File($fileSystem, '/cache');
 
