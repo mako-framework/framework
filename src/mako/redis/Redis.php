@@ -8,8 +8,8 @@
 namespace mako\redis;
 
 use \Closure;
-use \RuntimeException;
 
+use \mako\redis\RedisException;
 use \mako\utility\Str;
 
 /**
@@ -89,7 +89,7 @@ class Redis
 
 		if(!$this->connection)
 		{
-			throw new RuntimeException(vsprintf("%s(): %s", [__METHOD__, $errStr]));
+			throw new RedisException(vsprintf("%s(): %s", [__METHOD__, $errStr]));
 		}
 
 		if(!empty($configuration['password']))
@@ -133,7 +133,7 @@ class Redis
 		switch(substr($response, 0, 1))
 		{
 			case '-': // error reply
-				throw new RuntimeException(vsprintf("%s(): %s.", [__METHOD__, substr($response, 5)]));
+				throw new RedisException(vsprintf("%s(): %s.", [__METHOD__, substr($response, 5)]));
 				break;
 			case '+': // status reply
 				return trim(substr($response, 1));
@@ -169,7 +169,7 @@ class Redis
 				return $data;
 				break;
 			default:
-				throw new RuntimeException(vsprintf("%s(): Unable to handle server response.", [__METHOD__]));
+				throw new RedisException(vsprintf("%s(): Unable to handle server response.", [__METHOD__]));
 		}
 	}
 
