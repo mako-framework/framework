@@ -148,7 +148,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 	 * and returns the new number of elements in the collection.
 	 * 
 	 * @access  public
-	 * @param   mixex   $item  Collection item
+	 * @param   mixed   $item  Collection item
 	 * @return  int
 	 */
 
