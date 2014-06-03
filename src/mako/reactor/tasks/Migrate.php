@@ -21,6 +21,8 @@ use \mako\syringe\Container;
 
 class Migrate extends \mako\reactor\Task
 {
+	use \mako\reactor\HelpersTrait;
+	
 	/**
 	 * IoC container instance.
 	 * 
@@ -249,7 +251,7 @@ class Migrate extends \mako\reactor\Task
 
 		if(empty($migration->package))
 		{
-			$namespace = '\\app\\migrations\\';
+			$namespace = $this->getApplicationNamespace($this->application->getApplicationPath(), true) . '\\migrations\\';
 		}
 		else
 		{
@@ -373,7 +375,7 @@ class Migrate extends \mako\reactor\Task
 
 		if(empty($package))
 		{
-			$namespace = 'app\migrations';
+			$namespace = $this->getApplicationNamespace($this->application->getApplicationPath()) . '\\migrations';
 		}
 		else
 		{

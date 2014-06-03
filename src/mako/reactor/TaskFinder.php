@@ -15,6 +15,8 @@ namespace mako\reactor;
 
 class TaskFinder
 {
+	use \mako\reactor\HelpersTrait;
+
 	/**
 	 * Application path.
 	 * 
@@ -92,7 +94,9 @@ class TaskFinder
 	{
 		$baseName = $this->getBasename($task);
 
-		return [strtolower($baseName) => '\app\tasks\\' . $baseName];
+		$namespace = $this->getApplicationNamespace($this->applicationPath, true);
+
+		return [strtolower($baseName) => $namespace . '\\tasks\\' . $baseName];
 	}
 
 	/**
