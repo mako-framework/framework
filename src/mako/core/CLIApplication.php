@@ -44,7 +44,7 @@ class CLIApplication extends \mako\core\Application
 
 		$input = new Input($output);
 
-		$tasks = (new TaskFinder($this->getApplicationPath()))->find();
+		$tasks = (new TaskFinder($this))->find();
 
 		(new Reactor($input, $output, $this->container, $tasks))->run();
 	}

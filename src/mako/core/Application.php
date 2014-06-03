@@ -196,6 +196,25 @@ abstract class Application
 	}
 
 	/**
+	 * Returns the application namespace.
+	 * 
+	 * @access  public
+	 * @param   boolean  $prefix  (optional) Prefix the namespace with a slash?
+	 */
+
+	public function getApplicationNamespace($prefix = false)
+	{
+		$namespace = basename(rtrim($this->applicationPath, '\\'));
+
+		if($prefix)
+		{
+			$namespace = '\\' . $namespace;
+		}
+
+		return $namespace;
+	}
+
+	/**
 	 * Configure.
 	 * 
 	 * @access  protected

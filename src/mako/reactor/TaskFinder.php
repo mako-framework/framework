@@ -7,6 +7,8 @@
 
 namespace mako\reactor;
 
+use \mako\core\CLIApplication;
+
 /**
  * Finds all tasks.
  *
@@ -15,7 +17,13 @@ namespace mako\reactor;
 
 class TaskFinder
 {
-	use \mako\reactor\HelpersTrait;
+	/**
+	 * Application instance.
+	 * 
+	 * @var \mako\core\CLIApplication
+	 */
+
+	protected $application;
 
 	/**
 	 * Application path.
@@ -32,9 +40,11 @@ class TaskFinder
 	 * @param   string  $applicationPath  Application path
 	 */
 
-	public function __construct($applicationPath)
+	public function __construct(CLIApplication $application)
 	{
-		$this->applicationPath = $applicationPath;
+		$this->application = $application;
+
+		$this->applicationPath = $this->application->getApplicationPath();
 	}
 
 	/**
@@ -94,7 +104,7 @@ class TaskFinder
 	{
 		$baseName = $this->getBasename($task);
 
-		$namespace = $this->getApplicationNamespace($this->applicationPath, true);
+		$namespace = $this->application->getApplicationNamespace(true);
 
 		return [strtolower($baseName) => $namespace . '\\tasks\\' . $baseName];
 	}
