@@ -208,7 +208,7 @@ class HTML
 	 * @access  public
 	 * @param   string  $name       Method name
 	 * @param   array   $arguments  Method arguments
-	 * @return  mixed
+	 * @return  string
 	 */
 
 	public function __call($name, $arguments)

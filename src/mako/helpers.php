@@ -8,7 +8,7 @@
 /**
  * Returns the Mako environment. NULL is returned if no environment is specified.
  * 
- * @return  mixed
+ * @return  string|null
  */
 
 function mako_env()

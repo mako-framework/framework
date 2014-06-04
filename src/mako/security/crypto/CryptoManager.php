@@ -18,6 +18,8 @@ use \mako\security\crypto\padders\PKCS7;
  * Crypto manager.
  *
  * @author  Frederic G. Østby
+ * 
+ * @method  \mako\security\crypto\encrypters\EncrypterInterface  instance($configuration = null)
  */
 
 class CryptoManager extends \mako\common\AdapterManager

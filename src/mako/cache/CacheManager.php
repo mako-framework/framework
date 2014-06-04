@@ -27,6 +27,8 @@ use \mako\cache\stores\ZendMemory;
  * Cache manager.
  *
  * @author  Frederic G. Østby
+ * 
+ * @method  \mako\cache\stores\StoreInterface  instance($configuration = null)
  */
 
 class CacheManager extends \mako\common\AdapterManager

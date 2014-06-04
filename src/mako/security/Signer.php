@@ -73,8 +73,8 @@ class Signer
 	 * Returns the original string if the signature is valid or FALSE if not.
 	 * 
 	 * @access  public
-	 * @param   string  $string  The string you want to validate
-	 * @return  mixed
+	 * @param   string          $string  The string you want to validate
+	 * @return  string|boolean
 	 */
 
 	public function validate($string)

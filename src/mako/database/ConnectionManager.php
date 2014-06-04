@@ -15,6 +15,8 @@ use \mako\database\Connection;
  * Database connection manager.
  *
  * @author  Frederic G. Østby
+ * 
+ * @method  \mako\database\Connection  connection($connection = null)
  */
 
 class ConnectionManager extends \mako\common\ConnectionManager
