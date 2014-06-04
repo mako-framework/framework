@@ -12,7 +12,6 @@ use \LogicException;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\session\Session;
-use \mako\utility\Time;
 
 /**
  * Gatekeeper authentication.
@@ -201,7 +200,6 @@ class Gatekeeper
 		$user->email      = $email;
 		$user->username   = $username;
 		$user->password   = $password;
-		$user->created_at = new Time();
 		$user->ip         = $this->request->ip();
 
 		// Activate the user if nessesary

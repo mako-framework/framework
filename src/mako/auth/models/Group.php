@@ -15,6 +15,8 @@ namespace mako\auth\models;
 
 class Group extends \mako\database\midgard\ORM
 {
+	use \mako\database\midgard\traits\TimestampedTrait;
+	
 	/**
 	 * Table name.
 	 * 

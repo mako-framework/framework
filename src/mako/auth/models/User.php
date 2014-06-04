@@ -20,6 +20,7 @@ use \LogicException;
 
 class User extends \mako\database\midgard\ORM
 {
+	use \mako\database\midgard\traits\TimestampedTrait;
 	/**
 	 * Table name.
 	 * 
