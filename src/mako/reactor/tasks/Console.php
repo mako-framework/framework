@@ -100,6 +100,14 @@ class Console extends \mako\reactor\Task
 
 		if(extension_loaded('readline') && extension_loaded('pcntl') && extension_loaded('posix') && !$disabled)
 		{
+			// Disable mako error handlers
+
+			restore_error_handler();
+			
+			restore_exception_handler();
+
+			$this->application->getContainer()->get('errorHandler')->disableShutdownHandler();
+
 			// Start Boris REPL
 
 			$console = new Boris($this->input, $this->output, $history);

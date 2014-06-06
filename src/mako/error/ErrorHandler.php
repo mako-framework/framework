@@ -22,6 +22,14 @@ use \mako\error\handlers\ExceptionHandler;
 class ErrorHandler
 {
 	/**
+	 * Is the shutdown handler disabled?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $disableShutdownHandler = false;
+
+	/**
 	 * Exception handlers.
 	 * 
 	 * @var array
@@ -65,7 +73,7 @@ class ErrorHandler
 		{
 			$e = error_get_last();
 			
-			if($e !== null && (error_reporting() & $e['type']) !== 0 && !defined('MAKO_DISABLE_FATAL_ERROR_HANDLER'))
+			if($e !== null && (error_reporting() & $e['type']) !== 0 && !$this->disableShutdownHandler)
 			{
 				$this->handler(new ErrorException($e['message'], $e['type'], 0, $e['file'], $e['line']));
 
@@ -76,6 +84,17 @@ class ErrorHandler
 		// Set the exception handler
 		
 		set_exception_handler([$this, 'handler']);
+	}
+
+	/**
+	 * Disables the shutdown handler.
+	 * 
+	 * @access  public
+	 */
+
+	public function disableShutdownHandler()
+	{
+		$this->disableShutdownHandler = true;
 	}
 
 	/**

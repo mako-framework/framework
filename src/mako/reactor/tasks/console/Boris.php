@@ -122,12 +122,6 @@ class Boris
 
 		$this->output->nl();
 
-		// Disable mako error handlers
-
-		restore_error_handler();
-		restore_exception_handler();
-		define('MAKO_DISABLE_FATAL_ERROR_HANDLER', true);
-
 		// Start Boris REPL
 
 		$boris = new REPL('mako> ', $this->history);
