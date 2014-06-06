@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 /**
  * Route service.
@@ -13,7 +13,7 @@ namespace mako\core\services;
  * @author  Frederic G. Østby
  */
 
-class RouteService extends \mako\core\services\Service
+class RouteService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

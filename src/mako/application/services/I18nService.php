@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\i18n\I18n;
 
@@ -15,7 +15,7 @@ use \mako\i18n\I18n;
  * @author  Frederic G. Østby
  */
 
-class I18nService extends \mako\core\services\Service
+class I18nService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

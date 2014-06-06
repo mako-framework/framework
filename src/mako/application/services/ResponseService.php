@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\http\Response;
 
@@ -15,7 +15,7 @@ use \mako\http\Response;
  * @author  Frederic G. Østby
  */
 
-class ResponseService extends \mako\core\services\Service
+class ResponseService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

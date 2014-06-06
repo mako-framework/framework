@@ -32,7 +32,7 @@ class Migrate extends \mako\reactor\Task
 	/**
 	 * Application instance.
 	 * 
-	 * @var \mako\core\Application
+	 * @var \mako\application\Application
 	 */
 
 	protected $application;

@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\database\ConnectionManager;
 
@@ -15,7 +15,7 @@ use \mako\database\ConnectionManager;
  * @author  Frederic G. Østby
  */
 
-class DatabaseService extends \mako\core\services\Service
+class DatabaseService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

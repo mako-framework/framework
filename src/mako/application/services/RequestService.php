@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\http\Request;
 
@@ -15,7 +15,7 @@ use \mako\http\Request;
  * @author  Frederic G. Østby
  */
 
-class RequestService extends \mako\core\services\Service
+class RequestService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

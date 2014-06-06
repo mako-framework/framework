@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\http\routing\URLBuilder;
 
@@ -15,7 +15,7 @@ use \mako\http\routing\URLBuilder;
  * @author  Frederic G. Østby
  */
 
-class URLBuilderService extends \mako\core\services\Service
+class URLBuilderService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

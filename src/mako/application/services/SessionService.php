@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\session\Session;
 use \mako\session\stores\Database;
@@ -18,7 +18,7 @@ use \mako\session\stores\Redis;
  * @author  Frederic G. Østby
  */
 
-class SessionService extends \mako\core\services\Service
+class SessionService extends \mako\application\services\Service
 {
 	/**
 	 * Returns a database store instance.

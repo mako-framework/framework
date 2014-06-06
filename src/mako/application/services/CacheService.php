@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\cache\CacheManager;
 
@@ -15,7 +15,7 @@ use \mako\cache\CacheManager;
  * @author  Frederic G. Østby
  */
 
-class CacheService extends \mako\core\services\Service
+class CacheService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

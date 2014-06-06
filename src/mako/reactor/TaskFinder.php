@@ -7,7 +7,7 @@
 
 namespace mako\reactor;
 
-use \mako\core\CLIApplication;
+use \mako\application\CommandLine;
 
 /**
  * Finds all tasks.
@@ -20,7 +20,7 @@ class TaskFinder
 	/**
 	 * Application instance.
 	 * 
-	 * @var \mako\core\CLIApplication
+	 * @var \mako\application\CommandLine
 	 */
 
 	protected $application;
@@ -37,10 +37,10 @@ class TaskFinder
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $applicationPath  Application path
+	 * @param   string  $application  Application instance
 	 */
 
-	public function __construct(CLIApplication $application)
+	public function __construct(CommandLine $application)
 	{
 		$this->application = $application;
 

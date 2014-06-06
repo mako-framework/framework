@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\view\ViewFactory;
 
@@ -15,7 +15,7 @@ use \mako\view\ViewFactory;
  * @author  Frederic G. Østby
  */
 
-class ViewFactoryService extends \mako\core\services\Service
+class ViewFactoryService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

@@ -7,7 +7,7 @@
 
 namespace mako\reactor\tasks;
 
-use \mako\core\Application;
+use \mako\application\Application;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
 
@@ -22,7 +22,7 @@ class Server extends \mako\reactor\Task
 	/**
 	 * Application instance.
 	 * 
-	 * @var \mako\core\Application
+	 * @var \mako\application\Application
 	 */
 
 	protected $application;
@@ -51,9 +51,9 @@ class Server extends \mako\reactor\Task
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\reactor\io\Input   $input        Input
-	 * @param   \mako\reactor\io\Output  $output       Output
-	 * @param   \mako\core\Application   $application  Application instance
+	 * @param   \mako\reactor\io\Input         $input        Input
+	 * @param   \mako\reactor\io\Output        $output       Output
+	 * @param   \mako\application\Application  $application  Application instance
 	 */
 
 	public function __construct(Input $input, Output $output, Application $application)

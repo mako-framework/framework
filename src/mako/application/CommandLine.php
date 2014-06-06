@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core;
+namespace mako\application;
 
 use \mako\reactor\Reactor;
 use \mako\reactor\TaskFinder;
@@ -18,7 +18,7 @@ use \mako\reactor\io\Output;
  * @author  Frederic G. Østby
  */
 
-class CLIApplication extends \mako\core\Application
+class CommandLine extends \mako\application\Application
 {
 	/**
 	 * Returns the route collection.

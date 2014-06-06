@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\utility\Humanizer;
 
@@ -15,7 +15,7 @@ use \mako\utility\Humanizer;
  * @author  Frederic G. Østby
  */
 
-class HumanizerService extends \mako\core\services\Service
+class HumanizerService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

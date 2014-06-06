@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core;
+namespace mako\autoloading;
 
 /**
  * Alias loader.

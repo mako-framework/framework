@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\security\Signer;
 
@@ -15,7 +15,7 @@ use \mako\security\Signer;
  * @author  Frederic G. Østby
  */
 
-class SignerService extends \mako\core\services\Service
+class SignerService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

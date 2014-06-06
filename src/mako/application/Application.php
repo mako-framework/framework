@@ -5,11 +5,12 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core;
+namespace mako\application;
 
 use \Closure;
 use \LogicException;
 
+use \mako\autoloading\AliasLoader;
 use \mako\config\Config;
 use \mako\error\handlers\WebHandler;
 use \mako\error\handlers\CLIHandler;
@@ -29,7 +30,7 @@ abstract class Application
 	/**
 	 * Singleton instance of self.
 	 * 
-	 * @var \mako\core\Application
+	 * @var \mako\application\Application
 	 */
 
 	protected static $instance;
@@ -92,8 +93,8 @@ abstract class Application
 	 * Starts the application and returns a singleton instance of the application.
 	 * 
 	 * @access  public
-	 * @param   string                  $applicationPath  Application path
-	 * @return  \mako\core\Application
+	 * @param   string                         $applicationPath  Application path
+	 * @return  \mako\application\Application
 	 */
 
 	public static function start($applicationPath)
@@ -110,7 +111,7 @@ abstract class Application
 	 * Returns a singleton instance of the application.
 	 * 
 	 * @access  public
-	 * @return  \mako\core\Application
+	 * @return  \mako\application\Application
 	 */
 
 	public static function instance()
@@ -352,7 +353,7 @@ abstract class Application
 
 		// Register self so that the application instance can be injected
 
-		$this->container->registerInstance(['mako\core\Application', 'app'], $this);
+		$this->container->registerInstance(['mako\application\Application', 'app'], $this);
 
 		// Register file system instance
 

@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\error\ErrorHandler;
 
@@ -15,7 +15,7 @@ use \mako\error\ErrorHandler;
  * @author  Frederic G. Østby
  */
 
-class ErrorHandlerService extends \mako\core\services\Service
+class ErrorHandlerService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

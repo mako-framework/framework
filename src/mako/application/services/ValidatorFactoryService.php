@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\validator\ValidatorFactory;
 use \mako\validator\plugins\DatabaseExistsValidator;
@@ -18,7 +18,7 @@ use \mako\validator\plugins\TokenValidator;
  * @author  Frederic G. Østby
  */
 
-class ValidatorFactoryService extends \mako\core\services\Service
+class ValidatorFactoryService extends \mako\application\services\Service
 {
 	/**
 	 * Registers plugins.

@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\pagination\PaginationFactory;
 
@@ -15,7 +15,7 @@ use \mako\pagination\PaginationFactory;
  * @author  Frederic G. Østby
  */
 
-class PaginationFactoryService extends \mako\core\services\Service
+class PaginationFactoryService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

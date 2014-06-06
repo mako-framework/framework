@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\redis\ConnectionManager;
 
@@ -15,7 +15,7 @@ use \mako\redis\ConnectionManager;
  * @author  Frederic G. Østby
  */
 
-class RedisService extends \mako\core\services\Service
+class RedisService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

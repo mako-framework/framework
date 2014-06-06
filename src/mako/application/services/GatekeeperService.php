@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\auth\Gatekeeper;
 
@@ -15,7 +15,7 @@ use \mako\auth\Gatekeeper;
  * @author  Frederic G. Østby
  */
 
-class GatekeeperService extends \mako\core\services\Service
+class GatekeeperService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.

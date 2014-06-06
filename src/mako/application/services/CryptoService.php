@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \mako\security\crypto\CryptoManager;
 
@@ -15,7 +15,7 @@ use \mako\security\crypto\CryptoManager;
  * @author  Frederic G. Østby
  */
 
-class CryptoService extends \mako\core\services\Service
+class CryptoService extends \mako\application\services\Service
 {	
 	/**
 	 * Registers the service.

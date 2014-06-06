@@ -10,7 +10,7 @@ namespace mako\database\midgard;
 use \DateTime;
 use \RuntimeException;
 
-use \mako\core\Application;
+use \mako\application\Application;
 use \mako\database\ConnectionManager;
 use \mako\database\midgard\Query;
 use \mako\database\midgard\relations\BelongsTo;

@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\core\services;
+namespace mako\application\services;
 
 use \Monolog\Logger;
 use \Monolog\Handler\StreamHandler;
@@ -16,7 +16,7 @@ use \Monolog\Handler\StreamHandler;
  * @author  Frederic G. Østby
  */
 
-class LoggerService extends \mako\core\services\Service
+class LoggerService extends \mako\application\services\Service
 {
 	/**
 	 * Registers the service.
