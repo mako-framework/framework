@@ -30,8 +30,8 @@ class Comparer
 	 * Timing attack safe string comparison. Returns TRUE if the two strings a equal and FALSE if not.
 	 * 
 	 * @access  public
-	 * @param   string   $string1 String one
-	 * @param   string   $string2 String two
+	 * @param   string   $string1  String one
+	 * @param   string   $string2  String two
 	 * @return  boolean
 	 */
 
