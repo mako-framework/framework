@@ -8,6 +8,8 @@
 namespace mako\security;
 
 use \Closure;
+
+use \mako\security\Comparer;
 use \mako\utility\Str;
 
 /**
@@ -105,6 +107,6 @@ class Password
 			return $legacyCheck($password, $hash);
 		}
 
-		return crypt($password, $hash) === $hash;
+		return Comparer::compare(crypt($password, $hash), $hash);
 	}
 }
