@@ -74,7 +74,11 @@ class Password
 
 		// Generate random salt
 
-		if(function_exists('openssl_random_pseudo_bytes'))
+		if(function_exists('mcrypt_create_iv'))
+		{
+			$salt = mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);
+		}
+		elseif(function_exists('openssl_random_pseudo_bytes'))
 		{
 			$salt = openssl_random_pseudo_bytes(16);
 		}
