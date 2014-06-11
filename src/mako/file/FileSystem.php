@@ -7,6 +7,7 @@
 
 namespace mako\file;
 
+use \FilesystemIterator;
 use \SplFileObject;
 
 /**
@@ -135,6 +136,29 @@ class FileSystem
 	}
 
 	/**
+	 * Returns TRUE if a directory is empty and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string   $path  Path to directory
+	 * @return  boolean
+	 */
+
+	public function isDirectoryEmpty($path)
+	{
+		$files = scandir($path);
+
+		foreach($files as $file)
+		{
+			if($file !== '.' && $file !== '..')
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Returns TRUE if the file is readable and FALSE if not.
 	 * 
 	 * @access  public
@@ -252,6 +276,33 @@ class FileSystem
 	}
 
 	/**
+	 * Deletes a directory and its contents from disk.
+	 * 
+	 * @access  public
+	 * @param   string   $path  Path to directory
+	 * @return  boolean
+	 */
+
+	public function deleteDirectory($path)
+	{
+		$iterator = new FilesystemIterator($path);
+
+		foreach($iterator as $item)
+		{
+			if($item->isDir())
+			{
+				$this->deleteDirectory($item->getPathname());
+			}
+			else
+			{
+				$this->delete($item->getPathname());
+			}
+		}
+
+		return rmdir($path);
+	}
+
+	/**
 	 * Returns an array of pathnames matching the provided pattern.
 	 * 
 	 * @access  public
@@ -335,6 +386,21 @@ class FileSystem
 	public static function truncateContents($file, $lock = false)
 	{
 		return (0 === file_put_contents($file, null, $lock ? LOCK_EX : 0));
+	}
+
+	/**
+	 *  Creates a directory.
+	 * 
+	 *  @access  public
+	 *  @param   string   $path      Path to directory
+	 *  @param   int      $mode      (optional) Mode
+	 *  @param   boolean  $recursive (optional) Recursive
+	 *  @return  boolean
+	 */
+
+	public function createDirectory($path, $mode = 0777, $recursive = false)
+	{
+		return mkdir($path, $mode, $recursive);
 	}
 
 	/**
