@@ -838,11 +838,11 @@ abstract class ORM
 	/**
 	 * Has the record been modified?
 	 * 
-	 * @access  protected
+	 * @access  public
 	 * @return  boolean
 	 */
 
-	protected function isModified()
+	public function isModified()
 	{
 		return count($this->getModified()) > 0;
 	}
@@ -850,11 +850,11 @@ abstract class ORM
 	/**
 	 * Returns the modified column values of the record.
 	 * 
-	 * @access  protected
+	 * @access  public
 	 * @return  array
 	 */
 
-	protected function getModified()
+	public function getModified()
 	{
 		$modified = [];
 

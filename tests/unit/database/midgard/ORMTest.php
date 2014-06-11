@@ -375,6 +375,36 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testIsModified()
+	{
+		$user = new TestUser1(['foo' => 123, 'bar' => 456], true, false, true);
+
+		$this->assertFalse($user->isModified());
+
+		$user->foo = 789;
+
+		$this->assertTrue($user->isModified());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testGetModified()
+	{
+		$user = new TestUser1(['foo' => 123, 'bar' => 456], true, false, true);
+
+		$this->assertEquals([], $user->getModified());
+
+		$user->foo = 789;
+
+		$this->assertEquals(['foo' => 789], $user->getModified());
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testToArray()
 	{
 		$user = new TestUser4();
