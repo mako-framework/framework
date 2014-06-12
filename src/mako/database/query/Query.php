@@ -131,33 +131,56 @@ class Query
 	{
 		$this->connection = $connection;
 
+		$this->compiler = $this->resolveCompiler();
+	}
+
+	/**
+	 * Sets a fresh query compiler instance when cloning the query builder.
+	 * 
+	 * @access  public
+	 */
+
+	public function __clone()
+	{
+		$this->compiler = $this->resolveCompiler();
+	}
+
+	/**
+	 * Returns the appropriate query compiler.
+	 * 
+	 * @access  protected
+	 * @return  \mako\database\query\Compiler
+	 */
+
+	protected function resolveCompiler()
+	{
 		switch($this->connection->getCompiler())
 		{
 			case 'mysql':
-				$this->compiler = new \mako\database\query\compilers\MySQL($this);
+				return new \mako\database\query\compilers\MySQL($this);
 				break;
 			case 'dblib':
 			case 'mssql':
 			case 'sqlsrv':
-				$this->compiler = new \mako\database\query\compilers\SQLServer($this);
+				return new \mako\database\query\compilers\SQLServer($this);
 				break;
 			case 'oci':
 			case 'oracle':
-				$this->compiler = new \mako\database\query\compilers\Oracle($this);
+				return new \mako\database\query\compilers\Oracle($this);
 				break;
 			case 'firebird':
-				$this->compiler = new \mako\database\query\compilers\Firebird($this);
+				return new \mako\database\query\compilers\Firebird($this);
 				break;
 			case 'db2':
 			case 'ibm':
 			case 'odbc':
-				$this->compiler = new \mako\database\query\compilers\DB2($this);
+				return new \mako\database\query\compilers\DB2($this);
 				break;
 			case 'nuodb':
-				$this->compiler = new \mako\database\query\compilers\NuoDB($this);
+				return new \mako\database\query\compilers\NuoDB($this);
 				break;
 			default:
-				$this->compiler = new \mako\database\query\Compiler($this);
+				return new \mako\database\query\Compiler($this);
 		}
 	}
 
