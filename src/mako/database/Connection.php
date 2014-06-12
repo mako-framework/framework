@@ -46,12 +46,12 @@ class Connection
 	protected $driver;
 
 	/**
-	 * Compiler name.
+	 * SQL dialect.
 	 * 
 	 * @var string
 	 */
 
-	protected $compiler;
+	protected $dialect;
 
 	/**
 	 * Enable the query log?
@@ -122,9 +122,9 @@ class Connection
 
 		$this->driver = $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
 
-		// Set the compiler name
+		// Set the compiler type
 
-		$this->compiler = isset($config['compiler']) ? $config['compiler'] : $this->driver;
+		$this->dialect = isset($config['dialect']) ? $config['dialect'] : $this->driver;
 	}
 
 	/**
@@ -164,15 +164,15 @@ class Connection
 	}
 
 	/**
-	 * Returns the compiler name.
+	 * Returns the SQL dialect.
 	 * 
 	 * @access  public
 	 * @return  string
 	 */
 
-	public function getCompiler()
+	public function getDialect()
 	{
-		return $this->compiler;
+		return $this->dialect;
 	}
 
 	/**

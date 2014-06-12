@@ -29,7 +29,7 @@ class SQLServerBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getCompiler')->andReturn('sqlsrv');
+		$connection->shouldReceive('getDialect')->andReturn('sqlsrv');
 
 		return $connection;
 	}

@@ -32,7 +32,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getCompiler')->andReturn('sqlite');
+		$connection->shouldReceive('getDialect')->andReturn('sqlite');
 
 		$connection->shouldReceive('column')->andReturn(null);
 

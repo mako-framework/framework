@@ -29,7 +29,7 @@ class FirebirdBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getCompiler')->andReturn('firebird');
+		$connection->shouldReceive('getDialect')->andReturn('firebird');
 
 		return $connection;
 	}

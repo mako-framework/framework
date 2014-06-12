@@ -29,7 +29,7 @@ class OracleBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getCompiler')->andReturn('oracle');
+		$connection->shouldReceive('getDialect')->andReturn('oracle');
 
 		return $connection;
 	}

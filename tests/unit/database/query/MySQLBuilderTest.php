@@ -29,7 +29,7 @@ class MySQLBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getCompiler')->andReturn('mysql');
+		$connection->shouldReceive('getDialect')->andReturn('mysql');
 
 		return $connection;
 	}
