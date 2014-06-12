@@ -28,7 +28,7 @@ class ScopedModel extends \mako\database\midgard\ORM
  * @group unit
  */
 
-class QeuryTest extends \PHPUnit_Framework_TestCase
+class QueryTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 
