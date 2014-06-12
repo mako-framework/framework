@@ -892,32 +892,23 @@ abstract class ORM
 	{
 		$this->exists = true;
 
-		switch($this->primaryKeyType)
-		{
-			case static::PRIMARY_KEY_TYPE_UUID:
-				$this->columns[$this->primaryKey] = UUID::v4();
-				break;
-			case static::PRIMARY_KEY_TYPE_CUSTOM:
-				$this->columns[$this->primaryKey] = $this->generatePrimaryKey();
-				break;
-		}
-
-		$query->insert($this->columns);
-
 		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
 		{
-			$connection = $this->getConnection();
-
-			switch($connection->getDriver())
+			$this->columns[$this->primaryKey] = $query->insertAndGetId($this->columns, $this->primaryKey);
+		}
+		else
+		{
+			switch($this->primaryKeyType)
 			{
-				case 'pgsql':
-					$sequence = $this->getTable() . '_' . $this->primaryKey . '_seq';
+				case static::PRIMARY_KEY_TYPE_UUID:
+					$this->columns[$this->primaryKey] = UUID::v4();
 					break;
-				default:
-					$sequence = null;
+				case static::PRIMARY_KEY_TYPE_CUSTOM:
+					$this->columns[$this->primaryKey] = $this->generatePrimaryKey();
+					break;
 			}
 
-			$this->columns[$this->primaryKey] = $connection->getPDO()->lastInsertId($sequence);
+			$query->insert($this->columns);
 		}
 	}
 

@@ -1198,6 +1198,34 @@ class Query
 	}
 
 	/**
+	 * Inserts data into the chosen table and returns the auto increment id.
+	 * 
+	 * @access  public
+	 * @param   array        $values      Associative array of column values
+	 * @param   string       $primaryKey  (optional) Primary key
+	 * @return  int|boolean
+	 */
+
+	public function insertAndGetId(array $values, $primaryKey = 'id')
+	{
+		if($this->insert($values) === false)
+		{
+			return false;
+		}
+
+		switch($this->connection->getDriver())
+		{
+			case 'pgsql':
+				$sequence = $this->table . '_' . $primaryKey . '_seq';
+				break;
+			default:
+				$sequence = null;
+		}
+
+		return $this->connection->getPDO()->lastInsertId($sequence);
+	}
+
+	/**
 	 * Updates data from the chosen table.
 	 *
 	 * @access  public
