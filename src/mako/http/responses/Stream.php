@@ -20,6 +20,14 @@ use \mako\http\Response;
 Class Stream implements \mako\http\responses\ResponseContainerInterface
 {
 	/**
+	 * Is PHP running as a CGI?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $isCGI;
+
+	/**
 	 * Stream.
 	 * 
 	 * @var \Closure
@@ -49,11 +57,23 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 
 	public function flush($chunk, $flushEmpty = false)
 	{
-		if(!empty($chunk) || $flushEmpty === true)
+		if($this->isCGI)
 		{
-			printf("%x\r\n%s\r\n", strlen($chunk), $chunk);
+			if(!empty($chunk))
+			{
+				echo $chunk;
 
-			flush();
+				flush();
+			}
+		}
+		else
+		{
+			if(!empty($chunk) || $flushEmpty === true)
+			{
+				printf("%x\r\n%s\r\n", strlen($chunk), $chunk);
+
+				flush();
+			}
 		}
 	}
 
@@ -90,8 +110,13 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 
 	public function send(Request $request, Response $response)
 	{
-		$response->header('content-encoding', 'chunked');
-		$response->header('transfer-encoding', 'chunked');
+		$this->isCGI = $this->request->isCGI();
+
+		if(!$this->isCGI)
+		{
+			$response->header('content-encoding', 'chunked');
+			$response->header('transfer-encoding', 'chunked');
+		}
 
 		$response->sendHeaders();
 

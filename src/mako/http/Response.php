@@ -571,7 +571,7 @@ class Response
 	{
 		// Send status header
 
-		if($this->request->server('FCGI_SERVER_VERSION', false) !== false)
+		if($this->request->isCGI())
 		{
 			$protocol = 'Status:';
 		}

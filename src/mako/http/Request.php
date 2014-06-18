@@ -157,6 +157,14 @@ class Request
 	protected $isSecure;
 
 	/**
+	 * Is PHP running as a CGI?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $isCGI;
+
+	/**
 	 * Base URL of the request.
 	 * 
 	 * @var string
@@ -422,6 +430,10 @@ class Request
 		// Was the request made using HTTPS?
 
 		$this->isSecure = (!empty($this->server['HTTPS']) && filter_var($this->server['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
+
+		// Is PHP running as a CGI?
+
+		$this->isCGI = strpos(PHP_SAPI, 'cgi') !== false;
 
 		// Get the real request method that was used
 
@@ -828,6 +840,18 @@ class Request
 	public function isSecure()
 	{
 		return $this->isSecure;
+	}
+
+	/**
+	 * Is PHP running as a CGI?
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function isCGI()
+	{
+		return $this->isCGI;
 	}
 
 	/**
