@@ -20,7 +20,7 @@ use \mako\http\Response;
 Class Stream implements \mako\http\responses\ResponseContainerInterface
 {
 	/**
-	 * Is PHP running as a CGI?
+	 * Is PHP running as a CGI program?
 	 * 
 	 * @var boolean
 	 */

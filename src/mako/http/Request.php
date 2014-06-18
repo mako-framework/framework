@@ -157,7 +157,7 @@ class Request
 	protected $isSecure;
 
 	/**
-	 * Is PHP running as a CGI?
+	 * Is PHP running as a CGI program?
 	 * 
 	 * @var boolean
 	 */
@@ -431,7 +431,7 @@ class Request
 
 		$this->isSecure = (!empty($this->server['HTTPS']) && filter_var($this->server['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
 
-		// Is PHP running as a CGI?
+		// Is PHP running as a CGI program?
 
 		$this->isCGI = stripos(PHP_SAPI, 'cgi') !== false;
 
@@ -843,7 +843,7 @@ class Request
 	}
 
 	/**
-	 * Is PHP running as a CGI?
+	 * Is PHP running as a CGI program?
 	 * 
 	 * @access  public
 	 * @return  boolean
