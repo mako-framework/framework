@@ -110,7 +110,7 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 
 	public function send(Request $request, Response $response)
 	{
-		$this->isCGI = $this->request->isCGI();
+		$this->isCGI = $request->isCGI();
 
 		if(!$this->isCGI)
 		{
