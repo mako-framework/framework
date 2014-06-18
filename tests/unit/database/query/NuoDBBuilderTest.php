@@ -55,7 +55,7 @@ class NuoDBBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" FETCH 10', $query['sql']);
+		$this->assertEquals('SELECT * FROM `foobar` LIMIT 10', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -72,7 +72,7 @@ class NuoDBBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" FETCH 10 OFFSET 10', $query['sql']);
+		$this->assertEquals('SELECT * FROM `foobar` LIMIT 10 OFFSET 10', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 }

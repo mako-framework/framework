@@ -16,28 +16,15 @@ namespace mako\database\query\compilers;
 class NuoDB extends \mako\database\query\Compiler
 {
 	/**
-	 * Compiles LIMIT clauses.
-	 *
+	 * Returns an escaped identifier.
+	 * 
 	 * @access  protected
-	 * @param   int        $limit  Limit
+	 * @param   string     $identifier  Identifier to escape
 	 * @return  string
 	 */
 
-	protected function limit($limit)
+	protected function escapeIdentifier($identifier)
 	{
-		return ($limit === null) ? '' : ' FETCH ' . $limit;
-	}
-
-	/**
-	 * Compiles OFFSET clauses.
-	 *
-	 * @access  protected
-	 * @param   int        $offset  Limit
-	 * @return  string
-	 */
-
-	protected function offset($offset)
-	{
-		return ($offset === null) ? '' : ' OFFSET ' . $offset;
+		return '`' . str_replace('`', '``', $identifier) . '`';
 	}
 }
