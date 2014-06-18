@@ -12,8 +12,6 @@ use \LogicException;
 
 use \mako\autoloading\AliasLoader;
 use \mako\config\Config;
-use \mako\error\handlers\WebHandler;
-use \mako\error\handlers\CLIHandler;
 use \mako\file\FileSystem;
 use \mako\syringe\Container;
 
@@ -269,39 +267,7 @@ abstract class Application
 	 * @access  protected
 	 */
 
-	protected function registerErrorHandler()
-	{
-		$this->container->get('errorHandler')->handle('\Exception', function($exception)
-		{
-			// Create handler instance
-
-			if(PHP_SAPI === 'cli')
-			{
-				$handler = new CLIHandler($exception);
-			}
-			else
-			{
-				$handler = new WebHandler($exception);
-
-				$handler->setRequest($this->container->get('request'));
-
-				$handler->setResponse($this->container->getFresh('response'));
-
-				$handler->setCharset($this->getCharset());
-			}
-
-			// Set logger if error logging is enabled
-
-			if($this->config->get('application.error_handler.log_errors'))
-			{
-				$handler->setLogger($this->container->get('logger'));
-			}
-
-			// Handle the error
-			
-			return $handler->handle($this->config->get('application.error_handler.display_errors'));
-		});
-	}
+	abstract protected function registerErrorHandler();
 
 	/**
 	 * Registers class aliases.

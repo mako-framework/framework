@@ -7,6 +7,7 @@
 
 namespace mako\application;
 
+use \mako\error\handlers\WebHandler;
 use \mako\http\routing\Dispatcher;
 use \mako\http\routing\Router;
 
@@ -18,6 +19,39 @@ use \mako\http\routing\Router;
 
 class Web extends \mako\application\Application
 {
+	/**
+	 * Register the error handler.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function registerErrorHandler()
+	{
+		$this->container->get('errorHandler')->handle('\Exception', function($exception)
+		{
+			// Create handler instance
+
+			$handler = new WebHandler($exception);
+
+			$handler->setRequest($this->container->get('request'));
+
+			$handler->setResponse($this->container->getFresh('response'));
+
+			$handler->setCharset($this->getCharset());
+
+			// Set logger if error logging is enabled
+
+			if($this->config->get('application.error_handler.log_errors'))
+			{
+				$handler->setLogger($this->container->get('logger'));
+			}
+
+			// Handle the error
+			
+			return $handler->handle($this->config->get('application.error_handler.display_errors'));
+		});
+	}
+
 	/**
 	 * Runs the application.
 	 * 

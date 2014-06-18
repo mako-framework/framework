@@ -7,6 +7,7 @@
 
 namespace mako\application;
 
+use \mako\error\handlers\CLIHandler;
 use \mako\reactor\Reactor;
 use \mako\reactor\TaskFinder;
 use \mako\reactor\io\Input;
@@ -20,6 +21,33 @@ use \mako\reactor\io\Output;
 
 class CommandLine extends \mako\application\Application
 {
+	/**
+	 * Register the error handler.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function registerErrorHandler()
+	{
+		$this->container->get('errorHandler')->handle('\Exception', function($exception)
+		{
+			// Create handler instance
+
+			$handler = new CLIHandler($exception);
+
+			// Set logger if error logging is enabled
+
+			if($this->config->get('application.error_handler.log_errors'))
+			{
+				$handler->setLogger($this->container->get('logger'));
+			}
+
+			// Handle the error
+			
+			return $handler->handle($this->config->get('application.error_handler.display_errors'));
+		});
+	}
+
 	/**
 	 * Returns the route collection.
 	 * 
