@@ -742,7 +742,7 @@ class Response
 				ob_start();
 			}
 
-			// Cast to body to string so that everything is rendered 
+			// Cast body to string so that everything is rendered 
 			// before running through response filters
 
 			$this->body = (string) $this->body;
