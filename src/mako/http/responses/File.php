@@ -242,6 +242,8 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 				// Valid range so we'll need to tell the client which range we're sending
 				// and set the content-length header value to the length of the byte range
 
+				$response->status(206);
+
 				$response->header('content-range', 'bytes ' . sprintf('%s-%s/%s', $range['start'], $range['end'], $this->fileSize));
 
 				$response->header('content-length', $range['end'] - $range['start'] + 1);
