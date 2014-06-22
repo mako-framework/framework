@@ -88,6 +88,14 @@ abstract class ORM
 	protected static $dateFormat = null;
 
 	/**
+	 * ORM query builder hooks.
+	 * 
+	 * @var array
+	 */
+
+	protected static $hooks = [];
+
+	/**
 	 * Table name.
 	 * 
 	 * @var string
@@ -212,6 +220,8 @@ abstract class ORM
 
 	public function __construct(array $columns = [], $raw = false, $whitelist = true, $exists = false, $readOnly = false)
 	{
+		$this->registerHooks();
+
 		$this->assign($columns, $raw, $whitelist);
 
 		if($exists)
@@ -294,6 +304,64 @@ abstract class ORM
 	}
 
 	/**
+	 * Registers query builder hooks from traits.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function registerHooks()
+	{
+		$class = $model = get_class($this);
+
+		if(!isset(static::$hooks[$model]))
+		{
+			static::$hooks[$model] = [];
+
+			do
+			{
+				foreach(class_uses($class) as $trait)
+				{
+					$getter = 'get' . $this->getClassShortName($trait) . 'Hooks';
+
+					if(method_exists($this, $getter))
+					{
+						static::$hooks[$model] = array_merge_recursive(static::$hooks[$model], $this->$getter());
+					}
+				}
+			}
+			while($class = get_parent_class($class));
+		}
+	}
+
+	/**
+	 * Returns the model onInsert hooks.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getOnInsertHooks()
+	{
+		$model = get_class($this);
+
+		return isset(static::$hooks[$model]['onInsert']) ? static::$hooks[$model]['onInsert'] : [];
+	}
+
+	/**
+	 * Returns the model onUpdate hooks.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getOnUpdateHooks()
+	{
+		$model = get_class($this);
+
+		return isset(static::$hooks[$model]['onUpdate']) ? static::$hooks[$model]['onUpdate'] : [];
+	}
+
+	/**
 	 * Returns the date time columns.
 	 * 
 	 * @access  public
@@ -303,6 +371,19 @@ abstract class ORM
 	protected function getDateTimeColumns()
 	{
 		return $this->dateTimeColumns;
+	}
+
+	/**
+	 * Returns the short name of a class.
+	 * 
+	 * @access  protected
+	 * @param   string     $className  (optional)  Class name
+	 * @return  string
+	 */
+
+	protected function getClassShortName($className = null)
+	{
+		return basename(str_replace('\\', '/', $className ?: get_class($this)));
 	}
 
 	/**
@@ -316,7 +397,7 @@ abstract class ORM
 	{
 		if(empty($this->tableName))
 		{
-			$this->tableName = Str::pluralize(Str::camel2underscored(end((explode('\\', get_class($this))))));
+			$this->tableName = Str::pluralize(Str::camel2underscored($this->getClassShortName()));
 		}
 		
 		return $this->tableName;
@@ -355,7 +436,7 @@ abstract class ORM
 
 	public function getForeignKey()
 	{
-		return strtolower(end((explode('\\', get_class($this))))) . '_id';
+		return strtolower($this->getClassShortName()) . '_id';
 	}
 
 	/**

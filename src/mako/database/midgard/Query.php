@@ -108,6 +108,11 @@ class Query extends \mako\database\query\Query
 			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to crate a read-only record.", [__METHOD__]));
 		}
 
+		foreach($this->model->getOnInsertHooks() as $hook)
+		{
+			$values = $hook($values);
+		}
+
 		return parent::insert($values);
 	}
 
@@ -124,6 +129,11 @@ class Query extends \mako\database\query\Query
 		if($this->model->isReadOnly())
 		{
 			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to update a read-only record.", [__METHOD__]));
+		}
+
+		foreach($this->model->getOnUpdateHooks() as $hook)
+		{
+			$values = $hook($values);
 		}
 
 		return parent::update($values);

@@ -52,7 +52,7 @@ class TimestampedTest extends \ORMTestCase
 
 	 	$timestamped->save();
 
-	 	$this->assertEquals($timestamped->created_at, $timestamped->updated_at);
+	 	$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
 	 }
 
 	 /**
@@ -63,13 +63,13 @@ class TimestampedTest extends \ORMTestCase
 	 {
 	 	$timestamped = TimestampedFoo::get(2);
 
-	 	$this->assertEquals($timestamped->created_at, $timestamped->updated_at);
+	 	$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
 
 	 	// Save without making changes
 
 	 	$timestamped->save();
 
-	 	$this->assertEquals($timestamped->created_at, $timestamped->updated_at);
+	 	$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
 
 	 	// Save after making a change
 
@@ -77,7 +77,7 @@ class TimestampedTest extends \ORMTestCase
 
 	 	$timestamped->save();
 
-	 	$this->assertNotEquals($timestamped->created_at, $timestamped->updated_at);
+	 	$this->assertNotEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
 	 }
 
 	 /**
@@ -88,11 +88,11 @@ class TimestampedTest extends \ORMTestCase
 	 {
 	 	$timestamped = TimestampedFoo::get(3);
 
-	 	$this->assertEquals($timestamped->created_at, $timestamped->updated_at);
+	 	$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
 
 	 	$timestamped->touch();
 
-	 	$this->assertNotEquals($timestamped->created_at, $timestamped->updated_at);
+	 	$this->assertNotEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
 	 }
 
 	 /**
@@ -103,10 +103,10 @@ class TimestampedTest extends \ORMTestCase
 	 {
 	 	$timestamped = TimestampedBar::get(1);
 
-	 	$this->assertNotEquals($timestamped->updated_at, $timestamped->foo()->first()->updated_at);
+	 	$this->assertNotEquals($timestamped->updated_at->getTimestamp(), $timestamped->foo()->first()->updated_at->getTimestamp());
 
 	 	$timestamped->touch();
 
-	 	$this->assertEquals($timestamped->updated_at, $timestamped->foo()->first()->updated_at);
+	 	$this->assertEquals($timestamped->updated_at->getTimestamp(), $timestamped->foo()->first()->updated_at->getTimestamp());
 	 }
 }

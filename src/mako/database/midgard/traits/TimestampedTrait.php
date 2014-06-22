@@ -18,6 +18,38 @@ use \DateTime;
 trait TimestampedTrait
 {
 	/**
+	 * Returns trait hooks.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function getTimestampedTraitHooks()
+	{
+		return 
+		[
+			'onInsert' =>
+			[
+				function($values)
+				{
+					$dateTime = new DateTime;
+
+					return [$this->getCreatedAtColumn() => $dateTime, $this->getUpdatedAtColumn() => $dateTime] + $values;
+				},
+			],
+			'onUpdate' => 
+			[
+				function($values)
+				{
+					$dateTime = new DateTime;
+
+					return [$this->getUpdatedAtColumn() => $dateTime] + $values;
+				},
+			],
+		];
+	}
+
+	/**
 	 * Returns the column that holds the "created at" timestamp.
 	 * 
 	 * @access  public
@@ -76,10 +108,9 @@ trait TimestampedTrait
 	 * Touches related records.
 	 * 
 	 * @access  protected
-	 * @param   \DateTime  $dateTime  DateTime instance
 	 */
 
-	protected function touchRelated($dateTime)
+	protected function touchRelated()
 	{
 		foreach($this->touch as $touch)
 		{
@@ -99,7 +130,7 @@ trait TimestampedTrait
 				$relation = $related->$nested();
 			}
 
-			$relation->update([$relation->getModel()->getUpdatedAtColumn() => $dateTime]);
+			$relation->update([$relation->getModel()->getUpdatedAtColumn() => null]);
 		}
 	}
 
@@ -125,7 +156,6 @@ trait TimestampedTrait
 		{
 			$this->columns[$this->getUpdatedAtColumn()] = $dateTime;
 		}
-
 		// Save record
 
 		$saved = parent::save();
@@ -134,7 +164,7 @@ trait TimestampedTrait
 
 		if($saved === true && !empty($this->touch))
 		{
-			$this->touchRelated($dateTime);
+			$this->touchRelated();
 		}
 
 		// Return save status
