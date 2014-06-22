@@ -105,7 +105,7 @@ class Query extends \mako\database\query\Query
 	{
 		if($this->model->isReadOnly())
 		{
-			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to crate a read-only record.", [__METHOD__]));
+			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to create a read-only record.", [__METHOD__]));
 		}
 
 		foreach($this->model->getOnInsertHooks() as $hook)
