@@ -33,7 +33,7 @@ trait OptimisticLockingTrait
 			[
 				function($values, $query)
 				{
-					return $values + [$this->getLockingColumn() => 0];
+					return $values + [$this->getLockingColumn() => 1];
 				},
 			],
 			'onUpdate' => 
@@ -123,8 +123,6 @@ trait OptimisticLockingTrait
 	public function getLockVersion()
 	{
 		return $this->columns[$this->getLockingColumn()];
-
-		return false;
 	}
 
 	/**
@@ -136,7 +134,7 @@ trait OptimisticLockingTrait
 
 	protected function insertRecord($query)
 	{
-		$this->columns[$this->getLockingColumn()] = 0;
+		$this->columns[$this->getLockingColumn()] = 1;
 
 		parent::insertRecord($query);
 	}
@@ -151,15 +149,17 @@ trait OptimisticLockingTrait
 
 	protected function updateRecord($query)
 	{
-		$lockVersion = $this->columns[$this->getLockingColumn()]++;
+		$lockingColumn = $this->getLockingColumn();
 
-		$query->where($this->getLockingColumn(), '=', $lockVersion);
+		$lockVersion = $this->columns[$lockingColumn]++;
+
+		$query->where($lockingColumn, '=', $lockVersion);
 
 		$result = parent::updateRecord($query);
 
 		if(!$result)
 		{
-			$this->columns[$this->getLockingColumn()]--;
+			$this->columns[$lockingColumn]--;
 
 			throw new StaleRecordException(vsprintf("%s(): Attempted to update a stale record.", [__METHOD__]));
 		}
@@ -177,7 +177,9 @@ trait OptimisticLockingTrait
 
 	protected function deleteRecord($query)
 	{
-		$query->where($this->getLockingColumn(), '=', $this->columns[$this->getLockingColumn()]);
+		$lockingColumn = $this->getLockingColumn();
+
+		$query->where($lockingColumn, '=', $this->columns[$lockingColumn]);
 		
 		$deleted = parent::deleteRecord($query);
 

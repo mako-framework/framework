@@ -147,14 +147,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 	public function testSetAndGetLockVersion()
 	{
-		$user = new TestUser1([], true, false, true);
-
-		$user->setLockVersion(404);
-
-		$this->assertFalse($user->getLockVersion());
-
-		//
-
 		$user = new TestUser2([], true, false, true);
 
 		$user->setLockVersion(404);

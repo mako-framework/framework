@@ -120,22 +120,6 @@ abstract class ORM
 	protected $primaryKeyType = ORM::PRIMARY_KEY_TYPE_INCREMENTING;
 
 	/**
-	 * Enable optimistic locking?
-	 * 
-	 * @var boolean
-	 */
-
-	protected $enableLocking = false;
-
-	/**
-	 * Optimistic locking column.
-	 * 
-	 * @var string
-	 */
-
-	protected $lockingColumn = 'lock_version';
-
-	/**
 	 * DateTime columns.
 	 * 
 	 * @var array
@@ -249,11 +233,6 @@ abstract class ORM
 			$this->related  = [];
 
 			unset($this->columns[$this->primaryKey]);
-
-			if($this->enableLocking)
-			{
-				unset($this->columns[$this->lockingColumn]);
-			}
 		}
 	}
 	
@@ -449,38 +428,6 @@ abstract class ORM
 	public function getClass()
 	{
 		return '\\' . get_class($this);
-	}
-
-	/**
-	 * Sets the optimistic locking version.
-	 * 
-	 * @access  public
-	 * @param   int     $version  Locking version
-	 */
-
-	public function setLockVersion($version)
-	{
-		if($this->enableLocking)
-		{
-			$this->columns[$this->lockingColumn] = $version;
-		}
-	}
-
-	/**
-	 * Returns the optimistic locking version.
-	 * 
-	 * @access  public
-	 * @return  int
-	 */
-
-	public function getLockVersion()
-	{
-		if($this->enableLocking && $this->exists)
-		{
-			return $this->columns[$this->lockingColumn];
-		}
-
-		return false;
 	}
 
 	/**

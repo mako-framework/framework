@@ -66,7 +66,7 @@ class OptimisticLockingTest extends \ORMTestCase
 	 * 
 	 */
 
-	public function testOptimisticLocReload()
+	public function testOptimisticLockReload()
 	{
 		$optimisticLock = OptimisticLock::get(1);
 
@@ -85,12 +85,33 @@ class OptimisticLockingTest extends \ORMTestCase
 	 * 
 	 */
 
-	public function testOptimisticLocReloadNonExistent()
+	public function testOptimisticLockReloadNonExistent()
 	{
 		$optimisticLock = new OptimisticLock;
 
 		$reloaded = $optimisticLock->reload();
 
 		$this->assertFalse($reloaded);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testOptimisticLockInsert()
+	{
+		$optimisticLock = new OptimisticLock;
+
+		$optimisticLock->value = 'hello';
+
+		$optimisticLock->save();
+
+		$this->assertEquals(1, $optimisticLock->getLockVersion());
+
+		$optimisticLock->value = 'world';
+
+		$optimisticLock->save();
+
+		$this->assertEquals(2, $optimisticLock->getLockVersion());
 	}
 }
