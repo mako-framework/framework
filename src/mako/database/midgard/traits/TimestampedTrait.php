@@ -30,7 +30,7 @@ trait TimestampedTrait
 		[
 			'onInsert' =>
 			[
-				function($values)
+				function($values, $query)
 				{
 					$dateTime = new DateTime;
 
@@ -39,11 +39,9 @@ trait TimestampedTrait
 			],
 			'onUpdate' => 
 			[
-				function($values)
+				function($values, $query)
 				{
-					$dateTime = new DateTime;
-
-					return [$this->getUpdatedAtColumn() => $dateTime] + $values;
+					return [$this->getUpdatedAtColumn() => new DateTime] + $values;
 				},
 			],
 		];

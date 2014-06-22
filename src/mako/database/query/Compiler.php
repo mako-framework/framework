@@ -101,12 +101,12 @@ class Compiler
 	/**
 	 * Returns an escaped identifier.
 	 * 
-	 * @access  protected
-	 * @param   string     $identifier  Identifier to escape
+	 * @access  public
+	 * @param   string  $identifier  Identifier to escape
 	 * @return  string
 	 */
 
-	protected function escapeIdentifier($identifier)
+	public function escapeIdentifier($identifier)
 	{
 		return '"' . str_replace('"', '""', $identifier) . '"';
 	}
@@ -114,12 +114,12 @@ class Compiler
 	/**
 	 * Returns an escaped table or column name.
 	 *
-	 * @access  protected
-	 * @param   string     $value  Value to escape
+	 * @access  public
+	 * @param   string  $value  Value to escape
 	 * @return  string
 	 */
 
-	protected function escapeTableAndOrColumn($value)
+	public function escapeTableAndOrColumn($value)
 	{
 		$wrapped = [];
 

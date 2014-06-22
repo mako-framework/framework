@@ -110,7 +110,7 @@ class Query extends \mako\database\query\Query
 
 		foreach($this->model->getOnInsertHooks() as $hook)
 		{
-			$values = $hook($values);
+			$values = $hook($values, $this);
 		}
 
 		return parent::insert($values);
@@ -133,7 +133,7 @@ class Query extends \mako\database\query\Query
 
 		foreach($this->model->getOnUpdateHooks() as $hook)
 		{
-			$values = $hook($values);
+			$values = $hook($values, $this);
 		}
 
 		return parent::update($values);

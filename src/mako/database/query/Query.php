@@ -1114,7 +1114,7 @@ class Query
 
 	protected function aggregate($column, $function)
 	{
-		return $this->select([new Raw($function . '(' . $this->getCompiler()->wrap($column) . ')')])->column();
+		return $this->select([new Raw($function . '(' . $this->getCompiler()->escapeTableAndOrColumn($column) . ')')])->column();
 	}
 
 	/**
@@ -1251,7 +1251,7 @@ class Query
 
 	public function increment($column, $increment = 1)
 	{
-		return $this->update([$column => new Raw($this->getCompiler()->wrap($column) . ' + ' . (int) $increment)]);
+		return $this->update([$column => new Raw($this->getCompiler()->escapeIdentifier($column) . ' + ' . (int) $increment)]);
 	}
 
 	/**
@@ -1265,7 +1265,7 @@ class Query
 
 	public function decrement($column, $decrement = 1)
 	{
-		return $this->update([$column => new Raw($this->getCompiler()->wrap($column) . ' - ' . (int) $decrement)]);
+		return $this->update([$column => new Raw($this->getCompiler()->escapeIdentifier($column) . ' - ' . (int) $decrement)]);
 	}
 
 	/**

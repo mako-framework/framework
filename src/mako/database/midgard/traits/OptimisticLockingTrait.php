@@ -8,6 +8,7 @@
 namespace mako\database\midgard\traits;
 
 use \mako\database\midgard\traits\StaleRecordException;
+use \mako\database\query\Raw;
 
 /**
  * Optimistic locking trait.
@@ -17,6 +18,36 @@ use \mako\database\midgard\traits\StaleRecordException;
 
 trait OptimisticLockingTrait
 {
+	/**
+	 * Returns trait hooks.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function getOptimisticLockingTraitHooks()
+	{
+		return 
+		[
+			'onInsert' =>
+			[
+				function($values, $query)
+				{
+					return $values + [$this->getLockingColumn() => 0];
+				},
+			],
+			'onUpdate' => 
+			[
+				function($values, $query)
+				{
+					$lockingColumn = $this->getLockingColumn();
+
+					return $values + [$lockingColumn => new Raw($query->getCompiler()->escapeIdentifier($lockingColumn) . ' + 1')];
+				},
+			],
+		];
+	}
+
 	/**
 	 * Making sure that cloning returns a "fresh copy" of the record.
 	 * 
