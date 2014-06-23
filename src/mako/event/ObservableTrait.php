@@ -30,11 +30,11 @@ trait ObservableTrait
 	 * Attach an observer.
 	 * 
 	 * @access  public
-	 * @param   string                  $event     Event name
-	 * @param   string|object|\Closure  $observer  Observer class name, observer instance or observer closure
+	 * @param   string    $event     Event name
+	 * @param   \Closure  $observer  Observer closure
 	 */
 
-	public function attachObserver($event, $observer)
+	public function attachObserver($event, Closure $observer)
 	{
 		$this->_observers[$event][] = $observer;
 	}
@@ -49,28 +49,6 @@ trait ObservableTrait
 	public function hasObserver($event)
 	{
 		return ! empty($this->_observers[$event]);
-	}
-	
-	/**
-	 * Detach an observer.
-	 * 
-	 * @access  public
-	 * @param   string         $event     Event name
-	 * @param   string|object  $observer  Observer class name or observer instance
-	 */
-
-	public function detachObserver($event, $observer)
-	{
-		if(isset($this->_observers[$event]))
-		{
-			foreach($this->_observers[$event] as $key => $_observer)
-			{
-				if($_observer instanceof $observer || $_observer === $observer)
-				{
-					unset($this->_observers[$event][$key]);
-				}
-			}
-		}
 	}
 
 	/**
@@ -96,8 +74,8 @@ trait ObservableTrait
 	 * Overrides an observer.
 	 * 
 	 * @access  public
-	 * @param   string                  $event    Event name
-	 * @param   string|object|\Closure  $closure  Event handler
+	 * @param   string    $event    Event name
+	 * @param   \Closure  $closure  Event handler
 	 */
 
 	public function overrideObservers($event, $observer)
@@ -120,21 +98,10 @@ trait ObservableTrait
 	{
 		$returnValues = [];
 
-		// Notify observers
-
 		if(isset($this->_observers[$event]))
 		{
 			foreach($this->_observers[$event] as $observer)
 			{
-				if(!is_object($observer))
-				{
-					$observer = [new $observer, 'update'];
-				}
-				elseif(!($observer instanceof Closure))
-				{
-					$observer = [$observer, 'update'];
-				}
-
 				$returnValues[] = $last = call_user_func_array($observer, $parameters);
 
 				if($break && $last === false)
@@ -143,8 +110,6 @@ trait ObservableTrait
 				}
 			}
 		}
-
-		// Return all return values from the observers
 
 		return $returnValues;
 	}

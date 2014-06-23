@@ -66,7 +66,7 @@ class Listener
 		}
 		else
 		{
-			unset($this->events[$name]);
+			$this->events[$name] = [];
 		}
 	}
 
@@ -98,13 +98,13 @@ class Listener
 
 	public function trigger($name, array $params = [], $break = false)
 	{
-		$values = [];
+		$returnValues = [];
 
 		if(isset($this->events[$name]))
 		{
 			foreach($this->events[$name] as $event)
 			{
-				$values[] = $last = call_user_func_array($event, $params);
+				$returnValues[] = $last = call_user_func_array($event, $params);
 
 				if($break && $last === false)
 				{
@@ -113,6 +113,6 @@ class Listener
 			}
 		}
 
-		return $values;
+		return $returnValues;
 	}
 }

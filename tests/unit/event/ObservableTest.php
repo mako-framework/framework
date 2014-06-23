@@ -26,23 +26,6 @@ class Observable
 	}
 }
 
-class Observer1
-{
-	public function update()
-	{
-		return 'observer1';
-	}
-}
-
-class Observer2
-{
-	public function update()
-	{
-		return 'observer2';
-	}
-}
-
-
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -128,11 +111,7 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 
 		$observable->attachObserver('foo', function(){ return 'bar'; });
 
-		$observable->attachObserver('foo', '\mako\tests\unit\event\Observer1');
-
-		$observable->attachObserver('foo',  new \mako\tests\unit\event\Observer2);
-
-		$this->assertEquals([false, 'foo', 'bar', 'observer1', 'observer2'], $observable->notifyFoo());
+		$this->assertEquals([false, 'foo', 'bar'], $observable->notifyFoo());
 	}
 
 	/**
@@ -184,39 +163,5 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 		$observable->overrideObservers('foo', function(){ return 'baz'; });
 
 		$this->assertEquals(['baz'], $observable->notifyFoo('foo'));
-	}
-
-	/**
-	 * 
-	 */
-
-	public function testDetachObserverString()
-	{
-		$observable = new Observable;
-
-		$observable->attachObserver('foo', '\mako\tests\unit\event\Observer1');
-
-		$this->assertEquals(['observer1'], $observable->notifyFoo('foo'));
-
-		$observable->detachObserver('foo', '\mako\tests\unit\event\Observer1');
-
-		$this->assertEquals([], $observable->notifyFoo('foo'));
-	}
-
-	/**
-	 * 
-	 */
-
-	public function testDetachObserverInstance()
-	{
-		$observable = new Observable;
-
-		$observable->attachObserver('foo', new \mako\tests\unit\event\Observer1);
-
-		$this->assertEquals(['observer1'], $observable->notifyFoo('foo'));
-
-		$observable->detachObserver('foo', new \mako\tests\unit\event\Observer1);
-
-		$this->assertEquals([], $observable->notifyFoo('foo'));
 	}
 }
