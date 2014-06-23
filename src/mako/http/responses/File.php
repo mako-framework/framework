@@ -244,7 +244,7 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 
 				$response->status(206);
 
-				$response->header('content-range', 'bytes ' . sprintf('%s-%s/%s', $range['start'], $range['end'], $this->fileSize));
+				$response->header('content-range', sprintf('bytes %s-%s/%s', $range['start'], $range['end'], $this->fileSize));
 
 				$response->header('content-length', $range['end'] - $range['start'] + 1);
 			}
