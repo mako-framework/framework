@@ -29,14 +29,18 @@ trait OptimisticLockingTrait
 	{
 		return 
 		[
-			'onInsert' =>
+			'beforeInsert' =>
 			[
 				function($values, $query)
 				{
-					return $values + [$this->getLockingColumn() => 1];
+					$lockingColumn = $this->getLockingColumn();
+
+					$this->columns[$lockingColumn] = 1;
+
+					return $values + [$lockingColumn => 1];
 				},
 			],
-			'onUpdate' => 
+			'beforeUpdate' => 
 			[
 				function($values, $query)
 				{
@@ -123,20 +127,6 @@ trait OptimisticLockingTrait
 	public function getLockVersion()
 	{
 		return $this->columns[$this->getLockingColumn()];
-	}
-
-	/**
-	 * Inserts a new record into the database.
-	 * 
-	 * @access  protected
-	 * @param   \mako\database\midgard\Query  $query  Query builder
-	 */
-
-	protected function insertRecord($query)
-	{
-		$this->columns[$this->getLockingColumn()] = 1;
-
-		parent::insertRecord($query);
 	}
 
 	/**

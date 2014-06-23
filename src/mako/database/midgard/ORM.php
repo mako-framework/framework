@@ -290,7 +290,7 @@ abstract class ORM
 
 	protected function registerHooks()
 	{
-		$class = $model = get_class($this);
+		$class = $model = get_called_class();
 
 		if(!isset(static::$hooks[$model]))
 		{
@@ -313,31 +313,38 @@ abstract class ORM
 	}
 
 	/**
-	 * Returns the model onInsert hooks.
+	 * Binds the hooks to the current instance of "$this".
 	 * 
-	 * @access  public
+	 * @access  protected
+	 * @param   array      $hooks  Array of hooks
 	 * @return  array
 	 */
 
-	public function getOnInsertHooks()
+	protected function bindHooks(array $hooks)
 	{
-		$model = get_class($this);
+		$bound = [];
 
-		return isset(static::$hooks[$model]['onInsert']) ? static::$hooks[$model]['onInsert'] : [];
+		foreach($hooks as $hook)
+		{
+			$bound[] = $hook->bindTo($this);
+		}
+
+		return $bound;
 	}
 
 	/**
-	 * Returns the model onUpdate hooks.
+	 * Returns hooks for the chosen event.
 	 * 
 	 * @access  public
+	 * @param   string  $event  Event name
 	 * @return  array
 	 */
 
-	public function getOnUpdateHooks()
+	public function getHooks($event)
 	{
-		$model = get_class($this);
+		$model = get_called_class();
 
-		return isset(static::$hooks[$model]['onUpdate']) ? static::$hooks[$model]['onUpdate'] : [];
+		return isset(static::$hooks[$model][$event]) ? $this->bindHooks(static::$hooks[$model][$event]) : [];
 	}
 
 	/**
@@ -362,7 +369,7 @@ abstract class ORM
 
 	protected function getClassShortName($className = null)
 	{
-		return basename(str_replace('\\', '/', $className ?: get_class($this)));
+		return basename(str_replace('\\', '/', $className ?: get_called_class()));
 	}
 
 	/**
@@ -427,7 +434,7 @@ abstract class ORM
 
 	public function getClass()
 	{
-		return '\\' . get_class($this);
+		return '\\' . get_called_class();
 	}
 
 	/**
@@ -544,7 +551,7 @@ abstract class ORM
 		}
 		else
 		{
-			throw new RunTimeException(vsprintf("%s(): Unknown column [ %s ].", [__METHOD__, $name]));
+			throw new RunTimeException(vsprintf("%s::%s(): Unknown column [ %s ].", [get_called_class(), __FUNCTION__, $name]));
 		}
 	}
 
@@ -906,7 +913,7 @@ abstract class ORM
 
 	protected function generatePrimaryKey()
 	{
-		throw new RuntimeException(vsprintf("%s(): The '%s::generatePrimaryKey()' method must be implemented.", [__METHOD__, get_class($this)]));
+		throw new RuntimeException(vsprintf("%s(): The '%s::generatePrimaryKey()' method must be implemented.", [__METHOD__, get_called_class()]));
 	}
 
 	/**

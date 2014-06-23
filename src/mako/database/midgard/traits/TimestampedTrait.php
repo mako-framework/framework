@@ -28,21 +28,65 @@ trait TimestampedTrait
 	{
 		return 
 		[
-			'onInsert' =>
+			'beforeInsert' =>
 			[
 				function($values, $query)
 				{
 					$dateTime = new DateTime;
 
-					return [$this->getCreatedAtColumn() => $dateTime, $this->getUpdatedAtColumn() => $dateTime] + $values;
+					$createdAtColumn = $this->getCreatedAtColumn();
+
+					$updatedAtColumn = $this->getUpdatedAtColumn();
+
+					$this->columns[$createdAtColumn] = $dateTime;
+
+					$this->columns[$updatedAtColumn] = $dateTime;
+
+					return [$createdAtColumn => $dateTime, $updatedAtColumn => $dateTime] + $values;
 				},
 			],
-			'onUpdate' => 
+			'afterInsert' => 
+			[
+				function($inserted)
+				{
+					if($inserted && $this->exists)
+					{
+						$this->touchRelated();
+					}
+				}
+			],
+			'beforeUpdate' => 
 			[
 				function($values, $query)
 				{
-					return [$this->getUpdatedAtColumn() => new DateTime] + $values;
+					$dateTime = new DateTime;
+
+					$updatedAtColumn = $this->getUpdatedAtColumn();
+
+					$this->columns[$updatedAtColumn] = $dateTime;
+
+					return [$updatedAtColumn => $dateTime] + $values;
 				},
+			],
+			'afterUpdate' => 
+			[
+				function($updated)
+				{
+					if($updated > 0 && $this->exists)
+					{
+						$this->touchRelated();
+					}
+				}
+			],
+			'afterDelete' => 
+			[
+				function($deleted)
+				{
+					if($deleted > 0 && $this->exists)
+					{
+						$this->touchRelated();
+					}
+				}
 			],
 		];
 	}
@@ -110,63 +154,28 @@ trait TimestampedTrait
 
 	protected function touchRelated()
 	{
-		foreach($this->touch as $touch)
-		{
-			$touch = explode('.', $touch);
-
-			$relation = $this->{array_shift($touch)}();
-
-			foreach($touch as $nested)
+		if(!empty($this->touch))
+		{			
+			foreach($this->touch as $touch)
 			{
-				$related = $relation->first();
+				$touch = explode('.', $touch);
 
-				if($related === false)
+				$relation = $this->{array_shift($touch)}();
+
+				foreach($touch as $nested)
 				{
-					continue 2;
+					$related = $relation->first();
+
+					if($related === false)
+					{
+						continue 2;
+					}
+
+					$relation = $related->$nested();
 				}
 
-				$relation = $related->$nested();
+				$relation->update([$relation->getModel()->getUpdatedAtColumn() => null]);
 			}
-
-			$relation->update([$relation->getModel()->getUpdatedAtColumn() => null]);
 		}
-	}
-
-	/**
-	 * Saves the record to the database.
-	 * 
-	 * @access  public
-	 * @return  boolean
-	 */
-
-	public function save()
-	{
-		// Set timestamps
-
-		$dateTime = new DateTime;
-
-		if(!$this->exists)
-		{
-			$this->columns[$this->getCreatedAtColumn()] = $dateTime;
-		}
-
-		if(!$this->exists || $this->isModified())
-		{
-			$this->columns[$this->getUpdatedAtColumn()] = $dateTime;
-		}
-		// Save record
-
-		$saved = parent::save();
-
-		// Touch related records
-
-		if($saved === true && !empty($this->touch))
-		{
-			$this->touchRelated();
-		}
-
-		// Return save status
-
-		return $saved;
 	}
 }

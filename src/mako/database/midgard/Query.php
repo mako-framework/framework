@@ -108,12 +108,27 @@ class Query extends \mako\database\query\Query
 			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to create a read-only record.", [__METHOD__]));
 		}
 
-		foreach($this->model->getOnInsertHooks() as $hook)
+		// Execute "beforeInsert" hooks
+
+		foreach($this->model->getHooks('beforeInsert') as $hook)
 		{
 			$values = $hook($values, $this);
 		}
 
-		return parent::insert($values);
+		// Insert record
+
+		$inserted = parent::insert($values);
+
+		// Execute "afterInsert" hooks
+
+		foreach($this->model->getHooks('afterInsert') as $hook)
+		{
+			$hook($inserted);
+		}
+
+		// Return insert status
+
+		return $inserted;
 	}
 
 	/**
@@ -131,12 +146,27 @@ class Query extends \mako\database\query\Query
 			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to update a read-only record.", [__METHOD__]));
 		}
 
-		foreach($this->model->getOnUpdateHooks() as $hook)
+		// Execute "beforeUpdate" hooks
+
+		foreach($this->model->getHooks('beforeUpdate') as $hook)
 		{
 			$values = $hook($values, $this);
 		}
 
-		return parent::update($values);
+		// Update record(s)
+
+		$updated = parent::update($values);
+
+		// Execute "afterUpdate" hooks
+
+		foreach($this->model->getHooks('afterUpdate') as $hook)
+		{
+			$hook($updated);
+		}
+
+		// Return number of affected rows
+
+		return $updated;
 	}
 
 	/**
@@ -153,7 +183,23 @@ class Query extends \mako\database\query\Query
 			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to delete a read-only record.", [__METHOD__]));
 		}
 
-		return parent::delete();
+		// Execute "beforeDelete" hooks
+
+		foreach($this->model->getHooks('beforeDelete') as $hook)
+		{
+			$hook($this);
+		}
+
+		$deleted = parent::delete();
+
+		// Execute "afterDelete" hooks
+
+		foreach($this->model->getHooks('afterDelete') as $hook)
+		{
+			$hook($deleted);
+		}
+
+		return $deleted;
 	}
 
 	/**
