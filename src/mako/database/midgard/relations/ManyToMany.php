@@ -49,11 +49,11 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null, $junctionTable = null, $junctionKey = null)
 	{
-		parent::__construct($connection, $parent, $related, $foreignKey);
-		
 		$this->junctionTable = $junctionTable;
-
+		
 		$this->junctionKey = $junctionKey;
+		
+		parent::__construct($connection, $parent, $related, $foreignKey);
 
 		$this->junctionJoin();
 	}
