@@ -9,6 +9,7 @@ namespace mako\auth;
 
 use \LogicException;
 
+use \mako\auth\providers\UserProviderInterface;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\session\Session;
@@ -78,20 +79,20 @@ class Gatekeeper
 	protected $session;
 
 	/**
+	 * User provider.
+	 * 
+	 * @var \mako\auth\UserProviderInterface
+	 */
+
+	protected $userProvider;
+
+	/**
 	 * Auth key.
 	 * 
 	 * @var string
 	 */
 
 	protected $authKey = 'gatekeeper_auth_key';
-
-	/**
-	 * User model class.
-	 * 
-	 * @var string
-	 */
-
-	protected $userModel = '\mako\auth\models\User';
 
 	/**
 	 * Cookie options.
@@ -124,11 +125,12 @@ class Gatekeeper
 	 * @param   \mako\session\Session  $session   Session instance
 	 */
 
-	public function __construct(Request $request, Response $response, Session $session)
+	public function __construct(Request $request, Response $response, Session $session, UserProviderInterface $userProvider)
 	{
-		$this->request  = $request;
-		$this->response = $response;
-		$this->session  = $session;
+		$this->request      = $request;
+		$this->response     = $response;
+		$this->session      = $session;
+		$this->userProvider = $userProvider;
 	}
 
 	/**
@@ -149,23 +151,6 @@ class Gatekeeper
 	}
 
 	/**
-	 * Sets the user model.
-	 * 
-	 * @access  public
-	 * @param   string  $userModel  User model
-	 */
-
-	public function setUserModel($userModel)
-	{
-		if($this->isChecked)
-		{
-			throw new LogicException(vsprintf("%s(): Unable to alter user model after login check.", [__METHOD__]));
-		}
-
-		$this->userModel = $userModel;
-	}
-
-	/**
 	 * Sets cookie options.
 	 * 
 	 * @access  public
@@ -183,41 +168,42 @@ class Gatekeeper
 	}
 
 	/**
+	 * Returns the user provider instance.
+	 * 
+	 * @access  public
+	 * @return  \mako\auth\providers\UserProviderInterface
+	 */
+
+	public function getUserProvider()
+	{
+		return $this->userProvider;
+	}
+
+	/**
 	 * Creates a new user and returns the user object.
 	 * 
 	 * @access  public
-	 * @param   string                  $email     Email address
-	 * @param   string                  $username  Username
-	 * @param   string                  $password  Password
-	 * @param   boolean                 $activate  (optional) Will activate the user if set to true
-	 * @return  \mako\auth\models\User
+	 * @param   string                         $email     Email address
+	 * @param   string                         $username  Username
+	 * @param   string                         $password  Password
+	 * @param   boolean                        $activate  (optional) Will activate the user if set to true
+	 * @return  \mako\auth\user\UserInterface
 	 */
 
 	public function createUser($email, $username, $password, $activate = false)
 	{
-		$user = new $this->userModel;
+		$user = $this->userProvider->createUser($email, $username, $password, $this->request->ip());
 
-		$user->email      = $email;
-		$user->username   = $username;
-		$user->password   = $password;
-		$user->ip         = $this->request->ip();
+		$user->generateActionToken();
 
-		// Activate the user if nessesary
+		$user->generateAccessToken();
 
-		if($activate === true)
+		if($activate)
 		{
 			$user->activate();
 		}
 
-		// Save the user, generate an auth token and save again
-
 		$user->save();
-
-		$user->generateToken();
-
-		$user->save();
-
-		// Return the newly created user
 
 		return $user;
 	}
@@ -232,27 +218,21 @@ class Gatekeeper
 
 	public function activateUser($token)
 	{
-		$model = $this->userModel;
+		$user = $this->userProvider->getByActionToken($token);
 
-		$user = $model::where('token', '=', $token)->where('activated', '=', 0)->first();
-
-		if(!$user)
+		if($user === false)
 		{
-			// No such token exists. Return FALSE
-
 			return false;
 		}
 		else
 		{
-			// Activate the user and generate a new auth token. Return TRUE
-
 			$user->activate();
 
-			$user->generateToken();
+			$user->generateActionToken();
 
 			$user->save();
 
-			return true;
+			return $user;
 		}
 	}
 
@@ -260,7 +240,7 @@ class Gatekeeper
 	 * Checks if a user is logged in.
 	 * 
 	 * @access  protected
-	 * @return  \gatekeeper\models\User|null
+	 * @return  mako\auth\user\UserInterface|null
 	 */
 
 	protected function check()
@@ -283,13 +263,15 @@ class Gatekeeper
 
 			if($token !== false)
 			{
-				$model = $this->userModel;
+				$user = $this->userProvider->getByAccessToken($token);
 
-				$this->user = $model::where('token', '=', $token)->first();
-
-				if($this->user === false || $this->user->isBanned() || !$this->user->isActivated())
+				if($user === false || $user->isBanned() || !$user->isActivated())
 				{
 					$this->logout();
+				}
+				else
+				{
+					$this->user = $user;
 				}
 			}
 
@@ -329,10 +311,10 @@ class Gatekeeper
 	 * Returns the authenticated user or NULL if no user is logged in.
 	 * 
 	 * @access  public
-	 * @return  null|\mako\auth\models\User
+	 * @return  null|\mako\auth\user\UserInterface
 	 */
 
-	public function user()
+	public function getUser()
 	{
 		return $this->check();
 	}
@@ -350,11 +332,9 @@ class Gatekeeper
 
 	protected function authenticate($email, $password, $force = false)
 	{
-		$model = $this->userModel;
+		$user = $this->userProvider->getByEmail($email);
 
-		$user = $model::where('email', '=', $email)->first();
-
-		if($user !== false && ($user->validatePassword($password) || $force))
+		if($user !== false && ($this->userProvider->validatePassword($user, $password) || $force))
 		{
 			if(!$user->isActivated())
 			{
@@ -389,17 +369,22 @@ class Gatekeeper
 
 	public function login($email, $password, $remember = false, $force = false)
 	{
+		if(empty($email) || empty($password))
+		{
+			return false;
+		}
+
 		$authenticated = $this->authenticate($email, $password, $force);
 
 		if($authenticated === true)
 		{
 			$this->session->regenerateId();
 
-			$this->session->put($this->authKey, $this->user->token);
+			$this->session->put($this->authKey, $this->user->getAccessToken());
 
 			if($remember === true)
 			{
-				$this->response->signedCookie($this->authKey, $this->user->token, (3600 * 24 * 365), $this->cookieOptions);
+				$this->response->signedCookie($this->authKey, $this->user->getAccessToken(), (3600 * 24 * 365), $this->cookieOptions);
 			}
 
 			return true;

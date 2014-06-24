@@ -8,6 +8,7 @@
 namespace mako\application\services;
 
 use \mako\auth\Gatekeeper;
+use \mako\auth\providers\UserProvider;
 
 /**
  * Gatekeeper service.
@@ -29,11 +30,9 @@ class GatekeeperService extends \mako\application\services\Service
 		{
 			$config = $container->get('config')->get('gatekeeper');
 
-			$gatekeeper = new Gatekeeper($container->get('request'), $container->get('response'), $container->get('session'));
+			$userProvider = new UserProvider($config['user_model']);
 
-			$gatekeeper->setAuthKey($config['auth_key']);
-
-			$gatekeeper->setUserModel($config['user_model']);
+			$gatekeeper = new Gatekeeper($container->get('request'), $container->get('response'), $container->get('session'), $userProvider);
 
 			$gatekeeper->setCookieOptions($config['cookie_options']);
 

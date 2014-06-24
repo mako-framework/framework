@@ -238,6 +238,9 @@ class Response
 			$this->headers = $this->headers + $body->getHeaders();
 
 			$this->cookies = $this->cookies + $body->getCookies();
+
+			var_dump($this->status);
+			var_dump($this->headers);
 		}
 		else
 		{
@@ -571,14 +574,7 @@ class Response
 	{
 		// Send status header
 
-		if($this->request->isCGI())
-		{
-			$protocol = 'Status:';
-		}
-		else
-		{
-			$protocol = $this->request->server('SERVER_PROTOCOL', 'HTTP/1.1');
-		}
+		$protocol = $this->request->server('SERVER_PROTOCOL', 'HTTP/1.1');
 
 		header($protocol . ' ' . $this->statusCode . ' ' . $this->statusCodes[$this->statusCode]);
 
