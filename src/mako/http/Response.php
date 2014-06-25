@@ -238,9 +238,6 @@ class Response
 			$this->headers = $this->headers + $body->getHeaders();
 
 			$this->cookies = $this->cookies + $body->getCookies();
-
-			var_dump($this->status);
-			var_dump($this->headers);
 		}
 		else
 		{
