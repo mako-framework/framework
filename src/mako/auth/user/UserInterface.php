@@ -35,4 +35,5 @@ interface UserInterface
 	public function unban();
 	public function isBanned();
 	public function save();
+	public function delete();
 }

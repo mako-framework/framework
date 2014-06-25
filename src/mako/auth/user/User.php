@@ -18,7 +18,7 @@ use \mako\utility\UUID;
  * @author  Frederic G. Østby
  */
 
-class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInterface
+class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInterface, \mako\auth\group\MemberInterface
 {
 	use \mako\database\midgard\traits\TimestampedTrait;
 
@@ -279,5 +279,56 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	public function isBanned()
 	{
 		$this->banned == 1;
+	}
+
+	/**
+	 * Returns TRUE if a user is a member of the group(s) and FALSE if not.
+	 * 
+	 * @access  public
+	 * @param   string|int|array  $group  Group name, group id or an array of group names or group ids
+	 * @return  boolean
+	 */
+
+	public function isMemberOf($group)
+	{
+		if(!$this->exists)
+		{
+			throw new LogicException(vsprintf("%s(): You can only check memberships for users that exist in the database.", [__METHOD__]));
+		}
+
+		foreach((array) $group as $check)
+		{
+			foreach($this->groups as $userGroup)
+			{
+				if(is_int($check))
+				{
+					if((int) $userGroup->getId() === $check)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					if($userGroup->getName() === $check)
+					{
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * User groups.
+	 * 
+	 * @access  public
+	 * @return  \mako\database\midgard\relations\ManyToMany
+	 */
+
+	public function groups()
+	{
+		return $this->manyToMany('mako\auth\group\Group');
 	}
 }

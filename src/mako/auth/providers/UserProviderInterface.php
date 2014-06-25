@@ -17,9 +17,10 @@ use \mako\auth\user\UserInterface;
 
 interface UserProviderInterface
 {
-	public function createUser($email, $username, $password, $ip);
+	public function createUser($email, $username, $password, $ip = null);
 	public function getByActionToken($token);
 	public function getByAccessToken($token);
 	public function getByEmail($email);
+	public function getById($id);
 	public function validatePassword(UserInterface $user, $password);
 }

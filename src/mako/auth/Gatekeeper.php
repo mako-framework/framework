@@ -9,6 +9,7 @@ namespace mako\auth;
 
 use \LogicException;
 
+use \mako\auth\providers\GroupProviderInterface;
 use \mako\auth\providers\UserProviderInterface;
 use \mako\http\Request;
 use \mako\http\Response;
@@ -87,6 +88,14 @@ class Gatekeeper
 	protected $userProvider;
 
 	/**
+	 * Group provider.
+	 * 
+	 * @var \mako\auth\GroupProviderInterface
+	 */
+
+	protected $groupProvider;
+
+	/**
 	 * Auth key.
 	 * 
 	 * @var string
@@ -120,17 +129,20 @@ class Gatekeeper
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Request     $request   Request instance
-	 * @param   \mako\http\Response    $response  Response instance
-	 * @param   \mako\session\Session  $session   Session instance
+	 * @param   \mako\http\Request                           $request        Request instance
+	 * @param   \mako\http\Response                          $response       Response instance
+	 * @param   \mako\session\Session                        $session        Session instance
+	 * @param   \mako\auth\providers\UserProviderInterface   $userProvider   User provider
+	 * @param   \mako\auth\providers\GroupProviderInterface  $groupProvider  (optional) Group provider
 	 */
 
-	public function __construct(Request $request, Response $response, Session $session, UserProviderInterface $userProvider)
+	public function __construct(Request $request, Response $response, Session $session, UserProviderInterface $userProvider, GroupProviderInterface $groupProvider = null)
 	{
-		$this->request      = $request;
-		$this->response     = $response;
-		$this->session      = $session;
-		$this->userProvider = $userProvider;
+		$this->request       = $request;
+		$this->response      = $response;
+		$this->session       = $session;
+		$this->userProvider  = $userProvider;
+		$this->groupProvider = $groupProvider;
 	}
 
 	/**
@@ -180,6 +192,18 @@ class Gatekeeper
 	}
 
 	/**
+	 * Returns the group provider instance.
+	 * 
+	 * @access  public
+	 * @return  \mako\auth\providers\GroupProviderInterface
+	 */
+
+	public function getGroupProvider()
+	{
+		return $this->groupProvider;
+	}
+
+	/**
 	 * Creates a new user and returns the user object.
 	 * 
 	 * @access  public
@@ -206,6 +230,21 @@ class Gatekeeper
 		$user->save();
 
 		return $user;
+	}
+
+	/**
+	 * Creates a new group and returns the group object.
+	 * 
+	 * @access  public
+	 * @param   string                           $name  Group name
+	 * @return  \mako\auth\group\GroupInterface
+	 */
+
+	public function createGroup($name)
+	{
+		$group = $this->groupProvider->createGroup($name);
+
+		return $group;
 	}
 
 	/**
