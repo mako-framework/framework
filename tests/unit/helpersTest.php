@@ -6,7 +6,7 @@ namespace mako\tests\unit;
  * @group unit
  */
 
-class ArrTest extends \PHPUnit_Framework_TestCase
+class helpersTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 

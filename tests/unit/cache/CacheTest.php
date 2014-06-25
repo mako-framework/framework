@@ -10,7 +10,7 @@ use \Mockery as m;
  * @group unit
  */
 
-class ArrTest extends \PHPUnit_Framework_TestCase
+class CacheTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 
