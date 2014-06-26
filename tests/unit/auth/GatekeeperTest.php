@@ -34,18 +34,24 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function getSession()
+	public function getResponse()
 	{
-		return m::mock('\mako\session\Session');
+		return m::mock('\mako\http\Response');
 	}
 
 	/**
 	 * 
 	 */
 
-	public function getResponse()
+	public function getSession()
 	{
-		return m::mock('\mako\http\Response');
+		$store = m::mock('\mako\session\stores\StoreInterface');
+
+		$store->shouldReceive('gc');
+
+		$session = m::mock('\mako\session\Session', [$this->getRequest(), $this->getResponse(), $store]);
+
+		return $session;
 	}
 
 	/**
@@ -143,7 +149,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('createUser')->once()->with('foo@example.org', 'foo', 'password', '127.0.0.1')->andReturn($user);
 
-		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
+		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $this->getSession(), $userProvider);
 
 		$this->assertInstanceOf('mako\auth\user\UserInterface', $gatekeeper->createUser('foo@example.org', 'foo', 'password'));
 	}
@@ -172,7 +178,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('createUser')->once()->with('foo@example.org', 'foo', 'password', '127.0.0.1')->andReturn($user);
 
-		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
+		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $this->getSession(), $userProvider);
 
 		$this->assertInstanceOf('mako\auth\user\UserInterface', $gatekeeper->createUser('foo@example.org', 'foo', 'password', true));
 	}
@@ -202,7 +208,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('getByActionToken')->once()->with('foobar')->andReturn(false);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
 
 		$this->assertFalse($gatekeeper->activateUser('foobar'));
 	}
@@ -225,7 +231,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('getByActionToken')->once()->with('foobar')->andReturn($user);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
 
 		$this->assertInstanceOf('mako\auth\user\UserInterface', $gatekeeper->activateUser('foobar'));
 	}
@@ -244,7 +250,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('signedCookie')->times(3)->with('gatekeeper_auth_key', false)->andReturn(false);
 
-		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $session, $this->getUserProvider(), $this->getGroupProvider());
+		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $session, $this->getUserProvider());
 
 		$this->assertTrue($gatekeeper->isGuest());
 
@@ -281,12 +287,302 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$response->shouldReceive('deleteCookie')->times(3)->with('gatekeeper_auth_key', $this->getCookieOptions());
 
-		$gatekeeper = new Gatekeeper($request, $response, $session, $userProvider, $this->getGroupProvider());
+		$gatekeeper = new Gatekeeper($request, $response, $session, $userProvider);
 
 		$this->assertTrue($gatekeeper->isGuest());
 
 		$this->assertFalse($gatekeeper->isLoggedIn());
 
 		$this->assertNull($gatekeeper->getUser());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testAuthentication()
+	{
+		$session = $this->getSession();
+
+		$session->shouldReceive('get')->once()->with('gatekeeper_auth_key', false)->andReturn('token');
+
+		$user = $this->getUser();
+
+		$user->shouldReceive('isBanned')->once()->andReturn(false);
+
+		$user->shouldReceive('isActivated')->once()->andReturn(true);
+
+		$userProvider = $this->getUserProvider();
+
+		$userProvider->shouldReceive('getByAccessToken')->once()->with('token')->andReturn($user);
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider);
+
+		$this->assertFalse($gatekeeper->isGuest());
+
+		$this->assertTrue($gatekeeper->isLoggedIn());
+
+		$this->assertInstanceOf('mako\auth\user\UserInterface', $gatekeeper->getUser());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testLoginWithWrongEmail()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn(false);
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+
+		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $gatekeeper->login('foo@example.org', 'password'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testLoginWithWrongPassword()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$user = $this->getUser();
+
+		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
+
+		$userProvider->shouldReceive('validatePassword')->once()->andReturn(false);
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+
+		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $gatekeeper->login('foo@example.org', 'password'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testLoginForNonActivatedUser()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$user = $this->getUser();
+
+		$user->shouldReceive('isActivated')->once()->andReturn(false);
+
+		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
+
+		$userProvider->shouldReceive('validatePassword')->once()->andReturn(true);
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+
+		$this->assertEquals(Gatekeeper::LOGIN_ACTIVATING, $gatekeeper->login('foo@example.org', 'password'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testLoginForBannedUser()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$user = $this->getUser();
+
+		$user->shouldReceive('isActivated')->once()->andReturn(true);
+
+		$user->shouldReceive('isBanned')->once()->andReturn(true);
+
+		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
+
+		$userProvider->shouldReceive('validatePassword')->once()->andReturn(true);
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+
+		$this->assertEquals(Gatekeeper::LOGIN_BANNED, $gatekeeper->login('foo@example.org', 'password'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSuccessfulLogin()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$user = $this->getUser();
+
+		$user->shouldReceive('isActivated')->once()->andReturn(true);
+
+		$user->shouldReceive('isBanned')->once()->andReturn(false);
+
+		$user->shouldReceive('getAccessToken')->once()->andReturn('token');
+
+		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
+
+		$userProvider->shouldReceive('validatePassword')->once()->andReturn(true);
+
+		$session = $this->getSession();
+
+		$session->shouldReceive('regenerateId')->once();
+
+		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider);
+
+		$this->assertTrue($gatekeeper->login('foo@example.org', 'password'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSuccessfulLoginWithRememberMe()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$user = $this->getUser();
+
+		$user->shouldReceive('isActivated')->once()->andReturn(true);
+
+		$user->shouldReceive('isBanned')->once()->andReturn(false);
+
+		$user->shouldReceive('getAccessToken')->twice()->andReturn('token');
+
+		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
+
+		$userProvider->shouldReceive('validatePassword')->once()->andReturn(true);
+
+		$session = $this->getSession();
+
+		$session->shouldReceive('regenerateId')->once();
+
+		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+
+		$response = $this->getResponse();
+
+		$response->shouldReceive('signedCookie')->once()->with('gatekeeper_auth_key', 'token', 31536000, $this->getCookieOptions());
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $response, $session, $userProvider);
+
+		$this->assertTrue($gatekeeper->login('foo@example.org', 'password', true));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testForcedLogin()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$user = $this->getUser();
+
+		$user->shouldReceive('isActivated')->once()->andReturn(true);
+
+		$user->shouldReceive('isBanned')->once()->andReturn(false);
+
+		$user->shouldReceive('getAccessToken')->once()->andReturn('token');
+
+		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
+
+		$userProvider->shouldReceive('validatePassword')->once()->andReturn(false);
+
+		$session = $this->getSession();
+
+		$session->shouldReceive('regenerateId')->once();
+
+		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider);
+
+		$this->assertTrue($gatekeeper->forceLogin('foo@example.org'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testBasicAuth()
+	{
+		$request = $this->getRequest();
+
+		$request->shouldReceive('username')->once()->andReturn(null);
+
+		$request->shouldReceive('password')->once()->andReturn(null);
+
+		$response = $this->getResponse();
+
+		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$request, $response, $this->getSession(), $this->getUserProvider()])->makePartial();
+
+		$gatekeeper->shouldReceive('isLoggedIn')->once()->andReturn(false);
+
+		$gatekeeper->shouldReceive('login')->once()->with(null, null)->andReturn(false);
+
+		$response = $gatekeeper->basicAuth();
+
+		$this->assertInstanceOf('mako\http\Response', $response);
+
+		$this->assertEquals(401, $response->getStatus());
+
+		$this->assertEquals('Authentication required.', $response->getBody());
+
+		$this->assertEquals(['www-authenticate' => 'basic'], $response->getHeaders());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testBasicAuthIsLoggedIn()
+	{
+		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider()])->makePartial();
+
+		$gatekeeper->shouldReceive('isLoggedIn')->once()->andReturn(true);
+
+		$this->assertNull($gatekeeper->basicAuth());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testBasicAuthLoggingIn()
+	{
+		$request = $this->getRequest();
+
+		$request->shouldReceive('username')->once()->andReturn('foo@example.org');
+
+		$request->shouldReceive('password')->once()->andReturn('password');
+
+		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$request, $this->getResponse(), $this->getSession(), $this->getUserProvider()])->makePartial();
+
+		$gatekeeper->shouldReceive('isLoggedIn')->once()->andReturn(false);
+
+		$gatekeeper->shouldReceive('login')->once()->with('foo@example.org', 'password')->andReturn(true);
+
+		$this->assertNull($gatekeeper->basicAuth());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testLogout()
+	{
+		$session = $this->getSession();
+
+		$session->shouldReceive('regenerateId')->once();
+
+		$session->shouldReceive('remove')->once()->with('gatekeeper_auth_key');
+
+		$response = $this->getResponse();
+
+		$response->shouldReceive('deleteCookie')->once()->with('gatekeeper_auth_key', $this->getCookieOptions());
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $response, $session, $this->getUserProvider());
+
+		$gatekeeper->logout();
 	}
 }

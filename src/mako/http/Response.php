@@ -751,7 +751,7 @@ class Response
 
 			if($this->responseCache === true)
 			{
-				$hash = '"' . sha1($this->body) . '"';
+				$hash = '"' . hash('sha256', $this->body) . '"';
 
 				$this->header('ETag', $hash);
 

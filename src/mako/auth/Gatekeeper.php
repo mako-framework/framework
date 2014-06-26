@@ -408,9 +408,9 @@ class Gatekeeper
 
 	public function login($email, $password, $remember = false, $force = false)
 	{
-		if(empty($email) || empty($password))
+		if(empty($email))
 		{
-			return false;
+			return static::LOGIN_INCORRECT;
 		}
 
 		$authenticated = $this->authenticate($email, $password, $force);

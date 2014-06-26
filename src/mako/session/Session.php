@@ -186,7 +186,7 @@ class Session
 
 	protected function generateId()
 	{
-		return sha1(UUID::v4() . uniqid('session', true));
+		return hash('sha256', UUID::v4() . uniqid('session', true));
 	}
 
 	/**
