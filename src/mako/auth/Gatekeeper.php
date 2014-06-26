@@ -120,7 +120,7 @@ class Gatekeeper
 	/**
 	 * User instance.
 	 * 
-	 * @var \mako\auth\models\User
+	 * @var \mako\auth\user\User
 	 */
 
 	protected $user;
