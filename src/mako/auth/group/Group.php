@@ -38,7 +38,7 @@ class Group extends \mako\database\midgard\ORM implements \mako\auth\group\Group
 
 	public function getId()
 	{
-		$this->getPrimaryKeyValue();
+		return $this->getPrimaryKeyValue();
 	}
 
 	/**
