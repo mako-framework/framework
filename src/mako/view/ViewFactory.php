@@ -129,7 +129,7 @@ class ViewFactory
 
 		foreach($this->renderers as $extension => $renderer)
 		{
-			if(file_exists($path = mako_path($this->applicationPath, 'views', $view, $extension)))
+			if(file_exists($path = \mako\get_path($this->applicationPath, 'views', $view, $extension)))
 			{
 				return ['path' => $path, 'renderer' => $renderer];
 			}

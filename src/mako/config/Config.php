@@ -71,7 +71,7 @@ class Config
 	{
 		$found = false;
 
-		$paths = mako_cascading_paths($this->applicationPath, 'config', $file);
+		$paths = \mako\get_cascading_paths($this->applicationPath, 'config', $file);
 
 		foreach($paths as $path)
 		{
@@ -92,9 +92,9 @@ class Config
 
 		// Merge environment specific configuration
 
-		if(mako_env() !== null)
+		if(\mako\get_env() !== null)
 		{
-			$paths = mako_cascading_paths($this->applicationPath, 'config/' . mako_env(), $file);
+			$paths = \mako\get_cascading_paths($this->applicationPath, 'config/' . \mako\get_env(), $file);
 			
 			foreach($paths as $path)
 			{

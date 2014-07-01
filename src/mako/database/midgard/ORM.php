@@ -296,19 +296,13 @@ abstract class ORM
 		{
 			static::$hooks[$model] = [];
 
-			do
+			foreach(\mako\get_class_traits($class) as $trait)
 			{
-				foreach(class_uses($class) as $trait)
+				if(method_exists($this, $getter = 'get' . $this->getClassShortName($trait) . 'Hooks'))
 				{
-					$getter = 'get' . $this->getClassShortName($trait) . 'Hooks';
-
-					if(method_exists($this, $getter))
-					{
-						static::$hooks[$model] = array_merge_recursive(static::$hooks[$model], $this->$getter());
-					}
+					static::$hooks[$model] = array_merge_recursive(static::$hooks[$model], $this->$getter());
 				}
 			}
-			while($class = get_parent_class($class));
 		}
 	}
 
