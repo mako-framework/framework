@@ -382,7 +382,7 @@ class Migrate extends \mako\reactor\Task
 			$namespace = $package . '\migrations';
 		}
 
-		$file = mako_path($this->application->getApplicationPath(), 'migrations', $file);
+		$file = \mako\get_path($this->application->getApplicationPath(), 'migrations', $file);
 
 		// Create migration
 

@@ -5,13 +5,15 @@
  * @license    http://www.makoframework.com/license
  */
 
+namespace mako;
+
 /**
  * Returns the Mako environment. NULL is returned if no environment is specified.
  * 
  * @return  string|null
  */
 
-function mako_env()
+function get_env()
 {
 	return getenv('MAKO_ENV') ?: null;
 }
@@ -26,7 +28,7 @@ function mako_env()
  * @return  string
  */
 
-function mako_path($parentPath, $relativePath, $file, $ext = '.php')
+function get_path($parentPath, $relativePath, $file, $ext = '.php')
 {
 	if(strpos($file, '::') !== false)
 	{
@@ -52,7 +54,7 @@ function mako_path($parentPath, $relativePath, $file, $ext = '.php')
  * @return  array
  */
 
-function mako_cascading_paths($parentPath, $relativePath, $file, $ext = '.php')
+function get_cascading_paths($parentPath, $relativePath, $file, $ext = '.php')
 {
 	$paths = [];
 
@@ -70,4 +72,49 @@ function mako_cascading_paths($parentPath, $relativePath, $file, $ext = '.php')
 	}
 
 	return $paths;
+}
+
+/**
+ * Returns an array of all traits used by a class.
+ * 
+ * @param   string|object  $class     Class name or class instance
+ * @param   boolean        $autoload  (optional) Autoload
+ * @return  array
+ */
+
+function get_class_traits($class, $autoload = true)
+{
+	// Fetch all traits used by a class and its parents
+
+	$traits = [];
+
+	do
+	{
+		$traits += class_uses($class, $autoload);
+	}
+	while($class = get_parent_class($class));
+
+	// Find all traits used by the traits
+
+	$search = $traits;
+
+	$searched = [];
+
+	while(!empty($search))
+	{
+		$trait = array_pop($search);
+
+		if(isset($searched[$trait]))
+		{
+			continue;
+		}
+
+		$traits += $search += class_uses($trait, $autoload);
+
+		$searched[$trait] = $trait;
+	}
+
+	// Return complete list of traits used by the class
+
+	return $traits;
 }

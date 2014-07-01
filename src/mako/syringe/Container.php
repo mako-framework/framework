@@ -198,13 +198,7 @@ class Container
 
 	protected function isContainerAware($class)
 	{
-		$traits = [];
-
-		do
-		{
-			$traits += class_uses($class);
-		}
-		while($class = get_parent_class($class));
+		$traits = \mako\get_class_traits($class);
 
 		return isset($traits['mako\syringe\ContainerAwareTrait']);
 	}

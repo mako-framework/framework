@@ -26,7 +26,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	{
 		// Clear Mako environment for tests
 
-		$this->makoEnv = mako_env();
+		$this->makoEnv = \mako\get_env();
 
 		if(!empty($this->makoEnv))
 		{
