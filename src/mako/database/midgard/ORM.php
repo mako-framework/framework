@@ -290,17 +290,17 @@ abstract class ORM
 
 	protected function registerHooks()
 	{
-		$class = $model = get_called_class();
+		$class = get_called_class();
 
-		if(!isset(static::$hooks[$model]))
+		if(!isset(static::$hooks[$class]))
 		{
-			static::$hooks[$model] = [];
+			static::$hooks[$class] = [];
 
 			foreach(\mako\get_class_traits($class) as $trait)
 			{
 				if(method_exists($this, $getter = 'get' . $this->getClassShortName($trait) . 'Hooks'))
 				{
-					static::$hooks[$model] = array_merge_recursive(static::$hooks[$model], $this->$getter());
+					static::$hooks[$class] = array_merge_recursive(static::$hooks[$class], $this->$getter());
 				}
 			}
 		}
