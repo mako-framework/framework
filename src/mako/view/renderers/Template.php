@@ -46,7 +46,7 @@ class Template extends \mako\view\renderers\Renderer implements \mako\view\rende
 	 * 
 	 * @access  public
 	 * @param   string                         $path  Cache path
-	 * @return 	\mako\view\renderers\Template
+	 * @return  \mako\view\renderers\Template
 	 */
 
 	public function setCachePath($path)
