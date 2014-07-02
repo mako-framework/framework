@@ -1,392 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Error</title>
+	
+	<head>
+		<title>Error</title>
 
-<style type="text/css">
+		<style>
+			body, html
+			{
+				padding: 0;
+				margin: 0;
+			}
+			body
+			{
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			}
+			a
+			{
+				color: #BC1025;
+				cursor: pointer;
+			}
+			a:hover
+			{
+				text-decoration: underline;
+			}
+			table
+			{
+				width: 100%;
+				border: 1px solid #ccc;
+				background: #fff;
+				border-collapse: collapse;
+				margin-top: 10px;
+			}
+			table th
+			{
+				padding: 4px;
+				background: #ddd;
+				border-bottom: 1px solid #ccc;
+				text-align: left;
+			}
+			table td
+			{
+				padding: 4px;
+				border-bottom: 1px solid #ccc;
+				border-right: 1px solid #ccc;
+				vertical-align: middle;
+			}
+			table td
+			{
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				word-break: break-all;
+			}
+			.header
+			{
+				background: #BC1025;
+				padding: 10px;
+				color: #fff;
+				text-shadow: 1px 1px 0 #5E0806;
+			}
+			.header h2
+			{
+				color: #ddd;
+			}
+			.details
+			{
+				padding: 10px;
+			}
+			.panel
+			{
+				background: #eee;
+				padding: 10px;
+			}
+			.panel .frame
+			{
+				padding-bottom: 10px;
+				margin-bottom: 10px;
+				border-bottom: 1px solid #ccc;
+			}
+			.panel .frame .file
+			{
+				color: #888;
+			}
+			.panel .frame .line
+			{
+				
+			}
+			.panel .frame .class
+			{
+				font-style: italic;
+			}
+			.panel .frame .function
+			{
+				font-style: oblique;
+			}
+			.panel .frame:last-child
+			{
+				padding-bottom: 0;
+				margin-bottom: 0;
+				border-bottom: 0;
+			}
+			.panel .source pre
+			{
+				color: #fff;
+				background: #333;
+				overflow: auto;
+				word-wrap: normal;
+				padding: 10px;
+				border: 1px solid #ccc;
+			}
+			.panel .source pre span.code-line
+			{
+				width: 60px;
+				color: #888;
+				display: inline-block;
+			}
+			.panel .source pre div
+			{
+				margin: 0;
+				padding: 4px;
+			}
+			.panel .source pre div.highlight
+			{
+				color: #fff;
+				background: #BC1025;
+			}
+		</style>
+	</head>
 
-body
-{
-	height:100%;
-	background:#eee;
-	padding:0px;
-	margin:0px;
-	height: 100%;
-	font-size: 100%;
-	color:#333;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	line-height: 100%;
-}
-a
-{
-	cursor: pointer;
-	color: #841320;
-}
-a:hover, a:active
-{
-	color: #CD3F3F;
-}
-.pull-right
-{
-	float: right;
-}
-.transparent
-{
-	opacity: 0.5
-}
-.header
-{
-	background: #cd3f3f;
-	color: #fff;
-	padding: 20px;
-	text-shadow: 0 1px 0px #111;
-	border-bottom: 4px solid #841420;
-}
-.header .error
-{
-	font-size: 3em; /*  */
-	font-weight: bold;
-	margin-bottom: 10px;
-}
-.header hr
-{
-	background: transparent;
-	border: 0;
-	border-top: 1px solid #841420;
-	border-bottom: 1px solid #E6323C;
-	margin-top: 30px;
-	margin-bottom: 10px;
-}
-.header .details
-{
-	font-size: 1.2em;
-}
-.sub-header
-{
-	background: #333;
-	color: #fff;
-	text-shadow: 0 1px 0px #000;
-	padding: 20px;
-	font-size: 2em;
-}
-table
-{
-	width: 100%;
-	color: #333;
-	padding: 0;
-	margin: 0;
-	margin-top: 1em;
-}
-table td:first-child
-{
-	width: 10%;
-	background: #eee;
-	font-weight: bold;
-}
-table td:last-child
-{
-	width: 90%;
-}
-table td
-{
-	padding: 4px;
-	background: #fff;
-	border: 1px solid #999;
-	overflow: auto;
-}
-table td pre
-{
-	margin: 0;
-	padding :0;
-}
-.frame
-{
-	padding: 20px;
-	background: #fff;
-	border-bottom: 1px solid #ccc;
-}
-.frame:not(.frame-active):hover
-{
-	background: #F8E6E8;
-}
-.frame .class, .frame .line
-{
-	color: #841320;
-	font-weight: bold;
-}
-.frame .type
-{
-	font-weight: bold;
-}
-.frame .function
-{
-	font-weight: bold;
-}
-.frame .source
-{
-	padding-left: 10px;
-	padding-right: 10px;
-	background: #333;
-	border: 1px solid #000000;
-}
-.frame .inspect
-{
-	float: right;
-	background: #eee;
-	border: 1px solid #ccc;
-	padding: 5px;
-	font-weight: bold;
-	display: none;
-	cursor: pointer;
-}
-.frame-active
-{
-	background: #EAC7C9;
-}
-.toggle-table
-{
-	display: none;
-}
+	<body>
 
-/**
- * Prettyprint styles
- */
+		<div class="header">
+			<h1><?= $type ?> ( <?= $code ?> )</h1>
 
-pre { overflow: auto; word-wrap: normal; white-space: pre; -moz-tab-size: 4; -o-tab-size: 4; tab-size: 4; }
-pre .str, code .str { color: #BCD42A; }  /* string  */
-pre .kwd, code .kwd { color: #4bb1b1;  font-weight: bold; }  /* keyword*/
-pre .com, code .com { color: #888; font-weight: bold; } /* comment */
-pre .typ, code .typ { color: #ef7c61; }  /* type  */
-pre .lit, code .lit { color: #BCD42A; }  /* literal */
-pre .pun, code .pun { color: #fff; font-weight: bold;  } /* punctuation  */
-pre .pln, code .pln { color: #e9e4e5; }  /* plaintext  */
-pre .tag, code .tag { color: #4bb1b1; }  /* html/xml tag  */
-pre .htm, code .htm { color: #dda0dd; }  /* html tag */
-pre .xsl, code .xsl { color: #d0a0d0; }  /* xslt tag */
-pre .atn, code .atn { color: #ef7c61; font-weight: normal;} /* html/xml attribute name */
-pre .atv, code .atv { color: #bcd42a; }  /* html/xml attribute value  */
-pre .dec, code .dec { color: #606; }  /* decimal  */
-pre.prettyprint, code.prettyprint { font-family: 'Source Code Pro', Monaco, Consolas, "Lucida Console", monospace;; background: #333; color: #e9e4e5; font-size: 12px; }
-pre.prettyprint { white-space: pre-wrap; }
-pre.prettyprint a, code.prettyprint a { text-decoration:none; }
-.linenums li { color: #A5A5A5; }
-.linenums li.current{ background: rgba(205, 63, 63, .1); }
-.linenums li.current.active { background: rgba(205, 63, 63, .3); }
+			<?php if(!empty($message)): ?>
 
-</style>
+				<h2><?= rtrim($message, '.') ?>.</h2>
 
-</head>
-<body>
-
-<div class="header">
-
-	<div class="error">
-		<?= $type ?> <span class="pull-right transparent"><?= $code ?></span>
-	</div>
-
-	<?php if(!empty($message)): ?>
-
-	<hr>
-
-	<div class="details">
-		<?= $message ?>
-	</div>
-
-	<?php endif; ?>
-
-</div>
-
-<?php foreach($trace as $key => $frame): ?>
-
-<div class="frame <?php if($key === 0): ?>frame-active<?php endif; ?>">
-
-	<div class="inspect">INSPECT</div>
-
-	<?= (count($trace) - $key) ?>.
-
-	<?php if(!empty($frame['class'])): ?>
-
-		<span class="class"><?= $frame['class'] ?></span>
-
-	<?php endif; ?>
-
-	<?php if(!empty($frame['type'])): ?>
-
-		<span class="type"><?= $frame['type'] ?></span>
-
-	<?php endif; ?>
-
-	<?php if(!empty($frame['function'])): ?>
-
-		<span class="function"><?= $frame['function'] ?>()</span>
-
-	<?php endif; ?>
-
-	<?php if(!empty($frame['args'])): ?>
-
-		<span class="toggle-table">( <a>arguments</a> )</span>
-
-		<br>
-
-		<table>
-
-		<?php foreach($frame['args'] as $key => $argument): ?>
-
-			<tr>
-				<td><?= $key + 1 ?></td>
-				<td><pre><?= $argument ?></pre></td>
-			</tr>
-
-		<?php endforeach; ?>
-
-		</table>
-
-		<br>
-
-	<?php else: ?>
-
-		<br><br>
-
-	<?php endif; ?>
-
-	<?php if(!empty($frame['file'])): ?>
-
-		<span class="file"><?= $frame['file'] ?></span>
-
-	<?php else: ?>
-
-		<span class="file">&lt;#UNKNOWN&gt;</span>
-
-	<?php endif; ?>
-
-	<?php if(!empty($frame['line'])): ?>
-
-		<span class="line">: <?= $frame['line'] ?></span>
-
-	<?php else: ?>
-
-		<span class="line">: 0</span>
-
-	<?php endif; ?>
-
-	<?php if(!empty($frame['source'])): ?>
-
-		<br><br>
-
-		<div class="source">
-			<pre class="code-block prettyprint linenums:<?= ($frame['line'] - $frame['source_padding']) ?>" data-frame-line="<?= $frame['line'] ?>"><?= implode("\n", array_map(function($line){ $line = rtrim($line); return empty($line) ? ' ' : $line;}, $frame['source'])) ?></pre>
+			<?php endif; ?>
 		</div>
 
-	<?php endif; ?>
+		<div class="details">
 
-</div>
+			<h2>Stack trace</h2>
 
-<?php endforeach; ?>
+			<div class="panel">
 
-<div class="sub-header">
-	Superglobals
-</div>
+				<?php foreach($trace as $key => $frame): ?>
 
-<?php foreach($superglobals as $name => $superglobal): ?>
+					<div class="frame">
 
-<?php if(!empty($superglobal)): ?>
+						<?= (count($trace) - $key) ?>.
 
-	<div class="frame">
+						<?php if(!empty($frame['file'])): ?>
 
-		$_<?= $name ?> <span class="toggle-table">( <a>view data</a> )</span>
+							<span class="file"><?= $frame['file'] ?></span>
 
-		<table>
+						<?php else: ?>
 
-		<?php foreach($superglobal as $key => $value): ?>
+							<span class="file">&lt;#UNKNOWN&gt;</span>
 
-			<tr>
-				<td><?= $key ?></td>
-				<td><pre><?= htmlspecialchars(var_export($value, true), ENT_QUOTES, $charset) ?></pre></td>
-			</tr>
+						<?php endif; ?>
 
-		<?php endforeach; ?>
+						<?php if(!empty($frame['line'])): ?>
 
-		</table>
+							: <span class="line"><a class="toggle-code" title="Toggle source"><?= $frame['line'] ?></a></span>
 
-	</div>
+						<?php else: ?>
 
-<?php endif; ?>
+							<span class="line">: 0</span>
 
-<?php endforeach; ?>
+						<?php endif; ?>
 
-<div class="sub-header">
-	Included files
-</div>
+						<?php if(!empty($frame['class'])): ?>
 
-<div class="frame">
+							<span class="class"><?= $frame['class'] ?></span>
 
-	<?= count($included_files) ?> files have been included <span class="toggle-table">( <a>view files</a> )</span>
+						<?php endif; ?>
 
-	<table>
+						<?php if(!empty($frame['type'])): ?>
 
-	<?php foreach($included_files as $key => $file): ?>
+							<span class="type"><?= $frame['type'] ?></span>
 
-		<tr>
-			<td><?= $key + 1 ?></td>
-			<td><pre><?= htmlspecialchars($file, ENT_QUOTES, $charset) ?></pre></td>
-		</tr>
+						<?php endif; ?>
 
-	<?php endforeach; ?>
+						<?php if(!empty($frame['function'])): ?>
 
-	</table>
+							<span class="function"><?= $frame['function'] ?>(<?php if(!empty($frame['args'])): ?><a class="toggle-table" title="Toggle parameters">...</a><?php endif; ?>)</span>
 
-</div>
+							<?php if(!empty($frame['args'])): ?>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>
-	$(function()
-	{
-		prettyPrint();
+								<table>
 
-		$('table').hide();
-		$('span.toggle-table').show();
-		$("div.frame:not(:first) div.source").hide();
-		$("div.frame:not(:first) div.inspect").show();
+									<tr>
+										<th>#</th>
+										<th>Parameter</th>
+									</tr>
 
-		// Highlight frame line
+									<?php foreach($frame['args'] as $key => $argument): ?>
 
-		$('div.frame pre.prettyprint').each(function()
-		{
-			var line = $(this).data('frame-line');
+										<tr>
+											<td><?= $key + 1 ?></td>
+											<td><pre><?= $argument ?></pre></td>
+										</tr>
 
-			var lines = $(this).find('.linenums li');
+									<?php endforeach; ?>
 
-			var firstLine = lines.first().val();
-			
-			$(lines[line - firstLine - 1]).addClass('current');
-			$(lines[line - firstLine]).addClass('current active');
-			$(lines[line - firstLine + 1]).addClass('current');
-		});
+								</table>
 
-		// Inspect event
+							<?php endif; ?>
 
-		$("div.frame div.inspect").click(function()
-		{
-			if(!$(this).parent().hasClass('frame-active'))
+						<?php endif; ?>
+
+						<?php if(!empty($frame['source'])): ?>
+
+							<div class="source">
+
+<code><pre><?php $startLine = $frame['line'] - $frame['source_padding']; ?>
+<?php foreach($frame['source'] as $key => $code): ?><div<?php if($startLine + $key === $frame['line']): ?> class="highlight"<?php endif; ?>><span class="code-line"><?= $startLine + $key; ?></span><?= str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $code); ?></div><?php endforeach; ?></pre></code>
+
+							</div>
+
+						<?php endif; ?>
+
+					</div>
+
+				<?php endforeach; ?>
+
+			</div>
+
+			<h2>Superglobals</h2>
+
+			<div class="panel">
+
+				<?php foreach($superglobals as $name => $superglobal): ?>
+
+					<?php if(!empty($superglobal)): ?>
+
+						<div class="frame">
+
+							<span>$_<?= $name ?> ( <a class="toggle-table">toggle</a> )</span>
+
+							<table>
+
+								<tr>
+									<th>Key</th>
+									<th>Value</th>
+								</tr>
+
+								<?php foreach($superglobal as $key => $value): ?>
+
+									<tr>
+										<td><?= $key ?></td>
+										<td><?= htmlspecialchars(var_export($value, true), ENT_QUOTES, $charset) ?></pre></td>
+									</tr>
+
+								<?php endforeach; ?>
+
+							</table>
+
+						</div>
+
+					<?php endif; ?>
+
+				<?php endforeach; ?>
+
+			</div>
+
+			<h2>Included files</h2>
+
+			<div class="panel">
+
+				<?= count($included_files) ?> files have been included <span class="toggle-table">( <a>toggle</a> )</span>
+
+				<table>
+
+					<tr>
+						<th>#</th>
+						<th>Path</th>
+					</tr>
+
+					<?php foreach($included_files as $key => $file): ?>
+
+						<tr>
+							<td><?= $key + 1 ?></td>
+							<td><pre><?= htmlspecialchars($file, ENT_QUOTES, $charset) ?></pre></td>
+						</tr>
+
+					<?php endforeach; ?>
+
+				</table>
+
+			</div>
+
+		</div>
+
+		<script>
+
+			var tables, codes, links;
+
+			// Hide tables by default
+
+			tables = document.getElementsByTagName('table');
+
+			for(i = 0; i < tables.length; i++)
 			{
-				$('div.frame-active div.source').hide();
-				$('div.frame-active div.inspect').show().parent().removeClass('frame-active');
-
-				$(this).hide();
-				$(this).parent().addClass('frame-active');
-				$(this).parent().find('div.source').show();
+				tables[i].style.display = 'none';
 			}
-		});
 
-		// Toggle table event
+			// Hide codes by default
 
-		$("div.frame > span.toggle-table > a").click(function(e)
-		{
-			$(this).parent().parent().find('table').toggle();
-		});
-	 });
-</script>
+			codes = document.getElementsByTagName('code');
 
-</body>
+			for(i = 0; i < codes.length; i++)
+			{
+				codes[i].style.display = 'none';
+			}
+
+			// Attach onClick events to table togglers
+
+			links = document.getElementsByClassName('toggle-table');
+
+			for(i = 0; i < links.length; i++)
+			{
+				links[i].onclick = function(e)
+				{
+					var table = e.target.parentNode.parentNode.getElementsByTagName('table');
+
+					if(table.length !== 1) return;
+
+					table[0].style.display = (table[0].style.display === 'none') ? 'table' : 'none';
+				}
+			}
+
+			// Attach onClick events to code togglers
+
+			links = document.getElementsByClassName('toggle-code');
+
+			for(i = 0; i < links.length; i++)
+			{
+				links[i].onclick = function(e)
+				{
+					var code = e.target.parentNode.parentNode.getElementsByTagName('code');
+
+					if(code.length !== 1) return;
+
+					code[0].style.display = (code[0].style.display === 'none') ? 'block' : 'none';
+				}
+			}
+		</script>
+
+	</body>
+
 </html>
