@@ -344,16 +344,16 @@ class Image
 		
 		// Mage sure that the file or directory is writable
 
-		if(file_exists($path))
+		if(file_exists($file))
 		{
-			if(!is_writable($path))
+			if(!is_writable($file))
 			{
-				throw new RuntimeException(vsprintf("%s(): The file [ %s ] isn't writable.", [__METHOD__, $path]));
+				throw new RuntimeException(vsprintf("%s(): The file [ %s ] isn't writable.", [__METHOD__, $file]));
 			}
 		}
 		else
 		{
-			$pathInfo = pathinfo($path);
+			$pathInfo = pathinfo($file);
 
 			if(!is_writable($pathInfo['dirname']))
 			{
