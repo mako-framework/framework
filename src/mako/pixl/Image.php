@@ -198,7 +198,7 @@ class Image
 
 	protected function normalizeImageQuality($quality)
 	{
-		$quality = max(min((int) $quality, 100), 0);
+		return max(min((int) $quality, 100), 0);
 	}
 
 	/**
