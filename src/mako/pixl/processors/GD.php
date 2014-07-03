@@ -408,7 +408,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 
 			for($i = 0; $i <= 255; $i++)
 			{
-			    $greys[$i] = imagecolorallocate($temp, $i, $i, $i);
+				$greys[$i] = imagecolorallocate($temp, $i, $i, $i);
 			}
 			
 			// Convert pixels to greyscale
@@ -447,14 +447,12 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 
 	public function sepia()
 	{
-		// GD isnt bundled so we'll have to do it the hard way
-
 		$w = imagesx($this->image);
 		$h = imagesy($this->image);
 
 		$temp = imagecreatetruecolor($w, $h);
 		
-		// Convert pixels to greyscale
+		// Convert pixels to sepia
 
 		for($x = 0; $x < $w; $x++) 
 		{
