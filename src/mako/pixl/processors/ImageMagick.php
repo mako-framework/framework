@@ -266,11 +266,29 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
+	 * Pixelsates the image.
+	 * 
+	 * @access  public
+	 * @param   int     $pixelSize  (optional) Pixel size
+	 */
+
+	public function pixelate($pixelSize = 10)
+	{
+		$originalWidth = $this->image->getImageWidth();
+
+		$originalHeight = $this->image->getImageHeight();
+
+		$this->image->scaleImage((int) ($originalHeight / ($pixelSize * 0.75)), (int) ($originalWidth / ($pixelSize * 1.5)));
+
+		$this->image->scaleImage($originalWidth, $originalHeight);
+	}
+
+	/**
 	 * Adds a border to the image.
 	 *
 	 * @access  public
-	 * @param   string  $color      Hex code for the color
-	 * @param   int     $thickness  Thickness of the frame in pixels
+	 * @param   string  $color      (optional) Hex code for the color
+	 * @param   int     $thickness  (optional) Thickness of the frame in pixels
 	 */
 	
 	public function border($color = '#000', $thickness = 5)

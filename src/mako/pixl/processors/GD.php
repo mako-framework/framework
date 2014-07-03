@@ -148,12 +148,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	 */
 
 	public function rotate($degrees)
-	{
-		if(GD_BUNDLED === 0)
-		{
-			throw new RuntimeException(vsprintf("%s(): This method requires the [ imagerotate ] function which is only available in the bundled version of GD.", [__METHOD__]));
-		}
-		
+	{	
 		$w = imagesx($this->image);
 		$h = imagesy($this->image);
 
@@ -336,12 +331,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 		$watermarkH = imagesy($watermark);
 			
 		if($opacity < 100)
-		{
-			if(GD_BUNDLED === 0)
-			{
-				throw new RuntimeException(vsprintf("%s(): Setting watermark opacity requires the [ imagelayereffect ] function which is only available in the bundled version of GD.", [__METHOD__]));
-			}
-			
+		{	
 			// Convert alpha to 0-127
 			
 			$alpha = min(round(abs(($opacity * 127 / 100) - 127)), 127);
@@ -393,50 +383,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	
 	public function greyscale()
 	{
-		if(GD_BUNDLED === 0)
-		{
-			// GD isnt bundled so we'll have to do it the hard way
-
-			$w = imagesx($this->image);
-			$h = imagesy($this->image);
-
-			$temp = imagecreatetruecolor($w, $h);
-			
-			// Generate array of shades of grey
-			
-			$greys = [];
-
-			for($i = 0; $i <= 255; $i++)
-			{
-				$greys[$i] = imagecolorallocate($temp, $i, $i, $i);
-			}
-			
-			// Convert pixels to greyscale
-
-			for($x = 0; $x < $w; $x++) 
-			{
-				for($y = 0; $y < $h; $y++)
-				{
-					$rgb = imagecolorat($this->image, $x, $y);
-
-					$r = ($rgb >> 16) & 0xFF;
-					$g = ($rgb >> 8) & 0xFF;
-					$b = $rgb & 0xFF;
-
-					imagesetpixel($temp, $x, $y, $greys[((0.299 * $r) + (0.587 * $g) + (0.114 * $b))]);
-				}
-			}
-
-			imagedestroy($this->image);
-
-			$this->image = $temp;
-		}
-		else
-		{
-			// GD is bundled so we can just use an image filter
-
-			imagefilter($this->image, IMG_FILTER_GRAYSCALE);
-		}		
+		imagefilter($this->image, IMG_FILTER_GRAYSCALE);		
 	}
 
 	/**
@@ -485,23 +432,30 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	 */
 
 	public function colorize($color)
-	{
-		if(GD_BUNDLED === 0)
-		{
-			throw new RuntimeException(vsprintf("%s(): This method requires the [ imagefilter ] function which is only available in the bundled version of GD.", [__METHOD__]));
-		}
-		
+	{	
 		$rgb = $this->hexToRgb($color);
 
 		imagefilter($this->image, IMG_FILTER_COLORIZE, $rgb['r'], $rgb['g'], $rgb['b'], 0);
 	}
 
 	/**
+	 * Pixelsates the image.
+	 * 
+	 * @access  public
+	 * @param   int     $pixelSize  (optional) Pixel size
+	 */
+
+	public function pixelate($pixelSize = 10)
+	{
+		imagefilter($this->image, IMG_FILTER_PIXELATE, $pixelSize, IMG_FILTER_PIXELATE);
+	}
+
+	/**
 	 * Adds a border to the image.
 	 *
 	 * @access  public
-	 * @param   string  $color      Hex value
-	 * @param   int     $thickness  Thickness of the border in pixels
+	 * @param   string  $color      (optional) Hex value
+	 * @param   int     $thickness  (optional) Thickness of the border in pixels
 	 */
 	
 	public function border($color = '#000', $thickness = 5)

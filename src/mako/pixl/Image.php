@@ -301,6 +301,21 @@ class Image
 	}
 
 	/**
+	 * Converts image to sepia.
+	 *
+	 * @access  public
+	 * @param   int               $pixelSize  (optional) Pixel size
+	 * @return  \mako\pixl\Image
+	 */
+
+	public function pixelate($pixelSize = 10)
+	{
+		$this->processor->pixelate($pixelSize);
+
+		return $this;
+	}
+
+	/**
 	 * Adds a border to the image.
 	 *
 	 * @access  public
