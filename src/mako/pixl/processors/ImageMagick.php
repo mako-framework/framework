@@ -274,21 +274,13 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 
 	public function pixelate($pixelSize = 10)
 	{
-		$originalWidth = $this->image->getImageWidth();
+		$width = $this->image->getImageWidth();
 
-		$originalHeight = $this->image->getImageHeight();
+		$height = $this->image->getImageHeight();
 
-		// Calculate scale to ensure square pixels
+		$this->image->scaleImage((int) ($width / $pixelSize), (int) ($height / $pixelSize));
 
-		$heightScale = $originalHeight / $originalWidth;
-
-		$widthScale = $originalWidth / $originalHeight;
-
-		// Resize scale down and up again to pixelate image
-
-		$this->image->scaleImage((int) ($originalHeight / ($pixelSize * $heightScale)), (int) ($originalWidth / ($pixelSize * $widthScale)));
-
-		$this->image->scaleImage($originalWidth, $originalHeight);
+		$this->image->scaleImage($width, $height);
 	}
 
 	/**
