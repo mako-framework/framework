@@ -310,6 +310,20 @@ class Image
 	}
 
 	/**
+	 * Converts image to sepia.
+	 *
+	 * @access  public
+	 * @return  \mako\pixl\Image
+	 */
+
+	public function sepia()
+	{
+		$this->processor->sepia();
+
+		return $this;
+	}
+
+	/**
 	 * Colorize an image.
 	 *
 	 * @access  public

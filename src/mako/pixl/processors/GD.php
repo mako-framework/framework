@@ -440,6 +440,46 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
+	 * Converts image to sepia.
+	 *
+	 * @access  public
+	 */
+
+	public function sepia()
+	{
+		// GD isnt bundled so we'll have to do it the hard way
+
+		$w = imagesx($this->image);
+		$h = imagesy($this->image);
+
+		$temp = imagecreatetruecolor($w, $h);
+		
+		// Convert pixels to greyscale
+
+		for($x = 0; $x < $w; $x++) 
+		{
+			for($y = 0; $y < $h; $y++)
+			{
+				$rgb = imagecolorat($this->image, $x, $y);
+
+				$r = ($rgb >> 16) & 0xFF;
+				$g = ($rgb >> 8) & 0xFF;
+				$b = $rgb & 0xFF;
+
+				$newR = (int) max(min(($r * 0.393 + $g * 0.769 + $b * 0.189), 255), 0);
+				$newG = (int) max(min(($r * 0.349 + $g * 0.686 + $b * 0.168), 255), 0);
+				$newB = (int) max(min(($r * 0.272 + $g * 0.534 + $b * 0.131), 255), 0);
+
+				imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $newR, $newG, $newB));
+			}
+		}
+
+		imagedestroy($this->image);
+
+		$this->image = $temp;
+	}
+
+	/**
 	 * Colorize an image.
 	 *
 	 * @access  public

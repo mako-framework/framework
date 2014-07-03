@@ -255,6 +255,17 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
+	 * Converts image to sepia.
+	 *
+	 * @access  public
+	 */
+	
+	public function sepia()
+	{
+		$this->image->sepiaToneImage(80);
+	}
+
+	/**
 	 * Colorize an image.
 	 *
 	 * @access  public

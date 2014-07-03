@@ -31,6 +31,8 @@ interface ProcessorInterface
 
 	public function greyscale();
 
+	public function sepia();
+
 	public function colorize($color);
 
 	public function border($color = '#000', $thickness = 5);
