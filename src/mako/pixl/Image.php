@@ -140,52 +140,14 @@ class Image
 
 		// Make sure that the image exists
 
-		$this->imageCheck();
-
-		// Set the image
-
-		$this->processor->setImage($image);
-	}
-
-	/**
-	 * Checks if the image exists and throw a RuntimeException if it doesn't.
-	 * 
-	 * @access  protected
-	 */
-
-	protected function imageCheck()
-	{
 		if(file_exists($this->image) === false)
 		{
 			throw new RuntimeException(vsprintf("%s(): The image [ %s ] does not exist.", [__METHOD__, $this->image]));
 		}
-	}
 
-	/**
-	 * Checks that the file or directory is writable and throw a RuntimeException if it isn't.
-	 * 
-	 * @access  protected
-	 * @param   string     $path  Path to the image
-	 */
+		// Set the image
 
-	protected function writeCheck($path)
-	{
-		if(file_exists($path))
-		{
-			if(!is_writable($path))
-			{
-				throw new RuntimeException(vsprintf("%s(): The file [ %s ] isn't writable.", [__METHOD__, $path]));
-			}
-		}
-		else
-		{
-			$pathInfo = pathinfo($path);
-
-			if(!is_writable($pathInfo['dirname']))
-			{
-				throw new RuntimeException(vsprintf("%s(): The directory [ %s ] isn't writable.", [__METHOD__, $pathInfo['dirname']]));
-			}
-		}
+		$this->processor->open($image);
 	}
 
 	/**
@@ -382,7 +344,22 @@ class Image
 		
 		// Mage sure that the file or directory is writable
 
-		$this->writeCheck($file);
+		if(file_exists($path))
+		{
+			if(!is_writable($path))
+			{
+				throw new RuntimeException(vsprintf("%s(): The file [ %s ] isn't writable.", [__METHOD__, $path]));
+			}
+		}
+		else
+		{
+			$pathInfo = pathinfo($path);
+
+			if(!is_writable($pathInfo['dirname']))
+			{
+				throw new RuntimeException(vsprintf("%s(): The directory [ %s ] isn't writable.", [__METHOD__, $pathInfo['dirname']]));
+			}
+		}
 
 		// Save the image
 

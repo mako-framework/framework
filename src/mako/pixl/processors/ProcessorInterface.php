@@ -17,7 +17,7 @@ use \mako\pixl\Image;
 
 interface ProcessorInterface
 {
-	public function setImage($image);
+	public function open($image);
 
 	public function rotate($degrees);
 

@@ -45,23 +45,6 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Checks if the HEX value is valid.
-	 * 
-	 * @access  protected
-	 * @param   string     $hex  HEX value
-	 */
-
-	protected function checkHEX($hex)
-	{
-		$hex = str_replace('#', '', $hex);
-		
-		if(preg_match('/^([a-f0-9]{3}){1,2}$/i', $hex) === 0)
-		{
-			throw new InvalidArgumentException(vsprintf("%s(): Invalid HEX value [ %s ].", [__METHOD__, $hex]));
-		}
-	}
-
-	/**
 	 * Add the hash character (#) if its missing.
 	 * 
 	 * @access  public
@@ -69,19 +52,24 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	 * @return  string
 	 */
 
-	public function normalizeHEX($hex)
+	public function normalizeHex($hex)
 	{
+		if(preg_match('/^(#?[a-f0-9]{3}){1,2}$/i', $hex) === 0)
+		{
+			throw new InvalidArgumentException(vsprintf("%s(): Invalid HEX value [ %s ].", [__METHOD__, $hex]));
+		}
+
 		return (strpos($hex, '#') !== 0) ? '#' . $hex : $hex;
 	}
 
 	/**
-	 * Sets the image we want to work with.
+	 * Opens the image we want to work with.
 	 * 
 	 * @access  public
 	 * @param   string  $image  Path to image file
 	 */
 
-	public function setImage($image)
+	public function open($image)
 	{
 		$this->image = new Imagick($image);
 	}
@@ -273,9 +261,7 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	 */
 
 	public function colorize($color)
-	{
-		$this->checkHEX($color);
-		
+	{		
 		$this->image->colorizeImage($this->normalizeHEX($color), 1.0);
 	}
 
@@ -289,8 +275,6 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	
 	public function border($color = '#000', $thickness = 5)
 	{
-		$this->checkHEX($color);
-
 		$this->image->shaveImage($thickness, $thickness);
 		
 		$this->image->borderImage($this->normalizeHEX($color), $thickness, $thickness);

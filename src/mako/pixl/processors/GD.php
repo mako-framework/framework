@@ -101,7 +101,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	 * @return  array
 	 */
 
-	protected function HEX2RGB($hex)
+	protected function hexToRgb($hex)
 	{
 		$hex = str_replace('#', '', $hex);
 		
@@ -127,13 +127,13 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Sets the image we want to work with.
+	 * Opens the image we want to work with.
 	 * 
 	 * @access  public
 	 * @param   string  $image  Path to image file
 	 */
 
-	public function setImage($image)
+	public function open($image)
 	{
 		$this->collectImageInfo($image);
 
@@ -491,7 +491,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 			throw new RuntimeException(vsprintf("%s(): This method requires the [ imagefilter ] function which is only available in the bundled version of GD.", [__METHOD__]));
 		}
 		
-		$rgb = $this->HEX2RGB($color);
+		$rgb = $this->hexToRgb($color);
 
 		imagefilter($this->image, IMG_FILTER_COLORIZE, $rgb['r'], $rgb['g'], $rgb['b'], 0);
 	}
@@ -509,7 +509,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 		$w = imagesx($this->image);
 		$h = imagesy($this->image);
 		
-		$rgb = $this->HEX2RGB($color);
+		$rgb = $this->hexToRgb($color);
 
 		$color = imagecolorallocatealpha($this->image, $rgb['r'], $rgb['g'], $rgb['b'], 0);
 		
