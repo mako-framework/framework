@@ -425,7 +425,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Colorize an image.
+	 * Colorize the image.
 	 *
 	 * @access  public
 	 * @param   string  $color  HEX value
@@ -439,7 +439,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Pixelsates the image.
+	 * Pixelates the image.
 	 * 
 	 * @access  public
 	 * @param   int     $pixelSize  (optional) Pixel size
@@ -448,6 +448,17 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	public function pixelate($pixelSize = 10)
 	{
 		imagefilter($this->image, IMG_FILTER_PIXELATE, $pixelSize, IMG_FILTER_PIXELATE);
+	}
+
+	/**
+	 * Negates the image.
+	 * 
+	 * @access  public
+	 */
+
+	public function negate()
+	{
+		imagefilter($this->image, IMG_FILTER_NEGATE);
 	}
 
 	/**

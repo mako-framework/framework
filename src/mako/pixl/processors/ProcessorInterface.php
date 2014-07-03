@@ -37,6 +37,8 @@ interface ProcessorInterface
 
 	public function pixelate($pixelSize = 10);
 
+	public function negate();
+
 	public function border($color = '#000', $thickness = 5);
 
 	public function getImageBlob($type = null, $quality = 95);

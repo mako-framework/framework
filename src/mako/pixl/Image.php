@@ -286,7 +286,7 @@ class Image
 	}
 
 	/**
-	 * Colorize an image.
+	 * Colorizes the image.
 	 *
 	 * @access  public
 	 * @param   string            $color  Hex code for the color
@@ -301,7 +301,7 @@ class Image
 	}
 
 	/**
-	 * Converts image to sepia.
+	 * Pixelates the image.
 	 *
 	 * @access  public
 	 * @param   int               $pixelSize  (optional) Pixel size
@@ -311,6 +311,20 @@ class Image
 	public function pixelate($pixelSize = 10)
 	{
 		$this->processor->pixelate($pixelSize);
+
+		return $this;
+	}
+
+	/**
+	 * Negates the image.
+	 *
+	 * @access  public
+	 * @return  \mako\pixl\Image
+	 */
+
+	public function negate()
+	{
+		$this->processor->negate();
 
 		return $this;
 	}

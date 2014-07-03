@@ -254,7 +254,7 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Colorize an image.
+	 * Colorize the image.
 	 *
 	 * @access  public
 	 * @param   string  $color  Hex value
@@ -266,7 +266,7 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Pixelsates the image.
+	 * Pixelates the image.
 	 * 
 	 * @access  public
 	 * @param   int     $pixelSize  (optional) Pixel size
@@ -281,6 +281,17 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 		$this->image->scaleImage((int) ($width / $pixelSize), (int) ($height / $pixelSize));
 
 		$this->image->scaleImage($width, $height);
+	}
+
+	/**
+	 * Negates the image.
+	 * 
+	 * @access  public
+	 */
+
+	public function negate()
+	{
+		$this->image->negateImage(false);
 	}
 
 	/**
