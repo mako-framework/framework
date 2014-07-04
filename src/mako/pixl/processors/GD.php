@@ -420,7 +420,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 
 			$temp = imagecreatetruecolor($w, $h);
 			
-			// Colorize pixels
+			// Adjust pixel brightness
 
 			for($x = 0; $x < $w; $x++) 
 			{
