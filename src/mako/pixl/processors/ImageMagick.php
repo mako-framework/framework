@@ -238,7 +238,7 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 				$y = 0;
 		}
 		
-		$this->image->compositeImage($watermark, PHP_Imagick::COMPOSITE_OVER, $x, $y);
+		$this->image->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
 		
 		$watermark->destroy();
 	}
