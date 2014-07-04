@@ -518,9 +518,13 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 				{
 					$rgb = imagecolorat($this->image, $x, $y);
 
-					$r = ($rgb >> 16) & 0xFF | $colorize['r'];
-					$g = ($rgb >> 8) & 0xFF  | $colorize['g'];
-					$b = $rgb & 0xFF | $colorize['b'];
+					$r = (($rgb >> 16) & 0xFF) + $colorize['r'];
+					$g = (($rgb >> 8) & 0xFF )+ $colorize['g'];
+					$b = ($rgb & 0xFF) + $colorize['b'];
+
+					$r = ($r > 255)? 255 : (($r < 0)? 0 : $r);
+					$g = ($g > 255)? 255 : (($g < 0)? 0 : $g);
+					$b = ($b > 255)? 255 : (($b < 0)? 0 : $b);
 
 					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
 				}
