@@ -258,6 +258,27 @@ class Image
 	}
 
 	/**
+	 * Adjust image brightness.
+	 * 
+	 * @access  public
+	 * @param   int               $level  (optional) Brightness level (-100 to 100)
+	 * @return  \mako\pixl\Image
+	 */
+
+	public function brightness($level = 50)
+	{
+		// Normalize brighness level
+
+		$level = min(max($level, -100), 100);
+
+		// Adjust brightness
+
+		$this->processor->brightness($level);
+
+		return $this;
+	}
+
+	/**
 	 * Converts image to greyscale.
 	 *
 	 * @access  public

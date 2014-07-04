@@ -29,6 +29,8 @@ interface ProcessorInterface
 
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100);
 
+	public function brightness($level = 50);
+
 	public function greyscale();
 
 	public function sepia();

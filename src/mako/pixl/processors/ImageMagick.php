@@ -232,6 +232,18 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
+	 * Adjust image brightness.
+	 * 
+	 * @access  public
+	 * @param   int     $level  (optional) Brightness level (-100 to 100)
+	 */
+
+	public function brightness($level = 50)
+	{
+		$this->image->modulateImage(100 + $level, 100, 100);
+	}
+
+	/**
 	 * Converts image to greyscale.
 	 *
 	 * @access  public

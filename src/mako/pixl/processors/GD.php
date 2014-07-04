@@ -399,6 +399,54 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
+	 * Adjust image brightness.
+	 * 
+	 * @access  public
+	 * @param   int     $level  (optional) Brightness level (-100 to 100)
+	 */
+
+	public function brightness($level = 50)
+	{
+		$level *= 2.5;
+
+		if($this->hasFilters)
+		{
+			imagefilter($this->image, IMG_FILTER_BRIGHTNESS, $level);
+		}
+		else
+		{
+			$w = imagesx($this->image);
+			$h = imagesy($this->image);
+
+			$temp = imagecreatetruecolor($w, $h);
+			
+			// Colorize pixels
+
+			for($x = 0; $x < $w; $x++) 
+			{
+				for($y = 0; $y < $h; $y++)
+				{
+					$rgb = imagecolorat($this->image, $x, $y);
+
+					$r = (($rgb >> 16) & 0xFF) + $level;
+					$g = (($rgb >> 8) & 0xFF ) + $level;
+					$b = ($rgb & 0xFF) + $level;
+
+					$r = ($r > 255) ? 255 : (($r < 0) ? 0 : $r);
+					$g = ($g > 255) ? 255 : (($g < 0) ? 0 : $g);
+					$b = ($b > 255) ? 255 : (($b < 0) ? 0 : $b);
+
+					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
+				}
+			}
+
+			imagedestroy($this->image);
+
+			$this->image = $temp;
+		}
+	}
+
+	/**
 	 * Converts image to greyscale.
 	 *
 	 * @access  public
@@ -473,9 +521,13 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 				$g = ($rgb >> 8) & 0xFF;
 				$b = $rgb & 0xFF;
 
-				$newR = (int) max(min(($r * 0.393 + $g * 0.769 + $b * 0.189), 255), 0);
-				$newG = (int) max(min(($r * 0.349 + $g * 0.686 + $b * 0.168), 255), 0);
-				$newB = (int) max(min(($r * 0.272 + $g * 0.534 + $b * 0.131), 255), 0);
+				$newR = $r * 0.393 + $g * 0.769 + $b * 0.189;
+				$newG = $r * 0.349 + $g * 0.686 + $b * 0.168;
+				$newB = $r * 0.272 + $g * 0.534 + $b * 0.131;
+
+				$newR = ($newR > 255) ? 255 : (($newR < 0) ? 0 : $newR);
+				$newG = ($newG > 255) ? 255 : (($newG < 0) ? 0 : $newG);
+				$newB = ($newB > 255) ? 255 : (($newB < 0) ? 0 : $newB);
 
 				imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $newR, $newG, $newB));
 			}
