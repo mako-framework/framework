@@ -521,9 +521,9 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 				$g = ($rgb >> 8) & 0xFF;
 				$b = $rgb & 0xFF;
 
-				$newR = $r * 0.393 + $g * 0.769 + $b * 0.189;
-				$newG = $r * 0.349 + $g * 0.686 + $b * 0.168;
-				$newB = $r * 0.272 + $g * 0.534 + $b * 0.131;
+				$newR = ($r * 0.393 + $g * 0.769 + $b * 0.189) * 0.85;
+				$newG = ($r * 0.349 + $g * 0.686 + $b * 0.168) * 0.85;
+				$newB = ($r * 0.272 + $g * 0.534 + $b * 0.131) * 0.85;
 
 				$newR = ($newR > 255) ? 255 : (($newR < 0) ? 0 : $newR);
 				$newG = ($newG > 255) ? 255 : (($newG < 0) ? 0 : $newG);
