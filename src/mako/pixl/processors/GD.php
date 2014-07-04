@@ -510,7 +510,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 
 			$temp = imagecreatetruecolor($w, $h);
 			
-			// Colorize the pixels
+			// Colorize pixels
 
 			for($x = 0; $x < $w; $x++) 
 			{
@@ -519,7 +519,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 					$rgb = imagecolorat($this->image, $x, $y);
 
 					$r = (($rgb >> 16) & 0xFF) + $colorize['r'];
-					$g = (($rgb >> 8) & 0xFF )+ $colorize['g'];
+					$g = (($rgb >> 8) & 0xFF ) + $colorize['g'];
 					$b = ($rgb & 0xFF) + $colorize['b'];
 
 					$r = ($r > 255) ? 255 : (($r < 0) ? 0 : $r);
