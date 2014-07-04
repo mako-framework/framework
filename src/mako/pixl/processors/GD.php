@@ -37,6 +37,25 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	protected $imageInfo;
 
 	/**
+	 * Do we have the imagefilter function?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $hasFilters;
+
+	/**
+	 * Constructor.
+	 * 
+	 * @access  public
+	 */
+
+	public function __construct()
+	{
+		$this->hasFilters = function_exists('imagefilter');
+	}
+
+	/**
 	 * Destructor.
 	 *
 	 * @access  public
@@ -383,7 +402,46 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	
 	public function greyscale()
 	{
-		imagefilter($this->image, IMG_FILTER_GRAYSCALE);		
+		if($this->hasFilters)
+		{
+			imagefilter($this->image, IMG_FILTER_GRAYSCALE);
+		}
+		else
+		{
+			$w = imagesx($this->image);
+			$h = imagesy($this->image);
+
+			$temp = imagecreatetruecolor($w, $h);
+			
+			// Generate array of shades of grey
+			
+			$greys = [];
+
+			for($i = 0; $i <= 255; $i++)
+			{
+			    $greys[$i] = imagecolorallocate($temp, $i, $i, $i);
+			}
+			
+			// Convert pixels to greyscale
+
+			for($x = 0; $x < $w; $x++) 
+			{
+				for($y = 0; $y < $h; $y++)
+				{
+					$rgb = imagecolorat($this->image, $x, $y);
+
+					$r = ($rgb >> 16) & 0xFF;
+					$g = ($rgb >> 8) & 0xFF;
+					$b = $rgb & 0xFF;
+
+					imagesetpixel($temp, $x, $y, $greys[((0.299 * $r) + (0.587 * $g) + (0.114 * $b))]);
+				}
+			}
+
+			imagedestroy($this->image);
+
+			$this->image = $temp;
+		}
 	}
 
 	/**
@@ -435,7 +493,39 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	{	
 		$rgb = $this->hexToRgb($color);
 
-		imagefilter($this->image, IMG_FILTER_COLORIZE, $rgb['r'], $rgb['g'], $rgb['b'], 0);
+		if($this->hasFilters)
+		{
+			imagefilter($this->image, IMG_FILTER_COLORIZE, $rgb['r'], $rgb['g'], $rgb['b'], 0);
+		}
+		else
+		{
+			$colorize = $rgb;
+			
+			$w = imagesx($this->image);
+			$h = imagesy($this->image);
+
+			$temp = imagecreatetruecolor($w, $h);
+			
+			// Colorize the pixels
+
+			for($x = 0; $x < $w; $x++) 
+			{
+				for($y = 0; $y < $h; $y++)
+				{
+					$rgb = imagecolorat($this->image, $x, $y);
+
+					$r = ($rgb >> 16) & 0xFF | $colorize['r'];
+					$g = ($rgb >> 8) & 0xFF  | $colorize['g'];
+					$b = $rgb & 0xFF | $colorize['b'];
+
+					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
+				}
+			}
+
+			imagedestroy($this->image);
+
+			$this->image = $temp;
+		}
 	}
 
 	/**
@@ -447,7 +537,20 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 
 	public function pixelate($pixelSize = 10)
 	{
-		imagefilter($this->image, IMG_FILTER_PIXELATE, $pixelSize, IMG_FILTER_PIXELATE);
+		if($this->hasFilters)
+		{
+			imagefilter($this->image, IMG_FILTER_PIXELATE, $pixelSize, IMG_FILTER_PIXELATE);
+		}
+		else
+		{
+			$width = imagesx($this->image);
+
+			$height = imagesy($this->image);
+
+			$this->resize((int) ($width / $pixelSize), (int) ($height / $pixelSize));
+
+			$this->resize($width, $height);
+		}	
 	}
 
 	/**
@@ -458,7 +561,31 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 
 	public function negate()
 	{
-		imagefilter($this->image, IMG_FILTER_NEGATE);
+		if($this->hasFilters)
+		{
+			imagefilter($this->image, IMG_FILTER_NEGATE);
+		}
+		else
+		{
+			$w = imagesx($this->image);
+			$h = imagesy($this->image);
+
+			$temp = imagecreatetruecolor($w, $h);
+			
+			// Invert pixel colors
+
+			for($x = 0; $x < $w; $x++) 
+			{
+				for($y = 0; $y < $h; $y++)
+				{
+					imagesetpixel($temp, $x, $y, imagecolorat($this->image, $x, $y) ^ 0x00FFFFFF);
+				}
+			}
+
+			imagedestroy($this->image);
+
+			$this->image = $temp;
+		}
 	}
 
 	/**
