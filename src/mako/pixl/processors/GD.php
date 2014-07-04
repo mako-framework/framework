@@ -74,29 +74,33 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	 *
 	 * @access  protected
 	 * @param   string     $file  Path to image file
+	 * @return  resource
 	 */
 
-	protected function collectImageInfo($file)
+	protected function getImageInfo($file)
 	{
-		$this->imageInfo = getimagesize($file);
+		$imageInfo = getimagesize($file);
 		
-		if($this->imageInfo === false)
+		if($imageInfo === false)
 		{
 			throw new RuntimeException(vsprintf("%s(): Unable to process the image [ %s ].", [__METHOD__, $file]));
 		}
+
+		return $imageInfo;
 	}
 
 	/**
 	 * Creates an image resource that we can work with.
 	 * 
 	 * @access  protected
-	 * @param   string     $image  Path to image file
+	 * @param   string     $image      Path to image file
+	 * @param   array      $imageInfo  Image info
 	 * @return  resource
 	 */
 
-	protected function createImageResource($image)
+	protected function createImageResource($image, $imageInfo)
 	{
-		switch($this->imageInfo[2])
+		switch($imageInfo[2])
 		{
 			case IMAGETYPE_JPEG:
 				return imagecreatefromjpeg($image);
@@ -154,9 +158,9 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 
 	public function open($image)
 	{
-		$this->collectImageInfo($image);
+		$this->imageInfo = $this->getImageInfo($image);
 
-		$this->image = $this->createImageResource($image);
+		$this->image = $this->createImageResource($image, $this->imageInfo);
 	}
 
 	/**
@@ -344,7 +348,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
-		$watermark = $this->createImage($file, $this->imageInfo($file));
+		$watermark = $this->createImageResource($file, $this->getImageInfo($file));
 		
 		$watermarkW = imagesx($watermark);
 		$watermarkH = imagesy($watermark);
@@ -500,7 +504,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 		else
 		{
 			$colorize = $rgb;
-			
+
 			$w = imagesx($this->image);
 			$h = imagesy($this->image);
 
