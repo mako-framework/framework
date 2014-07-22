@@ -160,7 +160,7 @@ class Router
 		{
 			// No routes matched so we'll throw a 404 exception
 			
-			throw new PageNotFoundException($requestMethod . '::' . $requestPath);
+			throw new PageNotFoundException($requestMethod . ': ' . $requestPath);
 		}
 	}
 }
