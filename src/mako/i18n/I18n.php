@@ -9,6 +9,7 @@ namespace mako\i18n;
 
 use \RuntimeException;
 
+use \mako\cache\Cache;
 use \mako\file\FileSystem;
 use \mako\i18n\Language;
 
@@ -53,6 +54,14 @@ class I18n
 	protected $languages = [];
 
 	/**
+	 * Cache instance.
+	 * 
+	 * @var \mako\cache\Cache
+	 */
+
+	protected $cache;
+
+	/**
 	 * Constructor.
 	 * 
 	 * @access  public
@@ -68,6 +77,18 @@ class I18n
 		$this->applicationPath = $applicationPath;
 
 		$this->language = $language;
+	}
+
+	/**
+	 * Sets the cache.
+	 * 
+	 * @access  public
+	 * @param   \mako\cache\Cache  $cache  Cache instance
+	 */
+
+	public function setCache(Cache $cache)
+	{
+		$this->cache = $cache;
 	}
 
 	/**
@@ -109,7 +130,7 @@ class I18n
 
 		if(!isset($this->languages[$language]))
 		{
-			$this->languages[$language] = new Language($this->fileSystem, $this->applicationPath, $language);
+			$this->languages[$language] = new Language($this->fileSystem, $this->applicationPath, $language, $this->cache);
 		}
 
 		return $this->languages[$language];

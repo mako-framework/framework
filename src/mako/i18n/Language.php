@@ -9,6 +9,7 @@ namespace mako\i18n;
 
 use \RuntimeException;
 
+use \mako\cache\Cache;
 use \mako\file\FileSystem;
 use \mako\utility\Arr;
 
@@ -37,12 +38,20 @@ class Language
 	protected $applicationPath;
 
 	/**
-	 * Current language.
+	 *  Language name.
 	 *
 	 * @var string
 	 */
 
 	protected $language;
+
+	/**
+	 * Cache instance.
+	 * 
+	 * @var \mako\cache\Cache
+	 */
+
+	protected $cache;
 
 	/**
 	 * Array holding the language strings.
@@ -64,12 +73,13 @@ class Language
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $fileSystem       File system instance
-	 * @param   string  $applicationPath  Application path
-	 * @param   string  $language         Name of the language pack
+	 * @param   string             $fileSystem       File system instance
+	 * @param   string             $applicationPath  Application path
+	 * @param   string             $language         Name of the language pack
+	 * @param   \mako\cache\Cache  $cache            (optional) Cache instance
 	 */
 
-	public function __construct(FileSystem $fileSystem, $applicationPath, $language)
+	public function __construct(FileSystem $fileSystem, $applicationPath, $language, Cache $cache = null)
 	{
 		$this->fileSystem = $fileSystem;
 
@@ -77,19 +87,21 @@ class Language
 
 		$this->language = $language;
 
+		$this->cache = $cache;
+
 		$this->strings = $this->loadStrings();
 
 		$this->inflection = $this->loadInflection();
 	}
 	
 	/**
-	 * Loads all strings.
+	 * Loads all strings from the file system.
 	 * 
 	 * @access  protected
 	 * @return  array
 	 */
 
-	protected function loadStrings()
+	protected function loadStringsFromFileSystem()
 	{
 		$strings = ['mako:packages' => []];
 		
@@ -120,6 +132,28 @@ class Language
 		}
 
 		return $strings;
+	}
+
+	/**
+	 * Loads all strings.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function loadStrings()
+	{
+		if($this->cache !== null)
+		{
+			return $this->cache->getOrElse('i18n:' . $this->language, function()
+			{
+				return $this->loadStringsFromFileSystem();
+			}, 3600);
+		}
+		else
+		{
+			return $this->loadStringsFromFileSystem();
+		}
 	}
 
 	/**

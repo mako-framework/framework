@@ -29,7 +29,16 @@ class I18nService extends \mako\application\services\Service
 		{
 			$app = $container->get('app');
 
-			return new I18n($container->get('fileSystem'), $app->getApplicationPath(), $app->getLanguage());
+			$cache = $container->get('config')->get('application')['language_cache'];
+
+			$i18n = new I18n($container->get('fileSystem'), $app->getApplicationPath(), $app->getLanguage());
+
+			if($cache !== false)
+			{
+				$i18n->setCache($container->get('cache')->instance($cache === true ? null : $cache));
+			}
+
+			return $i18n;
 		});
 	}
 }
