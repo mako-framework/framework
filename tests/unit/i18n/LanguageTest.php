@@ -245,4 +245,23 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('You have 10 new messages', $language->get('foo.pluralize', [10]));
 	}
+
+	/**
+	 * 
+	 */
+
+	public function testCache()
+	{
+		$fileSystem = m::mock('mako\file\FileSystem');
+
+		$this->loadInflection($fileSystem);
+
+		$cache = m::mock('mako\cache\Cache');
+
+		$cache->shouldReceive('getOrElse')->once()/*->with('i18n:en_US', function(){}, 3600)*/->andReturn(['cached' => ['key' => 'value']]);
+
+		$language = new Language($fileSystem, '/app', 'en_US', $cache);
+
+		$this->assertEquals('value', $language->get('cached.key'));
+	}
 }
