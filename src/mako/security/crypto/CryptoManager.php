@@ -30,7 +30,7 @@ class CryptoManager extends \mako\common\AdapterManager
 	 * @var boolean
 	 */
 
-	const REUSE_INSTANCES = false;
+	protected $reuseInstances = false;
 
 	/**
 	 * MCrypt encrypter factory.

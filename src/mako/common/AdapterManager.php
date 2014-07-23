@@ -27,7 +27,7 @@ abstract class AdapterManager
 	 * @var boolean
 	 */
 
-	const REUSE_INSTANCES = true;
+	protected $reuseInstances = true;
 
 	/**
 	 * IoC container instance.
@@ -105,7 +105,7 @@ abstract class AdapterManager
 	{
 		$configuration = $configuration ?: $this->default;
 
-		if(static::REUSE_INSTANCES)
+		if($this->reuseInstances)
 		{
 			if(!isset($this->instances[$configuration]))
 			{
