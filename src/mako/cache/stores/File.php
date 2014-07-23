@@ -126,7 +126,7 @@ class File implements \mako\cache\stores\StoreInterface
 
 				$cache = '';
 
-				while(!$file->feof())
+				while(!$file->eof())
 				{
 					$cache .= $file->fgets();
 				}
