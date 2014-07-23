@@ -123,7 +123,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
 		$splFileObject->shouldReceive('fgets')->twice()->andReturn(2000000000, serialize('bar'));
 
-		$splFileObject->shouldReceive('feof')->twice()->andReturn(false, true);
+		$splFileObject->shouldReceive('eof')->twice()->andReturn(false, true);
 
 		$fileSystem->shouldReceive('file')->once()->with('/cache/foo.php', 'r')->andReturn($splFileObject);
 
