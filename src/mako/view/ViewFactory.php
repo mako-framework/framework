@@ -174,7 +174,7 @@ class ViewFactory
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
 
-	public function rendererFactory($renderer, $view, $parameters)
+	protected function rendererFactory($renderer, $view, $parameters)
 	{
 		if($renderer instanceof Closure)
 		{
