@@ -191,7 +191,7 @@ class ViewFactory
 	 * 
 	 * @access  public
 	 * @param   string                                  $view       View
-	 * @param   array                                   $variables  View variables
+	 * @param   array                                   $variables  (optional) View variables
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
 
