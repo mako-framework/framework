@@ -7,6 +7,7 @@
 
 namespace mako\view;
 
+use \Closure;
 use \RuntimeException;
 
 use \mako\view\renderers\CacheableInterface;
@@ -100,6 +101,27 @@ class ViewFactory
 	}
 
 	/**
+	 * Registers a custom view renderer.
+	 * 
+	 * @access  public
+	 * @param   string           $extention  Extention handled by the renderer
+	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
+	 * @param   boolean          $prepend    (optional) Prepend the custom renderer on the stack
+	 */
+
+	public function registerRenderer($extention, $renderer, $prepend = true)
+	{
+		if($prepend)
+		{
+			$this->renderers = [$extention => $renderer] + $this->renderers;
+		}
+		else
+		{
+			$this->renderers[$extention] = $renderer;
+		}
+	}
+
+	/**
 	 * Assign a global view variable that will be available in all views.
 	 *
 	 * @access  public
@@ -125,6 +147,8 @@ class ViewFactory
 
 	protected function getView($view)
 	{
+		$view = str_replace('.', '/', $view);
+		
 		// Loop throught the avaiable extensions and check if the view exists
 
 		foreach($this->renderers as $extension => $renderer)
@@ -141,6 +165,28 @@ class ViewFactory
 	}
 
 	/**
+	 * Creates a renderer instance.
+	 * 
+	 * @access  protected
+	 * @param   string|\Closure                         $renderer    Renderer
+	 * @param   string                                  $view        Path to view file
+	 * @param   array                                   $parameters  View parameters
+	 * @return  \mako\view\renderers\RendererInterface
+	 */
+
+	public function rendererFactory($renderer, $view, $parameters)
+	{
+		if($renderer instanceof Closure)
+		{
+			return $renderer($view, $parameters);
+		}
+		else
+		{
+			return new $renderer($view, $parameters);
+		}
+	}
+
+	/**
 	 * Creates and returns a view renderer instance.
 	 * 
 	 * @access  public
@@ -151,15 +197,11 @@ class ViewFactory
 
 	public function create($view, array $variables = [])
 	{
-		$view = str_replace('.', '/', $view);
-
 		$view = $this->getView($view);
-
-		$renderer = $view['renderer'];
 
 		// Create renderer instance
 
-		$renderer = new $renderer($view['path'], array_merge($this->globalVariables, $variables));
+		$renderer = $this->rendererFactory($view['renderer'], $view['path'], $variables + $this->globalVariables);
 
 		// Set the view cache path if needed
 
