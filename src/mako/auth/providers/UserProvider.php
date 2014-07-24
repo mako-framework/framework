@@ -7,6 +7,8 @@
 
 namespace mako\auth\providers;
 
+use \Closure;
+
 use \mako\auth\user\UserInterface;
 use \mako\security\Password;
 
@@ -25,17 +27,28 @@ class UserProvider implements \mako\auth\providers\UserProviderInterface
 	 */
 
 	protected $model;
+	
+    /**
+     * Query statements.
+     *
+     * @var string
+     */
+
+    protected $query;
 
 	/**
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $model  Model class
+	 * @param   string   $model  Model class
+	 * @param   Closure  $query  (optional) Additional query statements
 	 */
 
-	public function __construct($model)
+	public function __construct($model, $query = null)
 	{
 		$this->model = $model;
+		
+		$this->query = $query;
 	}
 
 	/**
@@ -80,7 +93,7 @@ class UserProvider implements \mako\auth\providers\UserProviderInterface
 	{
 		$model = $this->model;
 
-		return $model::where('action_token', '=', $token)->first();
+		return $this->queryUser($model::where('action_token', '=', $token))->first();
 	}
 
 	/**
@@ -95,7 +108,7 @@ class UserProvider implements \mako\auth\providers\UserProviderInterface
 	{
 		$model = $this->model;
 
-		return $model::where('access_token', '=', $token)->first();
+		return $this->queryUser($model::where('access_token', '=', $token))->first();
 	}
 
 	/**
@@ -110,7 +123,7 @@ class UserProvider implements \mako\auth\providers\UserProviderInterface
 	{
 		$model = $this->model;
 
-		return $model::where('email', '=', $email)->first();
+		return $this->queryUser($model::where('email', '=', $email))->first();
 	}
 
 	/**
@@ -125,7 +138,7 @@ class UserProvider implements \mako\auth\providers\UserProviderInterface
 	{
 		$model = $this->model;
 
-		return $model::where('id', '=', $id)->first();
+		return $this->queryUser($model::where('id', '=', $id))->first();
 	}
 
 	/**
@@ -141,4 +154,24 @@ class UserProvider implements \mako\auth\providers\UserProviderInterface
 	{
 		return Password::validate($password, $user->getPassword());
 	}
+	
+    /**
+     * Perform User query
+     *
+     * @access  private
+     * @param   string                                 $model  Model class
+     * @return  \mako\auth\user\UserInterface|boolean
+     */
+
+    private function queryUser($model)
+    {
+        // Check additional query statements
+
+        if($this->query instanceof Closure)
+        {
+            call_user_func($this->query, $model);
+        }
+
+        return $model;
+    }
 }
