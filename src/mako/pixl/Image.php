@@ -151,7 +151,7 @@ class Image
 	}
 
 	/**
-	 * Makes sure that the quality is between 0 and 100.
+	 * Makes sure that the quality is between 1 and 100.
 	 * 
 	 * @access  protected
 	 * @param   int        $quality  Image quality
@@ -160,7 +160,7 @@ class Image
 
 	protected function normalizeImageQuality($quality)
 	{
-		return max(min((int) $quality, 100), 0);
+		return max(min((int) $quality, 100), 1);
 	}
 
 	/**
