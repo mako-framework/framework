@@ -32,6 +32,14 @@ use \mako\utility\UUID;
 abstract class ORM
 {
 	/**
+	 * Date format used when transforming a record to array or string.
+	 * 
+	 * @var string
+	 */
+
+	const DATE_FORMAT = 'Y-m-d H:i:s';
+
+	/**
 	 * Incrementing primary key.
 	 * 
 	 * @var int
@@ -568,6 +576,35 @@ abstract class ORM
 	}
 
 	/**
+	 * Returns a local column value.
+	 * 
+	 * @access  protected
+	 * @return  mixed
+	 */
+
+	protected function getLocalColumn($name)
+	{
+		if(method_exists($this, $name . 'Accessor'))
+		{
+			// The column has a custom accessor
+
+			return $this->{$name . 'Accessor'}($this->columns[$name]);	
+		}
+		elseif(in_array($name, $this->getDateTimeColumns()))
+		{
+			// The column value should be converted to a DateTime object
+
+			return $this->toDateTime($this->columns[$name]);
+		}
+		else
+		{
+			// Just a normal column
+
+			return $this->columns[$name];
+		}
+	}
+
+	/**
 	 * Gets a column value.
 	 * 
 	 * @access  public
@@ -579,24 +616,9 @@ abstract class ORM
 	{
 		if(array_key_exists($name, $this->columns))
 		{
-			if(method_exists($this, $name . 'Accessor'))
-			{
-				// The column has a custom accessor
+			// The column is local
 
-				return $this->{$name . 'Accessor'}($this->columns[$name]);	
-			}
-			elseif(in_array($name, $this->getDateTimeColumns()))
-			{
-				// The column value should be converted to a DateTime object
-
-				return $this->toDateTime($this->columns[$name]);
-			}
-			else
-			{
-				// Just a normal column
-
-				return $this->columns[$name];
-			}
+			return $this->getLocalColumn($name);
 		}
 		elseif(isset($this->related[$name]))
 		{
@@ -611,7 +633,7 @@ abstract class ORM
 			return $this->related[$name] = $this->{$name}()->getRelated();
 		}
 		else
-		{
+		{			
 			throw new RunTimeException(vsprintf("%s(): Unknown column [ %s ].", [__METHOD__, $name]));
 		}
 	}
@@ -1057,16 +1079,16 @@ abstract class ORM
 
 		// Mutate column values if needed
 
-		foreach($columns as $key => $value)
+		foreach($columns as $name => $value)
 		{
-			if(method_exists($this, $key . 'Accessor'))
+			$value = $this->getLocalColumn($name);
+
+			if($value instanceof DateTime)
 			{
-				$columns[$key] = $this->{$key . 'Accessor'}($this->columns[$key]);
+				$value = $value->format(static::DATE_FORMAT);
 			}
-			else
-			{
-				$columns[$key] = $this->columns[$key];
-			}
+
+			$columns[$name] = $value;
 		}
 
 		// Merge in related records
