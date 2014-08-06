@@ -30,20 +30,36 @@ class Connection
 	protected $name;
 
 	/**
-	 * Connection configuration.
+	 * Connection DSN.
 	 * 
-	 * @var array
+	 * @var string
 	 */
 
-	protected $config;
+	protected $dsn;
 
 	/**
-	 * PDO object.
-	 *
-	 * @var \PDO
+	 * Database username.
+	 * 
+	 * @var string
 	 */
 
-	protected $pdo;
+	protected $username;
+
+	/**
+	 * Database password.
+	 * 
+	 * @var string
+	 */
+
+	protected $password;
+
+	/**
+	 * Enable the query log?
+	 *
+	 * @var boolean
+	 */
+
+	protected $enableLog;
 
 	/**
 	 * Should we reconnect?
@@ -52,6 +68,30 @@ class Connection
 	 */
 
 	protected $reconnect;
+
+	/**
+	 * Should we use a persistent connection?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $usePersistentConnection;
+
+	/**
+	 * Queries that should be executed upon connecting.
+	 * 
+	 * @var array
+	 */
+
+	protected $onConnectQueries;
+
+	/**
+	 * PDO object.
+	 *
+	 * @var \PDO
+	 */
+
+	protected $pdo;
 
 	/**
 	 * Driver name.
@@ -68,14 +108,6 @@ class Connection
 	 */
 
 	protected $dialect;
-
-	/**
-	 * Enable the query log?
-	 *
-	 * @var boolean
-	 */
-
-	protected $enableLog;
 
 	/**
 	 * Query log.
@@ -97,15 +129,21 @@ class Connection
 	{
 		$this->name = $name;
 
-		$this->config = $config;
+		// Configure the connection
 
-		// Enable query log?
+		$this->dsn = $config['dsn'];
+
+		$this->username = isset($config['username']) ? $config['username'] : null;
+
+		$this->password = isset($config['password']) ? $config['password'] : null;
 
 		$this->enableLog = isset($config['log_queries']) ? $config['log_queries'] : false;
 
-		// Should we automatically reconnect?
-
 		$this->reconnect = isset($config['reconnect']) ? $config['reconnect'] : false;
+
+		$this->usePersistentConnection = isset($config['persistent']) ? $config['persistent'] : false;
+
+		$this->onConnectQueries = isset($config['queries']) ? $config['queries'] : [];
 
 		// Connect to the database
 
@@ -201,12 +239,9 @@ class Connection
 	{
 		// Connect to the database
 
-		$user = isset($this->config['username']) ? $this->config['username'] : null;
-		$pass = isset($this->config['password']) ? $this->config['password'] : null;
-
 		$options = 
 		[
-			PDO::ATTR_PERSISTENT         => isset($this->config['persistent']) ? $this->config['persistent'] : false,
+			PDO::ATTR_PERSISTENT         => $this->usePersistentConnection,
 			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
 			PDO::ATTR_STRINGIFY_FETCHES  => false,
@@ -215,7 +250,7 @@ class Connection
 
 		try
 		{
-			$pdo = new PDO($this->config['dsn'], $user, $pass, $options);
+			$pdo = new PDO($this->dsn, $this->username, $this->password, $options);
 		}
 		catch(PDOException $e)
 		{
@@ -224,12 +259,9 @@ class Connection
 
 		// Run queries
 
-		if(isset($this->config['queries']))
+		foreach($this->onConnectQueries as $query)
 		{
-			foreach($this->config['queries'] as $query)
-			{
-				$pdo->exec($query);
-			}
+			$pdo->exec($query);
 		}
 
 		// Return PDO instance
