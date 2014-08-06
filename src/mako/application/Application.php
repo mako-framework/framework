@@ -7,15 +7,12 @@
 
 namespace mako\application;
 
-use \Closure;
 use \LogicException;
 
 use \mako\autoloading\AliasLoader;
 use \mako\config\Config;
 use \mako\file\FileSystem;
 use \mako\syringe\Container;
-
-use \Monolog\Handler\HandlerInterface;
 
 /**
  * Application.

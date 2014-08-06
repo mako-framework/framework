@@ -7,8 +7,6 @@
 
 namespace mako\i18n;
 
-use \RuntimeException;
-
 use \mako\cache\Cache;
 use \mako\file\FileSystem;
 use \mako\i18n\Language;

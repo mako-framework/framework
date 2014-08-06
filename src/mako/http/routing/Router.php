@@ -8,7 +8,6 @@
 namespace mako\http\routing;
 
 use \mako\http\Request;
-use \mako\http\Response;
 use \mako\http\routing\Route;
 use \mako\http\routing\Routes;
 use \mako\http\routing\PageNotFoundException;

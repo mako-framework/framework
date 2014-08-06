@@ -7,10 +7,7 @@
 
 namespace mako\reactor;
 
-use \Exception;
 use \ReflectionClass;
-use \RuntimeException;
-use \ReflectionException;
 
 use \mako\reactor\Task;
 use \mako\reactor\io\Input;

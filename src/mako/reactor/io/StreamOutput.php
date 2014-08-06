@@ -9,7 +9,6 @@ namespace mako\reactor\io;
 
 use \Symfony\Component\Console\Helper\TableHelper;
 use \Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use \Symfony\Component\Console\Formatter\OutputFormatterInterface;
 
 /**
  * Abstract stream output.

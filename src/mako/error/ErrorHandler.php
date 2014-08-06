@@ -11,8 +11,6 @@ use \Closure;
 use \ErrorException;
 use \Exception;
 
-use \mako\error\handlers\ExceptionHandler;
-
 /**
  * Error handler.
  *

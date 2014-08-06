@@ -7,8 +7,8 @@
 
 namespace mako\error\handlers;
 
-use \Exception;
 use \ErrorException;
+
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\RequestException;

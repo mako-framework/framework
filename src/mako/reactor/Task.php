@@ -7,11 +7,8 @@
 
 namespace mako\reactor;
 
-use \mako\utility\Str;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
-use \ReflectionClass;
-use \ReflectionMethod;
 
 /**
  * Base task.

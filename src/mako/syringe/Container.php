@@ -12,8 +12,6 @@ use \ReflectionClass;
 use \ReflectionParameter;
 use \RuntimeException;
 
-use \mako\syringe\ContainerAwareTrait;
-
 /**
  * Inversion of control container.
  * 

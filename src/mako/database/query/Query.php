@@ -7,7 +7,6 @@
 
 namespace mako\database\query;
 
-use \PDO;
 use \Closure;
 
 use \mako\database\Connection;

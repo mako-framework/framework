@@ -8,7 +8,6 @@
 namespace mako\event;
 
 use \Closure;
-use \RuntimeExcepion;
 
 /**
  * Observable trait.
