@@ -30,12 +30,28 @@ class Connection
 	protected $name;
 
 	/**
+	 * Connection configuration.
+	 * 
+	 * @var array
+	 */
+
+	protected $config;
+
+	/**
 	 * PDO object.
 	 *
 	 * @var \PDO
 	 */
 
 	protected $pdo;
+
+	/**
+	 * Should we reconnect?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $reconnect;
 
 	/**
 	 * Driver name.
@@ -81,42 +97,19 @@ class Connection
 	{
 		$this->name = $name;
 
+		$this->config = $config;
+
 		// Enable query log?
 
 		$this->enableLog = isset($config['log_queries']) ? $config['log_queries'] : false;
 
+		// Should we automatically reconnect?
+
+		$this->reconnect = isset($config['reconnect']) ? $config['reconnect'] : false;
+
 		// Connect to the database
 
-		$user = isset($config['username']) ? $config['username'] : null;
-		$pass = isset($config['password']) ? $config['password'] : null;
-
-		$options = 
-		[
-			PDO::ATTR_PERSISTENT         => isset($config['persistent']) ? $config['persistent'] : false,
-			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-			PDO::ATTR_STRINGIFY_FETCHES  => false,
-			PDO::ATTR_EMULATE_PREPARES   => false,
-		];
-
-		try
-		{
-			$this->pdo = new PDO($config['dsn'], $user, $pass, $options);
-		}
-		catch(PDOException $e)
-		{
-			throw new RuntimeException(vsprintf("%s(): Failed to connect to the [ %s ] database. %s", [__METHOD__, $this->name, $e->getMessage()]));
-		}
-
-		// Run queries
-
-		if(isset($config['queries']))
-		{
-			foreach($config['queries'] as $query)
-			{
-				$this->pdo->exec($query);
-			}
-		}
+		$this->pdo = $this->connect();
 
 		// Set the driver name
 
@@ -198,6 +191,101 @@ class Connection
 	}
 
 	/**
+	 * Creates a PDO instance.
+	 * 
+	 * @access  protected
+	 * @return  \PDO
+	 */
+
+	protected function connect()
+	{
+		// Connect to the database
+
+		$user = isset($this->config['username']) ? $this->config['username'] : null;
+		$pass = isset($this->config['password']) ? $this->config['password'] : null;
+
+		$options = 
+		[
+			PDO::ATTR_PERSISTENT         => isset($this->config['persistent']) ? $this->config['persistent'] : false,
+			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
+			PDO::ATTR_STRINGIFY_FETCHES  => false,
+			PDO::ATTR_EMULATE_PREPARES   => false,
+		];
+
+		try
+		{
+			$pdo = new PDO($this->config['dsn'], $user, $pass, $options);
+		}
+		catch(PDOException $e)
+		{
+			throw new RuntimeException(vsprintf("%s(): Failed to connect to the [ %s ] database. %s", [__METHOD__, $this->name, $e->getMessage()]));
+		}
+
+		// Run queries
+
+		if(isset($this->config['queries']))
+		{
+			foreach($this->config['queries'] as $query)
+			{
+				$pdo->exec($query);
+			}
+		}
+
+		// Return PDO instance
+
+		return $pdo;
+	}
+
+	/**
+	 * Creates a new PDO instance.
+	 * 
+	 * @access  public
+	 */
+
+	public function reconnect()
+	{
+		$this->pdo = $this->connect();
+	}
+
+	/**
+	 * Pings the database server and returns TRUE if the 
+	 * connection is alive and FALSE if not.
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function ping()
+	{
+		switch($this->driver)
+		{
+			case 'db2':
+			case 'ibm':
+			case 'odbc':
+				$query = 'SELECT 1 FROM SYSIBM.SYSDUMMY1';
+				break;
+			case 'oci':
+			case 'oracle':
+				$query = 'SELECT 1 FROM DUAL';
+				break;
+			default:
+				$query = 'SELECT 1';
+		}
+
+		try
+		{
+			$this->pdo->query($query);
+		}
+		catch(PDOException $e)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Replace placeholders with parameteters.
 	 * 
 	 * @access  protected
@@ -249,22 +337,22 @@ class Connection
 	}
 
 	/**
-	 * Prepares a query.
+	 * Prepare query and params.
 	 * 
 	 * @access  protected
-	 * @param   string     $query   SQL query
+	 * @param   string     $query   SQL Query
 	 * @param   array      $params  Query parameters
 	 * @return  array
 	 */
 
-	protected function prepare($query, array $params)
+	protected function prepareQueryAndParams($query, array $params)
 	{
-		// Replace IN clause placeholder with escaped values
-
 		replace:
 
 		if(strpos($query, '([?])') !== false)
 		{
+			// Replace IN clause placeholder with escaped values
+
 			foreach($params as $key => $value)
 			{
 				if(is_array($value))
@@ -278,14 +366,53 @@ class Connection
 			}
 		}
 
-		// Prepare statement
+		return [$query, $params];
+	}
+
+	/**
+	 * Should we try to reestablish the connection?
+	 * 
+	 * @access  protected
+	 * @return  boolean
+	 */
+
+	protected function isConnectionLostAndShouldItBeReestablished()
+	{
+		return ($this->reconnect === true && $this->pdo->inTransaction() === false && $this->ping() === false);
+	}
+
+	/**
+	 * Prepares a query.
+	 * 
+	 * @access  protected
+	 * @param   string     $query   SQL query
+	 * @param   array      $params  Query parameters
+	 * @return  array
+	 */
+
+	protected function prepare($query, array $params)
+	{
+		// Prepare query and parameters
+
+		list($query, $params) = $this->prepareQueryAndParams($query, $params);
+
+		// Create a prepared statement
 
 		try
 		{
+			prepare:
+
 			$statement = $this->pdo->prepare($query);
 		}
 		catch(PDOException $e)
 		{
+			if($this->isConnectionLostAndShouldItBeReestablished())
+			{
+				$this->reconnect();
+
+				goto prepare;
+			}
+
 			throw new PDOException($e->getMessage() . ' [ ' . $this->replaceParams($query, $params) . ' ] ', (int) $e->getCode(), $e->getPrevious());
 		}
 
