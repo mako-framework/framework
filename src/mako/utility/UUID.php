@@ -100,7 +100,9 @@ class UUID
 
 		// Convert Namespace UUID to bits
 
-		for($i = 0; $i < strlen($nhex); $i+=2) 
+		$nhexLength = strlen($nhex);
+
+		for($i = 0; $i < $nhexLength; $i+=2) 
 		{
 			$nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));
 		}

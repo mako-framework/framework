@@ -92,7 +92,7 @@ class REPL
 		{
 			// Enable autocompletion if readline is available
 
-			readline_completion_function(array($this, 'autocomplete'));
+			readline_completion_function([$this, 'autocomplete']);
 
 			// Delete the history file if the user wants to start a fresh session
 
@@ -125,7 +125,7 @@ class REPL
 	 * @access protected
 	 */
 
-	public function autocomplete($line, $pos, $cursor)
+	public function autocomplete()
 	{
 		$functions = get_defined_functions();
 
@@ -170,7 +170,9 @@ class REPL
 
 		$code = '';
 
-		for($i = 0; $i < strlen($line); $i++)
+		$lineLength = strlen($line);
+
+		for($i = 0; $i < $lineLength; $i++)
 		{
 			$c = $line{$i};
 

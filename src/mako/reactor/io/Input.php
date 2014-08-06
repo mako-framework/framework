@@ -111,7 +111,7 @@ class Input
 
 	public function password($question, $fallback = true)
 	{
-		$response = $this->dialogHelper->askHiddenResponse($this->output, $question . ' ', $fallback = true);
+		$response = $this->dialogHelper->askHiddenResponse($this->output, $question . ' ', $fallback);
 
 		$this->output->nl();
 

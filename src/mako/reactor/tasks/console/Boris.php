@@ -99,7 +99,7 @@ class Boris
 	 * @access protected
 	 */
 
-	public function autocomplete($line, $pos, $cursor)
+	public function autocomplete()
 	{
 		$functions = get_defined_functions();
 
