@@ -110,6 +110,14 @@ class Connection
 	protected $dialect;
 
 	/**
+	 * Transaction nesting level.
+	 * 
+	 * @var int
+	 */
+
+	protected $transactionNestingLevel = 0;
+
+	/**
 	 * Query log.
 	 *
 	 * @var array
@@ -410,7 +418,7 @@ class Connection
 
 	protected function isConnectionLostAndShouldItBeReestablished()
 	{
-		return ($this->reconnect === true && $this->pdo->inTransaction() === false && $this->ping() === false);
+		return ($this->reconnect === true && $this->inTransaction() === false && $this->ping() === false);
 	}
 
 	/**
@@ -577,6 +585,84 @@ class Connection
 	}
 
 	/**
+	 * Begin a transaction.
+	 * 
+	 * @access  public
+	 */
+
+	public function beginTransaction()
+	{
+		$this->transactionNestingLevel++;
+		
+		if($this->transactionNestingLevel === 1)
+		{
+			$this->pdo->beginTransaction();
+		}
+	}
+
+	/**
+	 * Commits a transaction.
+	 * 
+	 * @access  public
+	 */
+
+	public function commitTransaction()
+	{
+		if($this->transactionNestingLevel > 0)
+		{
+			$this->transactionNestingLevel--;
+		}
+
+		if($this->transactionNestingLevel === 0)
+		{
+			$this->pdo->commit();
+		}
+	}
+
+	/**
+	 * Roll back a transaction.
+	 * 
+	 * @access  public
+	 */
+
+	public function rollBackTransaction()
+	{
+		if($this->transactionNestingLevel > 0)
+		{
+			$this->transactionNestingLevel--;
+		}
+
+		if($this->transactionNestingLevel === 0)
+		{
+			$this->pdo->rollBack();
+		}
+	}
+
+	/**
+	 * Returns the transaction nesting level.
+	 * 
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function getTransactionNestingLevel()
+	{
+		return $this->transactionNestingLevel;
+	}
+
+	/**
+	 * Returns TRUE if we're in a transaction and FALSE if not.
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function inTransaction()
+	{
+		return $this->pdo->inTransaction();
+	}
+
+	/**
 	 * Executes queries and rolls back the transaction if any of them fail.
 	 *
 	 * @access  public
@@ -588,15 +674,15 @@ class Connection
 	{
 		try
 		{
-			$this->pdo->beginTransaction();
+			$this->beginTransaction();
 
 			$result = $queries($this);
 
-			$this->pdo->commit();
+			$this->commitTransaction();
 		}
 		catch(PDOException $e)
 		{
-			$this->pdo->rollBack();
+			$this->rollBackTransaction();
 
 			throw $e;
 		}
