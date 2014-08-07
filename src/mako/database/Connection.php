@@ -593,7 +593,7 @@ class Connection
 	public function beginTransaction()
 	{
 		$this->transactionNestingLevel++;
-		
+
 		if($this->transactionNestingLevel === 1)
 		{
 			$this->pdo->beginTransaction();
@@ -667,7 +667,6 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   \Closure  $queries  Queries
-	 * @return  mixed
 	 */
 
 	public function transaction(Closure $queries)
@@ -676,7 +675,7 @@ class Connection
 		{
 			$this->beginTransaction();
 
-			$result = $queries($this);
+			$queries($this);
 
 			$this->commitTransaction();
 		}
@@ -686,7 +685,5 @@ class Connection
 
 			throw $e;
 		}
-
-		return $result;
 	}
 }
