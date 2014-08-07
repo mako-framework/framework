@@ -289,14 +289,13 @@ class Connection
 	}
 
 	/**
-	 * Pings the database server and returns TRUE if the 
-	 * connection is alive and FALSE if not.
+	 * Checks if the connection is alive.
 	 * 
 	 * @access  public
 	 * @return  boolean
 	 */
 
-	public function ping()
+	public function isAlive()
 	{
 		switch($this->driver)
 		{
@@ -418,7 +417,7 @@ class Connection
 
 	protected function isConnectionLostAndShouldItBeReestablished()
 	{
-		return ($this->reconnect === true && $this->inTransaction() === false && $this->ping() === false);
+		return ($this->reconnect === true && $this->inTransaction() === false && $this->isAlive() === false);
 	}
 
 	/**
