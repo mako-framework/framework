@@ -386,11 +386,13 @@ class Connection
 
 	protected function prepareQueryAndParams($query, array $params)
 	{
+		// Replace IN clause placeholder with escaped values
+
 		replace:
 
 		if(strpos($query, '([?])') !== false)
 		{
-			// Replace IN clause placeholder with escaped values
+			
 
 			foreach($params as $key => $value)
 			{
@@ -404,6 +406,18 @@ class Connection
 				}
 			}
 		}
+
+		// Normalize boolean values since PDO is unable to do so
+
+		foreach($params as $key => $value)
+		{
+			if($value === true || $value === false)
+			{
+				$params[$key] = (int) $value;
+			}
+		}
+
+		// Return query and parameters
 
 		return [$query, $params];
 	}

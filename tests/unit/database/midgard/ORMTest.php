@@ -76,6 +76,11 @@ class ORMTestApple extends \mako\database\midgard\ORM
 
 }
 
+class TestCasting extends \mako\database\midgard\ORM
+{
+	protected $cast = ['bool' => 'boolean', 'integer' => 'int', 'float' => 'float'];
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -391,6 +396,61 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 		$user->foo = 789;
 
 		$this->assertEquals(['foo' => 789], $user->getModified());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testCasting()
+	{
+		$cast = new TestCasting;
+
+		$cast->bool  = 1;
+
+		$cast->int   = '1';
+
+		$cast->float = '1.1';
+
+		$this->assertEquals(true, $cast->bool);
+
+		$this->assertEquals(1, $cast->int);
+
+		$this->assertEquals(1.1, $cast->float);
+
+		//
+
+		$cast = new TestCasting;
+
+		$cast->bool  = 0;
+		$cast->int   = '1';
+		$cast->float = '1.1';
+
+		$this->assertEquals(false, $cast->bool);
+
+		$this->assertEquals(1, $cast->int);
+
+		$this->assertEquals(1.1, $cast->float);
+
+		//
+
+		$cast = new TestCasting(['bool' => '1', 'int' => '1', 'float' => '1.1'], true, false, true);
+
+		$this->assertEquals(true, $cast->bool);
+
+		$this->assertEquals(1, $cast->int);
+
+		$this->assertEquals(1.1, $cast->float);
+
+		//
+
+		$cast = new TestCasting(['bool' => '0', 'int' => '1', 'float' => '1.1'], true, false, true);
+
+		$this->assertEquals(false, $cast->bool);
+
+		$this->assertEquals(1, $cast->int);
+
+		$this->assertEquals(1.1, $cast->float);
 	}
 
 	/**

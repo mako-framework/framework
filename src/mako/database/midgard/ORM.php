@@ -184,6 +184,14 @@ abstract class ORM
 	protected $related = [];
 
 	/**
+	 * Columns that should be casted to a specific type.
+	 * 
+	 * @var array
+	 */
+
+	protected $cast = [];
+
+	/**
 	 * Columns that can be set through mass assignment.
 	 * 
 	 * @var array
@@ -501,6 +509,25 @@ abstract class ORM
 	}
 
 	/**
+	 * Cast value to the appropriate type.
+	 * 
+	 * @access  protected
+	 * @param   string     $name   Column name
+	 * @param   mixed      $value  Column value
+	 * @return  mixed
+	 */
+
+	protected function cast($name, $value)
+	{
+		if(isset($this->cast[$name]))
+		{
+			settype($value, $this->cast[$name]);
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Sets a raw column value.
 	 * 
 	 * @access  public
@@ -510,7 +537,7 @@ abstract class ORM
 
 	public function setRawColumn($name, $value)
 	{
-		$this->columns[$name] = $value;
+		$this->columns[$name] = $this->cast($name, $value);
 	}
 
 	/**
@@ -523,6 +550,8 @@ abstract class ORM
 
 	public function setColumn($name, $value)
 	{
+		$value = $this->cast($name, $value);
+
 		if(method_exists($this, $name . 'Mutator'))
 		{
 			// The column has a custom mutator
@@ -680,7 +709,10 @@ abstract class ORM
 
 		if($raw)
 		{
-			$this->columns = $columns;
+			foreach($columns as $column => $value)
+			{
+				$this->setRawColumn($column, $value);
+			}
 		}
 		else
 		{
