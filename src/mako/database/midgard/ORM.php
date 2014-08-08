@@ -519,7 +519,7 @@ abstract class ORM
 
 	protected function cast($name, $value)
 	{
-		if(isset($this->cast[$name]))
+		if(isset($this->cast[$name]) && $value !== null)
 		{
 			settype($value, $this->cast[$name]);
 		}
