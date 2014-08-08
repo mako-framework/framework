@@ -160,7 +160,7 @@ class Routes
 
 		$this->routes[] = $route;
 
-		if(!is_null($name))
+		if($name !== null)
 		{
 			$this->namedRoutes[$name] = $route;
 		}

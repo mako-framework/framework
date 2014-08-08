@@ -86,7 +86,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 
 	public function offsetSet($offset, $value)
 	{
-		if(is_null($offset))
+		if($offset === null)
 		{
 			$this->items[] = $value;
 		}
