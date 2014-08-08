@@ -19,6 +19,10 @@ interface ProcessorInterface
 {
 	public function open($image);
 
+	public function snapshot();
+
+	public function restore();
+
 	public function rotate($degrees);
 
 	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE);

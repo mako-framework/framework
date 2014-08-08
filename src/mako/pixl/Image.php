@@ -164,6 +164,28 @@ class Image
 	}
 
 	/**
+	 * Creates a snapshot of the image.
+	 * 
+	 * @access  public
+	 */
+
+	public function snapshot()
+	{
+		$this->processor->snapshot();
+	}
+
+	/**
+	 * Retstores the image snapshot.
+	 * 
+	 * @access  public
+	 */
+
+	public function restore()
+	{
+		$this->processor->restore();
+	}
+
+	/**
 	 * Rotates the image using the given angle in degrees.
 	 *
 	 * @access  public

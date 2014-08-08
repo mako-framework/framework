@@ -23,10 +23,18 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	/**
 	 * Image resource.
 	 * 
-	 * @var string
+	 * @var resource
 	 */
 
 	protected $image;
+
+	/**
+	 * Image resource.
+	 * 
+	 * @var resource
+	 */
+
+	protected $snapshot;
 
 	/**
 	 * Image info.
@@ -66,7 +74,12 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 		if(is_resource($this->image))
 		{
 			imagedestroy($this->image);
-		}	
+		}
+
+		if(is_resource($this->snapshot))
+		{
+			imagedestroy($this->snapshot);
+		}
 	}
 
 	/**
@@ -161,6 +174,40 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 		$this->imageInfo = $this->getImageInfo($image);
 
 		$this->image = $this->createImageResource($image, $this->imageInfo);
+	}
+
+	/**
+	 * Creates a snapshot of the image resource.
+	 * 
+	 * @access  public
+	 */
+
+	public function snapshot()
+	{
+		$w = imagesx($this->image);
+		$h = imagesy($this->image);
+
+		$this->snapshot = imagecreatetruecolor($w, $h);
+
+		imagecopy($this->snapshot, $this->image, 0, 0, 0, 0, $w, $h);
+	}
+
+	/**
+	 * Restores an image snapshot.
+	 * 
+	 * @access  public
+	 */
+
+	public function restore()
+	{
+		if(!is_resource($this->snapshot))
+		{
+			throw new RuntimeException(vsprintf("%s(): No snapshot to restore.", [__METHOD__]));
+		}
+
+		$this->image = $this->snapshot;
+
+		$this->snapshot = null;
 	}
 
 	/**

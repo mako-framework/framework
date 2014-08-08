@@ -31,6 +31,14 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	protected $image;
 
 	/**
+	 * Imagick instance.
+	 * 
+	 * @var \Imagick
+	 */
+
+	protected $snapshot;
+
+	/**
 	 * Destructor.
 	 *
 	 * @access  public
@@ -41,7 +49,12 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 		if($this->image instanceof Imagick)
 		{
 			$this->image->destroy();
-		}	
+		}
+
+		if($this->snapshot instanceof Imagick)
+		{
+			$this->snapshot->destroy();
+		}
 	}
 
 	/**
@@ -72,6 +85,35 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	public function open($image)
 	{
 		$this->image = new Imagick($image);
+	}
+
+	/**
+	 * Creates a snapshot of the image resource.
+	 * 
+	 * @access  public
+	 */
+
+	public function snapshot()
+	{
+		$this->snapshot = clone $this->image;
+	}
+
+	/**
+	 * Restores an image snapshot.
+	 * 
+	 * @access  public
+	 */
+
+	public function restore()
+	{
+		if(!($this->snapshot instanceof Imagick))
+		{
+			throw new RuntimeException(vsprintf("%s(): No snapshot to restore.", [__METHOD__]));
+		}
+
+		$this->image = $this->snapshot;
+
+		$this->snapshot = null;
 	}
 
 	/**
