@@ -344,6 +344,19 @@ class Image
 	}
 
 	/**
+	 * Sharpens the image.
+	 * 
+	 * @access  public
+	 */
+
+	public function sharpen()
+	{
+		$this->processor->sharpen();
+
+		return $this;
+	}
+
+	/**
 	 * Pixelates the image.
 	 *
 	 * @access  public

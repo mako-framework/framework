@@ -636,6 +636,21 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
+	 * Sharpens the image.
+	 * 
+	 * @access  public
+	 */
+
+	public function sharpen()
+	{
+		$sharpen = [[-1.2, -1, -1.2], [-1, 20, -1], [-1.2, -1, -1.2]];
+
+		$divisor = array_sum(array_map('array_sum', $sharpen));
+
+		imageconvolution($this->image, $sharpen, $divisor, 0);
+	}
+
+	/**
 	 * Pixelates the image.
 	 * 
 	 * @access  public

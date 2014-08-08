@@ -41,6 +41,8 @@ interface ProcessorInterface
 
 	public function colorize($color);
 
+	public function sharpen();
+
 	public function pixelate($pixelSize = 10);
 
 	public function negate();

@@ -320,6 +320,17 @@ class ImageMagick implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
+	 * Sharpens the image.
+	 * 
+	 * @access  public
+	 */
+
+	public function sharpen()
+	{
+		$this->image->sharpenImage(0, 1);
+	}
+
+	/**
 	 * Pixelates the image.
 	 * 
 	 * @access  public
