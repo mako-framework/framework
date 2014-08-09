@@ -975,13 +975,6 @@ abstract class ORM
 	{
 		$query->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
 
-		if(!empty($this->onUpdate))
-		{
-			$onUpdate = $this->onUpdate;
-
-			$onUpdate($query);
-		}
-
 		return (bool) $query->update($this->getModified());
 	}
 
