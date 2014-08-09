@@ -80,7 +80,7 @@ abstract class ORM
 	protected static $connectionManager = null;
 
 	/**
-	 * Date format.
+	 * Date format used by the database.
 	 * 
 	 * @var string
 	 */
@@ -190,6 +190,14 @@ abstract class ORM
 	 */
 
 	protected $protected = [];
+
+	/**
+	 * Date format used when retuning array and json representations of the record.
+	 * 
+	 * @var string
+	 */
+
+	protected $dateOutputFormat = 'Y-m-d H:i:s';
 
 	/**
 	 * Constructor.
@@ -1077,7 +1085,7 @@ abstract class ORM
 
 			if($value instanceof DateTime)
 			{
-				$value = $value->format($this->getDateFormat());
+				$value = $value->format($this->dateOutputFormat);
 			}
 
 			$columns[$name] = $value;
