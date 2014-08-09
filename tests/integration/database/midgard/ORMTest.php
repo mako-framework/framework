@@ -126,9 +126,7 @@ class ORMTest extends \ORMTestCase
 	{
 		$user = TestUser::select(['username', 'email'])->where('id', '=', 1)->first();
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $user->getRawColumns());
-
-		$this->assertTrue($user->isReadOnly());
+		$this->assertEquals(['id' => '1', 'username' => 'foo', 'email' => 'foo@example.org'], $user->getRawColumns());
 	}
 
 	/**
@@ -139,9 +137,7 @@ class ORMTest extends \ORMTestCase
 	{
 		$users = TestUser::select(['username', 'email'])->all();
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumns());
-
-		$this->assertTrue($users[0]->isReadOnly());
+		$this->assertEquals(['id' => '1', 'username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumns());
 	}
 
 	/**
@@ -157,6 +153,10 @@ class ORMTest extends \ORMTestCase
 		$this->assertEquals(['id' => 1, 'created_at' => '2014-04-30 14:40:01', 'username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumns());
 
 		$this->assertEquals(['id' => 2, 'created_at' => '2014-04-30 14:02:43', 'username' => 'bar', 'email' => 'bar@example.org'], $users[1]->getRawColumns());
+
+		$this->assertTrue($users[0]->isReadOnly());
+
+		$this->assertTrue($users[1]->isReadOnly());
 	}
 
 	/**

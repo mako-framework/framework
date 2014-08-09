@@ -392,6 +392,18 @@ abstract class ORM
 	}
 
 	/**
+	 * Returns the primary key type.
+	 * 
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function getPrimaryKeyType()
+	{
+		return $this->primaryKeyType;
+	}
+
+	/**
 	 * Returns the primary key value.
 	 * 
 	 * @access  public

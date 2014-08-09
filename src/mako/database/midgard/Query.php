@@ -85,6 +85,8 @@ class Query extends \mako\database\query\Query
 
 	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
 	{
+		$this->makeReadOnly = true;
+
 		if(empty($this->joins))
 		{
 			$this->columns = [$this->model->getTable() . '.*'];
@@ -360,7 +362,10 @@ class Query extends \mako\database\query\Query
 
 	public function select(array $columns)
 	{
-		$this->makeReadOnly = true;
+		if($this->model->getPrimaryKeyType() !== ORM::PRIMARY_KEY_TYPE_NONE)
+		{
+			$columns = array_unique(array_merge([$this->model->getPrimaryKey()], $columns), SORT_REGULAR);
+		}
 
 		return parent::select($columns);
 	}
