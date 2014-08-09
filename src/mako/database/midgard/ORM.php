@@ -192,7 +192,7 @@ abstract class ORM
 	protected $protected = [];
 
 	/**
-	 * Date format used when retuning array and json representations of the record.
+	 * Date format used when returning array and json representations of the record.
 	 * 
 	 * @var string
 	 */
