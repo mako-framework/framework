@@ -120,14 +120,6 @@ abstract class ORM
 	protected $primaryKeyType = ORM::PRIMARY_KEY_TYPE_INCREMENTING;
 
 	/**
-	 * DateTime columns.
-	 * 
-	 * @var array
-	 */
-
-	protected $dateTimeColumns = [];
-
-	/**
 	 * Has the record been loaded from a database?
 	 * 
 	 * @var boolean
@@ -350,18 +342,6 @@ abstract class ORM
 	}
 
 	/**
-	 * Returns the date time columns.
-	 * 
-	 * @access  public
-	 * @return  array
-	 */
-
-	protected function getDateTimeColumns()
-	{
-		return $this->dateTimeColumns;
-	}
-
-	/**
 	 * Returns the short name of a class.
 	 * 
 	 * @access  protected
@@ -501,6 +481,18 @@ abstract class ORM
 	}
 
 	/**
+	 * Returns the columns that we're casting.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function getCastColumns()
+	{
+		return $this->cast;
+	}
+
+	/**
 	 * Cast value to the appropriate type.
 	 * 
 	 * @access  protected
@@ -511,9 +503,18 @@ abstract class ORM
 
 	protected function cast($name, $value)
 	{
-		if(isset($this->cast[$name]) && $value !== null)
+		$cast = $this->getCastColumns();
+
+		if(isset($cast[$name]) && $value !== null)
 		{
-			settype($value, $this->cast[$name]);
+			if($cast[$name] === 'date' && !($value instanceof DateTime))
+			{
+				$value = Time::createFromFormat($this->getDateFormat(), $value);
+			}
+			else
+			{
+				settype($value, $cast[$name]);
+			}
 		}
 
 		return $value;
@@ -579,24 +580,6 @@ abstract class ORM
 	}
 
 	/**
-	 * Converts a DATETIME value to a Time instance.
-	 * 
-	 * @access  protected
-	 * @param   mixed                   $value  Value
-	 * @return  \mako\utility\Time
-	 */
-
-	protected function toDateTime($value)
-	{
-		if(!($value instanceof DateTime))
-		{
-			$value = Time::createFromFormat($this->getDateFormat(), $value);
-		}
-
-		return $value;
-	}
-
-	/**
 	 * Returns a local column value.
 	 * 
 	 * @access  protected
@@ -610,12 +593,6 @@ abstract class ORM
 			// The column has a custom accessor
 
 			return $this->{$name . 'Accessor'}($this->columns[$name]);	
-		}
-		elseif(in_array($name, $this->getDateTimeColumns()))
-		{
-			// The column value should be converted to a DateTime object
-
-			return $this->toDateTime($this->columns[$name]);
 		}
 		else
 		{

@@ -116,15 +116,15 @@ trait TimestampedTrait
 	}
 
 	/**
-	 * Returns the date time columns.
+	 * Returns the columns that we're casting.
 	 * 
-	 * @access  public
+	 * @access  protected
 	 * @return  array
 	 */
 
-	protected function getDateTimeColumns()
+	protected function getCastColumns()
 	{
-		return array_merge(parent::getDateTimeColumns(), [$this->getCreatedAtColumn(), $this->getUpdatedAtColumn()]);
+		return $this->cast + [$this->getCreatedAtColumn() => 'date', $this->getUpdatedAtColumn() => 'date'];
 	}
 
 	/**

@@ -30,7 +30,7 @@ class TestUserScoped extends TestUser
 
 class TestUserDateTime extends TestUser
 {
-	protected $dateTimeColumns = ['created_at'];
+	protected $cast = ['created_at' => 'date'];
 }
 
 class UUIDKey extends \TestORM

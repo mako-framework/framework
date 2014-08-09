@@ -66,9 +66,7 @@ class Testuser5 extends TestUser1
 {
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
-	protected $dateTimeColumns = ['created_at'];
-
-	protected $columns = ['created_at' => '2014-02-01 13:10:32'];
+	protected $cast = ['created_at' => 'date'];
 }
 
 class ORMTestApple extends \mako\database\midgard\ORM
@@ -350,7 +348,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 	public function testDateTimeColumns()
 	{
-		$user = new TestUser5();
+		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
 		$this->assertInstanceOf('\mako\utility\Time', $user->created_at);
 	}
@@ -465,7 +463,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals(['username' => 'foo', 'password' => 'bar', 'array' => [1, 2, 3], 'optional' => null], $user->toArray(false));
 
-		$user = new TestUser5();
+		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
 		$this->assertEquals(['created_at' => '2014-02-01 13:10:32'], $user->toArray());
 	}
@@ -482,7 +480,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('{"username":"foo","password":"bar","array":[1,2,3],"optional":null}', $user->toJson(false));
 
-		$user = new TestUser5();
+		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
 		$this->assertEquals('{"created_at":"2014-02-01 13:10:32"}', $user->toJson());
 	}
@@ -497,7 +495,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('{"username":"foo","array":[1,2,3],"optional":null}', (string) $user);
 
-		$user = new TestUser5();
+		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
 		$this->assertEquals('{"created_at":"2014-02-01 13:10:32"}', (string) $user);
 	}
