@@ -32,14 +32,6 @@ use \mako\utility\UUID;
 abstract class ORM
 {
 	/**
-	 * Date format used when transforming a record to array or string.
-	 * 
-	 * @var string
-	 */
-
-	const DATE_FORMAT = 'Y-m-d H:i:s';
-
-	/**
 	 * Incrementing primary key.
 	 * 
 	 * @var int
@@ -1085,7 +1077,7 @@ abstract class ORM
 
 			if($value instanceof DateTime)
 			{
-				$value = $value->format(static::DATE_FORMAT);
+				$value = $value->format($this->getDateFormat());
 			}
 
 			$columns[$name] = $value;
