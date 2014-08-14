@@ -139,7 +139,10 @@ class URLBuilder
 
 		foreach($routeParams as $key => $value)
 		{
-			$route = preg_replace('/{' . $key . '}\??/', $value, $route, 1);
+			if(!empty($value))
+			{
+				$route = preg_replace('/{' . $key . '}\??/', $value, $route, 1);
+			}
 		}
 
 		if(strpos($route, '?') !== false)
