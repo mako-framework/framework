@@ -134,7 +134,7 @@
 
 			<?php if(!empty($message)): ?>
 
-				<h2><?= rtrim($message, '.') ?>.</h2>
+				<h2><?= htmlspecialchars($message, ENT_QUOTES, $charset) ?></h2>
 
 			<?php endif; ?>
 		</div>
