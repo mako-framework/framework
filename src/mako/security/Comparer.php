@@ -37,8 +37,8 @@ class Comparer
 
 	public static function compare($string1, $string2)
 	{
-		$string1 .= chr(0);
-		$string2 .= chr(0);
+		$string1 = (string) $string1;
+		$string2 = (string) $string2;
 
 		$string1Length = strlen($string1);
 		$string2Length = strlen($string2);
