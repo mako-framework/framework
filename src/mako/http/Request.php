@@ -433,7 +433,7 @@ class Request
 
 		// Is PHP running as a CGI program?
 
-		$this->isCGI = stripos(PHP_SAPI, 'cgi') !== false;
+		$this->isCGI = strpos(PHP_SAPI, 'cgi') !== false;
 
 		// Get the real request method that was used
 
