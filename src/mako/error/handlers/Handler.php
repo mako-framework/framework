@@ -9,7 +9,6 @@ namespace mako\error\handlers;
 
 use \Exception;
 use \ErrorException;
-use \Psr\Log\LoggerInterface;
 
 /**
  * Base handler.
@@ -28,14 +27,6 @@ abstract class Handler implements \mako\error\handlers\HandlerInterface
 	protected $exception;
 
 	/**
-	 * Logger instance.
-	 * 
-	 * @var \Psr\Log\LoggerInterface
-	 */
-
-	protected $logger;
-
-	/**
 	 * Constructor.
 	 * 
 	 * @access  public
@@ -45,31 +36,6 @@ abstract class Handler implements \mako\error\handlers\HandlerInterface
 	public function __construct(Exception $exception)
 	{
 		$this->exception = $exception;
-	}
-
-	/**
-	 * Destructor.
-	 * 
-	 * @access  public
-	 */
-
-	public function __destruct()
-	{
-		if(!empty($this->logger))
-		{
-			$this->logger->error($this->exception);
-		}
-	}
-
-	/**
-	 * Set logger instance.
-	 * 
-	 * @var \Psr\Log\LoggerInterface
-	 */
-
-	public function setLogger(LoggerInterface $logger)
-	{
-		$this->logger = $logger;
 	}
 
 	/**
@@ -86,8 +52,8 @@ abstract class Handler implements \mako\error\handlers\HandlerInterface
 
 		if($exception instanceof ErrorException)
 		{
-			$codes = array
-			(
+			$codes = 
+			[
 				E_ERROR             => 'Fatal Error',
 				E_PARSE             => 'Parse Error',
 				E_COMPILE_ERROR     => 'Compile Error',
@@ -101,7 +67,7 @@ abstract class Handler implements \mako\error\handlers\HandlerInterface
 				E_USER_WARNING      => 'Warning',
 				E_USER_ERROR        => 'Error',
 				E_USER_DEPRECATED   => 'Deprecated'
-			);
+			];
 
 			return in_array($code, array_keys($codes)) ? $codes[$code] : 'ErrorException';
 		}

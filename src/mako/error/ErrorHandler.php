@@ -11,6 +11,8 @@ use \Closure;
 use \ErrorException;
 use \Exception;
 
+use \Psr\Log\LoggerInterface;
+
 /**
  * Error handler.
  *
@@ -36,6 +38,22 @@ class ErrorHandler
 	protected $handlers = [];
 
 	/**
+	 * Logger instance.
+	 * 
+	 * @var \Psr\Log\LoggerInterface
+	 */
+
+	protected $logger;
+
+	/**
+	 * Exception types that shouldn't be logged.
+	 * 
+	 * @var array
+	 */
+
+	protected $disableLoggingFor = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
@@ -47,8 +65,10 @@ class ErrorHandler
 
 		$this->handle('\Exception', function($e)
 		{
-			echo '[ ' . get_class($e) . '] ' . $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]'; 
+			echo '[ ' . get_class($e) . '] ' . $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]';
+
 			echo PHP_EOL;
+
 			echo $e->getTraceAsString();
 		});
 		
@@ -85,6 +105,29 @@ class ErrorHandler
 	}
 
 	/**
+	 * Set logger instance.
+	 * 
+	 * @var \Psr\Log\LoggerInterface
+	 */
+
+	public function setLogger(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
+	}
+
+	/**
+	 * Disables logging for an exception type.
+	 * 
+	 * @access  public
+	 * @param   string|array  $exceptionType  Exception type or array of exception types
+	 */
+
+	public function disableLoggingFor($exceptionType)
+	{
+		$this->disableLoggingFor = array_unique(array_merge($this->disableLoggingFor, (array) $exceptionType));
+	}
+
+	/**
 	 * Disables the shutdown handler.
 	 * 
 	 * @access  public
@@ -99,27 +142,27 @@ class ErrorHandler
 	 * Prepends an exception handler to the stack.
 	 * 
 	 * @access  public
-	 * @param   string    $exception  Exception type
-	 * @param   \Closure  $handler    Exception handler
+	 * @param   string    $exceptionType  Exception type
+	 * @param   \Closure  $handler        Exception handler
 	 */
 
-	public function handle($exception, Closure $handler)
+	public function handle($exceptionType, Closure $handler)
 	{
-		array_unshift($this->handlers, compact('exception', 'handler'));
+		array_unshift($this->handlers, compact('exceptionType', 'handler'));
 	}
 
 	/**
 	 * Clears all error handlers for an exception type.
 	 * 
 	 * @access  public
-	 * @param   string  $exception  Exception type
+	 * @param   string  $exceptionType  Exception type
 	 */
 
-	public function clearHandlers($exception)
+	public function clearHandlers($exceptionType)
 	{
 		foreach($this->handlers as $key => $handler)
 		{
-			if($handler['exception'] === $exception)
+			if($handler['exceptionType'] === $exceptionType)
 			{
 				unset($this->handlers[$key]);
 			}
@@ -130,22 +173,59 @@ class ErrorHandler
 	 * Replaces all error handlers for an exception type with a new one.
 	 * 
 	 * @access  public
-	 * @param   string    $exception  Exception type
-	 * @param   \Closure  $handler    Exception handler
+	 * @param   string    $exceptionType  Exception type
+	 * @param   \Closure  $handler        Exception handler
 	 */
 
-	public function replaceHandlers($exception, Closure $handler)
+	public function replaceHandlers($exceptionType, Closure $handler)
 	{
-		$this->clearHandlers($exception);
+		$this->clearHandlers($exceptionType);
 
-		$this->handle($exception, $handler);
+		$this->handle($exceptionType, $handler);
+	}
+
+	/**
+	 * Clear output buffers.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function clearOutputBuffers()
+	{
+		while(ob_get_level() > 0) ob_end_clean();
+	}
+
+	/**
+	 * Should the exception be logged?
+	 * 
+	 * @access  public
+	 * @param   \Exception  $exeception  An exception object
+	 * @return  boolean
+	 */
+
+	protected function shouldExceptionBeLogged($exception)
+	{
+		if($this->logger === null)
+		{
+			return false;
+		}
+
+		foreach($this->disableLoggingFor as $exceptionType)
+		{
+			if($exception instanceof $exceptionType)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
 	 * Handles uncaught exceptions.
 	 *
 	 * @access  public
-	 * @param   Exception  $exception  An exception object
+	 * @param   \Exception  $exception  An exception object
 	 */
 
 	public function handler($exception)
@@ -154,13 +234,13 @@ class ErrorHandler
 		{
 			// Empty output buffers
 
-			while(ob_get_level() > 0) ob_end_clean();
+			$this->clearOutputBuffers();
 
 			// Loop through the exception handlers
 
 			foreach($this->handlers as $handler)
 			{
-				if($exception instanceof $handler['exception'])
+				if($exception instanceof $handler['exceptionType'])
 				{
 					if(($return = $handler['handler']($exception)) !== null)
 					{
@@ -168,10 +248,21 @@ class ErrorHandler
 					}
 				}
 			}
+
+			// Log exception
+
+			if($this->shouldExceptionBeLogged($exception))
+			{
+				$this->logger->error($exception);
+			}
 		}
 		catch(Exception $e)
 		{
-			while(ob_get_level() > 0) ob_end_clean();
+			// Empty output buffers
+
+			$this->clearOutputBuffers();
+
+			// One of the exception handlers failed so we'll just show the user a generic error screen
 
 			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]'; 
 		}

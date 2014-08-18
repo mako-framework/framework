@@ -211,6 +211,18 @@ abstract class Application
 	}
 
 	/**
+	 * Is the application running in the CLI?
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function isCommandLine()
+	{
+		return PHP_SAPI === 'cli';
+	}
+
+	/**
 	 * Configure.
 	 * 
 	 * @access  protected
@@ -257,14 +269,6 @@ abstract class Application
 			(new $service($this->container))->register();
 		}
 	}
-
-	/**
-	 * Register the error handler.
-	 * 
-	 * @access  protected
-	 */
-
-	abstract protected function registerErrorHandler();
 
 	/**
 	 * Registers class aliases.
@@ -333,10 +337,6 @@ abstract class Application
 		// Register services in the IoC injection container
 
 		$this->registerServices();
-
-		// Register error handler
-
-		$this->registerErrorHandler();
 
 		// Register class aliases
 
