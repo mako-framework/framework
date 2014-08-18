@@ -65,7 +65,7 @@ class ErrorHandlerService extends \mako\application\services\Service
 
 				$webHandler->setRequest($this->container->get('request'));
 
-				$webHandler->setResponse($this->container->get('response'));
+				$webHandler->setResponse($this->container->getFresh('response'));
 
 				return $webHandler->handle($this->container->get('config')->get('application.error_handler.display_errors'));
 			});
