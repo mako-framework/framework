@@ -44,10 +44,14 @@ class Comparer
 		$string2Length = strlen($string2);
 
 		$minLength = min($string1Length, $string2Length);
+		$maxLength = max($string1Length, $string2Length);
 
 		$result = $string1Length ^ $string2Length;
 
-		for($i = 0; $i < $minLength; $i++)
+		$string1 = str_pad($string1, $maxLength);
+		$string2 = str_pad($string2, $maxLength);
+
+		for($i = 0; $i < $maxLength; $i++)
 		{
 			$result |= ord($string1[$i]) ^ ord($string2[$i]);
 		}
