@@ -565,4 +565,55 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 
 		$image->getImageBlob(null, -10);
 	}
+
+	/**
+	 * 
+	 */
+
+	public function testSharpen()
+	{
+		$processor = $this->getProcessor();
+
+		$processor->shouldReceive('open')->with(__FILE__)->once();
+
+		$processor->shouldReceive('sharpen')->once();
+
+		$image = new Image(__FILE__, $processor);
+
+		$image->sharpen();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSnapshot()
+	{
+		$processor = $this->getProcessor();
+
+		$processor->shouldReceive('open')->with(__FILE__)->once();
+
+		$processor->shouldReceive('snapshot')->once();
+
+		$image = new Image(__FILE__, $processor);
+
+		$image->snapshot();
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testRestore()
+	{
+		$processor = $this->getProcessor();
+
+		$processor->shouldReceive('open')->with(__FILE__)->once();
+
+		$processor->shouldReceive('restore')->once();
+
+		$image = new Image(__FILE__, $processor);
+
+		$image->restore();
+	}
 }
