@@ -10,7 +10,7 @@ use \Mockery as m;
  * @group unit
  */
 
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class LanguageTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 

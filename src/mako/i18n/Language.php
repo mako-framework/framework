@@ -45,20 +45,12 @@ class Language
 	protected $language;
 
 	/**
-	 * Array holding the application strings.
+	 * Array holding the strings.
 	 *
 	 * @var array
 	 */
 
-	protected $applicationStrings = [];
-
-	/**
-	 * Array holding the package strings.
-	 * 
-	 * @var array
-	 */
-
-	protected $packageStrings = [];
+	protected $strings = [];
 
 	/**
 	 * Array holding inflection rules.
@@ -85,9 +77,7 @@ class Language
 
 		$this->language = $language;
 
-		$this->applicationStrings = $this->loadApplicationStrings();
-
-		$this->packageStrings = $this->loadPackageStrings();
+		$this->strings = $this->loadStrings();
 
 		$this->inflection = $this->loadInflection();
 	}
@@ -99,9 +89,11 @@ class Language
 	 * @return  array
 	 */
 
-	protected function loadApplicationStrings()
+	protected function loadStrings()
 	{
-		$strings = [];
+		$strings = ['application' => [], 'package' => []];
+
+		// Load application strings
 		
 		$files = $this->fileSystem->glob($this->applicationPath . '/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
@@ -109,23 +101,11 @@ class Language
 		{
 			foreach($files as $file)
 			{
-				$strings[basename($file, '.php')] = $this->fileSystem->includeFile($file);
+				$strings['application'][basename($file, '.php')] = $this->fileSystem->includeFile($file);
 			}
 		}
 
-		return $strings;
-	}
-
-	/**
-	 * Loads package strings.
-	 * 
-	 * @access  protected
-	 * @return  array
-	 */
-
-	public function loadPackageStrings()
-	{
-		$strings = [];
+		// Load package strings
 
 		$files = $this->fileSystem->glob($this->applicationPath . '/packages/*/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
@@ -135,7 +115,7 @@ class Language
 			{
 				preg_match('/(.*)\/(.*)\/i18n\/' . $this->language . '\/strings\/(.*).php/', $file, $matches);
 
-				$strings[$matches[2]][$matches[3]] = $this->fileSystem->includeFile($file);
+				$strings['package'][$matches[2]][$matches[3]] = $this->fileSystem->includeFile($file);
 			}
 		}
 
@@ -194,11 +174,11 @@ class Language
 	{
 		if(stripos($key, '::'))
 		{
-			return Arr::has($this->packageStrings, str_replace('::', '.', $key));
+			return Arr::has($this->strings['package'], str_replace('::', '.', $key));
 		}
 		else
 		{
-			return Arr::has($this->applicationStrings, $key);
+			return Arr::has($this->strings['application'], $key);
 		}
 	}
 
@@ -215,11 +195,11 @@ class Language
 	{
 		if(stripos($key, '::'))
 		{
-			$string = Arr::get($this->packageStrings, str_replace('::', '.', $key), $key);
+			$string = Arr::get($this->strings['package'], str_replace('::', '.', $key), $key);
 		}
 		else
 		{
-			$string = Arr::get($this->applicationStrings, $key, $key);
+			$string = Arr::get($this->strings['application'], $key, $key);
 		}
 
 		if(!empty($vars))
