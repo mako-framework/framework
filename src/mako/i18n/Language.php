@@ -45,12 +45,20 @@ class Language
 	protected $language;
 
 	/**
-	 * Array holding the language strings.
+	 * Array holding the application strings.
 	 *
 	 * @var array
 	 */
 
-	protected $strings = [];
+	protected $applicationStrings = [];
+
+	/**
+	 * Array holding the package strings.
+	 * 
+	 * @var array
+	 */
+
+	protected $packageStrings = [];
 
 	/**
 	 * Array holding inflection rules.
@@ -77,24 +85,24 @@ class Language
 
 		$this->language = $language;
 
-		$this->strings = $this->loadStrings();
+		$this->applicationStrings = $this->loadApplicationStrings();
+
+		$this->packageStrings = $this->loadPackageStrings();
 
 		$this->inflection = $this->loadInflection();
 	}
 	
 	/**
-	 * Loads all strings.
+	 * Loads application strings.
 	 * 
 	 * @access  protected
 	 * @return  array
 	 */
 
-	protected function loadStrings()
+	protected function loadApplicationStrings()
 	{
-		$strings = ['mako:packages' => []];
+		$strings = [];
 		
-		// Load language files from the application
-
 		$files = $this->fileSystem->glob($this->applicationPath . '/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
 		if(is_array($files))
@@ -105,7 +113,19 @@ class Language
 			}
 		}
 
-		// Load language files from installed packages
+		return $strings;
+	}
+
+	/**
+	 * Loads package strings.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	public function loadPackageStrings()
+	{
+		$strings = [];
 
 		$files = $this->fileSystem->glob($this->applicationPath . '/packages/*/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
@@ -115,7 +135,7 @@ class Language
 			{
 				preg_match('/(.*)\/(.*)\/i18n\/' . $this->language . '\/strings\/(.*).php/', $file, $matches);
 
-				$strings['mako:packages'][$matches[2]][$matches[3]] = $this->fileSystem->includeFile($file);
+				$strings[$matches[2]][$matches[3]] = $this->fileSystem->includeFile($file);
 			}
 		}
 
@@ -174,11 +194,11 @@ class Language
 	{
 		if(stripos($key, '::'))
 		{
-			return Arr::has($this->strings['mako:packages'], str_replace('::', '.', $key));
+			return Arr::has($this->packageStrings, str_replace('::', '.', $key));
 		}
 		else
 		{
-			return Arr::has($this->strings, $key);
+			return Arr::has($this->applicationStrings, $key);
 		}
 	}
 
@@ -195,11 +215,11 @@ class Language
 	{
 		if(stripos($key, '::'))
 		{
-			$string = Arr::get($this->strings['mako:packages'], str_replace('::', '.', $key), $key);
+			$string = Arr::get($this->packageStrings, str_replace('::', '.', $key), $key);
 		}
 		else
 		{
-			$string = Arr::get($this->strings, $key, $key);
+			$string = Arr::get($this->applicationStrings, $key, $key);
 		}
 
 		if(!empty($vars))

@@ -58,7 +58,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('put')->once()->with('baz:foo', 'bar', 3600)->andReturn(true);
+		$store->shouldReceive('put')->once()->with('baz.foo', 'bar', 3600)->andReturn(true);
 
 		$cache = new Cache($store, 'baz');
 
@@ -83,7 +83,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('has')->once()->with('baz:foo')->andReturn(true);
+		$store->shouldReceive('has')->once()->with('baz.foo')->andReturn(true);
 
 		$cache = new Cache($store, 'baz');
 
@@ -108,7 +108,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('get')->once()->with('baz:foo')->andReturn(true);
+		$store->shouldReceive('get')->once()->with('baz.foo')->andReturn(true);
 
 		$cache = new Cache($store, 'baz');
 
@@ -165,9 +165,9 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('has')->once()->with('baz:foo')->andReturn(true);
+		$store->shouldReceive('has')->once()->with('baz.foo')->andReturn(true);
 
-		$store->shouldReceive('get')->once()->with('baz:foo')->andReturn('from cache');
+		$store->shouldReceive('get')->once()->with('baz.foo')->andReturn('from cache');
 
 		$cache = new Cache($store, 'baz');
 
@@ -179,9 +179,9 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('has')->once()->with('baz:foo')->andReturn(false);
+		$store->shouldReceive('has')->once()->with('baz.foo')->andReturn(false);
 
-		$store->shouldReceive('put')->once()->with('baz:foo', 'from closure', 0)->andReturn(true);
+		$store->shouldReceive('put')->once()->with('baz.foo', 'from closure', 0)->andReturn(true);
 
 		$cache = new Cache($store, 'baz');
 
@@ -193,9 +193,9 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('has')->once()->with('baz:foo')->andReturn(false);
+		$store->shouldReceive('has')->once()->with('baz.foo')->andReturn(false);
 
-		$store->shouldReceive('put')->once()->with('baz:foo', 'from closure', 3600)->andReturn(true);
+		$store->shouldReceive('put')->once()->with('baz.foo', 'from closure', 3600)->andReturn(true);
 
 		$cache = new Cache($store, 'baz');
 
@@ -222,7 +222,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('remove')->once()->with('baz:foo')->andReturn(true);
+		$store->shouldReceive('remove')->once()->with('baz.foo')->andReturn(true);
 
 		$cache = new Cache($store, 'baz');
 
