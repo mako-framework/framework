@@ -10,7 +10,7 @@ use \Mockery as m;
  * @group unit
  */
 
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class LanguageTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 
@@ -258,7 +258,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$cache = m::mock('mako\cache\Cache');
 
-		$cache->shouldReceive('getOrElse')->once()/*->with('i18n:en_US', function(){}, 3600)*/->andReturn(['cached' => ['key' => 'value']]);
+		$cache->shouldReceive('getOrElse')->once()/*->with('i18n.en_US', function(){}, 3600)*/->andReturn(['application' => ['cached' => ['key' => 'value']], 'package' => []]);
 
 		$language = new Language($fileSystem, '/app', 'en_US', $cache);
 

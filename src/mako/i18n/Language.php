@@ -38,7 +38,7 @@ class Language
 	protected $applicationPath;
 
 	/**
-	 *  Language name.
+	 * Current language.
 	 *
 	 * @var string
 	 */
@@ -46,15 +46,7 @@ class Language
 	protected $language;
 
 	/**
-	 * Cache instance.
-	 * 
-	 * @var \mako\cache\Cache
-	 */
-
-	protected $cache;
-
-	/**
-	 * Array holding the language strings.
+	 * Array holding the strings.
 	 *
 	 * @var array
 	 */
@@ -95,7 +87,7 @@ class Language
 	}
 	
 	/**
-	 * Loads all strings from the file system.
+	 * Loads application strings.
 	 * 
 	 * @access  protected
 	 * @return  array
@@ -103,21 +95,21 @@ class Language
 
 	protected function loadStringsFromFileSystem()
 	{
-		$strings = ['mako:packages' => []];
-		
-		// Load language files from the application
+		$strings = ['application' => [], 'package' => []];
 
+		// Load application strings
+		
 		$files = $this->fileSystem->glob($this->applicationPath . '/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
 		if(is_array($files))
 		{
 			foreach($files as $file)
 			{
-				$strings[basename($file, '.php')] = $this->fileSystem->includeFile($file);
+				$strings['application'][basename($file, '.php')] = $this->fileSystem->includeFile($file);
 			}
 		}
 
-		// Load language files from installed packages
+		// Load package strings
 
 		$files = $this->fileSystem->glob($this->applicationPath . '/packages/*/i18n/' . $this->language . '/strings/*.php', GLOB_NOSORT);
 
@@ -127,7 +119,7 @@ class Language
 			{
 				preg_match('/(.*)\/(.*)\/i18n\/' . $this->language . '\/strings\/(.*).php/', $file, $matches);
 
-				$strings['mako:packages'][$matches[2]][$matches[3]] = $this->fileSystem->includeFile($file);
+				$strings['package'][$matches[2]][$matches[3]] = $this->fileSystem->includeFile($file);
 			}
 		}
 
@@ -145,7 +137,7 @@ class Language
 	{
 		if($this->cache !== null)
 		{
-			return $this->cache->getOrElse('i18n:' . $this->language, function()
+			return $this->cache->getOrElse('i18n.' . $this->language, function()
 			{
 				return $this->loadStringsFromFileSystem();
 			}, 3600);
@@ -188,7 +180,7 @@ class Language
 	{
 		if(empty($this->inflection))
 		{			
-			throw new RuntimeException(vsprintf("%s:(): The [ %s ] language pack does not contain any inflection rules.", [__METHOD__, $this->language]));
+			throw new RuntimeException(vsprintf("%s:(): The [ %s ] language pack does not contain any inflection rules.", [__METHOD__, $this->language]));
 		}
 
 		$pluralizer = $this->inflection['pluralize'];
@@ -208,11 +200,11 @@ class Language
 	{
 		if(stripos($key, '::'))
 		{
-			return Arr::has($this->strings['mako:packages'], str_replace('::', '.', $key));
+			return Arr::has($this->strings['package'], str_replace('::', '.', $key));
 		}
 		else
 		{
-			return Arr::has($this->strings, $key);
+			return Arr::has($this->strings['application'], $key);
 		}
 	}
 
@@ -229,11 +221,11 @@ class Language
 	{
 		if(stripos($key, '::'))
 		{
-			$string = Arr::get($this->strings['mako:packages'], str_replace('::', '.', $key), $key);
+			$string = Arr::get($this->strings['package'], str_replace('::', '.', $key), $key);
 		}
 		else
 		{
-			$string = Arr::get($this->strings, $key, $key);
+			$string = Arr::get($this->strings['application'], $key, $key);
 		}
 
 		if(!empty($vars))

@@ -160,7 +160,7 @@ class Session
 	{
 		// Replace old flash data with new
 
-		$this->sessionData['mako:flashdata'] = $this->flashData;
+		$this->sessionData['mako.flashdata'] = $this->flashData;
 
 		// Write session data
 
@@ -494,7 +494,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		return isset($this->sessionData['mako:flashdata'][$key]);
+		return isset($this->sessionData['mako.flashdata'][$key]);
 	}
 
 	/**
@@ -513,7 +513,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		return isset($this->sessionData['mako:flashdata'][$key]) ? $this->sessionData['mako:flashdata'][$key] : $default;
+		return isset($this->sessionData['mako.flashdata'][$key]) ? $this->sessionData['mako.flashdata'][$key] : $default;
 	}
 
 	/**
@@ -530,7 +530,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		unset($this->sessionData['mako:flashdata'][$key]);
+		unset($this->sessionData['mako.flashdata'][$key]);
 	}
 
 	/**
@@ -547,7 +547,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		$flashData = isset($this->sessionData['mako:flashdata']) ? $this->sessionData['mako:flashdata'] : [];
+		$flashData = isset($this->sessionData['mako.flashdata']) ? $this->sessionData['mako.flashdata'] : [];
 
 		$flashData = empty($keys) ? $flashData : array_intersect_key($flashData, array_flip($keys));
 		
@@ -568,18 +568,18 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		if(!empty($this->sessionData['mako:tokens']))
+		if(!empty($this->sessionData['mako.tokens']))
 		{
-			$this->sessionData['mako:tokens'] = array_slice($this->sessionData['mako:tokens'], 0, (static::MAX_TOKENS - 1)); // Only store MAX_TOKENS tokens per session
+			$this->sessionData['mako.tokens'] = array_slice($this->sessionData['mako.tokens'], 0, (static::MAX_TOKENS - 1)); // Only store MAX_TOKENS tokens per session
 		}
 		else
 		{
-			$this->sessionData['mako:tokens'] = [];
+			$this->sessionData['mako.tokens'] = [];
 		}
 
 		$token = $this->generateId();
 
-		array_unshift($this->sessionData['mako:tokens'], $token);
+		array_unshift($this->sessionData['mako.tokens'], $token);
 
 		return $token;
 	}
@@ -599,13 +599,13 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 		
-		if(!empty($this->sessionData['mako:tokens']))
+		if(!empty($this->sessionData['mako.tokens']))
 		{
-			$key = array_search($token, $this->sessionData['mako:tokens']);
+			$key = array_search($token, $this->sessionData['mako.tokens']);
 
 			if($key !== false)
 			{
-				unset($this->sessionData['mako:tokens'][$key]);
+				unset($this->sessionData['mako.tokens'][$key]);
 				
 				return true;
 			}
