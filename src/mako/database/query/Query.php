@@ -1103,7 +1103,7 @@ class Query
 	}
 
 	/**
-	 * Executes a aggregate query and returns the result.
+	 * Executes an aggregate query and returns the result.
 	 *
 	 * @access  public
 	 * @param   string  $column    Column
