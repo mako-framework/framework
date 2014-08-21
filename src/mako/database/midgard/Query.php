@@ -45,7 +45,7 @@ class Query extends \mako\database\query\Query
 	 * @var boolean
 	 */
 
-	protected $isAggregate = false
+	protected $isAggregate = false;
 
 	/**
 	 * Constructor.
