@@ -40,14 +40,6 @@ class Query extends \mako\database\query\Query
 	protected $makeReadOnly = false;
 
 	/**
-	 * Is this an aggregate query?
-	 * 
-	 * @var boolean
-	 */
-
-	protected $isAggregate = false;
-
-	/**
 	 * Constructor.
 	 * 
 	 * @access  public
@@ -97,7 +89,7 @@ class Query extends \mako\database\query\Query
 
 		if(empty($this->joins))
 		{
-			$this->columns = [$this->model->getTable() . '.*'];
+			$this->select([$this->model->getTable() . '.*']);
 		}
 
 		return parent::join($table, $column1, $operator, $column2, $type, $raw);
@@ -361,24 +353,6 @@ class Query extends \mako\database\query\Query
 	}
 
 	/**
-	 * Sets the columns we want to select.
-	 *
-	 * @access  public
-	 * @param   array                       $columns  Array of columns we want to select from
-	 * @return  \mako\database\query\Query
-	 */
-
-	public function select(array $columns)
-	{
-		if($this->isAggregate === false && $this->model->getPrimaryKeyType() !== ORM::PRIMARY_KEY_TYPE_NONE)
-		{
-			$columns = array_unique(array_merge([$this->model->getPrimaryKey()], $columns), SORT_REGULAR);
-		}
-
-		return parent::select($columns);
-	}
-
-	/**
 	 * Returns a single record from the database.
 	 * 
 	 * @access  public
@@ -434,22 +408,6 @@ class Query extends \mako\database\query\Query
 		}
 
 		parent::batch($processor, $batchSize, $offsetStart, $offsetEnd);
-	}
-
-	/**
-	 * Executes a aggregate query and returns the result.
-	 *
-	 * @access  public
-	 * @param   string  $column    Column
-	 * @param   string  $function  Aggregate function
-	 * @return  mixed
-	 */
-
-	protected function aggregate($column, $function)
-	{
-		$this->isAggregate = true;
-
-		return parent::aggregate($column, $function);
 	}
 
 	/**
