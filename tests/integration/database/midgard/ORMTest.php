@@ -126,7 +126,7 @@ class ORMTest extends \ORMTestCase
 	{
 		$user = TestUser::select(['username', 'email'])->where('id', '=', 1)->first();
 
-		$this->assertEquals(['id' => '1', 'username' => 'foo', 'email' => 'foo@example.org'], $user->getRawColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $user->getRawColumns());
 	}
 
 	/**
@@ -137,7 +137,7 @@ class ORMTest extends \ORMTestCase
 	{
 		$users = TestUser::select(['username', 'email'])->all();
 
-		$this->assertEquals(['id' => '1', 'username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumns());
 	}
 
 	/**
