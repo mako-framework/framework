@@ -64,6 +64,7 @@ class App extends \mako\reactor\Task
 	 * @param   \mako\reactor\io\Input         $input        Input
 	 * @param   \mako\reactor\io\Output        $output       Output
 	 * @param   \mako\application\Application  $application  Application instance
+	 * @param   \mako\file\FileSystem          $fileSystem   File system instance
 	 */
 
 	public function __construct(Input $input, Output $output, Application $application, FileSystem $fileSystem)

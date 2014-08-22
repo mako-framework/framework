@@ -51,8 +51,8 @@ class Template
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $template  Path to raw template
-	 * @param   string  $storage   Path to compiled template
+	 * @param   string  $cachePath  Cache path
+	 * @param   string  $template   Path to template
 	 */
 
 	public function __construct($cachePath, $template)
@@ -200,7 +200,6 @@ class Template
 	 * Compiles templates into views.
 	 *
 	 * @access  public
-	 * @param   string  $fileName  Path to template
 	 * @return  string
 	 */
 

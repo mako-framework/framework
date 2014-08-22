@@ -50,8 +50,8 @@ class HTML
 	 * Registers a new HTML tag.
 	 *
 	 * @access  public
-	 * @param   string   $name      Tag name
-	 * @param   \Closure  $closure  Tag closure
+	 * @param   string    $name  Tag name
+	 * @param   \Closure  $tag   Tag closure
 	 */
 
 	public static function registerTag($name, Closure $tag)

@@ -74,7 +74,6 @@ class Routes
 	 * Returns the registered routes.
 	 * 
 	 * @access  public
-	 * @param   string  $method  (optional) HTTP method
 	 * @return  array
 	 */
 

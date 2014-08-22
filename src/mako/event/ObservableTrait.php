@@ -73,8 +73,8 @@ trait ObservableTrait
 	 * Overrides an observer.
 	 * 
 	 * @access  public
-	 * @param   string    $event    Event name
-	 * @param   \Closure  $closure  Event handler
+	 * @param   string    $event     Event name
+	 * @param   \Closure  $observer  Event handler
 	 */
 
 	public function overrideObservers($event, $observer)

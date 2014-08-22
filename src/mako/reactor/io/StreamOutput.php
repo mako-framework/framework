@@ -45,7 +45,7 @@ class StreamOutput extends \Symfony\Component\Console\Output\StreamOutput
 	 * Outputs n empty lines.
 	 * 
 	 * @access  public
-	 * @param   int     $lines  (optional) Number of empty lines
+	 * @param   int     $count  (optional) Number of empty lines
 	 */
 
 	public function nl($count = 1)
