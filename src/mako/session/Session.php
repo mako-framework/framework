@@ -222,7 +222,7 @@ class Session
 	 * Sets the data TTL in seconds.
 	 * 
 	 * @access  public
-	 * @param   string  $cookieName  Cookie name
+	 * @param   string  $dataTTL  Cookie name
 	 */
 
 	public function setDataTTL($dataTTL)
@@ -239,7 +239,7 @@ class Session
 	 * Sets the cookie TTL in seconds.
 	 * 
 	 * @access  public
-	 * @param   string  $cookieName  Cookie name
+	 * @param   string  $cookieTTL  Cookie name
 	 */
 
 	public function setCookieTTL($cookieTTL)

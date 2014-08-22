@@ -74,7 +74,7 @@ class I18n
 	 * Gets the current language
 	 * 
 	 * @access  public
-	 * @param   string  $language  Name of the language pack
+	 * @return  string
 	 */
 
 	public function getLanguage()
