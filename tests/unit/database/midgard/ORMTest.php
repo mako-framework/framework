@@ -350,7 +350,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	{
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
-		$this->assertInstanceOf('\mako\utility\Time', $user->created_at);
+		$this->assertInstanceOf('\mako\chrono\Time', $user->created_at);
 	}
 
 	/**

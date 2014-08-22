@@ -11,6 +11,7 @@ use \DateTime;
 use \RuntimeException;
 
 use \mako\application\Application;
+use \mako\chrono\Time;
 use \mako\database\ConnectionManager;
 use \mako\database\midgard\Query;
 use \mako\database\midgard\relations\BelongsTo;
@@ -20,7 +21,6 @@ use \mako\database\midgard\relations\HasOne;
 use \mako\database\midgard\relations\HasOnePolymorphic;
 use \mako\database\midgard\relations\ManyToMany;
 use \mako\utility\Str;
-use \mako\utility\Time;
 use \mako\utility\UUID;
 
 /**

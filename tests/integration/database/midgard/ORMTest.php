@@ -382,7 +382,7 @@ class ORMTest extends \ORMTestCase
 	{
 		$user = TestUserDateTime::get(1);
 
-		$this->assertInstanceOf('\mako\utility\Time', $user->created_at);
+		$this->assertInstanceOf('\mako\chrono\Time', $user->created_at);
 	}
 
 	/**
