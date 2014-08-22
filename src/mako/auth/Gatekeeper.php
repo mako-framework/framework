@@ -436,8 +436,8 @@ class Gatekeeper
 	 * Login a user without checking the password.
 	 * 
 	 * @access  public
-	 * @param   mixed    $identifier  User email or id
-	 * @param   boolean  $remember    (optional) Set a remember me cookie?
+	 * @param   mixed    $email     User email
+	 * @param   boolean  $remember  (optional) Set a remember me cookie?
 	 * @return  boolean
 	 */
 

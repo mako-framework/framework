@@ -51,7 +51,7 @@ class ValidatorFactory
 	 * Creates and returns a validator instance.
 	 * 
 	 * @access  public
-	 * @param   array                      $input  Array to validate
+	 * @param   array                      $data   Array to validate
 	 * @param   array                      $rules  Array of validation rules
 	 * @return  \mako\validator\Validator
 	 */

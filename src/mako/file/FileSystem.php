@@ -227,7 +227,8 @@ class FileSystem
 	 * Returns the mime type of the file.
 	 * 
 	 * @access  public
-	 * @param   string  $file  Path to file
+	 * @param   string   $file  Path to file
+	 * @param   boolean  $guess  (optinal) Guess mime type if finfo_open doesn't exist?
 	 * @return  string
 	 */
 

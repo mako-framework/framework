@@ -203,7 +203,7 @@ abstract class ORM
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   array    $colums     Column values
+	 * @param   array    $columns    Column values
 	 * @param   boolean  $raw        (optional) Set raw values?
 	 * @param   boolean  $whitelist  (optional) Remove columns that are not in the whitelist?
 	 * @param   boolean  $exists     (optional) Does the record come from a database?
@@ -796,7 +796,7 @@ abstract class ORM
 	 * @access  public
 	 * @param   array                       $columns    Column values
 	 * @param   boolean                     $raw        (optional) Set raw values?
-	 * @param   boolean                     $whitelsit  (optional) Remove columns that are not in the whitelist?
+	 * @param   boolean                     $whitelist  (optional) Remove columns that are not in the whitelist?
 	 * @return  \mako\database\midgard\ORM
 	 */
 
