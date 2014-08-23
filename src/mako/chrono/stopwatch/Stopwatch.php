@@ -84,11 +84,11 @@ class Stopwatch
 	{
 		$last = end($this->laps);
 
-		$last->stop();
+		$time = $last->stop();
 
 		$this->start();
 
-		return $last->getStopTime() - $last->getStartTime();
+		return $time;
 	}
 
 	/**
