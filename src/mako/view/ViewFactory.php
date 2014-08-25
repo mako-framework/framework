@@ -11,7 +11,6 @@ use \Closure;
 use \RuntimeException;
 
 use \mako\file\FileSystem;
-use \mako\view\renderers\CacheableInterface;
 
 /**
  * View factory.
@@ -156,11 +155,6 @@ class ViewFactory
 
 	public function registerRenderer($extention, $renderer, $prepend = true)
 	{
-		if($renderer instanceof Closure)
-		{
-			$renderer = $renderer->bindTo($this);
-		}
-
 		$prepend ? $this->prependRenderer($extention, $renderer) : $this->appendRenderer($extention, $renderer);
 
 		return $this;

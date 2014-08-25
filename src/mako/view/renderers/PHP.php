@@ -26,7 +26,7 @@ class PHP implements \mako\view\renderers\RendererInterface
 
 	public function render($__view__, array $__variables__)
 	{
-		extract($__variables__, EXTR_REFS);
+		extract($__variables__, EXTR_REFS | EXTR_SKIP);
 
 		ob_start();
 
