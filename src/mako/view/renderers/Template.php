@@ -7,6 +7,7 @@
 
 namespace mako\view\renderers;
 
+use \mako\file\FileSystem;
 use \mako\view\compilers\Template as Compiler;
 
 /**
@@ -15,7 +16,7 @@ use \mako\view\compilers\Template as Compiler;
  * @author  Frederic G. Østby
  */
 
-class Template extends \mako\view\renderers\Renderer implements \mako\view\renderers\RendererInterface, \mako\view\renderers\CacheableInterface
+class Template extends \mako\view\renderers\PHP implements \mako\view\renderers\RendererInterface
 {
 	/**
 	 * Cache path.
@@ -42,37 +43,56 @@ class Template extends \mako\view\renderers\Renderer implements \mako\view\rende
 	protected $openBlocks = [];
 
 	/**
-	 * Sets the cache path.
+	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string                         $path  Cache path
-	 * @return  \mako\view\renderers\Template
+	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
+	 * @param   string                 $cachePath   Cache path
 	 */
 
-	public function setCachePath($path)
+	public function __construct(FileSystem $fileSystem, $cachePath)
 	{
-		$this->cachePath = $path;
+		$this->fileSystem = $fileSystem;
 
-		return $this;
+		$this->cachePath = $cachePath;
 	}
 
 	/**
-	 * Compiles the template if needed before returning the path to the compiled template.
+	 * Returns the path to the compiled template.
 	 * 
 	 * @access  protected
 	 * @return  string
 	 */
 
-	protected function compile()
+	protected function getCompiledPath($view)
 	{
-		$compiled = $this->cachePath . '/' . md5($this->view) . '.php';
+		return $this->cachePath . '/' . md5($view) . '.php';
+	}
 
-		if(!file_exists($compiled) || filemtime($compiled) < filemtime($this->view))
-		{
-			(new Compiler($this->cachePath, $this->view))->compile();
-		}
+	/**
+	 * Returns TRUE if the template needs to be compiled and FALSE if not.
+	 * 
+	 * @access  protected
+	 * @param   string     $view      View path
+	 * @param   string     $compiled  Compiled view path
+	 * @return  boolean
+	 */
 
-		return $compiled;
+	protected function needToCompile($view, $compiled)
+	{
+		return !$this->fileSystem->exists($compiled) || $this->fileSystem->lastModified($compiled) < $this->fileSystem->lastModified($view);
+	}
+
+	/**
+	 * Compiles view.
+	 * 
+	 * @access  protected
+	 * @param   string     $view  View path
+	 */
+
+	protected function compile($view)
+	{
+		(new Compiler($this->fileSystem, $this->cachePath, $view))->compile();
 	}
 
 	/**
@@ -118,17 +138,24 @@ class Template extends \mako\view\renderers\Renderer implements \mako\view\rende
 	 * Returns the rendered view.
 	 * 
 	 * @access  public
+	 * @param   string  $__view__       View path
+	 * @param   array   $__variables__  View variables
 	 * @return  string
 	 */
 
-	public function render()
+	public function render($__view__, array $__variables__)
 	{
-		extract(array_merge($this->variables, ['__renderer__' => $this]), EXTR_REFS);
-		
-		ob_start();
+		$compiled = $this->getCompiledPath($__view__);
 
-		include($this->compile());
+		// Check if we need to compile the view
 
-		return ob_get_clean();
+		if($this->needToCompile($__view__, $compiled))
+		{
+			$this->compile($__view__);
+		}
+
+		// Return the rendered view
+
+		return parent::render($compiled, array_merge($__variables__, ['__renderer__' => $this]));
 	}
 }

@@ -13,22 +13,24 @@ namespace mako\view\renderers;
  * @author  Frederic G. Østby
  */
 
-class PHP extends \mako\view\renderers\Renderer implements \mako\view\renderers\RendererInterface
+class PHP implements \mako\view\renderers\RendererInterface
 {
 	/**
 	 * Returns the rendered view.
 	 * 
 	 * @access  public
+	 * @param   string  $__view__       View path
+	 * @param   array   $__variables__  View variables
 	 * @return  string
 	 */
 
-	public function render()
+	public function render($__view__, array $__variables__)
 	{
-		extract($this->variables, EXTR_REFS);
-		
+		extract($__variables__, EXTR_REFS);
+
 		ob_start();
 
-		include($this->view);
+		include($__view__);
 
 		return ob_get_clean();
 	}

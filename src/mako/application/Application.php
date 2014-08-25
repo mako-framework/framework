@@ -328,7 +328,7 @@ abstract class Application
 
 		// Register config instance
 
-		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config = new Config($fileSystem, $this->applicationPath));
+		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config = new Config($fileSystem, $this->applicationPath . '/config'));
 
 		// Configure
 

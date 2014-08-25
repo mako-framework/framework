@@ -7,6 +7,8 @@
 
 namespace mako\view\compilers;
 
+use \mako\file\FileSystem;
+
 /**
  * Template compiler.
  *
@@ -16,12 +18,12 @@ namespace mako\view\compilers;
 class Template
 {
 	/**
-	 * Path to raw template.
-	 *
-	 * @var string
+	 * File system instance.
+	 * 
+	 * @var \mako\file\FileSystem
 	 */
 
-	protected $template;
+	protected $fileSystem;
 
 	/**
 	 * Path to compiled template.
@@ -30,6 +32,14 @@ class Template
 	 */
 
 	protected $cachePath;
+
+	/**
+	 * Path to raw template.
+	 *
+	 * @var string
+	 */
+
+	protected $template;
 
 	/**
 	 * Compilation order.
@@ -51,12 +61,15 @@ class Template
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $cachePath  Cache path
-	 * @param   string  $template   Path to template
+	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
+	 * @param   string                 $cachePath   Cache path
+	 * @param   string                 $template    Path to template
 	 */
 
-	public function __construct($cachePath, $template)
+	public function __construct(FileSystem $fileSystem, $cachePath, $template)
 	{
+		$this->fileSystem = $fileSystem;
+
 		$this->cachePath = $cachePath;
 
 		$this->template = $template;
@@ -207,7 +220,7 @@ class Template
 	{
 		// Get teplate contents
 			
-		$contents = file_get_contents($this->template);
+		$contents = $this->fileSystem->getContents($this->template);
 
 		// Compile template
 
@@ -218,6 +231,6 @@ class Template
 
 		// Store compiled template
 
-		file_put_contents($this->cachePath . '/' . md5($this->template) . '.php', trim($contents));
+		$this->fileSystem->putContents($this->cachePath . '/' . md5($this->template) . '.php', trim($contents));
 	}
 }

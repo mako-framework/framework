@@ -16,38 +16,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	protected $makoEnv;
-
-	/**
-	 * 
-	 */
-
-	public function setUp()
-	{
-		// Clear Mako environment for tests
-
-		$this->makoEnv = \mako\get_env();
-
-		if(!empty($this->makoEnv))
-		{
-			putenv('MAKO_ENV');
-		}
-	}
-
-	/**
-	 * 
-	 */
-
 	public function tearDown()
 	{
 		m::close();
-
-		// Reset Mako environment
-
-		if(!empty($this->makoEnv))
-		{
-			putenv('MAKO_ENV=' . $this->makoEnv);
-		}
 	}
 
 	/**
@@ -71,7 +42,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello']);
 
-		$config = new Config($fileSystem, '/app');
+		$config = new Config($fileSystem, '/app/config');
 
 		$this->assertEquals('hello', $config->get('settings.greeting'));
 
@@ -94,7 +65,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('includeFile')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello']);
 
-		$config = new Config($fileSystem, '/app');
+		$config = new Config($fileSystem, '/app/config');
+
+		$config->addNamespace('baz', '/app/packages/baz/config');
 
 		$this->assertEquals('hello', $config->get('baz::settings.greeting'));
 	}
@@ -111,7 +84,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/packages/baz/settings.php')->andReturn(['greeting' => 'hello']);
 
-		$config = new Config($fileSystem, '/app');
+		$config = new Config($fileSystem, '/app/config');
+
+		$config->addNamespace('baz', '/app/packages/baz/config');
 
 		$this->assertEquals('hello', $config->get('baz::settings.greeting'));
 	}
@@ -122,8 +97,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 	public function testEvironmentOverride()
 	{
-		putenv('MAKO_ENV=dev');
-
 		$fileSystem = $this->getFileSystem();
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/config/settings.php')->andReturn(true);
@@ -134,13 +107,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/dev/settings.php')->andReturn(['greeting' => 'konnichiwa']);
 
-		$config = new Config($fileSystem, '/app');
+		$config = new Config($fileSystem, '/app/config');
+
+		$config->setEnvironment('dev');
 
 		$this->assertEquals('konnichiwa', $config->get('settings.greeting'));
 
 		$this->assertEquals('sayonara', $config->get('settings.goodbye'));
-
-		putenv('MAKO_ENV');
 	}
 
 	/**
@@ -149,8 +122,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 	public function testPackageEvironmentOverride()
 	{
-		putenv('MAKO_ENV=dev');
-
 		$fileSystem = $this->getFileSystem();
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/config/packages/baz/settings.php')->andReturn(false);
@@ -159,19 +130,21 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('includeFile')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello', 'goodbye' => 'sayonara']);
 
-		$fileSystem->shouldReceive('exists')->once()->with('/app/config/dev/packages/baz/settings.php')->andReturn(false);
+		$fileSystem->shouldReceive('exists')->once()->with('/app/config/packages/baz/dev/settings.php')->andReturn(false);
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/packages/baz/config/dev/settings.php')->andReturn(true);
 
 		$fileSystem->shouldReceive('includeFile')->once()->with('/app/packages/baz/config/dev/settings.php')->andReturn(['greeting' => 'konnichiwa']);
 
-		$config = new Config($fileSystem, '/app');
+		$config = new Config($fileSystem, '/app/config');
+
+		$config->setEnvironment('dev');
+
+		$config->addNamespace('baz', '/app/packages/baz/config');
 
 		$this->assertEquals('konnichiwa', $config->get('baz::settings.greeting'));
 
 		$this->assertEquals('sayonara', $config->get('baz::settings.goodbye'));
-
-		putenv('MAKO_ENV');
 	}
 
 	/**
@@ -186,7 +159,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/settings.php')->andReturn([]);
 
-		$config = new Config($fileSystem, '/app');
+		$config = new Config($fileSystem, '/app/config');
 
 		$this->assertNull($config->get('settings.greeting'));
 
@@ -207,7 +180,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello']);
 
-		$config = new Config($fileSystem, '/app');
+		$config = new Config($fileSystem, '/app/config');
 
 		$this->assertEquals('hello', $config->get('settings.greeting'));
 

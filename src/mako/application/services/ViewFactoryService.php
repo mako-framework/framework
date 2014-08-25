@@ -8,6 +8,7 @@
 namespace mako\application\services;
 
 use \mako\view\ViewFactory;
+use \mako\view\renderers\Template;
 
 /**
  * View factory service.
@@ -29,7 +30,24 @@ class ViewFactoryService extends \mako\application\services\Service
 		{
 			$app = $container->get('app');
 
-			return new ViewFactory($app->getApplicationPath(), $app->getCharset());
+			$applicationPath = $app->getApplicationPath();
+
+			$fileSystem = $container->get('fileSystem');
+
+			// Create factory instance
+
+			$factory = new ViewFactory($fileSystem, $applicationPath . '/views', $app->getCharset());
+
+			// Register template renderer
+
+			$factory->registerRenderer('.tpl.php', function() use ($applicationPath, $fileSystem)
+			{
+				return new Template($fileSystem, $applicationPath . '/storage/cache/views');
+			});
+
+			// Return factory instance
+
+			return $factory;
 		});
 	}
 }
