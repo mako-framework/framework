@@ -22,6 +22,7 @@ use \mako\database\midgard\relations\HasOnePolymorphic;
 use \mako\database\midgard\relations\ManyToMany;
 use \mako\utility\Str;
 use \mako\utility\UUID;
+use \mako\syringe\ClassInspector;
 
 /**
  * ORM.
@@ -304,7 +305,7 @@ abstract class ORM
 		{
 			static::$hooks[$class] = [];
 
-			foreach(\mako\get_class_traits($class) as $trait)
+			foreach(ClassInspector::getTraits($class) as $trait)
 			{
 				if(method_exists($this, $getter = 'get' . $this->getClassShortName($trait) . 'Hooks'))
 				{
