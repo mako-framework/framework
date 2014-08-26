@@ -146,7 +146,7 @@ trait NamespacedFileLoaderTrait
 
 			list($suffix, $file) = explode('::', $file);
 
-			array_unshift($paths, $this->getFilePath($file, 'packages' . DIRECTORY_SEPARATOR . $extension, $suffix));
+			array_unshift($paths, $this->getFilePath($file, $extension, 'packages' . DIRECTORY_SEPARATOR . $suffix));
 		}
 
 		return $paths;
