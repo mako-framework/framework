@@ -60,6 +60,18 @@ class View
 	}
 
 	/**
+	 * Returns the renderer instance.
+	 * 
+	 * @access  public
+	 * @return  \mako\view\renderers\RendererInterface
+	 */
+
+	public function getRenderer()
+	{
+		return $this->renderer;
+	}
+
+	/**
 	 * Assign a local view variable.
 	 *
 	 * @access  public

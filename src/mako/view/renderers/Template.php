@@ -145,17 +145,27 @@ class Template extends \mako\view\renderers\PHP implements \mako\view\renderers\
 
 	public function render($__view__, array $__variables__)
 	{
+		// Get path to the compiled view
+
 		$compiled = $this->getCompiledPath($__view__);
 
-		// Check if we need to compile the view
+		// Compile the view if the cache doesn't exist or if it is expired
 
 		if($this->needToCompile($__view__, $compiled))
 		{
 			$this->compile($__view__);
 		}
 
+		// Render the view
+
+		$rendered = parent::render($compiled, array_merge($__variables__, ['__renderer__' => $this]));
+
+		// Reset the view blocks
+
+		$this->openBlocks = $this->blocks = [];
+
 		// Return the rendered view
 
-		return parent::render($compiled, array_merge($__variables__, ['__renderer__' => $this]));
+		return $rendered;
 	}
 }
