@@ -223,6 +223,17 @@ abstract class Application
 	}
 
 	/**
+	 * Returns the Mako environment. NULL is returned if no environment is specified.
+	 * 
+	 * @return  string|null
+	 */
+
+	public function getEnvironment()
+	{
+		return getenv('MAKO_ENV') ?: null;
+	}
+
+	/**
 	 * Configure.
 	 * 
 	 * @access  protected
@@ -237,7 +248,9 @@ abstract class Application
 		$this->charset = $config['charset'];
 
 		mb_language('uni');
+
 		mb_regex_encoding($this->charset);
+		
 		mb_internal_encoding($this->charset);
 
 		// Set default timezone
@@ -328,7 +341,9 @@ abstract class Application
 
 		// Register config instance
 
-		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config = new Config($fileSystem, $this->applicationPath . '/config'));
+		$this->config = new Config($fileSystem, $this->applicationPath . '/config', $this->getEnvironment());
+
+		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config);
 
 		// Configure
 

@@ -102,11 +102,13 @@ class Reactor
 
 		// Override environment?
 
-		$env = $this->input->param('env', false);
+		$environment = $this->input->param('env', false);
 
-		if($env !== false)
+		if($environment !== false)
 		{
-			putenv('MAKO_ENV=' . $env);
+			putenv('MAKO_ENV=' . $environment);
+
+			$this->container->get('config')->setEnvironment($environment);
 		}
 
 		// Override default database?
