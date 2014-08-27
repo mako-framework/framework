@@ -107,11 +107,11 @@ class Config
 
 		if($this->environment !== null)
 		{
-			$namespaceSeparator = strpos($file, '::');
+			$namespace = strpos($file, '::');
 
-			$file = $namespaceSeparator === false ? $this->environment . '.' . $file : substr_replace($file, $this->environment . '.', $namespaceSeparator + 2, 0);
+			$namespaced = ($namespace === false) ? $this->environment . '.' . $file : substr_replace($file, $this->environment . '.', $namespace + 2, 0);
 
-			foreach($this->getCascadingFilePaths($file) as $path)
+			foreach($this->getCascadingFilePaths($namespaced) as $path)
 			{
 				if($this->fileSystem->exists($path))
 				{
@@ -122,7 +122,20 @@ class Config
 			}
 		}
 
-		return $config;
+		$this->configuration[$file] = $config;
+	}
+
+	/**
+	 * Parses the language key.
+	 * 
+	 * @access  public
+	 * @param   string  $key  Language key
+	 * @return  array
+	 */
+
+	public function parseKey($key)
+	{
+		return (strpos($key, '.') === false) ? [$key, null] : explode('.', $key, 2);
 	}
 
 	/**
@@ -136,18 +149,18 @@ class Config
 
 	public function get($key, $default = null)
 	{
-		$parts = explode('.', $key, 2);
+		list($file, $path) = $this->parseKey($key);
 
 		// Check if we need to load the configuration
 
-		if(!isset($this->configuration[$parts[0]]))
+		if(!isset($this->configuration[$file]))
 		{
-			$this->configuration[$parts[0]] = $this->load($parts[0]);
+			$this->load($file);
 		}
 
 		// Return the configuration
 
-		return isset($parts[1]) ? Arr::get($this->configuration[$parts[0]], $parts[1], $default) : $this->configuration[$parts[0]];
+		return $path === null ? $this->configuration[$file] : Arr::get($this->configuration[$file], $path, $default);
 	}
 
 	/**
@@ -160,11 +173,11 @@ class Config
 
 	public function set($key, $value)
 	{
-		$config = strtok($key, '.');
+		list($file, $path) = $this->parseKey($key);
 
-		if(!isset($this->configuration[$config]))
+		if(!isset($this->configuration[$file]))
 		{
-			$this->get($config);
+			$this->load($file);
 		}
 
 		Arr::set($this->configuration, $key, $value);
