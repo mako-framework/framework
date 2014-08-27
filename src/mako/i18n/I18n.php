@@ -326,6 +326,11 @@ class I18n
 	{
 		$string = $this->getString($key, $language);
 
-		return $this->parsePluralizationTags(vsprintf($string, $vars));
+		if(!empty($vars))
+		{
+			$string = $this->parsePluralizationTags(vsprintf($string, $vars));
+		}
+
+		return $string;
 	}
 }
