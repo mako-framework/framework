@@ -255,12 +255,12 @@ class I18n
 	{
 		$language = $language ?: $this->language;
 
-		list($file, $string) = $this->parseKey($key);
-
 		if(!isset($this->strings[$language]))
 		{
 			$this->loadStrings($language);
 		}
+
+		list($file, $string) = $this->parseKey($key);
 
 		if(!isset($this->strings[$language][$file]))
 		{

@@ -151,15 +151,11 @@ class Config
 	{
 		list($file, $path) = $this->parseKey($key);
 
-		// Check if we need to load the configuration
-
 		if(!isset($this->configuration[$file]))
 		{
 			$this->load($file);
 		}
-
-		// Return the configuration
-
+		
 		return $path === null ? $this->configuration[$file] : Arr::get($this->configuration[$file], $path, $default);
 	}
 
