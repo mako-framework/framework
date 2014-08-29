@@ -169,9 +169,9 @@ abstract class Package
 
 		// Register view namespace
 
-		if($this->container->has('viewFactory'))
+		if($this->container->has('view'))
 		{
-			$this->container->get('viewFactory')->registerNamespace($this->getNamespace(), $this->getViewPath());
+			$this->container->get('view')->registerNamespace($this->getNamespace(), $this->getViewPath());
 		}
 
 		// Bootstrap package
