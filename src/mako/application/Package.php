@@ -62,7 +62,7 @@ abstract class Package
 	 * @return  string
 	 */
 
-	public function getPackageName()
+	public function getName()
 	{
 		return $this->packageName;
 	}
