@@ -67,7 +67,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$config = new Config($fileSystem, '/app/config');
 
-		$config->addNamespace('baz', '/app/packages/baz/config');
+		$config->registerNamespace('baz', '/app/packages/baz/config');
 
 		$this->assertEquals('hello', $config->get('baz::settings.greeting'));
 	}
@@ -86,7 +86,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$config = new Config($fileSystem, '/app/config');
 
-		$config->addNamespace('baz', '/app/packages/baz/config');
+		$config->registerNamespace('baz', '/app/packages/baz/config');
 
 		$this->assertEquals('hello', $config->get('baz::settings.greeting'));
 	}
@@ -140,7 +140,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
 		$config->setEnvironment('dev');
 
-		$config->addNamespace('baz', '/app/packages/baz/config');
+		$config->registerNamespace('baz', '/app/packages/baz/config');
 
 		$this->assertEquals('konnichiwa', $config->get('baz::settings.greeting'));
 

@@ -118,7 +118,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	{
 		$loader = new Loader($this->loadPackages($this->loadStrings($this->getFileSystem())), '/app/i18n');
 
-		$loader->addNamespace('foo', '/app/packages/foo/i18n');
+		$loader->registerNamespace('foo', '/app/packages/foo/i18n');
 
 		$strings = $loader->loadStrings('en_US');
 

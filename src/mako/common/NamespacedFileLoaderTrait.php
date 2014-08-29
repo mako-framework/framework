@@ -63,14 +63,14 @@ trait NamespacedFileLoaderTrait
 	}
 
 	/**
-	 * Adds a namespace.
+	 * Registers a namespace.
 	 * 
 	 * @access  public
 	 * @param   string  $namespace  Namespace name
 	 * @param   string  $path       Namespace path
 	 */
 
-	public function addNamespace($namespace, $path)
+	public function registerNamespace($namespace, $path)
 	{
 		$this->namespaces[$namespace] = $path;
 	}
