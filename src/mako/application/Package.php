@@ -94,7 +94,7 @@ abstract class Package
 	{
 		if($this->fileNamespace === null)
 		{
-			$this->fileNamespace = strtolower(end((explode('/', $this->packageName))));
+			$this->fileNamespace = str_replace('/', '-', strtolower($this->packageName));
 		}
 
 		return $this->fileNamespace;
@@ -112,7 +112,9 @@ abstract class Package
 	{
 		if($this->classNamespace === null)
 		{
-			$this->classNamespace = str_replace('/', '\\', $this->packageName);
+			$className = get_class($this);
+			
+			$this->classNamespace = substr($className, 0, strrpos($className, '\\'));
 		}
 
 		return $prefix ? '\\' . $this->classNamespace : $this->classNamespace;
