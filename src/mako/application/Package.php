@@ -156,7 +156,7 @@ abstract class Package
 
 	public function getI18nPath()
 	{
-		return realpath($this->getPath() . '/../i18n');
+		return realpath($this->getPath() . '/i18n');
 	}
 
 	/**
@@ -168,7 +168,7 @@ abstract class Package
 
 	public function getViewPath()
 	{
-		return realpath($this->getPath() . '/../views');
+		return realpath($this->getPath() . '/views');
 	}
 
 	/**
