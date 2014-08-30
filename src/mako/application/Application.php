@@ -71,6 +71,14 @@ abstract class Application
 	protected $applicationPath;
 
 	/**
+	 * Booted packages.
+	 * 
+	 * @var array
+	 */
+
+	protected $packages = [];
+
+	/**
 	 * Constructor.
 	 * 
 	 * @access  public
@@ -189,6 +197,36 @@ abstract class Application
 	public function getApplicationPath()
 	{
 		return $this->applicationPath;
+	}
+
+	/**
+	 * Returns all the application packages.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getPackages()
+	{
+		return $this->packages;
+	}
+
+	/**
+	 * Returns a package by its name.
+	 * 
+	 * @access  public
+	 * @param   string                     $package  Package name
+	 * @return  \mako\application\Package
+	 */
+
+	public function getPackage($package)
+	{
+		if(!isset($this->packages[$package]))
+		{
+			throw new RuntimeException(vsprintf("%s(): Unknown package [ %s ].", [__METHOD__, $package]));
+		}
+
+		return $this->packages[$package];
 	}
 
 	/**
@@ -319,6 +357,24 @@ abstract class Application
 	}
 
 	/**
+	 * Boot packages.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function bootPackages()
+	{
+		foreach($this->config->get('application.packages') as $package)
+		{
+			$package = new $package($this->container);
+
+			$package->boot();
+
+			$this->packages[$package->getName()] = $package;
+		}
+	}
+
+	/**
 	 * Boots the application.
 	 * 
 	 * @access  protected
@@ -361,6 +417,10 @@ abstract class Application
 		// Load the application bootstrap file
 
 		$this->bootstrap();
+
+		// Boot packages
+
+		$this->bootPackages();
 	}
 
 	/**

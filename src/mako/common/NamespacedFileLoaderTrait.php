@@ -144,7 +144,7 @@ trait NamespacedFileLoaderTrait
 
 			$paths[] = $this->getFilePath($file, $extension);
 
-			// Append the cascading file
+			// Prepend the cascading file
 
 			list($suffix, $file) = explode('::', $file);
 
