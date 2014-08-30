@@ -115,7 +115,7 @@ abstract class Package
 			$this->classNamespace = str_replace('/', '\\', $this->packageName);
 		}
 
-		return $prefix? '\\' . $this->classNamespace : $this->classNamespace;
+		return $prefix ? '\\' . $this->classNamespace : $this->classNamespace;
 	}
 
 	/**
