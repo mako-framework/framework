@@ -196,6 +196,7 @@ abstract class Application
 	 * 
 	 * @access  public
 	 * @param   boolean  $prefix  (optional) Prefix the namespace with a slash?
+	 * @return  string
 	 */
 
 	public function getApplicationNamespace($prefix = false)

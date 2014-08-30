@@ -28,20 +28,36 @@ abstract class Package
 	protected $container;
 
 	/**
-	 * Package "src" directory.
+	 * Package name.
 	 * 
 	 * @var string
 	 */
 
-	protected $srcDir;
+	protected $packageName;
 
 	/**
-	 * Package namespace.
+	 * Package path.
 	 * 
 	 * @var string
 	 */
 
-	protected $namespace;
+	protected $path;
+
+	/**
+	 * File namespace.
+	 * 
+	 * @var string
+	 */
+
+	protected $fileNamespace;
+
+	/**
+	 * Class namespace.
+	 * 
+	 * @var string
+	 */
+
+	protected $classNamespace;
 
 	/**
 	 * Constructor.
@@ -74,31 +90,49 @@ abstract class Package
 	 * @return  string
 	 */
 
-	public function getNamespace()
+	public function getFileNamespace()
 	{
-		if($this->namespace === null)
+		if($this->fileNamespace === null)
 		{
-			$this->namespace = strtolower(end(explode('/', $this->packageName)));
+			$this->fileNamespace = strtolower(end((explode('/', $this->packageName))));
 		}
 
-		return $this->namespace;
+		return $this->fileNamespace;
 	}
 
 	/**
-	 * Returns package "src" directory.
+	 * Returns the class namespace.
+	 * 
+	 * @access  public
+	 * @param   boolean  $prefix  (optional) Prefix the namespace with a slash?
+	 * @return  string
+	 */
+
+	public function getClassNamespace($prefix = false)
+	{
+		if($this->classNamespace === null)
+		{
+			$this->classNamespace = str_replace('/', '\\', $this->packageName);
+		}
+
+		return $prefix? '\\' . $this->classNamespace : $this->classNamespace;
+	}
+
+	/**
+	 * Returns package path.
 	 * 
 	 * @access  protected
 	 * @return  string
 	 */
 
-	public function getSrcDir()
+	public function getPath()
 	{
-		if($this->srcDir === null)
+		if($this->path === null)
 		{
-			$this->srcDir = dirname((new ReflectionClass($this))->getFileName());
+			$this->path = realpath(dirname((new ReflectionClass($this))->getFileName()) . '/..');
 		}
 
-		return $this->srcDir;
+		return $this->path;
 	}
 
 	/**
@@ -110,7 +144,7 @@ abstract class Package
 
 	public function getConfigPath()
 	{
-		return realpath($this->getSrcDir() . '/../config');
+		return realpath($this->getPath() . '/config');
 	}
 
 	/**
@@ -122,7 +156,7 @@ abstract class Package
 
 	public function getI18nPath()
 	{
-		return realpath($this->getSrcDir() . '/../i18n');
+		return realpath($this->getPath() . '/../i18n');
 	}
 
 	/**
@@ -134,7 +168,7 @@ abstract class Package
 
 	public function getViewPath()
 	{
-		return realpath($this->getSrcDir() . '/../views');
+		return realpath($this->getPath() . '/../views');
 	}
 
 	/**
@@ -158,20 +192,20 @@ abstract class Package
 	{
 		// Register configuration namespace
 
-		$this->container->get('config')->registerNamespace($this->getNamespace(), $this->getConfigPath());
+		$this->container->get('config')->registerNamespace($this->getFileNamespace(), $this->getConfigPath());
 
 		// Register i18n namespace
 
 		if($this->container->has('i18n'))
 		{
-			$this->container->get('i18n')->getLoader()->registerNamespace($this->getNamespace(), $this->getI18nPath());
+			$this->container->get('i18n')->getLoader()->registerNamespace($this->getFileNamespace(), $this->getI18nPath());
 		}
 
 		// Register view namespace
 
 		if($this->container->has('view'))
 		{
-			$this->container->get('view')->registerNamespace($this->getNamespace(), $this->getViewPath());
+			$this->container->get('view')->registerNamespace($this->getFileNamespace(), $this->getViewPath());
 		}
 
 		// Bootstrap package
