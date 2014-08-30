@@ -71,6 +71,14 @@ abstract class Application
 	protected $applicationPath;
 
 	/**
+	 * Booted packages.
+	 * 
+	 * @var array
+	 */
+
+	protected $packages = [];
+
+	/**
 	 * Constructor.
 	 * 
 	 * @access  public
@@ -192,10 +200,41 @@ abstract class Application
 	}
 
 	/**
+	 * Returns all the application packages.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getPackages()
+	{
+		return $this->packages;
+	}
+
+	/**
+	 * Returns a package by its name.
+	 * 
+	 * @access  public
+	 * @param   string                     $package  Package name
+	 * @return  \mako\application\Package
+	 */
+
+	public function getPackage($package)
+	{
+		if(!isset($this->packages[$package]))
+		{
+			throw new RuntimeException(vsprintf("%s(): Unknown package [ %s ].", [__METHOD__, $package]));
+		}
+
+		return $this->packages[$package];
+	}
+
+	/**
 	 * Returns the application namespace.
 	 * 
 	 * @access  public
 	 * @param   boolean  $prefix  (optional) Prefix the namespace with a slash?
+	 * @return  string
 	 */
 
 	public function getApplicationNamespace($prefix = false)
@@ -223,6 +262,17 @@ abstract class Application
 	}
 
 	/**
+	 * Returns the Mako environment. NULL is returned if no environment is specified.
+	 * 
+	 * @return  string|null
+	 */
+
+	public function getEnvironment()
+	{
+		return getenv('MAKO_ENV') ?: null;
+	}
+
+	/**
 	 * Configure.
 	 * 
 	 * @access  protected
@@ -237,7 +287,9 @@ abstract class Application
 		$this->charset = $config['charset'];
 
 		mb_language('uni');
+
 		mb_regex_encoding($this->charset);
+		
 		mb_internal_encoding($this->charset);
 
 		// Set default timezone
@@ -305,6 +357,24 @@ abstract class Application
 	}
 
 	/**
+	 * Boot packages.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function bootPackages()
+	{
+		foreach($this->config->get('application.packages') as $package)
+		{
+			$package = new $package($this->container);
+
+			$package->boot();
+
+			$this->packages[$package->getName()] = $package;
+		}
+	}
+
+	/**
 	 * Boots the application.
 	 * 
 	 * @access  protected
@@ -328,7 +398,9 @@ abstract class Application
 
 		// Register config instance
 
-		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config = new Config($fileSystem, $this->applicationPath));
+		$this->config = new Config($fileSystem, $this->applicationPath . '/config', $this->getEnvironment());
+
+		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config);
 
 		// Configure
 
@@ -345,6 +417,10 @@ abstract class Application
 		// Load the application bootstrap file
 
 		$this->bootstrap();
+
+		// Boot packages
+
+		$this->bootPackages();
 	}
 
 	/**

@@ -43,9 +43,9 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function getRenderer()
+	public function getView()
 	{
-		return m::mock('mako\view\renderers\RendererInterface');
+		return m::mock('mako\view\View');
 	}
 
 	/**
@@ -289,11 +289,11 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 
-		$renderer = $this->getRenderer();
+		$view = $this->getView();
 
-		$renderer->shouldReceive('render')->once()->andReturn('pagination');
+		$view->shouldReceive('render')->once()->andReturn('pagination');
 
-		$viewFactory->shouldReceive('create')->once()->with('partials.pagination', $paginationArray)->andReturn($renderer);
+		$viewFactory->shouldReceive('create')->once()->with('partials.pagination', $paginationArray)->andReturn($view);
 
 		$pagination = new Pagination($request, 200, [], $urlBuilder, $viewFactory);
 
@@ -366,11 +366,11 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 
-		$renderer = $this->getRenderer();
+		$view = $this->getView();
 
-		$renderer->shouldReceive('render')->once()->andReturn('pagination');
+		$view->shouldReceive('render')->once()->andReturn('pagination');
 
-		$viewFactory->shouldReceive('create')->once()->with('partials.pagination', $paginationArray)->andReturn($renderer);
+		$viewFactory->shouldReceive('create')->once()->with('partials.pagination', $paginationArray)->andReturn($view);
 
 		$pagination = new Pagination($request, 200, [], $urlBuilder, $viewFactory);
 
@@ -437,11 +437,11 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 
-		$renderer = $this->getRenderer();
+		$view = $this->getView();
 
-		$renderer->shouldReceive('render')->once()->andReturn('pagination');
+		$view->shouldReceive('render')->once()->andReturn('pagination');
 
-		$viewFactory->shouldReceive('create')->once()->with('partials.pagination', $paginationArray)->andReturn($renderer);
+		$viewFactory->shouldReceive('create')->once()->with('partials.pagination', $paginationArray)->andReturn($view);
 
 		$pagination = new Pagination($request, 200, [], $urlBuilder, $viewFactory);
 

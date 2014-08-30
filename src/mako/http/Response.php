@@ -16,7 +16,7 @@ use \mako\http\responses\Redirect;
 use \mako\http\responses\ResponseContainerInterface;
 use \mako\http\responses\Stream;
 use \mako\security\Signer;
-use \mako\view\renderers\RendererInterface;
+use \mako\view\View;
 
 /**
  * HTTP response.
@@ -223,7 +223,7 @@ class Response
 
 	public function body($body)
 	{
-		if($body instanceof RendererInterface)
+		if($body instanceof View)
 		{
 			$this->body = $body->render();
 		}

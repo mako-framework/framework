@@ -20,6 +20,8 @@ use \mako\utility\Arr;
 
 class Config
 {
+	use \mako\common\NamespacedFileLoaderTrait;
+	
 	/**
 	 * File system instance.
 	 * 
@@ -29,12 +31,12 @@ class Config
 	protected $fileSystem;
 
 	/**
-	 * Application path.
+	 * Environment name.
 	 * 
 	 * @var string
 	 */
 
-	protected $applicationPath;
+	protected $environment;
 
 	/**
 	 * Configuration.
@@ -42,21 +44,36 @@ class Config
 	 * @var array
 	 */
 
-	protected $config = [];
+	protected $configuration = [];
 
 	/**
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\file\FileSystem  $fileSystem       File system instance
-	 * @param   string                 $applicationPath  Application path
+	 * @param   \mako\file\FileSystem $fileSystem   File system instance
+	 * @param   string                $path         Default path
+	 * @param   string                $environment  (optional) Environment name
 	 */
 
-	public function __construct(FileSystem $fileSystem, $applicationPath)
+	public function __construct(FileSystem $fileSystem, $path, $environment = null)
 	{
 		$this->fileSystem = $fileSystem;
 
-		$this->applicationPath = $applicationPath;
+		$this->path = $path;
+
+		$this->environment = $environment;
+	}
+
+	/**
+	 * Sets the environment.
+	 * 
+	 * @access  public
+	 * @param   string  $environment  Environment name
+	 */
+
+	public function setEnvironment($environment)
+	{
+		$this->environment = $environment;
 	}
 
 	/**
@@ -69,34 +86,32 @@ class Config
 
 	protected function load($file)
 	{
-		$found = false;
+		// Load configuration
 
-		$paths = \mako\get_cascading_paths($this->applicationPath, 'config', $file);
-
-		foreach($paths as $path)
+		foreach($this->getCascadingFilePaths($file) as $path)
 		{
 			if($this->fileSystem->exists($path))
 			{
-				$found = true;
-
 				$config = $this->fileSystem->includeFile($path);
 
 				break;
 			}
 		}
 
-		if(!$found)
+		if(!isset($config))
 		{
 			throw new RuntimeException(vsprintf("%s(): The [ %s ] config file does not exist.", [__METHOD__, $file]));
 		}
 
 		// Merge environment specific configuration
 
-		if(\mako\get_env() !== null)
+		if($this->environment !== null)
 		{
-			$paths = \mako\get_cascading_paths($this->applicationPath, 'config/' . \mako\get_env(), $file);
-			
-			foreach($paths as $path)
+			$namespace = strpos($file, '::');
+
+			$namespaced = ($namespace === false) ? $this->environment . '.' . $file : substr_replace($file, $this->environment . '.', $namespace + 2, 0);
+
+			foreach($this->getCascadingFilePaths($namespaced) as $path)
 			{
 				if($this->fileSystem->exists($path))
 				{
@@ -107,9 +122,20 @@ class Config
 			}
 		}
 
-		// Return configuration
+		$this->configuration[$file] = $config;
+	}
 
-		return $config;
+	/**
+	 * Parses the language key.
+	 * 
+	 * @access  public
+	 * @param   string  $key  Language key
+	 * @return  array
+	 */
+
+	public function parseKey($key)
+	{
+		return (strpos($key, '.') === false) ? [$key, null] : explode('.', $key, 2);
 	}
 
 	/**
@@ -123,21 +149,14 @@ class Config
 
 	public function get($key, $default = null)
 	{
-		$keys = explode('.', $key, 2);
+		list($file, $path) = $this->parseKey($key);
 
-		if(!isset($this->config[$keys[0]]))
+		if(!isset($this->configuration[$file]))
 		{
-			$this->config[$keys[0]] = $this->load($keys[0]);
+			$this->load($file);
 		}
-
-		if(!isset($keys[1]))
-		{
-			return $this->config[$keys[0]];
-		}
-		else
-		{
-			return Arr::get($this->config[$keys[0]], $keys[1], $default);
-		}
+		
+		return $path === null ? $this->configuration[$file] : Arr::get($this->configuration[$file], $path, $default);
 	}
 
 	/**
@@ -150,14 +169,14 @@ class Config
 
 	public function set($key, $value)
 	{
-		$config = strtok($key, '.');
+		list($file, $path) = $this->parseKey($key);
 
-		if(!isset($this->config[$config]))
+		if(!isset($this->configuration[$file]))
 		{
-			$this->get($config);
+			$this->load($file);
 		}
 
-		Arr::set($this->config, $key, $value);
+		Arr::set($this->configuration, $key, $value);
 	}
 
 	/**
@@ -170,6 +189,6 @@ class Config
 
 	public function remove($key)
 	{
-		return Arr::delete($this->config, $key);
+		return Arr::delete($this->configuration, $key);
 	}
 }

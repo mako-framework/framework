@@ -10,7 +10,7 @@ namespace mako\view;
 use \Closure;
 use \RuntimeException;
 
-use \mako\view\renderers\CacheableInterface;
+use \mako\file\FileSystem;
 
 /**
  * View factory.
@@ -20,13 +20,7 @@ use \mako\view\renderers\CacheableInterface;
 
 class ViewFactory
 {
-	/**
-	 * Application path.
-	 * 
-	 * @var string
-	 */
-
-	protected $applicationPath;
+	use \mako\common\NamespacedFileLoaderTrait;
 
 	/**
 	 * Charset.
@@ -42,11 +36,15 @@ class ViewFactory
 	 * @var array
 	 */
 
-	protected $renderers =
-	[
-		'.tpl.php' => 'mako\view\renderers\Template',
-		'.php'     => 'mako\view\renderers\PHP',
-	];
+	protected $renderers = ['.php' => 'mako\view\renderers\PHP'];
+
+	/**
+	 * Cache path.
+	 * 
+	 * @var string
+	 */
+
+	protected $cachePath;
 
 	/**
 	 * Global view variables.
@@ -57,16 +55,35 @@ class ViewFactory
 	protected $globalVariables = [];
 
 	/**
+	 * View cache.
+	 * 
+	 * @var array
+	 */
+
+	protected $viewCache = [];
+
+	/**
+	 * Renderer instances.
+	 * 
+	 * @var array
+	 */
+
+	protected $rendererInstances;
+
+	/**
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $applicationPath  Application path
-	 * @param   string  $charset          (optional) Charset
+	 * @param   string  $fileSystem  File system instance
+	 * @param   string  $path        Default path
+	 * @param   string  $charset     (optional) Charset
 	 */
 
-	public function __construct($applicationPath, $charset = 'UTF-8')
+	public function __construct(FileSystem $fileSystem, $path, $charset = 'UTF-8')
 	{
-		$this->applicationPath = $applicationPath;
+		$this->fileSystem = $fileSystem;
+
+		$this->path = $path;
 
 		$this->globalVariables['__viewfactory__'] = $this;
 
@@ -101,24 +118,73 @@ class ViewFactory
 	}
 
 	/**
+	 * Prepends a view renderer.
+	 * 
+	 * @access  protected
+	 * @param   string           $extention  Extention handled by the renderer
+	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
+	 */
+
+	protected function prependRenderer($extention, $renderer)
+	{
+		$this->renderers = [$extention => $renderer] + $this->renderers;
+	}
+
+	/**
+	 * Appends a view renderer.
+	 * 
+	 * @access  protected
+	 * @param   string           $extention  Extention handled by the renderer
+	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
+	 */
+
+	protected function appendRenderer($extention, $renderer)
+	{
+		$this->renderers =  $this->renderers + [$extention => $renderer];
+	}
+
+	/**
 	 * Registers a custom view renderer.
 	 * 
 	 * @access  public
-	 * @param   string           $extention  Extention handled by the renderer
-	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
-	 * @param   boolean          $prepend    (optional) Prepend the custom renderer on the stack
+	 * @param   string                  $extention  Extention handled by the renderer
+	 * @param   string|\Closure         $renderer   Renderer class or closure that creates a renderer instance
+	 * @param   boolean                 $prepend    (optional) Prepend the custom renderer on the stack
+	 * @return  \mako\view\ViewFactory
 	 */
 
 	public function registerRenderer($extention, $renderer, $prepend = true)
 	{
-		if($prepend)
-		{
-			$this->renderers = [$extention => $renderer] + $this->renderers;
-		}
-		else
-		{
-			$this->renderers[$extention] = $renderer;
-		}
+		$prepend ? $this->prependRenderer($extention, $renderer) : $this->appendRenderer($extention, $renderer);
+
+		return $this;
+	}
+
+	/**
+	 * Returns the cache path.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getCachePatch()
+	{
+		return $this->cachePath;
+	}
+
+	/**
+	 * Sets the cache path.
+	 * 
+	 * @access  public
+	 * @param   string
+	 * @return  \mako\view\ViewFactory
+	 */
+
+	public function setCachePath($cachePath)
+	{
+		$this->cachePath = $cachePath;
+
+		return $this;
 	}
 
 	/**
@@ -145,73 +211,72 @@ class ViewFactory
 	 * @return  array
 	 */
 
-	protected function getView($view)
+	protected function getViewPathAndExtension($view)
 	{
-		$view = str_replace('.', '/', $view);
-		
-		// Loop throught the avaiable extensions and check if the view exists
-
-		foreach($this->renderers as $extension => $renderer)
+		if(!isset($this->viewCache[$view]))
 		{
-			if(file_exists($path = \mako\get_path($this->applicationPath, 'views', $view, $extension)))
+			// Loop throught the avaiable extensions and check if the view exists
+
+			foreach($this->renderers as $extension => $renderer)
 			{
-				return ['path' => $path, 'renderer' => $renderer];
+				if($this->fileSystem->exists($path = $this->getFilePath($view, $extension)))
+				{
+					return $this->viewCache[$view] = [$path, $extension];
+				}
 			}
+
+			// We didn't find the view so we'll throw an exception
+
+			throw new RuntimeException(vsprintf("%s(): The [ %s ] view does not exist.", [__METHOD__, $view]));
 		}
 
-		// We didn't find the view so we'll throw an exception
-
-		throw new RuntimeException(vsprintf("%s(): The [ %s ] view does not exist.", [__METHOD__, $view]));
+		return $this->viewCache[$view];
 	}
 
 	/**
 	 * Creates a renderer instance.
 	 * 
 	 * @access  protected
-	 * @param   string|\Closure                         $renderer    Renderer
-	 * @param   string                                  $view        Path to view file
-	 * @param   array                                   $parameters  View parameters
+	 * @param   string|\Closure                         $renderer  Renderer class or closure
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
 
-	protected function rendererFactory($renderer, $view, $parameters)
+	protected function rendererFactory($renderer)
 	{
-		if($renderer instanceof Closure)
+		return $renderer instanceof Closure ? $renderer() : new $renderer;
+	}
+
+	/**
+	 * Returns a renderer instance.
+	 * 
+	 * @access  protected
+	 * @param   string                                  $extension  Extension associated with the renderer
+	 * @return  \mako\view\renderers\RendererInterface
+	 */
+
+	protected function resolveRenderer($extension)
+	{
+		if(!isset($this->rendererInstances[$extension]))
 		{
-			return $renderer($view, $parameters);
+			$this->rendererInstances[$extension] = $this->rendererFactory($this->renderers[$extension]);
 		}
-		else
-		{
-			return new $renderer($view, $parameters);
-		}
+
+		return $this->rendererInstances[$extension];
 	}
 
 	/**
 	 * Creates and returns a view renderer instance.
 	 * 
 	 * @access  public
-	 * @param   string                                  $view       View
-	 * @param   array                                   $variables  (optional) View variables
-	 * @return  \mako\view\renderers\RendererInterface
+	 * @param   string           $view       View
+	 * @param   array            $variables  (optional) View variables
+	 * @return  \mako\view\View
 	 */
 
 	public function create($view, array $variables = [])
 	{
-		$view = $this->getView($view);
+		list($path, $extension) = $this->getViewPathAndExtension($view);
 
-		// Create renderer instance
-
-		$renderer = $this->rendererFactory($view['renderer'], $view['path'], $variables + $this->globalVariables);
-
-		// Set the view cache path if needed
-
-		if($renderer instanceof CacheableInterface)
-		{
-			$renderer->setCachePath($this->applicationPath . '/storage/cache/views');
-		}
-
-		// Return the renderer
-
-		return $renderer;
+		return new View($path, $variables + $this->globalVariables, $this->resolveRenderer($extension));
 	}
 }

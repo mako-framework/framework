@@ -8,6 +8,7 @@
 namespace mako\application\services;
 
 use \mako\i18n\I18n;
+use \mako\i18n\Loader;
 
 /**
  * I18n service.
@@ -31,7 +32,7 @@ class I18nService extends \mako\application\services\Service
 
 			$cache = $container->get('config')->get('application')['language_cache'];
 
-			$i18n = new I18n($container->get('fileSystem'), $app->getApplicationPath(), $app->getLanguage());
+			$i18n = new I18n(new Loader($container->get('fileSystem'), $app->getApplicationPath() . '/i18n'), $app->getLanguage());
 
 			if($cache !== false)
 			{

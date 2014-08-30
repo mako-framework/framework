@@ -7,6 +7,8 @@
 
 namespace mako\view\compilers;
 
+use \mako\file\FileSystem;
+
 /**
  * Template compiler.
  *
@@ -16,12 +18,12 @@ namespace mako\view\compilers;
 class Template
 {
 	/**
-	 * Path to raw template.
-	 *
-	 * @var string
+	 * File system instance.
+	 * 
+	 * @var \mako\file\FileSystem
 	 */
 
-	protected $template;
+	protected $fileSystem;
 
 	/**
 	 * Path to compiled template.
@@ -30,6 +32,14 @@ class Template
 	 */
 
 	protected $cachePath;
+
+	/**
+	 * Path to raw template.
+	 *
+	 * @var string
+	 */
+
+	protected $template;
 
 	/**
 	 * Compilation order.
@@ -51,12 +61,15 @@ class Template
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $cachePath  Cache path
-	 * @param   string  $template   Path to template
+	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
+	 * @param   string                 $cachePath   Cache path
+	 * @param   string                 $template    Path to template
 	 */
 
-	public function __construct($cachePath, $template)
+	public function __construct(FileSystem $fileSystem, $cachePath, $template)
 	{
+		$this->fileSystem = $fileSystem;
+
 		$this->cachePath = $cachePath;
 
 		$this->template = $template;
@@ -92,9 +105,11 @@ class Template
 
 		if(preg_match('/^{%\s*extends:(.*?)\s*%}/i', $template, $matches) > 0)
 		{
-			$template = preg_replace('/^{%\s*extends:(.*?)\s*%}/i', '<?php $__renderer__ = $__viewfactory__->create(' . $matches[1] . '); ?>', $template, 1);
+			$replacement = '<?php $__view__ = $__viewfactory__->create(' . $matches[1] . '); $__renderer__ = $__view__->getRenderer(); ?>';
 
-			$template .= '<?php echo $__renderer__->render(); ?>';
+			$template = preg_replace('/^{%\s*extends:(.*?)\s*%}/i', $replacement, $template, 1);
+
+			$template .= '<?php echo $__view__->render(); ?>';
 		}
 
 		return $template;
@@ -207,7 +222,7 @@ class Template
 	{
 		// Get teplate contents
 			
-		$contents = file_get_contents($this->template);
+		$contents = $this->fileSystem->getContents($this->template);
 
 		// Compile template
 
@@ -218,6 +233,6 @@ class Template
 
 		// Store compiled template
 
-		file_put_contents($this->cachePath . '/' . md5($this->template) . '.php', trim($contents));
+		$this->fileSystem->putContents($this->cachePath . '/' . md5($this->template) . '.php', trim($contents));
 	}
 }

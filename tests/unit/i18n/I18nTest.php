@@ -16,6 +16,17 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	protected $strings = 
+	[
+		'foo'	   => ['foo' => 'foostring', 'greeting' => 'hello %s'],
+		'bar'      => ['bar' => 'barstring', 'pluralization' => 'You have %1$u <pluralize:%1$u>apple</pluralize>.'],
+		'baz::baz' => ['baz' => 'bazstring'],
+	];
+
+	/**
+	 * 
+	 */
+
 	public function tearDown()
 	{
 		m::close();
@@ -25,18 +36,72 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function getFileSystem()
+	public function getLoader()
 	{
-		return m::mock('mako\file\FileSystem');
+		return m::mock('mako\i18n\Loader');
 	}
 
 	/**
 	 * 
 	 */
 
-	public function getLanguage()
+	protected function loadStrings($loader, $lang = 'en_US')
 	{
-		return m::mock('mako\i18n\Language');
+		$loader->shouldReceive('loadStrings')->once()->with($lang)->andReturn($this->strings);
+
+		return $loader;
+	}
+
+	/**
+	 * 
+	 */
+
+	protected function loadInflection($loader)
+	{
+		$loader->shouldReceive('loadInflection')->once()->with('en_US')->andReturn
+		(
+			[
+				'rules' => '',
+				'pluralize' => function($string)
+				{
+					return str_replace('apple', 'apples', $string);
+				},
+			]
+		);
+		return $loader;
+	}
+
+	/**
+	 * 
+	 */
+
+	protected function getCache()
+	{
+		return m::mock('mako\cache\Cache');
+	}
+
+	/**
+	 * 
+	 */
+
+	public function loadFromCache($cache)
+	{
+		$cache->shouldReceive('get')->once()->with('mako.i18n.en_US')->andReturn($this->strings);
+
+		return $cache;
+	}
+
+	/**
+	 * 
+	 */
+
+	public function saveToCache($cache)
+	{
+		$cache->shouldReceive('get')->once()->with('mako.i18n.en_US')->andReturn(false);
+
+		$cache->shouldReceive('put')->once()->with('mako.i18n.en_US', $this->strings, 3600);
+
+		return $cache;
 	}
 
 	/**
@@ -45,7 +110,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 
 	public function testGetLanguage()
 	{
-		$i18n = new I18n($this->getFileSystem(), '/app', 'en_US');
+		$i18n = new I18n($this->getLoader(), 'en_US');
 
 		$this->assertEquals('en_US', $i18n->getLanguage());
 	}
@@ -56,7 +121,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 
 	public function testSetLanguage()
 	{
-		$i18n = new I18n($this->getFileSystem(), '/app', 'en_US');
+		$i18n = new I18n($this->getLoader(), 'en_US');
 
 		$this->assertEquals('en_US', $i18n->getLanguage());
 
@@ -69,46 +134,43 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testHas()
+	public function testGetLoader()
 	{
-		$i18n = m::mock('mako\i18n\I18n[language]', [$this->getFileSystem(), '/app', 'en_US']);
+		$i18n = new I18n($this->getLoader(), 'en_US');
 
-		$i18n->shouldAllowMockingProtectedMethods();
-
-		$language = $this->getLanguage();
-
-		$language->shouldReceive('has')->once()->with('foo.bar')->andReturn(true);
-
-		$language->shouldReceive('has')->once()->with('foo.baz')->andReturn(false);
-
-		$i18n->shouldReceive('language')->twice()->with(null)->andReturn($language);
-
-		$this->assertTrue($i18n->has('foo.bar'));
-
-		$this->assertFalse($i18n->has('foo.baz'));
+		$this->assertInstanceOf('mako\i18n\Loader', $i18n->getLoader());
 	}
 
 	/**
 	 * 
 	 */
 
-	public function testHasWithLanguage()
+	public function testHas()
 	{
-		$i18n = m::mock('mako\i18n\I18n[language]', [$this->getFileSystem(), '/app', 'en_US']);
+		$i18n = new I18n($this->loadStrings($this->getLoader()), 'en_US');
 
-		$i18n->shouldAllowMockingProtectedMethods();
+		$this->assertTrue($i18n->has('foo.foo'));
 
-		$language = $this->getLanguage();
+		$this->assertTrue($i18n->has('bar.bar'));
 
-		$language->shouldReceive('has')->once()->with('foo.bar')->andReturn(true);
+		$this->assertTrue($i18n->has('baz::baz.baz'));
 
-		$language->shouldReceive('has')->once()->with('foo.baz')->andReturn(false);
+		$this->assertFalse($i18n->has('foo.nope'));
 
-		$i18n->shouldReceive('language')->twice()->with('nb_NO')->andReturn($language);
+		$this->assertFalse($i18n->has('bar.nope'));
 
-		$this->assertTrue($i18n->has('foo.bar', 'nb_NO'));
+		$this->assertFalse($i18n->has('baz::baz.nope'));
+	}
 
-		$this->assertFalse($i18n->has('foo.baz', 'nb_NO'));
+	/**
+	 * @expectedException \RuntimeException
+	 */
+
+	public function testException()
+	{
+		$i18n = new I18n($this->loadStrings($this->getLoader()), 'en_US');
+
+		$i18n->get('nope.foo');
 	}
 
 	/**
@@ -117,36 +179,39 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 
 	public function testGet()
 	{
-		$i18n = m::mock('mako\i18n\I18n[language]', [$this->getFileSystem(), '/app', 'en_US']);
+		$i18n = new I18n($this->loadStrings($this->getLoader()), 'en_US');
 
-		$i18n->shouldAllowMockingProtectedMethods();
+		$this->assertEquals('foostring', $i18n->get('foo.foo'));
 
-		$language = $this->getLanguage();
+		$this->assertEquals('barstring', $i18n->get('bar.bar'));
 
-		$language->shouldReceive('get')->once()->with('foo.bar', [])->andReturn('foo.bar');
-
-		$i18n->shouldReceive('language')->once()->with(null)->andReturn($language);
-
-		$this->assertEquals('foo.bar', $i18n->get('foo.bar'));
+		$this->assertEquals('bazstring', $i18n->get('baz::baz.baz'));
 	}
 
 	/**
 	 * 
 	 */
 
-	public function testGetWithLanguage()
+	public function testGetWithLang()
 	{
-		$i18n = m::mock('mako\i18n\I18n[language]', [$this->getFileSystem(), '/app', 'en_US']);
+		$i18n = new I18n($this->loadStrings($this->getLoader(), 'nb_NO'), 'en_US');
 
-		$i18n->shouldAllowMockingProtectedMethods();
+		$this->assertEquals('foostring', $i18n->get('foo.foo', [], 'nb_NO'));
 
-		$language = $this->getLanguage();
+		$this->assertEquals('barstring', $i18n->get('bar.bar', [], 'nb_NO'));
 
-		$language->shouldReceive('get')->once()->with('foo.bar', [])->andReturn('foo.bar');
+		$this->assertEquals('bazstring', $i18n->get('baz::baz.baz', [], 'nb_NO'));
+	}
 
-		$i18n->shouldReceive('language')->once()->with('nb_NO')->andReturn($language);
+	/**
+	 * 
+	 */
 
-		$this->assertEquals('foo.bar', $i18n->get('foo.bar', [], 'nb_NO'));
+	public function testParameters()
+	{
+		$i18n = new I18n($this->loadStrings($this->getLoader()), 'en_US');
+
+		$this->assertEquals('hello world', $i18n->get('foo.greeting', ['world']));
 	}
 
 	/**
@@ -155,43 +220,41 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 
 	public function testPluralize()
 	{
-		$i18n = m::mock('mako\i18n\I18n[language]', [$this->getFileSystem(), '/app', 'en_US']);
-
-		$i18n->shouldAllowMockingProtectedMethods();
-
-		$language = $this->getLanguage();
-
-		$language->shouldReceive('pluralize')->once()->with('apple', 0)->andReturn('apples');
-
-		$language->shouldReceive('pluralize')->once()->with('apple', 1)->andReturn('apple');
-
-		$i18n->shouldReceive('language')->twice()->with(null)->andReturn($language);
+		$i18n = new I18n($this->loadInflection($this->getLoader()), 'en_US');
 
 		$this->assertEquals('apples', $i18n->pluralize('apple'));
-
-		$this->assertEquals('apple', $i18n->pluralize('apple', 1));
 	}
 
 	/**
 	 * 
 	 */
 
-	public function testPluralizeWithLanguage()
+	public function testPluralizeInStrings()
 	{
-		$i18n = m::mock('mako\i18n\I18n[language]', [$this->getFileSystem(), '/app', 'en_US']);
+		$i18n = new I18n($this->loadInflection($this->loadStrings($this->getLoader())), 'en_US');
 
-		$i18n->shouldAllowMockingProtectedMethods();
+		$this->assertEquals('You have 10 apples.', $i18n->get('bar.pluralization', [10]));
+	}
 
-		$language = $this->getLanguage();
+	/**
+	 * 
+	 */
 
-		$language->shouldReceive('pluralize')->once()->with('eple', 0)->andReturn('epler');
+	public function testCacheLoad()
+	{
+		$i18n = new I18n($this->getLoader(), 'en_US', $this->loadFromCache($this->getCache()));
 
-		$language->shouldReceive('pluralize')->once()->with('eple', 1)->andReturn('eple');
+		$this->assertEquals('foostring', $i18n->get('foo.foo'));
+	}
 
-		$i18n->shouldReceive('language')->twice()->with('nb_NO')->andReturn($language);
+	/**
+	 * 
+	 */
 
-		$this->assertEquals('epler', $i18n->pluralize('eple', 0, 'nb_NO'));
+	public function testCacheSave()
+	{
+		$i18n = new I18n($this->loadStrings($this->getLoader()), 'en_US', $this->saveToCache($this->getCache()));
 
-		$this->assertEquals('eple', $i18n->pluralize('eple', 1, 'nb_NO'));
+		$this->assertEquals('foostring', $i18n->get('foo.foo'));
 	}
 }
