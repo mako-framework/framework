@@ -45,23 +45,8 @@ class TaskFinder
 		$this->application = $application;
 
 		$this->applicationPath = $this->application->getApplicationPath();
-	}
 
-	/**
-	 * Returns task directories.
-	 * 
-	 * @access  protected
-	 * @return  array
-	 */
-
-	protected function getTaskDirs()
-	{
-		return 
-		[
-			['path' => $this->applicationPath . '/tasks/*',            'type' => 'app'],
-			['path' => $this->applicationPath . '/packages/*/tasks/*', 'type' => 'package'],
-			['path' => __DIR__ . '/tasks/*',                           'type' => 'core'],
-		];
+		$this->fileSystem = $this->application->getContainer()->get('fileSystem');
 	}
 
 	/**
@@ -78,67 +63,73 @@ class TaskFinder
 	}
 
 	/**
-	 * Returns the package name of the task.
+	 * Returns all application tasks.
 	 * 
 	 * @access  protected
-	 * @param   string     $task  Task path
-	 * @return  string
-	 */
-
-	protected function getPackageName($task)
-	{
-		preg_match('/packages\/(.*)\/tasks/', $task, $matches);
-
-		return $matches[1];
-	}
-
-	/**
-	 * Returns app task info.
-	 * 
-	 * @access  protected
-	 * @param   string     $task  Task path
 	 * @return  array
 	 */
 
-	protected function getAppTask($task)
+	protected function findApplicationTasks()
 	{
-		$baseName = $this->getBasename($task);
+		$tasks = [];
 
 		$namespace = $this->application->getApplicationNamespace(true);
 
-		return [strtolower($baseName) => $namespace . '\\tasks\\' . $baseName];
+		foreach($this->fileSystem->glob($this->applicationPath . '/tasks/*.php') as $task)
+		{
+			$baseName = $this->getBasename($task);
+
+			$tasks[strtolower($baseName)] = $namespace . '\\tasks\\' . $baseName;
+		}
+
+		return $tasks;
 	}
 
 	/**
-	 * Returns package task info.
+	 * Returns all package tasks.
 	 * 
 	 * @access  protected
-	 * @param   string     $task  Task path
 	 * @return  array
 	 */
 
-	protected function getPackageTask($task)
+	protected function findPackageTasks()
 	{
-		$baseName = $this->getBasename($task);
+		$tasks = [];
 
-		$packageName = $this->getPackageName($task);
+		foreach($this->application->getPackages() as $package)
+		{
+			$namespace = $package->getClassNamespace();
 
-		return [$packageName . '::' . strtolower($baseName) => '\\' . $packageName . '\tasks\\' . $baseName];
+			foreach($this->fileSystem->glob($package->getPath() . '/src/tasks/*.php') as $task)
+			{
+				$baseName = $this->getBasename($task);
+
+				$tasks[$package->getFileNamespace() . '::' . strtolower($baseName)] = $namespace . '\\tasks\\' . $baseName;
+			}
+		}
+
+		return $tasks;
 	}
 
 	/**
-	 * Returns core task info.
+	 * Returns all core tasks.
 	 * 
 	 * @access  protected
-	 * @param   string     $task  Task path
 	 * @return  array
 	 */
 
-	protected function getCoreTask($task)
+	public function findCoreTasks()
 	{
-		$baseName = $this->getBasename($task);
+		$tasks = [];
 
-		return ['mako::' . strtolower($baseName) => '\mako\reactor\tasks\\' . $baseName];
+		foreach($this->fileSystem->glob(__DIR__ . '/tasks/*.php') as $task)
+		{
+			$baseName = $this->getBasename($task);
+
+			$tasks['mako::' . strtolower($baseName)] = '\mako\reactor\tasks\\'. $baseName;
+		}
+
+		return $tasks;
 	}
 
 	/**
@@ -150,34 +141,6 @@ class TaskFinder
 
 	public function find()
 	{
-		$tasks = [];
-
-		foreach($this->getTaskDirs() as $taskDir)
-		{
-			$found = glob($taskDir['path']);
-
-			foreach($found as $task)
-			{
-				if(!is_dir($task))
-				{
-					switch($taskDir['type'])
-					{
-						case 'app':
-							$task = $this->getAppTask($task);
-							break;
-						case 'package':
-							$task = $this->getPackageTask($task);
-							break;
-						case 'core':
-							$task = $this->getCoreTask($task);
-							break;
-					}
-
-					$tasks = array_merge($tasks, $task);
-				}
-			}
-		}
-
-		return $tasks;
+		return $this->findApplicationTasks() + $this->findPackageTasks() + $this->findCoreTasks();
 	}
 }
