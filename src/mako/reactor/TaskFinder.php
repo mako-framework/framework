@@ -44,7 +44,7 @@ class TaskFinder
 	{
 		$this->application = $application;
 
-		$this->applicationPath = $this->application->getApplicationPath();
+		$this->applicationPath = $this->application->getPath();
 
 		$this->fileSystem = $this->application->getContainer()->get('fileSystem');
 	}
@@ -73,7 +73,7 @@ class TaskFinder
 	{
 		$tasks = [];
 
-		$namespace = $this->application->getApplicationNamespace(true);
+		$namespace = $this->application->getNamespace(true);
 
 		foreach($this->fileSystem->glob($this->applicationPath . '/tasks/*.php') as $task)
 		{

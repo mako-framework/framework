@@ -8,6 +8,7 @@
 namespace mako\application;
 
 use \LogicException;
+use \RuntimeException;
 
 use \mako\autoloading\AliasLoader;
 use \mako\config\Config;
@@ -194,7 +195,7 @@ abstract class Application
 	 * @return  string
 	 */
 
-	public function getApplicationPath()
+	public function getPath()
 	{
 		return $this->applicationPath;
 	}
@@ -237,7 +238,7 @@ abstract class Application
 	 * @return  string
 	 */
 
-	public function getApplicationNamespace($prefix = false)
+	public function getNamespace($prefix = false)
 	{
 		$namespace = basename(rtrim($this->applicationPath, '\\'));
 

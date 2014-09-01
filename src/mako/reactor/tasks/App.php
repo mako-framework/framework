@@ -84,7 +84,7 @@ class App extends \mako\reactor\Task
 
 	public function generateSecret()
 	{
-		$configFile = $this->application->getApplicationPath() . '/config/application.php';
+		$configFile = $this->application->getPath() . '/config/application.php';
 
 		if(!is_writable($configFile))
 		{

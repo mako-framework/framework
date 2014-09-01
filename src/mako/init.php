@@ -33,6 +33,4 @@ ini_set('error_log', MAKO_APPLICATION_PATH . '/storage/logs/error_' . gmdate('Y_
 // Include helpers and the composer autoloader
 //------------------------------------------------------------------------------------------
 
-include __DIR__ . '/helpers.php';
-
 include realpath(__DIR__ . '/../../../../autoload.php');

@@ -30,7 +30,7 @@ class LoggerService extends \mako\application\services\Service
 		{
 			$logger = new Logger('mako');
 
-			$logger->pushHandler(new StreamHandler($container->get('app')->getApplicationPath() . '/storage/logs/' . date('Y-m-d') . '.mako', Logger::DEBUG));
+			$logger->pushHandler(new StreamHandler($container->get('app')->getPath() . '/storage/logs/' . date('Y-m-d') . '.mako', Logger::DEBUG));
 
 			return $logger;
 		});

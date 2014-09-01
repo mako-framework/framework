@@ -82,7 +82,7 @@ class Server extends \mako\reactor\Task
 
 		$port    = $this->input->param('port', 8000);
 		$address = $this->input->param('address', 'localhost');
-		$docroot = $this->input->param('docroot', dirname($this->application->getApplicationPath()));
+		$docroot = $this->input->param('docroot', dirname($this->application->getPath()));
 
 		$host = ($address === '0.0.0.0') ? gethostbyname(gethostname()) : $address;
 

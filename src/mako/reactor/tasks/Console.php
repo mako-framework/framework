@@ -94,7 +94,7 @@ class Console extends \mako\reactor\Task
 
 		// Define path to history file
 
-		$history = $this->application->getApplicationPath() . '/storage/console_history';
+		$history = $this->application->getPath() . '/storage/console_history';
 
 		// Start Boris if all the requirements are met and fall back to the default console if not
 

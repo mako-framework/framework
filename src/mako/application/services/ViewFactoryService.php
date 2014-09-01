@@ -30,7 +30,7 @@ class ViewFactoryService extends \mako\application\services\Service
 		{
 			$app = $container->get('app');
 
-			$applicationPath = $app->getApplicationPath();
+			$applicationPath = $app->getPath();
 
 			$fileSystem = $container->get('fileSystem');
 

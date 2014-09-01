@@ -7,8 +7,9 @@
 
 namespace mako\reactor\tasks;
 
-use \StdClass;
+use \Exception;
 
+use \mako\reactor\Task;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
 use \mako\syringe\Container;
@@ -19,7 +20,7 @@ use \mako\syringe\Container;
  * @author  Frederic G. Østby
  */
 
-class Migrate extends \mako\reactor\Task
+class Migrate extends Task
 {
 	/**
 	 * IoC container instance.
@@ -65,24 +66,32 @@ class Migrate extends \mako\reactor\Task
 		[
 			'description' => 'Checks if there are any outstanding migrations.'
 		],
-		'create' => 
-		[
-			'description' => 'Creates a new migration.',
-		],
 		'up' => 
 		[
 			'description' => 'Runs all outstanding migrations.',
 		],
 		'down' => 
 		[
-			'description' => 'Rolls back the last batch of migrations.'
+			'description' => 'Rolls back the last batch of migrations.',
+			'options'     => 
+			[
+				'batches' => 'Number of batches to roll back.',
+			],
 		],
 		'reset' => 
 		[
 			'description' => 'Rolls back all migrations.',
 			'options'     => 
 			[
-				'force' => 'Force the schema reset?'
+				'force' => 'Force the schema reset?',
+			],
+		],
+		'create' => 
+		[
+			'description' => 'Creates a new migration.',
+			'options'     => 
+			[
+				'package' => 'Package name.',
 			],
 		],
 	];
@@ -125,6 +134,19 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
+	 * Returns the basename of the migration.
+	 * 
+	 * @access  protected
+	 * @param   string     $migration  Task path
+	 * @return  string
+	 */
+
+	protected function getBaseName($migration)
+	{
+		return basename($migration, '.php');
+	}
+
+	/**
 	 * Returns a query builder instance.
 	 *
 	 * @access  protected
@@ -137,8 +159,49 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
-	 * Returns array of all outstanding migrations.
-	 *
+	 * Returns all application migrations.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function findApplicationMigrations()
+	{
+		$migrations = [];
+
+		foreach($this->fileSystem->glob($this->application->getPath() . '/migrations/*.php') as $migration)
+		{
+			$migrations[] = (object) ['package'   => null, 'version' => $this->getBasename($migration)];
+		}
+
+		return $migrations;
+	}
+
+	/**
+	 * Returns all package migrations.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function findPackageMigrations()
+	{
+		$migrations = [];
+
+		foreach($this->application->getPackages() as $package)
+		{
+			foreach($this->fileSystem->glob($package->getPath() . '/src/migrations/*.php') as $migration)
+			{
+				$migrations[] = (object) ['package' => $package->getName(), 'version' => $this->getBasename($migration)];
+			}
+		}
+
+		return $migrations;
+	}
+
+	/**
+	 * Returns an array of all outstanding migrations.
+	 * 
 	 * @access  protected
 	 * @return  array
 	 */
@@ -147,116 +210,36 @@ class Migrate extends \mako\reactor\Task
 	{
 		$migrations = [];
 
-		// Get application migrations
+		// Find all migrations
+		
+		$migrations = array_merge($migrations, $this->findApplicationMigrations());
 
-		$files = glob($this->application->getApplicationPath() . '/migrations/*.php');
+		$migrations = array_merge($migrations, $this->findPackageMigrations());
 
-		if(is_array($files))
+		// Filter and sort migrations
+
+		if(!empty($migrations))
 		{
-			foreach($files as $file)
+			foreach($this->table()->all() as $ran)
 			{
-				$migration = new StdClass();
-				
-				$migration->version = basename($file, '.php');
-				$migration->package = '';
-
-				$migrations[] = $migration;
-			}
-		}
-
-		// Get package migrations
-
-		$packages = glob($this->application->getApplicationPath() . '/packages/*');
-
-		if(is_array($packages))
-		{
-			foreach($packages as $package)
-			{
-				if(is_dir($package))
+				foreach($migrations as $key => $migration)
 				{
-					$files = glob($package . '/migrations/*.php');
-
-					if(is_array($files))
+					if($ran->package === $migration->package && $ran->version === $migration->version)
 					{
-						foreach($files as $file)
-						{
-							$migration = new StdClass();
-
-							$migration->version = basename($file, '.php');
-							$migration->package = basename($package);
-
-							$migrations[] = $migration;
-						}
+						unset($migrations[$key]);
 					}
 				}
 			}
-		}
 
-		// Remove migrations that have already been executed
-
-		foreach($this->table()->all() as $ran)
-		{
-			foreach($migrations as $key => $migration)
+			usort($migrations, function($a, $b)
 			{
-				if($ran->package === $migration->package && $ran->version === $migration->version)
-				{
-					unset($migrations[$key]);
-				}
-			}
+				return strcmp($a->version, $b->version);
+			});
 		}
 
-		// Sort remaining migrations so that they get executed in the right order
-
-		usort($migrations, function($a, $b)
-		{
-			return strcmp($a->version, $b->version);
-		});
+		// Return outstanding migrations
 
 		return $migrations;
-	}
-
-	/**
-	 * Returns an array of migrations to roll back.
-	 * 
-	 * @access  protected
-	 * @param   int        $batches  Number of batches to roll back
-	 * @return  array
-	 */
-
-	protected function getBatch($batches = 1)
-	{
-		$query = $this->table();
-
-		if($batches > 0)
-		{
-			$query->where('batch', '>', ($this->table()->max('batch') - $batches));
-		}
-
-		return $query->select(['version', 'package'])->orderBy('version', 'desc')->all();
-	}
-
-	/**
-	 * Returns a migration instance.
-	 *
-	 * @access  protected
-	 * @param   StdClass   $migration  Migration object
-	 * @return  Migration
-	 */
-
-	protected function resolve($migration)
-	{
-		$class = $migration->version;
-
-		if(empty($migration->package))
-		{
-			$namespace = $this->application->getApplicationNamespace(true) . '\\migrations\\';
-		}
-		else
-		{
-			$namespace = '\\' . $migration->package . '\\migrations\\';
-		}
-
-		return $this->container->get($namespace . $class);
 	}
 
 	/**
@@ -275,6 +258,28 @@ class Migrate extends \mako\reactor\Task
 		{
 			$this->output->writeln('<green>There are no outstanding migrations.</green>');
 		}
+	}
+
+	/**
+	 * Returns a migration instance.
+	 *
+	 * @access  protected
+	 * @param   StdClass                         $migration  Migration object
+	 * @return  \mako\reactor\migrate\Migration
+	 */
+
+	protected function resolve($migration)
+	{
+		if(empty($migration->package))
+		{
+			$namespace = $this->application->getNamespace(true) . '\\migrations\\';
+		}
+		else
+		{
+			$namespace = $this->application->getPackage($migration->package)->getClassNamespace(true) . '\\migrations\\';
+		}
+
+		return $this->container->get($namespace . $migration->version);
 	}
 
 	/**
@@ -304,7 +309,7 @@ class Migrate extends \mako\reactor\Task
 
 			if(!empty($migration->package))
 			{
-				$name = $migration->package . '::' . $name;
+				$name .= ' (' . $migration->package . ')';
 			}
 
 			$this->output->writeln('Ran the ' . $name . ' migration.');
@@ -312,15 +317,34 @@ class Migrate extends \mako\reactor\Task
 	}
 
 	/**
+	 * Returns an array of migrations to roll back.
+	 * 
+	 * @access  protected
+	 * @param   int        $batches  Number of batches to roll back
+	 * @return  array
+	 */
+
+	protected function getBatch($batches)
+	{
+		$query = $this->table();
+
+		if($batches > 0)
+		{
+			$query->where('batch', '>', ($this->table()->max('batch') - $batches));
+		}
+
+		return $query->select(['version', 'package'])->orderBy('version', 'desc')->all();
+	}
+
+	/**
 	 * Rolls back the n last migration batches.
 	 *
 	 * @access  public
-	 * @param   int     $batches  Number of batches to roll back
 	 */
 
-	public function down($batches = 1)
+	public function down()
 	{
-		$migrations = $this->getBatch($batches);
+		$migrations = $this->getBatch($this->input->param('batches', 1));
 
 		if(empty($migrations))
 		{
@@ -337,7 +361,7 @@ class Migrate extends \mako\reactor\Task
 
 			if(!empty($migration->package))
 			{
-				$name = $migration->package . '::' . $name;
+				$name .= ' (' . $migration->package . ')';
 			}
 
 			$this->output->writeln('Rolled back the ' . $name . ' migration.');
@@ -362,42 +386,44 @@ class Migrate extends \mako\reactor\Task
 	 * Creates a migration template.
 	 *
 	 * @access  public
-	 * @param   string  $package  (optional) Package name
 	 */
 
-	public function create($package = '')
+	public function create()
 	{
-		// Get file path
+		$package = $this->input->param('package');
 
-		$file = 'Migration_' . $version = gmdate('YmdHis');
+		// Get file path and namespace
 
 		if(empty($package))
 		{
-			$namespace = $this->application->getApplicationNamespace() . '\\migrations';
+			$namespace = $this->application->getNamespace() . '\\migrations';
+
+			$path = $this->application->getPath() . '/migrations/';
 		}
 		else
 		{
-			$file = $package . '::' . $file;
+			$package = $this->application->getPackage($package);
 
-			$namespace = $package . '\migrations';
+			$namespace = $package->getClassNamespace() . '\\migrations';
+
+			$path = $package->getPath() . '/src/migrations/';
 		}
 
-		$file = \mako\get_path($this->application->getApplicationPath(), 'migrations', $file);
+		$path .= 'Migration_' . ($version = gmdate('YmdHis')) . '.php';
 
 		// Create migration
 
-		$migration = str_replace
-		(
-			['{{namespace}}', '{{version}}'], 
-			[$namespace, $version], 
-			$this->fileSystem->getContents(__DIR__ . '/migrate/migration.tpl')
-		);
+		$migration = str_replace(['{{namespace}}', '{{version}}'], [$namespace, $version], $this->fileSystem->getContents(__DIR__ . '/migrate/migration.tpl'));
 
-		if(!@$this->fileSystem->putContents($file, $migration))
+		try
+		{
+			$this->fileSystem->putContents($path, $migration);
+		}
+		catch(Exception $e)
 		{
 			return $this->output->error('Failed to create migration. Make sure that the migrations directory is writable.');
 		}
 
-		$this->output->writeln(vsprintf('Migration created at "%s".', [$file]));
+		$this->output->writeln(vsprintf('Migration created at "%s".', [$path]));
 	}
 }

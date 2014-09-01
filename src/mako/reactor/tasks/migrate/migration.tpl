@@ -2,7 +2,9 @@
 
 namespace {{namespace}};
 
-class Migration_{{version}} extends \mako\reactor\tasks\migrate\Migration
+use \mako\reactor\tasks\migrate\Migration;
+
+class Migration_{{version}} extends Migration
 {
 	/**
 	 * Makes changes to the database structure.
