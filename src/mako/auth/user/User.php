@@ -69,7 +69,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 
 	public function getId()
 	{
-		$this->getPrimaryKeyValue();
+		return $this->getPrimaryKeyValue();
 	}
 
 	/**
@@ -278,7 +278,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 
 	public function isBanned()
 	{
-		$this->banned == 1;
+		return $this->banned == 1;
 	}
 
 	/**
