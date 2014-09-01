@@ -13,6 +13,4 @@ if(!defined('MAKO_IS_WINDOWS'))
 	define('MAKO_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
 }
 
-require_once realpath(__DIR__ . '/../src/mako/helpers.php');
-
 require_once __DIR__ . '/integration/resources/ORMTestCase.php';
