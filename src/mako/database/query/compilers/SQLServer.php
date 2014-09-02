@@ -18,7 +18,9 @@ use \mako\database\query\Compiler;
 class SQLServer extends Compiler
 {
 	/**
-	 * {@inheritdoc}
+	 * Date format.
+	 * 
+	 * @var string
 	 */
 
 	protected static $dateForamt = 'Y-m-d H:i:s.0000000';
