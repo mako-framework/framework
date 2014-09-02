@@ -8,6 +8,7 @@
 namespace mako\reactor\tasks;
 
 use \mako\application\Application;
+use \mako\reactor\Task;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
 
@@ -17,7 +18,7 @@ use \mako\reactor\io\Output;
  * @author  Frederic G. Østby
  */
 
-class Server extends \mako\reactor\Task
+class Server extends Task
 {
 	/**
 	 * Application instance.

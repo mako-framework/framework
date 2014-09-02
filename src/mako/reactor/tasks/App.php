@@ -11,6 +11,7 @@ use \Closure;
 
 use \mako\application\Application;
 use \mako\file\FileSystem;
+use \mako\reactor\Task;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
 use \mako\utility\Str;
@@ -21,7 +22,7 @@ use \mako\utility\Str;
  * @author  Frederic G. Østby
  */
 
-class App extends \mako\reactor\Task
+class App extends Task
 {
 	/**
 	 * Application instance.

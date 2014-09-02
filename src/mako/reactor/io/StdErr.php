@@ -7,13 +7,15 @@
 
 namespace mako\reactor\io;
 
+use \mako\reactor\io\StreamOutput;
+
 /**
  * Stderr.
  *
  * @author  Frederic G. Østby
  */
 
-class StdErr extends \mako\reactor\io\StreamOutput
+class StdErr extends StreamOutput
 {
 	/**
 	 * Constructor.

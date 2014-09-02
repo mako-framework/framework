@@ -8,6 +8,7 @@
 namespace mako\reactor\tasks;
 
 use \mako\application\Application;
+use \mako\reactor\Task;
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
 use \mako\reactor\tasks\console\Boris;
@@ -19,7 +20,7 @@ use \mako\reactor\tasks\console\REPL;
  * @author  Frederic G. Østby
  */
 
-class Console extends \mako\reactor\Task
+class Console extends Task
 {
 	/**
 	 * Application instance.

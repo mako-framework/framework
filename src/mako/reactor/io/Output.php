@@ -8,6 +8,8 @@
 namespace mako\reactor\io;
 
 use \mako\reactor\io\StdErr;
+use \mako\reactor\io\StdOut;
+
 use \Symfony\Component\Console\Helper\ProgressHelper;
 
 /**
@@ -16,7 +18,7 @@ use \Symfony\Component\Console\Helper\ProgressHelper;
  * @author  Frederic G. Østby
  */
 
-class Output extends \mako\reactor\io\StdOut
+class Output extends StdOut
 {
 	/**
 	 * StdErr instance.
