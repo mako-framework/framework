@@ -1005,4 +1005,17 @@ class Request
 	{
 		return $this->header('referer', $default);
 	}
+
+	/**
+	 * Magic shortcut to request data.
+	 *
+	 * @access  public
+	 * @param   string  $key  Array key
+	 * @return  mixed
+	 */
+
+	public function __get($key)
+	{
+		return $this->data($key);
+	}
 }

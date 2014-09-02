@@ -7,6 +7,7 @@
 
 namespace mako\chrono;
 
+use \DateTime;
 use \DateTimeZone;
 
 /**
@@ -15,7 +16,7 @@ use \DateTimeZone;
  * @author  Frederic G. Østby
  */
 
-class Time extends \DateTime
+class Time extends DateTime
 {
 	/**
 	 * Number of seconds in a minute.
@@ -200,50 +201,6 @@ class Time extends \DateTime
 		}
 
 		return parent::setTimeZone($timeZone);
-	}
-
-	/**
-	 * Returns a list of time zones where the key is
-	 * a valid PHP time zone while the value is a presentable name.
-	 * 
-	 * @access  public
-	 * @return  array
-	 */
-
-	public static function getTimeZones()
-	{
-		$timeZones = [];
-
-		foreach(DateTimeZone::listIdentifiers() as $timeZone)
-		{
-			$timeZones[$timeZone] = str_replace('_', ' ', $timeZone);
-		}
-
-		return $timeZones;
-	}
-
-	/**
-	 * Returns an array of grouped time zones where the key is
-	 * a valid PHP timezone while the value is a presentable name.
-	 * 
-	 * @access  public
-	 * @return  array
-	 */
-
-	public static function getGroupedTimeZones()
-	{
-		$timeZones = [];
-
-		foreach(DateTimeZone::listIdentifiers() as $timeZone)
-		{
-			list($group, $city) = explode('/', $timeZone, 2) + [null, null];
-
-			$timeZones[$group][$timeZone] = str_replace('_', ' ', $city);
-		}
-
-		unset($timeZones['UTC']);
-
-		return $timeZones;
 	}
 
 	/**
