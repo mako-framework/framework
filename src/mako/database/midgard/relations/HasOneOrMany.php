@@ -7,13 +7,15 @@
 
 namespace mako\database\midgard\relations;
 
+use \mako\database\midgard\relations\Relation;
+
 /**
  * Has one or has many relation.
  *
  * @author  Frederic G. Østby
  */
 
-abstract class HasOneOrMany extends \mako\database\midgard\relations\Relation
+abstract class HasOneOrMany extends Relation
 {
 	/**
 	 * Creates a related record.

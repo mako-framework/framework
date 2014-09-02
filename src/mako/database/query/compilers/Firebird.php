@@ -7,21 +7,18 @@
 
 namespace mako\database\query\compilers;
 
+use \mako\database\query\Compiler;
+
 /**
  * Compiles Firebird queries.
  *
  * @author  Frederic G. Østby
  */
 
-class Firebird extends \mako\database\query\Compiler
+class Firebird extends Compiler
 {
 	/**
-	 * Compiles LIMIT clauses.
-	 *
-	 * @access  protected
-	 * @param   int        $limit   Limit
-	 * @param   int        $offset  Offset
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	protected function limit($limit, $offset = null)
@@ -30,12 +27,7 @@ class Firebird extends \mako\database\query\Compiler
 	}
 
 	/**
-	 * Compiles OFFSET clause.
-	 *
-	 * @access  protected
-	 * @param   int        $limit   Offset
-	 * @param   int        $offset  Limit
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	protected function offset($offset, $limit = null)
@@ -44,10 +36,7 @@ class Firebird extends \mako\database\query\Compiler
 	}
 
 	/**
-	 * Compiles a SELECT query.
-	 *
-	 * @access  public
-	 * @return  array
+	 * {@inheritdoc}
 	 */
 
 	public function select()

@@ -9,6 +9,7 @@ namespace mako\redis;
 
 use \RuntimeException;
 
+use \mako\common\ConnectionManager as BaseConnectionManager;
 use \mako\redis\Redis;
 
 /**
@@ -19,7 +20,7 @@ use \mako\redis\Redis;
  * @method  \mako\redis\Redis  connection($connection = null)
  */
 
-class ConnectionManager extends \mako\common\ConnectionManager
+class ConnectionManager extends BaseConnectionManager
 {
 	/**
 	 * Connects to the chosen redis configuration and returns the connection.

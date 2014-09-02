@@ -8,6 +8,7 @@
 namespace mako\session\stores;
 
 use \mako\file\FileSystem;
+use \mako\session\stores\StoreInterface;
 
 /**
  * File store.
@@ -15,7 +16,7 @@ use \mako\file\FileSystem;
  * @author  Frederic G. Østby
  */
 
-class File implements \mako\session\stores\StoreInterface
+class File implements StoreInterface
 {
 	/**
 	 * File system instance.
@@ -49,12 +50,7 @@ class File implements \mako\session\stores\StoreInterface
 	}
 
 	/**
-	 * Writes session data.
-	 *
-	 * @access  public
-	 * @param   string  $sessionId    Session id
-	 * @param   array   $sessionData  Session data
-	 * @param   int     $dataTTL      TTL in seconds
+	 * {@inheritdoc}
 	 */
 
 	public function write($sessionId, $sessionData, $dataTTL)
@@ -66,11 +62,7 @@ class File implements \mako\session\stores\StoreInterface
 	}
 
 	/**
-	 * Reads and returns session data.
-	 *
-	 * @access  public
-	 * @param   string  $sessionId  Session id
-	 * @return  array
+	 * {@inheritdoc}
 	 */
 
 	public function read($sessionId)
@@ -86,10 +78,7 @@ class File implements \mako\session\stores\StoreInterface
 	}
 
 	/**
-	 * Destroys the session data assiciated with the provided id.
-	 *
-	 * @access  public
-	 * @param   string   $sessionId  Session id
+	 * {@inheritdoc}
 	 */
 
 	public function delete($sessionId)
@@ -101,10 +90,7 @@ class File implements \mako\session\stores\StoreInterface
 	}
 
 	/**
-	 * Garbage collector that deletes expired session data.
-	 *
-	 * @access  public
-	 * @param   int      $dataTTL  Data TTL in seconds
+	 * {@inheritdoc}
 	 */
 
 	public function gc($dataTTL)

@@ -9,13 +9,15 @@ namespace mako\http\routing;
 
 use \Exception;
 
+use \mako\http\RequestException;
+
 /**
  * Page not found exception.
  *
  * @author  Frederic G. Østby
  */
 
-class PageNotFoundException extends \mako\http\RequestException
+class PageNotFoundException extends RequestException
 {
 	/**
 	 * Constructor.

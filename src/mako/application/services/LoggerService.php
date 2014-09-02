@@ -7,6 +7,8 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
+
 use \Monolog\Logger;
 use \Monolog\Handler\StreamHandler;
 
@@ -16,12 +18,10 @@ use \Monolog\Handler\StreamHandler;
  * @author  Frederic G. Østby
  */
 
-class LoggerService extends \mako\application\services\Service
+class LoggerService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

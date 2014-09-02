@@ -9,13 +9,15 @@ namespace mako\http\routing;
 
 use \Exception;
 
+use \mako\http\RequestException;
+
 /**
  * Method not allowed exception.
  *
  * @author  Frederic G. Østby
  */
 
-class MethodNotAllowedException extends \mako\http\RequestException
+class MethodNotAllowedException extends RequestException
 {
 	/**
 	 * Allowed methods.

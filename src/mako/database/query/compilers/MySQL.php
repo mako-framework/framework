@@ -7,20 +7,18 @@
 
 namespace mako\database\query\compilers;
 
+use \mako\database\query\Compiler;
+
 /**
  * Compiles MySQL queries.
  *
  * @author  Frederic G. Østby
  */
 
-class MySQL extends \mako\database\query\Compiler
+class MySQL extends Compiler
 {
 	/**
-	 * Returns an escaped identifier.
-	 * 
-	 * @access  public
-	 * @param   string  $identifier  Identifier to escape
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function escapeIdentifier($identifier)

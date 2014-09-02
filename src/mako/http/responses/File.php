@@ -12,6 +12,7 @@ use \RuntimeException;
 use \mako\file\FileSystem;
 use \mako\http\Request;
 use \mako\http\Response;
+use \mako\http\responses\ResponseContainerInterface;
 
 /**
  * File response.
@@ -19,7 +20,7 @@ use \mako\http\Response;
  * @author  Frederic G. Østby
  */
 
-Class File implements \mako\http\responses\ResponseContainerInterface
+Class File implements ResponseContainerInterface
 {
 	/**
 	 * File system instance.
@@ -191,11 +192,7 @@ Class File implements \mako\http\responses\ResponseContainerInterface
 	}
 
 	/**
-	 * Sends the response.
-	 * 
-	 * @access  public
-	 * @param   \mako\http\Request   $request  Request instance
-	 * @param   \mako\http\Response  $response  Response instance
+	 * {@inheritdoc}
 	 */
 
 	public function send(Request $request, Response $response)

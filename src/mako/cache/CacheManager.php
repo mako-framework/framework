@@ -22,6 +22,7 @@ use \mako\cache\stores\WinCache;
 use \mako\cache\stores\XCache;
 use \mako\cache\stores\ZendDisk;
 use \mako\cache\stores\ZendMemory;
+use \mako\common\AdapterManager;
 
 /**
  * Cache manager.
@@ -31,7 +32,7 @@ use \mako\cache\stores\ZendMemory;
  * @method  \mako\cache\stores\StoreInterface  instance($configuration = null)
  */
 
-class CacheManager extends \mako\common\AdapterManager
+class CacheManager extends AdapterManager
 {
 	/**
 	 * APC store factory.

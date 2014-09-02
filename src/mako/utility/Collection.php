@@ -7,8 +7,11 @@
 
 namespace mako\utility;
 
-use \Closure;
+use \ArrayAccess;
 use \ArrayIterator;
+use \Closure;
+use \Countable;
+use \IteratorAggregate;
 
 /**
  * Collection.
@@ -16,7 +19,7 @@ use \ArrayIterator;
  * @author  Frederic G. Østby
  */
 
-class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
+class Collection implements ArrayAccess, Countable, IteratorAggregate
 {
 	/**
 	 * Collection items.

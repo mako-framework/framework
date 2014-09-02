@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\error\ErrorHandler;
 use \mako\error\handlers\CLIHandler;
 use \mako\error\handlers\WebHandler;
@@ -17,7 +18,7 @@ use \mako\error\handlers\WebHandler;
  * @author  Frederic G. Østby
  */
 
-class ErrorHandlerService extends \mako\application\services\Service
+class ErrorHandlerService extends Service
 {
 	/**
 	 * Helper method that ensures lazy loading of the logger.
@@ -35,9 +36,7 @@ class ErrorHandlerService extends \mako\application\services\Service
 	}
 
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

@@ -11,6 +11,7 @@ use \InvalidArgumentException;
 use \RuntimeException;
 
 use \mako\pixl\Image;
+use \mako\pixl\processors\ProcessorInterface;
 
 /**
  * GD processor.
@@ -18,7 +19,7 @@ use \mako\pixl\Image;
  * @author  Frederic G. Østby
  */
 
-class GD implements \mako\pixl\processors\ProcessorInterface
+class GD implements ProcessorInterface
 {
 	/**
 	 * Image resource.
@@ -163,10 +164,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Opens the image we want to work with.
-	 * 
-	 * @access  public
-	 * @param   string  $image  Path to image file
+	 * {@inheritdoc}
 	 */
 
 	public function open($image)
@@ -177,9 +175,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Creates a snapshot of the image resource.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function snapshot()
@@ -193,9 +189,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Restores an image snapshot.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function restore()
@@ -211,10 +205,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Rotates the image using the given angle in degrees.
-	 *
-	 * @access  public
-	 * @param   int     $degrees  Degrees to rotate the image
+	 * {@inheritdoc}
 	 */
 
 	public function rotate($degrees)
@@ -243,12 +234,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Resizes the image to the chosen size. 
-	 *
-	 * @access  public
-	 * @param   int     $width        Width of the image
-	 * @param   int     $height       (optional) Height of the image
-	 * @param   int     $aspectRatio  (optional) Aspect ratio
+	 * {@inheritdoc}
 	 */
 
 	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE)
@@ -311,13 +297,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Crops the image.
-	 *
-	 * @access  public
-	 * @param   int     $width   Width of the crop
-	 * @param   int     $height  Height of the crop
-	 * @param   int     $x       The X coordinate of the cropped region's top left corner
-	 * @param   int     $y       The Y coordinate of the cropped region's top left corner
+	 * {@inheritdoc}
 	 */
 
 	public function crop($width, $height, $x, $y)
@@ -341,10 +321,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Flips the image.
-	 *
-	 * @access  public
-	 * @param   int     $direction  (optional) Direction to flip the image
+	 * {@inheritdoc}
 	 */
 
 	public function flip($direction = Image::FLIP_HORIZONTAL)
@@ -385,12 +362,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Adds a watermark to the image.
-	 *
-	 * @access  public
-	 * @param   string  $file      Path to the image file
-	 * @param   int     $position  (optional) Position of the watermark
-	 * @param   int     $opacity   (optional) Opacity of the watermark in percent
+	 * {@inheritdoc}
 	 */
 	
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
@@ -446,10 +418,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Adjust image brightness.
-	 * 
-	 * @access  public
-	 * @param   int     $level  (optional) Brightness level (-100 to 100)
+	 * {@inheritdoc}
 	 */
 
 	public function brightness($level = 50)
@@ -494,9 +463,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Converts image to greyscale.
-	 *
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 	
 	public function greyscale()
@@ -544,9 +511,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Converts image to sepia.
-	 *
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function sepia()
@@ -586,10 +551,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Colorize the image.
-	 *
-	 * @access  public
-	 * @param   string  $color  HEX value
+	 * {@inheritdoc}
 	 */
 
 	public function colorize($color)
@@ -636,9 +598,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Sharpens the image.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function sharpen()
@@ -651,10 +611,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Pixelates the image.
-	 * 
-	 * @access  public
-	 * @param   int     $pixelSize  (optional) Pixel size
+	 * {@inheritdoc}
 	 */
 
 	public function pixelate($pixelSize = 10)
@@ -676,9 +633,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Negates the image.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function negate()
@@ -711,11 +666,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Adds a border to the image.
-	 *
-	 * @access  public
-	 * @param   string  $color      (optional) Hex value
-	 * @param   int     $thickness  (optional) Thickness of the border in pixels
+	 * {@inheritdoc}
 	 */
 	
 	public function border($color = '#000', $thickness = 5)
@@ -745,12 +696,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Returns a string containing the image.
-	 * 
-	 * @access  public
-	 * @param   string  $type     (optional) Image type
-	 * @param   int     $quality  (optional) Image quality 1-100
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function getImageBlob($type = null, $quality = 95)
@@ -787,11 +733,7 @@ class GD implements \mako\pixl\processors\ProcessorInterface
 	}
 
 	/**
-	 * Saves image to file.
-	 *
-	 * @access  public
-	 * @param   string  $file     Path to the image file
-	 * @param   int     $quality  (optional) Image quality 1-100
+	 * {@inheritdoc}
 	 */
 
 	public function save($file, $quality = 95)

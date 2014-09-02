@@ -7,13 +7,15 @@
 
 namespace mako\auth\providers;
 
+use \mako\auth\providers\GroupProviderInterface;
+
 /**
  * Group provider.
  *
  * @author  Frederic G. Østby
  */
 
-class GroupProvider implements \mako\auth\providers\GroupProviderInterface
+class GroupProvider implements GroupProviderInterface
 {
 	/**
 	 * Model.
@@ -36,11 +38,7 @@ class GroupProvider implements \mako\auth\providers\GroupProviderInterface
 	}
 
 	/**
-	 * Creates and returns a group.
-	 * 
-	 * @access  public
-	 * @param   string                           $name  Group name
-	 * @return  \mako\auth\group\GroupInterface
+	 * {@inheritdoc}
 	 */
 
 	public function createGroup($name)
@@ -57,11 +55,7 @@ class GroupProvider implements \mako\auth\providers\GroupProviderInterface
 	}
 
 	/**
-	 * Fetches a group by its name.
-	 * 
-	 * @access  public
-	 * @param   string                                   $name  Group name
-	 * @return  \mako\auth\group\GroupInterface|boolean
+	 * {@inheritdoc}
 	 */
 
 	public function getByName($name)
@@ -72,11 +66,7 @@ class GroupProvider implements \mako\auth\providers\GroupProviderInterface
 	}
 
 	/**
-	 * Fetches a group by its id.
-	 * 
-	 * @access  public
-	 * @param   int                                      $id  Group id
-	 * @return  \mako\auth\group\GroupInterface|boolean
+	 * {@inheritdoc}
 	 */
 
 	public function getById($id)

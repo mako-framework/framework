@@ -7,6 +7,7 @@
 
 namespace mako\application;
 
+use \mako\application\Application;
 use \mako\error\handlers\CLIHandler;
 use \mako\reactor\Reactor;
 use \mako\reactor\TaskFinder;
@@ -19,7 +20,7 @@ use \mako\reactor\io\Output;
  * @author  Frederic G. Østby
  */
 
-class CommandLine extends \mako\application\Application
+class CommandLine extends Application
 {
 	/**
 	 * Returns the route collection.
@@ -34,9 +35,7 @@ class CommandLine extends \mako\application\Application
 	}
 
 	/**
-	 * Runs the application.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function run()

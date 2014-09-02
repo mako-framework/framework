@@ -7,28 +7,24 @@
 
 namespace mako\database\query\compilers;
 
+use \mako\database\query\Compiler;
+
 /**
  * Compiles SQL Server queries.
  *
  * @author  Frederic G. Østby
  */
 
-class SQLServer extends \mako\database\query\Compiler
+class SQLServer extends Compiler
 {
 	/**
-	 * Date format.
-	 * 
-	 * @var string
+	 * {@inheritdoc}
 	 */
 
 	protected static $dateForamt = 'Y-m-d H:i:s.0000000';
 
 	/**
-	 * Returns an escaped identifier.
-	 * 
-	 * @access  public
-	 * @param   string  $identifier  Identifier to escape
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function escapeIdentifier($identifier)
@@ -37,10 +33,7 @@ class SQLServer extends \mako\database\query\Compiler
 	}
 
 	/**
-	 * Compiles a SELECT query.
-	 *
-	 * @access  public
-	 * @return  array
+	 * {@inheritdoc}
 	 */
 
 	public function select()

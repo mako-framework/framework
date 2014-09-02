@@ -7,20 +7,18 @@
 
 namespace mako\database\query\compilers;
 
+use \mako\database\query\Compiler;
+
 /**
  * Compiles NuoDB queries.
  *
  * @author  Frederic G. Østby
  */
 
-class NuoDB extends \mako\database\query\Compiler
+class NuoDB extends Compiler
 {
 	/**
-	 * Returns an escaped identifier.
-	 * 
-	 * @access  public
-	 * @param   string  $identifier  Identifier to escape
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function escapeIdentifier($identifier)

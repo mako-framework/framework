@@ -9,6 +9,7 @@ namespace mako\security\crypto;
 
 use \RuntimeException;
 
+use \mako\common\AdapterManager;
 use \mako\security\crypto\Crypto;
 use \mako\security\crypto\encrypters\MCrypt;
 use \mako\security\crypto\encrypters\OpenSSL;
@@ -22,7 +23,7 @@ use \mako\security\crypto\padders\PKCS7;
  * @method  \mako\security\crypto\encrypters\EncrypterInterface  instance($configuration = null)
  */
 
-class CryptoManager extends \mako\common\AdapterManager
+class CryptoManager extends AdapterManager
 {
 	/**
 	 * Reuse instances?

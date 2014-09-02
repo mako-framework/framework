@@ -8,6 +8,7 @@
 namespace mako\validator\plugins;
 
 use \mako\database\ConnectionManager;
+use \mako\validator\plugins\ValidatorPlugin;
 
 /**
  * Database exists plugin.
@@ -15,7 +16,7 @@ use \mako\database\ConnectionManager;
  * @author  Frederic G. Østby
  */
 
-class DatabaseExistsValidator extends \mako\validator\plugins\ValidatorPlugin implements \mako\validator\plugins\ValidatorPluginInterface
+class DatabaseExistsValidator extends ValidatorPlugin
 {
 	/**
 	 * Rule name.
@@ -46,12 +47,7 @@ class DatabaseExistsValidator extends \mako\validator\plugins\ValidatorPlugin im
 	}
 
 	/**
-	 * Validator.
-	 * 
-	 * @access  public
-	 * @param   string   $input       Input
-	 * @param   array    $parameters  Parameters
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function validate($input, $parameters)

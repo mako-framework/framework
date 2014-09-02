@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\database\ConnectionManager;
 
 /**
@@ -15,12 +16,10 @@ use \mako\database\ConnectionManager;
  * @author  Frederic G. Østby
  */
 
-class DatabaseService extends \mako\application\services\Service
+class DatabaseService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

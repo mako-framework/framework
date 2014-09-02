@@ -9,6 +9,8 @@ namespace mako\database\midgard\relations;
 
 use \mako\database\Connection;
 use \mako\database\midgard\ORM;
+use \mako\database\midgard\relations\HasOne;
+use \mako\database\midgard\relations\HasOneOrManyPolymorphicTrait;
 
 /**
  * Has one polymorphic relation.
@@ -16,10 +18,10 @@ use \mako\database\midgard\ORM;
  * @author  Frederic G. Østby
  */
 
-class HasOnePolymorphic extends \mako\database\midgard\relations\HasOne
+class HasOnePolymorphic extends HasOne
 {
-	use \mako\database\midgard\relations\HasOneOrManyPolymorphicTrait {
-		\mako\database\midgard\relations\HasOneOrManyPolymorphicTrait::__construct as constructor;
+	use HasOneOrManyPolymorphicTrait {
+		HasOneOrManyPolymorphicTrait::__construct as constructor;
 	}
 
 	/**

@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\validator\ValidatorFactory;
 use \mako\validator\plugins\DatabaseExistsValidator;
 use \mako\validator\plugins\DatabaseUniqueValidator;
@@ -18,7 +19,7 @@ use \mako\validator\plugins\TokenValidator;
  * @author  Frederic G. Østby
  */
 
-class ValidatorFactoryService extends \mako\application\services\Service
+class ValidatorFactoryService extends Service
 {
 	/**
 	 * Registers plugins.
@@ -43,9 +44,7 @@ class ValidatorFactoryService extends \mako\application\services\Service
 	}
 	
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

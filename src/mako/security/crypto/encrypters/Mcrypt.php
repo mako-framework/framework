@@ -7,6 +7,8 @@
 
 namespace mako\security\crypto\encrypters;
 
+use \mako\security\crypto\encrypters\Encrypter;
+use \mako\security\crypto\encrypters\EncrypterInterface;
 use \mako\security\crypto\padders\PadderInterface;
 
 /**
@@ -15,7 +17,7 @@ use \mako\security\crypto\padders\PadderInterface;
  * @author  Frederic G. Østby
  */
 
-class MCrypt extends \mako\security\crypto\encrypters\Encrypter implements \mako\security\crypto\encrypters\EncrypterInterface
+class MCrypt extends Encrypter implements EncrypterInterface
 {
 	/**
 	 * Key used to encrypt/decrypt string.
@@ -91,11 +93,7 @@ class MCrypt extends \mako\security\crypto\encrypters\Encrypter implements \mako
 	}
 
 	/**
-	 * Encrypts string.
-	 *
-	 * @access  public
-	 * @param   string  $string  String to encrypt
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 	
 	public function encrypt($string)
@@ -112,11 +110,7 @@ class MCrypt extends \mako\security\crypto\encrypters\Encrypter implements \mako
 	}
 
 	/**
-	 * Decrypts string.
-	 *
-	 * @access  public
-	 * @param   string          $string  String to decrypt
-	 * @return  string|boolean
+	 * {@inheritdoc}
 	 */
 	
 	public function decrypt($string)

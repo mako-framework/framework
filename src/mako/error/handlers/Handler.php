@@ -10,13 +10,15 @@ namespace mako\error\handlers;
 use \Exception;
 use \ErrorException;
 
+use \mako\error\handlers\HandlerInterface;
+
 /**
  * Base handler.
  * 
  * @author  Frederic G. Østby
  */
 
-abstract class Handler implements \mako\error\handlers\HandlerInterface
+abstract class Handler implements HandlerInterface
 {
 	/**
 	 * Exception.
@@ -27,10 +29,7 @@ abstract class Handler implements \mako\error\handlers\HandlerInterface
 	protected $exception;
 
 	/**
-	 * Constructor.
-	 * 
-	 * @access  public
-	 * @param   \Exception  $exception  Exception
+	 * {@inheritdoc}
 	 */
 
 	public function __construct(Exception $exception)

@@ -7,22 +7,18 @@
 
 namespace mako\cache\stores;
 
+use \mako\cache\stores\StoreInterface;
+
 /**
  * WinCache store.
  *
  * @author  Frederic G. Østby
  */
 
-class WinCache implements \mako\cache\stores\StoreInterface
+class WinCache implements StoreInterface
 {
 	/**
-	 * Store data in the cache.
-	 *
-	 * @access  public
-	 * @param   string   $key    Cache key
-	 * @param   mixed    $data   The data to store
-	 * @param   int      $ttl    (optional) Time to live
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function put($key, $data, $ttl = 0)
@@ -31,11 +27,7 @@ class WinCache implements \mako\cache\stores\StoreInterface
 	}
 
 	/**
-	 * Returns TRUE if the cache key exists and FALSE if not.
-	 * 
-	 * @access  public
-	 * @param   string   $key  Cache key
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function has($key)
@@ -44,11 +36,7 @@ class WinCache implements \mako\cache\stores\StoreInterface
 	}
 
 	/**
-	 * Fetch data from the cache.
-	 *
-	 * @access  public
-	 * @param   string  $key  Cache key
-	 * @return  mixed
+	 * {@inheritdoc}
 	 */
 
 	public function get($key)
@@ -66,11 +54,7 @@ class WinCache implements \mako\cache\stores\StoreInterface
 	}
 
 	/**
-	 * Delete data from the cache.
-	 *
-	 * @access  public
-	 * @param   string   $key  Cache key
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function remove($key)
@@ -79,10 +63,7 @@ class WinCache implements \mako\cache\stores\StoreInterface
 	}
 
 	/**
-	 * Clears the user cache.
-	 *
-	 * @access  public
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function clear()

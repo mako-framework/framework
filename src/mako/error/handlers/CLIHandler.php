@@ -7,13 +7,15 @@
 
 namespace mako\error\handlers;
 
+use \mako\error\handlers\Handler;
+
 /**
  * CLI handler.
  * 
  * @author  Frederic G. Østby
  */
 
-class CLIHandler extends \mako\error\handlers\Handler implements \mako\error\handlers\HandlerInterface
+class CLIHandler extends Handler
 {
 	/**
 	 * Returns a detailed error.
@@ -40,11 +42,7 @@ class CLIHandler extends \mako\error\handlers\Handler implements \mako\error\han
 	}
 
 	/**
-	 * Handles the exception.
-	 * 
-	 * @access  public
-	 * @param   boolean  $showDetails  (optional) Show error details?
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function handle($showDetails = true)

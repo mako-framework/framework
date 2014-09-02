@@ -8,6 +8,7 @@
 namespace mako\database\midgard;
 
 use \mako\utility\Arr;
+use \mako\utility\Collection;
 
 /**
  * ORM result set.
@@ -15,7 +16,7 @@ use \mako\utility\Arr;
  * @author  Frederic G. Østby
  */
 
-class ResultSet extends \mako\utility\Collection
+class ResultSet extends Collection
 {
 	/**
 	 * Clones all items when cloning the collection.

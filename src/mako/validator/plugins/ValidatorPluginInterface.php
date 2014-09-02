@@ -15,7 +15,32 @@ namespace mako\validator\plugins;
 
 interface ValidatorPluginInterface
 {
+	/**
+	 * Returnst the rule name.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
 	public function getRuleName();
+
+	/**
+	 * Returnst the package name.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
 	public function getPackageName();
+
+	/**
+	 * Validator.
+	 * 
+	 * @access  public
+	 * @param   string   $input       Input
+	 * @param   array    $parameters  Parameters
+	 * @return  boolean
+	 */
+	
 	public function validate($input, $parameters);
 }

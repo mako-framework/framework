@@ -10,6 +10,7 @@ namespace mako\view;
 use \Closure;
 use \RuntimeException;
 
+use \mako\common\NamespacedFileLoaderTrait;
 use \mako\file\FileSystem;
 
 /**
@@ -20,7 +21,7 @@ use \mako\file\FileSystem;
 
 class ViewFactory
 {
-	use \mako\common\NamespacedFileLoaderTrait;
+	use NamespacedFileLoaderTrait;
 
 	/**
 	 * Charset.

@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\http\Request;
 
 /**
@@ -15,12 +16,10 @@ use \mako\http\Request;
  * @author  Frederic G. Østby
  */
 
-class RequestService extends \mako\application\services\Service
+class RequestService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

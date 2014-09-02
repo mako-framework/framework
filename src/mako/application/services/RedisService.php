@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\redis\ConnectionManager;
 
 /**
@@ -15,12 +16,10 @@ use \mako\redis\ConnectionManager;
  * @author  Frederic G. Østby
  */
 
-class RedisService extends \mako\application\services\Service
+class RedisService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

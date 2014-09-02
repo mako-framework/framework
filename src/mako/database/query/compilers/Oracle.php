@@ -7,19 +7,18 @@
 
 namespace mako\database\query\compilers;
 
+use \mako\database\query\Compiler;
+
 /**
  * Compiles Oracle queries.
  *
  * @author  Frederic G. Østby
  */
 
-class Oracle extends \mako\database\query\Compiler
+class Oracle extends Compiler
 {
 	/**
-	 * Compiles a SELECT query.
-	 *
-	 * @access  public
-	 * @return  array
+	 * {@inheritdoc}
 	 */
 
 	public function select()

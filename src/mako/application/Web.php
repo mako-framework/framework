@@ -7,6 +7,7 @@
 
 namespace mako\application;
 
+use \mako\application\Application;
 use \mako\error\handlers\WebHandler;
 use \mako\http\routing\Dispatcher;
 use \mako\http\routing\Router;
@@ -17,12 +18,10 @@ use \mako\http\routing\Router;
  * @author  Frederic G. Østby
  */
 
-class Web extends \mako\application\Application
+class Web extends Application
 {
 	/**
-	 * Runs the application.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function run()

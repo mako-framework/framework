@@ -9,6 +9,7 @@ namespace mako\error\handlers;
 
 use \ErrorException;
 
+use \mako\error\handlers\Handler;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\RequestException;
@@ -20,7 +21,7 @@ use \mako\http\routing\MethodNotAllowedException;
  * @author  Frederic G. Østby
  */
 
-class WebHandler extends \mako\error\handlers\Handler implements \mako\error\handlers\HandlerInterface
+class WebHandler extends Handler
 {
 	/**
 	 * Source padding.
@@ -281,11 +282,7 @@ class WebHandler extends \mako\error\handlers\Handler implements \mako\error\han
 	}
 
 	/**
-	 * Handles the exception.
-	 * 
-	 * @access  public
-	 * @param   boolean  $showDetails  (optional) Show error details?
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function handle($showDetails = true)

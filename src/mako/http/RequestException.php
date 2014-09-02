@@ -8,6 +8,7 @@
 namespace mako\http;
 
 use \Exception;
+use \RuntimeException;
 
 /**
  * Request exception.
@@ -15,7 +16,7 @@ use \Exception;
  * @author  Frederic G. Østby
  */
 
-class RequestException extends \RuntimeException
+class RequestException extends RuntimeException
 {
 	/**
 	 * Constructor.

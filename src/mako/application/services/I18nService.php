@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\i18n\I18n;
 use \mako\i18n\Loader;
 
@@ -16,12 +17,10 @@ use \mako\i18n\Loader;
  * @author  Frederic G. Østby
  */
 
-class I18nService extends \mako\application\services\Service
+class I18nService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

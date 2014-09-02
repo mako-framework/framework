@@ -10,6 +10,7 @@ namespace mako\http\responses;
 use \Closure;
 use \mako\http\Request;
 use \mako\http\Response;
+use \mako\http\responses\ResponseContainerInterface;
 
 /**
  * Stream response.
@@ -17,7 +18,7 @@ use \mako\http\Response;
  * @author  Frederic G. Østby
  */
 
-Class Stream implements \mako\http\responses\ResponseContainerInterface
+Class Stream implements ResponseContainerInterface
 {
 	/**
 	 * Is PHP running as a CGI program?
@@ -101,11 +102,7 @@ Class Stream implements \mako\http\responses\ResponseContainerInterface
 	}
 
 	/**
-	 * Sends the response.
-	 * 
-	 * @access  public
-	 * @param   \mako\http\Request   $request  Request instance
-	 * @param   \mako\http\Response  $response  Response instance
+	 * {@inheritdoc}
 	 */
 
 	public function send(Request $request, Response $response)

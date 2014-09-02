@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\auth\Gatekeeper;
 use \mako\auth\providers\GroupProvider;
 use \mako\auth\providers\UserProvider;
@@ -17,12 +18,10 @@ use \mako\auth\providers\UserProvider;
  * @author  Frederic G. Østby
  */
 
-class GatekeeperService extends \mako\application\services\Service
+class GatekeeperService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

@@ -7,19 +7,18 @@
 
 namespace mako\database\query\compilers;
 
+use \mako\database\query\Compiler;
+
 /**
  * Compiles DB2 queries.
  *
  * @author  Frederic G. Østby
  */
 
-class DB2 extends \mako\database\query\Compiler
+class DB2 extends Compiler
 {
 	/**
-	 * Compiles a SELECT query.
-	 *
-	 * @access  public
-	 * @return  array
+	 * {@inheritdoc}
 	 */
 
 	public function select()

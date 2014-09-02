@@ -14,6 +14,7 @@ use \mako\database\Connection;
 use \mako\database\midgard\ORM;
 use \mako\database\midgard\ResultSet;
 use \mako\database\midgard\ReadOnlyRecordException;
+use \mako\database\query\Query as QueryBuilder;
 
 /**
  * ORM query builder.
@@ -21,7 +22,7 @@ use \mako\database\midgard\ReadOnlyRecordException;
  * @author  Frederic G. Østby
  */
 
-class Query extends \mako\database\query\Query
+class Query extends QueryBuilder
 {
 	/**
 	 * Instance of the model to hydrate.
@@ -71,16 +72,7 @@ class Query extends \mako\database\query\Query
 	}
 
 	/**
-	 * Adds a JOIN clause.
-	 *
-	 * @access  public
-	 * @param   string                      $table     Table name
-	 * @param   string|\Closure             $column1   (optional) Column name or closure
-	 * @param   string                      $operator  (optional) Operator
-	 * @param   string                      $column2   (optional) Column name
-	 * @param   string                      $type      (optional) Join type
-	 * @param   boolean                     $raw       (optional) Raw join?
-	 * @return  \mako\database\query\Query
+	 * {@inheritdoc}
 	 */
 
 	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
@@ -96,11 +88,7 @@ class Query extends \mako\database\query\Query
 	}
 
 	/**
-	 * Inserts data into the chosen table.
-	 *
-	 * @access  public
-	 * @param   array    $values  Associative array of column values
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function insert(array $values)
@@ -134,11 +122,7 @@ class Query extends \mako\database\query\Query
 	}
 
 	/**
-	 * Updates data from the chosen table.
-	 *
-	 * @access  public
-	 * @param   array    $values  Associative array of column values
-	 * @return  int
+	 * {@inheritdoc}
 	 */
 
 	public function update(array $values)
@@ -172,10 +156,7 @@ class Query extends \mako\database\query\Query
 	}
 
 	/**
-	 * Deletes data from the chosen table.
-	 *
-	 * @access  public
-	 * @return  int
+	 * {@inheritdoc}
 	 */
 
 	public function delete()
@@ -391,13 +372,7 @@ class Query extends \mako\database\query\Query
 	}
 
 	/**
-	 * Fetches data in batches and passes them to the processor closure.
-	 * 
-	 * @access  public
-	 * @param   \Closure  $processor    Closure that processes the results
-	 * @param   int       $batchSize    (optional) Batch size
-	 * @param   int       $offsetStart  (optional) Offset start
-	 * @param   int       $offsetEnd    (optional) Offset end
+	 * {@inheritdoc}
 	 */
 
 	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null)

@@ -9,6 +9,7 @@ namespace mako\common;
 
 use \RuntimeException;
 
+use \mako\common\ConfigurableTrait;
 use \mako\syringe\Container;
 
 /**
@@ -19,7 +20,7 @@ use \mako\syringe\Container;
 
 abstract class AdapterManager
 {
-	use \mako\common\ConfigurableTrait;
+	use ConfigurableTrait;
 	
 	/**
 	 * Reuse instances?

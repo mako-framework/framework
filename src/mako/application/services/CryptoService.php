@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\security\crypto\CryptoManager;
 
 /**
@@ -15,12 +16,10 @@ use \mako\security\crypto\CryptoManager;
  * @author  Frederic G. Østby
  */
 
-class CryptoService extends \mako\application\services\Service
+class CryptoService extends Service
 {	
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\http\routing\URLBuilder;
 
 /**
@@ -15,12 +16,10 @@ use \mako\http\routing\URLBuilder;
  * @author  Frederic G. Østby
  */
 
-class URLBuilderService extends \mako\application\services\Service
+class URLBuilderService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

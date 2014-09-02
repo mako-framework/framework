@@ -8,6 +8,7 @@
 namespace mako\database\midgard\relations;
 
 use \mako\database\midgard\ResultSet;
+use \mako\database\midgard\relations\HasOneOrMany;
 
 /**
  * Has many relation.
@@ -15,7 +16,7 @@ use \mako\database\midgard\ResultSet;
  * @author  Frederic G. Østby
  */
 
-class HasMany extends \mako\database\midgard\relations\HasOneOrMany
+class HasMany extends HasOneOrMany
 {
 	/**
 	 * Eager loads related records and matches them with their parent records.

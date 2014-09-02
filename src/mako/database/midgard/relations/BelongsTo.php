@@ -7,19 +7,18 @@
 
 namespace mako\database\midgard\relations;
 
+use \mako\database\midgard\relations\Relation;
+
 /**
  * Belongs to relation.
  *
  * @author  Frederic G. Østby
  */
 
-class BelongsTo extends \mako\database\midgard\relations\Relation
+class BelongsTo extends Relation
 {
 	/**
-	 * Returns the foreign key.
-	 * 
-	 * @access  protected
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	protected function getForeignKey()
@@ -33,11 +32,7 @@ class BelongsTo extends \mako\database\midgard\relations\Relation
 	}
 
 	/**
-	 * Returns the keys used to eagerly load records.
-	 * 
-	 * @access  protected
-	 * @param   \mako\database\midgard\ResultSet  $results  Result set
-	 * @return  array
+	 * {@inheritdoc}
 	 */
 
 	protected function keys($results)
@@ -53,9 +48,7 @@ class BelongsTo extends \mako\database\midgard\relations\Relation
 	}
 
 	/**
-	 * Sets the criterion used when lazy loading related records.
-	 * 
-	 * @access  protected
+	 * {@inheritdoc}
 	 */
 
 	protected function lazyCriterion()

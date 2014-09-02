@@ -7,6 +7,8 @@
 
 namespace mako\common;
 
+use \mako\common\ConfigurableTrait;
+
 /**
  * Connection manager.
  *
@@ -15,7 +17,7 @@ namespace mako\common;
 
 abstract class ConnectionManager
 {
-	use \mako\common\ConfigurableTrait;
+	use ConfigurableTrait;
 
 	/**
 	 * Connections.

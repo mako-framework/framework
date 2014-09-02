@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\security\Signer;
 
 /**
@@ -15,12 +16,10 @@ use \mako\security\Signer;
  * @author  Frederic G. Østby
  */
 
-class SignerService extends \mako\application\services\Service
+class SignerService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

@@ -9,6 +9,7 @@ namespace mako\database;
 
 use \RuntimeException;
 
+use \mako\common\ConnectionManager as BaseConnectionManager;
 use \mako\database\Connection;
 
 /**
@@ -19,13 +20,13 @@ use \mako\database\Connection;
  * @method  \mako\database\Connection  connection($connection = null)
  */
 
-class ConnectionManager extends \mako\common\ConnectionManager
+class ConnectionManager extends BaseConnectionManager
 {
 	/**
 	 * Connects to the chosen database and returns the connection.
 	 * 
 	 * @access  public
-	 * @param   string                    $connection  Connection name
+	 * @param   string                     $connection  Connection name
 	 * @return  \mako\database\Connection
 	 */
 

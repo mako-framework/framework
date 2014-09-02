@@ -7,18 +7,18 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
+
 /**
  * Route service.
  *
  * @author  Frederic G. Østby
  */
 
-class RouteService extends \mako\application\services\Service
+class RouteService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

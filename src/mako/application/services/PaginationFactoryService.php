@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\pagination\PaginationFactory;
 
 /**
@@ -15,12 +16,10 @@ use \mako\pagination\PaginationFactory;
  * @author  Frederic G. Østby
  */
 
-class PaginationFactoryService extends \mako\application\services\Service
+class PaginationFactoryService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

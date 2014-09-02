@@ -9,6 +9,7 @@ namespace mako\view\renderers;
 
 use \mako\file\FileSystem;
 use \mako\view\compilers\Template as Compiler;
+use \mako\view\renderers\PHP;
 
 /**
  * Mako template view renderer.
@@ -16,7 +17,7 @@ use \mako\view\compilers\Template as Compiler;
  * @author  Frederic G. Østby
  */
 
-class Template extends \mako\view\renderers\PHP implements \mako\view\renderers\RendererInterface
+class Template extends PHP
 {
 	/**
 	 * Cache path.
@@ -135,12 +136,7 @@ class Template extends \mako\view\renderers\PHP implements \mako\view\renderers\
 	}
 
 	/**
-	 * Returns the rendered view.
-	 * 
-	 * @access  public
-	 * @param   string  $__view__       View path
-	 * @param   array   $__variables__  View variables
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function render($__view__, array $__variables__)

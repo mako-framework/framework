@@ -9,6 +9,10 @@ namespace mako\auth\user;
 
 use \LogicException;
 
+use \mako\auth\group\MemberInterface;
+use \mako\auth\user\UserInterface;
+use \mako\database\midgard\ORM;
+use \mako\database\midgard\traits\TimestampedTrait;
 use \mako\security\Password;
 use \mako\utility\UUID;
 
@@ -18,9 +22,9 @@ use \mako\utility\UUID;
  * @author  Frederic G. Østby
  */
 
-class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInterface, \mako\auth\group\MemberInterface
+class User extends ORM implements UserInterface, MemberInterface
 {
-	use \mako\database\midgard\traits\TimestampedTrait;
+	use TimestampedTrait;
 
 	/**
 	 * Table name.
@@ -61,10 +65,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Returns the user id.
-	 * 
-	 * @access  public
-	 * @return  int|string
+	 * {@inheritdoc}
 	 */
 
 	public function getId()
@@ -73,10 +74,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Sets the user email address.
-	 * 
-	 * @access  public
-	 * @param   string  $email  Email address
+	 * {@inheritdoc}
 	 */
 
 	public function setEmail($email)
@@ -85,10 +83,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Returns the user email address.
-	 * 
-	 * @access  public
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function getEmail()
@@ -97,10 +92,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Sets the user username.
-	 * 
-	 * @access  public
-	 * @param   string  $username  Username
+	 * {@inheritdoc}
 	 */
 
 	public function setUsername($username)
@@ -109,10 +101,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Returns the user username.
-	 * 
-	 * @access  public
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function getUsername()
@@ -121,10 +110,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Sets the user password.
-	 * 
-	 * @access  public
-	 * @param   string  $password  Password
+	 * {@inheritdoc}
 	 */
 
 	public function setPassword($password)
@@ -133,10 +119,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Returns the user password.
-	 * 
-	 * @access  public
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function getPassword()
@@ -145,10 +128,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Sets the user IP address.
-	 * 
-	 * @access  public
-	 * @param   string  $ip  IP address
+	 * {@inheritdoc}
 	 */
 
 	public function setIp($ip)
@@ -157,10 +137,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Returns the user IP address.
-	 * 
-	 * @access  public
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function getIp()
@@ -169,9 +146,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Generates a new action token.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function generateActionToken()
@@ -180,10 +155,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Returns the user action token.
-	 * 
-	 * @access  public
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function getActionToken()
@@ -192,9 +164,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Generates a new access token.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function generateAccessToken()
@@ -203,10 +173,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Returns the user access token.
-	 * 
-	 * @access  public
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function getAccessToken()
@@ -215,9 +182,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Activates the user.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function activate()
@@ -226,9 +191,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Deactivates the user.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function deactivate()
@@ -237,10 +200,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Returns TRUE of the user is activated and FALSE if not.
-	 * 
-	 * @access  public
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function isActivated()
@@ -249,9 +209,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Bans the user.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function ban()
@@ -260,9 +218,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Unbans the user.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function unban()
@@ -271,9 +227,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Returns TRUE if the user is banned and FALSE if not.
-	 * 
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function isBanned()
@@ -282,11 +236,7 @@ class User extends \mako\database\midgard\ORM implements \mako\auth\user\UserInt
 	}
 
 	/**
-	 * Returns TRUE if a user is a member of the group(s) and FALSE if not.
-	 * 
-	 * @access  public
-	 * @param   string|int|array  $group  Group name, group id or an array of group names or group ids
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function isMemberOf($group)

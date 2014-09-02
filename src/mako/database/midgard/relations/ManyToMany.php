@@ -10,6 +10,7 @@ namespace mako\database\midgard\relations;
 use \mako\database\Connection;
 use \mako\database\midgard\ORM;
 use \mako\database\midgard\ResultSet;
+use \mako\database\midgard\relations\Relation;
 
 /**
  * Many to many relation.
@@ -17,7 +18,7 @@ use \mako\database\midgard\ResultSet;
  * @author  Frederic G. Østby
  */
 
-class ManyToMany extends \mako\database\midgard\relations\Relation
+class ManyToMany extends Relation
 {
 	/**
 	 * Junction table.
@@ -108,9 +109,7 @@ class ManyToMany extends \mako\database\midgard\relations\Relation
 	}
 
 	/**
-	 * Sets the criterion used when lazy loading related records.
-	 * 
-	 * @access  protected
+	 * {@inheritdoc}
 	 */
 
 	protected function lazyCriterion()

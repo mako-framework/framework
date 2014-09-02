@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\view\ViewFactory;
 use \mako\view\renderers\Template;
 
@@ -16,12 +17,10 @@ use \mako\view\renderers\Template;
  * @author  Frederic G. Østby
  */
 
-class ViewFactoryService extends \mako\application\services\Service
+class ViewFactoryService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

@@ -9,7 +9,10 @@ namespace mako\auth\group;
 
 use \LogicException;
 
+use mako\auth\group\GroupInterface;
 use \mako\auth\user\UserInterface;
+use \mako\database\midgard\ORM;
+use \mako\database\midgard\traits\TimestampedTrait;
 
 /**
  * Group.
@@ -17,9 +20,9 @@ use \mako\auth\user\UserInterface;
  * @author  Frederic G. Østby
  */
 
-class Group extends \mako\database\midgard\ORM implements \mako\auth\group\GroupInterface
+class Group extends ORM implements GroupInterface
 {
-	use \mako\database\midgard\traits\TimestampedTrait;
+	use TimestampedTrait;
 
 	/**
 	 * Table name.
@@ -30,10 +33,7 @@ class Group extends \mako\database\midgard\ORM implements \mako\auth\group\Group
 	protected $tableName = 'groups';
 
 	/**
-	 * Returns the user id.
-	 * 
-	 * @access  public
-	 * @return  int|string
+	 * {@inheritdoc}
 	 */
 
 	public function getId()
@@ -42,10 +42,7 @@ class Group extends \mako\database\midgard\ORM implements \mako\auth\group\Group
 	}
 
 	/**
-	 * Sets the group name.
-	 * 
-	 * @access  public
-	 * @param   string  $name  Group name
+	 * {@inheritdoc}
 	 */
 
 	public function setName($name)
@@ -54,10 +51,7 @@ class Group extends \mako\database\midgard\ORM implements \mako\auth\group\Group
 	}
 
 	/**
-	 * Returns the group name.
-	 * 
-	 * @access  public
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function getName()
@@ -66,11 +60,7 @@ class Group extends \mako\database\midgard\ORM implements \mako\auth\group\Group
 	}
 
 	/**
-	 * Adds a user to the group.
-	 * 
-	 * @access  public
-	 * @param   \mako\auth\user\UserInterface  $user  User intance
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function addUser(UserInterface $user)
@@ -84,11 +74,7 @@ class Group extends \mako\database\midgard\ORM implements \mako\auth\group\Group
 	}
 
 	/**
-	 * Removes a user from the group.
-	 * 
-	 * @access  public
-	 * @param   \mako\auth\user\UserInterface  $user  User intance
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function removeUser(UserInterface $user)
@@ -102,11 +88,7 @@ class Group extends \mako\database\midgard\ORM implements \mako\auth\group\Group
 	}
 
 	/**
-	 * Returns TRUE if a user is a member of the group and FALSE if not.
-	 * 
-	 * @access  public
-	 * @param   \mako\auth\user\UserInterface  $user  User intance
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function isMember(UserInterface $user)

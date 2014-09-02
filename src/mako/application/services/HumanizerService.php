@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\utility\Humanizer;
 
 /**
@@ -15,12 +16,10 @@ use \mako\utility\Humanizer;
  * @author  Frederic G. Østby
  */
 
-class HumanizerService extends \mako\application\services\Service
+class HumanizerService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

@@ -7,13 +7,15 @@
 
 namespace mako\database\midgard;
 
+use \RuntimeException;
+
 /**
  * Read-only record exception.
  *
  * @author  Frederic G. Østby
  */
 
-class ReadOnlyRecordException extends \RuntimeException
+class ReadOnlyRecordException extends RuntimeException
 {
 	
 }

@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\session\Session;
 use \mako\session\stores\Database;
 use \mako\session\stores\File;
@@ -18,7 +19,7 @@ use \mako\session\stores\Redis;
  * @author  Frederic G. Østby
  */
 
-class SessionService extends \mako\application\services\Service
+class SessionService extends Service
 {
 	/**
 	 * Returns a database store instance.
@@ -90,9 +91,7 @@ class SessionService extends \mako\application\services\Service
 	}
 	
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

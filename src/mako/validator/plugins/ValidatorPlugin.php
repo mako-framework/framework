@@ -7,13 +7,15 @@
 
 namespace mako\validator\plugins;
 
+use \mako\validator\plugins\ValidatorPluginInterface;
+
 /**
  * Base plugin.
  *
  * @author  Frederic G. Østby
  */
 
-abstract class ValidatorPlugin implements \mako\validator\plugins\ValidatorPluginInterface
+abstract class ValidatorPlugin implements ValidatorPluginInterface
 {
 	/**
 	 * Rule name.
@@ -32,10 +34,7 @@ abstract class ValidatorPlugin implements \mako\validator\plugins\ValidatorPlugi
 	protected $packageName = '';
 
 	/**
-	 * Returnst the rule name.
-	 * 
-	 * @access  public
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function getRuleName()
@@ -44,10 +43,7 @@ abstract class ValidatorPlugin implements \mako\validator\plugins\ValidatorPlugi
 	}
 
 	/**
-	 * Returnst the package name.
-	 * 
-	 * @access  public
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function getPackageName()

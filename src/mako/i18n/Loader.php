@@ -9,6 +9,7 @@ namespace mako\i18n;
 
 use \RuntimeException;
 
+use \mako\common\NamespacedFileLoaderTrait;
 use \mako\file\FileSystem;
 
 /**
@@ -19,7 +20,7 @@ use \mako\file\FileSystem;
 
 class Loader
 {
-	use \mako\common\NamespacedFileLoaderTrait;
+	use NamespacedFileLoaderTrait;
 
 	/**
 	 * File system instance.

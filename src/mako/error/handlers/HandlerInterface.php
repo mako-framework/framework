@@ -17,6 +17,22 @@ use \Exception;
 
 interface HandlerInterface
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @access  public
+	 * @param   \Exception  $exception  Exception
+	 */
+
 	public function __construct(Exception $exception);
+
+	/**
+	 * Handles the exception.
+	 * 
+	 * @access  public
+	 * @param   boolean  $showDetails  (optional) Show error details?
+	 * @return  boolean
+	 */
+	
 	public function handle($showDetails = true);
 }

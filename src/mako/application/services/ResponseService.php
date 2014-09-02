@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use \mako\application\services\Service;
 use \mako\http\Response;
 
 /**
@@ -15,12 +16,10 @@ use \mako\http\Response;
  * @author  Frederic G. Østby
  */
 
-class ResponseService extends \mako\application\services\Service
+class ResponseService extends Service
 {
 	/**
-	 * Registers the service.
-	 * 
-	 * @access  public
+	 * {@inheritdoc}
 	 */
 
 	public function register()

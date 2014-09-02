@@ -7,13 +7,16 @@
 
 namespace mako\security\crypto\encrypters;
 
+use \mako\security\crypto\encrypters\Encrypter;
+use \mako\security\crypto\encrypters\EncrypterInterface;
+
 /**
  * OpenSSL encrypter.
  *
  * @author  Frederic G. Østby
  */
 
-class OpenSSL extends \mako\security\crypto\encrypters\Encrypter implements \mako\security\crypto\encrypters\EncrypterInterface
+class OpenSSL extends Encrypter implements EncrypterInterface
 {
 	/**
 	 * Key used to encrypt/decrypt string.
@@ -57,11 +60,7 @@ class OpenSSL extends \mako\security\crypto\encrypters\Encrypter implements \mak
 	}
 
 	/**
-	 * Encrypts string.
-	 *
-	 * @access  public
-	 * @param   string  $string  String to encrypt
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 	
 	public function encrypt($string)
@@ -74,11 +73,7 @@ class OpenSSL extends \mako\security\crypto\encrypters\Encrypter implements \mak
 	}
 
 	/**
-	 * Decrypts string.
-	 *
-	 * @access  public
-	 * @param   string          $string  String to decrypt
-	 * @return  string|boolean
+	 * {@inheritdoc}
 	 */
 	
 	public function decrypt($string)

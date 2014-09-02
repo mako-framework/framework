@@ -8,6 +8,7 @@
 namespace mako\session\stores;
 
 use \mako\database\Connection;
+use \mako\session\stores\StoreInterface;
 
 /**
  * Database store.
@@ -15,7 +16,7 @@ use \mako\database\Connection;
  * @author  Frederic G. Østby
  */
 
-class Database implements \mako\session\stores\StoreInterface
+class Database implements StoreInterface
 {
 	/**
 	 * Database connection
@@ -61,12 +62,7 @@ class Database implements \mako\session\stores\StoreInterface
 	}
 
 	/**
-	 * Writes session data.
-	 *
-	 * @access  public
-	 * @param   string  $sessionId    Session id
-	 * @param   array   $sessionData  Session data
-	 * @param   int     $dataTTL      TTL in seconds
+	 * {@inheritdoc}
 	 */
 
 	public function write($sessionId, $sessionData, $dataTTL)
@@ -88,11 +84,7 @@ class Database implements \mako\session\stores\StoreInterface
 	}
 
 	/**
-	 * Reads and returns session data.
-	 *
-	 * @access  public
-	 * @param   string  $sessionId  Session id
-	 * @return  array
+	 * {@inheritdoc}
 	 */
 
 	public function read($sessionId)
@@ -103,10 +95,7 @@ class Database implements \mako\session\stores\StoreInterface
 	}
 
 	/**
-	 * Destroys the session data assiciated with the provided id.
-	 *
-	 * @access  public
-	 * @param   string   $sessionId  Session id
+	 * {@inheritdoc}
 	 */
 
 	public function delete($sessionId)
@@ -115,10 +104,7 @@ class Database implements \mako\session\stores\StoreInterface
 	}
 
 	/**
-	 * Garbage collector that deletes expired session data.
-	 *
-	 * @access  public
-	 * @param   int      $dataTTL  Data TTL in seconds
+	 * {@inheritdoc}
 	 */
 
 	public function gc($dataTTL)

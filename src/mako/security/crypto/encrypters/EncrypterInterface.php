@@ -15,6 +15,23 @@ namespace mako\security\crypto\encrypters;
 
 interface EncrypterInterface
 {
+	/**
+	 * Encrypts string.
+	 *
+	 * @access  public
+	 * @param   string  $string  String to encrypt
+	 * @return  string
+	 */
+
 	public function encrypt($string);
+
+	/**
+	 * Decrypts string.
+	 *
+	 * @access  public
+	 * @param   string          $string  String to decrypt
+	 * @return  string|boolean
+	 */
+	
 	public function decrypt($string);
 }

@@ -9,13 +9,15 @@ namespace mako\cache\stores;
 
 use \Memcached as PHPMemcached;
 
+use \mako\cache\stores\StoreInterface;
+
 /**
  * Memcached store.
  *
  * @author  Frederic G. Østby
  */
 
-class Memcached implements \mako\cache\stores\StoreInterface
+class Memcached implements StoreInterface
 {
 	/**
 	 * Memcached instance.
@@ -57,13 +59,7 @@ class Memcached implements \mako\cache\stores\StoreInterface
 	}
 
 	/**
-	 * Store data in the cache.
-	 *
-	 * @access  public
-	 * @param   string   $key    Cache key
-	 * @param   mixed    $data   The data to store
-	 * @param   int      $ttl    (optional) Time to live
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function put($key, $data, $ttl = 0)
@@ -82,11 +78,7 @@ class Memcached implements \mako\cache\stores\StoreInterface
 	}
 
 	/**
-	 * Returns TRUE if the cache key exists and FALSE if not.
-	 * 
-	 * @access  public
-	 * @param   string   $key  Cache key
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function has($key)
@@ -95,11 +87,7 @@ class Memcached implements \mako\cache\stores\StoreInterface
 	}
 
 	/**
-	 * Fetch data from the cache.
-	 *
-	 * @access  public
-	 * @param   string  $key  Cache key
-	 * @return  mixed
+	 * {@inheritdoc}
 	 */
 
 	public function get($key)
@@ -108,11 +96,7 @@ class Memcached implements \mako\cache\stores\StoreInterface
 	}
 
 	/**
-	 * Delete data from the cache.
-	 *
-	 * @access  public
-	 * @param   string   $key  Cache key
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function remove($key)
@@ -121,10 +105,7 @@ class Memcached implements \mako\cache\stores\StoreInterface
 	}
 
 	/**
-	 * Clears the user cache.
-	 *
-	 * @access  public
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function clear()

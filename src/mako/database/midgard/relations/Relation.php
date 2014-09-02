@@ -9,6 +9,7 @@ namespace mako\database\midgard\relations;
 
 use \mako\database\Connection;
 use \mako\database\midgard\ORM;
+use \mako\database\midgard\Query;
 
 /**
  * Base relation.
@@ -16,7 +17,7 @@ use \mako\database\midgard\ORM;
  * @author  Frederic G. Østby
  */
 
-abstract class Relation extends \mako\database\midgard\Query
+abstract class Relation extends Query
 {
 	/**
 	 * Parent record.

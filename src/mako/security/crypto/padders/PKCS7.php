@@ -7,21 +7,18 @@
 
 namespace mako\security\crypto\padders;
 
+use \mako\security\crypto\padders\PadderInterface;
+
 /**
  * PKCS7 padder.
  *
  * @author  Frederic G. Østby
  */
 
-class PKCS7 implements \mako\security\crypto\padders\PadderInterface
+class PKCS7 implements PadderInterface
 {
 	/**
-	 * Adds PKCS7 padding to string.
-	 * 
-	 * @access  public
-	 * @param   string     $string     String we want to pad
-	 * @param   int        $blockSize  Block size
-	 * @return  string
+	 * {@inheritdoc}
 	 */
 
 	public function addPadding($string, $blockSize)
@@ -32,11 +29,7 @@ class PKCS7 implements \mako\security\crypto\padders\PadderInterface
 	}
 
 	/**
-	 * Removes PKCS7 padding from string.
-	 * 
-	 * @access  public
-	 * @param   string          $string  String we want to unpad
-	 * @return  string|boolean
+	 * {@inheritdoc}
 	 */
 
 	public function stripPadding($string)

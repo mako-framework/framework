@@ -7,13 +7,15 @@
 
 namespace mako\database\midgard\relations;
 
+use \mako\database\midgard\relations\HasOneOrMany;
+
 /**
  * Has one relation.
  *
  * @author  Frederic G. Østby
  */
 
-class HasOne extends \mako\database\midgard\relations\HasOneOrMany
+class HasOne extends HasOneOrMany
 {
 	/**
 	 * Eager loads related records and matches them with their parent records.

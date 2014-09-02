@@ -8,6 +8,7 @@
 namespace mako\validator\plugins;
 
 use \mako\session\Session;
+use \mako\validator\plugins\ValidatorPlugin;
 
 /**
  * Token validator plugin.
@@ -15,7 +16,7 @@ use \mako\session\Session;
  * @author  Frederic G. Østby
  */
 
-class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements \mako\validator\plugins\ValidatorPluginInterface
+class TokenValidator extends ValidatorPlugin
 {
 	/**
 	 * Rule name.
@@ -46,12 +47,7 @@ class TokenValidator extends \mako\validator\plugins\ValidatorPlugin implements 
 	}
 
 	/**
-	 * Validator.
-	 * 
-	 * @access  public
-	 * @param   string   $input       Input
-	 * @param   array    $parameters  Parameters
-	 * @return  boolean
+	 * {@inheritdoc}
 	 */
 
 	public function validate($input, $parameters)
