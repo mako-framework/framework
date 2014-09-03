@@ -177,15 +177,20 @@ abstract class Application
 	}
 
 	/**
-	 * Sets the application language.
+	 * Sets the application language settings.
 	 * 
 	 * @access  public
-	 * @param   string  $language  Application language
+	 * @param   array  $language  Application language settings
 	 */
 
-	public function setLanguage($language)
+	public function setLanguage(array $language)
 	{
-		$this->language = $language;
+		$this->language = $language['strings'];
+
+		foreach($language['locale'] as $category => $locale)
+		{
+			setlocale($category, $locale);
+		}
 	}
 
 	/**
@@ -300,13 +305,6 @@ abstract class Application
 		// Set locale information
 
 		$this->setLanguage($config['default_language']);
-
-		setlocale(LC_ALL, $config['locale']['locales']);
-
-		if($config['locale']['lc_numeric'] === false)
-		{
-			setlocale(LC_NUMERIC, 'C');
-		}
 	}
 
 	/**
