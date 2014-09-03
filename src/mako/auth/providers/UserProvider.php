@@ -99,6 +99,17 @@ class UserProvider implements UserProviderInterface
 	 * {@inheritdoc}
 	 */
 
+	public function getByUsername($username)
+	{
+		$model = $this->model;
+
+		return $model::where('username', '=', $username)->first();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
 	public function getById($id)
 	{
 		$model = $this->model;

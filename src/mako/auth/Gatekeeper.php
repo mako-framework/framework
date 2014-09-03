@@ -8,6 +8,7 @@
 namespace mako\auth;
 
 use \LogicException;
+use \RuntimeException;
 
 use \mako\auth\providers\GroupProviderInterface;
 use \mako\auth\providers\UserProviderInterface;
@@ -96,6 +97,14 @@ class Gatekeeper
 	protected $groupProvider;
 
 	/**
+	 * Identifier.
+	 * 
+	 * @var string
+	 */
+
+	protected $identifier = 'email';
+
+	/**
 	 * Auth key.
 	 * 
 	 * @var string
@@ -143,6 +152,23 @@ class Gatekeeper
 		$this->session       = $session;
 		$this->userProvider  = $userProvider;
 		$this->groupProvider = $groupProvider;
+	}
+
+	/**
+	 * Sets the identifier type.
+	 * 
+	 * @access  public
+	 * @param   string  $authKey  Auth key
+	 */
+
+	public function setIdentifier($identifier)
+	{
+		if($this->isChecked)
+		{
+			throw new LogicException(vsprintf("%s(): Unable to alter the identifier type after login check.", [__METHOD__]));
+		}
+
+		$this->identifier = $identifier;
 	}
 
 	/**
@@ -359,19 +385,40 @@ class Gatekeeper
 	}
 
 	/**
+	 * Gets a user by its unique identifier.
+	 * 
+	 * @access  protected
+	 * @param   string                                 $identifier  User identifier
+	 * @return  \mako\auth\user\UserInterface|boolean
+	 */
+
+	protected function getByIdentifier($identifier)
+	{
+		switch($this->identifier)
+		{
+			case 'email':
+				return $this->userProvider->getByEmail($identifier);
+			case 'username':
+				return $this->userProvider->getByUsername($identifier);
+			default:
+				throw new RuntimeException(vsprintf("%s(): Unsupported identifier type [ %s ].", [__METHOD__, $identifier]));
+		}
+	}
+
+	/**
 	 * Returns TRUE if the email + password combination matches and the user is activated and not banned.
 	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT) will be retured in all other situations.
 	 * 
 	 * @access  protected
-	 * @param   string       $email     User email
-	 * @param   string       $password  User password
-	 * @param   boolean      $force     (optional) Skip the password check?
+	 * @param   string       $identifier  User email or username
+	 * @param   string       $password    User password
+	 * @param   boolean      $force       (optional) Skip the password check?
 	 * @return  boolean|int
 	 */
 
-	protected function authenticate($email, $password, $force = false)
+	protected function authenticate($identifier, $password, $force = false)
 	{
-		$user = $this->userProvider->getByEmail($email);
+		$user = $this->getByIdentifier($identifier);
 
 		if($user !== false && ($this->userProvider->validatePassword($user, $password) || $force))
 		{
@@ -399,21 +446,21 @@ class Gatekeeper
 	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT) will be retured in all other situations.
 	 * 
 	 * @access  public
-	 * @param   string       $email     User email
-	 * @param   string       $password  User password
-	 * @param   boolean      $remember  (optional) Set a remember me cookie?
-	 * @param   boolean      $force     (optional) Login the user without checking the password?
+	 * @param   string       $identifier  User email
+	 * @param   string       $password    User password
+	 * @param   boolean      $remember    (optional) Set a remember me cookie?
+	 * @param   boolean      $force       (optional) Login the user without checking the password?
 	 * @return  boolean|int
 	 */
 
-	public function login($email, $password, $remember = false, $force = false)
+	public function login($identifier, $password, $remember = false, $force = false)
 	{
-		if(empty($email))
+		if(empty($identifier))
 		{
 			return static::LOGIN_INCORRECT;
 		}
 
-		$authenticated = $this->authenticate($email, $password, $force);
+		$authenticated = $this->authenticate($identifier, $password, $force);
 
 		if($authenticated === true)
 		{
@@ -436,14 +483,14 @@ class Gatekeeper
 	 * Login a user without checking the password.
 	 * 
 	 * @access  public
-	 * @param   mixed    $email     User email
-	 * @param   boolean  $remember  (optional) Set a remember me cookie?
+	 * @param   mixed    $identifier  User email or username
+	 * @param   boolean  $remember    (optional) Set a remember me cookie?
 	 * @return  boolean
 	 */
 
-	public function forceLogin($email, $remember = false)
+	public function forceLogin($identifier, $remember = false)
 	{
-		return ($this->login($email, null, $remember, true) === true);
+		return ($this->login($identifier, null, $remember, true) === true);
 	}
 
 	/**

@@ -36,6 +36,8 @@ class GatekeeperService extends Service
 
 			$gatekeeper = new Gatekeeper($container->get('request'), $container->get('response'), $container->get('session'), $userProvider, $groupProvider);
 
+			$gatekeeper->setIdentifier($config['identfier']);
+
 			$gatekeeper->setCookieOptions($config['cookie_options']);
 
 			return $gatekeeper;

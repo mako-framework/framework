@@ -61,6 +61,16 @@ interface UserProviderInterface
 	public function getByEmail($email);
 
 	/**
+	 * Fetches a user by its username.
+	 * 
+	 * @access  public
+	 * @param   string                                 $username  Username
+	 * @return  \mako\auth\user\UserInterface|boolean
+	 */
+
+	public function getByUsername($username);
+
+	/**
 	 * Fetches a user by its id.
 	 * 
 	 * @access  public
