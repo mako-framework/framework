@@ -344,6 +344,38 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testLoginWithWrongUsername()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$userProvider->shouldReceive('getByUsername')->once()->with('foo')->andReturn(false);
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+
+		$gatekeeper->setIdentifier('username');
+
+		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $gatekeeper->login('foo', 'password'));
+	}
+
+	/**
+	 * @expectedException \RuntimeException
+	 */
+
+	public function testLoginWithUnsupportedIdentifier()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+
+		$gatekeeper->setIdentifier('foobar');
+
+		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $gatekeeper->login('foo', 'password'));
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testLoginWithWrongPassword()
 	{
 		$userProvider = $this->getUserProvider();

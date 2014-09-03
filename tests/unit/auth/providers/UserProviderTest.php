@@ -108,6 +108,23 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testGetByUsername()
+	{
+		$user = $this->getUser();
+
+		$user->shouldReceive('where')->once()->with('username', '=', 'foobar')->andReturn($user);
+
+		$user->shouldReceive('first')->once()->andReturn($user);
+
+		$userProvider = new UserProvider($user);
+
+		$this->assertInstanceOf('mako\auth\user\User', $userProvider->getByUsername('foobar'));
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testGetById()
 	{
 		$user = $this->getUser();
