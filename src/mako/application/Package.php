@@ -198,16 +198,16 @@ abstract class Package
 
 		// Register i18n namespace
 
-		if($this->container->has('i18n'))
+		if(($path = $this->getI18nPath()) !== false && $this->container->has('i18n'))
 		{
-			$this->container->get('i18n')->getLoader()->registerNamespace($this->getFileNamespace(), $this->getI18nPath());
+			$this->container->get('i18n')->getLoader()->registerNamespace($this->getFileNamespace(), $path);
 		}
 
 		// Register view namespace
 
-		if($this->container->has('view'))
+		if(($path = $this->getViewPath()) !== false && $this->container->has('view'))
 		{
-			$this->container->get('view')->registerNamespace($this->getFileNamespace(), $this->getViewPath());
+			$this->container->get('view')->registerNamespace($this->getFileNamespace(), $path);
 		}
 
 		// Bootstrap package
