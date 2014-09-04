@@ -130,9 +130,18 @@ class Template extends PHP
 	{
 		array_pop($this->openBlocks);
 
-		$output = ob_get_clean();
+		$parent = ob_get_clean();
 
-		echo isset($this->blocks[$name]) ? str_replace('__PARENT__', $output, $this->blocks[$name]) : $output;
+		$output = $this->blocks[$name];
+
+		unset($this->blocks[$name]);
+
+		if(!empty($parent))
+		{
+			$output = str_replace('__PARENT__', $parent, $output);
+		}
+
+		echo $output;
 	}
 
 	/**
@@ -141,27 +150,13 @@ class Template extends PHP
 
 	public function render($__view__, array $__variables__)
 	{
-		// Get path to the compiled view
-
 		$compiled = $this->getCompiledPath($__view__);
-
-		// Compile the view if the cache doesn't exist or if it is expired
 
 		if($this->needToCompile($__view__, $compiled))
 		{
 			$this->compile($__view__);
 		}
-
-		// Render the view
-
-		$rendered = parent::render($compiled, array_merge($__variables__, ['__renderer__' => $this]));
-
-		// Reset the view blocks
-
-		$this->openBlocks = $this->blocks = [];
-
-		// Return the rendered view
-
-		return $rendered;
+		
+		return parent::render($compiled, array_merge($__variables__, ['__renderer__' => $this]));
 	}
 }
