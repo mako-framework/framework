@@ -530,7 +530,7 @@ abstract class ORM
 		{
 			switch($cast[$name])
 			{
-				case 'int':
+				case 'integer':
 					return (int) $value;
 				case 'float':
 					return (float) $value;
