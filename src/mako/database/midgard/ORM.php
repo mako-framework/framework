@@ -528,9 +528,12 @@ abstract class ORM
 
 		if(isset($cast[$name]) && $value !== null)
 		{
-			if($cast[$name] === 'date' && !($value instanceof DateTime))
+			if($cast[$name] === 'date')
 			{
-				$value = Time::createFromFormat($this->getDateFormat(), $value);
+				if(!($value instanceof DateTime))
+				{
+					$value = Time::createFromFormat($this->getDateFormat(), $value);
+				}
 			}
 			else
 			{

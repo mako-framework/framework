@@ -2,6 +2,10 @@
 
 namespace mako\tests\unit\database\midgard;
 
+use \DateTime;
+
+use \Mockery as m;
+
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
@@ -74,9 +78,14 @@ class ORMTestApple extends \mako\database\midgard\ORM
 
 }
 
-class TestCasting extends \mako\database\midgard\ORM
+class TestCastingScalars extends \mako\database\midgard\ORM
 {
 	protected $cast = ['bool' => 'boolean', 'integer' => 'int', 'float' => 'float'];
+}
+
+class TestCastingDate extends \mako\database\midgard\ORM
+{
+	protected $cast = ['date' => 'date'];
 }
 
 // --------------------------------------------------------------------------
@@ -89,6 +98,15 @@ class TestCasting extends \mako\database\midgard\ORM
 
 class ORMTest extends \PHPUnit_Framework_TestCase
 {
+	/**
+	 * 
+	 */
+
+	public function tearDown()
+	{
+		m::close();
+	}
+
 	/**
 	 * 
 	 */
@@ -400,14 +418,12 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testCasting()
+	public function testCastingScalars()
 	{
-		$cast = new TestCasting;
+		$cast = new TestCastingScalars;
 
 		$cast->bool  = 1;
-
 		$cast->int   = '1';
-
 		$cast->float = '1.1';
 
 		$this->assertEquals(true, $cast->bool);
@@ -418,7 +434,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$cast = new TestCasting;
+		$cast = new TestCastingScalars;
 
 		$cast->bool  = 0;
 		$cast->int   = '1';
@@ -432,7 +448,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$cast = new TestCasting(['bool' => '1', 'int' => '1', 'float' => '1.1'], true, false, true);
+		$cast = new TestCastingScalars(['bool' => '1', 'int' => '1', 'float' => '1.1'], true, false, true);
 
 		$this->assertEquals(true, $cast->bool);
 
@@ -442,13 +458,39 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$cast = new TestCasting(['bool' => '0', 'int' => '1', 'float' => '1.1'], true, false, true);
+		$cast = new TestCastingScalars(['bool' => '0', 'int' => '1', 'float' => '1.1'], true, false, true);
 
 		$this->assertEquals(false, $cast->bool);
 
 		$this->assertEquals(1, $cast->int);
 
 		$this->assertEquals(1.1, $cast->float);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testCastingDate()
+	{	
+		$cast = new TestCastingDate;
+
+		$cast->date = new DateTime;
+
+		$this->assertInstanceOf('DateTime', $cast->date);
+
+		//
+
+
+		$cast = m::mock('mako\tests\unit\database\midgard\TestCastingDate');
+
+		$cast->shouldReceive('getDateFormat')->andReturn('Y-m-d H:i:s');
+
+		$cast->makePartial();
+
+		$cast->date = '2014-01-01 12:12:12';
+
+		$this->assertInstanceOf('DateTime', $cast->date);
 	}
 
 	/**
