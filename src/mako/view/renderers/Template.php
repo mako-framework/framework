@@ -112,11 +112,12 @@ class Template extends PHP
 	 * Closes a template block.
 	 *
 	 * @access  public
+	 * @return  string
 	 */
 
 	public function close()
 	{
-		$this->blocks[array_pop($this->openBlocks)] = ob_get_clean();
+		return $this->blocks[array_pop($this->openBlocks)][] = ob_get_clean();
 	}
 
 	/**
@@ -128,11 +129,9 @@ class Template extends PHP
 
 	public function output($name)
 	{
-		array_pop($this->openBlocks);
+		$parent = $this->close();
 
-		$parent = ob_get_clean();
-
-		$output = $this->blocks[$name];
+		$output = current($this->blocks[$name]);
 
 		unset($this->blocks[$name]);
 
