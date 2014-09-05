@@ -528,16 +528,20 @@ abstract class ORM
 
 		if(isset($cast[$name]) && $value !== null)
 		{
-			if($cast[$name] === 'date')
+			switch($cast[$name])
 			{
-				if(!($value instanceof DateTime))
-				{
-					$value = Time::createFromFormat($this->getDateFormat(), $value);
-				}
-			}
-			else
-			{
-				settype($value, $cast[$name]);
+				case 'int':
+					return (int) $value;
+				case 'float':
+					return (float) $value;
+				case 'boolean':
+					return (bool) $value;
+				case 'date':
+					return ($value instanceof DateTime) ? $value : Time::createFromFormat('Y-m-d H:i:s', $value);
+				case 'string':
+					return (string) $value;
+				default:
+					throw new RunTimeException(vsprintf("%s::%s(): Unsupported type [ %s ].", [get_called_class(), __FUNCTION__, $cast[$name]]));
 			}
 		}
 
