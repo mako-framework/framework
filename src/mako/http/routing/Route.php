@@ -342,11 +342,11 @@ class Route
 	/**
 	 * Returns the regex needed to match the route.
 	 * 
-	 * @access  protected
+	 * @access  public
 	 * @return  string
 	 */
 
-	protected function getRouteRegex()
+	public function getRegex()
 	{
 		$route = $this->getRoute();
 
@@ -371,45 +371,5 @@ class Route
 		}
 
 		return '#^' . $route . '$#s';
-	}
-
-	/**
-	 * Collects the named parameters.
-	 * 
-	 * @access  protected
-	 * @param   array      $matches  Regex matches
-	 */
-
-	protected function collectNamedParameters(array $matches)
-	{
-		foreach($matches as $key => $value)
-		{
-			if(is_int($key))
-			{
-				unset($matches[$key]);
-			}
-		}
-
-		$this->parameters = $matches;
-	}
-
-	/**
-	 * Checks if the route patern matches the provided route.
-	 * 
-	 * @access  public
-	 * @param   string   $route  Route to match
-	 * @return  boolean
-	 */
-
-	public function isMatch($route)
-	{
-		if(preg_match($this->getRouteRegex(), $route, $matches) > 0)
-		{
-			$this->collectNamedParameters($matches);
-
-			return true;
-		}
-
-		return false;
 	}
 }

@@ -21,14 +21,6 @@ use \mako\http\routing\Route;
 class Routes
 {
 	/**
-	 * Filters.
-	 * 
-	 * @var array
-	 */
-
-	protected $filters = [];
-
-	/**
 	 * Route groups.
 	 * 
 	 * @var array
@@ -51,24 +43,6 @@ class Routes
 	 */
 
 	protected $namedRoutes = [];
-
-	/**
-	 * Returns the chosen filter.
-	 * 
-	 * @access  public
-	 * @param   string    $filter  Filter name
-	 * @return  \Closure
-	 */
-
-	public function getFilter($filter)
-	{
-		if(!isset($this->filters[$filter]))
-		{
-			throw new RuntimeException(vsprintf("%s(): No filter named [ %s ] has been defined.", [__METHOD__, $filter]));
-		}
-		
-		return $this->filters[$filter];
-	}
 
 	/**
 	 * Returns the registered routes.
@@ -114,19 +88,6 @@ class Routes
 	}
 
 	/**
-	 * Adds a filter.
-	 * 
-	 * @access  public
-	 * @param   string    $name    Filter name
-	 * @param   \Closure  $filter  Filter
-	 */
-
-	public function filter($name, Closure $filter)
-	{
-		$this->filters[$name] = $filter;
-	}
-
-	/**
 	 * Adds a grouped set of routes to the colleciton.
 	 * 
 	 * @access  public
@@ -144,7 +105,7 @@ class Routes
 	}
 
 	/**
-	 * Adds a route to the collection.
+	 * Registers a route.
 	 * 
 	 * @access  public
 	 * @param   array            $methods  HTTP methods
@@ -153,7 +114,7 @@ class Routes
 	 * @param   string           $name     (optional) Route name
 	 */
 
-	protected function addRoute(array $methods, $route, $action, $name = null)
+	protected function registerRoute(array $methods, $route, $action, $name = null)
 	{
 		$route = new Route($methods, $route, $action, $name);
 
@@ -189,7 +150,7 @@ class Routes
 
 	public function get($route, $action, $name = null)
 	{
-		return $this->addRoute(['GET', 'HEAD', 'OPTIONS'], $route, $action, $name);
+		return $this->registerRoute(['GET', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -203,7 +164,7 @@ class Routes
 
 	public function post($route, $action, $name = null)
 	{
-		return $this->addRoute(['POST', 'OPTIONS'], $route, $action, $name);
+		return $this->registerRoute(['POST', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -217,7 +178,7 @@ class Routes
 
 	public function put($route, $action, $name = null)
 	{
-		return $this->addRoute(['PUT', 'OPTIONS'], $route, $action, $name);
+		return $this->registerRoute(['PUT', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -231,7 +192,7 @@ class Routes
 
 	public function patch($route, $action, $name = null)
 	{
-		return $this->addRoute(['PATCH', 'OPTIONS'], $route, $action, $name);
+		return $this->registerRoute(['PATCH', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -245,7 +206,7 @@ class Routes
 
 	public function delete($route, $action, $name = null)
 	{
-		return $this->addRoute(['DELETE', 'OPTIONS'], $route, $action, $name);
+		return $this->registerRoute(['DELETE', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -259,7 +220,7 @@ class Routes
 
 	public function all($route, $action, $name = null)
 	{
-		return $this->addRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $route, $action, $name);
+		return $this->registerRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
@@ -274,6 +235,6 @@ class Routes
 
 	public function methods(array $methods, $route, $action, $name = null)
 	{
-		return $this->addRoute($methods, $route, $action, $name);
+		return $this->registerRoute($methods, $route, $action, $name);
 	}
 }

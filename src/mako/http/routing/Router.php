@@ -22,14 +22,6 @@ use \mako\http\routing\MethodNotAllowedException;
 class Router
 {
 	/**
-	 * Request.
-	 * 
-	 * @var \mako\http\Request
-	 */
-
-	protected $request;
-
-	/**
 	 * Route collection.
 	 * 
 	 * @var \mako\http\routing\Routes
@@ -41,13 +33,11 @@ class Router
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Request         $request  Request
 	 * @param   \mako\http\routing\Routes  $routes   Routes
 	 */
 
-	public function __construct(Request $request, Routes $routes)
+	public function __construct(Routes $routes)
 	{
-		$this->request = $request;
 		$this->routes  = $routes;
 	}
 
@@ -100,23 +90,54 @@ class Router
 	}
 
 	/**
-	 * Matches and returns the appropriate route.
+	 * Returns TRUE if the route matches the request path and FALSE if not.
 	 * 
-	 * @access  public
-	 * @return  \mako\http\routing\Route
+	 * @access  protected
+	 * @param   \mako\http\routing\Route  $route       Route
+	 * @param   string                    $path        Request path
+	 * @param   array                     $parameters  Parameters
+	 * @return  boolean
 	 */
 
-	public function route()
+	protected function matches(Route $route, $path, array &$parameters)
+	{
+		if(preg_match($route->getRegex(), $path, $parameters) > 0)
+		{
+			foreach($parameters as $key => $value)
+			{
+				if(is_int($key))
+				{
+					unset($parameters[$key]);
+				}
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Matches and returns the appropriate route along with its parameters.
+	 * 
+	 * @access  public
+	 * @param   \mako\http\Request  $request  Request
+	 * @return  array
+	 */
+
+	public function route(Request $request)
 	{
 		$matched = false;
 
-		$requestMethod = $this->request->method();
+		$parameters = [];
 
-		$requestPath = $this->request->path();
+		$requestMethod = $request->method();
+
+		$requestPath = $request->path();
 
 		foreach($this->routes->getRoutes() as $route)
 		{
-			if($route->isMatch($requestPath))
+			if($this->matches($route, $requestPath, $parameters))
 			{
 				if(!$route->allows($requestMethod))
 				{
@@ -129,7 +150,7 @@ class Router
 
 				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/')
 				{
-					return $this->redirectRoute($requestPath);
+					return [$this->redirectRoute($requestPath), []];
 				}
 
 				// If this is an "OPTIONS" request then well collect all the allowed request methods
@@ -145,7 +166,7 @@ class Router
 
 				// Return the matched route
 
-				return $route;
+				return [$route, $parameters];
 			}
 		}
 
