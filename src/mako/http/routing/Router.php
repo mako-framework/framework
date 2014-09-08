@@ -80,7 +80,7 @@ class Router
 
 		foreach($this->routes->getRoutes() as $route)
 		{
-			if($route->isMatch($requestPath))
+			if($this->matches($route, $requestPath))
 			{
 				$methods = array_merge($methods, $route->getMethods());
 			}
@@ -95,11 +95,11 @@ class Router
 	 * @access  protected
 	 * @param   \mako\http\routing\Route  $route       Route
 	 * @param   string                    $path        Request path
-	 * @param   array                     $parameters  Parameters
+	 * @param   array                     $parameters  (optional) Parameters
 	 * @return  boolean
 	 */
 
-	protected function matches(Route $route, $path, array &$parameters)
+	protected function matches(Route $route, $path, array &$parameters = [])
 	{
 		if(preg_match($route->getRegex(), $path, $parameters) > 0)
 		{

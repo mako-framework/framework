@@ -14,30 +14,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testFilter()
-	{
-		$routes = new Routes();
-
-		$routes->filter('foo', function(){});
-
-		$this->assertInstanceOf('\Closure', $routes->getFilter('foo'));
-	}
-
-	/**
-	 * @expectedException \RuntimeException
-	 */
-
-	public function testFilterException()
-	{
-		$routes = new Routes();
-
-		$routes->getFilter('foo');
-	}
-
-	/**
-	 * 
-	 */
-
 	public function testRouteRegistration1()
 	{
 		$routes = new Routes();

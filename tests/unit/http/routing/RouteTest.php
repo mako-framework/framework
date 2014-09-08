@@ -18,23 +18,23 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	{
 		$route = new Route(['GET'], '/', 'FooController::fooAction');
 
-		$this->assertTrue($route->isMatch('/'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/'));
 
 		//
 
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
 
-		$this->assertTrue($route->isMatch('/foo'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo'));
 
-		$this->assertFalse($route->isMatch('/foo/'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/'));
 
 		//
 
 		$route = new Route(['GET'], '/foo/', 'FooController::fooAction');
 
-		$this->assertTrue($route->isMatch('/foo'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo'));
 
-		$this->assertTrue($route->isMatch('/foo/'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/'));
 	}
 
 	/**
@@ -45,21 +45,21 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	{
 		$route = new Route(['GET'], '/foo/{id}', 'FooController::fooAction');
 
-		$this->assertTrue($route->isMatch('/foo/123'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
 
-		$this->assertFalse($route->isMatch('/foo/'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/'));
 
-		$this->assertFalse($route->isMatch('/foo/123/'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/123/'));
 
 		//
 
 		$route = new Route(['GET'], '/foo/{id}/', 'FooController::fooAction');
 
-		$this->assertTrue($route->isMatch('/foo/123/'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/'));
 
-		$this->assertFalse($route->isMatch('/foo/'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/'));
 
-		$this->assertTrue($route->isMatch('/foo/123/'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/'));
 	}
 
 	/**
@@ -70,21 +70,21 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	{
 		$route = new Route(['GET'], '/foo/{id}/{slug}', 'FooController::fooAction');
 
-		$this->assertTrue($route->isMatch('/foo/123/foo-bar'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/foo-bar'));
 
-		$this->assertFalse($route->isMatch('/foo/123'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/123'));
 
-		$this->assertFalse($route->isMatch('/foo/123/foo-bar/'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/123/foo-bar/'));
 
 		//
 
 		$route = new Route(['GET'], '/foo/{id}/{slug}/', 'FooController::fooAction');
 
-		$this->assertTrue($route->isMatch('/foo/123/foo-bar/'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/foo-bar/'));
 
-		$this->assertFalse($route->isMatch('/foo/123/'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/123/'));
 
-		$this->assertTrue($route->isMatch('/foo/123/foo-bar'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/foo-bar'));
 	}
 
 	/**
@@ -95,21 +95,21 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	{
 		$route = new Route(['GET'], '/foo/{id}/{slug}?', 'FooController::fooAction');
 
-		$this->assertTrue($route->isMatch('/foo/123/foo-bar'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/foo-bar'));
 
-		$this->assertTrue($route->isMatch('/foo/123'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
 
-		$this->assertFalse($route->isMatch('/foo/123/'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/123/'));
 
 		//
 
 		$route = new Route(['GET'], '/foo/{id}/{slug}?/', 'FooController::fooAction');
 
-		$this->assertTrue($route->isMatch('/foo/123/foo-bar/'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/foo-bar/'));
 
-		$this->assertTrue($route->isMatch('/foo/123/'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/'));
 
-		$this->assertTrue($route->isMatch('/foo/123'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
 	}
 
 	/**
@@ -120,23 +120,23 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	{
 		$route = (new Route(['GET'], '/foo/{id}', 'FooController::fooAction'))->constraints(['id' => '[0-9]+']);
 
-		$this->assertTrue($route->isMatch('/foo/123'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
 
-		$this->assertFalse($route->isMatch('/foo/123/'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/123/'));
 
-		$this->assertFalse($route->isMatch('/foo/abc'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/abc'));
 
 		//
 
 		$route = (new Route(['GET'], '/foo/{id}/', 'FooController::fooAction'))->constraints(['id' => '[0-9]+']);
 
-		$this->assertTrue($route->isMatch('/foo/123'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
 
-		$this->assertTrue($route->isMatch('/foo/123/'));
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/'));
 
-		$this->assertFalse($route->isMatch('/foo/abc'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/abc'));
 
-		$this->assertFalse($route->isMatch('/foo/abc/'));
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/abc/'));
 	}
 
 	/**
@@ -313,18 +313,58 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testParameters()
+	public function testGetRegex()
 	{
+		$route = new Route(['GET'], '/', 'FooController::fooAction');
+
+		$this->assertSame('#^/?$#s', $route->getRegex());
+
+		//
+
+		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
+
+		$this->assertSame('#^/foo$#s', $route->getRegex());
+
+		//
+
+		$route = new Route(['GET'], '/foo/', 'FooController::fooAction');
+
+		$this->assertSame('#^/foo/?$#s', $route->getRegex());
+
+		//
+
+		$route = new Route(['GET'], '/foo/bar', 'FooController::fooAction');
+
+		$this->assertSame('#^/foo/bar$#s', $route->getRegex());
+
+		//
+
+		$route = new Route(['GET'], '/{id}', 'FooController::fooAction');
+
+		$this->assertSame('#^/(?P<id>[^/]++)$#s', $route->getRegex());
+
+		//
+
 		$route = new Route(['GET'], '/foo/{id}', 'FooController::fooAction');
 
-		$route->isMatch('/foo/123');
+		$this->assertSame('#^/foo/(?P<id>[^/]++)$#s', $route->getRegex());
 
-		$this->assertEquals(['id' => '123'], $route->getParameters());
+		//
 
-		$this->assertEquals('123', $route->param('id'));
+		$route = new Route(['GET'], '/foo/{id}/bar', 'FooController::fooAction');
 
-		$this->assertEquals(null, $route->param('slug'));
+		$this->assertSame('#^/foo/(?P<id>[^/]++)/bar$#s', $route->getRegex());
 
-		$this->assertEquals('baz', $route->param('slug', 'baz'));
+		//
+
+		$route = new Route(['GET'], '/foo/{id}/', 'FooController::fooAction');
+
+		$this->assertSame('#^/foo/(?P<id>[^/]++)/?$#s', $route->getRegex());
+
+		//
+
+		$route = (new Route(['GET'], '/foo/{id}', 'FooController::fooAction'))->constraints(['id' => '[0-9]+']);
+
+		$this->assertSame('#^/foo/(?P<id>[0-9]+)$#s', $route->getRegex());
 	}
 }

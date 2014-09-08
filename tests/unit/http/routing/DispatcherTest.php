@@ -89,6 +89,14 @@ class ControllerWithInjection extends \mako\http\routing\Controller
 	}
 }
 
+class FooFilter
+{
+	public function filter()
+	{
+		return 'Foo class filter';
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -114,7 +122,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testClosureAction()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
 		$route = m::mock('\mako\http\routing\Route');
 
@@ -129,15 +137,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
 
-		$route->shouldReceive('getParameters')->once()->andReturn([]);
-
 		$request = m::mock('\mako\http\Request');
 
 		$request->shouldReceive('method')->once()->andReturn('GET');
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -150,7 +156,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testClosureActionWithParams()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
 		$route = m::mock('\mako\http\routing\Route');
 
@@ -167,15 +173,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
 
-		$route->shouldReceive('getParameters')->once()->andReturn(['who' => 'Kitty']);
-
 		$request = m::mock('\mako\http\Request');
 
 		$request->shouldReceive('method')->once()->andReturn('GET');
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route, ['who' => 'Kitty']);
 
 		$response = $dispatcher->dispatch();
 
@@ -190,7 +194,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testControllerAction()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
 		$route = m::mock('\mako\http\routing\Route');
 
@@ -202,15 +206,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
 
-		$route->shouldReceive('getParameters')->once()->andReturn([]);
-
 		$request = m::mock('\mako\http\Request');
 
 		$request->shouldReceive('method')->once()->andReturn('GET');
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -225,7 +227,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testControllerActionWithParams()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
 		$route = m::mock('\mako\http\routing\Route');
 
@@ -237,15 +239,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
 
-		$route->shouldReceive('getParameters')->once()->andReturn(['who' => 'Kitty']);
-
 		$request = m::mock('\mako\http\Request');
 
 		$request->shouldReceive('method')->once()->andReturn('GET');
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route, ['who' => 'Kitty']);
 
 		$response = $dispatcher->dispatch();
 
@@ -258,7 +258,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testControllerWithNullBeforeFilter()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
 		$route = m::mock('\mako\http\routing\Route');
 
@@ -270,15 +270,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
 
-		$route->shouldReceive('getParameters')->once()->andReturn([]);
-
 		$request = m::mock('\mako\http\Request');
 
 		$request->shouldReceive('method')->once()->andReturn('GET');
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -293,7 +291,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testControllerWithBeforeFilter()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
 		$route = m::mock('\mako\http\routing\Route');
 
@@ -309,7 +307,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -322,7 +320,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testControllerActionWithAfterFilter()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
 		$route = m::mock('\mako\http\routing\Route');
 
@@ -334,15 +332,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
 
-		$route->shouldReceive('getParameters')->once()->andReturn([]);
-
 		$request = m::mock('\mako\http\Request');
 
 		$request->shouldReceive('method')->once()->andReturn('GET');
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -355,9 +351,9 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testRouteNullBeforeFilter()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
-		$routes->shouldReceive('getFilter')->once()->with('before')->andReturn(function($request, $response)
+		$filters->shouldReceive('get')->once()->with('before')->andReturn(function($request, $response)
 		{
 			$response->header('X-Foo-Bar', 'Foo Bar');
 		});
@@ -375,15 +371,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
 
-		$route->shouldReceive('getParameters')->once()->andReturn([]);
-
 		$request = m::mock('\mako\http\Request');
 
 		$request->shouldReceive('method')->once()->andReturn('GET');
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -398,9 +392,9 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testRouteBeforeFilter()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
-		$routes->shouldReceive('getFilter')->once()->with('before')->andReturn(function()
+		$filters->shouldReceive('get')->once()->with('before')->andReturn(function()
 		{
 			return 'Before filter';
 		});
@@ -417,7 +411,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -430,9 +424,9 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testRouteAfterFilter()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
-		$routes->shouldReceive('getFilter')->once()->with('after')->andReturn(function($request, $response)
+		$filters->shouldReceive('get')->once()->with('after')->andReturn(function($request, $response)
 		{
 			$response->body(strtoupper($response->getBody()));
 		});
@@ -450,15 +444,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAfterFilters')->once()->andReturn(['after']);
 
-		$route->shouldReceive('getParameters')->once()->andReturn([]);
-
 		$request = m::mock('\mako\http\Request');
 
 		$request->shouldReceive('method')->once()->andReturn('GET');
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -471,9 +463,9 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testFilterParam()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
-		$routes->shouldReceive('getFilter')->once()->with('before')->andReturn(function($request, $response, $param)
+		$filters->shouldReceive('get')->once()->with('before')->andReturn(function($request, $response, $param)
 		{
 			return $param;
 		});
@@ -490,7 +482,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -503,9 +495,9 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testFilterParams()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
-		$routes->shouldReceive('getFilter')->once()->with('before')->andReturn(function($request, $response, $param1, $param2)
+		$filters->shouldReceive('get')->once()->with('before')->andReturn(function($request, $response, $param1, $param2)
 		{
 			return $param1 . $param2;
 		});
@@ -522,7 +514,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -535,7 +527,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testRouteHeaders()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
 		$route = m::mock('\mako\http\routing\Route');
 
@@ -550,15 +542,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
 
-		$route->shouldReceive('getParameters')->once()->andReturn([]);
-
 		$request = m::mock('\mako\http\Request');
 
 		$request->shouldReceive('method')->once()->andReturn('GET');
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -571,9 +561,9 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testOptionsRequest()
+	public function _testOptionsRequest()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
 		$route = m::mock('\mako\http\routing\Route');
 
@@ -585,7 +575,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -600,7 +590,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 	public function testControllerInjection()
 	{
-		$routes = m::mock('\mako\http\routing\Routes');
+		$filters = m::mock('\mako\http\routing\Filters');
 
 		$route = m::mock('\mako\http\routing\Route');
 
@@ -612,7 +602,34 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
 
-		$route->shouldReceive('getParameters')->once()->andReturn([]);
+		$request = m::mock('\mako\http\Request');
+
+		$request->shouldReceive('method')->once()->andReturn('GET');
+
+		$response = m::mock('\mako\http\Response')->makePartial();
+
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
+
+		$response = $dispatcher->dispatch();
+
+		$this->assertEquals('Hello, world!', $response->getBody());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testClassFilter()
+	{
+		$filters = m::mock('\mako\http\routing\Filters');
+
+		$filters->shouldReceive('get')->once()->with('before')->andReturn('mako\tests\unit\http\routing\FooFilter');
+
+		$route = m::mock('\mako\http\routing\Route');
+
+		$route->shouldReceive('getHeaders')->once()->andReturn([]);
+
+		$route->shouldReceive('getBeforeFilters')->once()->andReturn(['before']);
 
 		$request = m::mock('\mako\http\Request');
 
@@ -620,10 +637,10 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
 		$response = m::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($routes, $route, $request, $response);
+		$dispatcher = new Dispatcher($request, $response, $filters, $route);
 
 		$response = $dispatcher->dispatch();
 
-		$this->assertEquals('Hello, world!', $response->getBody());
+		$this->assertEquals('Foo class filter', $response->getBody());
 	}
 }
