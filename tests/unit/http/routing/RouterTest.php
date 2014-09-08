@@ -49,9 +49,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function getRouter($request, $routes)
+	public function getRouter($routes)
 	{
-		return new Router($request, $this->getRouteCollection($routes));
+		return new Router($this->getRouteCollection($routes));
 	}
 
 	/**
@@ -60,19 +60,19 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 	public function testPageNotFound()
 	{
+		$route = m::mock('\mako\http\routing\Route');
+
+		$route->shouldReceive('getRegex')->andReturn('#^/bar$#s');
+
+		$router = $this->getRouter([$route]);
+
 		$request = $this->getRequest();
 
 		$request->shouldReceive('method')->andReturn('GET');
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
-		$route = m::mock('\mako\http\routing\Route');
-
-		$route->shouldReceive('isMatch')->andReturn(false);
-
-		$router = $this->getRouter($request, [$route]);
-
-		$router->route();
+		$router->route($request);
 	}
 
 	/**
@@ -81,25 +81,25 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 	public function testMethodNotAllowed()
 	{
+		$route = m::mock('\mako\http\routing\Route');
+
+		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+
+		$route->shouldReceive('allows')->andReturn(false);
+
+		$route->shouldReceive('getMethods')->andReturn(['POST', 'OPTIONS']);
+
+		$router = $this->getRouter([$route]);
+
 		$request = $this->getRequest();
 
 		$request->shouldReceive('method')->andReturn('GET');
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
-		$route = m::mock('\mako\http\routing\Route');
-
-		$route->shouldReceive('isMatch')->andReturn(true);
-
-		$route->shouldReceive('allows')->andReturn(false);
-
-		$route->shouldReceive('getMethods')->andReturn(['POST', 'OPTIONS']);
-
-		$router = $this->getRouter($request, [$route]);
-
 		try
 		{
-			$router->route();
+			$router->route($request);
 		}
 		catch(Exception $e)
 		{
@@ -115,29 +115,31 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 	public function testRedirect()
 	{
+		$route = m::mock('\mako\http\routing\Route');
+
+		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+
+		$route->shouldReceive('allows')->andReturn(true);
+
+		$route->shouldReceive('hasTrailingSlash')->andReturn(true);
+
+		$router = $this->getRouter([$route]);
+
 		$request = $this->getRequest();
 
 		$request->shouldReceive('method')->andReturn('GET');
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
-		$route = m::mock('\mako\http\routing\Route');
+		$routed = $router->route($request);
 
-		$route->shouldReceive('isMatch')->andReturn(true);
+		$this->assertInstanceOf('\mako\http\routing\Route', $routed[0]);
 
-		$route->shouldReceive('allows')->andReturn(true);
+		$this->assertSame([], $routed[1]);
 
-		$route->shouldReceive('hasTrailingSlash')->andReturn(true);
+		$this->assertEmpty($routed[0]->getRoute());
 
-		$router = $this->getRouter($request, [$route]);
-
-		$routed = $router->route();
-
-		$this->assertInstanceOf('\mako\http\routing\Route', $routed);
-
-		$this->assertEmpty($routed->getRoute());
-
-		$this->assertEmpty($routed->getMethods());
+		$this->assertEmpty($routed[0]->getMethods());
 	}
 
 	/**
@@ -146,17 +148,11 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 	public function testOptionsRequest()
 	{
-		$request = $this->getRequest();
-
-		$request->shouldReceive('method')->andReturn('OPTIONS');
-
-		$request->shouldReceive('path')->andReturn('/foo');
-
 		$route = m::mock('\mako\http\routing\Route');
 
 		$route->makePartial();
 
-		$route->shouldReceive('isMatch')->andReturn(true);
+		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
 
 		$route->shouldReceive('allows')->andReturn(true);
 
@@ -164,11 +160,17 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getMethods')->andReturn(['POST', 'OPTIONS']);
 
-		$router = $this->getRouter($request, [$route]);
+		$router = $this->getRouter([$route]);
 
-		$routed = $router->route();
+		$request = $this->getRequest();
 
-		$this->assertEquals(['allow' => 'POST,OPTIONS'], $routed->getHeaders());
+		$request->shouldReceive('method')->andReturn('OPTIONS');
+
+		$request->shouldReceive('path')->andReturn('/foo');
+
+		$routed = $router->route($request);
+
+		$this->assertEquals(['allow' => 'POST,OPTIONS'], $routed[0]->getHeaders());
 	}
 
 	/**
@@ -177,24 +179,55 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 	public function testSuccessfulRoute()
 	{
+		$route = m::mock('\mako\http\routing\Route');
+
+		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+
+		$route->shouldReceive('allows')->andReturn(true);
+
+		$route->shouldReceive('hasTrailingSlash')->andReturn(false);
+
+		$router = $this->getRouter([$route]);
+
 		$request = $this->getRequest();
 
 		$request->shouldReceive('method')->andReturn('GET');
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
+		$routed = $router->route($request);
+
+		$this->assertSame($route, $routed[0]);
+
+		$this->assertSame([], $routed[1]);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testSuccessfulRouteWithParameters()
+	{
 		$route = m::mock('\mako\http\routing\Route');
 
-		$route->shouldReceive('isMatch')->andReturn(true);
+		$route->shouldReceive('getRegex')->andReturn('#^/foo/(?P<id>[^/]++)$#s');
 
 		$route->shouldReceive('allows')->andReturn(true);
 
 		$route->shouldReceive('hasTrailingSlash')->andReturn(false);
 
-		$router = $this->getRouter($request, [$route]);
+		$router = $this->getRouter([$route]);
 
-		$routed = $router->route();
+		$request = $this->getRequest();
 
-		$this->assertEquals($route, $routed);
+		$request->shouldReceive('method')->andReturn('GET');
+
+		$request->shouldReceive('path')->andReturn('/foo/123');
+
+		$routed = $router->route($request);
+
+		$this->assertSame($route, $routed[0]);
+
+		$this->assertSame(['id' => '123'], $routed[1]);
 	}
 }

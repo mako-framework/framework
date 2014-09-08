@@ -12,6 +12,7 @@ use \RuntimeException;
 
 use \mako\autoloading\AliasLoader;
 use \mako\config\Config;
+use \mako\http\routing\Filters;
 use \mako\file\FileSystem;
 use \mako\syringe\Container;
 
@@ -423,21 +424,53 @@ abstract class Application
 	}
 
 	/**
-	 * Loads application routes.
+	 * Loads filters.
 	 * 
 	 * @access  protected
+	 * @return  \mako\http\routing\Filters
+	 */
+
+	protected function loadFilters()
+	{
+		$loader = function($app, $container, $filters)
+		{
+			include $this->applicationPath . '/routing/filters.php';
+
+			return $filters;
+		};
+
+		return $loader($this, $this->container, new Filters);
+	}
+
+	/**
+	 * Loads routes.
+	 * 
+	 * @access  protected
+	 * @return  \mako\http\routing\Routes
 	 */
 
 	protected function loadRoutes()
 	{
 		$loader = function($app, $container, $routes)
 		{
-			include $this->applicationPath . '/routes.php';
+			include $this->applicationPath . '/routing/routes.php';
 
 			return $routes;
 		};
 
 		return $loader($this, $this->container, $this->container->get('routes'));
+	}
+
+	/**
+	 * Loads filters and routes.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function loadRouting()
+	{
+		return [$this->loadFilters(), $this->loadRoutes()];
 	}
 
 	/**

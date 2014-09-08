@@ -26,23 +26,6 @@ use \mako\syringe\Container;
 class Dispatcher
 {
 	/**
-	 * Route collection.
-	 * 
-	 * @var \mako\http\routing\Routes
-	 */
-
-	protected $routes;
-
-
-	/**
-	 * Route to be dispatched.
-	 * 
-	 * @var \mako\http\routing\Route
-	 */
-
-	protected $route;
-
-	/**
 	 * Request.
 	 * 
 	 * @var \mako\http\Request
@@ -57,6 +40,31 @@ class Dispatcher
 	 */
 
 	protected $response;
+
+	/**
+	 * Route filters.
+	 * 
+	 * @var \mako\http\routing\Filters
+	 */
+
+	protected $filters;
+
+
+	/**
+	 * Route to be dispatched.
+	 * 
+	 * @var \mako\http\routing\Route
+	 */
+
+	protected $route;
+
+	/**
+	 * Route parameters.
+	 * 
+	 * @var array
+	 */
+
+	protected $parameters;
 
 	/**
 	 * IoC container instance.
@@ -78,20 +86,47 @@ class Dispatcher
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\routing\Routes  $routes    Route collection
-	 * @param   \mako\http\routing\Route   $route     The route we're dispatching
-	 * @param   \mako\http\Request         $request   Request instance
-	 * @param   \mako\http\Response        $response  (optional) Response instance
-	 * @param   \mako\syringe\Container    $container (optional) IoC container
+	 * @param   \mako\http\Request          $request     Request instance
+	 * @param   \mako\http\Response         $response    Response instance
+	 * @param   \mako\http\routing\Filters  $filters     Filter collection
+	 * @param   \mako\http\routing\Route    $route       The route we're dispatching
+	 * @param   array                       $parameters  Route parameters
+	 * @param   \mako\syringe\Container     $container   (optional) IoC container
 	 */
 
-	public function __construct(Routes $routes, Route $route, Request $request, Response $response = null, Container $container = null)
+	public function __construct(Request $request, Response $response, Filters $filters, Route $route, array $parameters = [], Container $container = null)
 	{
-		$this->routes     = $routes;
-		$this->route      = $route;
-		$this->request    = $request;
-		$this->response   = $response ?: new Response($request);
-		$this->container  = $container ?: new Container;
+		$this->request = $request;
+
+		$this->response = $response;
+
+		$this->filters = $filters;
+
+		$this->route = $route;
+
+		$this->parameters = $parameters;
+
+		$this->container = $container ?: new Container;
+	}
+
+	/**
+	 * Resolves the filter.
+	 * 
+	 * @access  protected
+	 * @param   string         $filter  Filter
+	 * @return  array|Closure
+	 */
+
+	protected function resolveFilter($filter)
+	{
+		$filter = $this->filters->get($filter);
+
+		if(!($filter instanceof Closure))
+		{
+			$filter = [$this->container->get($filter), 'filter'];
+		}
+
+		return $filter;
 	}
 
 	/**
@@ -106,21 +141,18 @@ class Dispatcher
 	{
 		$parameters = [];
 
-		if(($filter instanceof Closure) === false)
+		// Check if we have filter paramters
+
+		if(($position = strpos($filter, '[')) !== false)
 		{
-			// Check if we have filter paramters
+			$parameters = explode(',', substr($filter, $position + 1, -1));
 
-			if(($position = strpos($filter, '[')) !== false)
-			{
-				$parameters = explode(',', substr($filter, $position + 1, -1));
-
-				$filter = substr($filter, 0, $position);
-			}
-
-			// Get the filter from the route collection
-
-			$filter = $this->routes->getFilter($filter);
+			$filter = substr($filter, 0, $position);
 		}
+
+		// Get the filter from the route collection
+
+		$filter = $this->resolveFilter($filter);
 
 		// Execute the filter and return its return value
 
@@ -174,7 +206,7 @@ class Dispatcher
 
 	protected function dispatchClosure(Closure $closure)
 	{
-		$this->response->body(call_user_func_array($closure, array_merge([$this->request, $this->response], $this->route->getParameters())));
+		$this->response->body(call_user_func_array($closure, array_merge([$this->request, $this->response], $this->parameters)));
 	}
 
 	/**
@@ -190,11 +222,6 @@ class Dispatcher
 
 		$controller = $this->container->get($controller, [$this->request, $this->response]);
 
-		if(!($controller instanceof Controller))
-		{
-			throw new RuntimeException(vsprintf("%s(): All controllers must extend the mako\http\\routing\Controller class.", [__METHOD__]));
-		}
-
 		$returnValue = $controller->beforeFilter();
 
 		if(empty($returnValue))
@@ -202,7 +229,7 @@ class Dispatcher
 			// The before filter didn't return any data so we can set the response body to whatever 
 			// the route action returns before executing its after filter
 
-			$this->response->body(call_user_func_array([$controller, $method], $this->route->getParameters()));
+			$this->response->body(call_user_func_array([$controller, $method], $this->parameters));
 
 			$controller->afterFilter();
 		}

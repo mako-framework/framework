@@ -39,18 +39,16 @@ class Web extends Application
 			$this->setLanguage($language);
 		}
 
-		// Load routes
+		// Load filters and routes
 
-		$routes = $this->loadRoutes();
+		list($filters, $routes) = $this->loadRouting();
 
 		// Route the request
 
-		$router = new Router($request, $routes);
-
-		$route = $router->route();
-
+		list($route, $parameters) = (new Router($routes))->route($request);
+		
 		// Dispatch the request and send the response
 
-		(new Dispatcher($routes, $route, $request, $this->container->get('response'), $this->container))->dispatch()->send();
+		(new Dispatcher($request, $this->container->get('response'), $filters, $route, $parameters, $this->container))->dispatch()->send();
 	}
 }
