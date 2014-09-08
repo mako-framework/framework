@@ -37,6 +37,11 @@ class Web extends Application
 		if(($language = $request->language()) !== null)
 		{
 			$this->setLanguage($language);
+
+			if($this->container->has('i18n'))
+			{
+				$this->container->get('i18n')->setLanguage($this->getLanguage());
+			}
 		}
 
 		// Load filters and routes
