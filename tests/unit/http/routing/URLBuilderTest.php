@@ -157,7 +157,11 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 
 	public function testToCurrent()
 	{
-		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes(), true);
+		$request = $this->getRequest();
+
+		$request->shouldReceive('get')->times(2)->andReturn([]);
+
+		$urlBuilder = new URLBuilder($request, $this->getRoutes(), true);
 
 		$this->assertEquals('http://example.org/foo/bar', $urlBuilder->current());
 
@@ -166,5 +170,22 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('http://example.org/foo/bar?bar=baz&baz=bar', $urlBuilder->current(['bar' => 'baz', 'baz' => 'bar'], '&'));
 
 		$this->assertEquals('http://example.org/no-nb/foo/bar', $urlBuilder->current([], '&amp', 'no-nb'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testToCurrentWithQueryParams()
+	{
+		$request = $this->getRequest();
+
+		$request->shouldReceive('get')->once()->andReturn(['foo' => 'bar']);
+
+		$urlBuilder = new URLBuilder($request, $this->getRoutes(), true);
+
+		$this->assertEquals('http://example.org/foo/bar?foo=bar', $urlBuilder->current());
+
+		$this->assertEquals('http://example.org/foo/bar?bar=foo', $urlBuilder->current(['bar' => 'foo']));
 	}
 }

@@ -154,39 +154,6 @@ class URLBuilder
 	}
 
 	/**
-	 * Returns the URL of the specified route.
-	 *
-	 * @access  public
-	 * @param   string   $route        URL segments
-	 * @param   mixed    $language     (optional) Request language
-	 * @param   array    $queryParams  (optional) Associative array used to build URL-encoded query string
-	 * @param   string   $separator    (optional) Argument separator
-	 * @return  string
-	 */
-
-	public function toLanguage($route = '', $language = true, array $queryParams = [], $separator = '&amp;')
-	{
-		return $this->to($route, $queryParams, $separator, $language);
-	}
-
-	/**
-	 * Returns the URL of a named route.
-	 * 
-	 * @access  public
-	 * @param   string  $routeName  Route name
-	 * @param   array   $routeParams  (optional) Route parameters
-	 * @param   mixed   $language     (optional) Request language
-	 * @param   array   $queryParams  (optional) Associative array used to build URL-encoded query string
-	 * @param   string  $separator    (optional) Argument separator
-	 * @return  string
-	 */
-
-	public function toRouteLanguage($routeName, array $routeParams = [], $language = true, array $queryParams = [], $separator = '&amp;')
-	{
-		return $this->toRoute($routeName, $routeParams, $queryParams, $separator, $language);
-	}
-
-	/**
 	 * Returns the current URL of the request.
 	 *
 	 * @access  public
@@ -198,6 +165,56 @@ class URLBuilder
 
 	public function current(array $queryParams = [], $separator = '&amp;', $language = true)
 	{
+		$queryParams = $queryParams ?: $this->request->get();
+
 		return $this->to($this->request->path(), $queryParams, $separator, $language);
+	}
+
+	/**
+	 * Returns the URL of the specified route.
+	 *
+	 * @access  public
+	 * @param   string   $route        URL segments
+	 * @param   mixed    $language     Request language
+	 * @param   array    $queryParams  (optional) Associative array used to build URL-encoded query string
+	 * @param   string   $separator    (optional) Argument separator
+	 * @return  string
+	 */
+
+	public function toLanguage($route, $language, array $queryParams = [], $separator = '&amp;')
+	{
+		return $this->to($route, $queryParams, $separator, $language);
+	}
+
+	/**
+	 * Returns the URL of a named route.
+	 * 
+	 * @access  public
+	 * @param   string  $routeName    Route name
+	 * @param   string  $language     Request language
+	 * @param   array   $routeParams  (optional) Route parameters
+	 * @param   array   $queryParams  (optional) Associative array used to build URL-encoded query string
+	 * @param   string  $separator    (optional) Argument separator
+	 * @return  string
+	 */
+
+	public function toRouteLanguage($routeName, $language, array $routeParams = [], array $queryParams = [], $separator = '&amp;')
+	{
+		return $this->toRoute($routeName, $routeParams, $queryParams, $separator, $language);
+	}
+
+	/**
+	 * Returns the current URL of the request.
+	 * 
+	 * @access  public
+	 * @param   string  $language     Request language
+	 * @param   array   $queryParams  (optional) Query parameters
+	 * @param   string  $separator    (optional) Argument separator
+	 * @return  string
+	 */
+
+	public function currentLanguage($language, array $queryParams = [], $separator = '&amp;')
+	{
+		return $this->current($queryParams, $separator, $language);
 	}
 }

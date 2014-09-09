@@ -123,7 +123,7 @@ class App extends Task
 
 			foreach($route->getBeforeFilters() as $filter)
 			{
-				$beforeFilters[] = ($filter instanceof Closure) ? 'Closure' : $filter;
+				$beforeFilters[] = $filter;
 			}
 
 			// Normalize after filter names
@@ -132,7 +132,7 @@ class App extends Task
 
 			foreach($route->getAfterFilters() as $filter)
 			{
-				$beforeFilters[] = ($filter instanceof Closure) ? 'Closure' : $filter;
+				$beforeFilters[] = $filter;
 			}
 
 			// Build table row

@@ -40,7 +40,7 @@ class Web extends Application
 
 			if($this->container->has('i18n'))
 			{
-				$this->container->get('i18n')->setLanguage($this->getLanguage());
+				$this->container->get('i18n')->setLanguage($this->language);
 			}
 		}
 
