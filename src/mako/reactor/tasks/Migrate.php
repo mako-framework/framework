@@ -243,6 +243,34 @@ class Migrate extends Task
 	}
 
 	/**
+	 * Ouputs a migration list.
+	 * 
+	 * @access  public
+	 * @param   array   $migrations  Migrations
+	 */
+
+	protected function outputMigrationList(array $migrations)
+	{
+		$tableBody = [];
+
+		foreach($migrations as $migration)
+		{
+			$name = $migration->version;
+
+			if(!empty($migration->package))
+			{
+				$name .= ' (' . $migration->package . ')';
+			}
+
+			$description = $this->resolve($migration)->getDescription();
+
+			$tableBody[] = [$name, $description];
+		}
+
+		$this->output->table(['Migration', 'Description'], $tableBody);
+	}
+
+	/**
 	 * Displays the number of outstanding migrations.
 	 *
 	 * @access  public
@@ -250,9 +278,15 @@ class Migrate extends Task
 
 	public function status()
 	{
-		if(($count = count($this->getOutstanding())) > 0)
+		$migrations = $this->getOutstanding();
+
+		if(($count = count($migrations)) > 0)
 		{
-			$this->output->writeln(vsprintf(($count === 1 ? 'There is %s outstanding migration.' : 'There are %s outstanding migrations.'), ['<yellow>' . $count . '</yellow>']));
+			$message = $count === 1 ? 'There is %s outstanding migration:' : 'There are %s outstanding migrations:';
+
+			$this->output->writeln(vsprintf($message, ['<yellow>' . $count . '</yellow>']) . PHP_EOL);
+
+			$this->outputMigrationList($migrations);
 		}
 		else
 		{
@@ -304,16 +338,11 @@ class Migrate extends Task
 			$this->resolve($migration)->up();
 
 			$this->table()->insert(['batch' => $batch, 'package' => $migration->package, 'version' => $migration->version]);
-
-			$name = $migration->version;
-
-			if(!empty($migration->package))
-			{
-				$name .= ' (' . $migration->package . ')';
-			}
-
-			$this->output->writeln('Ran the ' . $name . ' migration.');
 		}
+
+		$this->output->writeln('Ran the following migrations:' . PHP_EOL);
+
+		$this->outputMigrationList($migrations);
 	}
 
 	/**
@@ -356,16 +385,11 @@ class Migrate extends Task
 			$this->resolve($migration)->down();
 
 			$this->table()->where('version', '=', $migration->version)->delete();
-
-			$name = $migration->version;
-
-			if(!empty($migration->package))
-			{
-				$name .= ' (' . $migration->package . ')';
-			}
-
-			$this->output->writeln('Rolled back the ' . $name . ' migration.');
 		}
+
+		$this->output->writeln('Rolled back the following migrations:' . PHP_EOL);
+
+		$this->outputMigrationList($migrations);
 	}
 
 	/**
@@ -413,7 +437,13 @@ class Migrate extends Task
 
 		// Create migration
 
-		$migration = str_replace(['{{namespace}}', '{{version}}'], [$namespace, $version], $this->fileSystem->getContents(__DIR__ . '/migrate/migration.tpl'));
+		$description = str_replace("'", "\'", $this->input->param('description'));
+
+		$search = ['{{namespace}}', '{{version}}', '{{description}}'];
+
+		$replace = [$namespace, $version, $description];
+
+		$migration = str_replace($search, $replace, $this->fileSystem->getContents(__DIR__ . '/migrate/migration.tpl'));
 
 		try
 		{

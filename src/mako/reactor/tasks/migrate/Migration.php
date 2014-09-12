@@ -38,6 +38,18 @@ abstract class Migration
 	}
 
 	/**
+	 * Returns the migration description.
+	 * 
+	 * @access  public
+	 * @return  string|null
+	 */
+
+	public function getDescription()
+	{
+		return isset($this->description) && !empty($this->description) ? $this->description : null;
+	}
+
+	/**
 	 * Makes changes to the database structure.
 	 *
 	 * @access  public

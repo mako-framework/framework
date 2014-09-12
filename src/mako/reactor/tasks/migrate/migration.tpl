@@ -7,6 +7,14 @@ use \mako\reactor\tasks\migrate\Migration;
 class Migration_{{version}} extends Migration
 {
 	/**
+	 * Description.
+	 * 
+	 * @var string
+	 */
+
+	protected $description = '{{description}}';
+
+	/**
 	 * Makes changes to the database structure.
 	 *
 	 * @access  public
