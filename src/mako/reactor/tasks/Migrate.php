@@ -91,7 +91,8 @@ class Migrate extends Task
 			'description' => 'Creates a new migration.',
 			'options'     => 
 			[
-				'package' => 'Package name.',
+				'package'     => 'Package name.',
+				'description' => 'Migration description.',
 			],
 		],
 	];
