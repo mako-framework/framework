@@ -266,7 +266,7 @@ class ViewFactory
 	}
 
 	/**
-	 * Creates and returns a view renderer instance.
+	 * Creates and returns a view instance.
 	 * 
 	 * @access  public
 	 * @param   string           $view       View
@@ -279,5 +279,19 @@ class ViewFactory
 		list($path, $extension) = $this->getViewPathAndExtension($view);
 
 		return new View($path, $variables + $this->globalVariables, $this->resolveRenderer($extension));
+	}
+
+	/**
+	 * Creates and returns a rendered view.
+	 * 
+	 * @access  public
+	 * @param   string  $view       View
+	 * @param   array   $variables  (optional) View variables
+	 * @return  string
+	 */
+
+	public function render($view, array $variables = [])
+	{
+		return $this->create($view, $variables)->render();
 	}
 }
