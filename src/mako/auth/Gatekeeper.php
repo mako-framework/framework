@@ -158,7 +158,7 @@ class Gatekeeper
 	 * Sets the identifier type.
 	 * 
 	 * @access  public
-	 * @param   string  $authKey  Auth key
+	 * @param   string  $identifier  Identifier type
 	 */
 
 	public function setIdentifier($identifier)
