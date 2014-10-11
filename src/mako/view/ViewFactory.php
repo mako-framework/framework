@@ -208,11 +208,12 @@ class ViewFactory
 	 * Returns an array containing the view path and the renderer we should use.
 	 * 
 	 * @access  protected
-	 * @param   string     $view  View
+	 * @param   string     $view            View
+	 * @param   boolean    $throwException  (optional) Throw exception if view doesn't exist?
 	 * @return  array
 	 */
 
-	protected function getViewPathAndExtension($view)
+	protected function getViewPathAndExtension($view, $throwException = true)
 	{
 		if(!isset($this->viewCache[$view]))
 		{
@@ -226,9 +227,14 @@ class ViewFactory
 				}
 			}
 
-			// We didn't find the view so we'll throw an exception
+			// We didn't find the view so we'll throw an exception or return false
 
-			throw new RuntimeException(vsprintf("%s(): The [ %s ] view does not exist.", [__METHOD__, $view]));
+			if($throwException)
+			{
+				throw new RuntimeException(vsprintf("%s(): The [ %s ] view does not exist.", [__METHOD__, $view]));
+			}
+
+			return false;
 		}
 
 		return $this->viewCache[$view];
@@ -263,6 +269,19 @@ class ViewFactory
 		}
 
 		return $this->rendererInstances[$extension];
+	}
+
+	/**
+	 * Returns TRUE if the view exists and false if not.
+	 * 
+	 * @access  public
+	 * @param   string   $view  View
+	 * @return  boolean
+	 */
+
+	public function exists($view)
+	{
+		return $this->getViewPathAndExtension($view, false) !== false;
 	}
 
 	/**
