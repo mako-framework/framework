@@ -2,6 +2,7 @@
 <html lang="en">
 	
 	<head>
+		<meta charset="{{$__charset__ }}">
 		<title>Error</title>
 
 		<style>
@@ -130,13 +131,13 @@
 	<body>
 
 		<div class="header">
-			<h1><?= $type ?> ( <?= $code ?> )</h1>
+			<h1>{{$type}} ( {{$code}} )</h1>
 
-			<?php if(!empty($message)): ?>
+			{% if(!empty($message)) %}
 
-				<h2><?= htmlspecialchars($message, ENT_QUOTES, $charset) ?></h2>
+				<h2>{{$message}}</h2>
 
-			<?php endif; ?>
+			{% endif %}
 		</div>
 
 		<div class="details">
@@ -145,49 +146,49 @@
 
 			<div class="panel">
 
-				<?php foreach($trace as $key => $frame): ?>
+				{% foreach($trace as $key => $frame) %}
 
 					<div class="frame">
 
-						<?= (count($trace) - $key) ?>.
+						{{(count($trace) - $key)}}.
 
-						<?php if(!empty($frame['file'])): ?>
+						{% if(!empty($frame['file'])) %}
 
-							<span class="file"><?= $frame['file'] ?></span>
+							<span class="file">{{$frame['file']}}</span>
 
-						<?php else: ?>
+						{% else %}
 
 							<span class="file">&lt;#UNKNOWN&gt;</span>
 
-						<?php endif; ?>
+						{% endif %}
 
-						<?php if(!empty($frame['line'])): ?>
+						{% if(!empty($frame['line'])) %}
 
-							: <span class="line"><a class="toggle-code" title="Toggle source"><?= $frame['line'] ?></a></span>
+							: <span class="line"><a class="toggle-code" title="Toggle source">{{$frame['line']}}</a></span>
 
-						<?php else: ?>
+						{% else %}
 
 							<span class="line">: 0</span>
 
-						<?php endif; ?>
+						{% endif %}
 
-						<?php if(!empty($frame['class'])): ?>
+						{% if(!empty($frame['class'])) %}
 
-							<span class="class"><?= $frame['class'] ?></span>
+							<span class="class">{{$frame['class']}}</span>
 
-						<?php endif; ?>
+						{% endif %}
 
-						<?php if(!empty($frame['type'])): ?>
+						{% if(!empty($frame['type'])) %}
 
-							<span class="type"><?= $frame['type'] ?></span>
+							<span class="type">{{$frame['type']}}</span>
 
-						<?php endif; ?>
+						{% endif %}
 
-						<?php if(!empty($frame['function'])): ?>
+						{% if(!empty($frame['function'])) %}
 
-							<span class="function"><?= $frame['function'] ?>(<?php if(!empty($frame['args'])): ?><a class="toggle-table" title="Toggle parameters">...</a><?php endif; ?>)</span>
+							<span class="function">{{$frame['function']}}({% if(!empty($frame['args'])) %}<a class="toggle-table" title="Toggle parameters">...</a>{% endif %})</span>
 
-							<?php if(!empty($frame['args'])): ?>
+							{% if(!empty($frame['args'])) %}
 
 								<table>
 
@@ -196,35 +197,34 @@
 										<th>Parameter</th>
 									</tr>
 
-									<?php foreach($frame['args'] as $key => $argument): ?>
+									{% foreach($frame['args'] as $key => $argument) %}
 
 										<tr>
-											<td><?= $key + 1 ?></td>
-											<td><pre><?= $argument ?></pre></td>
+											<td>{{$key + 1}}</td>
+											<td><pre>{{$argument}}</pre></td>
 										</tr>
 
-									<?php endforeach; ?>
+									{% endforeach %}
 
 								</table>
 
-							<?php endif; ?>
+							{% endif %}
 
-						<?php endif; ?>
+						{% endif %}
 
-						<?php if(!empty($frame['source'])): ?>
+						{% if(!empty($frame['source'])) %}
 
 							<div class="source">
 
-<code><pre><?php $startLine = $frame['line'] - $frame['source_padding']; ?>
-<?php foreach($frame['source'] as $key => $code): ?><div<?php if($startLine + $key === $frame['line']): ?> class="highlight"<?php endif; ?>><span class="code-line"><?= $startLine + $key; ?></span><?= str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $code); ?></div><?php endforeach; ?></pre></code>
+<code><pre>{% foreach($frame['source'] as $key => $code) %}<div{% if($frame['line'] - $frame['source_padding'] + $key === $frame['line']) %} class="highlight"{% endif %}><span class="code-line">{{$frame['line'] - $frame['source_padding'] + $key}}</span>{{preserve:str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $code)}}</div>{% endforeach %}</pre></code>
 
 							</div>
 
-						<?php endif; ?>
+						{% endif %}
 
 					</div>
 
-				<?php endforeach; ?>
+				{% endforeach %}
 
 			</div>
 
@@ -232,13 +232,13 @@
 
 			<div class="panel">
 
-				<?php foreach($superglobals as $name => $superglobal): ?>
+				{% foreach($superglobals as $name => $superglobal) %}
 
-					<?php if(!empty($superglobal)): ?>
+					{% if(!empty($superglobal)) %}
 
 						<div class="frame">
 
-							<span>$_<?= $name ?> ( <a class="toggle-table">toggle</a> )</span>
+							<span>$_{{$name}} ( <a class="toggle-table">toggle</a> )</span>
 
 							<table>
 
@@ -247,22 +247,22 @@
 									<th>Value</th>
 								</tr>
 
-								<?php foreach($superglobal as $key => $value): ?>
+								{% foreach($superglobal as $key => $value) %}
 
 									<tr>
-										<td><?= $key ?></td>
-										<td><?= htmlspecialchars(var_export($value, true), ENT_QUOTES, $charset) ?></pre></td>
+										<td>{{$key}}</td>
+										<td>{{var_export($value, true)}}</pre></td>
 									</tr>
 
-								<?php endforeach; ?>
+								{% endforeach %}
 
 							</table>
 
 						</div>
 
-					<?php endif; ?>
+					{% endif %}
 
-				<?php endforeach; ?>
+				{% endforeach %}
 
 			</div>
 
@@ -270,7 +270,7 @@
 
 			<div class="panel">
 
-				<?= count($included_files) ?> files have been included <span class="toggle-table">( <a>toggle</a> )</span>
+				{{count($included_files)}} files have been included <span class="toggle-table">( <a>toggle</a> )</span>
 
 				<table>
 
@@ -279,14 +279,14 @@
 						<th>Path</th>
 					</tr>
 
-					<?php foreach($included_files as $key => $file): ?>
+					{% foreach($included_files as $key => $file) %}
 
 						<tr>
-							<td><?= $key + 1 ?></td>
-							<td><pre><?= htmlspecialchars($file, ENT_QUOTES, $charset) ?></pre></td>
+							<td>{{$key + 1}}</td>
+							<td><pre>{{$file}}</pre></td>
 						</tr>
 
-					<?php endforeach; ?>
+					{% endforeach %}
 
 				</table>
 

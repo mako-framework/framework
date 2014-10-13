@@ -43,30 +43,28 @@ class ErrorHandlerService extends Service
 	{
 		$errorHandler = new ErrorHandler();
 
+		$displayErrors = $this->container->get('config')->get('application.error_handler.display_errors');
+
 		// Register the appropriate exception handler
 
 		if($this->container->get('app')->isCommandLine())
 		{
-			$errorHandler->handle('\Exception', function($exception) use ($errorHandler)
+			$errorHandler->handle('\Exception', function($exception) use ($errorHandler, $displayErrors)
 			{
 				$this->setLogger($errorHandler);
 
-				return (new CLIHandler($exception))->handle($this->container->get('config')->get('application.error_handler.display_errors'));
+				return (new CLIHandler($exception))->handle($displayErrors);
 			});
 		}
 		else
 		{
-			$errorHandler->handle('\Exception', function($exception) use ($errorHandler)
+			$errorHandler->handle('\Exception', function($exception) use ($errorHandler, $displayErrors)
 			{
 				$this->setLogger($errorHandler);
 
-				$webHandler = new WebHandler($exception);
+				$webHandler = new WebHandler($exception, $this->container->get('request'), $this->container->getFresh('response'), $this->container->get('view'));
 
-				$webHandler->setRequest($this->container->get('request'));
-
-				$webHandler->setResponse($this->container->getFresh('response'));
-
-				return $webHandler->handle($this->container->get('config')->get('application.error_handler.display_errors'));
+				return $webHandler->handle($displayErrors);
 			});
 		}
 

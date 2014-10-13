@@ -7,6 +7,7 @@
 
 namespace mako\error\handlers;
 
+use \Exception;
 use \ErrorException;
 
 use \mako\error\handlers\Handler;
@@ -14,6 +15,7 @@ use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\RequestException;
 use \mako\http\routing\MethodNotAllowedException;
+use \mako\view\ViewFactory;
 
 /**
  * Web handler.
@@ -48,47 +50,34 @@ class WebHandler extends Handler
 	protected $response;
 
 	/**
-	 * Response charset.
+	 * View factory.
 	 * 
-	 * @var string
+	 * @var \mako\view\ViewFactory
 	 */
 
-	protected $charset = 'UTF-8';
+	protected $view;
 
 	/**
-	 * Sets the request instance.
+	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\http\Request  $request  Request instance
+	 * @param   \Exception              $exception  Exception
+	 * @param   \mako\http\Request      $request    Request instance
+	 * @param   \mako\http\Response     $response   Response intance
+	 * @param   \mako\view\ViewFactory  $view       View factory instance
 	 */
 
-	public function setRequest(Request $request)
+	public function __construct(Exception $exception, Request $request, Response $response, ViewFactory $view)
 	{
+		parent::__construct($exception);
+
 		$this->request = $request;
-	}
 
-	/**
-	 * Sets the response instance.
-	 * 
-	 * @access  public
-	 * @param   \mako\http\Response  $response  Response instance
-	 */
-
-	public function setResponse(Response $response)
-	{
 		$this->response = $response;
-	}
 
-	/**
-	 * Sets the response charset.
-	 * 
-	 * @access  public
-	 * @param   string  $charset  Response charset
-	 */
+		$this->view = $view;
 
-	public function setCharset($charset)
-	{
-		$this->charset = $charset;
+		$this->view->registerNamespace('mako-error', __DIR__ . '/views');
 	}
 
 	/**
@@ -116,13 +105,7 @@ class WebHandler extends Handler
 
 	protected function renderErrorPage($__type__, $__data__ = [])
 	{
-		extract($__data__, EXTR_REFS);
-		
-		ob_start();
-
-		include(__DIR__ . '/resources/' . $__type__ . '.php');
-
-		return ob_get_clean();
+		return $this->view->render('mako-error::' . $__type__, $__data__);
 	}
 
 	/**
@@ -158,7 +141,7 @@ class WebHandler extends Handler
 
 			if($currentLine >= ($line - static::SOURCE_PADDING) && $currentLine <= ($line + static::SOURCE_PADDING))
 			{
-				$lines[] = htmlspecialchars($sourceCode, ENT_QUOTES, $this->charset);
+				$lines[] = $sourceCode;
 			}
 		}
 
@@ -190,7 +173,7 @@ class WebHandler extends Handler
 
 					var_dump($argument);
 
-					$trace[$frameKey]['args'][$argumentKey] = htmlspecialchars(ob_get_clean(), ENT_QUOTES, $this->charset);
+					$trace[$frameKey]['args'][$argumentKey] = ob_get_clean();
 				}
 			}
 
@@ -257,7 +240,7 @@ class WebHandler extends Handler
 				'SESSION' => &$_SESSION,
 			];
 
-			return $this->renderErrorPage('detailed', $data + ['charset' => $this->charset, 'superglobals' => $superGlobals, 'included_files' => get_included_files()]);
+			return $this->view->render('mako-error::detailed', $data + ['superglobals' => $superGlobals, 'included_files' => get_included_files()]);
 		}
 	}
 
@@ -271,13 +254,40 @@ class WebHandler extends Handler
 
 	protected function getGenericError($returnAsJson)
 	{
+		$code = $this->exception->getCode();
+
 		if($returnAsJson)
 		{
-			return json_encode(['message' => 'An error has occurred while processing your request.']);
+			switch($code)
+			{
+				case 403:
+					$message = 'You don\'t have permission to access the requested resource.';
+					break;
+				case 404:
+					$message = 'The resource you requested could not be found. It may have been moved or deleted.';
+					break;
+				case 405:
+					$message = 'The request method that was used is not supported by this resource.';
+					break;
+				default:
+					$message = 'An error has occurred while processing your request.';
+			}
+
+			return json_encode(['message' => $message]);
 		}
 		else
 		{
-			return $this->renderErrorPage('generic', ['charset' => $this->charset]);
+			$view = 'generic';
+
+			if($this->exception instanceof RequestException)
+			{
+				if($this->view->exists('mako-error::' . $code))
+				{
+					$view = $code;
+				}
+			}
+
+			return $this->view->render('mako-error::' . $view);
 		}
 	}
 
