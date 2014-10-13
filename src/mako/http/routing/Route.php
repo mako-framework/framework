@@ -88,14 +88,6 @@ class Route
 	protected $afterFilters = [];
 
 	/**
-	 * Route response headers.
-	 * 
-	 * @var array
-	 */
-
-	protected $responseHeaders = [];
-
-	/**
 	 * Matched parameters.
 	 * 
 	 * @var array
@@ -199,18 +191,6 @@ class Route
 	}
 
 	/**
-	 * Returns the response headers.
-	 * 
-	 * @access  public
-	 * @return  array
-	 */
-
-	public function getHeaders()
-	{
-		return $this->responseHeaders;
-	}
-
-	/**
 	 * Returns the matched route parameters.
 	 * 
 	 * @access  public
@@ -295,21 +275,6 @@ class Route
 	public function after($filters)
 	{
 		$this->afterFilters = array_merge($this->afterFilters, (array) $filters);
-
-		return $this;
-	}
-
-	/**
-	 * Adds a set of response headers.
-	 * 
-	 * @access  public
-	 * @param   array                     $responseHeaders  Response headers
-	 * @return  \mako\http\routing\Route
-	 */
-
-	public function headers(array $responseHeaders)
-	{
-		$this->responseHeaders = $responseHeaders + $this->responseHeaders;
 
 		return $this;
 	}

@@ -168,19 +168,15 @@ class Dispatcher
 
 	protected function beforeFilters()
 	{
-		$returnValue = null;
-
 		foreach($this->route->getBeforeFilters() as $filter)
 		{
 			$returnValue = $this->executeFilter($filter);
 
 			if(!empty($returnValue))
 			{
-				break; // Stop further execution of filters if one of them return data
+				return $returnValue;
 			}
 		}
-
-		return $returnValue;
 	}
 
 	/**
@@ -253,42 +249,30 @@ class Dispatcher
 
 	public function dispatch()
 	{
-		// Add route headers to response
+		$returnValue = $this->beforeFilters();
 
-		foreach($this->route->getHeaders() as $name => $value)
+		if(!empty($returnValue))
 		{
-			$this->response->header($name, $value);
+			$this->response->body($returnValue);
 		}
-
-		// Dispatch the request
-
-		if($this->request->method() !== 'OPTIONS')
+		else
 		{
-			$returnValue = $this->beforeFilters();
+			$action = $this->route->getAction();
 
-			if(!empty($returnValue))
+			if($action instanceof Closure)
 			{
-				$this->response->body($returnValue);
+				$this->dispatchClosure($action);
 			}
 			else
 			{
-				$action = $this->route->getAction();
-
-				if($action instanceof Closure)
-				{
-					$this->dispatchClosure($action);
-				}
-				else
-				{
-					$this->dispatchController($action);
-				}
-
-				if(!$this->skipAfterFilters)
-				{
-					$this->afterFilters();
-				}
+				$this->dispatchController($action);
 			}
-		}	
+
+			if(!$this->skipAfterFilters)
+			{
+				$this->afterFilters();
+			}
+		}
 
 		return $this->response;
 	}

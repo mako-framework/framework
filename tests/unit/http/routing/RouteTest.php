@@ -277,19 +277,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testHeaders()
-	{
-		$headers = ['foo' => 'bar', 'bar' => 'foo'];
-
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->headers($headers);
-
-		$this->assertEquals($headers, $route->getHeaders());
-	}
-
-	/**
-	 * 
-	 */
-
 	public function testPrefix()
 	{
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->prefix('bar');

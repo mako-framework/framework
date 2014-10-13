@@ -90,6 +90,24 @@ class Router
 	}
 
 	/**
+	 * Returns a route with a closure action that sets the allow header.
+	 * 
+	 * @access  protected
+	 * @param   string                    $requestPath  The requested path
+	 * @return  \mako\http\routing\Route
+	 */
+
+	protected function optionsRoute($requestPath)
+	{
+		$allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
+
+		return new Route([], '', function($request, $response) use ($allowedMethods)
+		{
+			$response->header('allow', implode(',', $allowedMethods));
+		});
+	}
+
+	/**
 	 * Returns TRUE if the route matches the request path and FALSE if not.
 	 * 
 	 * @access  protected
@@ -159,9 +177,7 @@ class Router
 
 				if($requestMethod === 'OPTIONS')
 				{
-					$methods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
-
-					$route->headers(['allow' => implode(',', $methods)]);
+					return [$this->optionsRoute($requestPath), []];
 				}
 
 				// Return the matched route

@@ -170,7 +170,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 		$routed = $router->route($request);
 
-		$this->assertEquals(['allow' => 'POST,OPTIONS'], $routed[0]->getHeaders());
+		$this->assertInstanceOf('mako\http\routing\Route', $routed[0]);
+
+		$this->assertInstanceOf('Closure', $routed[0]->getAction());
 	}
 
 	/**
