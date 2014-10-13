@@ -221,9 +221,14 @@ class ViewFactory
 
 			foreach($this->renderers as $extension => $renderer)
 			{
-				if($this->fileSystem->exists($path = $this->getFilePath($view, $extension)))
+				$paths = $this->getCascadingFilePaths($view, $extension);
+
+				foreach($paths as $path)
 				{
-					return $this->viewCache[$view] = [$path, $extension];
+					if($this->fileSystem->exists($path))
+					{
+						return $this->viewCache[$view] = [$path, $extension];
+					}
 				}
 			}
 
