@@ -677,7 +677,7 @@ abstract class ORM
 	}
 
 	/**
-	 * Assigns the column values to the mode.
+	 * Assigns the column values to the model.
 	 * 
 	 * @access  public
 	 * @param   array                       $columns    Column values
