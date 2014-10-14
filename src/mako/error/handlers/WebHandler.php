@@ -95,20 +95,6 @@ class WebHandler extends Handler
 	}
 
 	/**
-	 * Renders the error page.
-	 * 
-	 * @access  protected
-	 * @param   string     $__type__  Error type
-	 * @param   array      $__data__  Error data
-	 * @return  string
-	 */
-
-	protected function renderErrorPage($__type__, $__data__ = [])
-	{
-		return $this->view->render('mako-error::' . $__type__, $__data__);
-	}
-
-	/**
 	 * Returns the source code of a trace frame.
 	 * 
 	 * @access  protected
