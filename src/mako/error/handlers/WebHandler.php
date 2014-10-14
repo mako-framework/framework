@@ -277,7 +277,7 @@ class WebHandler extends Handler
 		}
 		else
 		{
-			$view = 'generic';
+			$view = 'error';
 
 			if($this->exception instanceof RequestException)
 			{

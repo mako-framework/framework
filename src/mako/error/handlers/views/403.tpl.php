@@ -16,16 +16,6 @@
 			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 			line-height: 100%;
 		}
-		a
-		{
-			color:#0088cc;
-			text-decoration:none;
-		}
-		a:hover
-		{
-			color:#005580;
-			text-decoration:underline;
-		}
 		h1
 		{
 			font-size: 4em;
@@ -41,7 +31,7 @@
 			border:0px;
 			border-bottom:1px #ddd solid;
 		}
-		#message
+		.message
 		{
 			width: 700px;
 			margin: 15% auto;
@@ -50,7 +40,7 @@
 	</head>
 	<body>
 
-		<div id="message">
+		<div class="message">
 			<h1>403 <small>Forbidden</small></h1>
 			<hr>
 			<p>You don't have permission to access the requested resource.</p>
