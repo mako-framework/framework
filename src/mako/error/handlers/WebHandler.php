@@ -13,8 +13,8 @@ use \ErrorException;
 use \mako\error\handlers\Handler;
 use \mako\http\Request;
 use \mako\http\Response;
-use \mako\http\RequestException;
-use \mako\http\routing\MethodNotAllowedException;
+use \mako\http\exceptions\RequestException;
+use \mako\http\exceptions\MethodNotAllowedException;
 use \mako\view\ViewFactory;
 
 /**

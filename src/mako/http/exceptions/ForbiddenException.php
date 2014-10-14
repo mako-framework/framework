@@ -5,30 +5,30 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\http;
+namespace mako\http\exceptions;
 
 use \Exception;
-use \RuntimeException;
+
+use \mako\http\exceptions\RequestException;
 
 /**
- * Request exception.
+ * Forbidden exception.
  *
  * @author  Frederic G. Østby
  */
 
-class RequestException extends RuntimeException
+class ForbiddenException extends RequestException
 {
 	/**
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   int     $code         Exception code
 	 * @param   string  $message      Exception message
 	 * @param   \Exception $previous  (optional) Previous exception
 	 */
 
-	public function __construct($code, $message = null, Exception $previous = null)
+	public function __construct($message = null, Exception $previous = null)
 	{
-		parent::__construct($message, $code, $previous);
+		parent::__construct(403, $message, $previous);
 	}
 }

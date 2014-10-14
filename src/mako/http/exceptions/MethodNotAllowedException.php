@@ -5,11 +5,11 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\http\routing;
+namespace mako\http\exceptions;
 
 use \Exception;
 
-use \mako\http\RequestException;
+use \mako\http\exceptions\RequestException;
 
 /**
  * Method not allowed exception.

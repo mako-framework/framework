@@ -55,7 +55,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \mako\http\routing\PageNotFoundException
+	 * @expectedException \mako\http\exceptions\NotFoundException
 	 */
 
 	public function testPageNotFound()
@@ -76,7 +76,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \mako\http\routing\MethodNotAllowedException
+	 * @expectedException \mako\http\exceptions\MethodNotAllowedException
 	 */
 
 	public function testMethodNotAllowed()

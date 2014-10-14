@@ -10,8 +10,8 @@ namespace mako\http\routing;
 use \mako\http\Request;
 use \mako\http\routing\Route;
 use \mako\http\routing\Routes;
-use \mako\http\routing\PageNotFoundException;
-use \mako\http\routing\MethodNotAllowedException;
+use \mako\http\exceptions\NotFoundException;
+use \mako\http\exceptions\MethodNotAllowedException;
 
 /**
  * Router.
@@ -196,7 +196,7 @@ class Router
 		{
 			// No routes matched so we'll throw a 404 exception
 			
-			throw new PageNotFoundException($requestMethod . ': ' . $requestPath);
+			throw new NotFoundException($requestMethod . ': ' . $requestPath);
 		}
 	}
 }

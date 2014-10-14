@@ -5,30 +5,30 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\http\routing;
+namespace mako\http\exceptions;
 
 use \Exception;
-
-use \mako\http\RequestException;
+use \RuntimeException;
 
 /**
- * Page not found exception.
+ * Request exception.
  *
  * @author  Frederic G. Østby
  */
 
-class PageNotFoundException extends RequestException
+class RequestException extends RuntimeException
 {
 	/**
 	 * Constructor.
 	 * 
 	 * @access  public
+	 * @param   int     $code         Exception code
 	 * @param   string  $message      Exception message
 	 * @param   \Exception $previous  (optional) Previous exception
 	 */
 
-	public function __construct($message = null, Exception $previous = null)
+	public function __construct($code, $message = null, Exception $previous = null)
 	{
-		parent::__construct(404, $message, $previous);
+		parent::__construct($message, $code, $previous);
 	}
 }
