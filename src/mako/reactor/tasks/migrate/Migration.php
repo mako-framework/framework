@@ -8,6 +8,7 @@
 namespace mako\reactor\tasks\migrate;
 
 use \mako\database\ConnectionManager;
+use \mako\syringe\ContainerAwareTrait;
 
 /**
  * Base migration.
@@ -17,6 +18,8 @@ use \mako\database\ConnectionManager;
 
 abstract class Migration
 {
+	use ContainerAwareTrait;
+	
 	/**
 	 * Connection manager instance.
 	 * 

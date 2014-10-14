@@ -9,6 +9,7 @@ namespace mako\reactor;
 
 use \mako\reactor\io\Input;
 use \mako\reactor\io\Output;
+use \mako\syringe\ContainerAwareTrait;
 
 /**
  * Base task.
@@ -18,6 +19,8 @@ use \mako\reactor\io\Output;
 
 abstract class Task
 {
+	use ContainerAwareTrait;
+	
 	/**
 	 * Input
 	 * 

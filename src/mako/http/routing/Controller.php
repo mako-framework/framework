@@ -9,6 +9,7 @@ namespace mako\http\routing;
 
 use \mako\http\Request;
 use \mako\http\Response;
+use \mako\syringe\ContainerAwareTrait;
 
 /**
  * Base controller that all application controllers must extend.
@@ -18,6 +19,8 @@ use \mako\http\Response;
 
 abstract class Controller
 {
+	use ContainerAwareTrait;
+	
 	/**
 	 * Holds the request object that loaded the controller.
 	 *
