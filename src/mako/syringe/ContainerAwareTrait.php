@@ -51,6 +51,14 @@ trait ContainerAwareTrait
 	protected $container;
 
 	/**
+	 * Array of resolved objects and/or references to resolved objects.
+	 * 
+	 * @var array
+	 */
+
+	protected $resolved = [];
+
+	/**
 	 * Sets the container instance.
 	 * 
 	 * @access  public
@@ -72,11 +80,16 @@ trait ContainerAwareTrait
 
 	public function __get($key)
 	{
-		if(!$this->container->has($key))
+		if(!isset($this->resolved[$key]))
 		{
-			throw new RuntimeException(vsprintf("%s: Unable to resolve [ %s ].", [__TRAIT__, $key]));
+			if(!$this->container->has($key))
+			{
+				throw new RuntimeException(vsprintf("%s: Unable to resolve [ %s ].", [__TRAIT__, $key]));
+			}
+
+			$this->resolved[$key] = $this->container->get($key);
 		}
 
-		return $this->container->get($key);
+		return $this->resolved[$key];
 	}
 }
