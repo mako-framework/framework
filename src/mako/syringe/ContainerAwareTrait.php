@@ -16,7 +16,6 @@ use \mako\syringe\Container;
  * 
  * @author  Frederic G. Østby
  * 
- * @property  \mako\syringe\Syringe                $container
  * @property  \mako\application\Application        $app
  * @property  \mako\file\FileSystem                $fileSystem
  * @property  \mako\config\Config                  $config
