@@ -29,6 +29,14 @@ class Output extends StdOut
 	protected $stderr;
 
 	/**
+	 * Are we running on windows?
+	 * 
+	 * @var boolean
+	 */
+
+	protected $isWindows;
+
+	/**
 	 * Constructor.
 	 * 
 	 * @access  public
@@ -39,6 +47,8 @@ class Output extends StdOut
 		parent::__construct();
 
 		$this->stderr = new StdErr();
+
+		$this->isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
 	}
 
 	/**
@@ -73,7 +83,7 @@ class Output extends StdOut
 
 	public function clearScreen()
 	{
-		if(MAKO_IS_WINDOWS)
+		if($this->isWindows)
 		{
 			$this->nl(50);
 		}
