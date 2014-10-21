@@ -8,7 +8,6 @@
 namespace mako\application;
 
 use \mako\application\Application;
-use \mako\error\handlers\WebHandler;
 use \mako\http\routing\Dispatcher;
 use \mako\http\routing\Router;
 

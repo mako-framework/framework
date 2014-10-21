@@ -8,7 +8,6 @@
 namespace mako\application;
 
 use \mako\application\Application;
-use \mako\error\handlers\CLIHandler;
 use \mako\reactor\Reactor;
 use \mako\reactor\TaskFinder;
 use \mako\reactor\io\Input;
