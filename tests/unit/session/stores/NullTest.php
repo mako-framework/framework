@@ -48,6 +48,6 @@ class NullTest extends \PHPUnit_Framework_TestCase
 
 	public function testGc()
 	{
-		// Nothing to test since this is done by redis
+		// Nothing to test since there isn't anything to clean up
 	}
 }
