@@ -44,7 +44,7 @@ class CacheManager extends AdapterManager
 
 	protected function apcFactory($configuration)
 	{
-		return new APC();
+		return new APC;
 	}
 
 	/**
@@ -57,7 +57,7 @@ class CacheManager extends AdapterManager
 
 	protected function apcuFactory($configuration)
 	{
-		return new APCU();
+		return new APCU;
 	}
 
 	/**
@@ -122,7 +122,7 @@ class CacheManager extends AdapterManager
 
 	protected function memoryFactory($configuration)
 	{
-		return new Memory();
+		return new Memory;
 	}
 
 	/**
@@ -135,7 +135,7 @@ class CacheManager extends AdapterManager
 
 	protected function nullFactory($configuration)
 	{
-		return new Null();
+		return new Null;
 	}
 
 	/**
@@ -161,7 +161,7 @@ class CacheManager extends AdapterManager
 
 	protected function wincacheFactory($configuration)
 	{
-		return new WinCache();
+		return new WinCache;
 	}
 
 	/**
@@ -187,7 +187,7 @@ class CacheManager extends AdapterManager
 
 	protected function zenddiskFactory($configuration)
 	{
-		return new ZendDisk();
+		return new ZendDisk;
 	}
 
 	/**
@@ -200,7 +200,7 @@ class CacheManager extends AdapterManager
 
 	protected function zendmemoryFactory($configuration)
 	{
-		return new ZendMemory();
+		return new ZendMemory;
 	}
 
 	/**

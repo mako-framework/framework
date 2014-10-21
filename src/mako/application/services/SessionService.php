@@ -11,6 +11,7 @@ use \mako\application\services\Service;
 use \mako\session\Session;
 use \mako\session\stores\Database;
 use \mako\session\stores\File;
+use \mako\session\stores\Null;
 use \mako\session\stores\Redis;
 
 /**
@@ -50,6 +51,20 @@ class SessionService extends Service
 	}
 
 	/**
+	 * Returns a null store instance.
+	 * 
+	 * @access  protected
+	 * @param   \mako\syringe\Container    $container  IoC container instance
+	 * @param   array                      $config     Store configuration
+	 * @return  \mako\session\stores\Null
+	 */
+
+	protected function getNullStore($container, $config)
+	{
+		return new Null;
+	}
+
+	/**
 	 * Returns a redis store instance.
 	 * 
 	 * @access  protected
@@ -83,6 +98,9 @@ class SessionService extends Service
 				break;
 			case 'file':
 				return $this->getFileStore($container, $config);
+				break;
+			case 'null':
+				return $this->getNullStore($container, $config);
 				break;
 			case 'redis':
 				return $this->getRedisStore($container, $config);
