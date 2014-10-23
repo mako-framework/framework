@@ -8,13 +8,10 @@
 namespace mako\http\routing;
 
 use \Closure;
-use \RuntimeException;
 
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\routing\Route;
-use \mako\http\routing\Routes;
-use \mako\http\routing\Controller;
 use \mako\syringe\Container;
 
 /**

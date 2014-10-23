@@ -242,7 +242,7 @@ class ErrorHandler
 			{
 				if($exception instanceof $handler['exceptionType'])
 				{
-					if(($return = $handler['handler']($exception)) !== null)
+					if($handler['handler']($exception) !== null)
 					{
 						break;
 					}

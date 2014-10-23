@@ -7,8 +7,6 @@
 
 namespace mako\error\handlers;
 
-use \Exception;
-
 /**
  * Store interface.
  *

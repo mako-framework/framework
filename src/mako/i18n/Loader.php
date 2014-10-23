@@ -76,17 +76,6 @@ class Loader
 	{
 		$strings = false;
 
-		/*if(strpos($file, '::') !== false)
-		{
-			list($namespace, $file) = explode('::', $file, 2);
-
-			$file = $namespace . '::' . $language . '/strings/' . $file;
-		}
-		else
-		{
-			$file = $language . '/strings/' . $file;
-		}*/
-
 		foreach($this->getCascadingFilePaths($file, null, $language . '/strings') as $file)
 		{
 			if($this->fileSystem->exists($file))
