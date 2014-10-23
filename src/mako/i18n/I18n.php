@@ -156,11 +156,11 @@ class I18n
 	/**
 	 * Loads inflection closure and rules.
 	 * 
-	 * @access  public
-	 * @param   string  $language  Name of the language pack
+	 * @access  protected
+	 * @param   string     $language  Name of the language pack
 	 */
 
-	public function loadInflection($language)
+	protected function loadInflection($language)
 	{
 		$this->inflections[$language] = $this->loader->loadInflection($language);
 	}
