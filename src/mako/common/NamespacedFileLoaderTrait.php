@@ -125,10 +125,11 @@ trait NamespacedFileLoaderTrait
 	 * @access  protected
 	 * @param   string     $file       File name
 	 * @param   string     $extension  (optional) File extension
+	 * @param   string     $suffix     (optional) Path suffix
 	 * @return  array
 	 */
 
-	protected function getCascadingFilePaths($file, $extension = null)
+	protected function getCascadingFilePaths($file, $extension = null, $suffix = null)
 	{
 		$paths = [];
 
@@ -136,19 +137,21 @@ trait NamespacedFileLoaderTrait
 		{
 			// No namespace so we'll just have add a single file
 
-			$paths[] = $this->getFilePath($file, $extension);
+			$paths[] = $this->getFilePath($file, $extension, $suffix);
 		}
 		else
 		{
 			// Add the namespaced file first
 
-			$paths[] = $this->getFilePath($file, $extension);
+			$paths[] = $this->getFilePath($file, $extension, $suffix);
 
 			// Prepend the cascading file
 
-			list($suffix, $file) = explode('::', $file);
+			list($package, $file) = explode('::', $file);
 
-			array_unshift($paths, $this->getFilePath($file, $extension, 'packages' . DIRECTORY_SEPARATOR . $suffix));
+			$suffix = 'packages' . DIRECTORY_SEPARATOR . $package . (($suffix !== null) ? DIRECTORY_SEPARATOR . $suffix : '');
+
+			array_unshift($paths, $this->getFilePath($file, $extension, $suffix));
 		}
 
 		return $paths;

@@ -64,47 +64,42 @@ class Loader
 	}
 
 	/**
-	 * Returns language file patterns.
-	 * 
-	 * @access  public
-	 * @param   string  $language  Name of the language pack
-	 * @return  array
-	 */
-
-	protected function getPatterns($language)
-	{
-		$patterns = [['prefix' => null, 'path' => $this->getFilePath('*', null, $language . '/strings')]];
-
-		foreach($this->namespaces as $namespace => $path)
-		{
-			$patterns[] = ['prefix' => $namespace . '::', 'path' => $this->getFilePath($namespace . '::*', null, $language . '/strings')];
-		}
-
-		return $patterns;
-	}
-
-	/**
 	 * Loads and returns language strings.
 	 * 
 	 * @access  public
 	 * @param   string  $language  Name of the language pack
+	 * @param   string  $file      File we want to load
 	 * @return  array
 	 */
 
-	public function loadStrings($language)
+	public function loadStrings($language, $file)
 	{
-		$strings = [];
+		$strings = false;
 
-		$patterns = $this->getPatterns($language);
-
-		foreach($patterns as $pattern)
+		/*if(strpos($file, '::') !== false)
 		{
-			$files = $this->fileSystem->glob($pattern['path'], GLOB_NOSORT);
+			list($namespace, $file) = explode('::', $file, 2);
 
-			foreach($files as $file)
+			$file = $namespace . '::' . $language . '/strings/' . $file;
+		}
+		else
+		{
+			$file = $language . '/strings/' . $file;
+		}*/
+
+		foreach($this->getCascadingFilePaths($file, null, $language . '/strings') as $file)
+		{
+			if($this->fileSystem->exists($file))
 			{
-				$strings[$pattern['prefix'] . basename($file, '.php')] = $this->fileSystem->includeFile($file);
+				$strings = $this->fileSystem->includeFile($file);
+
+				break;
 			}
+		}
+
+		if($strings === false)
+		{
+			throw new RuntimeException(vsprintf("%s:(): The [ %s ] language file does not exist in the [ %s ] language pack.", [__METHOD__, $file, $language]));
 		}
 
 		return $strings;

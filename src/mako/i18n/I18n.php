@@ -214,7 +214,7 @@ class I18n
 	 * @param   string     $language  Name of the language pack
 	 */
 
-	protected function loadStrings($language)
+	protected function loadStrings($language, $file)
 	{
 		if($this->cache !== null)
 		{
@@ -226,7 +226,7 @@ class I18n
 			$this->rebuildCache = true;
 		}
 
-		$this->strings[$language] = $this->loader->loadStrings($language);
+		$this->strings[$language][$file] = $this->loader->loadStrings($language, $file);
 	}
 
 	/**
@@ -255,18 +255,13 @@ class I18n
 	{
 		$language = $language ?: $this->language;
 
-		if(!isset($this->strings[$language]))
-		{
-			$this->loadStrings($language);
-		}
-
 		list($file, $string) = $this->parseKey($key);
 
 		if(!isset($this->strings[$language][$file]))
 		{
-			throw new RuntimeException(vsprintf("%s:(): The [ %s ] language file does not exist in the [ %s ] language pack.", [__METHOD__, $file, $language]));
+			$this->loadStrings($language, $file);
 		}
-
+		
 		return Arr::get($this->strings[$language][$file], $string, $key);
 	}
 
@@ -283,12 +278,14 @@ class I18n
 	{
 		$language = $language ?: $this->language;
 
-		if(!isset($this->strings[$language]))
+		list($file, $string) = $this->parseKey($key);
+
+		if(!isset($this->strings[$language][$file]))
 		{
-			$this->loadStrings($language);
+			$this->loadStrings($language, $file);
 		}
 
-		return Arr::has($this->strings[$language], $key);
+		return Arr::has($this->strings[$language][$file], $string);
 	}
 
 	/**
