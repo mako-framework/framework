@@ -7,6 +7,8 @@
 
 namespace mako\http\routing;
 
+use \Closure;
+
 /**
  * Route.
  * 
@@ -48,6 +50,14 @@ class Route
 	protected $name;
 
 	/**
+	 * Route action namespace.
+	 * 
+	 * @var string
+	 */
+
+	protected $namespace;
+
+	/**
 	 * Route prefix.
 	 * 
 	 * @var string
@@ -86,14 +96,6 @@ class Route
 	 */
 
 	protected $afterFilters = [];
-
-	/**
-	 * Matched parameters.
-	 * 
-	 * @var array
-	 */
-
-	protected $parameters = [];
 
 	/**
 	 * Constructor.
@@ -151,7 +153,12 @@ class Route
 
 	public function getAction()
 	{
-		return $this->action;
+		if($this->action instanceof Closure || empty($this->namespace))
+		{
+			return $this->action;
+		}
+
+		return $this->namespace . $this->action;
 	}
 
 	/**
@@ -191,29 +198,18 @@ class Route
 	}
 
 	/**
-	 * Returns the matched route parameters.
+	 * Sets the route action namespace.
 	 * 
 	 * @access  public
-	 * @return  array
+	 * @param   string                    $namespace  Route action namespace
+	 * @return  \mako\http\routing\Route
 	 */
 
-	public function getParameters()
+	public function setNamespace($namespace)
 	{
-		return $this->parameters;
-	}
+		$this->namespace .= $namespace . '\\';
 
-	/**
-	 * Returns a route parameter.
-	 * 
-	 * @access  public
-	 * @param   string  $key      Parameter name
-	 * @param   mixed   $default  (optional) Default value
-	 * @return  mixed
-	 */
-
-	public function param($key, $default = null)
-	{
-		return isset($this->parameters[$key]) ? $this->parameters[$key] : $default;
+		return $this;
 	}
 
 	/**

@@ -105,6 +105,19 @@ class Routes
 	}
 
 	/**
+	 * Returns the real route method name.
+	 * 
+	 * @access  public
+	 * @param   string  $method  Method name
+	 * @return  string
+	 */
+
+	protected function getRealMethodName($method)
+	{
+		return str_replace(['namespace'], ['setNamespace'], $method);
+	}
+
+	/**
 	 * Registers a route.
 	 * 
 	 * @access  public
@@ -131,7 +144,7 @@ class Routes
 			{
 				foreach($group as $option => $value)
 				{
-					$route->$option($value);
+					$route->{$this->getRealMethodName($option)}($value);
 				}
 			}
 		}

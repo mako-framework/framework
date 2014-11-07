@@ -354,4 +354,37 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame('#^/foo/(?P<id>[0-9]+)$#s', $route->getRegex());
 	}
+
+	/**
+	 * 
+	 */
+
+	public function testNamespace()
+	{
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->setNamespace('app\controllers');
+
+		$this->assertSame('app\controllers\FooController::fooAction', $route->getAction());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testNestedNamespace()
+	{
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->setNamespace('app')->setNamespace('controllers');
+
+		$this->assertSame('app\controllers\FooController::fooAction', $route->getAction());
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testClosureNamespace()
+	{
+		$route = (new Route(['GET'], '/', function(){}))->setNamespace('app\controllers');
+
+		$this->assertInstanceOf('Closure', $route->getAction());
+	}
 }
