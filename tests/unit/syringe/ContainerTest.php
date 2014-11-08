@@ -91,7 +91,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testParameters()
+	public function testNumericParameters()
 	{
 		$container = new Container;
 
@@ -105,6 +105,34 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$container = new Container;
 
 		$bar = $container->get('mako\tests\unit\syringe\Bar', [1 => 'def', 0 => 'abc']);
+
+		$this->assertEquals('abc', $bar->foo);
+		$this->assertEquals('def', $bar->bar);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testAssociativeParameters()
+	{
+		$container = new Container;
+
+		$bar = $container->get('mako\tests\unit\syringe\Bar', ['bar' => 789]);
+
+		$this->assertEquals(123, $bar->foo);
+		$this->assertEquals(789, $bar->bar);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testMixedParameters()
+	{
+		$container = new Container;
+		
+		$bar = $container->get('mako\tests\unit\syringe\Bar', ['bar' => 'def', 0 => 'abc']);
 
 		$this->assertEquals('abc', $bar->foo);
 		$this->assertEquals('def', $bar->bar);
