@@ -156,6 +156,47 @@ class Container
 	}
 
 	/**
+	 * Merges the provided parameters with the reflection parameters.
+	 *
+	 * @access  public
+	 * @param   array   $reflectionParameters  Reflection parameters
+	 * @param   array   $providedParameters    Provided parameters
+	 * @return  array
+	 */
+
+	protected function mergeParameters(array $reflectionParameters, array $providedParameters)
+	{
+		// Make the provided parameter array associative
+
+		$associativeProvidedParameters = [];
+
+		foreach($providedParameters as $key => $value)
+		{
+			if(is_numeric($key))
+			{
+				$associativeProvidedParameters[$reflectionParameters[$key]->getName()] = $value;
+			}
+			else
+			{
+				$associativeProvidedParameters[$key] = $value;
+			}
+		}
+
+		// Make reflection parameter array associative
+
+		$associativeReflectionParameters = [];
+
+		foreach($reflectionParameters as $key => $value)
+		{
+			$associativeReflectionParameters[$value->getName()] = $value;
+		}
+
+		// Return merged paramters
+
+		return array_replace($associativeReflectionParameters, $associativeProvidedParameters);
+	}
+
+	/**
 	 * Resolve a parameter.
 	 * 
 	 * @access  protected
@@ -251,11 +292,8 @@ class Container
 				if(!empty($constructorParamters))
 				{
 					// Merge provided parameters with the ones we got using reflection
-					// and sort to make sure that they come in the right order
 
-					$parameters = $parameters + $constructorParamters;
-
-					ksort($parameters);
+					$parameters = $this->mergeParameters($constructorParamters, $parameters);
 
 					// Loop through the parameters and resolve the ones that need resolving
 
