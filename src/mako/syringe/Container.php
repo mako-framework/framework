@@ -11,6 +11,8 @@ use \mako\syringe\ClassInspector;
 
 use \Closure;
 use \ReflectionClass;
+use \ReflectionFunction;
+use \ReflectionMethod;
 use \ReflectionParameter;
 use \RuntimeException;
 
@@ -191,7 +193,7 @@ class Container
 			$associativeReflectionParameters[$value->getName()] = $value;
 		}
 
-		// Return merged paramters
+		// Return merged parameters
 
 		return array_replace($associativeReflectionParameters, $associativeProvidedParameters);
 	}
@@ -206,11 +208,11 @@ class Container
 
 	protected function resolveParameter(ReflectionParameter $parameter)
 	{
-		if(($paramterClass = $parameter->getClass()) !== null)
+		if(($parameterClass = $parameter->getClass()) !== null)
 		{
 			// The parameter should be a class instance. Try to resolve it though the container
 
-			return $this->get($paramterClass->getName());
+			return $this->get($parameterClass->getName());
 		}
 		else
 		{
@@ -227,6 +229,41 @@ class Container
 				throw new RuntimeException(vsprintf("%s: Unable to resolve parameter [ $%s ] of the [ %s ] constructor.", [__CLASS__, $parameter->getName(), $parameter->getDeclaringClass()->getName()]));
 			}
 		}
+	}
+
+	/**
+	 * Resolve parameters.
+	 *
+	 * @access  public
+	 * @param   array   $reflectionParameters  Reflection parameters
+	 * @param   array   $providedParameters    Provided Parameters
+	 * @return  array
+	 */
+
+	protected function resolveParameters(array $reflectionParameters, array $providedParameters)
+	{
+		if(empty($reflectionParameters))
+		{
+			return $providedParameters;
+		}
+
+		// Merge provided parameters with the ones we got using reflection
+
+		$parameters = $this->mergeParameters($reflectionParameters, $providedParameters);
+
+		// Loop through the parameters and resolve the ones that need resolving
+
+		foreach($parameters as $key => $parameter)
+		{
+			if($parameter instanceof ReflectionParameter)
+			{
+				$parameters[$key] = $this->resolveParameter($parameter);
+			}
+		}
+
+		// Return resolved parameters
+
+		return $parameters;
 	}
 
 	/**
@@ -249,7 +286,7 @@ class Container
 	 * 
 	 * @access  public
 	 * @param   string|\Closure  $class       Class name or closure
-	 * @param   array            $parameters  Constructor parameters
+	 * @param   array            $parameters  (optional) Constructor parameters
 	 * @return  object
 	 */
 
@@ -285,30 +322,13 @@ class Container
 			}
 			else
 			{
-				// The class has a constructor. Lets start by getting its parameters.
+				// The class has a constructor. Lets get its parameters.
 
-				$constructorParamters = $constructor->getParameters();
+				$constructorParameters = $constructor->getParameters();
 
-				if(!empty($constructorParamters))
-				{
-					// Merge provided parameters with the ones we got using reflection
+				// Create and return a new instance using our resolved parameters
 
-					$parameters = $this->mergeParameters($constructorParamters, $parameters);
-
-					// Loop through the parameters and resolve the ones that need resolving
-
-					foreach($parameters as $key => $parameter)
-					{
-						if($parameter instanceof ReflectionParameter)
-						{
-							$parameters[$key] = $this->resolveParameter($parameter);
-						}
-					}
-				}
-
-				// Create and return a new instance using our parameters
-
-				$instance = $class->newInstanceArgs($parameters);
+				$instance = $class->newInstanceArgs($this->resolveParameters($constructorParameters, $parameters));
 			}
 		}
 
@@ -344,7 +364,7 @@ class Container
 	 * 
 	 * @access  public
 	 * @param   string   $class           Class name
-	 * @param   array    $parameters      Constructor parameters
+	 * @param   array    $parameters      (optional) Constructor parameters
 	 * @param   boolean  $reuseInstance   (optional) Reuse existing instance?
 	 * @return  object
 	 */
@@ -388,5 +408,28 @@ class Container
 	public function getFresh($class, array $parameters = [])
 	{
 		return $this->get($class, $parameters, false);
+	}
+
+	/**
+	 * Execute a callable and inject its dependencies.
+	 *
+	 * @access  public
+	 * @param   callable  $callable    Callable
+	 * @param   array     $parameters  (optional) Parameters
+	 * @return  mixed
+	 */
+
+	public function call(callable $callable, array $parameters = [])
+	{
+		if($callable instanceof Closure)
+		{
+			$reflection = new ReflectionFunction($callable);
+		}
+		else
+		{
+			$reflection = new ReflectionMethod($callable[0], $callable[1]);
+		}
+
+		return call_user_func_array($callable, $this->resolveParameters($reflection->getParameters(), $parameters));
 	}
 }
