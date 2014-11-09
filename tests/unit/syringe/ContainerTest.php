@@ -50,6 +50,16 @@ class Baz
 	}
 }
 
+class Baq
+{
+	public $baq;
+
+	public function setBaq($baq = 123)
+	{
+		$this->baq = $baq;
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -224,5 +234,78 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($container->get('bar'), $container->get('bar'));
 
 		$this->assertNotEquals($container->get('bar'), $container->getFresh('bar'));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testCallClosure()
+	{
+		$closure = function(Bar $bar)
+		{
+			return $bar;
+		};
+
+		$container = new Container;
+
+		$returnValue = $container->call($closure);
+
+		$this->assertInstanceOf('mako\tests\unit\syringe\Bar', $returnValue);
+
+		//
+
+		$closure = function(Bar $bar, $foo = 123)
+		{
+			return [$bar, $foo];
+		};
+
+		$container = new Container;
+
+		$returnValue = $container->call($closure);
+
+		$this->assertInstanceOf('mako\tests\unit\syringe\Bar', $returnValue[0]);
+
+		$this->assertSame(123, $returnValue[1]);
+
+		//
+
+		$closure = function(Bar $bar, $foo = 123)
+		{
+			return [$bar, $foo];
+		};
+
+		$container = new Container;
+
+		$returnValue = $container->call($closure, ['foo' => 456]);
+
+		$this->assertInstanceOf('mako\tests\unit\syringe\Bar', $returnValue[0]);
+
+		$this->assertSame(456, $returnValue[1]);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testCallMethod()
+	{
+		$baq = new Baq;
+
+		$container = new Container;
+
+		$container->call([$baq, 'setBaq']);
+
+		$this->assertSame(123, $baq->baq);
+
+		// 
+
+		$baq = new Baq;
+
+		$container = new Container;
+
+		$container->call([$baq, 'setBaq'], [456]);
+
+		$this->assertSame(456, $baq->baq);
 	}
 }
