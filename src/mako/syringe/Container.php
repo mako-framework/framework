@@ -199,6 +199,26 @@ class Container
 	}
 
 	/**
+	 * Returns the name of the declaring function.
+	 * 
+	 * @access  protected
+	 * @param   \ReflectionParameter  $parameter  ReflectionParameter instance
+	 * @return  string
+	 */
+
+	protected function getDeclaringFunction(ReflectionParameter $parameter)
+	{
+		$declaringFunction = $parameter->getDeclaringFunction();
+
+		if($declaringFunction->isClosure())
+		{
+			return 'Closure';
+		}
+
+		return $parameter->getDeclaringClass()->getName() . '::' . $declaringFunction->getName();
+	}
+
+	/**
 	 * Resolve a parameter.
 	 * 
 	 * @access  protected
@@ -226,7 +246,7 @@ class Container
 			{
 				// The parameter doesn't have a default value. All we can do now is throw an exception
 
-				throw new RuntimeException(vsprintf("%s: Unable to resolve parameter [ $%s ] of the [ %s ] constructor.", [__CLASS__, $parameter->getName(), $parameter->getDeclaringClass()->getName()]));
+				throw new RuntimeException(vsprintf("%s: Unable to resolve the [ $%s ] parameter of [ %s ].", [__CLASS__, $parameter->getName(), $this->getDeclaringFunction($parameter)]));
 			}
 		}
 	}
