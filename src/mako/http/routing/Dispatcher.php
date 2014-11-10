@@ -199,7 +199,7 @@ class Dispatcher
 
 	protected function dispatchClosure(Closure $closure)
 	{
-		$this->response->body(call_user_func_array($closure, array_merge([$this->request, $this->response], $this->parameters)));
+		$this->response->body($this->container->call($closure, $this->parameters));
 	}
 
 	/**
@@ -213,7 +213,7 @@ class Dispatcher
 	{
 		list($controller, $method) = explode('::', $controller, 2);
 
-		$controller = $this->container->get($controller, [$this->request, $this->response]);
+		$controller = $this->container->get($controller);
 
 		$returnValue = $controller->beforeFilter();
 
@@ -222,7 +222,7 @@ class Dispatcher
 			// The before filter didn't return any data so we can set the response body to whatever 
 			// the route action returns before executing its after filter
 
-			$this->response->body(call_user_func_array([$controller, $method], $this->parameters));
+			$this->response->body($this->container->call([$controller, $method], $this->parameters));
 
 			$controller->afterFilter();
 		}
