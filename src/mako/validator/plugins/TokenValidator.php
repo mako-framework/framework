@@ -47,10 +47,14 @@ class TokenValidator extends ValidatorPlugin
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Validates a token.
+	 * 
+	 * @access  public
+	 * @param   string  $input Input
+	 * @return  boolean
 	 */
 
-	public function validate($input, $parameters)
+	public function validate($input)
 	{
 		return $this->session->validateToken($input);
 	}

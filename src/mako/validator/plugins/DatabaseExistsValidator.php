@@ -47,11 +47,17 @@ class DatabaseExistsValidator extends ValidatorPlugin
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Checks that the value exists in the database table.
+	 * 
+	 * @access  public
+	 * @param   string   $input   Input
+	 * @param   string   $table   Table name
+	 * @param   string   $column  Column name
+	 * @return  boolean
 	 */
 
-	public function validate($input, $parameters)
+	public function validate($input, $table, $column)
 	{
-		return ($this->connectionManager->builder()->table($parameters[0])->where($parameters[1], '=', $input)->count() != 0);
+		return ($this->connectionManager->builder()->table($table)->where($column, '=', $input)->count() != 0);
 	}
 }

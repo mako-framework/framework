@@ -32,15 +32,4 @@ interface ValidatorPluginInterface
 	 */
 
 	public function getPackageName();
-
-	/**
-	 * Validator.
-	 * 
-	 * @access  public
-	 * @param   string   $input       Input
-	 * @param   array    $parameters  Parameters
-	 * @return  boolean
-	 */
-	
-	public function validate($input, $parameters);
 }
