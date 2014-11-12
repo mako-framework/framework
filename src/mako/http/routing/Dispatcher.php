@@ -9,6 +9,7 @@ namespace mako\http\routing;
 
 use \Closure;
 
+use \mako\common\FunctionParserTrait;
 use \mako\http\Request;
 use \mako\http\Response;
 use \mako\http\routing\Route;
@@ -22,6 +23,8 @@ use \mako\syringe\Container;
 
 class Dispatcher
 {
+	use FunctionParserTrait;
+
 	/**
 	 * Request.
 	 * 
@@ -136,24 +139,17 @@ class Dispatcher
 
 	protected function executeFilter($filter)
 	{
-		$parameters = [];
+		// Parse the filter function call
 
-		// Check if we have filter paramters
+		list($filter, $parameters) = $this->parseFunction($filter);
 
-		if(($position = strpos($filter, '[')) !== false)
-		{
-			$parameters = explode(',', substr($filter, $position + 1, -1));
-
-			$filter = substr($filter, 0, $position);
-		}
-
-		// Get the filter from the route collection
+		// Get the filter from the filter collection
 
 		$filter = $this->resolveFilter($filter);
 
 		// Execute the filter and return its return value
 
-		return call_user_func_array($filter, array_merge([$this->request, $this->response], $parameters));
+		return $this->container->call($filter, $parameters);
 	}
 
 	/**
