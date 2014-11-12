@@ -436,7 +436,7 @@ class Container
 	 * @access  public
 	 * @param   callable  $callable    Callable
 	 * @param   array     $parameters  (optional) Parameters
-	 * @return  mixed
+	 * @return  object
 	 */
 
 	public function call(callable $callable, array $parameters = [])
