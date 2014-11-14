@@ -3,14 +3,14 @@
 namespace mako\tests\unit\security\crypto\encrypters;
 
 use \mako\security\crypto\padders\PKCS7;
-use \mako\security\crypto\encrypters\Mcrypt;
+use \mako\security\crypto\encrypters\MCrypt;
 
 /**
  * @group unit
  * @requires extension mcrypt
  */
 
-class McryptTest extends \PHPUnit_Framework_TestCase
+class MCryptTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 
@@ -20,7 +20,7 @@ class McryptTest extends \PHPUnit_Framework_TestCase
 	{
 		$string = 'hello, world!';
 
-		$mcrypt = new Mcrypt('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK', new PKCS7);
+		$mcrypt = new MCrypt('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK', new PKCS7);
 
 		$encrypted1 = $mcrypt->encrypt($string);
 
@@ -41,7 +41,7 @@ class McryptTest extends \PHPUnit_Framework_TestCase
 	{
 		$string = 'hello, world!';
 		
-		$mcrypt = new Mcrypt('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK', new PKCS7);
+		$mcrypt = new MCrypt('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK', new PKCS7);
 
 		$encrypted = $mcrypt->encrypt($string);
 
