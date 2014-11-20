@@ -9,9 +9,6 @@ namespace mako\security;
 
 use \Closure;
 
-use \mako\security\Comparer;
-use \mako\utility\Str;
-
 /**
  * Secure password hashing and validation.
  *
