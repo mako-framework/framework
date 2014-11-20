@@ -65,8 +65,6 @@ class Password
 	{
 		// Set cost
 
-		return crypt($password, '$2y$' . $cost . '$' . $salt);*/
-
 		if($cost < 4 || $cost > 31)
 		{
 			$cost = static::COST;
