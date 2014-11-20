@@ -771,11 +771,11 @@ abstract class ORM
 	/**
 	 * Returns a query builder instance.
 	 * 
-	 * @access  protected
+	 * @access  public
 	 * @return  \mako\database\midgard\Query
 	 */
 
-	protected function builder()
+	public function builder()
 	{
 		return new Query($this->getConnection(), $this);
 	}
