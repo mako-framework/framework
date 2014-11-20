@@ -27,7 +27,7 @@ class Comparer
 	}
 
 	/**
-	 * Timing attack safe string comparison. Returns TRUE if the two strings a equal and FALSE if not.
+	 * Timing attack safe string comparison. Returns TRUE if the two strings are equal and FALSE if not.
 	 * 
 	 * @access  public
 	 * @param   string   $string1  String one
