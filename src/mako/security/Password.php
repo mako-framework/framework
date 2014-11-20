@@ -65,33 +65,16 @@ class Password
 	{
 		// Set cost
 
+		return crypt($password, '$2y$' . $cost . '$' . $salt);*/
+
 		if($cost < 4 || $cost > 31)
 		{
 			$cost = static::COST;
 		}
 
-		$cost = str_pad($cost, 2, '0', STR_PAD_LEFT);
-
-		// Generate random salt
-
-		if(function_exists('mcrypt_create_iv'))
-		{
-			$salt = mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);
-		}
-		elseif(function_exists('openssl_random_pseudo_bytes'))
-		{
-			$salt = openssl_random_pseudo_bytes(16);
-		}
-		else
-		{
-			$salt = Str::random();
-		}
-
-		$salt = substr(str_replace('+', '.', base64_encode($salt)), 0, 22);
-
 		// Return hash
 
-		return crypt($password, '$2y$' . $cost . '$' . $salt);
+		return password_hash($password, PASSWORD_BCRYPT, ['cost' => $cost]);
 	}
 
 	/**
@@ -111,6 +94,6 @@ class Password
 			return $legacyCheck($password, $hash);
 		}
 
-		return Comparer::compare(crypt($password, $hash), $hash);
+		return password_verify($password, $hash);
 	}
 }
