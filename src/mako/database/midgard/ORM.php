@@ -1147,6 +1147,20 @@ abstract class ORM
 	}
 
 	/**
+	 * Forwards method calls to the query builder.
+	 * 
+	 * @access  public
+	 * @param   string  $name       Method name
+	 * @param   array   $arguments  Method arguments
+	 * @return  mixed
+	 */
+
+	public static function __call($name, $arguments)
+	{
+		return call_user_func_array([$this->builder(), $name], $arguments);
+	}
+
+	/**
 	 * Forwards static method calls to the query builder.
 	 * 
 	 * @access  public
