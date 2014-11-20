@@ -87,11 +87,9 @@ abstract class Task
 
 	protected function displayTaskInfo()
 	{
-		$className = get_class($this);
+		$prefix = (strpos(static::class, 'app') === 0 || strpos(static::class, 'mako') === 0) ? '' : strstr(trim(static::class, '\\'), '\\', true) . '::';
 
-		$prefix = (strpos($className, 'app') === 0 || strpos($className, 'mako') === 0) ? '' : strstr(trim($className, '\\'), '\\', true) . '::';
-
-		$taskName = strtolower(end((explode('\\', $className))));
+		$taskName = strtolower(end((explode('\\', static::class))));
 
 		$this->output->writeln('<yellow>Available actions in the "' . $prefix . $taskName . '" task:</yellow>');
 

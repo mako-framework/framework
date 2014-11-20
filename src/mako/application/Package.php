@@ -111,10 +111,8 @@ abstract class Package
 	public function getClassNamespace($prefix = false)
 	{
 		if($this->classNamespace === null)
-		{
-			$className = get_class($this);
-			
-			$this->classNamespace = substr($className, 0, strrpos($className, '\\'));
+		{			
+			$this->classNamespace = substr(static::class, 0, strrpos(static::class, '\\'));
 		}
 
 		return $prefix ? '\\' . $this->classNamespace : $this->classNamespace;
