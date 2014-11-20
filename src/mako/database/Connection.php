@@ -598,6 +598,19 @@ class Connection
 	}
 
 	/**
+	 * Returns a query builder instance where we have already chosen the table we want to query.
+	 *
+	 * @access  public
+	 * @param   string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw  $table  Database table or subquery
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function table($table)
+	{
+		return $this->builder()->table($table);
+	}
+
+	/**
 	 * Begin a transaction.
 	 * 
 	 * @access  public
