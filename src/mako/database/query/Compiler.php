@@ -466,8 +466,8 @@ class Compiler
 		$sql .= $this->joins($this->query->getJoins());
 		$sql .= $this->wheres($this->query->getWheres());
 		$sql .= $this->groupings($this->query->getGroupings());
-		$sql .= $this->orderings($this->query->getOrderings());
 		$sql .= $this->havings($this->query->getHavings());
+		$sql .= $this->orderings($this->query->getOrderings());
 		$sql .= $this->limit($this->query->getLimit());
 		$sql .= $this->offset($this->query->getOffset());
 
