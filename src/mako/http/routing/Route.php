@@ -238,7 +238,7 @@ class Route
 	 * @return  \mako\http\routing\Route
 	 */
 
-	public function constraints(array $constraints)
+	public function when(array $constraints)
 	{
 		$this->constraints = $constraints + $this->constraints;
 
