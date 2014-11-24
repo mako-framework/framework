@@ -375,12 +375,12 @@ abstract class Application
 	}
 
 	/**
-	 * Boots the application.
+	 * Sets up the framework core.
 	 * 
 	 * @access  protected
 	 */
 
-	protected function boot()
+	protected function initialize()
 	{
 		// Create IoC container instance and register it in itself so that it can be injected
 
@@ -401,6 +401,19 @@ abstract class Application
 		$this->config = new Config($fileSystem, $this->applicationPath . '/config', $this->getEnvironment());
 
 		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config);
+	}
+
+	/**
+	 * Boots the application.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function boot()
+	{
+		// Set up the framework core
+
+		$this->initialize();
 
 		// Configure
 
