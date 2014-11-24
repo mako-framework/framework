@@ -236,7 +236,7 @@ class Reactor
 			return false;
 		}
 
-		$task = $this->container->get($task, [$this->input, $this->output]);
+		$task = $this->container->get($task);
 
 		if(($task instanceof Task) === false)
 		{
