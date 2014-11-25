@@ -318,6 +318,19 @@ class Migrate extends Task
 	}
 
 	/**
+	 * Executes a migration method.
+	 * 
+	 * @access  protected
+	 * @param   string  $migration  Migration class
+	 * @param   string  $method     Migration method
+	 */
+
+	protected function execute($migration, $method)
+	{
+		$this->container->call([$this->resolve($migration), $method]);
+	}
+
+	/**
 	 * Runs all outstanding migrations.
 	 *
 	 * @access  public
@@ -336,7 +349,7 @@ class Migrate extends Task
 
 		foreach($migrations as $migration)
 		{
-			$this->resolve($migration)->up();
+			$this->execute($migration, 'up');
 
 			$this->table()->insert(['batch' => $batch, 'package' => $migration->package, 'version' => $migration->version]);
 		}
@@ -383,7 +396,7 @@ class Migrate extends Task
 
 		foreach($migrations as $migration)
 		{
-			$this->resolve($migration)->down();
+			$this->execute($migration, 'down');
 
 			$this->table()->where('version', '=', $migration->version)->delete();
 		}
