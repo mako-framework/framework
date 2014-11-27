@@ -199,7 +199,7 @@ class ErrorHandler
 	 * Should the exception be logged?
 	 * 
 	 * @access  public
-	 * @param   \Exception  $exeception  An exception object
+	 * @param   \Exception  $exception  An exception object
 	 * @return  boolean
 	 */
 

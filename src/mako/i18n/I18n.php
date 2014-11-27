@@ -212,6 +212,7 @@ class I18n
 	 * 
 	 * @access  protected
 	 * @param   string     $language  Name of the language pack
+	 * @param   file       $file      File from which we are loading the strings
 	 */
 
 	protected function loadStrings($language, $file)

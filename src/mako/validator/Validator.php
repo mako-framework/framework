@@ -199,7 +199,7 @@ class Validator
 	 * 
 	 * @access  protected
 	 * @param   string     $input                 Field value
-	 * @param   int        $greaterThanorEqualTo  Minimum value
+	 * @param   int        $greaterThanOrEqualTo  Minimum value
 	 * @return  boolean
 	 */
 
