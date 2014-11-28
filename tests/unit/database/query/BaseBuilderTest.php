@@ -925,6 +925,40 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testColumnWithoutParam()
+	{
+		$query = $this->getBuilder();
+
+		$query->select(['id']);
+
+		$query->column();
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "id" FROM "foobar"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testColumnWithParam()
+	{
+		$query = $this->getBuilder();
+
+		$query->column('id');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "id" FROM "foobar"', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testBatch()
 	{
 		$builder = m::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);

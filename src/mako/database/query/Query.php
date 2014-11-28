@@ -1023,11 +1023,17 @@ class Query
 	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
 	 *
 	 * @access  public
+	 * @param   string  $column  (optional) The column to select
 	 * @return  mixed
 	 */
 
-	public function column()
+	public function column($column = null)
 	{
+		if($column !== null)
+		{
+			$this->select([$column]);
+		}
+
 		$query = $this->getCompiler()->select();
 
 		return $this->connection->column($query['sql'], $query['params']);
