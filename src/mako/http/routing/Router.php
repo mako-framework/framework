@@ -8,6 +8,7 @@
 namespace mako\http\routing;
 
 use \mako\http\Request;
+use \mako\http\Response;
 use \mako\http\routing\Route;
 use \mako\http\routing\Routes;
 use \mako\http\exceptions\NotFoundException;
@@ -51,7 +52,7 @@ class Router
 
 	protected function redirectRoute($requestPath)
 	{
-		return new Route([], '', function($request, $response) use ($requestPath)
+		return new Route([], '', function(Request $request, Response $response) use ($requestPath)
 		{
 			$url = $request->baseURL() . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
 
@@ -101,7 +102,7 @@ class Router
 	{
 		$allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
 
-		return new Route([], '', function($request, $response) use ($allowedMethods)
+		return new Route([], '', function(Response $response) use ($allowedMethods)
 		{
 			$response->header('allow', implode(',', $allowedMethods));
 		});
