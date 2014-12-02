@@ -253,46 +253,16 @@ class Request
 	}
 
 	/**
-	 * Determines the request path.
+	 * Strips the locale segment from the path.
 	 *
 	 * @access  protected
+	 * @param   array      $languages  Locale segments
+	 * @param   string     $path       Path
 	 * @return  string
 	 */
 
-	protected function determinePath($languages)
+	protected function stripLocaleSegment(array $languages, $path)
 	{
-		$path = '/';
-
-		if(isset($this->server['PATH_INFO']))
-		{
-			$path = $this->server['PATH_INFO'];
-		}
-		elseif(isset($this->server['REQUEST_URI']))
-		{
-			if($path = parse_url($this->server['REQUEST_URI'], PHP_URL_PATH))
-			{
-				// Remove base path from request path
-
-				$basePath = pathinfo($this->server['SCRIPT_NAME'], PATHINFO_DIRNAME);
-
-				if($basePath !== '/' && stripos($path, $basePath) === 0)
-				{
-					$path = mb_substr($path, mb_strlen($basePath));
-				}
-
-				// Remove "/index.php" from path
-
-				if(stripos($path, '/index.php') === 0)
-				{
-					$path = mb_substr($path, 10);
-				}
-
-				$path = rawurldecode($path);
-			}
-		}
-
-		// Remove the locale segment from the path
-			
 		foreach($languages as $key => $language)
 		{
 			if($path === '/' . $key || strpos($path, '/' . $key . '/') === 0)
@@ -308,6 +278,49 @@ class Request
 		}
 
 		return $path;
+	}
+
+	/**
+	 * Determines the request path.
+	 *
+	 * @access  protected
+	 * @param   array      $languages  Locale segments
+	 * @return  string
+	 */
+
+	protected function determinePath(array $languages)
+	{
+		$path = '/';
+
+		if(isset($this->server['PATH_INFO']))
+		{
+			$path = $this->server['PATH_INFO'];
+		}
+		elseif(isset($this->server['REQUEST_URI']))
+		{
+			if($path = parse_url($this->server['REQUEST_URI'], PHP_URL_PATH))
+			{
+				// Remove base path from the request path
+
+				$basePath = pathinfo($this->server['SCRIPT_NAME'], PATHINFO_DIRNAME);
+
+				if($basePath !== '/' && stripos($path, $basePath) === 0)
+				{
+					$path = mb_substr($path, mb_strlen($basePath));
+				}
+
+				// Remove "/index.php" from the path
+
+				if(stripos($path, '/index.php') === 0)
+				{
+					$path = mb_substr($path, 10);
+				}
+
+				$path = rawurldecode($path);
+			}
+		}
+
+		return $this->stripLocaleSegment($languages, $path);
 	}
 
 	/**
