@@ -204,8 +204,8 @@ class Image
 	 * Resizes the image to the chosen size. 
 	 *
 	 * @param   int               $width        Width of the image
-	 * @param   int               $height       (optional) Height of the image
-	 * @param   int               $aspectRatio  (optional) Aspect ratio
+	 * @param   int               $height       Height of the image
+	 * @param   int               $aspectRatio  Aspect ratio
 	 * @return  \mako\pixl\Image
 	 */
 
@@ -238,7 +238,7 @@ class Image
 	 * Flips the image.
 	 *
 	 * @access  public  
-	 * @param   int               $direction  (optional) Direction to flip the image
+	 * @param   int               $direction  Direction to flip the image
 	 * @return  \mako\pixl\Image
 	 */
 
@@ -254,8 +254,8 @@ class Image
 	 *
 	 * @access  public
 	 * @param   string            $file      Path to the image file
-	 * @param   int               $position  (optional) Position of the watermark
-	 * @param   int               $opacity   (optional) Opacity of the watermark in percent
+	 * @param   int               $position  Position of the watermark
+	 * @param   int               $opacity   Opacity of the watermark in percent
 	 * @return  \mako\pixl\Image
 	 */
 
@@ -283,7 +283,7 @@ class Image
 	 * Adjust image brightness.
 	 * 
 	 * @access  public
-	 * @param   int               $level  (optional) Brightness level (-100 to 100)
+	 * @param   int               $level  Brightness level (-100 to 100)
 	 * @return  \mako\pixl\Image
 	 */
 
@@ -360,7 +360,7 @@ class Image
 	 * Pixelates the image.
 	 *
 	 * @access  public
-	 * @param   int               $pixelSize  (optional) Pixel size
+	 * @param   int               $pixelSize  Pixel size
 	 * @return  \mako\pixl\Image
 	 */
 
@@ -405,8 +405,8 @@ class Image
 	 * Returns a string containing the image.
 	 * 
 	 * @access  public
-	 * @param   string  $type     (optional) Image type
-	 * @param   int     $quality  (optional) Image quality 1-100
+	 * @param   string  $type     Image type
+	 * @param   int     $quality  Image quality 1-100
 	 * @return  string
 	 */
 
@@ -419,8 +419,8 @@ class Image
 	 * Saves image to file.
 	 *
 	 * @access  public
-	 * @param   string  $file     (optional) Path to the image file
-	 * @param   int     $quality  (optional) Image quality 1-100
+	 * @param   string  $file     Path to the image file
+	 * @param   int     $quality  Image quality 1-100
 	 */
 
 	public function save($file = null, $quality = 95)

@@ -97,7 +97,7 @@ class Output extends StdOut
 	 * Sytem Beep.
 	 *
 	 * @access  public
-	 * @param   int     $beeps  (optional) Number of system beeps
+	 * @param   int     $beeps  Number of system beeps
 	 */
 
 	public function beep($beeps = 1)
@@ -110,7 +110,7 @@ class Output extends StdOut
 	 * 
 	 * @access  public
 	 * @param   int                                               $itemCount   Number of items
-	 * @param   int                                               $redrawRate  (optional) Redraw rate
+	 * @param   int                                               $redrawRate  Redraw rate
 	 * @return  \Symfony\Component\Console\Helper\ProgressHelper
 	 */
 

@@ -43,9 +43,9 @@ class ManyToMany extends Relation
 	 * @param   \mako\database\Connection   $connection     Database connection
 	 * @param   \mako\database\midgard\ORM  $parent         Parent model
 	 * @param   \mako\database\midgard\ORM  $related        Related model
-	 * @param   string|null                 $foreignKey     (optional) Foreign key name
-	 * @param   string|null                 $junctionTable  (optional) Junction table name
-	 * @param   string|null                 $junctionKey    (optional) Junction key name
+	 * @param   string|null                 $foreignKey     Foreign key name
+	 * @param   string|null                 $junctionTable  Junction table name
+	 * @param   string|null                 $junctionKey    Junction key name
 	 */
 
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null, $junctionTable = null, $junctionKey = null)
@@ -273,7 +273,7 @@ class ManyToMany extends Relation
 	 * Unlinks related records.
 	 * 
 	 * @access  public
-	 * @param   mixed    $id  (optional) Id or model
+	 * @param   mixed    $id  Id or model
 	 * @return  boolean
 	 */
 

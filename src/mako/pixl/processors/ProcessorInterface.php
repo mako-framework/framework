@@ -56,8 +56,8 @@ interface ProcessorInterface
 	 *
 	 * @access  public
 	 * @param  int      $width        Width of the image
-	 * @param  int      $height       (optional) Height of the image
-	 * @param  int      $aspectRatio  (optional) Aspect ratio
+	 * @param  int      $height       Height of the image
+	 * @param  int      $aspectRatio  Aspect ratio
 	 */
 
 	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE);
@@ -78,7 +78,7 @@ interface ProcessorInterface
 	 * Flips the image.
 	 *
 	 * @access  public  
-	 * @param   int     $direction  (optional) Direction to flip the image
+	 * @param   int     $direction  Direction to flip the image
 	 */
 
 	public function flip($direction = Image::FLIP_HORIZONTAL);
@@ -88,8 +88,8 @@ interface ProcessorInterface
 	 *
 	 * @access  public
 	 * @param   string  $file      Path to the image file
-	 * @param   int     $position  (optional) Position of the watermark
-	 * @param   int     $opacity   (optional) Opacity of the watermark in percent
+	 * @param   int     $position  Position of the watermark
+	 * @param   int     $opacity   Opacity of the watermark in percent
 	 */
 
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100);
@@ -98,7 +98,7 @@ interface ProcessorInterface
 	 * Adjust image brightness.
 	 * 
 	 * @access  public
-	 * @param   int     $level  (optional) Brightness level (-100 to 100)
+	 * @param   int     $level  Brightness level (-100 to 100)
 	 */
 
 	public function brightness($level = 50);
@@ -140,7 +140,7 @@ interface ProcessorInterface
 	 * Pixelates the image.
 	 * 
 	 * @access  public
-	 * @param   int     $pixelSize  (optional) Pixel size
+	 * @param   int     $pixelSize  Pixel size
 	 */
 
 	public function pixelate($pixelSize = 10);
@@ -157,8 +157,8 @@ interface ProcessorInterface
 	 * Adds a border to the image.
 	 *
 	 * @access  public
-	 * @param   string  $color      (optional) Hex code for the color
-	 * @param   int     $thickness  (optional) Thickness of the frame in pixels
+	 * @param   string  $color      Hex code for the color
+	 * @param   int     $thickness  Thickness of the frame in pixels
 	 */
 
 	public function border($color = '#000', $thickness = 5);
@@ -167,8 +167,8 @@ interface ProcessorInterface
 	 * Returns a string containing the image.
 	 * 
 	 * @access  public
-	 * @param   string  $type     (optional) Image type
-	 * @param   int     $quality  (optional) Image quality 1-100
+	 * @param   string  $type     Image type
+	 * @param   int     $quality  Image quality 1-100
 	 * @return  string
 	 */
 
@@ -179,7 +179,7 @@ interface ProcessorInterface
 	 *
 	 * @access  public
 	 * @param   string  $file     Path to the image file
-	 * @param   int     $quality  (optional) Image quality 1-100
+	 * @param   int     $quality  Image quality 1-100
 	 */
 
 	public function save($file, $quality = 95);

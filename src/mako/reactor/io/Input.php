@@ -53,7 +53,7 @@ class Input
 	 *
 	 * @access public
 	 * @param  string  $name     Parameter name
-	 * @param  string  $default  (optional) Default value
+	 * @param  string  $default  Default value
 	 * @return string
 	 */
 
@@ -86,8 +86,8 @@ class Input
 	 *
 	 * @access  public
 	 * @param   string  $question      Question for the user
-	 * @param   string  $default       (optional) The default answer if none is given by the user
-	 * @param   array   $autocomplete  (optional) List of values to autocomplete
+	 * @param   string  $default       The default answer if none is given by the user
+	 * @param   array   $autocomplete  List of values to autocomplete
 	 * @return  string
 	 */
 
@@ -105,7 +105,7 @@ class Input
 	 *
 	 * @access  public
 	 * @param   string   $question  Question for the user
-	 * @param   boolean  $fallback  (optional) In case the response can not be hidden, whether to fallback on non-hidden question or not
+	 * @param   boolean  $fallback  In case the response can not be hidden, whether to fallback on non-hidden question or not
 	 * @return  string
 	 */
 
@@ -123,7 +123,7 @@ class Input
 	 *
 	 * @access  public
 	 * @param   string   $question  Question for the user
-	 * @param   boolean  $default   (optional) The default answer if the user enters nothing
+	 * @param   boolean  $default   The default answer if the user enters nothing
 	 * @return  boolean
 	 */
 

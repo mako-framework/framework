@@ -193,8 +193,8 @@ class Session
 	 * Adds a session cookie to the response.
 	 * 
 	 * @access  protected
-	 * @param   string     $value  (optional) Cookie value
-	 * @param   int        $ttl    (optional) Cookie ttl
+	 * @param   string     $value  Cookie value
+	 * @param   int        $ttl    Cookie ttl
 	 */
 
 	protected function setCookie()
@@ -342,7 +342,7 @@ class Session
 	 * Regenerate the session id and returns it.
 	 * 
 	 * @access  public
-	 * @param   boolean  $keepOld  (optional) Keep the session data associated with the old session id?
+	 * @param   boolean  $keepOld  Keep the session data associated with the old session id?
 	 * @return  string
 	 */
 
@@ -429,7 +429,7 @@ class Session
 	 * 
 	 * @access  public
 	 * @param   string  $key      Session key
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
@@ -465,7 +465,7 @@ class Session
 	 *
 	 * @access  public
 	 * @param   string  $key    Flash key
-	 * @param   mixed   $value  (optional) Flash data
+	 * @param   mixed   $value  Flash data
 	 * @return  mixed
 	 */
 
@@ -502,7 +502,7 @@ class Session
 	 * 
 	 * @access  public
 	 * @param   string  $key      Session key
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
@@ -537,7 +537,7 @@ class Session
 	 * Extends the lifetime of the flash data by one request.
 	 * 
 	 * @access  public
-	 * @param   array   $keys  (optional) Keys to preserve
+	 * @param   array   $keys  Keys to preserve
 	 */
 
 	public function reflash(array $keys = [])

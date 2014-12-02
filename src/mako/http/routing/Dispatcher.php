@@ -91,7 +91,7 @@ class Dispatcher
 	 * @param   \mako\http\routing\Filters  $filters     Filter collection
 	 * @param   \mako\http\routing\Route    $route       The route we're dispatching
 	 * @param   array                       $parameters  Route parameters
-	 * @param   \mako\syringe\Container     $container   (optional) IoC container
+	 * @param   \mako\syringe\Container     $container   IoC container
 	 */
 
 	public function __construct(Request $request, Response $response, Filters $filters, Route $route, array $parameters = [], Container $container = null)

@@ -114,7 +114,7 @@ class Router
 	 * @access  protected
 	 * @param   \mako\http\routing\Route  $route       Route
 	 * @param   string                    $path        Request path
-	 * @param   array                     $parameters  (optional) Parameters
+	 * @param   array                     $parameters  Parameters
 	 * @return  boolean
 	 */
 

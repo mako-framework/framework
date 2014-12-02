@@ -56,7 +56,7 @@ class URLBuilder
 	 * @access  public
 	 * @param   \mako\http\Request         $request    Request instance
 	 * @param   \mako\http\routing\Routes  $routes     Route collection
-	 * @param   boolean                    $cleanURLs  (optional) Create "clean" URLs?
+	 * @param   boolean                    $cleanURLs  Create "clean" URLs?
 	 */
 
 	public function __construct(Request $request, Routes $routes, $cleanURLs = false)
@@ -103,9 +103,9 @@ class URLBuilder
 	 *
 	 * @access  public
 	 * @param   string   $path         Path
-	 * @param   array    $queryParams  (optional) Associative array used to build URL-encoded query string
-	 * @param   string   $separator    (optional) Argument separator
-	 * @param   mixed    $language     (optional) Request language
+	 * @param   array    $queryParams  Associative array used to build URL-encoded query string
+	 * @param   string   $separator    Argument separator
+	 * @param   mixed    $language     Request language
 	 * @return  string
 	 */
 
@@ -126,10 +126,10 @@ class URLBuilder
 	 * 
 	 * @access  public
 	 * @param   string  $routeName    Route name
-	 * @param   array   $routeParams  (optional) Route parameters
-	 * @param   array   $queryParams  (optional) Associative array used to build URL-encoded query string
-	 * @param   string  $separator    (optional) Argument separator
-	 * @param   mixed   $language     (optional) Request language
+	 * @param   array   $routeParams  Route parameters
+	 * @param   array   $queryParams  Associative array used to build URL-encoded query string
+	 * @param   string  $separator    Argument separator
+	 * @param   mixed   $language     Request language
 	 * @return  string
 	 */
 
@@ -157,9 +157,9 @@ class URLBuilder
 	 * Returns the current URL of the request.
 	 *
 	 * @access  public
-	 * @param   array    $queryParams  (optional) Associative array used to build URL-encoded query string
-	 * @param   string   $separator    (optional) Argument separator
-	 * @param   mixed    $language     (optional) Request language
+	 * @param   array    $queryParams  Associative array used to build URL-encoded query string
+	 * @param   string   $separator    Argument separator
+	 * @param   mixed    $language     Request language
 	 * @return  string
 	 */
 
@@ -176,8 +176,8 @@ class URLBuilder
 	 * @access  public
 	 * @param   string   $route        URL segments
 	 * @param   mixed    $language     Request language
-	 * @param   array    $queryParams  (optional) Associative array used to build URL-encoded query string
-	 * @param   string   $separator    (optional) Argument separator
+	 * @param   array    $queryParams  Associative array used to build URL-encoded query string
+	 * @param   string   $separator    Argument separator
 	 * @return  string
 	 */
 
@@ -192,9 +192,9 @@ class URLBuilder
 	 * @access  public
 	 * @param   string  $routeName    Route name
 	 * @param   string  $language     Request language
-	 * @param   array   $routeParams  (optional) Route parameters
-	 * @param   array   $queryParams  (optional) Associative array used to build URL-encoded query string
-	 * @param   string  $separator    (optional) Argument separator
+	 * @param   array   $routeParams  Route parameters
+	 * @param   array   $queryParams  Associative array used to build URL-encoded query string
+	 * @param   string  $separator    Argument separator
 	 * @return  string
 	 */
 
@@ -208,8 +208,8 @@ class URLBuilder
 	 * 
 	 * @access  public
 	 * @param   string  $language     Request language
-	 * @param   array   $queryParams  (optional) Query parameters
-	 * @param   string  $separator    (optional) Argument separator
+	 * @param   array   $queryParams  Query parameters
+	 * @param   string  $separator    Argument separator
 	 * @return  string
 	 */
 

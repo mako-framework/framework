@@ -21,7 +21,7 @@ interface StoreInterface
 	 * @access  public
 	 * @param   string   $key    Cache key
 	 * @param   mixed    $data   The data to store
-	 * @param   int      $ttl    (optional) Time to live
+	 * @param   int      $ttl    Time to live
 	 * @return  boolean
 	 */
 

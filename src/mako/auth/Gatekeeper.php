@@ -142,7 +142,7 @@ class Gatekeeper
 	 * @param   \mako\http\Response                          $response       Response instance
 	 * @param   \mako\session\Session                        $session        Session instance
 	 * @param   \mako\auth\providers\UserProviderInterface   $userProvider   User provider
-	 * @param   \mako\auth\providers\GroupProviderInterface  $groupProvider  (optional) Group provider
+	 * @param   \mako\auth\providers\GroupProviderInterface  $groupProvider  Group provider
 	 */
 
 	public function __construct(Request $request, Response $response, Session $session, UserProviderInterface $userProvider, GroupProviderInterface $groupProvider = null)
@@ -236,7 +236,7 @@ class Gatekeeper
 	 * @param   string                         $email     Email address
 	 * @param   string                         $username  Username
 	 * @param   string                         $password  Password
-	 * @param   boolean                        $activate  (optional) Will activate the user if set to true
+	 * @param   boolean                        $activate  Will activate the user if set to true
 	 * @return  \mako\auth\user\UserInterface
 	 */
 
@@ -412,7 +412,7 @@ class Gatekeeper
 	 * @access  protected
 	 * @param   string       $identifier  User email or username
 	 * @param   string       $password    User password
-	 * @param   boolean      $force       (optional) Skip the password check?
+	 * @param   boolean      $force       Skip the password check?
 	 * @return  boolean|int
 	 */
 
@@ -448,8 +448,8 @@ class Gatekeeper
 	 * @access  public
 	 * @param   string       $identifier  User email
 	 * @param   string       $password    User password
-	 * @param   boolean      $remember    (optional) Set a remember me cookie?
-	 * @param   boolean      $force       (optional) Login the user without checking the password?
+	 * @param   boolean      $remember    Set a remember me cookie?
+	 * @param   boolean      $force       Login the user without checking the password?
 	 * @return  boolean|int
 	 */
 
@@ -484,7 +484,7 @@ class Gatekeeper
 	 * 
 	 * @access  public
 	 * @param   mixed    $identifier  User email or username
-	 * @param   boolean  $remember    (optional) Set a remember me cookie?
+	 * @param   boolean  $remember    Set a remember me cookie?
 	 * @return  boolean
 	 */
 

@@ -80,7 +80,7 @@ class Container
 	 * @access  public
 	 * @param   string|array     $hint       Type hint or array contaning both type hint and alias
 	 * @param   string|\Closure  $class      Class name or closure
-	 * @param   boolean          $singleton  (optional) Should we return the same instance every time?
+	 * @param   boolean          $singleton  Should we return the same instance every time?
 	 */
 
 	public function register($hint, $class, $singleton = false)
@@ -306,7 +306,7 @@ class Container
 	 * 
 	 * @access  public
 	 * @param   string|\Closure  $class       Class name or closure
-	 * @param   array            $parameters  (optional) Constructor parameters
+	 * @param   array            $parameters  Constructor parameters
 	 * @return  object
 	 */
 
@@ -384,8 +384,8 @@ class Container
 	 * 
 	 * @access  public
 	 * @param   string   $class           Class name
-	 * @param   array    $parameters      (optional) Constructor parameters
-	 * @param   boolean  $reuseInstance   (optional) Reuse existing instance?
+	 * @param   array    $parameters      Constructor parameters
+	 * @param   boolean  $reuseInstance   Reuse existing instance?
 	 * @return  object
 	 */
 
@@ -435,7 +435,7 @@ class Container
 	 *
 	 * @access  public
 	 * @param   callable  $callable    Callable
-	 * @param   array     $parameters  (optional) Parameters
+	 * @param   array     $parameters  Parameters
 	 * @return  object
 	 */
 

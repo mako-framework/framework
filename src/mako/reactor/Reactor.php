@@ -93,7 +93,7 @@ class Reactor
 	 * Sets up the reactor environment and runs the commands.
 	 *
 	 * @access  public
-	 * @param   array   $arguments  (optional) Arguments
+	 * @param   array   $arguments  Arguments
 	 */
 
 	public function run(array $arguments = [])

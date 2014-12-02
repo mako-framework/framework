@@ -73,8 +73,8 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	 * @access  public
 	 * @param   string                                         $key     Encryption key
 	 * @param   \mako\security\crypto\padders\PadderInterface  $padder  Padder instance
-	 * @param   int                                            $cipher  (optional) Cipher
-	 * @param   int                                            $mode    (optional) Mode
+	 * @param   int                                            $cipher  Cipher
+	 * @param   int                                            $mode    Mode
 	 */
 
 	public function __construct($key, PadderInterface $padder, $cipher = null, $mode = null)

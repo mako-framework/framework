@@ -75,7 +75,7 @@ class I18n
 	 * @access  public
 	 * @param   \mako\i18n\Loader  $loader    Loader instance
 	 * @param   string             $language  Default language pack name
-	 * @param   \mako\cache\Cache  $cache     (optional) Cache instance
+	 * @param   \mako\cache\Cache  $cache     Cache instance
 	 */
 
 	public function __construct(Loader $loader, $language, Cache $cache = null)
@@ -170,8 +170,8 @@ class I18n
 	 *
 	 * @access  public
 	 * @param   string  $word      Noun to pluralize
-	 * @param   int     $count     (optional) Number of nouns
-	 * @param   string  $language  (optional) Language rules to use for pluralization
+	 * @param   int     $count     Number of nouns
+	 * @param   string  $language  Language rules to use for pluralization
 	 * @return  string
 	 */
 
@@ -271,7 +271,7 @@ class I18n
 	 * 
 	 * @access  public
 	 * @param   string   $key       String to translate
-	 * @param   string   $language  (optional) Name of the language pack
+	 * @param   string   $language  Name of the language pack
 	 * @return  boolean
 	 */
 
@@ -315,8 +315,8 @@ class I18n
 	 *
 	 * @access  public
 	 * @param   string  $key       String to translate
-	 * @param   array   $vars      (optional) Array of values to replace in the translated text
-	 * @param   string  $language  (optional) Name of the language pack
+	 * @param   array   $vars      Array of values to replace in the translated text
+	 * @param   string  $language  Name of the language pack
 	 * @return  string
 	 */
 

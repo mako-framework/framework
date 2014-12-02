@@ -20,7 +20,7 @@ class ClassInspector
 	 * 
 	 * @access  public
 	 * @param   string|object  $class     Class name or class instance
-	 * @param   boolean        $autoload  (optional) Autoload
+	 * @param   boolean        $autoload  Autoload
 	 * @return  array
 	 */
 

@@ -53,7 +53,7 @@ Class Stream implements ResponseContainerInterface
 	 * 
 	 * @access  public
 	 * @param   string   $chunk       Chunck of data to flush
-	 * @param   boolean  $flushEmpty  (optional) Flush empty chunk?
+	 * @param   boolean  $flushEmpty  Flush empty chunk?
 	 */
 
 	public function flush($chunk, $flushEmpty = false)

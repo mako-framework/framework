@@ -53,7 +53,7 @@ class Config
 	 * @access  public
 	 * @param   \mako\file\FileSystem $fileSystem   File system instance
 	 * @param   string                $path         Default path
-	 * @param   string                $environment  (optional) Environment name
+	 * @param   string                $environment  Environment name
 	 */
 
 	public function __construct(FileSystem $fileSystem, $path, $environment = null)
@@ -144,7 +144,7 @@ class Config
 	 *
 	 * @access  public
 	 * @param   string  $key      Config key
-	 * @param   mixed   $default  (optional) Default value to return if config value doesn't exist
+	 * @param   mixed   $default  Default value to return if config value doesn't exist
 	 * @return  mixed
 	 */
 

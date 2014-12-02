@@ -49,8 +49,8 @@ class ResultSet extends Collection
 	 * Returns an array representation of the result set.
 	 * 
 	 * @access  public
-	 * @param   boolean  $protect  (optional) Protect columns?
-	 * @param   boolean  $raw      (optional) Get raw values?
+	 * @param   boolean  $protect  Protect columns?
+	 * @param   boolean  $raw      Get raw values?
 	 * @return  array
 	 */
 
@@ -70,8 +70,8 @@ class ResultSet extends Collection
 	 * Returns a json representation of the result set.
 	 * 
 	 * @access  public
-	 * @param   boolean  $protect  (optional) Protect columns?
-	 * @param   boolean  $raw      (optional) Get raw values?
+	 * @param   boolean  $protect  Protect columns?
+	 * @param   boolean  $raw      Get raw values?
 	 * @return  string
 	 */
 

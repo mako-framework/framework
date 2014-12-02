@@ -98,7 +98,7 @@ abstract class AdapterManager
 	 * Returns an instance of the chosen adapter configuration.
 	 * 
 	 * @access  public
-	 * @param   string  $configuration  (optional) Configuration name
+	 * @param   string  $configuration  Configuration name
 	 * @return  mixed
 	 */
 

@@ -46,7 +46,7 @@ abstract class StreamOutput extends SymfonyStreamOutput
 	 * Outputs n empty lines.
 	 * 
 	 * @access  public
-	 * @param   int     $count  (optional) Number of empty lines
+	 * @param   int     $count  Number of empty lines
 	 */
 
 	public function nl($count = 1)
@@ -60,7 +60,7 @@ abstract class StreamOutput extends SymfonyStreamOutput
 	 * @access  public
 	 * @param   array   $headers  Table headers
 	 * @param   array   $rows     Table rows
-	 * @param   int     $layout   (optional) Table layout
+	 * @param   int     $layout   Table layout
 	 */
 
 	public function table(array $headers, array $rows, $layout = TableHelper::LAYOUT_DEFAULT)

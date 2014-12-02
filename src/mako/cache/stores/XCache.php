@@ -37,8 +37,8 @@ class XCache implements StoreInterface
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $username  (optional) Username
-	 * @param   string  $password  (optional) Password
+	 * @param   string  $username  Username
+	 * @param   string  $password  Password
 	 */
 
 	public function __construct($username = null, $password = null)

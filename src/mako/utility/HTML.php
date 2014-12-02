@@ -38,7 +38,7 @@ class HTML
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   boolean  $xhtml  (optional) Should we return HXML?
+	 * @param   boolean  $xhtml  Should we return HXML?
 	 */
 
 	public function __construct($xhtml = false)
@@ -89,8 +89,8 @@ class HTML
 	 *
 	 * @access  public
 	 * @param   string  $name        Tag name
-	 * @param   array   $attributes  (optional) Tag attributes
-	 * @param   string  $content     (optional) Tag content
+	 * @param   array   $attributes  Tag attributes
+	 * @param   string  $content     Tag content
 	 * @return  string
 	 */
 
@@ -105,7 +105,7 @@ class HTML
 	 * @access  protected
 	 * @param   string     $type        Tag type
 	 * @param   mixed      $files       File or array of files
-	 * @param   array      $attributes  (optional) Tag attributes
+	 * @param   array      $attributes  Tag attributes
 	 */
 
 	protected function buildMedia($type, $files, $attributes)
@@ -125,7 +125,7 @@ class HTML
 	 *
 	 * @access  public
 	 * @param   mixed   $files       File or array of files
-	 * @param   array   $attributes  (optional) Tag attributes
+	 * @param   array   $attributes  Tag attributes
 	 */
 
 	public function audio($files, array $attributes = [])
@@ -138,7 +138,7 @@ class HTML
 	 *
 	 * @access  public
 	 * @param   mixed   $files       File or array of files
-	 * @param   array   $attributes  (optional) Tag attributes
+	 * @param   array   $attributes  Tag attributes
 	 */
 
 	public function video($files, array $attributes = [])
@@ -152,7 +152,7 @@ class HTML
 	 * @access  protected
 	 * @param   string     $type        Tag type
 	 * @param   mixed      $items       File or array of files
-	 * @param   array      $attributes  (optional) Tag attributes
+	 * @param   array      $attributes  Tag attributes
 	 */
 
 	protected function buildList($type, $items, $attributes)

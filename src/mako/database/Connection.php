@@ -504,7 +504,7 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   string   $query   SQL query
-	 * @param   array    $params  (optional) Query parameters
+	 * @param   array    $params  Query parameters
 	 * @return  boolean
 	 */
 
@@ -518,7 +518,7 @@ class Connection
 	 * 
 	 * @access  public
 	 * @param   string  $query   SQL query
-	 * @param   array   $params  (optional) Query parameters
+	 * @param   array   $params  Query parameters
 	 * @return  int
 	 */
 
@@ -536,7 +536,7 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   string  $query   SQL query
-	 * @param   array   $params  (optional) Query parameters
+	 * @param   array   $params  Query parameters
 	 * @return  array
 	 */
 
@@ -554,7 +554,7 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   string  $query   SQL query
-	 * @param   array   $params  (optional) Query params
+	 * @param   array   $params  Query params
 	 * @return  mixed
 	 */
 
@@ -572,7 +572,7 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   string  $query   SQL query
-	 * @param   array   $params  (optional) Query parameters
+	 * @param   array   $params  Query parameters
 	 * @return  mixed
 	 */
 

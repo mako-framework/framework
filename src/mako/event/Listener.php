@@ -55,7 +55,7 @@ class Listener
 	 * Clears all events or just the events for a specific trigger.
 	 *
 	 * @access  public
-	 * @param   string  $name  (optional) Event name
+	 * @param   string  $name  Event name
 	 */
 
 	public function clear($name = null)
@@ -91,8 +91,8 @@ class Listener
 	 *
 	 * @access  public
 	 * @param   string   $name    Event name
-	 * @param   array    $params  (optional) Closure parameters
-	 * @param   boolean  $break   (optional) Break if one of the closures returns false?
+	 * @param   array    $params  Closure parameters
+	 * @param   boolean  $break   Break if one of the closures returns false?
 	 * @return  array
 	 */
 

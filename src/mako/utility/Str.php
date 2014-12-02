@@ -129,7 +129,7 @@ class Str
 	 *
 	 * @access  public
 	 * @param   string   $string  The input string
-	 * @param   boolean  $xhtml   (optional) Should we return XHTML?
+	 * @param   boolean  $xhtml   Should we return XHTML?
 	 * @return  string
 	 */
 
@@ -156,7 +156,7 @@ class Str
 	 * 
 	 * @access  public
 	 * @param   string  $noun   Noun to pluralize
-	 * @param   int     $count  (optional) Number of nouns
+	 * @param   int     $count  Number of nouns
 	 * @return  string
 	 */
 
@@ -203,7 +203,7 @@ class Str
 	 *
 	 * @access  public
 	 * @param   string   $string  The input string
-	 * @param   boolean  $upper   (optional) Return upper case camelCase?
+	 * @param   boolean  $upper   Return upper case camelCase?
 	 * @return  string
 	 */
 
@@ -217,8 +217,8 @@ class Str
 	 *
 	 * @access  public
 	 * @param   string  $string      The input string
-	 * @param   int     $characters  (optional) Number of characters to allow
-	 * @param   string  $sufix       (optional) Sufix to add if number of characters is reduced
+	 * @param   int     $characters  Number of characters to allow
+	 * @param   string  $sufix       Sufix to add if number of characters is reduced
 	 */
 
 	public static function limitChars($string, $characters = 100, $sufix = '...')
@@ -231,8 +231,8 @@ class Str
 	 *
 	 * @access  public
 	 * @param   string  $string  The input string
-	 * @param   int     $words   (optional) Number of words to allow
-	 * @param   string  $sufix   (optional) Sufix to add if number of words is reduced
+	 * @param   int     $words   Number of words to allow
+	 * @param   string  $sufix   Sufix to add if number of words is reduced
 	 */
 
 	public static function limitWords($string, $words = 100, $sufix = '...')
@@ -296,7 +296,7 @@ class Str
 	 *
 	 * @access  public
 	 * @param   string   $string      Text to scan for links
-	 * @param   array    $attributes  (optional) Anchor attributes
+	 * @param   array    $attributes  Anchor attributes
 	 * @return  string
 	 */
 	
@@ -313,8 +313,8 @@ class Str
 	 *
 	 * @access  public
 	 * @param   string  $string   String to mask
-	 * @param   int     $visible  (optional) Number of characters to show
-	 * @param   string  $mask     (optional) Character used to replace remaining characters
+	 * @param   int     $visible  Number of characters to show
+	 * @param   string  $mask     Character used to replace remaining characters
 	 * @return  string
 	 */
 
@@ -351,7 +351,7 @@ class Str
 	 * Returns a random string of the selected type and length.
 	 *
 	 * @param   string  $pool    Character pool to use
-	 * @param   int     $length  (optional) Desired string length
+	 * @param   int     $length  Desired string length
 	 * @return  string
 	 */
 

@@ -24,7 +24,7 @@ interface UserProviderInterface
 	 * @param   string                         $email     Email address
 	 * @param   string                         $username  Username
 	 * @param   string                         $password  Password
-	 * @param   string                         $ip        (optional) IP address
+	 * @param   string                         $ip        IP address
 	 * @return  \mako\auth\user\UserInterface
 	 */
 

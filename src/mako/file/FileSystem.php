@@ -308,7 +308,7 @@ class FileSystem
 	 * 
 	 * @access  public
 	 * @param   string       $pattern  Patern
-	 * @param   int          $flags    (optional) Flags
+	 * @param   int          $flags    Flags
 	 * @return  array|false
 	 */
 
@@ -336,7 +336,7 @@ class FileSystem
 	 * @access  public
 	 * @param   string       $file  File path
 	 * @param   mixed        $data  File data
-	 * @param   boolean      $lock  (optional) Acquire an exclusive write lock?
+	 * @param   boolean      $lock  Acquire an exclusive write lock?
 	 * @return  int|boolean
 	 */
 
@@ -351,7 +351,7 @@ class FileSystem
 	 * @access  public
 	 * @param   string       $file  File path
 	 * @param   mixed        $data  File data
-	 * @param   boolean      $lock  (optional) Acquire an exclusive write lock?
+	 * @param   boolean      $lock  Acquire an exclusive write lock?
 	 * @return  int|boolean
 	 */
 
@@ -366,7 +366,7 @@ class FileSystem
 	 * @access  public
 	 * @param   string       $file  File path
 	 * @param   mixed        $data  File data
-	 * @param   boolean      $lock  (optional) Acquire an exclusive write lock?
+	 * @param   boolean      $lock  Acquire an exclusive write lock?
 	 * @return  int|boolean
 	 */
 
@@ -380,7 +380,7 @@ class FileSystem
 	 * 
 	 * @access  public
 	 * @param   string   $file  File path
-	 * @param   boolean  $lock  (optional) Acquire an exclusive write lock?
+	 * @param   boolean  $lock  Acquire an exclusive write lock?
 	 * @return  boolean
 	 */
 
@@ -394,8 +394,8 @@ class FileSystem
 	 * 
 	 *  @access  public
 	 *  @param   string   $path      Path to directory
-	 *  @param   int      $mode      (optional) Mode
-	 *  @param   boolean  $recursive (optional) Recursive
+	 *  @param   int      $mode      Mode
+	 *  @param   boolean  $recursive Recursive
 	 *  @return  boolean
 	 */
 
@@ -461,8 +461,8 @@ class FileSystem
 	 * 
 	 * @access  public
 	 * @param   string          $file            Path to file
-	 * @param   string          $openMode        (optional) Open mode
-	 * @param   boolean         $useIncludePath  (optional) Use include path?
+	 * @param   string          $openMode        Open mode
+	 * @param   boolean         $useIncludePath  Use include path?
 	 * @return  \SplFileObject
 	 */
 

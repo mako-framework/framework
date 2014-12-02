@@ -70,8 +70,8 @@ class Time extends DateTime
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   string  $time      (optional) A date/time string
-	 * @param   mixed   $timeZone  (optional) A valid time zone or a DateTimeZone object
+	 * @param   string  $time      A date/time string
+	 * @param   mixed   $timeZone  A valid time zone or a DateTimeZone object
 	 */
 
 	public function __construct($time = 'now', $timeZone = null)
@@ -88,7 +88,7 @@ class Time extends DateTime
 	 * Returns a new Time object.
 	 * 
 	 * @access  public
-	 * @param   mixed              $timeZone  (optional) A valid time zone or a DateTimeZone object
+	 * @param   mixed              $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
 
@@ -102,9 +102,9 @@ class Time extends DateTime
 	 * 
 	 * @access  public
 	 * @param   int                $year      Year
-	 * @param   int                $month     (optional) Month (1 to 12)
-	 * @param   int                $day       (optional) Day of month (1 to 31)
-	 * @param   string             $timeZone  (optional) A valid time zone or a DateTimeZone object
+	 * @param   int                $month     Month (1 to 12)
+	 * @param   int                $day       Day of month (1 to 31)
+	 * @param   string             $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
 
@@ -120,7 +120,7 @@ class Time extends DateTime
 	 * 
 	 * @access  public
 	 * @param   int                $timestamp  Unix timestamp
-	 * @param   string             $timeZone   (optional) A valid time zone or a DateTimeZone object
+	 * @param   string             $timeZone   A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
 
@@ -138,7 +138,7 @@ class Time extends DateTime
 	 * 
 	 * @access  public
 	 * @param   int                $timestamp  DOS timestamp
-	 * @param   string             $timeZone   (optional) A valid time zone or a DateTimeZone object
+	 * @param   string             $timeZone   A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
 
@@ -162,7 +162,7 @@ class Time extends DateTime
 	 * @access  public
 	 * @param   string             $format    The format that the passed in string should be in
 	 * @param   string             $time      String representing the time
-	 * @param   string             $timeZone  (optional) A valid time zone or a DateTimeZone object
+	 * @param   string             $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
 

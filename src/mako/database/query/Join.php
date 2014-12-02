@@ -98,7 +98,7 @@ class Join
 	 * @param   string  $column1    Column name
 	 * @param   string  $operator   Operator
 	 * @param   string  $column2    Column name
-	 * @param   string  $separator  (optional) Clause separator
+	 * @param   string  $separator  Clause separator
 	 */
 
 	public function on($column1, $operator, $column2, $separator = 'AND')
@@ -121,7 +121,7 @@ class Join
 	 * @param   string  $column1    Column name
 	 * @param   string  $operator   Operator
 	 * @param   string  $raw        Raw SQL
-	 * @param   string  $separator  (optional) Clause separator
+	 * @param   string  $separator  Clause separator
 	 */
 
 	public function onRaw($column1, $operator, $raw, $separator = 'AND')

@@ -205,10 +205,10 @@ abstract class ORM
 	 * 
 	 * @access  public
 	 * @param   array    $columns    Column values
-	 * @param   boolean  $raw        (optional) Set raw values?
-	 * @param   boolean  $whitelist  (optional) Remove columns that are not in the whitelist?
-	 * @param   boolean  $exists     (optional) Does the record come from a database?
-	 * @param   boolean  $readOnly   (optional) Is this a read-only record?
+	 * @param   boolean  $raw        Set raw values?
+	 * @param   boolean  $whitelist  Remove columns that are not in the whitelist?
+	 * @param   boolean  $exists     Does the record come from a database?
+	 * @param   boolean  $readOnly   Is this a read-only record?
 	 */
 
 	public function __construct(array $columns = [], $raw = false, $whitelist = true, $exists = false, $readOnly = false)
@@ -350,7 +350,7 @@ abstract class ORM
 	 * Returns the short name of a class.
 	 * 
 	 * @access  protected
-	 * @param   string     $className  (optional)  Class name
+	 * @param   string     $className   Class name
 	 * @return  string
 	 */
 
@@ -677,8 +677,8 @@ abstract class ORM
 	 * 
 	 * @access  public
 	 * @param   array                       $columns    Column values
-	 * @param   boolean                     $raw        (optional) Set raw values?
-	 * @param   boolean                     $whitelist  (optional) Remove columns that are not in the whitelist?
+	 * @param   boolean                     $raw        Set raw values?
+	 * @param   boolean                     $whitelist  Remove columns that are not in the whitelist?
 	 * @return  \mako\database\midgard\ORM
 	 */
 
@@ -785,7 +785,7 @@ abstract class ORM
 	 * 
 	 * @access  public
 	 * @param   int                         $id       Primary key
-	 * @param   array                       $columns  (optional) Columns to select
+	 * @param   array                       $columns  Columns to select
 	 * @return  \mako\database\midgard\ORM
 	 */
 
@@ -799,8 +799,8 @@ abstract class ORM
 	 * 
 	 * @access  public
 	 * @param   array                       $columns    Column values
-	 * @param   boolean                     $raw        (optional) Set raw values?
-	 * @param   boolean                     $whitelist  (optional) Remove columns that are not in the whitelist?
+	 * @param   boolean                     $raw        Set raw values?
+	 * @param   boolean                     $whitelist  Remove columns that are not in the whitelist?
 	 * @return  \mako\database\midgard\ORM
 	 */
 
@@ -818,7 +818,7 @@ abstract class ORM
 	 * 
 	 * @access  protected
 	 * @param   string                                  $model       Related model
-	 * @param   string|null                             $foreignKey  (optional) Foreign key name
+	 * @param   string|null                             $foreignKey  Foreign key name
 	 * @return  \mako\database\midgard\relation\HasOne
 	 */
 
@@ -850,7 +850,7 @@ abstract class ORM
 	 * 
 	 * @access  protected
 	 * @param   string                                   $model       Related model
-	 * @param   string|null                              $foreignKey  (optional) Foreign key name
+	 * @param   string|null                              $foreignKey  Foreign key name
 	 * @return  \mako\database\midgard\relation\HasMany
 	 */
 
@@ -882,9 +882,9 @@ abstract class ORM
 	 * 
 	 * @access  protected
 	 * @param   string                                      $model          Related model
-	 * @param   string|null                                 $foreignKey     (optional) Foreign key name
-	 * @param   string|null                                 $junctionTable  (optional) Junction table name
-	 * @param   string|null                                 $junctionKey    (optional) Junction key name
+	 * @param   string|null                                 $foreignKey     Foreign key name
+	 * @param   string|null                                 $junctionTable  Junction table name
+	 * @param   string|null                                 $junctionKey    Junction key name
 	 * @return  \mako\database\midgard\relation\ManyToMany
 	 */
 
@@ -900,7 +900,7 @@ abstract class ORM
 	 * 
 	 * @access  protected
 	 * @param   string                                     $model       Related model
-	 * @param   string|null                                $foreignKey  (optional) Foreign key name
+	 * @param   string|null                                $foreignKey  Foreign key name
 	 * @return  \mako\database\midgard\relation\BelongsTo
 	 */
 
@@ -1080,7 +1080,7 @@ abstract class ORM
 	 * Returns an array representation of the record.
 	 * 
 	 * @access  public
-	 * @param   boolean  $protect  (optional) Protect columns?
+	 * @param   boolean  $protect  Protect columns?
 	 * @return  array
 	 */
 
@@ -1125,7 +1125,7 @@ abstract class ORM
 	 * Returns a json representation of the record.
 	 * 
 	 * @access  public
-	 * @param   boolean  $protect  (optional) Protect columns?
+	 * @param   boolean  $protect  Protect columns?
 	 * @return  string
 	 */
 

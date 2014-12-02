@@ -96,9 +96,9 @@ class Pagination
 	 * @access  public
 	 * @param   \mako\http\Request             $request      Request
 	 * @param   int                            $count        Item count
-	 * @param   array                          $config       (optional) Configuration
-	 * @param   \mako\http\routing\URLBuilder  $urlBuilder   (optional) URL builder instance
-	 * @param   \mako\view\ViewFactory         $viewFactory  (optional) View factory instance
+	 * @param   array                          $config       Configuration
+	 * @param   \mako\http\routing\URLBuilder  $urlBuilder   URL builder instance
+	 * @param   \mako\view\ViewFactory         $viewFactory  View factory instance
 	 */
 
 	public function __construct(Request $request, $count, array $config = [], URLBuilder $urlBuilder = null, ViewFactory $viewFactory = null)

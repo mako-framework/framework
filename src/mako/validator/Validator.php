@@ -72,7 +72,7 @@ class Validator
 	 * @access  public
 	 * @param   array            $input  Array to validate
 	 * @param   array            $rules  Array of validation rules
-	 * @param   \mako\i18n\I18n  $i18n   (optional) I18n instance
+	 * @param   \mako\i18n\I18n  $i18n   I18n instance
 	 */
 
 	public function __construct(array $input, array $rules, I18n $i18n = null)
@@ -726,7 +726,7 @@ class Validator
 	 * Returns TRUE if all rules passed and FALSE if validation failed.
 	 *
 	 * @access  public
-	 * @param   array    $errors  (optional) If $errors is provided, then it is filled with all the error messages
+	 * @param   array    $errors  If $errors is provided, then it is filled with all the error messages
 	 * @return  boolean
 	 */
 
@@ -743,7 +743,7 @@ class Validator
 	 * Returns FALSE if all rules passed and TRUE if validation failed.
 	 *
 	 * @access  public
-	 * @param   array    $errors  (optional) If $errors is provided, then it is filled with all the error messages
+	 * @param   array    $errors  If $errors is provided, then it is filled with all the error messages
 	 * @return  boolean
 	 */
 

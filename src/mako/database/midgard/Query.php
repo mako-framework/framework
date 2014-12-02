@@ -190,7 +190,7 @@ class Query extends QueryBuilder
 	 * 
 	 * @access  public
 	 * @param   int                         $id       Primary key
-	 * @param   array                       $columns  (optional) Columns to select
+	 * @param   array                       $columns  Columns to select
 	 * @return  \mako\database\midgard\ORM
 	 */
 

@@ -141,7 +141,7 @@ class WebHandler extends Handler
 	 * 
 	 * @access  protected
 	 * @param   array      $trace      Exception trace
-	 * @param   boolean    $addSource  (optional) Add source code to each frame?
+	 * @param   boolean    $addSource  Add source code to each frame?
 	 * @return  array
 	 */
 

@@ -41,7 +41,7 @@ abstract class ConnectionManager
 	 * Returns the chosen connection.
 	 * 
 	 * @access  public
-	 * @param   string  $connection  (optional) Connection name
+	 * @param   string  $connection  Connection name
 	 * @return  mixed
 	 */
 

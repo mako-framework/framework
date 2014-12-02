@@ -54,7 +54,7 @@ trait ObservableTrait
 	 * Clear all observers.
 	 * 
 	 * @access  public
-	 * @param   string  $event  (optional) Event name
+	 * @param   string  $event  Event name
 	 */
 
 	public function clearObservers($event = null)
@@ -89,8 +89,8 @@ trait ObservableTrait
 	 * 
 	 * @access  public
 	 * @param   string   $event       Event name
-	 * @param   array    $parameters  (optional) Parameters
-	 * @param   boolean  $break       (optional) Break if one of the observers returns false?
+	 * @param   array    $parameters  Parameters
+	 * @param   boolean  $break       Break if one of the observers returns false?
 	 */
 
 	protected function notifyObservers($event, array $parameters = [], $break = false)

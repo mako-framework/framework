@@ -217,7 +217,7 @@ class Request
 	 *
 	 * @access  public
 	 * @param   array                  $request  Request data and options
-	 * @param   \mako\security\Signer  $signer   (optional) Signer instance used to validate signed cookies
+	 * @param   \mako\security\Signer  $signer   Signer instance used to validate signed cookies
 	 */
 
 	public function __construct(array $request = [], Signer $signer = null)
@@ -505,8 +505,8 @@ class Request
 	 * Fetch data from the GET parameters.
 	 *
 	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   string  $key      Array key
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
@@ -519,8 +519,8 @@ class Request
 	 * Fetch data from the POST parameters.
 	 *
 	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   string  $key      Array key
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
@@ -533,8 +533,8 @@ class Request
 	 * Fetch data from the PUT parameters.
 	 *
 	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   string  $key      Array key
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
@@ -547,8 +547,8 @@ class Request
 	 * Fetch data from the PATCH parameters.
 	 *
 	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   string  $key      Array key
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
@@ -561,8 +561,8 @@ class Request
 	 * Fetch data from the DELETE parameters.
 	 *
 	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   string  $key      Array key
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
@@ -575,8 +575,8 @@ class Request
 	 * Fetch signed cookie data.
 	 *
 	 * @access  public
-	 * @param   string  $name     (optional) Cookie name
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   string  $name     Cookie name
+	 * @param   mixed   $default  Default value
 	 * @return  string
 	 */
 
@@ -601,8 +601,8 @@ class Request
 	 * Fetch unsigned cookie data.
 	 *
 	 * @access  public
-	 * @param   string  $name     (optional) Cookie name
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   string  $name     Cookie name
+	 * @param   mixed   $default  Default value
 	 * @return  string
 	 */
 
@@ -615,8 +615,8 @@ class Request
 	 * Fetch file data.
 	 *
 	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   string  $key      Array key
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
@@ -629,8 +629,8 @@ class Request
 	 * Fetch server info.
 	 *
 	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   string  $key      Array key
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
@@ -658,8 +658,8 @@ class Request
 	 * Fetch data the current request method.
 	 *
 	 * @access  public
-	 * @param   string  $key      (optional) Array key
-	 * @param   mixed   $default  (optional) Default value
+	 * @param   string  $key      Array key
+	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
 
@@ -675,7 +675,7 @@ class Request
 	 * 
 	 * @access  public
 	 * @param   array  $keys      Keys to whitelist
-	 * @param   array  $defaults  (optional) Default values
+	 * @param   array  $defaults  Default values
 	 * @return  array
 	 */
 
@@ -689,7 +689,7 @@ class Request
 	 * 
 	 * @access  public
 	 * @param   array  $keys      Keys to whitelist
-	 * @param   array  $defaults  (optional) Default values
+	 * @param   array  $defaults  Default values
 	 * @return  array
 	 */
 
@@ -1010,7 +1010,7 @@ class Request
 	 * Returns the referer.
 	 *
 	 * @access  public
-	 * @param   string  $default  (optional) Value to return if no referer is set
+	 * @param   string  $default  Value to return if no referer is set
 	 * @return  string
 	 */
 

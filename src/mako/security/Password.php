@@ -54,7 +54,7 @@ class Password
 	 *
 	 * @access  public
 	 * @param   string  $password  Password
-	 * @param   int     $cost      (optional) Computing cost
+	 * @param   int     $cost      Computing cost
 	 * @return  string
 	 */
 
@@ -78,7 +78,7 @@ class Password
 	 * @access  public
 	 * @param   string    $password     Password
 	 * @param   string    $hash         Password hash
-	 * @param   \Closure  $legacyCheck  (optional) Legacy check
+	 * @param   \Closure  $legacyCheck  Legacy check
 	 * @return  boolean
 	 */
 

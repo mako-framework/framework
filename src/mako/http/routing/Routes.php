@@ -124,7 +124,7 @@ class Routes
 	 * @param   array            $methods  HTTP methods
 	 * @param   string           $route    Route
 	 * @param   string|\Closure  $action   Route action
-	 * @param   string           $name     (optional) Route name
+	 * @param   string           $name     Route name
 	 */
 
 	protected function registerRoute(array $methods, $route, $action, $name = null)
@@ -158,7 +158,7 @@ class Routes
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    (optional) Route name
+	 * @param   string           $name    Route name
 	 */
 
 	public function get($route, $action, $name = null)
@@ -172,7 +172,7 @@ class Routes
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    (optional) Route name
+	 * @param   string           $name    Route name
 	 */
 
 	public function post($route, $action, $name = null)
@@ -186,7 +186,7 @@ class Routes
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    (optional) Route name
+	 * @param   string           $name    Route name
 	 */
 
 	public function put($route, $action, $name = null)
@@ -200,7 +200,7 @@ class Routes
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    (optional) Route name
+	 * @param   string           $name    Route name
 	 */
 
 	public function patch($route, $action, $name = null)
@@ -214,7 +214,7 @@ class Routes
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    (optional) Route name
+	 * @param   string           $name    Route name
 	 */
 
 	public function delete($route, $action, $name = null)
@@ -228,7 +228,7 @@ class Routes
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    (optional) Route name
+	 * @param   string           $name    Route name
 	 */
 
 	public function all($route, $action, $name = null)
@@ -243,7 +243,7 @@ class Routes
 	 * @param   array            $methods  Array of HTTP methods the route should respond to
 	 * @param   string           $route    Route
 	 * @param   string|\Closure  $action   Route action
-	 * @param   string           $name     (optional) Route name
+	 * @param   string           $name     Route name
 	 */
 
 	public function methods(array $methods, $route, $action, $name = null)

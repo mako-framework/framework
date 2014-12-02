@@ -104,7 +104,7 @@ abstract class Package
 	 * Returns the class namespace.
 	 * 
 	 * @access  public
-	 * @param   boolean  $prefix  (optional) Prefix the namespace with a slash?
+	 * @param   boolean  $prefix  Prefix the namespace with a slash?
 	 * @return  string
 	 */
 

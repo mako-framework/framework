@@ -53,7 +53,7 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 	 * @param   string   $input   Input
 	 * @param   string   $table   Table name
 	 * @param   string   $column  Column name
-	 * @param   string   $value   (optional) Allowed value
+	 * @param   string   $value   Allowed value
 	 * @return  boolean
 	 */
 

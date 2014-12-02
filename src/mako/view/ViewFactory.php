@@ -77,7 +77,7 @@ class ViewFactory
 	 * @access  public
 	 * @param   string  $fileSystem  File system instance
 	 * @param   string  $path        Default path
-	 * @param   string  $charset     (optional) Charset
+	 * @param   string  $charset     Charset
 	 */
 
 	public function __construct(FileSystem $fileSystem, $path, $charset = 'UTF-8')
@@ -150,7 +150,7 @@ class ViewFactory
 	 * @access  public
 	 * @param   string                  $extention  Extention handled by the renderer
 	 * @param   string|\Closure         $renderer   Renderer class or closure that creates a renderer instance
-	 * @param   boolean                 $prepend    (optional) Prepend the custom renderer on the stack
+	 * @param   boolean                 $prepend    Prepend the custom renderer on the stack
 	 * @return  \mako\view\ViewFactory
 	 */
 
@@ -209,7 +209,7 @@ class ViewFactory
 	 * 
 	 * @access  protected
 	 * @param   string     $view            View
-	 * @param   boolean    $throwException  (optional) Throw exception if view doesn't exist?
+	 * @param   boolean    $throwException  Throw exception if view doesn't exist?
 	 * @return  array
 	 */
 
@@ -294,7 +294,7 @@ class ViewFactory
 	 * 
 	 * @access  public
 	 * @param   string           $view       View
-	 * @param   array            $variables  (optional) View variables
+	 * @param   array            $variables  View variables
 	 * @return  \mako\view\View
 	 */
 
@@ -310,7 +310,7 @@ class ViewFactory
 	 * 
 	 * @access  public
 	 * @param   string  $view       View
-	 * @param   array   $variables  (optional) View variables
+	 * @param   array   $variables  View variables
 	 * @return  string
 	 */
 

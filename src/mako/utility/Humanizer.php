@@ -44,7 +44,7 @@ class Humanizer
 	 * 
 	 * @access  public
 	 * @param   int      $size    File size in bytes
-	 * @param   boolean  $binary  (optional) True to use binary suffixes and false to use decimal suffixes
+	 * @param   boolean  $binary  True to use binary suffixes and false to use decimal suffixes
 	 * @return  string
 	 */
 
@@ -78,7 +78,7 @@ class Humanizer
 	 * 
 	 * @access  public
 	 * @param   \DateTime  $dateTime    DateTime object
-	 * @param   string     $dateFormat  (optional) Default date format
+	 * @param   string     $dateFormat  Default date format
 	 * @return  string
 	 */
 
@@ -107,8 +107,8 @@ class Humanizer
 	 * 
 	 * @access  public
 	 * @param   \DateTime  $dateTime     DateTime object
-	 * @param   string     $dateFormat   (optional) Default date format
-	 * @param   string     $clockFormat  (optional) Default clock format
+	 * @param   string     $dateFormat   Default date format
+	 * @param   string     $clockFormat  Default clock format
 	 * @return  string
 	 */
 

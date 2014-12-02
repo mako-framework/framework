@@ -41,7 +41,7 @@ class Crypto
 	 * 
 	 * @access  public
 	 * @param   \mako\security\crypto\encrypters\EncrypterInterface  $adapter  Crypto adapter
-	 * @param   \mako\security\Signer                                $signer   (optional) Signer instance.
+	 * @param   \mako\security\Signer                                $signer   Signer instance.
 	 */
 
 	public function __construct(EncrypterInterface $adapter, Signer $signer = null)

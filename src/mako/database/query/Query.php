@@ -372,9 +372,9 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string|\Closure             $column     Column name or closure
-	 * @param   string                      $operator   (optional) Operator
-	 * @param   mixed                       $value      (optional) Value
-	 * @param   string                      $separator  (optional) Clause separator
+	 * @param   string                      $operator   Operator
+	 * @param   mixed                       $value      Value
+	 * @param   string                      $separator  Clause separator
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -415,7 +415,7 @@ class Query
 	 * @param   string                      $column     Column name or closure
 	 * @param   string                      $operator   Operator
 	 * @param   string                      $raw        Raw SQL
-	 * @param   string                      $separator  (optional) Clause separator
+	 * @param   string                      $separator  Clause separator
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -429,8 +429,8 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string|\Closure             $column    Column name or closure
-	 * @param   string                      $operator  (optional) Operator
-	 * @param   mixed                       $value     (optional) Value
+	 * @param   string                      $operator  Operator
+	 * @param   mixed                       $value     Value
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -461,7 +461,7 @@ class Query
 	 * @param   string                      $column     Column name
 	 * @param   mixed                       $value1     First value
 	 * @param   mixed                       $value2     Second value
-	 * @param   string                      $separator  (optional) Clause separator
+	 * @param   string                      $separator  Clause separator
 	 * @param   boolean                     $not        Not between?
 	 * @return  \mako\database\query\Query
 	 */
@@ -532,8 +532,8 @@ class Query
 	 * @access  public
 	 * @param   string                                            $column     Column name
 	 * @param   array|Raw|\Closure|\mako\database\query\Subquery  $values     Array of values or Subquery
-	 * @param   string                                            $separator  (optional) Clause separator
-	 * @param   boolean                                           $not        (optional) Not in?
+	 * @param   string                                            $separator  Clause separator
+	 * @param   boolean                                           $not        Not in?
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -611,8 +611,8 @@ class Query
 	 *
 	 * @access  public
 	 * @param   mixed                       $column     Column name
-	 * @param   string                      $separator  (optional) Clause separator
-	 * @param   boolean                     $not        (optional) Not in?
+	 * @param   string                      $separator  Clause separator
+	 * @param   boolean                     $not        Not in?
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -673,8 +673,8 @@ class Query
 	 *
 	 * @access  public
 	 * @param   \Closure|\mako\database\query\Subquery  $query      Subquery
-	 * @param   string                                  $separator  (optional) Clause separator
-	 * @param   boolean                                 $not        (optional) Not exists?
+	 * @param   string                                  $separator  Clause separator
+	 * @param   boolean                                 $not        Not exists?
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -744,11 +744,11 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string                      $table     Table name
-	 * @param   string|\Closure             $column1   (optional) Column name or closure
-	 * @param   string                      $operator  (optional) Operator
-	 * @param   string                      $column2   (optional) Column name
-	 * @param   string                      $type      (optional) Join type
-	 * @param   boolean                     $raw       (optional) Raw join?
+	 * @param   string|\Closure             $column1   Column name or closure
+	 * @param   string                      $operator  Operator
+	 * @param   string                      $column2   Column name
+	 * @param   string                      $type      Join type
+	 * @param   boolean                     $raw       Raw join?
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -799,9 +799,9 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string                      $table     Table name
-	 * @param   string|\Closure             $column1   (optional) Column name or closure
-	 * @param   string                      $operator  (optional) Operator
-	 * @param   string                      $column2   (optional) Column name
+	 * @param   string|\Closure             $column1   Column name or closure
+	 * @param   string                      $operator  Operator
+	 * @param   string                      $column2   Column name
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -853,7 +853,7 @@ class Query
 	 * @param   string                      $column     Column name
 	 * @param   string                      $operator   Operator
 	 * @param   mixed                       $value      Value
-	 * @param   string                      $separator  (optional) Clause separator
+	 * @param   string                      $separator  Clause separator
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -890,7 +890,7 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string|array                $columns  Column name or array of column names
-	 * @param   string                      $order    (optional) Sorting order
+	 * @param   string                      $order    Sorting order
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -915,7 +915,7 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string                      $raw    Raw SQL
-	 * @param   string                      $order  (optional) Sorting order
+	 * @param   string                      $order  Sorting order
 	 * @return  \mako\database\query\Query
 	 */
 
@@ -1023,7 +1023,7 @@ class Query
 	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
 	 *
 	 * @access  public
-	 * @param   string  $column  (optional) The column to select
+	 * @param   string  $column  The column to select
 	 * @return  mixed
 	 */
 
@@ -1072,9 +1072,9 @@ class Query
 	 * 
 	 * @access  public
 	 * @param   \Closure  $processor    Closure that processes the results
-	 * @param   int       $batchSize    (optional) Batch size
-	 * @param   int       $offsetStart  (optional) Offset start
-	 * @param   int       $offsetEnd    (optional) Offset end
+	 * @param   int       $batchSize    Batch size
+	 * @param   int       $offsetStart  Offset start
+	 * @param   int       $offsetEnd    Offset end
 	 */
 
 	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null)
@@ -1178,7 +1178,7 @@ class Query
 	 * Returns the number of rows.
 	 *
 	 * @access  public
-	 * @param   string  $column  (optional) Column name
+	 * @param   string  $column  Column name
 	 * @return  int
 	 */
 
@@ -1207,7 +1207,7 @@ class Query
 	 * 
 	 * @access  public
 	 * @param   array        $values      Associative array of column values
-	 * @param   string       $primaryKey  (optional) Primary key
+	 * @param   string       $primaryKey  Primary key
 	 * @return  int|boolean
 	 */
 
@@ -1250,7 +1250,7 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string  $column     Column name
-	 * @param   int     $increment  (optional) Increment value
+	 * @param   int     $increment  Increment value
 	 * @return  int
 	 */
 
@@ -1264,7 +1264,7 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string  $column     Column name
-	 * @param   int     $decrement  (optional) Decrement value
+	 * @param   int     $decrement  Decrement value
 	 * @return  int
 	 */
 

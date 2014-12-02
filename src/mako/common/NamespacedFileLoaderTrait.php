@@ -80,8 +80,8 @@ trait NamespacedFileLoaderTrait
 	 * 
 	 * @access  protected
 	 * @param   string     $file       File name
-	 * @param   string     $extension  (optional) File extension
-	 * @param   string     $suffix     (optional) Path suffix
+	 * @param   string     $extension  File extension
+	 * @param   string     $suffix     Path suffix
 	 * @return  string
 	 */
 
@@ -124,8 +124,8 @@ trait NamespacedFileLoaderTrait
 	 * 
 	 * @access  protected
 	 * @param   string     $file       File name
-	 * @param   string     $extension  (optional) File extension
-	 * @param   string     $suffix     (optional) Path suffix
+	 * @param   string     $extension  File extension
+	 * @param   string     $suffix     Path suffix
 	 * @return  array
 	 */
 

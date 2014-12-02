@@ -24,7 +24,7 @@ class ForbiddenException extends RequestException
 	 * 
 	 * @access  public
 	 * @param   string  $message      Exception message
-	 * @param   \Exception $previous  (optional) Previous exception
+	 * @param   \Exception $previous  Previous exception
 	 */
 
 	public function __construct($message = null, Exception $previous = null)

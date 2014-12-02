@@ -40,7 +40,7 @@ class Cache
 	 * 
 	 * @access  public
 	 * @param   \mako\cache\stores\StoreInterface  $store   Cache store
-	 * @param   string                             $prefix  (optional) Cache prefix
+	 * @param   string                             $prefix  Cache prefix
 	 */
 
 	public function __construct(StoreInterface $store, $prefix = null)
@@ -69,7 +69,7 @@ class Cache
 	 * @access  public
 	 * @param   string   $key    Cache key
 	 * @param   mixed    $data   The data to store
-	 * @param   int      $ttl    (optional) Time to live
+	 * @param   int      $ttl    Time to live
 	 * @return  boolean
 	 */
 
@@ -110,7 +110,7 @@ class Cache
 	 * @access  public
 	 * @param   string    $key  Cache key
 	 * @param   \Closure  $data  Closure that returns the data we want to store
-	 * @param   int       $ttl   (optional)  Time to live
+	 * @param   int       $ttl    Time to live
 	 * @return  mixed
 	 */
 

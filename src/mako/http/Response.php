@@ -200,8 +200,8 @@ class Response
 	 *
 	 * @access  public
 	 * @param   \mako\http\Request     $request  Request instance
-	 * @param   string                 $charset  (optional) Response charset
-	 * @param   \mako\security\Signer  $signer   (optional) Signer instance used to sign cookies
+	 * @param   string                 $charset  Response charset
+	 * @param   \mako\security\Signer  $signer   Signer instance used to sign cookies
 	 */
 	
 	public function __construct(Request $request, $charset = 'UTF-8', Signer $signer = null)
@@ -278,7 +278,7 @@ class Response
 	 * 
 	 * @access  public
 	 * @param   string                $contentType  Content type
-	 * @param   string                $charset      (optional) Charset
+	 * @param   string                $charset      Charset
 	 * @return  \mako\http\Response
 	 */
 
@@ -467,8 +467,8 @@ class Response
 	 * @access  public
 	 * @param   string               $name     Cookie name
 	 * @param   string               $value    Cookie value
-	 * @param   int                  $ttl      (optional) Time to live - if omitted or set to 0 the cookie will expire when the browser closes
-	 * @param   array                $options  (optional) Cookie options
+	 * @param   int                  $ttl      Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	 * @param   array                $options  Cookie options
 	 * @return  \mako\http\Response
 	 */
 
@@ -489,8 +489,8 @@ class Response
 	 * @access  public
 	 * @param   string               $name     Cookie name
 	 * @param   string               $value    Cookie value
-	 * @param   int                  $ttl      (optional) Time to live - if omitted or set to 0 the cookie will expire when the browser closes
-	 * @param   array                $options  (optional) Cookie options
+	 * @param   int                  $ttl      Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	 * @param   array                $options  Cookie options
 	 * @return  \mako\http\Response
 	 */
 
@@ -509,7 +509,7 @@ class Response
 	 *
 	 * @access  public
 	 * @param   string               $name     Cookie name
-	 * @param   array                $options  (optional) Cookie options
+	 * @param   array                $options  Cookie options
 	 * @return  \mako\http\Response
 	 */
 
@@ -701,7 +701,7 @@ class Response
 	 * Redirects the user back to the previous page.
 	 * 
 	 * @access  public
-	 * @param   int     $statusCode  (optional) HTTP status code
+	 * @param   int     $statusCode  HTTP status code
 	 */
 
 	public function back($statusCode = 302)

@@ -19,7 +19,7 @@ interface HandlerInterface
 	 * Handles the exception.
 	 * 
 	 * @access  public
-	 * @param   boolean  $showDetails  (optional) Show error details?
+	 * @param   boolean  $showDetails  Show error details?
 	 * @return  boolean
 	 */
 	
