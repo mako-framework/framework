@@ -20,7 +20,7 @@ use \mako\http\responses\ResponseContainerInterface;
  * @author  Frederic G. Østby
  */
 
-Class File implements ResponseContainerInterface
+class File implements ResponseContainerInterface
 {
 	/**
 	 * File system instance.
