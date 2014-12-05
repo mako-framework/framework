@@ -17,7 +17,7 @@ use \mako\http\responses\ResponseContainerInterface;
  * @author  Frederic G. Østby
  */
 
-Class Redirect implements ResponseContainerInterface
+class Redirect implements ResponseContainerInterface
 {
 	/**
 	 * Location.
