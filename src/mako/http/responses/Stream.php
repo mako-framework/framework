@@ -18,7 +18,7 @@ use \mako\http\responses\ResponseContainerInterface;
  * @author  Frederic G. Østby
  */
 
-Class Stream implements ResponseContainerInterface
+class Stream implements ResponseContainerInterface
 {
 	/**
 	 * Is PHP running as a CGI program?
