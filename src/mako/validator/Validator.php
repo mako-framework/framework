@@ -681,13 +681,11 @@ class Validator
 
 		if(method_exists($this, $rule = 'validate' . Str::underscored2camel($validator['name'])))
 		{
-			//return $this->{$rule}($this->input[$field], $validator['parameters']);
-
 			return call_user_func_array([$this, $rule], $parameters);
 		}
 		elseif(isset($this->plugins[$rule = $validator['package'] . $validator['name']]))
 		{
-			return call_user_func_array([$this->plugins[$rule], 'validate'], [$this->input[$field], $validator['parameters']]);
+			return call_user_func_array([$this->plugins[$rule], 'validate'], $parameters);
 		}
 		else
 		{
