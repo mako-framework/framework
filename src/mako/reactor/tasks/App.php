@@ -132,7 +132,7 @@ class App extends Task
 
 			foreach($route->getAfterFilters() as $filter)
 			{
-				$beforeFilters[] = $filter;
+				$afterFilters[] = $filter;
 			}
 
 			// Build table row
