@@ -146,7 +146,6 @@ class Output
 	 * 
 	 * @access  public
 	 * @param   string  $string  String to write
-	 * @param   int     $type    Output type
 	 */
 
 	public function error($string)
@@ -172,7 +171,6 @@ class Output
 	 * 
 	 * @access  public
 	 * @param   string  $string  String to write
-	 * @param   int     $type    Output type
 	 */
 
 	public function errorLn($string)
