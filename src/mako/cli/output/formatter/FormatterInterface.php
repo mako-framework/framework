@@ -22,7 +22,7 @@ interface FormatterInterface
 	 * @param   string  $string  String to format
 	 * @return  string
 	 */
-	 
+
 	public function format($string);
 
 	/**
@@ -32,6 +32,6 @@ interface FormatterInterface
 	 * @param   string  $string  String to strip
 	 * @return  string
 	 */
-	 
+
 	public function stripFormatting($string);
 }

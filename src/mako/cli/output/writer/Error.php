@@ -20,7 +20,7 @@ class Error implements WriterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	 
+
 	public function write($string)
 	{
 		fwrite(STDERR, $string);

@@ -20,7 +20,7 @@ class Standard implements WriterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	 
+
 	public function write($string)
 	{
 		fwrite(STDOUT, $string);

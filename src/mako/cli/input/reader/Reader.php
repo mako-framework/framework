@@ -20,7 +20,7 @@ class Reader implements ReaderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	 
+
 	public function read()
 	{
 		return trim(fgets(STDIN));
