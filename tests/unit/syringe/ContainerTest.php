@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\syringe;
 
-use \mako\syringe\Container;
+use mako\syringe\Container;
 
 // --------------------------------------------------------------------------
 // START CLASSES

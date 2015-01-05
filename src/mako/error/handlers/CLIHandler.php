@@ -7,7 +7,7 @@
 
 namespace mako\error\handlers;
 
-use \mako\error\handlers\Handler;
+use mako\error\handlers\Handler;
 
 /**
  * CLI handler.

@@ -7,12 +7,12 @@
 
 namespace mako\http\responses;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\file\FileSystem;
-use \mako\http\Request;
-use \mako\http\Response;
-use \mako\http\responses\ResponseContainerInterface;
+use mako\file\FileSystem;
+use mako\http\Request;
+use mako\http\Response;
+use mako\http\responses\ResponseContainerInterface;
 
 /**
  * File response.

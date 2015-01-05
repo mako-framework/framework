@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\database\query;
 
-use \mako\database\query\Query;
+use mako\database\query\Query;
 
 use \Mockery as m;
 

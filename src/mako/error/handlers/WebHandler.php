@@ -7,15 +7,15 @@
 
 namespace mako\error\handlers;
 
-use \Exception;
-use \ErrorException;
+use Exception;
+use ErrorException;
 
-use \mako\error\handlers\Handler;
-use \mako\http\Request;
-use \mako\http\Response;
-use \mako\http\exceptions\RequestException;
-use \mako\http\exceptions\MethodNotAllowedException;
-use \mako\view\ViewFactory;
+use mako\error\handlers\Handler;
+use mako\http\Request;
+use mako\http\Response;
+use mako\http\exceptions\RequestException;
+use mako\http\exceptions\MethodNotAllowedException;
+use mako\view\ViewFactory;
 
 /**
  * Web handler.

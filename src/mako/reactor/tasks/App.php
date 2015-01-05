@@ -7,14 +7,14 @@
 
 namespace mako\reactor\tasks;
 
-use \Closure;
+use Closure;
 
-use \mako\application\Application;
-use \mako\file\FileSystem;
-use \mako\reactor\Task;
-use \mako\reactor\io\Input;
-use \mako\reactor\io\Output;
-use \mako\utility\Str;
+use mako\application\Application;
+use mako\file\FileSystem;
+use mako\reactor\Task;
+use mako\reactor\io\Input;
+use mako\reactor\io\Output;
+use mako\utility\Str;
 
 /**
  * App task.

@@ -7,9 +7,9 @@
 
 namespace mako\http\exceptions;
 
-use \Exception;
+use Exception;
 
-use \mako\http\exceptions\RequestException;
+use mako\http\exceptions\RequestException;
 
 /**
  * Method not allowed exception.

@@ -7,10 +7,10 @@
 
 namespace mako\common;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\common\ConfigurableTrait;
-use \mako\syringe\Container;
+use mako\common\ConfigurableTrait;
+use mako\syringe\Container;
 
 /**
  * Adapter manager.

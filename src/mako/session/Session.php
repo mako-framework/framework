@@ -7,12 +7,12 @@
 
 namespace mako\session;
 
-use \LogicException;
+use LogicException;
 
-use \mako\http\Request;
-use \mako\http\Response;
-use \mako\session\stores\StoreInterface;
-use \mako\utility\UUID;
+use mako\http\Request;
+use mako\http\Response;
+use mako\session\stores\StoreInterface;
+use mako\utility\UUID;
 
 /**
  * Session class.

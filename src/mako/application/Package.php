@@ -7,9 +7,9 @@
 
 namespace mako\application;
 
-use \ReflectionClass;
+use ReflectionClass;
 
-use \mako\syringe\Container;
+use mako\syringe\Container;
 
 /**
  * Package.

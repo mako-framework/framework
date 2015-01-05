@@ -7,7 +7,7 @@
 
 namespace mako\reactor\io;
 
-use \mako\reactor\io\StreamOutput;
+use mako\reactor\io\StreamOutput;
 
 /**
  * Stderr.

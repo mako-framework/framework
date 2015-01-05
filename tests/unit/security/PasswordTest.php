@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\security;
 
-use \mako\security\Password;
+use mako\security\Password;
 
 /**
  * @group unit

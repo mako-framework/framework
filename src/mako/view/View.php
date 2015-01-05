@@ -13,7 +13,7 @@ namespace mako\view;
  * @author  Frederic G. Østby
  */
 
-use \mako\view\renderers\RendererInterface;
+use mako\view\renderers\RendererInterface;
 
 class View
 {

@@ -2,8 +2,8 @@
 
 namespace mako\tests\unit\security\crypto\encrypters;
 
-use \mako\security\crypto\padders\PKCS7;
-use \mako\security\crypto\encrypters\MCrypt;
+use mako\security\crypto\padders\PKCS7;
+use mako\security\crypto\encrypters\MCrypt;
 
 /**
  * @group unit

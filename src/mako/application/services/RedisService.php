@@ -7,8 +7,8 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\redis\ConnectionManager;
+use mako\application\services\Service;
+use mako\redis\ConnectionManager;
 
 /**
  * Redis service.

@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\http;
 
-use \mako\http\Request;
+use mako\http\Request;
 
 use \Mockery as m;
 

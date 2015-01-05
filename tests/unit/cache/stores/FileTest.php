@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\cache\stores;
 
-use \mako\cache\stores\File;
+use mako\cache\stores\File;
 
 use \Mockery as m;
 

@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\security;
 
-use \mako\security\Comparer;
+use mako\security\Comparer;
 
 /**
  * @group unit

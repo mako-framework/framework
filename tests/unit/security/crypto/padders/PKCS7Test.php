@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\security\crypto\padders;
 
-use \mako\security\crypto\padders\PKCS7;
+use mako\security\crypto\padders\PKCS7;
 
 /**
  * @group unit

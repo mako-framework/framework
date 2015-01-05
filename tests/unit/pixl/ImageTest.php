@@ -4,7 +4,7 @@ namespace mako\tests\unit\pixl;
 
 use \Mockery as m;
 
-use \mako\pixl\Image;
+use mako\pixl\Image;
 
 /**
  * @group unit

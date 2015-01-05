@@ -7,9 +7,9 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\i18n\I18n;
-use \mako\i18n\Loader;
+use mako\application\services\Service;
+use mako\i18n\I18n;
+use mako\i18n\Loader;
 
 /**
  * I18n service.

@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\chrono\stopwatch;
 
-use \mako\chrono\stopwatch\Lap;
+use mako\chrono\stopwatch\Lap;
 
 /**
  * @group unit

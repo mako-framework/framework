@@ -7,9 +7,9 @@
 
 namespace mako\reactor;
 
-use \mako\reactor\io\Input;
-use \mako\reactor\io\Output;
-use \mako\syringe\ContainerAwareTrait;
+use mako\reactor\io\Input;
+use mako\reactor\io\Output;
+use mako\syringe\ContainerAwareTrait;
 
 /**
  * Base task.

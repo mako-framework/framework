@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard\traits;
 
-use \DateTime;
+use DateTime;
 
 /**
  * Timestamped trait.

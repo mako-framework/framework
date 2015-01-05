@@ -7,11 +7,11 @@
 
 namespace mako\pixl\processors;
 
-use \InvalidArgumentException;
-use \RuntimeException;
+use InvalidArgumentException;
+use RuntimeException;
 
-use \mako\pixl\Image;
-use \mako\pixl\processors\ProcessorInterface;
+use mako\pixl\Image;
+use mako\pixl\processors\ProcessorInterface;
 
 /**
  * GD processor.

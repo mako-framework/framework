@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\utility;
 
-use \mako\utility\UUID;
+use mako\utility\UUID;
 
 /**
  * @group unit

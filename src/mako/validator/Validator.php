@@ -7,14 +7,14 @@
 
 namespace mako\validator;
 
-use \DateTime;
-use \RuntimeException;
+use DateTime;
+use RuntimeException;
 
-use \mako\common\FunctionParserTrait;
-use \mako\i18n\I18n;
-use \mako\utility\Str;
-use \mako\utility\UUID;
-use \mako\validator\plugins\ValidatorPluginInterface;
+use mako\common\FunctionParserTrait;
+use mako\i18n\I18n;
+use mako\utility\Str;
+use mako\utility\UUID;
+use mako\validator\plugins\ValidatorPluginInterface;
 
 /**
  * Input validation.

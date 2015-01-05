@@ -7,7 +7,7 @@
 
 namespace mako\database\query;
 
-use \mako\database\query\Query;
+use mako\database\query\Query;
 
 /**
  * Subquery container.

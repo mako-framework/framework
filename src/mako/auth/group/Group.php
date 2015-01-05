@@ -7,12 +7,12 @@
 
 namespace mako\auth\group;
 
-use \LogicException;
+use LogicException;
 
 use mako\auth\group\GroupInterface;
-use \mako\auth\user\UserInterface;
-use \mako\database\midgard\ORM;
-use \mako\database\midgard\traits\TimestampedTrait;
+use mako\auth\user\UserInterface;
+use mako\database\midgard\ORM;
+use mako\database\midgard\traits\TimestampedTrait;
 
 /**
  * Group.

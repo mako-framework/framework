@@ -7,7 +7,7 @@
 
 namespace mako\http\routing;
 
-use \RuntimeException;
+use RuntimeException;
 
 /**
  * Filter collection.

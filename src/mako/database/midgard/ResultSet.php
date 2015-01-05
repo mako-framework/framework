@@ -7,8 +7,8 @@
 
 namespace mako\database\midgard;
 
-use \mako\utility\Arr;
-use \mako\utility\Collection;
+use mako\utility\Arr;
+use mako\utility\Collection;
 
 /**
  * ORM result set.

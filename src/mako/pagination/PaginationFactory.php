@@ -7,10 +7,10 @@
 
 namespace mako\pagination;
 
-use \mako\http\Request;
-use \mako\http\routing\URLBuilder;
-use \mako\pagination\Pagination;
-use \mako\view\ViewFactory;
+use mako\http\Request;
+use mako\http\routing\URLBuilder;
+use mako\pagination\Pagination;
+use mako\view\ViewFactory;
 
 /**
  * Pagination factory.

@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\config;
 
-use \mako\config\Config;
+use mako\config\Config;
 
 use \Mockery as m;
 

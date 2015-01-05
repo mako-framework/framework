@@ -7,7 +7,7 @@
 
 namespace mako\security\crypto\padders;
 
-use \mako\security\crypto\padders\PadderInterface;
+use mako\security\crypto\padders\PadderInterface;
 
 /**
  * PKCS7 padder.

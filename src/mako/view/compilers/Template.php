@@ -7,7 +7,7 @@
 
 namespace mako\view\compilers;
 
-use \mako\file\FileSystem;
+use mako\file\FileSystem;
 
 /**
  * Template compiler.

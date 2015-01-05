@@ -7,13 +7,13 @@
 
 namespace mako\http\routing;
 
-use \Closure;
+use Closure;
 
-use \mako\common\FunctionParserTrait;
-use \mako\http\Request;
-use \mako\http\Response;
-use \mako\http\routing\Route;
-use \mako\syringe\Container;
+use mako\common\FunctionParserTrait;
+use mako\http\Request;
+use mako\http\Response;
+use mako\http\routing\Route;
+use mako\syringe\Container;
 
 /**
  * Route dispatcher.

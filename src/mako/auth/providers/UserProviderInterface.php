@@ -7,7 +7,7 @@
 
 namespace mako\auth\providers;
 
-use \mako\auth\user\UserInterface;
+use mako\auth\user\UserInterface;
 
 /**
  * User provider interface.

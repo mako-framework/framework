@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\utility;
 
-use \mako\utility\Num;
+use mako\utility\Num;
 
 /**
  * @group unit

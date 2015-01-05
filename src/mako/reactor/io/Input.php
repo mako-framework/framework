@@ -7,8 +7,8 @@
 
 namespace mako\reactor\io;
 
-use \mako\reactor\io\Output;
-use \Symfony\Component\Console\Helper\DialogHelper;
+use mako\reactor\io\Output;
+use Symfony\Component\Console\Helper\DialogHelper;
 
 /**
  * Reactor input.

@@ -7,10 +7,10 @@
 
 namespace mako\http\responses;
 
-use \Closure;
-use \mako\http\Request;
-use \mako\http\Response;
-use \mako\http\responses\ResponseContainerInterface;
+use Closure;
+use mako\http\Request;
+use mako\http\Response;
+use mako\http\responses\ResponseContainerInterface;
 
 /**
  * Stream response.

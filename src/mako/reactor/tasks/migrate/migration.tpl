@@ -2,7 +2,7 @@
 
 namespace {{namespace}};
 
-use \mako\reactor\tasks\migrate\Migration;
+use mako\reactor\tasks\migrate\Migration;
 
 class Migration_{{version}} extends Migration
 {

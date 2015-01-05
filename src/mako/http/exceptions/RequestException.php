@@ -7,8 +7,8 @@
 
 namespace mako\http\exceptions;
 
-use \Exception;
-use \RuntimeException;
+use Exception;
+use RuntimeException;
 
 /**
  * Request exception.

@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\auth;
 
-use \mako\auth\Gatekeeper;
+use mako\auth\Gatekeeper;
 
 use \Mockery as m;
 

@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\syringe;
 
-use \mako\syringe\ClassInspector;
+use mako\syringe\ClassInspector;
 
 // --------------------------------------------------------------------------
 // START CLASSES

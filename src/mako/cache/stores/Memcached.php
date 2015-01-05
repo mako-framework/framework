@@ -7,9 +7,9 @@
 
 namespace mako\cache\stores;
 
-use \Memcached as PHPMemcached;
+use Memcached as PHPMemcached;
 
-use \mako\cache\stores\StoreInterface;
+use mako\cache\stores\StoreInterface;
 
 /**
  * Memcached store.

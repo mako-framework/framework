@@ -7,8 +7,8 @@
 
 namespace mako\utility;
 
-use \Closure;
-use \BadMethodCallException;
+use Closure;
+use BadMethodCallException;
 
 /**
  * HTML helper.

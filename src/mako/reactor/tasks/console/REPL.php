@@ -7,10 +7,10 @@
 
 namespace mako\reactor\tasks\console;
 
-use \Exception;
+use Exception;
 
-use \mako\reactor\io\Input;
-use \mako\reactor\io\Output;
+use mako\reactor\io\Input;
+use mako\reactor\io\Output;
 
 /**
  * Interactive REPL console.

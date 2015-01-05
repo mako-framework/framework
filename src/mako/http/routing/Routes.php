@@ -7,10 +7,10 @@
 
 namespace mako\http\routing;
 
-use \Closure;
-use \RuntimeException;
+use Closure;
+use RuntimeException;
 
-use \mako\http\routing\Route;
+use mako\http\routing\Route;
 
 /**
  * Route collection.

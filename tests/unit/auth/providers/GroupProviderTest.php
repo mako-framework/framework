@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\auth\providers;
 
-use \mako\auth\providers\GroupProvider;
+use mako\auth\providers\GroupProvider;
 
 use \Mockery as m;
 

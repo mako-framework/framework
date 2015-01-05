@@ -7,7 +7,7 @@
 
 namespace mako\application\services;
 
-use \mako\syringe\Container;
+use mako\syringe\Container;
 
 /**
  * Abstract service.

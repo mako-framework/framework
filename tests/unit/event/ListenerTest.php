@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\event;
 
-use \mako\event\Listener;
+use mako\event\Listener;
 
 /**
  * @group unit

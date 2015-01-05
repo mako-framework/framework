@@ -7,20 +7,20 @@
 
 namespace mako\database\query;
 
-use \Closure;
+use Closure;
 
-use \mako\database\Connection;
-use \mako\database\query\Raw;
-use \mako\database\query\Join;
-use \mako\database\query\Subquery;
-use \mako\database\query\Compiler;
-use \mako\database\query\compilers\DB2;
-use \mako\database\query\compilers\Firebird;
-use \mako\database\query\compilers\MySQL;
-use \mako\database\query\compilers\NuoDB;
-use \mako\database\query\compilers\Oracle;
-use \mako\database\query\compilers\SQLServer;
-use \mako\pagination\Pagination;
+use mako\database\Connection;
+use mako\database\query\Raw;
+use mako\database\query\Join;
+use mako\database\query\Subquery;
+use mako\database\query\Compiler;
+use mako\database\query\compilers\DB2;
+use mako\database\query\compilers\Firebird;
+use mako\database\query\compilers\MySQL;
+use mako\database\query\compilers\NuoDB;
+use mako\database\query\compilers\Oracle;
+use mako\database\query\compilers\SQLServer;
+use mako\pagination\Pagination;
 
 /**
  * Query builder.

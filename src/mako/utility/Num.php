@@ -7,7 +7,7 @@
 
 namespace mako\utility;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * Class containing number helper methods.

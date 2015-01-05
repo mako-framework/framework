@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\session;
 
-use \mako\session\Session;
+use mako\session\Session;
 
 use \Mockery as m;
 

@@ -7,16 +7,16 @@
 
 namespace mako\http;
 
-use \Closure;
-use \RuntimeException;
+use Closure;
+use RuntimeException;
 
-use \mako\http\Request;
-use \mako\http\responses\File;
-use \mako\http\responses\Redirect;
-use \mako\http\responses\ResponseContainerInterface;
-use \mako\http\responses\Stream;
-use \mako\security\Signer;
-use \mako\view\View;
+use mako\http\Request;
+use mako\http\responses\File;
+use mako\http\responses\Redirect;
+use mako\http\responses\ResponseContainerInterface;
+use mako\http\responses\Stream;
+use mako\security\Signer;
+use mako\view\View;
 
 /**
  * HTTP response.

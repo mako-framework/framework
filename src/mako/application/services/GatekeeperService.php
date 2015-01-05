@@ -7,10 +7,10 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\auth\Gatekeeper;
-use \mako\auth\providers\GroupProvider;
-use \mako\auth\providers\UserProvider;
+use mako\application\services\Service;
+use mako\auth\Gatekeeper;
+use mako\auth\providers\GroupProvider;
+use mako\auth\providers\UserProvider;
 
 /**
  * Gatekeeper service.

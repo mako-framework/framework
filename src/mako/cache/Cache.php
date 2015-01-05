@@ -7,9 +7,9 @@
 
 namespace mako\cache;
 
-use \Closure;
+use Closure;
 
-use \mako\cache\stores\StoreInterface;
+use mako\cache\stores\StoreInterface;
 
 /**
  * Cache wrapper.

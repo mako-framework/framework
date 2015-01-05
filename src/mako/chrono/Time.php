@@ -7,8 +7,8 @@
 
 namespace mako\chrono;
 
-use \DateTime;
-use \DateTimeZone;
+use DateTime;
+use DateTimeZone;
 
 /**
  * Extension of the PHP DateTime class.

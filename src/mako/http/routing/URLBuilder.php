@@ -7,8 +7,8 @@
 
 namespace mako\http\routing;
 
-use \mako\http\Request;
-use \mako\http\routing\Routes;
+use mako\http\Request;
+use mako\http\routing\Routes;
 
 /**
  * URL builder.

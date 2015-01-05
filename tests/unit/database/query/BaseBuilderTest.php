@@ -2,10 +2,10 @@
 
 namespace mako\tests\unit\database\query;
 
-use \mako\database\Database;
-use \mako\database\query\Query;
-use \mako\database\query\Raw;
-use \mako\database\query\Subquery;
+use mako\database\Database;
+use mako\database\query\Query;
+use mako\database\query\Raw;
+use mako\database\query\Subquery;
 
 use \Mockery as m;
 

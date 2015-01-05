@@ -7,22 +7,22 @@
 
 namespace mako\database\midgard;
 
-use \DateTime;
-use \RuntimeException;
+use DateTime;
+use RuntimeException;
 
-use \mako\application\Application;
-use \mako\chrono\Time;
-use \mako\database\ConnectionManager;
-use \mako\database\midgard\Query;
-use \mako\database\midgard\relations\BelongsTo;
-use \mako\database\midgard\relations\HasMany;
-use \mako\database\midgard\relations\HasManyPolymorphic;
-use \mako\database\midgard\relations\HasOne;
-use \mako\database\midgard\relations\HasOnePolymorphic;
-use \mako\database\midgard\relations\ManyToMany;
-use \mako\utility\Str;
-use \mako\utility\UUID;
-use \mako\syringe\ClassInspector;
+use mako\application\Application;
+use mako\chrono\Time;
+use mako\database\ConnectionManager;
+use mako\database\midgard\Query;
+use mako\database\midgard\relations\BelongsTo;
+use mako\database\midgard\relations\HasMany;
+use mako\database\midgard\relations\HasManyPolymorphic;
+use mako\database\midgard\relations\HasOne;
+use mako\database\midgard\relations\HasOnePolymorphic;
+use mako\database\midgard\relations\ManyToMany;
+use mako\utility\Str;
+use mako\utility\UUID;
+use mako\syringe\ClassInspector;
 
 /**
  * ORM.

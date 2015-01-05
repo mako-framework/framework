@@ -7,7 +7,7 @@
 
 namespace mako\http\routing;
 
-use \Closure;
+use Closure;
 
 /**
  * Route.

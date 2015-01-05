@@ -7,14 +7,14 @@
 
 namespace mako\auth;
 
-use \LogicException;
-use \RuntimeException;
+use LogicException;
+use RuntimeException;
 
-use \mako\auth\providers\GroupProviderInterface;
-use \mako\auth\providers\UserProviderInterface;
-use \mako\http\Request;
-use \mako\http\Response;
-use \mako\session\Session;
+use mako\auth\providers\GroupProviderInterface;
+use mako\auth\providers\UserProviderInterface;
+use mako\http\Request;
+use mako\http\Response;
+use mako\session\Session;
 
 /**
  * Gatekeeper authentication.

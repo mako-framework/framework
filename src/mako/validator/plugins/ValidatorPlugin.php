@@ -7,7 +7,7 @@
 
 namespace mako\validator\plugins;
 
-use \mako\validator\plugins\ValidatorPluginInterface;
+use mako\validator\plugins\ValidatorPluginInterface;
 
 /**
  * Base plugin.

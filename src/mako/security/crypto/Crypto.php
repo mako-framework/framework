@@ -7,10 +7,10 @@
 
 namespace mako\security\crypto;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\security\crypto\encrypters\EncrypterInterface;
-use \mako\security\Signer;
+use mako\security\crypto\encrypters\EncrypterInterface;
+use mako\security\Signer;
 
 /**
  * Crypto wrapper.

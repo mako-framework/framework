@@ -7,11 +7,11 @@
 
 namespace mako\application;
 
-use \mako\application\Application;
-use \mako\reactor\Reactor;
-use \mako\reactor\TaskFinder;
-use \mako\reactor\io\Input;
-use \mako\reactor\io\Output;
+use mako\application\Application;
+use mako\reactor\Reactor;
+use mako\reactor\TaskFinder;
+use mako\reactor\io\Input;
+use mako\reactor\io\Output;
 
 /**
  * Web application.

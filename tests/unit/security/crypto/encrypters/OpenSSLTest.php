@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\security\crypto\encrypters;
 
-use \mako\security\crypto\encrypters\OpenSSL;
+use mako\security\crypto\encrypters\OpenSSL;
 
 /**
  * @group unit

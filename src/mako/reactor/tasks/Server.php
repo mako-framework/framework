@@ -7,10 +7,10 @@
 
 namespace mako\reactor\tasks;
 
-use \mako\application\Application;
-use \mako\reactor\Task;
-use \mako\reactor\io\Input;
-use \mako\reactor\io\Output;
+use mako\application\Application;
+use mako\reactor\Task;
+use mako\reactor\io\Input;
+use mako\reactor\io\Output;
 
 /**
  * Server task.

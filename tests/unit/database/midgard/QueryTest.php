@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\database\midgard;
 
-use \mako\database\midgard\Query;
+use mako\database\midgard\Query;
 
 use \Mockery as m;
 

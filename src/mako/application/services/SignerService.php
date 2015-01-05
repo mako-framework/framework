@@ -7,8 +7,8 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\security\Signer;
+use mako\application\services\Service;
+use mako\security\Signer;
 
 /**
  * Signer service.

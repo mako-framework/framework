@@ -7,7 +7,7 @@
 
 namespace mako\event;
 
-use \Closure;
+use Closure;
 
 /**
  * Observable trait.

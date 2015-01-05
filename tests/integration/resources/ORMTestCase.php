@@ -1,6 +1,6 @@
 <?php
 
-use \mako\database\ConnectionManager;
+use mako\database\ConnectionManager;
 
 class TestORM extends \mako\database\midgard\ORM
 {

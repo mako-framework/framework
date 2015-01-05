@@ -7,12 +7,12 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\session\Session;
-use \mako\session\stores\Database;
-use \mako\session\stores\File;
-use \mako\session\stores\Null;
-use \mako\session\stores\Redis;
+use mako\application\services\Service;
+use mako\session\Session;
+use mako\session\stores\Database;
+use mako\session\stores\File;
+use mako\session\stores\Null;
+use mako\session\stores\Redis;
 
 /**
  * Session service.

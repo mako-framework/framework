@@ -7,8 +7,8 @@
 
 namespace mako\database\midgard\relations;
 
-use \mako\database\Connection;
-use \mako\database\midgard\ORM;
+use mako\database\Connection;
+use mako\database\midgard\ORM;
 
 /**
  * Has one or has many polymorphic relation.

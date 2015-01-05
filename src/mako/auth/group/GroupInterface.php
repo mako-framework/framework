@@ -7,7 +7,7 @@
 
 namespace mako\auth\group;
 
-use \mako\auth\user\UserInterface;
+use mako\auth\user\UserInterface;
 
 /**
  * Group interface.

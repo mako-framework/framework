@@ -7,8 +7,8 @@
 
 namespace mako\cache\stores;
 
-use \mako\cache\stores\StoreInterface;
-use \mako\database\Connection;
+use mako\cache\stores\StoreInterface;
+use mako\database\Connection;
 
 /**
  * Database store.

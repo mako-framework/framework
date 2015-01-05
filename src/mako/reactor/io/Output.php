@@ -7,10 +7,10 @@
 
 namespace mako\reactor\io;
 
-use \mako\reactor\io\StdErr;
-use \mako\reactor\io\StdOut;
+use mako\reactor\io\StdErr;
+use mako\reactor\io\StdOut;
 
-use \Symfony\Component\Console\Helper\ProgressHelper;
+use Symfony\Component\Console\Helper\ProgressHelper;
 
 /**
  * Reactor output.

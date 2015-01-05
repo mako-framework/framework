@@ -7,9 +7,9 @@
 
 namespace mako\auth\providers;
 
-use \mako\auth\providers\UserProviderInterface;
-use \mako\auth\user\UserInterface;
-use \mako\security\Password;
+use mako\auth\providers\UserProviderInterface;
+use mako\auth\user\UserInterface;
+use mako\security\Password;
 
 /**
  * User provider.

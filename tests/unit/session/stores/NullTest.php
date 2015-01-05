@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\session\stores;
 
-use \mako\session\stores\Null;
+use mako\session\stores\Null;
 
 use \Mockery as m;
 

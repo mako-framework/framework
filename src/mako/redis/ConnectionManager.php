@@ -7,10 +7,10 @@
 
 namespace mako\redis;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\common\ConnectionManager as BaseConnectionManager;
-use \mako\redis\Redis;
+use mako\common\ConnectionManager as BaseConnectionManager;
+use mako\redis\Redis;
 
 /**
  * Redis connection manager.

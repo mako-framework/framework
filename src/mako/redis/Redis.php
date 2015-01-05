@@ -7,10 +7,10 @@
 
 namespace mako\redis;
 
-use \Closure;
+use Closure;
 
-use \mako\redis\RedisException;
-use \mako\utility\Str;
+use mako\redis\RedisException;
+use mako\utility\Str;
 
 /**
  * Redis client based on the protocol specification at http://redis.io/topics/protocol.

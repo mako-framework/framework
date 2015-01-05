@@ -7,11 +7,11 @@
 
 namespace mako\config;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\common\NamespacedFileLoaderTrait;
-use \mako\file\FileSystem;
-use \mako\utility\Arr;
+use mako\common\NamespacedFileLoaderTrait;
+use mako\file\FileSystem;
+use mako\utility\Arr;
 
 /**
  * Config class.

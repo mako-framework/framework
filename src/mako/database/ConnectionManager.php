@@ -7,10 +7,10 @@
 
 namespace mako\database;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\common\ConnectionManager as BaseConnectionManager;
-use \mako\database\Connection;
+use mako\common\ConnectionManager as BaseConnectionManager;
+use mako\database\Connection;
 
 /**
  * Database connection manager.

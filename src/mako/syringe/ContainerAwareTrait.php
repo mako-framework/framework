@@ -7,9 +7,9 @@
 
 namespace mako\syringe;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\syringe\Container;
+use mako\syringe\Container;
 
 /**
  * Container aware trait.

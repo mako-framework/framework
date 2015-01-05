@@ -7,11 +7,11 @@
 
 namespace mako\i18n;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\cache\Cache;
-use \mako\i18n\Loader;
-use \mako\utility\Arr;
+use mako\cache\Cache;
+use mako\i18n\Loader;
+use mako\utility\Arr;
 
 /**
  * Internationalization class.

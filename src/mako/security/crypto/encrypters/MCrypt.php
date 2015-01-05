@@ -7,9 +7,9 @@
 
 namespace mako\security\crypto\encrypters;
 
-use \mako\security\crypto\encrypters\Encrypter;
-use \mako\security\crypto\encrypters\EncrypterInterface;
-use \mako\security\crypto\padders\PadderInterface;
+use mako\security\crypto\encrypters\Encrypter;
+use mako\security\crypto\encrypters\EncrypterInterface;
+use mako\security\crypto\padders\PadderInterface;
 
 /**
  * MCrypt encrypter.

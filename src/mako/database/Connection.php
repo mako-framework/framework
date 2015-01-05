@@ -7,11 +7,11 @@
 
 namespace mako\database;
 
-use \PDO;
-use \Closure;
-use \PDOException;
-use \RuntimeException;
-use \mako\database\query\Query;
+use PDO;
+use Closure;
+use PDOException;
+use RuntimeException;
+use mako\database\query\Query;
 
 /**
  * Database connection.

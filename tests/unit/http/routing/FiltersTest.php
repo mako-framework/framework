@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\http\routing;
 
-use \mako\http\routing\Filters;
+use mako\http\routing\Filters;
 
 use \Mockery as m;
 

@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\common;
 
-use \mako\common\FunctionParserTrait;
+use mako\common\FunctionParserTrait;
 
 // --------------------------------------------------------------------------
 // START CLASSES

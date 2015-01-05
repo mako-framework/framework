@@ -7,7 +7,7 @@
 
 namespace mako\database\query;
 
-use \mako\database\query\Raw;
+use mako\database\query\Raw;
 
 /**
  * Table join.

@@ -7,10 +7,10 @@
 
 namespace mako\database\midgard\relations;
 
-use \mako\database\Connection;
-use \mako\database\midgard\ORM;
-use \mako\database\midgard\ResultSet;
-use \mako\database\midgard\relations\Relation;
+use mako\database\Connection;
+use mako\database\midgard\ORM;
+use mako\database\midgard\ResultSet;
+use mako\database\midgard\relations\Relation;
 
 /**
  * Many to many relation.

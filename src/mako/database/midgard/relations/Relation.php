@@ -7,9 +7,9 @@
 
 namespace mako\database\midgard\relations;
 
-use \mako\database\Connection;
-use \mako\database\midgard\ORM;
-use \mako\database\midgard\Query;
+use mako\database\Connection;
+use mako\database\midgard\ORM;
+use mako\database\midgard\Query;
 
 /**
  * Base relation.

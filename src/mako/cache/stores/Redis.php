@@ -7,8 +7,8 @@
 
 namespace mako\cache\stores;
 
-use \mako\cache\stores\StoreInterface;
-use \mako\redis\Redis as RedisClient;
+use mako\cache\stores\StoreInterface;
+use mako\redis\Redis as RedisClient;
 
 /**
  * Redis store.

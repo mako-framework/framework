@@ -7,10 +7,10 @@
 
 namespace mako\database\midgard\relations;
 
-use \mako\database\Connection;
-use \mako\database\midgard\ORM;
-use \mako\database\midgard\relations\HasMany;
-use \mako\database\midgard\relations\HasOneOrManyPolymorphicTrait;
+use mako\database\Connection;
+use mako\database\midgard\ORM;
+use mako\database\midgard\relations\HasMany;
+use mako\database\midgard\relations\HasOneOrManyPolymorphicTrait;
 
 /**
  * Has many polymorphic relation.

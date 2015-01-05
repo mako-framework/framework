@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\utility;
 
-use \mako\utility\HTML;
+use mako\utility\HTML;
 
 /**
  * @group unit

@@ -7,7 +7,7 @@
 
 namespace mako\pixl\processors;
 
-use \mako\pixl\Image;
+use mako\pixl\Image;
 
 /**
  * Image manipulation processor interface.

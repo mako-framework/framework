@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\security;
 
-use \mako\security\Signer;
+use mako\security\Signer;
 
 /**
  * @group unit

@@ -7,10 +7,10 @@
 
 namespace mako\error\handlers;
 
-use \Exception;
-use \ErrorException;
+use Exception;
+use ErrorException;
 
-use \mako\error\handlers\HandlerInterface;
+use mako\error\handlers\HandlerInterface;
 
 /**
  * Base handler.

@@ -7,10 +7,10 @@
 
 namespace mako\reactor\tasks\console;
 
-use \Boris\Boris as REPL;
+use Boris\Boris as REPL;
 
-use \mako\reactor\io\Input;
-use \mako\reactor\io\Output;
+use mako\reactor\io\Input;
+use mako\reactor\io\Output;
 
 /**
  * Boris wrapper.

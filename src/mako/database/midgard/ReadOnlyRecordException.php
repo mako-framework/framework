@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard;
 
-use \RuntimeException;
+use RuntimeException;
 
 /**
  * Read-only record exception.

@@ -7,8 +7,8 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\cache\CacheManager;
+use mako\application\services\Service;
+use mako\cache\CacheManager;
 
 /**
  * Cache service.

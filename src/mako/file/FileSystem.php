@@ -7,8 +7,8 @@
 
 namespace mako\file;
 
-use \FilesystemIterator;
-use \SplFileObject;
+use FilesystemIterator;
+use SplFileObject;
 
 /**
  * File system.

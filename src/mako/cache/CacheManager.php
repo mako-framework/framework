@@ -7,22 +7,22 @@
 
 namespace mako\cache;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\cache\stores\APC;
-use \mako\cache\stores\APCU;
-use \mako\cache\stores\Database;
-use \mako\cache\stores\File;
-use \mako\cache\stores\Memcache;
-use \mako\cache\stores\Memcached;
-use \mako\cache\stores\Memory;
-use \mako\cache\stores\Null;
-use \mako\cache\stores\Redis;
-use \mako\cache\stores\WinCache;
-use \mako\cache\stores\XCache;
-use \mako\cache\stores\ZendDisk;
-use \mako\cache\stores\ZendMemory;
-use \mako\common\AdapterManager;
+use mako\cache\stores\APC;
+use mako\cache\stores\APCU;
+use mako\cache\stores\Database;
+use mako\cache\stores\File;
+use mako\cache\stores\Memcache;
+use mako\cache\stores\Memcached;
+use mako\cache\stores\Memory;
+use mako\cache\stores\Null;
+use mako\cache\stores\Redis;
+use mako\cache\stores\WinCache;
+use mako\cache\stores\XCache;
+use mako\cache\stores\ZendDisk;
+use mako\cache\stores\ZendMemory;
+use mako\common\AdapterManager;
 
 /**
  * Cache manager.

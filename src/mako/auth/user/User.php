@@ -7,14 +7,14 @@
 
 namespace mako\auth\user;
 
-use \LogicException;
+use LogicException;
 
-use \mako\auth\group\MemberInterface;
-use \mako\auth\user\UserInterface;
-use \mako\database\midgard\ORM;
-use \mako\database\midgard\traits\TimestampedTrait;
-use \mako\security\Password;
-use \mako\utility\UUID;
+use mako\auth\group\MemberInterface;
+use mako\auth\user\UserInterface;
+use mako\database\midgard\ORM;
+use mako\database\midgard\traits\TimestampedTrait;
+use mako\security\Password;
+use mako\utility\UUID;
 
 /**
  * User.

@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\utility;
 
-use \mako\utility\Collection;
+use mako\utility\Collection;
 
 /**
  * @group unit

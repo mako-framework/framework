@@ -7,11 +7,11 @@
 
 namespace mako\utility;
 
-use \ArrayAccess;
-use \ArrayIterator;
-use \Closure;
-use \Countable;
-use \IteratorAggregate;
+use ArrayAccess;
+use ArrayIterator;
+use Closure;
+use Countable;
+use IteratorAggregate;
 
 /**
  * Collection.

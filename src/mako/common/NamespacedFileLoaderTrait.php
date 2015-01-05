@@ -7,7 +7,7 @@
 
 namespace mako\common;
 
-use \RuntimeException;
+use RuntimeException;
 
 /**
  * Namespaced file loader trait.

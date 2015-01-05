@@ -7,7 +7,7 @@
 
 namespace mako\security;
 
-use \Closure;
+use Closure;
 
 /**
  * Secure password hashing and validation.

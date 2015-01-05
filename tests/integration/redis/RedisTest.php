@@ -2,8 +2,8 @@
 
 namespace mako\tests\integration\redis;
 
-use \mako\redis\Redis;
-use \mako\redis\RedisException;
+use mako\redis\Redis;
+use mako\redis\RedisException;
 
 // --------------------------------------------------------------------------
 // We're only testing a small set of Redis commands since we're just testing

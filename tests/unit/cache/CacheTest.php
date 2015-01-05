@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\cache;
 
-use \mako\cache\Cache;
+use mako\cache\Cache;
 
 use \Mockery as m;
 

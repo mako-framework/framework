@@ -7,8 +7,8 @@
 
 namespace mako\database\midgard\traits;
 
-use \mako\database\midgard\traits\StaleRecordException;
-use \mako\database\query\Raw;
+use mako\database\midgard\traits\StaleRecordException;
+use mako\database\query\Raw;
 
 /**
  * Optimistic locking trait.

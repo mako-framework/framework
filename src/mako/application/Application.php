@@ -7,14 +7,14 @@
 
 namespace mako\application;
 
-use \LogicException;
-use \RuntimeException;
+use LogicException;
+use RuntimeException;
 
-use \mako\autoloading\AliasLoader;
-use \mako\config\Config;
-use \mako\http\routing\Filters;
-use \mako\file\FileSystem;
-use \mako\syringe\Container;
+use mako\autoloading\AliasLoader;
+use mako\config\Config;
+use mako\http\routing\Filters;
+use mako\file\FileSystem;
+use mako\syringe\Container;
 
 /**
  * Application.

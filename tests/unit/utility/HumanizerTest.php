@@ -4,7 +4,7 @@ namespace mako\tests\unit\utility;
 
 use \DateTime;
 
-use \mako\utility\Humanizer;
+use mako\utility\Humanizer;
 
 use \Mockery as m;
 

@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\pagination;
 
-use \mako\pagination\Pagination;
+use mako\pagination\Pagination;
 
 use \Mockery as m;
 

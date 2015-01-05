@@ -2,9 +2,9 @@
 
 namespace mako\tests\unit\http\routing;
 
-use \mako\http\Request;
-use \mako\http\Response;
-use \mako\http\routing\Dispatcher;
+use mako\http\Request;
+use mako\http\Response;
+use mako\http\routing\Dispatcher;
 
 use \Mockery as m;
 

@@ -7,10 +7,10 @@
 
 namespace mako\database\query;
 
-use \DateTime;
-use \mako\database\query\Query;
-use \mako\database\query\Raw;
-use \mako\database\query\Subquery;
+use DateTime;
+use mako\database\query\Query;
+use mako\database\query\Raw;
+use mako\database\query\Subquery;
 
 /**
  * Compiles SQL queries.

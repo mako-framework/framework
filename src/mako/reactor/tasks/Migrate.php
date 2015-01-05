@@ -7,12 +7,12 @@
 
 namespace mako\reactor\tasks;
 
-use \Exception;
+use Exception;
 
-use \mako\reactor\Task;
-use \mako\reactor\io\Input;
-use \mako\reactor\io\Output;
-use \mako\syringe\Container;
+use mako\reactor\Task;
+use mako\reactor\io\Input;
+use mako\reactor\io\Output;
+use mako\syringe\Container;
 
 /**
  * Database migrations.

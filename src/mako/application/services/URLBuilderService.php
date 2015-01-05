@@ -7,8 +7,8 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\http\routing\URLBuilder;
+use mako\application\services\Service;
+use mako\http\routing\URLBuilder;
 
 /**
  * URL builder service.

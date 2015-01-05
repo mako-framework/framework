@@ -7,10 +7,10 @@
 
 namespace mako\http;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\security\Signer;
-use \mako\utility\Arr;
+use mako\security\Signer;
+use mako\utility\Arr;
 
 /**
  * Executes requets.

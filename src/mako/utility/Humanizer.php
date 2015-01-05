@@ -7,9 +7,9 @@
 
 namespace mako\utility;
 
-use \DateTime;
+use DateTime;
 
-use \mako\i18n\I18n;
+use mako\i18n\I18n;
 
 /**
  * Makes data more human friendly.

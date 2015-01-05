@@ -7,7 +7,7 @@
 
 namespace mako\security;
 
-use \mako\security\Comparer;
+use mako\security\Comparer;
 
 /**
  * Signs and validates strings using MACs (message authentication codes).

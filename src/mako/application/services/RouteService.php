@@ -7,7 +7,7 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
+use mako\application\services\Service;
 
 /**
  * Route service.

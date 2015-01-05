@@ -7,11 +7,11 @@
 
 namespace mako\error;
 
-use \Closure;
-use \ErrorException;
-use \Exception;
+use Closure;
+use ErrorException;
+use Exception;
 
-use \Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Error handler.

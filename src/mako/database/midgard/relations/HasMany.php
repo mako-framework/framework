@@ -7,8 +7,8 @@
 
 namespace mako\database\midgard\relations;
 
-use \mako\database\midgard\ResultSet;
-use \mako\database\midgard\relations\HasOneOrMany;
+use mako\database\midgard\ResultSet;
+use mako\database\midgard\relations\HasOneOrMany;
 
 /**
  * Has many relation.

@@ -7,7 +7,7 @@
 
 namespace mako\redis;
 
-use \RuntimeException;
+use RuntimeException;
 
 /**
  * Redis exception.

@@ -7,8 +7,8 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\http\Request;
+use mako\application\services\Service;
+use mako\http\Request;
 
 /**
  * Request service.

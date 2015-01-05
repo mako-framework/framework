@@ -7,8 +7,8 @@
 
 namespace mako\cache\stores;
 
-use \mako\cache\stores\StoreInterface;
-use \mako\file\FileSystem;
+use mako\cache\stores\StoreInterface;
+use mako\file\FileSystem;
 
 /**
  * File store.

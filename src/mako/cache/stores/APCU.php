@@ -7,7 +7,7 @@
 
 namespace mako\cache\stores;
 
-use \mako\cache\stores\StoreInterface;
+use mako\cache\stores\StoreInterface;
 
 /**
  * APCU store.

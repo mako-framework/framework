@@ -7,11 +7,11 @@
 
 namespace mako\view;
 
-use \Closure;
-use \RuntimeException;
+use Closure;
+use RuntimeException;
 
-use \mako\common\NamespacedFileLoaderTrait;
-use \mako\file\FileSystem;
+use mako\common\NamespacedFileLoaderTrait;
+use mako\file\FileSystem;
 
 /**
  * View factory.

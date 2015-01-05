@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\cache\stores;
 
-use \mako\cache\stores\Database;
+use mako\cache\stores\Database;
 
 use \Mockery as m;
 

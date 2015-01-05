@@ -7,8 +7,8 @@
 
 namespace mako\http\responses;
 
-use \mako\http\Request;
-use \mako\http\Response;
+use mako\http\Request;
+use mako\http\Response;
 
 /**
  * Response container interface.

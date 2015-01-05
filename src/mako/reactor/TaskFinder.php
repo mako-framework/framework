@@ -7,7 +7,7 @@
 
 namespace mako\reactor;
 
-use \mako\application\CommandLine;
+use mako\application\CommandLine;
 
 /**
  * Finds all tasks.

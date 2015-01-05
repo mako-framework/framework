@@ -7,14 +7,14 @@
 
 namespace mako\syringe;
 
-use \mako\syringe\ClassInspector;
+use mako\syringe\ClassInspector;
 
-use \Closure;
-use \ReflectionClass;
-use \ReflectionFunction;
-use \ReflectionMethod;
-use \ReflectionParameter;
-use \RuntimeException;
+use Closure;
+use ReflectionClass;
+use ReflectionFunction;
+use ReflectionMethod;
+use ReflectionParameter;
+use RuntimeException;
 
 /**
  * Inversion of control container.

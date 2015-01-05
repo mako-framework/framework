@@ -7,10 +7,10 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\error\ErrorHandler;
-use \mako\error\handlers\CLIHandler;
-use \mako\error\handlers\WebHandler;
+use mako\application\services\Service;
+use mako\error\ErrorHandler;
+use mako\error\handlers\CLIHandler;
+use mako\error\handlers\WebHandler;
 
 /**
  * Error handler service.

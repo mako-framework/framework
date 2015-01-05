@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard\relations;
 
-use \mako\database\midgard\relations\HasOneOrMany;
+use mako\database\midgard\relations\HasOneOrMany;
 
 /**
  * Has one relation.

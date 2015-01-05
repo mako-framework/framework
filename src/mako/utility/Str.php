@@ -7,7 +7,7 @@
 
 namespace mako\utility;
 
-use \mako\utility\HTML;
+use mako\utility\HTML;
 
 /**
  * Collection of string manipulation methods.

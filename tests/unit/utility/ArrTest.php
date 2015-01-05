@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\utility;
 
-use \mako\utility\Arr;
+use mako\utility\Arr;
 
 /**
  * @group unit

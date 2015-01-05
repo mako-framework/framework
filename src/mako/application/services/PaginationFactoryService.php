@@ -7,8 +7,8 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\pagination\PaginationFactory;
+use mako\application\services\Service;
+use mako\pagination\PaginationFactory;
 
 /**
  * Pagination factory service.

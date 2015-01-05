@@ -7,8 +7,8 @@
 
 namespace mako\application\services;
 
-use \mako\application\services\Service;
-use \mako\database\ConnectionManager;
+use mako\application\services\Service;
+use mako\database\ConnectionManager;
 
 /**
  * Database service.

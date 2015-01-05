@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\i18n;
 
-use \mako\i18n\Loader;
+use mako\i18n\Loader;
 
 use \Mockery as m;
 

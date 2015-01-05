@@ -7,7 +7,7 @@
 
 namespace mako\auth\providers;
 
-use \mako\auth\providers\GroupProviderInterface;
+use mako\auth\providers\GroupProviderInterface;
 
 /**
  * Group provider.

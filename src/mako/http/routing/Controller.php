@@ -7,7 +7,7 @@
 
 namespace mako\http\routing;
 
-use \mako\syringe\ContainerAwareTrait;
+use mako\syringe\ContainerAwareTrait;
 
 /**
  * Base controller that all application controllers must extend.

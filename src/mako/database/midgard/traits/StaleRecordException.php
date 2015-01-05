@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard\traits;
 
-use \RuntimeException;
+use RuntimeException;
 
 /**
  * Stale record exception.

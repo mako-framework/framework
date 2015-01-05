@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\i18n;
 
-use \mako\i18n\I18n;
+use mako\i18n\I18n;
 
 use \Mockery as m;
 

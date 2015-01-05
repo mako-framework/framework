@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\http\routing;
 
-use \mako\http\routing\Route;
+use mako\http\routing\Route;
 
 /**
  * @group unit

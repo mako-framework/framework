@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\session\stores;
 
-use \mako\session\stores\Redis;
+use mako\session\stores\Redis;
 
 use \Mockery as m;
 

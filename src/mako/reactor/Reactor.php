@@ -7,13 +7,13 @@
 
 namespace mako\reactor;
 
-use \ReflectionClass;
+use ReflectionClass;
 
-use \mako\reactor\Task;
-use \mako\reactor\io\Input;
-use \mako\reactor\io\Output;
-use \mako\syringe\Container;
-use \mako\utility\Str;
+use mako\reactor\Task;
+use mako\reactor\io\Input;
+use mako\reactor\io\Output;
+use mako\syringe\Container;
+use mako\utility\Str;
 
 /**
  * Reactor core class.

@@ -7,7 +7,7 @@
 
 namespace mako\common;
 
-use \mako\common\ConfigurableTrait;
+use mako\common\ConfigurableTrait;
 
 /**
  * Connection manager.
