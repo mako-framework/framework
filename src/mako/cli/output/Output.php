@@ -175,6 +175,6 @@ class Output
 
 	public function errorLn($string)
 	{
-		return $this->error($string . PHP_EOL);
+		return $this->writeLn($string, static::error);
 	} 
 }
