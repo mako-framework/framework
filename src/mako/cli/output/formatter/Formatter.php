@@ -27,6 +27,14 @@ class Formatter implements FormatterInterface
 	const TAG_REGEX = '/(?<!\\\\)<\/?[a-z_]+\>/i';
 
 	/**
+	 * Regex that matches escaped tags.
+	 * 
+	 * @var string
+	 */
+
+	const ESCAPED_TAG_REGEX = '/\\\\<(\/?[a-z_]+)\>/i';
+
+	/**
 	 * Styles.
 	 * 
 	 * @var array 
@@ -216,6 +224,19 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
+	 * Strips escape character from escaped tags.
+	 * 
+	 * @access  protected
+	 * @param   string     $string  Input string
+	 * @return  string
+	 */
+
+	protected function removeTagEscapeCharacter($string)
+	{
+		return preg_replace(static::ESCAPED_TAG_REGEX, '<$1>', $string);
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 
@@ -255,7 +276,7 @@ class Formatter implements FormatterInterface
 
 		$formatted .= substr($string, $offset, $offset);
 
-		return $formatted;
+		return $this->removeTagEscapeCharacter($formatted);
 	}
 
 	/**
