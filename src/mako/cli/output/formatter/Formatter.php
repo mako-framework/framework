@@ -174,7 +174,7 @@ class Formatter implements FormatterInterface
 			return $style;
 		}
 
-		throw new FormatterException(vsprintf("%s(): Undefined formatting tag [ %s ].", [__METHOD__, $tag]));
+		throw new FormatterException(vsprintf("%s(): Undefined formatting tag [ %s ] detected.", [__METHOD__, $tag]));
 	}
 
 	/**
@@ -217,7 +217,7 @@ class Formatter implements FormatterInterface
 	{
 		if($this->getTagName($tag) !== end($this->openTags))
 		{
-			throw new FormatterException(vsprintf("%s(): Incorrectly nested formatting tag found.", [__METHOD__]));
+			throw new FormatterException(vsprintf("%s(): Incorrectly nested formatting tag detected.", [__METHOD__]));
 		}
 
 		// Pop the tag off the array of open tags
@@ -277,7 +277,7 @@ class Formatter implements FormatterInterface
 
 		if(!empty($this->openTags))
 		{
-			throw new FormatterException(vsprintf("%s(): 'Unclosed formatting tag.'", [__METHOD__]));
+			throw new FormatterException(vsprintf("%s(): 'Missing formatting close tag detected.'", [__METHOD__]));
 		}
 
 		$formatted .= substr($string, $offset, $offset);
