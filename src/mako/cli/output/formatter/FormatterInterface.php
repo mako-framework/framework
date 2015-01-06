@@ -8,7 +8,7 @@
 namespace mako\cli\output\formatter;
 
 /**
- * Writer interface.
+ * Formatter interface.
  *
  * @author  Frederic G. Østby
  */
