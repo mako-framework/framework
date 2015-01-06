@@ -175,6 +175,6 @@ class Output
 
 	public function errorLn($string)
 	{
-		return $this->writeLn($string, static::error);
+		return $this->writeLn($string, static::ERROR);
 	} 
 }
