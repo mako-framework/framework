@@ -96,11 +96,17 @@ class Formatter implements FormatterInterface
 	 * Constructor.
 	 * 
 	 * @access  public
+	 * @param   null|boolean  $hasAnsiSupport  Do we have ANSI support?
 	 */
 
-	public function __construct()
+	public function __construct($hasAnsiSupport = null)
 	{
-		$this->hasAnsiSupport = DIRECTORY_SEPARATOR === '/' || (false !== getenv('ANSICON') || 'ON' === getenv('ConEmuANSI'));	
+		if($hasAnsiSupport === null)
+		{
+			$hasAnsiSupport = DIRECTORY_SEPARATOR === '/' || (false !== getenv('ANSICON') || 'ON' === getenv('ConEmuANSI'));
+		}
+
+		$this->hasAnsiSupport = $hasAnsiSupport;
 	}
 
 	/**
