@@ -307,10 +307,10 @@ class Formatter implements FormatterInterface
 
 		if(!empty($this->openTags))
 		{
-			throw new FormatterException(vsprintf("%s(): 'Missing formatting close tag detected.'", [__METHOD__]));
+			throw new FormatterException(vsprintf("%s(): Missing formatting close tag detected.", [__METHOD__]));
 		}
 
-		$formatted .= substr($string, $offset, $offset);
+		$formatted .= substr($string, $offset);
 
 		return $this->removeTagEscapeCharacter($formatted);
 	}
