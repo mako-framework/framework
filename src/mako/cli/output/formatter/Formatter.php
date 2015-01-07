@@ -35,6 +35,14 @@ class Formatter implements FormatterInterface
 	const ESCAPED_TAG_REGEX = '/\\\\<(\/?[a-z_]+)\>/i';
 
 	/**
+	 * Ansi that mathes ANSI SGR sequences.
+	 * 
+	 * @var string
+	 */
+
+	const ANSI_SGR_SEQUENCE_REGEX = "/\033\[([0-9]{1,2};?)+m/";
+
+	/**
 	 * Styles.
 	 * 
 	 * @var array 
@@ -155,13 +163,13 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * Returns ANSI SRG escape sequence for style reset.
+	 * Returns ANSI SGR escape sequence for style reset.
 	 * 
 	 * @access  protected
 	 * @return  string
 	 */
 
-	protected function getSrgResetSequence()
+	protected function getSgrResetSequence()
 	{
 		return "\033[0m";
 	}
@@ -196,22 +204,22 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * Returns ANSI SRG escape sequence for the chosen style(s).
+	 * Returns ANSI SGR escape sequence for the chosen style(s).
 	 * 
 	 * @access  protected
 	 * @param   string     $tag  Style name
 	 * @return  string
 	 */
 
-	protected function getSrgStyleSequence($tag)
+	protected function getSgrStyleSequence($tag)
 	{
 		$styles = implode(';', $this->getStyleCodes($tag));
 
-		return $this->getSrgResetSequence() . sprintf("\033[%sm", $styles);
+		return $this->getSgrResetSequence() . sprintf("\033[%sm", $styles);
 	}
 
 	/**
-	 * Returns ANSI SRG escape sequence(s) for the chosen style(s) and 
+	 * Returns ANSI SGR escape sequence(s) for the chosen style(s) and 
 	 * adds the tag name to the array of open tags.
 	 * 
 	 * @access  protected
@@ -223,12 +231,12 @@ class Formatter implements FormatterInterface
 	{
 		$this->openTags[] = $tagName = $this->getTagName($tag);
 
-		return $this->getSrgStyleSequence($tagName);
+		return $this->getSgrStyleSequence($tagName);
 	}
 
 	/**
-	 * Returns ANSI SRG escape sequence for style reset and 
-	 * ANSI SRG escape sequence for parent style if the closed tag was nested.
+	 * Returns ANSI SGR escape sequence for style reset and 
+	 * ANSI SGR escape sequence for parent style if the closed tag was nested.
 	 * 
 	 * @access  protected
 	 * @param   string     $tag  Tag name
@@ -248,7 +256,7 @@ class Formatter implements FormatterInterface
 
 		// Reset style and append previous style if the closed tag was nested
 
-		return $this->getSrgResetSequence() . (!empty($this->openTags) ? $this->getSrgStyleSequence(end($this->openTags)) : '');
+		return $this->getSgrResetSequence() . (!empty($this->openTags) ? $this->getSgrStyleSequence(end($this->openTags)) : '');
 	}
 
 	/**
@@ -313,6 +321,6 @@ class Formatter implements FormatterInterface
 
 	public function stripFormatting($string)
 	{
-		return preg_replace("/\033\[([0-9]{1,2};?)+m/", '', $this->format($string));
+		return preg_replace(static::ANSI_SGR_SEQUENCE_REGEX, '', $this->format($string));
 	}
 }
