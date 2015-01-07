@@ -42,12 +42,16 @@ class Formatter implements FormatterInterface
 
 	protected $styles = 
 	[
+		// Text options
+
 		'bold'       => 1,
 		'faded'      => 2,
 		'underlined' => 4,
 		'blinking'   => 5,
 		'reversed'   => 7,
 		'hidden'     => 8,
+
+		// Foreground colors
 
 		'black'      => 30,
 		'red'        => 31,
@@ -57,6 +61,8 @@ class Formatter implements FormatterInterface
 		'purple'     => 35,
 		'cyan'       => 36,
 		'white'      => 37,
+
+		// Background colors
 
 		'bg_black'   => 40,
 		'bg_red'     => 41,
@@ -149,49 +155,64 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * Returns ANSI code for the style opening.
+	 * Returns ANSI SRG escape sequence for style reset.
 	 * 
 	 * @access  protected
-	 * @param   string     $tag  Style name
 	 * @return  string
 	 */
 
-	protected function getOpenStyle($tag)
+	protected function getSrgResetSequence()
+	{
+		return "\033[0m";
+	}
+
+	/**
+	 * Returns style codes associated with the tag name.
+	 * 
+	 * @access  protected
+	 * @param   string     $tag  Tag name
+	 * @return  array
+	 */
+
+	protected function getStyleCodes($tag)
 	{
 		if(isset($this->styles[$tag]))
 		{
-			return sprintf("\033[%sm", $this->styles[$tag]); 
+			return [$this->styles[$tag]]; 
 		}
 		elseif(isset($this->userStyles[$tag]))
 		{
-			$style = '';
+			$codes = [];
 
 			foreach($this->userStyles[$tag] as $tag)
 			{
-				$style .= $this->getOpenStyle($tag);
+				$codes = array_merge($codes, $this->getStyleCodes($tag));
 			}
 
-			return $style;
+			return $codes;
 		}
 
 		throw new FormatterException(vsprintf("%s(): Undefined formatting tag [ %s ] detected.", [__METHOD__, $tag]));
 	}
 
 	/**
-	 * Returns ANSI code for the style opening.
+	 * Returns ANSI SRG escape sequence for the chosen style(s).
 	 * 
 	 * @access  protected
 	 * @param   string     $tag  Style name
 	 * @return  string
 	 */
 
-	protected function getCloseStyle()
+	protected function getSrgStyleSequence($tag)
 	{
-		return "\033[0m";
+		$styles = implode(';', $this->getStyleCodes($tag));
+
+		return $this->getSrgResetSequence() . sprintf("\033[%sm", $styles);
 	}
 
 	/**
-	 * Returns ANSI code for the style opening and adds the tag to the array of open tags.
+	 * Returns ANSI SRG escape sequence(s) for the chosen style(s) and 
+	 * adds the tag name to the array of open tags.
 	 * 
 	 * @access  protected
 	 * @param   string     $tag  Tag name
@@ -202,11 +223,12 @@ class Formatter implements FormatterInterface
 	{
 		$this->openTags[] = $tagName = $this->getTagName($tag);
 
-		return $this->getOpenStyle($tagName);
+		return $this->getSrgStyleSequence($tagName);
 	}
 
 	/**
-	 * Returns ANSI code for style reset and ANSI code for parent style start if the closed tag was nested.
+	 * Returns ANSI SRG escape sequence for style reset and 
+	 * ANSI SRG escape sequence for parent style if the closed tag was nested.
 	 * 
 	 * @access  protected
 	 * @param   string     $tag  Tag name
@@ -226,7 +248,7 @@ class Formatter implements FormatterInterface
 
 		// Reset style and append previous style if the closed tag was nested
 
-		return $this->getCloseStyle() . (!empty($this->openTags) ? $this->getOpenStyle(end($this->openTags)) : '');
+		return $this->getSrgResetSequence() . (!empty($this->openTags) ? $this->getSrgStyleSequence(end($this->openTags)) : '');
 	}
 
 	/**
@@ -291,6 +313,6 @@ class Formatter implements FormatterInterface
 
 	public function stripFormatting($string)
 	{
-		return preg_replace("/\033\[[0-9]{1,2}m/", '', $this->format($string));
+		return preg_replace("/\033\[([0-9]{1,2};?)+m/", '', $this->format($string));
 	}
 }
