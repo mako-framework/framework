@@ -179,7 +179,7 @@ class Table
 	{
 		if(!$this->isValidInput($columnNames, $rows))
 		{
-			throw new RuntimeException(vsprintf("%s(): The number of cells in each row matches the number of columns.", [__METHOD__]));
+			throw new RuntimeException(vsprintf("%s(): The number of cells in each row must match the number of columns.", [__METHOD__]));
 		}
 
 		$columnWidths = $this->getColumnWidths($columnNames, $rows);
