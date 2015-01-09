@@ -10,7 +10,7 @@ use Mockery as m;
  * @group unit
  */
 
-class OutputTest extends \PHPUnit_Framework_TestCase
+class BellTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * 
