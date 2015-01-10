@@ -12,7 +12,7 @@ use mako\cli\output\Output;
 use RuntimeException;
 
 /**
- * Terminal table helper.
+ * Table helper.
  *
  * @author  Frederic G. Østby
  */

@@ -123,7 +123,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
 		$formatter->shouldReceive('stripFormatting')->times(2)->with('<blue>Col1</blue>')->andReturn('Col1');
 
-		$formatter->shouldReceive('stripFormatting')->times(2)->with('Cell1')->andReturn('Cell2');
+		$formatter->shouldReceive('stripFormatting')->times(2)->with('Cell1')->andReturn('Cell1');
 
 		$output->shouldReceive('getFormatter')->once()->andReturn($formatter);
 
