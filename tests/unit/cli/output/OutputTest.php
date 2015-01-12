@@ -6,11 +6,13 @@ use mako\cli\output\Output;
 
 use Mockery as m;
 
+use PHPUnit_Framework_TestCase;
+
 /**
  * @group unit
  */
 
-class OutputTest extends \PHPUnit_Framework_TestCase
+class OutputTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * 
