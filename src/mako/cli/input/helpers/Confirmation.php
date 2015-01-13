@@ -91,7 +91,7 @@ class Confirmation
 	}
 
 	/**
-	 * Writes question to output and returns user input.
+	 * Asks user for confirmation and returns value corresponding to the chosen value.
 	 * 
 	 * @access  public
 	 * @param   string   $question  Question to ask
