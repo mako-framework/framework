@@ -67,7 +67,7 @@ class Input
 	{
 		$parsed = [];
 
-		$numericIndex = 1;
+		$numericIndex = 0;
 
 		foreach($arguments as $argument)
 		{

@@ -61,7 +61,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 
 		$input = new Input($reader, $arguments);
 
-		$this->assertSame(['arg1' => 'foo', 'arg2' => 'bar', 'arg3' => 'baz', 'named' => 'baz'], $input->getArguments());
+		$this->assertSame(['arg0' => 'foo', 'arg1' => 'bar', 'arg2' => 'baz', 'named' => 'baz'], $input->getArguments());
 	}
 
 	/**
@@ -76,13 +76,13 @@ class InputTest extends PHPUnit_Framework_TestCase
 
 		$input = new Input($reader, $arguments);
 
-		$this->assertSame('foo', $input->getArgument(1));
+		$this->assertSame('foo', $input->getArgument(0));
 
-		$this->assertSame('foo', $input->getArgument('arg1'));
+		$this->assertSame('foo', $input->getArgument('arg0'));
 
-		$this->assertSame('bar', $input->getArgument(2));
+		$this->assertSame('bar', $input->getArgument(1));
 
-		$this->assertSame('bar', $input->getArgument('arg2'));
+		$this->assertSame('bar', $input->getArgument('arg1'));
 	}
 
 	/**
