@@ -61,14 +61,25 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
-	public function testStripFormatting()
+	public function testEscape()
 	{
 		$formatter = new Formatter(true);
 
-		$this->assertSame('foo', $formatter->stripFormatting('<blue>foo</blue>'));
+		$this->assertSame('\<blue>foo\</blue>', $formatter->escape('<blue>foo</blue>'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testStrip()
+	{
+		$formatter = new Formatter(true);
+
+		$this->assertSame('foo', $formatter->strip('<blue>foo</blue>'));
 	}
 
 	/**

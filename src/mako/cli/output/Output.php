@@ -143,7 +143,7 @@ class Output
 			}
 			else
 			{
-				$string = $this->formatter->stripFormatting($string);
+				$string = $this->formatter->strip($string);
 			}
 		}
 

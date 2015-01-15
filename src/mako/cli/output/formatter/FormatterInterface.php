@@ -26,12 +26,22 @@ interface FormatterInterface
 	public function format($string);
 
 	/**
-	 * Strips formatting tags.
+	 * Returns a string where all formatting tags have been escaped.
+	 *
+	 * @access  public
+	 * @param   string  $string  String to format
+	 * @return  string
+	 */
+
+	public function escape($string);
+
+	/**
+	 * Returns a string where all formatting tags have been stripped.
 	 * 
 	 * @access  public
 	 * @param   string  $string  String to strip
 	 * @return  string
 	 */
 
-	public function stripFormatting($string);
+	public function strip($string);
 }
