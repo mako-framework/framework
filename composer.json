@@ -26,8 +26,6 @@
 	},
 	"require": {
 		"php": ">=5.5.0",
-		"symfony/console": "2.5.*",
-		"d11wtq/boris": "1.0.*",
 		"monolog/monolog": "1.12.*"
 	},
 	"require-dev": {

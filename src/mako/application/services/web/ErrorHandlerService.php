@@ -5,11 +5,10 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\application\services;
+namespace mako\application\services\web;
 
 use mako\application\services\Service;
 use mako\error\ErrorHandler;
-use mako\error\handlers\CLIHandler;
 use mako\error\handlers\WebHandler;
 
 /**
@@ -41,35 +40,19 @@ class ErrorHandlerService extends Service
 
 	public function register()
 	{
-		$errorHandler = new ErrorHandler();
+		$errorHandler = new ErrorHandler;
 
 		$displayErrors = $this->container->get('config')->get('application.error_handler.display_errors');
 
-		// Register the appropriate exception handler
-
-		if($this->container->get('app')->isCommandLine())
+		$errorHandler->handle('\Exception', function($exception) use ($errorHandler, $displayErrors)
 		{
-			$errorHandler->handle('\Exception', function($exception) use ($errorHandler, $displayErrors)
-			{
-				$this->setLogger($errorHandler);
+			$this->setLogger($errorHandler);
 
-				return (new CLIHandler($exception))->handle($displayErrors);
-			});
-		}
-		else
-		{
-			$errorHandler->handle('\Exception', function($exception) use ($errorHandler, $displayErrors)
-			{
-				$this->setLogger($errorHandler);
+			$webHandler = new WebHandler($exception, $this->container->get('request'), $this->container->getFresh('response'), $this->container->get('view'));
 
-				$webHandler = new WebHandler($exception, $this->container->get('request'), $this->container->getFresh('response'), $this->container->get('view'));
-
-				return $webHandler->handle($displayErrors);
-			});
-		}
-
-		// Register error handler in the container
-
+			return $webHandler->handle($displayErrors);
+		});
+		
 		$this->container->registerInstance(['mako\error\ErrorHandler', 'errorHandler'], $errorHandler);
 	}
 }

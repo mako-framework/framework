@@ -214,11 +214,11 @@ class Table
 	 * @access  public
 	 * @param   array   $columnNames  Array of column names
 	 * @param   array   $rows         Array of rows
-	 * @return  string
+	 * @param   int     $writer       Output writer
 	 */
 
-	public function draw(array $columnNames, array $rows, $type = Output::STANDARD)
+	public function draw(array $columnNames, array $rows, $writer = Output::STANDARD)
 	{
-		$this->output->write($this->render($columnNames, $rows), $type);
+		$this->output->write($this->render($columnNames, $rows), $writer);
 	}
 }

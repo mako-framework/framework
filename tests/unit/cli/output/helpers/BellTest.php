@@ -29,7 +29,7 @@ class BellTest extends \PHPUnit_Framework_TestCase
 	{
 		$output = m::mock('mako\cli\output\Output');
 
-		$output->shouldReceive('write')->once()->with("\x07", 1);
+		$output->shouldReceive('write')->once()->with("\x07");
 
 		$bell = new Bell($output);
 
@@ -44,7 +44,7 @@ class BellTest extends \PHPUnit_Framework_TestCase
 	{
 		$output = m::mock('mako\cli\output\Output');
 
-		$output->shouldReceive('write')->once()->with("\x07\x07\x07", 1);
+		$output->shouldReceive('write')->once()->with("\x07\x07\x07");
 
 		$bell = new Bell($output);
 

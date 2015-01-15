@@ -60,6 +60,14 @@ abstract class Package
 	protected $classNamespace;
 
 	/**
+	 * Commands.
+	 * 
+	 * @var array
+	 */
+
+	protected $commands = [];
+
+	/**
 	 * Constructor.
 	 * 
 	 * @access  public
@@ -169,6 +177,18 @@ abstract class Package
 	public function getViewPath()
 	{
 		return realpath($this->getPath() . '/views');
+	}
+
+	/**
+	 * Returns the package commands.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getCommands()
+	{
+		return $this->commands;
 	}
 
 	/**

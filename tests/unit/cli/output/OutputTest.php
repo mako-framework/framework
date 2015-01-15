@@ -220,6 +220,29 @@ class OutputTest extends PHPUnit_Framework_TestCase
 
 		$std->shouldReceive('write')->once()->with('formatted');
 
+		$std->shouldReceive('isDirect')->once()->andReturn(true);
+
+		$output = new Output($std, $err, $formatter);
+
+		$output->write('hello, world!');
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testWriteWithFormatterAndRedirectedOutput()
+	{
+		$std       = $this->getWriter();
+		$err       = $this->getWriter();
+		$formatter = $this->getFormatter();
+
+		$formatter->shouldReceive('stripFormatting')->once()->with('hello, world!')->andReturn('stripped');
+
+		$std->shouldReceive('write')->once()->with('stripped');
+
+		$std->shouldReceive('isDirect')->once()->andReturn(false);
+
 		$output = new Output($std, $err, $formatter);
 
 		$output->write('hello, world!');

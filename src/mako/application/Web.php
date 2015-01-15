@@ -27,8 +27,6 @@ class Web extends Application
 	{
 		ob_start();
 
-		// Dispatch the request
-
 		$request = $this->container->get('request');
 
 		// Override the application language?

@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\reactor\tasks\migrate;
+namespace mako\application\commands\migrations;
 
 use mako\database\ConnectionManager;
 use mako\syringe\ContainerAwareTrait;

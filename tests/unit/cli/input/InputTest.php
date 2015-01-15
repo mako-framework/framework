@@ -106,6 +106,23 @@ class InputTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testGetNormalizedNamedArgument()
+	{
+		$reader = $this->getReader();
+
+		$arguments = ['--foo-bar=baz'];
+
+		$input = new Input($reader, $arguments);
+
+		$this->assertSame('baz', $input->getArgument('foo-bar'));
+
+		$this->assertSame('baz', $input->getArgument('foo_bar'));
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testGetBooleanNamedArgument()
 	{
 		$reader = $this->getReader();

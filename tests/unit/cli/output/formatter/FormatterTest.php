@@ -20,9 +20,9 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	{
 		$formatter = new Formatter(true);
 
-		$this->assertSame("\033[0m\033[34mfoo\033[0m", $formatter->format('<blue>foo</blue>'));
+		$this->assertSame("\033[34mfoo\033[0m", $formatter->format('<blue>foo</blue>'));
 
-		$this->assertSame("\033[0m\033[34mfoo \033[0m\033[32mbar\033[0m\033[0m\033[34m baz\033[0m", $formatter->format('<blue>foo <green>bar</green> baz</blue>'));
+		$this->assertSame("\033[34mfoo \033[32mbar\033[0m\033[34m baz\033[0m", $formatter->format('<blue>foo <green>bar</green> baz</blue>'));
 	}
 
 	/**
@@ -46,7 +46,7 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 
 		$formatter->addStyle('my_style', ['black', 'bg_green']);
 
-		$this->assertSame("\033[0m\033[30;42mfoo\033[0m", $formatter->format('<my_style>foo</my_style>'));
+		$this->assertSame("\033[30;42mfoo\033[0m", $formatter->format('<my_style>foo</my_style>'));
 	}
 
 	/**

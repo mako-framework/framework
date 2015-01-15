@@ -123,22 +123,31 @@ class Output
 	 * 
 	 * @access  public
 	 * @param   string  $string  String to write
-	 * @param   int     $type    Output type
+	 * @param   int     $writer  Output type
 	 */
 
-	public function write($string, $type = Output::STANDARD)
+	public function write($string, $writer = Output::STANDARD)
 	{
 		if($this->muted)
 		{
 			return;
 		}
 
+		$writer = ($writer === static::STANDARD) ? $this->standard : $this->error;
+
 		if($this->formatter !== null)
 		{
-			$string = $this->formatter->format($string);
+			if($writer->isDirect())
+			{
+				$string = $this->formatter->format($string);
+			}
+			else
+			{
+				$string = $this->formatter->stripFormatting($string);
+			}
 		}
 
-		$type === static::STANDARD ? $this->standard->write($string) : $this->error->write($string);
+		$writer->write($string);
 	}
 
 	/**
@@ -158,12 +167,12 @@ class Output
 	 * 
 	 * @access  public
 	 * @param   string  $string  String to write
-	 * @param   int     $type    Output type
+	 * @param   int     $writer  Output type
 	 */
 
-	public function writeLn($string, $type = Output::STANDARD)
+	public function writeLn($string, $writer = Output::STANDARD)
 	{
-		return $this->write($string . PHP_EOL, $type);
+		return $this->write($string . PHP_EOL, $writer);
 	}
 
 	/**

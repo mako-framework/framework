@@ -309,6 +309,34 @@ abstract class Application
 	}
 
 	/**
+	 * Register services that only required for the command line interface.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function registerCLIServices()
+	{
+		foreach($this->config->get('application.services.cli') as $service)
+		{
+			(new $service($this->container))->register();
+		}
+	}
+
+	/**
+	 * Register services that only required for the web.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function registerWebServices()
+	{
+		foreach($this->config->get('application.services.web') as $service)
+		{
+			(new $service($this->container))->register();
+		}
+	}
+
+	/**
 	 * Register services in the IoC container.
 	 * 
 	 * @access  protected
@@ -316,9 +344,22 @@ abstract class Application
 
 	protected function registerServices()
 	{
-		foreach($this->config->get('application.services') as $service)
+		// Register core services
+
+		foreach($this->config->get('application.services.core') as $service)
 		{
 			(new $service($this->container))->register();
+		}
+
+		// Register environment specific services
+
+		if($this->isCommandLine())
+		{
+			$this->registerCLIServices();
+		}
+		else
+		{
+			$this->registerWebServices();
 		}
 	}
 

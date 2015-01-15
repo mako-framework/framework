@@ -7,17 +7,17 @@
 
 namespace mako\reactor;
 
-use ReflectionClass;
+use Closure;
 
-use mako\reactor\Task;
-use mako\reactor\io\Input;
-use mako\reactor\io\Output;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
+use mako\cli\output\helpers\Table;
+use mako\reactor\Dispatcher;
 use mako\syringe\Container;
-use mako\utility\Str;
 
 /**
- * Reactor core class.
- *
+ * Reactor.
+ * 
  * @author  Frederic G. Østby
  */
 
@@ -26,7 +26,7 @@ class Reactor
 	/**
 	 * Input.
 	 * 
-	 * @var \mako\reactor\io\Input;
+	 * @var \mako\cli\input\Input
 	 */
 
 	protected $input;
@@ -34,249 +34,255 @@ class Reactor
 	/**
 	 * Output.
 	 * 
-	 * @var \mako\reactor\io\Output;
+	 * @var \mako\cli\output\Output
 	 */
 
 	protected $output;
 
 	/**
-	 * IoC container instance.
+	 * Container.
 	 * 
-	 * @var \mako\syringe\Container
+	 * @var \mako\syringe\Container 
 	 */
 
 	protected $container;
 
 	/**
-	 * Avaiable tasks.
+	 * Commands.
 	 * 
 	 * @var array
 	 */
 
-	protected $tasks;
+	protected $commands = [];
 
 	/**
-	 * Global reactor options.
+	 * Options.
 	 * 
 	 * @var array
 	 */
 
-	protected $globalOptions = 
-	[
-		['--env', 'Allows you to override the default environment.'],
-		['--database', 'Allows you to override the default database connection.'],
-		['--hush', 'Disables all output'],
-	];
+	 protected $options = [];
 
 	/**
 	 * Constructor.
-	 *
+	 * 
 	 * @access  public
-	 * @param   \mako\reactor\io\Input   $input      Input instance
-	 * @param   \mako\reactor\io\Output  $output     Output instance
-	 * @param   \mako\syringe\Container  $container  IoC container instance
-	 * @param   array                    $tasks      Available tasks
+	 * @param   \mako\cli\input\Input     $input       Input
+	 * @param   \mako\cli\output\Output   $output      Output
+	 * @param   \mako\syringe\Container   $container   Container
+	 * @param   \mako\reactor\Dispatcher  $dispatcher  Command dispatcher
 	 */
 
-	public function __construct(Input $input, Output $output, Container $container, array $tasks)
+	public function __construct(Input $input, Output $output, Container $container = null, Dispatcher $dispatcher = null)
 	{
 		$this->input = $input;
 
 		$this->output = $output;
 
-		$this->container = $container;
+		$this->container = $container ?: new Container;
 
-		$this->tasks = $tasks;
+		$this->dispatcher = $dispatcher ?: new Dispatcher($this->container);
 	}
-	
+
 	/**
-	 * Sets up the reactor environment and runs the commands.
-	 *
+	 * Registers a command.
+	 * 
 	 * @access  public
-	 * @param   array   $arguments  Arguments
+	 * @param   string  $command  Command
+	 * @param   string  $class    Command class
 	 */
 
-	public function run(array $arguments = [])
+	public function registerCommand($command, $class)
 	{
-		$arguments = $arguments ?: array_slice($_SERVER['argv'], 1);
-
-		// Override environment?
-
-		$environment = $this->input->param('env', false);
-
-		if($environment !== false)
-		{
-			putenv('MAKO_ENV=' . $environment);
-
-			$this->container->get('config')->setEnvironment($environment);
-		}
-
-		// Override default database?
-
-		$database = $this->input->param('database', false);
-
-		if($database !== false)
-		{
-			$this->container->get('config')->set('database.default', $database);
-		}
-
-		// Disable output?
-
-		$hush = $this->input->param('hush', false);
-
-		if($hush !== false)
-		{
-			$this->output->setVerbosity(Output::VERBOSITY_QUIET);
-
-			$this->output->stderr()->setVerbosity(Output::VERBOSITY_QUIET);
-		}
-
-		// Remove options from argument list so that it doesnt matter what order they come in
-
-		foreach($arguments as $key => $value)
-		{
-			if(substr($value, 0, 2) == '--')
-			{
-				unset($arguments[$key]);
-			}
-		}
-
-		// Run task
-
-		$this->output->nl();
-
-		$this->task($arguments);
-
-		$this->output->nl();
+		$this->commands[$command] = $class;
 	}
 
 	/**
-	 * Lists all available tasks.
+	 * Register a custom reactor option.
+	 * 
+	 * @access  public
+	 * @param   string    $name         Option name
+	 * @param   string    $description  Option description
+	 * @param   \Closure  $handler      Option handler
+	 */
+
+	public function registerCustomOption($name, $description, Closure $handler)
+	{
+		$this->options[$name] = ['description' => $description, 'handler' => $handler];
+	}
+
+	/**
+	 * Handles custom reactor options.
 	 * 
 	 * @access  protected
 	 */
 
-	protected function listTasks()
+	protected function handleCustomOptions()
 	{
-		// Print basic usage info
-
-		$this->output->writeln('<yellow>Usage:</yellow>');
-
-		$this->output->nl();
-
-		$this->output->writeln('<blue>php reactor <action> [arguments] [options]</blue>');
-
-		$this->output->nl();
-
-		// Print list of global options
-
-		$this->output->writeln('<yellow>Global options:</yellow>');
-
-		$this->output->nl();
-
-		$this->output->table(['Option', 'Description'], $this->globalOptions);
-
-		$this->output->nl();
-
-		// Print task list
-
-		$this->output->writeln('<yellow>Available actions:</yellow>');
-
-		$this->output->nl();
-
-		$tasks = [];
-
-		foreach($this->tasks as $taskKey => $task)
+		foreach($this->options as $name => $option)
 		{
-			$reflection = new ReflectionClass($task);
+			$input = $this->input->getArgument($name);
 
-			if($reflection->isAbstract())
+			if(!empty($input))
 			{
-				continue;
-			}
+				$handler = $option['handler'];
 
-			$taskInfo = $task::getTaskInfo();
-
-			if(empty($taskInfo))
-			{
-				continue;
-			}
-
-			foreach($taskInfo as $actionKey => $info)
-			{
-				$tasks[] = [$taskKey . '.' . $actionKey, $info['description']];
+				$this->container->call($handler, ['option' => $input]);
 			}
 		}
-
-		$this->output->table(['Action', 'Description'], $tasks);
-
-		$this->output->nl();
-
-		exit;
 	}
 
 	/**
-	 * Returns an instance of the chosen task.
-	 *
+	 * Returns an array of option information.
+	 * 
 	 * @access  protected
-	 * @param   string     $task  Task name
-	 * @return  mixed
+	 * @return  array
 	 */
 
-	protected function resolve($task)
+	protected function getOptions()
 	{
-		if(isset($this->tasks[$task]))
-		{
-			$task = $this->tasks[$task];
-		}
-		else
-		{
-			$this->output->error(vsprintf("The [ %s ] task doesn't exist.", [$task]));
+		$options = [['--mute', 'Disables all output']];
 
-			return false;
+		foreach($this->options as $name => $option)
+		{
+			$options[] = ['--' . $name, $option['description']];
 		}
 
-		$task = $this->container->get($task);
-
-		if(($task instanceof Task) === false)
-		{
-			$this->output->error('All tasks must extend the mako\reactor\Task class.');
-
-			return false;
-		}
-
-		return $task;
+		return $options;
 	}
 
 	/**
-	 * Runs the chosen task.
-	 *
+	 * Displays basic reactor information.
+	 * 
 	 * @access  protected
-	 * @param   array      $arguments  Arguments
 	 */
 
-	protected function task($arguments)
+	protected function displayReactorInfo()
 	{
-		if(!empty($arguments))
-		{
-			if(strpos($arguments[0], '.') !== false)
-			{
-				list($task, $method) = explode('.', $arguments[0], 2);
-			}
-			else
-			{
-				$task   = $arguments[0];
-				$method = 'run';
-			}
+		$this->output->writeLn("<yellow>Usage:</yellow>");
 
-			if(($task = $this->resolve($task)) !== false)
-			{
-				call_user_func_array([$task, Str::underscored2camel($method)], array_slice($arguments, 1));
-			}
+		$this->output->write(PHP_EOL);
+
+		$this->output->writeLn("php reactor [command] [arguments] [options]");
+
+		$this->output->write(PHP_EOL);
+
+		$this->output->writeLn("<yellow>Global options:</yellow>");
+
+		$this->output->write(PHP_EOL);
+
+		$table = new Table($this->output);
+
+		$headers = 
+		[
+			'<green>Option</green>', 
+			'<green>Description</green>'
+		];
+
+		$options = $this->getOptions();
+
+		$table->draw($headers, $options);
+
+		$this->output->write(PHP_EOL);
+	}
+
+	/**
+	 * Returns an array of command information.
+	 * 
+	 * @access  protected
+	 * @return  array
+	 */
+
+	protected function getCommands()
+	{
+		$info = [];
+
+		foreach($this->commands as $name => $class)
+		{
+			$info[$name] = [$name, $this->container->get($class)->getCommandDescription()];
+		}
+
+		ksort($info);
+
+		return $info;
+	}
+
+	/**
+	 * Lists available commands.
+	 * 
+	 * @access  protected
+	 */
+
+	protected function listCommands()
+	{
+		$this->output->writeLn("<yellow>Available commands:</yellow>");
+
+		$this->output->write(PHP_EOL);
+
+		$table = new Table($this->output);
+
+		$headers = 
+		[
+			'<green>Command</green>', 
+			'<green>Description</green>'
+		];
+
+		$commands = $this->getCommands();
+
+		$table->draw($headers, $commands);
+	}
+
+	/**
+	 * Dispatches a command.
+	 * 
+	 * @access  protected
+	 * @param   string     $command  Command
+	 */
+
+	protected function dispatch($command)
+	{
+		if(!isset($this->commands[$command]))
+		{
+			$this->output->writeLn('<red>Unknown command [ ' . $command . ' ].</red>');
+
+			$this->output->write(PHP_EOL);
+
+			$this->listCommands();
+
+			return;
+		}
+
+		$this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
+	}
+
+	/**
+	 * Run the reactor.
+	 * 
+	 * @access  public
+	 */
+
+	public function run()
+	{
+		if($this->input->getArgument('mute', false) === true)
+		{
+			$this->output->mute();
+		}
+
+		$this->handleCustomOptions();
+
+		$this->output->write(PHP_EOL);
+
+		if(($command = $this->input->getArgument(1)) === null)
+		{
+			$this->displayReactorInfo();
+
+			$this->listCommands();
 		}
 		else
 		{
-			$this->listTasks();
+			$this->dispatch($command);
 		}
+
+		$this->output->write(PHP_EOL);
 	}
 }

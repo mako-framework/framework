@@ -7,6 +7,8 @@
 
 namespace mako\cli\input\helpers;
 
+use mako\cli\input\helpers\Question;
+
 /**
  * Confirmation helper.
  *
@@ -16,7 +18,7 @@ namespace mako\cli\input\helpers;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 
-class Confirmation
+class Confirmation extends Question
 {
 	/**
 	 * Input instance.
@@ -104,27 +106,15 @@ class Confirmation
 	{
 		$options = $options === null ? ['y' => true, 'n' => false] : $this->normalizeKeys($options);
 
-		// Write question along with options to output
-
-		$this->output->write(trim($question) . ' [' . $this->getOptions($options, $default) . '] ');
-
-		// Read user input and make it lower-case
-
-		$input = $this->input->read();
+		$input = parent::ask(trim($question) . ' [' . $this->getOptions($options, $default) . '] ');
 
 		$input = mb_strtolower(empty($input) ? $default : $input);
-
-		// Check user input
 		
 		if(!isset($options[$input]))
 		{
-			// We got an invalid answer from the user so we'll just ask the same question again
-
 			return $this->ask($question, $default, $options);
 		}
 
-		// Return boolean value of the user's answer
-		
 		return $options[$input];
 	}
 }

@@ -215,7 +215,7 @@ class Formatter implements FormatterInterface
 	{
 		$styles = implode(';', $this->getStyleCodes($tag));
 
-		return $this->getSgrResetSequence() . sprintf("\033[%sm", $styles);
+		return sprintf("\033[%sm", $styles);
 	}
 
 	/**
@@ -254,9 +254,23 @@ class Formatter implements FormatterInterface
 
 		array_pop($this->openTags);
 
-		// Reset style and append previous style if the closed tag was nested
+		// Reset style
 
-		return $this->getSgrResetSequence() . (!empty($this->openTags) ? $this->getSgrStyleSequence(end($this->openTags)) : '');
+		$style = $this->getSgrResetSequence();
+
+		// Append previous styles if the closed tag was nested
+
+		if(!empty($this->openTags))
+		{
+			foreach($this->openTags as $tag)
+			{
+				$style .= $this->getSgrStyleSequence($tag);
+			}
+		}
+
+		// Return style
+
+		return $style;
 	}
 
 	/**

@@ -41,12 +41,11 @@ class Bell
 	 * Rings the terminal bell n times.
 	 * 
 	 * @access  public
-	 * @param   int     $times   Number of times to ring the bell
-	 * @param   int     $writer  The writer to use
+	 * @param   int     $times  Number of times to ring the bell
 	 */
 
-	public function ring($times = 1, $writer = Output::STANDARD)
+	public function ring($times = 1)
 	{
-		$this->output->write(str_repeat("\x07", $times), $writer);
+		$this->output->write(str_repeat("\x07", $times));
 	}
 }

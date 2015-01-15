@@ -56,6 +56,19 @@ class Input
 	}
 
 	/**
+	 * Returns a normalized argument name.
+	 * 
+	 * @access  public
+	 * @param   string  $name  Argument name to normalize
+	 * @return  string
+	 */
+
+	protected function normalizeArgumentName($name)
+	{
+		return str_replace('-', '_', $name);
+	}
+
+	/**
 	 * Parses parameters.
 	 * 
 	 * @access  protected
@@ -67,7 +80,7 @@ class Input
 	{
 		$parsed = [];
 
-		$numericIndex = 0;
+		$argumentNumber = 0;
 
 		foreach($arguments as $argument)
 		{
@@ -75,11 +88,11 @@ class Input
 			{
 				list($name, $value) = explode('=', substr($argument, 2), 2) + [null, null];
 
-				$parsed[$name] = $value === null ? true : $value;
+				$parsed[$this->normalizeArgumentName($name)] = $value === null ? true : $value;
 			}
 			else
 			{
-				$parsed['arg' . $numericIndex++] = $argument;
+				$parsed['arg' . $argumentNumber++] = $argument;
 			}
 		}
 
@@ -125,6 +138,8 @@ class Input
 		{
 			$name = 'arg' . $name;
 		}
+
+		$name = $this->normalizeArgumentName($name);
 
 		return isset($this->arguments[$name]) ? $this->arguments[$name] : $default;
 	}
