@@ -42,6 +42,25 @@ class CLIHandler extends Handler
 
 		$this->output = $output;
 	}
+
+	/**
+	 * Escape formatting tags.
+	 *
+	 * @access  protected
+	 * @param   string     $string  String to escape
+	 * @return  string
+	 */
+
+	protected function escape($string)
+	{
+		if(($formatter = $this->output->getFormatter()) === null)
+		{
+			return $string;
+		}
+
+		return $formatter->escape($string);
+	}
+
 	/**
 	 * Returns a detailed error.
 	 * 
@@ -51,7 +70,11 @@ class CLIHandler extends Handler
 
 	protected function getDetailedError()
 	{
-		$this->output->errorLn('<bg_red><white>' . $this->exception->getMessage() . PHP_EOL . PHP_EOL . $this->exception->getTraceAsString() . PHP_EOL . '</white></bg_red>');
+		$message = $this->escape($this->exception->getMessage());
+
+		$trace = $this->escape($this->exception->getTraceAsString());
+
+		$this->output->errorLn('<bg_red><white>' . $message . PHP_EOL . PHP_EOL . $trace . PHP_EOL . '</white></bg_red>');
 	}
 
 	/**
