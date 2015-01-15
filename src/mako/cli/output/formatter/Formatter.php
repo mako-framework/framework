@@ -50,6 +50,10 @@ class Formatter implements FormatterInterface
 
 	protected $styles = 
 	[
+		// Clear styles
+
+		'clear'      => 0,
+		
 		// Text options
 
 		'bold'       => 1,
