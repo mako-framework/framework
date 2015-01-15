@@ -292,6 +292,12 @@ class Formatter implements FormatterInterface
 
 	public function format($string)
 	{
+		// Reset open tags
+
+		$this->openTags = [];
+
+		// Continue with string formatting
+
 		$offset = 0;
 
 		$formatted = '';

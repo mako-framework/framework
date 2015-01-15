@@ -264,7 +264,7 @@ class ErrorHandler
 
 			// One of the exception handlers failed so we'll just show the user a generic error screen
 
-			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]'; 
+			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]' . PHP_EOL; 
 		}
 
 		exit(1);
