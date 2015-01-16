@@ -76,6 +76,8 @@ class CommandLine extends Application
 
 	public function run()
 	{
+		ob_start();
+		
 		$input = $this->container->get('input');
 
 		$output = $this->container->get('output');
