@@ -14,3 +14,4 @@ Here you'll find all the Mako framework tests. They are divided in to groups so 
 | integration          | All integration tests                                                 |
 | integration:database | All integration tests that touch the database (SQLite in memory)      |
 | integration:redis    | All integration tests that connect to a redis database                |
+| slow                 | All slow tests (both unit and integration)                            |
