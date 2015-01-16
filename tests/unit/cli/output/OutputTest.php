@@ -237,7 +237,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 		$err       = $this->getWriter();
 		$formatter = $this->getFormatter();
 
-		$formatter->shouldReceive('stripFormatting')->once()->with('hello, world!')->andReturn('stripped');
+		$formatter->shouldReceive('strip')->once()->with('hello, world!')->andReturn('stripped');
 
 		$std->shouldReceive('write')->once()->with('stripped');
 

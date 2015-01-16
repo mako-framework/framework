@@ -50,6 +50,10 @@ class Formatter implements FormatterInterface
 
 	protected $styles = 
 	[
+		// Clear styles
+
+		'clear'      => 0,
+		
 		// Text options
 
 		'bold'       => 1,
@@ -339,7 +343,16 @@ class Formatter implements FormatterInterface
 	 * {@inheritdoc}
 	 */
 
-	public function stripFormatting($string)
+	public function escape($string)
+	{
+		return preg_replace(static::TAG_REGEX, '\\\$0', $string);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function strip($string)
 	{
 		return preg_replace(static::ANSI_SGR_SEQUENCE_REGEX, '', $this->format($string));
 	}

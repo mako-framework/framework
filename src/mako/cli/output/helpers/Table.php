@@ -86,7 +86,7 @@ class Table
 
 	protected function stringWidthWithoutFormatting($string)
 	{
-		return mb_strwidth($this->formatter !== null ? $this->formatter->stripFormatting($string) : $string);
+		return mb_strwidth($this->formatter !== null ? $this->formatter->strip($string) : $string);
 	}
 
 	/**
