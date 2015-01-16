@@ -123,6 +123,23 @@ class UserProvider implements UserProviderInterface
 
 	public function validatePassword(UserInterface $user, $password)
 	{
-		return Password::validate($password, $user->getPassword());
+		$hash = $user->getPassword();
+
+		// Check if the provided password is valid
+
+		$isValid = Password::validate($password, $hash);
+
+		// Check if the password needs to be rehashed IF the provided password is valid
+
+		if($isValid && Password::needsRehash($hash))
+		{
+			$user->setPassword($password);
+
+			$user->save();
+		}
+
+		// Return validation result
+
+		return $isValid;
 	}
 }

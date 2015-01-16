@@ -14,17 +14,6 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testLegacyHash()
-	{
-		$this->assertTrue(Password::isLegacyHash(md5('foobar')));
-
-		$this->assertFalse(Password::isLegacyHash(Password::hash('foobar', 4)));
-	}
-
-	/**
-	 * 
-	 */
-
 	public function testHash()
 	{
 		$password = 'foobar';
@@ -39,9 +28,12 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertNotEquals($hash1, $hash2);
 
-		$this->assertEquals(60, strlen($hash1));
+		if(PASSWORD_DEFAULT === PASSWORD_BCRYPT)
+		{
+			$this->assertEquals(60, strlen($hash1));
 
-		$this->assertEquals(60, strlen($hash2));
+			$this->assertEquals(60, strlen($hash2));
+		}
 	}
 
 	/**
@@ -63,32 +55,12 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 */
 
-	public function testValidateLegacy()
+	public function testNeedsRehash()
 	{
-		$password = 'foobar';
+		$hash = Password::hash('foobar', 4);
 
-		$hash1 = md5($password);
+		$this->assertFalse(Password::needsRehash($hash, 4));
 
-		$hash2 = Password::hash($password, 4);
-
-		$this->assertTrue(Password::validate('foobar', $hash1, function($password, $hash)
-		{
-			return md5($password) === $hash;
-		}));
-
-		$this->assertTrue(Password::validate('foobar', $hash2, function($password, $hash)
-		{
-			return md5($password) === $hash;
-		}));
-
-		$this->assertFalse(Password::validate('føøbar', $hash1, function($password, $hash)
-		{
-			return md5($password) === $hash;
-		}));
-
-		$this->assertFalse(Password::validate('føøbar', $hash2, function($password, $hash)
-		{
-			return md5($password) === $hash;
-		}));
+		$this->assertTrue(Password::needsRehash($hash, 5));
 	}
 }

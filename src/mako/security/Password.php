@@ -7,8 +7,6 @@
 
 namespace mako\security;
 
-use Closure;
-
 /**
  * Secure password hashing and validation.
  *
@@ -18,12 +16,15 @@ use Closure;
 class Password
 {
 	/**
-	 * Default computing cost.
+	 * Default computing costs.
 	 *
-	 * @var int
+	 * @var array
 	 */
 
-	const COST = 10;
+	protected static $costs = 
+	[
+		PASSWORD_BCRYPT => 10,
+	];
 
 	/**
 	 * Protected constructor since this is a static class.
@@ -37,58 +38,80 @@ class Password
 	}
 
 	/**
-	 * Checks if a hash is generated using something other than bcrypt.
-	 *
-	 * @access  public
-	 * @param   string   $hash  Hash to check
-	 * @return  boolean
+	 * Normalizes the cost value.
+	 * 
+	 * @access  protected
+	 * @param   int        $cost  Computing cost
+	 * @return  int
 	 */
 
-	public static function isLegacyHash($hash)
+	protected static function normalizeCost($cost)
 	{
-		return stripos($hash, '$2y$') !== 0;
+		switch(PASSWORD_DEFAULT)
+		{
+			case PASSWORD_BCRYPT:
+				$cost = ($cost < 4 || $cost > 31) ? static::$costs[PASSWORD_BCRYPT] : $cost;
+				break;
+		}
+
+		return $cost;
+	}
+
+	/**
+	 * Set Default computing cost.
+	 * 
+	 * @access  public
+	 * @param   int     $cost  Computing cost
+	 */
+
+	public function setDefaultComputingCost($cost)
+	{
+		static::$cost[PASSWORD_DEFAULT] = static::normalizeCost($cost);
 	}
 
 	/**
 	 * Returns a bcrypt hash of the password.
 	 *
 	 * @access  public
-	 * @param   string  $password  Password
-	 * @param   int     $cost      Computing cost
+	 * @param   string    $password  Password
+	 * @param   null|int  $cost      Computing cost
 	 * @return  string
 	 */
 
-	public static function hash($password, $cost = Password::COST)
+	public static function hash($password, $cost = null)
 	{
-		// Set cost
+		$cost = static::normalizeCost($cost ?: static::$costs[PASSWORD_DEFAULT]);
 
-		if($cost < 4 || $cost > 31)
-		{
-			$cost = static::COST;
-		}
+		return password_hash($password, PASSWORD_DEFAULT, ['cost' => $cost]);
+	}
 
-		// Return hash
+	/**
+	 * Checks if the password needs to be rehashed.
+	 * 
+	 * @access  public
+	 * @param   string    $hash  Password hash to check
+	 * @param   null|int  $cost  Computing cost
+	 * @return  string
+	 */
 
-		return password_hash($password, PASSWORD_BCRYPT, ['cost' => $cost]);
+	public static function needsRehash($hash, $cost = null)
+	{
+		$cost = static::normalizeCost($cost ?: static::$costs[PASSWORD_DEFAULT]);
+
+		return password_needs_rehash($hash, PASSWORD_DEFAULT, ['cost' => $cost]);
 	}
 
 	/**
 	 * Validates a password hash.
 	 *
 	 * @access  public
-	 * @param   string    $password     Password
-	 * @param   string    $hash         Password hash
-	 * @param   \Closure  $legacyCheck  Legacy check
+	 * @param   string    $password  Password
+	 * @param   string    $hash      Password hash
 	 * @return  boolean
 	 */
 
-	public static function validate($password, $hash, Closure $legacyCheck = null)
+	public static function validate($password, $hash)
 	{
-		if($legacyCheck !== null && static::isLegacyHash($hash))
-		{
-			return $legacyCheck($password, $hash);
-		}
-
 		return password_verify($password, $hash);
 	}
 }
