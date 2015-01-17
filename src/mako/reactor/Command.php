@@ -12,6 +12,7 @@ use mako\cli\input\helpers\Confirmation;
 use mako\cli\input\helpers\Question;
 use mako\cli\output\Output;
 use mako\cli\output\helpers\Bell;
+use mako\cli\output\helpers\Countdown;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\helpers\ProgressBar;
 
@@ -205,17 +206,15 @@ abstract class Command
 	}
 
 	/**
-	 * Draws a table.
-	 * 
+	 * Counts down from n.
+	 *
 	 * @access  protected
-	 * @param   array      $columnNames  Array of column names
-	 * @param   array      $rows         Array of rows
-	 * @param   int        $writer       Output writer
+	 * @param   int        $from  Number of seconds to count down
 	 */
 
-	protected function table(array $columnNames, array $rows, $writer = Output::STANDARD)
+	protected function countdown($from = 5)
 	{
-		(new Table($this->output))->draw($columnNames, $rows, $writer);
+		(new Countdown($this->output))->draw($from);
 	}
 
 	/**
@@ -238,6 +237,20 @@ abstract class Command
 		$progressBar->draw();
 
 		return $progressBar;
+	}
+
+	/**
+	 * Draws a table.
+	 * 
+	 * @access  protected
+	 * @param   array      $columnNames  Array of column names
+	 * @param   array      $rows         Array of rows
+	 * @param   int        $writer       Output writer
+	 */
+
+	protected function table(array $columnNames, array $rows, $writer = Output::STANDARD)
+	{
+		(new Table($this->output))->draw($columnNames, $rows, $writer);
 	}
 
 	/**
