@@ -70,11 +70,13 @@ class CLIHandler extends Handler
 
 	protected function getDetailedError()
 	{
+		$type = $this->escape($this->determineExceptionType($this->exception));
+
 		$message = $this->escape($this->exception->getMessage());
 
 		$trace = $this->escape($this->exception->getTraceAsString());
 
-		$this->output->errorLn('<bg_red><white>' . $message . PHP_EOL . PHP_EOL . $trace . PHP_EOL . '</white></bg_red>');
+		$this->output->errorLn('<bg_red><white>' . $type . ': ' . $message . PHP_EOL . PHP_EOL . $trace . PHP_EOL . '</white></bg_red>');
 	}
 
 	/**
