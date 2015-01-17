@@ -133,7 +133,7 @@ class Redis
 		switch(substr($response, 0, 1))
 		{
 			case '-': // error reply
-				throw new RedisException(vsprintf("%s(): %s.", [__METHOD__, substr($response, 5)]));
+				throw new RedisException(vsprintf("%s(): %s.", [__METHOD__, substr($response, 1)]));
 				break;
 			case '+': // status reply
 				return trim(substr($response, 1));
