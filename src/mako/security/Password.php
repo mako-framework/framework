@@ -70,7 +70,7 @@ class Password
 	}
 
 	/**
-	 * Returns a bcrypt hash of the password.
+	 * Returns a password hash.
 	 *
 	 * @access  public
 	 * @param   string    $password  Password
