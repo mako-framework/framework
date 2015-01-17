@@ -15,6 +15,7 @@ use mako\cli\output\helpers\Bell;
 use mako\cli\output\helpers\Countdown;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\helpers\ProgressBar;
+use mako\syringe\ContainerAwareTrait;
 
 /**
  * Base command.
@@ -24,6 +25,8 @@ use mako\cli\output\helpers\ProgressBar;
 
 abstract class Command
 {
+	use ContainerAwareTrait;
+	
 	/**
 	 * Input.
 	 * 
