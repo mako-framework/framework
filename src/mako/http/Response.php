@@ -235,7 +235,7 @@ class Response
 		{
 			$this->body = $body->getBody();
 
-			$this->status = $body->getStatus();
+			$this->statusCode = $body->getStatus();
 
 			$this->outputFilters = array_merge($this->outputFilters, $body->getFilters());
 
