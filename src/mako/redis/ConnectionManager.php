@@ -10,6 +10,7 @@ namespace mako\redis;
 use RuntimeException;
 
 use mako\common\ConnectionManager as BaseConnectionManager;
+use mako\redis\Connection;
 use mako\redis\Redis;
 
 /**
@@ -37,6 +38,8 @@ class ConnectionManager extends BaseConnectionManager
 			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the redis configuration.", [__METHOD__, $connection]));
 		}
 
-		return new Redis($this->configurations[$connection]);
+		$config = $this->configurations[$connection];
+
+		return new Redis(new Connection($config['host'], $config['port']), $config);
 	}
 }

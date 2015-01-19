@@ -13,7 +13,9 @@ use mako\redis\RedisException;
 use mako\utility\Str;
 
 /**
- * Redis client based on the protocol specification at http://redis.io/topics/protocol.
+ * Redis client. 
+ * 
+ * Based on the protocol specification at http://redis.io/topics/protocol.
  *
  * @author  Frederic G. Østby
  */
@@ -45,9 +47,9 @@ class Redis
 	protected $commands = [];
 
 	/**
-	 * Socket connection.
+	 * Redis connection.
 	 *
-	 * @var resource
+	 * @var \mako\redis\Connection
 	 */
 
 	protected $connection;
@@ -56,66 +58,22 @@ class Redis
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   array   $configuration  Redis configuration
+	 * @param   \mako\redis\Connection  $connection  Redis connection
+	 * @param   array                   $options     Options
 	 */
 
-	public function __construct(array $configuration)
+	public function __construct(Connection $connection, array $options = [])
 	{
-		$this->connect($configuration);
-	}
+		$this->connection = $connection;
 
-	/**
-	 * Destructor.
-	 *
-	 * @access  public
-	 */
-
-	public function __destruct()
-	{
-		$this->disconnect();
-	}
-
-	/**
-	 * Connects to the Redis server.
-	 *
-	 * @access  protected
-	 * @param   array     $configuration  Redis configuration
-	 * @return  resource
-	 */
-
-	protected function connect($configuration)
-	{
-		$this->connection = @fsockopen('tcp://' . $configuration['host'], $configuration['port'], $errNo, $errStr);
-
-		if(!$this->connection)
+		if(isset($options['password']))
 		{
-			throw new RedisException(vsprintf("%s(): %s", [__METHOD__, $errStr]));
+			$this->auth($options['password']);
 		}
 
-		if(!empty($configuration['password']))
+		if(!empty($options['database']) && $options['database'] !== 0)
 		{
-			$this->auth($configuration['password']);
-		}
-
-		if(!empty($configuration['database']) && $configuration['database'] !== 0)
-		{
-			$this->select($configuration['database']);
-		}
-
-		return $this->connection;
-	}
-
-	/**
-	 * Closes connection to the Redis server.
-	 *
-	 * @access  protected
-	 */
-
-	protected function disconnect()
-	{
-		if(is_resource($this->connection))
-		{
-			fclose($this->connection);	
+			$this->select($options['database']);
 		}
 	}
 
@@ -128,7 +86,7 @@ class Redis
 
 	protected function response()
 	{
-		$response = trim(fgets($this->connection));
+		$response = trim($this->connection->readLine());
 
 		switch(substr($response, 0, 1))
 		{
@@ -149,7 +107,7 @@ class Redis
 
 				$length = (int) substr($response, 1);
 
-				return substr(fread($this->connection, $length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
+				return substr($this->connection->read($length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
 				break;
 			case '*': // multi-bulk reply
 				if($response === '*-1')
@@ -197,7 +155,7 @@ class Redis
 
 		$commands = count($this->commands);
 
-		fwrite($this->connection, implode('', $this->commands));
+		$this->connection->write(implode('', $this->commands));
 
 		for($i = 0; $i < $commands; $i++)
 		{
@@ -249,7 +207,7 @@ class Redis
 		{
 			// Send command to server and return response
 
-			fwrite($this->connection, $command);
+			$this->connection->write($command);
 
 			return $this->response();
 		}

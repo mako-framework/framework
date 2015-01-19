@@ -2,6 +2,7 @@
 
 namespace mako\tests\integration\redis;
 
+use mako\redis\Connection;
 use mako\redis\Redis;
 use mako\redis\RedisException;
 
@@ -32,7 +33,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	{
 		try
 		{
-			$this->redis = new Redis(['host' => 'localhost', 'port' => '6379']);
+			$this->redis = new Redis(new Connection('localhost'));
 		}
 		catch(RedisException $e)
 		{
