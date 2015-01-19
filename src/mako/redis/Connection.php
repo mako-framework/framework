@@ -64,7 +64,7 @@ class Connection
 	 * @return  string|false
 	 */
 
-	public function readLine()
+	public function gets()
 	{
 		return fgets($this->connection);
 	}

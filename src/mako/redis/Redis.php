@@ -86,7 +86,7 @@ class Redis
 
 	protected function response()
 	{
-		$response = trim($this->connection->readLine());
+		$response = trim($this->connection->gets());
 
 		switch(substr($response, 0, 1))
 		{
