@@ -120,6 +120,10 @@ class SessionService extends Service
 
 			$session = new Session($container->get('request'), $container->get('response'), $this->getSessionStore($container, $config));
 
+			$session->setDataTTL($config['ttl']['data']);
+
+			$session->setCookieTTL($config['ttl']['cookie']);
+
 			$session->setCookieName($config['session_name']);
 
 			$session->setCookieOptions($config['cookie_options']);
