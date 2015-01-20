@@ -61,7 +61,15 @@ class Reactor
 	 * @var array
 	 */
 
-	 protected $options = [];
+	protected $options = [];
+
+	/**
+	 * Logo.
+	 * 
+	 * @var string
+	 */
+
+	protected $logo;
 
 	/**
 	 * Constructor.
@@ -112,6 +120,18 @@ class Reactor
 	}
 
 	/**
+	 * Sets the reactor logo.
+	 * 
+	 * @access  public
+	 * @param   string  $logo ASCII logo
+	 */
+
+	public function setLogo($logo)
+	{
+		$this->logo = $logo;
+	}
+
+	/**
 	 * Handles custom reactor options.
 	 * 
 	 * @access  protected
@@ -159,6 +179,13 @@ class Reactor
 
 	protected function displayReactorInfo()
 	{
+		if(!empty($this->logo))
+		{
+			$this->output->writeLn($this->logo);
+
+			$this->output->write(PHP_EOL);
+		}
+
 		$this->output->writeLn("<yellow>Usage:</yellow>");
 
 		$this->output->write(PHP_EOL);
