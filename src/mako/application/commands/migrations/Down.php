@@ -29,7 +29,8 @@ class Down extends Command
 	protected $commandInformation = 
 	[
 		'description' => 'Rolls back the last batch of migrations.',
-		'arguments'   => 
+		'arguments'   => [],
+		'options'     => 
 		[
 			'batches' => 
 			[
@@ -37,18 +38,17 @@ class Down extends Command
 				'description' => 'Number of batches to roll back'
 			],
 		],
-		'options'     => [],
 	];
 
 	/**
 	 * Executes the command.
 	 * 
 	 * @access  public
-	 * @param   string  $arg2  Number of batches to roll back
+	 * @param   string  $batches  Number of batches to roll back
 	 */
 
-	public function execute($arg2 = 1)
+	public function execute($batches = 1)
 	{
-		$this->rollback($arg2);
+		$this->rollback($batches);
 	}
 }
