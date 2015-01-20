@@ -123,7 +123,7 @@ class Reactor
 	 * Sets the reactor logo.
 	 * 
 	 * @access  public
-	 * @param   string  $logo ASCII logo
+	 * @param   string  $logo  ASCII logo
 	 */
 
 	public function setLogo($logo)
