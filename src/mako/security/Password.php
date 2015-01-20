@@ -91,7 +91,7 @@ class Password
 	 * @access  public
 	 * @param   string    $hash  Password hash to check
 	 * @param   null|int  $cost  Computing cost
-	 * @return  string
+	 * @return  boolean
 	 */
 
 	public static function needsRehash($hash, $cost = null)
