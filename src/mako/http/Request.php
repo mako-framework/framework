@@ -856,6 +856,18 @@ class Request
 	}
 
 	/**
+	 * Returns TRUE if the request method is considered safe and FALSE if not.
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function isSafe()
+	{
+		return in_array($this->method, ['GET', 'HEAD']);
+	}
+
+	/**
 	 * Is PHP running as a CGI program?
 	 * 
 	 * @access  public

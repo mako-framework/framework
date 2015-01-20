@@ -201,7 +201,7 @@ class File implements ResponseContainerInterface
 
 		$response->type($this->options['content_type']);
 
-		$response->header('accept-ranges', 'bytes');
+		$response->header('accept-ranges', $request->isSafe() ? 'bytes' : 'none');
 
 		$response->header('content-disposition', $this->options['disposition'] . '; filename="' . $this->options['file_name'] . '"');
 
