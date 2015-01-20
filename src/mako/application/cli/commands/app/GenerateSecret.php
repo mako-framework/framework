@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\application\commands\app;
+namespace mako\application\cli\commands\app;
 
 use mako\application\Application;
 use mako\file\FileSystem;

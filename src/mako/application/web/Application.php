@@ -5,9 +5,9 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\application;
+namespace mako\application\web;
 
-use mako\application\Application;
+use mako\application\Application as BaseApplication;
 use mako\http\routing\Dispatcher;
 use mako\http\routing\Router;
 
@@ -17,7 +17,7 @@ use mako\http\routing\Router;
  * @author  Frederic G. Østby
  */
 
-class Web extends Application
+class Application extends BaseApplication
 {
 	/**
 	 * {@inheritdoc}

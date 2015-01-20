@@ -5,9 +5,9 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\application\commands\migrations;
+namespace mako\application\cli\commands\migrations;
 
-use mako\application\commands\migrations\Command;
+use mako\application\cli\commands\migrations\Command;
 
 /**
  * Command that runs all outstanding migrations.

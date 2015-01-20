@@ -2,7 +2,7 @@
 
 namespace {{namespace}};
 
-use mako\application\commands\migrations\Migration;
+use mako\database\migrations\Migration;
 
 class Migration_{{version}} extends Migration
 {

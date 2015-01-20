@@ -5,19 +5,20 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\application;
+namespace mako\application\cli;
 
-use mako\application\Application;
+use mako\Mako;
+use mako\application\Application as BaseApplication;
 use mako\config\Config;
 use mako\reactor\Reactor;
 
 /**
- * Web application.
+ * CLI application.
  *
  * @author  Frederic G. Østby
  */
 
-class CommandLine extends Application
+class Application extends BaseApplication
 {
 	/**
 	 * Returns the route collection.
@@ -44,14 +45,14 @@ class CommandLine extends Application
 
 		$commands = 
 		[
-			'app.generate_secret' => 'mako\application\commands\app\GenerateSecret',
-			'app.routes'          => 'mako\application\commands\app\ListRoutes',
-			'migrate.create'      => 'mako\application\commands\migrations\Create',
-			'migrate.status'      => 'mako\application\commands\migrations\Status',
-			'migrate.up'          => 'mako\application\commands\migrations\Up',
-			'migrate.down'        => 'mako\application\commands\migrations\Down',
-			'migrate.reset'       => 'mako\application\commands\migrations\Reset',
-			'server'              => 'mako\application\commands\server\Server',
+			'app.generate_secret' => 'mako\application\cli\commands\app\GenerateSecret',
+			'app.routes'          => 'mako\application\cli\commands\app\ListRoutes',
+			'migrate.create'      => 'mako\application\cli\commands\migrations\Create',
+			'migrate.status'      => 'mako\application\cli\commands\migrations\Status',
+			'migrate.up'          => 'mako\application\cli\commands\migrations\Up',
+			'migrate.down'        => 'mako\application\cli\commands\migrations\Down',
+			'migrate.reset'       => 'mako\application\cli\commands\migrations\Reset',
+			'server'              => 'mako\application\cli\commands\server\Server',
 		];
 
 		// Add application commands
@@ -71,6 +72,20 @@ class CommandLine extends Application
 	}
 
 	/**
+	 * Loads the reactor ASCII logo.
+	 * 
+	 * @access  protected
+	 * @return  string
+	 */
+
+	protected function loadLogo()
+	{
+		$logo = file_get_contents(__DIR__ . '/resources/logo.txt');
+
+		return str_replace('{version}', Mako::VERSION, $logo);
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 
@@ -85,6 +100,8 @@ class CommandLine extends Application
 		// Create reactor and register custom options
 
 		$reactor = new Reactor($input, $output, $this->container);
+
+		$reactor->setLogo($this->loadLogo());
 
 		$reactor->registerCustomOption('env', 'Overrides the Mako environment', function(Config $config, $option)
 		{

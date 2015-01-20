@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\application\commands\migrations;
+namespace mako\application\cli\commands\migrations;
 
 use mako\application\Application;
 use mako\file\FileSystem;

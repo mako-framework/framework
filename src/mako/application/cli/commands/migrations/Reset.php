@@ -5,10 +5,10 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\application\commands\migrations;
+namespace mako\application\cli\commands\migrations;
 
-use mako\application\commands\migrations\Command;
-use mako\application\commands\migrations\RollbackTrait;
+use mako\application\cli\commands\migrations\Command;
+use mako\application\cli\commands\migrations\RollbackTrait;
 
 /**
  * Command that rolls back the last batch of migrations.
