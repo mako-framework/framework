@@ -53,14 +53,17 @@ class Question
 	 * Writes question to output and returns user input.
 	 * 
 	 * @access  public
-	 * @param   string  $question  Question to ask
+	 * @param   string      $question  Question to ask
+	 * @param   null|mixed  $default   Default if no input is entered
 	 * @return  string
 	 */
 
-	public function ask($question)
+	public function ask($question, $default = null)
 	{
 		$this->output->write(trim($question) . ' ');
 
-		return $this->input->read();
+		$answer = $this->input->read();
+
+		return empty($answer) ? $default : $answer;
 	}
 }

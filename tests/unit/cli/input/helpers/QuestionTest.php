@@ -41,4 +41,42 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame('foobar', $question->ask('Username:'));
 	}
+
+	/**
+	 * 
+	 */
+
+	public function testQuestionWithNoInputAndNullDefault()
+	{
+		$input = m::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('read')->once()->andReturn();
+
+		$output = m::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('write')->once()->with('Username: ');
+
+		$question = new Question($input, $output);
+
+		$this->assertSame(null, $question->ask('Username:'));
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testQuestionWithNoInputAndCustomDefault()
+	{
+		$input = m::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('read')->once()->andReturn();
+
+		$output = m::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('write')->once()->with('Username: ');
+
+		$question = new Question($input, $output);
+
+		$this->assertSame('foobar', $question->ask('Username:', 'foobar'));
+	}
 }

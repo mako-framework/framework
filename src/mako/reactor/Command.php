@@ -274,12 +274,13 @@ abstract class Command
 	 * Writes question to output and returns user input.
 	 * 
 	 * @access  protected
-	 * @param   string     $question  Question to ask
+	 * @param   string      $question  Question to ask
+	 * @param   null|mixed  $default   Default if no input is entered
 	 * @return  string
 	 */
 
-	public function question($question)
+	public function question($question, $default = null)
 	{
-		return (new Question($this->input, $this->output))->ask($question);
+		return (new Question($this->input, $this->output))->ask($question, $default);
 	}
 }
