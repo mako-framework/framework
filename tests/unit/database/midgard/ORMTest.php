@@ -489,6 +489,16 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 		$this->assertInternalType('float', $cast->float);
 
 		$this->assertSame(1.0, $cast->float);
+
+		//
+
+		$cast = new TestCastingScalars(['boolean' => 't'], true, false, true);
+		$this->assertInternalType('boolean', $cast->boolean);
+		$this->assertSame(true, $cast->boolean);
+
+		$cast = new TestCastingScalars(['boolean' => 'f'], true, false, true);
+		$this->assertInternalType('boolean', $cast->boolean);
+		$this->assertSame(false, $cast->boolean);
 	}
 
 	/**

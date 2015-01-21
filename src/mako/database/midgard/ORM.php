@@ -531,7 +531,7 @@ abstract class ORM
 				case 'float':
 					return (float) $value;
 				case 'boolean':
-					return (bool) $value;
+					return $value === 'f' ? false : (bool) $value;
 				case 'date':
 					return ($value instanceof DateTime) ? $value : Time::createFromFormat('Y-m-d H:i:s', $value);
 				case 'string':
