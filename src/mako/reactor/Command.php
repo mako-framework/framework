@@ -10,6 +10,7 @@ namespace mako\reactor;
 use mako\cli\input\Input;
 use mako\cli\input\helpers\Confirmation;
 use mako\cli\input\helpers\Question;
+use mako\cli\input\helpers\Secret;
 use mako\cli\output\Output;
 use mako\cli\output\helpers\Bell;
 use mako\cli\output\helpers\Countdown;
@@ -282,5 +283,20 @@ abstract class Command
 	public function question($question, $default = null)
 	{
 		return (new Question($this->input, $this->output))->ask($question, $default);
+	}
+
+	/**
+	 * Writes question to output and returns hidden user input.
+	 * 
+	 * @access  protected
+	 * @param   string      $question  Question to ask
+	 * @param   null|mixed  $default   Default if no input is entered
+	 * @param   boolean     $fallback  Fall back to non-hidden input?
+	 * @return  string
+	 */
+
+	public function secret($question, $default = null, $fallback = false)
+	{
+		return (new Secret($this->input, $this->output))->ask($question, $default, $fallback);
 	}
 }
