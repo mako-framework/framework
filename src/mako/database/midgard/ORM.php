@@ -81,14 +81,6 @@ abstract class ORM
 	protected static $connectionManager = null;
 
 	/**
-	 * Date format used by the database.
-	 * 
-	 * @var string
-	 */
-
-	protected static $dateFormat = null;
-
-	/**
 	 * ORM query builder hooks.
 	 * 
 	 * @var array
@@ -281,14 +273,16 @@ abstract class ORM
 	 * @return  string
 	 */
 
-	public function getDateFormat()
+	protected function getDateFormat()
 	{
-		if(empty(static::$dateFormat))
+		static $dateFormat;
+
+		if($dateFormat === null)
 		{
-			static::$dateFormat = $this->builder()->getCompiler()->getDateFormat();
+			$dateFormat = $this->builder()->getCompiler()->getDateFormat();
 		}
 
-		return static::$dateFormat;
+		return $dateFormat;
 	}
 
 	/**
@@ -533,7 +527,7 @@ abstract class ORM
 				case 'boolean':
 					return $value === 'f' ? false : (bool) $value;
 				case 'date':
-					return ($value instanceof DateTime) ? $value : Time::createFromFormat('Y-m-d H:i:s', $value);
+					return ($value instanceof DateTime) ? $value : Time::createFromFormat($this->getDateFormat(), $value);
 				case 'string':
 					return (string) $value;
 				default:

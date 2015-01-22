@@ -71,6 +71,11 @@ class Testuser5 extends TestUser1
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	protected $cast = ['created_at' => 'date'];
+
+	protected function getDateFormat()
+	{
+		return 'Y-m-d H:i:s';
+	}
 }
 
 class ORMTestApple extends \mako\database\midgard\ORM
@@ -515,8 +520,9 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-
 		$cast = m::mock('mako\tests\unit\database\midgard\TestCastingDate');
+
+		$cast->shouldAllowMockingProtectedMethods();
 
 		$cast->shouldReceive('getDateFormat')->andReturn('Y-m-d H:i:s');
 
