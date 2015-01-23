@@ -66,6 +66,18 @@ class Config
 	}
 
 	/**
+	 * Returns the currently loaded configuration.
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getLoadedConfiguration()
+	{
+		return $this->configuration;
+	}
+
+	/**
 	 * Sets the environment.
 	 * 
 	 * @access  public
