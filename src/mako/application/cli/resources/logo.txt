@@ -1,3 +1,1 @@
-<bold><green>+---+</green></bold>
-<bold><green>|   |</green> MAKO FRAMEWORK</bold> <faded>{version}</faded>
-<bold><green>+---+</green></bold>
+<bold><green>MAKO FRAMEWORK</green></bold> [ <yellow>{version}</yellow> ]
