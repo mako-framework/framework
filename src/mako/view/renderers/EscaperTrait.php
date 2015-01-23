@@ -148,7 +148,7 @@ trait EscaperTrait
 
 		if(strlen($chr) == 1)
 		{
-		$ord = ord($chr);
+			$ord = ord($chr);
 		}
 		else
 		{
