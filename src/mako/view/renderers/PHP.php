@@ -7,6 +7,7 @@
 
 namespace mako\view\renderers;
 
+use mako\view\renderers\EscaperTrait;
 use mako\view\renderers\RendererInterface;
 
 /**
@@ -17,6 +18,8 @@ use mako\view\renderers\RendererInterface;
 
 class PHP implements RendererInterface
 {
+	use EscaperTrait;
+
 	/**
 	 * {@inheritdoc}
 	 */

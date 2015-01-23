@@ -202,11 +202,27 @@ class Template
 			}
 			elseif(preg_match('/preserve\s*:(.*)/i', $matches[1]) > 0)
 			{
-				return sprintf('<?php echo htmlspecialchars(%s, ENT_QUOTES, $__charset__, false); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
+				return sprintf('<?php echo $this->escapeHTML(%s, $__charset__, false); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
+			}
+			elseif(preg_match('/attribute\s*:(.*)/i', $matches[1]) > 0)
+			{
+				return sprintf('<?php echo $this->escapeAttribute(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
+			}
+			elseif(preg_match('/js\s*:(.*)/i', $matches[1]) > 0)
+			{
+				return sprintf('<?php echo $this->escapeJavascript(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
+			}
+			elseif(preg_match('/css\s*:(.*)/i', $matches[1]) > 0)
+			{
+				return sprintf('<?php echo $this->escapeCSS(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
+			}
+			elseif(preg_match('/url\s*:(.*)/i', $matches[1]) > 0)
+			{
+				return sprintf('<?php echo $this->escapeURL(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
 			else
 			{
-				return sprintf('<?php echo htmlspecialchars(%s, ENT_QUOTES, $__charset__); ?>', $emptyElse($matches[1]));
+				return sprintf('<?php echo $this->escapeHTML(%s, $__charset__); ?>', $emptyElse($matches[1]));
 			}
 		}, $template);
 	}
