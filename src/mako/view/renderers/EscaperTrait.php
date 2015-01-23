@@ -19,6 +19,20 @@ namespace mako\view\renderers;
 trait EscaperTrait
 {
 	/**
+	 * HTML entity map.
+	 * 
+	 * @var array
+	 */
+
+	protected $htmlNamedEntityMap = 
+	[
+		34 => 'quot',
+		38 => 'amp',
+		60 => 'lt',
+		62 => 'gt',
+	];
+
+	/**
 	 * Returns a string that has been escaped for a HTML body context.
 	 * 
 	 * @access  public
@@ -58,14 +72,6 @@ trait EscaperTrait
 
 	protected function attributeEscaper($matches)
 	{
-		$htmlNamedEntityMap = 
-		[
-			34 => 'quot',
-			38 => 'amp',
-			60 => 'lt',
-			62 => 'gt',
-		];
-
 		$chr = $matches[0];
 
 		$ord = ord($chr);
@@ -73,7 +79,7 @@ trait EscaperTrait
 		// The following replaces characters undefined in HTML with the
 		// hex entity for the Unicode replacement character.
 
-		if(($ord <= 0x1f && $chr != "\t" && $chr != "\n" && $chr != "\r") || ($ord >= 0x7f && $ord <= 0x9f))
+		if(($ord <= 0x1f && $chr !== "\t" && $chr !== "\n" && $chr !== "\r") || ($ord >= 0x7f && $ord <= 0x9f))
 		{
 			return '&#xFFFD;';
 		}
@@ -90,9 +96,9 @@ trait EscaperTrait
 
 		$ord = hexdec($hex);
 
-		if(isset($htmlNamedEntityMap[$ord]))
+		if(isset($this->htmlNamedEntityMap[$ord]))
 		{
-			return '&' . $htmlNamedEntityMap[$ord] . ';';
+			return '&' . $this->htmlNamedEntityMap[$ord] . ';';
 		}
 
 		// Per OWASP recommendations, we'll use upper hex entities
@@ -146,7 +152,7 @@ trait EscaperTrait
 	{
 		$chr = $matches[0];
 
-		if(strlen($chr) == 1)
+		if(strlen($chr) === 1)
 		{
 			$ord = ord($chr);
 		}
