@@ -197,8 +197,8 @@ class I18n
 	/**
 	 * Loads language strings from cache.
 	 * 
-	 * @access  public
-	 * @param   string   $language  Name of the language pack
+	 * @access  protected
+	 * @param   string     $language  Name of the language pack
 	 * @return  boolean
 	 */
 
@@ -233,8 +233,8 @@ class I18n
 	/**
 	 * Parses the language key.
 	 * 
-	 * @access  public
-	 * @param   string  $key  Language key
+	 * @access  protected
+	 * @param   string    $key  Language key
 	 * @return  array
 	 */
 
@@ -246,9 +246,9 @@ class I18n
 	/**
 	 * Returns the language string.
 	 * 
-	 * @access  public
-	 * @param   string  $key       Language key
-	 * @param   string  $language  Name of the language pack
+	 * @access  protected
+	 * @param   string     $key       Language key
+	 * @param   string     $language  Name of the language pack
 	 * @return  string
 	 */
 

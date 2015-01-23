@@ -129,12 +129,12 @@ class Config
 	/**
 	 * Parses the language key.
 	 * 
-	 * @access  public
-	 * @param   string  $key  Language key
+	 * @access  protected
+	 * @param   string     $key  Language key
 	 * @return  array
 	 */
 
-	public function parseKey($key)
+	protected function parseKey($key)
 	{
 		return (strpos($key, '.') === false) ? [$key, null] : explode('.', $key, 2);
 	}
