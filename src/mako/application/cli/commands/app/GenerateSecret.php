@@ -52,7 +52,14 @@ class GenerateSecret extends Command
 			return;
 		}
 
-		$secret = str_replace(['"', '\''], ['|', '/'], Str::random(Str::ALNUM . Str::SYMBOLS, 32));
+		if(function_exists('openssl_random_pseudo_bytes'))
+		{
+			$secret = bin2hex(openssl_random_pseudo_bytes(32));
+		}
+		else
+		{
+			$secret = str_replace(['"', '\''], ['|', '/'], Str::random(Str::ALNUM . Str::SYMBOLS, 64));
+		}
 
 		$contents = $fileSystem->getContents($configFile);
 
