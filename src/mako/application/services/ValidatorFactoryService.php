@@ -11,6 +11,7 @@ use mako\application\services\Service;
 use mako\validator\ValidatorFactory;
 use mako\validator\plugins\DatabaseExistsValidator;
 use mako\validator\plugins\DatabaseUniqueValidator;
+use mako\validator\plugins\OneTimeTokenValidator;
 use mako\validator\plugins\TokenValidator;
 
 /**
@@ -32,6 +33,8 @@ class ValidatorFactoryService extends Service
 	{
 		if($this->container->has('session'))
 		{
+			$validatorFactory->registerPlugin(new OneTimeTokenValidator($this->container->get('session')));
+
 			$validatorFactory->registerPlugin(new TokenValidator($this->container->get('session')));
 		}
 

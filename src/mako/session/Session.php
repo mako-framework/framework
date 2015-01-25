@@ -11,6 +11,7 @@ use LogicException;
 
 use mako\http\Request;
 use mako\http\Response;
+use mako\security\Comparer;
 use mako\session\stores\StoreInterface;
 use mako\utility\UUID;
 
@@ -131,6 +132,14 @@ class Session
 	 */
 
 	protected $flashData = [];
+
+	/**
+	 * Session token.
+	 * 
+	 * @var string
+	 */
+
+	protected $token;
 
 	/**
 	 * Constructor.
@@ -299,6 +308,10 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has already been started.", [__METHOD__]));
 		}
 
+		// Set the started flag to true
+
+		$this->started = true;
+
 		// Get the session id from the cookie or generate a new one if it doesn't exist.
 
 		$this->sessionId = $this->request->signedCookie($this->cookieName, false);
@@ -316,9 +329,14 @@ class Session
 
 		$this->loadData();
 
-		// Set the started flag to true
+		// Create a session token if we don't have one
 
-		$this->started = true;
+		if(empty($this->sessionData['mako.token']))
+		{
+			$this->sessionData['mako.token'] = $this->generateId();
+		}
+
+		$this->token = $this->sessionData['mako.token'];
 	}
 
 	/**
@@ -555,13 +573,65 @@ class Session
 	}
 
 	/**
+	 * Returns the session token.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function getToken()
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		return $this->token;
+	}
+
+	/**
+	 * Generates a new session token and returns it.
+	 * 
+	 * @access  public
+	 * @return  string
+	 */
+
+	public function regenerateToken()
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		return $this->token = $this->sessionData['mako.token'] = $this->generateId();
+	}
+
+	/**
+	 * Validates the provided token.
+	 * 
+	 * @access  public
+	 * @param   string   $token  Token to validate
+	 * @return  boolean
+	 */
+
+	public function validateToken($token)
+	{
+		if(!$this->started)
+		{
+			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
+		}
+
+		return Comparer::compare($this->token, $token);
+	}
+
+	/**
 	 * Returns random security token.
 	 *
 	 * @access  public
 	 * @return  string
 	 */
 
-	public function generateToken()
+	public function generateOneTimeToken()
 	{
 		if(!$this->started)
 		{
@@ -570,7 +640,7 @@ class Session
 
 		if(!empty($this->sessionData['mako.tokens']))
 		{
-			$this->sessionData['mako.tokens'] = array_slice($this->sessionData['mako.tokens'], 0, (static::MAX_TOKENS - 1)); // Only store MAX_TOKENS tokens per session
+			$this->sessionData['mako.tokens'] = array_slice($this->sessionData['mako.tokens'], 0, (static::MAX_TOKENS - 1));
 		}
 		else
 		{
@@ -592,7 +662,7 @@ class Session
 	 * @return  boolean
 	 */
 
-	public function validateToken($token)
+	public function validateOneTimeToken($token)
 	{
 		if(!$this->started)
 		{
@@ -601,13 +671,14 @@ class Session
 		
 		if(!empty($this->sessionData['mako.tokens']))
 		{
-			$key = array_search($token, $this->sessionData['mako.tokens']);
-
-			if($key !== false)
+			foreach($this->sessionData['mako.tokens'] as $key => $value)
 			{
-				unset($this->sessionData['mako.tokens'][$key]);
-				
-				return true;
+				if(Comparer::compare($value, $token))
+				{
+					unset($this->sessionData['mako.tokens'][$key]);
+
+					return true;
+				}
 			}
 		}
 

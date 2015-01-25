@@ -466,6 +466,8 @@ class Gatekeeper
 		{
 			$this->session->regenerateId();
 
+			$this->session->regenerateToken();
+
 			$this->session->put($this->authKey, $this->user->getAccessToken());
 
 			if($remember === true)
@@ -539,6 +541,8 @@ class Gatekeeper
 	public function logout()
 	{
 		$this->session->regenerateId();
+
+		$this->session->regenerateToken();
 
 		$this->session->remove($this->authKey);
 

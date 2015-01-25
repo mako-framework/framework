@@ -273,6 +273,8 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$session->shouldReceive('regenerateId')->times(3);
 
+		$session->shouldReceive('regenerateToken')->times(3);
+
 		$session->shouldReceive('remove')->times(3)->with('gatekeeper_auth_key');
 
 		$request = $this->getRequest();
@@ -459,6 +461,8 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$session->shouldReceive('regenerateId')->once();
 
+		$session->shouldReceive('regenerateToken')->once();
+
 		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
 
 		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider);
@@ -489,6 +493,8 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 		$session = $this->getSession();
 
 		$session->shouldReceive('regenerateId')->once();
+
+		$session->shouldReceive('regenerateToken')->once();
 
 		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
 
@@ -524,6 +530,8 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 		$session = $this->getSession();
 
 		$session->shouldReceive('regenerateId')->once();
+
+		$session->shouldReceive('regenerateToken')->once();
 
 		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
 
@@ -606,6 +614,8 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 		$session = $this->getSession();
 
 		$session->shouldReceive('regenerateId')->once();
+
+		$session->shouldReceive('regenerateToken')->once();
 
 		$session->shouldReceive('remove')->once()->with('gatekeeper_auth_key');
 
