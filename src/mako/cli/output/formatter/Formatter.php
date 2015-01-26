@@ -35,7 +35,7 @@ class Formatter implements FormatterInterface
 	const ESCAPED_TAG_REGEX = '/\\\\<(\/?[a-z_]+)\>/i';
 
 	/**
-	 * Ansi that mathes ANSI SGR sequences.
+	 * Regex that mathes ANSI SGR sequences.
 	 * 
 	 * @var string
 	 */
