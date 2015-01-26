@@ -202,8 +202,6 @@ class Session
 	 * Adds a session cookie to the response.
 	 * 
 	 * @access  protected
-	 * @param   string     $value  Cookie value
-	 * @param   int        $ttl    Cookie ttl
 	 */
 
 	protected function setCookie()

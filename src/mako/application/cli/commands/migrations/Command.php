@@ -59,8 +59,12 @@ abstract class Command extends BaseCommand
 	 * Constructor.
 	 * 
 	 * @access  public
-	 * @param   \mako\cli\input\Input    $input   Input
-	 * @param   \mako\cli\output\Output  $output  Output
+	 * @param   \mako\cli\input\Input             $input        Input
+	 * @param   \mako\cli\output\Output           $output       Output
+	 * @param   \mako\application\Application     $application  Application
+	 * @param   \mako\file\FileSystem             $fileSystem   File system
+	 * @param   \mako\database\ConnectionManager  $database     Connection manager
+	 * @param   \mako\syringe\Container           $container     Container
 	 */
 
 	public function __construct(Input $input, Output $output, Application $application, FileSystem $fileSystem, ConnectionManager $database, Container $container)
