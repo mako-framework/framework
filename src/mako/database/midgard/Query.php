@@ -186,7 +186,7 @@ class Query extends QueryBuilder
 	{
 		if($this->model->exists())
 		{
-			$this->model->{$column} -= $increment;
+			$this->model->{$column} -= $decrement;
 
 			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
 		}
