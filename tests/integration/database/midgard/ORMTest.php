@@ -482,9 +482,15 @@ class ORMTest extends \ORMTestCase
 
 		$counter = Counter::get(1);
 
+		$before = $counter->counter;
+
 		$counter->increment('counter');
 
 		$connection = $counter->getConnection();
+
+		$this->assertTrue($counter->counter === $before + 1);
+
+		$this->assertFalse($counter->isModified());
 
 		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 1', $connection->getLog()[0]['query']);
 
@@ -501,12 +507,68 @@ class ORMTest extends \ORMTestCase
 
 		$counter = Counter::get(1);
 
+		$before = $counter->counter;
+
 		$counter->decrement('counter');
 
 		$connection = $counter->getConnection();
 
+		$this->assertTrue($counter->counter === $before - 1);
+
+		$this->assertFalse($counter->isModified());
+
 		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 1', $connection->getLog()[0]['query']);
 
 		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 1 WHERE "id" = \'1\'', $connection->getLog()[2]['query']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testIncrement10()
+	{
+		Counter::increment('counter', 10);
+
+		$counter = Counter::get(1);
+
+		$before = $counter->counter;
+
+		$counter->increment('counter', 10);
+
+		$connection = $counter->getConnection();
+
+		$this->assertTrue($counter->counter === $before + 10);
+
+		$this->assertFalse($counter->isModified());
+
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 10', $connection->getLog()[0]['query']);
+
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 10 WHERE "id" = \'1\'', $connection->getLog()[2]['query']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testDecrement10()
+	{
+		Counter::decrement('counter', 10);
+
+		$counter = Counter::get(1);
+
+		$before = $counter->counter;
+
+		$counter->decrement('counter', 10);
+
+		$connection = $counter->getConnection();
+
+		$this->assertTrue($counter->counter === $before - 10);
+
+		$this->assertFalse($counter->isModified());
+
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 10', $connection->getLog()[0]['query']);
+
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 10 WHERE "id" = \'1\'', $connection->getLog()[2]['query']);
 	}
 }
