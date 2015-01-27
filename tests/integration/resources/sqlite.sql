@@ -199,3 +199,17 @@ CREATE TABLE "timestamped_bars" (
 
 INSERT INTO "timestamped_bars" ("id", "timestamped_foo_id", "created_at", "updated_at") VALUES (1, 1, "2014-05-14 23:00:03", "2014-05-14 23:00:03");
 INSERT INTO "timestamped_bars" ("id", "timestamped_foo_id", "created_at", "updated_at") VALUES (2, 2, "2014-05-14 23:00:04", "2014-05-14 23:00:04");
+
+------------------------------------------------------------
+-- COUNTERS
+------------------------------------------------------------
+
+DROP TABLE IF EXISTS "counters";
+CREATE TABLE "counters" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "counter" integer NOT NULL
+);
+
+INSERT INTO "counters" ("id", "counter") VALUES (1, 0);
+INSERT INTO "counters" ("id", "counter") VALUES (2, 0);
+INSERT INTO "counters" ("id", "counter") VALUES (3, 0);

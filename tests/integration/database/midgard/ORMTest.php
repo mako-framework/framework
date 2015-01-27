@@ -59,6 +59,11 @@ class NoKey extends \TestORM
 	protected $primaryKeyType = \TestORM::PRIMARY_KEY_TYPE_NONE;
 }
 
+class Counter extends \TestORM
+{
+	protected $tableName = 'counters';
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -465,5 +470,43 @@ class ORMTest extends \ORMTestCase
 		$user = TestUser::where('id', '=', 1)->first();
 
 		$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $user);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testIncrement()
+	{
+		Counter::increment('counter');
+
+		$counter = Counter::get(1);
+
+		$counter->increment('counter');
+
+		$connection = $counter->getConnection();
+
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 1', $connection->getLog()[0]['query']);
+
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 1 WHERE "id" = \'1\'', $connection->getLog()[2]['query']);
+	}
+
+	/**
+	 * 
+	 */
+
+	public function testDecrement()
+	{
+		Counter::decrement('counter');
+
+		$counter = Counter::get(1);
+
+		$counter->decrement('counter');
+
+		$connection = $counter->getConnection();
+
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 1', $connection->getLog()[0]['query']);
+
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 1 WHERE "id" = \'1\'', $connection->getLog()[2]['query']);
 	}
 }
