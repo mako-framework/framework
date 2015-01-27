@@ -163,10 +163,19 @@ class Query extends QueryBuilder
 	{
 		if($this->model->exists())
 		{
+			$this->model->{$column} += $increment;
+
 			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
 		}
 
-		return parent::increment($column, $increment);
+		$updated = parent::increment($column, $increment);
+
+		if($this->model->exists())
+		{
+			$this->model->synchronize();
+		}
+
+		return $updated;
 	}
 
 	/**
@@ -177,10 +186,19 @@ class Query extends QueryBuilder
 	{
 		if($this->model->exists())
 		{
+			$this->model->{$column} -= $increment;
+
 			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
 		}
 
-		return parent::decrement($column, $decrement);
+		$updated = parent::decrement($column, $decrement);
+
+		if($this->model->exists())
+		{
+			$this->model->synchronize();
+		}
+
+		return $updated;
 	}
 
 	/**

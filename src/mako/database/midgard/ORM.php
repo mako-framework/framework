@@ -211,7 +211,7 @@ abstract class ORM
 
 		if($exists)
 		{
-			$this->original = $this->columns;
+			$this->synchronize();
 
 			$this->exists = true;
 
@@ -264,6 +264,17 @@ abstract class ORM
 		}
 		
 		return static::$connectionManager->connection($this->connectionName);
+	}
+
+	/**
+	 * Synchronizes the original values with the modified values.
+	 * 
+	 * @access  public
+	 */
+
+	public function synchronize()
+	{
+		$this->original = $this->columns;
 	}
 
 	/**
@@ -1037,7 +1048,7 @@ abstract class ORM
 		{
 			// Sync up if save was successful
 
-			$this->original = $this->columns;
+			$this->synchronize();
 		}
 		
 		return $success;
