@@ -113,7 +113,7 @@ abstract class ORM
 	protected $primaryKeyType = ORM::PRIMARY_KEY_TYPE_INCREMENTING;
 
 	/**
-	 * Has the record been loaded from a database?
+	 * Has the record been loaded from/saved to a database?
 	 * 
 	 * @var boolean
 	 */
@@ -325,6 +325,18 @@ abstract class ORM
 		}
 
 		return $bound;
+	}
+
+	/**
+	 * Has the record been loaded from/saved to a database?
+	 * 
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function exists()
+	{
+		return $this->exists;
 	}
 
 	/**

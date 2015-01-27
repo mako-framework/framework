@@ -159,6 +159,34 @@ class Query extends QueryBuilder
 	 * {@inheritdoc}
 	 */
 
+	public function increment($column, $increment = 1)
+	{
+		if($this->model->exists())
+		{
+			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
+		}
+
+		return parent::increment($column, $increment);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function decrement($column, $decrement = 1)
+	{
+		if($this->model->exists())
+		{
+			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
+		}
+
+		return parent::decrement($column, $decrement);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
 	public function delete()
 	{
 		if($this->model->isReadOnly())
