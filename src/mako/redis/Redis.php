@@ -66,7 +66,7 @@ class Redis
 	{
 		$this->connection = $connection;
 
-		if(isset($options['password']))
+		if(!empty($options['password']))
 		{
 			$this->auth($options['password']);
 		}
