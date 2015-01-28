@@ -85,6 +85,18 @@ class Output
 	}
 
 	/**
+	 * Sets the formatter.
+	 * 
+	 * @access  public
+	 * @param   \mako\cli\output\formatter\FormatterInterface  $formatter  Formatter
+	 */
+
+	public function setFormatter(FormatterInterface $formatter)
+	{
+		$this->formatter = $formatter;
+	}
+
+	/**
 	 * Returns the formatter.
 	 * 
 	 * @access  public

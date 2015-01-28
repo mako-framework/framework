@@ -210,6 +210,25 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	 * 
 	 */
 
+	public function testSetFormatter()
+	{
+		$std       = $this->getWriter();
+		$err       = $this->getWriter();
+		$formatter = $this->getFormatter();
+
+		$output = new Output($std, $err);
+
+		$this->assertSame(null, $output->getFormatter());
+
+		$output->setFormatter($this->getFormatter());
+
+		$this->assertInstanceOf('mako\cli\output\formatter\FormatterInterface', $output->getFormatter());
+	}
+
+	/**
+	 * 
+	 */
+
 	public function testWriteWithFormatter()
 	{
 		$std       = $this->getWriter();
