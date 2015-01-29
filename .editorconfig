@@ -1,0 +1,13 @@
+# top-most EditorConfig file
+
+root = true
+
+# Only apply to PHP files:
+# UTF-8, Unix line endings, Tab indention (1 tab = 4 spaces), Trim trailing whitespace on save
+
+[*.php]
+charset = utf-8
+end_of_line = lf
+indent_style = tab
+tab_width = 4
+trim_trailing_whitespace = true
