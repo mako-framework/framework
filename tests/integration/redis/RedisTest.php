@@ -8,7 +8,7 @@ use mako\redis\RedisException;
 
 // --------------------------------------------------------------------------
 // We're only testing a small set of Redis commands since we're just testing
-// if the client can build all types of commands and handle 
+// if the client can build all types of commands and handle
 // the different response types correctly.
 // --------------------------------------------------------------------------
 
@@ -20,13 +20,13 @@ use mako\redis\RedisException;
 class RedisTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	protected $redis;
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function setUp()
@@ -42,7 +42,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -56,7 +56,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPing()
@@ -65,7 +65,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSet()
@@ -74,7 +74,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGet()
@@ -87,7 +87,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIncr()
@@ -98,7 +98,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEval()
@@ -107,7 +107,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPipeline()
@@ -126,7 +126,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMultipleWordCommands()

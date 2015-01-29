@@ -104,7 +104,7 @@ class TestCastingDate extends \mako\database\midgard\ORM
 class ORMTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -113,7 +113,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetTableName()
@@ -124,7 +124,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetPrimaryKey()
@@ -135,7 +135,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetPrimaryKeyValue()
@@ -146,7 +146,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetForeignKey()
@@ -157,7 +157,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetClass()
@@ -168,7 +168,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSetAndGetLockVersion()
@@ -181,7 +181,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIsReadOnly()
@@ -198,7 +198,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSetAndGetIncludes()
@@ -213,7 +213,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSetAndGetRelated()
@@ -228,7 +228,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetRawColumns()
@@ -241,7 +241,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSetandGetColumn()
@@ -308,7 +308,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAssign()
@@ -355,7 +355,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTableNameGuessing()
@@ -366,7 +366,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDateTimeColumns()
@@ -377,7 +377,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetColumnWithNullValue()
@@ -390,7 +390,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIsModified()
@@ -405,7 +405,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetModified()
@@ -420,7 +420,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCastingScalars()
@@ -507,11 +507,11 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCastingDate()
-	{	
+	{
 		$cast = new TestCastingDate;
 
 		$cast->date = new DateTime;
@@ -534,7 +534,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testToArray()
@@ -551,7 +551,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testToJson()
@@ -568,7 +568,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testToString()

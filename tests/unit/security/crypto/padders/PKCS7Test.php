@@ -11,7 +11,7 @@ use mako\security\crypto\padders\PKCS7;
 class PKCS7Test extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAddPadding()
@@ -38,7 +38,7 @@ class PKCS7Test extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRemovePadding()

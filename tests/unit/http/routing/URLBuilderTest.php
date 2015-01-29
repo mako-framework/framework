@@ -13,7 +13,7 @@ use \Mockery as m;
 class URLBuilderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getRequest($langPrefix = '')
@@ -39,7 +39,7 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getRoutes()
@@ -62,7 +62,7 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMatches()
@@ -79,7 +79,7 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBase()
@@ -90,7 +90,7 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTo()
@@ -125,7 +125,7 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testToRoute()
@@ -152,7 +152,7 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testToCurrent()
@@ -173,7 +173,7 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testToCurrentWithQueryParams()

@@ -40,7 +40,7 @@ class ManyToManyGroup extends \TestORM
 class ManyToManyTest extends \ORMTestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicManyToManyRelation1()
@@ -64,7 +64,7 @@ class ManyToManyTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicManyToManyRelation2()
@@ -86,7 +86,7 @@ class ManyToManyTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLazyHasManyRelation()
@@ -111,7 +111,7 @@ class ManyToManyTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerHasManyRelation()
@@ -136,7 +136,7 @@ class ManyToManyTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerHasManyRelationWithConstraint()
@@ -161,7 +161,7 @@ class ManyToManyTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLinkAndUnlink()

@@ -11,7 +11,7 @@ use mako\http\routing\Route;
 class RouteTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicMatch()
@@ -38,7 +38,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMatchWithParameter()
@@ -63,7 +63,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMatchWithParameters()
@@ -88,7 +88,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMatchWithOptionalParameters()
@@ -113,7 +113,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMatchWithParameterConstraints()
@@ -140,7 +140,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHasTrailingSlash()
@@ -157,7 +157,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAllows()
@@ -178,7 +178,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetMethods()
@@ -195,7 +195,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetRoute()
@@ -206,7 +206,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetAction()
@@ -217,7 +217,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetName()
@@ -228,7 +228,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBeforeFilters()
@@ -251,7 +251,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAfterFilters()
@@ -274,7 +274,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPrefix()
@@ -297,7 +297,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetRegex()
@@ -356,7 +356,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNamespace()
@@ -367,7 +367,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNestedNamespace()
@@ -378,7 +378,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClosureNamespace()

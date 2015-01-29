@@ -35,7 +35,7 @@ class HasManyPolymorphicComment extends \TestORM
 class HasManyPolymorphicTest extends \ORMTestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicHasManyRelation()
@@ -59,7 +59,7 @@ class HasManyPolymorphicTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLazyHasManyRelation()
@@ -88,7 +88,7 @@ class HasManyPolymorphicTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerHasManyRelation()
@@ -117,7 +117,7 @@ class HasManyPolymorphicTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerHasManyRelationWithConstraint()
@@ -142,7 +142,7 @@ class HasManyPolymorphicTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCreateRelated()

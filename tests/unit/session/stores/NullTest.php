@@ -13,7 +13,7 @@ use \Mockery as m;
 class NullTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWrite()
@@ -22,7 +22,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRead()
@@ -33,7 +33,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDelete()
@@ -43,7 +43,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGc()

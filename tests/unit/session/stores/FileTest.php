@@ -13,7 +13,7 @@ use \Mockery as m;
 class FileTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getFileSystem()
@@ -31,7 +31,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWrite()
@@ -48,7 +48,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRead()
@@ -81,7 +81,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDelete()
@@ -101,7 +101,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGc()

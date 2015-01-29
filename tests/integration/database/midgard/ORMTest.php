@@ -43,7 +43,7 @@ class UUIDKey extends \TestORM
 class CustomKey extends \TestORM
 {
 	protected $tableName = 'custom_keys';
-	
+
 	protected $primaryKeyType = \TestORM::PRIMARY_KEY_TYPE_CUSTOM;
 
 	protected function generatePrimaryKey()
@@ -78,7 +78,7 @@ class Counter extends \TestORM
 class ORMTest extends \ORMTestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGet()
@@ -97,7 +97,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetNonExistent()
@@ -108,7 +108,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAll()
@@ -124,7 +124,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLimitColumnsFirst()
@@ -135,7 +135,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLimitColumnsAll()
@@ -146,7 +146,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testJoin()
@@ -165,7 +165,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSave()
@@ -194,7 +194,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCreate()
@@ -215,7 +215,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testUpdate()
@@ -240,7 +240,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDelete()
@@ -311,7 +311,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClone()
@@ -336,7 +336,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCloneResultSet()
@@ -359,17 +359,17 @@ class ORMTest extends \ORMTestCase
 		foreach($chunkedUsers[0] as $key => $user)
 		{
 			$this->assertNotEquals($user->id, $chunkedUsers[1][$key]->id);
-			
+
 			$this->assertEquals($user->created_at, $chunkedUsers[1][$key]->created_at);
-			
+
 			$this->assertEquals($user->username, $chunkedUsers[1][$key]->username);
-			
+
 			$this->assertEquals($user->email, $chunkedUsers[1][$key]->email);
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testScoped()
@@ -380,7 +380,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDateTime()
@@ -391,7 +391,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testUUIDKey()
@@ -406,7 +406,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCustomKey()
@@ -421,7 +421,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNoKey()
@@ -440,7 +440,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testToArray()
@@ -451,7 +451,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testToJSON()
@@ -462,7 +462,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testQueryForwarding()
@@ -473,7 +473,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIncrement()
@@ -498,7 +498,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDecrement()
@@ -523,7 +523,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIncrement10()
@@ -548,7 +548,7 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDecrement10()

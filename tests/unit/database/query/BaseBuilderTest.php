@@ -16,7 +16,7 @@ use \Mockery as m;
 class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -25,7 +25,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	protected function getConnection()
@@ -40,7 +40,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	protected function getBuilder($table = 'foobar')
@@ -49,7 +49,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicSelect()
@@ -63,7 +63,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicSelectWithClosure()
@@ -80,7 +80,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDistinctSelect()
@@ -96,7 +96,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithCloumns()
@@ -112,7 +112,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithCloumnAlias()
@@ -128,7 +128,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithTablePrefix()
@@ -144,7 +144,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithLimit()
@@ -160,7 +160,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithLimitAndOffset()
@@ -178,7 +178,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithPagination()
@@ -186,7 +186,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 		$pagination = m::mock('\mako\pagination\Pagination');
 
 		$pagination->shouldReceive('limit')->andReturn(10);
-		
+
 		$pagination->shouldReceive('offset')->andReturn(10);
 
 		$query = $this->getBuilder();
@@ -200,7 +200,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithWhere()
@@ -216,7 +216,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithWhereRaw()
@@ -232,7 +232,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithWheres()
@@ -249,7 +249,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithOrWhere()
@@ -266,7 +266,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithOrWhereRaw()
@@ -283,7 +283,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithNestedWheres()
@@ -303,7 +303,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithBetween()
@@ -319,7 +319,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithNotBetween()
@@ -335,7 +335,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithIn()
@@ -351,7 +351,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithRawIn()
@@ -367,7 +367,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithClosureIn()
@@ -386,7 +386,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithNotIn()
@@ -402,7 +402,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithIsNull()
@@ -418,7 +418,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithIsNotNull()
@@ -434,7 +434,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithExistsSubquery()
@@ -450,7 +450,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithExistsClosure()
@@ -469,7 +469,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithNotExists()
@@ -485,7 +485,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithJoin()
@@ -501,7 +501,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithJoinRaw()
@@ -517,7 +517,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithLeftJoin()
@@ -533,7 +533,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithLeftJoinRaw()
@@ -549,7 +549,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithComplexJoin()
@@ -569,7 +569,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithComplexRawJoin()
@@ -589,7 +589,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithGroupBy()
@@ -607,7 +607,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithGroupByArray()
@@ -625,7 +625,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithHaving()
@@ -644,7 +644,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithOrder()
@@ -660,7 +660,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithOrderArray()
@@ -692,7 +692,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithOrderDescending()
@@ -706,7 +706,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" DESC', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
-	
+
 	/**
 	 *
 	 */
@@ -722,9 +722,9 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, 1, 2, 3) DESC', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithOrderAscending()
@@ -756,7 +756,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithMultipleOrder()
@@ -773,7 +773,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicDelete()
@@ -787,7 +787,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDeleteWithWhere()
@@ -803,7 +803,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicUpdate()
@@ -817,7 +817,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testUpdateWithWhere()
@@ -833,7 +833,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCountAggregate()
@@ -858,7 +858,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAvgAggregate()
@@ -874,7 +874,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMaxAggregate()
@@ -890,7 +890,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMinAggregate()
@@ -906,7 +906,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSumAggregate()
@@ -922,7 +922,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testColumnWithoutParam()
@@ -940,7 +940,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testColumnWithParam()
@@ -956,7 +956,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBatch()

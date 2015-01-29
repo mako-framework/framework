@@ -13,7 +13,7 @@ use \Mockery as m;
 class ResponseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getRequest()
@@ -33,12 +33,12 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getHeaders()
 	{
-		return 
+		return
 		[
 			'X-Foo-Bar' => 'foo bar',
 			'X-Baz-Bax' => 'baz bax',
@@ -46,7 +46,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBody()
@@ -59,7 +59,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBodyWithResponse()
@@ -76,7 +76,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBodyWithContainer()
@@ -111,7 +111,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClearBody()
@@ -126,7 +126,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testType()
@@ -135,7 +135,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('text/html', $response->getType());
 
-		// 
+		//
 
 		$response = new Response($this->getRequest());
 
@@ -145,7 +145,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTypeWithCharset()
@@ -160,7 +160,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCharset()
@@ -169,7 +169,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('UTF-8', $response->getCharset());
 
-		// 
+		//
 
 		$response = new Response($this->getRequest());
 
@@ -179,7 +179,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testStatus()
@@ -206,7 +206,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testFilter()
@@ -231,7 +231,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClearFilters()
@@ -254,7 +254,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHeader()
@@ -282,7 +282,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRemoveHeader()
@@ -304,7 +304,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClearHeaders()
@@ -324,7 +324,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCookie()
@@ -386,7 +386,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSignedCookie()
@@ -405,7 +405,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDeleteCookie()
@@ -424,7 +424,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClearCookies()
@@ -443,7 +443,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClear()

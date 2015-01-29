@@ -15,7 +15,7 @@ use PHPUnit_Framework_TestCase;
 class ProgressBarTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -24,7 +24,7 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicProgress()
@@ -55,7 +55,7 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testProgressWithCustomTemplates()
@@ -90,7 +90,7 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testProgressWith100ItemsAndDefaultRedrawRate()
@@ -110,7 +110,7 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testProgressWith1000ItemsAndDefaultRedrawRate()
@@ -130,7 +130,7 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testProgressWith1000ItemsAndCustomtRedrawRate()

@@ -13,7 +13,7 @@ use \Mockery as m;
 class GroupProviderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class GroupProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getGroup()
@@ -31,7 +31,7 @@ class GroupProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCreateGroup()
@@ -48,7 +48,7 @@ class GroupProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetByName()
@@ -65,7 +65,7 @@ class GroupProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetById()

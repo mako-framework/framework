@@ -34,7 +34,7 @@ class BaxChild extends Bax
 class ContainerAwareTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasic()
@@ -47,7 +47,7 @@ class ContainerAwareTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testContainerAwareChild()

@@ -13,7 +13,7 @@ use \Mockery as m;
 class GatekeeperTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getRequest()
@@ -31,7 +31,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getResponse()
@@ -40,7 +40,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getSession()
@@ -55,7 +55,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getUserProvider()
@@ -64,7 +64,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getUser()
@@ -73,7 +73,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getGroupProvider()
@@ -82,7 +82,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getGroup()
@@ -91,12 +91,12 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getCookieOptions()
 	{
-		return 
+		return
 		[
 			'path'     => '/',
 			'domain'   => '',
@@ -106,7 +106,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetUserProvider()
@@ -117,7 +117,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetGroupProvider()
@@ -128,7 +128,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCreateUser()
@@ -155,7 +155,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCreateAndActivateUser()
@@ -184,7 +184,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCreateGroup()
@@ -199,7 +199,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testActivateUserWithInvalidToken()
@@ -214,7 +214,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testActivateUserWithValidToken()
@@ -237,7 +237,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAutenticationWithNoSessionAndNoCookie()
@@ -260,7 +260,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAthenticationWithNoSessionAndInvalidToken()
@@ -299,7 +299,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAuthentication()
@@ -328,7 +328,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLoginWithWrongEmail()
@@ -343,7 +343,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLoginWithWrongUsername()
@@ -375,7 +375,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLoginWithWrongPassword()
@@ -394,7 +394,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLoginForNonActivatedUser()
@@ -415,7 +415,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLoginForBannedUser()
@@ -438,7 +438,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSuccessfulLogin()
@@ -471,7 +471,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSuccessfulLoginWithRememberMe()
@@ -508,7 +508,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testForcedLogin()
@@ -541,7 +541,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicAuth()
@@ -572,7 +572,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicAuthIsLoggedIn()
@@ -585,7 +585,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicAuthLoggingIn()
@@ -606,7 +606,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLogout()

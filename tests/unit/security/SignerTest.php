@@ -11,7 +11,7 @@ use mako\security\Signer;
 class SignerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSign()
@@ -28,7 +28,7 @@ class SignerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testValidateValid()
@@ -43,7 +43,7 @@ class SignerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testValidateInvalid()

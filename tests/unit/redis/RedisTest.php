@@ -15,7 +15,7 @@ use PHPUnit_Framework_TestCase;
 class RedisTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -24,7 +24,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMethodCall()
@@ -41,7 +41,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMultiWordMethodCall()
@@ -75,7 +75,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testStatusReply()
@@ -92,7 +92,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIntegerReply()
@@ -109,7 +109,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBulkReply()
@@ -128,7 +128,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBulkNullReply()
@@ -145,7 +145,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMultiBulkReply()
@@ -170,7 +170,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMultiBulkMixedReply()
@@ -193,7 +193,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMultiBulkEmptyReply()
@@ -210,7 +210,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMultiBulkNullReply()

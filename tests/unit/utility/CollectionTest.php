@@ -11,7 +11,7 @@ use mako\utility\Collection;
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetItems()
@@ -28,7 +28,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOffsetExists()
@@ -45,7 +45,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOffsetGet()
@@ -62,7 +62,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOffsetSet()
@@ -77,7 +77,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOffsetUnset()
@@ -90,7 +90,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCount()
@@ -111,7 +111,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIteration()
@@ -127,7 +127,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIsEmpty()
@@ -144,7 +144,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testUnshift()
@@ -159,7 +159,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testShift()
@@ -174,7 +174,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPush()
@@ -189,7 +189,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPop()
@@ -204,7 +204,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testChunk()
@@ -223,7 +223,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testShuffle()

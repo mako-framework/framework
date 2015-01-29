@@ -11,7 +11,7 @@ use mako\http\routing\Routes;
 class RoutesTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRouteRegistration1()
@@ -28,7 +28,7 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRouteRegistration2()
@@ -67,7 +67,7 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNamedRoute()
@@ -95,7 +95,7 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGroup()
@@ -117,7 +117,7 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNestedGroup()

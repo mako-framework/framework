@@ -15,7 +15,7 @@ use \Mockery as m;
 class HumanizerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -24,7 +24,7 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getI18n()
@@ -45,7 +45,7 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getHumanizer()
@@ -54,7 +54,7 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testFileSizeBinary()
@@ -169,7 +169,7 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testFileSizeDecimal()
@@ -266,7 +266,7 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDay()
@@ -305,7 +305,7 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTime()

@@ -25,7 +25,7 @@ class Parser
 class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicFunction()
@@ -36,7 +36,7 @@ class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testFunctionWithOneParameter()
@@ -53,7 +53,7 @@ class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testFunctionWithMultipleParameters()
@@ -68,7 +68,7 @@ class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testFunctionWithNamedParameters()

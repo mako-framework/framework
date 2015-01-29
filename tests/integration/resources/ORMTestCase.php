@@ -4,32 +4,32 @@ use mako\database\ConnectionManager;
 
 class TestORM extends \mako\database\midgard\ORM
 {
-	
+
 }
 
 abstract class ORMTestCase extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	protected $connectionManager;
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function setup()
 	{
 		// Set up connection manager
 
-		$configs = 
+		$configs =
 		[
-			'sqlite' => 
+			'sqlite' =>
 			[
 				'dsn'         => 'sqlite::memory:',
 				'log_queries' => true,
-				'queries'     => 
+				'queries'     =>
 				[
 					"PRAGMA encoding = 'UTF-8'",
 				],

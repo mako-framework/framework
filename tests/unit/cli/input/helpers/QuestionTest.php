@@ -15,7 +15,7 @@ use PHPUnit_Framework_TestCase;
 class QuestionTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -24,7 +24,7 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testQuestion()
@@ -43,7 +43,7 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testQuestionWithNoInputAndNullDefault()
@@ -62,7 +62,7 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testQuestionWithNoInputAndCustomDefault()

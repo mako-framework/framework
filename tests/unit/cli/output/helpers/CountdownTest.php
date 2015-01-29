@@ -14,7 +14,7 @@ use Mockery as m;
 class CountdownTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -23,7 +23,7 @@ class CountdownTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCountdownFromDefault()
@@ -58,7 +58,7 @@ class CountdownTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCountdownFrom2()

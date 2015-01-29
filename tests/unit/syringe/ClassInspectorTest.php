@@ -49,10 +49,10 @@ class ClassInspectorTest extends \PHPUnit_Framework_TestCase
 
 		$traitsE = ClassInspector::getTraits('mako\tests\unit\syringe\E');
 
-		$expectedTraits = 
+		$expectedTraits =
 		[
-			'mako\tests\unit\syringe\C' => 'mako\tests\unit\syringe\C', 
-			'mako\tests\unit\syringe\B' => 'mako\tests\unit\syringe\B', 
+			'mako\tests\unit\syringe\C' => 'mako\tests\unit\syringe\C',
+			'mako\tests\unit\syringe\B' => 'mako\tests\unit\syringe\B',
 			'mako\tests\unit\syringe\A' => 'mako\tests\unit\syringe\A'
 		];
 

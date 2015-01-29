@@ -15,7 +15,7 @@ use PHPUnit_Framework_TestCase;
 class InputTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -24,7 +24,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getReader()
@@ -33,7 +33,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRead()
@@ -50,7 +50,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetArguments()
@@ -65,7 +65,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetNumericArgument()
@@ -86,7 +86,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetNamedArgument()
@@ -103,7 +103,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetNormalizedNamedArgument()
@@ -120,7 +120,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetBooleanNamedArgument()
@@ -135,7 +135,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetMissingArgument()

@@ -31,7 +31,7 @@ class ScopedModel extends \mako\database\midgard\ORM
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -40,7 +40,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getConnecion()
@@ -53,7 +53,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getModel()
@@ -64,7 +64,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getQuery($model)
@@ -73,7 +73,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testConstructor()
@@ -88,7 +88,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testJoin()
@@ -158,7 +158,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGet()
@@ -181,7 +181,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetWithColumns()
@@ -206,7 +206,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSingleInclude()
@@ -225,7 +225,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIncludes()
@@ -244,7 +244,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSingleExlude()
@@ -265,7 +265,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testExcludes()
@@ -299,7 +299,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testScope()
@@ -314,7 +314,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBatch()

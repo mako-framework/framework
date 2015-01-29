@@ -29,7 +29,7 @@ class TestSession extends Session
 class SessionTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -38,7 +38,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getRequest()
@@ -47,7 +47,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getRequestWithCookie()
@@ -60,7 +60,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getResponse()
@@ -69,7 +69,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getResponseSetCookie()
@@ -82,7 +82,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getStore()
@@ -95,7 +95,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getDefaultStore($sessionData = [])
@@ -110,7 +110,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testStartWithCookie()
@@ -121,7 +121,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testStartWithoutCookie()
@@ -150,7 +150,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetId()
@@ -163,7 +163,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRegenerateId()
@@ -192,7 +192,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRegenerateIdAndKeepData()
@@ -219,7 +219,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetData()
@@ -232,7 +232,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPut()
@@ -251,7 +251,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHas()
@@ -266,7 +266,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGet()
@@ -283,7 +283,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRemove()
@@ -302,7 +302,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPutFlash()
@@ -321,7 +321,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHasFlash()
@@ -342,7 +342,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRemoveFlash()
@@ -365,7 +365,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testReflash()
@@ -384,7 +384,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testReflashWithKeys()
@@ -403,7 +403,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetToken()
@@ -416,7 +416,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRegenerateToken()
@@ -441,7 +441,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testValidateToken()
@@ -456,7 +456,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGenerateOneTimeToken()
@@ -483,7 +483,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testValidateNonExistentOneTimeToken()
@@ -496,7 +496,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testValidateExistingOneTimeToken()
@@ -515,7 +515,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClear()
@@ -534,7 +534,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDestroy()

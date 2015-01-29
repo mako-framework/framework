@@ -13,7 +13,7 @@ use \Mockery as m;
 class RouterTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getRequest()
@@ -33,7 +33,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getRouteCollection($routes)
@@ -46,7 +46,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getRouter($routes)
@@ -110,7 +110,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRedirect()
@@ -143,7 +143,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOptionsRequest()
@@ -176,7 +176,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSuccessfulRoute()
@@ -205,7 +205,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSuccessfulRouteWithParameters()

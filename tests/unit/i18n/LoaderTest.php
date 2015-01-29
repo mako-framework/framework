@@ -13,7 +13,7 @@ use \Mockery as m;
 class LoaderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getFileSystem()
@@ -31,7 +31,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	protected function loadInflection($fileSystem)
@@ -44,7 +44,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicStringLoading()
@@ -63,7 +63,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testStringLoadingWithPackages()
@@ -86,7 +86,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testStringLoadingWithPackagesOverride()
@@ -109,7 +109,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLoadInflection()

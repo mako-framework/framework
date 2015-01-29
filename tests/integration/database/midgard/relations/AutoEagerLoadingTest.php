@@ -37,7 +37,7 @@ class AutoEagerLoadingArticle extends \TestORM
 class AutoEagerLoadingTest extends \ORMTestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAutoEagerLoading()
@@ -64,7 +64,7 @@ class AutoEagerLoadingTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDisableAutoEagerLoading()

@@ -11,7 +11,7 @@ use mako\utility\HTML;
 class HTMLTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTag()
@@ -36,7 +36,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAudio()
@@ -65,7 +65,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testVideo()
@@ -94,7 +94,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testUl()
@@ -109,7 +109,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('<ul><li>hello</li><li><ul><li>world</li></ul></li></ul>', $html->ul(['hello', ['world']]));
 
-		// 
+		//
 
 		$html = new HTML(true);
 
@@ -123,7 +123,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOl()
@@ -138,7 +138,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('<ol><li>hello</li><li><ol><li>world</li></ol></li></ol>', $html->ol(['hello', ['world']]));
 
-		// 
+		//
 
 		$html = new HTML(true);
 

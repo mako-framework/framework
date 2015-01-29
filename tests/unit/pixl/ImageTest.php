@@ -13,7 +13,7 @@ use mako\pixl\Image;
 class ImageTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getProcessor()
@@ -31,7 +31,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testConstructor()
@@ -55,7 +55,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRotate()
@@ -72,7 +72,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testResizeToPercent()
@@ -89,7 +89,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testResizeToPixelSize()
@@ -106,7 +106,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testResizeToPixelWithRestriction()
@@ -123,7 +123,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCrop()
@@ -140,7 +140,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testFlipHorizontal()
@@ -169,7 +169,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testFlipVertical()
@@ -186,7 +186,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWatermark()
@@ -203,7 +203,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWatermarkPosition()
@@ -220,7 +220,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWatermarkOpacity()
@@ -237,7 +237,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWatermarkOpacityNormalization()
@@ -281,7 +281,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBrigtness()
@@ -310,7 +310,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBrigtnessNormalization()
@@ -339,7 +339,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGreyscale()
@@ -356,7 +356,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSepia()
@@ -373,7 +373,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testColorize()
@@ -390,7 +390,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPixelate()
@@ -419,7 +419,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNegate()
@@ -436,7 +436,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBorder()
@@ -453,7 +453,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBorderWithCustomColor()
@@ -470,7 +470,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBorderWithCustomColorAndThickness()
@@ -487,7 +487,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetImageBlob()
@@ -504,7 +504,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetImageBlobWithType()
@@ -521,7 +521,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetImageBlobWithTypeAndQuality()
@@ -538,7 +538,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetImageBlobNormalizeQuality()
@@ -567,7 +567,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSharpen()
@@ -584,7 +584,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSnapshot()
@@ -601,7 +601,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRestore()

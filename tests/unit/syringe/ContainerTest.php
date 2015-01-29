@@ -37,7 +37,7 @@ interface StoreInterface
 
 class Store implements StoreInterface
 {
-	
+
 }
 
 class Baz
@@ -71,7 +71,7 @@ class Baq
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasic()
@@ -84,7 +84,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testParametersFromReflection()
@@ -98,7 +98,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNumericParameters()
@@ -141,7 +141,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testMixedParameters()
 	{
 		$container = new Container;
-		
+
 		$bar = $container->get('mako\tests\unit\syringe\Bar', ['bar' => 'def', 0 => 'abc']);
 
 		$this->assertEquals('abc', $bar->foo);
@@ -149,7 +149,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testImplementationInjection()
@@ -164,7 +164,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetUsingAlias()
@@ -179,7 +179,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRegisterClosure()
@@ -200,7 +200,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHas()
@@ -219,7 +219,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRegisterSingleton()
@@ -298,7 +298,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame(123, $baq->baq);
 
-		// 
+		//
 
 		$baq = new Baq;
 

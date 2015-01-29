@@ -11,7 +11,7 @@ use mako\security\Password;
 class PasswordTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHash()
@@ -37,7 +37,7 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testValidate()
@@ -52,7 +52,7 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNeedsRehash()

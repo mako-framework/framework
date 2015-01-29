@@ -13,7 +13,7 @@ use \Mockery as m;
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getServerData()
@@ -64,7 +64,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAcceptableContentTypes()
@@ -77,7 +77,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAcceptableLanguages()
@@ -90,7 +90,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAcceptableCharsets()
@@ -103,7 +103,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testAcceptableEncodings()
@@ -116,7 +116,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIP()
@@ -163,7 +163,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIsAjax()
@@ -184,7 +184,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIsSecure()
@@ -245,7 +245,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBaseURL()
@@ -306,7 +306,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPath()
@@ -333,7 +333,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPathWithLanguage()
@@ -348,7 +348,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLanguage()
@@ -363,7 +363,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLanguagePrefix()
@@ -378,7 +378,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMethod()
@@ -413,7 +413,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRealMethod()
@@ -442,7 +442,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testIsFaked()
@@ -471,7 +471,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testUsername()
@@ -492,7 +492,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPassword()
@@ -513,7 +513,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCookie()
@@ -530,7 +530,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSignedCookie()
@@ -568,7 +568,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHeader()
@@ -587,7 +587,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testServer()
@@ -606,7 +606,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGet()
@@ -627,7 +627,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPost()
@@ -648,7 +648,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBody()
@@ -659,7 +659,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testJsonPutData()
@@ -684,13 +684,13 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testURLEncodedPutData()
 	{
 		$body = ['foo' => 'bar', 'baz' => ['bax']];
-		
+
 		$server = $this->getServerData();
 
 		$server['HTTP_CONTENT_TYPE'] = 'application/x-www-form-urlencoded';

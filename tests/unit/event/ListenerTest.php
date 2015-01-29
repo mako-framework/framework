@@ -11,7 +11,7 @@ use mako\event\Listener;
 class ListenerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHas()
@@ -26,7 +26,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClearAll()
@@ -49,7 +49,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClearEvent()
@@ -72,7 +72,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTrigger()
@@ -89,7 +89,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTriggerWithParams()
@@ -104,7 +104,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTriggerWithBreak()
@@ -121,7 +121,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOverride()

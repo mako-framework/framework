@@ -11,7 +11,7 @@ use mako\utility\Arr;
 class ArrTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSet()
@@ -28,7 +28,7 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHas()
@@ -45,7 +45,7 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGet()
@@ -62,7 +62,7 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	 public function testDelete()
@@ -79,7 +79,7 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testRandom()
@@ -90,7 +90,7 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testIsAssoc()
@@ -103,7 +103,7 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testPluck()

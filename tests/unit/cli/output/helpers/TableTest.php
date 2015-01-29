@@ -13,7 +13,7 @@ use Mockery as m;
 class TableTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicTable()
@@ -44,7 +44,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTableWithMultipleRows()
@@ -67,7 +67,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTableWithMultipleColumns()
@@ -89,7 +89,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTableWithMultipleColumnsAndRows()
@@ -112,7 +112,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testStyledContent()
@@ -140,7 +140,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDraw()

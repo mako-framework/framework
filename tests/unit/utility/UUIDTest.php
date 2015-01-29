@@ -11,7 +11,7 @@ use mako\utility\UUID;
 class UUIDTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNamespaces()
@@ -26,7 +26,7 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testValidate()
@@ -37,7 +37,7 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testV3()
@@ -56,7 +56,7 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testV4()
@@ -69,7 +69,7 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testV5()

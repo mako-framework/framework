@@ -13,7 +13,7 @@ use \Mockery as m;
 class FiltersTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRegister()
@@ -26,7 +26,7 @@ class FiltersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGet()

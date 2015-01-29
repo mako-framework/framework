@@ -13,7 +13,7 @@ use \Mockery as m;
 class PaginationTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getRequest()
@@ -31,7 +31,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getViewFactory()
@@ -40,7 +40,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getView()
@@ -49,7 +49,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getURLBuilder()
@@ -58,7 +58,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testConstructor()
@@ -71,7 +71,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testConstructorWithConfig()
@@ -84,7 +84,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPages()
@@ -99,7 +99,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCurrentPage()
@@ -114,7 +114,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLimit()
@@ -129,7 +129,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLimitWithConfig()
@@ -144,7 +144,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOffset()
@@ -169,7 +169,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOffsetWithConfig()
@@ -226,7 +226,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRenderPage1()
@@ -253,34 +253,34 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 			'count'=> 10,
 			'last' => 'http://example.org/?page=10',
 			'next' => 'http://example.org/?page=2',
-			
-			'pages'=> 
+
+			'pages'=>
 			[
-				0 => 
+				0 =>
 				[
 					'url'        => 'http://example.org/?page=1',
 					'number'     => 1,
 					'is_current' => true,
 				],
-				1 => 
+				1 =>
 				[
 					'url'        => 'http://example.org/?page=2',
 					'number'     => 2,
 					'is_current' => false,
 				],
-				2 => 
+				2 =>
 				[
 					'url'        => 'http://example.org/?page=3',
 					'number'     => 3,
 					'is_current' => false,
 				],
-				3 => 
+				3 =>
 				[
 					'url'       => 'http://example.org/?page=4',
 					'number'    => 4,
 					'is_current'=> false,
 				],
-				4 => 
+				4 =>
 				[
 					'url'        => 'http://example.org/?page=5',
 					'number'     => 5,
@@ -301,7 +301,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRenderPage2()
@@ -330,34 +330,34 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 			'previous' => 'http://example.org/?page=1',
 			'last'     => 'http://example.org/?page=10',
 			'next'     => 'http://example.org/?page=3',
-			
-			'pages'=> 
+
+			'pages'=>
 			[
-				0 => 
+				0 =>
 				[
 					'url'        => 'http://example.org/?page=1',
 					'number'     => 1,
 					'is_current' => false,
 				],
-				1 => 
+				1 =>
 				[
 					'url'        => 'http://example.org/?page=2',
 					'number'     => 2,
 					'is_current' => true,
 				],
-				2 => 
+				2 =>
 				[
 					'url'        => 'http://example.org/?page=3',
 					'number'     => 3,
 					'is_current' => false,
 				],
-				3 => 
+				3 =>
 				[
 					'url'       => 'http://example.org/?page=4',
 					'number'    => 4,
 					'is_current'=> false,
 				],
-				4 => 
+				4 =>
 				[
 					'url'        => 'http://example.org/?page=5',
 					'number'     => 5,
@@ -401,34 +401,34 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 			'count'    => 10,
 			'first'    => 'http://example.org/?page=1',
 			'previous' => 'http://example.org/?page=9',
-			
-			'pages'=> 
+
+			'pages'=>
 			[
-				0 => 
+				0 =>
 				[
 					'url'        => 'http://example.org/?page=6',
 					'number'     => 6,
 					'is_current' => false,
 				],
-				1 => 
+				1 =>
 				[
 					'url'        => 'http://example.org/?page=7',
 					'number'     => 7,
 					'is_current' => false,
 				],
-				2 => 
+				2 =>
 				[
 					'url'        => 'http://example.org/?page=8',
 					'number'     => 8,
 					'is_current' => false,
 				],
-				3 => 
+				3 =>
 				[
 					'url'       => 'http://example.org/?page=9',
 					'number'    => 9,
 					'is_current'=> false,
 				],
-				4 => 
+				4 =>
 				[
 					'url'        => 'http://example.org/?page=10',
 					'number'     => 10,

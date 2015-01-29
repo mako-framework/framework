@@ -11,7 +11,7 @@ use mako\security\Comparer;
 class ComparerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCompare()

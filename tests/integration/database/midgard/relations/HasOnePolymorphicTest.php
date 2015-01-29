@@ -35,7 +35,7 @@ class HasOnePolymorphicImage extends \TestORM
 class HasOnePolymorphicTest extends \ORMTestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicHasOneRelation()
@@ -52,7 +52,7 @@ class HasOnePolymorphicTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLazyHasOneRelation()
@@ -76,7 +76,7 @@ class HasOnePolymorphicTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerHasOneRelation()
@@ -100,7 +100,7 @@ class HasOnePolymorphicTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerHasOneRelationWithConstraint()
@@ -123,7 +123,7 @@ class HasOnePolymorphicTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCreateRelated()

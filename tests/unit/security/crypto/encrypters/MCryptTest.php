@@ -13,7 +13,7 @@ use mako\security\crypto\encrypters\MCrypt;
 class MCryptTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEncrypt()
@@ -34,13 +34,13 @@ class MCryptTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDecrypt()
 	{
 		$string = 'hello, world!';
-		
+
 		$mcrypt = new MCrypt('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK', new PKCS7);
 
 		$encrypted = $mcrypt->encrypt($string);

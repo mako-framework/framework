@@ -45,7 +45,7 @@ class NestedEagerLoadingComment extends \TestORM
 class NestedEagerLoadingTest extends \ORMTestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNestedEagerLoading()
@@ -81,9 +81,9 @@ class NestedEagerLoadingTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
-	
+
 	public function testNestedEagerLoadingWithConstraints()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());

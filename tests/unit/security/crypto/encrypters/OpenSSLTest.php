@@ -12,7 +12,7 @@ use mako\security\crypto\encrypters\OpenSSL;
 class OpenSSLTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEncrypt()
@@ -33,13 +33,13 @@ class OpenSSLTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDecrypt()
 	{
 		$string = 'hello, world!';
-		
+
 		$openSSL = new OpenSSL('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK');
 
 		$encrypted = $openSSL->encrypt($string);

@@ -15,7 +15,7 @@ use PHPUnit_Framework_TestCase;
 class ConfirmationTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -24,7 +24,7 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testConfirmationYes()
@@ -43,7 +43,7 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testConfirmationNo()
@@ -62,7 +62,7 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testConfirmationDefaultNo()
@@ -81,7 +81,7 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testConfirmationDefaultYes()
@@ -100,7 +100,7 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testConfirmationYesCustom()

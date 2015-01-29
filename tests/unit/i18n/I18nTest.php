@@ -13,10 +13,10 @@ use \Mockery as m;
 class I18nTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
-	protected $strings = 
+	protected $strings =
 	[
 		'foo'	   => ['foo' => 'foostring', 'greeting' => 'hello %s'],
 		'bar'      => ['bar' => 'barstring', 'pluralization' => 'You have %1$u <pluralize:%1$u>apple</pluralize>.'],
@@ -24,7 +24,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	];
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -33,7 +33,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getLoader()
@@ -42,7 +42,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	protected function getCache()
@@ -51,7 +51,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetLanguage()
@@ -62,7 +62,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSetLanguage()
@@ -77,7 +77,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetLoader()
@@ -88,7 +88,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHas()
@@ -117,7 +117,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGet()
@@ -140,7 +140,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetWithLang()
@@ -163,7 +163,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testParameters()
@@ -178,7 +178,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPluralize()
@@ -202,7 +202,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testPluralizeInStrings()
@@ -228,7 +228,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCacheLoad()
@@ -243,7 +243,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCacheSave()

@@ -35,7 +35,7 @@ class HasOneProfile extends \TestORM
 class HasOneTest extends \ORMTestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicHasOneRelation()
@@ -50,7 +50,7 @@ class HasOneTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLazyHasOneRelation()
@@ -72,7 +72,7 @@ class HasOneTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerHasOneRelation()
@@ -94,7 +94,7 @@ class HasOneTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerHasOneRelationWithConstraint()
@@ -117,7 +117,7 @@ class HasOneTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCreateRelated()

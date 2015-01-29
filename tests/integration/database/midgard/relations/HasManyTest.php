@@ -35,7 +35,7 @@ class HasManyArticle extends \TestORM
 class HasManyTest extends \ORMTestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicHasManyRelation()
@@ -57,7 +57,7 @@ class HasManyTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLazyHasManyRelation()
@@ -84,7 +84,7 @@ class HasManyTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerHasManyRelation()
@@ -111,7 +111,7 @@ class HasManyTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerHasManyRelationWithConstraint()
@@ -136,7 +136,7 @@ class HasManyTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCreateRelated()

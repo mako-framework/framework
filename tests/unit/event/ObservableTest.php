@@ -37,7 +37,7 @@ class Observable
 class ObservableTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testHasObserver()
@@ -52,7 +52,7 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClearAllObservers()
@@ -75,7 +75,7 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testClearEventObservers()
@@ -98,7 +98,7 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNotify()
@@ -115,7 +115,7 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNotifyWithParams()
@@ -130,7 +130,7 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testNotifyWithBreak()
@@ -147,7 +147,7 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOverrideObservers()

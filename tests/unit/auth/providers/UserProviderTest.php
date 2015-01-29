@@ -13,7 +13,7 @@ use \Mockery as m;
 class UserProviderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getUser()
@@ -31,7 +31,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCreateUser()
@@ -54,7 +54,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetByActionToken()
@@ -71,7 +71,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetByAccessToken()
@@ -88,7 +88,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetByEmail()
@@ -105,7 +105,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetByUsername()
@@ -122,7 +122,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetById()

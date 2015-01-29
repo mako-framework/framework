@@ -13,7 +13,7 @@ use \Mockery as m;
 class SQLServerBuilderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class SQLServerBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	protected function getConnection()
@@ -35,7 +35,7 @@ class SQLServerBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	protected function getBuilder($table = 'foobar')
@@ -44,7 +44,7 @@ class SQLServerBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicSelect()
@@ -58,7 +58,7 @@ class SQLServerBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithLimit()
@@ -74,7 +74,7 @@ class SQLServerBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithLimitAndOffset()

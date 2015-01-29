@@ -13,7 +13,7 @@ use \Mockery as m;
 class DB2BuilderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class DB2BuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	protected function getConnection()
@@ -35,7 +35,7 @@ class DB2BuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	protected function getBuilder($table = 'foobar')
@@ -44,7 +44,7 @@ class DB2BuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithLimit()
@@ -60,7 +60,7 @@ class DB2BuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSelectWithLimitAndOffset()

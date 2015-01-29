@@ -13,7 +13,7 @@ use \Mockery as m;
 class DatabaseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -22,7 +22,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getDatabaseConnection()
@@ -31,7 +31,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getQueryBuilder()
@@ -40,7 +40,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWrite()
@@ -85,7 +85,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testRead()
@@ -134,7 +134,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testDelete()
@@ -157,7 +157,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGc()

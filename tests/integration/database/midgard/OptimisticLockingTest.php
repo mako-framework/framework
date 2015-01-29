@@ -63,7 +63,7 @@ class OptimisticLockingTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOptimisticLockReload()
@@ -82,7 +82,7 @@ class OptimisticLockingTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOptimisticLockReloadNonExistent()
@@ -95,7 +95,7 @@ class OptimisticLockingTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testOptimisticLockInsert()

@@ -35,7 +35,7 @@ class BelongsToProfile extends \TestORM
 class BelongsToTest extends \ORMTestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicBelongsToRelation()
@@ -50,7 +50,7 @@ class BelongsToTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testLazyBelongsToRelation()
@@ -72,7 +72,7 @@ class BelongsToTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerBelongsToRelation()
@@ -94,7 +94,7 @@ class BelongsToTest extends \ORMTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testEagerBelongsToRelationWithConstraint()

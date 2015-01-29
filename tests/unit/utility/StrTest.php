@@ -11,7 +11,7 @@ use mako\utility\Str;
 class StrTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	 public function testNl2br()
@@ -28,7 +28,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testBr2nl()
@@ -39,7 +39,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testPluralize()
@@ -99,7 +99,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testCamel2underscored()
@@ -111,7 +111,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testUnderscored2camel()
@@ -123,7 +123,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testLimitChars()
@@ -135,7 +135,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testLimitWords()
@@ -147,7 +147,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testSlug()
@@ -158,7 +158,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testAscii()
@@ -168,7 +168,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testAlternator()
@@ -188,7 +188,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testAutolink()
@@ -199,7 +199,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testMask()
@@ -222,7 +222,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testIncrement()
@@ -238,7 +238,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 }
 
 	 /**
-	  * 
+	  *
 	  */
 
 	 public function testRandom()

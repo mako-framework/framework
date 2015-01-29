@@ -13,7 +13,7 @@ use mako\cli\output\formatter\Formatter;
 class OutputTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function testBasicFormatter()
@@ -26,7 +26,7 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testTagEscaping()
@@ -37,7 +37,7 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testCustomStyle()
@@ -50,7 +50,7 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testFormattingWithoutAnsiSupport()
@@ -72,7 +72,7 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testStrip()
