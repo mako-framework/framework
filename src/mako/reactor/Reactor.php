@@ -17,7 +17,7 @@ use mako\syringe\Container;
 
 /**
  * Reactor.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -25,7 +25,7 @@ class Reactor
 {
 	/**
 	 * Input.
-	 * 
+	 *
 	 * @var \mako\cli\input\Input
 	 */
 
@@ -33,7 +33,7 @@ class Reactor
 
 	/**
 	 * Output.
-	 * 
+	 *
 	 * @var \mako\cli\output\Output
 	 */
 
@@ -41,15 +41,15 @@ class Reactor
 
 	/**
 	 * Container.
-	 * 
-	 * @var \mako\syringe\Container 
+	 *
+	 * @var \mako\syringe\Container
 	 */
 
 	protected $container;
 
 	/**
 	 * Commands.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -57,7 +57,7 @@ class Reactor
 
 	/**
 	 * Options.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -65,7 +65,7 @@ class Reactor
 
 	/**
 	 * Logo.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -73,7 +73,7 @@ class Reactor
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\input\Input     $input       Input
 	 * @param   \mako\cli\output\Output   $output      Output
@@ -94,7 +94,7 @@ class Reactor
 
 	/**
 	 * Registers a command.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $command  Command
 	 * @param   string  $class    Command class
@@ -107,7 +107,7 @@ class Reactor
 
 	/**
 	 * Register a custom reactor option.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string    $name         Option name
 	 * @param   string    $description  Option description
@@ -121,7 +121,7 @@ class Reactor
 
 	/**
 	 * Sets the reactor logo.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $logo  ASCII logo
 	 */
@@ -133,7 +133,7 @@ class Reactor
 
 	/**
 	 * Handles custom reactor options.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -154,7 +154,7 @@ class Reactor
 
 	/**
 	 * Returns an array of option information.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -168,12 +168,14 @@ class Reactor
 			$options[] = ['--' . $name, $option['description']];
 		}
 
+		sort($options);
+
 		return $options;
 	}
 
 	/**
 	 * Displays basic reactor information.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -200,9 +202,9 @@ class Reactor
 
 		$table = new Table($this->output);
 
-		$headers = 
+		$headers =
 		[
-			'<green>Option</green>', 
+			'<green>Option</green>',
 			'<green>Description</green>'
 		];
 
@@ -215,7 +217,7 @@ class Reactor
 
 	/**
 	 * Returns an array of command information.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -236,7 +238,7 @@ class Reactor
 
 	/**
 	 * Lists available commands.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -248,9 +250,9 @@ class Reactor
 
 		$table = new Table($this->output);
 
-		$headers = 
+		$headers =
 		[
-			'<green>Command</green>', 
+			'<green>Command</green>',
 			'<green>Description</green>'
 		];
 
@@ -261,7 +263,7 @@ class Reactor
 
 	/**
 	 * Dispatches a command.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $command  Command
 	 */
@@ -284,7 +286,7 @@ class Reactor
 
 	/**
 	 * Run the reactor.
-	 * 
+	 *
 	 * @access  public
 	 */
 
