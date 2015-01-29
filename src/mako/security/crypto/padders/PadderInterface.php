@@ -17,7 +17,7 @@ interface PadderInterface
 {
 	/**
 	 * Adds padding to string.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string     $string     String we want to pad
 	 * @param   int        $blockSize  Block size
@@ -28,7 +28,7 @@ interface PadderInterface
 
 	/**
 	 * Removes padding from string.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string          $string  String we want to unpad
 	 * @return  string|boolean

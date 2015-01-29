@@ -21,7 +21,7 @@ class Redirect implements ResponseContainerInterface
 {
 	/**
 	 * Location.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -29,7 +29,7 @@ class Redirect implements ResponseContainerInterface
 
 	/**
 	 * Status code.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -37,7 +37,7 @@ class Redirect implements ResponseContainerInterface
 
 	/**
 	 * Flash the request data?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -45,7 +45,7 @@ class Redirect implements ResponseContainerInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $location  Location
 	 */
@@ -57,7 +57,7 @@ class Redirect implements ResponseContainerInterface
 
 	/**
 	 * Sets the status code.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                            $status  Status code
 	 * @return  \mako\http\responses\Redirect

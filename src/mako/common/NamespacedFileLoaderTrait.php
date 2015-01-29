@@ -19,7 +19,7 @@ trait NamespacedFileLoaderTrait
 {
 	/**
 	 * Default path.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -27,7 +27,7 @@ trait NamespacedFileLoaderTrait
 
 	/**
 	 * File extension.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -35,7 +35,7 @@ trait NamespacedFileLoaderTrait
 
 	/**
 	 * Namespaces.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -52,7 +52,7 @@ trait NamespacedFileLoaderTrait
 
 	/**
 	 * Sets the extension.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $extension  Extension
 	 */
@@ -64,7 +64,7 @@ trait NamespacedFileLoaderTrait
 
 	/**
 	 * Registers a namespace.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $namespace  Namespace name
 	 * @param   string  $path       Namespace path
@@ -77,7 +77,7 @@ trait NamespacedFileLoaderTrait
 
 	/**
 	 * Returns the path to the file.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $file       File name
 	 * @param   string     $extension  File extension
@@ -121,7 +121,7 @@ trait NamespacedFileLoaderTrait
 
 	/**
 	 * Returns an array of cascading file paths.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $file       File name
 	 * @param   string     $extension  File extension

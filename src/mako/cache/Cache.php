@@ -21,7 +21,7 @@ class Cache
 {
 	/**
 	 * Cache store.
-	 * 
+	 *
 	 * @var \mako\cache\stores\StoreInterface
 	 */
 
@@ -29,7 +29,7 @@ class Cache
 
 	/**
 	 * Cache prefix.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -37,7 +37,7 @@ class Cache
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cache\stores\StoreInterface  $store   Cache store
 	 * @param   string                             $prefix  Cache prefix
@@ -52,7 +52,7 @@ class Cache
 
 	/**
 	 * Returns a prefixed cache key.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $key  Cache key
 	 * @return  string
@@ -80,7 +80,7 @@ class Cache
 
 	/**
 	 * Returns TRUE if the cache key exists and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $key  Cache key
 	 * @return  boolean
@@ -106,7 +106,7 @@ class Cache
 
 	/**
 	 * Fetch data from the cache or store it if it doesn't already exist.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string    $key  Cache key
 	 * @param   \Closure  $data  Closure that returns the data we want to store

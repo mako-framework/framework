@@ -21,7 +21,7 @@ class Password
 	 * @var array
 	 */
 
-	protected static $costs = 
+	protected static $costs =
 	[
 		PASSWORD_BCRYPT => 10,
 	];
@@ -39,7 +39,7 @@ class Password
 
 	/**
 	 * Normalizes the cost value.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   int        $cost  Computing cost
 	 * @return  int
@@ -59,7 +59,7 @@ class Password
 
 	/**
 	 * Set Default computing cost.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int     $cost  Computing cost
 	 */
@@ -87,7 +87,7 @@ class Password
 
 	/**
 	 * Checks if the password needs to be rehashed.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string    $hash  Password hash to check
 	 * @param   null|int  $cost  Computing cost

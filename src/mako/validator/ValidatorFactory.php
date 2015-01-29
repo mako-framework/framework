@@ -21,7 +21,7 @@ class ValidatorFactory
 {
 	/**
 	 * I18n instance.
-	 * 
+	 *
 	 * @var \mako\i18n\I18n
 	 */
 
@@ -29,7 +29,7 @@ class ValidatorFactory
 
 	/**
 	 * Array of registered plugins.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -37,7 +37,7 @@ class ValidatorFactory
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\i18n\I18n  $i18n  I18n instance
 	 */
@@ -49,7 +49,7 @@ class ValidatorFactory
 
 	/**
 	 * Creates and returns a validator instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array                      $data   Array to validate
 	 * @param   array                      $rules  Array of validation rules
@@ -70,7 +70,7 @@ class ValidatorFactory
 
 	/**
 	 * Register a validation plugin.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\validator\plugins\ValidatorPluginInterface  $plugin  Plugin instance
 	 */

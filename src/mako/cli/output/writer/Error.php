@@ -19,7 +19,7 @@ class Error implements WriterInterface
 {
 	/**
 	 * Is the stream direct?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -38,7 +38,7 @@ class Error implements WriterInterface
 
 		return $this->isDirect;
 	}
-	
+
 	/**
 	 * {@inheritdoc}
 	 */

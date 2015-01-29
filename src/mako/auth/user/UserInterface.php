@@ -17,7 +17,7 @@ interface UserInterface
 {
 	/**
 	 * Returns the user id.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int|string
 	 */
@@ -26,7 +26,7 @@ interface UserInterface
 
 	/**
 	 * Sets the user email address.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $email  Email address
 	 */
@@ -35,7 +35,7 @@ interface UserInterface
 
 	/**
 	 * Returns the user email address.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -44,7 +44,7 @@ interface UserInterface
 
 	/**
 	 * Sets the user username.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $username  Username
 	 */
@@ -53,7 +53,7 @@ interface UserInterface
 
 	/**
 	 * Returns the user username.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -62,7 +62,7 @@ interface UserInterface
 
 	/**
 	 * Sets the user password.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $password  Password
 	 */
@@ -71,7 +71,7 @@ interface UserInterface
 
 	/**
 	 * Returns the user password.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -80,7 +80,7 @@ interface UserInterface
 
 	/**
 	 * Sets the user IP address.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $ip  IP address
 	 */
@@ -89,7 +89,7 @@ interface UserInterface
 
 	/**
 	 * Returns the user IP address.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -98,7 +98,7 @@ interface UserInterface
 
 	/**
 	 * Generates a new action token.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -106,7 +106,7 @@ interface UserInterface
 
 	/**
 	 * Returns the user action token.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -115,7 +115,7 @@ interface UserInterface
 
 	/**
 	 * Generates a new access token.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -123,7 +123,7 @@ interface UserInterface
 
 	/**
 	 * Returns the user access token.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -132,7 +132,7 @@ interface UserInterface
 
 	/**
 	 * Activates the user.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -140,7 +140,7 @@ interface UserInterface
 
 	/**
 	 * Deactivates the user.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -148,7 +148,7 @@ interface UserInterface
 
 	/**
 	 * Returns TRUE of the user is activated and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -157,7 +157,7 @@ interface UserInterface
 
 	/**
 	 * Bans the user.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -165,7 +165,7 @@ interface UserInterface
 
 	/**
 	 * Unbans the user.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -173,7 +173,7 @@ interface UserInterface
 
 	/**
 	 * Returns TRUE if the user is banned and FALSE if not.
-	 * 
+	 *
 	 * @return  boolean
 	 */
 
@@ -181,7 +181,7 @@ interface UserInterface
 
 	/**
 	 * Saves the member.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -190,10 +190,10 @@ interface UserInterface
 
 	/**
 	 * Deletes the member.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
-	
+
 	public function delete();
 }

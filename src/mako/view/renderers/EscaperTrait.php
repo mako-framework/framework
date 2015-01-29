@@ -20,11 +20,11 @@ trait EscaperTrait
 {
 	/**
 	 * HTML entity map.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $htmlNamedEntityMap = 
+	protected $htmlNamedEntityMap =
 	[
 		34 => 'quot',
 		38 => 'amp',
@@ -34,14 +34,14 @@ trait EscaperTrait
 
 	/**
 	 * Returns a string that has been escaped for a HTML body context.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $string        String to escape
 	 * @param   string   $charset       Character set
 	 * @param   boolean  $doubleEncode  Should existing entities be encoded?
 	 * @return  string
 	 */
-	 
+
 	public function escapeHTML($string, $charset, $doubleEncode = true)
 	{
 		return htmlspecialchars($string, ENT_QUOTES, $charset, $doubleEncode);
@@ -49,12 +49,12 @@ trait EscaperTrait
 
 	/**
 	 * Returns a string that has been escaped for a URI or parameter context.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $string  String to escape
 	 * @return  string
 	 */
-	 
+
 	public function escapeURL($string)
 	{
 		return rawurlencode($string);
@@ -62,9 +62,9 @@ trait EscaperTrait
 
 	/**
 	 * Escapes characters for use in a HTML attribute context.
-	 * 
+	 *
 	 * (This method contains code from the SecurityMultiTool library).
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $matches  Regex matches
 	 * @return  string
@@ -114,7 +114,7 @@ trait EscaperTrait
 
 	/**
 	 * Returns a string that has been escaped for a HTML attribute context.
-	 *  
+	 *
 	 * @access  public
 	 * @param   string  $string   String to escape
 	 * @param   string  $charset  Character set
@@ -140,9 +140,9 @@ trait EscaperTrait
 
 	/**
 	 * Escapes characters for use in a CSS context.
-	 * 
+	 *
 	 * (This method contains code from the SecurityMultiTool library).
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $matches  Regex matches
 	 * @return  string
@@ -168,7 +168,7 @@ trait EscaperTrait
 
 	/**
 	 * Returns a string that has been escaped for a CSS context.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $string   String to escape
 	 * @param   string  $charset  Character set
@@ -199,9 +199,9 @@ trait EscaperTrait
 
 	/**
 	 * Escapes characters for use in a Javascript context.
-	 * 
+	 *
 	 * (This method contains code from the SecurityMultiTool library).
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $matches  Regex matches
 	 * @return  string
@@ -223,7 +223,7 @@ trait EscaperTrait
 
 	/**
 	 * Returns a string that has been escaped for a Javascript context.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $string   String to escape
 	 * @param   string  $charset  Character set

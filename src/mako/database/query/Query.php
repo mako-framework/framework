@@ -132,7 +132,7 @@ class Query
 
 	/**
 	 * Returns query compiler instance.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\query\Compiler
 	 */
@@ -171,7 +171,7 @@ class Query
 
 	/**
 	 * Returns the database table.
-	 * 
+	 *
 	 * @access  public
 	 * @return  mixed
 	 */
@@ -183,7 +183,7 @@ class Query
 
 	/**
 	 * Is it a distict select?
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -195,7 +195,7 @@ class Query
 
 	/**
 	 * Returns the columns from which we are fetching data.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -207,7 +207,7 @@ class Query
 
 	/**
 	 * Returns WHERE clauses.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -219,7 +219,7 @@ class Query
 
 	/**
 	 * Returns JOIN clauses.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -231,7 +231,7 @@ class Query
 
 	/**
 	 * Returns GROUP BY clauses.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -243,7 +243,7 @@ class Query
 
 	/**
 	 * Returns HAVING clauses.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -255,7 +255,7 @@ class Query
 
 	/**
 	 * Returns ORDER BY clauses.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -267,7 +267,7 @@ class Query
 
 	/**
 	 * Returns the limit.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -279,7 +279,7 @@ class Query
 
 	/**
 	 * Returns the offset.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -319,7 +319,7 @@ class Query
 	 * @access  public
 	 * @param   string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw  $table  Database table or subquery
 	 * @return  \mako\database\query\Query
-	 */	
+	 */
 
 	public function from($table)
 	{
@@ -386,7 +386,7 @@ class Query
 
 			$column($query);
 
-			$this->wheres[] = 
+			$this->wheres[] =
 			[
 				'type'      => 'nestedWhere',
 				'query'     => $query,
@@ -395,7 +395,7 @@ class Query
 		}
 		else
 		{
-			$this->wheres[] = 
+			$this->wheres[] =
 			[
 				'type'      => 'where',
 				'column'    => $column,
@@ -404,13 +404,13 @@ class Query
 				'separator' => $separator,
 			];
 		}
-		
+
 		return $this;
 	}
 
 	/**
 	 * Adds a raw WHERE clause
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                      $column     Column name or closure
 	 * @param   string                      $operator   Operator
@@ -468,7 +468,7 @@ class Query
 
 	public function between($column, $value1, $value2, $separator = 'AND', $not = false)
 	{
-		$this->wheres[] = 
+		$this->wheres[] =
 		[
 			'type'      => 'between',
 			'column'    => $column,
@@ -551,8 +551,8 @@ class Query
 
 			$values = [new Subquery($subquery)];
 		}
-		
-		$this->wheres[] = 
+
+		$this->wheres[] =
 		[
 			'type'      => 'in',
 			'column'    => $column,
@@ -618,7 +618,7 @@ class Query
 
 	public function null($column, $separator = 'AND', $not = false)
 	{
-		$this->wheres[] = 
+		$this->wheres[] =
 		[
 			'type'      => 'null',
 			'column'    => $column,
@@ -689,7 +689,7 @@ class Query
 			$query = new Subquery($subquery);
 		}
 
-		$this->wheres[] = 
+		$this->wheres[] =
 		[
 			'type'      => 'exists',
 			'query'     => $query,
@@ -859,7 +859,7 @@ class Query
 
 	public function having($column, $operator, $value, $separator = 'AND')
 	{
-		$this->havings[] = 
+		$this->havings[] =
 		[
 			'column'    => $column,
 			'operator'  => $operator,
@@ -901,7 +901,7 @@ class Query
 			$columns = [$columns];
 		}
 
-		$this->orderings[] = 
+		$this->orderings[] =
 		[
 			'column' => $columns,
 			'order'  => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
@@ -1069,7 +1069,7 @@ class Query
 
 	/**
 	 * Fetches data in batches and passes them to the processor closure.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \Closure  $processor    Closure that processes the results
 	 * @param   int       $batchSize    Batch size
@@ -1082,17 +1082,17 @@ class Query
 		$this->limit($batchSize);
 
 		while(true)
-		{	
+		{
 			if($offsetEnd !== null && $offsetStart >= $offsetEnd)
 			{
 				break;
 			}
-			
+
 			if($offsetStart !== 0)
 			{
 				$this->offset($offsetStart);
 			}
-			
+
 			$results = $this->all();
 
 			if(count($results) > 0)
@@ -1204,7 +1204,7 @@ class Query
 
 	/**
 	 * Inserts data into the chosen table and returns the auto increment id.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array        $values      Associative array of column values
 	 * @param   string       $primaryKey  Primary key

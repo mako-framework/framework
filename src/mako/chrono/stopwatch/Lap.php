@@ -9,7 +9,7 @@ namespace mako\chrono\stopwatch;
 
 /**
  * Stopwatch lap.
- * 
+ *
  * @author  Yamada Taro
  */
 
@@ -17,7 +17,7 @@ class Lap
 {
 	/**
 	 * Start time.
-	 * 
+	 *
 	 * @var float
 	 */
 
@@ -25,7 +25,7 @@ class Lap
 
 	/**
 	 * Stop time.
-	 * 
+	 *
 	 * @var float
 	 */
 
@@ -33,7 +33,7 @@ class Lap
 
 	/**
 	 * Returns the lap start time.
-	 * 
+	 *
 	 * @access  public
 	 * @return  float
 	 */
@@ -45,7 +45,7 @@ class Lap
 
 	/**
 	 * Returns the lap stop time.
-	 * 
+	 *
 	 * @access  public
 	 * @return  null|float
 	 */
@@ -57,7 +57,7 @@ class Lap
 
 	/**
 	 * Returns TRUE if the lap is still running and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -69,7 +69,7 @@ class Lap
 
 	/**
 	 * Starts the lap.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\chrono\stopwatch\Lap
 	 */
@@ -83,7 +83,7 @@ class Lap
 
 	/**
 	 * Stops the lap and returns the elapsed time.
-	 * 
+	 *
 	 * @access  public
 	 * @return  float
 	 */

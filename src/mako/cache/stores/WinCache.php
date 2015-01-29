@@ -42,7 +42,7 @@ class WinCache implements StoreInterface
 	public function get($key)
 	{
 		$cache = wincache_ucache_get($key, $success);
-		
+
 		if($success === true)
 		{
 			return $cache;

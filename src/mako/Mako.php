@@ -17,7 +17,7 @@ class Mako
 {
 	/**
 	 * Mako version.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -25,7 +25,7 @@ class Mako
 
 	/**
 	 * Mako major version.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -33,7 +33,7 @@ class Mako
 
 	/**
 	 * Mako minor version.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -41,7 +41,7 @@ class Mako
 
 	/**
 	 * Mako patch version.
-	 * 
+	 *
 	 * @var int
 	 */
 

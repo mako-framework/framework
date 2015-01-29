@@ -26,7 +26,7 @@ class Query extends QueryBuilder
 {
 	/**
 	 * Instance of the model to hydrate.
-	 * 
+	 *
 	 * @var \mako\database\midgard\ORM
 	 */
 
@@ -34,7 +34,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Should hydrated models be made read only?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -42,7 +42,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\Connection   $connection  Database connection
 	 * @param   \mako\database\midgard\ORM  $model       Model to hydrate
@@ -233,7 +233,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a record using the value of its primary key.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                         $id       Primary key
 	 * @param   array                       $columns  Columns to select
@@ -252,7 +252,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Sets the relations to eager load.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string|array                  $includes  Relation or array of relations to eager load
 	 * @return  \mako\database\midgard\Query
@@ -267,7 +267,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Removes relations to eager load.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string|array                  $excludes  Relation or array of relations to exclude from eager loading
 	 * @return  \mako\database\midgard\Query
@@ -282,7 +282,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a hydrated model.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   object                      $result  Database result
 	 * @return  \mako\database\midgard\ORM
@@ -297,7 +297,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Parses includes.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -337,7 +337,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Load includes.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $results  Loaded records
 	 */
@@ -356,7 +356,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns hydrated models.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   mixed      $results  Database results
 	 * @return  array
@@ -381,7 +381,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a single record from the database.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
@@ -400,7 +400,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a result set from the database.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */
@@ -433,7 +433,7 @@ class Query extends QueryBuilder
 
 	/**
 	 * Magic method that allows us to call model scopes.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                        $name       Method name
 	 * @param   array                         $arguments  Method arguments

@@ -11,7 +11,7 @@ use mako\application\cli\commands\migrations\Command;
 
 /**
  * Command that runs all outstanding migrations.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -19,11 +19,11 @@ class Up extends Command
 {
 	/**
 	 * Command information.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $commandInformation = 
+	protected $commandInformation =
 	[
 		'description' => 'Runs all outstanding migrations.',
 		'arguments'   => [],
@@ -32,7 +32,7 @@ class Up extends Command
 
 	/**
 	 * Executes the command.
-	 * 
+	 *
 	 * @access  public
 	 */
 

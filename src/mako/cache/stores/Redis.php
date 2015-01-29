@@ -20,7 +20,7 @@ class Redis implements StoreInterface
 {
 	/**
 	 * Redis client
-	 * 
+	 *
 	 * @var \mako\redis\Redis
 	 */
 
@@ -28,7 +28,7 @@ class Redis implements StoreInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\redis\Redis  $redis  Redis client
 	 */
@@ -45,7 +45,7 @@ class Redis implements StoreInterface
 	public function put($key, $data, $ttl = 0)
 	{
 		$this->redis->set($key, (is_numeric($data) ? $data : serialize($data)));
-		
+
 		if($ttl !== 0)
 		{
 			$this->redis->expire($key, $ttl);

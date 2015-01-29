@@ -19,7 +19,7 @@ use mako\security\crypto\padders\PKCS7;
  * Crypto manager.
  *
  * @author  Frederic G. Østby
- * 
+ *
  * @method  \mako\security\crypto\encrypters\EncrypterInterface  instance($configuration = null)
  */
 
@@ -27,7 +27,7 @@ class CryptoManager extends AdapterManager
 {
 	/**
 	 * Reuse instances?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -35,7 +35,7 @@ class CryptoManager extends AdapterManager
 
 	/**
 	 * MCrypt encrypter factory.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array                                    $configuration  Configuration
 	 * @return  \mako\security\crypto\encrypters\MCrypt
@@ -48,7 +48,7 @@ class CryptoManager extends AdapterManager
 
 	/**
 	 * OpenSSL encrypter factory.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array                                     $configuration  Configuration
 	 * @return  \mako\security\crypto\encrypters\OpenSSL
@@ -61,7 +61,7 @@ class CryptoManager extends AdapterManager
 
 	/**
 	 * Returns a cache instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                        $configuration  Configuration name
 	 * @return  \mako\security\crypto\Crypto

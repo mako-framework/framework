@@ -21,10 +21,10 @@ use mako\syringe\Container;
 abstract class AdapterManager
 {
 	use ConfigurableTrait;
-	
+
 	/**
 	 * Reuse instances?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -32,7 +32,7 @@ abstract class AdapterManager
 
 	/**
 	 * IoC container instance.
-	 * 
+	 *
 	 * @var \mako\syringe\Container
 	 */
 
@@ -40,7 +40,7 @@ abstract class AdapterManager
 
 	/**
 	 * Connections.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -48,7 +48,7 @@ abstract class AdapterManager
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                   $default         Default connection name
 	 * @param   array                    $configurations  Configurations
@@ -66,7 +66,7 @@ abstract class AdapterManager
 
 	/**
 	 * Returns the factory method name.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $type  Cache type
 	 * @return  string
@@ -86,7 +86,7 @@ abstract class AdapterManager
 
 	/**
 	 * Returns a new adapter instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $configuration  Configuration name
 	 * @return  mixed
@@ -96,7 +96,7 @@ abstract class AdapterManager
 
 	/**
 	 * Returns an instance of the chosen adapter configuration.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $configuration  Configuration name
 	 * @return  mixed

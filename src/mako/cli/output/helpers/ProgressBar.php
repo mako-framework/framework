@@ -19,7 +19,7 @@ class ProgressBar
 {
 	/**
 	 * String that represents the empty part of the progess bar.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -27,7 +27,7 @@ class ProgressBar
 
 	/**
 	 * String that represents the filled part of the progess bar.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -35,7 +35,7 @@ class ProgressBar
 
 	/**
 	 * Number of items.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -43,7 +43,7 @@ class ProgressBar
 
 	/**
 	 * Redraw rate.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -51,7 +51,7 @@ class ProgressBar
 
 	/**
 	 * Progress status.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -59,7 +59,7 @@ class ProgressBar
 
 	/**
 	 * Output instance.
-	 * 
+	 *
 	 * @var \mako\cli\output\Output
 	 */
 
@@ -67,7 +67,7 @@ class ProgressBar
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\output\Output  $output      Output instance
 	 * @param   int                      $items       Total number of items
@@ -85,7 +85,7 @@ class ProgressBar
 
 	/**
 	 * Sets the string that represents the empty part of the progess bar.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $template  Template
 	 */
@@ -97,7 +97,7 @@ class ProgressBar
 
 	/**
 	 * Sets the string that represents the filled part of the progess bar.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $template  Template
 	 */
@@ -109,7 +109,7 @@ class ProgressBar
 
 	/**
 	 * Builds the progressbar.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   int        $percent  Percent to fill
 	 * @return  string
@@ -132,14 +132,14 @@ class ProgressBar
 
 	/**
 	 * Draws the progressbar.
-	 * 
+	 *
 	 * @access  public
 	 */
 
 	public function draw()
 	{
 		// Calculate percent
-		
+
 		$percent = (int) ceil(min(($this->progress / $this->items) * 100, 100));
 
 		// Build progress bar
@@ -160,7 +160,7 @@ class ProgressBar
 
 	/**
 	 * Move progress forward and redraws the progessbar.
-	 * 
+	 *
 	 * @access  public
 	 */
 

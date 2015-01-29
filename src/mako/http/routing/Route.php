@@ -11,7 +11,7 @@ use Closure;
 
 /**
  * Route.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -19,7 +19,7 @@ class Route
 {
 	/**
 	 * Methods.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -27,7 +27,7 @@ class Route
 
 	/**
 	 * Route.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -35,7 +35,7 @@ class Route
 
 	/**
 	 * Route action.
-	 * 
+	 *
 	 * @var string|\Closure
 	 */
 
@@ -43,7 +43,7 @@ class Route
 
 	/**
 	 * Route name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -51,7 +51,7 @@ class Route
 
 	/**
 	 * Route action namespace.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -59,7 +59,7 @@ class Route
 
 	/**
 	 * Route prefix.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -67,7 +67,7 @@ class Route
 
 	/**
 	 * Does the route have a trailing slash?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -75,7 +75,7 @@ class Route
 
 	/**
 	 * Route constraints.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -83,7 +83,7 @@ class Route
 
 	/**
 	 * Before filters.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -91,7 +91,7 @@ class Route
 
 	/**
 	 * After filters.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -99,7 +99,7 @@ class Route
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array            $methods  Route methods
 	 * @param   string           $route    Route
@@ -112,7 +112,7 @@ class Route
 		$this->methods = $methods;
 
 		$this->route = $route;
-		
+
 		$this->action = $action;
 
 		$this->name = $name;
@@ -122,7 +122,7 @@ class Route
 
 	/**
 	 * Returns the HTTP methods the route responds to.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -134,7 +134,7 @@ class Route
 
 	/**
 	 * Returns the route.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -146,7 +146,7 @@ class Route
 
 	/**
 	 * Returns the route action.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string|\Closure
 	 */
@@ -163,7 +163,7 @@ class Route
 
 	/**
 	 * Returns the route name.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -175,7 +175,7 @@ class Route
 
 	/**
 	 * Returns the before filters.
-	 * 
+	 *
 	 * @access  public
 	 * @return  aray
 	 */
@@ -187,7 +187,7 @@ class Route
 
 	/**
 	 * Returns the after filters.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -199,7 +199,7 @@ class Route
 
 	/**
 	 * Sets the route action namespace.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                    $namespace  Route action namespace
 	 * @return  \mako\http\routing\Route
@@ -214,7 +214,7 @@ class Route
 
 	/**
 	 * Adds a prefix to the route.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                    $prefix  Route prefix
 	 * @return  \mako\http\routing\Route
@@ -226,13 +226,13 @@ class Route
 		{
 			$this->prefix .= '/' . trim($prefix, '/');
 		}
-		
+
 		return $this;
 	}
 
 	/**
 	 * Sets the custom constraints.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array                     $constraints  Array of constraints
 	 * @return  \mako\http\routing\Route
@@ -247,7 +247,7 @@ class Route
 
 	/**
 	 * Adds a set of before filters.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array|string|\Closure     $filters  Filters
 	 * @return  \mako\http\routing\Route
@@ -262,7 +262,7 @@ class Route
 
 	/**
 	 * Adds a set of after filters.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array|string|\Closure     $filters  Filters
 	 * @return  \mako\http\routing\Route
@@ -277,7 +277,7 @@ class Route
 
 	/**
 	 * Returns TRUE if the route allows the specified method or FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $method  Method
 	 * @return  boolean
@@ -290,7 +290,7 @@ class Route
 
 	/**
 	 * Returns TRUE if the route has a trailing slash and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -302,7 +302,7 @@ class Route
 
 	/**
 	 * Returns the regex needed to match the route.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */

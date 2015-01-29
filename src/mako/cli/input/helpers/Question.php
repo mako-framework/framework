@@ -20,7 +20,7 @@ class Question
 {
 	/**
 	 * Input instance.
-	 * 
+	 *
 	 * @var \mako\cli\input\Input
 	 */
 
@@ -28,7 +28,7 @@ class Question
 
 	/**
 	 * Output instance.
-	 * 
+	 *
 	 * @var \mako\cli\output\Output
 	 */
 
@@ -36,7 +36,7 @@ class Question
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\input\Input    $input   Input instance
 	 * @param   \mako\cli\output\Output  $output  Output instance
@@ -51,7 +51,7 @@ class Question
 
 	/**
 	 * Writes question to output and returns user input.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered

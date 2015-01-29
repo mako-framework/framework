@@ -34,7 +34,7 @@ abstract class ORM
 {
 	/**
 	 * Incrementing primary key.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -42,7 +42,7 @@ abstract class ORM
 
 	/**
 	 * UUID primary key.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -50,7 +50,7 @@ abstract class ORM
 
 	/**
 	 * Custom primary key.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -58,7 +58,7 @@ abstract class ORM
 
 	/**
 	 * No primary key.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -66,7 +66,7 @@ abstract class ORM
 
 	/**
 	 * Connection name to use for the model.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -74,7 +74,7 @@ abstract class ORM
 
 	/**
 	 * Connection manager instance.
-	 * 
+	 *
 	 * @var \mako\database\ConnectionManager
 	 */
 
@@ -82,7 +82,7 @@ abstract class ORM
 
 	/**
 	 * ORM query builder hooks.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -90,7 +90,7 @@ abstract class ORM
 
 	/**
 	 * Table name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -98,7 +98,7 @@ abstract class ORM
 
 	/**
 	 * Primary key.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -106,7 +106,7 @@ abstract class ORM
 
 	/**
 	 * Does this table have an auto increment primary index?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -114,7 +114,7 @@ abstract class ORM
 
 	/**
 	 * Has the record been loaded from/saved to a database?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -122,7 +122,7 @@ abstract class ORM
 
 	/**
 	 * Is this a read only record?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -130,7 +130,7 @@ abstract class ORM
 
 	/**
 	 * Column values.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -138,7 +138,7 @@ abstract class ORM
 
 	/**
 	 * Original column values.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -146,7 +146,7 @@ abstract class ORM
 
 	/**
 	 * Relations to eager load.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -154,7 +154,7 @@ abstract class ORM
 
 	/**
 	 * Related records.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -162,7 +162,7 @@ abstract class ORM
 
 	/**
 	 * Columns that should be casted to a specific type.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -170,7 +170,7 @@ abstract class ORM
 
 	/**
 	 * Columns that can be set through mass assignment.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -178,7 +178,7 @@ abstract class ORM
 
 	/**
 	 * Columns that are excluded from the array and json representations of the record.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -186,7 +186,7 @@ abstract class ORM
 
 	/**
 	 * Date format used when returning array and json representations of the record.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -194,7 +194,7 @@ abstract class ORM
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array    $columns    Column values
 	 * @param   boolean  $raw        Set raw values?
@@ -221,7 +221,7 @@ abstract class ORM
 
 	/**
 	 * Making sure that cloning returns a "fresh copy" of the record.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -236,10 +236,10 @@ abstract class ORM
 			unset($this->columns[$this->primaryKey]);
 		}
 	}
-	
+
 	/**
 	 * Set the connection manager.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
 	 */
@@ -251,7 +251,7 @@ abstract class ORM
 
 	/**
 	 * Returns the connection of the model.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\Connection
 	 */
@@ -262,13 +262,13 @@ abstract class ORM
 		{
 			static::$connectionManager = Application::instance()->getContainer()->get('database');
 		}
-		
+
 		return static::$connectionManager->connection($this->connectionName);
 	}
 
 	/**
 	 * Synchronizes the original values with the modified values.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -279,7 +279,7 @@ abstract class ORM
 
 	/**
 	 * Gets the date format from the query builder compiler.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string
 	 */
@@ -298,7 +298,7 @@ abstract class ORM
 
 	/**
 	 * Registers query builder hooks from traits.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -320,7 +320,7 @@ abstract class ORM
 
 	/**
 	 * Binds the hooks to the current instance of "$this".
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $hooks  Array of hooks
 	 * @return  array
@@ -340,7 +340,7 @@ abstract class ORM
 
 	/**
 	 * Has the record been loaded from/saved to a database?
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -352,7 +352,7 @@ abstract class ORM
 
 	/**
 	 * Returns hooks for the chosen event.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $event  Event name
 	 * @return  array
@@ -365,7 +365,7 @@ abstract class ORM
 
 	/**
 	 * Returns the short name of a class.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $className   Class name
 	 * @return  string
@@ -378,7 +378,7 @@ abstract class ORM
 
 	/**
 	 * Returns the table name of the model.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -389,13 +389,13 @@ abstract class ORM
 		{
 			$this->tableName = Str::pluralize(Str::camel2underscored($this->getClassShortName()));
 		}
-		
+
 		return $this->tableName;
 	}
 
 	/**
 	 * Returns the primary key of the table.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -407,7 +407,7 @@ abstract class ORM
 
 	/**
 	 * Returns the primary key type.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -419,7 +419,7 @@ abstract class ORM
 
 	/**
 	 * Returns the primary key value.
-	 * 
+	 *
 	 * @access  public
 	 * @return  mixed
 	 */
@@ -431,7 +431,7 @@ abstract class ORM
 
 	/**
 	 * Returns the foreign key of the table.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -443,7 +443,7 @@ abstract class ORM
 
 	/**
 	 * Returns the namespaced class name of the model.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -455,7 +455,7 @@ abstract class ORM
 
 	/**
 	 * Is this a read-only record?
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -467,7 +467,7 @@ abstract class ORM
 
 	/**
 	 * Sets the relations to eager load.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array   $includes  Relations to eager load
 	 */
@@ -479,7 +479,7 @@ abstract class ORM
 
 	/**
 	 * Returns the relations to eager load.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -491,7 +491,7 @@ abstract class ORM
 
 	/**
 	 * Sets eagerly loaded related records.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $relation  Relation name
 	 * @param   mixed   $related   Related record(s)
@@ -504,7 +504,7 @@ abstract class ORM
 
 	/**
 	 * Returns the related records array.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -516,7 +516,7 @@ abstract class ORM
 
 	/**
 	 * Returns the columns that we're casting.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -528,7 +528,7 @@ abstract class ORM
 
 	/**
 	 * Cast value to the appropriate type.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $name   Column name
 	 * @param   mixed      $value  Column value
@@ -563,7 +563,7 @@ abstract class ORM
 
 	/**
 	 * Sets a raw column value.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name   Column name
 	 * @param   mixed   $value  Column value
@@ -576,7 +576,7 @@ abstract class ORM
 
 	/**
 	 * Sets a column value.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $name   Column name
 	 * @param   mixed    $value  Column value
@@ -595,14 +595,14 @@ abstract class ORM
 		else
 		{
 			// Just set the raw column value
-			
+
 			$this->columns[$name] = $value;
 		}
 	}
 
 	/**
 	 * Gets a raw column value.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name  Column name
 	 * @return  mixed
@@ -622,7 +622,7 @@ abstract class ORM
 
 	/**
 	 * Returns a local column value.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  mixed
 	 */
@@ -633,7 +633,7 @@ abstract class ORM
 		{
 			// The column has a custom accessor
 
-			return $this->{$name . 'Accessor'}($this->columns[$name]);	
+			return $this->{$name . 'Accessor'}($this->columns[$name]);
 		}
 		else
 		{
@@ -645,7 +645,7 @@ abstract class ORM
 
 	/**
 	 * Gets a column value.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name  Column name
 	 * @return  mixed
@@ -672,14 +672,14 @@ abstract class ORM
 			return $this->related[$name] = $this->{$name}()->getRelated();
 		}
 		else
-		{			
+		{
 			throw new RunTimeException(vsprintf("%s(): Unknown column [ %s ].", [__METHOD__, $name]));
 		}
 	}
 
 	/**
 	 * Returns the columns array.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -691,7 +691,7 @@ abstract class ORM
 
 	/**
 	 * Assigns the column values to the model.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array                       $columns    Column values
 	 * @param   boolean                     $raw        Set raw values?
@@ -737,7 +737,7 @@ abstract class ORM
 
 	/**
 	 * Set column value using overloading.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name   Column name
 	 * @param   mixed   $value  Column value
@@ -750,7 +750,7 @@ abstract class ORM
 
 	/**
 	 * Get column value using overloading.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name  Column name
 	 * @return  mixed
@@ -763,7 +763,7 @@ abstract class ORM
 
 	/**
 	 * Checks if a column or relation is set using overloading.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name  Column name
 	 */
@@ -775,7 +775,7 @@ abstract class ORM
 
 	/**
 	 * Unset column value or relation using overloading.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name  Column name
 	 */
@@ -787,7 +787,7 @@ abstract class ORM
 
 	/**
 	 * Returns a query builder instance.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\midgard\Query
 	 */
@@ -799,7 +799,7 @@ abstract class ORM
 
 	/**
 	 * Returns a record using the value of its primary key.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                         $id       Primary key
 	 * @param   array                       $columns  Columns to select
@@ -813,7 +813,7 @@ abstract class ORM
 
 	/**
 	 * Creates a new record and returns the model.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array                       $columns    Column values
 	 * @param   boolean                     $raw        Set raw values?
@@ -832,7 +832,7 @@ abstract class ORM
 
 	/**
 	 * Returns a HasOne relation.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                                  $model       Related model
 	 * @param   string|null                             $foreignKey  Foreign key name
@@ -848,7 +848,7 @@ abstract class ORM
 
 	/**
 	 * Returns a HasOnePolymorphic relation.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                                              $model            Related model
 	 * @param   string                                              $polymorphicType  Polymorphic type
@@ -864,7 +864,7 @@ abstract class ORM
 
 	/**
 	 * Returns a HasMany relation.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                                   $model       Related model
 	 * @param   string|null                              $foreignKey  Foreign key name
@@ -880,7 +880,7 @@ abstract class ORM
 
 	/**
 	 * Returns a HasManyPolymorphic relation.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                                              $model            Related model
 	 * @param   string                                              $polymorphicType  Polymorphic type
@@ -896,7 +896,7 @@ abstract class ORM
 
 	/**
 	 * Returns a ManyToMany relation.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                                      $model          Related model
 	 * @param   string|null                                 $foreignKey     Foreign key name
@@ -914,7 +914,7 @@ abstract class ORM
 
 	/**
 	 * Returns a BelongsTo relation.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                                     $model       Related model
 	 * @param   string|null                                $foreignKey  Foreign key name
@@ -930,7 +930,7 @@ abstract class ORM
 
 	/**
 	 * Has the record been modified?
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -942,7 +942,7 @@ abstract class ORM
 
 	/**
 	 * Returns the modified column values of the record.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -964,7 +964,7 @@ abstract class ORM
 
 	/**
 	 * Generates a primary key.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string|int
 	 */
@@ -976,7 +976,7 @@ abstract class ORM
 
 	/**
 	 * Inserts a new record into the database.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 */
@@ -1007,7 +1007,7 @@ abstract class ORM
 
 	/**
 	 * Updates an existing record.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  boolean
@@ -1022,7 +1022,7 @@ abstract class ORM
 
 	/**
 	 * Saves the record to the database.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -1034,7 +1034,7 @@ abstract class ORM
 		if(!$this->exists)
 		{
 			// This is a new record so we need to insert it into the database.
-				
+
 			$this->insertRecord($this->builder());
 		}
 		elseif($this->isModified())
@@ -1050,13 +1050,13 @@ abstract class ORM
 
 			$this->synchronize();
 		}
-		
+
 		return $success;
 	}
 
 	/**
 	 * Deletes a record from the database.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  boolean
@@ -1069,7 +1069,7 @@ abstract class ORM
 
 	/**
 	 * Deletes a record from the database.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -1081,7 +1081,7 @@ abstract class ORM
 			$deleted = $this->deleteRecord($this->builder());
 
 			if($deleted)
-			{				
+			{
 				$this->exists   = false;
 				$this->original = [];
 				$this->related  = [];
@@ -1095,7 +1095,7 @@ abstract class ORM
 
 	/**
 	 * Returns an array representation of the record.
-	 * 
+	 *
 	 * @access  public
 	 * @param   boolean  $protect  Protect columns?
 	 * @return  array
@@ -1134,13 +1134,13 @@ abstract class ORM
 		}
 
 		// Returns array representation of the record
-		
+
 		return $columns;
 	}
 
 	/**
 	 * Returns a json representation of the record.
-	 * 
+	 *
 	 * @access  public
 	 * @param   boolean  $protect  Protect columns?
 	 * @return  string
@@ -1153,7 +1153,7 @@ abstract class ORM
 
 	/**
 	 * Returns a json representation of the record.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -1165,7 +1165,7 @@ abstract class ORM
 
 	/**
 	 * Forwards method calls to the query builder.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name       Method name
 	 * @param   array   $arguments  Method arguments
@@ -1179,7 +1179,7 @@ abstract class ORM
 
 	/**
 	 * Forwards static method calls to the query builder.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name       Method name
 	 * @param   array   $arguments  Method arguments

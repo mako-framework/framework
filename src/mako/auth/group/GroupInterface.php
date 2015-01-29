@@ -19,7 +19,7 @@ interface GroupInterface
 {
 	/**
 	 * Returns the group id.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int|string
 	 */
@@ -28,7 +28,7 @@ interface GroupInterface
 
 	/**
 	 * Sets the group name.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name  Group name
 	 */
@@ -37,7 +37,7 @@ interface GroupInterface
 
 	/**
 	 * Returns the group name.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -46,7 +46,7 @@ interface GroupInterface
 
 	/**
 	 * Adds a user to the group.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\auth\user\UserInterface  $user  User intance
 	 * @return  boolean
@@ -56,7 +56,7 @@ interface GroupInterface
 
 	/**
 	 * Removes a user from the group.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\auth\user\UserInterface  $user  User intance
 	 * @return  boolean
@@ -66,7 +66,7 @@ interface GroupInterface
 
 	/**
 	 * Returns TRUE if a user is a member of the group and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\auth\user\UserInterface  $user  User intance
 	 * @return  boolean
@@ -76,7 +76,7 @@ interface GroupInterface
 
 	/**
 	 * Saves the group.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -85,7 +85,7 @@ interface GroupInterface
 
 	/**
 	 * Deletes the group.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */

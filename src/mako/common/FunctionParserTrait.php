@@ -19,9 +19,9 @@ trait FunctionParserTrait
 {
 	/**
 	 * Parses custom "function calls".
-	 * 
+	 *
 	 * The return value is an array consisting of the function name and parameters.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $function  Function
 	 * @return  array
@@ -31,7 +31,7 @@ trait FunctionParserTrait
 	{
 		if(strpos($function, ':') === false)
 		{
-			return [$function, []];	
+			return [$function, []];
 		}
 
 		list($function, $parameters) = explode(':', $function, 2);

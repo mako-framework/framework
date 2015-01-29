@@ -19,7 +19,7 @@ interface ProcessorInterface
 {
 	/**
 	 * Opens the image we want to work with.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $image  Path to image file
 	 */
@@ -28,7 +28,7 @@ interface ProcessorInterface
 
 	/**
 	 * Creates a snapshot of the image resource.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -36,7 +36,7 @@ interface ProcessorInterface
 
 	/**
 	 * Restores an image snapshot.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -52,7 +52,7 @@ interface ProcessorInterface
 	public function rotate($degrees);
 
 	/**
-	 * Resizes the image to the chosen size. 
+	 * Resizes the image to the chosen size.
 	 *
 	 * @access  public
 	 * @param  int      $width        Width of the image
@@ -77,7 +77,7 @@ interface ProcessorInterface
 	/**
 	 * Flips the image.
 	 *
-	 * @access  public  
+	 * @access  public
 	 * @param   int     $direction  Direction to flip the image
 	 */
 
@@ -96,7 +96,7 @@ interface ProcessorInterface
 
 	/**
 	 * Adjust image brightness.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int     $level  Brightness level (-100 to 100)
 	 */
@@ -130,7 +130,7 @@ interface ProcessorInterface
 
 	/**
 	 * Sharpens the image.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -138,7 +138,7 @@ interface ProcessorInterface
 
 	/**
 	 * Pixelates the image.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int     $pixelSize  Pixel size
 	 */
@@ -147,7 +147,7 @@ interface ProcessorInterface
 
 	/**
 	 * Negates the image.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -165,7 +165,7 @@ interface ProcessorInterface
 
 	/**
 	 * Returns a string containing the image.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $type     Image type
 	 * @param   int     $quality  Image quality 1-100

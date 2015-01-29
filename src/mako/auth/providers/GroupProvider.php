@@ -19,7 +19,7 @@ class GroupProvider implements GroupProviderInterface
 {
 	/**
 	 * Model.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -27,7 +27,7 @@ class GroupProvider implements GroupProviderInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $model  Model class
 	 */

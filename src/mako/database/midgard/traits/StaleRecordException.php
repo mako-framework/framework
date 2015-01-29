@@ -17,5 +17,5 @@ use RuntimeException;
 
 class StaleRecordException extends RuntimeException
 {
-	
+
 }

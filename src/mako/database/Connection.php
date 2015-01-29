@@ -23,7 +23,7 @@ class Connection
 {
 	/**
 	 * Connection name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -31,7 +31,7 @@ class Connection
 
 	/**
 	 * Connection DSN.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -39,7 +39,7 @@ class Connection
 
 	/**
 	 * Database username.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -47,7 +47,7 @@ class Connection
 
 	/**
 	 * Database password.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -63,7 +63,7 @@ class Connection
 
 	/**
 	 * Should we reconnect?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -71,7 +71,7 @@ class Connection
 
 	/**
 	 * Should we use a persistent connection?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -79,7 +79,7 @@ class Connection
 
 	/**
 	 * Queries that should be executed upon connecting.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -95,7 +95,7 @@ class Connection
 
 	/**
 	 * Driver name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -103,7 +103,7 @@ class Connection
 
 	/**
 	 * SQL dialect.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -111,7 +111,7 @@ class Connection
 
 	/**
 	 * Transaction nesting level.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -168,7 +168,7 @@ class Connection
 
 	/**
 	 * Returns the connection name.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -180,7 +180,7 @@ class Connection
 
 	/**
 	 * Returns the PDO instance.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \PDO
 	 */
@@ -192,7 +192,7 @@ class Connection
 
 	/**
 	 * Returns the driver name.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -204,7 +204,7 @@ class Connection
 
 	/**
 	 * Returns the SQL dialect.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -216,7 +216,7 @@ class Connection
 
 	/**
 	 * Enables the query log.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -227,7 +227,7 @@ class Connection
 
 	/**
 	 * Disables the query log.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -238,7 +238,7 @@ class Connection
 
 	/**
 	 * Creates a PDO instance.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  \PDO
 	 */
@@ -247,7 +247,7 @@ class Connection
 	{
 		// Connect to the database
 
-		$options = 
+		$options =
 		[
 			PDO::ATTR_PERSISTENT         => $this->usePersistentConnection,
 			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -279,7 +279,7 @@ class Connection
 
 	/**
 	 * Creates a new PDO instance.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -290,7 +290,7 @@ class Connection
 
 	/**
 	 * Checks if the connection is alive.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -326,7 +326,7 @@ class Connection
 
 	/**
 	 * Replace placeholders with parameteters.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $query   SQL query
 	 * @param   array      $params  Query paramaters
@@ -377,7 +377,7 @@ class Connection
 
 	/**
 	 * Prepare query and params.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $query   SQL Query
 	 * @param   array      $params  Query parameters
@@ -392,7 +392,7 @@ class Connection
 
 		if(strpos($query, '([?])') !== false)
 		{
-			
+
 
 			foreach($params as $key => $value)
 			{
@@ -401,7 +401,7 @@ class Connection
 					array_splice($params, $key, 1, $value);
 
 					$query = preg_replace('/\(\[\?\]\)/', '(' . trim(str_repeat('?, ', count($value)), ', ') . ')', $query, 1);
-					
+
 					goto replace;
 				}
 			}
@@ -424,7 +424,7 @@ class Connection
 
 	/**
 	 * Should we try to reestablish the connection?
-	 * 
+	 *
 	 * @access  protected
 	 * @return  boolean
 	 */
@@ -436,7 +436,7 @@ class Connection
 
 	/**
 	 * Prepares a query.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $query   SQL query
 	 * @param   array      $params  Query parameters
@@ -515,7 +515,7 @@ class Connection
 
 	/**
 	 * Executes the query and return number of affected rows.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $query   SQL query
 	 * @param   array   $params  Query parameters
@@ -612,7 +612,7 @@ class Connection
 
 	/**
 	 * Begin a transaction.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -628,7 +628,7 @@ class Connection
 
 	/**
 	 * Commits a transaction.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -647,7 +647,7 @@ class Connection
 
 	/**
 	 * Roll back a transaction.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -666,7 +666,7 @@ class Connection
 
 	/**
 	 * Returns the transaction nesting level.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -678,7 +678,7 @@ class Connection
 
 	/**
 	 * Returns TRUE if we're in a transaction and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */

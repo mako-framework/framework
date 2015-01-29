@@ -26,7 +26,7 @@ class Group extends ORM implements GroupInterface
 
 	/**
 	 * Table name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -103,7 +103,7 @@ class Group extends ORM implements GroupInterface
 
 	/**
 	 * Group users.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\midgard\relations\ManyToMany
 	 */

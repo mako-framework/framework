@@ -17,7 +17,7 @@ interface ValidatorPluginInterface
 {
 	/**
 	 * Returnst the rule name.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -26,7 +26,7 @@ interface ValidatorPluginInterface
 
 	/**
 	 * Returnst the package name.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */

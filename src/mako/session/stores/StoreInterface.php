@@ -51,6 +51,6 @@ interface StoreInterface
 	 * @access  public
 	 * @param   int      $dataTTL  Data TTL in seconds
 	 */
-	
+
 	public function gc($dataTTL);
 }

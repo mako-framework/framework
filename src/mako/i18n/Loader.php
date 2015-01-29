@@ -24,7 +24,7 @@ class Loader
 
 	/**
 	 * File system instance.
-	 * 
+	 *
 	 * @var \mako\file\FileSystem
 	 */
 
@@ -32,7 +32,7 @@ class Loader
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
 	 * @param   string                 $path        Default path
@@ -47,7 +47,7 @@ class Loader
 
 	/**
 	 * Returns inflection rules and closure or NULL if it doesn't exist.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string      $language  Name of the language pack
 	 * @return  array|null
@@ -65,7 +65,7 @@ class Loader
 
 	/**
 	 * Loads and returns language strings.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $language  Name of the language pack
 	 * @param   string  $file      File we want to load

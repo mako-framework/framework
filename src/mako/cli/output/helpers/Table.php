@@ -21,7 +21,7 @@ class Table
 {
 	/**
 	 * Output instance.
-	 * 
+	 *
 	 * @var \mako\cli\output\Output
 	 */
 
@@ -29,7 +29,7 @@ class Table
 
 	/**
 	 * Formatter instance.
-	 * 
+	 *
 	 * @var null|\mako\cli\output\formatter\FormatterInterface
 	 */
 
@@ -37,7 +37,7 @@ class Table
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\output\Output  $output  Output instance
 	 */
@@ -51,7 +51,7 @@ class Table
 
 	/**
 	 * Checks if the number of cells in each row matches the number of columns.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $columnNames  Array of column names
 	 * @param   array      $rows         Array of rows
@@ -78,7 +78,7 @@ class Table
 
 	/**
 	 * Returns the width of the string without formatting.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $string  String to strip
 	 * @return  string
@@ -91,7 +91,7 @@ class Table
 
 	/**
 	 * Returns an array containing the maximum width of each column.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $columnNames  Array of column names
 	 * @param   array      $rows         Array of rows
@@ -131,7 +131,7 @@ class Table
 
 	/**
 	 * Builds a row separator.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $columnWidths  Array of column widths
 	 * @param   string     $separator     Separator character
@@ -147,7 +147,7 @@ class Table
 
 	/**
 	 * Builds a table row.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $colums        Array of column values
 	 * @param   array      $columnWidths  Array of column widths
@@ -168,7 +168,7 @@ class Table
 
 	/**
 	 * Renders a table.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array   $columnNames  Array of column names
 	 * @param   array   $rows         Array of rows
@@ -210,7 +210,7 @@ class Table
 
 	/**
 	 * Draws a table.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array   $columnNames  Array of column names
 	 * @param   array   $rows         Array of rows

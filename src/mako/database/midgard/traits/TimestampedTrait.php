@@ -19,14 +19,14 @@ trait TimestampedTrait
 {
 	/**
 	 * Returns trait hooks.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
 
 	protected function getTimestampedTraitHooks()
 	{
-		return 
+		return
 		[
 			'beforeInsert' =>
 			[
@@ -45,7 +45,7 @@ trait TimestampedTrait
 					return [$createdAtColumn => $dateTime, $updatedAtColumn => $dateTime] + $values;
 				},
 			],
-			'afterInsert' => 
+			'afterInsert' =>
 			[
 				function($inserted)
 				{
@@ -55,7 +55,7 @@ trait TimestampedTrait
 					}
 				}
 			],
-			'beforeUpdate' => 
+			'beforeUpdate' =>
 			[
 				function($values, $query)
 				{
@@ -68,7 +68,7 @@ trait TimestampedTrait
 					return [$updatedAtColumn => $dateTime] + $values;
 				},
 			],
-			'afterUpdate' => 
+			'afterUpdate' =>
 			[
 				function($updated)
 				{
@@ -78,7 +78,7 @@ trait TimestampedTrait
 					}
 				}
 			],
-			'afterDelete' => 
+			'afterDelete' =>
 			[
 				function($deleted)
 				{
@@ -93,7 +93,7 @@ trait TimestampedTrait
 
 	/**
 	 * Returns the column that holds the "created at" timestamp.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -105,7 +105,7 @@ trait TimestampedTrait
 
 	/**
 	 * Returns the column that holds the "updated at" timestamp.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -117,7 +117,7 @@ trait TimestampedTrait
 
 	/**
 	 * Returns the columns that we're casting.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -129,7 +129,7 @@ trait TimestampedTrait
 
 	/**
 	 * Allows you to update the "updated at" timestamp without modifying any data.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -148,14 +148,14 @@ trait TimestampedTrait
 
 	/**
 	 * Touches related records.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
 	protected function touchRelated()
 	{
 		if(!empty($this->touch))
-		{			
+		{
 			foreach($this->touch as $touch)
 			{
 				$touch = explode('.', $touch);

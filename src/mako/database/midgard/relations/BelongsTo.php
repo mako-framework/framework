@@ -38,7 +38,7 @@ class BelongsTo extends Relation
 	protected function keys($results)
 	{
 		$keys = [];
-		
+
 		foreach($results as $result)
 		{
 			$keys[] = $result->getRawColumn($this->getForeignKey());
@@ -58,7 +58,7 @@ class BelongsTo extends Relation
 
 	/**
 	 * Sets the criterion used when eager loading related records.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array                                       $keys  Parent keys
 	 * @return  \mako\database\midgard\relations\BelongsTo
@@ -75,18 +75,18 @@ class BelongsTo extends Relation
 
 	/**
 	 * Eager loads related records and matches them with their parent records.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\midgard\ResultSet  $results   Parent records
 	 * @param   string                            $relation  Relation name
-	 * @param   mixed                             $criteria  Relation criteria 
+	 * @param   mixed                             $criteria  Relation criteria
 	 * @param   array                             $includes  Includes passed from the parent record
 	 */
 
 	public function eagerLoad(&$results, $relation, $criteria, $includes)
 	{
 		$this->model->setIncludes($includes);
-		
+
 		$grouped = [];
 
 		if($criteria !== null)
@@ -114,10 +114,10 @@ class BelongsTo extends Relation
 
 	/**
 	 * Returns related a record from the database.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
-	 */ 
+	 */
 
 	public function getRelated()
 	{

@@ -27,7 +27,7 @@ class Num
 	{
 		// Nothing here
 	}
-	
+
 	/**
 	 * Converts arabic numerals (1-3999) to roman numerals.
 	 *
@@ -45,7 +45,7 @@ class Num
 			throw new InvalidArgumentException(vsprintf("%s(): The number must be between 1 and 3999.", [__METHOD__]));
 		}
 
-		$numerals = 
+		$numerals =
 		[
 			'M'  => 1000,
 			'CM' => 900,
@@ -101,7 +101,7 @@ class Num
 			throw new InvalidArgumentException(vsprintf("%s(): Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.", [__METHOD__]));
 		}
 
-		$numerals = 
+		$numerals =
 		[
 			'M'  => 1000,
 			'D'  => 500,

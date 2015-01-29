@@ -24,12 +24,12 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	 *
 	 * @var string
 	 */
-	
+
 	protected $key;
 
 	/**
 	 * Padder instance.
-	 * 
+	 *
 	 * @var \mako\security\crypto\padders\PadderInterface
 	 */
 
@@ -40,36 +40,36 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	 *
 	 * @var int
 	 */
-	
+
 	protected $cipher;
-	
+
 	/**
 	 * Encryption mode.
 	 *
 	 * @var int
 	 */
-	
+
 	protected $mode;
 
 	/**
 	 * Key size.
-	 * 
+	 *
 	 * @var int
 	 */
 
 	protected $keySize;
-	
+
 	/**
 	 * Initialization vector size.
 	 *
 	 * @var string
 	 */
-	
+
 	protected $ivSize;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                                         $key     Encryption key
 	 * @param   \mako\security\crypto\padders\PadderInterface  $padder  Padder instance
@@ -95,7 +95,7 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function encrypt($string)
 	{
 		$blockSize = mcrypt_get_block_size($this->cipher, $this->mode);
@@ -105,27 +105,27 @@ class MCrypt extends Encrypter implements EncrypterInterface
 		$iv = mcrypt_create_iv($this->ivSize, MCRYPT_DEV_URANDOM);
 
 		$key = $this->deriveKey($this->key, $iv, $this->keySize);
-		
+
 		return base64_encode($iv . mcrypt_encrypt($this->cipher, $key, $string, $this->mode, $iv));
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function decrypt($string)
 	{
 		$string = base64_decode($string, true);
-		
+
 		if($string === false)
 		{
 			return false;
 		}
-		
+
 		$iv = substr($string, 0, $this->ivSize);
 
 		$key = $this->deriveKey($this->key, $iv, $this->keySize);
-		
+
 		$string = substr($string, $this->ivSize);
 
 		return $this->padder->stripPadding(mcrypt_decrypt($this->cipher, $key, $string, $this->mode, $iv));

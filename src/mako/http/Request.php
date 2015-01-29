@@ -22,7 +22,7 @@ class Request
 {
 	/**
 	 * Get data
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -30,7 +30,7 @@ class Request
 
 	/**
 	 * Post data
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -38,7 +38,7 @@ class Request
 
 	/**
 	 * Cookie data.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -46,7 +46,7 @@ class Request
 
 	/**
 	 * File data.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -54,7 +54,7 @@ class Request
 
 	/**
 	 * Server info.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -62,7 +62,7 @@ class Request
 
 	/**
 	 * Raw request body.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -70,7 +70,7 @@ class Request
 
 	/**
 	 * Signer instance.
-	 * 
+	 *
 	 * @var \mako\security\Signer
 	 */
 
@@ -78,7 +78,7 @@ class Request
 
 	/**
 	 * Parsed request body.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -86,7 +86,7 @@ class Request
 
 	/**
 	 * Request headers.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -94,7 +94,7 @@ class Request
 
 	/**
 	 * Array of acceptable content types.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -102,7 +102,7 @@ class Request
 
 	/**
 	 * Array of acceptable languages.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -110,7 +110,7 @@ class Request
 
 	/**
 	 * Array of acceptable charsets.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -118,7 +118,7 @@ class Request
 
 	/**
 	 * Array of acceptable encodings.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -126,18 +126,18 @@ class Request
 
 	/**
 	 * Array of trusted proxy IP addresses.
-	 * 
+	 *
 	 * @var array
 	 */
 
 	protected $trustedProxies;
-	
+
 	/**
 	 * Ip address of the client that made the request.
 	 *
 	 * @var string
 	 */
-	
+
 	protected $ip;
 
 	/**
@@ -158,7 +158,7 @@ class Request
 
 	/**
 	 * Is PHP running as a CGI program?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -166,12 +166,12 @@ class Request
 
 	/**
 	 * Base URL of the request.
-	 * 
+	 *
 	 * @var string
 	 */
 
 	protected $baseURL;
-	
+
 	/**
 	 * Holds the request path.
 	 *
@@ -182,7 +182,7 @@ class Request
 
 	/**
 	 * Request language.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -190,7 +190,7 @@ class Request
 
 	/**
 	 * Request language prefix.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -206,7 +206,7 @@ class Request
 
 	/**
 	 * The actual request method that was used.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -325,7 +325,7 @@ class Request
 
 	/**
 	 * Determines the request method.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string
 	 */
@@ -356,7 +356,7 @@ class Request
 
 	/**
 	 * Parses a accpet header and returns the values in descending order of preference.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string
 	 * @return  array
@@ -404,7 +404,7 @@ class Request
 
 	/**
 	 * Returns all the request headers.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -430,7 +430,7 @@ class Request
 
 	/**
 	 * Collects information about the request.
-	 * 
+	 *
 	 * @access protected
 	 */
 
@@ -455,7 +455,7 @@ class Request
 
 	/**
 	 * Returns the raw request body.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -472,7 +472,7 @@ class Request
 
 	/**
 	 * Parses the request body and returns the chosen value.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string  $key      Array key
 	 * @param   mixed   $default  Default value
@@ -495,7 +495,7 @@ class Request
 				default:
 					$this->parsedBody = [];
 			}
-			
+
 		}
 
 		return ($key === null) ? $this->parsedBody : Arr::get($this->parsedBody, $key, $default);
@@ -672,7 +672,7 @@ class Request
 
 	/**
 	 * Returns request data where keys not in the whitelist have been removed.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array  $keys      Keys to whitelist
 	 * @param   array  $defaults  Default values
@@ -686,7 +686,7 @@ class Request
 
 	/**
 	 * Returns request data where keys in the blacklist have been removed.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array  $keys      Keys to whitelist
 	 * @param   array  $defaults  Default values
@@ -700,7 +700,7 @@ class Request
 
 	/**
 	 * Returns a request header.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name     Header name
 	 * @param   mixed   $default  Default value
@@ -716,7 +716,7 @@ class Request
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -733,7 +733,7 @@ class Request
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -750,7 +750,7 @@ class Request
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -767,7 +767,7 @@ class Request
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -779,12 +779,12 @@ class Request
 			$this->acceptableEncodings = $this->parseAcceptHeader($this->header('accept-encoding'));
 		}
 
-		return $this->acceptableEncodings;	
+		return $this->acceptableEncodings;
 	}
 
 	/**
 	 * Set the trusted proxies.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array  $trustedProxies  Array of trusted proxy IP addresses
 	 */
@@ -800,7 +800,7 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-	
+
 	public function ip()
 	{
 		if(empty($this->ip))
@@ -857,7 +857,7 @@ class Request
 
 	/**
 	 * Returns TRUE if the request method is considered safe and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -869,7 +869,7 @@ class Request
 
 	/**
 	 * Is PHP running as a CGI program?
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -881,7 +881,7 @@ class Request
 
 	/**
 	 * Returns the base url of the request.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -972,7 +972,7 @@ class Request
 
 	/**
 	 * Returns the real request method that was used.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -984,7 +984,7 @@ class Request
 
 	/**
 	 * Returns TRUE if the request method has been faked and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -996,7 +996,7 @@ class Request
 
 	/**
 	 * Returns the basic HTTP authentication username or NULL.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -1008,7 +1008,7 @@ class Request
 
 	/**
 	 * Returns the basic HTTP authentication password or NULL.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */

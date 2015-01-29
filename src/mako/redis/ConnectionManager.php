@@ -17,7 +17,7 @@ use mako\redis\Redis;
  * Redis connection manager.
  *
  * @author  Frederic G. Østby
- * 
+ *
  * @method  \mako\redis\Redis  connection($connection = null)
  */
 
@@ -25,7 +25,7 @@ class ConnectionManager extends BaseConnectionManager
 {
 	/**
 	 * Connects to the chosen redis configuration and returns the connection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string             $connection  Connection name
 	 * @return  \mako\redis\Redis

@@ -22,7 +22,7 @@ class Compiler
 {
 	/**
 	 * Date format.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -58,7 +58,7 @@ class Compiler
 
 	/**
 	 * Sets the date format.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $dateFormat  Date format
 	 * @return  string
@@ -71,7 +71,7 @@ class Compiler
 
 	/**
 	 * Gets the date format.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -100,7 +100,7 @@ class Compiler
 
 	/**
 	 * Returns an escaped identifier.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $identifier  Identifier to escape
 	 * @return  string
@@ -184,7 +184,7 @@ class Compiler
 	/**
 	 * Returns raw SQL or a paramter placeholder.
 	 *
-	 * @access  protected  
+	 * @access  protected
 	 * @param   mixed      $param  Parameter
 	 * @return  string
 	 */
@@ -418,7 +418,7 @@ class Compiler
 
 		foreach($havings as $having)
 		{
-			$sql[] = $having['separator'] . ' ' . $this->wrap($having['column']) . ' ' . $having['operator'] . ' ' . $this->param($having['value']);; 
+			$sql[] = $having['separator'] . ' ' . $this->wrap($having['column']) . ' ' . $having['operator'] . ' ' . $this->param($having['value']);;
 		}
 
 		return ' HAVING ' . substr(implode(' ', $sql), 4); // substr to remove "AND "
@@ -448,7 +448,7 @@ class Compiler
 	protected function offset($offset)
 	{
 		return ($offset === null) ? '' : ' OFFSET ' . $offset;
-	}	
+	}
 
 	/**
 	 * Compiles a SELECT query.

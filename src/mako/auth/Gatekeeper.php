@@ -26,7 +26,7 @@ class Gatekeeper
 {
 	/**
 	 * Have we checked for a valid login?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -34,7 +34,7 @@ class Gatekeeper
 
 	/**
 	 * Status code for banned users.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -42,7 +42,7 @@ class Gatekeeper
 
 	/**
 	 * Status code for users who need to activate their account.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -50,7 +50,7 @@ class Gatekeeper
 
 	/**
 	 * Status code for users who fail to provide the correct credentials.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -58,7 +58,7 @@ class Gatekeeper
 
 	/**
 	 * Request instance.
-	 * 
+	 *
 	 * @var \mako\http\Request
 	 */
 
@@ -66,7 +66,7 @@ class Gatekeeper
 
 	/**
 	 * Response instance.
-	 * 
+	 *
 	 * @var \mako\http\Response
 	 */
 
@@ -74,7 +74,7 @@ class Gatekeeper
 
 	/**
 	 * Session instance.
-	 * 
+	 *
 	 * @var \mako\session\Session
 	 */
 
@@ -82,7 +82,7 @@ class Gatekeeper
 
 	/**
 	 * User provider.
-	 * 
+	 *
 	 * @var \mako\auth\UserProviderInterface
 	 */
 
@@ -90,7 +90,7 @@ class Gatekeeper
 
 	/**
 	 * Group provider.
-	 * 
+	 *
 	 * @var \mako\auth\GroupProviderInterface
 	 */
 
@@ -98,7 +98,7 @@ class Gatekeeper
 
 	/**
 	 * Identifier.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -106,7 +106,7 @@ class Gatekeeper
 
 	/**
 	 * Auth key.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -114,11 +114,11 @@ class Gatekeeper
 
 	/**
 	 * Cookie options.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $cookieOptions = 
+	protected $cookieOptions =
 	[
 		'path'     => '/',
 		'domain'   => '',
@@ -128,7 +128,7 @@ class Gatekeeper
 
 	/**
 	 * User instance.
-	 * 
+	 *
 	 * @var \mako\auth\user\User
 	 */
 
@@ -136,7 +136,7 @@ class Gatekeeper
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\http\Request                           $request        Request instance
 	 * @param   \mako\http\Response                          $response       Response instance
@@ -156,7 +156,7 @@ class Gatekeeper
 
 	/**
 	 * Sets the identifier type.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $identifier  Identifier type
 	 */
@@ -173,7 +173,7 @@ class Gatekeeper
 
 	/**
 	 * Sets the auth key.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $authKey  Auth key
 	 */
@@ -190,7 +190,7 @@ class Gatekeeper
 
 	/**
 	 * Sets cookie options.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array   $cookieOptions  Cookie options
 	 */
@@ -207,7 +207,7 @@ class Gatekeeper
 
 	/**
 	 * Returns the user provider instance.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\auth\providers\UserProviderInterface
 	 */
@@ -219,7 +219,7 @@ class Gatekeeper
 
 	/**
 	 * Returns the group provider instance.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\auth\providers\GroupProviderInterface
 	 */
@@ -231,7 +231,7 @@ class Gatekeeper
 
 	/**
 	 * Creates a new user and returns the user object.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                         $email     Email address
 	 * @param   string                         $username  Username
@@ -260,7 +260,7 @@ class Gatekeeper
 
 	/**
 	 * Creates a new group and returns the group object.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                           $name  Group name
 	 * @return  \mako\auth\group\GroupInterface
@@ -275,7 +275,7 @@ class Gatekeeper
 
 	/**
 	 * Activates a user based on the provided auth token.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $token  Auth token
 	 * @return  boolean
@@ -303,7 +303,7 @@ class Gatekeeper
 
 	/**
 	 * Checks if a user is logged in.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  mako\auth\user\UserInterface|null
 	 */
@@ -350,7 +350,7 @@ class Gatekeeper
 
 	/**
 	 * Returns FALSE if the user is logged in and TRUE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -362,7 +362,7 @@ class Gatekeeper
 
 	/**
 	 * Returns FALSE if the user isn't logged in and TRUE if it is.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -374,7 +374,7 @@ class Gatekeeper
 
 	/**
 	 * Returns the authenticated user or NULL if no user is logged in.
-	 * 
+	 *
 	 * @access  public
 	 * @return  null|\mako\auth\user\UserInterface
 	 */
@@ -386,7 +386,7 @@ class Gatekeeper
 
 	/**
 	 * Gets a user by its unique identifier.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                                 $identifier  User identifier
 	 * @return  \mako\auth\user\UserInterface|boolean
@@ -408,7 +408,7 @@ class Gatekeeper
 	/**
 	 * Returns TRUE if the email + password combination matches and the user is activated and not banned.
 	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT) will be retured in all other situations.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string       $identifier  User email or username
 	 * @param   string       $password    User password
@@ -444,7 +444,7 @@ class Gatekeeper
 	 * Logs in a user with a valid email/password combination.
 	 * Returns TRUE if the email + password combination matches and the user is activated and not banned.
 	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT) will be retured in all other situations.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string       $identifier  User email
 	 * @param   string       $password    User password
@@ -483,7 +483,7 @@ class Gatekeeper
 
 	/**
 	 * Login a user without checking the password.
-	 * 
+	 *
 	 * @access  public
 	 * @param   mixed    $identifier  User email or username
 	 * @param   boolean  $remember    Set a remember me cookie?
@@ -497,7 +497,7 @@ class Gatekeeper
 
 	/**
 	 * Builds and returns a basic HTTP authentication response.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  \mako\http\Response
 	 */
@@ -507,17 +507,17 @@ class Gatekeeper
 		$response = new Response($this->request);
 
 		$response->body('Authentication required.');
-			
+
 		$response->header('www-authenticate', 'basic');
-			
+
 		$response->status(401);
-			
+
 		return $response;
 	}
 
 	/**
 	 * Returns a basic authentication response if login is required and NULL if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\http\Response|null
 	 */
@@ -534,7 +534,7 @@ class Gatekeeper
 
 	/**
 	 * Logs the user out.
-	 * 
+	 *
 	 * @access  public
 	 */
 

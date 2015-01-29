@@ -20,7 +20,7 @@ class Redis implements StoreInterface
 {
 	/**
 	 * Redis client
-	 * 
+	 *
 	 * @var \mako\redis\Redis
 	 */
 
@@ -28,7 +28,7 @@ class Redis implements StoreInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\redis\Redis  $redis  Redis client
 	 */

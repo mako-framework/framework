@@ -19,18 +19,18 @@ use mako\syringe\ContainerAwareTrait;
 abstract class Migration
 {
 	use ContainerAwareTrait;
-	
+
 	/**
 	 * Connection manager instance.
-	 * 
+	 *
 	 * @var \mako\database\ConnectionManager
 	 */
-	
+
 	protected $database;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
 	 */
@@ -42,7 +42,7 @@ abstract class Migration
 
 	/**
 	 * Returns the migration description.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string|null
 	 */

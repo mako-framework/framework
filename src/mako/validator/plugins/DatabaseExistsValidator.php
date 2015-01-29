@@ -20,7 +20,7 @@ class DatabaseExistsValidator extends ValidatorPlugin
 {
 	/**
 	 * Rule name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -28,7 +28,7 @@ class DatabaseExistsValidator extends ValidatorPlugin
 
 	/**
 	 * Connection manager instance.
-	 * 
+	 *
 	 * @var \mako\database\ConnectionManager
 	 */
 
@@ -36,7 +36,7 @@ class DatabaseExistsValidator extends ValidatorPlugin
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
 	 */
@@ -48,7 +48,7 @@ class DatabaseExistsValidator extends ValidatorPlugin
 
 	/**
 	 * Checks that the value exists in the database table.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $input   Input
 	 * @param   string   $table   Table name

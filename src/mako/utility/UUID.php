@@ -102,7 +102,7 @@ class UUID
 
 		$nhexLength = strlen($nhex);
 
-		for($i = 0; $i < $nhexLength; $i+=2) 
+		for($i = 0; $i < $nhexLength; $i+=2)
 		{
 			$nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));
 		}
@@ -122,7 +122,7 @@ class UUID
 	public static function v3($namespace, $name)
 	{
 		// Calculate hash value
-		
+
 		$hash = md5(self::toBin($namespace) . $name);
 
 		return sprintf
@@ -224,7 +224,7 @@ class UUID
 	public static function v5($namespace, $name)
 	{
 		// Calculate hash value
-		
+
 		$hash = sha1(static::toBin($namespace) . $name);
 
 		return sprintf

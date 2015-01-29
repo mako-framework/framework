@@ -13,7 +13,7 @@ use mako\reactor\Command;
 
 /**
  * Command that creates a migration.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -21,22 +21,22 @@ class Create extends Command
 {
 	/**
 	 * Command information.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $commandInformation = 
+	protected $commandInformation =
 	[
 		'description' => 'Creates a new migration.',
 		'arguments'   => [],
-		'options'     => 
+		'options'     =>
 		[
-			'package' => 
+			'package' =>
 			[
 				'optional'    => true,
 				'description' => 'Package name',
 			],
-			'description' => 
+			'description' =>
 			[
 				'optional'    => true,
 				'description' => 'Migration description',
@@ -46,7 +46,7 @@ class Create extends Command
 
 	/**
 	 * Executes the command.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\application\Application  $application  Application instance
 	 * @param   \mako\file\FileSystem          $fileSystem   File system instance

@@ -21,7 +21,7 @@ abstract class ConnectionManager
 
 	/**
 	 * Connections.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -29,7 +29,7 @@ abstract class ConnectionManager
 
 	/**
 	 * Connects to the chosen configuration and returns the connection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $connection  Connection name
 	 * @return  mixed
@@ -39,7 +39,7 @@ abstract class ConnectionManager
 
 	/**
 	 * Returns the chosen connection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $connection  Connection name
 	 * @return  mixed

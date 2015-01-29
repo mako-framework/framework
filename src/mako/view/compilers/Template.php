@@ -19,7 +19,7 @@ class Template
 {
 	/**
 	 * File system instance.
-	 * 
+	 *
 	 * @var \mako\file\FileSystem
 	 */
 
@@ -47,7 +47,7 @@ class Template
 	 * @var array
 	 */
 
-	protected $compileOrder = 
+	protected $compileOrder =
 	[
 		'comments',
 		'extensions',
@@ -237,7 +237,7 @@ class Template
 	public function compile()
 	{
 		// Get teplate contents
-			
+
 		$contents = $this->fileSystem->getContents($this->template);
 
 		// Compile template

@@ -57,7 +57,7 @@ class Join
 
 	/**
 	 * Returns the join type.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -69,7 +69,7 @@ class Join
 
 	/**
 	 * Returns the table name
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -81,7 +81,7 @@ class Join
 
 	/**
 	 * Returns ON clauses.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -103,7 +103,7 @@ class Join
 
 	public function on($column1, $operator, $column2, $separator = 'AND')
 	{
-		$this->clauses[] = 
+		$this->clauses[] =
 		[
 			'column1'   => $column1,
 			'operator'  => $operator,

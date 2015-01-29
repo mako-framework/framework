@@ -14,7 +14,7 @@ use mako\utility\Str;
 
 /**
  * Command that lists all registered routes.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -22,11 +22,11 @@ class ListRoutes extends Command
 {
 	/**
 	 * Command information.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $commandInformation = 
+	protected $commandInformation =
 	[
 		'description' => 'Lists all registered routes.',
 		'arguments'   => [],
@@ -35,7 +35,7 @@ class ListRoutes extends Command
 
 	/**
 	 * Executes the command.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\application\Application  $application  Application instance
 	 */
@@ -70,7 +70,7 @@ class ListRoutes extends Command
 
 			// Build table row
 
-			$routes[] =  
+			$routes[] =
 			[
 				$route->getRoute(),
 				implode(', ', $route->getMethods()),
@@ -83,13 +83,13 @@ class ListRoutes extends Command
 
 		// Draw table
 
-		$headers = 
+		$headers =
 		[
-			'<green>Route</green>', 
-			'<green>Allowed methods</green>', 
-			'<green>Action</green>', 
-			'<green>Before filters</green>', 
-			'<green>After filters</green>', 
+			'<green>Route</green>',
+			'<green>Allowed methods</green>',
+			'<green>Action</green>',
+			'<green>Before filters</green>',
+			'<green>After filters</green>',
 			'<green>Name</green>',
 		];
 

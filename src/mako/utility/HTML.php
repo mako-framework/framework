@@ -20,7 +20,7 @@ class HTML
 {
 	/**
 	 * Should we return XHTML?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -70,14 +70,14 @@ class HTML
 	protected function attributes($attributes)
 	{
 		$attr = '';
-		
+
 		foreach($attributes as $attribute => $value)
 		{
 			if(is_int($attribute))
 			{
 				$attribute = $value;
 			}
-			
+
 			$attr .= ' ' . $attribute . '="' . $value . '"';
 		}
 
@@ -116,7 +116,7 @@ class HTML
 		{
 			$sources .= $this->tag('source', ['src' => $file]);
 		}
-		
+
 		return $this->tag($type, $attributes, $sources);
 	}
 

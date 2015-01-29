@@ -19,7 +19,7 @@ class Standard implements WriterInterface
 {
 	/**
 	 * Is the stream direct?
-	 * 
+	 *
 	 * @var boolean
 	 */
 

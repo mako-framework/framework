@@ -19,7 +19,7 @@ abstract class ValidatorPlugin implements ValidatorPluginInterface
 {
 	/**
 	 * Rule name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -27,7 +27,7 @@ abstract class ValidatorPlugin implements ValidatorPluginInterface
 
 	/**
 	 * Package name.
-	 * 
+	 *
 	 * @var string
 	 */
 

@@ -28,12 +28,12 @@ class Session
 	 *
 	 * @var int
 	 */
-	
+
 	const MAX_TOKENS = 20;
 
 	/**
 	 * Has the session been started yet?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -41,7 +41,7 @@ class Session
 
 	/**
 	 * Has the session been destroyed?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -49,7 +49,7 @@ class Session
 
 	/**
 	 * Request.
-	 * 
+	 *
 	 * @var \mako\http\Request
 	 */
 
@@ -57,7 +57,7 @@ class Session
 
 	/**
 	 * Response.
-	 * 
+	 *
 	 * @var \mako\http\Response
 	 */
 
@@ -65,7 +65,7 @@ class Session
 
 	/**
 	 * Session store.
-	 * 
+	 *
 	 * @var \mako\session\stores\StoreInterface
 	 */
 
@@ -73,7 +73,7 @@ class Session
 
 	/**
 	 * Data TTL in seconds.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -81,7 +81,7 @@ class Session
 
 	/**
 	 * Cookie TTL in seconds.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -89,7 +89,7 @@ class Session
 
 	/**
 	 * Cookie name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -97,11 +97,11 @@ class Session
 
 	/**
 	 * Cookie options.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $cookieOptions = 
+	protected $cookieOptions =
 	[
 		'path'     => '/',
 		'domain'   => '',
@@ -111,7 +111,7 @@ class Session
 
 	/**
 	 * Session id.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -119,7 +119,7 @@ class Session
 
 	/**
 	 * Session data.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -127,7 +127,7 @@ class Session
 
 	/**
 	 * Flashdata.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -135,7 +135,7 @@ class Session
 
 	/**
 	 * Session token.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -143,7 +143,7 @@ class Session
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\http\Request                   $request   Request instance
 	 * @param   \mako\http\Response                  $response  Response instance
@@ -161,7 +161,7 @@ class Session
 
 	/**
 	 * Destructor.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -188,7 +188,7 @@ class Session
 
 	/**
 	 * Generates a session id.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string
 	 */
@@ -200,7 +200,7 @@ class Session
 
 	/**
 	 * Adds a session cookie to the response.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -213,7 +213,7 @@ class Session
 
 	/**
 	 * Loads the session data.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -227,7 +227,7 @@ class Session
 
 	/**
 	 * Sets the data TTL in seconds.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $dataTTL  Cookie name
 	 */
@@ -244,7 +244,7 @@ class Session
 
 	/**
 	 * Sets the cookie TTL in seconds.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $cookieTTL  Cookie name
 	 */
@@ -261,7 +261,7 @@ class Session
 
 	/**
 	 * Sets the cookie name.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $cookieName  Cookie name
 	 */
@@ -278,7 +278,7 @@ class Session
 
 	/**
 	 * Sets cookie options.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array  $cookieOptions  Cookie options
 	 */
@@ -295,7 +295,7 @@ class Session
 
 	/**
 	 * Starts the session.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -339,7 +339,7 @@ class Session
 
 	/**
 	 * Returns the session id.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -356,7 +356,7 @@ class Session
 
 	/**
 	 * Regenerate the session id and returns it.
-	 * 
+	 *
 	 * @access  public
 	 * @param   boolean  $keepOld  Keep the session data associated with the old session id?
 	 * @return  string
@@ -389,7 +389,7 @@ class Session
 
 	/**
 	 * Returns all the seesion data.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -406,7 +406,7 @@ class Session
 
 	/**
 	 * Store a value in the session.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $key    Session key
 	 * @param   mixed   $value  Session data
@@ -424,7 +424,7 @@ class Session
 
 	/**
 	 * Returns TRUE if key exists in the session and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $key  Session key
 	 * @return  boolean
@@ -442,7 +442,7 @@ class Session
 
 	/**
 	 * Returns a value from the session.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $key      Session key
 	 * @param   mixed   $default  Default value
@@ -461,7 +461,7 @@ class Session
 
 	/**
 	 * Removes a value from the session.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $key  Session key
 	 */
@@ -497,7 +497,7 @@ class Session
 
 	/**
 	 * Returns TRUE if key exists in the session and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $key  Session key
 	 * @return  boolean
@@ -515,7 +515,7 @@ class Session
 
 	/**
 	 * Returns a flash value from the session.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $key      Session key
 	 * @param   mixed   $default  Default value
@@ -534,7 +534,7 @@ class Session
 
 	/**
 	 * Removes a value from the session.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $key  Session key
 	 */
@@ -551,7 +551,7 @@ class Session
 
 	/**
 	 * Extends the lifetime of the flash data by one request.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array   $keys  Keys to preserve
 	 */
@@ -566,13 +566,13 @@ class Session
 		$flashData = isset($this->sessionData['mako.flashdata']) ? $this->sessionData['mako.flashdata'] : [];
 
 		$flashData = empty($keys) ? $flashData : array_intersect_key($flashData, array_flip($keys));
-		
+
 		$this->flashData = array_merge($this->flashData, $flashData);
 	}
 
 	/**
 	 * Returns the session token.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -589,7 +589,7 @@ class Session
 
 	/**
 	 * Generates a new session token and returns it.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -606,7 +606,7 @@ class Session
 
 	/**
 	 * Validates the provided token.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $token  Token to validate
 	 * @return  boolean
@@ -666,7 +666,7 @@ class Session
 		{
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
-		
+
 		if(!empty($this->sessionData['mako.tokens']))
 		{
 			foreach($this->sessionData['mako.tokens'] as $key => $value)
@@ -685,7 +685,7 @@ class Session
 
 	/**
 	 * Clears all session data.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -701,7 +701,7 @@ class Session
 
 	/**
 	 * Destroys the session.
-	 * 
+	 *
 	 * @access  public
 	 */
 

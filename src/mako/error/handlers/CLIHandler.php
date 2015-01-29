@@ -14,7 +14,7 @@ use mako\error\handlers\Handler;
 
 /**
  * CLI handler.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -22,7 +22,7 @@ class CLIHandler extends Handler
 {
 	/**
 	 * Output.
-	 * 
+	 *
 	 * @var \mako\cli\output\Output
 	 */
 
@@ -30,7 +30,7 @@ class CLIHandler extends Handler
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \Exception               $exception  Exception
 	 * @param   \mako\cli\output\Output  $output     Output
@@ -63,7 +63,7 @@ class CLIHandler extends Handler
 
 	/**
 	 * Returns a detailed error.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string
 	 */
@@ -81,7 +81,7 @@ class CLIHandler extends Handler
 
 	/**
 	 * Retruns a generic error.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string
 	 */

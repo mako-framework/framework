@@ -25,7 +25,7 @@ class ViewFactory
 
 	/**
 	 * Charset.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -33,7 +33,7 @@ class ViewFactory
 
 	/**
 	 * View renderers.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -41,7 +41,7 @@ class ViewFactory
 
 	/**
 	 * Cache path.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -49,7 +49,7 @@ class ViewFactory
 
 	/**
 	 * Global view variables.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -57,7 +57,7 @@ class ViewFactory
 
 	/**
 	 * View cache.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -65,7 +65,7 @@ class ViewFactory
 
 	/**
 	 * Renderer instances.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -73,7 +73,7 @@ class ViewFactory
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $fileSystem  File system instance
 	 * @param   string  $path        Default path
@@ -93,7 +93,7 @@ class ViewFactory
 
 	/**
 	 * Returns the charset.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -105,7 +105,7 @@ class ViewFactory
 
 	/**
 	 * Sets the charset.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                  $charset  Charset
 	 * @return  \mako\view\ViewFactory
@@ -120,7 +120,7 @@ class ViewFactory
 
 	/**
 	 * Prepends a view renderer.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string           $extention  Extention handled by the renderer
 	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
@@ -133,7 +133,7 @@ class ViewFactory
 
 	/**
 	 * Appends a view renderer.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string           $extention  Extention handled by the renderer
 	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
@@ -146,7 +146,7 @@ class ViewFactory
 
 	/**
 	 * Registers a custom view renderer.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                  $extention  Extention handled by the renderer
 	 * @param   string|\Closure         $renderer   Renderer class or closure that creates a renderer instance
@@ -163,7 +163,7 @@ class ViewFactory
 
 	/**
 	 * Returns the cache path.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -175,7 +175,7 @@ class ViewFactory
 
 	/**
 	 * Sets the cache path.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string
 	 * @return  \mako\view\ViewFactory
@@ -206,7 +206,7 @@ class ViewFactory
 
 	/**
 	 * Returns an array containing the view path and the renderer we should use.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $view            View
 	 * @param   boolean    $throwException  Throw exception if view doesn't exist?
@@ -247,7 +247,7 @@ class ViewFactory
 
 	/**
 	 * Creates a renderer instance.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string|\Closure                         $renderer  Renderer class or closure
 	 * @return  \mako\view\renderers\RendererInterface
@@ -260,7 +260,7 @@ class ViewFactory
 
 	/**
 	 * Returns a renderer instance.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                                  $extension  Extension associated with the renderer
 	 * @return  \mako\view\renderers\RendererInterface
@@ -278,7 +278,7 @@ class ViewFactory
 
 	/**
 	 * Returns TRUE if the view exists and false if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $view  View
 	 * @return  boolean
@@ -291,7 +291,7 @@ class ViewFactory
 
 	/**
 	 * Creates and returns a view instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string           $view       View
 	 * @param   array            $variables  View variables
@@ -307,7 +307,7 @@ class ViewFactory
 
 	/**
 	 * Creates and returns a rendered view.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $view       View
 	 * @param   array   $variables  View variables

@@ -11,7 +11,7 @@ use mako\syringe\Container;
 
 /**
  * Command dispatcher.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -19,15 +19,15 @@ class Dispatcher
 {
 	/**
 	 * Container.
-	 * 
-	 * @var \mako\syringe\Container 
+	 *
+	 * @var \mako\syringe\Container
 	 */
 
 	protected $container;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\syringe\Container  $container  Container
 	 */
@@ -39,7 +39,7 @@ class Dispatcher
 
 	/**
 	 * Resolves the command.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                 $command  Command class
 	 * @return  \mako\reactor\Command
@@ -52,7 +52,7 @@ class Dispatcher
 
 	/**
 	 * Executes the command.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \mako\reactor\Command  $command    Command instance
 	 * @param   array                  $arguments  Command arguments
@@ -65,7 +65,7 @@ class Dispatcher
 
 	/**
 	 * Dispatches the command.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $command    Command class
 	 * @param   array   $arguments  Command arguments

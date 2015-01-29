@@ -21,7 +21,7 @@ class Template extends PHP
 {
 	/**
 	 * Cache path.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -30,7 +30,7 @@ class Template extends PHP
 	/**
 	 * Template blocks.
 	 *
-	 * @var array 
+	 * @var array
 	 */
 
 	protected $blocks = [];
@@ -45,7 +45,7 @@ class Template extends PHP
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
 	 * @param   string                 $cachePath   Cache path
@@ -60,7 +60,7 @@ class Template extends PHP
 
 	/**
 	 * Returns the path to the compiled template.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string
 	 */
@@ -72,7 +72,7 @@ class Template extends PHP
 
 	/**
 	 * Returns TRUE if the template needs to be compiled and FALSE if not.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $view      View path
 	 * @param   string     $compiled  Compiled view path
@@ -86,7 +86,7 @@ class Template extends PHP
 
 	/**
 	 * Compiles view.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $view  View path
 	 */
@@ -122,7 +122,7 @@ class Template extends PHP
 
 	/**
 	 * Output a template block.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name  Block name
 	 */
@@ -155,7 +155,7 @@ class Template extends PHP
 		{
 			$this->compile($__view__);
 		}
-		
+
 		return parent::render($compiled, array_merge($__variables__, ['__renderer__' => $this]));
 	}
 }

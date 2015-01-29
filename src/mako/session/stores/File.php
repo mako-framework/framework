@@ -20,7 +20,7 @@ class File implements StoreInterface
 {
 	/**
 	 * File system instance.
-	 * 
+	 *
 	 * @var \mako\file\FileSystem
 	 */
 
@@ -28,7 +28,7 @@ class File implements StoreInterface
 
 	/**
 	 * Session path.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -36,7 +36,7 @@ class File implements StoreInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\file\FileSystem  $fileSystem   File system instance
 	 * @param   string                 $sessionPath  Session path

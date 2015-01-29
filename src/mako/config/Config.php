@@ -22,10 +22,10 @@ use mako\utility\Arr;
 class Config
 {
 	use NamespacedFileLoaderTrait;
-	
+
 	/**
 	 * File system instance.
-	 * 
+	 *
 	 * @var \mako\file\FileSystem
 	 */
 
@@ -33,7 +33,7 @@ class Config
 
 	/**
 	 * Environment name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -41,7 +41,7 @@ class Config
 
 	/**
 	 * Configuration.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -49,7 +49,7 @@ class Config
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\file\FileSystem $fileSystem   File system instance
 	 * @param   string                $path         Default path
@@ -67,7 +67,7 @@ class Config
 
 	/**
 	 * Returns the currently loaded configuration.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -79,7 +79,7 @@ class Config
 
 	/**
 	 * Sets the environment.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $environment  Environment name
 	 */
@@ -140,7 +140,7 @@ class Config
 
 	/**
 	 * Parses the language key.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $key  Language key
 	 * @return  array
@@ -168,7 +168,7 @@ class Config
 		{
 			$this->load($file);
 		}
-		
+
 		return $path === null ? $this->configuration[$file] : Arr::get($this->configuration[$file], $path, $default);
 	}
 

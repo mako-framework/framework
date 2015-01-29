@@ -20,7 +20,7 @@ class URLBuilder
 {
 	/**
 	 * Request instance.
-	 * 
+	 *
 	 * @var \mako\http\Request
 	 */
 
@@ -28,7 +28,7 @@ class URLBuilder
 
 	/**
 	 * Route collection.
-	 * 
+	 *
 	 * @var \mako\http\routing\Routes
 	 */
 
@@ -36,7 +36,7 @@ class URLBuilder
 
 	/**
 	 * Create "clean" URLs?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -44,7 +44,7 @@ class URLBuilder
 
 	/**
 	 * Language prefix.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -52,7 +52,7 @@ class URLBuilder
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\http\Request         $request    Request instance
 	 * @param   \mako\http\routing\Routes  $routes     Route collection
@@ -123,7 +123,7 @@ class URLBuilder
 
 	/**
 	 * Returns the URL of a named route.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $routeName    Route name
 	 * @param   array   $routeParams  Route parameters
@@ -188,7 +188,7 @@ class URLBuilder
 
 	/**
 	 * Returns the URL of a named route.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $routeName    Route name
 	 * @param   string  $language     Request language
@@ -205,7 +205,7 @@ class URLBuilder
 
 	/**
 	 * Returns the current URL of the request.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $language     Request language
 	 * @param   array   $queryParams  Query parameters

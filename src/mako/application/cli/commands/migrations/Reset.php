@@ -12,7 +12,7 @@ use mako\application\cli\commands\migrations\RollbackTrait;
 
 /**
  * Command that rolls back the last batch of migrations.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -22,27 +22,27 @@ class Reset extends Command
 
 	/**
 	 * Command information.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $commandInformation = 
+	protected $commandInformation =
 	[
 		'description' => 'Rolls back the last batch of migrations.',
 		'arguments'   => [],
-		'options'     => 
+		'options'     =>
 		[
-			'force' => 
+			'force' =>
 			[
 				'optional'    => true,
-				'description' => 'Force the schema reset?', 
+				'description' => 'Force the schema reset?',
 			],
 		],
 	];
 
 	/**
 	 * Executes the command.
-	 * 
+	 *
 	 * @access  public
 	 * @param   boolean  $force  Force the schema reset?
 	 */
@@ -59,7 +59,7 @@ class Reset extends Command
 		}
 
 		$this->nl();
-		
+
 		$this->write('Ok, no action was performed.');
 	}
 }

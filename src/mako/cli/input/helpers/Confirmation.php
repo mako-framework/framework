@@ -22,7 +22,7 @@ class Confirmation extends Question
 {
 	/**
 	 * Input instance.
-	 * 
+	 *
 	 * @var \mako\cli\input\Input
 	 */
 
@@ -30,7 +30,7 @@ class Confirmation extends Question
 
 	/**
 	 * Output instance.
-	 * 
+	 *
 	 * @var \mako\cli\output\Output
 	 */
 
@@ -38,7 +38,7 @@ class Confirmation extends Question
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\input\Input    $input   Input instance
 	 * @param   \mako\cli\output\Output  $output  Output instance
@@ -53,7 +53,7 @@ class Confirmation extends Question
 
 	/**
 	 * Returns an array where all array keys lower case.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $array  Array
 	 * @return  array
@@ -73,7 +73,7 @@ class Confirmation extends Question
 
 	/**
 	 * Returns a slash-separated list of valid options where the default one is highlighted as upper-case.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array   $options  Answer options
 	 * @param   string  $default  Default answer
@@ -94,7 +94,7 @@ class Confirmation extends Question
 
 	/**
 	 * Asks user for confirmation and returns value corresponding to the chosen value.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $question  Question to ask
 	 * @param   string   $default   Default answer
@@ -109,7 +109,7 @@ class Confirmation extends Question
 		$input = parent::ask(trim($question) . ' [' . $this->getOptions($options, $default) . '] ');
 
 		$input = mb_strtolower(empty($input) ? $default : $input);
-		
+
 		if(!isset($options[$input]))
 		{
 			return $this->ask($question, $default, $options);

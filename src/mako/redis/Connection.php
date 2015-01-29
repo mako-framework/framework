@@ -27,7 +27,7 @@ class Connection
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $host  Redis host
 	 * @param   string  $port  Redis port
@@ -53,13 +53,13 @@ class Connection
 	{
 		if(is_resource($this->connection))
 		{
-			fclose($this->connection);	
+			fclose($this->connection);
 		}
 	}
 
 	/**
 	 * Gets line from the resource.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string|false
 	 */
@@ -71,7 +71,7 @@ class Connection
 
 	/**
 	 * Reads n bytes from the resource.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int           $bytes  Number of bytes to read
 	 * @return  string|false
@@ -84,7 +84,7 @@ class Connection
 
 	/**
 	 * Writes data to the resource.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string     $data  Data to write
 	 * @return  int|false

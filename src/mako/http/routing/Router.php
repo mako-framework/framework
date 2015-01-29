@@ -16,7 +16,7 @@ use mako\http\exceptions\MethodNotAllowedException;
 
 /**
  * Router.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -24,7 +24,7 @@ class Router
 {
 	/**
 	 * Route collection.
-	 * 
+	 *
 	 * @var \mako\http\routing\Routes
 	 */
 
@@ -32,7 +32,7 @@ class Router
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\http\routing\Routes  $routes   Routes
 	 */
@@ -44,7 +44,7 @@ class Router
 
 	/**
 	 * Returns a route with a closure action that redirects to the correct URL.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                    $requestPath  The requested path
 	 * @return  \mako\http\routing\Route
@@ -69,7 +69,7 @@ class Router
 
 	/**
 	 * Returns an array of all allowed request methods for the requested route.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $requestPath  The requested path
 	 * @return  array
@@ -92,7 +92,7 @@ class Router
 
 	/**
 	 * Returns a route with a closure action that sets the allow header.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string                    $requestPath  The requested path
 	 * @return  \mako\http\routing\Route
@@ -110,7 +110,7 @@ class Router
 
 	/**
 	 * Returns TRUE if the route matches the request path and FALSE if not.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \mako\http\routing\Route  $route       Route
 	 * @param   string                    $path        Request path
@@ -138,7 +138,7 @@ class Router
 
 	/**
 	 * Matches and returns the appropriate route along with its parameters.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\http\Request  $request  Request
 	 * @return  array
@@ -196,7 +196,7 @@ class Router
 		else
 		{
 			// No routes matched so we'll throw a 404 exception
-			
+
 			throw new NotFoundException($requestMethod . ': ' . $requestPath);
 		}
 	}

@@ -19,7 +19,7 @@ use mako\view\ViewFactory;
 
 /**
  * Web handler.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -27,7 +27,7 @@ class WebHandler extends Handler
 {
 	/**
 	 * Source padding.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -35,7 +35,7 @@ class WebHandler extends Handler
 
 	/**
 	 * Request instance.
-	 * 
+	 *
 	 * @var \mako\http\Request
 	 */
 
@@ -43,7 +43,7 @@ class WebHandler extends Handler
 
 	/**
 	 * Response instance.
-	 * 
+	 *
 	 * @var \mako\http\Response
 	 */
 
@@ -51,7 +51,7 @@ class WebHandler extends Handler
 
 	/**
 	 * View factory.
-	 * 
+	 *
 	 * @var \mako\view\ViewFactory
 	 */
 
@@ -59,7 +59,7 @@ class WebHandler extends Handler
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \Exception              $exception  Exception
 	 * @param   \mako\http\Request      $request    Request instance
@@ -82,7 +82,7 @@ class WebHandler extends Handler
 
 	/**
 	 * Should we return the error as JSON?
-	 * 
+	 *
 	 * @access  protected
 	 * @return  boolean
 	 */
@@ -96,7 +96,7 @@ class WebHandler extends Handler
 
 	/**
 	 * Returns the source code of a trace frame.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $file     File path
 	 * @param   int        $line     Frame line
@@ -132,13 +132,13 @@ class WebHandler extends Handler
 		}
 
 		fclose($handle);
-		
+
 		return $lines;
 	}
 
 	/**
 	 * Fixes the argument data and optionally ads source to each frame.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $trace      Exception trace
 	 * @param   boolean    $addSource  Add source code to each frame?
@@ -177,7 +177,7 @@ class WebHandler extends Handler
 
 	/**
 	 * Returns a detailed error page.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   boolean    $returnAsJson  Should we return JSON?
 	 * @return  string
@@ -201,7 +201,7 @@ class WebHandler extends Handler
 
 		// Return the error details
 
-		$data = 
+		$data =
 		[
 			'type'    => $this->determineExceptionType($this->exception),
 			'code'    => $this->exception->getCode(),
@@ -232,7 +232,7 @@ class WebHandler extends Handler
 
 	/**
 	 * Retruns a generic error page.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   boolean    $returnAsJson  Should we return JSON?
 	 * @return  string

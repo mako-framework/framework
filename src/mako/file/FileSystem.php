@@ -20,7 +20,7 @@ class FileSystem
 {
 	/**
 	 * Mime types.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -98,7 +98,7 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if a file exists and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $file  Path to file
 	 * @return  boolean
@@ -111,7 +111,7 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if the provided path is a file and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $file  Path to file
 	 * @return  boolean
@@ -124,7 +124,7 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if the provided path is a directory and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $directory  Path to directory
 	 * @return  boolean
@@ -137,7 +137,7 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if a directory is empty and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $path  Path to directory
 	 * @return  boolean
@@ -160,7 +160,7 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if the file is readable and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $file  Path to file
 	 * @return  boolean
@@ -173,7 +173,7 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if the file or directory is writable and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $file  Path to file
 	 * @return  boolean
@@ -186,7 +186,7 @@ class FileSystem
 
 	/**
 	 * Returns the time (unix timestamp) the file was last modified.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $file  Path to file
 	 * @return  int
@@ -199,7 +199,7 @@ class FileSystem
 
 	/**
 	 * Returns the fize of the file in bytes.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $file  Path to file
 	 * @return  int
@@ -212,7 +212,7 @@ class FileSystem
 
 	/**
 	 * Returns the extention of the file.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $file  Path to file
 	 * @return  string
@@ -225,7 +225,7 @@ class FileSystem
 
 	/**
 	 * Returns the mime type of the file.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $file  Path to file
 	 * @param   boolean  $guess  (optinal) Guess mime type if finfo_open doesn't exist?
@@ -265,7 +265,7 @@ class FileSystem
 
 	/**
 	 * Deletes the file from disk.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $file  Path to file
 	 * @return  boolean
@@ -278,7 +278,7 @@ class FileSystem
 
 	/**
 	 * Deletes a directory and its contents from disk.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $path  Path to directory
 	 * @return  boolean
@@ -305,7 +305,7 @@ class FileSystem
 
 	/**
 	 * Returns an array of pathnames matching the provided pattern.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string       $pattern  Patern
 	 * @param   int          $flags    Flags
@@ -319,7 +319,7 @@ class FileSystem
 
 	/**
 	 * Returns the contents of the file.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string          $file  File path
 	 * @return  string|boolean
@@ -332,7 +332,7 @@ class FileSystem
 
 	/**
 	 * Writes the supplied data to a file.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string       $file  File path
 	 * @param   mixed        $data  File data
@@ -347,7 +347,7 @@ class FileSystem
 
 	/**
 	 * Prepends the supplied data to a file.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string       $file  File path
 	 * @param   mixed        $data  File data
@@ -362,7 +362,7 @@ class FileSystem
 
 	/**
 	 * Appends the supplied data to a file.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string       $file  File path
 	 * @param   mixed        $data  File data
@@ -377,7 +377,7 @@ class FileSystem
 
 	/**
 	 * Truncates a file.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $file  File path
 	 * @param   boolean  $lock  Acquire an exclusive write lock?
@@ -391,7 +391,7 @@ class FileSystem
 
 	/**
 	 *  Creates a directory.
-	 * 
+	 *
 	 *  @access  public
 	 *  @param   string   $path      Path to directory
 	 *  @param   int      $mode      Mode
@@ -406,7 +406,7 @@ class FileSystem
 
 	/**
 	 * Includes a file.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $file  Path to file
 	 * @return  mixed
@@ -419,7 +419,7 @@ class FileSystem
 
 	/**
 	 * Includes a file it hasn't already been included.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $file  Path to file
 	 * @return  mixed
@@ -432,7 +432,7 @@ class FileSystem
 
 	/**
 	 * Requires a file.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $file  Path to file
 	 * @return  mixed
@@ -445,7 +445,7 @@ class FileSystem
 
 	/**
 	 * Requires a file if it hasn't already been required.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $file  Path to file
 	 * @return  mixed
@@ -458,7 +458,7 @@ class FileSystem
 
 	/**
 	 * Returns a SplFileObject.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string          $file            Path to file
 	 * @param   string          $openMode        Open mode

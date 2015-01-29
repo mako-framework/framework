@@ -28,7 +28,7 @@ class Response
 {
 	/**
 	 * Request instance.
-	 * 
+	 *
 	 * @var \mako\http\Request
 	 */
 
@@ -36,23 +36,23 @@ class Response
 
 	/**
 	 * Signer instance.
-	 * 
+	 *
 	 * @var \mako\security\Signer
 	 */
 
 	protected $signer;
-	
+
 	/**
 	 * Response body.
 	 *
 	 * @var mixed
 	 */
-	
+
 	protected $body;
 
 	/**
 	 * Response content type.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -60,7 +60,7 @@ class Response
 
 	/**
 	 * Response charset.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -68,7 +68,7 @@ class Response
 
 	/**
 	 * Status code.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -76,7 +76,7 @@ class Response
 
 	/**
 	 * Response headers.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -84,7 +84,7 @@ class Response
 
 	/**
 	 * Cookies.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -92,7 +92,7 @@ class Response
 
 	/**
 	 * Compress output?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -100,7 +100,7 @@ class Response
 
 	/**
 	 * Enable response cache?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -111,25 +111,25 @@ class Response
 	 *
 	 * @var array
 	 */
-	
+
 	protected $outputFilters = [];
-	
+
 	/**
 	 * HTTP status codes.
 	 *
 	 * @var array
 	 */
-	
-	protected $statusCodes = 
+
+	protected $statusCodes =
 	[
 		// 1xx Informational
-		
+
 		100 => 'Continue',
 		101 => 'Switching Protocols',
 		102 => 'Processing',
-		
+
 		// 2xx Success
-		
+
 		200 => 'OK',
 		201 => 'Created',
 		202 => 'Accepted',
@@ -138,9 +138,9 @@ class Response
 		205 => 'Reset Content',
 		206 => 'Partial Content',
 		207 => 'Multi-Status',
-		
+
 		// 3xx Redirection
-		
+
 		300 => 'Multiple Choices',
 		301 => 'Moved Permanently',
 		302 => 'Found',
@@ -150,9 +150,9 @@ class Response
 		//306 => 'Switch Proxy',
 		307 => 'Temporary Redirect',
 		308 => 'Permanent Redirect',
-		
+
 		// 4xx Client Error
-		
+
 		400 => 'Bad Request',
 		401 => 'Unauthorized',
 		402 => 'Payment Required',
@@ -182,9 +182,9 @@ class Response
 		449 => 'Retry With',
 		450 => 'Blocked by Windows Parental Controls',
 		498 => 'Invalid or expired token',
-		
+
 		// 5xx Server Error
-		
+
 		500 => 'Internal Server Error',
 		501 => 'Not Implemented',
 		502 => 'Bad Gateway',
@@ -198,7 +198,7 @@ class Response
 		511 => 'Network Authentication Required',
 		530 => 'User access denied',
 	];
-	
+
 	/**
 	 * Constructor.
 	 *
@@ -207,7 +207,7 @@ class Response
 	 * @param   string                 $charset  Response charset
 	 * @param   \mako\security\Signer  $signer   Signer instance used to sign cookies
 	 */
-	
+
 	public function __construct(Request $request, $charset = 'UTF-8', Signer $signer = null)
 	{
 		$this->request = $request;
@@ -216,7 +216,7 @@ class Response
 
 		$this->signer = $signer;
 	}
-	
+
 	/**
 	 * Sets the response body.
 	 *
@@ -253,7 +253,7 @@ class Response
 
 	/**
 	 * Returns the response body.
-	 * 
+	 *
 	 * @access  public
 	 * @return  mixed
 	 */
@@ -265,7 +265,7 @@ class Response
 
 	/**
 	 * Clears the response body.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
@@ -279,7 +279,7 @@ class Response
 
 	/**
 	 * Sets the response content type.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                $contentType  Content type
 	 * @param   string                $charset      Charset
@@ -300,7 +300,7 @@ class Response
 
 	/**
 	 * Returns the response content type.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -312,7 +312,7 @@ class Response
 
 	/**
 	 * Sets the response charset.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string               $charset  Charset
 	 * @return  \mako\http\Response
@@ -327,7 +327,7 @@ class Response
 
 	/**
 	 * Returns the response charset.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -344,7 +344,7 @@ class Response
 	 * @param   int                  $statusCode  HTTP status code
 	 * @return  \mako\http\Response
 	 */
-	
+
 	public function status($statusCode)
 	{
 		if(isset($this->statusCodes[$statusCode]))
@@ -357,7 +357,7 @@ class Response
 
 	/**
 	 * Returns the HTTP status code.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -366,7 +366,7 @@ class Response
 	{
 		return $this->statusCode;
 	}
-	
+
 	/**
 	 * Adds output filter that all output will be passed through before being sent.
 	 *
@@ -374,7 +374,7 @@ class Response
 	 * @param   \Closure             $filter  Closure used to filter output
 	 * @return  \mako\http\Response
 	 */
-	
+
 	public function filter(Closure $filter)
 	{
 		$this->outputFilters[] = $filter;
@@ -384,7 +384,7 @@ class Response
 
 	/**
 	 * Returns the response filters.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -396,7 +396,7 @@ class Response
 
 	/**
 	 * Clears all output filters.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
@@ -410,7 +410,7 @@ class Response
 
 	/**
 	 * Sets a response header.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string               $name   Header name
 	 * @param   string               $value  Header value
@@ -426,7 +426,7 @@ class Response
 
 	/**
 	 * Removes a response header.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string               $name   Header name
 	 * @return  \mako\http\Response
@@ -441,7 +441,7 @@ class Response
 
 	/**
 	 * Returns the response headers.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -453,7 +453,7 @@ class Response
 
 	/**
 	 * Clear the response headers.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
@@ -504,7 +504,7 @@ class Response
 		{
 			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to read signed cookies.", [__METHOD__]));
 		}
-		
+
 		return $this->cookie($name, $this->signer->sign($value), $ttl, $options);
 	}
 
@@ -524,7 +524,7 @@ class Response
 
 	/**
 	 * Returns the response cookies.
-	 * 
+	 *
 	 * @access  public
 	 * @return array
 	 */
@@ -536,7 +536,7 @@ class Response
 
 	/**
 	 * Clear cookies.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
@@ -550,7 +550,7 @@ class Response
 
 	/**
 	 * Clears the response body, filters, cookies and headers.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
@@ -567,7 +567,7 @@ class Response
 
 	/**
 	 * Sends response headers.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -635,7 +635,7 @@ class Response
 
 	/**
 	 * Enables output compression.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
@@ -649,7 +649,7 @@ class Response
 
 	/**
 	 * Disables output compression.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
@@ -663,7 +663,7 @@ class Response
 
 	/**
 	 * Returns a file container.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                    $file     File path
 	 * @param   array                     $options  Options
@@ -677,7 +677,7 @@ class Response
 
 	/**
 	 * Returns a stream container.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \Closure                    $stream  Stream
 	 * @return  \mako\http\response\Stream
@@ -695,7 +695,7 @@ class Response
 	 * @param   string                        $location  Location
 	 * @return  \mako\http\response\Redirect
 	 */
-	
+
 	public function redirect($location)
 	{
 		return new Redirect($location);
@@ -703,7 +703,7 @@ class Response
 
 	/**
 	 * Redirects the user back to the previous page.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int     $statusCode  HTTP status code
 	 */
@@ -712,18 +712,18 @@ class Response
 	{
 		return $this->redirect($this->request->referer())->status($statusCode);
 	}
-	
+
 	/**
 	 * Send output to browser.
 	 *
 	 * @access  public
 	 */
-	
+
 	public function send()
 	{
 		if($this->body instanceof ResponseContainerInterface)
 		{
-			// This is a response container so we'll just pass it the 
+			// This is a response container so we'll just pass it the
 			// request and response instances and let it handle the rest itself
 
 			$this->body->send($this->request, $this);
@@ -739,7 +739,7 @@ class Response
 				ob_start();
 			}
 
-			// Cast body to string so that everything is rendered 
+			// Cast body to string so that everything is rendered
 			// before running through response filters
 
 			$this->body = (string) $this->body;

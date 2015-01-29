@@ -21,7 +21,7 @@ class UserProvider implements UserProviderInterface
 {
 	/**
 	 * Model.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -29,7 +29,7 @@ class UserProvider implements UserProviderInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $model  Model class
 	 */

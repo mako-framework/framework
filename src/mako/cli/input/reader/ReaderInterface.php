@@ -17,7 +17,7 @@ interface ReaderInterface
 {
 	/**
 	 * Reads and returns user input.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */

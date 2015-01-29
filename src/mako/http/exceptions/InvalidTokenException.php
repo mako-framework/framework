@@ -21,7 +21,7 @@ class InvalidTokenException extends RequestException
 {
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $message      Exception message
 	 * @param   \Exception $previous  Previous exception

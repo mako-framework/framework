@@ -13,9 +13,9 @@ use mako\syringe\Container;
 
 /**
  * Container aware trait.
- * 
+ *
  * @author  Frederic G. Østby
- * 
+ *
  * @property  \mako\application\Application        $app
  * @property  \mako\file\FileSystem                $fileSystem
  * @property  \mako\config\Config                  $config
@@ -43,7 +43,7 @@ trait ContainerAwareTrait
 {
 	/**
 	 * IoC container instance.
-	 * 
+	 *
 	 * @var \mako\syringe\Container
 	 */
 
@@ -51,7 +51,7 @@ trait ContainerAwareTrait
 
 	/**
 	 * Array of resolved objects and/or references to resolved objects.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -59,7 +59,7 @@ trait ContainerAwareTrait
 
 	/**
 	 * Sets the container instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\syringe\Container  $container  IoC container instance
 	 */
@@ -71,7 +71,7 @@ trait ContainerAwareTrait
 
 	/**
 	 * Resolves item from the container using overloading.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $key  Key
 	 * @return  mixed

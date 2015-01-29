@@ -11,7 +11,7 @@ use mako\application\cli\commands\migrations\Command;
 
 /**
  * Command that checks if there are any outstanding migrations.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -19,11 +19,11 @@ class Status extends Command
 {
 	/**
 	 * Command information.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $commandInformation = 
+	protected $commandInformation =
 	[
 		'description' => 'Checks if there are any outstanding migrations.',
 		'arguments'   => [],
@@ -32,7 +32,7 @@ class Status extends Command
 
 	/**
 	 * Executes the command.
-	 * 
+	 *
 	 * @access  public
 	 */
 

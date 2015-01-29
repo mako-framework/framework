@@ -24,7 +24,7 @@ class ValidatorFactoryService extends Service
 {
 	/**
 	 * Registers plugins.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \mako\validator\ValidatorFactory  $validatorFactory  Validator factory instance
 	 */
@@ -45,7 +45,7 @@ class ValidatorFactoryService extends Service
 			$validatorFactory->registerPlugin(new DatabaseUniqueValidator($this->container->get('database')));
 		}
 	}
-	
+
 	/**
 	 * {@inheritdoc}
 	 */

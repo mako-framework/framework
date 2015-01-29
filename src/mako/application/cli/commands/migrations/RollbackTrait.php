@@ -9,7 +9,7 @@ namespace mako\application\cli\commands\migrations;
 
 /**
  * Rollback trait.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -17,7 +17,7 @@ trait RollbackTrait
 {
 	/**
 	 * Returns an array of migrations to roll back.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   int        $batches  Number of batches to roll back
 	 * @return  array
@@ -37,7 +37,7 @@ trait RollbackTrait
 
 	/**
 	 * Rolls back n batches.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $batches  Number of batches to roll back
 	 */

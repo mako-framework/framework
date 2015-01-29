@@ -13,8 +13,8 @@ use mako\redis\RedisException;
 use mako\utility\Str;
 
 /**
- * Redis client. 
- * 
+ * Redis client.
+ *
  * Based on the protocol specification at http://redis.io/topics/protocol.
  *
  * @author  Frederic G. Østby
@@ -179,13 +179,13 @@ class Redis
 	 * @access  public
 	 * @param   string  $name       Command name
 	 * @param   array   $arguments  Command arguments
-	 * @return  mixed  
+	 * @return  mixed
 	 */
 
 	public function __call($name, $arguments)
 	{
 		// Build command
-		
+
 		$arguments = array_merge(explode(' ', strtoupper(str_replace('_', ' ', Str::camel2underscored($name)))), $arguments);
 
 		$command = '*' . count($arguments) . static::CRLF;

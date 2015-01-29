@@ -29,7 +29,7 @@ interface StoreInterface
 
 	/**
 	 * Returns TRUE if the cache key exists and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $key  Cache key
 	 * @return  boolean

@@ -22,7 +22,7 @@ class Crypto
 {
 	/**
 	 * Cache adapter.
-	 * 
+	 *
 	 * @var \mako\security\crypto\encrypters\EncrypterInterface
 	 */
 
@@ -30,7 +30,7 @@ class Crypto
 
 	/**
 	 * Signer.
-	 * 
+	 *
 	 * @var \mako\security\Signer
 	 */
 
@@ -38,7 +38,7 @@ class Crypto
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\security\crypto\encrypters\EncrypterInterface  $adapter  Crypto adapter
 	 * @param   \mako\security\Signer                                $signer   Signer instance.
@@ -53,7 +53,7 @@ class Crypto
 
 	/**
 	 * Sets the signer instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\security\Signer  $signer  Signer instance
 	 */
@@ -70,7 +70,7 @@ class Crypto
 	 * @param   string  $string  String to encrypt
 	 * @return  string
 	 */
-	
+
 	public function encrypt($string)
 	{
 		return $this->adapter->encrypt($string);
@@ -83,7 +83,7 @@ class Crypto
 	 * @param   string         $string  String to decrypt
 	 * @return  string|boolean
 	 */
-	
+
 	public function decrypt($string)
 	{
 		return $this->adapter->decrypt($string);
@@ -91,7 +91,7 @@ class Crypto
 
 	/**
 	 * Encrypts and signs string.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $string  String to encrypt
 	 * @return  string

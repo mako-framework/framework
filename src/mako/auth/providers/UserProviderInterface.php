@@ -19,7 +19,7 @@ interface UserProviderInterface
 {
 	/**
 	 * Creates and returns a user.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                         $email     Email address
 	 * @param   string                         $username  Username
@@ -32,7 +32,7 @@ interface UserProviderInterface
 
 	/**
 	 * Fetches a user by its action token.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                                 $token  Action token
 	 * @return  \mako\auth\user\UserInterface|boolean
@@ -42,7 +42,7 @@ interface UserProviderInterface
 
 	/**
 	 * Fetches a user by its access token.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                                 $token  Access token
 	 * @return  \mako\auth\user\UserInterface|boolean
@@ -52,7 +52,7 @@ interface UserProviderInterface
 
 	/**
 	 * Fetches a user by its email address.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                                 $email  Email address
 	 * @return  \mako\auth\user\UserInterface|boolean
@@ -62,7 +62,7 @@ interface UserProviderInterface
 
 	/**
 	 * Fetches a user by its username.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                                 $username  Username
 	 * @return  \mako\auth\user\UserInterface|boolean
@@ -72,7 +72,7 @@ interface UserProviderInterface
 
 	/**
 	 * Fetches a user by its id.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                                 $id  User id
 	 * @return  \mako\auth\user\UserInterface|boolean
@@ -82,12 +82,12 @@ interface UserProviderInterface
 
 	/**
 	 * Validates a user password.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\auth\user\UserInterface  $user      User object
 	 * @param   string                         $password  Password
 	 * @return  boolean
 	 */
-	
+
 	public function validatePassword(UserInterface $user, $password);
 }

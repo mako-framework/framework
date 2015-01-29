@@ -23,7 +23,7 @@ class Pagination
 {
 	/**
 	 * Request instance.
-	 * 
+	 *
 	 * @var \mako\http\Request
 	 */
 
@@ -31,7 +31,7 @@ class Pagination
 
 	/**
 	 * Number of items.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -39,11 +39,11 @@ class Pagination
 
 	/**
 	 * Configuration.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $config = 
+	protected $config =
 	[
 		'page_key'       => 'page',
 		'max_page_links' => 5,
@@ -52,7 +52,7 @@ class Pagination
 
 	/**
 	 * URL builder instance.
-	 * 
+	 *
 	 * @var \mako\http\request\URLBuilder
 	 */
 
@@ -60,7 +60,7 @@ class Pagination
 
 	/**
 	 * View factory instance.
-	 * 
+	 *
 	 * @var \mako\view\ViewFactory
 	 */
 
@@ -92,7 +92,7 @@ class Pagination
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\http\Request             $request      Request
 	 * @param   int                            $count        Item count
@@ -128,7 +128,7 @@ class Pagination
 
 	/**
 	 * Returns the total amount of pages.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -140,7 +140,7 @@ class Pagination
 
 	/**
 	 * Returns the current page.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -152,7 +152,7 @@ class Pagination
 
 	/**
 	 * Returns the limit.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -176,7 +176,7 @@ class Pagination
 
 	/**
 	 * Builds and returns the pagination array.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -233,7 +233,7 @@ class Pagination
 
 		for($i = $start + 1; $i <= $end; $i++)
 		{
-			$pagination['pages'][] = 
+			$pagination['pages'][] =
 			[
 				'url'        => $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => $i])),
 				'number'     => $i,
@@ -246,7 +246,7 @@ class Pagination
 
 	/**
 	 * Renders and returns the pagination partial.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $view  Pagination view
 	 * @return  string

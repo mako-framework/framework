@@ -20,17 +20,17 @@ use mako\syringe\ContainerAwareTrait;
 
 /**
  * Base command.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
 abstract class Command
 {
 	use ContainerAwareTrait;
-	
+
 	/**
 	 * Input.
-	 * 
+	 *
 	 * @var \mako\cli\input\Input
 	 */
 
@@ -38,7 +38,7 @@ abstract class Command
 
 	/**
 	 * Output.
-	 * 
+	 *
 	 * @var \mako\cli\output\Output
 	 */
 
@@ -46,11 +46,11 @@ abstract class Command
 
 	/**
 	 * Command information.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $commandInformation = 
+	protected $commandInformation =
 	[
 		'description' => '',
 		'arguments'   => [],
@@ -59,7 +59,7 @@ abstract class Command
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\input\Input    $input   Input
 	 * @param   \mako\cli\output\Output  $output  Output
@@ -79,7 +79,7 @@ abstract class Command
 
 	/**
 	 * Returns the command description.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string|null
 	 */
@@ -91,7 +91,7 @@ abstract class Command
 
 	/**
 	 * Draws an info table.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $items  Items
 	 */
@@ -112,7 +112,7 @@ abstract class Command
 
 	/**
 	 * Displays command details.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -161,7 +161,7 @@ abstract class Command
 
 	/**
 	 * Writes n newlines to output.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   int        $lines   Number of newlines to write
 	 * @param   int        $writer  Output writer
@@ -174,7 +174,7 @@ abstract class Command
 
 	/**
 	 * Writes string to output.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $string  String to write
 	 * @param   int        $writer  Output writer
@@ -187,7 +187,7 @@ abstract class Command
 
 	/**
 	 * Writes string to output using the error writer.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $string  String to write
 	 */
@@ -199,7 +199,7 @@ abstract class Command
 
 	/**
 	 * Rings the terminal bell n times.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   int        $times  Number of times to ring the bell
 	 */
@@ -223,7 +223,7 @@ abstract class Command
 
 	/**
 	 * Draws a progress bar and returns a progress bar instance.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   int                                  $items       Total number of items
 	 * @param   int                                  $redrawRate  Redraw rate
@@ -245,7 +245,7 @@ abstract class Command
 
 	/**
 	 * Draws a table.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array      $columnNames  Array of column names
 	 * @param   array      $rows         Array of rows
@@ -259,7 +259,7 @@ abstract class Command
 
 	/**
 	 * Writes question to output and returns boolesn value corresponding to the chosen value.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $question  Question to ask
 	 * @param   string     $default   Default answer
@@ -273,7 +273,7 @@ abstract class Command
 
 	/**
 	 * Writes question to output and returns user input.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered
@@ -287,7 +287,7 @@ abstract class Command
 
 	/**
 	 * Writes question to output and returns hidden user input.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered

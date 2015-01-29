@@ -12,7 +12,7 @@ use mako\reactor\Command;
 
 /**
  * Server command.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -20,27 +20,27 @@ class Server extends Command
 {
 	/**
 	 * Command information.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $commandInformation = 
+	protected $commandInformation =
 	[
 		'description' => 'Starts the local development server.',
 		'arguments'   => [],
-		'options'     => 
+		'options'     =>
 		[
-			'port' => 
+			'port' =>
 			[
 				'optional'    => true,
 				'description' => 'Port to run the server on',
 			],
-			'address' => 
+			'address' =>
 			[
 				'optional'    => true,
 				'description' => 'Address to run the server on',
 			],
-			'docroot' => 
+			'docroot' =>
 			[
 				'optional'    => true,
 				'description' => 'Path to the document root',
@@ -50,7 +50,7 @@ class Server extends Command
 
 	/**
 	 * Executes the command.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\application\Application  $application  Application instance
 	 * @param   int                            $port         Port

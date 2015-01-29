@@ -19,23 +19,23 @@ class Signer
 {
 	/**
 	 * MAC length.
-	 * 
+	 *
 	 * @var int
 	 */
 
 	const MAC_LENGTH = 64;
-	
+
 	/**
 	 * Secret used to sign and validate strings.
-	 * 
+	 *
 	 * @var string
 	 */
 
 	protected $secret;
-	
+
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $secret  Secret used to sign and validate strings
 	 */
@@ -44,10 +44,10 @@ class Signer
 	{
 		$this->secret = $secret;
 	}
-	
+
 	/**
 	 * Returns the signature.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $string  The string you want to sign
 	 * @return  string
@@ -57,10 +57,10 @@ class Signer
 	{
 		return hash_hmac('sha256', $string, $this->secret);
 	}
-	
+
 	/**
 	 * Returns a signed string.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $string  The string you want to sign
 	 * @return  string
@@ -73,7 +73,7 @@ class Signer
 
 	/**
 	 * Returns the original string if the signature is valid or FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string          $string  The string you want to validate
 	 * @return  string|boolean

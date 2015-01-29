@@ -18,39 +18,39 @@ use mako\pixl\processors\ProcessorInterface;
  */
 
 class Image
-{	
+{
 	/**
 	 * Resizing constraint.
 	 *
 	 * @var int
 	 */
-	
+
 	const RESIZE_IGNORE = 10;
-	
+
 	/**
 	 * Resizing constraint.
 	 *
 	 * @var int
 	 */
-	
+
 	const RESIZE_AUTO = 11;
-	
+
 	/**
 	 * Resizing constraint.
 	 *
 	 * @var int
 	 */
-	
+
 	const RESIZE_WIDTH = 12;
-	
+
 	/**
 	 * Resizing constraint.
 	 *
 	 * @var int
 	 */
-	
+
 	const RESIZE_HEIGHT = 13;
-	
+
 	/**
 	 * Watermark position.
 	 *
@@ -58,58 +58,58 @@ class Image
 	 */
 
 	const WATERMARK_TOP_LEFT = 20;
-	
+
 	/**
 	 * Watermark position.
 	 *
 	 * @var int
 	 */
-	
+
 	const WATERMARK_TOP_RIGHT = 21;
-	
+
 	/**
 	 * Watermark position.
 	 *
 	 * @var int
 	 */
-	
+
 	const WATERMARK_BOTTOM_LEFT = 22;
-	
+
 	/**
 	 * Watermark position.
 	 *
 	 * @var int
 	 */
-	
+
 	const WATERMARK_BOTTOM_RIGHT = 23;
-	
+
 	/**
 	 * Watermark position.
 	 *
 	 * @var int
 	 */
-	
+
 	const WATERMARK_CENTER = 24;
-	
+
 	/**
 	 * Flip direction.
 	 *
 	 * @var int
 	 */
-	
+
 	const FLIP_VERTICAL = 30;
-	
+
 	/**
 	 * Flip direction.
 	 *
 	 * @var int
 	 */
-	
+
 	const FLIP_HORIZONTAL = 31;
 
 	/**
 	 * Processor instance.
-	 * 
+	 *
 	 * @var \mako\pixl\processors\ProcessorInterface
 	 */
 
@@ -117,7 +117,7 @@ class Image
 
 	/**
 	 * Path to image file.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -152,7 +152,7 @@ class Image
 
 	/**
 	 * Makes sure that the quality is between 1 and 100.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   int        $quality  Image quality
 	 * @return  int
@@ -165,7 +165,7 @@ class Image
 
 	/**
 	 * Creates a snapshot of the image.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -176,7 +176,7 @@ class Image
 
 	/**
 	 * Retstores the image snapshot.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -201,7 +201,7 @@ class Image
 	}
 
 	/**
-	 * Resizes the image to the chosen size. 
+	 * Resizes the image to the chosen size.
 	 *
 	 * @param   int               $width        Width of the image
 	 * @param   int               $height       Height of the image
@@ -237,7 +237,7 @@ class Image
 	/**
 	 * Flips the image.
 	 *
-	 * @access  public  
+	 * @access  public
 	 * @param   int               $direction  Direction to flip the image
 	 * @return  \mako\pixl\Image
 	 */
@@ -267,9 +267,9 @@ class Image
 		{
 			throw new RuntimeException(vsprintf("%s(): The watermark image [ %s ] does not exist.", [__METHOD__, $file]));
 		}
-		
+
 		// Make sure that opacity is between 0 and 100
-		
+
 		$opacity = max(min((int) $opacity, 100), 0);
 
 		// Add watermark to the image
@@ -281,7 +281,7 @@ class Image
 
 	/**
 	 * Adjust image brightness.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int               $level  Brightness level (-100 to 100)
 	 * @return  \mako\pixl\Image
@@ -345,7 +345,7 @@ class Image
 
 	/**
 	 * Sharpens the image.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -403,7 +403,7 @@ class Image
 
 	/**
 	 * Returns a string containing the image.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $type     Image type
 	 * @param   int     $quality  Image quality 1-100
@@ -426,7 +426,7 @@ class Image
 	public function save($file = null, $quality = 95)
 	{
 		$file = $file ?: $this->image;
-		
+
 		// Mage sure that the file or directory is writable
 
 		if(file_exists($file))

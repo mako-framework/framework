@@ -12,7 +12,7 @@ use mako\application\cli\commands\migrations\RollbackTrait;
 
 /**
  * Command that rolls back the last batch of migrations.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -22,17 +22,17 @@ class Down extends Command
 
 	/**
 	 * Command information.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $commandInformation = 
+	protected $commandInformation =
 	[
 		'description' => 'Rolls back the last batch of migrations.',
 		'arguments'   => [],
-		'options'     => 
+		'options'     =>
 		[
-			'batches' => 
+			'batches' =>
 			[
 				'optional'    => true,
 				'description' => 'Number of batches to roll back'
@@ -42,7 +42,7 @@ class Down extends Command
 
 	/**
 	 * Executes the command.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $batches  Number of batches to roll back
 	 */

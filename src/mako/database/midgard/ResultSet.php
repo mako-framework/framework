@@ -20,7 +20,7 @@ class ResultSet extends Collection
 {
 	/**
 	 * Clones all items when cloning the collection.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -34,7 +34,7 @@ class ResultSet extends Collection
 
 	/**
 	 * Returns an array containing only the values of chosen column.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $column  Column name
 	 * @return  array
@@ -47,7 +47,7 @@ class ResultSet extends Collection
 
 	/**
 	 * Returns an array representation of the result set.
-	 * 
+	 *
 	 * @access  public
 	 * @param   boolean  $protect  Protect columns?
 	 * @param   boolean  $raw      Get raw values?
@@ -68,7 +68,7 @@ class ResultSet extends Collection
 
 	/**
 	 * Returns a json representation of the result set.
-	 * 
+	 *
 	 * @access  public
 	 * @param   boolean  $protect  Protect columns?
 	 * @param   boolean  $raw      Get raw values?
@@ -82,7 +82,7 @@ class ResultSet extends Collection
 
 	/**
 	 * Returns a json representation of the result set.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */

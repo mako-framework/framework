@@ -68,7 +68,7 @@ class Time extends DateTime
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $time      A date/time string
 	 * @param   mixed   $timeZone  A valid time zone or a DateTimeZone object
@@ -86,7 +86,7 @@ class Time extends DateTime
 
 	/**
 	 * Returns a new Time object.
-	 * 
+	 *
 	 * @access  public
 	 * @param   mixed              $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
@@ -99,7 +99,7 @@ class Time extends DateTime
 
 	/**
 	 * Returns new Time object according to the specified date.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                $year      Year
 	 * @param   int                $month     Month (1 to 12)
@@ -117,7 +117,7 @@ class Time extends DateTime
 
 	/**
 	 * Returns new Time object according to the specified timestamp.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                $timestamp  Unix timestamp
 	 * @param   string             $timeZone   A valid time zone or a DateTimeZone object
@@ -135,7 +135,7 @@ class Time extends DateTime
 
 	/**
 	 * Returns new Time object according to the specified DOS timestamp.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                $timestamp  DOS timestamp
 	 * @param   string             $timeZone   A valid time zone or a DateTimeZone object
@@ -158,7 +158,7 @@ class Time extends DateTime
 
 	/**
 	 * Returns new Time object formatted according to the specified format.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string             $format    The format that the passed in string should be in
 	 * @param   string             $time      String representing the time
@@ -187,7 +187,7 @@ class Time extends DateTime
 
 	/**
 	 * Sets the time zone for the Time object
-	 * 
+	 *
 	 * @access  public
 	 * @param   mixed              $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
@@ -205,7 +205,7 @@ class Time extends DateTime
 
 	/**
 	 * Move forward in time by x seconds.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                $seconds  Number of seconds
 	 * @return  \mako\chrono\Time
@@ -220,7 +220,7 @@ class Time extends DateTime
 
 	/**
 	 * Move backward in time by x seconds.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                $seconds  Number of seconds
 	 * @return  \mako\chrono\Time
@@ -235,7 +235,7 @@ class Time extends DateTime
 
 	/**
 	 * Returns the DOS timestamp.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -259,7 +259,7 @@ class Time extends DateTime
 
 	/**
 	 * Returns TRUE if the year is a leap year and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -272,20 +272,20 @@ class Time extends DateTime
 		{
 			return true;
 		}
-		 
+
 		return false;
 	}
 
 	/**
 	 * Returns the number of days in the current month.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
 
 	public function daysInMonth()
 	{
-		$days = 
+		$days =
 		[
 			31,
 			$this->isLeapYear() ? 29 : 28,
@@ -300,13 +300,13 @@ class Time extends DateTime
 			30,
 			31
 		];
-		 
+
 		return $days[$this->format('n') - 1];
 	}
 
 	/**
 	 * Returns a formatted date string according to current locale settings.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $format  Date format
 	 * @return  string

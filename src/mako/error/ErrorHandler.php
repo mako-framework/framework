@@ -23,7 +23,7 @@ class ErrorHandler
 {
 	/**
 	 * Is the shutdown handler disabled?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -31,7 +31,7 @@ class ErrorHandler
 
 	/**
 	 * Exception handlers.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -39,7 +39,7 @@ class ErrorHandler
 
 	/**
 	 * Logger instance.
-	 * 
+	 *
 	 * @var \Psr\Log\LoggerInterface
 	 */
 
@@ -47,7 +47,7 @@ class ErrorHandler
 
 	/**
 	 * Exception types that shouldn't be logged.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -58,7 +58,7 @@ class ErrorHandler
 	 *
 	 * @access  public
 	 */
-	
+
 	public function __construct()
 	{
 		// Add a basic exception handler to the stack
@@ -71,7 +71,7 @@ class ErrorHandler
 
 			echo $e->getTraceAsString();
 		});
-		
+
 		// Registers the exception handler
 
 		$this->register();
@@ -79,7 +79,7 @@ class ErrorHandler
 
 	/**
 	 * Registers the exception handler.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -90,7 +90,7 @@ class ErrorHandler
 		register_shutdown_function(function()
 		{
 			$e = error_get_last();
-			
+
 			if($e !== null && (error_reporting() & $e['type']) !== 0 && !$this->disableShutdownHandler)
 			{
 				$this->handler(new ErrorException($e['message'], $e['type'], 0, $e['file'], $e['line']));
@@ -100,13 +100,13 @@ class ErrorHandler
 		});
 
 		// Set the exception handler
-		
+
 		set_exception_handler([$this, 'handler']);
 	}
 
 	/**
 	 * Set logger instance.
-	 * 
+	 *
 	 * @var \Psr\Log\LoggerInterface
 	 */
 
@@ -117,7 +117,7 @@ class ErrorHandler
 
 	/**
 	 * Disables logging for an exception type.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string|array  $exceptionType  Exception type or array of exception types
 	 */
@@ -129,7 +129,7 @@ class ErrorHandler
 
 	/**
 	 * Disables the shutdown handler.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -140,7 +140,7 @@ class ErrorHandler
 
 	/**
 	 * Prepends an exception handler to the stack.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string    $exceptionType  Exception type
 	 * @param   \Closure  $handler        Exception handler
@@ -153,7 +153,7 @@ class ErrorHandler
 
 	/**
 	 * Clears all error handlers for an exception type.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $exceptionType  Exception type
 	 */
@@ -171,7 +171,7 @@ class ErrorHandler
 
 	/**
 	 * Replaces all error handlers for an exception type with a new one.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string    $exceptionType  Exception type
 	 * @param   \Closure  $handler        Exception handler
@@ -186,7 +186,7 @@ class ErrorHandler
 
 	/**
 	 * Clear output buffers.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -197,7 +197,7 @@ class ErrorHandler
 
 	/**
 	 * Should the exception be logged?
-	 * 
+	 *
 	 * @access  public
 	 * @param   \Exception  $exception  An exception object
 	 * @return  boolean
@@ -264,7 +264,7 @@ class ErrorHandler
 
 			// One of the exception handlers failed so we'll just show the user a generic error screen
 
-			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]' . PHP_EOL; 
+			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]' . PHP_EOL;
 		}
 
 		exit(1);

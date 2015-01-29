@@ -20,7 +20,7 @@ class File implements StoreInterface
 {
 	/**
 	 * File system instance.
-	 * 
+	 *
 	 * @var \mako\file\FileSystem
 	 */
 
@@ -28,7 +28,7 @@ class File implements StoreInterface
 
 	/**
 	 * Cache path.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -36,7 +36,7 @@ class File implements StoreInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
 	 * @param   string                 $cachePath   Cache path
@@ -51,7 +51,7 @@ class File implements StoreInterface
 
 	/**
 	 * Returns the path to the cache file.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $key  Cache key
 	 * @return  string
@@ -104,7 +104,7 @@ class File implements StoreInterface
 		if($this->fileSystem->exists($this->cacheFile($key)))
 		{
 			// Cache exists
-			
+
 			$file = $this->fileSystem->file($this->cacheFile($key), 'r');
 
 			if(time() < (int) trim($file->fgets()))

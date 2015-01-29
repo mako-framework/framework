@@ -23,7 +23,7 @@ class Null implements StoreInterface
 
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
-		
+
 	}
 
 	/**
@@ -41,7 +41,7 @@ class Null implements StoreInterface
 
 	public function delete($sessionId)
 	{
-		
+
 	}
 
 	/**
@@ -50,6 +50,6 @@ class Null implements StoreInterface
 
 	public function gc($dataTTL)
 	{
-		
+
 	}
 }

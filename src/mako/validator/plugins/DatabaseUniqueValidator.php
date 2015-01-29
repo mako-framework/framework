@@ -20,7 +20,7 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 {
 	/**
 	 * Rule name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -28,7 +28,7 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 
 	/**
 	 * Connection manager instance.
-	 * 
+	 *
 	 * @var \mako\database\ConnectionManager
 	 */
 
@@ -36,7 +36,7 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
 	 */
@@ -48,7 +48,7 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 
 	/**
 	 * Checks that the value doesn't exist in the database table.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $input   Input
 	 * @param   string   $table   Table name
@@ -60,7 +60,7 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 	public function validate($input, $table, $column, $value = null)
 	{
 		$query = $this->connectionManager->builder()->table($table)->where($column, '=', $input);
-		
+
 		if(!empty($value))
 		{
 			$query->where($column, '!=', $value);

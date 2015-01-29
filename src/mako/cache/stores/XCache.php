@@ -24,18 +24,18 @@ class XCache implements StoreInterface
 	 */
 
 	protected $username;
-	
+
 	/**
 	 * XCache password.
 	 *
 	 * @var string
 	 */
-	
+
 	protected $password;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $username  Username
 	 * @param   string  $password  Password
@@ -109,7 +109,7 @@ class XCache implements StoreInterface
 			if(@xcache_clear_cache(XC_TYPE_VAR, $i) === false)
 			{
 				$cleared = false;
-				
+
 				break;
 			}
 		}

@@ -14,7 +14,7 @@ use mako\error\handlers\HandlerInterface;
 
 /**
  * Base handler.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -22,7 +22,7 @@ abstract class Handler implements HandlerInterface
 {
 	/**
 	 * Exception.
-	 * 
+	 *
 	 * @var \Exception
 	 */
 
@@ -39,7 +39,7 @@ abstract class Handler implements HandlerInterface
 
 	/**
 	 * Determines the exception type.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \Exception  $exception  Exception
 	 * @return  string
@@ -51,7 +51,7 @@ abstract class Handler implements HandlerInterface
 
 		if($exception instanceof ErrorException)
 		{
-			$codes = 
+			$codes =
 			[
 				E_ERROR             => 'Fatal Error',
 				E_PARSE             => 'Parse Error',

@@ -20,14 +20,14 @@ trait OptimisticLockingTrait
 {
 	/**
 	 * Returns trait hooks.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
 
 	protected function getOptimisticLockingTraitHooks()
 	{
-		return 
+		return
 		[
 			'beforeInsert' =>
 			[
@@ -40,7 +40,7 @@ trait OptimisticLockingTrait
 					return $values + [$lockingColumn => 1];
 				},
 			],
-			'beforeUpdate' => 
+			'beforeUpdate' =>
 			[
 				function($values, $query)
 				{
@@ -54,7 +54,7 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Making sure that cloning returns a "fresh copy" of the record.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -70,7 +70,7 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Returns the optimistic locking column.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -81,7 +81,7 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Reloads the record from the database.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -107,7 +107,7 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Sets the optimistic locking version.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int     $version  Locking version
 	 */
@@ -119,7 +119,7 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Returns the optimistic locking version.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -131,7 +131,7 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Updates an existing record.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  boolean
@@ -159,7 +159,7 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Deletes a record from the database.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  boolean
@@ -170,7 +170,7 @@ trait OptimisticLockingTrait
 		$lockingColumn = $this->getLockingColumn();
 
 		$query->where($lockingColumn, '=', $this->columns[$lockingColumn]);
-		
+
 		$deleted = parent::deleteRecord($query);
 
 		if(!$deleted)

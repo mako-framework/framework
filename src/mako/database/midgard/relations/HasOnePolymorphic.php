@@ -26,7 +26,7 @@ class HasOnePolymorphic extends HasOne
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\Connection   $connection       Database connection
 	 * @param   \mako\database\midgard\ORM  $parent           Parent model

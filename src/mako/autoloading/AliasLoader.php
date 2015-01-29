@@ -9,7 +9,7 @@ namespace mako\autoloading;
 
 /**
  * Alias loader.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -17,7 +17,7 @@ class AliasLoader
 {
 	/**
 	 * Class aliases.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -25,7 +25,7 @@ class AliasLoader
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array   $aliases  Class aliases
 	 */
@@ -37,7 +37,7 @@ class AliasLoader
 
 	/**
 	 * Autoloads aliased classes.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $alias  Class alias
 	 * @return  boolean

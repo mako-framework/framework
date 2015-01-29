@@ -21,7 +21,7 @@ abstract class Package
 {
 	/**
 	 * IoC container instance
-	 * 
+	 *
 	 * @var \mako\syringe\Container
 	 */
 
@@ -29,7 +29,7 @@ abstract class Package
 
 	/**
 	 * Package name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -37,7 +37,7 @@ abstract class Package
 
 	/**
 	 * Package path.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -45,7 +45,7 @@ abstract class Package
 
 	/**
 	 * File namespace.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -53,7 +53,7 @@ abstract class Package
 
 	/**
 	 * Class namespace.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -61,7 +61,7 @@ abstract class Package
 
 	/**
 	 * Commands.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -69,7 +69,7 @@ abstract class Package
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\syringe\Container  $container  IoC container instance
 	 */
@@ -81,7 +81,7 @@ abstract class Package
 
 	/**
 	 * Returns the package name.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -93,7 +93,7 @@ abstract class Package
 
 	/**
 	 * Returns the package namespace.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -110,7 +110,7 @@ abstract class Package
 
 	/**
 	 * Returns the class namespace.
-	 * 
+	 *
 	 * @access  public
 	 * @param   boolean  $prefix  Prefix the namespace with a slash?
 	 * @return  string
@@ -119,7 +119,7 @@ abstract class Package
 	public function getClassNamespace($prefix = false)
 	{
 		if($this->classNamespace === null)
-		{			
+		{
 			$this->classNamespace = substr(static::class, 0, strrpos(static::class, '\\'));
 		}
 
@@ -128,7 +128,7 @@ abstract class Package
 
 	/**
 	 * Returns package path.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string
 	 */
@@ -145,7 +145,7 @@ abstract class Package
 
 	/**
 	 * Returns the path to the package configuration files.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -157,7 +157,7 @@ abstract class Package
 
 	/**
 	 * Returns the path to the package i18n strings.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -169,7 +169,7 @@ abstract class Package
 
 	/**
 	 * Returns the path to the package views.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -181,7 +181,7 @@ abstract class Package
 
 	/**
 	 * Returns the package commands.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -193,7 +193,7 @@ abstract class Package
 
 	/**
 	 * Gets executed at the end of the package boot sequence.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -204,7 +204,7 @@ abstract class Package
 
 	/**
 	 * Boots the package.
-	 * 
+	 *
 	 * @access  public
 	 */
 

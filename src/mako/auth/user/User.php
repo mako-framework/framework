@@ -28,7 +28,7 @@ class User extends ORM implements UserInterface, MemberInterface
 
 	/**
 	 * Table name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -36,7 +36,7 @@ class User extends ORM implements UserInterface, MemberInterface
 
 	/**
 	 * Password mutator.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $password  Password
 	 * @return  string
@@ -49,7 +49,7 @@ class User extends ORM implements UserInterface, MemberInterface
 
 	/**
 	 * Generates a new token.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string
 	 */
@@ -272,7 +272,7 @@ class User extends ORM implements UserInterface, MemberInterface
 
 	/**
 	 * User groups.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\midgard\relations\ManyToMany
 	 */

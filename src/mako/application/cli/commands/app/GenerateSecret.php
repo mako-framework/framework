@@ -14,7 +14,7 @@ use mako\utility\Str;
 
 /**
  * Command that generates a new application secret.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -22,11 +22,11 @@ class GenerateSecret extends Command
 {
 	/**
 	 * Command information.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected $commandInformation = 
+	protected $commandInformation =
 	[
 		'description' => 'Generates a new application secret.',
 		'arguments'   => [],
@@ -35,7 +35,7 @@ class GenerateSecret extends Command
 
 	/**
 	 * Executes the command.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\application\Application  $application  Application instance
 	 * @param   \mako\file\FileSystem          $fileSystem   File system instance

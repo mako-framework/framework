@@ -19,7 +19,7 @@ abstract class Service
 {
 	/**
 	 * IoC container instance
-	 * 
+	 *
 	 * @var \mako\syringe\Container
 	 */
 
@@ -27,7 +27,7 @@ abstract class Service
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\syringe\Container  $container  IoC container instance
 	 */
@@ -39,7 +39,7 @@ abstract class Service
 
 	/**
 	 * Registers the service.
-	 * 
+	 *
 	 * @access  public
 	 */
 

@@ -17,7 +17,7 @@ interface GroupProviderInterface
 {
 	/**
 	 * Creates and returns a group.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                           $name  Group name
 	 * @return  \mako\auth\group\GroupInterface
@@ -27,7 +27,7 @@ interface GroupProviderInterface
 
 	/**
 	 * Fetches a group by its name.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                                   $name  Group name
 	 * @return  \mako\auth\group\GroupInterface|boolean
@@ -37,11 +37,11 @@ interface GroupProviderInterface
 
 	/**
 	 * Fetches a group by its id.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                                      $id  Group id
 	 * @return  \mako\auth\group\GroupInterface|boolean
 	 */
-	
+
 	public function getById($id);
 }

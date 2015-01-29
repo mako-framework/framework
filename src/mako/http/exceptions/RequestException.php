@@ -20,7 +20,7 @@ class RequestException extends RuntimeException
 {
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int     $code         Exception code
 	 * @param   string  $message      Exception message

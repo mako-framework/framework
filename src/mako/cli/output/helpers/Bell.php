@@ -19,7 +19,7 @@ class Bell
 {
 	/**
 	 * Output instance.
-	 * 
+	 *
 	 * @var \mako\cli\output\Output
 	 */
 
@@ -27,7 +27,7 @@ class Bell
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\output\Output  $output  Output instance
 	 */
@@ -39,7 +39,7 @@ class Bell
 
 	/**
 	 * Rings the terminal bell n times.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int     $times  Number of times to ring the bell
 	 */

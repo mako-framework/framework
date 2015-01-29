@@ -22,7 +22,7 @@ class Stream implements ResponseContainerInterface
 {
 	/**
 	 * Is PHP running as a CGI program?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -30,7 +30,7 @@ class Stream implements ResponseContainerInterface
 
 	/**
 	 * Stream.
-	 * 
+	 *
 	 * @var \Closure
 	 */
 
@@ -38,7 +38,7 @@ class Stream implements ResponseContainerInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \Closure  $stream  Stream
 	 */
@@ -47,10 +47,10 @@ class Stream implements ResponseContainerInterface
 	{
 		$this->stream = $stream;
 	}
-	
+
 	/**
 	 * Flushes a chunck of data.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $chunk       Chunck of data to flush
 	 * @param   boolean  $flushEmpty  Flush empty chunk?
@@ -80,7 +80,7 @@ class Stream implements ResponseContainerInterface
 
 	/**
 	 * Sends the stream.
-	 * 
+	 *
 	 * @access  protected
 	 */
 

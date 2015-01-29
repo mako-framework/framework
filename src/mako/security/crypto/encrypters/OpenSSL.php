@@ -23,15 +23,15 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 *
 	 * @var string
 	 */
-	
+
 	protected $key;
-	
+
 	/**
 	 * The cipher method to use for encryption.
 	 *
 	 * @var string
 	 */
-	
+
 	protected $cipher;
 
 	/**
@@ -39,12 +39,12 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 *
 	 * @var string
 	 */
-	
+
 	protected $ivSize;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $key     Encryption key
 	 * @param   int     $cipher  Cipher
@@ -62,7 +62,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function encrypt($string)
 	{
 		$iv = openssl_random_pseudo_bytes($this->ivSize);
@@ -75,18 +75,18 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function decrypt($string)
 	{
 		$string = base64_decode($string, true);
-		
+
 		if($string === false)
 		{
 			return false;
 		}
 
 		$iv = substr($string, 0, $this->ivSize);
-		
+
 		$string = substr($string, $this->ivSize);
 
 		$key = $this->deriveKey($this->key, $iv, 32);

@@ -32,6 +32,6 @@ interface EncrypterInterface
 	 * @param   string          $string  String to decrypt
 	 * @return  string|boolean
 	 */
-	
+
 	public function decrypt($string);
 }

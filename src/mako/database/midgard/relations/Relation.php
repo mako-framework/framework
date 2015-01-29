@@ -21,7 +21,7 @@ abstract class Relation extends Query
 {
 	/**
 	 * Parent record.
-	 * 
+	 *
 	 * @var \mako\database\midgard\ORM
 	 */
 
@@ -29,7 +29,7 @@ abstract class Relation extends Query
 
 	/**
 	 * Foreign key.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -37,7 +37,7 @@ abstract class Relation extends Query
 
 	/**
 	 * Lazy load related records?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -45,7 +45,7 @@ abstract class Relation extends Query
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\Connection   $connection  Database connection
 	 * @param   \mako\database\midgard\ORM  $parent      Parent model
@@ -56,7 +56,7 @@ abstract class Relation extends Query
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null)
 	{
 		parent::__construct($connection, $related);
-		
+
 		$this->parent = $parent;
 
 		$this->foreignKey = $foreignKey;
@@ -66,7 +66,7 @@ abstract class Relation extends Query
 
 	/**
 	 * Returns the foreign key.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string
 	 */
@@ -83,7 +83,7 @@ abstract class Relation extends Query
 
 	/**
 	 * Returns the keys used to eagerly load records.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \mako\database\midgard\ResultSet  $results  Result set
 	 * @return  array
@@ -103,7 +103,7 @@ abstract class Relation extends Query
 
 	/**
 	 * Sets the criterion used when lazy loading related records.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -114,7 +114,7 @@ abstract class Relation extends Query
 
 	/**
 	 * Sets the criterion used when eager loading related records.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   array                                      $keys  Parent keys
 	 * @return  \mako\database\midgard\relations\Relation
@@ -131,7 +131,7 @@ abstract class Relation extends Query
 
 	/**
 	 * Returns a single record from the database.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
@@ -148,7 +148,7 @@ abstract class Relation extends Query
 
 	/**
 	 * Returns a result set from the database.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */

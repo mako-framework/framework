@@ -17,7 +17,7 @@ abstract class Encrypter
 {
 	/**
 	 * Derivation hash.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -25,7 +25,7 @@ abstract class Encrypter
 
 	/**
 	 * Derivation iterations.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -33,7 +33,7 @@ abstract class Encrypter
 
 	/**
 	 * Generate a PBKDF2 key derivation of a supplied key.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $key      The key to derive
 	 * @param   string     $salt     The salt

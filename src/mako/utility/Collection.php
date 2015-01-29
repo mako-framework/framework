@@ -15,7 +15,7 @@ use IteratorAggregate;
 
 /**
  * Collection.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -23,7 +23,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 {
 	/**
 	 * Collection items.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -31,7 +31,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array   $items  Collection items
 	 */
@@ -43,7 +43,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns all the items in the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -55,7 +55,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Checks whether or not an offset exists.
-	 * 
+	 *
 	 * @access  public
 	 * @param   mixed    $offset  The offset to check for
 	 * @return  boolean
@@ -68,7 +68,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns the value at the specified offset.
-	 * 
+	 *
 	 * @access  public
 	 * @param   mixed   $offset  The offset to retrieve
 	 * @return  mixed
@@ -81,7 +81,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Assigns a value to the specified offset.
-	 * 
+	 *
 	 * @access  public
 	 * @param   mixed   $offset  The offset to assign the value to
 	 * @param   mixed   $value   The value to set
@@ -101,7 +101,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Unsets an offset.
-	 * 
+	 *
 	 * @access  public
 	 * @param   mixed   $offset  The offset to unset
 	 */
@@ -113,7 +113,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns the numner of items in the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @return  int
 	 */
@@ -125,7 +125,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Retruns an array iterator object.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \ArrayIterator
 	 */
@@ -137,7 +137,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns TRUE if the collection is empty and FALSE if not.
-	 * 
+	 *
 	 * @return  boolean
 	 */
 
@@ -149,7 +149,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Prepends the passed item to the front of the collection
 	 * and returns the new number of elements in the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   mixed   $item  Collection item
 	 * @return  int
@@ -163,7 +163,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Shifts the first value of the collection off and returns it,
 	 * shortening the collection by one element.
-	 * 
+	 *
 	 * @access  public
 	 * @return  mixed
 	 */
@@ -174,9 +174,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Pushes the passed variable onto the end of the collection 
+	 * Pushes the passed variable onto the end of the collection
 	 * and returns the new number of elements in the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   mixed   $item  Collection item
 	 * @return  int
@@ -188,9 +188,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Pops and returns the last value of the collection, 
+	 * Pops and returns the last value of the collection,
 	 * shortening the collection by one element.
-	 * 
+	 *
 	 * @access  public
 	 * @return  mixed
 	 */
@@ -201,9 +201,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Sorts the collection using the specified comparator closure 
+	 * Sorts the collection using the specified comparator closure
 	 * and returns TRUE on success and FALSE on failure.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \Closure  $comparator  Comparator closure
 	 * @return  boolean
@@ -216,7 +216,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Chunks the collection into a collection containing $size sized collections.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                       $size  Chunk size
 	 * @return  \mako\utility\Collection
@@ -235,9 +235,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Shuffles the items in the collection and returns 
+	 * Shuffles the items in the collection and returns
 	 * TRUE on success and FALSE on failure.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */

@@ -20,7 +20,7 @@ class HasMany extends HasOneOrMany
 {
 	/**
 	 * Eager loads related records and matches them with their parent records.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\midgard\ResultSet  $results   Parent records
 	 * @param   string                            $relation  Relation name
@@ -59,7 +59,7 @@ class HasMany extends HasOneOrMany
 
 	/**
 	 * Returns a related result set from the database.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */

@@ -11,7 +11,7 @@ use RuntimeException;
 
 /**
  * Filter collection.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -19,7 +19,7 @@ class Filters
 {
 	/**
 	 * Registered filters.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -27,7 +27,7 @@ class Filters
 
 	/**
 	 * Adds a filter.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string           $name    Filter name
 	 * @param   string|\Closure  $filter  Filter class or closure
@@ -40,7 +40,7 @@ class Filters
 
 	/**
 	 * Returns the chosen filter.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string           $filter  Filter name
 	 * @return  string|\Closure
@@ -52,7 +52,7 @@ class Filters
 		{
 			throw new RuntimeException(vsprintf("%s(): No filter named [ %s ] has been defined.", [__METHOD__, $filter]));
 		}
-		
+
 		return $this->filters[$filter];
 	}
 }

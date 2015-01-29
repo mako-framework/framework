@@ -9,7 +9,7 @@ namespace mako\syringe;
 
 /**
  * Class inspector.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -17,7 +17,7 @@ class ClassInspector
 {
 	/**
 	 * Returns an array of all traits used by a class.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string|object  $class     Class name or class instance
 	 * @param   boolean        $autoload  Autoload

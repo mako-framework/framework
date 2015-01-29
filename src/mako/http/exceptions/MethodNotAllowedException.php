@@ -21,15 +21,15 @@ class MethodNotAllowedException extends RequestException
 {
 	/**
 	 * Allowed methods.
-	 * 
+	 *
 	 * @var array
 	 */
-	 
+
 	 protected $allowedMethods;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array      $allowedMethods  Allowed methods
 	 * @param   string     $message         Exception message
@@ -45,7 +45,7 @@ class MethodNotAllowedException extends RequestException
 
 	/**
 	 * Returns the allowed methods.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */

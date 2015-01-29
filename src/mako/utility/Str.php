@@ -38,7 +38,7 @@ class Str
 	 *
 	 * @var string
 	 */
-	
+
 	const HEXDEC = '0123456789abcdef';
 
 	/**
@@ -59,11 +59,11 @@ class Str
 
 	/**
 	 * Pluralization rules.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected static $pluralizationRules = 
+	protected static $pluralizationRules =
 	[
 		'/(quiz)$/i'                     => "$1zes",
 		'/([m|l])ouse$/i'                => "$1ice",
@@ -87,11 +87,11 @@ class Str
 
 	/**
 	 * Irregular noun.
-	 * 
+	 *
 	 * @var array
 	 */
 
-	protected static $irregulars = 
+	protected static $irregulars =
 	[
 		'alias'       => 'aliases',
 		'audio'       => 'audio',
@@ -153,7 +153,7 @@ class Str
 
 	/**
 	 * Returns the plural form of a noun (english only).
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $noun   Noun to pluralize
 	 * @param   int     $count  Number of nouns
@@ -290,7 +290,7 @@ class Str
 			return $strings[($i++ % count($strings))];
 		};
 	}
-	
+
 	/**
 	 * Converts URLs in a text into clickable links.
 	 *
@@ -299,7 +299,7 @@ class Str
 	 * @param   array    $attributes  Anchor attributes
 	 * @return  string
 	 */
-	
+
 	public static function autolink($string, array $attributes = [])
 	{
 		return preg_replace_callback('#\b(?<!href="|">)[a-z]+://\S+(?:/|\b)#i', function($matches) use ($attributes)

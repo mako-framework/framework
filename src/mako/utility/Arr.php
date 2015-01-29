@@ -56,7 +56,7 @@ class Arr
 
 	/**
 	 * Search for an array value using "dot notation". Returns TRUE if the array key exists and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array    $array  Array we're goint to search
 	 * @param   string   $path   Array path
@@ -119,7 +119,7 @@ class Arr
 	public static function delete(array &$array, $path)
 	{
 		$segments = explode('.', $path);
-		
+
 		while(count($segments) > 1)
 		{
 			$segment = array_shift($segments);
@@ -165,7 +165,7 @@ class Arr
 
 	/**
 	 * Returns the values from a single column of the input array, identified by the key.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array   $array  Array to pluck from
 	 * @param   string  $key    Array key

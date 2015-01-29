@@ -14,7 +14,7 @@ use mako\http\routing\Route;
 
 /**
  * Route collection.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -22,7 +22,7 @@ class Routes
 {
 	/**
 	 * Route groups.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -30,7 +30,7 @@ class Routes
 
 	/**
 	 * Registered routes.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -38,7 +38,7 @@ class Routes
 
 	/**
 	 * Named routes.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -46,7 +46,7 @@ class Routes
 
 	/**
 	 * Returns the registered routes.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -58,7 +58,7 @@ class Routes
 
 	/**
 	 * Returns TRUE if the named route exists and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $name  Route name
 	 * @return  boolean
@@ -71,7 +71,7 @@ class Routes
 
 	/**
 	 * Returns the named route.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                   $name  Route name
 	 * @return  \mako\http\routes\Route
@@ -89,7 +89,7 @@ class Routes
 
 	/**
 	 * Adds a grouped set of routes to the colleciton.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array     $options  Group options
 	 * @param   \Closure  $routes   Route closure
@@ -106,7 +106,7 @@ class Routes
 
 	/**
 	 * Returns the real route method name.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $method  Method name
 	 * @return  string
@@ -119,7 +119,7 @@ class Routes
 
 	/**
 	 * Registers a route.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array            $methods  HTTP methods
 	 * @param   string           $route    Route
@@ -154,7 +154,7 @@ class Routes
 
 	/**
 	 * Adds a route that responds to GET requests to the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
@@ -168,7 +168,7 @@ class Routes
 
 	/**
 	 * Adds a route that responds to POST requests to the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
@@ -182,7 +182,7 @@ class Routes
 
 	/**
 	 * Adds a route that responds to PUT requests to the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
@@ -196,7 +196,7 @@ class Routes
 
 	/**
 	 * Adds a route that responds to PATCH requests to the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
@@ -210,7 +210,7 @@ class Routes
 
 	/**
 	 * Adds a route that responds to DELETE requests to the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
@@ -224,7 +224,7 @@ class Routes
 
 	/**
 	 * Adds a route that responts to all HTTP methods to the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string           $route   Route
 	 * @param   string|\Closure  $action  Route action
@@ -238,7 +238,7 @@ class Routes
 
 	/**
 	 * Adds a route that respodns to the chosen HTTP methods to the collection.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array            $methods  Array of HTTP methods the route should respond to
 	 * @param   string           $route    Route

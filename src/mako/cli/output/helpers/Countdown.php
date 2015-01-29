@@ -19,7 +19,7 @@ class Countdown
 {
 	/**
 	 * Output instance.
-	 * 
+	 *
 	 * @var \mako\cli\output\Output
 	 */
 
@@ -27,7 +27,7 @@ class Countdown
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\output\Output  $output  Output instance
 	 */
@@ -39,7 +39,7 @@ class Countdown
 
 	/**
 	 * Counts down from n.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int     $from  Number of seconds to count down
 	 */
@@ -63,7 +63,7 @@ class Countdown
 				usleep(250000);
 			}
 			while($dots++ < 3);
-			
+
 			$dots = 0;
 		}
 		while($from-- > 1);

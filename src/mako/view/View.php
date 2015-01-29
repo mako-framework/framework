@@ -19,7 +19,7 @@ class View
 {
 	/**
 	 * View path.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -27,7 +27,7 @@ class View
 
 	/**
 	 * View variables.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -35,7 +35,7 @@ class View
 
 	/**
 	 * View renderer instance.
-	 * 
+	 *
 	 * @var \mako\view\renderers\RendererInterface
 	 */
 
@@ -43,7 +43,7 @@ class View
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                                  $path       View path
 	 * @param   array                                   $variables  View variables
@@ -61,7 +61,7 @@ class View
 
 	/**
 	 * Returns the renderer instance.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
@@ -89,7 +89,7 @@ class View
 
 	/**
 	 * Returns the rendered view.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */

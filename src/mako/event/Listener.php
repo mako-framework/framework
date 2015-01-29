@@ -72,7 +72,7 @@ class Listener
 
 	/**
 	 * Overrides an event.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string    $name     Event name
 	 * @param   \Closure  $closure  Event handler
@@ -86,7 +86,7 @@ class Listener
 	}
 
 	/**
-	 * Runs all closures for an event and returns an array 
+	 * Runs all closures for an event and returns an array
 	 * contaning the return values of each event handler.
 	 *
 	 * @access  public

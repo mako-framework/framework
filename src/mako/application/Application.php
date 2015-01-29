@@ -26,7 +26,7 @@ abstract class Application
 {
 	/**
 	 * Singleton instance of self.
-	 * 
+	 *
 	 * @var \mako\application\Application
 	 */
 
@@ -34,7 +34,7 @@ abstract class Application
 
 	/**
 	 * IoC container instance.
-	 * 
+	 *
 	 * @var \mako\syringe\Container;
 	 */
 
@@ -42,7 +42,7 @@ abstract class Application
 
 	/**
 	 * Config instance.
-	 * 
+	 *
 	 * @var \mako\config\Config
 	 */
 
@@ -50,7 +50,7 @@ abstract class Application
 
 	/**
 	 * Application charset.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -58,7 +58,7 @@ abstract class Application
 
 	/**
 	 * Application language.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -66,7 +66,7 @@ abstract class Application
 
 	/**
 	 * Application path.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -74,7 +74,7 @@ abstract class Application
 
 	/**
 	 * Booted packages.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -82,7 +82,7 @@ abstract class Application
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $applicationPath  Application path
 	 */
@@ -96,7 +96,7 @@ abstract class Application
 
 	/**
 	 * Starts the application and returns a singleton instance of the application.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                         $applicationPath  Application path
 	 * @return  \mako\application\Application
@@ -114,7 +114,7 @@ abstract class Application
 
 	/**
 	 * Returns a singleton instance of the application.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\application\Application
 	 */
@@ -128,10 +128,10 @@ abstract class Application
 
 		return static::$instance;
 	}
-	
+
 	/**
 	 * Returns the IoC container instance.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\syringe\Container
 	 */
@@ -143,7 +143,7 @@ abstract class Application
 
 	/**
 	 * Returns the config instance.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\config\Config
 	 */
@@ -155,7 +155,7 @@ abstract class Application
 
 	/**
 	 * Returns the application charset.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -167,7 +167,7 @@ abstract class Application
 
 	/**
 	 * Returns the application language.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -179,7 +179,7 @@ abstract class Application
 
 	/**
 	 * Sets the application language settings.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array  $language  Application language settings
 	 */
@@ -196,7 +196,7 @@ abstract class Application
 
 	/**
 	 * Gets the application path.
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -208,7 +208,7 @@ abstract class Application
 
 	/**
 	 * Returns all the application packages.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -220,7 +220,7 @@ abstract class Application
 
 	/**
 	 * Returns a package by its name.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string                     $package  Package name
 	 * @return  \mako\application\Package
@@ -238,7 +238,7 @@ abstract class Application
 
 	/**
 	 * Returns the application namespace.
-	 * 
+	 *
 	 * @access  public
 	 * @param   boolean  $prefix  Prefix the namespace with a slash?
 	 * @return  string
@@ -258,7 +258,7 @@ abstract class Application
 
 	/**
 	 * Is the application running in the CLI?
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -270,7 +270,7 @@ abstract class Application
 
 	/**
 	 * Returns the Mako environment. NULL is returned if no environment is specified.
-	 * 
+	 *
 	 * @return  string|null
 	 */
 
@@ -281,7 +281,7 @@ abstract class Application
 
 	/**
 	 * Configure.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -296,7 +296,7 @@ abstract class Application
 		mb_language('uni');
 
 		mb_regex_encoding($this->charset);
-		
+
 		mb_internal_encoding($this->charset);
 
 		// Set default timezone
@@ -310,7 +310,7 @@ abstract class Application
 
 	/**
 	 * Register services that only required for the command line interface.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -324,7 +324,7 @@ abstract class Application
 
 	/**
 	 * Register services that only required for the web.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -338,7 +338,7 @@ abstract class Application
 
 	/**
 	 * Register services in the IoC container.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -365,7 +365,7 @@ abstract class Application
 
 	/**
 	 * Registers class aliases.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -383,7 +383,7 @@ abstract class Application
 
 	/**
 	 * Loads the application bootstrap file.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -399,7 +399,7 @@ abstract class Application
 
 	/**
 	 * Boot packages.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -417,7 +417,7 @@ abstract class Application
 
 	/**
 	 * Sets up the framework core.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -446,7 +446,7 @@ abstract class Application
 
 	/**
 	 * Boots the application.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -479,7 +479,7 @@ abstract class Application
 
 	/**
 	 * Loads filters.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  \mako\http\routing\Filters
 	 */
@@ -498,7 +498,7 @@ abstract class Application
 
 	/**
 	 * Loads routes.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  \mako\http\routing\Routes
 	 */
@@ -517,7 +517,7 @@ abstract class Application
 
 	/**
 	 * Loads filters and routes.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -529,7 +529,7 @@ abstract class Application
 
 	/**
 	 * Runs the application.
-	 * 
+	 *
 	 * @access  public
 	 */
 

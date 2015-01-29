@@ -17,7 +17,7 @@ use mako\syringe\Container;
 
 /**
  * Base command.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -25,7 +25,7 @@ abstract class Command extends BaseCommand
 {
 	/**
 	 * Application.
-	 * 
+	 *
 	 * @var \mako\application\Application
 	 */
 
@@ -33,7 +33,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * File system.
-	 * 
+	 *
 	 * @var \mako\file\FileSystem
 	 */
 
@@ -41,7 +41,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Connection manager.
-	 * 
+	 *
 	 * @var \mako\database\ConnectionManager
 	 */
 
@@ -49,7 +49,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * IoC container.
-	 * 
+	 *
 	 * @var \mako\syringe\Container
 	 */
 
@@ -57,7 +57,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\input\Input             $input        Input
 	 * @param   \mako\cli\output\Output           $output       Output
@@ -82,7 +82,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns the database connection.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  \mako\database\Connection
 	 */
@@ -94,7 +94,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns the basename of the migration.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $migration  Task path
 	 * @return  string
@@ -119,7 +119,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns all application migrations.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -138,7 +138,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns all package migrations.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -160,7 +160,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns an array of all outstanding migrations.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -170,7 +170,7 @@ abstract class Command extends BaseCommand
 		$migrations = [];
 
 		// Find all migrations
-		
+
 		$migrations = array_merge($migrations, $this->findApplicationMigrations());
 
 		$migrations = array_merge($migrations, $this->findPackageMigrations());
@@ -203,7 +203,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Ouputs a migration list.
-	 * 
+	 *
 	 * @access  public
 	 * @param   array   $migrations  Migrations
 	 */
@@ -253,7 +253,7 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Executes a migration method.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string  $migration  Migration class
 	 * @param   string  $method     Migration method

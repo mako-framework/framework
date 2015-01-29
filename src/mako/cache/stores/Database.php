@@ -20,7 +20,7 @@ class Database implements StoreInterface
 {
 	/**
 	 * Database connection
-	 * 
+	 *
 	 * @var \mako\database\Connection
 	 */
 
@@ -28,7 +28,7 @@ class Database implements StoreInterface
 
 	/**
 	 * Database table.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -36,7 +36,7 @@ class Database implements StoreInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\Connection  $connection  Database connection
 	 * @param   string                     $table       Database table
@@ -68,7 +68,7 @@ class Database implements StoreInterface
 	public function put($key, $data, $ttl = 0)
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
-		
+
 		$this->remove($key);
 
 		return $this->table()->insert(['key' => $key, 'data' => serialize($data), 'lifetime' => $ttl]);
@@ -86,7 +86,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function get($key)
 	{
 		$cache = $this->table()->where('key', '=', $key)->first();
@@ -97,17 +97,17 @@ class Database implements StoreInterface
 			{
 				return unserialize($cache->data);
 			}
-			
+
 			$this->remove($key);
 		}
-		
+
 		return false;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function remove($key)
 	{
 		return (bool) $this->table()->where('key', '=', $key)->delete();
@@ -116,11 +116,11 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function clear()
 	{
 		$this->table()->delete();
-											
+
 		return true;
 	}
 }

@@ -19,7 +19,7 @@ trait ObservableTrait
 {
 	/**
 	 * Observers.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -27,7 +27,7 @@ trait ObservableTrait
 
 	/**
 	 * Attach an observer.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string    $event     Event name
 	 * @param   \Closure  $observer  Observer closure
@@ -40,7 +40,7 @@ trait ObservableTrait
 
 	/**
 	 * Returns TRUE if the event has any observers and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -52,7 +52,7 @@ trait ObservableTrait
 
 	/**
 	 * Clear all observers.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $event  Event name
 	 */
@@ -71,7 +71,7 @@ trait ObservableTrait
 
 	/**
 	 * Overrides an observer.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string    $event     Event name
 	 * @param   \Closure  $observer  Event handler
@@ -86,7 +86,7 @@ trait ObservableTrait
 
 	/**
 	 * Notify all observers.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $event       Event name
 	 * @param   array    $parameters  Parameters

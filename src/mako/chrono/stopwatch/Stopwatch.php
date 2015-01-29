@@ -11,7 +11,7 @@ use mako\chrono\stopwatch\Lap;
 
 /**
  * Stopwatch.
- * 
+ *
  * @author  Yamada Taro
  */
 
@@ -19,7 +19,7 @@ class Stopwatch
 {
 	/**
 	 * Laps.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -27,7 +27,7 @@ class Stopwatch
 
 	/**
 	 * Returns the laps.
-	 * 
+	 *
 	 * @access  public
 	 * @return  array
 	 */
@@ -51,7 +51,7 @@ class Stopwatch
 
 	/**
 	 * Returns TRUE if the stopwatch is still running and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @return  boolean
 	 */
@@ -63,7 +63,7 @@ class Stopwatch
 
 	/**
 	 * Starts the stopwatch.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\chrono\stopwatch\Stopwatch
 	 */
@@ -77,7 +77,7 @@ class Stopwatch
 
 	/**
 	 * Starts a new lap and returns the time of the previous lap.
-	 * 
+	 *
 	 * @access  public
 	 * @return  float
 	 */
@@ -95,7 +95,7 @@ class Stopwatch
 
 	/**
 	 * Get elapsed time.
-	 * 
+	 *
 	 * @access  public
 	 * @return  float
 	 */
@@ -109,7 +109,7 @@ class Stopwatch
 
 	/**
 	 * Stops the timer and returns the elapsed time.
-	 * 
+	 *
 	 * @access  public
 	 * @return  float
 	 */

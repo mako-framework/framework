@@ -17,7 +17,7 @@ use mako\syringe\Container;
 
 /**
  * Route dispatcher.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -27,7 +27,7 @@ class Dispatcher
 
 	/**
 	 * Request.
-	 * 
+	 *
 	 * @var \mako\http\Request
 	 */
 
@@ -35,7 +35,7 @@ class Dispatcher
 
 	/**
 	 * Response.
-	 * 
+	 *
 	 * @var \mako\http\Response
 	 */
 
@@ -43,7 +43,7 @@ class Dispatcher
 
 	/**
 	 * Route filters.
-	 * 
+	 *
 	 * @var \mako\http\routing\Filters
 	 */
 
@@ -52,7 +52,7 @@ class Dispatcher
 
 	/**
 	 * Route to be dispatched.
-	 * 
+	 *
 	 * @var \mako\http\routing\Route
 	 */
 
@@ -60,7 +60,7 @@ class Dispatcher
 
 	/**
 	 * Route parameters.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -68,7 +68,7 @@ class Dispatcher
 
 	/**
 	 * IoC container instance.
-	 * 
+	 *
 	 * @var \mako\syringe\Container
 	 */
 
@@ -76,7 +76,7 @@ class Dispatcher
 
 	/**
 	 * Should the after filters be skipped?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -84,7 +84,7 @@ class Dispatcher
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\http\Request          $request     Request instance
 	 * @param   \mako\http\Response         $response    Response instance
@@ -111,7 +111,7 @@ class Dispatcher
 
 	/**
 	 * Resolves the filter.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string         $filter  Filter
 	 * @return  array|Closure
@@ -131,7 +131,7 @@ class Dispatcher
 
 	/**
 	 * Executes a filter.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string|\Closure  $filter  Filter
 	 * @return  mixed
@@ -154,7 +154,7 @@ class Dispatcher
 
 	/**
 	 * Executes before filters.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  mixed
 	 */
@@ -174,7 +174,7 @@ class Dispatcher
 
 	/**
 	 * Executes after filters.
-	 * 
+	 *
 	 * @access  protected
 	 */
 
@@ -188,7 +188,7 @@ class Dispatcher
 
 	/**
 	 * Dispatch a closure controller action.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \Closure   $closure  Closure
 	 */
@@ -200,7 +200,7 @@ class Dispatcher
 
 	/**
 	 * Dispatch a controller action.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $controller  Controller
 	 */
@@ -215,7 +215,7 @@ class Dispatcher
 
 		if(empty($returnValue))
 		{
-			// The before filter didn't return any data so we can set the response body to whatever 
+			// The before filter didn't return any data so we can set the response body to whatever
 			// the route action returns before executing its after filter
 
 			$this->response->body($this->container->call([$controller, $method], $this->parameters));
@@ -235,7 +235,7 @@ class Dispatcher
 
 	/**
 	 * Dispatches the route and returns the response.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */

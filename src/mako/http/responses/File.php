@@ -24,7 +24,7 @@ class File implements ResponseContainerInterface
 {
 	/**
 	 * File system instance.
-	 * 
+	 *
 	 * @var \mako\file\FileSystem
 	 */
 
@@ -32,7 +32,7 @@ class File implements ResponseContainerInterface
 
 	/**
 	 * File path.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -40,7 +40,7 @@ class File implements ResponseContainerInterface
 
 	/**
 	 * File size.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -48,7 +48,7 @@ class File implements ResponseContainerInterface
 
 	/**
 	 * Options.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -56,7 +56,7 @@ class File implements ResponseContainerInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $file     File path
 	 * @param   array   $options  Options
@@ -75,7 +75,7 @@ class File implements ResponseContainerInterface
 
 		$this->fileSize = $this->fileSystem->size($file);
 
-		$this->options = $options + 
+		$this->options = $options +
 		[
 			'file_name'    => basename($file),
 			'disposition'  => 'attachment',
@@ -86,7 +86,7 @@ class File implements ResponseContainerInterface
 
 	/**
 	 * Returns a file system instance.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  \mako\file\FileSystem
 	 */
@@ -98,7 +98,7 @@ class File implements ResponseContainerInterface
 
 	/**
 	 * Calculates the content range that should be served.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string       $range  Request range
 	 * @return  array|false
@@ -152,7 +152,7 @@ class File implements ResponseContainerInterface
 
 	/**
 	 * Sends the file.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   int        $start  Starting point
 	 * @param   int        $end    Ending point
@@ -187,7 +187,7 @@ class File implements ResponseContainerInterface
 
 			flush();
 		}
- 
+
 		fclose($handle);
 	}
 
@@ -206,7 +206,7 @@ class File implements ResponseContainerInterface
 		$response->header('content-disposition', $this->options['disposition'] . '; filename="' . $this->options['file_name'] . '"');
 
 		// Get the requested byte range
-		
+
 		$range = $request->header('range');
 
 		if($range !== null)

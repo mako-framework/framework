@@ -23,7 +23,7 @@ class GD implements ProcessorInterface
 {
 	/**
 	 * Image resource.
-	 * 
+	 *
 	 * @var resource
 	 */
 
@@ -31,7 +31,7 @@ class GD implements ProcessorInterface
 
 	/**
 	 * Image resource.
-	 * 
+	 *
 	 * @var resource
 	 */
 
@@ -39,7 +39,7 @@ class GD implements ProcessorInterface
 
 	/**
 	 * Image info.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -47,7 +47,7 @@ class GD implements ProcessorInterface
 
 	/**
 	 * Do we have the imagefilter function?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -55,7 +55,7 @@ class GD implements ProcessorInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -94,7 +94,7 @@ class GD implements ProcessorInterface
 	protected function getImageInfo($file)
 	{
 		$imageInfo = getimagesize($file);
-		
+
 		if($imageInfo === false)
 		{
 			throw new RuntimeException(vsprintf("%s(): Unable to process the image [ %s ].", [__METHOD__, $file]));
@@ -105,7 +105,7 @@ class GD implements ProcessorInterface
 
 	/**
 	 * Creates an image resource that we can work with.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $image      Path to image file
 	 * @param   array      $imageInfo  Image info
@@ -132,7 +132,7 @@ class GD implements ProcessorInterface
 
 	/**
 	 * Converts HEX value to an RGB array.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $hex  HEX value
 	 * @return  array
@@ -141,12 +141,12 @@ class GD implements ProcessorInterface
 	protected function hexToRgb($hex)
 	{
 		$hex = str_replace('#', '', $hex);
-		
+
 		if(preg_match('/^([a-f0-9]{3}){1,2}$/i', $hex) === 0)
 		{
 			throw new InvalidArgumentException(vsprintf("%s(): Invalid HEX value [ %s ].", [__METHOD__, $hex]));
 		}
-		
+
 		if(strlen($hex) === 3)
 		{
 			$r = hexdec(str_repeat(substr($hex, 0, 1), 2));
@@ -209,7 +209,7 @@ class GD implements ProcessorInterface
 	 */
 
 	public function rotate($degrees)
-	{	
+	{
 		$w = imagesx($this->image);
 		$h = imagesy($this->image);
 
@@ -243,7 +243,7 @@ class GD implements ProcessorInterface
 		$h = imagesy($this->image);
 
 		if($height === null)
-		{				
+		{
 			$newWidth  = round($w * ($width / 100));
 			$newHeight = round($h * ($width / 100));
 		}
@@ -275,10 +275,10 @@ class GD implements ProcessorInterface
 			else
 			{
 				// Ignone aspect ratio
-				
+
 				$newWidth  = $width;
 				$newHeight = $height;
-			}					
+			}
 		}
 
 		$resized = imagecreatetruecolor($newWidth, $newHeight);
@@ -301,7 +301,7 @@ class GD implements ProcessorInterface
 	 */
 
 	public function crop($width, $height, $x, $y)
-	{			
+	{
 		$w = imagesx($this->image);
 		$h = imagesy($this->image);
 
@@ -364,29 +364,29 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
 		$watermark = $this->createImageResource($file, $this->getImageInfo($file));
-		
+
 		$watermarkW = imagesx($watermark);
 		$watermarkH = imagesy($watermark);
-			
+
 		if($opacity < 100)
-		{	
+		{
 			// Convert alpha to 0-127
-			
+
 			$alpha = min(round(abs(($opacity * 127 / 100) - 127)), 127);
-			
+
 			$transparent = imagecolorallocatealpha($watermark, 0, 0, 0, $alpha);
 
 			imagelayereffect($watermark, IMG_EFFECT_OVERLAY);
 
 			imagefilledrectangle($watermark, 0, 0, $watermarkW, $watermarkH, $transparent);
 		}
-		
+
 		// Position the watermark.
-		
+
 		switch($position)
 		{
 			case Image::WATERMARK_TOP_RIGHT:
@@ -409,12 +409,12 @@ class GD implements ProcessorInterface
 				$x = 0;
 				$y = 0;
 		}
-		
+
 		imagealphablending($this->image, true);
-					
+
 		imagecopy($this->image, $watermark, $x, $y, 0, 0, $watermarkW, $watermarkH);
-		
-		imagedestroy($watermark);		
+
+		imagedestroy($watermark);
 	}
 
 	/**
@@ -435,10 +435,10 @@ class GD implements ProcessorInterface
 			$h = imagesy($this->image);
 
 			$temp = imagecreatetruecolor($w, $h);
-			
+
 			// Adjust pixel brightness
 
-			for($x = 0; $x < $w; $x++) 
+			for($x = 0; $x < $w; $x++)
 			{
 				for($y = 0; $y < $h; $y++)
 				{
@@ -465,7 +465,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function greyscale()
 	{
 		if($this->hasFilters)
@@ -478,19 +478,19 @@ class GD implements ProcessorInterface
 			$h = imagesy($this->image);
 
 			$temp = imagecreatetruecolor($w, $h);
-			
+
 			// Generate array of shades of grey
-			
+
 			$greys = [];
 
 			for($i = 0; $i <= 255; $i++)
 			{
 			    $greys[$i] = imagecolorallocate($temp, $i, $i, $i);
 			}
-			
+
 			// Convert pixels to greyscale
 
-			for($x = 0; $x < $w; $x++) 
+			for($x = 0; $x < $w; $x++)
 			{
 				for($y = 0; $y < $h; $y++)
 				{
@@ -520,10 +520,10 @@ class GD implements ProcessorInterface
 		$h = imagesy($this->image);
 
 		$temp = imagecreatetruecolor($w, $h);
-		
+
 		// Convert pixels to sepia
 
-		for($x = 0; $x < $w; $x++) 
+		for($x = 0; $x < $w; $x++)
 		{
 			for($y = 0; $y < $h; $y++)
 			{
@@ -555,7 +555,7 @@ class GD implements ProcessorInterface
 	 */
 
 	public function colorize($color)
-	{	
+	{
 		$rgb = $this->hexToRgb($color);
 
 		if($this->hasFilters)
@@ -570,10 +570,10 @@ class GD implements ProcessorInterface
 			$h = imagesy($this->image);
 
 			$temp = imagecreatetruecolor($w, $h);
-			
+
 			// Colorize pixels
 
-			for($x = 0; $x < $w; $x++) 
+			for($x = 0; $x < $w; $x++)
 			{
 				for($y = 0; $y < $h; $y++)
 				{
@@ -629,7 +629,7 @@ class GD implements ProcessorInterface
 			$this->resize((int) ($width / $pixelSize), (int) ($height / $pixelSize));
 
 			$this->resize($width, $height);
-		}	
+		}
 	}
 
 	/**
@@ -648,10 +648,10 @@ class GD implements ProcessorInterface
 			$h = imagesy($this->image);
 
 			$temp = imagecreatetruecolor($w, $h);
-			
+
 			// Invert pixel colors
 
-			for($x = 0; $x < $w; $x++) 
+			for($x = 0; $x < $w; $x++)
 			{
 				for($y = 0; $y < $h; $y++)
 				{
@@ -668,17 +668,17 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function border($color = '#000', $thickness = 5)
 	{
 		$w = imagesx($this->image);
 		$h = imagesy($this->image);
-		
+
 		$rgb = $this->hexToRgb($color);
 
 		$color = imagecolorallocatealpha($this->image, $rgb['r'], $rgb['g'], $rgb['b'], 0);
-		
-		for($i = 0; $i < $thickness; $i++) 
+
+		for($i = 0; $i < $thickness; $i++)
 		{
 			if($i < 0)
 			{
@@ -690,8 +690,8 @@ class GD implements ProcessorInterface
 				$x = --$w;
 				$y = --$h;
 			}
-			
-			imagerectangle($this->image, $i, $i, $x, $y, $color); 
+
+			imagerectangle($this->image, $i, $i, $x, $y, $color);
 		}
 	}
 
@@ -741,7 +741,7 @@ class GD implements ProcessorInterface
 		// Get the file extension
 
 		$extension = pathinfo($file, PATHINFO_EXTENSION);
-		
+
 		// Save image
 
 		switch($extension)

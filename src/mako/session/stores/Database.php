@@ -20,7 +20,7 @@ class Database implements StoreInterface
 {
 	/**
 	 * Database connection
-	 * 
+	 *
 	 * @var \mako\database\Connection
 	 */
 
@@ -28,7 +28,7 @@ class Database implements StoreInterface
 
 	/**
 	 * Database table.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -36,7 +36,7 @@ class Database implements StoreInterface
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\database\Connection  $connection  Database connection
 	 * @param   string                     $table       Database table
@@ -48,7 +48,7 @@ class Database implements StoreInterface
 
 		$this->table = $table;
 	}
-	
+
 	/**
 	 * Returns a query builder instance.
 	 *

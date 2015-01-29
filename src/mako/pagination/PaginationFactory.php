@@ -22,7 +22,7 @@ class PaginationFactory
 {
 	/**
 	 * Request instance.
-	 * 
+	 *
 	 * @var \mako\http\Request
 	 */
 
@@ -30,7 +30,7 @@ class PaginationFactory
 
 	/**
 	 * Configuration.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -38,7 +38,7 @@ class PaginationFactory
 
 	/**
 	 * URL builder instance.
-	 * 
+	 *
 	 * @var \mako\http\request\URLBuilder
 	 */
 
@@ -46,7 +46,7 @@ class PaginationFactory
 
 	/**
 	 * View factory instance.
-	 * 
+	 *
 	 * @var \mako\view\ViewFactory
 	 */
 
@@ -54,7 +54,7 @@ class PaginationFactory
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\http\Request             $request      Request
 	 * @param   array                          $config       Configuration
@@ -72,10 +72,10 @@ class PaginationFactory
 
 		$this->viewFactory = $viewFactory;
 	}
-	
+
 	/**
 	 * Sets the URL builder instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\http\request\URLBuilder  $urlBuilder  URL builder instance
 	 */
@@ -87,7 +87,7 @@ class PaginationFactory
 
 	/**
 	 * Sets the view factory builder instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\view\ViewFactory  $viewFactory  View factory instance
 	 */
@@ -99,7 +99,7 @@ class PaginationFactory
 
 	/**
 	 * Creates and returns a pagination instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   int                          $count   Number of items
 	 * @param   array                        $config  Override configuration

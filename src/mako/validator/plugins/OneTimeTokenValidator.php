@@ -20,7 +20,7 @@ class OneTimeTokenValidator extends ValidatorPlugin
 {
 	/**
 	 * Rule name.
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -28,7 +28,7 @@ class OneTimeTokenValidator extends ValidatorPlugin
 
 	/**
 	 * Session instance.
-	 * 
+	 *
 	 * @var \mako\session\Session
 	 */
 
@@ -36,7 +36,7 @@ class OneTimeTokenValidator extends ValidatorPlugin
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\session\Session  $session  Session instance
 	 */
@@ -48,7 +48,7 @@ class OneTimeTokenValidator extends ValidatorPlugin
 
 	/**
 	 * Validates a one time token.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $input Input
 	 * @return  boolean

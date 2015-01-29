@@ -17,5 +17,5 @@ use RuntimeException;
 
 class FormatterException extends RuntimeException
 {
-	
+
 }

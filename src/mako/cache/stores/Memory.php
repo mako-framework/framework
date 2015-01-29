@@ -34,7 +34,7 @@ class Memory implements StoreInterface
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 
 		$this->cache[$key] = ['data' => $data, 'ttl' => $ttl];
-		
+
 		return true;
 	}
 
@@ -81,7 +81,7 @@ class Memory implements StoreInterface
 		if(isset($this->cache[$key]))
 		{
 			unset($this->cache[$key]);
-			
+
 			return true;
 		}
 		else
@@ -97,7 +97,7 @@ class Memory implements StoreInterface
 	public function clear()
 	{
 		$this->cache = [];
-		
+
 		return true;
 	}
 }

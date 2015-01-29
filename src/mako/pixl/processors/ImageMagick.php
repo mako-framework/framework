@@ -25,7 +25,7 @@ class ImageMagick implements ProcessorInterface
 {
 	/**
 	 * Imagick instance.
-	 * 
+	 *
 	 * @var \Imagick
 	 */
 
@@ -33,7 +33,7 @@ class ImageMagick implements ProcessorInterface
 
 	/**
 	 * Imagick instance.
-	 * 
+	 *
 	 * @var \Imagick
 	 */
 
@@ -60,7 +60,7 @@ class ImageMagick implements ProcessorInterface
 
 	/**
 	 * Add the hash character (#) if its missing.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $hex  HEX value
 	 * @return  string
@@ -129,7 +129,7 @@ class ImageMagick implements ProcessorInterface
 		$h = $this->image->getImageHeight();
 
 		if($height === null)
-		{				
+		{
 			$newWidth  = round($w * ($width / 100));
 			$newHeight = round($h * ($width / 100));
 		}
@@ -161,12 +161,12 @@ class ImageMagick implements ProcessorInterface
 			else
 			{
 				// Ignone aspect ratio
-				
+
 				$newWidth  = $width;
 				$newHeight = $height;
-			}					
+			}
 		}
-		
+
 		$this->image->scaleImage($newWidth, $newHeight);
 	}
 
@@ -175,7 +175,7 @@ class ImageMagick implements ProcessorInterface
 	 */
 
 	public function crop($width, $height, $x, $y)
-	{			
+	{
 		$this->image->cropImage($width, $height, $x, $y);
 	}
 
@@ -202,21 +202,21 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
 		$watermark = new Imagick($file);
-		
+
 		$watermarkW = $watermark->getImageWidth();
 		$watermarkH = $watermark->getImageHeight();
-		
+
 		if($opacity < 100)
-		{				
+		{
 			$watermark->evaluateImage(Imagick::EVALUATE_MULTIPLY, ($opacity / 100), Imagick::CHANNEL_ALPHA);
 		}
-		
+
 		// Position the watermark.
-		
+
 		switch($position)
 		{
 			case Image::WATERMARK_TOP_RIGHT:
@@ -239,9 +239,9 @@ class ImageMagick implements ProcessorInterface
 				$x = 0;
 				$y = 0;
 		}
-		
+
 		$this->image->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
-		
+
 		$watermark->destroy();
 	}
 
@@ -257,7 +257,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function greyscale()
 	{
 		$this->image->setImageType(Imagick::IMGTYPE_GRAYSCALE);
@@ -266,7 +266,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function sepia()
 	{
 		$this->image->sepiaToneImage(80);
@@ -277,7 +277,7 @@ class ImageMagick implements ProcessorInterface
 	 */
 
 	public function colorize($color)
-	{		
+	{
 		$this->image->colorizeImage($this->normalizeHEX($color), 1.0);
 	}
 
@@ -317,11 +317,11 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	
+
 	public function border($color = '#000', $thickness = 5)
 	{
 		$this->image->shaveImage($thickness, $thickness);
-		
+
 		$this->image->borderImage($this->normalizeHEX($color), $thickness, $thickness);
 	}
 
@@ -353,13 +353,13 @@ class ImageMagick implements ProcessorInterface
 	 */
 
 	public function save($file, $quality = 95)
-	{	
+	{
 		// Set image quality
-		
+
 		$this->image->setImageCompressionQuality($quality);
 
 		// Save image
-		
+
 		$this->image->writeImage($file);
 	}
 }

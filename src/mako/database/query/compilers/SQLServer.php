@@ -19,7 +19,7 @@ class SQLServer extends Compiler
 {
 	/**
 	 * Date format.
-	 * 
+	 *
 	 * @var string
 	 */
 

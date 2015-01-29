@@ -18,7 +18,7 @@ use RuntimeException;
 
 /**
  * Inversion of control container.
- * 
+ *
  * @author  Frederic G. Østby
  */
 
@@ -26,7 +26,7 @@ class Container
 {
 	/**
 	 * Registered type hints.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -34,7 +34,7 @@ class Container
 
 	/**
 	 * Aliases.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -42,7 +42,7 @@ class Container
 
 	/**
 	 * Singleton instances.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -50,7 +50,7 @@ class Container
 
 	/**
 	 * Parse the hint parameter.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string|array  $hint  Type hint or array contaning both type hint and alias
 	 * @return  array
@@ -67,7 +67,7 @@ class Container
 		else
 		{
 			$name = $hint;
-		
+
 			$alias = null;
 		}
 
@@ -76,7 +76,7 @@ class Container
 
 	/**
 	 * Register a type hint.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string|array     $hint       Type hint or array contaning both type hint and alias
 	 * @param   string|\Closure  $class      Class name or closure
@@ -92,7 +92,7 @@ class Container
 
 	/**
 	 * Register a type hint and return the same instance every time.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string|array     $hint   Type hint or array contaning both type hint and alias
 	 * @param   string|\Closure  $class  Class name or closure
@@ -105,7 +105,7 @@ class Container
 
 	/**
 	 * Register a singleton instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string|array  $hint      Type hint or array contaning both type hint and alias
 	 * @param   object        $instance  Class instance
@@ -120,7 +120,7 @@ class Container
 
 	/**
 	 * Return the name based on its alias. If no alias exists then we'll just return the value we received.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $alias  Alias
 	 * @return  string
@@ -135,7 +135,7 @@ class Container
 
 	/**
 	 * Resolve a type hint.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $hint  Type hint
 	 * @return  string
@@ -200,7 +200,7 @@ class Container
 
 	/**
 	 * Returns the name of the declaring function.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \ReflectionParameter  $parameter  ReflectionParameter instance
 	 * @return  string
@@ -220,7 +220,7 @@ class Container
 
 	/**
 	 * Resolve a parameter.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   \ReflectionParameter  $parameter  ReflectionParameter instance
 	 * @return  mixed
@@ -288,7 +288,7 @@ class Container
 
 	/**
 	 * Checks if a class is container aware.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   object     $class  Class instance
 	 * @return  boolean
@@ -303,7 +303,7 @@ class Container
 
 	/**
 	 * Creates a class instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string|\Closure  $class       Class name or closure
 	 * @param   array            $parameters  Constructor parameters
@@ -314,7 +314,7 @@ class Container
 	{
 		if($class instanceof Closure)
 		{
-			// We got a closure so we'll just call it and 
+			// We got a closure so we'll just call it and
 			// pass the container as the first parameter followed by the the provided parameters
 
 			$instance = call_user_func_array($class, array_merge([$this], $parameters));
@@ -366,7 +366,7 @@ class Container
 
 	/**
 	 * Checks if a class is registered in the container.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $class  Class name
 	 * @return  boolean
@@ -381,7 +381,7 @@ class Container
 
 	/**
 	 * Returns a class instance.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $class           Class name
 	 * @param   array    $parameters      Constructor parameters
@@ -418,7 +418,7 @@ class Container
 
 	/**
 	 * Returns a fresh class instance even if the class is registered as a singleton.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $class       Class name
 	 * @param   array   $parameters  Constructor parameters

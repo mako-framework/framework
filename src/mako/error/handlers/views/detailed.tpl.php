@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-	
+
 	<head>
 		<meta charset="{{$__charset__ }}">
 		<title>Error</title>
@@ -84,7 +84,7 @@
 			}
 			.panel .frame .line
 			{
-				
+
 			}
 			.panel .frame .class
 			{
