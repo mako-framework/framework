@@ -161,8 +161,6 @@ class Reactor
 
 	protected function getOptions()
 	{
-		$options = [['--mute', 'Disables all output']];
-
 		foreach($this->options as $name => $option)
 		{
 			$options[] = ['--' . $name, $option['description']];
@@ -292,11 +290,6 @@ class Reactor
 
 	public function run()
 	{
-		if($this->input->getArgument('mute', false) === true)
-		{
-			$this->output->mute();
-		}
-
 		$this->handleCustomOptions();
 
 		$this->output->write(PHP_EOL);

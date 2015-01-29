@@ -9,6 +9,7 @@ namespace mako\application\cli;
 
 use mako\Mako;
 use mako\application\Application as BaseApplication;
+use mako\cli\output\Output;
 use mako\config\Config;
 use mako\reactor\Reactor;
 
@@ -22,7 +23,7 @@ class Application extends BaseApplication
 {
 	/**
 	 * Returns the route collection.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\http\routing\Routes
 	 */
@@ -34,7 +35,7 @@ class Application extends BaseApplication
 
 	/**
 	 * Returns all registered commands.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  array
 	 */
@@ -43,7 +44,7 @@ class Application extends BaseApplication
 	{
 		// Define core commands
 
-		$commands = 
+		$commands =
 		[
 			'app.generate_secret' => 'mako\application\cli\commands\app\GenerateSecret',
 			'app.routes'          => 'mako\application\cli\commands\app\ListRoutes',
@@ -73,7 +74,7 @@ class Application extends BaseApplication
 
 	/**
 	 * Loads the reactor ASCII logo.
-	 * 
+	 *
 	 * @access  protected
 	 * @return  string
 	 */
@@ -92,7 +93,7 @@ class Application extends BaseApplication
 	public function run()
 	{
 		ob_start();
-		
+
 		$input = $this->container->get('input');
 
 		$output = $this->container->get('output');
@@ -115,8 +116,13 @@ class Application extends BaseApplication
 			$config->set('database.default', $option);
 		});
 
+		$reactor->registerCustomOption('mute', 'Mutes all output', function(Output $output)
+		{
+			$output->mute();
+		});
+
 		// Register reactor commands
-		
+
 		foreach($this->getCommands() as $command => $class)
 		{
 			$reactor->registerCommand($command, $class);

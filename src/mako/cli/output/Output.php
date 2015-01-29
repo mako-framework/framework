@@ -20,7 +20,7 @@ class Output
 {
 	/**
 	 * Standard output.
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -28,7 +28,7 @@ class Output
 
 	/**
 	 * Error output
-	 * 
+	 *
 	 * @var int
 	 */
 
@@ -36,7 +36,7 @@ class Output
 
 	/**
 	 * Standard writer.
-	 * 
+	 *
 	 * @var \mako\cli\output\writer\WriterInterface
 	 */
 
@@ -44,7 +44,7 @@ class Output
 
 	/**
 	 * Error writer.
-	 * 
+	 *
 	 * @var \mako\cli\output\writer\WriterInterface
 	 */
 
@@ -52,7 +52,7 @@ class Output
 
 	/**
 	 * Formatter
-	 * 
+	 *
 	 * @var \mako\cli\output\formatter\FormatterInterface|null
 	 */
 
@@ -60,7 +60,7 @@ class Output
 
 	/**
 	 * Is the output muted?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -68,7 +68,7 @@ class Output
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\output\writer\WriterInterface        $standard   Standard writer
 	 * @param   \mako\cli\output\writer\WriterInterface        $error      Error writer
@@ -86,7 +86,7 @@ class Output
 
 	/**
 	 * Sets the formatter.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cli\output\formatter\FormatterInterface  $formatter  Formatter
 	 */
@@ -98,7 +98,7 @@ class Output
 
 	/**
 	 * Returns the formatter.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\cli\output\formatter\FormatterInterface|null
 	 */
@@ -110,7 +110,7 @@ class Output
 
 	/**
 	 * Mutes the output.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -121,7 +121,7 @@ class Output
 
 	/**
 	 * Unmutes the output.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -131,8 +131,20 @@ class Output
 	}
 
 	/**
+	 * Is the output muted?
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function isMuted()
+	{
+		return $this->muted;
+	}
+
+	/**
 	 * Writes string to output.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $string  String to write
 	 * @param   int     $writer  Output type
@@ -164,7 +176,7 @@ class Output
 
 	/**
 	 * Writes string to output using the error writer.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $string  String to write
 	 */
@@ -172,11 +184,11 @@ class Output
 	public function error($string)
 	{
 		return $this->write($string, static::ERROR);
-	} 
+	}
 
 	/**
 	 * Appends newline to string and writes it to output.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $string  String to write
 	 * @param   int     $writer  Output type
@@ -189,7 +201,7 @@ class Output
 
 	/**
 	 * Appends newline to string and writes it to output using the error writer.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $string  String to write
 	 */
@@ -197,5 +209,5 @@ class Output
 	public function errorLn($string)
 	{
 		return $this->writeLn($string, static::ERROR);
-	} 
+	}
 }

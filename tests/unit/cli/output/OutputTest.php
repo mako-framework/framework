@@ -15,7 +15,7 @@ use PHPUnit_Framework_TestCase;
 class OutputTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * 
+	 *
 	 */
 
 	public function tearDown()
@@ -24,7 +24,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getWriter()
@@ -33,7 +33,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function getFormatter()
@@ -42,7 +42,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWrite()
@@ -58,7 +58,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWriteWithErrorParam()
@@ -74,7 +74,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWriteLn()
@@ -90,7 +90,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWriteLnWithErrorParam()
@@ -106,7 +106,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testError()
@@ -122,7 +122,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testErrorLn()
@@ -138,7 +138,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testMute()
@@ -152,11 +152,13 @@ class OutputTest extends PHPUnit_Framework_TestCase
 
 		$output->mute();
 
+		$this->assertTrue($output->isMuted());
+
 		$output->write('hello, world!');
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testUnmute()
@@ -170,15 +172,19 @@ class OutputTest extends PHPUnit_Framework_TestCase
 
 		$output->mute();
 
+		$this->assertTrue($output->isMuted());
+
 		$output->write('hello, world!');
 
 		$output->unmute();
+
+		$this->assertFalse($output->isMuted());
 
 		$output->write('hello, world!');
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetNullFormatter()
@@ -192,7 +198,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testGetFormatter()
@@ -207,7 +213,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testSetFormatter()
@@ -226,7 +232,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWriteWithFormatter()
@@ -247,7 +253,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public function testWriteWithFormatterAndRedirectedOutput()
