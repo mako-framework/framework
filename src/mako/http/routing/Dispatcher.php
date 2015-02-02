@@ -211,16 +211,26 @@ class Dispatcher
 
 		$controller = $this->container->get($controller);
 
-		$returnValue = $controller->beforeFilter();
+		// Execute the before filter if we have one
+
+		if(method_exists($controller, 'beforeFilter'))
+		{
+			$returnValue = $this->container->call([$controller, 'beforeFilter']);
+		}
 
 		if(empty($returnValue))
 		{
-			// The before filter didn't return any data so we can set the response body to whatever
-			// the route action returns before executing its after filter
+			// The before filter didn't return any data so we can set the
+			// response body to whatever the route action returns
 
 			$this->response->body($this->container->call([$controller, $method], $this->parameters));
 
-			$controller->afterFilter();
+			// Execute the after filter if we have one
+
+			if(method_exists($controller, 'afterFilter'))
+			{
+				$this->container->call([$controller, 'afterFilter']);
+			}
 		}
 		else
 		{

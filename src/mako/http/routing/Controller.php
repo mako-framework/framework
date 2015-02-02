@@ -10,7 +10,7 @@ namespace mako\http\routing;
 use mako\syringe\ContainerAwareTrait;
 
 /**
- * Base controller that all application controllers must extend.
+ * Base controller.
  *
  * @author  Frederic G. Østby
  */
@@ -18,26 +18,4 @@ use mako\syringe\ContainerAwareTrait;
 abstract class Controller
 {
 	use ContainerAwareTrait;
-
-	/**
-	 * This method runs before the action.
-	 *
-	 * @access  public
-	 */
-
-	public function beforeFilter()
-	{
-
-	}
-
-	/**
-	 * This method runs after the action.
-	 *
-	 * @access  public
-	 */
-
-	public function afterFilter()
-	{
-
-	}
 }
