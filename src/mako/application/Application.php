@@ -309,31 +309,40 @@ abstract class Application
 	}
 
 	/**
-	 * Register services that only required for the command line interface.
+	 * Registers services in the IoC container.
 	 *
 	 * @access  protected
+	 * @param   string     $type  Service type
 	 */
 
-	protected function registerCLIServices()
+	protected function serviceRegistrar($type)
 	{
-		foreach($this->config->get('application.services.cli') as $service)
+		foreach($this->config->get('application.services.' . $type) as $service)
 		{
 			(new $service($this->container))->register();
 		}
 	}
 
 	/**
-	 * Register services that only required for the web.
+	 * Registers command line services.
+	 *
+	 * @access  protected
+	 */
+
+	protected function registerCLIServices()
+	{
+		$this->serviceRegistrar('cli');
+	}
+
+	/**
+	 * Registers web services.
 	 *
 	 * @access  protected
 	 */
 
 	protected function registerWebServices()
 	{
-		foreach($this->config->get('application.services.web') as $service)
-		{
-			(new $service($this->container))->register();
-		}
+		$this->serviceRegistrar('web');
 	}
 
 	/**
@@ -346,10 +355,7 @@ abstract class Application
 	{
 		// Register core services
 
-		foreach($this->config->get('application.services.core') as $service)
-		{
-			(new $service($this->container))->register();
-		}
+		$this->serviceRegistrar('core');
 
 		// Register environment specific services
 
@@ -398,6 +404,47 @@ abstract class Application
 	}
 
 	/**
+	 * Boots packages.
+	 *
+	 * @access  protected
+	 * @param   string     $type  Package type
+	 */
+
+	protected function packageBooter($type)
+	{
+		foreach($this->config->get('application.packages.' . $type) as $package)
+		{
+			$package = new $package($this->container);
+
+			$package->boot();
+
+			$this->packages[$package->getName()] = $package;
+		}
+	}
+
+	/**
+	 * Boots command line packages.
+	 *
+	 * @access  protected
+	 */
+
+	protected function bootCliPackages()
+	{
+		$this->packageBooter('cli');
+	}
+
+	/**
+	 * Boots web packages.
+	 *
+	 * @access  protected
+	 */
+
+	protected function bootWebPackages()
+	{
+		$this->packageBooter('web');
+	}
+
+	/**
 	 * Boot packages.
 	 *
 	 * @access  protected
@@ -405,13 +452,17 @@ abstract class Application
 
 	protected function bootPackages()
 	{
-		foreach($this->config->get('application.packages') as $package)
+		$this->packageBooter('core');
+
+		// Register environment specific services
+
+		if($this->isCommandLine())
 		{
-			$package = new $package($this->container);
-
-			$package->boot();
-
-			$this->packages[$package->getName()] = $package;
+			$this->bootCliPackages();
+		}
+		else
+		{
+			$this->bootWebPackages();
 		}
 	}
 
