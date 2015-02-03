@@ -74,6 +74,13 @@ class CLIHandler extends Handler
 
 		$message = $this->escape($this->exception->getMessage());
 
+		if(!empty($this->exception->getFile()))
+		{
+			$message .= PHP_EOL . PHP_EOL;
+			$message .= 'Error location: ' . $this->escape($this->exception->getFile());
+			$message .= ' on line ' . $this->escape($this->exception->getLine());
+		}
+
 		$trace = $this->escape($this->exception->getTraceAsString());
 
 		$this->output->errorLn('<bg_red><white>' . $type . ': ' . $message . PHP_EOL . PHP_EOL . $trace . PHP_EOL . '</white></bg_red>');
