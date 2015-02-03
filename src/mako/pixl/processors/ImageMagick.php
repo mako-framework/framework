@@ -114,6 +114,33 @@ class ImageMagick implements ProcessorInterface
 	 * {@inheritdoc}
 	 */
 
+	public function getWidth()
+	{
+		return $this->image->getImageWidth();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function getHeight()
+	{
+		return $this->image->getImageHeight();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function getDimensions()
+	{
+		return ['width' => $this->getWidth(), 'height' => $this->getHeight()];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
 	public function rotate($degrees)
 	{
 		$this->image->rotateImage(new ImagickPixel('none'), (360 - $degrees));

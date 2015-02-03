@@ -208,6 +208,33 @@ class GD implements ProcessorInterface
 	 * {@inheritdoc}
 	 */
 
+	public function getWidth()
+	{
+		return imagesx($this->image);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function getHeight()
+	{
+		return imagesy($this->image);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function getDimensions()
+	{
+		return ['width' => $this->getWidth(), 'height' => $this->getHeight()];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
 	public function rotate($degrees)
 	{
 		$w = imagesx($this->image);

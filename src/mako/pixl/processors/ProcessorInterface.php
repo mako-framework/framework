@@ -43,6 +43,33 @@ interface ProcessorInterface
 	public function restore();
 
 	/**
+	 * Returns the image width in pixels.
+	 *
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function getWidth();
+
+	/**
+	 * Returns the image height in pixels.
+	 *
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function getHeight();
+
+	/**
+	 * Returns an array containing the image dimensions in pixels.
+	 *
+	 * @access  public
+	 * @return  array
+	 */
+
+	public function getDimensions();
+
+	/**
 	 * Rotates the image using the given angle in degrees.
 	 *
 	 * @access  public

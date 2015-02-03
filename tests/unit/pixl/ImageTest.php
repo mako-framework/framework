@@ -616,4 +616,55 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 
 		$image->restore();
 	}
+
+	/**
+	 *
+	 */
+
+	public function testGetWidth()
+	{
+		$processor = $this->getProcessor();
+
+		$processor->shouldReceive('open')->with(__FILE__)->once();
+
+		$processor->shouldReceive('getWidth')->once()->andReturn(10);
+
+		$image = new Image(__FILE__, $processor);
+
+		$this->assertSame(10, $image->getWidth());
+	}
+
+	/**
+	 *
+	 */
+
+	public function testGetHeight()
+	{
+		$processor = $this->getProcessor();
+
+		$processor->shouldReceive('open')->with(__FILE__)->once();
+
+		$processor->shouldReceive('getHeight')->once()->andReturn(10);
+
+		$image = new Image(__FILE__, $processor);
+
+		$this->assertSame(10, $image->getHeight());
+	}
+
+	/**
+	 *
+	 */
+
+	public function testGetDimensions()
+	{
+		$processor = $this->getProcessor();
+
+		$processor->shouldReceive('open')->with(__FILE__)->once();
+
+		$processor->shouldReceive('getDimensions')->once()->andReturn(['width' => 10, 'height' => 10]);
+
+		$image = new Image(__FILE__, $processor);
+
+		$this->assertSame(['width' => 10, 'height' => 10], $image->getDimensions());
+	}
 }
