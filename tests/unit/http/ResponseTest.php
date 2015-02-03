@@ -276,9 +276,40 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertArrayHasKey('x-baz-bax', $headers);
 
-		$this->assertEquals('foo bar', $headers['x-foo-bar']);
+		$this->assertEquals(['foo bar'], $headers['x-foo-bar']);
 
-		$this->assertEquals('baz bax', $headers['x-baz-bax']);
+		$this->assertEquals(['baz bax'], $headers['x-baz-bax']);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testMultipleHeadersWithTheSameName()
+	{
+		$response = new Response($this->getRequest());
+
+		$response->header('foo', 'foo1');
+
+		$response->header('foo', 'foo2');
+
+		$response->header('bar', 'bar1', false);
+
+		$response->header('bar', 'bar2', false);
+
+		$headers = $response->getHeaders();
+
+		$this->assertTrue(is_array($headers));
+
+		$this->assertCount(2, $headers);
+
+		$this->assertArrayHasKey('foo', $headers);
+
+		$this->assertArrayHasKey('bar', $headers);
+
+		$this->assertEquals(['foo2'], $headers['foo']);
+
+		$this->assertEquals(['bar1', 'bar2'], $headers['bar']);
 	}
 
 	/**

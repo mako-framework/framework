@@ -412,14 +412,26 @@ class Response
 	 * Sets a response header.
 	 *
 	 * @access  public
-	 * @param   string               $name   Header name
-	 * @param   string               $value  Header value
+	 * @param   string               $name     Header name
+	 * @param   string               $value    Header value
+	 * @param   boolean              $replace  Replace header?
 	 * @return  \mako\http\Response
 	 */
 
-	public function header($name, $value)
+	public function header($name, $value, $replace = true)
 	{
-		$this->headers[strtolower($name)] = $value;
+		$name = strtolower($name);
+
+		if($replace === true)
+		{
+			$this->headers[$name] = [$value];
+		}
+		else
+		{
+			$headers = isset($this->headers[$name]) ? $this->headers[$name] : [];
+
+			$this->headers[$name] = array_merge($headers, [$value]);
+		}
 
 		return $this;
 	}
@@ -592,9 +604,12 @@ class Response
 
 		// Send other headers
 
-		foreach($this->headers as $name => $value)
+		foreach($this->headers as $name => $headers)
 		{
-			header($name . ': ' . $value);
+			foreach($headers as $value)
+			{
+				header($name . ': ' . $value, false);
+			}
 		}
 
 		// Send cookie headers
