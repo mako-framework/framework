@@ -935,7 +935,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT "id" FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT "id" FROM "foobar" LIMIT 1', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -951,7 +951,7 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT "id" FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT "id" FROM "foobar" LIMIT 1', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 

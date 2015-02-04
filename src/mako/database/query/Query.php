@@ -1034,7 +1034,7 @@ class Query
 			$this->select([$column]);
 		}
 
-		$query = $this->getCompiler()->select();
+		$query = $this->limit(1)->getCompiler()->select();
 
 		return $this->connection->column($query['sql'], $query['params']);
 	}
@@ -1048,7 +1048,7 @@ class Query
 
 	public function first()
 	{
-		$query = $this->getCompiler()->select();
+		$query = $this->limit(1)->getCompiler()->select();
 
 		return $this->connection->first($query['sql'], $query['params']);
 	}
@@ -1119,7 +1119,11 @@ class Query
 
 	protected function aggregate($column, $function)
 	{
-		return $this->select([new Raw($function . '(' . $this->getCompiler()->escapeTableAndOrColumn($column) . ')')])->column();
+		$aggregate = new Raw($function . '(' . $this->getCompiler()->escapeTableAndOrColumn($column) . ')');
+
+		$query = $this->select([$aggregate])->getCompiler()->select();
+
+		return $this->connection->column($query['sql'], $query['params']);
 	}
 
 	/**
