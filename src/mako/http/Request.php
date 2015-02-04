@@ -1032,7 +1032,7 @@ class Request
 	}
 
 	/**
-	 * Magic shortcut to request data.
+	 * Magic shortcut to fetch request data.
 	 *
 	 * @access  public
 	 * @param   string  $key  Array key
@@ -1042,5 +1042,18 @@ class Request
 	public function __get($key)
 	{
 		return $this->data($key);
+	}
+
+	/**
+	 * Magic shortcut to check if request data exists.
+	 *
+	 * @access  public
+	 * @param   string   $key  Array key
+	 * @return  boolean
+	 */
+
+	public function __isset($key)
+	{
+		return $this->data($key) !== null;
 	}
 }

@@ -707,4 +707,38 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals($body, $request->put());
 	}
+
+	/**
+	 *
+	 */
+
+	public function testMagicGet()
+	{
+		$get = ['foo' => 'bar', 'baz' => ['bax']];
+
+		$request = new Request(['get' => $get]);
+
+		$this->assertNull($request->bar);
+
+		$this->assertEquals('bar', $request->foo);
+
+		$this->assertEquals('bax', $request->baz[0]);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testMagicIsset()
+	{
+		$get = ['foo' => 'bar', 'baz' => ['bax']];
+
+		$request = new Request(['get' => $get]);
+
+		$this->assertFalse(isset($request->bar));
+
+		$this->assertTrue(isset($request->foo));
+
+		$this->assertTrue(isset($request->baz));
+	}
 }
