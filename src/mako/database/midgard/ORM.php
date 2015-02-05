@@ -953,7 +953,7 @@ abstract class ORM
 
 		foreach($this->columns as $key => $value)
 		{
-			if(!isset($this->original[$key]) || $this->original[$key] != $value)
+			if(!isset($this->original[$key]) || $this->original[$key] !== $value)
 			{
 				$modified[$key] = $value;
 			}
