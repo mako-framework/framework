@@ -176,22 +176,26 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * Returns the columns to fetch.
+	 * Adjusts the column selection.
 	 *
 	 * @access  protected
+	 * @param   array      $columns  Columns
 	 * @return  array
 	 */
 
-	protected function selectColumns()
+	protected function adjustSelection($columns)
 	{
-		if($this->lazy)
+		if($columns === ['*'])
 		{
-			return [$this->model->getTable() . '.*'];
+			$columns = [$this->model->getTable() . '.*'];
 		}
-		else
+
+		if(!$this->lazy)
 		{
-			return [$this->model->getTable() . '.*', $this->getJunctionTable() . '.' . $this->getForeignKey()];
+			$columns = array_merge($columns, [$this->getJunctionTable() . '.' . $this->getForeignKey()]);
 		}
+
+		return $columns;
 	}
 
 	/**
@@ -203,7 +207,7 @@ class ManyToMany extends Relation
 
 	public function first()
 	{
-		$this->columns = $this->selectColumns();
+		$this->columns = $this->adjustSelection($this->columns);
 
 		return parent::first();
 	}
@@ -217,7 +221,7 @@ class ManyToMany extends Relation
 
 	public function all()
 	{
-		$this->columns = $this->selectColumns();
+		$this->columns = $this->adjustSelection($this->columns);
 
 		return parent::all();
 	}
