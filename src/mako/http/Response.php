@@ -437,6 +437,19 @@ class Response
 	}
 
 	/**
+	 * Checks if the header exists in the response.
+	 *
+	 * @access  public
+	 * @param   string   $name  Header name
+	 * @return  boolean
+	 */
+
+	public function hasHeader($name)
+	{
+		return isset($this->headers[strtolower($name)]);
+	}
+
+	/**
 	 * Removes a response header.
 	 *
 	 * @access  public
@@ -532,6 +545,34 @@ class Response
 	public function deleteCookie($name, array $options = [])
 	{
 		return $this->cookie($name, '', -3600, $options);
+	}
+
+	/**
+	 * Checks if the cookie exists in the response.
+	 *
+	 * @access  public
+	 * @param   string   $name  Cookie name
+	 * @return  boolean
+	 */
+
+	public function hasCookie($name)
+	{
+		return isset($this->cookies[$name]);
+	}
+
+	/**
+	 * Removes a cookie from the response.
+	 *
+	 * @access  public
+	 * @param   string               $name   Cookie name
+	 * @return  \mako\http\Response
+	 */
+
+	public function removeCookie($name)
+	{
+		unset($this->cookies[$name]);
+
+		return $this;
 	}
 
 	/**

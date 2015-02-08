@@ -316,6 +316,21 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testHasHeader()
+	{
+		$response = new Response($this->getRequest());
+
+		$response->header('foo', 'foo1');
+
+		$this->assertTrue($response->hasHeader('foo'));
+
+		$this->assertFalse($response->hasHeader('bar'));
+	}
+
+	/**
+	 *
+	 */
+
 	public function testRemoveHeader()
 	{
 		$response = new Response($this->getRequest());
@@ -452,6 +467,48 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($cookies['foo']['ttl'] < time());
 
 		$this->assertEquals($cookies['bar']['path'], '/bar');
+	}
+
+	/**
+	 *
+	 */
+
+	public function testHasCookie()
+	{
+		$response = new Response($this->getRequest());
+
+		$response->cookie('foo', 'foo cookie');
+
+		$this->assertTrue($response->hasCookie('foo'));
+
+		$this->assertFalse($response->hasCookie('bar'));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testRemoveCookie()
+	{
+		$response = new Response($this->getRequest());
+
+		$response->cookie('foo', 'foo cookie');
+
+		$response->cookie('faa', 'faa cookie', 3600);
+
+		$cookies = $response->getCookies();
+
+		$this->assertCount(2, $cookies);
+
+		$response->removeCookie('foo');
+
+		$cookies = $response->getCookies();
+
+		$this->assertCount(1, $cookies);
+
+		$this->assertFalse(isset($cookies['foo']));
+
+		$this->assertTrue(isset($cookies['faa']));
 	}
 
 	/**
