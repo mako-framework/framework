@@ -22,6 +22,10 @@ class Parser
 // END CLASSES
 // --------------------------------------------------------------------------
 
+/**
+ * @group unit
+ */
+
 class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 {
 	/**
