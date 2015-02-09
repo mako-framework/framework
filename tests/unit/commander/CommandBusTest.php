@@ -70,7 +70,7 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 	{
 		$bus = new CommandBus;
 
-		$handled = $bus->handle(SelfHandlingCommand::class, ['bar' => 'bar', 'foo' => 'foo']);
+		$handled = $bus->dispatch(SelfHandlingCommand::class, ['bar' => 'bar', 'foo' => 'foo']);
 
 		$this->assertSame(['foo', 'bar'], $handled);
 	}
@@ -83,7 +83,7 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 	{
 		$bus = new CommandBus;
 
-		$handled = $bus->handle(new SelfHandlingCommand('foo', 'bar'));
+		$handled = $bus->dispatch(new SelfHandlingCommand('foo', 'bar'));
 
 		$this->assertSame(['foo', 'bar'], $handled);
 	}
@@ -96,7 +96,7 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 	{
 		$bus = new CommandBus;
 
-		$handled = $bus->handle(FooCommand::class, ['bar' => 'bar', 'foo' => 'foo']);
+		$handled = $bus->dispatch(FooCommand::class, ['bar' => 'bar', 'foo' => 'foo']);
 
 		$this->assertSame(['foo', 'bar'], $handled);
 	}
@@ -109,7 +109,7 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 	{
 		$bus = new CommandBus;
 
-		$handled = $bus->handle(new FooCommand('foo', 'bar'));
+		$handled = $bus->dispatch(new FooCommand('foo', 'bar'));
 
 		$this->assertSame(['foo', 'bar'], $handled);
 	}

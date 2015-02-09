@@ -110,7 +110,7 @@ class CommandBus implements CommandBusInterface
 	 * {@inheritdoc}
 	 */
 
-	public function handle($command, array $parameters = [])
+	public function dispatch($command, array $parameters = [])
 	{
 		$command = $this->resolveCommand($command, $parameters);
 

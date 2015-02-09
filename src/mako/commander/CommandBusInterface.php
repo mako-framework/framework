@@ -27,7 +27,7 @@ interface CommandBusInterface
 	public function __construct(Container $container = null);
 
 	/**
-	 * Handles a command.
+	 * Dispatches the command to the command handler and returns the result.
 	 *
 	 * @access  public
 	 * @param   \mako\commander\CommandInterface|string  $command     Command
@@ -35,5 +35,5 @@ interface CommandBusInterface
 	 * @return  mixed
 	 */
 
-	public function handle($command, array $parameters = []);
+	public function dispatch($command, array $parameters = []);
 }
