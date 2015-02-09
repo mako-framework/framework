@@ -17,6 +17,9 @@ use mako\syringe\Container;
  * @author  Frederic G. Østby
  *
  * @property  \mako\application\Application        $app
+ * @property  \mako\cli\input\Input                $input
+ * @property  \mako\cli\input\Output               $output
+ * @property  \mako\commander\CommandBusInterface  $bus
  * @property  \mako\file\FileSystem                $fileSystem
  * @property  \mako\config\Config                  $config
  * @property  \mako\cache\CacheManager             $cache
