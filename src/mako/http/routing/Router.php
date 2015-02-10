@@ -181,7 +181,11 @@ class Router
 					return [$this->optionsRoute($requestPath), []];
 				}
 
-				// Return the matched route
+				// Assign the route to the request
+
+				$request->setRoute($route);
+
+				// Return the matched route and parameters
 
 				return [$route, $parameters];
 			}

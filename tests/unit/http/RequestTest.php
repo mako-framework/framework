@@ -741,4 +741,34 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertTrue(isset($request->baz));
 	}
+
+	/**
+	 *
+	 */
+
+	public function testSetRoute()
+	{
+		$request = new Request();
+
+		$route = m::mock('mako\http\routing\Route');
+
+		$request->setRoute($route);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testGetRoute()
+	{
+		$request = new Request();
+
+		$this->assertNull($request->getRoute());
+
+		$route = m::mock('mako\http\routing\Route');
+
+		$request->setRoute($route);
+
+		$this->assertSame($route, $request->getRoute());
+	}
 }

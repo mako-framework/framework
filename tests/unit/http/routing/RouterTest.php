@@ -197,6 +197,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
+		$request->shouldReceive('setRoute')->once()->with($route);
+
 		$routed = $router->route($request);
 
 		$this->assertSame($route, $routed[0]);
@@ -225,6 +227,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 		$request->shouldReceive('method')->andReturn('GET');
 
 		$request->shouldReceive('path')->andReturn('/foo/123');
+
+		$request->shouldReceive('setRoute')->once()->with($route);
 
 		$routed = $router->route($request);
 

@@ -9,6 +9,7 @@ namespace mako\http;
 
 use RuntimeException;
 
+use mako\http\routing\Route;
 use mako\security\Signer;
 use mako\utility\Arr;
 
@@ -211,6 +212,14 @@ class Request
 	 */
 
 	protected $realMethod;
+
+	/**
+	 * The route that matched the request.
+	 *
+	 * @var \mako\http\routing\Route
+	 */
+
+	protected $route;
 
 	/**
 	 * Constructor.
@@ -451,6 +460,30 @@ class Request
 		// Get the real request method that was used
 
 		$this->realMethod = isset($this->server['REQUEST_METHOD']) ? strtoupper($this->server['REQUEST_METHOD']) : 'GET';
+	}
+
+	/**
+	 * Set the route that matched the request.
+	 *
+	 * @access  public
+	 * @param   \mako\http\routing\Route  $route  Route
+	 */
+
+	public function setRoute(Route $route)
+	{
+		$this->route = $route;
+	}
+
+	/**
+	 * Returns the route that matched the request.
+	 *
+	 * @access  public
+	 * @return  null|\mako\http\routing\Route
+	 */
+
+	public function getRoute()
+	{
+		return $this->route;
 	}
 
 	/**
