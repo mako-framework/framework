@@ -22,6 +22,7 @@ use mako\syringe\Container;
  * @property  \mako\cache\CacheManager             $cache
  * @property  \mako\security\crypto\CryptoManager  $crypto
  * @property  \mako\database\ConnectionManager     $database
+ * @property  \mako\event\Event                    $event
  * @property  \mako\error\ErrorHandler             $errorHandler
  * @property  \mako\auth\Gatekeeper                $gatekeeper
  * @property  \mako\utility\Humanizer              $humanizer
