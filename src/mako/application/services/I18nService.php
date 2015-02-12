@@ -31,7 +31,7 @@ class I18nService extends Service
 
 			$cache = $container->get('config')->get('application')['language_cache'];
 
-			$i18n = new I18n(new Loader($container->get('fileSystem'), $app->getPath() . '/i18n'), $app->getLanguage());
+			$i18n = new I18n(new Loader($container->get('fileSystem'), $app->getPath() . '/resources/i18n'), $app->getLanguage());
 
 			if($cache !== false)
 			{

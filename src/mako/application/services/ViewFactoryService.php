@@ -35,7 +35,7 @@ class ViewFactoryService extends Service
 
 			// Create factory instance
 
-			$factory = new ViewFactory($fileSystem, $applicationPath . '/views', $app->getCharset());
+			$factory = new ViewFactory($fileSystem, $applicationPath . '/resources/views', $app->getCharset());
 
 			// Register template renderer
 
