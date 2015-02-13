@@ -226,12 +226,12 @@ class Container
 
 		if($parameter->isDefaultValueAvailable())
 		{
-			// The parameter has a default value. Use that
+			// The parameter has a default value so we'll use that
 
 			return $parameter->getDefaultValue();
 		}
 
-		// The parameter doesn't have a default value. All we can do now is throw an exception
+		// We have exhausted all our options. All we can do now is throw an exception
 
 		throw new RuntimeException(vsprintf("%s(): Unable to resolve the [ $%s ] parameter of [ %s ].", [__METHOD__, $parameter->getName(), $this->getDeclaringFunction($parameter)]));
 	}
