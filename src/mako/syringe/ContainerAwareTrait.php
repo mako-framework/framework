@@ -87,7 +87,7 @@ trait ContainerAwareTrait
 		{
 			if(!$this->container->has($key))
 			{
-				throw new RuntimeException(vsprintf("%s: Unable to resolve [ %s ].", [__TRAIT__, $key]));
+				throw new RuntimeException(vsprintf("%s::%s(): Unable to resolve [ %s ].", [__TRAIT__, __FUNCTION__, $key]));
 			}
 
 			$this->resolved[$key] = $this->container->get($key);

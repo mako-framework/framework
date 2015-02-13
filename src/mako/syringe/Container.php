@@ -246,7 +246,7 @@ class Container
 			{
 				// The parameter doesn't have a default value. All we can do now is throw an exception
 
-				throw new RuntimeException(vsprintf("%s: Unable to resolve the [ $%s ] parameter of [ %s ].", [__CLASS__, $parameter->getName(), $this->getDeclaringFunction($parameter)]));
+				throw new RuntimeException(vsprintf("%s(): Unable to resolve the [ $%s ] parameter of [ %s ].", [__METHOD__, $parameter->getName(), $this->getDeclaringFunction($parameter)]));
 			}
 		}
 	}
@@ -318,6 +318,13 @@ class Container
 			// pass the container as the first parameter followed by the the provided parameters
 
 			$instance = call_user_func_array($class, array_merge([$this], $parameters));
+
+			// Check that the factory closure returned an object
+
+			if(is_object($instance) === false)
+			{
+				throw new RuntimeException(vsprintf("%s(): The factory closure must return an object.", [__METHOD__]));
+			}
 		}
 		else
 		{
@@ -327,7 +334,7 @@ class Container
 
 			if(!$class->isInstantiable())
 			{
-				throw new RuntimeException(vsprintf("%s: Unable create a [ %s ] instance.", [__CLASS__, $class->getName()]));
+				throw new RuntimeException(vsprintf("%s(): Unable create a [ %s ] instance.", [__METHOD__, $class->getName()]));
 			}
 
 			// Get the class constructor
