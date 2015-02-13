@@ -143,18 +143,7 @@ class Container
 
 	protected function resolveHint($hint)
 	{
-		if(isset($this->hints[$hint]))
-		{
-			// The hint is registered so we'll return the associated class
-
-			return $this->hints[$hint]['class'];
-		}
-		else
-		{
-			// Not registered. Just return the hint
-
-			return $hint;
-		}
+		return isset($this->hints[$hint]) ? $this->hints[$hint]['class'] : $hint;
 	}
 
 	/**
@@ -234,21 +223,17 @@ class Container
 
 			return $this->get($parameterClass->getName());
 		}
-		else
+
+		if($parameter->isDefaultValueAvailable())
 		{
-			if($parameter->isDefaultValueAvailable())
-			{
-				// The parameter has a default value. Use that
+			// The parameter has a default value. Use that
 
-				return $parameter->getDefaultValue();
-			}
-			else
-			{
-				// The parameter doesn't have a default value. All we can do now is throw an exception
-
-				throw new RuntimeException(vsprintf("%s(): Unable to resolve the [ $%s ] parameter of [ %s ].", [__METHOD__, $parameter->getName(), $this->getDeclaringFunction($parameter)]));
-			}
+			return $parameter->getDefaultValue();
 		}
+
+		// The parameter doesn't have a default value. All we can do now is throw an exception
+
+		throw new RuntimeException(vsprintf("%s(): Unable to resolve the [ $%s ] parameter of [ %s ].", [__METHOD__, $parameter->getName(), $this->getDeclaringFunction($parameter)]));
 	}
 
 	/**
