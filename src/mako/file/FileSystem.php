@@ -393,9 +393,9 @@ class FileSystem
 	 *  Creates a directory.
 	 *
 	 *  @access  public
-	 *  @param   string   $path      Path to directory
-	 *  @param   int      $mode      Mode
-	 *  @param   boolean  $recursive Recursive
+	 *  @param   string   $path       Path to directory
+	 *  @param   int      $mode       Mode
+	 *  @param   boolean  $recursive  Recursive
 	 *  @return  boolean
 	 */
 
