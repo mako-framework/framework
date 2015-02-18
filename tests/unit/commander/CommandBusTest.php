@@ -44,7 +44,7 @@ class FooCommand implements CommandInterface
 	}
 }
 
-class FooCommandHandler implements CommandHandlerInterface
+class FooHandler implements CommandHandlerInterface
 {
 	public function handle(CommandInterface $command)
 	{

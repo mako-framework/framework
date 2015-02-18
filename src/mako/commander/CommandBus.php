@@ -22,6 +22,21 @@ use mako\syringe\Container;
 class CommandBus implements CommandBusInterface
 {
 	/**
+	 * Command suffix.
+	 *
+	 * @var string
+	 */
+
+	const COMMAND_SUFFIX = 'Command';
+
+	/**
+	 * Handler suffix.
+	 *
+	 * @var string
+	 */
+
+	const HANDLER_SUFFIX = 'Handler';
+	/**
 	 * Container.
 	 *
 	 * @var \mako\syringe\Container
@@ -67,7 +82,22 @@ class CommandBus implements CommandBusInterface
 
 	protected function resolveCommandHandler(CommandInterface $command)
 	{
-		$handler = get_class($command) . 'Handler';
+		$class = get_class($command);
+
+		// Build handler class name
+
+		$commandSuffixLength = strlen(static::COMMAND_SUFFIX);
+
+		if(static::COMMAND_SUFFIX === substr($class, -$commandSuffixLength))
+		{
+			$handler = substr_replace($class, static::HANDLER_SUFFIX, strrpos($class, static::COMMAND_SUFFIX), $commandSuffixLength);
+		}
+		else
+		{
+			$handler = $class . static::HANDLER_SUFFIX;
+		}
+
+		// Return handler instance
 
 		return $this->container->get($handler);
 	}
