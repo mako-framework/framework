@@ -23,7 +23,7 @@ class CommandBusService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\commander\CommandBusInterface', 'bus'], function($container)
+		$this->container->registerSingleton(['mako\commander\CommandBusInterface', 'commander'], function($container)
 		{
 			return new CommandBus($container);
 		});
