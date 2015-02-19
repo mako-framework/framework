@@ -199,12 +199,15 @@ class I18n
 	 *
 	 * @access  protected
 	 * @param   string     $language  Name of the language pack
+	 * @param   string     $file      File from which we are loading the strings
 	 * @return  boolean
 	 */
 
-	protected function loadFromCache($language)
+	protected function loadFromCache($language, $file)
 	{
-		return ($this->strings[$language] = $this->cache->get('mako.i18n.' . $language)) !== false;
+		$this->strings[$language] = $this->cache->get('mako.i18n.' . $language);
+
+		return $this->strings[$language] !== false && isset($this->strings[$language][$file]);
 	}
 
 	/**
@@ -219,7 +222,7 @@ class I18n
 	{
 		if($this->cache !== null)
 		{
-			if($this->loadFromCache($language))
+			if($this->loadFromCache($language, $file))
 			{
 				return;
 			}
