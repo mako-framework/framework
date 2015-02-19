@@ -7,11 +7,11 @@
 
 namespace mako\i18n;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \mako\cache\Cache;
-use \mako\i18n\Loader;
-use \mako\utility\Arr;
+use mako\cache\Cache;
+use mako\i18n\Loader;
+use mako\utility\Arr;
 
 /**
  * Internationalization class.
@@ -23,7 +23,7 @@ class I18n
 {
 	/**
 	 * Language loader.
-	 * 
+	 *
 	 * @var \mako\i18n\Loader
 	 */
 
@@ -47,7 +47,7 @@ class I18n
 
 	/**
 	 * Loaded language inflections.
-	 * 
+	 *
 	 * @var array
 	 */
 
@@ -55,7 +55,7 @@ class I18n
 
 	/**
 	 * Cache instance.
-	 * 
+	 *
 	 * @var \mako\cache\Cache
 	 */
 
@@ -63,7 +63,7 @@ class I18n
 
 	/**
 	 * Should we rebuild the cache?
-	 * 
+	 *
 	 * @var boolean
 	 */
 
@@ -71,11 +71,11 @@ class I18n
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\i18n\Loader  $loader    Loader instance
 	 * @param   string             $language  Default language pack name
-	 * @param   \mako\cache\Cache  $cache     (optional) Cache instance
+	 * @param   \mako\cache\Cache  $cache     Cache instance
 	 */
 
 	public function __construct(Loader $loader, $language, Cache $cache = null)
@@ -89,7 +89,7 @@ class I18n
 
 	/**
 	 * Destructor.
-	 * 
+	 *
 	 * @access  public
 	 */
 
@@ -106,7 +106,7 @@ class I18n
 
 	/**
 	 * Returns the string loader.
-	 * 
+	 *
 	 * @access  public
 	 * @return  \mako\i18n\Loader
 	 */
@@ -118,7 +118,7 @@ class I18n
 
 	/**
 	 * Sets the cache.
-	 * 
+	 *
 	 * @access  public
 	 * @param   \mako\cache\Cache  $cache  Cache instance
 	 */
@@ -130,7 +130,7 @@ class I18n
 
 	/**
 	 * Gets the current language
-	 * 
+	 *
 	 * @access  public
 	 * @return  string
 	 */
@@ -155,7 +155,7 @@ class I18n
 
 	/**
 	 * Loads inflection closure and rules.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $language  Name of the language pack
 	 */
@@ -170,8 +170,8 @@ class I18n
 	 *
 	 * @access  public
 	 * @param   string  $word      Noun to pluralize
-	 * @param   int     $count     (optional) Number of nouns
-	 * @param   string  $language  (optional) Language rules to use for pluralization
+	 * @param   int     $count     Number of nouns
+	 * @param   string  $language  Language rules to use for pluralization
 	 * @return  string
 	 */
 
@@ -186,7 +186,7 @@ class I18n
 
 		if(empty($this->inflections[$language]))
 		{
-			throw new RuntimeException(vsprintf("%s:(): The [ %s ] language pack does not include any inflection rules.", [__METHOD__, $language]));
+			throw new RuntimeException(vsprintf("%s(): The [ %s ] language pack does not include any inflection rules.", [__METHOD__, $language]));
 		}
 
 		$pluralizer = $this->inflections[$language]['pluralize'];
@@ -196,29 +196,33 @@ class I18n
 
 	/**
 	 * Loads language strings from cache.
-	 * 
-	 * @access  public
-	 * @param   string   $language  Name of the language pack
+	 *
+	 * @access  protected
+	 * @param   string     $language  Name of the language pack
+	 * @param   string     $file      File from which we are loading the strings
 	 * @return  boolean
 	 */
 
-	protected function loadFromCache($language)
+	protected function loadFromCache($language, $file)
 	{
-		return ($this->strings[$language] = $this->cache->get('mako.i18n.' . $language)) !== false;
+		$this->strings[$language] = $this->cache->get('mako.i18n.' . $language);
+
+		return $this->strings[$language] !== false && isset($this->strings[$language][$file]);
 	}
 
 	/**
 	 * Loads all strings for the language.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $language  Name of the language pack
+	 * @param   file       $file      File from which we are loading the strings
 	 */
 
 	protected function loadStrings($language, $file)
 	{
 		if($this->cache !== null)
 		{
-			if($this->loadFromCache($language))
+			if($this->loadFromCache($language, $file))
 			{
 				return;
 			}
@@ -231,9 +235,9 @@ class I18n
 
 	/**
 	 * Parses the language key.
-	 * 
-	 * @access  public
-	 * @param   string  $key  Language key
+	 *
+	 * @access  protected
+	 * @param   string    $key  Language key
 	 * @return  array
 	 */
 
@@ -244,10 +248,10 @@ class I18n
 
 	/**
 	 * Returns the language string.
-	 * 
-	 * @access  public
-	 * @param   string  $key       Language key
-	 * @param   string  $language  Name of the language pack
+	 *
+	 * @access  protected
+	 * @param   string     $key       Language key
+	 * @param   string     $language  Name of the language pack
 	 * @return  string
 	 */
 
@@ -261,16 +265,16 @@ class I18n
 		{
 			$this->loadStrings($language, $file);
 		}
-		
+
 		return Arr::get($this->strings[$language][$file], $string, $key);
 	}
 
 	/**
 	 * Returns TRUE if the string exists and FALSE if not.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string   $key       String to translate
-	 * @param   string   $language  (optional) Name of the language pack
+	 * @param   string   $language  Name of the language pack
 	 * @return  boolean
 	 */
 
@@ -290,7 +294,7 @@ class I18n
 
 	/**
 	 * Pluralize words between pluralization tags.
-	 * 
+	 *
 	 * @access  protected
 	 * @param   string     $string  String to parse
 	 * @return  string
@@ -310,12 +314,12 @@ class I18n
 	}
 
 	/**
-	 * Returns the chosen string from the current language. 
+	 * Returns the chosen string from the current language.
 	 *
 	 * @access  public
 	 * @param   string  $key       String to translate
-	 * @param   array   $vars      (optional) Array of values to replace in the translated text
-	 * @param   string  $language  (optional) Name of the language pack
+	 * @param   array   $vars      Array of values to replace in the translated text
+	 * @param   string  $language  Name of the language pack
 	 * @return  string
 	 */
 
