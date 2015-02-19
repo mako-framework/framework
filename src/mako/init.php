@@ -10,7 +10,7 @@
 //------------------------------------------------------------------------------------------
 
 define('MAKO_START', microtime(true));
-define('MAKO_VERSION', '4.3.3');
+define('MAKO_VERSION', '4.3.4');
 
 //------------------------------------------------------------------------------------------
 // Convert all errors to ErrorExceptions and override default path for error logs
