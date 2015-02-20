@@ -52,6 +52,40 @@ class FooHandler implements CommandHandlerInterface
 	}
 }
 
+class BarCommand implements CommandInterface
+{
+	public $foo;
+
+	public function __construct($foo)
+	{
+		$this->foo = $foo;
+	}
+}
+
+class BarHandler implements CommandHandlerInterface
+{
+	public function handle(CommandInterface $command)
+	{
+		return $command->foo;
+	}
+}
+
+class FooMiddleware
+{
+	public function execute(CommandInterface $command, $next)
+	{
+		return 'foo_before_' . $next($command) . '_foo_after';
+	}
+}
+
+class BarMiddleware
+{
+	public function execute(CommandInterface $command, $next)
+	{
+		return 'bar_before_' . $next($command) . '_bar_after';
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -112,5 +146,51 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 		$handled = $bus->dispatch(new FooCommand('foo', 'bar'));
 
 		$this->assertSame(['foo', 'bar'], $handled);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testMiddleware()
+	{
+		$bus = new CommandBus;
+
+		$bus->addMiddleware(FooMiddleware::class);
+		$bus->addMiddleware(BarMiddleware::class);
+
+		$handled = $bus->dispatch(new BarCommand('handled'));
+
+		$this->assertSame('foo_before_bar_before_handled_bar_after_foo_after', $handled);
+
+		//
+
+		$bus = new CommandBus;
+
+		$bus->addMiddleware(FooMiddleware::class, false);
+		$bus->addMiddleware(BarMiddleware::class, false);
+
+		$handled = $bus->dispatch(new BarCommand('handled'));
+
+		$this->assertSame('bar_before_foo_before_handled_foo_after_bar_after', $handled);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testOneTimeMiddleware()
+	{
+		$bus = new CommandBus;
+
+		$handled = $bus->dispatch(new BarCommand('handled'), [], [FooMiddleware::class, BarMiddleware::class]);
+
+		$this->assertSame('foo_before_bar_before_handled_bar_after_foo_after', $handled);
+
+		//
+
+		$handled = $bus->dispatch(new BarCommand('handled'));
+
+		$this->assertSame('handled', $handled);
 	}
 }

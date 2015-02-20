@@ -11,6 +11,7 @@ use mako\commander\CommandBusInterface;
 use mako\commander\CommandHandlerInterface;
 use mako\commander\CommandInterface;
 use mako\commander\SelfHandlingCommandInterface;
+use mako\onion\Onion;
 use mako\syringe\Container;
 
 /**
@@ -36,6 +37,7 @@ class CommandBus implements CommandBusInterface
 	 */
 
 	const HANDLER_SUFFIX = 'Handler';
+
 	/**
 	 * Container.
 	 *
@@ -45,12 +47,36 @@ class CommandBus implements CommandBusInterface
 	protected $container;
 
 	/**
+	 * Onion.
+	 *
+	 * @var \mako\onion\Onion
+	 */
+
+	protected $onion;
+
+	/**
 	 * {@inheritdoc}
 	 */
 
-	public function __construct(Container $container = null)
+	public function __construct(Container $container = null, Onion $onion = null)
 	{
 		$this->container = $container ?: new Container;
+
+		$this->onion = $onion ?: new Onion($this->container);
+	}
+
+	/**
+	 * Adds middleware.
+	 *
+	 * @access  public
+	 * @param   string   $middleware  Middleware class
+	 * @param   boolean  $inner       Add an inner layer?
+	 * @return  int
+	 */
+
+	public function addMiddleware($middleware, $inner = true)
+	{
+		return $inner ? $this->onion->addInnerLayer($middleware) : $this->onion->addOuterLayer($middleware);
 	}
 
 	/**
@@ -124,7 +150,7 @@ class CommandBus implements CommandBusInterface
 	 * @return  mixed
 	 */
 
-	protected function handleCommand(CommandInterface $command)
+	protected function handle(CommandInterface $command)
 	{
 		if($command instanceof SelfHandlingCommandInterface)
 		{
@@ -137,13 +163,41 @@ class CommandBus implements CommandBusInterface
 	}
 
 	/**
+	 * Resolves the onion instance.
+	 *
+	 * @access  public
+	 * @param   array              $middleware  Middleware
+	 * @return  \mako\onion\Onion
+	 */
+
+	protected function resolveOnion(array $middleware)
+	{
+		if(empty($middleware))
+		{
+			return $this->onion;
+		}
+
+		$onion = clone $this->onion;
+
+		foreach($middleware as $layer)
+		{
+			$onion->addLayer($layer);
+		}
+
+		return $onion;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 
-	public function dispatch($command, array $parameters = [])
+	public function dispatch($command, array $parameters = [], array $middleware = [])
 	{
 		$command = $this->resolveCommand($command, $parameters);
 
-		return $this->handleCommand($command);
+		return $this->resolveOnion($middleware)->peel(function($command)
+		{
+			return $this->handle($command);
+		}, [$command]);
 	}
 }
