@@ -16,6 +16,25 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testConstructor()
+	{
+		$formatter = new Formatter;
+
+		$this->assertInternalType('boolean', $formatter->hasAnsiSupport());
+
+		$formatter = new Formatter(true);
+
+		$this->assertTrue($formatter->hasAnsiSupport());
+
+		$formatter = new Formatter(false);
+
+		$this->assertFalse($formatter->hasAnsiSupport());
+	}
+
+	/**
+	 *
+	 */
+
 	public function testBasicFormatter()
 	{
 		$formatter = new Formatter(true);

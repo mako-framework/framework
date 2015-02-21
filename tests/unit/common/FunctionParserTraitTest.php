@@ -81,4 +81,15 @@ class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame(['foo', ['a' => 1, 'b' => 2]], $parser->parse('foo:{"a":1,"b":2}'));
 	}
+
+	/**
+	 * @expectedException \RuntimeException
+	 */
+
+	public function testFunctionWithInvalidJson()
+	{
+		$parser = new Parser;
+
+		$parser->parse('foo:bar');
+	}
 }

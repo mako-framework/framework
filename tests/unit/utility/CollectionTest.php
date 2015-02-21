@@ -69,6 +69,12 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	{
 		$collection = new Collection();
 
+		$collection[] = 'barfoo';
+
+		$this->assertTrue(isset($collection[0]));
+
+		$this->assertEquals('barfoo', $collection[0]);
+
 		$collection[4] = 'foobar';
 
 		$this->assertTrue(isset($collection[4]));
@@ -207,6 +213,48 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testSort()
+	{
+		$collection = new Collection([2, 1, 3, 5, 6, 4]);
+
+		$collection->sort(function($a, $b)
+		{
+			if($a == $b)
+			{
+				return 0;
+			}
+
+			return ($a < $b) ? -1 : 1;
+		});
+
+		$this->assertSame([1 => 1, 0 => 2, 2 => 3, 5 => 4, 3 => 5, 4 => 6], $collection->getItems());
+	}
+
+	/**
+	 *
+	 */
+
+	public function testSortWithoutMaintainingIndexAssociation()
+	{
+		$collection = new Collection([2, 1, 3, 5, 6, 4]);
+
+		$collection->sort(function($a, $b)
+		{
+			if($a == $b)
+			{
+				return 0;
+			}
+
+			return ($a < $b) ? -1 : 1;
+		}, false);
+
+		$this->assertSame([1, 2, 3, 4, 5, 6], $collection->getItems());
+	}
+
+	/**
+	 *
+	 */
+
 	public function testChunk()
 	{
 		$collection = new Collection([1, 2, 3, 4, 5, 6]);
@@ -228,6 +276,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 	public function testShuffle()
 	{
-		// Impossible to assert a return value
+		$collection = new Collection([1, 2]);
+
+		$collection->shuffle();
+
+		$this->assertTrue(($collection[0] === 1 || $collection[0] === 2));
 	}
 }

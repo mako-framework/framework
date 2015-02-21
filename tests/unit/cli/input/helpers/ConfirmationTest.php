@@ -117,4 +117,24 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame(true, $confirmation->ask('Delete all files?', 'n', ['j' => true, 'n' => false]));
 	}
+
+	/**
+	 *
+	 */
+
+	public function testConfirmationWithInvalidInput()
+	{
+		$input = m::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('read')->once()->andReturn('x');
+		$input->shouldReceive('read')->once()->andReturn('y');
+
+		$output = m::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('write')->twice()->with('Delete all files? [y/N] ');
+
+		$confirmation = new Confirmation($input, $output);
+
+		$this->assertSame(true, $confirmation->ask('Delete all files?'));
+	}
 }

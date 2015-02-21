@@ -128,6 +128,18 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
+	 * Do we have ANSI support?
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function hasAnsiSupport()
+	{
+		return $this->hasAnsiSupport;
+	}
+
+	/**
 	 * Adds a user defined style.
 	 *
 	 * @access  public

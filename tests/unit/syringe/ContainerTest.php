@@ -60,6 +60,14 @@ class Baq
 	}
 }
 
+class Fox
+{
+	public function __construct($bax)
+	{
+
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -81,6 +89,18 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$foo = $container->get('mako\tests\unit\syringe\Foo');
 
 		$this->assertInstanceOf('\StdClass', $foo->stdClass);
+	}
+
+	/**
+	 * @expectedException \RuntimeException
+	 * @expectedExceptionMessage mako\syringe\Container::resolveParameter(): Unable to resolve the [ $bax ] parameter of [ mako\tests\unit\syringe\Fox::__construct ].
+	 */
+
+	public function testClassInstantiationWithUnresolvableParameters()
+	{
+		$container = new Container;
+
+		$foo = $container->get('mako\tests\unit\syringe\Fox');
 	}
 
 	/**
@@ -164,6 +184,18 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @expectedException \RuntimeException
+	 * @expectedExceptionMessage mako\syringe\Container::factory(): Unable create a [ mako\tests\unit\syringe\StoreInterface ] instance.
+	 */
+
+	public function testInterfaceInstantiation()
+	{
+		$container = new Container;
+
+		$baz = $container->get('mako\tests\unit\syringe\StoreInterface');
+	}
+
+	/**
 	 *
 	 */
 
@@ -197,6 +229,41 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('uvw', $bar->foo);
 		$this->assertEquals('xyz', $bar->bar);
+	}
+
+	/**
+	 * @expectedException \RuntimeException
+	 * @expectedExceptionMessage mako\syringe\Container::factory(): The factory closure must return an object.
+	 */
+
+	public function testRegisterClosureWithoutReturnValue()
+	{
+		$container = new Container;
+
+		$container->register(['mako\tests\unit\syringe\Bar', 'bar'], function(){});
+
+		$bar = $container->get('bar');
+	}
+
+	/**
+	 *
+	 */
+
+	public function testRegisterInstance()
+	{
+		$container = new Container;
+
+		$baq = new Baq;
+
+		$baq->setBaq('foobar');
+
+		$container->registerInstance(['mako\tests\unit\syringe\Baq', 'baq'], $baq);
+
+		$baq = $container->get('baq');
+
+		$this->assertInstanceOf('mako\tests\unit\syringe\Baq', $baq);
+
+		$this->assertSame('foobar', $baq->baq);
 	}
 
 	/**
@@ -307,5 +374,17 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$container->call([$baq, 'setBaq'], [456]);
 
 		$this->assertSame(456, $baq->baq);
+	}
+
+	/**
+	 * @expectedException \RuntimeException
+	 * @expectedExceptionMessage mako\syringe\Container::resolveParameter(): Unable to resolve the [ $foo ] parameter of [ Closure ].
+	 */
+
+	public function testCallMethodWithUnresolvableParameters()
+	{
+		$container = new Container;
+
+		$container->call(function($foo){});
 	}
 }
