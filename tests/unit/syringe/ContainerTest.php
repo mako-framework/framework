@@ -185,7 +185,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage mako\syringe\Container::factory(): Unable create a [ mako\tests\unit\syringe\StoreInterface ] instance.
+	 * @expectedExceptionMessage mako\syringe\Container::reflectionFactory(): Unable create a [ mako\tests\unit\syringe\StoreInterface ] instance.
 	 */
 
 	public function testInterfaceInstantiation()
@@ -233,7 +233,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage mako\syringe\Container::factory(): The factory closure must return an object.
+	 * @expectedExceptionMessage mako\syringe\Container::closureFactory(): The factory closure must return an object.
 	 */
 
 	public function testRegisterClosureWithoutReturnValue()

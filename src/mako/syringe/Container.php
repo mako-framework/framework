@@ -287,6 +287,75 @@ class Container
 	}
 
 	/**
+	 * Creates a class instance using a factory closure.
+	 *
+	 * @access  public
+	 * @param   \Closure  $factory     Class name or closure
+	 * @param   array     $parameters  Constructor parameters
+	 * @return  object
+	 */
+
+	protected function closureFactory(Closure $factory, array $parameters)
+	{
+		// Pass the container as the first parameter followed by the the provided parameters
+
+		$instance = call_user_func_array($factory, array_merge([$this], $parameters));
+
+		// Check that the factory closure returned an object
+
+		if(is_object($instance) === false)
+		{
+			throw new RuntimeException(vsprintf("%s(): The factory closure must return an object.", [__METHOD__]));
+		}
+
+		return $instance;
+	}
+
+	/**
+	 * Creates a class instance using reflection.
+	 *
+	 * @access  public
+	 * @param   string  $class       Class name or closure
+	 * @param   array   $parameters  Constructor parameters
+	 * @return  object
+	 */
+
+	protected function reflectionFactory($class, array $parameters)
+	{
+		$class = new ReflectionClass($class);
+
+		// Check that it's possible to instantiate the class
+
+		if(!$class->isInstantiable())
+		{
+			throw new RuntimeException(vsprintf("%s(): Unable create a [ %s ] instance.", [__METHOD__, $class->getName()]));
+		}
+
+		// Get the class constructor
+
+		$constructor = $class->getConstructor();
+
+		if($constructor === null)
+		{
+			// No constructor has been defined so we'll just return a new instance
+
+			$instance = $class->newInstance();
+		}
+		else
+		{
+			// The class has a constructor. Lets get its parameters.
+
+			$constructorParameters = $constructor->getParameters();
+
+			// Create and return a new instance using our resolved parameters
+
+			$instance = $class->newInstanceArgs($this->resolveParameters($constructorParameters, $parameters));
+		}
+
+		return $instance;
+	}
+
+	/**
 	 * Creates a class instance.
 	 *
 	 * @access  public
@@ -297,51 +366,15 @@ class Container
 
 	protected function factory($class, array $parameters = [])
 	{
+		// Instantiate class
+
 		if($class instanceof Closure)
 		{
-			// We got a closure so we'll just call it and
-			// pass the container as the first parameter followed by the the provided parameters
-
-			$instance = call_user_func_array($class, array_merge([$this], $parameters));
-
-			// Check that the factory closure returned an object
-
-			if(is_object($instance) === false)
-			{
-				throw new RuntimeException(vsprintf("%s(): The factory closure must return an object.", [__METHOD__]));
-			}
+			$instance = $this->closureFactory($class, $parameters);
 		}
 		else
 		{
-			$class = new ReflectionClass($class);
-
-			// Check that it's possible to instantiate the class
-
-			if(!$class->isInstantiable())
-			{
-				throw new RuntimeException(vsprintf("%s(): Unable create a [ %s ] instance.", [__METHOD__, $class->getName()]));
-			}
-
-			// Get the class constructor
-
-			$constructor = $class->getConstructor();
-
-			if($constructor === null)
-			{
-				// No constructor has been defined so we'll just return a new instance
-
-				$instance = $class->newInstance();
-			}
-			else
-			{
-				// The class has a constructor. Lets get its parameters.
-
-				$constructorParameters = $constructor->getParameters();
-
-				// Create and return a new instance using our resolved parameters
-
-				$instance = $class->newInstanceArgs($this->resolveParameters($constructorParameters, $parameters));
-			}
+			$instance = $this->reflectionFactory($class, $parameters);
 		}
 
 		// Inject container using setter if the class is container aware
