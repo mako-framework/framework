@@ -86,6 +86,19 @@ class BarMiddleware
 	}
 }
 
+class Baz implements CommandInterface
+{
+	public $baz = 'baz';
+}
+
+class BazHandler implements CommandHandlerInterface
+{
+	public function handle(CommandInterface $command)
+	{
+		return $command->baz;
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -96,6 +109,20 @@ class BarMiddleware
 
 class CommandBusTest extends PHPUnit_Framework_TestCase
 {
+	/**
+	 *
+	 *
+	 */
+
+	public function testCommandWithoutSuffix()
+	{
+		$bus = new CommandBus;
+
+		$handled = $bus->dispatch(Baz::class);
+
+		$this->assertSame('baz', $handled);
+	}
+
 	/**
 	 *
 	 */

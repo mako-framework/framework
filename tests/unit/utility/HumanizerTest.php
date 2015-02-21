@@ -61,6 +61,8 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	{
 		$humanizer = $this->getHumanizer();
 
+		$this->assertEquals('0 byte', $humanizer->fileSize(0));
+
 		//
 
 		$this->assertEquals('1 byte', $humanizer->fileSize(1));
@@ -175,6 +177,8 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	public function testFileSizeDecimal()
 	{
 		$humanizer = $this->getHumanizer();
+
+		$this->assertEquals('0 byte', $humanizer->fileSize(0, false));
 
 		//
 

@@ -56,6 +56,15 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @expectedException \InvalidArgumentException
+	 */
+
+	public function testV3WithInvalidNamespace()
+	{
+		UUID::v3('nope', 'foobar');
+	}
+
+	/**
 	 *
 	 */
 
@@ -85,5 +94,14 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 		$this->assertNotEquals(UUID::v5(UUID::DNS, 'hello'), UUID::v5(UUID::DNS, 'goodbye'));
 
 		$this->assertTrue(UUID::validate(UUID::v5(UUID::DNS, 'hello')));
+	}
+
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
+
+	public function testV5WithInvalidNamespace()
+	{
+		UUID::v5('nope', 'foobar');
 	}
 }

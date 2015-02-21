@@ -205,13 +205,14 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * and returns TRUE on success and FALSE on failure.
 	 *
 	 * @access  public
-	 * @param   \Closure  $comparator  Comparator closure
+	 * @param   \Closure  $comparator                Comparator closure
+	 * @param   boolean   $maintainIndexAssociation  Maintain index association?
 	 * @return  boolean
 	 */
 
-	public function sort(Closure $comparator)
+	public function sort(Closure $comparator, $maintainIndexAssociation = true)
 	{
-		return uasort($this->items, $comparator);
+		return $maintainIndexAssociation ? uasort($this->items, $comparator) : usort($this->items, $comparator);
 	}
 
 	/**

@@ -20,6 +20,8 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('<br>', $html->tag('br'));
 
+		$this->assertEquals('<input disabled="disabled">', $html->tag('input', ['disabled']));
+
 		$this->assertEquals('<p>hello</p>', $html->tag('p', [], 'hello'));
 
 		$this->assertEquals('<p class="foo" id="bar">hello</p>', $html->tag('p', ['class' => 'foo', 'id' => 'bar'], 'hello'));
@@ -29,6 +31,8 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 		$html = new HTML(true);
 
 		$this->assertEquals('<br />', $html->tag('br'));
+
+		$this->assertEquals('<input disabled="disabled" />', $html->tag('input', ['disabled']));
 
 		$this->assertEquals('<p>hello</p>', $html->tag('p', [], 'hello'));
 

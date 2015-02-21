@@ -75,6 +75,8 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertTrue(Arr::delete($arr, 'bar.bax.0'));
 
+		$this->assertFalse(Arr::delete($arr, 'nope.nope'));
+
 		$this->assertEquals(['bar' => ['bax' => []]], $arr);
 	 }
 
