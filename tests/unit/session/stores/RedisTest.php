@@ -86,8 +86,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 
 		$redis = new Redis($client);
 
-		$cached = $redis->delete('123');
-
+		$redis->delete('123');
 	}
 
 	/**
@@ -96,6 +95,10 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 
 	public function testGc()
 	{
-		// Nothing to test since this is done by redis
+		$client = $this->getRedisClient();
+
+		$redis = new Redis($client);
+
+		$redis->gc(123);
 	}
 }

@@ -63,4 +63,15 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertTrue(Password::needsRehash($hash, 5));
 	}
+
+	/**
+	 *
+	 */
+
+	public function testSetAndGetDefaultComputingCost()
+	{
+		Password::setDefaultComputingCost(12);
+
+		$this->assertSame(12, Password::getDefaultComputingCost());
+	}
 }

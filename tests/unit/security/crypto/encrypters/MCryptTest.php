@@ -51,4 +51,15 @@ class MCryptTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals($string, $decrypted);
 	}
+
+	/**
+	 *
+	 */
+
+	public function testDecryptWithInvalidBase64()
+	{
+		$mcrypt = new MCrypt('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK', new PKCS7);
+
+		$this->assertFalse($mcrypt->decrypt('<invalid>'));
+	}
 }

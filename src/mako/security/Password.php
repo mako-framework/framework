@@ -58,7 +58,7 @@ class Password
 	}
 
 	/**
-	 * Set Default computing cost.
+	 * Set default computing cost.
 	 *
 	 * @access  public
 	 * @param   int     $cost  Computing cost
@@ -67,6 +67,18 @@ class Password
 	public static function setDefaultComputingCost($cost)
 	{
 		static::$costs[PASSWORD_DEFAULT] = static::normalizeCost($cost);
+	}
+
+	/**
+	 * Get default computing cost.
+	 *
+	 * @access  public
+	 * @return  int
+	 */
+
+	public static function getDefaultComputingCost()
+	{
+		return static::$costs[PASSWORD_DEFAULT];
 	}
 
 	/**

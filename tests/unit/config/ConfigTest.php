@@ -49,6 +49,23 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 		$this->assertNull($config->get('settings.world'));
 
 		$this->assertFalse($config->get('settings.world', false));
+
+		$this->assertEquals(['settings' => ['greeting' => 'hello']], $config->getLoadedConfiguration());
+	}
+
+	/**
+	 * @expectedException \RuntimeException
+	 */
+
+	public function testBasicNonExistingFile()
+	{
+		$fileSystem = $this->getFileSystem();
+
+		$fileSystem->shouldReceive('exists')->once()->with('/app/config/settings.php')->andReturn(false);
+
+		$config = new Config($fileSystem, '/app/config');
+
+		$config->get('settings.greeting');
 	}
 
 	/**
@@ -166,6 +183,22 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 		$config->set('settings.greeting', 'hello');
 
 		$this->assertEquals('hello', $config->get('settings.greeting'));
+	}
+
+	/**
+	 * @expectedException \RuntimeException
+	 * @expectedExceptionMessage mako\config\Config::load(): The [ settings ] config file does not exist.
+	 */
+
+	public function testSetWithNonExistingFile()
+	{
+		$fileSystem = $this->getFileSystem();
+
+		$fileSystem->shouldReceive('exists')->once()->with('/app/config/settings.php')->andReturn(false);
+
+		$config = new Config($fileSystem, '/app/config');
+
+		$config->set('settings.greeting', 'hello');
 	}
 
 	/**

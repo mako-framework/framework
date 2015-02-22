@@ -54,6 +54,17 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testSetCache()
+	{
+		$i18n = new I18n($this->getLoader(), 'en_US');
+
+		$i18n->setCache($this->getCache());
+	}
+
+	/**
+	 *
+	 */
+
 	public function testGetLanguage()
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
@@ -199,6 +210,22 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 		$i18n = new I18n($loader, 'en_US');
 
 		$this->assertEquals('apples', $i18n->pluralize('apple'));
+	}
+
+	/**
+	 * @expectedException \RuntimeException
+	 * @expectedExceptionMessage mako\i18n\I18n::pluralize(): The [ en_US ] language pack does not include any inflection rules.
+	 */
+
+	public function testPluralizeWithoutPluralizationRules()
+	{
+		$loader = $this->getLoader();
+
+		$loader->shouldReceive('loadInflection')->once()->with('en_US')->andReturn(null);
+
+		$i18n = new I18n($loader, 'en_US');
+
+		$i18n->pluralize('apple');
 	}
 
 	/**

@@ -135,11 +135,35 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('\mako\http\routing\Route', $routed[0]);
 
+		$this->assertInstanceOf('Closure', $routed[0]->getAction());
+
 		$this->assertSame([], $routed[1]);
 
 		$this->assertEmpty($routed[0]->getRoute());
 
 		$this->assertEmpty($routed[0]->getMethods());
+
+		//
+
+		$closure = $routed[0]->getAction();
+
+		$request->shouldReceive('baseURL')->once()->andReturn('http://example.org');
+
+		$request->shouldReceive('languagePrefix')->once()->andReturn('en');
+
+		$request->shouldReceive('get')->once()->andReturn(['foo' => 'bar']);
+
+		$response = m::mock('mako\http\Response');
+
+		$redirect = m::mock('mako\http\responses\Redirect');
+
+		$redirect->shouldReceive('status')->once()->with(301)->andReturn($redirect);
+
+		$response->shouldReceive('redirect')->once()->with('http://example.org/en/foo/?foo=bar')->andReturn($redirect);
+
+		$returnValue = $closure($request, $response);
+
+		$this->assertInstanceOf('mako\http\responses\Redirect', $returnValue);
 	}
 
 	/**
@@ -173,6 +197,22 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('mako\http\routing\Route', $routed[0]);
 
 		$this->assertInstanceOf('Closure', $routed[0]->getAction());
+
+		$this->assertSame([], $routed[1]);
+
+		$this->assertEmpty($routed[0]->getRoute());
+
+		$this->assertEmpty($routed[0]->getMethods());
+
+		//
+
+		$closure = $routed[0]->getAction();
+
+		$response = m::mock('mako\http\Response');
+
+		$response->shouldReceive('header')->once()->with('allow', 'POST,OPTIONS');
+
+		$closure($response);
 	}
 
 	/**
