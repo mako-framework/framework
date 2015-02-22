@@ -27,6 +27,51 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testAuth()
+	{
+		$connection = m::mock('mako\redis\Connection');
+
+		$connection->shouldReceive('write')->once()->with("*2\r\n$4\r\nAUTH\r\n$6\r\nfoobar\r\n");
+
+		$connection->shouldReceive('gets')->once()->andReturn("+OK\r\n");
+
+		$redis = new Redis($connection, ['password' => 'foobar']);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testZeroDatabase()
+	{
+		$connection = m::mock('mako\redis\Connection');
+
+		$connection->shouldReceive('write')->never()->with("*2\r\n$6\r\nSELECT\r\n$1\r\n0\r\n");
+
+		$connection->shouldReceive('gets')->never()->andReturn("+OK\r\n");
+
+		$redis = new Redis($connection, ['database' => 0]);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testNonZeroDatabase()
+	{
+		$connection = m::mock('mako\redis\Connection');
+
+		$connection->shouldReceive('write')->once()->with("*2\r\n$6\r\nSELECT\r\n$1\r\n1\r\n");
+
+		$connection->shouldReceive('gets')->once()->andReturn("+OK\r\n");
+
+		$redis = new Redis($connection, ['database' => 1]);
+	}
+
+	/**
+	 *
+	 */
+
 	public function testMethodCall()
 	{
 		$connection = m::mock('mako\redis\Connection');
@@ -224,5 +269,23 @@ class RedisTest extends PHPUnit_Framework_TestCase
 		$redis = new Redis($connection);
 
 		$this->assertSame(null, $redis->foobar());
+	}
+
+	/**
+	 * @expectedException \mako\redis\RedisException
+	 * @expectedExcetionMessage \mako\redis\Redis::response(): Unable to handle server response.
+	 */
+
+	public function testInvalidResponse()
+	{
+		$connection = m::mock('mako\redis\Connection');
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('gets')->once()->andReturn("foobar");
+
+		$redis = new Redis($connection);
+
+		$redis->foobar();
 	}
 }

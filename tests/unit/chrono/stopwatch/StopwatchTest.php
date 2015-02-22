@@ -2,13 +2,15 @@
 
 namespace mako\tests\unit\chrono\stopwatch;
 
+use PHPUnit_Framework_TestCase;
+
 use mako\chrono\stopwatch\Stopwatch;
 
 /**
  * @group unit
  */
 
-class StopwatchTest extends \PHPUnit_Framework_TestCase
+class StopwatchTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

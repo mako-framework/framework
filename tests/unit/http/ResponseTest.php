@@ -562,4 +562,52 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertCount(0, $response->getCookies());
 	}
+
+	/**
+	 *
+	 */
+
+	public function testFile()
+	{
+		$response = new Response($this->getRequest());
+
+		$this->assertInstanceOf('mako\http\responses\File', $response->file(__FILE__));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testStream()
+	{
+		$response = new Response($this->getRequest());
+
+		$this->assertInstanceOf('mako\http\responses\Stream', $response->stream(function(){}));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testRedirect()
+	{
+		$response = new Response($this->getRequest());
+
+		$this->assertInstanceOf('mako\http\responses\Redirect', $response->redirect('http://example.org'));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testBack()
+	{
+		$request = $this->getRequest();
+
+		$request->shouldReceive('referer')->once()->andReturn('http://example.org');
+
+		$response = new Response($request);
+
+		$this->assertInstanceOf('mako\http\responses\Redirect', $response->back());
+	}
 }

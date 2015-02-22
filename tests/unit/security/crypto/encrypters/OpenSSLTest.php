@@ -50,4 +50,15 @@ class OpenSSLTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals($string, $decrypted);
 	}
+
+	/**
+	 *
+	 */
+
+	public function testDecryptWithInvalidBase64()
+	{
+		$openSSL = new OpenSSL('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK');
+
+		$this->assertFalse($openSSL->decrypt('<invalid>'));
+	}
 }

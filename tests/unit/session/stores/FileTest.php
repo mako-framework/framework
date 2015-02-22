@@ -96,8 +96,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
 		$file = new File($fileSystem, '/sessions');
 
-		$cached = $file->delete('123');
-
+		$file->delete('123');
 	}
 
 	/**

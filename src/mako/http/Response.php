@@ -761,7 +761,8 @@ class Response
 	 * Redirects the user back to the previous page.
 	 *
 	 * @access  public
-	 * @param   int     $statusCode  HTTP status code
+	 * @param   int                           $statusCode  HTTP status code
+	 * @return  \mako\http\response\Redirect
 	 */
 
 	public function back($statusCode = 302)

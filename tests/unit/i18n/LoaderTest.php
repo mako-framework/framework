@@ -63,6 +63,22 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @expectedException \RuntimeException
+	 * @expectedExceptionMessage mako\i18n\Loader::loadStrings(): The [ /app/i18n/en_US/strings/foobar.php ] language file does not exist in the [ en_US ] language pack.
+	 */
+
+	public function testBasicNonExistingStringLoading()
+	{
+		$fileSystem = $this->getFileSystem();
+
+		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/en_US/strings/foobar.php')->andReturn(false);
+
+		$loader = new Loader($fileSystem, '/app/i18n');
+
+		$loader->loadStrings('en_US', 'foobar');
+	}
+
+	/**
 	 *
 	 */
 
@@ -123,5 +139,20 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 		$loader = new Loader($fileSystem, '/app/i18n');
 
 		$this->assertEquals('inflection', $loader->loadInflection('en_US'));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testLoadNonExistingInflection()
+	{
+		$fileSystem = $this->getFileSystem();
+
+		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(false);
+
+		$loader = new Loader($fileSystem, '/app/i18n');
+
+		$this->assertEquals(null, $loader->loadInflection('en_US'));
 	}
 }

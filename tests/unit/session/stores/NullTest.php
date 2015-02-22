@@ -18,7 +18,9 @@ class NullTest extends \PHPUnit_Framework_TestCase
 
 	public function testWrite()
 	{
-		// Nothing to test since it doesn't write anything
+		$null = new Null;
+
+		$null->write('123', 'data', 123);
 	}
 
 	/**
@@ -38,7 +40,9 @@ class NullTest extends \PHPUnit_Framework_TestCase
 
 	public function testDelete()
 	{
-		// Nothing to test since it doesn't delete anything
+		$null = new Null;
+
+		$null->delete('123');
 
 	}
 
@@ -48,6 +52,8 @@ class NullTest extends \PHPUnit_Framework_TestCase
 
 	public function testGc()
 	{
-		// Nothing to test since there isn't anything to clean up
+		$null = new Null;
+
+		$null->gc(123);
 	}
 }
