@@ -378,7 +378,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage mako\syringe\Container::resolveParameter(): Unable to resolve the [ $foo ] parameter of [ Closure ].
+	 * @expectedExceptionMessage mako\syringe\Container::resolveParameter(): Unable to resolve the [ $foo ] parameter of
+	 *
+	 * The entire exception message isn't included in the test because of some HHVM incompatibility that causes the test to fail
 	 */
 
 	public function testCallMethodWithUnresolvableParameters()
