@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\tests\unit\database\query;
+namespace mako\tests\unit\database\query\compilers;
 
 use mako\database\Database;
 use mako\database\query\Query;
@@ -13,7 +13,7 @@ use \Mockery as m;
  * @group unit
  */
 
-class BaseBuilderTest extends \PHPUnit_Framework_TestCase
+class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
@@ -322,6 +322,24 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testSelectWithBetweenAndOrBetween()
+	{
+		$query = $this->getBuilder();
+
+		$query->between('foo', 1, 10);
+
+		$query->orBetween('foo', 21, 30);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" BETWEEN ? AND ? OR "foo" BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(array(1, 10, 21, 30), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
 	public function testSelectWithNotBetween()
 	{
 		$query = $this->getBuilder();
@@ -338,16 +356,36 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
-	public function testSelectWithIn()
+	public function testSelectWithNotBetweenAndOrNotBetween()
+	{
+		$query = $this->getBuilder();
+
+		$query->notBetween('foo', 1, 10);
+
+		$query->orNotBetween('foo', 21, 30);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" NOT BETWEEN ? AND ? OR "foo" NOT BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(array(1, 10, 21, 30), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testSelectWithInAndOrIn()
 	{
 		$query = $this->getBuilder();
 
 		$query->in('foo', array(1, 2, 3));
 
+		$query->orIn('foo', array(4, 5, 6));
+
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IN (?, ?, ?)', $query['sql']);
-		$this->assertEquals(array(1, 2, 3), $query['params']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IN (?, ?, ?) OR "foo" IN (?, ?, ?)', $query['sql']);
+		$this->assertEquals(array(1, 2, 3, 4, 5, 6), $query['params']);
 	}
 
 	/**
@@ -405,6 +443,24 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testSelectWithNotInAndOrNotIn()
+	{
+		$query = $this->getBuilder();
+
+		$query->notIn('foo', array(1, 2, 3));
+
+		$query->orNotIn('foo', array(4, 5, 6));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" NOT IN (?, ?, ?) OR "foo" NOT IN (?, ?, ?)', $query['sql']);
+		$this->assertEquals(array(1, 2, 3, 4, 5, 6), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
 	public function testSelectWithIsNull()
 	{
 		$query = $this->getBuilder();
@@ -414,6 +470,24 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IS NULL', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testSelectWithIsNullAndOrNull()
+	{
+		$query = $this->getBuilder();
+
+		$query->null('foo');
+
+		$query->orNull('bar');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IS NULL OR "bar" IS NULL', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -437,6 +511,24 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testSelectWithIsNotNullAndOrNotNull()
+	{
+		$query = $this->getBuilder();
+
+		$query->notNull('foo');
+
+		$query->orNotNull('bar');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IS NOT NULL OR "bar" IS NOT NULL', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
 	public function testSelectWithExistsSubquery()
 	{
 		$query = $this->getBuilder();
@@ -446,6 +538,24 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = foobar.id)', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testSelectWithExistsSubqueryAndOrExists()
+	{
+		$query = $this->getBuilder();
+
+		$query->exists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'))));
+
+		$query->orExists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('barbaz.id'))));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = foobar.id) OR EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = barbaz.id)', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -481,6 +591,24 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE NOT EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = foobar.id)', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testSelectWithNotExistsAndOrNotExists()
+	{
+		$query = $this->getBuilder();
+
+		$query->notExists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'))));
+
+		$query->orNotExists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('barbaz.id'))));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE NOT EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = foobar.id) OR NOT EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = barbaz.id)', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -641,6 +769,26 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer" HAVING SUM(price) < ?', $query['sql']);
 		$this->assertEquals(array(2000), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testSelectWithHavingAndOrHaving()
+	{
+		$query = $this->getBuilder('orders');
+
+		$query->select(array('customer', new Raw('SUM(price) as sum')));
+
+		$query->groupBy('customer');
+		$query->having(new Raw('SUM(price)'), '<', 2000);
+		$query->orHaving(new Raw('SUM(price)'), '>', 2000);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer" HAVING SUM(price) < ? OR SUM(price) > ?', $query['sql']);
+		$this->assertEquals(array(2000, 2000), $query['params']);
 	}
 
 	/**

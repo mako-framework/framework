@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\tests\unit\database\query;
+namespace mako\tests\unit\database\query\compilers;
 
 use mako\database\query\Query;
 
@@ -10,7 +10,7 @@ use \Mockery as m;
  * @group unit
  */
 
-class FirebirdBuilderTest extends \PHPUnit_Framework_TestCase
+class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
@@ -29,7 +29,7 @@ class FirebirdBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getDialect')->andReturn('firebird');
+		$connection->shouldReceive('getDialect')->andReturn('nuodb');
 
 		return $connection;
 	}
@@ -55,7 +55,7 @@ class FirebirdBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" ROWS 1  TO 10', $query['sql']);
+		$this->assertEquals('SELECT * FROM `foobar` LIMIT 10', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -72,7 +72,7 @@ class FirebirdBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" ROWS 11 TO 20', $query['sql']);
+		$this->assertEquals('SELECT * FROM `foobar` LIMIT 10 OFFSET 10', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 }

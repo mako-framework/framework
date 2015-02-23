@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\tests\unit\database\query;
+namespace mako\tests\unit\database\query\compilers;
 
 use mako\database\query\Query;
 
@@ -10,7 +10,7 @@ use \Mockery as m;
  * @group unit
  */
 
-class OracleBuilderTest extends \PHPUnit_Framework_TestCase
+class FirebirdCompilerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
@@ -29,7 +29,7 @@ class OracleBuilderTest extends \PHPUnit_Framework_TestCase
 	{
 		$connection = m::mock('\mako\database\Connection');
 
-		$connection->shouldReceive('getDialect')->andReturn('oracle');
+		$connection->shouldReceive('getDialect')->andReturn('firebird');
 
 		return $connection;
 	}
@@ -55,7 +55,7 @@ class OracleBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT mako1.* FROM (SELECT * FROM "foobar") mako1 WHERE rownum <= 10', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" ROWS 1  TO 10', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
@@ -72,7 +72,7 @@ class OracleBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM (SELECT mako1.*, rownum AS mako_rownum FROM (SELECT * FROM "foobar") mako1 WHERE rownum <= 20) WHERE mako_rownum >= 11', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" ROWS 11 TO 20', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 }

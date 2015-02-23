@@ -736,7 +736,7 @@ class Query
 
 	public function orNotExists($query)
 	{
-		return $this->exists($query, 'or', true);
+		return $this->exists($query, 'OR', true);
 	}
 
 	/**

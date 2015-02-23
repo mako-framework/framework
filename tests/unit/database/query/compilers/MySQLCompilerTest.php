@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\tests\unit\database\query;
+namespace mako\tests\unit\database\query\compilers;
 
 use mako\database\query\Query;
 
@@ -10,7 +10,7 @@ use \Mockery as m;
  * @group unit
  */
 
-class MySQLBuilderTest extends \PHPUnit_Framework_TestCase
+class MySQLCompilerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
