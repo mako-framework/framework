@@ -183,12 +183,12 @@ class GD implements ProcessorInterface
 
 	public function snapshot()
 	{
-		$w = imagesx($this->image);
-		$h = imagesy($this->image);
+		$width  = imagesx($this->image);
+		$height = imagesy($this->image);
 
-		$this->snapshot = imagecreatetruecolor($w, $h);
+		$this->snapshot = imagecreatetruecolor($width, $height);
 
-		imagecopy($this->snapshot, $this->image, 0, 0, 0, 0, $w, $h);
+		imagecopy($this->snapshot, $this->image, 0, 0, 0, 0, $width, $height);
 	}
 
 	/**
@@ -240,18 +240,18 @@ class GD implements ProcessorInterface
 
 	public function rotate($degrees)
 	{
-		$w = imagesx($this->image);
-		$h = imagesy($this->image);
+		$width  = imagesx($this->image);
+		$height = imagesy($this->image);
 
 		$transparent = imagecolorallocatealpha($this->image, 0, 0, 0, 127);
 
 		if($this->imageInfo[2] === IMAGETYPE_GIF)
 		{
-			$temp = imagecreatetruecolor($w, $h);
+			$temp = imagecreatetruecolor($width, $height);
 
 			imagefill($temp, 0, 0, $transparent);
 
-			imagecopy($temp, $this->image, 0, 0, 0, 0, $w, $h);
+			imagecopy($temp, $this->image, 0, 0, 0, 0, $width, $height);
 
 			imagedestroy($this->image);
 
@@ -295,8 +295,8 @@ class GD implements ProcessorInterface
 
 	public function crop($width, $height, $x, $y)
 	{
-		$w = imagesx($this->image);
-		$h = imagesy($this->image);
+		$oldWidth  = imagesx($this->image);
+		$oldHeight = imagesy($this->image);
 
 		$crop = imagecreatetruecolor($width, $height);
 
@@ -304,7 +304,7 @@ class GD implements ProcessorInterface
 
 		imagefill($crop, 0, 0, $transparent);
 
-		imagecopy($crop, $this->image, 0, 0, $x, $y, $w, $h);
+		imagecopy($crop, $this->image, 0, 0, $x, $y, $oldWidth, $oldHeight);
 
 		imagedestroy($this->image);
 
@@ -319,10 +319,10 @@ class GD implements ProcessorInterface
 
 	public function flip($direction = Image::FLIP_HORIZONTAL)
 	{
-		$w = imagesx($this->image);
-		$h = imagesy($this->image);
+		$width  = imagesx($this->image);
+		$height = imagesy($this->image);
 
-		$flipped = imagecreatetruecolor($w, $h);
+		$flipped = imagecreatetruecolor($width, $height);
 
 		$transparent = imagecolorallocatealpha($flipped, 0, 0, 0, 127);
 
@@ -332,18 +332,18 @@ class GD implements ProcessorInterface
 		{
 			// Flips the image in the vertical direction
 
-			for($y = 0; $y < $h; $y++)
+			for($y = 0; $y < $height; $y++)
 			{
-				imagecopy($flipped, $this->image, 0, $y, 0, $h - $y - 1, $w, 1);
+				imagecopy($flipped, $this->image, 0, $y, 0, $height - $y - 1, $width, 1);
 			}
 		}
 		else
 		{
 			// Flips the image in the horizontal direction
 
-			for($x = 0; $x < $w; $x++)
+			for($x = 0; $x < $width; $x++)
 			{
-				imagecopy($flipped, $this->image, $x, 0, $w - $x - 1, 0, 1, $h);
+				imagecopy($flipped, $this->image, $x, 0, $width - $x - 1, 0, 1, $height);
 			}
 		}
 
@@ -362,8 +362,8 @@ class GD implements ProcessorInterface
 	{
 		$watermark = $this->createImageResource($file, $this->getImageInfo($file));
 
-		$watermarkW = imagesx($watermark);
-		$watermarkH = imagesy($watermark);
+		$watermarkWidth  = imagesx($watermark);
+		$watermarkHeight = imagesy($watermark);
 
 		if($opacity < 100)
 		{
@@ -375,7 +375,7 @@ class GD implements ProcessorInterface
 
 			imagelayereffect($watermark, IMG_EFFECT_OVERLAY);
 
-			imagefilledrectangle($watermark, 0, 0, $watermarkW, $watermarkH, $transparent);
+			imagefilledrectangle($watermark, 0, 0, $watermarkWidth, $watermarkHeight, $transparent);
 		}
 
 		// Position the watermark.
@@ -383,20 +383,20 @@ class GD implements ProcessorInterface
 		switch($position)
 		{
 			case Image::WATERMARK_TOP_RIGHT:
-				$x = imagesx($this->image) - $watermarkW;
+				$x = imagesx($this->image) - $watermarkWidth;
 				$y = 0;
 				break;
 			case Image::WATERMARK_BOTTOM_LEFT:
 				$x = 0;
-				$y = imagesy($this->image) - $watermarkH;
+				$y = imagesy($this->image) - $watermarkHeight;
 				break;
 			case Image::WATERMARK_BOTTOM_RIGHT:
-				$x = imagesx($this->image) - $watermarkW;
-				$y = imagesy($this->image) - $watermarkH;
+				$x = imagesx($this->image) - $watermarkWidth;
+				$y = imagesy($this->image) - $watermarkHeight;
 				break;
 			case Image::WATERMARK_CENTER:
-				$x = (imagesx($this->image) / 2) - ($watermarkW / 2);
-				$y = (imagesy($this->image) / 2) - ($watermarkH / 2);
+				$x = (imagesx($this->image) / 2) - ($watermarkWidth / 2);
+				$y = (imagesy($this->image) / 2) - ($watermarkHeight / 2);
 				break;
 			default:
 				$x = 0;
@@ -405,7 +405,7 @@ class GD implements ProcessorInterface
 
 		imagealphablending($this->image, true);
 
-		imagecopy($this->image, $watermark, $x, $y, 0, 0, $watermarkW, $watermarkH);
+		imagecopy($this->image, $watermark, $x, $y, 0, 0, $watermarkWidth, $watermarkHeight);
 
 		imagedestroy($watermark);
 	}
@@ -424,16 +424,16 @@ class GD implements ProcessorInterface
 		}
 		else
 		{
-			$w = imagesx($this->image);
-			$h = imagesy($this->image);
+			$width  = imagesx($this->image);
+			$height = imagesy($this->image);
 
-			$temp = imagecreatetruecolor($w, $h);
+			$temp = imagecreatetruecolor($width, $height);
 
 			// Adjust pixel brightness
 
-			for($x = 0; $x < $w; $x++)
+			for($x = 0; $x < $width; $x++)
 			{
-				for($y = 0; $y < $h; $y++)
+				for($y = 0; $y < $height; $y++)
 				{
 					$rgb = imagecolorat($this->image, $x, $y);
 
@@ -467,10 +467,10 @@ class GD implements ProcessorInterface
 		}
 		else
 		{
-			$w = imagesx($this->image);
-			$h = imagesy($this->image);
+			$width  = imagesx($this->image);
+			$height = imagesy($this->image);
 
-			$temp = imagecreatetruecolor($w, $h);
+			$temp = imagecreatetruecolor($width, $height);
 
 			// Generate array of shades of grey
 
@@ -483,9 +483,9 @@ class GD implements ProcessorInterface
 
 			// Convert pixels to greyscale
 
-			for($x = 0; $x < $w; $x++)
+			for($x = 0; $x < $width; $x++)
 			{
-				for($y = 0; $y < $h; $y++)
+				for($y = 0; $y < $height; $y++)
 				{
 					$rgb = imagecolorat($this->image, $x, $y);
 
@@ -509,16 +509,16 @@ class GD implements ProcessorInterface
 
 	public function sepia()
 	{
-		$w = imagesx($this->image);
-		$h = imagesy($this->image);
+		$width  = imagesx($this->image);
+		$height = imagesy($this->image);
 
-		$temp = imagecreatetruecolor($w, $h);
+		$temp = imagecreatetruecolor($width, $height);
 
 		// Convert pixels to sepia
 
-		for($x = 0; $x < $w; $x++)
+		for($x = 0; $x < $width; $x++)
 		{
-			for($y = 0; $y < $h; $y++)
+			for($y = 0; $y < $height; $y++)
 			{
 				$rgb = imagecolorat($this->image, $x, $y);
 
@@ -559,16 +559,16 @@ class GD implements ProcessorInterface
 		{
 			$colorize = $rgb;
 
-			$w = imagesx($this->image);
-			$h = imagesy($this->image);
+			$width  = imagesx($this->image);
+			$height = imagesy($this->image);
 
-			$temp = imagecreatetruecolor($w, $h);
+			$temp = imagecreatetruecolor($width, $height);
 
 			// Colorize pixels
 
-			for($x = 0; $x < $w; $x++)
+			for($x = 0; $x < $width; $x++)
 			{
-				for($y = 0; $y < $h; $y++)
+				for($y = 0; $y < $height; $y++)
 				{
 					$rgb = imagecolorat($this->image, $x, $y);
 
@@ -615,8 +615,7 @@ class GD implements ProcessorInterface
 		}
 		else
 		{
-			$width = imagesx($this->image);
-
+			$width  = imagesx($this->image);
 			$height = imagesy($this->image);
 
 			$this->resize((int) ($width / $pixelSize), (int) ($height / $pixelSize));
@@ -637,16 +636,16 @@ class GD implements ProcessorInterface
 		}
 		else
 		{
-			$w = imagesx($this->image);
-			$h = imagesy($this->image);
+			$width  = imagesx($this->image);
+			$height = imagesy($this->image);
 
-			$temp = imagecreatetruecolor($w, $h);
+			$temp = imagecreatetruecolor($width, $height);
 
 			// Invert pixel colors
 
-			for($x = 0; $x < $w; $x++)
+			for($x = 0; $x < $width; $x++)
 			{
-				for($y = 0; $y < $h; $y++)
+				for($y = 0; $y < $height; $y++)
 				{
 					imagesetpixel($temp, $x, $y, imagecolorat($this->image, $x, $y) ^ 0x00FFFFFF);
 				}
@@ -664,8 +663,8 @@ class GD implements ProcessorInterface
 
 	public function border($color = '#000', $thickness = 5)
 	{
-		$w = imagesx($this->image);
-		$h = imagesy($this->image);
+		$width  = imagesx($this->image);
+		$height = imagesy($this->image);
 
 		$rgb = $this->hexToRgb($color);
 
@@ -675,13 +674,13 @@ class GD implements ProcessorInterface
 		{
 			if($i < 0)
 			{
-				$x = $w + 1;
-				$y = $h + 1;
+				$x = $width + 1;
+				$y = $height + 1;
 			}
 			else
 			{
-				$x = --$w;
-				$y = --$h;
+				$x = --$width;
+				$y = --$height;
 			}
 
 			imagerectangle($this->image, $i, $i, $x, $y, $color);
