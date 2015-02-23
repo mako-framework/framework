@@ -152,18 +152,18 @@ class GD implements ProcessorInterface
 
 		if(strlen($hex) === 3)
 		{
-			$r = hexdec(str_repeat(substr($hex, 0, 1), 2));
-			$g = hexdec(str_repeat(substr($hex, 1, 1), 2));
-			$b = hexdec(str_repeat(substr($hex, 2, 1), 2));
+			$red   = hexdec(str_repeat(substr($hex, 0, 1), 2));
+			$green = hexdec(str_repeat(substr($hex, 1, 1), 2));
+			$blue  = hexdec(str_repeat(substr($hex, 2, 1), 2));
 		}
 		else
 		{
-			$r = hexdec(substr($hex, 0, 2));
-			$g = hexdec(substr($hex, 2, 2));
-			$b = hexdec(substr($hex, 4, 2));
+			$red   = hexdec(substr($hex, 0, 2));
+			$green = hexdec(substr($hex, 2, 2));
+			$blue  = hexdec(substr($hex, 4, 2));
 		}
 
-		return ['r' => $r, 'g' => $g, 'b' => $b];
+		return ['r' => $red, 'g' => $green, 'b' => $blue];
 	}
 
 	/**
@@ -437,15 +437,15 @@ class GD implements ProcessorInterface
 				{
 					$rgb = imagecolorat($this->image, $x, $y);
 
-					$r = (($rgb >> 16) & 0xFF) + $level;
-					$g = (($rgb >> 8) & 0xFF ) + $level;
-					$b = ($rgb & 0xFF) + $level;
+					$red   = (($rgb >> 16) & 0xFF) + $level;
+					$green = (($rgb >> 8) & 0xFF ) + $level;
+					$blue  = ($rgb & 0xFF) + $level;
 
-					$r = ($r > 255) ? 255 : (($r < 0) ? 0 : $r);
-					$g = ($g > 255) ? 255 : (($g < 0) ? 0 : $g);
-					$b = ($b > 255) ? 255 : (($b < 0) ? 0 : $b);
+					$red   = ($red > 255) ? 255 : (($red < 0) ? 0 : $red);
+					$green = ($green > 255) ? 255 : (($green < 0) ? 0 : $green);
+					$blue  = ($blue > 255) ? 255 : (($blue < 0) ? 0 : $blue);
 
-					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
+					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $red, $green, $blue));
 				}
 			}
 
@@ -489,11 +489,11 @@ class GD implements ProcessorInterface
 				{
 					$rgb = imagecolorat($this->image, $x, $y);
 
-					$r = ($rgb >> 16) & 0xFF;
-					$g = ($rgb >> 8) & 0xFF;
-					$b = $rgb & 0xFF;
+					$red   = ($rgb >> 16) & 0xFF;
+					$green = ($rgb >> 8) & 0xFF;
+					$blue  = $rgb & 0xFF;
 
-					imagesetpixel($temp, $x, $y, $greys[((0.299 * $r) + (0.587 * $g) + (0.114 * $b))]);
+					imagesetpixel($temp, $x, $y, $greys[((0.299 * $red) + (0.587 * $green) + (0.114 * $blue))]);
 				}
 			}
 
@@ -522,19 +522,19 @@ class GD implements ProcessorInterface
 			{
 				$rgb = imagecolorat($this->image, $x, $y);
 
-				$r = ($rgb >> 16) & 0xFF;
-				$g = ($rgb >> 8) & 0xFF;
-				$b = $rgb & 0xFF;
+				$red   = ($rgb >> 16) & 0xFF;
+				$green = ($rgb >> 8) & 0xFF;
+				$blue  = $rgb & 0xFF;
 
-				$newR = ($r * 0.393 + $g * 0.769 + $b * 0.189) * 0.85;
-				$newG = ($r * 0.349 + $g * 0.686 + $b * 0.168) * 0.85;
-				$newB = ($r * 0.272 + $g * 0.534 + $b * 0.131) * 0.85;
+				$newRed   = ($red * 0.393 + $green * 0.769 + $blue * 0.189) * 0.85;
+				$newGreen = ($red * 0.349 + $green * 0.686 + $blue * 0.168) * 0.85;
+				$newBlue  = ($red * 0.272 + $green * 0.534 + $blue * 0.131) * 0.85;
 
-				$newR = ($newR > 255) ? 255 : (($newR < 0) ? 0 : $newR);
-				$newG = ($newG > 255) ? 255 : (($newG < 0) ? 0 : $newG);
-				$newB = ($newB > 255) ? 255 : (($newB < 0) ? 0 : $newB);
+				$newRed   = ($newRed > 255) ? 255 : (($newRed < 0) ? 0 : $newRed);
+				$newGreen = ($newGreen > 255) ? 255 : (($newGreen < 0) ? 0 : $newGreen);
+				$newBlue  = ($newBlue > 255) ? 255 : (($newBlue < 0) ? 0 : $newBlue);
 
-				imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $newR, $newG, $newB));
+				imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $newRed, $newGreen, $newBlue));
 			}
 		}
 
@@ -572,15 +572,15 @@ class GD implements ProcessorInterface
 				{
 					$rgb = imagecolorat($this->image, $x, $y);
 
-					$r = (($rgb >> 16) & 0xFF) + $colorize['r'];
-					$g = (($rgb >> 8) & 0xFF ) + $colorize['g'];
-					$b = ($rgb & 0xFF) + $colorize['b'];
+					$red   = (($rgb >> 16) & 0xFF) + $colorize['r'];
+					$green = (($rgb >> 8) & 0xFF ) + $colorize['g'];
+					$blue  = ($rgb & 0xFF) + $colorize['b'];
 
-					$r = ($r > 255) ? 255 : (($r < 0) ? 0 : $r);
-					$g = ($g > 255) ? 255 : (($g < 0) ? 0 : $g);
-					$b = ($b > 255) ? 255 : (($b < 0) ? 0 : $b);
+					$red   = ($red > 255) ? 255 : (($red < 0) ? 0 : $red);
+					$green = ($green > 255) ? 255 : (($green < 0) ? 0 : $green);
+					$blue  = ($blue > 255) ? 255 : (($blue < 0) ? 0 : $blue);
 
-					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
+					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $red, $green, $blue));
 				}
 			}
 
