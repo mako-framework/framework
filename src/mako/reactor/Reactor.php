@@ -161,6 +161,8 @@ class Reactor
 
 	protected function getOptions()
 	{
+		$options = [];
+
 		foreach($this->options as $name => $option)
 		{
 			$options[] = ['--' . $name, $option['description']];
@@ -172,6 +174,36 @@ class Reactor
 	}
 
 	/**
+	 * Displays reactor options of there are any.
+	 *
+	 * @access  protected
+	 */
+
+	protected function listOptions()
+	{
+		$options = $this->getOptions();
+
+		if(!empty($options))
+		{
+			$this->output->write(PHP_EOL);
+
+			$this->output->writeLn('<yellow>Global options:</yellow>');
+
+			$this->output->write(PHP_EOL);
+
+			$table = new Table($this->output);
+
+			$headers =
+			[
+				'<green>Option</green>',
+				'<green>Description</green>'
+			];
+
+			$table->draw($headers, $options);
+		}
+	}
+
+	/**
 	 * Displays basic reactor information.
 	 *
 	 * @access  protected
@@ -179,6 +211,8 @@ class Reactor
 
 	protected function displayReactorInfo()
 	{
+		// Display basic reactor information
+
 		if(!empty($this->logo))
 		{
 			$this->output->writeLn($this->logo);
@@ -186,31 +220,15 @@ class Reactor
 			$this->output->write(PHP_EOL);
 		}
 
-		$this->output->writeLn("<yellow>Usage:</yellow>");
+		$this->output->writeLn('<yellow>Usage:</yellow>');
 
 		$this->output->write(PHP_EOL);
 
-		$this->output->writeLn("php reactor [command] [arguments] [options]");
+		$this->output->writeLn('php reactor [command] [arguments] [options]');
 
-		$this->output->write(PHP_EOL);
+		// Display reactor options if there are any
 
-		$this->output->writeLn("<yellow>Global options:</yellow>");
-
-		$this->output->write(PHP_EOL);
-
-		$table = new Table($this->output);
-
-		$headers =
-		[
-			'<green>Option</green>',
-			'<green>Description</green>'
-		];
-
-		$options = $this->getOptions();
-
-		$table->draw($headers, $options);
-
-		$this->output->write(PHP_EOL);
+		$this->listOptions();
 	}
 
 	/**
@@ -235,28 +253,33 @@ class Reactor
 	}
 
 	/**
-	 * Lists available commands.
+	 * Lists available commands if there are any.
 	 *
 	 * @access  protected
 	 */
 
 	protected function listCommands()
 	{
-		$this->output->writeLn("<yellow>Available commands:</yellow>");
-
-		$this->output->write(PHP_EOL);
-
-		$table = new Table($this->output);
-
-		$headers =
-		[
-			'<green>Command</green>',
-			'<green>Description</green>'
-		];
-
 		$commands = $this->getCommands();
 
-		$table->draw($headers, $commands);
+		if(!empty($commands))
+		{
+			$this->output->write(PHP_EOL);
+
+			$this->output->writeLn('<yellow>Available commands:</yellow>');
+
+			$this->output->write(PHP_EOL);
+
+			$table = new Table($this->output);
+
+			$headers =
+			[
+				'<green>Command</green>',
+				'<green>Description</green>'
+			];
+
+			$table->draw($headers, $commands);
+		}
 	}
 
 	/**

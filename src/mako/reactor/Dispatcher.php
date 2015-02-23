@@ -73,6 +73,11 @@ class Dispatcher
 
 	public function dispatch($command, array $arguments)
 	{
-		$this->execute($this->resolve($command), $arguments);
+		$command = $this->resolve($command);
+
+		if($command->shouldExecute())
+		{
+			$this->execute($command, $arguments);
+		}
 	}
 }

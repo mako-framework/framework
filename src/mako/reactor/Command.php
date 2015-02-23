@@ -58,6 +58,14 @@ abstract class Command
 	];
 
 	/**
+	 * Should the command be executed?
+	 *
+	 * @var boolean
+	 */
+
+	protected $shouldExecute = true;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
@@ -87,6 +95,18 @@ abstract class Command
 	public function getCommandDescription()
 	{
 		return isset($this->commandInformation['description']) ? $this->commandInformation['description'] : null;
+	}
+
+	/**
+	 * Returns TRUE of the command should be executed and FALSE if not.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function shouldExecute()
+	{
+		return $this->shouldExecute;
 	}
 
 	/**
@@ -154,9 +174,7 @@ abstract class Command
 			$this->drawInfoTable($this->commandInformation['options']);
 		}
 
-		$this->nl();
-
-		exit;
+		$this->shouldExecute = false;
 	}
 
 	/**
