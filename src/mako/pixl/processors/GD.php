@@ -11,6 +11,7 @@ use InvalidArgumentException;
 use RuntimeException;
 
 use mako\pixl\Image;
+use mako\pixl\processors\CalculateNewDimensionsTrait;
 use mako\pixl\processors\ProcessorInterface;
 
 /**
@@ -21,6 +22,8 @@ use mako\pixl\processors\ProcessorInterface;
 
 class GD implements ProcessorInterface
 {
+	use CalculateNewDimensionsTrait;
+
 	/**
 	 * Image resource.
 	 *
@@ -266,47 +269,10 @@ class GD implements ProcessorInterface
 
 	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE)
 	{
-		$w = imagesx($this->image);
-		$h = imagesy($this->image);
+		$oldWidth  = imagesx($this->image);
+		$oldHeight = imagesy($this->image);
 
-		if($height === null)
-		{
-			$newWidth  = round($w * ($width / 100));
-			$newHeight = round($h * ($width / 100));
-		}
-		else
-		{
-			if($aspectRatio === Image::RESIZE_AUTO)
-			{
-				// Calculate smallest size based on given height and width while maintaining aspect ratio
-
-				$percentage = min(($width / $w), ($height / $h));
-
-				$newWidth  = round($w * $percentage);
-				$newHeight = round($h * $percentage);
-			}
-			elseif($aspectRatio === Image::RESIZE_WIDTH)
-			{
-				// Base new size on given width while maintaining aspect ratio
-
-				$newWidth  = $width;
-				$newHeight = round($h * ($width / $w));
-			}
-			elseif($aspectRatio === Image::RESIZE_HEIGHT)
-			{
-				// Base new size on given height while maintaining aspect ratio
-
-				$newWidth  = round($w * ($height / $h));
-				$newHeight = $height;
-			}
-			else
-			{
-				// Ignone aspect ratio
-
-				$newWidth  = $width;
-				$newHeight = $height;
-			}
-		}
+		list($newWidth, $newHeight) = $this->calculateNewDimensions($width, $height, $oldWidth, $oldHeight, $aspectRatio);
 
 		$resized = imagecreatetruecolor($newWidth, $newHeight);
 
@@ -314,7 +280,7 @@ class GD implements ProcessorInterface
 
 		imagefill($resized, 0, 0, $transparent);
 
-		imagecopyresized($resized, $this->image, 0, 0, 0, 0, $newWidth, $newHeight, $w, $h);
+		imagecopyresized($resized, $this->image, 0, 0, 0, 0, $newWidth, $newHeight, $oldWidth, $oldHeight);
 
 		imagedestroy($this->image);
 
