@@ -20,11 +20,11 @@ trait CalculateNewDimensionsTrait
 	/**
 	 * Calculates new image dimensions.
 	 *
-	 * @param  int   $width         Desired image width
+	 * @param  int    $width        Desired image width
 	 * @param  int    $height       Desired image height
 	 * @param  int    $oldWidth     Old image width
 	 * @param  int    $oldHeight    Old image height
-	 * @param  int    $aspectRatio  Aspec ratio
+	 * @param  int    $aspectRatio  Aspect ratio
 	 * @return array
 	 */
 
