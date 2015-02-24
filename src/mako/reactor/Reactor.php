@@ -153,6 +153,33 @@ class Reactor
 	}
 
 	/**
+	 * Draws information table.
+	 *
+	 * @access  protected
+	 * @param   string     $heading  Table heading
+	 * @param   array      $headers  Table headers
+	 * @param   array      $rows     Table rows
+	 */
+
+	protected function drawTable($heading, array $headers, array $rows)
+	{
+		if(!empty($rows))
+		{
+			$this->output->write(PHP_EOL);
+
+			$this->output->writeLn('<yellow>' . $heading . '</yellow>');
+
+			$this->output->write(PHP_EOL);
+
+			$table = new Table($this->output);
+
+			$headers = array_map(function($value){ return '<green>' . $value . '</green>'; }, $headers);
+
+			$table->draw($headers, $rows);
+		}
+	}
+
+	/**
 	 * Returns an array of option information.
 	 *
 	 * @access  protected
@@ -183,24 +210,7 @@ class Reactor
 	{
 		$options = $this->getOptions();
 
-		if(!empty($options))
-		{
-			$this->output->write(PHP_EOL);
-
-			$this->output->writeLn('<yellow>Global options:</yellow>');
-
-			$this->output->write(PHP_EOL);
-
-			$table = new Table($this->output);
-
-			$headers =
-			[
-				'<green>Option</green>',
-				'<green>Description</green>'
-			];
-
-			$table->draw($headers, $options);
-		}
+		$this->drawTable('Global options:', ['Option', 'Description'], $options);
 	}
 
 	/**
@@ -262,24 +272,7 @@ class Reactor
 	{
 		$commands = $this->getCommands();
 
-		if(!empty($commands))
-		{
-			$this->output->write(PHP_EOL);
-
-			$this->output->writeLn('<yellow>Available commands:</yellow>');
-
-			$this->output->write(PHP_EOL);
-
-			$table = new Table($this->output);
-
-			$headers =
-			[
-				'<green>Command</green>',
-				'<green>Description</green>'
-			];
-
-			$table->draw($headers, $commands);
-		}
+		$this->drawTable('Available commands:', ['Command', 'Description'], $commands);
 	}
 
 	/**
