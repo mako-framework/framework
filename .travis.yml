@@ -10,11 +10,9 @@ php:
 services:
   - redis-server
 
-before_script:
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --prefer-source --no-interaction --dev
+install: travis_retry composer install --no-interaction --prefer-source --dev
 
-script: ./vendor/bin/phpunit
+script: vendor/bin/phpunit
 
 matrix:
   allow_failures:
