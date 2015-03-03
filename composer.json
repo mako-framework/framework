@@ -20,8 +20,8 @@
 		"source": "https://github.com/mako-framework/framework"
 	},
 	"autoload": {
-		"psr-0": {
-			"mako": "src/"
+		"psr-4": {
+			"mako\\": "src/mako"
 		}
 	},
 	"require": {
