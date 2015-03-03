@@ -76,7 +76,7 @@ class Time extends DateTime
 
 	public function __construct($time = 'now', $timeZone = null)
 	{
-		if($timeZone !== null && !is_object($timeZone))
+		if($timeZone !== null && ($timeZone instanceof DateTimeZone) === false)
 		{
 			$timeZone = new DateTimeZone($timeZone);
 		}
@@ -170,7 +170,7 @@ class Time extends DateTime
 	{
 		if($timeZone !== null)
 		{
-			if(!is_object($timeZone))
+			if(($timeZone instanceof DateTimeZone) === false)
 			{
 				$timeZone = new DateTimeZone($timeZone);
 			}
@@ -182,7 +182,7 @@ class Time extends DateTime
 			$dateTime = parent::createFromFormat($format, $time);
 		}
 
-		return static::createFromTimestamp($dateTime->getTimestamp(), $dateTime->getTimeZone());
+		return new static($dateTime->format('Y-m-d\TH:i:s'), $dateTime->getTimeZone());
 	}
 
 	/**
