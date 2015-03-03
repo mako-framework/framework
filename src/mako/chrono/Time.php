@@ -195,7 +195,7 @@ class Time extends DateTime
 
 	public function setTimeZone($timeZone)
 	{
-		if(!is_object($timeZone))
+		if(($timeZone instanceof DateTimeZone) === false)
 		{
 			$timeZone = new DateTimeZone($timeZone);
 		}
