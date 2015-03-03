@@ -7,7 +7,7 @@
 
 namespace mako\utility;
 
-use DateTime;
+use DateTimeInterface;
 
 use mako\i18n\I18n;
 
@@ -77,12 +77,12 @@ class Humanizer
 	 * Returns a human friendly representation of the date.
 	 *
 	 * @access  public
-	 * @param   \DateTime  $dateTime    DateTime object
-	 * @param   string     $dateFormat  Default date format
+	 * @param   \DateTimeInterface  $dateTime    DateTime object
+	 * @param   string              $dateFormat  Default date format
 	 * @return  string
 	 */
 
-	public function day(DateTime $dateTime, $dateFormat = 'Y-m-d, H:i')
+	public function day(DateTimeInterface $dateTime, $dateFormat = 'Y-m-d, H:i')
 	{
 		if($dateTime->format('Y-m-d') === date('Y-m-d'))
 		{
@@ -106,13 +106,13 @@ class Humanizer
 	 * Returns a human friendly representation of the time.
 	 *
 	 * @access  public
-	 * @param   \DateTime  $dateTime     DateTime object
-	 * @param   string     $dateFormat   Default date format
-	 * @param   string     $clockFormat  Default clock format
+	 * @param   \DateTimeInterface  $dateTime     DateTime object
+	 * @param   string              $dateFormat   Default date format
+	 * @param   string              $clockFormat  Default clock format
 	 * @return  string
 	 */
 
-	public function time(DateTime $dateTime, $dateFormat = 'Y-m-d, H:i', $clockFormat = ', H:i')
+	public function time(DateTimeInterface $dateTime, $dateFormat = 'Y-m-d, H:i', $clockFormat = ', H:i')
 	{
 		$diff = time() - $dateTime->getTimestamp();
 

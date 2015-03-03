@@ -7,7 +7,8 @@
 
 namespace mako\database\query;
 
-use DateTime;
+use DateTimeInterface;
+
 use mako\database\query\Query;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
@@ -199,7 +200,7 @@ class Compiler
 		{
 			return $this->subquery($param);
 		}
-		elseif($param instanceof DateTime)
+		elseif($param instanceof DateTimeInterface)
 		{
 			$this->params[] = $param->format(static::$dateFormat);
 

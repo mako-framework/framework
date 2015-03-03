@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard;
 
-use DateTime;
+use DateTimeInterface;
 use RuntimeException;
 
 use mako\application\Application;
@@ -550,7 +550,7 @@ abstract class ORM
 				case 'boolean':
 					return $value === 'f' ? false : (bool) $value;
 				case 'date':
-					return ($value instanceof DateTime) ? $value : Time::createFromFormat($this->getDateFormat(), $value);
+					return ($value instanceof DateTimeInterface) ? $value : Time::createFromFormat($this->getDateFormat(), $value);
 				case 'string':
 					return (string) $value;
 				default:
@@ -1118,7 +1118,7 @@ abstract class ORM
 		{
 			$value = $this->getLocalColumn($name);
 
-			if($value instanceof DateTime)
+			if($value instanceof DateTimeInterface)
 			{
 				$value = $value->format($this->dateOutputFormat);
 			}
