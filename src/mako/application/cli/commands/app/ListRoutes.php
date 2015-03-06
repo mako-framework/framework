@@ -7,6 +7,8 @@
 
 namespace mako\application\cli\commands\app;
 
+use Closure;
+
 use mako\application\Application;
 use mako\file\FileSystem;
 use mako\reactor\Command;
