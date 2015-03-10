@@ -119,11 +119,16 @@ class BelongsTo extends Relation
 	 * Returns related a record from the database.
 	 *
 	 * @access  public
-	 * @return  \mako\database\midgard\ResultSet
+	 * @return  \mako\database\midgard\ORM|false
 	 */
 
 	public function getRelated()
 	{
+		if($this->parent->getRawColumn($this->getForeignKey()) === null)
+		{
+			return false;
+		}
+
 		return $this->first();
 	}
 }

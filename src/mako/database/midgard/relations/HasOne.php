@@ -60,7 +60,7 @@ class HasOne extends HasOneOrMany
 	 * Returns related a record from the database.
 	 *
 	 * @access  public
-	 * @return  \mako\database\midgard\ResultSet
+	 * @return  \mako\database\midgard\ORM|false
 	 */
 
 	public function getRelated()
