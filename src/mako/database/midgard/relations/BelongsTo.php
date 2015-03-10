@@ -44,7 +44,7 @@ class BelongsTo extends Relation
 			$keys[] = $result->getRawColumn($this->getForeignKey());
 		}
 
-		return array_unique($keys);
+		return array_filter(array_unique($keys));
 	}
 
 	/**
@@ -89,14 +89,17 @@ class BelongsTo extends Relation
 
 		$grouped = [];
 
-		if($criteria !== null)
+		if(!empty($keys = $this->keys($results)))
 		{
-			$criteria($this);
-		}
+			if($criteria !== null)
+			{
+				$criteria($this);
+			}
 
-		foreach($this->eagerCriterion($this->keys($results))->all() as $related)
-		{
-			$grouped[$related->getPrimaryKeyValue()] = $related;
+			foreach($this->eagerCriterion($keys)->all() as $related)
+			{
+				$grouped[$related->getPrimaryKeyValue()] = $related;
+			}
 		}
 
 		foreach($results as $result)
