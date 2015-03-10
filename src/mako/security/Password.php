@@ -27,17 +27,6 @@ class Password
 	];
 
 	/**
-	 * Protected constructor since this is a static class.
-	 *
-	 * @access  protected
-	 */
-
-	protected function __construct()
-	{
-		// Nothing here
-	}
-
-	/**
 	 * Normalizes the cost value.
 	 *
 	 * @access  protected

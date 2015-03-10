@@ -16,17 +16,6 @@ namespace mako\utility;
 class Arr
 {
 	/**
-	 * Protected constructor since this is a static class.
-	 *
-	 * @access  protected
-	 */
-
-	protected function __construct()
-	{
-		// Nothing here
-	}
-
-	/**
 	 * Sets an array value using "dot notation".
 	 *
 	 * @access  public

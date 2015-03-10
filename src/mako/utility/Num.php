@@ -18,17 +18,6 @@ use InvalidArgumentException;
 class Num
 {
 	/**
-	 * Protected constructor since this is a static class.
-	 *
-	 * @access  protected
-	 */
-
-	protected function __construct()
-	{
-		// Nothing here
-	}
-
-	/**
 	 * Converts arabic numerals (1-3999) to roman numerals.
 	 *
 	 * @access  public

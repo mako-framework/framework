@@ -114,17 +114,6 @@ class Str
 	];
 
 	/**
-	 * Protected constructor since this is a static class.
-	 *
-	 * @access  protected
-	 */
-
-	protected function __construct()
-	{
-		// Nothing here
-	}
-
-	/**
 	 * Replaces newline with <br> or <br />.
 	 *
 	 * @access  public

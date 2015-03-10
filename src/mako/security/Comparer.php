@@ -16,17 +16,6 @@ namespace mako\security;
 class Comparer
 {
 	/**
-	 * Protected constructor since this is a static class.
-	 *
-	 * @access  protected
-	 */
-
-	protected function __construct()
-	{
-		// Nothing here
-	}
-
-	/**
 	 * Timing attack safe string comparison. Returns TRUE if the two strings are equal and FALSE if not.
 	 *
 	 * @access  public

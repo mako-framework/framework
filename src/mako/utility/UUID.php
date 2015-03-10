@@ -52,17 +52,6 @@ class UUID
 	const X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
-	 * Protected constructor since this is a static class.
-	 *
-	 * @access  protected
-	 */
-
-	protected function __construct()
-	{
-		// Nothing here
-	}
-
-	/**
 	 * Checks if a UUID is valid.
 	 *
 	 * @access  public
