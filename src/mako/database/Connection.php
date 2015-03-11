@@ -392,8 +392,6 @@ class Connection
 
 		if(strpos($query, '([?])') !== false)
 		{
-
-
 			foreach($params as $key => $value)
 			{
 				if(is_array($value))
