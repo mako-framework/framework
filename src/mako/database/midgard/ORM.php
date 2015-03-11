@@ -983,8 +983,6 @@ abstract class ORM
 
 	protected function insertRecord($query)
 	{
-		$this->exists = true;
-
 		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
 		{
 			$this->columns[$this->primaryKey] = $query->insertAndGetId($this->columns, $this->primaryKey);
@@ -1036,6 +1034,8 @@ abstract class ORM
 			// This is a new record so we need to insert it into the database.
 
 			$this->insertRecord($this->builder());
+
+			$this->exists = true;
 		}
 		elseif($this->isModified())
 		{
