@@ -85,11 +85,11 @@ abstract class Relation extends Query
 	 * Returns the keys used to eagerly load records.
 	 *
 	 * @access  protected
-	 * @param   \mako\database\midgard\ResultSet  $results  Result set
+	 * @param   array  $results  Result set
 	 * @return  array
 	 */
 
-	protected function keys($results)
+	protected function keys(array $results)
 	{
 		$keys = [];
 
@@ -120,7 +120,7 @@ abstract class Relation extends Query
 	 * @return  \mako\database\midgard\relations\Relation
 	 */
 
-	protected function eagerCriterion($keys)
+	protected function eagerCriterion(array $keys)
 	{
 		$this->lazy = false;
 

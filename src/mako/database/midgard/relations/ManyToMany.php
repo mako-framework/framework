@@ -125,7 +125,7 @@ class ManyToMany extends Relation
 	 * @return  \mako\database\midgard\relations\HasMany
 	 */
 
-	protected function eagerCriterion($keys)
+	protected function eagerCriterion(array $keys)
 	{
 		$this->lazy = false;
 
@@ -138,13 +138,13 @@ class ManyToMany extends Relation
 	 * Eager loads related records and matches them with their parent records.
 	 *
 	 * @access  public
-	 * @param   \mako\database\midgard\ResultSet  $results   Parent records
-	 * @param   string                            $relation  Relation name
-	 * @param   mixed                             $criteria  Relation criteria
-	 * @param   array                             $includes  Includes passed from the parent record
+	 * @param   array          $results   Parent records
+	 * @param   string         $relation  Relation name
+	 * @param   null|\Closure  $criteria  Relation criteria
+	 * @param   array          $includes  Includes passed from the parent record
 	 */
 
-	public function eagerLoad(&$results, $relation, $criteria, $includes)
+	public function eagerLoad(array &$results, $relation, $criteria, array $includes)
 	{
 		$this->model->setIncludes($includes);
 
@@ -183,7 +183,7 @@ class ManyToMany extends Relation
 	 * @return  array
 	 */
 
-	protected function adjustSelection($columns)
+	protected function adjustSelection(array $columns)
 	{
 		if($columns === ['*'])
 		{
