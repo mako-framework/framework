@@ -535,36 +535,38 @@ class Connection
 	 * Returns an array containing all of the result set rows.
 	 *
 	 * @access  public
-	 * @param   string  $query   SQL query
-	 * @param   array   $params  Query parameters
+	 * @param   string    $query      SQL query
+	 * @param   array     $params     Query parameters
+	 * @param   null|int  $fetchMode  Fetch mode
 	 * @return  array
 	 */
 
-	public function all($query, array $params = [])
+	public function all($query, array $params = [], $fetchMode = null)
 	{
 		$prepared = $this->prepare($query, $params);
 
 		$this->execute($prepared);
 
-		return $prepared['statement']->fetchAll();
+		return $prepared['statement']->fetchAll($fetchMode);
 	}
 
 	/**
 	 * Returns the first row of the result set.
 	 *
 	 * @access  public
-	 * @param   string  $query   SQL query
-	 * @param   array   $params  Query params
+	 * @param   string    $query      SQL query
+	 * @param   array     $params     Query params
+	 * @param   null|int  $fetchMode  Fetch mode
 	 * @return  mixed
 	 */
 
-	public function first($query, array $params = [])
+	public function first($query, array $params = [], $fetchMode = null)
 	{
 		$prepared = $this->prepare($query, $params);
 
 		$this->execute($prepared);
 
-		return $prepared['statement']->fetch();
+		return $prepared['statement']->fetch($fetchMode);
 	}
 
 	/**

@@ -31,6 +31,14 @@ use mako\pagination\Pagination;
 class Query
 {
 	/**
+	 * Fetch mode.
+	 *
+	 * @var null
+	 */
+
+	const FETCH_MODE = null;
+
+	/**
 	 * Database connection.
 	 *
 	 * @var \mako\database\Connection
@@ -1050,7 +1058,7 @@ class Query
 	{
 		$query = $this->limit(1)->getCompiler()->select();
 
-		return $this->connection->first($query['sql'], $query['params']);
+		return $this->connection->first($query['sql'], $query['params'], static::FETCH_MODE);
 	}
 
 	/**
@@ -1064,7 +1072,7 @@ class Query
 	{
 		$query = $this->getCompiler()->select();
 
-		return $this->connection->all($query['sql'], $query['params']);
+		return $this->connection->all($query['sql'], $query['params'], static::FETCH_MODE);
 	}
 
 	/**

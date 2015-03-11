@@ -9,6 +9,7 @@ namespace mako\database\midgard;
 
 use BadMethodCallException;
 use Closure;
+use PDO;
 
 use mako\database\Connection;
 use mako\database\midgard\ORM;
@@ -24,6 +25,14 @@ use mako\database\query\Query as QueryBuilder;
 
 class Query extends QueryBuilder
 {
+	/**
+	 * Fetch mode.
+	 *
+	 * @var int
+	 */
+
+	const FETCH_MODE = PDO::FETCH_ASSOC;
+
 	/**
 	 * Instance of the model to hydrate.
 	 *
@@ -292,7 +301,7 @@ class Query extends QueryBuilder
 	{
 		$model = $this->model->getClass();
 
-		return new $model((array) $result, true, false, true, $this->makeReadOnly);
+		return new $model($result, true, false, true, $this->makeReadOnly);
 	}
 
 	/**
