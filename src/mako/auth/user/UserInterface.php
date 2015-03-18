@@ -7,6 +7,8 @@
 
 namespace mako\auth\user;
 
+use DateTimeInterface;
+
 /**
  * User interface.
  *
@@ -174,10 +176,80 @@ interface UserInterface
 	/**
 	 * Returns TRUE if the user is banned and FALSE if not.
 	 *
+	 * @access  public
 	 * @return  boolean
 	 */
 
 	public function isBanned();
+
+	/**
+	 * Increments the number of failed attempts.
+	 *
+	 * @access  public
+	 */
+
+	public function incrementFailedAttempts();
+
+	/**
+	 * Returns the number of failed login attempts.
+	 *
+	 * @access  public
+	 * @return  int
+	 */
+
+	public function getFailedAttempts();
+
+	/**
+	 * Resets the number of failted attempts.
+	 *
+	 * @access  public
+	 */
+
+	public function resetFailedAttempts();
+
+	/**
+	 * Sets the time of the last failed attempt.
+	 *
+	 * @access  public
+	 * @param   \DateTimeInterface  $time  Date
+	 */
+
+	public function setLastFailAt(DateTimeInterface $time);
+
+	/**
+	 * Gets the time of the last failed attempt.
+	 *
+	 * @access  public
+	 * @return  null|\DateTimeInterface
+	 */
+
+	public function getLastFailAt();
+
+	/**
+	 * Locks the account until the given date.
+	 *
+	 * @access  public
+	 * @param   \DateTimeInterface  $time  Date
+	 */
+
+	public function lockUntil(DateTimeInterface $time);
+
+	/**
+	 * Unlocks the account.
+	 *
+	 * @access  public
+	 */
+
+	public function unlock();
+
+	/**
+	 * Returns TRUE if the account is locked and FALSE if not.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function isLocked();
 
 	/**
 	 * Saves the member.

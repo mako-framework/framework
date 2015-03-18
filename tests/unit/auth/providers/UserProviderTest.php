@@ -4,7 +4,8 @@ namespace mako\tests\unit\auth\providers;
 
 use mako\auth\providers\UserProvider;
 
-use \Mockery as m;
+use DateTime;
+use Mockery as m;
 
 /**
  * @group unit
@@ -136,5 +137,114 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 		$userProvider = new UserProvider($user);
 
 		$this->assertInstanceOf('mako\auth\user\User', $userProvider->getById(1));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testThrottleWithNoLastFailedAttempts()
+	{
+		$userProvider = new UserProvider($this->getUser());
+
+		$user = m::mock('mako\auth\user\UserInterface');
+
+		$user->shouldReceive('getLastFailAt')->once()->andReturn(null);
+
+		$user->shouldReceive('incrementFailedAttempts')->once();
+
+		$user->shouldReceive('setLastFailAt')->once();
+
+		$user->shouldReceive('getFailedAttempts')->andReturn(1);
+
+		$user->shouldReceive('save')->once()->andReturn(true);
+
+		$this->assertTrue($userProvider->throttle($user, 5, 300));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testThrottleWithFailedAttemptsReset()
+	{
+		$userProvider = new UserProvider($this->getUser());
+
+		$user = m::mock('mako\auth\user\UserInterface');
+
+		$user->shouldReceive('getLastFailAt')->once()->andReturn(new DateTime('1999-01-01 12:12:12'));
+
+		$user->shouldReceive('resetFailedAttempts')->once();
+
+		$user->shouldReceive('incrementFailedAttempts')->once();
+
+		$user->shouldReceive('setLastFailAt')->once();
+
+		$user->shouldReceive('getFailedAttempts')->andReturn(1);
+
+		$user->shouldReceive('save')->once()->andReturn(true);
+
+		$this->assertTrue($userProvider->throttle($user, 5, 300));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testThrottleWithLock()
+	{
+		$userProvider = new UserProvider($this->getUser());
+
+		$user = m::mock('mako\auth\user\UserInterface');
+
+		$user->shouldReceive('getLastFailAt')->once()->andReturn(null);
+
+		$user->shouldReceive('incrementFailedAttempts')->once();
+
+		$user->shouldReceive('setLastFailAt')->once();
+
+		$user->shouldReceive('getFailedAttempts')->andReturn(5);
+
+		$user->shouldReceive('lockUntil')->once();
+
+		$user->shouldReceive('save')->once()->andReturn(true);
+
+		$this->assertTrue($userProvider->throttle($user, 5, 300));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testResetThrottleWithNoFailedAttempts()
+	{
+		$userProvider = new UserProvider($this->getUser());
+
+		$user = m::mock('mako\auth\user\UserInterface');
+
+		$user->shouldReceive('getFailedAttempts')->once()->andReturn(0);
+
+		$this->assertTrue($userProvider->resetThrottle($user));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testResetThrottleWithFailedAttempts()
+	{
+		$userProvider = new UserProvider($this->getUser());
+
+		$user = m::mock('mako\auth\user\UserInterface');
+
+		$user->shouldReceive('getFailedAttempts')->once()->andReturn(1);
+
+		$user->shouldReceive('resetFailedAttempts')->once();
+
+		$user->shouldReceive('unlock')->once();
+
+		$user->shouldReceive('save')->once()->andReturn(true);
+
+		$this->assertTrue($userProvider->resetThrottle($user));
 	}
 }

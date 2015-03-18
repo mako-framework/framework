@@ -109,6 +109,25 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testIsThrottlingEnabled()
+	{
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider());
+
+		$this->assertFalse($gatekeeper->isThrottlingEnabled());
+
+		$gatekeeper->enableThrottling();
+
+		$this->assertTrue($gatekeeper->isThrottlingEnabled());
+
+		$gatekeeper->disableThrottling();
+
+		$this->assertFalse($gatekeeper->isThrottlingEnabled());
+	}
+
+	/**
+	 *
+	 */
+
 	public function testGetUserProvider()
 	{
 		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider());
@@ -538,6 +557,91 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider);
 
 		$this->assertTrue($gatekeeper->forceLogin('foo@example.org'));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testLoginWithWrongPasswordAndThrottling()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$user = $this->getUser();
+
+		$user->shouldReceive('isLocked')->once()->andReturn(false);
+
+		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
+
+		$userProvider->shouldReceive('validatePassword')->once()->andReturn(false);
+
+		$userProvider->shouldReceive('throttle')->once()->with($user, 5, 300);
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+
+		$gatekeeper->enableThrottling(5, 300);
+
+		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $gatekeeper->login('foo@example.org', 'password'));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testSuccessfulLoginWithThrottling()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$user = $this->getUser();
+
+		$user->shouldReceive('isLocked')->once()->andReturn(false);
+
+		$user->shouldReceive('isActivated')->once()->andReturn(true);
+
+		$user->shouldReceive('isBanned')->once()->andReturn(false);
+
+		$user->shouldReceive('getAccessToken')->once()->andReturn('token');
+
+		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
+
+		$userProvider->shouldReceive('validatePassword')->once()->andReturn(true);
+
+		$userProvider->shouldReceive('resetThrottle')->once()->with($user);
+
+		$session = $this->getSession();
+
+		$session->shouldReceive('regenerateId')->once();
+
+		$session->shouldReceive('regenerateToken')->once();
+
+		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider);
+
+		$gatekeeper->enableThrottling();
+
+		$this->assertTrue($gatekeeper->login('foo@example.org', 'password'));
+	}
+
+	/**
+	 *
+	 */
+
+	public function testLoginWithLockedAccount()
+	{
+		$userProvider = $this->getUserProvider();
+
+		$user = $this->getUser();
+
+		$user->shouldReceive('isLocked')->once()->andReturn(true);
+
+		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
+
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+
+		$gatekeeper->enableThrottling();
+
+		$this->assertEquals(Gatekeeper::LOGIN_LOCKED, $gatekeeper->login('foo@example.org', 'password'));
 	}
 
 	/**

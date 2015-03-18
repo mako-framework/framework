@@ -7,10 +7,12 @@
 
 namespace mako\auth\user;
 
+use DateTimeInterface;
 use LogicException;
 
 use mako\auth\group\MemberInterface;
 use mako\auth\user\UserInterface;
+use mako\chrono\Time;
 use mako\database\midgard\ORM;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\security\Password;
@@ -33,6 +35,14 @@ class User extends ORM implements UserInterface, MemberInterface
 	 */
 
 	protected $tableName = 'users';
+
+	/**
+	 * Type casting.
+	 *
+	 * @var array
+	 */
+
+	protected $cast = ['last_fail_at' => 'date', 'locked_until' => 'date'];
 
 	/**
 	 * Password mutator.
@@ -238,6 +248,74 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
+
+	public function incrementFailedAttempts()
+	{
+		$this->failed_attempts++;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function getFailedAttempts()
+	{
+		return $this->failed_attempts;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function resetFailedAttempts()
+	{
+		$this->failed_attempts = 0;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function setLastFailAt(DateTimeInterface $time)
+	{
+		$this->last_fail_at = $time;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function getLastFailAt()
+	{
+		return $this->last_fail_at;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function lockUntil(DateTimeInterface $time)
+	{
+		$this->locked_until = $time;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function unlock()
+	{
+		$this->locked_until = null;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function isLocked()
+	{
+		return $this->locked_until !== null && $this->locked_until->getTimestamp() >= Time::now()->getTimestamp();
+	}
 
 	public function isMemberOf($group)
 	{

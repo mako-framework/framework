@@ -9,6 +9,7 @@ namespace mako\auth\providers;
 
 use mako\auth\providers\UserProviderInterface;
 use mako\auth\user\UserInterface;
+use mako\chrono\Time;
 use mako\security\Password;
 
 /**
@@ -115,6 +116,60 @@ class UserProvider implements UserProviderInterface
 		$model = $this->model;
 
 		return $model::where('id', '=', $id)->first();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function throttle(UserInterface $user, $maxLoginAttempts, $lockTime)
+	{
+		$now = Time::now();
+
+		// Reset the failed attempt count if the last failed attempt was more than $lockTime seconds ago
+
+		if(($lastFailAt = $user->getLastFailAt()) !== null)
+		{
+			if(($now->getTimestamp() - $lastFailAt->getTimestamp()) > $lockTime)
+			{
+				$user->resetFailedAttempts();
+			}
+		}
+
+		// Increment the failed attempt count and update the last fail time
+
+		$user->incrementFailedAttempts();
+
+		$user->setLastFailAt($now);
+
+		// Lock the account for $lockTime seconds if we have exeeded the maximum number of login attempts
+
+		if($user->getFailedAttempts() >= $maxLoginAttempts)
+		{
+			$user->lockUntil(Time::now()->forward($lockTime));
+		}
+
+		// Save the changes to the user
+
+		return $user->save();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+
+	public function resetThrottle(UserInterface $user)
+	{
+		if($user->getFailedAttempts() > 0)
+		{
+			$user->resetFailedAttempts();
+
+			$user->unlock();
+
+			return $user->save();
+		}
+
+		return true;
 	}
 
 	/**

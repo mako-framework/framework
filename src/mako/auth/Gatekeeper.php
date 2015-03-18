@@ -57,6 +57,31 @@ class Gatekeeper
 	const LOGIN_INCORRECT = 102;
 
 	/**
+	 * Status code for users that are temporarily locked.
+	 *
+	 * @var int
+	 */
+
+	const LOGIN_LOCKED = 103;
+
+	/**
+	 * Maximum number of login attempts before the account gets locked.
+	 *
+	 * @var int
+	 */
+
+	const THROTTLING_MAX_LOGIN_ATTEMPTS = 5;
+
+	/**
+	 * Number of seconds for which the account gets locked after
+	 * reaching the maximum number of login attempts.
+	 *
+	 * @var int
+	 */
+
+	const THROTTLING_LOCK_TIME = 300;
+
+	/**
 	 * Request instance.
 	 *
 	 * @var \mako\http\Request
@@ -113,6 +138,31 @@ class Gatekeeper
 	protected $authKey = 'gatekeeper_auth_key';
 
 	/**
+	 * Is brute force throttling enabled?
+	 *
+	 * @var boolean
+	 */
+
+	protected $bruteForceThrottling = false;
+
+	/**
+	 * Maximum number of login attempts before the account gets locked.
+	 *
+	 * @var int
+	 */
+
+	protected $maxLoginAttempts;
+
+	/**
+	 * Number of seconds for which the account gets locked after
+	 * reaching the maximum number of login attempts.
+	 *
+	 * @var int
+	 */
+
+	protected $lockTime;
+
+	/**
 	 * Cookie options.
 	 *
 	 * @var array
@@ -152,6 +202,46 @@ class Gatekeeper
 		$this->session       = $session;
 		$this->userProvider  = $userProvider;
 		$this->groupProvider = $groupProvider;
+	}
+
+	/**
+	 * Enables brute force throttling.
+	 *
+	 * @access  public
+	 * @param   null|int  $maxLoginAttempts  Maximum number of failed login attempts
+	 * @param   null|int  $lockTime          Number of seconds for which the account gets locked after reaching the maximum number of login attempts
+	 */
+
+	public function enableThrottling($maxLoginAttempts = null, $lockTime = null)
+	{
+		$this->bruteForceThrottling = true;
+
+		$this->maxLoginAttempts = $maxLoginAttempts ?: static::THROTTLING_MAX_LOGIN_ATTEMPTS;
+
+		$this->lockTime = $lockTime ?: static::THROTTLING_LOCK_TIME;
+	}
+
+	/**
+	 * Disables brute force throttling.
+	 *
+	 * @access  public
+	 */
+
+	public function disableThrottling()
+	{
+		$this->bruteForceThrottling = false;
+	}
+
+	/**
+	 * Returns TRUE if brute force throttling is enabled and FALSE if not.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
+
+	public function isThrottlingEnabled()
+	{
+		return $this->bruteForceThrottling;
 	}
 
 	/**
@@ -420,21 +510,41 @@ class Gatekeeper
 	{
 		$user = $this->getByIdentifier($identifier);
 
-		if($user !== false && ($this->userProvider->validatePassword($user, $password) || $force))
+		if($user !== false)
 		{
-			if(!$user->isActivated())
+			if($this->bruteForceThrottling && $user->isLocked())
 			{
-				return static::LOGIN_ACTIVATING;
+				return static::LOGIN_LOCKED;
 			}
 
-			if($user->isBanned())
+			if($this->userProvider->validatePassword($user, $password) || $force)
 			{
-				return static::LOGIN_BANNED;
+				if(!$user->isActivated())
+				{
+					return static::LOGIN_ACTIVATING;
+				}
+
+				if($user->isBanned())
+				{
+					return static::LOGIN_BANNED;
+				}
+
+				if($this->bruteForceThrottling)
+				{
+					$this->userProvider->resetThrottle($user);
+				}
+
+				$this->user = $user;
+
+				return true;
 			}
-
-			$this->user = $user;
-
-			return true;
+			else
+			{
+				if($this->bruteForceThrottling)
+				{
+					$this->userProvider->throttle($user, $this->maxLoginAttempts, $this->lockTime);
+				}
+			}
 		}
 
 		return static::LOGIN_INCORRECT;

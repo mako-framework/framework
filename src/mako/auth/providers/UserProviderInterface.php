@@ -81,6 +81,28 @@ interface UserProviderInterface
 	public function getById($id);
 
 	/**
+	 * Throttles login attempts.
+	 *
+	 * @access  public
+	 * @param   \mako\auth\user\UserInterface  $user              User object
+	 * @param   int                            $maxLoginAttempts  Maximum number of failed login attempts
+	 * @param   int                            $lockTime          Number of seconds for which the account gets locked after reaching the maximum number of login attempts
+	 * @return  boolean
+	 */
+
+	public function throttle(UserInterface $user, $maxLoginAttempts, $lockTime);
+
+	/**
+	 * Resets the login throttling.
+	 *
+	 * @access  public
+	 * @param   \mako\auth\user\UserInterface  $user  User object
+	 * @return  boolean
+	 */
+
+	public function resetThrottle(UserInterface $user);
+
+	/**
 	 * Validates a user password.
 	 *
 	 * @access  public
