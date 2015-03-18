@@ -143,7 +143,7 @@ class Gatekeeper
 	 * @var boolean
 	 */
 
-	protected $bruteForceThrottling = false;
+	protected $throttle = false;
 
 	/**
 	 * Maximum number of login attempts before the account gets locked.
@@ -214,7 +214,7 @@ class Gatekeeper
 
 	public function enableThrottling($maxLoginAttempts = null, $lockTime = null)
 	{
-		$this->bruteForceThrottling = true;
+		$this->throttle = true;
 
 		$this->maxLoginAttempts = $maxLoginAttempts ?: static::THROTTLING_MAX_LOGIN_ATTEMPTS;
 
@@ -229,7 +229,7 @@ class Gatekeeper
 
 	public function disableThrottling()
 	{
-		$this->bruteForceThrottling = false;
+		$this->throttle = false;
 	}
 
 	/**
@@ -241,7 +241,7 @@ class Gatekeeper
 
 	public function isThrottlingEnabled()
 	{
-		return $this->bruteForceThrottling;
+		return $this->throttle;
 	}
 
 	/**
@@ -512,7 +512,7 @@ class Gatekeeper
 
 		if($user !== false)
 		{
-			if($this->bruteForceThrottling && $user->isLocked())
+			if($this->throttle && $user->isLocked())
 			{
 				return static::LOGIN_LOCKED;
 			}
@@ -529,7 +529,7 @@ class Gatekeeper
 					return static::LOGIN_BANNED;
 				}
 
-				if($this->bruteForceThrottling)
+				if($this->throttle)
 				{
 					$this->userProvider->resetThrottle($user);
 				}
@@ -540,7 +540,7 @@ class Gatekeeper
 			}
 			else
 			{
-				if($this->bruteForceThrottling)
+				if($this->throttle)
 				{
 					$this->userProvider->throttle($user, $this->maxLoginAttempts, $this->lockTime);
 				}
@@ -553,7 +553,7 @@ class Gatekeeper
 	/**
 	 * Logs in a user with a valid email/password combination.
 	 * Returns TRUE if the email + password combination matches and the user is activated and not banned.
-	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT) will be retured in all other situations.
+	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT, LOGIN_LOCKED) will be retured in all other situations.
 	 *
 	 * @access  public
 	 * @param   string       $identifier  User email

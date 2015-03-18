@@ -36,9 +36,9 @@ class GatekeeperService extends Service
 
 			$gatekeeper = new Gatekeeper($container->get('request'), $container->get('response'), $container->get('session'), $userProvider, $groupProvider);
 
-			if($config['brute_force_throttling']['enabled'])
+			if($config['throttling']['enabled'])
 			{
-				$gatekeeper->enableThrottling($config['brute_force_throttling']['max_attemps'], $config['brute_force_throttling']['lock_time']);
+				$gatekeeper->enableThrottling($config['throttling']['max_attemps'], $config['throttling']['lock_time']);
 			}
 
 			$gatekeeper->setAuthKey($config['auth_key']);
