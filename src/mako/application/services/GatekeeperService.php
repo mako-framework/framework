@@ -34,20 +34,15 @@ class GatekeeperService extends Service
 
 			$groupProvider = new GroupProvider($config['group_model']);
 
-			$gatekeeper = new Gatekeeper($container->get('request'), $container->get('response'), $container->get('session'), $userProvider, $groupProvider);
+			$options =
+			[
+				'identifier' => $config['identifier'],
+				'auth_key'   => $config['auth_key'],
+				'cookie'     => $config['cookie_options'],
+				'throttling' => $config['throttling'],
+			];
 
-			if($config['throttling']['enabled'])
-			{
-				$gatekeeper->enableThrottling($config['throttling']['max_attemps'], $config['throttling']['lock_time']);
-			}
-
-			$gatekeeper->setAuthKey($config['auth_key']);
-
-			$gatekeeper->setIdentifier($config['identifier']);
-
-			$gatekeeper->setCookieOptions($config['cookie_options']);
-
-			return $gatekeeper;
+			return new Gatekeeper($container->get('request'), $container->get('response'), $container->get('session'), $userProvider, $groupProvider, $options);
 		});
 	}
 }

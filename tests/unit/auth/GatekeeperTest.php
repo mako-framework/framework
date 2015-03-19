@@ -101,27 +101,8 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 			'path'     => '/',
 			'domain'   => '',
 			'secure'   => false,
-			'httponly' => false,
+			'httponly' => true,
 		];
-	}
-
-	/**
-	 *
-	 */
-
-	public function testIsThrottlingEnabled()
-	{
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider());
-
-		$this->assertFalse($gatekeeper->isThrottlingEnabled());
-
-		$gatekeeper->enableThrottling();
-
-		$this->assertTrue($gatekeeper->isThrottlingEnabled());
-
-		$gatekeeper->disableThrottling();
-
-		$this->assertFalse($gatekeeper->isThrottlingEnabled());
 	}
 
 	/**
@@ -168,7 +149,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('createUser')->once()->with('foo@example.org', 'foo', 'password', '127.0.0.1')->andReturn($user);
 
-		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $this->getSession(), $userProvider);
+		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
 
 		$this->assertInstanceOf('mako\auth\user\UserInterface', $gatekeeper->createUser('foo@example.org', 'foo', 'password'));
 	}
@@ -197,7 +178,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('createUser')->once()->with('foo@example.org', 'foo', 'password', '127.0.0.1')->andReturn($user);
 
-		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $this->getSession(), $userProvider);
+		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
 
 		$this->assertInstanceOf('mako\auth\user\UserInterface', $gatekeeper->createUser('foo@example.org', 'foo', 'password', true));
 	}
@@ -227,7 +208,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('getByActionToken')->once()->with('foobar')->andReturn(false);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
 
 		$this->assertFalse($gatekeeper->activateUser('foobar'));
 	}
@@ -250,7 +231,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('getByActionToken')->once()->with('foobar')->andReturn($user);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
 
 		$this->assertInstanceOf('mako\auth\user\UserInterface', $gatekeeper->activateUser('foobar'));
 	}
@@ -269,7 +250,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('signedCookie')->times(3)->with('gatekeeper_auth_key', false)->andReturn(false);
 
-		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $session, $this->getUserProvider());
+		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $session, $this->getUserProvider(), $this->getGroupProvider());
 
 		$this->assertTrue($gatekeeper->isGuest());
 
@@ -308,7 +289,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$response->shouldReceive('deleteCookie')->times(3)->with('gatekeeper_auth_key', $this->getCookieOptions());
 
-		$gatekeeper = new Gatekeeper($request, $response, $session, $userProvider);
+		$gatekeeper = new Gatekeeper($request, $response, $session, $userProvider, $this->getGroupProvider());
 
 		$this->assertTrue($gatekeeper->isGuest());
 
@@ -337,7 +318,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('getByAccessToken')->once()->with('token')->andReturn($user);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider, $this->getGroupProvider());
 
 		$this->assertFalse($gatekeeper->isGuest());
 
@@ -356,7 +337,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn(false);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
 
 		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $gatekeeper->login('foo@example.org', 'password'));
 	}
@@ -371,9 +352,9 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('getByUsername')->once()->with('foo')->andReturn(false);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+		$options = ['identifier' => 'username'];
 
-		$gatekeeper->setIdentifier('username');
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider(), $options);
 
 		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $gatekeeper->login('foo', 'password'));
 	}
@@ -386,9 +367,9 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	{
 		$userProvider = $this->getUserProvider();
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+		$options = ['identifier' => 'foobar'];
 
-		$gatekeeper->setIdentifier('foobar');
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider(), $options);
 
 		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $gatekeeper->login('foo', 'password'));
 	}
@@ -407,7 +388,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('validatePassword')->once()->andReturn(false);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
 
 		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $gatekeeper->login('foo@example.org', 'password'));
 	}
@@ -428,7 +409,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('validatePassword')->once()->andReturn(true);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
 
 		$this->assertEquals(Gatekeeper::LOGIN_ACTIVATING, $gatekeeper->login('foo@example.org', 'password'));
 	}
@@ -451,7 +432,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('validatePassword')->once()->andReturn(true);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider());
 
 		$this->assertEquals(Gatekeeper::LOGIN_BANNED, $gatekeeper->login('foo@example.org', 'password'));
 	}
@@ -484,7 +465,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider, $this->getGroupProvider());
 
 		$this->assertTrue($gatekeeper->login('foo@example.org', 'password'));
 	}
@@ -521,7 +502,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$response->shouldReceive('signedCookie')->once()->with('gatekeeper_auth_key', 'token', 31536000, $this->getCookieOptions());
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $response, $session, $userProvider);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $response, $session, $userProvider, $this->getGroupProvider());
 
 		$this->assertTrue($gatekeeper->login('foo@example.org', 'password', true));
 	}
@@ -554,7 +535,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider, $this->getGroupProvider());
 
 		$this->assertTrue($gatekeeper->forceLogin('foo@example.org'));
 	}
@@ -577,9 +558,9 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('throttle')->once()->with($user, 5, 300);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+		$options = ['throttling' => ['enabled' => true, 'max_attempts' => 5, 'lock_time' => 300]];
 
-		$gatekeeper->enableThrottling(5, 300);
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider(), $options);
 
 		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $gatekeeper->login('foo@example.org', 'password'));
 	}
@@ -616,9 +597,9 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider);
+		$options = ['throttling' => ['enabled' => true, 'max_attempts' => 5, 'lock_time' => 300]];
 
-		$gatekeeper->enableThrottling();
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $session, $userProvider, $this->getGroupProvider(), $options);
 
 		$this->assertTrue($gatekeeper->login('foo@example.org', 'password'));
 	}
@@ -637,9 +618,9 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider);
+		$options = ['throttling' => ['enabled' => true, 'max_attempts' => 5, 'lock_time' => 300]];
 
-		$gatekeeper->enableThrottling();
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $userProvider, $this->getGroupProvider(), $options);
 
 		$this->assertEquals(Gatekeeper::LOGIN_LOCKED, $gatekeeper->login('foo@example.org', 'password'));
 	}
@@ -658,7 +639,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$response = $this->getResponse();
 
-		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$request, $response, $this->getSession(), $this->getUserProvider()])->makePartial();
+		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$request, $response, $this->getSession(), $this->getUserProvider(), $this->getGroupProvider()])->makePartial();
 
 		$gatekeeper->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
@@ -681,7 +662,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 	public function testBasicAuthIsLoggedIn()
 	{
-		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider()])->makePartial();
+		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider()])->makePartial();
 
 		$gatekeeper->shouldReceive('isLoggedIn')->once()->andReturn(true);
 
@@ -700,7 +681,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('password')->once()->andReturn('password');
 
-		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$request, $this->getResponse(), $this->getSession(), $this->getUserProvider()])->makePartial();
+		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$request, $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider()])->makePartial();
 
 		$gatekeeper->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
@@ -727,7 +708,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$response->shouldReceive('deleteCookie')->once()->with('gatekeeper_auth_key', $this->getCookieOptions());
 
-		$gatekeeper = new Gatekeeper($this->getRequest(), $response, $session, $this->getUserProvider());
+		$gatekeeper = new Gatekeeper($this->getRequest(), $response, $session, $this->getUserProvider(), $this->getGroupProvider());
 
 		$gatekeeper->logout();
 	}

@@ -25,14 +25,6 @@ use mako\session\Session;
 class Gatekeeper
 {
 	/**
-	 * Have we checked for a valid login?
-	 *
-	 * @var boolean
-	 */
-
-	protected $isChecked = false;
-
-	/**
 	 * Status code for banned users.
 	 *
 	 * @var int
@@ -63,23 +55,6 @@ class Gatekeeper
 	 */
 
 	const LOGIN_LOCKED = 103;
-
-	/**
-	 * Maximum number of login attempts before the account gets locked.
-	 *
-	 * @var int
-	 */
-
-	const THROTTLING_MAX_LOGIN_ATTEMPTS = 5;
-
-	/**
-	 * Number of seconds for which the account gets locked after
-	 * reaching the maximum number of login attempts.
-	 *
-	 * @var int
-	 */
-
-	const THROTTLING_LOCK_TIME = 300;
 
 	/**
 	 * Request instance.
@@ -151,7 +126,7 @@ class Gatekeeper
 	 * @var int
 	 */
 
-	protected $maxLoginAttempts;
+	protected $maxLoginAttempts = 5;
 
 	/**
 	 * Number of seconds for which the account gets locked after
@@ -160,7 +135,7 @@ class Gatekeeper
 	 * @var int
 	 */
 
-	protected $lockTime;
+	protected $lockTime = 300;
 
 	/**
 	 * Cookie options.
@@ -173,7 +148,7 @@ class Gatekeeper
 		'path'     => '/',
 		'domain'   => '',
 		'secure'   => false,
-		'httponly' => false,
+		'httponly' => true,
 	];
 
 	/**
@@ -193,106 +168,51 @@ class Gatekeeper
 	 * @param   \mako\session\Session                        $session        Session instance
 	 * @param   \mako\auth\providers\UserProviderInterface   $userProvider   User provider
 	 * @param   \mako\auth\providers\GroupProviderInterface  $groupProvider  Group provider
+	 * @param   array                                        $options        Options
 	 */
 
-	public function __construct(Request $request, Response $response, Session $session, UserProviderInterface $userProvider, GroupProviderInterface $groupProvider = null)
+	public function __construct(Request $request, Response $response, Session $session, UserProviderInterface $userProvider, GroupProviderInterface $groupProvider, array $options = [])
 	{
 		$this->request       = $request;
 		$this->response      = $response;
 		$this->session       = $session;
 		$this->userProvider  = $userProvider;
 		$this->groupProvider = $groupProvider;
+
+		$this->configure($options);
 	}
 
 	/**
-	 * Enables brute force throttling.
+	 * Configures the gatekeeper.
 	 *
-	 * @access  public
-	 * @param   null|int  $maxLoginAttempts  Maximum number of failed login attempts
-	 * @param   null|int  $lockTime          Number of seconds for which the account gets locked after reaching the maximum number of login attempts
+	 * @access  protected
+	 * @param   array      $options  Options
 	 */
 
-	public function enableThrottling($maxLoginAttempts = null, $lockTime = null)
+	protected function configure(array $options)
 	{
-		$this->throttle = true;
+		// Configure throttling
 
-		$this->maxLoginAttempts = $maxLoginAttempts ?: static::THROTTLING_MAX_LOGIN_ATTEMPTS;
-
-		$this->lockTime = $lockTime ?: static::THROTTLING_LOCK_TIME;
-	}
-
-	/**
-	 * Disables brute force throttling.
-	 *
-	 * @access  public
-	 */
-
-	public function disableThrottling()
-	{
-		$this->throttle = false;
-	}
-
-	/**
-	 * Returns TRUE if brute force throttling is enabled and FALSE if not.
-	 *
-	 * @access  public
-	 * @return  boolean
-	 */
-
-	public function isThrottlingEnabled()
-	{
-		return $this->throttle;
-	}
-
-	/**
-	 * Sets the identifier type.
-	 *
-	 * @access  public
-	 * @param   string  $identifier  Identifier type
-	 */
-
-	public function setIdentifier($identifier)
-	{
-		if($this->isChecked)
+		if(isset($options['throttling']))
 		{
-			throw new LogicException(vsprintf("%s(): Unable to alter the identifier type after login check.", [__METHOD__]));
+			$this->throttle = isset($options['throttling']['enabled']) && $options['throttling']['enabled'] === true;
+
+			isset($options['throttling']['max_attemps']) && $this->maxLoginAttempts = $options['throttling']['max_attemps'];
+
+			isset($options['throttling']['max_attemps']) && $this->lockTime = $options['throttling']['max_attemps'];
 		}
 
-		$this->identifier = $identifier;
-	}
+		// Configure the identifier
 
-	/**
-	 * Sets the auth key.
-	 *
-	 * @access  public
-	 * @param   string  $authKey  Auth key
-	 */
+		isset($options['identifier']) && $this->identifier = $options['identifier'];
 
-	public function setAuthKey($authKey)
-	{
-		if($this->isChecked)
-		{
-			throw new LogicException(vsprintf("%s(): Unable to alter auth key after login check.", [__METHOD__]));
-		}
+		// Configure the authentication key
 
-		$this->authKey = $authKey;
-	}
+		isset($options['auth_key']) && $this->authKey = $options['auth_key'];
 
-	/**
-	 * Sets cookie options.
-	 *
-	 * @access  public
-	 * @param   array   $cookieOptions  Cookie options
-	 */
+		// Configure the cookie options
 
-	public function setCookieOptions(array $cookieOptions)
-	{
-		if($this->isChecked)
-		{
-			throw new LogicException(vsprintf("%s(): Unable to alter cookie options after login check.", [__METHOD__]));
-		}
-
-		$this->cookieOptions = $cookieOptions;
+		isset($options['cookie']) && $this->cookieOptions = $options['cookie'];
 	}
 
 	/**
@@ -429,10 +349,6 @@ class Gatekeeper
 					$this->user = $user;
 				}
 			}
-
-			// Set checked status to TRUE
-
-			$this->isChecked = true;
 		}
 
 		return $this->user;
