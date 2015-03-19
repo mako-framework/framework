@@ -237,7 +237,7 @@ class Str
 	}
 
 	/**
-	 * Creates url friendly string.
+	 * Creates a URL friendly string.
 	 *
 	 * @access  public
 	 * @param   string  $string  The input string
@@ -246,7 +246,7 @@ class Str
 
 	public static function slug($string)
 	{
-		return mb_strtolower(preg_replace('/\s{1,}/', '-', trim(preg_replace('/[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]/', '', $string))));
+		return urlencode(mb_strtolower(preg_replace('/\s{1,}/', '-', trim(preg_replace('/[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]/', '', $string)))));
 	}
 
 	/**

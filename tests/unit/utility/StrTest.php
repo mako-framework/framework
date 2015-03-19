@@ -155,6 +155,7 @@ class StrTest extends \PHPUnit_Framework_TestCase
 	 	$this->assertEquals('hello-world', Str::slug('hello world'));
 	 	$this->assertEquals('hello-world', Str::slug('HELLO WORLD'));
 	 	$this->assertEquals('hello-world', Str::slug('HELLO WORLD#'));
+	 	$this->assertEquals('japanese-%E6%97%A5%E6%9C%AC%E8%AA%9E', Str::slug('Japanese 日本語'));
 	 }
 
 	 /**
