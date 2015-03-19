@@ -7,7 +7,6 @@
 
 namespace mako\auth;
 
-use LogicException;
 use RuntimeException;
 
 use mako\auth\providers\GroupProviderInterface;
