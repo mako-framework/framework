@@ -198,7 +198,7 @@ class Gatekeeper
 
 			isset($options['throttling']['max_attemps']) && $this->maxLoginAttempts = $options['throttling']['max_attemps'];
 
-			isset($options['throttling']['max_attemps']) && $this->lockTime = $options['throttling']['max_attemps'];
+			isset($options['throttling']['lock_time']) && $this->lockTime = $options['throttling']['lock_time'];
 		}
 
 		// Configure the identifier
