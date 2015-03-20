@@ -88,7 +88,7 @@ class Query extends QueryBuilder
 	{
 		$this->makeReadOnly = true;
 
-		if(empty($this->joins))
+		if(empty($this->joins) && $this->columns === ['*'])
 		{
 			$this->select([$this->model->getTable() . '.*']);
 		}
