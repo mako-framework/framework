@@ -34,7 +34,6 @@ interface CommandBusInterface
 	 * @access  public
 	 * @param   \mako\commander\CommandInterface|string  $command     Command
 	 * @param   array                                    $parameters  Parameters
-	 * @param   array                                    $middleware  Middleware
 	 * @return  mixed
 	 */
 

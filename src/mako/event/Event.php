@@ -132,7 +132,7 @@ class Event
 	 *
 	 * @access  protected
 	 * @param   string                             $handler  Event handler class
-	 * @param   \mako\event\EventHandlerInterface
+	 * @return  \mako\event\EventHandlerInterface
 	 */
 
 	protected function resolveHandler($handler)
