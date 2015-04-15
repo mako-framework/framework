@@ -10,12 +10,12 @@ namespace mako\session\stores;
 use mako\session\stores\StoreInterface;
 
 /**
- * Null store.
+ * Void store.
  *
  * @author  Frederic G. Østby
  */
 
-class Null implements StoreInterface
+class Void implements StoreInterface
 {
 	/**
 	 * {@inheritdoc}

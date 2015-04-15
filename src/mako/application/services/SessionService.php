@@ -11,8 +11,8 @@ use mako\application\services\Service;
 use mako\session\Session;
 use mako\session\stores\Database;
 use mako\session\stores\File;
-use mako\session\stores\Null;
 use mako\session\stores\Redis;
+use mako\session\stores\Void;
 
 /**
  * Session service.
@@ -51,20 +51,6 @@ class SessionService extends Service
 	}
 
 	/**
-	 * Returns a null store instance.
-	 *
-	 * @access  protected
-	 * @param   \mako\syringe\Container    $container  IoC container instance
-	 * @param   array                      $config     Store configuration
-	 * @return  \mako\session\stores\Null
-	 */
-
-	protected function getNullStore($container, $config)
-	{
-		return new Null;
-	}
-
-	/**
 	 * Returns a redis store instance.
 	 *
 	 * @access  protected
@@ -76,6 +62,20 @@ class SessionService extends Service
 	protected function getRedisStore($container, $config)
 	{
 		return new Redis($container->get('redis')->connection($config['configuration']));
+	}
+
+	/**
+	 * Returns a void store instance.
+	 *
+	 * @access  protected
+	 * @param   \mako\syringe\Container    $container  IoC container instance
+	 * @param   array                      $config     Store configuration
+	 * @return  \mako\session\stores\Void
+	 */
+
+	protected function getVoidStore($container, $config)
+	{
+		return new Void;
 	}
 
 	/**
