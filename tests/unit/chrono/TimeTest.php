@@ -33,12 +33,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$time = new Time('now', 'Asia/Tokyo');
-
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
-
-		//
-
 		$time = new Time('now', new DateTimeZone('Asia/Tokyo'));
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
@@ -53,12 +47,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 		$time = Time::now();
 
 		$this->assertSame($time->format('Y-m-d H:i'), (new DateTime)->format('Y-m-d H:i'));
-
-		//
-
-		$time = Time::now('Asia/Tokyo');
-
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 
 		//
 
@@ -97,12 +85,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$time = Time::createFromDate(1983, 8, 30, 'Asia/Tokyo');
-
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
-
-		//
-
 		$time = Time::createFromDate(1983, 8, 30, new DateTimeZone('Asia/Tokyo'));
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
@@ -117,12 +99,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 		$time = Time::createFromTimestamp(431093532);
 
 		$this->assertSame(431093532, $time->getTimestamp());
-
-		//
-
-		$time = Time::createFromTimestamp(431093532, 'Asia/Tokyo');
-
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 
 		//
 
@@ -151,12 +127,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33');
 
 		$this->assertSame('1983-08-30 13:37:33', $time->format('Y-m-d H:i:s'));
-
-		//
-
-		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', 'Asia/Tokyo');
-
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 
 		//
 
