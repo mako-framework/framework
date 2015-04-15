@@ -143,7 +143,7 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	{
 		$time = new Time;
 
-		$time->setTimeZone('Asia/Tokyo');
+		$time->setTimeZone(new DateTimeZone('Asia/Tokyo'));
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 	}
