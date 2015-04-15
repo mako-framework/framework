@@ -211,7 +211,7 @@ class HTML
 	 * @return  string
 	 */
 
-	public function __call($name, $arguments)
+	public function __call($name, array $arguments)
 	{
 		if(!isset(static::$tags[$name]))
 		{
