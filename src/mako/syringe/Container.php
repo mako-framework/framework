@@ -268,7 +268,7 @@ class Container
 
 		// Return resolved parameters
 
-		return $parameters;
+		return array_values($parameters);
 	}
 
 	/**
@@ -299,7 +299,7 @@ class Container
 	{
 		// Pass the container as the first parameter followed by the the provided parameters
 
-		$instance = call_user_func_array($factory, array_merge([$this], $parameters));
+		$instance = $factory(...array_merge([$this], $parameters));
 
 		// Check that the factory closure returned an object
 
@@ -469,12 +469,14 @@ class Container
 		if($callable instanceof Closure)
 		{
 			$reflection = new ReflectionFunction($callable);
+
+			return $callable(...$this->resolveParameters($reflection->getParameters(), $parameters));
 		}
 		else
 		{
 			$reflection = new ReflectionMethod($callable[0], $callable[1]);
-		}
 
-		return call_user_func_array($callable, $this->resolveParameters($reflection->getParameters(), $parameters));
+			return $callable[0]->{$callable[1]}(...$this->resolveParameters($reflection->getParameters(), $parameters));
+		}
 	}
 }

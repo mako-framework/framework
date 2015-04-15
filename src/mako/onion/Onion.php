@@ -109,11 +109,11 @@ class Onion
 
 	protected function buildCoreClosure($object)
 	{
-		return function() use ($object)
+		return function(...$arguments) use ($object)
 		{
 			$callable = $object instanceof Closure ? $object : [$object, $this->method];
 
-			return call_user_func_array($callable, func_get_args());
+			return $callable(...$arguments);
 		};
 	}
 
@@ -128,9 +128,9 @@ class Onion
 
 	protected function buildLayerClosure($layer, Closure $next)
 	{
-		return function() use ($layer, $next)
+		return function(...$arguments) use ($layer, $next)
 		{
-			return call_user_func_array([$layer, 'execute'], array_merge(func_get_args(), [$next]));
+			return $layer->execute(...array_merge($arguments, [$next]));
 		};
 	}
 
@@ -154,6 +154,6 @@ class Onion
 			$next = $this->buildLayerClosure($layer, $next);
 		}
 
-		return call_user_func_array($next, $parameters);
+		return $next(...$parameters);
 	}
 }

@@ -1172,9 +1172,9 @@ abstract class ORM
 	 * @return  mixed
 	 */
 
-	public function __call($name, $arguments)
+	public function __call($name, array $arguments)
 	{
-		return call_user_func_array([$this->builder(), $name], $arguments);
+		return $this->builder()->{$name}(...$arguments);
 	}
 
 	/**
@@ -1186,8 +1186,8 @@ abstract class ORM
 	 * @return  mixed
 	 */
 
-	public static function __callStatic($name, $arguments)
+	public static function __callStatic($name, array $arguments)
 	{
-		return call_user_func_array([(new static)->builder(), $name], $arguments);
+		return (new static)->builder()->{$name}(...$arguments);
 	}
 }

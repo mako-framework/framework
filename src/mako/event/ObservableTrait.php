@@ -101,7 +101,7 @@ trait ObservableTrait
 		{
 			foreach($this->_observers[$event] as $observer)
 			{
-				$returnValues[] = $last = call_user_func_array($observer, $parameters);
+				$returnValues[] = $last = $observer(...$parameters);
 
 				if($break && $last === false)
 				{

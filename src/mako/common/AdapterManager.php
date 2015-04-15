@@ -130,8 +130,8 @@ abstract class AdapterManager
 	 * @return  mixed
 	 */
 
-	public function __call($name, $arguments)
+	public function __call($name, array $arguments)
 	{
-		return call_user_func_array([$this->instance(), $name], $arguments);
+		return $this->instance()->{$name}(...$arguments);
 	}
 }

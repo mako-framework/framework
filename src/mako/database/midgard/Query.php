@@ -458,6 +458,6 @@ class Query extends QueryBuilder
 
 		array_unshift($arguments, $this);
 
-		return call_user_func_array([$this->model, $name . 'Scope'], $arguments);
+		return $this->model->{$name . 'Scope'}(...$arguments);
 	}
 }

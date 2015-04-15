@@ -220,6 +220,6 @@ class HTML
 
 		array_unshift($arguments, $this);
 
-		return call_user_func_array(static::$tags[$name], $arguments);
+		return static::$tags[$name](...$arguments);
 	}
 }
