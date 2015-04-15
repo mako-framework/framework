@@ -456,8 +456,6 @@ class Query extends QueryBuilder
 			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
 		}
 
-		array_unshift($arguments, $this);
-
-		return $this->model->{$name . 'Scope'}(...$arguments);
+		return $this->model->{$name . 'Scope'}(...array_merge([$this], $arguments));
 	}
 }
