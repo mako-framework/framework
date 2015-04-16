@@ -218,6 +218,6 @@ class HTML
 			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
 		}
 
-		return static::$tags[$name](...array_merge([$this], $arguments));
+		return (static::$tags[$name])(...array_merge([$this], $arguments));
 	}
 }
