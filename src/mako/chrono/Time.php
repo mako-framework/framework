@@ -67,19 +67,6 @@ class Time extends DateTime
 	const YEAR = 31556926;
 
 	/**
-	 * Constructor.
-	 *
-	 * @access  public
-	 * @param   string              $time      A date/time string
-	 * @param   null|\DateTimeZone  $timeZone  A DateTimeZone object
-	 */
-
-	public function __construct($time = 'now', DateTimeZone $timeZone = null)
-	{
-		parent::__construct($time, $timeZone);
-	}
-
-	/**
 	 * Returns a new Time object.
 	 *
 	 * @access  public
