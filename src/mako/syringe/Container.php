@@ -469,14 +469,12 @@ class Container
 		if($callable instanceof Closure)
 		{
 			$reflection = new ReflectionFunction($callable);
-
-			return $callable(...$this->resolveParameters($reflection->getParameters(), $parameters));
 		}
 		else
 		{
 			$reflection = new ReflectionMethod($callable[0], $callable[1]);
-
-			return $callable[0]->{$callable[1]}(...$this->resolveParameters($reflection->getParameters(), $parameters));
 		}
+
+		return $callable(...$this->resolveParameters($reflection->getParameters(), $parameters));
 	}
 }
