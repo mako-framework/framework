@@ -96,7 +96,7 @@ class BelongsTo extends Relation
 				$criteria($this);
 			}
 
-			foreach($this->eagerCriterion($keys)->all() as $related)
+			foreach($this->eagerLoadChunked($keys) as $related)
 			{
 				$grouped[$related->getPrimaryKeyValue()] = $related;
 			}

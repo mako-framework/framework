@@ -39,7 +39,7 @@ class HasMany extends HasOneOrMany
 			$criteria($this);
 		}
 
-		foreach($this->eagerCriterion($this->keys($results))->all() as $related)
+		foreach($this->eagerLoadChunked($this->keys($results)) as $related)
 		{
 			$grouped[$related->getRawColumn($this->getForeignKey())][] = $related;
 		}

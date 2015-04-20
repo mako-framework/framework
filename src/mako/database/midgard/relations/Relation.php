@@ -10,6 +10,7 @@ namespace mako\database\midgard\relations;
 use mako\database\Connection;
 use mako\database\midgard\ORM;
 use mako\database\midgard\Query;
+use mako\database\midgard\ResultSet;
 
 /**
  * Base relation.
@@ -19,6 +20,14 @@ use mako\database\midgard\Query;
 
 abstract class Relation extends Query
 {
+	/**
+	 * Eager load chunk size.
+	 *
+	 * @var int
+	 */
+
+	const EAGER_LOAD_CHUNK_SIZE = 900;
+
 	/**
 	 * Parent record.
 	 *
@@ -127,6 +136,31 @@ abstract class Relation extends Query
 		$this->in($this->getForeignKey(), $keys);
 
 		return $this;
+	}
+
+	/**
+	 * Eager loads records in chunks.
+	 *
+	 * @access  protected
+	 * @param   array                             $keys  Parent keys
+	 * @return  \mako\database\midgard\ResultSet
+	 */
+
+	protected function eagerLoadChunked(array $keys)
+	{
+		if(count($keys) > static::EAGER_LOAD_CHUNK_SIZE)
+		{
+			$records = [];
+
+			foreach(array_chunk($keys, static::EAGER_LOAD_CHUNK_SIZE) as $chunk)
+			{
+				$records = array_merge($records, $this->eagerCriterion($chunk)->all()->getItems());
+			}
+
+			return new ResultSet($records);
+		}
+
+		return $this->eagerCriterion($keys)->all();
 	}
 
 	/**
