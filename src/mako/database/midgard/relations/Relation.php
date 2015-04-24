@@ -154,7 +154,9 @@ abstract class Relation extends Query
 
 			foreach(array_chunk($keys, static::EAGER_LOAD_CHUNK_SIZE) as $chunk)
 			{
-				$records = array_merge($records, $this->eagerCriterion($chunk)->all()->getItems());
+				$query = clone $this;
+
+				$records = array_merge($records, $query->eagerCriterion($chunk)->all()->getItems());
 			}
 
 			return new ResultSet($records);
