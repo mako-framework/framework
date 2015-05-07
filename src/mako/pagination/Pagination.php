@@ -91,6 +91,14 @@ class Pagination
 	protected $offset;
 
 	/**
+	 * Pagination.
+	 *
+	 * @var array
+	 */
+
+	protected $pagination = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
@@ -177,71 +185,76 @@ class Pagination
 	/**
 	 * Builds and returns the pagination array.
 	 *
-	 * @access  protected
+	 * @access  public
 	 * @return  array
 	 */
 
-	protected function paginate()
+	public function paginate()
 	{
-		if(empty($this->urlBuilder))
+		if(empty($this->pagination))
 		{
-			throw new RuntimeException(vsprintf("%s(): A [ URLBuilder ] instance is required to render pagination views.", [__METHOD__]));
-		}
-
-		$pagination = [];
-
-		$pagination['count'] = $this->pages;
-
-		$params = $this->request->get();
-
-		if($this->currentPage > 1)
-		{
-			$pagination['first']    = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => 1]));
-			$pagination['previous'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => ($this->currentPage - 1)]));
-		}
-
-		if($this->currentPage < $this->pages)
-		{
-			$pagination['last'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => $this->pages]));
-			$pagination['next'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => ($this->currentPage + 1)]));
-		}
-
-		if($this->pages > $this->config['max_page_links'])
-		{
-			$start = max(($this->currentPage) - ceil($this->config['max_page_links'] / 2), 0);
-
-			$end = $start + $this->config['max_page_links'];
-
-			if($end > $this->pages)
+			if(empty($this->urlBuilder))
 			{
+				throw new RuntimeException(vsprintf("%s(): A [ URLBuilder ] instance is required to render pagination views.", [__METHOD__]));
+			}
+
+			$pagination = [];
+
+			$pagination['count'] = $this->pages;
+
+			$params = $this->request->get();
+
+			if($this->currentPage > 1)
+			{
+				$pagination['first']    = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => 1]));
+				$pagination['previous'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => ($this->currentPage - 1)]));
+			}
+
+			if($this->currentPage < $this->pages)
+			{
+				$pagination['last'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => $this->pages]));
+				$pagination['next'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => ($this->currentPage + 1)]));
+			}
+
+			if($this->pages > $this->config['max_page_links'])
+			{
+				$start = max(($this->currentPage) - ceil($this->config['max_page_links'] / 2), 0);
+
+				$end = $start + $this->config['max_page_links'];
+
+				if($end > $this->pages)
+				{
+					$end = $this->pages;
+				}
+
+				if($start > ($end - $this->config['max_page_links']))
+				{
+					$start = $end - $this->config['max_page_links'];
+				}
+			}
+			else
+			{
+				$start = 0;
+
 				$end = $this->pages;
 			}
 
-			if($start > ($end - $this->config['max_page_links']))
+			$pagination['pages'] = [];
+
+			for($i = $start + 1; $i <= $end; $i++)
 			{
-				$start = $end - $this->config['max_page_links'];
+				$pagination['pages'][] =
+				[
+					'url'        => $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => $i])),
+					'number'     => $i,
+					'is_current' => ($i == $this->currentPage),
+				];
 			}
-		}
-		else
-		{
-			$start = 0;
 
-			$end = $this->pages;
+			$this->pagination = $pagination;
 		}
 
-		$pagination['pages'] = [];
-
-		for($i = $start + 1; $i <= $end; $i++)
-		{
-			$pagination['pages'][] =
-			[
-				'url'        => $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => $i])),
-				'number'     => $i,
-				'is_current' => ($i == $this->currentPage),
-			];
-		}
-
-		return $pagination;
+		return $this->pagination;
 	}
 
 	/**
