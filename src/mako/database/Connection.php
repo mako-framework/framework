@@ -466,18 +466,13 @@ class Connection
 
 		list($query, $params) = $this->prepareQueryAndParams($query, $params);
 
-		// Create a prepared statement and bind parameters
+		// Create prepared statement
 
 		try
 		{
 			prepare:
 
 			$statement = $this->pdo->prepare($query);
-
-			foreach($params as $key => $value)
-			{
-				$this->bindParameter($statement, $key, $value);
-			}
 		}
 		catch(PDOException $e)
 		{
@@ -489,6 +484,13 @@ class Connection
 			}
 
 			throw new PDOException($e->getMessage() . ' [ ' . $this->replaceParams($query, $params) . ' ] ', (int) $e->getCode(), $e->getPrevious());
+		}
+
+		// Bind parameters
+
+		foreach($params as $key => $value)
+		{
+			$this->bindParameter($statement, $key, $value);
 		}
 
 		// Return query, parameters and the prepared statement
