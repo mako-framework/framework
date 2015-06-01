@@ -405,16 +405,6 @@ class Connection
 			}
 		}
 
-		// Normalize boolean values since PDO is unable to do so
-
-		foreach($params as $key => $value)
-		{
-			if($value === true || $value === false)
-			{
-				$params[$key] = (int) $value;
-			}
-		}
-
 		// Return query and parameters
 
 		return [$query, $params];
@@ -433,6 +423,35 @@ class Connection
 	}
 
 	/**
+	 * Binds parameter to the prepared statement.
+	 *
+	 * @access  protected
+	 * @param   \PDOStatement  $statement  PDO statement
+	 * @param   int            $key        Parameter key
+	 * @param   mixed          $value      Parameter value
+	 */
+
+	protected function bindParameter($statement, $key, $value)
+	{
+		switch(gettype($value))
+		{
+			case 'boolean':
+				$type = PDO::PARAM_BOOL;
+				break;
+			case 'integer':
+				$type = PDO::PARAM_INT;
+				break;
+			case 'NULL':
+				$type = PDO::PARAM_NULL;
+				break;
+			default:
+				$type = PDO::PARAM_STR;
+		}
+
+		$statement->bindValue($key + 1, $value, $type);
+	}
+
+	/**
 	 * Prepares a query.
 	 *
 	 * @access  protected
@@ -447,13 +466,18 @@ class Connection
 
 		list($query, $params) = $this->prepareQueryAndParams($query, $params);
 
-		// Create a prepared statement
+		// Create a prepared statement and bind parameters
 
 		try
 		{
 			prepare:
 
 			$statement = $this->pdo->prepare($query);
+
+			foreach($params as $key => $value)
+			{
+				$this->bindParameter($statement, $key, $value);
+			}
 		}
 		catch(PDOException $e)
 		{
@@ -487,7 +511,7 @@ class Connection
 			$start = microtime(true);
 		}
 
-		$result = $prepared['statement']->execute($prepared['params']);
+		$result = $prepared['statement']->execute();
 
 		if($this->enableLog)
 		{
