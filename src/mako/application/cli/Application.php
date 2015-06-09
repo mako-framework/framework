@@ -55,11 +55,11 @@ class Application extends BaseApplication
 		{
 			$commands = array_merge($commands,
 			[
-					'migrate.create' => 'mako\application\cli\commands\migrations\Create',
-					'migrate.status' => 'mako\application\cli\commands\migrations\Status',
-					'migrate.up'     => 'mako\application\cli\commands\migrations\Up',
-					'migrate.down'   => 'mako\application\cli\commands\migrations\Down',
-					'migrate.reset'  => 'mako\application\cli\commands\migrations\Reset',
+				'migrate.create' => 'mako\application\cli\commands\migrations\Create',
+				'migrate.status' => 'mako\application\cli\commands\migrations\Status',
+				'migrate.up'     => 'mako\application\cli\commands\migrations\Up',
+				'migrate.down'   => 'mako\application\cli\commands\migrations\Down',
+				'migrate.reset'  => 'mako\application\cli\commands\migrations\Reset',
 			]);
 		}
 
