@@ -48,13 +48,21 @@ class Application extends BaseApplication
 		[
 			'app.generate_secret' => 'mako\application\cli\commands\app\GenerateSecret',
 			'app.routes'          => 'mako\application\cli\commands\app\ListRoutes',
-			'migrate.create'      => 'mako\application\cli\commands\migrations\Create',
-			'migrate.status'      => 'mako\application\cli\commands\migrations\Status',
-			'migrate.up'          => 'mako\application\cli\commands\migrations\Up',
-			'migrate.down'        => 'mako\application\cli\commands\migrations\Down',
-			'migrate.reset'       => 'mako\application\cli\commands\migrations\Reset',
 			'server'              => 'mako\application\cli\commands\server\Server',
 		];
+
+		if ($this->container->has('database'))
+		{
+			$commands = array_merge(
+				$commands, [
+					'migrate.create'      => 'mako\application\cli\commands\migrations\Create',
+					'migrate.status'      => 'mako\application\cli\commands\migrations\Status',
+					'migrate.up'          => 'mako\application\cli\commands\migrations\Up',
+					'migrate.down'        => 'mako\application\cli\commands\migrations\Down',
+					'migrate.reset'       => 'mako\application\cli\commands\migrations\Reset',
+				]
+			);
+		}
 
 		// Add application commands
 
