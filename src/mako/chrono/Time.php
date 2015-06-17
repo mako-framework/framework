@@ -67,14 +67,32 @@ class Time extends DateTime
 	const YEAR = 31556926;
 
 	/**
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string                     $time      A date/time string
+	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
+	 */
+
+	public function __construct($time = 'now', $timeZone = null)
+	{
+		if($timeZone !== null && ($timeZone instanceof DateTimeZone) === false)
+		{
+			$timeZone = new DateTimeZone($timeZone);
+		}
+
+		parent::__construct($time, $timeZone);
+	}
+
+	/**
 	 * Returns a new Time object.
 	 *
 	 * @access  public
-	 * @param   null|\DateTimeZone  $timeZone  A DateTimeZone object
+	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
 
-	public static function now(DateTimeZone $timeZone = null)
+	public static function now($timeZone = null)
 	{
 		return new static('now', $timeZone);
 	}
@@ -83,14 +101,14 @@ class Time extends DateTime
 	 * Returns new Time object according to the specified date.
 	 *
 	 * @access  public
-	 * @param   int                 $year      Year
-	 * @param   int                 $month     Month (1 to 12)
-	 * @param   int                 $day       Day of month (1 to 31)
-	 * @param   null|\DateTimeZone  $timeZone  A DateTimeZone object
+	 * @param   int                        $year      Year
+	 * @param   int                        $month     Month (1 to 12)
+	 * @param   int                        $day       Day of month (1 to 31)
+	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
 
-	public static function createFromDate($year, $month = null, $day = null, DateTimeZone $timeZone = null)
+	public static function createFromDate($year, $month = null, $day = null, $timeZone = null)
 	{
 		$now = static::now($timeZone);
 
@@ -101,12 +119,12 @@ class Time extends DateTime
 	 * Returns new Time object according to the specified timestamp.
 	 *
 	 * @access  public
-	 * @param   int                 $timestamp  Unix timestamp
-	 * @param   null|\DateTimeZone  $timeZone   A DateTimeZone object
+	 * @param   int                        $timestamp  Unix timestamp
+	 * @param   null|string|\DateTimeZone  $timeZone   A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
 
-	public static function createFromTimestamp($timestamp, DateTimeZone $timeZone = null)
+	public static function createFromTimestamp($timestamp, $timeZone = null)
 	{
 		$dateTime = new static('now', $timeZone);
 
@@ -119,12 +137,12 @@ class Time extends DateTime
 	 * Returns new Time object according to the specified DOS timestamp.
 	 *
 	 * @access  public
-	 * @param   int                 $timestamp  DOS timestamp
-	 * @param   null|\DateTimeZone  $timeZone   A DateTimeZone object
+	 * @param   int                        $timestamp  DOS timestamp
+	 * @param   null|string|\DateTimeZone  $timeZone   A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
 
-	public static function createFromDOSTimestamp($timestamp, DateTimeZone $timeZone = null)
+	public static function createFromDOSTimestamp($timestamp, $timeZone = null)
 	{
 		$year     = (($timestamp >> 25) & 0x7f) + 1980;
 		$mon      = ($timestamp >> 21) & 0x0f;
@@ -142,17 +160,47 @@ class Time extends DateTime
 	 * Returns new Time object formatted according to the specified format.
 	 *
 	 * @access  public
-	 * @param   string              $format    The format that the passed in string should be in
-	 * @param   string              $time      String representing the time
-	 * @param   null|\DateTimeZone  $timeZone  A DateTimeZone object
+	 * @param   string                     $format    The format that the passed in string should be in
+	 * @param   string                     $time      String representing the time
+	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
 
-	public static function createFromFormat($format, $time, DateTimeZone $timeZone = null)
+	public static function createFromFormat($format, $time, $timeZone = null)
 	{
-		$dateTime = parent::createFromFormat($format, $time, $timeZone);
+		if($timeZone !== null)
+		{
+			if(($timeZone instanceof DateTimeZone) === false)
+			{
+				$timeZone = new DateTimeZone($timeZone);
+			}
+
+			$dateTime = parent::createFromFormat($format, $time, $timeZone);
+		}
+		else
+		{
+			$dateTime = parent::createFromFormat($format, $time);
+		}
 
 		return new static($dateTime->format('Y-m-d\TH:i:s'), $dateTime->getTimeZone());
+	}
+
+	/**
+	 * Sets the time zone for the Time object
+	 *
+	 * @access  public
+	 * @param   string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
+	 * @return  \mako\chrono\Time
+	 */
+
+	public function setTimeZone($timeZone)
+	{
+		if(($timeZone instanceof DateTimeZone) === false)
+		{
+			$timeZone = new DateTimeZone($timeZone);
+		}
+
+		return parent::setTimeZone($timeZone);
 	}
 
 	/**
