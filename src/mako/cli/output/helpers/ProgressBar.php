@@ -138,6 +138,13 @@ class ProgressBar
 
 	public function draw()
 	{
+		// Don't draw progess bar if there are 0 items
+
+		if($this->items === 0)
+		{
+			return;
+		}
+
 		// Calculate percent
 
 		$percent = (int) ceil(min(($this->progress / $this->items) * 100, 100));
