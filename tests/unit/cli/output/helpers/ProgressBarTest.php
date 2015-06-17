@@ -27,6 +27,21 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testProgressWithZeroItems()
+	{
+		$output = m::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('write')->never();
+
+		$progressBar = new ProgressBar($output, 0);
+
+		$progressBar->draw();
+	}
+
+	/**
+	 *
+	 */
+
 	public function testBasicProgress()
 	{
 		$output = m::mock('mako\cli\output\Output');
