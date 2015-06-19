@@ -325,7 +325,7 @@ class Connection
 	}
 
 	/**
-	 * Replace placeholders with parameteters.
+	 * Prepares query for logging.
 	 *
 	 * @access  protected
 	 * @param   string     $query   SQL query
@@ -333,15 +333,28 @@ class Connection
 	 * @return  string
 	 */
 
-	protected function replaceParams($query, array $params)
+	protected function prepareQueryForLog($query, array $params)
 	{
-		$pdo = $this->pdo;
-
-		return preg_replace_callback('/\?/', function($matches) use (&$params, $pdo)
+		return preg_replace_callback('/\?/', function($matches) use (&$params)
 		{
 			$param = array_shift($params);
 
-			return (is_int($param) || is_float($param)) ? $param : $pdo->quote(is_object($param) ? get_class($param) : $param);
+			if(is_int($param) || is_float($param))
+			{
+				return $param;
+			}
+			elseif(is_bool(($param)))
+			{
+				return $param ? 'TRUE' : 'FALSE';
+			}
+			elseif(is_object($param))
+			{
+				return get_class($param);
+			}
+			else
+			{
+				return $this->pdo->quote($param);
+			}
 		}, $query);
 	}
 
@@ -358,7 +371,7 @@ class Connection
 	{
 		$time = microtime(true) - $start;
 
-		$query = $this->replaceParams($query, $params);
+		$query = $this->prepareQueryForLog($query, $params);
 
 		$this->log[] = compact('query', 'time');
 	}
@@ -483,7 +496,7 @@ class Connection
 				goto prepare;
 			}
 
-			throw new PDOException($e->getMessage() . ' [ ' . $this->replaceParams($query, $params) . ' ] ', (int) $e->getCode(), $e->getPrevious());
+			throw new PDOException($e->getMessage() . ' [ ' . $this->prepareQueryForLog($query, $params) . ' ] ', (int) $e->getCode(), $e->getPrevious());
 		}
 
 		// Bind parameters
