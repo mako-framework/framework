@@ -5,6 +5,10 @@
  * @license    http://www.makoframework.com/license
  */
 
+// Force script name so that clean URLs work
+
+$_SERVER['SCRIPT_NAME'] = '/index.php';
+
 $requestURI   = $_SERVER['REQUEST_URI'];
 $documentRoot = $_SERVER['DOCUMENT_ROOT'];
 
