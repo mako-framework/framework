@@ -71,7 +71,7 @@ class Redis
 			$this->auth($options['password']);
 		}
 
-		if(!empty($options['database']) && $options['database'] !== 0)
+		if(!empty($options['database']))
 		{
 			$this->select($options['database']);
 		}
