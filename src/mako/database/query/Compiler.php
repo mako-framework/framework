@@ -9,6 +9,7 @@ namespace mako\database\query;
 
 use DateTimeInterface;
 
+use mako\database\query\Join;
 use mako\database\query\Query;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
@@ -228,19 +229,6 @@ class Compiler
 	}
 
 	/**
-	 * Compiles WHERE clauses.
-	 *
-	 * @access  protected
-	 * @param   array      $where  Where clause
-	 * @return  string
-	 */
-
-	protected function where(array $where)
-	{
-		return $this->wrap($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
-	}
-
-	/**
 	 * Compiles BETWEEN clauses.
 	 *
 	 * @access  protected
@@ -295,7 +283,20 @@ class Compiler
 	}
 
 	/**
-	 * Compiles nested WHERE clauses.
+	 * Compiles WHERE conditions.
+	 *
+	 * @access  protected
+	 * @param   array      $where  Where clause
+	 * @return  string
+	 */
+
+	protected function where(array $where)
+	{
+		return $this->wrap($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
+	}
+
+	/**
+	 * Compiles nested WHERE conditions.
 	 *
 	 * @access  protected
 	 * @param   array      $where  Where clause
@@ -333,6 +334,54 @@ class Compiler
 	}
 
 	/**
+	 * Compiles a JOIN condition.
+	 *
+	 * @access  protected
+	 * @param   array  $condition  Join condition
+	 * @return  string
+	 */
+
+	protected function joinCondition(array $condition)
+	{
+		return $this->wrap($condition['column1']) . ' ' . $condition['operator'] . ' ' . $this->wrap($condition['column2']);
+	}
+
+	/**
+	 * Compiles nested JOIN condition.
+	 *
+	 * @access  protected
+	 * @param   array  $condition  Join condition
+	 * @return  string
+	 */
+
+	protected function nestedJoinCondition(array $condition)
+	{
+		$conditions = $this->joinConditions($condition['join']);
+
+		return '(' . $conditions . ')';
+	}
+
+	/**
+	 * Compiles JOIN conditions.
+	 *
+	 * @access  protected
+	 * @param   mako\database\query\Join  $join  Join
+	 * @return  string
+	 */
+
+	protected function joinConditions(Join $join)
+	{
+		$conditions = [];
+
+		foreach($join->getConditions() as $condition)
+		{
+			$conditions[] = $condition['separator'] . ' ' . $this->{$condition['type']}($condition);
+		}
+
+		return substr(implode(' ', $conditions), 4);  // substr to remove "AND "
+	}
+
+	/**
 	 * Compiles JOIN clauses.
 	 *
 	 * @access  protected
@@ -351,14 +400,7 @@ class Compiler
 
 		foreach($joins as $join)
 		{
-			$clauses = [];
-
-			foreach($join->getClauses() as $clause)
-			{
-				$clauses[] = $clause['separator'] . ' ' . $this->wrap($clause['column1']) . ' ' . $clause['operator'] . ' ' . $this->wrap($clause['column2']);
-			}
-
-			$sql[] = $join->getType() . ' JOIN ' . $this->wrap($join->getTable()) . ' ON ' . substr(implode(' ', $clauses), 4); // substr to remove "AND "
+			$sql[] = $join->getType() . ' JOIN ' . $this->wrap($join->getTable()) . ' ON ' . $this->joinConditions($join);
 		}
 
 		return ' ' . implode(' ', $sql);
