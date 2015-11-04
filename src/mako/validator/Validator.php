@@ -521,12 +521,12 @@ class Validator
 
 	protected function validateBefore($input, $format, $date)
 	{
-		if(($date = DateTime::createFromFormat($format, $input)) === false)
+		if(($input = DateTime::createFromFormat($format, $input)) === false)
 		{
 			return false;
 		}
 
-		return ($date->getTimestamp() < DateTime::createFromFormat($format, $date)->getTimestamp());
+		return ($input->getTimestamp() < DateTime::createFromFormat($format, $date)->getTimestamp());
 	}
 
 	/**
@@ -541,12 +541,12 @@ class Validator
 
 	protected function validateAfter($input, $format, $date)
 	{
-		if(($date = DateTime::createFromFormat($format, $input)) === false)
+		if(($input = DateTime::createFromFormat($format, $input)) === false)
 		{
 			return false;
 		}
 
-		return ($date->getTimestamp() > DateTime::createFromFormat($format, $date)->getTimestamp());
+		return ($input->getTimestamp() > DateTime::createFromFormat($format, $date)->getTimestamp());
 	}
 
 	/**
