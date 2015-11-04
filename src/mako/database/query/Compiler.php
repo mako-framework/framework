@@ -305,7 +305,31 @@ class Compiler
 
 	protected function nestedWhere(array $where)
 	{
-		return '(' . substr($this->wheres($where['query']->getWheres()), 7) . ')'; // substr to remove " WHERE "
+		return '(' . $this->whereConditions($where['query']->getWheres()) . ')';
+	}
+
+	/**
+	 * Compiles WHERE conditions.
+	 *
+	 * @access  protected
+	 * @param   array      $wheres  Where conditions
+	 * @return  string
+	 */
+
+	protected function whereConditions(array $wheres)
+	{
+		$conditions = [];
+
+		$conditionCounter = 0;
+
+		foreach($wheres as $where)
+		{
+			$conditions[] = ($conditionCounter > 0 ? $where['separator'] . ' ' : null) . $this->{$where['type']}($where);
+
+			$conditionCounter++;
+		}
+
+		return implode(' ', $conditions);
 	}
 
 	/**
@@ -323,14 +347,7 @@ class Compiler
 			return '';
 		}
 
-		$sql = [];
-
-		foreach($wheres as $where)
-		{
-			$sql[] = $where['separator'] . ' ' . $this->{$where['type']}($where);
-		}
-
-		return ' WHERE ' . substr(implode(' ', $sql), 4); // substr to remove "AND "
+		return ' WHERE ' . $this->whereConditions($wheres);
 	}
 
 	/**
@@ -373,12 +390,16 @@ class Compiler
 	{
 		$conditions = [];
 
+		$conditionCounter = 0;
+
 		foreach($join->getConditions() as $condition)
 		{
-			$conditions[] = $condition['separator'] . ' ' . $this->{$condition['type']}($condition);
+			$conditions[] = ($conditionCounter > 0 ? $condition['separator'] . ' ' : null) . $this->{$condition['type']}($condition);
+
+			$conditionCounter++;
 		}
 
-		return substr(implode(' ', $conditions), 4);  // substr to remove "AND "
+		return implode(' ', $conditions);
 	}
 
 	/**
@@ -445,6 +466,30 @@ class Compiler
 	}
 
 	/**
+	 * Compiles HAVING conditions.
+	 *
+	 * @access  protected
+	 * @param   array      $havings  Having conditions
+	 * @return  string
+	 */
+
+	protected function havingCondictions(array $havings)
+	{
+		$conditions = [];
+
+		$conditionCounter = 0;
+
+		foreach($havings as $having)
+		{
+			$conditions[] = ($conditionCounter > 0 ? $having['separator'] . ' ' : null) . $this->wrap($having['column']) . ' ' . $having['operator'] . ' ' . $this->param($having['value']);
+
+			$conditionCounter++;
+		}
+
+		return implode(' ', $conditions);
+	}
+
+	/**
 	 * Compiles HAVING clauses.
 	 *
 	 * @access  protected
@@ -459,14 +504,7 @@ class Compiler
 			return '';
 		}
 
-		$sql = [];
-
-		foreach($havings as $having)
-		{
-			$sql[] = $having['separator'] . ' ' . $this->wrap($having['column']) . ' ' . $having['operator'] . ' ' . $this->param($having['value']);;
-		}
-
-		return ' HAVING ' . substr(implode(' ', $sql), 4); // substr to remove "AND "
+		return ' HAVING ' . $this->havingCondictions($havings);
 	}
 
 	/**
