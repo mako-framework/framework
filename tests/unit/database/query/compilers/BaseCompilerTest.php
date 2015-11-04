@@ -419,7 +419,7 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IN ((SELECT "id" FROM "barfoo"))', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IN (SELECT "id" FROM "barfoo")', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 
