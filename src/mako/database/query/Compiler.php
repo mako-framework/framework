@@ -504,7 +504,7 @@ class Compiler
 			return '';
 		}
 
-		return ' HAVING ' . $this->havingCondictions($conditions);
+		return ' HAVING ' . $this->havingCondictions($havings);
 	}
 
 	/**
