@@ -700,6 +700,30 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testSelectWithComplexNestedJoin()
+	{
+		$query = $this->getBuilder();
+
+		$query->join('barfoo', function($join)
+		{
+			$join->on('barfoo.foobar_id', '=', 'foobar.id');
+			$join->on(function($join)
+			{
+				$join->on('barfoo.foobar_id', '=', 'foobar.id');
+				$join->orOn('barfoo.foobar_id', '!=', 'foobar.id');
+			});
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = "foobar"."id" AND ("barfoo"."foobar_id" = "foobar"."id" OR "barfoo"."foobar_id" != "foobar"."id")', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
 	public function testSelectWithComplexRawJoin()
 	{
 		$query = $this->getBuilder();

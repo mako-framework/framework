@@ -7,6 +7,8 @@
 
 namespace mako\database\query;
 
+use Closure;
+
 use mako\database\query\Raw;
 
 /**
@@ -34,18 +36,18 @@ class Join
 	protected $table;
 
 	/**
-	 * ON clauses.
+	 * ON conditions.
 	 *
 	 * @var array
 	 */
 
-	protected $clauses = [];
+	protected $conditions = [];
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $type  Join type
+	 * @param   string  $type   Join type
 	 * @param   string  $table  Table we are joining
 	 */
 
@@ -80,48 +82,65 @@ class Join
 	}
 
 	/**
-	 * Returns ON clauses.
+	 * Returns ON conditions.
 	 *
 	 * @access  public
 	 * @return  array
 	 */
 
-	public function getClauses()
+	public function getConditions()
 	{
-		return $this->clauses;
+		return $this->conditions;
 	}
 
 	/**
-	 * Adds a ON clause to the join.
+	 * Adds a ON condition to the join.
 	 *
 	 * @access  public
-	 * @param   string  $column1    Column name
-	 * @param   string  $operator   Operator
-	 * @param   string  $column2    Column name
-	 * @param   string  $separator  Clause separator
+	 * @param   string       $column1    Column name
+	 * @param   null|string  $operator   Operator
+	 * @param   null|string  $column2    Column name
+	 * @param   string       $separator  Condition separator
 	 */
 
-	public function on($column1, $operator, $column2, $separator = 'AND')
+	public function on($column1, $operator = null, $column2 = null, $separator = 'AND')
 	{
-		$this->clauses[] =
-		[
-			'column1'   => $column1,
-			'operator'  => $operator,
-			'column2'   => $column2,
-			'separator' => $separator,
-		];
+		if($column1 instanceof Closure)
+		{
+			$join = new self(null, null);
+
+			$column1($join);
+
+			$this->conditions[] =
+			[
+				'type'      => 'nestedJoinCondition',
+				'join'      => $join,
+				'separator' => $separator,
+			];
+		}
+		else
+		{
+			$this->conditions[] =
+			[
+				'type'      => 'joinCondition',
+				'column1'   => $column1,
+				'operator'  => $operator,
+				'column2'   => $column2,
+				'separator' => $separator,
+			];
+		}
 
 		return $this;
 	}
 
 	/**
-	 * Adds a raw ON clause to the join.
+	 * Adds a raw ON condition to the join.
 	 *
 	 * @access  public
 	 * @param   string  $column1    Column name
 	 * @param   string  $operator   Operator
 	 * @param   string  $raw        Raw SQL
-	 * @param   string  $separator  Clause separator
+	 * @param   string  $separator  Condition separator
 	 */
 
 	public function onRaw($column1, $operator, $raw, $separator = 'AND')
@@ -130,21 +149,21 @@ class Join
 	}
 
 	/**
-	 * Adds a OR ON clause to the join.
+	 * Adds a OR ON condition to the join.
 	 *
 	 * @access  public
-	 * @param   string  $column1   Column name
-	 * @param   string  $operator  Operator
-	 * @param   string  $column2   Column name
+	 * @param   string       $column1   Column name
+	 * @param   null|string  $operator  Operator
+	 * @param   null|string  $column2   Column name
 	 */
 
-	public function orOn($column1, $operator, $column2)
+	public function orOn($column1, $operator = null, $column2 = null)
 	{
 		return $this->on($column1, $operator, $column2, 'OR');
 	}
 
 	/**
-	 * Adds a raw OR ON clause to the join.
+	 * Adds a raw OR ON condition to the join.
 	 *
 	 * @access  public
 	 * @param   string  $column1   Column name

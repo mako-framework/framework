@@ -380,8 +380,8 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string|\Closure             $column     Column name or closure
-	 * @param   string                      $operator   Operator
-	 * @param   mixed                       $value      Value
+	 * @param   null|string                 $operator   Operator
+	 * @param   null|mixed                  $value      Value
 	 * @param   string                      $separator  Clause separator
 	 * @return  \mako\database\query\Query
 	 */
@@ -437,8 +437,8 @@ class Query
 	 *
 	 * @access  public
 	 * @param   string|\Closure             $column    Column name or closure
-	 * @param   string                      $operator  Operator
-	 * @param   mixed                       $value     Value
+	 * @param   null|string                 $operator  Operator
+	 * @param   null|mixed                  $value     Value
 	 * @return  \mako\database\query\Query
 	 */
 
