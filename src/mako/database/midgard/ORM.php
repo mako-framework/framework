@@ -543,11 +543,11 @@ abstract class ORM
 		{
 			switch($cast[$name])
 			{
-				case 'integer':
+				case 'int':
 					return (int) $value;
 				case 'float':
 					return (float) $value;
-				case 'boolean':
+				case 'bool':
 					return $value === 'f' ? false : (bool) $value;
 				case 'date':
 					return ($value instanceof DateTimeInterface) ? $value : Time::createFromFormat($this->getDateFormat(), $value);

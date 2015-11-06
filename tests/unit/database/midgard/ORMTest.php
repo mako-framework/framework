@@ -85,7 +85,7 @@ class ORMTestApple extends \mako\database\midgard\ORM
 
 class TestCastingScalars extends \mako\database\midgard\ORM
 {
-	protected $cast = ['boolean' => 'boolean', 'integer' => 'integer', 'float' => 'float'];
+	protected $cast = ['boolean' => 'bool', 'integer' => 'int', 'float' => 'float'];
 }
 
 class TestCastingDate extends \mako\database\midgard\ORM
