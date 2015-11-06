@@ -465,7 +465,7 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->null('foo');
+		$query->isNull('foo');
 
 		$query = $query->getCompiler()->select();
 
@@ -481,9 +481,9 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->null('foo');
+		$query->isNull('foo');
 
-		$query->orNull('bar');
+		$query->orIsNull('bar');
 
 		$query = $query->getCompiler()->select();
 
@@ -499,7 +499,7 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->notNull('foo');
+		$query->isNotNull('foo');
 
 		$query = $query->getCompiler()->select();
 
@@ -515,9 +515,9 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->notNull('foo');
+		$query->isNotNull('foo');
 
-		$query->orNotNull('bar');
+		$query->orIsNotNull('bar');
 
 		$query = $query->getCompiler()->select();
 

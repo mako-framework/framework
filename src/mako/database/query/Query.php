@@ -1064,7 +1064,7 @@ class Query
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function null($column, $separator = 'AND', $not = false)
+	public function isNull($column, $separator = 'AND', $not = false)
 	{
 		$this->wheres[] =
 		[
@@ -1085,9 +1085,9 @@ class Query
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function orNull($column)
+	public function orIsNull($column)
 	{
-		return $this->null($column, 'OR');
+		return $this->isNull($column, 'OR');
 	}
 
 	/**
@@ -1098,9 +1098,9 @@ class Query
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function notNull($column)
+	public function isNotNull($column)
 	{
-		return $this->null($column, 'AND', true);
+		return $this->isNull($column, 'AND', true);
 	}
 
 	/**
@@ -1111,9 +1111,9 @@ class Query
 	 * @return  \mako\database\query\Query
 	 */
 
-	public function orNotNull($column)
+	public function orIsNotNull($column)
 	{
-		return $this->null($column, 'OR', true);
+		return $this->isNull($column, 'OR', true);
 	}
 
 	/**
