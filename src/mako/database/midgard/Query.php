@@ -11,7 +11,7 @@ use BadMethodCallException;
 use Closure;
 use PDO;
 
-use mako\database\Connection;
+use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
 use mako\database\midgard\ResultSet;
 use mako\database\midgard\ReadOnlyRecordException;
@@ -53,8 +53,8 @@ class Query extends QueryBuilder
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Connection   $connection  Database connection
-	 * @param   \mako\database\midgard\ORM  $model       Model to hydrate
+	 * @param   \mako\database\connections\Connection  $connection  Database connection
+	 * @param   \mako\database\midgard\ORM             $model       Model to hydrate
 	 */
 
 	public function __construct(Connection $connection, ORM $model)

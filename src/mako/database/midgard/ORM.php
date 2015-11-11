@@ -253,7 +253,7 @@ abstract class ORM
 	 * Returns the connection of the model.
 	 *
 	 * @access  public
-	 * @return  \mako\database\Connection
+	 * @return  \mako\database\connections\Connection
 	 */
 
 	public function getConnection()

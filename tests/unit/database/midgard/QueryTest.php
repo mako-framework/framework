@@ -45,9 +45,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 	public function getConnecion()
 	{
-		$connection = m::mock('\mako\database\Connection');
+		$connection = m::mock('\mako\database\connections\Connection');
 
-		$connection->shouldReceive('getDialect')->andReturn('sqlite');
+		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(m::mock('\mako\database\query\helpers\HelperInterface'));
+
+		$connection->shouldReceive('getQueryCompiler')->andReturn(m::mock('\mako\database\query\compilers\Compiler'));
 
 		return $connection;
 	}

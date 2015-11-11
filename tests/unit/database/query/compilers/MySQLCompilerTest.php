@@ -27,9 +27,14 @@ class MySQLCompilerTest extends \PHPUnit_Framework_TestCase
 
 	protected function getConnection()
 	{
-		$connection = m::mock('\mako\database\Connection');
+		$connection = m::mock('\mako\database\connections\Connection');
 
-		$connection->shouldReceive('getDialect')->andReturn('mysql');
+		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(m::mock('\mako\database\query\helpers\HelperInterface'));
+
+		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function($query)
+		{
+			return new \mako\database\query\compilers\MySQL($query);
+		});
 
 		return $connection;
 	}

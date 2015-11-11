@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard\relations;
 
-use mako\database\Connection;
+use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
 use mako\database\midgard\ResultSet;
 use mako\database\midgard\relations\Relation;
@@ -40,12 +40,12 @@ class ManyToMany extends Relation
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Connection   $connection     Database connection
-	 * @param   \mako\database\midgard\ORM  $parent         Parent model
-	 * @param   \mako\database\midgard\ORM  $related        Related model
-	 * @param   string|null                 $foreignKey     Foreign key name
-	 * @param   string|null                 $junctionTable  Junction table name
-	 * @param   string|null                 $junctionKey    Junction key name
+	 * @param   \mako\database\connections\Connection  $connection     Database connection
+	 * @param   \mako\database\midgard\ORM             $parent         Parent model
+	 * @param   \mako\database\midgard\ORM             $related        Related model
+	 * @param   string|null                            $foreignKey     Foreign key name
+	 * @param   string|null                            $junctionTable  Junction table name
+	 * @param   string|null                            $junctionKey    Junction key name
 	 */
 
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null, $junctionTable = null, $junctionKey = null)

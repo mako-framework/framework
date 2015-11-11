@@ -8,7 +8,7 @@
 namespace mako\cache\stores;
 
 use mako\cache\stores\StoreInterface;
-use mako\database\Connection;
+use mako\database\connections\Connection;
 
 /**
  * Database store.
@@ -21,7 +21,7 @@ class Database implements StoreInterface
 	/**
 	 * Database connection
 	 *
-	 * @var \mako\database\Connection
+	 * @var \mako\database\connections\Connection
 	 */
 
 	protected $connection;
@@ -38,8 +38,8 @@ class Database implements StoreInterface
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Connection  $connection  Database connection
-	 * @param   string                     $table       Database table
+	 * @param   \mako\database\connections\Connection  $connection  Database connection
+	 * @param   string                                 $table       Database table
 	 */
 
 	public function __construct(Connection $connection, $table)

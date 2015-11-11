@@ -30,9 +30,14 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 
 	protected function getConnection()
 	{
-		$connection = m::mock('\mako\database\Connection');
+		$connection = m::mock('\mako\database\connections\Connection');
 
-		$connection->shouldReceive('getDialect')->andReturn('sqlite');
+		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(m::mock('\mako\database\query\helpers\HelperInterface'));
+
+		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function($query)
+		{
+			return new \mako\database\query\compilers\Compiler($query);
+		});
 
 		$connection->shouldReceive('column')->andReturn(null);
 

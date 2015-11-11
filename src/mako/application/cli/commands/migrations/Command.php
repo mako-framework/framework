@@ -84,7 +84,7 @@ abstract class Command extends BaseCommand
 	 * Returns the database connection.
 	 *
 	 * @access  protected
-	 * @return  \mako\database\Connection
+	 * @return  \mako\database\connections\Connection
 	 */
 
 	protected function connection()

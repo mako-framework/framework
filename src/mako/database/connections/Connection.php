@@ -5,12 +5,13 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\database;
+namespace mako\database\connections;
 
 use PDO;
 use Closure;
 use PDOException;
 use RuntimeException;
+
 use mako\database\query\Query;
 
 /**
@@ -28,6 +29,22 @@ class Connection
 	 */
 
 	protected $name;
+
+	/**
+	 * Query compiler.
+	 *
+	 * @var string.
+	 */
+
+	protected $queryCompiler;
+
+	/**
+	 * Query builder helper.
+	 *
+	 * @var string
+	 */
+
+	protected $queryBuilderHelper;
 
 	/**
 	 * Connection DSN.
@@ -94,22 +111,6 @@ class Connection
 	protected $pdo;
 
 	/**
-	 * Driver name.
-	 *
-	 * @var string
-	 */
-
-	protected $driver;
-
-	/**
-	 * SQL dialect.
-	 *
-	 * @var string
-	 */
-
-	protected $dialect;
-
-	/**
 	 * Transaction nesting level.
 	 *
 	 * @var int
@@ -129,13 +130,21 @@ class Connection
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $name    Connection name
-	 * @param   array   $config  Connection configuration
+	 * @param   string  $name                Connection name
+	 * @param   string  $queryCompiler       Query compiler
+	 * @param   string  $queryBuilderHelper  Query builder helper
+	 * @param   array   $config              Connection configuration
 	 */
 
-	public function __construct($name, array $config)
+	public function __construct($name, $queryCompiler, $queryBuilderHelper, array $config)
 	{
 		$this->name = $name;
+
+		// Set the query compiler and query builder helper
+
+		$this->queryCompiler = $queryCompiler;
+
+		$this->queryBuilderHelper = $queryBuilderHelper;
 
 		// Configure the connection
 
@@ -156,14 +165,6 @@ class Connection
 		// Connect to the database
 
 		$this->pdo = $this->connect();
-
-		// Set the driver name
-
-		$this->driver = $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-
-		// Set the compiler type
-
-		$this->dialect = isset($config['dialect']) ? $config['dialect'] : $this->driver;
 	}
 
 	/**
@@ -179,6 +180,35 @@ class Connection
 	}
 
 	/**
+	 * Returns a query builder helper instance.
+	 *
+	 * @access  public
+	 * @return  \mako\database\query\helpers\HelperInterface
+	 */
+
+	public function getQueryBuilderHelper()
+	{
+		static $queryBuilderHelper;
+
+		return $queryBuilderHelper ?? ($queryBuilderHelper = new $this->queryBuilderHelper);
+	}
+
+	/**
+	 * Returns a query compiler instance.
+	 *
+	 * @access  public
+	 * @param   \mako\database\query\Query  $query  Query
+	 * @return  \mako\database\query\compilers\Compiler
+	 */
+
+	public function getQueryCompiler(Query $query)
+	{
+		$compiler = $this->queryCompiler;
+
+		return new $compiler($query);
+	}
+
+	/**
 	 * Returns the PDO instance.
 	 *
 	 * @access  public
@@ -188,30 +218,6 @@ class Connection
 	public function getPDO()
 	{
 		return $this->pdo;
-	}
-
-	/**
-	 * Returns the driver name.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function getDriver()
-	{
-		return $this->driver;
-	}
-
-	/**
-	 * Returns the SQL dialect.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function getDialect()
-	{
-		return $this->dialect;
 	}
 
 	/**
@@ -297,24 +303,9 @@ class Connection
 
 	public function isAlive()
 	{
-		switch($this->driver)
-		{
-			case 'db2':
-			case 'ibm':
-			case 'odbc':
-				$query = 'SELECT 1 FROM SYSIBM.SYSDUMMY1';
-				break;
-			case 'oci':
-			case 'oracle':
-				$query = 'SELECT 1 FROM DUAL';
-				break;
-			default:
-				$query = 'SELECT 1';
-		}
-
 		try
 		{
-			$this->pdo->query($query);
+			$this->pdo->query('SELECT 1');
 		}
 		catch(PDOException $e)
 		{
@@ -633,7 +624,7 @@ class Connection
 
 	public function builder()
 	{
-		return new Query($this);
+		return new Query($this, new $this->queryBuilderHelper, $this->queryCompiler);
 	}
 
 	/**

@@ -7,7 +7,7 @@
 
 namespace mako\database\query\compilers;
 
-use mako\database\query\Compiler;
+use mako\database\query\compilers\Compiler;
 
 /**
  * Compiles SQL Server queries.

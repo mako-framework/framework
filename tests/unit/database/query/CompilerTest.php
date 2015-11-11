@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\database\query;
 
-use mako\database\query\Compiler;
+use mako\database\query\compilers\Compiler;
 
 use PHPUnit_Framework_TestCase;
 

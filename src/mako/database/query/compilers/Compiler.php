@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\database\query;
+namespace mako\database\query\compilers;
 
 use DateTimeInterface;
 

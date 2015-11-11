@@ -27,7 +27,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 
 	public function getDatabaseConnection()
 	{
-		return m::mock('mako\database\Connection');
+		return m::mock('mako\database\connections\Connection');
 	}
 
 	/**

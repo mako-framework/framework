@@ -9,17 +9,10 @@ namespace mako\database\query;
 
 use Closure;
 
-use mako\database\Connection;
+use mako\database\connections\Connection;
 use mako\database\query\Raw;
 use mako\database\query\Join;
 use mako\database\query\Subquery;
-use mako\database\query\Compiler;
-use mako\database\query\compilers\DB2;
-use mako\database\query\compilers\Firebird;
-use mako\database\query\compilers\MySQL;
-use mako\database\query\compilers\NuoDB;
-use mako\database\query\compilers\Oracle;
-use mako\database\query\compilers\SQLServer;
 use mako\pagination\Pagination;
 
 /**
@@ -41,10 +34,26 @@ class Query
 	/**
 	 * Database connection.
 	 *
-	 * @var \mako\database\Connection
+	 * @var \mako\database\connections\Connection
 	 */
 
 	protected $connection;
+
+	/**
+	 * Query helper.
+	 *
+	 * @var \mako\database\query\helpers\HelperInterface
+	 */
+
+	protected $helper;
+
+	/**
+	 * Query compiler class.
+	 *
+	 * @var string
+	 */
+
+	protected $compilerClass;
 
 	/**
 	 * Database table.
@@ -130,51 +139,53 @@ class Query
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Conenction  $connection  Database connection
+	 * @param   \mako\database\connections\Connection  $connection  Database connection
 	 */
 
 	public function __construct(Connection $connection)
 	{
 		$this->connection = $connection;
+
+		$this->helper = $connection->getQueryBuilderHelper();
+
+		$this->compiler = $connection->getQueryCompiler($this);
+	}
+
+	/**
+	 * Create a fresh compiler instance when we clone the query.
+	 *
+	 * @access  public
+	 */
+
+	public function __clone()
+	{
+		$compiler = get_class($this->compiler);
+
+		$this->compiler = new $compiler($this);
+	}
+
+	/**
+	 * Returns the connection instance.
+	 *
+	 * @access  public
+	 * @return  \mako\database\connections\Connection
+	 */
+
+	public function getConnection()
+	{
+		return $this->connection;
 	}
 
 	/**
 	 * Returns query compiler instance.
 	 *
 	 * @access  public
-	 * @return  \mako\database\query\Compiler
+	 * @return  \mako\database\query\compilers\Compiler
 	 */
 
 	public function getCompiler()
 	{
-		switch($this->connection->getDialect())
-		{
-			case 'mysql':
-				return new MySQL($this);
-				break;
-			case 'dblib':
-			case 'mssql':
-			case 'sqlsrv':
-				return new SQLServer($this);
-				break;
-			case 'oci':
-			case 'oracle':
-				return new Oracle($this);
-				break;
-			case 'firebird':
-				return new Firebird($this);
-				break;
-			case 'db2':
-			case 'ibm':
-			case 'odbc':
-				return new DB2($this);
-				break;
-			case 'nuodb':
-				return new NuoDB($this);
-				break;
-			default:
-				return new Compiler($this);
-		}
+		return $this->compiler;
 	}
 
 	/**
@@ -1482,7 +1493,7 @@ class Query
 			$this->select([$column]);
 		}
 
-		$query = $this->limit(1)->getCompiler()->select();
+		$query = $this->limit(1)->compiler->select();
 
 		return $this->connection->column($query['sql'], $query['params']);
 	}
@@ -1496,7 +1507,7 @@ class Query
 
 	public function first()
 	{
-		$query = $this->limit(1)->getCompiler()->select();
+		$query = $this->limit(1)->compiler->select();
 
 		return $this->connection->first($query['sql'], $query['params'], static::FETCH_MODE);
 	}
@@ -1510,7 +1521,7 @@ class Query
 
 	public function all()
 	{
-		$query = $this->getCompiler()->select();
+		$query = $this->compiler->select();
 
 		return $this->connection->all($query['sql'], $query['params'], static::FETCH_MODE);
 	}
@@ -1567,9 +1578,9 @@ class Query
 
 	protected function aggregate($column, $function)
 	{
-		$aggregate = new Raw($function . '(' . $this->getCompiler()->escapeTableAndOrColumn($column) . ')');
+		$aggregate = new Raw($function . '(' . $this->compiler->escapeTableAndOrColumn($column) . ')');
 
-		$query = $this->select([$aggregate])->getCompiler()->select();
+		$query = $this->select([$aggregate])->compiler->select();
 
 		return $this->connection->column($query['sql'], $query['params']);
 	}
@@ -1649,7 +1660,7 @@ class Query
 
 	public function insert(array $values)
 	{
-		$query = $this->getCompiler()->insert($values);
+		$query = $this->compiler->insert($values);
 
 		return $this->connection->query($query['sql'], $query['params']);
 	}
@@ -1665,21 +1676,7 @@ class Query
 
 	public function insertAndGetId(array $values, $primaryKey = 'id')
 	{
-		if($this->insert($values) === false)
-		{
-			return false;
-		}
-
-		switch($this->connection->getDriver())
-		{
-			case 'pgsql':
-				$sequence = $this->table . '_' . $primaryKey . '_seq';
-				break;
-			default:
-				$sequence = null;
-		}
-
-		return $this->connection->getPDO()->lastInsertId($sequence);
+		return $this->helper->insertAndGetId($this, $values, $primaryKey);
 	}
 
 	/**
@@ -1692,7 +1689,7 @@ class Query
 
 	public function update(array $values)
 	{
-		$query = $this->getCompiler()->update($values);
+		$query = $this->compiler->update($values);
 
 		return $this->connection->queryAndCount($query['sql'], $query['params']);
 	}
@@ -1708,7 +1705,7 @@ class Query
 
 	public function increment($column, $increment = 1)
 	{
-		return $this->update([$column => new Raw($this->getCompiler()->escapeIdentifier($column) . ' + ' . (int) $increment)]);
+		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' + ' . (int) $increment)]);
 	}
 
 	/**
@@ -1722,7 +1719,7 @@ class Query
 
 	public function decrement($column, $decrement = 1)
 	{
-		return $this->update([$column => new Raw($this->getCompiler()->escapeIdentifier($column) . ' - ' . (int) $decrement)]);
+		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' - ' . (int) $decrement)]);
 	}
 
 	/**
@@ -1734,7 +1731,7 @@ class Query
 
 	public function delete()
 	{
-		$query = $this->getCompiler()->delete();
+		$query = $this->compiler->delete();
 
 		return $this->connection->queryAndCount($query['sql'], $query['params']);
 	}
