@@ -197,7 +197,7 @@ class Connection
 	 * Returns a query compiler instance.
 	 *
 	 * @access  public
-	 * @param   \mako\database\query\Query  $query  Query
+	 * @param   \mako\database\query\Query               $query  Query
 	 * @return  \mako\database\query\compilers\Compiler
 	 */
 
