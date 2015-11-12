@@ -361,7 +361,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
 	public function testNamespace()
 	{
-		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->setNamespace('app\controllers');
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->namespace('app\controllers');
 
 		$this->assertSame('app\controllers\FooController::fooAction', $route->getAction());
 	}
@@ -372,7 +372,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
 	public function testNestedNamespace()
 	{
-		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->setNamespace('app')->setNamespace('controllers');
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->namespace('app')->namespace('controllers');
 
 		$this->assertSame('app\controllers\FooController::fooAction', $route->getAction());
 	}
@@ -383,7 +383,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
 	public function testClosureNamespace()
 	{
-		$route = (new Route(['GET'], '/', function(){}))->setNamespace('app\controllers');
+		$route = (new Route(['GET'], '/', function(){}))->namespace('app\controllers');
 
 		$this->assertInstanceOf('Closure', $route->getAction());
 	}

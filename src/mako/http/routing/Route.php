@@ -205,7 +205,7 @@ class Route
 	 * @return  \mako\http\routing\Route
 	 */
 
-	public function setNamespace($namespace)
+	public function namespace($namespace)
 	{
 		$this->namespace .= $namespace . '\\';
 
