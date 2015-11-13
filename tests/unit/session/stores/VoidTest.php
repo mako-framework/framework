@@ -10,7 +10,7 @@ use \Mockery as m;
  * @group unit
  */
 
-class NullTest extends \PHPUnit_Framework_TestCase
+class VoidTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
