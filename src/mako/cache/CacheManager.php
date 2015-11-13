@@ -146,7 +146,7 @@ class CacheManager extends AdapterManager
 	 * @return  \mako\cache\stores\Void
 	 */
 
-	protected function nullFactory($configuration)
+	protected function voidFactory($configuration)
 	{
 		return new Void;
 	}
