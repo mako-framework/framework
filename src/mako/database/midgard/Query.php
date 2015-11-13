@@ -357,7 +357,7 @@ class Query extends QueryBuilder
 
 		foreach($includes['this'] as $include => $criteria)
 		{
-			$forward = isset($includes['forward'][$include]) ? $includes['forward'][$include] : [];
+			$forward = $includes['forward'][$include] ?? [];
 
 			$results[0]->{$include}()->eagerLoad($results, $include, $criteria, $forward);
 		}

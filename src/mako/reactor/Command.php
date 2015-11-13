@@ -94,7 +94,7 @@ abstract class Command
 
 	public function getCommandDescription()
 	{
-		return isset($this->commandInformation['description']) ? $this->commandInformation['description'] : null;
+		return $this->commandInformation['description'] ?? null;
 	}
 
 	/**

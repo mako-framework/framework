@@ -254,7 +254,7 @@ class FileSystem
 
 				$extension = pathinfo($file, PATHINFO_EXTENSION);
 
-				return isset($this->mimeTypes[$extension]) ? $this->mimeTypes[$extension] : false;
+				return $this->mimeTypes[$extension] ?? false;
 			}
 			else
 			{

@@ -150,17 +150,17 @@ class Connection
 
 		$this->dsn = $config['dsn'];
 
-		$this->username = isset($config['username']) ? $config['username'] : null;
+		$this->username = $config['username'] ?? null;
 
-		$this->password = isset($config['password']) ? $config['password'] : null;
+		$this->password = $config['password'] ?? null;
 
-		$this->enableLog = isset($config['log_queries']) ? $config['log_queries'] : false;
+		$this->enableLog = $config['log_queries'] ?? false;
 
-		$this->reconnect = isset($config['reconnect']) ? $config['reconnect'] : false;
+		$this->reconnect = $config['reconnect'] ?? false;
 
-		$this->usePersistentConnection = isset($config['persistent']) ? $config['persistent'] : false;
+		$this->usePersistentConnection = $config['persistent'] ?? false;
 
-		$this->onConnectQueries = isset($config['queries']) ? $config['queries'] : [];
+		$this->onConnectQueries = $config['queries'] ?? [];
 
 		// Connect to the database
 

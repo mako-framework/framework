@@ -233,12 +233,12 @@ class Request
 	{
 		// Collect request data
 
-		$this->get     = isset($request['get']) ? $request['get'] : $_GET;
-		$this->post    = isset($request['post']) ? $request['post'] : $_POST;
-		$this->cookies = isset($request['cookies']) ? $request['cookies'] : $_COOKIE;
-		$this->files   = isset($request['files']) ? $request['files'] : $_FILES;
-		$this->server  = isset($request['server']) ? $request['server'] : $_SERVER;
-		$this->body    = isset($request['body']) ? $request['body'] : null;
+		$this->get     = $request['get'] ?? $_GET;
+		$this->post    = $request['post'] ?? $_POST;
+		$this->cookies = $request['cookies'] ?? $_COOKIE;
+		$this->files   = $request['files'] ?? $_FILES;
+		$this->server  = $request['server'] ?? $_SERVER;
+		$this->body    = $request['body'] ?? null;
 
 		// Set the Signer instance
 
@@ -254,11 +254,11 @@ class Request
 
 		// Set the request path and method
 
-		$languages = isset($request['languages']) ? $request['languages'] : [];
+		$languages = $request['languages'] ?? [];
 
-		$this->path = isset($request['path']) ? $request['path'] : $this->determinePath($languages);
+		$this->path = $request['path'] ?? $this->determinePath($languages);
 
-		$this->method = isset($request['method']) ? $request['method'] : $this->determineMethod();
+		$this->method = $request['method'] ?? $this->determineMethod();
 	}
 
 	/**
@@ -641,7 +641,7 @@ class Request
 
 	public function cookie($name = null, $default = null)
 	{
-		return isset($this->cookies[$name]) ? $this->cookies[$name] : $default;
+		return $this->cookies[$name] ?? $default;
 	}
 
 	/**
@@ -744,7 +744,7 @@ class Request
 	{
 		$name = strtoupper(str_replace('-', '_', $name));
 
-		return isset($this->headers[$name]) ? $this->headers[$name] : $default;
+		return $this->headers[$name] ?? $default;
 	}
 
 	/**

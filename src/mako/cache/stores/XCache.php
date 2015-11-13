@@ -94,8 +94,8 @@ class XCache implements StoreInterface
 
 		// Set XCache password
 
-		$tempUsername = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : false;
-		$tempPassword = isset($_SERVER['PHP_AUTH_PW'])   ? $_SERVER['PHP_AUTH_PW']   : false;
+		$tempUsername = $_SERVER['PHP_AUTH_USER'] ?? false;
+		$tempPassword = $_SERVER['PHP_AUTH_PW'] ?? false;
 
 		$_SERVER['PHP_AUTH_USER'] = $this->username;
 		$_SERVER['PHP_AUTH_PW']   = $this->password;

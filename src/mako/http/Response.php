@@ -428,7 +428,7 @@ class Response
 		}
 		else
 		{
-			$headers = isset($this->headers[$name]) ? $this->headers[$name] : [];
+			$headers = $this->headers[$name] ?? [];
 
 			$this->headers[$name] = array_merge($headers, [$value]);
 		}

@@ -130,7 +130,7 @@ class Container
 	{
 		$alias = ltrim($alias, '\\');
 
-		return isset($this->aliases[$alias]) ? $this->aliases[$alias] : $alias;
+		return $this->aliases[$alias] ?? $alias;
 	}
 
 	/**
@@ -143,7 +143,7 @@ class Container
 
 	protected function resolveHint($hint)
 	{
-		return isset($this->hints[$hint]) ? $this->hints[$hint]['class'] : $hint;
+		return $this->hints[$hint]['class'] ?? $hint;
 	}
 
 	/**

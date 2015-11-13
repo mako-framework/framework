@@ -456,7 +456,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		return isset($this->sessionData[$key]) ? $this->sessionData[$key] : $default;
+		return $this->sessionData[$key] ?? $default;
 	}
 
 	/**
@@ -529,7 +529,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		return isset($this->sessionData['mako.flashdata'][$key]) ? $this->sessionData['mako.flashdata'][$key] : $default;
+		return $this->sessionData['mako.flashdata'][$key] ?? $default;
 	}
 
 	/**
@@ -563,7 +563,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		$flashData = isset($this->sessionData['mako.flashdata']) ? $this->sessionData['mako.flashdata'] : [];
+		$flashData = $this->sessionData['mako.flashdata'] ?? [];
 
 		$flashData = empty($keys) ? $flashData : array_intersect_key($flashData, array_flip($keys));
 
