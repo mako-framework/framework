@@ -7,7 +7,7 @@
 
 namespace mako\error\handlers;
 
-use Exception;
+use Throwable;
 use ErrorException;
 
 use mako\error\handlers\Handler;
@@ -61,13 +61,13 @@ class WebHandler extends Handler
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \Exception              $exception  Exception
+	 * @param   \Throwable              $exception  Throwable
 	 * @param   \mako\http\Request      $request    Request instance
 	 * @param   \mako\http\Response     $response   Response intance
 	 * @param   \mako\view\ViewFactory  $view       View factory instance
 	 */
 
-	public function __construct(Exception $exception, Request $request, Response $response, ViewFactory $view)
+	public function __construct(Throwable $exception, Request $request, Response $response, ViewFactory $view)
 	{
 		parent::__construct($exception);
 

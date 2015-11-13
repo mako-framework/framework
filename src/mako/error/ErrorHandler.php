@@ -9,7 +9,7 @@ namespace mako\error;
 
 use Closure;
 use ErrorException;
-use Exception;
+use Throwable;
 
 use Psr\Log\LoggerInterface;
 
@@ -63,7 +63,7 @@ class ErrorHandler
 	{
 		// Add a basic exception handler to the stack
 
-		$this->handle('\Exception', function($e)
+		$this->handle('\Throwable', function($e)
 		{
 			echo '[ ' . get_class($e) . '] ' . $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]';
 
@@ -199,11 +199,11 @@ class ErrorHandler
 	 * Should the exception be logged?
 	 *
 	 * @access  public
-	 * @param   \Exception  $exception  An exception object
+	 * @param   \Throwable  $exception  An exception object
 	 * @return  boolean
 	 */
 
-	protected function shouldExceptionBeLogged($exception)
+	protected function shouldExceptionBeLogged(Throwable $exception)
 	{
 		if($this->logger === null)
 		{
@@ -225,10 +225,10 @@ class ErrorHandler
 	 * Handles uncaught exceptions.
 	 *
 	 * @access  public
-	 * @param   \Exception  $exception  An exception object
+	 * @param   \Throwable  $exception  An exception object
 	 */
 
-	public function handler($exception)
+	public function handler(Throwable $exception)
 	{
 		try
 		{
@@ -256,7 +256,7 @@ class ErrorHandler
 				$this->logger->error($exception);
 			}
 		}
-		catch(Exception $e)
+		catch(Throwable $e)
 		{
 			// Empty output buffers
 

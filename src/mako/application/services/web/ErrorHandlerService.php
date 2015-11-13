@@ -44,7 +44,7 @@ class ErrorHandlerService extends Service
 
 		$displayErrors = $this->container->get('config')->get('application.error_handler.display_errors');
 
-		$errorHandler->handle('\Exception', function($exception) use ($errorHandler, $displayErrors)
+		$errorHandler->handle('\Throwable', function($exception) use ($errorHandler, $displayErrors)
 		{
 			$this->setLogger($errorHandler);
 

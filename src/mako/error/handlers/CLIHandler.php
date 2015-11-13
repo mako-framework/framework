@@ -7,7 +7,7 @@
 
 namespace mako\error\handlers;
 
-use Exception;
+use Throwable;
 
 use mako\cli\output\Output;
 use mako\error\handlers\Handler;
@@ -32,11 +32,11 @@ class CLIHandler extends Handler
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \Exception               $exception  Exception
+	 * @param   \Throwable               $exception  Throwable
 	 * @param   \mako\cli\output\Output  $output     Output
 	 */
 
-	public function __construct(Exception $exception, Output $output)
+	public function __construct(Throwable $exception, Output $output)
 	{
 		parent::__construct($exception);
 
