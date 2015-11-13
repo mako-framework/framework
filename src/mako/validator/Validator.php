@@ -213,8 +213,8 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @param   int      $minimum  Minimum value
-	 * @param   int      $maximum  Maximum value
+	 * @param   int        $minimum  Minimum value
+	 * @param   int        $maximum  Maximum value
 	 * @return  boolean
 	 */
 
