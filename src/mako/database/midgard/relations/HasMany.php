@@ -46,14 +46,7 @@ class HasMany extends HasOneOrMany
 
 		foreach($results as $result)
 		{
-			if(isset($grouped[$result->getPrimaryKeyValue()]))
-			{
-				$result->setRelated($relation, new ResultSet($grouped[$result->getPrimaryKeyValue()]));
-			}
-			else
-			{
-				$result->setRelated($relation, new ResultSet());
-			}
+			$result->setRelated($relation, new ResultSet($grouped[$result->getPrimaryKeyValue()] ?? []));
 		}
 	}
 

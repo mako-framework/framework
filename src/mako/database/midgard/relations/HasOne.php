@@ -45,14 +45,7 @@ class HasOne extends HasOneOrMany
 
 		foreach($results as $result)
 		{
-			if(isset($grouped[$result->getPrimaryKeyValue()]))
-			{
-				$result->setRelated($relation, $grouped[$result->getPrimaryKeyValue()]);
-			}
-			else
-			{
-				$result->setRelated($relation, false);
-			}
+			$result->setRelated($relation, $grouped[$result->getPrimaryKeyValue()] ?? false);
 		}
 	}
 
