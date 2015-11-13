@@ -16,8 +16,8 @@ use mako\cache\stores\File;
 use mako\cache\stores\Memcache;
 use mako\cache\stores\Memcached;
 use mako\cache\stores\Memory;
-use mako\cache\stores\Null;
 use mako\cache\stores\Redis;
+use mako\cache\stores\Void;
 use mako\cache\stores\WinCache;
 use mako\cache\stores\XCache;
 use mako\cache\stores\ZendDisk;
@@ -126,19 +126,6 @@ class CacheManager extends AdapterManager
 	}
 
 	/**
-	 * Null store factory.
-	 *
-	 * @access  protected
-	 * @param   array                    $configuration  Configuration
-	 * @return  \mako\cache\stores\Null
-	 */
-
-	protected function nullFactory($configuration)
-	{
-		return new Null;
-	}
-
-	/**
 	 * Redis store factory.
 	 *
 	 * @access  protected
@@ -149,6 +136,19 @@ class CacheManager extends AdapterManager
 	protected function redisFactory($configuration)
 	{
 		return new Redis($this->container->get('redis')->connection($configuration['configuration']));
+	}
+
+	/**
+	 * Void store factory.
+	 *
+	 * @access  protected
+	 * @param   array                    $configuration  Configuration
+	 * @return  \mako\cache\stores\Void
+	 */
+
+	protected function nullFactory($configuration)
+	{
+		return new Void;
 	}
 
 	/**

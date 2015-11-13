@@ -2,7 +2,7 @@
 
 namespace mako\tests\unit\session\stores;
 
-use mako\session\stores\Null;
+use mako\session\stores\Void;
 
 use \Mockery as m;
 
@@ -10,7 +10,7 @@ use \Mockery as m;
  * @group unit
  */
 
-class NullTest extends \PHPUnit_Framework_TestCase
+class VoidTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
@@ -18,7 +18,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
 
 	public function testWrite()
 	{
-		$null = new Null;
+		$null = new Void;
 
 		$null->write('123', 'data', 123);
 	}
@@ -29,7 +29,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
 
 	public function testRead()
 	{
-		$null = new Null;
+		$null = new Void;
 
 		$this->assertEquals([], $null->read('123'));
 	}
@@ -40,7 +40,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
 
 	public function testDelete()
 	{
-		$null = new Null;
+		$null = new Void;
 
 		$null->delete('123');
 
@@ -52,7 +52,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
 
 	public function testGc()
 	{
-		$null = new Null;
+		$null = new Void;
 
 		$null->gc(123);
 	}
