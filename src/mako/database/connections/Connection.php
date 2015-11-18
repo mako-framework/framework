@@ -13,6 +13,7 @@ use PDOException;
 use RuntimeException;
 
 use mako\database\query\Query;
+use mako\database\types\TypeInterface;
 
 /**
  * Database connection.
@@ -437,19 +438,31 @@ class Connection
 
 	protected function bindParameter($statement, $key, $value)
 	{
-		switch(gettype($value))
+		if($value instanceof TypeInterface)
 		{
-			case 'boolean':
-				$type = PDO::PARAM_BOOL;
-				break;
-			case 'integer':
-				$type = PDO::PARAM_INT;
-				break;
-			case 'NULL':
-				$type = PDO::PARAM_NULL;
-				break;
-			default:
-				$type = PDO::PARAM_STR;
+			$value = $value->getValue();
+
+			$type = $value->getType();
+		}
+		else
+		{
+			switch(gettype($value))
+			{
+				case 'boolean':
+					$type = PDO::PARAM_BOOL;
+					break;
+				case 'integer':
+					$type = PDO::PARAM_INT;
+					break;
+				case 'NULL':
+					$type = PDO::PARAM_NULL;
+					break;
+				case 'resource':
+					$type = PDO::PARAM_LOB;
+					break;
+				default:
+					$type = PDO::PARAM_STR;
+			}
 		}
 
 		$statement->bindValue($key + 1, $value, $type);
