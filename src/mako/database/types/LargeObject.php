@@ -17,7 +17,7 @@ use mako\database\types\Type;
  * @author  Frederic G. Østby
  */
 
-class LOB extends Type
+class LargeObject extends Type
 {
 	/**
 	 * PDO parameter type.
