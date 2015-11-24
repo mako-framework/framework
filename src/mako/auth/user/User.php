@@ -317,6 +317,10 @@ class User extends ORM implements UserInterface, MemberInterface
 		return $this->locked_until !== null && $this->locked_until->getTimestamp() >= Time::now()->getTimestamp();
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+
 	public function isMemberOf($group)
 	{
 		if(!$this->exists)
