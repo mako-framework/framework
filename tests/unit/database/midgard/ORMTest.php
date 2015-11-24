@@ -31,8 +31,6 @@ class TestUser2 extends TestUser1
 {
 	use \mako\database\midgard\traits\OptimisticLockingTrait;
 
-	protected $readOnly = true;
-
 	protected function arrayMutator($array)
 	{
 		return json_encode($array);
@@ -178,23 +176,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 		$user->setLockVersion(404);
 
 		$this->assertEquals(404, $user->getLockVersion());
-	}
-
-	/**
-	 *
-	 */
-
-	public function testIsReadOnly()
-	{
-		$user = new TestUser1();
-
-		$this->assertFalse($user->isReadOnly());
-
-		//
-
-		$user = new TestUser2();
-
-		$this->assertTrue($user->isReadOnly());
 	}
 
 	/**

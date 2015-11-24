@@ -5,17 +5,17 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\database\midgard;
+namespace mako\database\midgard\traits\exceptions;
 
 use RuntimeException;
 
 /**
- * Read-only record exception.
+ * Read-only exception.
  *
  * @author  Frederic G. Østby
  */
 
-class ReadOnlyRecordException extends RuntimeException
+class ReadOnlyException extends RuntimeException
 {
 
 }

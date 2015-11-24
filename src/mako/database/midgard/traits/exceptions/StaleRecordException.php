@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\database\midgard\traits;
+namespace mako\database\midgard\traits\exceptions;
 
 use RuntimeException;
 

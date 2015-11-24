@@ -14,7 +14,6 @@ use PDO;
 use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
 use mako\database\midgard\ResultSet;
-use mako\database\midgard\ReadOnlyRecordException;
 use mako\database\query\Query as QueryBuilder;
 
 /**
@@ -42,14 +41,6 @@ class Query extends QueryBuilder
 	protected $model;
 
 	/**
-	 * Should hydrated models be made read only?
-	 *
-	 * @var boolean
-	 */
-
-	protected $makeReadOnly = false;
-
-	/**
 	 * Constructor.
 	 *
 	 * @access  public
@@ -62,8 +53,6 @@ class Query extends QueryBuilder
 		parent::__construct($connection);
 
 		$this->model = $model;
-
-		$this->makeReadOnly = $model->isReadOnly();
 
 		$this->table = $model->getTable();
 	}
@@ -86,8 +75,6 @@ class Query extends QueryBuilder
 
 	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
 	{
-		$this->makeReadOnly = true;
-
 		if(empty($this->joins) && $this->columns === ['*'])
 		{
 			$this->select([$this->model->getTable() . '.*']);
@@ -102,11 +89,6 @@ class Query extends QueryBuilder
 
 	public function insert(array $values)
 	{
-		if($this->model->isReadOnly())
-		{
-			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to create a read-only record.", [__METHOD__]));
-		}
-
 		// Execute "beforeInsert" hooks
 
 		foreach($this->model->getHooks('beforeInsert') as $hook)
@@ -136,11 +118,6 @@ class Query extends QueryBuilder
 
 	public function update(array $values)
 	{
-		if($this->model->isReadOnly())
-		{
-			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to update a read-only record.", [__METHOD__]));
-		}
-
 		// Execute "beforeUpdate" hooks
 
 		foreach($this->model->getHooks('beforeUpdate') as $hook)
@@ -216,11 +193,6 @@ class Query extends QueryBuilder
 
 	public function delete()
 	{
-		if($this->model->isReadOnly())
-		{
-			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to delete a read-only record.", [__METHOD__]));
-		}
-
 		// Execute "beforeDelete" hooks
 
 		foreach($this->model->getHooks('beforeDelete') as $hook)
@@ -301,7 +273,7 @@ class Query extends QueryBuilder
 	{
 		$model = $this->model->getClass();
 
-		return new $model($result, true, false, true, $this->makeReadOnly);
+		return new $model($result, true, false, true);
 	}
 
 	/**

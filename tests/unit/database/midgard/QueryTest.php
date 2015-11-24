@@ -82,8 +82,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
-
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$query = $this->getQuery($model);
@@ -97,8 +95,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
-
 		$model->shouldReceive('getTable')->twice()->andReturn('tests');
 
 		$query = new Query($this->getConnecion(), $model);
@@ -109,65 +105,12 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testInsertWithException()
-	{
-		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->twice()->andReturn(true);
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
-		$query = new Query($this->getConnecion(), $model);
-
-		$query->insert(['foo' => 'bar']);
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testUpdateWithException()
-	{
-		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->twice()->andReturn(true);
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
-		$query = new Query($this->getConnecion(), $model);
-
-		$query->update(['foo' => 'bar']);
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testDeleteWithException()
-	{
-		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->twice()->andReturn(true);
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
-		$query = new Query($this->getConnecion(), $model);
-
-		$query->delete();
-	}
-
-	/**
 	 *
 	 */
 
 	public function testGet()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
@@ -189,8 +132,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	public function testGetWithColumns()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
@@ -215,8 +156,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
-
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('setIncludes')->once()->with(['foo'])->andReturn($model);
@@ -234,8 +173,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
-
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('setIncludes')->once()->with(['foo', 'bar'])->andReturn($model);
@@ -252,8 +189,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	public function testSingleExlude()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
@@ -273,8 +208,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	public function testExcludes()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
@@ -323,8 +256,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	{
 		$model = m::mock('\mako\database\midgard\ORM');
 
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
-
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getPrimaryKey')->andReturn('foobar');
@@ -343,8 +274,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		//
 
 		$model = m::mock('\mako\database\midgard\ORM');
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 

@@ -121,14 +121,6 @@ abstract class ORM
 	protected $exists = false;
 
 	/**
-	 * Is this a read only record?
-	 *
-	 * @var boolean
-	 */
-
-	protected $readOnly = false;
-
-	/**
 	 * Column values.
 	 *
 	 * @var array
@@ -200,10 +192,9 @@ abstract class ORM
 	 * @param   boolean  $raw        Set raw values?
 	 * @param   boolean  $whitelist  Remove columns that are not in the whitelist?
 	 * @param   boolean  $exists     Does the record come from a database?
-	 * @param   boolean  $readOnly   Is this a read-only record?
 	 */
 
-	public function __construct(array $columns = [], $raw = false, $whitelist = true, $exists = false, $readOnly = false)
+	public function __construct(array $columns = [], $raw = false, $whitelist = true, $exists = false)
 	{
 		$this->registerHooks();
 
@@ -214,8 +205,6 @@ abstract class ORM
 			$this->synchronize();
 
 			$this->exists = true;
-
-			$this->readOnly = $this->readOnly || $readOnly;
 		}
 	}
 
@@ -451,18 +440,6 @@ abstract class ORM
 	public function getClass()
 	{
 		return '\\' . static::class;
-	}
-
-	/**
-	 * Is this a read-only record?
-	 *
-	 * @access  public
-	 * @return  boolean
-	 */
-
-	public function isReadOnly()
-	{
-		return $this->readOnly;
 	}
 
 	/**

@@ -15,11 +15,6 @@ class TestUser extends \TestORM
 	protected $tableName = 'users';
 }
 
-class TestUserReadOnly extends TestUser
-{
-	protected $readOnly = true;
-}
-
 class TestUserScoped extends TestUser
 {
 	public function withArticlesScope($query)
@@ -158,10 +153,6 @@ class ORMTest extends \ORMTestCase
 		$this->assertEquals(['id' => 1, 'created_at' => '2014-04-30 14:40:01', 'username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumns());
 
 		$this->assertEquals(['id' => 2, 'created_at' => '2014-04-30 14:02:43', 'username' => 'bar', 'email' => 'bar@example.org'], $users[1]->getRawColumns());
-
-		$this->assertTrue($users[0]->isReadOnly());
-
-		$this->assertTrue($users[1]->isReadOnly());
 	}
 
 	/**
@@ -254,60 +245,6 @@ class ORMTest extends \ORMTestCase
 		$user->delete();
 
 		$this->assertEquals(($count - 1), TestUser::count());
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function saveReadOnly()
-	{
-		$dateTime = new DateTime;
-
-		$user = new TestUserReadOnly();
-
-		$user->username = 'bax';
-
-		$user->email = 'bax@example.org';
-
-		$user->created_at = $dateTime;
-
-		$user->save();
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testCreateReadOnly()
-	{
-		$dateTime = new DateTime;
-
-		$user = TestUserReadOnly::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testUpdateReadOnly()
-	{
-		$user = TestUserReadOnly::get(1);
-
-		$user->username = 'bax';
-
-		$user->save();
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testDeleteReadOnly()
-	{
-		$user = TestUserReadOnly::get(1);
-
-		$user->delete();
 	}
 
 	/**

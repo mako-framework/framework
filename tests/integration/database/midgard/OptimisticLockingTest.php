@@ -27,7 +27,7 @@ class OptimisticLock extends \TestORM
 class OptimisticLockingTest extends \ORMTestCase
 {
 	/**
-	 * @expectedException \mako\database\midgard\traits\StaleRecordException
+	 * @expectedException \mako\database\midgard\traits\exceptions\StaleRecordException
 	 */
 
 	public function testOptimisticLockUpdate()
@@ -46,7 +46,7 @@ class OptimisticLockingTest extends \ORMTestCase
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\traits\StaleRecordException
+	 * @expectedException \mako\database\midgard\traits\exceptions\StaleRecordException
 	 */
 
 	public function testOptimisticLockDelete()
