@@ -892,6 +892,22 @@ class Query
 	}
 
 	/**
+	 * Adds a raw HAVING clause.
+	 *
+	 * @access  public
+	 * @param   string                      $raw        Raw SQL
+	 * @param   string                      $operator   Operator
+	 * @param   mixed                       $value      Value
+	 * @param   string                      $separator  Clause separator
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function havingRaw($raw, $operator, $value, $separator = 'AND')
+	{
+		return $this->having(new Raw($raw), $operator, $value, $separator);
+	}
+
+	/**
 	 * Adds a OR HAVING clause.
 	 *
 	 * @access  public
@@ -904,6 +920,21 @@ class Query
 	public function orHaving($column, $operator, $value)
 	{
 		return $this->having($column, $operator, $value, 'OR');
+	}
+
+	/**
+	 * Adds a raw OR HAVING clause.
+	 *
+	 * @access  public
+	 * @param   string                      $raw       Raw SQL
+	 * @param   string                      $operator  Operator
+	 * @param   mixed                       $value     Value
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function orHavingRaw($raw, $operator, $value)
+	{
+		return $this->havingRaw($raw, $operator, $value, 'OR');
 	}
 
 	/**

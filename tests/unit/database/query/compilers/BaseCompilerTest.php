@@ -888,6 +888,25 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
+	public function testSelectWithHavingRaw()
+	{
+		$query = $this->getBuilder('orders');
+
+		$query->select(array('customer', new Raw('SUM(price) as sum')));
+
+		$query->groupBy('customer');
+		$query->havingRaw('SUM(price)', '<', 2000);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer" HAVING SUM(price) < ?', $query['sql']);
+		$this->assertEquals(array(2000), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
 	public function testSelectWithHavingAndOrHaving()
 	{
 		$query = $this->getBuilder('orders');
@@ -897,6 +916,26 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query->groupBy('customer');
 		$query->having(new Raw('SUM(price)'), '<', 2000);
 		$query->orHaving(new Raw('SUM(price)'), '>', 2000);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer" HAVING SUM(price) < ? OR SUM(price) > ?', $query['sql']);
+		$this->assertEquals(array(2000, 2000), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testSelectWithHavinRawgAndOrHavingRaw()
+	{
+		$query = $this->getBuilder('orders');
+
+		$query->select(array('customer', new Raw('SUM(price) as sum')));
+
+		$query->groupBy('customer');
+		$query->havingRaw('SUM(price)', '<', 2000);
+		$query->orHavingRaw('SUM(price)', '>', 2000);
 
 		$query = $query->getCompiler()->select();
 
