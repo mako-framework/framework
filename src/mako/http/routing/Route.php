@@ -331,6 +331,6 @@ class Route
 			$route .= '?';
 		}
 
-		return '#^' . $route . '$#s';
+		return '#^' . $route . '$#su';
 	}
 }
