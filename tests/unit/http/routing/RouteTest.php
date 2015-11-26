@@ -304,55 +304,55 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	{
 		$route = new Route(['GET'], '/', 'FooController::fooAction');
 
-		$this->assertSame('#^/?$#s', $route->getRegex());
+		$this->assertSame('#^/?$#su', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
 
-		$this->assertSame('#^/foo$#s', $route->getRegex());
+		$this->assertSame('#^/foo$#su', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo/', 'FooController::fooAction');
 
-		$this->assertSame('#^/foo/?$#s', $route->getRegex());
+		$this->assertSame('#^/foo/?$#su', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo/bar', 'FooController::fooAction');
 
-		$this->assertSame('#^/foo/bar$#s', $route->getRegex());
+		$this->assertSame('#^/foo/bar$#su', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/{id}', 'FooController::fooAction');
 
-		$this->assertSame('#^/(?P<id>[^/]++)$#s', $route->getRegex());
+		$this->assertSame('#^/(?P<id>[^/]++)$#su', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo/{id}', 'FooController::fooAction');
 
-		$this->assertSame('#^/foo/(?P<id>[^/]++)$#s', $route->getRegex());
+		$this->assertSame('#^/foo/(?P<id>[^/]++)$#su', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo/{id}/bar', 'FooController::fooAction');
 
-		$this->assertSame('#^/foo/(?P<id>[^/]++)/bar$#s', $route->getRegex());
+		$this->assertSame('#^/foo/(?P<id>[^/]++)/bar$#su', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo/{id}/', 'FooController::fooAction');
 
-		$this->assertSame('#^/foo/(?P<id>[^/]++)/?$#s', $route->getRegex());
+		$this->assertSame('#^/foo/(?P<id>[^/]++)/?$#su', $route->getRegex());
 
 		//
 
 		$route = (new Route(['GET'], '/foo/{id}', 'FooController::fooAction'))->when(['id' => '[0-9]+']);
 
-		$this->assertSame('#^/foo/(?P<id>[0-9]+)$#s', $route->getRegex());
+		$this->assertSame('#^/foo/(?P<id>[0-9]+)$#su', $route->getRegex());
 	}
 
 	/**
