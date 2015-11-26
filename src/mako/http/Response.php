@@ -816,7 +816,7 @@ class Response
 
 				$this->header('ETag', $hash);
 
-				if($this->request->header('if-none-match') === $hash)
+				if(str_replace('-gzip', '', $this->request->header('if-none-match')) === $hash)
 				{
 					$this->status(304);
 
