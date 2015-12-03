@@ -565,14 +565,10 @@ abstract class ORM
 
 		if(method_exists($this, $name . 'Mutator'))
 		{
-			// The column has a custom mutator
-
 			$this->columns[$name] = $this->{$name . 'Mutator'}($value);
 		}
 		else
 		{
-			// Just set the raw column value
-
 			$this->columns[$name] = $value;
 		}
 	}
@@ -598,26 +594,20 @@ abstract class ORM
 	}
 
 	/**
-	 * Returns a local column value.
+	 * Returns a column value.
 	 *
 	 * @access  protected
 	 * @return  mixed
 	 */
 
-	protected function getLocalColumn($name)
+	protected function getColumnValue($name)
 	{
 		if(method_exists($this, $name . 'Accessor'))
 		{
-			// The column has a custom accessor
-
 			return $this->{$name . 'Accessor'}($this->columns[$name]);
 		}
-		else
-		{
-			// Just a normal column
 
-			return $this->columns[$name];
-		}
+		return $this->columns[$name];
 	}
 
 	/**
@@ -632,9 +622,9 @@ abstract class ORM
 	{
 		if(array_key_exists($name, $this->columns))
 		{
-			// The column is local
+			// It's a database column
 
-			return $this->getLocalColumn($name);
+			return $this->getColumnValue($name);
 		}
 		elseif(isset($this->related[$name]))
 		{
@@ -1093,7 +1083,7 @@ abstract class ORM
 
 		foreach($columns as $name => $value)
 		{
-			$value = $this->getLocalColumn($name);
+			$value = $this->getColumnValue($name);
 
 			if($value instanceof DateTimeInterface)
 			{
