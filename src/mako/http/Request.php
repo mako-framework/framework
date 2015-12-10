@@ -842,10 +842,12 @@ class Request
 
 			if(!empty($this->trustedProxies))
 			{
-				$ips = array_map('trim', explode(',', $this->server('HTTP_X_FORWARDED_FOR')));
+				$ips = $this->server('HTTP_X_FORWARDED_FOR');
 
 				if(!empty($ips))
 				{
+					$ips = array_map('trim', explode(',', $ips));
+
 					foreach($ips as $key => $value)
 					{
 						if(in_array($value, $this->trustedProxies))
