@@ -341,26 +341,14 @@ class Request
 
 	protected function determineMethod()
 	{
-		$method = 'GET';
-
-		if(isset($this->server['REQUEST_METHOD']))
-		{
-			$method = strtoupper($this->server['REQUEST_METHOD']);
-		}
+		$method = strtoupper($this->server['REQUEST_METHOD'] ?? 'GET');
 
 		if($method === 'POST')
 		{
-			if(isset($this->post['REQUEST_METHOD_OVERRIDE']))
-			{
-				$method = $this->post['REQUEST_METHOD_OVERRIDE'];
-			}
-			elseif(isset($this->server['HTTP_X_HTTP_METHOD_OVERRIDE']))
-			{
-				$method = $this->server['HTTP_X_HTTP_METHOD_OVERRIDE'];
-			}
+			return strtoupper($this->post['REQUEST_METHOD_OVERRIDE'] ?? $this->server['HTTP_X_HTTP_METHOD_OVERRIDE'] ?? 'POST');
 		}
 
-		return strtoupper($method);
+		return $method;
 	}
 
 	/**
