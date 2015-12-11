@@ -435,7 +435,7 @@ class Request
 	{
 		// Is this an Ajax request?
 
-		$this->isAjax = (isset($this->server['HTTP_X_REQUESTED_WITH']) && ($this->server['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
+		$this->isAjax = (isset($this->server['HTTP_X_REQUESTED_WITH']) && ($this->server['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest'));
 
 		// Was the request made using HTTPS?
 
