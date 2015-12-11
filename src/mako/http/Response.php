@@ -527,7 +527,7 @@ class Response
 	{
 		if(empty($this->signer))
 		{
-			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to read signed cookies.", [__METHOD__]));
+			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to sign cookies.", [__METHOD__]));
 		}
 
 		return $this->cookie($name, $this->signer->sign($value), $ttl, $options);
