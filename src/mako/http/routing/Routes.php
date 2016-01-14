@@ -233,7 +233,7 @@ class Routes
 	 * @param   string           $name     Route name
 	 */
 
-	public function methods(array $methods, $route, $action, $name = null)
+	public function register(array $methods, $route, $action, $name = null)
 	{
 		return $this->registerRoute($methods, $route, $action, $name);
 	}

@@ -47,7 +47,7 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 
 		$routes->all('/foo', 'FooController::fooAction');
 
-		$routes->methods(['OPTIONS', 'HEAD'], '/foo', 'FooController::fooAction');
+		$routes->register(['OPTIONS', 'HEAD'], '/foo', 'FooController::fooAction');
 
 		$routes = $routes->getRoutes();
 
