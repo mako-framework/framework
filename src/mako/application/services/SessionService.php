@@ -114,7 +114,7 @@ class SessionService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\session\Session', 'session'], function($container)
+		$this->container->registerSingleton([Session::class, 'session'], function($container)
 		{
 			$config = $container->get('config')->get('session');
 

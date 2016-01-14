@@ -478,21 +478,21 @@ abstract class Application
 
 		$this->container = new Container();
 
-		$this->container->registerInstance(['mako\syringe\Container', 'container'], $this->container);
+		$this->container->registerInstance([Container::class, 'container'], $this->container);
 
 		// Register self so that the application instance can be injected
 
-		$this->container->registerInstance(['mako\application\Application', 'app'], $this);
+		$this->container->registerInstance([Application::class, 'app'], $this);
 
 		// Register file system instance
 
-		$this->container->registerInstance(['mako\file\FileSystem', 'fileSystem'], $fileSystem = new FileSystem());
+		$this->container->registerInstance([FileSystem::class, 'fileSystem'], $fileSystem = new FileSystem());
 
 		// Register config instance
 
 		$this->config = new Config($fileSystem, $this->applicationPath . '/config', $this->getEnvironment());
 
-		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config);
+		$this->container->registerInstance([Config::class, 'config'], $this->config);
 	}
 
 	/**

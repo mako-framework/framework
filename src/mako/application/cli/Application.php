@@ -9,6 +9,14 @@ namespace mako\application\cli;
 
 use mako\Mako;
 use mako\application\Application as BaseApplication;
+use mako\application\cli\commands\app\GenerateSecret;
+use mako\application\cli\commands\app\ListRoutes;
+use mako\application\cli\commands\migrations\Create;
+use mako\application\cli\commands\migrations\Down;
+use mako\application\cli\commands\migrations\Reset;
+use mako\application\cli\commands\migrations\Status;
+use mako\application\cli\commands\migrations\Up;
+use mako\application\cli\commands\server\Server;
 use mako\cli\output\Output;
 use mako\config\Config;
 use mako\reactor\Reactor;
@@ -46,20 +54,20 @@ class Application extends BaseApplication
 
 		$commands =
 		[
-			'app.generate_secret' => 'mako\application\cli\commands\app\GenerateSecret',
-			'app.routes'          => 'mako\application\cli\commands\app\ListRoutes',
-			'server'              => 'mako\application\cli\commands\server\Server',
+			'app.generate_secret' => GenerateSecret::class,
+			'app.routes'          => ListRoutes::class,
+			'server'              => Server::class,
 		];
 
 		if($this->container->has('database'))
 		{
 			$commands = array_merge($commands,
 			[
-				'migrate.create' => 'mako\application\cli\commands\migrations\Create',
-				'migrate.status' => 'mako\application\cli\commands\migrations\Status',
-				'migrate.up'     => 'mako\application\cli\commands\migrations\Up',
-				'migrate.down'   => 'mako\application\cli\commands\migrations\Down',
-				'migrate.reset'  => 'mako\application\cli\commands\migrations\Reset',
+				'migrate.create' => Create::class,
+				'migrate.status' => Status::class,
+				'migrate.up'     => Up::class,
+				'migrate.down'   => Down::class,
+				'migrate.reset'  => Reset::class,
 			]);
 		}
 

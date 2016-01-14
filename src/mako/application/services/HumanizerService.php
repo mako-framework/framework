@@ -24,7 +24,7 @@ class HumanizerService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\utility\Humanizer', 'humanizer'], function($container)
+		$this->container->registerSingleton([Humanizer::class, 'humanizer'], function($container)
 		{
 			return new Humanizer($container->get('i18n'));
 		});

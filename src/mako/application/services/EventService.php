@@ -23,7 +23,7 @@ class EventService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\event\Event', 'event'], function($container)
+		$this->container->registerSingleton([Event::class, 'event'], function($container)
 		{
 			return new Event($container);
 		});

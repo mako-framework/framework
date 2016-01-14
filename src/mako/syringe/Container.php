@@ -8,6 +8,7 @@
 namespace mako\syringe;
 
 use mako\syringe\ClassInspector;
+use mako\syringe\ContainerAwareTrait;
 
 use Closure;
 use ReflectionClass;
@@ -283,7 +284,7 @@ class Container
 	{
 		$traits = ClassInspector::getTraits($class);
 
-		return isset($traits['mako\syringe\ContainerAwareTrait']);
+		return isset($traits[ContainerAwareTrait::class]);
 	}
 
 	/**

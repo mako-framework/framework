@@ -52,7 +52,7 @@ class ValidatorFactoryService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\validator\ValidatorFactory', 'validator'], function($container)
+		$this->container->registerSingleton([ValidatorFactory::class, 'validator'], function($container)
 		{
 			$validatorFactory = new ValidatorFactory($container->get('i18n'));
 

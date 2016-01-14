@@ -24,7 +24,7 @@ class CryptoService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\security\crypto\CryptoManager', 'crypto'], function($container)
+		$this->container->registerSingleton([CryptoManager::class, 'crypto'], function($container)
 		{
 			$config = $container->get('config')->get('crypto');
 

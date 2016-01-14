@@ -24,7 +24,7 @@ class RequestService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\http\Request', 'request'], function($container)
+		$this->container->registerSingleton([Request::class, 'request'], function($container)
 		{
 			$config = $container->get('config');
 

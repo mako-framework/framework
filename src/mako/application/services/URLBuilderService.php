@@ -24,7 +24,7 @@ class URLBuilderService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\http\routing\URLBuilder', 'urlBuilder'], function($container)
+		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], function($container)
 		{
 			return new URLBuilder($container->get('request'), $container->get('routes'), $container->get('config')->get('application.clean_urls'));
 		});

@@ -24,7 +24,7 @@ class DatabaseService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\database\ConnectionManager', 'database'], function($container)
+		$this->container->registerSingleton([ConnectionManager::class, 'database'], function($container)
 		{
 			$config = $container->get('config')->get('database');
 

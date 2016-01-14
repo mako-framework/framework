@@ -27,7 +27,7 @@ class OutputService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\cli\output\Output', 'output'], function($container)
+		$this->container->registerSingleton([Output::class, 'output'], function($container)
 		{
 			return new Output(new Standard, new Error, new Formatter);
 		});

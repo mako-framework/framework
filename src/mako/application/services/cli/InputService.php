@@ -25,7 +25,7 @@ class InputService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\cli\input\Input', 'input'], function($container)
+		$this->container->registerSingleton([Input::class, 'input'], function($container)
 		{
 			return new Input(new Reader);
 		});

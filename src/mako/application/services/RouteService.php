@@ -8,6 +8,7 @@
 namespace mako\application\services;
 
 use mako\application\services\Service;
+use mako\http\routing\Routes;
 
 /**
  * Route service.
@@ -23,6 +24,6 @@ class RouteService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\http\routing\Routes', 'routes'], 'mako\http\routing\Routes');
+		$this->container->registerSingleton([Routes::class, 'routes'], Routes::class);
 	}
 }

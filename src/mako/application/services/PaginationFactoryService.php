@@ -24,7 +24,7 @@ class PaginationFactoryService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\pagination\PaginationFactory', 'pagination'], function($container)
+		$this->container->registerSingleton([PaginationFactory::class, 'pagination'], function($container)
 		{
 			$paginationFactory = new PaginationFactory($container->get('request'), $container->get('config')->get('pagination'));
 

@@ -10,6 +10,7 @@ namespace mako\auth\group;
 use LogicException;
 
 use mako\auth\group\GroupInterface;
+use mako\auth\user\User;
 use mako\auth\user\UserInterface;
 use mako\database\midgard\ORM;
 use mako\database\midgard\traits\TimestampedTrait;
@@ -110,6 +111,6 @@ class Group extends ORM implements GroupInterface
 
 	public function users()
 	{
-		return $this->manyToMany('mako\auth\user\User');
+		return $this->manyToMany(User::class);
 	}
 }

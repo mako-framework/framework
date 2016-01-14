@@ -10,6 +10,7 @@ namespace mako\auth\user;
 use DateTimeInterface;
 use LogicException;
 
+use mako\auth\group\Group;
 use mako\auth\group\MemberInterface;
 use mako\auth\user\UserInterface;
 use mako\chrono\Time;
@@ -361,6 +362,6 @@ class User extends ORM implements UserInterface, MemberInterface
 
 	public function groups()
 	{
-		return $this->manyToMany('mako\auth\group\Group');
+		return $this->manyToMany(Group::class);
 	}
 }

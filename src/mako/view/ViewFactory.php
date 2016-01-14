@@ -12,6 +12,7 @@ use RuntimeException;
 
 use mako\common\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
+use mako\view\renderers\PHP;
 
 /**
  * View factory.
@@ -37,7 +38,7 @@ class ViewFactory
 	 * @var array
 	 */
 
-	protected $renderers = ['.php' => 'mako\view\renderers\PHP'];
+	protected $renderers = ['.php' => PHP::class];
 
 	/**
 	 * Cache path.

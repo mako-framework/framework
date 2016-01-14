@@ -26,7 +26,7 @@ class GatekeeperService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\auth\Gatekeeper', 'gatekeeper'], function($container)
+		$this->container->registerSingleton([Gatekeeper::class, 'gatekeeper'], function($container)
 		{
 			$config = $container->get('config')->get('gatekeeper');
 

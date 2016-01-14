@@ -53,6 +53,6 @@ class ErrorHandlerService extends Service
 			return $webHandler->handle($displayErrors);
 		});
 
-		$this->container->registerInstance(['mako\error\ErrorHandler', 'errorHandler'], $errorHandler);
+		$this->container->registerInstance([ErrorHandler::class, 'errorHandler'], $errorHandler);
 	}
 }

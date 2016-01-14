@@ -8,6 +8,7 @@
 namespace mako\application\services;
 
 use mako\commander\CommandBus;
+use mako\commander\CommandBusInterface;
 
 /**
  * Command bus service.
@@ -23,7 +24,7 @@ class CommandBusService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\commander\CommandBusInterface', 'commander'], function($container)
+		$this->container->registerSingleton([CommandBusInterface::class, 'commander'], function($container)
 		{
 			return new CommandBus($container);
 		});
