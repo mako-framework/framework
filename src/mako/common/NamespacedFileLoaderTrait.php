@@ -116,7 +116,7 @@ trait NamespacedFileLoaderTrait
 
 		// Return full path to file
 
-		return $path . DIRECTORY_SEPARATOR . str_replace('.', DIRECTORY_SEPARATOR, $file) . ($extension ?: $this->extension);
+		return $path . DIRECTORY_SEPARATOR . str_replace('.', DIRECTORY_SEPARATOR, $file) . ($extension ?? $this->extension);
 	}
 
 	/**

@@ -52,7 +52,7 @@ class Input
 	{
 		$this->reader = $reader;
 
-		$this->arguments = $this->parseArguments($arguments ?: $_SERVER['argv']);
+		$this->arguments = $this->parseArguments($arguments ?? $_SERVER['argv']);
 	}
 
 	/**

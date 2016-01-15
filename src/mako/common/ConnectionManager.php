@@ -47,7 +47,7 @@ abstract class ConnectionManager
 
 	public function connection($connection = null)
 	{
-		$connection = $connection ?: $this->default;
+		$connection = $connection ?? $this->default;
 
 		if(!isset($this->connections[$connection]))
 		{

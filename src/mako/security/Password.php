@@ -81,7 +81,7 @@ class Password
 
 	public static function hash($password, $cost = null)
 	{
-		$cost = static::normalizeCost($cost ?: static::$costs[PASSWORD_DEFAULT]);
+		$cost = static::normalizeCost($cost ?? static::$costs[PASSWORD_DEFAULT]);
 
 		return password_hash($password, PASSWORD_DEFAULT, ['cost' => $cost]);
 	}
@@ -97,7 +97,7 @@ class Password
 
 	public static function needsRehash($hash, $cost = null)
 	{
-		$cost = static::normalizeCost($cost ?: static::$costs[PASSWORD_DEFAULT]);
+		$cost = static::normalizeCost($cost ?? static::$costs[PASSWORD_DEFAULT]);
 
 		return password_needs_rehash($hash, PASSWORD_DEFAULT, ['cost' => $cost]);
 	}

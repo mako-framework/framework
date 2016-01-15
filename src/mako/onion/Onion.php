@@ -54,9 +54,9 @@ class Onion
 
 	public function __construct(Container $container = null, $method = null)
 	{
-		$this->container = $container ?: new Container;
+		$this->container = $container ?? new Container;
 
-		$this->method = $method ?: 'handle';
+		$this->method = $method ?? 'handle';
 	}
 
 	/**

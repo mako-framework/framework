@@ -80,7 +80,7 @@ class ProgressBar
 
 		$this->items = $items;
 
-		$this->redrawRate = max($redrawRate ?: ceil(0.01 * $items), 1);
+		$this->redrawRate = max($redrawRate ?? ceil(0.01 * $items), 1);
 	}
 
 	/**

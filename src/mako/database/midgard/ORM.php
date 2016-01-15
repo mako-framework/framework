@@ -362,7 +362,7 @@ abstract class ORM
 
 	protected function getClassShortName($className = null)
 	{
-		return basename(str_replace('\\', '/', $className ?: static::class));
+		return basename(str_replace('\\', '/', $className ?? static::class));
 	}
 
 	/**

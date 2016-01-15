@@ -83,9 +83,9 @@ class MCrypt extends Encrypter implements EncrypterInterface
 
 		$this->padder = $padder;
 
-		$this->cipher = $cipher ?: MCRYPT_RIJNDAEL_256;
+		$this->cipher = $cipher ?? MCRYPT_RIJNDAEL_256;
 
-		$this->mode = $mode ?: MCRYPT_MODE_CBC;
+		$this->mode = $mode ?? MCRYPT_MODE_CBC;
 
 		$this->keySize = mcrypt_get_key_size($this->cipher, $this->mode);
 

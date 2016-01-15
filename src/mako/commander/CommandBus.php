@@ -60,9 +60,9 @@ class CommandBus implements CommandBusInterface
 
 	public function __construct(Container $container = null, Onion $onion = null)
 	{
-		$this->container = $container ?: new Container;
+		$this->container = $container ?? new Container;
 
-		$this->onion = $onion ?: new Onion($this->container);
+		$this->onion = $onion ?? new Onion($this->container);
 	}
 
 	/**

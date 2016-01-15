@@ -104,7 +104,7 @@ abstract class AdapterManager
 
 	public function instance($configuration = null)
 	{
-		$configuration = $configuration ?: $this->default;
+		$configuration = $configuration ?? $this->default;
 
 		if($this->reuseInstances)
 		{

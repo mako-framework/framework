@@ -112,7 +112,7 @@ class Time extends DateTime
 	{
 		$now = static::now($timeZone);
 
-		return $now->setDate($year, $month ?: $now->format('m'), $day ?: $now->format('d'));
+		return $now->setDate($year, $month ?? $now->format('m'), $day ?? $now->format('d'));
 	}
 
 	/**
@@ -213,9 +213,7 @@ class Time extends DateTime
 
 	public function forward($seconds)
 	{
-		$this->setTimestamp($this->getTimestamp() + $seconds);
-
-		return $this;
+		return $this->setTimestamp($this->getTimestamp() + $seconds);
 	}
 
 	/**
@@ -228,9 +226,7 @@ class Time extends DateTime
 
 	public function rewind($seconds)
 	{
-		$this->setTimestamp($this->getTimestamp() - $seconds);
-
-		return $this;
+		return $this->setTimestamp($this->getTimestamp() - $seconds);
 	}
 
 	/**

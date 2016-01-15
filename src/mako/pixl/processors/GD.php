@@ -693,7 +693,7 @@ class GD implements ProcessorInterface
 
 	public function getImageBlob($type = null, $quality = 95)
 	{
-		$type = $type ?: $this->imageInfo['mime'];
+		$type = $type ?? $this->imageInfo['mime'];
 
 		// Return image blob
 

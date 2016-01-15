@@ -177,7 +177,7 @@ class I18n
 
 	public function pluralize($word, $count = null, $language = null)
 	{
-		$language = $language ?: $this->language;
+		$language = $language ?? $this->language;
 
 		if(!isset($this->inflections[$language]))
 		{
@@ -257,7 +257,7 @@ class I18n
 
 	protected function getString($key, $language)
 	{
-		$language = $language ?: $this->language;
+		$language = $language ?? $this->language;
 
 		list($file, $string) = $this->parseKey($key);
 
@@ -280,7 +280,7 @@ class I18n
 
 	public function has($key, $language = null)
 	{
-		$language = $language ?: $this->language;
+		$language = $language ?? $this->language;
 
 		list($file, $string) = $this->parseKey($key);
 

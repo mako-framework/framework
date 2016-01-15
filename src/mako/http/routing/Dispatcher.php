@@ -106,7 +106,7 @@ class Dispatcher
 
 		$this->parameters = $parameters;
 
-		$this->container = $container ?: new Container;
+		$this->container = $container ?? new Container;
 	}
 
 	/**

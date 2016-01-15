@@ -60,7 +60,7 @@ class Server extends Command
 
 	public function execute(Application $application, $port = 8000, $address = 'localhost', $docroot = null)
 	{
-		$docroot = $docroot ?: dirname($application->getPath()) . '/public';
+		$docroot = $docroot ?? dirname($application->getPath()) . '/public';
 
 		$host = ($address === '0.0.0.0') ? gethostbyname(gethostname()) : $address;
 

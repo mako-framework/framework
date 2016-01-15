@@ -87,9 +87,9 @@ class Reactor
 
 		$this->output = $output;
 
-		$this->container = $container ?: new Container;
+		$this->container = $container ?? new Container;
 
-		$this->dispatcher = $dispatcher ?: new Dispatcher($this->container);
+		$this->dispatcher = $dispatcher ?? new Dispatcher($this->container);
 	}
 
 	/**
