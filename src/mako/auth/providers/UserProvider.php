@@ -146,7 +146,7 @@ class UserProvider implements UserProviderInterface
 
 		if($user->getFailedAttempts() >= $maxLoginAttempts)
 		{
-			$user->lockUntil(Time::now()->forward($lockTime));
+			$user->lockUntil((clone $now)->forward($lockTime));
 		}
 
 		// Save the changes to the user
