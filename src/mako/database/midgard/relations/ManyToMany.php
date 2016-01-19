@@ -247,30 +247,32 @@ class ManyToMany extends Relation
 	 * Links related records.
 	 *
 	 * @access  public
-	 * @param   mixed    $id  Id or model
+	 * @param   mixed    $id  Id, model or an array of ids and/or models
 	 * @return  boolean
 	 */
 
 	public function link($id)
 	{
-		if($id instanceof $this->model)
+		$success = true;
+
+		foreach((is_array($id) ? $id : [$id]) as $value)
 		{
-			$id = $id->getPrimaryKeyValue();
+			if($value instanceof $this->model)
+			{
+				$value = $value->getPrimaryKeyValue();
+			}
+
+			$success = $success && $this->junction()->insert([$this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $value]);
 		}
 
-		if($this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue())->where($this->getJunctionKey(), '=', $id)->count() == 0)
-		{
-			return $this->junction()->insert([$this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $id]);
-		}
-
-		return false;
+		return $success;
 	}
 
 	/**
 	 * Unlinks related records.
 	 *
 	 * @access  public
-	 * @param   mixed    $id  Id or model
+	 * @param   mixed    $id  Id, model or an array of ids and/or models
 	 * @return  boolean
 	 */
 
@@ -280,14 +282,67 @@ class ManyToMany extends Relation
 
 		if($id !== null)
 		{
-			if($id instanceof $this->model)
+			$keys = [];
+
+			foreach((is_array($id) ? $id : [$id]) as $value)
 			{
-				$id = $id->getPrimaryKeyValue();
+				if($value instanceof $this->model)
+				{
+					$value = $value->getPrimaryKeyValue();
+				}
+
+				$keys[] = $value;
 			}
 
-			$query->where($this->getJunctionKey(), '=', $id);
+			$query->in($this->getJunctionKey(), $keys);
 		}
 
 		return (bool) $query->delete();
+	}
+
+	/**
+	 * Synchronize related records.
+	 *
+	 * @access  public
+	 * @param   array    $ids  An array of ids and/or models
+	 * @return  boolean
+	 */
+
+	public function synchronize(array $ids)
+	{
+		$success = true;
+
+		$keys = [];
+
+		foreach($ids as $value)
+		{
+			if($value instanceof $this->model)
+			{
+				$value = $value->getPrimaryKeyValue();
+			}
+
+			$keys[] = $value;
+		}
+
+		// Fetch existing links
+
+		$existing = $this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue())->select([$this->getJunctionKey()])->all();
+
+		$existing = array_map(function($result)
+		{
+			return $result->{$this->getJunctionKey()};
+		}, $existing);
+
+		// Link new relations
+
+		$success = $success && $this->link(array_diff($keys, $existing));
+
+		// Unlink old relations
+
+		$success = $success && $this->unlink(array_diff($existing, $keys));
+
+		// Return status
+
+		return $success;
 	}
 }

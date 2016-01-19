@@ -57,6 +57,8 @@ CREATE TABLE "groups" (
 
 INSERT INTO "groups" ("id", "name") VALUES (1, 'admin');
 INSERT INTO "groups" ("id", "name") VALUES (2, 'user');
+INSERT INTO "groups" ("id", "name") VALUES (3, 'moderator');
+INSERT INTO "groups" ("id", "name") VALUES (4, 'manager');
 
 ------------------------------------------------------------
 -- GROUPS_USERS
