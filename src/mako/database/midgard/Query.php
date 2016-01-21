@@ -25,14 +25,6 @@ use mako\database\query\Query as QueryBuilder;
 class Query extends QueryBuilder
 {
 	/**
-	 * Fetch mode.
-	 *
-	 * @var int
-	 */
-
-	const FETCH_MODE = PDO::FETCH_ASSOC;
-
-	/**
 	 * Instance of the model to hydrate.
 	 *
 	 * @var \mako\database\midgard\ORM
@@ -369,7 +361,7 @@ class Query extends QueryBuilder
 
 	public function first()
 	{
-		$result = parent::first();
+		$result = $this->fetchFirst(PDO::FETCH_ASSOC);
 
 		if($result !== false)
 		{
@@ -388,7 +380,7 @@ class Query extends QueryBuilder
 
 	public function all()
 	{
-		$results = parent::all();
+		$results = $this->fetchAll(PDO::FETCH_ASSOC);
 
 		if(!empty($results))
 		{

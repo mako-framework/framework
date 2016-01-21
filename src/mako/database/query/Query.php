@@ -26,14 +26,6 @@ class Query
 	use QueryConvenienceTrait;
 
 	/**
-	 * Fetch mode.
-	 *
-	 * @var null
-	 */
-
-	const FETCH_MODE = null;
-
-	/**
 	 * Database connection.
 	 *
 	 * @var \mako\database\connections\Connection
@@ -1082,14 +1074,42 @@ class Query
 	 * Executes a SELECT query and returns the first row of the result set.
 	 *
 	 * @access  public
+	 * @param   mixed   ...$fetchMode  Fetch mode
+	 * @return  mixed
+	 */
+
+	protected function fetchFirst(...$fetchMode)
+	{
+		$query = $this->limit(1)->compiler->select();
+
+		return $this->connection->first($query['sql'], $query['params'], ...$fetchMode);
+	}
+
+	/**
+	 * Executes a SELECT query and returns the first row of the result set.
+	 *
+	 * @access  public
 	 * @return  mixed
 	 */
 
 	public function first()
 	{
-		$query = $this->limit(1)->compiler->select();
+		return $this->fetchFirst();
+	}
 
-		return $this->connection->first($query['sql'], $query['params'], static::FETCH_MODE);
+	/**
+	 * Executes a SELECT query and returns an array containing all of the result set rows.
+	 *
+	 * @access  public
+	 * @param   mixed   ...$fetchMode  Fetch mode
+	 * @return  array
+	 */
+
+	protected function fetchAll(...$fetchMode)
+	{
+		$query = $this->compiler->select();
+
+		return $this->connection->all($query['sql'], $query['params'], ...$fetchMode);
 	}
 
 	/**
@@ -1101,9 +1121,7 @@ class Query
 
 	public function all()
 	{
-		$query = $this->compiler->select();
-
-		return $this->connection->all($query['sql'], $query['params'], static::FETCH_MODE);
+		return $this->fetchAll();
 	}
 
 	/**
