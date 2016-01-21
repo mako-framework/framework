@@ -380,7 +380,7 @@ class Query extends QueryBuilder
 
 	public function all()
 	{
-		$results = $this->fetchAll(PDO::FETCH_ASSOC);
+		$results = $this->fetchAll(false, PDO::FETCH_ASSOC);
 
 		if(!empty($results))
 		{

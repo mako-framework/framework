@@ -326,12 +326,7 @@ class ManyToMany extends Relation
 
 		// Fetch existing links
 
-		$existing = $this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue())->select([$this->getJunctionKey()])->all();
-
-		$existing = array_map(function($result)
-		{
-			return $result->{$this->getJunctionKey()};
-		}, $existing);
+		$existing = $this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue())->select([$this->getJunctionKey()])->all()->pluck($this->getJunctionKey());
 
 		// Link new relations
 

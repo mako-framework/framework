@@ -46,7 +46,7 @@ trait RollbackTrait
 	{
 		$migrations = $this->getBatch($batches);
 
-		if(empty($migrations))
+		if($migrations->isEmpty())
 		{
 			$this->write('<blue>There are no migrations to roll back.</blue>');
 

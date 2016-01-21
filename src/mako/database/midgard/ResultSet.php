@@ -8,7 +8,7 @@
 namespace mako\database\midgard;
 
 use mako\utility\Arr;
-use mako\utility\Collection;
+use mako\database\query\ResultSet as BaseResultSet;
 
 /**
  * ORM result set.
@@ -16,7 +16,7 @@ use mako\utility\Collection;
  * @author  Frederic G. Østby
  */
 
-class ResultSet extends Collection
+class ResultSet extends BaseResultSet
 {
 	/**
 	 * Clones all items when cloning the collection.
@@ -30,19 +30,6 @@ class ResultSet extends Collection
 		{
 			$this->items[$key] = clone $value;
 		}
-	}
-
-	/**
-	 * Returns an array containing only the values of chosen column.
-	 *
-	 * @access  public
-	 * @param   string  $column  Column name
-	 * @return  array
-	 */
-
-	public function pluck($column)
-	{
-		return Arr::pluck($this->items, $column);
 	}
 
 	/**
@@ -78,17 +65,5 @@ class ResultSet extends Collection
 	public function toJson($protect = true, $raw = false)
 	{
 		return json_encode($this->toArray($protect, $raw));
-	}
-
-	/**
-	 * Returns a json representation of the result set.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function __toString()
-	{
-		return $this->toJson();
 	}
 }

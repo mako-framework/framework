@@ -8,11 +8,14 @@
 namespace mako\database\query;
 
 use Closure;
+use PDO;
 
 use mako\database\connections\Connection;
 use mako\database\query\Join;
 use mako\database\query\QueryConvenienceTrait;
 use mako\database\query\Raw;
+use mako\database\query\Result;
+use mako\database\query\ResultSet;
 use mako\database\query\Subquery;
 
 /**
@@ -1094,22 +1097,25 @@ class Query
 
 	public function first()
 	{
-		return $this->fetchFirst();
+		return $this->fetchFirst(PDO::FETCH_CLASS, Result::class);
 	}
 
 	/**
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
 	 *
 	 * @access  public
-	 * @param   mixed   ...$fetchMode  Fetch mode
+	 * @param   boolean  $returnResultSet  Return result set?
+	 * @param   mixed    ...$fetchMode     Fetch mode
 	 * @return  array
 	 */
 
-	protected function fetchAll(...$fetchMode)
+	protected function fetchAll($returnResultSet, ...$fetchMode)
 	{
 		$query = $this->compiler->select();
 
-		return $this->connection->all($query['sql'], $query['params'], ...$fetchMode);
+		$results = $this->connection->all($query['sql'], $query['params'], ...$fetchMode);
+
+		return $returnResultSet ? new ResultSet($results) : $results;
 	}
 
 	/**
@@ -1121,7 +1127,7 @@ class Query
 
 	public function all()
 	{
-		return $this->fetchAll();
+		return $this->fetchAll(true, PDO::FETCH_CLASS, Result::class);
 	}
 
 	/**
