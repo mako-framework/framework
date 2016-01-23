@@ -458,19 +458,6 @@ trait QueryConvenienceTrait
 	}
 
 	/**
-	 * Paginates the results using a pagination instance.
-	 *
-	 * @access  public
-	 * @param   \mako\pagination\Pagination  $pagination  Pagination instance
-	 * @return  \mako\database\query\Query
-	 */
-
-	public function paginate(Pagination $pagination)
-	{
-		return $this->limit($pagination->limit())->offset($pagination->offset());
-	}
-
-	/**
 	 * Increments column value.
 	 *
 	 * @access  public
