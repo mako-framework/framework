@@ -17,6 +17,7 @@ use mako\database\query\Raw;
 use mako\database\query\Result;
 use mako\database\query\ResultSet;
 use mako\database\query\Subquery;
+use mako\pagination\PaginationFactoryInterface;
 
 /**
  * Query builder.
@@ -133,6 +134,14 @@ class Query
 	protected $offset = null;
 
 	/**
+	 * Pagination factory.
+	 *
+	 * @var \mako\pagination\PaginationFactoryInterface
+	 */
+
+	protected static $paginationFactory;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
@@ -159,6 +168,37 @@ class Query
 		$compiler = get_class($this->compiler);
 
 		$this->compiler = new $compiler($this);
+	}
+
+	/**
+	 * Sets the pagination factory.
+	 *
+	 * @access  public
+	 * @param   \mako\pagination\PaginationFactoryInterface|\Closure  $factory  Pagination factory
+	 */
+
+	public static function setPaginationFactory($factory)
+	{
+		static::$paginationFactory = $factory;
+	}
+
+	/**
+	 * Gets the pagination factory.
+	 *
+	 * @access  public
+	 * @return  \mako\pagination\PaginationFactoryInterface
+	 */
+
+	public static function getPaginationFactory(): PaginationFactoryInterface
+	{
+		if(static::$paginationFactory instanceof Closure)
+		{
+			$factory = static::$paginationFactory;
+
+			static::$paginationFactory = $factory();
+		}
+
+		return static::$paginationFactory;
 	}
 
 	/**
@@ -1024,6 +1064,20 @@ class Query
 	}
 
 	/**
+	 * Resets the ordering.
+	 *
+	 * @access  public
+	 * @return  \mako\database\query\Query
+	 */
+
+	public function resetOrdering()
+	{
+		$this->orderings = [];
+
+		return $this;
+	}
+
+	/**
 	 * Adds a LIMIT clause.
 	 *
 	 * @access  public
@@ -1122,12 +1176,34 @@ class Query
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
 	 *
 	 * @access  public
-	 * @return  array
+	 * @return  \mako\database\query\ResultSet
 	 */
 
 	public function all()
 	{
 		return $this->fetchAll(true, PDO::FETCH_CLASS, Result::class);
+	}
+
+	/**
+	 * Paginates the results using a pagination instance.
+	 *
+	 * @access  public
+	 * @param   null|int                        $itemsPerPage  Number of items per page
+	 * @param   array                           $options       Pagination options
+	 * @return  \mako\database\query\ResultSet
+	 */
+
+	public function paginate($itemsPerPage = null, array $options = [])
+	{
+		$count = (clone $this)->resetOrdering()->count();
+
+		$pagination = static::getPaginationFactory()->create($count, $itemsPerPage, $options);
+
+		$results = $this->limit($pagination->limit())->offset($pagination->offset())->all();
+
+		$results->setPagination($pagination);
+
+		return $results;
 	}
 
 	/**

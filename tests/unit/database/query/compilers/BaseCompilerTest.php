@@ -186,28 +186,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
-	public function testSelectWithPagination()
-	{
-		$pagination = m::mock('\mako\pagination\Pagination');
-
-		$pagination->shouldReceive('limit')->andReturn(10);
-
-		$pagination->shouldReceive('offset')->andReturn(10);
-
-		$query = $this->getBuilder();
-
-		$query->paginate($pagination);
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT * FROM "foobar" LIMIT 10 OFFSET 10', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
-	}
-
-	/**
-	 *
-	 */
-
 	public function testSelectWithWhere()
 	{
 		$query = $this->getBuilder();
@@ -1069,6 +1047,23 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" ASC, "bar" DESC', $query['sql']);
+		$this->assertEquals(array(), $query['params']);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testSelectResetOrdering()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderBy('foo');
+		$query->orderBy('bar', 'DESC');
+
+		$query = $query->resetOrdering()->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar"', $query['sql']);
 		$this->assertEquals(array(), $query['params']);
 	}
 

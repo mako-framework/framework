@@ -7,6 +7,7 @@
 
 namespace mako\database\query;
 
+use mako\pagination\PaginationInterface;
 use mako\utility\Arr;
 use mako\utility\Collection;
 
@@ -18,6 +19,38 @@ use mako\utility\Collection;
 
 class ResultSet extends Collection
 {
+	/**
+	 * Pagination.
+	 *
+	 * @var \mako\pagination\PaginationInterface
+	 */
+
+	protected $pagination;
+
+	/**
+	 * Sets the pagination.
+	 *
+	 * @access  public
+	 * @param   \mako\pagination\PaginationInterface  $pagination  Pagination
+	 */
+
+	public function setPagination(PaginationInterface $pagination)
+	{
+		$this->pagination = $pagination;
+	}
+
+	/**
+	 * Returns the pagination.
+	 *
+	 * @access  public
+	 * @return  \mako\pagination\PaginationInterface
+	 */
+
+	public function getPagination(): PaginationInterface
+	{
+		return $this->pagination;
+	}
+
 	/**
 	 * Returns an array containing only the values of chosen column.
 	 *

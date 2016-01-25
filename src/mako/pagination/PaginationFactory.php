@@ -10,15 +10,18 @@ namespace mako\pagination;
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
 use mako\pagination\Pagination;
+use mako\pagination\PaginationFactoryInterface;
+use mako\pagination\PaginationInterface;
 use mako\view\ViewFactory;
 
 /**
  * Pagination factory.
  *
  * @author  Frederic G. Østby
+ * @author  Yamada Taro
  */
 
-class PaginationFactory
+class PaginationFactory implements PaginationFactoryInterface
 {
 	/**
 	 * Request instance.
@@ -29,12 +32,12 @@ class PaginationFactory
 	protected $request;
 
 	/**
-	 * Configuration.
+	 * Options.
 	 *
 	 * @var array
 	 */
 
-	protected $config;
+	protected $options;
 
 	/**
 	 * URL builder instance.
@@ -56,21 +59,15 @@ class PaginationFactory
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\http\Request             $request      Request
-	 * @param   array                          $config       Configuration
-	 * @param   \mako\http\routing\URLBuilder  $urlBuilder   URL builder instance
-	 * @param   \mako\view\ViewFactory         $viewFactory  View factory instance
+	 * @param   \mako\http\Request  $request  Request
+	 * @param   array               $config   Configuration
 	 */
 
-	public function __construct(Request $request, array $config = [], URLBuilder $urlBuilder = null, ViewFactory $viewFactory = null)
+	public function __construct(Request $request, array $config = [])
 	{
 		$this->request = $request;
 
-		$this->config = $config;
-
-		$this->urlBuilder = $urlBuilder;
-
-		$this->viewFactory = $viewFactory;
+		$this->options = $config;
 	}
 
 	/**
@@ -98,18 +95,25 @@ class PaginationFactory
 	}
 
 	/**
-	 * Creates and returns a pagination instance.
-	 *
-	 * @access  public
-	 * @param   int                          $count   Number of items
-	 * @param   array                        $config  Override configuration
-	 * @return  \mako\pagination\Pagination
+	 * {@inheritdoc}
 	 */
 
-	public function create($count, array $config = [])
+	public function create($items, $itemsPerPage = null, array $options = []): PaginationInterface
 	{
-		$config = $config + $this->config;
+		$itemsPerPage = $itemsPerPage ?? $this->options['items_per_page'];
 
-		return new Pagination($this->request, $count, $config, $this->urlBuilder, $this->viewFactory);
+		$options = $options + $this->options;
+
+		$currentPage = max((int) $this->request->get($options['page_key'], 1), 1);
+
+		$pagination = new Pagination($items, $itemsPerPage, $currentPage, $options);
+
+		$pagination->setRequest($this->request);
+
+		$pagination->setURLBuilder($this->urlBuilder);
+
+		$pagination->setViewFactory($this->viewFactory);
+
+		return $pagination;
 	}
 }

@@ -9,6 +9,7 @@ namespace mako\application\services;
 
 use mako\application\services\Service;
 use mako\pagination\PaginationFactory;
+use mako\pagination\PaginationFactoryInterface;
 
 /**
  * Pagination factory service.
@@ -24,7 +25,7 @@ class PaginationFactoryService extends Service
 
 	public function register()
 	{
-		$this->container->registerSingleton([PaginationFactory::class, 'pagination'], function($container)
+		$this->container->registerSingleton([PaginationFactoryInterface::class, 'pagination'], function($container)
 		{
 			$paginationFactory = new PaginationFactory($container->get('request'), $container->get('config')->get('pagination'));
 

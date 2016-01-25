@@ -391,6 +391,20 @@ class Query extends QueryBuilder
 	}
 
 	/**
+	 * Paginates the results using a pagination instance.
+	 *
+	 * @access  public
+	 * @param   null|int                          $itemsPerPage  Number of items per page
+	 * @param   array                             $options       Pagination options
+	 * @return  \mako\database\midgard\ResultSet
+	 */
+
+	public function paginate($itemsPerPage = null, array $options = [])
+	{
+		return parent::paginate($itemsPerPage, $options);
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 

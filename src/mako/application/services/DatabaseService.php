@@ -9,6 +9,7 @@ namespace mako\application\services;
 
 use mako\application\services\Service;
 use mako\database\ConnectionManager;
+use mako\database\query\Query;
 
 /**
  * Database service.
@@ -26,6 +27,14 @@ class DatabaseService extends Service
 	{
 		$this->container->registerSingleton([ConnectionManager::class, 'database'], function($container)
 		{
+			if($container->has('pagination'))
+			{
+				Query::setPaginationFactory(function() use ($container)
+				{
+					return $container->get('pagination');
+				});
+			}
+
 			$config = $container->get('config')->get('database');
 
 			return new ConnectionManager($config['default'], $config['configurations']);
