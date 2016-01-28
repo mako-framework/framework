@@ -18,7 +18,7 @@ use mako\syringe\Container;
  *
  * @property  \mako\application\Application                 $app
  * @property  \mako\cli\input\Input                         $input
- * @property  \mako\cli\input\Output                        $output
+ * @property  \mako\cli\output\Output                       $output
  * @property  \mako\commander\CommandBusInterface           $bus
  * @property  \mako\file\FileSystem                         $fileSystem
  * @property  \mako\config\Config                           $config

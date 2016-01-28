@@ -177,7 +177,7 @@ class Route
 	 * Returns the before filters.
 	 *
 	 * @access  public
-	 * @return  aray
+	 * @return  array
 	 */
 
 	public function getBeforeFilters()

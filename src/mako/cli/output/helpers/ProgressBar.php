@@ -166,7 +166,7 @@ class ProgressBar
 	}
 
 	/**
-	 * Move progress forward and redraws the progessbar.
+	 * Move progress forward and redraws the progressbar.
 	 *
 	 * @access  public
 	 */

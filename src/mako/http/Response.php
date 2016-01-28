@@ -721,9 +721,9 @@ class Response
 	 * Returns a file container.
 	 *
 	 * @access  public
-	 * @param   string                    $file     File path
-	 * @param   array                     $options  Options
-	 * @return  \mako\http\response\File
+	 * @param   string                     $file     File path
+	 * @param   array                      $options  Options
+	 * @return  \mako\http\responses\File
 	 */
 
 	public function file($file, array $options = [])
@@ -735,8 +735,8 @@ class Response
 	 * Returns a stream container.
 	 *
 	 * @access  public
-	 * @param   \Closure                    $stream  Stream
-	 * @return  \mako\http\response\Stream
+	 * @param   \Closure                     $stream  Stream
+	 * @return  \mako\http\responses\Stream
 	 */
 
 	public function stream(Closure $stream)
@@ -748,8 +748,8 @@ class Response
 	 * Redirects to another location.
 	 *
 	 * @access  public
-	 * @param   string                        $location  Location
-	 * @return  \mako\http\response\Redirect
+	 * @param   string                         $location  Location
+	 * @return  \mako\http\responses\Redirect
 	 */
 
 	public function redirect($location)

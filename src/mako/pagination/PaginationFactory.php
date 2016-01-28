@@ -42,7 +42,7 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * URL builder instance.
 	 *
-	 * @var \mako\http\request\URLBuilder
+	 * @var \mako\http\routing\URLBuilder
 	 */
 
 	protected $urlBuilder;
@@ -74,7 +74,7 @@ class PaginationFactory implements PaginationFactoryInterface
 	 * Sets the URL builder instance.
 	 *
 	 * @access  public
-	 * @param   \mako\http\request\URLBuilder  $urlBuilder  URL builder instance
+	 * @param   \mako\http\routing\URLBuilder  $urlBuilder  URL builder instance
 	 */
 
 	public function setURLBuilder(URLBuilder $urlBuilder)

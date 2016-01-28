@@ -78,7 +78,7 @@ class Event
 	 * Returns an array of all registered events.
 	 *
 	 * @access  public
-	 * @return  arary
+	 * @return  array
 	 */
 
 	public function events()

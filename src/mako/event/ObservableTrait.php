@@ -91,6 +91,7 @@ trait ObservableTrait
 	 * @param   string   $event       Event name
 	 * @param   array    $parameters  Parameters
 	 * @param   boolean  $break       Break if one of the observers returns false?
+	 * @return  mixed
 	 */
 
 	protected function notifyObservers($event, array $parameters = [], $break = false)

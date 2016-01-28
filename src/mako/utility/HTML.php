@@ -106,6 +106,7 @@ class HTML
 	 * @param   string     $type        Tag type
 	 * @param   mixed      $files       File or array of files
 	 * @param   array      $attributes  Tag attributes
+	 * @return  string
 	 */
 
 	protected function buildMedia($type, $files, $attributes)
@@ -126,6 +127,7 @@ class HTML
 	 * @access  public
 	 * @param   mixed   $files       File or array of files
 	 * @param   array   $attributes  Tag attributes
+	 * @return  string
 	 */
 
 	public function audio($files, array $attributes = [])
@@ -139,6 +141,7 @@ class HTML
 	 * @access  public
 	 * @param   mixed   $files       File or array of files
 	 * @param   array   $attributes  Tag attributes
+	 * @return  string
 	 */
 
 	public function video($files, array $attributes = [])
@@ -153,6 +156,7 @@ class HTML
 	 * @param   string     $type        Tag type
 	 * @param   mixed      $items       File or array of files
 	 * @param   array      $attributes  Tag attributes
+	 * @return  string
 	 */
 
 	protected function buildList($type, $items, $attributes)

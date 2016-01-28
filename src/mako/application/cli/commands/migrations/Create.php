@@ -7,6 +7,8 @@
 
 namespace mako\application\cli\commands\migrations;
 
+use Exception;
+
 use mako\application\Application;
 use mako\file\FileSystem;
 use mako\reactor\Command;

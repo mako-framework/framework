@@ -105,7 +105,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * Open tags.
 	 *
-	 * @var arary
+	 * @var array
 	 */
 
 	protected $openTags = [];

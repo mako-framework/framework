@@ -50,7 +50,7 @@ class Compiler
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   mako\database\query\Query  $query  Query builder
+	 * @param   \mako\database\query\Query  $query  Query builder
 	 */
 
 	public function __construct(Query $query)
@@ -87,7 +87,7 @@ class Compiler
 	 * Compiles subquery, merges parameters and returns subquery SQL.
 	 *
 	 * @access  protected
-	 * @param   mako\database\query\Subquery  $query  Subquery container
+	 * @param   \mako\database\query\Subquery  $query  Subquery container
 	 * @return  string
 	 */
 
@@ -382,7 +382,7 @@ class Compiler
 	 * Compiles JOIN conditions.
 	 *
 	 * @access  protected
-	 * @param   mako\database\query\Join  $join  Join
+	 * @param   \mako\database\query\Join  $join  Join
 	 * @return  string
 	 */
 

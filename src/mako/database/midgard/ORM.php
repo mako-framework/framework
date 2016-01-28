@@ -597,6 +597,7 @@ abstract class ORM
 	 * Returns a column value.
 	 *
 	 * @access  protected
+	 * @param   string  $name  Column name
 	 * @return  mixed
 	 */
 
@@ -732,7 +733,8 @@ abstract class ORM
 	 * Checks if a column or relation is set using overloading.
 	 *
 	 * @access  public
-	 * @param   string  $name  Column name
+	 * @param   string   $name  Column name
+	 * @return  boolean
 	 */
 
 	public function __isset($name)
@@ -801,9 +803,9 @@ abstract class ORM
 	 * Returns a HasOne relation.
 	 *
 	 * @access  protected
-	 * @param   string                                  $model       Related model
-	 * @param   string|null                             $foreignKey  Foreign key name
-	 * @return  \mako\database\midgard\relation\HasOne
+	 * @param   string                                   $model       Related model
+	 * @param   string|null                              $foreignKey  Foreign key name
+	 * @return  \mako\database\midgard\relations\HasOne
 	 */
 
 	protected function hasOne($model, $foreignKey = null)
@@ -817,9 +819,9 @@ abstract class ORM
 	 * Returns a HasOnePolymorphic relation.
 	 *
 	 * @access  protected
-	 * @param   string                                              $model            Related model
-	 * @param   string                                              $polymorphicType  Polymorphic type
-	 * @return  \mako\database\midgard\relation\HasManyPolymorphic
+	 * @param   string                                               $model            Related model
+	 * @param   string                                               $polymorphicType  Polymorphic type
+	 * @return  \mako\database\midgard\relations\HasManyPolymorphic
 	 */
 
 	protected function hasOnePolymorphic($model, $polymorphicType)
@@ -833,9 +835,9 @@ abstract class ORM
 	 * Returns a HasMany relation.
 	 *
 	 * @access  protected
-	 * @param   string                                   $model       Related model
-	 * @param   string|null                              $foreignKey  Foreign key name
-	 * @return  \mako\database\midgard\relation\HasMany
+	 * @param   string                                    $model       Related model
+	 * @param   string|null                               $foreignKey  Foreign key name
+	 * @return  \mako\database\midgard\relations\HasMany
 	 */
 
 	protected function hasMany($model, $foreignKey = null)
@@ -849,9 +851,9 @@ abstract class ORM
 	 * Returns a HasManyPolymorphic relation.
 	 *
 	 * @access  protected
-	 * @param   string                                              $model            Related model
-	 * @param   string                                              $polymorphicType  Polymorphic type
-	 * @return  \mako\database\midgard\relation\HasManyPolymorphic
+	 * @param   string                                               $model            Related model
+	 * @param   string                                               $polymorphicType  Polymorphic type
+	 * @return  \mako\database\midgard\relations\HasManyPolymorphic
 	 */
 
 	protected function hasManyPolymorphic($model, $polymorphicType)
@@ -865,11 +867,11 @@ abstract class ORM
 	 * Returns a ManyToMany relation.
 	 *
 	 * @access  protected
-	 * @param   string                                      $model          Related model
-	 * @param   string|null                                 $foreignKey     Foreign key name
-	 * @param   string|null                                 $junctionTable  Junction table name
-	 * @param   string|null                                 $junctionKey    Junction key name
-	 * @return  \mako\database\midgard\relation\ManyToMany
+	 * @param   string                                       $model          Related model
+	 * @param   string|null                                  $foreignKey     Foreign key name
+	 * @param   string|null                                  $junctionTable  Junction table name
+	 * @param   string|null                                  $junctionKey    Junction key name
+	 * @return  \mako\database\midgard\relations\ManyToMany
 	 */
 
 	protected function manyToMany($model, $foreignKey = null, $junctionTable = null, $junctionKey = null)
@@ -883,9 +885,9 @@ abstract class ORM
 	 * Returns a BelongsTo relation.
 	 *
 	 * @access  protected
-	 * @param   string                                     $model       Related model
-	 * @param   string|null                                $foreignKey  Foreign key name
-	 * @return  \mako\database\midgard\relation\BelongsTo
+	 * @param   string                                      $model       Related model
+	 * @param   string|null                                 $foreignKey  Foreign key name
+	 * @return  \mako\database\midgard\relations\BelongsTo
 	 */
 
 	protected function belongsTo($model, $foreignKey = null)

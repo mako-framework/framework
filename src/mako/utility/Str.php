@@ -208,6 +208,7 @@ class Str
 	 * @param   string  $string      The input string
 	 * @param   int     $characters  Number of characters to allow
 	 * @param   string  $sufix       Sufix to add if number of characters is reduced
+	 * @return  string
 	 */
 
 	public static function limitChars($string, $characters = 100, $sufix = '...')
@@ -222,6 +223,7 @@ class Str
 	 * @param   string  $string  The input string
 	 * @param   int     $words   Number of words to allow
 	 * @param   string  $sufix   Sufix to add if number of words is reduced
+	 * @return  string
 	 */
 
 	public static function limitWords($string, $words = 100, $sufix = '...')

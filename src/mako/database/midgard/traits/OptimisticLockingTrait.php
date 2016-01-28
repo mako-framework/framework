@@ -71,7 +71,8 @@ trait OptimisticLockingTrait
 	/**
 	 * Returns the optimistic locking column.
 	 *
-	 * @var string
+	 * @access  protected
+	 * @return  string
 	 */
 
 	protected function getLockingColumn()

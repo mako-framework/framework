@@ -243,9 +243,9 @@ abstract class Command
 	 * Draws a progress bar and returns a progress bar instance.
 	 *
 	 * @access  protected
-	 * @param   int                                  $items       Total number of items
-	 * @param   int                                  $redrawRate  Redraw rate
-	 * @return  \mako\cli\output\helpers\ProgessBar
+	 * @param   int                                   $items       Total number of items
+	 * @param   int                                   $redrawRate  Redraw rate
+	 * @return  \mako\cli\output\helpers\ProgressBar
 	 */
 
 	protected function progressBar($items, $redrawRate = null)

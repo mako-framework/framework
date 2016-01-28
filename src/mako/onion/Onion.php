@@ -48,8 +48,8 @@ class Onion
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   null|mako\syringe\Container  $container  Container
-	 * @param   null|string                  $method     Method to call on the decoracted class
+	 * @param   null|\mako\syringe\Container  $container  Container
+	 * @param   null|string                   $method     Method to call on the decoracted class
 	 */
 
 	public function __construct(Container $container = null, $method = null)

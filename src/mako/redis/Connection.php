@@ -30,7 +30,7 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   string  $host  Redis host
-	 * @param   string  $port  Redis port
+	 * @param   int     $port  Redis port
 	 */
 
 	public function __construct($host, $port = 6379)

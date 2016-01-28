@@ -82,7 +82,7 @@ class Gatekeeper
 	/**
 	 * User provider.
 	 *
-	 * @var \mako\auth\UserProviderInterface
+	 * @var \mako\auth\providers\UserProviderInterface
 	 */
 
 	protected $userProvider;
@@ -90,7 +90,7 @@ class Gatekeeper
 	/**
 	 * Group provider.
 	 *
-	 * @var \mako\auth\GroupProviderInterface
+	 * @var \mako\auth\providers\GroupProviderInterface
 	 */
 
 	protected $groupProvider;
@@ -314,7 +314,7 @@ class Gatekeeper
 	 * Checks if a user is logged in.
 	 *
 	 * @access  protected
-	 * @return  mako\auth\user\UserInterface|null
+	 * @return  \mako\auth\user\UserInterface|null
 	 */
 
 	protected function check()

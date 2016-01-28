@@ -20,6 +20,14 @@ use mako\view\renderers\PHP;
 class Template extends PHP
 {
 	/**
+	 * File system instance.
+	 *
+	 * @var \mako\file\FileSystem
+	 */
+
+	protected $fileSystem;
+
+	/**
 	 * Cache path.
 	 *
 	 * @var string

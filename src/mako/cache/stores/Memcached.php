@@ -40,7 +40,7 @@ class Memcached implements StoreInterface
 	{
 		$this->memcached = new PHPMemcached();
 
-		if($timtout !== 1)
+		if($timeout !== 1)
 		{
 			$this->memcached->setOption(PHPMemcached::OPT_CONNECT_TIMEOUT, ($timeout * 1000)); // Multiply by 1000 to convert to ms
 		}

@@ -46,12 +46,12 @@ class Query
 	protected $helper;
 
 	/**
-	 * Query compiler class.
+	 * Query compiler.
 	 *
-	 * @var string
+	 * @var \mako\database\query\compilers\Compiler
 	 */
 
-	protected $compilerClass;
+	protected $compiler;
 
 	/**
 	 * Database table.

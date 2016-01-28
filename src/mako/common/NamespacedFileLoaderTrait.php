@@ -42,7 +42,10 @@ trait NamespacedFileLoaderTrait
 	protected $namespaces = [];
 
 	/**
-	 * Sets the defaut path.
+	 * Sets the default path.
+	 *
+	 * @access  public
+	 * @param   string  $path  Path
 	 */
 
 	public function setPath($path)

@@ -163,7 +163,7 @@ class ConnectionManager extends BaseConnectionManager
 	 *
 	 * @access  public
 	 * @param   string  $driver  Driver name
-	 * @param   string  $alias   Connection class
+	 * @param   string  $class   Connection class
 	 */
 
 	public function setConnectionClass($driver, $class)
@@ -176,7 +176,7 @@ class ConnectionManager extends BaseConnectionManager
 	 *
 	 * @access  public
 	 * @param   string  $driver  Driver name
-	 * @param   string  $alias   Query compiler class
+	 * @param   string  $class   Query compiler class
 	 */
 
 	public function setQueryCompilerClass($driver, $class)
@@ -189,7 +189,7 @@ class ConnectionManager extends BaseConnectionManager
 	 *
 	 * @access  public
 	 * @param   string  $driver  Driver name
-	 * @param   string  $alias   Query builder helper class
+	 * @param   string  $class   Query builder helper class
 	 */
 
 	public function setQueryBuilderHelperClass($driver, $class)
