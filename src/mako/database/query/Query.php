@@ -1128,6 +1128,26 @@ class Query
 	}
 
 	/**
+	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
+	 *
+	 * @access  public
+	 * @param   string  $column   The column to select
+	 * @return  array
+	 */
+
+	public function columns($column = null)
+	{
+		if($column !== null)
+		{
+			$this->select([$column]);
+		}
+
+		$query = $this->compiler->select();
+
+		return $this->connection->columns($query['sql'], $query['params']);
+	}
+
+	/**
 	 * Executes a SELECT query and returns the first row of the result set.
 	 *
 	 * @access  public

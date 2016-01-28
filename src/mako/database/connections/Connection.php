@@ -629,6 +629,20 @@ class Connection
 	}
 
 	/**
+	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
+	 *
+	 * @access  public
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  Query parameters
+	 * @return  array
+	 */
+
+	public function columns($query, array $params = [])
+	{
+		return $this->all($query, $params, PDO::FETCH_COLUMN);
+	}
+
+	/**
 	 * Returns a query builder instance.
 	 *
 	 * @access  public
