@@ -110,9 +110,13 @@ class Time extends DateTime
 
 	public static function createFromDate($year, $month = null, $day = null, $timeZone = null)
 	{
-		$now = static::now($timeZone);
+		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
 
-		return $now->setDate($year, $month ?? $now->format('m'), $day ?? $now->format('d'));
+		$month = $month ?? $now->format('n');
+
+		$day = $day ?? min($date->daysInMonths()[$month - 1], $now->format('j'));
+
+		return $date->setDate($year, $month, $day);
 	}
 
 	/**
@@ -273,15 +277,15 @@ class Time extends DateTime
 	}
 
 	/**
-	 * Returns the number of days in the current month.
+	 * Returns an array containing the number of days in each month of the year.
 	 *
 	 * @access  public
-	 * @return  int
+	 * @return  array
 	 */
 
-	public function daysInMonth()
+	public function daysInMonths()
 	{
-		$days =
+		return
 		[
 			31,
 			$this->isLeapYear() ? 29 : 28,
@@ -296,8 +300,19 @@ class Time extends DateTime
 			30,
 			31
 		];
+	}
 
-		return $days[$this->format('n') - 1];
+	/**
+	 * Returns the number of days in the current or specified month.
+	 *
+	 * @access  public
+	 * @param   null|int  $month  Month
+	 * @return  int
+	 */
+
+	public function daysInMonth()
+	{
+		return $this->daysInMonths()[$this->format('n') - 1];
 	}
 
 	/**
