@@ -54,25 +54,19 @@ class Container
 	 *
 	 * @access  protected
 	 * @param   string|array  $hint  Type hint or array contaning both type hint and alias
-	 * @return  array
+	 * @return  string
 	 */
 
 	protected function parseHint($hint)
 	{
 		if(is_array($hint))
 		{
-			list($name, $alias) = $hint;
+			list($hint, $alias) = $hint;
 
-			$this->aliases[$alias] = $name;
-		}
-		else
-		{
-			$name = $hint;
-
-			$alias = null;
+			$this->aliases[$alias] = $hint;
 		}
 
-		return compact('name', 'alias');
+		return $hint;
 	}
 
 	/**
@@ -86,9 +80,7 @@ class Container
 
 	public function register($hint, $class, $singleton = false)
 	{
-		$hint = $this->parseHint($hint);
-
-		$this->hints[$hint['name']] = ['class' => $class, 'singleton' => $singleton, 'alias' => $hint['alias']];
+		$this->hints[$this->parseHint($hint)] = ['class' => $class, 'singleton' => $singleton];
 	}
 
 	/**
@@ -114,9 +106,7 @@ class Container
 
 	public function registerInstance($hint, $instance)
 	{
-		$hint = $this->parseHint($hint);
-
-		$this->instances[$hint['name']] = $instance;
+		$this->instances[$this->parseHint($hint)] = $instance;
 	}
 
 	/**
