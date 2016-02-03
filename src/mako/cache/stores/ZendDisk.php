@@ -7,6 +7,8 @@
 
 namespace mako\cache\stores;
 
+use RuntimeException;
+
 use mako\cache\stores\StoreInterface;
 
 /**
@@ -17,6 +19,20 @@ use mako\cache\stores\StoreInterface;
 
 class ZendDisk implements StoreInterface
 {
+	/**
+	 * Constructor.
+	 *
+	 * @access  public
+	 */
+
+	public function __construct()
+	{
+		if(function_exists('zend_disk_cache_store') === false)
+		{
+			throw new RuntimeException(vsprintf("%s(): Zend disk cache is not available on your system.", [__METHOD__]));
+		}
+	}
+
 	/**
 	 * {@inheritdoc}
 	 */

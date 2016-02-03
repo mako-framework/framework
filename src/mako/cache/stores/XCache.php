@@ -7,6 +7,8 @@
 
 namespace mako\cache\stores;
 
+use RuntimeException;
+
 use mako\cache\stores\StoreInterface;
 
 /**
@@ -43,6 +45,11 @@ class XCache implements StoreInterface
 
 	public function __construct($username = null, $password = null)
 	{
+		if(function_exists('xcache_set') === false)
+		{
+			throw new RuntimeException(vsprintf("%s(): XCache is not available on your system.", [__METHOD__]));
+		}
+
 		$this->username = $username;
 
 		$this->password = $password;
