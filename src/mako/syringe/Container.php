@@ -50,6 +50,14 @@ class Container
 	protected $instances = [];
 
 	/**
+	 * Contextual dependencies.
+	 *
+	 * @var array
+	 */
+
+	protected $contextualDependencies = [];
+
+	/**
 	 * Parse the hint parameter.
 	 *
 	 * @access  protected
@@ -110,6 +118,20 @@ class Container
 	}
 
 	/**
+	 * Registers a contextual dependency.
+	 *
+	 * @access  public
+	 * @param   string  $class           Class
+	 * @param   string  $interface       Interface
+	 * @param   string  $implementation  Implementation
+	 */
+
+	public function registerContextualDependency($class, $interface, $implementation)
+	{
+		$this->contextualDependencies[$class][$interface] = $implementation;
+	}
+
+	/**
 	 * Return the name based on its alias. If no alias exists then we'll just return the value we received.
 	 *
 	 * @access  protected
@@ -125,7 +147,7 @@ class Container
 	}
 
 	/**
-	 * Resolve a type hint.
+	 * Resolves a type hint.
 	 *
 	 * @access  protected
 	 * @param   string     $hint  Type hint
@@ -135,6 +157,20 @@ class Container
 	protected function resolveHint($hint)
 	{
 		return $this->hints[$hint]['class'] ?? $hint;
+	}
+
+	/**
+	 * Resolves a contextual dependency.
+	 *
+	 * @access  protected
+	 * @param   string     $class      Class
+	 * @param   string     $interface  Interface
+	 * @return  string
+	 */
+
+	protected function resolveContextualDependency($class, $interface)
+	{
+		return $this->contextualDependencies[$class][$interface] ?? $interface;
 	}
 
 	/**
@@ -202,17 +238,25 @@ class Container
 	 * Resolve a parameter.
 	 *
 	 * @access  protected
-	 * @param   \ReflectionParameter  $parameter  ReflectionParameter instance
+	 * @param   \ReflectionParameter   $parameter  ReflectionParameter instance
+	 * @param   null|\ReflectionClass  $className  ReflectionClass instance
 	 * @return  mixed
 	 */
 
-	protected function resolveParameter(ReflectionParameter $parameter)
+	protected function resolveParameter(ReflectionParameter $parameter, ReflectionClass $class = null)
 	{
 		if(($parameterClass = $parameter->getClass()) !== null)
 		{
 			// The parameter should be a class instance. Try to resolve it though the container
 
-			return $this->get($parameterClass->getName());
+			$parameterClassName = $parameterClass->getName();
+
+			if($class !== null)
+			{
+				$parameterClassName = $this->resolveContextualDependency($class->getName(), $parameterClassName);
+			}
+
+			return $this->get($parameterClassName);
 		}
 
 		if($parameter->isDefaultValueAvailable())
@@ -231,12 +275,13 @@ class Container
 	 * Resolve parameters.
 	 *
 	 * @access  public
-	 * @param   array   $reflectionParameters  Reflection parameters
-	 * @param   array   $providedParameters    Provided Parameters
+	 * @param   array                  $reflectionParameters  Reflection parameters
+	 * @param   array                  $providedParameters    Provided Parameters
+	 * @param   null|\ReflectionClass  $className             ReflectionClass instance
 	 * @return  array
 	 */
 
-	protected function resolveParameters(array $reflectionParameters, array $providedParameters)
+	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ReflectionClass $class = null)
 	{
 		if(empty($reflectionParameters))
 		{
@@ -253,7 +298,7 @@ class Container
 		{
 			if($parameter instanceof ReflectionParameter)
 			{
-				$parameters[$key] = $this->resolveParameter($parameter);
+				$parameters[$key] = $this->resolveParameter($parameter, $class);
 			}
 		}
 
@@ -340,7 +385,7 @@ class Container
 
 			// Create and return a new instance using our resolved parameters
 
-			$instance = $class->newInstanceArgs($this->resolveParameters($constructorParameters, $parameters));
+			$instance = $class->newInstanceArgs($this->resolveParameters($constructorParameters, $parameters, $class));
 		}
 
 		return $instance;

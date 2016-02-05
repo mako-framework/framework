@@ -68,6 +68,41 @@ class Fox
 	}
 }
 
+interface ContextualInterface
+{
+
+}
+
+class ContextualImplementationA implements ContextualInterface
+{
+
+}
+
+class ContextualImplementationB implements ContextualInterface
+{
+
+}
+
+class ContextClassA
+{
+	public $implementation;
+
+	public function __construct(ContextualInterface $implementation)
+	{
+		$this->implementation = $implementation;
+	}
+}
+
+class ContextClassB
+{
+	public $implementation;
+
+	public function __construct(ContextualInterface $implementation)
+	{
+		$this->implementation = $implementation;
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -388,5 +423,23 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$container = new Container;
 
 		$container->call(function($foo){});
+	}
+
+	/**
+	 *
+	 */
+
+	public function testContextualDependencies()
+	{
+		$container = new Container;
+
+		$container->registerContextualDependency(ContextClassA::class, ContextualInterface::class, ContextualImplementationA::class);
+		$container->registerContextualDependency(ContextClassB::class, ContextualInterface::class, ContextualImplementationB::class);
+
+		$a = $container->get(ContextClassA::class);
+		$b = $container->get(ContextClassB::class);
+
+		$this->assertInstanceOf(ContextualImplementationA::class, $a->implementation);
+		$this->assertInstanceOf(ContextualImplementationB::class, $b->implementation);
 	}
 }
