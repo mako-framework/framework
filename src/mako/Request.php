@@ -313,8 +313,9 @@ class Request
 		static::$isAjax = (bool) (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 
 		// Was the request made using HTTPS?
+		// Per spec, HTTPS should be nonempty when it is enabled, but IIS sets it to off when disabled.
 
-		static::$isSecure = (!empty($_SERVER['HTTPS']) && filter_var($_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
+		static::$isSecure = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off';
 	}
 
 	/**
