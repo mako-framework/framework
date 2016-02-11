@@ -139,7 +139,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['REMOTE_ADDR'] = '127.0.0.1';
 
-		$server['HTTP_X_FORWARDED_FOR'] = '10.17.12.211, 10.17.12.212, 10.17.12.213';
+		$server['HTTP_X_FORWARDED_FOR'] = '10.17.13.0, 10.17.13.1, 10.17.12.212, 10.17.12.213';
 
 		$request = new Request(['server' => $server]);
 
@@ -159,7 +159,15 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$request->setTrustedProxies(['10.17.12.212', '10.17.12.213']);
 
-		$this->assertEquals('10.17.12.211', $request->ip());
+		$this->assertEquals('10.17.13.1', $request->ip());
+
+		// Should return the IP forwarded by the first trusted proxy
+
+		$request = new Request(['server' => $server]);
+
+		$request->setTrustedProxies(['10.17.12.0/24']);
+
+		$this->assertEquals('10.17.13.1', $request->ip());
 	}
 
 	/**

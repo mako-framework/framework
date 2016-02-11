@@ -12,6 +12,7 @@ use RuntimeException;
 use mako\http\routing\Route;
 use mako\security\Signer;
 use mako\utility\Arr;
+use mako\utility\ip\IP;
 
 /**
  * Executes requets.
@@ -838,9 +839,14 @@ class Request
 
 					foreach($ips as $key => $value)
 					{
-						if(in_array($value, $this->trustedProxies))
+						foreach($this->trustedProxies as $trustedProxy)
 						{
-							unset($ips[$key]);
+							if(IP::inRange($value, $trustedProxy))
+							{
+								unset($ips[$key]);
+
+								break;
+							}
 						}
 					}
 
