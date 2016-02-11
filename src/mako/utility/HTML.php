@@ -7,8 +7,7 @@
 
 namespace mako\utility;
 
-use Closure;
-use BadMethodCallException;
+use mako\common\ExtendableTrait;
 
 /**
  * HTML helper.
@@ -18,6 +17,8 @@ use BadMethodCallException;
 
 class HTML
 {
+	use ExtendableTrait;
+
 	/**
 	 * Should we return XHTML?
 	 *
@@ -25,14 +26,6 @@ class HTML
 	 */
 
 	protected $xhtml;
-
-	/**
-	 * Custom tags.
-	 *
-	 * @var array
-	 */
-
-	protected static $tags = [];
 
 	/**
 	 * Constructor.
@@ -44,19 +37,6 @@ class HTML
 	public function __construct($xhtml = false)
 	{
 		$this->xhtml = $xhtml;
-	}
-
-	/**
-	 * Registers a new HTML tag.
-	 *
-	 * @access  public
-	 * @param   string    $name  Tag name
-	 * @param   \Closure  $tag   Tag closure
-	 */
-
-	public static function registerTag($name, Closure $tag)
-	{
-		static::$tags[$name] = $tag;
 	}
 
 	/**
@@ -204,24 +184,5 @@ class HTML
 	public function ol(array $items, array $attributes = [])
 	{
 		return $this->buildList('ol', $items, $attributes);
-	}
-
-	/**
-	 * Magic shortcut to the custom HTML macros.
-	 *
-	 * @access  public
-	 * @param   string  $name       Method name
-	 * @param   array   $arguments  Method arguments
-	 * @return  string
-	 */
-
-	public function __call($name, array $arguments)
-	{
-		if(!isset(static::$tags[$name]))
-		{
-			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
-		}
-
-		return (static::$tags[$name])(...array_merge([$this], $arguments));
 	}
 }
