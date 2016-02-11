@@ -16,7 +16,7 @@ namespace mako\utility\ip;
 class IPv4
 {
 	/**
-	 * Checks if an IP is the specified range.
+	 * Checks if an IP is in the specified range.
 	 *
 	 * @access  public
 	 * @param   string   $ip    IP address
