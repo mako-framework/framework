@@ -12,7 +12,6 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\URLBuilder;
 use mako\http\routing\Routes;
-use mako\security\Signer;
 
 /**
  * HTTP service.
@@ -28,13 +27,6 @@ class HTTPService extends Service
 
 	public function register()
 	{
-		// Signer
-
-		$this->container->registerSingleton([Signer::class, 'signer'], function($container)
-		{
-			return new Signer($container->get('config')->get('application.secret'));
-		});
-
 		// Request
 
 		$this->container->registerSingleton([Request::class, 'request'], function($container)
