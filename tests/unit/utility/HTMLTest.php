@@ -159,11 +159,11 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	 *
 	 */
 
-	public function testCustom()
+	public function testExtending()
 	{
-		HTML::registerTag('foo', function($html, $content = null, $attributes = [])
+		HTML::extend('foo', function($content = null, $attributes = [])
 		{
-			return $html->tag('foo', $attributes, $content);
+			return $this->tag('foo', $attributes, $content);
 		});
 
 		$html = new HTML;
@@ -193,6 +193,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	{
 		$html = new HTML;
 
-		$html->bar();
+		$html->nope();
 	}
 }

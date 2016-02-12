@@ -282,4 +282,36 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertTrue(($collection[0] === 1 || $collection[0] === 2));
 	}
+
+	/**
+	 *
+	 */
+
+	public function testExtending()
+	{
+		Collection::extend('increaseByOne', function()
+		{
+			foreach($this->items as $key => $value)
+			{
+				$this->items[$key] += 1;
+			}
+		});
+
+		$collection = new Collection([1, 2, 3, 4, 5, 6]);
+
+		$collection->increaseByOne();
+
+		$this->assertSame([2, 3, 4, 5, 6, 7], $collection->getItems());
+	}
+
+	/**
+	 * @expectedException \BadMethodCallException
+	 */
+
+	public function testException()
+	{
+		$collection = new Collection();
+
+		$collection->nope();
+	}
 }

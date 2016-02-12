@@ -13,6 +13,8 @@ use Closure;
 use Countable;
 use IteratorAggregate;
 
+use mako\common\ExtendableTrait;
+
 /**
  * Collection.
  *
@@ -21,6 +23,8 @@ use IteratorAggregate;
 
 class Collection implements ArrayAccess, Countable, IteratorAggregate
 {
+	use ExtendableTrait;
+
 	/**
 	 * Collection items.
 	 *
