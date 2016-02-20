@@ -74,6 +74,6 @@ trait ExtendableTrait
 			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [static::class, $name]));
 		}
 
-		return Closure::bind(static::$_extensions[$name], null, static::class)(...$arguments);
+		return static::$_extensions[$name]->bindTo(null, static::class)(...$arguments);
 	}
 }
