@@ -10,7 +10,6 @@ namespace mako\application\cli\commands\app;
 use mako\application\Application;
 use mako\file\FileSystem;
 use mako\reactor\Command;
-use mako\utility\Str;
 
 /**
  * Command that generates a new application secret.
@@ -52,7 +51,7 @@ class GenerateSecret extends Command
 			return;
 		}
 
-		$secret = bin2hex(random_bytes(32));
+		$secret = bin2hex(random_bytes(16));
 
 		$contents = $fileSystem->getContents($configFile);
 

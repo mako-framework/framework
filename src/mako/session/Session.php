@@ -12,7 +12,6 @@ use LogicException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\session\stores\StoreInterface;
-use mako\utility\UUID;
 
 /**
  * Session class.
@@ -194,7 +193,7 @@ class Session
 
 	protected function generateId()
 	{
-		return hash('sha256', UUID::v4());
+		return hash('sha256', random_bytes(16));
 	}
 
 	/**

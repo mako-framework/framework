@@ -17,7 +17,6 @@ use mako\chrono\Time;
 use mako\database\midgard\ORM;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\security\Password;
-use mako\utility\UUID;
 
 /**
  * User.
@@ -72,7 +71,7 @@ class User extends ORM implements UserInterface, MemberInterface
 			throw new LogicException(vsprintf("%s(): You can only generate auth tokens for users that exist in the database.", [__METHOD__]));
 		}
 
-		return hash('sha256', UUID::v4() . $this->getId());
+		return hash('sha256', random_bytes(16) . $this->getId());
 	}
 
 	/**
