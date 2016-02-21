@@ -11,7 +11,6 @@ use LogicException;
 
 use mako\http\Request;
 use mako\http\Response;
-use mako\security\Comparer;
 use mako\session\stores\StoreInterface;
 use mako\utility\UUID;
 
@@ -619,7 +618,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		return Comparer::compare($this->token, $token);
+		return hash_equals($this->token, $token);
 	}
 
 	/**
@@ -671,7 +670,7 @@ class Session
 		{
 			foreach($this->sessionData['mako.tokens'] as $key => $value)
 			{
-				if(Comparer::compare($value, $token))
+				if(hash_equals($value, $token))
 				{
 					unset($this->sessionData['mako.tokens'][$key]);
 

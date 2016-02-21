@@ -7,8 +7,6 @@
 
 namespace mako\security;
 
-use mako\security\Comparer;
-
 /**
  * Signs and validates strings using MACs (message authentication codes).
  *
@@ -83,7 +81,7 @@ class Signer
 	{
 		$validated = substr($string, static::MAC_LENGTH);
 
-		if(Comparer::compare($this->getSignature($validated), substr($string, 0, static::MAC_LENGTH)))
+		if(hash_equals($this->getSignature($validated), substr($string, 0, static::MAC_LENGTH)))
 		{
 			return $validated;
 		}
