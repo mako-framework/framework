@@ -72,7 +72,7 @@ class User extends ORM implements UserInterface, MemberInterface
 			throw new LogicException(vsprintf("%s(): You can only generate auth tokens for users that exist in the database.", [__METHOD__]));
 		}
 
-		return hash('sha256', UUID::v4() . $this->getId() . uniqid('token', true));
+		return hash('sha256', UUID::v4() . $this->getId());
 	}
 
 	/**
