@@ -43,27 +43,6 @@ abstract class Encrypter
 
 	protected function deriveKey($key, $salt, $keySize)
 	{
-		if(function_exists('hash_pbkdf2'))
-		{
-			return hash_pbkdf2(static::DERIVATION_HASH, $key, $salt, static::DERIVATION_ITERATIONS, $keySize, true);
-		}
-		else
-		{
-			$derivedKey = '';
-
-			for($block = 1; $block <= $keySize; $block++)
-			{
-				$ib = $h = hash_hmac(static::DERIVATION_HASH, $salt . pack('N', $block), $key, true);
-
-				for($i = 1; $i < static::DERIVATION_ITERATIONS; $i++)
-				{
-					$ib ^= ($h = hash_hmac(static::DERIVATION_HASH, $h, $key, true));
-				}
-
-				$derivedKey .= $ib;
-			}
-
-			return substr($derivedKey, 0, $keySize);
-		}
+		return hash_pbkdf2(static::DERIVATION_HASH, $key, $salt, static::DERIVATION_ITERATIONS, $keySize, true);
 	}
 }
