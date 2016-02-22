@@ -1,15 +1,20 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http\routing;
 
-use mako\http\routing\Filters;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\http\routing\Filters;
 
 /**
  * @group unit
  */
-class FiltersTest extends \PHPUnit_Framework_TestCase
+class FiltersTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

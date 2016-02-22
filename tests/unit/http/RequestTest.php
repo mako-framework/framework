@@ -1,22 +1,28 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http;
 
-use mako\http\Request;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\http\Request;
 
 /**
  * @group unit
  */
-class RequestTest extends \PHPUnit_Framework_TestCase
+class RequestTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -521,7 +527,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSignedCookie()
 	{
-		$signer = m::mock('\mako\security\Signer');
+		$signer = Mockery::mock('\mako\security\Signer');
 
 		$signer->shouldReceive('validate')->withArgs(['bar'])->andReturn('bar');
 
@@ -725,7 +731,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$request = new Request();
 
-		$route = m::mock('mako\http\routing\Route');
+		$route = Mockery::mock('mako\http\routing\Route');
 
 		$request->setRoute($route);
 	}
@@ -739,7 +745,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertNull($request->getRoute());
 
-		$route = m::mock('mako\http\routing\Route');
+		$route = Mockery::mock('mako\http\routing\Route');
 
 		$request->setRoute($route);
 

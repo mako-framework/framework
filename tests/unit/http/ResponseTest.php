@@ -1,22 +1,28 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http;
 
-use mako\http\Response;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\http\Response;
 
 /**
  * @group unit
  */
-class ResponseTest extends \PHPUnit_Framework_TestCase
+class ResponseTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -24,7 +30,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getRequest()
 	{
-		$request = m::mock('\mako\http\Request');
+		$request = Mockery::mock('\mako\http\Request');
 
 		return $request;
 	}
@@ -74,7 +80,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testBodyWithContainer()
 	{
-		$container = m::mock('\mako\http\responses\File');
+		$container = Mockery::mock('\mako\http\responses\File');
 
 		$response = new Response($this->getRequest());
 
@@ -84,7 +90,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$container = m::mock('\mako\http\responses\Redirect');
+		$container = Mockery::mock('\mako\http\responses\Redirect');
 
 		$response = new Response($this->getRequest());
 
@@ -94,7 +100,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$container = m::mock('\mako\http\responses\Stream');
+		$container = Mockery::mock('\mako\http\responses\Stream');
 
 		$response = new Response($this->getRequest());
 
@@ -415,7 +421,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSignedCookie()
 	{
-		$signer = m::mock('\mako\security\Signer');
+		$signer = Mockery::mock('\mako\security\Signer');
 
 		$signer->shouldReceive('sign')->andReturn('signed_cookie_value');
 

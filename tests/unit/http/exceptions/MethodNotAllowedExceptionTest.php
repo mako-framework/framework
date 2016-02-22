@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http\exceptions;
 
-use mako\http\exceptions\MethodNotAllowedException;
-
 use PHPUnit_Framework_TestCase;
+
+use mako\http\exceptions\MethodNotAllowedException;
 
 /**
  * @group unit

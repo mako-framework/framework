@@ -1,22 +1,28 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\cache\stores;
 
-use mako\cache\stores\Database;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\cache\stores\Database;
 
 /**
  * @group unit
  */
-class DatabaseTest extends \PHPUnit_Framework_TestCase
+class DatabaseTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -24,7 +30,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getDatabaseConnection()
 	{
-		return m::mock('mako\database\connections\Connection');
+		return Mockery::mock('mako\database\connections\Connection');
 	}
 
 	/**
@@ -32,7 +38,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getQueryBuilder()
 	{
-		return m::mock('mako\database\query\Query');
+		return Mockery::mock('mako\database\query\Query');
 	}
 
 	/**

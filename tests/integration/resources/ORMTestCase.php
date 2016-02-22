@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 use mako\database\ConnectionManager;
 
 class TestORM extends \mako\database\midgard\ORM

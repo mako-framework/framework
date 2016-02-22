@@ -1,8 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\integration\database\midgard;
 
-use \DateTime;
+use DateTime;
 
 use mako\utility\UUID;
 

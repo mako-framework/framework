@@ -1,6 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\event;
+
+use PHPUnit_Framework_TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -33,7 +40,7 @@ class Observable
 /**
  * @group unit
  */
-class ObservableTest extends \PHPUnit_Framework_TestCase
+class ObservableTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

@@ -1,22 +1,28 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\cache;
 
-use mako\cache\Cache;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\cache\Cache;
 
 /**
  * @group unit
  */
-class CacheTest extends \PHPUnit_Framework_TestCase
+class CacheTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -24,7 +30,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getStore()
 	{
-		return m::mock('\mako\cache\stores\StoreInterface');
+		return Mockery::mock('\mako\cache\stores\StoreInterface');
 	}
 
 	/**

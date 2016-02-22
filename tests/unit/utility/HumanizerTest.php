@@ -1,24 +1,29 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\utility;
 
-use \DateTime;
+use DateTime;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
 use mako\utility\Humanizer;
-
-use \Mockery as m;
 
 /**
  * @group unit
  */
-class HumanizerTest extends \PHPUnit_Framework_TestCase
+class HumanizerTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -26,7 +31,7 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getI18n()
 	{
-		$i18n = m::mock('\mako\i18n\I18n');
+		$i18n = Mockery::mock('\mako\i18n\I18n');
 
 		$i18n->shouldReceive('get')->andReturnUsing(function($key, $params = [])
 		{

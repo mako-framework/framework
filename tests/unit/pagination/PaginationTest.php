@@ -1,22 +1,28 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\pagination;
 
-use mako\pagination\Pagination;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\pagination\Pagination;
 
 /**
  * @group unit
  */
-class PaginationTest extends \PHPUnit_Framework_TestCase
+class PaginationTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -24,7 +30,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getRequest()
 	{
-		return m::mock('mako\http\Request');
+		return Mockery::mock('mako\http\Request');
 	}
 
 	/**
@@ -32,7 +38,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getViewFactory()
 	{
-		return m::mock('mako\view\ViewFactory');
+		return Mockery::mock('mako\view\ViewFactory');
 	}
 
 	/**
@@ -40,7 +46,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getView()
 	{
-		return m::mock('mako\view\View');
+		return Mockery::mock('mako\view\View');
 	}
 
 	/**
@@ -48,7 +54,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getURLBuilder()
 	{
-		return m::mock('mako\http\routing\URLBuilder');
+		return Mockery::mock('mako\http\routing\URLBuilder');
 	}
 
 	/**

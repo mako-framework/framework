@@ -1,15 +1,21 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\cli\output\formatter;
 
-use \Exception;
+use Exception;
+use PHPUnit_Framework_TestCase;
 
 use mako\cli\output\formatter\Formatter;
 
 /**
  * @group unit
  */
-class OutputTest extends \PHPUnit_Framework_TestCase
+class OutputTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

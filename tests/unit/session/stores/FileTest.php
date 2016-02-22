@@ -1,22 +1,28 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\session\stores;
 
-use mako\session\stores\File;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\session\stores\File;
 
 /**
  * @group unit
  */
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -24,7 +30,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getFileSystem()
 	{
-		return m::mock('mako\file\FileSystem');
+		return Mockery::mock('mako\file\FileSystem');
 	}
 
 	/**

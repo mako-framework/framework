@@ -1,13 +1,20 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\security;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\security\Password;
 
 /**
  * @group unit
  */
-class PasswordTest extends \PHPUnit_Framework_TestCase
+class PasswordTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

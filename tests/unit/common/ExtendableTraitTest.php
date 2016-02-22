@@ -1,6 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\common;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\common\ExtendableTrait;
 
@@ -24,7 +31,7 @@ class Extended
 /**
  * @group unit
  */
-class ExtendableTraitTest extends \PHPUnit_Framework_TestCase
+class ExtendableTraitTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

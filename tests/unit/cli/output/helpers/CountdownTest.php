@@ -1,23 +1,29 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\cli\output\helpers;
 
-use mako\cli\output\helpers\Countdown;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use Mockery as m;
+use mako\cli\output\helpers\Countdown;
 
 /**
  * @group unit
  * @group slow
  */
-class CountdownTest extends \PHPUnit_Framework_TestCase
+class CountdownTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -25,7 +31,7 @@ class CountdownTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCountdownFromDefault()
 	{
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with("\r5     ");
 		$output->shouldReceive('write')->once()->with("\r5 .   ");
@@ -59,7 +65,7 @@ class CountdownTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCountdownFrom2()
 	{
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with("\r2     ");
 		$output->shouldReceive('write')->once()->with("\r2 .   ");

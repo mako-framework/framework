@@ -1,6 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\syringe;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\syringe\Container;
 
@@ -30,7 +37,7 @@ class BaxChild extends Bax
 /**
  * @group unit
  */
-class ContainerAwareTest extends \PHPUnit_Framework_TestCase
+class ContainerAwareTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

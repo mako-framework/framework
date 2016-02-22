@@ -1,12 +1,16 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\cli\output;
 
-use mako\cli\output\Output;
-
-use Mockery as m;
-
+use Mockery;
 use PHPUnit_Framework_TestCase;
+
+use mako\cli\output\Output;
 
 /**
  * @group unit
@@ -18,7 +22,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -26,7 +30,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	 */
 	public function getWriter()
 	{
-		return m::mock('mako\cli\output\writer\WriterInterface');
+		return Mockery::mock('mako\cli\output\writer\WriterInterface');
 	}
 
 	/**
@@ -34,7 +38,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	 */
 	public function getFormatter()
 	{
-		return m::mock('mako\cli\output\formatter\FormatterInterface');
+		return Mockery::mock('mako\cli\output\formatter\FormatterInterface');
 	}
 
 	/**

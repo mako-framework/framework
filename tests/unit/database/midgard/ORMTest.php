@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\database\midgard;
 
-use \DateTime;
-
-use \Mockery as m;
+use DateTime;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -98,14 +103,14 @@ class TestCastingDate extends \mako\database\midgard\ORM
 /**
  * @group unit
  */
-class ORMTest extends \PHPUnit_Framework_TestCase
+class ORMTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -481,7 +486,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$cast = m::mock('mako\tests\unit\database\midgard\TestCastingDate');
+		$cast = Mockery::mock('mako\tests\unit\database\midgard\TestCastingDate');
 
 		$cast->shouldAllowMockingProtectedMethods();
 

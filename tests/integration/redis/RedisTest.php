@@ -1,6 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\integration\redis;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\redis\Connection;
 use mako\redis\Redis;
@@ -16,7 +23,7 @@ use mako\redis\RedisException;
  * @group integration
  * @group integration:redis
  */
-class RedisTest extends \PHPUnit_Framework_TestCase
+class RedisTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

@@ -1,10 +1,16 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\database\midgard;
 
-use mako\database\midgard\Query;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\database\midgard\Query;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -27,14 +33,14 @@ class ScopedModel extends \mako\database\midgard\ORM
 /**
  * @group unit
  */
-class QueryTest extends \PHPUnit_Framework_TestCase
+class QueryTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -42,11 +48,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getConnecion()
 	{
-		$connection = m::mock('\mako\database\connections\Connection');
+		$connection = Mockery::mock('\mako\database\connections\Connection');
 
-		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(m::mock('\mako\database\query\helpers\HelperInterface'));
+		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock('\mako\database\query\helpers\HelperInterface'));
 
-		$connection->shouldReceive('getQueryCompiler')->andReturn(m::mock('\mako\database\query\compilers\Compiler'));
+		$connection->shouldReceive('getQueryCompiler')->andReturn(Mockery::mock('\mako\database\query\compilers\Compiler'));
 
 		return $connection;
 	}
@@ -56,7 +62,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getModel()
 	{
-		$model = m::mock('\mako\database\midgard\ORM');
+		$model = Mockery::mock('\mako\database\midgard\ORM');
 
 		return $model;
 	}
@@ -66,7 +72,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getQuery($model)
 	{
-		return m::mock('\mako\database\midgard\Query', [$this->getConnecion(), $model]);
+		return Mockery::mock('\mako\database\midgard\Query', [$this->getConnecion(), $model]);
 	}
 
 	/**
@@ -108,7 +114,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		$query = m::mock('\mako\database\midgard\Query[where,first]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock('\mako\database\midgard\Query[where,first]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($query);
 
@@ -128,7 +134,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		$query = m::mock('\mako\database\midgard\Query[select,where,first]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock('\mako\database\midgard\Query[select,where,first]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('select')->once()->with(['foo', 'bar']);
 
@@ -238,13 +244,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testBatch()
 	{
-		$model = m::mock('\mako\database\midgard\ORM');
+		$model = Mockery::mock('\mako\database\midgard\ORM');
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getPrimaryKey')->andReturn('foobar');
 
-		$query = m::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('all')->once()->andReturn([]);
 
@@ -257,11 +263,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$model = m::mock('\mako\database\midgard\ORM');
+		$model = Mockery::mock('\mako\database\midgard\ORM');
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$query = m::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('all')->once()->andReturn([]);
 

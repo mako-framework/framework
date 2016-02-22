@@ -1,13 +1,20 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\utility;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\utility\HTML;
 
 /**
  * @group unit
  */
-class HTMLTest extends \PHPUnit_Framework_TestCase
+class HTMLTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

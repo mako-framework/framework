@@ -1,13 +1,20 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\utility\ip;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\utility\ip\IP;
 
 /**
  * @group unit
  */
-class IPTest extends \PHPUnit_Framework_TestCase
+class IPTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

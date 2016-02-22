@@ -1,22 +1,28 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\auth;
 
-use mako\auth\Gatekeeper;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\auth\Gatekeeper;
 
 /**
  * @group unit
  */
-class GatekeeperTest extends \PHPUnit_Framework_TestCase
+class GatekeeperTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -24,7 +30,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getRequest()
 	{
-		return m::mock('\mako\http\Request');
+		return Mockery::mock('\mako\http\Request');
 	}
 
 	/**
@@ -32,7 +38,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getResponse()
 	{
-		return m::mock('\mako\http\Response');
+		return Mockery::mock('\mako\http\Response');
 	}
 
 	/**
@@ -40,11 +46,11 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getSession()
 	{
-		$store = m::mock('\mako\session\stores\StoreInterface');
+		$store = Mockery::mock('\mako\session\stores\StoreInterface');
 
 		$store->shouldReceive('gc');
 
-		$session = m::mock('\mako\session\Session', [$this->getRequest(), $this->getResponse(), $store]);
+		$session = Mockery::mock('\mako\session\Session', [$this->getRequest(), $this->getResponse(), $store]);
 
 		return $session;
 	}
@@ -54,7 +60,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getUserProvider()
 	{
-		return m::mock('\mako\auth\providers\UserProvider');
+		return Mockery::mock('\mako\auth\providers\UserProvider');
 	}
 
 	/**
@@ -62,7 +68,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getUser()
 	{
-		return m::mock('\mako\auth\user\UserInterface');
+		return Mockery::mock('\mako\auth\user\UserInterface');
 	}
 
 	/**
@@ -70,7 +76,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getGroupProvider()
 	{
-		return m::mock('\mako\auth\providers\GroupProvider');
+		return Mockery::mock('\mako\auth\providers\GroupProvider');
 	}
 
 	/**
@@ -78,7 +84,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getGroup()
 	{
-		return m::mock('\mako\auth\group\GroupInterface');
+		return Mockery::mock('\mako\auth\group\GroupInterface');
 	}
 
 	/**
@@ -606,7 +612,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$response = $this->getResponse();
 
-		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$request, $response, $this->getSession(), $this->getUserProvider(), $this->getGroupProvider()])->makePartial();
+		$gatekeeper = Mockery::mock('\mako\auth\Gatekeeper', [$request, $response, $this->getSession(), $this->getUserProvider(), $this->getGroupProvider()])->makePartial();
 
 		$gatekeeper->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
@@ -628,7 +634,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testBasicAuthIsLoggedIn()
 	{
-		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider()])->makePartial();
+		$gatekeeper = Mockery::mock('\mako\auth\Gatekeeper', [$this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider()])->makePartial();
 
 		$gatekeeper->shouldReceive('isLoggedIn')->once()->andReturn(true);
 
@@ -646,7 +652,7 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('password')->once()->andReturn('password');
 
-		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$request, $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider()])->makePartial();
+		$gatekeeper = Mockery::mock('\mako\auth\Gatekeeper', [$request, $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider()])->makePartial();
 
 		$gatekeeper->shouldReceive('isLoggedIn')->once()->andReturn(false);
 

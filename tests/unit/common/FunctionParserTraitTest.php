@@ -1,6 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\common;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\common\FunctionParserTrait;
 
@@ -25,7 +32,7 @@ class Parser
 /**
  * @group unit
  */
-class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
+class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

@@ -1,12 +1,16 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\cli\input\helpers;
 
-use mako\cli\input\helpers\Question;
-
-use Mockery as m;
-
+use Mockery;
 use PHPUnit_Framework_TestCase;
+
+use mako\cli\input\helpers\Question;
 
 /**
  * @group unit
@@ -18,7 +22,7 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -26,11 +30,11 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testQuestion()
 	{
-		$input = m::mock('mako\cli\input\Input');
+		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('read')->once()->andReturn('foobar');
 
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with('Username: ');
 
@@ -44,11 +48,11 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testQuestionWithNoInputAndNullDefault()
 	{
-		$input = m::mock('mako\cli\input\Input');
+		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('read')->once()->andReturn();
 
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with('Username: ');
 
@@ -62,11 +66,11 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testQuestionWithNoInputAndCustomDefault()
 	{
-		$input = m::mock('mako\cli\input\Input');
+		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('read')->once()->andReturn();
 
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with('Username: ');
 

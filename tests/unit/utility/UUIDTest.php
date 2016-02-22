@@ -1,13 +1,20 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\utility;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\utility\UUID;
 
 /**
  * @group unit
  */
-class UUIDTest extends \PHPUnit_Framework_TestCase
+class UUIDTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

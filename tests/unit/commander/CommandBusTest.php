@@ -1,8 +1,11 @@
 <?php
 
-namespace mako\tests\unit\commander;
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
-use Mockery as m;
+namespace mako\tests\unit\commander;
 
 use PHPUnit_Framework_TestCase;
 

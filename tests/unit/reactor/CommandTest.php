@@ -1,12 +1,16 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\reactor;
 
-use Mockery as m;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
 use mako\reactor\Command;
-
-use PHPUnit_Framework_TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -55,7 +59,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -63,7 +67,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testHelp()
 	{
-		$input = m::mock('mako\cli\input\Input');
+		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('getArgument')->with('help')->andReturn(true);
 
@@ -71,7 +75,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
@@ -123,13 +127,13 @@ EOF;
 	 */
 	public function testExecute()
 	{
-		$input = m::mock('mako\cli\input\Input');
+		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('getArgument')->with('help')->andReturn(false);
 
 		//
 
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		//
 

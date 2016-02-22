@@ -1,13 +1,20 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http\routing;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\http\routing\Routes;
 
 /**
  * @group unit
  */
-class RoutesTest extends \PHPUnit_Framework_TestCase
+class RoutesTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *

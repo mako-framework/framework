@@ -1,15 +1,21 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\i18n;
 
-use mako\i18n\I18n;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\i18n\I18n;
 
 /**
  * @group unit
  */
-class I18nTest extends \PHPUnit_Framework_TestCase
+class I18nTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
@@ -26,7 +32,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -34,7 +40,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getLoader()
 	{
-		return m::mock('mako\i18n\Loader');
+		return Mockery::mock('mako\i18n\Loader');
 	}
 
 	/**
@@ -42,7 +48,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function getCache()
 	{
-		return m::mock('mako\cache\Cache');
+		return Mockery::mock('mako\cache\Cache');
 	}
 
 	/**

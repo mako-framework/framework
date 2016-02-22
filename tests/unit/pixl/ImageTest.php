@@ -1,22 +1,28 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\pixl;
 
-use \Mockery as m;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
 use mako\pixl\Image;
 
 /**
  * @group unit
  */
-class ImageTest extends \PHPUnit_Framework_TestCase
+class ImageTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -24,7 +30,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getProcessor()
 	{
-		return m::mock('mako\pixl\processors\ProcessorInterface');
+		return Mockery::mock('mako\pixl\processors\ProcessorInterface');
 	}
 
 	/**

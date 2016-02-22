@@ -1,22 +1,28 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http\routing;
 
-use mako\http\routing\URLBuilder;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\http\routing\URLBuilder;
 
 /**
  * @group unit
  */
-class URLBuilderTest extends \PHPUnit_Framework_TestCase
+class URLBuilderTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -24,7 +30,7 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getRequest($langPrefix = '')
 	{
-		$request = m::mock('\mako\http\Request');
+		$request = Mockery::mock('\mako\http\Request');
 
 		$request->shouldReceive('path')->andReturn('/foo/bar');
 
@@ -40,15 +46,15 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getRoutes()
 	{
-		$route1 = m::mock('\mako\http\routing\Route');
+		$route1 = Mockery::mock('\mako\http\routing\Route');
 
 		$route1->shouldReceive('getRoute')->andReturn('/article/{id}/{slug}');
 
-		$route2 = m::mock('\mako\http\routing\Route');
+		$route2 = Mockery::mock('\mako\http\routing\Route');
 
 		$route2->shouldReceive('getRoute')->andReturn('/article/{id}/{slug}?');
 
-		$routes = m::mock('\mako\http\routing\Routes');
+		$routes = Mockery::mock('\mako\http\routing\Routes');
 
 		$routes->shouldReceive('getNamedRoute')->withArgs(['foo'])->andReturn($route1);
 

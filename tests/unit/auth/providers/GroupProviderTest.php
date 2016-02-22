@@ -1,22 +1,28 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\auth\providers;
 
-use mako\auth\providers\GroupProvider;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\auth\providers\GroupProvider;
 
 /**
  * @group unit
  */
-class GroupProviderTest extends \PHPUnit_Framework_TestCase
+class GroupProviderTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -24,7 +30,7 @@ class GroupProviderTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getGroup()
 	{
-		return m::mock('overload:mako\auth\group\Group')->shouldDeferMissing();
+		return Mockery::mock('overload:mako\auth\group\Group')->shouldDeferMissing();
 	}
 
 	/**

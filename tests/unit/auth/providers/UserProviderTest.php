@@ -1,23 +1,29 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\auth\providers;
 
-use mako\auth\providers\UserProvider;
-
 use DateTime;
-use Mockery as m;
+use Mockery;
+use PHPUnit_Framework_TestCase;
+
+use mako\auth\providers\UserProvider;
 
 /**
  * @group unit
  */
-class UserProviderTest extends \PHPUnit_Framework_TestCase
+class UserProviderTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
@@ -25,7 +31,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getUser()
 	{
-		return m::mock('overload:mako\auth\user\User')->shouldDeferMissing();
+		return Mockery::mock('overload:mako\auth\user\User')->shouldDeferMissing();
 	}
 
 	/**
@@ -137,7 +143,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	{
 		$userProvider = new UserProvider($this->getUser());
 
-		$user = m::mock('mako\auth\user\UserInterface');
+		$user = Mockery::mock('mako\auth\user\UserInterface');
 
 		$user->shouldReceive('getLastFailAt')->once()->andReturn(null);
 
@@ -159,7 +165,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	{
 		$userProvider = new UserProvider($this->getUser());
 
-		$user = m::mock('mako\auth\user\UserInterface');
+		$user = Mockery::mock('mako\auth\user\UserInterface');
 
 		$user->shouldReceive('getLastFailAt')->once()->andReturn(new DateTime('1999-01-01 12:12:12'));
 
@@ -183,7 +189,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	{
 		$userProvider = new UserProvider($this->getUser());
 
-		$user = m::mock('mako\auth\user\UserInterface');
+		$user = Mockery::mock('mako\auth\user\UserInterface');
 
 		$user->shouldReceive('getLastFailAt')->once()->andReturn(null);
 
@@ -207,7 +213,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	{
 		$userProvider = new UserProvider($this->getUser());
 
-		$user = m::mock('mako\auth\user\UserInterface');
+		$user = Mockery::mock('mako\auth\user\UserInterface');
 
 		$user->shouldReceive('getFailedAttempts')->once()->andReturn(0);
 
@@ -221,7 +227,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	{
 		$userProvider = new UserProvider($this->getUser());
 
-		$user = m::mock('mako\auth\user\UserInterface');
+		$user = Mockery::mock('mako\auth\user\UserInterface');
 
 		$user->shouldReceive('getFailedAttempts')->once()->andReturn(1);
 
