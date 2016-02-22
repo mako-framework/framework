@@ -12,7 +12,6 @@ namespace mako;
  *
  * @author  Frederic G. Østby
  */
-
 class Mako
 {
 	/**
@@ -20,7 +19,6 @@ class Mako
 	 *
 	 * @var string
 	 */
-
 	const VERSION = '4.5.10';
 
 	/**
@@ -28,7 +26,6 @@ class Mako
 	 *
 	 * @var int
 	 */
-
 	const VERSION_MAJOR = 4;
 
 	/**
@@ -36,7 +33,6 @@ class Mako
 	 *
 	 * @var int
 	 */
-
 	const VERSION_MINOR = 5;
 
 	/**
@@ -44,6 +40,5 @@ class Mako
 	 *
 	 * @var int
 	 */
-
 	const VERSION_PATCH = 10;
 }

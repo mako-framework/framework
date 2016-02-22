@@ -27,13 +27,11 @@ class ScopedModel extends \mako\database\midgard\ORM
 /**
  * @group unit
  */
-
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -42,7 +40,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getConnecion()
 	{
 		$connection = m::mock('\mako\database\connections\Connection');
@@ -57,7 +54,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getModel()
 	{
 		$model = m::mock('\mako\database\midgard\ORM');
@@ -68,7 +64,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getQuery($model)
 	{
 		return m::mock('\mako\database\midgard\Query', [$this->getConnecion(), $model]);
@@ -77,7 +72,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testConstructor()
 	{
 		$model = $this->getModel();
@@ -90,7 +84,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testJoin()
 	{
 		$model = $this->getModel();
@@ -107,7 +100,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$model = $this->getModel();
@@ -128,7 +120,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetWithColumns()
 	{
 		$model = $this->getModel();
@@ -151,7 +142,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSingleInclude()
 	{
 		$model = $this->getModel();
@@ -168,7 +158,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIncludes()
 	{
 		$model = $this->getModel();
@@ -185,7 +174,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSingleExlude()
 	{
 		$model = $this->getModel();
@@ -204,7 +192,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testExcludes()
 	{
 		$model = $this->getModel();
@@ -223,7 +210,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \BadMethodCallException
 	 */
-
 	public function testScopeException()
 	{
 		$model = new ScopedModel();
@@ -236,7 +222,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testScope()
 	{
 		$model = new ScopedModel();
@@ -251,7 +236,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBatch()
 	{
 		$model = m::mock('\mako\database\midgard\ORM');

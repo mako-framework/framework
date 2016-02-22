@@ -42,7 +42,6 @@ use mako\syringe\Container;
  * @property  \mako\validator\ValidatorFactory              $validator
  * @property  \mako\view\ViewFactory                        $view
  */
-
 trait ContainerAwareTrait
 {
 	/**
@@ -50,7 +49,6 @@ trait ContainerAwareTrait
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -58,7 +56,6 @@ trait ContainerAwareTrait
 	 *
 	 * @var array
 	 */
-
 	protected $resolved = [];
 
 	/**
@@ -67,7 +64,6 @@ trait ContainerAwareTrait
 	 * @access  public
 	 * @param   \mako\syringe\Container  $container  IoC container instance
 	 */
-
 	public function setContainer(Container $container)
 	{
 		$this->container = $container;
@@ -80,7 +76,6 @@ trait ContainerAwareTrait
 	 * @param   string  $key  Key
 	 * @return  mixed
 	 */
-
 	public function __get($key)
 	{
 		if(!isset($this->resolved[$key]))

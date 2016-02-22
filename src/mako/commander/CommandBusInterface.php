@@ -15,7 +15,6 @@ use mako\syringe\Container;
  *
  * @author  Yamada Taro
  */
-
 interface CommandBusInterface
 {
 	/**
@@ -25,7 +24,6 @@ interface CommandBusInterface
 	 * @param   null|\mako\syringe\Container  $container  Container
 	 * @param   null|\mako\onion\Onion        $onion      Onion
 	 */
-
 	public function __construct(Container $container = null, Onion $onion = null);
 
 	/**
@@ -37,6 +35,5 @@ interface CommandBusInterface
 	 * @param   array                                    $middleware  Middleware
 	 * @return  mixed
 	 */
-
 	public function dispatch($command, array $parameters = [], array $middleware = []);
 }

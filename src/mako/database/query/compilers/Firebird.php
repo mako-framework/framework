@@ -14,13 +14,11 @@ use mako\database\query\compilers\Compiler;
  *
  * @author  Frederic G. Østby
  */
-
 class Firebird extends Compiler
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	protected function limit($limit, $offset = null)
 	{
 		return ($limit === null) ? '' : ' TO ' . ($limit + (($offset === null) ? 0 : $offset));
@@ -29,7 +27,6 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-
 	protected function offset($offset, $limit = null)
 	{
 		return ($offset === null) ? ($limit === null) ? '' :' ROWS 1 ' : ' ROWS ' . ($offset + 1);
@@ -38,7 +35,6 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function select()
 	{
 		$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';

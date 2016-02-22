@@ -20,7 +20,6 @@ use mako\view\ViewFactory;
  * @author  Frederic G. Østby
  * @author  Yamada Taro
  */
-
 class Pagination implements PaginationInterface
 {
 	/**
@@ -28,7 +27,6 @@ class Pagination implements PaginationInterface
 	 *
 	 * @var int
 	 */
-
 	protected $items;
 
 	/**
@@ -36,7 +34,6 @@ class Pagination implements PaginationInterface
 	 *
 	 * @var int
 	 */
-
 	protected $itemsPerPage;
 
 	/**
@@ -44,7 +41,6 @@ class Pagination implements PaginationInterface
 	 *
 	 * @var int
 	 */
-
 	protected $currentPage;
 
 	/**
@@ -52,7 +48,6 @@ class Pagination implements PaginationInterface
 	 *
 	 * @var array
 	 */
-
 	protected $options =
 	[
 		'page_key'       => 'page',
@@ -64,7 +59,6 @@ class Pagination implements PaginationInterface
 	 *
 	 * @var int
 	 */
-
 	protected $pages;
 
 	/**
@@ -72,7 +66,6 @@ class Pagination implements PaginationInterface
 	 *
 	 * @var int
 	 */
-
 	protected $offset;
 
 	/**
@@ -80,7 +73,6 @@ class Pagination implements PaginationInterface
 	 *
 	 * @var \mako\http\Request
 	 */
-
 	protected $request;
 
 	/**
@@ -88,7 +80,6 @@ class Pagination implements PaginationInterface
 	 *
 	 * @var \mako\http\routing\URLBuilder
 	 */
-
 	protected $urlBuilder;
 
 	/**
@@ -96,7 +87,6 @@ class Pagination implements PaginationInterface
 	 *
 	 * @var \mako\view\ViewFactory
 	 */
-
 	protected $viewFactory;
 
 	/**
@@ -104,13 +94,11 @@ class Pagination implements PaginationInterface
 	 *
 	 * @var array
 	 */
-
 	protected $pagination = [];
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function __construct($items, $itemsPerPage, $currentPage, array $options = [])
 	{
 		$this->items = $items;
@@ -133,7 +121,6 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function items()
 	{
 		return $this->items;
@@ -142,7 +129,6 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function itemsPerPage()
 	{
 		return $this->itemsPerPage;
@@ -151,7 +137,6 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function currentPage()
 	{
 		return $this->currentPage;
@@ -160,7 +145,6 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function numberOfPages()
 	{
 		return $this->pages;
@@ -169,7 +153,6 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function limit()
 	{
 		return $this->itemsPerPage;
@@ -178,7 +161,6 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function offset()
 	{
 		return $this->offset;
@@ -190,7 +172,6 @@ class Pagination implements PaginationInterface
 	 * @access  public
 	 * @param   \mako\http\Request  $request  Request
 	 */
-
 	public function setRequest(Request $request)
 	{
 		$this->request = $request;
@@ -202,7 +183,6 @@ class Pagination implements PaginationInterface
 	 * @access  public
 	 * @param   \mako\http\routing\URLBuilder  $urlBuilder  URL builder instance
 	 */
-
 	public function setURLBuilder(URLBuilder $urlBuilder)
 	{
 		$this->urlBuilder = $urlBuilder;
@@ -214,7 +194,6 @@ class Pagination implements PaginationInterface
 	 * @access  public
 	 * @param   \mako\view\ViewFactory  $viewFactory  View factory instance
 	 */
-
 	public function setViewFactory(ViewFactory $viewFactory)
 	{
 		$this->viewFactory = $viewFactory;
@@ -226,7 +205,6 @@ class Pagination implements PaginationInterface
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function pagination()
 	{
 		if(empty($this->pagination))
@@ -308,7 +286,6 @@ class Pagination implements PaginationInterface
 	 * @param   string  $view  Pagination view
 	 * @return  string
 	 */
-
 	public function render($view)
 	{
 		if(empty($this->viewFactory))

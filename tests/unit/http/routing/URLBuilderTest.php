@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class URLBuilderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getRequest($langPrefix = '')
 	{
 		$request = m::mock('\mako\http\Request');
@@ -41,7 +38,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getRoutes()
 	{
 		$route1 = m::mock('\mako\http\routing\Route');
@@ -64,7 +60,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMatches()
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes());
@@ -81,7 +76,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBase()
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes());
@@ -92,7 +86,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTo()
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes());
@@ -127,7 +120,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToRoute()
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes(), true);
@@ -154,7 +146,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToCurrent()
 	{
 		$request = $this->getRequest();
@@ -175,7 +166,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToCurrentWithQueryParams()
 	{
 		$request = $this->getRequest();

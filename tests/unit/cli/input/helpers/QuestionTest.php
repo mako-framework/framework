@@ -11,13 +11,11 @@ use PHPUnit_Framework_TestCase;
 /**
  * @group unit
  */
-
 class QuestionTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -26,7 +24,6 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testQuestion()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -45,7 +42,6 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testQuestionWithNoInputAndNullDefault()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -64,7 +60,6 @@ class QuestionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testQuestionWithNoInputAndCustomDefault()
 	{
 		$input = m::mock('mako\cli\input\Input');

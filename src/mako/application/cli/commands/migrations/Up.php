@@ -14,7 +14,6 @@ use mako\application\cli\commands\migrations\Command;
  *
  * @author  Frederic G. Østby
  */
-
 class Up extends Command
 {
 	/**
@@ -22,7 +21,6 @@ class Up extends Command
 	 *
 	 * @var array
 	 */
-
 	protected $commandInformation =
 	[
 		'description' => 'Runs all outstanding migrations.',
@@ -35,7 +33,6 @@ class Up extends Command
 	 *
 	 * @access  public
 	 */
-
 	public function execute()
 	{
 		$migrations = $this->getOutstanding();

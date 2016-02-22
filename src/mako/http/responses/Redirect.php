@@ -16,7 +16,6 @@ use mako\http\responses\ResponseContainerInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Redirect implements ResponseContainerInterface
 {
 	/**
@@ -24,7 +23,6 @@ class Redirect implements ResponseContainerInterface
 	 *
 	 * @var string
 	 */
-
 	protected $location;
 
 	/**
@@ -32,7 +30,6 @@ class Redirect implements ResponseContainerInterface
 	 *
 	 * @var int
 	 */
-
 	protected $status = 302;
 
 	/**
@@ -40,7 +37,6 @@ class Redirect implements ResponseContainerInterface
 	 *
 	 * @var boolean
 	 */
-
 	protected $flashRequestData = false;
 
 	/**
@@ -49,7 +45,6 @@ class Redirect implements ResponseContainerInterface
 	 * @access  public
 	 * @param   string  $location  Location
 	 */
-
 	public function __construct($location)
 	{
 		$this->location = $location;
@@ -62,7 +57,6 @@ class Redirect implements ResponseContainerInterface
 	 * @param   int                            $status  Status code
 	 * @return  \mako\http\responses\Redirect
 	 */
-
 	public function status($status)
 	{
 		$this->status = $status;
@@ -73,7 +67,6 @@ class Redirect implements ResponseContainerInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function send(Request $request, Response $response)
 	{
 		// Set status and location header

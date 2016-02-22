@@ -14,7 +14,6 @@ use mako\common\ExtendableTrait;
  *
  * @author  Frederic G. Østby
  */
-
 class HTML
 {
 	use ExtendableTrait;
@@ -24,7 +23,6 @@ class HTML
 	 *
 	 * @var boolean
 	 */
-
 	protected $xhtml;
 
 	/**
@@ -33,7 +31,6 @@ class HTML
 	 * @access  public
 	 * @param   boolean  $xhtml  Should we return HXML?
 	 */
-
 	public function __construct($xhtml = false)
 	{
 		$this->xhtml = $xhtml;
@@ -46,7 +43,6 @@ class HTML
 	 * @param   array   $attributes  Array of tags
 	 * @return  string
 	 */
-
 	protected function attributes($attributes)
 	{
 		$attr = '';
@@ -73,7 +69,6 @@ class HTML
 	 * @param   string  $content     Tag content
 	 * @return  string
 	 */
-
 	public function tag($name, array $attributes = [], $content = null)
 	{
 		return '<' . $name . $this->attributes($attributes) . (($content === null) ? ($this->xhtml ? ' />' : '>') : '>' . $content . '</' . $name . '>');
@@ -88,7 +83,6 @@ class HTML
 	 * @param   array      $attributes  Tag attributes
 	 * @return  string
 	 */
-
 	protected function buildMedia($type, $files, $attributes)
 	{
 		$sources = '';
@@ -109,7 +103,6 @@ class HTML
 	 * @param   array   $attributes  Tag attributes
 	 * @return  string
 	 */
-
 	public function audio($files, array $attributes = [])
 	{
 		return $this->buildMedia('audio', $files, $attributes);
@@ -123,7 +116,6 @@ class HTML
 	 * @param   array   $attributes  Tag attributes
 	 * @return  string
 	 */
-
 	public function video($files, array $attributes = [])
 	{
 		return $this->buildMedia('video', $files, $attributes);
@@ -138,7 +130,6 @@ class HTML
 	 * @param   array      $attributes  Tag attributes
 	 * @return  string
 	 */
-
 	protected function buildList($type, $items, $attributes)
 	{
 		$list = '';
@@ -166,7 +157,6 @@ class HTML
 	 * @param   array   $attributes  List attributes
 	 * @return  string
 	 */
-
 	public function ul(array $items, array $attributes = [])
 	{
 		return $this->buildList('ul', $items, $attributes);
@@ -180,7 +170,6 @@ class HTML
 	 * @param   array   $attributes  List attributes
 	 * @return  string
 	 */
-
 	public function ol(array $items, array $attributes = [])
 	{
 		return $this->buildList('ol', $items, $attributes);

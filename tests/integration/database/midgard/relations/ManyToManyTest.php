@@ -36,13 +36,11 @@ class ManyToManyGroup extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class ManyToManyTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasicManyToManyRelation1()
 	{
 		$user = ManyToManyUser::get(1);
@@ -66,7 +64,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testBasicManyToManyRelation2()
 	{
 		$group = ManyToManyGroup::get(1);
@@ -88,7 +85,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLazyHasManyRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -113,7 +109,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasManyRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -138,7 +133,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasManyRelationWithConstraint()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -163,7 +157,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLinkAndUnlinkUsingId()
 	{
 		$user = ManyToManyUser::get(3);
@@ -202,7 +195,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLinkAndUnlinkUsingModel()
 	{
 		$user = ManyToManyUser::get(3);
@@ -241,7 +233,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLinkAndUnlinkUsingArrayOfIds()
 	{
 		$user = ManyToManyUser::get(3);
@@ -263,7 +254,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLinkAndUnlinkUsingArrayOfModels()
 	{
 		$user = ManyToManyUser::get(3);
@@ -285,7 +275,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testSynchronizeUsingArrayOfIds()
 	{
 		$user = ManyToManyUser::get(3);

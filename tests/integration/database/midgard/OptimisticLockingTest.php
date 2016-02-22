@@ -23,13 +23,11 @@ class OptimisticLock extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class OptimisticLockingTest extends \ORMTestCase
 {
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\StaleRecordException
 	 */
-
 	public function testOptimisticLockUpdate()
 	{
 		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
@@ -48,7 +46,6 @@ class OptimisticLockingTest extends \ORMTestCase
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\StaleRecordException
 	 */
-
 	public function testOptimisticLockDelete()
 	{
 		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
@@ -65,7 +62,6 @@ class OptimisticLockingTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testOptimisticLockReload()
 	{
 		$optimisticLock = OptimisticLock::get(1);
@@ -84,7 +80,6 @@ class OptimisticLockingTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testOptimisticLockReloadNonExistent()
 	{
 		$optimisticLock = new OptimisticLock;
@@ -97,7 +92,6 @@ class OptimisticLockingTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testOptimisticLockInsert()
 	{
 		$optimisticLock = new OptimisticLock;

@@ -7,7 +7,6 @@ use mako\utility\Str;
 /**
  * @group unit
  */
-
 class StrTest extends \PHPUnit_Framework_TestCase
 {
 	/**

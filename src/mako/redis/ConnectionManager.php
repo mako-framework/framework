@@ -20,7 +20,6 @@ use mako\redis\Redis;
  *
  * @method  \mako\redis\Redis  connection($connection = null)
  */
-
 class ConnectionManager extends BaseConnectionManager
 {
 	/**
@@ -30,7 +29,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string             $connection  Connection name
 	 * @return  \mako\redis\Redis
 	 */
-
 	protected function connect($connection)
 	{
 		if(!isset($this->configurations[$connection]))

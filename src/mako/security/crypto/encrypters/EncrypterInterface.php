@@ -12,7 +12,6 @@ namespace mako\security\crypto\encrypters;
  *
  * @author  Frederic G. Østby
  */
-
 interface EncrypterInterface
 {
 	/**
@@ -22,7 +21,6 @@ interface EncrypterInterface
 	 * @param   string  $string  String to encrypt
 	 * @return  string
 	 */
-
 	public function encrypt($string);
 
 	/**
@@ -32,6 +30,5 @@ interface EncrypterInterface
 	 * @param   string          $string  String to decrypt
 	 * @return  string|boolean
 	 */
-
 	public function decrypt($string);
 }

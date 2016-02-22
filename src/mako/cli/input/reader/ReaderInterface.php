@@ -12,7 +12,6 @@ namespace mako\cli\input\reader;
  *
  * @author  Frederic G. Østby
  */
-
 interface ReaderInterface
 {
 	/**
@@ -21,6 +20,5 @@ interface ReaderInterface
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function read();
 }

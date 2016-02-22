@@ -16,13 +16,11 @@ use mako\database\query\helpers\HelperInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Helper implements HelperInterface
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function insertAndGetId(Query $query, array $values, $primaryKey = null)
 	{
 		if($query->insert($values) === false)

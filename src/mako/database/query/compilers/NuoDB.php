@@ -14,13 +14,11 @@ use mako\database\query\compilers\Compiler;
  *
  * @author  Frederic G. Østby
  */
-
 class NuoDB extends Compiler
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function escapeIdentifier($identifier)
 	{
 		return '`' . str_replace('`', '``', $identifier) . '`';

@@ -14,13 +14,11 @@ use mako\session\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Void implements StoreInterface
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
 
@@ -29,7 +27,6 @@ class Void implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function read($sessionId)
 	{
 		return [];
@@ -38,7 +35,6 @@ class Void implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function delete($sessionId)
 	{
 
@@ -47,7 +43,6 @@ class Void implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function gc($dataTTL)
 	{
 

@@ -12,7 +12,6 @@ namespace mako\cli\output\writer;
  *
  * @author  Frederic G. Østby
  */
-
 interface WriterInterface
 {
 	/**
@@ -21,7 +20,6 @@ interface WriterInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isDirect();
 
 	/**
@@ -30,6 +28,5 @@ interface WriterInterface
 	 * @access  public
 	 * @param   string  $string  String to write
 	 */
-
 	public function write($string);
 }

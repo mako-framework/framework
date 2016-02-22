@@ -15,13 +15,11 @@ use mako\cache\CacheManager;
  *
  * @author  Frederic G. Østby
  */
-
 class CacheService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([CacheManager::class, 'cache'], function($container)

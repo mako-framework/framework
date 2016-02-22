@@ -25,13 +25,11 @@ class Parser
 /**
  * @group unit
  */
-
 class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasicFunction()
 	{
 		$parser = new Parser;
@@ -42,7 +40,6 @@ class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFunctionWithOneParameter()
 	{
 		$parser = new Parser;
@@ -59,7 +56,6 @@ class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFunctionWithMultipleParameters()
 	{
 		$parser = new Parser;
@@ -74,7 +70,6 @@ class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFunctionWithNamedParameters()
 	{
 		$parser = new Parser;
@@ -85,7 +80,6 @@ class FunctionParserTraitTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testFunctionWithInvalidJson()
 	{
 		$parser = new Parser;

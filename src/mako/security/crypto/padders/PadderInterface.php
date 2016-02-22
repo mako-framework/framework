@@ -12,7 +12,6 @@ namespace mako\security\crypto\padders;
  *
  * @author  Frederic G. Østby
  */
-
 interface PadderInterface
 {
 	/**
@@ -23,7 +22,6 @@ interface PadderInterface
 	 * @param   int        $blockSize  Block size
 	 * @return  string
 	 */
-
 	public function addPadding($string, $blockSize);
 
 	/**
@@ -33,6 +31,5 @@ interface PadderInterface
 	 * @param   string          $string  String we want to unpad
 	 * @return  string|boolean
 	 */
-
 	public function stripPadding($string);
 }

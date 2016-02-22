@@ -45,13 +45,11 @@ class ConnectionManager extends ConnectionManagerAbstract
 /**
  * @group unit
  */
-
 class ConnectionManagerTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testConnection()
 	{
 		$manager = new ConnectionManager('foo', []);
@@ -72,7 +70,6 @@ class ConnectionManagerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCallForwarding()
 	{
 		$manager = new ConnectionManager('foo', []);

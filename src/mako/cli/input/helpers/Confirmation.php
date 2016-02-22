@@ -25,7 +25,6 @@ class Confirmation extends Question
 	 *
 	 * @var \mako\cli\input\Input
 	 */
-
 	protected $input;
 
 	/**
@@ -33,7 +32,6 @@ class Confirmation extends Question
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-
 	protected $ouput;
 
 	/**
@@ -43,7 +41,6 @@ class Confirmation extends Question
 	 * @param   \mako\cli\input\Input    $input   Input instance
 	 * @param   \mako\cli\output\Output  $output  Output instance
 	 */
-
 	public function __construct(Input $input, Output $output)
 	{
 		$this->input = $input;
@@ -58,7 +55,6 @@ class Confirmation extends Question
 	 * @param   array      $array  Array
 	 * @return  array
 	 */
-
 	protected function normalizeKeys(array $array)
 	{
 		$normalized = [];
@@ -79,7 +75,6 @@ class Confirmation extends Question
 	 * @param   string  $default  Default answer
 	 * @return  string
 	 */
-
 	protected function getOptions(array $options, $default)
 	{
 		$highlighted = [];
@@ -101,7 +96,6 @@ class Confirmation extends Question
 	 * @param   array    $options   Answer options
 	 * @return  boolean
 	 */
-
 	public function ask($question, $default = 'n', array $options = null)
 	{
 		$options = $options === null ? ['y' => true, 'n' => false] : $this->normalizeKeys($options);

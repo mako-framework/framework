@@ -14,13 +14,11 @@ use mako\event\Event;
  *
  * @author  Frederic G. Østby
  */
-
 class EventService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([Event::class, 'event'], function($container)

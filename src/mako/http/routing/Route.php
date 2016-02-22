@@ -14,7 +14,6 @@ use Closure;
  *
  * @author  Frederic G. Østby
  */
-
 class Route
 {
 	/**
@@ -22,7 +21,6 @@ class Route
 	 *
 	 * @var array
 	 */
-
 	protected $methods;
 
 	/**
@@ -30,7 +28,6 @@ class Route
 	 *
 	 * @var string
 	 */
-
 	protected $route;
 
 	/**
@@ -38,7 +35,6 @@ class Route
 	 *
 	 * @var string|\Closure
 	 */
-
 	protected $action;
 
 	/**
@@ -46,7 +42,6 @@ class Route
 	 *
 	 * @var string
 	 */
-
 	protected $name;
 
 	/**
@@ -54,7 +49,6 @@ class Route
 	 *
 	 * @var string
 	 */
-
 	protected $namespace;
 
 	/**
@@ -62,7 +56,6 @@ class Route
 	 *
 	 * @var string
 	 */
-
 	protected $prefix;
 
 	/**
@@ -70,7 +63,6 @@ class Route
 	 *
 	 * @var boolean
 	 */
-
 	protected $hasTrailingSlash;
 
 	/**
@@ -78,7 +70,6 @@ class Route
 	 *
 	 * @var array
 	 */
-
 	protected $constraints = [];
 
 	/**
@@ -86,7 +77,6 @@ class Route
 	 *
 	 * @var array
 	 */
-
 	protected $beforeFilters = [];
 
 	/**
@@ -94,7 +84,6 @@ class Route
 	 *
 	 * @var array
 	 */
-
 	protected $afterFilters = [];
 
 	/**
@@ -106,7 +95,6 @@ class Route
 	 * @param   string|\Closure  $action   Route action
 	 * @param   string           $name     Route name
 	 */
-
 	public function __construct(array $methods, $route, $action, $name = null)
 	{
 		$this->methods = $methods;
@@ -126,7 +114,6 @@ class Route
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getMethods()
 	{
 		return $this->methods;
@@ -138,7 +125,6 @@ class Route
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getRoute()
 	{
 		return $this->prefix . $this->route;
@@ -150,7 +136,6 @@ class Route
 	 * @access  public
 	 * @return  string|\Closure
 	 */
-
 	public function getAction()
 	{
 		if($this->action instanceof Closure || empty($this->namespace))
@@ -167,7 +152,6 @@ class Route
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getName()
 	{
 		return $this->name;
@@ -179,7 +163,6 @@ class Route
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getBeforeFilters()
 	{
 		return $this->beforeFilters;
@@ -191,7 +174,6 @@ class Route
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getAfterFilters()
 	{
 		return $this->afterFilters;
@@ -204,7 +186,6 @@ class Route
 	 * @param   string                    $namespace  Route action namespace
 	 * @return  \mako\http\routing\Route
 	 */
-
 	public function namespace($namespace)
 	{
 		$this->namespace .= $namespace . '\\';
@@ -219,7 +200,6 @@ class Route
 	 * @param   string                    $prefix  Route prefix
 	 * @return  \mako\http\routing\Route
 	 */
-
 	public function prefix($prefix)
 	{
 		if(!empty($prefix))
@@ -237,7 +217,6 @@ class Route
 	 * @param   array                     $constraints  Array of constraints
 	 * @return  \mako\http\routing\Route
 	 */
-
 	public function when(array $constraints)
 	{
 		$this->constraints = $constraints + $this->constraints;
@@ -252,7 +231,6 @@ class Route
 	 * @param   array|string|\Closure     $filters  Filters
 	 * @return  \mako\http\routing\Route
 	 */
-
 	public function before($filters)
 	{
 		$this->beforeFilters = array_merge($this->beforeFilters, (array) $filters);
@@ -267,7 +245,6 @@ class Route
 	 * @param   array|string|\Closure     $filters  Filters
 	 * @return  \mako\http\routing\Route
 	 */
-
 	public function after($filters)
 	{
 		$this->afterFilters = array_merge($this->afterFilters, (array) $filters);
@@ -282,7 +259,6 @@ class Route
 	 * @param   string   $method  Method
 	 * @return  boolean
 	 */
-
 	public function allows($method)
 	{
 		return in_array($method, $this->methods);
@@ -294,7 +270,6 @@ class Route
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function hasTrailingSlash()
 	{
 		return $this->hasTrailingSlash;
@@ -306,7 +281,6 @@ class Route
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getRegex()
 	{
 		$route = $this->getRoute();

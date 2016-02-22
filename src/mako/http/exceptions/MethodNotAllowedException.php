@@ -16,7 +16,6 @@ use mako\http\exceptions\RequestException;
  *
  * @author  Frederic G. Østby
  */
-
 class MethodNotAllowedException extends RequestException
 {
 	/**
@@ -35,7 +34,6 @@ class MethodNotAllowedException extends RequestException
 	 * @param   string     $message         Exception message
 	 * @param   \Exception $previous        Previous exception
 	 */
-
 	public function __construct(array $allowedMethods, $message = null, Exception $previous = null)
 	{
 		$this->allowedMethods = $allowedMethods;
@@ -49,7 +47,6 @@ class MethodNotAllowedException extends RequestException
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getAllowedMethods()
 	{
 		return $this->allowedMethods;

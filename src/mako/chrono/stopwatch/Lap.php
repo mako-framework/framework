@@ -12,7 +12,6 @@ namespace mako\chrono\stopwatch;
  *
  * @author  Yamada Taro
  */
-
 class Lap
 {
 	/**
@@ -20,7 +19,6 @@ class Lap
 	 *
 	 * @var float
 	 */
-
 	protected $started;
 
 	/**
@@ -28,7 +26,6 @@ class Lap
 	 *
 	 * @var float
 	 */
-
 	protected $stopped;
 
 	/**
@@ -37,7 +34,6 @@ class Lap
 	 * @access  public
 	 * @return  float
 	 */
-
 	public function getStartTime()
 	{
 		return $this->started;
@@ -49,7 +45,6 @@ class Lap
 	 * @access  public
 	 * @return  null|float
 	 */
-
 	public function getStopTime()
 	{
 		return $this->stopped;
@@ -61,7 +56,6 @@ class Lap
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isRunning()
 	{
 		return $this->stopped === null;
@@ -73,7 +67,6 @@ class Lap
 	 * @access  public
 	 * @return  \mako\chrono\stopwatch\Lap
 	 */
-
 	public function start()
 	{
 		$this->started = microtime(true);
@@ -87,7 +80,6 @@ class Lap
 	 * @access  public
 	 * @return  float
 	 */
-
 	public function stop()
 	{
 		return ($this->stopped = microtime(true)) - $this->started;

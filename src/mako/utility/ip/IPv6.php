@@ -14,7 +14,6 @@ use Throwable;
  *
  * @author  Frederic G. Østby
  */
-
 class IPv6
 {
 	/**
@@ -25,7 +24,6 @@ class IPv6
 	 * @param   string   $range Ip address or IP range
 	 * @return  boolean
 	 */
-
 	public static function inRange(string $ip, string $range): bool
 	{
 		if(strpos($range, '/') === false)

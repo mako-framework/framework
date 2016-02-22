@@ -15,7 +15,6 @@ use mako\validator\plugins\ValidatorPlugin;
  *
  * @author  Frederic G. Østby
  */
-
 class TokenValidator extends ValidatorPlugin
 {
 	/**
@@ -23,7 +22,6 @@ class TokenValidator extends ValidatorPlugin
 	 *
 	 * @var string
 	 */
-
 	protected $ruleName = 'token';
 
 	/**
@@ -31,7 +29,6 @@ class TokenValidator extends ValidatorPlugin
 	 *
 	 * @var \mako\session\Session
 	 */
-
 	protected $session;
 
 	/**
@@ -40,7 +37,6 @@ class TokenValidator extends ValidatorPlugin
 	 * @access  public
 	 * @param   \mako\session\Session  $session  Session instance
 	 */
-
 	public function __construct(Session $session)
 	{
 		$this->session = $session;
@@ -53,7 +49,6 @@ class TokenValidator extends ValidatorPlugin
 	 * @param   string  $input Input
 	 * @return  boolean
 	 */
-
 	public function validate($input)
 	{
 		return $this->session->validateToken($input);

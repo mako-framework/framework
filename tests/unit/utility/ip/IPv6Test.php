@@ -7,13 +7,11 @@ use mako\utility\ip\IPv6;
 /**
  * @group unit
  */
-
 class IPv6Test extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testInRange()
 	{
 		$this->assertTrue(IPv6::inRange('::1', '::1'));

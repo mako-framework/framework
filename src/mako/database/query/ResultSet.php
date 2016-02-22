@@ -16,7 +16,6 @@ use mako\utility\Collection;
  *
  * @author  Frederic G. Østby
  */
-
 class ResultSet extends Collection
 {
 	/**
@@ -24,7 +23,6 @@ class ResultSet extends Collection
 	 *
 	 * @var \mako\pagination\PaginationInterface
 	 */
-
 	protected $pagination;
 
 	/**
@@ -33,7 +31,6 @@ class ResultSet extends Collection
 	 * @access  public
 	 * @param   \mako\pagination\PaginationInterface  $pagination  Pagination
 	 */
-
 	public function setPagination(PaginationInterface $pagination)
 	{
 		$this->pagination = $pagination;
@@ -45,7 +42,6 @@ class ResultSet extends Collection
 	 * @access  public
 	 * @return  \mako\pagination\PaginationInterface
 	 */
-
 	public function getPagination(): PaginationInterface
 	{
 		return $this->pagination;
@@ -58,7 +54,6 @@ class ResultSet extends Collection
 	 * @param   string  $column  Column name
 	 * @return  array
 	 */
-
 	public function pluck($column)
 	{
 		return Arr::pluck($this->items, $column);
@@ -70,7 +65,6 @@ class ResultSet extends Collection
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function toArray()
 	{
 		$results = [];
@@ -89,7 +83,6 @@ class ResultSet extends Collection
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function toJson()
 	{
 		return json_encode($this->toArray());
@@ -101,7 +94,6 @@ class ResultSet extends Collection
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function __toString()
 	{
 		return $this->toJson();

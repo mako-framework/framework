@@ -7,13 +7,11 @@ use mako\utility\Collection;
 /**
  * @group unit
  */
-
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testGetItems()
 	{
 		$collection = new Collection();
@@ -30,7 +28,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOffsetExists()
 	{
 		$collection = new Collection();
@@ -47,7 +44,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOffsetGet()
 	{
 		$collection = new Collection();
@@ -64,7 +60,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOffsetSet()
 	{
 		$collection = new Collection();
@@ -85,7 +80,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOffsetUnset()
 	{
 		$collection = new Collection([1,2,3]);
@@ -98,7 +92,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCount()
 	{
 		$collection = new Collection();
@@ -119,7 +112,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIteration()
 	{
 		$string = '';
@@ -135,7 +127,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsEmpty()
 	{
 		$collection = new Collection();
@@ -152,7 +143,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testUnshift()
 	{
 		$collection = new Collection([1, 2, 3]);
@@ -167,7 +157,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testShift()
 	{
 		$collection = new Collection([1, 2, 3]);
@@ -182,7 +171,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPush()
 	{
 		$collection = new Collection([1, 2, 3]);
@@ -197,7 +185,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPop()
 	{
 		$collection = new Collection([1, 2, 3]);
@@ -212,7 +199,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSort()
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
@@ -233,7 +219,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSortWithoutMaintainingIndexAssociation()
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
@@ -254,7 +239,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testChunk()
 	{
 		$collection = new Collection([1, 2, 3, 4, 5, 6]);
@@ -273,7 +257,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testShuffle()
 	{
 		$collection = new Collection([1, 2]);
@@ -286,7 +269,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testExtending()
 	{
 		Collection::extend('increaseByOne', function()
@@ -307,7 +289,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \BadMethodCallException
 	 */
-
 	public function testException()
 	{
 		$collection = new Collection();

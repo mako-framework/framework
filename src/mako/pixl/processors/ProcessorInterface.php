@@ -14,7 +14,6 @@ use mako\pixl\Image;
  *
  * @author  Frederic G. Østby
  */
-
 interface ProcessorInterface
 {
 	/**
@@ -23,7 +22,6 @@ interface ProcessorInterface
 	 * @access  public
 	 * @param   string  $image  Path to image file
 	 */
-
 	public function open($image);
 
 	/**
@@ -31,7 +29,6 @@ interface ProcessorInterface
 	 *
 	 * @access  public
 	 */
-
 	public function snapshot();
 
 	/**
@@ -39,7 +36,6 @@ interface ProcessorInterface
 	 *
 	 * @access  public
 	 */
-
 	public function restore();
 
 	/**
@@ -48,7 +44,6 @@ interface ProcessorInterface
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getWidth();
 
 	/**
@@ -57,7 +52,6 @@ interface ProcessorInterface
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getHeight();
 
 	/**
@@ -66,7 +60,6 @@ interface ProcessorInterface
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getDimensions();
 
 	/**
@@ -75,7 +68,6 @@ interface ProcessorInterface
 	 * @access  public
 	 * @param   int     $degrees  Degrees to rotate the image
 	 */
-
 	public function rotate($degrees);
 
 	/**
@@ -86,7 +78,6 @@ interface ProcessorInterface
 	 * @param  int      $height       Height of the image
 	 * @param  int      $aspectRatio  Aspect ratio
 	 */
-
 	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE);
 
 	/**
@@ -98,7 +89,6 @@ interface ProcessorInterface
 	 * @param   int  $x       The X coordinate of the cropped region's top left corner
 	 * @param   int  $y       The Y coordinate of the cropped region's top left corner
 	 */
-
 	public function crop($width, $height, $x, $y);
 
 	/**
@@ -107,7 +97,6 @@ interface ProcessorInterface
 	 * @access  public
 	 * @param   int     $direction  Direction to flip the image
 	 */
-
 	public function flip($direction = Image::FLIP_HORIZONTAL);
 
 	/**
@@ -118,7 +107,6 @@ interface ProcessorInterface
 	 * @param   int     $position  Position of the watermark
 	 * @param   int     $opacity   Opacity of the watermark in percent
 	 */
-
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100);
 
 	/**
@@ -127,7 +115,6 @@ interface ProcessorInterface
 	 * @access  public
 	 * @param   int     $level  Brightness level (-100 to 100)
 	 */
-
 	public function brightness($level = 50);
 
 	/**
@@ -135,7 +122,6 @@ interface ProcessorInterface
 	 *
 	 * @access  public
 	 */
-
 	public function greyscale();
 
 	/**
@@ -143,7 +129,6 @@ interface ProcessorInterface
 	 *
 	 * @access  public
 	 */
-
 	public function sepia();
 
 	/**
@@ -152,7 +137,6 @@ interface ProcessorInterface
 	 * @access  public
 	 * @param   string  $color  Hex value
 	 */
-
 	public function colorize($color);
 
 	/**
@@ -160,7 +144,6 @@ interface ProcessorInterface
 	 *
 	 * @access  public
 	 */
-
 	public function sharpen();
 
 	/**
@@ -169,7 +152,6 @@ interface ProcessorInterface
 	 * @access  public
 	 * @param   int     $pixelSize  Pixel size
 	 */
-
 	public function pixelate($pixelSize = 10);
 
 	/**
@@ -177,7 +159,6 @@ interface ProcessorInterface
 	 *
 	 * @access  public
 	 */
-
 	public function negate();
 
 	/**
@@ -187,7 +168,6 @@ interface ProcessorInterface
 	 * @param   string  $color      Hex code for the color
 	 * @param   int     $thickness  Thickness of the frame in pixels
 	 */
-
 	public function border($color = '#000', $thickness = 5);
 
 	/**
@@ -198,7 +178,6 @@ interface ProcessorInterface
 	 * @param   int     $quality  Image quality 1-100
 	 * @return  string
 	 */
-
 	public function getImageBlob($type = null, $quality = 95);
 
 	/**
@@ -208,6 +187,5 @@ interface ProcessorInterface
 	 * @param   string  $file     Path to the image file
 	 * @param   int     $quality  Image quality 1-100
 	 */
-
 	public function save($file, $quality = 95);
 }

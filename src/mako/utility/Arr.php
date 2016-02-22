@@ -12,7 +12,6 @@ namespace mako\utility;
  *
  * @author  Frederic G. Østby
  */
-
 class Arr
 {
 	/**
@@ -23,7 +22,6 @@ class Arr
 	 * @param   string   $path   Array path
 	 * @param   mixed    $value  Value to set
 	 */
-
 	public static function set(array &$array, $path, $value)
 	{
 		$segments = explode('.', $path);
@@ -51,7 +49,6 @@ class Arr
 	 * @param   string   $path   Array path
 	 * @return  boolean
 	 */
-
 	public static function has(array $array, $path)
 	{
 		$segments = explode('.', $path);
@@ -78,7 +75,6 @@ class Arr
 	 * @param   mixed   $default  Default return value
 	 * @return  mixed
 	 */
-
 	public static function get(array $array, $path, $default = null)
 	{
 		$segments = explode('.', $path);
@@ -104,7 +100,6 @@ class Arr
 	 * @param   string   $path   Array path
 	 * @return  boolean
 	 */
-
 	public static function delete(array &$array, $path)
 	{
 		$segments = explode('.', $path);
@@ -133,7 +128,6 @@ class Arr
 	 * @param   array   $array  Array you want to pick a random value from
 	 * @return  mixed
 	 */
-
 	public static function random(array $array)
 	{
 		return $array[array_rand($array)];
@@ -146,7 +140,6 @@ class Arr
 	 * @param   array    $array  Array to check
 	 * @return  boolean
 	 */
-
 	public static function isAssoc(array $array)
 	{
 		return count(array_filter(array_keys($array), 'is_string')) === count($array);
@@ -160,7 +153,6 @@ class Arr
 	 * @param   string  $key    Array key
 	 * @return  array
 	 */
-
 	public static function pluck(array $array, $key)
 	{
 		return array_map(function($value) use ($key)

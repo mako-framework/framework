@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class DatabaseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getDatabaseConnection()
 	{
 		return m::mock('mako\database\connections\Connection');
@@ -33,7 +30,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getQueryBuilder()
 	{
 		return m::mock('mako\database\query\Query');
@@ -42,7 +38,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPut()
 	{
 		$builder = $this->getQueryBuilder();
@@ -87,7 +82,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHas()
 	{
 		$builder = $this->getQueryBuilder();
@@ -136,7 +130,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$builder = $this->getQueryBuilder();
@@ -203,7 +196,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemove()
 	{
 		$builder = $this->getQueryBuilder();
@@ -248,7 +240,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClear()
 	{
 		$builder = $this->getQueryBuilder();

@@ -19,7 +19,6 @@ use mako\http\responses\ResponseContainerInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class File implements ResponseContainerInterface
 {
 	/**
@@ -27,7 +26,6 @@ class File implements ResponseContainerInterface
 	 *
 	 * @var \mako\file\FileSystem
 	 */
-
 	protected $fileSystem;
 
 	/**
@@ -35,7 +33,6 @@ class File implements ResponseContainerInterface
 	 *
 	 * @var string
 	 */
-
 	protected $filePath;
 
 	/**
@@ -43,7 +40,6 @@ class File implements ResponseContainerInterface
 	 *
 	 * @var int
 	 */
-
 	protected $fileSize;
 
 	/**
@@ -51,7 +47,6 @@ class File implements ResponseContainerInterface
 	 *
 	 * @var array
 	 */
-
 	protected $options;
 
 	/**
@@ -61,7 +56,6 @@ class File implements ResponseContainerInterface
 	 * @param   string  $file     File path
 	 * @param   array   $options  Options
 	 */
-
 	public function __construct($file, array $options = [])
 	{
 		$this->fileSystem = $this->getFileSystem();
@@ -90,7 +84,6 @@ class File implements ResponseContainerInterface
 	 * @access  protected
 	 * @return  \mako\file\FileSystem
 	 */
-
 	protected function getFileSystem()
 	{
 		return new FileSystem;
@@ -103,7 +96,6 @@ class File implements ResponseContainerInterface
 	 * @param   string       $range  Request range
 	 * @return  array|false
 	 */
-
 	protected function calculateRange($range)
 	{
 		// Remove the "range=" part of the header value
@@ -157,7 +149,6 @@ class File implements ResponseContainerInterface
 	 * @param   int        $start  Starting point
 	 * @param   int        $end    Ending point
 	 */
-
 	protected function sendFile($start, $end)
 	{
 		// Erase output buffers and disable output buffering
@@ -194,7 +185,6 @@ class File implements ResponseContainerInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function send(Request $request, Response $response)
 	{
 		// Add headers that should always be included

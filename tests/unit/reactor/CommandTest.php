@@ -48,13 +48,11 @@ class Foo extends Command
 /**
  * @group unit
  */
-
 class CommandTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -63,7 +61,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHelp()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -124,7 +121,6 @@ EOF;
 	/**
 	 *
 	 */
-
 	public function testExecute()
 	{
 		$input = m::mock('mako\cli\input\Input');

@@ -13,7 +13,6 @@ namespace mako\pagination;
  * @author  Frederic G. Østby
  * @author  Yamada Taro
  */
-
 interface PaginationInterface
 {
 	/**
@@ -25,7 +24,6 @@ interface PaginationInterface
 	 * @param   int     $currentPage   The current page
 	 * @param   array   $options       Pagination options
 	 */
-
 	public function __construct($items, $itemsPerPage, $currentPage, array $options = []);
 
 	/**
@@ -34,7 +32,6 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function items();
 
 	/**
@@ -43,7 +40,6 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function itemsPerPage();
 
 	/**
@@ -52,7 +48,6 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function currentPage();
 
 	/**
@@ -61,7 +56,6 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function numberOfPages();
 
 	/**
@@ -70,7 +64,6 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function limit();
 
 	/**
@@ -79,6 +72,5 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function offset();
 }

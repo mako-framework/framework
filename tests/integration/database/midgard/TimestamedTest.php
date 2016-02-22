@@ -37,7 +37,6 @@ class TimestampedBar extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class TimestampedTest extends \ORMTestCase
 {
 	/**

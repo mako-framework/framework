@@ -15,7 +15,6 @@ use mako\redis\Redis as RedisClient;
  *
  * @author  Frederic G. Østby
  */
-
 class Redis implements StoreInterface
 {
 	/**
@@ -23,7 +22,6 @@ class Redis implements StoreInterface
 	 *
 	 * @var \mako\redis\Redis
 	 */
-
 	protected $redis;
 
 	/**
@@ -32,7 +30,6 @@ class Redis implements StoreInterface
 	 * @access  public
 	 * @param   \mako\redis\Redis  $redis  Redis client
 	 */
-
 	public function __construct(RedisClient $redis)
 	{
 		$this->redis = $redis;
@@ -41,7 +38,6 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		$this->redis->set($key, (is_numeric($data) ? $data : serialize($data)));
@@ -57,7 +53,6 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return (bool) $this->redis->exists($key);
@@ -66,7 +61,6 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		$data = $this->redis->get($key);
@@ -77,7 +71,6 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		return (bool) $this->redis->del($key);
@@ -86,7 +79,6 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		return (bool) $this->redis->flushdb();

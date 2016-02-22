@@ -15,7 +15,6 @@ use mako\file\FileSystem;
  *
  * @author  Frederic G. Østby
  */
-
 class File implements StoreInterface
 {
 	/**
@@ -23,7 +22,6 @@ class File implements StoreInterface
 	 *
 	 * @var \mako\file\FileSystem
 	 */
-
 	protected $fileSystem;
 
 	/**
@@ -31,7 +29,6 @@ class File implements StoreInterface
 	 *
 	 * @var string
 	 */
-
 	protected $cachePath;
 
 	/**
@@ -41,7 +38,6 @@ class File implements StoreInterface
 	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
 	 * @param   string                 $cachePath   Cache path
 	 */
-
 	public function __construct(FileSystem $fileSystem, $cachePath)
 	{
 		$this->fileSystem = $fileSystem;
@@ -56,7 +52,6 @@ class File implements StoreInterface
 	 * @param   string  $key  Cache key
 	 * @return  string
 	 */
-
 	protected function cacheFile($key)
 	{
 		return $this->cachePath . '/' . str_replace(['/', ':'], '_', $key) . '.php';
@@ -65,7 +60,6 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
@@ -78,7 +72,6 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		if($this->fileSystem->exists($this->cacheFile($key)))
@@ -98,7 +91,6 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		if($this->fileSystem->exists($this->cacheFile($key)))
@@ -144,7 +136,6 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		if($this->fileSystem->exists($this->cacheFile($key)))
@@ -158,7 +149,6 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		$files = $this->fileSystem->glob($this->cachePath . '/*');

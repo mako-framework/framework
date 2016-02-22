@@ -17,13 +17,11 @@ use mako\auth\providers\UserProvider;
  *
  * @author  Frederic G. Østby
  */
-
 class GatekeeperService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([Gatekeeper::class, 'gatekeeper'], function($container)

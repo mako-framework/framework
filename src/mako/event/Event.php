@@ -17,7 +17,6 @@ use mako\syringe\Container;
  *
  * @author  Frederic G. Østby
  */
-
 class Event
 {
 	/**
@@ -25,7 +24,6 @@ class Event
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -33,7 +31,6 @@ class Event
 	 *
 	 * @var array
 	 */
-
 	protected $events = [];
 
 	/**
@@ -42,7 +39,6 @@ class Event
 	 * @access  public
 	 * @param   null|\mako\syringe\Container  $container  IoC container
 	 */
-
 	public function __construct(Container $container = null)
 	{
 		$this->container = $container ?? new Container;
@@ -55,7 +51,6 @@ class Event
 	 * @param   string           $name     Event name
 	 * @param   string|\Closure  $handler  Event handler
 	 */
-
 	public function register($name, $handler)
 	{
 		$this->events[$name][] = $handler;
@@ -68,7 +63,6 @@ class Event
 	 * @param   string   $name  Event name
 	 * @return  boolean
 	 */
-
 	public function has($name)
 	{
 		return ! empty($this->events[$name]);
@@ -80,7 +74,6 @@ class Event
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function events()
 	{
 		return array_keys($this->events);
@@ -92,7 +85,6 @@ class Event
 	 * @access  public
 	 * @param   string  $name  Event name
 	 */
-
 	public function clear($name)
 	{
 		unset($this->events[$name]);
@@ -105,7 +97,6 @@ class Event
 	 * @param   string    $name            Event name
 	 * @param   string|\Closure  $handler  Event handler
 	 */
-
 	public function override($name, $handler)
 	{
 		$this->clear($name);
@@ -121,7 +112,6 @@ class Event
 	 * @param   array      $parameters  Parameters
 	 * @return  mixed
 	 */
-
 	protected function executeClosureHandler(Closure $handler, array $parameters)
 	{
 		return $this->container->call($handler, $parameters);
@@ -134,7 +124,6 @@ class Event
 	 * @param   string                             $handler  Event handler class
 	 * @return  \mako\event\EventHandlerInterface
 	 */
-
 	protected function resolveHandler($handler)
 	{
 		return $this->container->get($handler);
@@ -148,7 +137,6 @@ class Event
 	 * @param   array                              $parameters  Parameters
 	 * @return  mixed
 	 */
-
 	protected function executeClassHandler(EventHandlerInterface $handler, array $parameters)
 	{
 		return $this->container->call([$handler, 'handle'], $parameters);
@@ -162,7 +150,6 @@ class Event
 	 * @param   array            $parameters  Parameters
 	 * @return  mixed
 	 */
-
 	protected function executeHandler($handler, array $parameters)
 	{
 		if($handler instanceof Closure)
@@ -185,7 +172,6 @@ class Event
 	 * @param   boolean  $break       Break if one of the closures returns false?
 	 * @return  array
 	 */
-
 	public function trigger($name, array $parameters = [], $break = false)
 	{
 		$returnValues = [];

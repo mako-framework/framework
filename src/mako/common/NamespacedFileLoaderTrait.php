@@ -14,7 +14,6 @@ use RuntimeException;
  *
  * @author  Frederic G. Østby
  */
-
 trait NamespacedFileLoaderTrait
 {
 	/**
@@ -22,7 +21,6 @@ trait NamespacedFileLoaderTrait
 	 *
 	 * @var string
 	 */
-
 	protected $path;
 
 	/**
@@ -30,7 +28,6 @@ trait NamespacedFileLoaderTrait
 	 *
 	 * @var string
 	 */
-
 	protected $extension = '.php';
 
 	/**
@@ -38,7 +35,6 @@ trait NamespacedFileLoaderTrait
 	 *
 	 * @var array
 	 */
-
 	protected $namespaces = [];
 
 	/**
@@ -47,7 +43,6 @@ trait NamespacedFileLoaderTrait
 	 * @access  public
 	 * @param   string  $path  Path
 	 */
-
 	public function setPath($path)
 	{
 		$this->path = $path;
@@ -59,7 +54,6 @@ trait NamespacedFileLoaderTrait
 	 * @access  public
 	 * @param   string  $extension  Extension
 	 */
-
 	public function setExtension($extension)
 	{
 		$this->extension = $extension;
@@ -72,7 +66,6 @@ trait NamespacedFileLoaderTrait
 	 * @param   string  $namespace  Namespace name
 	 * @param   string  $path       Namespace path
 	 */
-
 	public function registerNamespace($namespace, $path)
 	{
 		$this->namespaces[$namespace] = $path;
@@ -87,7 +80,6 @@ trait NamespacedFileLoaderTrait
 	 * @param   string     $suffix     Path suffix
 	 * @return  string
 	 */
-
 	protected function getFilePath($file, $extension = null, $suffix = null)
 	{
 		if(strpos($file, '::') === false)
@@ -131,7 +123,6 @@ trait NamespacedFileLoaderTrait
 	 * @param   string     $suffix     Path suffix
 	 * @return  array
 	 */
-
 	protected function getCascadingFilePaths($file, $extension = null, $suffix = null)
 	{
 		$paths = [];

@@ -9,13 +9,11 @@ use mako\pixl\Image;
 /**
  * @group unit
  */
-
 class ImageTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getProcessor()
 	{
 		return m::mock('mako\pixl\processors\ProcessorInterface');
@@ -33,7 +30,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testConstructor()
 	{
 		$processor = $this->getProcessor();
@@ -46,7 +42,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testConstructorWithNonExistingFile()
 	{
 		$processor = $this->getProcessor();
@@ -57,7 +52,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRotate()
 	{
 		$processor = $this->getProcessor();
@@ -74,7 +68,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testResizeToPercent()
 	{
 		$processor = $this->getProcessor();
@@ -91,7 +84,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testResizeToPixelSize()
 	{
 		$processor = $this->getProcessor();
@@ -108,7 +100,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testResizeToPixelWithRestriction()
 	{
 		$processor = $this->getProcessor();
@@ -125,7 +116,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCrop()
 	{
 		$processor = $this->getProcessor();
@@ -142,7 +132,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFlipHorizontal()
 	{
 		$processor = $this->getProcessor();
@@ -171,7 +160,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFlipVertical()
 	{
 		$processor = $this->getProcessor();
@@ -188,7 +176,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWatermark()
 	{
 		$processor = $this->getProcessor();
@@ -205,7 +192,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWatermarkPosition()
 	{
 		$processor = $this->getProcessor();
@@ -222,7 +208,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWatermarkOpacity()
 	{
 		$processor = $this->getProcessor();
@@ -239,7 +224,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWatermarkOpacityNormalization()
 	{
 		$processor = $this->getProcessor();
@@ -268,7 +252,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testWatermarkWithNonExistingFile()
 	{
 		$processor = $this->getProcessor();
@@ -283,7 +266,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBrigtness()
 	{
 		$processor = $this->getProcessor();
@@ -312,7 +294,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBrigtnessNormalization()
 	{
 		$processor = $this->getProcessor();
@@ -341,7 +322,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGreyscale()
 	{
 		$processor = $this->getProcessor();
@@ -358,7 +338,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSepia()
 	{
 		$processor = $this->getProcessor();
@@ -375,7 +354,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testColorize()
 	{
 		$processor = $this->getProcessor();
@@ -392,7 +370,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPixelate()
 	{
 		$processor = $this->getProcessor();
@@ -421,7 +398,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNegate()
 	{
 		$processor = $this->getProcessor();
@@ -438,7 +414,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBorder()
 	{
 		$processor = $this->getProcessor();
@@ -455,7 +430,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBorderWithCustomColor()
 	{
 		$processor = $this->getProcessor();
@@ -472,7 +446,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBorderWithCustomColorAndThickness()
 	{
 		$processor = $this->getProcessor();
@@ -489,7 +462,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetImageBlob()
 	{
 		$processor = $this->getProcessor();
@@ -506,7 +478,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetImageBlobWithType()
 	{
 		$processor = $this->getProcessor();
@@ -523,7 +494,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetImageBlobWithTypeAndQuality()
 	{
 		$processor = $this->getProcessor();
@@ -540,7 +510,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetImageBlobNormalizeQuality()
 	{
 		$processor = $this->getProcessor();
@@ -569,7 +538,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSharpen()
 	{
 		$processor = $this->getProcessor();
@@ -586,7 +554,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSnapshot()
 	{
 		$processor = $this->getProcessor();
@@ -603,7 +570,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRestore()
 	{
 		$processor = $this->getProcessor();
@@ -620,7 +586,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetWidth()
 	{
 		$processor = $this->getProcessor();
@@ -637,7 +602,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetHeight()
 	{
 		$processor = $this->getProcessor();
@@ -654,7 +618,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetDimensions()
 	{
 		$processor = $this->getProcessor();

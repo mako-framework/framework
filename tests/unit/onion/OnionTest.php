@@ -65,13 +65,11 @@ class BarMiddleware2
 /**
  * @group unit
  */
-
 class OnionTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testMiddleware()
 	{
 		$onion = new Onion;
@@ -98,7 +96,6 @@ class OnionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMiddlewareWithParams()
 	{
 		$onion = new Onion;
@@ -114,7 +111,6 @@ class OnionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMiddlewareWithClosureAndParams()
 	{
 		$onion = new Onion;
@@ -133,7 +129,6 @@ class OnionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAddInnerLayer()
 	{
 		$onion = new Onion;
@@ -150,7 +145,6 @@ class OnionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAddOuterLayer()
 	{
 		$onion = new Onion;

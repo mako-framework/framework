@@ -15,7 +15,6 @@ use mako\reactor\Command;
  *
  * @author  Frederic G. Østby
  */
-
 class Server extends Command
 {
 	/**
@@ -23,7 +22,6 @@ class Server extends Command
 	 *
 	 * @var array
 	 */
-
 	protected $commandInformation =
 	[
 		'description' => 'Starts the local development server.',
@@ -57,7 +55,6 @@ class Server extends Command
 	 * @param   string                         $address      Address
 	 * @param   null|string                    $docroot      Document root
 	 */
-
 	public function execute(Application $application, $port = 8000, $address = 'localhost', $docroot = null)
 	{
 		$docroot = $docroot ?? dirname($application->getPath()) . '/public';

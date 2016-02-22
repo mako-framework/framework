@@ -16,13 +16,11 @@ use mako\http\routing\Router;
  *
  * @author  Frederic G. Østby
  */
-
 class Application extends BaseApplication
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function run()
 	{
 		ob_start();

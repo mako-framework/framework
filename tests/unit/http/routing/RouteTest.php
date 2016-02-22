@@ -7,13 +7,11 @@ use mako\http\routing\Route;
 /**
  * @group unit
  */
-
 class RouteTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasicMatch()
 	{
 		$route = new Route(['GET'], '/', 'FooController::fooAction');
@@ -40,7 +38,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMatchWithParameter()
 	{
 		$route = new Route(['GET'], '/foo/{id}', 'FooController::fooAction');
@@ -65,7 +62,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMatchWithParameters()
 	{
 		$route = new Route(['GET'], '/foo/{id}/{slug}', 'FooController::fooAction');
@@ -90,7 +86,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMatchWithOptionalParameters()
 	{
 		$route = new Route(['GET'], '/foo/{id}/{slug}?', 'FooController::fooAction');
@@ -115,7 +110,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMatchWithParameterConstraints()
 	{
 		$route = (new Route(['GET'], '/foo/{id}', 'FooController::fooAction'))->when(['id' => '[0-9]+']);
@@ -142,7 +136,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHasTrailingSlash()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
@@ -159,7 +152,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAllows()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
@@ -180,7 +172,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetMethods()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
@@ -197,7 +188,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetRoute()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
@@ -208,7 +198,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetAction()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
@@ -219,7 +208,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetName()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction', 'foo');
@@ -230,7 +218,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBeforeFilters()
 	{
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->before('foo');
@@ -253,7 +240,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAfterFilters()
 	{
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->after('foo');
@@ -276,7 +262,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPrefix()
 	{
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->prefix('bar');
@@ -299,7 +284,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetRegex()
 	{
 		$route = new Route(['GET'], '/', 'FooController::fooAction');
@@ -358,7 +342,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNamespace()
 	{
 		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->namespace('app\controllers');
@@ -369,7 +352,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNestedNamespace()
 	{
 		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->namespace('app')->namespace('controllers');
@@ -380,7 +362,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClosureNamespace()
 	{
 		$route = (new Route(['GET'], '/', function(){}))->namespace('app\controllers');

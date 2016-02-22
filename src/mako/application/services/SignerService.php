@@ -15,13 +15,11 @@ use mako\security\Signer;
  *
  * @author  Frederic G. Østby
  */
-
 class SignerService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([Signer::class, 'signer'], function($container)

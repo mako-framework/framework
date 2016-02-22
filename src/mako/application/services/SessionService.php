@@ -19,7 +19,6 @@ use mako\session\stores\Void;
  *
  * @author  Frederic G. Østby
  */
-
 class SessionService extends Service
 {
 	/**
@@ -30,7 +29,6 @@ class SessionService extends Service
 	 * @param   array                          $config     Store configuration
 	 * @return  \mako\session\stores\Database
 	 */
-
 	protected function getDatabaseStore($container, $config)
 	{
 		return new Database($container->get('database')->connection($config['configuration']), $config['table']);
@@ -44,7 +42,6 @@ class SessionService extends Service
 	 * @param   array                      $config     Store configuration
 	 * @return  \mako\session\stores\File
 	 */
-
 	protected function getFileStore($container, $config)
 	{
 		return new File($container->get('fileSystem'), $config['path']);
@@ -58,7 +55,6 @@ class SessionService extends Service
 	 * @param   array                      $config     Store configuration
 	 * @return  \mako\session\stores\Redis
 	 */
-
 	protected function getRedisStore($container, $config)
 	{
 		return new Redis($container->get('redis')->connection($config['configuration']));
@@ -72,7 +68,6 @@ class SessionService extends Service
 	 * @param   array                      $config     Store configuration
 	 * @return  \mako\session\stores\Void
 	 */
-
 	protected function getVoidStore($container, $config)
 	{
 		return new Void;
@@ -86,7 +81,6 @@ class SessionService extends Service
 	 * @param   array                                $config     Session configuration
 	 * @return  \mako\session\stores\StoreInterface
 	 */
-
 	protected function getSessionStore($container, $config)
 	{
 		$config = $config['configurations'][$config['configuration']];
@@ -111,7 +105,6 @@ class SessionService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([Session::class, 'session'], function($container)

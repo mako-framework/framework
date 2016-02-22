@@ -9,13 +9,11 @@ use Mockery as m;
 /**
  * @group unit
  */
-
 class BellTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class BellTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRing()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -39,7 +36,6 @@ class BellTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRingMultipleTimes()
 	{
 		$output = m::mock('mako\cli\output\Output');

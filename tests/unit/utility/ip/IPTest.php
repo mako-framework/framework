@@ -7,13 +7,11 @@ use mako\utility\ip\IP;
 /**
  * @group unit
  */
-
 class IPTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testInRange()
 	{
 

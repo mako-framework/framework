@@ -12,13 +12,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -27,7 +25,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	protected function getConnection()
 	{
 		$connection = m::mock('\mako\database\connections\Connection');
@@ -47,7 +44,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	protected function getBuilder($table = 'foobar')
 	{
 		return (new Query($this->getConnection()))->table($table);
@@ -56,7 +52,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicSelect()
 	{
 		$query = $this->getBuilder();
@@ -70,7 +65,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicSelectWithClosure()
 	{
 		$query = $this->getBuilder(function($query)
@@ -87,7 +81,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDistinctSelect()
 	{
 		$query = $this->getBuilder();
@@ -103,7 +96,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithCloumns()
 	{
 		$query = $this->getBuilder();
@@ -119,7 +111,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithCloumnAlias()
 	{
 		$query = $this->getBuilder();
@@ -135,7 +126,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithTablePrefix()
 	{
 		$query = $this->getBuilder();
@@ -151,7 +141,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithLimit()
 	{
 		$query = $this->getBuilder();
@@ -167,7 +156,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithLimitAndOffset()
 	{
 		$query = $this->getBuilder();
@@ -185,7 +173,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithWhere()
 	{
 		$query = $this->getBuilder();
@@ -201,7 +188,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithWhereRaw()
 	{
 		$query = $this->getBuilder();
@@ -217,7 +203,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithWheres()
 	{
 		$query = $this->getBuilder();
@@ -234,7 +219,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrWhere()
 	{
 		$query = $this->getBuilder();
@@ -251,7 +235,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrWhereRaw()
 	{
 		$query = $this->getBuilder();
@@ -268,7 +251,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithNestedWheres()
 	{
 		$query = $this->getBuilder();
@@ -288,7 +270,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithBetween()
 	{
 		$query = $this->getBuilder();
@@ -304,7 +285,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithBetweenAndOrBetween()
 	{
 		$query = $this->getBuilder();
@@ -322,7 +302,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotBetween()
 	{
 		$query = $this->getBuilder();
@@ -338,7 +317,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotBetweenAndOrNotBetween()
 	{
 		$query = $this->getBuilder();
@@ -356,7 +334,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithInAndOrIn()
 	{
 		$query = $this->getBuilder();
@@ -374,7 +351,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithRawIn()
 	{
 		$query = $this->getBuilder();
@@ -390,7 +366,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithClosureIn()
 	{
 		$query = $this->getBuilder();
@@ -409,7 +384,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotIn()
 	{
 		$query = $this->getBuilder();
@@ -425,7 +399,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotInAndOrNotIn()
 	{
 		$query = $this->getBuilder();
@@ -443,7 +416,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithIsNull()
 	{
 		$query = $this->getBuilder();
@@ -459,7 +431,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithIsNullAndOrNull()
 	{
 		$query = $this->getBuilder();
@@ -477,7 +448,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithIsNotNull()
 	{
 		$query = $this->getBuilder();
@@ -493,7 +463,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithIsNotNullAndOrNotNull()
 	{
 		$query = $this->getBuilder();
@@ -511,7 +480,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWhereConvenienceMethods()
 	{
 		$query = $this->getBuilder();
@@ -595,7 +563,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithExistsSubquery()
 	{
 		$query = $this->getBuilder();
@@ -611,7 +578,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithExistsSubqueryAndOrExists()
 	{
 		$query = $this->getBuilder();
@@ -629,7 +595,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithExistsClosure()
 	{
 		$query = $this->getBuilder();
@@ -648,7 +613,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotExists()
 	{
 		$query = $this->getBuilder();
@@ -664,7 +628,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotExistsAndOrNotExists()
 	{
 		$query = $this->getBuilder();
@@ -682,7 +645,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithJoin()
 	{
 		$query = $this->getBuilder();
@@ -698,7 +660,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithJoinRaw()
 	{
 		$query = $this->getBuilder();
@@ -714,7 +675,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithLeftJoin()
 	{
 		$query = $this->getBuilder();
@@ -730,7 +690,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithLeftJoinRaw()
 	{
 		$query = $this->getBuilder();
@@ -746,7 +705,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithComplexJoin()
 	{
 		$query = $this->getBuilder();
@@ -766,7 +724,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithComplexNestedJoin()
 	{
 		$query = $this->getBuilder();
@@ -790,7 +747,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithComplexRawJoin()
 	{
 		$query = $this->getBuilder();
@@ -810,7 +766,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithGroupBy()
 	{
 		$query = $this->getBuilder('orders');
@@ -828,7 +783,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithGroupByArray()
 	{
 		$query = $this->getBuilder('orders');
@@ -846,7 +800,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithHaving()
 	{
 		$query = $this->getBuilder('orders');
@@ -865,7 +818,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithHavingRaw()
 	{
 		$query = $this->getBuilder('orders');
@@ -884,7 +836,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithHavingAndOrHaving()
 	{
 		$query = $this->getBuilder('orders');
@@ -904,7 +855,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithHavinRawgAndOrHavingRaw()
 	{
 		$query = $this->getBuilder('orders');
@@ -924,7 +874,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrder()
 	{
 		$query = $this->getBuilder();
@@ -940,7 +889,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderArray()
 	{
 		$query = $this->getBuilder();
@@ -956,7 +904,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderRaw()
 	{
 		$query = $this->getBuilder();
@@ -972,7 +919,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderDescending()
 	{
 		$query = $this->getBuilder();
@@ -988,7 +934,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderDescendingRaw()
 	{
 		$query = $this->getBuilder();
@@ -1004,7 +949,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderAscending()
 	{
 		$query = $this->getBuilder();
@@ -1020,7 +964,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderAscendingRaw()
 	{
 		$query = $this->getBuilder();
@@ -1036,7 +979,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithMultipleOrder()
 	{
 		$query = $this->getBuilder();
@@ -1053,7 +995,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectResetOrdering()
 	{
 		$query = $this->getBuilder();
@@ -1070,7 +1011,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicDelete()
 	{
 		$query = $this->getBuilder();
@@ -1084,7 +1024,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDeleteWithWhere()
 	{
 		$query = $this->getBuilder();
@@ -1100,7 +1039,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicUpdate()
 	{
 		$query = $this->getBuilder();
@@ -1114,7 +1052,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testUpdateWithWhere()
 	{
 		$query = $this->getBuilder();
@@ -1130,7 +1067,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCountAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1155,7 +1091,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAvgAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1171,7 +1106,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMaxAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1187,7 +1121,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMinAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1203,7 +1136,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSumAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1219,7 +1151,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testColumnWithoutParam()
 	{
 		$query = $this->getBuilder();
@@ -1237,7 +1168,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testColumnWithParam()
 	{
 		$query = $this->getBuilder();
@@ -1253,7 +1183,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBatch()
 	{
 		$builder = m::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);

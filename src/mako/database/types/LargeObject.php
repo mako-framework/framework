@@ -16,7 +16,6 @@ use mako\database\types\Type;
  *
  * @author  Frederic G. Østby
  */
-
 class LargeObject extends Type
 {
 	/**
@@ -24,6 +23,5 @@ class LargeObject extends Type
 	 *
 	 * @var int
 	 */
-
 	const TYPE = PDO::PARAM_LOB;
 }

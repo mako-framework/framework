@@ -9,13 +9,11 @@ use mako\cli\output\formatter\Formatter;
 /**
  * @group unit
  */
-
 class OutputTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testConstructor()
 	{
 		$formatter = new Formatter;
@@ -34,7 +32,6 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicFormatter()
 	{
 		$formatter = new Formatter(true);
@@ -47,7 +44,6 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTagEscaping()
 	{
 		$formatter = new Formatter(true);
@@ -58,7 +54,6 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCustomStyle()
 	{
 		$formatter = new Formatter(true);
@@ -71,7 +66,6 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFormattingWithoutAnsiSupport()
 	{
 		$formatter = new Formatter(false);
@@ -82,7 +76,6 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testEscape()
 	{
 		$formatter = new Formatter(true);
@@ -93,7 +86,6 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStrip()
 	{
 		$formatter = new Formatter(true);
@@ -104,7 +96,6 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
 	 */
-
 	public function testUndefinedTagException()
 	{
 		try
@@ -124,7 +115,6 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
 	 */
-
 	public function testIncorrectTagNestingException()
 	{
 		try
@@ -144,7 +134,6 @@ class OutputTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
 	 */
-
 	public function testMissingCloseTagException()
 	{
 		try

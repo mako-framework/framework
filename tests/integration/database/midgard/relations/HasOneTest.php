@@ -31,13 +31,11 @@ class HasOneProfile extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class HasOneTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasicHasOneRelation()
 	{
 		$user = HasOneUser::get(1);
@@ -52,7 +50,6 @@ class HasOneTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLazyHasOneRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -74,7 +71,6 @@ class HasOneTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasOneRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -96,7 +92,6 @@ class HasOneTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasOneRelationWithConstraint()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -119,7 +114,6 @@ class HasOneTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testCreateRelated()
 	{
 		$user = new HasOneUser();

@@ -15,7 +15,6 @@ use mako\utility\ip\IPv6;
  *
  * @author  Frederic G. Østby
  */
-
 class IP
 {
 	/**
@@ -26,7 +25,6 @@ class IP
 	 * @param   string   $range Ip address or IP range
 	 * @return  boolean
 	 */
-
 	public static function inRange(string $ip, string $range): bool
 	{
 		return strpos($ip, '.') === false ? IPv6::inRange($ip, $range) : IPv4::inRange($ip, $range);

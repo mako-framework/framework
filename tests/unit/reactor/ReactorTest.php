@@ -11,13 +11,11 @@ use PHPUnit_Framework_TestCase;
 /**
  * @group unit
  */
-
 class ReactorTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -26,7 +24,6 @@ class ReactorTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNoInput()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -104,7 +101,6 @@ EOF;
 	/**
 	 *
 	 */
-
 	public function testUknownCommand()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -139,7 +135,6 @@ EOF;
 	/**
 	 *
 	 */
-
 	public function testCommand()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -176,7 +171,6 @@ EOF;
 	/**
 	 *
 	 */
-
 	public function testCommandWithCustomOption()
 	{
 		$closure = function(){};

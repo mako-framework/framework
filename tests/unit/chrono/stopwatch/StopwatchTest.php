@@ -9,13 +9,11 @@ use mako\chrono\stopwatch\Stopwatch;
 /**
  * @group unit
  */
-
 class StopwatchTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testStart()
 	{
 		$stopwatch = new Stopwatch;
@@ -28,7 +26,6 @@ class StopwatchTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLap()
 	{
 		$stopwatch = new Stopwatch;
@@ -47,7 +44,6 @@ class StopwatchTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetLaps()
 	{
 		$stopwatch = new Stopwatch;
@@ -62,7 +58,6 @@ class StopwatchTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetLapCount()
 	{
 		$stopwatch = new Stopwatch;
@@ -79,7 +74,6 @@ class StopwatchTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStop()
 	{
 		$stopwatch = new Stopwatch;
@@ -101,7 +95,6 @@ class StopwatchTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetElapsedTime()
 	{
 		$stopwatch = new Stopwatch;
@@ -118,7 +111,6 @@ class StopwatchTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsRunning()
 	{
 		$stopwatch = new Stopwatch;

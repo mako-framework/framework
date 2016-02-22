@@ -9,13 +9,11 @@ use PHPUnit_Framework_TestCase;
 /**
  * @group unit
  */
-
 class MethodNotAllowedExceptionTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testFailedConnection()
 	{
 		$exception = new MethodNotAllowedException(['GET', 'POST']);

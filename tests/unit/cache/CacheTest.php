@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class CacheTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getStore()
 	{
 		return m::mock('\mako\cache\stores\StoreInterface');
@@ -33,7 +30,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPut()
 	{
 		$store = $this->getStore();
@@ -68,7 +64,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHas()
 	{
 		$store = $this->getStore();
@@ -93,7 +88,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$store = $this->getStore();
@@ -118,7 +112,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetOrElse()
 	{
 		$store = $this->getStore();
@@ -207,7 +200,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemove()
 	{
 		$store = $this->getStore();
@@ -232,7 +224,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClear()
 	{
 		$store = $this->getStore();

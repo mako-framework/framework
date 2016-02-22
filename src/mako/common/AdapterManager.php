@@ -17,7 +17,6 @@ use mako\syringe\Container;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class AdapterManager
 {
 	use ConfigurableTrait;
@@ -27,7 +26,6 @@ abstract class AdapterManager
 	 *
 	 * @var boolean
 	 */
-
 	protected $reuseInstances = true;
 
 	/**
@@ -35,7 +33,6 @@ abstract class AdapterManager
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -43,7 +40,6 @@ abstract class AdapterManager
 	 *
 	 * @var array
 	 */
-
 	protected $instances = [];
 
 	/**
@@ -54,7 +50,6 @@ abstract class AdapterManager
 	 * @param   array                    $configurations  Configurations
 	 * @param   \mako\syringe\Container  $container       IoC container instance
 	 */
-
 	public function __construct($default, array $configurations, Container $container)
 	{
 		$this->default = $default;
@@ -71,7 +66,6 @@ abstract class AdapterManager
 	 * @param   string     $type  Cache type
 	 * @return  string
 	 */
-
 	protected function getFactoryMethodName($type)
 	{
 		$method = $type . 'Factory';
@@ -101,7 +95,6 @@ abstract class AdapterManager
 	 * @param   string  $configuration  Configuration name
 	 * @return  mixed
 	 */
-
 	public function instance($configuration = null)
 	{
 		$configuration = $configuration ?? $this->default;
@@ -129,7 +122,6 @@ abstract class AdapterManager
 	 * @param   array   $arguments  Method arguments
 	 * @return  mixed
 	 */
-
 	public function __call($name, array $arguments)
 	{
 		return $this->instance()->{$name}(...$arguments);

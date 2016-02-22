@@ -11,13 +11,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class HumanizerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -26,7 +24,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getI18n()
 	{
 		$i18n = m::mock('\mako\i18n\I18n');
@@ -47,7 +44,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getHumanizer()
 	{
 		return new Humanizer($this->getI18n());
@@ -56,7 +52,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFileSizeBinary()
 	{
 		$humanizer = $this->getHumanizer();
@@ -173,7 +168,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFileSizeDecimal()
 	{
 		$humanizer = $this->getHumanizer();
@@ -272,7 +266,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDay()
 	{
 		$humanizer = $this->getHumanizer();
@@ -311,7 +304,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTime()
 	{
 		$humanizer = $this->getHumanizer();

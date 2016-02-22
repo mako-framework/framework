@@ -12,7 +12,6 @@ namespace mako\cache\stores;
  *
  * @author  Frederic G. Østby
  */
-
 interface StoreInterface
 {
 	/**
@@ -24,7 +23,6 @@ interface StoreInterface
 	 * @param   int      $ttl    Time to live
 	 * @return  boolean
 	 */
-
 	public function put($key, $data, $ttl = 0);
 
 	/**
@@ -34,7 +32,6 @@ interface StoreInterface
 	 * @param   string   $key  Cache key
 	 * @return  boolean
 	 */
-
 	public function has($key);
 
 	/**
@@ -44,7 +41,6 @@ interface StoreInterface
 	 * @param   string  $key  Cache key
 	 * @return  mixed
 	 */
-
 	public function get($key);
 
 	/**
@@ -54,7 +50,6 @@ interface StoreInterface
 	 * @param   string   $key  Cache key
 	 * @return  boolean
 	 */
-
 	public function remove($key);
 
 	/**
@@ -63,6 +58,5 @@ interface StoreInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function clear();
 }

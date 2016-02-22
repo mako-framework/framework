@@ -19,7 +19,6 @@ use mako\utility\Str;
  *
  * @author  Frederic G. Østby
  */
-
 class ListRoutes extends Command
 {
 	/**
@@ -27,7 +26,6 @@ class ListRoutes extends Command
 	 *
 	 * @var array
 	 */
-
 	protected $commandInformation =
 	[
 		'description' => 'Lists all registered routes.',
@@ -41,7 +39,6 @@ class ListRoutes extends Command
 	 * @access  public
 	 * @param   \mako\application\Application  $application  Application instance
 	 */
-
 	public function execute(Application $application)
 	{
 		// Build table rows

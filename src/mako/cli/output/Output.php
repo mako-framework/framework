@@ -15,7 +15,6 @@ use mako\cli\output\writer\WriterInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Output
 {
 	/**
@@ -23,7 +22,6 @@ class Output
 	 *
 	 * @var int
 	 */
-
 	const STANDARD = 1;
 
 	/**
@@ -31,7 +29,6 @@ class Output
 	 *
 	 * @var int
 	 */
-
 	const ERROR = 2;
 
 	/**
@@ -39,7 +36,6 @@ class Output
 	 *
 	 * @var \mako\cli\output\writer\WriterInterface
 	 */
-
 	protected $standard;
 
 	/**
@@ -47,7 +43,6 @@ class Output
 	 *
 	 * @var \mako\cli\output\writer\WriterInterface
 	 */
-
 	protected $error;
 
 	/**
@@ -55,7 +50,6 @@ class Output
 	 *
 	 * @var \mako\cli\output\formatter\FormatterInterface|null
 	 */
-
 	protected $formatter;
 
 	/**
@@ -74,7 +68,6 @@ class Output
 	 * @param   \mako\cli\output\writer\WriterInterface        $error      Error writer
 	 * @param   \mako\cli\output\formatter\FormatterInterface  $formatter  Formatter
 	 */
-
 	public function __construct(WriterInterface $standard, WriterInterface $error, FormatterInterface $formatter = null)
 	{
 		$this->standard = $standard;
@@ -90,7 +83,6 @@ class Output
 	 * @access  public
 	 * @param   \mako\cli\output\formatter\FormatterInterface  $formatter  Formatter
 	 */
-
 	public function setFormatter(FormatterInterface $formatter)
 	{
 		$this->formatter = $formatter;
@@ -102,7 +94,6 @@ class Output
 	 * @access  public
 	 * @return  \mako\cli\output\formatter\FormatterInterface|null
 	 */
-
 	public function getFormatter()
 	{
 		return $this->formatter;
@@ -113,7 +104,6 @@ class Output
 	 *
 	 * @access  public
 	 */
-
 	public function mute()
 	{
 		$this->muted = true;
@@ -124,7 +114,6 @@ class Output
 	 *
 	 * @access  public
 	 */
-
 	public function unmute()
 	{
 		$this->muted = false;
@@ -136,7 +125,6 @@ class Output
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isMuted()
 	{
 		return $this->muted;
@@ -149,7 +137,6 @@ class Output
 	 * @param   string  $string  String to write
 	 * @param   int     $writer  Output type
 	 */
-
 	public function write($string, $writer = Output::STANDARD)
 	{
 		if($this->muted)
@@ -180,7 +167,6 @@ class Output
 	 * @access  public
 	 * @param   string  $string  String to write
 	 */
-
 	public function error($string)
 	{
 		return $this->write($string, static::ERROR);
@@ -193,7 +179,6 @@ class Output
 	 * @param   string  $string  String to write
 	 * @param   int     $writer  Output type
 	 */
-
 	public function writeLn($string, $writer = Output::STANDARD)
 	{
 		return $this->write($string . PHP_EOL, $writer);
@@ -205,7 +190,6 @@ class Output
 	 * @access  public
 	 * @param   string  $string  String to write
 	 */
-
 	public function errorLn($string)
 	{
 		return $this->writeLn($string, static::ERROR);

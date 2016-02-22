@@ -24,13 +24,11 @@ class Extended
 /**
  * @group unit
  */
-
 class ExtendableTraitTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testExtending()
 	{
 		Extended::extend('foo', function()
@@ -51,7 +49,6 @@ class ExtendableTraitTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \BadMethodCallException
 	 */
-
 	public function testException()
 	{
 		$collection = new Extended();

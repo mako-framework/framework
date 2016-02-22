@@ -7,13 +7,11 @@ use mako\utility\ip\IPv4;
 /**
  * @group unit
  */
-
 class IPv4Test extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testInRange()
 	{
 		$this->assertTrue(IPv4::inRange('127.0.0.1', '127.0.0.1'));

@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getServerData()
 	{
 		return [
@@ -66,7 +63,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAcceptableContentTypes()
 	{
 		$server = $this->getServerData();
@@ -79,7 +75,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAcceptableLanguages()
 	{
 		$server = $this->getServerData();
@@ -92,7 +87,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAcceptableCharsets()
 	{
 		$server = $this->getServerData();
@@ -105,7 +99,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAcceptableEncodings()
 	{
 		$server = $this->getServerData();
@@ -118,7 +111,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIP()
 	{
 		$server = $this->getServerData();
@@ -173,7 +165,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsAjax()
 	{
 		$server = $this->getServerData();
@@ -194,7 +185,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsSecure()
 	{
 		$server = $this->getServerData();
@@ -255,7 +245,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBaseURL()
 	{
 		$server = $this->getServerData();
@@ -316,7 +305,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPath()
 	{
 		$server = $this->getServerData();
@@ -343,7 +331,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPathWithLanguage()
 	{
 		$server = $this->getServerData();
@@ -358,7 +345,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLanguage()
 	{
 		$server = $this->getServerData();
@@ -373,7 +359,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLanguagePrefix()
 	{
 		$server = $this->getServerData();
@@ -388,7 +373,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMethod()
 	{
 		$server = $this->getServerData();
@@ -423,7 +407,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRealMethod()
 	{
 		$server = $this->getServerData();
@@ -452,7 +435,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsFaked()
 	{
 		$server = $this->getServerData();
@@ -481,7 +463,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testUsername()
 	{
 		$server = $this->getServerData();
@@ -502,7 +483,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPassword()
 	{
 		$server = $this->getServerData();
@@ -523,7 +503,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCookie()
 	{
 		$cookies = ['foo' => 'bar'];
@@ -540,7 +519,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSignedCookie()
 	{
 		$signer = m::mock('\mako\security\Signer');
@@ -567,7 +545,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testSignedCookieException()
 	{
 		$request = new Request();
@@ -578,7 +555,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHeader()
 	{
 		$server = $this->getServerData();
@@ -597,7 +573,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testServer()
 	{
 		$server = $this->getServerData();
@@ -616,7 +591,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$get = ['foo' => 'bar', 'baz' => ['bax']];
@@ -637,7 +611,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPost()
 	{
 		$post = ['foo' => 'bar', 'baz' => ['bax']];
@@ -658,7 +631,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBody()
 	{
 		$request = new Request(['body' => '{"foo":"bar","baz":["bax"]}']);
@@ -669,7 +641,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testJsonPutData()
 	{
 		$body = ['foo' => 'bar', 'baz' => ['bax']];
@@ -694,7 +665,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testURLEncodedPutData()
 	{
 		$body = ['foo' => 'bar', 'baz' => ['bax']];
@@ -719,7 +689,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMagicGet()
 	{
 		$get = ['foo' => 'bar', 'baz' => ['bax']];
@@ -736,7 +705,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMagicIsset()
 	{
 		$get = ['foo' => 'bar', 'baz' => ['bax']];
@@ -753,7 +721,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetRoute()
 	{
 		$request = new Request();
@@ -766,7 +733,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetRoute()
 	{
 		$request = new Request();

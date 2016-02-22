@@ -17,7 +17,6 @@ use mako\http\responses\ResponseContainerInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Stream implements ResponseContainerInterface
 {
 	/**
@@ -25,7 +24,6 @@ class Stream implements ResponseContainerInterface
 	 *
 	 * @var boolean
 	 */
-
 	protected $isCGI;
 
 	/**
@@ -33,7 +31,6 @@ class Stream implements ResponseContainerInterface
 	 *
 	 * @var \Closure
 	 */
-
 	protected $stream;
 
 	/**
@@ -42,7 +39,6 @@ class Stream implements ResponseContainerInterface
 	 * @access  public
 	 * @param   \Closure  $stream  Stream
 	 */
-
 	public function __construct(Closure $stream)
 	{
 		$this->stream = $stream;
@@ -55,7 +51,6 @@ class Stream implements ResponseContainerInterface
 	 * @param   string   $chunk       Chunck of data to flush
 	 * @param   boolean  $flushEmpty  Flush empty chunk?
 	 */
-
 	public function flush($chunk, $flushEmpty = false)
 	{
 		if($this->isCGI)
@@ -83,7 +78,6 @@ class Stream implements ResponseContainerInterface
 	 *
 	 * @access  protected
 	 */
-
 	protected function flow()
 	{
 		// Erase output buffers and disable output buffering
@@ -104,7 +98,6 @@ class Stream implements ResponseContainerInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function send(Request $request, Response $response)
 	{
 		$this->isCGI = $request->isCGI();

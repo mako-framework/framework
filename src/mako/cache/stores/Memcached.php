@@ -16,7 +16,6 @@ use mako\cache\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Memcached implements StoreInterface
 {
 	/**
@@ -24,7 +23,6 @@ class Memcached implements StoreInterface
 	 *
 	 * @var \Memcached
 	 */
-
 	protected $memcached;
 
 	/**
@@ -35,7 +33,6 @@ class Memcached implements StoreInterface
 	 * @param   int      $timeout       Timeout in seconds
 	 * @param   boolean  $compressData  Compress data?
 	 */
-
 	public function __construct(array $servers, $timeout = 1, $compressData = false)
 	{
 		$this->memcached = new PHPMemcached();
@@ -61,7 +58,6 @@ class Memcached implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		if($ttl !== 0)
@@ -80,7 +76,6 @@ class Memcached implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return ($this->memcached->get($key) !== false);
@@ -89,7 +84,6 @@ class Memcached implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		return $this->memcached->get($key);
@@ -98,7 +92,6 @@ class Memcached implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		return $this->memcached->delete($key, 0);
@@ -107,7 +100,6 @@ class Memcached implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		return $this->memcached->flush();

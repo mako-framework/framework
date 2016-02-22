@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class VoidTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testWrite()
 	{
 		$null = new Void;
@@ -26,7 +24,6 @@ class VoidTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRead()
 	{
 		$null = new Void;
@@ -37,7 +34,6 @@ class VoidTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDelete()
 	{
 		$null = new Void;
@@ -49,7 +45,6 @@ class VoidTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGc()
 	{
 		$null = new Void;

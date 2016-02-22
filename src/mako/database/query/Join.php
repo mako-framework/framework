@@ -16,7 +16,6 @@ use mako\database\query\Raw;
  *
  * @author  Frederic G. Østby
  */
-
 class Join
 {
 	/**
@@ -24,7 +23,6 @@ class Join
 	 *
 	 * @var string
 	 */
-
 	protected $type;
 
 	/**
@@ -32,7 +30,6 @@ class Join
 	 *
 	 * @var string
 	 */
-
 	protected $table;
 
 	/**
@@ -40,7 +37,6 @@ class Join
 	 *
 	 * @var array
 	 */
-
 	protected $conditions = [];
 
 	/**
@@ -50,7 +46,6 @@ class Join
 	 * @param   string  $type   Join type
 	 * @param   string  $table  Table we are joining
 	 */
-
 	public function __construct($type, $table)
 	{
 		$this->type  = $type;
@@ -63,7 +58,6 @@ class Join
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getType()
 	{
 		return $this->type;
@@ -75,7 +69,6 @@ class Join
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getTable()
 	{
 		return $this->table;
@@ -87,7 +80,6 @@ class Join
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getConditions()
 	{
 		return $this->conditions;
@@ -102,7 +94,6 @@ class Join
 	 * @param   null|string  $column2    Column name
 	 * @param   string       $separator  Condition separator
 	 */
-
 	public function on($column1, $operator = null, $column2 = null, $separator = 'AND')
 	{
 		if($column1 instanceof Closure)
@@ -142,7 +133,6 @@ class Join
 	 * @param   string  $raw        Raw SQL
 	 * @param   string  $separator  Condition separator
 	 */
-
 	public function onRaw($column1, $operator, $raw, $separator = 'AND')
 	{
 		return $this->on($column1, $operator, new Raw($raw), $separator);
@@ -156,7 +146,6 @@ class Join
 	 * @param   null|string  $operator  Operator
 	 * @param   null|string  $column2   Column name
 	 */
-
 	public function orOn($column1, $operator = null, $column2 = null)
 	{
 		return $this->on($column1, $operator, $column2, 'OR');
@@ -170,7 +159,6 @@ class Join
 	 * @param   string  $operator  Operator
 	 * @param   string  $raw       Raw SQL
 	 */
-
 	public function orOnRaw($column1, $operator, $raw)
 	{
 		return $this->onRaw($column1, $operator, $raw, 'OR');

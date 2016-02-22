@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getFileSystem()
 	{
 		return m::mock('mako\file\FileSystem');
@@ -33,7 +30,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasic()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -56,7 +52,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testBasicNonExistingFile()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -71,7 +66,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPackage()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -92,7 +86,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPackageOverride()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -111,7 +104,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testEvironmentOverride()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -136,7 +128,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPackageEvironmentOverride()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -167,7 +158,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSet()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -189,7 +179,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage mako\config\Config::load(): The [ settings ] config file does not exist.
 	 */
-
 	public function testSetWithNonExistingFile()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -204,7 +193,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemove()
 	{
 		$fileSystem = $this->getFileSystem();

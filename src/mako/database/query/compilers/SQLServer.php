@@ -14,7 +14,6 @@ use mako\database\query\compilers\Compiler;
  *
  * @author  Frederic G. Østby
  */
-
 class SQLServer extends Compiler
 {
 	/**
@@ -22,13 +21,11 @@ class SQLServer extends Compiler
 	 *
 	 * @var string
 	 */
-
 	protected static $dateForamt = 'Y-m-d H:i:s.0000000';
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function escapeIdentifier($identifier)
 	{
 		return '[' . str_replace(']', ']]', $identifier) . ']';
@@ -37,7 +34,6 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function select()
 	{
 		if($this->query->getLimit() === null)

@@ -15,7 +15,6 @@ use mako\cli\output\formatter\FormatterInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Formatter implements FormatterInterface
 {
 	/**
@@ -23,7 +22,6 @@ class Formatter implements FormatterInterface
 	 *
 	 * @var string
 	 */
-
 	const TAG_REGEX = '/(?<!\\\\)<\/?[a-z_]+\>/i';
 
 	/**
@@ -31,7 +29,6 @@ class Formatter implements FormatterInterface
 	 *
 	 * @var string
 	 */
-
 	const ESCAPED_TAG_REGEX = '/\\\\<(\/?[a-z_]+)\>/i';
 
 	/**
@@ -39,7 +36,6 @@ class Formatter implements FormatterInterface
 	 *
 	 * @var string
 	 */
-
 	const ANSI_SGR_SEQUENCE_REGEX = "/\033\[([0-9]{1,2};?)+m/";
 
 	/**
@@ -47,7 +43,6 @@ class Formatter implements FormatterInterface
 	 *
 	 * @var array
 	 */
-
 	protected $styles =
 	[
 		// Clear styles
@@ -91,7 +86,6 @@ class Formatter implements FormatterInterface
 	 *
 	 * @var boolean
 	 */
-
 	protected $hasAnsiSupport;
 
 	/**
@@ -99,7 +93,6 @@ class Formatter implements FormatterInterface
 	 *
 	 * @var array
 	 */
-
 	protected $userStyles = [];
 
 	/**
@@ -107,7 +100,6 @@ class Formatter implements FormatterInterface
 	 *
 	 * @var array
 	 */
-
 	protected $openTags = [];
 
 	/**
@@ -116,7 +108,6 @@ class Formatter implements FormatterInterface
 	 * @access  public
 	 * @param   null|boolean  $hasAnsiSupport  Do we have ANSI support?
 	 */
-
 	public function __construct($hasAnsiSupport = null)
 	{
 		if($hasAnsiSupport === null)
@@ -133,7 +124,6 @@ class Formatter implements FormatterInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function hasAnsiSupport()
 	{
 		return $this->hasAnsiSupport;
@@ -146,7 +136,6 @@ class Formatter implements FormatterInterface
 	 * @param   string        $name   Style name
 	 * @param   string|array  $style  Style or array of styles
 	 */
-
 	public function addStyle($name, $style)
 	{
 		$this->userStyles[$name] = (array) $style;
@@ -159,7 +148,6 @@ class Formatter implements FormatterInterface
 	 * @param   string     $tag  Tag
 	 * @return  string
 	 */
-
 	protected function getTagName($tag)
 	{
 		return str_replace(['<', '>', '/'], '', $tag);
@@ -172,7 +160,6 @@ class Formatter implements FormatterInterface
 	 * @param   string   $tag  Tag to check
 	 * @return  boolean
 	 */
-
 	protected function isOpeningTag($tag)
 	{
 		return strpos($tag, '</') === false;
@@ -184,7 +171,6 @@ class Formatter implements FormatterInterface
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function getSgrResetSequence()
 	{
 		return "\033[0m";
@@ -197,7 +183,6 @@ class Formatter implements FormatterInterface
 	 * @param   string     $tag  Tag name
 	 * @return  array
 	 */
-
 	protected function getStyleCodes($tag)
 	{
 		if(isset($this->styles[$tag]))
@@ -226,7 +211,6 @@ class Formatter implements FormatterInterface
 	 * @param   string     $tag  Style name
 	 * @return  string
 	 */
-
 	protected function getSgrStyleSequence($tag)
 	{
 		$styles = implode(';', $this->getStyleCodes($tag));
@@ -242,7 +226,6 @@ class Formatter implements FormatterInterface
 	 * @param   string     $tag  Tag name
 	 * @return  string
 	 */
-
 	protected function openStyle($tag)
 	{
 		$this->openTags[] = $tagName = $this->getTagName($tag);
@@ -258,7 +241,6 @@ class Formatter implements FormatterInterface
 	 * @param   string     $tag  Tag name
 	 * @return  string
 	 */
-
 	protected function closeStyle($tag)
 	{
 		if($this->getTagName($tag) !== end($this->openTags))
@@ -296,7 +278,6 @@ class Formatter implements FormatterInterface
 	 * @param   string     $string  Input string
 	 * @return  string
 	 */
-
 	protected function removeTagEscapeCharacter($string)
 	{
 		return preg_replace(static::ESCAPED_TAG_REGEX, '<$1>', $string);
@@ -305,7 +286,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function format($string)
 	{
 		// Reset open tags
@@ -354,7 +334,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function escape($string)
 	{
 		return preg_replace(static::TAG_REGEX, '\\\$0', $string);
@@ -363,7 +342,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function strip($string)
 	{
 		return preg_replace(static::ANSI_SGR_SEQUENCE_REGEX, '', $this->format($string));

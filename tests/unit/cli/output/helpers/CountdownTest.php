@@ -10,13 +10,11 @@ use Mockery as m;
  * @group unit
  * @group slow
  */
-
 class CountdownTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -25,7 +23,6 @@ class CountdownTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCountdownFromDefault()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -60,7 +57,6 @@ class CountdownTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCountdownFrom2()
 	{
 		$output = m::mock('mako\cli\output\Output');

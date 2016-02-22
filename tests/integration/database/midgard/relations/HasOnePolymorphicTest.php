@@ -31,13 +31,11 @@ class HasOnePolymorphicImage extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class HasOnePolymorphicTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasicHasOneRelation()
 	{
 		$profile = HasOnePolymorphicProfile::get(1);
@@ -54,7 +52,6 @@ class HasOnePolymorphicTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLazyHasOneRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -78,7 +75,6 @@ class HasOnePolymorphicTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasOneRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -102,7 +98,6 @@ class HasOnePolymorphicTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasOneRelationWithConstraint()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -125,7 +120,6 @@ class HasOnePolymorphicTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testCreateRelated()
 	{
 		$profile = new HasOnePolymorphicProfile;

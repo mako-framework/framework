@@ -11,13 +11,11 @@ use PHPUnit_Framework_TestCase;
 /**
  * @group unit
  */
-
 class InputTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -26,7 +24,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getReader()
 	{
 		return m::mock('mako\cli\input\reader\ReaderInterface');
@@ -35,7 +32,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRead()
 	{
 		$reader = $this->getReader();
@@ -52,7 +48,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetArguments()
 	{
 		$reader = $this->getReader();
@@ -67,7 +62,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetNumericArgument()
 	{
 		$reader = $this->getReader();
@@ -88,7 +82,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetNamedArgument()
 	{
 		$reader = $this->getReader();
@@ -105,7 +98,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetNormalizedNamedArgument()
 	{
 		$reader = $this->getReader();
@@ -122,7 +114,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetBooleanNamedArgument()
 	{
 		$reader = $this->getReader();
@@ -137,7 +128,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetMissingArgument()
 	{
 		$reader = $this->getReader();

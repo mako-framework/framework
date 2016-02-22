@@ -16,7 +16,6 @@ use RuntimeException;
  *
  * @author  Frederic G. Østby
  */
-
 class Table
 {
 	/**
@@ -24,7 +23,6 @@ class Table
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-
 	protected $output;
 
 	/**
@@ -32,7 +30,6 @@ class Table
 	 *
 	 * @var null|\mako\cli\output\formatter\FormatterInterface
 	 */
-
 	protected $formatter;
 
 	/**
@@ -41,7 +38,6 @@ class Table
 	 * @access  public
 	 * @param   \mako\cli\output\Output  $output  Output instance
 	 */
-
 	public function __construct(Output $output)
 	{
 		$this->output = $output;
@@ -57,7 +53,6 @@ class Table
 	 * @param   array      $rows         Array of rows
 	 * @return  boolean
 	 */
-
 	protected function isValidInput(array $columnNames, array $rows)
 	{
 		$columns = count($columnNames);
@@ -83,7 +78,6 @@ class Table
 	 * @param   string     $string  String to strip
 	 * @return  string
 	 */
-
 	protected function stringWidthWithoutFormatting($string)
 	{
 		return mb_strwidth($this->formatter !== null ? $this->formatter->strip($string) : $string);
@@ -97,7 +91,6 @@ class Table
 	 * @param   array      $rows         Array of rows
 	 * @return  array
 	 */
-
 	protected function getColumnWidths(array $columnNames, array $rows)
 	{
 		$columnWidths = [];
@@ -137,7 +130,6 @@ class Table
 	 * @param   string     $separator     Separator character
 	 * @return  string
 	 */
-
 	protected function buildRowSeparator(array $columnWidths, $separator = '-')
 	{
 		$columns = count($columnWidths);
@@ -153,7 +145,6 @@ class Table
 	 * @param   array      $columnWidths  Array of column widths
 	 * @return  string
 	 */
-
 	protected function buildTableRow(array $colums, array $columnWidths)
 	{
 		$cells = [];
@@ -174,7 +165,6 @@ class Table
 	 * @param   array   $rows         Array of rows
 	 * @return  string
 	 */
-
 	public function render(array $columnNames, array $rows)
 	{
 		if(!$this->isValidInput($columnNames, $rows))
@@ -216,7 +206,6 @@ class Table
 	 * @param   array   $rows         Array of rows
 	 * @param   int     $writer       Output writer
 	 */
-
 	public function draw(array $columnNames, array $rows, $writer = Output::STANDARD)
 	{
 		$this->output->write($this->render($columnNames, $rows), $writer);

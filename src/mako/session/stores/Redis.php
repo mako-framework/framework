@@ -15,7 +15,6 @@ use mako\session\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Redis implements StoreInterface
 {
 	/**
@@ -23,7 +22,6 @@ class Redis implements StoreInterface
 	 *
 	 * @var \mako\redis\Redis
 	 */
-
 	protected $redis;
 
 	/**
@@ -32,7 +30,6 @@ class Redis implements StoreInterface
 	 * @access  public
 	 * @param   \mako\redis\Redis  $redis  Redis client
 	 */
-
 	public function __construct(RedisClient $redis)
 	{
 		$this->redis = $redis;
@@ -41,7 +38,6 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
 		$this->redis->setex('sess_' . $sessionId, $dataTTL, serialize($sessionData));
@@ -50,7 +46,6 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function read($sessionId)
 	{
 		$sessionData = $this->redis->get('sess_' . $sessionId);
@@ -61,7 +56,6 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function delete($sessionId)
 	{
 		$this->redis->del('sess_' . $sessionId);
@@ -70,7 +64,6 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function gc($dataTTL)
 	{
 		// Nothing here since redis handles this automatically

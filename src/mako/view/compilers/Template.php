@@ -14,7 +14,6 @@ use mako\file\FileSystem;
  *
  * @author  Frederic G. Østby
  */
-
 class Template
 {
 	/**
@@ -22,7 +21,6 @@ class Template
 	 *
 	 * @var \mako\file\FileSystem
 	 */
-
 	protected $fileSystem;
 
 	/**
@@ -30,7 +28,6 @@ class Template
 	 *
 	 * @var string
 	 */
-
 	protected $cachePath;
 
 	/**
@@ -38,7 +35,6 @@ class Template
 	 *
 	 * @var string
 	 */
-
 	protected $template;
 
 	/**
@@ -46,7 +42,6 @@ class Template
 	 *
 	 * @var array
 	 */
-
 	protected $compileOrder =
 	[
 		'comments',
@@ -65,7 +60,6 @@ class Template
 	 * @param   string                 $cachePath   Cache path
 	 * @param   string                 $template    Path to template
 	 */
-
 	public function __construct(FileSystem $fileSystem, $cachePath, $template)
 	{
 		$this->fileSystem = $fileSystem;
@@ -82,7 +76,6 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-
 	protected function comments($template)
 	{
 		// Strip comments from templates
@@ -97,7 +90,6 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-
 	protected function extensions($template)
 	{
 		// Replace first occurance of extends tag with an empty string
@@ -122,7 +114,6 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-
 	protected function views($template)
 	{
 		// Replace view tags with view redering
@@ -137,7 +128,6 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-
 	protected function blocks($template)
 	{
 		// Compile blocks
@@ -156,7 +146,6 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-
 	protected function controlStructures($template)
 	{
 		// Compile control structures openings
@@ -175,7 +164,6 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-
 	protected function echos($template)
 	{
 		// Closure that matches the "empty else" syntax
@@ -233,7 +221,6 @@ class Template
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function compile()
 	{
 		// Get teplate contents

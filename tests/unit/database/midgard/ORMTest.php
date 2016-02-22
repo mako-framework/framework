@@ -98,13 +98,11 @@ class TestCastingDate extends \mako\database\midgard\ORM
 /**
  * @group unit
  */
-
 class ORMTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -113,7 +111,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetTableName()
 	{
 		$user = new TestUser1();
@@ -124,7 +121,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetPrimaryKey()
 	{
 		$user = new TestUser1();
@@ -135,7 +131,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetPrimaryKeyValue()
 	{
 		$user = new TestUser1(['id' => '1']);
@@ -146,7 +141,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetForeignKey()
 	{
 		$user = new TestUser1();
@@ -157,7 +151,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetClass()
 	{
 		$user = new TestUser1();
@@ -168,7 +161,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetAndGetLockVersion()
 	{
 		$user = new TestUser2([], true, false, true);
@@ -181,7 +173,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetAndGetIncludes()
 	{
 		$user = new TestUser1();
@@ -196,7 +187,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetAndGetRelated()
 	{
 		$user = new TestUser1();
@@ -211,7 +201,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetRawColumns()
 	{
 		$columns = ['id' => '1', 'username' => 'foo'];
@@ -224,7 +213,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetandGetColumn()
 	{
 		$user = new TestUser1();
@@ -291,7 +279,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAssign()
 	{
 		$user = new TestUser3();
@@ -338,7 +325,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTableNameGuessing()
 	{
 		$apple = new ORMTestApple;
@@ -349,7 +335,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDateTimeColumns()
 	{
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
@@ -360,7 +345,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetColumnWithNullValue()
 	{
 		$user = new TestUser4();
@@ -373,7 +357,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsModified()
 	{
 		$user = new TestUser1(['foo' => 123, 'bar' => 456], true, false, true);
@@ -388,7 +371,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetModified()
 	{
 		$user = new TestUser1(['foo' => 123, 'bar' => 456], true, false, true);
@@ -403,7 +385,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCastingScalars()
 	{
 		$cast = new TestCastingScalars;
@@ -490,7 +471,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCastingDate()
 	{
 		$cast = new TestCastingDate;
@@ -517,7 +497,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToArray()
 	{
 		$user = new TestUser4();
@@ -534,7 +513,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToJson()
 	{
 		$user = new TestUser4();
@@ -551,7 +529,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToString()
 	{
 		$user = new TestUser4();

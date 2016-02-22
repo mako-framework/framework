@@ -12,7 +12,6 @@ namespace mako\autoloading;
  *
  * @author  Frederic G. Østby
  */
-
 class AliasLoader
 {
 	/**
@@ -20,7 +19,6 @@ class AliasLoader
 	 *
 	 * @var array
 	 */
-
 	protected $aliases;
 
 	/**
@@ -29,7 +27,6 @@ class AliasLoader
 	 * @access  public
 	 * @param   array   $aliases  Class aliases
 	 */
-
 	public function __construct(array $aliases)
 	{
 		$this->aliases = $aliases;
@@ -42,7 +39,6 @@ class AliasLoader
 	 * @param   string  $alias  Class alias
 	 * @return  boolean
 	 */
-
 	public function load($alias)
 	{
 		$alias = ltrim($alias, '\\');

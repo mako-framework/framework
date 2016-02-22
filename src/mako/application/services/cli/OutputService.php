@@ -18,13 +18,11 @@ use mako\cli\output\writer\Standard;
  *
  * @author  Frederic G. Østby
  */
-
 class OutputService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([Output::class, 'output'], function($container)

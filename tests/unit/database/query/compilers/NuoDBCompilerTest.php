@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	protected function getConnection()
 	{
 		$connection = m::mock('\mako\database\connections\Connection');
@@ -42,7 +39,6 @@ class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	protected function getBuilder($table = 'foobar')
 	{
 		return (new Query($this->getConnection()))->table($table);
@@ -51,7 +47,6 @@ class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithLimit()
 	{
 		$query = $this->getBuilder();
@@ -67,7 +62,6 @@ class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithLimitAndOffset()
 	{
 		$query = $this->getBuilder();

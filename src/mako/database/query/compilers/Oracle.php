@@ -14,13 +14,11 @@ use mako\database\query\compilers\Compiler;
  *
  * @author  Frederic G. Østby
  */
-
 class Oracle extends Compiler
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function select()
 	{
 		if($this->query->getLimit() === null)

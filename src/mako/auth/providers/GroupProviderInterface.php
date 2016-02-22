@@ -12,7 +12,6 @@ namespace mako\auth\providers;
  *
  * @author  Frederic G. Østby
  */
-
 interface GroupProviderInterface
 {
 	/**
@@ -22,7 +21,6 @@ interface GroupProviderInterface
 	 * @param   string                           $name  Group name
 	 * @return  \mako\auth\group\GroupInterface
 	 */
-
 	public function createGroup($name);
 
 	/**
@@ -32,7 +30,6 @@ interface GroupProviderInterface
 	 * @param   string                                   $name  Group name
 	 * @return  \mako\auth\group\GroupInterface|boolean
 	 */
-
 	public function getByName($name);
 
 	/**
@@ -42,6 +39,5 @@ interface GroupProviderInterface
 	 * @param   int                                      $id  Group id
 	 * @return  \mako\auth\group\GroupInterface|boolean
 	 */
-
 	public function getById($id);
 }

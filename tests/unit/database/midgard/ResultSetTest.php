@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class ResultSetTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class ResultSetTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPluck()
 	{
 		$resultSet = new ResultSet([['foo' => 'bar'], ['foo' => 'bar']]);
@@ -45,7 +42,6 @@ class ResultSetTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToArray()
 	{
 		$mock1 = m::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
@@ -60,7 +56,6 @@ class ResultSetTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToJson()
 	{
 		$mock1 = m::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
@@ -75,7 +70,6 @@ class ResultSetTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToString()
 	{
 		$mock1 = m::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();

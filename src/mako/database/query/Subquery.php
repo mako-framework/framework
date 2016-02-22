@@ -14,7 +14,6 @@ use mako\database\query\Query;
  *
  * @author  Frederic G. Østby
  */
-
 class Subquery
 {
 	/**
@@ -22,7 +21,6 @@ class Subquery
 	 *
 	 * @var \mako\database\query\Query
 	 */
-
 	protected $query;
 
 	/**
@@ -30,7 +28,6 @@ class Subquery
 	 *
 	 * @var string
 	 */
-
 	protected $alias = null;
 
 	/**
@@ -40,7 +37,6 @@ class Subquery
 	 * @param   \mako\database\query\Query  $query  Query builder
 	 * @param   string                      $alias  Subquery alias
 	 */
-
 	public function __construct(Query $query, $alias = null)
 	{
 		$this->query = $query;
@@ -53,7 +49,6 @@ class Subquery
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function get()
 	{
 		$query = $this->query->getCompiler()->select();

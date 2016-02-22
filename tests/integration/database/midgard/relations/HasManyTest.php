@@ -31,13 +31,11 @@ class HasManyArticle extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class HasManyTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasicHasManyRelation()
 	{
 		$user = HasManyUser::get(1);
@@ -59,7 +57,6 @@ class HasManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLazyHasManyRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -86,7 +83,6 @@ class HasManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasManyRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -113,7 +109,6 @@ class HasManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasManyRelationWithConstraint()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -138,7 +133,6 @@ class HasManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testCreateRelated()
 	{
 		$user = HasManyUser::get(1);

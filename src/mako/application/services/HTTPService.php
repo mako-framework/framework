@@ -18,13 +18,11 @@ use mako\http\routing\Routes;
  *
  * @author  Frederic G. Østby
  */
-
 class HTTPService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		// Request

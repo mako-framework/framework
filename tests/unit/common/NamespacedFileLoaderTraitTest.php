@@ -32,13 +32,11 @@ class NamespacedFileLoader
 /**
  * @group unit
  */
-
 class NamespacedFileLoaderTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testGetPath()
 	{
 		$loader = new NamespacedFileLoader;
@@ -53,7 +51,6 @@ class NamespacedFileLoaderTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetExtension()
 	{
 		$loader = new NamespacedFileLoader;
@@ -66,7 +63,6 @@ class NamespacedFileLoaderTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetPath()
 	{
 		$loader = new NamespacedFileLoader;
@@ -79,7 +75,6 @@ class NamespacedFileLoaderTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetPathWithCustomExtension()
 	{
 		$loader = new NamespacedFileLoader;
@@ -94,7 +89,6 @@ class NamespacedFileLoaderTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetPathWithSuffix()
 	{
 		$loader = new NamespacedFileLoader;
@@ -109,7 +103,6 @@ class NamespacedFileLoaderTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testGetPathWithSuffixUnknownNamespace()
 	{
 		$loader = new NamespacedFileLoader;
@@ -122,7 +115,6 @@ class NamespacedFileLoaderTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetCascadingPath()
 	{
 		$loader = new NamespacedFileLoader;
@@ -137,7 +129,6 @@ class NamespacedFileLoaderTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetCascadingPathWithCustomExtension()
 	{
 		$loader = new NamespacedFileLoader;
@@ -152,7 +143,6 @@ class NamespacedFileLoaderTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetCascadingPathWithSuffix()
 	{
 		$loader = new NamespacedFileLoader;

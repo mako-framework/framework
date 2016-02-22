@@ -33,13 +33,11 @@ class AutoEagerLoadingArticle extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class AutoEagerLoadingTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testAutoEagerLoading()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -66,7 +64,6 @@ class AutoEagerLoadingTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testDisableAutoEagerLoading()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());

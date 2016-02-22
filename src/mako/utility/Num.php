@@ -14,7 +14,6 @@ use InvalidArgumentException;
  *
  * @author  Frederic G. Østby
  */
-
 class Num
 {
 	/**
@@ -24,7 +23,6 @@ class Num
 	 * @param   int     $int  Arabic numeral to convert
 	 * @return  string
 	 */
-
 	public static function arabic2roman($int)
 	{
 		$int = (int) $int;
@@ -82,7 +80,6 @@ class Num
 	 * @param   string  $str  Roman numeral to convert
 	 * @return  int
 	 */
-
 	public static function roman2arabic($str)
 	{
 		if(empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) === 0)

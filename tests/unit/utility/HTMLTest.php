@@ -7,13 +7,11 @@ use mako\utility\HTML;
 /**
  * @group unit
  */
-
 class HTMLTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testTag()
 	{
 		$html = new HTML;
@@ -42,7 +40,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAudio()
 	{
 		$html = new HTML;
@@ -71,7 +68,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testVideo()
 	{
 		$html = new HTML;
@@ -100,7 +96,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testUl()
 	{
 		$html = new HTML;
@@ -129,7 +124,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOl()
 	{
 		$html = new HTML;
@@ -158,7 +152,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testExtending()
 	{
 		HTML::extend('foo', function($content = null, $attributes = [])
@@ -188,7 +181,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \BadMethodCallException
 	 */
-
 	public function testException()
 	{
 		$html = new HTML;

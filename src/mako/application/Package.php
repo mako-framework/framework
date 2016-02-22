@@ -16,7 +16,6 @@ use mako\syringe\Container;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Package
 {
 	/**
@@ -24,7 +23,6 @@ abstract class Package
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -32,7 +30,6 @@ abstract class Package
 	 *
 	 * @var string
 	 */
-
 	protected $packageName;
 
 	/**
@@ -40,7 +37,6 @@ abstract class Package
 	 *
 	 * @var string
 	 */
-
 	protected $path;
 
 	/**
@@ -48,7 +44,6 @@ abstract class Package
 	 *
 	 * @var string
 	 */
-
 	protected $fileNamespace;
 
 	/**
@@ -56,7 +51,6 @@ abstract class Package
 	 *
 	 * @var string
 	 */
-
 	protected $classNamespace;
 
 	/**
@@ -64,7 +58,6 @@ abstract class Package
 	 *
 	 * @var array
 	 */
-
 	protected $commands = [];
 
 	/**
@@ -73,7 +66,6 @@ abstract class Package
 	 * @access  public
 	 * @param   \mako\syringe\Container  $container  IoC container instance
 	 */
-
 	public function __construct(Container $container)
 	{
 		$this->container = $container;
@@ -85,7 +77,6 @@ abstract class Package
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getName()
 	{
 		return $this->packageName;
@@ -97,7 +88,6 @@ abstract class Package
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getFileNamespace()
 	{
 		if($this->fileNamespace === null)
@@ -115,7 +105,6 @@ abstract class Package
 	 * @param   boolean  $prefix  Prefix the namespace with a slash?
 	 * @return  string
 	 */
-
 	public function getClassNamespace($prefix = false)
 	{
 		if($this->classNamespace === null)
@@ -132,7 +121,6 @@ abstract class Package
 	 * @access  protected
 	 * @return  string
 	 */
-
 	public function getPath()
 	{
 		if($this->path === null)
@@ -149,7 +137,6 @@ abstract class Package
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getConfigPath()
 	{
 		return realpath($this->getPath() . '/config');
@@ -161,7 +148,6 @@ abstract class Package
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getI18nPath()
 	{
 		return realpath($this->getPath() . '/resources/i18n');
@@ -173,7 +159,6 @@ abstract class Package
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getViewPath()
 	{
 		return realpath($this->getPath() . '/resources/views');
@@ -185,7 +170,6 @@ abstract class Package
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getCommands()
 	{
 		return $this->commands;
@@ -196,7 +180,6 @@ abstract class Package
 	 *
 	 * @access  protected
 	 */
-
 	protected function bootstrap()
 	{
 		// Nothing here
@@ -207,7 +190,6 @@ abstract class Package
 	 *
 	 * @access  public
 	 */
-
 	public function boot()
 	{
 		// Register configuration namespace

@@ -15,7 +15,6 @@ use mako\database\connections\Connection;
  *
  * @author  Frederic G. Østby
  */
-
 class Database implements StoreInterface
 {
 	/**
@@ -23,7 +22,6 @@ class Database implements StoreInterface
 	 *
 	 * @var \mako\database\connections\Connection
 	 */
-
 	protected $connection;
 
 	/**
@@ -31,7 +29,6 @@ class Database implements StoreInterface
 	 *
 	 * @var string
 	 */
-
 	protected $table;
 
 	/**
@@ -41,7 +38,6 @@ class Database implements StoreInterface
 	 * @param   \mako\database\connections\Connection  $connection  Database connection
 	 * @param   string                                 $table       Database table
 	 */
-
 	public function __construct(Connection $connection, $table)
 	{
 		$this->connection = $connection;
@@ -55,7 +51,6 @@ class Database implements StoreInterface
 	 * @access  protected
 	 * @return  \mako\database\query\Query
 	 */
-
 	protected function table()
 	{
 		return $this->connection->builder()->table($this->table);
@@ -64,7 +59,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
@@ -77,7 +71,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return (bool) $this->table()->where('key', '=', $key)->where('lifetime', '>', time())->count();
@@ -86,7 +79,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		$cache = $this->table()->where('key', '=', $key)->first();
@@ -107,7 +99,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		return (bool) $this->table()->where('key', '=', $key)->delete();
@@ -116,7 +107,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		$this->table()->delete();

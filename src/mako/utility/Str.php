@@ -14,7 +14,6 @@ use mako\utility\HTML;
  *
  * @author  Frederic G. Østby
  */
-
 class Str
 {
 	/**
@@ -22,7 +21,6 @@ class Str
 	 *
 	 * @var string
 	 */
-
 	const ALNUM = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	/**
@@ -30,7 +28,6 @@ class Str
 	 *
 	 * @var string
 	 */
-
 	const ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	/**
@@ -38,7 +35,6 @@ class Str
 	 *
 	 * @var string
 	 */
-
 	const HEXDEC = '0123456789abcdef';
 
 	/**
@@ -46,7 +42,6 @@ class Str
 	 *
 	 * @var string
 	 */
-
 	const NUMERIC = '0123456789';
 
 	/**
@@ -54,7 +49,6 @@ class Str
 	 *
 	 * @var string
 	 */
-
 	const SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
 	/**
@@ -62,7 +56,6 @@ class Str
 	 *
 	 * @var array
 	 */
-
 	protected static $pluralizationRules =
 	[
 		'/(quiz)$/i'                     => "$1zes",
@@ -90,7 +83,6 @@ class Str
 	 *
 	 * @var array
 	 */
-
 	protected static $irregulars =
 	[
 		'alias'       => 'aliases',
@@ -121,7 +113,6 @@ class Str
 	 * @param   boolean  $xhtml   Should we return XHTML?
 	 * @return  string
 	 */
-
 	public static function nl2br($string, $xhtml = false)
 	{
 		return str_replace(["\r\n", "\n\r", "\n", "\r"], (new HTML($xhtml))->tag('br'), $string);
@@ -134,7 +125,6 @@ class Str
 	 * @param   string  $string  The input string
 	 * @return  string
 	 */
-
 	public static function br2nl($string)
 	{
 		return str_replace(['<br>', '<br/>', '<br />'], "\n", $string);
@@ -148,7 +138,6 @@ class Str
 	 * @param   int     $count  Number of nouns
 	 * @return  string
 	 */
-
 	public static function pluralize($noun, $count = null)
 	{
 		if($count !== 1)
@@ -181,7 +170,6 @@ class Str
 	 * @param   string  $string  The input string
 	 * @return  string
 	 */
-
 	public static function camel2underscored($string)
 	{
 		return mb_strtolower(preg_replace('/([^A-Z])([A-Z])/u', "$1_$2", $string));
@@ -195,7 +183,6 @@ class Str
 	 * @param   boolean  $upper   Return upper case camelCase?
 	 * @return  string
 	 */
-
 	public static function underscored2camel($string, $upper = false)
 	{
 		return preg_replace_callback(($upper ? '/(?:^|_)(.?)/u' : '/_(.?)/u'), function($matches){ return mb_strtoupper($matches[1]); }, $string);
@@ -210,7 +197,6 @@ class Str
 	 * @param   string  $sufix       Sufix to add if number of characters is reduced
 	 * @return  string
 	 */
-
 	public static function limitChars($string, $characters = 100, $sufix = '...')
 	{
 		return (mb_strlen($string) > $characters) ? trim(mb_substr($string, 0, $characters)) . $sufix : $string;
@@ -225,7 +211,6 @@ class Str
 	 * @param   string  $sufix   Sufix to add if number of words is reduced
 	 * @return  string
 	 */
-
 	public static function limitWords($string, $words = 100, $sufix = '...')
 	{
 		preg_match('/^\s*+(?:\S++\s*+){1,' . $words . '}/', $string, $matches);
@@ -245,7 +230,6 @@ class Str
 	 * @param   string  $string  The input string
 	 * @return  string
 	 */
-
 	public static function slug($string)
 	{
 		return urlencode(mb_strtolower(preg_replace('/\s{1,}/', '-', trim(preg_replace('/[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]/', '', $string)))));
@@ -258,7 +242,6 @@ class Str
 	 * @param   string  $string  The input string
 	 * @return  string
 	 */
-
 	public static function ascii($string)
 	{
 		return preg_replace('/[^\x0-\x7F]/', '', $string);
@@ -271,7 +254,6 @@ class Str
 	 * @param   array     $strings  Array of strings to alternate between
 	 * @return  \Closure
 	 */
-
 	public static function alternator(array $strings)
 	{
 		return function() use ($strings)
@@ -290,7 +272,6 @@ class Str
 	 * @param   array    $attributes  Anchor attributes
 	 * @return  string
 	 */
-
 	public static function autolink($string, array $attributes = [])
 	{
 		return preg_replace_callback('#\b(?<!href="|">)[a-z]+://\S+(?:/|\b)#i', function($matches) use ($attributes)
@@ -308,7 +289,6 @@ class Str
 	 * @param   string  $mask     Character used to replace remaining characters
 	 * @return  string
 	 */
-
 	public static function mask($string, $visible = 3, $mask = '*')
 	{
 		if($visible === 0)
@@ -330,7 +310,6 @@ class Str
 	 * @param   string  $separator  Separator
 	 * @return  string
 	 */
-
 	public static function increment($string, $start = 1, $separator = '_')
 	{
 		preg_match('/(.+)' . preg_quote($separator) . '([0-9]+)$/', $string, $matches);
@@ -345,7 +324,6 @@ class Str
 	 * @param   int     $length  Desired string length
 	 * @return  string
 	 */
-
 	public static function random($pool = Str::ALNUM, $length = 32)
 	{
 		$string = '';

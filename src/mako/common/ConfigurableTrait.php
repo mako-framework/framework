@@ -12,7 +12,6 @@ namespace mako\common;
  *
  * @author  Frederic G. Østby
  */
-
 trait ConfigurableTrait
 {
 	/**
@@ -20,7 +19,6 @@ trait ConfigurableTrait
 	 *
 	 * @var string
 	 */
-
 	protected $default;
 
 	/**
@@ -28,7 +26,6 @@ trait ConfigurableTrait
 	 *
 	 * @var array
 	 */
-
 	protected $configurations;
 
 	/**
@@ -38,7 +35,6 @@ trait ConfigurableTrait
 	 * @param   string  $default         Default connection name
 	 * @param   array   $configurations  Configurations
 	 */
-
 	public function __construct($default, array $configurations)
 	{
 		$this->default = $default;
@@ -53,7 +49,6 @@ trait ConfigurableTrait
 	 * @param   string  $name           Connection name
 	 * @param   array   $configuration  Configuration
 	 */
-
 	public function addConfiguration($name, array $configuration)
 	{
 		$this->configurations[$name] = $configuration;
@@ -66,7 +61,6 @@ trait ConfigurableTrait
 	 * @access  public
 	 * @param   string  $name  Connection name
 	 */
-
 	public function removeConfiguration($name)
 	{
 		unset($this->configurations[$name], $this->connections[$name]);

@@ -15,13 +15,11 @@ use mako\redis\ConnectionManager;
  *
  * @author  Frederic G. Østby
  */
-
 class RedisService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([ConnectionManager::class, 'redis'], function($container)

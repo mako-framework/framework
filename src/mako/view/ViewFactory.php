@@ -19,7 +19,6 @@ use mako\view\renderers\PHP;
  *
  * @author  Frederic G. Østby
  */
-
 class ViewFactory
 {
 	use NamespacedFileLoaderTrait;
@@ -29,7 +28,6 @@ class ViewFactory
 	 *
 	 * @var string
 	 */
-
 	protected $charset;
 
 	/**
@@ -37,7 +35,6 @@ class ViewFactory
 	 *
 	 * @var array
 	 */
-
 	protected $renderers = ['.php' => PHP::class];
 
 	/**
@@ -45,7 +42,6 @@ class ViewFactory
 	 *
 	 * @var string
 	 */
-
 	protected $cachePath;
 
 	/**
@@ -53,7 +49,6 @@ class ViewFactory
 	 *
 	 * @var array
 	 */
-
 	protected $globalVariables = [];
 
 	/**
@@ -61,7 +56,6 @@ class ViewFactory
 	 *
 	 * @var array
 	 */
-
 	protected $viewCache = [];
 
 	/**
@@ -69,7 +63,6 @@ class ViewFactory
 	 *
 	 * @var array
 	 */
-
 	protected $rendererInstances;
 
 	/**
@@ -80,7 +73,6 @@ class ViewFactory
 	 * @param   string                 $path        Default path
 	 * @param   string                 $charset     Charset
 	 */
-
 	public function __construct(FileSystem $fileSystem, $path, $charset = 'UTF-8')
 	{
 		$this->fileSystem = $fileSystem;
@@ -98,7 +90,6 @@ class ViewFactory
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getCharset()
 	{
 		return $this->charset;
@@ -111,7 +102,6 @@ class ViewFactory
 	 * @param   string                  $charset  Charset
 	 * @return  \mako\view\ViewFactory
 	 */
-
 	public function setCharset($charset)
 	{
 		$this->globalVariables['__charset__'] = $this->charset = $charset;
@@ -126,7 +116,6 @@ class ViewFactory
 	 * @param   string           $extention  Extention handled by the renderer
 	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
 	 */
-
 	protected function prependRenderer($extention, $renderer)
 	{
 		$this->renderers = [$extention => $renderer] + $this->renderers;
@@ -139,7 +128,6 @@ class ViewFactory
 	 * @param   string           $extention  Extention handled by the renderer
 	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
 	 */
-
 	protected function appendRenderer($extention, $renderer)
 	{
 		$this->renderers =  $this->renderers + [$extention => $renderer];
@@ -154,7 +142,6 @@ class ViewFactory
 	 * @param   boolean                 $prepend    Prepend the custom renderer on the stack
 	 * @return  \mako\view\ViewFactory
 	 */
-
 	public function registerRenderer($extention, $renderer, $prepend = true)
 	{
 		$prepend ? $this->prependRenderer($extention, $renderer) : $this->appendRenderer($extention, $renderer);
@@ -168,7 +155,6 @@ class ViewFactory
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getCachePatch()
 	{
 		return $this->cachePath;
@@ -181,7 +167,6 @@ class ViewFactory
 	 * @param   string
 	 * @return  \mako\view\ViewFactory
 	 */
-
 	public function setCachePath($cachePath)
 	{
 		$this->cachePath = $cachePath;
@@ -197,7 +182,6 @@ class ViewFactory
 	 * @param   mixed                   $value  View variable
 	 * @return  \mako\view\ViewFactory
 	 */
-
 	public function assign($name, $value)
 	{
 		$this->globalVariables[$name] = $value;
@@ -213,7 +197,6 @@ class ViewFactory
 	 * @param   boolean    $throwException  Throw exception if view doesn't exist?
 	 * @return  array
 	 */
-
 	protected function getViewPathAndExtension($view, $throwException = true)
 	{
 		if(!isset($this->viewCache[$view]))
@@ -253,7 +236,6 @@ class ViewFactory
 	 * @param   string|\Closure                         $renderer  Renderer class or closure
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
-
 	protected function rendererFactory($renderer)
 	{
 		return $renderer instanceof Closure ? $renderer() : new $renderer;
@@ -266,7 +248,6 @@ class ViewFactory
 	 * @param   string                                  $extension  Extension associated with the renderer
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
-
 	protected function resolveRenderer($extension)
 	{
 		if(!isset($this->rendererInstances[$extension]))
@@ -284,7 +265,6 @@ class ViewFactory
 	 * @param   string   $view  View
 	 * @return  boolean
 	 */
-
 	public function exists($view)
 	{
 		return $this->getViewPathAndExtension($view, false) !== false;
@@ -298,7 +278,6 @@ class ViewFactory
 	 * @param   array            $variables  View variables
 	 * @return  \mako\view\View
 	 */
-
 	public function create($view, array $variables = [])
 	{
 		list($path, $extension) = $this->getViewPathAndExtension($view);
@@ -314,7 +293,6 @@ class ViewFactory
 	 * @param   array   $variables  View variables
 	 * @return  string
 	 */
-
 	public function render($view, array $variables = [])
 	{
 		return $this->create($view, $variables)->render();

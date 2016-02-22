@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class GatekeeperTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getRequest()
 	{
 		return m::mock('\mako\http\Request');
@@ -33,7 +30,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getResponse()
 	{
 		return m::mock('\mako\http\Response');
@@ -42,7 +38,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getSession()
 	{
 		$store = m::mock('\mako\session\stores\StoreInterface');
@@ -57,7 +52,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getUserProvider()
 	{
 		return m::mock('\mako\auth\providers\UserProvider');
@@ -66,7 +60,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getUser()
 	{
 		return m::mock('\mako\auth\user\UserInterface');
@@ -75,7 +68,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getGroupProvider()
 	{
 		return m::mock('\mako\auth\providers\GroupProvider');
@@ -84,7 +76,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getGroup()
 	{
 		return m::mock('\mako\auth\group\GroupInterface');
@@ -93,7 +84,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getCookieOptions()
 	{
 		return
@@ -108,7 +98,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetUserProvider()
 	{
 		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider());
@@ -119,7 +108,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetGroupProvider()
 	{
 		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider());
@@ -130,7 +118,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCreateUser()
 	{
 		$request = $this->getRequest();
@@ -157,7 +144,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCreateAndActivateUser()
 	{
 		$request = $this->getRequest();
@@ -186,7 +172,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCreateGroup()
 	{
 		$groupProvider = $this->getGroupProvider();
@@ -201,7 +186,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testActivateUserWithInvalidToken()
 	{
 		$userProvider = $this->getUserProvider();
@@ -216,7 +200,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testActivateUserWithValidToken()
 	{
 		$user = $this->getUser();
@@ -239,7 +222,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAutenticationWithNoSessionAndNoCookie()
 	{
 		$session = $this->getSession();
@@ -262,7 +244,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAthenticationWithNoSessionAndInvalidToken()
 	{
 		$session = $this->getSession();
@@ -301,7 +282,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAuthentication()
 	{
 		$session = $this->getSession();
@@ -330,7 +310,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoginWithWrongEmail()
 	{
 		$userProvider = $this->getUserProvider();
@@ -345,7 +324,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoginWithWrongUsername()
 	{
 		$userProvider = $this->getUserProvider();
@@ -362,7 +340,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testLoginWithUnsupportedIdentifier()
 	{
 		$userProvider = $this->getUserProvider();
@@ -377,7 +354,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoginWithWrongPassword()
 	{
 		$userProvider = $this->getUserProvider();
@@ -396,7 +372,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoginForNonActivatedUser()
 	{
 		$userProvider = $this->getUserProvider();
@@ -417,7 +392,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoginForBannedUser()
 	{
 		$userProvider = $this->getUserProvider();
@@ -440,7 +414,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSuccessfulLogin()
 	{
 		$userProvider = $this->getUserProvider();
@@ -473,7 +446,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSuccessfulLoginWithRememberMe()
 	{
 		$userProvider = $this->getUserProvider();
@@ -510,7 +482,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testForcedLogin()
 	{
 		$userProvider = $this->getUserProvider();
@@ -543,7 +514,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoginWithWrongPasswordAndThrottling()
 	{
 		$userProvider = $this->getUserProvider();
@@ -568,7 +538,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSuccessfulLoginWithThrottling()
 	{
 		$userProvider = $this->getUserProvider();
@@ -607,7 +576,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoginWithLockedAccount()
 	{
 		$userProvider = $this->getUserProvider();
@@ -628,7 +596,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicAuth()
 	{
 		$request = $this->getRequest();
@@ -659,7 +626,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicAuthIsLoggedIn()
 	{
 		$gatekeeper = m::mock('\mako\auth\Gatekeeper', [$this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider()])->makePartial();
@@ -672,7 +638,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicAuthLoggingIn()
 	{
 		$request = $this->getRequest();
@@ -693,7 +658,6 @@ class GatekeeperTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLogout()
 	{
 		$session = $this->getSession();

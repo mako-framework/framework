@@ -17,7 +17,6 @@ use mako\security\Password;
  *
  * @author  Frederic G. Østby
  */
-
 class UserProvider implements UserProviderInterface
 {
 	/**
@@ -25,7 +24,6 @@ class UserProvider implements UserProviderInterface
 	 *
 	 * @var string
 	 */
-
 	protected $model;
 
 	/**
@@ -34,7 +32,6 @@ class UserProvider implements UserProviderInterface
 	 * @access  public
 	 * @param   string  $model  Model class
 	 */
-
 	public function __construct($model)
 	{
 		$this->model = $model;
@@ -43,7 +40,6 @@ class UserProvider implements UserProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function createUser($email, $username, $password, $ip = null)
 	{
 		$model = $this->model;
@@ -66,7 +62,6 @@ class UserProvider implements UserProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getByActionToken($token)
 	{
 		$model = $this->model;
@@ -77,7 +72,6 @@ class UserProvider implements UserProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getByAccessToken($token)
 	{
 		$model = $this->model;
@@ -88,7 +82,6 @@ class UserProvider implements UserProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getByEmail($email)
 	{
 		$model = $this->model;
@@ -99,7 +92,6 @@ class UserProvider implements UserProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getByUsername($username)
 	{
 		$model = $this->model;
@@ -110,7 +102,6 @@ class UserProvider implements UserProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getById($id)
 	{
 		$model = $this->model;
@@ -121,7 +112,6 @@ class UserProvider implements UserProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function throttle(UserInterface $user, $maxLoginAttempts, $lockTime)
 	{
 		$now = Time::now();
@@ -157,7 +147,6 @@ class UserProvider implements UserProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function resetThrottle(UserInterface $user)
 	{
 		if($user->getFailedAttempts() > 0)
@@ -175,7 +164,6 @@ class UserProvider implements UserProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function validatePassword(UserInterface $user, $password)
 	{
 		$hash = $user->getPassword();

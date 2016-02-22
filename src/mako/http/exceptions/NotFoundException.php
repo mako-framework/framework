@@ -16,7 +16,6 @@ use mako\http\exceptions\RequestException;
  *
  * @author  Frederic G. Østby
  */
-
 class NotFoundException extends RequestException
 {
 	/**
@@ -26,7 +25,6 @@ class NotFoundException extends RequestException
 	 * @param   string  $message      Exception message
 	 * @param   \Exception $previous  Previous exception
 	 */
-
 	public function __construct($message = null, Exception $previous = null)
 	{
 		parent::__construct(404, $message, $previous);

@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class FileTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getFileSystem()
 	{
 		return m::mock('mako\file\FileSystem');
@@ -33,7 +30,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWrite()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -50,7 +46,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRead()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -83,7 +78,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDelete()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -102,7 +96,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGc()
 	{
 		$fileSystem = $this->getFileSystem();

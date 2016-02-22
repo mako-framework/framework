@@ -14,7 +14,6 @@ use RuntimeException;
  *
  * @author  Frederic G. Østby
  */
-
 class FormatterException extends RuntimeException
 {
 

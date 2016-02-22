@@ -12,7 +12,6 @@ namespace mako\security;
  *
  * @author  Frederic G. Østby
  */
-
 class Password
 {
 	/**
@@ -20,7 +19,6 @@ class Password
 	 *
 	 * @var array
 	 */
-
 	protected static $costs =
 	[
 		PASSWORD_BCRYPT => 10,
@@ -33,7 +31,6 @@ class Password
 	 * @param   int        $cost  Computing cost
 	 * @return  int
 	 */
-
 	protected static function normalizeCost($cost)
 	{
 		switch(PASSWORD_DEFAULT)
@@ -52,7 +49,6 @@ class Password
 	 * @access  public
 	 * @param   int     $cost  Computing cost
 	 */
-
 	public static function setDefaultComputingCost($cost)
 	{
 		static::$costs[PASSWORD_DEFAULT] = static::normalizeCost($cost);
@@ -64,7 +60,6 @@ class Password
 	 * @access  public
 	 * @return  int
 	 */
-
 	public static function getDefaultComputingCost()
 	{
 		return static::$costs[PASSWORD_DEFAULT];
@@ -78,7 +73,6 @@ class Password
 	 * @param   null|int  $cost      Computing cost
 	 * @return  string
 	 */
-
 	public static function hash($password, $cost = null)
 	{
 		$cost = static::normalizeCost($cost ?? static::$costs[PASSWORD_DEFAULT]);
@@ -94,7 +88,6 @@ class Password
 	 * @param   null|int  $cost  Computing cost
 	 * @return  boolean
 	 */
-
 	public static function needsRehash($hash, $cost = null)
 	{
 		$cost = static::normalizeCost($cost ?? static::$costs[PASSWORD_DEFAULT]);
@@ -110,7 +103,6 @@ class Password
 	 * @param   string    $hash      Password hash
 	 * @return  boolean
 	 */
-
 	public static function validate($password, $hash)
 	{
 		return password_verify($password, $hash);

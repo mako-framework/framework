@@ -12,7 +12,6 @@ namespace mako\utility\ip;
  *
  * @author  Frederic G. Østby
  */
-
 class IPv4
 {
 	/**
@@ -23,7 +22,6 @@ class IPv4
 	 * @param   string   $range Ip address or IP range
 	 * @return  boolean
 	 */
-
 	public static function inRange(string $ip, string $range): bool
 	{
 		if(strpos($range, '/') === false)

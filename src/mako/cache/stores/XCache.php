@@ -16,7 +16,6 @@ use mako\cache\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class XCache implements StoreInterface
 {
 	/**
@@ -24,7 +23,6 @@ class XCache implements StoreInterface
 	 *
 	 * @var string
 	 */
-
 	protected $username;
 
 	/**
@@ -32,7 +30,6 @@ class XCache implements StoreInterface
 	 *
 	 * @var string
 	 */
-
 	protected $password;
 
 	/**
@@ -42,7 +39,6 @@ class XCache implements StoreInterface
 	 * @param   string  $username  Username
 	 * @param   string  $password  Password
 	 */
-
 	public function __construct($username = null, $password = null)
 	{
 		if(function_exists('xcache_set') === false)
@@ -58,7 +54,6 @@ class XCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		return xcache_set($key, serialize($data), $ttl);
@@ -67,7 +62,6 @@ class XCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return xcache_isset($key);
@@ -76,7 +70,6 @@ class XCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		return unserialize(xcache_get($key));
@@ -85,7 +78,6 @@ class XCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		return xcache_unset($key);
@@ -94,7 +86,6 @@ class XCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		$cleared = true;

@@ -17,7 +17,6 @@ use mako\error\handlers\HandlerInterface;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Handler implements HandlerInterface
 {
 	/**
@@ -25,7 +24,6 @@ abstract class Handler implements HandlerInterface
 	 *
 	 * @var \Exception
 	 */
-
 	protected $exception;
 
 	/**
@@ -34,7 +32,6 @@ abstract class Handler implements HandlerInterface
 	 * @access  public
 	 * @param   \Throwable  $exception  Throwable
 	 */
-
 	public function __construct(Throwable $exception)
 	{
 		$this->exception = $exception;
@@ -47,7 +44,6 @@ abstract class Handler implements HandlerInterface
 	 * @param   \Throwable  $exception  Throwable
 	 * @return  string
 	 */
-
 	protected function determineExceptionType(Throwable $exception)
 	{
 		$code = $exception->getCode();

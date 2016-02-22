@@ -17,7 +17,6 @@ use mako\database\midgard\relations\Relation;
  *
  * @author  Frederic G. Østby
  */
-
 class ManyToMany extends Relation
 {
 	/**
@@ -25,7 +24,6 @@ class ManyToMany extends Relation
 	 *
 	 * @var string
 	 */
-
 	protected $junctionTable = null;
 
 	/**
@@ -33,7 +31,6 @@ class ManyToMany extends Relation
 	 *
 	 * @var string
 	 */
-
 	protected $junctionKey = null;
 
 	/**
@@ -47,7 +44,6 @@ class ManyToMany extends Relation
 	 * @param   string|null                            $junctionTable  Junction table name
 	 * @param   string|null                            $junctionKey    Junction key name
 	 */
-
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null, $junctionTable = null, $junctionKey = null)
 	{
 		$this->junctionTable = $junctionTable;
@@ -65,7 +61,6 @@ class ManyToMany extends Relation
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function getJunctionTable()
 	{
 		if($this->junctionTable === null)
@@ -86,7 +81,6 @@ class ManyToMany extends Relation
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function getJunctionKey()
 	{
 		if($this->junctionKey === null)
@@ -102,7 +96,6 @@ class ManyToMany extends Relation
 	 *
 	 * @access  protected
 	 */
-
 	protected function junctionJoin()
 	{
 		$this->join($this->getJunctionTable(), $this->getJunctionTable() . '.' . $this->getJunctionKey(), '=', $this->model->getTable() . '.' . $this->model->getPrimaryKey());
@@ -111,7 +104,6 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritdoc}
 	 */
-
 	protected function lazyCriterion()
 	{
 		$this->where($this->getJunctionTable() . '.' . $this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
@@ -124,7 +116,6 @@ class ManyToMany extends Relation
 	 * @param   array                                     $keys  Parent keys
 	 * @return  \mako\database\midgard\relations\HasMany
 	 */
-
 	protected function eagerCriterion(array $keys)
 	{
 		$this->lazy = false;
@@ -143,7 +134,6 @@ class ManyToMany extends Relation
 	 * @param   null|\Closure  $criteria  Relation criteria
 	 * @param   array          $includes  Includes passed from the parent record
 	 */
-
 	public function eagerLoad(array &$results, $relation, $criteria, array $includes)
 	{
 		$this->model->setIncludes($includes);
@@ -175,7 +165,6 @@ class ManyToMany extends Relation
 	 * @param   array      $columns  Columns
 	 * @return  array
 	 */
-
 	protected function adjustSelection(array $columns)
 	{
 		if($columns === ['*'])
@@ -197,7 +186,6 @@ class ManyToMany extends Relation
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function first()
 	{
 		$this->columns = $this->adjustSelection($this->columns);
@@ -211,7 +199,6 @@ class ManyToMany extends Relation
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */
-
 	public function all()
 	{
 		$this->columns = $this->adjustSelection($this->columns);
@@ -225,7 +212,6 @@ class ManyToMany extends Relation
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function getRelated()
 	{
 		return $this->all();
@@ -237,7 +223,6 @@ class ManyToMany extends Relation
 	 * @access  protected
 	 * @return  \mako\database\query\Query
 	 */
-
 	protected function junction()
 	{
 		return $this->connection->builder()->table($this->getJunctionTable());
@@ -250,7 +235,6 @@ class ManyToMany extends Relation
 	 * @param   mixed    $id  Id, model or an array of ids and/or models
 	 * @return  boolean
 	 */
-
 	public function link($id)
 	{
 		$success = true;
@@ -275,7 +259,6 @@ class ManyToMany extends Relation
 	 * @param   mixed    $id  Id, model or an array of ids and/or models
 	 * @return  boolean
 	 */
-
 	public function unlink($id = null)
 	{
 		$query = $this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
@@ -307,7 +290,6 @@ class ManyToMany extends Relation
 	 * @param   array    $ids  An array of ids and/or models
 	 * @return  boolean
 	 */
-
 	public function synchronize(array $ids)
 	{
 		$success = true;

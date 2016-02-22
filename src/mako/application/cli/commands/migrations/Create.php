@@ -18,7 +18,6 @@ use mako\reactor\Command;
  *
  * @author  Frederic G. Østby
  */
-
 class Create extends Command
 {
 	/**
@@ -26,7 +25,6 @@ class Create extends Command
 	 *
 	 * @var array
 	 */
-
 	protected $commandInformation =
 	[
 		'description' => 'Creates a new migration.',
@@ -55,7 +53,6 @@ class Create extends Command
 	 * @param   string                         $package      Package name
 	 * @param   string                         $description  Migration description
 	 */
-
 	public function execute(Application $application, FileSystem $fileSystem, $package = null, $description = null)
 	{
 		// Get file path and namespace

@@ -14,7 +14,6 @@ use Closure;
  *
  * @author  Frederic G. Østby
  */
-
 trait ObservableTrait
 {
 	/**
@@ -22,7 +21,6 @@ trait ObservableTrait
 	 *
 	 * @var array
 	 */
-
 	protected $_observers = [];
 
 	/**
@@ -32,7 +30,6 @@ trait ObservableTrait
 	 * @param   string    $event     Event name
 	 * @param   \Closure  $observer  Observer closure
 	 */
-
 	public function attachObserver($event, Closure $observer)
 	{
 		$this->_observers[$event][] = $observer;
@@ -44,7 +41,6 @@ trait ObservableTrait
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function hasObserver($event)
 	{
 		return ! empty($this->_observers[$event]);
@@ -56,7 +52,6 @@ trait ObservableTrait
 	 * @access  public
 	 * @param   string  $event  Event name
 	 */
-
 	public function clearObservers($event = null)
 	{
 		if($event === null)
@@ -76,7 +71,6 @@ trait ObservableTrait
 	 * @param   string    $event     Event name
 	 * @param   \Closure  $observer  Event handler
 	 */
-
 	public function overrideObservers($event, $observer)
 	{
 		$this->clearObservers($event);
@@ -93,7 +87,6 @@ trait ObservableTrait
 	 * @param   boolean  $break       Break if one of the observers returns false?
 	 * @return  mixed
 	 */
-
 	protected function notifyObservers($event, array $parameters = [], $break = false)
 	{
 		$returnValues = [];

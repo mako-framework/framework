@@ -12,13 +12,11 @@ abstract class ORMTestCase extends BuilderTestCase
 	/**
 	 *
 	 */
-
 	protected $connectionManager;
 
 	/**
 	 *
 	 */
-
 	public function setup()
 	{
 		parent::setup();

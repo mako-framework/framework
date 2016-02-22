@@ -16,7 +16,6 @@ use InvalidArgumentException;
  * @author  Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
  * @author  Jack (http://stackoverflow.com/a/15875555)
  */
-
 class UUID
 {
 	/**
@@ -24,7 +23,6 @@ class UUID
 	 *
 	 * @var string
 	 */
-
 	const DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
@@ -32,7 +30,6 @@ class UUID
 	 *
 	 * @var string
 	 */
-
 	const URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
@@ -40,7 +37,6 @@ class UUID
 	 *
 	 * @var string
 	 */
-
 	const OID = '6ba7b812-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
@@ -48,7 +44,6 @@ class UUID
 	 *
 	 * @var string
 	 */
-
 	const X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
@@ -58,7 +53,6 @@ class UUID
 	 * @param   string   $str  The UUID to validate
 	 * @return  boolean
 	 */
-
 	public static function validate($str)
 	{
 		return (bool) preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i', $str);
@@ -71,7 +65,6 @@ class UUID
 	 * @param   string     $namespace  UUID
 	 * @return  string
 	 */
-
 	protected static function toBin($namespace)
 	{
 		if(!static::validate($namespace))
@@ -107,7 +100,6 @@ class UUID
 	 * @param   string  $name       Name
 	 * @return  string
 	 */
-
 	public static function v3($namespace, $name)
 	{
 		// Calculate hash value
@@ -149,7 +141,6 @@ class UUID
 	 * @access  public
 	 * @return  string
 	 */
-
 	public static function v4()
 	{
 		$random = random_bytes(16);
@@ -169,7 +160,6 @@ class UUID
 	 * @param   string  $name       Name
 	 * @return  string
 	 */
-
 	public static function v5($namespace, $name)
 	{
 		// Calculate hash value

@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class FiltersTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testRegister()
 	{
 		$filters = new Filters;
@@ -28,7 +26,6 @@ class FiltersTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$filters = new Filters;
@@ -45,7 +42,6 @@ class FiltersTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testGetNonExisting()
 	{
 		$filters = new Filters;

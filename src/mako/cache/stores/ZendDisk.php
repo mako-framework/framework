@@ -16,7 +16,6 @@ use mako\cache\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class ZendDisk implements StoreInterface
 {
 	/**
@@ -24,7 +23,6 @@ class ZendDisk implements StoreInterface
 	 *
 	 * @access  public
 	 */
-
 	public function __construct()
 	{
 		if(function_exists('zend_disk_cache_store') === false)
@@ -36,7 +34,6 @@ class ZendDisk implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		return zend_disk_cache_store($key, $data, $ttl);
@@ -45,7 +42,6 @@ class ZendDisk implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return (zend_disk_cache_fetch($key) !== false);
@@ -54,7 +50,6 @@ class ZendDisk implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		return zend_disk_cache_fetch($key);
@@ -63,7 +58,6 @@ class ZendDisk implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		return zend_disk_cache_delete($key);
@@ -72,7 +66,6 @@ class ZendDisk implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		return zend_disk_cache_clear();

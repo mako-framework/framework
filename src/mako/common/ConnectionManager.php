@@ -14,7 +14,6 @@ use mako\common\ConfigurableTrait;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class ConnectionManager
 {
 	use ConfigurableTrait;
@@ -24,7 +23,6 @@ abstract class ConnectionManager
 	 *
 	 * @var array
 	 */
-
 	protected $connections = [];
 
 	/**
@@ -44,7 +42,6 @@ abstract class ConnectionManager
 	 * @param   string  $connection  Connection name
 	 * @return  mixed
 	 */
-
 	public function connection($connection = null)
 	{
 		$connection = $connection ?? $this->default;
@@ -65,7 +62,6 @@ abstract class ConnectionManager
 	 * @param   array   $arguments  Method arguments
 	 * @return  mixed
 	 */
-
 	public function __call($name, $arguments)
 	{
 		return $this->connection()->{$name}(...$arguments);

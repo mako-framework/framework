@@ -11,13 +11,11 @@ use PHPUnit_Framework_TestCase;
 /**
  * @group unit
  */
-
 class QueryTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -26,7 +24,6 @@ class QueryTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getQuery()
 	{
 		$connection = m::mock('mako\database\connections\Connection');
@@ -41,7 +38,6 @@ class QueryTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFrom()
 	{
 		$query = $this->getQuery();

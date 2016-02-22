@@ -31,13 +31,11 @@ class BelongsToProfile extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class BelongsToTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasicBelongsToRelation()
 	{
 		$profile = BelongsToProfile::get(1);
@@ -52,7 +50,6 @@ class BelongsToTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLazyBelongsToRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -74,7 +71,6 @@ class BelongsToTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerBelongsToRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -96,7 +92,6 @@ class BelongsToTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerBelongsToRelationWithConstraint()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());

@@ -16,13 +16,11 @@ use mako\view\renderers\Template;
  *
  * @author  Frederic G. Østby
  */
-
 class ViewFactoryService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([ViewFactory::class, 'view'], function($container)

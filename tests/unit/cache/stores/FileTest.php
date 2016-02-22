@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class FileTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getFileSystem()
 	{
 		return m::mock('mako\file\FileSystem');
@@ -33,7 +30,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getSplFileObject()
 	{
 		return m::mock('StdClass'); // ... because SplFileObject can't be mocked
@@ -42,7 +38,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPut()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -65,7 +60,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHas()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -112,7 +106,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -163,7 +156,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemove()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -190,7 +182,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClear()
 	{
 		$fileSystem = $this->getFileSystem();

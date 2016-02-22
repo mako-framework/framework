@@ -23,7 +23,6 @@ use mako\syringe\ContainerAwareTrait;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Command
 {
 	use ContainerAwareTrait;
@@ -33,7 +32,6 @@ abstract class Command
 	 *
 	 * @var \mako\cli\input\Input
 	 */
-
 	protected $input;
 
 	/**
@@ -41,7 +39,6 @@ abstract class Command
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-
 	protected $output;
 
 	/**
@@ -49,7 +46,6 @@ abstract class Command
 	 *
 	 * @var array
 	 */
-
 	protected $commandInformation =
 	[
 		'description' => '',
@@ -62,7 +58,6 @@ abstract class Command
 	 *
 	 * @var boolean
 	 */
-
 	protected $shouldExecute = true;
 
 	/**
@@ -72,7 +67,6 @@ abstract class Command
 	 * @param   \mako\cli\input\Input    $input   Input
 	 * @param   \mako\cli\output\Output  $output  Output
 	 */
-
 	public function __construct(Input $input, Output $output)
 	{
 		$this->input = $input;
@@ -91,7 +85,6 @@ abstract class Command
 	 * @access  public
 	 * @return  string|null
 	 */
-
 	public function getCommandDescription()
 	{
 		return $this->commandInformation['description'] ?? null;
@@ -103,7 +96,6 @@ abstract class Command
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function shouldExecute()
 	{
 		return $this->shouldExecute;
@@ -115,7 +107,6 @@ abstract class Command
 	 * @access  protected
 	 * @param   array      $items  Items
 	 */
-
 	protected function drawInfoTable(array $items)
 	{
 		$headers = ['Name', 'Description', 'Optional'];
@@ -135,7 +126,6 @@ abstract class Command
 	 *
 	 * @access  protected
 	 */
-
 	protected function displayCommandDetails()
 	{
 		$this->write('<yellow>Command:</yellow>');
@@ -184,7 +174,6 @@ abstract class Command
 	 * @param   int        $lines   Number of newlines to write
 	 * @param   int        $writer  Output writer
 	 */
-
 	protected function nl($lines = 1, $writer = Output::STANDARD)
 	{
 		$this->output->write(str_repeat(PHP_EOL, $lines), $writer);
@@ -197,7 +186,6 @@ abstract class Command
 	 * @param   string     $string  String to write
 	 * @param   int        $writer  Output writer
 	 */
-
 	protected function write($string, $writer = Output::STANDARD)
 	{
 		$this->output->writeLn($string, $writer);
@@ -209,7 +197,6 @@ abstract class Command
 	 * @access  protected
 	 * @param   string     $string  String to write
 	 */
-
 	protected function error($string)
 	{
 		$this->output->errorLn('<red>' . $string . '</red>');
@@ -221,7 +208,6 @@ abstract class Command
 	 * @access  protected
 	 * @param   int        $times  Number of times to ring the bell
 	 */
-
 	protected function bell($times = 1)
 	{
 		(new Bell($this->output))->ring($times);
@@ -233,7 +219,6 @@ abstract class Command
 	 * @access  protected
 	 * @param   int        $from  Number of seconds to count down
 	 */
-
 	protected function countdown($from = 5)
 	{
 		(new Countdown($this->output))->draw($from);
@@ -247,7 +232,6 @@ abstract class Command
 	 * @param   int                                   $redrawRate  Redraw rate
 	 * @return  \mako\cli\output\helpers\ProgressBar
 	 */
-
 	protected function progressBar($items, $redrawRate = null)
 	{
 		$progressBar = new ProgressBar($this->output, $items, $redrawRate);
@@ -269,7 +253,6 @@ abstract class Command
 	 * @param   array      $rows         Array of rows
 	 * @param   int        $writer       Output writer
 	 */
-
 	protected function table(array $columnNames, array $rows, $writer = Output::STANDARD)
 	{
 		(new Table($this->output))->draw($columnNames, $rows, $writer);
@@ -283,7 +266,6 @@ abstract class Command
 	 * @param   string     $default   Default answer
 	 * @return  boolean
 	 */
-
 	protected function confirm($question, $default = 'n')
 	{
 		return (new Confirmation($this->input, $this->output))->ask($question, $default);
@@ -297,7 +279,6 @@ abstract class Command
 	 * @param   null|mixed  $default   Default if no input is entered
 	 * @return  string
 	 */
-
 	public function question($question, $default = null)
 	{
 		return (new Question($this->input, $this->output))->ask($question, $default);
@@ -312,7 +293,6 @@ abstract class Command
 	 * @param   boolean     $fallback  Fall back to non-hidden input?
 	 * @return  string
 	 */
-
 	public function secret($question, $default = null, $fallback = false)
 	{
 		return (new Secret($this->input, $this->output))->ask($question, $default, $fallback);

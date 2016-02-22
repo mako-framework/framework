@@ -7,13 +7,11 @@ use mako\security\Signer;
 /**
  * @group unit
  */
-
 class SignerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testSign()
 	{
 		$string = 'hello, world!';
@@ -30,7 +28,6 @@ class SignerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidateValid()
 	{
 		$string = 'hello, world!';
@@ -45,7 +42,6 @@ class SignerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidateInvalid()
 	{
 		$string = 'hello, world!';

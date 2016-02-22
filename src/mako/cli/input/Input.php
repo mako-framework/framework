@@ -14,7 +14,6 @@ use mako\cli\input\reader\ReaderInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Input
 {
 	/**
@@ -22,7 +21,6 @@ class Input
 	 *
 	 * @var string
 	 */
-
 	const NAMED_ARGUMENT_REGEX = '/--([a-z0-9-_]+)(=(.*))?/iu';
 
 	/**
@@ -30,7 +28,6 @@ class Input
 	 *
 	 * @var \mako\cli\input\reader\ReaderInterface
 	 */
-
 	protected $reader;
 
 	/**
@@ -47,7 +44,6 @@ class Input
 	 * @var \mako\cli\input\reader\ReaderInterface  $reader     Reader instance
 	 * @var null|array                              $arguments  Array of arguments passed to script
 	 */
-
 	public function __construct(ReaderInterface $reader, array $arguments = null)
 	{
 		$this->reader = $reader;
@@ -62,7 +58,6 @@ class Input
 	 * @param   string  $name  Argument name to normalize
 	 * @return  string
 	 */
-
 	protected function normalizeArgumentName($name)
 	{
 		return str_replace('-', '_', $name);
@@ -75,7 +70,6 @@ class Input
 	 * @param   array      $arguments  Arguments
 	 * @return  array
 	 */
-
 	protected function parseArguments(array $arguments)
 	{
 		$parsed = [];
@@ -105,7 +99,6 @@ class Input
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function read()
 	{
 		return $this->reader->read();
@@ -131,7 +124,6 @@ class Input
 	 * @param   null|mixed  $default  Default value
 	 * @return  mixed
 	 */
-
 	public function getArgument($name, $default = null)
 	{
 		if(is_int($name))

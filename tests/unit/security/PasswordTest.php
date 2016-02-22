@@ -7,13 +7,11 @@ use mako\security\Password;
 /**
  * @group unit
  */
-
 class PasswordTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testHash()
 	{
 		$password = 'foobar';
@@ -39,7 +37,6 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidate()
 	{
 		$password = 'foobar';
@@ -54,7 +51,6 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNeedsRehash()
 	{
 		$hash = Password::hash('foobar', 4);
@@ -67,7 +63,6 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetAndGetDefaultComputingCost()
 	{
 		Password::setDefaultComputingCost(12);

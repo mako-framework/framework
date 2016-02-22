@@ -22,7 +22,6 @@ use mako\view\ViewFactory;
  *
  * @author  Frederic G. Østby
  */
-
 class WebHandler extends Handler
 {
 	/**
@@ -30,7 +29,6 @@ class WebHandler extends Handler
 	 *
 	 * @var int
 	 */
-
 	const SOURCE_PADDING = 6;
 
 	/**
@@ -38,7 +36,6 @@ class WebHandler extends Handler
 	 *
 	 * @var \mako\http\Request
 	 */
-
 	protected $request;
 
 	/**
@@ -46,7 +43,6 @@ class WebHandler extends Handler
 	 *
 	 * @var \mako\http\Response
 	 */
-
 	protected $response;
 
 	/**
@@ -54,7 +50,6 @@ class WebHandler extends Handler
 	 *
 	 * @var \mako\view\ViewFactory
 	 */
-
 	protected $view;
 
 	/**
@@ -66,7 +61,6 @@ class WebHandler extends Handler
 	 * @param   \mako\http\Response     $response   Response intance
 	 * @param   \mako\view\ViewFactory  $view       View factory instance
 	 */
-
 	public function __construct(Throwable $exception, Request $request, Response $response, ViewFactory $view)
 	{
 		parent::__construct($exception);
@@ -86,7 +80,6 @@ class WebHandler extends Handler
 	 * @access  protected
 	 * @return  boolean
 	 */
-
 	protected function returnAsJson()
 	{
 		$acceptableContentTypes = $this->request->acceptableContentTypes();
@@ -102,7 +95,6 @@ class WebHandler extends Handler
 	 * @param   int        $line     Frame line
 	 * @return  string
 	 */
-
 	protected function getFrameSource($file, $line)
 	{
 		if(!is_readable($file))
@@ -144,7 +136,6 @@ class WebHandler extends Handler
 	 * @param   boolean    $addSource  Add source code to each frame?
 	 * @return  array
 	 */
-
 	protected function modifyTrace(array $trace, $addSource = true)
 	{
 		foreach($trace as $frameKey => $frame)
@@ -182,7 +173,6 @@ class WebHandler extends Handler
 	 * @param   boolean    $returnAsJson  Should we return JSON?
 	 * @return  string
 	 */
-
 	protected function getDetailedError($returnAsJson)
 	{
 		$trace = $this->exception->getTrace();
@@ -237,7 +227,6 @@ class WebHandler extends Handler
 	 * @param   boolean    $returnAsJson  Should we return JSON?
 	 * @return  string
 	 */
-
 	protected function getGenericError($returnAsJson)
 	{
 		$code = $this->exception->getCode();
@@ -280,7 +269,6 @@ class WebHandler extends Handler
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function handle($showDetails = true)
 	{
 		// Should we return JSON?

@@ -12,7 +12,6 @@ namespace mako\commander;
  *
  * @author  Yamada Taro
  */
-
 interface SelfHandlingCommandInterface
 {
 	/**
@@ -21,6 +20,5 @@ interface SelfHandlingCommandInterface
 	 * @access  public
 	 * @return  mixed
 	 */
-
 	public function handle();
 }

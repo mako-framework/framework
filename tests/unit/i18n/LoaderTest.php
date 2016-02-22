@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class LoaderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getFileSystem()
 	{
 		return m::mock('mako\file\FileSystem');
@@ -33,7 +30,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	protected function loadInflection($fileSystem)
 	{
 		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(true);
@@ -46,7 +42,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicStringLoading()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -66,7 +61,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage mako\i18n\Loader::loadStrings(): The [ /app/i18n/en_US/strings/foobar.php ] language file does not exist in the [ en_US ] language pack.
 	 */
-
 	public function testBasicNonExistingStringLoading()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -81,7 +75,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStringLoadingWithPackages()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -104,7 +97,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStringLoadingWithPackagesOverride()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -127,7 +119,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoadInflection()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -144,7 +135,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoadNonExistingInflection()
 	{
 		$fileSystem = $this->getFileSystem();

@@ -14,7 +14,6 @@ use DateTimeZone;
  *
  * @author  Frederic G. Østby
  */
-
 class TimeZone extends DateTimeZone
 {
 	/**
@@ -24,7 +23,6 @@ class TimeZone extends DateTimeZone
 	 * @access  public
 	 * @return  array
 	 */
-
 	public static function getTimeZones()
 	{
 		$timeZones = [];
@@ -44,7 +42,6 @@ class TimeZone extends DateTimeZone
 	 * @access  public
 	 * @return  array
 	 */
-
 	public static function getGroupedTimeZones()
 	{
 		$timeZones = [];

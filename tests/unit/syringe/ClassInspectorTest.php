@@ -40,7 +40,6 @@ class E extends D
 /**
  * @group unit
  */
-
 class ClassInspectorTest extends \PHPUnit_Framework_TestCase
 {
 	public function testGetClassTraits()

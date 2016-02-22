@@ -16,13 +16,11 @@ use mako\database\query\Query;
  *
  * @author  Frederic G. Østby
  */
-
 class DatabaseService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([ConnectionManager::class, 'database'], function($container)

@@ -28,13 +28,11 @@ class EventHanler implements EventHandlerInterface
 /**
  * @group unit
  */
-
 class EventTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -43,7 +41,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRegisterAndHas()
 	{
 		$event = new Event;
@@ -58,7 +55,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testEvents()
 	{
 		$event = new Event;
@@ -73,7 +69,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClear()
 	{
 		$event = new Event;
@@ -90,7 +85,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTrigger()
 	{
 		$event = new Event;
@@ -107,7 +101,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTriggerWithParams()
 	{
 		$event = new Event;
@@ -122,7 +115,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTriggerWithNamedParams()
 	{
 		$event = new Event;
@@ -137,7 +129,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTriggerWithBreak()
 	{
 		$event = new Event;
@@ -154,7 +145,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOverride()
 	{
 		$event = new Event;
@@ -171,7 +161,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testContainerWithClosureHandler()
 	{
 		$container = m::mock('mako\syringe\Container');
@@ -190,7 +179,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testContainerWithClassHandler()
 	{
 		$container = m::mock('mako\syringe\Container');
@@ -211,7 +199,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClassHandler()
 	{
 		$event = new Event;

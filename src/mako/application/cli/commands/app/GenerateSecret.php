@@ -16,7 +16,6 @@ use mako\reactor\Command;
  *
  * @author  Frederic G. Østby
  */
-
 class GenerateSecret extends Command
 {
 	/**
@@ -24,7 +23,6 @@ class GenerateSecret extends Command
 	 *
 	 * @var array
 	 */
-
 	protected $commandInformation =
 	[
 		'description' => 'Generates a new application secret.',
@@ -39,7 +37,6 @@ class GenerateSecret extends Command
 	 * @param   \mako\application\Application  $application  Application instance
 	 * @param   \mako\file\FileSystem          $fileSystem   File system instance
 	 */
-
 	public function execute(Application $application, FileSystem $fileSystem)
 	{
 		$configFile = $application->getPath() . '/config/application.php';

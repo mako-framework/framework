@@ -15,7 +15,6 @@ use mako\validator\plugins\ValidatorPlugin;
  *
  * @author  Frederic G. Østby
  */
-
 class DatabaseExistsValidator extends ValidatorPlugin
 {
 	/**
@@ -23,7 +22,6 @@ class DatabaseExistsValidator extends ValidatorPlugin
 	 *
 	 * @var string
 	 */
-
 	protected $ruleName = 'exists';
 
 	/**
@@ -31,7 +29,6 @@ class DatabaseExistsValidator extends ValidatorPlugin
 	 *
 	 * @var \mako\database\ConnectionManager
 	 */
-
 	protected $connectionManager;
 
 	/**
@@ -40,7 +37,6 @@ class DatabaseExistsValidator extends ValidatorPlugin
 	 * @access  public
 	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
 	 */
-
 	public function __construct(ConnectionManager $connectionManager)
 	{
 		$this->connectionManager = $connectionManager;
@@ -55,7 +51,6 @@ class DatabaseExistsValidator extends ValidatorPlugin
 	 * @param   string   $column  Column name
 	 * @return  boolean
 	 */
-
 	public function validate($input, $table, $column)
 	{
 		return ($this->connectionManager->builder()->table($table)->where($column, '=', $input)->count() != 0);

@@ -69,13 +69,11 @@ class Counter extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class ORMTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$user = TestUser::get(1);
@@ -94,7 +92,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testGetNonExistent()
 	{
 		$user = TestUser::get(999);
@@ -105,7 +102,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testAll()
 	{
 		$users = TestUser::all();
@@ -121,7 +117,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLimitColumnsFirst()
 	{
 		$user = TestUser::select(['username', 'email'])->where('id', '=', 1)->first();
@@ -132,7 +127,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLimitColumnsAll()
 	{
 		$users = TestUser::select(['username', 'email'])->all();
@@ -143,7 +137,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testJoin()
 	{
 		$users = TestUser::join('articles', 'articles.user_id', '=', 'users.id')->distinct()->all();
@@ -158,7 +151,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testSave()
 	{
 		$dateTime = new DateTime;
@@ -187,7 +179,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testCreate()
 	{
 		$dateTime = new DateTime;
@@ -208,7 +199,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testUpdate()
 	{
 		$dateTime = new DateTime;
@@ -233,7 +223,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testDelete()
 	{
 		$dateTime = new DateTime;
@@ -250,7 +239,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testClone()
 	{
 		$user = TestUser::get(1);
@@ -275,7 +263,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testCloneResultSet()
 	{
 		$count = TestUser::count();
@@ -308,7 +295,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testScoped()
 	{
 		$users = TestUserScoped::withArticles()->all();
@@ -319,7 +305,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testDateTime()
 	{
 		$user = TestUserDateTime::get(1);
@@ -330,7 +315,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testUUIDKey()
 	{
 		$uuid = UUIDKey::create(['value' => 'foo']);
@@ -345,7 +329,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testCustomKey()
 	{
 		$custom = CustomKey::create(['value' => 'foo']);
@@ -360,7 +343,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testNoKey()
 	{
 		$none = NoKey::create(['value' => 'foo']);
@@ -379,7 +361,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testToArray()
 	{
 		$user = TestUser::get(1)->toArray();
@@ -390,7 +371,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testToJSON()
 	{
 		$user = TestUser::get(1)->toJSON();
@@ -401,7 +381,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testQueryForwarding()
 	{
 		$user = TestUser::where('id', '=', 1)->first();
@@ -412,7 +391,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testIncrement()
 	{
 		Counter::increment('counter');
@@ -437,7 +415,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testDecrement()
 	{
 		Counter::decrement('counter');
@@ -462,7 +439,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testIncrement10()
 	{
 		Counter::increment('counter', 10);
@@ -487,7 +463,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testDecrement10()
 	{
 		Counter::decrement('counter', 10);

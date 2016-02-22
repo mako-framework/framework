@@ -7,13 +7,11 @@ abstract class BuilderTestCase extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	protected $connectionManager;
 
 	/**
 	 *
 	 */
-
 	public function setup()
 	{
 		// Set up connection manager

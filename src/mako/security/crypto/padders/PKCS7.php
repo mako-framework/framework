@@ -14,13 +14,11 @@ use mako\security\crypto\padders\PadderInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class PKCS7 implements PadderInterface
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function addPadding($string, $blockSize)
 	{
 		$padSize = $blockSize - (strlen($string) % $blockSize);
@@ -31,7 +29,6 @@ class PKCS7 implements PadderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function stripPadding($string)
 	{
 		$padChar = substr($string, -1);

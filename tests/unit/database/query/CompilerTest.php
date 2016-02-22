@@ -9,13 +9,11 @@ use PHPUnit_Framework_TestCase;
 /**
  * @group unit
  */
-
 class CompilerTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testSetAndGetDateFormat()
 	{
 		$format = Compiler::getDateFormat();

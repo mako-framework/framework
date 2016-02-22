@@ -27,7 +27,6 @@ class Secret extends Question
 	 *
 	 * @var \mako\cli\input\Input
 	 */
-
 	protected $input;
 
 	/**
@@ -35,7 +34,6 @@ class Secret extends Question
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-
 	protected $ouput;
 
 	/**
@@ -43,7 +41,6 @@ class Secret extends Question
 	 *
 	 * @var boolean
 	 */
-
 	protected static $hasStty;
 
 	/**
@@ -53,7 +50,6 @@ class Secret extends Question
 	 * @param   \mako\cli\input\Input    $input   Input instance
 	 * @param   \mako\cli\output\Output  $output  Output instance
 	 */
-
 	public function __construct(Input $input, Output $output)
 	{
 		$this->input = $input;
@@ -67,7 +63,6 @@ class Secret extends Question
 	 * @access  protected
 	 * @return  boolean
 	 */
-
 	protected function hasStty()
 	{
 		if(static::$hasStty === null)
@@ -89,7 +84,6 @@ class Secret extends Question
 	 * @param   boolean     $fallback  Fall back to non-hidden input?
 	 * @return  string
 	 */
-
 	public function ask($question, $default = null, $fallback = false)
 	{
 		if(DIRECTORY_SEPARATOR === '\\' || $this->hasStty())

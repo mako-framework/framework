@@ -16,7 +16,6 @@ use mako\cache\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class WinCache implements StoreInterface
 {
 	/**
@@ -24,7 +23,6 @@ class WinCache implements StoreInterface
 	 *
 	 * @access  public
 	 */
-
 	public function __construct()
 	{
 		if(function_exists('wincache_ucache_set') === false)
@@ -36,7 +34,6 @@ class WinCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		return wincache_ucache_set($key, $data, $ttl);
@@ -45,7 +42,6 @@ class WinCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return wincache_ucache_exists($key);
@@ -54,7 +50,6 @@ class WinCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		$cache = wincache_ucache_get($key, $success);
@@ -72,7 +67,6 @@ class WinCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		return wincache_ucache_delete($key);
@@ -81,7 +75,6 @@ class WinCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		return wincache_ucache_clear();

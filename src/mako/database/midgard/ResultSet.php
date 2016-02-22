@@ -15,7 +15,6 @@ use mako\database\query\ResultSet as BaseResultSet;
  *
  * @author  Frederic G. Østby
  */
-
 class ResultSet extends BaseResultSet
 {
 	/**
@@ -23,7 +22,6 @@ class ResultSet extends BaseResultSet
 	 *
 	 * @access  public
 	 */
-
 	public function __clone()
 	{
 		foreach($this->items as $key => $value)
@@ -40,7 +38,6 @@ class ResultSet extends BaseResultSet
 	 * @param   boolean  $raw      Get raw values?
 	 * @return  array
 	 */
-
 	public function toArray($protect = true, $raw = false)
 	{
 		$results = [];
@@ -61,7 +58,6 @@ class ResultSet extends BaseResultSet
 	 * @param   boolean  $raw      Get raw values?
 	 * @return  string
 	 */
-
 	public function toJson($protect = true, $raw = false)
 	{
 		return json_encode($this->toArray($protect, $raw));

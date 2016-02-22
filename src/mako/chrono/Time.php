@@ -15,7 +15,6 @@ use DateTimeZone;
  *
  * @author  Frederic G. Østby
  */
-
 class Time extends DateTime
 {
 	/**
@@ -23,7 +22,6 @@ class Time extends DateTime
 	 *
 	 * @var int
 	 */
-
 	const MINUTE = 60;
 
 	/**
@@ -31,7 +29,6 @@ class Time extends DateTime
 	 *
 	 * @var int
 	 */
-
 	const HOUR = 3600;
 
 	/**
@@ -39,7 +36,6 @@ class Time extends DateTime
 	 *
 	 * @var int
 	 */
-
 	const DAY = 86400;
 
 	/**
@@ -47,7 +43,6 @@ class Time extends DateTime
 	 *
 	 * @var int
 	 */
-
 	const WEEK = 604800;
 
 	/**
@@ -55,7 +50,6 @@ class Time extends DateTime
 	 *
 	 * @var int
 	 */
-
 	const MONTH = 2629744;
 
 	/**
@@ -63,7 +57,6 @@ class Time extends DateTime
 	 *
 	 * @var int
 	 */
-
 	const YEAR = 31556926;
 
 	/**
@@ -73,7 +66,6 @@ class Time extends DateTime
 	 * @param   string                     $time      A date/time string
 	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 */
-
 	public function __construct($time = 'now', $timeZone = null)
 	{
 		if($timeZone !== null && ($timeZone instanceof DateTimeZone) === false)
@@ -91,7 +83,6 @@ class Time extends DateTime
 	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-
 	public static function now($timeZone = null)
 	{
 		return new static('now', $timeZone);
@@ -107,7 +98,6 @@ class Time extends DateTime
 	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-
 	public static function createFromDate($year, $month = null, $day = null, $timeZone = null)
 	{
 		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
@@ -127,7 +117,6 @@ class Time extends DateTime
 	 * @param   null|string|\DateTimeZone  $timeZone   A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-
 	public static function createFromTimestamp($timestamp, $timeZone = null)
 	{
 		$dateTime = new static('now', $timeZone);
@@ -145,7 +134,6 @@ class Time extends DateTime
 	 * @param   null|string|\DateTimeZone  $timeZone   A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-
 	public static function createFromDOSTimestamp($timestamp, $timeZone = null)
 	{
 		$year     = (($timestamp >> 25) & 0x7f) + 1980;
@@ -169,7 +157,6 @@ class Time extends DateTime
 	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-
 	public static function createFromFormat($format, $time, $timeZone = null)
 	{
 		if($timeZone !== null)
@@ -196,7 +183,6 @@ class Time extends DateTime
 	 * @param   string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-
 	public function setTimeZone($timeZone)
 	{
 		if(($timeZone instanceof DateTimeZone) === false)
@@ -214,7 +200,6 @@ class Time extends DateTime
 	 * @param   int                $seconds  Number of seconds
 	 * @return  \mako\chrono\Time
 	 */
-
 	public function forward($seconds)
 	{
 		return $this->setTimestamp($this->getTimestamp() + $seconds);
@@ -227,7 +212,6 @@ class Time extends DateTime
 	 * @param   int                $seconds  Number of seconds
 	 * @return  \mako\chrono\Time
 	 */
-
 	public function rewind($seconds)
 	{
 		return $this->setTimestamp($this->getTimestamp() - $seconds);
@@ -239,7 +223,6 @@ class Time extends DateTime
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getDOSTimestamp()
 	{
 		$time = getdate($this->getTimestamp());
@@ -263,7 +246,6 @@ class Time extends DateTime
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isLeapYear()
 	{
 		$year = $this->format('Y');
@@ -282,7 +264,6 @@ class Time extends DateTime
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function daysInMonths()
 	{
 		return
@@ -309,7 +290,6 @@ class Time extends DateTime
 	 * @param   null|int  $month  Month
 	 * @return  int
 	 */
-
 	public function daysInMonth()
 	{
 		return $this->daysInMonths()[$this->format('n') - 1];
@@ -322,7 +302,6 @@ class Time extends DateTime
 	 * @param   string  $format  Date format
 	 * @return  string
 	 */
-
 	public function formatLocalized($format)
 	{
 		return strftime($format, $this->getTimestamp());

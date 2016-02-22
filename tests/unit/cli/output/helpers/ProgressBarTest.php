@@ -11,13 +11,11 @@ use PHPUnit_Framework_TestCase;
 /**
  * @group unit
  */
-
 class ProgressBarTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -26,7 +24,6 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testProgressWithZeroItems()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -41,7 +38,6 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicProgress()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -72,7 +68,6 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testProgressWithCustomTemplates()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -107,7 +102,6 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testProgressWith100ItemsAndDefaultRedrawRate()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -127,7 +121,6 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testProgressWith1000ItemsAndDefaultRedrawRate()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -147,7 +140,6 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testProgressWith1000ItemsAndCustomtRedrawRate()
 	{
 		$output = m::mock('mako\cli\output\Output');

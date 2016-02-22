@@ -15,7 +15,6 @@ use mako\database\query\Query;
  *
  * @author  Frederic G. Østby
  */
-
 interface HelperInterface
 {
 	/**
@@ -27,6 +26,5 @@ interface HelperInterface
 	 * @param   null|string                 $primaryKey  Primary key name
 	 * @return  int|boolean
 	 */
-
 	public function insertAndGetId(Query $query, array $values, $primaryKey = null);
 }

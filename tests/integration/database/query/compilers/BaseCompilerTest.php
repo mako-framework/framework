@@ -15,13 +15,11 @@ use Mockery;
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class BaseCompilerTest extends BuilderTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testSelectWithPagination()
 	{
 		$pagination = Mockery::mock(PaginationInterface::class);
@@ -48,7 +46,6 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithPaginationAndOrdering()
 	{
 		$pagination = Mockery::mock(PaginationInterface::class);

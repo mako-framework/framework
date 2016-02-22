@@ -9,13 +9,11 @@ use mako\chrono\stopwatch\Lap;
 /**
  * @group unit
  */
-
 class LapTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testStart()
 	{
 		$lap = new Lap;
@@ -30,7 +28,6 @@ class LapTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStop()
 	{
 		$lap = new Lap;
@@ -49,7 +46,6 @@ class LapTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsRunning()
 	{
 		$lap = new Lap;

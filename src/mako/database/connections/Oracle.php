@@ -14,13 +14,11 @@ use mako\database\connections\Connection;
  *
  * @author  Frederic G. Østby
  */
-
 class Oracle extends Connection
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function isAlive()
 	{
 		try

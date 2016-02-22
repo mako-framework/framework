@@ -15,7 +15,6 @@ use mako\application\cli\commands\migrations\RollbackTrait;
  *
  * @author  Frederic G. Østby
  */
-
 class Reset extends Command
 {
 	use RollbackTrait;
@@ -25,7 +24,6 @@ class Reset extends Command
 	 *
 	 * @var array
 	 */
-
 	protected $commandInformation =
 	[
 		'description' => 'Rolls back the last batch of migrations.',
@@ -46,7 +44,6 @@ class Reset extends Command
 	 * @access  public
 	 * @param   boolean  $force  Force the schema reset?
 	 */
-
 	public function execute($force = false)
 	{
 		if($force || $this->confirm('<yellow>Are you sure you want to reset your database?</yellow>'))

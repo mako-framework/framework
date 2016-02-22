@@ -11,13 +11,11 @@ use PHPUnit_Framework_TestCase;
 /**
  * @group unit
  */
-
 class ConfirmationTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -26,7 +24,6 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testConfirmationYes()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -45,7 +42,6 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testConfirmationNo()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -64,7 +60,6 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testConfirmationDefaultNo()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -83,7 +78,6 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testConfirmationDefaultYes()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -102,7 +96,6 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testConfirmationYesCustom()
 	{
 		$input = m::mock('mako\cli\input\Input');
@@ -121,7 +114,6 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testConfirmationWithInvalidInput()
 	{
 		$input = m::mock('mako\cli\input\Input');

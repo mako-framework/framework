@@ -15,13 +15,11 @@ use mako\commander\CommandBusInterface;
  *
  * @author  Yamada Taro
  */
-
 class CommandBusService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([CommandBusInterface::class, 'commander'], function($container)

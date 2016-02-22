@@ -15,7 +15,6 @@ use mako\http\routing\Routes;
  *
  * @author  Frederic G. Østby
  */
-
 class URLBuilder
 {
 	/**
@@ -23,7 +22,6 @@ class URLBuilder
 	 *
 	 * @var \mako\http\Request
 	 */
-
 	protected $request;
 
 	/**
@@ -31,7 +29,6 @@ class URLBuilder
 	 *
 	 * @var \mako\http\routing\Routes
 	 */
-
 	protected $routes;
 
 	/**
@@ -39,7 +36,6 @@ class URLBuilder
 	 *
 	 * @var boolean
 	 */
-
 	protected $cleanURLs;
 
 	/**
@@ -47,7 +43,6 @@ class URLBuilder
 	 *
 	 * @var string
 	 */
-
 	protected $languagePrefix;
 
 	/**
@@ -58,7 +53,6 @@ class URLBuilder
 	 * @param   \mako\http\routing\Routes  $routes     Route collection
 	 * @param   boolean                    $cleanURLs  Create "clean" URLs?
 	 */
-
 	public function __construct(Request $request, Routes $routes, $cleanURLs = false)
 	{
 		$this->request   = $request;
@@ -80,7 +74,6 @@ class URLBuilder
 	 * @param   string   $pattern  Pattern to match
 	 * @return  boolean
 	 */
-
 	public function matches($pattern)
 	{
 		return (bool) preg_match('#' . $pattern . '#', $this->request->path());
@@ -92,7 +85,6 @@ class URLBuilder
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function base()
 	{
 		return $this->request->baseURL();
@@ -108,7 +100,6 @@ class URLBuilder
 	 * @param   mixed    $language     Request language
 	 * @return  string
 	 */
-
 	public function to($path, array $queryParams = [], $separator = '&amp;', $language = true)
 	{
 		$url = $this->base() . ($this->cleanURLs ? '' : '/index.php') . ($language === true ? $this->languagePrefix : (!$language ? '' : '/' . $language)) . $path;
@@ -132,7 +123,6 @@ class URLBuilder
 	 * @param   mixed   $language     Request language
 	 * @return  string
 	 */
-
 	public function toRoute($routeName, array $routeParams = [], array $queryParams = [], $separator = '&amp;', $language = true)
 	{
 		$route = $this->routes->getNamedRoute($routeName)->getRoute();
@@ -162,7 +152,6 @@ class URLBuilder
 	 * @param   mixed    $language     Request language
 	 * @return  string
 	 */
-
 	public function current(array $queryParams = [], $separator = '&amp;', $language = true)
 	{
 		$queryParams = $queryParams ?: $this->request->get();
@@ -180,7 +169,6 @@ class URLBuilder
 	 * @param   string   $separator    Argument separator
 	 * @return  string
 	 */
-
 	public function toLanguage($route, $language, array $queryParams = [], $separator = '&amp;')
 	{
 		return $this->to($route, $queryParams, $separator, $language);
@@ -197,7 +185,6 @@ class URLBuilder
 	 * @param   string  $separator    Argument separator
 	 * @return  string
 	 */
-
 	public function toRouteLanguage($routeName, $language, array $routeParams = [], array $queryParams = [], $separator = '&amp;')
 	{
 		return $this->toRoute($routeName, $routeParams, $queryParams, $separator, $language);
@@ -212,7 +199,6 @@ class URLBuilder
 	 * @param   string  $separator    Argument separator
 	 * @return  string
 	 */
-
 	public function currentLanguage($language, array $queryParams = [], $separator = '&amp;')
 	{
 		return $this->current($queryParams, $separator, $language);

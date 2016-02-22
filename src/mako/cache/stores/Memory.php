@@ -14,7 +14,6 @@ use mako\cache\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Memory implements StoreInterface
 {
 	/**
@@ -22,13 +21,11 @@ class Memory implements StoreInterface
 	 *
 	 * @var array
 	 */
-
 	protected $cache = [];
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
@@ -41,7 +38,6 @@ class Memory implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return (isset($this->cache[$key]) && $this->cache[$key]['ttl'] > time());
@@ -50,7 +46,6 @@ class Memory implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		if(isset($this->cache[$key]))
@@ -75,7 +70,6 @@ class Memory implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		if(isset($this->cache[$key]))
@@ -93,7 +87,6 @@ class Memory implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		$this->cache = [];

@@ -14,7 +14,6 @@ use mako\database\midgard\relations\Relation;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class HasOneOrMany extends Relation
 {
 	/**
@@ -24,7 +23,6 @@ abstract class HasOneOrMany extends Relation
 	 * @param   mixed                    $related  Related record
 	 * @return  \mako\database\midgard
 	 */
-
 	public function create($related)
 	{
 		if($related instanceof $this->model)

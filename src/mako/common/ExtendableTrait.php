@@ -15,7 +15,6 @@ use BadMethodCallException;
  *
  * @author  Yamada Taro
  */
-
 trait ExtendableTrait
 {
 	/**
@@ -23,7 +22,6 @@ trait ExtendableTrait
 	 *
 	 * @var array
 	 */
-
 	protected static $_extensions;
 
 	/**
@@ -33,7 +31,6 @@ trait ExtendableTrait
 	 * @param   string    $methodName  Method name
 	 * @param   \Closure  $closure     Closure
 	 */
-
 	public static function extend(string $methodName, Closure $closure)
 	{
 		static::$_extensions[$methodName] = $closure;
@@ -47,7 +44,6 @@ trait ExtendableTrait
 	 * @param   array   $arguments  Method arguments
 	 * @return  mixed
 	 */
-
 	public function __call(string $name, array $arguments)
 	{
 		if(!isset(static::$_extensions[$name]))
@@ -66,7 +62,6 @@ trait ExtendableTrait
 	 * @param   array   $arguments  Method arguments
 	 * @return  mixed
 	 */
-
 	public static function __callStatic(string $name, array $arguments)
 	{
 		if(!isset(static::$_extensions[$name]))

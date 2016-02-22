@@ -11,13 +11,11 @@ use PHPUnit_Framework_TestCase;
 /**
  * @group unit
  */
-
 class DispatcherTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -26,7 +24,6 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDispatch()
 	{
 		$container = m::mock('mako\syringe\Container');
@@ -47,7 +44,6 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDispatchNoExecution()
 	{
 		$container = m::mock('mako\syringe\Container');

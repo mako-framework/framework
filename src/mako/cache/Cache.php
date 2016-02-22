@@ -16,7 +16,6 @@ use mako\cache\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Cache
 {
 	/**
@@ -24,7 +23,6 @@ class Cache
 	 *
 	 * @var \mako\cache\stores\StoreInterface
 	 */
-
 	protected $store;
 
 	/**
@@ -32,7 +30,6 @@ class Cache
 	 *
 	 * @var string
 	 */
-
 	protected $prefix;
 
 	/**
@@ -42,7 +39,6 @@ class Cache
 	 * @param   \mako\cache\stores\StoreInterface  $store   Cache store
 	 * @param   string                             $prefix  Cache prefix
 	 */
-
 	public function __construct(StoreInterface $store, $prefix = null)
 	{
 		$this->store = $store;
@@ -57,7 +53,6 @@ class Cache
 	 * @param   string     $key  Cache key
 	 * @return  string
 	 */
-
 	protected function prefixedKey($key)
 	{
 		return empty($this->prefix) ? $key : $this->prefix . '.' . $key;
@@ -72,7 +67,6 @@ class Cache
 	 * @param   int      $ttl    Time to live
 	 * @return  boolean
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		return $this->store->put($this->prefixedKey($key), $data, $ttl);
@@ -85,7 +79,6 @@ class Cache
 	 * @param   string   $key  Cache key
 	 * @return  boolean
 	 */
-
 	public function has($key)
 	{
 		return $this->store->has($this->prefixedKey($key));
@@ -98,7 +91,6 @@ class Cache
 	 * @param   string  $key  Cache key
 	 * @return  mixed
 	 */
-
 	public function get($key)
 	{
 		return $this->store->get($this->prefixedKey($key));
@@ -113,7 +105,6 @@ class Cache
 	 * @param   int       $ttl    Time to live
 	 * @return  mixed
 	 */
-
 	public function getOrElse($key, Closure $data, $ttl = 0)
 	{
 		if(!$this->store->has($this->prefixedKey($key)))
@@ -137,7 +128,6 @@ class Cache
 	 * @param   string   $key  Cache key
 	 * @return  boolean
 	 */
-
 	public function remove($key)
 	{
 		return $this->store->remove($this->prefixedKey($key));
@@ -149,7 +139,6 @@ class Cache
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function clear()
 	{
 		return $this->store->clear();

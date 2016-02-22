@@ -15,7 +15,6 @@ use mako\session\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Database implements StoreInterface
 {
 	/**
@@ -23,7 +22,6 @@ class Database implements StoreInterface
 	 *
 	 * @var \mako\database\connections\Connection
 	 */
-
 	protected $connection;
 
 	/**
@@ -31,7 +29,6 @@ class Database implements StoreInterface
 	 *
 	 * @var string
 	 */
-
 	protected $table;
 
 	/**
@@ -41,7 +38,6 @@ class Database implements StoreInterface
 	 * @param   \mako\database\connections\Connection  $connection  Database connection
 	 * @param   string                                 $table       Database table
 	 */
-
 	public function __construct(Connection $connection, $table)
 	{
 		$this->connection = $connection;
@@ -55,7 +51,6 @@ class Database implements StoreInterface
 	 * @access  protected
 	 * @return  \mako\database\query\Query
 	 */
-
 	protected function table()
 	{
 		return $this->connection->builder()->table($this->table);
@@ -64,7 +59,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
 		$sessionData = serialize($sessionData);
@@ -86,7 +80,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function read($sessionId)
 	{
 		$sessionData = $this->table()->select(['data'])->where('id', '=', $sessionId)->column();
@@ -97,7 +90,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function delete($sessionId)
 	{
 		$this->table()->where('id', '=', $sessionId)->delete();
@@ -106,7 +98,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function gc($dataTTL)
 	{
 		$this->table()->where('expires', '<', time())->delete();

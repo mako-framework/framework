@@ -14,7 +14,6 @@ use mako\database\types\TypeInterface;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Type implements TypeInterface
 {
 	/**
@@ -22,7 +21,6 @@ abstract class Type implements TypeInterface
 	 *
 	 * @var mixed
 	 */
-
 	protected $value;
 
 	/**
@@ -31,7 +29,6 @@ abstract class Type implements TypeInterface
 	 * @access  public
 	 * @param   mixed   $value  Value
 	 */
-
 	public function __construct($value)
 	{
 		$this->value = $value;
@@ -40,7 +37,6 @@ abstract class Type implements TypeInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getType()
 	{
 		return static::TYPE;
@@ -49,7 +45,6 @@ abstract class Type implements TypeInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getValue()
 	{
 		return $this->value;

@@ -17,7 +17,6 @@ use mako\syringe\Container;
  *
  * @author Yamada Taro
  */
-
 class Onion
 {
 	/**
@@ -25,7 +24,6 @@ class Onion
 	 *
 	 * @var string
 	 */
-
 	protected $method;
 
 	/**
@@ -33,7 +31,6 @@ class Onion
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -41,7 +38,6 @@ class Onion
 	 *
 	 * @var array
 	 */
-
 	protected $layers = [];
 
 	/**
@@ -51,7 +47,6 @@ class Onion
 	 * @param   null|\mako\syringe\Container  $container  Container
 	 * @param   null|string                   $method     Method to call on the decoracted class
 	 */
-
 	public function __construct(Container $container = null, $method = null)
 	{
 		$this->container = $container ?? new Container;
@@ -67,7 +62,6 @@ class Onion
 	 * @param   boolean  $inner  Add an inner layer?
 	 * @return  int
 	 */
-
 	public function addLayer($class, $inner = true)
 	{
 		return $inner ? array_unshift($this->layers, $class) : array_push($this->layers, $class);
@@ -80,7 +74,6 @@ class Onion
 	 * @param   string  $class  Class
 	 * @return  int
 	 */
-
 	public function addInnerLayer($class)
 	{
 		return $this->addLayer($class);
@@ -93,7 +86,6 @@ class Onion
 	 * @param   string  $class  Class
 	 * @return  int
 	 */
-
 	public function addOuterLayer($class)
 	{
 		return $this->addLayer($class, false);
@@ -106,7 +98,6 @@ class Onion
 	 * @param   object     $object  The object that we're decorating
 	 * @return  \Closure
 	 */
-
 	protected function buildCoreClosure($object)
 	{
 		return function(...$arguments) use ($object)
@@ -125,7 +116,6 @@ class Onion
 	 * @param   \Closure   $next   The next middleware layer
 	 * @return  \Closure
 	 */
-
 	protected function buildLayerClosure($layer, Closure $next)
 	{
 		return function(...$arguments) use ($layer, $next)
@@ -142,7 +132,6 @@ class Onion
 	 * @param   array   $parameters   Parameters
 	 * @return  mixed
 	 */
-
 	public function peel($object, array $parameters = [])
 	{
 		$next = $this->buildCoreClosure($object);

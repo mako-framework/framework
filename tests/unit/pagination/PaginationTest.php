@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class PaginationTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getRequest()
 	{
 		return m::mock('mako\http\Request');
@@ -33,7 +30,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getViewFactory()
 	{
 		return m::mock('mako\view\ViewFactory');
@@ -42,7 +38,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getView()
 	{
 		return m::mock('mako\view\View');
@@ -51,7 +46,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getURLBuilder()
 	{
 		return m::mock('mako\http\routing\URLBuilder');
@@ -60,7 +54,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testItems()
 	{
 
@@ -72,7 +65,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testItemsPerPage()
 	{
 
@@ -84,7 +76,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCurrentPage()
 	{
 		$pagination = new Pagination(200, 20, 1);
@@ -95,7 +86,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNumberOfPages()
 	{
 		$pagination = new Pagination(200, 20, 1);
@@ -106,7 +96,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLimit()
 	{
 		$pagination = new Pagination(200, 20, 1);
@@ -117,7 +106,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOffset()
 	{
 		$pagination = new Pagination(200, 20, 1);
@@ -134,7 +122,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testRenderException()
 	{
 		$pagination = new Pagination(200, 20, 1);
@@ -145,7 +132,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testPaginateExceptionWithNoRequest()
 	{
 		$pagination = new Pagination(200, 20, 1);
@@ -156,7 +142,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testPaginateExceptionWithNoUrlBuilder()
 	{
 		$pagination = new Pagination(200, 20, 1);
@@ -169,7 +154,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRenderPage1()
 	{
 		$request = $this->getRequest();
@@ -250,7 +234,6 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRenderPage2()
 	{
 		$request = $this->getRequest();

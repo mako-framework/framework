@@ -12,7 +12,6 @@ namespace mako\auth\group;
  *
  * @author  Frederic G. Østby
  */
-
 interface MemberInterface
 {
 	/**
@@ -22,6 +21,5 @@ interface MemberInterface
 	 * @param   string|int|array  $group  Group name, group id or an array of group names or group ids
 	 * @return  boolean
 	 */
-
 	public function isMemberOf($group);
 }

@@ -16,7 +16,6 @@ use mako\validator\plugins\ValidatorPluginInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class ValidatorFactory
 {
 	/**
@@ -24,7 +23,6 @@ class ValidatorFactory
 	 *
 	 * @var \mako\i18n\I18n
 	 */
-
 	protected $i18n;
 
 	/**
@@ -32,7 +30,6 @@ class ValidatorFactory
 	 *
 	 * @var array
 	 */
-
 	protected $plugins = [];
 
 	/**
@@ -41,7 +38,6 @@ class ValidatorFactory
 	 * @access  public
 	 * @param   \mako\i18n\I18n  $i18n  I18n instance
 	 */
-
 	public function __construct(I18n $i18n)
 	{
 		$this->i18n = $i18n;
@@ -55,7 +51,6 @@ class ValidatorFactory
 	 * @param   array                      $rules  Array of validation rules
 	 * @return  \mako\validator\Validator
 	 */
-
 	public function create(array $data, array $rules)
 	{
 		$validator = new Validator($data, $rules, $this->i18n);
@@ -74,7 +69,6 @@ class ValidatorFactory
 	 * @access  public
 	 * @param   \mako\validator\plugins\ValidatorPluginInterface  $plugin  Plugin instance
 	 */
-
 	public function registerPlugin(ValidatorPluginInterface $plugin)
 	{
 		$this->plugins[] = $plugin;

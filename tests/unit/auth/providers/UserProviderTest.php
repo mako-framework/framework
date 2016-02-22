@@ -10,13 +10,11 @@ use Mockery as m;
 /**
  * @group unit
  */
-
 class UserProviderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -25,7 +23,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getUser()
 	{
 		return m::mock('overload:mako\auth\user\User')->shouldDeferMissing();
@@ -34,7 +31,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCreateUser()
 	{
 		$user = $this->getUser();
@@ -57,7 +53,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetByActionToken()
 	{
 		$user = $this->getUser();
@@ -74,7 +69,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetByAccessToken()
 	{
 		$user = $this->getUser();
@@ -91,7 +85,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetByEmail()
 	{
 		$user = $this->getUser();
@@ -108,7 +101,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetByUsername()
 	{
 		$user = $this->getUser();
@@ -125,7 +117,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetById()
 	{
 		$user = $this->getUser();
@@ -142,7 +133,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testThrottleWithNoLastFailedAttempts()
 	{
 		$userProvider = new UserProvider($this->getUser());
@@ -165,7 +155,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testThrottleWithFailedAttemptsReset()
 	{
 		$userProvider = new UserProvider($this->getUser());
@@ -190,7 +179,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testThrottleWithLock()
 	{
 		$userProvider = new UserProvider($this->getUser());
@@ -215,7 +203,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testResetThrottleWithNoFailedAttempts()
 	{
 		$userProvider = new UserProvider($this->getUser());
@@ -230,7 +217,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testResetThrottleWithFailedAttempts()
 	{
 		$userProvider = new UserProvider($this->getUser());

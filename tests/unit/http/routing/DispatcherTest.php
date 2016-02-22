@@ -130,13 +130,11 @@ class FooFilter
 /**
  * @group unit
  */
-
 class DispatcherTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -145,7 +143,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClosureAction()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -175,7 +172,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClosureActionWithParams()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -213,7 +209,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testControllerAction()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -246,7 +241,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testControllerActionWithParams()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -277,7 +271,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testControllerWithNullBeforeFilter()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -310,7 +303,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testControllerWithBeforeFilter()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -335,7 +327,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testControllerActionWithAfterFilter()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -366,7 +357,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRouteNullBeforeFilter()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -407,7 +397,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRouteBeforeFilter()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -435,7 +424,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRouteAfterFilter()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -474,7 +462,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFilterParam()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -502,7 +489,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFilterParams()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -530,7 +516,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function _testOptionsRequest()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -555,7 +540,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testControllerInjection()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -582,7 +566,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClassFilter()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -607,7 +590,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClosureWithReversedParameterOrder()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -637,7 +619,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClosureParameterInjection()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');
@@ -671,7 +652,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testControllerActionParameterInjection()
 	{
 		$filters = m::mock('\mako\http\routing\Filters');

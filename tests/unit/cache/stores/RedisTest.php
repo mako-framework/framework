@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class RedisTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getRedisClient()
 	{
 		return m::mock('mako\redis\Redis');
@@ -33,7 +30,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPut()
 	{
 		$client = $this->getRedisClient();
@@ -82,7 +78,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHas()
 	{
 		$client = $this->getRedisClient();
@@ -111,7 +106,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$client = $this->getRedisClient();
@@ -140,7 +134,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemove()
 	{
 		$client = $this->getRedisClient();
@@ -169,7 +162,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClear()
 	{
 		$client = $this->getRedisClient();

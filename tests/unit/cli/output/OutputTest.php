@@ -11,13 +11,11 @@ use PHPUnit_Framework_TestCase;
 /**
  * @group unit
  */
-
 class OutputTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -26,7 +24,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getWriter()
 	{
 		return m::mock('mako\cli\output\writer\WriterInterface');
@@ -35,7 +32,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getFormatter()
 	{
 		return m::mock('mako\cli\output\formatter\FormatterInterface');
@@ -44,7 +40,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWrite()
 	{
 		$std = $this->getWriter();
@@ -60,7 +55,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWriteWithErrorParam()
 	{
 		$std = $this->getWriter();
@@ -76,7 +70,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWriteLn()
 	{
 		$std = $this->getWriter();
@@ -92,7 +85,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWriteLnWithErrorParam()
 	{
 		$std = $this->getWriter();
@@ -108,7 +100,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testError()
 	{
 		$std = $this->getWriter();
@@ -124,7 +115,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testErrorLn()
 	{
 		$std = $this->getWriter();
@@ -140,7 +130,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMute()
 	{
 		$std = $this->getWriter();
@@ -160,7 +149,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testUnmute()
 	{
 		$std = $this->getWriter();
@@ -186,7 +174,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetNullFormatter()
 	{
 		$std = $this->getWriter();
@@ -200,7 +187,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetFormatter()
 	{
 		$std       = $this->getWriter();
@@ -215,7 +201,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetFormatter()
 	{
 		$std       = $this->getWriter();
@@ -234,7 +219,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWriteWithFormatter()
 	{
 		$std       = $this->getWriter();
@@ -255,7 +239,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testWriteWithFormatterAndRedirectedOutput()
 	{
 		$std       = $this->getWriter();

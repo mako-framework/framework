@@ -12,7 +12,6 @@ namespace mako\security;
  *
  * @author  Frederic G. Østby
  */
-
 class Signer
 {
 	/**
@@ -20,7 +19,6 @@ class Signer
 	 *
 	 * @var int
 	 */
-
 	const MAC_LENGTH = 64;
 
 	/**
@@ -28,7 +26,6 @@ class Signer
 	 *
 	 * @var string
 	 */
-
 	protected $secret;
 
 	/**
@@ -37,7 +34,6 @@ class Signer
 	 * @access  public
 	 * @param   string  $secret  Secret used to sign and validate strings
 	 */
-
 	public function __construct($secret)
 	{
 		$this->secret = $secret;
@@ -50,7 +46,6 @@ class Signer
 	 * @param   string     $string  The string you want to sign
 	 * @return  string
 	 */
-
 	protected function getSignature($string)
 	{
 		return hash_hmac('sha256', $string, $this->secret);
@@ -63,7 +58,6 @@ class Signer
 	 * @param   string  $string  The string you want to sign
 	 * @return  string
 	 */
-
 	public function sign($string)
 	{
 		return $this->getSignature($string) . $string;
@@ -76,7 +70,6 @@ class Signer
 	 * @param   string          $string  The string you want to validate
 	 * @return  string|boolean
 	 */
-
 	public function validate($string)
 	{
 		$validated = substr($string, static::MAC_LENGTH);

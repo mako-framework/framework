@@ -21,7 +21,6 @@ use mako\database\query\Query as QueryBuilder;
  *
  * @author  Frederic G. Østby
  */
-
 class Query extends QueryBuilder
 {
 	/**
@@ -29,7 +28,6 @@ class Query extends QueryBuilder
 	 *
 	 * @var \mako\database\midgard\ORM
 	 */
-
 	protected $model;
 
 	/**
@@ -39,7 +37,6 @@ class Query extends QueryBuilder
 	 * @param   \mako\database\connections\Connection  $connection  Database connection
 	 * @param   \mako\database\midgard\ORM             $model       Model to hydrate
 	 */
-
 	public function __construct(Connection $connection, ORM $model)
 	{
 		parent::__construct($connection);
@@ -55,7 +52,6 @@ class Query extends QueryBuilder
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function getModel()
 	{
 		return $this->model;
@@ -64,7 +60,6 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
 	{
 		if(empty($this->joins) && $this->columns === ['*'])
@@ -78,7 +73,6 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function insert(array $values)
 	{
 		// Execute "beforeInsert" hooks
@@ -107,7 +101,6 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function update(array $values)
 	{
 		// Execute "beforeUpdate" hooks
@@ -136,7 +129,6 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function increment($column, $increment = 1)
 	{
 		if($this->model->exists())
@@ -159,7 +151,6 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function decrement($column, $decrement = 1)
 	{
 		if($this->model->exists())
@@ -182,7 +173,6 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function delete()
 	{
 		// Execute "beforeDelete" hooks
@@ -212,7 +202,6 @@ class Query extends QueryBuilder
 	 * @param   array                       $columns  Columns to select
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function get($id, array $columns = [])
 	{
 		if(!empty($columns))
@@ -230,7 +219,6 @@ class Query extends QueryBuilder
 	 * @param   string|array                  $includes  Relation or array of relations to eager load
 	 * @return  \mako\database\midgard\Query
 	 */
-
 	public function including($includes)
 	{
 		$this->model->setIncludes((array) $includes);
@@ -245,7 +233,6 @@ class Query extends QueryBuilder
 	 * @param   string|array                  $excludes  Relation or array of relations to exclude from eager loading
 	 * @return  \mako\database\midgard\Query
 	 */
-
 	public function excluding($excludes)
 	{
 		$this->model->setIncludes(array_diff($this->model->getIncludes(), (array) $excludes));
@@ -260,7 +247,6 @@ class Query extends QueryBuilder
 	 * @param   object                      $result  Database result
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	protected function hydrateModel($result)
 	{
 		$model = $this->model->getClass();
@@ -274,7 +260,6 @@ class Query extends QueryBuilder
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function parseIncludes()
 	{
 		$includes = ['this' => [], 'forward' => []];
@@ -314,7 +299,6 @@ class Query extends QueryBuilder
 	 * @access  protected
 	 * @param   array      $results  Loaded records
 	 */
-
 	protected function loadIncludes(array $results)
 	{
 		$includes = $this->parseIncludes();
@@ -334,7 +318,6 @@ class Query extends QueryBuilder
 	 * @param   mixed      $results  Database results
 	 * @return  array
 	 */
-
 	protected function hydrateModelsAndLoadIncludes($results)
 	{
 		$hydrated = [];
@@ -358,7 +341,6 @@ class Query extends QueryBuilder
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function first()
 	{
 		$result = $this->fetchFirst(PDO::FETCH_ASSOC);
@@ -377,7 +359,6 @@ class Query extends QueryBuilder
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */
-
 	public function all()
 	{
 		$results = $this->fetchAll(false, PDO::FETCH_ASSOC);
@@ -398,7 +379,6 @@ class Query extends QueryBuilder
 	 * @param   array                             $options       Pagination options
 	 * @return  \mako\database\midgard\ResultSet
 	 */
-
 	public function paginate($itemsPerPage = null, array $options = [])
 	{
 		return parent::paginate($itemsPerPage, $options);
@@ -407,7 +387,6 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null)
 	{
 		if(empty($this->orderings))
@@ -426,7 +405,6 @@ class Query extends QueryBuilder
 	 * @param   array                         $arguments  Method arguments
 	 * @return  \mako\database\midgard\Query
 	 */
-
 	public function __call($name, $arguments)
 	{
 		if(!method_exists($this->model, $name . 'Scope'))

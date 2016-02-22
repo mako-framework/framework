@@ -14,7 +14,6 @@ use mako\database\midgard\traits\exceptions\ReadOnlyException;
  *
  * @author  Frederic G. Østby
  */
-
 trait ReadOnlyTrait
 {
 	/**
@@ -23,7 +22,6 @@ trait ReadOnlyTrait
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function getReadOnlyTraitHooks()
 	{
 		return

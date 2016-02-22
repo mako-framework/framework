@@ -7,13 +7,11 @@ use mako\utility\Arr;
 /**
  * @group unit
  */
-
 class ArrTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testSet()
 	{
 		$arr = [];
@@ -30,7 +28,6 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHas()
 	{
 		$arr = ['foo' => '123', 'bar' => ['baz' => '456', 'bax' => ['789']]];
@@ -47,7 +44,6 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$arr = ['foo' => '123', 'bar' => ['baz' => '456', 'bax' => ['789']]];

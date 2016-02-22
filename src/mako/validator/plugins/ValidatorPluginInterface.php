@@ -12,7 +12,6 @@ namespace mako\validator\plugins;
  *
  * @author  Frederic G. Østby
  */
-
 interface ValidatorPluginInterface
 {
 	/**
@@ -21,7 +20,6 @@ interface ValidatorPluginInterface
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getRuleName();
 
 	/**
@@ -30,6 +28,5 @@ interface ValidatorPluginInterface
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getPackageName();
 }

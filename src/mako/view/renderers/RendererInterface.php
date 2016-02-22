@@ -12,7 +12,6 @@ namespace mako\view\renderers;
  *
  * @author  Frederic G. Østby
  */
-
 interface RendererInterface
 {
 	/**
@@ -23,6 +22,5 @@ interface RendererInterface
 	 * @param   array   $__variables__  View variables
 	 * @return  string
 	 */
-
 	public function render($__view__, array $__variables__);
 }

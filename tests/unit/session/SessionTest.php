@@ -25,13 +25,11 @@ class TestSession extends Session
 /**
  * @group unit
  */
-
 class SessionTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -40,7 +38,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getRequest()
 	{
 		return m::mock('\mako\http\Request');
@@ -49,7 +46,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getRequestWithCookie()
 	{
 		$request = $this->getRequest();
@@ -62,7 +58,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getResponse()
 	{
 		return m::mock('\mako\http\Response');
@@ -71,7 +66,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getResponseSetCookie()
 	{
 		$response = $this->getResponse();
@@ -84,7 +78,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getStore()
 	{
 		$store = m::mock('\mako\session\stores\StoreInterface');
@@ -97,7 +90,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getDefaultStore($sessionData = [])
 	{
 		$store = $this->getStore();
@@ -112,7 +104,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStartWithCookie()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -123,7 +114,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStartWithoutCookie()
 	{
 		$request = $this->getRequest();
@@ -152,7 +142,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetId()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -165,7 +154,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRegenerateId()
 	{
 		$response = $this->getResponseSetCookie();
@@ -194,7 +182,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRegenerateIdAndKeepData()
 	{
 		$response = $this->getResponseSetCookie();
@@ -221,7 +208,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetData()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -234,7 +220,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPut()
 	{
 		$store = $this->getStore();
@@ -253,7 +238,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHas()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -268,7 +252,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -285,7 +268,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemove()
 	{
 		$store = $this->getStore();
@@ -304,7 +286,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPutFlash()
 	{
 		$store = $this->getStore();
@@ -323,7 +304,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHasFlash()
 	{
 		$store = $this->getStore();
@@ -344,7 +324,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemoveFlash()
 	{
 		$store = $this->getStore();
@@ -367,7 +346,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testReflash()
 	{
 		$store = $this->getStore();
@@ -386,7 +364,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testReflashWithKeys()
 	{
 		$store = $this->getStore();
@@ -405,7 +382,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetToken()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -418,7 +394,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRegenerateToken()
 	{
 		$store = $this->getStore();
@@ -443,7 +418,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidateToken()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -458,7 +432,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGenerateOneTimeToken()
 	{
 		$store = $this->getStore();
@@ -485,7 +458,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidateNonExistentOneTimeToken()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -498,7 +470,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidateExistingOneTimeToken()
 	{
 		$store = $this->getStore();
@@ -517,7 +488,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClear()
 	{
 		$store = $this->getStore();
@@ -536,7 +506,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDestroy()
 	{
 		$response = $this->getResponseSetCookie();

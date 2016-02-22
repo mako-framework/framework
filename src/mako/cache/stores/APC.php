@@ -16,7 +16,6 @@ use mako\cache\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class APC implements StoreInterface
 {
 	/**
@@ -24,7 +23,6 @@ class APC implements StoreInterface
 	 *
 	 * @access  public
 	 */
-
 	public function __construct()
 	{
 		if(function_exists('apc_store') === false)
@@ -36,7 +34,6 @@ class APC implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		return apc_store($key, $data, $ttl);
@@ -45,7 +42,6 @@ class APC implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return apc_exists($key);
@@ -54,7 +50,6 @@ class APC implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		return apc_fetch($key);
@@ -63,7 +58,6 @@ class APC implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		return apc_delete($key);
@@ -72,7 +66,6 @@ class APC implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		return apc_clear_cache('user');

@@ -9,13 +9,11 @@ use \Mockery as m;
 /**
  * @group unit
  */
-
 class GroupProviderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class GroupProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getGroup()
 	{
 		return m::mock('overload:mako\auth\group\Group')->shouldDeferMissing();
@@ -33,7 +30,6 @@ class GroupProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCreateGroup()
 	{
 		$group = $this->getGroup();
@@ -50,7 +46,6 @@ class GroupProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetByName()
 	{
 		$group = $this->getGroup();
@@ -67,7 +62,6 @@ class GroupProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetById()
 	{
 		$group = $this->getGroup();

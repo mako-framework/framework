@@ -14,13 +14,11 @@ use mako\database\midgard\relations\Relation;
  *
  * @author  Frederic G. Østby
  */
-
 class BelongsTo extends Relation
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	protected function getForeignKey()
 	{
 		if($this->foreignKey === null)
@@ -34,7 +32,6 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritdoc}
 	 */
-
 	protected function keys(array $results)
 	{
 		$keys = [];
@@ -50,7 +47,6 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritdoc}
 	 */
-
 	protected function lazyCriterion()
 	{
 		$this->where($this->model->getPrimaryKey(), '=', $this->parent->getRawColumn($this->getForeignKey()));
@@ -63,7 +59,6 @@ class BelongsTo extends Relation
 	 * @param   array                                       $keys  Parent keys
 	 * @return  \mako\database\midgard\relations\BelongsTo
 	 */
-
 	protected function eagerCriterion(array $keys)
 	{
 		$this->lazy = false;
@@ -82,7 +77,6 @@ class BelongsTo extends Relation
 	 * @param   null|\Closure  $criteria  Relation criteria
 	 * @param   array          $includes  Includes passed from the parent record
 	 */
-
 	public function eagerLoad(array &$results, $relation, $criteria, array $includes)
 	{
 		$this->model->setIncludes($includes);
@@ -114,7 +108,6 @@ class BelongsTo extends Relation
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM|false
 	 */
-
 	public function getRelated()
 	{
 		if($this->parent->getRawColumn($this->getForeignKey()) === null)

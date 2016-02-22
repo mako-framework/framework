@@ -20,7 +20,6 @@ use mako\common\ExtendableTrait;
  *
  * @author  Frederic G. Østby
  */
-
 class Collection implements ArrayAccess, Countable, IteratorAggregate
 {
 	use ExtendableTrait;
@@ -30,7 +29,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @var array
 	 */
-
 	protected $items = [];
 
 	/**
@@ -39,7 +37,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @param   array   $items  Collection items
 	 */
-
 	public function __construct(array $items = [])
 	{
 		$this->items = $items;
@@ -51,7 +48,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getItems()
 	{
 		return $this->items;
@@ -64,7 +60,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   mixed    $offset  The offset to check for
 	 * @return  boolean
 	 */
-
 	public function offsetExists($offset)
 	{
 		return isset($this->items[$offset]);
@@ -77,7 +72,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   mixed   $offset  The offset to retrieve
 	 * @return  mixed
 	 */
-
 	public function offsetGet($offset)
 	{
 		return $this->items[$offset] ?? null;
@@ -90,7 +84,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   mixed   $offset  The offset to assign the value to
 	 * @param   mixed   $value   The value to set
 	 */
-
 	public function offsetSet($offset, $value)
 	{
 		if($offset === null)
@@ -109,7 +102,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @param   mixed   $offset  The offset to unset
 	 */
-
 	public function offsetUnset($offset)
 	{
 		unset($this->items[$offset]);
@@ -121,7 +113,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function count()
 	{
 		return count($this->items);
@@ -133,7 +124,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @return  \ArrayIterator
 	 */
-
 	public function getIterator()
 	{
 		return new ArrayIterator($this->items);
@@ -144,7 +134,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return  boolean
 	 */
-
 	public function isEmpty()
 	{
 		return empty($this->items);
@@ -158,7 +147,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   mixed   $item  Collection item
 	 * @return  int
 	 */
-
 	public function unshift($item)
 	{
 		return array_unshift($this->items, $item);
@@ -171,7 +159,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @return  mixed
 	 */
-
 	public function shift()
 	{
 		return array_shift($this->items);
@@ -185,7 +172,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   mixed   $item  Collection item
 	 * @return  int
 	 */
-
 	public function push($item)
 	{
 		return array_push($this->items, $item);
@@ -198,7 +184,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @return  mixed
 	 */
-
 	public function pop()
 	{
 		return array_pop($this->items);
@@ -213,7 +198,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   boolean   $maintainIndexAssociation  Maintain index association?
 	 * @return  boolean
 	 */
-
 	public function sort(Closure $comparator, $maintainIndexAssociation = true)
 	{
 		return $maintainIndexAssociation ? uasort($this->items, $comparator) : usort($this->items, $comparator);
@@ -226,7 +210,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   int                       $size  Chunk size
 	 * @return  \mako\utility\Collection
 	 */
-
 	public function chunk($size)
 	{
 		$collections = [];
@@ -246,7 +229,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function shuffle()
 	{
 		return shuffle($this->items);

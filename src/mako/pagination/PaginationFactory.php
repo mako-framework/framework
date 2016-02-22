@@ -20,7 +20,6 @@ use mako\view\ViewFactory;
  * @author  Frederic G. Østby
  * @author  Yamada Taro
  */
-
 class PaginationFactory implements PaginationFactoryInterface
 {
 	/**
@@ -28,7 +27,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	 *
 	 * @var \mako\http\Request
 	 */
-
 	protected $request;
 
 	/**
@@ -36,7 +34,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	 *
 	 * @var array
 	 */
-
 	protected $options;
 
 	/**
@@ -44,7 +41,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	 *
 	 * @var \mako\http\routing\URLBuilder
 	 */
-
 	protected $urlBuilder;
 
 	/**
@@ -52,7 +48,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	 *
 	 * @var \mako\view\ViewFactory
 	 */
-
 	protected $viewFactory;
 
 	/**
@@ -62,7 +57,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	 * @param   \mako\http\Request  $request  Request
 	 * @param   array               $config   Configuration
 	 */
-
 	public function __construct(Request $request, array $config = [])
 	{
 		$this->request = $request;
@@ -76,7 +70,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	 * @access  public
 	 * @param   \mako\http\routing\URLBuilder  $urlBuilder  URL builder instance
 	 */
-
 	public function setURLBuilder(URLBuilder $urlBuilder)
 	{
 		$this->urlBuilder = $urlBuilder;
@@ -88,7 +81,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	 * @access  public
 	 * @param   \mako\view\ViewFactory  $viewFactory  View factory instance
 	 */
-
 	public function setViewFactory(ViewFactory $viewFactory)
 	{
 		$this->viewFactory = $viewFactory;
@@ -97,7 +89,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function create($items, $itemsPerPage = null, array $options = []): PaginationInterface
 	{
 		$itemsPerPage = $itemsPerPage ?? $this->options['items_per_page'];

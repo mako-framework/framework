@@ -12,7 +12,6 @@ namespace mako\database\query;
  *
  * @author  Frederic G. Østby
  */
-
 class Result
 {
 	/**
@@ -21,7 +20,6 @@ class Result
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function toArray()
 	{
 		return get_object_vars($this);
@@ -33,7 +31,6 @@ class Result
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function toJSON()
 	{
 		return json_encode(get_object_vars($this));
@@ -45,7 +42,6 @@ class Result
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function __toString()
 	{
 		return $this->toJSON();

@@ -23,13 +23,11 @@ class TestUserReadOnly extends TestUser
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class ReadOnlyTest extends \ORMTestCase
 {
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
 	 */
-
 	public function saveReadOnly()
 	{
 		$dateTime = new DateTime;
@@ -48,7 +46,6 @@ class ReadOnlyTest extends \ORMTestCase
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
 	 */
-
 	public function testCreateReadOnly()
 	{
 		$dateTime = new DateTime;
@@ -59,7 +56,6 @@ class ReadOnlyTest extends \ORMTestCase
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
 	 */
-
 	public function testUpdateReadOnly()
 	{
 		$user = TestUserReadOnly::get(1);
@@ -72,7 +68,6 @@ class ReadOnlyTest extends \ORMTestCase
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
 	 */
-
 	public function testDeleteReadOnly()
 	{
 		$user = TestUserReadOnly::get(1);

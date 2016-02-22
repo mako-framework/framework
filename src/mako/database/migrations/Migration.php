@@ -15,7 +15,6 @@ use mako\syringe\ContainerAwareTrait;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Migration
 {
 	use ContainerAwareTrait;
@@ -25,7 +24,6 @@ abstract class Migration
 	 *
 	 * @var \mako\database\ConnectionManager
 	 */
-
 	protected $database;
 
 	/**
@@ -34,7 +32,6 @@ abstract class Migration
 	 * @access  public
 	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
 	 */
-
 	public function __construct(ConnectionManager $connectionManager)
 	{
 		$this->database = $connectionManager;
@@ -46,7 +43,6 @@ abstract class Migration
 	 * @access  public
 	 * @return  string|null
 	 */
-
 	public function getDescription()
 	{
 		return isset($this->description) && !empty($this->description) ? $this->description : null;

@@ -12,7 +12,6 @@ namespace mako\database\types;
  *
  * @author  Frederic G. Østby
  */
-
 interface TypeInterface
 {
 	/**
@@ -21,7 +20,6 @@ interface TypeInterface
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getType();
 
 	/**
@@ -30,6 +28,5 @@ interface TypeInterface
 	 * @access  public
 	 * @return  mixed
 	 */
-
 	public function getValue();
 }

@@ -9,13 +9,11 @@ use Mockery as m;
 /**
  * @group unit
  */
-
 class TableTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		m::close();
@@ -24,7 +22,6 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicTable()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -46,7 +43,6 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTableWithMultipleRows()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -69,7 +65,6 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTableWithMultipleColumns()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -91,7 +86,6 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTableWithMultipleColumnsAndRows()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -114,7 +108,6 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStyledContent()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -142,7 +135,6 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDraw()
 	{
 		$output = m::mock('mako\cli\output\Output');
@@ -166,7 +158,6 @@ class TableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testInvalidInput()
 	{
 		$output = m::mock('mako\cli\output\Output');

@@ -14,7 +14,6 @@ use mako\pagination\Pagination;
  *
  * @author  Frederic G. Østby
  */
-
 trait QueryConvenienceTrait
 {
 	/**
@@ -25,7 +24,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function eq($column, $value)
 	{
 		return $this->where($column, '=', $value);
@@ -39,7 +37,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function notEq($column, $value)
 	{
 		return $this->where($column, '<>', $value);
@@ -53,7 +50,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function lt($column, $value)
 	{
 		return $this->where($column, '<', $value);
@@ -67,7 +63,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function lte($column, $value)
 	{
 		return $this->where($column, '<=', $value);
@@ -81,7 +76,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function gt($column, $value)
 	{
 		return $this->where($column, '>', $value);
@@ -95,7 +89,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function gte($column, $value)
 	{
 		return $this->where($column, '>=', $value);
@@ -108,7 +101,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function like($column, $value)
 	{
 		return $this->where($column, 'LIKE', $value);
@@ -121,7 +113,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function notLike($column, $value)
 	{
 		return $this->where($column, 'NOT LIKE', $value);
@@ -135,7 +126,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function eqRaw($column, $value)
 	{
 		return $this->whereRaw($column, '=', $value);
@@ -149,7 +139,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function notEqRaw($column, $value)
 	{
 		return $this->whereRaw($column, '<>', $value);
@@ -163,7 +152,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function ltRaw($column, $value)
 	{
 		return $this->whereRaw($column, '<', $value);
@@ -177,7 +165,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function lteRaw($column, $value)
 	{
 		return $this->whereRaw($column, '<=', $value);
@@ -191,7 +178,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function gtRaw($column, $value)
 	{
 		return $this->whereRaw($column, '>', $value);
@@ -205,7 +191,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function gteRaw($column, $value)
 	{
 		return $this->whereRaw($column, '>=', $value);
@@ -218,7 +203,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function likeRaw($column, $value)
 	{
 		return $this->whereRaw($column, 'LIKE', $value);
@@ -231,7 +215,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function notLikeRaw($column, $value)
 	{
 		return $this->whereRaw($column, 'NOT LIKE', $value);
@@ -245,7 +228,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orEq($column, $value)
 	{
 		return $this->orWhere($column, '=', $value);
@@ -259,7 +241,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orNotEq($column, $value)
 	{
 		return $this->orWhere($column, '<>', $value);
@@ -273,7 +254,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orLt($column, $value)
 	{
 		return $this->orWhere($column, '<', $value);
@@ -287,7 +267,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orLte($column, $value)
 	{
 		return $this->orWhere($column, '<=', $value);
@@ -301,7 +280,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orGt($column, $value)
 	{
 		return $this->orWhere($column, '>', $value);
@@ -315,7 +293,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orGte($column, $value)
 	{
 		return $this->orWhere($column, '>=', $value);
@@ -328,7 +305,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orLike($column, $value)
 	{
 		return $this->orWhere($column, 'LIKE', $value);
@@ -341,7 +317,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orNotLike($column, $value)
 	{
 		return $this->orWhere($column, 'NOT LIKE', $value);
@@ -355,7 +330,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orEqRaw($column, $value)
 	{
 		return $this->orWhereRaw($column, '=', $value);
@@ -369,7 +343,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orNotEqRaw($column, $value)
 	{
 		return $this->orWhereRaw($column, '<>', $value);
@@ -383,7 +356,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orLtRaw($column, $value)
 	{
 		return $this->orWhereRaw($column, '<', $value);
@@ -397,7 +369,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orLteRaw($column, $value)
 	{
 		return $this->orWhereRaw($column, '<=', $value);
@@ -411,7 +382,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orGtRaw($column, $value)
 	{
 		return $this->orWhereRaw($column, '>', $value);
@@ -425,7 +395,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orGteRaw($column, $value)
 	{
 		return $this->orWhereRaw($column, '>=', $value);
@@ -438,7 +407,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orLikeRaw($column, $value)
 	{
 		return $this->orWhereRaw($column, 'LIKE', $value);
@@ -451,7 +419,6 @@ trait QueryConvenienceTrait
 	 * @param   mixed                       $value   Value
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function orNotLikeRaw($column, $value)
 	{
 		return $this->orWhereRaw($column, 'NOT LIKE', $value);
@@ -465,7 +432,6 @@ trait QueryConvenienceTrait
 	 * @param   int     $increment  Increment value
 	 * @return  int
 	 */
-
 	public function increment($column, $increment = 1)
 	{
 		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' + ' . (int) $increment)]);
@@ -479,7 +445,6 @@ trait QueryConvenienceTrait
 	 * @param   int     $decrement  Decrement value
 	 * @return  int
 	 */
-
 	public function decrement($column, $decrement = 1)
 	{
 		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' - ' . (int) $decrement)]);

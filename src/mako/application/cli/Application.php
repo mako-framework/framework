@@ -26,7 +26,6 @@ use mako\reactor\Reactor;
  *
  * @author  Frederic G. Østby
  */
-
 class Application extends BaseApplication
 {
 	/**
@@ -35,7 +34,6 @@ class Application extends BaseApplication
 	 * @access  public
 	 * @return  \mako\http\routing\Routes
 	 */
-
 	public function getRouteCollection()
 	{
 		return $this->loadRoutes();
@@ -47,7 +45,6 @@ class Application extends BaseApplication
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function getCommands()
 	{
 		// Define core commands
@@ -93,7 +90,6 @@ class Application extends BaseApplication
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function loadLogo()
 	{
 		$logo = file_get_contents(__DIR__ . '/resources/logo.txt');
@@ -104,7 +100,6 @@ class Application extends BaseApplication
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function run()
 	{
 		ob_start();

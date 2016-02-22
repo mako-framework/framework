@@ -30,7 +30,6 @@ use mako\database\query\helpers\Postgres as PostgresHelper;
  *
  * @method  \mako\database\connections\Connection  connection($connection = null)
  */
-
 class ConnectionManager extends BaseConnectionManager
 {
 	/**
@@ -38,7 +37,6 @@ class ConnectionManager extends BaseConnectionManager
 	 *
 	 * @var array
 	 */
-
 	protected $driverAliases =
 	[
 		'oracle' => ['oci', 'oracle'],
@@ -51,7 +49,6 @@ class ConnectionManager extends BaseConnectionManager
 	 *
 	 * @var array
 	 */
-
 	protected $connectionClasses =
 	[
 		'db2'    => DB2Connection::class,
@@ -63,7 +60,6 @@ class ConnectionManager extends BaseConnectionManager
 	 *
 	 * @var array
 	 */
-
 	protected $queryCompilerClasses =
 	[
 		'db2'      => DB2Compiler::class,
@@ -79,7 +75,6 @@ class ConnectionManager extends BaseConnectionManager
 	 *
 	 * @var array
 	 */
-
 	protected $queryBuilderHelperClasses =
 	[
 		'pgsql' => PostgresHelper::class,
@@ -92,7 +87,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string     $driver  Driver name
 	 * @return  string
 	 */
-
 	protected function normalizeDriverName($driver)
 	{
 		foreach($this->driverAliases as $normalized => $aliases)
@@ -113,7 +107,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string     $driver  Driver name
 	 * @return  string
 	 */
-
 	protected function getConnectionClass($driver)
 	{
 		return $this->connectionClasses[$driver] ?? Connection::class;
@@ -126,7 +119,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string     $driver  Driver name
 	 * @return  string
 	 */
-
 	protected function getQueryCompilerClass($driver)
 	{
 		return $this->queryCompilerClasses[$driver] ?? Compiler::class;
@@ -139,7 +131,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string     $driver  Driver name
 	 * @return  string
 	 */
-
 	protected function getQueryBuilderHelperClass($driver)
 	{
 		return $this->queryBuilderHelperClasses[$driver] ?? Helper::class;
@@ -152,7 +143,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string        $driver  Driver name
 	 * @param   string|array  $alias   Alias or array of aliases
 	 */
-
 	public function setDriverAlias($driver, $alias)
 	{
 		$this->driverAliases[$driver] = (array) $alias;
@@ -165,7 +155,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string  $driver  Driver name
 	 * @param   string  $class   Connection class
 	 */
-
 	public function setConnectionClass($driver, $class)
 	{
 		$this->connectionClasses[$driver] = $class;
@@ -178,7 +167,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string  $driver  Driver name
 	 * @param   string  $class   Query compiler class
 	 */
-
 	public function setQueryCompilerClass($driver, $class)
 	{
 		$this->queryCompilerClasses[$driver] = $class;
@@ -191,7 +179,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string  $driver  Driver name
 	 * @param   string  $class   Query builder helper class
 	 */
-
 	public function setQueryBuilderHelperClass($driver, $class)
 	{
 		$this->queryBuilderHelperClasses[$driver] = $class;
@@ -204,7 +191,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string                                 $connectionName  Connection name
 	 * @return  \mako\database\connections\Connection
 	 */
-
 	protected function connect($connectionName)
 	{
 		if(!isset($this->configurations[$connectionName]))
@@ -232,7 +218,6 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   boolean  $groupedByConnection  Group logs by connection?
 	 * @return  array
 	 */
-
 	public function getLogs($groupedByConnection = true)
 	{
 		$logs = [];

@@ -16,13 +16,11 @@ use mako\pagination\PaginationFactoryInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class PaginationFactoryService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton([PaginationFactoryInterface::class, 'pagination'], function($container)

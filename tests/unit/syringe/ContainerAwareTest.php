@@ -30,13 +30,11 @@ class BaxChild extends Bax
 /**
  * @group unit
  */
-
 class ContainerAwareTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasic()
 	{
 		$container = new Container;
@@ -49,7 +47,6 @@ class ContainerAwareTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testContainerAwareChild()
 	{
 		$container = new Container;

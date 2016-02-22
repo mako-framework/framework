@@ -15,7 +15,6 @@ use mako\session\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class File implements StoreInterface
 {
 	/**
@@ -23,7 +22,6 @@ class File implements StoreInterface
 	 *
 	 * @var \mako\file\FileSystem
 	 */
-
 	protected $fileSystem;
 
 	/**
@@ -31,7 +29,6 @@ class File implements StoreInterface
 	 *
 	 * @var string
 	 */
-
 	protected $sessionPath;
 
 	/**
@@ -41,7 +38,6 @@ class File implements StoreInterface
 	 * @param   \mako\file\FileSystem  $fileSystem   File system instance
 	 * @param   string                 $sessionPath  Session path
 	 */
-
 	public function __construct(FileSystem $fileSystem, $sessionPath)
 	{
 		$this->fileSystem = $fileSystem;
@@ -52,7 +48,6 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
 		if($this->fileSystem->isWritable($this->sessionPath))
@@ -64,7 +59,6 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function read($sessionId)
 	{
 		$sessionData = [];
@@ -80,7 +74,6 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function delete($sessionId)
 	{
 		if($this->fileSystem->exists($this->sessionPath . '/' . $sessionId) && $this->fileSystem->isWritable($this->sessionPath . '/' . $sessionId))
@@ -92,7 +85,6 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function gc($dataTTL)
 	{
 		$files = $this->fileSystem->glob($this->sessionPath . '/*');

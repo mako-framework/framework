@@ -12,7 +12,6 @@ namespace mako\error\handlers;
  *
  * @author  Frederic G. Østby
  */
-
 interface HandlerInterface
 {
 	/**
@@ -22,6 +21,5 @@ interface HandlerInterface
 	 * @param   boolean  $showDetails  Show error details?
 	 * @return  boolean
 	 */
-
 	public function handle($showDetails = true);
 }

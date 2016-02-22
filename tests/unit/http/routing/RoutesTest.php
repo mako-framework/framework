@@ -7,13 +7,11 @@ use mako\http\routing\Routes;
 /**
  * @group unit
  */
-
 class RoutesTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testRouteRegistration1()
 	{
 		$routes = new Routes();
@@ -30,7 +28,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRouteRegistration2()
 	{
 		$routes = new Routes();
@@ -69,7 +66,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNamedRoute()
 	{
 		$routes = new Routes();
@@ -86,7 +82,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testNamedRouteException()
 	{
 		$routes = new Routes();
@@ -97,7 +92,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGroup()
 	{
 		$routes = new Routes();
@@ -119,7 +113,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNestedGroup()
 	{
 		$routes = new Routes();

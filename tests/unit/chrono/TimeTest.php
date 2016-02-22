@@ -12,13 +12,11 @@ use mako\chrono\Time;
 /**
  * @group unit
  */
-
 class TimeTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testConstructor()
 	{
 		$time = new Time;
@@ -47,7 +45,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNow()
 	{
 		$time = Time::now();
@@ -70,7 +67,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCreateFromDate()
 	{
 		$time = Time::createFromDate(1983);
@@ -111,7 +107,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCreateFromTimestamp()
 	{
 		$time = Time::createFromTimestamp(431093532);
@@ -134,7 +129,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCreateFromDOSTimestamp()
 	{
 		$time = Time::createFromDOSTimestamp(119431558);
@@ -145,7 +139,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCreateFromFormat()
 	{
 		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33');
@@ -168,7 +161,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetTimeZone()
 	{
 		$time = new Time;
@@ -181,7 +173,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testForward()
 	{
 		$time = Time::createFromTimestamp(431093532);
@@ -194,7 +185,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRewind()
 	{
 		$time = Time::createFromTimestamp(431093532);
@@ -207,7 +197,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetDOSTimestamp()
 	{
 		$time = Time::createFromTimestamp(431093532);
@@ -218,7 +207,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsLeapYear()
 	{
 		$time = Time::createFromDate(1983);
@@ -235,7 +223,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDaysInMonth()
 	{
 		$time = Time::createFromDate(1983, 1);
@@ -318,7 +305,6 @@ class TimeTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFormatLocalized()
 	{
 		$time = Time::createFromDate(1983, 8, 30);

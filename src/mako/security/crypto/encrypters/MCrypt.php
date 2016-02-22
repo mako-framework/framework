@@ -16,7 +16,6 @@ use mako\security\crypto\padders\PadderInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class MCrypt extends Encrypter implements EncrypterInterface
 {
 	/**
@@ -24,7 +23,6 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	 *
 	 * @var string
 	 */
-
 	protected $key;
 
 	/**
@@ -32,7 +30,6 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	 *
 	 * @var \mako\security\crypto\padders\PadderInterface
 	 */
-
 	protected $padder;
 
 	/**
@@ -40,7 +37,6 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	 *
 	 * @var int
 	 */
-
 	protected $cipher;
 
 	/**
@@ -48,7 +44,6 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	 *
 	 * @var int
 	 */
-
 	protected $mode;
 
 	/**
@@ -56,7 +51,6 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	 *
 	 * @var int
 	 */
-
 	protected $keySize;
 
 	/**
@@ -64,7 +58,6 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	 *
 	 * @var string
 	 */
-
 	protected $ivSize;
 
 	/**
@@ -76,7 +69,6 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	 * @param   int                                            $cipher  Cipher
 	 * @param   int                                            $mode    Mode
 	 */
-
 	public function __construct($key, PadderInterface $padder, $cipher = null, $mode = null)
 	{
 		$this->key = $key;
@@ -95,7 +87,6 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function encrypt($string)
 	{
 		$blockSize = mcrypt_get_block_size($this->cipher, $this->mode);
@@ -112,7 +103,6 @@ class MCrypt extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function decrypt($string)
 	{
 		$string = base64_decode($string, true);

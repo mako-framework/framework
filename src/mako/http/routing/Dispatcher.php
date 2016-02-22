@@ -20,7 +20,6 @@ use mako\syringe\Container;
  *
  * @author  Frederic G. Østby
  */
-
 class Dispatcher
 {
 	use FunctionParserTrait;
@@ -30,7 +29,6 @@ class Dispatcher
 	 *
 	 * @var \mako\http\Request
 	 */
-
 	protected $request;
 
 	/**
@@ -38,7 +36,6 @@ class Dispatcher
 	 *
 	 * @var \mako\http\Response
 	 */
-
 	protected $response;
 
 	/**
@@ -46,7 +43,6 @@ class Dispatcher
 	 *
 	 * @var \mako\http\routing\Filters
 	 */
-
 	protected $filters;
 
 
@@ -55,7 +51,6 @@ class Dispatcher
 	 *
 	 * @var \mako\http\routing\Route
 	 */
-
 	protected $route;
 
 	/**
@@ -63,7 +58,6 @@ class Dispatcher
 	 *
 	 * @var array
 	 */
-
 	protected $parameters;
 
 	/**
@@ -71,7 +65,6 @@ class Dispatcher
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -79,7 +72,6 @@ class Dispatcher
 	 *
 	 * @var boolean
 	 */
-
 	protected $skipAfterFilters = false;
 
 	/**
@@ -93,7 +85,6 @@ class Dispatcher
 	 * @param   array                       $parameters  Route parameters
 	 * @param   \mako\syringe\Container     $container   IoC container
 	 */
-
 	public function __construct(Request $request, Response $response, Filters $filters, Route $route, array $parameters = [], Container $container = null)
 	{
 		$this->request = $request;
@@ -116,7 +107,6 @@ class Dispatcher
 	 * @param   string         $filter  Filter
 	 * @return  array|Closure
 	 */
-
 	protected function resolveFilter($filter)
 	{
 		$filter = $this->filters->get($filter);
@@ -136,7 +126,6 @@ class Dispatcher
 	 * @param   string|\Closure  $filter  Filter
 	 * @return  mixed
 	 */
-
 	protected function executeFilter($filter)
 	{
 		// Parse the filter function call
@@ -158,7 +147,6 @@ class Dispatcher
 	 * @access  protected
 	 * @return  mixed
 	 */
-
 	protected function beforeFilters()
 	{
 		foreach($this->route->getBeforeFilters() as $filter)
@@ -177,7 +165,6 @@ class Dispatcher
 	 *
 	 * @access  protected
 	 */
-
 	protected function afterFilters()
 	{
 		foreach($this->route->getAfterFilters() as $filter)
@@ -192,7 +179,6 @@ class Dispatcher
 	 * @access  protected
 	 * @param   \Closure   $closure  Closure
 	 */
-
 	protected function dispatchClosure(Closure $closure)
 	{
 		$this->response->body($this->container->call($closure, $this->parameters));
@@ -204,7 +190,6 @@ class Dispatcher
 	 * @access  protected
 	 * @param   string     $controller  Controller
 	 */
-
 	protected function dispatchController($controller)
 	{
 		list($controller, $method) = explode('::', $controller, 2);
@@ -249,7 +234,6 @@ class Dispatcher
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-
 	public function dispatch()
 	{
 		$returnValue = $this->beforeFilters();

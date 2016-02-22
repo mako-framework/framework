@@ -14,7 +14,6 @@ use RuntimeException;
  *
  * @author  Frederic G. Østby
  */
-
 class Filters
 {
 	/**
@@ -22,7 +21,6 @@ class Filters
 	 *
 	 * @var array
 	 */
-
 	protected $filters = [];
 
 	/**
@@ -32,7 +30,6 @@ class Filters
 	 * @param   string           $name    Filter name
 	 * @param   string|\Closure  $filter  Filter class or closure
 	 */
-
 	public function register($name, $filter)
 	{
 		$this->filters[$name] = $filter;
@@ -45,7 +42,6 @@ class Filters
 	 * @param   string           $filter  Filter name
 	 * @return  string|\Closure
 	 */
-
 	public function get($filter)
 	{
 		if(!isset($this->filters[$filter]))

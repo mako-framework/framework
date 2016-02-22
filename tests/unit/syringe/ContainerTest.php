@@ -110,13 +110,11 @@ class ContextClassB
 /**
  * @group unit
  */
-
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasic()
 	{
 		$container = new Container;
@@ -130,7 +128,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage mako\syringe\Container::resolveParameter(): Unable to resolve the [ $bax ] parameter of [ mako\tests\unit\syringe\Fox::__construct ].
 	 */
-
 	public function testClassInstantiationWithUnresolvableParameters()
 	{
 		$container = new Container;
@@ -141,7 +138,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testParametersFromReflection()
 	{
 		$container = new Container;
@@ -155,7 +151,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNumericParameters()
 	{
 		$container = new Container;
@@ -178,7 +173,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAssociativeParameters()
 	{
 		$container = new Container;
@@ -192,7 +186,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMixedParameters()
 	{
 		$container = new Container;
@@ -206,7 +199,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testImplementationInjection()
 	{
 		$container = new Container;
@@ -222,7 +214,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage mako\syringe\Container::reflectionFactory(): Unable create a [ mako\tests\unit\syringe\StoreInterface ] instance.
 	 */
-
 	public function testInterfaceInstantiation()
 	{
 		$container = new Container;
@@ -233,7 +224,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetUsingAlias()
 	{
 		$container = new Container;
@@ -248,7 +238,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRegisterClosure()
 	{
 		$container = new Container;
@@ -270,7 +259,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage mako\syringe\Container::closureFactory(): The factory closure must return an object.
 	 */
-
 	public function testRegisterClosureWithoutReturnValue()
 	{
 		$container = new Container;
@@ -283,7 +271,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRegisterInstance()
 	{
 		$container = new Container;
@@ -304,7 +291,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHas()
 	{
 		$container = new Container;
@@ -323,7 +309,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRegisterSingleton()
 	{
 		$container = new Container;
@@ -341,7 +326,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCallClosure()
 	{
 		$closure = function(Bar $bar)
@@ -389,7 +373,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCallMethod()
 	{
 		$baq = new Baq;
@@ -417,7 +400,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * The entire exception message isn't included in the test because of some HHVM incompatibility that causes the test to fail
 	 */
-
 	public function testCallMethodWithUnresolvableParameters()
 	{
 		$container = new Container;
@@ -428,7 +410,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testContextualDependencies()
 	{
 		$container = new Container;
