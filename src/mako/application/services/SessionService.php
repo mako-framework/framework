@@ -93,8 +93,8 @@ class SessionService extends Service
 			case 'file':
 				return $this->getFileStore($container, $config);
 				break;
-			case 'null':
-				return $this->getNullStore($container, $config);
+			case 'void':
+				return $this->getVoidStore($container, $config);
 				break;
 			case 'redis':
 				return $this->getRedisStore($container, $config);
