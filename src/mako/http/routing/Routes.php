@@ -58,7 +58,7 @@ class Routes
 	 * @param   string   $name  Route name
 	 * @return  boolean
 	 */
-	public function hasNamedRoute($name)
+	public function hasNamedRoute(string $name): bool
 	{
 		return isset($this->namedRoutes[$name]);
 	}
@@ -70,7 +70,7 @@ class Routes
 	 * @param   string                    $name  Route name
 	 * @return  \mako\http\routing\Route
 	 */
-	public function getNamedRoute($name)
+	public function getNamedRoute(string $name): Route
 	{
 		if(!isset($this->namedRoutes[$name]))
 		{
@@ -106,7 +106,7 @@ class Routes
 	 * @param   string                   $name     Route name
 	 * @return  \mako\http\routing\Route
 	 */
-	protected function registerRoute(array $methods, $route, $action, $name = null)
+	protected function registerRoute(array $methods, string $route, $action, string $name = null): Route
 	{
 		$route = new Route($methods, $route, $action, $name);
 
@@ -140,7 +140,7 @@ class Routes
 	 * @param   string                    $name    Route name
 	 * @return  \mako\http\routing\Route
 	 */
-	public function get($route, $action, $name = null)
+	public function get(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['GET', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
@@ -154,7 +154,7 @@ class Routes
 	 * @param   string                    $name    Route name
 	 * @return  \mako\http\routing\Route
 	 */
-	public function post($route, $action, $name = null)
+	public function post(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['POST', 'OPTIONS'], $route, $action, $name);
 	}
@@ -168,7 +168,7 @@ class Routes
 	 * @param   string                    $name    Route name
 	 * @return  \mako\http\routing\Route
 	 */
-	public function put($route, $action, $name = null)
+	public function put(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['PUT', 'OPTIONS'], $route, $action, $name);
 	}
@@ -182,7 +182,7 @@ class Routes
 	 * @param   string                    $name    Route name
 	 * @return  \mako\http\routing\Route
 	 */
-	public function patch($route, $action, $name = null)
+	public function patch(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['PATCH', 'OPTIONS'], $route, $action, $name);
 	}
@@ -196,7 +196,7 @@ class Routes
 	 * @param   string                    $name    Route name
 	 * @return  \mako\http\routing\Route
 	 */
-	public function delete($route, $action, $name = null)
+	public function delete(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['DELETE', 'OPTIONS'], $route, $action, $name);
 	}
@@ -210,7 +210,7 @@ class Routes
 	 * @param   string                    $name    Route name
 	 * @return  \mako\http\routing\Route
 	 */
-	public function all($route, $action, $name = null)
+	public function all(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
@@ -225,7 +225,7 @@ class Routes
 	 * @param   string                    $name     Route name
 	 * @return  \mako\http\routing\Route
 	 */
-	public function register(array $methods, $route, $action, $name = null)
+	public function register(array $methods, string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute($methods, $route, $action, $name);
 	}

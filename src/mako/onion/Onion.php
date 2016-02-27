@@ -41,13 +41,20 @@ class Onion
 	protected $layers = [];
 
 	/**
+	 * Middleware constructor parameters.
+	 *
+	 * @var array
+	 */
+	protected $middlewareConstructorParameters = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
 	 * @param   null|\mako\syringe\Container  $container  Container
 	 * @param   null|string                   $method     Method to call on the decoracted class
 	 */
-	public function __construct(Container $container = null, $method = null)
+	public function __construct(Container $container = null, string $method = null)
 	{
 		$this->container = $container ?? new Container;
 
@@ -58,12 +65,15 @@ class Onion
 	 * Add a new middleware layer.
 	 *
 	 * @access  public
-	 * @param   string   $class  Class
-	 * @param   boolean  $inner  Add an inner layer?
+	 * @param   string      $class       Class
+	 * @param   null|array  $parameters  Constructor parameters
+	 * @param   boolean     $inner       Add an inner layer?
 	 * @return  int
 	 */
-	public function addLayer($class, $inner = true)
+	public function addLayer(string $class, array $parameters = null, bool $inner = true): int
 	{
+		$this->middlewareConstructorParameters[$class] = $parameters;
+
 		return $inner ? array_unshift($this->layers, $class) : array_push($this->layers, $class);
 	}
 
@@ -71,24 +81,26 @@ class Onion
 	 * Add a inner layer to the middleware stack.
 	 *
 	 * @access  public
-	 * @param   string  $class  Class
+	 * @param   string      $class  Class
+	 * @param   null|array  $parameters  Constructor parameters
 	 * @return  int
 	 */
-	public function addInnerLayer($class)
+	public function addInnerLayer(string $class, array $parameters = null): int
 	{
-		return $this->addLayer($class);
+		return $this->addLayer($class, $parameters);
 	}
 
 	/**
 	 * Add an outer layer to the middleware stack.
 	 *
 	 * @access  public
-	 * @param   string  $class  Class
+	 * @param   string      $class  Class
+	 * @param   null|array  $parameters  Constructor parameters
 	 * @return  int
 	 */
-	public function addOuterLayer($class)
+	public function addOuterLayer(string $class, array $parameters = null): int
 	{
-		return $this->addLayer($class, false);
+		return $this->addLayer($class, $parameters, false);
 	}
 
 	/**
@@ -98,7 +110,7 @@ class Onion
 	 * @param   object     $object  The object that we're decorating
 	 * @return  \Closure
 	 */
-	protected function buildCoreClosure($object)
+	protected function buildCoreClosure($object): Closure
 	{
 		return function(...$arguments) use ($object)
 		{
@@ -116,7 +128,7 @@ class Onion
 	 * @param   \Closure   $next   The next middleware layer
 	 * @return  \Closure
 	 */
-	protected function buildLayerClosure($layer, Closure $next)
+	protected function buildLayerClosure($layer, Closure $next): Closure
 	{
 		return function(...$arguments) use ($layer, $next)
 		{
@@ -125,20 +137,34 @@ class Onion
 	}
 
 	/**
+	 * Returns the constructor parameters of the requested middleware.
+	 *
+	 * @access  protected
+	 * @param   array      $parameters  Parameters array
+	 * @param   string     $middleware  Middleware name
+	 * @return  array
+	 */
+	protected function getMiddlewareParameters(array $parameters, string $middleware): array
+	{
+		return ($parameters[$middleware] ?? []) + ($this->middlewareConstructorParameters[$middleware] ?? []);
+	}
+
+	/**
 	 * Executes the middleware stack.
 	 *
 	 * @access  public
-	 * @param   object  $object       The object that we're decorating
-	 * @param   array   $parameters   Parameters
+	 * @param   object  $object                The object that we're decorating
+	 * @param   array   $parameters            Parameters
+	 * @param   array   $middlewareParameters  Middleware constructor parameters
 	 * @return  mixed
 	 */
-	public function peel($object, array $parameters = [])
+	public function peel($object, array $parameters = [], array $middlewareParameters = [])
 	{
 		$next = $this->buildCoreClosure($object);
 
 		foreach($this->layers as $layer)
 		{
-			$layer = $this->container->get($layer);
+			$layer = $this->container->get($layer, $this->getMiddlewareParameters($middlewareParameters, $layer));
 
 			$next = $this->buildLayerClosure($layer, $next);
 		}

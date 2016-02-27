@@ -49,24 +49,6 @@ class ListRoutes extends Command
 
 			$action = ($route->getAction() instanceof Closure) ? 'Closure' : $route->getAction();
 
-			// Normalize before filter names
-
-			$beforeFilters = [];
-
-			foreach($route->getBeforeFilters() as $filter)
-			{
-				$beforeFilters[] = $filter;
-			}
-
-			// Normalize after filter names
-
-			$afterFilters = [];
-
-			foreach($route->getAfterFilters() as $filter)
-			{
-				$afterFilters[] = $filter;
-			}
-
 			// Build table row
 
 			$routes[] =
@@ -74,8 +56,7 @@ class ListRoutes extends Command
 				$route->getRoute(),
 				implode(', ', $route->getMethods()),
 				$action,
-				implode(', ', $beforeFilters),
-				implode(', ', $afterFilters),
+				implode(', ', $route->getMiddleware()),
 				(string) $route->getName()
 			];
 		}
@@ -87,8 +68,7 @@ class ListRoutes extends Command
 			'<green>Route</green>',
 			'<green>Allowed methods</green>',
 			'<green>Action</green>',
-			'<green>Before filters</green>',
-			'<green>After filters</green>',
+			'<green>Middleware</green>',
 			'<green>Name</green>',
 		];
 

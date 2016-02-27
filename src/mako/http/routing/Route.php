@@ -73,18 +73,11 @@ class Route
 	protected $constraints = [];
 
 	/**
-	 * Before filters.
+	 * Middleware.
 	 *
 	 * @var array
 	 */
-	protected $beforeFilters = [];
-
-	/**
-	 * After filters.
-	 *
-	 * @var array
-	 */
-	protected $afterFilters = [];
+	protected $middleware = [];
 
 	/**
 	 * Constructor.
@@ -95,7 +88,7 @@ class Route
 	 * @param   string|\Closure  $action   Route action
 	 * @param   string           $name     Route name
 	 */
-	public function __construct(array $methods, $route, $action, $name = null)
+	public function __construct(array $methods, string $route, $action, string $name = null)
 	{
 		$this->methods = $methods;
 
@@ -114,7 +107,7 @@ class Route
 	 * @access  public
 	 * @return  array
 	 */
-	public function getMethods()
+	public function getMethods(): array
 	{
 		return $this->methods;
 	}
@@ -125,7 +118,7 @@ class Route
 	 * @access  public
 	 * @return  string
 	 */
-	public function getRoute()
+	public function getRoute(): string
 	{
 		return $this->prefix . $this->route;
 	}
@@ -150,7 +143,7 @@ class Route
 	 * Returns the route name.
 	 *
 	 * @access  public
-	 * @return  string
+	 * @return  null|string
 	 */
 	public function getName()
 	{
@@ -158,25 +151,14 @@ class Route
 	}
 
 	/**
-	 * Returns the before filters.
+	 * Returns the middleware.
 	 *
 	 * @access  public
 	 * @return  array
 	 */
-	public function getBeforeFilters()
+	public function getMiddleware(): array
 	{
-		return $this->beforeFilters;
-	}
-
-	/**
-	 * Returns the after filters.
-	 *
-	 * @access  public
-	 * @return  array
-	 */
-	public function getAfterFilters()
-	{
-		return $this->afterFilters;
+		return $this->middleware;
 	}
 
 	/**
@@ -186,7 +168,7 @@ class Route
 	 * @param   string                    $namespace  Route action namespace
 	 * @return  \mako\http\routing\Route
 	 */
-	public function namespace($namespace)
+	public function namespace(string $namespace): Route
 	{
 		$this->namespace .= $namespace . '\\';
 
@@ -200,7 +182,7 @@ class Route
 	 * @param   string                    $prefix  Route prefix
 	 * @return  \mako\http\routing\Route
 	 */
-	public function prefix($prefix)
+	public function prefix(string $prefix): Route
 	{
 		if(!empty($prefix))
 		{
@@ -217,7 +199,7 @@ class Route
 	 * @param   array                     $constraints  Array of constraints
 	 * @return  \mako\http\routing\Route
 	 */
-	public function when(array $constraints)
+	public function when(array $constraints): Route
 	{
 		$this->constraints = $constraints + $this->constraints;
 
@@ -225,29 +207,15 @@ class Route
 	}
 
 	/**
-	 * Adds a set of before filters.
+	 * Adds a set of middleware.
 	 *
 	 * @access  public
-	 * @param   array|string|\Closure     $filters  Filters
+	 * @param   array|string              $middleware  Middleware
 	 * @return  \mako\http\routing\Route
 	 */
-	public function before($filters)
+	public function middleware($middleware): Route
 	{
-		$this->beforeFilters = array_merge($this->beforeFilters, (array) $filters);
-
-		return $this;
-	}
-
-	/**
-	 * Adds a set of after filters.
-	 *
-	 * @access  public
-	 * @param   array|string|\Closure     $filters  Filters
-	 * @return  \mako\http\routing\Route
-	 */
-	public function after($filters)
-	{
-		$this->afterFilters = array_merge($this->afterFilters, (array) $filters);
+		$this->middleware = array_merge($this->middleware, (array) $middleware);
 
 		return $this;
 	}
@@ -259,7 +227,7 @@ class Route
 	 * @param   string   $method  Method
 	 * @return  boolean
 	 */
-	public function allows($method)
+	public function allows(string $method): bool
 	{
 		return in_array($method, $this->methods);
 	}
@@ -270,7 +238,7 @@ class Route
 	 * @access  public
 	 * @return  boolean
 	 */
-	public function hasTrailingSlash()
+	public function hasTrailingSlash(): bool
 	{
 		return $this->hasTrailingSlash;
 	}
@@ -281,7 +249,7 @@ class Route
 	 * @access  public
 	 * @return  string
 	 */
-	public function getRegex()
+	public function getRegex(): string
 	{
 		$route = $this->getRoute();
 

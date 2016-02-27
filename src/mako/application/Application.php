@@ -12,7 +12,7 @@ use RuntimeException;
 
 use mako\autoloading\AliasLoader;
 use mako\config\Config;
-use mako\http\routing\Filters;
+use mako\http\routing\Middleware;
 use mako\file\FileSystem;
 use mako\syringe\Container;
 
@@ -494,21 +494,21 @@ abstract class Application
 	}
 
 	/**
-	 * Loads filters.
+	 * Loads middleware.
 	 *
 	 * @access  protected
-	 * @return  \mako\http\routing\Filters
+	 * @return  \mako\http\routing\Middleware
 	 */
-	protected function loadFilters()
+	protected function loadMiddleware()
 	{
-		$loader = function($app, $container, $filters)
+		$loader = function($app, $container, $middleware)
 		{
-			include $this->applicationPath . '/routing/filters.php';
+			include $this->applicationPath . '/routing/middleware.php';
 
-			return $filters;
+			return $middleware;
 		};
 
-		return $loader($this, $this->container, new Filters);
+		return $loader($this, $this->container, new Middleware);
 	}
 
 	/**
@@ -530,14 +530,14 @@ abstract class Application
 	}
 
 	/**
-	 * Loads filters and routes.
+	 * Loads middleware and routes.
 	 *
 	 * @access  protected
 	 * @return  array
 	 */
 	protected function loadRouting()
 	{
-		return [$this->loadFilters(), $this->loadRoutes()];
+		return [$this->loadMiddleware(), $this->loadRoutes()];
 	}
 
 	/**

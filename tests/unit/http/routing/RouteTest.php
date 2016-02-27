@@ -225,50 +225,6 @@ class RouteTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function testBeforeFilters()
-	{
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->before('foo');
-
-		$this->assertEquals(['foo'], $route->getBeforeFilters());
-
-		//
-
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->before('foo')->before('bar');
-
-		$this->assertEquals(['foo', 'bar'], $route->getBeforeFilters());
-
-		//
-
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->before(['foo', 'bar']);
-
-		$this->assertEquals(['foo', 'bar'], $route->getBeforeFilters());
-	}
-
-	/**
-	 *
-	 */
-	public function testAfterFilters()
-	{
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->after('foo');
-
-		$this->assertEquals(['foo'], $route->getAfterFilters());
-
-		//
-
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->after('foo')->after('bar');
-
-		$this->assertEquals(['foo', 'bar'], $route->getAfterFilters());
-
-		//
-
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->after(['foo', 'bar']);
-
-		$this->assertEquals(['foo', 'bar'], $route->getAfterFilters());
-	}
-
-	/**
-	 *
-	 */
 	public function testPrefix()
 	{
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->prefix('bar');
@@ -374,5 +330,27 @@ class RouteTest extends PHPUnit_Framework_TestCase
 		$route = (new Route(['GET'], '/', function(){}))->namespace('app\controllers');
 
 		$this->assertInstanceOf('Closure', $route->getAction());
+	}
+
+	/**
+	 *
+	 */
+	public function testMiddleware()
+	{
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->middleware('foo');
+
+		$this->assertSame(['foo'], $route->getMiddleware());
+
+		//
+
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->middleware(['foo', 'bar']);
+
+		$this->assertSame(['foo', 'bar'], $route->getMiddleware());
+
+		//
+
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->middleware('foo')->middleware('bar');
+
+		$this->assertSame(['foo', 'bar'], $route->getMiddleware());
 	}
 }

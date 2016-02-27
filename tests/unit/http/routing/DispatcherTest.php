@@ -7,12 +7,14 @@
 
 namespace mako\tests\unit\http\routing;
 
+use Closure;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\Dispatcher;
+use mako\http\routing\middleware\MiddlewareInterface;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -55,9 +57,9 @@ class SimpleController extends \mako\http\routing\Controller
 
 class ControllerWithBeforeFilter extends \mako\http\routing\Controller
 {
-	public function beforeFilter()
+	public function beforeAction()
 	{
-		return 'Before filter';
+		return 'Before action';
 	}
 
 	public function foo()
@@ -75,7 +77,7 @@ class ControllerWithNullBeforeFilter extends \mako\http\routing\Controller
 		$this->response = $response;
 	}
 
-	public function beforeFilter()
+	public function beforeAction()
 	{
 		$this->response->header('X-Foo-Bar', 'Foo Bar');
 	}
@@ -95,7 +97,7 @@ class ControllerWithAfterFilter extends \mako\http\routing\Controller
 		$this->response = $response;
 	}
 
-	public function afterFilter()
+	public function afterAction()
 	{
 		$this->response->body(strtoupper($this->response->getBody()));
 	}
@@ -121,11 +123,18 @@ class ControllerWithInjection extends \mako\http\routing\Controller
 	}
 }
 
-class FooFilter
+class FooMiddleware implements MiddlewareInterface
 {
-	public function filter()
+	protected $separator;
+
+	public function __construct(string $separator = null)
 	{
-		return 'Foo class filter';
+		$this->separator = $separator ?? '_';
+	}
+
+	public function execute(Request $request, Response $response, Closure $next): Response
+	{
+		return $response->body(str_replace(' ', $this->separator, $next($request, $response)->getBody()));
 	}
 }
 
@@ -151,7 +160,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testClosureAction()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -160,15 +169,13 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 			return 'Hello, world!';
 		});
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -180,7 +187,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testClosureActionWithParams()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -191,9 +198,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 			return 'Hello, ' . $who . '!';
 		});
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -203,7 +208,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route, ['who' => 'Kitty'], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, ['who' => 'Kitty'], $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -217,15 +222,13 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testControllerAction()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\SimpleController::foo');
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -235,7 +238,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -249,15 +252,13 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testControllerActionWithParams()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\SimpleController::bar');
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -267,7 +268,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route, ['who' => 'Kitty'], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, ['who' => 'Kitty'], $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -279,15 +280,13 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testControllerWithNullBeforeFilter()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithNullBeforeFilter::foo');
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -297,7 +296,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -311,23 +310,23 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testControllerWithBeforeFilter()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithBeforeFilter::foo');
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route);
 
 		$response = $dispatcher->dispatch();
 
-		$this->assertEquals('Before filter', $response->getBody());
+		$this->assertEquals('Before action', $response->getBody());
 	}
 
 	/**
@@ -335,15 +334,13 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testControllerActionWithAfterFilter()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithAfterFilter::foo');
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -353,7 +350,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -361,27 +358,23 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 *
+	 * [testMiddleware description]
+	 * @return [type] [description]
 	 */
-	public function testRouteNullBeforeFilter()
+	public function testMiddleware()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
-		$filters->shouldReceive('get')->once()->with('before')->andReturn(function(Response $response)
-		{
-			$response->header('X-Foo-Bar', 'Foo Bar');
-		});
+		$middleware->shouldReceive('get')->once()->with('test')->andReturn(FooMiddleware::class);
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
+		$route->shouldReceive('getMiddleware')->once()->andReturn(['test']);
+
 		$route->shouldReceive('getAction')->once()->andReturn(function()
 		{
-			return 'Hello, world!';
+			return 'hello, world!';
 		});
-
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn(['before']);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -389,66 +382,31 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
 
-		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
-
-		$dispatcher = new Dispatcher($request, $response, $filters, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
 
 		$response = $dispatcher->dispatch();
 
-		$this->assertEquals('Hello, world!', $response->getBody());
-
-		$this->assertEquals(['x-foo-bar' => ['Foo Bar']], $response->getHeaders());
+		$this->assertEquals('hello,_world!', $response->getBody());
 	}
 
 	/**
-	 *
+	 * [testMiddleware description]
+	 * @return [type] [description]
 	 */
-	public function testRouteBeforeFilter()
+	public function testMiddlewareWithArguments()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
-		$filters->shouldReceive('get')->once()->with('before')->andReturn(function()
-		{
-			return 'Before filter';
-		});
+		$middleware->shouldReceive('get')->once()->with('test')->andReturn(FooMiddleware::class);
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn(['before']);
-
-		$request = Mockery::mock('\mako\http\Request');
-
-		$response = Mockery::mock('\mako\http\Response')->makePartial();
-
-		$dispatcher = new Dispatcher($request, $response, $filters, $route);
-
-		$response = $dispatcher->dispatch();
-
-		$this->assertEquals('Before filter', $response->getBody());
-	}
-
-	/**
-	 *
-	 */
-	public function testRouteAfterFilter()
-	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
-
-		$filters->shouldReceive('get')->once()->with('after')->andReturn(function(Response $response)
-		{
-			$response->body(strtoupper($response->getBody()));
-		});
-
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$route->shouldReceive('getMiddleware')->once()->andReturn(['test:{"separator":"~"}']);
 
 		$route->shouldReceive('getAction')->once()->andReturn(function()
 		{
-			return 'Hello, world!';
+			return 'hello, world!';
 		});
-
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn(['after']);
 
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -456,141 +414,37 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
 
-		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
-
-		$dispatcher = new Dispatcher($request, $response, $filters, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
 
 		$response = $dispatcher->dispatch();
 
-		$this->assertEquals('HELLO, WORLD!', $response->getBody());
+		$this->assertEquals('hello,~world!', $response->getBody());
 	}
 
-	/**
-	 *
-	 */
-	public function testFilterParam()
-	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
 
-		$filters->shouldReceive('get')->once()->with('before')->andReturn(function($param)
-		{
-			return $param;
-		});
-
-		$route = Mockery::mock('\mako\http\routing\Route');
-
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn(['before:"foobar"']);
-
-		$request = Mockery::mock('\mako\http\Request');
-
-		$response = Mockery::mock('\mako\http\Response')->makePartial();
-
-		$dispatcher = new Dispatcher($request, $response, $filters, $route);
-
-		$response = $dispatcher->dispatch();
-
-		$this->assertEquals('foobar', $response->getBody());
-	}
-
-	/**
-	 *
-	 */
-	public function testFilterParams()
-	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
-
-		$filters->shouldReceive('get')->once()->with('before')->andReturn(function($param1, $param2)
-		{
-			return $param1 . $param2;
-		});
-
-		$route = Mockery::mock('\mako\http\routing\Route');
-
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn(['before:["foobar","bazbax"]']);
-
-		$request = Mockery::mock('\mako\http\Request');
-
-		$response = Mockery::mock('\mako\http\Response')->makePartial();
-
-		$dispatcher = new Dispatcher($request, $response, $filters, $route);
-
-		$response = $dispatcher->dispatch();
-
-		$this->assertEquals('foobarbazbax', $response->getBody());
-	}
-
-	/**
-	 *
-	 */
-	public function _testOptionsRequest()
-	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
-
-		$route = Mockery::mock('\mako\http\routing\Route');
-
-		$route->shouldReceive('getHeaders')->once()->andReturn(['allow' => 'POST,OPTIONS']);
-
-		$request = Mockery::mock('\mako\http\Request');
-
-		$response = Mockery::mock('\mako\http\Response')->makePartial();
-
-		$dispatcher = new Dispatcher($request, $response, $filters, $route);
-
-		$response = $dispatcher->dispatch();
-
-		$this->assertEmpty($response->getBody());
-
-		$this->assertEquals(['allow' => 'POST,OPTIONS'], $response->getHeaders());
-	}
 
 	/**
 	 *
 	 */
 	public function testControllerInjection()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithInjection::foo');
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route);
 
 		$response = $dispatcher->dispatch();
 
 		$this->assertEquals('Hello, world!', $response->getBody());
-	}
-
-	/**
-	 *
-	 */
-	public function testClassFilter()
-	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
-
-		$filters->shouldReceive('get')->once()->with('before')->andReturn('mako\tests\unit\http\routing\FooFilter');
-
-		$route = Mockery::mock('\mako\http\routing\Route');
-
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn(['before']);
-
-		$request = Mockery::mock('\mako\http\Request');
-
-		$response = Mockery::mock('\mako\http\Response')->makePartial();
-
-		$dispatcher = new Dispatcher($request, $response, $filters, $route);
-
-		$response = $dispatcher->dispatch();
-
-		$this->assertEquals('Foo class filter', $response->getBody());
 	}
 
 	/**
@@ -598,7 +452,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testClosureWithReversedParameterOrder()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -607,15 +461,13 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 			return $hello . ', ' . $world . '!';
 		});
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route, ['hello' => 'Hello', 'world' => 'world']);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, ['hello' => 'Hello', 'world' => 'world']);
 
 		$response = $dispatcher->dispatch();
 
@@ -627,7 +479,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testClosureParameterInjection()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -636,9 +488,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 			return $request;
 		});
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -648,7 +498,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Request')->andReturn($request);
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -660,15 +510,13 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testControllerActionParameterInjection()
 	{
-		$filters = Mockery::mock('\mako\http\routing\Filters');
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\SimpleController::baz');
 
-		$route->shouldReceive('getBeforeFilters')->once()->andReturn([]);
-
-		$route->shouldReceive('getAfterFilters')->once()->andReturn([]);
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -678,7 +526,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $filters, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
 
 		$response = $dispatcher->dispatch();
 

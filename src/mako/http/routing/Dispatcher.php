@@ -12,7 +12,9 @@ use Closure;
 use mako\common\FunctionParserTrait;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\routing\Middleware;
 use mako\http\routing\Route;
+use mako\onion\Onion;
 use mako\syringe\Container;
 
 /**
@@ -39,11 +41,11 @@ class Dispatcher
 	protected $response;
 
 	/**
-	 * Route filters.
+	 * Route middleware.
 	 *
-	 * @var \mako\http\routing\Filters
+	 * @var \mako\http\routing\Middleware
 	 */
-	protected $filters;
+	protected $middleware;
 
 
 	/**
@@ -68,30 +70,23 @@ class Dispatcher
 	protected $container;
 
 	/**
-	 * Should the after filters be skipped?
-	 *
-	 * @var boolean
-	 */
-	protected $skipAfterFilters = false;
-
-	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\http\Request          $request     Request instance
-	 * @param   \mako\http\Response         $response    Response instance
-	 * @param   \mako\http\routing\Filters  $filters     Filter collection
-	 * @param   \mako\http\routing\Route    $route       The route we're dispatching
-	 * @param   array                       $parameters  Route parameters
-	 * @param   \mako\syringe\Container     $container   IoC container
+	 * @param   \mako\http\Request             $request     Request instance
+	 * @param   \mako\http\Response            $response    Response instance
+	 * @param   \mako\http\routing\Middleware  $middleware  Middleware collection
+	 * @param   \mako\http\routing\Route       $route       The route we're dispatching
+	 * @param   array                          $parameters  Route parameters
+	 * @param   \mako\syringe\Container        $container   IoC container
 	 */
-	public function __construct(Request $request, Response $response, Filters $filters, Route $route, array $parameters = [], Container $container = null)
+	public function __construct(Request $request, Response $response, Middleware $middleware, Route $route, array $parameters = [], Container $container = null)
 	{
 		$this->request = $request;
 
 		$this->response = $response;
 
-		$this->filters = $filters;
+		$this->middleware = $middleware;
 
 		$this->route = $route;
 
@@ -101,131 +96,104 @@ class Dispatcher
 	}
 
 	/**
-	 * Resolves the filter.
+	 * Resolves the middleware.
 	 *
 	 * @access  protected
-	 * @param   string         $filter  Filter
-	 * @return  array|Closure
+	 * @param   string     $middleware  middleware
+	 * @return  array
 	 */
-	protected function resolveFilter($filter)
+	protected function resolveMiddleware(string $middleware): array
 	{
-		$filter = $this->filters->get($filter);
+		list($middleware, $parameters) = $this->parseFunction($middleware);
 
-		if(!($filter instanceof Closure))
-		{
-			$filter = [$this->container->get($filter), 'filter'];
-		}
+		$middleware = $this->middleware->get($middleware);
 
-		return $filter;
+		return compact('middleware', 'parameters');
 	}
 
 	/**
-	 * Executes a filter.
+	 * Adds route middleware to the stack.
 	 *
 	 * @access  protected
-	 * @param   string|\Closure  $filter  Filter
-	 * @return  mixed
+	 * @param   \mako\onion\Onion  $onion       Middleware stack
+	 * @param   array              $middleware  Array of middleware
 	 */
-	protected function executeFilter($filter)
+	protected function addMiddlewareToStack(Onion $onion, array $middleware)
 	{
-		// Parse the filter function call
-
-		list($filter, $parameters) = $this->parseFunction($filter);
-
-		// Get the filter from the filter collection
-
-		$filter = $this->resolveFilter($filter);
-
-		// Execute the filter and return its return value
-
-		return $this->container->call($filter, $parameters);
-	}
-
-	/**
-	 * Executes before filters.
-	 *
-	 * @access  protected
-	 * @return  mixed
-	 */
-	protected function beforeFilters()
-	{
-		foreach($this->route->getBeforeFilters() as $filter)
+		foreach($middleware as $layer)
 		{
-			$returnValue = $this->executeFilter($filter);
+			$layer = $this->resolveMiddleware($layer);
 
-			if(!empty($returnValue))
-			{
-				return $returnValue;
-			}
+			$onion->addLayer($layer['middleware'], $layer['parameters']);
 		}
 	}
 
 	/**
-	 * Executes after filters.
+	 * Executes a closure action.
 	 *
 	 * @access  protected
+	 * @param   \Closure             $closure  Closure
+	 * @return  \mako\http\Response
 	 */
-	protected function afterFilters()
+	protected function executeClosure(Closure $closure): Response
 	{
-		foreach($this->route->getAfterFilters() as $filter)
-		{
-			$this->executeFilter($filter);
-		}
+		return $this->response->body($this->container->call($closure, $this->parameters));
 	}
 
 	/**
-	 * Dispatch a closure controller action.
+	 * Executs a controller action.
 	 *
 	 * @access  protected
-	 * @param   \Closure   $closure  Closure
+	 * @param   string               $controller  Controller
+	 * @return  \mako\http\Response
 	 */
-	protected function dispatchClosure(Closure $closure)
-	{
-		$this->response->body($this->container->call($closure, $this->parameters));
-	}
-
-	/**
-	 * Dispatch a controller action.
-	 *
-	 * @access  protected
-	 * @param   string     $controller  Controller
-	 */
-	protected function dispatchController($controller)
+	protected function executeController(string $controller): Response
 	{
 		list($controller, $method) = explode('::', $controller, 2);
 
 		$controller = $this->container->get($controller);
 
-		// Execute the before filter if we have one
+		// Execute the before action method if we have one
 
-		if(method_exists($controller, 'beforeFilter'))
+		if(method_exists($controller, 'beforeAction'))
 		{
-			$returnValue = $this->container->call([$controller, 'beforeFilter']);
+			$returnValue = $this->container->call([$controller, 'beforeAction']);
 		}
 
 		if(empty($returnValue))
 		{
-			// The before filter didn't return any data so we can set the
+			// The before action method didn't return any data so we can set the
 			// response body to whatever the route action returns
 
 			$this->response->body($this->container->call([$controller, $method], $this->parameters));
 
-			// Execute the after filter if we have one
+			// Execute the after action method if we have one
 
-			if(method_exists($controller, 'afterFilter'))
+			if(method_exists($controller, 'afterAction'))
 			{
-				$this->container->call([$controller, 'afterFilter']);
+				$this->container->call([$controller, 'afterAction']);
 			}
 		}
 		else
 		{
-			// The before filter returned data so we'll set the response body to whatever it returned
-			// and tell the dispatcher to skip all after filters
+			// The before action method returned data so we'll set the response body to whatever it returned
 
 			$this->response->body($returnValue);
-
-			$this->skipAfterFilters = true;
 		}
+
+		return $this->response;
+	}
+
+	/**
+	 * Executes the route action.
+	 *
+	 * @return \mako\http\Response
+	 */
+	protected function executeAction(): Response
+	{
+		$action = $this->route->getAction();
+
+		return $action instanceof Closure ? $this->executeClosure($action) : $this->executeController($action);
 	}
 
 	/**
@@ -234,33 +202,15 @@ class Dispatcher
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-	public function dispatch()
+	public function dispatch(): Response
 	{
-		$returnValue = $this->beforeFilters();
+		$onion = new Onion($this->container);
 
-		if(!empty($returnValue))
+		$this->addMiddlewareToStack($onion, $this->route->getMiddleware());
+
+		return $onion->peel(function()
 		{
-			$this->response->body($returnValue);
-		}
-		else
-		{
-			$action = $this->route->getAction();
-
-			if($action instanceof Closure)
-			{
-				$this->dispatchClosure($action);
-			}
-			else
-			{
-				$this->dispatchController($action);
-			}
-
-			if(!$this->skipAfterFilters)
-			{
-				$this->afterFilters();
-			}
-		}
-
-		return $this->response;
+			return $this->executeAction();
+		}, [$this->request, $this->response]);
 	}
 }

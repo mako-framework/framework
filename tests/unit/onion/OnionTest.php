@@ -63,6 +63,21 @@ class BarMiddleware2
 	}
 }
 
+class BazMiddleware1
+{
+	protected $separator;
+
+	public function __construct($separator)
+	{
+		$this->separator = $separator;
+	}
+
+	public function execute($next)
+	{
+		return str_replace(' ', $this->separator, $next());
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -90,8 +105,8 @@ class OnionTest extends PHPUnit_Framework_TestCase
 
 		$onion = new Onion;
 
-		$onion->addLayer(FooMiddleware1::class, false);
-		$onion->addLayer(FooMiddleware2::class, false);
+		$onion->addLayer(FooMiddleware1::class, [], false);
+		$onion->addLayer(FooMiddleware2::class, [], false);
 
 		$result = $onion->peel(new Foo);
 
@@ -161,5 +176,39 @@ class OnionTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame('MW2BMW1BfooMW1AMW2A', $result);
 
+	}
+
+	/**
+	 *
+	 */
+	public function testMiddlewareWithConstructorParameters()
+	{
+		$onion = new Onion;
+
+		$onion->addLayer(BazMiddleware1::class, ['separator' => '_']);
+
+		$result = $onion->peel(function()
+		{
+			return 'hello, world!';
+		});
+
+		$this->assertSame('hello,_world!', $result);
+	}
+
+	/**
+	 *
+	 */
+	public function testMiddlewareWithConstructorParametersAtRuntime()
+	{
+		$onion = new Onion;
+
+		$onion->addLayer(BazMiddleware1::class);
+
+		$result = $onion->peel(function()
+		{
+			return 'hello, world!';
+		}, [], [BazMiddleware1::class => ['separator' => '_']]);
+
+		$this->assertSame('hello,_world!', $result);
 	}
 }

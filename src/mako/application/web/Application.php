@@ -39,9 +39,9 @@ class Application extends BaseApplication
 			}
 		}
 
-		// Load filters and routes
+		// Load middleware and routes
 
-		list($filters, $routes) = $this->loadRouting();
+		list($middleware, $routes) = $this->loadRouting();
 
 		// Route the request
 
@@ -49,6 +49,6 @@ class Application extends BaseApplication
 
 		// Dispatch the request and send the response
 
-		(new Dispatcher($request, $this->container->get('response'), $filters, $route, $parameters, $this->container))->dispatch()->send();
+		(new Dispatcher($request, $this->container->get('response'), $middleware, $route, $parameters, $this->container))->dispatch()->send();
 	}
 }
