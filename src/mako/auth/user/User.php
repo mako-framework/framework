@@ -301,7 +301,7 @@ class User extends ORM implements UserInterface, MemberInterface
 			{
 				if(is_int($check))
 				{
-					if((int) $userGroup->getId() === (int) $check)
+					if((int) $userGroup->getId() === $check)
 					{
 						return true;
 					}
