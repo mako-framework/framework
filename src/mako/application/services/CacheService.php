@@ -28,7 +28,7 @@ class CacheService extends Service
 
 			$config = $container->get('config');
 
-			$classWhitelist = $config->get('application.class_whitelist');
+			$classWhitelist = $config->get('application.deserialization_whitelist');
 
 			$config = $config->get('cache');
 
