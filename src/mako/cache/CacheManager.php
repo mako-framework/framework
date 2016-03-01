@@ -23,6 +23,7 @@ use mako\cache\stores\XCache;
 use mako\cache\stores\ZendDisk;
 use mako\cache\stores\ZendMemory;
 use mako\common\AdapterManager;
+use mako\syringe\Container;
 
 /**
  * Cache manager.
@@ -33,6 +34,33 @@ use mako\common\AdapterManager;
  */
 class CacheManager extends AdapterManager
 {
+	/**
+	 * Class whitelist.
+	 *
+	 * @var boolean|array
+	 */
+	protected $classWhitelist;
+
+	/**
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string                   $default         Default connection name
+	 * @param   array                    $configurations  Configurations
+	 * @param   \mako\syringe\Container  $container       IoC container instance
+	 * @param   boolean|array            $classWhitelist  Class whitelist
+	 */
+	public function __construct($default, array $configurations, Container $container, $classWhitelist = false)
+	{
+		$this->default = $default;
+
+		$this->configurations = $configurations;
+
+		$this->container = $container;
+
+		$this->classWhitelist = $classWhitelist;
+	}
+
 	/**
 	 * APC store factory.
 	 *
@@ -66,7 +94,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function fileFactory($configuration)
 	{
-		return new File($this->container->get('fileSystem'), $configuration['path']);
+		return new File($this->container->get('fileSystem'), $configuration['path'], $this->classWhitelist);
 	}
 
 	/**
@@ -78,7 +106,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function databaseFactory($configuration)
 	{
-		return new Database($this->container->get('database')->connection($configuration['configuration']), $configuration['table']);
+		return new Database($this->container->get('database')->connection($configuration['configuration']), $configuration['table'], $this->classWhitelist);
 	}
 
 	/**
@@ -126,7 +154,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function redisFactory($configuration)
 	{
-		return new Redis($this->container->get('redis')->connection($configuration['configuration']));
+		return new Redis($this->container->get('redis')->connection($configuration['configuration'], $this->classWhitelist));
 	}
 
 	/**

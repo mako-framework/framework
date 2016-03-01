@@ -25,14 +25,24 @@ class Redis implements StoreInterface
 	protected $redis;
 
 	/**
+	 * Class whitelist.
+	 *
+	 * @var boolean|array
+	 */
+	protected $classWhitelist;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\redis\Redis  $redis  Redis client
+	 * @param   \mako\redis\Redis  $redis           Redis client
+	 * @param   boolean|array      $classWhitelist  Class whitelist
 	 */
-	public function __construct(RedisClient $redis)
+	public function __construct(RedisClient $redis, $classWhitelist = false)
 	{
 		$this->redis = $redis;
+
+		$this->classWhitelist = $classWhitelist;
 	}
 
 	/**
@@ -65,7 +75,7 @@ class Redis implements StoreInterface
 	{
 		$data = $this->redis->get($key);
 
-		return ($data === null) ? false : (is_numeric($data) ? $data : unserialize($data));
+		return ($data === null) ? false : (is_numeric($data) ? $data : unserialize($data, ['allowed_classes' => $this->classWhitelist]));
 	}
 
 	/**

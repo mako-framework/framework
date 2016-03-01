@@ -26,7 +26,7 @@ class CacheService extends Service
 		{
 			$config = $container->get('config')->get('cache');
 
-			return new CacheManager($config['default'], $config['configurations'], $container);
+			return new CacheManager($config['default'], $config['configurations'], $container, $config['class_whitelist']);
 		});
 	}
 }

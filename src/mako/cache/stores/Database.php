@@ -32,17 +32,27 @@ class Database implements StoreInterface
 	protected $table;
 
 	/**
+	 * Class whitelist.
+	 *
+	 * @var boolean|array
+	 */
+	protected $classWhitelist;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\connections\Connection  $connection  Database connection
-	 * @param   string                                 $table       Database table
+	 * @param   \mako\database\connections\Connection  $connection      Database connection
+	 * @param   string                                 $table           Database table
+	 * @param   boolean|array                          $classWhitelist  Class whitelist
 	 */
-	public function __construct(Connection $connection, $table)
+	public function __construct(Connection $connection, $table, $classWhitelist = false)
 	{
 		$this->connection = $connection;
 
 		$this->table = $table;
+
+		$this->classWhitelist = $classWhitelist;
 	}
 
 	/**
@@ -87,7 +97,7 @@ class Database implements StoreInterface
 		{
 			if(time() < $cache->lifetime)
 			{
-				return unserialize($cache->data);
+				return unserialize($cache->data, ['allowed_classes' => $this->classWhitelist]);
 			}
 
 			$this->remove($key);

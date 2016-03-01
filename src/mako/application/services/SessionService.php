@@ -25,50 +25,54 @@ class SessionService extends Service
 	 * Returns a database store instance.
 	 *
 	 * @access  protected
-	 * @param   \mako\syringe\Container        $container  IoC container instance
-	 * @param   array                          $config     Store configuration
+	 * @param   \mako\syringe\Container        $container       IoC container instance
+	 * @param   array                          $config          Store configuration
+	 * @param   boolean|array                  $classWhitelist  Class whitelist
 	 * @return  \mako\session\stores\Database
 	 */
-	protected function getDatabaseStore($container, $config)
+	protected function getDatabaseStore($container, $config, $classWhitelist)
 	{
-		return new Database($container->get('database')->connection($config['configuration']), $config['table']);
+		return new Database($container->get('database')->connection($config['configuration']), $config['table'], $classWhitelist);
 	}
 
 	/**
 	 * Returns a file store instance.
 	 *
 	 * @access  protected
-	 * @param   \mako\syringe\Container    $container  IoC container instance
-	 * @param   array                      $config     Store configuration
+	 * @param   \mako\syringe\Container    $container       IoC container instance
+	 * @param   array                      $config          Store configuration
+	 * @param   boolean|array              $classWhitelist  Class whitelist
 	 * @return  \mako\session\stores\File
 	 */
-	protected function getFileStore($container, $config)
+	protected function getFileStore($container, $config, $classWhitelist)
 	{
-		return new File($container->get('fileSystem'), $config['path']);
+		return new File($container->get('fileSystem'), $config['path'], $classWhitelist);
 	}
 
 	/**
 	 * Returns a redis store instance.
 	 *
 	 * @access  protected
-	 * @param   \mako\syringe\Container    $container  IoC container instance
-	 * @param   array                      $config     Store configuration
+	 * @param   \mako\syringe\Container     $container       IoC container instance
+	 * @param   array                       $config          Store configuration
+	 * @param   boolean|array               $classWhitelist  Class whitelist
 	 * @return  \mako\session\stores\Redis
 	 */
-	protected function getRedisStore($container, $config)
+	protected function getRedisStore($container, $config, $classWhitelist)
 	{
-		return new Redis($container->get('redis')->connection($config['configuration']));
+		return new Redis($container->get('redis')->connection($config['configuration']), $classWhitelist);
 	}
 
 	/**
 	 * Returns a void store instance.
 	 *
 	 * @access  protected
-	 * @param   \mako\syringe\Container    $container  IoC container instance
-	 * @param   array                      $config     Store configuration
+	 * @param   \mako\syringe\Container    $container       IoC container instance
+	 * @param   array                      $config          Store configuration
+	 * @param   boolean|array              $classWhitelist  Class whitelist
 	 * @return  \mako\session\stores\Void
 	 */
-	protected function getVoidStore($container, $config)
+	protected function getVoidStore($container, $config, $classWhitelist)
 	{
 		return new Void;
 	}
@@ -83,21 +87,23 @@ class SessionService extends Service
 	 */
 	protected function getSessionStore($container, $config)
 	{
+		$classWhitelist = $config['class_whitelist'];
+
 		$config = $config['configurations'][$config['configuration']];
 
 		switch($config['type'])
 		{
 			case 'database':
-				return $this->getDatabaseStore($container, $config);
+				return $this->getDatabaseStore($container, $config, $classWhitelist);
 				break;
 			case 'file':
-				return $this->getFileStore($container, $config);
+				return $this->getFileStore($container, $config, $classWhitelist);
 				break;
 			case 'void':
-				return $this->getVoidStore($container, $config);
+				return $this->getVoidStore($container, $config, $classWhitelist);
 				break;
 			case 'redis':
-				return $this->getRedisStore($container, $config);
+				return $this->getRedisStore($container, $config, $classWhitelist);
 				break;
 		}
 	}

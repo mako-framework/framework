@@ -32,17 +32,27 @@ class File implements StoreInterface
 	protected $cachePath;
 
 	/**
+	 * Class whitelist.
+	 *
+	 * @var boolean|array
+	 */
+	protected $classWhitelist;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
-	 * @param   string                 $cachePath   Cache path
+	 * @param   \mako\file\FileSystem  $fileSystem      File system instance
+	 * @param   string                 $cachePath       Cache path
+	 * @param   boolean|array          $classWhitelist  Class whitelist
 	 */
-	public function __construct(FileSystem $fileSystem, $cachePath)
+	public function __construct(FileSystem $fileSystem, $cachePath, $classWhitelist = false)
 	{
 		$this->fileSystem = $fileSystem;
 
 		$this->cachePath = $cachePath;
+
+		$this->classWhitelist = $classWhitelist;
 	}
 
 	/**
@@ -112,7 +122,7 @@ class File implements StoreInterface
 
 				unset($file);
 
-				return unserialize($cache);
+				return unserialize($cache, ['allowed_classes' => $this->classWhitelist]);
 			}
 			else
 			{

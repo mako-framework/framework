@@ -33,13 +33,21 @@ class XCache implements StoreInterface
 	protected $password;
 
 	/**
+	 * Class whitelist.
+	 *
+	 * @var boolean|array
+	 */
+	protected $classWhitelist;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $username  Username
-	 * @param   string  $password  Password
+	 * @param   string         $username        Username
+	 * @param   string         $password        Password
+	 * @param   boolean|array  $classWhitelist  Class whitelist
 	 */
-	public function __construct($username = null, $password = null)
+	public function __construct($username = null, $password = null, $classWhitelist = false)
 	{
 		if(function_exists('xcache_set') === false)
 		{
@@ -49,6 +57,8 @@ class XCache implements StoreInterface
 		$this->username = $username;
 
 		$this->password = $password;
+
+		$this->classWhitelist = $classWhitelist;
 	}
 
 	/**
@@ -72,7 +82,7 @@ class XCache implements StoreInterface
 	 */
 	public function get($key)
 	{
-		return unserialize(xcache_get($key));
+		return unserialize(xcache_get($key), ['allowed_classes' => $this->classWhitelist]);
 	}
 
 	/**
