@@ -56,7 +56,7 @@ class File implements StoreInterface
 	}
 
 	/**
-	 * Returns the path the the session file.
+	 * Returns the path to the session file.
 	 *
 	 * @access  protected
 	 * @param   string     $sessionId  Session id
