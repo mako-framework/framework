@@ -81,14 +81,13 @@ class SessionService extends Service
 	 * Returns a session store instance.
 	 *
 	 * @access  protected
-	 * @param   \mako\syringe\Container              $container  IoC container instance
-	 * @param   array                                $config     Session configuration
+	 * @param   \mako\syringe\Container              $container       IoC container instance
+	 * @param   array                                $config          Session configuration
+	 * @param   boolean|array                        $classWhitelist  Class whitelist
 	 * @return  \mako\session\stores\StoreInterface
 	 */
-	protected function getSessionStore($container, $config)
+	protected function getSessionStore($container, $config, $classWhitelist)
 	{
-		$classWhitelist = $config['class_whitelist'];
-
 		$config = $config['configurations'][$config['configuration']];
 
 		switch($config['type'])
@@ -115,9 +114,21 @@ class SessionService extends Service
 	{
 		$this->container->registerSingleton([Session::class, 'session'], function($container)
 		{
-			$config = $container->get('config')->get('session');
+			// Get configuration
 
-			$session = new Session($container->get('request'), $container->get('response'), $this->getSessionStore($container, $config));
+			$config = $container->get('config');
+
+			$classWhitelist = $config->get('application.class_whitelist');
+
+			$config = $config->get('session');
+
+			// Get session store instance
+
+			$sessionStore = $this->getSessionStore($container, $config, $classWhitelist);
+
+			// Create session and return it
+
+			$session = new Session($container->get('request'), $container->get('response'), $sessionStore);
 
 			$session->setDataTTL($config['ttl']['data']);
 
