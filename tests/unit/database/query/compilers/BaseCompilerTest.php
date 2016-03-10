@@ -87,6 +87,38 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testBasicSelectWithSubquery()
+	{
+		$query = $this->getBuilder(new Subquery(function($query)
+		{
+			$query->table('foobar');
+		}));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM (SELECT * FROM "foobar")', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicSelectWithSubqueryWithTableAlias()
+	{
+		$query = $this->getBuilder(new Subquery(function($query)
+		{
+			$query->table('foobar');
+		}, 'table_alias'));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM (SELECT * FROM "foobar") AS "table_alias"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testDistinctSelect()
 	{
 		$query = $this->getBuilder();

@@ -154,6 +154,17 @@ class Query
 	}
 
 	/**
+	 * Returns a new query builder instance.
+	 *
+	 * @access  public
+	 * @return  \mako\database\query\Query
+	 */
+	public function newInstance()
+	{
+		return new self($this->connection);
+	}
+
+	/**
 	 * Sets the pagination factory.
 	 *
 	 * @access  public
@@ -325,11 +336,7 @@ class Query
 	{
 		if($table instanceof Closure)
 		{
-			$subquery = new self($this->connection);
-
-			$table($subquery);
-
-			$table = new Subquery($subquery, 'mako0');
+			$table = new Subquery($table, 'mako0');
 		}
 
 		$this->table = $table;
@@ -401,7 +408,7 @@ class Query
 	{
 		if($column instanceof Closure)
 		{
-			$query = new self($this->connection);
+			$query = $this->newInstance();
 
 			$column($query);
 
@@ -556,11 +563,7 @@ class Query
 		}
 		elseif($values instanceof Closure)
 		{
-			$subquery = new self($this->connection);
-
-			$values($subquery);
-
-			$values = [new Subquery($subquery)];
+			$values = [new Subquery($values)];
 		}
 
 		$this->wheres[] =
@@ -685,11 +688,7 @@ class Query
 	{
 		if($query instanceof Closure)
 		{
-			$subquery = new self($this->connection);
-
-			$query($subquery);
-
-			$query = new Subquery($subquery);
+			$query = new Subquery($query);
 		}
 
 		$this->wheres[] =

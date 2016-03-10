@@ -85,7 +85,7 @@ class Compiler
 	 */
 	protected function subquery(Subquery $query)
 	{
-		$query = $query->get();
+		$query = $query->build($this->query->newInstance())->get();
 
 		$this->params = array_merge($this->params, $query['params']);
 
