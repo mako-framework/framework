@@ -172,6 +172,18 @@ class Compiler
 	}
 
 	/**
+	 * Compiles the FROM clause.
+	 *
+	 * @access  public
+	 * @param   string  $table  Table
+	 * @return  string
+	 */
+	protected function from($table)
+	{
+		return ' FROM ' . $this->wrap($table);
+	}
+
+	/**
 	 * Returns raw SQL or a paramter placeholder.
 	 *
 	 * @access  protected
@@ -511,8 +523,7 @@ class Compiler
 	{
 		$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
 		$sql .= $this->columns($this->query->getColumns());
-		$sql .= ' FROM ';
-		$sql .= $this->wrap($this->query->getTable());
+		$sql .= $this->from($this->query->getTable());
 		$sql .= $this->joins($this->query->getJoins());
 		$sql .= $this->wheres($this->query->getWheres());
 		$sql .= $this->groupings($this->query->getGroupings());

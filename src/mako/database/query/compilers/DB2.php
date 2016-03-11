@@ -41,8 +41,7 @@ class DB2 extends Compiler
 			$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
 			$sql .= $this->columns($this->query->getColumns());
 			$sql .= ', ROW_NUMBER() OVER (' . $order . ') AS mako_rownum';
-			$sql .= ' FROM ';
-			$sql .= $this->wrap($this->query->getTable());
+			$sql .= $this->from($this->query->getTable());
 			$sql .= $this->joins($this->query->getJoins());
 			$sql .= $this->wheres($this->query->getWheres());
 			$sql .= $this->groupings($this->query->getGroupings());
