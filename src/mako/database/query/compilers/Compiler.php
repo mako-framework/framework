@@ -77,6 +77,18 @@ class Compiler
 	}
 
 	/**
+	 * Checks whether a string is between parentheses.
+	 *
+	 * @access  protected
+	 * @param   string     $string The string to check
+	 * @return  boolean
+	 */
+	protected function isParenthesesEnclosed($string)
+	{
+		return mb_strlen($string) >= 2 && mb_substr($string, 0, 1) == "(" && mb_substr($string, -1) == ")";
+	}
+
+	/**
 	 * Compiles subquery, merges parameters and returns subquery SQL.
 	 *
 	 * @access  protected
@@ -248,8 +260,8 @@ class Compiler
 	protected function in(array $where)
 	{
 		$values = $this->params($where['values']);
-		return $this->wrap($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ')
-			. ($this->isParenthesesEnclosed($values) ? $values : '(' . $values . ')');
+
+		return $this->wrap($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . ($this->isParenthesesEnclosed($values) ? $values : '(' . $values . ')');
 	}
 
 	/**
@@ -593,20 +605,5 @@ class Compiler
 		$sql .= $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];
-	}
-
-	/**
-	 * Checks whether a string is between bracse.
-	 *
-	 * @param string $string The string to check
-	 *
-	 * @access protected
-	 * @return boolean
-	 */
-	protected function isParenthesesEnclosed($string)
-	{
-		return mb_strlen($string) >= 2
-			&& mb_substr($string, 0, 1) == "("
-			&& mb_substr($string, -1) == ")";
 	}
 }
