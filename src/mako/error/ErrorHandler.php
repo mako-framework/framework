@@ -137,7 +137,7 @@ class ErrorHandler
 	 */
 	public function handle($exceptionType, Closure $handler)
 	{
-		array_unshift($this->handlers, compact('exceptionType', 'handler'));
+		array_unshift($this->handlers, ['exceptionType' => $exceptionType, 'handler' => $handler]);
 	}
 
 	/**

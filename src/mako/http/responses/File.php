@@ -139,7 +139,7 @@ class File implements ResponseContainerInterface
 
 		// Return the range
 
-		return compact('start', 'end');
+		return ['start' => $start, 'end' => $end];
 	}
 
 	/**

@@ -108,7 +108,7 @@ class Dispatcher
 
 		$middleware = $this->middleware->get($middleware);
 
-		return compact('middleware', 'parameters');
+		return ['middleware' => $middleware, 'parameters' => $parameters];
 	}
 
 	/**

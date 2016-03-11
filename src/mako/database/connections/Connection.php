@@ -339,7 +339,7 @@ class Connection
 
 		$query = $this->prepareQueryForLog($query, $params);
 
-		$this->log[] = compact('query', 'time');
+		$this->log[] = ['query' => $query, 'time' => $time];
 	}
 
 	/**
