@@ -113,11 +113,18 @@ class Query
 	protected $limit = null;
 
 	/**
-	 * Offset
+	 * Offset.
 	 *
 	 * @var int
 	 */
 	protected $offset = null;
+
+	/**
+	 * Lock.
+	 *
+	 * @var null|boolean|string
+	 */
+	protected $lock = null;
 
 	/**
 	 * Pagination factory.
@@ -323,6 +330,17 @@ class Query
 	public function getOffset()
 	{
 		return $this->offset;
+	}
+
+	/**
+	 * Returns the lock.
+	 *
+	 * @access  public
+	 * @return  null|boolean|string
+	 */
+	public function getLock()
+	{
+		return $this->lock;
 	}
 
 	/**
@@ -1030,6 +1048,18 @@ class Query
 		$this->offset = (int) $offset;
 
 		return $this;
+	}
+
+	/**
+	 * Enable lock.
+	 *
+	 * @access  public
+	 * @param   boolean|string              $lock  TRUE for exclusive, FALSE for shared and string for custom
+	 * @return  \mako\database\query\Query
+	 */
+	public function lock($lock = true)
+	{
+		$this->lock = $lock;
 	}
 
 	/**

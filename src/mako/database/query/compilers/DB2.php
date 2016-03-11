@@ -19,6 +19,19 @@ class DB2 extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	public function lock($lock)
+	{
+		if($lock === null)
+		{
+			return '';
+		}
+
+		return $lock === true ? ' FOR UPDATE WITH RS' : ($lock === false ? ' FOR READ ONLY WITH RS' : ' ' . $lock);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function select()
 	{
 		if($this->query->getLimit() === null)
@@ -52,7 +65,8 @@ class DB2 extends Compiler
 			$limit  = $offset + $this->query->getLimit();
 			$offset = $offset + 1;
 
-			$sql = 'SELECT * FROM (' . $sql . ') AS mako1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
+			$sql  = 'SELECT * FROM (' . $sql . ') AS mako1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
+			$sql .= $this->lock($this->query->getLock());
 
 			return ['sql' => $sql, 'params' => $this->params];
 		}

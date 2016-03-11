@@ -19,6 +19,19 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	public function lock($lock)
+	{
+		if($lock === null)
+		{
+			return '';
+		}
+
+		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' FOR UPDATE' : ' ' . $lock);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function select()
 	{
 		if($this->query->getLimit() === null)
@@ -53,6 +66,8 @@ class Oracle extends Compiler
 
 				$sql = 'SELECT * FROM (SELECT mako1.*, rownum AS mako_rownum FROM (' . $sql . ') mako1 WHERE rownum <= ' . $limit . ') WHERE mako_rownum >= ' . $offset;
 			}
+
+			$sql .= $this->lock($this->query->getLock());
 
 			return ['sql' => $sql, 'params' => $this->params];
 		}

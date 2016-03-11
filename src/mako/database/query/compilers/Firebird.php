@@ -35,4 +35,17 @@ class Firebird extends Compiler
 
 		return ($limit === null) ? '' : ' TO ' . ($limit + (($offset === null) ? 0 : $offset));
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function lock($lock)
+	{
+		if($lock === null)
+		{
+			return '';
+		}
+
+		return $lock === true ? ' FOR UPDATE WITH LOCK' : ($lock === false ? ' WITH LOCK' : ' ' . $lock);
+	}
 }
