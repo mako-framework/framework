@@ -15,7 +15,7 @@ use mako\database\query\Query;
 /**
  * @group unit
  */
-class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
+class PostgresCompilerTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
@@ -36,7 +36,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function($query)
 		{
-			return new \mako\database\query\compilers\SQLServer($query);
+			return new \mako\database\query\compilers\Postgres($query);
 		});
 
 		return $connection;
@@ -53,50 +53,6 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function testBasicSelect()
-	{
-		$query = $this->getBuilder();
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT * FROM [foobar]', $query['sql']);
-		$this->assertEquals([], $query['params']);
-	}
-
-	/**
-	 *
-	 */
-	public function testSelectWithLimit()
-	{
-		$query = $this->getBuilder();
-
-		$query->limit(10);
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT TOP 10 * FROM [foobar]', $query['sql']);
-		$this->assertEquals([], $query['params']);
-	}
-
-	/**
-	 *
-	 */
-	public function testSelectWithLimitAndOffset()
-	{
-		$query = $this->getBuilder();
-
-		$query->limit(10);
-		$query->offset(10);
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY (SELECT 0)) AS mako_rownum FROM [foobar]) AS mako1 WHERE mako_rownum BETWEEN 11 AND 20', $query['sql']);
-		$this->assertEquals([], $query['params']);
-	}
-
-	/**
-	 *
-	 */
 	public function testSelectWithExclusiveLock()
 	{
 		$query = $this->getBuilder();
@@ -105,7 +61,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM [foobar] WITH (UPDLOCK, ROWLOCK)', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" FOR UPDATE', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -120,7 +76,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM [foobar] WITH (HOLDLOCK, ROWLOCK)', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" FOR SHARE', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -135,7 +91,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM [foobar] CUSTOM LOCK', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" CUSTOM LOCK', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 }

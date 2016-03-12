@@ -94,4 +94,66 @@ class OracleCompilerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('SELECT * FROM (SELECT mako1.*, rownum AS mako_rownum FROM (SELECT * FROM "foobar") mako1 WHERE rownum <= 20) WHERE mako_rownum >= 11', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithExclusiveLock()
+	{
+		$query = $this->getBuilder();
+
+		$query->lock();
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" FOR UPDATE', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithSharedLock()
+	{
+		$query = $this->getBuilder();
+
+		$query->lock(false);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" FOR UPDATE', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithCustomLock()
+	{
+		$query = $this->getBuilder();
+
+		$query->lock('CUSTOM LOCK');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" CUSTOM LOCK', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithLimitAndExclusiveLock()
+	{
+		$query = $this->getBuilder();
+
+		$query->limit(10);
+
+		$query->lock();
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT mako1.* FROM (SELECT * FROM "foobar") mako1 WHERE rownum <= 10 FOR UPDATE', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
 }

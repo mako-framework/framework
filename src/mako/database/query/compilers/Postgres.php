@@ -10,20 +10,13 @@ namespace mako\database\query\compilers;
 use mako\database\query\compilers\Compiler;
 
 /**
- * Compiles MySQL queries.
+ * Compiles Postgres queries.
  *
  * @author  Frederic G. Østby
+ * @author  Yamada Taro
  */
-class MySQL extends Compiler
+class Postgres extends Compiler
 {
-	/**
-	 * {@inheritdoc}
-	 */
-	public function escapeIdentifier($identifier)
-	{
-		return '`' . str_replace('`', '``', $identifier) . '`';
-	}
-
 	/**
 	 * {@inheritdoc}
 	 */
@@ -34,6 +27,6 @@ class MySQL extends Compiler
 			return '';
 		}
 
-		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' LOCK IN SHARE MODE' : ' ' . $lock);
+		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' FOR SHARE' : ' ' . $lock);
 	}
 }

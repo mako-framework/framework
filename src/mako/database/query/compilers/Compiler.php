@@ -526,6 +526,18 @@ class Compiler
 	}
 
 	/**
+	 * Compiles locking clause.
+	 *
+	 * @access  protected
+	 * @param   null|boolean|string
+	 * @return  string
+	 */
+	protected function lock($lock)
+	{
+		return '';
+	}
+
+	/**
 	 * Compiles a SELECT query.
 	 *
 	 * @access  public
@@ -543,6 +555,7 @@ class Compiler
 		$sql .= $this->orderings($this->query->getOrderings());
 		$sql .= $this->limit($this->query->getLimit());
 		$sql .= $this->offset($this->query->getOffset());
+		$sql .= $this->lock($this->query->getLock());
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}

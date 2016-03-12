@@ -23,4 +23,17 @@ class NuoDB extends Compiler
 	{
 		return '`' . str_replace('`', '``', $identifier) . '`';
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function lock($lock)
+	{
+		if($lock === null)
+		{
+			return '';
+		}
+
+		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' LOCK IN SHARE MODE' : ' ' . $lock);
+	}
 }

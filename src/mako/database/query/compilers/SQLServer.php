@@ -34,6 +34,21 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	public function from($from)
+	{
+		$from = parent::from($from);
+
+		if(($lock = $this->query->getLock()) !== null)
+		{
+			$from .= $lock === true ? ' WITH (UPDLOCK, ROWLOCK)' : ($lock === false ? ' WITH (HOLDLOCK, ROWLOCK)' : ' ' . $lock);
+		}
+
+		return $from;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function select()
 	{
 		if($this->query->getLimit() === null)
