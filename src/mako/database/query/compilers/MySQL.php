@@ -27,6 +27,28 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function buildJsonPath($field, array $segments)
+	{
+		$path = '';
+
+		foreach($segments as $segment)
+		{
+			if(is_numeric($segment))
+			{
+				$path .= '[' . $segment . ']';
+			}
+			else
+			{
+				$path .= '.' . $segment;
+			}
+		}
+
+		return $this->escapeIdentifier($field) . '->"$' . str_replace('"', '""', $path) . '"';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function lock($lock)
 	{
 		if($lock === null)

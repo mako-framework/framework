@@ -20,6 +20,35 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function buildJsonPath($field, array $segments)
+	{
+		$segments = array_map(function($segment)
+		{
+			if(is_numeric($segment))
+			{
+				return	$segment;
+			}
+
+			return "'" . str_replace("'", "''", $segment) . "'";
+		}, $segments);
+
+		$last = array_pop($segments);
+
+		if(empty($segments))
+		{
+			$path = '->>' . $last;
+		}
+		else
+		{
+			$path = '->' . implode('->', $segments) . '->>' . $last;
+		}
+
+		return $this->escapeIdentifier($field) . $path;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function lock($lock)
 	{
 		if($lock === null)
