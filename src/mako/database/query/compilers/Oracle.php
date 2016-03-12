@@ -19,7 +19,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function buildJsonPath($field, array $segments)
+	protected function buildJsonPath($column, array $segments)
 	{
 		$path = '';
 
@@ -35,7 +35,7 @@ class Oracle extends Compiler
 			}
 		}
 
-		return $this->escapeIdentifier($field) . $path;
+		return $column . $path;
 	}
 
 	/**

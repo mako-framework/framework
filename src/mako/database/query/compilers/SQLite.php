@@ -10,20 +10,13 @@ namespace mako\database\query\compilers;
 use mako\database\query\compilers\Compiler;
 
 /**
- * Compiles MySQL queries.
+ * Compiles SQLite queries.
  *
  * @author  Frederic G. Østby
+ * @author  Yamada Taro
  */
-class MySQL extends Compiler
+class SQLite extends Compiler
 {
-	/**
-	 * {@inheritdoc}
-	 */
-	public function escapeIdentifier($identifier)
-	{
-		return '`' . str_replace('`', '``', $identifier) . '`';
-	}
-
 	/**
 	 * {@inheritdoc}
 	 */
@@ -43,19 +36,6 @@ class MySQL extends Compiler
 			}
 		}
 
-		return $column . '->"$' . str_replace('"', '""', $path) . '"';
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function lock($lock)
-	{
-		if($lock === null)
-		{
-			return '';
-		}
-
-		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' LOCK IN SHARE MODE' : ' ' . $lock);
+		return 'json_extract(' . $column . ', ' . "'$" . str_replace("'", "''", $path) . "'" . ')';
 	}
 }

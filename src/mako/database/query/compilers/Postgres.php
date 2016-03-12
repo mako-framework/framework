@@ -20,7 +20,7 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function buildJsonPath($field, array $segments)
+	protected function buildJsonPath($column, array $segments)
 	{
 		$segments = array_map(function($segment)
 		{
@@ -43,7 +43,7 @@ class Postgres extends Compiler
 			$path = '->' . implode('->', $segments) . '->>' . $last;
 		}
 
-		return $this->escapeIdentifier($field) . $path;
+		return $column . $path;
 	}
 
 	/**

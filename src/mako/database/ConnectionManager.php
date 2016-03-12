@@ -20,6 +20,7 @@ use mako\database\query\compilers\MySQL as MySQLCompiler;
 use mako\database\query\compilers\NuoDB as NuoDBCompiler;
 use mako\database\query\compilers\Oracle as OracleCompiler;
 use mako\database\query\compilers\Postgres as PostgresCompiler;
+use mako\database\query\compilers\SQLite as SQLiteCompiler;
 use mako\database\query\compilers\SQLServer as SQLServerCompiler;
 use mako\database\query\helpers\Helper;
 use mako\database\query\helpers\Postgres as PostgresHelper;
@@ -69,6 +70,7 @@ class ConnectionManager extends BaseConnectionManager
 		'nuodb'    => NuoDBCompiler::class,
 		'oracle'   => OracleCompiler::class,
 		'pgsql'    => PostgresCompiler::class,
+		'sqlite'   => SQLiteCompiler::class,
 		'sqlsrv'   => SQLServerCompiler::class,
 	];
 

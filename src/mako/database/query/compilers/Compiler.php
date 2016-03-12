@@ -141,6 +141,11 @@ class Compiler
 	{
 		$wrapped = [];
 
+		if(strpos($value, '->') !== false)
+		{
+			list($value, $jsonPath) = explode('->', $value, 2);
+		}
+
 		foreach(explode('.', $value) as $segment)
 		{
 			if($segment === '*')
@@ -149,20 +154,18 @@ class Compiler
 			}
 			else
 			{
-				if(strpos($segment, '->') === false)
-				{
-					$wrapped[] = $this->escapeIdentifier($segment);
-				}
-				else
-				{
-					$segments = explode('->', $segment);
-
-					$wrapped[] = $this->buildJsonPath(array_shift($segments), $segments);
-				}
+				$wrapped[] = $this->escapeIdentifier($segment);
 			}
 		}
 
-		return implode('.', $wrapped);
+		$wrapped = implode('.', $wrapped);
+
+		if(isset($jsonPath))
+		{
+			$wrapped = $this->buildJsonPath($wrapped, explode('->', $jsonPath));
+		}
+
+		return $wrapped;
 	}
 
 	/**
