@@ -34,6 +34,28 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function buildJsonPath($column, array $segments)
+	{
+		$path = '';
+
+		foreach($segments as $segment)
+		{
+			if(is_numeric($segment))
+			{
+				$path .= '[' . $segment . ']';
+			}
+			else
+			{
+				$path .= '.' . $segment;
+			}
+		}
+
+		return 'json_value(' . $column . ', ' . "'lax $" . str_replace("'", "''", $path) . "'" . ')';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function from($from)
 	{
 		$from = parent::from($from);

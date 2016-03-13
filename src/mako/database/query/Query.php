@@ -1224,7 +1224,7 @@ class Query
 	 */
 	protected function aggregate($column, $function)
 	{
-		$aggregate = new Raw($function . '(' . $this->compiler->escapeTableAndOrColumn($column) . ')');
+		$aggregate = new Raw($function . '(' . $this->compiler->wrapTableAndOrColumn($column) . ')');
 
 		$query = $this->select([$aggregate])->compiler->select();
 

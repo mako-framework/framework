@@ -97,6 +97,54 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithJSONColumn()
+	{
+		$query = $this->getBuilder();
+
+		$query->select(['json->foo->0->bar']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT json_value([json], \'lax $.foo[0].bar\') FROM [foobar]', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->select(['json->foo->0->\'bar']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT json_value([json], \'lax $.foo[0].\'\'bar\') FROM [foobar]', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->select(['json->foo->0->bar as jsonvalue']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT json_value([json], \'lax $.foo[0].bar\') AS [jsonvalue] FROM [foobar]', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->select(['foobar.json->foo->0->bar as jsonvalue']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT json_value([foobar].[json], \'lax $.foo[0].bar\') AS [jsonvalue] FROM [foobar]', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithExclusiveLock()
 	{
 		$query = $this->getBuilder();

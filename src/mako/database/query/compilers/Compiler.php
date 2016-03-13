@@ -8,6 +8,7 @@
 namespace mako\database\query\compilers;
 
 use DateTimeInterface;
+use Exception;
 
 use mako\database\query\Join;
 use mako\database\query\Query;
@@ -117,15 +118,33 @@ class Compiler
 	}
 
 	/**
+	 * Builds a JSON path.
+	 *
+	 * @access  protected
+	 * @param   string     $column    Column name
+	 * @param   array      $segments  JSON path segments
+	 * @return  string
+	 */
+	protected function buildJsonPath($column, array $segments)
+	{
+		throw new Exception(vsprintf("%s(): The [ %s ] query compiler does not support the unified JSON field syntax.", [__METHOD__, static::class]));
+	}
+
+	/**
 	 * Returns an escaped table or column name.
 	 *
 	 * @access  public
 	 * @param   string  $value  Value to escape
 	 * @return  string
 	 */
-	public function escapeTableAndOrColumn($value)
+	public function wrapTableAndOrColumn($value)
 	{
 		$wrapped = [];
+
+		if(strpos($value, '->') !== false)
+		{
+			list($value, $jsonPath) = explode('->', $value, 2);
+		}
 
 		foreach(explode('.', $value) as $segment)
 		{
@@ -139,7 +158,14 @@ class Compiler
 			}
 		}
 
-		return implode('.', $wrapped);
+		$wrapped = implode('.', $wrapped);
+
+		if(isset($jsonPath))
+		{
+			$wrapped = $this->buildJsonPath($wrapped, explode('->', $jsonPath));
+		}
+
+		return $wrapped;
 	}
 
 	/**
@@ -163,11 +189,11 @@ class Compiler
 		{
 			$values = explode(' ', $value);
 
-			return sprintf('%s AS %s', $this->escapeTableAndOrColumn($values[0]), $this->escapeTableAndOrColumn($values[2]));
+			return sprintf('%s AS %s', $this->wrapTableAndOrColumn($values[0]), $this->wrapTableAndOrColumn($values[2]));
 		}
 		else
 		{
-			return $this->escapeTableAndOrColumn($value);
+			return $this->wrapTableAndOrColumn($value);
 		}
 	}
 

@@ -19,6 +19,28 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function buildJsonPath($column, array $segments)
+	{
+		$path = '';
+
+		foreach($segments as $segment)
+		{
+			if(is_numeric($segment))
+			{
+				$path .= '[' . $segment . ']';
+			}
+			else
+			{
+				$path .= '.' . $this->escapeIdentifier($segment);
+			}
+		}
+
+		return $column . $path;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function lock($lock)
 	{
 		if($lock === null)

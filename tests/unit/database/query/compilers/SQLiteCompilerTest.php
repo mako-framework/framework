@@ -15,7 +15,7 @@ use mako\database\query\Query;
 /**
  * @group unit
  */
-class PostgresCompilerTest extends PHPUnit_Framework_TestCase
+class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
@@ -36,7 +36,7 @@ class PostgresCompilerTest extends PHPUnit_Framework_TestCase
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function($query)
 		{
-			return new \mako\database\query\compilers\Postgres($query);
+			return new \mako\database\query\compilers\SQLite($query);
 		});
 
 		return $connection;
@@ -61,7 +61,7 @@ class PostgresCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT "json"->\'foo\'->0->>\'bar\' FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT json_extract("json", \'$.foo[0].bar\') FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -72,7 +72,7 @@ class PostgresCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT "json"->\'foo\'->0->>\'\'\'bar\' FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT json_extract("json", \'$.foo[0].\'\'bar\') FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -83,7 +83,7 @@ class PostgresCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT "json"->\'foo\'->0->>\'bar\' AS "jsonvalue" FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT json_extract("json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -94,52 +94,7 @@ class PostgresCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT "foobar"."json"->\'foo\'->0->>\'bar\' AS "jsonvalue" FROM "foobar"', $query['sql']);
-		$this->assertEquals([], $query['params']);
-	}
-
-	/**
-	 *
-	 */
-	public function testSelectWithExclusiveLock()
-	{
-		$query = $this->getBuilder();
-
-		$query->lock();
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT * FROM "foobar" FOR UPDATE', $query['sql']);
-		$this->assertEquals([], $query['params']);
-	}
-
-	/**
-	 *
-	 */
-	public function testSelectWithSharedLock()
-	{
-		$query = $this->getBuilder();
-
-		$query->lock(false);
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT * FROM "foobar" FOR SHARE', $query['sql']);
-		$this->assertEquals([], $query['params']);
-	}
-
-	/**
-	 *
-	 */
-	public function testSelectWithCustomLock()
-	{
-		$query = $this->getBuilder();
-
-		$query->lock('CUSTOM LOCK');
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT * FROM "foobar" CUSTOM LOCK', $query['sql']);
+		$this->assertEquals('SELECT json_extract("foobar"."json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 }
