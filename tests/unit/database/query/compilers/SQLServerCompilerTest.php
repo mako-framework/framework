@@ -146,7 +146,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLimitAndOffsetAndOrder()
+	public function testSelectWithLimitOffsetAndOrder()
 	{
 		$query = $this->getBuilder();
 

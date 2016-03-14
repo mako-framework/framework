@@ -54,44 +54,48 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function select()
+	protected function orderings(array $orderings)
 	{
-		if($this->query->getLimit() === null)
+		if(empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null))
 		{
-			// No limit so we can just execute a normal query
-
-			return parent::select();
+			return ' ORDER BY (SELECT 0)';
 		}
-		else
+
+		return parent::orderings($orderings);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function limit($limit)
+	{
+		$offset = $this->query->getOffset();
+
+		if($limit === null)
 		{
-			$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
-			$sql .= $this->columns($this->query->getColumns());
-			$sql .= $this->from($this->query->getTable());
-			$sql .= $this->joins($this->query->getJoins());
-			$sql .= $this->wheres($this->query->getWheres());
-			$sql .= $this->groupings($this->query->getGroupings());
-			$sql .= $this->havings($this->query->getHavings());
-			$sql .= $this->orderings($this->query->getOrderings());
-
-			if($this->query->getOffset() === null)
-			{
-				// No offset so we only need a simple subquery to emulate the LIMIT clause
-
-				$sql = 'SELECT mako1.* FROM (' . $sql . ') mako1 WHERE rownum <= ' . $this->query->getLimit();
-			}
-			else
-			{
-				// There is an offset so we need to make a bunch of subqueries to emulate the LIMIT and OFFSET clauses
-
-				$limit  = $this->query->getLimit() + $this->query->getOffset();
-				$offset = $this->query->getOffset() + 1;
-
-				$sql = 'SELECT * FROM (SELECT mako1.*, rownum AS mako_rownum FROM (' . $sql . ') mako1 WHERE rownum <= ' . $limit . ') WHERE mako_rownum >= ' . $offset;
-			}
-
-			$sql .= $this->lock($this->query->getLock());
-
-			return ['sql' => $sql, 'params' => $this->params];
+			return '';
 		}
+
+		if($offset === null)
+		{
+			return ' FETCH FIRST ' . $limit . ' ROWS ONLY';
+		}
+
+		return ' OFFSET ' . $offset . ' ROWS FETCH NEXT ' . $limit . ' ROWS ONLY';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function offset($offset)
+	{
+		$limit = $this->query->getLimit();
+
+		if($limit === null && $offset !== null)
+		{
+			return ' OFFSET ' . $offset . ' ROWS';
+		}
+
+		return '';
 	}
 }

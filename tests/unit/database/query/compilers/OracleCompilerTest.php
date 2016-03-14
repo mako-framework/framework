@@ -75,7 +75,56 @@ class OracleCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT mako1.* FROM (SELECT * FROM "foobar") mako1 WHERE rownum <= 10', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY (SELECT 0) FETCH FIRST 10 ROWS ONLY', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithLimitAndOrder()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderBy('foo', 'DESC');
+
+		$query->limit(10);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" DESC FETCH FIRST 10 ROWS ONLY', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithOffset()
+	{
+		$query = $this->getBuilder();
+
+		$query->offset(10);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY (SELECT 0) OFFSET 10 ROWS', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithOffsetAndOrder()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderBy('foo', 'DESC');
+
+		$query->offset(10);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" DESC OFFSET 10 ROWS', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -91,7 +140,25 @@ class OracleCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM (SELECT mako1.*, rownum AS mako_rownum FROM (SELECT * FROM "foobar") mako1 WHERE rownum <= 20) WHERE mako_rownum >= 11', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY (SELECT 0) OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithLimitOffsetAndOrder()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderBy('foo', 'DESC');
+
+		$query->limit(10);
+		$query->offset(10);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" DESC OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -185,23 +252,6 @@ class OracleCompilerTest extends PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" CUSTOM LOCK', $query['sql']);
-		$this->assertEquals([], $query['params']);
-	}
-
-	/**
-	 *
-	 */
-	public function testSelectWithLimitAndExclusiveLock()
-	{
-		$query = $this->getBuilder();
-
-		$query->limit(10);
-
-		$query->lock();
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT mako1.* FROM (SELECT * FROM "foobar") mako1 WHERE rownum <= 10 FOR UPDATE', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 }
