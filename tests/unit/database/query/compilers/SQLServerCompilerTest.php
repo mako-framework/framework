@@ -74,7 +74,56 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT TOP 10 * FROM [foobar]', $query['sql']);
+		$this->assertEquals('SELECT * FROM [foobar] ORDER BY (SELECT 0) OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithLimitAndOrder()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderBy('foo', 'DESC');
+
+		$query->limit(10);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM [foobar] ORDER BY [foo] DESC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithOffset()
+	{
+		$query = $this->getBuilder();
+
+		$query->offset(10);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM [foobar] ORDER BY (SELECT 0) OFFSET 10 ROWS', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithOffsetAndOrder()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderBy('foo', 'DESC');
+
+		$query->offset(10);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM [foobar] ORDER BY [foo] DESC OFFSET 10 ROWS', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -90,7 +139,25 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY (SELECT 0)) AS mako_rownum FROM [foobar]) AS mako1 WHERE mako_rownum BETWEEN 11 AND 20', $query['sql']);
+		$this->assertEquals('SELECT * FROM [foobar] ORDER BY (SELECT 0) OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithLimitAndOffsetAndOrder()
+	{
+		$query = $this->getBuilder();
+
+		$query->orderBy('foo', 'DESC');
+
+		$query->limit(10);
+		$query->offset(10);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM [foobar] ORDER BY [foo] DESC OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 

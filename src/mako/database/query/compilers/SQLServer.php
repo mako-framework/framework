@@ -17,11 +17,9 @@ use mako\database\query\compilers\Compiler;
 class SQLServer extends Compiler
 {
 	/**
-	 * Date format.
-	 *
-	 * @var string
+	 * {@inheritdoc}
 	 */
-	protected static $dateForamt = 'Y-m-d H:i:s.0000000';
+	protected static $dateFormat = 'Y-m-d H:i:s.0000000';
 
 	/**
 	 * {@inheritdoc}
@@ -71,58 +69,43 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function select()
+	protected function orderings(array $orderings)
 	{
-		if($this->query->getLimit() === null)
+		if(empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null))
 		{
-			// No limit so we can just execute a normal query
-
-			return parent::select();
+			return ' ORDER BY (SELECT 0)';
 		}
-		else
+
+		return parent::orderings($orderings);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function limit($limit)
+	{
+		$offset = $this->query->getOffset();
+
+		if($limit === null)
 		{
-
-			if($this->query->getOffset() === null)
-			{
-				// No offset so we can just use the TOP clause
-
-				$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
-				$sql .= 'TOP ' . $this->query->getLimit() . ' ';
-				$sql .= $this->columns($this->query->getColumns());
-				$sql .= $this->from($this->query->getTable());
-				$sql .= $this->joins($this->query->getJoins());
-				$sql .= $this->wheres($this->query->getWheres());
-				$sql .= $this->groupings($this->query->getGroupings());
-				$sql .= $this->havings($this->query->getHavings());
-				$sql .= $this->orderings($this->query->getOrderings());
-			}
-			else
-			{
-				// There is an offset so we need to emulate the OFFSET clause with ANSI-SQL
-
-				$order = trim($this->orderings($this->query->getOrderings()));
-
-				if(empty($order))
-				{
-					$order = 'ORDER BY (SELECT 0)';
-				}
-
-				$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
-				$sql .= $this->columns($this->query->getColumns());
-				$sql .= ', ROW_NUMBER() OVER (' . $order . ') AS mako_rownum';
-				$sql .= $this->from($this->query->getTable());
-				$sql .= $this->joins($this->query->getJoins());
-				$sql .= $this->wheres($this->query->getWheres());
-				$sql .= $this->groupings($this->query->getGroupings());
-				$sql .= $this->havings($this->query->getHavings());
-
-				$limit  = $this->query->getOffset() + $this->query->getLimit();
-				$offset = $this->query->getOffset() + 1;
-
-				$sql = 'SELECT * FROM (' . $sql . ') AS mako1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
-			}
-
-			return ['sql' => $sql, 'params' => $this->params];
+			return '';
 		}
+
+		return ' OFFSET ' . ($offset ?: 0) . ' ROWS FETCH NEXT ' . $limit . ' ROWS ONLY';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function offset($offset)
+	{
+		$limit = $this->query->getLimit();
+
+		if($limit === null && $offset !== null)
+		{
+			return ' OFFSET ' . $offset . ' ROWS';
+		}
+
+		return '';
 	}
 }
