@@ -36,14 +36,10 @@ class Postgres extends Compiler
 
 		if(empty($segments))
 		{
-			$path = '->>' . $last;
-		}
-		else
-		{
-			$path = '->' . implode('->', $segments) . '->>' . $last;
+			return $column . $path = '->>' . $last;
 		}
 
-		return $column . $path;
+		return $column . '->' . implode('->', $segments) . '->>' . $last;
 	}
 
 	/**
