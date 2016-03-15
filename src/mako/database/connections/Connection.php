@@ -628,36 +628,57 @@ class Connection
 	}
 
 	/**
+	 * Creates a new savepoint.
+	 *
+	 * @access  protected
+	 * @return  boolean
+	 */
+	protected function createSavepoint()
+	{
+		return $this->pdo->exec('SAVEPOINT transactionNestingLevel' . $this->transactionNestingLevel) !== false;
+	}
+
+	/**
+	 * Rolls back to the previously created savepoint.
+	 *
+	 * @access  protected
+	 * @return  boolean
+	 */
+	protected function rollBackSavepoint()
+	{
+		return $this->pdo->exec('ROLLBACK TO SAVEPOINT transactionNestingLevel' . $this->transactionNestingLevel) !== false;
+	}
+
+	/**
 	 * Begin a transaction.
 	 *
 	 * @access  public
+	 * @return  boolean
 	 */
 	public function beginTransaction()
 	{
-		$this->transactionNestingLevel++;
-
-		if($this->transactionNestingLevel === 1)
+		if($this->transactionNestingLevel++ === 0)
 		{
-			$this->pdo->beginTransaction();
+			return $this->pdo->beginTransaction();
 		}
+
+		return $this->createSavepoint();
 	}
 
 	/**
 	 * Commits a transaction.
 	 *
 	 * @access  public
+	 * @return  boolean
 	 */
 	public function commitTransaction()
 	{
-		if($this->transactionNestingLevel > 0)
+		if($this->transactionNestingLevel > 0 && --$this->transactionNestingLevel === 0)
 		{
-			$this->transactionNestingLevel--;
+			return $this->pdo->commit();
 		}
 
-		if($this->transactionNestingLevel === 0)
-		{
-			$this->pdo->commit();
-		}
+		return false;
 	}
 
 	/**
@@ -667,15 +688,23 @@ class Connection
 	 */
 	public function rollBackTransaction()
 	{
-		if($this->transactionNestingLevel > 0)
+		if($this->transactionNestingLevel >= 0)
 		{
+			if($this->transactionNestingLevel > 1)
+			{
+				$success = $this->rollBackSavepoint();
+			}
+			else
+			{
+				$success =  $this->pdo->rollBack();
+			}
+
 			$this->transactionNestingLevel--;
+
+			return $success;
 		}
 
-		if($this->transactionNestingLevel === 0)
-		{
-			$this->pdo->rollBack();
-		}
+		return false;
 	}
 
 	/**
@@ -705,6 +734,7 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   \Closure  $queries  Queries
+	 * @return  mixed
 	 */
 	public function transaction(Closure $queries)
 	{
@@ -712,7 +742,7 @@ class Connection
 		{
 			$this->beginTransaction();
 
-			$queries($this);
+			$returnValue = $queries($this);
 
 			$this->commitTransaction();
 		}
@@ -722,5 +752,7 @@ class Connection
 
 			throw $e;
 		}
+
+		return $returnValue;
 	}
 }
