@@ -688,7 +688,7 @@ class Connection
 	 */
 	public function rollBackTransaction()
 	{
-		if($this->transactionNestingLevel >= 0)
+		if($this->transactionNestingLevel > 0)
 		{
 			if($this->transactionNestingLevel > 1)
 			{
