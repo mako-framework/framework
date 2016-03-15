@@ -53,15 +53,20 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetGet()
 	{
-		$collection = new Collection();
-
-		$this->assertNull($collection[0]);
-
-		//
-
 		$collection = new Collection([1,2,3]);
 
 		$this->assertEquals(1, $collection[0]);
+	}
+
+	/**
+	 * @expectedException \OutOfBoundsException
+	 * @expectedExceptionMessage mako\utility\Collection::offsetGet(): Undefined offset [ 0 ].
+	 */
+	public function testOffsetGetWithUndefinedOffset()
+	{
+		$collection = new Collection();
+
+		$collection[0];
 	}
 
 	/**
