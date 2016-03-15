@@ -12,6 +12,7 @@ use ArrayIterator;
 use Closure;
 use Countable;
 use IteratorAggregate;
+use OutOfBoundsException;
 
 use mako\common\ExtendableTrait;
 
@@ -74,7 +75,12 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function offsetGet($offset)
 	{
-		return $this->items[$offset] ?? null;
+		if(isset($this->items[$offset]))
+		{
+			return $this->items[$offset];
+		}
+
+		throw new OutOfBoundsException(vsprintf("%s(): Undefined offset [ %s ].", [__METHOD__, $offset]));
 	}
 
 	/**
