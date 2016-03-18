@@ -58,7 +58,7 @@ class Subquery
 		{
 			$subquery = $this->query;
 
-			$this->query = $query;
+			$this->query = $query->newInstance();
 
 			$subquery($query);
 		}
