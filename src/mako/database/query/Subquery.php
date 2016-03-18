@@ -60,7 +60,7 @@ class Subquery
 
 			$this->query = $query->newInstance();
 
-			$subquery($query);
+			$subquery($this->query);
 		}
 
 		return $this;
