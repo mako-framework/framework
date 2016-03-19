@@ -7,8 +7,6 @@
 
 namespace mako\cache;
 
-use Closure;
-
 use mako\cache\stores\StoreInterface;
 
 /**
@@ -100,25 +98,14 @@ class Cache
 	 * Fetch data from the cache or store it if it doesn't already exist.
 	 *
 	 * @access  public
-	 * @param   string    $key  Cache key
-	 * @param   \Closure  $data  Closure that returns the data we want to store
-	 * @param   int       $ttl    Time to live
+	 * @param   string    $key   Cache key
+	 * @param   callable  $data  Closure that returns the data we want to store
+	 * @param   int       $ttl   Time to live
 	 * @return  mixed
 	 */
-	public function getOrElse($key, Closure $data, $ttl = 0)
+	public function getOrElse($key, callable $data, $ttl = 0)
 	{
-		if(!$this->store->has($this->prefixedKey($key)))
-		{
-			$data = $data();
-
-			$this->store->put($this->prefixedKey($key), $data, $ttl);
-
-			return $data;
-		}
-		else
-		{
-			return $this->store->get($this->prefixedKey($key));
-		}
+		return $this->store->getOrElse($this->prefixedKey($key), $data, $ttl);
 	}
 
 	/**

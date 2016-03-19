@@ -10,6 +10,7 @@ namespace mako\cache\stores;
 use RuntimeException;
 
 use mako\cache\stores\StoreInterface;
+use mako\cache\stores\traits\GetOrElseTrait;
 
 /**
  * Zend memory store.
@@ -18,6 +19,8 @@ use mako\cache\stores\StoreInterface;
  */
 class ZendMemory implements StoreInterface
 {
+	use GetOrElseTrait;
+
 	/**
 	 * Constructor.
 	 *

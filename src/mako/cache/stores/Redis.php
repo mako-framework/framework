@@ -8,6 +8,7 @@
 namespace mako\cache\stores;
 
 use mako\cache\stores\StoreInterface;
+use mako\cache\stores\traits\GetOrElseTrait;
 use mako\redis\Redis as RedisClient;
 
 /**
@@ -17,6 +18,8 @@ use mako\redis\Redis as RedisClient;
  */
 class Redis implements StoreInterface
 {
+	use GetOrElseTrait;
+
 	/**
 	 * Redis client
 	 *

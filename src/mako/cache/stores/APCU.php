@@ -58,6 +58,14 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getOrElse($key, callable $data, $ttl = 0)
+	{
+		return apcu_entry($key, $data, $ttl);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function remove($key)
 	{
 		return apcu_delete($key);

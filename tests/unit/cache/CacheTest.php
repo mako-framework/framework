@@ -120,15 +120,17 @@ class CacheTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetOrElse()
 	{
+		$closure = function(){};
+
+		//
+
 		$store = $this->getStore();
 
-		$store->shouldReceive('has')->once()->with('foo')->andReturn(true);
-
-		$store->shouldReceive('get')->once()->with('foo')->andReturn('from cache');
+		$store->shouldReceive('getOrElse')->with('foo', $closure, 0)->andReturn('from cache');
 
 		$cache = new Cache($store);
 
-		$cached = $cache->getOrElse('foo', function(){});
+		$cached = $cache->getOrElse('foo', $closure);
 
 		$this->assertEquals('from cache', $cached);
 
@@ -136,41 +138,11 @@ class CacheTest extends PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('has')->once()->with('foo')->andReturn(false);
-
-		$store->shouldReceive('put')->once()->with('foo', 'from closure', 0)->andReturn(true);
+		$store->shouldReceive('getOrElse')->with('foo', $closure, 3600)->andReturn('from cache');
 
 		$cache = new Cache($store);
 
-		$cached = $cache->getOrElse('foo', function(){ return 'from closure'; });
-
-		$this->assertEquals('from closure', $cached);
-
-		//
-
-		$store = $this->getStore();
-
-		$store->shouldReceive('has')->once()->with('foo')->andReturn(false);
-
-		$store->shouldReceive('put')->once()->with('foo', 'from closure', 3600)->andReturn(true);
-
-		$cache = new Cache($store);
-
-		$cached = $cache->getOrElse('foo', function(){ return 'from closure'; }, 3600);
-
-		$this->assertEquals('from closure', $cached);
-
-		//
-
-		$store = $this->getStore();
-
-		$store->shouldReceive('has')->once()->with('baz.foo')->andReturn(true);
-
-		$store->shouldReceive('get')->once()->with('baz.foo')->andReturn('from cache');
-
-		$cache = new Cache($store, 'baz');
-
-		$cached = $cache->getOrElse('foo', function(){});
+		$cached = $cache->getOrElse('foo', $closure, 3600);
 
 		$this->assertEquals('from cache', $cached);
 
@@ -178,29 +150,13 @@ class CacheTest extends PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('has')->once()->with('baz.foo')->andReturn(false);
-
-		$store->shouldReceive('put')->once()->with('baz.foo', 'from closure', 0)->andReturn(true);
+		$store->shouldReceive('getOrElse')->with('baz.foo', $closure, 3600)->andReturn('from cache');
 
 		$cache = new Cache($store, 'baz');
 
-		$cached = $cache->getOrElse('foo', function(){ return 'from closure'; });
+		$cached = $cache->getOrElse('foo', $closure, 3600);
 
-		$this->assertEquals('from closure', $cached);
-
-		//
-
-		$store = $this->getStore();
-
-		$store->shouldReceive('has')->once()->with('baz.foo')->andReturn(false);
-
-		$store->shouldReceive('put')->once()->with('baz.foo', 'from closure', 3600)->andReturn(true);
-
-		$cache = new Cache($store, 'baz');
-
-		$cached = $cache->getOrElse('foo', function(){ return 'from closure'; }, 3600);
-
-		$this->assertEquals('from closure', $cached);
+		$this->assertEquals('from cache', $cached);
 	}
 
 	/**

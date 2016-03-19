@@ -8,6 +8,7 @@
 namespace mako\cache\stores;
 
 use mako\cache\stores\StoreInterface;
+use mako\cache\stores\traits\GetOrElseTrait;
 
 /**
  * Void store.
@@ -16,6 +17,8 @@ use mako\cache\stores\StoreInterface;
  */
 class Void implements StoreInterface
 {
+	use GetOrElseTrait;
+
 	/**
 	 * {@inheritdoc}
 	 */

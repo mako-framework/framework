@@ -10,6 +10,7 @@ namespace mako\cache\stores;
 use RuntimeException;
 
 use mako\cache\stores\StoreInterface;
+use mako\cache\stores\traits\GetOrElseTrait;
 
 /**
  * Zend disk store.
@@ -18,6 +19,8 @@ use mako\cache\stores\StoreInterface;
  */
 class ZendDisk implements StoreInterface
 {
+	use GetOrElseTrait;
+
 	/**
 	 * Constructor.
 	 *

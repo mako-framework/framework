@@ -10,6 +10,7 @@ namespace mako\cache\stores;
 use Memcache as PHPMemcache;
 
 use mako\cache\stores\StoreInterface;
+use mako\cache\stores\traits\GetOrElseTrait;
 
 /**
  * Memcache store.
@@ -18,6 +19,8 @@ use mako\cache\stores\StoreInterface;
  */
 class Memcache implements StoreInterface
 {
+	use GetOrElseTrait;
+
 	/**
 	 * Memcache instance.
 	 *

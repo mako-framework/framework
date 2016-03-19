@@ -8,6 +8,7 @@
 namespace mako\cache\stores;
 
 use mako\cache\stores\StoreInterface;
+use mako\cache\stores\traits\GetOrElseTrait;
 use mako\database\connections\Connection;
 
 /**
@@ -17,6 +18,8 @@ use mako\database\connections\Connection;
  */
 class Database implements StoreInterface
 {
+	use GetOrElseTrait;
+
 	/**
 	 * Database connection
 	 *

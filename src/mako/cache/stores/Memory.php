@@ -8,6 +8,7 @@
 namespace mako\cache\stores;
 
 use mako\cache\stores\StoreInterface;
+use mako\cache\stores\traits\GetOrElseTrait;
 
 /**
  * Memory store.
@@ -16,6 +17,8 @@ use mako\cache\stores\StoreInterface;
  */
 class Memory implements StoreInterface
 {
+	use GetOrElseTrait;
+
 	/**
 	 * Cache data.
 	 *
