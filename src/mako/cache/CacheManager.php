@@ -9,7 +9,6 @@ namespace mako\cache;
 
 use RuntimeException;
 
-use mako\cache\stores\APC;
 use mako\cache\stores\APCU;
 use mako\cache\stores\Database;
 use mako\cache\stores\File;
@@ -19,7 +18,6 @@ use mako\cache\stores\Memory;
 use mako\cache\stores\Redis;
 use mako\cache\stores\Void;
 use mako\cache\stores\WinCache;
-use mako\cache\stores\XCache;
 use mako\cache\stores\ZendDisk;
 use mako\cache\stores\ZendMemory;
 use mako\common\AdapterManager;
@@ -59,18 +57,6 @@ class CacheManager extends AdapterManager
 		$this->container = $container;
 
 		$this->classWhitelist = $classWhitelist;
-	}
-
-	/**
-	 * APC store factory.
-	 *
-	 * @access  protected
-	 * @param   array                   $configuration  Configuration
-	 * @return  \mako\cache\stores\APC
-	 */
-	protected function apcFactory($configuration)
-	{
-		return new APC;
 	}
 
 	/**
@@ -179,18 +165,6 @@ class CacheManager extends AdapterManager
 	protected function wincacheFactory($configuration)
 	{
 		return new WinCache;
-	}
-
-	/**
-	 * Xcache store factory.
-	 *
-	 * @access  protected
-	 * @param   array                      $configuration  Configuration
-	 * @return  \mako\cache\stores\XCache
-	 */
-	protected function xcacheFactory($configuration)
-	{
-		return new XCache($configuration['username'], $configuration['password']);
 	}
 
 	/**
