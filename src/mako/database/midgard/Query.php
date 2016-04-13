@@ -20,6 +20,8 @@ use mako\database\query\Query as QueryBuilder;
  * ORM query builder.
  *
  * @author  Frederic G. Østby
+ *
+ * @method  \mako\database\midgard\ResultSet  paginate($itemsPerPage = null, array $options = [])
  */
 class Query extends QueryBuilder
 {
@@ -369,19 +371,6 @@ class Query extends QueryBuilder
 		}
 
 		return new ResultSet($results);
-	}
-
-	/**
-	 * Paginates the results using a pagination instance.
-	 *
-	 * @access  public
-	 * @param   null|int                          $itemsPerPage  Number of items per page
-	 * @param   array                             $options       Pagination options
-	 * @return  \mako\database\midgard\ResultSet
-	 */
-	public function paginate($itemsPerPage = null, array $options = [])
-	{
-		return parent::paginate($itemsPerPage, $options);
 	}
 
 	/**
