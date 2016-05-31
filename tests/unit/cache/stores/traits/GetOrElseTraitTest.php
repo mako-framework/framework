@@ -43,7 +43,7 @@ class Store
 /**
  * @group unit
  */
-class GetOrElseTrait extends PHPUnit_Framework_TestCase
+class GetOrElseTraitTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
