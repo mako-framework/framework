@@ -686,7 +686,7 @@ abstract class ORM
 	 */
 	public function __isset($name)
 	{
-		return isset($this->columns[$name]) || isset($this->related[$name]) || ($this->$name && isset($this->related[$name]));
+		return isset($this->columns[$name]) || isset($this->related[$name]);
 	}
 
 	/**
