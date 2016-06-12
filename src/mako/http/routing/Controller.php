@@ -14,7 +14,6 @@ use mako\syringe\ContainerAwareTrait;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Controller
 {
 	use ContainerAwareTrait;

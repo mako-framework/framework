@@ -1,35 +1,43 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\database\query\compilers;
 
-use mako\database\query\Query;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\database\query\Query;
 
 /**
  * @group unit
  */
-
-class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
+class NuoDBCompilerTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	protected function getConnection()
 	{
-		$connection = m::mock('\mako\database\Connection');
+		$connection = Mockery::mock('\mako\database\connections\Connection');
 
-		$connection->shouldReceive('getDialect')->andReturn('nuodb');
+		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock('\mako\database\query\helpers\HelperInterface'));
+
+		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function($query)
+		{
+			return new \mako\database\query\compilers\NuoDB($query);
+		});
 
 		return $connection;
 	}
@@ -37,7 +45,6 @@ class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	protected function getBuilder($table = 'foobar')
 	{
 		return (new Query($this->getConnection()))->table($table);
@@ -46,7 +53,6 @@ class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithLimit()
 	{
 		$query = $this->getBuilder();
@@ -56,13 +62,12 @@ class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM `foobar` LIMIT 10', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithLimitAndOffset()
 	{
 		$query = $this->getBuilder();
@@ -73,6 +78,51 @@ class NuoDBCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM `foobar` LIMIT 10 OFFSET 10', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithExclusiveLock()
+	{
+		$query = $this->getBuilder();
+
+		$query->lock();
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM `foobar` FOR UPDATE', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithSharedLock()
+	{
+		$query = $this->getBuilder();
+
+		$query->lock(false);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM `foobar` LOCK IN SHARE MODE', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithCustomLock()
+	{
+		$query = $this->getBuilder();
+
+		$query->lock('CUSTOM LOCK');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM `foobar` CUSTOM LOCK', $query['sql']);
+		$this->assertEquals([], $query['params']);
 	}
 }

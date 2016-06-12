@@ -14,7 +14,6 @@ use mako\validator\plugins\ValidatorPluginInterface;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class ValidatorPlugin implements ValidatorPluginInterface
 {
 	/**
@@ -22,7 +21,6 @@ abstract class ValidatorPlugin implements ValidatorPluginInterface
 	 *
 	 * @var string
 	 */
-
 	protected $ruleName = '';
 
 	/**
@@ -30,13 +28,11 @@ abstract class ValidatorPlugin implements ValidatorPluginInterface
 	 *
 	 * @var string
 	 */
-
 	protected $packageName = '';
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getRuleName()
 	{
 		return $this->ruleName;
@@ -45,7 +41,6 @@ abstract class ValidatorPlugin implements ValidatorPluginInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getPackageName()
 	{
 		return $this->packageName;

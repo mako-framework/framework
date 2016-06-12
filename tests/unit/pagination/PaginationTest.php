@@ -1,129 +1,110 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\pagination;
 
-use mako\pagination\Pagination;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\pagination\Pagination;
 
 /**
  * @group unit
  */
-
-class PaginationTest extends \PHPUnit_Framework_TestCase
+class PaginationTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getRequest()
 	{
-		return m::mock('mako\http\Request');
+		return Mockery::mock('mako\http\Request');
 	}
 
 	/**
 	 *
 	 */
-
 	public function getViewFactory()
 	{
-		return m::mock('mako\view\ViewFactory');
+		return Mockery::mock('mako\view\ViewFactory');
 	}
 
 	/**
 	 *
 	 */
-
 	public function getView()
 	{
-		return m::mock('mako\view\View');
+		return Mockery::mock('mako\view\View');
 	}
 
 	/**
 	 *
 	 */
-
 	public function getURLBuilder()
 	{
-		return m::mock('mako\http\routing\URLBuilder');
+		return Mockery::mock('mako\http\routing\URLBuilder');
 	}
 
 	/**
 	 *
 	 */
-
-	public function testConstructor()
+	public function testItems()
 	{
-		$request = $this->getRequest();
 
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(1);
+		$pagination = new Pagination(200, 20, 1);
 
-		$pagination = new Pagination($request, 200);
+		$this->assertEquals(200, $pagination->items());
 	}
 
 	/**
 	 *
 	 */
-
-	public function testConstructorWithConfig()
+	public function testItemsPerPage()
 	{
-		$request = $this->getRequest();
 
-		$request->shouldReceive('get')->once()->with('side', 1)->andReturn(1);
+		$pagination = new Pagination(200, 20, 1);
 
-		$pagination = new Pagination($request, 200, ['page_key' => 'side']);
+		$this->assertEquals(20, $pagination->itemsPerPage());
 	}
 
 	/**
 	 *
 	 */
-
-	public function testPages()
-	{
-		$request = $this->getRequest();
-
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(1);
-
-		$pagination = new Pagination($request, 200);
-
-		$this->assertEquals(10, $pagination->pages());
-	}
-
-	/**
-	 *
-	 */
-
 	public function testCurrentPage()
 	{
-		$request = $this->getRequest();
+		$pagination = new Pagination(200, 20, 1);
 
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(11);
-
-		$pagination = new Pagination($request, 200);
-
-		$this->assertEquals(11, $pagination->currentPage());
+		$this->assertEquals(1, $pagination->currentPage());
 	}
 
 	/**
 	 *
 	 */
+	public function testNumberOfPages()
+	{
+		$pagination = new Pagination(200, 20, 1);
 
+		$this->assertEquals(10, $pagination->numberOfPages());
+	}
+
+	/**
+	 *
+	 */
 	public function testLimit()
 	{
-		$request = $this->getRequest();
-
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(1);
-
-		$pagination = new Pagination($request, 200);
+		$pagination = new Pagination(200, 20, 1);
 
 		$this->assertEquals(20, $pagination->limit());
 	}
@@ -131,79 +112,25 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
-	public function testLimitWithConfig()
-	{
-		$request = $this->getRequest();
-
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(1);
-
-		$pagination = new Pagination($request, 200, ['items_per_page' => 10]);
-
-		$this->assertEquals(10, $pagination->limit());
-	}
-
-	/**
-	 *
-	 */
-
 	public function testOffset()
 	{
-		$request = $this->getRequest();
-
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(1);
-
-		$pagination = new Pagination($request, 200);
+		$pagination = new Pagination(200, 20, 1);
 
 		$this->assertEquals(0, $pagination->offset());
 
 		//
 
-		$request = $this->getRequest();
-
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(2);
-
-		$pagination = new Pagination($request, 200);
+		$pagination = new Pagination(200, 20, 2);
 
 		$this->assertEquals(20, $pagination->offset());
 	}
 
 	/**
-	 *
-	 */
-
-	public function testOffsetWithConfig()
-	{
-		$request = $this->getRequest();
-
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(1);
-
-		$pagination = new Pagination($request, 200);
-
-		$this->assertEquals(0, $pagination->offset());
-
-		//
-
-		$request = $this->getRequest();
-
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(2);
-
-		$pagination = new Pagination($request, 200, ['items_per_page' => 10]);
-
-		$this->assertEquals(10, $pagination->offset());
-	}
-
-	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testRenderException()
 	{
-		$request = $this->getRequest();
-
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(2);
-
-		$pagination = new Pagination($request, 200, ['items_per_page' => 10]);
+		$pagination = new Pagination(200, 20, 1);
 
 		$pagination->render('partials.pagination');
 	}
@@ -211,31 +138,33 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
-	public function testPaginateException()
+	public function testPaginateExceptionWithNoRequest()
 	{
-		$request = $this->getRequest();
+		$pagination = new Pagination(200, 20, 1);
 
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(2);
+		$pagination->pagination();
+	}
 
-		$viewFactory = $this->getViewFactory();
+	/**
+	 * @expectedException \RuntimeException
+	 */
+	public function testPaginateExceptionWithNoUrlBuilder()
+	{
+		$pagination = new Pagination(200, 20, 1);
 
-		$pagination = new Pagination($request, 200, [], null, $viewFactory);
+		$pagination->setRequest($this->getRequest());
 
-		$pagination->render('partials.pagination');
+		$pagination->pagination();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testRenderPage1()
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(1);
-
-		$request->shouldReceive('get')->once()->andReturn([]);
+		$request->shouldReceive('get')->once()->andReturn(['page' => 1]);
 
 		$urlBuilder = $this->getURLBuilder();
 
@@ -250,9 +179,11 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
 		$paginationArray =
 		[
-			'count'=> 10,
-			'last' => 'http://example.org/?page=10',
-			'next' => 'http://example.org/?page=2',
+			'items'           => 200,
+			'items_per_page'  => 20,
+			'number_of_pages' => 10,
+			'last'            => 'http://example.org/?page=10',
+			'next'            => 'http://example.org/?page=2',
 
 			'pages'=>
 			[
@@ -295,7 +226,13 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
 		$viewFactory->shouldReceive('create')->once()->with('partials.pagination', $paginationArray)->andReturn($view);
 
-		$pagination = new Pagination($request, 200, [], $urlBuilder, $viewFactory);
+		$pagination = new Pagination(200, 20, 1);
+
+		$pagination->setRequest($request);
+
+		$pagination->setURLBuilder($urlBuilder);
+
+		$pagination->setViewFactory($viewFactory);
 
 		$pagination->render('partials.pagination');
 	}
@@ -303,14 +240,11 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRenderPage2()
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(2);
-
-		$request->shouldReceive('get')->once()->andReturn([]);
+		$request->shouldReceive('get')->once()->andReturn(['page' => 2]);
 
 		$urlBuilder = $this->getURLBuilder();
 
@@ -325,11 +259,13 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
 		$paginationArray =
 		[
-			'count'    => 10,
-			'first'    => 'http://example.org/?page=1',
-			'previous' => 'http://example.org/?page=1',
-			'last'     => 'http://example.org/?page=10',
-			'next'     => 'http://example.org/?page=3',
+			'items'           => 200,
+			'items_per_page'  => 20,
+			'number_of_pages' => 10,
+			'first'           => 'http://example.org/?page=1',
+			'previous'        => 'http://example.org/?page=1',
+			'last'            => 'http://example.org/?page=10',
+			'next'            => 'http://example.org/?page=3',
 
 			'pages'=>
 			[
@@ -372,7 +308,13 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
 		$viewFactory->shouldReceive('create')->once()->with('partials.pagination', $paginationArray)->andReturn($view);
 
-		$pagination = new Pagination($request, 200, [], $urlBuilder, $viewFactory);
+		$pagination = new Pagination(200, 20, 2);
+
+		$pagination->setRequest($request);
+
+		$pagination->setURLBuilder($urlBuilder);
+
+		$pagination->setViewFactory($viewFactory);
 
 		$pagination->render('partials.pagination');
 	}
@@ -381,9 +323,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('get')->once()->with('page', 1)->andReturn(10);
-
-		$request->shouldReceive('get')->once()->andReturn([]);
+		$request->shouldReceive('get')->once()->andReturn(['page' => 10]);
 
 		$urlBuilder = $this->getURLBuilder();
 
@@ -398,7 +338,9 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
 		$paginationArray =
 		[
-			'count'    => 10,
+			'items'           => 200,
+			'items_per_page'  => 20,
+			'number_of_pages' => 10,
 			'first'    => 'http://example.org/?page=1',
 			'previous' => 'http://example.org/?page=9',
 
@@ -443,7 +385,13 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
 		$viewFactory->shouldReceive('create')->once()->with('partials.pagination', $paginationArray)->andReturn($view);
 
-		$pagination = new Pagination($request, 200, [], $urlBuilder, $viewFactory);
+		$pagination = new Pagination(200, 20, 10);
+
+		$pagination->setRequest($request);
+
+		$pagination->setURLBuilder($urlBuilder);
+
+		$pagination->setViewFactory($viewFactory);
 
 		$pagination->render('partials.pagination');
 	}

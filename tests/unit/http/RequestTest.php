@@ -1,30 +1,33 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http;
 
-use mako\http\Request;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\http\Request;
 
 /**
  * @group unit
  */
-
-class RequestTest extends \PHPUnit_Framework_TestCase
+class RequestTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getServerData()
 	{
 		return [
@@ -66,7 +69,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAcceptableContentTypes()
 	{
 		$server = $this->getServerData();
@@ -79,7 +81,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAcceptableLanguages()
 	{
 		$server = $this->getServerData();
@@ -92,7 +93,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAcceptableCharsets()
 	{
 		$server = $this->getServerData();
@@ -105,7 +105,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAcceptableEncodings()
 	{
 		$server = $this->getServerData();
@@ -118,7 +117,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIP()
 	{
 		$server = $this->getServerData();
@@ -139,7 +137,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$server['REMOTE_ADDR'] = '127.0.0.1';
 
-		$server['HTTP_X_FORWARDED_FOR'] = '10.17.12.211, 10.17.12.212, 10.17.12.213';
+		$server['HTTP_X_FORWARDED_FOR'] = '10.17.13.0, 10.17.13.1, 10.17.12.212, 10.17.12.213';
 
 		$request = new Request(['server' => $server]);
 
@@ -159,13 +157,20 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 		$request->setTrustedProxies(['10.17.12.212', '10.17.12.213']);
 
-		$this->assertEquals('10.17.12.211', $request->ip());
+		$this->assertEquals('10.17.13.1', $request->ip());
+
+		// Should return the IP forwarded by the first trusted proxy
+
+		$request = new Request(['server' => $server]);
+
+		$request->setTrustedProxies(['10.17.12.0/24']);
+
+		$this->assertEquals('10.17.13.1', $request->ip());
 	}
 
 	/**
 	 *
 	 */
-
 	public function testIsAjax()
 	{
 		$server = $this->getServerData();
@@ -186,7 +191,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsSecure()
 	{
 		$server = $this->getServerData();
@@ -247,7 +251,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBaseURL()
 	{
 		$server = $this->getServerData();
@@ -308,7 +311,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPath()
 	{
 		$server = $this->getServerData();
@@ -335,7 +337,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPathWithLanguage()
 	{
 		$server = $this->getServerData();
@@ -350,7 +351,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLanguage()
 	{
 		$server = $this->getServerData();
@@ -365,7 +365,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLanguagePrefix()
 	{
 		$server = $this->getServerData();
@@ -380,7 +379,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMethod()
 	{
 		$server = $this->getServerData();
@@ -415,7 +413,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRealMethod()
 	{
 		$server = $this->getServerData();
@@ -444,7 +441,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsFaked()
 	{
 		$server = $this->getServerData();
@@ -473,7 +469,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testUsername()
 	{
 		$server = $this->getServerData();
@@ -494,7 +489,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPassword()
 	{
 		$server = $this->getServerData();
@@ -515,7 +509,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCookie()
 	{
 		$cookies = ['foo' => 'bar'];
@@ -532,10 +525,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSignedCookie()
 	{
-		$signer = m::mock('\mako\security\Signer');
+		$signer = Mockery::mock('\mako\security\Signer');
 
 		$signer->shouldReceive('validate')->withArgs(['bar'])->andReturn('bar');
 
@@ -559,7 +551,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testSignedCookieException()
 	{
 		$request = new Request();
@@ -570,7 +561,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHeader()
 	{
 		$server = $this->getServerData();
@@ -589,7 +579,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testServer()
 	{
 		$server = $this->getServerData();
@@ -608,7 +597,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$get = ['foo' => 'bar', 'baz' => ['bax']];
@@ -629,7 +617,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPost()
 	{
 		$post = ['foo' => 'bar', 'baz' => ['bax']];
@@ -650,7 +637,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBody()
 	{
 		$request = new Request(['body' => '{"foo":"bar","baz":["bax"]}']);
@@ -661,7 +647,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testJsonPutData()
 	{
 		$body = ['foo' => 'bar', 'baz' => ['bax']];
@@ -686,7 +671,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testURLEncodedPutData()
 	{
 		$body = ['foo' => 'bar', 'baz' => ['bax']];
@@ -711,7 +695,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMagicGet()
 	{
 		$get = ['foo' => 'bar', 'baz' => ['bax']];
@@ -728,7 +711,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMagicIsset()
 	{
 		$get = ['foo' => 'bar', 'baz' => ['bax']];
@@ -745,12 +727,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetRoute()
 	{
 		$request = new Request();
 
-		$route = m::mock('mako\http\routing\Route');
+		$route = Mockery::mock('mako\http\routing\Route');
 
 		$request->setRoute($route);
 	}
@@ -758,14 +739,13 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetRoute()
 	{
 		$request = new Request();
 
 		$this->assertNull($request->getRoute());
 
-		$route = m::mock('mako\http\routing\Route');
+		$route = Mockery::mock('mako\http\routing\Route');
 
 		$request->setRoute($route);
 

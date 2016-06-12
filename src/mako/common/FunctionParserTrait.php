@@ -14,7 +14,6 @@ use RuntimeException;
  *
  * @author  Frederic G. Østby
  */
-
 trait FunctionParserTrait
 {
 	/**
@@ -26,7 +25,6 @@ trait FunctionParserTrait
 	 * @param   string     $function  Function
 	 * @return  array
 	 */
-
 	protected function parseFunction($function)
 	{
 		if(strpos($function, ':') === false)

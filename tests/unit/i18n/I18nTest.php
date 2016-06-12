@@ -1,21 +1,25 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\i18n;
 
-use mako\i18n\I18n;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\i18n\I18n;
 
 /**
  * @group unit
  */
-
-class I18nTest extends \PHPUnit_Framework_TestCase
+class I18nTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	protected $strings =
 	[
 		'foo'	   => ['foo' => 'foostring', 'greeting' => 'hello %s'],
@@ -26,34 +30,30 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getLoader()
 	{
-		return m::mock('mako\i18n\Loader');
+		return Mockery::mock('mako\i18n\Loader');
 	}
 
 	/**
 	 *
 	 */
-
 	protected function getCache()
 	{
-		return m::mock('mako\cache\Cache');
+		return Mockery::mock('mako\cache\Cache');
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSetCache()
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
@@ -64,7 +64,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetLanguage()
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
@@ -75,7 +74,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetLanguage()
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
@@ -90,7 +88,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetLoader()
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
@@ -101,7 +98,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHas()
 	{
 		$loader = $this->getLoader();
@@ -130,7 +126,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$loader = $this->getLoader();
@@ -153,7 +148,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetWithLang()
 	{
 		$loader = $this->getLoader();
@@ -176,7 +170,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testParameters()
 	{
 		$loader = $this->getLoader();
@@ -191,7 +184,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPluralize()
 	{
 		$loader = $this->getLoader();
@@ -216,7 +208,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage mako\i18n\I18n::pluralize(): The [ en_US ] language pack does not include any inflection rules.
 	 */
-
 	public function testPluralizeWithoutPluralizationRules()
 	{
 		$loader = $this->getLoader();
@@ -231,7 +222,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPluralizeInStrings()
 	{
 		$loader = $this->getLoader();
@@ -257,7 +247,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCacheLoad()
 	{
 		$cache = $this->getCache();
@@ -272,7 +261,6 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCacheSave()
 	{
 		$loader = $this->getLoader();

@@ -1,33 +1,36 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http\routing;
 
-use mako\http\routing\Router;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\http\routing\Router;
 
 /**
  * @group unit
  */
-
-class RouterTest extends \PHPUnit_Framework_TestCase
+class RouterTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getRequest()
 	{
-		$request = m::mock('\mako\http\Request');
+		$request = Mockery::mock('\mako\http\Request');
 
 		return $request;
 	}
@@ -35,10 +38,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getRouteCollection($routes)
 	{
-		$collection = m::mock('\mako\http\routing\Routes');
+		$collection = Mockery::mock('\mako\http\routing\Routes');
 
 		$collection->shouldReceive('getRoutes')->andReturn($routes);
 
@@ -48,7 +50,6 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getRouter($routes)
 	{
 		return new Router($this->getRouteCollection($routes));
@@ -57,10 +58,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \mako\http\exceptions\NotFoundException
 	 */
-
 	public function testPageNotFound()
 	{
-		$route = m::mock('\mako\http\routing\Route');
+		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getRegex')->andReturn('#^/bar$#s');
 
@@ -78,10 +78,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \mako\http\exceptions\MethodNotAllowedException
 	 */
-
 	public function testMethodNotAllowed()
 	{
-		$route = m::mock('\mako\http\routing\Route');
+		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
 
@@ -112,10 +111,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRedirect()
 	{
-		$route = m::mock('\mako\http\routing\Route');
+		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
 
@@ -153,9 +151,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('get')->once()->andReturn(['foo' => 'bar']);
 
-		$response = m::mock('mako\http\Response');
+		$response = Mockery::mock('mako\http\Response');
 
-		$redirect = m::mock('mako\http\responses\Redirect');
+		$redirect = Mockery::mock('mako\http\responses\Redirect');
 
 		$redirect->shouldReceive('status')->once()->with(301)->andReturn($redirect);
 
@@ -169,10 +167,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOptionsRequest()
 	{
-		$route = m::mock('\mako\http\routing\Route');
+		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->makePartial();
 
@@ -208,7 +205,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 		$closure = $routed[0]->getAction();
 
-		$response = m::mock('mako\http\Response');
+		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('header')->once()->with('allow', 'POST,OPTIONS');
 
@@ -218,10 +215,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSuccessfulRoute()
 	{
-		$route = m::mock('\mako\http\routing\Route');
+		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
 
@@ -249,10 +245,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSuccessfulRouteWithParameters()
 	{
-		$route = m::mock('\mako\http\routing\Route');
+		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getRegex')->andReturn('#^/foo/(?P<id>[^/]++)$#s');
 

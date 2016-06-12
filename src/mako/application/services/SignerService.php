@@ -15,16 +15,14 @@ use mako\security\Signer;
  *
  * @author  Frederic G. Østby
  */
-
 class SignerService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\security\Signer', 'signer'], function($container)
+		$this->container->registerSingleton([Signer::class, 'signer'], function($container)
 		{
 			return new Signer($container->get('config')->get('application.secret'));
 		});

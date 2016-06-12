@@ -12,7 +12,6 @@ namespace mako\security\crypto\encrypters;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Encrypter
 {
 	/**
@@ -20,7 +19,6 @@ abstract class Encrypter
 	 *
 	 * @var string
 	 */
-
 	const DERIVATION_HASH = 'sha256';
 
 	/**
@@ -28,7 +26,6 @@ abstract class Encrypter
 	 *
 	 * @var int
 	 */
-
 	const DERIVATION_ITERATIONS = 1024;
 
 	/**
@@ -40,30 +37,8 @@ abstract class Encrypter
 	 * @param   string     $keySize  The desired key size
 	 * @return  string
 	 */
-
 	protected function deriveKey($key, $salt, $keySize)
 	{
-		if(function_exists('hash_pbkdf2'))
-		{
-			return hash_pbkdf2(static::DERIVATION_HASH, $key, $salt, static::DERIVATION_ITERATIONS, $keySize, true);
-		}
-		else
-		{
-			$derivedKey = '';
-
-			for($block = 1; $block <= $keySize; $block++)
-			{
-				$ib = $h = hash_hmac(static::DERIVATION_HASH, $salt . pack('N', $block), $key, true);
-
-				for($i = 1; $i < static::DERIVATION_ITERATIONS; $i++)
-				{
-					$ib ^= ($h = hash_hmac(static::DERIVATION_HASH, $h, $key, true));
-				}
-
-				$derivedKey .= $ib;
-			}
-
-			return substr($derivedKey, 0, $keySize);
-		}
+		return hash_pbkdf2(static::DERIVATION_HASH, $key, $salt, static::DERIVATION_ITERATIONS, $keySize, true);
 	}
 }

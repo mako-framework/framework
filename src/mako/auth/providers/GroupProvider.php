@@ -14,7 +14,6 @@ use mako\auth\providers\GroupProviderInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class GroupProvider implements GroupProviderInterface
 {
 	/**
@@ -22,7 +21,6 @@ class GroupProvider implements GroupProviderInterface
 	 *
 	 * @var string
 	 */
-
 	protected $model;
 
 	/**
@@ -31,7 +29,6 @@ class GroupProvider implements GroupProviderInterface
 	 * @access  public
 	 * @param   string  $model  Model class
 	 */
-
 	public function __construct($model)
 	{
 		$this->model = $model;
@@ -40,7 +37,6 @@ class GroupProvider implements GroupProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function createGroup($name)
 	{
 		$model = $this->model;
@@ -57,7 +53,6 @@ class GroupProvider implements GroupProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getByName($name)
 	{
 		$model = $this->model;
@@ -68,7 +63,6 @@ class GroupProvider implements GroupProviderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getById($id)
 	{
 		$model = $this->model;

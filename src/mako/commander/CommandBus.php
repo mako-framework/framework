@@ -19,7 +19,6 @@ use mako\syringe\Container;
  *
  * @author  Yamada Taro
  */
-
 class CommandBus implements CommandBusInterface
 {
 	/**
@@ -27,7 +26,6 @@ class CommandBus implements CommandBusInterface
 	 *
 	 * @var string
 	 */
-
 	const COMMAND_SUFFIX = 'Command';
 
 	/**
@@ -35,7 +33,6 @@ class CommandBus implements CommandBusInterface
 	 *
 	 * @var string
 	 */
-
 	const HANDLER_SUFFIX = 'Handler';
 
 	/**
@@ -43,7 +40,6 @@ class CommandBus implements CommandBusInterface
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -51,18 +47,16 @@ class CommandBus implements CommandBusInterface
 	 *
 	 * @var \mako\onion\Onion
 	 */
-
 	protected $onion;
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function __construct(Container $container = null, Onion $onion = null)
 	{
-		$this->container = $container ?: new Container;
+		$this->container = $container ?? new Container;
 
-		$this->onion = $onion ?: new Onion($this->container);
+		$this->onion = $onion ?? new Onion($this->container);
 	}
 
 	/**
@@ -73,7 +67,6 @@ class CommandBus implements CommandBusInterface
 	 * @param   boolean  $inner       Add an inner layer?
 	 * @return  int
 	 */
-
 	public function addMiddleware($middleware, $inner = true)
 	{
 		return $inner ? $this->onion->addInnerLayer($middleware) : $this->onion->addOuterLayer($middleware);
@@ -87,7 +80,6 @@ class CommandBus implements CommandBusInterface
 	 * @param   array                                    $parameters  Parameters
 	 * @return  \mako\commander\CommandInterface
 	 */
-
 	protected function resolveCommand($command, array $parameters)
 	{
 		if($command instanceof CommandInterface)
@@ -105,7 +97,6 @@ class CommandBus implements CommandBusInterface
 	 * @param   \mako\commander\CommandInterface         $command  Command
 	 * @return  \mako\commander\CommandHandlerInterface
 	 */
-
 	protected function resolveCommandHandler(CommandInterface $command)
 	{
 		$class = get_class($command);
@@ -136,7 +127,6 @@ class CommandBus implements CommandBusInterface
 	 * @param   \mako\commander\CommandInterface         $command  Command
 	 * @return  mixed
 	 */
-
 	protected function executeCommandHandler(CommandHandlerInterface $handler, CommandInterface $command)
 	{
 		return $handler->handle($command);
@@ -149,7 +139,6 @@ class CommandBus implements CommandBusInterface
 	 * @param   \mako\commander\CommandInterface  $command  Command
 	 * @return  mixed
 	 */
-
 	protected function handle(CommandInterface $command)
 	{
 		if($command instanceof SelfHandlingCommandInterface)
@@ -169,7 +158,6 @@ class CommandBus implements CommandBusInterface
 	 * @param   array              $middleware  Middleware
 	 * @return  \mako\onion\Onion
 	 */
-
 	protected function resolveOnion(array $middleware)
 	{
 		if(empty($middleware))
@@ -190,7 +178,6 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function dispatch($command, array $parameters = [], array $middleware = [])
 	{
 		$command = $this->resolveCommand($command, $parameters);

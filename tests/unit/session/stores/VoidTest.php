@@ -1,21 +1,24 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\session\stores;
 
-use mako\session\stores\Void;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\session\stores\Void;
 
 /**
  * @group unit
  */
-
-class VoidTest extends \PHPUnit_Framework_TestCase
+class VoidTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testWrite()
 	{
 		$null = new Void;
@@ -26,7 +29,6 @@ class VoidTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRead()
 	{
 		$null = new Void;
@@ -37,7 +39,6 @@ class VoidTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDelete()
 	{
 		$null = new Void;
@@ -49,7 +50,6 @@ class VoidTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGc()
 	{
 		$null = new Void;

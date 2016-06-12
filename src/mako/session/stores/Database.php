@@ -7,7 +7,7 @@
 
 namespace mako\session\stores;
 
-use mako\database\Connection;
+use mako\database\connections\Connection;
 use mako\session\stores\StoreInterface;
 
 /**
@@ -15,15 +15,13 @@ use mako\session\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Database implements StoreInterface
 {
 	/**
 	 * Database connection
 	 *
-	 * @var \mako\database\Connection
+	 * @var \mako\database\connections\Connection
 	 */
-
 	protected $connection;
 
 	/**
@@ -31,22 +29,30 @@ class Database implements StoreInterface
 	 *
 	 * @var string
 	 */
-
 	protected $table;
+
+	/**
+	 * Class whitelist.
+	 *
+	 * @var boolean|array
+	 */
+	protected $classWhitelist;
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Connection  $connection  Database connection
-	 * @param   string                     $table       Database table
+	 * @param   \mako\database\connections\Connection  $connection      Database connection
+	 * @param   string                                 $table           Database table
+	 * @param   boolean|array                          $classWhitelist  Class whitelist
 	 */
-
-	public function __construct(Connection $connection, $table)
+	public function __construct(Connection $connection, $table, $classWhitelist = false)
 	{
 		$this->connection = $connection;
 
 		$this->table = $table;
+
+		$this->classWhitelist = $classWhitelist;
 	}
 
 	/**
@@ -55,7 +61,6 @@ class Database implements StoreInterface
 	 * @access  protected
 	 * @return  \mako\database\query\Query
 	 */
-
 	protected function table()
 	{
 		return $this->connection->builder()->table($this->table);
@@ -64,7 +69,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
 		$sessionData = serialize($sessionData);
@@ -86,18 +90,16 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function read($sessionId)
 	{
 		$sessionData = $this->table()->select(['data'])->where('id', '=', $sessionId)->column();
 
-		return ($sessionData !== false) ? unserialize($sessionData) : [];
+		return ($sessionData !== false) ? unserialize($sessionData, ['allowed_classes' => $this->classWhitelist]) : [];
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function delete($sessionId)
 	{
 		$this->table()->where('id', '=', $sessionId)->delete();
@@ -106,7 +108,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function gc($dataTTL)
 	{
 		$this->table()->where('expires', '<', time())->delete();

@@ -1,30 +1,33 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\database\midgard;
 
-use mako\database\midgard\ResultSet;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\database\midgard\ResultSet;
 
 /**
  * @group unit
  */
-
-class ResultSetTest extends \PHPUnit_Framework_TestCase
+class ResultSetTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testPluck()
 	{
 		$resultSet = new ResultSet([['foo' => 'bar'], ['foo' => 'bar']]);
@@ -45,12 +48,11 @@ class ResultSetTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToArray()
 	{
-		$mock1 = m::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
+		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
 
-		$mock2 = m::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'baz'])->getMock();
+		$mock2 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'baz'])->getMock();
 
 		$resultSet = new ResultSet([$mock1, $mock2]);
 
@@ -60,12 +62,11 @@ class ResultSetTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToJson()
 	{
-		$mock1 = m::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
+		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
 
-		$mock2 = m::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'baz'])->getMock();
+		$mock2 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'baz'])->getMock();
 
 		$resultSet = new ResultSet([$mock1, $mock2]);
 
@@ -75,12 +76,11 @@ class ResultSetTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToString()
 	{
-		$mock1 = m::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
+		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
 
-		$mock2 = m::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'baz'])->getMock();
+		$mock2 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'baz'])->getMock();
 
 		$resultSet = new ResultSet([$mock1, $mock2]);
 

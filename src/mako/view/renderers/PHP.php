@@ -15,7 +15,6 @@ use mako\view\renderers\RendererInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class PHP implements RendererInterface
 {
 	use EscaperTrait;
@@ -23,7 +22,6 @@ class PHP implements RendererInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function render($__view__, array $__variables__)
 	{
 		extract($__variables__, EXTR_REFS | EXTR_SKIP);

@@ -10,21 +10,22 @@ namespace mako\cache\stores;
 use Memcached as PHPMemcached;
 
 use mako\cache\stores\StoreInterface;
+use mako\cache\stores\traits\GetOrElseTrait;
 
 /**
  * Memcached store.
  *
  * @author  Frederic G. Østby
  */
-
 class Memcached implements StoreInterface
 {
+	use GetOrElseTrait;
+
 	/**
 	 * Memcached instance.
 	 *
 	 * @var \Memcached
 	 */
-
 	protected $memcached;
 
 	/**
@@ -35,12 +36,11 @@ class Memcached implements StoreInterface
 	 * @param   int      $timeout       Timeout in seconds
 	 * @param   boolean  $compressData  Compress data?
 	 */
-
 	public function __construct(array $servers, $timeout = 1, $compressData = false)
 	{
 		$this->memcached = new PHPMemcached();
 
-		if($timtout !== 1)
+		if($timeout !== 1)
 		{
 			$this->memcached->setOption(PHPMemcached::OPT_CONNECT_TIMEOUT, ($timeout * 1000)); // Multiply by 1000 to convert to ms
 		}
@@ -61,7 +61,6 @@ class Memcached implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		if($ttl !== 0)
@@ -80,7 +79,6 @@ class Memcached implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return ($this->memcached->get($key) !== false);
@@ -89,7 +87,6 @@ class Memcached implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		return $this->memcached->get($key);
@@ -98,7 +95,6 @@ class Memcached implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		return $this->memcached->delete($key, 0);
@@ -107,7 +103,6 @@ class Memcached implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		return $this->memcached->flush();

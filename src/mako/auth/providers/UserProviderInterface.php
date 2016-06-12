@@ -14,7 +14,6 @@ use mako\auth\user\UserInterface;
  *
  * @author  Frederic G. Østby
  */
-
 interface UserProviderInterface
 {
 	/**
@@ -27,7 +26,6 @@ interface UserProviderInterface
 	 * @param   string                         $ip        IP address
 	 * @return  \mako\auth\user\UserInterface
 	 */
-
 	public function createUser($email, $username, $password, $ip = null);
 
 	/**
@@ -37,7 +35,6 @@ interface UserProviderInterface
 	 * @param   string                                 $token  Action token
 	 * @return  \mako\auth\user\UserInterface|boolean
 	 */
-
 	public function getByActionToken($token);
 
 	/**
@@ -47,7 +44,6 @@ interface UserProviderInterface
 	 * @param   string                                 $token  Access token
 	 * @return  \mako\auth\user\UserInterface|boolean
 	 */
-
 	public function getByAccessToken($token);
 
 	/**
@@ -57,7 +53,6 @@ interface UserProviderInterface
 	 * @param   string                                 $email  Email address
 	 * @return  \mako\auth\user\UserInterface|boolean
 	 */
-
 	public function getByEmail($email);
 
 	/**
@@ -67,7 +62,6 @@ interface UserProviderInterface
 	 * @param   string                                 $username  Username
 	 * @return  \mako\auth\user\UserInterface|boolean
 	 */
-
 	public function getByUsername($username);
 
 	/**
@@ -77,7 +71,6 @@ interface UserProviderInterface
 	 * @param   string                                 $id  User id
 	 * @return  \mako\auth\user\UserInterface|boolean
 	 */
-
 	public function getById($id);
 
 	/**
@@ -89,7 +82,6 @@ interface UserProviderInterface
 	 * @param   int                            $lockTime          Number of seconds for which the account gets locked after reaching the maximum number of login attempts
 	 * @return  boolean
 	 */
-
 	public function throttle(UserInterface $user, $maxLoginAttempts, $lockTime);
 
 	/**
@@ -99,7 +91,6 @@ interface UserProviderInterface
 	 * @param   \mako\auth\user\UserInterface  $user  User object
 	 * @return  boolean
 	 */
-
 	public function resetThrottle(UserInterface $user);
 
 	/**
@@ -110,6 +101,5 @@ interface UserProviderInterface
 	 * @param   string                         $password  Password
 	 * @return  boolean
 	 */
-
 	public function validatePassword(UserInterface $user, $password);
 }

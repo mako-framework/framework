@@ -21,7 +21,6 @@ use mako\validator\plugins\ValidatorPluginInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Validator
 {
 	use FunctionParserTrait;
@@ -31,7 +30,6 @@ class Validator
 	 *
 	 * @var array
 	 */
-
 	protected $input;
 
 	/**
@@ -39,7 +37,6 @@ class Validator
 	 *
 	 * @var array
 	 */
-
 	protected $rules = [];
 
 	/**
@@ -47,7 +44,6 @@ class Validator
 	 *
 	 * @var \mako\i18n\I18n
 	 */
-
 	protected $i18n;
 
 	/**
@@ -55,7 +51,6 @@ class Validator
 	 *
 	 * @var array
 	 */
-
 	protected $errors = [];
 
 	/**
@@ -63,7 +58,6 @@ class Validator
 	 *
 	 * @var array
 	 */
-
 	protected $plugins = [];
 
 	/**
@@ -74,7 +68,6 @@ class Validator
 	 * @param   array            $rules  Array of validation rules
 	 * @param   \mako\i18n\I18n  $i18n   I18n instance
 	 */
-
 	public function __construct(array $input, array $rules, I18n $i18n = null)
 	{
 		$this->input = $input + array_fill_keys(array_keys($rules), null);
@@ -91,7 +84,6 @@ class Validator
 	 * @access  public
 	 * @param   \mako\validator\plugins\ValidatorPluginInterface  $plugin  Plugin instance
 	 */
-
 	public function registerPlugin(ValidatorPluginInterface $plugin)
 	{
 		$this->plugins[$plugin->getPackageName() . $plugin->getRuleName()] = $plugin;
@@ -104,7 +96,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateRequired($input)
 	{
 		return ! in_array($input, ['', null, []], true);
@@ -118,7 +109,6 @@ class Validator
 	 * @param   int        $minLength  Minimum length
 	 * @return  boolean
 	 */
-
 	protected function validateMinLength($input, $minLength)
 	{
 		return (mb_strlen($input) >= (int) $minLength);
@@ -132,7 +122,6 @@ class Validator
 	 * @param   int        $maxLength  Maximum length
 	 * @return  boolean
 	 */
-
 	protected function validateMaxLength($input, $maxLength)
 	{
 		return (mb_strlen($input) <= (int) $maxLength);
@@ -146,7 +135,6 @@ class Validator
 	 * @param   int        $length  Exact length
 	 * @return  boolean
 	 */
-
 	protected function validateExactLength($input, $length)
 	{
 		return (mb_strlen($input) === (int) $length);
@@ -160,7 +148,6 @@ class Validator
 	 * @param   int        $lessThan  Maximum value + 1
 	 * @return  boolean
 	 */
-
 	protected function validateLessThan($input, $lessThan)
 	{
 		return ($input < (int) $lessThan);
@@ -174,7 +161,6 @@ class Validator
 	 * @param   int        $lessThanOrEqualTo  Maximum value
 	 * @return  boolean
 	 */
-
 	protected function validateLessThanOrEqualTo($input, $lessThanOrEqualTo)
 	{
 		return ($input <= (int) $lessThanOrEqualTo);
@@ -188,7 +174,6 @@ class Validator
 	 * @param   int        $greaterThan  Minimum value - 1
 	 * @return  boolean
 	 */
-
 	protected function validateGreaterThan($input, $greaterThan)
 	{
 		return ($input > (int) $greaterThan);
@@ -202,7 +187,6 @@ class Validator
 	 * @param   int        $greaterThanOrEqualTo  Minimum value
 	 * @return  boolean
 	 */
-
 	protected function validateGreaterThanOrEqualTo($input, $greaterThanOrEqualTo)
 	{
 		return ($input >= (int) $greaterThanOrEqualTo);
@@ -213,11 +197,10 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @param   int      $minimum  Minimum value
-	 * @param   int      $maximum  Maximum value
+	 * @param   int        $minimum  Minimum value
+	 * @param   int        $maximum  Maximum value
 	 * @return  boolean
 	 */
-
 	protected function validateBetween($input, $minimum, $maximum)
 	{
 		return ($input >= (int) $minimum && $input <= (int) $maximum);
@@ -231,7 +214,6 @@ class Validator
 	 * @param   mixed      $fieldName  Field name
 	 * @return  boolean
 	 */
-
 	protected function validateMatch($input, $fieldName)
 	{
 		return ($input === $this->input[$fieldName]);
@@ -245,7 +227,6 @@ class Validator
 	 * @param   mixed      $fieldName  Field name
 	 * @return  boolean
 	 */
-
 	protected function validateDifferent($input, $fieldName)
 	{
 		return ($input !== $this->input[$fieldName]);
@@ -259,7 +240,6 @@ class Validator
 	 * @param   string     $regex  Regex
 	 * @return  boolean
 	 */
-
 	protected function validateRegex($input, $regex)
 	{
 		return (bool) preg_match($regex, $input);
@@ -272,7 +252,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateInteger($input)
 	{
 		return (bool) preg_match('/(^(\-?)0$)|(^(\-?)[1-9]\d*$)/', $input);
@@ -285,7 +264,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateFloat($input)
 	{
 		return (bool) preg_match('/(^(\-?)0\.\d+$)|(^(\-?)[1-9]\d*\.\d+$)/', $input);
@@ -298,7 +276,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateNatural($input)
 	{
 		return (bool) preg_match('/(^0$)|(^[1-9]\d*$)/', $input);
@@ -311,7 +288,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateNaturalNonZero($input)
 	{
 		return (bool) preg_match('/(^[1-9]\d*$)/', $input);
@@ -324,7 +300,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateHex($input)
 	{
 		return (bool) preg_match('/^[a-f0-9]+$/i', $input);
@@ -337,7 +312,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateAlpha($input)
 	{
 		return (bool) preg_match('/^[a-z]+$/i', $input);
@@ -350,7 +324,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateAlphaUnicode($input)
 	{
 		return (bool) preg_match('/^[\pL]+$/u', $input);
@@ -363,7 +336,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateAlphanumeric($input)
 	{
 		return (bool) preg_match('/^[a-z0-9]+$/i', $input);
@@ -376,7 +348,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateAlphanumericUnicode($input)
 	{
 		return (bool) preg_match('/^[\pL0-9]+$/u', $input);
@@ -389,7 +360,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateAlphaDash($input)
 	{
 		return (bool) preg_match('/^[a-z0-9_-]+$/i', $input);
@@ -402,7 +372,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateAlphaDashUnicode($input)
 	{
 		return (bool) preg_match('/^[\pL0-9_-]+$/u', $input);
@@ -415,7 +384,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateEmail($input)
 	{
 		return (bool) filter_var($input, FILTER_VALIDATE_EMAIL);
@@ -428,7 +396,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateEmailDomain($input)
 	{
 		if(empty($input) || strpos($input, '@') === false)
@@ -448,7 +415,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateIp($input)
 	{
 		return (bool) filter_var($input, FILTER_VALIDATE_IP);
@@ -461,7 +427,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateUrl($input)
 	{
 		return (bool) filter_var($input, FILTER_VALIDATE_URL);
@@ -475,7 +440,6 @@ class Validator
 	 * @param   array      $values  Valid values
 	 * @return  boolean
 	 */
-
 	protected function validateIn($input, $values)
 	{
 		return in_array($input, $values);
@@ -489,7 +453,6 @@ class Validator
 	 * @param   array      $values  Invalid values
 	 * @return  boolean
 	 */
-
 	protected function validateNotIn($input, $values)
 	{
 		return ! in_array($input, $values);
@@ -503,7 +466,6 @@ class Validator
 	 * @param   array      $format  Date format
 	 * @return  boolean
 	 */
-
 	protected function validateDate($input, $format)
 	{
 		return (bool) DateTime::createFromFormat($format, $input);
@@ -518,7 +480,6 @@ class Validator
 	 * @param   string     $date    Date
 	 * @return  boolean
 	 */
-
 	protected function validateBefore($input, $format, $date)
 	{
 		if(($input = DateTime::createFromFormat($format, $input)) === false)
@@ -538,7 +499,6 @@ class Validator
 	 * @param   string     $date    Date
 	 * @return  boolean
 	 */
-
 	protected function validateAfter($input, $format, $date)
 	{
 		if(($input = DateTime::createFromFormat($format, $input)) === false)
@@ -556,7 +516,6 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @return  boolean
 	 */
-
 	protected function validateUuid($input)
 	{
 		return UUID::validate($input);
@@ -568,7 +527,6 @@ class Validator
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function parseRules()
 	{
 		$parsedRules = [];
@@ -620,7 +578,6 @@ class Validator
 	 * @param   array      $parameters  Validator parameters
 	 * @return  string
 	 */
-
 	protected function getErrorMessage($field, $package, $validator, $parameters)
 	{
 		$package = empty($package) ? '' : $package . '::';
@@ -674,18 +631,17 @@ class Validator
 	 * @param   array      $validator  Validator
 	 * @return  boolean
 	 */
-
 	public function validate($field, $validator)
 	{
 		$parameters = array_merge([$this->input[$field]], $validator['parameters']);
 
 		if(method_exists($this, $rule = 'validate' . Str::underscored2camel($validator['name'])))
 		{
-			return call_user_func_array([$this, $rule], $parameters);
+			return $this->{$rule}(...$parameters);
 		}
 		elseif(isset($this->plugins[$rule = $validator['package'] . $validator['name']]))
 		{
-			return call_user_func_array([$this->plugins[$rule], 'validate'], $parameters);
+			return $this->plugins[$rule]->validate(...$parameters);
 		}
 		else
 		{
@@ -698,7 +654,6 @@ class Validator
 	 *
 	 * @access  public
 	 */
-
 	protected function process()
 	{
 		foreach($this->parseRules() as $field => $validators)
@@ -727,7 +682,6 @@ class Validator
 	 * @param   array    $errors  If $errors is provided, then it is filled with all the error messages
 	 * @return  boolean
 	 */
-
 	public function isValid(&$errors = null)
 	{
 		$this->process();
@@ -744,7 +698,6 @@ class Validator
 	 * @param   array    $errors  If $errors is provided, then it is filled with all the error messages
 	 * @return  boolean
 	 */
-
 	public function isInvalid(&$errors = null)
 	{
 		$this->process();
@@ -760,7 +713,6 @@ class Validator
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getErrors()
 	{
 		return $this->errors;

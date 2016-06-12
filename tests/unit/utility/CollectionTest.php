@@ -1,19 +1,24 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\utility;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\utility\Collection;
 
 /**
  * @group unit
  */
-
-class CollectionTest extends \PHPUnit_Framework_TestCase
+class CollectionTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testGetItems()
 	{
 		$collection = new Collection();
@@ -30,7 +35,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOffsetExists()
 	{
 		$collection = new Collection();
@@ -47,24 +51,27 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOffsetGet()
 	{
-		$collection = new Collection();
-
-		$this->assertNull($collection[0]);
-
-		//
-
 		$collection = new Collection([1,2,3]);
 
 		$this->assertEquals(1, $collection[0]);
 	}
 
 	/**
+	 * @expectedException \OutOfBoundsException
+	 * @expectedExceptionMessage mako\utility\Collection::offsetGet(): Undefined offset [ 0 ].
+	 */
+	public function testOffsetGetWithUndefinedOffset()
+	{
+		$collection = new Collection();
+
+		$collection[0];
+	}
+
+	/**
 	 *
 	 */
-
 	public function testOffsetSet()
 	{
 		$collection = new Collection();
@@ -85,7 +92,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOffsetUnset()
 	{
 		$collection = new Collection([1,2,3]);
@@ -98,7 +104,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCount()
 	{
 		$collection = new Collection();
@@ -119,7 +124,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIteration()
 	{
 		$string = '';
@@ -135,7 +139,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsEmpty()
 	{
 		$collection = new Collection();
@@ -152,7 +155,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testUnshift()
 	{
 		$collection = new Collection([1, 2, 3]);
@@ -167,7 +169,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testShift()
 	{
 		$collection = new Collection([1, 2, 3]);
@@ -182,7 +183,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPush()
 	{
 		$collection = new Collection([1, 2, 3]);
@@ -197,7 +197,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPop()
 	{
 		$collection = new Collection([1, 2, 3]);
@@ -212,7 +211,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSort()
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
@@ -233,7 +231,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSortWithoutMaintainingIndexAssociation()
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
@@ -254,7 +251,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testChunk()
 	{
 		$collection = new Collection([1, 2, 3, 4, 5, 6]);
@@ -273,7 +269,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testShuffle()
 	{
 		$collection = new Collection([1, 2]);
@@ -281,5 +276,35 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$collection->shuffle();
 
 		$this->assertTrue(($collection[0] === 1 || $collection[0] === 2));
+	}
+
+	/**
+	 *
+	 */
+	public function testExtending()
+	{
+		Collection::extend('increaseByOne', function()
+		{
+			foreach($this->items as $key => $value)
+			{
+				$this->items[$key] += 1;
+			}
+		});
+
+		$collection = new Collection([1, 2, 3, 4, 5, 6]);
+
+		$collection->increaseByOne();
+
+		$this->assertSame([2, 3, 4, 5, 6, 7], $collection->getItems());
+	}
+
+	/**
+	 * @expectedException \BadMethodCallException
+	 */
+	public function testException()
+	{
+		$collection = new Collection();
+
+		$collection->nope();
 	}
 }

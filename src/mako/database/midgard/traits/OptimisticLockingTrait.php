@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard\traits;
 
-use mako\database\midgard\traits\StaleRecordException;
+use mako\database\midgard\traits\exceptions\StaleRecordException;
 use mako\database\query\Raw;
 
 /**
@@ -15,7 +15,6 @@ use mako\database\query\Raw;
  *
  * @author  Frederic G. Østby
  */
-
 trait OptimisticLockingTrait
 {
 	/**
@@ -24,7 +23,6 @@ trait OptimisticLockingTrait
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function getOptimisticLockingTraitHooks()
 	{
 		return
@@ -57,7 +55,6 @@ trait OptimisticLockingTrait
 	 *
 	 * @access  public
 	 */
-
 	public function __clone()
 	{
 		if($this->exists)
@@ -71,9 +68,9 @@ trait OptimisticLockingTrait
 	/**
 	 * Returns the optimistic locking column.
 	 *
-	 * @var string
+	 * @access  protected
+	 * @return  string
 	 */
-
 	protected function getLockingColumn()
 	{
 		return isset($this->lockingColumn) ? $this->lockingColumn : 'lock_version';
@@ -85,7 +82,6 @@ trait OptimisticLockingTrait
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function reload()
 	{
 		if($this->exists)
@@ -111,7 +107,6 @@ trait OptimisticLockingTrait
 	 * @access  public
 	 * @param   int     $version  Locking version
 	 */
-
 	public function setLockVersion($version)
 	{
 		$this->columns[$this->getLockingColumn()] = $version;
@@ -123,7 +118,6 @@ trait OptimisticLockingTrait
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getLockVersion()
 	{
 		return $this->columns[$this->getLockingColumn()];
@@ -136,7 +130,6 @@ trait OptimisticLockingTrait
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  boolean
 	 */
-
 	protected function updateRecord($query)
 	{
 		$lockingColumn = $this->getLockingColumn();
@@ -164,7 +157,6 @@ trait OptimisticLockingTrait
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  boolean
 	 */
-
 	protected function deleteRecord($query)
 	{
 		$lockingColumn = $this->getLockingColumn();

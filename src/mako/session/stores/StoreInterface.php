@@ -12,7 +12,6 @@ namespace mako\session\stores;
  *
  * @author  Frederic G. Østby
  */
-
 interface StoreInterface
 {
 	/**
@@ -23,7 +22,6 @@ interface StoreInterface
 	 * @param   array   $sessionData  Session data
 	 * @param   int     $dataTTL      TTL in seconds
 	 */
-
 	public function write($sessionId, $sessionData, $dataTTL);
 
 	/**
@@ -33,7 +31,6 @@ interface StoreInterface
 	 * @param   string  $sessionId  Session id
 	 * @return  array
 	 */
-
 	public function read($sessionId);
 
 	/**
@@ -42,7 +39,6 @@ interface StoreInterface
 	 * @access  public
 	 * @param   string   $sessionId  Session id
 	 */
-
 	public function delete($sessionId);
 
 	/**
@@ -51,6 +47,5 @@ interface StoreInterface
 	 * @access  public
 	 * @param   int      $dataTTL  Data TTL in seconds
 	 */
-
 	public function gc($dataTTL);
 }

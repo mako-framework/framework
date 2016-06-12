@@ -19,7 +19,6 @@ use mako\pixl\processors\ProcessorInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class GD implements ProcessorInterface
 {
 	use CalculateNewDimensionsTrait;
@@ -29,7 +28,6 @@ class GD implements ProcessorInterface
 	 *
 	 * @var resource
 	 */
-
 	protected $image;
 
 	/**
@@ -37,7 +35,6 @@ class GD implements ProcessorInterface
 	 *
 	 * @var resource
 	 */
-
 	protected $snapshot;
 
 	/**
@@ -45,7 +42,6 @@ class GD implements ProcessorInterface
 	 *
 	 * @var array
 	 */
-
 	protected $imageInfo;
 
 	/**
@@ -53,7 +49,6 @@ class GD implements ProcessorInterface
 	 *
 	 * @var boolean
 	 */
-
 	protected $hasFilters;
 
 	/**
@@ -61,7 +56,6 @@ class GD implements ProcessorInterface
 	 *
 	 * @access  public
 	 */
-
 	public function __construct()
 	{
 		$this->hasFilters = function_exists('imagefilter');
@@ -72,7 +66,6 @@ class GD implements ProcessorInterface
 	 *
 	 * @access  public
 	 */
-
 	public function __destruct()
 	{
 		if(is_resource($this->image))
@@ -93,7 +86,6 @@ class GD implements ProcessorInterface
 	 * @param   string     $file  Path to image file
 	 * @return  resource
 	 */
-
 	protected function getImageInfo($file)
 	{
 		$imageInfo = getimagesize($file);
@@ -114,7 +106,6 @@ class GD implements ProcessorInterface
 	 * @param   array      $imageInfo  Image info
 	 * @return  resource
 	 */
-
 	protected function createImageResource($image, $imageInfo)
 	{
 		switch($imageInfo[2])
@@ -140,7 +131,6 @@ class GD implements ProcessorInterface
 	 * @param   string     $hex  HEX value
 	 * @return  array
 	 */
-
 	protected function hexToRgb($hex)
 	{
 		$hex = str_replace('#', '', $hex);
@@ -169,7 +159,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function open($image)
 	{
 		$this->imageInfo = $this->getImageInfo($image);
@@ -180,7 +169,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function snapshot()
 	{
 		$width  = imagesx($this->image);
@@ -194,7 +182,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function restore()
 	{
 		if(!is_resource($this->snapshot))
@@ -210,7 +197,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getWidth()
 	{
 		return imagesx($this->image);
@@ -219,7 +205,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getHeight()
 	{
 		return imagesy($this->image);
@@ -228,7 +213,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getDimensions()
 	{
 		return ['width' => $this->getWidth(), 'height' => $this->getHeight()];
@@ -237,7 +221,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function rotate($degrees)
 	{
 		$width  = imagesx($this->image);
@@ -266,7 +249,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE)
 	{
 		$oldWidth  = imagesx($this->image);
@@ -292,7 +274,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function crop($width, $height, $x, $y)
 	{
 		$oldWidth  = imagesx($this->image);
@@ -316,7 +297,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function flip($direction = Image::FLIP_HORIZONTAL)
 	{
 		$width  = imagesx($this->image);
@@ -357,7 +337,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
 		$watermark = $this->createImageResource($file, $this->getImageInfo($file));
@@ -413,7 +392,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function brightness($level = 50)
 	{
 		$level *= 2.5;
@@ -458,7 +436,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function greyscale()
 	{
 		if($this->hasFilters)
@@ -506,7 +483,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function sepia()
 	{
 		$width  = imagesx($this->image);
@@ -546,7 +522,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function colorize($color)
 	{
 		$rgb = $this->hexToRgb($color);
@@ -593,7 +568,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function sharpen()
 	{
 		$sharpen = [[-1.2, -1, -1.2], [-1, 20, -1], [-1.2, -1, -1.2]];
@@ -606,7 +580,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function pixelate($pixelSize = 10)
 	{
 		if($this->hasFilters)
@@ -627,7 +600,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function negate()
 	{
 		if($this->hasFilters)
@@ -660,7 +632,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function border($color = '#000', $thickness = 5)
 	{
 		$width  = imagesx($this->image);
@@ -690,10 +661,9 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getImageBlob($type = null, $quality = 95)
 	{
-		$type = $type ?: $this->imageInfo['mime'];
+		$type = $type ?? $this->imageInfo['mime'];
 
 		// Return image blob
 
@@ -727,7 +697,6 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function save($file, $quality = 95)
 	{
 		// Get the file extension

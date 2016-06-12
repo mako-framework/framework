@@ -16,7 +16,6 @@ use mako\i18n\I18n;
  *
  * @author  Frederic G. Østby
  */
-
 class Humanizer
 {
 	/**
@@ -24,7 +23,6 @@ class Humanizer
 	 *
 	 * @var \mako\i18n\I18n
 	 */
-
 	protected $i18n;
 
 	/**
@@ -33,7 +31,6 @@ class Humanizer
 	 * @access  public
 	 * @param   \mako\i18n\I18n  $i18n  I18n instance
 	 */
-
 	public function __construct(I18n $i18n)
 	{
 		$this->i18n = $i18n;
@@ -47,7 +44,6 @@ class Humanizer
 	 * @param   boolean  $binary  True to use binary suffixes and false to use decimal suffixes
 	 * @return  string
 	 */
-
 	public function fileSize($size, $binary = true)
 	{
 		if($size > 0)
@@ -81,7 +77,6 @@ class Humanizer
 	 * @param   string              $dateFormat  Default date format
 	 * @return  string
 	 */
-
 	public function day(DateTimeInterface $dateTime, $dateFormat = 'Y-m-d, H:i')
 	{
 		if($dateTime->format('Y-m-d') === date('Y-m-d'))
@@ -111,7 +106,6 @@ class Humanizer
 	 * @param   string              $clockFormat  Default clock format
 	 * @return  string
 	 */
-
 	public function time(DateTimeInterface $dateTime, $dateFormat = 'Y-m-d, H:i', $clockFormat = ', H:i')
 	{
 		$diff = time() - $dateTime->getTimestamp();

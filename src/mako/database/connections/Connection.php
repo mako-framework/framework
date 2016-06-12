@@ -5,20 +5,21 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\database;
+namespace mako\database\connections;
 
 use PDO;
 use Closure;
 use PDOException;
 use RuntimeException;
+
 use mako\database\query\Query;
+use mako\database\types\TypeInterface;
 
 /**
  * Database connection.
  *
  * @author  Frederic G. Østby
  */
-
 class Connection
 {
 	/**
@@ -26,15 +27,27 @@ class Connection
 	 *
 	 * @var string
 	 */
-
 	protected $name;
+
+	/**
+	 * Query compiler.
+	 *
+	 * @var string.
+	 */
+	protected $queryCompiler;
+
+	/**
+	 * Query builder helper.
+	 *
+	 * @var string
+	 */
+	protected $queryBuilderHelper;
 
 	/**
 	 * Connection DSN.
 	 *
 	 * @var string
 	 */
-
 	protected $dsn;
 
 	/**
@@ -42,7 +55,6 @@ class Connection
 	 *
 	 * @var string
 	 */
-
 	protected $username;
 
 	/**
@@ -50,7 +62,6 @@ class Connection
 	 *
 	 * @var string
 	 */
-
 	protected $password;
 
 	/**
@@ -58,7 +69,6 @@ class Connection
 	 *
 	 * @var boolean
 	 */
-
 	protected $enableLog;
 
 	/**
@@ -66,7 +76,6 @@ class Connection
 	 *
 	 * @var boolean
 	 */
-
 	protected $reconnect;
 
 	/**
@@ -74,7 +83,6 @@ class Connection
 	 *
 	 * @var boolean
 	 */
-
 	protected $usePersistentConnection;
 
 	/**
@@ -82,7 +90,6 @@ class Connection
 	 *
 	 * @var array
 	 */
-
 	protected $onConnectQueries;
 
 	/**
@@ -90,31 +97,13 @@ class Connection
 	 *
 	 * @var \PDO
 	 */
-
 	protected $pdo;
-
-	/**
-	 * Driver name.
-	 *
-	 * @var string
-	 */
-
-	protected $driver;
-
-	/**
-	 * SQL dialect.
-	 *
-	 * @var string
-	 */
-
-	protected $dialect;
 
 	/**
 	 * Transaction nesting level.
 	 *
 	 * @var int
 	 */
-
 	protected $transactionNestingLevel = 0;
 
 	/**
@@ -122,48 +111,46 @@ class Connection
 	 *
 	 * @var array
 	 */
-
 	protected $log = [];
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $name    Connection name
-	 * @param   array   $config  Connection configuration
+	 * @param   string  $name                Connection name
+	 * @param   string  $queryCompiler       Query compiler
+	 * @param   string  $queryBuilderHelper  Query builder helper
+	 * @param   array   $config              Connection configuration
 	 */
-
-	public function __construct($name, array $config)
+	public function __construct($name, $queryCompiler, $queryBuilderHelper, array $config)
 	{
 		$this->name = $name;
+
+		// Set the query compiler and query builder helper
+
+		$this->queryCompiler = $queryCompiler;
+
+		$this->queryBuilderHelper = $queryBuilderHelper;
 
 		// Configure the connection
 
 		$this->dsn = $config['dsn'];
 
-		$this->username = isset($config['username']) ? $config['username'] : null;
+		$this->username = $config['username'] ?? null;
 
-		$this->password = isset($config['password']) ? $config['password'] : null;
+		$this->password = $config['password'] ?? null;
 
-		$this->enableLog = isset($config['log_queries']) ? $config['log_queries'] : false;
+		$this->enableLog = $config['log_queries'] ?? false;
 
-		$this->reconnect = isset($config['reconnect']) ? $config['reconnect'] : false;
+		$this->reconnect = $config['reconnect'] ?? false;
 
-		$this->usePersistentConnection = isset($config['persistent']) ? $config['persistent'] : false;
+		$this->usePersistentConnection = $config['persistent'] ?? false;
 
-		$this->onConnectQueries = isset($config['queries']) ? $config['queries'] : [];
+		$this->onConnectQueries = $config['queries'] ?? [];
 
 		// Connect to the database
 
 		$this->pdo = $this->connect();
-
-		// Set the driver name
-
-		$this->driver = $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-
-		// Set the compiler type
-
-		$this->dialect = isset($config['dialect']) ? $config['dialect'] : $this->driver;
 	}
 
 	/**
@@ -172,10 +159,36 @@ class Connection
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getName()
 	{
 		return $this->name;
+	}
+
+	/**
+	 * Returns a query builder helper instance.
+	 *
+	 * @access  public
+	 * @return  \mako\database\query\helpers\HelperInterface
+	 */
+	public function getQueryBuilderHelper()
+	{
+		static $queryBuilderHelper;
+
+		return $queryBuilderHelper ?? ($queryBuilderHelper = new $this->queryBuilderHelper);
+	}
+
+	/**
+	 * Returns a query compiler instance.
+	 *
+	 * @access  public
+	 * @param   \mako\database\query\Query               $query  Query
+	 * @return  \mako\database\query\compilers\Compiler
+	 */
+	public function getQueryCompiler(Query $query)
+	{
+		$compiler = $this->queryCompiler;
+
+		return new $compiler($query);
 	}
 
 	/**
@@ -184,34 +197,9 @@ class Connection
 	 * @access  public
 	 * @return  \PDO
 	 */
-
 	public function getPDO()
 	{
 		return $this->pdo;
-	}
-
-	/**
-	 * Returns the driver name.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function getDriver()
-	{
-		return $this->driver;
-	}
-
-	/**
-	 * Returns the SQL dialect.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-
-	public function getDialect()
-	{
-		return $this->dialect;
 	}
 
 	/**
@@ -219,7 +207,6 @@ class Connection
 	 *
 	 * @access  public
 	 */
-
 	public function enableLog()
 	{
 		$this->enableLog = true;
@@ -230,7 +217,6 @@ class Connection
 	 *
 	 * @access  public
 	 */
-
 	public function disableLog()
 	{
 		$this->enableLog = false;
@@ -242,7 +228,6 @@ class Connection
 	 * @access  protected
 	 * @return  \PDO
 	 */
-
 	protected function connect()
 	{
 		// Connect to the database
@@ -282,7 +267,6 @@ class Connection
 	 *
 	 * @access  public
 	 */
-
 	public function reconnect()
 	{
 		$this->pdo = $this->connect();
@@ -294,27 +278,11 @@ class Connection
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isAlive()
 	{
-		switch($this->driver)
-		{
-			case 'db2':
-			case 'ibm':
-			case 'odbc':
-				$query = 'SELECT 1 FROM SYSIBM.SYSDUMMY1';
-				break;
-			case 'oci':
-			case 'oracle':
-				$query = 'SELECT 1 FROM DUAL';
-				break;
-			default:
-				$query = 'SELECT 1';
-		}
-
 		try
 		{
-			$this->pdo->query($query);
+			$this->pdo->query('SELECT 1');
 		}
 		catch(PDOException $e)
 		{
@@ -332,7 +300,6 @@ class Connection
 	 * @param   array      $params  Query paramaters
 	 * @return  string
 	 */
-
 	protected function prepareQueryForLog($query, array $params)
 	{
 		return preg_replace_callback('/\?/', function($matches) use (&$params)
@@ -366,14 +333,13 @@ class Connection
 	 * @param   array      $params  Query parameters
 	 * @param   int        $start   Start time in microseconds
 	 */
-
 	protected function log($query, array $params, $start)
 	{
 		$time = microtime(true) - $start;
 
 		$query = $this->prepareQueryForLog($query, $params);
 
-		$this->log[] = compact('query', 'time');
+		$this->log[] = ['query' => $query, 'time' => $time];
 	}
 
 	/**
@@ -382,7 +348,6 @@ class Connection
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getLog()
 	{
 		return $this->log;
@@ -396,7 +361,6 @@ class Connection
 	 * @param   array      $params  Query parameters
 	 * @return  array
 	 */
-
 	protected function prepareQueryAndParams($query, array $params)
 	{
 		// Replace IN clause placeholder with escaped values
@@ -429,7 +393,6 @@ class Connection
 	 * @access  protected
 	 * @return  boolean
 	 */
-
 	protected function isConnectionLostAndShouldItBeReestablished()
 	{
 		return ($this->reconnect === true && $this->inTransaction() === false && $this->isAlive() === false);
@@ -443,22 +406,33 @@ class Connection
 	 * @param   int            $key        Parameter key
 	 * @param   mixed          $value      Parameter value
 	 */
-
 	protected function bindParameter($statement, $key, $value)
 	{
-		switch(gettype($value))
+		if($value instanceof TypeInterface)
 		{
-			case 'boolean':
-				$type = PDO::PARAM_BOOL;
-				break;
-			case 'integer':
-				$type = PDO::PARAM_INT;
-				break;
-			case 'NULL':
-				$type = PDO::PARAM_NULL;
-				break;
-			default:
-				$type = PDO::PARAM_STR;
+			$value = $value->getValue();
+
+			$type = $value->getType();
+		}
+		else
+		{
+			switch(gettype($value))
+			{
+				case 'boolean':
+					$type = PDO::PARAM_BOOL;
+					break;
+				case 'integer':
+					$type = PDO::PARAM_INT;
+					break;
+				case 'NULL':
+					$type = PDO::PARAM_NULL;
+					break;
+				case 'resource':
+					$type = PDO::PARAM_LOB;
+					break;
+				default:
+					$type = PDO::PARAM_STR;
+			}
 		}
 
 		$statement->bindValue($key + 1, $value, $type);
@@ -472,7 +446,6 @@ class Connection
 	 * @param   array      $params  Query parameters
 	 * @return  array
 	 */
-
 	protected function prepare($query, array $params)
 	{
 		// Prepare query and parameters
@@ -518,7 +491,6 @@ class Connection
 	 * @param   array      $prepared  Prepared query
 	 * @return  boolean
 	 */
-
 	protected function execute(array $prepared)
 	{
 		if($this->enableLog)
@@ -544,7 +516,6 @@ class Connection
 	 * @param   array    $params  Query parameters
 	 * @return  boolean
 	 */
-
 	public function query($query, array $params = [])
 	{
 		return $this->execute($this->prepare($query, $params));
@@ -558,7 +529,6 @@ class Connection
 	 * @param   array   $params  Query parameters
 	 * @return  int
 	 */
-
 	public function queryAndCount($query, array $params = [])
 	{
 		$prepared = $this->prepare($query, $params);
@@ -572,38 +542,36 @@ class Connection
 	 * Returns an array containing all of the result set rows.
 	 *
 	 * @access  public
-	 * @param   string    $query      SQL query
-	 * @param   array     $params     Query parameters
-	 * @param   null|int  $fetchMode  Fetch mode
+	 * @param   string    $query         SQL query
+	 * @param   array     $params        Query parameters
+	 * @param   mixed     ...$fetchMode  Fetch mode
 	 * @return  array
 	 */
-
-	public function all($query, array $params = [], $fetchMode = null)
+	public function all($query, array $params = [], ...$fetchMode)
 	{
 		$prepared = $this->prepare($query, $params);
 
 		$this->execute($prepared);
 
-		return $prepared['statement']->fetchAll($fetchMode);
+		return $prepared['statement']->fetchAll(...$fetchMode);
 	}
 
 	/**
 	 * Returns the first row of the result set.
 	 *
 	 * @access  public
-	 * @param   string    $query      SQL query
-	 * @param   array     $params     Query params
-	 * @param   null|int  $fetchMode  Fetch mode
+	 * @param   string    $query         SQL query
+	 * @param   array     $params        Query params
+	 * @param   mixed     ...$fetchMode  Fetch mode
 	 * @return  mixed
 	 */
-
-	public function first($query, array $params = [], $fetchMode = null)
+	public function first($query, array $params = [], ...$fetchMode)
 	{
 		$prepared = $this->prepare($query, $params);
 
 		$this->execute($prepared);
 
-		return $prepared['statement']->fetch($fetchMode);
+		return $prepared['statement']->fetch(...$fetchMode);
 	}
 
 	/**
@@ -614,7 +582,6 @@ class Connection
 	 * @param   array   $params  Query parameters
 	 * @return  mixed
 	 */
-
 	public function column($query, array $params = [])
 	{
 		$prepared = $this->prepare($query, $params);
@@ -625,15 +592,27 @@ class Connection
 	}
 
 	/**
+	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
+	 *
+	 * @access  public
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  Query parameters
+	 * @return  array
+	 */
+	public function columns($query, array $params = [])
+	{
+		return $this->all($query, $params, PDO::FETCH_COLUMN);
+	}
+
+	/**
 	 * Returns a query builder instance.
 	 *
 	 * @access  public
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function builder()
 	{
-		return new Query($this);
+		return new Query($this, new $this->queryBuilderHelper, $this->queryCompiler);
 	}
 
 	/**
@@ -643,45 +622,63 @@ class Connection
 	 * @param   string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw  $table  Database table or subquery
 	 * @return  \mako\database\query\Query
 	 */
-
 	public function table($table)
 	{
 		return $this->builder()->table($table);
 	}
 
 	/**
+	 * Creates a new savepoint.
+	 *
+	 * @access  protected
+	 * @return  boolean
+	 */
+	protected function createSavepoint()
+	{
+		return $this->pdo->exec('SAVEPOINT transactionNestingLevel' . $this->transactionNestingLevel) !== false;
+	}
+
+	/**
+	 * Rolls back to the previously created savepoint.
+	 *
+	 * @access  protected
+	 * @return  boolean
+	 */
+	protected function rollBackSavepoint()
+	{
+		return $this->pdo->exec('ROLLBACK TO SAVEPOINT transactionNestingLevel' . $this->transactionNestingLevel) !== false;
+	}
+
+	/**
 	 * Begin a transaction.
 	 *
 	 * @access  public
+	 * @return  boolean
 	 */
-
 	public function beginTransaction()
 	{
-		$this->transactionNestingLevel++;
-
-		if($this->transactionNestingLevel === 1)
+		if($this->transactionNestingLevel++ === 0)
 		{
-			$this->pdo->beginTransaction();
+			return $this->pdo->beginTransaction();
 		}
+
+		return $this->createSavepoint();
 	}
 
 	/**
 	 * Commits a transaction.
 	 *
 	 * @access  public
+	 * @return  boolean
 	 */
-
 	public function commitTransaction()
 	{
-		if($this->transactionNestingLevel > 0)
+		if($this->transactionNestingLevel > 0 && --$this->transactionNestingLevel === 0)
 		{
-			$this->transactionNestingLevel--;
+			return $this->pdo->commit();
 		}
 
-		if($this->transactionNestingLevel === 0)
-		{
-			$this->pdo->commit();
-		}
+		return false;
 	}
 
 	/**
@@ -689,18 +686,25 @@ class Connection
 	 *
 	 * @access  public
 	 */
-
 	public function rollBackTransaction()
 	{
 		if($this->transactionNestingLevel > 0)
 		{
+			if($this->transactionNestingLevel > 1)
+			{
+				$success = $this->rollBackSavepoint();
+			}
+			else
+			{
+				$success =  $this->pdo->rollBack();
+			}
+
 			$this->transactionNestingLevel--;
+
+			return $success;
 		}
 
-		if($this->transactionNestingLevel === 0)
-		{
-			$this->pdo->rollBack();
-		}
+		return false;
 	}
 
 	/**
@@ -709,7 +713,6 @@ class Connection
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getTransactionNestingLevel()
 	{
 		return $this->transactionNestingLevel;
@@ -721,7 +724,6 @@ class Connection
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function inTransaction()
 	{
 		return $this->pdo->inTransaction();
@@ -732,15 +734,15 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   \Closure  $queries  Queries
+	 * @return  mixed
 	 */
-
 	public function transaction(Closure $queries)
 	{
 		try
 		{
 			$this->beginTransaction();
 
-			$queries($this);
+			$returnValue = $queries($this);
 
 			$this->commitTransaction();
 		}
@@ -750,5 +752,7 @@ class Connection
 
 			throw $e;
 		}
+
+		return $returnValue;
 	}
 }

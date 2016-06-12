@@ -20,7 +20,6 @@ use mako\syringe\Container;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Command extends BaseCommand
 {
 	/**
@@ -28,7 +27,6 @@ abstract class Command extends BaseCommand
 	 *
 	 * @var \mako\application\Application
 	 */
-
 	protected $application;
 
 	/**
@@ -36,7 +34,6 @@ abstract class Command extends BaseCommand
 	 *
 	 * @var \mako\file\FileSystem
 	 */
-
 	protected $fileSystem;
 
 	/**
@@ -44,7 +41,6 @@ abstract class Command extends BaseCommand
 	 *
 	 * @var \mako\database\ConnectionManager
 	 */
-
 	protected $database;
 
 	/**
@@ -52,7 +48,6 @@ abstract class Command extends BaseCommand
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -66,7 +61,6 @@ abstract class Command extends BaseCommand
 	 * @param   \mako\database\ConnectionManager  $database     Connection manager
 	 * @param   \mako\syringe\Container           $container     Container
 	 */
-
 	public function __construct(Input $input, Output $output, Application $application, FileSystem $fileSystem, ConnectionManager $database, Container $container)
 	{
 		parent::__construct($input, $output);
@@ -84,9 +78,8 @@ abstract class Command extends BaseCommand
 	 * Returns the database connection.
 	 *
 	 * @access  protected
-	 * @return  \mako\database\Connection
+	 * @return  \mako\database\connections\Connection
 	 */
-
 	protected function connection()
 	{
 		return $this->database->connection();
@@ -99,7 +92,6 @@ abstract class Command extends BaseCommand
 	 * @param   string     $migration  Task path
 	 * @return  string
 	 */
-
 	protected function getBaseName($migration)
 	{
 		return basename($migration, '.php');
@@ -111,7 +103,6 @@ abstract class Command extends BaseCommand
 	 * @access  protected
 	 * @return  \mako\database\query\Query
 	 */
-
 	protected function builder()
 	{
 		return $this->connection()->builder()->table('mako_migrations');
@@ -123,7 +114,6 @@ abstract class Command extends BaseCommand
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function findApplicationMigrations()
 	{
 		$migrations = [];
@@ -142,7 +132,6 @@ abstract class Command extends BaseCommand
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function findPackageMigrations()
 	{
 		$migrations = [];
@@ -164,7 +153,6 @@ abstract class Command extends BaseCommand
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function getOutstanding()
 	{
 		$migrations = [];
@@ -207,7 +195,6 @@ abstract class Command extends BaseCommand
 	 * @access  public
 	 * @param   array   $migrations  Migrations
 	 */
-
 	protected function outputMigrationList(array $migrations)
 	{
 		$tableBody = [];
@@ -236,7 +223,6 @@ abstract class Command extends BaseCommand
 	 * @param   StdClass                             $migration  Migration object
 	 * @return  \mako\database\migrations\Migration
 	 */
-
 	protected function resolve($migration)
 	{
 		if(empty($migration->package))
@@ -258,7 +244,6 @@ abstract class Command extends BaseCommand
 	 * @param   string  $migration  Migration class
 	 * @param   string  $method     Migration method
 	 */
-
 	protected function runMigration($migration, $method)
 	{
 		$this->container->call([$this->resolve($migration), $method]);

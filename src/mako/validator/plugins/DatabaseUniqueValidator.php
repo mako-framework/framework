@@ -15,7 +15,6 @@ use mako\validator\plugins\ValidatorPlugin;
  *
  * @author  Frederic G. Østby
  */
-
 class DatabaseUniqueValidator extends ValidatorPlugin
 {
 	/**
@@ -23,7 +22,6 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 	 *
 	 * @var string
 	 */
-
 	protected $ruleName = 'unique';
 
 	/**
@@ -31,7 +29,6 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 	 *
 	 * @var \mako\database\ConnectionManager
 	 */
-
 	protected $connectionManager;
 
 	/**
@@ -40,7 +37,6 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 	 * @access  public
 	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
 	 */
-
 	public function __construct(ConnectionManager $connectionManager)
 	{
 		$this->connectionManager = $connectionManager;
@@ -56,7 +52,6 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 	 * @param   string   $value   Allowed value
 	 * @return  boolean
 	 */
-
 	public function validate($input, $table, $column, $value = null)
 	{
 		$query = $this->connectionManager->builder()->table($table)->where($column, '=', $input);

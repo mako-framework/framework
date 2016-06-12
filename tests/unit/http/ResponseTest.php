@@ -1,33 +1,36 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http;
 
-use mako\http\Response;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\http\Response;
 
 /**
  * @group unit
  */
-
-class ResponseTest extends \PHPUnit_Framework_TestCase
+class ResponseTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getRequest()
 	{
-		$request = m::mock('\mako\http\Request');
+		$request = Mockery::mock('\mako\http\Request');
 
 		return $request;
 	}
@@ -35,7 +38,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getHeaders()
 	{
 		return
@@ -48,7 +50,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBody()
 	{
 		$response = new Response($this->getRequest());
@@ -61,7 +62,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBodyWithResponse()
 	{
 		$response1 = new Response($this->getRequest());
@@ -78,10 +78,9 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBodyWithContainer()
 	{
-		$container = m::mock('\mako\http\responses\File');
+		$container = Mockery::mock('\mako\http\responses\File');
 
 		$response = new Response($this->getRequest());
 
@@ -91,7 +90,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$container = m::mock('\mako\http\responses\Redirect');
+		$container = Mockery::mock('\mako\http\responses\Redirect');
 
 		$response = new Response($this->getRequest());
 
@@ -101,7 +100,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$container = m::mock('\mako\http\responses\Stream');
+		$container = Mockery::mock('\mako\http\responses\Stream');
 
 		$response = new Response($this->getRequest());
 
@@ -113,7 +112,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClearBody()
 	{
 		$response = new Response($this->getRequest());
@@ -128,7 +126,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testType()
 	{
 		$response = new Response($this->getRequest());
@@ -147,7 +144,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTypeWithCharset()
 	{
 		$response = new Response($this->getRequest());
@@ -162,7 +158,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCharset()
 	{
 		$response = new Response($this->getRequest());
@@ -181,7 +176,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStatus()
 	{
 		$response = new Response($this->getRequest());
@@ -208,7 +202,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFilter()
 	{
 		$response = new Response($this->getRequest());
@@ -233,7 +226,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClearFilters()
 	{
 		$response = new Response($this->getRequest());
@@ -256,7 +248,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHeader()
 	{
 		$response = new Response($this->getRequest());
@@ -284,7 +275,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMultipleHeadersWithTheSameName()
 	{
 		$response = new Response($this->getRequest());
@@ -315,7 +305,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHasHeader()
 	{
 		$response = new Response($this->getRequest());
@@ -330,7 +319,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemoveHeader()
 	{
 		$response = new Response($this->getRequest());
@@ -352,7 +340,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClearHeaders()
 	{
 		$response = new Response($this->getRequest());
@@ -372,7 +359,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCookie()
 	{
 		$response = new Response($this->getRequest());
@@ -423,7 +409,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testSignedCookieWithoutSigner()
 	{
 		$response = new Response($this->getRequest());
@@ -434,10 +419,9 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSignedCookie()
 	{
-		$signer = m::mock('\mako\security\Signer');
+		$signer = Mockery::mock('\mako\security\Signer');
 
 		$signer->shouldReceive('sign')->andReturn('signed_cookie_value');
 
@@ -453,7 +437,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDeleteCookie()
 	{
 		$response = new Response($this->getRequest());
@@ -472,7 +455,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHasCookie()
 	{
 		$response = new Response($this->getRequest());
@@ -487,7 +469,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemoveCookie()
 	{
 		$response = new Response($this->getRequest());
@@ -514,7 +495,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClearCookies()
 	{
 		$response = new Response($this->getRequest());
@@ -533,7 +513,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClear()
 	{
 		$response = new Response($this->getRequest());
@@ -566,7 +545,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFile()
 	{
 		$response = new Response($this->getRequest());
@@ -577,7 +555,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStream()
 	{
 		$response = new Response($this->getRequest());
@@ -588,7 +565,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRedirect()
 	{
 		$response = new Response($this->getRequest());
@@ -599,7 +575,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBack()
 	{
 		$request = $this->getRequest();

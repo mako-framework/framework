@@ -10,14 +10,12 @@ namespace mako\application\cli\commands\app;
 use mako\application\Application;
 use mako\file\FileSystem;
 use mako\reactor\Command;
-use mako\utility\Str;
 
 /**
  * Command that generates a new application secret.
  *
  * @author  Frederic G. Østby
  */
-
 class GenerateSecret extends Command
 {
 	/**
@@ -25,7 +23,6 @@ class GenerateSecret extends Command
 	 *
 	 * @var array
 	 */
-
 	protected $commandInformation =
 	[
 		'description' => 'Generates a new application secret.',
@@ -40,7 +37,6 @@ class GenerateSecret extends Command
 	 * @param   \mako\application\Application  $application  Application instance
 	 * @param   \mako\file\FileSystem          $fileSystem   File system instance
 	 */
-
 	public function execute(Application $application, FileSystem $fileSystem)
 	{
 		$configFile = $application->getPath() . '/config/application.php';
@@ -52,14 +48,7 @@ class GenerateSecret extends Command
 			return;
 		}
 
-		if(function_exists('openssl_random_pseudo_bytes'))
-		{
-			$secret = bin2hex(openssl_random_pseudo_bytes(32));
-		}
-		else
-		{
-			$secret = str_replace(['"', '\''], ['|', '/'], Str::random(Str::ALNUM . Str::SYMBOLS, 64));
-		}
+		$secret = bin2hex(random_bytes(16));
 
 		$contents = $fileSystem->getContents($configFile);
 

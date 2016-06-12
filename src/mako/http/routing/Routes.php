@@ -17,7 +17,6 @@ use mako\http\routing\Route;
  *
  * @author  Frederic G. Østby
  */
-
 class Routes
 {
 	/**
@@ -25,7 +24,6 @@ class Routes
 	 *
 	 * @var array
 	 */
-
 	protected $groups = [];
 
 	/**
@@ -33,7 +31,6 @@ class Routes
 	 *
 	 * @var array
 	 */
-
 	protected  $routes = [];
 
 	/**
@@ -41,7 +38,6 @@ class Routes
 	 *
 	 * @var array
 	 */
-
 	protected $namedRoutes = [];
 
 	/**
@@ -50,7 +46,6 @@ class Routes
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getRoutes()
 	{
 		return $this->routes;
@@ -63,8 +58,7 @@ class Routes
 	 * @param   string   $name  Route name
 	 * @return  boolean
 	 */
-
-	public function hasNamedRoute($name)
+	public function hasNamedRoute(string $name): bool
 	{
 		return isset($this->namedRoutes[$name]);
 	}
@@ -73,11 +67,10 @@ class Routes
 	 * Returns the named route.
 	 *
 	 * @access  public
-	 * @param   string                   $name  Route name
-	 * @return  \mako\http\routes\Route
+	 * @param   string                    $name  Route name
+	 * @return  \mako\http\routing\Route
 	 */
-
-	public function getNamedRoute($name)
+	public function getNamedRoute(string $name): Route
 	{
 		if(!isset($this->namedRoutes[$name]))
 		{
@@ -94,7 +87,6 @@ class Routes
 	 * @param   array     $options  Group options
 	 * @param   \Closure  $routes   Route closure
 	 */
-
 	public function group(array $options, Closure $routes)
 	{
 		$this->groups[] = $options;
@@ -105,29 +97,16 @@ class Routes
 	}
 
 	/**
-	 * Returns the real route method name.
-	 *
-	 * @access  public
-	 * @param   string  $method  Method name
-	 * @return  string
-	 */
-
-	protected function getRealMethodName($method)
-	{
-		return str_replace(['namespace'], ['setNamespace'], $method);
-	}
-
-	/**
 	 * Registers a route.
 	 *
 	 * @access  public
-	 * @param   array            $methods  HTTP methods
-	 * @param   string           $route    Route
-	 * @param   string|\Closure  $action   Route action
-	 * @param   string           $name     Route name
+	 * @param   array                    $methods  HTTP methods
+	 * @param   string                   $route    Route
+	 * @param   string|\Closure          $action   Route action
+	 * @param   string                   $name     Route name
+	 * @return  \mako\http\routing\Route
 	 */
-
-	protected function registerRoute(array $methods, $route, $action, $name = null)
+	protected function registerRoute(array $methods, string $route, $action, string $name = null): Route
 	{
 		$route = new Route($methods, $route, $action, $name);
 
@@ -144,7 +123,7 @@ class Routes
 			{
 				foreach($group as $option => $value)
 				{
-					$route->{$this->getRealMethodName($option)}($value);
+					$route->{$option}($value);
 				}
 			}
 		}
@@ -156,12 +135,12 @@ class Routes
 	 * Adds a route that responds to GET requests to the collection.
 	 *
 	 * @access  public
-	 * @param   string           $route   Route
-	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    Route name
+	 * @param   string                    $route   Route
+	 * @param   string|\Closure           $action  Route action
+	 * @param   string                    $name    Route name
+	 * @return  \mako\http\routing\Route
 	 */
-
-	public function get($route, $action, $name = null)
+	public function get(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['GET', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
@@ -170,12 +149,12 @@ class Routes
 	 * Adds a route that responds to POST requests to the collection.
 	 *
 	 * @access  public
-	 * @param   string           $route   Route
-	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    Route name
+	 * @param   string                    $route   Route
+	 * @param   string|\Closure           $action  Route action
+	 * @param   string                    $name    Route name
+	 * @return  \mako\http\routing\Route
 	 */
-
-	public function post($route, $action, $name = null)
+	public function post(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['POST', 'OPTIONS'], $route, $action, $name);
 	}
@@ -184,12 +163,12 @@ class Routes
 	 * Adds a route that responds to PUT requests to the collection.
 	 *
 	 * @access  public
-	 * @param   string           $route   Route
-	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    Route name
+	 * @param   string                    $route   Route
+	 * @param   string|\Closure           $action  Route action
+	 * @param   string                    $name    Route name
+	 * @return  \mako\http\routing\Route
 	 */
-
-	public function put($route, $action, $name = null)
+	public function put(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['PUT', 'OPTIONS'], $route, $action, $name);
 	}
@@ -198,12 +177,12 @@ class Routes
 	 * Adds a route that responds to PATCH requests to the collection.
 	 *
 	 * @access  public
-	 * @param   string           $route   Route
-	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    Route name
+	 * @param   string                    $route   Route
+	 * @param   string|\Closure           $action  Route action
+	 * @param   string                    $name    Route name
+	 * @return  \mako\http\routing\Route
 	 */
-
-	public function patch($route, $action, $name = null)
+	public function patch(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['PATCH', 'OPTIONS'], $route, $action, $name);
 	}
@@ -212,12 +191,12 @@ class Routes
 	 * Adds a route that responds to DELETE requests to the collection.
 	 *
 	 * @access  public
-	 * @param   string           $route   Route
-	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    Route name
+	 * @param   string                    $route   Route
+	 * @param   string|\Closure           $action  Route action
+	 * @param   string                    $name    Route name
+	 * @return  \mako\http\routing\Route
 	 */
-
-	public function delete($route, $action, $name = null)
+	public function delete(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['DELETE', 'OPTIONS'], $route, $action, $name);
 	}
@@ -226,12 +205,12 @@ class Routes
 	 * Adds a route that responts to all HTTP methods to the collection.
 	 *
 	 * @access  public
-	 * @param   string           $route   Route
-	 * @param   string|\Closure  $action  Route action
-	 * @param   string           $name    Route name
+	 * @param   string                    $route   Route
+	 * @param   string|\Closure           $action  Route action
+	 * @param   string                    $name    Route name
+	 * @return  \mako\http\routing\Route
 	 */
-
-	public function all($route, $action, $name = null)
+	public function all(string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
@@ -240,13 +219,13 @@ class Routes
 	 * Adds a route that respodns to the chosen HTTP methods to the collection.
 	 *
 	 * @access  public
-	 * @param   array            $methods  Array of HTTP methods the route should respond to
-	 * @param   string           $route    Route
-	 * @param   string|\Closure  $action   Route action
-	 * @param   string           $name     Route name
+	 * @param   array                     $methods  Array of HTTP methods the route should respond to
+	 * @param   string                    $route    Route
+	 * @param   string|\Closure           $action   Route action
+	 * @param   string                    $name     Route name
+	 * @return  \mako\http\routing\Route
 	 */
-
-	public function methods(array $methods, $route, $action, $name = null)
+	public function register(array $methods, string $route, $action, string $name = null): Route
 	{
 		return $this->registerRoute($methods, $route, $action, $name);
 	}

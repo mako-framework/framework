@@ -16,7 +16,6 @@ use mako\cache\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class APCU implements StoreInterface
 {
 	/**
@@ -24,7 +23,6 @@ class APCU implements StoreInterface
 	 *
 	 * @access  public
 	 */
-
 	public function __construct()
 	{
 		if(function_exists('apcu_store') === false)
@@ -36,7 +34,6 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		return apcu_store($key, $data, $ttl);
@@ -45,7 +42,6 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return apcu_exists($key);
@@ -54,7 +50,6 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		return apcu_fetch($key);
@@ -63,7 +58,14 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getOrElse($key, callable $data, $ttl = 0)
+	{
+		return apcu_entry($key, $data, $ttl);
+	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function remove($key)
 	{
 		return apcu_delete($key);
@@ -72,7 +74,6 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		return apcu_clear_cache();

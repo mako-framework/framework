@@ -14,13 +14,11 @@ use mako\cli\input\reader\ReaderInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Reader implements ReaderInterface
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function read()
 	{
 		return trim(fgets(STDIN));

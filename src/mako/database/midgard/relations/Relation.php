@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard\relations;
 
-use mako\database\Connection;
+use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
 use mako\database\midgard\Query;
 use mako\database\midgard\ResultSet;
@@ -17,7 +17,6 @@ use mako\database\midgard\ResultSet;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Relation extends Query
 {
 	/**
@@ -25,7 +24,6 @@ abstract class Relation extends Query
 	 *
 	 * @var int
 	 */
-
 	const EAGER_LOAD_CHUNK_SIZE = 900;
 
 	/**
@@ -33,7 +31,6 @@ abstract class Relation extends Query
 	 *
 	 * @var \mako\database\midgard\ORM
 	 */
-
 	protected $parent;
 
 	/**
@@ -41,7 +38,6 @@ abstract class Relation extends Query
 	 *
 	 * @var string
 	 */
-
 	protected $foreignKey = null;
 
 	/**
@@ -49,19 +45,17 @@ abstract class Relation extends Query
 	 *
 	 * @var boolean
 	 */
-
 	protected $lazy = true;
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Connection   $connection  Database connection
-	 * @param   \mako\database\midgard\ORM  $parent      Parent model
-	 * @param   \mako\database\midgard\ORM  $related     Related model
-	 * @param   string|null                 $foreignKey  Foreign key name
+	 * @param   \mako\database\connections\Connection   $connection  Database connection
+	 * @param   \mako\database\midgard\ORM              $parent      Parent model
+	 * @param   \mako\database\midgard\ORM              $related     Related model
+	 * @param   string|null                             $foreignKey  Foreign key name
 	 */
-
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null)
 	{
 		parent::__construct($connection, $related);
@@ -79,7 +73,6 @@ abstract class Relation extends Query
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function getForeignKey()
 	{
 		if($this->foreignKey === null)
@@ -97,7 +90,6 @@ abstract class Relation extends Query
 	 * @param   array  $results  Result set
 	 * @return  array
 	 */
-
 	protected function keys(array $results)
 	{
 		$keys = [];
@@ -115,7 +107,6 @@ abstract class Relation extends Query
 	 *
 	 * @access  protected
 	 */
-
 	protected function lazyCriterion()
 	{
 		$this->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
@@ -128,7 +119,6 @@ abstract class Relation extends Query
 	 * @param   array                                      $keys  Parent keys
 	 * @return  \mako\database\midgard\relations\Relation
 	 */
-
 	protected function eagerCriterion(array $keys)
 	{
 		$this->lazy = false;
@@ -145,7 +135,6 @@ abstract class Relation extends Query
 	 * @param   array                             $keys  Parent keys
 	 * @return  \mako\database\midgard\ResultSet
 	 */
-
 	protected function eagerLoadChunked(array $keys)
 	{
 		if(count($keys) > static::EAGER_LOAD_CHUNK_SIZE)
@@ -171,7 +160,6 @@ abstract class Relation extends Query
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function first()
 	{
 		if(!$this->lazy)
@@ -188,7 +176,6 @@ abstract class Relation extends Query
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */
-
 	public function all()
 	{
 		if(!$this->lazy)

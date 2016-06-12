@@ -1,10 +1,16 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\database\midgard;
 
-use mako\database\midgard\Query;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\database\midgard\Query;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -27,27 +33,26 @@ class ScopedModel extends \mako\database\midgard\ORM
 /**
  * @group unit
  */
-
-class QueryTest extends \PHPUnit_Framework_TestCase
+class QueryTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getConnecion()
 	{
-		$connection = m::mock('\mako\database\Connection');
+		$connection = Mockery::mock('\mako\database\connections\Connection');
 
-		$connection->shouldReceive('getDialect')->andReturn('sqlite');
+		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock('\mako\database\query\helpers\HelperInterface'));
+
+		$connection->shouldReceive('getQueryCompiler')->andReturn(Mockery::mock('\mako\database\query\compilers\Compiler'));
 
 		return $connection;
 	}
@@ -55,10 +60,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getModel()
 	{
-		$model = m::mock('\mako\database\midgard\ORM');
+		$model = Mockery::mock('\mako\database\midgard\ORM');
 
 		return $model;
 	}
@@ -66,21 +70,17 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getQuery($model)
 	{
-		return m::mock('\mako\database\midgard\Query', [$this->getConnecion(), $model]);
+		return Mockery::mock('\mako\database\midgard\Query', [$this->getConnecion(), $model]);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testConstructor()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
@@ -90,12 +90,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testJoin()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->twice()->andReturn('tests');
 
@@ -107,71 +104,17 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testInsertWithException()
-	{
-		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->twice()->andReturn(true);
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
-		$query = new Query($this->getConnecion(), $model);
-
-		$query->insert(['foo' => 'bar']);
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testUpdateWithException()
-	{
-		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->twice()->andReturn(true);
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
-		$query = new Query($this->getConnecion(), $model);
-
-		$query->update(['foo' => 'bar']);
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testDeleteWithException()
-	{
-		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->twice()->andReturn(true);
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
-		$query = new Query($this->getConnecion(), $model);
-
-		$query->delete();
-	}
-
-	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		$query = m::mock('\mako\database\midgard\Query[where,first]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock('\mako\database\midgard\Query[where,first]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($query);
 
@@ -183,18 +126,15 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetWithColumns()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		$query = m::mock('\mako\database\midgard\Query[select,where,first]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock('\mako\database\midgard\Query[select,where,first]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('select')->once()->with(['foo', 'bar']);
 
@@ -208,12 +148,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSingleInclude()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
@@ -227,12 +164,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIncludes()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
@@ -246,12 +180,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSingleExlude()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
@@ -267,12 +198,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testExcludes()
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
@@ -288,7 +216,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \BadMethodCallException
 	 */
-
 	public function testScopeException()
 	{
 		$model = new ScopedModel();
@@ -301,7 +228,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testScope()
 	{
 		$model = new ScopedModel();
@@ -316,18 +242,15 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBatch()
 	{
-		$model = m::mock('\mako\database\midgard\ORM');
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
+		$model = Mockery::mock('\mako\database\midgard\ORM');
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getPrimaryKey')->andReturn('foobar');
 
-		$query = m::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('all')->once()->andReturn([]);
 
@@ -340,13 +263,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$model = m::mock('\mako\database\midgard\ORM');
-
-		$model->shouldReceive('isReadOnly')->once()->andReturn(false);
+		$model = Mockery::mock('\mako\database\midgard\ORM');
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$query = m::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('all')->once()->andReturn([]);
 

@@ -14,7 +14,6 @@ use mako\cli\output\Output;
  *
  * @author  Frederic G. Østby
  */
-
 class ProgressBar
 {
 	/**
@@ -22,7 +21,6 @@ class ProgressBar
 	 *
 	 * @var string
 	 */
-
 	protected $emptyTemplate = '-';
 
 	/**
@@ -30,7 +28,6 @@ class ProgressBar
 	 *
 	 * @var string
 	 */
-
 	protected $filledTemplate = '=';
 
 	/**
@@ -38,7 +35,6 @@ class ProgressBar
 	 *
 	 * @var int
 	 */
-
 	protected $items;
 
 	/**
@@ -46,7 +42,6 @@ class ProgressBar
 	 *
 	 * @var int
 	 */
-
 	protected $redrawRate;
 
 	/**
@@ -54,7 +49,6 @@ class ProgressBar
 	 *
 	 * @var int
 	 */
-
 	protected $progress = 0;
 
 	/**
@@ -62,7 +56,6 @@ class ProgressBar
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-
 	protected $output;
 
 	/**
@@ -73,14 +66,13 @@ class ProgressBar
 	 * @param   int                      $items       Total number of items
 	 * @param   int                      $redrawRate  Redraw rate
 	 */
-
 	public function __construct(Output $output, $items, $redrawRate = null)
 	{
 		$this->output = $output;
 
 		$this->items = $items;
 
-		$this->redrawRate = max($redrawRate ?: ceil(0.01 * $items), 1);
+		$this->redrawRate = max($redrawRate ?? ceil(0.01 * $items), 1);
 	}
 
 	/**
@@ -89,7 +81,6 @@ class ProgressBar
 	 * @access  public
 	 * @param   string  $template  Template
 	 */
-
 	public function setEmptyTemplate($template)
 	{
 		$this->emptyTemplate = $template;
@@ -101,7 +92,6 @@ class ProgressBar
 	 * @access  public
 	 * @param   string  $template  Template
 	 */
-
 	public function setFilledTemplate($template)
 	{
 		$this->filledTemplate = $template;
@@ -114,7 +104,6 @@ class ProgressBar
 	 * @param   int        $percent  Percent to fill
 	 * @return  string
 	 */
-
 	protected function buildProgressBar($percent)
 	{
 		$fill = (int) floor($percent / 5);
@@ -135,7 +124,6 @@ class ProgressBar
 	 *
 	 * @access  public
 	 */
-
 	public function draw()
 	{
 		// Don't draw progess bar if there are 0 items
@@ -166,11 +154,10 @@ class ProgressBar
 	}
 
 	/**
-	 * Move progress forward and redraws the progessbar.
+	 * Move progress forward and redraws the progressbar.
 	 *
 	 * @access  public
 	 */
-
 	public function advance()
 	{
 		$this->progress++;

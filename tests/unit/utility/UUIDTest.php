@@ -1,19 +1,24 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\utility;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\utility\UUID;
 
 /**
  * @group unit
  */
-
-class UUIDTest extends \PHPUnit_Framework_TestCase
+class UUIDTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testNamespaces()
 	{
 		$this->assertEquals('6ba7b810-9dad-11d1-80b4-00c04fd430c8', UUID::DNS);
@@ -28,7 +33,6 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidate()
 	{
 		$this->assertTrue(UUID::validate('6ba7b814-9dad-11d1-80b4-00c04fd430c8'));
@@ -39,7 +43,6 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testV3()
 	{
 		$this->assertEquals(3, substr(UUID::v3(UUID::DNS, 'hello'), 14, 1));
@@ -58,7 +61,6 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \InvalidArgumentException
 	 */
-
 	public function testV3WithInvalidNamespace()
 	{
 		UUID::v3('nope', 'foobar');
@@ -67,7 +69,6 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testV4()
 	{
 		$this->assertEquals(4, substr(UUID::v4(), 14, 1));
@@ -80,7 +81,6 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testV5()
 	{
 		$this->assertEquals(5, substr(UUID::v5(UUID::DNS, 'hello'), 14, 1));
@@ -99,7 +99,6 @@ class UUIDTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \InvalidArgumentException
 	 */
-
 	public function testV5WithInvalidNamespace()
 	{
 		UUID::v5('nope', 'foobar');

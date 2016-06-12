@@ -12,7 +12,6 @@ namespace mako\syringe;
  *
  * @author  Frederic G. Østby
  */
-
 class ClassInspector
 {
 	/**
@@ -23,7 +22,6 @@ class ClassInspector
 	 * @param   boolean        $autoload  Autoload
 	 * @return  array
 	 */
-
 	public static function getTraits($class, $autoload = true)
 	{
 		// Fetch all traits used by a class and its parents

@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard\relations;
 
-use mako\database\Connection;
+use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
 use mako\database\midgard\ResultSet;
 use mako\database\midgard\relations\Relation;
@@ -17,7 +17,6 @@ use mako\database\midgard\relations\Relation;
  *
  * @author  Frederic G. Østby
  */
-
 class ManyToMany extends Relation
 {
 	/**
@@ -25,7 +24,6 @@ class ManyToMany extends Relation
 	 *
 	 * @var string
 	 */
-
 	protected $junctionTable = null;
 
 	/**
@@ -33,21 +31,19 @@ class ManyToMany extends Relation
 	 *
 	 * @var string
 	 */
-
 	protected $junctionKey = null;
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Connection   $connection     Database connection
-	 * @param   \mako\database\midgard\ORM  $parent         Parent model
-	 * @param   \mako\database\midgard\ORM  $related        Related model
-	 * @param   string|null                 $foreignKey     Foreign key name
-	 * @param   string|null                 $junctionTable  Junction table name
-	 * @param   string|null                 $junctionKey    Junction key name
+	 * @param   \mako\database\connections\Connection  $connection     Database connection
+	 * @param   \mako\database\midgard\ORM             $parent         Parent model
+	 * @param   \mako\database\midgard\ORM             $related        Related model
+	 * @param   string|null                            $foreignKey     Foreign key name
+	 * @param   string|null                            $junctionTable  Junction table name
+	 * @param   string|null                            $junctionKey    Junction key name
 	 */
-
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null, $junctionTable = null, $junctionKey = null)
 	{
 		$this->junctionTable = $junctionTable;
@@ -65,7 +61,6 @@ class ManyToMany extends Relation
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function getJunctionTable()
 	{
 		if($this->junctionTable === null)
@@ -86,7 +81,6 @@ class ManyToMany extends Relation
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function getJunctionKey()
 	{
 		if($this->junctionKey === null)
@@ -102,7 +96,6 @@ class ManyToMany extends Relation
 	 *
 	 * @access  protected
 	 */
-
 	protected function junctionJoin()
 	{
 		$this->join($this->getJunctionTable(), $this->getJunctionTable() . '.' . $this->getJunctionKey(), '=', $this->model->getTable() . '.' . $this->model->getPrimaryKey());
@@ -111,7 +104,6 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritdoc}
 	 */
-
 	protected function lazyCriterion()
 	{
 		$this->where($this->getJunctionTable() . '.' . $this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
@@ -124,7 +116,6 @@ class ManyToMany extends Relation
 	 * @param   array                                     $keys  Parent keys
 	 * @return  \mako\database\midgard\relations\HasMany
 	 */
-
 	protected function eagerCriterion(array $keys)
 	{
 		$this->lazy = false;
@@ -143,7 +134,6 @@ class ManyToMany extends Relation
 	 * @param   null|\Closure  $criteria  Relation criteria
 	 * @param   array          $includes  Includes passed from the parent record
 	 */
-
 	public function eagerLoad(array &$results, $relation, $criteria, array $includes)
 	{
 		$this->model->setIncludes($includes);
@@ -164,14 +154,7 @@ class ManyToMany extends Relation
 
 		foreach($results as $result)
 		{
-			if(isset($grouped[$result->getPrimaryKeyValue()]))
-			{
-				$result->setRelated($relation, new ResultSet($grouped[$result->getPrimaryKeyValue()]));
-			}
-			else
-			{
-				$result->setRelated($relation, new ResultSet());
-			}
+			$result->setRelated($relation, new ResultSet($grouped[$result->getPrimaryKeyValue()] ?? []));
 		}
 	}
 
@@ -182,7 +165,6 @@ class ManyToMany extends Relation
 	 * @param   array      $columns  Columns
 	 * @return  array
 	 */
-
 	protected function adjustSelection(array $columns)
 	{
 		if($columns === ['*'])
@@ -204,7 +186,6 @@ class ManyToMany extends Relation
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function first()
 	{
 		$this->columns = $this->adjustSelection($this->columns);
@@ -218,7 +199,6 @@ class ManyToMany extends Relation
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */
-
 	public function all()
 	{
 		$this->columns = $this->adjustSelection($this->columns);
@@ -232,7 +212,6 @@ class ManyToMany extends Relation
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function getRelated()
 	{
 		return $this->all();
@@ -244,7 +223,6 @@ class ManyToMany extends Relation
 	 * @access  protected
 	 * @return  \mako\database\query\Query
 	 */
-
 	protected function junction()
 	{
 		return $this->connection->builder()->table($this->getJunctionTable());
@@ -254,47 +232,94 @@ class ManyToMany extends Relation
 	 * Links related records.
 	 *
 	 * @access  public
-	 * @param   mixed    $id  Id or model
+	 * @param   mixed    $id  Id, model or an array of ids and/or models
 	 * @return  boolean
 	 */
-
 	public function link($id)
 	{
-		if($id instanceof $this->model)
+		$success = true;
+
+		foreach((is_array($id) ? $id : [$id]) as $value)
 		{
-			$id = $id->getPrimaryKeyValue();
+			if($value instanceof $this->model)
+			{
+				$value = $value->getPrimaryKeyValue();
+			}
+
+			$success = $success && $this->junction()->insert([$this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $value]);
 		}
 
-		if($this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue())->where($this->getJunctionKey(), '=', $id)->count() == 0)
-		{
-			return $this->junction()->insert([$this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $id]);
-		}
-
-		return false;
+		return $success;
 	}
 
 	/**
 	 * Unlinks related records.
 	 *
 	 * @access  public
-	 * @param   mixed    $id  Id or model
+	 * @param   mixed    $id  Id, model or an array of ids and/or models
 	 * @return  boolean
 	 */
-
 	public function unlink($id = null)
 	{
 		$query = $this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
 
 		if($id !== null)
 		{
-			if($id instanceof $this->model)
+			$keys = [];
+
+			foreach((is_array($id) ? $id : [$id]) as $value)
 			{
-				$id = $id->getPrimaryKeyValue();
+				if($value instanceof $this->model)
+				{
+					$value = $value->getPrimaryKeyValue();
+				}
+
+				$keys[] = $value;
 			}
 
-			$query->where($this->getJunctionKey(), '=', $id);
+			$query->in($this->getJunctionKey(), $keys);
 		}
 
 		return (bool) $query->delete();
+	}
+
+	/**
+	 * Synchronize related records.
+	 *
+	 * @access  public
+	 * @param   array    $ids  An array of ids and/or models
+	 * @return  boolean
+	 */
+	public function synchronize(array $ids)
+	{
+		$success = true;
+
+		$keys = [];
+
+		foreach($ids as $value)
+		{
+			if($value instanceof $this->model)
+			{
+				$value = $value->getPrimaryKeyValue();
+			}
+
+			$keys[] = $value;
+		}
+
+		// Fetch existing links
+
+		$existing = $this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue())->select([$this->getJunctionKey()])->all()->pluck($this->getJunctionKey());
+
+		// Link new relations
+
+		$success = $success && $this->link(array_diff($keys, $existing));
+
+		// Unlink old relations
+
+		$success = $success && $this->unlink(array_diff($existing, $keys));
+
+		// Return status
+
+		return $success;
 	}
 }

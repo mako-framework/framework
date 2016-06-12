@@ -15,20 +15,26 @@ use mako\cache\CacheManager;
  *
  * @author  Frederic G. Østby
  */
-
 class CacheService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\cache\CacheManager', 'cache'], function($container)
+		$this->container->registerSingleton([CacheManager::class, 'cache'], function($container)
 		{
-			$config = $container->get('config')->get('cache');
+			// Get configuration
 
-			return new CacheManager($config['default'], $config['configurations'], $container);
+			$config = $container->get('config');
+
+			$classWhitelist = $config->get('application.deserialization_whitelist');
+
+			$config = $config->get('cache');
+
+			// Create and return cache manager
+
+			return new CacheManager($config['default'], $config['configurations'], $container, $classWhitelist);
 		});
 	}
 }

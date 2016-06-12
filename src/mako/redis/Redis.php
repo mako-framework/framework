@@ -19,7 +19,6 @@ use mako\utility\Str;
  *
  * @author  Frederic G. Østby
  */
-
 class Redis
 {
 	/**
@@ -27,7 +26,6 @@ class Redis
 	 *
 	 * @var string
 	 */
-
 	const CRLF = "\r\n";
 
 	/**
@@ -35,7 +33,6 @@ class Redis
 	 *
 	 * @var boolean
 	 */
-
 	protected $pipelined = false;
 
 	/**
@@ -43,7 +40,6 @@ class Redis
 	 *
 	 * @var array
 	 */
-
 	protected $commands = [];
 
 	/**
@@ -51,7 +47,6 @@ class Redis
 	 *
 	 * @var \mako\redis\Connection
 	 */
-
 	protected $connection;
 
 	/**
@@ -61,7 +56,6 @@ class Redis
 	 * @param   \mako\redis\Connection  $connection  Redis connection
 	 * @param   array                   $options     Options
 	 */
-
 	public function __construct(Connection $connection, array $options = [])
 	{
 		$this->connection = $connection;
@@ -71,7 +65,7 @@ class Redis
 			$this->auth($options['password']);
 		}
 
-		if(!empty($options['database']) && $options['database'] !== 0)
+		if(!empty($options['database']))
 		{
 			$this->select($options['database']);
 		}
@@ -83,7 +77,6 @@ class Redis
 	 * @access  protected
 	 * @return  mixed
 	 */
-
 	protected function response()
 	{
 		$response = trim($this->connection->gets());
@@ -138,7 +131,6 @@ class Redis
 	 * @param   \Closure  $pipeline  Pipelined commands
 	 * @return  array
 	 */
-
 	public function pipeline(Closure $pipeline)
 	{
 		// Enable pipelining
@@ -181,7 +173,6 @@ class Redis
 	 * @param   array   $arguments  Command arguments
 	 * @return  mixed
 	 */
-
 	public function __call($name, $arguments)
 	{
 		// Build command

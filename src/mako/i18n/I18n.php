@@ -18,7 +18,6 @@ use mako\utility\Arr;
  *
  * @author  Frederic G. Østby
  */
-
 class I18n
 {
 	/**
@@ -26,7 +25,6 @@ class I18n
 	 *
 	 * @var \mako\i18n\Loader
 	 */
-
 	protected $loader;
 
 	/**
@@ -34,7 +32,6 @@ class I18n
 	 *
 	 * @var string
 	 */
-
 	protected $language;
 
 	/**
@@ -42,7 +39,6 @@ class I18n
 	 *
 	 * @var array
 	 */
-
 	protected $strings = [];
 
 	/**
@@ -50,7 +46,6 @@ class I18n
 	 *
 	 * @var array
 	 */
-
 	protected $inflections = [];
 
 	/**
@@ -58,7 +53,6 @@ class I18n
 	 *
 	 * @var \mako\cache\Cache
 	 */
-
 	protected $cache;
 
 	/**
@@ -66,7 +60,6 @@ class I18n
 	 *
 	 * @var boolean
 	 */
-
 	protected $rebuildCache = false;
 
 	/**
@@ -77,7 +70,6 @@ class I18n
 	 * @param   string             $language  Default language pack name
 	 * @param   \mako\cache\Cache  $cache     Cache instance
 	 */
-
 	public function __construct(Loader $loader, $language, Cache $cache = null)
 	{
 		$this->loader = $loader;
@@ -92,7 +84,6 @@ class I18n
 	 *
 	 * @access  public
 	 */
-
 	public function __destruct()
 	{
 		if($this->cache !== null && $this->rebuildCache)
@@ -110,7 +101,6 @@ class I18n
 	 * @access  public
 	 * @return  \mako\i18n\Loader
 	 */
-
 	public function getLoader()
 	{
 		return $this->loader;
@@ -122,7 +112,6 @@ class I18n
 	 * @access  public
 	 * @param   \mako\cache\Cache  $cache  Cache instance
 	 */
-
 	public function setCache(Cache $cache)
 	{
 		$this->cache = $cache;
@@ -134,7 +123,6 @@ class I18n
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getLanguage()
 	{
 		return $this->language;
@@ -147,7 +135,6 @@ class I18n
 	 * @param   string  $language  Name of the language pack
 	 * @return  string
 	 */
-
 	public function setLanguage($language = null)
 	{
 		$this->language = $language;
@@ -159,7 +146,6 @@ class I18n
 	 * @access  protected
 	 * @param   string     $language  Name of the language pack
 	 */
-
 	protected function loadInflection($language)
 	{
 		$this->inflections[$language] = $this->loader->loadInflection($language);
@@ -174,10 +160,9 @@ class I18n
 	 * @param   string  $language  Language rules to use for pluralization
 	 * @return  string
 	 */
-
 	public function pluralize($word, $count = null, $language = null)
 	{
-		$language = $language ?: $this->language;
+		$language = $language ?? $this->language;
 
 		if(!isset($this->inflections[$language]))
 		{
@@ -202,7 +187,6 @@ class I18n
 	 * @param   string     $file      File from which we are loading the strings
 	 * @return  boolean
 	 */
-
 	protected function loadFromCache($language, $file)
 	{
 		$this->strings[$language] = $this->cache->get('mako.i18n.' . $language);
@@ -215,9 +199,8 @@ class I18n
 	 *
 	 * @access  protected
 	 * @param   string     $language  Name of the language pack
-	 * @param   file       $file      File from which we are loading the strings
+	 * @param   string     $file      File from which we are loading the strings
 	 */
-
 	protected function loadStrings($language, $file)
 	{
 		if($this->cache !== null)
@@ -240,7 +223,6 @@ class I18n
 	 * @param   string    $key  Language key
 	 * @return  array
 	 */
-
 	protected function parseKey($key)
 	{
 		return explode('.', $key, 2);
@@ -254,10 +236,9 @@ class I18n
 	 * @param   string     $language  Name of the language pack
 	 * @return  string
 	 */
-
 	protected function getString($key, $language)
 	{
-		$language = $language ?: $this->language;
+		$language = $language ?? $this->language;
 
 		list($file, $string) = $this->parseKey($key);
 
@@ -277,10 +258,9 @@ class I18n
 	 * @param   string   $language  Name of the language pack
 	 * @return  boolean
 	 */
-
 	public function has($key, $language = null)
 	{
-		$language = $language ?: $this->language;
+		$language = $language ?? $this->language;
 
 		list($file, $string) = $this->parseKey($key);
 
@@ -299,7 +279,6 @@ class I18n
 	 * @param   string     $string  String to parse
 	 * @return  string
 	 */
-
 	protected function parsePluralizationTags($string)
 	{
 		if(stripos($string, '</pluralize>') !== false)
@@ -322,7 +301,6 @@ class I18n
 	 * @param   string  $language  Name of the language pack
 	 * @return  string
 	 */
-
 	public function get($key, array $vars = [], $language = null)
 	{
 		$string = $this->getString($key, $language);

@@ -1,41 +1,41 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\cli\input;
 
-use mako\cli\input\Input;
-
-use Mockery as m;
-
+use Mockery;
 use PHPUnit_Framework_TestCase;
+
+use mako\cli\input\Input;
 
 /**
  * @group unit
  */
-
 class InputTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getReader()
 	{
-		return m::mock('mako\cli\input\reader\ReaderInterface');
+		return Mockery::mock('mako\cli\input\reader\ReaderInterface');
 	}
 
 	/**
 	 *
 	 */
-
 	public function testRead()
 	{
 		$reader = $this->getReader();
@@ -52,7 +52,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetArguments()
 	{
 		$reader = $this->getReader();
@@ -67,7 +66,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetNumericArgument()
 	{
 		$reader = $this->getReader();
@@ -88,7 +86,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetNamedArgument()
 	{
 		$reader = $this->getReader();
@@ -105,7 +102,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetNormalizedNamedArgument()
 	{
 		$reader = $this->getReader();
@@ -122,7 +118,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetBooleanNamedArgument()
 	{
 		$reader = $this->getReader();
@@ -137,7 +132,6 @@ class InputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetMissingArgument()
 	{
 		$reader = $this->getReader();

@@ -1,35 +1,37 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\utility;
 
-use \DateTime;
+use DateTime;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
 use mako\utility\Humanizer;
-
-use \Mockery as m;
 
 /**
  * @group unit
  */
-
-class HumanizerTest extends \PHPUnit_Framework_TestCase
+class HumanizerTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getI18n()
 	{
-		$i18n = m::mock('\mako\i18n\I18n');
+		$i18n = Mockery::mock('\mako\i18n\I18n');
 
 		$i18n->shouldReceive('get')->andReturnUsing(function($key, $params = [])
 		{
@@ -47,7 +49,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getHumanizer()
 	{
 		return new Humanizer($this->getI18n());
@@ -56,7 +57,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFileSizeBinary()
 	{
 		$humanizer = $this->getHumanizer();
@@ -173,7 +173,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testFileSizeDecimal()
 	{
 		$humanizer = $this->getHumanizer();
@@ -272,7 +271,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDay()
 	{
 		$humanizer = $this->getHumanizer();
@@ -311,7 +309,6 @@ class HumanizerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTime()
 	{
 		$humanizer = $this->getHumanizer();

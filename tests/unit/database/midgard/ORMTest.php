@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\database\midgard;
 
-use \DateTime;
-
-use \Mockery as m;
+use DateTime;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -30,8 +35,6 @@ class TestUser1 extends \mako\database\midgard\ORM
 class TestUser2 extends TestUser1
 {
 	use \mako\database\midgard\traits\OptimisticLockingTrait;
-
-	protected $readOnly = true;
 
 	protected function arrayMutator($array)
 	{
@@ -85,7 +88,7 @@ class ORMTestApple extends \mako\database\midgard\ORM
 
 class TestCastingScalars extends \mako\database\midgard\ORM
 {
-	protected $cast = ['boolean' => 'boolean', 'integer' => 'integer', 'float' => 'float'];
+	protected $cast = ['boolean' => 'bool', 'integer' => 'int', 'float' => 'float'];
 }
 
 class TestCastingDate extends \mako\database\midgard\ORM
@@ -100,22 +103,19 @@ class TestCastingDate extends \mako\database\midgard\ORM
 /**
  * @group unit
  */
-
-class ORMTest extends \PHPUnit_Framework_TestCase
+class ORMTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testGetTableName()
 	{
 		$user = new TestUser1();
@@ -126,7 +126,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetPrimaryKey()
 	{
 		$user = new TestUser1();
@@ -137,7 +136,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetPrimaryKeyValue()
 	{
 		$user = new TestUser1(['id' => '1']);
@@ -148,7 +146,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetForeignKey()
 	{
 		$user = new TestUser1();
@@ -159,7 +156,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetClass()
 	{
 		$user = new TestUser1();
@@ -170,7 +166,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetAndGetLockVersion()
 	{
 		$user = new TestUser2([], true, false, true);
@@ -183,24 +178,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
-	public function testIsReadOnly()
-	{
-		$user = new TestUser1();
-
-		$this->assertFalse($user->isReadOnly());
-
-		//
-
-		$user = new TestUser2();
-
-		$this->assertTrue($user->isReadOnly());
-	}
-
-	/**
-	 *
-	 */
-
 	public function testSetAndGetIncludes()
 	{
 		$user = new TestUser1();
@@ -215,7 +192,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetAndGetRelated()
 	{
 		$user = new TestUser1();
@@ -230,7 +206,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetRawColumns()
 	{
 		$columns = ['id' => '1', 'username' => 'foo'];
@@ -243,7 +218,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetandGetColumn()
 	{
 		$user = new TestUser1();
@@ -310,7 +284,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAssign()
 	{
 		$user = new TestUser3();
@@ -357,7 +330,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTableNameGuessing()
 	{
 		$apple = new ORMTestApple;
@@ -368,7 +340,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDateTimeColumns()
 	{
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
@@ -379,7 +350,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetColumnWithNullValue()
 	{
 		$user = new TestUser4();
@@ -392,7 +362,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIsModified()
 	{
 		$user = new TestUser1(['foo' => 123, 'bar' => 456], true, false, true);
@@ -407,7 +376,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetModified()
 	{
 		$user = new TestUser1(['foo' => 123, 'bar' => 456], true, false, true);
@@ -422,7 +390,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCastingScalars()
 	{
 		$cast = new TestCastingScalars;
@@ -509,7 +476,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCastingDate()
 	{
 		$cast = new TestCastingDate;
@@ -520,7 +486,7 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$cast = m::mock('mako\tests\unit\database\midgard\TestCastingDate');
+		$cast = Mockery::mock('mako\tests\unit\database\midgard\TestCastingDate');
 
 		$cast->shouldAllowMockingProtectedMethods();
 
@@ -536,7 +502,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToArray()
 	{
 		$user = new TestUser4();
@@ -553,7 +518,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToJson()
 	{
 		$user = new TestUser4();
@@ -570,7 +534,6 @@ class ORMTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToString()
 	{
 		$user = new TestUser4();

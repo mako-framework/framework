@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\common;
 
 use PHPUnit_Framework_TestCase;
@@ -27,13 +32,11 @@ class Configurable
 /**
  * @group unit
  */
-
 class ConfigurableTraitTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testConstructor()
 	{
 		$configurable = new Configurable('foo', ['foo' => ['foo_config']]);
@@ -44,7 +47,6 @@ class ConfigurableTraitTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAddConfiguration()
 	{
 		$configurable = new Configurable('foo', ['foo' => ['foo_config']]);
@@ -57,7 +59,6 @@ class ConfigurableTraitTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemoveConfiguration()
 	{
 		$configurable = new Configurable('foo', ['foo' => ['foo_config']]);

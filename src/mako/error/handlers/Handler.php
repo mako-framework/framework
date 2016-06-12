@@ -7,7 +7,7 @@
 
 namespace mako\error\handlers;
 
-use Exception;
+use Throwable;
 use ErrorException;
 
 use mako\error\handlers\HandlerInterface;
@@ -17,7 +17,6 @@ use mako\error\handlers\HandlerInterface;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Handler implements HandlerInterface
 {
 	/**
@@ -25,14 +24,15 @@ abstract class Handler implements HandlerInterface
 	 *
 	 * @var \Exception
 	 */
-
 	protected $exception;
 
 	/**
-	 * {@inheritdoc}
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   \Throwable  $exception  Throwable
 	 */
-
-	public function __construct(Exception $exception)
+	public function __construct(Throwable $exception)
 	{
 		$this->exception = $exception;
 	}
@@ -41,11 +41,10 @@ abstract class Handler implements HandlerInterface
 	 * Determines the exception type.
 	 *
 	 * @access  protected
-	 * @param   \Exception  $exception  Exception
+	 * @param   \Throwable  $exception  Throwable
 	 * @return  string
 	 */
-
-	protected function determineExceptionType($exception)
+	protected function determineExceptionType(Throwable $exception)
 	{
 		$code = $exception->getCode();
 
@@ -65,7 +64,7 @@ abstract class Handler implements HandlerInterface
 				E_USER_NOTICE       => 'Notice',
 				E_USER_WARNING      => 'Warning',
 				E_USER_ERROR        => 'Error',
-				E_USER_DEPRECATED   => 'Deprecated'
+				E_USER_DEPRECATED   => 'Deprecated',
 			];
 
 			return in_array($code, array_keys($codes)) ? $codes[$code] : 'ErrorException';

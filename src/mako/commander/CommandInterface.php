@@ -12,7 +12,6 @@ namespace mako\commander;
  *
  * @author  Yamada Taro
  */
-
 interface CommandInterface
 {
 

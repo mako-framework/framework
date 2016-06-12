@@ -23,7 +23,6 @@ class Question
 	 *
 	 * @var \mako\cli\input\Input
 	 */
-
 	protected $input;
 
 	/**
@@ -31,7 +30,6 @@ class Question
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-
 	protected $ouput;
 
 	/**
@@ -41,7 +39,6 @@ class Question
 	 * @param   \mako\cli\input\Input    $input   Input instance
 	 * @param   \mako\cli\output\Output  $output  Output instance
 	 */
-
 	public function __construct(Input $input, Output $output)
 	{
 		$this->input = $input;
@@ -57,7 +54,6 @@ class Question
 	 * @param   null|mixed  $default   Default if no input is entered
 	 * @return  string
 	 */
-
 	public function ask($question, $default = null)
 	{
 		$this->output->write(trim($question) . ' ');

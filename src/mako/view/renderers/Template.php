@@ -16,15 +16,20 @@ use mako\view\renderers\PHP;
  *
  * @author  Frederic G. Østby
  */
-
 class Template extends PHP
 {
+	/**
+	 * File system instance.
+	 *
+	 * @var \mako\file\FileSystem
+	 */
+	protected $fileSystem;
+
 	/**
 	 * Cache path.
 	 *
 	 * @var string
 	 */
-
 	protected $cachePath;
 
 	/**
@@ -32,7 +37,6 @@ class Template extends PHP
 	 *
 	 * @var array
 	 */
-
 	protected $blocks = [];
 
 	/**
@@ -40,7 +44,6 @@ class Template extends PHP
 	 *
 	 * @var array
 	 */
-
 	protected $openBlocks = [];
 
 	/**
@@ -50,7 +53,6 @@ class Template extends PHP
 	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
 	 * @param   string                 $cachePath   Cache path
 	 */
-
 	public function __construct(FileSystem $fileSystem, $cachePath)
 	{
 		$this->fileSystem = $fileSystem;
@@ -64,7 +66,6 @@ class Template extends PHP
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function getCompiledPath($view)
 	{
 		return $this->cachePath . '/' . md5($view) . '.php';
@@ -78,7 +79,6 @@ class Template extends PHP
 	 * @param   string     $compiled  Compiled view path
 	 * @return  boolean
 	 */
-
 	protected function needToCompile($view, $compiled)
 	{
 		return !$this->fileSystem->exists($compiled) || $this->fileSystem->lastModified($compiled) < $this->fileSystem->lastModified($view);
@@ -90,7 +90,6 @@ class Template extends PHP
 	 * @access  protected
 	 * @param   string     $view  View path
 	 */
-
 	protected function compile($view)
 	{
 		(new Compiler($this->fileSystem, $this->cachePath, $view))->compile();
@@ -102,7 +101,6 @@ class Template extends PHP
 	 * @access  public
 	 * @param   string  $name  Block name
 	 */
-
 	public function open($name)
 	{
 		ob_start() && $this->openBlocks[] = $name;
@@ -114,7 +112,6 @@ class Template extends PHP
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function close()
 	{
 		return $this->blocks[array_pop($this->openBlocks)][] = ob_get_clean();
@@ -126,7 +123,6 @@ class Template extends PHP
 	 * @access  public
 	 * @param   string  $name  Block name
 	 */
-
 	public function output($name)
 	{
 		$parent = $this->close();
@@ -146,7 +142,6 @@ class Template extends PHP
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function render($__view__, array $__variables__)
 	{
 		$compiled = $this->getCompiledPath($__view__);

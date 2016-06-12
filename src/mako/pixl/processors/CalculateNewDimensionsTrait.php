@@ -14,7 +14,6 @@ use mako\pixl\Image;
  *
  * @author  Frederic G. Østby
  */
-
 trait CalculateNewDimensionsTrait
 {
 	/**
@@ -27,7 +26,6 @@ trait CalculateNewDimensionsTrait
 	 * @param  int    $aspectRatio  Aspect ratio
 	 * @return array
 	 */
-
 	protected function calculateNewDimensions($width, $height, $oldWidth, $oldHeight, $aspectRatio)
 	{
 		if($height === null)

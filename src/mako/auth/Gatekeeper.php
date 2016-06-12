@@ -20,7 +20,6 @@ use mako\session\Session;
  *
  * @author  Frederic G. Østby
  */
-
 class Gatekeeper
 {
 	/**
@@ -28,7 +27,6 @@ class Gatekeeper
 	 *
 	 * @var int
 	 */
-
 	const LOGIN_BANNED = 100;
 
 	/**
@@ -36,7 +34,6 @@ class Gatekeeper
 	 *
 	 * @var int
 	 */
-
 	const LOGIN_ACTIVATING = 101;
 
 	/**
@@ -44,7 +41,6 @@ class Gatekeeper
 	 *
 	 * @var int
 	 */
-
 	const LOGIN_INCORRECT = 102;
 
 	/**
@@ -52,7 +48,6 @@ class Gatekeeper
 	 *
 	 * @var int
 	 */
-
 	const LOGIN_LOCKED = 103;
 
 	/**
@@ -60,7 +55,6 @@ class Gatekeeper
 	 *
 	 * @var \mako\http\Request
 	 */
-
 	protected $request;
 
 	/**
@@ -68,7 +62,6 @@ class Gatekeeper
 	 *
 	 * @var \mako\http\Response
 	 */
-
 	protected $response;
 
 	/**
@@ -76,23 +69,20 @@ class Gatekeeper
 	 *
 	 * @var \mako\session\Session
 	 */
-
 	protected $session;
 
 	/**
 	 * User provider.
 	 *
-	 * @var \mako\auth\UserProviderInterface
+	 * @var \mako\auth\providers\UserProviderInterface
 	 */
-
 	protected $userProvider;
 
 	/**
 	 * Group provider.
 	 *
-	 * @var \mako\auth\GroupProviderInterface
+	 * @var \mako\auth\providers\GroupProviderInterface
 	 */
-
 	protected $groupProvider;
 
 	/**
@@ -100,7 +90,6 @@ class Gatekeeper
 	 *
 	 * @var string
 	 */
-
 	protected $identifier = 'email';
 
 	/**
@@ -108,7 +97,6 @@ class Gatekeeper
 	 *
 	 * @var string
 	 */
-
 	protected $authKey = 'gatekeeper_auth_key';
 
 	/**
@@ -116,7 +104,6 @@ class Gatekeeper
 	 *
 	 * @var boolean
 	 */
-
 	protected $throttle = false;
 
 	/**
@@ -124,7 +111,6 @@ class Gatekeeper
 	 *
 	 * @var int
 	 */
-
 	protected $maxLoginAttempts = 5;
 
 	/**
@@ -133,7 +119,6 @@ class Gatekeeper
 	 *
 	 * @var int
 	 */
-
 	protected $lockTime = 300;
 
 	/**
@@ -141,7 +126,6 @@ class Gatekeeper
 	 *
 	 * @var array
 	 */
-
 	protected $cookieOptions =
 	[
 		'path'     => '/',
@@ -155,7 +139,6 @@ class Gatekeeper
 	 *
 	 * @var \mako\auth\user\User
 	 */
-
 	protected $user;
 
 	/**
@@ -169,7 +152,6 @@ class Gatekeeper
 	 * @param   \mako\auth\providers\GroupProviderInterface  $groupProvider  Group provider
 	 * @param   array                                        $options        Options
 	 */
-
 	public function __construct(Request $request, Response $response, Session $session, UserProviderInterface $userProvider, GroupProviderInterface $groupProvider, array $options = [])
 	{
 		$this->request       = $request;
@@ -187,7 +169,6 @@ class Gatekeeper
 	 * @access  protected
 	 * @param   array      $options  Options
 	 */
-
 	protected function configure(array $options)
 	{
 		// Configure throttling
@@ -220,7 +201,6 @@ class Gatekeeper
 	 * @access  public
 	 * @return  \mako\auth\providers\UserProviderInterface
 	 */
-
 	public function getUserProvider()
 	{
 		return $this->userProvider;
@@ -232,7 +212,6 @@ class Gatekeeper
 	 * @access  public
 	 * @return  \mako\auth\providers\GroupProviderInterface
 	 */
-
 	public function getGroupProvider()
 	{
 		return $this->groupProvider;
@@ -248,7 +227,6 @@ class Gatekeeper
 	 * @param   boolean                        $activate  Will activate the user if set to true
 	 * @return  \mako\auth\user\UserInterface
 	 */
-
 	public function createUser($email, $username, $password, $activate = false)
 	{
 		$user = $this->userProvider->createUser($email, $username, $password, $this->request->ip());
@@ -274,7 +252,6 @@ class Gatekeeper
 	 * @param   string                           $name  Group name
 	 * @return  \mako\auth\group\GroupInterface
 	 */
-
 	public function createGroup($name)
 	{
 		$group = $this->groupProvider->createGroup($name);
@@ -289,7 +266,6 @@ class Gatekeeper
 	 * @param   string   $token  Auth token
 	 * @return  boolean
 	 */
-
 	public function activateUser($token)
 	{
 		$user = $this->userProvider->getByActionToken($token);
@@ -314,9 +290,8 @@ class Gatekeeper
 	 * Checks if a user is logged in.
 	 *
 	 * @access  protected
-	 * @return  mako\auth\user\UserInterface|null
+	 * @return  \mako\auth\user\UserInterface|null
 	 */
-
 	protected function check()
 	{
 		if(empty($this->user))
@@ -359,7 +334,6 @@ class Gatekeeper
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isGuest()
 	{
 		return $this->check() === null;
@@ -371,7 +345,6 @@ class Gatekeeper
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isLoggedIn()
 	{
 		return $this->check() !== null;
@@ -383,7 +356,6 @@ class Gatekeeper
 	 * @access  public
 	 * @return  null|\mako\auth\user\UserInterface
 	 */
-
 	public function getUser()
 	{
 		return $this->check();
@@ -396,7 +368,6 @@ class Gatekeeper
 	 * @param   string                                 $identifier  User identifier
 	 * @return  \mako\auth\user\UserInterface|boolean
 	 */
-
 	protected function getByIdentifier($identifier)
 	{
 		switch($this->identifier)
@@ -420,7 +391,6 @@ class Gatekeeper
 	 * @param   boolean      $force       Skip the password check?
 	 * @return  boolean|int
 	 */
-
 	protected function authenticate($identifier, $password, $force = false)
 	{
 		$user = $this->getByIdentifier($identifier);
@@ -477,7 +447,6 @@ class Gatekeeper
 	 * @param   boolean      $force       Login the user without checking the password?
 	 * @return  boolean|int
 	 */
-
 	public function login($identifier, $password, $remember = false, $force = false)
 	{
 		if(empty($identifier))
@@ -514,7 +483,6 @@ class Gatekeeper
 	 * @param   boolean  $remember    Set a remember me cookie?
 	 * @return  boolean
 	 */
-
 	public function forceLogin($identifier, $remember = false)
 	{
 		return ($this->login($identifier, null, $remember, true) === true);
@@ -526,7 +494,6 @@ class Gatekeeper
 	 * @access  protected
 	 * @return  \mako\http\Response
 	 */
-
 	protected function basicHTTPAuthenticationResponse()
 	{
 		$response = new Response($this->request);
@@ -546,7 +513,6 @@ class Gatekeeper
 	 * @access  public
 	 * @return  \mako\http\Response|null
 	 */
-
 	public function basicAuth()
 	{
 		if($this->isLoggedIn() || $this->login($this->request->username(), $this->request->password()) === true)
@@ -562,7 +528,6 @@ class Gatekeeper
 	 *
 	 * @access  public
 	 */
-
 	public function logout()
 	{
 		$this->session->regenerateId();

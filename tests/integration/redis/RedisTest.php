@@ -1,6 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\integration\redis;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\redis\Connection;
 use mako\redis\Redis;
@@ -16,19 +23,16 @@ use mako\redis\RedisException;
  * @group integration
  * @group integration:redis
  */
-
-class RedisTest extends \PHPUnit_Framework_TestCase
+class RedisTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	protected $redis;
 
 	/**
 	 *
 	 */
-
 	public function setUp()
 	{
 		try
@@ -44,7 +48,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
 		if($this->redis !== null)
@@ -58,7 +61,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPing()
 	{
 		$this->assertEquals('PONG', $this->redis->ping());
@@ -67,7 +69,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSet()
 	{
 		$this->assertEquals('OK', $this->redis->set('myKey', 'hello'));
@@ -76,7 +77,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$this->assertEquals('OK', $this->redis->set('myKey', 'hello'));
@@ -89,7 +89,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIncr()
 	{
 		$this->assertEquals('OK', $this->redis->set('myKey', 10));
@@ -100,7 +99,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testEval()
 	{
 		$this->assertEquals(['foo', 'bar', 'baz', 'bax'], $this->redis->eval('return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}', 2, 'foo', 'bar', 'baz', 'bax'));
@@ -109,7 +107,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPipeline()
 	{
 		$this->assertEquals('OK', $this->redis->set('myKey', 0));
@@ -128,7 +125,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMultipleWordCommands()
 	{
 		$this->assertEquals('OK', $this->redis->clientSetname('mako-redis'));
@@ -139,7 +135,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \mako\redis\RedisException
 	 */
-
 	public function testUnknownCommand()
 	{
 		$this->redis->fooBarBaz();
@@ -148,7 +143,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \mako\redis\RedisException
 	 */
-
 	public function testMissingParameter()
 	{
 		$this->redis->set('foo');

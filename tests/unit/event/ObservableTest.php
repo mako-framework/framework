@@ -1,6 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\event;
+
+use PHPUnit_Framework_TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -33,13 +40,11 @@ class Observable
 /**
  * @group unit
  */
-
-class ObservableTest extends \PHPUnit_Framework_TestCase
+class ObservableTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testHasObserver()
 	{
 		$observable = new Observable;
@@ -54,7 +59,6 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClearAllObservers()
 	{
 		$observable = new Observable;
@@ -77,7 +81,6 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClearEventObservers()
 	{
 		$observable = new Observable;
@@ -100,7 +103,6 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNotify()
 	{
 		$observable = new Observable;
@@ -117,7 +119,6 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNotifyWithParams()
 	{
 		$observable = new Observable;
@@ -132,7 +133,6 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNotifyWithBreak()
 	{
 		$observable = new Observable;
@@ -149,7 +149,6 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOverrideObservers()
 	{
 		$observable = new Observable;

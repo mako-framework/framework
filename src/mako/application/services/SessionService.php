@@ -19,61 +19,60 @@ use mako\session\stores\Void;
  *
  * @author  Frederic G. Østby
  */
-
 class SessionService extends Service
 {
 	/**
 	 * Returns a database store instance.
 	 *
 	 * @access  protected
-	 * @param   \mako\syringe\Container        $container  IoC container instance
-	 * @param   array                          $config     Store configuration
+	 * @param   \mako\syringe\Container        $container       IoC container instance
+	 * @param   array                          $config          Store configuration
+	 * @param   boolean|array                  $classWhitelist  Class whitelist
 	 * @return  \mako\session\stores\Database
 	 */
-
-	protected function getDatabaseStore($container, $config)
+	protected function getDatabaseStore($container, $config, $classWhitelist)
 	{
-		return new Database($container->get('database')->connection($config['configuration']), $config['table']);
+		return new Database($container->get('database')->connection($config['configuration']), $config['table'], $classWhitelist);
 	}
 
 	/**
 	 * Returns a file store instance.
 	 *
 	 * @access  protected
-	 * @param   \mako\syringe\Container    $container  IoC container instance
-	 * @param   array                      $config     Store configuration
+	 * @param   \mako\syringe\Container    $container       IoC container instance
+	 * @param   array                      $config          Store configuration
+	 * @param   boolean|array              $classWhitelist  Class whitelist
 	 * @return  \mako\session\stores\File
 	 */
-
-	protected function getFileStore($container, $config)
+	protected function getFileStore($container, $config, $classWhitelist)
 	{
-		return new File($container->get('fileSystem'), $config['path']);
+		return new File($container->get('fileSystem'), $config['path'], $classWhitelist);
 	}
 
 	/**
 	 * Returns a redis store instance.
 	 *
 	 * @access  protected
-	 * @param   \mako\syringe\Container    $container  IoC container instance
-	 * @param   array                      $config     Store configuration
+	 * @param   \mako\syringe\Container     $container       IoC container instance
+	 * @param   array                       $config          Store configuration
+	 * @param   boolean|array               $classWhitelist  Class whitelist
 	 * @return  \mako\session\stores\Redis
 	 */
-
-	protected function getRedisStore($container, $config)
+	protected function getRedisStore($container, $config, $classWhitelist)
 	{
-		return new Redis($container->get('redis')->connection($config['configuration']));
+		return new Redis($container->get('redis')->connection($config['configuration']), $classWhitelist);
 	}
 
 	/**
 	 * Returns a void store instance.
 	 *
 	 * @access  protected
-	 * @param   \mako\syringe\Container    $container  IoC container instance
-	 * @param   array                      $config     Store configuration
+	 * @param   \mako\syringe\Container    $container       IoC container instance
+	 * @param   array                      $config          Store configuration
+	 * @param   boolean|array              $classWhitelist  Class whitelist
 	 * @return  \mako\session\stores\Void
 	 */
-
-	protected function getVoidStore($container, $config)
+	protected function getVoidStore($container, $config, $classWhitelist)
 	{
 		return new Void;
 	}
@@ -82,28 +81,28 @@ class SessionService extends Service
 	 * Returns a session store instance.
 	 *
 	 * @access  protected
-	 * @param   \mako\syringe\Container              $container  IoC container instance
-	 * @param   array                                $config     Session configuration
+	 * @param   \mako\syringe\Container              $container       IoC container instance
+	 * @param   array                                $config          Session configuration
+	 * @param   boolean|array                        $classWhitelist  Class whitelist
 	 * @return  \mako\session\stores\StoreInterface
 	 */
-
-	protected function getSessionStore($container, $config)
+	protected function getSessionStore($container, $config, $classWhitelist)
 	{
 		$config = $config['configurations'][$config['configuration']];
 
 		switch($config['type'])
 		{
 			case 'database':
-				return $this->getDatabaseStore($container, $config);
+				return $this->getDatabaseStore($container, $config, $classWhitelist);
 				break;
 			case 'file':
-				return $this->getFileStore($container, $config);
+				return $this->getFileStore($container, $config, $classWhitelist);
 				break;
-			case 'null':
-				return $this->getNullStore($container, $config);
+			case 'void':
+				return $this->getVoidStore($container, $config, $classWhitelist);
 				break;
 			case 'redis':
-				return $this->getRedisStore($container, $config);
+				return $this->getRedisStore($container, $config, $classWhitelist);
 				break;
 		}
 	}
@@ -111,14 +110,25 @@ class SessionService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\session\Session', 'session'], function($container)
+		$this->container->registerSingleton([Session::class, 'session'], function($container)
 		{
-			$config = $container->get('config')->get('session');
+			// Get configuration
 
-			$session = new Session($container->get('request'), $container->get('response'), $this->getSessionStore($container, $config));
+			$config = $container->get('config');
+
+			$classWhitelist = $config->get('application.deserialization_whitelist');
+
+			$config = $config->get('session');
+
+			// Get session store instance
+
+			$sessionStore = $this->getSessionStore($container, $config, $classWhitelist);
+
+			// Create session and return it
+
+			$session = new Session($container->get('request'), $container->get('response'), $sessionStore);
 
 			$session->setDataTTL($config['ttl']['data']);
 

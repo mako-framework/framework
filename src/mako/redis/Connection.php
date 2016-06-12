@@ -14,7 +14,6 @@ use mako\redis\RedisException;
  *
  * @author  Frederic G. Østby
  */
-
 class Connection
 {
 	/**
@@ -22,7 +21,6 @@ class Connection
 	 *
 	 * @var resource
 	 */
-
 	protected $connection;
 
 	/**
@@ -30,9 +28,8 @@ class Connection
 	 *
 	 * @access  public
 	 * @param   string  $host  Redis host
-	 * @param   string  $port  Redis port
+	 * @param   int     $port  Redis port
 	 */
-
 	public function __construct($host, $port = 6379)
 	{
 		$this->connection = @fsockopen('tcp://' . $host, $port, $errNo, $errStr);
@@ -48,7 +45,6 @@ class Connection
 	 *
 	 * @access  public
 	 */
-
 	public function __desctruct()
 	{
 		if(is_resource($this->connection))
@@ -63,7 +59,6 @@ class Connection
 	 * @access  public
 	 * @return  string|false
 	 */
-
 	public function gets()
 	{
 		return fgets($this->connection);
@@ -76,7 +71,6 @@ class Connection
 	 * @param   int           $bytes  Number of bytes to read
 	 * @return  string|false
 	 */
-
 	public function read($bytes)
 	{
 		return fread($this->connection, $bytes);
@@ -89,7 +83,6 @@ class Connection
 	 * @param   string     $data  Data to write
 	 * @return  int|false
 	 */
-
 	public function write($data)
 	{
 		return fwrite($this->connection, $data);

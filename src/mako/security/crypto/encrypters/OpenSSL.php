@@ -15,7 +15,6 @@ use mako\security\crypto\encrypters\EncrypterInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class OpenSSL extends Encrypter implements EncrypterInterface
 {
 	/**
@@ -23,7 +22,6 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 *
 	 * @var string
 	 */
-
 	protected $key;
 
 	/**
@@ -31,7 +29,6 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 *
 	 * @var string
 	 */
-
 	protected $cipher;
 
 	/**
@@ -39,7 +36,6 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 *
 	 * @var string
 	 */
-
 	protected $ivSize;
 
 	/**
@@ -49,12 +45,11 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 * @param   string  $key     Encryption key
 	 * @param   int     $cipher  Cipher
 	 */
-
 	public function __construct($key, $cipher = null)
 	{
 		$this->key = $key;
 
-		$this->cipher = $cipher ?: 'AES-256-OFB';
+		$this->cipher = $cipher ?? 'AES-256-OFB';
 
 		$this->ivSize = openssl_cipher_iv_length($this->cipher);
 	}
@@ -62,7 +57,6 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function encrypt($string)
 	{
 		$iv = openssl_random_pseudo_bytes($this->ivSize);
@@ -75,7 +69,6 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function decrypt($string)
 	{
 		$string = base64_decode($string, true);

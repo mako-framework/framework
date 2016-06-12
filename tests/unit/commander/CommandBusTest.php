@@ -1,8 +1,11 @@
 <?php
 
-namespace mako\tests\unit\commander;
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
 
-use Mockery as m;
+namespace mako\tests\unit\commander;
 
 use PHPUnit_Framework_TestCase;
 
@@ -106,14 +109,12 @@ class BazHandler implements CommandHandlerInterface
 /**
  * @group unit
  */
-
 class CommandBusTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 *
 	 */
-
 	public function testCommandWithoutSuffix()
 	{
 		$bus = new CommandBus;
@@ -126,7 +127,6 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelfHandlingCommand()
 	{
 		$bus = new CommandBus;
@@ -139,7 +139,6 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelfHandlingCommandInstanced()
 	{
 		$bus = new CommandBus;
@@ -152,7 +151,6 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCommand()
 	{
 		$bus = new CommandBus;
@@ -165,7 +163,6 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCommandInstanced()
 	{
 		$bus = new CommandBus;
@@ -178,7 +175,6 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMiddleware()
 	{
 		$bus = new CommandBus;
@@ -205,7 +201,6 @@ class CommandBusTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOneTimeMiddleware()
 	{
 		$bus = new CommandBus;

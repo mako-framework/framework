@@ -1,39 +1,41 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\config;
 
-use mako\config\Config;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\config\Config;
 
 /**
  * @group unit
  */
-
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class ConfigTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getFileSystem()
 	{
-		return m::mock('mako\file\FileSystem');
+		return Mockery::mock('mako\file\FileSystem');
 	}
 
 	/**
 	 *
 	 */
-
 	public function testBasic()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -56,7 +58,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testBasicNonExistingFile()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -71,7 +72,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPackage()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -92,7 +92,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPackageOverride()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -111,7 +110,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testEvironmentOverride()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -136,7 +134,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPackageEvironmentOverride()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -167,7 +164,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSet()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -189,7 +185,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage mako\config\Config::load(): The [ settings ] config file does not exist.
 	 */
-
 	public function testSetWithNonExistingFile()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -204,7 +199,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemove()
 	{
 		$fileSystem = $this->getFileSystem();

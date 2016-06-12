@@ -9,6 +9,14 @@ namespace mako\application\cli;
 
 use mako\Mako;
 use mako\application\Application as BaseApplication;
+use mako\application\cli\commands\app\GenerateSecret;
+use mako\application\cli\commands\app\ListRoutes;
+use mako\application\cli\commands\migrations\Create;
+use mako\application\cli\commands\migrations\Down;
+use mako\application\cli\commands\migrations\Reset;
+use mako\application\cli\commands\migrations\Status;
+use mako\application\cli\commands\migrations\Up;
+use mako\application\cli\commands\server\Server;
 use mako\cli\output\Output;
 use mako\config\Config;
 use mako\reactor\Reactor;
@@ -18,7 +26,6 @@ use mako\reactor\Reactor;
  *
  * @author  Frederic G. Østby
  */
-
 class Application extends BaseApplication
 {
 	/**
@@ -27,7 +34,6 @@ class Application extends BaseApplication
 	 * @access  public
 	 * @return  \mako\http\routing\Routes
 	 */
-
 	public function getRouteCollection()
 	{
 		return $this->loadRoutes();
@@ -39,22 +45,28 @@ class Application extends BaseApplication
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function getCommands()
 	{
 		// Define core commands
 
 		$commands =
 		[
-			'app.generate_secret' => 'mako\application\cli\commands\app\GenerateSecret',
-			'app.routes'          => 'mako\application\cli\commands\app\ListRoutes',
-			'migrate.create'      => 'mako\application\cli\commands\migrations\Create',
-			'migrate.status'      => 'mako\application\cli\commands\migrations\Status',
-			'migrate.up'          => 'mako\application\cli\commands\migrations\Up',
-			'migrate.down'        => 'mako\application\cli\commands\migrations\Down',
-			'migrate.reset'       => 'mako\application\cli\commands\migrations\Reset',
-			'server'              => 'mako\application\cli\commands\server\Server',
+			'app.generate_secret' => GenerateSecret::class,
+			'app.routes'          => ListRoutes::class,
+			'server'              => Server::class,
 		];
+
+		if($this->container->has('database'))
+		{
+			$commands = array_merge($commands,
+			[
+				'migrate.create' => Create::class,
+				'migrate.status' => Status::class,
+				'migrate.up'     => Up::class,
+				'migrate.down'   => Down::class,
+				'migrate.reset'  => Reset::class,
+			]);
+		}
 
 		// Add application commands
 
@@ -78,7 +90,6 @@ class Application extends BaseApplication
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function loadLogo()
 	{
 		$logo = file_get_contents(__DIR__ . '/resources/logo.txt');
@@ -89,7 +100,6 @@ class Application extends BaseApplication
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function run()
 	{
 		ob_start();

@@ -15,7 +15,6 @@ use mako\session\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Redis implements StoreInterface
 {
 	/**
@@ -23,25 +22,32 @@ class Redis implements StoreInterface
 	 *
 	 * @var \mako\redis\Redis
 	 */
-
 	protected $redis;
+
+	/**
+	 * Class whitelist.
+	 *
+	 * @var boolean|array
+	 */
+	protected $classWhitelist;
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\redis\Redis  $redis  Redis client
+	 * @param   \mako\redis\Redis  $redis           Redis client
+	 * @param   boolean|array      $classWhitelist  Class whitelist
 	 */
-
-	public function __construct(RedisClient $redis)
+	public function __construct(RedisClient $redis, $classWhitelist = false)
 	{
 		$this->redis = $redis;
+
+		$this->classWhitelist = $classWhitelist;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
 		$this->redis->setex('sess_' . $sessionId, $dataTTL, serialize($sessionData));
@@ -50,18 +56,16 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function read($sessionId)
 	{
 		$sessionData = $this->redis->get('sess_' . $sessionId);
 
-		return ($sessionData !== null) ? unserialize($sessionData) : [];
+		return ($sessionData !== null) ? unserialize($sessionData, ['allowed_classes' => $this->classWhitelist]) : [];
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function delete($sessionId)
 	{
 		$this->redis->del('sess_' . $sessionId);
@@ -70,7 +74,6 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function gc($dataTTL)
 	{
 		// Nothing here since redis handles this automatically

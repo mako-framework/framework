@@ -1,9 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\event;
 
-use Mockery as m;
-
+use Mockery;
 use PHPUnit_Framework_TestCase;
 
 use mako\event\Event;
@@ -28,22 +32,19 @@ class EventHanler implements EventHandlerInterface
 /**
  * @group unit
  */
-
 class EventTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testRegisterAndHas()
 	{
 		$event = new Event;
@@ -58,7 +59,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testEvents()
 	{
 		$event = new Event;
@@ -73,7 +73,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClear()
 	{
 		$event = new Event;
@@ -90,7 +89,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTrigger()
 	{
 		$event = new Event;
@@ -107,7 +105,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTriggerWithParams()
 	{
 		$event = new Event;
@@ -122,7 +119,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTriggerWithNamedParams()
 	{
 		$event = new Event;
@@ -137,7 +133,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTriggerWithBreak()
 	{
 		$event = new Event;
@@ -154,7 +149,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOverride()
 	{
 		$event = new Event;
@@ -171,10 +165,9 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testContainerWithClosureHandler()
 	{
-		$container = m::mock('mako\syringe\Container');
+		$container = Mockery::mock('mako\syringe\Container');
 
 		$closure = function(){ return 'foo'; };
 
@@ -190,10 +183,9 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testContainerWithClassHandler()
 	{
-		$container = m::mock('mako\syringe\Container');
+		$container = Mockery::mock('mako\syringe\Container');
 
 		$handler = new EventHanler;
 
@@ -211,7 +203,6 @@ class EventTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClassHandler()
 	{
 		$event = new Event;

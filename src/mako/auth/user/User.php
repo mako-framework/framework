@@ -10,20 +10,19 @@ namespace mako\auth\user;
 use DateTimeInterface;
 use LogicException;
 
+use mako\auth\group\Group;
 use mako\auth\group\MemberInterface;
 use mako\auth\user\UserInterface;
 use mako\chrono\Time;
 use mako\database\midgard\ORM;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\security\Password;
-use mako\utility\UUID;
 
 /**
  * User.
  *
  * @author  Frederic G. Østby
  */
-
 class User extends ORM implements UserInterface, MemberInterface
 {
 	use TimestampedTrait;
@@ -33,7 +32,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	 *
 	 * @var string
 	 */
-
 	protected $tableName = 'users';
 
 	/**
@@ -41,7 +39,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	 *
 	 * @var array
 	 */
-
 	protected $cast = ['last_fail_at' => 'date', 'locked_until' => 'date'];
 
 	/**
@@ -51,7 +48,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	 * @param   string     $password  Password
 	 * @return  string
 	 */
-
 	protected function passwordMutator($password)
 	{
 		return Password::hash($password);
@@ -63,7 +59,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function generateToken()
 	{
 		if(!$this->exists)
@@ -71,13 +66,12 @@ class User extends ORM implements UserInterface, MemberInterface
 			throw new LogicException(vsprintf("%s(): You can only generate auth tokens for users that exist in the database.", [__METHOD__]));
 		}
 
-		return hash('sha256', UUID::v4() . $this->getId() . uniqid('token', true));
+		return hash('sha256', random_bytes(16) . $this->getId());
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getId()
 	{
 		return $this->getPrimaryKeyValue();
@@ -86,7 +80,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function setEmail($email)
 	{
 		$this->email = $email;
@@ -95,7 +88,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getEmail()
 	{
 		return $this->email;
@@ -104,7 +96,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function setUsername($username)
 	{
 		$this->username = $username;
@@ -113,7 +104,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getUsername()
 	{
 		return $this->username;
@@ -122,7 +112,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function setPassword($password)
 	{
 		$this->password = $password;
@@ -131,7 +120,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getPassword()
 	{
 		return $this->password;
@@ -140,7 +128,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function setIp($ip)
 	{
 		$this->ip = $ip;
@@ -149,7 +136,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getIp()
 	{
 		return $this->ip;
@@ -158,7 +144,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function generateActionToken()
 	{
 		$this->action_token = $this->generateToken();
@@ -167,7 +152,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getActionToken()
 	{
 		return $this->action_token;
@@ -176,7 +160,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function generateAccessToken()
 	{
 		$this->access_token = $this->generateToken();
@@ -185,7 +168,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getAccessToken()
 	{
 		return $this->access_token;
@@ -194,7 +176,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function activate()
 	{
 		$this->activated = 1;
@@ -203,7 +184,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function deactivate()
 	{
 		$this->activated = 0;
@@ -212,7 +192,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function isActivated()
 	{
 		return $this->activated == 1;
@@ -221,7 +200,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function ban()
 	{
 		$this->banned = 1;
@@ -230,7 +208,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function unban()
 	{
 		$this->banned = 0;
@@ -239,7 +216,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function isBanned()
 	{
 		return $this->banned == 1;
@@ -248,7 +224,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function incrementFailedAttempts()
 	{
 		$this->failed_attempts++;
@@ -257,7 +232,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getFailedAttempts()
 	{
 		return $this->failed_attempts;
@@ -266,7 +240,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function resetFailedAttempts()
 	{
 		$this->failed_attempts = 0;
@@ -275,7 +248,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function setLastFailAt(DateTimeInterface $time)
 	{
 		$this->last_fail_at = $time;
@@ -284,7 +256,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getLastFailAt()
 	{
 		return $this->last_fail_at;
@@ -293,7 +264,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function lockUntil(DateTimeInterface $time)
 	{
 		$this->locked_until = $time;
@@ -302,7 +272,6 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function unlock()
 	{
 		$this->locked_until = null;
@@ -311,12 +280,14 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function isLocked()
 	{
 		return $this->locked_until !== null && $this->locked_until->getTimestamp() >= Time::now()->getTimestamp();
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function isMemberOf($group)
 	{
 		if(!$this->exists)
@@ -354,9 +325,8 @@ class User extends ORM implements UserInterface, MemberInterface
 	 * @access  public
 	 * @return  \mako\database\midgard\relations\ManyToMany
 	 */
-
 	public function groups()
 	{
-		return $this->manyToMany('mako\auth\group\Group');
+		return $this->manyToMany(Group::class);
 	}
 }

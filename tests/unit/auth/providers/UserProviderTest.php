@@ -1,40 +1,42 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\auth\providers;
 
-use mako\auth\providers\UserProvider;
-
 use DateTime;
-use Mockery as m;
+use Mockery;
+use PHPUnit_Framework_TestCase;
+
+use mako\auth\providers\UserProvider;
 
 /**
  * @group unit
  */
-
-class UserProviderTest extends \PHPUnit_Framework_TestCase
+class UserProviderTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getUser()
 	{
-		return m::mock('overload:mako\auth\user\User')->shouldDeferMissing();
+		return Mockery::mock('overload:mako\auth\user\User')->shouldDeferMissing();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testCreateUser()
 	{
 		$user = $this->getUser();
@@ -57,7 +59,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetByActionToken()
 	{
 		$user = $this->getUser();
@@ -74,7 +75,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetByAccessToken()
 	{
 		$user = $this->getUser();
@@ -91,7 +91,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetByEmail()
 	{
 		$user = $this->getUser();
@@ -108,7 +107,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetByUsername()
 	{
 		$user = $this->getUser();
@@ -125,7 +123,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetById()
 	{
 		$user = $this->getUser();
@@ -142,12 +139,11 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testThrottleWithNoLastFailedAttempts()
 	{
 		$userProvider = new UserProvider($this->getUser());
 
-		$user = m::mock('mako\auth\user\UserInterface');
+		$user = Mockery::mock('mako\auth\user\UserInterface');
 
 		$user->shouldReceive('getLastFailAt')->once()->andReturn(null);
 
@@ -165,12 +161,11 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testThrottleWithFailedAttemptsReset()
 	{
 		$userProvider = new UserProvider($this->getUser());
 
-		$user = m::mock('mako\auth\user\UserInterface');
+		$user = Mockery::mock('mako\auth\user\UserInterface');
 
 		$user->shouldReceive('getLastFailAt')->once()->andReturn(new DateTime('1999-01-01 12:12:12'));
 
@@ -190,12 +185,11 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testThrottleWithLock()
 	{
 		$userProvider = new UserProvider($this->getUser());
 
-		$user = m::mock('mako\auth\user\UserInterface');
+		$user = Mockery::mock('mako\auth\user\UserInterface');
 
 		$user->shouldReceive('getLastFailAt')->once()->andReturn(null);
 
@@ -215,12 +209,11 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testResetThrottleWithNoFailedAttempts()
 	{
 		$userProvider = new UserProvider($this->getUser());
 
-		$user = m::mock('mako\auth\user\UserInterface');
+		$user = Mockery::mock('mako\auth\user\UserInterface');
 
 		$user->shouldReceive('getFailedAttempts')->once()->andReturn(0);
 
@@ -230,12 +223,11 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testResetThrottleWithFailedAttempts()
 	{
 		$userProvider = new UserProvider($this->getUser());
 
-		$user = m::mock('mako\auth\user\UserInterface');
+		$user = Mockery::mock('mako\auth\user\UserInterface');
 
 		$user->shouldReceive('getFailedAttempts')->once()->andReturn(1);
 

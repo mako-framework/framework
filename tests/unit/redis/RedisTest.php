@@ -1,35 +1,36 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\redis;
 
-use mako\redis\Redis;
-
-use Mockery as m;
-
+use Mockery;
 use PHPUnit_Framework_TestCase;
+
+use mako\redis\Redis;
 
 /**
  * @group unit
  */
-
 class RedisTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testAuth()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$4\r\nAUTH\r\n$6\r\nfoobar\r\n");
 
@@ -41,10 +42,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testZeroDatabase()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->never()->with("*2\r\n$6\r\nSELECT\r\n$1\r\n0\r\n");
 
@@ -56,10 +56,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNonZeroDatabase()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$6\r\nSELECT\r\n$1\r\n1\r\n");
 
@@ -71,10 +70,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMethodCall()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once()->with("*3\r\n$3\r\nSET\r\n$1\r\nx\r\n$1\r\n0\r\n");
 
@@ -88,10 +86,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMultiWordMethodCall()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$6\r\nCONFIG\r\n$7\r\nREWRITE\r\n");
 
@@ -105,10 +102,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException mako\redis\RedisException
 	 */
-
 	public function testException()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
 
@@ -122,10 +118,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStatusReply()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
 
@@ -139,10 +134,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testIntegerReply()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
 
@@ -156,10 +150,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBulkReply()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
 
@@ -175,10 +168,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBulkNullReply()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
 
@@ -192,10 +184,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMultiBulkReply()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
 
@@ -217,10 +208,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMultiBulkMixedReply()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
 
@@ -240,10 +230,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMultiBulkEmptyReply()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
 
@@ -257,10 +246,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMultiBulkNullReply()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
 
@@ -275,10 +263,9 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	 * @expectedException \mako\redis\RedisException
 	 * @expectedExcetionMessage \mako\redis\Redis::response(): Unable to handle server response.
 	 */
-
 	public function testInvalidResponse()
 	{
-		$connection = m::mock('mako\redis\Connection');
+		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
 

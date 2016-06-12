@@ -1,33 +1,36 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\cli\output\helpers;
 
-use mako\cli\output\helpers\Bell;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use Mockery as m;
+use mako\cli\output\helpers\Bell;
 
 /**
  * @group unit
  */
-
-class BellTest extends \PHPUnit_Framework_TestCase
+class BellTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testRing()
 	{
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with("\x07");
 
@@ -39,10 +42,9 @@ class BellTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRingMultipleTimes()
 	{
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with("\x07\x07\x07");
 

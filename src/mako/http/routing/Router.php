@@ -19,7 +19,6 @@ use mako\http\exceptions\MethodNotAllowedException;
  *
  * @author  Frederic G. Østby
  */
-
 class Router
 {
 	/**
@@ -27,7 +26,6 @@ class Router
 	 *
 	 * @var \mako\http\routing\Routes
 	 */
-
 	protected $routes;
 
 	/**
@@ -36,7 +34,6 @@ class Router
 	 * @access  public
 	 * @param   \mako\http\routing\Routes  $routes   Routes
 	 */
-
 	public function __construct(Routes $routes)
 	{
 		$this->routes  = $routes;
@@ -49,8 +46,7 @@ class Router
 	 * @param   string                    $requestPath  The requested path
 	 * @return  \mako\http\routing\Route
 	 */
-
-	protected function redirectRoute($requestPath)
+	protected function redirectRoute(string $requestPath): Route
 	{
 		return new Route([], '', function(Request $request, Response $response) use ($requestPath)
 		{
@@ -74,8 +70,7 @@ class Router
 	 * @param   string     $requestPath  The requested path
 	 * @return  array
 	 */
-
-	protected function getAllowedMethodsForMatchingRoutes($requestPath)
+	protected function getAllowedMethodsForMatchingRoutes(string $requestPath): array
 	{
 		$methods = [];
 
@@ -97,8 +92,7 @@ class Router
 	 * @param   string                    $requestPath  The requested path
 	 * @return  \mako\http\routing\Route
 	 */
-
-	protected function optionsRoute($requestPath)
+	protected function optionsRoute(string $requestPath): Route
 	{
 		$allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
 
@@ -117,8 +111,7 @@ class Router
 	 * @param   array                     $parameters  Parameters
 	 * @return  boolean
 	 */
-
-	protected function matches(Route $route, $path, array &$parameters = [])
+	protected function matches(Route $route, string $path, array &$parameters = []): bool
 	{
 		if(preg_match($route->getRegex(), $path, $parameters) > 0)
 		{
@@ -143,8 +136,7 @@ class Router
 	 * @param   \mako\http\Request  $request  Request
 	 * @return  array
 	 */
-
-	public function route(Request $request)
+	public function route(Request $request): array
 	{
 		$matched = false;
 

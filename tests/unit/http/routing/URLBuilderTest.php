@@ -1,33 +1,36 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http\routing;
 
-use mako\http\routing\URLBuilder;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\http\routing\URLBuilder;
 
 /**
  * @group unit
  */
-
-class URLBuilderTest extends \PHPUnit_Framework_TestCase
+class URLBuilderTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getRequest($langPrefix = '')
 	{
-		$request = m::mock('\mako\http\Request');
+		$request = Mockery::mock('\mako\http\Request');
 
 		$request->shouldReceive('path')->andReturn('/foo/bar');
 
@@ -41,18 +44,17 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getRoutes()
 	{
-		$route1 = m::mock('\mako\http\routing\Route');
+		$route1 = Mockery::mock('\mako\http\routing\Route');
 
 		$route1->shouldReceive('getRoute')->andReturn('/article/{id}/{slug}');
 
-		$route2 = m::mock('\mako\http\routing\Route');
+		$route2 = Mockery::mock('\mako\http\routing\Route');
 
 		$route2->shouldReceive('getRoute')->andReturn('/article/{id}/{slug}?');
 
-		$routes = m::mock('\mako\http\routing\Routes');
+		$routes = Mockery::mock('\mako\http\routing\Routes');
 
 		$routes->shouldReceive('getNamedRoute')->withArgs(['foo'])->andReturn($route1);
 
@@ -64,7 +66,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMatches()
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes());
@@ -81,7 +82,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBase()
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes());
@@ -92,7 +92,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testTo()
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes());
@@ -127,7 +126,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToRoute()
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes(), true);
@@ -154,7 +152,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToCurrent()
 	{
 		$request = $this->getRequest();
@@ -175,7 +172,6 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testToCurrentWithQueryParams()
 	{
 		$request = $this->getRequest();

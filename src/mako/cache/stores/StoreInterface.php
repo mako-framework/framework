@@ -12,7 +12,6 @@ namespace mako\cache\stores;
  *
  * @author  Frederic G. Østby
  */
-
 interface StoreInterface
 {
 	/**
@@ -24,7 +23,6 @@ interface StoreInterface
 	 * @param   int      $ttl    Time to live
 	 * @return  boolean
 	 */
-
 	public function put($key, $data, $ttl = 0);
 
 	/**
@@ -34,7 +32,6 @@ interface StoreInterface
 	 * @param   string   $key  Cache key
 	 * @return  boolean
 	 */
-
 	public function has($key);
 
 	/**
@@ -44,8 +41,18 @@ interface StoreInterface
 	 * @param   string  $key  Cache key
 	 * @return  mixed
 	 */
-
 	public function get($key);
+
+	/**
+	 * Fetch data from the cache or store it if it doesn't already exist.
+	 *
+	 * @access  public
+	 * @param   string    $key   Cache key
+	 * @param   callable  $data  Closure that returns the data we want to store
+	 * @param   int       $ttl   Time to live
+	 * @return  mixed
+	 */
+	public function getOrElse($key, callable $callable, $ttl = 0);
 
 	/**
 	 * Delete data from the cache.
@@ -54,7 +61,6 @@ interface StoreInterface
 	 * @param   string   $key  Cache key
 	 * @return  boolean
 	 */
-
 	public function remove($key);
 
 	/**
@@ -63,6 +69,5 @@ interface StoreInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function clear();
 }

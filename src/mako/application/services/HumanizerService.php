@@ -15,16 +15,14 @@ use mako\utility\Humanizer;
  *
  * @author  Frederic G. Østby
  */
-
 class HumanizerService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\utility\Humanizer', 'humanizer'], function($container)
+		$this->container->registerSingleton([Humanizer::class, 'humanizer'], function($container)
 		{
 			return new Humanizer($container->get('i18n'));
 		});

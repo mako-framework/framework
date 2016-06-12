@@ -14,7 +14,6 @@ use mako\chrono\stopwatch\Lap;
  *
  * @author  Yamada Taro
  */
-
 class Stopwatch
 {
 	/**
@@ -22,7 +21,6 @@ class Stopwatch
 	 *
 	 * @var array
 	 */
-
 	protected $laps = [];
 
 	/**
@@ -31,7 +29,6 @@ class Stopwatch
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getLaps()
 	{
 		return $this->laps;
@@ -43,7 +40,6 @@ class Stopwatch
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getLapCount()
 	{
 		return count($this->laps);
@@ -55,7 +51,6 @@ class Stopwatch
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isRunning()
 	{
 		return end($this->laps)->isRunning();
@@ -67,7 +62,6 @@ class Stopwatch
 	 * @access  public
 	 * @return  \mako\chrono\stopwatch\Stopwatch
 	 */
-
 	public function start()
 	{
 		$this->laps[] = (new Lap)->start();
@@ -81,7 +75,6 @@ class Stopwatch
 	 * @access  public
 	 * @return  float
 	 */
-
 	public function lap()
 	{
 		$last = end($this->laps);
@@ -99,7 +92,6 @@ class Stopwatch
 	 * @access  public
 	 * @return  float
 	 */
-
 	public function getElapsedTime()
 	{
 		$last = end($this->laps);
@@ -113,7 +105,6 @@ class Stopwatch
 	 * @access  public
 	 * @return  float
 	 */
-
 	public function stop()
 	{
 		$last = end($this->laps);

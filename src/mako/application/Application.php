@@ -12,7 +12,7 @@ use RuntimeException;
 
 use mako\autoloading\AliasLoader;
 use mako\config\Config;
-use mako\http\routing\Filters;
+use mako\http\routing\Middleware;
 use mako\file\FileSystem;
 use mako\syringe\Container;
 
@@ -21,7 +21,6 @@ use mako\syringe\Container;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Application
 {
 	/**
@@ -29,7 +28,6 @@ abstract class Application
 	 *
 	 * @var \mako\application\Application
 	 */
-
 	protected static $instance;
 
 	/**
@@ -37,7 +35,6 @@ abstract class Application
 	 *
 	 * @var \mako\syringe\Container;
 	 */
-
 	protected $container;
 
 	/**
@@ -45,7 +42,6 @@ abstract class Application
 	 *
 	 * @var \mako\config\Config
 	 */
-
 	protected $config;
 
 	/**
@@ -53,7 +49,6 @@ abstract class Application
 	 *
 	 * @var string
 	 */
-
 	protected $charset;
 
 	/**
@@ -61,7 +56,6 @@ abstract class Application
 	 *
 	 * @var string
 	 */
-
 	protected $language;
 
 	/**
@@ -69,7 +63,6 @@ abstract class Application
 	 *
 	 * @var string
 	 */
-
 	protected $applicationPath;
 
 	/**
@@ -77,7 +70,6 @@ abstract class Application
 	 *
 	 * @var array
 	 */
-
 	protected $packages = [];
 
 	/**
@@ -86,7 +78,6 @@ abstract class Application
 	 * @access  public
 	 * @param   string  $applicationPath  Application path
 	 */
-
 	public function __construct($applicationPath)
 	{
 		$this->applicationPath = $applicationPath;
@@ -101,7 +92,6 @@ abstract class Application
 	 * @param   string                         $applicationPath  Application path
 	 * @return  \mako\application\Application
 	 */
-
 	public static function start($applicationPath)
 	{
 		if(!empty(static::$instance))
@@ -118,7 +108,6 @@ abstract class Application
 	 * @access  public
 	 * @return  \mako\application\Application
 	 */
-
 	public static function instance()
 	{
 		if(empty(static::$instance))
@@ -135,7 +124,6 @@ abstract class Application
 	 * @access  public
 	 * @return  \mako\syringe\Container
 	 */
-
 	public function getContainer()
 	{
 		return $this->container;
@@ -147,7 +135,6 @@ abstract class Application
 	 * @access  public
 	 * @return  \mako\config\Config
 	 */
-
 	public function getConfig()
 	{
 		return $this->config;
@@ -159,7 +146,6 @@ abstract class Application
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getCharset()
 	{
 		return $this->charset;
@@ -171,7 +157,6 @@ abstract class Application
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getLanguage()
 	{
 		return $this->language;
@@ -183,7 +168,6 @@ abstract class Application
 	 * @access  public
 	 * @param   array  $language  Application language settings
 	 */
-
 	public function setLanguage(array $language)
 	{
 		$this->language = $language['strings'];
@@ -200,7 +184,6 @@ abstract class Application
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getPath()
 	{
 		return $this->applicationPath;
@@ -212,7 +195,6 @@ abstract class Application
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getPackages()
 	{
 		return $this->packages;
@@ -225,7 +207,6 @@ abstract class Application
 	 * @param   string                     $package  Package name
 	 * @return  \mako\application\Package
 	 */
-
 	public function getPackage($package)
 	{
 		if(!isset($this->packages[$package]))
@@ -243,7 +224,6 @@ abstract class Application
 	 * @param   boolean  $prefix  Prefix the namespace with a slash?
 	 * @return  string
 	 */
-
 	public function getNamespace($prefix = false)
 	{
 		$namespace = basename(rtrim($this->applicationPath, '\\'));
@@ -262,7 +242,6 @@ abstract class Application
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isCommandLine()
 	{
 		return PHP_SAPI === 'cli';
@@ -273,7 +252,6 @@ abstract class Application
 	 *
 	 * @return  string|null
 	 */
-
 	public function getEnvironment()
 	{
 		return getenv('MAKO_ENV') ?: null;
@@ -284,7 +262,6 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function configure()
 	{
 		$config = $this->config->get('application');
@@ -314,7 +291,6 @@ abstract class Application
 	 * @access  protected
 	 * @param   string     $type  Service type
 	 */
-
 	protected function serviceRegistrar($type)
 	{
 		foreach($this->config->get('application.services.' . $type) as $service)
@@ -328,7 +304,6 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function registerCLIServices()
 	{
 		$this->serviceRegistrar('cli');
@@ -339,7 +314,6 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function registerWebServices()
 	{
 		$this->serviceRegistrar('web');
@@ -350,7 +324,6 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function registerServices()
 	{
 		// Register core services
@@ -374,7 +347,6 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function registerClassAliases()
 	{
 		$aliases = $this->config->get('application.class_aliases');
@@ -392,7 +364,6 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function bootstrap()
 	{
 		$bootstrap = function($app, $container)
@@ -409,7 +380,6 @@ abstract class Application
 	 * @access  protected
 	 * @param   string     $type  Package type
 	 */
-
 	protected function packageBooter($type)
 	{
 		foreach($this->config->get('application.packages.' . $type) as $package)
@@ -427,7 +397,6 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function bootCliPackages()
 	{
 		$this->packageBooter('cli');
@@ -438,7 +407,6 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function bootWebPackages()
 	{
 		$this->packageBooter('web');
@@ -449,7 +417,6 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function bootPackages()
 	{
 		$this->packageBooter('core');
@@ -471,28 +438,27 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function initialize()
 	{
 		// Create IoC container instance and register it in itself so that it can be injected
 
 		$this->container = new Container();
 
-		$this->container->registerInstance(['mako\syringe\Container', 'container'], $this->container);
+		$this->container->registerInstance([Container::class, 'container'], $this->container);
 
 		// Register self so that the application instance can be injected
 
-		$this->container->registerInstance(['mako\application\Application', 'app'], $this);
+		$this->container->registerInstance([Application::class, 'app'], $this);
 
 		// Register file system instance
 
-		$this->container->registerInstance(['mako\file\FileSystem', 'fileSystem'], $fileSystem = new FileSystem());
+		$this->container->registerInstance([FileSystem::class, 'fileSystem'], $fileSystem = new FileSystem());
 
 		// Register config instance
 
 		$this->config = new Config($fileSystem, $this->applicationPath . '/config', $this->getEnvironment());
 
-		$this->container->registerInstance(['mako\config\Config', 'config'], $this->config);
+		$this->container->registerInstance([Config::class, 'config'], $this->config);
 	}
 
 	/**
@@ -500,7 +466,6 @@ abstract class Application
 	 *
 	 * @access  protected
 	 */
-
 	protected function boot()
 	{
 		// Set up the framework core
@@ -529,22 +494,21 @@ abstract class Application
 	}
 
 	/**
-	 * Loads filters.
+	 * Loads middleware.
 	 *
 	 * @access  protected
-	 * @return  \mako\http\routing\Filters
+	 * @return  \mako\http\routing\Middleware
 	 */
-
-	protected function loadFilters()
+	protected function loadMiddleware()
 	{
-		$loader = function($app, $container, $filters)
+		$loader = function($app, $container, $middleware)
 		{
-			include $this->applicationPath . '/routing/filters.php';
+			include $this->applicationPath . '/routing/middleware.php';
 
-			return $filters;
+			return $middleware;
 		};
 
-		return $loader($this, $this->container, new Filters);
+		return $loader($this, $this->container, new Middleware);
 	}
 
 	/**
@@ -553,7 +517,6 @@ abstract class Application
 	 * @access  protected
 	 * @return  \mako\http\routing\Routes
 	 */
-
 	protected function loadRoutes()
 	{
 		$loader = function($app, $container, $routes)
@@ -567,15 +530,14 @@ abstract class Application
 	}
 
 	/**
-	 * Loads filters and routes.
+	 * Loads middleware and routes.
 	 *
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function loadRouting()
 	{
-		return [$this->loadFilters(), $this->loadRoutes()];
+		return [$this->loadMiddleware(), $this->loadRoutes()];
 	}
 
 	/**

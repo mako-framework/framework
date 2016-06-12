@@ -8,19 +8,20 @@
 namespace mako\cache\stores;
 
 use mako\cache\stores\StoreInterface;
+use mako\cache\stores\traits\GetOrElseTrait;
 
 /**
  * Void store.
  *
  * @author  Frederic G. Østby
  */
-
 class Void implements StoreInterface
 {
+	use GetOrElseTrait;
+
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		return true;
@@ -29,7 +30,6 @@ class Void implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return false;
@@ -38,7 +38,6 @@ class Void implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		return false;
@@ -47,7 +46,6 @@ class Void implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		return true;
@@ -56,7 +54,6 @@ class Void implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		return true;

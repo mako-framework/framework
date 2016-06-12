@@ -7,20 +7,31 @@
 
 namespace mako\database\query\compilers;
 
-use mako\database\query\Compiler;
+use mako\database\query\compilers\Compiler;
 
 /**
  * Compiles DB2 queries.
  *
  * @author  Frederic G. Østby
  */
-
 class DB2 extends Compiler
 {
 	/**
 	 * {@inheritdoc}
 	 */
+	public function lock($lock)
+	{
+		if($lock === null)
+		{
+			return '';
+		}
 
+		return $lock === true ? ' FOR UPDATE WITH RS' : ($lock === false ? ' FOR READ ONLY WITH RS' : ' ' . $lock);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function select()
 	{
 		if($this->query->getLimit() === null)
@@ -43,8 +54,7 @@ class DB2 extends Compiler
 			$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
 			$sql .= $this->columns($this->query->getColumns());
 			$sql .= ', ROW_NUMBER() OVER (' . $order . ') AS mako_rownum';
-			$sql .= ' FROM ';
-			$sql .= $this->wrap($this->query->getTable());
+			$sql .= $this->from($this->query->getTable());
 			$sql .= $this->joins($this->query->getJoins());
 			$sql .= $this->wheres($this->query->getWheres());
 			$sql .= $this->groupings($this->query->getGroupings());
@@ -55,7 +65,8 @@ class DB2 extends Compiler
 			$limit  = $offset + $this->query->getLimit();
 			$offset = $offset + 1;
 
-			$sql = 'SELECT * FROM (' . $sql . ') AS mako1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
+			$sql  = 'SELECT * FROM (' . $sql . ') AS mako1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
+			$sql .= $this->lock($this->query->getLock());
 
 			return ['sql' => $sql, 'params' => $this->params];
 		}

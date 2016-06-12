@@ -16,16 +16,14 @@ use mako\i18n\Loader;
  *
  * @author  Frederic G. Østby
  */
-
 class I18nService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\i18n\I18n', 'i18n'], function($container)
+		$this->container->registerSingleton([I18n::class, 'i18n'], function($container)
 		{
 			$app = $container->get('app');
 

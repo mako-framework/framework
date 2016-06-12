@@ -5,9 +5,10 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\database\query;
+namespace mako\database\query\compilers;
 
 use DateTimeInterface;
+use Exception;
 
 use mako\database\query\Join;
 use mako\database\query\Query;
@@ -19,7 +20,6 @@ use mako\database\query\Subquery;
  *
  * @author  Frederic G. Østby
  */
-
 class Compiler
 {
 	/**
@@ -27,7 +27,6 @@ class Compiler
 	 *
 	 * @var string
 	 */
-
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
@@ -35,7 +34,6 @@ class Compiler
 	 *
 	 * @var mako\database\query\Query
 	 */
-
 	protected $query;
 
 	/**
@@ -43,16 +41,14 @@ class Compiler
 	 *
 	 * @var array
 	 */
-
 	protected $params = [];
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   mako\database\query\Query  $query  Query builder
+	 * @param   \mako\database\query\Query  $query  Query builder
 	 */
-
 	public function __construct(Query $query)
 	{
 		$this->query = $query;
@@ -65,7 +61,6 @@ class Compiler
 	 * @param   string  $dateFormat  Date format
 	 * @return  string
 	 */
-
 	public static function setDateFormat($dateFormat)
 	{
 		static::$dateFormat = $dateFormat;
@@ -77,23 +72,33 @@ class Compiler
 	 * @access  public
 	 * @return  string
 	 */
-
 	public static function getDateFormat()
 	{
 		return static::$dateFormat;
 	}
 
 	/**
+	 * Checks whether a string is between parentheses.
+	 *
+	 * @access  protected
+	 * @param   string     $string The string to check
+	 * @return  boolean
+	 */
+	protected function isParenthesesEnclosed($string)
+	{
+		return mb_strlen($string) >= 2 && mb_substr($string, 0, 1) == "(" && mb_substr($string, -1) == ")";
+	}
+
+	/**
 	 * Compiles subquery, merges parameters and returns subquery SQL.
 	 *
 	 * @access  protected
-	 * @param   mako\database\query\Subquery  $query  Subquery container
+	 * @param   \mako\database\query\Subquery  $query  Subquery container
 	 * @return  string
 	 */
-
 	protected function subquery(Subquery $query)
 	{
-		$query = $query->get();
+		$query = $query->build($this->query)->get();
 
 		$this->params = array_merge($this->params, $query['params']);
 
@@ -107,10 +112,22 @@ class Compiler
 	 * @param   string  $identifier  Identifier to escape
 	 * @return  string
 	 */
-
 	public function escapeIdentifier($identifier)
 	{
 		return '"' . str_replace('"', '""', $identifier) . '"';
+	}
+
+	/**
+	 * Builds a JSON path.
+	 *
+	 * @access  protected
+	 * @param   string     $column    Column name
+	 * @param   array      $segments  JSON path segments
+	 * @return  string
+	 */
+	protected function buildJsonPath($column, array $segments)
+	{
+		throw new Exception(vsprintf("%s(): The [ %s ] query compiler does not support the unified JSON field syntax.", [__METHOD__, static::class]));
 	}
 
 	/**
@@ -120,10 +137,14 @@ class Compiler
 	 * @param   string  $value  Value to escape
 	 * @return  string
 	 */
-
-	public function escapeTableAndOrColumn($value)
+	public function wrapTableAndOrColumn($value)
 	{
 		$wrapped = [];
+
+		if(strpos($value, '->') !== false)
+		{
+			list($value, $jsonPath) = explode('->', $value, 2);
+		}
 
 		foreach(explode('.', $value) as $segment)
 		{
@@ -137,7 +158,14 @@ class Compiler
 			}
 		}
 
-		return implode('.', $wrapped);
+		$wrapped = implode('.', $wrapped);
+
+		if(isset($jsonPath))
+		{
+			$wrapped = $this->buildJsonPath($wrapped, explode('->', $jsonPath));
+		}
+
+		return $wrapped;
 	}
 
 	/**
@@ -147,7 +175,6 @@ class Compiler
 	 * @param   mixed   $value  Value to wrap
 	 * @return  string
 	 */
-
 	public function wrap($value)
 	{
 		if($value instanceof Raw)
@@ -162,11 +189,11 @@ class Compiler
 		{
 			$values = explode(' ', $value);
 
-			return sprintf('%s AS %s', $this->escapeTableAndOrColumn($values[0]), $this->escapeTableAndOrColumn($values[2]));
+			return sprintf('%s AS %s', $this->wrapTableAndOrColumn($values[0]), $this->wrapTableAndOrColumn($values[2]));
 		}
 		else
 		{
-			return $this->escapeTableAndOrColumn($value);
+			return $this->wrapTableAndOrColumn($value);
 		}
 	}
 
@@ -177,10 +204,21 @@ class Compiler
 	 * @param   array      $columns  Array of columns
 	 * @return  string
 	 */
-
 	protected function columns(array $columns)
 	{
 		return implode(', ', array_map([$this, 'wrap'], $columns));
+	}
+
+	/**
+	 * Compiles the FROM clause.
+	 *
+	 * @access  public
+	 * @param   string  $table  Table
+	 * @return  string
+	 */
+	protected function from($table)
+	{
+		return ' FROM ' . $this->wrap($table);
 	}
 
 	/**
@@ -190,7 +228,6 @@ class Compiler
 	 * @param   mixed      $param  Parameter
 	 * @return  string
 	 */
-
 	protected function param($param)
 	{
 		if($param instanceof Raw)
@@ -222,7 +259,6 @@ class Compiler
 	 * @param   mixed      $params  Array of parameters or subquery
 	 * @return  string
 	 */
-
 	protected function params($params)
 	{
 		return implode(', ', array_map([$this, 'param'], $params));
@@ -235,7 +271,6 @@ class Compiler
 	 * @param   array      $where  Where clause
 	 * @return  string
 	 */
-
 	protected function between(array $where)
 	{
 		return $this->wrap($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . $this->param($where['value1']) . ' AND ' . $this->param($where['value2']);
@@ -248,12 +283,11 @@ class Compiler
 	 * @param   array      $where  Where clause
 	 * @return  string
 	 */
-
 	protected function in(array $where)
 	{
 		$values = $this->params($where['values']);
-		return $this->wrap($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ')
-			. ($this->isParenthesesEnclosed($values) ? $values : '(' . $values . ')');
+
+		return $this->wrap($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . ($this->isParenthesesEnclosed($values) ? $values : '(' . $values . ')');
 	}
 
 	/**
@@ -263,7 +297,6 @@ class Compiler
 	 * @param   array      $where  Where clause
 	 * @return  string
 	 */
-
 	protected function null(array $where)
 	{
 		return $this->wrap($where['column']) . ($where['not'] ? ' IS NOT NULL' : ' IS NULL');
@@ -276,7 +309,6 @@ class Compiler
 	 * @param   array      $where  Exists clause
 	 * @return  string
 	 */
-
 	protected function exists($where)
 	{
 		return ($where['not'] ? 'NOT EXISTS ' : 'EXISTS ') . $this->subquery($where['query']);
@@ -289,7 +321,6 @@ class Compiler
 	 * @param   array      $where  Where clause
 	 * @return  string
 	 */
-
 	protected function where(array $where)
 	{
 		return $this->wrap($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
@@ -302,7 +333,6 @@ class Compiler
 	 * @param   array      $where  Where clause
 	 * @return  string
 	 */
-
 	protected function nestedWhere(array $where)
 	{
 		return '(' . $this->whereConditions($where['query']->getWheres()) . ')';
@@ -315,7 +345,6 @@ class Compiler
 	 * @param   array      $wheres  Where conditions
 	 * @return  string
 	 */
-
 	protected function whereConditions(array $wheres)
 	{
 		$conditions = [];
@@ -339,7 +368,6 @@ class Compiler
 	 * @param   array      $wheres  Array of where clauses
 	 * @return  string
 	 */
-
 	protected function wheres(array $wheres)
 	{
 		if(empty($wheres))
@@ -357,7 +385,6 @@ class Compiler
 	 * @param   array  $condition  Join condition
 	 * @return  string
 	 */
-
 	protected function joinCondition(array $condition)
 	{
 		return $this->wrap($condition['column1']) . ' ' . $condition['operator'] . ' ' . $this->wrap($condition['column2']);
@@ -370,7 +397,6 @@ class Compiler
 	 * @param   array  $condition  Join condition
 	 * @return  string
 	 */
-
 	protected function nestedJoinCondition(array $condition)
 	{
 		$conditions = $this->joinConditions($condition['join']);
@@ -382,10 +408,9 @@ class Compiler
 	 * Compiles JOIN conditions.
 	 *
 	 * @access  protected
-	 * @param   mako\database\query\Join  $join  Join
+	 * @param   \mako\database\query\Join  $join  Join
 	 * @return  string
 	 */
-
 	protected function joinConditions(Join $join)
 	{
 		$conditions = [];
@@ -409,7 +434,6 @@ class Compiler
 	 * @param   array      $joins  Array of joins
 	 * @return  string
 	 */
-
 	protected function joins(array $joins)
 	{
 		if(empty($joins))
@@ -434,7 +458,6 @@ class Compiler
 	 * @param   array      $groupings  Array of column names
 	 * @return  string
 	 */
-
 	protected function groupings(array $groupings)
 	{
 		return empty($groupings) ? '' : ' GROUP BY ' . $this->columns($groupings);
@@ -447,7 +470,6 @@ class Compiler
 	 * @param   array      $orderings  Array of order by clauses
 	 * @return  string
 	 */
-
 	protected function orderings(array $orderings)
 	{
 		if(empty($orderings))
@@ -472,7 +494,6 @@ class Compiler
 	 * @param   array      $havings  Having conditions
 	 * @return  string
 	 */
-
 	protected function havingCondictions(array $havings)
 	{
 		$conditions = [];
@@ -496,7 +517,6 @@ class Compiler
 	 * @param   array      $havings  Array of having clauses
 	 * @return  string
 	 */
-
 	protected function havings(array $havings)
 	{
 		if(empty($havings))
@@ -514,7 +534,6 @@ class Compiler
 	 * @param   int        $limit  Limit
 	 * @return  string
 	 */
-
 	protected function limit($limit)
 	{
 		return ($limit === null) ? '' : ' LIMIT ' . $limit;
@@ -527,10 +546,21 @@ class Compiler
 	 * @param   int        $offset  Limit
 	 * @return  string
 	 */
-
 	protected function offset($offset)
 	{
 		return ($offset === null) ? '' : ' OFFSET ' . $offset;
+	}
+
+	/**
+	 * Compiles locking clause.
+	 *
+	 * @access  protected
+	 * @param   null|boolean|string
+	 * @return  string
+	 */
+	protected function lock($lock)
+	{
+		return '';
 	}
 
 	/**
@@ -539,13 +569,11 @@ class Compiler
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function select()
 	{
 		$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
 		$sql .= $this->columns($this->query->getColumns());
-		$sql .= ' FROM ';
-		$sql .= $this->wrap($this->query->getTable());
+		$sql .= $this->from($this->query->getTable());
 		$sql .= $this->joins($this->query->getJoins());
 		$sql .= $this->wheres($this->query->getWheres());
 		$sql .= $this->groupings($this->query->getGroupings());
@@ -553,6 +581,7 @@ class Compiler
 		$sql .= $this->orderings($this->query->getOrderings());
 		$sql .= $this->limit($this->query->getLimit());
 		$sql .= $this->offset($this->query->getOffset());
+		$sql .= $this->lock($this->query->getLock());
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}
@@ -564,7 +593,6 @@ class Compiler
 	 * @param   array   $values  Array of values
 	 * @return  array
 	 */
-
 	public function insert(array $values)
 	{
 		$sql  = 'INSERT INTO ';
@@ -583,7 +611,6 @@ class Compiler
 	 * @param   array   $values  Array of values
 	 * @return  array
 	 */
-
 	public function update(array $values)
 	{
 		$columns = [];
@@ -610,7 +637,6 @@ class Compiler
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function delete()
 	{
 		$sql  = 'DELETE FROM ';
@@ -618,21 +644,5 @@ class Compiler
 		$sql .= $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];
-	}
-
-	/**
-	 * Checks whether a string is between bracse.
-	 *
-	 * @param string $string The string to check
-	 *
-	 * @access protected
-	 * @return boolean
-	 */
-
-	protected function isParenthesesEnclosed($string)
-	{
-		return mb_strlen($string) >= 2
-			&& mb_substr($string, 0, 1) == "("
-			&& mb_substr($string, -1) == ")";
 	}
 }

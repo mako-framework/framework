@@ -14,7 +14,6 @@ use mako\cli\output\writer\WriterInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Error implements WriterInterface
 {
 	/**
@@ -22,13 +21,11 @@ class Error implements WriterInterface
 	 *
 	 * @var boolean
 	 */
-
 	protected $isDirect;
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function isDirect()
 	{
 		if($this->isDirect === null)
@@ -42,7 +39,6 @@ class Error implements WriterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function write($string)
 	{
 		fwrite(STDERR, $string);

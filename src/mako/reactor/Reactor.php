@@ -20,7 +20,6 @@ use mako\syringe\Container;
  *
  * @author  Frederic G. Østby
  */
-
 class Reactor
 {
 	/**
@@ -28,7 +27,6 @@ class Reactor
 	 *
 	 * @var \mako\cli\input\Input
 	 */
-
 	protected $input;
 
 	/**
@@ -36,7 +34,6 @@ class Reactor
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-
 	protected $output;
 
 	/**
@@ -44,7 +41,6 @@ class Reactor
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -52,7 +48,6 @@ class Reactor
 	 *
 	 * @var array
 	 */
-
 	protected $commands = [];
 
 	/**
@@ -60,7 +55,6 @@ class Reactor
 	 *
 	 * @var array
 	 */
-
 	protected $options = [];
 
 	/**
@@ -68,7 +62,6 @@ class Reactor
 	 *
 	 * @var string
 	 */
-
 	protected $logo;
 
 	/**
@@ -80,16 +73,15 @@ class Reactor
 	 * @param   \mako\syringe\Container   $container   Container
 	 * @param   \mako\reactor\Dispatcher  $dispatcher  Command dispatcher
 	 */
-
 	public function __construct(Input $input, Output $output, Container $container = null, Dispatcher $dispatcher = null)
 	{
 		$this->input = $input;
 
 		$this->output = $output;
 
-		$this->container = $container ?: new Container;
+		$this->container = $container ?? new Container;
 
-		$this->dispatcher = $dispatcher ?: new Dispatcher($this->container);
+		$this->dispatcher = $dispatcher ?? new Dispatcher($this->container);
 	}
 
 	/**
@@ -99,7 +91,6 @@ class Reactor
 	 * @param   string  $command  Command
 	 * @param   string  $class    Command class
 	 */
-
 	public function registerCommand($command, $class)
 	{
 		$this->commands[$command] = $class;
@@ -113,7 +104,6 @@ class Reactor
 	 * @param   string    $description  Option description
 	 * @param   \Closure  $handler      Option handler
 	 */
-
 	public function registerCustomOption($name, $description, Closure $handler)
 	{
 		$this->options[$name] = ['description' => $description, 'handler' => $handler];
@@ -125,7 +115,6 @@ class Reactor
 	 * @access  public
 	 * @param   string  $logo  ASCII logo
 	 */
-
 	public function setLogo($logo)
 	{
 		$this->logo = $logo;
@@ -136,7 +125,6 @@ class Reactor
 	 *
 	 * @access  protected
 	 */
-
 	protected function handleCustomOptions()
 	{
 		foreach($this->options as $name => $option)
@@ -160,7 +148,6 @@ class Reactor
 	 * @param   array      $headers  Table headers
 	 * @param   array      $rows     Table rows
 	 */
-
 	protected function drawTable($heading, array $headers, array $rows)
 	{
 		if(!empty($rows))
@@ -185,7 +172,6 @@ class Reactor
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function getOptions()
 	{
 		$options = [];
@@ -205,7 +191,6 @@ class Reactor
 	 *
 	 * @access  protected
 	 */
-
 	protected function listOptions()
 	{
 		$options = $this->getOptions();
@@ -218,7 +203,6 @@ class Reactor
 	 *
 	 * @access  protected
 	 */
-
 	protected function displayReactorInfo()
 	{
 		// Display basic reactor information
@@ -247,7 +231,6 @@ class Reactor
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function getCommands()
 	{
 		$info = [];
@@ -267,7 +250,6 @@ class Reactor
 	 *
 	 * @access  protected
 	 */
-
 	protected function listCommands()
 	{
 		$commands = $this->getCommands();
@@ -281,7 +263,6 @@ class Reactor
 	 * @access  protected
 	 * @param   string     $command  Command
 	 */
-
 	protected function dispatch($command)
 	{
 		if(!isset($this->commands[$command]))
@@ -303,7 +284,6 @@ class Reactor
 	 *
 	 * @access  public
 	 */
-
 	public function run()
 	{
 		$this->handleCustomOptions();

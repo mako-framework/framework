@@ -21,7 +21,6 @@ use mako\pixl\processors\ProcessorInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class ImageMagick implements ProcessorInterface
 {
 	use CalculateNewDimensionsTrait;
@@ -31,7 +30,6 @@ class ImageMagick implements ProcessorInterface
 	 *
 	 * @var \Imagick
 	 */
-
 	protected $image;
 
 	/**
@@ -39,7 +37,6 @@ class ImageMagick implements ProcessorInterface
 	 *
 	 * @var \Imagick
 	 */
-
 	protected $snapshot;
 
 	/**
@@ -47,7 +44,6 @@ class ImageMagick implements ProcessorInterface
 	 *
 	 * @access  public
 	 */
-
 	public function __destruct()
 	{
 		if($this->image instanceof Imagick)
@@ -68,7 +64,6 @@ class ImageMagick implements ProcessorInterface
 	 * @param   string  $hex  HEX value
 	 * @return  string
 	 */
-
 	public function normalizeHex($hex)
 	{
 		if(preg_match('/^(#?[a-f0-9]{3}){1,2}$/i', $hex) === 0)
@@ -82,7 +77,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function open($image)
 	{
 		$this->image = new Imagick($image);
@@ -91,7 +85,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function snapshot()
 	{
 		$this->snapshot = clone $this->image;
@@ -100,7 +93,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function restore()
 	{
 		if(!($this->snapshot instanceof Imagick))
@@ -116,7 +108,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getWidth()
 	{
 		return $this->image->getImageWidth();
@@ -125,7 +116,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getHeight()
 	{
 		return $this->image->getImageHeight();
@@ -134,7 +124,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getDimensions()
 	{
 		return ['width' => $this->getWidth(), 'height' => $this->getHeight()];
@@ -143,7 +132,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function rotate($degrees)
 	{
 		$this->image->rotateImage(new ImagickPixel('none'), (360 - $degrees));
@@ -152,7 +140,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE)
 	{
 		$oldWidth  = $this->image->getImageWidth();
@@ -166,7 +153,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function crop($width, $height, $x, $y)
 	{
 		$this->image->cropImage($width, $height, $x, $y);
@@ -175,7 +161,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function flip($direction = Image::FLIP_HORIZONTAL)
 	{
 		if($direction ===  Image::FLIP_VERTICAL)
@@ -195,7 +180,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
 		$watermark = new Imagick($file);
@@ -241,7 +225,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function brightness($level = 50)
 	{
 		$this->image->modulateImage(100 + $level, 100, 100);
@@ -250,7 +233,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function greyscale()
 	{
 		$this->image->setImageType(Imagick::IMGTYPE_GRAYSCALE);
@@ -259,7 +241,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function sepia()
 	{
 		$this->image->sepiaToneImage(80);
@@ -268,7 +249,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function colorize($color)
 	{
 		$this->image->colorizeImage($this->normalizeHEX($color), 1.0);
@@ -277,7 +257,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function sharpen()
 	{
 		$this->image->sharpenImage(0, 1);
@@ -286,7 +265,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function pixelate($pixelSize = 10)
 	{
 		$width = $this->image->getImageWidth();
@@ -301,7 +279,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function negate()
 	{
 		$this->image->negateImage(false);
@@ -310,7 +287,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function border($color = '#000', $thickness = 5)
 	{
 		$this->image->shaveImage($thickness, $thickness);
@@ -321,7 +297,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getImageBlob($type = null, $quality = 95)
 	{
 		if($type !== null)
@@ -344,7 +319,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function save($file, $quality = 95)
 	{
 		// Set image quality

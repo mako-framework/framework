@@ -16,7 +16,6 @@ use mako\error\handlers\CLIHandler;
  *
  * @author  Frederic G. Østby
  */
-
 class ErrorHandlerService extends Service
 {
 	/**
@@ -25,7 +24,6 @@ class ErrorHandlerService extends Service
 	 * @access  protected
 	 * @param   \mako\error\ErrorHandler  $errorHandler  Error handler instance
 	 */
-
 	protected function setLogger($errorHandler)
 	{
 		if($this->container->get('config')->get('application.error_handler.log_errors'))
@@ -37,14 +35,13 @@ class ErrorHandlerService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$errorHandler = new ErrorHandler;
 
 		$displayErrors = $this->container->get('config')->get('application.error_handler.display_errors');
 
-		$errorHandler->handle('\Exception', function($exception) use ($errorHandler, $displayErrors)
+		$errorHandler->handle('\Throwable', function($exception) use ($errorHandler, $displayErrors)
 		{
 			$this->setLogger($errorHandler);
 
@@ -53,6 +50,6 @@ class ErrorHandlerService extends Service
 			return $webHandler->handle($displayErrors);
 		});
 
-		$this->container->registerInstance(['mako\error\ErrorHandler', 'errorHandler'], $errorHandler);
+		$this->container->registerInstance([ErrorHandler::class, 'errorHandler'], $errorHandler);
 	}
 }

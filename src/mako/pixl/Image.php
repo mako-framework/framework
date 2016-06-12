@@ -16,7 +16,6 @@ use mako\pixl\processors\ProcessorInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class Image
 {
 	/**
@@ -24,7 +23,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const RESIZE_IGNORE = 10;
 
 	/**
@@ -32,7 +30,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const RESIZE_AUTO = 11;
 
 	/**
@@ -40,7 +37,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const RESIZE_WIDTH = 12;
 
 	/**
@@ -48,7 +44,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const RESIZE_HEIGHT = 13;
 
 	/**
@@ -56,7 +51,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const WATERMARK_TOP_LEFT = 20;
 
 	/**
@@ -64,7 +58,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const WATERMARK_TOP_RIGHT = 21;
 
 	/**
@@ -72,7 +65,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const WATERMARK_BOTTOM_LEFT = 22;
 
 	/**
@@ -80,7 +72,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const WATERMARK_BOTTOM_RIGHT = 23;
 
 	/**
@@ -88,7 +79,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const WATERMARK_CENTER = 24;
 
 	/**
@@ -96,7 +86,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const FLIP_VERTICAL = 30;
 
 	/**
@@ -104,7 +93,6 @@ class Image
 	 *
 	 * @var int
 	 */
-
 	const FLIP_HORIZONTAL = 31;
 
 	/**
@@ -112,7 +100,6 @@ class Image
 	 *
 	 * @var \mako\pixl\processors\ProcessorInterface
 	 */
-
 	protected $processor;
 
 	/**
@@ -120,7 +107,6 @@ class Image
 	 *
 	 * @var string
 	 */
-
 	protected $image;
 
 	/**
@@ -131,7 +117,6 @@ class Image
 	 * @param   string                                    $image      Path to image file
 	 * @param   \mako\pixl\processors\ProcessorInterface  $processor  Processor instance
 	 */
-
 	public function __construct($image, ProcessorInterface $processor)
 	{
 		$this->image = $image;
@@ -157,7 +142,6 @@ class Image
 	 * @param   int        $quality  Image quality
 	 * @return  int
 	 */
-
 	protected function normalizeImageQuality($quality)
 	{
 		return max(min((int) $quality, 100), 1);
@@ -168,7 +152,6 @@ class Image
 	 *
 	 * @access  public
 	 */
-
 	public function snapshot()
 	{
 		$this->processor->snapshot();
@@ -179,7 +162,6 @@ class Image
 	 *
 	 * @access  public
 	 */
-
 	public function restore()
 	{
 		$this->processor->restore();
@@ -191,7 +173,6 @@ class Image
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getWidth()
 	{
 		return $this->processor->getWidth();
@@ -203,7 +184,6 @@ class Image
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getHeight()
 	{
 		return $this->processor->getHeight();
@@ -215,7 +195,6 @@ class Image
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getDimensions()
 	{
 		return $this->processor->getDimensions();
@@ -228,7 +207,6 @@ class Image
 	 * @param   int               $degrees  Degrees to rotate the image
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function rotate($degrees)
 	{
 		$this->processor->rotate($degrees);
@@ -244,7 +222,6 @@ class Image
 	 * @param   int               $aspectRatio  Aspect ratio
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE)
 	{
 		$this->processor->resize($width, $height, $aspectRatio);
@@ -262,7 +239,6 @@ class Image
 	 * @param   int               $y       The Y coordinate of the cropped region's top left corner
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function crop($width, $height, $x, $y)
 	{
 		$this->processor->crop($width, $height, $x, $y);
@@ -277,7 +253,6 @@ class Image
 	 * @param   int               $direction  Direction to flip the image
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function flip($direction = Image::FLIP_HORIZONTAL)
 	{
 		$this->processor->flip($direction);
@@ -294,7 +269,6 @@ class Image
 	 * @param   int               $opacity   Opacity of the watermark in percent
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
 		// Check if the image exists
@@ -322,7 +296,6 @@ class Image
 	 * @param   int               $level  Brightness level (-100 to 100)
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function brightness($level = 50)
 	{
 		// Normalize brighness level
@@ -342,7 +315,6 @@ class Image
 	 * @access  public
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function greyscale()
 	{
 		$this->processor->greyscale();
@@ -356,7 +328,6 @@ class Image
 	 * @access  public
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function sepia()
 	{
 		$this->processor->sepia();
@@ -371,7 +342,6 @@ class Image
 	 * @param   string            $color  Hex code for the color
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function colorize($color)
 	{
 		$this->processor->colorize($color);
@@ -384,7 +354,6 @@ class Image
 	 *
 	 * @access  public
 	 */
-
 	public function sharpen()
 	{
 		$this->processor->sharpen();
@@ -399,7 +368,6 @@ class Image
 	 * @param   int               $pixelSize  Pixel size
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function pixelate($pixelSize = 10)
 	{
 		$this->processor->pixelate($pixelSize);
@@ -413,7 +381,6 @@ class Image
 	 * @access  public
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function negate()
 	{
 		$this->processor->negate();
@@ -429,7 +396,6 @@ class Image
 	 * @param   int               $thickness  Thickness of the frame in pixels
 	 * @return  \mako\pixl\Image
 	 */
-
 	public function border($color = '#000', $thickness = 5)
 	{
 		$this->processor->border($color, $thickness);
@@ -445,7 +411,6 @@ class Image
 	 * @param   int     $quality  Image quality 1-100
 	 * @return  string
 	 */
-
 	public function getImageBlob($type = null, $quality = 95)
 	{
 		return $this->processor->getImageBlob($type, $this->normalizeImageQuality($quality));
@@ -458,10 +423,9 @@ class Image
 	 * @param   string  $file     Path to the image file
 	 * @param   int     $quality  Image quality 1-100
 	 */
-
 	public function save($file = null, $quality = 95)
 	{
-		$file = $file ?: $this->image;
+		$file = $file ?? $this->image;
 
 		// Mage sure that the file or directory is writable
 

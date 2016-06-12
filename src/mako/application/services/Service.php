@@ -14,7 +14,6 @@ use mako\syringe\Container;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class Service
 {
 	/**
@@ -22,7 +21,6 @@ abstract class Service
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -31,7 +29,6 @@ abstract class Service
 	 * @access  public
 	 * @param   \mako\syringe\Container  $container  IoC container instance
 	 */
-
 	public function __construct(Container $container)
 	{
 		$this->container = $container;

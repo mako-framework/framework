@@ -1,39 +1,41 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\i18n;
 
-use mako\i18n\Loader;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\i18n\Loader;
 
 /**
  * @group unit
  */
-
-class LoaderTest extends \PHPUnit_Framework_TestCase
+class LoaderTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getFileSystem()
 	{
-		return m::mock('mako\file\FileSystem');
+		return Mockery::mock('mako\file\FileSystem');
 	}
 
 	/**
 	 *
 	 */
-
 	protected function loadInflection($fileSystem)
 	{
 		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(true);
@@ -46,7 +48,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicStringLoading()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -66,7 +67,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage mako\i18n\Loader::loadStrings(): The [ /app/i18n/en_US/strings/foobar.php ] language file does not exist in the [ en_US ] language pack.
 	 */
-
 	public function testBasicNonExistingStringLoading()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -81,7 +81,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStringLoadingWithPackages()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -104,7 +103,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStringLoadingWithPackagesOverride()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -127,7 +125,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoadInflection()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -144,7 +141,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testLoadNonExistingInflection()
 	{
 		$fileSystem = $this->getFileSystem();

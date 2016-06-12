@@ -14,7 +14,6 @@ use mako\syringe\Container;
  *
  * @author  Frederic G. Østby
  */
-
 class Dispatcher
 {
 	/**
@@ -22,7 +21,6 @@ class Dispatcher
 	 *
 	 * @var \mako\syringe\Container
 	 */
-
 	protected $container;
 
 	/**
@@ -31,7 +29,6 @@ class Dispatcher
 	 * @access  public
 	 * @param   \mako\syringe\Container  $container  Container
 	 */
-
 	public function __construct(Container $container)
 	{
 		$this->container = $container;
@@ -44,7 +41,6 @@ class Dispatcher
 	 * @param   string                 $command  Command class
 	 * @return  \mako\reactor\Command
 	 */
-
 	protected function resolve($command)
 	{
 		return $this->container->get($command);
@@ -57,7 +53,6 @@ class Dispatcher
 	 * @param   \mako\reactor\Command  $command    Command instance
 	 * @param   array                  $arguments  Command arguments
 	 */
-
 	protected function execute(Command $command, array $arguments)
 	{
 		$this->container->call([$command, 'execute'], $arguments);
@@ -70,7 +65,6 @@ class Dispatcher
 	 * @param   string  $command    Command class
 	 * @param   array   $arguments  Command arguments
 	 */
-
 	public function dispatch($command, array $arguments)
 	{
 		$command = $this->resolve($command);

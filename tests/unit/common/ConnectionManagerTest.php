@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\common;
 
 use PHPUnit_Framework_TestCase;
@@ -45,13 +50,11 @@ class ConnectionManager extends ConnectionManagerAbstract
 /**
  * @group unit
  */
-
 class ConnectionManagerTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testConnection()
 	{
 		$manager = new ConnectionManager('foo', []);
@@ -72,7 +75,6 @@ class ConnectionManagerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testCallForwarding()
 	{
 		$manager = new ConnectionManager('foo', []);

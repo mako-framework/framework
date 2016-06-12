@@ -1,21 +1,24 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\database\query;
 
-use mako\database\query\Compiler;
-
 use PHPUnit_Framework_TestCase;
+
+use mako\database\query\compilers\Compiler;
 
 /**
  * @group unit
  */
-
 class CompilerTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testSetAndGetDateFormat()
 	{
 		$format = Compiler::getDateFormat();

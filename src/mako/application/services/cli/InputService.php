@@ -16,16 +16,14 @@ use mako\cli\input\reader\Reader;
  *
  * @author  Frederic G. Østby
  */
-
 class InputService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\cli\input\Input', 'input'], function($container)
+		$this->container->registerSingleton([Input::class, 'input'], function($container)
 		{
 			return new Input(new Reader);
 		});

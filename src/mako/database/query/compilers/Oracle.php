@@ -7,57 +7,95 @@
 
 namespace mako\database\query\compilers;
 
-use mako\database\query\Compiler;
+use mako\database\query\compilers\Compiler;
 
 /**
  * Compiles Oracle queries.
  *
  * @author  Frederic G. Østby
  */
-
 class Oracle extends Compiler
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
-	public function select()
+	protected function buildJsonPath($column, array $segments)
 	{
-		if($this->query->getLimit() === null)
-		{
-			// No limit so we can just execute a normal query
+		$path = '';
 
-			return parent::select();
-		}
-		else
+		foreach($segments as $segment)
 		{
-			$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
-			$sql .= $this->columns($this->query->getColumns());
-			$sql .= ' FROM ';
-			$sql .= $this->wrap($this->query->getTable());
-			$sql .= $this->joins($this->query->getJoins());
-			$sql .= $this->wheres($this->query->getWheres());
-			$sql .= $this->groupings($this->query->getGroupings());
-			$sql .= $this->havings($this->query->getHavings());
-			$sql .= $this->orderings($this->query->getOrderings());
-
-			if($this->query->getOffset() === null)
+			if(is_numeric($segment))
 			{
-				// No offset so we only need a simple subquery to emulate the LIMIT clause
-
-				$sql = 'SELECT mako1.* FROM (' . $sql . ') mako1 WHERE rownum <= ' . $this->query->getLimit();
+				$path .= '[' . $segment . ']';
 			}
 			else
 			{
-				// There is an offset so we need to make a bunch of subqueries to emulate the LIMIT and OFFSET clauses
-
-				$limit  = $this->query->getLimit() + $this->query->getOffset();
-				$offset = $this->query->getOffset() + 1;
-
-				$sql = 'SELECT * FROM (SELECT mako1.*, rownum AS mako_rownum FROM (' . $sql . ') mako1 WHERE rownum <= ' . $limit . ') WHERE mako_rownum >= ' . $offset;
+				$path .= '.' . $this->escapeIdentifier($segment);
 			}
-
-			return ['sql' => $sql, 'params' => $this->params];
 		}
+
+		return $column . $path;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function lock($lock)
+	{
+		if($lock === null)
+		{
+			return '';
+		}
+
+		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' FOR UPDATE' : ' ' . $lock);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function orderings(array $orderings)
+	{
+		if(empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null))
+		{
+			return ' ORDER BY (SELECT 0)';
+		}
+
+		return parent::orderings($orderings);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function limit($limit)
+	{
+		$offset = $this->query->getOffset();
+
+		if($limit === null)
+		{
+			return '';
+		}
+
+		if($offset === null)
+		{
+			return ' FETCH FIRST ' . $limit . ' ROWS ONLY';
+		}
+
+		return ' OFFSET ' . $offset . ' ROWS FETCH NEXT ' . $limit . ' ROWS ONLY';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function offset($offset)
+	{
+		$limit = $this->query->getLimit();
+
+		if($limit === null && $offset !== null)
+		{
+			return ' OFFSET ' . $offset . ' ROWS';
+		}
+
+		return '';
 	}
 }

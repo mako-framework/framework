@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\integration\database\midgard\relations;
 
 // --------------------------------------------------------------------------
@@ -36,13 +41,11 @@ class ManyToManyGroup extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class ManyToManyTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasicManyToManyRelation1()
 	{
 		$user = ManyToManyUser::get(1);
@@ -66,7 +69,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testBasicManyToManyRelation2()
 	{
 		$group = ManyToManyGroup::get(1);
@@ -88,7 +90,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLazyHasManyRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -113,7 +114,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasManyRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -138,7 +138,6 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasManyRelationWithConstraint()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -163,8 +162,7 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
-	public function testLinkAndUnlink()
+	public function testLinkAndUnlinkUsingId()
 	{
 		$user = ManyToManyUser::get(3);
 
@@ -173,22 +171,6 @@ class ManyToManyTest extends \ORMTestCase
 		$this->assertEquals(1, count($user->groups()->all()));
 
 		$this->assertEquals(1, count($group->users()->all()));
-
-		// Link and unlink using object
-
-		$user->groups()->link($group);
-
-		$this->assertEquals(2, count($user->groups()->all()));
-
-		$this->assertEquals(2, count($group->users()->all()));
-
-		$user->groups()->unlink($group);
-
-		$this->assertEquals(1, count($user->groups()->all()));
-
-		$this->assertEquals(1, count($group->users()->all()));
-
-		// Link and unlink using id
 
 		$user->groups()->link($group->id);
 
@@ -202,7 +184,43 @@ class ManyToManyTest extends \ORMTestCase
 
 		$this->assertEquals(1, count($group->users()->all()));
 
-		// Link and unlink using object
+		$group->users()->link($user->id);
+
+		$this->assertEquals(2, count($user->groups()->all()));
+
+		$this->assertEquals(2, count($group->users()->all()));
+
+		$group->users()->unlink($user->id);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$this->assertEquals(1, count($group->users()->all()));
+	}
+
+	/**
+	 *
+	 */
+	public function testLinkAndUnlinkUsingModel()
+	{
+		$user = ManyToManyUser::get(3);
+
+		$group = ManyToManyGroup::get(1);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$this->assertEquals(1, count($group->users()->all()));
+
+		$user->groups()->link($group);
+
+		$this->assertEquals(2, count($user->groups()->all()));
+
+		$this->assertEquals(2, count($group->users()->all()));
+
+		$user->groups()->unlink($group);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$this->assertEquals(1, count($group->users()->all()));
 
 		$group->users()->link($user);
 
@@ -215,19 +233,69 @@ class ManyToManyTest extends \ORMTestCase
 		$this->assertEquals(1, count($user->groups()->all()));
 
 		$this->assertEquals(1, count($group->users()->all()));
+	}
 
-		// Link and unlink using id
+	/**
+	 *
+	 */
+	public function testLinkAndUnlinkUsingArrayOfIds()
+	{
+		$user = ManyToManyUser::get(3);
 
-		$group->users()->link($user->id);
-
-		$this->assertEquals(2, count($user->groups()->all()));
-
-		$this->assertEquals(2, count($group->users()->all()));
-
-		$group->users()->unlink($user->id);
+		$group1 = ManyToManyGroup::get(1);
+		$group2 = ManyToManyGroup::get(4);
 
 		$this->assertEquals(1, count($user->groups()->all()));
 
-		$this->assertEquals(1, count($group->users()->all()));
+		$user->groups()->link([$group1->id, $group2->id]);
+
+		$this->assertEquals(3, count($user->groups()->all()));
+
+		$user->groups()->unlink([$group1->id, $group2->id]);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+	}
+
+	/**
+	 *
+	 */
+	public function testLinkAndUnlinkUsingArrayOfModels()
+	{
+		$user = ManyToManyUser::get(3);
+
+		$group1 = ManyToManyGroup::get(1);
+		$group2 = ManyToManyGroup::get(4);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$user->groups()->link([$group1, $group2]);
+
+		$this->assertEquals(3, count($user->groups()->all()));
+
+		$user->groups()->unlink([$group1, $group2]);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+	}
+
+	/**
+	 *
+	 */
+	public function testSynchronizeUsingArrayOfIds()
+	{
+		$user = ManyToManyUser::get(3);
+
+		$group1 = ManyToManyGroup::get(1);
+		$group2 = ManyToManyGroup::get(2);
+		$group3 = ManyToManyGroup::get(4);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$user->groups()->synchronize([$group1->id, $group2->id, $group3->id]);
+
+		$this->assertEquals(3, count($user->groups()->all()));
+
+		$user->groups()->synchronize([$group2->id]);
+
+		$this->assertEquals(1, count($user->groups()->all()));
 	}
 }

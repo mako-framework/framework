@@ -19,7 +19,6 @@ use mako\validator\plugins\TokenValidator;
  *
  * @author  Frederic G. Østby
  */
-
 class ValidatorFactoryService extends Service
 {
 	/**
@@ -28,7 +27,6 @@ class ValidatorFactoryService extends Service
 	 * @access  protected
 	 * @param   \mako\validator\ValidatorFactory  $validatorFactory  Validator factory instance
 	 */
-
 	protected function registerPlugins(ValidatorFactory $validatorFactory)
 	{
 		if($this->container->has('session'))
@@ -49,10 +47,9 @@ class ValidatorFactoryService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\validator\ValidatorFactory', 'validator'], function($container)
+		$this->container->registerSingleton([ValidatorFactory::class, 'validator'], function($container)
 		{
 			$validatorFactory = new ValidatorFactory($container->get('i18n'));
 

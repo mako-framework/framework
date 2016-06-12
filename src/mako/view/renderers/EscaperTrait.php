@@ -15,7 +15,6 @@ namespace mako\view\renderers;
  * @author  Frederic G. Østby
  * @author  Pádraic Brady
  */
-
 trait EscaperTrait
 {
 	/**
@@ -23,7 +22,6 @@ trait EscaperTrait
 	 *
 	 * @var array
 	 */
-
 	protected $htmlNamedEntityMap =
 	[
 		34 => 'quot',
@@ -41,7 +39,6 @@ trait EscaperTrait
 	 * @param   boolean  $doubleEncode  Should existing entities be encoded?
 	 * @return  string
 	 */
-
 	public function escapeHTML($string, $charset, $doubleEncode = true)
 	{
 		return htmlspecialchars($string, ENT_QUOTES, $charset, $doubleEncode);
@@ -54,7 +51,6 @@ trait EscaperTrait
 	 * @param   string   $string  String to escape
 	 * @return  string
 	 */
-
 	public function escapeURL($string)
 	{
 		return rawurlencode($string);
@@ -69,7 +65,6 @@ trait EscaperTrait
 	 * @param   array      $matches  Regex matches
 	 * @return  string
 	 */
-
 	protected function attributeEscaper($matches)
 	{
 		$chr = $matches[0];
@@ -120,7 +115,6 @@ trait EscaperTrait
 	 * @param   string  $charset  Character set
 	 * @return  string
 	 */
-
 	public function escapeAttribute($string, $charset)
 	{
 		if($charset !== 'UTF-8')
@@ -147,7 +141,6 @@ trait EscaperTrait
 	 * @param   array      $matches  Regex matches
 	 * @return  string
 	 */
-
 	protected function cssEscaper($matches)
 	{
 		$chr = $matches[0];
@@ -174,7 +167,6 @@ trait EscaperTrait
 	 * @param   string  $charset  Character set
 	 * @return  string
 	 */
-
 	public function escapeCSS($string, $charset)
 	{
 		if($string === '' || ctype_digit($string))
@@ -206,7 +198,6 @@ trait EscaperTrait
 	 * @param   array      $matches  Regex matches
 	 * @return  string
 	 */
-
 	protected function javascriptEscaper($matches)
 	{
 		$chr = $matches[0];
@@ -229,7 +220,6 @@ trait EscaperTrait
 	 * @param   string  $charset  Character set
 	 * @return  string
 	 */
-
 	public function escapeJavascript($string, $charset)
 	{
 		if($charset !== 'UTF-8')

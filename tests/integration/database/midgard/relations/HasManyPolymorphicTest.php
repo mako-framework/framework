@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\integration\database\midgard\relations;
 
 // --------------------------------------------------------------------------
@@ -31,13 +36,11 @@ class HasManyPolymorphicComment extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class HasManyPolymorphicTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasicHasManyRelation()
 	{
 		$article = HasManyPolymorphicArticle::get(1);
@@ -61,7 +64,6 @@ class HasManyPolymorphicTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLazyHasManyRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -90,7 +92,6 @@ class HasManyPolymorphicTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasManyRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -119,7 +120,6 @@ class HasManyPolymorphicTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testEagerHasManyRelationWithConstraint()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -144,7 +144,6 @@ class HasManyPolymorphicTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testCreateRelated()
 	{
 		$article = HasManyPolymorphicArticle::get(1);

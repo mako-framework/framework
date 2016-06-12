@@ -8,22 +8,23 @@
 namespace mako\cache\stores;
 
 use mako\cache\stores\StoreInterface;
-use mako\database\Connection;
+use mako\cache\stores\traits\GetOrElseTrait;
+use mako\database\connections\Connection;
 
 /**
  * Database store.
  *
  * @author  Frederic G. Østby
  */
-
 class Database implements StoreInterface
 {
+	use GetOrElseTrait;
+
 	/**
 	 * Database connection
 	 *
-	 * @var \mako\database\Connection
+	 * @var \mako\database\connections\Connection
 	 */
-
 	protected $connection;
 
 	/**
@@ -31,22 +32,30 @@ class Database implements StoreInterface
 	 *
 	 * @var string
 	 */
-
 	protected $table;
+
+	/**
+	 * Class whitelist.
+	 *
+	 * @var boolean|array
+	 */
+	protected $classWhitelist;
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Connection  $connection  Database connection
-	 * @param   string                     $table       Database table
+	 * @param   \mako\database\connections\Connection  $connection      Database connection
+	 * @param   string                                 $table           Database table
+	 * @param   boolean|array                          $classWhitelist  Class whitelist
 	 */
-
-	public function __construct(Connection $connection, $table)
+	public function __construct(Connection $connection, $table, $classWhitelist = false)
 	{
 		$this->connection = $connection;
 
 		$this->table = $table;
+
+		$this->classWhitelist = $classWhitelist;
 	}
 
 	/**
@@ -55,7 +64,6 @@ class Database implements StoreInterface
 	 * @access  protected
 	 * @return  \mako\database\query\Query
 	 */
-
 	protected function table()
 	{
 		return $this->connection->builder()->table($this->table);
@@ -64,7 +72,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function put($key, $data, $ttl = 0)
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
@@ -77,7 +84,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function has($key)
 	{
 		return (bool) $this->table()->where('key', '=', $key)->where('lifetime', '>', time())->count();
@@ -86,7 +92,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function get($key)
 	{
 		$cache = $this->table()->where('key', '=', $key)->first();
@@ -95,7 +100,7 @@ class Database implements StoreInterface
 		{
 			if(time() < $cache->lifetime)
 			{
-				return unserialize($cache->data);
+				return unserialize($cache->data, ['allowed_classes' => $this->classWhitelist]);
 			}
 
 			$this->remove($key);
@@ -107,7 +112,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function remove($key)
 	{
 		return (bool) $this->table()->where('key', '=', $key)->delete();
@@ -116,7 +120,6 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function clear()
 	{
 		$this->table()->delete();

@@ -22,7 +22,6 @@ use mako\security\crypto\padders\PKCS7;
  *
  * @method  \mako\security\crypto\encrypters\EncrypterInterface  instance($configuration = null)
  */
-
 class CryptoManager extends AdapterManager
 {
 	/**
@@ -30,7 +29,6 @@ class CryptoManager extends AdapterManager
 	 *
 	 * @var boolean
 	 */
-
 	protected $reuseInstances = false;
 
 	/**
@@ -40,7 +38,6 @@ class CryptoManager extends AdapterManager
 	 * @param   array                                    $configuration  Configuration
 	 * @return  \mako\security\crypto\encrypters\MCrypt
 	 */
-
 	protected function mcryptFactory($configuration)
 	{
 		return new MCrypt($configuration['key'], new PKCS7(), $configuration['cipher'], $configuration['mode']);
@@ -53,7 +50,6 @@ class CryptoManager extends AdapterManager
 	 * @param   array                                     $configuration  Configuration
 	 * @return  \mako\security\crypto\encrypters\OpenSSL
 	 */
-
 	protected function opensslFactory($configuration)
 	{
 		return new OpenSSL($configuration['key'], $configuration['cipher']);
@@ -66,12 +62,11 @@ class CryptoManager extends AdapterManager
 	 * @param   string                        $configuration  Configuration name
 	 * @return  \mako\security\crypto\Crypto
 	 */
-
 	protected function instantiate($configuration)
 	{
 		if(!isset($this->configurations[$configuration]))
 		{
-			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the crypto configuration.", [__METHOD__, $connection]));
+			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the crypto configuration.", [__METHOD__, $configuration]));
 		}
 
 		$configuration = $this->configurations[$configuration];

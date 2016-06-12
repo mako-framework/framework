@@ -1,8 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\integration\database\midgard;
 
-use \DateTime;
+use DateTime;
 
 use mako\utility\UUID;
 
@@ -13,11 +18,6 @@ use mako\utility\UUID;
 class TestUser extends \TestORM
 {
 	protected $tableName = 'users';
-}
-
-class TestUserReadOnly extends TestUser
-{
-	protected $readOnly = true;
 }
 
 class TestUserScoped extends TestUser
@@ -74,13 +74,11 @@ class Counter extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class ORMTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$user = TestUser::get(1);
@@ -99,7 +97,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testGetNonExistent()
 	{
 		$user = TestUser::get(999);
@@ -110,7 +107,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testAll()
 	{
 		$users = TestUser::all();
@@ -126,7 +122,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLimitColumnsFirst()
 	{
 		$user = TestUser::select(['username', 'email'])->where('id', '=', 1)->first();
@@ -137,7 +132,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testLimitColumnsAll()
 	{
 		$users = TestUser::select(['username', 'email'])->all();
@@ -148,7 +142,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testJoin()
 	{
 		$users = TestUser::join('articles', 'articles.user_id', '=', 'users.id')->distinct()->all();
@@ -158,16 +151,11 @@ class ORMTest extends \ORMTestCase
 		$this->assertEquals(['id' => 1, 'created_at' => '2014-04-30 14:40:01', 'username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumns());
 
 		$this->assertEquals(['id' => 2, 'created_at' => '2014-04-30 14:02:43', 'username' => 'bar', 'email' => 'bar@example.org'], $users[1]->getRawColumns());
-
-		$this->assertTrue($users[0]->isReadOnly());
-
-		$this->assertTrue($users[1]->isReadOnly());
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSave()
 	{
 		$dateTime = new DateTime;
@@ -196,7 +184,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testCreate()
 	{
 		$dateTime = new DateTime;
@@ -217,7 +204,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testUpdate()
 	{
 		$dateTime = new DateTime;
@@ -242,7 +228,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testDelete()
 	{
 		$dateTime = new DateTime;
@@ -257,63 +242,8 @@ class ORMTest extends \ORMTestCase
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function saveReadOnly()
-	{
-		$dateTime = new DateTime;
-
-		$user = new TestUserReadOnly();
-
-		$user->username = 'bax';
-
-		$user->email = 'bax@example.org';
-
-		$user->created_at = $dateTime;
-
-		$user->save();
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testCreateReadOnly()
-	{
-		$dateTime = new DateTime;
-
-		$user = TestUserReadOnly::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testUpdateReadOnly()
-	{
-		$user = TestUserReadOnly::get(1);
-
-		$user->username = 'bax';
-
-		$user->save();
-	}
-
-	/**
-	 * @expectedException \mako\database\midgard\ReadOnlyRecordException
-	 */
-
-	public function testDeleteReadOnly()
-	{
-		$user = TestUserReadOnly::get(1);
-
-		$user->delete();
-	}
-
-	/**
 	 *
 	 */
-
 	public function testClone()
 	{
 		$user = TestUser::get(1);
@@ -338,7 +268,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testCloneResultSet()
 	{
 		$count = TestUser::count();
@@ -371,7 +300,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testScoped()
 	{
 		$users = TestUserScoped::withArticles()->all();
@@ -382,7 +310,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testDateTime()
 	{
 		$user = TestUserDateTime::get(1);
@@ -393,7 +320,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testUUIDKey()
 	{
 		$uuid = UUIDKey::create(['value' => 'foo']);
@@ -408,7 +334,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testCustomKey()
 	{
 		$custom = CustomKey::create(['value' => 'foo']);
@@ -423,7 +348,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testNoKey()
 	{
 		$none = NoKey::create(['value' => 'foo']);
@@ -442,7 +366,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testToArray()
 	{
 		$user = TestUser::get(1)->toArray();
@@ -453,7 +376,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testToJSON()
 	{
 		$user = TestUser::get(1)->toJSON();
@@ -464,7 +386,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testQueryForwarding()
 	{
 		$user = TestUser::where('id', '=', 1)->first();
@@ -475,7 +396,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testIncrement()
 	{
 		Counter::increment('counter');
@@ -500,7 +420,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testDecrement()
 	{
 		Counter::decrement('counter');
@@ -525,7 +444,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testIncrement10()
 	{
 		Counter::increment('counter', 10);
@@ -550,7 +468,6 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testDecrement10()
 	{
 		Counter::decrement('counter', 10);

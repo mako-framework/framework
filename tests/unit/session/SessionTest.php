@@ -1,10 +1,16 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\session;
 
-use mako\session\Session;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\session\Session;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -25,31 +31,27 @@ class TestSession extends Session
 /**
  * @group unit
  */
-
-class SessionTest extends \PHPUnit_Framework_TestCase
+class SessionTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getRequest()
 	{
-		return m::mock('\mako\http\Request');
+		return Mockery::mock('\mako\http\Request');
 	}
 
 	/**
 	 *
 	 */
-
 	public function getRequestWithCookie()
 	{
 		$request = $this->getRequest();
@@ -62,16 +64,14 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getResponse()
 	{
-		return m::mock('\mako\http\Response');
+		return Mockery::mock('\mako\http\Response');
 	}
 
 	/**
 	 *
 	 */
-
 	public function getResponseSetCookie()
 	{
 		$response = $this->getResponse();
@@ -84,10 +84,9 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getStore()
 	{
-		$store = m::mock('\mako\session\stores\StoreInterface');
+		$store = Mockery::mock('\mako\session\stores\StoreInterface');
 
 		$store->shouldReceive('gc')->with(1800);
 
@@ -97,7 +96,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function getDefaultStore($sessionData = [])
 	{
 		$store = $this->getStore();
@@ -112,7 +110,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStartWithCookie()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -123,7 +120,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testStartWithoutCookie()
 	{
 		$request = $this->getRequest();
@@ -140,7 +136,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 
 		$store->shouldReceive('write')/*->once()*/->with('bar456', ['mako.flashdata' => [], 'mako.token' => 'bar456'], 1800);
 
-		$session = m::mock('\mako\session\Session[generateId]', [$request, $response, $store]);
+		$session = Mockery::mock('\mako\session\Session[generateId]', [$request, $response, $store]);
 
 		$session->shouldAllowMockingProtectedMethods();
 
@@ -152,7 +148,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetId()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -165,7 +160,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRegenerateId()
 	{
 		$response = $this->getResponseSetCookie();
@@ -180,7 +174,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 
 		$store->shouldReceive('write')/*->once()*/->with('bar456', ['mako.flashdata' => [], 'mako.token' => 'bar456'], 1800);
 
-		$session = m::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $response, $store]);
+		$session = Mockery::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $response, $store]);
 
 		$session->shouldAllowMockingProtectedMethods();
 
@@ -194,7 +188,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRegenerateIdAndKeepData()
 	{
 		$response = $this->getResponseSetCookie();
@@ -207,7 +200,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 
 		$store->shouldReceive('write')/*->once()*/->with('bar456', ['mako.flashdata' => [], 'mako.token' => 'bar456'], 1800);
 
-		$session = m::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $response, $store]);
+		$session = Mockery::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $response, $store]);
 
 		$session->shouldAllowMockingProtectedMethods();
 
@@ -221,7 +214,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetData()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -234,7 +226,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPut()
 	{
 		$store = $this->getStore();
@@ -253,7 +244,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHas()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -268,7 +258,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -285,7 +274,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemove()
 	{
 		$store = $this->getStore();
@@ -304,7 +292,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testPutFlash()
 	{
 		$store = $this->getStore();
@@ -323,7 +310,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHasFlash()
 	{
 		$store = $this->getStore();
@@ -344,7 +330,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemoveFlash()
 	{
 		$store = $this->getStore();
@@ -367,7 +352,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testReflash()
 	{
 		$store = $this->getStore();
@@ -386,7 +370,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testReflashWithKeys()
 	{
 		$store = $this->getStore();
@@ -405,7 +388,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetToken()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -418,7 +400,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRegenerateToken()
 	{
 		$store = $this->getStore();
@@ -427,7 +408,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 
 		$store->shouldReceive('write')/*->once()*/->with('foo123', ['mako.flashdata' => [], 'mako.token' => 'bar456'], 1800);
 
-		$session = m::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $this->getResponseSetCookie(), $store]);
+		$session = Mockery::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $this->getResponseSetCookie(), $store]);
 
 		$session->shouldAllowMockingProtectedMethods();
 
@@ -443,7 +424,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidateToken()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -458,7 +438,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGenerateOneTimeToken()
 	{
 		$store = $this->getStore();
@@ -469,7 +448,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 
 		$store->shouldReceive('write')/*->once()*/->with('foo123', ['mako.tokens' => ['bar456'], 'mako.flashdata' => [], 'mako.token' => 'bar456'], 1800);
 
-		$session = m::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $this->getResponseSetCookie(), $store]);
+		$session = Mockery::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $this->getResponseSetCookie(), $store]);
 
 		$session->shouldAllowMockingProtectedMethods();
 
@@ -485,7 +464,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidateNonExistentOneTimeToken()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
@@ -498,7 +476,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidateExistingOneTimeToken()
 	{
 		$store = $this->getStore();
@@ -517,7 +494,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClear()
 	{
 		$store = $this->getStore();
@@ -536,7 +512,6 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDestroy()
 	{
 		$response = $this->getResponseSetCookie();

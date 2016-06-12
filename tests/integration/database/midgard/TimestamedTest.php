@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\integration\database\midgard;
 
 // --------------------------------------------------------------------------
@@ -37,7 +42,6 @@ class TimestampedBar extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class TimestampedTest extends \ORMTestCase
 {
 	/**

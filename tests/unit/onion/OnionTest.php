@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\onion;
 
 use PHPUnit_Framework_TestCase;
@@ -58,6 +63,21 @@ class BarMiddleware2
 	}
 }
 
+class BazMiddleware1
+{
+	protected $separator;
+
+	public function __construct($separator)
+	{
+		$this->separator = $separator;
+	}
+
+	public function execute($next)
+	{
+		return str_replace(' ', $this->separator, $next());
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -65,13 +85,11 @@ class BarMiddleware2
 /**
  * @group unit
  */
-
 class OnionTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testMiddleware()
 	{
 		$onion = new Onion;
@@ -87,8 +105,8 @@ class OnionTest extends PHPUnit_Framework_TestCase
 
 		$onion = new Onion;
 
-		$onion->addLayer(FooMiddleware1::class, false);
-		$onion->addLayer(FooMiddleware2::class, false);
+		$onion->addLayer(FooMiddleware1::class, [], false);
+		$onion->addLayer(FooMiddleware2::class, [], false);
 
 		$result = $onion->peel(new Foo);
 
@@ -98,7 +116,6 @@ class OnionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMiddlewareWithParams()
 	{
 		$onion = new Onion;
@@ -114,7 +131,6 @@ class OnionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMiddlewareWithClosureAndParams()
 	{
 		$onion = new Onion;
@@ -133,7 +149,6 @@ class OnionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAddInnerLayer()
 	{
 		$onion = new Onion;
@@ -150,7 +165,6 @@ class OnionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAddOuterLayer()
 	{
 		$onion = new Onion;
@@ -162,5 +176,39 @@ class OnionTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame('MW2BMW1BfooMW1AMW2A', $result);
 
+	}
+
+	/**
+	 *
+	 */
+	public function testMiddlewareWithConstructorParameters()
+	{
+		$onion = new Onion;
+
+		$onion->addLayer(BazMiddleware1::class, ['separator' => '_']);
+
+		$result = $onion->peel(function()
+		{
+			return 'hello, world!';
+		});
+
+		$this->assertSame('hello,_world!', $result);
+	}
+
+	/**
+	 *
+	 */
+	public function testMiddlewareWithConstructorParametersAtRuntime()
+	{
+		$onion = new Onion;
+
+		$onion->addLayer(BazMiddleware1::class);
+
+		$result = $onion->peel(function()
+		{
+			return 'hello, world!';
+		}, [], [BazMiddleware1::class => ['separator' => '_']]);
+
+		$this->assertSame('hello,_world!', $result);
 	}
 }

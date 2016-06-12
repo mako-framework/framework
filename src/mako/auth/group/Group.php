@@ -10,6 +10,7 @@ namespace mako\auth\group;
 use LogicException;
 
 use mako\auth\group\GroupInterface;
+use mako\auth\user\User;
 use mako\auth\user\UserInterface;
 use mako\database\midgard\ORM;
 use mako\database\midgard\traits\TimestampedTrait;
@@ -19,7 +20,6 @@ use mako\database\midgard\traits\TimestampedTrait;
  *
  * @author  Frederic G. Østby
  */
-
 class Group extends ORM implements GroupInterface
 {
 	use TimestampedTrait;
@@ -29,13 +29,11 @@ class Group extends ORM implements GroupInterface
 	 *
 	 * @var string
 	 */
-
 	protected $tableName = 'groups';
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getId()
 	{
 		return $this->getPrimaryKeyValue();
@@ -44,7 +42,6 @@ class Group extends ORM implements GroupInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function setName($name)
 	{
 		$this->name = $name;
@@ -53,7 +50,6 @@ class Group extends ORM implements GroupInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function getName()
 	{
 		return $this->name;
@@ -62,7 +58,6 @@ class Group extends ORM implements GroupInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function addUser(UserInterface $user)
 	{
 		if(!$this->exists)
@@ -76,7 +71,6 @@ class Group extends ORM implements GroupInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function removeUser(UserInterface $user)
 	{
 		if(!$this->exists)
@@ -90,7 +84,6 @@ class Group extends ORM implements GroupInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function isMember(UserInterface $user)
 	{
 		if(!$this->exists)
@@ -107,9 +100,8 @@ class Group extends ORM implements GroupInterface
 	 * @access  public
 	 * @return  \mako\database\midgard\relations\ManyToMany
 	 */
-
 	public function users()
 	{
-		return $this->manyToMany('mako\auth\user\User');
+		return $this->manyToMany(User::class);
 	}
 }

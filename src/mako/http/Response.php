@@ -23,7 +23,6 @@ use mako\view\View;
  *
  * @author  Frederic G. Østby
  */
-
 class Response
 {
 	/**
@@ -31,7 +30,6 @@ class Response
 	 *
 	 * @var \mako\http\Request
 	 */
-
 	protected $request;
 
 	/**
@@ -39,7 +37,6 @@ class Response
 	 *
 	 * @var \mako\security\Signer
 	 */
-
 	protected $signer;
 
 	/**
@@ -47,7 +44,6 @@ class Response
 	 *
 	 * @var mixed
 	 */
-
 	protected $body;
 
 	/**
@@ -55,7 +51,6 @@ class Response
 	 *
 	 * @var string
 	 */
-
 	protected $contentType = 'text/html';
 
 	/**
@@ -63,7 +58,6 @@ class Response
 	 *
 	 * @var string
 	 */
-
 	protected $charset;
 
 	/**
@@ -71,7 +65,6 @@ class Response
 	 *
 	 * @var int
 	 */
-
 	protected $statusCode = 200;
 
 	/**
@@ -79,7 +72,6 @@ class Response
 	 *
 	 * @var array
 	 */
-
 	protected $headers = [];
 
 	/**
@@ -87,7 +79,6 @@ class Response
 	 *
 	 * @var array
 	 */
-
 	protected $cookies = [];
 
 	/**
@@ -95,7 +86,6 @@ class Response
 	 *
 	 * @var boolean
 	 */
-
 	protected $outputCompression = false;
 
 	/**
@@ -103,7 +93,6 @@ class Response
 	 *
 	 * @var boolean
 	 */
-
 	protected $responseCache = false;
 
 	/**
@@ -111,7 +100,6 @@ class Response
 	 *
 	 * @var array
 	 */
-
 	protected $outputFilters = [];
 
 	/**
@@ -119,7 +107,6 @@ class Response
 	 *
 	 * @var array
 	 */
-
 	protected $statusCodes =
 	[
 		// 1xx Informational
@@ -127,6 +114,7 @@ class Response
 		100 => 'Continue',
 		101 => 'Switching Protocols',
 		102 => 'Processing',
+		103 => 'Checkpoint',
 
 		// 2xx Success
 
@@ -138,6 +126,8 @@ class Response
 		205 => 'Reset Content',
 		206 => 'Partial Content',
 		207 => 'Multi-Status',
+		208 => 'Already Reported',
+		226 => 'IM Used',
 
 		// 3xx Redirection
 
@@ -147,7 +137,6 @@ class Response
 		303 => 'See Other',
 		304 => 'Not Modified',
 		305 => 'Use Proxy',
-		//306 => 'Switch Proxy',
 		307 => 'Temporary Redirect',
 		308 => 'Permanent Redirect',
 
@@ -166,22 +155,26 @@ class Response
 		410 => 'Gone',
 		411 => 'Length Required',
 		412 => 'Precondition Failed',
-		413 => 'Request Entity Too Large',
-		414 => 'Request-URI Too Long',
+		413 => 'Payload Too Large',
+		414 => 'URI Too Long',
 		415 => 'Unsupported Media Type',
-		416 => 'Requested Range Not Satisfiable',
+		416 => 'Range Not Satisfiable',
 		417 => 'Expectation Failed',
 		418 => 'I\'m a teapot',
-		421 => 'There are too many connections from your internet address',
+		419 => 'Authentication Timeout',
+		421 => 'Misdirected Request',
 		422 => 'Unprocessable Entity',
 		423 => 'Locked',
 		424 => 'Failed Dependency',
-		425 => 'Unordered Collection',
 		426 => 'Upgrade Required',
-		429 => 'Too Many Requests',
+		428 => 'Precondition Required',
+ 		429 => 'Too Many Requests',
+ 		431 => 'Request Header Fields Too Large',
 		449 => 'Retry With',
 		450 => 'Blocked by Windows Parental Controls',
-		498 => 'Invalid or expired token',
+		451 => 'Unavailable For Legal Reasons',
+		498 => 'Invalid Token',
+		499 => 'Token required',
 
 		// 5xx Server Error
 
@@ -193,6 +186,7 @@ class Response
 		505 => 'HTTP Version Not Supported',
 		506 => 'Variant Also Negotiates',
 		507 => 'Insufficient Storage',
+		508 => 'Loop Detected',
 		509 => 'Bandwidth Limit Exceeded',
 		510 => 'Not Extended',
 		511 => 'Network Authentication Required',
@@ -207,7 +201,6 @@ class Response
 	 * @param   string                 $charset  Response charset
 	 * @param   \mako\security\Signer  $signer   Signer instance used to sign cookies
 	 */
-
 	public function __construct(Request $request, $charset = 'UTF-8', Signer $signer = null)
 	{
 		$this->request = $request;
@@ -224,7 +217,6 @@ class Response
 	 * @param   mixed                $body  Response body
 	 * @return  \mako\http\Response
 	 */
-
 	public function body($body)
 	{
 		if($body instanceof View)
@@ -257,7 +249,6 @@ class Response
 	 * @access  public
 	 * @return  mixed
 	 */
-
 	public function getBody()
 	{
 		return $this->body;
@@ -269,7 +260,6 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-
 	public function clearBody()
 	{
 		$this->body = null;
@@ -285,7 +275,6 @@ class Response
 	 * @param   string                $charset      Charset
 	 * @return  \mako\http\Response
 	 */
-
 	public function type($contentType, $charset = null)
 	{
 		$this->contentType = $contentType;
@@ -304,7 +293,6 @@ class Response
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getType()
 	{
 		return $this->contentType;
@@ -317,7 +305,6 @@ class Response
 	 * @param   string               $charset  Charset
 	 * @return  \mako\http\Response
 	 */
-
 	public function charset($charset)
 	{
 		$this->charset = $charset;
@@ -331,7 +318,6 @@ class Response
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getCharset()
 	{
 		return $this->charset;
@@ -344,7 +330,6 @@ class Response
 	 * @param   int                  $statusCode  HTTP status code
 	 * @return  \mako\http\Response
 	 */
-
 	public function status($statusCode)
 	{
 		if(isset($this->statusCodes[$statusCode]))
@@ -361,7 +346,6 @@ class Response
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getStatus()
 	{
 		return $this->statusCode;
@@ -374,7 +358,6 @@ class Response
 	 * @param   \Closure             $filter  Closure used to filter output
 	 * @return  \mako\http\Response
 	 */
-
 	public function filter(Closure $filter)
 	{
 		$this->outputFilters[] = $filter;
@@ -388,7 +371,6 @@ class Response
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getFilters()
 	{
 		return $this->outputFilters;
@@ -400,7 +382,6 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-
 	public function clearFilters()
 	{
 		$this->outputFilters = [];
@@ -417,7 +398,6 @@ class Response
 	 * @param   boolean              $replace  Replace header?
 	 * @return  \mako\http\Response
 	 */
-
 	public function header($name, $value, $replace = true)
 	{
 		$name = strtolower($name);
@@ -428,7 +408,7 @@ class Response
 		}
 		else
 		{
-			$headers = isset($this->headers[$name]) ? $this->headers[$name] : [];
+			$headers = $this->headers[$name] ?? [];
 
 			$this->headers[$name] = array_merge($headers, [$value]);
 		}
@@ -443,7 +423,6 @@ class Response
 	 * @param   string   $name  Header name
 	 * @return  boolean
 	 */
-
 	public function hasHeader($name)
 	{
 		return isset($this->headers[strtolower($name)]);
@@ -456,7 +435,6 @@ class Response
 	 * @param   string               $name   Header name
 	 * @return  \mako\http\Response
 	 */
-
 	public function removeHeader($name)
 	{
 		unset($this->headers[strtolower($name)]);
@@ -470,7 +448,6 @@ class Response
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getHeaders()
 	{
 		return $this->headers;
@@ -482,7 +459,6 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-
 	public function clearHeaders()
 	{
 		$this->headers = [];
@@ -500,7 +476,6 @@ class Response
 	 * @param   array                $options  Cookie options
 	 * @return  \mako\http\Response
 	 */
-
 	public function cookie($name, $value, $ttl = 0, array $options = [])
 	{
 		$ttl = ($ttl === 0) ? 0 : (time() + $ttl);
@@ -522,12 +497,11 @@ class Response
 	 * @param   array                $options  Cookie options
 	 * @return  \mako\http\Response
 	 */
-
 	public function signedCookie($name, $value, $ttl = 0, array $options = [])
 	{
 		if(empty($this->signer))
 		{
-			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to read signed cookies.", [__METHOD__]));
+			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to sign cookies.", [__METHOD__]));
 		}
 
 		return $this->cookie($name, $this->signer->sign($value), $ttl, $options);
@@ -541,7 +515,6 @@ class Response
 	 * @param   array                $options  Cookie options
 	 * @return  \mako\http\Response
 	 */
-
 	public function deleteCookie($name, array $options = [])
 	{
 		return $this->cookie($name, '', -3600, $options);
@@ -554,7 +527,6 @@ class Response
 	 * @param   string   $name  Cookie name
 	 * @return  boolean
 	 */
-
 	public function hasCookie($name)
 	{
 		return isset($this->cookies[$name]);
@@ -567,7 +539,6 @@ class Response
 	 * @param   string               $name   Cookie name
 	 * @return  \mako\http\Response
 	 */
-
 	public function removeCookie($name)
 	{
 		unset($this->cookies[$name]);
@@ -581,7 +552,6 @@ class Response
 	 * @access  public
 	 * @return array
 	 */
-
 	public function getCookies()
 	{
 		return $this->cookies;
@@ -593,7 +563,6 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-
 	public function clearCookies()
 	{
 		$this->cookies = [];
@@ -607,7 +576,6 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-
 	public function clear()
 	{
 		$this->clearBody();
@@ -623,7 +591,6 @@ class Response
 	 *
 	 * @access  protected
 	 */
-
 	public function sendHeaders()
 	{
 		// Send status header
@@ -667,7 +634,6 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-
 	public function cache()
 	{
 		$this->responseCache = true;
@@ -681,7 +647,6 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-
 	public function disableCaching()
 	{
 		$this->responseCache = false;
@@ -695,7 +660,6 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-
 	public function compress()
 	{
 		$this->outputCompression = true;
@@ -709,7 +673,6 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-
 	public function disableCompression()
 	{
 		$this->outputCompression = false;
@@ -721,11 +684,10 @@ class Response
 	 * Returns a file container.
 	 *
 	 * @access  public
-	 * @param   string                    $file     File path
-	 * @param   array                     $options  Options
-	 * @return  \mako\http\response\File
+	 * @param   string                     $file     File path
+	 * @param   array                      $options  Options
+	 * @return  \mako\http\responses\File
 	 */
-
 	public function file($file, array $options = [])
 	{
 		return new File($file, $options);
@@ -735,10 +697,9 @@ class Response
 	 * Returns a stream container.
 	 *
 	 * @access  public
-	 * @param   \Closure                    $stream  Stream
-	 * @return  \mako\http\response\Stream
+	 * @param   \Closure                     $stream  Stream
+	 * @return  \mako\http\responses\Stream
 	 */
-
 	public function stream(Closure $stream)
 	{
 		return new Stream($stream);
@@ -748,10 +709,9 @@ class Response
 	 * Redirects to another location.
 	 *
 	 * @access  public
-	 * @param   string                        $location  Location
-	 * @return  \mako\http\response\Redirect
+	 * @param   string                         $location  Location
+	 * @return  \mako\http\responses\Redirect
 	 */
-
 	public function redirect($location)
 	{
 		return new Redirect($location);
@@ -764,7 +724,6 @@ class Response
 	 * @param   int                           $statusCode  HTTP status code
 	 * @return  \mako\http\response\Redirect
 	 */
-
 	public function back($statusCode = 302)
 	{
 		return $this->redirect($this->request->referer())->status($statusCode);
@@ -775,7 +734,6 @@ class Response
 	 *
 	 * @access  public
 	 */
-
 	public function send()
 	{
 		if($this->body instanceof ResponseContainerInterface)

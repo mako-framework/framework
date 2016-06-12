@@ -14,7 +14,6 @@ use mako\cli\output\Output;
  *
  * @author  Yamada Taro
  */
-
 class Countdown
 {
 	/**
@@ -22,7 +21,6 @@ class Countdown
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-
 	protected $output;
 
 	/**
@@ -31,7 +29,6 @@ class Countdown
 	 * @access  public
 	 * @param   \mako\cli\output\Output  $output  Output instance
 	 */
-
 	public function __construct(Output $output)
 	{
 		$this->output = $output;
@@ -43,7 +40,6 @@ class Countdown
 	 * @access  public
 	 * @param   int     $from  Number of seconds to count down
 	 */
-
 	public function draw($from = 5)
 	{
 		$dots = 0;

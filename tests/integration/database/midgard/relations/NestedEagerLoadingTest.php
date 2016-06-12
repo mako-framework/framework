@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\integration\database\midgard\relations;
 
 // --------------------------------------------------------------------------
@@ -41,13 +46,11 @@ class NestedEagerLoadingComment extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-
 class NestedEagerLoadingTest extends \ORMTestCase
 {
 	/**
 	 *
 	 */
-
 	public function testNestedEagerLoading()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
@@ -83,7 +86,6 @@ class NestedEagerLoadingTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	public function testNestedEagerLoadingWithConstraints()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());

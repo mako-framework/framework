@@ -9,7 +9,7 @@ namespace mako\error;
 
 use Closure;
 use ErrorException;
-use Exception;
+use Throwable;
 
 use Psr\Log\LoggerInterface;
 
@@ -18,7 +18,6 @@ use Psr\Log\LoggerInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class ErrorHandler
 {
 	/**
@@ -26,7 +25,6 @@ class ErrorHandler
 	 *
 	 * @var boolean
 	 */
-
 	protected $disableShutdownHandler = false;
 
 	/**
@@ -34,7 +32,6 @@ class ErrorHandler
 	 *
 	 * @var array
 	 */
-
 	protected $handlers = [];
 
 	/**
@@ -42,7 +39,6 @@ class ErrorHandler
 	 *
 	 * @var \Psr\Log\LoggerInterface
 	 */
-
 	protected $logger;
 
 	/**
@@ -50,7 +46,6 @@ class ErrorHandler
 	 *
 	 * @var array
 	 */
-
 	protected $disableLoggingFor = [];
 
 	/**
@@ -58,12 +53,11 @@ class ErrorHandler
 	 *
 	 * @access  public
 	 */
-
 	public function __construct()
 	{
 		// Add a basic exception handler to the stack
 
-		$this->handle('\Exception', function($e)
+		$this->handle('\Throwable', function($e)
 		{
 			echo '[ ' . get_class($e) . '] ' . $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]';
 
@@ -82,7 +76,6 @@ class ErrorHandler
 	 *
 	 * @access  protected
 	 */
-
 	protected function register()
 	{
 		// Allows us to handle "fatal" errors
@@ -109,7 +102,6 @@ class ErrorHandler
 	 *
 	 * @var \Psr\Log\LoggerInterface
 	 */
-
 	public function setLogger(LoggerInterface $logger)
 	{
 		$this->logger = $logger;
@@ -121,7 +113,6 @@ class ErrorHandler
 	 * @access  public
 	 * @param   string|array  $exceptionType  Exception type or array of exception types
 	 */
-
 	public function disableLoggingFor($exceptionType)
 	{
 		$this->disableLoggingFor = array_unique(array_merge($this->disableLoggingFor, (array) $exceptionType));
@@ -132,7 +123,6 @@ class ErrorHandler
 	 *
 	 * @access  public
 	 */
-
 	public function disableShutdownHandler()
 	{
 		$this->disableShutdownHandler = true;
@@ -145,10 +135,9 @@ class ErrorHandler
 	 * @param   string    $exceptionType  Exception type
 	 * @param   \Closure  $handler        Exception handler
 	 */
-
 	public function handle($exceptionType, Closure $handler)
 	{
-		array_unshift($this->handlers, compact('exceptionType', 'handler'));
+		array_unshift($this->handlers, ['exceptionType' => $exceptionType, 'handler' => $handler]);
 	}
 
 	/**
@@ -157,7 +146,6 @@ class ErrorHandler
 	 * @access  public
 	 * @param   string  $exceptionType  Exception type
 	 */
-
 	public function clearHandlers($exceptionType)
 	{
 		foreach($this->handlers as $key => $handler)
@@ -176,7 +164,6 @@ class ErrorHandler
 	 * @param   string    $exceptionType  Exception type
 	 * @param   \Closure  $handler        Exception handler
 	 */
-
 	public function replaceHandlers($exceptionType, Closure $handler)
 	{
 		$this->clearHandlers($exceptionType);
@@ -189,7 +176,6 @@ class ErrorHandler
 	 *
 	 * @access  protected
 	 */
-
 	protected function clearOutputBuffers()
 	{
 		while(ob_get_level() > 0) ob_end_clean();
@@ -199,11 +185,10 @@ class ErrorHandler
 	 * Should the exception be logged?
 	 *
 	 * @access  public
-	 * @param   \Exception  $exception  An exception object
+	 * @param   \Throwable  $exception  An exception object
 	 * @return  boolean
 	 */
-
-	protected function shouldExceptionBeLogged($exception)
+	protected function shouldExceptionBeLogged(Throwable $exception)
 	{
 		if($this->logger === null)
 		{
@@ -225,10 +210,9 @@ class ErrorHandler
 	 * Handles uncaught exceptions.
 	 *
 	 * @access  public
-	 * @param   \Exception  $exception  An exception object
+	 * @param   \Throwable  $exception  An exception object
 	 */
-
-	public function handler($exception)
+	public function handler(Throwable $exception)
 	{
 		try
 		{
@@ -256,7 +240,7 @@ class ErrorHandler
 				$this->logger->error($exception);
 			}
 		}
-		catch(Exception $e)
+		catch(Throwable $e)
 		{
 			// Empty output buffers
 

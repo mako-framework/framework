@@ -15,16 +15,14 @@ use mako\security\crypto\CryptoManager;
  *
  * @author  Frederic G. Østby
  */
-
 class CryptoService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
-		$this->container->registerSingleton(['mako\security\crypto\CryptoManager', 'crypto'], function($container)
+		$this->container->registerSingleton([CryptoManager::class, 'crypto'], function($container)
 		{
 			$config = $container->get('config')->get('crypto');
 

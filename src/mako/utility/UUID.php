@@ -16,7 +16,6 @@ use InvalidArgumentException;
  * @author  Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
  * @author  Jack (http://stackoverflow.com/a/15875555)
  */
-
 class UUID
 {
 	/**
@@ -24,7 +23,6 @@ class UUID
 	 *
 	 * @var string
 	 */
-
 	const DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
@@ -32,7 +30,6 @@ class UUID
 	 *
 	 * @var string
 	 */
-
 	const URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
@@ -40,7 +37,6 @@ class UUID
 	 *
 	 * @var string
 	 */
-
 	const OID = '6ba7b812-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
@@ -48,7 +44,6 @@ class UUID
 	 *
 	 * @var string
 	 */
-
 	const X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
@@ -58,7 +53,6 @@ class UUID
 	 * @param   string   $str  The UUID to validate
 	 * @return  boolean
 	 */
-
 	public static function validate($str)
 	{
 		return (bool) preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i', $str);
@@ -71,7 +65,6 @@ class UUID
 	 * @param   string     $namespace  UUID
 	 * @return  string
 	 */
-
 	protected static function toBin($namespace)
 	{
 		if(!static::validate($namespace))
@@ -107,7 +100,6 @@ class UUID
 	 * @param   string  $name       Name
 	 * @return  string
 	 */
-
 	public static function v3($namespace, $name)
 	{
 		// Calculate hash value
@@ -149,56 +141,15 @@ class UUID
 	 * @access  public
 	 * @return  string
 	 */
-
 	public static function v4()
 	{
-		if(function_exists('openssl_random_pseudo_bytes'))
-		{
-			$random = openssl_random_pseudo_bytes(16);
+		$random = random_bytes(16);
 
-			// Set version to 0100
+		$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
 
-			$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
+		$random[8] = chr(ord($random[8]) & 0x3f | 0x80);
 
-			// Set bits 6-7 to 10
-
-			$random[8] = chr(ord($random[8]) & 0x3f | 0x80);
-
-			return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($random), 4));
-		}
-		else
-		{
-			return sprintf
-			(
-				'%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-
-				// 32 bits for "time_low"
-
-				mt_rand(0, 65535),
-				mt_rand(0, 65535),
-
-				// 16 bits for "time_mid"
-
-				mt_rand(0, 65535),
-
-				// 16 bits for "time_hi_and_version",
-				// four most significant bits holds version number 4
-
-				mt_rand(16384, 20479),
-
-				// 16 bits, 8 bits for "clk_seq_hi_res",
-				// 8 bits for "clk_seq_low",
-				// two most significant bits holds zero and one for variant DCE1.1
-
-				mt_rand(32768, 49151),
-
-				// 48 bits for "node"
-
-				mt_rand(0, 65535),
-				mt_rand(0, 65535),
-				mt_rand(0, 65535)
-			);
-		}
+		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($random), 4));
 	}
 
 	/**
@@ -209,7 +160,6 @@ class UUID
 	 * @param   string  $name       Name
 	 * @return  string
 	 */
-
 	public static function v5($namespace, $name)
 	{
 		// Calculate hash value

@@ -18,7 +18,6 @@ use mako\utility\Arr;
  *
  * @author  Frederic G. Østby
  */
-
 class Config
 {
 	use NamespacedFileLoaderTrait;
@@ -28,7 +27,6 @@ class Config
 	 *
 	 * @var \mako\file\FileSystem
 	 */
-
 	protected $fileSystem;
 
 	/**
@@ -36,7 +34,6 @@ class Config
 	 *
 	 * @var string
 	 */
-
 	protected $environment;
 
 	/**
@@ -44,7 +41,6 @@ class Config
 	 *
 	 * @var array
 	 */
-
 	protected $configuration = [];
 
 	/**
@@ -55,7 +51,6 @@ class Config
 	 * @param   string                $path         Default path
 	 * @param   string                $environment  Environment name
 	 */
-
 	public function __construct(FileSystem $fileSystem, $path, $environment = null)
 	{
 		$this->fileSystem = $fileSystem;
@@ -71,7 +66,6 @@ class Config
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getLoadedConfiguration()
 	{
 		return $this->configuration;
@@ -83,7 +77,6 @@ class Config
 	 * @access  public
 	 * @param   string  $environment  Environment name
 	 */
-
 	public function setEnvironment($environment)
 	{
 		$this->environment = $environment;
@@ -96,7 +89,6 @@ class Config
 	 * @param   string     $file  File name
 	 * @return  array
 	 */
-
 	protected function load($file)
 	{
 		// Load configuration
@@ -145,7 +137,6 @@ class Config
 	 * @param   string     $key  Language key
 	 * @return  array
 	 */
-
 	protected function parseKey($key)
 	{
 		return (strpos($key, '.') === false) ? [$key, null] : explode('.', $key, 2);
@@ -159,7 +150,6 @@ class Config
 	 * @param   mixed   $default  Default value to return if config value doesn't exist
 	 * @return  mixed
 	 */
-
 	public function get($key, $default = null)
 	{
 		list($file, $path) = $this->parseKey($key);
@@ -179,7 +169,6 @@ class Config
 	 * @param   string  $key    Config key
 	 * @param   mixed   $value  Config value
 	 */
-
 	public function set($key, $value)
 	{
 		list($file, $path) = $this->parseKey($key);
@@ -199,7 +188,6 @@ class Config
 	 * @param   string   $key  Config key
 	 * @return  boolean
 	 */
-
 	public function remove($key)
 	{
 		return Arr::delete($this->configuration, $key);

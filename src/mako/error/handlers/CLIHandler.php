@@ -7,7 +7,7 @@
 
 namespace mako\error\handlers;
 
-use Exception;
+use Throwable;
 
 use mako\cli\output\Output;
 use mako\error\handlers\Handler;
@@ -17,7 +17,6 @@ use mako\error\handlers\Handler;
  *
  * @author  Frederic G. Østby
  */
-
 class CLIHandler extends Handler
 {
 	/**
@@ -25,18 +24,16 @@ class CLIHandler extends Handler
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-
 	protected $output;
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \Exception               $exception  Exception
+	 * @param   \Throwable               $exception  Throwable
 	 * @param   \mako\cli\output\Output  $output     Output
 	 */
-
-	public function __construct(Exception $exception, Output $output)
+	public function __construct(Throwable $exception, Output $output)
 	{
 		parent::__construct($exception);
 
@@ -50,7 +47,6 @@ class CLIHandler extends Handler
 	 * @param   string     $string  String to escape
 	 * @return  string
 	 */
-
 	protected function escape($string)
 	{
 		if(($formatter = $this->output->getFormatter()) === null)
@@ -67,7 +63,6 @@ class CLIHandler extends Handler
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function getDetailedError()
 	{
 		$type = $this->escape($this->determineExceptionType($this->exception));
@@ -92,7 +87,6 @@ class CLIHandler extends Handler
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function getGenericError()
 	{
 		$this->output->errorLn('<bg_red><white>An error has occurred while processing your task.</white></bg_red>' . PHP_EOL);
@@ -101,7 +95,6 @@ class CLIHandler extends Handler
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function handle($showDetails = true)
 	{
 		// Set the response body

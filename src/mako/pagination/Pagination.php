@@ -11,75 +11,54 @@ use RuntimeException;
 
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
+use mako\pagination\PaginationInterface;
 use mako\view\ViewFactory;
 
 /**
  * Pagination class.
  *
  * @author  Frederic G. Østby
+ * @author  Yamada Taro
  */
-
-class Pagination
+class Pagination implements PaginationInterface
 {
-	/**
-	 * Request instance.
-	 *
-	 * @var \mako\http\Request
-	 */
-
-	protected $request;
-
 	/**
 	 * Number of items.
 	 *
 	 * @var int
 	 */
-
-	protected $count;
-
-	/**
-	 * Configuration.
-	 *
-	 * @var array
-	 */
-
-	protected $config =
-	[
-		'page_key'       => 'page',
-		'max_page_links' => 5,
-		'items_per_page' => 20,
-	];
+	protected $items;
 
 	/**
-	 * URL builder instance.
+	 * Number of items per page.
 	 *
-	 * @var \mako\http\request\URLBuilder
+	 * @var int
 	 */
-
-	protected $urlBuilder;
-
-	/**
-	 * View factory instance.
-	 *
-	 * @var \mako\view\ViewFactory
-	 */
-
-	protected $viewFactory;
+	protected $itemsPerPage;
 
 	/**
 	 * Current page.
 	 *
 	 * @var int
 	 */
-
 	protected $currentPage;
+
+	/**
+	 * Options.
+	 *
+	 * @var array
+	 */
+	protected $options =
+	[
+		'page_key'       => 'page',
+		'max_page_links' => 5,
+	];
 
 	/**
 	 * Number of pages.
 	 *
 	 * @var int
 	 */
-
 	protected $pages;
 
 	/**
@@ -87,99 +66,137 @@ class Pagination
 	 *
 	 * @var int
 	 */
-
 	protected $offset;
+
+	/**
+	 * Request instance.
+	 *
+	 * @var \mako\http\Request
+	 */
+	protected $request;
+
+	/**
+	 * URL builder instance.
+	 *
+	 * @var \mako\http\routing\URLBuilder
+	 */
+	protected $urlBuilder;
+
+	/**
+	 * View factory instance.
+	 *
+	 * @var \mako\view\ViewFactory
+	 */
+	protected $viewFactory;
 
 	/**
 	 * Pagination.
 	 *
 	 * @var array
 	 */
-
 	protected $pagination = [];
 
 	/**
-	 * Constructor.
-	 *
-	 * @access  public
-	 * @param   \mako\http\Request             $request      Request
-	 * @param   int                            $count        Item count
-	 * @param   array                          $config       Configuration
-	 * @param   \mako\http\routing\URLBuilder  $urlBuilder   URL builder instance
-	 * @param   \mako\view\ViewFactory         $viewFactory  View factory instance
+	 * {@inheritdoc}
 	 */
-
-	public function __construct(Request $request, $count, array $config = [], URLBuilder $urlBuilder = null, ViewFactory $viewFactory = null)
+	public function __construct($items, $itemsPerPage, $currentPage, array $options = [])
 	{
-		$this->request = $request;
+		$this->items = $items;
 
-		$this->count = $count;
+		$this->itemsPerPage = $itemsPerPage;
 
-		$this->config = $config + $this->config;
+		$this->currentPage = $currentPage;
 
-		$this->urlBuilder = $urlBuilder;
-
-		$this->viewFactory = $viewFactory;
-
-		// Get the current page
-
-		$this->currentPage = max((int) $this->request->get($this->config['page_key'], 1), 1);
+		$this->options = $options + $this->options;
 
 		// Calculate the number of pages
 
-		$this->pages = ceil(($count / $this->config['items_per_page']));
+		$this->pages = (int) ceil(($this->items / $this->itemsPerPage));
 
 		// Calculate the offset
 
-		$this->offset = ($this->currentPage - 1) * $this->config['items_per_page'];
+		$this->offset = ($this->currentPage - 1) * $this->itemsPerPage;
 	}
 
 	/**
-	 * Returns the total amount of pages.
-	 *
-	 * @access  public
-	 * @return  int
+	 * {@inheritdoc}
 	 */
-
-	public function pages()
+	public function items()
 	{
-		return $this->pages;
+		return $this->items;
 	}
 
 	/**
-	 * Returns the current page.
-	 *
-	 * @access  public
-	 * @return  int
+	 * {@inheritdoc}
 	 */
+	public function itemsPerPage()
+	{
+		return $this->itemsPerPage;
+	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function currentPage()
 	{
 		return $this->currentPage;
 	}
 
 	/**
-	 * Returns the limit.
-	 *
-	 * @access  public
-	 * @return  int
+	 * {@inheritdoc}
 	 */
-
-	public function limit()
+	public function numberOfPages()
 	{
-		return $this->config['items_per_page'];
+		return $this->pages;
 	}
 
 	/**
-	 * Returns the offset.
-	 *
-	 * @access  public
-	 * @return  int
+	 * {@inheritdoc}
 	 */
+	public function limit()
+	{
+		return $this->itemsPerPage;
+	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function offset()
 	{
 		return $this->offset;
+	}
+
+	/**
+	 * Sets the request instance.
+	 *
+	 * @access  public
+	 * @param   \mako\http\Request  $request  Request
+	 */
+	public function setRequest(Request $request)
+	{
+		$this->request = $request;
+	}
+
+	/**
+	 * Sets the URL builder instance.
+	 *
+	 * @access  public
+	 * @param   \mako\http\routing\URLBuilder  $urlBuilder  URL builder instance
+	 */
+	public function setURLBuilder(URLBuilder $urlBuilder)
+	{
+		$this->urlBuilder = $urlBuilder;
+	}
+
+	/**
+	 * Sets the view factory builder instance.
+	 *
+	 * @access  public
+	 * @param   \mako\view\ViewFactory  $viewFactory  View factory instance
+	 */
+	public function setViewFactory(ViewFactory $viewFactory)
+	{
+		$this->viewFactory = $viewFactory;
 	}
 
 	/**
@@ -188,50 +205,52 @@ class Pagination
 	 * @access  public
 	 * @return  array
 	 */
-
-	public function paginate()
+	public function pagination()
 	{
 		if(empty($this->pagination))
 		{
-			if(empty($this->urlBuilder))
+			if(empty($this->request))
 			{
-				throw new RuntimeException(vsprintf("%s(): A [ URLBuilder ] instance is required to render pagination views.", [__METHOD__]));
+				throw new RuntimeException(vsprintf("%s(): A [ Request ] instance is required to generate the pagination array.", [__METHOD__]));
 			}
 
-			$pagination = [];
+			if(empty($this->urlBuilder))
+			{
+				throw new RuntimeException(vsprintf("%s(): A [ URLBuilder ] instance is required to generate the pagination array.", [__METHOD__]));
+			}
 
-			$pagination['count'] = $this->pages;
+			$pagination = ['items' => $this->items, 'items_per_page' => $this->itemsPerPage, 'number_of_pages' => $this->pages];
 
 			$params = $this->request->get();
 
 			if($this->currentPage > 1)
 			{
-				$pagination['first']    = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => 1]));
-				$pagination['previous'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => ($this->currentPage - 1)]));
+				$pagination['first']    = $this->urlBuilder->current(array_merge($params, [$this->options['page_key'] => 1]));
+				$pagination['previous'] = $this->urlBuilder->current(array_merge($params, [$this->options['page_key'] => ($this->currentPage - 1)]));
 			}
 
 			if($this->currentPage < $this->pages)
 			{
-				$pagination['last'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => $this->pages]));
-				$pagination['next'] = $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => ($this->currentPage + 1)]));
+				$pagination['last'] = $this->urlBuilder->current(array_merge($params, [$this->options['page_key'] => $this->pages]));
+				$pagination['next'] = $this->urlBuilder->current(array_merge($params, [$this->options['page_key'] => ($this->currentPage + 1)]));
 			}
 
-			if($this->config['max_page_links'] !== 0)
+			if($this->options['max_page_links'] !== 0)
 			{
-				if($this->pages > $this->config['max_page_links'])
+				if($this->pages > $this->options['max_page_links'])
 				{
-					$start = max(($this->currentPage) - ceil($this->config['max_page_links'] / 2), 0);
+					$start = max(($this->currentPage) - ceil($this->options['max_page_links'] / 2), 0);
 
-					$end = $start + $this->config['max_page_links'];
+					$end = $start + $this->options['max_page_links'];
 
 					if($end > $this->pages)
 					{
 						$end = $this->pages;
 					}
 
-					if($start > ($end - $this->config['max_page_links']))
+					if($start > ($end - $this->options['max_page_links']))
 					{
-						$start = $end - $this->config['max_page_links'];
+						$start = $end - $this->options['max_page_links'];
 					}
 				}
 				else
@@ -247,7 +266,7 @@ class Pagination
 				{
 					$pagination['pages'][] =
 					[
-						'url'        => $this->urlBuilder->current(array_merge($params, [$this->config['page_key'] => $i])),
+						'url'        => $this->urlBuilder->current(array_merge($params, [$this->options['page_key'] => $i])),
 						'number'     => $i,
 						'is_current' => ($i == $this->currentPage),
 					];
@@ -267,7 +286,6 @@ class Pagination
 	 * @param   string  $view  Pagination view
 	 * @return  string
 	 */
-
 	public function render($view)
 	{
 		if(empty($this->viewFactory))
@@ -275,6 +293,6 @@ class Pagination
 			throw new RuntimeException(vsprintf("%s(): A [ ViewFactory ] instance is required to render pagination views.", [__METHOD__]));
 		}
 
-		return $this->viewFactory->create($view, $this->paginate())->render();
+		return $this->viewFactory->create($view, $this->pagination())->render();
 	}
 }

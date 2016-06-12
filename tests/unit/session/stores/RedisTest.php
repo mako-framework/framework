@@ -1,39 +1,41 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\session\stores;
 
-use mako\session\stores\Redis;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\session\stores\Redis;
 
 /**
  * @group unit
  */
-
-class RedisTest extends \PHPUnit_Framework_TestCase
+class RedisTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getRedisClient()
 	{
-		return m::mock('mako\redis\Redis');
+		return Mockery::mock('mako\redis\Redis');
 	}
 
 	/**
 	 *
 	 */
-
 	public function testWrite()
 	{
 		$client = $this->getRedisClient();
@@ -48,7 +50,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRead()
 	{
 		$client = $this->getRedisClient();
@@ -77,7 +78,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDelete()
 	{
 		$client = $this->getRedisClient();
@@ -92,7 +92,6 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGc()
 	{
 		$client = $this->getRedisClient();

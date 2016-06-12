@@ -1,19 +1,24 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http\routing;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\http\routing\Routes;
 
 /**
  * @group unit
  */
-
-class RoutesTest extends \PHPUnit_Framework_TestCase
+class RoutesTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testRouteRegistration1()
 	{
 		$routes = new Routes();
@@ -30,7 +35,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRouteRegistration2()
 	{
 		$routes = new Routes();
@@ -47,7 +51,7 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 
 		$routes->all('/foo', 'FooController::fooAction');
 
-		$routes->methods(['OPTIONS', 'HEAD'], '/foo', 'FooController::fooAction');
+		$routes->register(['OPTIONS', 'HEAD'], '/foo', 'FooController::fooAction');
 
 		$routes = $routes->getRoutes();
 
@@ -69,7 +73,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNamedRoute()
 	{
 		$routes = new Routes();
@@ -86,7 +89,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-
 	public function testNamedRouteException()
 	{
 		$routes = new Routes();
@@ -97,7 +99,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGroup()
 	{
 		$routes = new Routes();
@@ -119,7 +120,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNestedGroup()
 	{
 		$routes = new Routes();

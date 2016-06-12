@@ -1,19 +1,24 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\utility;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\utility\HTML;
 
 /**
  * @group unit
  */
-
-class HTMLTest extends \PHPUnit_Framework_TestCase
+class HTMLTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testTag()
 	{
 		$html = new HTML;
@@ -42,7 +47,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAudio()
 	{
 		$html = new HTML;
@@ -71,7 +75,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testVideo()
 	{
 		$html = new HTML;
@@ -100,7 +103,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testUl()
 	{
 		$html = new HTML;
@@ -129,7 +131,6 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testOl()
 	{
 		$html = new HTML;
@@ -158,12 +159,11 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
-	public function testCustom()
+	public function testExtending()
 	{
-		HTML::registerTag('foo', function($html, $content = null, $attributes = [])
+		HTML::extend('foo', function($content = null, $attributes = [])
 		{
-			return $html->tag('foo', $attributes, $content);
+			return $this->tag('foo', $attributes, $content);
 		});
 
 		$html = new HTML;
@@ -188,11 +188,10 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \BadMethodCallException
 	 */
-
 	public function testException()
 	{
 		$html = new HTML;
 
-		$html->bar();
+		$html->nope();
 	}
 }

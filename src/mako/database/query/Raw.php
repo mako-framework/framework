@@ -12,7 +12,6 @@ namespace mako\database\query;
  *
  * @author  Frederic G. Østby
  */
-
 class Raw
 {
 	/**
@@ -20,7 +19,6 @@ class Raw
 	 *
 	 * @var string
 	 */
-
 	protected $sql;
 
 	/**
@@ -29,7 +27,6 @@ class Raw
 	 * @access  public
 	 * @param   string  $sql  Raw SQL
 	 */
-
 	public function __construct($sql)
 	{
 		$this->sql = $sql;
@@ -41,7 +38,6 @@ class Raw
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function get()
 	{
 		return $this->sql;

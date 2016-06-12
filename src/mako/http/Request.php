@@ -12,13 +12,13 @@ use RuntimeException;
 use mako\http\routing\Route;
 use mako\security\Signer;
 use mako\utility\Arr;
+use mako\utility\ip\IP;
 
 /**
  * Executes requets.
  *
  * @author  Frederic G. Østby
  */
-
 class Request
 {
 	/**
@@ -26,7 +26,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $get;
 
 	/**
@@ -34,7 +33,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $post;
 
 	/**
@@ -42,7 +40,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $cookies;
 
 	/**
@@ -50,7 +47,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $files;
 
 	/**
@@ -58,7 +54,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $server;
 
 	/**
@@ -66,7 +61,6 @@ class Request
 	 *
 	 * @var string
 	 */
-
 	protected $body;
 
 	/**
@@ -74,7 +68,6 @@ class Request
 	 *
 	 * @var \mako\security\Signer
 	 */
-
 	protected $signer;
 
 	/**
@@ -82,7 +75,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $parsedBody;
 
 	/**
@@ -90,7 +82,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $headers = [];
 
 	/**
@@ -98,7 +89,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $acceptableContentTypes;
 
 	/**
@@ -106,7 +96,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $acceptableLanguages;
 
 	/**
@@ -114,7 +103,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $acceptableCharsets;
 
 	/**
@@ -122,7 +110,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $acceptableEncodings;
 
 	/**
@@ -130,7 +117,6 @@ class Request
 	 *
 	 * @var array
 	 */
-
 	protected $trustedProxies;
 
 	/**
@@ -138,7 +124,6 @@ class Request
 	 *
 	 * @var string
 	 */
-
 	protected $ip;
 
 	/**
@@ -146,7 +131,6 @@ class Request
 	 *
 	 * @var boolean
 	 */
-
 	protected $isAjax;
 
 	/**
@@ -154,7 +138,6 @@ class Request
 	 *
 	 * @var boolean
 	 */
-
 	protected $isSecure;
 
 	/**
@@ -162,7 +145,6 @@ class Request
 	 *
 	 * @var boolean
 	 */
-
 	protected $isCGI;
 
 	/**
@@ -170,7 +152,6 @@ class Request
 	 *
 	 * @var string
 	 */
-
 	protected $baseURL;
 
 	/**
@@ -178,7 +159,6 @@ class Request
 	 *
 	 * @var string
 	 */
-
 	protected $path;
 
 	/**
@@ -186,7 +166,6 @@ class Request
 	 *
 	 * @var string
 	 */
-
 	protected $language;
 
 	/**
@@ -194,7 +173,6 @@ class Request
 	 *
 	 * @var string
 	 */
-
 	protected $languagePrefix;
 
 	/**
@@ -202,7 +180,6 @@ class Request
 	 *
 	 * @var string
 	 */
-
 	protected $method;
 
 	/**
@@ -210,7 +187,6 @@ class Request
 	 *
 	 * @var string
 	 */
-
 	protected $realMethod;
 
 	/**
@@ -218,7 +194,6 @@ class Request
 	 *
 	 * @var \mako\http\routing\Route
 	 */
-
 	protected $route;
 
 	/**
@@ -228,17 +203,16 @@ class Request
 	 * @param   array                  $request  Request data and options
 	 * @param   \mako\security\Signer  $signer   Signer instance used to validate signed cookies
 	 */
-
 	public function __construct(array $request = [], Signer $signer = null)
 	{
 		// Collect request data
 
-		$this->get     = isset($request['get']) ? $request['get'] : $_GET;
-		$this->post    = isset($request['post']) ? $request['post'] : $_POST;
-		$this->cookies = isset($request['cookies']) ? $request['cookies'] : $_COOKIE;
-		$this->files   = isset($request['files']) ? $request['files'] : $_FILES;
-		$this->server  = isset($request['server']) ? $request['server'] : $_SERVER;
-		$this->body    = isset($request['body']) ? $request['body'] : null;
+		$this->get     = $request['get'] ?? $_GET;
+		$this->post    = $request['post'] ?? $_POST;
+		$this->cookies = $request['cookies'] ?? $_COOKIE;
+		$this->files   = $request['files'] ?? $_FILES;
+		$this->server  = $request['server'] ?? $_SERVER;
+		$this->body    = $request['body'] ?? null;
 
 		// Set the Signer instance
 
@@ -254,11 +228,11 @@ class Request
 
 		// Set the request path and method
 
-		$languages = isset($request['languages']) ? $request['languages'] : [];
+		$languages = $request['languages'] ?? [];
 
-		$this->path = isset($request['path']) ? $request['path'] : $this->determinePath($languages);
+		$this->path = $request['path'] ?? $this->determinePath($languages);
 
-		$this->method = isset($request['method']) ? $request['method'] : $this->determineMethod();
+		$this->method = $request['method'] ?? $this->determineMethod();
 	}
 
 	/**
@@ -269,7 +243,6 @@ class Request
 	 * @param   string     $path       Path
 	 * @return  string
 	 */
-
 	protected function stripLocaleSegment(array $languages, $path)
 	{
 		foreach($languages as $key => $language)
@@ -296,7 +269,6 @@ class Request
 	 * @param   array      $languages  Locale segments
 	 * @return  string
 	 */
-
 	protected function determinePath(array $languages)
 	{
 		$path = '/';
@@ -338,29 +310,16 @@ class Request
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function determineMethod()
 	{
-		$method = 'GET';
-
-		if(isset($this->server['REQUEST_METHOD']))
-		{
-			$method = strtoupper($this->server['REQUEST_METHOD']);
-		}
+		$method = strtoupper($this->server['REQUEST_METHOD'] ?? 'GET');
 
 		if($method === 'POST')
 		{
-			if(isset($this->post['REQUEST_METHOD_OVERRIDE']))
-			{
-				$method = $this->post['REQUEST_METHOD_OVERRIDE'];
-			}
-			elseif(isset($this->server['HTTP_X_HTTP_METHOD_OVERRIDE']))
-			{
-				$method = $this->server['HTTP_X_HTTP_METHOD_OVERRIDE'];
-			}
+			return strtoupper($this->post['REQUEST_METHOD_OVERRIDE'] ?? $this->server['HTTP_X_HTTP_METHOD_OVERRIDE'] ?? 'POST');
 		}
 
-		return strtoupper($method);
+		return $method;
 	}
 
 	/**
@@ -370,7 +329,6 @@ class Request
 	 * @param   string
 	 * @return  array
 	 */
-
 	protected function parseAcceptHeader($headerValue)
 	{
 		$groupedAccepts = [];
@@ -417,7 +375,6 @@ class Request
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function collectHeaders()
 	{
 		$headers = [];
@@ -442,12 +399,11 @@ class Request
 	 *
 	 * @access protected
 	 */
-
 	protected function collectRequestInfo()
 	{
 		// Is this an Ajax request?
 
-		$this->isAjax = (isset($this->server['HTTP_X_REQUESTED_WITH']) && ($this->server['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
+		$this->isAjax = (isset($this->server['HTTP_X_REQUESTED_WITH']) && ($this->server['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest'));
 
 		// Was the request made using HTTPS?
 
@@ -468,7 +424,6 @@ class Request
 	 * @access  public
 	 * @param   \mako\http\routing\Route  $route  Route
 	 */
-
 	public function setRoute(Route $route)
 	{
 		$this->route = $route;
@@ -480,7 +435,6 @@ class Request
 	 * @access  public
 	 * @return  null|\mako\http\routing\Route
 	 */
-
 	public function getRoute()
 	{
 		return $this->route;
@@ -492,7 +446,6 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function body()
 	{
 		if($this->body === null)
@@ -511,7 +464,6 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	protected function getParsed($key, $default)
 	{
 		if($this->parsedBody === null)
@@ -542,7 +494,6 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function get($key = null, $default = null)
 	{
 		return ($key === null) ? $this->get : Arr::get($this->get, $key, $default);
@@ -556,7 +507,6 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function post($key = null, $default = null)
 	{
 		return ($key === null) ? $this->post : Arr::get($this->post, $key, $default);
@@ -570,7 +520,6 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function put($key = null, $default = null)
 	{
 		return $this->getParsed($key, $default);
@@ -584,7 +533,6 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function patch($key = null, $default = null)
 	{
 		return $this->getParsed($key, $default);
@@ -598,7 +546,6 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function delete($key = null, $default = null)
 	{
 		return $this->getParsed($key, $default);
@@ -612,7 +559,6 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  string
 	 */
-
 	public function signedCookie($name = null, $default = null)
 	{
 		if(empty($this->signer))
@@ -638,10 +584,9 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  string
 	 */
-
 	public function cookie($name = null, $default = null)
 	{
-		return isset($this->cookies[$name]) ? $this->cookies[$name] : $default;
+		return $this->cookies[$name] ?? $default;
 	}
 
 	/**
@@ -652,7 +597,6 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function file($key = null, $default = null)
 	{
 		return ($key === null) ? $this->files : Arr::get($this->files, $key, $default);
@@ -666,7 +610,6 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function server($key = null, $default = null)
 	{
 		return ($key === null) ? $this->server : Arr::get($this->server, $key, $default);
@@ -679,7 +622,6 @@ class Request
 	 * @param   string   $key  Array key
 	 * @return  boolean
 	 */
-
 	public function has($key)
 	{
 		$method = strtolower($this->realMethod);
@@ -695,7 +637,6 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function data($key = null, $default = null)
 	{
 		$method = strtolower($this->realMethod);
@@ -711,7 +652,6 @@ class Request
 	 * @param   array  $defaults  Default values
 	 * @return  array
 	 */
-
 	public function whitelisted(array $keys, array $defaults = [])
 	{
 		return array_intersect_key($this->data(), array_flip($keys)) + $defaults;
@@ -725,7 +665,6 @@ class Request
 	 * @param   array  $defaults  Default values
 	 * @return  array
 	 */
-
 	public function blacklisted(array $keys, array $defaults = [])
 	{
 		return array_diff_key($this->data(), array_flip($keys)) + $defaults;
@@ -739,12 +678,11 @@ class Request
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function header($name, $default = null)
 	{
 		$name = strtoupper(str_replace('-', '_', $name));
 
-		return isset($this->headers[$name]) ? $this->headers[$name] : $default;
+		return $this->headers[$name] ?? $default;
 	}
 
 	/**
@@ -753,7 +691,6 @@ class Request
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function acceptableContentTypes()
 	{
 		if(empty($this->acceptableContentTypes))
@@ -770,7 +707,6 @@ class Request
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function acceptableLanguages()
 	{
 		if(empty($this->acceptableLanguages))
@@ -787,7 +723,6 @@ class Request
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function acceptableCharsets()
 	{
 		if(empty($this->acceptableCharsets))
@@ -804,7 +739,6 @@ class Request
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function acceptableEncodings()
 	{
 		if(empty($this->acceptableEncodings))
@@ -821,7 +755,6 @@ class Request
 	 * @access  public
 	 * @param   array  $trustedProxies  Array of trusted proxy IP addresses
 	 */
-
 	public function setTrustedProxies(array $trustedProxies)
 	{
 		$this->trustedProxies = $trustedProxies;
@@ -833,7 +766,6 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function ip()
 	{
 		if(empty($this->ip))
@@ -842,15 +774,22 @@ class Request
 
 			if(!empty($this->trustedProxies))
 			{
-				$ips = array_map('trim', explode(',', $this->server('HTTP_X_FORWARDED_FOR')));
+				$ips = $this->server('HTTP_X_FORWARDED_FOR');
 
 				if(!empty($ips))
 				{
+					$ips = array_map('trim', explode(',', $ips));
+
 					foreach($ips as $key => $value)
 					{
-						if(in_array($value, $this->trustedProxies))
+						foreach($this->trustedProxies as $trustedProxy)
 						{
-							unset($ips[$key]);
+							if(IP::inRange($value, $trustedProxy))
+							{
+								unset($ips[$key]);
+
+								break;
+							}
 						}
 					}
 
@@ -870,7 +809,6 @@ class Request
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isAjax()
 	{
 		return $this->isAjax;
@@ -882,7 +820,6 @@ class Request
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isSecure()
 	{
 		return $this->isSecure;
@@ -894,7 +831,6 @@ class Request
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isSafe()
 	{
 		return in_array($this->method, ['GET', 'HEAD']);
@@ -906,7 +842,6 @@ class Request
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isCGI()
 	{
 		return $this->isCGI;
@@ -918,7 +853,6 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function baseURL()
 	{
 		if(empty($this->baseURL))
@@ -961,7 +895,6 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function path()
 	{
 		return $this->path;
@@ -973,7 +906,6 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function language()
 	{
 		return $this->language;
@@ -985,7 +917,6 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function languagePrefix()
 	{
 		return $this->languagePrefix;
@@ -997,7 +928,6 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function method()
 	{
 		return $this->method;
@@ -1009,7 +939,6 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function realMethod()
 	{
 		return $this->realMethod;
@@ -1021,7 +950,6 @@ class Request
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isFaked()
 	{
 		return $this->realMethod !== $this->method;
@@ -1033,7 +961,6 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function username()
 	{
 		return $this->server('PHP_AUTH_USER');
@@ -1045,7 +972,6 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function password()
 	{
 		return $this->server('PHP_AUTH_PW');
@@ -1058,7 +984,6 @@ class Request
 	 * @param   string  $default  Value to return if no referer is set
 	 * @return  string
 	 */
-
 	public function referer($default = '')
 	{
 		return $this->header('referer', $default);
@@ -1071,7 +996,6 @@ class Request
 	 * @param   string  $key  Array key
 	 * @return  mixed
 	 */
-
 	public function __get($key)
 	{
 		return $this->data($key);
@@ -1084,7 +1008,6 @@ class Request
 	 * @param   string   $key  Array key
 	 * @return  boolean
 	 */
-
 	public function __isset($key)
 	{
 		return $this->data($key) !== null;

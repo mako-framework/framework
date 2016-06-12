@@ -1,19 +1,24 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\http\routing;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\http\routing\Route;
 
 /**
  * @group unit
  */
-
-class RouteTest extends \PHPUnit_Framework_TestCase
+class RouteTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testBasicMatch()
 	{
 		$route = new Route(['GET'], '/', 'FooController::fooAction');
@@ -40,7 +45,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMatchWithParameter()
 	{
 		$route = new Route(['GET'], '/foo/{id}', 'FooController::fooAction');
@@ -65,7 +69,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMatchWithParameters()
 	{
 		$route = new Route(['GET'], '/foo/{id}/{slug}', 'FooController::fooAction');
@@ -90,7 +93,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMatchWithOptionalParameters()
 	{
 		$route = new Route(['GET'], '/foo/{id}/{slug}?', 'FooController::fooAction');
@@ -115,7 +117,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testMatchWithParameterConstraints()
 	{
 		$route = (new Route(['GET'], '/foo/{id}', 'FooController::fooAction'))->when(['id' => '[0-9]+']);
@@ -142,7 +143,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHasTrailingSlash()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
@@ -159,7 +159,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testAllows()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
@@ -180,7 +179,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetMethods()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
@@ -197,7 +195,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetRoute()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
@@ -208,7 +205,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetAction()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
@@ -219,7 +215,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetName()
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction', 'foo');
@@ -230,53 +225,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
-	public function testBeforeFilters()
-	{
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->before('foo');
-
-		$this->assertEquals(['foo'], $route->getBeforeFilters());
-
-		//
-
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->before('foo')->before('bar');
-
-		$this->assertEquals(['foo', 'bar'], $route->getBeforeFilters());
-
-		//
-
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->before(['foo', 'bar']);
-
-		$this->assertEquals(['foo', 'bar'], $route->getBeforeFilters());
-	}
-
-	/**
-	 *
-	 */
-
-	public function testAfterFilters()
-	{
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->after('foo');
-
-		$this->assertEquals(['foo'], $route->getAfterFilters());
-
-		//
-
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->after('foo')->after('bar');
-
-		$this->assertEquals(['foo', 'bar'], $route->getAfterFilters());
-
-		//
-
-		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->after(['foo', 'bar']);
-
-		$this->assertEquals(['foo', 'bar'], $route->getAfterFilters());
-	}
-
-	/**
-	 *
-	 */
-
 	public function testPrefix()
 	{
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->prefix('bar');
@@ -299,7 +247,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGetRegex()
 	{
 		$route = new Route(['GET'], '/', 'FooController::fooAction');
@@ -358,10 +305,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNamespace()
 	{
-		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->setNamespace('app\controllers');
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->namespace('app\controllers');
 
 		$this->assertSame('app\controllers\FooController::fooAction', $route->getAction());
 	}
@@ -369,10 +315,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNestedNamespace()
 	{
-		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->setNamespace('app')->setNamespace('controllers');
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->namespace('app')->namespace('controllers');
 
 		$this->assertSame('app\controllers\FooController::fooAction', $route->getAction());
 	}
@@ -380,11 +325,32 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClosureNamespace()
 	{
-		$route = (new Route(['GET'], '/', function(){}))->setNamespace('app\controllers');
+		$route = (new Route(['GET'], '/', function(){}))->namespace('app\controllers');
 
 		$this->assertInstanceOf('Closure', $route->getAction());
+	}
+
+	/**
+	 *
+	 */
+	public function testMiddleware()
+	{
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->middleware('foo');
+
+		$this->assertSame(['foo'], $route->getMiddleware());
+
+		//
+
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->middleware(['foo', 'bar']);
+
+		$this->assertSame(['foo', 'bar'], $route->getMiddleware());
+
+		//
+
+		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->middleware('foo')->middleware('bar');
+
+		$this->assertSame(['foo', 'bar'], $route->getMiddleware());
 	}
 }

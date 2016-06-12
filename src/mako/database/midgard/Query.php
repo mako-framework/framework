@@ -11,59 +11,39 @@ use BadMethodCallException;
 use Closure;
 use PDO;
 
-use mako\database\Connection;
+use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
 use mako\database\midgard\ResultSet;
-use mako\database\midgard\ReadOnlyRecordException;
 use mako\database\query\Query as QueryBuilder;
 
 /**
  * ORM query builder.
  *
  * @author  Frederic G. Østby
+ *
+ * @method  \mako\database\midgard\ResultSet  paginate($itemsPerPage = null, array $options = [])
  */
-
 class Query extends QueryBuilder
 {
-	/**
-	 * Fetch mode.
-	 *
-	 * @var int
-	 */
-
-	const FETCH_MODE = PDO::FETCH_ASSOC;
-
 	/**
 	 * Instance of the model to hydrate.
 	 *
 	 * @var \mako\database\midgard\ORM
 	 */
-
 	protected $model;
-
-	/**
-	 * Should hydrated models be made read only?
-	 *
-	 * @var boolean
-	 */
-
-	protected $makeReadOnly = false;
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\database\Connection   $connection  Database connection
-	 * @param   \mako\database\midgard\ORM  $model       Model to hydrate
+	 * @param   \mako\database\connections\Connection  $connection  Database connection
+	 * @param   \mako\database\midgard\ORM             $model       Model to hydrate
 	 */
-
 	public function __construct(Connection $connection, ORM $model)
 	{
 		parent::__construct($connection);
 
 		$this->model = $model;
-
-		$this->makeReadOnly = $model->isReadOnly();
 
 		$this->table = $model->getTable();
 	}
@@ -74,7 +54,6 @@ class Query extends QueryBuilder
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function getModel()
 	{
 		return $this->model;
@@ -83,11 +62,8 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
 	{
-		$this->makeReadOnly = true;
-
 		if(empty($this->joins) && $this->columns === ['*'])
 		{
 			$this->select([$this->model->getTable() . '.*']);
@@ -99,14 +75,8 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function insert(array $values)
 	{
-		if($this->model->isReadOnly())
-		{
-			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to create a read-only record.", [__METHOD__]));
-		}
-
 		// Execute "beforeInsert" hooks
 
 		foreach($this->model->getHooks('beforeInsert') as $hook)
@@ -133,14 +103,8 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function update(array $values)
 	{
-		if($this->model->isReadOnly())
-		{
-			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to update a read-only record.", [__METHOD__]));
-		}
-
 		// Execute "beforeUpdate" hooks
 
 		foreach($this->model->getHooks('beforeUpdate') as $hook)
@@ -167,7 +131,6 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function increment($column, $increment = 1)
 	{
 		if($this->model->exists())
@@ -190,7 +153,6 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function decrement($column, $decrement = 1)
 	{
 		if($this->model->exists())
@@ -213,14 +175,8 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function delete()
 	{
-		if($this->model->isReadOnly())
-		{
-			throw new ReadOnlyRecordException(vsprintf("%s(): Attempted to delete a read-only record.", [__METHOD__]));
-		}
-
 		// Execute "beforeDelete" hooks
 
 		foreach($this->model->getHooks('beforeDelete') as $hook)
@@ -248,7 +204,6 @@ class Query extends QueryBuilder
 	 * @param   array                       $columns  Columns to select
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function get($id, array $columns = [])
 	{
 		if(!empty($columns))
@@ -266,7 +221,6 @@ class Query extends QueryBuilder
 	 * @param   string|array                  $includes  Relation or array of relations to eager load
 	 * @return  \mako\database\midgard\Query
 	 */
-
 	public function including($includes)
 	{
 		$this->model->setIncludes((array) $includes);
@@ -281,7 +235,6 @@ class Query extends QueryBuilder
 	 * @param   string|array                  $excludes  Relation or array of relations to exclude from eager loading
 	 * @return  \mako\database\midgard\Query
 	 */
-
 	public function excluding($excludes)
 	{
 		$this->model->setIncludes(array_diff($this->model->getIncludes(), (array) $excludes));
@@ -296,12 +249,11 @@ class Query extends QueryBuilder
 	 * @param   object                      $result  Database result
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	protected function hydrateModel($result)
 	{
 		$model = $this->model->getClass();
 
-		return new $model($result, true, false, true, $this->makeReadOnly);
+		return new $model($result, true, false, true);
 	}
 
 	/**
@@ -310,7 +262,6 @@ class Query extends QueryBuilder
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function parseIncludes()
 	{
 		$includes = ['this' => [], 'forward' => []];
@@ -350,14 +301,13 @@ class Query extends QueryBuilder
 	 * @access  protected
 	 * @param   array      $results  Loaded records
 	 */
-
 	protected function loadIncludes(array $results)
 	{
 		$includes = $this->parseIncludes();
 
 		foreach($includes['this'] as $include => $criteria)
 		{
-			$forward = isset($includes['forward'][$include]) ? $includes['forward'][$include] : [];
+			$forward = $includes['forward'][$include] ?? [];
 
 			$results[0]->{$include}()->eagerLoad($results, $include, $criteria, $forward);
 		}
@@ -370,7 +320,6 @@ class Query extends QueryBuilder
 	 * @param   mixed      $results  Database results
 	 * @return  array
 	 */
-
 	protected function hydrateModelsAndLoadIncludes($results)
 	{
 		$hydrated = [];
@@ -394,10 +343,9 @@ class Query extends QueryBuilder
 	 * @access  public
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function first()
 	{
-		$result = parent::first();
+		$result = $this->fetchFirst(PDO::FETCH_ASSOC);
 
 		if($result !== false)
 		{
@@ -413,10 +361,9 @@ class Query extends QueryBuilder
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */
-
 	public function all()
 	{
-		$results = parent::all();
+		$results = $this->fetchAll(false, PDO::FETCH_ASSOC);
 
 		if(!empty($results))
 		{
@@ -429,7 +376,6 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null)
 	{
 		if(empty($this->orderings))
@@ -448,7 +394,6 @@ class Query extends QueryBuilder
 	 * @param   array                         $arguments  Method arguments
 	 * @return  \mako\database\midgard\Query
 	 */
-
 	public function __call($name, $arguments)
 	{
 		if(!method_exists($this->model, $name . 'Scope'))
@@ -456,8 +401,6 @@ class Query extends QueryBuilder
 			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
 		}
 
-		array_unshift($arguments, $this);
-
-		return call_user_func_array([$this->model, $name . 'Scope'], $arguments);
+		return $this->model->{$name . 'Scope'}(...array_merge([$this], $arguments));
 	}
 }

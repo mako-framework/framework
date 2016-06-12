@@ -1,48 +1,49 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\cache\stores;
 
-use mako\cache\stores\File;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-use \Mockery as m;
+use mako\cache\stores\File;
 
 /**
  * @group unit
  */
-
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function getFileSystem()
 	{
-		return m::mock('mako\file\FileSystem');
+		return Mockery::mock('mako\file\FileSystem');
 	}
 
 	/**
 	 *
 	 */
-
 	public function getSplFileObject()
 	{
-		return m::mock('StdClass'); // ... because SplFileObject can't be mocked
+		return Mockery::mock('StdClass'); // ... because SplFileObject can't be mocked
 	}
 
 	/**
 	 *
 	 */
-
 	public function testPut()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -65,7 +66,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testHas()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -112,7 +112,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testGet()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -163,7 +162,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRemove()
 	{
 		$fileSystem = $this->getFileSystem();
@@ -190,7 +188,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testClear()
 	{
 		$fileSystem = $this->getFileSystem();

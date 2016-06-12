@@ -15,7 +15,6 @@ use mako\session\stores\StoreInterface;
  *
  * @author  Frederic G. Østby
  */
-
 class File implements StoreInterface
 {
 	/**
@@ -23,7 +22,6 @@ class File implements StoreInterface
 	 *
 	 * @var \mako\file\FileSystem
 	 */
-
 	protected $fileSystem;
 
 	/**
@@ -31,47 +29,65 @@ class File implements StoreInterface
 	 *
 	 * @var string
 	 */
-
 	protected $sessionPath;
+
+	/**
+	 * Class whitelist.
+	 *
+	 * @var boolean|array
+	 */
+	protected $classWhitelist;
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\file\FileSystem  $fileSystem   File system instance
-	 * @param   string                 $sessionPath  Session path
+	 * @param   \mako\file\FileSystem  $fileSystem      File system instance
+	 * @param   string                 $sessionPath     Session path
+	 * @param   boolean|array          $classWhitelist  Class whitelist
 	 */
-
-	public function __construct(FileSystem $fileSystem, $sessionPath)
+	public function __construct(FileSystem $fileSystem, $sessionPath, $classWhitelist = false)
 	{
 		$this->fileSystem = $fileSystem;
 
 		$this->sessionPath = $sessionPath;
+
+		$this->classWhitelist = $classWhitelist;
+	}
+
+	/**
+	 * Returns the path to the session file.
+	 *
+	 * @access  protected
+	 * @param   string     $sessionId  Session id
+	 * @return  string
+	 */
+	protected function sessionFile($sessionId)
+	{
+		return $this->sessionPath . '/' . $sessionId;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function write($sessionId, $sessionData, $dataTTL)
 	{
 		if($this->fileSystem->isWritable($this->sessionPath))
 		{
-			$this->fileSystem->putContents($this->sessionPath . '/' . $sessionId, serialize($sessionData)) === false ? false : true;
+			$this->fileSystem->putContents($this->sessionFile($sessionId), serialize($sessionData)) === false ? false : true;
 		}
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function read($sessionId)
 	{
 		$sessionData = [];
 
-		if($this->fileSystem->exists($this->sessionPath . '/' . $sessionId) && $this->fileSystem->isReadable($this->sessionPath . '/' . $sessionId))
+		if($this->fileSystem->exists($this->sessionFile($sessionId)) && $this->fileSystem->isReadable($this->sessionFile($sessionId)))
 		{
-			$sessionData = unserialize($this->fileSystem->getContents($this->sessionPath . '/' . $sessionId));
+			$sessionData = unserialize($this->fileSystem->getContents($this->sessionFile($sessionId)), ['allowed_classes' => $this->classWhitelist]);
 		}
 
 		return $sessionData;
@@ -80,19 +96,17 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function delete($sessionId)
 	{
-		if($this->fileSystem->exists($this->sessionPath . '/' . $sessionId) && $this->fileSystem->isWritable($this->sessionPath . '/' . $sessionId))
+		if($this->fileSystem->exists($this->sessionFile($sessionId)) && $this->fileSystem->isWritable($this->sessionFile($sessionId)))
 		{
-			$this->fileSystem->delete($this->sessionPath . '/' . $sessionId);
+			$this->fileSystem->delete($this->sessionFile($sessionId));
 		}
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function gc($dataTTL)
 	{
 		$files = $this->fileSystem->glob($this->sessionPath . '/*');

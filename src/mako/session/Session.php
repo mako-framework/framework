@@ -11,16 +11,13 @@ use LogicException;
 
 use mako\http\Request;
 use mako\http\Response;
-use mako\security\Comparer;
 use mako\session\stores\StoreInterface;
-use mako\utility\UUID;
 
 /**
  * Session class.
  *
  * @author  Frederic G. Østby
  */
-
 class Session
 {
 	/**
@@ -28,7 +25,6 @@ class Session
 	 *
 	 * @var int
 	 */
-
 	const MAX_TOKENS = 20;
 
 	/**
@@ -36,7 +32,6 @@ class Session
 	 *
 	 * @var boolean
 	 */
-
 	protected $started = false;
 
 	/**
@@ -44,7 +39,6 @@ class Session
 	 *
 	 * @var boolean
 	 */
-
 	protected $destroyed = false;
 
 	/**
@@ -52,7 +46,6 @@ class Session
 	 *
 	 * @var \mako\http\Request
 	 */
-
 	protected $request;
 
 	/**
@@ -60,7 +53,6 @@ class Session
 	 *
 	 * @var \mako\http\Response
 	 */
-
 	protected $response;
 
 	/**
@@ -68,7 +60,6 @@ class Session
 	 *
 	 * @var \mako\session\stores\StoreInterface
 	 */
-
 	protected $store;
 
 	/**
@@ -76,7 +67,6 @@ class Session
 	 *
 	 * @var int
 	 */
-
 	protected $dataTTL = 1800;
 
 	/**
@@ -84,7 +74,6 @@ class Session
 	 *
 	 * @var int
 	 */
-
 	protected $cookieTTL = 0;
 
 	/**
@@ -92,7 +81,6 @@ class Session
 	 *
 	 * @var string
 	 */
-
 	protected $cookieName = 'mako_session';
 
 	/**
@@ -100,7 +88,6 @@ class Session
 	 *
 	 * @var array
 	 */
-
 	protected $cookieOptions =
 	[
 		'path'     => '/',
@@ -114,7 +101,6 @@ class Session
 	 *
 	 * @var string
 	 */
-
 	protected $sessionId;
 
 	/**
@@ -122,7 +108,6 @@ class Session
 	 *
 	 * @var array
 	 */
-
 	protected $sessionData = [];
 
 	/**
@@ -130,7 +115,6 @@ class Session
 	 *
 	 * @var array
 	 */
-
 	protected $flashData = [];
 
 	/**
@@ -138,7 +122,6 @@ class Session
 	 *
 	 * @var string
 	 */
-
 	protected $token;
 
 	/**
@@ -149,7 +132,6 @@ class Session
 	 * @param   \mako\http\Response                  $response  Response instance
 	 * @param   \mako\session\stores\StoreInterface  $store     Session store instance
 	 */
-
 	public function __construct(Request $request, Response $response, StoreInterface $store)
 	{
 		$this->request = $request;
@@ -164,7 +146,6 @@ class Session
 	 *
 	 * @access  public
 	 */
-
 	public function __destruct()
 	{
 		// Replace old flash data with new
@@ -192,10 +173,9 @@ class Session
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function generateId()
 	{
-		return hash('sha256', UUID::v4() . uniqid('session', true));
+		return hash('sha256', random_bytes(16));
 	}
 
 	/**
@@ -203,7 +183,6 @@ class Session
 	 *
 	 * @access  protected
 	 */
-
 	protected function setCookie()
 	{
 		$ttl = $this->cookieTTL === 0 ? 0 : $this->cookieTTL + time();
@@ -217,7 +196,6 @@ class Session
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function loadData()
 	{
 		$data = $this->store->read($this->sessionId);
@@ -231,7 +209,6 @@ class Session
 	 * @access  public
 	 * @param   string  $dataTTL  Cookie name
 	 */
-
 	public function setDataTTL($dataTTL)
 	{
 		if($this->started)
@@ -248,7 +225,6 @@ class Session
 	 * @access  public
 	 * @param   string  $cookieTTL  Cookie name
 	 */
-
 	public function setCookieTTL($cookieTTL)
 	{
 		if($this->started)
@@ -265,7 +241,6 @@ class Session
 	 * @access  public
 	 * @param   string  $cookieName  Cookie name
 	 */
-
 	public function setCookieName($cookieName)
 	{
 		if($this->started)
@@ -282,7 +257,6 @@ class Session
 	 * @access  public
 	 * @param   array  $cookieOptions  Cookie options
 	 */
-
 	public function setCookieOptions(array $cookieOptions)
 	{
 		if($this->started)
@@ -298,7 +272,6 @@ class Session
 	 *
 	 * @access  public
 	 */
-
 	public function start()
 	{
 		if($this->started)
@@ -343,7 +316,6 @@ class Session
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getId()
 	{
 		if(!$this->started)
@@ -361,7 +333,6 @@ class Session
 	 * @param   boolean  $keepOld  Keep the session data associated with the old session id?
 	 * @return  string
 	 */
-
 	public function regenerateId($keepOld = false)
 	{
 		if(!$this->started)
@@ -393,7 +364,6 @@ class Session
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getData()
 	{
 		if(!$this->started)
@@ -411,7 +381,6 @@ class Session
 	 * @param   string  $key    Session key
 	 * @param   mixed   $value  Session data
 	 */
-
 	public function put($key, $value)
 	{
 		if(!$this->started)
@@ -429,7 +398,6 @@ class Session
 	 * @param   string   $key  Session key
 	 * @return  boolean
 	 */
-
 	public function has($key)
 	{
 		if(!$this->started)
@@ -448,7 +416,6 @@ class Session
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function get($key, $default = null)
 	{
 		if(!$this->started)
@@ -456,7 +423,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		return isset($this->sessionData[$key]) ? $this->sessionData[$key] : $default;
+		return $this->sessionData[$key] ?? $default;
 	}
 
 	/**
@@ -465,7 +432,6 @@ class Session
 	 * @access  public
 	 * @param   string  $key  Session key
 	 */
-
 	public function remove($key)
 	{
 		if(!$this->started)
@@ -484,7 +450,6 @@ class Session
 	 * @param   mixed   $value  Flash data
 	 * @return  mixed
 	 */
-
 	public function putFlash($key, $value)
 	{
 		if(!$this->started)
@@ -502,7 +467,6 @@ class Session
 	 * @param   string   $key  Session key
 	 * @return  boolean
 	 */
-
 	public function hasFlash($key)
 	{
 		if(!$this->started)
@@ -521,7 +485,6 @@ class Session
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-
 	public function getFlash($key, $default = null)
 	{
 		if(!$this->started)
@@ -529,7 +492,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		return isset($this->sessionData['mako.flashdata'][$key]) ? $this->sessionData['mako.flashdata'][$key] : $default;
+		return $this->sessionData['mako.flashdata'][$key] ?? $default;
 	}
 
 	/**
@@ -538,7 +501,6 @@ class Session
 	 * @access  public
 	 * @param   string  $key  Session key
 	 */
-
 	public function removeFlash($key)
 	{
 		if(!$this->started)
@@ -555,7 +517,6 @@ class Session
 	 * @access  public
 	 * @param   array   $keys  Keys to preserve
 	 */
-
 	public function reflash(array $keys = [])
 	{
 		if(!$this->started)
@@ -563,7 +524,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		$flashData = isset($this->sessionData['mako.flashdata']) ? $this->sessionData['mako.flashdata'] : [];
+		$flashData = $this->sessionData['mako.flashdata'] ?? [];
 
 		$flashData = empty($keys) ? $flashData : array_intersect_key($flashData, array_flip($keys));
 
@@ -576,7 +537,6 @@ class Session
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getToken()
 	{
 		if(!$this->started)
@@ -593,7 +553,6 @@ class Session
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function regenerateToken()
 	{
 		if(!$this->started)
@@ -611,7 +570,6 @@ class Session
 	 * @param   string   $token  Token to validate
 	 * @return  boolean
 	 */
-
 	public function validateToken($token)
 	{
 		if(!$this->started)
@@ -619,7 +577,7 @@ class Session
 			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
 		}
 
-		return Comparer::compare($this->token, $token);
+		return hash_equals($this->token, $token);
 	}
 
 	/**
@@ -628,7 +586,6 @@ class Session
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function generateOneTimeToken()
 	{
 		if(!$this->started)
@@ -659,7 +616,6 @@ class Session
 	 * @param   string   $token  Security token
 	 * @return  boolean
 	 */
-
 	public function validateOneTimeToken($token)
 	{
 		if(!$this->started)
@@ -671,7 +627,7 @@ class Session
 		{
 			foreach($this->sessionData['mako.tokens'] as $key => $value)
 			{
-				if(Comparer::compare($value, $token))
+				if(hash_equals($value, $token))
 				{
 					unset($this->sessionData['mako.tokens'][$key]);
 
@@ -688,7 +644,6 @@ class Session
 	 *
 	 * @access  public
 	 */
-
 	public function clear()
 	{
 		if(!$this->started)
@@ -704,7 +659,6 @@ class Session
 	 *
 	 * @access  public
 	 */
-
 	public function destroy()
 	{
 		if(!$this->started)

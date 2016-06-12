@@ -1,6 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\syringe;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\syringe\ClassInspector;
 
@@ -40,8 +47,7 @@ class E extends D
 /**
  * @group unit
  */
-
-class ClassInspectorTest extends \PHPUnit_Framework_TestCase
+class ClassInspectorTest extends PHPUnit_Framework_TestCase
 {
 	public function testGetClassTraits()
 	{

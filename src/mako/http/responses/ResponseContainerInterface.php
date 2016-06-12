@@ -15,7 +15,6 @@ use mako\http\Response;
  *
  * @author  Frederic G. Østby
  */
-
 interface ResponseContainerInterface
 {
 	/**
@@ -25,6 +24,5 @@ interface ResponseContainerInterface
 	 * @param   \mako\http\Request   $request  Request instance
 	 * @param   \mako\http\Response  $response  Response instance
 	 */
-
 	public function send(Request $request, Response $response);
 }

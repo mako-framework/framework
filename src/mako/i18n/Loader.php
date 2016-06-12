@@ -17,7 +17,6 @@ use mako\file\FileSystem;
  *
  * @author  Frederic G. Østby
  */
-
 class Loader
 {
 	use NamespacedFileLoaderTrait;
@@ -27,7 +26,6 @@ class Loader
 	 *
 	 * @var \mako\file\FileSystem
 	 */
-
 	protected $fileSystem;
 
 	/**
@@ -37,7 +35,6 @@ class Loader
 	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
 	 * @param   string                 $path        Default path
 	 */
-
 	public function __construct(FileSystem $fileSystem, $path)
 	{
 		$this->fileSystem = $fileSystem;
@@ -52,7 +49,6 @@ class Loader
 	 * @param   string      $language  Name of the language pack
 	 * @return  array|null
 	 */
-
 	public function loadInflection($language)
 	{
 		$path = $this->getFilePath('inflection', null, $language);
@@ -71,7 +67,6 @@ class Loader
 	 * @param   string  $file      File we want to load
 	 * @return  array
 	 */
-
 	public function loadStrings($language, $file)
 	{
 		$strings = false;

@@ -14,7 +14,6 @@ use DateTime;
  *
  * @author  Frederic G. Østby
  */
-
 trait TimestampedTrait
 {
 	/**
@@ -23,7 +22,6 @@ trait TimestampedTrait
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function getTimestampedTraitHooks()
 	{
 		return
@@ -97,7 +95,6 @@ trait TimestampedTrait
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getCreatedAtColumn()
 	{
 		return isset($this->createdAtColumn) ? $this->createdAtColumn : 'created_at';
@@ -109,7 +106,6 @@ trait TimestampedTrait
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getUpdatedAtColumn()
 	{
 		return isset($this->updatedAtColumn) ? $this->updatedAtColumn : 'updated_at';
@@ -121,7 +117,6 @@ trait TimestampedTrait
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function getCastColumns()
 	{
 		return $this->cast + [$this->getCreatedAtColumn() => 'date', $this->getUpdatedAtColumn() => 'date'];
@@ -133,7 +128,6 @@ trait TimestampedTrait
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function touch()
 	{
 		if($this->exists)
@@ -151,7 +145,6 @@ trait TimestampedTrait
 	 *
 	 * @access  protected
 	 */
-
 	protected function touchRelated()
 	{
 		if(!empty($this->touch))

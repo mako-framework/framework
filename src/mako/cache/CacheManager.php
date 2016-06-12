@@ -9,7 +9,6 @@ namespace mako\cache;
 
 use RuntimeException;
 
-use mako\cache\stores\APC;
 use mako\cache\stores\APCU;
 use mako\cache\stores\Database;
 use mako\cache\stores\File;
@@ -19,10 +18,10 @@ use mako\cache\stores\Memory;
 use mako\cache\stores\Redis;
 use mako\cache\stores\Void;
 use mako\cache\stores\WinCache;
-use mako\cache\stores\XCache;
 use mako\cache\stores\ZendDisk;
 use mako\cache\stores\ZendMemory;
 use mako\common\AdapterManager;
+use mako\syringe\Container;
 
 /**
  * Cache manager.
@@ -31,20 +30,33 @@ use mako\common\AdapterManager;
  *
  * @method  \mako\cache\stores\StoreInterface  instance($configuration = null)
  */
-
 class CacheManager extends AdapterManager
 {
 	/**
-	 * APC store factory.
+	 * Class whitelist.
 	 *
-	 * @access  protected
-	 * @param   array                   $configuration  Configuration
-	 * @return  \mako\cache\stores\APC
+	 * @var boolean|array
 	 */
+	protected $classWhitelist;
 
-	protected function apcFactory($configuration)
+	/**
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   string                   $default         Default connection name
+	 * @param   array                    $configurations  Configurations
+	 * @param   \mako\syringe\Container  $container       IoC container instance
+	 * @param   boolean|array            $classWhitelist  Class whitelist
+	 */
+	public function __construct($default, array $configurations, Container $container, $classWhitelist = false)
 	{
-		return new APC;
+		$this->default = $default;
+
+		$this->configurations = $configurations;
+
+		$this->container = $container;
+
+		$this->classWhitelist = $classWhitelist;
 	}
 
 	/**
@@ -54,7 +66,6 @@ class CacheManager extends AdapterManager
 	 * @param   array                    $configuration  Configuration
 	 * @return  \mako\cache\stores\APCU
 	 */
-
 	protected function apcuFactory($configuration)
 	{
 		return new APCU;
@@ -67,10 +78,9 @@ class CacheManager extends AdapterManager
 	 * @param   array                    $configuration  Configuration
 	 * @return  \mako\cache\stores\File
 	 */
-
 	protected function fileFactory($configuration)
 	{
-		return new File($this->container->get('fileSystem'), $configuration['path']);
+		return new File($this->container->get('fileSystem'), $configuration['path'], $this->classWhitelist);
 	}
 
 	/**
@@ -80,10 +90,9 @@ class CacheManager extends AdapterManager
 	 * @param   array                        $configuration  Configuration
 	 * @return  \mako\cache\stores\Database
 	 */
-
 	protected function databaseFactory($configuration)
 	{
-		return new Database($this->container->get('database')->connection($configuration['configuration']), $configuration['table']);
+		return new Database($this->container->get('database')->connection($configuration['configuration']), $configuration['table'], $this->classWhitelist);
 	}
 
 	/**
@@ -93,7 +102,6 @@ class CacheManager extends AdapterManager
 	 * @param   array                        $configuration  Configuration
 	 * @return  \mako\cache\stores\Memcache
 	 */
-
 	protected function memcacheFactory($configuration)
 	{
 		return new Memcache($configuration['servers'], $configuration['timeout'], $configuration['compress_data']);
@@ -106,7 +114,6 @@ class CacheManager extends AdapterManager
 	 * @param   array                         $configuration  Configuration
 	 * @return  \mako\cache\stores\Memcached
 	 */
-
 	protected function memcachedFactory($configuration)
 	{
 		return new Memcached($configuration['servers'], $configuration['timeout'], $configuration['compress_data']);
@@ -119,7 +126,6 @@ class CacheManager extends AdapterManager
 	 * @param   array                      $configuration  Configuration
 	 * @return  \mako\cache\stores\Memory
 	 */
-
 	protected function memoryFactory($configuration)
 	{
 		return new Memory;
@@ -132,10 +138,9 @@ class CacheManager extends AdapterManager
 	 * @param   array                     $configuration  Configuration
 	 * @return  \mako\cache\stores\Redis
 	 */
-
 	protected function redisFactory($configuration)
 	{
-		return new Redis($this->container->get('redis')->connection($configuration['configuration']));
+		return new Redis($this->container->get('redis')->connection($configuration['configuration'], $this->classWhitelist));
 	}
 
 	/**
@@ -145,7 +150,6 @@ class CacheManager extends AdapterManager
 	 * @param   array                    $configuration  Configuration
 	 * @return  \mako\cache\stores\Void
 	 */
-
 	protected function voidFactory($configuration)
 	{
 		return new Void;
@@ -158,23 +162,9 @@ class CacheManager extends AdapterManager
 	 * @param   array                        $configuration  Configuration
 	 * @return  \mako\cache\stores\WinCache
 	 */
-
 	protected function wincacheFactory($configuration)
 	{
 		return new WinCache;
-	}
-
-	/**
-	 * Xcache store factory.
-	 *
-	 * @access  protected
-	 * @param   array                      $configuration  Configuration
-	 * @return  \mako\cache\stores\XCache
-	 */
-
-	protected function xcacheFactory($configuration)
-	{
-		return new XCache($configuration['username'], $configuration['password']);
 	}
 
 	/**
@@ -184,7 +174,6 @@ class CacheManager extends AdapterManager
 	 * @param   array                        $configuration  Configuration
 	 * @return  \mako\cache\stores\ZendDisk
 	 */
-
 	protected function zenddiskFactory($configuration)
 	{
 		return new ZendDisk;
@@ -197,7 +186,6 @@ class CacheManager extends AdapterManager
 	 * @param   array                          $configuration  Configuration
 	 * @return  \mako\cache\stores\ZendMemory
 	 */
-
 	protected function zendmemoryFactory($configuration)
 	{
 		return new ZendMemory;
@@ -210,12 +198,11 @@ class CacheManager extends AdapterManager
 	 * @param   string             $configuration  Configuration name
 	 * @return  \mako\cache\Cache
 	 */
-
 	protected function instantiate($configuration)
 	{
 		if(!isset($this->configurations[$configuration]))
 		{
-			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the cache configuration.", [__METHOD__, $connection]));
+			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the cache configuration.", [__METHOD__, $configuration]));
 		}
 
 		$configuration = $this->configurations[$configuration];

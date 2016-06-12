@@ -14,7 +14,6 @@ use mako\cli\output\Output;
  *
  * @author  Frederic G. Østby
  */
-
 class Bell
 {
 	/**
@@ -22,7 +21,6 @@ class Bell
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-
 	protected $output;
 
 	/**
@@ -31,7 +29,6 @@ class Bell
 	 * @access  public
 	 * @param   \mako\cli\output\Output  $output  Output instance
 	 */
-
 	public function __construct(Output $output)
 	{
 		$this->output = $output;
@@ -43,7 +40,6 @@ class Bell
 	 * @access  public
 	 * @param   int     $times  Number of times to ring the bell
 	 */
-
 	public function ring($times = 1)
 	{
 		$this->output->write(str_repeat("\x07", $times));

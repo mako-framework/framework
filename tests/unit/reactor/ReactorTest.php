@@ -1,35 +1,36 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\reactor;
 
-use Mockery as m;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
 use mako\reactor\Reactor;
-
-use PHPUnit_Framework_TestCase;
 
 /**
  * @group unit
  */
-
 class ReactorTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testNoInput()
 	{
-		$input = m::mock('mako\cli\input\Input');
+		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn(null);
 
@@ -37,7 +38,7 @@ class ReactorTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
@@ -76,9 +77,9 @@ EOF;
 
 		//
 
-		$container = m::mock('mako\syringe\Container');
+		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = m::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\Command');
 
 		$command->shouldReceive('getCommandDescription')->once()->andReturn('foo description');
 
@@ -86,7 +87,7 @@ EOF;
 
 		//
 
-		$dispatcher = m::mock('mako\reactor\Dispatcher');
+		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
 		//
 
@@ -104,16 +105,15 @@ EOF;
 	/**
 	 *
 	 */
-
 	public function testUknownCommand()
 	{
-		$input = m::mock('mako\cli\input\Input');
+		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foobar');
 
 		//
 
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->times(3);
 
@@ -123,11 +123,11 @@ EOF;
 
 		//
 
-		$container = m::mock('mako\syringe\Container');
+		$container = Mockery::mock('mako\syringe\Container');
 
 		//
 
-		$dispatcher = m::mock('mako\reactor\Dispatcher');
+		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
 		//
 
@@ -139,10 +139,9 @@ EOF;
 	/**
 	 *
 	 */
-
 	public function testCommand()
 	{
-		$input = m::mock('mako\cli\input\Input');
+		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
 
@@ -150,17 +149,17 @@ EOF;
 
 		//
 
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->times(2);
 
 		//
 
-		$container = m::mock('mako\syringe\Container');
+		$container = Mockery::mock('mako\syringe\Container');
 
 		//
 
-		$dispatcher = m::mock('mako\reactor\Dispatcher');
+		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
 		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo']);
 
@@ -176,13 +175,12 @@ EOF;
 	/**
 	 *
 	 */
-
 	public function testCommandWithCustomOption()
 	{
 		$closure = function(){};
 
 		//
-		$input = m::mock('mako\cli\input\Input');
+		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
 
@@ -192,19 +190,19 @@ EOF;
 
 		//
 
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->times(2);
 
 		//
 
-		$container = m::mock('mako\syringe\Container');
+		$container = Mockery::mock('mako\syringe\Container');
 
 		$container->shouldReceive('call')->once()->with($closure, ['option' => true]);
 
 		//
 
-		$dispatcher = m::mock('mako\reactor\Dispatcher');
+		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
 		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo']);
 

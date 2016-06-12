@@ -12,7 +12,6 @@ namespace mako\event;
  *
  * @author  Frederic G. Østby
  */
-
 interface EventHandlerInterface
 {
 

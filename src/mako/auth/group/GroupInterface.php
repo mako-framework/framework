@@ -14,7 +14,6 @@ use mako\auth\user\UserInterface;
  *
  * @author  Frederic G. Østby
  */
-
 interface GroupInterface
 {
 	/**
@@ -23,7 +22,6 @@ interface GroupInterface
 	 * @access  public
 	 * @return  int|string
 	 */
-
 	public function getId();
 
 	/**
@@ -32,7 +30,6 @@ interface GroupInterface
 	 * @access  public
 	 * @param   string  $name  Group name
 	 */
-
 	public function setName($name);
 
 	/**
@@ -41,7 +38,6 @@ interface GroupInterface
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getName();
 
 	/**
@@ -51,7 +47,6 @@ interface GroupInterface
 	 * @param   \mako\auth\user\UserInterface  $user  User intance
 	 * @return  boolean
 	 */
-
 	public function addUser(UserInterface $user);
 
 	/**
@@ -61,7 +56,6 @@ interface GroupInterface
 	 * @param   \mako\auth\user\UserInterface  $user  User intance
 	 * @return  boolean
 	 */
-
 	public function removeUser(UserInterface $user);
 
 	/**
@@ -71,7 +65,6 @@ interface GroupInterface
 	 * @param   \mako\auth\user\UserInterface  $user  User intance
 	 * @return  boolean
 	 */
-
 	public function isMember(UserInterface $user);
 
 	/**
@@ -80,7 +73,6 @@ interface GroupInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function save();
 
 	/**
@@ -89,6 +81,5 @@ interface GroupInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function delete();
 }

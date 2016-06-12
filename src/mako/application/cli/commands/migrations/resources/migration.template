@@ -8,10 +8,9 @@ class Migration_{{version}} extends Migration
 {
 	/**
 	 * Description.
-	 * 
+	 *
 	 * @var string
 	 */
-
 	protected $description = '{{description}}';
 
 	/**
@@ -19,7 +18,6 @@ class Migration_{{version}} extends Migration
 	 *
 	 * @access  public
 	 */
-
 	public function up()
 	{
 
@@ -30,7 +28,6 @@ class Migration_{{version}} extends Migration
 	 *
 	 * @access  public
 	 */
-
 	public function down()
 	{
 

@@ -1,19 +1,24 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\utility;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\utility\Num;
 
 /**
  * @group unit
  */
-
-class NumTest extends \PHPUnit_Framework_TestCase
+class NumTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testArabic2roman()
 	{
 		$this->assertEquals('VII', Num::arabic2roman(7));
@@ -23,7 +28,6 @@ class NumTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException InvalidArgumentException
 	 */
-
 	public function testArabic2romanException()
 	{
 		Num::arabic2roman(9999);
@@ -32,7 +36,6 @@ class NumTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testRoman2arabic()
 	{
 		$this->assertEquals(7, Num::roman2arabic('VII'));
@@ -42,7 +45,6 @@ class NumTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException InvalidArgumentException
 	 */
-
 	public function testRoman2arabicException()
 	{
 		Num::roman2arabic('XXXXXXXXXX');

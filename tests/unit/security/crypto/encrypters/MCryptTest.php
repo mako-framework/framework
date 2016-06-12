@@ -1,6 +1,13 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\security\crypto\encrypters;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\security\crypto\padders\PKCS7;
 use mako\security\crypto\encrypters\MCrypt;
@@ -9,13 +16,11 @@ use mako\security\crypto\encrypters\MCrypt;
  * @group unit
  * @requires extension mcrypt
  */
-
-class MCryptTest extends \PHPUnit_Framework_TestCase
+class MCryptTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testEncrypt()
 	{
 		$string = 'hello, world!';
@@ -36,7 +41,6 @@ class MCryptTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDecrypt()
 	{
 		$string = 'hello, world!';
@@ -55,7 +59,6 @@ class MCryptTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDecryptWithInvalidBase64()
 	{
 		$mcrypt = new MCrypt('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK', new PKCS7);

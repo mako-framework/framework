@@ -15,7 +15,6 @@ use RuntimeException;
  *
  * @author  Frederic G. Østby
  */
-
 class RequestException extends RuntimeException
 {
 	/**
@@ -26,7 +25,6 @@ class RequestException extends RuntimeException
 	 * @param   string  $message      Exception message
 	 * @param   \Exception $previous  Previous exception
 	 */
-
 	public function __construct($code, $message = null, Exception $previous = null)
 	{
 		parent::__construct($message, $code, $previous);

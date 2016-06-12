@@ -8,6 +8,7 @@
 namespace mako\syringe;
 
 use mako\syringe\ClassInspector;
+use mako\syringe\ContainerAwareTrait;
 
 use Closure;
 use ReflectionClass;
@@ -21,7 +22,6 @@ use RuntimeException;
  *
  * @author  Frederic G. Østby
  */
-
 class Container
 {
 	/**
@@ -29,7 +29,6 @@ class Container
 	 *
 	 * @var array
 	 */
-
 	protected $hints = [];
 
 	/**
@@ -37,7 +36,6 @@ class Container
 	 *
 	 * @var array
 	 */
-
 	protected $aliases = [];
 
 	/**
@@ -45,33 +43,32 @@ class Container
 	 *
 	 * @var array
 	 */
-
 	protected $instances = [];
+
+	/**
+	 * Contextual dependencies.
+	 *
+	 * @var array
+	 */
+	protected $contextualDependencies = [];
 
 	/**
 	 * Parse the hint parameter.
 	 *
 	 * @access  protected
 	 * @param   string|array  $hint  Type hint or array contaning both type hint and alias
-	 * @return  array
+	 * @return  string
 	 */
-
 	protected function parseHint($hint)
 	{
 		if(is_array($hint))
 		{
-			list($name, $alias) = $hint;
+			list($hint, $alias) = $hint;
 
-			$this->aliases[$alias] = $name;
-		}
-		else
-		{
-			$name = $hint;
-
-			$alias = null;
+			$this->aliases[$alias] = $hint;
 		}
 
-		return compact('name', 'alias');
+		return $hint;
 	}
 
 	/**
@@ -82,12 +79,9 @@ class Container
 	 * @param   string|\Closure  $class      Class name or closure
 	 * @param   boolean          $singleton  Should we return the same instance every time?
 	 */
-
 	public function register($hint, $class, $singleton = false)
 	{
-		$hint = $this->parseHint($hint);
-
-		$this->hints[$hint['name']] = ['class' => $class, 'singleton' => $singleton, 'alias' => $hint['alias']];
+		$this->hints[$this->parseHint($hint)] = ['class' => $class, 'singleton' => $singleton];
 	}
 
 	/**
@@ -97,7 +91,6 @@ class Container
 	 * @param   string|array     $hint   Type hint or array contaning both type hint and alias
 	 * @param   string|\Closure  $class  Class name or closure
 	 */
-
 	public function registerSingleton($hint, $class)
 	{
 		$this->register($hint, $class, true);
@@ -110,12 +103,22 @@ class Container
 	 * @param   string|array  $hint      Type hint or array contaning both type hint and alias
 	 * @param   object        $instance  Class instance
 	 */
-
 	public function registerInstance($hint, $instance)
 	{
-		$hint = $this->parseHint($hint);
+		$this->instances[$this->parseHint($hint)] = $instance;
+	}
 
-		$this->instances[$hint['name']] = $instance;
+	/**
+	 * Registers a contextual dependency.
+	 *
+	 * @access  public
+	 * @param   string  $class           Class
+	 * @param   string  $interface       Interface
+	 * @param   string  $implementation  Implementation
+	 */
+	public function registerContextualDependency($class, $interface, $implementation)
+	{
+		$this->contextualDependencies[$class][$interface] = $implementation;
 	}
 
 	/**
@@ -125,25 +128,36 @@ class Container
 	 * @param   string     $alias  Alias
 	 * @return  string
 	 */
-
 	protected function resolveAlias($alias)
 	{
 		$alias = ltrim($alias, '\\');
 
-		return isset($this->aliases[$alias]) ? $this->aliases[$alias] : $alias;
+		return $this->aliases[$alias] ?? $alias;
 	}
 
 	/**
-	 * Resolve a type hint.
+	 * Resolves a type hint.
 	 *
 	 * @access  protected
 	 * @param   string     $hint  Type hint
 	 * @return  string
 	 */
-
 	protected function resolveHint($hint)
 	{
-		return isset($this->hints[$hint]) ? $this->hints[$hint]['class'] : $hint;
+		return $this->hints[$hint]['class'] ?? $hint;
+	}
+
+	/**
+	 * Resolves a contextual dependency.
+	 *
+	 * @access  protected
+	 * @param   string     $class      Class
+	 * @param   string     $interface  Interface
+	 * @return  string
+	 */
+	protected function resolveContextualDependency($class, $interface)
+	{
+		return $this->contextualDependencies[$class][$interface] ?? $interface;
 	}
 
 	/**
@@ -154,7 +168,6 @@ class Container
 	 * @param   array   $providedParameters    Provided parameters
 	 * @return  array
 	 */
-
 	protected function mergeParameters(array $reflectionParameters, array $providedParameters)
 	{
 		// Make the provided parameter array associative
@@ -194,7 +207,6 @@ class Container
 	 * @param   \ReflectionParameter  $parameter  ReflectionParameter instance
 	 * @return  string
 	 */
-
 	protected function getDeclaringFunction(ReflectionParameter $parameter)
 	{
 		$declaringFunction = $parameter->getDeclaringFunction();
@@ -211,17 +223,24 @@ class Container
 	 * Resolve a parameter.
 	 *
 	 * @access  protected
-	 * @param   \ReflectionParameter  $parameter  ReflectionParameter instance
+	 * @param   \ReflectionParameter   $parameter  ReflectionParameter instance
+	 * @param   null|\ReflectionClass  $className  ReflectionClass instance
 	 * @return  mixed
 	 */
-
-	protected function resolveParameter(ReflectionParameter $parameter)
+	protected function resolveParameter(ReflectionParameter $parameter, ReflectionClass $class = null)
 	{
 		if(($parameterClass = $parameter->getClass()) !== null)
 		{
 			// The parameter should be a class instance. Try to resolve it though the container
 
-			return $this->get($parameterClass->getName());
+			$parameterClassName = $parameterClass->getName();
+
+			if($class !== null)
+			{
+				$parameterClassName = $this->resolveContextualDependency($class->getName(), $parameterClassName);
+			}
+
+			return $this->get($parameterClassName);
 		}
 
 		if($parameter->isDefaultValueAvailable())
@@ -240,12 +259,12 @@ class Container
 	 * Resolve parameters.
 	 *
 	 * @access  public
-	 * @param   array   $reflectionParameters  Reflection parameters
-	 * @param   array   $providedParameters    Provided Parameters
+	 * @param   array                  $reflectionParameters  Reflection parameters
+	 * @param   array                  $providedParameters    Provided Parameters
+	 * @param   null|\ReflectionClass  $className             ReflectionClass instance
 	 * @return  array
 	 */
-
-	protected function resolveParameters(array $reflectionParameters, array $providedParameters)
+	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ReflectionClass $class = null)
 	{
 		if(empty($reflectionParameters))
 		{
@@ -262,13 +281,13 @@ class Container
 		{
 			if($parameter instanceof ReflectionParameter)
 			{
-				$parameters[$key] = $this->resolveParameter($parameter);
+				$parameters[$key] = $this->resolveParameter($parameter, $class);
 			}
 		}
 
 		// Return resolved parameters
 
-		return $parameters;
+		return array_values($parameters);
 	}
 
 	/**
@@ -278,12 +297,11 @@ class Container
 	 * @param   object     $class  Class instance
 	 * @return  boolean
 	 */
-
 	protected function isContainerAware($class)
 	{
 		$traits = ClassInspector::getTraits($class);
 
-		return isset($traits['mako\syringe\ContainerAwareTrait']);
+		return isset($traits[ContainerAwareTrait::class]);
 	}
 
 	/**
@@ -294,12 +312,11 @@ class Container
 	 * @param   array     $parameters  Constructor parameters
 	 * @return  object
 	 */
-
 	protected function closureFactory(Closure $factory, array $parameters)
 	{
 		// Pass the container as the first parameter followed by the the provided parameters
 
-		$instance = call_user_func_array($factory, array_merge([$this], $parameters));
+		$instance = $factory(...array_merge([$this], $parameters));
 
 		// Check that the factory closure returned an object
 
@@ -319,7 +336,6 @@ class Container
 	 * @param   array   $parameters  Constructor parameters
 	 * @return  object
 	 */
-
 	protected function reflectionFactory($class, array $parameters)
 	{
 		$class = new ReflectionClass($class);
@@ -349,7 +365,7 @@ class Container
 
 			// Create and return a new instance using our resolved parameters
 
-			$instance = $class->newInstanceArgs($this->resolveParameters($constructorParameters, $parameters));
+			$instance = $class->newInstanceArgs($this->resolveParameters($constructorParameters, $parameters, $class));
 		}
 
 		return $instance;
@@ -363,7 +379,6 @@ class Container
 	 * @param   array            $parameters  Constructor parameters
 	 * @return  object
 	 */
-
 	protected function factory($class, array $parameters = [])
 	{
 		// Instantiate class
@@ -396,7 +411,6 @@ class Container
 	 * @param   string   $class  Class name
 	 * @return  boolean
 	 */
-
 	public function has($class)
 	{
 		$class = $this->resolveAlias($class);
@@ -413,7 +427,6 @@ class Container
 	 * @param   boolean  $reuseInstance   Reuse existing instance?
 	 * @return  object
 	 */
-
 	public function get($class, array $parameters = [], $reuseInstance = true)
 	{
 		$class = $this->resolveAlias($class);
@@ -449,7 +462,6 @@ class Container
 	 * @param   array   $parameters  Constructor parameters
 	 * @return  object
 	 */
-
 	public function getFresh($class, array $parameters = [])
 	{
 		return $this->get($class, $parameters, false);
@@ -463,7 +475,6 @@ class Container
 	 * @param   array     $parameters  Parameters
 	 * @return  object
 	 */
-
 	public function call(callable $callable, array $parameters = [])
 	{
 		if($callable instanceof Closure)
@@ -475,6 +486,6 @@ class Container
 			$reflection = new ReflectionMethod($callable[0], $callable[1]);
 		}
 
-		return call_user_func_array($callable, $this->resolveParameters($reflection->getParameters(), $parameters));
+		return $callable(...$this->resolveParameters($reflection->getParameters(), $parameters));
 	}
 }

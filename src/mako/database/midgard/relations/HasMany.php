@@ -15,7 +15,6 @@ use mako\database\midgard\relations\HasOneOrMany;
  *
  * @author  Frederic G. Østby
  */
-
 class HasMany extends HasOneOrMany
 {
 	/**
@@ -27,7 +26,6 @@ class HasMany extends HasOneOrMany
 	 * @param   null|\Closure  $criteria  Relation criteria
 	 * @param   array          $includes  Includes passed from the parent record
 	 */
-
 	public function eagerLoad(array &$results, $relation, $criteria, array $includes)
 	{
 		$this->model->setIncludes($includes);
@@ -46,14 +44,7 @@ class HasMany extends HasOneOrMany
 
 		foreach($results as $result)
 		{
-			if(isset($grouped[$result->getPrimaryKeyValue()]))
-			{
-				$result->setRelated($relation, new ResultSet($grouped[$result->getPrimaryKeyValue()]));
-			}
-			else
-			{
-				$result->setRelated($relation, new ResultSet());
-			}
+			$result->setRelated($relation, new ResultSet($grouped[$result->getPrimaryKeyValue()] ?? []));
 		}
 	}
 
@@ -63,7 +54,6 @@ class HasMany extends HasOneOrMany
 	 * @access  public
 	 * @return  \mako\database\midgard\ResultSet
 	 */
-
 	public function getRelated()
 	{
 		return $this->all();

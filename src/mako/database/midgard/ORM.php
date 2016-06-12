@@ -29,7 +29,6 @@ use mako\syringe\ClassInspector;
  *
  * @author  Frederic G. Østby
  */
-
 abstract class ORM
 {
 	/**
@@ -37,7 +36,6 @@ abstract class ORM
 	 *
 	 * @var int
 	 */
-
 	const PRIMARY_KEY_TYPE_INCREMENTING = 1000;
 
 	/**
@@ -45,7 +43,6 @@ abstract class ORM
 	 *
 	 * @var int
 	 */
-
 	const PRIMARY_KEY_TYPE_UUID = 1001;
 
 	/**
@@ -53,7 +50,6 @@ abstract class ORM
 	 *
 	 * @var int
 	 */
-
 	const PRIMARY_KEY_TYPE_CUSTOM = 1002;
 
 	/**
@@ -61,7 +57,6 @@ abstract class ORM
 	 *
 	 * @var int
 	 */
-
 	const PRIMARY_KEY_TYPE_NONE = 1003;
 
 	/**
@@ -69,7 +64,6 @@ abstract class ORM
 	 *
 	 * @var string
 	 */
-
 	protected $connectionName = null;
 
 	/**
@@ -77,7 +71,6 @@ abstract class ORM
 	 *
 	 * @var \mako\database\ConnectionManager
 	 */
-
 	protected static $connectionManager = null;
 
 	/**
@@ -85,7 +78,6 @@ abstract class ORM
 	 *
 	 * @var array
 	 */
-
 	protected static $hooks = [];
 
 	/**
@@ -93,7 +85,6 @@ abstract class ORM
 	 *
 	 * @var string
 	 */
-
 	protected $tableName = null;
 
 	/**
@@ -101,7 +92,6 @@ abstract class ORM
 	 *
 	 * @var string
 	 */
-
 	protected $primaryKey = 'id';
 
 	/**
@@ -109,7 +99,6 @@ abstract class ORM
 	 *
 	 * @var boolean
 	 */
-
 	protected $primaryKeyType = ORM::PRIMARY_KEY_TYPE_INCREMENTING;
 
 	/**
@@ -117,23 +106,13 @@ abstract class ORM
 	 *
 	 * @var boolean
 	 */
-
 	protected $exists = false;
-
-	/**
-	 * Is this a read only record?
-	 *
-	 * @var boolean
-	 */
-
-	protected $readOnly = false;
 
 	/**
 	 * Column values.
 	 *
 	 * @var array
 	 */
-
 	protected $columns = [];
 
 	/**
@@ -141,7 +120,6 @@ abstract class ORM
 	 *
 	 * @var array
 	 */
-
 	protected $original = [];
 
 	/**
@@ -149,7 +127,6 @@ abstract class ORM
 	 *
 	 * @var array
 	 */
-
 	protected $including = [];
 
 	/**
@@ -157,7 +134,6 @@ abstract class ORM
 	 *
 	 * @var array
 	 */
-
 	protected $related = [];
 
 	/**
@@ -165,7 +141,6 @@ abstract class ORM
 	 *
 	 * @var array
 	 */
-
 	protected $cast = [];
 
 	/**
@@ -173,7 +148,6 @@ abstract class ORM
 	 *
 	 * @var array
 	 */
-
 	protected $assignable = [];
 
 	/**
@@ -181,7 +155,6 @@ abstract class ORM
 	 *
 	 * @var array
 	 */
-
 	protected $protected = [];
 
 	/**
@@ -189,7 +162,6 @@ abstract class ORM
 	 *
 	 * @var string
 	 */
-
 	protected $dateOutputFormat = 'Y-m-d H:i:s';
 
 	/**
@@ -200,10 +172,8 @@ abstract class ORM
 	 * @param   boolean  $raw        Set raw values?
 	 * @param   boolean  $whitelist  Remove columns that are not in the whitelist?
 	 * @param   boolean  $exists     Does the record come from a database?
-	 * @param   boolean  $readOnly   Is this a read-only record?
 	 */
-
-	public function __construct(array $columns = [], $raw = false, $whitelist = true, $exists = false, $readOnly = false)
+	public function __construct(array $columns = [], $raw = false, $whitelist = true, $exists = false)
 	{
 		$this->registerHooks();
 
@@ -214,8 +184,6 @@ abstract class ORM
 			$this->synchronize();
 
 			$this->exists = true;
-
-			$this->readOnly = $this->readOnly || $readOnly;
 		}
 	}
 
@@ -224,7 +192,6 @@ abstract class ORM
 	 *
 	 * @access  public
 	 */
-
 	public function __clone()
 	{
 		if($this->exists)
@@ -243,7 +210,6 @@ abstract class ORM
 	 * @access  public
 	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
 	 */
-
 	public static function setConnectionManager(ConnectionManager $connectionManager)
 	{
 		static::$connectionManager = $connectionManager;
@@ -253,9 +219,8 @@ abstract class ORM
 	 * Returns the connection of the model.
 	 *
 	 * @access  public
-	 * @return  \mako\database\Connection
+	 * @return  \mako\database\connections\Connection
 	 */
-
 	public function getConnection()
 	{
 		if(empty(static::$connectionManager))
@@ -271,7 +236,6 @@ abstract class ORM
 	 *
 	 * @access  public
 	 */
-
 	public function synchronize()
 	{
 		$this->original = $this->columns;
@@ -283,7 +247,6 @@ abstract class ORM
 	 * @access  protected
 	 * @return  string
 	 */
-
 	protected function getDateFormat()
 	{
 		static $dateFormat;
@@ -301,7 +264,6 @@ abstract class ORM
 	 *
 	 * @access  protected
 	 */
-
 	protected function registerHooks()
 	{
 		if(!isset(static::$hooks[static::class]))
@@ -325,7 +287,6 @@ abstract class ORM
 	 * @param   array      $hooks  Array of hooks
 	 * @return  array
 	 */
-
 	protected function bindHooks(array $hooks)
 	{
 		$bound = [];
@@ -344,7 +305,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function exists()
 	{
 		return $this->exists;
@@ -357,7 +317,6 @@ abstract class ORM
 	 * @param   string  $event  Event name
 	 * @return  array
 	 */
-
 	public function getHooks($event)
 	{
 		return isset(static::$hooks[static::class][$event]) ? $this->bindHooks(static::$hooks[static::class][$event]) : [];
@@ -370,10 +329,9 @@ abstract class ORM
 	 * @param   string     $className   Class name
 	 * @return  string
 	 */
-
 	protected function getClassShortName($className = null)
 	{
-		return basename(str_replace('\\', '/', $className ?: static::class));
+		return basename(str_replace('\\', '/', $className ?? static::class));
 	}
 
 	/**
@@ -382,7 +340,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getTable()
 	{
 		if(empty($this->tableName))
@@ -399,7 +356,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getPrimaryKey()
 	{
 		return $this->primaryKey;
@@ -411,7 +367,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getPrimaryKeyType()
 	{
 		return $this->primaryKeyType;
@@ -423,7 +378,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  mixed
 	 */
-
 	public function getPrimaryKeyValue()
 	{
 		return $this->columns[$this->primaryKey];
@@ -435,7 +389,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getForeignKey()
 	{
 		return strtolower($this->getClassShortName()) . '_id';
@@ -447,22 +400,9 @@ abstract class ORM
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getClass()
 	{
 		return '\\' . static::class;
-	}
-
-	/**
-	 * Is this a read-only record?
-	 *
-	 * @access  public
-	 * @return  boolean
-	 */
-
-	public function isReadOnly()
-	{
-		return $this->readOnly;
 	}
 
 	/**
@@ -471,7 +411,6 @@ abstract class ORM
 	 * @access  public
 	 * @param   array   $includes  Relations to eager load
 	 */
-
 	public function setIncludes(array $includes)
 	{
 		$this->including = $includes;
@@ -483,7 +422,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getIncludes()
 	{
 		return $this->including;
@@ -496,7 +434,6 @@ abstract class ORM
 	 * @param   string  $relation  Relation name
 	 * @param   mixed   $related   Related record(s)
 	 */
-
 	public function setRelated($relation, $related)
 	{
 		$this->related[$relation] = $related;
@@ -508,7 +445,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getRelated()
 	{
 		return $this->related;
@@ -520,7 +456,6 @@ abstract class ORM
 	 * @access  protected
 	 * @return  array
 	 */
-
 	protected function getCastColumns()
 	{
 		return $this->cast;
@@ -534,7 +469,6 @@ abstract class ORM
 	 * @param   mixed      $value  Column value
 	 * @return  mixed
 	 */
-
 	protected function cast($name, $value)
 	{
 		$cast = $this->getCastColumns();
@@ -543,11 +477,11 @@ abstract class ORM
 		{
 			switch($cast[$name])
 			{
-				case 'integer':
+				case 'int':
 					return (int) $value;
 				case 'float':
 					return (float) $value;
-				case 'boolean':
+				case 'bool':
 					return $value === 'f' ? false : (bool) $value;
 				case 'date':
 					return ($value instanceof DateTimeInterface) ? $value : Time::createFromFormat($this->getDateFormat(), $value);
@@ -568,7 +502,6 @@ abstract class ORM
 	 * @param   string  $name   Column name
 	 * @param   mixed   $value  Column value
 	 */
-
 	public function setRawColumn($name, $value)
 	{
 		$this->columns[$name] = $this->cast($name, $value);
@@ -581,21 +514,16 @@ abstract class ORM
 	 * @param   string   $name   Column name
 	 * @param   mixed    $value  Column value
 	 */
-
 	public function setColumn($name, $value)
 	{
 		$value = $this->cast($name, $value);
 
 		if(method_exists($this, $name . 'Mutator'))
 		{
-			// The column has a custom mutator
-
 			$this->columns[$name] = $this->{$name . 'Mutator'}($value);
 		}
 		else
 		{
-			// Just set the raw column value
-
 			$this->columns[$name] = $value;
 		}
 	}
@@ -607,7 +535,6 @@ abstract class ORM
 	 * @param   string  $name  Column name
 	 * @return  mixed
 	 */
-
 	public function getRawColumn($name)
 	{
 		if(array_key_exists($name, $this->columns))
@@ -621,26 +548,20 @@ abstract class ORM
 	}
 
 	/**
-	 * Returns a local column value.
+	 * Returns a column value.
 	 *
 	 * @access  protected
+	 * @param   string  $name  Column name
 	 * @return  mixed
 	 */
-
-	protected function getLocalColumn($name)
+	protected function getColumnValue($name)
 	{
 		if(method_exists($this, $name . 'Accessor'))
 		{
-			// The column has a custom accessor
-
 			return $this->{$name . 'Accessor'}($this->columns[$name]);
 		}
-		else
-		{
-			// Just a normal column
 
-			return $this->columns[$name];
-		}
+		return $this->columns[$name];
 	}
 
 	/**
@@ -650,14 +571,13 @@ abstract class ORM
 	 * @param   string  $name  Column name
 	 * @return  mixed
 	 */
-
 	public function getColumn($name)
 	{
 		if(array_key_exists($name, $this->columns))
 		{
-			// The column is local
+			// It's a database column
 
-			return $this->getLocalColumn($name);
+			return $this->getColumnValue($name);
 		}
 		elseif(isset($this->related[$name]))
 		{
@@ -683,7 +603,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getRawColumns()
 	{
 		return $this->columns;
@@ -698,7 +617,6 @@ abstract class ORM
 	 * @param   boolean                     $whitelist  Remove columns that are not in the whitelist?
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public function assign(array $columns, $raw = false, $whitelist = true)
 	{
 		// Remove columns that are not in the whitelist
@@ -742,7 +660,6 @@ abstract class ORM
 	 * @param   string  $name   Column name
 	 * @param   mixed   $value  Column value
 	 */
-
 	public function __set($name, $value)
 	{
 		$this->setColumn($name, $value);
@@ -755,7 +672,6 @@ abstract class ORM
 	 * @param   string  $name  Column name
 	 * @return  mixed
 	 */
-
 	public function __get($name)
 	{
 		return $this->getColumn($name);
@@ -765,9 +681,9 @@ abstract class ORM
 	 * Checks if a column or relation is set using overloading.
 	 *
 	 * @access  public
-	 * @param   string  $name  Column name
+	 * @param   string   $name  Column name
+	 * @return  boolean
 	 */
-
 	public function __isset($name)
 	{
 		return isset($this->columns[$name]) || isset($this->related[$name]);
@@ -779,7 +695,6 @@ abstract class ORM
 	 * @access  public
 	 * @param   string  $name  Column name
 	 */
-
 	public function __unset($name)
 	{
 		unset($this->columns[$name], $this->related[$name]);
@@ -791,7 +706,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  \mako\database\midgard\Query
 	 */
-
 	public function builder()
 	{
 		return new Query($this->getConnection(), $this);
@@ -805,7 +719,6 @@ abstract class ORM
 	 * @param   array                       $columns  Columns to select
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public static function get($id, array $columns = [])
 	{
 		return (new static)->builder()->get($id, $columns);
@@ -820,7 +733,6 @@ abstract class ORM
 	 * @param   boolean                     $whitelist  Remove columns that are not in the whitelist?
 	 * @return  \mako\database\midgard\ORM
 	 */
-
 	public static function create(array $columns, $raw = false, $whitelist = true)
 	{
 		$model = new static($columns, $raw, $whitelist);
@@ -834,11 +746,10 @@ abstract class ORM
 	 * Returns a HasOne relation.
 	 *
 	 * @access  protected
-	 * @param   string                                  $model       Related model
-	 * @param   string|null                             $foreignKey  Foreign key name
-	 * @return  \mako\database\midgard\relation\HasOne
+	 * @param   string                                   $model       Related model
+	 * @param   string|null                              $foreignKey  Foreign key name
+	 * @return  \mako\database\midgard\relations\HasOne
 	 */
-
 	protected function hasOne($model, $foreignKey = null)
 	{
 		$related = new $model;
@@ -850,11 +761,10 @@ abstract class ORM
 	 * Returns a HasOnePolymorphic relation.
 	 *
 	 * @access  protected
-	 * @param   string                                              $model            Related model
-	 * @param   string                                              $polymorphicType  Polymorphic type
-	 * @return  \mako\database\midgard\relation\HasManyPolymorphic
+	 * @param   string                                               $model            Related model
+	 * @param   string                                               $polymorphicType  Polymorphic type
+	 * @return  \mako\database\midgard\relations\HasManyPolymorphic
 	 */
-
 	protected function hasOnePolymorphic($model, $polymorphicType)
 	{
 		$related = new $model;
@@ -866,11 +776,10 @@ abstract class ORM
 	 * Returns a HasMany relation.
 	 *
 	 * @access  protected
-	 * @param   string                                   $model       Related model
-	 * @param   string|null                              $foreignKey  Foreign key name
-	 * @return  \mako\database\midgard\relation\HasMany
+	 * @param   string                                    $model       Related model
+	 * @param   string|null                               $foreignKey  Foreign key name
+	 * @return  \mako\database\midgard\relations\HasMany
 	 */
-
 	protected function hasMany($model, $foreignKey = null)
 	{
 		$related = new $model;
@@ -882,11 +791,10 @@ abstract class ORM
 	 * Returns a HasManyPolymorphic relation.
 	 *
 	 * @access  protected
-	 * @param   string                                              $model            Related model
-	 * @param   string                                              $polymorphicType  Polymorphic type
-	 * @return  \mako\database\midgard\relation\HasManyPolymorphic
+	 * @param   string                                               $model            Related model
+	 * @param   string                                               $polymorphicType  Polymorphic type
+	 * @return  \mako\database\midgard\relations\HasManyPolymorphic
 	 */
-
 	protected function hasManyPolymorphic($model, $polymorphicType)
 	{
 		$related = new $model;
@@ -898,13 +806,12 @@ abstract class ORM
 	 * Returns a ManyToMany relation.
 	 *
 	 * @access  protected
-	 * @param   string                                      $model          Related model
-	 * @param   string|null                                 $foreignKey     Foreign key name
-	 * @param   string|null                                 $junctionTable  Junction table name
-	 * @param   string|null                                 $junctionKey    Junction key name
-	 * @return  \mako\database\midgard\relation\ManyToMany
+	 * @param   string                                       $model          Related model
+	 * @param   string|null                                  $foreignKey     Foreign key name
+	 * @param   string|null                                  $junctionTable  Junction table name
+	 * @param   string|null                                  $junctionKey    Junction key name
+	 * @return  \mako\database\midgard\relations\ManyToMany
 	 */
-
 	protected function manyToMany($model, $foreignKey = null, $junctionTable = null, $junctionKey = null)
 	{
 		$related = new $model;
@@ -916,11 +823,10 @@ abstract class ORM
 	 * Returns a BelongsTo relation.
 	 *
 	 * @access  protected
-	 * @param   string                                     $model       Related model
-	 * @param   string|null                                $foreignKey  Foreign key name
-	 * @return  \mako\database\midgard\relation\BelongsTo
+	 * @param   string                                      $model       Related model
+	 * @param   string|null                                 $foreignKey  Foreign key name
+	 * @return  \mako\database\midgard\relations\BelongsTo
 	 */
-
 	protected function belongsTo($model, $foreignKey = null)
 	{
 		$related = new $model;
@@ -934,7 +840,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isModified()
 	{
 		return count($this->getModified()) > 0;
@@ -946,7 +851,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  array
 	 */
-
 	public function getModified()
 	{
 		$modified = [];
@@ -968,7 +872,6 @@ abstract class ORM
 	 * @access  protected
 	 * @return  string|int
 	 */
-
 	protected function generatePrimaryKey()
 	{
 		throw new RuntimeException(vsprintf("%s(): The '%s::generatePrimaryKey()' method must be implemented.", [__METHOD__, static::class]));
@@ -980,7 +883,6 @@ abstract class ORM
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 */
-
 	protected function insertRecord($query)
 	{
 		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
@@ -1010,7 +912,6 @@ abstract class ORM
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  boolean
 	 */
-
 	protected function updateRecord($query)
 	{
 		$query->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
@@ -1024,7 +925,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function save()
 	{
 		$success = true;
@@ -1061,7 +961,6 @@ abstract class ORM
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  boolean
 	 */
-
 	protected function deleteRecord($query)
 	{
 		return (bool) $query->where($this->primaryKey, '=', $this->columns[$this->primaryKey])->delete();
@@ -1073,7 +972,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function delete()
 	{
 		if($this->exists)
@@ -1100,7 +998,6 @@ abstract class ORM
 	 * @param   boolean  $protect  Protect columns?
 	 * @return  array
 	 */
-
 	public function toArray($protect = true)
 	{
 		$columns = $this->columns;
@@ -1116,7 +1013,7 @@ abstract class ORM
 
 		foreach($columns as $name => $value)
 		{
-			$value = $this->getLocalColumn($name);
+			$value = $this->getColumnValue($name);
 
 			if($value instanceof DateTimeInterface)
 			{
@@ -1145,7 +1042,6 @@ abstract class ORM
 	 * @param   boolean  $protect  Protect columns?
 	 * @return  string
 	 */
-
 	public function toJson($protect = true)
 	{
 		return json_encode($this->toArray($protect));
@@ -1157,7 +1053,6 @@ abstract class ORM
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function __toString()
 	{
 		return $this->toJson();
@@ -1171,10 +1066,9 @@ abstract class ORM
 	 * @param   array   $arguments  Method arguments
 	 * @return  mixed
 	 */
-
-	public function __call($name, $arguments)
+	public function __call($name, array $arguments)
 	{
-		return call_user_func_array([$this->builder(), $name], $arguments);
+		return $this->builder()->{$name}(...$arguments);
 	}
 
 	/**
@@ -1185,9 +1079,8 @@ abstract class ORM
 	 * @param   array   $arguments  Method arguments
 	 * @return  mixed
 	 */
-
-	public static function __callStatic($name, $arguments)
+	public static function __callStatic($name, array $arguments)
 	{
-		return call_user_func_array([(new static)->builder(), $name], $arguments);
+		return (new static)->builder()->{$name}(...$arguments);
 	}
 }

@@ -1,37 +1,38 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\reactor;
 
-use Mockery as m;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
 use mako\reactor\Dispatcher;
-
-use PHPUnit_Framework_TestCase;
 
 /**
  * @group unit
  */
-
 class DispatcherTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testDispatch()
 	{
-		$container = m::mock('mako\syringe\Container');
+		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = m::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\Command');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
@@ -47,12 +48,11 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testDispatchNoExecution()
 	{
-		$container = m::mock('mako\syringe\Container');
+		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = m::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\Command');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(false);
 

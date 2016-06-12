@@ -1,19 +1,24 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\security;
+
+use PHPUnit_Framework_TestCase;
 
 use mako\security\Password;
 
 /**
  * @group unit
  */
-
-class PasswordTest extends \PHPUnit_Framework_TestCase
+class PasswordTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function testHash()
 	{
 		$password = 'foobar';
@@ -39,7 +44,6 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testValidate()
 	{
 		$password = 'foobar';
@@ -54,7 +58,6 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testNeedsRehash()
 	{
 		$hash = Password::hash('foobar', 4);
@@ -67,7 +70,6 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSetAndGetDefaultComputingCost()
 	{
 		Password::setDefaultComputingCost(12);

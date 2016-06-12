@@ -7,32 +7,23 @@
 
 namespace mako\utility;
 
-use Closure;
-use BadMethodCallException;
+use mako\common\ExtendableTrait;
 
 /**
  * HTML helper.
  *
  * @author  Frederic G. Østby
  */
-
 class HTML
 {
+	use ExtendableTrait;
+
 	/**
 	 * Should we return XHTML?
 	 *
 	 * @var boolean
 	 */
-
 	protected $xhtml;
-
-	/**
-	 * Custom tags.
-	 *
-	 * @var array
-	 */
-
-	protected static $tags = [];
 
 	/**
 	 * Constructor.
@@ -40,23 +31,9 @@ class HTML
 	 * @access  public
 	 * @param   boolean  $xhtml  Should we return HXML?
 	 */
-
 	public function __construct($xhtml = false)
 	{
 		$this->xhtml = $xhtml;
-	}
-
-	/**
-	 * Registers a new HTML tag.
-	 *
-	 * @access  public
-	 * @param   string    $name  Tag name
-	 * @param   \Closure  $tag   Tag closure
-	 */
-
-	public static function registerTag($name, Closure $tag)
-	{
-		static::$tags[$name] = $tag;
 	}
 
 	/**
@@ -66,7 +43,6 @@ class HTML
 	 * @param   array   $attributes  Array of tags
 	 * @return  string
 	 */
-
 	protected function attributes($attributes)
 	{
 		$attr = '';
@@ -93,7 +69,6 @@ class HTML
 	 * @param   string  $content     Tag content
 	 * @return  string
 	 */
-
 	public function tag($name, array $attributes = [], $content = null)
 	{
 		return '<' . $name . $this->attributes($attributes) . (($content === null) ? ($this->xhtml ? ' />' : '>') : '>' . $content . '</' . $name . '>');
@@ -106,8 +81,8 @@ class HTML
 	 * @param   string     $type        Tag type
 	 * @param   mixed      $files       File or array of files
 	 * @param   array      $attributes  Tag attributes
+	 * @return  string
 	 */
-
 	protected function buildMedia($type, $files, $attributes)
 	{
 		$sources = '';
@@ -126,8 +101,8 @@ class HTML
 	 * @access  public
 	 * @param   mixed   $files       File or array of files
 	 * @param   array   $attributes  Tag attributes
+	 * @return  string
 	 */
-
 	public function audio($files, array $attributes = [])
 	{
 		return $this->buildMedia('audio', $files, $attributes);
@@ -139,8 +114,8 @@ class HTML
 	 * @access  public
 	 * @param   mixed   $files       File or array of files
 	 * @param   array   $attributes  Tag attributes
+	 * @return  string
 	 */
-
 	public function video($files, array $attributes = [])
 	{
 		return $this->buildMedia('video', $files, $attributes);
@@ -153,8 +128,8 @@ class HTML
 	 * @param   string     $type        Tag type
 	 * @param   mixed      $items       File or array of files
 	 * @param   array      $attributes  Tag attributes
+	 * @return  string
 	 */
-
 	protected function buildList($type, $items, $attributes)
 	{
 		$list = '';
@@ -182,7 +157,6 @@ class HTML
 	 * @param   array   $attributes  List attributes
 	 * @return  string
 	 */
-
 	public function ul(array $items, array $attributes = [])
 	{
 		return $this->buildList('ul', $items, $attributes);
@@ -196,30 +170,8 @@ class HTML
 	 * @param   array   $attributes  List attributes
 	 * @return  string
 	 */
-
 	public function ol(array $items, array $attributes = [])
 	{
 		return $this->buildList('ol', $items, $attributes);
-	}
-
-	/**
-	 * Magic shortcut to the custom HTML macros.
-	 *
-	 * @access  public
-	 * @param   string  $name       Method name
-	 * @param   array   $arguments  Method arguments
-	 * @return  string
-	 */
-
-	public function __call($name, $arguments)
-	{
-		if(!isset(static::$tags[$name]))
-		{
-			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
-		}
-
-		array_unshift($arguments, $this);
-
-		return call_user_func_array(static::$tags[$name], $arguments);
 	}
 }

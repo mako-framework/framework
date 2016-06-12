@@ -17,7 +17,6 @@ use mako\security\Signer;
  *
  * @author  Frederic G. Østby
  */
-
 class Crypto
 {
 	/**
@@ -25,7 +24,6 @@ class Crypto
 	 *
 	 * @var \mako\security\crypto\encrypters\EncrypterInterface
 	 */
-
 	protected $adapter;
 
 	/**
@@ -33,7 +31,6 @@ class Crypto
 	 *
 	 * @var \mako\security\Signer
 	 */
-
 	protected $signer;
 
 	/**
@@ -43,7 +40,6 @@ class Crypto
 	 * @param   \mako\security\crypto\encrypters\EncrypterInterface  $adapter  Crypto adapter
 	 * @param   \mako\security\Signer                                $signer   Signer instance.
 	 */
-
 	public function __construct(EncrypterInterface $adapter, Signer $signer = null)
 	{
 		$this->adapter = $adapter;
@@ -57,7 +53,6 @@ class Crypto
 	 * @access  public
 	 * @param   \mako\security\Signer  $signer  Signer instance
 	 */
-
 	public function setSigner(Signer $signer)
 	{
 		$this->signer = $signer;
@@ -70,7 +65,6 @@ class Crypto
 	 * @param   string  $string  String to encrypt
 	 * @return  string
 	 */
-
 	public function encrypt($string)
 	{
 		return $this->adapter->encrypt($string);
@@ -83,7 +77,6 @@ class Crypto
 	 * @param   string         $string  String to decrypt
 	 * @return  string|boolean
 	 */
-
 	public function decrypt($string)
 	{
 		return $this->adapter->decrypt($string);
@@ -96,7 +89,6 @@ class Crypto
 	 * @param   string  $string  String to encrypt
 	 * @return  string
 	 */
-
 	public function encryptAndSign($string)
 	{
 		if(empty($this->signer))
@@ -114,7 +106,6 @@ class Crypto
 	 * @param   string          $string  String to decrypt
 	 * @return  string|boolean
 	 */
-
 	public function validateAndDecrypt($string)
 	{
 		if(empty($this->signer))

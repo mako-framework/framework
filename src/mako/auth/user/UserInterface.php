@@ -14,7 +14,6 @@ use DateTimeInterface;
  *
  * @author  Frederic G. Østby
  */
-
 interface UserInterface
 {
 	/**
@@ -23,7 +22,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  int|string
 	 */
-
 	public function getId();
 
 	/**
@@ -32,7 +30,6 @@ interface UserInterface
 	 * @access  public
 	 * @param   string  $email  Email address
 	 */
-
 	public function setEmail($email);
 
 	/**
@@ -41,7 +38,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getEmail();
 
 	/**
@@ -50,7 +46,6 @@ interface UserInterface
 	 * @access  public
 	 * @param   string  $username  Username
 	 */
-
 	public function setUsername($username);
 
 	/**
@@ -59,7 +54,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getUsername();
 
 	/**
@@ -68,7 +62,6 @@ interface UserInterface
 	 * @access  public
 	 * @param   string  $password  Password
 	 */
-
 	public function setPassword($password);
 
 	/**
@@ -77,7 +70,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getPassword();
 
 	/**
@@ -86,7 +78,6 @@ interface UserInterface
 	 * @access  public
 	 * @param   string  $ip  IP address
 	 */
-
 	public function setIp($ip);
 
 	/**
@@ -95,7 +86,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getIp();
 
 	/**
@@ -103,7 +93,6 @@ interface UserInterface
 	 *
 	 * @access  public
 	 */
-
 	public function generateActionToken();
 
 	/**
@@ -112,7 +101,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getActionToken();
 
 	/**
@@ -120,7 +108,6 @@ interface UserInterface
 	 *
 	 * @access  public
 	 */
-
 	public function generateAccessToken();
 
 	/**
@@ -129,7 +116,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  string
 	 */
-
 	public function getAccessToken();
 
 	/**
@@ -137,7 +123,6 @@ interface UserInterface
 	 *
 	 * @access  public
 	 */
-
 	public function activate();
 
 	/**
@@ -145,7 +130,6 @@ interface UserInterface
 	 *
 	 * @access  public
 	 */
-
 	public function deactivate();
 
 	/**
@@ -154,7 +138,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isActivated();
 
 	/**
@@ -162,7 +145,6 @@ interface UserInterface
 	 *
 	 * @access  public
 	 */
-
 	public function ban();
 
 	/**
@@ -170,7 +152,6 @@ interface UserInterface
 	 *
 	 * @access  public
 	 */
-
 	public function unban();
 
 	/**
@@ -179,7 +160,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isBanned();
 
 	/**
@@ -187,7 +167,6 @@ interface UserInterface
 	 *
 	 * @access  public
 	 */
-
 	public function incrementFailedAttempts();
 
 	/**
@@ -196,7 +175,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  int
 	 */
-
 	public function getFailedAttempts();
 
 	/**
@@ -204,7 +182,6 @@ interface UserInterface
 	 *
 	 * @access  public
 	 */
-
 	public function resetFailedAttempts();
 
 	/**
@@ -213,7 +190,6 @@ interface UserInterface
 	 * @access  public
 	 * @param   \DateTimeInterface  $time  Date
 	 */
-
 	public function setLastFailAt(DateTimeInterface $time);
 
 	/**
@@ -222,7 +198,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  null|\DateTimeInterface
 	 */
-
 	public function getLastFailAt();
 
 	/**
@@ -231,7 +206,6 @@ interface UserInterface
 	 * @access  public
 	 * @param   \DateTimeInterface  $time  Date
 	 */
-
 	public function lockUntil(DateTimeInterface $time);
 
 	/**
@@ -239,7 +213,6 @@ interface UserInterface
 	 *
 	 * @access  public
 	 */
-
 	public function unlock();
 
 	/**
@@ -248,7 +221,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function isLocked();
 
 	/**
@@ -257,7 +229,6 @@ interface UserInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function save();
 
 	/**
@@ -266,6 +237,5 @@ interface UserInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-
 	public function delete();
 }

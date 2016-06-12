@@ -1,35 +1,36 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\cli\output\helpers;
 
-use mako\cli\output\helpers\ProgressBar;
-
-use Mockery as m;
-
+use Mockery;
 use PHPUnit_Framework_TestCase;
+
+use mako\cli\output\helpers\ProgressBar;
 
 /**
  * @group unit
  */
-
 class ProgressBarTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testProgressWithZeroItems()
 	{
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->never();
 
@@ -41,10 +42,9 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicProgress()
 	{
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with("\r00/10 --------------------   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ==------------------  10% ");
@@ -72,10 +72,9 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testProgressWithCustomTemplates()
 	{
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with("\r00/10 ____________________   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ++__________________  10% ");
@@ -107,10 +106,9 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testProgressWith100ItemsAndDefaultRedrawRate()
 	{
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->times(102);
 
@@ -127,10 +125,9 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testProgressWith1000ItemsAndDefaultRedrawRate()
 	{
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->times(102);
 
@@ -147,10 +144,9 @@ class ProgressBarTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testProgressWith1000ItemsAndCustomtRedrawRate()
 	{
-		$output = m::mock('mako\cli\output\Output');
+		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->times(1002);
 

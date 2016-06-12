@@ -12,7 +12,6 @@ namespace mako\application\cli\commands\migrations;
  *
  * @author  Frederic G. Østby
  */
-
 trait RollbackTrait
 {
 	/**
@@ -22,7 +21,6 @@ trait RollbackTrait
 	 * @param   int        $batches  Number of batches to roll back
 	 * @return  array
 	 */
-
 	protected function getBatch($batches)
 	{
 		$query = $this->builder();
@@ -41,12 +39,11 @@ trait RollbackTrait
 	 * @access  public
 	 * @param   string  $batches  Number of batches to roll back
 	 */
-
 	public function rollback($batches = 1)
 	{
 		$migrations = $this->getBatch($batches);
 
-		if(empty($migrations))
+		if($migrations->isEmpty())
 		{
 			$this->write('<blue>There are no migrations to roll back.</blue>');
 

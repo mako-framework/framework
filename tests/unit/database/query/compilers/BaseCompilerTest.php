@@ -1,38 +1,46 @@
 <?php
 
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\database\query\compilers;
+
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
 use mako\database\Database;
 use mako\database\query\Query;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
 
-use \Mockery as m;
-
 /**
  * @group unit
  */
-
-class BaseCompilerTest extends \PHPUnit_Framework_TestCase
+class BaseCompilerTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
-
 	public function tearDown()
 	{
-		m::close();
+		Mockery::close();
 	}
 
 	/**
 	 *
 	 */
-
 	protected function getConnection()
 	{
-		$connection = m::mock('\mako\database\Connection');
+		$connection = Mockery::mock('\mako\database\connections\Connection');
 
-		$connection->shouldReceive('getDialect')->andReturn('sqlite');
+		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock('\mako\database\query\helpers\HelperInterface'));
+
+		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function($query)
+		{
+			return new \mako\database\query\compilers\Compiler($query);
+		});
 
 		$connection->shouldReceive('column')->andReturn(null);
 
@@ -42,7 +50,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	protected function getBuilder($table = 'foobar')
 	{
 		return (new Query($this->getConnection()))->table($table);
@@ -51,7 +58,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testBasicSelect()
 	{
 		$query = $this->getBuilder();
@@ -59,13 +65,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testBasicSelectWithClosure()
 	{
 		$query = $this->getBuilder(function($query)
@@ -76,13 +81,44 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM (SELECT * FROM "foobar") AS "mako0"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
+	public function testBasicSelectWithSubquery()
+	{
+		$query = $this->getBuilder(new Subquery(function($query)
+		{
+			$query->table('foobar');
+		}));
 
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM (SELECT * FROM "foobar")', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicSelectWithSubqueryWithTableAlias()
+	{
+		$query = $this->getBuilder(new Subquery(function($query)
+		{
+			$query->table('foobar');
+		}, 'table_alias'));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM (SELECT * FROM "foobar") AS "table_alias"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testDistinctSelect()
 	{
 		$query = $this->getBuilder();
@@ -92,61 +128,70 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT DISTINCT * FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithCloumns()
 	{
 		$query = $this->getBuilder();
 
-		$query->select(array('foo', 'bar'));
+		$query->select(['foo', 'bar']);
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT "foo", "bar" FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithCloumnAlias()
 	{
 		$query = $this->getBuilder();
 
-		$query->select(array('foo', 'bar as baz'));
+		$query->select(['foo', 'bar as baz']);
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT "foo", "bar" AS "baz" FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithTablePrefix()
 	{
 		$query = $this->getBuilder();
 
-		$query->select(array('foo', 'foobar.bar'));
+		$query->select(['foo', 'foobar.bar']);
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT "foo", "foobar"."bar" FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 * @expectedException \Exception
+	 * @expectedExceptionMessage mako\database\query\compilers\Compiler::buildJsonPath(): The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.
+	 */
+	public function testSelectWithJSONColumn()
+	{
+		$query = $this->getBuilder();
+
+		$query->select(['json->0->bar']);
+
+		$query = $query->getCompiler()->select();
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithLimit()
 	{
 		$query = $this->getBuilder();
@@ -156,13 +201,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" LIMIT 10', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithLimitAndOffset()
 	{
 		$query = $this->getBuilder();
@@ -174,35 +218,57 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" LIMIT 10 OFFSET 10', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
-	public function testSelectWithPagination()
+	public function testSelectWithExclusiveLock()
 	{
-		$pagination = m::mock('\mako\pagination\Pagination');
-
-		$pagination->shouldReceive('limit')->andReturn(10);
-
-		$pagination->shouldReceive('offset')->andReturn(10);
-
 		$query = $this->getBuilder();
 
-		$query->paginate($pagination);
+		$query->lock();
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" LIMIT 10 OFFSET 10', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals('SELECT * FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
+	public function testSelectWithSharedLock()
+	{
+		$query = $this->getBuilder();
 
+		$query->lock(false);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithCustomLock()
+	{
+		$query = $this->getBuilder();
+
+		$query->lock('CUSTOM LOCK');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithWhere()
 	{
 		$query = $this->getBuilder();
@@ -212,13 +278,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ?', $query['sql']);
-		$this->assertEquals(array('bar'), $query['params']);
+		$this->assertEquals(['bar'], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithWhereRaw()
 	{
 		$query = $this->getBuilder();
@@ -234,7 +299,6 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	public function testSelectWithWheres()
 	{
 		$query = $this->getBuilder();
@@ -245,13 +309,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? AND "bar" = ?', $query['sql']);
-		$this->assertEquals(array('bar', 'foo'), $query['params']);
+		$this->assertEquals(['bar', 'foo'], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrWhere()
 	{
 		$query = $this->getBuilder();
@@ -262,13 +325,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "foo" = ?', $query['sql']);
-		$this->assertEquals(array('bar', 'baz'), $query['params']);
+		$this->assertEquals(['bar', 'baz'], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrWhereRaw()
 	{
 		$query = $this->getBuilder();
@@ -279,13 +341,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "foo" = SUBSTRING("foo", 1, 2)', $query['sql']);
-		$this->assertEquals(array('bar'), $query['params']);
+		$this->assertEquals(['bar'], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithNestedWheres()
 	{
 		$query = $this->getBuilder();
@@ -299,13 +360,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE ("foo" = ? AND "bar" = ?)', $query['sql']);
-		$this->assertEquals(array('bar', 'foo'), $query['params']);
+		$this->assertEquals(['bar', 'foo'], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithBetween()
 	{
 		$query = $this->getBuilder();
@@ -315,13 +375,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" BETWEEN ? AND ?', $query['sql']);
-		$this->assertEquals(array(1, 10), $query['params']);
+		$this->assertEquals([1, 10], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithBetweenAndOrBetween()
 	{
 		$query = $this->getBuilder();
@@ -333,13 +392,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" BETWEEN ? AND ? OR "foo" BETWEEN ? AND ?', $query['sql']);
-		$this->assertEquals(array(1, 10, 21, 30), $query['params']);
+		$this->assertEquals([1, 10, 21, 30], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotBetween()
 	{
 		$query = $this->getBuilder();
@@ -349,13 +407,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" NOT BETWEEN ? AND ?', $query['sql']);
-		$this->assertEquals(array(1, 10), $query['params']);
+		$this->assertEquals([1, 10], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotBetweenAndOrNotBetween()
 	{
 		$query = $this->getBuilder();
@@ -367,31 +424,29 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" NOT BETWEEN ? AND ? OR "foo" NOT BETWEEN ? AND ?', $query['sql']);
-		$this->assertEquals(array(1, 10, 21, 30), $query['params']);
+		$this->assertEquals([1, 10, 21, 30], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithInAndOrIn()
 	{
 		$query = $this->getBuilder();
 
-		$query->in('foo', array(1, 2, 3));
+		$query->in('foo', [1, 2, 3]);
 
-		$query->orIn('foo', array(4, 5, 6));
+		$query->orIn('foo', [4, 5, 6]);
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IN (?, ?, ?) OR "foo" IN (?, ?, ?)', $query['sql']);
-		$this->assertEquals(array(1, 2, 3, 4, 5, 6), $query['params']);
+		$this->assertEquals([1, 2, 3, 4, 5, 6], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithRawIn()
 	{
 		$query = $this->getBuilder();
@@ -401,13 +456,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IN (SELECT id FROM barfoo)', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithClosureIn()
 	{
 		$query = $this->getBuilder();
@@ -420,115 +474,191 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IN (SELECT "id" FROM "barfoo")', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotIn()
 	{
 		$query = $this->getBuilder();
 
-		$query->notIn('foo', array(1, 2, 3));
+		$query->notIn('foo', [1, 2, 3]);
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" NOT IN (?, ?, ?)', $query['sql']);
-		$this->assertEquals(array(1, 2, 3), $query['params']);
+		$this->assertEquals([1, 2, 3], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotInAndOrNotIn()
 	{
 		$query = $this->getBuilder();
 
-		$query->notIn('foo', array(1, 2, 3));
+		$query->notIn('foo', [1, 2, 3]);
 
-		$query->orNotIn('foo', array(4, 5, 6));
+		$query->orNotIn('foo', [4, 5, 6]);
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" NOT IN (?, ?, ?) OR "foo" NOT IN (?, ?, ?)', $query['sql']);
-		$this->assertEquals(array(1, 2, 3, 4, 5, 6), $query['params']);
+		$this->assertEquals([1, 2, 3, 4, 5, 6], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithIsNull()
 	{
 		$query = $this->getBuilder();
 
-		$query->null('foo');
+		$query->isNull('foo');
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IS NULL', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithIsNullAndOrNull()
 	{
 		$query = $this->getBuilder();
 
-		$query->null('foo');
+		$query->isNull('foo');
 
-		$query->orNull('bar');
+		$query->orIsNull('bar');
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IS NULL OR "bar" IS NULL', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithIsNotNull()
 	{
 		$query = $this->getBuilder();
 
-		$query->notNull('foo');
+		$query->isNotNull('foo');
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IS NOT NULL', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithIsNotNullAndOrNotNull()
 	{
 		$query = $this->getBuilder();
 
-		$query->notNull('foo');
+		$query->isNotNull('foo');
 
-		$query->orNotNull('bar');
+		$query->orIsNotNull('bar');
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" IS NOT NULL OR "bar" IS NOT NULL', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
+	public function testSelectWhereConvenienceMethods()
+	{
+		$query = $this->getBuilder();
 
+		$query->eq('foo', 'bar');
+
+		$query->notEq('foo', 'bar');
+
+		$query->lt('foo', 'bar');
+
+		$query->lte('foo', 'bar');
+
+		$query->gt('foo', 'bar');
+
+		$query->gte('foo', 'bar');
+
+		$query->like('foo', 'bar');
+
+		$query->notLike('foo', 'bar');
+
+		//
+
+		$query->eqRaw('foo', 'bar');
+
+		$query->notEqRaw('foo', 'bar');
+
+		$query->ltRaw('foo', 'bar');
+
+		$query->lteRaw('foo', 'bar');
+
+		$query->gtRaw('foo', 'bar');
+
+		$query->gteRaw('foo', 'bar');
+
+		$query->likeRAw('foo', 'bar');
+
+		$query->notLikeRaw('foo', 'bar');
+
+		//
+
+		$query->orEq('foo', 'bar');
+
+		$query->orNotEq('foo', 'bar');
+
+		$query->orLt('foo', 'bar');
+
+		$query->orLte('foo', 'bar');
+
+		$query->orGt('foo', 'bar');
+
+		$query->orGte('foo', 'bar');
+
+		$query->orLike('foo', 'bar');
+
+		$query->orNotLike('foo', 'bar');
+
+		//
+
+		$query->orEqRaw('foo', 'bar');
+
+		$query->orNotEqRaw('foo', 'bar');
+
+		$query->orLtRaw('foo', 'bar');
+
+		$query->orLteRaw('foo', 'bar');
+
+		$query->orGtRaw('foo', 'bar');
+
+		$query->orGteRaw('foo', 'bar');
+
+		$query->orLikeRaw('foo', 'bar');
+
+		$query->orNotLikeRaw('foo', 'bar');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? AND "foo" <> ? AND "foo" < ? AND "foo" <= ? AND "foo" > ? AND "foo" >= ? AND "foo" LIKE ? AND "foo" NOT LIKE ? AND "foo" = bar AND "foo" <> bar AND "foo" < bar AND "foo" <= bar AND "foo" > bar AND "foo" >= bar AND "foo" LIKE bar AND "foo" NOT LIKE bar OR "foo" = ? OR "foo" <> ? OR "foo" < ? OR "foo" <= ? OR "foo" > ? OR "foo" >= ? OR "foo" LIKE ? OR "foo" NOT LIKE ? OR "foo" = bar OR "foo" <> bar OR "foo" < bar OR "foo" <= bar OR "foo" > bar OR "foo" >= bar OR "foo" LIKE bar OR "foo" NOT LIKE bar', $query['sql']);
+		$this->assertEquals(['bar', 'bar', 'bar', 'bar', 'bar', 'bar', 'bar', 'bar', 'bar', 'bar', 'bar', 'bar', 'bar', 'bar', 'bar', 'bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithExistsSubquery()
 	{
 		$query = $this->getBuilder();
@@ -538,13 +668,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = foobar.id)', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithExistsSubqueryAndOrExists()
 	{
 		$query = $this->getBuilder();
@@ -556,13 +685,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = foobar.id) OR EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = barbaz.id)', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithExistsClosure()
 	{
 		$query = $this->getBuilder();
@@ -575,13 +703,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = foobar.id)', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotExists()
 	{
 		$query = $this->getBuilder();
@@ -591,13 +718,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE NOT EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = foobar.id)', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithNotExistsAndOrNotExists()
 	{
 		$query = $this->getBuilder();
@@ -609,13 +735,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE NOT EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = foobar.id) OR NOT EXISTS (SELECT * FROM "barfoo" WHERE "barfoo"."foobar_id" = barbaz.id)', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithJoin()
 	{
 		$query = $this->getBuilder();
@@ -625,13 +750,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = "foobar"."id"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithJoinRaw()
 	{
 		$query = $this->getBuilder();
@@ -641,13 +765,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = SUBSTRING("foo", 1, 2)', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithLeftJoin()
 	{
 		$query = $this->getBuilder();
@@ -657,13 +780,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" LEFT OUTER JOIN "barfoo" ON "barfoo"."foobar_id" = "foobar"."id"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithLeftJoinRaw()
 	{
 		$query = $this->getBuilder();
@@ -673,13 +795,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" LEFT OUTER JOIN "barfoo" ON "barfoo"."foobar_id" = SUBSTRING("foo", 1, 2)', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithComplexJoin()
 	{
 		$query = $this->getBuilder();
@@ -693,13 +814,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = "foobar"."id" OR "barfoo"."foobar_id" != "foobar"."id"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithComplexNestedJoin()
 	{
 		$query = $this->getBuilder();
@@ -717,13 +837,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = "foobar"."id" AND ("barfoo"."foobar_id" = "foobar"."id" OR "barfoo"."foobar_id" != "foobar"."id")', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithComplexRawJoin()
 	{
 		$query = $this->getBuilder();
@@ -737,54 +856,51 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = SUBSTRING("foo", 1, 2) OR "barfoo"."foobar_id" != SUBSTRING("foo", 1, 2)', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithGroupBy()
 	{
 		$query = $this->getBuilder('orders');
 
-		$query->select(array('customer', new Raw('SUM(price) as sum')));
+		$query->select(['customer', new Raw('SUM(price) as sum')]);
 
 		$query->groupBy('customer');
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithGroupByArray()
 	{
 		$query = $this->getBuilder('orders');
 
-		$query->select(array('customer', 'order_date', new Raw('SUM(price) as sum')));
+		$query->select(['customer', 'order_date', new Raw('SUM(price) as sum')]);
 
-		$query->groupBy(array('customer', 'order_date'));
+		$query->groupBy(['customer', 'order_date']);
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT "customer", "order_date", SUM(price) as sum FROM "orders" GROUP BY "customer", "order_date"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithHaving()
 	{
 		$query = $this->getBuilder('orders');
 
-		$query->select(array('customer', new Raw('SUM(price) as sum')));
+		$query->select(['customer', new Raw('SUM(price) as sum')]);
 
 		$query->groupBy('customer');
 		$query->having(new Raw('SUM(price)'), '<', 2000);
@@ -792,18 +908,35 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer" HAVING SUM(price) < ?', $query['sql']);
-		$this->assertEquals(array(2000), $query['params']);
+		$this->assertEquals([2000], $query['params']);
 	}
 
 	/**
 	 *
 	 */
+	public function testSelectWithHavingRaw()
+	{
+		$query = $this->getBuilder('orders');
 
+		$query->select(['customer', new Raw('SUM(price) as sum')]);
+
+		$query->groupBy('customer');
+		$query->havingRaw('SUM(price)', '<', 2000);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer" HAVING SUM(price) < ?', $query['sql']);
+		$this->assertEquals([2000], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithHavingAndOrHaving()
 	{
 		$query = $this->getBuilder('orders');
 
-		$query->select(array('customer', new Raw('SUM(price) as sum')));
+		$query->select(['customer', new Raw('SUM(price) as sum')]);
 
 		$query->groupBy('customer');
 		$query->having(new Raw('SUM(price)'), '<', 2000);
@@ -812,13 +945,31 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer" HAVING SUM(price) < ? OR SUM(price) > ?', $query['sql']);
-		$this->assertEquals(array(2000, 2000), $query['params']);
+		$this->assertEquals([2000, 2000], $query['params']);
 	}
 
 	/**
 	 *
 	 */
+	public function testSelectWithHavinRawgAndOrHavingRaw()
+	{
+		$query = $this->getBuilder('orders');
 
+		$query->select(['customer', new Raw('SUM(price) as sum')]);
+
+		$query->groupBy('customer');
+		$query->havingRaw('SUM(price)', '<', 2000);
+		$query->orHavingRaw('SUM(price)', '>', 2000);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "customer", SUM(price) as sum FROM "orders" GROUP BY "customer" HAVING SUM(price) < ? OR SUM(price) > ?', $query['sql']);
+		$this->assertEquals([2000, 2000], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithOrder()
 	{
 		$query = $this->getBuilder();
@@ -828,29 +979,27 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" ASC', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderArray()
 	{
 		$query = $this->getBuilder();
 
-		$query->orderBy(array('foo', 'bar'), 'DESC');
+		$query->orderBy(['foo', 'bar'], 'DESC');
 
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo", "bar" DESC', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderRaw()
 	{
 		$query = $this->getBuilder();
@@ -860,13 +1009,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, 1, 2, 3) ASC', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderDescending()
 	{
 		$query = $this->getBuilder();
@@ -876,13 +1024,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" DESC', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderDescendingRaw()
 	{
 		$query = $this->getBuilder();
@@ -892,13 +1039,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, 1, 2, 3) DESC', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderAscending()
 	{
 		$query = $this->getBuilder();
@@ -908,13 +1054,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" ASC', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithOrderAscendingRaw()
 	{
 		$query = $this->getBuilder();
@@ -924,13 +1069,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, 1, 2, 3) ASC', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSelectWithMultipleOrder()
 	{
 		$query = $this->getBuilder();
@@ -941,13 +1085,28 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "foo" ASC, "bar" DESC', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
+	public function testSelectResetOrdering()
+	{
+		$query = $this->getBuilder();
 
+		$query->orderBy('foo');
+		$query->orderBy('bar', 'DESC');
+
+		$query = $query->resetOrdering()->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testBasicDelete()
 	{
 		$query = $this->getBuilder();
@@ -955,13 +1114,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->delete();
 
 		$this->assertEquals('DELETE FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testDeleteWithWhere()
 	{
 		$query = $this->getBuilder();
@@ -971,43 +1129,40 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->delete();
 
 		$this->assertEquals('DELETE FROM "foobar" WHERE "id" = ?', $query['sql']);
-		$this->assertEquals(array(1), $query['params']);
+		$this->assertEquals([1], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testBasicUpdate()
 	{
 		$query = $this->getBuilder();
 
-		$query = $query->getCompiler()->update(array('foo' => 'bar'));
+		$query = $query->getCompiler()->update(['foo' => 'bar']);
 
 		$this->assertEquals('UPDATE "foobar" SET "foo" = ?', $query['sql']);
-		$this->assertEquals(array('bar'), $query['params']);
+		$this->assertEquals(['bar'], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testUpdateWithWhere()
 	{
 		$query = $this->getBuilder();
 
 		$query->where('id', '=', 1);
 
-		$query = $query->getCompiler()->update(array('foo' => 'bar'));
+		$query = $query->getCompiler()->update(['foo' => 'bar']);
 
 		$this->assertEquals('UPDATE "foobar" SET "foo" = ? WHERE "id" = ?', $query['sql']);
-		$this->assertEquals(array('bar', 1), $query['params']);
+		$this->assertEquals(['bar', 1], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testCountAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1017,7 +1172,7 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT COUNT(*) FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 
 		$query = $this->getBuilder();
 
@@ -1026,13 +1181,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT COUNT("foo") FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testAvgAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1042,13 +1196,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT AVG("foo") FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testMaxAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1058,13 +1211,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT MAX("foo") FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testMinAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1074,13 +1226,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT MIN("foo") FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testSumAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1090,13 +1241,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT SUM("foo") FROM "foobar"', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testColumnWithoutParam()
 	{
 		$query = $this->getBuilder();
@@ -1108,13 +1258,12 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT "id" FROM "foobar" LIMIT 1', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testColumnWithParam()
 	{
 		$query = $this->getBuilder();
@@ -1124,16 +1273,15 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT "id" FROM "foobar" LIMIT 1', $query['sql']);
-		$this->assertEquals(array(), $query['params']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-
 	public function testBatch()
 	{
-		$builder = m::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
+		$builder = Mockery::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
 
 		$builder->shouldReceive('limit')->once()->with(5);
 
@@ -1160,7 +1308,7 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$builder = m::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
+		$builder = Mockery::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
 
 		$builder->shouldReceive('limit')->once()->with(5);
 
@@ -1187,7 +1335,7 @@ class BaseCompilerTest extends \PHPUnit_Framework_TestCase
 
 		//
 
-		$builder = m::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
+		$builder = Mockery::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
 
 		$builder->shouldReceive('limit')->once()->with(5);
 

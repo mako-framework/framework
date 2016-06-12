@@ -18,13 +18,11 @@ use Monolog\Handler\StreamHandler;
  *
  * @author  Frederic G. Østby
  */
-
 class LoggerService extends Service
 {
 	/**
 	 * {@inheritdoc}
 	 */
-
 	public function register()
 	{
 		$this->container->registerSingleton(['Psr\Log\LoggerInterface', 'logger'], function($container)

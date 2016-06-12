@@ -14,7 +14,6 @@ use mako\commander\CommandInterface;
  *
  * @author  Yamada Taro
  */
-
 interface CommandHandlerInterface
 {
 	/**
@@ -24,6 +23,5 @@ interface CommandHandlerInterface
 	 * @param   \mako\commander\CommandInterface  $command  Command
 	 * @return  mixed
 	 */
-
 	public function handle(CommandInterface $command);
 }
