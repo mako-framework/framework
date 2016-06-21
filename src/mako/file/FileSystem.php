@@ -131,25 +131,30 @@ class FileSystem
 	}
 
 	/**
-	 * Returns TRUE if a directory is empty and FALSE if not.
+	 * Returns TRUE if a file or directory is empty and FALSE if not.
 	 *
 	 * @access  public
 	 * @param   string   $path  Path to directory
 	 * @return  boolean
 	 */
-	public function isDirectoryEmpty($path)
+	public function isEmpty($path)
 	{
-		$files = scandir($path);
-
-		foreach($files as $file)
+		if(is_dir($path))
 		{
-			if($file !== '.' && $file !== '..')
+			$files = scandir($path);
+
+			foreach($files as $file)
 			{
-				return false;
+				if($file !== '.' && $file !== '..')
+				{
+					return false;
+				}
 			}
+
+			return true;
 		}
 
-		return true;
+		return filesize($path) === 0;
 	}
 
 	/**
