@@ -55,7 +55,7 @@ class Loader
 
 		if($this->fileSystem->exists($path))
 		{
-			return $this->fileSystem->includeFile($path);
+			return $this->fileSystem->include($path);
 		}
 	}
 
@@ -75,7 +75,7 @@ class Loader
 		{
 			if($this->fileSystem->exists($file))
 			{
-				$strings = $this->fileSystem->includeFile($file);
+				$strings = $this->fileSystem->include($file);
 
 				break;
 			}

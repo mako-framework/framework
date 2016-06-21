@@ -390,7 +390,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  mixed
 	 */
-	public function includeFile($file)
+	public function include($file)
 	{
 		return include $file;
 	}
@@ -402,7 +402,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  mixed
 	 */
-	public function includeFileOnce($file)
+	public function includeOnce($file)
 	{
 		return include_once $file;
 	}
@@ -414,7 +414,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  mixed
 	 */
-	public function requireFile($file)
+	public function require($file)
 	{
 		return require $file;
 	}
@@ -426,7 +426,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  mixed
 	 */
-	public function requireFileOnce($file)
+	public function requireOnce($file)
 	{
 		return require_once $file;
 	}

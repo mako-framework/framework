@@ -97,7 +97,7 @@ class Config
 		{
 			if($this->fileSystem->exists($path))
 			{
-				$config = $this->fileSystem->includeFile($path);
+				$config = $this->fileSystem->include($path);
 
 				break;
 			}
@@ -120,7 +120,7 @@ class Config
 			{
 				if($this->fileSystem->exists($path))
 				{
-					$config = array_replace_recursive($config, $this->fileSystem->includeFile($path));
+					$config = array_replace_recursive($config, $this->fileSystem->include($path));
 
 					break;
 				}

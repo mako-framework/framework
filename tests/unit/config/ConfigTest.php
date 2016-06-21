@@ -42,7 +42,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/config/settings.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello']);
+		$fileSystem->shouldReceive('include')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello']);
 
 		$config = new Config($fileSystem, '/app/config');
 
@@ -80,7 +80,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/packages/baz/config/settings.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('includeFile')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello']);
+		$fileSystem->shouldReceive('include')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello']);
 
 		$config = new Config($fileSystem, '/app/config');
 
@@ -98,7 +98,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/config/packages/baz/settings.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/packages/baz/settings.php')->andReturn(['greeting' => 'hello']);
+		$fileSystem->shouldReceive('include')->once()->with('/app/config/packages/baz/settings.php')->andReturn(['greeting' => 'hello']);
 
 		$config = new Config($fileSystem, '/app/config');
 
@@ -116,11 +116,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/config/settings.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello', 'goodbye' => 'sayonara']);
+		$fileSystem->shouldReceive('include')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello', 'goodbye' => 'sayonara']);
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/config/dev/settings.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/dev/settings.php')->andReturn(['greeting' => 'konnichiwa']);
+		$fileSystem->shouldReceive('include')->once()->with('/app/config/dev/settings.php')->andReturn(['greeting' => 'konnichiwa']);
 
 		$config = new Config($fileSystem, '/app/config');
 
@@ -142,13 +142,13 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/packages/baz/config/settings.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('includeFile')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello', 'goodbye' => 'sayonara']);
+		$fileSystem->shouldReceive('include')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello', 'goodbye' => 'sayonara']);
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/config/packages/baz/dev/settings.php')->andReturn(false);
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/packages/baz/config/dev/settings.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('includeFile')->once()->with('/app/packages/baz/config/dev/settings.php')->andReturn(['greeting' => 'konnichiwa']);
+		$fileSystem->shouldReceive('include')->once()->with('/app/packages/baz/config/dev/settings.php')->andReturn(['greeting' => 'konnichiwa']);
 
 		$config = new Config($fileSystem, '/app/config');
 
@@ -170,7 +170,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/config/settings.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/settings.php')->andReturn([]);
+		$fileSystem->shouldReceive('include')->once()->with('/app/config/settings.php')->andReturn([]);
 
 		$config = new Config($fileSystem, '/app/config');
 
@@ -205,7 +205,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('exists')->once()->with('/app/config/settings.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('includeFile')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello']);
+		$fileSystem->shouldReceive('include')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello']);
 
 		$config = new Config($fileSystem, '/app/config');
 
