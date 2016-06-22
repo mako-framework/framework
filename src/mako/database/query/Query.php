@@ -1010,12 +1010,12 @@ class Query
 	}
 
 	/**
-	 * Resets the ordering.
+	 * Clears the ordering clauses.
 	 *
 	 * @access  public
 	 * @return  \mako\database\query\Query
 	 */
-	public function resetOrdering()
+	public function clearOrdering()
 	{
 		$this->orderings = [];
 
@@ -1163,7 +1163,7 @@ class Query
 	 */
 	public function paginate($itemsPerPage = null, array $options = [])
 	{
-		$count = (clone $this)->resetOrdering()->count();
+		$count = (clone $this)->clearOrdering()->count();
 
 		$pagination = static::getPaginationFactory()->create($count, $itemsPerPage, $options);
 

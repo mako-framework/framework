@@ -1091,14 +1091,14 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function testSelectResetOrdering()
+	public function testSelectClearOrdering()
 	{
 		$query = $this->getBuilder();
 
 		$query->orderBy('foo');
 		$query->orderBy('bar', 'DESC');
 
-		$query = $query->resetOrdering()->getCompiler()->select();
+		$query = $query->clearOrdering()->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
