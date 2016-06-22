@@ -96,7 +96,7 @@ class Confirmation extends Question
 	 * @param   array    $options   Answer options
 	 * @return  boolean
 	 */
-	public function ask(string $question, string $default = 'n', array $options = null): bool
+	public function ask(string $question, $default = 'n', array $options = null)
 	{
 		$options = $options === null ? ['y' => true, 'n' => false] : $this->normalizeKeys($options);
 
