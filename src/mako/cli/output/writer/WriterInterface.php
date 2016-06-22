@@ -20,7 +20,7 @@ interface WriterInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-	public function isDirect();
+	public function isDirect(): bool;
 
 	/**
 	 * Writes output.
@@ -28,5 +28,5 @@ interface WriterInterface
 	 * @access  public
 	 * @param   string  $string  String to write
 	 */
-	public function write($string);
+	public function write($string): string;
 }

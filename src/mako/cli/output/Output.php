@@ -125,7 +125,7 @@ class Output
 	 * @access  public
 	 * @return  boolean
 	 */
-	public function isMuted()
+	public function isMuted(): bool
 	{
 		return $this->muted;
 	}
@@ -137,7 +137,7 @@ class Output
 	 * @param   string  $string  String to write
 	 * @param   int     $writer  Output type
 	 */
-	public function write($string, $writer = Output::STANDARD)
+	public function write(string $string, int $writer = Output::STANDARD)
 	{
 		if($this->muted)
 		{
@@ -167,7 +167,7 @@ class Output
 	 * @access  public
 	 * @param   string  $string  String to write
 	 */
-	public function error($string)
+	public function error(string $string)
 	{
 		return $this->write($string, static::ERROR);
 	}
@@ -179,7 +179,7 @@ class Output
 	 * @param   string  $string  String to write
 	 * @param   int     $writer  Output type
 	 */
-	public function writeLn($string, $writer = Output::STANDARD)
+	public function writeLn(string $string, int $writer = Output::STANDARD)
 	{
 		return $this->write($string . PHP_EOL, $writer);
 	}
@@ -190,7 +190,7 @@ class Output
 	 * @access  public
 	 * @param   string  $string  String to write
 	 */
-	public function errorLn($string)
+	public function errorLn(string $string)
 	{
 		return $this->writeLn($string, static::ERROR);
 	}

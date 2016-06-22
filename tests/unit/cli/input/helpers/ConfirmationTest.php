@@ -68,7 +68,7 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
-		$input->shouldReceive('read')->once()->andReturn(null);
+		$input->shouldReceive('read')->once()->andReturn('');
 
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -86,7 +86,7 @@ class ConfirmationTest extends PHPUnit_Framework_TestCase
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
-		$input->shouldReceive('read')->once()->andReturn(null);
+		$input->shouldReceive('read')->once()->andReturn('');
 
 		$output = Mockery::mock('mako\cli\output\Output');
 

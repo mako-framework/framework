@@ -63,7 +63,7 @@ class Secret extends Question
 	 * @access  protected
 	 * @return  boolean
 	 */
-	protected function hasStty()
+	protected function hasStty(): bool
 	{
 		if(static::$hasStty === null)
 		{
@@ -82,9 +82,9 @@ class Secret extends Question
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered
 	 * @param   boolean     $fallback  Fall back to non-hidden input?
-	 * @return  string
+	 * @return  mixed
 	 */
-	public function ask($question, $default = null, $fallback = false)
+	public function ask(string $question, $default = null, bool $fallback = false)
 	{
 		if(DIRECTORY_SEPARATOR === '\\' || $this->hasStty())
 		{

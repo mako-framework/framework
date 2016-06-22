@@ -53,7 +53,7 @@ class Table
 	 * @param   array      $rows         Array of rows
 	 * @return  boolean
 	 */
-	protected function isValidInput(array $columnNames, array $rows)
+	protected function isValidInput(array $columnNames, array $rows): bool
 	{
 		$columns = count($columnNames);
 
@@ -78,7 +78,7 @@ class Table
 	 * @param   string     $string  String to strip
 	 * @return  string
 	 */
-	protected function stringWidthWithoutFormatting($string)
+	protected function stringWidthWithoutFormatting(string $string): string
 	{
 		return mb_strwidth($this->formatter !== null ? $this->formatter->strip($string) : $string);
 	}
@@ -91,7 +91,7 @@ class Table
 	 * @param   array      $rows         Array of rows
 	 * @return  array
 	 */
-	protected function getColumnWidths(array $columnNames, array $rows)
+	protected function getColumnWidths(array $columnNames, array $rows): array
 	{
 		$columnWidths = [];
 
@@ -130,7 +130,7 @@ class Table
 	 * @param   string     $separator     Separator character
 	 * @return  string
 	 */
-	protected function buildRowSeparator(array $columnWidths, $separator = '-')
+	protected function buildRowSeparator(array $columnWidths, string $separator = '-'): string
 	{
 		$columns = count($columnWidths);
 
@@ -145,7 +145,7 @@ class Table
 	 * @param   array      $columnWidths  Array of column widths
 	 * @return  string
 	 */
-	protected function buildTableRow(array $colums, array $columnWidths)
+	protected function buildTableRow(array $colums, array $columnWidths): string
 	{
 		$cells = [];
 
@@ -165,7 +165,7 @@ class Table
 	 * @param   array   $rows         Array of rows
 	 * @return  string
 	 */
-	public function render(array $columnNames, array $rows)
+	public function render(array $columnNames, array $rows): string
 	{
 		if(!$this->isValidInput($columnNames, $rows))
 		{
@@ -206,7 +206,7 @@ class Table
 	 * @param   array   $rows         Array of rows
 	 * @param   int     $writer       Output writer
 	 */
-	public function draw(array $columnNames, array $rows, $writer = Output::STANDARD)
+	public function draw(array $columnNames, array $rows, int $writer = Output::STANDARD)
 	{
 		$this->output->write($this->render($columnNames, $rows), $writer);
 	}

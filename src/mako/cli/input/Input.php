@@ -58,7 +58,7 @@ class Input
 	 * @param   string  $name  Argument name to normalize
 	 * @return  string
 	 */
-	protected function normalizeArgumentName($name)
+	protected function normalizeArgumentName(string $name): string
 	{
 		return str_replace('-', '_', $name);
 	}
@@ -70,7 +70,7 @@ class Input
 	 * @param   array      $arguments  Arguments
 	 * @return  array
 	 */
-	protected function parseArguments(array $arguments)
+	protected function parseArguments(array $arguments): array
 	{
 		$parsed = [];
 
@@ -99,7 +99,7 @@ class Input
 	 * @access  public
 	 * @return  string
 	 */
-	public function read()
+	public function read(): string
 	{
 		return $this->reader->read();
 	}
@@ -111,7 +111,7 @@ class Input
 	 * @return  array
 	 */
 
-	 public function getArguments()
+	 public function getArguments(): array
 	 {
 	 	return $this->arguments;
 	 }

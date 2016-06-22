@@ -21,7 +21,7 @@ interface FormatterInterface
 	 * @param   string  $string  String to format
 	 * @return  string
 	 */
-	public function format($string);
+	public function format(string $string): string;
 
 	/**
 	 * Returns a string where all formatting tags have been escaped.
@@ -30,7 +30,7 @@ interface FormatterInterface
 	 * @param   string  $string  String to format
 	 * @return  string
 	 */
-	public function escape($string);
+	public function escape(string $string): string;
 
 	/**
 	 * Returns a string where all formatting tags have been stripped.
@@ -39,5 +39,5 @@ interface FormatterInterface
 	 * @param   string  $string  String to strip
 	 * @return  string
 	 */
-	public function strip($string);
+	public function strip(string $string): string;
 }

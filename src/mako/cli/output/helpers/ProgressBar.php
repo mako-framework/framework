@@ -66,7 +66,7 @@ class ProgressBar
 	 * @param   int                      $items       Total number of items
 	 * @param   int                      $redrawRate  Redraw rate
 	 */
-	public function __construct(Output $output, $items, $redrawRate = null)
+	public function __construct(Output $output, int $items, int $redrawRate = null)
 	{
 		$this->output = $output;
 
@@ -81,7 +81,7 @@ class ProgressBar
 	 * @access  public
 	 * @param   string  $template  Template
 	 */
-	public function setEmptyTemplate($template)
+	public function setEmptyTemplate(string $template)
 	{
 		$this->emptyTemplate = $template;
 	}
@@ -92,7 +92,7 @@ class ProgressBar
 	 * @access  public
 	 * @param   string  $template  Template
 	 */
-	public function setFilledTemplate($template)
+	public function setFilledTemplate(string $template)
 	{
 		$this->filledTemplate = $template;
 	}
@@ -104,7 +104,7 @@ class ProgressBar
 	 * @param   int        $percent  Percent to fill
 	 * @return  string
 	 */
-	protected function buildProgressBar($percent)
+	protected function buildProgressBar(int $percent): string
 	{
 		$fill = (int) floor($percent / 5);
 

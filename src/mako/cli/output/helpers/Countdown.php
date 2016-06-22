@@ -40,7 +40,7 @@ class Countdown
 	 * @access  public
 	 * @param   int     $from  Number of seconds to count down
 	 */
-	public function draw($from = 5)
+	public function draw(int $from = 5)
 	{
 		$dots = 0;
 

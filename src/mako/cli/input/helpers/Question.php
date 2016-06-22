@@ -52,9 +52,9 @@ class Question
 	 * @access  public
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered
-	 * @return  string
+	 * @return  mixed
 	 */
-	public function ask($question, $default = null)
+	public function ask(string $question, $default = null)
 	{
 		$this->output->write(trim($question) . ' ');
 

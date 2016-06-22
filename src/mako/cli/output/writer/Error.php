@@ -26,7 +26,7 @@ class Error implements WriterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function isDirect()
+	public function isDirect(): bool
 	{
 		if($this->isDirect === null)
 		{
@@ -39,7 +39,7 @@ class Error implements WriterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function write($string)
+	public function write(string $string)
 	{
 		fwrite(STDERR, $string);
 	}

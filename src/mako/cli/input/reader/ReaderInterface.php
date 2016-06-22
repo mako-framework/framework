@@ -20,5 +20,5 @@ interface ReaderInterface
 	 * @access  public
 	 * @return  string
 	 */
-	public function read();
+	public function read(): string;
 }

@@ -55,7 +55,7 @@ class Confirmation extends Question
 	 * @param   array      $array  Array
 	 * @return  array
 	 */
-	protected function normalizeKeys(array $array)
+	protected function normalizeKeys(array $array): array
 	{
 		$normalized = [];
 
@@ -75,7 +75,7 @@ class Confirmation extends Question
 	 * @param   string  $default  Default answer
 	 * @return  string
 	 */
-	protected function getOptions(array $options, $default)
+	protected function getOptions(array $options, string $default): string
 	{
 		$highlighted = [];
 
@@ -96,7 +96,7 @@ class Confirmation extends Question
 	 * @param   array    $options   Answer options
 	 * @return  boolean
 	 */
-	public function ask($question, $default = 'n', array $options = null)
+	public function ask(string $question, string $default = 'n', array $options = null): bool
 	{
 		$options = $options === null ? ['y' => true, 'n' => false] : $this->normalizeKeys($options);
 

@@ -108,7 +108,7 @@ class Formatter implements FormatterInterface
 	 * @access  public
 	 * @param   null|boolean  $hasAnsiSupport  Do we have ANSI support?
 	 */
-	public function __construct($hasAnsiSupport = null)
+	public function __construct(bool $hasAnsiSupport = null)
 	{
 		if($hasAnsiSupport === null)
 		{
@@ -124,7 +124,7 @@ class Formatter implements FormatterInterface
 	 * @access  public
 	 * @return  boolean
 	 */
-	public function hasAnsiSupport()
+	public function hasAnsiSupport(): bool
 	{
 		return $this->hasAnsiSupport;
 	}
@@ -136,7 +136,7 @@ class Formatter implements FormatterInterface
 	 * @param   string        $name   Style name
 	 * @param   string|array  $style  Style or array of styles
 	 */
-	public function addStyle($name, $style)
+	public function addStyle(string $name, $style)
 	{
 		$this->userStyles[$name] = (array) $style;
 	}
@@ -148,7 +148,7 @@ class Formatter implements FormatterInterface
 	 * @param   string     $tag  Tag
 	 * @return  string
 	 */
-	protected function getTagName($tag)
+	protected function getTagName(string $tag): string
 	{
 		return str_replace(['<', '>', '/'], '', $tag);
 	}
@@ -160,7 +160,7 @@ class Formatter implements FormatterInterface
 	 * @param   string   $tag  Tag to check
 	 * @return  boolean
 	 */
-	protected function isOpeningTag($tag)
+	protected function isOpeningTag(string $tag): bool
 	{
 		return strpos($tag, '</') === false;
 	}
@@ -171,7 +171,7 @@ class Formatter implements FormatterInterface
 	 * @access  protected
 	 * @return  string
 	 */
-	protected function getSgrResetSequence()
+	protected function getSgrResetSequence(): string
 	{
 		return "\033[0m";
 	}
@@ -183,7 +183,7 @@ class Formatter implements FormatterInterface
 	 * @param   string     $tag  Tag name
 	 * @return  array
 	 */
-	protected function getStyleCodes($tag)
+	protected function getStyleCodes(string $tag): array
 	{
 		if(isset($this->styles[$tag]))
 		{
@@ -211,7 +211,7 @@ class Formatter implements FormatterInterface
 	 * @param   string     $tag  Style name
 	 * @return  string
 	 */
-	protected function getSgrStyleSequence($tag)
+	protected function getSgrStyleSequence(string $tag): string
 	{
 		$styles = implode(';', $this->getStyleCodes($tag));
 
@@ -226,7 +226,7 @@ class Formatter implements FormatterInterface
 	 * @param   string     $tag  Tag name
 	 * @return  string
 	 */
-	protected function openStyle($tag)
+	protected function openStyle(string $tag): string
 	{
 		$this->openTags[] = $tagName = $this->getTagName($tag);
 
@@ -241,7 +241,7 @@ class Formatter implements FormatterInterface
 	 * @param   string     $tag  Tag name
 	 * @return  string
 	 */
-	protected function closeStyle($tag)
+	protected function closeStyle(string $tag): string
 	{
 		if($this->getTagName($tag) !== end($this->openTags))
 		{
@@ -278,7 +278,7 @@ class Formatter implements FormatterInterface
 	 * @param   string     $string  Input string
 	 * @return  string
 	 */
-	protected function removeTagEscapeCharacter($string)
+	protected function removeTagEscapeCharacter(string $string): string
 	{
 		return preg_replace(static::ESCAPED_TAG_REGEX, '<$1>', $string);
 	}
@@ -286,7 +286,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function format($string)
+	public function format(string $string): string
 	{
 		// Reset open tags
 
@@ -334,7 +334,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function escape($string)
+	public function escape(string $string): string
 	{
 		return preg_replace(static::TAG_REGEX, '\\\$0', $string);
 	}
@@ -342,7 +342,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function strip($string)
+	public function strip(string $string): string
 	{
 		return preg_replace(static::ANSI_SGR_SEQUENCE_REGEX, '', $this->format($string));
 	}
