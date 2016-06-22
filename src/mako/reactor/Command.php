@@ -14,8 +14,10 @@ use mako\cli\input\helpers\Secret;
 use mako\cli\output\Output;
 use mako\cli\output\helpers\Bell;
 use mako\cli\output\helpers\Countdown;
-use mako\cli\output\helpers\Table;
 use mako\cli\output\helpers\ProgressBar;
+use mako\cli\output\helpers\Table;
+use mako\cli\output\helpers\UnorderedList;
+
 use mako\syringe\ContainerAwareTrait;
 
 /**
@@ -256,6 +258,18 @@ abstract class Command
 	protected function table(array $columnNames, array $rows, $writer = Output::STANDARD)
 	{
 		(new Table($this->output))->draw($columnNames, $rows, $writer);
+	}
+
+	/**
+	 * Draws an unordered list.
+	 * @access  protected
+	 * @param   array     $items   Items
+	 * @param   string    $marker  Item marker
+	 * @param   int       $writer  Output writer
+	 */
+	protected function ul(array $items, $marker = '<yellow>*</yellow>', $writer = Output::STANDARD)
+	{
+		(new UnorderedList($this->output))->draw($items, $marker, $writer);
 	}
 
 	/**
