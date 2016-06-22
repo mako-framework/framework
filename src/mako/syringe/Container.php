@@ -268,7 +268,7 @@ class Container
 	{
 		if(empty($reflectionParameters))
 		{
-			return $providedParameters;
+			return array_values($providedParameters);
 		}
 
 		// Merge provided parameters with the ones we got using reflection
