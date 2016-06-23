@@ -31,6 +31,13 @@ class OrderedList
 	protected $output;
 
 	/**
+	 * Formatter instance.
+	 *
+	 * @var null|\mako\cli\output\formatter\FormatterInterface
+	 */
+	protected $formatter;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
@@ -39,6 +46,8 @@ class OrderedList
 	public function __construct(Output $output)
 	{
 		$this->output = $output;
+
+		$this->formatter = $output->getFormatter();
 	}
 
 	/**
@@ -46,9 +55,9 @@ class OrderedList
 	 *
 	 * @access  protected
 	 * @param   array      $items  Items
-	 * @return  int
+	 * @return  array
 	 */
-	protected function calculateWidth(array $items): int
+	protected function calculateWidth(array $items, string $marker): array
 	{
 		$count = 0;
 
@@ -60,7 +69,11 @@ class OrderedList
 			}
 		}
 
-		return strlen($count);
+		$number = strlen($count);
+
+		$marker = strlen(sprintf($this->formatter === null ? $marker : $this->formatter->strip($marker), '')) + $number;
+
+		return ['number' => $number, 'marker' => $marker];
 	}
 
 	/**
@@ -91,7 +104,7 @@ class OrderedList
 	 */
 	protected function buildList(array $items, string $marker, int $nestingLevel = 0, int $parentWidth = 0): string
 	{
-		$width  = $this->calculateWidth($items);
+		$width  = $this->calculateWidth($items, $marker);
 		$number = 0;
 		$list   = '';
 
@@ -99,11 +112,11 @@ class OrderedList
 		{
 			if(is_array($item))
 			{
-				$list .= $this->buildList($item, $marker, $nestingLevel + 1, $width + $parentWidth);
+				$list .= $this->buildList($item, $marker, ($nestingLevel + 1), ($width['marker'] - 1 + $parentWidth));
 			}
 			else
 			{
-				$list .= $this->buildListItem($item, $marker, $width, ++$number, $nestingLevel, $parentWidth);
+				$list .= $this->buildListItem($item, $marker, $width['number'], ++$number, $nestingLevel, $parentWidth);
 			}
 		}
 

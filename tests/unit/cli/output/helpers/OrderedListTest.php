@@ -32,6 +32,8 @@ class OrderedListTest extends PHPUnit_Framework_TestCase
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+
 		$list = new OrderedList($output);
 
 		$expected  = '';
@@ -48,6 +50,8 @@ class OrderedListTest extends PHPUnit_Framework_TestCase
 	public function testNestedLists()
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
 		$list = new OrderedList($output);
 
@@ -70,6 +74,8 @@ class OrderedListTest extends PHPUnit_Framework_TestCase
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+
 		$list = new OrderedList($output);
 
 		$expected  = '';
@@ -86,6 +92,8 @@ class OrderedListTest extends PHPUnit_Framework_TestCase
 	public function testDraw()
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
 		$list = new OrderedList($output);
 
@@ -105,6 +113,8 @@ class OrderedListTest extends PHPUnit_Framework_TestCase
 	public function testDrawWithCustomMarker()
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
 		$list = new OrderedList($output);
 
