@@ -14,6 +14,7 @@ use mako\cli\input\helpers\Secret;
 use mako\cli\output\Output;
 use mako\cli\output\helpers\Bell;
 use mako\cli\output\helpers\Countdown;
+use mako\cli\output\helpers\OrderedList;
 use mako\cli\output\helpers\ProgressBar;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\helpers\UnorderedList;
@@ -258,6 +259,18 @@ abstract class Command
 	protected function table(array $columnNames, array $rows, $writer = Output::STANDARD)
 	{
 		(new Table($this->output))->draw($columnNames, $rows, $writer);
+	}
+
+	/**
+	 * Draws an ordered list.
+	 * @access  protected
+	 * @param   array     $items   Items
+	 * @param   string    $marker  Item marker
+	 * @param   int       $writer  Output writer
+	 */
+	protected function ol(array $items, $marker = '<yellow>%s</yellow>.', $writer = Output::STANDARD)
+	{
+		(new OrderedList($this->output))->draw($items, $marker, $writer);
 	}
 
 	/**

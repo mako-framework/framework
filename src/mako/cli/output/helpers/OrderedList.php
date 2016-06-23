@@ -1,0 +1,138 @@
+<?php
+
+/**
+ * @copyright  Frederic G. Østby
+ * @license    http://www.makoframework.com/license
+ */
+
+namespace mako\cli\output\helpers;
+
+use mako\cli\output\Output;
+
+/**
+ * Ordered list helper.
+ *
+ * @author  Frederic G. Østby
+ */
+class OrderedList
+{
+	/**
+	 * Padding.
+	 *
+	 * @var string
+	 */
+	protected $padding = '  ';
+
+	/**
+	 * Output instance.
+	 *
+	 * @var \mako\cli\output\Output
+	 */
+	protected $output;
+
+	/**
+	 * Constructor.
+	 *
+	 * @access  public
+	 * @param   \mako\cli\output\Output  $output  Output instance
+	 */
+	public function __construct(Output $output)
+	{
+		$this->output = $output;
+	}
+
+	/**
+	 * Calculates the maximum width of a marker in a list.
+	 *
+	 * @access  protected
+	 * @param   array      $items  Items
+	 * @return  int
+	 */
+	protected function calculateWidth(array $items): int
+	{
+		$count = 0;
+
+		foreach($items as $item)
+		{
+			if(!is_array($item))
+			{
+				$count++;
+			}
+		}
+
+		return strlen($count);
+	}
+
+	/**
+	 * Builds a list item.
+	 *
+	 * @access  protected
+	 * @param   string     $item          Item
+	 * @param   string     $marker        Item marker
+	 * @param   int        $nestingLevel  Nesting level
+	 * @return  string
+	 */
+	protected function buildListItem(string $item, string $marker, int $width, int $number, int $nestingLevel, int $parentWidth): string
+	{
+		$marker = str_repeat(' ', $width - strlen($number)) . sprintf($marker, $number);
+
+		return str_repeat($this->padding, $nestingLevel) . str_repeat(' ', $parentWidth) . $marker . ' ' . $item . PHP_EOL;
+	}
+
+	/**
+	 * Builds an ordered list.
+	 *
+	 * @access  protected
+	 * @param   array      $items         Items
+	 * @param   string     $marker        Item marker
+	 * @param   int        $nestingLevel  Nesting level
+	 * @param   int        $parentWidth   Parent marker width
+	 * @return  string
+	 */
+	protected function buildList(array $items, string $marker, int $nestingLevel = 0, int $parentWidth = 0): string
+	{
+		$width  = $this->calculateWidth($items);
+		$number = 0;
+		$list   = '';
+
+		foreach($items as $item)
+		{
+			if(is_array($item))
+			{
+				$list .= $this->buildList($item, $marker, $nestingLevel + 1, $width + $parentWidth);
+			}
+			else
+			{
+				$list .= $this->buildListItem($item, $marker, $width, ++$number, $nestingLevel, $parentWidth);
+			}
+		}
+
+		return $list;
+	}
+
+	/**
+	 * Renders an ordered list.
+	 *
+	 * @access  public
+	 * @param   array   $items   Items
+	 * @param   string  $marker  Item marker
+	 * @return  string
+	 */
+	public function render(array $items, string $marker = '%s.'): string
+	{
+		return $this->buildList($items, $marker);
+	}
+
+	/**
+	 * Draws an ordered list.
+	 *
+	 * @access  public
+	 * @param   array   $items   Items
+	 * @param   string  $marker  Item marker
+	 * @param   int     $writer  Output writer
+	 */
+	public function draw(array $items, string $marker = '%s.', int $writer = Output::STANDARD)
+	{
+		$this->output->write($this->render($items, $marker), $writer);
+	}
+}
