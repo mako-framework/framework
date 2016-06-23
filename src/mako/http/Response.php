@@ -603,7 +603,7 @@ class Response
 
 		$contentType = $this->contentType;
 
-		if(stripos($contentType, 'text/') === 0 || in_array($contentType, ['application/json', 'application/xml']))
+		if(stripos($contentType, 'text/') === 0 || in_array($contentType, ['application/json', 'application/xml', 'application/rss+xml', 'application/atom+xml']))
 		{
 			$contentType .= '; charset=' . $this->charset;
 		}
