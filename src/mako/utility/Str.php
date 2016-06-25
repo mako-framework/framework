@@ -334,7 +334,7 @@ class Str
 
 		for($i = 0; $i < $length; $i++)
 		{
-			$string .= mb_substr($pool, mt_rand(0, $poolSize), 1);
+			$string .= mb_substr($pool, random_int(0, $poolSize), 1);
 		}
 
 		return $string;
