@@ -41,7 +41,7 @@ class Dispatcher
 	 * @param   string                 $command  Command class
 	 * @return  \mako\reactor\Command
 	 */
-	protected function resolve($command)
+	protected function resolve(string $command): Command
 	{
 		return $this->container->get($command);
 	}
@@ -65,7 +65,7 @@ class Dispatcher
 	 * @param   string  $command    Command class
 	 * @param   array   $arguments  Command arguments
 	 */
-	public function dispatch($command, array $arguments)
+	public function dispatch(string $command, array $arguments)
 	{
 		$command = $this->resolve($command);
 

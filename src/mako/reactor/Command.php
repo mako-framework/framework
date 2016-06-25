@@ -99,7 +99,7 @@ abstract class Command
 	 * @access  public
 	 * @return  boolean
 	 */
-	public function shouldExecute()
+	public function shouldExecute(): bool
 	{
 		return $this->shouldExecute;
 	}
@@ -177,7 +177,7 @@ abstract class Command
 	 * @param   int        $lines   Number of newlines to write
 	 * @param   int        $writer  Output writer
 	 */
-	protected function nl($lines = 1, $writer = Output::STANDARD)
+	protected function nl(int $lines = 1, int $writer = Output::STANDARD)
 	{
 		$this->output->write(str_repeat(PHP_EOL, $lines), $writer);
 	}
@@ -189,7 +189,7 @@ abstract class Command
 	 * @param   string     $string  String to write
 	 * @param   int        $writer  Output writer
 	 */
-	protected function write($string, $writer = Output::STANDARD)
+	protected function write(string $string, int $writer = Output::STANDARD)
 	{
 		$this->output->writeLn($string, $writer);
 	}
@@ -200,7 +200,7 @@ abstract class Command
 	 * @access  protected
 	 * @param   string     $string  String to write
 	 */
-	protected function error($string)
+	protected function error(string $string)
 	{
 		$this->output->errorLn('<red>' . $string . '</red>');
 	}
@@ -211,7 +211,7 @@ abstract class Command
 	 * @access  protected
 	 * @param   int        $times  Number of times to ring the bell
 	 */
-	protected function bell($times = 1)
+	protected function bell(int $times = 1)
 	{
 		(new Bell($this->output))->ring($times);
 	}
@@ -222,7 +222,7 @@ abstract class Command
 	 * @access  protected
 	 * @param   int        $from  Number of seconds to count down
 	 */
-	protected function countdown($from = 5)
+	protected function countdown(int $from = 5)
 	{
 		(new Countdown($this->output))->draw($from);
 	}
@@ -235,7 +235,7 @@ abstract class Command
 	 * @param   int                                   $redrawRate  Redraw rate
 	 * @return  \mako\cli\output\helpers\ProgressBar
 	 */
-	protected function progressBar($items, $redrawRate = null)
+	protected function progressBar(int $items, int $redrawRate = null): ProgressBar
 	{
 		$progressBar = new ProgressBar($this->output, $items, $redrawRate);
 
@@ -256,7 +256,7 @@ abstract class Command
 	 * @param   array      $rows         Array of rows
 	 * @param   int        $writer       Output writer
 	 */
-	protected function table(array $columnNames, array $rows, $writer = Output::STANDARD)
+	protected function table(array $columnNames, array $rows, int $writer = Output::STANDARD)
 	{
 		(new Table($this->output))->draw($columnNames, $rows, $writer);
 	}
@@ -268,7 +268,7 @@ abstract class Command
 	 * @param   string    $marker  Item marker
 	 * @param   int       $writer  Output writer
 	 */
-	protected function ol(array $items, $marker = '<yellow>%s</yellow>.', $writer = Output::STANDARD)
+	protected function ol(array $items, string $marker = '<yellow>%s</yellow>.', int $writer = Output::STANDARD)
 	{
 		(new OrderedList($this->output))->draw($items, $marker, $writer);
 	}
@@ -280,7 +280,7 @@ abstract class Command
 	 * @param   string    $marker  Item marker
 	 * @param   int       $writer  Output writer
 	 */
-	protected function ul(array $items, $marker = '<yellow>*</yellow>', $writer = Output::STANDARD)
+	protected function ul(array $items, string $marker = '<yellow>*</yellow>', int $writer = Output::STANDARD)
 	{
 		(new UnorderedList($this->output))->draw($items, $marker, $writer);
 	}
@@ -293,7 +293,7 @@ abstract class Command
 	 * @param   string     $default   Default answer
 	 * @return  boolean
 	 */
-	protected function confirm($question, $default = 'n')
+	protected function confirm(string $question, string $default = 'n')
 	{
 		return (new Confirmation($this->input, $this->output))->ask($question, $default);
 	}
@@ -304,9 +304,9 @@ abstract class Command
 	 * @access  protected
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered
-	 * @return  string
+	 * @return  mixed
 	 */
-	public function question($question, $default = null)
+	public function question(string $question, $default = null)
 	{
 		return (new Question($this->input, $this->output))->ask($question, $default);
 	}
@@ -318,9 +318,9 @@ abstract class Command
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered
 	 * @param   boolean     $fallback  Fall back to non-hidden input?
-	 * @return  string
+	 * @return  mixed
 	 */
-	public function secret($question, $default = null, $fallback = false)
+	public function secret(string $question, $default = null, bool $fallback = false)
 	{
 		return (new Secret($this->input, $this->output))->ask($question, $default, $fallback);
 	}

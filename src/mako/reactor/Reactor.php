@@ -91,7 +91,7 @@ class Reactor
 	 * @param   string  $command  Command
 	 * @param   string  $class    Command class
 	 */
-	public function registerCommand($command, $class)
+	public function registerCommand(string $command, string $class)
 	{
 		$this->commands[$command] = $class;
 	}
@@ -104,7 +104,7 @@ class Reactor
 	 * @param   string    $description  Option description
 	 * @param   \Closure  $handler      Option handler
 	 */
-	public function registerCustomOption($name, $description, Closure $handler)
+	public function registerCustomOption(string $name, string $description, Closure $handler)
 	{
 		$this->options[$name] = ['description' => $description, 'handler' => $handler];
 	}
@@ -115,7 +115,7 @@ class Reactor
 	 * @access  public
 	 * @param   string  $logo  ASCII logo
 	 */
-	public function setLogo($logo)
+	public function setLogo(string $logo)
 	{
 		$this->logo = $logo;
 	}
@@ -148,7 +148,7 @@ class Reactor
 	 * @param   array      $headers  Table headers
 	 * @param   array      $rows     Table rows
 	 */
-	protected function drawTable($heading, array $headers, array $rows)
+	protected function drawTable(string $heading, array $headers, array $rows)
 	{
 		if(!empty($rows))
 		{
@@ -172,7 +172,7 @@ class Reactor
 	 * @access  protected
 	 * @return  array
 	 */
-	protected function getOptions()
+	protected function getOptions(): array
 	{
 		$options = [];
 
@@ -231,7 +231,7 @@ class Reactor
 	 * @access  protected
 	 * @return  array
 	 */
-	protected function getCommands()
+	protected function getCommands(): array
 	{
 		$info = [];
 
@@ -263,7 +263,7 @@ class Reactor
 	 * @access  protected
 	 * @param   string     $command  Command
 	 */
-	protected function dispatch($command)
+	protected function dispatch(string $command)
 	{
 		if(!isset($this->commands[$command]))
 		{
