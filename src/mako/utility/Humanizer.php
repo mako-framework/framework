@@ -44,7 +44,7 @@ class Humanizer
 	 * @param   boolean  $binary  True to use binary suffixes and false to use decimal suffixes
 	 * @return  string
 	 */
-	public function fileSize(int $size, bool $binary = true): string
+	public function fileSize($size, bool $binary = true): string
 	{
 		if($size > 0)
 		{
