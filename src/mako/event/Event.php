@@ -51,7 +51,7 @@ class Event
 	 * @param   string           $name     Event name
 	 * @param   string|\Closure  $handler  Event handler
 	 */
-	public function register($name, $handler)
+	public function register(string $name, $handler)
 	{
 		$this->events[$name][] = $handler;
 	}
@@ -63,7 +63,7 @@ class Event
 	 * @param   string   $name  Event name
 	 * @return  boolean
 	 */
-	public function has($name)
+	public function has(string $name): bool
 	{
 		return ! empty($this->events[$name]);
 	}
@@ -74,7 +74,7 @@ class Event
 	 * @access  public
 	 * @return  array
 	 */
-	public function events()
+	public function events(): array
 	{
 		return array_keys($this->events);
 	}
@@ -85,7 +85,7 @@ class Event
 	 * @access  public
 	 * @param   string  $name  Event name
 	 */
-	public function clear($name)
+	public function clear(string $name)
 	{
 		unset($this->events[$name]);
 	}
@@ -97,7 +97,7 @@ class Event
 	 * @param   string    $name            Event name
 	 * @param   string|\Closure  $handler  Event handler
 	 */
-	public function override($name, $handler)
+	public function override(string $name, $handler)
 	{
 		$this->clear($name);
 
@@ -124,7 +124,7 @@ class Event
 	 * @param   string                             $handler  Event handler class
 	 * @return  \mako\event\EventHandlerInterface
 	 */
-	protected function resolveHandler($handler)
+	protected function resolveHandler(string $handler): EventHandlerInterface
 	{
 		return $this->container->get($handler);
 	}
@@ -172,7 +172,7 @@ class Event
 	 * @param   boolean  $break       Break if one of the closures returns false?
 	 * @return  array
 	 */
-	public function trigger($name, array $parameters = [], $break = false)
+	public function trigger(string $name, array $parameters = [], bool $break = false): array
 	{
 		$returnValues = [];
 

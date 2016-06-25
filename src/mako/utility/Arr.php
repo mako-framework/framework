@@ -22,7 +22,7 @@ class Arr
 	 * @param   string   $path   Array path
 	 * @param   mixed    $value  Value to set
 	 */
-	public static function set(array &$array, $path, $value)
+	public static function set(array &$array, string $path, $value)
 	{
 		$segments = explode('.', $path);
 
@@ -49,7 +49,7 @@ class Arr
 	 * @param   string   $path   Array path
 	 * @return  boolean
 	 */
-	public static function has(array $array, $path)
+	public static function has(array $array, string $path): bool
 	{
 		$segments = explode('.', $path);
 
@@ -75,7 +75,7 @@ class Arr
 	 * @param   mixed   $default  Default return value
 	 * @return  mixed
 	 */
-	public static function get(array $array, $path, $default = null)
+	public static function get(array $array, string $path, $default = null)
 	{
 		$segments = explode('.', $path);
 
@@ -100,7 +100,7 @@ class Arr
 	 * @param   string   $path   Array path
 	 * @return  boolean
 	 */
-	public static function delete(array &$array, $path)
+	public static function delete(array &$array, string $path): bool
 	{
 		$segments = explode('.', $path);
 
@@ -140,7 +140,7 @@ class Arr
 	 * @param   array    $array  Array to check
 	 * @return  boolean
 	 */
-	public static function isAssoc(array $array)
+	public static function isAssoc(array $array): bool
 	{
 		return count(array_filter(array_keys($array), 'is_string')) === count($array);
 	}
@@ -153,7 +153,7 @@ class Arr
 	 * @param   string  $key    Array key
 	 * @return  array
 	 */
-	public static function pluck(array $array, $key)
+	public static function pluck(array $array, string $key): array
 	{
 		return array_map(function($value) use ($key)
 		{

@@ -67,7 +67,7 @@ class CommandBus implements CommandBusInterface
 	 * @param   boolean  $inner       Add an inner layer?
 	 * @return  int
 	 */
-	public function addMiddleware($middleware, $inner = true)
+	public function addMiddleware($middleware, $inner = true): int
 	{
 		return $inner ? $this->onion->addInnerLayer($middleware) : $this->onion->addOuterLayer($middleware);
 	}
@@ -80,7 +80,7 @@ class CommandBus implements CommandBusInterface
 	 * @param   array                                    $parameters  Parameters
 	 * @return  \mako\commander\CommandInterface
 	 */
-	protected function resolveCommand($command, array $parameters)
+	protected function resolveCommand($command, array $parameters): CommandInterface
 	{
 		if($command instanceof CommandInterface)
 		{
@@ -97,7 +97,7 @@ class CommandBus implements CommandBusInterface
 	 * @param   \mako\commander\CommandInterface         $command  Command
 	 * @return  \mako\commander\CommandHandlerInterface
 	 */
-	protected function resolveCommandHandler(CommandInterface $command)
+	protected function resolveCommandHandler(CommandInterface $command): CommandHandlerInterface
 	{
 		$class = get_class($command);
 
@@ -158,7 +158,7 @@ class CommandBus implements CommandBusInterface
 	 * @param   array              $middleware  Middleware
 	 * @return  \mako\onion\Onion
 	 */
-	protected function resolveOnion(array $middleware)
+	protected function resolveOnion(array $middleware): Onion
 	{
 		if(empty($middleware))
 		{

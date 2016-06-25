@@ -130,7 +130,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @return  \ArrayIterator
 	 */
-	public function getIterator()
+	public function getIterator(): ArrayIterator
 	{
 		return new ArrayIterator($this->items);
 	}
@@ -140,7 +140,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return  boolean
 	 */
-	public function isEmpty()
+	public function isEmpty(): bool
 	{
 		return empty($this->items);
 	}
@@ -153,7 +153,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   mixed   $item  Collection item
 	 * @return  int
 	 */
-	public function unshift($item)
+	public function unshift($item): int
 	{
 		return array_unshift($this->items, $item);
 	}
@@ -178,7 +178,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   mixed   $item  Collection item
 	 * @return  int
 	 */
-	public function push($item)
+	public function push($item): int
 	{
 		return array_push($this->items, $item);
 	}
@@ -204,7 +204,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   boolean   $maintainIndexAssociation  Maintain index association?
 	 * @return  boolean
 	 */
-	public function sort(Closure $comparator, $maintainIndexAssociation = true)
+	public function sort(Closure $comparator, bool $maintainIndexAssociation = true): bool
 	{
 		return $maintainIndexAssociation ? uasort($this->items, $comparator) : usort($this->items, $comparator);
 	}
@@ -216,7 +216,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   int                       $size  Chunk size
 	 * @return  \mako\utility\Collection
 	 */
-	public function chunk($size)
+	public function chunk(int $size)
 	{
 		$collections = [];
 
@@ -235,7 +235,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @return  boolean
 	 */
-	public function shuffle()
+	public function shuffle(): bool
 	{
 		return shuffle($this->items);
 	}

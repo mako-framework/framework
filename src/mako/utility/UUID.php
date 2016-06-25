@@ -53,7 +53,7 @@ class UUID
 	 * @param   string   $str  The UUID to validate
 	 * @return  boolean
 	 */
-	public static function validate($str)
+	public static function validate(string $str): bool
 	{
 		return (bool) preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i', $str);
 	}
@@ -65,7 +65,7 @@ class UUID
 	 * @param   string     $namespace  UUID
 	 * @return  string
 	 */
-	protected static function toBin($namespace)
+	protected static function toBin(string $namespace): string
 	{
 		if(!static::validate($namespace))
 		{
@@ -100,7 +100,7 @@ class UUID
 	 * @param   string  $name       Name
 	 * @return  string
 	 */
-	public static function v3($namespace, $name)
+	public static function v3(string $namespace, string $name): string
 	{
 		// Calculate hash value
 
@@ -141,7 +141,7 @@ class UUID
 	 * @access  public
 	 * @return  string
 	 */
-	public static function v4()
+	public static function v4(): string
 	{
 		$random = random_bytes(16);
 
@@ -160,7 +160,7 @@ class UUID
 	 * @param   string  $name       Name
 	 * @return  string
 	 */
-	public static function v5($namespace, $name)
+	public static function v5(string $namespace, string $name): string
 	{
 		// Calculate hash value
 

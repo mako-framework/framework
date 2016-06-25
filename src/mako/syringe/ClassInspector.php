@@ -22,7 +22,7 @@ class ClassInspector
 	 * @param   boolean        $autoload  Autoload
 	 * @return  array
 	 */
-	public static function getTraits($class, $autoload = true)
+	public static function getTraits($class, bool $autoload = true): array
 	{
 		// Fetch all traits used by a class and its parents
 

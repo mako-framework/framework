@@ -43,7 +43,7 @@ trait NamespacedFileLoaderTrait
 	 * @access  public
 	 * @param   string  $path  Path
 	 */
-	public function setPath($path)
+	public function setPath(string $path)
 	{
 		$this->path = $path;
 	}
@@ -54,7 +54,7 @@ trait NamespacedFileLoaderTrait
 	 * @access  public
 	 * @param   string  $extension  Extension
 	 */
-	public function setExtension($extension)
+	public function setExtension(string $extension)
 	{
 		$this->extension = $extension;
 	}
@@ -66,7 +66,7 @@ trait NamespacedFileLoaderTrait
 	 * @param   string  $namespace  Namespace name
 	 * @param   string  $path       Namespace path
 	 */
-	public function registerNamespace($namespace, $path)
+	public function registerNamespace(string $namespace, string $path)
 	{
 		$this->namespaces[$namespace] = $path;
 	}
@@ -80,7 +80,7 @@ trait NamespacedFileLoaderTrait
 	 * @param   string     $suffix     Path suffix
 	 * @return  string
 	 */
-	protected function getFilePath($file, $extension = null, $suffix = null)
+	protected function getFilePath(string $file, string $extension = null, string $suffix = null): string
 	{
 		if(strpos($file, '::') === false)
 		{
@@ -123,7 +123,7 @@ trait NamespacedFileLoaderTrait
 	 * @param   string     $suffix     Path suffix
 	 * @return  array
 	 */
-	protected function getCascadingFilePaths($file, $extension = null, $suffix = null)
+	protected function getCascadingFilePaths(string $file, string $extension = null, string $suffix = null): array
 	{
 		$paths = [];
 

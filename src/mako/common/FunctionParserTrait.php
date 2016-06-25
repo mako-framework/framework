@@ -25,7 +25,7 @@ trait FunctionParserTrait
 	 * @param   string     $function  Function
 	 * @return  array
 	 */
-	protected function parseFunction($function)
+	protected function parseFunction(string $function): array
 	{
 		if(strpos($function, ':') === false)
 		{

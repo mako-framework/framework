@@ -23,7 +23,7 @@ class Num
 	 * @param   int     $int  Arabic numeral to convert
 	 * @return  string
 	 */
-	public static function arabic2roman($int)
+	public static function arabic2roman(int $int): string
 	{
 		$int = (int) $int;
 
@@ -80,7 +80,7 @@ class Num
 	 * @param   string  $str  Roman numeral to convert
 	 * @return  int
 	 */
-	public static function roman2arabic($str)
+	public static function roman2arabic(string $str): int
 	{
 		if(empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) === 0)
 		{

@@ -36,10 +36,10 @@ class AliasLoader
 	 * Autoloads aliased classes.
 	 *
 	 * @access  public
-	 * @param   string  $alias  Class alias
+	 * @param   string   $alias  Class alias
 	 * @return  boolean
 	 */
-	public function load($alias)
+	public function load(string $alias): bool
 	{
 		$alias = ltrim($alias, '\\');
 

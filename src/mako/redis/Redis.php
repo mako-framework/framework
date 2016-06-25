@@ -131,7 +131,7 @@ class Redis
 	 * @param   \Closure  $pipeline  Pipelined commands
 	 * @return  array
 	 */
-	public function pipeline(Closure $pipeline)
+	public function pipeline(Closure $pipeline): array
 	{
 		// Enable pipelining
 
@@ -173,7 +173,7 @@ class Redis
 	 * @param   array   $arguments  Command arguments
 	 * @return  mixed
 	 */
-	public function __call($name, $arguments)
+	public function __call(string $name, array $arguments)
 	{
 		// Build command
 

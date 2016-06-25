@@ -31,7 +31,7 @@ class Password
 	 * @param   int        $cost  Computing cost
 	 * @return  int
 	 */
-	protected static function normalizeCost($cost)
+	protected static function normalizeCost(int $cost): int
 	{
 		switch(PASSWORD_DEFAULT)
 		{
@@ -49,7 +49,7 @@ class Password
 	 * @access  public
 	 * @param   int     $cost  Computing cost
 	 */
-	public static function setDefaultComputingCost($cost)
+	public static function setDefaultComputingCost(int $cost)
 	{
 		static::$costs[PASSWORD_DEFAULT] = static::normalizeCost($cost);
 	}
@@ -60,7 +60,7 @@ class Password
 	 * @access  public
 	 * @return  int
 	 */
-	public static function getDefaultComputingCost()
+	public static function getDefaultComputingCost(): int
 	{
 		return static::$costs[PASSWORD_DEFAULT];
 	}
@@ -73,7 +73,7 @@ class Password
 	 * @param   null|int  $cost      Computing cost
 	 * @return  string
 	 */
-	public static function hash($password, $cost = null)
+	public static function hash(string $password, int $cost = null): string
 	{
 		$cost = static::normalizeCost($cost ?? static::$costs[PASSWORD_DEFAULT]);
 
@@ -88,7 +88,7 @@ class Password
 	 * @param   null|int  $cost  Computing cost
 	 * @return  boolean
 	 */
-	public static function needsRehash($hash, $cost = null)
+	public static function needsRehash(string $hash, int $cost = null): bool
 	{
 		$cost = static::normalizeCost($cost ?? static::$costs[PASSWORD_DEFAULT]);
 
@@ -103,7 +103,7 @@ class Password
 	 * @param   string    $hash      Password hash
 	 * @return  boolean
 	 */
-	public static function validate($password, $hash)
+	public static function validate(string $password, string $hash): bool
 	{
 		return password_verify($password, $hash);
 	}

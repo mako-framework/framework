@@ -31,7 +31,7 @@ class HTML
 	 * @access  public
 	 * @param   boolean  $xhtml  Should we return HXML?
 	 */
-	public function __construct($xhtml = false)
+	public function __construct(bool $xhtml = false)
 	{
 		$this->xhtml = $xhtml;
 	}
@@ -43,7 +43,7 @@ class HTML
 	 * @param   array   $attributes  Array of tags
 	 * @return  string
 	 */
-	protected function attributes($attributes)
+	protected function attributes(array $attributes): string
 	{
 		$attr = '';
 
@@ -69,7 +69,7 @@ class HTML
 	 * @param   string  $content     Tag content
 	 * @return  string
 	 */
-	public function tag($name, array $attributes = [], $content = null)
+	public function tag(string $name, array $attributes = [], string $content = null): string
 	{
 		return '<' . $name . $this->attributes($attributes) . (($content === null) ? ($this->xhtml ? ' />' : '>') : '>' . $content . '</' . $name . '>');
 	}
@@ -78,12 +78,12 @@ class HTML
 	 * Helper method for building media tags.
 	 *
 	 * @access  protected
-	 * @param   string     $type        Tag type
-	 * @param   mixed      $files       File or array of files
-	 * @param   array      $attributes  Tag attributes
+	 * @param   string        $type        Tag type
+	 * @param   string|array  $files       File or array of files
+	 * @param   array         $attributes  Tag attributes
 	 * @return  string
 	 */
-	protected function buildMedia($type, $files, $attributes)
+	protected function buildMedia(string $type, $files, array $attributes): string
 	{
 		$sources = '';
 
@@ -99,11 +99,11 @@ class HTML
 	 * Creates audio tag with support for multiple sources.
 	 *
 	 * @access  public
-	 * @param   mixed   $files       File or array of files
-	 * @param   array   $attributes  Tag attributes
+	 * @param   string|array  $files       File or array of files
+	 * @param   array         $attributes  Tag attributes
 	 * @return  string
 	 */
-	public function audio($files, array $attributes = [])
+	public function audio($files, array $attributes = []): string
 	{
 		return $this->buildMedia('audio', $files, $attributes);
 	}
@@ -112,11 +112,11 @@ class HTML
 	 * Creates video tag with support for multiple sources.
 	 *
 	 * @access  public
-	 * @param   mixed   $files       File or array of files
-	 * @param   array   $attributes  Tag attributes
+	 * @param   string|array  $files       File or array of files
+	 * @param   array         $attributes  Tag attributes
 	 * @return  string
 	 */
-	public function video($files, array $attributes = [])
+	public function video($files, array $attributes = []): string
 	{
 		return $this->buildMedia('video', $files, $attributes);
 	}
@@ -126,11 +126,11 @@ class HTML
 	 *
 	 * @access  protected
 	 * @param   string     $type        Tag type
-	 * @param   mixed      $items       File or array of files
+	 * @param   array      $items       List items
 	 * @param   array      $attributes  Tag attributes
 	 * @return  string
 	 */
-	protected function buildList($type, $items, $attributes)
+	protected function buildList(string $type, array $items, array $attributes): string
 	{
 		$list = '';
 
@@ -157,7 +157,7 @@ class HTML
 	 * @param   array   $attributes  List attributes
 	 * @return  string
 	 */
-	public function ul(array $items, array $attributes = [])
+	public function ul(array $items, array $attributes = []): string
 	{
 		return $this->buildList('ul', $items, $attributes);
 	}
@@ -170,7 +170,7 @@ class HTML
 	 * @param   array   $attributes  List attributes
 	 * @return  string
 	 */
-	public function ol(array $items, array $attributes = [])
+	public function ol(array $items, array $attributes = []): string
 	{
 		return $this->buildList('ol', $items, $attributes);
 	}

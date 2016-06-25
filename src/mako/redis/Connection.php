@@ -30,7 +30,7 @@ class Connection
 	 * @param   string  $host  Redis host
 	 * @param   int     $port  Redis port
 	 */
-	public function __construct($host, $port = 6379)
+	public function __construct(string $host, int $port = 6379)
 	{
 		$this->connection = @fsockopen('tcp://' . $host, $port, $errNo, $errStr);
 
@@ -71,7 +71,7 @@ class Connection
 	 * @param   int           $bytes  Number of bytes to read
 	 * @return  string|false
 	 */
-	public function read($bytes)
+	public function read(int $bytes)
 	{
 		return fread($this->connection, $bytes);
 	}
@@ -83,7 +83,7 @@ class Connection
 	 * @param   string     $data  Data to write
 	 * @return  int|false
 	 */
-	public function write($data)
+	public function write(string $data)
 	{
 		return fwrite($this->connection, $data);
 	}

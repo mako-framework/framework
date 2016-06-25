@@ -102,7 +102,7 @@ class FileSystem
 	 * @param   string   $file  Path to file
 	 * @return  boolean
 	 */
-	public function exists($file)
+	public function exists(string $file): bool
 	{
 		return file_exists($file);
 	}
@@ -114,7 +114,7 @@ class FileSystem
 	 * @param   string   $file  Path to file
 	 * @return  boolean
 	 */
-	public function isFile($file)
+	public function isFile(string $file): bool
 	{
 		return is_file($file);
 	}
@@ -126,7 +126,7 @@ class FileSystem
 	 * @param   string   $directory  Path to directory
 	 * @return  boolean
 	 */
-	public function isDirectory($directory)
+	public function isDirectory(string $directory): bool
 	{
 		return is_dir($directory);
 	}
@@ -138,7 +138,7 @@ class FileSystem
 	 * @param   string   $path  Path to directory
 	 * @return  boolean
 	 */
-	public function isEmpty($path)
+	public function isEmpty(string $path): bool
 	{
 		if(is_dir($path))
 		{
@@ -163,7 +163,7 @@ class FileSystem
 	 * @param   string   $file  Path to file
 	 * @return  boolean
 	 */
-	public function isReadable($file)
+	public function isReadable(string $file): bool
 	{
 		return is_readable($file);
 	}
@@ -175,7 +175,7 @@ class FileSystem
 	 * @param   string   $file  Path to file
 	 * @return  boolean
 	 */
-	public function isWritable($file)
+	public function isWritable(string $file): bool
 	{
 		return is_writable($file);
 	}
@@ -187,7 +187,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  int
 	 */
-	public function lastModified($file)
+	public function lastModified(string $file): int
 	{
 		return filemtime($file);
 	}
@@ -199,7 +199,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  int
 	 */
-	public function size($file)
+	public function size(string $file): int
 	{
 		return filesize($file);
 	}
@@ -211,7 +211,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  string
 	 */
-	public function extension($file)
+	public function extension(string $file): string
 	{
 		return pathinfo($file, PATHINFO_EXTENSION);
 	}
@@ -220,11 +220,11 @@ class FileSystem
 	 * Returns the mime type of the file.
 	 *
 	 * @access  public
-	 * @param   string   $file  Path to file
-	 * @param   boolean  $guess  (optinal) Guess mime type if finfo_open doesn't exist?
-	 * @return  string
+	 * @param   string          $file  Path to file
+	 * @param   boolean         $guess  (optinal) Guess mime type if finfo_open doesn't exist?
+	 * @return  string|boolean
 	 */
-	public function mime($file, $guess = true)
+	public function mime(string $file, bool $guess = true)
 	{
 		if(function_exists('finfo_open'))
 		{
@@ -262,7 +262,7 @@ class FileSystem
 	 * @param   string   $file  Path to file
 	 * @return  boolean
 	 */
-	public function delete($file)
+	public function delete(string $file): bool
 	{
 		return unlink($file);
 	}
@@ -274,7 +274,7 @@ class FileSystem
 	 * @param   string   $path  Path to directory
 	 * @return  boolean
 	 */
-	public function deleteDirectory($path)
+	public function deleteDirectory(string $path): bool
 	{
 		foreach(new FilesystemIterator($path) as $item)
 		{
@@ -299,7 +299,7 @@ class FileSystem
 	 * @param   int          $flags    Flags
 	 * @return  array|false
 	 */
-	public function glob($pattern, $flags = 0)
+	public function glob(string $pattern, int $flags = 0)
 	{
 		return glob($pattern, $flags);
 	}
@@ -311,7 +311,7 @@ class FileSystem
 	 * @param   string          $file  File path
 	 * @return  string|boolean
 	 */
-	public function getContents($file)
+	public function getContents(string $file)
 	{
 		return file_get_contents($file);
 	}
@@ -325,7 +325,7 @@ class FileSystem
 	 * @param   boolean      $lock  Acquire an exclusive write lock?
 	 * @return  int|boolean
 	 */
-	public static function putContents($file, $data, $lock = false)
+	public static function putContents(string $file, $data, bool $lock = false)
 	{
 		return file_put_contents($file, $data, $lock ? LOCK_EX : 0);
 	}
@@ -339,7 +339,7 @@ class FileSystem
 	 * @param   boolean      $lock  Acquire an exclusive write lock?
 	 * @return  int|boolean
 	 */
-	public static function prependContents($file, $data, $lock = false)
+	public static function prependContents(string $file, $data, bool $lock = false)
 	{
 		return file_put_contents($file, $data . file_get_contents($file), $lock ? LOCK_EX : 0);
 	}
@@ -353,7 +353,7 @@ class FileSystem
 	 * @param   boolean      $lock  Acquire an exclusive write lock?
 	 * @return  int|boolean
 	 */
-	public static function appendContents($file, $data, $lock = false)
+	public static function appendContents(string $file, $data, bool $lock = false)
 	{
 		return file_put_contents($file, $data,  $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND);
 	}
@@ -366,7 +366,7 @@ class FileSystem
 	 * @param   boolean  $lock  Acquire an exclusive write lock?
 	 * @return  boolean
 	 */
-	public static function truncateContents($file, $lock = false)
+	public static function truncateContents(string $file, bool $lock = false): bool
 	{
 		return (0 === file_put_contents($file, null, $lock ? LOCK_EX : 0));
 	}
@@ -380,7 +380,7 @@ class FileSystem
 	 *  @param   boolean  $recursive  Recursive
 	 *  @return  boolean
 	 */
-	public function createDirectory($path, $mode = 0777, $recursive = false)
+	public function createDirectory(string $path, int $mode = 0777, bool $recursive = false): bool
 	{
 		return mkdir($path, $mode, $recursive);
 	}
@@ -392,7 +392,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  mixed
 	 */
-	public function include($file)
+	public function include(string $file)
 	{
 		return include $file;
 	}
@@ -404,7 +404,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  mixed
 	 */
-	public function includeOnce($file)
+	public function includeOnce(string $file)
 	{
 		return include_once $file;
 	}
@@ -416,7 +416,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  mixed
 	 */
-	public function require($file)
+	public function require(string $file)
 	{
 		return require $file;
 	}
@@ -428,7 +428,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  mixed
 	 */
-	public function requireOnce($file)
+	public function requireOnce(string $file)
 	{
 		return require_once $file;
 	}
@@ -442,7 +442,7 @@ class FileSystem
 	 * @param   boolean         $useIncludePath  Use include path?
 	 * @return  \SplFileObject
 	 */
-	public function file($file, $openMode = 'r', $useIncludePath = false)
+	public function file(string $file, string $openMode = 'r', bool $useIncludePath = false)
 	{
 		return new SplFileObject($file, $openMode, $useIncludePath);
 	}

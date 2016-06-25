@@ -44,7 +44,7 @@ class Humanizer
 	 * @param   boolean  $binary  True to use binary suffixes and false to use decimal suffixes
 	 * @return  string
 	 */
-	public function fileSize($size, $binary = true)
+	public function fileSize(int $size, bool $binary = true): string
 	{
 		if($size > 0)
 		{
@@ -77,7 +77,7 @@ class Humanizer
 	 * @param   string              $dateFormat  Default date format
 	 * @return  string
 	 */
-	public function day(DateTimeInterface $dateTime, $dateFormat = 'Y-m-d, H:i')
+	public function day(DateTimeInterface $dateTime, string $dateFormat = 'Y-m-d, H:i'): string
 	{
 		if($dateTime->format('Y-m-d') === date('Y-m-d'))
 		{
@@ -106,7 +106,7 @@ class Humanizer
 	 * @param   string              $clockFormat  Default clock format
 	 * @return  string
 	 */
-	public function time(DateTimeInterface $dateTime, $dateFormat = 'Y-m-d, H:i', $clockFormat = ', H:i')
+	public function time(DateTimeInterface $dateTime, string $dateFormat = 'Y-m-d, H:i', string $clockFormat = ', H:i'): string
 	{
 		$diff = time() - $dateTime->getTimestamp();
 
