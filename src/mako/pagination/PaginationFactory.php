@@ -89,7 +89,7 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function create($items, $itemsPerPage = null, array $options = []): PaginationInterface
+	public function create(int $items, int $itemsPerPage = null, array $options = []): PaginationInterface
 	{
 		$itemsPerPage = $itemsPerPage ?? $this->options['items_per_page'];
 

@@ -24,7 +24,7 @@ interface PaginationInterface
 	 * @param   int     $currentPage   The current page
 	 * @param   array   $options       Pagination options
 	 */
-	public function __construct($items, $itemsPerPage, $currentPage, array $options = []);
+	public function __construct(int $items, int $itemsPerPage, int $currentPage, array $options = []);
 
 	/**
 	 * Returns the number of items.
@@ -32,7 +32,7 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-	public function items();
+	public function items(): int;
 
 	/**
 	 * Returns the number of items per page.
@@ -40,7 +40,7 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-	public function itemsPerPage();
+	public function itemsPerPage(): int;
 
 	/**
 	 * Returns the current page.
@@ -48,7 +48,7 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-	public function currentPage();
+	public function currentPage(): int;
 
 	/**
 	 * Returns the number pages.
@@ -56,7 +56,7 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-	public function numberOfPages();
+	public function numberOfPages(): int;
 
 	/**
 	 * Returns the limit.
@@ -64,7 +64,7 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-	public function limit();
+	public function limit(): int;
 
 	/**
 	 * Returns the offset.
@@ -72,5 +72,5 @@ interface PaginationInterface
 	 * @access  public
 	 * @return  int
 	 */
-	public function offset();
+	public function offset(): int;
 }

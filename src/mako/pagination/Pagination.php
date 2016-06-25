@@ -99,7 +99,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function __construct($items, $itemsPerPage, $currentPage, array $options = [])
+	public function __construct(int $items, int $itemsPerPage, int $currentPage, array $options = [])
 	{
 		$this->items = $items;
 
@@ -121,7 +121,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function items()
+	public function items(): int
 	{
 		return $this->items;
 	}
@@ -129,7 +129,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function itemsPerPage()
+	public function itemsPerPage(): int
 	{
 		return $this->itemsPerPage;
 	}
@@ -137,7 +137,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function currentPage()
+	public function currentPage(): int
 	{
 		return $this->currentPage;
 	}
@@ -145,7 +145,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function numberOfPages()
+	public function numberOfPages(): int
 	{
 		return $this->pages;
 	}
@@ -153,7 +153,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function limit()
+	public function limit(): int
 	{
 		return $this->itemsPerPage;
 	}
@@ -161,7 +161,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function offset()
+	public function offset(): int
 	{
 		return $this->offset;
 	}
@@ -205,7 +205,7 @@ class Pagination implements PaginationInterface
 	 * @access  public
 	 * @return  array
 	 */
-	public function pagination()
+	public function pagination(): array
 	{
 		if(empty($this->pagination))
 		{
@@ -286,7 +286,7 @@ class Pagination implements PaginationInterface
 	 * @param   string  $view  Pagination view
 	 * @return  string
 	 */
-	public function render($view)
+	public function render(string $view): string
 	{
 		if(empty($this->viewFactory))
 		{
