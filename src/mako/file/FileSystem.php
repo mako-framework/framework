@@ -7,6 +7,7 @@
 
 namespace mako\file;
 
+use DirectoryIterator;
 use FilesystemIterator;
 use SplFileObject;
 
@@ -141,11 +142,9 @@ class FileSystem
 	{
 		if(is_dir($path))
 		{
-			$files = scandir($path);
-
-			foreach($files as $file)
+			foreach(new DirectoryIterator($path) as $file)
 			{
-				if($file !== '.' && $file !== '..')
+				if(!$file->isDot())
 				{
 					return false;
 				}
@@ -277,9 +276,7 @@ class FileSystem
 	 */
 	public function deleteDirectory($path)
 	{
-		$iterator = new FilesystemIterator($path);
-
-		foreach($iterator as $item)
+		foreach(new FilesystemIterator($path) as $item)
 		{
 			if($item->isDir())
 			{
