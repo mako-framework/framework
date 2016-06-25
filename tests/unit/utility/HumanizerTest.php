@@ -37,7 +37,7 @@ class HumanizerTest extends PHPUnit_Framework_TestCase
 		{
 			if(!empty($params))
 			{
-				return [$key, $params];
+				return $key . ':' . implode('.', $params);
 			}
 
 			return $key;
@@ -323,7 +323,7 @@ class HumanizerTest extends PHPUnit_Framework_TestCase
 
 		$dateTime = (new DateTime)->setTimestamp(time() + (60 * 10));
 
-		$this->assertEquals(['humanizer.in_minutes', [10]], $humanizer->time($dateTime));
+		$this->assertEquals('humanizer.in_minutes:10', $humanizer->time($dateTime));
 
 		//
 
@@ -335,7 +335,7 @@ class HumanizerTest extends PHPUnit_Framework_TestCase
 
 		$dateTime = (new DateTime)->setTimestamp(time() - (60 * 10));
 
-		$this->assertEquals(['humanizer.minutes_ago', [10]], $humanizer->time($dateTime));
+		$this->assertEquals('humanizer.minutes_ago:10', $humanizer->time($dateTime));
 
 		//
 
