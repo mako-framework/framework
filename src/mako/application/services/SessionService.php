@@ -11,8 +11,8 @@ use mako\application\services\Service;
 use mako\session\Session;
 use mako\session\stores\Database;
 use mako\session\stores\File;
+use mako\session\stores\NullStore;
 use mako\session\stores\Redis;
-use mako\session\stores\Void;
 
 /**
  * Session service.
@@ -50,6 +50,20 @@ class SessionService extends Service
 	}
 
 	/**
+	 * Returns a null store instance.
+	 *
+	 * @access  protected
+	 * @param   \mako\syringe\Container         $container       IoC container instance
+	 * @param   array                           $config          Store configuration
+	 * @param   boolean|array                   $classWhitelist  Class whitelist
+	 * @return  \mako\session\stores\NullStore
+	 */
+	protected function getNullStore($container, $config, $classWhitelist)
+	{
+		return new NullStore;
+	}
+
+	/**
 	 * Returns a redis store instance.
 	 *
 	 * @access  protected
@@ -61,20 +75,6 @@ class SessionService extends Service
 	protected function getRedisStore($container, $config, $classWhitelist)
 	{
 		return new Redis($container->get('redis')->connection($config['configuration']), $classWhitelist);
-	}
-
-	/**
-	 * Returns a void store instance.
-	 *
-	 * @access  protected
-	 * @param   \mako\syringe\Container    $container       IoC container instance
-	 * @param   array                      $config          Store configuration
-	 * @param   boolean|array              $classWhitelist  Class whitelist
-	 * @return  \mako\session\stores\Void
-	 */
-	protected function getVoidStore($container, $config, $classWhitelist)
-	{
-		return new Void;
 	}
 
 	/**
@@ -98,8 +98,8 @@ class SessionService extends Service
 			case 'file':
 				return $this->getFileStore($container, $config, $classWhitelist);
 				break;
-			case 'void':
-				return $this->getVoidStore($container, $config, $classWhitelist);
+			case 'null':
+				return $this->getNullStore($container, $config, $classWhitelist);
 				break;
 			case 'redis':
 				return $this->getRedisStore($container, $config, $classWhitelist);

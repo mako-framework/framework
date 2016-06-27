@@ -11,11 +11,11 @@ use mako\cache\stores\StoreInterface;
 use mako\cache\stores\traits\GetOrElseTrait;
 
 /**
- * Void store.
+ * Null store.
  *
  * @author  Frederic G. Østby
  */
-class Void implements StoreInterface
+class NullStore implements StoreInterface
 {
 	use GetOrElseTrait;
 

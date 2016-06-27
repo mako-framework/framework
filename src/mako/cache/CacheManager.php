@@ -15,8 +15,8 @@ use mako\cache\stores\File;
 use mako\cache\stores\Memcache;
 use mako\cache\stores\Memcached;
 use mako\cache\stores\Memory;
+use mako\cache\stores\NullStore;
 use mako\cache\stores\Redis;
-use mako\cache\stores\Void;
 use mako\cache\stores\WinCache;
 use mako\cache\stores\ZendDisk;
 use mako\cache\stores\ZendMemory;
@@ -144,15 +144,15 @@ class CacheManager extends AdapterManager
 	}
 
 	/**
-	 * Void store factory.
+	 * Null store factory.
 	 *
 	 * @access  protected
-	 * @param   array                    $configuration  Configuration
-	 * @return  \mako\cache\stores\Void
+	 * @param   array                         $configuration  Configuration
+	 * @return  \mako\cache\stores\NullStore
 	 */
-	protected function voidFactory($configuration)
+	protected function nullFactory($configuration)
 	{
-		return new Void;
+		return new NullStore;
 	}
 
 	/**

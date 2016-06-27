@@ -9,19 +9,19 @@ namespace mako\tests\unit\session\stores;
 
 use PHPUnit_Framework_TestCase;
 
-use mako\session\stores\Void;
+use mako\session\stores\NullStore;
 
 /**
  * @group unit
  */
-class VoidTest extends PHPUnit_Framework_TestCase
+class NullStoreTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function testWrite()
 	{
-		$null = new Void;
+		$null = new NullStore;
 
 		$null->write('123', 'data', 123);
 	}
@@ -31,7 +31,7 @@ class VoidTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testRead()
 	{
-		$null = new Void;
+		$null = new NullStore;
 
 		$this->assertEquals([], $null->read('123'));
 	}
@@ -41,7 +41,7 @@ class VoidTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testDelete()
 	{
-		$null = new Void;
+		$null = new NullStore;
 
 		$null->delete('123');
 
@@ -52,7 +52,7 @@ class VoidTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGc()
 	{
-		$null = new Void;
+		$null = new NullStore;
 
 		$null->gc(123);
 	}
