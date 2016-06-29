@@ -26,15 +26,13 @@
 	},
 	"require": {
 		"php": ">=7.0.0",
-		"monolog/monolog": "^1.13.1"
+		"monolog/monolog": "^1.19.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "4.6.*",
+		"phpunit/phpunit": "5.4.*",
 		"mockery/mockery": "dev-master"
 	},
-	"config": {
-		"preferred-install": "dist"
-	},
+	"prefer-stable": true,
 	"minimum-stability": "dev",
 	"extra": {
 		"branch-alias": {
