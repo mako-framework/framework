@@ -237,7 +237,7 @@ class ErrorHandler
 
 			if($this->shouldExceptionBeLogged($exception))
 			{
-				$this->logger->error($exception);
+				$this->logger->error($exception, ['exception' => $exception]);
 			}
 		}
 		catch(Throwable $e)
