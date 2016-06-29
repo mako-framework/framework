@@ -110,7 +110,11 @@ class Time extends DateTime
 
 	public static function createFromDate($year, $month = null, $day = null, $timeZone = null)
 	{
-		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
+		$now = static::now($timeZone);
+
+		$date = clone $now;
+
+		$date->setDate($year, 1, 1);
 
 		$month = $month !== null ? $month : $now->format('n');
 
