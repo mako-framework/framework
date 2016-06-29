@@ -567,10 +567,10 @@ class Query
 	 * Adds a IN clause.
 	 *
 	 * @access  public
-	 * @param   string                                            $column     Column name
-	 * @param   array|Raw|\Closure|\mako\database\query\Subquery  $values     Array of values or Subquery
-	 * @param   string                                            $separator  Clause separator
-	 * @param   boolean                                           $not        Not in?
+	 * @param   string                                                                 $column     Column name
+	 * @param   array|\mako\database\query\Raw|\Closure|\mako\database\query\Subquery  $values     Array of values or Subquery
+	 * @param   string                                                                 $separator  Clause separator
+	 * @param   boolean                                                                $not        Not in?
 	 * @return  \mako\database\query\Query
 	 */
 	public function in($column, $values, $separator = 'AND', $not = false)
