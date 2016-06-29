@@ -86,7 +86,7 @@ class Compiler
 	 */
 	protected function isParenthesesEnclosed($string)
 	{
-		return mb_strlen($string) >= 2 && mb_substr($string, 0, 1) == "(" && mb_substr($string, -1) == ")";
+		return strlen($string) >= 2 && substr($string, 0, 1) === '(' && substr($string, -1) === ')';
 	}
 
 	/**
