@@ -47,9 +47,9 @@ interface StoreInterface
 	 * Fetch data from the cache or store it if it doesn't already exist.
 	 *
 	 * @access  public
-	 * @param   string    $key   Cache key
-	 * @param   callable  $data  Closure that returns the data we want to store
-	 * @param   int       $ttl   Time to live
+	 * @param   string    $key       Cache key
+	 * @param   callable  $callable  Callable that returns the data we want to store
+	 * @param   int       $ttl       Time to live
 	 * @return  mixed
 	 */
 	public function getOrElse($key, callable $callable, $ttl = 0);

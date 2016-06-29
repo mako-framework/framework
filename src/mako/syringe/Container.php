@@ -224,7 +224,7 @@ class Container
 	 *
 	 * @access  protected
 	 * @param   \ReflectionParameter   $parameter  ReflectionParameter instance
-	 * @param   null|\ReflectionClass  $className  ReflectionClass instance
+	 * @param   null|\ReflectionClass  $class      ReflectionClass instance
 	 * @return  mixed
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ReflectionClass $class = null)
@@ -261,7 +261,7 @@ class Container
 	 * @access  public
 	 * @param   array                  $reflectionParameters  Reflection parameters
 	 * @param   array                  $providedParameters    Provided Parameters
-	 * @param   null|\ReflectionClass  $className             ReflectionClass instance
+	 * @param   null|\ReflectionClass  $class                 ReflectionClass instance
 	 * @return  array
 	 */
 	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ReflectionClass $class = null): array

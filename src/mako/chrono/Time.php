@@ -287,7 +287,6 @@ class Time extends DateTime
 	 * Returns the number of days in the current or specified month.
 	 *
 	 * @access  public
-	 * @param   null|int  $month  Month
 	 * @return  int
 	 */
 	public function daysInMonth()

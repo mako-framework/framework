@@ -54,7 +54,8 @@ class OrderedList
 	 * Calculates the maximum width of a marker in a list.
 	 *
 	 * @access  protected
-	 * @param   array      $items  Items
+	 * @param   array      $items   Items
+	 * @param   string     $marker  Item marker
 	 * @return  array
 	 */
 	protected function calculateWidth(array $items, string $marker): array
@@ -82,7 +83,10 @@ class OrderedList
 	 * @access  protected
 	 * @param   string     $item          Item
 	 * @param   string     $marker        Item marker
+	 * @param   int        $width         Item number width
+	 * @param   int        $number        Item number
 	 * @param   int        $nestingLevel  Nesting level
+	 * @param   int        $parentWidth   Parent width
 	 * @return  string
 	 */
 	protected function buildListItem(string $item, string $marker, int $width, int $number, int $nestingLevel, int $parentWidth): string
