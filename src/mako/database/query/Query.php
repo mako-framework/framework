@@ -1218,13 +1218,13 @@ class Query
 	 * Executes an aggregate query and returns the result.
 	 *
 	 * @access  public
-	 * @param   string  $column    Column
 	 * @param   string  $function  Aggregate function
+	 * @param   string  $column    Column
 	 * @return  mixed
 	 */
-	protected function aggregate($column, $function)
+	protected function aggregate($function, $column)
 	{
-		$aggregate = new Raw($function . '(' . $this->compiler->wrapTableAndOrColumn($column) . ')');
+		$aggregate = new Raw(sprintf($function, $this->compiler->wrap($column)));
 
 		$query = $this->select([$aggregate])->compiler->select();
 
@@ -1240,7 +1240,7 @@ class Query
 	 */
 	public function min($column)
 	{
-		return $this->aggregate($column, 'MIN');
+		return $this->aggregate('MIN(%s)', $column);
 	}
 
 	/**
@@ -1252,7 +1252,7 @@ class Query
 	 */
 	public function max($column)
 	{
-		return $this->aggregate($column, 'MAX');
+		return $this->aggregate('MAX(%s)', $column);
 	}
 
 	/**
@@ -1264,7 +1264,7 @@ class Query
 	 */
 	public function sum($column)
 	{
-		return $this->aggregate($column, 'SUM');
+		return $this->aggregate('SUM(%s)', $column);
 	}
 
 	/**
@@ -1276,7 +1276,7 @@ class Query
 	 */
 	public function avg($column)
 	{
-		return $this->aggregate($column, 'AVG');
+		return $this->aggregate('AVG(%s)', $column);
 	}
 
 	/**
@@ -1288,7 +1288,19 @@ class Query
 	 */
 	public function count($column = '*')
 	{
-		return $this->aggregate($column, 'COUNT');
+		return $this->aggregate('COUNT(%s)', $column);
+	}
+
+	/**
+	 * Returns the number of distinct values of the chosen column.
+	 *
+	 * @access  public
+	 * @param   string  $column  Column name
+	 * @return  int
+	 */
+	public function countDistinct($column)
+	{
+		return $this->aggregate('COUNT(DISTINCT %s)', $column);
 	}
 
 	/**

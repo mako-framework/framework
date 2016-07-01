@@ -1187,6 +1187,21 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testCountDistinctAggregate()
+	{
+		$query = $this->getBuilder();
+
+		$query->countDistinct('foo');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT COUNT(DISTINCT "foo") FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testAvgAggregate()
 	{
 		$query = $this->getBuilder();
@@ -1241,6 +1256,21 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT SUM("foo") FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testAggregateWithRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->count(new Raw('DISTINCT "foo"'));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT COUNT(DISTINCT "foo") FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
