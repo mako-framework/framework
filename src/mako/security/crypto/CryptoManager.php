@@ -11,7 +11,6 @@ use RuntimeException;
 
 use mako\common\AdapterManager;
 use mako\security\crypto\Crypto;
-use mako\security\crypto\encrypters\MCrypt;
 use mako\security\crypto\encrypters\OpenSSL;
 use mako\security\crypto\padders\PKCS7;
 
@@ -30,18 +29,6 @@ class CryptoManager extends AdapterManager
 	 * @var boolean
 	 */
 	protected $reuseInstances = false;
-
-	/**
-	 * MCrypt encrypter factory.
-	 *
-	 * @access  protected
-	 * @param   array                                    $configuration  Configuration
-	 * @return  \mako\security\crypto\encrypters\MCrypt
-	 */
-	protected function mcryptFactory($configuration)
-	{
-		return new MCrypt($configuration['key'], new PKCS7(), $configuration['cipher'], $configuration['mode']);
-	}
 
 	/**
 	 * OpenSSL encrypter factory.
