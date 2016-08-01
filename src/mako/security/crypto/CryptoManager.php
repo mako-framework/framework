@@ -43,7 +43,7 @@ class CryptoManager extends AdapterManager
 	}
 
 	/**
-	 * Returns a cache instance.
+	 * Returns a crypto instance.
 	 *
 	 * @access  public
 	 * @param   string                        $configuration  Configuration name
@@ -60,12 +60,7 @@ class CryptoManager extends AdapterManager
 
 		$factoryMethod = $this->getFactoryMethodName($configuration['library']);
 
-		$instance = new Crypto($this->$factoryMethod($configuration));
-
-		if($this->container->has('signer'))
-		{
-			$instance->setSigner($this->container->get('signer'));
-		}
+		$instance = new Crypto($this->$factoryMethod($configuration), $this->container->get('signer'));	
 
 		return $instance;
 	}
