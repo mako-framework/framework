@@ -76,6 +76,6 @@ class Crypto
 			throw new RuntimeException(vsprintf("%s(): Ciphertex has been modified or an invalid authentication key has been provided.", [__METHOD__]));
 		}
 
-		return $this->decrypt($string)
+		return $this->decrypt($string);
 	}
 }
