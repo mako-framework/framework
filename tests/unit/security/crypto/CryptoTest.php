@@ -42,7 +42,7 @@ class CryptoTest extends PHPUnit_Framework_TestCase
 
 		$crypto = new Crypto($encrypter, $signer);
 
-		$this->assertEquals('barfoo', $crypto->encrypt('foobar'));
+		$this->assertEquals('signedbarfoo', $crypto->encrypt('foobar'));
 	}
 
 	/**
@@ -60,7 +60,7 @@ class CryptoTest extends PHPUnit_Framework_TestCase
 
 		$crypto = new Crypto($encrypter, $signer);
 
-		$this->assertEquals('foobar', $crypto->decrypt('barfoo'));
+		$this->assertEquals('foobar', $crypto->decrypt('signedbarfoo'));
 	}
 
 	/**
@@ -77,6 +77,6 @@ class CryptoTest extends PHPUnit_Framework_TestCase
 
 		$crypto = new Crypto($encrypter, $signer);
 
-		$crypto->decrypt('barfoo');
+		$crypto->decrypt('signedbarfoo');
 	}
 }

@@ -57,7 +57,7 @@ class Crypto
 	 */
 	public function encrypt(string $string): string
 	{
-		$this->signer->sign($this->encrypt($string));
+		$this->signer->sign($this->adapter->encrypt($string));
 	}
 
 	/**
@@ -73,9 +73,9 @@ class Crypto
 
 		if($string === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Ciphertex has been modified or an invalid authentication key has been provided.", [__METHOD__]));
+			throw new CryptoException(vsprintf("%s(): Ciphertex has been modified or an invalid authentication key has been provided.", [__METHOD__]));
 		}
 
-		return $this->decrypt($string);
+		return $this->adapter->decrypt($string);
 	}
 }
