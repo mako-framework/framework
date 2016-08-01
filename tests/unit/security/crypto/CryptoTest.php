@@ -34,11 +34,11 @@ class CryptoTest extends PHPUnit_Framework_TestCase
 	{
 		$encrypter = Mockery::mock(EncrypterInterface::class);
 
-		$encrypter->shouldRecieve('encrypt')->once()->with('foobar')->andReturn('barfoo');
+		$encrypter->shouldReceive('encrypt')->once()->with('foobar')->andReturn('barfoo');
 
 		$signer = Mockery::mock(Signer::class);
 
-		$signer->shouldRecieve('sign')->once()->with('barfoo')->andReturn('signedbarfoo');
+		$signer->shouldReceive('sign')->once()->with('barfoo')->andReturn('signedbarfoo');
 
 		$crypto = new Crypto($encrypter, $signer);
 
@@ -52,11 +52,11 @@ class CryptoTest extends PHPUnit_Framework_TestCase
 	{
 		$signer = Mockery::mock(Signer::class);
 
-		$signer->shouldRecieve('validate')->once()->with('signedbarfoo')->andReturn('barfoo');
+		$signer->shouldReceive('validate')->once()->with('signedbarfoo')->andReturn('barfoo');
 
 		$encrypter = Mockery::mock(EncrypterInterface::class);
 
-		$encrypter->shouldRecieve('decrypt')->once()->with('barfoo')->andReturn('foobar');
+		$encrypter->shouldReceive('decrypt')->once()->with('barfoo')->andReturn('foobar');
 
 		$crypto = new Crypto($encrypter, $signer);
 
@@ -71,7 +71,7 @@ class CryptoTest extends PHPUnit_Framework_TestCase
 	{
 		$signer = Mockery::mock(Signer::class);
 
-		$signer->shouldRecieve('validate')->once()->with('signedbarfoo')->andReturn(false);
+		$signer->shouldReceive('validate')->once()->with('signedbarfoo')->andReturn(false);
 
 		$encrypter = Mockery::mock(EncrypterInterface::class);
 
