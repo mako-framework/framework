@@ -57,7 +57,7 @@ class Crypto
 	 */
 	public function encrypt(string $string): string
 	{
-		$this->signer->sign($this->adapter->encrypt($string));
+		return $this->signer->sign($this->adapter->encrypt($string));
 	}
 
 	/**
