@@ -139,7 +139,7 @@ class URLBuilder
 
 		foreach($routeParams as $key => $value)
 		{
-			if($value === '' || $value === false || $value === null)
+			if(empty($value) && ($value === '' || $value === false || $value === null))
 			{
 				continue;
 			}
