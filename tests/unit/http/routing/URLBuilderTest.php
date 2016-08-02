@@ -138,6 +138,8 @@ class URLBuilderTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('http://example.org/article/1/bar', $urlBuilder->toRoute('foo', ['id' => 1, 'slug' => 'bar']));
 
+		$this->assertEquals('http://example.org/article/0/bar', $urlBuilder->toRoute('foo', ['id' => 0, 'slug' => 'bar']));
+
 		$this->assertEquals('http://example.org/article/{id}', $urlBuilder->toRoute('bar'));
 
 		$this->assertEquals('http://example.org/article/1', $urlBuilder->toRoute('bar', ['id' => 1]));
