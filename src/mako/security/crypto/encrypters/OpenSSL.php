@@ -43,9 +43,9 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 *
 	 * @access  public
 	 * @param   string  $key     Encryption key
-	 * @param   int     $cipher  Cipher
+	 * @param   string  $cipher  Cipher
 	 */
-	public function __construct($key, $cipher = null)
+	public function __construct(string $key, string $cipher = null)
 	{
 		$this->key = $key;
 
@@ -57,7 +57,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function encrypt($string)
+	public function encrypt(string $string): string
 	{
 		$iv = openssl_random_pseudo_bytes($this->ivSize);
 
@@ -69,7 +69,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function decrypt($string)
+	public function decrypt(string $string)
 	{
 		$string = base64_decode($string, true);
 
@@ -78,9 +78,9 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 			return false;
 		}
 
-		$iv = substr($string, 0, $this->ivSize);
+		$iv = mb_substr($string, 0, $this->ivSize, '8bit');
 
-		$string = substr($string, $this->ivSize);
+		$string = mb_substr($string, $this->ivSize, null, '8bit');
 
 		$key = $this->deriveKey($this->key, $iv, 32);
 

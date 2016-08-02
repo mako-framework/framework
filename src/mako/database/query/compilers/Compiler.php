@@ -8,7 +8,7 @@
 namespace mako\database\query\compilers;
 
 use DateTimeInterface;
-use Exception;
+use RuntimeException;
 
 use mako\database\query\Join;
 use mako\database\query\Query;
@@ -127,7 +127,7 @@ class Compiler
 	 */
 	protected function buildJsonPath($column, array $segments)
 	{
-		throw new Exception(vsprintf("%s(): The [ %s ] query compiler does not support the unified JSON field syntax.", [__METHOD__, static::class]));
+		throw new RuntimeException(vsprintf("%s(): The [ %s ] query compiler does not support the unified JSON field syntax.", [__METHOD__, static::class]));
 	}
 
 	/**

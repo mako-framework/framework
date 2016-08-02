@@ -21,7 +21,7 @@ interface EncrypterInterface
 	 * @param   string  $string  String to encrypt
 	 * @return  string
 	 */
-	public function encrypt($string);
+	public function encrypt(string $string): string;
 
 	/**
 	 * Decrypts string.
@@ -30,5 +30,5 @@ interface EncrypterInterface
 	 * @param   string          $string  String to decrypt
 	 * @return  string|boolean
 	 */
-	public function decrypt($string);
+	public function decrypt(string $string);
 }

@@ -34,10 +34,10 @@ abstract class Encrypter
 	 * @access  protected
 	 * @param   string     $key      The key to derive
 	 * @param   string     $salt     The salt
-	 * @param   string     $keySize  The desired key size
+	 * @param   int        $keySize  The desired key size
 	 * @return  string
 	 */
-	protected function deriveKey($key, $salt, $keySize)
+	protected function deriveKey(string $key, string $salt, int $keySize): string
 	{
 		return hash_pbkdf2(static::DERIVATION_HASH, $key, $salt, static::DERIVATION_ITERATIONS, $keySize, true);
 	}
