@@ -9,6 +9,7 @@ namespace mako\application\cli;
 
 use mako\Mako;
 use mako\application\Application as BaseApplication;
+use mako\application\cli\commands\app\GenerateKey;
 use mako\application\cli\commands\app\GenerateSecret;
 use mako\application\cli\commands\app\ListRoutes;
 use mako\application\cli\commands\migrations\Create;
@@ -51,6 +52,7 @@ class Application extends BaseApplication
 
 		$commands =
 		[
+			'app.generate_key'    => GenerateKey::class,
 			'app.generate_secret' => GenerateSecret::class,
 			'app.routes'          => ListRoutes::class,
 			'server'              => Server::class,

@@ -11,6 +11,7 @@ use RuntimeException;
 
 use mako\common\AdapterManager;
 use mako\security\crypto\Crypto;
+use mako\security\crypto\Key;
 use mako\security\crypto\encrypters\OpenSSL;
 use mako\security\crypto\padders\PKCS7;
 
@@ -39,7 +40,7 @@ class CryptoManager extends AdapterManager
 	 */
 	protected function opensslFactory($configuration)
 	{
-		return new OpenSSL($configuration['key'], $configuration['cipher']);
+		return new OpenSSL(Key::decode($configuration['key']), $configuration['cipher']);
 	}
 
 	/**
@@ -60,7 +61,7 @@ class CryptoManager extends AdapterManager
 
 		$factoryMethod = $this->getFactoryMethodName($configuration['library']);
 
-		$instance = new Crypto($this->$factoryMethod($configuration), $this->container->get('signer'));	
+		$instance = new Crypto($this->$factoryMethod($configuration), $this->container->get('signer'));
 
 		return $instance;
 	}
