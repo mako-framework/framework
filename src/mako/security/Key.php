@@ -44,7 +44,7 @@ class Key
 	}
 
 	/**
-	 * Generates an encryption key.
+	 * Generates a key.
 	 *
 	 * @access  public
 	 * @param   int     $length  Key length
@@ -56,7 +56,7 @@ class Key
 	}
 
 	/**
-	 * Generates a hex encoded 256-bit encryption key.
+	 * Generates a hex encoded key.
 	 *
 	 * @access  public
 	 * @param   int     $length  Key length
