@@ -5,11 +5,11 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\security\crypto;
+namespace mako\tests\unit\security;
 
 use PHPUnit_Framework_TestCase;
 
-use mako\security\crypto\Key;
+use mako\security\Key;
 
 /**
  * @group unit

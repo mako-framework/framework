@@ -8,8 +8,8 @@
 namespace mako\application\cli\commands\app;
 
 use mako\application\Application;
-use mako\security\crypto\Key;
 use mako\reactor\Command;
+use mako\security\Key;
 
 /**
  * Command that generates an encryption key.

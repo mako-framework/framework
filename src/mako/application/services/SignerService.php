@@ -8,7 +8,7 @@
 namespace mako\application\services;
 
 use mako\application\services\Service;
-use mako\security\crypto\Key;
+use mako\security\Key;
 use mako\security\Signer;
 
 /**

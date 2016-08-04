@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\security\crypto;
+namespace mako\security;
 
 /**
  * Key helpers.

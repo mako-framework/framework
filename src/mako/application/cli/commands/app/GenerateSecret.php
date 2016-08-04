@@ -10,7 +10,7 @@ namespace mako\application\cli\commands\app;
 use mako\application\Application;
 use mako\file\FileSystem;
 use mako\reactor\Command;
-use mako\security\crypto\Key;
+use mako\security\Key;
 
 /**
  * Command that generates a new application secret.
