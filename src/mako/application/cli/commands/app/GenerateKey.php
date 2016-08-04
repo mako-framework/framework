@@ -25,7 +25,7 @@ class GenerateKey extends Command
 	 */
 	protected $commandInformation =
 	[
-		'description' => 'Generates a 256 bit encryption key.',
+		'description' => 'Generates a 256-bit encryption key.',
 		'arguments'   => [],
 		'options'     => [],
 	];
