@@ -8,6 +8,7 @@
 namespace mako\application\services;
 
 use mako\application\services\Service;
+use mako\security\crypto\Key;
 use mako\security\Signer;
 
 /**
@@ -24,7 +25,7 @@ class SignerService extends Service
 	{
 		$this->container->registerSingleton([Signer::class, 'signer'], function($container)
 		{
-			return new Signer($container->get('config')->get('application.secret'));
+			return new Signer(Key::decode($container->get('config')->get('application.secret')));
 		});
 	}
 }
