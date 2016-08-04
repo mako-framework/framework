@@ -45,7 +45,7 @@ class ErrorHandlerService extends Service
 		{
 			$this->setLogger($errorHandler);
 
-			$webHandler = new WebHandler($exception, $this->container->get('request'), $this->container->getFresh('response'), $this->container->get('view'));
+			$webHandler = new WebHandler($exception, $this->container->get('request'), $this->container->get('response'), $this->container->get('view'));
 
 			return $webHandler->handle($displayErrors);
 		});

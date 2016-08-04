@@ -82,9 +82,21 @@ class WebHandler extends Handler
 	 */
 	protected function returnAsJson()
 	{
+		$jsonMimeTypes = ['application/json', 'text/json'];
+
+		if($this->request->isAjax() || in_array($this->response->getType(), $jsonMimeTypes))
+		{
+			return true;
+		}
+
 		$acceptableContentTypes = $this->request->acceptableContentTypes();
 
-		return $this->request->isAjax() || (isset($acceptableContentTypes[0]) && in_array($acceptableContentTypes[0], ['application/json', 'text/json']));
+		if(isset($acceptableContentTypes[0]) && in_array($acceptableContentTypes[0], $jsonMimeTypes))
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -271,11 +283,17 @@ class WebHandler extends Handler
 	 */
 	public function handle($showDetails = true)
 	{
-		// Should we return JSON?
+		$this->response->clear()->disableCaching()->disableCompression();
+
+		// Should we return JSON or HTML?
 
 		if(($returnAsJson = $this->returnAsJson()) === true)
 		{
 			$this->response->type('application/json');
+		}
+		else
+		{
+			$this->response->type('text/html');
 		}
 
 		// Set the response body
