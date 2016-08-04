@@ -35,7 +35,7 @@ class Key
 	 */
 	public static function decode(string $key): string
 	{
-		if(strpos('hex:', $key) === 0)
+		if(strpos($key, 'hex:') === 0)
 		{
 			return hex2bin(mb_substr($key, 4, null, '8bit'));
 		}
@@ -59,10 +59,11 @@ class Key
 	 * Generates a hex encoded 256-bit encryption key.
 	 *
 	 * @access  public
+	 * @param   int     $length  Key length
 	 * @return  string
 	 */
-	public static function generateEncoded(): string
+	public static function generateEncoded(int $length = 32): string
 	{
-		return static::encode(static::generate());
+		return static::encode(static::generate($length));
 	}
 }
