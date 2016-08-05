@@ -15,32 +15,32 @@ namespace mako\security;
 class Password
 {
 	/**
-	 * Default computing costs.
+	 * Default computing options.
 	 *
 	 * @var array
 	 */
-	protected static $costs =
+	protected static $options =
 	[
-		PASSWORD_BCRYPT => 10,
+		PASSWORD_BCRYPT => ['cost' => PASSWORD_BCRYPT_DEFAULT_COST],
 	];
 
 	/**
-	 * Normalizes the cost value.
+	 * Normalizes the computing options.
 	 *
 	 * @access  protected
-	 * @param   int        $cost  Computing cost
-	 * @return  int
+	 * @param   array      $options  Computing options
+	 * @return  array
 	 */
-	protected static function normalizeCost(int $cost): int
+	protected static function normalizeOptions(array $options): array
 	{
 		switch(PASSWORD_DEFAULT)
 		{
 			case PASSWORD_BCRYPT:
-				$cost = ($cost < 4 || $cost > 31) ? static::$costs[PASSWORD_BCRYPT] : $cost;
+				$options['cost'] = ($options['cost'] < 4 || $options['cost'] > 31) ? static::$options[PASSWORD_BCRYPT]['cost'] : $options['cost'];
 				break;
 		}
 
-		return $cost;
+		return $options;
 	}
 
 	/**
@@ -49,50 +49,50 @@ class Password
 	 * @access  public
 	 * @param   int     $cost  Computing cost
 	 */
-	public static function setDefaultComputingCost(int $cost)
+	public static function setDefaultComputingOptions(array $options)
 	{
-		static::$costs[PASSWORD_DEFAULT] = static::normalizeCost($cost);
+		static::$options[PASSWORD_DEFAULT] = static::normalizeOptions($options);
 	}
 
 	/**
-	 * Get default computing cost.
+	 * Get default computing options.
 	 *
 	 * @access  public
-	 * @return  int
+	 * @return  array
 	 */
-	public static function getDefaultComputingCost(): int
+	public static function getDefaultComputingOptions(): array
 	{
-		return static::$costs[PASSWORD_DEFAULT];
+		return static::$options[PASSWORD_DEFAULT];
 	}
 
 	/**
 	 * Returns a password hash.
 	 *
 	 * @access  public
-	 * @param   string    $password  Password
-	 * @param   null|int  $cost      Computing cost
+	 * @param   string      $password  Password
+	 * @param   null|array  $options   Computing options
 	 * @return  string
 	 */
-	public static function hash(string $password, int $cost = null): string
+	public static function hash(string $password, array $options = null): string
 	{
-		$cost = static::normalizeCost($cost ?? static::$costs[PASSWORD_DEFAULT]);
+		$options = ($options === null) ? static::$options[PASSWORD_DEFAULT] : static::normalizeOptions($options);
 
-		return password_hash($password, PASSWORD_DEFAULT, ['cost' => $cost]);
+		return password_hash($password, PASSWORD_DEFAULT, $options);
 	}
 
 	/**
 	 * Checks if the password needs to be rehashed.
 	 *
 	 * @access  public
-	 * @param   string    $hash  Password hash to check
-	 * @param   null|int  $cost  Computing cost
+	 * @param   string      $hash     Password hash to check
+	 * @param   null|array  $options  Computing options
 	 * @return  boolean
 	 */
-	public static function needsRehash(string $hash, int $cost = null): bool
+	public static function needsRehash(string $hash, array $options = null): bool
 	{
-		$cost = static::normalizeCost($cost ?? static::$costs[PASSWORD_DEFAULT]);
+		$options = ($options === null) ? static::$options[PASSWORD_DEFAULT] : static::normalizeOptions($options);
 
-		return password_needs_rehash($hash, PASSWORD_DEFAULT, ['cost' => $cost]);
+		return password_needs_rehash($hash, PASSWORD_DEFAULT, $options);
 	}
 
 	/**

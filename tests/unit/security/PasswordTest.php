@@ -19,13 +19,46 @@ class PasswordTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function setUp()
+	{
+		if(in_array(PASSWORD_DEFAULT, [PASSWORD_BCRYPT], true) === false)
+		{
+			$this->fail('Missing computing options for the default hashing algorithm');
+		}
+	}
+
+	/**
+	 *
+	 */
+	protected function getOptions()
+	{
+		if(PASSWORD_DEFAULT === PASSWORD_BCRYPT)
+		{
+			return ['cost' => 4];
+		}
+	}
+
+	/**
+	 *
+	 */
+	protected function getNewOptions()
+	{
+		if(PASSWORD_DEFAULT === PASSWORD_BCRYPT)
+		{
+			return ['cost' => 5];
+		}
+	}
+
+	/**
+	 *
+	 */
 	public function testHash()
 	{
 		$password = 'foobar';
 
-		$hash1 = Password::hash($password, 4);
+		$hash1 = Password::hash($password, $this->getOptions());
 
-		$hash2 = Password::hash($password, 4);
+		$hash2 = Password::hash($password, $this->getOptions());
 
 		$this->assertNotEquals($password, $hash1);
 
@@ -48,7 +81,7 @@ class PasswordTest extends PHPUnit_Framework_TestCase
 	{
 		$password = 'foobar';
 
-		$hash = Password::hash($password, 4);
+		$hash = Password::hash($password, $this->getOptions());
 
 		$this->assertTrue(Password::validate('foobar', $hash));
 
@@ -60,11 +93,11 @@ class PasswordTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testNeedsRehash()
 	{
-		$hash = Password::hash('foobar', 4);
+		$hash = Password::hash('foobar', $this->getOptions());
 
-		$this->assertFalse(Password::needsRehash($hash, 4));
+		$this->assertFalse(Password::needsRehash($hash, $this->getOptions()));
 
-		$this->assertTrue(Password::needsRehash($hash, 5));
+		$this->assertTrue(Password::needsRehash($hash, $this->getNewOptions()));
 	}
 
 	/**
@@ -72,8 +105,11 @@ class PasswordTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSetAndGetDefaultComputingCost()
 	{
-		Password::setDefaultComputingCost(12);
+		if(PASSWORD_DEFAULT === PASSWORD_BCRYPT)
+		{
+			Password::setDefaultComputingOptions(['cost' => 12]);
 
-		$this->assertSame(12, Password::getDefaultComputingCost());
+			$this->assertSame(['cost' => 12], Password::getDefaultComputingOptions());
+		}
 	}
 }
