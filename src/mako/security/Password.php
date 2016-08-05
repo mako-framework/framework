@@ -47,7 +47,7 @@ class Password
 	 * Set default computing cost.
 	 *
 	 * @access  public
-	 * @param   int     $cost  Computing cost
+	 * @param   array   $options  Computing cost
 	 */
 	public static function setDefaultComputingOptions(array $options)
 	{
