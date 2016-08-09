@@ -110,6 +110,11 @@ class ContextClassB
 	}
 }
 
+function syringeFunction($foo = 123, $bar = 456)
+{
+	return [$foo, $bar];
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -399,6 +404,29 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 		$container->call([$baq, 'setBaq'], [456]);
 
 		$this->assertSame(456, $baq->baq);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testCallFunction()
+	{
+		$container = new Container;
+
+		$this->assertEquals([123, 456], $container->call('\mako\tests\unit\syringe\syringeFunction'));
+
+		//
+
+		$container = new Container;
+
+		$this->assertEquals([456, 456], $container->call('\mako\tests\unit\syringe\syringeFunction', [456]));
+
+		//
+
+		$container = new Container;
+
+		$this->assertEquals([456, 123], $container->call('\mako\tests\unit\syringe\syringeFunction', ['foo' => 456, 'bar' => 123]));
 	}
 
 	/**
