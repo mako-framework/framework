@@ -466,13 +466,13 @@ class Container
 
 	public function call(callable $callable, array $parameters = [])
 	{
-		if($callable instanceof Closure)
+		if(is_array($callable))
 		{
-			$reflection = new ReflectionFunction($callable);
+			$reflection = new ReflectionMethod($callable[0], $callable[1]);
 		}
 		else
 		{
-			$reflection = new ReflectionMethod($callable[0], $callable[1]);
+			$reflection = new ReflectionFunction($callable);
 		}
 
 		return call_user_func_array($callable, $this->resolveParameters($reflection->getParameters(), $parameters));
