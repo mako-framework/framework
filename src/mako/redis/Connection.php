@@ -24,6 +24,13 @@ class Connection
 	protected $connection;
 
 	/**
+	 * Last command.
+	 *
+	 * @var string
+	 */
+	protected $lastCommand;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
@@ -51,6 +58,19 @@ class Connection
 		{
 			fclose($this->connection);
 		}
+	}
+
+	/**
+	 * Creates a new connection.
+	 *
+	 * @access  public
+	 * @param   string                  $host  Redis host
+	 * @param   int                     $port  Redis port
+	 * @return  \mako\redis\Connection
+	 */
+	public static function createConnection(string $host, int $port): Connection
+	{
+		return new static($host, $port);
 	}
 
 	/**
@@ -85,6 +105,17 @@ class Connection
 	 */
 	public function write(string $data)
 	{
-		return fwrite($this->connection, $data);
+		return fwrite($this->connection, $this->lastCommand = $data);
+	}
+
+	/**
+	 * Returns the last command.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+	public function getLastCommand(): string
+	{
+		return $this->lastCommand;
 	}
 }

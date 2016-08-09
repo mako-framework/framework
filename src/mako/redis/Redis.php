@@ -29,6 +29,20 @@ class Redis
 	const CRLF = "\r\n";
 
 	/**
+	 * Redis password.
+	 *
+	 * @var string
+	 */
+	protected $password;
+
+	/**
+	 * Redis database.
+	 *
+	 * @var int
+	 */
+	protected $database;
+
+	/**
 	 * Is pipelining enabled?
 	 *
 	 * @var boolean
@@ -50,6 +64,13 @@ class Redis
 	protected $connection;
 
 	/**
+	 * Cluster clients.
+	 *
+	 * @var array
+	 */
+	protected $clusterClients = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
@@ -62,12 +83,69 @@ class Redis
 
 		if(!empty($options['password']))
 		{
-			$this->auth($options['password']);
+			$this->auth($this->password = $options['password']);
 		}
 
 		if(!empty($options['database']))
 		{
-			$this->select($options['database']);
+			$this->select($this->database = $options['database']);
+		}
+	}
+
+	/**
+	 * Creates a cluster client.
+	 *
+	 * @access  protected
+	 * @param   string             $server  Server string
+	 * @return  \mako\redis\Redis
+	 */
+	protected function createClusterClient(string $server): Redis
+	{
+		list($server, $port) = explode(':', $server, 2);
+
+		$connection = $this->connection->createConnection($server, $port);
+
+		return new static($connection, ['password' => $this->password, 'database' => $this->database]);
+	}
+
+	/**
+	 * Gets a cluster client.
+	 *
+	 * @access  protected
+	 * @param   string             $serverInfo  Cluster slot and server string
+	 * @return  \mako\redis\Redis
+	 */
+	protected function getClusterClient(string $serverInfo): Redis
+	{
+		list($slot, $server) = explode(' ', $serverInfo, 2);
+
+		if(!isset($this->clusterClients[$server]))
+		{
+			$this->clusterClients[$server] = $this->createClusterClient($server);
+		}
+
+		return $this->clusterClients[$server];
+	}
+
+	/**
+	 * Handles redis error responses.
+	 *
+	 * @access  protected
+	 * @param   string     $response  Error response
+	 * @return  mixed
+	 */
+	protected function handleErrorResponse(string $response)
+	{
+		list($type, $error) = explode(' ', $response, 2);
+
+		switch($type)
+		{
+			case 'MOVED':
+			case 'ASK':
+				return $this->getClusterClient($error)->rawCommand($this->connection->getLastCommand());
+				break;
+			default:
+				throw new RedisException(vsprintf("%s(): %s.", [__METHOD__, $response]));
 		}
 	}
 
@@ -84,7 +162,7 @@ class Redis
 		switch(substr($response, 0, 1))
 		{
 			case '-': // error reply
-				throw new RedisException(vsprintf("%s(): %s.", [__METHOD__, substr($response, 1)]));
+				return $this->handleErrorResponse(substr($response, 1));
 				break;
 			case '+': // status reply
 				return trim(substr($response, 1));
@@ -166,6 +244,20 @@ class Redis
 	}
 
 	/**
+	 * Executes raw Redis commands and returns the response.
+	 *
+	 * @access  public
+	 * @param   string  $command  Command
+	 * @return  mixed
+	 */
+	public function rawCommand(string $command)
+	{
+		$this->connection->write($command);
+
+		return $this->response();
+	}
+
+	/**
 	 * Sends command to Redis server and returns response.
 	 *
 	 * @access  public
@@ -198,9 +290,7 @@ class Redis
 		{
 			// Send command to server and return response
 
-			$this->connection->write($command);
-
-			return $this->response();
+			return $this->rawCommand($command);
 		}
 	}
 }
