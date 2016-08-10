@@ -48,6 +48,11 @@ class Connection
 	 */
 	public function __construct(string $host, int $port = 6379, bool $persistent = false)
 	{
+		if(filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false)
+		{
+			$host = '[' . $host . ']';
+		}
+
 		if($persistent)
 		{
 			$this->isPersistent = true;
