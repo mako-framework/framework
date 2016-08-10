@@ -23,6 +23,14 @@ class Connection
 	 */
 	protected $connection;
 
+
+	/**
+	 * Is the socket persistent?
+	 *
+	 * @var bool
+	 */
+	protected $isPersistent = false;
+
 	/**
 	 * Last command.
 	 *
@@ -34,12 +42,22 @@ class Connection
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $host  Redis host
-	 * @param   int     $port  Redis port
+	 * @param   string  $host        Redis host
+	 * @param   int     $port        Redis port
+	 * @param   bool    $persistent  Should the connection be persistent?
 	 */
-	public function __construct(string $host, int $port = 6379)
+	public function __construct(string $host, int $port = 6379, bool $persistent = false)
 	{
-		$this->connection = @fsockopen('tcp://' . $host, $port, $errNo, $errStr);
+		if($persistent)
+		{
+			$this->isPersistent = true;
+
+			$this->connection = @pfsockopen('tcp://' . $host, $port, $errNo, $errStr);
+		}
+		else
+		{
+			$this->connection = @fsockopen('tcp://' . $host, $port, $errNo, $errStr);
+		}
 
 		if(!$this->connection)
 		{
@@ -54,7 +72,7 @@ class Connection
 	 */
 	public function __desctruct()
 	{
-		if(is_resource($this->connection))
+		if(!$this->isPersistent && is_resource($this->connection))
 		{
 			fclose($this->connection);
 		}
@@ -64,13 +82,14 @@ class Connection
 	 * Creates a new connection.
 	 *
 	 * @access  public
-	 * @param   string                  $host  Redis host
-	 * @param   int                     $port  Redis port
+	 * @param   string                  $host        Redis host
+	 * @param   int                     $port        Redis port
+	 * @param   bool                    $persistent  Should the connection be persistent?
 	 * @return  \mako\redis\Connection
 	 */
-	public static function createConnection(string $host, int $port): Connection
+	public static function createConnection(string $host, int $port, bool $persistent = false): Connection
 	{
-		return new static($host, $port);
+		return new static($host, $port, $persistent);
 	}
 
 	/**
@@ -106,6 +125,17 @@ class Connection
 	public function write(string $data)
 	{
 		return fwrite($this->connection, $this->lastCommand = $data);
+	}
+
+	/**
+	 * Is the connection persistent?
+	 *
+	 * @access  public
+	 * @return  bool
+	 */
+	public function isPersistent(): bool
+	{
+		return $this->isPersistent;
 	}
 
 	/**
