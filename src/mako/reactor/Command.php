@@ -57,6 +57,13 @@ abstract class Command
 	];
 
 	/**
+	 * Should we be strict about what arguments and options we allow?
+	 *
+	 * @var boolean
+	 */
+	protected $isStrict = false;
+
+	/**
 	 * Should the command be executed?
 	 *
 	 * @var boolean
@@ -113,6 +120,17 @@ abstract class Command
 	public function getCommandOptions(): array
 	{
 		return $this->commandInformation['options'] ?? [];
+	}
+
+	/**
+	 * Returns TRUE we should be strict about what arguments and options we allow and FALSE if not.
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
+	public function isStrict()
+	{
+		return $this->isStrict;
 	}
 
 	/**

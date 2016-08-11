@@ -7,6 +7,8 @@
 
 namespace mako\reactor;
 
+use mako\reactor\exceptions\InvalidArgumentException;
+use mako\reactor\exceptions\InvalidOptionException;
 use mako\reactor\exceptions\MissingArgumentException;
 use mako\reactor\exceptions\MissingOptionException;
 use mako\syringe\Container;
@@ -49,12 +51,43 @@ class Dispatcher
 	}
 
 	/**
+	 * Checks for invalid arguments or options.
+	 *
+	 * @access  protected
+	 * @param   \mako\reactor\Command  $command            Command arguments
+	 * @param   array                  $providedArguments  Provided arguments
+	 */
+	protected function checkForInvalidArguments(Command $command, array $providedArguments)
+	{
+		$commandArguments = array_keys($command->getCommandArguments() + $command->getCommandOptions());
+
+		foreach(array_keys($providedArguments) as $name)
+		{
+			if(!in_array($name, ['arg0', 'arg1']) && !in_array($name, $commandArguments))
+			{
+				if(strpos($name, 'arg') === 0)
+				{
+					$type      = 'argument';
+					$exception = InvalidArgumentException::class;
+				}
+				else
+				{
+					$type      = 'option';
+					$exception = InvalidOptionException::class;
+				}
+
+				throw new $exception(vsprintf("%s(): Invalid %s [ %s ].", [__METHOD__, $type, $name]), $name);
+			}
+		}
+	}
+
+	/**
 	 * Checks for missing required arguments or options.
 	 *
 	 * @access  protected
-	 * @param   \mako\reactor\Command  $commandArguments   Command arguments
-	 * @param   array                  $providedArguments  Provided arguments
-	 * @param   string                 $exception          Exception to throw
+	 * @param   array   $commandArguments   Command arguments
+	 * @param   array   $providedArguments  Provided arguments
+	 * @param   string  $exception          Exception to throw
 	 */
 	protected function checkForMissingArgumentsOrOptions(array $commandArguments, array $providedArguments, string $exception)
 	{
@@ -103,6 +136,11 @@ class Dispatcher
 	 */
 	protected function checkArgumentsAndOptions(Command $command, array $providedArguments)
 	{
+		if($command->isStrict())
+		{
+			$this->checkForInvalidArguments($command, $providedArguments);
+		}
+
 		$this->checkForMissingArguments($command, $providedArguments);
 
 		$this->checkForMissingOptions($command, $providedArguments);

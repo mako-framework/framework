@@ -47,6 +47,8 @@ class Foo extends Command
 
 class Bar extends Command
 {
+	protected $isStrict = true;
+
 	protected $commandInformation =
 	[
 
@@ -150,6 +152,30 @@ EOF;
 		$this->assertTrue($command->shouldExecute());
 
 		$command->execute();
+	}
+
+	/**
+	 *
+	 */
+	public function testIsStrict()
+	{
+		$input = Mockery::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('getArgument')->with('help')->andReturn(false);
+
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		//
+
+		$foo = new Foo($input, $output);
+
+		$this->assertFalse($foo->isStrict());
+
+		//
+
+		$bar = new Bar($input, $output);
+
+		$this->assertTrue($bar->isStrict());
 	}
 
 	/**

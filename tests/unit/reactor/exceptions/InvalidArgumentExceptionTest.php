@@ -5,23 +5,23 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\reactor;
+namespace mako\tests\unit\reactor\exceptions;
 
 use PHPUnit_Framework_TestCase;
 
-use mako\reactor\exceptions\MissingOptionException;
+use mako\reactor\exceptions\InvalidArgumentException;
 
 /**
  * @group unit
  */
-class MissingOptionExceptionTest extends PHPUnit_Framework_TestCase
+class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
 	 */
 	public function testException()
 	{
-		$exception = new MissingOptionException('foo', 'bar');
+		$exception = new InvalidArgumentException('foo', 'bar');
 
 		$this->assertEquals('foo', $exception->getMessage());
 

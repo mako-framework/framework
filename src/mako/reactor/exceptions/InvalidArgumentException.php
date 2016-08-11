@@ -10,11 +10,11 @@ namespace mako\reactor\exceptions;
 use mako\reactor\exceptions\ArgumentException;
 
 /**
- * Missing option exception.
+ * Invalid argument exception.
  *
  * @author  Frederic G. Østby
  */
-class MissingOptionException extends ArgumentException
+class InvalidArgumentException extends ArgumentException
 {
 
 }

@@ -10,6 +10,8 @@ namespace mako\tests\unit\reactor;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
+use mako\reactor\exceptions\InvalidArgumentException;
+use mako\reactor\exceptions\InvalidOptionException;
 use mako\reactor\exceptions\MissingArgumentException;
 use mako\reactor\exceptions\MissingOptionException;
 use mako\reactor\Reactor;
@@ -134,6 +136,82 @@ EOF;
 		//
 
 		$reactor = new Reactor($input, $output, $container, $dispatcher);
+
+		$reactor->run();
+	}
+
+	/**
+	 *
+	 */
+	public function testCommandWithMissingInvalidArguments()
+	{
+		$input = Mockery::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
+
+		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
+
+		//
+
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('write')->times(2);
+
+		$output->shouldReceive('errorLn')->once()->with('<red>Invalid argument [ bar ].</red>');
+
+		//
+
+		$container = Mockery::mock('mako\syringe\Container');
+
+		//
+
+		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andThrow(new InvalidArgumentException('foo', 'bar'));
+
+		//
+
+		$reactor = new Reactor($input, $output, $container, $dispatcher);
+
+		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
+
+		$reactor->run();
+	}
+
+	/**
+	 *
+	 */
+	public function testCommandWithMissingInvalidOptions()
+	{
+		$input = Mockery::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
+
+		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
+
+		//
+
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('write')->times(2);
+
+		$output->shouldReceive('errorLn')->once()->with('<red>Invalid option [ bar ].</red>');
+
+		//
+
+		$container = Mockery::mock('mako\syringe\Container');
+
+		//
+
+		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andThrow(new InvalidOptionException('foo', 'bar'));
+
+		//
+
+		$reactor = new Reactor($input, $output, $container, $dispatcher);
+
+		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
 		$reactor->run();
 	}

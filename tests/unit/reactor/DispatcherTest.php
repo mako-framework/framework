@@ -36,6 +36,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
+		$command->shouldReceive('isStrict')->once()->andReturn(false);
+
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
 
 		$command->shouldReceive('getCommandOptions')->once()->andReturn([]);
@@ -68,7 +70,58 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @expectedException \mako\reactor\exceptions\InvalidArgumentException
+	 * @expectedExceptionMessage mako\reactor\Dispatcher::checkForInvalidArguments(): Invalid argument [ arg3 ].
+	 */
+	public function testDispatchWithInvalidArguments()
+	{
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$command = Mockery::mock('mako\reactor\Command');
+
+		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
+
+		$command->shouldReceive('isStrict')->once()->andReturn(true);
+
+		$command->shouldReceive('getCommandArguments')->once()->andReturn(['arg2' => []]);
+
+		$command->shouldReceive('getCommandOptions')->once()->andReturn([]);
+
+		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
+
+		$dispatcher = new Dispatcher($container);
+
+		$dispatcher->dispatch('foo\bar\Command', ['arg3' => null]);
+	}
+
+	/**
+	 * @expectedException \mako\reactor\exceptions\InvalidOptionException
+	 * @expectedExceptionMessage mako\reactor\Dispatcher::checkForInvalidArguments(): Invalid option [ bar ].
+	 */
+	public function testDispatchWithInvalidOptions()
+	{
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$command = Mockery::mock('mako\reactor\Command');
+
+		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
+
+		$command->shouldReceive('isStrict')->once()->andReturn(true);
+
+		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
+
+		$command->shouldReceive('getCommandOptions')->once()->andReturn(['foo' => []]);
+
+		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
+
+		$dispatcher = new Dispatcher($container);
+
+		$dispatcher->dispatch('foo\bar\Command', ['bar' => null]);
+	}
+
+	/**
 	 * @expectedException \mako\reactor\exceptions\MissingArgumentException
+	 * @expectedExceptionMessage mako\reactor\Dispatcher::checkForMissingArgumentsOrOptions(): Missing required argument [ arg2 ].
 	 */
 	public function testDispatchWithMissingRequiredArguments()
 	{
@@ -77,6 +130,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 		$command = Mockery::mock('mako\reactor\Command');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
+
+		$command->shouldReceive('isStrict')->once()->andReturn(false);
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn(['arg2' => ['optional' => false]]);
 
@@ -91,6 +146,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\reactor\exceptions\MissingOptionException
+	 * @expectedExceptionMessage mako\reactor\Dispatcher::checkForMissingArgumentsOrOptions(): Missing required option [ foo ].
 	 */
 	public function testDispatchWithMissingRequiredOptions()
 	{
@@ -99,6 +155,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 		$command = Mockery::mock('mako\reactor\Command');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
+
+		$command->shouldReceive('isStrict')->once()->andReturn(false);
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
 
