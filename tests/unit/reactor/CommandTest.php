@@ -31,7 +31,7 @@ class Foo extends Command
 		],
 		'arguments' =>
 		[
-			'argument' =>
+			'arg2' =>
 			[
 				'optional'    => true,
 				'description' => 'Argument description.',
@@ -43,6 +43,14 @@ class Foo extends Command
 	{
 
 	}
+}
+
+class Bar extends Command
+{
+	protected $commandInformation =
+	[
+
+	];
 }
 
 // --------------------------------------------------------------------------
@@ -92,11 +100,11 @@ class CommandTest extends PHPUnit_Framework_TestCase
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Arguments:</yellow>', 1);
 
 $argumentsTable = <<<EOF
------------------------------------------------
-| Name     | Description           | Optional |
------------------------------------------------
-| argument | Argument description. | true     |
------------------------------------------------
+-------------------------------------------
+| Name | Description           | Optional |
+-------------------------------------------
+| arg2 | Argument description. | true     |
+-------------------------------------------
 
 EOF;
 
@@ -142,5 +150,77 @@ EOF;
 		$this->assertTrue($command->shouldExecute());
 
 		$command->execute();
+	}
+
+	/**
+	 *
+	 */
+	public function testGetCommandDescription()
+	{
+		$input = Mockery::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('getArgument')->with('help')->andReturn(false);
+
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		//
+
+		$foo = new Foo($input, $output);
+
+		$this->assertEquals('Command description.', $foo->getCommandDescription());
+
+		//
+
+		$foo = new Bar($input, $output);
+
+		$this->assertEquals('', $foo->getCommandDescription());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetCommandArguments()
+	{
+		$input = Mockery::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('getArgument')->with('help')->andReturn(false);
+
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		//
+
+		$foo = new Foo($input, $output);
+
+		$this->assertEquals(['arg2' => ['optional' => true, 'description' => 'Argument description.']], $foo->getCommandArguments());
+
+		//
+
+		$foo = new Bar($input, $output);
+
+		$this->assertEquals([], $foo->getCommandOptions());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetCommandOptions()
+	{
+		$input = Mockery::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('getArgument')->with('help')->andReturn(false);
+
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		//
+
+		$foo = new Foo($input, $output);
+
+		$this->assertEquals(['option' => ['optional' => true, 'description' => 'Option description.']], $foo->getCommandOptions());
+
+		//
+
+		$foo = new Bar($input, $output);
+
+		$this->assertEquals([], $foo->getCommandOptions());
 	}
 }

@@ -86,11 +86,33 @@ abstract class Command
 	 * Returns the command description.
 	 *
 	 * @access  public
-	 * @return  string|null
+	 * @return  string
 	 */
-	public function getCommandDescription()
+	public function getCommandDescription(): string
 	{
-		return $this->commandInformation['description'] ?? null;
+		return $this->commandInformation['description'] ?? '';
+	}
+
+	/**
+	 * Returns the command arguments.
+	 *
+	 * @access  public
+	 * @return  array
+	 */
+	public function getCommandArguments(): array
+	{
+		return $this->commandInformation['arguments'] ?? [];
+	}
+
+	/**
+	 * Returns the command options.
+	 *
+	 * @access  public
+	 * @return  array
+	 */
+	public function getCommandOptions(): array
+	{
+		return $this->commandInformation['options'] ?? [];
 	}
 
 	/**

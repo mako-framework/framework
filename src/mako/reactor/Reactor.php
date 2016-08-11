@@ -13,6 +13,8 @@ use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\cli\output\helpers\Table;
 use mako\reactor\Dispatcher;
+use mako\reactor\exceptions\MissingArgumentException;
+use mako\reactor\exceptions\MissingOptionException;
 use mako\syringe\Container;
 
 /**
@@ -298,7 +300,18 @@ class Reactor
 		}
 		else
 		{
-			$this->dispatch($command);
+			try
+			{
+				$this->dispatch($command);
+			}
+			catch(MissingOptionException $e)
+			{
+				$this->output->errorLn('<red>Missing required option [ ' . $e->getName() . ' ].</red>');
+			}
+			catch(MissingArgumentException $e)
+			{
+				$this->output->errorLn('<red>Missing required argument [ ' . $e->getName() . ' ].</red>');
+			}
 		}
 
 		$this->output->write(PHP_EOL);

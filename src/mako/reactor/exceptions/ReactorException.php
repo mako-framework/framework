@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\reactor;
+namespace mako\reactor\exceptions;
 
 use RuntimeException;
 
