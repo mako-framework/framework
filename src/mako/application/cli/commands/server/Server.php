@@ -18,6 +18,13 @@ use mako\reactor\Command;
 class Server extends Command
 {
 	/**
+	 * Make the command strict.
+	 *
+	 * @var boolean
+	 */
+	protected $isStrict = true;
+
+	/**
 	 * Command information.
 	 *
 	 * @var array
@@ -25,7 +32,6 @@ class Server extends Command
 	protected $commandInformation =
 	[
 		'description' => 'Starts the local development server.',
-		'arguments'   => [],
 		'options'     =>
 		[
 			'port' =>

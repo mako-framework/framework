@@ -24,8 +24,6 @@ class Status extends Command
 	protected $commandInformation =
 	[
 		'description' => 'Checks if there are any outstanding migrations.',
-		'arguments'   => [],
-		'options'     => [],
 	];
 
 	/**

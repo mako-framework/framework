@@ -24,8 +24,6 @@ class Up extends Command
 	protected $commandInformation =
 	[
 		'description' => 'Runs all outstanding migrations.',
-		'arguments'   => [],
-		'options'     => [],
 	];
 
 	/**

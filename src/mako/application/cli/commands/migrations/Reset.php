@@ -27,7 +27,6 @@ class Reset extends Command
 	protected $commandInformation =
 	[
 		'description' => 'Rolls back the last batch of migrations.',
-		'arguments'   => [],
 		'options'     =>
 		[
 			'force' =>

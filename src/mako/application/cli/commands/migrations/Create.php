@@ -28,7 +28,6 @@ class Create extends Command
 	protected $commandInformation =
 	[
 		'description' => 'Creates a new migration.',
-		'arguments'   => [],
 		'options'     =>
 		[
 			'package' =>

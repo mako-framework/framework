@@ -20,6 +20,13 @@ use mako\security\Key;
 class GenerateSecret extends Command
 {
 	/**
+	 * Make the command strict.
+	 *
+	 * @var boolean
+	 */
+	protected $isStrict = true;
+
+	/**
 	 * Command information.
 	 *
 	 * @var array
@@ -27,8 +34,6 @@ class GenerateSecret extends Command
 	protected $commandInformation =
 	[
 		'description' => 'Generates a new application secret.',
-		'arguments'   => [],
-		'options'     => [],
 	];
 
 	/**

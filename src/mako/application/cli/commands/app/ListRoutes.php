@@ -22,6 +22,13 @@ use mako\utility\Str;
 class ListRoutes extends Command
 {
 	/**
+	 * Make the command strict.
+	 *
+	 * @var boolean
+	 */
+	protected $isStrict = true;
+
+	/**
 	 * Command information.
 	 *
 	 * @var array
@@ -29,8 +36,6 @@ class ListRoutes extends Command
 	protected $commandInformation =
 	[
 		'description' => 'Lists all registered routes.',
-		'arguments'   => [],
-		'options'     => [],
 	];
 
 	/**

@@ -23,6 +23,13 @@ use mako\syringe\Container;
 abstract class Command extends BaseCommand
 {
 	/**
+	 * Make the command strict.
+	 *
+	 * @var boolean
+	 */
+	protected $isStrict = true;
+
+	/**
 	 * Application.
 	 *
 	 * @var \mako\application\Application
