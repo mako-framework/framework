@@ -64,7 +64,9 @@ class Dispatcher
 		{
 			if(isset($details['optional']) && $details['optional'] === false && !in_array($name, $providedArguments))
 			{
-				throw new $exception(vsprintf("%s(): Missing required option [ %s ].", [__METHOD__, $name]), $name);
+				$type = $exception === MissingArgumentException::class ? 'argument' : 'option';
+
+				throw new $exception(vsprintf("%s(): Missing required %s [ %s ].", [__METHOD__, $type, $name]), $name);
 			}
 		}
 	}
