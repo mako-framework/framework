@@ -7,7 +7,7 @@
 
 namespace mako\http\exceptions;
 
-use Exception;
+use Throwable;
 use RuntimeException;
 
 /**
@@ -21,11 +21,11 @@ class RequestException extends RuntimeException
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   int     $code         Exception code
-	 * @param   string  $message      Exception message
-	 * @param   \Exception $previous  Previous exception
+	 * @param   int         $code      Exception code
+	 * @param   string      $message   Exception message
+	 * @param   \Throwable  $previous  Previous exception
 	 */
-	public function __construct($code, $message = null, Exception $previous = null)
+	public function __construct($code, $message = null, Throwable $previous = null)
 	{
 		parent::__construct($message, $code, $previous);
 	}

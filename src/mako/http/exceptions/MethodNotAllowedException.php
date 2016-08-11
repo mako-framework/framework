@@ -7,7 +7,7 @@
 
 namespace mako\http\exceptions;
 
-use Exception;
+use Throwable;
 
 use mako\http\exceptions\RequestException;
 
@@ -30,11 +30,11 @@ class MethodNotAllowedException extends RequestException
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   array      $allowedMethods  Allowed methods
-	 * @param   string     $message         Exception message
-	 * @param   \Exception $previous        Previous exception
+	 * @param   array       $allowedMethods  Allowed methods
+	 * @param   string      $message         Exception message
+	 * @param   \Throwable  $previous        Previous exception
 	 */
-	public function __construct(array $allowedMethods, $message = null, Exception $previous = null)
+	public function __construct(array $allowedMethods, $message = null, Throwable $previous = null)
 	{
 		$this->allowedMethods = $allowedMethods;
 

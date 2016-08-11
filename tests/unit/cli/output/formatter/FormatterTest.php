@@ -7,7 +7,6 @@
 
 namespace mako\tests\unit\cli\output\formatter;
 
-use Exception;
 use PHPUnit_Framework_TestCase;
 
 use mako\cli\output\formatter\Formatter;
@@ -101,58 +100,34 @@ class OutputTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
+	 * @expectedExceptionMessage mako\cli\output\formatter\Formatter::getStyleCodes(): Undefined formatting tag [ fail ] detected.
 	 */
 	public function testUndefinedTagException()
 	{
-		try
-		{
-			$formatter = new Formatter(true);
+		$formatter = new Formatter(true);
 
-			$formatter->format('<fail>hello</fail>');
-		}
-		catch(Exception $e)
-		{
-			$this->assertSame('mako\cli\output\formatter\Formatter::getStyleCodes(): Undefined formatting tag [ fail ] detected.', $e->getMessage());
-
-			throw $e;
-		}
+		$formatter->format('<fail>hello</fail>');
 	}
 
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
+	 * @expectedExceptionMessage mako\cli\output\formatter\Formatter::closeStyle(): Incorrectly nested formatting tag detected.
 	 */
 	public function testIncorrectTagNestingException()
 	{
-		try
-		{
-			$formatter = new Formatter(true);
+		$formatter = new Formatter(true);
 
-			$formatter->format('<blue>he<green>llo</blue></green>');
-		}
-		catch(Exception $e)
-		{
-			$this->assertSame('mako\cli\output\formatter\Formatter::closeStyle(): Incorrectly nested formatting tag detected.', $e->getMessage());
-
-			throw $e;
-		}
+		$formatter->format('<blue>he<green>llo</blue></green>');
 	}
 
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
+	 * @expectedExceptionMessage mako\cli\output\formatter\Formatter::format(): Missing formatting close tag detected.
 	 */
 	public function testMissingCloseTagException()
 	{
-		try
-		{
-			$formatter = new Formatter(true);
+		$formatter = new Formatter(true);
 
-			$formatter->format('<blue>hello');
-		}
-		catch(Exception $e)
-		{
-			$this->assertSame('mako\cli\output\formatter\Formatter::format(): Missing formatting close tag detected.', $e->getMessage());
-
-			throw $e;
-		}
+		$formatter->format('<blue>hello');
 	}
 }

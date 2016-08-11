@@ -7,6 +7,8 @@
 
 namespace mako\tests\unit\http\routing;
 
+use Throwable;
+
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
@@ -100,7 +102,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
 		{
 			$router->route($request);
 		}
-		catch(Exception $e)
+		catch(Throwable $e)
 		{
 			$this->assertEquals(['POST', 'OPTIONS'], $e->getAllowedMethods());
 

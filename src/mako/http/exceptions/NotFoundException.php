@@ -7,7 +7,7 @@
 
 namespace mako\http\exceptions;
 
-use Exception;
+use Throwable;
 
 use mako\http\exceptions\RequestException;
 
@@ -22,10 +22,10 @@ class NotFoundException extends RequestException
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $message      Exception message
-	 * @param   \Exception $previous  Previous exception
+	 * @param   string      $message   Exception message
+	 * @param   \Throwable  $previous  Previous exception
 	 */
-	public function __construct($message = null, Exception $previous = null)
+	public function __construct($message = null, Throwable $previous = null)
 	{
 		parent::__construct(404, $message, $previous);
 	}
