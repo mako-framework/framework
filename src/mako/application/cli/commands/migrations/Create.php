@@ -7,7 +7,7 @@
 
 namespace mako\application\cli\commands\migrations;
 
-use Exception;
+use Throwable;
 
 use mako\application\Application;
 use mako\file\FileSystem;
@@ -88,7 +88,7 @@ class Create extends Command
 		{
 			$fileSystem->putContents($path, $migration);
 		}
-		catch(Exception $e)
+		catch(Throwable $e)
 		{
 			$this->error('Failed to create migration. Make sure that the migrations directory is writable.');
 
