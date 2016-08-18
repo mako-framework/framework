@@ -353,20 +353,13 @@ class Request
 			$groupedAccepts[$quality][] = trim($accept);
 		}
 
-		// Sort and flatten array
+		// Sort in descending order of preference
 
 		krsort($groupedAccepts);
 
-		$accepts = [];
+		// Flatten array and return it
 
-		foreach($groupedAccepts as $group)
-		{
-			$accepts = array_merge($accepts, $group);
-		}
-
-		// Return in descending order of preference
-
-		return $accepts;
+		return array_merge(...array_values($groupedAccepts));
 	}
 
 	/**
