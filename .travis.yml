@@ -2,29 +2,19 @@ language: php
 
 sudo: false
 
-env:
-  global:
-    - IS_HHVM=no
-
 matrix:
   include:
     - php: 7.0
     - php: 7.1
-    - php: hhvm-3.13
-      sudo: required
-      dist: trusty
-      group: edge
-      env: IS_HHVM=yes
   allow_failures:
     - php: 7.1
-    - php: hhvm-3.13
   fast_finish: true
 
 services:
   - redis-server
 
 before_install:
-  - if [[ $IS_HHVM == "yes" ]]; then echo hhvm.php7.all=1 >> /etc/hhvm/php.ini; fi
+  - travis_retry composer self-update
 
 install: travis_retry composer install --no-interaction --prefer-source --no-suggest
 
