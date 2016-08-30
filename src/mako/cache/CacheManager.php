@@ -28,7 +28,7 @@ use mako\syringe\Container;
  *
  * @author  Frederic G. Østby
  *
- * @method  \mako\cache\stores\StoreInterface  instance($configuration = null)
+ * @method  \mako\cache\Cache  instance($configuration = null)
  */
 class CacheManager extends AdapterManager
 {
