@@ -1,11 +1,19 @@
-sudo: false
-
 language: php
 
-php:
-  - 7.0
-  - 7.1
-  - hhvm
+sudo: false
+
+matrix:
+  include:
+    - php: 7.0
+    - php: 7.1
+    - php: hhvm-3.12
+      sudo: required
+      dist: trusty
+      group: edge
+  allow_failures:
+    - php: 7.1
+    - php: hhvm-3.12
+  fast_finish: true
 
 services:
   - redis-server
@@ -13,7 +21,3 @@ services:
 install: travis_retry composer install --no-interaction --prefer-source --dev
 
 script: vendor/bin/phpunit
-
-matrix:
-  allow_failures:
-    - php: hhvm
