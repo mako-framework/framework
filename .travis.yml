@@ -10,7 +10,7 @@ matrix:
   include:
     - php: 7.0
     - php: 7.1
-    - php: hhvm-3.12
+    - php: hhvm-3.13
       sudo: required
       dist: trusty
       group: edge
