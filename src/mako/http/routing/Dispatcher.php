@@ -47,7 +47,6 @@ class Dispatcher
 	 */
 	protected $middleware;
 
-
 	/**
 	 * Route to be dispatched.
 	 *
