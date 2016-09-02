@@ -7,12 +7,14 @@
 
 namespace mako\database\query;
 
+use JsonSerializable;
+
 /**
  * Result.
  *
  * @author  Frederic G. Østby
  */
-class Result
+class Result implements JsonSerializable
 {
 	/**
 	 * Returns an array representation of the result.
@@ -26,6 +28,17 @@ class Result
 	}
 
 	/**
+	 * Returns data which can be serialized by json_encode().
+	 *
+	 * @access  public
+	 * @return  array
+	 */
+	public function jsonSerialize()
+	{
+		return $this->toArray();
+	}
+
+	/**
 	 * Returns a json representation of the result.
 	 *
 	 * @access  public
@@ -33,7 +46,7 @@ class Result
 	 */
 	public function toJSON()
 	{
-		return json_encode(get_object_vars($this));
+		return json_encode($this->toArray());
 	}
 
 	/**

@@ -62,6 +62,20 @@ class ResultSetTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testJsonSerialize()
+	{
+		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
+
+		$mock2 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'baz'])->getMock();
+
+		$resultSet = new ResultSet([$mock1, $mock2]);
+
+		$this->assertEquals('[{"foo":"bar"},{"foo":"baz"}]', json_encode($resultSet));
+	}
+
+	/**
+	 *
+	 */
 	public function testToJson()
 	{
 		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();

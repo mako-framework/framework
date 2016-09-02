@@ -7,6 +7,8 @@
 
 namespace mako\database\query;
 
+use JsonSerializable;
+
 use mako\pagination\PaginationInterface;
 use mako\utility\Arr;
 use mako\utility\Collection;
@@ -16,7 +18,7 @@ use mako\utility\Collection;
  *
  * @author  Frederic G. Østby
  */
-class ResultSet extends Collection
+class ResultSet extends Collection implements JsonSerializable
 {
 	/**
 	 * Pagination.
@@ -75,6 +77,17 @@ class ResultSet extends Collection
 		}
 
 		return $results;
+	}
+
+	/**
+	 * Returns data which can be serialized by json_encode().
+	 *
+	 * @access  public
+	 * @return  array
+	 */
+	public function jsonSerialize()
+	{
+		return $this->toArray();
 	}
 
 	/**

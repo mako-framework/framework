@@ -8,6 +8,7 @@
 namespace mako\database\midgard;
 
 use DateTimeInterface;
+use JsonSerializable;
 use RuntimeException;
 
 use mako\application\Application;
@@ -29,7 +30,7 @@ use mako\syringe\ClassInspector;
  *
  * @author  Frederic G. Østby
  */
-abstract class ORM
+abstract class ORM implements JsonSerializable
 {
 	/**
 	 * Incrementing primary key.
@@ -1033,6 +1034,17 @@ abstract class ORM
 		// Returns array representation of the record
 
 		return $columns;
+	}
+
+	/**
+	 * Returns data which can be serialized by json_encode().
+	 *
+	 * @access  public
+	 * @return  array
+	 */
+	public function jsonSerialize()
+	{
+		return $this->toArray();
 	}
 
 	/**

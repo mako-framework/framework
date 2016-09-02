@@ -518,6 +518,20 @@ class ORMTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testJsonSerialize()
+	{
+		$user = new TestUser4();
+
+		$this->assertEquals('{"username":"foo","array":[1,2,3],"optional":null}', json_encode($user));
+
+		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
+
+		$this->assertEquals('{"created_at":"2014-02-01 13:10:32"}', json_encode($user));
+	}
+
+	/**
+	 *
+	 */
 	public function testToJson()
 	{
 		$user = new TestUser4();
