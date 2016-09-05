@@ -50,9 +50,9 @@ class ResultSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testProtect()
 	{
-		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('protect')->once()->with('foo');
+		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('protect')->once()->with('foo')->getMock();
 
-		$mock2 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('protect')->once()->with('foo');
+		$mock2 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('protect')->once()->with('foo')->getMock();
 
 		$resultSet = new ResultSet([$mock1, $mock2]);
 
@@ -64,9 +64,9 @@ class ResultSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testExpose()
 	{
-		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('expose')->once()->with('foo');
+		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('expose')->once()->with('foo')->getMock();
 
-		$mock2 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('expose')->once()->with('foo');
+		$mock2 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('expose')->once()->with('foo')->getMock();
 
 		$resultSet = new ResultSet([$mock1, $mock2]);
 
