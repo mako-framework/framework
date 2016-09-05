@@ -31,35 +31,30 @@ class ResultSet extends BaseResultSet
 	}
 
 	/**
-	 * Returns an array representation of the result set.
+	 * Excludes the chosen columns and relations from array and json representations of the collection.
 	 *
 	 * @access  public
-	 * @param   boolean  $protect  Protect columns?
-	 * @param   boolean  $raw      Get raw values?
-	 * @return  array
+	 * @param   string|array|bool  $column  Column or relation to hide from the
 	 */
-	public function toArray($protect = true, $raw = false)
+	public function protect($column)
 	{
-		$results = [];
-
 		foreach($this->items as $item)
 		{
-			$results[] = $item->toArray($protect, $raw);
+			$item->protect($column);
 		}
-
-		return $results;
 	}
 
 	/**
-	 * Returns a json representation of the result set.
+	 * Exposes the chosen columns and relations in the array and json representations of the collection.
 	 *
 	 * @access  public
-	 * @param   boolean  $protect  Protect columns?
-	 * @param   boolean  $raw      Get raw values?
-	 * @return  string
+	 * @param   string|array|bool  $column  Column or relation to hide from the
 	 */
-	public function toJson($protect = true, $raw = false)
+	public function expose($column)
 	{
-		return json_encode($this->toArray($protect, $raw));
+		foreach($this->items as $item)
+		{
+			$item->expose($column);
+		}
 	}
 }

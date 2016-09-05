@@ -508,7 +508,7 @@ class ORMTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals(['username' => 'foo', 'array' => [1, 2, 3], 'optional' => null], $user->toArray());
 
-		$this->assertEquals(['username' => 'foo', 'password' => 'bar', 'array' => [1, 2, 3], 'optional' => null], $user->toArray(false));
+		$this->assertEquals(['username' => 'foo', 'password' => 'bar', 'array' => [1, 2, 3], 'optional' => null], $user->protect(false)->toArray());
 
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
@@ -538,7 +538,7 @@ class ORMTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('{"username":"foo","array":[1,2,3],"optional":null}', $user->toJson());
 
-		$this->assertEquals('{"username":"foo","password":"bar","array":[1,2,3],"optional":null}', $user->toJson(false));
+		$this->assertEquals('{"username":"foo","password":"bar","array":[1,2,3],"optional":null}', $user->protect(false)->toJson());
 
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 

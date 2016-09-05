@@ -154,6 +154,36 @@ class QueryTest extends PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
+		$model->shouldReceive('getIncludes')->once()->andReturn([]);
+
+		$model->shouldReceive('setIncludes')->once()->with(['foo'])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->including('foo');
+
+		//
+
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['bar']);
+
+		$model->shouldReceive('setIncludes')->once()->with(['bar', 'foo'])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->including('foo');
+
+		//
+
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo']);
+
 		$model->shouldReceive('setIncludes')->once()->with(['foo'])->andReturn($model);
 
 		$query = new Query($this->getConnecion(), $model);
@@ -170,11 +200,29 @@ class QueryTest extends PHPUnit_Framework_TestCase
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
+		$model->shouldReceive('getIncludes')->once()->andReturn([]);
+
 		$model->shouldReceive('setIncludes')->once()->with(['foo', 'bar'])->andReturn($model);
 
 		$query = new Query($this->getConnecion(), $model);
 
 		$query->including(['foo', 'bar']);
+	}
+
+	/**
+	 *
+	 */
+	public function testIncludeNone()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->including(false);
 	}
 
 	/**
@@ -211,6 +259,22 @@ class QueryTest extends PHPUnit_Framework_TestCase
 		$query = new Query($this->getConnecion(), $model);
 
 		$query->excluding(['foo', 'bar']);
+	}
+
+	/**
+	 *
+	 */
+	public function testExcludeAll()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->excluding(true);
 	}
 
 	/**

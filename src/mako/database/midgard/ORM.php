@@ -152,7 +152,7 @@ abstract class ORM implements JsonSerializable
 	protected $assignable = [];
 
 	/**
-	 * Columns that are excluded from the array and json representations of the record.
+	 * Columns and relations that are excluded from the array and json representations of the record.
 	 *
 	 * @var array
 	 */
@@ -993,19 +993,62 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
+	 * Excludes the chosen columns and relations from array and json representations of the record.
+	 * You expose all fields by passing FALSE.
+	 *
+	 * @access  public
+	 * @param   string|array|bool           $column  Column or relation to hide from the
+	 * @return  \mako\database\midgard\ORM
+	 */
+	public function protect($column)
+	{
+		if($column === false)
+		{
+			$this->protected = [];
+		}
+		else
+		{
+			$this->protected = array_unique(array_merge($this->protected, (array) $column));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Exposes the chosen columns and relations in the array and json representations of the record.
+	 * You can expose all fields by passing TRUE.
+	 *
+	 * @access  public
+	 * @param   string|array|bool           $column  Column or relation to hide from the
+	 * @return  \mako\database\midgard\ORM
+	 */
+	public function expose($column)
+	{
+		if($column === true)
+		{
+			$this->protected = [];
+		}
+		else
+		{
+			$this->protected = array_diff($this->protected, (array) $column);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Returns an array representation of the record.
 	 *
 	 * @access  public
-	 * @param   boolean  $protect  Protect columns?
 	 * @return  array
 	 */
-	public function toArray($protect = true)
+	public function toArray()
 	{
 		$columns = $this->columns;
 
 		// Removes protected columns from the array
 
-		if($protect === true && !empty($this->protected))
+		if(!empty($this->protected))
 		{
 			$columns = array_diff_key($columns, array_flip($this->protected));
 		}
@@ -1028,7 +1071,12 @@ abstract class ORM implements JsonSerializable
 
 		foreach($this->related as $relation => $related)
 		{
-			$columns += [$relation => $related->toArray($protect)];
+			if(in_array($relation, $this->protected))
+			{
+				continue;
+			}
+
+			$columns += [$relation => $related->toArray()];
 		}
 
 		// Returns array representation of the record
@@ -1051,12 +1099,11 @@ abstract class ORM implements JsonSerializable
 	 * Returns a json representation of the record.
 	 *
 	 * @access  public
-	 * @param   boolean  $protect  Protect columns?
 	 * @return  string
 	 */
-	public function toJson($protect = true)
+	public function toJson()
 	{
-		return json_encode($this->toArray($protect));
+		return json_encode($this->toArray());
 	}
 
 	/**

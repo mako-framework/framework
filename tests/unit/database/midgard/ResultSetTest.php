@@ -48,6 +48,34 @@ class ResultSetTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testProtect()
+	{
+		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('protect')->once()->with('foo');
+
+		$mock2 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('protect')->once()->with('foo');
+
+		$resultSet = new ResultSet([$mock1, $mock2]);
+
+		$resultSet->protect('foo');
+	}
+
+	/**
+	 *
+	 */
+	public function testExpose()
+	{
+		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('expose')->once()->with('foo');
+
+		$mock2 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('expose')->once()->with('foo');
+
+		$resultSet = new ResultSet([$mock1, $mock2]);
+
+		$resultSet->expose('foo');
+	}
+
+	/**
+	 *
+	 */
 	public function testToArray()
 	{
 		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();

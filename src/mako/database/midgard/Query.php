@@ -215,15 +215,22 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * Sets the relations to eager load.
+	 * Adds relations to eager load.
 	 *
 	 * @access  public
-	 * @param   string|array                  $includes  Relation or array of relations to eager load
+	 * @param   string|array|bool             $includes  Relation or array of relations to eager load
 	 * @return  \mako\database\midgard\Query
 	 */
 	public function including($includes)
 	{
-		$this->model->setIncludes((array) $includes);
+		if($includes === false)
+		{
+			$this->model->setIncludes([]);
+		}
+		else
+		{
+			$this->model->setIncludes(array_unique(array_merge($this->model->getIncludes(), (array) $includes), SORT_REGULAR));
+		}
 
 		return $this;
 	}
@@ -232,12 +239,19 @@ class Query extends QueryBuilder
 	 * Removes relations to eager load.
 	 *
 	 * @access  public
-	 * @param   string|array                  $excludes  Relation or array of relations to exclude from eager loading
+	 * @param   string|array|bool             $excludes  Relation or array of relations to exclude from eager loading
 	 * @return  \mako\database\midgard\Query
 	 */
 	public function excluding($excludes)
 	{
-		$this->model->setIncludes(array_diff($this->model->getIncludes(), (array) $excludes));
+		if($excludes === true)
+		{
+			$this->model->setIncludes([]);
+		}
+		else
+		{
+			$this->model->setIncludes(array_diff($this->model->getIncludes(), (array) $excludes));
+		}
 
 		return $this;
 	}
