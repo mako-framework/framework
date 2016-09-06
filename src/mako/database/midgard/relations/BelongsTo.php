@@ -96,9 +96,11 @@ class BelongsTo extends Relation
 			}
 		}
 
+		$foreignKey = $this->getForeignKey();
+
 		foreach($results as $result)
 		{
-			$result->setRelated($relation, $grouped[$result->getRawColumn($this->getForeignKey())] ?? false);
+			$result->setRelated($relation, $grouped[$result->getRawColumn($foreignKey)] ?? false);
 		}
 	}
 

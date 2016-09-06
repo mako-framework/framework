@@ -145,11 +145,13 @@ class ManyToMany extends Relation
 			$criteria($this);
 		}
 
+		$foreignKey = $this->getForeignKey();
+
 		foreach($this->eagerLoadChunked($this->keys($results)) as $related)
 		{
-			$grouped[$related->getRawColumn($this->getForeignKey())][] = $related;
+			$grouped[$related->getRawColumn($foreignKey)][] = $related;
 
-			unset($related->{$this->getForeignKey()}); // Unset as its not a part of the record
+			unset($related->{$foreignKey}); // Unset as its not a part of the record
 		}
 
 		foreach($results as $result)
