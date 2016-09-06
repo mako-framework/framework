@@ -212,6 +212,59 @@ class QueryTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testIncludesWithCriterion()
+	{
+		$closure1 = function(){};
+
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn([]);
+
+		$model->shouldReceive('setIncludes')->once()->with(['foo', 'bar' => $closure1])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->including(['foo', 'bar' => $closure1]);
+
+		//
+
+		$closure1 = function(){};
+
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['bar']);
+
+		$model->shouldReceive('setIncludes')->once()->with(['foo', 'bar' => $closure1])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->including(['foo', 'bar' => $closure1]);
+
+		//
+
+		$closure1 = function(){};
+		$closure2 = function(){};
+
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['bar' => $closure1]);
+
+		$model->shouldReceive('setIncludes')->once()->with(['foo', 'bar' => $closure2])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->including(['foo', 'bar' => $closure2]);
+	}
+
+	/**
+	 *
+	 */
 	public function testIncludeNone()
 	{
 		$model = $this->getModel();
@@ -259,6 +312,86 @@ class QueryTest extends PHPUnit_Framework_TestCase
 		$query = new Query($this->getConnecion(), $model);
 
 		$query->excluding(['foo', 'bar']);
+
+		//
+
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar', 'baz']);
+
+		$model->shouldReceive('setIncludes')->once()->with([1 => 'bar'])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->excluding(['foo', 'baz']);
+	}
+
+	/**
+	 *
+	 */
+	public function testExludeWithCriterion()
+	{
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function(){}]);
+
+		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->excluding(['foo', 'bar']);
+
+		//
+
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function(){}, 'baz']);
+
+		$model->shouldReceive('setIncludes')->once()->with([1 => 'baz'])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->excluding(['foo', 'bar']);
+
+		//
+
+		$closure1 = function(){};
+		$closure2 = function(){};
+
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => $closure1, 'baz' => $closure2]);
+
+		$model->shouldReceive('setIncludes')->once()->with(['baz' => $closure2])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->excluding(['foo', 'bar']);
+
+		//
+
+		$closure1 = function(){};
+		$closure2 = function(){};
+
+		$model = $this->getModel();
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
+
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => $closure1, 'baz' => $closure2]);
+
+		$model->shouldReceive('setIncludes')->once()->with(['baz' => $closure2])->andReturn($model);
+
+		$query = new Query($this->getConnecion(), $model);
+
+		$query->excluding(['foo', $closure1]);
 	}
 
 	/**

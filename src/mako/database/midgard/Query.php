@@ -229,7 +229,27 @@ class Query extends QueryBuilder
 		}
 		else
 		{
-			$this->model->setIncludes(array_unique(array_merge($this->model->getIncludes(), (array) $includes), SORT_REGULAR));
+			$includes = (array) $includes;
+
+			$currentIncludes = $this->model->getIncludes();
+
+			$withCriterion = array_filter(array_keys($includes), function($key)
+			{
+				return is_string($key);
+			});
+
+			if(!empty($withCriterion))
+			{
+				foreach($currentIncludes as $key => $value)
+				{
+					if(in_array($value, $withCriterion))
+					{
+						unset($currentIncludes[$key]); // Unset relations that have previously been set without a criterion closure
+					}
+				}
+			}
+
+			$this->model->setIncludes(array_unique(array_merge($currentIncludes, $includes), SORT_REGULAR));
 		}
 
 		return $this;
@@ -250,7 +270,22 @@ class Query extends QueryBuilder
 		}
 		else
 		{
-			$this->model->setIncludes(array_diff($this->model->getIncludes(), (array) $excludes));
+			$excludes = (array) $excludes;
+
+			$includes = $this->model->getIncludes();
+
+			foreach($excludes as $key => $relation)
+			{
+				if(is_string($relation) && isset($includes[$relation]))
+				{
+					unset($includes[$relation], $excludes[$key]); // Unset relations that may have been set with a criterion closure
+				}
+			}
+
+			$this->model->setIncludes(array_udiff($includes, $excludes, function($a, $b)
+			{
+				return $a === $b ? 0 : -1;
+			}));
 		}
 
 		return $this;
