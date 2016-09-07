@@ -295,7 +295,6 @@ class Reactor
 	{
 		if(!isset($this->commands[$command]))
 		{
-
 			$message = 'Unknown command [ ' . $command . ' ].';
 
 			if(($suggestion = $this->suggest($command)) !== false)
