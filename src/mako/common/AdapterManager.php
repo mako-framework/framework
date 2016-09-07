@@ -108,10 +108,8 @@ abstract class AdapterManager
 
 			return $this->instances[$configuration];
 		}
-		else
-		{
-			return $this->instantiate($configuration);
-		}
+
+		return $this->instantiate($configuration);
 	}
 
 	/**

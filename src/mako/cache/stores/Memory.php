@@ -57,17 +57,13 @@ class Memory implements StoreInterface
 			{
 				return $this->cache[$key]['data'];
 			}
-			else
-			{
-				$this->remove($key);
 
-				return false;
-			}
-		}
-		else
-		{
+			$this->remove($key);
+
 			return false;
 		}
+
+		return false;
 	}
 
 	/**
@@ -81,10 +77,8 @@ class Memory implements StoreInterface
 
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**

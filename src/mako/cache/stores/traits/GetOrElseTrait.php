@@ -27,9 +27,7 @@ trait GetOrElseTrait
 
 			return $data;
 		}
-		else
-		{
-			return $this->get($key);
-		}
+
+		return $this->get($key);
 	}
 }

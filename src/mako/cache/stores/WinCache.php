@@ -61,10 +61,8 @@ class WinCache implements StoreInterface
 		{
 			return $cache;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**

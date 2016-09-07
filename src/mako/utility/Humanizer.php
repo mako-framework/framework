@@ -63,10 +63,8 @@ class Humanizer
 
 			return round($size / pow($base, $e), 2) . ' ' . $terms[$e];
 		}
-		else
-		{
-			return '0 byte';
-		}
+
+		return '0 byte';
 	}
 
 	/**

@@ -46,10 +46,10 @@ abstract class Handler implements HandlerInterface
 	 */
 	protected function determineExceptionType(Throwable $exception)
 	{
-		$code = $exception->getCode();
-
 		if($exception instanceof ErrorException)
 		{
+			$code = $exception->getCode();
+
 			$codes =
 			[
 				E_ERROR             => 'Fatal Error',
@@ -69,9 +69,7 @@ abstract class Handler implements HandlerInterface
 
 			return in_array($code, array_keys($codes)) ? $codes[$code] : 'ErrorException';
 		}
-		else
-		{
-			return get_class($exception);
-		}
+
+		return get_class($exception);
 	}
 }

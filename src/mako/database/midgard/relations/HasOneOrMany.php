@@ -33,9 +33,7 @@ abstract class HasOneOrMany extends Relation
 
 			return $related;
 		}
-		else
-		{
-			return $this->model->create([$this->getForeignKey() => $this->parent->getPrimaryKeyValue()] + $related);
-		}
+
+		return $this->model->create([$this->getForeignKey() => $this->parent->getPrimaryKeyValue()] + $related);
 	}
 }
