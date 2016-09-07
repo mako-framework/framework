@@ -751,4 +751,22 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame($route, $request->getRoute());
 	}
+
+	/**
+	 *
+	 */
+	public function testSetAndGetAttribute()
+	{
+		$request = new Request();
+
+		$this->assertNull($request->getAttribute('foo'));
+
+		$this->assertFalse($request->getAttribute('foo', false));
+
+		$request->setAttribute('foo', 123);
+
+		$this->assertEquals(123, $request->getAttribute('foo'));
+
+		$this->assertEquals(123, $request->getAttribute('foo', false));
+	}
 }

@@ -197,6 +197,13 @@ class Request
 	protected $route;
 
 	/**
+	 * Request attribuntes.
+	 *
+	 * @var array
+	 */
+	protected $attributes = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
@@ -434,6 +441,31 @@ class Request
 	}
 
 	/**
+	 * Sets a request attribute.
+	 *
+	 * @access  public
+	 * @param   string  $name   Attribute name
+	 * @param   mixed   $value  Attribute value
+	 */
+	public function setAttribute($name, $value)
+	{
+		$this->attributes[$name] = $value;
+	}
+
+	/**
+	 * Gets a request attribute.
+	 *
+	 * @access  public
+	 * @param   string  $name     Attribute name
+	 * @param   mixed   $default  Default value
+	 * @return  mixed
+	 */
+	public function getAttribute($name, $default = null)
+	{
+		return Arr::get($this->attributes, $name, $default);
+	}
+
+	/**
 	 * Returns the raw request body.
 	 *
 	 * @access  public
@@ -563,10 +595,8 @@ class Request
 		{
 			return $value;
 		}
-		else
-		{
-			return $default;
-		}
+
+		return $default;
 	}
 
 	/**
