@@ -55,6 +55,64 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
+	 * Adds a new item to the collection.
+	 *
+	 * @access  public
+	 * @param  int|string  $key    Key
+	 * @param  mixed       $value  Value
+	 */
+	public function put($key, $value)
+	{
+		$this->items[$key] = $value;
+	}
+
+	/**
+	 * Returns TRUE if the item key exists and FALSE if not.
+	 *
+	 * @access  public
+	 * @param   int|string  $key  Key
+	 * @return  boolean
+	 */
+	public function has($key)
+	{
+		return isset($this->items[$key]);
+	}
+
+	/**
+	 * Returns an item from the collection.
+	 *
+	 * @access  public
+	 * @param   int|string  $key      Key
+	 * @param   mixed       $default  Default value
+	 * @return  mixed
+	 */
+	public function get($key, $default = null)
+	{
+		return $this->items[$key] ?? $default;
+	}
+
+	/**
+	 * Removes an item from the collection.
+	 *
+	 * @access  public
+	 * @param   int|string  $key  Key
+	 */
+	public function remove($key)
+	{
+		unset($this->items[$key]);
+	}
+
+	/**
+	 * Clears the collection.
+	 *
+	 * @access  public
+	 */
+	public function clear()
+	{
+		$this->items = [];
+	}
+
+	/**
 	 * Checks whether or not an offset exists.
 	 *
 	 * @access  public

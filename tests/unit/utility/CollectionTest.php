@@ -35,6 +35,82 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testPut()
+	{
+		$collection = new Collection();
+
+		$collection->put('foo', 'bar');
+		$collection->put(0, 'baz');
+
+		$this->assertEquals('bar', $collection['foo']);
+		$this->assertEquals('baz', $collection[0]);
+	}
+
+	/**
+	 *
+	 */
+	public function testHas()
+	{
+		$collection = new Collection();
+
+		$this->assertFalse($collection->has('foo'));
+
+		$collection->put('foo', 'bar');
+
+		$this->assertTrue($collection->has('foo'));
+	}
+
+	/**
+	 *
+	 */
+	public function testGet()
+	{
+		$collection = new Collection();
+
+		$this->assertNull($collection->get('foo'));
+
+		$this->assertFalse($collection->get('foo', false));
+
+		$collection->put('foo', true);
+
+		$this->assertTrue($collection->get('foo'));
+
+		$this->assertTrue($collection->get('foo', false));
+	}
+
+	/**
+	 *
+	 */
+	public function testRemove()
+	{
+		$collection = new Collection();
+
+		$collection->put('foo', true);
+
+		$this->assertTrue($collection->has('foo'));
+
+		$collection->remove('foo');
+
+		$this->assertFalse($collection->has('foo'));
+	}
+
+	/**
+	 *
+	 */
+	public function testClear()
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$this->assertEquals(3, $collection->count());
+
+		$collection->clear();
+
+		$this->assertEquals(0, $collection->count());
+	}
+
+	/**
+	 *
+	 */
 	public function testOffsetExists()
 	{
 		$collection = new Collection();
