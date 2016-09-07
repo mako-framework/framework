@@ -262,6 +262,30 @@ class Reactor
 	}
 
 	/**
+	 * Returns the command name that resembles the provided string the most.
+	 *
+	 * @access  protected
+	 * @param   string       $command  Command name
+	 * @return  bool|string
+	 */
+	protected function suggest(string $command)
+	{
+		$suggestion = false;
+
+		foreach($this->commands as $key => $value)
+		{
+			similar_text($command, $key, $similarity);
+
+			if(($suggestion === false || $suggestion['similarity'] < $similarity) && $similarity > 70)
+			{
+				$suggestion = ['command' => $key, 'similarity' => $similarity];
+			}
+		}
+
+		return $suggestion === false ? false : $suggestion['command'];
+	}
+
+	/**
 	 * Dispatches a command.
 	 *
 	 * @access  protected
@@ -271,9 +295,15 @@ class Reactor
 	{
 		if(!isset($this->commands[$command]))
 		{
-			$this->output->writeLn('<red>Unknown command [ ' . $command . ' ].</red>');
 
-			$this->output->write(PHP_EOL);
+			$message = 'Unknown command [ ' . $command . ' ].';
+
+			if(($suggestion = $this->suggest($command)) !== false)
+			{
+				$message .= ' Did you mean [ ' . $suggestion . ' ]?';
+			}
+
+			$this->output->writeLn('<red>' . $message . '</red>');
 
 			$this->listCommands();
 

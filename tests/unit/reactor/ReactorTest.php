@@ -119,7 +119,7 @@ EOF;
 
 		$output = Mockery::mock('mako\cli\output\Output');
 
-		$output->shouldReceive('write')->times(3);
+		$output->shouldReceive('write')->times(2);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
@@ -136,6 +136,98 @@ EOF;
 		//
 
 		$reactor = new Reactor($input, $output, $container, $dispatcher);
+
+		$reactor->run();
+	}
+
+	/**
+	 *
+	 */
+	public function testUknownCommandWithSuggestion()
+	{
+		$input = Mockery::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('sevrer');
+
+		//
+
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('write')->times(5);
+
+		$output->shouldReceive('getFormatter')->andReturn(null);
+
+		$output->shouldReceive('writeLn')->once()->with('<red>Unknown command [ sevrer ]. Did you mean [ server ]?</red>');
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Available commands:</yellow>');
+
+		//
+
+		$command = Mockery::mock('mako\reactor\Command');
+
+		$command->shouldReceive('getCommandDescription')->once()->andReturn('server description');
+
+		//
+
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$container->shouldReceive('get')->once()->andReturn($command);
+
+		//
+
+		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+
+		//
+
+		$reactor = new Reactor($input, $output, $container, $dispatcher);
+
+		$reactor->registerCommand('server', 'foobar');
+
+		$reactor->run();
+	}
+
+	/**
+	 *
+	 */
+	public function testUknownCommandWithNoSuggestion()
+	{
+		$input = Mockery::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('sevrer');
+
+		//
+
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('write')->times(5);
+
+		$output->shouldReceive('getFormatter')->andReturn(null);
+
+		$output->shouldReceive('writeLn')->once()->with('<red>Unknown command [ sevrer ].</red>');
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Available commands:</yellow>');
+
+		//
+
+		$command = Mockery::mock('mako\reactor\Command');
+
+		$command->shouldReceive('getCommandDescription')->once()->andReturn('server description');
+
+		//
+
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$container->shouldReceive('get')->once()->andReturn($command);
+
+		//
+
+		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+
+		//
+
+		$reactor = new Reactor($input, $output, $container, $dispatcher);
+
+		$reactor->registerCommand('foobar', 'foobar');
 
 		$reactor->run();
 	}
