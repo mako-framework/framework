@@ -116,7 +116,50 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$dispatcher = new Dispatcher($container);
 
-		$dispatcher->dispatch('foo\bar\Command', ['bar' => null]);
+		try
+		{
+			$dispatcher->dispatch('foo\bar\Command', ['bar' => null]);
+		}
+		catch(InvalidOptionException $e)
+		{
+			$this->assertNull($e->getSuggestion());
+
+			throw $e;
+		}
+	}
+
+	/**
+	 * @expectedException \mako\reactor\exceptions\InvalidOptionException
+	 * @expectedExceptionMessage mako\reactor\Dispatcher::checkForInvalidArguments(): Invalid option [ boo ].
+	 */
+	public function testDispatchWithInvalidOptionsAndSuggestion()
+	{
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$command = Mockery::mock('mako\reactor\Command');
+
+		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
+
+		$command->shouldReceive('isStrict')->once()->andReturn(true);
+
+		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
+
+		$command->shouldReceive('getCommandOptions')->once()->andReturn(['foo' => []]);
+
+		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
+
+		$dispatcher = new Dispatcher($container);
+
+		try
+		{
+			$dispatcher->dispatch('foo\bar\Command', ['boo' => null]);
+		}
+		catch(InvalidOptionException $e)
+		{
+			$this->assertEquals('foo', $e->getSuggestion());
+
+			throw $e;
+		}
 	}
 
 	/**

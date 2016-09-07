@@ -11,6 +11,7 @@ use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
 use mako\reactor\exceptions\MissingArgumentException;
 use mako\reactor\exceptions\MissingOptionException;
+use mako\reactor\traits\SuggestionTrait;
 use mako\syringe\Container;
 
 /**
@@ -20,6 +21,8 @@ use mako\syringe\Container;
  */
 class Dispatcher
 {
+	use SuggestionTrait;
+
 	/**
 	 * Container.
 	 *
@@ -67,16 +70,10 @@ class Dispatcher
 			{
 				if(strpos($name, 'arg') === 0)
 				{
-					$type      = 'argument';
-					$exception = InvalidArgumentException::class;
-				}
-				else
-				{
-					$type      = 'option';
-					$exception = InvalidOptionException::class;
+					throw new InvalidArgumentException(vsprintf("%s(): Invalid argument [ %s ].", [__METHOD__, $name]), $name);
 				}
 
-				throw new $exception(vsprintf("%s(): Invalid %s [ %s ].", [__METHOD__, $type, $name]), $name);
+				throw new InvalidOptionException(vsprintf("%s(): Invalid option [ %s ].", [__METHOD__, $name]), $name, $this->suggest($name, $commandArguments));
 			}
 		}
 	}

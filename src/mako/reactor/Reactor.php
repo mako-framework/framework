@@ -17,6 +17,7 @@ use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
 use mako\reactor\exceptions\MissingArgumentException;
 use mako\reactor\exceptions\MissingOptionException;
+use mako\reactor\traits\SuggestionTrait;
 use mako\syringe\Container;
 
 /**
@@ -26,6 +27,8 @@ use mako\syringe\Container;
  */
 class Reactor
 {
+	use SuggestionTrait;
+
 	/**
 	 * Input.
 	 *
@@ -262,30 +265,6 @@ class Reactor
 	}
 
 	/**
-	 * Returns the command name that resembles the provided string the most.
-	 *
-	 * @access  protected
-	 * @param   string       $command  Command name
-	 * @return  bool|string
-	 */
-	protected function suggest(string $command)
-	{
-		$suggestion = false;
-
-		foreach($this->commands as $key => $value)
-		{
-			similar_text($command, $key, $similarity);
-
-			if($similarity > 70 && ($suggestion === false || $suggestion['similarity'] < $similarity))
-			{
-				$suggestion = ['command' => $key, 'similarity' => $similarity];
-			}
-		}
-
-		return $suggestion === false ? false : $suggestion['command'];
-	}
-
-	/**
 	 * Dispatches a command.
 	 *
 	 * @access  protected
@@ -297,7 +276,7 @@ class Reactor
 		{
 			$message = 'Unknown command [ ' . $command . ' ].';
 
-			if(($suggestion = $this->suggest($command)) !== false)
+			if(($suggestion = $this->suggest($command, array_keys($this->commands))) !== null)
 			{
 				$message .= ' Did you mean [ ' . $suggestion . ' ]?';
 			}
@@ -335,21 +314,28 @@ class Reactor
 			{
 				$this->dispatch($command);
 			}
+			catch(InvalidOptionException $e)
+			{
+				$message = 'Invalid option [ ' . $e->getName() . ' ].';
+
+				if(($suggestion = $e->getSuggestion()) !== null)
+				{
+					$message .= ' Did you mean [ ' . $suggestion . ' ]?';
+				}
+
+				$this->output->errorLn('<red>' . $message . '</red>');
+			}
 			catch(InvalidArgumentException $e)
 			{
 				$this->output->errorLn('<red>Invalid argument [ ' . $e->getName() . ' ].</red>');
 			}
-			catch(InvalidOptionException $e)
+			catch(MissingOptionException $e)
 			{
-				$this->output->errorLn('<red>Invalid option [ ' . $e->getName() . ' ].</red>');
+				$this->output->errorLn('<red>Missing required option [ ' . $e->getName() . ' ].</red>');
 			}
 			catch(MissingArgumentException $e)
 			{
 				$this->output->errorLn('<red>Missing required argument [ ' . $e->getName() . ' ].</red>');
-			}
-			catch(MissingOptionException $e)
-			{
-				$this->output->errorLn('<red>Missing required option [ ' . $e->getName() . ' ].</red>');
 			}
 		}
 

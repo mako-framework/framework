@@ -235,7 +235,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommandWithMissingInvalidArguments()
+	public function testCommandWithInvalidArguments()
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -273,7 +273,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommandWithMissingInvalidOptions()
+	public function testCommandWithInvalidOptions()
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -298,6 +298,44 @@ EOF;
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
 		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andThrow(new InvalidOptionException('foo', 'bar'));
+
+		//
+
+		$reactor = new Reactor($input, $output, $container, $dispatcher);
+
+		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
+
+		$reactor->run();
+	}
+
+	/**
+	 *
+	 */
+	public function testCommandWithInvalidOptionsAndSuggestion()
+	{
+		$input = Mockery::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
+
+		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
+
+		//
+
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('write')->times(2);
+
+		$output->shouldReceive('errorLn')->once()->with('<red>Invalid option [ bar ]. Did you mean [ baz ]?</red>');
+
+		//
+
+		$container = Mockery::mock('mako\syringe\Container');
+
+		//
+
+		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andThrow(new InvalidOptionException('foo', 'bar', 'baz'));
 
 		//
 

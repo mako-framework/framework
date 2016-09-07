@@ -21,10 +21,12 @@ class InvalidOptionExceptionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testException()
 	{
-		$exception = new InvalidOptionException('foo', 'bar');
+		$exception = new InvalidOptionException('foo', 'bar', 'baz');
 
 		$this->assertEquals('foo', $exception->getMessage());
 
 		$this->assertEquals('bar', $exception->getName());
+
+		$this->assertEquals('baz', $exception->getSuggestion());
 	}
 }
