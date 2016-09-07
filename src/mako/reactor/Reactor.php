@@ -276,7 +276,7 @@ class Reactor
 		{
 			similar_text($command, $key, $similarity);
 
-			if(($suggestion === false || $suggestion['similarity'] < $similarity) && $similarity > 70)
+			if($similarity > 70 && ($suggestion === false || $suggestion['similarity'] < $similarity))
 			{
 				$suggestion = ['command' => $key, 'similarity' => $similarity];
 			}
