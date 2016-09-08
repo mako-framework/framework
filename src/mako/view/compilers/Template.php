@@ -116,7 +116,11 @@ class Template
 	 */
 	protected function views($template)
 	{
-		// Replace view tags with view redering
+		// Compile view includes with parameters
+
+		$template = preg_replace('/{{\s*view:([^,]*?)\s*,\s*\[(.*?)\]\s*}}/i', '<?php echo $__viewfactory__->create($1, array_merge(get_defined_vars(), [$2]))->render(); ?>', $template);
+
+		// Compile view includes without parameters
 
 		return preg_replace('/{{\s*view:(.*?)\s*}}/i', '<?php echo $__viewfactory__->create($1, get_defined_vars())->render(); ?>', $template);
 	}
