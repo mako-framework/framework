@@ -226,12 +226,13 @@ class Template
 		{
 			if(preg_match('/(.*)\|\|(.*)/', $matches) !== 0)
 			{
-				return preg_replace('/(.*)\s*\|\|\s*(.*)/', '(!empty($1) ? $1 : $2)', $matches);
+				return preg_replace_callback('/(.*)\s*\|\|\s*(.*)/', function($matches)
+				{
+					return '(!empty(' . trim($matches[1]) . ') ? ' . trim($matches[1]) . ' : ' . trim($matches[2]) . ')';
+				}, $matches);
 			}
-			else
-			{
-				return $matches;
-			}
+
+			return $matches;
 		};
 
 		// Compiles echo tags
