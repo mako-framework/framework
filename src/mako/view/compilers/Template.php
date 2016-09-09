@@ -17,6 +17,13 @@ use mako\file\FileSystem;
 class Template
 {
 	/**
+	 * Verbatim placeholder.
+	 *
+	 * @var string
+	 */
+	const VERBATIM_PLACEHOLDER = '__VERBATIM_PLACEHOLDER__';
+
+	/**
 	 * File system instance.
 	 *
 	 * @var \mako\file\FileSystem
@@ -38,18 +45,27 @@ class Template
 	protected $template;
 
 	/**
+	 * Verbatims.
+	 *
+	 * @var array
+	 */
+	protected $verbatims = [];
+
+	/**
 	 * Compilation order.
 	 *
 	 * @var array
 	 */
 	protected $compileOrder =
 	[
+		'collectVerbatims',
 		'comments',
 		'extensions',
 		'views',
 		'blocks',
 		'controlStructures',
 		'echos',
+		'insertVerbatims',
 	];
 
 	/**
@@ -67,6 +83,40 @@ class Template
 		$this->cachePath = $cachePath;
 
 		$this->template = $template;
+	}
+
+	/**
+	 * Collects verbatim blocks and replaces them with a palceholder.
+	 *
+	 * @access  protected
+	 * @param   string    $template  Template
+	 * @return  string
+	 */
+	protected function collectVerbatims($template)
+	{
+		return preg_replace_callback('/{%\s*verbatim\s*%}(.*?){%\s*endverbatim\s*%}/is', function($matches)
+		{
+			$this->verbatims[] = $matches[1];
+
+			return static::VERBATIM_PLACEHOLDER;
+		}, $template);
+	}
+
+	/**
+	 * Replaces verbatim placeholders with their original values.
+	 *
+	 * @access  protected
+	 * @param   string    $template  Template
+	 * @return  string
+	 */
+	public function insertVerbatims($template)
+	{
+		foreach($this->verbatims as $verbatim)
+		{
+			$template = preg_replace('/' . static::VERBATIM_PLACEHOLDER . '/', $verbatim, $template, 1);
+		}
+
+		return $template;
 	}
 
 	/**
