@@ -43,6 +43,9 @@ class TemplateTest extends PHPUnit_Framework_TestCase
 		return $fileSystem;
 	}
 
+	/**
+	 *
+	 */
 	public function testVerbatim()
 	{
 		$template = '{% verbatim %}{{$hello}}{% endverbatim %}';
@@ -58,6 +61,9 @@ class TemplateTest extends PHPUnit_Framework_TestCase
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testComment()
 	{
 		$template = 'Hello,{# this is a comment #} world!';
@@ -73,6 +79,9 @@ class TemplateTest extends PHPUnit_Framework_TestCase
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testMultiLineComment()
 	{
 		$template = "Hello,{# this \n is \n a \n comment #} world!";
@@ -88,6 +97,9 @@ class TemplateTest extends PHPUnit_Framework_TestCase
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testExtends()
 	{
 		$template = "{% extends:'parent' %}\nHello, world!";
@@ -104,6 +116,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testView()
 	{
 		$template = '{{view:\'foo\'}}';
@@ -119,6 +134,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testViewVariable()
 	{
 		$template = '{{view:$foo}}';
@@ -134,6 +152,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testViewMethod()
 	{
 		$template = '{{view:$foo->bar()}}';
@@ -149,6 +170,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testViewMethodWithArguments()
 	{
 		$template = '{{view:$foo->bar(1, 2)}}';
@@ -164,6 +188,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testViewWithParameters()
 	{
 		$template = '{{view:\'foo\', [\'foo\' => \'bar\']}}';
@@ -179,6 +206,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testViewMethodWithArgumentsWithParameters()
 	{
 		$template = '{{view:$foo->bar(1, 2), [\'foo\' => \'bar\']}}';
@@ -194,6 +224,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testBlockDefinition()
 	{
 		$template = '{% block:foo %}Hello, world!{% endblock %}';
@@ -209,6 +242,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testBlockOutput()
 	{
 		$template = '{{ block:foo }}Hello, world!{{ endblock }}';
@@ -224,6 +260,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testControlStructures()
 	{
 		$template = '{% if(1 === 1) %}foo{% elseif(1 === 1) %}bar{% else if(1 === 1) %}baz{% else %}bax{% endif %}';
@@ -239,6 +278,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testEcho()
 	{
 		$template = '{{$foo}}';
@@ -254,6 +296,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testEchoRaw()
 	{
 		$template = '{{raw:$foo}}';
@@ -269,6 +314,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testEchoPreserve()
 	{
 		$template = '{{preserve:$foo}}';
@@ -284,6 +332,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testEchoJS()
 	{
 		$template = '{{js:$foo}}';
@@ -299,6 +350,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testEchoCSS()
 	{
 		$template = '{{css:$foo}}';
@@ -314,6 +368,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testEchoAttribute()
 	{
 		$template = '{{attribute:$foo}}';
@@ -329,6 +386,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testEchoURL()
 	{
 		$template = '{{url:$foo}}';
@@ -344,6 +404,9 @@ Hello, world!<?php echo $__view__->render(); ?>';
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
 
+	/**
+	 *
+	 */
 	public function testEchoEmptyElse()
 	{
 		$template = '{{$foo || \'bar\'}}';
