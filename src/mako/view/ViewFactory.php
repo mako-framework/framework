@@ -38,13 +38,6 @@ class ViewFactory
 	protected $renderers = ['.php' => PHP::class];
 
 	/**
-	 * Cache path.
-	 *
-	 * @var string
-	 */
-	protected $cachePath;
-
-	/**
 	 * Global view variables.
 	 *
 	 * @var array
@@ -145,31 +138,6 @@ class ViewFactory
 	public function registerRenderer($extention, $renderer, $prepend = true)
 	{
 		$prepend ? $this->prependRenderer($extention, $renderer) : $this->appendRenderer($extention, $renderer);
-
-		return $this;
-	}
-
-	/**
-	 * Returns the cache path.
-	 *
-	 * @access  public
-	 * @return  string
-	 */
-	public function getCachePatch()
-	{
-		return $this->cachePath;
-	}
-
-	/**
-	 * Sets the cache path.
-	 *
-	 * @access  public
-	 * @param   string
-	 * @return  \mako\view\ViewFactory
-	 */
-	public function setCachePath($cachePath)
-	{
-		$this->cachePath = $cachePath;
 
 		return $this;
 	}
