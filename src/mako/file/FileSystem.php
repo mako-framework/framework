@@ -471,7 +471,7 @@ class FileSystem
 	 * @param   bool            $useIncludePath  Use include path?
 	 * @return  \SplFileObject
 	 */
-	public function file(string $file, string $openMode = 'r', bool $useIncludePath = false): SplFileObject
+	public function file(string $file, string $openMode = 'r', bool $useIncludePath = false)
 	{
 		return new SplFileObject($file, $openMode, $useIncludePath);
 	}
