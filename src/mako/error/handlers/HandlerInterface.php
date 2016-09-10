@@ -18,8 +18,8 @@ interface HandlerInterface
 	 * Handles the exception.
 	 *
 	 * @access  public
-	 * @param   boolean  $showDetails  Show error details?
-	 * @return  boolean
+	 * @param   bool    $showDetails  Show error details?
+	 * @return  bool
 	 */
 	public function handle($showDetails = true);
 }

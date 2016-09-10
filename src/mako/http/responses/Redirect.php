@@ -35,7 +35,7 @@ class Redirect implements ResponseContainerInterface
 	/**
 	 * Flash the request data?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $flashRequestData = false;
 

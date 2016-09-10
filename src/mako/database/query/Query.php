@@ -59,7 +59,7 @@ class Query
 	/**
 	 * Select distinct?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $distinct = false;
 
@@ -122,7 +122,7 @@ class Query
 	/**
 	 * Lock.
 	 *
-	 * @var null|boolean|string
+	 * @var null|bool|string
 	 */
 	protected $lock = null;
 
@@ -237,7 +237,7 @@ class Query
 	 * Is it a distict select?
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isDistinct()
 	{
@@ -336,7 +336,7 @@ class Query
 	 * Returns the lock.
 	 *
 	 * @access  public
-	 * @return  null|boolean|string
+	 * @return  null|bool|string
 	 */
 	public function getLock()
 	{
@@ -503,7 +503,7 @@ class Query
 	 * @param   mixed                       $value1     First value
 	 * @param   mixed                       $value2     Second value
 	 * @param   string                      $separator  Clause separator
-	 * @param   boolean                     $not        Not between?
+	 * @param   bool                        $not        Not between?
 	 * @return  \mako\database\query\Query
 	 */
 	public function between($column, $value1, $value2, $separator = 'AND', $not = false)
@@ -570,7 +570,7 @@ class Query
 	 * @param   string                                                                 $column     Column name
 	 * @param   array|\mako\database\query\Raw|\Closure|\mako\database\query\Subquery  $values     Array of values or Subquery
 	 * @param   string                                                                 $separator  Clause separator
-	 * @param   boolean                                                                $not        Not in?
+	 * @param   bool                                                                   $not        Not in?
 	 * @return  \mako\database\query\Query
 	 */
 	public function in($column, $values, $separator = 'AND', $not = false)
@@ -641,7 +641,7 @@ class Query
 	 * @access  public
 	 * @param   mixed                       $column     Column name
 	 * @param   string                      $separator  Clause separator
-	 * @param   boolean                     $not        Not in?
+	 * @param   bool                        $not        Not in?
 	 * @return  \mako\database\query\Query
 	 */
 	public function isNull($column, $separator = 'AND', $not = false)
@@ -699,7 +699,7 @@ class Query
 	 * @access  public
 	 * @param   \Closure|\mako\database\query\Subquery  $query      Subquery
 	 * @param   string                                  $separator  Clause separator
-	 * @param   boolean                                 $not        Not exists?
+	 * @param   bool                                    $not        Not exists?
 	 * @return  \mako\database\query\Query
 	 */
 	public function exists($query, $separator = 'AND', $not = false)
@@ -765,7 +765,7 @@ class Query
 	 * @param   string                      $operator  Operator
 	 * @param   string                      $column2   Column name
 	 * @param   string                      $type      Join type
-	 * @param   boolean                     $raw       Raw join?
+	 * @param   bool                        $raw       Raw join?
 	 * @return  \mako\database\query\Query
 	 */
 	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
@@ -1054,7 +1054,7 @@ class Query
 	 * Enable lock.
 	 *
 	 * @access  public
-	 * @param   boolean|string              $lock  TRUE for exclusive, FALSE for shared and string for custom
+	 * @param   bool|string                 $lock  TRUE for exclusive, FALSE for shared and string for custom
 	 * @return  \mako\database\query\Query
 	 */
 	public function lock($lock = true)
@@ -1129,8 +1129,8 @@ class Query
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
 	 *
 	 * @access  public
-	 * @param   boolean  $returnResultSet  Return result set?
-	 * @param   mixed    ...$fetchMode     Fetch mode
+	 * @param   bool    $returnResultSet  Return result set?
+	 * @param   mixed   ...$fetchMode     Fetch mode
 	 * @return  array
 	 */
 	protected function fetchAll($returnResultSet, ...$fetchMode)
@@ -1307,8 +1307,8 @@ class Query
 	 * Inserts data into the chosen table.
 	 *
 	 * @access  public
-	 * @param   array    $values  Associative array of column values
-	 * @return  boolean
+	 * @param   array   $values  Associative array of column values
+	 * @return  bool
 	 */
 	public function insert(array $values)
 	{
@@ -1321,9 +1321,9 @@ class Query
 	 * Inserts data into the chosen table and returns the auto increment id.
 	 *
 	 * @access  public
-	 * @param   array        $values      Associative array of column values
-	 * @param   string       $primaryKey  Primary key
-	 * @return  int|boolean
+	 * @param   array     $values      Associative array of column values
+	 * @param   string    $primaryKey  Primary key
+	 * @return  int|bool
 	 */
 	public function insertAndGetId(array $values, $primaryKey = 'id')
 	{

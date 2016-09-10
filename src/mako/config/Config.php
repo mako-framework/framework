@@ -185,8 +185,8 @@ class Config
 	 * Removes a value from the configuration.
 	 *
 	 * @access  public
-	 * @param   string   $key  Config key
-	 * @return  boolean
+	 * @param   string  $key  Config key
+	 * @return  bool
 	 */
 	public function remove($key)
 	{

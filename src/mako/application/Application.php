@@ -221,7 +221,7 @@ abstract class Application
 	 * Returns the application namespace.
 	 *
 	 * @access  public
-	 * @param   boolean  $prefix  Prefix the namespace with a slash?
+	 * @param   bool    $prefix  Prefix the namespace with a slash?
 	 * @return  string
 	 */
 	public function getNamespace($prefix = false)
@@ -240,7 +240,7 @@ abstract class Application
 	 * Is the application running in the CLI?
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isCommandLine()
 	{

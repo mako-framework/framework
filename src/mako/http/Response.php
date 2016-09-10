@@ -84,14 +84,14 @@ class Response
 	/**
 	 * Compress output?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $outputCompression = false;
 
 	/**
 	 * Enable response cache?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $responseCache = false;
 
@@ -395,7 +395,7 @@ class Response
 	 * @access  public
 	 * @param   string               $name     Header name
 	 * @param   string               $value    Header value
-	 * @param   boolean              $replace  Replace header?
+	 * @param   bool                $replace  Replace header?
 	 * @return  \mako\http\Response
 	 */
 	public function header($name, $value, $replace = true)
@@ -420,8 +420,8 @@ class Response
 	 * Checks if the header exists in the response.
 	 *
 	 * @access  public
-	 * @param   string   $name  Header name
-	 * @return  boolean
+	 * @param   string  $name  Header name
+	 * @return  bool
 	 */
 	public function hasHeader($name)
 	{
@@ -524,8 +524,8 @@ class Response
 	 * Checks if the cookie exists in the response.
 	 *
 	 * @access  public
-	 * @param   string   $name  Cookie name
-	 * @return  boolean
+	 * @param   string  $name  Cookie name
+	 * @return  bool
 	 */
 	public function hasCookie($name)
 	{

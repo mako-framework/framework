@@ -41,7 +41,7 @@ class Memcache implements StoreInterface
 	 * @access  public
 	 * @param   array    $servers       Memcache servers
 	 * @param   int      $timeout       Timeout in seconds
-	 * @param   boolean  $compressData  Compress data?
+	 * @param   bool     $compressData  Compress data?
 	 */
 	public function __construct(array $servers, $timeout = 1, $compressData = false)
 	{

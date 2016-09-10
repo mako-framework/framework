@@ -45,9 +45,9 @@ class Arr
 	 * Search for an array value using "dot notation". Returns TRUE if the array key exists and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   array    $array  Array we're goint to search
-	 * @param   string   $path   Array path
-	 * @return  boolean
+	 * @param   array   $array  Array we're goint to search
+	 * @param   string  $path   Array path
+	 * @return  bool
 	 */
 	public static function has(array $array, string $path): bool
 	{
@@ -96,9 +96,9 @@ class Arr
 	 * Deletes an array value using "dot notation".
 	 *
 	 * @access  public
-	 * @param   array    $array  Array you want to modify
-	 * @param   string   $path   Array path
-	 * @return  boolean
+	 * @param   array   $array  Array you want to modify
+	 * @param   string  $path   Array path
+	 * @return  bool
 	 */
 	public static function delete(array &$array, string $path): bool
 	{
@@ -137,8 +137,8 @@ class Arr
 	 * Returns TRUE if the array is associative and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   array    $array  Array to check
-	 * @return  boolean
+	 * @param   array   $array  Array to check
+	 * @return  bool
 	 */
 	public static function isAssoc(array $array): bool
 	{

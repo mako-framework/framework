@@ -77,7 +77,7 @@ class Container
 	 * @access  public
 	 * @param   string|array     $hint       Type hint or array contaning both type hint and alias
 	 * @param   string|\Closure  $class      Class name or closure
-	 * @param   boolean          $singleton  Should we return the same instance every time?
+	 * @param   bool             $singleton  Should we return the same instance every time?
 	 */
 	public function register($hint, $class, bool $singleton = false)
 	{
@@ -295,7 +295,7 @@ class Container
 	 *
 	 * @access  protected
 	 * @param   object     $class  Class instance
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function isContainerAware($class): bool
 	{
@@ -408,8 +408,8 @@ class Container
 	 * Checks if a class is registered in the container.
 	 *
 	 * @access  public
-	 * @param   string   $class  Class name
-	 * @return  boolean
+	 * @param   string  $class  Class name
+	 * @return  bool
 	 */
 	public function has(string $class): bool
 	{
@@ -422,9 +422,9 @@ class Container
 	 * Returns a class instance.
 	 *
 	 * @access  public
-	 * @param   string   $class           Class name
-	 * @param   array    $parameters      Constructor parameters
-	 * @param   boolean  $reuseInstance   Reuse existing instance?
+	 * @param   string  $class           Class name
+	 * @param   array   $parameters      Constructor parameters
+	 * @param   bool    $reuseInstance   Reuse existing instance?
 	 * @return  object
 	 */
 	public function get(string $class, array $parameters = [], bool $reuseInstance = true)

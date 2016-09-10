@@ -78,7 +78,7 @@ class WebHandler extends Handler
 	 * Should we return the error as JSON?
 	 *
 	 * @access  protected
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function returnAsJson()
 	{
@@ -145,7 +145,7 @@ class WebHandler extends Handler
 	 *
 	 * @access  protected
 	 * @param   array      $trace      Exception trace
-	 * @param   boolean    $addSource  Add source code to each frame?
+	 * @param   bool       $addSource  Add source code to each frame?
 	 * @return  array
 	 */
 	protected function modifyTrace(array $trace, $addSource = true)
@@ -182,7 +182,7 @@ class WebHandler extends Handler
 	 * Returns a detailed error page.
 	 *
 	 * @access  protected
-	 * @param   boolean    $returnAsJson  Should we return JSON?
+	 * @param   bool       $returnAsJson  Should we return JSON?
 	 * @return  string
 	 */
 	protected function getDetailedError($returnAsJson)
@@ -236,7 +236,7 @@ class WebHandler extends Handler
 	 * Retruns a generic error page.
 	 *
 	 * @access  protected
-	 * @param   boolean    $returnAsJson  Should we return JSON?
+	 * @param   bool       $returnAsJson  Should we return JSON?
 	 * @return  string
 	 */
 	protected function getGenericError($returnAsJson)

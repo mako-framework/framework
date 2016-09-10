@@ -60,8 +60,8 @@ class Event
 	 * Returns TRUE if an event listener is registered for the event and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $name  Event name
-	 * @return  boolean
+	 * @param   string  $name  Event name
+	 * @return  bool
 	 */
 	public function has(string $name): bool
 	{
@@ -167,9 +167,9 @@ class Event
 	 * contaning the return values of each event handler.
 	 *
 	 * @access  public
-	 * @param   string   $name        Event name
-	 * @param   array    $parameters  Parameters
-	 * @param   boolean  $break       Break if one of the closures returns false?
+	 * @param   string  $name        Event name
+	 * @param   array   $parameters  Parameters
+	 * @param   bool    $break       Break if one of the closures returns false?
 	 * @return  array
 	 */
 	public function trigger(string $name, array $parameters = [], bool $break = false): array

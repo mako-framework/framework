@@ -30,7 +30,7 @@ class Redis implements StoreInterface
 	/**
 	 * Class whitelist.
 	 *
-	 * @var boolean|array
+	 * @var bool|array
 	 */
 	protected $classWhitelist;
 
@@ -39,7 +39,7 @@ class Redis implements StoreInterface
 	 *
 	 * @access  public
 	 * @param   \mako\redis\Redis  $redis           Redis client
-	 * @param   boolean|array      $classWhitelist  Class whitelist
+	 * @param   bool|array         $classWhitelist  Class whitelist
 	 */
 	public function __construct(RedisClient $redis, $classWhitelist = false)
 	{

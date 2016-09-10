@@ -63,8 +63,8 @@ class CommandBus implements CommandBusInterface
 	 * Adds middleware.
 	 *
 	 * @access  public
-	 * @param   string   $middleware  Middleware class
-	 * @param   boolean  $inner       Add an inner layer?
+	 * @param   string  $middleware  Middleware class
+	 * @param   bool    $inner       Add an inner layer?
 	 * @return  int
 	 */
 	public function addMiddleware($middleware, $inner = true): int

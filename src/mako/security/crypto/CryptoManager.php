@@ -27,7 +27,7 @@ class CryptoManager extends AdapterManager
 	/**
 	 * Reuse instances?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $reuseInstances = false;
 

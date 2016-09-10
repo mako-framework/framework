@@ -102,7 +102,7 @@ class Gatekeeper
 	/**
 	 * Is brute force throttling enabled?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $throttle = false;
 
@@ -224,7 +224,7 @@ class Gatekeeper
 	 * @param   string                         $email     Email address
 	 * @param   string                         $username  Username
 	 * @param   string                         $password  Password
-	 * @param   boolean                        $activate  Will activate the user if set to true
+	 * @param   bool                           $activate  Will activate the user if set to true
 	 * @return  \mako\auth\user\UserInterface
 	 */
 	public function createUser($email, $username, $password, $activate = false)
@@ -263,8 +263,8 @@ class Gatekeeper
 	 * Activates a user based on the provided auth token.
 	 *
 	 * @access  public
-	 * @param   string   $token  Auth token
-	 * @return  boolean
+	 * @param   string  $token  Auth token
+	 * @return  bool
 	 */
 	public function activateUser($token)
 	{
@@ -332,7 +332,7 @@ class Gatekeeper
 	 * Returns FALSE if the user is logged in and TRUE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isGuest()
 	{
@@ -343,7 +343,7 @@ class Gatekeeper
 	 * Returns FALSE if the user isn't logged in and TRUE if it is.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isLoggedIn()
 	{
@@ -365,8 +365,8 @@ class Gatekeeper
 	 * Gets a user by its unique identifier.
 	 *
 	 * @access  protected
-	 * @param   string                                 $identifier  User identifier
-	 * @return  \mako\auth\user\UserInterface|boolean
+	 * @param   string                              $identifier  User identifier
+	 * @return  \mako\auth\user\UserInterface|bool
 	 */
 	protected function getByIdentifier($identifier)
 	{
@@ -386,10 +386,10 @@ class Gatekeeper
 	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT) will be retured in all other situations.
 	 *
 	 * @access  protected
-	 * @param   string       $identifier  User email or username
-	 * @param   string       $password    User password
-	 * @param   boolean      $force       Skip the password check?
-	 * @return  boolean|int
+	 * @param   string     $identifier  User email or username
+	 * @param   string     $password    User password
+	 * @param   bool       $force       Skip the password check?
+	 * @return  bool|int
 	 */
 	protected function authenticate($identifier, $password, $force = false)
 	{
@@ -441,11 +441,11 @@ class Gatekeeper
 	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT, LOGIN_LOCKED) will be retured in all other situations.
 	 *
 	 * @access  public
-	 * @param   string       $identifier  User email
-	 * @param   string       $password    User password
-	 * @param   boolean      $remember    Set a remember me cookie?
-	 * @param   boolean      $force       Login the user without checking the password?
-	 * @return  boolean|int
+	 * @param   string    $identifier  User email
+	 * @param   string    $password    User password
+	 * @param   bool      $remember    Set a remember me cookie?
+	 * @param   bool      $force       Login the user without checking the password?
+	 * @return  bool|int
 	 */
 	public function login($identifier, $password, $remember = false, $force = false)
 	{
@@ -479,9 +479,9 @@ class Gatekeeper
 	 * Login a user without checking the password.
 	 *
 	 * @access  public
-	 * @param   mixed    $identifier  User email or username
-	 * @param   boolean  $remember    Set a remember me cookie?
-	 * @return  boolean
+	 * @param   mixed   $identifier  User email or username
+	 * @param   bool    $remember    Set a remember me cookie?
+	 * @return  bool
 	 */
 	public function forceLogin($identifier, $remember = false)
 	{

@@ -71,7 +71,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @access  public
 	 * @param   int|string  $key  Key
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function has($key)
 	{
@@ -116,8 +116,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Checks whether or not an offset exists.
 	 *
 	 * @access  public
-	 * @param   mixed    $offset  The offset to check for
-	 * @return  boolean
+	 * @param   mixed   $offset  The offset to check for
+	 * @return  bool
 	 */
 	public function offsetExists($offset)
 	{
@@ -196,7 +196,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns TRUE if the collection is empty and FALSE if not.
 	 *
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isEmpty(): bool
 	{
@@ -259,8 +259,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @access  public
 	 * @param   \Closure  $comparator                Comparator closure
-	 * @param   boolean   $maintainIndexAssociation  Maintain index association?
-	 * @return  boolean
+	 * @param   bool      $maintainIndexAssociation  Maintain index association?
+	 * @return  bool
 	 */
 	public function sort(Closure $comparator, bool $maintainIndexAssociation = true): bool
 	{
@@ -291,7 +291,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * TRUE on success and FALSE on failure.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function shuffle(): bool
 	{

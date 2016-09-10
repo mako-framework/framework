@@ -32,8 +32,8 @@ interface UserProviderInterface
 	 * Fetches a user by its action token.
 	 *
 	 * @access  public
-	 * @param   string                                 $token  Action token
-	 * @return  \mako\auth\user\UserInterface|boolean
+	 * @param   string                              $token  Action token
+	 * @return  \mako\auth\user\UserInterface|bool
 	 */
 	public function getByActionToken($token);
 
@@ -41,8 +41,8 @@ interface UserProviderInterface
 	 * Fetches a user by its access token.
 	 *
 	 * @access  public
-	 * @param   string                                 $token  Access token
-	 * @return  \mako\auth\user\UserInterface|boolean
+	 * @param   string                              $token  Access token
+	 * @return  \mako\auth\user\UserInterface|bool
 	 */
 	public function getByAccessToken($token);
 
@@ -50,8 +50,8 @@ interface UserProviderInterface
 	 * Fetches a user by its email address.
 	 *
 	 * @access  public
-	 * @param   string                                 $email  Email address
-	 * @return  \mako\auth\user\UserInterface|boolean
+	 * @param   string                              $email  Email address
+	 * @return  \mako\auth\user\UserInterface|bool
 	 */
 	public function getByEmail($email);
 
@@ -59,8 +59,8 @@ interface UserProviderInterface
 	 * Fetches a user by its username.
 	 *
 	 * @access  public
-	 * @param   string                                 $username  Username
-	 * @return  \mako\auth\user\UserInterface|boolean
+	 * @param   string                              $username  Username
+	 * @return  \mako\auth\user\UserInterface|bool
 	 */
 	public function getByUsername($username);
 
@@ -68,8 +68,8 @@ interface UserProviderInterface
 	 * Fetches a user by its id.
 	 *
 	 * @access  public
-	 * @param   string                                 $id  User id
-	 * @return  \mako\auth\user\UserInterface|boolean
+	 * @param   string                              $id  User id
+	 * @return  \mako\auth\user\UserInterface|bool
 	 */
 	public function getById($id);
 
@@ -80,7 +80,7 @@ interface UserProviderInterface
 	 * @param   \mako\auth\user\UserInterface  $user              User object
 	 * @param   int                            $maxLoginAttempts  Maximum number of failed login attempts
 	 * @param   int                            $lockTime          Number of seconds for which the account gets locked after reaching the maximum number of login attempts
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function throttle(UserInterface $user, $maxLoginAttempts, $lockTime);
 
@@ -89,7 +89,7 @@ interface UserProviderInterface
 	 *
 	 * @access  public
 	 * @param   \mako\auth\user\UserInterface  $user  User object
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function resetThrottle(UserInterface $user);
 
@@ -99,7 +99,7 @@ interface UserProviderInterface
 	 * @access  public
 	 * @param   \mako\auth\user\UserInterface  $user      User object
 	 * @param   string                         $password  Password
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function validatePassword(UserInterface $user, $password);
 }

@@ -111,8 +111,8 @@ class Str
 	 * Replaces newline with <br> or <br />.
 	 *
 	 * @access  public
-	 * @param   string   $string  The input string
-	 * @param   boolean  $xhtml   Should we return XHTML?
+	 * @param   string  $string  The input string
+	 * @param   bool    $xhtml   Should we return XHTML?
 	 * @return  string
 	 */
 	public static function nl2br(string $string, bool $xhtml = false): string
@@ -181,8 +181,8 @@ class Str
 	 * Converts underscored to camel case.
 	 *
 	 * @access  public
-	 * @param   string   $string  The input string
-	 * @param   boolean  $upper   Return upper case camelCase?
+	 * @param   string  $string  The input string
+	 * @param   bool    $upper   Return upper case camelCase?
 	 * @return  string
 	 */
 	public static function underscored2camel(string $string, bool $upper = false): string

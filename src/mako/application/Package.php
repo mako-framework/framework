@@ -102,7 +102,7 @@ abstract class Package
 	 * Returns the class namespace.
 	 *
 	 * @access  public
-	 * @param   boolean  $prefix  Prefix the namespace with a slash?
+	 * @param   bool    $prefix  Prefix the namespace with a slash?
 	 * @return  string
 	 */
 	public function getClassNamespace($prefix = false)

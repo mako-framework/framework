@@ -234,8 +234,8 @@ class ManyToMany extends Relation
 	 * Links related records.
 	 *
 	 * @access  public
-	 * @param   mixed    $id  Id, model or an array of ids and/or models
-	 * @return  boolean
+	 * @param   mixed   $id  Id, model or an array of ids and/or models
+	 * @return  bool
 	 */
 	public function link($id)
 	{
@@ -258,8 +258,8 @@ class ManyToMany extends Relation
 	 * Unlinks related records.
 	 *
 	 * @access  public
-	 * @param   mixed    $id  Id, model or an array of ids and/or models
-	 * @return  boolean
+	 * @param   mixed   $id  Id, model or an array of ids and/or models
+	 * @return  bool
 	 */
 	public function unlink($id = null)
 	{
@@ -289,8 +289,8 @@ class ManyToMany extends Relation
 	 * Synchronize related records.
 	 *
 	 * @access  public
-	 * @param   array    $ids  An array of ids and/or models
-	 * @return  boolean
+	 * @param   array   $ids  An array of ids and/or models
+	 * @return  bool
 	 */
 	public function synchronize(array $ids)
 	{

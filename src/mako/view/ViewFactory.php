@@ -132,7 +132,7 @@ class ViewFactory
 	 * @access  public
 	 * @param   string                  $extention  Extention handled by the renderer
 	 * @param   string|\Closure         $renderer   Renderer class or closure that creates a renderer instance
-	 * @param   boolean                 $prepend    Prepend the custom renderer on the stack
+	 * @param   bool                    $prepend    Prepend the custom renderer on the stack
 	 * @return  \mako\view\ViewFactory
 	 */
 	public function registerRenderer($extention, $renderer, $prepend = true)
@@ -162,7 +162,7 @@ class ViewFactory
 	 *
 	 * @access  protected
 	 * @param   string     $view            View
-	 * @param   boolean    $throwException  Throw exception if view doesn't exist?
+	 * @param   bool       $throwException  Throw exception if view doesn't exist?
 	 * @return  array
 	 */
 	protected function getViewPathAndExtension($view, $throwException = true)
@@ -230,8 +230,8 @@ class ViewFactory
 	 * Returns TRUE if the view exists and false if not.
 	 *
 	 * @access  public
-	 * @param   string   $view  View
-	 * @return  boolean
+	 * @param   string  $view  View
+	 * @return  bool
 	 */
 	public function exists($view)
 	{

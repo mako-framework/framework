@@ -98,14 +98,14 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Does this table have an auto increment primary index?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $primaryKeyType = ORM::PRIMARY_KEY_TYPE_INCREMENTING;
 
 	/**
 	 * Has the record been loaded from/saved to a database?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $exists = false;
 
@@ -169,10 +169,10 @@ abstract class ORM implements JsonSerializable
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   array    $columns    Column values
-	 * @param   boolean  $raw        Set raw values?
-	 * @param   boolean  $whitelist  Remove columns that are not in the whitelist?
-	 * @param   boolean  $exists     Does the record come from a database?
+	 * @param   array   $columns    Column values
+	 * @param   bool    $raw        Set raw values?
+	 * @param   bool    $whitelist  Remove columns that are not in the whitelist?
+	 * @param   bool    $exists     Does the record come from a database?
 	 */
 	public function __construct(array $columns = [], $raw = false, $whitelist = true, $exists = false)
 	{
@@ -304,7 +304,7 @@ abstract class ORM implements JsonSerializable
 	 * Has the record been loaded from/saved to a database?
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function exists()
 	{
@@ -614,8 +614,8 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @access  public
 	 * @param   array                       $columns    Column values
-	 * @param   boolean                     $raw        Set raw values?
-	 * @param   boolean                     $whitelist  Remove columns that are not in the whitelist?
+	 * @param   bool                        $raw        Set raw values?
+	 * @param   bool                        $whitelist  Remove columns that are not in the whitelist?
 	 * @return  \mako\database\midgard\ORM
 	 */
 	public function assign(array $columns, $raw = false, $whitelist = true)
@@ -682,8 +682,8 @@ abstract class ORM implements JsonSerializable
 	 * Checks if a column or relation is set using overloading.
 	 *
 	 * @access  public
-	 * @param   string   $name  Column name
-	 * @return  boolean
+	 * @param   string  $name  Column name
+	 * @return  bool
 	 */
 	public function __isset($name)
 	{
@@ -730,8 +730,8 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @access  public
 	 * @param   array                       $columns    Column values
-	 * @param   boolean                     $raw        Set raw values?
-	 * @param   boolean                     $whitelist  Remove columns that are not in the whitelist?
+	 * @param   bool                        $raw        Set raw values?
+	 * @param   bool                        $whitelist  Remove columns that are not in the whitelist?
 	 * @return  \mako\database\midgard\ORM
 	 */
 	public static function create(array $columns, $raw = false, $whitelist = true)
@@ -839,7 +839,7 @@ abstract class ORM implements JsonSerializable
 	 * Has the record been modified?
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isModified()
 	{
@@ -911,7 +911,7 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function updateRecord($query)
 	{
@@ -924,7 +924,7 @@ abstract class ORM implements JsonSerializable
 	 * Saves the record to the database.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function save()
 	{
@@ -960,7 +960,7 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function deleteRecord($query)
 	{
@@ -971,7 +971,7 @@ abstract class ORM implements JsonSerializable
 	 * Deletes a record from the database.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function delete()
 	{

@@ -23,7 +23,7 @@ class ErrorHandler
 	/**
 	 * Is the shutdown handler disabled?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $disableShutdownHandler = false;
 
@@ -186,7 +186,7 @@ class ErrorHandler
 	 *
 	 * @access  public
 	 * @param   \Throwable  $exception  An exception object
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function shouldExceptionBeLogged(Throwable $exception)
 	{

@@ -77,7 +77,7 @@ class Template extends PHP
 	 * @access  protected
 	 * @param   string     $view      View path
 	 * @param   string     $compiled  Compiled view path
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function needToCompile($view, $compiled)
 	{

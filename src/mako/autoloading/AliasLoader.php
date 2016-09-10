@@ -36,8 +36,8 @@ class AliasLoader
 	 * Autoloads aliased classes.
 	 *
 	 * @access  public
-	 * @param   string   $alias  Class alias
-	 * @return  boolean
+	 * @param   string  $alias  Class alias
+	 * @return  bool
 	 */
 	public function load(string $alias): bool
 	{

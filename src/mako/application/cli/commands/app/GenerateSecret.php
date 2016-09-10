@@ -22,7 +22,7 @@ class GenerateSecret extends Command
 	/**
 	 * Make the command strict.
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $isStrict = true;
 

@@ -94,7 +94,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateRequired($input)
 	{
@@ -107,7 +107,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input      Field value
 	 * @param   int        $minLength  Minimum length
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateMinLength($input, $minLength)
 	{
@@ -120,7 +120,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input      Field value
 	 * @param   int        $maxLength  Maximum length
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateMaxLength($input, $maxLength)
 	{
@@ -133,7 +133,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input   Field value
 	 * @param   int        $length  Exact length
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateExactLength($input, $length)
 	{
@@ -146,7 +146,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input     Field value
 	 * @param   int        $lessThan  Maximum value + 1
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateLessThan($input, $lessThan)
 	{
@@ -159,7 +159,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input              Field value
 	 * @param   int        $lessThanOrEqualTo  Maximum value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateLessThanOrEqualTo($input, $lessThanOrEqualTo)
 	{
@@ -172,7 +172,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input        Field value
 	 * @param   int        $greaterThan  Minimum value - 1
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateGreaterThan($input, $greaterThan)
 	{
@@ -185,7 +185,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input                 Field value
 	 * @param   int        $greaterThanOrEqualTo  Minimum value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateGreaterThanOrEqualTo($input, $greaterThanOrEqualTo)
 	{
@@ -199,7 +199,7 @@ class Validator
 	 * @param   string     $input  Field value
 	 * @param   int        $minimum  Minimum value
 	 * @param   int        $maximum  Maximum value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateBetween($input, $minimum, $maximum)
 	{
@@ -212,7 +212,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input      Field value
 	 * @param   mixed      $fieldName  Field name
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateMatch($input, $fieldName)
 	{
@@ -225,7 +225,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input      Field value
 	 * @param   mixed      $fieldName  Field name
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateDifferent($input, $fieldName)
 	{
@@ -238,7 +238,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input  Field value
 	 * @param   string     $regex  Regex
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateRegex($input, $regex)
 	{
@@ -250,7 +250,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateInteger($input)
 	{
@@ -262,7 +262,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateFloat($input)
 	{
@@ -274,7 +274,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateNatural($input)
 	{
@@ -286,7 +286,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateNaturalNonZero($input)
 	{
@@ -298,7 +298,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateHex($input)
 	{
@@ -310,7 +310,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateAlpha($input)
 	{
@@ -322,7 +322,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateAlphaUnicode($input)
 	{
@@ -334,7 +334,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateAlphanumeric($input)
 	{
@@ -346,7 +346,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateAlphanumericUnicode($input)
 	{
@@ -358,7 +358,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateAlphaDash($input)
 	{
@@ -370,7 +370,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateAlphaDashUnicode($input)
 	{
@@ -382,7 +382,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateEmail($input)
 	{
@@ -394,7 +394,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateEmailDomain($input)
 	{
@@ -413,7 +413,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateIp($input)
 	{
@@ -425,7 +425,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateUrl($input)
 	{
@@ -438,7 +438,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input   Field value
 	 * @param   array      $values  Valid values
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateIn($input, $values)
 	{
@@ -451,7 +451,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input   Field value
 	 * @param   array      $values  Invalid values
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateNotIn($input, $values)
 	{
@@ -464,7 +464,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $input   Field value
 	 * @param   array      $format  Date format
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateDate($input, $format)
 	{
@@ -478,7 +478,7 @@ class Validator
 	 * @param   string     $input   Field valies
 	 * @param   string     $format  Date format
 	 * @param   string     $date    Date
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateBefore($input, $format, $date)
 	{
@@ -497,7 +497,7 @@ class Validator
 	 * @param   string     $input   Field valies
 	 * @param   string     $format  Date format
 	 * @param   string     $date    Date
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateAfter($input, $format, $date)
 	{
@@ -514,7 +514,7 @@ class Validator
 	 *
 	 * @access  protected
 	 * @param   string     $input  Field value
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function validateUuid($input)
 	{
@@ -629,7 +629,7 @@ class Validator
 	 * @access  protected
 	 * @param   string     $field      Name of the field that we're validating
 	 * @param   array      $validator  Validator
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function validate($field, $validator)
 	{
@@ -679,8 +679,8 @@ class Validator
 	 * Returns TRUE if all rules passed and FALSE if validation failed.
 	 *
 	 * @access  public
-	 * @param   array    $errors  If $errors is provided, then it is filled with all the error messages
-	 * @return  boolean
+	 * @param   array   $errors  If $errors is provided, then it is filled with all the error messages
+	 * @return  bool
 	 */
 	public function isValid(&$errors = null)
 	{
@@ -695,8 +695,8 @@ class Validator
 	 * Returns FALSE if all rules passed and TRUE if validation failed.
 	 *
 	 * @access  public
-	 * @param   array    $errors  If $errors is provided, then it is filled with all the error messages
-	 * @return  boolean
+	 * @param   array   $errors  If $errors is provided, then it is filled with all the error messages
+	 * @return  bool
 	 */
 	public function isInvalid(&$errors = null)
 	{

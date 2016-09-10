@@ -37,7 +37,7 @@ class Database implements StoreInterface
 	/**
 	 * Class whitelist.
 	 *
-	 * @var boolean|array
+	 * @var bool|array
 	 */
 	protected $classWhitelist;
 
@@ -47,7 +47,7 @@ class Database implements StoreInterface
 	 * @access  public
 	 * @param   \mako\database\connections\Connection  $connection      Database connection
 	 * @param   string                                 $table           Database table
-	 * @param   boolean|array                          $classWhitelist  Class whitelist
+	 * @param   bool|array                             $classWhitelist  Class whitelist
 	 */
 	public function __construct(Connection $connection, $table, $classWhitelist = false)
 	{

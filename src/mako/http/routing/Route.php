@@ -61,7 +61,7 @@ class Route
 	/**
 	 * Does the route have a trailing slash?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $hasTrailingSlash;
 
@@ -224,8 +224,8 @@ class Route
 	 * Returns TRUE if the route allows the specified method or FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $method  Method
-	 * @return  boolean
+	 * @param   string  $method  Method
+	 * @return  bool
 	 */
 	public function allows(string $method): bool
 	{
@@ -236,7 +236,7 @@ class Route
 	 * Returns TRUE if the route has a trailing slash and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function hasTrailingSlash(): bool
 	{

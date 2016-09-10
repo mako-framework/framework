@@ -67,21 +67,21 @@ class Connection
 	/**
 	 * Enable the query log?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $enableLog;
 
 	/**
 	 * Should we reconnect?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $reconnect;
 
 	/**
 	 * Should we use a persistent connection?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $usePersistentConnection;
 
@@ -276,7 +276,7 @@ class Connection
 	 * Checks if the connection is alive.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isAlive()
 	{
@@ -391,7 +391,7 @@ class Connection
 	 * Should we try to reestablish the connection?
 	 *
 	 * @access  protected
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function isConnectionLostAndShouldItBeReestablished()
 	{
@@ -489,7 +489,7 @@ class Connection
 	 *
 	 * @access  protected
 	 * @param   array      $prepared  Prepared query
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function execute(array $prepared)
 	{
@@ -512,9 +512,9 @@ class Connection
 	 * Executes the query and returns TRUE on success or FALSE on failure.
 	 *
 	 * @access  public
-	 * @param   string   $query   SQL query
-	 * @param   array    $params  Query parameters
-	 * @return  boolean
+	 * @param   string  $query   SQL query
+	 * @param   array   $params  Query parameters
+	 * @return  bool
 	 */
 	public function query($query, array $params = [])
 	{
@@ -631,7 +631,7 @@ class Connection
 	 * Creates a new savepoint.
 	 *
 	 * @access  protected
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function createSavepoint()
 	{
@@ -642,7 +642,7 @@ class Connection
 	 * Rolls back to the previously created savepoint.
 	 *
 	 * @access  protected
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function rollBackSavepoint()
 	{
@@ -653,7 +653,7 @@ class Connection
 	 * Begin a transaction.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function beginTransaction()
 	{
@@ -669,7 +669,7 @@ class Connection
 	 * Commits a transaction.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function commitTransaction()
 	{
@@ -685,6 +685,7 @@ class Connection
 	 * Roll back a transaction.
 	 *
 	 * @access  public
+	 * @return  bool
 	 */
 	public function rollBackTransaction()
 	{
@@ -722,7 +723,7 @@ class Connection
 	 * Returns TRUE if we're in a transaction and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function inTransaction()
 	{

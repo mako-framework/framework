@@ -19,7 +19,7 @@ class Error implements WriterInterface
 	/**
 	 * Is the stream direct?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $isDirect;
 

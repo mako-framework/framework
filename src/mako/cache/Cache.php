@@ -60,10 +60,10 @@ class Cache
 	 * Store data in the cache.
 	 *
 	 * @access  public
-	 * @param   string   $key    Cache key
-	 * @param   mixed    $data   The data to store
-	 * @param   int      $ttl    Time to live
-	 * @return  boolean
+	 * @param   string  $key   Cache key
+	 * @param   mixed   $data  The data to store
+	 * @param   int     $ttl   Time to live
+	 * @return  bool
 	 */
 	public function put($key, $data, $ttl = 0)
 	{
@@ -75,7 +75,7 @@ class Cache
 	 *
 	 * @access  public
 	 * @param   string   $key  Cache key
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function has($key)
 	{
@@ -113,7 +113,7 @@ class Cache
 	 *
 	 * @access  public
 	 * @param   string   $key  Cache key
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function remove($key)
 	{
@@ -124,7 +124,7 @@ class Cache
 	 * Clears the user cache.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function clear()
 	{

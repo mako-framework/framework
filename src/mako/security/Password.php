@@ -86,7 +86,7 @@ class Password
 	 * @access  public
 	 * @param   string      $hash     Password hash to check
 	 * @param   null|array  $options  Computing options
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public static function needsRehash(string $hash, array $options = null): bool
 	{
@@ -99,9 +99,9 @@ class Password
 	 * Validates a password hash.
 	 *
 	 * @access  public
-	 * @param   string    $password  Password
-	 * @param   string    $hash      Password hash
-	 * @return  boolean
+	 * @param   string  $password  Password
+	 * @param   string  $hash      Password hash
+	 * @return  bool
 	 */
 	public static function validate(string $password, string $hash): bool
 	{

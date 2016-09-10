@@ -109,7 +109,7 @@ class Router
 	 * @param   \mako\http\routing\Route  $route       Route
 	 * @param   string                    $path        Request path
 	 * @param   array                     $parameters  Parameters
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function matches(Route $route, string $path, array &$parameters = []): bool
 	{

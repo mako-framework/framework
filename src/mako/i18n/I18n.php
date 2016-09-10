@@ -58,7 +58,7 @@ class I18n
 	/**
 	 * Should we rebuild the cache?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $rebuildCache = false;
 
@@ -185,7 +185,7 @@ class I18n
 	 * @access  protected
 	 * @param   string     $language  Name of the language pack
 	 * @param   string     $file      File from which we are loading the strings
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function loadFromCache($language, $file)
 	{
@@ -254,9 +254,9 @@ class I18n
 	 * Returns TRUE if the string exists and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $key       String to translate
-	 * @param   string   $language  Name of the language pack
-	 * @return  boolean
+	 * @param   string  $key       String to translate
+	 * @param   string  $language  Name of the language pack
+	 * @return  bool
 	 */
 	public function has($key, $language = null)
 	{

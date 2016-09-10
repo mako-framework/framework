@@ -18,10 +18,10 @@ interface StoreInterface
 	 * Store data in the cache.
 	 *
 	 * @access  public
-	 * @param   string   $key    Cache key
-	 * @param   mixed    $data   The data to store
-	 * @param   int      $ttl    Time to live
-	 * @return  boolean
+	 * @param   string  $key    Cache key
+	 * @param   mixed   $data   The data to store
+	 * @param   int     $ttl    Time to live
+	 * @return  bool
 	 */
 	public function put($key, $data, $ttl = 0);
 
@@ -29,8 +29,8 @@ interface StoreInterface
 	 * Returns TRUE if the cache key exists and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $key  Cache key
-	 * @return  boolean
+	 * @param   string  $key  Cache key
+	 * @return  bool
 	 */
 	public function has($key);
 
@@ -58,8 +58,8 @@ interface StoreInterface
 	 * Delete data from the cache.
 	 *
 	 * @access  public
-	 * @param   string   $key  Cache key
-	 * @return  boolean
+	 * @param   string  $key  Cache key
+	 * @return  bool
 	 */
 	public function remove($key);
 
@@ -67,7 +67,7 @@ interface StoreInterface
 	 * Clears the cache.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function clear();
 }

@@ -34,7 +34,7 @@ class File implements StoreInterface
 	/**
 	 * Class whitelist.
 	 *
-	 * @var boolean|array
+	 * @var bool|array
 	 */
 	protected $classWhitelist;
 
@@ -44,7 +44,7 @@ class File implements StoreInterface
 	 * @access  public
 	 * @param   \mako\file\FileSystem  $fileSystem      File system instance
 	 * @param   string                 $sessionPath     Session path
-	 * @param   boolean|array          $classWhitelist  Class whitelist
+	 * @param   bool|array             $classWhitelist  Class whitelist
 	 */
 	public function __construct(FileSystem $fileSystem, $sessionPath, $classWhitelist = false)
 	{

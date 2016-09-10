@@ -49,7 +49,7 @@ class Stopwatch
 	 * Returns TRUE if the stopwatch is still running and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isRunning()
 	{

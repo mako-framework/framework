@@ -47,7 +47,7 @@ class OneTimeTokenValidator extends ValidatorPlugin
 	 *
 	 * @access  public
 	 * @param   string  $input Input
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function validate($input)
 	{

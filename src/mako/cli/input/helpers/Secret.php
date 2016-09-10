@@ -39,7 +39,7 @@ class Secret extends Question
 	/**
 	 * Do we have stty support?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected static $hasStty;
 
@@ -61,7 +61,7 @@ class Secret extends Question
 	 * Do we have stty support?
 	 *
 	 * @access  protected
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function hasStty(): bool
 	{
@@ -81,7 +81,7 @@ class Secret extends Question
 	 * @access  public
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered
-	 * @param   boolean     $fallback  Fall back to non-hidden input?
+	 * @param   bool        $fallback  Fall back to non-hidden input?
 	 * @return  mixed
 	 */
 	public function ask(string $question, $default = null, bool $fallback = false)

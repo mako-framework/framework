@@ -22,7 +22,7 @@ class Stream implements ResponseContainerInterface
 	/**
 	 * Is PHP running as a CGI program?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $isCGI;
 
@@ -48,8 +48,8 @@ class Stream implements ResponseContainerInterface
 	 * Flushes a chunck of data.
 	 *
 	 * @access  public
-	 * @param   string   $chunk       Chunck of data to flush
-	 * @param   boolean  $flushEmpty  Flush empty chunk?
+	 * @param   string  $chunk       Chunck of data to flush
+	 * @param   bool    $flushEmpty  Flush empty chunk?
 	 */
 	public function flush($chunk, $flushEmpty = false)
 	{

@@ -27,8 +27,8 @@ interface EncrypterInterface
 	 * Decrypts string.
 	 *
 	 * @access  public
-	 * @param   string          $string  String to decrypt
-	 * @return  string|boolean
+	 * @param   string       $string  String to decrypt
+	 * @return  string|bool
 	 */
 	public function decrypt(string $string);
 }

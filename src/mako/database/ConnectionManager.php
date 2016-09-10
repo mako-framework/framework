@@ -221,7 +221,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * Returns the query log for all connections.
 	 *
 	 * @access  public
-	 * @param   boolean  $groupedByConnection  Group logs by connection?
+	 * @param   bool    $groupedByConnection  Group logs by connection?
 	 * @return  array
 	 */
 	public function getLogs($groupedByConnection = true)

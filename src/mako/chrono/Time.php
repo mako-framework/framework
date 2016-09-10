@@ -244,7 +244,7 @@ class Time extends DateTime
 	 * Returns TRUE if the year is a leap year and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isLeapYear()
 	{

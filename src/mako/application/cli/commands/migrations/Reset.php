@@ -41,7 +41,7 @@ class Reset extends Command
 	 * Executes the command.
 	 *
 	 * @access  public
-	 * @param   boolean  $force  Force the schema reset?
+	 * @param   bool    $force  Force the schema reset?
 	 */
 	public function execute($force = false)
 	{

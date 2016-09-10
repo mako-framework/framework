@@ -129,21 +129,21 @@ class Request
 	/**
 	 * Is this an Ajax request?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $isAjax;
 
 	/**
 	 * Was the request made using HTTPS?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $isSecure;
 
 	/**
 	 * Is PHP running as a CGI program?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $isCGI;
 
@@ -642,8 +642,8 @@ class Request
 	 * Checks if the keys exist in the data of the current request method.
 	 *
 	 * @access  public
-	 * @param   string   $key  Array key
-	 * @return  boolean
+	 * @param   string  $key  Array key
+	 * @return  bool
 	 */
 	public function has($key)
 	{
@@ -830,7 +830,7 @@ class Request
 	 * Returns TRUE if the request was made using Ajax and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isAjax()
 	{
@@ -841,7 +841,7 @@ class Request
 	 * Returns TRUE if the request was made using HTTPS and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isSecure()
 	{
@@ -852,7 +852,7 @@ class Request
 	 * Returns TRUE if the request method is considered safe and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isSafe()
 	{
@@ -863,7 +863,7 @@ class Request
 	 * Is PHP running as a CGI program?
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isCGI()
 	{
@@ -971,7 +971,7 @@ class Request
 	 * Returns TRUE if the request method has been faked and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isFaked()
 	{
@@ -1028,8 +1028,8 @@ class Request
 	 * Magic shortcut to check if request data exists.
 	 *
 	 * @access  public
-	 * @param   string   $key  Array key
-	 * @return  boolean
+	 * @param   string  $key  Array key
+	 * @return  bool
 	 */
 	public function __isset($key)
 	{

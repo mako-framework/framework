@@ -80,7 +80,7 @@ trait OptimisticLockingTrait
 	 * Reloads the record from the database.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function reload()
 	{
@@ -128,7 +128,7 @@ trait OptimisticLockingTrait
 	 *
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function updateRecord($query)
 	{
@@ -155,7 +155,7 @@ trait OptimisticLockingTrait
 	 *
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function deleteRecord($query)
 	{

@@ -34,9 +34,9 @@ trait EscaperTrait
 	 * Returns a string that has been escaped for a HTML body context.
 	 *
 	 * @access  public
-	 * @param   string   $string        String to escape
-	 * @param   string   $charset       Character set
-	 * @param   boolean  $doubleEncode  Should existing entities be encoded?
+	 * @param   string  $string        String to escape
+	 * @param   string  $charset       Character set
+	 * @param   bool    $doubleEncode  Should existing entities be encoded?
 	 * @return  string
 	 */
 	public function escapeHTML($string, $charset, $doubleEncode = true)

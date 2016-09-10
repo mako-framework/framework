@@ -54,7 +54,7 @@ class Lap
 	 * Returns TRUE if the lap is still running and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isRunning()
 	{

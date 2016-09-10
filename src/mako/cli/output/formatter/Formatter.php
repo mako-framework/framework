@@ -84,7 +84,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * Do we have ANSI support?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $hasAnsiSupport;
 
@@ -106,7 +106,7 @@ class Formatter implements FormatterInterface
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   null|boolean  $hasAnsiSupport  Do we have ANSI support?
+	 * @param   null|bool  $hasAnsiSupport  Do we have ANSI support?
 	 */
 	public function __construct(bool $hasAnsiSupport = null)
 	{
@@ -122,7 +122,7 @@ class Formatter implements FormatterInterface
 	 * Do we have ANSI support?
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function hasAnsiSupport(): bool
 	{
@@ -157,8 +157,8 @@ class Formatter implements FormatterInterface
 	 * Returns TRUE if the tag is a closing tag and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $tag  Tag to check
-	 * @return  boolean
+	 * @param   string  $tag  Tag to check
+	 * @return  bool
 	 */
 	protected function isOpeningTag(string $tag): bool
 	{

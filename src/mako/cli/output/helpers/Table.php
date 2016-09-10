@@ -51,7 +51,7 @@ class Table
 	 * @access  protected
 	 * @param   array      $columnNames  Array of column names
 	 * @param   array      $rows         Array of rows
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function isValidInput(array $columnNames, array $rows): bool
 	{

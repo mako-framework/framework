@@ -34,7 +34,7 @@ class URLBuilder
 	/**
 	 * Create "clean" URLs?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $cleanURLs;
 
@@ -51,7 +51,7 @@ class URLBuilder
 	 * @access  public
 	 * @param   \mako\http\Request         $request    Request instance
 	 * @param   \mako\http\routing\Routes  $routes     Route collection
-	 * @param   boolean                    $cleanURLs  Create "clean" URLs?
+	 * @param   bool                       $cleanURLs  Create "clean" URLs?
 	 */
 	public function __construct(Request $request, Routes $routes, bool $cleanURLs = false)
 	{
@@ -71,8 +71,8 @@ class URLBuilder
 	 * Returns TRUE if the pattern matches the current route and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $pattern  Pattern to match
-	 * @return  boolean
+	 * @param   string  $pattern  Pattern to match
+	 * @return  bool
 	 */
 	public function matches(string $pattern): bool
 	{

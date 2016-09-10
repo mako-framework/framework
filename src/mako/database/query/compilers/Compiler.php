@@ -82,7 +82,7 @@ class Compiler
 	 *
 	 * @access  protected
 	 * @param   string     $string The string to check
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function isParenthesesEnclosed($string)
 	{
@@ -555,7 +555,7 @@ class Compiler
 	 * Compiles locking clause.
 	 *
 	 * @access  protected
-	 * @param   null|boolean|string
+	 * @param   null|bool|string
 	 * @return  string
 	 */
 	protected function lock($lock)

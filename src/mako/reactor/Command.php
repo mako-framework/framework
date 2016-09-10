@@ -59,14 +59,14 @@ abstract class Command
 	/**
 	 * Should we be strict about what arguments and options we allow?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $isStrict = false;
 
 	/**
 	 * Should the command be executed?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $shouldExecute = true;
 
@@ -126,7 +126,7 @@ abstract class Command
 	 * Returns TRUE we should be strict about what arguments and options we allow and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isStrict()
 	{
@@ -137,7 +137,7 @@ abstract class Command
 	 * Returns TRUE of the command should be executed and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function shouldExecute(): bool
 	{
@@ -331,7 +331,7 @@ abstract class Command
 	 * @access  protected
 	 * @param   string     $question  Question to ask
 	 * @param   string     $default   Default answer
-	 * @return  boolean
+	 * @return  bool
 	 */
 	protected function confirm(string $question, string $default = 'n')
 	{
@@ -357,7 +357,7 @@ abstract class Command
 	 * @access  protected
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered
-	 * @param   boolean     $fallback  Fall back to non-hidden input?
+	 * @param   bool        $fallback  Fall back to non-hidden input?
 	 * @return  mixed
 	 */
 	public function secret(string $question, $default = null, bool $fallback = false)

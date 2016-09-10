@@ -21,7 +21,7 @@ class HTML
 	/**
 	 * Should we return XHTML?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $xhtml;
 
@@ -29,7 +29,7 @@ class HTML
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   boolean  $xhtml  Should we return HXML?
+	 * @param   bool    $xhtml  Should we return HXML?
 	 */
 	public function __construct(bool $xhtml = false)
 	{

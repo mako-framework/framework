@@ -45,7 +45,7 @@ class Redis
 	/**
 	 * Is pipelining enabled?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $pipelined = false;
 

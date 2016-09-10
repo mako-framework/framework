@@ -126,7 +126,7 @@ trait TimestampedTrait
 	 * Allows you to update the "updated at" timestamp without modifying any data.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function touch()
 	{

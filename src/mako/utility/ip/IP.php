@@ -21,9 +21,9 @@ class IP
 	 * Checks if an IP is in the specified range.
 	 *
 	 * @access  public
-	 * @param   string   $ip    IP address
-	 * @param   string   $range Ip address or IP range
-	 * @return  boolean
+	 * @param   string  $ip     IP address
+	 * @param   string  $range  Ip address or IP range
+	 * @return  bool
 	 */
 	public static function inRange(string $ip, string $range): bool
 	{

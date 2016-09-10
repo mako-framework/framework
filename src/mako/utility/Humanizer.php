@@ -40,8 +40,8 @@ class Humanizer
 	 * Returns a human friendly file size.
 	 *
 	 * @access  public
-	 * @param   int      $size    File size in bytes
-	 * @param   boolean  $binary  True to use binary suffixes and false to use decimal suffixes
+	 * @param   int     $size    File size in bytes
+	 * @param   bool    $binary  True to use binary suffixes and false to use decimal suffixes
 	 * @return  string
 	 */
 	public function fileSize($size, bool $binary = true): string

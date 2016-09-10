@@ -19,7 +19,7 @@ interface MemberInterface
 	 *
 	 * @access  public
 	 * @param   string|int|array  $group  Group name, group id or an array of group names or group ids
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isMemberOf($group);
 }

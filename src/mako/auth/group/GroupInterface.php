@@ -45,7 +45,7 @@ interface GroupInterface
 	 *
 	 * @access  public
 	 * @param   \mako\auth\user\UserInterface  $user  User intance
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function addUser(UserInterface $user);
 
@@ -54,7 +54,7 @@ interface GroupInterface
 	 *
 	 * @access  public
 	 * @param   \mako\auth\user\UserInterface  $user  User intance
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function removeUser(UserInterface $user);
 
@@ -63,7 +63,7 @@ interface GroupInterface
 	 *
 	 * @access  public
 	 * @param   \mako\auth\user\UserInterface  $user  User intance
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isMember(UserInterface $user);
 
@@ -71,7 +71,7 @@ interface GroupInterface
 	 * Saves the group.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function save();
 
@@ -79,7 +79,7 @@ interface GroupInterface
 	 * Deletes the group.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function delete();
 }

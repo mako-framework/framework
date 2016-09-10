@@ -18,7 +18,7 @@ interface WriterInterface
 	 * Returns TRUE if the output isn't redirected or piped and FALSE in all other situations.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isDirect(): bool;
 

@@ -55,7 +55,7 @@ class Output
 	/**
 	 * Is the output muted?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 
 	 protected $muted = false;
@@ -123,7 +123,7 @@ class Output
 	 * Is the output muted?
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isMuted(): bool
 	{

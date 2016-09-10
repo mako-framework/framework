@@ -91,10 +91,10 @@ class Confirmation extends Question
 	 * Asks user for confirmation and returns value corresponding to the chosen value.
 	 *
 	 * @access  public
-	 * @param   string   $question  Question to ask
-	 * @param   string   $default   Default answer
-	 * @param   array    $options   Answer options
-	 * @return  boolean
+	 * @param   string  $question  Question to ask
+	 * @param   string  $default   Default answer
+	 * @param   array   $options   Answer options
+	 * @return  bool
 	 */
 	public function ask(string $question, $default = 'n', array $options = null)
 	{

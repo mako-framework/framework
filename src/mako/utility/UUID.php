@@ -51,7 +51,7 @@ class UUID
 	 *
 	 * @access  public
 	 * @param   string   $str  The UUID to validate
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public static function validate(string $str): bool
 	{

@@ -47,7 +47,7 @@ class GD implements ProcessorInterface
 	/**
 	 * Do we have the imagefilter function?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $hasFilters;
 

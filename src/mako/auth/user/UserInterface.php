@@ -136,7 +136,7 @@ interface UserInterface
 	 * Returns TRUE of the user is activated and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isActivated();
 
@@ -158,7 +158,7 @@ interface UserInterface
 	 * Returns TRUE if the user is banned and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isBanned();
 
@@ -219,7 +219,7 @@ interface UserInterface
 	 * Returns TRUE if the account is locked and FALSE if not.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function isLocked();
 
@@ -227,7 +227,7 @@ interface UserInterface
 	 * Saves the member.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function save();
 
@@ -235,7 +235,7 @@ interface UserInterface
 	 * Deletes the member.
 	 *
 	 * @access  public
-	 * @return  boolean
+	 * @return  bool
 	 */
 	public function delete();
 }

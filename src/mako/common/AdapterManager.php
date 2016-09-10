@@ -24,7 +24,7 @@ abstract class AdapterManager
 	/**
 	 * Reuse instances?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $reuseInstances = true;
 

@@ -43,7 +43,7 @@ abstract class Relation extends Query
 	/**
 	 * Lazy load related records?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $lazy = true;
 

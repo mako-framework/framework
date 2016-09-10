@@ -19,7 +19,7 @@ class ClassInspector
 	 *
 	 * @access  public
 	 * @param   string|object  $class     Class name or class instance
-	 * @param   boolean        $autoload  Autoload
+	 * @param   bool           $autoload  Autoload
 	 * @return  array
 	 */
 	public static function getTraits($class, bool $autoload = true): array

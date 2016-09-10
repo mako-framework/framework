@@ -67,7 +67,7 @@ class Onion
 	 * @access  public
 	 * @param   string      $class       Class
 	 * @param   null|array  $parameters  Constructor parameters
-	 * @param   boolean     $inner       Add an inner layer?
+	 * @param   bool        $inner       Add an inner layer?
 	 * @return  int
 	 */
 	public function addLayer(string $class, array $parameters = null, bool $inner = true): int

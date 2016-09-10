@@ -30,14 +30,14 @@ class Session
 	/**
 	 * Has the session been started yet?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $started = false;
 
 	/**
 	 * Has the session been destroyed?
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $destroyed = false;
 
@@ -330,7 +330,7 @@ class Session
 	 * Regenerate the session id and returns it.
 	 *
 	 * @access  public
-	 * @param   boolean  $keepOld  Keep the session data associated with the old session id?
+	 * @param   bool    $keepOld  Keep the session data associated with the old session id?
 	 * @return  string
 	 */
 	public function regenerateId($keepOld = false)
@@ -395,8 +395,8 @@ class Session
 	 * Returns TRUE if key exists in the session and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $key  Session key
-	 * @return  boolean
+	 * @param   string  $key  Session key
+	 * @return  bool
 	 */
 	public function has($key)
 	{
@@ -464,8 +464,8 @@ class Session
 	 * Returns TRUE if key exists in the session and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $key  Session key
-	 * @return  boolean
+	 * @param   string  $key  Session key
+	 * @return  bool
 	 */
 	public function hasFlash($key)
 	{
@@ -567,8 +567,8 @@ class Session
 	 * Validates the provided token.
 	 *
 	 * @access  public
-	 * @param   string   $token  Token to validate
-	 * @return  boolean
+	 * @param   string  $token  Token to validate
+	 * @return  bool
 	 */
 	public function validateToken($token)
 	{
@@ -613,8 +613,8 @@ class Session
 	 * Validates security token.
 	 *
 	 * @access  public
-	 * @param   string   $token  Security token
-	 * @return  boolean
+	 * @param   string  $token  Security token
+	 * @return  bool
 	 */
 	public function validateOneTimeToken($token)
 	{
