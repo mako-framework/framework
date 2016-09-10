@@ -99,8 +99,8 @@ class FileSystem
 	 * Returns TRUE if a file exists and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $file  Path to file
-	 * @return  boolean
+	 * @param   string  $file  Path to file
+	 * @return  bool
 	 */
 	public function exists(string $file): bool
 	{
@@ -111,8 +111,8 @@ class FileSystem
 	 * Returns TRUE if the provided path is a file and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $file  Path to file
-	 * @return  boolean
+	 * @param   string  $file  Path to file
+	 * @return  bool
 	 */
 	public function isFile(string $file): bool
 	{
@@ -123,8 +123,8 @@ class FileSystem
 	 * Returns TRUE if the provided path is a directory and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $directory  Path to directory
-	 * @return  boolean
+	 * @param   string  $directory  Path to directory
+	 * @return  bool
 	 */
 	public function isDirectory(string $directory): bool
 	{
@@ -135,8 +135,8 @@ class FileSystem
 	 * Returns TRUE if a file or directory is empty and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $path  Path to directory
-	 * @return  boolean
+	 * @param   string  $path  Path to directory
+	 * @return  bool
 	 */
 	public function isEmpty(string $path): bool
 	{
@@ -160,8 +160,8 @@ class FileSystem
 	 * Returns TRUE if the file is readable and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $file  Path to file
-	 * @return  boolean
+	 * @param   string  $file  Path to file
+	 * @return  bool
 	 */
 	public function isReadable(string $file): bool
 	{
@@ -172,8 +172,8 @@ class FileSystem
 	 * Returns TRUE if the file or directory is writable and FALSE if not.
 	 *
 	 * @access  public
-	 * @param   string   $file  Path to file
-	 * @return  boolean
+	 * @param   string  $file  Path to file
+	 * @return  bool
 	 */
 	public function isWritable(string $file): bool
 	{
@@ -220,9 +220,9 @@ class FileSystem
 	 * Returns the mime type of the file.
 	 *
 	 * @access  public
-	 * @param   string          $file  Path to file
-	 * @param   boolean         $guess  (optinal) Guess mime type if finfo_open doesn't exist?
-	 * @return  string|boolean
+	 * @param   string       $file   Path to file
+	 * @param   bool         $guess  (optinal) Guess mime type if finfo_open doesn't exist?
+	 * @return  string|bool
 	 */
 	public function mime(string $file, bool $guess = true)
 	{
@@ -259,8 +259,8 @@ class FileSystem
 	 * Deletes the file from disk.
 	 *
 	 * @access  public
-	 * @param   string   $file  Path to file
-	 * @return  boolean
+	 * @param   string  $file  Path to file
+	 * @return  bool
 	 */
 	public function delete(string $file): bool
 	{
@@ -271,8 +271,8 @@ class FileSystem
 	 * Deletes a directory and its contents from disk.
 	 *
 	 * @access  public
-	 * @param   string   $path  Path to directory
-	 * @return  boolean
+	 * @param   string  $path  Path to directory
+	 * @return  bool
 	 */
 	public function deleteDirectory(string $path): bool
 	{
@@ -308,8 +308,8 @@ class FileSystem
 	 * Returns the contents of the file.
 	 *
 	 * @access  public
-	 * @param   string          $file  File path
-	 * @return  string|boolean
+	 * @param   string       $file  File path
+	 * @return  string|bool
 	 */
 	public function getContents(string $file)
 	{
@@ -320,10 +320,10 @@ class FileSystem
 	 * Writes the supplied data to a file.
 	 *
 	 * @access  public
-	 * @param   string       $file  File path
-	 * @param   mixed        $data  File data
-	 * @param   boolean      $lock  Acquire an exclusive write lock?
-	 * @return  int|boolean
+	 * @param   string    $file  File path
+	 * @param   mixed     $data  File data
+	 * @param   bool      $lock  Acquire an exclusive write lock?
+	 * @return  int|bool
 	 */
 	public static function putContents(string $file, $data, bool $lock = false)
 	{
@@ -334,10 +334,10 @@ class FileSystem
 	 * Prepends the supplied data to a file.
 	 *
 	 * @access  public
-	 * @param   string       $file  File path
-	 * @param   mixed        $data  File data
-	 * @param   boolean      $lock  Acquire an exclusive write lock?
-	 * @return  int|boolean
+	 * @param   string    $file  File path
+	 * @param   mixed     $data  File data
+	 * @param   bool      $lock  Acquire an exclusive write lock?
+	 * @return  int|bool
 	 */
 	public static function prependContents(string $file, $data, bool $lock = false)
 	{
@@ -348,10 +348,10 @@ class FileSystem
 	 * Appends the supplied data to a file.
 	 *
 	 * @access  public
-	 * @param   string       $file  File path
-	 * @param   mixed        $data  File data
-	 * @param   boolean      $lock  Acquire an exclusive write lock?
-	 * @return  int|boolean
+	 * @param   string    $file  File path
+	 * @param   mixed     $data  File data
+	 * @param   bool      $lock  Acquire an exclusive write lock?
+	 * @return  int|bool
 	 */
 	public static function appendContents(string $file, $data, bool $lock = false)
 	{
@@ -362,9 +362,9 @@ class FileSystem
 	 * Truncates a file.
 	 *
 	 * @access  public
-	 * @param   string   $file  File path
-	 * @param   boolean  $lock  Acquire an exclusive write lock?
-	 * @return  boolean
+	 * @param   string  $file  File path
+	 * @param   bool    $lock  Acquire an exclusive write lock?
+	 * @return  bool
 	 */
 	public static function truncateContents(string $file, bool $lock = false): bool
 	{
@@ -377,8 +377,8 @@ class FileSystem
 	 *  @access  public
 	 *  @param   string   $path       Path to directory
 	 *  @param   int      $mode       Mode
-	 *  @param   boolean  $recursive  Recursive
-	 *  @return  boolean
+	 *  @param   bool     $recursive  Recursive
+	 *  @return  bool
 	 */
 	public function createDirectory(string $path, int $mode = 0777, bool $recursive = false): bool
 	{
@@ -434,15 +434,44 @@ class FileSystem
 	}
 
 	/**
+	 * Generate a hash value using the contents of the given file.
+	 *
+	 * @access  public
+	 * @param   string  $file       Path to file
+	 * @param   string  $algorithm  Hashing algorithm
+	 * @param   bool    $raw        Output raw binary data?
+	 * @return  string
+	 */
+	public function hash(string $file, string $algorithm = 'sha256', bool $raw = false): string
+	{
+		return hash_file($algorithm, $file, $raw);
+	}
+
+	/**
+	 * Generate a keyed hash value using the HMAC method.
+	 *
+	 * @access  public
+	 * @param   string  $file       Path to file
+	 * @param   string  $key        Shared secret key
+	 * @param   string  $algorithm  Hashing algorithm
+	 * @param   bool    $raw        Output raw binary data?
+	 * @return  string
+	 */
+	public function hmac(string $file, string $key, string $algorithm = 'sha256', bool $raw = false): string
+	{
+		return hash_hmac_file($algorithm, $file, $key, $raw);
+	}
+
+	/**
 	 * Returns a SplFileObject.
 	 *
 	 * @access  public
 	 * @param   string          $file            Path to file
 	 * @param   string          $openMode        Open mode
-	 * @param   boolean         $useIncludePath  Use include path?
+	 * @param   bool            $useIncludePath  Use include path?
 	 * @return  \SplFileObject
 	 */
-	public function file(string $file, string $openMode = 'r', bool $useIncludePath = false)
+	public function file(string $file, string $openMode = 'r', bool $useIncludePath = false): SplFileObject
 	{
 		return new SplFileObject($file, $openMode, $useIncludePath);
 	}
