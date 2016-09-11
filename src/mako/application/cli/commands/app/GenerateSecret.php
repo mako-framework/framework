@@ -56,11 +56,11 @@ class GenerateSecret extends Command
 
 		$secret = Key::generateEncoded();
 
-		$contents = $fileSystem->getContents($configFile);
+		$contents = $fileSystem->get($configFile);
 
 		$contents = preg_replace('/\'secret\'(\s*)=>(\s*)\'(.*)\',/', '\'secret\'$1=>$2\'' . $secret . '\',', $contents);
 
-		$fileSystem->putContents($configFile, $contents);
+		$fileSystem->put($configFile, $contents);
 
 		$this->write('A new application secret has been generated.');
 	}

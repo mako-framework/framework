@@ -38,7 +38,7 @@ class LoaderTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function loadInflection($fileSystem)
 	{
-		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(true);
 
 		$fileSystem->shouldReceive('include')->once()->with('/app/i18n/en_US/inflection.php')->andReturn('inflection');
 
@@ -52,7 +52,7 @@ class LoaderTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/en_US/strings/foobar.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/app/i18n/en_US/strings/foobar.php')->andReturn(true);
 
 		$fileSystem->shouldReceive('include')->once()->with('/app/i18n/en_US/strings/foobar.php')->andReturn(['foo' => 'bar']);
 
@@ -71,7 +71,7 @@ class LoaderTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/en_US/strings/foobar.php')->andReturn(false);
+		$fileSystem->shouldReceive('has')->once()->with('/app/i18n/en_US/strings/foobar.php')->andReturn(false);
 
 		$loader = new Loader($fileSystem, '/app/i18n');
 
@@ -85,9 +85,9 @@ class LoaderTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/packages/foo/en_US/strings/foobar.php')->andReturn(false);
+		$fileSystem->shouldReceive('has')->once()->with('/app/i18n/packages/foo/en_US/strings/foobar.php')->andReturn(false);
 
-		$fileSystem->shouldReceive('exists')->once()->with('/app/packages/foo/i18n/en_US/strings/foobar.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/app/packages/foo/i18n/en_US/strings/foobar.php')->andReturn(true);
 
 		$fileSystem->shouldReceive('include')->once()->with('/app/packages/foo/i18n/en_US/strings/foobar.php')->andReturn(['foo' => 'bar']);
 
@@ -107,9 +107,9 @@ class LoaderTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/packages/foo/en_US/strings/foobar.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/app/i18n/packages/foo/en_US/strings/foobar.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('exists')->never()->with('/app/packages/foo/i18n/en_US/strings/foobar.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->never()->with('/app/packages/foo/i18n/en_US/strings/foobar.php')->andReturn(true);
 
 		$fileSystem->shouldReceive('include')->once()->with('/app/i18n/packages/foo/en_US/strings/foobar.php')->andReturn(['foo' => 'bar']);
 
@@ -129,7 +129,7 @@ class LoaderTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(true);
 
 		$fileSystem->shouldReceive('include')->once()->with('/app/i18n/en_US/inflection.php')->andReturn('inflection');
 
@@ -145,7 +145,7 @@ class LoaderTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(false);
+		$fileSystem->shouldReceive('has')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(false);
 
 		$loader = new Loader($fileSystem, '/app/i18n');
 

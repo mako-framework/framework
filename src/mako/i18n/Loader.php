@@ -53,7 +53,7 @@ class Loader
 	{
 		$path = $this->getFilePath('inflection', null, $language);
 
-		if($this->fileSystem->exists($path))
+		if($this->fileSystem->has($path))
 		{
 			return $this->fileSystem->include($path);
 		}
@@ -73,7 +73,7 @@ class Loader
 
 		foreach($this->getCascadingFilePaths($file, null, $language . '/strings') as $file)
 		{
-			if($this->fileSystem->exists($file))
+			if($this->fileSystem->has($file))
 			{
 				$strings = $this->fileSystem->include($file);
 

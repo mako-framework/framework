@@ -60,7 +60,7 @@ class File implements ResponseContainerInterface
 	{
 		$this->fileSystem = $this->getFileSystem();
 
-		if($this->fileSystem->exists($file) === false || $this->fileSystem->isReadable($file) === false)
+		if($this->fileSystem->has($file) === false || $this->fileSystem->isReadable($file) === false)
 		{
 			throw new RuntimeException(vsprintf("%s(): File [ %s ] is not readable.", [__METHOD__, $file]));
 		}

@@ -102,7 +102,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  bool
 	 */
-	public function exists(string $file): bool
+	public function has(string $file): bool
 	{
 		return file_exists($file);
 	}
@@ -262,7 +262,7 @@ class FileSystem
 	 * @param   string  $file  Path to file
 	 * @return  bool
 	 */
-	public function delete(string $file): bool
+	public function remove(string $file): bool
 	{
 		return unlink($file);
 	}
@@ -274,13 +274,13 @@ class FileSystem
 	 * @param   string  $path  Path to directory
 	 * @return  bool
 	 */
-	public function deleteDirectory(string $path): bool
+	public function removeDirectory(string $path): bool
 	{
 		foreach(new FilesystemIterator($path) as $item)
 		{
 			if($item->isDir())
 			{
-				$this->deleteDirectory($item->getPathname());
+				$this->removeDirectory($item->getPathname());
 			}
 			else
 			{
@@ -311,7 +311,7 @@ class FileSystem
 	 * @param   string       $file  File path
 	 * @return  string|bool
 	 */
-	public function getContents(string $file)
+	public function get(string $file)
 	{
 		return file_get_contents($file);
 	}
@@ -325,7 +325,7 @@ class FileSystem
 	 * @param   bool      $lock  Acquire an exclusive write lock?
 	 * @return  int|bool
 	 */
-	public static function putContents(string $file, $data, bool $lock = false)
+	public static function put(string $file, $data, bool $lock = false)
 	{
 		return file_put_contents($file, $data, $lock ? LOCK_EX : 0);
 	}
@@ -339,7 +339,7 @@ class FileSystem
 	 * @param   bool      $lock  Acquire an exclusive write lock?
 	 * @return  int|bool
 	 */
-	public static function prependContents(string $file, $data, bool $lock = false)
+	public static function prepend(string $file, $data, bool $lock = false)
 	{
 		return file_put_contents($file, $data . file_get_contents($file), $lock ? LOCK_EX : 0);
 	}
@@ -353,7 +353,7 @@ class FileSystem
 	 * @param   bool      $lock  Acquire an exclusive write lock?
 	 * @return  int|bool
 	 */
-	public static function appendContents(string $file, $data, bool $lock = false)
+	public static function append(string $file, $data, bool $lock = false)
 	{
 		return file_put_contents($file, $data,  $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND);
 	}
@@ -366,7 +366,7 @@ class FileSystem
 	 * @param   bool    $lock  Acquire an exclusive write lock?
 	 * @return  bool
 	 */
-	public static function truncateContents(string $file, bool $lock = false): bool
+	public static function truncate(string $file, bool $lock = false): bool
 	{
 		return (0 === file_put_contents($file, null, $lock ? LOCK_EX : 0));
 	}

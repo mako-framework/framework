@@ -42,7 +42,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('isWritable')->once()->with('/sessions')->andReturn(true);
 
-		$fileSystem->shouldReceive('putContents')->once()->with('/sessions/123', serialize('data'));
+		$fileSystem->shouldReceive('put')->once()->with('/sessions/123', serialize('data'));
 
 		$file = new File($fileSystem, '/sessions');
 
@@ -56,11 +56,11 @@ class FileTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/sessions/123')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/sessions/123')->andReturn(true);
 
 		$fileSystem->shouldReceive('isReadable')->once()->with('/sessions/123')->andReturn(true);
 
-		$fileSystem->shouldReceive('getContents')->once()->with('/sessions/123')->andReturn(serialize('data'));
+		$fileSystem->shouldReceive('get')->once()->with('/sessions/123')->andReturn(serialize('data'));
 
 		$file = new File($fileSystem, '/sessions');
 
@@ -72,7 +72,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/sessions/123')->andReturn(false);
+		$fileSystem->shouldReceive('has')->once()->with('/sessions/123')->andReturn(false);
 
 		$file = new File($fileSystem, '/sessions');
 
@@ -88,11 +88,11 @@ class FileTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/sessions/123')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/sessions/123')->andReturn(true);
 
 		$fileSystem->shouldReceive('isWritable')->once()->with('/sessions/123')->andReturn(true);
 
-		$fileSystem->shouldReceive('delete')->once()->with('/sessions/123');
+		$fileSystem->shouldReceive('remove')->once()->with('/sessions/123');
 
 		$file = new File($fileSystem, '/sessions');
 
@@ -114,7 +114,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('isWritable')->once()->with('/sessions/456')->andReturn(true);
 
-		$fileSystem->shouldReceive('delete')->once()->with('/sessions/456');
+		$fileSystem->shouldReceive('remove')->once()->with('/sessions/456');
 
 		$file = new File($fileSystem, '/sessions');
 

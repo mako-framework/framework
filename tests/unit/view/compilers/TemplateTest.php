@@ -36,9 +36,9 @@ class TemplateTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = Mockery::mock('mako\file\FileSystem');
 
-		$fileSystem->shouldReceive('getContents')->with($this->templateName)->once()->andReturn($template);
+		$fileSystem->shouldReceive('get')->with($this->templateName)->once()->andReturn($template);
 
-		$fileSystem->shouldReceive('putContents')->with($this->cachePath . '/' . md5($this->templateName) . '.php', $compiled);
+		$fileSystem->shouldReceive('put')->with($this->cachePath . '/' . md5($this->templateName) . '.php', $compiled);
 
 		return $fileSystem;
 	}

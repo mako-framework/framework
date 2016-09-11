@@ -95,7 +95,7 @@ class Config
 
 		foreach($this->getCascadingFilePaths($file) as $path)
 		{
-			if($this->fileSystem->exists($path))
+			if($this->fileSystem->has($path))
 			{
 				$config = $this->fileSystem->include($path);
 
@@ -118,7 +118,7 @@ class Config
 
 			foreach($this->getCascadingFilePaths($namespaced) as $path)
 			{
-				if($this->fileSystem->exists($path))
+				if($this->fileSystem->has($path))
 				{
 					$config = array_replace_recursive($config, $this->fileSystem->include($path));
 

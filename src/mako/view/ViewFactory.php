@@ -177,7 +177,7 @@ class ViewFactory
 
 				foreach($paths as $path)
 				{
-					if($this->fileSystem->exists($path))
+					if($this->fileSystem->has($path))
 					{
 						return $this->viewCache[$view] = [$path, $extension];
 					}

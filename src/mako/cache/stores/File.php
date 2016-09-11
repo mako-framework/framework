@@ -79,7 +79,7 @@ class File implements StoreInterface
 
 		$data = $ttl . "\n" . serialize($data);
 
-		return is_int($this->fileSystem->putContents($this->cacheFile($key), $data, LOCK_EX));
+		return is_int($this->fileSystem->put($this->cacheFile($key), $data, LOCK_EX));
 	}
 
 	/**
@@ -87,7 +87,7 @@ class File implements StoreInterface
 	 */
 	public function has($key)
 	{
-		if($this->fileSystem->exists($this->cacheFile($key)))
+		if($this->fileSystem->has($this->cacheFile($key)))
 		{
 			$file = $this->fileSystem->file($this->cacheFile($key), 'r');
 
@@ -106,7 +106,7 @@ class File implements StoreInterface
 	 */
 	public function get($key)
 	{
-		if($this->fileSystem->exists($this->cacheFile($key)))
+		if($this->fileSystem->has($this->cacheFile($key)))
 		{
 			// Cache exists
 
@@ -133,7 +133,7 @@ class File implements StoreInterface
 
 				unset($file);
 
-				$this->fileSystem->delete($this->cacheFile($key));
+				$this->fileSystem->remove($this->cacheFile($key));
 
 				return false;
 			}
@@ -151,9 +151,9 @@ class File implements StoreInterface
 	 */
 	public function remove($key)
 	{
-		if($this->fileSystem->exists($this->cacheFile($key)))
+		if($this->fileSystem->has($this->cacheFile($key)))
 		{
-			return $this->fileSystem->delete($this->cacheFile($key));
+			return $this->fileSystem->remove($this->cacheFile($key));
 		}
 
 		return false;
@@ -170,7 +170,7 @@ class File implements StoreInterface
 		{
 			foreach($files as $file)
 			{
-				if($this->fileSystem->isFile($file) && $this->fileSystem->delete($file) === false)
+				if($this->fileSystem->isFile($file) && $this->fileSystem->remove($file) === false)
 				{
 					return false;
 				}

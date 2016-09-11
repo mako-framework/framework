@@ -148,7 +148,14 @@ class Dispatcher
 	 */
 	protected function executeController(string $controller): Response
 	{
-		list($controller, $method) = explode('::', $controller, 2);
+		if(strpos($controller, '::') === false)
+		{
+			$method = '__invoke';
+		}
+		else
+		{
+			list($controller, $method) = explode('::', $controller, 2);
+		}
 
 		$controller = $this->container->get($controller);
 

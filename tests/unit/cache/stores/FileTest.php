@@ -48,7 +48,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('putContents')->once()->with('/cache/foo.php', (31556926 + time()) . "\n" . serialize(123), LOCK_EX);
+		$fileSystem->shouldReceive('put')->once()->with('/cache/foo.php', (31556926 + time()) . "\n" . serialize(123), LOCK_EX);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -56,7 +56,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$fileSystem->shouldReceive('putContents')->once()->with('/cache/foo.php', (3600 + time()) . "\n" . serialize(123), LOCK_EX);
+		$fileSystem->shouldReceive('put')->once()->with('/cache/foo.php', (3600 + time()) . "\n" . serialize(123), LOCK_EX);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -70,7 +70,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(true);
 
 		$splFileObject = $this->getSplFileObject();
 
@@ -86,7 +86,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(true);
 
 		$splFileObject = $this->getSplFileObject();
 
@@ -102,7 +102,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/cache/foo.php')->andReturn(false);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(false);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -116,7 +116,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(true);
 
 		$splFileObject = $this->getSplFileObject();
 
@@ -134,7 +134,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(true);
 
 		$splFileObject = $this->getSplFileObject();
 
@@ -142,7 +142,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('file')->once()->with('/cache/foo.php', 'r')->andReturn($splFileObject);
 
-		$fileSystem->shouldReceive('delete')->once()->with('/cache/foo.php');
+		$fileSystem->shouldReceive('remove')->once()->with('/cache/foo.php');
 
 		$file = new File($fileSystem, '/cache');
 
@@ -152,7 +152,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/cache/foo.php')->andReturn(false);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(false);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -166,9 +166,9 @@ class FileTest extends PHPUnit_Framework_TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('delete')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('remove')->once()->with('/cache/foo.php')->andReturn(true);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -178,7 +178,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('exists')->once()->with('/cache/foo.php')->andReturn(false);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(false);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -198,9 +198,9 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('isFile')->once()->with('/cache/bar.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('delete')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('remove')->once()->with('/cache/foo.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('delete')->once()->with('/cache/bar.php')->andReturn(true);
+		$fileSystem->shouldReceive('remove')->once()->with('/cache/bar.php')->andReturn(true);
 
 		$file = new File($fileSystem, '/cache');
 

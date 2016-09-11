@@ -81,11 +81,11 @@ class Create extends Command
 
 		$replace = [$namespace, $version, $description];
 
-		$migration = str_replace($search, $replace, $fileSystem->getContents(__DIR__ . '/resources/migration.template'));
+		$migration = str_replace($search, $replace, $fileSystem->get(__DIR__ . '/resources/migration.template'));
 
 		try
 		{
-			$fileSystem->putContents($path, $migration);
+			$fileSystem->put($path, $migration);
 		}
 		catch(Throwable $e)
 		{

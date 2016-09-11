@@ -280,7 +280,7 @@ class Template
 	{
 		// Get teplate contents
 
-		$contents = $this->fileSystem->getContents($this->template);
+		$contents = $this->fileSystem->get($this->template);
 
 		// Compile template
 
@@ -291,6 +291,6 @@ class Template
 
 		// Store compiled template
 
-		$this->fileSystem->putContents($this->cachePath . '/' . md5($this->template) . '.php', trim($contents));
+		$this->fileSystem->put($this->cachePath . '/' . md5($this->template) . '.php', trim($contents));
 	}
 }

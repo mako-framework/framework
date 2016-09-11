@@ -74,7 +74,7 @@ class File implements StoreInterface
 	{
 		if($this->fileSystem->isWritable($this->sessionPath))
 		{
-			$this->fileSystem->putContents($this->sessionFile($sessionId), serialize($sessionData)) === false ? false : true;
+			$this->fileSystem->put($this->sessionFile($sessionId), serialize($sessionData)) === false ? false : true;
 		}
 	}
 
@@ -85,9 +85,9 @@ class File implements StoreInterface
 	{
 		$sessionData = [];
 
-		if($this->fileSystem->exists($this->sessionFile($sessionId)) && $this->fileSystem->isReadable($this->sessionFile($sessionId)))
+		if($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isReadable($this->sessionFile($sessionId)))
 		{
-			$sessionData = unserialize($this->fileSystem->getContents($this->sessionFile($sessionId)), ['allowed_classes' => $this->classWhitelist]);
+			$sessionData = unserialize($this->fileSystem->get($this->sessionFile($sessionId)), ['allowed_classes' => $this->classWhitelist]);
 		}
 
 		return $sessionData;
@@ -98,9 +98,9 @@ class File implements StoreInterface
 	 */
 	public function delete($sessionId)
 	{
-		if($this->fileSystem->exists($this->sessionFile($sessionId)) && $this->fileSystem->isWritable($this->sessionFile($sessionId)))
+		if($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isWritable($this->sessionFile($sessionId)))
 		{
-			$this->fileSystem->delete($this->sessionFile($sessionId));
+			$this->fileSystem->remove($this->sessionFile($sessionId));
 		}
 	}
 
@@ -117,7 +117,7 @@ class File implements StoreInterface
 			{
 				if(($this->fileSystem->lastModified($file) + $dataTTL) < time() && $this->fileSystem->isWritable($file))
 				{
-					$this->fileSystem->delete($file);
+					$this->fileSystem->remove($file);
 				}
 			}
 		}

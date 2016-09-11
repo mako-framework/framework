@@ -81,7 +81,7 @@ class Template extends PHP
 	 */
 	protected function needToCompile($view, $compiled)
 	{
-		return !$this->fileSystem->exists($compiled) || $this->fileSystem->lastModified($compiled) < $this->fileSystem->lastModified($view);
+		return !$this->fileSystem->has($compiled) || $this->fileSystem->lastModified($compiled) < $this->fileSystem->lastModified($view);
 	}
 
 	/**
