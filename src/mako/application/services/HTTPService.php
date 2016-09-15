@@ -25,15 +25,18 @@ class HTTPService extends Service
 	 */
 	public function register()
 	{
+		$config = $this->container->get('config')->get('application');
+
 		// Request
 
-		$this->container->registerSingleton([Request::class, 'request'], function($container)
+		$this->container->registerSingleton([Request::class, 'request'], function($container) use ($config)
 		{
-			$config = $container->get('config');
+			$request = new Request(['languages' => $config['languages']], $container->get('signer'));
 
-			$request = new Request(['languages' => $config->get('application.languages')], $container->get('signer'));
-
-			$request->setTrustedProxies($config->get('application.trusted_proxies'));
+			if(!empty($config['trusted_proxies']))
+			{
+				$request->setTrustedProxies($config['trusted_proxies']);
+			}
 
 			return $request;
 		});
@@ -51,9 +54,9 @@ class HTTPService extends Service
 
 		// URLBuilder
 
-		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], function($container)
+		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], function($container) use ($config)
 		{
-			return new URLBuilder($container->get('request'), $container->get('routes'), $container->get('config')->get('application.clean_urls'));
+			return new URLBuilder($container->get('request'), $container->get('routes'), $config['clean_urls']);
 		});
 	}
 }

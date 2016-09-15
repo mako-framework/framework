@@ -164,7 +164,7 @@ class Request
 	/**
 	 * Request language.
 	 *
-	 * @var string
+	 * @var array
 	 */
 	protected $language;
 
@@ -927,7 +927,7 @@ class Request
 	 * Returns the request language.
 	 *
 	 * @access  public
-	 * @return  string
+	 * @return  array
 	 */
 	public function language()
 	{

@@ -343,7 +343,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$server['PATH_INFO'] = '/no/test/';
 
-		$request = new Request(['server' => $server, 'languages' => ['no' => 'nb_NO']]);
+		$request = new Request(['server' => $server, 'languages' => ['no' => ['strings' => 'nb_NO', 'locale' => [LC_ALL => ['nb_NO.UTF-8', 'nb_NO.utf8', 'C'], LC_NUMERIC => 'C']]]]);
 
 		$this->assertEquals('/test/', $request->path());
 	}
@@ -357,9 +357,9 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$server['PATH_INFO'] = '/no/test/';
 
-		$request = new Request(['server' => $server, 'languages' => ['no' => 'nb_NO']]);
+		$request = new Request(['server' => $server, 'languages' => ['no' => ['strings' => 'nb_NO', 'locale' => [LC_ALL => ['nb_NO.UTF-8', 'nb_NO.utf8', 'C'], LC_NUMERIC => 'C']]]]);
 
-		$this->assertEquals('nb_NO', $request->language());
+		$this->assertEquals(['strings' => 'nb_NO', 'locale' => [LC_ALL => ['nb_NO.UTF-8', 'nb_NO.utf8', 'C'], LC_NUMERIC => 'C']], $request->language());
 	}
 
 	/**
@@ -371,7 +371,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$server['PATH_INFO'] = '/no/test/';
 
-		$request = new Request(['server' => $server, 'languages' => ['no' => 'nb_NO']]);
+		$request = new Request(['server' => $server, 'languages' => ['no' => ['strings' => 'nb_NO', 'locale' => [LC_ALL => ['nb_NO.UTF-8', 'nb_NO.utf8', 'C'], LC_NUMERIC => 'C']]]]);
 
 		$this->assertEquals('no', $request->languagePrefix());
 	}
