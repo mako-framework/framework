@@ -419,6 +419,20 @@ class Container
 	}
 
 	/**
+	 * Returns TRUE if a class has been registered as a singleton and FALSE if not.
+	 *
+	 * @access  public
+	 * @param   string  $class  Class name
+	 * @return  bool
+	 */
+	public function isSingleton(string $class): bool
+	{
+		$class = $this->resolveAlias($class);
+
+		return isset($this->instances[$class]) || (isset($this->hints[$class]) && $this->hints[$class]['singleton'] === true);
+	}
+
+	/**
 	 * Returns a class instance.
 	 *
 	 * @access  public

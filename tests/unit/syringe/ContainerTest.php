@@ -9,6 +9,8 @@ namespace mako\tests\unit\syringe;
 
 use PHPUnit_Framework_TestCase;
 
+use stdClass;
+
 use mako\syringe\Container;
 
 // --------------------------------------------------------------------------
@@ -456,5 +458,44 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf(ContextualImplementationA::class, $a->implementation);
 		$this->assertInstanceOf(ContextualImplementationB::class, $b->implementation);
+	}
+
+	/**
+	 *
+	 */
+	public function testIsSingletonWithRegisteredInstance()
+	{
+		$container = new Container;
+
+		$this->assertFalse($container->isSingleton('foo'));
+
+		$this->assertFalse($container->isSingleton(stdClass::class));
+
+		$container->registerInstance([stdClass::class, 'foo'], new stdClass);
+
+		$this->assertTrue($container->isSingleton('foo'));
+
+		$this->assertTrue($container->isSingleton(stdClass::class));
+	}
+
+	/**
+	 *
+	 */
+	public function testIsSingletonWithFactory()
+	{
+		$container = new Container;
+
+		$this->assertFalse($container->isSingleton('foo'));
+
+		$this->assertFalse($container->isSingleton(stdClass::class));
+
+		$container->registerSingleton([stdClass::class, 'foo'], function($container)
+		{
+			return new stdClass;
+		});
+
+		$this->assertTrue($container->isSingleton('foo'));
+
+		$this->assertTrue($container->isSingleton(stdClass::class));
 	}
 }
