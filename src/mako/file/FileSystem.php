@@ -248,10 +248,8 @@ class FileSystem
 
 				return $this->mimeTypes[$extension] ?? false;
 			}
-			else
-			{
-				return false;
-			}
+
+			return false;
 		}
 	}
 
