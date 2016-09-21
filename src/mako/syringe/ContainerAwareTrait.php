@@ -78,14 +78,21 @@ trait ContainerAwareTrait
 	 */
 	public function __get(string $key)
 	{
-		if(!isset($this->resolved[$key]))
+		if(isset($this->resolved[$key]) === false)
 		{
-			if(!$this->container->has($key))
+			if($this->container->has($key) === false)
 			{
 				throw new RuntimeException(vsprintf("%s::%s(): Unable to resolve [ %s ].", [__TRAIT__, __FUNCTION__, $key]));
 			}
 
-			$this->resolved[$key] = $this->container->get($key);
+			$resolved = $this->container->get($key);
+
+			if($this->container->isSingleton($key))
+			{
+				return $resolved;
+			}
+
+			$this->resolved[$key] = $resolved;
 		}
 
 		return $this->resolved[$key];
