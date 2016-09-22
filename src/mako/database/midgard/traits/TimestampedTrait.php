@@ -17,6 +17,27 @@ use DateTime;
 trait TimestampedTrait
 {
 	/**
+	 * Should we touch relations on insert?
+	 *
+	 * @var bool
+	 */
+	protected $shouldTouchOnInsert = true;
+
+	/**
+	 * Should we touch relations on update?
+	 *
+	 * @var bool
+	 */
+	protected $shouldTouchOnUpdate = true;
+
+	/**
+	 * Should we touch relations on delete?
+	 *
+	 * @var bool
+	 */
+	protected $shouldTouchOnDelete = true;
+
+	/**
 	 * Returns trait hooks.
 	 *
 	 * @access  protected
@@ -47,7 +68,7 @@ trait TimestampedTrait
 			[
 				function($inserted)
 				{
-					if($inserted && $this->exists)
+					if($this->shouldTouchOnInsert && $inserted && $this->exists)
 					{
 						$this->touchRelated();
 					}
@@ -70,7 +91,7 @@ trait TimestampedTrait
 			[
 				function($updated)
 				{
-					if($updated > 0 && $this->exists)
+					if($this->shouldTouchOnUpdate && $updated > 0 && $this->exists)
 					{
 						$this->touchRelated();
 					}
@@ -80,7 +101,7 @@ trait TimestampedTrait
 			[
 				function($deleted)
 				{
-					if($deleted > 0 && $this->exists)
+					if($this->shouldTouchOnDelete && $deleted > 0 && $this->exists)
 					{
 						$this->touchRelated();
 					}
