@@ -17,6 +17,13 @@ use mako\database\query\compilers\Compiler;
 class Firebird extends Compiler
 {
 	/**
+	 * Date format.
+	 *
+	 * @var string
+	 */
+	protected static $dateFormat = 'Y-m-d H:i:s';
+
+	/**
 	 * {@inheritdoc}
 	 */
 	protected function limit($limit)

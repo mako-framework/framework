@@ -94,11 +94,12 @@ class ResultSet extends Collection implements JsonSerializable
 	 * Returns a json representation of the result set.
 	 *
 	 * @access  public
+	 * @param   int     $options  JSON encode options
 	 * @return  string
 	 */
-	public function toJson()
+	public function toJson(int $options = 0)
 	{
-		return json_encode($this->toArray());
+		return json_encode($this->toArray(), $options);
 	}
 
 	/**

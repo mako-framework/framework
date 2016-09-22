@@ -17,6 +17,13 @@ use mako\database\query\compilers\Compiler;
 class Oracle extends Compiler
 {
 	/**
+	 * Date format.
+	 *
+	 * @var string
+	 */
+	protected static $dateFormat = 'Y-m-d H:i:s';
+
+	/**
 	 * {@inheritdoc}
 	 */
 	protected function buildJsonPath($column, array $segments)

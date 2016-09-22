@@ -18,6 +18,13 @@ use mako\database\query\compilers\Compiler;
 class Postgres extends Compiler
 {
 	/**
+	 * Date format.
+	 *
+	 * @var string
+	 */
+	protected static $dateFormat = 'Y-m-d H:i:s';
+
+	/**
 	 * {@inheritdoc}
 	 */
 	protected function buildJsonPath($column, array $segments)

@@ -1099,11 +1099,12 @@ abstract class ORM implements JsonSerializable
 	 * Returns a json representation of the record.
 	 *
 	 * @access  public
+	 * @param   int     $options  JSON encode options
 	 * @return  string
 	 */
-	public function toJson()
+	public function toJson($options = 0)
 	{
-		return json_encode($this->toArray());
+		return json_encode($this->toArray(), $options);
 	}
 
 	/**

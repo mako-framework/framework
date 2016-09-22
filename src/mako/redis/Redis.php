@@ -103,7 +103,7 @@ class Redis
 	{
 		list($server, $port) = explode(':', $server, 2);
 
-		$connection = $this->connection->createConnection($server, $port, $this->connection->isPersistent());
+		$connection = $this->connection->create($server, $port, $this->connection->isPersistent());
 
 		return new static($connection, ['password' => $this->password, 'database' => $this->database]);
 	}

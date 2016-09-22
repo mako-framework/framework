@@ -42,11 +42,12 @@ class Result implements JsonSerializable
 	 * Returns a json representation of the result.
 	 *
 	 * @access  public
+	 * @param   int     $options  JSON encode options
 	 * @return  string
 	 */
-	public function toJSON()
+	public function toJSON($options = 0)
 	{
-		return json_encode($this->toArray());
+		return json_encode($this->toArray(), $options);
 	}
 
 	/**

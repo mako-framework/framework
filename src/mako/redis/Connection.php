@@ -92,7 +92,7 @@ class Connection
 	 * @param   bool                    $persistent  Should the connection be persistent?
 	 * @return  \mako\redis\Connection
 	 */
-	public static function createConnection(string $host, int $port, bool $persistent = false): Connection
+	public static function create(string $host, int $port, bool $persistent = false): Connection
 	{
 		return new static($host, $port, $persistent);
 	}
