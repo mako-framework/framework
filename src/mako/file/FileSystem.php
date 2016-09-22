@@ -282,7 +282,7 @@ class FileSystem
 			}
 			else
 			{
-				$this->delete($item->getPathname());
+				unlink($item->getPathname());
 			}
 		}
 
