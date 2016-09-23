@@ -50,6 +50,30 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testBuildCustomDefaultCallback()
+	{
+		$request = Mockery::mock('mako\http\Request');
+
+		$request->shouldReceive('get')->once()->with('callback', 'foobar')->andReturn('foobar');
+
+		$response = Mockery::mock('mako\http\Response');
+
+		$response->shouldReceive('type')->once()->with('text/javascript');
+
+		$response->shouldReceive('body')->once()->with('foobar([1,2,3]);');
+
+		//
+
+		$jsonp = new JSONP([1,2,3]);
+
+		$jsonp->callback('foobar');
+
+		$jsonp->build($request, $response);
+	}
+
+	/**
+	 *
+	 */
 	public function testBuildWithCustomCallback()
 	{
 		$request = Mockery::mock('mako\http\Request');
@@ -108,7 +132,9 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$jsonp = new JSONP([1,2,3], 0, 'function');
+		$jsonp = new JSONP([1,2,3]);
+
+		$jsonp->key('function');
 
 		$jsonp->build($request, $response);
 	}

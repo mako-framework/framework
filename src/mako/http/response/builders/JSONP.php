@@ -32,11 +32,18 @@ class JSONP implements ResponseBuilderInterface
 	protected $options;
 
 	/**
+	 * JSONP callback key name.
+	 *
+	 * @var string
+	 */
+	protected $callbackKey = 'callback';
+
+	/**
 	 * JSONP callback name.
 	 *
 	 * @var string
 	 */
-	protected $callbackKey;
+	protected $callbackName = 'callback';
 
 	/**
 	 * Constructor.
@@ -44,15 +51,40 @@ class JSONP implements ResponseBuilderInterface
 	 * @access  public
 	 * @param   mixed   $data      Data
 	 * @param   int     $options   JSON encode options
-	 * @param   string  $callback  JSONP callback name
 	 */
-	public function __construct($data, int $options = 0, string $callbackKey = 'callback')
+	public function __construct($data, int $options = 0)
 	{
 		$this->data = $data;
 
 		$this->options = $options;
+	}
 
-		$this->callbackKey = $callbackKey;
+	/**
+	 * Sets the callback key name.
+	 *
+	 * @access  public
+	 * @param   string                              $name  Key name
+	 * @return  \mako\http\response\builders\JSONP
+	 */
+	public function key(string $name): JSONP
+	{
+		$this->callbackKey = $name;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the default callback name.
+	 *
+	 * @access  public
+	 * @param   string                              $name  Callback name
+	 * @return  \mako\http\response\builders\JSONP
+	 */
+	public function callback(string $name): JSONP
+	{
+		$this->callbackName = $name;
+
+		return $this;
 	}
 
 	/**
@@ -60,7 +92,7 @@ class JSONP implements ResponseBuilderInterface
 	 */
 	public function build(Request $request, Response $response)
 	{
-		$callback = $request->get($this->callbackKey, 'callback');
+		$callback = $request->get($this->callbackKey, $this->callbackName);
 
 		if(preg_match('/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u', $callback) !== 1)
 		{

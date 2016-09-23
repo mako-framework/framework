@@ -7,6 +7,7 @@
 
 namespace mako\http\response\containers;
 
+use Closure;
 use RuntimeException;
 
 use mako\file\FileSystem;
@@ -42,23 +43,45 @@ class File implements ResponseContainerInterface
 	 */
 	protected $fileSize;
 
+
 	/**
-	 * Options.
+	 * File name.
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $options;
+	protected $fileName;
+
+	/**
+	 * Content disposition
+	 *
+	 * @var string
+	 */
+	protected $disposition;
+
+	/**
+	 * Content type.
+	 *
+	 * @var string
+	 */
+	protected $contentType;
+
+	/**
+	 * Callback.
+	 *
+	 * @var \Closure
+	 */
+	protected $callback;
 
 	/**
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   string  $file     File path
-	 * @param   array   $options  Options
+	 * @param   \mako\file\FileSystem  $fileSystem  FileSytem instance
+	 * @param   string                 $file        File path
 	 */
-	public function __construct($file, array $options = [])
+	public function __construct(FileSystem $fileSystem, string $file)
 	{
-		$this->fileSystem = $this->getFileSystem();
+		$this->fileSystem = $fileSystem;
 
 		if($this->fileSystem->has($file) === false || $this->fileSystem->isReadable($file) === false)
 		{
@@ -68,25 +91,95 @@ class File implements ResponseContainerInterface
 		$this->filePath = $file;
 
 		$this->fileSize = $this->fileSystem->size($file);
-
-		$this->options = $options +
-		[
-			'file_name'    => basename($file),
-			'disposition'  => 'attachment',
-			'content_type' => $this->fileSystem->mime($file) ?: 'application/octet-stream',
-			'callback'     => null,
-		];
 	}
 
 	/**
-	 * Returns a file system instance.
+	 * Sets the file name.
+	 *
+	 * @access  public
+	 * @param   string                               $name  File name
+	 * @return  \mako\http\response\containers\File
+	 */
+	public function name(string $name): File
+	{
+		$this->fileName = $name;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the content disposition.
+	 *
+	 * @access  public
+	 * @param   string                               $disposition  Content disposition
+	 * @return  \mako\http\response\containers\File
+	 */
+	public function disposition(string $disposition): File
+	{
+		$this->disposition = $disposition;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the content type.
+	 *
+	 * @access  public
+	 * @param   string                               $type  Mime type
+	 * @return  \mako\http\response\containers\File
+	 */
+	public function type(string $type): File
+	{
+		$this->contentType = $type;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the callback closure.
+	 *
+	 * @access  public
+	 * @param   \Closure                             $callback  Callback closure
+	 * @return  \mako\http\response\containers\File
+	 */
+	public function done(Closure $callback): File
+	{
+		$this->callback = $callback;
+
+		return $this;
+	}
+
+	/**
+	 * Returns the file name.
 	 *
 	 * @access  protected
-	 * @return  \mako\file\FileSystem
+	 * @return  string
 	 */
-	protected function getFileSystem()
+	protected function getName(): string
 	{
-		return new FileSystem;
+		return $this->fileName ?? basename($this->filePath);
+	}
+
+	/**
+	 * Returns the content disposition.
+	 *
+	 * @access  protected
+	 * @return  string
+	 */
+	protected function getDisposition(): string
+	{
+		return $this->disposition ?? 'attachment';
+	}
+
+	/**
+	 * Returns the content type.
+	 *
+	 * @access  protected
+	 * @return  string
+	 */
+	protected function getContenType(): string
+	{
+		return $this->contentType ?? ($this->fileSystem->mime($this->filePath) ?: 'application/octet-stream');
 	}
 
 	/**
@@ -96,7 +189,7 @@ class File implements ResponseContainerInterface
 	 * @param   string       $range  Request range
 	 * @return  array|false
 	 */
-	protected function calculateRange($range)
+	protected function calculateRange(string $range)
 	{
 		// Remove the "range=" part of the header value
 
@@ -149,7 +242,7 @@ class File implements ResponseContainerInterface
 	 * @param   int        $start  Starting point
 	 * @param   int        $end    Ending point
 	 */
-	protected function sendFile($start, $end)
+	protected function sendFile(int $start, int $end)
 	{
 		// Erase output buffers and disable output buffering
 
@@ -189,11 +282,11 @@ class File implements ResponseContainerInterface
 	{
 		// Add headers that should always be included
 
-		$response->type($this->options['content_type']);
+		$response->type($this->getContenType());
 
 		$response->header('accept-ranges', $request->isSafe() ? 'bytes' : 'none');
 
-		$response->header('content-disposition', $this->options['disposition'] . '; filename="' . $this->options['file_name'] . '"');
+		$response->header('content-disposition', $this->getDisposition() . '; filename="' . $this->getName() . '"');
 
 		// Get the requested byte range
 
@@ -244,9 +337,11 @@ class File implements ResponseContainerInterface
 
 			// Execute callback if there is one
 
-			if(!empty($this->options['callback']))
+			if(!empty($this->callback))
 			{
-				$this->options['callback']($this->filePath);
+				$callback = $this->callback;
+
+				$callback($this->filePath);
 			}
 		}
 	}

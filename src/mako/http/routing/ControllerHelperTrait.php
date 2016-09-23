@@ -29,13 +29,12 @@ trait ControllerHelperTrait
 	 * Returns a file response container.
 	 *
 	 * @access  public
-	 * @param   string                     $file     File path
-	 * @param   array                      $options  Options
+	 * @param   string                     $file  File path
 	 * @return  \mako\http\responses\File
 	 */
-	protected function fileResponse(string $file, array $options = []): File
+	protected function fileResponse(string $file): File
 	{
-		return new File($file, $options);
+		return new File($this->fileSystem, $file);
 	}
 
 	/**
