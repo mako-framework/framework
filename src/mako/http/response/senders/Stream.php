@@ -5,19 +5,19 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\http\response\containers;
+namespace mako\http\response\senders;
 
 use Closure;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\response\containers\ResponseContainerInterface;
+use mako\http\response\senders\ResponseSenderInterface;
 
 /**
  * Stream response.
  *
  * @author  Frederic G. Østby
  */
-class Stream implements ResponseContainerInterface
+class Stream implements ResponseSenderInterface
 {
 	/**
 	 * Is PHP running as a CGI program?

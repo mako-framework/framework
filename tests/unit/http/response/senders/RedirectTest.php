@@ -10,7 +10,7 @@ namespace mako\tests\unit\http\response\builders;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
-use mako\http\response\containers\Redirect;
+use mako\http\response\senders\Redirect;
 
 /**
  * @group unit

@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\http\response\containers;
+namespace mako\http\response\senders;
 
 use Closure;
 use RuntimeException;
@@ -13,14 +13,14 @@ use RuntimeException;
 use mako\file\FileSystem;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\response\containers\ResponseContainerInterface;
+use mako\http\response\senders\ResponseSenderInterface;
 
 /**
  * File response.
  *
  * @author  Frederic G. Østby
  */
-class File implements ResponseContainerInterface
+class File implements ResponseSenderInterface
 {
 	/**
 	 * File system instance.
@@ -97,8 +97,8 @@ class File implements ResponseContainerInterface
 	 * Sets the file name.
 	 *
 	 * @access  public
-	 * @param   string                               $name  File name
-	 * @return  \mako\http\response\containers\File
+	 * @param   string                            $name  File name
+	 * @return  \mako\http\response\senders\File
 	 */
 	public function name(string $name): File
 	{
@@ -111,8 +111,8 @@ class File implements ResponseContainerInterface
 	 * Sets the content disposition.
 	 *
 	 * @access  public
-	 * @param   string                               $disposition  Content disposition
-	 * @return  \mako\http\response\containers\File
+	 * @param   string                            $disposition  Content disposition
+	 * @return  \mako\http\response\senders\File
 	 */
 	public function disposition(string $disposition): File
 	{
@@ -125,8 +125,8 @@ class File implements ResponseContainerInterface
 	 * Sets the content type.
 	 *
 	 * @access  public
-	 * @param   string                               $type  Mime type
-	 * @return  \mako\http\response\containers\File
+	 * @param   string                            $type  Mime type
+	 * @return  \mako\http\response\senders\File
 	 */
 	public function type(string $type): File
 	{
@@ -139,8 +139,8 @@ class File implements ResponseContainerInterface
 	 * Sets the callback closure.
 	 *
 	 * @access  public
-	 * @param   \Closure                             $callback  Callback closure
-	 * @return  \mako\http\response\containers\File
+	 * @param   \Closure                          $callback  Callback closure
+	 * @return  \mako\http\response\senders\File
 	 */
 	public function done(Closure $callback): File
 	{

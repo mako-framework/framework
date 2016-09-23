@@ -5,18 +5,18 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\http\response\containers;
+namespace mako\http\response\senders;
 
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\response\containers\ResponseContainerInterface;
+use mako\http\response\senders\ResponseSenderInterface;
 
 /**
  * Redirect response.
  *
  * @author  Frederic G. Østby
  */
-class Redirect implements ResponseContainerInterface
+class Redirect implements ResponseSenderInterface
 {
 	/**
 	 * Location.
@@ -47,8 +47,8 @@ class Redirect implements ResponseContainerInterface
 	 * Sets the status code.
 	 *
 	 * @access  public
-	 * @param   int                                      $status  Status code
-	 * @return  \mako\http\response\containers\Redirect
+	 * @param   int                                   $status  Status code
+	 * @return  \mako\http\response\senders\Redirect
 	 */
 	public function status($status)
 	{
@@ -61,7 +61,7 @@ class Redirect implements ResponseContainerInterface
 	 * Sets the status code to 300.
 	 *
 	 * @access  public
-	 * @return  \mako\http\response\containers\Redirect
+	 * @return  \mako\http\response\senders\Redirect
 	 */
 	public function multipleChoices()
 	{
@@ -74,7 +74,7 @@ class Redirect implements ResponseContainerInterface
 	 * Sets the status code to 301.
 	 *
 	 * @access  public
-	 * @return  \mako\http\response\containers\Redirect
+	 * @return  \mako\http\response\senders\Redirect
 	 */
 	public function movedPermanently()
 	{
@@ -87,7 +87,7 @@ class Redirect implements ResponseContainerInterface
 	 * Sets the status code to 302.
 	 *
 	 * @access  public
-	 * @return  \mako\http\response\containers\Redirect
+	 * @return  \mako\http\response\senders\Redirect
 	 */
 	public function found()
 	{
@@ -100,7 +100,7 @@ class Redirect implements ResponseContainerInterface
 	 * Sets the status code to 303.
 	 *
 	 * @access  public
-	 * @return  \mako\http\response\containers\Redirect
+	 * @return  \mako\http\response\senders\Redirect
 	 */
 	public function seeOther()
 	{
@@ -113,7 +113,7 @@ class Redirect implements ResponseContainerInterface
 	 * Sets the status code to 304.
 	 *
 	 * @access  public
-	 * @return  \mako\http\response\containers\Redirect
+	 * @return  \mako\http\response\senders\Redirect
 	 */
 	public function notModified()
 	{
@@ -126,7 +126,7 @@ class Redirect implements ResponseContainerInterface
 	 * Sets the status code to 305.
 	 *
 	 * @access  public
-	 * @return  \mako\http\response\containers\Redirect
+	 * @return  \mako\http\response\senders\Redirect
 	 */
 	public function useProxy()
 	{
@@ -139,7 +139,7 @@ class Redirect implements ResponseContainerInterface
 	 * Sets the status code to 307.
 	 *
 	 * @access  public
-	 * @return  \mako\http\response\containers\Redirect
+	 * @return  \mako\http\response\senders\Redirect
 	 */
 	public function temporaryRedirect()
 	{
@@ -152,7 +152,7 @@ class Redirect implements ResponseContainerInterface
 	 * Sets the status code to 308.
 	 *
 	 * @access  public
-	 * @return  \mako\http\response\containers\Redirect
+	 * @return  \mako\http\response\senders\Redirect
 	 */
 	public function permanentRedirect()
 	{

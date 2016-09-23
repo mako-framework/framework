@@ -12,7 +12,7 @@ use RuntimeException;
 
 use mako\http\Request;
 use mako\http\response\builders\ResponseBuilderInterface;
-use mako\http\response\containers\ResponseContainerInterface;
+use mako\http\response\senders\ResponseSenderInterface;
 use mako\security\Signer;
 use mako\view\View;
 
@@ -685,9 +685,9 @@ class Response
 	 */
 	public function send()
 	{
-		if($this->body instanceof ResponseContainerInterface)
+		if($this->body instanceof ResponseSenderInterface)
 		{
-			// This is a response container so we'll just pass it the
+			// This is a response sender so we'll just pass it the
 			// request and response instances and let it handle the rest itself
 
 			$this->body->send($this->request, $this);

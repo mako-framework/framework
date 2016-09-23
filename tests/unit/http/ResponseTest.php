@@ -11,6 +11,8 @@ use Mockery;
 use PHPUnit_Framework_TestCase;
 
 use mako\http\Response;
+use mako\http\response\builders\JSON;
+use mako\http\response\senders\Redirect;
 
 /**
  * @group unit
@@ -78,35 +80,25 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function testBodyWithContainer()
+	public function testBodyWithSender()
 	{
-		$container = Mockery::mock('\mako\http\responses\File');
-
 		$response = new Response($this->getRequest());
 
-		$response->body($container);
+		$response->body(new Redirect('foobar'));
 
-		$this->assertInstanceOf('\mako\http\responses\File', $response->getBody());
+		$this->assertInstanceOf('\mako\http\response\senders\Redirect', $response->getBody());
+	}
 
-		//
-
-		$container = Mockery::mock('\mako\http\responses\Redirect');
-
+	/**
+	 *
+	 */
+	public function testBodyWithBuilder()
+	{
 		$response = new Response($this->getRequest());
 
-		$response->body($container);
+		$response->body(new JSON('foobar'));
 
-		$this->assertInstanceOf('\mako\http\responses\Redirect', $response->getBody());
-
-		//
-
-		$container = Mockery::mock('\mako\http\responses\Stream');
-
-		$response = new Response($this->getRequest());
-
-		$response->body($container);
-
-		$this->assertInstanceOf('\mako\http\responses\Stream', $response->getBody());
+		$this->assertInstanceOf('\mako\http\response\builders\JSON', $response->getBody());
 	}
 
 	/**

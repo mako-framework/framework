@@ -9,6 +9,7 @@ namespace mako\http\routing;
 
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\response\senders\Redirect;
 use mako\http\routing\Route;
 use mako\http\routing\Routes;
 use mako\http\exceptions\NotFoundException;
@@ -48,7 +49,7 @@ class Router
 	 */
 	protected function redirectRoute(string $requestPath): Route
 	{
-		return new Route([], '', function(Request $request, Response $response) use ($requestPath)
+		return new Route([], '', function(Request $request) use ($requestPath)
 		{
 			$url = $request->baseURL() . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
 
@@ -59,7 +60,7 @@ class Router
 				$url = $url . '?' . http_build_query($get);
 			}
 
-			return $response->redirect($url)->status(301);
+			return (new Redirect($url))->status(301);
 		});
 	}
 

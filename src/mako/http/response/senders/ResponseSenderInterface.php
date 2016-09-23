@@ -5,17 +5,17 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\http\response\containers;
+namespace mako\http\response\senders;
 
 use mako\http\Request;
 use mako\http\Response;
 
 /**
- * Response container interface.
+ * Response sender interface.
  *
  * @author  Frederic G. Østby
  */
-interface ResponseContainerInterface
+interface ResponseSenderInterface
 {
 	/**
 	 * Sends the response.

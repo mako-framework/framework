@@ -153,17 +153,21 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('get')->once()->andReturn(['foo' => 'bar']);
 
+		$returnValue = $closure($request);
+
+		$this->assertInstanceOf('mako\http\response\senders\Redirect', $returnValue);
+
+		//
+
 		$response = Mockery::mock('mako\http\Response');
 
-		$redirect = Mockery::mock('mako\http\responses\Redirect');
+		$response->shouldReceive('status')->once()->with(301);
 
-		$redirect->shouldReceive('status')->once()->with(301)->andReturn($redirect);
+		$response->shouldReceive('header')->once()->with('Location', 'http://example.org/en/foo/?foo=bar');
 
-		$response->shouldReceive('redirect')->once()->with('http://example.org/en/foo/?foo=bar')->andReturn($redirect);
+		$response->shouldReceive('sendHeaders')->once();
 
-		$returnValue = $closure($request, $response);
-
-		$this->assertInstanceOf('mako\http\responses\Redirect', $returnValue);
+		$returnValue->send($request, $response);
 	}
 
 	/**
