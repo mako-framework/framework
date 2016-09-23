@@ -11,10 +11,8 @@ use Closure;
 use RuntimeException;
 
 use mako\http\Request;
-use mako\http\responses\File;
-use mako\http\responses\Redirect;
-use mako\http\responses\ResponseContainerInterface;
-use mako\http\responses\Stream;
+use mako\http\response\builders\ResponseBuilderInterface;
+use mako\http\response\containers\ResponseContainerInterface;
 use mako\security\Signer;
 use mako\view\View;
 
@@ -681,55 +679,6 @@ class Response
 	}
 
 	/**
-	 * Returns a file container.
-	 *
-	 * @access  public
-	 * @param   string                     $file     File path
-	 * @param   array                      $options  Options
-	 * @return  \mako\http\responses\File
-	 */
-	public function file($file, array $options = [])
-	{
-		return new File($file, $options);
-	}
-
-	/**
-	 * Returns a stream container.
-	 *
-	 * @access  public
-	 * @param   \Closure                     $stream  Stream
-	 * @return  \mako\http\responses\Stream
-	 */
-	public function stream(Closure $stream)
-	{
-		return new Stream($stream);
-	}
-
-	/**
-	 * Redirects to another location.
-	 *
-	 * @access  public
-	 * @param   string                         $location  Location
-	 * @return  \mako\http\responses\Redirect
-	 */
-	public function redirect($location)
-	{
-		return new Redirect($location);
-	}
-
-	/**
-	 * Redirects the user back to the previous page.
-	 *
-	 * @access  public
-	 * @param   int                           $statusCode  HTTP status code
-	 * @return  \mako\http\response\Redirect
-	 */
-	public function back($statusCode = 302)
-	{
-		return $this->redirect($this->request->referer())->status($statusCode);
-	}
-
-	/**
 	 * Send output to browser.
 	 *
 	 * @access  public
@@ -745,6 +694,11 @@ class Response
 		}
 		else
 		{
+			if($this->body instanceof ResponseBuilderInterface)
+			{
+				$this->body->build($this->request, $this);
+			}
+
 			$sendBody = true;
 
 			// Make sure that output buffering is enabled

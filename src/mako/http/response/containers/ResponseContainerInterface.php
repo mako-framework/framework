@@ -5,7 +5,7 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\http\responses;
+namespace mako\http\response\containers;
 
 use mako\http\Request;
 use mako\http\Response;

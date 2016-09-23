@@ -7,7 +7,7 @@
 
 namespace mako\http\routing;
 
-use mako\syringe\ContainerAwareTrait;
+use mako\http\routing\ControllerHelperTrait;
 
 /**
  * Base controller.
@@ -16,5 +16,5 @@ use mako\syringe\ContainerAwareTrait;
  */
 abstract class Controller
 {
-	use ContainerAwareTrait;
+	use ControllerHelperTrait;
 }

@@ -5,14 +5,14 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\http\responses;
+namespace mako\http\response\containers;
 
 use RuntimeException;
 
 use mako\file\FileSystem;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\responses\ResponseContainerInterface;
+use mako\http\response\containers\ResponseContainerInterface;
 
 /**
  * File response.
