@@ -233,20 +233,25 @@ class Query extends QueryBuilder
 
 			$currentIncludes = $this->model->getIncludes();
 
-			$withCriterion = array_filter(array_keys($includes), 'is_string');
-
-			if(!empty($withCriterion))
+			if(!empty($currentIncludes))
 			{
-				foreach($currentIncludes as $key => $value)
+				$withCriterion = array_filter(array_keys($includes), 'is_string');
+
+				if(!empty($withCriterion))
 				{
-					if(in_array($value, $withCriterion))
+					foreach($currentIncludes as $key => $value)
 					{
-						unset($currentIncludes[$key]); // Unset relations that have previously been set without a criterion closure
+						if(in_array($value, $withCriterion))
+						{
+							unset($currentIncludes[$key]); // Unset relations that have previously been set without a criterion closure
+						}
 					}
 				}
+
+				$includes = array_merge($currentIncludes, $includes);
 			}
 
-			$this->model->setIncludes(array_unique(array_merge($currentIncludes, $includes), SORT_REGULAR));
+			$this->model->setIncludes(array_unique($includes, SORT_REGULAR));
 		}
 
 		return $this;
