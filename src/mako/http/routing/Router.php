@@ -165,7 +165,7 @@ class Router
 					return [$this->redirectRoute($requestPath), []];
 				}
 
-				// If this is an "OPTIONS" request then well collect all the allowed request methods
+				// If this is an "OPTIONS" request then we'll collect all the allowed request methods
 				// from all routes matching the requested path. We'll then add an "allows" header
 				// to the matched route
 

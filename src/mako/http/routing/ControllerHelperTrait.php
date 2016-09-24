@@ -11,10 +11,10 @@ use Closure;
 
 use mako\http\response\builders\JSON;
 use mako\http\response\builders\JSONP;
-use mako\syringe\ContainerAwareTrait;
 use mako\http\response\senders\File;
 use mako\http\response\senders\Redirect;
 use mako\http\response\senders\Stream;
+use mako\syringe\ContainerAwareTrait;
 
 /**
  * Controller helper trait.
@@ -87,10 +87,9 @@ trait ControllerHelperTrait
 	 *
 	 * @param   mixed                              $data      Data
 	 * @param   int                                $options   JSON encode coptions
-	 * @param   string                             $callback  Callback name
 	 * @return  \mako\http\response\builder\JSONP
 	 */
-	protected function jsonpResponse($data, int $options = 0, string $callback = 'callback'): JSONP
+	protected function jsonpResponse($data, int $options = 0): JSONP
 	{
 		return new JSONP($data, $options, $callback);
 	}

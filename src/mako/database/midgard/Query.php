@@ -233,10 +233,7 @@ class Query extends QueryBuilder
 
 			$currentIncludes = $this->model->getIncludes();
 
-			$withCriterion = array_filter(array_keys($includes), function($key)
-			{
-				return is_string($key);
-			});
+			$withCriterion = array_filter(array_keys($includes), 'is_string');
 
 			if(!empty($withCriterion))
 			{
