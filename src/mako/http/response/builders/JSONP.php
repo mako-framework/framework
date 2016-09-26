@@ -94,7 +94,7 @@ class JSONP implements ResponseBuilderInterface
 	{
 		$callback = $request->get($this->callbackKey, $this->callbackName);
 
-		if(preg_match('/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u', $callback) !== 1)
+		if(preg_match('/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u', $callback) === 0)
 		{
 			$callback = 'callback';
 		}

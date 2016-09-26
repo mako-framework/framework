@@ -91,6 +91,6 @@ trait ControllerHelperTrait
 	 */
 	protected function jsonpResponse($data, int $options = 0): JSONP
 	{
-		return new JSONP($data, $options, $callback);
+		return new JSONP($data, $options);
 	}
 }
