@@ -416,22 +416,25 @@ class Connection
 		}
 		else
 		{
-			switch(gettype($value))
+			if(is_bool($value))
 			{
-				case 'boolean':
-					$type = PDO::PARAM_BOOL;
-					break;
-				case 'integer':
-					$type = PDO::PARAM_INT;
-					break;
-				case 'NULL':
-					$type = PDO::PARAM_NULL;
-					break;
-				case 'resource':
-					$type = PDO::PARAM_LOB;
-					break;
-				default:
-					$type = PDO::PARAM_STR;
+				$type = PDO::PARAM_BOOL;
+			}
+			elseif(is_int($value))
+			{
+				$type = PDO::PARAM_INT;
+			}
+			elseif(is_null($value))
+			{
+				$type = PDO::PARAM_NULL;
+			}
+			elseif(is_resource($value))
+			{
+				$type = PDO::PARAM_LOB;
+			}
+			else
+			{
+				$type = PDO::PARAM_STR;
 			}
 		}
 
