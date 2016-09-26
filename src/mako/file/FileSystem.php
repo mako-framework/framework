@@ -205,7 +205,7 @@ class FileSystem
 	}
 
 	/**
-	 * Returns the extention of the file.
+	 * Returns the extension of the file.
 	 *
 	 * @access  public
 	 * @param   string  $file  Path to file

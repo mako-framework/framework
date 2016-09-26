@@ -106,38 +106,38 @@ class ViewFactory
 	 * Prepends a view renderer.
 	 *
 	 * @access  protected
-	 * @param   string           $extention  Extention handled by the renderer
+	 * @param   string           $extension  Extension handled by the renderer
 	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
 	 */
-	protected function prependRenderer($extention, $renderer)
+	protected function prependRenderer($extension, $renderer)
 	{
-		$this->renderers = [$extention => $renderer] + $this->renderers;
+		$this->renderers = [$extension => $renderer] + $this->renderers;
 	}
 
 	/**
 	 * Appends a view renderer.
 	 *
 	 * @access  protected
-	 * @param   string           $extention  Extention handled by the renderer
+	 * @param   string           $extension  Extension handled by the renderer
 	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
 	 */
-	protected function appendRenderer($extention, $renderer)
+	protected function appendRenderer($extension, $renderer)
 	{
-		$this->renderers =  $this->renderers + [$extention => $renderer];
+		$this->renderers =  $this->renderers + [$extension => $renderer];
 	}
 
 	/**
 	 * Registers a custom view renderer.
 	 *
 	 * @access  public
-	 * @param   string                  $extention  Extention handled by the renderer
+	 * @param   string                  $extension  Extension handled by the renderer
 	 * @param   string|\Closure         $renderer   Renderer class or closure that creates a renderer instance
 	 * @param   bool                    $prepend    Prepend the custom renderer on the stack
 	 * @return  \mako\view\ViewFactory
 	 */
-	public function registerRenderer($extention, $renderer, $prepend = true)
+	public function registerRenderer($extension, $renderer, $prepend = true)
 	{
-		$prepend ? $this->prependRenderer($extention, $renderer) : $this->appendRenderer($extention, $renderer);
+		$prepend ? $this->prependRenderer($extension, $renderer) : $this->appendRenderer($extension, $renderer);
 
 		return $this;
 	}
