@@ -35,7 +35,7 @@ class Cache
 	 *
 	 * @access  public
 	 * @param   \mako\cache\stores\StoreInterface  $store   Cache store
-	 * @param   string                             $prefix  Cache prefix
+	 * @param   null|string                        $prefix  Cache prefix
 	 */
 	public function __construct(StoreInterface $store, $prefix = null)
 	{

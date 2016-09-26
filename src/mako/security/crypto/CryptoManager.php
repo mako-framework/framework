@@ -25,13 +25,6 @@ use mako\security\Key;
 class CryptoManager extends AdapterManager
 {
 	/**
-	 * Reuse instances?
-	 *
-	 * @var bool
-	 */
-	protected $reuseInstances = false;
-
-	/**
 	 * OpenSSL encrypter factory.
 	 *
 	 * @access  protected
@@ -59,10 +52,6 @@ class CryptoManager extends AdapterManager
 
 		$configuration = $this->configurations[$configuration];
 
-		$factoryMethod = $this->getFactoryMethodName($configuration['library']);
-
-		$instance = new Crypto($this->$factoryMethod($configuration), $this->container->get('signer'));
-
-		return $instance;
+		return new Crypto($this->factory($configuration['library'], $configuration), $this->container->get('signer'));
 	}
 }

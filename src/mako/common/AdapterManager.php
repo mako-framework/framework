@@ -7,6 +7,7 @@
 
 namespace mako\common;
 
+use Closure;
 use RuntimeException;
 
 use mako\common\ConfigurableTrait;
@@ -22,18 +23,18 @@ abstract class AdapterManager
 	use ConfigurableTrait;
 
 	/**
-	 * Reuse instances?
-	 *
-	 * @var bool
-	 */
-	protected $reuseInstances = true;
-
-	/**
 	 * IoC container instance.
 	 *
 	 * @var \mako\syringe\Container
 	 */
 	protected $container;
+
+	/**
+	 * Extensions.
+	 *
+	 * @var array
+	 */
+	protected $extensions = [];
 
 	/**
 	 * Connections.
@@ -60,6 +61,19 @@ abstract class AdapterManager
 	}
 
 	/**
+	 * Adds extension.
+	 *
+	 * @access  public
+	 * @param   string           $name        Adapter name
+	 * @param   string|\Closure  $adapter     Adapter
+	 * @param   array            $parameters  Parameters
+	 */
+	public function extend(string $name, $adapter, array $parameters = [])
+	{
+		$this->extensions[$name] = ['adapter' => $adapter, 'parameters' => $parameters];
+	}
+
+	/**
 	 * Returns the factory method name.
 	 *
 	 * @access  protected
@@ -79,13 +93,43 @@ abstract class AdapterManager
 	}
 
 	/**
+	 * Factory.
+	 *
+	 * @access  protected
+	 * @param   string     $adapterName    Adapter name
+	 * @param   array      $configuration  Adapter configuration
+	 * @return  mixed
+	 */
+	protected function factory(string $adapterName, array $configuration = [])
+	{
+		if(method_exists($this, ($method = $adapterName . 'Factory')))
+		{
+			return $this->$method($configuration);
+		}
+		elseif(isset($this->extensions[$adapterName]))
+		{
+			$adapter = $this->extensions[$adapterName]['adapter'];
+
+			$parameters = $this->extensions[$adapterName]['parameters'] + $configuration;
+
+			if($adapter instanceof Closure)
+			{
+				return $this->container->call($adapter, $parameters);
+			}
+
+			return $this->container->getFresh($adapter, $parameters);
+		}
+
+		throw new RuntimeException(vsprintf("%s(): A factory method for the [ %s ] adapter has not been defined.", [__METHOD__, $adapterName]));
+	}
+
+	/**
 	 * Returns a new adapter instance.
 	 *
 	 * @access  public
 	 * @param   string  $configuration  Configuration name
 	 * @return  mixed
 	 */
-
 	abstract protected function instantiate($configuration);
 
 	/**
@@ -99,17 +143,12 @@ abstract class AdapterManager
 	{
 		$configuration = $configuration ?? $this->default;
 
-		if($this->reuseInstances)
+		if(!isset($this->instances[$configuration]))
 		{
-			if(!isset($this->instances[$configuration]))
-			{
-				$this->instances[$configuration] = $this->instantiate($configuration);
-			}
-
-			return $this->instances[$configuration];
+			$this->instances[$configuration] = $this->instantiate($configuration);
 		}
 
-		return $this->instantiate($configuration);
+		return $this->instances[$configuration];
 	}
 
 	/**

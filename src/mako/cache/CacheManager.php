@@ -50,11 +50,7 @@ class CacheManager extends AdapterManager
 	 */
 	public function __construct($default, array $configurations, Container $container, $classWhitelist = false)
 	{
-		$this->default = $default;
-
-		$this->configurations = $configurations;
-
-		$this->container = $container;
+		parent::__construct($default, $configurations, $container);
 
 		$this->classWhitelist = $classWhitelist;
 	}
@@ -207,8 +203,6 @@ class CacheManager extends AdapterManager
 
 		$configuration = $this->configurations[$configuration];
 
-		$factoryMethod = $this->getFactoryMethodName($configuration['type']);
-
-		return new Cache($this->$factoryMethod($configuration), $configuration['prefix']);
+		return new Cache($this->factory($configuration['type'], $configuration), $configuration['prefix'] ?? null);
 	}
 }
