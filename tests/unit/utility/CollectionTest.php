@@ -383,4 +383,21 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
 		$collection->nope();
 	}
+
+	/**
+	 *
+	 */
+	public function testResetKeys()
+	{
+		$collection = new Collection([1, 2, 3, 4, 5, 6]);
+
+		unset($collection[2]);
+
+		$this->assertEquals([0 => 1, 1 => 2, 3 => 4, 4 => 5, 5 => 6], $collection->getItems());
+
+		$collection->resetKeys();
+
+		$this->assertEquals([0 => 1, 1 => 2, 2 => 4, 3 => 5, 4 => 6], $collection->getItems());
+
+	}
 }

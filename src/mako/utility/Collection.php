@@ -55,6 +55,16 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
+	 * Resets the collection keys.
+	 *
+	 * @access  public
+	 */
+	public function resetKeys()
+	{
+		$this->items = array_values($this->items);
+	}
+
+	/**
 	 * Adds a new item to the collection.
 	 *
 	 * @access  public
