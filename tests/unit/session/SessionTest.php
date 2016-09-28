@@ -113,8 +113,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	public function testStartWithCookie()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
-
-		$session->start();
 	}
 
 	/**
@@ -128,21 +126,15 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$response = $this->getResponse();
 
-		$response->shouldReceive('signedCookie')->once()->with('mako_session', 'bar456', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$response->shouldReceive('signedCookie')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('read')->once()->with('bar456')->andReturn([]);
+		$store->shouldReceive('read')->once()->with('foobar')->andReturn([]);
 
-		$store->shouldReceive('write')/*->once()*/->with('bar456', ['mako.flashdata' => [], 'mako.token' => 'bar456'], 1800);
+		$store->shouldReceive('write')/*->once()*/->with('foobar', ['mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
 
-		$session = Mockery::mock('\mako\session\Session[generateId]', [$request, $response, $store]);
-
-		$session->shouldAllowMockingProtectedMethods();
-
-		$session->shouldReceive('generateId')->twice()->andReturn('bar456');
-
-		$session->start();
+		$session = new TestSession($request, $response, $store);
 	}
 
 	/**
@@ -151,8 +143,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	public function testGetId()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
-
-		$session->start();
 
 		$this->assertEquals('foo123', $session->getId());
 	}
@@ -164,7 +154,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	{
 		$response = $this->getResponseSetCookie();
 
-		$response->shouldReceive('signedCookie')->once()->with('mako_session', 'bar456', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$response->shouldReceive('signedCookie')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
 
 		$store = $this->getStore();
 
@@ -172,15 +162,9 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$store->shouldReceive('delete')->once()->with('foo123');
 
-		$store->shouldReceive('write')/*->once()*/->with('bar456', ['mako.flashdata' => [], 'mako.token' => 'bar456'], 1800);
+		$store->shouldReceive('write')/*->once()*/->with('foobar', ['mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
 
-		$session = Mockery::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $response, $store]);
-
-		$session->shouldAllowMockingProtectedMethods();
-
-		$session->shouldReceive('generateId')->twice()->andReturn('bar456');
-
-		$session->start();
+		$session = new TestSession($this->getRequestWithCookie(), $response, $store);
 
 		$id = $session->regenerateId();
 	}
@@ -192,21 +176,15 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	{
 		$response = $this->getResponseSetCookie();
 
-		$response->shouldReceive('signedCookie')->once()->with('mako_session', 'bar456', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$response->shouldReceive('signedCookie')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
 
 		$store = $this->getStore();
 
 		$store->shouldReceive('read')->once()->with('foo123')->andReturn([]);
 
-		$store->shouldReceive('write')/*->once()*/->with('bar456', ['mako.flashdata' => [], 'mako.token' => 'bar456'], 1800);
+		$store->shouldReceive('write')/*->once()*/->with('foobar', ['mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
 
-		$session = Mockery::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $response, $store]);
-
-		$session->shouldAllowMockingProtectedMethods();
-
-		$session->shouldReceive('generateId')->twice()->andReturn('bar456');
-
-		$session->start();
+		$session = new TestSession($this->getRequestWithCookie(), $response, $store);
 
 		$id = $session->regenerateId(true);
 	}
@@ -217,8 +195,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	public function testGetData()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
-
-		$session->start();
 
 		$this->assertEquals(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar'], $session->getData());
 	}
@@ -236,8 +212,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
 
-		$session->start();
-
 		$session->put('bax', 123);
 	}
 
@@ -247,8 +221,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	public function testHas()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
-
-		$session->start();
 
 		$this->assertTrue($session->has('foo'));
 
@@ -261,8 +233,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	public function testGet()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
-
-		$session->start();
 
 		$this->assertEquals('bar', $session->get('foo'));
 
@@ -284,8 +254,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
 
-		$session->start();
-
 		$session->remove('foo');
 	}
 
@@ -302,8 +270,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
 
-		$session->start();
-
 		$session->putFlash('bax', 123);
 	}
 
@@ -319,8 +285,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 		$store->shouldReceive('write')->with('foo123', ['mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
-
-		$session->start();
 
 		$this->assertTrue($session->hasFlash('bax'));
 
@@ -339,8 +303,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 		$store->shouldReceive('write')->with('foo123', ['mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
-
-		$session->start();
 
 		$this->assertTrue($session->hasFlash('bax'));
 
@@ -362,8 +324,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
 
-		$session->start();
-
 		$session->reflash();
 	}
 
@@ -380,8 +340,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
 
-		$session->start();
-
 		$session->reflash(['bax']);
 	}
 
@@ -391,8 +349,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	public function testGetToken()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
-
-		$session->start();
 
 		$this->assertSame('foobar', $session->getToken());
 	}
@@ -414,8 +370,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session->shouldReceive('generateId')->once()->andReturn('bar456');
 
-		$session->start();
-
 		$this->assertSame('foobar', $session->getToken());
 
 		$this->assertSame('bar456', $session->regenerateToken());
@@ -427,8 +381,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	public function testValidateToken()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
-
-		$session->start();
 
 		$this->assertTrue($session->validateToken('foobar'));
 
@@ -446,19 +398,13 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$store->shouldReceive('write')->with('foo123', ['mako.flashdata' => []], 1800);
 
-		$store->shouldReceive('write')/*->once()*/->with('foo123', ['mako.tokens' => ['bar456'], 'mako.flashdata' => [], 'mako.token' => 'bar456'], 1800);
+		$store->shouldReceive('write')/*->once()*/->with('foo123', ['mako.tokens' => ['foobar'], 'mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
 
-		$session = Mockery::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $this->getResponseSetCookie(), $store]);
-
-		$session->shouldAllowMockingProtectedMethods();
-
-		$session->shouldReceive('generateId')->twice()->andReturn('bar456');
-
-		$session->start();
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
 
 		$token = $session->generateOneTimeToken();
 
-		$this->assertEquals('bar456', $token);
+		$this->assertEquals('foobar', $token);
 	}
 
 	/**
@@ -467,8 +413,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	public function testValidateNonExistentOneTimeToken()
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
-
-		$session->start();
 
 		$this->assertFalse($session->validateOneTimeToken('bar456'));
 	}
@@ -486,8 +430,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
 
-		$session->start();
-
 		$this->assertTrue($session->validateOneTimeToken('bar456'));
 	}
 
@@ -503,8 +445,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 		$store->shouldReceive('write')->with('foo123', ['mako.flashdata' => []], 1800);
 
 		$session = new Session($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
-
-		$session->start();
 
 		$session->clear();
 	}
@@ -526,8 +466,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new Session($this->getRequestWithCookie(), $response, $store);
 
-		$session->start();
-
 		$session->destroy();
 	}
 
@@ -543,8 +481,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 		$store->shouldReceive('write')->with('foo123', ['foo' => 'baz', 'mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
-
-		$session->start();
 
 		$this->assertEquals('bar', $session->getAndPut('foo', 'baz', 'bax'));
 	}
@@ -562,8 +498,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
 
-		$session->start();
-
 		$this->assertEquals('bax', $session->getAndPut('foo', 'baz', 'bax'));
 	}
 
@@ -580,8 +514,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
 
-		$session->start();
-
 		$this->assertEquals('bar', $session->getAndRemove('foo', 'bax'));
 	}
 
@@ -597,8 +529,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 		$store->shouldReceive('write')->with('foo123', ['mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
 
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
-
-		$session->start();
 
 		$this->assertEquals('bax', $session->getAndRemove('foo', 'bax'));
 	}

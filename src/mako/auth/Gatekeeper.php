@@ -171,28 +171,31 @@ class Gatekeeper
 	 */
 	protected function configure(array $options)
 	{
-		// Configure throttling
-
-		if(isset($options['throttling']))
+		if(!empty($options))
 		{
-			$this->throttle = isset($options['throttling']['enabled']) && $options['throttling']['enabled'] === true;
+			// Configure throttling
 
-			isset($options['throttling']['max_attemps']) && $this->maxLoginAttempts = $options['throttling']['max_attemps'];
+			if(isset($options['throttling']))
+			{
+				$this->throttle = isset($options['throttling']['enabled']) && $options['throttling']['enabled'] === true;
 
-			isset($options['throttling']['lock_time']) && $this->lockTime = $options['throttling']['lock_time'];
+				isset($options['throttling']['max_attemps']) && $this->maxLoginAttempts = $options['throttling']['max_attemps'];
+
+				isset($options['throttling']['lock_time']) && $this->lockTime = $options['throttling']['lock_time'];
+			}
+
+			// Configure the identifier
+
+			isset($options['identifier']) && $this->identifier = $options['identifier'];
+
+			// Configure the authentication key
+
+			isset($options['auth_key']) && $this->authKey = $options['auth_key'];
+
+			// Configure the cookie options
+
+			isset($options['cookie_options']) && $this->cookieOptions = $options['cookie_options'] + $this->cookieOptions;
 		}
-
-		// Configure the identifier
-
-		isset($options['identifier']) && $this->identifier = $options['identifier'];
-
-		// Configure the authentication key
-
-		isset($options['auth_key']) && $this->authKey = $options['auth_key'];
-
-		// Configure the cookie options
-
-		isset($options['cookie']) && $this->cookieOptions = $options['cookie'];
 	}
 
 	/**

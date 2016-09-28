@@ -7,8 +7,6 @@
 
 namespace mako\session;
 
-use LogicException;
-
 use mako\http\Request;
 use mako\http\Response;
 use mako\session\stores\StoreInterface;
@@ -131,14 +129,19 @@ class Session
 	 * @param   \mako\http\Request                   $request   Request instance
 	 * @param   \mako\http\Response                  $response  Response instance
 	 * @param   \mako\session\stores\StoreInterface  $store     Session store instance
+	 * @param   array                                $options   Session options
 	 */
-	public function __construct(Request $request, Response $response, StoreInterface $store)
+	public function __construct(Request $request, Response $response, StoreInterface $store, array $options = [])
 	{
 		$this->request = $request;
 
 		$this->response = $response;
 
 		$this->store = $store;
+
+		$this->configure($options);
+
+		$this->start();
 	}
 
 	/**
@@ -165,6 +168,64 @@ class Session
 		{
 			$this->store->gc($this->dataTTL);
 		}
+	}
+
+	/**
+	 * Configures the session.
+	 *
+	 * @access  protected
+	 * @param   array      $options  Session options
+	 */
+	protected function configure(array $options)
+	{
+		if(!empty($options))
+		{
+			$this->dataTTL = $options['data_ttl'] ?? $this->dataTTL;
+
+			$this->cookieTTL = $options['cookie_ttl'] ?? $this->cookieTTL;
+
+			$this->cookieName = $options['name'] ?? $this->cookieName;
+
+			isset($options['cookie_options']) && $this->cookieOptions = $options['cookie_options'] + $this->cookieOptions;
+		}
+	}
+
+	/**
+	 * Starts the session.
+	 *
+	 * @access  protected
+	 */
+	protected function start()
+	{
+		// Set the started flag to true
+
+		$this->started = true;
+
+		// Get the session id from the cookie or generate a new one if it doesn't exist.
+
+		$this->sessionId = $this->request->signedCookie($this->cookieName, false);
+
+		if($this->sessionId === false)
+		{
+			$this->sessionId = $this->generateId();
+		}
+
+		// Create a new / update the existing session cookie
+
+		$this->setCookie();
+
+		// Load the session data
+
+		$this->loadData();
+
+		// Create a session token if we don't have one
+
+		if(empty($this->sessionData['mako.token']))
+		{
+			$this->sessionData['mako.token'] = $this->generateId();
+		}
+
+		$this->token = $this->sessionData['mako.token'];
 	}
 
 	/**
@@ -204,113 +265,6 @@ class Session
 	}
 
 	/**
-	 * Sets the data TTL in seconds.
-	 *
-	 * @access  public
-	 * @param   string  $dataTTL  Cookie name
-	 */
-	public function setDataTTL($dataTTL)
-	{
-		if($this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has already been started.", [__METHOD__]));
-		}
-
-		$this->dataTTL = max($dataTTL, 0);
-	}
-
-	/**
-	 * Sets the cookie TTL in seconds.
-	 *
-	 * @access  public
-	 * @param   string  $cookieTTL  Cookie name
-	 */
-	public function setCookieTTL($cookieTTL)
-	{
-		if($this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has already been started.", [__METHOD__]));
-		}
-
-		$this->cookieTTL = max($cookieTTL, 0);
-	}
-
-	/**
-	 * Sets the cookie name.
-	 *
-	 * @access  public
-	 * @param   string  $cookieName  Cookie name
-	 */
-	public function setCookieName($cookieName)
-	{
-		if($this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has already been started.", [__METHOD__]));
-		}
-
-		$this->cookieName = $cookieName;
-	}
-
-	/**
-	 * Sets cookie options.
-	 *
-	 * @access  public
-	 * @param   array  $cookieOptions  Cookie options
-	 */
-	public function setCookieOptions(array $cookieOptions)
-	{
-		if($this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has already been started.", [__METHOD__]));
-		}
-
-		$this->cookieOptions = $cookieOptions;
-	}
-
-	/**
-	 * Starts the session.
-	 *
-	 * @access  public
-	 */
-	public function start()
-	{
-		if($this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has already been started.", [__METHOD__]));
-		}
-
-		// Set the started flag to true
-
-		$this->started = true;
-
-		// Get the session id from the cookie or generate a new one if it doesn't exist.
-
-		$this->sessionId = $this->request->signedCookie($this->cookieName, false);
-
-		if($this->sessionId === false)
-		{
-			$this->sessionId = $this->generateId();
-		}
-
-		// Create a new / update the existing session cookie
-
-		$this->setCookie();
-
-		// Load the session data
-
-		$this->loadData();
-
-		// Create a session token if we don't have one
-
-		if(empty($this->sessionData['mako.token']))
-		{
-			$this->sessionData['mako.token'] = $this->generateId();
-		}
-
-		$this->token = $this->sessionData['mako.token'];
-	}
-
-	/**
 	 * Returns the session id.
 	 *
 	 * @access  public
@@ -318,11 +272,6 @@ class Session
 	 */
 	public function getId(): string
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		return $this->sessionId;
 	}
 
@@ -335,11 +284,6 @@ class Session
 	 */
 	public function regenerateId(bool $keepOld = false): string
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		// Delete old data if we don't want to keep it
 
 		if(!$keepOld)
@@ -366,11 +310,6 @@ class Session
 	 */
 	public function getData(): array
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		return $this->sessionData;
 	}
 
@@ -383,11 +322,6 @@ class Session
 	 */
 	public function put(string $key, $value)
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		$this->sessionData[$key] = $value;
 	}
 
@@ -400,11 +334,6 @@ class Session
 	 */
 	public function has(string $key): bool
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		return isset($this->sessionData[$key]);
 	}
 
@@ -418,11 +347,6 @@ class Session
 	 */
 	public function get(string $key, $default = null)
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		return $this->sessionData[$key] ?? $default;
 	}
 
@@ -469,11 +393,6 @@ class Session
 	 */
 	public function remove(string $key)
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		unset($this->sessionData[$key]);
 	}
 
@@ -487,11 +406,6 @@ class Session
 	 */
 	public function putFlash(string $key, $value)
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		$this->flashData[$key] = $value;
 	}
 
@@ -504,11 +418,6 @@ class Session
 	 */
 	public function hasFlash(string $key): bool
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		return isset($this->sessionData['mako.flashdata'][$key]);
 	}
 
@@ -522,11 +431,6 @@ class Session
 	 */
 	public function getFlash(string $key, $default = null)
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		return $this->sessionData['mako.flashdata'][$key] ?? $default;
 	}
 
@@ -538,11 +442,6 @@ class Session
 	 */
 	public function removeFlash(string $key)
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		unset($this->sessionData['mako.flashdata'][$key]);
 	}
 
@@ -554,11 +453,6 @@ class Session
 	 */
 	public function reflash(array $keys = [])
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		$flashData = $this->sessionData['mako.flashdata'] ?? [];
 
 		$flashData = empty($keys) ? $flashData : array_intersect_key($flashData, array_flip($keys));
@@ -574,11 +468,6 @@ class Session
 	 */
 	public function getToken(): string
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		return $this->token;
 	}
 
@@ -590,11 +479,6 @@ class Session
 	 */
 	public function regenerateToken(): string
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		return $this->token = $this->sessionData['mako.token'] = $this->generateId();
 	}
 
@@ -607,11 +491,6 @@ class Session
 	 */
 	public function validateToken(string $token): bool
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		return hash_equals($this->token, $token);
 	}
 
@@ -623,11 +502,6 @@ class Session
 	 */
 	public function generateOneTimeToken(): string
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		if(!empty($this->sessionData['mako.tokens']))
 		{
 			$this->sessionData['mako.tokens'] = array_slice($this->sessionData['mako.tokens'], 0, (static::MAX_TOKENS - 1));
@@ -653,11 +527,6 @@ class Session
 	 */
 	public function validateOneTimeToken(string $token): bool
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		if(!empty($this->sessionData['mako.tokens']))
 		{
 			foreach($this->sessionData['mako.tokens'] as $key => $value)
@@ -681,11 +550,6 @@ class Session
 	 */
 	public function clear()
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		$this->sessionData = [];
 	}
 
@@ -696,11 +560,6 @@ class Session
 	 */
 	public function destroy()
 	{
-		if(!$this->started)
-		{
-			throw new LogicException(vsprintf("%s(): The session has not been started yet.", [__METHOD__]));
-		}
-
 		$this->store->delete($this->sessionId);
 
 		$this->response->deleteCookie($this->cookieName, $this->cookieOptions);

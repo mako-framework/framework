@@ -46,11 +46,7 @@ class GatekeeperTest extends PHPUnit_Framework_TestCase
 	 */
 	public function getSession()
 	{
-		$store = Mockery::mock('\mako\session\stores\StoreInterface');
-
-		$store->shouldReceive('gc');
-
-		$session = Mockery::mock('\mako\session\Session', [$this->getRequest(), $this->getResponse(), $store]);
+		$session = Mockery::mock('\mako\session\Session');
 
 		return $session;
 	}

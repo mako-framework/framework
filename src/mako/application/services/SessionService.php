@@ -126,21 +126,19 @@ class SessionService extends Service
 
 			$sessionStore = $this->getSessionStore($container, $config, $classWhitelist);
 
+			// Build options array
+
+			$options =
+			[
+				'name'           => $config['session_name'],
+				'data_ttl'       => $config['ttl']['data'],
+				'cookie_ttl'     => $config['ttl']['cookie'],
+				'cookie_options' => $config['cookie_options'],
+			];
+
 			// Create session and return it
 
-			$session = new Session($container->get('request'), $container->get('response'), $sessionStore);
-
-			$session->setDataTTL($config['ttl']['data']);
-
-			$session->setCookieTTL($config['ttl']['cookie']);
-
-			$session->setCookieName($config['session_name']);
-
-			$session->setCookieOptions($config['cookie_options']);
-
-			$session->start();
-
-			return $session;
+			return new Session($container->get('request'), $container->get('response'), $sessionStore, $options);
 		});
 	}
 }

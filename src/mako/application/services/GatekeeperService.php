@@ -34,10 +34,10 @@ class GatekeeperService extends Service
 
 			$options =
 			[
-				'identifier' => $config['identifier'],
-				'auth_key'   => $config['auth_key'],
-				'cookie'     => $config['cookie_options'],
-				'throttling' => $config['throttling'],
+				'identifier'     => $config['identifier'],
+				'auth_key'       => $config['auth_key'],
+				'cookie_options' => $config['cookie_options'],
+				'throttling'     => $config['throttling'],
 			];
 
 			return new Gatekeeper($container->get('request'), $container->get('response'), $container->get('session'), $userProvider, $groupProvider, $options);
