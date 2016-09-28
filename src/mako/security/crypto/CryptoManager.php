@@ -20,7 +20,9 @@ use mako\security\Key;
  *
  * @author  Frederic G. Østby
  *
- * @method  \mako\security\crypto\encrypters\EncrypterInterface  instance($configuration = null)
+ * @method  \mako\security\crypto\encrypters\EncrypterInterface  instance(string $configuration = null)
+ * @method  string                                               encrypt(string $string)
+ * @method  string|bool                                          decrypt(string $string)
  */
 class CryptoManager extends AdapterManager
 {
@@ -43,7 +45,7 @@ class CryptoManager extends AdapterManager
 	 * @param   string                        $configuration  Configuration name
 	 * @return  \mako\security\crypto\Crypto
 	 */
-	protected function instantiate(string $configuration)
+	protected function instantiate(string $configuration): Crypto
 	{
 		if(!isset($this->configurations[$configuration]))
 		{

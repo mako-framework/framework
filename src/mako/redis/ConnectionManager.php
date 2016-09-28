@@ -29,7 +29,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string             $connection  Connection name
 	 * @return  \mako\redis\Redis
 	 */
-	protected function connect($connection): Redis
+	protected function connect(string $connection): Redis
 	{
 		if(!isset($this->configurations[$connection]))
 		{

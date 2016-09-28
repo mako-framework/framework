@@ -29,6 +29,14 @@ use mako\syringe\Container;
  * @author  Frederic G. Østby
  *
  * @method  \mako\cache\Cache  instance($configuration = null)
+ * @method  bool               put(string $key, $data, int $ttl = 0)
+ * @method  bool               has(string $key)
+ * @method  mixed              get(string $key)
+ * @method  mixed              getOrElse(string $key, callable $data, int $ttl = 0)
+ * @method  mixed              getAndPut(string $key, $data, int $ttl = 0)
+ * @method  mixed              getAndRemove(string $key)
+ * @method  bool               remove(string $key)
+ * @method  bool               clear()
  */
 class CacheManager extends AdapterManager
 {
@@ -194,7 +202,7 @@ class CacheManager extends AdapterManager
 	 * @param   string             $configuration  Configuration name
 	 * @return  \mako\cache\Cache
 	 */
-	protected function instantiate(string $configuration)
+	protected function instantiate(string $configuration): Cache
 	{
 		if(!isset($this->configurations[$configuration]))
 		{

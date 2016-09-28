@@ -117,11 +117,11 @@ class Cache
 	 * @param   int     $ttl   Time to live
 	 * @return  mixed
 	 */
-	public function getAndPut(string $key, $value, int $ttl = 0)
+	public function getAndPut(string $key, $data, int $ttl = 0)
 	{
 		$storedValue = $this->get($key);
 
-		$this->put($key, $value, $ttl);
+		$this->put($key, $data, $ttl);
 
 		return $storedValue;
 	}

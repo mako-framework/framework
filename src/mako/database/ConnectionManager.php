@@ -93,7 +93,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string     $driver  Driver name
 	 * @return  string
 	 */
-	protected function normalizeDriverName($driver)
+	protected function normalizeDriverName(string $driver): string
 	{
 		foreach($this->driverAliases as $normalized => $aliases)
 		{
@@ -113,7 +113,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string     $driver  Driver name
 	 * @return  string
 	 */
-	protected function getConnectionClass($driver)
+	protected function getConnectionClass(string $driver): string
 	{
 		return $this->connectionClasses[$driver] ?? Connection::class;
 	}
@@ -125,7 +125,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string     $driver  Driver name
 	 * @return  string
 	 */
-	protected function getQueryCompilerClass($driver)
+	protected function getQueryCompilerClass(string $driver): string
 	{
 		return $this->queryCompilerClasses[$driver] ?? Compiler::class;
 	}
@@ -137,7 +137,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string     $driver  Driver name
 	 * @return  string
 	 */
-	protected function getQueryBuilderHelperClass($driver)
+	protected function getQueryBuilderHelperClass(string $driver): string
 	{
 		return $this->queryBuilderHelperClasses[$driver] ?? Helper::class;
 	}
@@ -149,7 +149,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string        $driver  Driver name
 	 * @param   string|array  $alias   Alias or array of aliases
 	 */
-	public function setDriverAlias($driver, $alias)
+	public function setDriverAlias(string $driver, $alias)
 	{
 		$this->driverAliases[$driver] = (array) $alias;
 	}
@@ -161,7 +161,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string  $driver  Driver name
 	 * @param   string  $class   Connection class
 	 */
-	public function setConnectionClass($driver, $class)
+	public function setConnectionClass(string $driver, string $class)
 	{
 		$this->connectionClasses[$driver] = $class;
 	}
@@ -173,7 +173,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string  $driver  Driver name
 	 * @param   string  $class   Query compiler class
 	 */
-	public function setQueryCompilerClass($driver, $class)
+	public function setQueryCompilerClass(string $driver, string $class)
 	{
 		$this->queryCompilerClasses[$driver] = $class;
 	}
@@ -185,7 +185,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string  $driver  Driver name
 	 * @param   string  $class   Query builder helper class
 	 */
-	public function setQueryBuilderHelperClass($driver, $class)
+	public function setQueryBuilderHelperClass(string $driver, string $class)
 	{
 		$this->queryBuilderHelperClasses[$driver] = $class;
 	}
@@ -197,7 +197,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   string                                 $connectionName  Connection name
 	 * @return  \mako\database\connections\Connection
 	 */
-	protected function connect($connectionName)
+	protected function connect(string $connectionName): Connection
 	{
 		if(!isset($this->configurations[$connectionName]))
 		{
@@ -224,7 +224,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param   bool    $groupedByConnection  Group logs by connection?
 	 * @return  array
 	 */
-	public function getLogs($groupedByConnection = true)
+	public function getLogs(bool $groupedByConnection = true): array
 	{
 		$logs = [];
 
