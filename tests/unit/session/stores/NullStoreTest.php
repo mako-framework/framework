@@ -23,7 +23,7 @@ class NullStoreTest extends PHPUnit_Framework_TestCase
 	{
 		$null = new NullStore;
 
-		$null->write('123', 'data', 123);
+		$null->write('123', ['data'], 123);
 	}
 
 	/**

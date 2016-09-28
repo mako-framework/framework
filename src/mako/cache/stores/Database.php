@@ -10,6 +10,7 @@ namespace mako\cache\stores;
 use mako\cache\stores\StoreInterface;
 use mako\cache\stores\traits\GetOrElseTrait;
 use mako\database\connections\Connection;
+use mako\database\query\Query;
 
 /**
  * Database store.
@@ -49,7 +50,7 @@ class Database implements StoreInterface
 	 * @param   string                                 $table           Database table
 	 * @param   bool|array                             $classWhitelist  Class whitelist
 	 */
-	public function __construct(Connection $connection, $table, $classWhitelist = false)
+	public function __construct(Connection $connection, string $table, $classWhitelist = false)
 	{
 		$this->connection = $connection;
 
@@ -64,7 +65,7 @@ class Database implements StoreInterface
 	 * @access  protected
 	 * @return  \mako\database\query\Query
 	 */
-	protected function table()
+	protected function table(): Query
 	{
 		return $this->connection->builder()->table($this->table);
 	}
@@ -72,7 +73,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function put($key, $data, $ttl = 0)
+	public function put(string $key, $data, int $ttl = 0): bool
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 
@@ -84,7 +85,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		return (bool) $this->table()->where('key', '=', $key)->where('lifetime', '>', time())->count();
 	}
@@ -92,7 +93,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get($key)
+	public function get(string $key)
 	{
 		$cache = $this->table()->where('key', '=', $key)->first();
 
@@ -112,7 +113,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function remove($key)
+	public function remove(string $key): bool
 	{
 		return (bool) $this->table()->where('key', '=', $key)->delete();
 	}
@@ -120,7 +121,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function clear()
+	public function clear(): bool
 	{
 		$this->table()->delete();
 

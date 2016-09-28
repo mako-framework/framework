@@ -40,11 +40,11 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('setex')->once()->with('sess_123', 123, serialize('data'));
+		$client->shouldReceive('setex')->once()->with('sess_123', 123, serialize(['data']));
 
 		$redis = new Redis($client);
 
-		$redis->write('123', 'data', 123);
+		$redis->write('123', ['data'], 123);
 	}
 
 	/**
@@ -54,13 +54,13 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('get')->once()->with('sess_123')->andReturn(serialize('data'));
+		$client->shouldReceive('get')->once()->with('sess_123')->andReturn(serialize(['data']));
 
 		$redis = new Redis($client);
 
 		$cached = $redis->read('123');
 
-		$this->assertEquals('data', $cached);
+		$this->assertEquals(['data'], $cached);
 
 		//
 

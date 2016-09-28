@@ -316,7 +316,7 @@ class Session
 	 * @access  public
 	 * @return  string
 	 */
-	public function getId()
+	public function getId(): string
 	{
 		if(!$this->started)
 		{
@@ -333,7 +333,7 @@ class Session
 	 * @param   bool    $keepOld  Keep the session data associated with the old session id?
 	 * @return  string
 	 */
-	public function regenerateId($keepOld = false)
+	public function regenerateId(bool $keepOld = false): string
 	{
 		if(!$this->started)
 		{
@@ -364,7 +364,7 @@ class Session
 	 * @access  public
 	 * @return  array
 	 */
-	public function getData()
+	public function getData(): array
 	{
 		if(!$this->started)
 		{
@@ -381,7 +381,7 @@ class Session
 	 * @param   string  $key    Session key
 	 * @param   mixed   $value  Session data
 	 */
-	public function put($key, $value)
+	public function put(string $key, $value)
 	{
 		if(!$this->started)
 		{
@@ -398,7 +398,7 @@ class Session
 	 * @param   string  $key  Session key
 	 * @return  bool
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		if(!$this->started)
 		{
@@ -412,11 +412,11 @@ class Session
 	 * Returns a value from the session.
 	 *
 	 * @access  public
-	 * @param   string  $key      Session key
-	 * @param   mixed   $default  Default value
+	 * @param   string      $key      Session key
+	 * @param   null|mixed  $default  Default value
 	 * @return  mixed
 	 */
-	public function get($key, $default = null)
+	public function get(string $key, $default = null)
 	{
 		if(!$this->started)
 		{
@@ -467,7 +467,7 @@ class Session
 	 * @access  public
 	 * @param   string  $key  Session key
 	 */
-	public function remove($key)
+	public function remove(string $key)
 	{
 		if(!$this->started)
 		{
@@ -485,7 +485,7 @@ class Session
 	 * @param   mixed   $value  Flash data
 	 * @return  mixed
 	 */
-	public function putFlash($key, $value)
+	public function putFlash(string $key, $value)
 	{
 		if(!$this->started)
 		{
@@ -502,7 +502,7 @@ class Session
 	 * @param   string  $key  Session key
 	 * @return  bool
 	 */
-	public function hasFlash($key)
+	public function hasFlash(string $key): bool
 	{
 		if(!$this->started)
 		{
@@ -520,7 +520,7 @@ class Session
 	 * @param   mixed   $default  Default value
 	 * @return  mixed
 	 */
-	public function getFlash($key, $default = null)
+	public function getFlash(string $key, $default = null)
 	{
 		if(!$this->started)
 		{
@@ -536,7 +536,7 @@ class Session
 	 * @access  public
 	 * @param   string  $key  Session key
 	 */
-	public function removeFlash($key)
+	public function removeFlash(string $key)
 	{
 		if(!$this->started)
 		{
@@ -572,7 +572,7 @@ class Session
 	 * @access  public
 	 * @return  string
 	 */
-	public function getToken()
+	public function getToken(): string
 	{
 		if(!$this->started)
 		{
@@ -588,7 +588,7 @@ class Session
 	 * @access  public
 	 * @return  string
 	 */
-	public function regenerateToken()
+	public function regenerateToken(): string
 	{
 		if(!$this->started)
 		{
@@ -605,7 +605,7 @@ class Session
 	 * @param   string  $token  Token to validate
 	 * @return  bool
 	 */
-	public function validateToken($token)
+	public function validateToken(string $token): bool
 	{
 		if(!$this->started)
 		{
@@ -621,7 +621,7 @@ class Session
 	 * @access  public
 	 * @return  string
 	 */
-	public function generateOneTimeToken()
+	public function generateOneTimeToken(): string
 	{
 		if(!$this->started)
 		{
@@ -651,7 +651,7 @@ class Session
 	 * @param   string  $token  Security token
 	 * @return  bool
 	 */
-	public function validateOneTimeToken($token)
+	public function validateOneTimeToken(string $token): bool
 	{
 		if(!$this->started)
 		{

@@ -42,11 +42,11 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('isWritable')->once()->with('/sessions')->andReturn(true);
 
-		$fileSystem->shouldReceive('put')->once()->with('/sessions/123', serialize('data'));
+		$fileSystem->shouldReceive('put')->once()->with('/sessions/123', serialize(['data']));
 
 		$file = new File($fileSystem, '/sessions');
 
-		$file->write('123', 'data', 123);
+		$file->write('123', ['data'], 123);
 	}
 
 	/**
@@ -60,13 +60,13 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('isReadable')->once()->with('/sessions/123')->andReturn(true);
 
-		$fileSystem->shouldReceive('get')->once()->with('/sessions/123')->andReturn(serialize('data'));
+		$fileSystem->shouldReceive('get')->once()->with('/sessions/123')->andReturn(serialize(['data']));
 
 		$file = new File($fileSystem, '/sessions');
 
 		$cached = $file->read('123');
 
-		$this->assertEquals('data', $cached);
+		$this->assertEquals(['data'], $cached);
 
 		//
 

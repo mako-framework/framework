@@ -62,7 +62,7 @@ class File implements StoreInterface
 	 * @param   string     $sessionId  Session id
 	 * @return  string
 	 */
-	protected function sessionFile($sessionId)
+	protected function sessionFile(string $sessionId): string
 	{
 		return $this->sessionPath . '/' . $sessionId;
 	}
@@ -70,7 +70,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function write($sessionId, $sessionData, $dataTTL)
+	public function write(string $sessionId, array $sessionData, int $dataTTL)
 	{
 		if($this->fileSystem->isWritable($this->sessionPath))
 		{
@@ -81,7 +81,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function read($sessionId)
+	public function read(string $sessionId): array
 	{
 		$sessionData = [];
 
@@ -96,7 +96,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function delete($sessionId)
+	public function delete(string $sessionId)
 	{
 		if($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isWritable($this->sessionFile($sessionId)))
 		{
@@ -107,7 +107,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function gc($dataTTL)
+	public function gc(int $dataTTL)
 	{
 		$files = $this->fileSystem->glob($this->sessionPath . '/*');
 

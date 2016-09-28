@@ -8,6 +8,7 @@
 namespace mako\session\stores;
 
 use mako\database\connections\Connection;
+use mako\database\query\Query;
 use mako\session\stores\StoreInterface;
 
 /**
@@ -46,7 +47,7 @@ class Database implements StoreInterface
 	 * @param   string                                 $table           Database table
 	 * @param   bool|array                             $classWhitelist  Class whitelist
 	 */
-	public function __construct(Connection $connection, $table, $classWhitelist = false)
+	public function __construct(Connection $connection, string $table, $classWhitelist = false)
 	{
 		$this->connection = $connection;
 
@@ -61,7 +62,7 @@ class Database implements StoreInterface
 	 * @access  protected
 	 * @return  \mako\database\query\Query
 	 */
-	protected function table()
+	protected function table(): Query
 	{
 		return $this->connection->builder()->table($this->table);
 	}
@@ -69,7 +70,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function write($sessionId, $sessionData, $dataTTL)
+	public function write(string $sessionId, array $sessionData, int $dataTTL)
 	{
 		$sessionData = serialize($sessionData);
 
@@ -90,7 +91,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function read($sessionId)
+	public function read(string $sessionId): array
 	{
 		$sessionData = $this->table()->select(['data'])->where('id', '=', $sessionId)->column();
 
@@ -100,7 +101,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function delete($sessionId)
+	public function delete(string $sessionId)
 	{
 		$this->table()->where('id', '=', $sessionId)->delete();
 	}
@@ -108,7 +109,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function gc($dataTTL)
+	public function gc(int $dataTTL)
 	{
 		$this->table()->where('expires', '<', time())->delete();
 	}

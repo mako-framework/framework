@@ -51,7 +51,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function put($key, $data, $ttl = 0)
+	public function put(string $key, $data, int $ttl = 0): bool
 	{
 		$this->redis->set($key, (is_numeric($data) ? $data : serialize($data)));
 
@@ -66,7 +66,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		return (bool) $this->redis->exists($key);
 	}
@@ -74,7 +74,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get($key)
+	public function get(string $key)
 	{
 		$data = $this->redis->get($key);
 
@@ -84,7 +84,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function remove($key)
+	public function remove(string $key): bool
 	{
 		return (bool) $this->redis->del($key);
 	}
@@ -92,7 +92,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function clear()
+	public function clear(): bool
 	{
 		return (bool) $this->redis->flushdb();
 	}

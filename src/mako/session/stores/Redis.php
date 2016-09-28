@@ -48,7 +48,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function write($sessionId, $sessionData, $dataTTL)
+	public function write(string $sessionId, array $sessionData, int $dataTTL)
 	{
 		$this->redis->setex('sess_' . $sessionId, $dataTTL, serialize($sessionData));
 	}
@@ -56,7 +56,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function read($sessionId)
+	public function read(string $sessionId): array
 	{
 		$sessionData = $this->redis->get('sess_' . $sessionId);
 
@@ -66,7 +66,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function delete($sessionId)
+	public function delete(string $sessionId)
 	{
 		$this->redis->del('sess_' . $sessionId);
 	}
@@ -74,7 +74,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function gc($dataTTL)
+	public function gc(int $dataTTL)
 	{
 		// Nothing here since redis handles this automatically
 	}

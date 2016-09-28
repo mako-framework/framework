@@ -43,7 +43,7 @@ class Memcache implements StoreInterface
 	 * @param   int      $timeout       Timeout in seconds
 	 * @param   bool     $compressData  Compress data?
 	 */
-	public function __construct(array $servers, $timeout = 1, $compressData = false)
+	public function __construct(array $servers, int $timeout = 1, bool $compressData = false)
 	{
 		$this->memcache = new PHPMemcache();
 
@@ -63,7 +63,7 @@ class Memcache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function put($key, $data, $ttl = 0)
+	public function put(string $key, $data, int $ttl = 0): bool
 	{
 		if($ttl !== 0)
 		{
@@ -81,7 +81,7 @@ class Memcache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		return ($this->memcache->get($key) !== false);
 	}
@@ -89,7 +89,7 @@ class Memcache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get($key)
+	public function get(string $key)
 	{
 		return $this->memcache->get($key);
 	}
@@ -97,7 +97,7 @@ class Memcache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function remove($key)
+	public function remove(string $key): bool
 	{
 		return $this->memcache->delete($key, 0);
 	}
@@ -105,7 +105,7 @@ class Memcache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function clear()
+	public function clear(): bool
 	{
 		return $this->memcache->flush();
 	}

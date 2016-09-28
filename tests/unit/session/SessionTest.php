@@ -530,4 +530,76 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session->destroy();
 	}
+
+	/**
+	 *
+	 */
+	public function testGetAndPutExisting()
+	{
+		$store = $this->getStore();
+
+		$store->shouldReceive('read')->once()->with('foo123')->andReturn(['foo' => 'bar']);
+
+		$store->shouldReceive('write')->with('foo123', ['foo' => 'baz', 'mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
+
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
+
+		$session->start();
+
+		$this->assertEquals('bar', $session->getAndPut('foo', 'baz', 'bax'));
+	}
+
+	/**
+	 *
+	 */
+	public function testGetAndPutNonExisting()
+	{
+		$store = $this->getStore();
+
+		$store->shouldReceive('read')->once()->with('foo123')->andReturn([]);
+
+		$store->shouldReceive('write')->with('foo123', ['foo' => 'baz', 'mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
+
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
+
+		$session->start();
+
+		$this->assertEquals('bax', $session->getAndPut('foo', 'baz', 'bax'));
+	}
+
+	/**
+	 *
+	 */
+	public function testGetAndRemoveExisting()
+	{
+		$store = $this->getStore();
+
+		$store->shouldReceive('read')->once()->with('foo123')->andReturn(['foo' => 'bar']);
+
+		$store->shouldReceive('write')->with('foo123', ['mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
+
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
+
+		$session->start();
+
+		$this->assertEquals('bar', $session->getAndRemove('foo', 'bax'));
+	}
+
+	/**
+	 *
+	 */
+	public function testGetAndRemoveNonExisting()
+	{
+		$store = $this->getStore();
+
+		$store->shouldReceive('read')->once()->with('foo123')->andReturn([]);
+
+		$store->shouldReceive('write')->with('foo123', ['mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
+
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store);
+
+		$session->start();
+
+		$this->assertEquals('bax', $session->getAndRemove('foo', 'bax'));
+	}
 }

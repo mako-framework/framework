@@ -23,7 +23,7 @@ interface StoreInterface
 	 * @param   int     $ttl    Time to live
 	 * @return  bool
 	 */
-	public function put($key, $data, $ttl = 0);
+	public function put(string $key, $data, int $ttl = 0): bool;
 
 	/**
 	 * Returns TRUE if the cache key exists and FALSE if not.
@@ -32,7 +32,7 @@ interface StoreInterface
 	 * @param   string  $key  Cache key
 	 * @return  bool
 	 */
-	public function has($key);
+	public function has(string $key): bool;
 
 	/**
 	 * Fetch data from the cache.
@@ -41,7 +41,7 @@ interface StoreInterface
 	 * @param   string  $key  Cache key
 	 * @return  mixed
 	 */
-	public function get($key);
+	public function get(string $key);
 
 	/**
 	 * Fetch data from the cache or store it if it doesn't already exist.
@@ -52,7 +52,7 @@ interface StoreInterface
 	 * @param   int       $ttl       Time to live
 	 * @return  mixed
 	 */
-	public function getOrElse($key, callable $callable, $ttl = 0);
+	public function getOrElse(string $key, callable $callable, int $ttl = 0);
 
 	/**
 	 * Delete data from the cache.
@@ -61,7 +61,7 @@ interface StoreInterface
 	 * @param   string  $key  Cache key
 	 * @return  bool
 	 */
-	public function remove($key);
+	public function remove(string $key): bool;
 
 	/**
 	 * Clears the cache.
@@ -69,5 +69,5 @@ interface StoreInterface
 	 * @access  public
 	 * @return  bool
 	 */
-	public function clear();
+	public function clear(): bool;
 }

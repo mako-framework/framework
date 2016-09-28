@@ -48,7 +48,7 @@ class CacheManager extends AdapterManager
 	 * @param   \mako\syringe\Container  $container       IoC container instance
 	 * @param   bool|array               $classWhitelist  Class whitelist
 	 */
-	public function __construct($default, array $configurations, Container $container, $classWhitelist = false)
+	public function __construct(string $default, array $configurations, Container $container, $classWhitelist = false)
 	{
 		parent::__construct($default, $configurations, $container);
 
@@ -62,7 +62,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                    $configuration  Configuration
 	 * @return  \mako\cache\stores\APCU
 	 */
-	protected function apcuFactory($configuration)
+	protected function apcuFactory(array $configuration): APCU
 	{
 		return new APCU;
 	}
@@ -74,7 +74,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                    $configuration  Configuration
 	 * @return  \mako\cache\stores\File
 	 */
-	protected function fileFactory($configuration)
+	protected function fileFactory(array $configuration): File
 	{
 		return new File($this->container->get('fileSystem'), $configuration['path'], $this->classWhitelist);
 	}
@@ -86,7 +86,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                        $configuration  Configuration
 	 * @return  \mako\cache\stores\Database
 	 */
-	protected function databaseFactory($configuration)
+	protected function databaseFactory(array $configuration): Database
 	{
 		return new Database($this->container->get('database')->connection($configuration['configuration']), $configuration['table'], $this->classWhitelist);
 	}
@@ -98,7 +98,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                        $configuration  Configuration
 	 * @return  \mako\cache\stores\Memcache
 	 */
-	protected function memcacheFactory($configuration)
+	protected function memcacheFactory(array $configuration): Memcache
 	{
 		return new Memcache($configuration['servers'], $configuration['timeout'], $configuration['compress_data']);
 	}
@@ -110,7 +110,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                         $configuration  Configuration
 	 * @return  \mako\cache\stores\Memcached
 	 */
-	protected function memcachedFactory($configuration)
+	protected function memcachedFactory(array $configuration): Memcached
 	{
 		return new Memcached($configuration['servers'], $configuration['timeout'], $configuration['compress_data']);
 	}
@@ -122,7 +122,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                      $configuration  Configuration
 	 * @return  \mako\cache\stores\Memory
 	 */
-	protected function memoryFactory($configuration)
+	protected function memoryFactory(array $configuration): Memory
 	{
 		return new Memory;
 	}
@@ -134,7 +134,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                     $configuration  Configuration
 	 * @return  \mako\cache\stores\Redis
 	 */
-	protected function redisFactory($configuration)
+	protected function redisFactory(array $configuration): Redis
 	{
 		return new Redis($this->container->get('redis')->connection($configuration['configuration'], $this->classWhitelist));
 	}
@@ -146,7 +146,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                         $configuration  Configuration
 	 * @return  \mako\cache\stores\NullStore
 	 */
-	protected function nullFactory($configuration)
+	protected function nullFactory(array $configuration): NullStore
 	{
 		return new NullStore;
 	}
@@ -158,7 +158,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                        $configuration  Configuration
 	 * @return  \mako\cache\stores\WinCache
 	 */
-	protected function wincacheFactory($configuration)
+	protected function wincacheFactory(array $configuration): WinCache
 	{
 		return new WinCache;
 	}
@@ -170,7 +170,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                        $configuration  Configuration
 	 * @return  \mako\cache\stores\ZendDisk
 	 */
-	protected function zenddiskFactory($configuration)
+	protected function zenddiskFactory(array $configuration): ZendDisk
 	{
 		return new ZendDisk;
 	}
@@ -182,7 +182,7 @@ class CacheManager extends AdapterManager
 	 * @param   array                          $configuration  Configuration
 	 * @return  \mako\cache\stores\ZendMemory
 	 */
-	protected function zendmemoryFactory($configuration)
+	protected function zendmemoryFactory(array $configuration): ZendMemory
 	{
 		return new ZendMemory;
 	}
@@ -194,7 +194,7 @@ class CacheManager extends AdapterManager
 	 * @param   string             $configuration  Configuration name
 	 * @return  \mako\cache\Cache
 	 */
-	protected function instantiate($configuration)
+	protected function instantiate(string $configuration)
 	{
 		if(!isset($this->configurations[$configuration]))
 		{

@@ -29,7 +29,7 @@ class Memory implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function put($key, $data, $ttl = 0)
+	public function put(string $key, $data, int $ttl = 0): bool
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 
@@ -41,7 +41,7 @@ class Memory implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		return (isset($this->cache[$key]) && $this->cache[$key]['ttl'] > time());
 	}
@@ -49,7 +49,7 @@ class Memory implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get($key)
+	public function get(string $key)
 	{
 		if(isset($this->cache[$key]))
 		{
@@ -69,7 +69,7 @@ class Memory implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function remove($key)
+	public function remove(string $key): bool
 	{
 		if(isset($this->cache[$key]))
 		{
@@ -84,7 +84,7 @@ class Memory implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function clear()
+	public function clear(): bool
 	{
 		$this->cache = [];
 

@@ -22,7 +22,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function put($key, $data, $ttl = 0)
+	public function put(string $key, $data, int $ttl = 0): bool
 	{
 		return true;
 	}
@@ -30,7 +30,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		return false;
 	}
@@ -38,7 +38,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get($key)
+	public function get(string $key)
 	{
 		return false;
 	}
@@ -46,7 +46,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function remove($key)
+	public function remove(string $key): bool
 	{
 		return true;
 	}
@@ -54,7 +54,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function clear()
+	public function clear(): bool
 	{
 		return true;
 	}

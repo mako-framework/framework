@@ -37,7 +37,7 @@ class WinCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function put($key, $data, $ttl = 0)
+	public function put(string $key, $data, int $ttl = 0): bool
 	{
 		return wincache_ucache_set($key, $data, $ttl);
 	}
@@ -45,7 +45,7 @@ class WinCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		return wincache_ucache_exists($key);
 	}
@@ -53,7 +53,7 @@ class WinCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get($key)
+	public function get(string $key)
 	{
 		$cache = wincache_ucache_get($key, $success);
 
@@ -68,7 +68,7 @@ class WinCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function remove($key)
+	public function remove(string $key): bool
 	{
 		return wincache_ucache_delete($key);
 	}
@@ -76,7 +76,7 @@ class WinCache implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function clear()
+	public function clear(): bool
 	{
 		return wincache_ucache_clear();
 	}

@@ -17,7 +17,7 @@ trait GetOrElseTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getOrElse($key, callable $data, $ttl = 0)
+	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
 		if(!$this->has($key))
 		{

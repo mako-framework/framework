@@ -34,7 +34,7 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function put($key, $data, $ttl = 0)
+	public function put(string $key, $data, int $ttl = 0): bool
 	{
 		return apcu_store($key, $data, $ttl);
 	}
@@ -42,7 +42,7 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		return apcu_exists($key);
 	}
@@ -50,7 +50,7 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get($key)
+	public function get(string $key)
 	{
 		return apcu_fetch($key);
 	}
@@ -58,7 +58,7 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getOrElse($key, callable $data, $ttl = 0)
+	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
 		return apcu_entry($key, $data, $ttl);
 	}
@@ -66,7 +66,7 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function remove($key)
+	public function remove(string $key): bool
 	{
 		return apcu_delete($key);
 	}
@@ -74,7 +74,7 @@ class APCU implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function clear()
+	public function clear(): bool
 	{
 		return apcu_clear_cache();
 	}

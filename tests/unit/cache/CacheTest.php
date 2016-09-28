@@ -196,4 +196,68 @@ class CacheTest extends PHPUnit_Framework_TestCase
 
 		$cache->clear();
 	}
+
+	/**
+	 *
+	 */
+	public function testGetAndPutExisting()
+	{
+		$store = $this->getStore();
+
+		$store->shouldReceive('get')->once()->with('foo')->andReturn('foobar');
+
+		$store->shouldReceive('put')->once()->with('foo', 'barfoo', 3600)->andReturn(true);
+
+		$cache = new Cache($store);
+
+		$this->assertEquals('foobar', $cache->getAndPut('foo', 'barfoo', 3600));
+	}
+
+	/**
+	 *
+	 */
+	public function testGetAndPutNonExisting()
+	{
+		$store = $this->getStore();
+
+		$store->shouldReceive('get')->once()->with('foo')->andReturn(false);
+
+		$store->shouldReceive('put')->once()->with('foo', 'barfoo', 3600)->andReturn(true);
+
+		$cache = new Cache($store);
+
+		$this->assertEquals(false, $cache->getAndPut('foo', 'barfoo', 3600));
+	}
+
+	/**
+	 *
+	 */
+	public function testGetAndRemoveExisting()
+	{
+		$store = $this->getStore();
+
+		$store->shouldReceive('get')->once()->with('foo')->andReturn('foobar');
+
+		$store->shouldReceive('remove')->once()->with('foo')->andReturn(true);
+
+		$cache = new Cache($store);
+
+		$this->assertEquals('foobar', $cache->getAndRemove('foo'));
+	}
+
+	/**
+	 *
+	 */
+	public function testGetAndRemoveNonExisting()
+	{
+		$store = $this->getStore();
+
+		$store->shouldReceive('get')->once()->with('foo')->andReturn(false);
+
+		$store->shouldReceive('remove')->never();
+
+		$cache = new Cache($store);
+
+		$this->assertEquals(false, $cache->getAndRemove('foo'));
+	}
 }

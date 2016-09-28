@@ -49,7 +49,7 @@ class File implements StoreInterface
 	 * @param   string                 $cachePath       Cache path
 	 * @param   bool|array             $classWhitelist  Class whitelist
 	 */
-	public function __construct(FileSystem $fileSystem, $cachePath, $classWhitelist = false)
+	public function __construct(FileSystem $fileSystem, string $cachePath, $classWhitelist = false)
 	{
 		$this->fileSystem = $fileSystem;
 
@@ -65,7 +65,7 @@ class File implements StoreInterface
 	 * @param   string  $key  Cache key
 	 * @return  string
 	 */
-	protected function cacheFile($key)
+	protected function cacheFile(string $key): string
 	{
 		return $this->cachePath . '/' . str_replace(['/', ':'], '_', $key) . '.php';
 	}
@@ -73,7 +73,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function put($key, $data, $ttl = 0)
+	public function put(string $key, $data, int $ttl = 0): bool
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 
@@ -85,7 +85,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		if($this->fileSystem->has($this->cacheFile($key)))
 		{
@@ -104,7 +104,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get($key)
+	public function get(string $key)
 	{
 		if($this->fileSystem->has($this->cacheFile($key)))
 		{
@@ -149,7 +149,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function remove($key)
+	public function remove(string $key): bool
 	{
 		if($this->fileSystem->has($this->cacheFile($key)))
 		{
@@ -162,7 +162,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function clear()
+	public function clear(): bool
 	{
 		$files = $this->fileSystem->glob($this->cachePath . '/*');
 

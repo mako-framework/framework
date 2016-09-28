@@ -51,7 +51,7 @@ abstract class AdapterManager
 	 * @param   array                    $configurations  Configurations
 	 * @param   \mako\syringe\Container  $container       IoC container instance
 	 */
-	public function __construct($default, array $configurations, Container $container)
+	public function __construct(string $default, array $configurations, Container $container)
 	{
 		$this->default = $default;
 
@@ -71,25 +71,6 @@ abstract class AdapterManager
 	public function extend(string $name, $adapter, array $parameters = [])
 	{
 		$this->extensions[$name] = ['adapter' => $adapter, 'parameters' => $parameters];
-	}
-
-	/**
-	 * Returns the factory method name.
-	 *
-	 * @access  protected
-	 * @param   string     $type  Cache type
-	 * @return  string
-	 */
-	protected function getFactoryMethodName($type)
-	{
-		$method = $type . 'Factory';
-
-		if(!method_exists($this, $method))
-		{
-			throw new RuntimeException(vsprintf("%s(): A factory method for the [ %s ] adapter has not been defined.", [__METHOD__, $type]));
-		}
-
-		return $method;
 	}
 
 	/**
@@ -130,7 +111,7 @@ abstract class AdapterManager
 	 * @param   string  $configuration  Configuration name
 	 * @return  mixed
 	 */
-	abstract protected function instantiate($configuration);
+	abstract protected function instantiate(string $configuration);
 
 	/**
 	 * Returns an instance of the chosen adapter configuration.
@@ -139,7 +120,7 @@ abstract class AdapterManager
 	 * @param   string  $configuration  Configuration name
 	 * @return  mixed
 	 */
-	public function instance($configuration = null)
+	public function instance(string $configuration = null)
 	{
 		$configuration = $configuration ?? $this->default;
 
@@ -159,7 +140,7 @@ abstract class AdapterManager
 	 * @param   array   $arguments  Method arguments
 	 * @return  mixed
 	 */
-	public function __call($name, array $arguments)
+	public function __call(string $name, array $arguments)
 	{
 		return $this->instance()->{$name}(...$arguments);
 	}

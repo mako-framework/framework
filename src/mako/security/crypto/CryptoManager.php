@@ -31,7 +31,7 @@ class CryptoManager extends AdapterManager
 	 * @param   array                                     $configuration  Configuration
 	 * @return  \mako\security\crypto\encrypters\OpenSSL
 	 */
-	protected function opensslFactory($configuration)
+	protected function opensslFactory(array $configuration): OpenSSL
 	{
 		return new OpenSSL(Key::decode($configuration['key']), $configuration['cipher']);
 	}
@@ -43,7 +43,7 @@ class CryptoManager extends AdapterManager
 	 * @param   string                        $configuration  Configuration name
 	 * @return  \mako\security\crypto\Crypto
 	 */
-	protected function instantiate($configuration)
+	protected function instantiate(string $configuration)
 	{
 		if(!isset($this->configurations[$configuration]))
 		{

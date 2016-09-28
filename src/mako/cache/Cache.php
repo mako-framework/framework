@@ -37,7 +37,7 @@ class Cache
 	 * @param   \mako\cache\stores\StoreInterface  $store   Cache store
 	 * @param   null|string                        $prefix  Cache prefix
 	 */
-	public function __construct(StoreInterface $store, $prefix = null)
+	public function __construct(StoreInterface $store, string $prefix = null)
 	{
 		$this->store = $store;
 
@@ -51,7 +51,7 @@ class Cache
 	 * @param   string     $key  Cache key
 	 * @return  string
 	 */
-	protected function prefixedKey($key)
+	protected function prefixedKey(string $key): string
 	{
 		return empty($this->prefix) ? $key : $this->prefix . '.' . $key;
 	}
@@ -65,7 +65,7 @@ class Cache
 	 * @param   int     $ttl   Time to live
 	 * @return  bool
 	 */
-	public function put($key, $data, $ttl = 0)
+	public function put(string $key, $data, int $ttl = 0): bool
 	{
 		return $this->store->put($this->prefixedKey($key), $data, $ttl);
 	}
@@ -77,7 +77,7 @@ class Cache
 	 * @param   string   $key  Cache key
 	 * @return  bool
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		return $this->store->has($this->prefixedKey($key));
 	}
@@ -89,7 +89,7 @@ class Cache
 	 * @param   string  $key  Cache key
 	 * @return  mixed
 	 */
-	public function get($key)
+	public function get(string $key)
 	{
 		return $this->store->get($this->prefixedKey($key));
 	}
@@ -103,7 +103,7 @@ class Cache
 	 * @param   int       $ttl   Time to live
 	 * @return  mixed
 	 */
-	public function getOrElse($key, callable $data, $ttl = 0)
+	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
 		return $this->store->getOrElse($this->prefixedKey($key), $data, $ttl);
 	}
@@ -151,7 +151,7 @@ class Cache
 	 * @param   string   $key  Cache key
 	 * @return  bool
 	 */
-	public function remove($key)
+	public function remove(string $key): bool
 	{
 		return $this->store->remove($this->prefixedKey($key));
 	}
@@ -162,7 +162,7 @@ class Cache
 	 * @access  public
 	 * @return  bool
 	 */
-	public function clear()
+	public function clear(): bool
 	{
 		return $this->store->clear();
 	}
