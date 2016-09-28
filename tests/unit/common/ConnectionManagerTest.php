@@ -37,9 +37,9 @@ class Connection
 
 class ConnectionManager extends ConnectionManagerAbstract
 {
-	public function connect($name)
+	public function connect(string $connection)
 	{
-		return new Connection($name);
+		return new Connection($connection);
 	}
 }
 
