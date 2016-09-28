@@ -427,6 +427,41 @@ class Session
 	}
 
 	/**
+	 * Gets a value from the session and replaces it.
+	 *
+	 * @access  public
+	 * @param   string      $key      Session key
+	 * @param   mixed       $value    Session data
+	 * @param   null|mixed  $default  Default value
+	 * @return  mixed
+	 */
+	public function getAndPut(string $key, $value, $default = null)
+	{
+		$storedValue = $this->get($key, $default);
+
+		$this->put($key, $value);
+
+		return $storedValue;
+	}
+
+	/**
+	 * Gets a value from the session and removes it.
+	 *
+	 * @access  public
+	 * @param   string      $key      Session key
+	 * @param   null|mixed  $default  Default value
+	 * @return  mixed
+	 */
+	public function getAndRemove(string $key, $default = null)
+	{
+		$storedValue = $this->get($key, $default);
+
+		$this->remove($key);
+
+		return $storedValue;
+	}
+
+	/**
 	 * Removes a value from the session.
 	 *
 	 * @access  public

@@ -109,6 +109,42 @@ class Cache
 	}
 
 	/**
+	 * Fetch data from the cache and replace it.
+	 *
+	 * @access  public
+	 * @param   string  $key   Cache key
+	 * @param   mixed   $data  The data to store
+	 * @param   int     $ttl   Time to live
+	 * @return  mixed
+	 */
+	public function getAndPut(string $key, $value, int $ttl = 0)
+	{
+		$storedValue = $this->get($key);
+
+		$this->put($key, $value, $ttl);
+
+		return $storedValue;
+	}
+	/**
+	 * Fetch data from the cache and remove it.
+	 *
+	 * @access  public
+	 * @param   string  $key  Cache key
+	 * @return  mixed
+	 */
+	public function getAndRemove(string $key)
+	{
+		$storedValue = $this->get($key);
+
+		if($storedValue !== false)
+		{
+			$this->remove($key);
+		}
+
+		return $storedValue;
+	}
+
+	/**
 	 * Delete data from the cache.
 	 *
 	 * @access  public
