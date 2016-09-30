@@ -72,7 +72,7 @@ trait FireTrait
 	 */
 	protected function fire(string $command, Closure $handler, bool $sameEnvironment = true)
 	{
-		$process = popen($this->buildCommand($command), 'r');
+		$process = popen($this->buildCommand($command, false, $sameEnvironment), 'r');
 
 		while(!feof($process))
 		{
@@ -91,6 +91,6 @@ trait FireTrait
 	 */
 	protected function fireAndForget(string $command, bool $sameEnvironment = true)
 	{
-		pclose(popen($this->buildCommand($command, true), 'r'));
+		pclose(popen($this->buildCommand($command, true, $sameEnvironment), 'r'));
 	}
 }
