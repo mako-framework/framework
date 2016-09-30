@@ -14,7 +14,7 @@ use mako\reactor\traits\SuggestionTrait;
 /**
  * @group unit
  */
-class ArgumentExceptionTest extends PHPUnit_Framework_TestCase
+class SuggestionTraitTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 *
