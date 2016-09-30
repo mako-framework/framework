@@ -22,5 +22,5 @@ interface RendererInterface
 	 * @param   array   $__variables__  View variables
 	 * @return  string
 	 */
-	public function render($__view__, array $__variables__);
+	public function render(string $__view__, array $__variables__): string;
 }

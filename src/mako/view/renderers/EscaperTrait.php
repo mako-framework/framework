@@ -39,7 +39,7 @@ trait EscaperTrait
 	 * @param   bool    $doubleEncode  Should existing entities be encoded?
 	 * @return  string
 	 */
-	public function escapeHTML($string, $charset, $doubleEncode = true)
+	public function escapeHTML(string $string, string $charset, bool $doubleEncode = true): string
 	{
 		return htmlspecialchars($string, ENT_QUOTES, $charset, $doubleEncode);
 	}
@@ -51,7 +51,7 @@ trait EscaperTrait
 	 * @param   string   $string  String to escape
 	 * @return  string
 	 */
-	public function escapeURL($string)
+	public function escapeURL(string $string): string
 	{
 		return rawurlencode($string);
 	}
@@ -65,7 +65,7 @@ trait EscaperTrait
 	 * @param   array      $matches  Regex matches
 	 * @return  string
 	 */
-	protected function attributeEscaper($matches)
+	protected function attributeEscaper(array $matches): string
 	{
 		$chr = $matches[0];
 
@@ -115,7 +115,7 @@ trait EscaperTrait
 	 * @param   string  $charset  Character set
 	 * @return  string
 	 */
-	public function escapeAttribute($string, $charset)
+	public function escapeAttribute(string $string, string $charset): string
 	{
 		if($charset !== 'UTF-8')
 		{
@@ -141,7 +141,7 @@ trait EscaperTrait
 	 * @param   array      $matches  Regex matches
 	 * @return  string
 	 */
-	protected function cssEscaper($matches)
+	protected function cssEscaper(array $matches): string
 	{
 		$chr = $matches[0];
 
@@ -167,7 +167,7 @@ trait EscaperTrait
 	 * @param   string  $charset  Character set
 	 * @return  string
 	 */
-	public function escapeCSS($string, $charset)
+	public function escapeCSS(string $string, string $charset): string
 	{
 		if($string === '' || ctype_digit($string))
 		{
@@ -198,7 +198,7 @@ trait EscaperTrait
 	 * @param   array      $matches  Regex matches
 	 * @return  string
 	 */
-	protected function javascriptEscaper($matches)
+	protected function javascriptEscaper(array $matches): string
 	{
 		$chr = $matches[0];
 
@@ -220,7 +220,7 @@ trait EscaperTrait
 	 * @param   string  $charset  Character set
 	 * @return  string
 	 */
-	public function escapeJavascript($string, $charset)
+	public function escapeJavascript(string $string, string $charset): string
 	{
 		if($charset !== 'UTF-8')
 		{

@@ -46,7 +46,7 @@ class View
 	 * @param   array                                   $variables  View variables
 	 * @param   \mako\view\renderers\RendererInterface  $renderer   Renderer instance
 	 */
-	public function __construct($path, array $variables, RendererInterface $renderer)
+	public function __construct(string $path, array $variables, RendererInterface $renderer)
 	{
 		$this->path = $path;
 
@@ -61,7 +61,7 @@ class View
 	 * @access  public
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
-	public function getRenderer()
+	public function getRenderer(): RendererInterface
 	{
 		return $this->renderer;
 	}
@@ -74,7 +74,7 @@ class View
 	 * @param   mixed                                   $value  View variable
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
-	public function assign($name, $value)
+	public function assign(string $name, $value): RendererInterface
 	{
 		$this->variables[$name] = $value;
 
@@ -87,7 +87,7 @@ class View
 	 * @access  public
 	 * @return  string
 	 */
-	public function render()
+	public function render(): string
 	{
 		return $this->renderer->render($this->path, $this->variables);
 	}

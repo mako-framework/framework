@@ -76,7 +76,7 @@ class Template
 	 * @param   string                 $cachePath   Cache path
 	 * @param   string                 $template    Path to template
 	 */
-	public function __construct(FileSystem $fileSystem, $cachePath, $template)
+	public function __construct(FileSystem $fileSystem, string $cachePath, string $template)
 	{
 		$this->fileSystem = $fileSystem;
 
@@ -92,7 +92,7 @@ class Template
 	 * @param   string    $template  Template
 	 * @return  string
 	 */
-	protected function collectVerbatims($template)
+	protected function collectVerbatims(string $template): string
 	{
 		return preg_replace_callback('/{%\s*verbatim\s*%}(.*?){%\s*endverbatim\s*%}/is', function($matches)
 		{
@@ -109,7 +109,7 @@ class Template
 	 * @param   string    $template  Template
 	 * @return  string
 	 */
-	public function insertVerbatims($template)
+	public function insertVerbatims(string $template): string
 	{
 		foreach($this->verbatims as $verbatim)
 		{
@@ -126,7 +126,7 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-	protected function comments($template)
+	protected function comments(string $template): string
 	{
 		// Strip comments from templates
 
@@ -140,7 +140,7 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-	protected function extensions($template)
+	protected function extensions(string $template): string
 	{
 		// Replace first occurance of extends tag with an empty string
 		// and append the template with a view tag
@@ -164,7 +164,7 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-	protected function views($template)
+	protected function views(string $template): string
 	{
 		// Compile view includes with parameters
 
@@ -182,7 +182,7 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-	protected function blocks($template)
+	protected function blocks(string $template): string
 	{
 		// Compile blocks
 
@@ -200,7 +200,7 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-	protected function controlStructures($template)
+	protected function controlStructures(string $template): string
 	{
 		// Compile control structures openings
 
@@ -218,7 +218,7 @@ class Template
 	 * @param   string     $template  Template
 	 * @return  string
 	 */
-	protected function echos($template)
+	protected function echos(string $template): string
 	{
 		// Closure that matches the "empty else" syntax
 
@@ -274,7 +274,6 @@ class Template
 	 * Compiles templates into views.
 	 *
 	 * @access  public
-	 * @return  string
 	 */
 	public function compile()
 	{

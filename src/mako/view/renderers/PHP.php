@@ -22,7 +22,7 @@ class PHP implements RendererInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function render($__view__, array $__variables__)
+	public function render(string $__view__, array $__variables__): string
 	{
 		extract($__variables__, EXTR_REFS | EXTR_SKIP);
 

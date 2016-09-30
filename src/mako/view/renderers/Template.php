@@ -53,7 +53,7 @@ class Template extends PHP
 	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
 	 * @param   string                 $cachePath   Cache path
 	 */
-	public function __construct(FileSystem $fileSystem, $cachePath)
+	public function __construct(FileSystem $fileSystem, string $cachePath)
 	{
 		$this->fileSystem = $fileSystem;
 
@@ -66,7 +66,7 @@ class Template extends PHP
 	 * @access  protected
 	 * @return  string
 	 */
-	protected function getCompiledPath($view)
+	protected function getCompiledPath(string $view): string
 	{
 		return $this->cachePath . '/' . md5($view) . '.php';
 	}
@@ -79,7 +79,7 @@ class Template extends PHP
 	 * @param   string     $compiled  Compiled view path
 	 * @return  bool
 	 */
-	protected function needToCompile($view, $compiled)
+	protected function needToCompile(string $view, string $compiled): bool
 	{
 		return !$this->fileSystem->has($compiled) || $this->fileSystem->lastModified($compiled) < $this->fileSystem->lastModified($view);
 	}
@@ -90,7 +90,7 @@ class Template extends PHP
 	 * @access  protected
 	 * @param   string     $view  View path
 	 */
-	protected function compile($view)
+	protected function compile(string $view)
 	{
 		(new Compiler($this->fileSystem, $this->cachePath, $view))->compile();
 	}
@@ -101,7 +101,7 @@ class Template extends PHP
 	 * @access  public
 	 * @param   string  $name  Block name
 	 */
-	public function open($name)
+	public function open(string $name)
 	{
 		ob_start() && $this->openBlocks[] = $name;
 	}
@@ -112,7 +112,7 @@ class Template extends PHP
 	 * @access  public
 	 * @return  string
 	 */
-	public function close()
+	public function close(): string
 	{
 		return $this->blocks[array_pop($this->openBlocks)][] = ob_get_clean();
 	}
@@ -123,7 +123,7 @@ class Template extends PHP
 	 * @access  public
 	 * @param   string  $name  Block name
 	 */
-	public function output($name)
+	public function output(string $name)
 	{
 		$parent = $this->close();
 
@@ -142,7 +142,7 @@ class Template extends PHP
 	/**
 	 * {@inheritdoc}
 	 */
-	public function render($__view__, array $__variables__)
+	public function render(string $__view__, array $__variables__): string
 	{
 		$compiled = $this->getCompiledPath($__view__);
 

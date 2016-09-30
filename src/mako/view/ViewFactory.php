@@ -13,6 +13,7 @@ use RuntimeException;
 use mako\common\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
 use mako\view\renderers\PHP;
+use mako\view\renderers\RendererInterface;
 
 /**
  * View factory.
@@ -66,7 +67,7 @@ class ViewFactory
 	 * @param   string                 $path        Default path
 	 * @param   string                 $charset     Charset
 	 */
-	public function __construct(FileSystem $fileSystem, $path, $charset = 'UTF-8')
+	public function __construct(FileSystem $fileSystem, string $path, string $charset = 'UTF-8')
 	{
 		$this->fileSystem = $fileSystem;
 
@@ -83,7 +84,7 @@ class ViewFactory
 	 * @access  public
 	 * @return  string
 	 */
-	public function getCharset()
+	public function getCharset(): string
 	{
 		return $this->charset;
 	}
@@ -95,7 +96,7 @@ class ViewFactory
 	 * @param   string                  $charset  Charset
 	 * @return  \mako\view\ViewFactory
 	 */
-	public function setCharset($charset)
+	public function setCharset(string $charset): ViewFactory
 	{
 		$this->globalVariables['__charset__'] = $this->charset = $charset;
 
@@ -109,7 +110,7 @@ class ViewFactory
 	 * @param   string           $extension  Extension handled by the renderer
 	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
 	 */
-	protected function prependRenderer($extension, $renderer)
+	protected function prependRenderer(string $extension, $renderer)
 	{
 		$this->renderers = [$extension => $renderer] + $this->renderers;
 	}
@@ -121,7 +122,7 @@ class ViewFactory
 	 * @param   string           $extension  Extension handled by the renderer
 	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
 	 */
-	protected function appendRenderer($extension, $renderer)
+	protected function appendRenderer(string $extension, $renderer)
 	{
 		$this->renderers =  $this->renderers + [$extension => $renderer];
 	}
@@ -135,7 +136,7 @@ class ViewFactory
 	 * @param   bool                    $prepend    Prepend the custom renderer on the stack
 	 * @return  \mako\view\ViewFactory
 	 */
-	public function registerRenderer($extension, $renderer, $prepend = true)
+	public function registerRenderer(string $extension, $renderer, bool $prepend = true): ViewFactory
 	{
 		$prepend ? $this->prependRenderer($extension, $renderer) : $this->appendRenderer($extension, $renderer);
 
@@ -150,7 +151,7 @@ class ViewFactory
 	 * @param   mixed                   $value  View variable
 	 * @return  \mako\view\ViewFactory
 	 */
-	public function assign($name, $value)
+	public function assign(string $name, $value): ViewFactory
 	{
 		$this->globalVariables[$name] = $value;
 
@@ -161,11 +162,11 @@ class ViewFactory
 	 * Returns an array containing the view path and the renderer we should use.
 	 *
 	 * @access  protected
-	 * @param   string     $view            View
-	 * @param   bool       $throwException  Throw exception if view doesn't exist?
-	 * @return  array
+	 * @param   string      $view            View
+	 * @param   bool        $throwException  Throw exception if view doesn't exist?
+	 * @return  array|bool
 	 */
-	protected function getViewPathAndExtension($view, $throwException = true)
+	protected function getViewPathAndExtension(string $view, bool $throwException = true)
 	{
 		if(!isset($this->viewCache[$view]))
 		{
@@ -204,7 +205,7 @@ class ViewFactory
 	 * @param   string|\Closure                         $renderer  Renderer class or closure
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
-	protected function rendererFactory($renderer)
+	protected function rendererFactory($renderer): RendererInterface
 	{
 		return $renderer instanceof Closure ? $renderer() : new $renderer;
 	}
@@ -216,7 +217,7 @@ class ViewFactory
 	 * @param   string                                  $extension  Extension associated with the renderer
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
-	protected function resolveRenderer($extension)
+	protected function resolveRenderer(string $extension): RendererInterface
 	{
 		if(!isset($this->rendererInstances[$extension]))
 		{
@@ -233,7 +234,7 @@ class ViewFactory
 	 * @param   string  $view  View
 	 * @return  bool
 	 */
-	public function exists($view)
+	public function exists(string $view): bool
 	{
 		return $this->getViewPathAndExtension($view, false) !== false;
 	}
@@ -246,7 +247,7 @@ class ViewFactory
 	 * @param   array            $variables  View variables
 	 * @return  \mako\view\View
 	 */
-	public function create($view, array $variables = [])
+	public function create(string $view, array $variables = []): View
 	{
 		list($path, $extension) = $this->getViewPathAndExtension($view);
 
@@ -261,7 +262,7 @@ class ViewFactory
 	 * @param   array   $variables  View variables
 	 * @return  string
 	 */
-	public function render($view, array $variables = [])
+	public function render(string $view, array $variables = []): string
 	{
 		return $this->create($view, $variables)->render();
 	}
