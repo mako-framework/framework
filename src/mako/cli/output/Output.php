@@ -169,7 +169,7 @@ class Output
 	 */
 	public function error(string $string)
 	{
-		return $this->write($string, static::ERROR);
+		$this->write($string, static::ERROR);
 	}
 
 	/**
@@ -181,7 +181,7 @@ class Output
 	 */
 	public function writeLn(string $string, int $writer = Output::STANDARD)
 	{
-		return $this->write($string . PHP_EOL, $writer);
+		$this->write($string . PHP_EOL, $writer);
 	}
 
 	/**
@@ -192,6 +192,16 @@ class Output
 	 */
 	public function errorLn(string $string)
 	{
-		return $this->writeLn($string, static::ERROR);
+		$this->writeLn($string, static::ERROR);
+	}
+
+	/**
+	 * Clears the screen.
+	 *
+	 * @access  public
+	 */
+	public function clear()
+	{
+		$this->write("\e[H\e[2J");
 	}
 }

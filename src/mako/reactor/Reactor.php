@@ -300,8 +300,6 @@ class Reactor
 	{
 		$this->handleCustomOptions();
 
-		$this->output->write(PHP_EOL);
-
 		if(($command = $this->input->getArgument(1)) === null)
 		{
 			$this->displayReactorInfo();
@@ -338,7 +336,5 @@ class Reactor
 				$this->output->errorLn('<red>Missing required argument [ ' . $e->getName() . ' ].</red>');
 			}
 		}
-
-		$this->output->write(PHP_EOL);
 	}
 }

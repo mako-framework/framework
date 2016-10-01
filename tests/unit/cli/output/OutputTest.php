@@ -134,6 +134,21 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testClear()
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		$std->shouldReceive('write')->once()->with("\e[H\e[2J");
+
+		$output = new Output($std, $err);
+
+		$output->clear("\e[H\e[2J");
+	}
+
+	/**
+	 *
+	 */
 	public function testMute()
 	{
 		$std = $this->getWriter();

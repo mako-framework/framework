@@ -128,7 +128,7 @@ abstract class Command
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isStrict()
+	public function isStrict(): bool
 	{
 		return $this->isStrict;
 	}
@@ -246,6 +246,16 @@ abstract class Command
 	}
 
 	/**
+	 * Clears the screen.
+	 *
+	 * @access  protected
+	 */
+	protected function clear()
+	{
+		$this->output->clear();
+	}
+
+	/**
 	 * Rings the terminal bell n times.
 	 *
 	 * @access  protected
@@ -346,7 +356,7 @@ abstract class Command
 	 * @param   null|mixed  $default   Default if no input is entered
 	 * @return  mixed
 	 */
-	public function question(string $question, $default = null)
+	protected function question(string $question, $default = null)
 	{
 		return (new Question($this->input, $this->output))->ask($question, $default);
 	}
@@ -360,7 +370,7 @@ abstract class Command
 	 * @param   bool        $fallback  Fall back to non-hidden input?
 	 * @return  mixed
 	 */
-	public function secret(string $question, $default = null, bool $fallback = false)
+	protected function secret(string $question, $default = null, bool $fallback = false)
 	{
 		return (new Secret($this->input, $this->output))->ask($question, $default, $fallback);
 	}

@@ -46,7 +46,7 @@ class ReactorTest extends PHPUnit_Framework_TestCase
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
-		$output->shouldReceive('write')->times(8)->with(PHP_EOL);
+		$output->shouldReceive('write')->times(6)->with(PHP_EOL);
 
 		$output->shouldReceive('writeLn')->once()->with('logo');
 
@@ -119,8 +119,6 @@ EOF;
 
 		$output = Mockery::mock('mako\cli\output\Output');
 
-		$output->shouldReceive('write')->times(2);
-
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
 		$output->shouldReceive('writeLn')->once()->with('<red>Unknown command [ foobar ].</red>');
@@ -153,7 +151,7 @@ EOF;
 
 		$output = Mockery::mock('mako\cli\output\Output');
 
-		$output->shouldReceive('write')->times(5);
+		$output->shouldReceive('write')->times(3);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
@@ -199,7 +197,7 @@ EOF;
 
 		$output = Mockery::mock('mako\cli\output\Output');
 
-		$output->shouldReceive('write')->times(5);
+		$output->shouldReceive('write')->times(3);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
@@ -247,8 +245,6 @@ EOF;
 
 		$output = Mockery::mock('mako\cli\output\Output');
 
-		$output->shouldReceive('write')->times(2);
-
 		$output->shouldReceive('errorLn')->once()->with('<red>Invalid argument [ bar ].</red>');
 
 		//
@@ -284,8 +280,6 @@ EOF;
 		//
 
 		$output = Mockery::mock('mako\cli\output\Output');
-
-		$output->shouldReceive('write')->times(2);
 
 		$output->shouldReceive('errorLn')->once()->with('<red>Invalid option [ bar ].</red>');
 
@@ -323,8 +317,6 @@ EOF;
 
 		$output = Mockery::mock('mako\cli\output\Output');
 
-		$output->shouldReceive('write')->times(2);
-
 		$output->shouldReceive('errorLn')->once()->with('<red>Invalid option [ bar ]. Did you mean [ baz ]?</red>');
 
 		//
@@ -360,8 +352,6 @@ EOF;
 		//
 
 		$output = Mockery::mock('mako\cli\output\Output');
-
-		$output->shouldReceive('write')->times(2);
 
 		$output->shouldReceive('errorLn')->once()->with('<red>Missing required argument [ bar ].</red>');
 
@@ -399,8 +389,6 @@ EOF;
 
 		$output = Mockery::mock('mako\cli\output\Output');
 
-		$output->shouldReceive('write')->times(2);
-
 		$output->shouldReceive('errorLn')->once()->with('<red>Missing required option [ bar ].</red>');
 
 		//
@@ -436,8 +424,6 @@ EOF;
 		//
 
 		$output = Mockery::mock('mako\cli\output\Output');
-
-		$output->shouldReceive('write')->times(2);
 
 		//
 
@@ -477,8 +463,6 @@ EOF;
 		//
 
 		$output = Mockery::mock('mako\cli\output\Output');
-
-		$output->shouldReceive('write')->times(2);
 
 		//
 
