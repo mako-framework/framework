@@ -49,7 +49,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @return  array
 	 */
-	public function getItems()
+	public function getItems(): array
 	{
 		return $this->items;
 	}
@@ -83,7 +83,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   int|string  $key  Key
 	 * @return  bool
 	 */
-	public function has($key)
+	public function has($key): bool
 	{
 		return isset($this->items[$key]);
 	}
@@ -129,7 +129,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param   mixed   $offset  The offset to check for
 	 * @return  bool
 	 */
-	public function offsetExists($offset)
+	public function offsetExists($offset): bool
 	{
 		return isset($this->items[$offset]);
 	}
@@ -187,7 +187,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @access  public
 	 * @return  int
 	 */
-	public function count()
+	public function count(): int
 	{
 		return count($this->items);
 	}
