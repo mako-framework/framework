@@ -192,6 +192,24 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithSubqueryColumn()
+	{
+		$query = $this->getBuilder();
+
+		$query->select(['foo', new Subquery(function($query)
+		{
+			$query->table('barfoo')->select(['baz'])->limit(1);
+		}, 'baz')]);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "foo", (SELECT "baz" FROM "barfoo" LIMIT 1) AS "baz" FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithLimit()
 	{
 		$query = $this->getBuilder();
@@ -278,6 +296,21 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ?', $query['sql']);
+		$this->assertEquals(['bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithRawWhere()
+	{
+		$query = $this->getBuilder();
+
+		$query->where(new Raw('LOWER("foo")'), '=', 'bar');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE LOWER("foo") = ?', $query['sql']);
 		$this->assertEquals(['bar'], $query['params']);
 	}
 
@@ -856,6 +889,39 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = SUBSTRING("foo", 1, 2) OR "barfoo"."foobar_id" != SUBSTRING("foo", 1, 2)', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithSubqueryJoin()
+	{
+		$query = $this->getBuilder();
+
+		$query->join(new Subquery(function($query)
+		{
+			$query->table('barfoo')->where('id', '>', 1);
+		}, 'barfoo'), 'barfoo.foobar_id', '=', 'foobar.id');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN (SELECT * FROM "barfoo" WHERE "id" > ?) AS "barfoo" ON "barfoo"."foobar_id" = "foobar"."id"', $query['sql']);
+		$this->assertEquals([1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithRawSubqueryJoin()
+	{
+		$query = $this->getBuilder();
+
+		$query->join(new Raw('(SELECT * FROM "barfoo" WHERE "id" > 1) AS "barfoo"'), 'barfoo.foobar_id', '=', 'foobar.id');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN (SELECT * FROM "barfoo" WHERE "id" > 1) AS "barfoo" ON "barfoo"."foobar_id" = "foobar"."id"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
