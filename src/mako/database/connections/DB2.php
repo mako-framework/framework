@@ -19,7 +19,7 @@ class DB2 extends Connection
 	/**
 	 * {@inheritdoc}
 	 */
-	public function isAlive()
+	public function isAlive(): bool
 	{
 		try
 		{

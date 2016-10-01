@@ -66,7 +66,7 @@ class Time extends DateTime
 	 * @param   string                     $time      A date/time string
 	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 */
-	public function __construct($time = 'now', $timeZone = null)
+	public function __construct(string $time = 'now', $timeZone = null)
 	{
 		if($timeZone !== null && ($timeZone instanceof DateTimeZone) === false)
 		{
@@ -98,7 +98,7 @@ class Time extends DateTime
 	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-	public static function createFromDate($year, $month = null, $day = null, $timeZone = null)
+	public static function createFromDate(int $year, int $month = null, int $day = null, $timeZone = null): Time
 	{
 		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
 
@@ -117,7 +117,7 @@ class Time extends DateTime
 	 * @param   null|string|\DateTimeZone  $timeZone   A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-	public static function createFromTimestamp($timestamp, $timeZone = null)
+	public static function createFromTimestamp(int $timestamp, $timeZone = null): Time
 	{
 		$dateTime = new static('now', $timeZone);
 
@@ -134,7 +134,7 @@ class Time extends DateTime
 	 * @param   null|string|\DateTimeZone  $timeZone   A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-	public static function createFromDOSTimestamp($timestamp, $timeZone = null)
+	public static function createFromDOSTimestamp(int $timestamp, $timeZone = null): Time
 	{
 		$year     = (($timestamp >> 25) & 0x7f) + 1980;
 		$mon      = ($timestamp >> 21) & 0x0f;
@@ -157,7 +157,7 @@ class Time extends DateTime
 	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-	public static function createFromFormat($format, $time, $timeZone = null)
+	public static function createFromFormat($format, $time, $timeZone = null): Time
 	{
 		if($timeZone !== null)
 		{
@@ -183,7 +183,7 @@ class Time extends DateTime
 	 * @param   string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return  \mako\chrono\Time
 	 */
-	public function setTimeZone($timeZone)
+	public function setTimeZone($timeZone): Time
 	{
 		if(($timeZone instanceof DateTimeZone) === false)
 		{
@@ -200,7 +200,7 @@ class Time extends DateTime
 	 * @param   int                $seconds  Number of seconds
 	 * @return  \mako\chrono\Time
 	 */
-	public function forward($seconds)
+	public function forward(int $seconds): Time
 	{
 		return $this->setTimestamp($this->getTimestamp() + $seconds);
 	}
@@ -212,7 +212,7 @@ class Time extends DateTime
 	 * @param   int                $seconds  Number of seconds
 	 * @return  \mako\chrono\Time
 	 */
-	public function rewind($seconds)
+	public function rewind(int $seconds): Time
 	{
 		return $this->setTimestamp($this->getTimestamp() - $seconds);
 	}
@@ -223,7 +223,7 @@ class Time extends DateTime
 	 * @access  public
 	 * @return  int
 	 */
-	public function getDOSTimestamp()
+	public function getDOSTimestamp(): int
 	{
 		$time = getdate($this->getTimestamp());
 
@@ -246,7 +246,7 @@ class Time extends DateTime
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isLeapYear()
+	public function isLeapYear(): bool
 	{
 		$year = $this->format('Y');
 
@@ -264,7 +264,7 @@ class Time extends DateTime
 	 * @access  public
 	 * @return  array
 	 */
-	public function daysInMonths()
+	public function daysInMonths(): array
 	{
 		return
 		[
@@ -289,7 +289,7 @@ class Time extends DateTime
 	 * @access  public
 	 * @return  int
 	 */
-	public function daysInMonth()
+	public function daysInMonth(): int
 	{
 		return $this->daysInMonths()[$this->format('n') - 1];
 	}
@@ -301,7 +301,7 @@ class Time extends DateTime
 	 * @param   string  $format  Date format
 	 * @return  string
 	 */
-	public function formatLocalized($format)
+	public function formatLocalized(string $format): string
 	{
 		return strftime($format, $this->getTimestamp());
 	}

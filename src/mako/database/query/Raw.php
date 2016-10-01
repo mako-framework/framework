@@ -27,7 +27,7 @@ class Raw
 	 * @access  public
 	 * @param   string  $sql  Raw SQL
 	 */
-	public function __construct($sql)
+	public function __construct(string $sql)
 	{
 		$this->sql = $sql;
 	}
@@ -38,7 +38,7 @@ class Raw
 	 * @access  public
 	 * @return  string
 	 */
-	public function get()
+	public function get(): string
 	{
 		return $this->sql;
 	}

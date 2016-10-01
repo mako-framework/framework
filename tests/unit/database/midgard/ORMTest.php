@@ -75,7 +75,7 @@ class Testuser5 extends TestUser1
 
 	protected $cast = ['created_at' => 'date'];
 
-	protected function getDateFormat()
+	protected function getDateFormat(): string
 	{
 		return 'Y-m-d H:i:s';
 	}

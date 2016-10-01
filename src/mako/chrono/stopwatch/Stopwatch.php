@@ -29,7 +29,7 @@ class Stopwatch
 	 * @access  public
 	 * @return  array
 	 */
-	public function getLaps()
+	public function getLaps(): array
 	{
 		return $this->laps;
 	}
@@ -40,7 +40,7 @@ class Stopwatch
 	 * @access  public
 	 * @return  int
 	 */
-	public function getLapCount()
+	public function getLapCount(): int
 	{
 		return count($this->laps);
 	}
@@ -51,7 +51,7 @@ class Stopwatch
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isRunning()
+	public function isRunning(): bool
 	{
 		return end($this->laps)->isRunning();
 	}
@@ -62,7 +62,7 @@ class Stopwatch
 	 * @access  public
 	 * @return  \mako\chrono\stopwatch\Stopwatch
 	 */
-	public function start()
+	public function start(): Stopwatch
 	{
 		$this->laps[] = (new Lap)->start();
 
@@ -75,7 +75,7 @@ class Stopwatch
 	 * @access  public
 	 * @return  float
 	 */
-	public function lap()
+	public function lap(): float
 	{
 		$last = end($this->laps);
 
@@ -92,7 +92,7 @@ class Stopwatch
 	 * @access  public
 	 * @return  float
 	 */
-	public function getElapsedTime()
+	public function getElapsedTime(): float
 	{
 		$last = end($this->laps);
 
@@ -105,7 +105,7 @@ class Stopwatch
 	 * @access  public
 	 * @return  float
 	 */
-	public function stop()
+	public function stop(): float
 	{
 		$last = end($this->laps);
 

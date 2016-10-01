@@ -22,7 +22,7 @@ trait ReadOnlyTrait
 	 * @access  protected
 	 * @return  array
 	 */
-	protected function getReadOnlyTraitHooks()
+	protected function getReadOnlyTraitHooks(): array
 	{
 		return
 		[

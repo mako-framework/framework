@@ -77,7 +77,7 @@ abstract class Package
 	 * @access  public
 	 * @return  string
 	 */
-	public function getName()
+	public function getName(): string
 	{
 		return $this->packageName;
 	}
@@ -88,7 +88,7 @@ abstract class Package
 	 * @access  public
 	 * @return  string
 	 */
-	public function getFileNamespace()
+	public function getFileNamespace(): string
 	{
 		if($this->fileNamespace === null)
 		{
@@ -105,7 +105,7 @@ abstract class Package
 	 * @param   bool    $prefix  Prefix the namespace with a slash?
 	 * @return  string
 	 */
-	public function getClassNamespace($prefix = false)
+	public function getClassNamespace(bool $prefix = false): string
 	{
 		if($this->classNamespace === null)
 		{
@@ -121,7 +121,7 @@ abstract class Package
 	 * @access  protected
 	 * @return  string
 	 */
-	public function getPath()
+	public function getPath(): string
 	{
 		if($this->path === null)
 		{
@@ -137,7 +137,7 @@ abstract class Package
 	 * @access  public
 	 * @return  string
 	 */
-	public function getConfigPath()
+	public function getConfigPath(): string
 	{
 		return realpath($this->getPath() . '/config');
 	}
@@ -148,7 +148,7 @@ abstract class Package
 	 * @access  public
 	 * @return  string
 	 */
-	public function getI18nPath()
+	public function getI18nPath(): string
 	{
 		return realpath($this->getPath() . '/resources/i18n');
 	}
@@ -159,7 +159,7 @@ abstract class Package
 	 * @access  public
 	 * @return  string
 	 */
-	public function getViewPath()
+	public function getViewPath(): string
 	{
 		return realpath($this->getPath() . '/resources/views');
 	}
@@ -170,7 +170,7 @@ abstract class Package
 	 * @access  public
 	 * @return  array
 	 */
-	public function getCommands()
+	public function getCommands(): array
 	{
 		return $this->commands;
 	}

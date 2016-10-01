@@ -22,7 +22,7 @@ class Result implements JsonSerializable
 	 * @access  public
 	 * @return  array
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		return get_object_vars($this);
 	}
@@ -33,7 +33,7 @@ class Result implements JsonSerializable
 	 * @access  public
 	 * @return  array
 	 */
-	public function jsonSerialize()
+	public function jsonSerialize(): array
 	{
 		return $this->toArray();
 	}
@@ -45,7 +45,7 @@ class Result implements JsonSerializable
 	 * @param   int     $options  JSON encode options
 	 * @return  string
 	 */
-	public function toJSON($options = 0)
+	public function toJSON(int $options = 0): string
 	{
 		return json_encode($this->toArray(), $options);
 	}
@@ -56,7 +56,7 @@ class Result implements JsonSerializable
 	 * @access  public
 	 * @return  string
 	 */
-	public function __toString()
+	public function __toString(): string
 	{
 		return $this->toJSON();
 	}

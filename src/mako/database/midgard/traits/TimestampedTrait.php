@@ -43,7 +43,7 @@ trait TimestampedTrait
 	 * @access  protected
 	 * @return  array
 	 */
-	protected function getTimestampedTraitHooks()
+	protected function getTimestampedTraitHooks(): array
 	{
 		return
 		[
@@ -116,7 +116,7 @@ trait TimestampedTrait
 	 * @access  public
 	 * @return  string
 	 */
-	public function getCreatedAtColumn()
+	public function getCreatedAtColumn(): string
 	{
 		return isset($this->createdAtColumn) ? $this->createdAtColumn : 'created_at';
 	}
@@ -127,7 +127,7 @@ trait TimestampedTrait
 	 * @access  public
 	 * @return  string
 	 */
-	public function getUpdatedAtColumn()
+	public function getUpdatedAtColumn(): string
 	{
 		return isset($this->updatedAtColumn) ? $this->updatedAtColumn : 'updated_at';
 	}
@@ -138,7 +138,7 @@ trait TimestampedTrait
 	 * @access  protected
 	 * @return  array
 	 */
-	protected function getCastColumns()
+	protected function getCastColumns(): array
 	{
 		return $this->cast + [$this->getCreatedAtColumn() => 'date', $this->getUpdatedAtColumn() => 'date'];
 	}
@@ -149,7 +149,7 @@ trait TimestampedTrait
 	 * @access  public
 	 * @return  bool
 	 */
-	public function touch()
+	public function touch(): bool
 	{
 		if($this->exists)
 		{

@@ -14,6 +14,7 @@ use RuntimeException;
 use mako\application\Application;
 use mako\chrono\Time;
 use mako\database\ConnectionManager;
+use mako\database\connections\Connection;
 use mako\database\midgard\Query;
 use mako\database\midgard\relations\BelongsTo;
 use mako\database\midgard\relations\HasMany;
@@ -174,7 +175,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   bool    $whitelist  Remove columns that are not in the whitelist?
 	 * @param   bool    $exists     Does the record come from a database?
 	 */
-	public function __construct(array $columns = [], $raw = false, $whitelist = true, $exists = false)
+	public function __construct(array $columns = [], bool $raw = false, bool $whitelist = true, bool $exists = false)
 	{
 		$this->registerHooks();
 
@@ -222,7 +223,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  \mako\database\connections\Connection
 	 */
-	public function getConnection()
+	public function getConnection(): Connection
 	{
 		if(empty(static::$connectionManager))
 		{
@@ -248,7 +249,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  protected
 	 * @return  string
 	 */
-	protected function getDateFormat()
+	protected function getDateFormat(): string
 	{
 		static $dateFormat;
 
@@ -288,7 +289,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   array      $hooks  Array of hooks
 	 * @return  array
 	 */
-	protected function bindHooks(array $hooks)
+	protected function bindHooks(array $hooks): array
 	{
 		$bound = [];
 
@@ -306,7 +307,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  bool
 	 */
-	public function exists()
+	public function exists(): bool
 	{
 		return $this->exists;
 	}
@@ -318,7 +319,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string  $event  Event name
 	 * @return  array
 	 */
-	public function getHooks($event)
+	public function getHooks(string $event): array
 	{
 		return isset(static::$hooks[static::class][$event]) ? $this->bindHooks(static::$hooks[static::class][$event]) : [];
 	}
@@ -330,7 +331,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string     $className   Class name
 	 * @return  string
 	 */
-	protected function getClassShortName($className = null)
+	protected function getClassShortName(string $className = null): string
 	{
 		return basename(str_replace('\\', '/', $className ?? static::class));
 	}
@@ -341,7 +342,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  string
 	 */
-	public function getTable()
+	public function getTable(): string
 	{
 		if(empty($this->tableName))
 		{
@@ -357,7 +358,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  string
 	 */
-	public function getPrimaryKey()
+	public function getPrimaryKey(): string
 	{
 		return $this->primaryKey;
 	}
@@ -368,7 +369,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  int
 	 */
-	public function getPrimaryKeyType()
+	public function getPrimaryKeyType(): int
 	{
 		return $this->primaryKeyType;
 	}
@@ -390,7 +391,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  string
 	 */
-	public function getForeignKey()
+	public function getForeignKey(): string
 	{
 		return strtolower($this->getClassShortName()) . '_id';
 	}
@@ -401,7 +402,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  string
 	 */
-	public function getClass()
+	public function getClass(): string
 	{
 		return '\\' . static::class;
 	}
@@ -423,7 +424,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  array
 	 */
-	public function getIncludes()
+	public function getIncludes(): array
 	{
 		return $this->including;
 	}
@@ -435,7 +436,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string  $relation  Relation name
 	 * @param   mixed   $related   Related record(s)
 	 */
-	public function setRelated($relation, $related)
+	public function setRelated(string $relation, $related)
 	{
 		$this->related[$relation] = $related;
 	}
@@ -446,7 +447,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  array
 	 */
-	public function getRelated()
+	public function getRelated(): array
 	{
 		return $this->related;
 	}
@@ -457,7 +458,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  protected
 	 * @return  array
 	 */
-	protected function getCastColumns()
+	protected function getCastColumns(): array
 	{
 		return $this->cast;
 	}
@@ -470,7 +471,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   mixed      $value  Column value
 	 * @return  mixed
 	 */
-	protected function cast($name, $value)
+	protected function cast(string $name, $value)
 	{
 		$cast = $this->getCastColumns();
 
@@ -503,7 +504,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string  $name   Column name
 	 * @param   mixed   $value  Column value
 	 */
-	public function setRawColumn($name, $value)
+	public function setRawColumn(string $name, $value)
 	{
 		$this->columns[$name] = $this->cast($name, $value);
 	}
@@ -515,7 +516,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string   $name   Column name
 	 * @param   mixed    $value  Column value
 	 */
-	public function setColumn($name, $value)
+	public function setColumn(string $name, $value)
 	{
 		$value = $this->cast($name, $value);
 
@@ -536,7 +537,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string  $name  Column name
 	 * @return  mixed
 	 */
-	public function getRawColumn($name)
+	public function getRawColumn(string $name)
 	{
 		if(array_key_exists($name, $this->columns))
 		{
@@ -555,7 +556,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string  $name  Column name
 	 * @return  mixed
 	 */
-	protected function getColumnValue($name)
+	protected function getColumnValue(string $name)
 	{
 		if(method_exists($this, $name . 'Accessor'))
 		{
@@ -572,7 +573,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string  $name  Column name
 	 * @return  mixed
 	 */
-	public function getColumn($name)
+	public function getColumn(string $name)
 	{
 		if(array_key_exists($name, $this->columns))
 		{
@@ -604,7 +605,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  array
 	 */
-	public function getRawColumns()
+	public function getRawColumns(): array
 	{
 		return $this->columns;
 	}
@@ -618,7 +619,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   bool                        $whitelist  Remove columns that are not in the whitelist?
 	 * @return  \mako\database\midgard\ORM
 	 */
-	public function assign(array $columns, $raw = false, $whitelist = true)
+	public function assign(array $columns, bool $raw = false, bool $whitelist = true): ORM
 	{
 		// Remove columns that are not in the whitelist
 
@@ -661,7 +662,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string  $name   Column name
 	 * @param   mixed   $value  Column value
 	 */
-	public function __set($name, $value)
+	public function __set(string $name, $value)
 	{
 		$this->setColumn($name, $value);
 	}
@@ -673,7 +674,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string  $name  Column name
 	 * @return  mixed
 	 */
-	public function __get($name)
+	public function __get(string $name)
 	{
 		return $this->getColumn($name);
 	}
@@ -685,7 +686,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string  $name  Column name
 	 * @return  bool
 	 */
-	public function __isset($name)
+	public function __isset(string $name)
 	{
 		return isset($this->columns[$name]) || isset($this->related[$name]);
 	}
@@ -696,7 +697,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @param   string  $name  Column name
 	 */
-	public function __unset($name)
+	public function __unset(string $name)
 	{
 		unset($this->columns[$name], $this->related[$name]);
 	}
@@ -707,7 +708,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  \mako\database\midgard\Query
 	 */
-	public function builder()
+	public function builder(): Query
 	{
 		return new Query($this->getConnection(), $this);
 	}
@@ -716,9 +717,9 @@ abstract class ORM implements JsonSerializable
 	 * Returns a record using the value of its primary key.
 	 *
 	 * @access  public
-	 * @param   int                         $id       Primary key
-	 * @param   array                       $columns  Columns to select
-	 * @return  \mako\database\midgard\ORM
+	 * @param   mixed                            $id       Primary key
+	 * @param   array                            $columns  Columns to select
+	 * @return  \mako\database\midgard\ORM|bool
 	 */
 	public static function get($id, array $columns = [])
 	{
@@ -734,7 +735,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   bool                        $whitelist  Remove columns that are not in the whitelist?
 	 * @return  \mako\database\midgard\ORM
 	 */
-	public static function create(array $columns, $raw = false, $whitelist = true)
+	public static function create(array $columns, bool $raw = false, bool $whitelist = true): ORM
 	{
 		$model = new static($columns, $raw, $whitelist);
 
@@ -751,7 +752,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string|null                              $foreignKey  Foreign key name
 	 * @return  \mako\database\midgard\relations\HasOne
 	 */
-	protected function hasOne($model, $foreignKey = null)
+	protected function hasOne(string $model, string $foreignKey = null): HasOne
 	{
 		$related = new $model;
 
@@ -766,7 +767,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string                                               $polymorphicType  Polymorphic type
 	 * @return  \mako\database\midgard\relations\HasManyPolymorphic
 	 */
-	protected function hasOnePolymorphic($model, $polymorphicType)
+	protected function hasOnePolymorphic(string $model, string $polymorphicType): HasOnePolymorphic
 	{
 		$related = new $model;
 
@@ -781,7 +782,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string|null                               $foreignKey  Foreign key name
 	 * @return  \mako\database\midgard\relations\HasMany
 	 */
-	protected function hasMany($model, $foreignKey = null)
+	protected function hasMany(string $model, string $foreignKey = null): HasMany
 	{
 		$related = new $model;
 
@@ -796,7 +797,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string                                               $polymorphicType  Polymorphic type
 	 * @return  \mako\database\midgard\relations\HasManyPolymorphic
 	 */
-	protected function hasManyPolymorphic($model, $polymorphicType)
+	protected function hasManyPolymorphic(string $model, string $polymorphicType): HasManyPolymorphic
 	{
 		$related = new $model;
 
@@ -813,7 +814,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string|null                                  $junctionKey    Junction key name
 	 * @return  \mako\database\midgard\relations\ManyToMany
 	 */
-	protected function manyToMany($model, $foreignKey = null, $junctionTable = null, $junctionKey = null)
+	protected function manyToMany(string $model, string $foreignKey = null, string $junctionTable = null, string $junctionKey = null): ManyToMany
 	{
 		$related = new $model;
 
@@ -828,7 +829,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string|null                                 $foreignKey  Foreign key name
 	 * @return  \mako\database\midgard\relations\BelongsTo
 	 */
-	protected function belongsTo($model, $foreignKey = null)
+	protected function belongsTo(string $model, string $foreignKey = null): BelongsTo
 	{
 		$related = new $model;
 
@@ -841,7 +842,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isModified()
+	public function isModified(): bool
 	{
 		return count($this->getModified()) > 0;
 	}
@@ -852,7 +853,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  array
 	 */
-	public function getModified()
+	public function getModified(): array
 	{
 		$modified = [];
 
@@ -871,7 +872,7 @@ abstract class ORM implements JsonSerializable
 	 * Generates a primary key.
 	 *
 	 * @access  protected
-	 * @return  string|int
+	 * @return  mixed
 	 */
 	protected function generatePrimaryKey()
 	{
@@ -884,7 +885,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  protected
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 */
-	protected function insertRecord($query)
+	protected function insertRecord(Query $query)
 	{
 		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
 		{
@@ -913,7 +914,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  bool
 	 */
-	protected function updateRecord($query)
+	protected function updateRecord(Query $query): bool
 	{
 		$query->where($this->primaryKey, '=', $this->columns[$this->primaryKey]);
 
@@ -926,7 +927,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  bool
 	 */
-	public function save()
+	public function save(): bool
 	{
 		$success = true;
 
@@ -962,7 +963,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   \mako\database\midgard\Query  $query  Query builder
 	 * @return  bool
 	 */
-	protected function deleteRecord($query)
+	protected function deleteRecord(Query $query): bool
 	{
 		return (bool) $query->where($this->primaryKey, '=', $this->columns[$this->primaryKey])->delete();
 	}
@@ -973,7 +974,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  bool
 	 */
-	public function delete()
+	public function delete(): bool
 	{
 		if($this->exists)
 		{
@@ -1000,7 +1001,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string|array|bool           $column  Column or relation to hide from the
 	 * @return  \mako\database\midgard\ORM
 	 */
-	public function protect($column)
+	public function protect($column): ORM
 	{
 		if($column === false)
 		{
@@ -1022,7 +1023,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   string|array|bool           $column  Column or relation to hide from the
 	 * @return  \mako\database\midgard\ORM
 	 */
-	public function expose($column)
+	public function expose($column): ORM
 	{
 		if($column === true)
 		{
@@ -1042,7 +1043,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  array
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		$columns = $this->columns;
 
@@ -1090,7 +1091,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  array
 	 */
-	public function jsonSerialize()
+	public function jsonSerialize(): array
 	{
 		return $this->toArray();
 	}
@@ -1102,7 +1103,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   int     $options  JSON encode options
 	 * @return  string
 	 */
-	public function toJson($options = 0)
+	public function toJson(int $options = 0): string
 	{
 		return json_encode($this->toArray(), $options);
 	}
@@ -1113,7 +1114,7 @@ abstract class ORM implements JsonSerializable
 	 * @access  public
 	 * @return  string
 	 */
-	public function __toString()
+	public function __toString(): string
 	{
 		return $this->toJson();
 	}
@@ -1126,7 +1127,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   array   $arguments  Method arguments
 	 * @return  mixed
 	 */
-	public function __call($name, array $arguments)
+	public function __call(string $name, array $arguments)
 	{
 		return $this->builder()->{$name}(...$arguments);
 	}
@@ -1139,7 +1140,7 @@ abstract class ORM implements JsonSerializable
 	 * @param   array   $arguments  Method arguments
 	 * @return  mixed
 	 */
-	public static function __callStatic($name, array $arguments)
+	public static function __callStatic(string $name, array $arguments)
 	{
 		return (new static)->builder()->{$name}(...$arguments);
 	}

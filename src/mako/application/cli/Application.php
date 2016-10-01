@@ -20,6 +20,7 @@ use mako\application\cli\commands\migrations\Up;
 use mako\application\cli\commands\server\Server;
 use mako\cli\output\Output;
 use mako\config\Config;
+use mako\http\routing\Routes;
 use mako\reactor\Reactor;
 
 /**
@@ -35,7 +36,7 @@ class Application extends BaseApplication
 	 * @access  public
 	 * @return  \mako\http\routing\Routes
 	 */
-	public function getRouteCollection()
+	public function getRouteCollection(): Routes
 	{
 		return $this->loadRoutes();
 	}
@@ -46,7 +47,7 @@ class Application extends BaseApplication
 	 * @access  protected
 	 * @return  array
 	 */
-	protected function getCommands()
+	protected function getCommands(): array
 	{
 		// Define core commands
 
@@ -92,7 +93,7 @@ class Application extends BaseApplication
 	 * @access  protected
 	 * @return  string
 	 */
-	protected function loadLogo()
+	protected function loadLogo(): string
 	{
 		$logo = file_get_contents(__DIR__ . '/resources/logo.txt');
 

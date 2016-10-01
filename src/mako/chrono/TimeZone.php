@@ -23,7 +23,7 @@ class TimeZone extends DateTimeZone
 	 * @access  public
 	 * @return  array
 	 */
-	public static function getTimeZones()
+	public static function getTimeZones(): array
 	{
 		$timeZones = [];
 
@@ -42,7 +42,7 @@ class TimeZone extends DateTimeZone
 	 * @access  public
 	 * @return  array
 	 */
-	public static function getGroupedTimeZones()
+	public static function getGroupedTimeZones(): array
 	{
 		$timeZones = [];
 

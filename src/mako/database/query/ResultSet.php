@@ -56,7 +56,7 @@ class ResultSet extends Collection implements JsonSerializable
 	 * @param   string  $column  Column name
 	 * @return  array
 	 */
-	public function pluck($column)
+	public function pluck(string $column): array
 	{
 		return Arr::pluck($this->items, $column);
 	}
@@ -67,7 +67,7 @@ class ResultSet extends Collection implements JsonSerializable
 	 * @access  public
 	 * @return  array
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		$results = [];
 
@@ -85,7 +85,7 @@ class ResultSet extends Collection implements JsonSerializable
 	 * @access  public
 	 * @return  array
 	 */
-	public function jsonSerialize()
+	public function jsonSerialize(): array
 	{
 		return $this->toArray();
 	}
@@ -97,7 +97,7 @@ class ResultSet extends Collection implements JsonSerializable
 	 * @param   int     $options  JSON encode options
 	 * @return  string
 	 */
-	public function toJson(int $options = 0)
+	public function toJson(int $options = 0): string
 	{
 		return json_encode($this->toArray(), $options);
 	}
@@ -108,7 +108,7 @@ class ResultSet extends Collection implements JsonSerializable
 	 * @access  public
 	 * @return  string
 	 */
-	public function __toString()
+	public function __toString(): string
 	{
 		return $this->toJson();
 	}

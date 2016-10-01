@@ -19,7 +19,7 @@ class SQLServer extends Connection
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function createSavepoint()
+	protected function createSavepoint(): bool
 	{
 		return $this->pdo->exec('SAVE TRANSACTION transactionNestingLevel' . $this->transactionNestingLevel) !== false;
 	}
@@ -27,7 +27,7 @@ class SQLServer extends Connection
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function rollBackSavepoint()
+	protected function rollBackSavepoint(): bool
 	{
 		return $this->pdo->exec('ROLLBACK TRANSACTION transactionNestingLevel' . $this->transactionNestingLevel) !== false;
 	}

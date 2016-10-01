@@ -10,9 +10,11 @@ namespace mako\application;
 use LogicException;
 use RuntimeException;
 
+use mako\application\Package;
 use mako\autoloading\AliasLoader;
 use mako\config\Config;
 use mako\http\routing\Middleware;
+use mako\http\routing\Routes;
 use mako\file\FileSystem;
 use mako\syringe\Container;
 
@@ -78,7 +80,7 @@ abstract class Application
 	 * @access  public
 	 * @param   string  $applicationPath  Application path
 	 */
-	public function __construct($applicationPath)
+	public function __construct(string $applicationPath)
 	{
 		$this->applicationPath = $applicationPath;
 
@@ -92,7 +94,7 @@ abstract class Application
 	 * @param   string                         $applicationPath  Application path
 	 * @return  \mako\application\Application
 	 */
-	public static function start($applicationPath)
+	public static function start(string $applicationPath)
 	{
 		if(!empty(static::$instance))
 		{
@@ -124,7 +126,7 @@ abstract class Application
 	 * @access  public
 	 * @return  \mako\syringe\Container
 	 */
-	public function getContainer()
+	public function getContainer(): Container
 	{
 		return $this->container;
 	}
@@ -135,7 +137,7 @@ abstract class Application
 	 * @access  public
 	 * @return  \mako\config\Config
 	 */
-	public function getConfig()
+	public function getConfig(): Config
 	{
 		return $this->config;
 	}
@@ -146,7 +148,7 @@ abstract class Application
 	 * @access  public
 	 * @return  string
 	 */
-	public function getCharset()
+	public function getCharset(): string
 	{
 		return $this->charset;
 	}
@@ -157,7 +159,7 @@ abstract class Application
 	 * @access  public
 	 * @return  string
 	 */
-	public function getLanguage()
+	public function getLanguage(): string
 	{
 		return $this->language;
 	}
@@ -184,7 +186,7 @@ abstract class Application
 	 * @access  public
 	 * @return  string
 	 */
-	public function getPath()
+	public function getPath(): string
 	{
 		return $this->applicationPath;
 	}
@@ -195,7 +197,7 @@ abstract class Application
 	 * @access  public
 	 * @return  array
 	 */
-	public function getPackages()
+	public function getPackages(): array
 	{
 		return $this->packages;
 	}
@@ -207,7 +209,7 @@ abstract class Application
 	 * @param   string                     $package  Package name
 	 * @return  \mako\application\Package
 	 */
-	public function getPackage($package)
+	public function getPackage(string $package): Package
 	{
 		if(!isset($this->packages[$package]))
 		{
@@ -224,7 +226,7 @@ abstract class Application
 	 * @param   bool    $prefix  Prefix the namespace with a slash?
 	 * @return  string
 	 */
-	public function getNamespace($prefix = false)
+	public function getNamespace(bool $prefix = false)
 	{
 		$namespace = basename(rtrim($this->applicationPath, '\\'));
 
@@ -242,7 +244,7 @@ abstract class Application
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isCommandLine()
+	public function isCommandLine(): bool
 	{
 		return PHP_SAPI === 'cli';
 	}
@@ -291,7 +293,7 @@ abstract class Application
 	 * @access  protected
 	 * @param   string     $type  Service type
 	 */
-	protected function serviceRegistrar($type)
+	protected function serviceRegistrar(string $type)
 	{
 		foreach($this->config->get('application.services.' . $type) as $service)
 		{
@@ -380,7 +382,7 @@ abstract class Application
 	 * @access  protected
 	 * @param   string     $type  Package type
 	 */
-	protected function packageBooter($type)
+	protected function packageBooter(string $type)
 	{
 		foreach($this->config->get('application.packages.' . $type) as $package)
 		{
@@ -499,7 +501,7 @@ abstract class Application
 	 * @access  protected
 	 * @return  \mako\http\routing\Middleware
 	 */
-	protected function loadMiddleware()
+	protected function loadMiddleware(): Middleware
 	{
 		$loader = function($app, $container, $middleware)
 		{
@@ -517,7 +519,7 @@ abstract class Application
 	 * @access  protected
 	 * @return  \mako\http\routing\Routes
 	 */
-	protected function loadRoutes()
+	protected function loadRoutes(): Routes
 	{
 		$loader = function($app, $container, $routes)
 		{
@@ -535,7 +537,7 @@ abstract class Application
 	 * @access  protected
 	 * @return  array
 	 */
-	protected function loadRouting()
+	protected function loadRouting(): array
 	{
 		return [$this->loadMiddleware(), $this->loadRoutes()];
 	}

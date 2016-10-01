@@ -20,7 +20,7 @@ interface TypeInterface
 	 * @access  public
 	 * @return  int
 	 */
-	public function getType();
+	public function getType(): int;
 
 	/**
 	 * Returns the value.

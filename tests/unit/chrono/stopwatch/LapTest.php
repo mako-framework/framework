@@ -23,11 +23,9 @@ class LapTest extends PHPUnit_Framework_TestCase
 	{
 		$lap = new Lap;
 
-		$this->assertNull($lap->getStartTime());
+		$this->assertEquals(0.0, $lap->getStartTime());
 
 		$this->assertInstanceOf('mako\chrono\stopwatch\Lap', $lap->start());
-
-		$this->assertInternalType('float', $lap->getStartTime());
 	}
 
 	/**
@@ -39,11 +37,9 @@ class LapTest extends PHPUnit_Framework_TestCase
 
 		$lap->start();
 
-		$this->assertNull($lap->getStopTime());
+		$this->assertEquals(0.0, $lap->getStopTime());
 
 		$lap->stop();
-
-		$this->assertInternalType('float', $lap->getStopTime());
 
 		$this->assertTrue($lap->getStopTime() > $lap->getStartTime());
 	}
