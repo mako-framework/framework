@@ -678,4 +678,18 @@ class GatekeeperTest extends PHPUnit_Framework_TestCase
 
 		$gatekeeper->logout();
 	}
+
+	/**
+	 *
+	 */
+	public function testSetUser()
+	{
+		$gatekeeper = new Gatekeeper($this->getRequest(), $this->getResponse(), $this->getSession(), $this->getUserProvider(), $this->getGroupProvider());
+
+		$user = Mockery::mock('mako\auth\user\UserInterface');
+
+		$gatekeeper->setUser($user);
+
+		$this->assertEquals($user, $gatekeeper->getUser());
+	}
 }

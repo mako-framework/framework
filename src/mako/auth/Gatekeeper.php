@@ -9,6 +9,7 @@ namespace mako\auth;
 
 use RuntimeException;
 
+use mako\auth\user\UserInterface;
 use mako\auth\providers\GroupProviderInterface;
 use mako\auth\providers\UserProviderInterface;
 use mako\http\Request;
@@ -351,6 +352,16 @@ class Gatekeeper
 	public function isLoggedIn()
 	{
 		return $this->check() !== null;
+	}
+
+	/**
+	 * Sets the user.
+	 *
+	 * @param  \mako\auth\user\UserInterface  $user  User
+	 */
+	public function setUser(UserInterface $user)
+	{
+		$this->user = $user;
 	}
 
 	/**
