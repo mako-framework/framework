@@ -67,7 +67,7 @@ class CommandBus implements CommandBusInterface
 	 * @param   bool    $inner       Add an inner layer?
 	 * @return  int
 	 */
-	public function addMiddleware($middleware, $inner = true): int
+	public function addMiddleware(string $middleware, bool $inner = true): int
 	{
 		return $inner ? $this->onion->addInnerLayer($middleware) : $this->onion->addOuterLayer($middleware);
 	}
