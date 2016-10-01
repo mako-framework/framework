@@ -234,7 +234,7 @@ class Session
 	 * @access  protected
 	 * @return  string
 	 */
-	protected function generateId()
+	protected function generateId(): string
 	{
 		return hash('sha256', random_bytes(16));
 	}
@@ -255,7 +255,6 @@ class Session
 	 * Loads the session data.
 	 *
 	 * @access  protected
-	 * @return  array
 	 */
 	protected function loadData()
 	{

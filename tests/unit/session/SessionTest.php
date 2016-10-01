@@ -18,7 +18,7 @@ use mako\session\Session;
 
 class TestSession extends Session
 {
-	public function generateId()
+	public function generateId(): string
 	{
 		return 'foobar';
 	}
