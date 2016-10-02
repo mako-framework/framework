@@ -35,7 +35,7 @@ class Loader
 	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
 	 * @param   string                 $path        Default path
 	 */
-	public function __construct(FileSystem $fileSystem, $path)
+	public function __construct(FileSystem $fileSystem, string $path)
 	{
 		$this->fileSystem = $fileSystem;
 
@@ -49,7 +49,7 @@ class Loader
 	 * @param   string      $language  Name of the language pack
 	 * @return  array|null
 	 */
-	public function loadInflection($language)
+	public function loadInflection(string $language)
 	{
 		$path = $this->getFilePath('inflection', null, $language);
 
@@ -67,7 +67,7 @@ class Loader
 	 * @param   string  $file      File we want to load
 	 * @return  array
 	 */
-	public function loadStrings($language, $file)
+	public function loadStrings(string $language, string $file): array
 	{
 		$strings = false;
 
