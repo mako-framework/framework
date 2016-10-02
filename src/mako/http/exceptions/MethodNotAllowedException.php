@@ -34,7 +34,7 @@ class MethodNotAllowedException extends RequestException
 	 * @param   string      $message         Exception message
 	 * @param   \Throwable  $previous        Previous exception
 	 */
-	public function __construct(array $allowedMethods, $message = null, Throwable $previous = null)
+	public function __construct(array $allowedMethods = [], string $message = null, Throwable $previous = null)
 	{
 		$this->allowedMethods = $allowedMethods;
 

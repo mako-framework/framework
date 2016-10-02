@@ -38,7 +38,7 @@ class Redirect implements ResponseSenderInterface
 	 * @access  public
 	 * @param   string  $location  Location
 	 */
-	public function __construct($location)
+	public function __construct(string $location)
 	{
 		$this->location = $location;
 	}
@@ -50,7 +50,7 @@ class Redirect implements ResponseSenderInterface
 	 * @param   int                                   $status  Status code
 	 * @return  \mako\http\response\senders\Redirect
 	 */
-	public function status($status)
+	public function status(int $status): Redirect
 	{
 		$this->status = $status;
 
@@ -63,7 +63,7 @@ class Redirect implements ResponseSenderInterface
 	 * @access  public
 	 * @return  \mako\http\response\senders\Redirect
 	 */
-	public function multipleChoices()
+	public function multipleChoices(): Redirect
 	{
 		$this->status = 300;
 
@@ -76,7 +76,7 @@ class Redirect implements ResponseSenderInterface
 	 * @access  public
 	 * @return  \mako\http\response\senders\Redirect
 	 */
-	public function movedPermanently()
+	public function movedPermanently(): Redirect
 	{
 		$this->status = 301;
 
@@ -89,7 +89,7 @@ class Redirect implements ResponseSenderInterface
 	 * @access  public
 	 * @return  \mako\http\response\senders\Redirect
 	 */
-	public function found()
+	public function found(): Redirect
 	{
 		$this->status = 302;
 
@@ -102,7 +102,7 @@ class Redirect implements ResponseSenderInterface
 	 * @access  public
 	 * @return  \mako\http\response\senders\Redirect
 	 */
-	public function seeOther()
+	public function seeOther(): Redirect
 	{
 		$this->status = 303;
 
@@ -115,7 +115,7 @@ class Redirect implements ResponseSenderInterface
 	 * @access  public
 	 * @return  \mako\http\response\senders\Redirect
 	 */
-	public function notModified()
+	public function notModified(): Redirect
 	{
 		$this->status = 304;
 
@@ -128,7 +128,7 @@ class Redirect implements ResponseSenderInterface
 	 * @access  public
 	 * @return  \mako\http\response\senders\Redirect
 	 */
-	public function useProxy()
+	public function useProxy(): Redirect
 	{
 		$this->status = 305;
 
@@ -141,7 +141,7 @@ class Redirect implements ResponseSenderInterface
 	 * @access  public
 	 * @return  \mako\http\response\senders\Redirect
 	 */
-	public function temporaryRedirect()
+	public function temporaryRedirect(): Redirect
 	{
 		$this->status = 307;
 
@@ -154,7 +154,7 @@ class Redirect implements ResponseSenderInterface
 	 * @access  public
 	 * @return  \mako\http\response\senders\Redirect
 	 */
-	public function permanentRedirect()
+	public function permanentRedirect(): Redirect
 	{
 		$this->status = 308;
 

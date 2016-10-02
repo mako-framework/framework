@@ -199,7 +199,7 @@ class Response
 	 * @param   string                 $charset  Response charset
 	 * @param   \mako\security\Signer  $signer   Signer instance used to sign cookies
 	 */
-	public function __construct(Request $request, $charset = 'UTF-8', Signer $signer = null)
+	public function __construct(Request $request, string $charset = 'UTF-8', Signer $signer = null)
 	{
 		$this->request = $request;
 
@@ -215,7 +215,7 @@ class Response
 	 * @param   mixed                $body  Response body
 	 * @return  \mako\http\Response
 	 */
-	public function body($body)
+	public function body($body): Response
 	{
 		if($body instanceof View)
 		{
@@ -258,7 +258,7 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-	public function clearBody()
+	public function clearBody(): Response
 	{
 		$this->body = null;
 
@@ -273,7 +273,7 @@ class Response
 	 * @param   string                $charset      Charset
 	 * @return  \mako\http\Response
 	 */
-	public function type($contentType, $charset = null)
+	public function type(string $contentType, string $charset = null): Response
 	{
 		$this->contentType = $contentType;
 
@@ -291,7 +291,7 @@ class Response
 	 * @access  public
 	 * @return  string
 	 */
-	public function getType()
+	public function getType(): string
 	{
 		return $this->contentType;
 	}
@@ -303,7 +303,7 @@ class Response
 	 * @param   string               $charset  Charset
 	 * @return  \mako\http\Response
 	 */
-	public function charset($charset)
+	public function charset(string $charset): Response
 	{
 		$this->charset = $charset;
 
@@ -316,7 +316,7 @@ class Response
 	 * @access  public
 	 * @return  string
 	 */
-	public function getCharset()
+	public function getCharset(): string
 	{
 		return $this->charset;
 	}
@@ -328,7 +328,7 @@ class Response
 	 * @param   int                  $statusCode  HTTP status code
 	 * @return  \mako\http\Response
 	 */
-	public function status($statusCode)
+	public function status(int $statusCode): Response
 	{
 		if(isset($this->statusCodes[$statusCode]))
 		{
@@ -344,7 +344,7 @@ class Response
 	 * @access  public
 	 * @return  int
 	 */
-	public function getStatus()
+	public function getStatus(): int
 	{
 		return $this->statusCode;
 	}
@@ -356,7 +356,7 @@ class Response
 	 * @param   \Closure             $filter  Closure used to filter output
 	 * @return  \mako\http\Response
 	 */
-	public function filter(Closure $filter)
+	public function filter(Closure $filter): Response
 	{
 		$this->outputFilters[] = $filter;
 
@@ -369,7 +369,7 @@ class Response
 	 * @access  public
 	 * @return  array
 	 */
-	public function getFilters()
+	public function getFilters(): array
 	{
 		return $this->outputFilters;
 	}
@@ -380,7 +380,7 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-	public function clearFilters()
+	public function clearFilters(): Response
 	{
 		$this->outputFilters = [];
 
@@ -396,7 +396,7 @@ class Response
 	 * @param   bool                $replace  Replace header?
 	 * @return  \mako\http\Response
 	 */
-	public function header($name, $value, $replace = true)
+	public function header(string $name, string $value, bool $replace = true): Response
 	{
 		$name = strtolower($name);
 
@@ -421,7 +421,7 @@ class Response
 	 * @param   string  $name  Header name
 	 * @return  bool
 	 */
-	public function hasHeader($name)
+	public function hasHeader(string $name): bool
 	{
 		return isset($this->headers[strtolower($name)]);
 	}
@@ -433,7 +433,7 @@ class Response
 	 * @param   string               $name   Header name
 	 * @return  \mako\http\Response
 	 */
-	public function removeHeader($name)
+	public function removeHeader(string $name): Response
 	{
 		unset($this->headers[strtolower($name)]);
 
@@ -446,7 +446,7 @@ class Response
 	 * @access  public
 	 * @return  array
 	 */
-	public function getHeaders()
+	public function getHeaders(): array
 	{
 		return $this->headers;
 	}
@@ -457,7 +457,7 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-	public function clearHeaders()
+	public function clearHeaders(): Response
 	{
 		$this->headers = [];
 
@@ -474,7 +474,7 @@ class Response
 	 * @param   array                $options  Cookie options
 	 * @return  \mako\http\Response
 	 */
-	public function cookie($name, $value, $ttl = 0, array $options = [])
+	public function cookie(string $name, string $value, int $ttl = 0, array $options = []): Response
 	{
 		$ttl = ($ttl === 0) ? 0 : (time() + $ttl);
 
@@ -495,7 +495,7 @@ class Response
 	 * @param   array                $options  Cookie options
 	 * @return  \mako\http\Response
 	 */
-	public function signedCookie($name, $value, $ttl = 0, array $options = [])
+	public function signedCookie(string $name, string $value, int $ttl = 0, array $options = []): Response
 	{
 		if(empty($this->signer))
 		{
@@ -513,7 +513,7 @@ class Response
 	 * @param   array                $options  Cookie options
 	 * @return  \mako\http\Response
 	 */
-	public function deleteCookie($name, array $options = [])
+	public function deleteCookie(string $name, array $options = []): Response
 	{
 		return $this->cookie($name, '', -3600, $options);
 	}
@@ -525,7 +525,7 @@ class Response
 	 * @param   string  $name  Cookie name
 	 * @return  bool
 	 */
-	public function hasCookie($name)
+	public function hasCookie(string $name): bool
 	{
 		return isset($this->cookies[$name]);
 	}
@@ -537,7 +537,7 @@ class Response
 	 * @param   string               $name   Cookie name
 	 * @return  \mako\http\Response
 	 */
-	public function removeCookie($name)
+	public function removeCookie(string $name): Response
 	{
 		unset($this->cookies[$name]);
 
@@ -550,7 +550,7 @@ class Response
 	 * @access  public
 	 * @return array
 	 */
-	public function getCookies()
+	public function getCookies(): array
 	{
 		return $this->cookies;
 	}
@@ -561,7 +561,7 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-	public function clearCookies()
+	public function clearCookies(): Response
 	{
 		$this->cookies = [];
 
@@ -574,7 +574,7 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-	public function clear()
+	public function clear(): Response
 	{
 		$this->clearBody();
 		$this->clearFilters();
@@ -632,7 +632,7 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-	public function cache()
+	public function cache(): Response
 	{
 		$this->responseCache = true;
 
@@ -645,7 +645,7 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-	public function disableCaching()
+	public function disableCaching(): Response
 	{
 		$this->responseCache = false;
 
@@ -658,7 +658,7 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-	public function compress()
+	public function compress(): Response
 	{
 		$this->outputCompression = true;
 
@@ -671,7 +671,7 @@ class Response
 	 * @access  public
 	 * @return  \mako\http\Response
 	 */
-	public function disableCompression()
+	public function disableCompression(): Response
 	{
 		$this->outputCompression = false;
 

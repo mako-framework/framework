@@ -89,28 +89,28 @@ class Request
 	 *
 	 * @var array
 	 */
-	protected $acceptableContentTypes;
+	protected $acceptableContentTypes = [];
 
 	/**
 	 * Array of acceptable languages.
 	 *
 	 * @var array
 	 */
-	protected $acceptableLanguages;
+	protected $acceptableLanguages = [];
 
 	/**
 	 * Array of acceptable charsets.
 	 *
 	 * @var array
 	 */
-	protected $acceptableCharsets;
+	protected $acceptableCharsets = [];
 
 	/**
 	 * Array of acceptable encodings.
 	 *
 	 * @var array
 	 */
-	protected $acceptableEncodings;
+	protected $acceptableEncodings = [];
 
 	/**
 	 * Array of trusted proxy IP addresses.
@@ -250,7 +250,7 @@ class Request
 	 * @param   string     $path       Path
 	 * @return  string
 	 */
-	protected function stripLocaleSegment(array $languages, $path)
+	protected function stripLocaleSegment(array $languages, string $path): string
 	{
 		foreach($languages as $key => $language)
 		{
@@ -276,7 +276,7 @@ class Request
 	 * @param   array      $languages  Locale segments
 	 * @return  string
 	 */
-	protected function determinePath(array $languages)
+	protected function determinePath(array $languages): string
 	{
 		$path = '/';
 
@@ -317,7 +317,7 @@ class Request
 	 * @access  protected
 	 * @return  string
 	 */
-	protected function determineMethod()
+	protected function determineMethod(): string
 	{
 		$method = strtoupper($this->server['REQUEST_METHOD'] ?? 'GET');
 
@@ -336,7 +336,7 @@ class Request
 	 * @param   string
 	 * @return  array
 	 */
-	protected function parseAcceptHeader($headerValue)
+	protected function parseAcceptHeader(string $headerValue): array
 	{
 		$groupedAccepts = [];
 
@@ -375,7 +375,7 @@ class Request
 	 * @access  protected
 	 * @return  array
 	 */
-	protected function collectHeaders()
+	protected function collectHeaders(): array
 	{
 		$headers = [];
 
@@ -447,7 +447,7 @@ class Request
 	 * @param   string  $name   Attribute name
 	 * @param   mixed   $value  Attribute value
 	 */
-	public function setAttribute($name, $value)
+	public function setAttribute(string $name, $value)
 	{
 		$this->attributes[$name] = $value;
 	}
@@ -456,11 +456,11 @@ class Request
 	 * Gets a request attribute.
 	 *
 	 * @access  public
-	 * @param   string  $name     Attribute name
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   string      $name     Attribute name
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function getAttribute($name, $default = null)
+	public function getAttribute(string $name, $default = null)
 	{
 		return Arr::get($this->attributes, $name, $default);
 	}
@@ -471,7 +471,7 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-	public function body()
+	public function body(): string
 	{
 		if($this->body === null)
 		{
@@ -485,11 +485,11 @@ class Request
 	 * Parses the request body and returns the chosen value.
 	 *
 	 * @access  protected
-	 * @param   string  $key      Array key
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   null|string  $key      Array key
+	 * @param   null|mixed   $default  Default value
+	 * @return  null|mixed
 	 */
-	protected function getParsed($key, $default)
+	protected function getParsed(string $key = null, $default = null)
 	{
 		if($this->parsedBody === null)
 		{
@@ -515,11 +515,11 @@ class Request
 	 * Fetch data from the GET parameters.
 	 *
 	 * @access  public
-	 * @param   string  $key      Array key
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   string      $key      Array key
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function get($key = null, $default = null)
+	public function get(string $key = null, $default = null)
 	{
 		return ($key === null) ? $this->get : Arr::get($this->get, $key, $default);
 	}
@@ -528,11 +528,11 @@ class Request
 	 * Fetch data from the POST parameters.
 	 *
 	 * @access  public
-	 * @param   string  $key      Array key
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   string      $key      Array key
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function post($key = null, $default = null)
+	public function post(string $key = null, $default = null)
 	{
 		return ($key === null) ? $this->post : Arr::get($this->post, $key, $default);
 	}
@@ -541,11 +541,11 @@ class Request
 	 * Fetch data from the PUT parameters.
 	 *
 	 * @access  public
-	 * @param   string  $key      Array key
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   string      $key      Array key
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function put($key = null, $default = null)
+	public function put(string $key = null, $default = null)
 	{
 		return $this->getParsed($key, $default);
 	}
@@ -554,11 +554,11 @@ class Request
 	 * Fetch data from the PATCH parameters.
 	 *
 	 * @access  public
-	 * @param   string  $key      Array key
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   string      $key      Array key
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function patch($key = null, $default = null)
+	public function patch(string $key = null, $default = null)
 	{
 		return $this->getParsed($key, $default);
 	}
@@ -567,11 +567,11 @@ class Request
 	 * Fetch data from the DELETE parameters.
 	 *
 	 * @access  public
-	 * @param   string  $key      Array key
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   string      $key      Array key
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function delete($key = null, $default = null)
+	public function delete(string $key = null, $default = null)
 	{
 		return $this->getParsed($key, $default);
 	}
@@ -580,11 +580,11 @@ class Request
 	 * Fetch signed cookie data.
 	 *
 	 * @access  public
-	 * @param   string  $name     Cookie name
-	 * @param   mixed   $default  Default value
-	 * @return  string
+	 * @param   string      $name     Cookie name
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function signedCookie($name = null, $default = null)
+	public function signedCookie(string $name = null, $default = null)
 	{
 		if(empty($this->signer))
 		{
@@ -603,11 +603,11 @@ class Request
 	 * Fetch unsigned cookie data.
 	 *
 	 * @access  public
-	 * @param   string  $name     Cookie name
-	 * @param   mixed   $default  Default value
-	 * @return  string
+	 * @param   string      $name     Cookie name
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function cookie($name = null, $default = null)
+	public function cookie(string $name = null, $default = null)
 	{
 		return $this->cookies[$name] ?? $default;
 	}
@@ -616,11 +616,11 @@ class Request
 	 * Fetch file data.
 	 *
 	 * @access  public
-	 * @param   string  $key      Array key
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   string      $key      Array key
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function file($key = null, $default = null)
+	public function file(string $key = null, $default = null)
 	{
 		return ($key === null) ? $this->files : Arr::get($this->files, $key, $default);
 	}
@@ -629,11 +629,11 @@ class Request
 	 * Fetch server info.
 	 *
 	 * @access  public
-	 * @param   string  $key      Array key
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   string      $key      Array key
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function server($key = null, $default = null)
+	public function server(string $key = null, $default = null)
 	{
 		return ($key === null) ? $this->server : Arr::get($this->server, $key, $default);
 	}
@@ -645,7 +645,7 @@ class Request
 	 * @param   string  $key  Array key
 	 * @return  bool
 	 */
-	public function has($key)
+	public function has(string $key): bool
 	{
 		$method = strtolower($this->realMethod);
 
@@ -656,11 +656,11 @@ class Request
 	 * Fetch data the current request method.
 	 *
 	 * @access  public
-	 * @param   string  $key      Array key
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   string      $key      Array key
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function data($key = null, $default = null)
+	public function data(string $key = null, $default = null)
 	{
 		$method = strtolower($this->realMethod);
 
@@ -675,7 +675,7 @@ class Request
 	 * @param   array  $defaults  Default values
 	 * @return  array
 	 */
-	public function whitelisted(array $keys, array $defaults = [])
+	public function whitelisted(array $keys, array $defaults = []): array
 	{
 		return array_intersect_key($this->data(), array_flip($keys)) + $defaults;
 	}
@@ -688,7 +688,7 @@ class Request
 	 * @param   array  $defaults  Default values
 	 * @return  array
 	 */
-	public function blacklisted(array $keys, array $defaults = [])
+	public function blacklisted(array $keys, array $defaults = []): array
 	{
 		return array_diff_key($this->data(), array_flip($keys)) + $defaults;
 	}
@@ -697,11 +697,11 @@ class Request
 	 * Returns a request header.
 	 *
 	 * @access  public
-	 * @param   string  $name     Header name
-	 * @param   mixed   $default  Default value
-	 * @return  mixed
+	 * @param   string      $name     Header name
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
 	 */
-	public function header($name, $default = null)
+	public function header(string $name, $default = null)
 	{
 		$name = strtoupper(str_replace('-', '_', $name));
 
@@ -714,7 +714,7 @@ class Request
 	 * @access  public
 	 * @return  array
 	 */
-	public function acceptableContentTypes()
+	public function acceptableContentTypes(): array
 	{
 		if(empty($this->acceptableContentTypes))
 		{
@@ -730,7 +730,7 @@ class Request
 	 * @access  public
 	 * @return  array
 	 */
-	public function acceptableLanguages()
+	public function acceptableLanguages(): array
 	{
 		if(empty($this->acceptableLanguages))
 		{
@@ -746,7 +746,7 @@ class Request
 	 * @access  public
 	 * @return  array
 	 */
-	public function acceptableCharsets()
+	public function acceptableCharsets(): array
 	{
 		if(empty($this->acceptableCharsets))
 		{
@@ -762,7 +762,7 @@ class Request
 	 * @access  public
 	 * @return  array
 	 */
-	public function acceptableEncodings()
+	public function acceptableEncodings(): array
 	{
 		if(empty($this->acceptableEncodings))
 		{
@@ -789,7 +789,7 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-	public function ip()
+	public function ip(): string
 	{
 		if(empty($this->ip))
 		{
@@ -832,7 +832,7 @@ class Request
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isAjax()
+	public function isAjax(): bool
 	{
 		return $this->isAjax;
 	}
@@ -843,7 +843,7 @@ class Request
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isSecure()
+	public function isSecure(): bool
 	{
 		return $this->isSecure;
 	}
@@ -854,7 +854,7 @@ class Request
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isSafe()
+	public function isSafe(): bool
 	{
 		return in_array($this->method, ['GET', 'HEAD']);
 	}
@@ -865,7 +865,7 @@ class Request
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isCGI()
+	public function isCGI(): bool
 	{
 		return $this->isCGI;
 	}
@@ -876,7 +876,7 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-	public function baseURL()
+	public function baseURL(): string
 	{
 		if(empty($this->baseURL))
 		{
@@ -918,7 +918,7 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-	public function path()
+	public function path(): string
 	{
 		return $this->path;
 	}
@@ -927,7 +927,7 @@ class Request
 	 * Returns the request language.
 	 *
 	 * @access  public
-	 * @return  array
+	 * @return  null|array
 	 */
 	public function language()
 	{
@@ -938,7 +938,7 @@ class Request
 	 * Returns the request language prefix.
 	 *
 	 * @access  public
-	 * @return  string
+	 * @return  null|string
 	 */
 	public function languagePrefix()
 	{
@@ -951,7 +951,7 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-	public function method()
+	public function method(): string
 	{
 		return $this->method;
 	}
@@ -962,7 +962,7 @@ class Request
 	 * @access  public
 	 * @return  string
 	 */
-	public function realMethod()
+	public function realMethod(): string
 	{
 		return $this->realMethod;
 	}
@@ -973,7 +973,7 @@ class Request
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isFaked()
+	public function isFaked(): bool
 	{
 		return $this->realMethod !== $this->method;
 	}
@@ -982,7 +982,7 @@ class Request
 	 * Returns the basic HTTP authentication username or NULL.
 	 *
 	 * @access  public
-	 * @return  string
+	 * @return  null|string
 	 */
 	public function username()
 	{
@@ -993,7 +993,7 @@ class Request
 	 * Returns the basic HTTP authentication password or NULL.
 	 *
 	 * @access  public
-	 * @return  string
+	 * @return  null|string
 	 */
 	public function password()
 	{
@@ -1004,10 +1004,10 @@ class Request
 	 * Returns the referer.
 	 *
 	 * @access  public
-	 * @param   string  $default  Value to return if no referer is set
-	 * @return  string
+	 * @param   null|mixed  $default  Value to return if no referer is set
+	 * @return  null|mixed
 	 */
-	public function referer($default = '')
+	public function referer($default = null)
 	{
 		return $this->header('referer', $default);
 	}
@@ -1016,10 +1016,10 @@ class Request
 	 * Magic shortcut to fetch request data.
 	 *
 	 * @access  public
-	 * @param   string  $key  Array key
-	 * @return  mixed
+	 * @param   string      $key  Array key
+	 * @return  null|mixed
 	 */
-	public function __get($key)
+	public function __get(string $key)
 	{
 		return $this->data($key);
 	}
@@ -1031,7 +1031,7 @@ class Request
 	 * @param   string  $key  Array key
 	 * @return  bool
 	 */
-	public function __isset($key)
+	public function __isset(string $key)
 	{
 		return $this->data($key) !== null;
 	}
