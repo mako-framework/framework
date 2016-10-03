@@ -12,6 +12,7 @@ use RuntimeException;
 
 use mako\common\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
+use mako\syringe\Container;
 use mako\view\renderers\PHP;
 use mako\view\renderers\RendererInterface;
 
@@ -25,11 +26,32 @@ class ViewFactory
 	use NamespacedFileLoaderTrait;
 
 	/**
+	 * File sytem.
+	 *
+	 * @var \mako\file\FileSystem
+	 */
+	protected $fileSystem;
+
+	/**
+	 * Path.
+	 *
+	 * @var string
+	 */
+	protected $path;
+
+	/**
 	 * Charset.
 	 *
 	 * @var string
 	 */
 	protected $charset;
+
+	/**
+	 * Container.
+	 *
+	 * @var \mako\syringe\Container
+	 */
+	protected $container;
 
 	/**
 	 * View renderers.
@@ -67,7 +89,7 @@ class ViewFactory
 	 * @param   string                 $path        Default path
 	 * @param   string                 $charset     Charset
 	 */
-	public function __construct(FileSystem $fileSystem, string $path, string $charset = 'UTF-8')
+	public function __construct(FileSystem $fileSystem, string $path, string $charset = 'UTF-8', Container $container = null)
 	{
 		$this->fileSystem = $fileSystem;
 
@@ -76,6 +98,8 @@ class ViewFactory
 		$this->globalVariables['__viewfactory__'] = $this;
 
 		$this->setCharset($charset);
+
+		$this->container = $container ?? new Container;
 	}
 
 	/**
@@ -104,41 +128,16 @@ class ViewFactory
 	}
 
 	/**
-	 * Prepends a view renderer.
-	 *
-	 * @access  protected
-	 * @param   string           $extension  Extension handled by the renderer
-	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
-	 */
-	protected function prependRenderer(string $extension, $renderer)
-	{
-		$this->renderers = [$extension => $renderer] + $this->renderers;
-	}
-
-	/**
-	 * Appends a view renderer.
-	 *
-	 * @access  protected
-	 * @param   string           $extension  Extension handled by the renderer
-	 * @param   string|\Closure  $renderer   Renderer class or closure that creates a renderer instance
-	 */
-	protected function appendRenderer(string $extension, $renderer)
-	{
-		$this->renderers =  $this->renderers + [$extension => $renderer];
-	}
-
-	/**
 	 * Registers a custom view renderer.
 	 *
 	 * @access  public
 	 * @param   string                  $extension  Extension handled by the renderer
 	 * @param   string|\Closure         $renderer   Renderer class or closure that creates a renderer instance
-	 * @param   bool                    $prepend    Prepend the custom renderer on the stack
 	 * @return  \mako\view\ViewFactory
 	 */
-	public function registerRenderer(string $extension, $renderer, bool $prepend = true): ViewFactory
+	public function extend(string $extension, $renderer): ViewFactory
 	{
-		$prepend ? $this->prependRenderer($extension, $renderer) : $this->appendRenderer($extension, $renderer);
+		$this->renderers = [$extension => $renderer] + $this->renderers;
 
 		return $this;
 	}
@@ -207,7 +206,7 @@ class ViewFactory
 	 */
 	protected function rendererFactory($renderer): RendererInterface
 	{
-		return $renderer instanceof Closure ? $renderer() : new $renderer;
+		return $renderer instanceof Closure ? $this->container->call($renderer) : $this->container->get($renderer);
 	}
 
 	/**

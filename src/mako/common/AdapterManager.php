@@ -66,11 +66,10 @@ abstract class AdapterManager
 	 * @access  public
 	 * @param   string           $name        Adapter name
 	 * @param   string|\Closure  $adapter     Adapter
-	 * @param   array            $parameters  Parameters
 	 */
-	public function extend(string $name, $adapter, array $parameters = [])
+	public function extend(string $name, $adapter)
 	{
-		$this->extensions[$name] = ['adapter' => $adapter, 'parameters' => $parameters];
+		$this->extensions[$name] = $adapter;
 	}
 
 	/**
@@ -89,16 +88,14 @@ abstract class AdapterManager
 		}
 		elseif(isset($this->extensions[$adapterName]))
 		{
-			$adapter = $this->extensions[$adapterName]['adapter'];
-
-			$parameters = $this->extensions[$adapterName]['parameters'] + $configuration;
+			$adapter = $this->extensions[$adapterName];
 
 			if($adapter instanceof Closure)
 			{
-				return $this->container->call($adapter, $parameters);
+				return $this->container->call($adapter, $configuration);
 			}
 
-			return $this->container->get($adapter, $parameters);
+			return $this->container->get($adapter, $configuration);
 		}
 
 		throw new RuntimeException(vsprintf("%s(): A factory method for the [ %s ] adapter has not been defined.", [__METHOD__, $adapterName]));
