@@ -13,6 +13,7 @@ use RuntimeException;
 use mako\application\Package;
 use mako\autoloading\AliasLoader;
 use mako\config\Config;
+use mako\config\loaders\ArrayLoader;
 use mako\http\routing\Middleware;
 use mako\http\routing\Routes;
 use mako\file\FileSystem;
@@ -436,6 +437,16 @@ abstract class Application
 	}
 
 	/**
+	 * Builds a configuration instance.
+	 *
+	 * @return \mako\config\Config
+	 */
+	protected function configFactory(): Config
+	{
+		return new Config(new ArrayLoader($this->container->get('fileSystem'), $this->applicationPath . '/config'), $this->getEnvironment());
+	}
+
+	/**
 	 * Sets up the framework core.
 	 *
 	 * @access  protected
@@ -458,7 +469,7 @@ abstract class Application
 
 		// Register config instance
 
-		$this->config = new Config($fileSystem, $this->applicationPath . '/config', $this->getEnvironment());
+		$this->config = $this->configFactory();
 
 		$this->container->registerInstance([Config::class, 'config'], $this->config);
 	}

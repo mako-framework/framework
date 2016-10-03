@@ -7,10 +7,7 @@
 
 namespace mako\config;
 
-use RuntimeException;
-
-use mako\common\NamespacedFileLoaderTrait;
-use mako\file\FileSystem;
+use mako\config\loaders\LoaderInterface;
 use mako\utility\Arr;
 
 /**
@@ -20,14 +17,12 @@ use mako\utility\Arr;
  */
 class Config
 {
-	use NamespacedFileLoaderTrait;
-
 	/**
-	 * File system instance.
+	 * Loader.
 	 *
-	 * @var \mako\file\FileSystem
+	 * @var \mako\config\loaders\LoaderInterface
 	 */
-	protected $fileSystem;
+	 protected $loader;
 
 	/**
 	 * Environment name.
@@ -47,17 +42,19 @@ class Config
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\file\FileSystem $fileSystem   File system instance
-	 * @param   string                $path         Default path
-	 * @param   string                $environment  Environment name
+	 * @param   mako\config\loaders\LoaderInterface  $fileSystem   File system instance
+	 * @param   null|string                          $environment  Environment name
 	 */
-	public function __construct(FileSystem $fileSystem, string $path, string $environment = null)
+	public function __construct(LoaderInterface $loader, string $environment = null)
 	{
-		$this->fileSystem = $fileSystem;
-
-		$this->path = $path;
+		$this->loader = $loader;
 
 		$this->environment = $environment;
+	}
+
+	public function getLoader(): LoaderInterface
+	{
+		return $this->loader;
 	}
 
 	/**
@@ -83,53 +80,6 @@ class Config
 	}
 
 	/**
-	 * Loads the configuration file.
-	 *
-	 * @access  protected
-	 * @param   string     $file  File name
-	 */
-	protected function load(string $file)
-	{
-		// Load configuration
-
-		foreach($this->getCascadingFilePaths($file) as $path)
-		{
-			if($this->fileSystem->has($path))
-			{
-				$config = $this->fileSystem->include($path);
-
-				break;
-			}
-		}
-
-		if(!isset($config))
-		{
-			throw new RuntimeException(vsprintf("%s(): The [ %s ] config file does not exist.", [__METHOD__, $file]));
-		}
-
-		// Merge environment specific configuration
-
-		if($this->environment !== null)
-		{
-			$namespace = strpos($file, '::');
-
-			$namespaced = ($namespace === false) ? $this->environment . '.' . $file : substr_replace($file, $this->environment . '.', $namespace + 2, 0);
-
-			foreach($this->getCascadingFilePaths($namespaced) as $path)
-			{
-				if($this->fileSystem->has($path))
-				{
-					$config = array_replace_recursive($config, $this->fileSystem->include($path));
-
-					break;
-				}
-			}
-		}
-
-		$this->configuration[$file] = $config;
-	}
-
-	/**
 	 * Parses the language key.
 	 *
 	 * @access  protected
@@ -139,6 +89,17 @@ class Config
 	protected function parseKey(string $key): array
 	{
 		return (strpos($key, '.') === false) ? [$key, null] : explode('.', $key, 2);
+	}
+
+	/**
+	 * Loads the configuration file.
+	 *
+	 * @access  protected
+	 * @param   string     $file  File name
+	 */
+	protected function load(string $file)
+	{
+		$this->configuration[$file] = $this->loader->load($file, $this->environment);
 	}
 
 	/**

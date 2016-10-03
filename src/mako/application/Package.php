@@ -9,6 +9,7 @@ namespace mako\application;
 
 use ReflectionClass;
 
+use mako\common\NamespacedFileLoaderTrait;
 use mako\syringe\Container;
 
 /**
@@ -194,13 +195,23 @@ abstract class Package
 	{
 		// Register configuration namespace
 
-		$this->container->get('config')->registerNamespace($this->getFileNamespace(), $this->getConfigPath());
+		$configLoader = $this->container->get('config')->getLoader();
+
+		if(in_array(NamespacedFileLoaderTrait::class, class_uses($configLoader)))
+		{
+			$configLoader->registerNamespace($this->getFileNamespace(), $this->getConfigPath());
+		}
 
 		// Register i18n namespace
 
 		if(($path = $this->getI18nPath()) !== false && $this->container->has('i18n'))
 		{
-			$this->container->get('i18n')->getLoader()->registerNamespace($this->getFileNamespace(), $path);
+			$i18nLoader = $this->container->get('i18n')->getLoader();
+
+			if(in_array(NamespacedFileLoaderTrait::class, class_uses($i18nLoader)))
+			{
+				$i18nLoader->registerNamespace($this->getFileNamespace(), $path);
+			}
 		}
 
 		// Register view namespace

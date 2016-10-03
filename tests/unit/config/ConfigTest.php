@@ -28,9 +28,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function getFileSystem()
+	public function getLoader()
 	{
-		return Mockery::mock('mako\file\FileSystem');
+		return Mockery::mock('mako\config\loaders\LoaderInterface');
 	}
 
 	/**
@@ -38,13 +38,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testBasic()
 	{
-		$fileSystem = $this->getFileSystem();
+		$loader = $this->getLoader();
 
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/settings.php')->andReturn(true);
+		$loader->shouldReceive('load')->once()->with('settings', null)->andReturn(['greeting' => 'hello']);
 
-		$fileSystem->shouldReceive('include')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello']);
-
-		$config = new Config($fileSystem, '/app/config');
+		$config = new Config($loader);
 
 		$this->assertEquals('hello', $config->get('settings.greeting'));
 
@@ -56,109 +54,23 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
-	 */
-	public function testBasicNonExistingFile()
-	{
-		$fileSystem = $this->getFileSystem();
-
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/settings.php')->andReturn(false);
-
-		$config = new Config($fileSystem, '/app/config');
-
-		$config->get('settings.greeting');
-	}
-
-	/**
 	 *
 	 */
-	public function testPackage()
+	public function testBasicWithEnvironment()
 	{
-		$fileSystem = $this->getFileSystem();
+		$loader = $this->getLoader();
 
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/packages/baz/settings.php')->andReturn(false);
+		$loader->shouldReceive('load')->once()->with('settings', 'foo')->andReturn(['greeting' => 'hello']);
 
-		$fileSystem->shouldReceive('has')->once()->with('/app/packages/baz/config/settings.php')->andReturn(true);
+		$config = new Config($loader, 'foo');
 
-		$fileSystem->shouldReceive('include')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello']);
+		$this->assertEquals('hello', $config->get('settings.greeting'));
 
-		$config = new Config($fileSystem, '/app/config');
+		$this->assertNull($config->get('settings.world'));
 
-		$config->registerNamespace('baz', '/app/packages/baz/config');
+		$this->assertFalse($config->get('settings.world', false));
 
-		$this->assertEquals('hello', $config->get('baz::settings.greeting'));
-	}
-
-	/**
-	 *
-	 */
-	public function testPackageOverride()
-	{
-		$fileSystem = $this->getFileSystem();
-
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/packages/baz/settings.php')->andReturn(true);
-
-		$fileSystem->shouldReceive('include')->once()->with('/app/config/packages/baz/settings.php')->andReturn(['greeting' => 'hello']);
-
-		$config = new Config($fileSystem, '/app/config');
-
-		$config->registerNamespace('baz', '/app/packages/baz/config');
-
-		$this->assertEquals('hello', $config->get('baz::settings.greeting'));
-	}
-
-	/**
-	 *
-	 */
-	public function testEvironmentOverride()
-	{
-		$fileSystem = $this->getFileSystem();
-
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/settings.php')->andReturn(true);
-
-		$fileSystem->shouldReceive('include')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello', 'goodbye' => 'sayonara']);
-
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/dev/settings.php')->andReturn(true);
-
-		$fileSystem->shouldReceive('include')->once()->with('/app/config/dev/settings.php')->andReturn(['greeting' => 'konnichiwa']);
-
-		$config = new Config($fileSystem, '/app/config');
-
-		$config->setEnvironment('dev');
-
-		$this->assertEquals('konnichiwa', $config->get('settings.greeting'));
-
-		$this->assertEquals('sayonara', $config->get('settings.goodbye'));
-	}
-
-	/**
-	 *
-	 */
-	public function testPackageEvironmentOverride()
-	{
-		$fileSystem = $this->getFileSystem();
-
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/packages/baz/settings.php')->andReturn(false);
-
-		$fileSystem->shouldReceive('has')->once()->with('/app/packages/baz/config/settings.php')->andReturn(true);
-
-		$fileSystem->shouldReceive('include')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello', 'goodbye' => 'sayonara']);
-
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/packages/baz/dev/settings.php')->andReturn(false);
-
-		$fileSystem->shouldReceive('has')->once()->with('/app/packages/baz/config/dev/settings.php')->andReturn(true);
-
-		$fileSystem->shouldReceive('include')->once()->with('/app/packages/baz/config/dev/settings.php')->andReturn(['greeting' => 'konnichiwa']);
-
-		$config = new Config($fileSystem, '/app/config');
-
-		$config->setEnvironment('dev');
-
-		$config->registerNamespace('baz', '/app/packages/baz/config');
-
-		$this->assertEquals('konnichiwa', $config->get('baz::settings.greeting'));
-
-		$this->assertEquals('sayonara', $config->get('baz::settings.goodbye'));
+		$this->assertEquals(['settings' => ['greeting' => 'hello']], $config->getLoadedConfiguration());
 	}
 
 	/**
@@ -166,13 +78,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSet()
 	{
-		$fileSystem = $this->getFileSystem();
+		$loader = $this->getLoader();
 
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/settings.php')->andReturn(true);
+		$loader->shouldReceive('load')->once()->with('settings', null)->andReturn([]);
 
-		$fileSystem->shouldReceive('include')->once()->with('/app/config/settings.php')->andReturn([]);
-
-		$config = new Config($fileSystem, '/app/config');
+		$config = new Config($loader);
 
 		$this->assertNull($config->get('settings.greeting'));
 
@@ -182,32 +92,15 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage mako\config\Config::load(): The [ settings ] config file does not exist.
-	 */
-	public function testSetWithNonExistingFile()
-	{
-		$fileSystem = $this->getFileSystem();
-
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/settings.php')->andReturn(false);
-
-		$config = new Config($fileSystem, '/app/config');
-
-		$config->set('settings.greeting', 'hello');
-	}
-
-	/**
 	 *
 	 */
 	public function testRemove()
 	{
-		$fileSystem = $this->getFileSystem();
+		$loader = $this->getLoader();
 
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/settings.php')->andReturn(true);
+		$loader->shouldReceive('load')->once()->with('settings', null)->andReturn(['greeting' => 'hello']);
 
-		$fileSystem->shouldReceive('include')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello']);
-
-		$config = new Config($fileSystem, '/app/config');
+		$config = new Config($loader);
 
 		$this->assertEquals('hello', $config->get('settings.greeting'));
 
