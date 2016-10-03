@@ -82,7 +82,7 @@ class Secret extends Question
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered
 	 * @param   bool        $fallback  Fall back to non-hidden input?
-	 * @return  mixed
+	 * @return  null|mixed
 	 */
 	public function ask(string $question, $default = null, bool $fallback = false)
 	{

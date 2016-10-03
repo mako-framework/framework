@@ -51,7 +51,7 @@ class ValidatorFactory
 	 * @param   array                      $rules  Array of validation rules
 	 * @return  \mako\validator\Validator
 	 */
-	public function create(array $data, array $rules)
+	public function create(array $data, array $rules): Validator
 	{
 		$validator = new Validator($data, $rules, $this->i18n);
 

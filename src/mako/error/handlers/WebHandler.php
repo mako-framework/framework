@@ -80,7 +80,7 @@ class WebHandler extends Handler
 	 * @access  protected
 	 * @return  bool
 	 */
-	protected function returnAsJson()
+	protected function returnAsJson(): bool
 	{
 		$jsonMimeTypes = ['application/json', 'text/json'];
 
@@ -103,11 +103,11 @@ class WebHandler extends Handler
 	 * Returns the source code of a trace frame.
 	 *
 	 * @access  protected
-	 * @param   string     $file     File path
-	 * @param   int        $line     Frame line
-	 * @return  string
+	 * @param   string      $file     File path
+	 * @param   int         $line     Frame line
+	 * @return  bool|array
 	 */
-	protected function getFrameSource($file, $line)
+	protected function getFrameSource(string $file, int $line)
 	{
 		if(!is_readable($file))
 		{
@@ -148,7 +148,7 @@ class WebHandler extends Handler
 	 * @param   bool       $addSource  Add source code to each frame?
 	 * @return  array
 	 */
-	protected function modifyTrace(array $trace, $addSource = true)
+	protected function modifyTrace(array $trace, bool $addSource = true): array
 	{
 		foreach($trace as $frameKey => $frame)
 		{
@@ -185,7 +185,7 @@ class WebHandler extends Handler
 	 * @param   bool       $returnAsJson  Should we return JSON?
 	 * @return  string
 	 */
-	protected function getDetailedError($returnAsJson)
+	protected function getDetailedError(bool $returnAsJson): string
 	{
 		$trace = $this->exception->getTrace();
 
@@ -239,7 +239,7 @@ class WebHandler extends Handler
 	 * @param   bool       $returnAsJson  Should we return JSON?
 	 * @return  string
 	 */
-	protected function getGenericError($returnAsJson)
+	protected function getGenericError(bool $returnAsJson): string
 	{
 		$code = $this->exception->getCode();
 
@@ -281,7 +281,7 @@ class WebHandler extends Handler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function handle($showDetails = true)
+	public function handle(bool $showDetails = true)
 	{
 		$this->response->clear()->disableCaching()->disableCompression();
 

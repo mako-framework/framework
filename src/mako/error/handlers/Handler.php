@@ -44,7 +44,7 @@ abstract class Handler implements HandlerInterface
 	 * @param   \Throwable  $exception  Throwable
 	 * @return  string
 	 */
-	protected function determineExceptionType(Throwable $exception)
+	protected function determineExceptionType(Throwable $exception): string
 	{
 		if($exception instanceof ErrorException)
 		{

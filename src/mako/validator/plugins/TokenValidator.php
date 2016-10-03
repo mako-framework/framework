@@ -49,7 +49,7 @@ class TokenValidator extends ValidatorPlugin
 	 * @param   string  $input Input
 	 * @return  bool
 	 */
-	public function validate($input)
+	public function validate(string $input): bool
 	{
 		return $this->session->validateToken($input);
 	}

@@ -26,7 +26,7 @@ class DB2 extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function lock($lock)
+	public function lock($lock): string
 	{
 		if($lock === null)
 		{
@@ -39,7 +39,7 @@ class DB2 extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function select()
+	public function select(): array
 	{
 		if($this->query->getLimit() === null)
 		{

@@ -33,7 +33,7 @@ abstract class ValidatorPlugin implements ValidatorPluginInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getRuleName()
+	public function getRuleName(): string
 	{
 		return $this->ruleName;
 	}
@@ -41,7 +41,7 @@ abstract class ValidatorPlugin implements ValidatorPluginInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPackageName()
+	public function getPackageName(): string
 	{
 		return $this->packageName;
 	}

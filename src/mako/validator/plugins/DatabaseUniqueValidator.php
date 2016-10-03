@@ -52,7 +52,7 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 	 * @param   string  $value   Allowed value
 	 * @return  bool
 	 */
-	public function validate($input, $table, $column, $value = null)
+	public function validate(string $input, string $table, string $column, string $value = null): bool
 	{
 		$query = $this->connectionManager->builder()->table($table)->where($column, '=', $input);
 

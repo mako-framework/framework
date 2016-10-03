@@ -27,7 +27,7 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function buildJsonPath($column, array $segments)
+	protected function buildJsonPath(string $column, array $segments): string
 	{
 		$path = '';
 

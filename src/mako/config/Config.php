@@ -51,7 +51,7 @@ class Config
 	 * @param   string                $path         Default path
 	 * @param   string                $environment  Environment name
 	 */
-	public function __construct(FileSystem $fileSystem, $path, $environment = null)
+	public function __construct(FileSystem $fileSystem, string $path, string $environment = null)
 	{
 		$this->fileSystem = $fileSystem;
 
@@ -66,7 +66,7 @@ class Config
 	 * @access  public
 	 * @return  array
 	 */
-	public function getLoadedConfiguration()
+	public function getLoadedConfiguration(): array
 	{
 		return $this->configuration;
 	}
@@ -77,7 +77,7 @@ class Config
 	 * @access  public
 	 * @param   string  $environment  Environment name
 	 */
-	public function setEnvironment($environment)
+	public function setEnvironment(string $environment)
 	{
 		$this->environment = $environment;
 	}
@@ -87,9 +87,8 @@ class Config
 	 *
 	 * @access  protected
 	 * @param   string     $file  File name
-	 * @return  array
 	 */
-	protected function load($file)
+	protected function load(string $file)
 	{
 		// Load configuration
 
@@ -137,7 +136,7 @@ class Config
 	 * @param   string     $key  Language key
 	 * @return  array
 	 */
-	protected function parseKey($key)
+	protected function parseKey(string $key): array
 	{
 		return (strpos($key, '.') === false) ? [$key, null] : explode('.', $key, 2);
 	}
@@ -146,11 +145,11 @@ class Config
 	 * Returns config value or entire config array from a file.
 	 *
 	 * @access  public
-	 * @param   string  $key      Config key
-	 * @param   mixed   $default  Default value to return if config value doesn't exist
-	 * @return  mixed
+	 * @param   string      $key      Config key
+	 * @param   null|mixed  $default  Default value to return if config value doesn't exist
+	 * @return  null|mixed
 	 */
-	public function get($key, $default = null)
+	public function get(string $key, $default = null)
 	{
 		list($file, $path) = $this->parseKey($key);
 
@@ -169,7 +168,7 @@ class Config
 	 * @param   string  $key    Config key
 	 * @param   mixed   $value  Config value
 	 */
-	public function set($key, $value)
+	public function set(string $key, $value)
 	{
 		list($file, $path) = $this->parseKey($key);
 
@@ -188,7 +187,7 @@ class Config
 	 * @param   string  $key  Config key
 	 * @return  bool
 	 */
-	public function remove($key)
+	public function remove(string $key): bool
 	{
 		return Arr::delete($this->configuration, $key);
 	}

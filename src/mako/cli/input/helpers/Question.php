@@ -52,7 +52,7 @@ class Question
 	 * @access  public
 	 * @param   string      $question  Question to ask
 	 * @param   null|mixed  $default   Default if no input is entered
-	 * @return  mixed
+	 * @return  null|mixed
 	 */
 	public function ask(string $question, $default = null)
 	{

@@ -27,7 +27,7 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function buildJsonPath($column, array $segments)
+	protected function buildJsonPath(string $column, array $segments): string
 	{
 		$segments = array_map(function($segment)
 		{
@@ -52,7 +52,7 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function lock($lock)
+	public function lock($lock): string
 	{
 		if($lock === null)
 		{

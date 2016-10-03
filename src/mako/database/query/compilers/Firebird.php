@@ -26,7 +26,7 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function limit($limit)
+	protected function limit(int $limit = null): string
 	{
 		$offset = $this->query->getOffset();
 
@@ -36,7 +36,7 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function offset($offset)
+	protected function offset(int $offset = null): string
 	{
 		$limit = $this->query->getLimit();
 
@@ -46,7 +46,7 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function lock($lock)
+	public function lock($lock): string
 	{
 		if($lock === null)
 		{

@@ -51,7 +51,7 @@ class DatabaseExistsValidator extends ValidatorPlugin
 	 * @param   string  $column  Column name
 	 * @return  bool
 	 */
-	public function validate($input, $table, $column)
+	public function validate(string $input, string $table, string $column): bool
 	{
 		return ($this->connectionManager->builder()->table($table)->where($column, '=', $input)->count() != 0);
 	}

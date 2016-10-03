@@ -26,7 +26,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function buildJsonPath($column, array $segments)
+	protected function buildJsonPath(string $column, array $segments): string
 	{
 		$path = '';
 
@@ -48,7 +48,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function lock($lock)
+	public function lock($lock): string
 	{
 		if($lock === null)
 		{
@@ -61,7 +61,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function orderings(array $orderings)
+	protected function orderings(array $orderings): string
 	{
 		if(empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null))
 		{
@@ -74,7 +74,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function limit($limit)
+	protected function limit(int $limit = null): string
 	{
 		$offset = $this->query->getOffset();
 
@@ -94,7 +94,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function offset($offset)
+	protected function offset(int $offset = null): string
 	{
 		$limit = $this->query->getLimit();
 

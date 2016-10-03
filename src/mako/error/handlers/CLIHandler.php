@@ -47,7 +47,7 @@ class CLIHandler extends Handler
 	 * @param   string     $string  String to escape
 	 * @return  string
 	 */
-	protected function escape($string)
+	protected function escape(string $string): string
 	{
 		if(($formatter = $this->output->getFormatter()) === null)
 		{
@@ -63,7 +63,7 @@ class CLIHandler extends Handler
 	 * @access  protected
 	 * @return  string
 	 */
-	protected function getDetailedError()
+	protected function getDetailedError(): string
 	{
 		$type = $this->escape($this->determineExceptionType($this->exception));
 
@@ -87,7 +87,7 @@ class CLIHandler extends Handler
 	 * @access  protected
 	 * @return  string
 	 */
-	protected function getGenericError()
+	protected function getGenericError(): string
 	{
 		$this->output->errorLn('<bg_red><white>An error has occurred while processing your task.</white></bg_red>' . PHP_EOL);
 	}
@@ -95,7 +95,7 @@ class CLIHandler extends Handler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function handle($showDetails = true)
+	public function handle(bool $showDetails = true)
 	{
 		// Set the response body
 

@@ -122,7 +122,7 @@ class Input
 	 * @access  public
 	 * @param   int|string  $name     Parameter number or name
 	 * @param   null|mixed  $default  Default value
-	 * @return  mixed
+	 * @return  null|mixed
 	 */
 	public function getArgument($name, $default = null)
 	{

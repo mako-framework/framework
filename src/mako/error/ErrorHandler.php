@@ -135,7 +135,7 @@ class ErrorHandler
 	 * @param   string    $exceptionType  Exception type
 	 * @param   \Closure  $handler        Exception handler
 	 */
-	public function handle($exceptionType, Closure $handler)
+	public function handle(string $exceptionType, Closure $handler)
 	{
 		array_unshift($this->handlers, ['exceptionType' => $exceptionType, 'handler' => $handler]);
 	}
@@ -146,7 +146,7 @@ class ErrorHandler
 	 * @access  public
 	 * @param   string  $exceptionType  Exception type
 	 */
-	public function clearHandlers($exceptionType)
+	public function clearHandlers(string $exceptionType)
 	{
 		foreach($this->handlers as $key => $handler)
 		{
@@ -164,7 +164,7 @@ class ErrorHandler
 	 * @param   string    $exceptionType  Exception type
 	 * @param   \Closure  $handler        Exception handler
 	 */
-	public function replaceHandlers($exceptionType, Closure $handler)
+	public function replaceHandlers(string $exceptionType, Closure $handler)
 	{
 		$this->clearHandlers($exceptionType);
 
@@ -188,7 +188,7 @@ class ErrorHandler
 	 * @param   \Throwable  $exception  An exception object
 	 * @return  bool
 	 */
-	protected function shouldExceptionBeLogged(Throwable $exception)
+	protected function shouldExceptionBeLogged(Throwable $exception): bool
 	{
 		if($this->logger === null)
 		{

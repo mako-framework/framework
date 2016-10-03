@@ -24,7 +24,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function escapeIdentifier($identifier)
+	public function escapeIdentifier(string $identifier): string
 	{
 		return '[' . str_replace(']', ']]', $identifier) . ']';
 	}
@@ -32,7 +32,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function buildJsonPath($column, array $segments)
+	protected function buildJsonPath(string $column, array $segments): string
 	{
 		$path = '';
 
@@ -54,7 +54,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function from($from)
+	public function from($from): string
 	{
 		$from = parent::from($from);
 
@@ -69,7 +69,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function orderings(array $orderings)
+	protected function orderings(array $orderings): string
 	{
 		if(empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null))
 		{
@@ -82,7 +82,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function limit($limit)
+	protected function limit(int $limit = null): string
 	{
 		$offset = $this->query->getOffset();
 
@@ -97,7 +97,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function offset($offset)
+	protected function offset(int $offset = null): string
 	{
 		$limit = $this->query->getLimit();
 

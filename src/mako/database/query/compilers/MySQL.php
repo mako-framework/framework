@@ -26,7 +26,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function escapeIdentifier($identifier)
+	public function escapeIdentifier(string $identifier): string
 	{
 		return '`' . str_replace('`', '``', $identifier) . '`';
 	}
@@ -34,7 +34,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function buildJsonPath($column, array $segments)
+	protected function buildJsonPath(string $column, array $segments): string
 	{
 		$path = '';
 
@@ -56,7 +56,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	public function lock($lock)
+	public function lock($lock): string
 	{
 		if($lock === null)
 		{

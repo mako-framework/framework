@@ -39,7 +39,7 @@ class Subquery
 	 * @param   \Closure|\mako\database\query\Query  $query  Query builder
 	 * @param   string                               $alias  Subquery alias
 	 */
-	public function __construct($query, $alias = null)
+	public function __construct($query, string $alias = null)
 	{
 		$this->query = $query;
 		$this->alias = $alias;
@@ -52,7 +52,7 @@ class Subquery
 	 * @param   \mako\database\query\Query     $query  Query builder instance
 	 * @return  \mako\database\query\Subquery
 	 */
-	public function build(Query $query)
+	public function build(Query $query): Subquery
 	{
 		if($this->query instanceof Closure)
 		{
@@ -72,7 +72,7 @@ class Subquery
 	 * @access  public
 	 * @return  array
 	 */
-	public function get()
+	public function get(): array
 	{
 		$query = $this->query->getCompiler()->select();
 

@@ -20,7 +20,7 @@ interface ValidatorPluginInterface
 	 * @access  public
 	 * @return  string
 	 */
-	public function getRuleName();
+	public function getRuleName(): string;
 
 	/**
 	 * Returnst the package name.
@@ -28,5 +28,5 @@ interface ValidatorPluginInterface
 	 * @access  public
 	 * @return  string
 	 */
-	public function getPackageName();
+	public function getPackageName(): string;
 }

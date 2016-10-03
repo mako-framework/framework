@@ -49,7 +49,7 @@ class OneTimeTokenValidator extends ValidatorPlugin
 	 * @param   string  $input Input
 	 * @return  bool
 	 */
-	public function validate($input)
+	public function validate(string $input): bool
 	{
 		return $this->session->validateOneTimeToken($input);
 	}
