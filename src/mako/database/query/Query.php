@@ -239,7 +239,7 @@ class Query
 	 * @access  public
 	 * @return  bool
 	 */
-	public function isDistinct()
+	public function isDistinct(): bool
 	{
 		return $this->distinct;
 	}
@@ -250,7 +250,7 @@ class Query
 	 * @access  public
 	 * @return  array
 	 */
-	public function getColumns()
+	public function getColumns(): array
 	{
 		return $this->columns;
 	}
@@ -261,7 +261,7 @@ class Query
 	 * @access  public
 	 * @return  array
 	 */
-	public function getWheres()
+	public function getWheres(): array
 	{
 		return $this->wheres;
 	}
@@ -272,7 +272,7 @@ class Query
 	 * @access  public
 	 * @return  array
 	 */
-	public function getJoins()
+	public function getJoins(): array
 	{
 		return $this->joins;
 	}
@@ -283,7 +283,7 @@ class Query
 	 * @access  public
 	 * @return  array
 	 */
-	public function getGroupings()
+	public function getGroupings(): array
 	{
 		return $this->groupings;
 	}
@@ -294,7 +294,7 @@ class Query
 	 * @access  public
 	 * @return  array
 	 */
-	public function getHavings()
+	public function getHavings(): array
 	{
 		return $this->havings;
 	}
@@ -305,7 +305,7 @@ class Query
 	 * @access  public
 	 * @return  array
 	 */
-	public function getOrderings()
+	public function getOrderings(): array
 	{
 		return $this->orderings;
 	}
@@ -314,7 +314,7 @@ class Query
 	 * Returns the limit.
 	 *
 	 * @access  public
-	 * @return  int
+	 * @return  null|int
 	 */
 	public function getLimit()
 	{
@@ -325,7 +325,7 @@ class Query
 	 * Returns the offset.
 	 *
 	 * @access  public
-	 * @return  int
+	 * @return  null|int
 	 */
 	public function getOffset()
 	{
@@ -1342,6 +1342,32 @@ class Query
 		$query = $this->compiler->update($values);
 
 		return $this->connection->queryAndCount($query['sql'], $query['params']);
+	}
+
+	/**
+	 * Increments column value.
+	 *
+	 * @access  public
+	 * @param   string  $column     Column name
+	 * @param   int     $increment  Increment value
+	 * @return  int
+	 */
+	public function increment($column, $increment = 1)
+	{
+		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' + ' . (int) $increment)]);
+	}
+
+	/**
+	 * Decrements column value.
+	 *
+	 * @access  public
+	 * @param   string  $column     Column name
+	 * @param   int     $decrement  Decrement value
+	 * @return  int
+	 */
+	public function decrement($column, $decrement = 1)
+	{
+		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' - ' . (int) $decrement)]);
 	}
 
 	/**

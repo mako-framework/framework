@@ -423,30 +423,4 @@ trait QueryConvenienceTrait
 	{
 		return $this->orWhereRaw($column, 'NOT LIKE', $value);
 	}
-
-	/**
-	 * Increments column value.
-	 *
-	 * @access  public
-	 * @param   string  $column     Column name
-	 * @param   int     $increment  Increment value
-	 * @return  int
-	 */
-	public function increment($column, $increment = 1)
-	{
-		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' + ' . (int) $increment)]);
-	}
-
-	/**
-	 * Decrements column value.
-	 *
-	 * @access  public
-	 * @param   string  $column     Column name
-	 * @param   int     $decrement  Decrement value
-	 * @return  int
-	 */
-	public function decrement($column, $decrement = 1)
-	{
-		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' - ' . (int) $decrement)]);
-	}
 }
