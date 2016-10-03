@@ -14,5 +14,13 @@ namespace mako\config\loaders;
  */
 interface LoaderInterface
 {
-	public function load(string $file, string $environment = null);
+	/**
+	 * Loads the configuration file.
+	 *
+	 * @access  protected
+	 * @param   string       $file         File name
+	 * @param   null|string  $environment  Environment
+	 * @return  array
+	 */
+	public function load(string $file, string $environment = null): array;
 }

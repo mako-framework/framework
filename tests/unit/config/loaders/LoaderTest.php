@@ -10,7 +10,7 @@ namespace mako\tests\unit\config\loaders;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
-use mako\config\loaders\ArrayLoader;
+use mako\config\loaders\Loader;
 
 /**
  * @group unit
@@ -44,7 +44,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('include')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello']);
 
-		$loader = new ArrayLoader($fileSystem, '/app/config');
+		$loader = new Loader($fileSystem, '/app/config');
 
 		$this->assertEquals(['greeting' => 'hello'], $loader->load('settings'));
 	}
@@ -58,7 +58,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('has')->once()->with('/app/config/settings.php')->andReturn(false);
 
-		$loader = new ArrayLoader($fileSystem, '/app/config');
+		$loader = new Loader($fileSystem, '/app/config');
 
 		$loader->load('settings');
 	}
@@ -76,7 +76,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('include')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello']);
 
-		$loader = new ArrayLoader($fileSystem, '/app/config');
+		$loader = new Loader($fileSystem, '/app/config');
 
 		$loader->registerNamespace('baz', '/app/packages/baz/config');
 
@@ -94,7 +94,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('include')->once()->with('/app/config/packages/baz/settings.php')->andReturn(['greeting' => 'hello']);
 
-		$loader = new ArrayLoader($fileSystem, '/app/config');
+		$loader = new Loader($fileSystem, '/app/config');
 
 		$loader->registerNamespace('baz', '/app/packages/baz/config');
 
@@ -116,7 +116,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$fileSystem->shouldReceive('include')->once()->with('/app/config/dev/settings.php')->andReturn(['greeting' => 'konnichiwa']);
 
-		$loader = new ArrayLoader($fileSystem, '/app/config');
+		$loader = new Loader($fileSystem, '/app/config');
 
 		$this->assertEquals(['greeting' => 'konnichiwa', 'goodbye' => 'sayonara'], $loader->load('settings', 'dev'));
 	}

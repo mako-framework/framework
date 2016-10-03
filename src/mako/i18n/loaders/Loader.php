@@ -5,19 +5,20 @@
  * @license    http://www.makoframework.com/license
  */
 
-namespace mako\i18n;
+namespace mako\i18n\loaders;
 
 use RuntimeException;
 
 use mako\common\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
+use mako\i18n\loaders\LoaderInterface;
 
 /**
  * Language loader.
  *
  * @author  Frederic G. Østby
  */
-class Loader
+class Loader implements LoaderInterface
 {
 	use NamespacedFileLoaderTrait;
 
@@ -43,11 +44,7 @@ class Loader
 	}
 
 	/**
-	 * Returns inflection rules and closure or NULL if it doesn't exist.
-	 *
-	 * @access  public
-	 * @param   string      $language  Name of the language pack
-	 * @return  array|null
+	 * {@inheritdoc}
 	 */
 	public function loadInflection(string $language)
 	{
@@ -60,12 +57,7 @@ class Loader
 	}
 
 	/**
-	 * Loads and returns language strings.
-	 *
-	 * @access  public
-	 * @param   string  $language  Name of the language pack
-	 * @param   string  $file      File we want to load
-	 * @return  array
+	 * {@inheritdoc}
 	 */
 	public function loadStrings(string $language, string $file): array
 	{

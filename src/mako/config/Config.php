@@ -42,8 +42,8 @@ class Config
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   mako\config\loaders\LoaderInterface  $fileSystem   File system instance
-	 * @param   null|string                          $environment  Environment name
+	 * @param   \mako\config\loaders\LoaderInterface  $fileSystem   File system instance
+	 * @param   null|string                           $environment  Environment name
 	 */
 	public function __construct(LoaderInterface $loader, string $environment = null)
 	{
@@ -52,6 +52,11 @@ class Config
 		$this->environment = $environment;
 	}
 
+	/**
+	 * Returns the config loader.
+	 *
+	 * @return \mako\config\loaders\LoaderInterface
+	 */
 	public function getLoader(): LoaderInterface
 	{
 		return $this->loader;

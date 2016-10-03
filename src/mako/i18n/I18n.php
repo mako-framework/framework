@@ -10,7 +10,7 @@ namespace mako\i18n;
 use RuntimeException;
 
 use mako\cache\Cache;
-use mako\i18n\Loader;
+use mako\i18n\loaders\LoaderInterface;;
 use mako\utility\Arr;
 
 /**
@@ -23,7 +23,7 @@ class I18n
 	/**
 	 * Language loader.
 	 *
-	 * @var \mako\i18n\Loader
+	 * @var \mako\i18n\loaders\LoaderInterface
 	 */
 	protected $loader;
 
@@ -66,11 +66,11 @@ class I18n
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\i18n\Loader  $loader    Loader instance
-	 * @param   string             $language  Default language pack name
-	 * @param   \mako\cache\Cache  $cache     Cache instance
+	 * @param   \mako\i18n\loaders\LoaderInterface  $loader    Loader instance
+	 * @param   string                              $language  Default language pack name
+	 * @param   \mako\cache\Cache                   $cache     Cache instance
 	 */
-	public function __construct(Loader $loader, string $language, Cache $cache = null)
+	public function __construct(LoaderInterface $loader, string $language, Cache $cache = null)
 	{
 		$this->loader = $loader;
 
@@ -96,12 +96,12 @@ class I18n
 	}
 
 	/**
-	 * Returns the string loader.
+	 * Returns the language loader.
 	 *
 	 * @access  public
-	 * @return  \mako\i18n\Loader
+	 * @return  \mako\i18n\loaders\LoaderInterface
 	 */
-	public function getLoader(): Loader
+	public function getLoader(): LoaderInterface
 	{
 		return $this->loader;
 	}

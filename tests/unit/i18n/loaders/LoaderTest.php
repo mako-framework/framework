@@ -10,7 +10,7 @@ namespace mako\tests\unit\i18n;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
-use mako\i18n\Loader;
+use mako\i18n\loaders\Loader;
 
 /**
  * @group unit
@@ -65,7 +65,7 @@ class LoaderTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage mako\i18n\Loader::loadStrings(): The [ /app/i18n/en_US/strings/foobar.php ] language file does not exist in the [ en_US ] language pack.
+	 * @expectedExceptionMessage mako\i18n\loaders\Loader::loadStrings(): The [ /app/i18n/en_US/strings/foobar.php ] language file does not exist in the [ en_US ] language pack.
 	 */
 	public function testBasicNonExistingStringLoading()
 	{

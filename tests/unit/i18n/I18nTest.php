@@ -40,7 +40,7 @@ class I18nTest extends PHPUnit_Framework_TestCase
 	 */
 	public function getLoader()
 	{
-		return Mockery::mock('mako\i18n\Loader');
+		return Mockery::mock('mako\i18n\loaders\LoaderInterface');
 	}
 
 	/**
@@ -92,7 +92,7 @@ class I18nTest extends PHPUnit_Framework_TestCase
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
 
-		$this->assertInstanceOf('mako\i18n\Loader', $i18n->getLoader());
+		$this->assertInstanceOf('mako\i18n\loaders\LoaderInterface', $i18n->getLoader());
 	}
 
 	/**

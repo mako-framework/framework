@@ -13,13 +13,20 @@ use mako\common\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
 
 /**
- * Array loader.
+ *  Loader.
  *
  * @author  Frederic G. Østby
  */
-class ArrayLoader implements LoaderInterface
+class Loader implements LoaderInterface
 {
 	use NamespacedFileLoaderTrait;
+
+	/**
+	 * File system instance.
+	 *
+	 * @var \mako\file\FileSystem
+	 */
+	protected $fileSystem;
 
 	/**
 	 * Constructor.
@@ -36,12 +43,7 @@ class ArrayLoader implements LoaderInterface
 	}
 
 	/**
-	 * Loads the configuration file.
-	 *
-	 * @access  protected
-	 * @param   string       $file         File name
-	 * @param   null|string  $environment  Environment
-	 * @return  array
+	 * {@inheritdoc}
 	 */
 	public function load(string $file, string $environment = null): array
 	{

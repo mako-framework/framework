@@ -108,4 +108,16 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
 		$this->assertNull($config->get('settings.greeting'));
 	}
+
+	/**
+	 *
+	 */
+	public function testGetLoader()
+	{
+		$loader = $this->getLoader();
+
+		$config = new Config($loader);
+
+		$this->assertInstanceOf('mako\config\loaders\LoaderInterface', $config->getLoader());
+	}
 }

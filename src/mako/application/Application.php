@@ -13,7 +13,7 @@ use RuntimeException;
 use mako\application\Package;
 use mako\autoloading\AliasLoader;
 use mako\config\Config;
-use mako\config\loaders\ArrayLoader;
+use mako\config\loaders\Loader;
 use mako\http\routing\Middleware;
 use mako\http\routing\Routes;
 use mako\file\FileSystem;
@@ -443,7 +443,7 @@ abstract class Application
 	 */
 	protected function configFactory(): Config
 	{
-		return new Config(new ArrayLoader($this->container->get('fileSystem'), $this->applicationPath . '/config'), $this->getEnvironment());
+		return new Config(new Loader($this->container->get('fileSystem'), $this->applicationPath . '/config'), $this->getEnvironment());
 	}
 
 	/**
