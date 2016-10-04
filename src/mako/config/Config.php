@@ -42,7 +42,7 @@ class Config
 	 * Constructor.
 	 *
 	 * @access  public
-	 * @param   \mako\config\loaders\LoaderInterface  $fileSystem   File system instance
+	 * @param   \mako\config\loaders\LoaderInterface  $loader       Config loader
 	 * @param   null|string                           $environment  Environment name
 	 */
 	public function __construct(LoaderInterface $loader, string $environment = null)

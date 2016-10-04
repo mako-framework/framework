@@ -65,9 +65,9 @@ trait ControllerHelperTrait
 	 * @param   \Closure                            $stream  Stream
 	 * @return  \mako\http\response\senders\Stream
 	 */
-	protected function streamResponse(Closure $closure): Stream
+	protected function streamResponse(Closure $stream): Stream
 	{
-		return new Stream($closure);
+		return new Stream($stream);
 	}
 
 	/**
