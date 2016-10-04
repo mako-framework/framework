@@ -218,7 +218,7 @@ class Compiler
 	 * @param   bool       $enclose  Should subqueries be enclosed in parentheses?
 	 * @return  string
 	 */
-	protected function param($param, $enclose = true): string
+	protected function param($param, bool $enclose = true): string
 	{
 		if($param instanceof Raw)
 		{
@@ -246,11 +246,11 @@ class Compiler
 	 * Returns a comma-separated list of parameters.
 	 *
 	 * @access  protected
-	 * @param   mixed      $params   Array of parameters or subquery
+	 * @param   array      $params   Array of parameters
 	 * @param   bool       $enclose  Should subqueries be enclosed in parentheses?
 	 * @return  string
 	 */
-	protected function params($params, bool $enclose = true): string
+	protected function params(array $params, bool $enclose = true): string
 	{
 		return implode(', ', array_map(function($param) use ($enclose)
 		{
