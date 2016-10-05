@@ -34,12 +34,12 @@ trait EscaperTrait
 	 * Returns a string that has been escaped for a HTML body context.
 	 *
 	 * @access  public
-	 * @param   string  $string        String to escape
-	 * @param   string  $charset       Character set
-	 * @param   bool    $doubleEncode  Should existing entities be encoded?
+	 * @param   null|string  $string        String to escape
+	 * @param   string       $charset       Character set
+	 * @param   bool         $doubleEncode  Should existing entities be encoded?
 	 * @return  string
 	 */
-	public function escapeHTML(string $string, string $charset, bool $doubleEncode = true): string
+	public function escapeHTML(string $string = null, string $charset, bool $doubleEncode = true): string
 	{
 		return htmlspecialchars($string, ENT_QUOTES, $charset, $doubleEncode);
 	}
@@ -48,10 +48,10 @@ trait EscaperTrait
 	 * Returns a string that has been escaped for a URI or parameter context.
 	 *
 	 * @access  public
-	 * @param   string   $string  String to escape
+	 * @param   null|string  $string  String to escape
 	 * @return  string
 	 */
-	public function escapeURL(string $string): string
+	public function escapeURL(string $string = null): string
 	{
 		return rawurlencode($string);
 	}
@@ -111,11 +111,11 @@ trait EscaperTrait
 	 * Returns a string that has been escaped for a HTML attribute context.
 	 *
 	 * @access  public
-	 * @param   string  $string   String to escape
-	 * @param   string  $charset  Character set
+	 * @param   null|string  $string   String to escape
+	 * @param   string       $charset  Character set
 	 * @return  string
 	 */
-	public function escapeAttribute(string $string, string $charset): string
+	public function escapeAttribute(string $string = null, string $charset): string
 	{
 		if($charset !== 'UTF-8')
 		{
@@ -163,11 +163,11 @@ trait EscaperTrait
 	 * Returns a string that has been escaped for a CSS context.
 	 *
 	 * @access  public
-	 * @param   string  $string   String to escape
-	 * @param   string  $charset  Character set
+	 * @param   null|string  $string   String to escape
+	 * @param   string       $charset  Character set
 	 * @return  string
 	 */
-	public function escapeCSS(string $string, string $charset): string
+	public function escapeCSS(string $string = null, string $charset): string
 	{
 		if($string === '' || ctype_digit($string))
 		{
@@ -216,11 +216,11 @@ trait EscaperTrait
 	 * Returns a string that has been escaped for a Javascript context.
 	 *
 	 * @access  public
-	 * @param   string  $string   String to escape
-	 * @param   string  $charset  Character set
+	 * @param   null|string  $string   String to escape
+	 * @param   string       $charset  Character set
 	 * @return  string
 	 */
-	public function escapeJavascript(string $string, string $charset): string
+	public function escapeJavascript(string $string = null, string $charset): string
 	{
 		if($charset !== 'UTF-8')
 		{

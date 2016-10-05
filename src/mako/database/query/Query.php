@@ -1154,6 +1154,22 @@ class Query
 	}
 
 	/**
+	 * Returns the number of records the query will return.
+	 *
+	 * @access  protected
+	 * @return  int
+	 */
+	protected function paginationCount(): int
+	{
+		if(empty($this->groupings))
+		{
+			return (clone $this)->clearOrdering()->count();
+		}
+
+		return $this->newInstance()->table(new Subquery((clone $this)->clearOrdering(), 'count'))->count();
+	}
+
+	/**
 	 * Paginates the results using a pagination instance.
 	 *
 	 * @access  public
@@ -1163,9 +1179,7 @@ class Query
 	 */
 	public function paginate($itemsPerPage = null, array $options = [])
 	{
-		$count = (clone $this)->clearOrdering()->count();
-
-		$pagination = static::getPaginationFactory()->create($count, $itemsPerPage, $options);
+		$pagination = static::getPaginationFactory()->create($this->paginationCount(), $itemsPerPage, $options);
 
 		$results = $this->limit($pagination->limit())->offset($pagination->offset())->all();
 
