@@ -73,4 +73,30 @@ class BaseCompilerTest extends BuilderTestCase
 
 		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC LIMIT 10 OFFSET 0', $this->connectionManager->connection()->getLog()[1]['query']);
 	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithPaginationAndGrouping()
+	{
+		$pagination = Mockery::mock(PaginationInterface::class);
+
+		$pagination->shouldReceive('limit')->once()->andReturn(10);
+
+		$pagination->shouldReceive('offset')->once()->andReturn(0);
+
+		$paginationFactory = Mockery::mock(PaginationFactoryInterface::class);
+
+		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
+
+		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->connection()]);
+
+		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
+
+		$query->table('users')->select(['id', 'username'])->groupBy(['id', 'username'])->paginate();
+
+		$this->assertEquals('SELECT COUNT(*) FROM (SELECT "id", "username" FROM "users" GROUP BY "id", "username") AS "count"', $this->connectionManager->connection()->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT "id", "username" FROM "users" GROUP BY "id", "username" LIMIT 10 OFFSET 0', $this->connectionManager->connection()->getLog()[1]['query']);
+	}
 }
