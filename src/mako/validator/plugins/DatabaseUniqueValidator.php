@@ -46,13 +46,13 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 	 * Checks that the value doesn't exist in the database table.
 	 *
 	 * @access  public
-	 * @param   string  $input   Input
-	 * @param   string  $table   Table name
-	 * @param   string  $column  Column name
-	 * @param   string  $value   Allowed value
+	 * @param   null|string  $input   Input
+	 * @param   string       $table   Table name
+	 * @param   string       $column  Column name
+	 * @param   string       $value   Allowed value
 	 * @return  bool
 	 */
-	public function validate(string $input, string $table, string $column, string $value = null): bool
+	public function validate(string $input = null, string $table, string $column, string $value = null): bool
 	{
 		$query = $this->connectionManager->builder()->table($table)->where($column, '=', $input);
 

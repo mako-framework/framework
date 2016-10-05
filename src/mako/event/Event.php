@@ -65,7 +65,7 @@ class Event
 	 */
 	public function has(string $name): bool
 	{
-		return ! empty($this->events[$name]);
+		return !empty($this->events[$name]);
 	}
 
 	/**

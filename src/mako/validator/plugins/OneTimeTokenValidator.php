@@ -46,10 +46,10 @@ class OneTimeTokenValidator extends ValidatorPlugin
 	 * Validates a one time token.
 	 *
 	 * @access  public
-	 * @param   string  $input Input
+	 * @param   null|string  $input Input
 	 * @return  bool
 	 */
-	public function validate(string $input): bool
+	public function validate(string $input = null): bool
 	{
 		return $this->session->validateOneTimeToken($input);
 	}

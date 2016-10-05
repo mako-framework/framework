@@ -78,27 +78,16 @@ class Compiler
 	}
 
 	/**
-	 * Checks whether a string is between parentheses.
-	 *
-	 * @access  protected
-	 * @param   string     $string The string to check
-	 * @return  bool
-	 */
-	protected function isParenthesesEnclosed(string $string): bool
-	{
-		return strlen($string) >= 2 && substr($string, 0, 1) === '(' && substr($string, -1) === ')';
-	}
-
-	/**
 	 * Compiles subquery, merges parameters and returns subquery SQL.
 	 *
 	 * @access  protected
-	 * @param   \mako\database\query\Subquery  $query  Subquery container
+	 * @param   \mako\database\query\Subquery  $query    Subquery container
+	 * @param   bool                           $enclose  Should the query be enclosed in parentheses?
 	 * @return  string
 	 */
-	protected function subquery(Subquery $query): string
+	protected function subquery(Subquery $query, bool $enclose = true): string
 	{
-		$query = $query->build($this->query)->get();
+		$query = $query->build($this->query)->get($enclose);
 
 		$this->params = array_merge($this->params, $query['params']);
 
@@ -225,10 +214,11 @@ class Compiler
 	 * Returns raw SQL or a paramter placeholder.
 	 *
 	 * @access  protected
-	 * @param   mixed      $param  Parameter
+	 * @param   mixed      $param    Parameter
+	 * @param   bool       $enclose  Should subqueries be enclosed in parentheses?
 	 * @return  string
 	 */
-	protected function param($param): string
+	protected function param($param, bool $enclose = true): string
 	{
 		if($param instanceof Raw)
 		{
@@ -236,7 +226,7 @@ class Compiler
 		}
 		elseif($param instanceof Subquery)
 		{
-			return $this->subquery($param);
+			return $this->subquery($param, $enclose);
 		}
 		elseif($param instanceof DateTimeInterface)
 		{
@@ -256,12 +246,16 @@ class Compiler
 	 * Returns a comma-separated list of parameters.
 	 *
 	 * @access  protected
-	 * @param   mixed      $params  Array of parameters or subquery
+	 * @param   array      $params   Array of parameters
+	 * @param   bool       $enclose  Should subqueries be enclosed in parentheses?
 	 * @return  string
 	 */
-	protected function params($params): string
+	protected function params(array $params, bool $enclose = true): string
 	{
-		return implode(', ', array_map([$this, 'param'], $params));
+		return implode(', ', array_map(function($param) use ($enclose)
+		{
+			return $this->param($param, $enclose);
+		}, $params));
 	}
 
 	/**
@@ -285,9 +279,9 @@ class Compiler
 	 */
 	protected function in(array $where): string
 	{
-		$values = $this->params($where['values']);
+		$values = $this->params($where['values'], false);
 
-		return $this->wrap($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . ($this->isParenthesesEnclosed($values) ? $values : '(' . $values . ')');
+		return $this->wrap($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . '(' . $values . ')';
 	}
 
 	/**

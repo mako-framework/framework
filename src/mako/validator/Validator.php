@@ -93,23 +93,23 @@ class Validator
 	 * Checks that the field isn't empty.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string     $input  Field value
 	 * @return  bool
 	 */
-	protected function validateRequired(string $input): bool
+	protected function validateRequired(string $input = null): bool
 	{
-		return ! in_array($input, ['', null, []], true);
+		return !in_array($input, ['', null, []], true);
 	}
 
 	/**
 	 * Checks that the field value is long enough.
 	 *
 	 * @access  protected
-	 * @param   string     $input      Field value
-	 * @param   int        $minLength  Minimum length
+	 * @param   null|string  $input      Field value
+	 * @param   int          $minLength  Minimum length
 	 * @return  bool
 	 */
-	protected function validateMinLength(string $input, int $minLength): bool
+	protected function validateMinLength(string $input = null, int $minLength): bool
 	{
 		return (mb_strlen($input) >= $minLength);
 	}
@@ -118,11 +118,11 @@ class Validator
 	 * Checks that the field value is short enough.
 	 *
 	 * @access  protected
-	 * @param   string     $input      Field value
-	 * @param   int        $maxLength  Maximum length
+	 * @param   null|string  $input      Field value
+	 * @param   int          $maxLength  Maximum length
 	 * @return  bool
 	 */
-	protected function validateMaxLength(string $input, int $maxLength): bool
+	protected function validateMaxLength(string $input = null, int $maxLength): bool
 	{
 		return (mb_strlen($input) <= $maxLength);
 	}
@@ -131,11 +131,11 @@ class Validator
 	 * Checks that the field value is of the right length.
 	 *
 	 * @access  protected
-	 * @param   string     $input   Field value
-	 * @param   int        $length  Exact length
+	 * @param   null|string  $input   Field value
+	 * @param   int          $length  Exact length
 	 * @return  bool
 	 */
-	protected function validateExactLength(string $input, int $length): bool
+	protected function validateExactLength(string $input = null, int $length): bool
 	{
 		return (mb_strlen($input) === $length);
 	}
@@ -144,11 +144,11 @@ class Validator
 	 * Checks that the field value is less than x.
 	 *
 	 * @access  protected
-	 * @param   string     $input     Field value
-	 * @param   int        $lessThan  Maximum value + 1
+	 * @param   null|string  $input     Field value
+	 * @param   int          $lessThan  Maximum value + 1
 	 * @return  bool
 	 */
-	protected function validateLessThan(string $input, int $lessThan): bool
+	protected function validateLessThan(string $input = null, int $lessThan): bool
 	{
 		return ((int) $input < $lessThan);
 	}
@@ -157,11 +157,11 @@ class Validator
 	 * Checks that the field value is less than or equal to x.
 	 *
 	 * @access  protected
-	 * @param   string     $input              Field value
-	 * @param   int        $lessThanOrEqualTo  Maximum value
+	 * @param   null|string  $input              Field value
+	 * @param   int          $lessThanOrEqualTo  Maximum value
 	 * @return  bool
 	 */
-	protected function validateLessThanOrEqualTo(string $input, int $lessThanOrEqualTo): bool
+	protected function validateLessThanOrEqualTo(string $input = null, int $lessThanOrEqualTo): bool
 	{
 		return ((int) $input <= $lessThanOrEqualTo);
 	}
@@ -170,11 +170,11 @@ class Validator
 	 * Checks that the field value is greater than x.
 	 *
 	 * @access  protected
-	 * @param   string     $input        Field value
-	 * @param   int        $greaterThan  Minimum value - 1
+	 * @param   null|string  $input        Field value
+	 * @param   int          $greaterThan  Minimum value - 1
 	 * @return  bool
 	 */
-	protected function validateGreaterThan(string $input, int $greaterThan): bool
+	protected function validateGreaterThan(string $input = null, int $greaterThan): bool
 	{
 		return ((int) $input > $greaterThan);
 	}
@@ -183,11 +183,11 @@ class Validator
 	 * Checks that the field value is greater than or equal to x.
 	 *
 	 * @access  protected
-	 * @param   string     $input                 Field value
-	 * @param   int        $greaterThanOrEqualTo  Minimum value
+	 * @param   null|string  $input                 Field value
+	 * @param   int          $greaterThanOrEqualTo  Minimum value
 	 * @return  bool
 	 */
-	protected function validateGreaterThanOrEqualTo(string $input, int $greaterThanOrEqualTo): bool
+	protected function validateGreaterThanOrEqualTo(string $input = null, int $greaterThanOrEqualTo): bool
 	{
 		return ((int) $input >= $greaterThanOrEqualTo);
 	}
@@ -196,12 +196,12 @@ class Validator
 	 * Checks that the field value is between x and y.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
-	 * @param   int        $minimum  Minimum value
-	 * @param   int        $maximum  Maximum value
+	 * @param   null|string  $input    Field value
+	 * @param   int          $minimum  Minimum value
+	 * @param   int          $maximum  Maximum value
 	 * @return  bool
 	 */
-	protected function validateBetween(string $input, int $minimum, int $maximum): bool
+	protected function validateBetween(string $input = null, int $minimum, int $maximum): bool
 	{
 		return ((int) $input >= $minimum && (int) $input <= $maximum);
 	}
@@ -210,11 +210,11 @@ class Validator
 	 * Checks that the field value matches the value of another field.
 	 *
 	 * @access  protected
-	 * @param   string     $input      Field value
-	 * @param   string     $fieldName  Field name
+	 * @param   null|string  $input      Field value
+	 * @param   string       $fieldName  Field name
 	 * @return  bool
 	 */
-	protected function validateMatch(string $input, string $fieldName): bool
+	protected function validateMatch(string $input = null, string $fieldName): bool
 	{
 		return ($input === $this->input[$fieldName]);
 	}
@@ -223,11 +223,11 @@ class Validator
 	 * Checks that the field value is different from the value of another field.
 	 *
 	 * @access  protected
-	 * @param   string     $input      Field value
-	 * @param   string     $fieldName  Field name
+	 * @param   null|string  $input      Field value
+	 * @param   string       $fieldName  Field name
 	 * @return  bool
 	 */
-	protected function validateDifferent(string $input, string $fieldName): bool
+	protected function validateDifferent(string $input = null, string $fieldName): bool
 	{
 		return ($input !== $this->input[$fieldName]);
 	}
@@ -236,11 +236,11 @@ class Validator
 	 * Checks that the field value matches a regex pattern.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
-	 * @param   string     $regex  Regex
+	 * @param   null|string  $input  Field value
+	 * @param   string       $regex  Regex
 	 * @return  bool
 	 */
-	protected function validateRegex(string $input, string $regex): bool
+	protected function validateRegex(string $input = null, string $regex): bool
 	{
 		return (bool) preg_match($regex, $input);
 	}
@@ -249,10 +249,10 @@ class Validator
 	 * Checks that the field value is a integer.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateInteger(string $input): bool
+	protected function validateInteger(string $input = null): bool
 	{
 		return (bool) preg_match('/(^(\-?)0$)|(^(\-?)[1-9]\d*$)/', $input);
 	}
@@ -261,10 +261,10 @@ class Validator
 	 * Checks that the field value is a float.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateFloat(string $input): bool
+	protected function validateFloat(string $input = null): bool
 	{
 		return (bool) preg_match('/(^(\-?)0\.\d+$)|(^(\-?)[1-9]\d*\.\d+$)/', $input);
 	}
@@ -273,10 +273,10 @@ class Validator
 	 * Checks that the field value is a natural.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateNatural(string $input): bool
+	protected function validateNatural(string $input = null): bool
 	{
 		return (bool) preg_match('/(^0$)|(^[1-9]\d*$)/', $input);
 	}
@@ -285,10 +285,10 @@ class Validator
 	 * Checks that the field value is a natural non zero.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateNaturalNonZero(string $input): bool
+	protected function validateNaturalNonZero(string $input = null): bool
 	{
 		return (bool) preg_match('/(^[1-9]\d*$)/', $input);
 	}
@@ -297,10 +297,10 @@ class Validator
 	 * Checks that the field value is valid HEX.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateHex(string $input): bool
+	protected function validateHex(string $input = null): bool
 	{
 		return (bool) preg_match('/^[a-f0-9]+$/i', $input);
 	}
@@ -309,10 +309,10 @@ class Validator
 	 * Checks that the field value only contains valid alpha characters.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateAlpha(string $input): bool
+	protected function validateAlpha(string $input = null): bool
 	{
 		return (bool) preg_match('/^[a-z]+$/i', $input);
 	}
@@ -321,10 +321,10 @@ class Validator
 	 * Checks that the field value only contains valid alpha unicode characters.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateAlphaUnicode(string $input): bool
+	protected function validateAlphaUnicode(string $input = null): bool
 	{
 		return (bool) preg_match('/^[\pL]+$/u', $input);
 	}
@@ -333,10 +333,10 @@ class Validator
 	 * Checks that the field value only contains valid alphanumeric characters.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateAlphanumeric(string $input): bool
+	protected function validateAlphanumeric(string $input = null): bool
 	{
 		return (bool) preg_match('/^[a-z0-9]+$/i', $input);
 	}
@@ -345,10 +345,10 @@ class Validator
 	 * Checks that the field value only contains valid alphanumeric unicode characters.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateAlphanumericUnicode(string $input): bool
+	protected function validateAlphanumericUnicode(string $input = null): bool
 	{
 		return (bool) preg_match('/^[\pL0-9]+$/u', $input);
 	}
@@ -357,10 +357,10 @@ class Validator
 	 * Checks that the field value only contains valid alphanumeric, dash and underscore characters.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateAlphaDash(string $input): bool
+	protected function validateAlphaDash(string $input = null): bool
 	{
 		return (bool) preg_match('/^[a-z0-9_-]+$/i', $input);
 	}
@@ -369,10 +369,10 @@ class Validator
 	 * Checks that the field value only contains valid alphanumeric unicode, dash and underscore characters.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateAlphaDashUnicode(string $input): bool
+	protected function validateAlphaDashUnicode(string $input = null): bool
 	{
 		return (bool) preg_match('/^[\pL0-9_-]+$/u', $input);
 	}
@@ -381,10 +381,10 @@ class Validator
 	 * Checks that the field value is a valid email address.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateEmail(string $input): bool
+	protected function validateEmail(string $input = null): bool
 	{
 		return (bool) filter_var($input, FILTER_VALIDATE_EMAIL);
 	}
@@ -393,10 +393,10 @@ class Validator
 	 * Checks that the field value contains a valid MX record.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateEmailDomain(string $input): bool
+	protected function validateEmailDomain(string $input = null): bool
 	{
 		if(empty($input) || strpos($input, '@') === false)
 		{
@@ -412,10 +412,10 @@ class Validator
 	 * Checks that the field value is an IP address.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateIp(string $input): bool
+	protected function validateIp(string $input = null): bool
 	{
 		return (bool) filter_var($input, FILTER_VALIDATE_IP);
 	}
@@ -424,10 +424,10 @@ class Validator
 	 * Checks that the field value is a valid URL.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateUrl(string $input): bool
+	protected function validateUrl(string $input = null): bool
 	{
 		return (bool) filter_var($input, FILTER_VALIDATE_URL);
 	}
@@ -436,11 +436,11 @@ class Validator
 	 * Checks that the field value contains one of the given values.
 	 *
 	 * @access  protected
-	 * @param   string     $input   Field value
-	 * @param   array      $values  Valid values
+	 * @param   null|string  $input   Field value
+	 * @param   array        $values  Valid values
 	 * @return  bool
 	 */
-	protected function validateIn(string $input, array $values): bool
+	protected function validateIn(string $input = null, array $values): bool
 	{
 		return in_array($input, $values);
 	}
@@ -449,24 +449,24 @@ class Validator
 	 * Checks that the field value does not contain one of the given values.
 	 *
 	 * @access  protected
-	 * @param   string     $input   Field value
-	 * @param   array      $values  Invalid values
+	 * @param   null|string  $input   Field value
+	 * @param   array        $values  Invalid values
 	 * @return  bool
 	 */
-	protected function validateNotIn(string $input, array $values): bool
+	protected function validateNotIn(string $input = null, array $values): bool
 	{
-		return ! in_array($input, $values);
+		return !in_array($input, $values);
 	}
 
 	/**
 	 * Checks that the field value is a valid date.
 	 *
 	 * @access  protected
-	 * @param   string     $input   Field value
-	 * @param   string     $format  Date format
+	 * @param   null|string  $input   Field value
+	 * @param   string       $format  Date format
 	 * @return  bool
 	 */
-	protected function validateDate(string $input, string $format): bool
+	protected function validateDate(string $input = null, string $format): bool
 	{
 		return (bool) DateTime::createFromFormat($format, $input);
 	}
@@ -475,12 +475,12 @@ class Validator
 	 * Checks that the field value is a valid date before the provided date.
 	 *
 	 * @access  protected
-	 * @param   string     $input   Field valies
-	 * @param   string     $format  Date format
-	 * @param   string     $date    Date
+	 * @param   null|string  $input   Field valies
+	 * @param   string       $format  Date format
+	 * @param   string       $date    Date
 	 * @return  bool
 	 */
-	protected function validateBefore(string $input, string $format, string $date): bool
+	protected function validateBefore(string $input = null, string $format, string $date): bool
 	{
 		if(($input = DateTime::createFromFormat($format, $input)) === false)
 		{
@@ -494,12 +494,12 @@ class Validator
 	 * Checks that the field value is a valid date after the provided date.
 	 *
 	 * @access  protected
-	 * @param   string     $input   Field valies
-	 * @param   string     $format  Date format
-	 * @param   string     $date    Date
+	 * @param   null|string  $input   Field valies
+	 * @param   string       $format  Date format
+	 * @param   string       $date    Date
 	 * @return  bool
 	 */
-	protected function validateAfter(string $input, string $format, string $date): bool
+	protected function validateAfter(string $input = null, string $format, string $date): bool
 	{
 		if(($input = DateTime::createFromFormat($format, $input)) === false)
 		{
@@ -513,10 +513,10 @@ class Validator
 	 * Checks that the field value is a valid UUID.
 	 *
 	 * @access  protected
-	 * @param   string     $input  Field value
+	 * @param   null|string  $input  Field value
 	 * @return  bool
 	 */
-	protected function validateUuid(string $input): bool
+	protected function validateUuid(string $input = null): bool
 	{
 		return UUID::validate($input);
 	}
@@ -572,13 +572,13 @@ class Validator
 	 * Returns the error message.
 	 *
 	 * @access  protected
-	 * @param   string     $field       Field name
-	 * @param   string     $package     Package name
-	 * @param   string     $validator   Validator name
-	 * @param   array      $parameters  Validator parameters
+	 * @param   string       $field       Field name
+	 * @param   string       $validator   Validator name
+	 * @param   array        $parameters  Validator parameters
+	 * @param   null|string  $package     Package name
 	 * @return  string
 	 */
-	protected function getErrorMessage(string $field, string $package, string $validator, array $parameters): string
+	protected function getErrorMessage(string $field, string $validator, array $parameters, string $package = null): string
 	{
 		$package = empty($package) ? '' : $package . '::';
 
@@ -631,7 +631,7 @@ class Validator
 	 * @param   array      $validator  Validator
 	 * @return  bool
 	 */
-	public function validate(string $field, array $validator): bool
+	protected function validate(string $field, array $validator): bool
 	{
 		$parameters = array_merge([$this->input[$field]], $validator['parameters']);
 
@@ -667,7 +667,7 @@ class Validator
 			{
 				if($this->validate($field, $validator) === false)
 				{
-					$this->errors[$field] = $this->getErrorMessage($field, $validator['package'], $validator['name'], $validator['parameters']);
+					$this->errors[$field] = $this->getErrorMessage($field, $validator['name'], $validator['parameters'], $validator['package']);
 
 					break;
 				}
@@ -704,7 +704,7 @@ class Validator
 
 		$errors = $this->errors;
 
-		return ! empty($this->errors);
+		return !empty($this->errors);
 	}
 
 	/**

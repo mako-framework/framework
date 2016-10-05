@@ -70,13 +70,14 @@ class Subquery
 	 * Returns the compiled query.
 	 *
 	 * @access  public
+	 * @param   bool    $enclose  Should the query be enclosed in parentheses?
 	 * @return  array
 	 */
-	public function get(): array
+	public function get(bool $enclose = true): array
 	{
 		$query = $this->query->getCompiler()->select();
 
-		$query['sql'] = '(' . $query['sql'] . ')';
+		$query['sql'] = $enclose ? '(' . $query['sql'] . ')' : $query['sql'];
 
 		if($this->alias !== null)
 		{
