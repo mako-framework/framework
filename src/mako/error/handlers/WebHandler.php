@@ -144,11 +144,10 @@ class WebHandler extends Handler
 	 * Fixes the argument data and optionally ads source to each frame.
 	 *
 	 * @access  protected
-	 * @param   array      $trace      Exception trace
-	 * @param   bool       $addSource  Add source code to each frame?
+	 * @param   array      $trace  Exception trace
 	 * @return  array
 	 */
-	protected function modifyTrace(array $trace, bool $addSource = true): array
+	protected function modifyTrace(array $trace): array
 	{
 		foreach($trace as $frameKey => $frame)
 		{
@@ -168,7 +167,7 @@ class WebHandler extends Handler
 
 			// Add source to the frame
 
-			if($addSource && !empty($frame['file']) && !empty($frame['line']))
+			if(!empty($frame['file']) && !empty($frame['line']))
 			{
 				$trace[$frameKey]['source']         = $this->getFrameSource($frame['file'], $frame['line']);
 				$trace[$frameKey]['source_padding'] = static::SOURCE_PADDING;
@@ -187,36 +186,39 @@ class WebHandler extends Handler
 	 */
 	protected function getDetailedError(bool $returnAsJson): string
 	{
-		$trace = $this->exception->getTrace();
-
-		// Remove call to error handler from trace
-
-		if($this->exception instanceof ErrorException)
-		{
-			$trace = array_slice($trace, 1);
-		}
-
-		// Add missing data to frame
-
-		$trace[0]['file'] = $this->exception->getFile();
-		$trace[0]['line'] = $this->exception->getLine();
-
-		// Return the error details
-
 		$data =
 		[
 			'type'    => $this->determineExceptionType($this->exception),
 			'code'    => $this->exception->getCode(),
 			'message' => $this->exception->getMessage(),
-			'trace'   => $this->modifyTrace($trace, !$returnAsJson),
 		];
 
 		if($returnAsJson)
 		{
+			$data['trace'] = explode("\n", $this->exception->getTraceAsString());
+
 			return json_encode($data);
 		}
 		else
 		{
+			$trace = $this->exception->getTrace();
+
+			// Remove call to error handler from trace
+
+			if($this->exception instanceof ErrorException)
+			{
+				$trace = array_slice($trace, 1);
+			}
+
+			// Add missing data to frame
+
+			$trace[0]['file'] = $this->exception->getFile();
+			$trace[0]['line'] = $this->exception->getLine();
+
+			$data['trace'] = $this->modifyTrace($trace);
+
+			// Add superglobals
+
 			$superGlobals =
 			[
 				'COOKIE'  => &$_COOKIE,
@@ -227,6 +229,8 @@ class WebHandler extends Handler
 				'SERVER'  => &$_SERVER,
 				'SESSION' => &$_SESSION,
 			];
+
+			// Return detailed error view
 
 			return $this->view->render('mako-error::detailed', $data + ['superglobals' => $superGlobals, 'included_files' => get_included_files()]);
 		}
@@ -285,7 +289,7 @@ class WebHandler extends Handler
 	{
 		$this->response->clear()->disableCaching()->disableCompression();
 
-		// Should we return JSON or HTML?
+		// Set appropriate content type header
 
 		if(($returnAsJson = $this->returnAsJson()) === true)
 		{
