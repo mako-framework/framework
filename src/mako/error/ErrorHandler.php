@@ -57,7 +57,7 @@ class ErrorHandler
 	{
 		// Add a basic exception handler to the stack
 
-		$this->handle('\Throwable', function($e)
+		$this->handle(Throwable::class, function($e)
 		{
 			echo '[ ' . get_class($e) . '] ' . $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]';
 

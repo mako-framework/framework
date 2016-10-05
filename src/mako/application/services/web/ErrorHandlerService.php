@@ -7,6 +7,8 @@
 
 namespace mako\application\services\web;
 
+use Throwable;
+
 use mako\application\services\Service;
 use mako\error\ErrorHandler;
 use mako\error\handlers\WebHandler;
@@ -41,7 +43,7 @@ class ErrorHandlerService extends Service
 
 		$displayErrors = $this->container->get('config')->get('application.error_handler.display_errors');
 
-		$errorHandler->handle('\Throwable', function($exception) use ($errorHandler, $displayErrors)
+		$errorHandler->handle(Throwable::class, function($exception) use ($errorHandler, $displayErrors)
 		{
 			$this->setLogger($errorHandler);
 
