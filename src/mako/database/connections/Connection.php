@@ -577,7 +577,12 @@ class Connection
 
 		$this->execute($prepared);
 
-		return $prepared['statement']->fetch(...$fetchMode);
+		if(!empty($fetchMode))
+		{
+			$prepared['statement']->setFetchMode(...$fetchMode);
+		}
+
+		return $prepared['statement']->fetch();
 	}
 
 	/**

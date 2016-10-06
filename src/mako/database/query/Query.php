@@ -1116,6 +1116,18 @@ class Query
 	}
 
 	/**
+	 * Creates a result set.
+	 *
+	 * @access  protected
+	 * @param   array                           $results  Results
+	 * @return  \mako\database\query\ResultSet
+	 */
+	protected function createResultSet(array $results)
+	{
+		return new ResultSet($results);
+	}
+
+	/**
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
 	 *
 	 * @access  public
@@ -1129,7 +1141,7 @@ class Query
 
 		$results = $this->connection->all($query['sql'], $query['params'], ...$fetchMode);
 
-		return $returnResultSet ? new ResultSet($results) : $results;
+		return $returnResultSet ? $this->createResultSet($results) : $results;
 	}
 
 	/**
@@ -1144,7 +1156,7 @@ class Query
 	}
 
 	/**
-	 * Returns the number of records the query will return.
+	 * Returns the number of records that the query will return.
 	 *
 	 * @access  protected
 	 * @return  int
@@ -1169,9 +1181,18 @@ class Query
 	 */
 	public function paginate($itemsPerPage = null, array $options = [])
 	{
-		$pagination = static::getPaginationFactory()->create($this->paginationCount(), $itemsPerPage, $options);
+		$count = $this->paginationCount();
 
-		$results = $this->limit($pagination->limit())->offset($pagination->offset())->all();
+		$pagination = static::getPaginationFactory()->create($count, $itemsPerPage, $options);
+
+		if($count > 0)
+		{
+			$results = $this->limit($pagination->limit())->offset($pagination->offset())->all();
+		}
+		else
+		{
+			$results = $this->createResultSet([]);
+		}
 
 		$results->setPagination($pagination);
 

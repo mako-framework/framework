@@ -407,6 +407,18 @@ class Query extends QueryBuilder
 	}
 
 	/**
+	 * Creates a result set.
+	 *
+	 * @access  protected
+	 * @param   array                             $results  Results
+	 * @return  \mako\database\midgard\ResultSet
+	 */
+	protected function createResultSet(array $results)
+	{
+		return new ResultSet($results);
+	}
+
+	/**
 	 * Returns a result set from the database.
 	 *
 	 * @access  public
@@ -421,7 +433,7 @@ class Query extends QueryBuilder
 			$results = $this->hydrateModelsAndLoadIncludes($results);
 		}
 
-		return new ResultSet($results);
+		return $this->createResultSet($results);
 	}
 
 	/**

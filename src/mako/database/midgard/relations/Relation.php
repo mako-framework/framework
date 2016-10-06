@@ -148,7 +148,7 @@ abstract class Relation extends Query
 				$records = array_merge($records, $query->eagerCriterion($chunk)->all()->getItems());
 			}
 
-			return new ResultSet($records);
+			return $this->createResultSet($records);
 		}
 
 		return $this->eagerCriterion($keys)->all();
