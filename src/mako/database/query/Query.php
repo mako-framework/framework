@@ -1119,9 +1119,9 @@ class Query
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
 	 *
 	 * @access  public
-	 * @param   bool    $returnResultSet  Return result set?
-	 * @param   mixed   ...$fetchMode     Fetch mode
-	 * @return  array
+	 * @param   bool                                  $returnResultSet  Return result set?
+	 * @param   mixed                                 ...$fetchMode     Fetch mode
+	 * @return  array|\mako\database\query\ResultSet
 	 */
 	protected function fetchAll($returnResultSet, ...$fetchMode)
 	{
