@@ -1268,6 +1268,21 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testCountDistinctAggregateWithMultipleColumns()
+	{
+		$query = $this->getBuilder();
+
+		$query->countDistinct(['foo', 'bar']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT COUNT(DISTINCT "foo", "bar") FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testAvgAggregate()
 	{
 		$query = $this->getBuilder();
