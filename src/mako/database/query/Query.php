@@ -848,12 +848,7 @@ class Query
 	 */
 	public function groupBy($columns)
 	{
-		if(!is_array($columns))
-		{
-			$columns = [$columns];
-		}
-
-		$this->groupings = $columns;
+		$this->groupings = is_array($columns) ? $columns : [$columns];
 
 		return $this;
 	}
@@ -934,14 +929,9 @@ class Query
 	 */
 	public function orderBy($columns, $order = 'ASC')
 	{
-		if(!is_array($columns))
-		{
-			$columns = [$columns];
-		}
-
 		$this->orderings[] =
 		[
-			'column' => $columns,
+			'column' => is_array($columns) ? $columns : [$columns],
 			'order'  => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
 		];
 
@@ -1161,7 +1151,7 @@ class Query
 	 */
 	protected function paginationCount(): int
 	{
-		if(empty($this->groupings))
+		if(empty($this->groupings) && $this->distinct === false)
 		{
 			return (clone $this)->clearOrdering()->count();
 		}
@@ -1232,13 +1222,13 @@ class Query
 	 * Executes an aggregate query and returns the result.
 	 *
 	 * @access  public
-	 * @param   string  $function  Aggregate function
-	 * @param   string  $column    Column
+	 * @param   string        $function  Aggregate function
+	 * @param   string|array  $column    Column name or array of column names
 	 * @return  mixed
 	 */
 	protected function aggregate($function, $column)
 	{
-		$aggregate = new Raw(sprintf($function, $this->compiler->wrap($column)));
+		$aggregate = new Raw(sprintf($function, $this->compiler->columns(is_array($column) ? $column : [$column])));
 
 		$query = $this->select([$aggregate])->compiler->select();
 
@@ -1309,7 +1299,7 @@ class Query
 	 * Returns the number of distinct values of the chosen column.
 	 *
 	 * @access  public
-	 * @param   string  $column  Column name
+	 * @param   string|array  $column  Column name or array of column names
 	 * @return  int
 	 */
 	public function countDistinct($column)

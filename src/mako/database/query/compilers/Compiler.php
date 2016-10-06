@@ -189,11 +189,11 @@ class Compiler
 	/**
 	 * Returns a comma-separated list of columns.
 	 *
-	 * @access  protected
+	 * @access  public
 	 * @param   array      $columns  Array of columns
 	 * @return  string
 	 */
-	protected function columns(array $columns): string
+	public function columns(array $columns): string
 	{
 		return implode(', ', array_map([$this, 'wrap'], $columns));
 	}
