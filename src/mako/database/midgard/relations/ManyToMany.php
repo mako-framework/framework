@@ -53,6 +53,8 @@ class ManyToMany extends Relation
 		parent::__construct($connection, $parent, $related, $foreignKey);
 
 		$this->junctionJoin();
+
+		$this->columns = [$this->model->getTable() . '.*'];
 	}
 
 	/**
@@ -161,65 +163,18 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * Adjusts the column selection.
+	 * Adjusts the query.
 	 *
 	 * @access  protected
-	 * @param   array      $columns    Columns
-	 * @param   bool       $forceLazy  Force lazy loading?
-	 * @return  array
 	 */
-	protected function adjustSelection(array $columns, bool $forceLazy = false)
+	protected function adjustQuery()
 	{
-		if($columns === ['*'])
+		if(!$this->lazy)
 		{
-			$columns = [$this->model->getTable() . '.*'];
+			$this->columns = array_merge($this->columns, [$this->getJunctionTable() . '.' . $this->getForeignKey()]);
 		}
 
-		if($forceLazy === false && !$this->lazy)
-		{
-			$columns = array_merge($columns, [$this->getJunctionTable() . '.' . $this->getForeignKey()]);
-		}
-
-		return $columns;
-	}
-
-	/**
-	 * Returns a single record from the database.
-	 *
-	 * @access  public
-	 * @return  \mako\database\midgard\ORM
-	 */
-	public function first()
-	{
-		$this->columns = $this->adjustSelection($this->columns);
-
-		return parent::first();
-	}
-
-	/**
-	 * Returns a result set from the database.
-	 *
-	 * @access  public
-	 * @return  \mako\database\midgard\ResultSet
-	 */
-	public function all()
-	{
-		$this->columns = $this->adjustSelection($this->columns);
-
-		return parent::all();
-	}
-
-	/**
-	 * Returns a generator that lets you iterate over the results.
-	 *
-	 * @access  public
-	 * @return  \Generator
-	 */
-	public function yield()
-	{
-		$this->columns = $this->adjustSelection($this->columns, true);
-
-		yield from parent::yield();
+		parent::adjustQuery();
 	}
 
 	/**

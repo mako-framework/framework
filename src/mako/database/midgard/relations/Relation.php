@@ -155,6 +155,19 @@ abstract class Relation extends Query
 	}
 
 	/**
+	 * Adjusts the query.
+	 *
+	 * @access  protected
+	 */
+	protected function adjustQuery()
+	{
+		if(!$this->lazy)
+		{
+			array_shift($this->wheres);
+		}
+	}
+
+	/**
 	 * Returns a single record from the database.
 	 *
 	 * @access  public
@@ -162,10 +175,7 @@ abstract class Relation extends Query
 	 */
 	public function first()
 	{
-		if(!$this->lazy)
-		{
-			array_shift($this->wheres);
-		}
+		$this->adjustQuery();
 
 		return parent::first();
 	}
@@ -178,10 +188,7 @@ abstract class Relation extends Query
 	 */
 	public function all()
 	{
-		if(!$this->lazy)
-		{
-			array_shift($this->wheres);
-		}
+		$this->adjustQuery();
 
 		return parent::all();
 	}
