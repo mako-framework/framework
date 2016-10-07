@@ -64,6 +64,12 @@ class ManyToManyTest extends \ORMTestCase
 		$this->assertEquals('admin', $groups[0]->name);
 
 		$this->assertEquals('user', $groups[1]->name);
+
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -87,6 +93,12 @@ class ManyToManyTest extends \ORMTestCase
 		}
 
 		$this->assertEquals(2, $count);
+
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -108,6 +120,12 @@ class ManyToManyTest extends \ORMTestCase
 		}
 
 		$this->assertEquals('foo', $users[0]->username);
+
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+
+		$this->assertEquals('SELECT * FROM "groups" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT "users".* FROM "users" INNER JOIN "groups_users" ON "groups_users"."user_id" = "users"."id" WHERE "groups_users"."group_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -115,8 +133,6 @@ class ManyToManyTest extends \ORMTestCase
 	 */
 	public function testLazyHasManyRelation()
 	{
-		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
-
 		$users = ManyToManyUser::ascending('id')->all();
 
 		foreach($users as $user)
@@ -129,9 +145,15 @@ class ManyToManyTest extends \ORMTestCase
 			}
 		}
 
-		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+		$this->assertEquals(4, count($this->connectionManager->connection('sqlite')->getLog()));
 
-		$this->assertEquals(4, $queryCountAfter - $queryCountBefore);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+
+		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'2\'', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
+
+		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'3\'', $this->connectionManager->connection('sqlite')->getLog()[3]['query']);
 	}
 
 	/**
@@ -139,8 +161,6 @@ class ManyToManyTest extends \ORMTestCase
 	 */
 	public function testEagerHasManyRelation()
 	{
-		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
-
 		$users = ManyToManyUser::including('groups')->ascending('id')->all();
 
 		foreach($users as $user)
@@ -153,9 +173,11 @@ class ManyToManyTest extends \ORMTestCase
 			}
 		}
 
-		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
 
-		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT "groups".*, "groups_users"."user_id" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -163,8 +185,6 @@ class ManyToManyTest extends \ORMTestCase
 	 */
 	public function testEagerHasManyRelationWithConstraint()
 	{
-		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
-
 		$users = ManyToManyUser::including(['groups' => function($query)
 		{
 			$query->where('name', '=', 'does not exist');
@@ -177,9 +197,11 @@ class ManyToManyTest extends \ORMTestCase
 			$this->assertEquals(0, count($user->groups));
 		}
 
-		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
 
-		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT "groups".*, "groups_users"."user_id" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "name" = \'does not exist\' AND "groups_users"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**

@@ -347,6 +347,16 @@ class Connection
 	}
 
 	/**
+	 * Clears the query log.
+	 *
+	 * @access  public
+	 */
+	public function clearLog()
+	{
+		$this->log = [];
+	}
+
+	/**
 	 * Returns the query log for the connection.
 	 *
 	 * @access  public

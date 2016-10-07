@@ -218,6 +218,19 @@ class ConnectionManager extends BaseConnectionManager
 	}
 
 	/**
+	 * Clears the query log of every connection.
+	 *
+	 * @access  public
+	 */
+	public function clearLogs()
+	{
+		foreach($this->connections as $connection)
+		{
+			$connection->clearLog();
+		}
+	}
+
+	/**
 	 * Returns the query log for all connections.
 	 *
 	 * @access  public

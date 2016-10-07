@@ -50,6 +50,12 @@ class HasOneTest extends \ORMTestCase
 		$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasOneProfile', $profile);
 
 		$this->assertEquals($user->id, $profile->user_id);
+
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "user_id" = \'1\' LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -75,6 +81,12 @@ class HasOneTest extends \ORMTestCase
 		}
 
 		$this->assertEquals(1, $count);
+
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -82,8 +94,6 @@ class HasOneTest extends \ORMTestCase
 	 */
 	public function testLazyHasOneRelation()
 	{
-		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
-
 		$users = HasOneUser::ascending('id')->all();
 
 		foreach($users as $user)
@@ -93,9 +103,15 @@ class HasOneTest extends \ORMTestCase
 			$this->assertEquals($user->id, $user->profile->user_id);
 		}
 
-		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+		$this->assertEquals(4, count($this->connectionManager->connection('sqlite')->getLog()));
 
-		$this->assertEquals(4, $queryCountAfter - $queryCountBefore);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "user_id" = \'1\' LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "user_id" = \'2\' LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
+
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "user_id" = \'3\' LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[3]['query']);
 	}
 
 	/**
@@ -103,8 +119,6 @@ class HasOneTest extends \ORMTestCase
 	 */
 	public function testEagerHasOneRelation()
 	{
-		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
-
 		$users = HasOneUser::including('profile')->ascending('id')->all();
 
 		foreach($users as $user)
@@ -114,9 +128,11 @@ class HasOneTest extends \ORMTestCase
 			$this->assertEquals($user->id, $user->profile->user_id);
 		}
 
-		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
 
-		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -124,8 +140,6 @@ class HasOneTest extends \ORMTestCase
 	 */
 	public function testEagerHasOneRelationWithConstraint()
 	{
-		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
-
 		$users = HasOneUser::including(['profile' => function($query)
 		{
 			$query->where('interests', '=', 'does not exist');
@@ -136,9 +150,11 @@ class HasOneTest extends \ORMTestCase
 			$this->assertFalse($user->profile);
 		}
 
-		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
 
-		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "interests" = \'does not exist\' AND "user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -167,5 +183,11 @@ class HasOneTest extends \ORMTestCase
 		$profile->delete();
 
 		$user->delete();
+
+		$this->assertEquals(4, count($this->connectionManager->connection('sqlite')->getLog()));
+
+		$this->assertEquals('INSERT INTO "users" ("created_at", "username", "email") VALUES (\'2014-04-30 14:12:43\', \'bax\', \'bax@example.org\')', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('INSERT INTO "profiles" ("interests", "user_id") VALUES (\'gaming\', \'4\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 }

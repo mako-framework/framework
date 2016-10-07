@@ -45,8 +45,6 @@ class AutoEagerLoadingTest extends \ORMTestCase
 	 */
 	public function testAutoEagerLoading()
 	{
-		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
-
 		$users = AutoEagerLoadingUser::ascending('id')->all();
 
 		foreach($users as $user)
@@ -61,9 +59,11 @@ class AutoEagerLoadingTest extends \ORMTestCase
 			}
 		}
 
-		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
 
-		$this->assertEquals(2, $queryCountAfter - $queryCountBefore);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "articles" WHERE "autoeagerloadinguser_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -71,8 +71,6 @@ class AutoEagerLoadingTest extends \ORMTestCase
 	 */
 	public function testDisableAutoEagerLoading()
 	{
-		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
-
 		$users = AutoEagerLoadingUser::excluding('articles')->ascending('id')->all();
 
 		foreach($users as $user)
@@ -87,8 +85,14 @@ class AutoEagerLoadingTest extends \ORMTestCase
 			}
 		}
 
-		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+		$this->assertEquals(4, count($this->connectionManager->connection('sqlite')->getLog()));
 
-		$this->assertEquals(4, $queryCountAfter - $queryCountBefore);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "articles" WHERE "autoeagerloadinguser_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+
+		$this->assertEquals('SELECT * FROM "articles" WHERE "autoeagerloadinguser_id" = \'2\'', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
+
+		$this->assertEquals('SELECT * FROM "articles" WHERE "autoeagerloadinguser_id" = \'3\'', $this->connectionManager->connection('sqlite')->getLog()[3]['query']);
 	}
 }

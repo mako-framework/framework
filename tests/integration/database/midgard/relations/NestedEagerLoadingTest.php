@@ -53,8 +53,6 @@ class NestedEagerLoadingTest extends \ORMTestCase
 	 */
 	public function testNestedEagerLoading()
 	{
-		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
-
 		$users = NestedEagerLoadingUser::including(['articles', 'articles.comments'])->ascending('id')->all();
 
 		foreach($users as $user)
@@ -78,9 +76,13 @@ class NestedEagerLoadingTest extends \ORMTestCase
 			}
 		}
 
-		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+		$this->assertEquals(3, count($this->connectionManager->connection('sqlite')->getLog()));
 
-		$this->assertEquals(3, $queryCountAfter - $queryCountBefore);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "articles" WHERE "user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+
+		$this->assertEquals('SELECT * FROM "article_comments" WHERE "article_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
 	}
 
 	/**
@@ -88,8 +90,6 @@ class NestedEagerLoadingTest extends \ORMTestCase
 	 */
 	public function testNestedEagerLoadingWithConstraints()
 	{
-		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
-
 		$users = NestedEagerLoadingUser::including(['articles', 'articles.comments' => function($query)
 		{
 			$query->where('comment', '=', 'does not exist');
@@ -111,8 +111,12 @@ class NestedEagerLoadingTest extends \ORMTestCase
 			}
 		}
 
-		$queryCountAfter = count($this->connectionManager->connection('sqlite')->getLog());
+		$this->assertEquals(3, count($this->connectionManager->connection('sqlite')->getLog()));
 
-		$this->assertEquals(3, $queryCountAfter - $queryCountBefore);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "articles" WHERE "user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+
+		$this->assertEquals('SELECT * FROM "article_comments" WHERE "comment" = \'does not exist\' AND "article_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
 	}
 }

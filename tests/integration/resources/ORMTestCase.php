@@ -30,4 +30,12 @@ abstract class ORMTestCase extends BuilderTestCase
 
 		TestOrm::setConnectionManager($this->connectionManager);
 	}
+
+	/**
+	 *
+	 */
+	public function tearDown()
+	{
+		$this->connectionManager->connection('sqlite')->clearLog();
+	}
 }
