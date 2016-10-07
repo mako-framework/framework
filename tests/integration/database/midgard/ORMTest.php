@@ -107,11 +107,36 @@ class ORMTest extends \ORMTestCase
 	/**
 	 *
 	 */
+	public function testFirst()
+	{
+		$users = TestUser::first();
+
+		$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $users);
+	}
+
+	/**
+	 *
+	 */
 	public function testAll()
 	{
 		$users = TestUser::all();
 
 		$this->assertInstanceOf('\mako\database\midgard\ResultSet', $users);
+
+		foreach($users as $user)
+		{
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $user);
+		}
+	}
+
+	/**
+	 *
+	 */
+	public function testYield()
+	{
+		$users = TestUser::yield();
+
+		$this->assertInstanceOf('Generator', $users);
 
 		foreach($users as $user)
 		{

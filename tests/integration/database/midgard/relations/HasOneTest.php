@@ -55,6 +55,31 @@ class HasOneTest extends \ORMTestCase
 	/**
 	 *
 	 */
+	public function testBelongsToYield()
+	{
+		$user = HasOneUser::get(1);
+
+		$generator = $user->profile()->yield();
+
+		$this->assertInstanceOf('Generator', $generator);
+
+		$count = 0;
+
+		foreach($generator as $profile)
+		{
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasOneProfile', $profile);
+
+			$this->assertEquals($user->id, $profile->user_id);
+
+			$count++;
+		}
+
+		$this->assertEquals(1, $count);
+	}
+
+	/**
+	 *
+	 */
 	public function testLazyHasOneRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());

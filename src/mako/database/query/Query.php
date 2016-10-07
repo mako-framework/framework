@@ -1156,6 +1156,31 @@ class Query
 	}
 
 	/**
+	 * Executes a SELECT query and returns a generator that lets you iterate over the results.
+	 *
+	 * @access  protected
+	 * @param   mixed      ...$fetchMode  Fetch mode
+	 * @return  \Generator
+	 */
+	protected function fetchYield(...$fetchMode)
+	{
+		$query = $this->compiler->select();
+
+		yield from $this->connection->yield($query['sql'], $query['params'], ...$fetchMode);
+	}
+
+	/**
+	 * Executes a SELECT query and returns a generator that lets you iterate over the results.
+	 *
+	 * @access  public
+	 * @return  \Generator
+	 */
+	public function yield()
+	{
+		yield from $this->fetchYield(PDO::FETCH_CLASS, Result::class);
+	}
+
+	/**
 	 * Returns the number of records that the query will return.
 	 *
 	 * @access  protected

@@ -164,17 +164,18 @@ class ManyToMany extends Relation
 	 * Adjusts the column selection.
 	 *
 	 * @access  protected
-	 * @param   array      $columns  Columns
+	 * @param   array      $columns    Columns
+	 * @param   bool       $forceLazy  Force lazy loading?
 	 * @return  array
 	 */
-	protected function adjustSelection(array $columns)
+	protected function adjustSelection(array $columns, bool $forceLazy = false)
 	{
 		if($columns === ['*'])
 		{
 			$columns = [$this->model->getTable() . '.*'];
 		}
 
-		if(!$this->lazy)
+		if($forceLazy === false && !$this->lazy)
 		{
 			$columns = array_merge($columns, [$this->getJunctionTable() . '.' . $this->getForeignKey()]);
 		}
@@ -206,6 +207,19 @@ class ManyToMany extends Relation
 		$this->columns = $this->adjustSelection($this->columns);
 
 		return parent::all();
+	}
+
+	/**
+	 * Returns a generator that lets you iterate over the results.
+	 *
+	 * @access  public
+	 * @return  \Generator
+	 */
+	public function yield()
+	{
+		$this->columns = $this->adjustSelection($this->columns, true);
+
+		yield from parent::yield();
 	}
 
 	/**

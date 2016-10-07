@@ -55,6 +55,31 @@ class BelongsToTest extends \ORMTestCase
 	/**
 	 *
 	 */
+	public function testBelongsToYield()
+	{
+		$profile = BelongsToProfile::get(1);
+
+		$generator = $profile->user()->yield();
+
+		$this->assertInstanceOf('Generator', $generator);
+
+		$count = 0;
+
+		foreach($generator as $user)
+		{
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\BelongsToUser', $user);
+
+			$this->assertEquals($user->id, $profile->user_id);
+
+			$count++;
+		}
+
+		$this->assertEquals(1, $count);
+	}
+
+	/**
+	 *
+	 */
 	public function testLazyBelongsToRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());

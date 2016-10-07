@@ -34,6 +34,8 @@ class BaseCompilerTest extends BuilderTestCase
 		$this->assertInstanceOf('mako\database\query\ResultSet', $results);
 
 		$this->assertInstanceOf('mako\database\query\Result', $results[0]);
+
+		$this->assertEquals('SELECT * FROM "users"', $this->connectionManager->connection()->getLog()[0]['query']);
 	}
 
 	/**
@@ -46,6 +48,27 @@ class BaseCompilerTest extends BuilderTestCase
 		$result = $query->table('users')->first();
 
 		$this->assertInstanceOf('mako\database\query\Result', $result);
+
+		$this->assertEquals('SELECT * FROM "users" LIMIT 1', $this->connectionManager->connection()->getLog()[0]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testYieldReturnType()
+	{
+		$query = new Query($this->connectionManager->connection());
+
+		$results = $query->table('users')->yield();
+
+		$this->assertInstanceOf('Generator', $results);
+
+		foreach($results as $result)
+		{
+			$this->assertInstanceOf('mako\database\query\Result', $result);
+		}
+
+		$this->assertEquals('SELECT * FROM "users"', $this->connectionManager->connection()->getLog()[0]['query']);
 	}
 
 	/**

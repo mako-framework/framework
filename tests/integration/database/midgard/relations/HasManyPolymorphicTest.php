@@ -64,6 +64,27 @@ class HasManyPolymorphicTest extends \ORMTestCase
 	/**
 	 *
 	 */
+	public function testHasManyYield()
+	{
+		$article = HasManyPolymorphicArticle::get(1);
+
+		$generator = $article->comments()->yield();
+
+		$this->assertInstanceOf('Generator', $generator);
+
+		foreach($generator as $comment)
+		{
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyPolymorphicComment', $comment);
+
+			$this->assertEquals($comment->commentable_type, $article->getClass());
+
+			$this->assertEquals($comment->commentable_id, $article->id);
+		}
+	}
+
+	/**
+	 *
+	 */
 	public function testLazyHasManyRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());

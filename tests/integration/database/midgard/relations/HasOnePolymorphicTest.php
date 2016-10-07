@@ -57,6 +57,33 @@ class HasOnePolymorphicTest extends \ORMTestCase
 	/**
 	 *
 	 */
+	public function testHasOneYield()
+	{
+		$profile = HasOnePolymorphicProfile::get(1);
+
+		$generator = $profile->image()->yield();
+
+		$this->assertInstanceOf('Generator', $generator);
+
+		$count = 0;
+
+		foreach($generator as $image)
+		{
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasOnePolymorphicImage', $image);
+
+			$this->assertEquals($profile->getClass(), $image->imageable_type);
+
+			$this->assertEquals($profile->id, $image->imageable_id);
+
+			$count++;
+		}
+
+		$this->assertEquals(1, $count);
+	}
+
+	/**
+	 *
+	 */
 	public function testLazyHasOneRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());

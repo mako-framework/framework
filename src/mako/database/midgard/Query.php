@@ -437,6 +437,20 @@ class Query extends QueryBuilder
 	}
 
 	/**
+	 * Returns a generator that lets you iterate over the results.
+	 *
+	 * @access  public
+	 * @return  \Generator
+	 */
+	public function yield()
+	{
+		foreach($this->fetchYield(PDO::FETCH_ASSOC) as $row)
+		{
+			yield $this->hydrateModel($row);
+		}
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null)

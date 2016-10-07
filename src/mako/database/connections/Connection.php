@@ -8,6 +8,7 @@
 namespace mako\database\connections;
 
 use Closure;
+use Generator;
 use PDO;
 use PDOException;
 use PDOStatement;
@@ -545,47 +546,6 @@ class Connection
 	}
 
 	/**
-	 * Returns an array containing all of the result set rows.
-	 *
-	 * @access  public
-	 * @param   string    $query         SQL query
-	 * @param   array     $params        Query parameters
-	 * @param   mixed     ...$fetchMode  Fetch mode
-	 * @return  array
-	 */
-	public function all(string $query, array $params = [], ...$fetchMode): array
-	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
-
-		return $prepared['statement']->fetchAll(...$fetchMode);
-	}
-
-	/**
-	 * Returns the first row of the result set.
-	 *
-	 * @access  public
-	 * @param   string    $query         SQL query
-	 * @param   array     $params        Query params
-	 * @param   mixed     ...$fetchMode  Fetch mode
-	 * @return  mixed
-	 */
-	public function first(string $query, array $params = [], ...$fetchMode)
-	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
-
-		if(!empty($fetchMode))
-		{
-			$prepared['statement']->setFetchMode(...$fetchMode);
-		}
-
-		return $prepared['statement']->fetch();
-	}
-
-	/**
 	 * Returns the value of the first column of the first row of the result set.
 	 *
 	 * @access  public
@@ -613,6 +573,80 @@ class Connection
 	public function columns(string $query, array $params = []): array
 	{
 		return $this->all($query, $params, PDO::FETCH_COLUMN);
+	}
+
+	/**
+	 * Returns the first row of the result set.
+	 *
+	 * @access  public
+	 * @param   string    $query         SQL query
+	 * @param   array     $params        Query params
+	 * @param   mixed     ...$fetchMode  Fetch mode
+	 * @return  mixed
+	 */
+	public function first(string $query, array $params = [], ...$fetchMode)
+	{
+		$prepared = $this->prepare($query, $params);
+
+		$this->execute($prepared);
+
+		if(!empty($fetchMode))
+		{
+			$prepared['statement']->setFetchMode(...$fetchMode);
+		}
+
+		return $prepared['statement']->fetch();
+	}
+
+	/**
+	 * Returns an array containing all of the result set rows.
+	 *
+	 * @access  public
+	 * @param   string    $query         SQL query
+	 * @param   array     $params        Query parameters
+	 * @param   mixed     ...$fetchMode  Fetch mode
+	 * @return  array
+	 */
+	public function all(string $query, array $params = [], ...$fetchMode): array
+	{
+		$prepared = $this->prepare($query, $params);
+
+		$this->execute($prepared);
+
+		return $prepared['statement']->fetchAll(...$fetchMode);
+	}
+
+	/**
+	 * Returns a generator that lets you iterate over the results.
+	 *
+	 * @access  public
+	 * @param   string      $query         SQL query
+	 * @param   array       $params        Query params
+	 * @param   mixed       ...$fetchMode  Fetch mode
+	 * @return  \Generator
+	 */
+	public function yield(string $query, array $params = [], ...$fetchMode): Generator
+	{
+		$prepared = $this->prepare($query, $params);
+
+		$this->execute($prepared);
+
+		if(!empty($fetchMode))
+		{
+			$prepared['statement']->setFetchMode(...$fetchMode);
+		}
+
+		try
+		{
+			while($row = $prepared['statement']->fetch())
+			{
+				yield $row;
+			}
+		}
+		finally
+		{
+			$prepared['statement']->closeCursor();
+		}
 	}
 
 	/**

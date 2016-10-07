@@ -69,6 +69,29 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
+	public function testHasManyYield()
+	{
+		$user = ManyToManyUser::get(1);
+
+		$generator = $user->groups()->yield();
+
+		$this->assertInstanceOf('Generator', $generator);
+
+		$count = 0;
+
+		foreach($generator as $group)
+		{
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
+
+			$count++;
+		}
+
+		$this->assertEquals(2, $count);
+	}
+
+	/**
+	 *
+	 */
 	public function testBasicManyToManyRelation2()
 	{
 		$group = ManyToManyGroup::get(1);

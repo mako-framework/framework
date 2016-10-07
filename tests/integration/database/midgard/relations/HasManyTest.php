@@ -62,6 +62,25 @@ class HasManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
+	public function testHasManyYield()
+	{
+		$user = HasManyUser::get(1);
+
+		$generator = $user->articles()->yield();
+
+		$this->assertInstanceOf('Generator', $generator);
+
+		foreach($generator as $article)
+		{
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyArticle', $article);
+
+			$this->assertEquals($article->user_id, $user->id);
+		}
+	}
+
+	/**
+	 *
+	 */
 	public function testLazyHasManyRelation()
 	{
 		$queryCountBefore = count($this->connectionManager->connection('sqlite')->getLog());
