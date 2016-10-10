@@ -769,4 +769,106 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals(123, $request->getAttribute('foo', false));
 	}
+
+	/**
+	 *
+	 */
+	public function testFile()
+	{
+		$request =
+		[
+			'files' =>
+			[
+				'upload' =>
+				[
+					'name'     => 'foo',
+					'tmp_name' => '/tmp/qwerty',
+					'type'     => 'foo/bar',
+					'size'     => 123,
+					'error'    => 0,
+				]
+			]
+		];
+
+		$request = new Request($request);
+
+		//
+
+		$file = $request->file('upload');
+
+		$this->assertInstanceOf('mako\http\UploadedFile', $file);
+
+		$this->assertEquals('foo', $file->getName());
+
+		$this->assertEquals(123, $file->getReportedSize());
+
+		$this->assertEquals('foo/bar', $file->getReportedType());
+
+		$this->assertEquals(0, $file->getErrorCode());
+	}
+
+	/**
+	 *
+	 */
+	public function testFileMultiUpload()
+	{
+		$request =
+		[
+			'files' =>
+			[
+				'upload' =>
+				[
+					'name'     => ['foo', 'bar'],
+					'tmp_name' => ['/tmp/qwerty', '/tmp/azerty'],
+					'type'     => ['foo/bar', 'foo/bar'],
+					'size'     => [123, 456],
+					'error'    => [0, 0],
+				]
+			]
+		];
+
+		$request = new Request($request);
+
+		//
+
+		$file = $request->file('upload.0');
+
+		$this->assertInstanceOf('mako\http\UploadedFile', $file);
+
+		$this->assertEquals('foo', $file->getName());
+
+		$this->assertEquals(123, $file->getReportedSize());
+
+		$this->assertEquals('foo/bar', $file->getReportedType());
+
+		$this->assertEquals(0, $file->getErrorCode());
+
+		//
+
+		$file = $request->file('upload.1');
+
+		$this->assertInstanceOf('mako\http\UploadedFile', $file);
+
+		$this->assertEquals('bar', $file->getName());
+
+		$this->assertEquals(456, $file->getReportedSize());
+
+		$this->assertEquals('foo/bar', $file->getReportedType());
+
+		$this->assertEquals(0, $file->getErrorCode());
+	}
+
+	/**
+	 *
+	 */
+	public function testFileNone()
+	{
+		$request = new Request;
+
+		$this->assertEquals([], $request->file());
+
+		$this->assertNull($request->file('foo'));
+
+		$this->assertFalse($request->file('foo', false));
+	}
 }

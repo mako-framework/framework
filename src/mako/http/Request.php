@@ -9,6 +9,7 @@ namespace mako\http;
 
 use RuntimeException;
 
+use mako\http\UploadedFile;
 use mako\http\routing\Route;
 use mako\security\Signer;
 use mako\utility\Arr;
@@ -76,6 +77,13 @@ class Request
 	 * @var array
 	 */
 	protected $parsedBody;
+
+	/**
+	 * Uploaded files.
+	 *
+	 * @var array
+	 */
+	protected $uploadedFiles;
 
 	/**
 	 * Request headers.
@@ -512,6 +520,77 @@ class Request
 	}
 
 	/**
+	 * Creates a UploadedFile object.
+	 *
+	 * @access  protected
+	 * @param   array                    $file  File info
+	 * @return  \mako\http\UploadedFile
+	 */
+	protected function createUploadedFile(array $file): UploadedFile
+	{
+		return new UploadedFile($file['tmp_name'], $file['name'], $file['size'], $file['type'], $file['error']);
+	}
+
+	/**
+	 * Normalizes a multi file upload array to a more manageable format.
+	 *
+	 * @access  protected
+	 * @param   array      $file  File upload array
+	 * @return  array
+	 */
+	protected function normalizeMultiUpload(array $files): array
+	{
+		$normalized = [];
+
+		$keys = array_keys($files);
+
+		$count = count($files['name']);
+
+		for($i = 0; $i < $count; $i++)
+		{
+			foreach($keys as $key)
+			{
+				$normalized[$i][$key] = $files[$key][$i];
+			}
+		}
+
+		return $normalized;
+	}
+
+	/**
+	 * Returns an UploadedFile object or an array of UploadedFile objects.
+	 *
+	 * @access  protected
+	 * @param   null|string                    $key      Array key
+	 * @param  	null|mixed                     $default  Default value
+	 * @return  \mako\http\UploadedFile|array
+	 */
+	protected function getUploadedFile(string $key = null, $default = null)
+	{
+		if($this->uploadedFiles === null)
+		{
+			$this->uploadedFiles = [];
+
+			foreach($this->files as $name => $file)
+			{
+				if(is_array($file['name']))
+				{
+					foreach($this->normalizeMultiUpload($file) as $file)
+					{
+						$this->uploadedFiles[$name][] = $this->createUploadedFile($file);
+					}
+				}
+				else
+				{
+					$this->uploadedFiles[$name] = $this->createUploadedFile($file);
+				}
+			}
+		}
+
+		return ($key === null) ? $this->uploadedFiles : Arr::get($this->uploadedFiles, $key, $default);
+	}
+
+	/**
 	 * Fetch data from the GET parameters.
 	 *
 	 * @access  public
@@ -613,7 +692,7 @@ class Request
 	}
 
 	/**
-	 * Fetch file data.
+	 * Fetch uploaded file.
 	 *
 	 * @access  public
 	 * @param   string      $key      Array key
@@ -622,7 +701,7 @@ class Request
 	 */
 	public function file(string $key = null, $default = null)
 	{
-		return ($key === null) ? $this->files : Arr::get($this->files, $key, $default);
+		return $this->getUploadedFile($key, $default);
 	}
 
 	/**
