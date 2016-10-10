@@ -490,6 +490,17 @@ class Request
 	}
 
 	/**
+	 * Returns the raw request body as a stream.
+	 *
+	 * @access  public
+	 * @return  resource
+	 */
+	public function bodyAsStream()
+	{
+		return fopen('php://input', 'r');
+	}
+
+	/**
 	 * Parses the request body and returns the chosen value.
 	 *
 	 * @access  protected
