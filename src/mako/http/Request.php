@@ -546,7 +546,7 @@ class Request
 	 * Normalizes a multi file upload array to a more manageable format.
 	 *
 	 * @access  protected
-	 * @param   array      $file  File upload array
+	 * @param   array      $files  File upload array
 	 * @return  array
 	 */
 	protected function normalizeMultiUpload(array $files): array
