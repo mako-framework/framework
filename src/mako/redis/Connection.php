@@ -117,7 +117,19 @@ class Connection
 	 */
 	public function read(int $bytes)
 	{
-		return fread($this->connection, $bytes);
+		$data = '';
+
+		do
+		{
+			$read = min($bytes, 4096);
+
+			$data .= fread($this->connection, $read);
+
+			$bytes -= $read;
+		}
+		while ($bytes > 0);
+
+		return $data;
 	}
 
 	/**
