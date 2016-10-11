@@ -100,6 +100,22 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 *
+	 */
+	public function testDashSeparatedCommand()
+	{
+		$connection = Mockery::mock('mako\redis\Connection');
+
+		$connection->shouldReceive('write')->once()->with("*2\r\n$7\r\nCLUSTER\r\n$16\r\nSET-CONFIG-EPOCH\r\n");
+
+		$connection->shouldReceive('gets')->once()->andReturn("+OK\r\n");
+
+		$redis = new Redis($connection);
+
+		$redis->clusterSetConfigEpoch();
+	}
+
+	/**
 	 * @expectedException mako\redis\RedisException
 	 */
 	public function testException()

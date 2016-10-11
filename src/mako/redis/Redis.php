@@ -71,6 +71,17 @@ class Redis
 	protected $clusterClients = [];
 
 	/**
+	 * Dash separated commands.
+	 *
+	 * @var array
+	 */
+	protected $dashSeparatedCommands =
+	[
+		'CLUSTER COUNT FAILURE REPORTS' => 'CLUSTER COUNT-FAILURE-REPORTS',
+		'CLUSTER SET CONFIG EPOCH'      => 'CLUSTER SET-CONFIG-EPOCH',
+	];
+
+	/**
 	 * Constructor.
 	 *
 	 * @access  public
@@ -258,6 +269,20 @@ class Redis
 	}
 
 	/**
+	 * Builds command from method name.
+	 *
+	 * @access  protected
+	 * @param   string     $name  Method name
+	 * @return  string
+	 */
+	protected function buildCommand(string $name): string
+	{
+		$command = strtoupper(str_replace('_', ' ', Str::camel2underscored($name)));
+
+		return $this->dashSeparatedCommands[$command] ?? $command;
+	}
+
+	/**
 	 * Sends command to Redis server and returns response.
 	 *
 	 * @access  public
@@ -269,7 +294,7 @@ class Redis
 	{
 		// Build command
 
-		$arguments = array_merge(explode(' ', strtoupper(str_replace('_', ' ', Str::camel2underscored($name)))), $arguments);
+		$arguments = array_merge(explode(' ', $this->buildCommand($name)), $arguments);
 
 		$command = '*' . count($arguments) . static::CRLF;
 
