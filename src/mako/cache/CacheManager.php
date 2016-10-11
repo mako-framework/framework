@@ -144,7 +144,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function redisFactory(array $configuration): Redis
 	{
-		return new Redis($this->container->get('redis')->connection($configuration['configuration'], $this->classWhitelist));
+		return new Redis($this->container->get('redis')->connection($configuration['configuration']), $this->classWhitelist);
 	}
 
 	/**
