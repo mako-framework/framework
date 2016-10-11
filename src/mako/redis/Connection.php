@@ -117,17 +117,17 @@ class Connection
 	 */
 	public function read(int $bytes)
 	{
+		$bytesLeft = $bytes;
+
 		$data = '';
 
 		do
 		{
-			$read = min($bytes, 4096);
+			$data .= fread($this->connection, min($bytesLeft, 4096));
 
-			$data .= fread($this->connection, $read);
-
-			$bytes -= $read;
+			$bytesLeft = $bytes - strlen($data);
 		}
-		while ($bytes > 0);
+		while($bytesLeft > 0);
 
 		return $data;
 	}
