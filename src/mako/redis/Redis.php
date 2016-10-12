@@ -29,6 +29,13 @@ class Redis
 	const CRLF = "\r\n";
 
 	/**
+	 * Command terminator length.
+	 *
+	 * @var string
+	 */
+	const CRLF_LENGTH = 2;
+
+	/**
 	 * Redis password.
 	 *
 	 * @var string
@@ -69,17 +76,6 @@ class Redis
 	 * @var array
 	 */
 	protected $clusterClients = [];
-
-	/**
-	 * Dash separated commands.
-	 *
-	 * @var array
-	 */
-	protected $dashSeparatedCommands =
-	[
-		'CLUSTER COUNT FAILURE REPORTS' => 'CLUSTER COUNT-FAILURE-REPORTS',
-		'CLUSTER SET CONFIG EPOCH'      => 'CLUSTER SET-CONFIG-EPOCH',
-	];
 
 	/**
 	 * Constructor.
@@ -147,6 +143,8 @@ class Redis
 	 */
 	protected function handleErrorResponse(string $response)
 	{
+		$response = substr($response, 1);
+
 		list($type, $error) = explode(' ', $response, 2);
 
 		switch($type)
@@ -158,6 +156,75 @@ class Redis
 			default:
 				throw new RedisException(vsprintf("%s(): %s.", [__METHOD__, $response]));
 		}
+	}
+
+	/**
+	 * Handles a status response.
+	 *
+	 * @access  protected
+	 * @param   string      $response  Redis response
+	 * @return  string
+	 */
+	protected function handleStatusResponse(string $response): string
+	{
+		return trim(substr($response, 1));
+	}
+
+	/**
+	 * Handles a integer response.
+	 *
+	 * @access  protected
+	 * @param   string      $response  Redis response
+	 * @return  int
+	 */
+	protected function handleIntegerResponse(string $response): int
+	{
+		return (int) trim(substr($response, 1));
+	}
+
+	/**
+	 * Handles a bulk response.
+	 *
+	 * @access  protected
+	 * @param   string       $response  Redis response
+	 * @return  null|string
+	 */
+	protected function handleBulkResponse(string $response)
+	{
+		if($response === '$-1')
+		{
+			return null;
+		}
+
+		$length = (int) substr($response, 1);
+
+		return substr($this->connection->read($length + static::CRLF_LENGTH), 0, - static::CRLF_LENGTH);
+	}
+
+	/**
+	 * Handles a multi-bulk response.
+	 *
+	 * @access  protected
+	 * @param   string      $response  Redis response
+	 * @return  null|array
+	 */
+	protected function handleMultiBulkResponse(string $response)
+	{
+		if($response === '*-1')
+		{
+			return null;
+		}
+
+		$data = [];
+
+		$count = substr($response, 1);
+
+		for($i = 0; $i < $count; $i++)
+		{
+			$data[] = $this->response();
+		}
+
+		return $data;
 	}
 
 	/**
@@ -173,40 +240,19 @@ class Redis
 		switch(substr($response, 0, 1))
 		{
 			case '-': // error reply
-				return $this->handleErrorResponse(substr($response, 1));
+				return $this->handleErrorResponse($response);
 				break;
 			case '+': // status reply
-				return trim(substr($response, 1));
+				return $this->handleStatusResponse($response);
 				break;
 			case ':': // integer reply
-				return (int) trim(substr($response, 1));
+				return $this->handleIntegerResponse($response);
 				break;
 			case '$': // bulk reply
-				if($response === '$-1')
-				{
-					return null;
-				}
-
-				$length = (int) substr($response, 1);
-
-				return substr($this->connection->read($length + strlen(static::CRLF)), 0, - strlen(static::CRLF));
+				return $this->handleBulkResponse($response);
 				break;
 			case '*': // multi-bulk reply
-				if($response === '*-1')
-				{
-					return null;
-				}
-
-				$data = [];
-
-				$count = substr($response, 1);
-
-				for($i = 0; $i < $count; $i++)
-				{
-					$data[] = $this->response();
-				}
-
-				return $data;
+				return $this->handleMultiBulkResponse($response);
 				break;
 			default:
 				throw new RedisException(vsprintf("%s(): Unable to handle server response.", [__METHOD__]));
@@ -275,11 +321,23 @@ class Redis
 	 * @param   string     $name  Method name
 	 * @return  string
 	 */
-	protected function buildCommand(string $name): string
+	protected function buildCommandName(string $name): string
 	{
 		$command = strtoupper(str_replace('_', ' ', Str::camel2underscored($name)));
 
-		return $this->dashSeparatedCommands[$command] ?? $command;
+		if(strpos($command, ' ') !== false)
+		{
+			list($part1, $part2) = explode(' ', $command, 2);
+
+			if(strpos($part2, ' ') !== false)
+			{
+				$part2 = str_replace(' ', '-', $part2);
+			}
+
+			$command = $part1 . ' ' . $part2;
+		}
+
+		return $command;
 	}
 
 	/**
@@ -294,7 +352,7 @@ class Redis
 	{
 		// Build command
 
-		$arguments = array_merge(explode(' ', $this->buildCommand($name)), $arguments);
+		$arguments = array_merge(explode(' ', $this->buildCommandName($name)), $arguments);
 
 		$command = '*' . count($arguments) . static::CRLF;
 
