@@ -35,7 +35,7 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * File mime type.
 	 *
-	 * @var int
+	 * @var string
 	 */
 	protected $type;
 
