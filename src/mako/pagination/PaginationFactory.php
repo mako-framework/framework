@@ -55,13 +55,13 @@ class PaginationFactory implements PaginationFactoryInterface
 	 *
 	 * @access  public
 	 * @param   \mako\http\Request  $request  Request
-	 * @param   array               $config   Configuration
+	 * @param   array               $options  Options
 	 */
-	public function __construct(Request $request, array $config = [])
+	public function __construct(Request $request, array $options = [])
 	{
 		$this->request = $request;
 
-		$this->options = $config;
+		$this->options = $options;
 	}
 
 	/**
