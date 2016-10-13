@@ -581,13 +581,13 @@ abstract class ORM implements JsonSerializable
 
 			return $this->getColumnValue($name);
 		}
-		elseif(isset($this->related[$name]))
+		elseif(array_key_exists($name, $this->related))
 		{
 			// The column is a cached or eagerly loaded relation
 
 			return $this->related[$name];
 		}
-		elseif(method_exists($this, $name))
+		elseif(method_exists(self::class, $name) === false && method_exists($this, $name))
 		{
 			// The column is a relation. Lazy load the records and cache them
 
