@@ -74,7 +74,7 @@ trait OptimisticLockingTrait
 	 */
 	protected function getLockingColumn(): string
 	{
-		return isset($this->lockingColumn) ? $this->lockingColumn : 'lock_version';
+		return property_exists($this, 'lockingColumn') ? $this->lockingColumn : 'lock_version';
 	}
 
 	/**

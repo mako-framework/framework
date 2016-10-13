@@ -97,7 +97,7 @@ trait TimestampedTrait
 	 */
 	protected function shouldTouchOnInsert(): bool
 	{
-		return true;
+		return property_exists($this, 'shouldTouchOnInsert') ? $this->shouldTouchOnInsert : true;
 	}
 
 	/**
@@ -108,7 +108,7 @@ trait TimestampedTrait
 	 */
 	protected function shouldTouchOnUpdate(): bool
 	{
-		return true;
+		return property_exists($this, 'shouldTouchOnUpdate') ? $this->shouldTouchOnUpdate : true;
 	}
 
 	/**
@@ -119,7 +119,7 @@ trait TimestampedTrait
 	 */
 	protected function shouldTouchOnDelete(): bool
 	{
-		return true;
+		return property_exists($this, 'shouldTouchOnDelete') ? $this->shouldTouchOnDelete : true;
 	}
 
 	/**
@@ -130,7 +130,7 @@ trait TimestampedTrait
 	 */
 	public function getCreatedAtColumn(): string
 	{
-		return isset($this->createdAtColumn) ? $this->createdAtColumn : 'created_at';
+		return property_exists($this, 'createdAtColumn') ? $this->createdAtColumn : 'created_at';
 	}
 
 	/**
@@ -141,7 +141,7 @@ trait TimestampedTrait
 	 */
 	public function getUpdatedAtColumn(): string
 	{
-		return isset($this->updatedAtColumn) ? $this->updatedAtColumn : 'updated_at';
+		return property_exists($this, 'updatedAtColumn') ? $this->updatedAtColumn : 'updated_at';
 	}
 
 	/**
@@ -153,6 +153,17 @@ trait TimestampedTrait
 	protected function getCastColumns(): array
 	{
 		return $this->cast + [$this->getCreatedAtColumn() => 'date', $this->getUpdatedAtColumn() => 'date'];
+	}
+
+	/**
+	 * Returns the relations that we should touch.
+	 *
+	 * @access  protected
+	 * @return  array
+	 */
+	protected function getRelationsToTouch(): array
+	{
+		return property_exists($this, 'touch') ? $this->touch : [];
 	}
 
 	/**
@@ -180,28 +191,25 @@ trait TimestampedTrait
 	 */
 	protected function touchRelated()
 	{
-		if(!empty($this->touch))
+		foreach($this->getRelationsToTouch() as $touch)
 		{
-			foreach($this->touch as $touch)
+			$touch = explode('.', $touch);
+
+			$relation = $this->{array_shift($touch)}();
+
+			foreach($touch as $nested)
 			{
-				$touch = explode('.', $touch);
+				$related = $relation->first();
 
-				$relation = $this->{array_shift($touch)}();
-
-				foreach($touch as $nested)
+				if($related === false)
 				{
-					$related = $relation->first();
-
-					if($related === false)
-					{
-						continue 2;
-					}
-
-					$relation = $related->$nested();
+					continue 2;
 				}
 
-				$relation->update([$relation->getModel()->getUpdatedAtColumn() => null]);
+				$relation = $related->$nested();
 			}
+
+			$relation->update([$relation->getModel()->getUpdatedAtColumn() => null]);
 		}
 	}
 }
