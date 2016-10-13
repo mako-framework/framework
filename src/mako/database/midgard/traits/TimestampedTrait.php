@@ -17,27 +17,6 @@ use DateTime;
 trait TimestampedTrait
 {
 	/**
-	 * Should we touch relations on insert?
-	 *
-	 * @var bool
-	 */
-	protected $shouldTouchOnInsert = true;
-
-	/**
-	 * Should we touch relations on update?
-	 *
-	 * @var bool
-	 */
-	protected $shouldTouchOnUpdate = true;
-
-	/**
-	 * Should we touch relations on delete?
-	 *
-	 * @var bool
-	 */
-	protected $shouldTouchOnDelete = true;
-
-	/**
 	 * Returns trait hooks.
 	 *
 	 * @access  protected
@@ -68,7 +47,7 @@ trait TimestampedTrait
 			[
 				function($inserted)
 				{
-					if($this->shouldTouchOnInsert && $inserted && $this->exists)
+					if($this->shouldTouchOnInsert() && $inserted && $this->exists)
 					{
 						$this->touchRelated();
 					}
@@ -91,7 +70,7 @@ trait TimestampedTrait
 			[
 				function($updated)
 				{
-					if($this->shouldTouchOnUpdate && $updated > 0 && $this->exists)
+					if($this->shouldTouchOnUpdate() && $updated > 0 && $this->exists)
 					{
 						$this->touchRelated();
 					}
@@ -101,13 +80,46 @@ trait TimestampedTrait
 			[
 				function($deleted)
 				{
-					if($this->shouldTouchOnDelete && $deleted > 0 && $this->exists)
+					if($this->shouldTouchOnDelete() && $deleted > 0 && $this->exists)
 					{
 						$this->touchRelated();
 					}
 				}
 			],
 		];
+	}
+
+	/**
+	 * Should we touch relations on insert?
+	 *
+	 * @access  protected
+	 * @return  bool
+	 */
+	protected function shouldTouchOnInsert(): bool
+	{
+		return true;
+	}
+
+	/**
+	 * Should we touch relations on update?
+	 *
+	 * @access  protected
+	 * @return  bool
+	 */
+	protected function shouldTouchOnUpdate(): bool
+	{
+		return true;
+	}
+
+	/**
+	 * Should we touch relations on delete?
+	 *
+	 * @access  protected
+	 * @return  bool
+	 */
+	protected function shouldTouchOnDelete(): bool
+	{
+		return true;
 	}
 
 	/**
