@@ -688,7 +688,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function __isset(string $name)
 	{
-		return isset($this->columns[$name]) || isset($this->related[$name]);
+		return isset($this->columns[$name]) || isset($this->related[$name]) || (method_exists(self::class, $name) === false && method_exists($this, $name) && $this->$name && isset($this->related[$name]));
 	}
 
 	/**
