@@ -183,9 +183,9 @@ abstract class ORM implements JsonSerializable
 
 		if($exists)
 		{
-			$this->synchronize();
-
 			$this->exists = true;
+
+			$this->synchronize();
 		}
 	}
 
@@ -231,6 +231,17 @@ abstract class ORM implements JsonSerializable
 		}
 
 		return static::$connectionManager->connection($this->connectionName);
+	}
+
+	/**
+	 * Has the record been loaded from/saved to a database?
+	 *
+	 * @access  public
+	 * @return  bool
+	 */
+	public function exists(): bool
+	{
+		return $this->exists;
 	}
 
 	/**
@@ -299,17 +310,6 @@ abstract class ORM implements JsonSerializable
 		}
 
 		return $bound;
-	}
-
-	/**
-	 * Has the record been loaded from/saved to a database?
-	 *
-	 * @access  public
-	 * @return  bool
-	 */
-	public function exists(): bool
-	{
-		return $this->exists;
 	}
 
 	/**
@@ -567,6 +567,18 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
+	 * Returns TRUE if it's probable that $name is a relation and FALSE if not.
+	 *
+	 * @access  protected
+	 * @param   string     $name  Relation name
+	 * @return  bool
+	 */
+	protected function isRelation(string $name): bool
+	{
+		return method_exists(self::class, $name) === false && method_exists($this, $name);
+	}
+
+	/**
 	 * Gets a column value.
 	 *
 	 * @access  public
@@ -587,7 +599,7 @@ abstract class ORM implements JsonSerializable
 
 			return $this->related[$name];
 		}
-		elseif(method_exists(self::class, $name) === false && method_exists($this, $name))
+		elseif($this->isRelation($name))
 		{
 			// The column is a relation. Lazy load the records and cache them
 
@@ -688,7 +700,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function __isset(string $name)
 	{
-		return isset($this->columns[$name]) || isset($this->related[$name]) || (method_exists(self::class, $name) === false && method_exists($this, $name) && $this->$name && isset($this->related[$name]));
+		return isset($this->columns[$name]) || isset($this->related[$name]) || ($this->isRelation($name) && $this->$name && isset($this->related[$name]));
 	}
 
 	/**
