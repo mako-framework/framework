@@ -74,7 +74,7 @@ class View
 	 * @param   mixed                                   $value  View variable
 	 * @return  \mako\view\renderers\RendererInterface
 	 */
-	public function assign(string $name, $value): self
+	public function assign(string $name, $value): View
 	{
 		$this->variables[$name] = $value;
 
