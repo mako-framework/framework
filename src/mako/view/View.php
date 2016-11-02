@@ -7,14 +7,13 @@
 
 namespace mako\view;
 
+use mako\view\renderers\RendererInterface;
+
 /**
  * View.
  *
  * @author  Frederic G. Østby
  */
-
-use mako\view\renderers\RendererInterface;
-
 class View
 {
 	/**
@@ -70,9 +69,9 @@ class View
 	 * Assign a local view variable.
 	 *
 	 * @access  public
-	 * @param   string                                  $name   Variable name
-	 * @param   mixed                                   $value  View variable
-	 * @return  \mako\view\renderers\RendererInterface
+	 * @param   string           $name   Variable name
+	 * @param   mixed            $value  View variable
+	 * @return  \mako\view\View
 	 */
 	public function assign(string $name, $value): View
 	{
