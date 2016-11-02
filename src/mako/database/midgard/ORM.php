@@ -1089,7 +1089,7 @@ abstract class ORM implements JsonSerializable
 				continue;
 			}
 
-			$columns += [$relation => $related->toArray()];
+			$columns += [$relation => ($related === false ? $related : $related->toArray())];
 		}
 
 		// Returns array representation of the record
