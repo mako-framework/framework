@@ -498,7 +498,7 @@ class GatekeeperTest extends PHPUnit_Framework_TestCase
 
 		$userProvider->shouldReceive('getByEmail')->once()->with('foo@example.org')->andReturn($user);
 
-		$userProvider->shouldReceive('validatePassword')->once()->andReturn(false);
+		$userProvider->shouldReceive('validatePassword')->never();
 
 		$session = $this->getSession();
 

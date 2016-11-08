@@ -416,7 +416,7 @@ class Gatekeeper
 				return static::LOGIN_LOCKED;
 			}
 
-			if($this->userProvider->validatePassword($user, $password) || $force)
+			if($force || $this->userProvider->validatePassword($user, $password))
 			{
 				if(!$user->isActivated())
 				{
