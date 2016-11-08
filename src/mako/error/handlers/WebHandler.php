@@ -217,6 +217,8 @@ class WebHandler extends Handler
 
 			$data['trace'] = $this->modifyTrace($trace);
 
+			$data['escapeVariables'] = !extension_loaded('xdebug');
+
 			// Add superglobals
 
 			$superGlobals =

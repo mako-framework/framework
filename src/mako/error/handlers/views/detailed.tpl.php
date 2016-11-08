@@ -201,7 +201,13 @@
 
 										<tr>
 											<td>{{$key + 1}}</td>
-											<td><pre>{{$argument}}</pre></td>
+											<td>
+												{% if($escapeVariables) %}
+													<pre>{{$argument}}</pre>
+												{% else %}
+													{{raw:$argument}}
+												{% endif %}
+											</td>
 										</tr>
 
 									{% endforeach %}
