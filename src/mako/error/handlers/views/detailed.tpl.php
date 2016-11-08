@@ -202,10 +202,10 @@
 										<tr>
 											<td>{{$key + 1}}</td>
 											<td>
-												{% if($escapeVariables) %}
-													<pre>{{$argument}}</pre>
-												{% else %}
+												{% if($xdebug) %}
 													{{raw:$argument}}
+												{% else %}
+													<pre>{{$argument}}</pre>
 												{% endif %}
 											</td>
 										</tr>

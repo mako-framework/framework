@@ -217,7 +217,9 @@ class WebHandler extends Handler
 
 			$data['trace'] = $this->modifyTrace($trace);
 
-			$data['escapeVariables'] = !extension_loaded('xdebug');
+			// Is the var_dump data coming from xdebug?
+
+			$data['xdebug'] = extension_loaded('xdebug') && ini_get('xdebug.overload_var_dump') !== '0' && ini_get('html_errors') !== '0';
 
 			// Add superglobals
 
