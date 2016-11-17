@@ -61,9 +61,9 @@ class CLIHandler extends Handler
 	 * Returns a detailed error.
 	 *
 	 * @access  protected
-	 * @return  string
+	 * @return
 	 */
-	protected function getDetailedError(): string
+	protected function getDetailedError()
 	{
 		$type = $this->escape($this->determineExceptionType($this->exception));
 

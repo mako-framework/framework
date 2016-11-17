@@ -458,6 +458,8 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with('option')->andReturn(true);
 
+		$input->shouldReceive('removeArgument')->once()->with('option');
+
 		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
 
 		//

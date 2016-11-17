@@ -143,6 +143,8 @@ class Reactor
 				$handler = $option['handler'];
 
 				$this->container->call($handler, ['option' => $input]);
+
+				$this->input->removeArgument($name);
 			}
 		}
 	}

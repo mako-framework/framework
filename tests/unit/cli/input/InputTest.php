@@ -146,4 +146,26 @@ class InputTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame(false, $input->getArgument('bar', false));
 	}
+
+	/**
+	 *
+	 */
+	public function testRemoveArgument()
+	{
+		$reader = $this->getReader();
+
+		$arguments = ['--foo=bar', '--baz=bax'];
+
+		$input = new Input($reader, $arguments);
+
+		$this->assertSame('bar', $input->getArgument('foo'));
+
+		$this->assertSame('bax', $input->getArgument('baz'));
+
+		$input->removeArgument('foo');
+
+		$this->assertSame(null, $input->getArgument('foo'));
+
+		$this->assertSame('bax', $input->getArgument('baz'));
+	}
 }
