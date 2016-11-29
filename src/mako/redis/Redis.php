@@ -319,22 +319,22 @@ class Redis
 	 *
 	 * @access  protected
 	 * @param   string     $name  Method name
-	 * @return  string
+	 * @return  array
 	 */
-	protected function buildCommandName(string $name): string
+	protected function buildCommand(string $name): array
 	{
 		$command = strtoupper(str_replace('_', ' ', Str::camel2underscored($name)));
 
-		if(strpos($command, ' ') !== false)
+		if(strpos($command, ' ') === false)
 		{
-			list($part1, $part2) = explode(' ', $command, 2);
+			return [$command];
+		}
 
-			if(strpos($part2, ' ') !== false)
-			{
-				$part2 = str_replace(' ', '-', $part2);
-			}
+		$command = explode(' ', $command, 2);
 
-			$command = $part1 . ' ' . $part2;
+		if(strpos($command[1], ' ') !== false)
+		{
+			$command[1] = str_replace(' ', '-', $command[1]);
 		}
 
 		return $command;
@@ -352,7 +352,7 @@ class Redis
 	{
 		// Build command
 
-		$arguments = array_merge(explode(' ', $this->buildCommandName($name)), $arguments);
+		$arguments = array_merge($this->buildCommand($name), $arguments);
 
 		$command = '*' . count($arguments) . static::CRLF;
 
