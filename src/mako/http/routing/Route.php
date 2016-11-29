@@ -9,6 +9,8 @@ namespace mako\http\routing;
 
 use Closure;
 
+use mako\utility\Arr;
+
 /**
  * Route.
  *
@@ -78,6 +80,14 @@ class Route
 	 * @var array
 	 */
 	protected $middleware = [];
+
+
+	/**
+	 * Parameters.
+	 *
+	 * @var array
+	 */
+	protected $parameters = [];
 
 	/**
 	 * Constructor.
@@ -159,6 +169,30 @@ class Route
 	public function getMiddleware(): array
 	{
 		return $this->middleware;
+	}
+
+	/**
+	 * Sets the route parameters.
+	 *
+	 * @access  public
+	 * @param   array   $parameters  Parameters
+	 */
+	public function setParameters(array $parameters)
+	{
+		$this->parameters = $parameters;
+	}
+
+	/**
+	 * Returns the named parameter value.
+	 *
+	 * @access  public
+	 * @param   string      $name     Parameter name
+	 * @param   null|mixed  $default  Default value
+	 * @return  null|mixed
+	 */
+	public function getParameter(string $name, $default = null)
+	{
+		return Arr::get($this->parameters, $name, $default);
 	}
 
 	/**

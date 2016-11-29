@@ -353,4 +353,22 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame(['foo', 'bar'], $route->getMiddleware());
 	}
+
+	/**
+	 *
+	 */
+	public function testSetAndGetParameters()
+	{
+		$route = new Route(['GET'], '/', 'FooController::fooAction');
+
+		$route->setParameters(['foo' => 'bar', 'baz' => 'bax']);
+
+		$this->assertSame($route->getParameter('foo'), 'bar');
+
+		$this->assertSame($route->getParameter('baz'), 'bax');
+
+		$this->assertNull($route->getParameter('nope'));
+
+		$this->assertTrue($route->getParameter('nope', true));
+	}
 }

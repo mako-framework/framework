@@ -231,6 +231,8 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('hasTrailingSlash')->andReturn(false);
 
+		$route->shouldReceive('setParameters')->with([]);
+
 		$router = $this->getRouter([$route]);
 
 		$request = $this->getRequest();
@@ -260,6 +262,8 @@ class RouterTest extends PHPUnit_Framework_TestCase
 		$route->shouldReceive('allows')->andReturn(true);
 
 		$route->shouldReceive('hasTrailingSlash')->andReturn(false);
+
+		$route->shouldReceive('setParameters')->with(['id' => '123']);
 
 		$router = $this->getRouter([$route]);
 
