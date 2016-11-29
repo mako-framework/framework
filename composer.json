@@ -11,12 +11,11 @@
 		},
 		{
 			"name": "Contributors",
-			"homepage": "http://makoframework.com/contributing/contributors"
+			"homepage": "https://makoframework.com/contributors"
 		}
 	],
 	"support": {
 		"issues": "https://github.com/mako-framework/framework/issues",
-		"forum": "http://forum.makoframework.com/",
 		"source": "https://github.com/mako-framework/framework"
 	},
 	"autoload": {
