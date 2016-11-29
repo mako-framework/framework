@@ -228,7 +228,7 @@ class Template
 			{
 				return preg_replace_callback('/(.*)\s*\|\|\s*(.*)/', function($matches)
 				{
-					return '(!empty(' . trim($matches[1]) . ') ? ' . trim($matches[1]) . ' : ' . trim($matches[2]) . ')';
+					return trim($matches[1]) . ' ?? ' . trim($matches[2]);
 				}, $matches);
 			}
 
