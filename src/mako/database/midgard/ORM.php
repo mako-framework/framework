@@ -333,7 +333,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	protected function getClassShortName(string $className = null): string
 	{
-		$class = $name ?? static::class;
+		$class = $className ?? static::class;
 
 		$pos = strrpos($class, '\\');
 
