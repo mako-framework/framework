@@ -59,6 +59,6 @@ trait RollbackTrait
 
 		$this->write('Rolled back the following migrations:' . PHP_EOL);
 
-		$this->outputMigrationList($migrations);
+		$this->outputMigrationList($migrations->getItems());
 	}
 }
