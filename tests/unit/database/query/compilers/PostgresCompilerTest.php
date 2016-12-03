@@ -57,6 +57,17 @@ class PostgresCompilerTest extends PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
+		$query->select(['json->foo']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "json"->>\'foo\' FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
 		$query->select(['json->foo->0->bar']);
 
 		$query = $query->getCompiler()->select();

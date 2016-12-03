@@ -27,7 +27,7 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function buildJsonPath(string $column, array $segments): string
+	protected function buildJsonGet(string $column, array $segments): string
 	{
 		$segments = array_map(function($segment)
 		{
@@ -43,7 +43,7 @@ class Postgres extends Compiler
 
 		if(empty($segments))
 		{
-			return $column . $path = '->>' . $last;
+			return $column . '->>' . $last;
 		}
 
 		return $column . '->' . implode('->', $segments) . '->>' . $last;

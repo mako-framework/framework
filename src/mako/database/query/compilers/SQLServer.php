@@ -32,7 +32,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function buildJsonPath(string $column, array $segments): string
+	protected function buildJsonGet(string $column, array $segments): string
 	{
 		$path = '';
 

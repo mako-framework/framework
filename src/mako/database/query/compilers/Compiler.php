@@ -23,6 +23,13 @@ use mako\database\query\Subquery;
 class Compiler
 {
 	/**
+	 * JSON path separator.
+	 *
+	 * @var string
+	 */
+	const JSON_PATH_SEPARATOR = '->';
+
+	/**
 	 * Date format.
 	 *
 	 * @var string
@@ -107,95 +114,175 @@ class Compiler
 	}
 
 	/**
-	 * Builds a JSON path.
+	 * Returns an array of escaped identifiers.
+	 *
+	 * @access  public
+	 * @param   array   $identifiers  Identifiers to escape
+	 * @return  array
+	 */
+	public function escapeIdentifiers(array $identifiers): array
+	{
+		return array_map([$this, 'escapeIdentifier'], $identifiers);
+	}
+
+	/**
+	 * Does the string have a JSON path?
+	 *
+	 * @access  protected
+	 * @param   string     $string  String
+	 * @return  bool
+	 */
+	protected function hasJsonPath(string $string): bool
+	{
+		return strpos($string, static::JSON_PATH_SEPARATOR) !== false;
+	}
+
+	/**
+	 * Builds a JSON value getter.
 	 *
 	 * @access  protected
 	 * @param   string     $column    Column name
 	 * @param   array      $segments  JSON path segments
 	 * @return  string
 	 */
-	protected function buildJsonPath(string $column, array $segments): string
+	protected function buildJsonGet(string $column, array $segments): string
 	{
 		throw new RuntimeException(vsprintf("%s(): The [ %s ] query compiler does not support the unified JSON field syntax.", [__METHOD__, static::class]));
 	}
 
 	/**
-	 * Returns an escaped table or column name.
+	 * Escapes a table name.
 	 *
 	 * @access  public
-	 * @param   string  $value  Value to escape
+	 * @param   string  $table  Table name
 	 * @return  string
 	 */
-	public function wrapTableAndOrColumn(string $value): string
+	public function escapeTable(string $table): string
 	{
-		$wrapped = [];
+		$segments = [];
 
-		if(strpos($value, '->') !== false)
+		foreach(explode('.', $table) as $segment)
 		{
-			list($value, $jsonPath) = explode('->', $value, 2);
+			$segments[] = $this->escapeIdentifier($segment);
 		}
 
-		foreach(explode('.', $value) as $segment)
+		return implode('.', $segments);
+	}
+
+	/**
+	 * Compiles a table.
+	 *
+	 * @access  public
+	 * @param   mixed   $table  Table
+	 * @return  string
+	 */
+	public function table($table): string
+	{
+		if($table instanceof Raw)
+		{
+			return $table->get();
+		}
+		elseif($table instanceof Subquery)
+		{
+			return $this->subquery($table);
+		}
+		elseif(stripos($table, ' AS ') !== false)
+		{
+			$table = explode(' ', $table, 3);
+
+			return sprintf('%s AS %s', $this->escapeTable($table[0]), $this->escapeTable($table[2]));
+		}
+
+		return $this->escapeTable($table);
+	}
+
+	/**
+	 * Escapes a column name.
+	 *
+	 * @access  public
+	 * @param   string  $column  Column name
+	 * @return  string
+	 */
+	public function escapeColumn(string $column): string
+	{
+		$segments = [];
+
+		foreach(explode('.', $column) as $segment)
 		{
 			if($segment === '*')
 			{
-				$wrapped[] = $segment;
+				$segments[] = $segment;
 			}
 			else
 			{
-				$wrapped[] = $this->escapeIdentifier($segment);
+				$segments[] = $this->escapeIdentifier($segment);
 			}
 		}
 
-		$wrapped = implode('.', $wrapped);
-
-		if(isset($jsonPath))
-		{
-			$wrapped = $this->buildJsonPath($wrapped, explode('->', $jsonPath));
-		}
-
-		return $wrapped;
+		return implode('.', $segments);
 	}
 
 	/**
-	 * Wraps table and column names with dialect specific escape characters.
+	 * Compiles a column name.
 	 *
-	 * @access  public
-	 * @param   mixed   $value  Value to wrap
+	 * @access  protected
+	 * @param   string     Column name
 	 * @return  string
 	 */
-	public function wrap($value): string
+	protected function compileColumnName(string  $column): string
 	{
-		if($value instanceof Raw)
+		if($this->hasJsonPath($column))
 		{
-			return $value->get();
+			list($column, $path) = explode(static::JSON_PATH_SEPARATOR, $column, 2);
 		}
-		elseif($value instanceof Subquery)
-		{
-			return $this->subquery($value);
-		}
-		elseif(stripos($value, ' AS ') !== false)
-		{
-			$values = explode(' ', $value);
 
-			return sprintf('%s AS %s', $this->wrapTableAndOrColumn($values[0]), $this->wrapTableAndOrColumn($values[2]));
-		}
-		else
+		$column = $this->escapeColumn($column);
+
+		if(isset($path))
 		{
-			return $this->wrapTableAndOrColumn($value);
+			$column = $this->buildJsonGet($column, explode(static::JSON_PATH_SEPARATOR, $path));
 		}
+
+		return $column;
 	}
 
 	/**
-	 * Returns a comma-separated list of columns.
+	 * Compiles a column.
 	 *
 	 * @access  public
-	 * @param   array      $columns  Array of columns
+	 * @param   mixed   $column  Column
+	 * @return  string
+	 */
+	public function column($column): string
+	{
+		if($column instanceof Raw)
+		{
+			return $column->get();
+		}
+		elseif($column instanceof Subquery)
+		{
+			return $this->subquery($column);
+		}
+		elseif(stripos($column, ' AS ') !== false)
+		{
+			$column = explode(' ', $column, 3);
+
+			return sprintf('%s AS %s', $this->compileColumnName($column[0]), $this->compileColumnName($column[2]));
+		}
+
+		return $this->compileColumnName($column);
+	}
+
+	/**
+	 * Returns a comma-separated list of compiled columns.
+	 *
+	 * @access  public
+	 * @param   array   $columns  Array of columns
 	 * @return  string
 	 */
 	public function columns(array $columns): string
 	{
-		return implode(', ', array_map([$this, 'wrap'], $columns));
+		return implode(', ', array_map([$this, 'column'], $columns));
 	}
 
 	/**
@@ -207,7 +294,7 @@ class Compiler
 	 */
 	protected function from($table): string
 	{
-		return ' FROM ' . $this->wrap($table);
+		return ' FROM ' . $this->table($table);
 	}
 
 	/**
@@ -234,12 +321,10 @@ class Compiler
 
 			return '?';
 		}
-		else
-		{
-			$this->params[] = $param;
 
-			return '?';
-		}
+		$this->params[] = $param;
+
+		return '?';
 	}
 
 	/**
@@ -267,7 +352,7 @@ class Compiler
 	 */
 	protected function between(array $where): string
 	{
-		return $this->wrap($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . $this->param($where['value1']) . ' AND ' . $this->param($where['value2']);
+		return $this->column($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . $this->param($where['value1']) . ' AND ' . $this->param($where['value2']);
 	}
 
 	/**
@@ -281,7 +366,7 @@ class Compiler
 	{
 		$values = $this->params($where['values'], false);
 
-		return $this->wrap($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . '(' . $values . ')';
+		return $this->column($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . '(' . $values . ')';
 	}
 
 	/**
@@ -293,7 +378,7 @@ class Compiler
 	 */
 	protected function null(array $where): string
 	{
-		return $this->wrap($where['column']) . ($where['not'] ? ' IS NOT NULL' : ' IS NULL');
+		return $this->column($where['column']) . ($where['not'] ? ' IS NOT NULL' : ' IS NULL');
 	}
 
 	/**
@@ -317,7 +402,7 @@ class Compiler
 	 */
 	protected function where(array $where): string
 	{
-		return $this->wrap($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
+		return $this->column($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
 	}
 
 	/**
@@ -381,7 +466,7 @@ class Compiler
 	 */
 	protected function joinCondition(array $condition): string
 	{
-		return $this->wrap($condition['column1']) . ' ' . $condition['operator'] . ' ' . $this->wrap($condition['column2']);
+		return $this->column($condition['column1']) . ' ' . $condition['operator'] . ' ' . $this->column($condition['column2']);
 	}
 
 	/**
@@ -439,7 +524,7 @@ class Compiler
 
 		foreach($joins as $join)
 		{
-			$sql[] = $join->getType() . ' JOIN ' . $this->wrap($join->getTable()) . ' ON ' . $this->joinConditions($join);
+			$sql[] = $join->getType() . ' JOIN ' . $this->table($join->getTable()) . ' ON ' . $this->joinConditions($join);
 		}
 
 		return ' ' . implode(' ', $sql);
@@ -496,7 +581,7 @@ class Compiler
 
 		foreach($havings as $having)
 		{
-			$conditions[] = ($conditionCounter > 0 ? $having['separator'] . ' ' : null) . $this->wrap($having['column']) . ' ' . $having['operator'] . ' ' . $this->param($having['value']);
+			$conditions[] = ($conditionCounter > 0 ? $having['separator'] . ' ' : null) . $this->column($having['column']) . ' ' . $having['operator'] . ' ' . $this->param($having['value']);
 
 			$conditionCounter++;
 		}
@@ -590,8 +675,8 @@ class Compiler
 	public function insert(array $values): array
 	{
 		$sql  = 'INSERT INTO ';
-		$sql .= $this->escapeIdentifier($this->query->getTable());
-		$sql .= ' (' . $this->columns(array_keys($values)) . ')';
+		$sql .= $this->escapeTable($this->query->getTable());
+		$sql .= ' (' . implode(', ', $this->escapeIdentifiers(array_keys($values))) . ')';
 		$sql .= ' VALUES';
 		$sql .= ' (' . $this->params($values) . ')';
 
@@ -611,13 +696,13 @@ class Compiler
 
 		foreach($values as $column => $value)
 		{
-			$columns[] .= $this->wrap($column) . ' = ' . $this->param($value);
+			$columns[] .= $this->escapeColumn($column) . ' = ' . $this->param($value);
 		}
 
 		$columns = implode(', ', $columns);
 
 		$sql  = 'UPDATE ';
-		$sql .= $this->escapeIdentifier($this->query->getTable());
+		$sql .= $this->escapeTable($this->query->getTable());
 		$sql .= ' SET ';
 		$sql .= $columns;
 		$sql .= $this->wheres($this->query->getWheres());
@@ -634,7 +719,7 @@ class Compiler
 	public function delete(): array
 	{
 		$sql  = 'DELETE FROM ';
-		$sql .= $this->escapeIdentifier($this->query->getTable());
+		$sql .= $this->escapeTable($this->query->getTable());
 		$sql .= $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];
