@@ -250,10 +250,11 @@ class Compiler
 	 * Compiles a column.
 	 *
 	 * @access  public
-	 * @param   mixed   $column  Column
+	 * @param   mixed   $column      Column
+	 * @param   bool    $allowAlias  Allow aliases?
 	 * @return  string
 	 */
-	public function column($column): string
+	public function column($column, bool $allowAlias = false): string
 	{
 		if($column instanceof Raw)
 		{
@@ -263,7 +264,7 @@ class Compiler
 		{
 			return $this->subquery($column);
 		}
-		elseif(stripos($column, ' AS ') !== false)
+		elseif($allowAlias && stripos($column, ' AS ') !== false)
 		{
 			$column = explode(' ', $column, 3);
 
@@ -277,19 +278,27 @@ class Compiler
 	 * Returns a comma-separated list of compiled columns.
 	 *
 	 * @access  public
-	 * @param   array   $columns  Array of columns
+	 * @param   array   $columns     Array of columns
+	 * @param   bool    $allowAlias  Allow aliases?
 	 * @return  string
 	 */
-	public function columns(array $columns): string
+	public function columns(array $columns, bool $allowAlias = false): string
 	{
-		return implode(', ', array_map([$this, 'column'], $columns));
+		$pieces = [];
+
+		foreach($columns as $column)
+		{
+			$pieces[] = $this->column($column, $allowAlias);
+		}
+
+		return implode(', ', $pieces);
 	}
 
 	/**
 	 * Compiles the FROM clause.
 	 *
-	 * @access  public
-	 * @param   mixed   $table  Table
+	 * @access  protected
+	 * @param   mixed     $table  Table
 	 * @return  string
 	 */
 	protected function from($table): string
@@ -337,10 +346,14 @@ class Compiler
 	 */
 	protected function params(array $params, bool $enclose = true): string
 	{
-		return implode(', ', array_map(function($param) use ($enclose)
+		$pieces = [];
+
+		foreach($params as $param)
 		{
-			return $this->param($param, $enclose);
-		}, $params));
+			$pieces[] = $this->param($param, $enclose);
+		}
+
+		return implode(', ', $pieces);
 	}
 
 	/**
@@ -651,7 +664,7 @@ class Compiler
 	public function select(): array
 	{
 		$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
-		$sql .= $this->columns($this->query->getColumns());
+		$sql .= $this->columns($this->query->getColumns(), true);
 		$sql .= $this->from($this->query->getTable());
 		$sql .= $this->joins($this->query->getJoins());
 		$sql .= $this->wheres($this->query->getWheres());
