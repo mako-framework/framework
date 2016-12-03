@@ -590,7 +590,7 @@ class Compiler
 	public function insert(array $values): array
 	{
 		$sql  = 'INSERT INTO ';
-		$sql .= $this->wrap($this->query->getTable());
+		$sql .= $this->escapeIdentifier($this->query->getTable());
 		$sql .= ' (' . $this->columns(array_keys($values)) . ')';
 		$sql .= ' VALUES';
 		$sql .= ' (' . $this->params($values) . ')';
@@ -617,7 +617,7 @@ class Compiler
 		$columns = implode(', ', $columns);
 
 		$sql  = 'UPDATE ';
-		$sql .= $this->wrap($this->query->getTable());
+		$sql .= $this->escapeIdentifier($this->query->getTable());
 		$sql .= ' SET ';
 		$sql .= $columns;
 		$sql .= $this->wheres($this->query->getWheres());
@@ -634,7 +634,7 @@ class Compiler
 	public function delete(): array
 	{
 		$sql  = 'DELETE FROM ';
-		$sql .= $this->wrap($this->query->getTable());
+		$sql .= $this->escapeIdentifier($this->query->getTable());
 		$sql .= $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];

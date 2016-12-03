@@ -81,7 +81,7 @@ class Subquery
 
 		if($this->alias !== null)
 		{
-			$query['sql'] .= ' AS ' . $this->query->getCompiler()->wrap($this->alias);
+			$query['sql'] .= ' AS ' . $this->query->getCompiler()->escapeIdentifier($this->alias);
 		}
 
 		return $query;
