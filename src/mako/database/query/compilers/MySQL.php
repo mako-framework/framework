@@ -54,7 +54,7 @@ class MySQL extends Compiler
 			}
 		}
 
-		return '"$' . str_replace('"', '""', $path) . '"';
+		return '$' . str_replace('"', '""', $path);
 	}
 
 	/**
@@ -62,7 +62,7 @@ class MySQL extends Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		return $column . '->' . $this->buildJsonPath($segments);
+		return $column . '->"' . $this->buildJsonPath($segments) . '"';
 	}
 
 	/**
@@ -70,7 +70,7 @@ class MySQL extends Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		return $column . ' = JSON_SET(' . $column . ', ' . $this->buildJsonPath($segments) . ', CAST(' . $param . ' AS JSON))';
+		return $column . ' = JSON_SET(' . $column . ", '" . $this->buildJsonPath($segments) . "', CAST(" . $param . ' AS JSON))';
 	}
 
 	/**

@@ -165,7 +165,7 @@ class MySQLCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->update(['data->foo->bar->0' => 1]);
 
-		$this->assertEquals('UPDATE `foobar` SET `data` = JSON_SET(`data`, "$.foo.bar[0]", CAST(? AS JSON))', $query['sql']);
+		$this->assertEquals('UPDATE `foobar` SET `data` = JSON_SET(`data`, \'$.foo.bar[0]\', CAST(? AS JSON))', $query['sql']);
 		$this->assertEquals([1], $query['params']);
 	}
 }

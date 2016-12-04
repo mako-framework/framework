@@ -97,4 +97,17 @@ class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('SELECT JSON_EXTRACT("foobar"."json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testUpdateWithJSONColumn()
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->update(['data->foo->bar->0' => 1]);
+
+		$this->assertEquals('UPDATE "foobar" SET "data" = JSON_SET("data", \'$.foo.bar[0]\', JSON(?))', $query['sql']);
+		$this->assertEquals([1], $query['params']);
+	}
 }

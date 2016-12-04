@@ -25,9 +25,13 @@ class SQLite extends Compiler
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * {@inheritdoc}
+	 * Builds a JSON path.
+	 *
+	 * @access  protected
+	 * @param   array      $segments  Path segments
+	 * @return  string
 	 */
-	protected function buildJsonGet(string $column, array $segments): string
+	protected function buildJsonPath(array $segments): string
 	{
 		$path = '';
 
@@ -43,6 +47,22 @@ class SQLite extends Compiler
 			}
 		}
 
-		return 'JSON_EXTRACT(' . $column . ', ' . "'$" . str_replace("'", "''", $path) . "'" . ')';
+		return '$' . str_replace("'", "''", $path);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function buildJsonGet(string $column, array $segments): string
+	{
+		return 'JSON_EXTRACT(' . $column . ', ' . "'" . $this->buildJsonPath($segments) . "'" . ')';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function buildJsonSet(string $column, array $segments, string $param): string
+	{
+		return $column . ' = JSON_SET(' . $column . ', ' . "'" . $this->buildJsonPath($segments) . "', JSON(" . $param . '))';
 	}
 }
