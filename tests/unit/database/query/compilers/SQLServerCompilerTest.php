@@ -172,7 +172,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT json_value([json], \'lax $.foo[0].bar\') FROM [foobar]', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE([json], \'lax $.foo[0].bar\') FROM [foobar]', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -183,7 +183,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT json_value([json], \'lax $.foo[0].\'\'bar\') FROM [foobar]', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE([json], \'lax $.foo[0].\'\'bar\') FROM [foobar]', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -194,7 +194,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT json_value([json], \'lax $.foo[0].bar\') AS [jsonvalue] FROM [foobar]', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE([json], \'lax $.foo[0].bar\') AS [jsonvalue] FROM [foobar]', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -205,7 +205,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT json_value([foobar].[json], \'lax $.foo[0].bar\') AS [jsonvalue] FROM [foobar]', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE([foobar].[json], \'lax $.foo[0].bar\') AS [jsonvalue] FROM [foobar]', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 

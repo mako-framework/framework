@@ -61,7 +61,7 @@ class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT json_extract("json", \'$.foo[0].bar\') FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_EXTRACT("json", \'$.foo[0].bar\') FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -72,7 +72,7 @@ class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT json_extract("json", \'$.foo[0].\'\'bar\') FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_EXTRACT("json", \'$.foo[0].\'\'bar\') FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -83,7 +83,7 @@ class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT json_extract("json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_EXTRACT("json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -94,7 +94,7 @@ class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT json_extract("foobar"."json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_EXTRACT("foobar"."json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 }

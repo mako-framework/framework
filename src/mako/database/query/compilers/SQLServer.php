@@ -48,7 +48,7 @@ class SQLServer extends Compiler
 			}
 		}
 
-		return 'json_value(' . $column . ', ' . "'lax $" . str_replace("'", "''", $path) . "'" . ')';
+		return 'JSON_VALUE(' . $column . ', ' . "'lax $" . str_replace("'", "''", $path) . "'" . ')';
 	}
 
 	/**

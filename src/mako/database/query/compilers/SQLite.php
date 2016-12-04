@@ -43,6 +43,6 @@ class SQLite extends Compiler
 			}
 		}
 
-		return 'json_extract(' . $column . ', ' . "'$" . str_replace("'", "''", $path) . "'" . ')';
+		return 'JSON_EXTRACT(' . $column . ', ' . "'$" . str_replace("'", "''", $path) . "'" . ')';
 	}
 }

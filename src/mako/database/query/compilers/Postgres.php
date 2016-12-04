@@ -52,6 +52,16 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function buildJsonSet(string $column, array $segments, string $param): string
+	{
+		$path = implode(',', $segments);
+
+		return $column . " = JSONB_SET(" . $column . ", '{" . $path . "}', '" . $param . "')";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function lock($lock): string
 	{
 		if($lock === null)

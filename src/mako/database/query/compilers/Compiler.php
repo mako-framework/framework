@@ -151,6 +151,20 @@ class Compiler
 	}
 
 	/**
+	 * Builds a JSON value setter.
+	 *
+	 * @access  protected
+	 * @param   string     $column    Column name
+	 * @param   array      $segments  JSON path segments
+	 * @param   string     $param     Parameter
+	 * @return  string
+	 */
+	protected function buildJsonSet(string $column, array $segments, string $param): string
+	{
+		throw new RuntimeException(vsprintf("%s(): The [ %s ] query compiler does not support the unified JSON field syntax.", [__METHOD__, static::class]));
+	}
+
+	/**
 	 * Escapes a table name.
 	 *
 	 * @access  public
@@ -697,6 +711,36 @@ class Compiler
 	}
 
 	/**
+	 * Compiles update columns.
+	 *
+	 * @access  protected
+	 * @param   array      $columns  Associative array of columns and values
+	 * @return  string
+	 */
+	protected function updateColumns(array $columns): string
+	{
+		$pieces = [];
+
+		foreach($columns as $column => $value)
+		{
+			$param = $this->param($value);
+
+			if($this->hasJsonPath($column))
+			{
+				list($column, $path) = explode(static::JSON_PATH_SEPARATOR, $column, 2);
+
+				$pieces[] = $this->buildJsonSet($this->escapeColumn($column), explode(static::JSON_PATH_SEPARATOR, $path), $param);
+			}
+			else
+			{
+				$pieces[] = $this->escapeColumn($column) . ' = ' . $param;
+			}
+		}
+
+		return implode(', ', $pieces);
+	}
+
+	/**
 	 * Compiles a UPDATE query.
 	 *
 	 * @access  public
@@ -705,19 +749,10 @@ class Compiler
 	 */
 	public function update(array $values): array
 	{
-		$columns = [];
-
-		foreach($values as $column => $value)
-		{
-			$columns[] .= $this->escapeColumn($column) . ' = ' . $this->param($value);
-		}
-
-		$columns = implode(', ', $columns);
-
 		$sql  = 'UPDATE ';
 		$sql .= $this->escapeTable($this->query->getTable());
 		$sql .= ' SET ';
-		$sql .= $columns;
+		$sql .= $this->updateColumns($values);
 		$sql .= $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];
