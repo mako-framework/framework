@@ -29,24 +29,21 @@ class Postgres extends Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		$segments = array_map(function($segment)
+		$pieces = [];
+
+		foreach($segments as $segment)
 		{
-			if(is_numeric($segment))
-			{
-				return	$segment;
-			}
+			$pieces[] = is_numeric($segment) ? $segment : "'" . str_replace("'", "''", $segment) . "'";
+		}
 
-			return "'" . str_replace("'", "''", $segment) . "'";
-		}, $segments);
+		$last = array_pop($pieces);
 
-		$last = array_pop($segments);
-
-		if(empty($segments))
+		if(empty($pieces))
 		{
 			return $column . '->>' . $last;
 		}
 
-		return $column . '->' . implode('->', $segments) . '->>' . $last;
+		return $column . '->' . implode('->', $pieces) . '->>' . $last;
 	}
 
 	/**
@@ -54,9 +51,7 @@ class Postgres extends Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		$path = implode(',', $segments);
-
-		return $column . " = JSONB_SET(" . $column . ", '{" . $path . "}', '" . $param . "')";
+		return $column . " = JSONB_SET(" . $column . ", '{" . implode(',', $segments) . "}', '" . $param . "')";
 	}
 
 	/**

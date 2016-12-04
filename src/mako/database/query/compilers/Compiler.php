@@ -247,17 +247,14 @@ class Compiler
 	{
 		if($this->hasJsonPath($column))
 		{
-			list($column, $path) = explode(static::JSON_PATH_SEPARATOR, $column, 2);
+			$segments = explode(static::JSON_PATH_SEPARATOR, $column);
+
+			$column = $this->escapeColumn(array_shift($segments));
+
+			return $this->buildJsonGet($column, $segments);
 		}
 
-		$column = $this->escapeColumn($column);
-
-		if(isset($path))
-		{
-			$column = $this->buildJsonGet($column, explode(static::JSON_PATH_SEPARATOR, $path));
-		}
-
-		return $column;
+		return $this->escapeColumn($column);
 	}
 
 	/**
@@ -727,9 +724,11 @@ class Compiler
 
 			if($this->hasJsonPath($column))
 			{
-				list($column, $path) = explode(static::JSON_PATH_SEPARATOR, $column, 2);
+				$segments = explode(static::JSON_PATH_SEPARATOR, $column);
 
-				$pieces[] = $this->buildJsonSet($this->escapeColumn($column), explode(static::JSON_PATH_SEPARATOR, $path), $param);
+				$column = $this->escapeColumn(array_shift($segments));
+
+				$pieces[] = $this->buildJsonSet($column, $segments, $param);
 			}
 			else
 			{
