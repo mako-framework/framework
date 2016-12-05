@@ -56,6 +56,6 @@ class SQLite extends Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		return $column . ' = JSON_SET(' . $column . ', ' . "'" . $this->buildJsonPath($segments) . "', JSON(" . $param . '))';
+		return $column . ' = JSON_SET(' . $column . ", '" . $this->buildJsonPath($segments) . "', JSON(" . $param . '))';
 	}
 }
