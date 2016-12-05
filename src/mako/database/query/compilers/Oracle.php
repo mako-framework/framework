@@ -24,25 +24,30 @@ class Oracle extends Compiler
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * {@inheritdoc}
+	 * Builds a JSON path.
+	 *
+	 * @access  protected
+	 * @param   array      $segments  Path segments
+	 * @return  string
 	 */
-	protected function buildJsonGet(string $column, array $segments): string
+	protected function buildJsonPath(array $segments): string
 	{
 		$path = '';
 
 		foreach($segments as $segment)
 		{
-			if(is_numeric($segment))
-			{
-				$path .= '[' . $segment . ']';
-			}
-			else
-			{
-				$path .= '.' . $this->escapeIdentifier($segment);
-			}
+			$path .= is_numeric($segment) ? '[' . $segment . ']' : '.' . $segment;
 		}
 
-		return $column . $path;
+		return '$' . str_replace("'", "''", $path);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function buildJsonGet(string $column, array $segments): string
+	{
+		return 'JSON_VALUE(' . $column . ", '" . $this->buildJsonPath($segments) . "')";
 	}
 
 	/**

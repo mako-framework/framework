@@ -30,25 +30,38 @@ class SQLServer extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Builds a JSON path.
+	 *
+	 * @access  protected
+	 * @param   array      $segments  Path segments
+	 * @return  string
 	 */
-	protected function buildJsonGet(string $column, array $segments): string
+	protected function buildJsonPath(array $segments): string
 	{
 		$path = '';
 
 		foreach($segments as $segment)
 		{
-			if(is_numeric($segment))
-			{
-				$path .= '[' . $segment . ']';
-			}
-			else
-			{
-				$path .= '.' . $segment;
-			}
+			$path .= is_numeric($segment) ? '[' . $segment . ']' : '.' . $segment;
 		}
 
-		return 'JSON_VALUE(' . $column . ', ' . "'lax $" . str_replace("'", "''", $path) . "'" . ')';
+		return '$' . str_replace("'", "''", $path);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function buildJsonGet(string $column, array $segments): string
+	{
+		return 'JSON_VALUE(' . $column . ", 'lax " . $this->buildJsonPath($segments) . "')";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function buildJsonSet(string $column, array $segments, string $param): string
+	{
+		return $column . ' = JSON_MODIFY(' . $column . ", 'lax " . $this->buildJsonPath($segments) . "', JSON_QUERY('" . $param . "'))";
 	}
 
 	/**

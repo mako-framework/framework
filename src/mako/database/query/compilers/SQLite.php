@@ -37,14 +37,7 @@ class SQLite extends Compiler
 
 		foreach($segments as $segment)
 		{
-			if(is_numeric($segment))
-			{
-				$path .= '[' . $segment . ']';
-			}
-			else
-			{
-				$path .= '.' . $segment;
-			}
+			$path .= is_numeric($segment) ? '[' . $segment . ']' : '.' . $segment;
 		}
 
 		return '$' . str_replace("'", "''", $path);
@@ -55,7 +48,7 @@ class SQLite extends Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		return 'JSON_EXTRACT(' . $column . ', ' . "'" . $this->buildJsonPath($segments) . "'" . ')';
+		return 'JSON_EXTRACT(' . $column . ", '" . $this->buildJsonPath($segments) . "')";
 	}
 
 	/**

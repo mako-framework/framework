@@ -212,6 +212,19 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testUpdateWithJSONColumn()
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->update(['data->foo->bar->0' => 1]);
+
+		$this->assertEquals('UPDATE [foobar] SET [data] = JSON_MODIFY([data], \'lax $.foo.bar[0]\', JSON_QUERY(\'?\'))', $query['sql']);
+		$this->assertEquals([1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithExclusiveLock()
 	{
 		$query = $this->getBuilder();
