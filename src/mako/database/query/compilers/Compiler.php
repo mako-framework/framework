@@ -23,6 +23,13 @@ use mako\database\query\Subquery;
 class Compiler
 {
 	/**
+	 * JSON path separator.
+	 *
+	 * @var string
+	 */
+	const JSON_PATH_SEPARATOR = '->';
+
+	/**
 	 * Date format.
 	 *
 	 * @var string
@@ -107,107 +114,207 @@ class Compiler
 	}
 
 	/**
-	 * Builds a JSON path.
+	 * Returns an array of escaped identifiers.
+	 *
+	 * @access  public
+	 * @param   array   $identifiers  Identifiers to escape
+	 * @return  array
+	 */
+	public function escapeIdentifiers(array $identifiers): array
+	{
+		return array_map([$this, 'escapeIdentifier'], $identifiers);
+	}
+
+	/**
+	 * Does the string have a JSON path?
+	 *
+	 * @access  protected
+	 * @param   string     $string  String
+	 * @return  bool
+	 */
+	protected function hasJsonPath(string $string): bool
+	{
+		return strpos($string, static::JSON_PATH_SEPARATOR) !== false;
+	}
+
+	/**
+	 * Builds a JSON value getter.
 	 *
 	 * @access  protected
 	 * @param   string     $column    Column name
 	 * @param   array      $segments  JSON path segments
 	 * @return  string
 	 */
-	protected function buildJsonPath(string $column, array $segments): string
+	protected function buildJsonGet(string $column, array $segments): string
 	{
 		throw new RuntimeException(vsprintf("%s(): The [ %s ] query compiler does not support the unified JSON field syntax.", [__METHOD__, static::class]));
 	}
 
 	/**
-	 * Returns an escaped table or column name.
+	 * Builds a JSON value setter.
 	 *
-	 * @access  public
-	 * @param   string  $value  Value to escape
+	 * @access  protected
+	 * @param   string     $column    Column name
+	 * @param   array      $segments  JSON path segments
+	 * @param   string     $param     Parameter
 	 * @return  string
 	 */
-	public function wrapTableAndOrColumn(string $value): string
+	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		$wrapped = [];
-
-		if(strpos($value, '->') !== false)
-		{
-			list($value, $jsonPath) = explode('->', $value, 2);
-		}
-
-		foreach(explode('.', $value) as $segment)
-		{
-			if($segment === '*')
-			{
-				$wrapped[] = $segment;
-			}
-			else
-			{
-				$wrapped[] = $this->escapeIdentifier($segment);
-			}
-		}
-
-		$wrapped = implode('.', $wrapped);
-
-		if(isset($jsonPath))
-		{
-			$wrapped = $this->buildJsonPath($wrapped, explode('->', $jsonPath));
-		}
-
-		return $wrapped;
+		throw new RuntimeException(vsprintf("%s(): The [ %s ] query compiler does not support the unified JSON field syntax.", [__METHOD__, static::class]));
 	}
 
 	/**
-	 * Wraps table and column names with dialect specific escape characters.
+	 * Escapes a table name.
 	 *
 	 * @access  public
-	 * @param   mixed   $value  Value to wrap
+	 * @param   string  $table  Table name
 	 * @return  string
 	 */
-	public function wrap($value): string
+	public function escapeTable(string $table): string
 	{
-		if($value instanceof Raw)
-		{
-			return $value->get();
-		}
-		elseif($value instanceof Subquery)
-		{
-			return $this->subquery($value);
-		}
-		elseif(stripos($value, ' AS ') !== false)
-		{
-			$values = explode(' ', $value);
+		$segments = [];
 
-			return sprintf('%s AS %s', $this->wrapTableAndOrColumn($values[0]), $this->wrapTableAndOrColumn($values[2]));
-		}
-		else
+		foreach(explode('.', $table) as $segment)
 		{
-			return $this->wrapTableAndOrColumn($value);
+			$segments[] = $this->escapeIdentifier($segment);
 		}
+
+		return implode('.', $segments);
 	}
 
 	/**
-	 * Returns a comma-separated list of columns.
-	 *
-	 * @access  public
-	 * @param   array      $columns  Array of columns
-	 * @return  string
-	 */
-	public function columns(array $columns): string
-	{
-		return implode(', ', array_map([$this, 'wrap'], $columns));
-	}
-
-	/**
-	 * Compiles the FROM clause.
+	 * Compiles a table.
 	 *
 	 * @access  public
 	 * @param   mixed   $table  Table
 	 * @return  string
 	 */
+	public function table($table): string
+	{
+		if($table instanceof Raw)
+		{
+			return $table->get();
+		}
+		elseif($table instanceof Subquery)
+		{
+			return $this->subquery($table);
+		}
+		elseif(stripos($table, ' AS ') !== false)
+		{
+			$table = explode(' ', $table, 3);
+
+			return sprintf('%s AS %s', $this->escapeTable($table[0]), $this->escapeTable($table[2]));
+		}
+
+		return $this->escapeTable($table);
+	}
+
+	/**
+	 * Escapes a column name.
+	 *
+	 * @access  public
+	 * @param   string  $column  Column name
+	 * @return  string
+	 */
+	public function escapeColumn(string $column): string
+	{
+		$segments = [];
+
+		foreach(explode('.', $column) as $segment)
+		{
+			if($segment === '*')
+			{
+				$segments[] = $segment;
+			}
+			else
+			{
+				$segments[] = $this->escapeIdentifier($segment);
+			}
+		}
+
+		return implode('.', $segments);
+	}
+
+	/**
+	 * Compiles a column name.
+	 *
+	 * @access  protected
+	 * @param   string     Column name
+	 * @return  string
+	 */
+	protected function compileColumnName(string  $column): string
+	{
+		if($this->hasJsonPath($column))
+		{
+			$segments = explode(static::JSON_PATH_SEPARATOR, $column);
+
+			$column = $this->escapeColumn(array_shift($segments));
+
+			return $this->buildJsonGet($column, $segments);
+		}
+
+		return $this->escapeColumn($column);
+	}
+
+	/**
+	 * Compiles a column.
+	 *
+	 * @access  public
+	 * @param   mixed   $column      Column
+	 * @param   bool    $allowAlias  Allow aliases?
+	 * @return  string
+	 */
+	public function column($column, bool $allowAlias = false): string
+	{
+		if($column instanceof Raw)
+		{
+			return $column->get();
+		}
+		elseif($column instanceof Subquery)
+		{
+			return $this->subquery($column);
+		}
+		elseif($allowAlias && stripos($column, ' AS ') !== false)
+		{
+			$column = explode(' ', $column, 3);
+
+			return sprintf('%s AS %s', $this->compileColumnName($column[0]), $this->compileColumnName($column[2]));
+		}
+
+		return $this->compileColumnName($column);
+	}
+
+	/**
+	 * Returns a comma-separated list of compiled columns.
+	 *
+	 * @access  public
+	 * @param   array   $columns     Array of columns
+	 * @param   bool    $allowAlias  Allow aliases?
+	 * @return  string
+	 */
+	public function columns(array $columns, bool $allowAlias = false): string
+	{
+		$pieces = [];
+
+		foreach($columns as $column)
+		{
+			$pieces[] = $this->column($column, $allowAlias);
+		}
+
+		return implode(', ', $pieces);
+	}
+
+	/**
+	 * Compiles the FROM clause.
+	 *
+	 * @access  protected
+	 * @param   mixed     $table  Table
+	 * @return  string
+	 */
 	protected function from($table): string
 	{
-		return ' FROM ' . $this->wrap($table);
+		return ' FROM ' . $this->table($table);
 	}
 
 	/**
@@ -234,12 +341,10 @@ class Compiler
 
 			return '?';
 		}
-		else
-		{
-			$this->params[] = $param;
 
-			return '?';
-		}
+		$this->params[] = $param;
+
+		return '?';
 	}
 
 	/**
@@ -252,10 +357,14 @@ class Compiler
 	 */
 	protected function params(array $params, bool $enclose = true): string
 	{
-		return implode(', ', array_map(function($param) use ($enclose)
+		$pieces = [];
+
+		foreach($params as $param)
 		{
-			return $this->param($param, $enclose);
-		}, $params));
+			$pieces[] = $this->param($param, $enclose);
+		}
+
+		return implode(', ', $pieces);
 	}
 
 	/**
@@ -267,7 +376,7 @@ class Compiler
 	 */
 	protected function between(array $where): string
 	{
-		return $this->wrap($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . $this->param($where['value1']) . ' AND ' . $this->param($where['value2']);
+		return $this->column($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . $this->param($where['value1']) . ' AND ' . $this->param($where['value2']);
 	}
 
 	/**
@@ -281,7 +390,7 @@ class Compiler
 	{
 		$values = $this->params($where['values'], false);
 
-		return $this->wrap($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . '(' . $values . ')';
+		return $this->column($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . '(' . $values . ')';
 	}
 
 	/**
@@ -293,7 +402,7 @@ class Compiler
 	 */
 	protected function null(array $where): string
 	{
-		return $this->wrap($where['column']) . ($where['not'] ? ' IS NOT NULL' : ' IS NULL');
+		return $this->column($where['column']) . ($where['not'] ? ' IS NOT NULL' : ' IS NULL');
 	}
 
 	/**
@@ -317,7 +426,7 @@ class Compiler
 	 */
 	protected function where(array $where): string
 	{
-		return $this->wrap($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
+		return $this->column($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
 	}
 
 	/**
@@ -381,7 +490,7 @@ class Compiler
 	 */
 	protected function joinCondition(array $condition): string
 	{
-		return $this->wrap($condition['column1']) . ' ' . $condition['operator'] . ' ' . $this->wrap($condition['column2']);
+		return $this->column($condition['column1']) . ' ' . $condition['operator'] . ' ' . $this->column($condition['column2']);
 	}
 
 	/**
@@ -439,7 +548,7 @@ class Compiler
 
 		foreach($joins as $join)
 		{
-			$sql[] = $join->getType() . ' JOIN ' . $this->wrap($join->getTable()) . ' ON ' . $this->joinConditions($join);
+			$sql[] = $join->getType() . ' JOIN ' . $this->table($join->getTable()) . ' ON ' . $this->joinConditions($join);
 		}
 
 		return ' ' . implode(' ', $sql);
@@ -496,7 +605,7 @@ class Compiler
 
 		foreach($havings as $having)
 		{
-			$conditions[] = ($conditionCounter > 0 ? $having['separator'] . ' ' : null) . $this->wrap($having['column']) . ' ' . $having['operator'] . ' ' . $this->param($having['value']);
+			$conditions[] = ($conditionCounter > 0 ? $having['separator'] . ' ' : null) . $this->column($having['column']) . ' ' . $having['operator'] . ' ' . $this->param($having['value']);
 
 			$conditionCounter++;
 		}
@@ -566,7 +675,7 @@ class Compiler
 	public function select(): array
 	{
 		$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
-		$sql .= $this->columns($this->query->getColumns());
+		$sql .= $this->columns($this->query->getColumns(), true);
 		$sql .= $this->from($this->query->getTable());
 		$sql .= $this->joins($this->query->getJoins());
 		$sql .= $this->wheres($this->query->getWheres());
@@ -590,12 +699,44 @@ class Compiler
 	public function insert(array $values): array
 	{
 		$sql  = 'INSERT INTO ';
-		$sql .= $this->wrap($this->query->getTable());
-		$sql .= ' (' . $this->columns(array_keys($values)) . ')';
+		$sql .= $this->escapeTable($this->query->getTable());
+		$sql .= ' (' . implode(', ', $this->escapeIdentifiers(array_keys($values))) . ')';
 		$sql .= ' VALUES';
 		$sql .= ' (' . $this->params($values) . ')';
 
 		return ['sql' => $sql, 'params' => $this->params];
+	}
+
+	/**
+	 * Compiles update columns.
+	 *
+	 * @access  protected
+	 * @param   array      $columns  Associative array of columns and values
+	 * @return  string
+	 */
+	protected function updateColumns(array $columns): string
+	{
+		$pieces = [];
+
+		foreach($columns as $column => $value)
+		{
+			$param = $this->param($value);
+
+			if($this->hasJsonPath($column))
+			{
+				$segments = explode(static::JSON_PATH_SEPARATOR, $column);
+
+				$column = $this->escapeColumn(array_shift($segments));
+
+				$pieces[] = $this->buildJsonSet($column, $segments, $param);
+			}
+			else
+			{
+				$pieces[] = $this->escapeColumn($column) . ' = ' . $param;
+			}
+		}
+
+		return implode(', ', $pieces);
 	}
 
 	/**
@@ -607,19 +748,10 @@ class Compiler
 	 */
 	public function update(array $values): array
 	{
-		$columns = [];
-
-		foreach($values as $column => $value)
-		{
-			$columns[] .= $this->wrap($column) . ' = ' . $this->param($value);
-		}
-
-		$columns = implode(', ', $columns);
-
 		$sql  = 'UPDATE ';
-		$sql .= $this->wrap($this->query->getTable());
+		$sql .= $this->escapeTable($this->query->getTable());
 		$sql .= ' SET ';
-		$sql .= $columns;
+		$sql .= $this->updateColumns($values);
 		$sql .= $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];
@@ -634,7 +766,7 @@ class Compiler
 	public function delete(): array
 	{
 		$sql  = 'DELETE FROM ';
-		$sql .= $this->wrap($this->query->getTable());
+		$sql .= $this->escapeTable($this->query->getTable());
 		$sql .= $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];

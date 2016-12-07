@@ -27,26 +27,31 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function buildJsonPath(string $column, array $segments): string
+	protected function buildJsonGet(string $column, array $segments): string
 	{
-		$segments = array_map(function($segment)
+		$pieces = [];
+
+		foreach($segments as $segment)
 		{
-			if(is_numeric($segment))
-			{
-				return	$segment;
-			}
-
-			return "'" . str_replace("'", "''", $segment) . "'";
-		}, $segments);
-
-		$last = array_pop($segments);
-
-		if(empty($segments))
-		{
-			return $column . $path = '->>' . $last;
+			$pieces[] = is_numeric($segment) ? $segment : "'" . str_replace("'", "''", $segment) . "'";
 		}
 
-		return $column . '->' . implode('->', $segments) . '->>' . $last;
+		$last = array_pop($pieces);
+
+		if(empty($pieces))
+		{
+			return $column . '->>' . $last;
+		}
+
+		return $column . '->' . implode('->', $pieces) . '->>' . $last;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function buildJsonSet(string $column, array $segments, string $param): string
+	{
+		return $column . " = JSONB_SET(" . $column . ", '{" . implode(',', $segments) . "}', '" . $param . "')";
 	}
 
 	/**

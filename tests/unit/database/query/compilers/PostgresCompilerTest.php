@@ -57,6 +57,17 @@ class PostgresCompilerTest extends PHPUnit_Framework_TestCase
 	{
 		$query = $this->getBuilder();
 
+		$query->select(['json->foo']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "json"->>\'foo\' FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
 		$query->select(['json->foo->0->bar']);
 
 		$query = $query->getCompiler()->select();
@@ -141,5 +152,18 @@ class PostgresCompilerTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" CUSTOM LOCK', $query['sql']);
 		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testUpdateWithJSONColumn()
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->update(['data->foo->bar->0' => 1]);
+
+		$this->assertEquals('UPDATE "foobar" SET "data" = JSONB_SET("data", \'{foo,bar,0}\', \'?\')', $query['sql']);
+		$this->assertEquals([1], $query['params']);
 	}
 }
