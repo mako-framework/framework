@@ -85,6 +85,25 @@ class Compiler
 	}
 
 	/**
+	 * Compiles a raw SQL statement.
+	 *
+	 * @access  protected
+	 * @param   \mako\database\query\Raw  $raw  Raw SQL
+	 * @return  string
+	 */
+	protected function raw(Raw $raw): string
+	{
+		$parameters = $raw->getParameters();
+
+		if(!empty($parameters))
+		{
+			$this->params = array_merge($this->params, $parameters);
+		}
+
+		return $raw->get();
+	}
+
+	/**
 	 * Compiles subquery, merges parameters and returns subquery SQL.
 	 *
 	 * @access  protected
@@ -194,7 +213,7 @@ class Compiler
 	{
 		if($table instanceof Raw)
 		{
-			return $table->get();
+			return $this->raw($table);
 		}
 		elseif($table instanceof Subquery)
 		{
@@ -269,7 +288,7 @@ class Compiler
 	{
 		if($column instanceof Raw)
 		{
-			return $column->get();
+			return $this->raw($column);
 		}
 		elseif($column instanceof Subquery)
 		{
@@ -329,7 +348,7 @@ class Compiler
 	{
 		if($param instanceof Raw)
 		{
-			return $param->get();
+			return $this->raw($param);
 		}
 		elseif($param instanceof Subquery)
 		{

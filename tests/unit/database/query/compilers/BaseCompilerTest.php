@@ -495,6 +495,25 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithRawWithBoundParameters()
+	{
+		$query = $this->getBuilder();
+
+		$query->where('id', '>', 1);
+
+		$query->in('foo', new Raw("SELECT id FROM barfoo WHERE id > ?", [2]));
+
+		$query->where('id', '<', 3);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "id" > ? AND "foo" IN (SELECT id FROM barfoo WHERE id > ?) AND "id" < ?', $query['sql']);
+		$this->assertEquals([1, 2, 3], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithClosureIn()
 	{
 		$query = $this->getBuilder();
