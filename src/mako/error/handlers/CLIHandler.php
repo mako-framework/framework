@@ -61,7 +61,6 @@ class CLIHandler extends Handler
 	 * Returns a detailed error.
 	 *
 	 * @access  protected
-	 * @return
 	 */
 	protected function getDetailedError()
 	{
@@ -85,9 +84,8 @@ class CLIHandler extends Handler
 	 * Retruns a generic error.
 	 *
 	 * @access  protected
-	 * @return  string
 	 */
-	protected function getGenericError(): string
+	protected function getGenericError()
 	{
 		$this->output->errorLn('<bg_red><white>An error has occurred while processing your task.</white></bg_red>' . PHP_EOL);
 	}
