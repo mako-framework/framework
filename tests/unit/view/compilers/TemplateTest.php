@@ -411,7 +411,7 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	{
 		$template = '{{$foo || \'bar\'}}';
 
-		$compiled = '<?php echo $this->escapeHTML($foo ?? \'bar\', $__charset__); ?>';
+		$compiled = '<?php echo $this->escapeHTML((!empty($foo) ? $foo : \'bar\'), $__charset__); ?>';
 
 		//
 
