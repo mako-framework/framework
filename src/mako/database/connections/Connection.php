@@ -667,7 +667,7 @@ class Connection
 	 */
 	public function builder(): Query
 	{
-		return new Query($this, new $this->queryBuilderHelper, $this->queryCompiler);
+		return new Query($this);
 	}
 
 	/**
