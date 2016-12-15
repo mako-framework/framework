@@ -37,7 +37,7 @@ trait FireTrait
 	 */
 	protected function buildCommand(string $command, bool $background = false, bool $sameEnvironment = true): string
 	{
-		if($sameEnvironment && strpos($command, '--env=') === false &&  ($environment = $this->app->getEnvironment()) !== null)
+		if($sameEnvironment && strpos($command, '--env=') === false && ($environment = $this->app->getEnvironment()) !== null)
 		{
 			$command .= ' --env=' . $environment;
 		}
