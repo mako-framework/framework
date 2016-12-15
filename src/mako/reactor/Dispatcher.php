@@ -149,10 +149,11 @@ class Dispatcher
 	 * @access  protected
 	 * @param   \mako\reactor\Command  $command    Command instance
 	 * @param   array                  $arguments  Command arguments
+	 * @return  mixed
 	 */
 	protected function execute(Command $command, array $arguments)
 	{
-		$this->container->call([$command, 'execute'], $arguments);
+		return $this->container->call([$command, 'execute'], $arguments);
 	}
 
 	/**
@@ -161,8 +162,9 @@ class Dispatcher
 	 * @access  public
 	 * @param   string  $command    Command class
 	 * @param   array   $arguments  Command arguments
+	 * @return  int
 	 */
-	public function dispatch(string $command, array $arguments)
+	public function dispatch(string $command, array $arguments): int
 	{
 		$command = $this->resolve($command);
 
@@ -170,7 +172,9 @@ class Dispatcher
 		{
 			$this->checkArgumentsAndOptions($command, $arguments);
 
-			$this->execute($command, $arguments);
+			$returnValue = $this->execute($command, $arguments);
 		}
+
+		return isset($returnValue) ? (is_int($returnValue) ? $returnValue : 0) : 0;
 	}
 }

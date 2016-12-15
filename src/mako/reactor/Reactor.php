@@ -271,8 +271,9 @@ class Reactor
 	 *
 	 * @access  protected
 	 * @param   string     $command  Command
+	 * @return  int
 	 */
-	protected function dispatch(string $command)
+	protected function dispatch(string $command): int
 	{
 		if(!isset($this->commands[$command]))
 		{
@@ -287,18 +288,19 @@ class Reactor
 
 			$this->listCommands();
 
-			return;
+			return 0;
 		}
 
-		$this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
+		return $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
 	}
 
 	/**
 	 * Run the reactor.
 	 *
 	 * @access  public
+	 * @return  int
 	 */
-	public function run()
+	public function run(): int
 	{
 		$this->handleCustomOptions();
 
@@ -312,7 +314,7 @@ class Reactor
 		{
 			try
 			{
-				$this->dispatch($command);
+				$exitCode = $this->dispatch($command);
 			}
 			catch(InvalidOptionException $e)
 			{
@@ -338,5 +340,7 @@ class Reactor
 				$this->output->errorLn('<red>Missing required argument [ ' . $e->getName() . ' ].</red>');
 			}
 		}
+
+		return $exitCode ?? 0;
 	}
 }

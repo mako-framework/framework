@@ -48,7 +48,65 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$dispatcher = new Dispatcher($container);
 
-		$dispatcher->dispatch('foo\bar\Command', ['foo', 'bar']);
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar']);
+
+		$this->assertSame(0, $exitCode);
+	}
+
+	/**
+	 *
+	 */
+	public function testDispatchWithExitCode()
+	{
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$command = Mockery::mock('mako\reactor\Command');
+
+		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
+
+		$command->shouldReceive('isStrict')->once()->andReturn(false);
+
+		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
+
+		$command->shouldReceive('getCommandOptions')->once()->andReturn([]);
+
+		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
+
+		$container->shouldReceive('call')->once()->with([$command, 'execute'], ['foo', 'bar'])->andReturn(123);
+
+		$dispatcher = new Dispatcher($container);
+
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar']);
+
+		$this->assertSame(123, $exitCode);
+	}
+
+	/**
+	 *
+	 */
+	public function testDispatchWithNonIntExitCode()
+	{
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$command = Mockery::mock('mako\reactor\Command');
+
+		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
+
+		$command->shouldReceive('isStrict')->once()->andReturn(false);
+
+		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
+
+		$command->shouldReceive('getCommandOptions')->once()->andReturn([]);
+
+		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
+
+		$container->shouldReceive('call')->once()->with([$command, 'execute'], ['foo', 'bar'])->andReturn('foobar');
+
+		$dispatcher = new Dispatcher($container);
+
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar']);
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -66,7 +124,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$dispatcher = new Dispatcher($container);
 
-		$dispatcher->dispatch('foo\bar\Command', ['foo', 'bar']);
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar']);
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**

@@ -103,7 +103,9 @@ EOF;
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -135,7 +137,9 @@ EOF;
 
 		$reactor = new Reactor($input, $output, $container, $dispatcher);
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -181,7 +185,9 @@ EOF;
 
 		$reactor->registerCommand('server', 'foobar');
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -227,7 +233,9 @@ EOF;
 
 		$reactor->registerCommand('foobar', 'foobar');
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -263,7 +271,9 @@ EOF;
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -299,7 +309,9 @@ EOF;
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -335,7 +347,9 @@ EOF;
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -371,7 +385,9 @@ EOF;
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -407,7 +423,9 @@ EOF;
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -441,7 +459,9 @@ EOF;
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 
 	/**
@@ -476,7 +496,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo']);
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andReturn(123);
 
 		//
 
@@ -486,6 +506,8 @@ EOF;
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		$this->assertSame(123, $exitCode);
 	}
 }

@@ -69,8 +69,9 @@ trait FireTrait
 	 * @param   string     $command          Command
 	 * @param   \Closure   $handler          Output handler
 	 * @param   bool       $sameEnvironment  Run command using the same environment?
+	 * @return  int
 	 */
-	protected function fire(string $command, Closure $handler, bool $sameEnvironment = true)
+	protected function fire(string $command, Closure $handler, bool $sameEnvironment = true): int
 	{
 		$process = popen($this->buildCommand($command, false, $sameEnvironment), 'r');
 
@@ -79,7 +80,7 @@ trait FireTrait
 			$handler(fread($process, 4096));
 		}
 
-		pclose($process);
+		return pclose($process);
 	}
 
 	/**

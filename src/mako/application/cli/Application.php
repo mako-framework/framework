@@ -143,6 +143,8 @@ class Application extends BaseApplication
 
 		// Run the reactor
 
-		$reactor->run();
+		$exitCode = $reactor->run();
+
+		exit($exitCode);
 	}
 }
