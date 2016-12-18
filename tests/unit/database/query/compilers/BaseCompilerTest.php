@@ -1420,6 +1420,137 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testUnion()
+	{
+		$query = $this->getBuilder('sales2016');
+
+		$query->union(function($query)
+		{
+			$query->table('sales2015');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "sales2015" UNION SELECT * FROM "sales2016"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testMultipleUnions()
+	{
+		$query = $this->getBuilder('sales2016');
+
+		$query->union(function($query)
+		{
+			$query->table('sales2014');
+		});
+
+		$query->union(function($query)
+		{
+			$query->table('sales2015');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "sales2014" UNION SELECT * FROM "sales2015" UNION SELECT * FROM "sales2016"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testUnionAll()
+	{
+		$query = $this->getBuilder('sales2016');
+
+		$query->unionAll(function($query)
+		{
+			$query->table('sales2015');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "sales2015" UNION ALL SELECT * FROM "sales2016"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testIntersect()
+	{
+		$query = $this->getBuilder('sales2016');
+
+		$query->intersect(function($query)
+		{
+			$query->table('sales2015');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "sales2015" INTERSECT SELECT * FROM "sales2016"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testIntersectAll()
+	{
+		$query = $this->getBuilder('sales2016');
+
+		$query->intersectAll(function($query)
+		{
+			$query->table('sales2015');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "sales2015" INTERSECT ALL SELECT * FROM "sales2016"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testExcept()
+	{
+		$query = $this->getBuilder('sales2016');
+
+		$query->except(function($query)
+		{
+			$query->table('sales2015');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "sales2015" EXCEPT SELECT * FROM "sales2016"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testExceptAll()
+	{
+		$query = $this->getBuilder('sales2016');
+
+		$query->exceptAll(function($query)
+		{
+			$query->table('sales2015');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "sales2015" EXCEPT ALL SELECT * FROM "sales2016"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testBatch()
 	{
 		$builder = Mockery::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);

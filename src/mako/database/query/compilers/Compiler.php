@@ -203,6 +203,30 @@ class Compiler
 	}
 
 	/**
+	 * Compiles set operations.
+	 *
+	 * @access  protected
+	 * @param   array      $setOperations  Set operations
+	 * @return  string
+	 */
+	protected function setOperations(array $setOperations): string
+	{
+		if(empty($setOperations))
+		{
+			return '';
+		}
+
+		$sql = '';
+
+		foreach($setOperations as $setOperation)
+		{
+			$sql .= $this->subquery($setOperation['query'], false) . ' ' . $setOperation['operation'] . ' ';
+		}
+
+		return $sql;
+	}
+
+	/**
 	 * Compiles a table.
 	 *
 	 * @access  public
@@ -693,7 +717,8 @@ class Compiler
 	 */
 	public function select(): array
 	{
-		$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
+		$sql  = $this->setOperations($this->query->getSetOperations());
+		$sql .= $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
 		$sql .= $this->columns($this->query->getColumns(), true);
 		$sql .= $this->from($this->query->getTable());
 		$sql .= $this->joins($this->query->getJoins());

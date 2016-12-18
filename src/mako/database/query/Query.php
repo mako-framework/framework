@@ -64,6 +64,13 @@ class Query
 	protected $distinct = false;
 
 	/**
+	 * Set operations.
+	 *
+	 * @var array
+	 */
+	protected $setOperations = [];
+
+	/**
 	 * Columns from which we are fetching data.
 	 *
 	 * @var array
@@ -223,6 +230,16 @@ class Query
 	}
 
 	/**
+	 * Returns the set operations.
+	 *
+	 * @return array
+	 */
+	public function getSetOperations(): array
+	{
+		return $this->setOperations;
+	}
+
+	/**
 	 * Returns the database table.
 	 *
 	 * @access  public
@@ -341,6 +358,102 @@ class Query
 	public function getLock()
 	{
 		return $this->lock;
+	}
+
+	/**
+	 * Adds a set operation.
+	 *
+	 * @access  protected
+	 * @param   \Closure|\mako\database\query\Query|\mako\database\query\Subquery  $query      Query
+	 * @param   string                                                             $operation  Operation
+	 * @return  \mako\database\query\Query
+	 */
+	protected function setOperation($query, string $operation)
+	{
+		if(($query instanceof Subquery) === false)
+		{
+			$query = new Subquery($query);
+		}
+
+		$this->setOperations[] =
+		[
+			'query'     => $query,
+			'operation' => $operation,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a UNION operation.
+	 *
+	 * @access  public
+	 * @param   \Closure|\mako\database\query\Query|\mako\database\query\Subquery  $query  Query
+	 * @return  \mako\database\query\Query
+	 */
+	public function union($query)
+	{
+		return $this->setOperation($query, 'UNION');
+	}
+
+	/**
+	 * Adds a UNION ALL operation.
+	 *
+	 * @access  public
+	 * @param   \Closure|\mako\database\query\Query|\mako\database\query\Subquery  $query  Query
+	 * @return  \mako\database\query\Query
+	 */
+	public function unionAll($query)
+	{
+		return $this->setOperation($query, 'UNION ALL');
+	}
+
+	/**
+	 * Adds a INTERSECT operation.
+	 *
+	 * @access  public
+	 * @param   \Closure|\mako\database\query\Query|\mako\database\query\Subquery  $query  Query
+	 * @return  \mako\database\query\Query
+	 */
+	public function intersect($query)
+	{
+		return $this->setOperation($query, 'INTERSECT');
+	}
+
+	/**
+	 * Adds a INTERSECT ALL operation.
+	 *
+	 * @access  public
+	 * @param   \Closure|\mako\database\query\Query|\mako\database\query\Subquery  $query  Query
+	 * @return  \mako\database\query\Query
+	 */
+	public function intersectAll($query)
+	{
+		return $this->setOperation($query, 'INTERSECT ALL');
+	}
+
+	/**
+	 * Adds a EXCEPT operation.
+	 *
+	 * @access  public
+	 * @param   \Closure|\mako\database\query\Query|\mako\database\query\Subquery  $query  Query
+	 * @return  \mako\database\query\Query
+	 */
+	public function except($query)
+	{
+		return $this->setOperation($query, 'EXCEPT');
+	}
+
+	/**
+	 * Adds a EXCEPT ALL operation.
+	 *
+	 * @access  public
+	 * @param   \Closure|\mako\database\query\Query|\mako\database\query\Subquery  $query  Query
+	 * @return  \mako\database\query\Query
+	 */
+	public function exceptAll($query)
+	{
+		return $this->setOperation($query, 'EXCEPT ALL');
 	}
 
 	/**

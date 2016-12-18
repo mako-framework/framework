@@ -58,7 +58,8 @@ class DB2 extends Compiler
 				$order = 'ORDER BY (SELECT 0)';
 			}
 
-			$sql  = $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
+			$sql  = $this->setOperations($this->query->getSetOperations());
+			$sql .= $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
 			$sql .= $this->columns($this->query->getColumns());
 			$sql .= ', ROW_NUMBER() OVER (' . $order . ') AS mako_rownum';
 			$sql .= $this->from($this->query->getTable());
