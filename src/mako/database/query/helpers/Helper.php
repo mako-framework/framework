@@ -5,7 +5,6 @@
  * @license    http://www.makoframework.com/license
  */
 
-
 namespace mako\database\query\helpers;
 
 use mako\database\query\Query;

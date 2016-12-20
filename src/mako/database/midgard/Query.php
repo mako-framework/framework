@@ -345,7 +345,6 @@ class Query extends QueryBuilder
 		return $includes;
 	}
 
-
 	/**
 	 * Load includes.
 	 *

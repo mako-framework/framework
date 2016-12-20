@@ -23,7 +23,6 @@ class Connection
 	 */
 	protected $connection;
 
-
 	/**
 	 * Is the socket persistent?
 	 *

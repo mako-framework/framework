@@ -81,7 +81,6 @@ class Route
 	 */
 	protected $middleware = [];
 
-
 	/**
 	 * Parameters.
 	 *

@@ -43,7 +43,6 @@ class File implements ResponseSenderInterface
 	 */
 	protected $fileSize;
 
-
 	/**
 	 * File name.
 	 *
