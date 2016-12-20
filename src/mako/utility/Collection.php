@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\utility;
@@ -19,7 +19,7 @@ use mako\common\ExtendableTrait;
 /**
  * Collection.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Collection implements ArrayAccess, Countable, IteratorAggregate
 {
@@ -35,8 +35,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   array   $items  Collection items
+	 * @access public
+	 * @param array $items Collection items
 	 */
 	public function __construct(array $items = [])
 	{
@@ -46,8 +46,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns all the items in the collection.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getItems(): array
 	{
@@ -57,7 +57,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Resets the collection keys.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function resetKeys()
 	{
@@ -67,9 +67,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Adds a new item to the collection.
 	 *
-	 * @access  public
-	 * @param  int|string  $key    Key
-	 * @param  mixed       $value  Value
+	 * @access public
+	 * @param int|string $key   Key
+	 * @param mixed      $value Value
 	 */
 	public function put($key, $value)
 	{
@@ -79,9 +79,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns TRUE if the item key exists and FALSE if not.
 	 *
-	 * @access  public
-	 * @param   int|string  $key  Key
-	 * @return  bool
+	 * @access public
+	 * @param  int|string $key Key
+	 * @return bool
 	 */
 	public function has($key): bool
 	{
@@ -91,10 +91,10 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns an item from the collection.
 	 *
-	 * @access  public
-	 * @param   int|string  $key      Key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  int|string $key     Key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function get($key, $default = null)
 	{
@@ -104,8 +104,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Removes an item from the collection.
 	 *
-	 * @access  public
-	 * @param   int|string  $key  Key
+	 * @access public
+	 * @param int|string $key Key
 	 */
 	public function remove($key)
 	{
@@ -115,7 +115,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Clears the collection.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function clear()
 	{
@@ -125,9 +125,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Checks whether or not an offset exists.
 	 *
-	 * @access  public
-	 * @param   mixed   $offset  The offset to check for
-	 * @return  bool
+	 * @access public
+	 * @param  mixed $offset The offset to check for
+	 * @return bool
 	 */
 	public function offsetExists($offset): bool
 	{
@@ -137,9 +137,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns the value at the specified offset.
 	 *
-	 * @access  public
-	 * @param   mixed   $offset  The offset to retrieve
-	 * @return  mixed
+	 * @access public
+	 * @param  mixed $offset The offset to retrieve
+	 * @return mixed
 	 */
 	public function offsetGet($offset)
 	{
@@ -154,9 +154,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Assigns a value to the specified offset.
 	 *
-	 * @access  public
-	 * @param   mixed   $offset  The offset to assign the value to
-	 * @param   mixed   $value   The value to set
+	 * @access public
+	 * @param mixed $offset The offset to assign the value to
+	 * @param mixed $value  The value to set
 	 */
 	public function offsetSet($offset, $value)
 	{
@@ -173,8 +173,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Unsets an offset.
 	 *
-	 * @access  public
-	 * @param   mixed   $offset  The offset to unset
+	 * @access public
+	 * @param mixed $offset The offset to unset
 	 */
 	public function offsetUnset($offset)
 	{
@@ -184,8 +184,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns the numner of items in the collection.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function count(): int
 	{
@@ -195,8 +195,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Retruns an array iterator object.
 	 *
-	 * @access  public
-	 * @return  \ArrayIterator
+	 * @access public
+	 * @return \ArrayIterator
 	 */
 	public function getIterator(): ArrayIterator
 	{
@@ -206,7 +206,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns TRUE if the collection is empty and FALSE if not.
 	 *
-	 * @return  bool
+	 * @return bool
 	 */
 	public function isEmpty(): bool
 	{
@@ -217,9 +217,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Prepends the passed item to the front of the collection
 	 * and returns the new number of elements in the collection.
 	 *
-	 * @access  public
-	 * @param   mixed   $item  Collection item
-	 * @return  int
+	 * @access public
+	 * @param  mixed $item Collection item
+	 * @return int
 	 */
 	public function unshift($item): int
 	{
@@ -230,8 +230,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Shifts the first value of the collection off and returns it,
 	 * shortening the collection by one element.
 	 *
-	 * @access  public
-	 * @return  mixed
+	 * @access public
+	 * @return mixed
 	 */
 	public function shift()
 	{
@@ -242,9 +242,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Pushes the passed variable onto the end of the collection
 	 * and returns the new number of elements in the collection.
 	 *
-	 * @access  public
-	 * @param   mixed   $item  Collection item
-	 * @return  int
+	 * @access public
+	 * @param  mixed $item Collection item
+	 * @return int
 	 */
 	public function push($item): int
 	{
@@ -255,8 +255,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Pops and returns the last value of the collection,
 	 * shortening the collection by one element.
 	 *
-	 * @access  public
-	 * @return  mixed
+	 * @access public
+	 * @return mixed
 	 */
 	public function pop()
 	{
@@ -267,10 +267,10 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Sorts the collection using the specified comparator closure
 	 * and returns TRUE on success and FALSE on failure.
 	 *
-	 * @access  public
-	 * @param   \Closure  $comparator                Comparator closure
-	 * @param   bool      $maintainIndexAssociation  Maintain index association?
-	 * @return  bool
+	 * @access public
+	 * @param  \Closure $comparator               Comparator closure
+	 * @param  bool     $maintainIndexAssociation Maintain index association?
+	 * @return bool
 	 */
 	public function sort(Closure $comparator, bool $maintainIndexAssociation = true): bool
 	{
@@ -280,9 +280,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Chunks the collection into a collection containing $size sized collections.
 	 *
-	 * @access  public
-	 * @param   int                       $size  Chunk size
-	 * @return  \mako\utility\Collection
+	 * @access public
+	 * @param  int                      $size Chunk size
+	 * @return \mako\utility\Collection
 	 */
 	public function chunk(int $size)
 	{
@@ -300,8 +300,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Shuffles the items in the collection and returns
 	 * TRUE on success and FALSE on failure.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function shuffle(): bool
 	{

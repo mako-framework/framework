@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\services;
@@ -14,7 +14,7 @@ use mako\i18n\loaders\Loader;
 /**
  * I18n service.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class I18nService extends Service
 {

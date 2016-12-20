@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\pixl\processors;
@@ -12,18 +12,18 @@ use mako\pixl\Image;
 /**
  * Calculate new image dimensions.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 trait CalculateNewDimensionsTrait
 {
 	/**
 	 * Calculates new image dimensions.
 	 *
-	 * @param  int    $width        Desired image width
-	 * @param  int    $height       Desired image height
-	 * @param  int    $oldWidth     Old image width
-	 * @param  int    $oldHeight    Old image height
-	 * @param  int    $aspectRatio  Aspect ratio
+	 * @param  int   $width       Desired image width
+	 * @param  int   $height      Desired image height
+	 * @param  int   $oldWidth    Old image width
+	 * @param  int   $oldHeight   Old image height
+	 * @param  int   $aspectRatio Aspect ratio
 	 * @return array
 	 */
 	protected function calculateNewDimensions($width, $height, $oldWidth, $oldHeight, $aspectRatio)

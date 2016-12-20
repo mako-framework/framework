@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\query\compilers;
@@ -12,8 +12,8 @@ use mako\database\query\compilers\Compiler;
 /**
  * Compiles SQLite queries.
  *
- * @author  Frederic G. Østby
- * @author  Yamada Taro
+ * @author Frederic G. Østby
+ * @author Yamada Taro
  */
 class SQLite extends Compiler
 {
@@ -27,9 +27,9 @@ class SQLite extends Compiler
 	/**
 	 * Builds a JSON path.
 	 *
-	 * @access  protected
-	 * @param   array      $segments  Path segments
-	 * @return  string
+	 * @access protected
+	 * @param  array  $segments Path segments
+	 * @return string
 	 */
 	protected function buildJsonPath(array $segments): string
 	{

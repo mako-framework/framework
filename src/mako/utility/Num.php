@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\utility;
@@ -12,16 +12,16 @@ use InvalidArgumentException;
 /**
  * Class containing number helper methods.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Num
 {
 	/**
 	 * Converts arabic numerals (1-3999) to roman numerals.
 	 *
-	 * @access  public
-	 * @param   int     $int  Arabic numeral to convert
-	 * @return  string
+	 * @access public
+	 * @param  int    $int Arabic numeral to convert
+	 * @return string
 	 */
 	public static function arabic2roman(int $int): string
 	{
@@ -76,9 +76,9 @@ class Num
 	/**
 	 * Converts roman numerals (I-MMMCMXCIX) to arabic numerals.
 	 *
-	 * @access  public
-	 * @param   string  $str  Roman numeral to convert
-	 * @return  int
+	 * @access public
+	 * @param  string $str Roman numeral to convert
+	 * @return int
 	 */
 	public static function roman2arabic(string $str): int
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\tests\unit\common;
@@ -71,7 +71,7 @@ class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame(['foo', [1, '2', 3]], $parser->parse('foo:[1,"2",3]'));
 
-		$this->assertSame(['foo', [1, 2, 3 ,['a', 'b', 'c']]], $parser->parse('foo:[1,2,3,["a","b","c"]]'));
+		$this->assertSame(['foo', [1, 2, 3,['a', 'b', 'c']]], $parser->parse('foo:[1,2,3,["a","b","c"]]'));
 	}
 
 	/**

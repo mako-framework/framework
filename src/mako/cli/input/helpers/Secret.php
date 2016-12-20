@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cli\input\helpers;
@@ -14,9 +14,8 @@ use mako\cli\input\helpers\Question;
 /**
  * Secret helper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
-
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 
@@ -46,9 +45,9 @@ class Secret extends Question
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\input\Input    $input   Input instance
-	 * @param   \mako\cli\output\Output  $output  Output instance
+	 * @access public
+	 * @param \mako\cli\input\Input   $input  Input instance
+	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Input $input, Output $output)
 	{
@@ -60,8 +59,8 @@ class Secret extends Question
 	/**
 	 * Do we have stty support?
 	 *
-	 * @access  protected
-	 * @return  bool
+	 * @access protected
+	 * @return bool
 	 */
 	protected function hasStty(): bool
 	{
@@ -78,11 +77,11 @@ class Secret extends Question
 	/**
 	 * Writes question to output and returns hidden user input.
 	 *
-	 * @access  public
-	 * @param   string      $question  Question to ask
-	 * @param   null|mixed  $default   Default if no input is entered
-	 * @param   bool        $fallback  Fall back to non-hidden input?
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $question Question to ask
+	 * @param  null|mixed $default  Default if no input is entered
+	 * @param  bool       $fallback Fall back to non-hidden input?
+	 * @return null|mixed
 	 */
 	public function ask(string $question, $default = null, bool $fallback = false)
 	{

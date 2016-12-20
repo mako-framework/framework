@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\chrono\stopwatch;
@@ -12,7 +12,7 @@ use mako\chrono\stopwatch\Lap;
 /**
  * Stopwatch.
  *
- * @author  Yamada Taro
+ * @author Yamada Taro
  */
 class Stopwatch
 {
@@ -26,8 +26,8 @@ class Stopwatch
 	/**
 	 * Returns the laps.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getLaps(): array
 	{
@@ -37,8 +37,8 @@ class Stopwatch
 	/**
 	 * Returns the number of laps.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function getLapCount(): int
 	{
@@ -48,8 +48,8 @@ class Stopwatch
 	/**
 	 * Returns TRUE if the stopwatch is still running and FALSE if not.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isRunning(): bool
 	{
@@ -59,8 +59,8 @@ class Stopwatch
 	/**
 	 * Starts the stopwatch.
 	 *
-	 * @access  public
-	 * @return  \mako\chrono\stopwatch\Stopwatch
+	 * @access public
+	 * @return \mako\chrono\stopwatch\Stopwatch
 	 */
 	public function start(): Stopwatch
 	{
@@ -72,8 +72,8 @@ class Stopwatch
 	/**
 	 * Starts a new lap and returns the time of the previous lap.
 	 *
-	 * @access  public
-	 * @return  float
+	 * @access public
+	 * @return float
 	 */
 	public function lap(): float
 	{
@@ -89,8 +89,8 @@ class Stopwatch
 	/**
 	 * Get elapsed time.
 	 *
-	 * @access  public
-	 * @return  float
+	 * @access public
+	 * @return float
 	 */
 	public function getElapsedTime(): float
 	{
@@ -102,8 +102,8 @@ class Stopwatch
 	/**
 	 * Stops the timer and returns the elapsed time.
 	 *
-	 * @access  public
-	 * @return  float
+	 * @access public
+	 * @return float
 	 */
 	public function stop(): float
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\pagination;
@@ -17,8 +17,8 @@ use mako\view\ViewFactory;
 /**
  * Pagination factory.
  *
- * @author  Frederic G. Østby
- * @author  Yamada Taro
+ * @author Frederic G. Østby
+ * @author Yamada Taro
  */
 class PaginationFactory implements PaginationFactoryInterface
 {
@@ -53,9 +53,9 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\http\Request  $request  Request
-	 * @param   array               $options  Options
+	 * @access public
+	 * @param \mako\http\Request $request Request
+	 * @param array              $options Options
 	 */
 	public function __construct(Request $request, array $options = [])
 	{
@@ -67,8 +67,8 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * Sets the URL builder instance.
 	 *
-	 * @access  public
-	 * @param   \mako\http\routing\URLBuilder  $urlBuilder  URL builder instance
+	 * @access public
+	 * @param \mako\http\routing\URLBuilder $urlBuilder URL builder instance
 	 */
 	public function setURLBuilder(URLBuilder $urlBuilder)
 	{
@@ -78,8 +78,8 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * Sets the view factory builder instance.
 	 *
-	 * @access  public
-	 * @param   \mako\view\ViewFactory  $viewFactory  View factory instance
+	 * @access public
+	 * @param \mako\view\ViewFactory $viewFactory View factory instance
 	 */
 	public function setViewFactory(ViewFactory $viewFactory)
 	{

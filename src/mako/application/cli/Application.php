@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\cli;
@@ -26,15 +26,15 @@ use mako\reactor\Reactor;
 /**
  * CLI application.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Application extends BaseApplication
 {
 	/**
 	 * Returns the route collection.
 	 *
-	 * @access  public
-	 * @return  \mako\http\routing\Routes
+	 * @access public
+	 * @return \mako\http\routing\Routes
 	 */
 	public function getRouteCollection(): Routes
 	{
@@ -44,8 +44,8 @@ class Application extends BaseApplication
 	/**
 	 * Returns all registered commands.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function getCommands(): array
 	{
@@ -90,8 +90,8 @@ class Application extends BaseApplication
 	/**
 	 * Loads the reactor ASCII logo.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function loadLogo(): string
 	{

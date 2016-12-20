@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http;
@@ -18,7 +18,7 @@ use mako\utility\ip\IP;
 /**
  * Executes requets.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Request
 {
@@ -214,9 +214,9 @@ class Request
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   array                  $request  Request data and options
-	 * @param   \mako\security\Signer  $signer   Signer instance used to validate signed cookies
+	 * @access public
+	 * @param array                 $request Request data and options
+	 * @param \mako\security\Signer $signer  Signer instance used to validate signed cookies
 	 */
 	public function __construct(array $request = [], Signer $signer = null)
 	{
@@ -253,10 +253,10 @@ class Request
 	/**
 	 * Strips the locale segment from the path.
 	 *
-	 * @access  protected
-	 * @param   array      $languages  Locale segments
-	 * @param   string     $path       Path
-	 * @return  string
+	 * @access protected
+	 * @param  array  $languages Locale segments
+	 * @param  string $path      Path
+	 * @return string
 	 */
 	protected function stripLocaleSegment(array $languages, string $path): string
 	{
@@ -280,9 +280,9 @@ class Request
 	/**
 	 * Determines the request path.
 	 *
-	 * @access  protected
-	 * @param   array      $languages  Locale segments
-	 * @return  string
+	 * @access protected
+	 * @param  array  $languages Locale segments
+	 * @return string
 	 */
 	protected function determinePath(array $languages): string
 	{
@@ -322,8 +322,8 @@ class Request
 	/**
 	 * Determines the request method.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function determineMethod(): string
 	{
@@ -340,9 +340,9 @@ class Request
 	/**
 	 * Parses a accpet header and returns the values in descending order of preference.
 	 *
-	 * @access  protected
+	 * @access protected
 	 * @param   string
-	 * @return  array
+	 * @return array
 	 */
 	protected function parseAcceptHeader(string $headerValue): array
 	{
@@ -380,8 +380,8 @@ class Request
 	/**
 	 * Returns all the request headers.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function collectHeaders(): array
 	{
@@ -429,8 +429,8 @@ class Request
 	/**
 	 * Set the route that matched the request.
 	 *
-	 * @access  public
-	 * @param   \mako\http\routing\Route  $route  Route
+	 * @access public
+	 * @param \mako\http\routing\Route $route Route
 	 */
 	public function setRoute(Route $route)
 	{
@@ -440,8 +440,8 @@ class Request
 	/**
 	 * Returns the route that matched the request.
 	 *
-	 * @access  public
-	 * @return  null|\mako\http\routing\Route
+	 * @access public
+	 * @return null|\mako\http\routing\Route
 	 */
 	public function getRoute()
 	{
@@ -451,9 +451,9 @@ class Request
 	/**
 	 * Sets a request attribute.
 	 *
-	 * @access  public
-	 * @param   string  $name   Attribute name
-	 * @param   mixed   $value  Attribute value
+	 * @access public
+	 * @param string $name  Attribute name
+	 * @param mixed  $value Attribute value
 	 */
 	public function setAttribute(string $name, $value)
 	{
@@ -463,10 +463,10 @@ class Request
 	/**
 	 * Gets a request attribute.
 	 *
-	 * @access  public
-	 * @param   string      $name     Attribute name
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $name    Attribute name
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function getAttribute(string $name, $default = null)
 	{
@@ -476,8 +476,8 @@ class Request
 	/**
 	 * Returns the raw request body.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function body(): string
 	{
@@ -492,8 +492,8 @@ class Request
 	/**
 	 * Returns the raw request body as a stream.
 	 *
-	 * @access  public
-	 * @return  resource
+	 * @access public
+	 * @return resource
 	 */
 	public function bodyAsStream()
 	{
@@ -503,10 +503,10 @@ class Request
 	/**
 	 * Parses the request body and returns the chosen value.
 	 *
-	 * @access  protected
-	 * @param   null|string  $key      Array key
-	 * @param   null|mixed   $default  Default value
-	 * @return  null|mixed
+	 * @access protected
+	 * @param  null|string $key     Array key
+	 * @param  null|mixed  $default Default value
+	 * @return null|mixed
 	 */
 	protected function getParsed(string $key = null, $default = null)
 	{
@@ -533,9 +533,9 @@ class Request
 	/**
 	 * Creates a UploadedFile object.
 	 *
-	 * @access  protected
-	 * @param   array                    $file  File info
-	 * @return  \mako\http\UploadedFile
+	 * @access protected
+	 * @param  array                   $file File info
+	 * @return \mako\http\UploadedFile
 	 */
 	protected function createUploadedFile(array $file): UploadedFile
 	{
@@ -545,9 +545,9 @@ class Request
 	/**
 	 * Normalizes a multi file upload array to a more manageable format.
 	 *
-	 * @access  protected
-	 * @param   array      $files  File upload array
-	 * @return  array
+	 * @access protected
+	 * @param  array $files File upload array
+	 * @return array
 	 */
 	protected function normalizeMultiUpload(array $files): array
 	{
@@ -571,10 +571,10 @@ class Request
 	/**
 	 * Returns an UploadedFile object or an array of UploadedFile objects.
 	 *
-	 * @access  protected
-	 * @param   null|string                    $key      Array key
-	 * @param  	null|mixed                     $default  Default value
-	 * @return  \mako\http\UploadedFile|array
+	 * @access protected
+	 * @param  null|string                   $key     Array key
+	 * @param  null|mixed                    $default Default value
+	 * @return \mako\http\UploadedFile|array
 	 */
 	protected function getUploadedFile(string $key = null, $default = null)
 	{
@@ -604,10 +604,10 @@ class Request
 	/**
 	 * Fetch data from the GET parameters.
 	 *
-	 * @access  public
-	 * @param   string      $key      Array key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Array key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function get(string $key = null, $default = null)
 	{
@@ -617,10 +617,10 @@ class Request
 	/**
 	 * Fetch data from the POST parameters.
 	 *
-	 * @access  public
-	 * @param   string      $key      Array key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Array key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function post(string $key = null, $default = null)
 	{
@@ -630,10 +630,10 @@ class Request
 	/**
 	 * Fetch data from the PUT parameters.
 	 *
-	 * @access  public
-	 * @param   string      $key      Array key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Array key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function put(string $key = null, $default = null)
 	{
@@ -643,10 +643,10 @@ class Request
 	/**
 	 * Fetch data from the PATCH parameters.
 	 *
-	 * @access  public
-	 * @param   string      $key      Array key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Array key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function patch(string $key = null, $default = null)
 	{
@@ -656,10 +656,10 @@ class Request
 	/**
 	 * Fetch data from the DELETE parameters.
 	 *
-	 * @access  public
-	 * @param   string      $key      Array key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Array key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function delete(string $key = null, $default = null)
 	{
@@ -669,10 +669,10 @@ class Request
 	/**
 	 * Fetch signed cookie data.
 	 *
-	 * @access  public
-	 * @param   string      $name     Cookie name
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $name    Cookie name
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function signedCookie(string $name = null, $default = null)
 	{
@@ -692,10 +692,10 @@ class Request
 	/**
 	 * Fetch unsigned cookie data.
 	 *
-	 * @access  public
-	 * @param   string      $name     Cookie name
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $name    Cookie name
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function cookie(string $name = null, $default = null)
 	{
@@ -705,10 +705,10 @@ class Request
 	/**
 	 * Fetch uploaded file.
 	 *
-	 * @access  public
-	 * @param   string      $key      Array key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Array key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function file(string $key = null, $default = null)
 	{
@@ -718,10 +718,10 @@ class Request
 	/**
 	 * Fetch server info.
 	 *
-	 * @access  public
-	 * @param   string      $key      Array key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Array key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function server(string $key = null, $default = null)
 	{
@@ -731,9 +731,9 @@ class Request
 	/**
 	 * Checks if the keys exist in the data of the current request method.
 	 *
-	 * @access  public
-	 * @param   string  $key  Array key
-	 * @return  bool
+	 * @access public
+	 * @param  string $key Array key
+	 * @return bool
 	 */
 	public function has(string $key): bool
 	{
@@ -745,10 +745,10 @@ class Request
 	/**
 	 * Fetch data the current request method.
 	 *
-	 * @access  public
-	 * @param   string      $key      Array key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Array key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function data(string $key = null, $default = null)
 	{
@@ -760,10 +760,10 @@ class Request
 	/**
 	 * Returns request data where keys not in the whitelist have been removed.
 	 *
-	 * @access  public
-	 * @param   array  $keys      Keys to whitelist
-	 * @param   array  $defaults  Default values
-	 * @return  array
+	 * @access public
+	 * @param  array $keys     Keys to whitelist
+	 * @param  array $defaults Default values
+	 * @return array
 	 */
 	public function whitelisted(array $keys, array $defaults = []): array
 	{
@@ -773,10 +773,10 @@ class Request
 	/**
 	 * Returns request data where keys in the blacklist have been removed.
 	 *
-	 * @access  public
-	 * @param   array  $keys      Keys to whitelist
-	 * @param   array  $defaults  Default values
-	 * @return  array
+	 * @access public
+	 * @param  array $keys     Keys to whitelist
+	 * @param  array $defaults Default values
+	 * @return array
 	 */
 	public function blacklisted(array $keys, array $defaults = []): array
 	{
@@ -786,10 +786,10 @@ class Request
 	/**
 	 * Returns a request header.
 	 *
-	 * @access  public
-	 * @param   string      $name     Header name
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $name    Header name
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function header(string $name, $default = null)
 	{
@@ -801,8 +801,8 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function acceptableContentTypes(): array
 	{
@@ -817,8 +817,8 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function acceptableLanguages(): array
 	{
@@ -833,8 +833,8 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function acceptableCharsets(): array
 	{
@@ -849,8 +849,8 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function acceptableEncodings(): array
 	{
@@ -865,8 +865,8 @@ class Request
 	/**
 	 * Set the trusted proxies.
 	 *
-	 * @access  public
-	 * @param   array  $trustedProxies  Array of trusted proxy IP addresses
+	 * @access public
+	 * @param array $trustedProxies Array of trusted proxy IP addresses
 	 */
 	public function setTrustedProxies(array $trustedProxies)
 	{
@@ -876,8 +876,8 @@ class Request
 	/**
 	 * Returns the ip of the client that made the request.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function ip(): string
 	{
@@ -919,8 +919,8 @@ class Request
 	/**
 	 * Returns TRUE if the request was made using Ajax and FALSE if not.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isAjax(): bool
 	{
@@ -930,8 +930,8 @@ class Request
 	/**
 	 * Returns TRUE if the request was made using HTTPS and FALSE if not.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isSecure(): bool
 	{
@@ -941,8 +941,8 @@ class Request
 	/**
 	 * Returns TRUE if the request method is considered safe and FALSE if not.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isSafe(): bool
 	{
@@ -952,8 +952,8 @@ class Request
 	/**
 	 * Is PHP running as a CGI program?
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isCGI(): bool
 	{
@@ -963,8 +963,8 @@ class Request
 	/**
 	 * Returns the base url of the request.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function baseURL(): string
 	{
@@ -1005,8 +1005,8 @@ class Request
 	/**
 	 * Returns the request path.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function path(): string
 	{
@@ -1016,8 +1016,8 @@ class Request
 	/**
 	 * Returns the request language.
 	 *
-	 * @access  public
-	 * @return  null|array
+	 * @access public
+	 * @return null|array
 	 */
 	public function language()
 	{
@@ -1027,8 +1027,8 @@ class Request
 	/**
 	 * Returns the request language prefix.
 	 *
-	 * @access  public
-	 * @return  null|string
+	 * @access public
+	 * @return null|string
 	 */
 	public function languagePrefix()
 	{
@@ -1038,8 +1038,8 @@ class Request
 	/**
 	 * Returns the request method that was used.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function method(): string
 	{
@@ -1049,8 +1049,8 @@ class Request
 	/**
 	 * Returns the real request method that was used.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function realMethod(): string
 	{
@@ -1060,8 +1060,8 @@ class Request
 	/**
 	 * Returns TRUE if the request method has been faked and FALSE if not.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isFaked(): bool
 	{
@@ -1071,8 +1071,8 @@ class Request
 	/**
 	 * Returns the basic HTTP authentication username or NULL.
 	 *
-	 * @access  public
-	 * @return  null|string
+	 * @access public
+	 * @return null|string
 	 */
 	public function username()
 	{
@@ -1082,8 +1082,8 @@ class Request
 	/**
 	 * Returns the basic HTTP authentication password or NULL.
 	 *
-	 * @access  public
-	 * @return  null|string
+	 * @access public
+	 * @return null|string
 	 */
 	public function password()
 	{
@@ -1093,9 +1093,9 @@ class Request
 	/**
 	 * Returns the referer.
 	 *
-	 * @access  public
-	 * @param   null|mixed  $default  Value to return if no referer is set
-	 * @return  null|mixed
+	 * @access public
+	 * @param  null|mixed $default Value to return if no referer is set
+	 * @return null|mixed
 	 */
 	public function referer($default = null)
 	{
@@ -1105,9 +1105,9 @@ class Request
 	/**
 	 * Magic shortcut to fetch request data.
 	 *
-	 * @access  public
-	 * @param   string      $key  Array key
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key Array key
+	 * @return null|mixed
 	 */
 	public function __get(string $key)
 	{
@@ -1117,9 +1117,9 @@ class Request
 	/**
 	 * Magic shortcut to check if request data exists.
 	 *
-	 * @access  public
-	 * @param   string  $key  Array key
-	 * @return  bool
+	 * @access public
+	 * @param  string $key Array key
+	 * @return bool
 	 */
 	public function __isset(string $key)
 	{

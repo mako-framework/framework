@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\routing\middleware;
@@ -22,11 +22,11 @@ interface MiddlewareInterface
 	/**
 	 * Executes the middleware.
 	 *
-	 * @access  public
-	 * @param   \mako\http\Request   $request   Request
-	 * @param   \mako\http\Response  $response  Response
-	 * @param   \Closure             $next      Next layer
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  \mako\http\Request  $request  Request
+	 * @param  \mako\http\Response $response Response
+	 * @param  \Closure            $next     Next layer
+	 * @return \mako\http\Response
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response;
 }

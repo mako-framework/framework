@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cli\input\helpers;
@@ -12,9 +12,8 @@ use mako\cli\input\helpers\Question;
 /**
  * Confirmation helper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
-
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 
@@ -37,9 +36,9 @@ class Confirmation extends Question
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\input\Input    $input   Input instance
-	 * @param   \mako\cli\output\Output  $output  Output instance
+	 * @access public
+	 * @param \mako\cli\input\Input   $input  Input instance
+	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Input $input, Output $output)
 	{
@@ -51,9 +50,9 @@ class Confirmation extends Question
 	/**
 	 * Returns an array where all array keys lower case.
 	 *
-	 * @access  protected
-	 * @param   array      $array  Array
-	 * @return  array
+	 * @access protected
+	 * @param  array $array Array
+	 * @return array
 	 */
 	protected function normalizeKeys(array $array): array
 	{
@@ -70,10 +69,10 @@ class Confirmation extends Question
 	/**
 	 * Returns a slash-separated list of valid options where the default one is highlighted as upper-case.
 	 *
-	 * @access  public
-	 * @param   array   $options  Answer options
-	 * @param   string  $default  Default answer
-	 * @return  string
+	 * @access public
+	 * @param  array  $options Answer options
+	 * @param  string $default Default answer
+	 * @return string
 	 */
 	protected function getOptions(array $options, string $default): string
 	{
@@ -90,11 +89,11 @@ class Confirmation extends Question
 	/**
 	 * Asks user for confirmation and returns value corresponding to the chosen value.
 	 *
-	 * @access  public
-	 * @param   string  $question  Question to ask
-	 * @param   string  $default   Default answer
-	 * @param   array   $options   Answer options
-	 * @return  bool
+	 * @access public
+	 * @param  string $question Question to ask
+	 * @param  string $default  Default answer
+	 * @param  array  $options  Answer options
+	 * @return bool
 	 */
 	public function ask(string $question, $default = 'n', array $options = null)
 	{

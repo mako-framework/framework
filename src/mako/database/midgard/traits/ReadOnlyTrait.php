@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\midgard\traits;
@@ -12,15 +12,15 @@ use mako\database\midgard\traits\exceptions\ReadOnlyException;
 /**
  * Read-only trait.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 trait ReadOnlyTrait
 {
 	/**
 	 * Returns trait hooks.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function getReadOnlyTraitHooks(): array
 	{

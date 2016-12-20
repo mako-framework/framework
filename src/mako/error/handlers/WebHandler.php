@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\error\handlers;
@@ -20,7 +20,7 @@ use mako\view\ViewFactory;
 /**
  * Web handler.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class WebHandler extends Handler
 {
@@ -55,11 +55,11 @@ class WebHandler extends Handler
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \Throwable              $exception  Throwable
-	 * @param   \mako\http\Request      $request    Request instance
-	 * @param   \mako\http\Response     $response   Response intance
-	 * @param   \mako\view\ViewFactory  $view       View factory instance
+	 * @access public
+	 * @param \Throwable             $exception Throwable
+	 * @param \mako\http\Request     $request   Request instance
+	 * @param \mako\http\Response    $response  Response intance
+	 * @param \mako\view\ViewFactory $view      View factory instance
 	 */
 	public function __construct(Throwable $exception, Request $request, Response $response, ViewFactory $view)
 	{
@@ -77,8 +77,8 @@ class WebHandler extends Handler
 	/**
 	 * Should we return the error as JSON?
 	 *
-	 * @access  protected
-	 * @return  bool
+	 * @access protected
+	 * @return bool
 	 */
 	protected function returnAsJson(): bool
 	{
@@ -102,10 +102,10 @@ class WebHandler extends Handler
 	/**
 	 * Returns the source code of a trace frame.
 	 *
-	 * @access  protected
-	 * @param   string      $file     File path
-	 * @param   int         $line     Frame line
-	 * @return  bool|array
+	 * @access protected
+	 * @param  string     $file File path
+	 * @param  int        $line Frame line
+	 * @return bool|array
 	 */
 	protected function getFrameSource(string $file, int $line)
 	{
@@ -143,9 +143,9 @@ class WebHandler extends Handler
 	/**
 	 * Fixes the argument data and optionally ads source to each frame.
 	 *
-	 * @access  protected
-	 * @param   array      $trace  Exception trace
-	 * @return  array
+	 * @access protected
+	 * @param  array $trace Exception trace
+	 * @return array
 	 */
 	protected function modifyTrace(array $trace): array
 	{
@@ -180,9 +180,9 @@ class WebHandler extends Handler
 	/**
 	 * Returns a detailed error page.
 	 *
-	 * @access  protected
-	 * @param   bool       $returnAsJson  Should we return JSON?
-	 * @return  string
+	 * @access protected
+	 * @param  bool   $returnAsJson Should we return JSON?
+	 * @return string
 	 */
 	protected function getDetailedError(bool $returnAsJson): string
 	{
@@ -243,9 +243,9 @@ class WebHandler extends Handler
 	/**
 	 * Retruns a generic error page.
 	 *
-	 * @access  protected
-	 * @param   bool       $returnAsJson  Should we return JSON?
-	 * @return  string
+	 * @access protected
+	 * @param  bool   $returnAsJson Should we return JSON?
+	 * @return string
 	 */
 	protected function getGenericError(bool $returnAsJson): string
 	{

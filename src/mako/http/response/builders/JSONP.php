@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\response\builders;
@@ -13,7 +13,7 @@ use mako\http\Response;
 /**
  * JSONP builder.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class JSONP implements ResponseBuilderInterface
 {
@@ -48,9 +48,9 @@ class JSONP implements ResponseBuilderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   mixed   $data      Data
-	 * @param   int     $options   JSON encode options
+	 * @access public
+	 * @param mixed $data    Data
+	 * @param int   $options JSON encode options
 	 */
 	public function __construct($data, int $options = 0)
 	{
@@ -62,9 +62,9 @@ class JSONP implements ResponseBuilderInterface
 	/**
 	 * Sets the callback key name.
 	 *
-	 * @access  public
-	 * @param   string                              $name  Key name
-	 * @return  \mako\http\response\builders\JSONP
+	 * @access public
+	 * @param  string                             $name Key name
+	 * @return \mako\http\response\builders\JSONP
 	 */
 	public function key(string $name): JSONP
 	{
@@ -76,9 +76,9 @@ class JSONP implements ResponseBuilderInterface
 	/**
 	 * Sets the default callback name.
 	 *
-	 * @access  public
-	 * @param   string                              $name  Callback name
-	 * @return  \mako\http\response\builders\JSONP
+	 * @access public
+	 * @param  string                             $name Callback name
+	 * @return \mako\http\response\builders\JSONP
 	 */
 	public function callback(string $name): JSONP
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\config;
@@ -13,7 +13,7 @@ use mako\utility\Arr;
 /**
  * Config class.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Config
 {
@@ -41,9 +41,9 @@ class Config
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\config\loaders\LoaderInterface  $loader       Config loader
-	 * @param   null|string                           $environment  Environment name
+	 * @access public
+	 * @param \mako\config\loaders\LoaderInterface $loader      Config loader
+	 * @param null|string                          $environment Environment name
 	 */
 	public function __construct(LoaderInterface $loader, string $environment = null)
 	{
@@ -65,8 +65,8 @@ class Config
 	/**
 	 * Returns the currently loaded configuration.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getLoadedConfiguration(): array
 	{
@@ -76,8 +76,8 @@ class Config
 	/**
 	 * Sets the environment.
 	 *
-	 * @access  public
-	 * @param   string  $environment  Environment name
+	 * @access public
+	 * @param string $environment Environment name
 	 */
 	public function setEnvironment(string $environment)
 	{
@@ -87,9 +87,9 @@ class Config
 	/**
 	 * Parses the language key.
 	 *
-	 * @access  protected
-	 * @param   string     $key  Language key
-	 * @return  array
+	 * @access protected
+	 * @param  string $key Language key
+	 * @return array
 	 */
 	protected function parseKey(string $key): array
 	{
@@ -99,8 +99,8 @@ class Config
 	/**
 	 * Loads the configuration file.
 	 *
-	 * @access  protected
-	 * @param   string     $file  File name
+	 * @access protected
+	 * @param string $file File name
 	 */
 	protected function load(string $file)
 	{
@@ -110,10 +110,10 @@ class Config
 	/**
 	 * Returns config value or entire config array from a file.
 	 *
-	 * @access  public
-	 * @param   string      $key      Config key
-	 * @param   null|mixed  $default  Default value to return if config value doesn't exist
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Config key
+	 * @param  null|mixed $default Default value to return if config value doesn't exist
+	 * @return null|mixed
 	 */
 	public function get(string $key, $default = null)
 	{
@@ -130,9 +130,9 @@ class Config
 	/**
 	 * Sets a config value.
 	 *
-	 * @access  public
-	 * @param   string  $key    Config key
-	 * @param   mixed   $value  Config value
+	 * @access public
+	 * @param string $key   Config key
+	 * @param mixed  $value Config value
 	 */
 	public function set(string $key, $value)
 	{
@@ -149,9 +149,9 @@ class Config
 	/**
 	 * Removes a value from the configuration.
 	 *
-	 * @access  public
-	 * @param   string  $key  Config key
-	 * @return  bool
+	 * @access public
+	 * @param  string $key Config key
+	 * @return bool
 	 */
 	public function remove(string $key): bool
 	{

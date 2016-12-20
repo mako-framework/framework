@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\query;
@@ -12,17 +12,17 @@ use mako\pagination\Pagination;
 /**
  * Query builder convenience methods.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 trait QueryConvenienceTrait
 {
 	/**
 	 * Adds a WHERE equals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function eq($column, $value)
 	{
@@ -32,10 +32,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a WHERE not equals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function notEq($column, $value)
 	{
@@ -45,10 +45,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a WHERE less than clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function lt($column, $value)
 	{
@@ -58,10 +58,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a WHERE less than or equals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function lte($column, $value)
 	{
@@ -71,10 +71,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a WHERE greater than clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function gt($column, $value)
 	{
@@ -84,10 +84,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a WHERE greater than or requals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function gte($column, $value)
 	{
@@ -97,9 +97,9 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a WHERE like clause.
 	 *
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function like($column, $value)
 	{
@@ -109,9 +109,9 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a WHERE not like clause.
 	 *
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function notLike($column, $value)
 	{
@@ -121,10 +121,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw WHERE equals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function eqRaw($column, $value)
 	{
@@ -134,10 +134,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw WHERE not equals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function notEqRaw($column, $value)
 	{
@@ -147,10 +147,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw WHERE less than clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function ltRaw($column, $value)
 	{
@@ -160,10 +160,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw WHERE less than or equals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function lteRaw($column, $value)
 	{
@@ -173,10 +173,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw WHERE greater than clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function gtRaw($column, $value)
 	{
@@ -186,10 +186,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw WHERE greater than or requals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function gteRaw($column, $value)
 	{
@@ -199,9 +199,9 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw WHERE like clause.
 	 *
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function likeRaw($column, $value)
 	{
@@ -211,9 +211,9 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw WHERE not like clause.
 	 *
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function notLikeRaw($column, $value)
 	{
@@ -223,10 +223,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a OR WHERE equals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orEq($column, $value)
 	{
@@ -236,10 +236,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a OR WHERE not equals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orNotEq($column, $value)
 	{
@@ -249,10 +249,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a OR WHERE less than clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orLt($column, $value)
 	{
@@ -262,10 +262,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a OR WHERE less than or requals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orLte($column, $value)
 	{
@@ -275,10 +275,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a OR WHERE greater than clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orGt($column, $value)
 	{
@@ -288,10 +288,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a OR WHERE greater than or requals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orGte($column, $value)
 	{
@@ -301,9 +301,9 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a OR WHERE like clause.
 	 *
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orLike($column, $value)
 	{
@@ -313,9 +313,9 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a OR WHERE not like clause.
 	 *
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orNotLike($column, $value)
 	{
@@ -325,10 +325,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw OR WHERE equals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orEqRaw($column, $value)
 	{
@@ -338,10 +338,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw OR WHERE not equals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orNotEqRaw($column, $value)
 	{
@@ -351,10 +351,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw OR WHERE less than clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orLtRaw($column, $value)
 	{
@@ -364,10 +364,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw OR WHERE less than or requals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orLteRaw($column, $value)
 	{
@@ -377,10 +377,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw OR WHERE greater than clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orGtRaw($column, $value)
 	{
@@ -390,10 +390,10 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a OR WHERE greater than or requals clause.
 	 *
-	 * @access  public
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orGteRaw($column, $value)
 	{
@@ -403,9 +403,9 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw OR WHERE like clause.
 	 *
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orLikeRaw($column, $value)
 	{
@@ -415,9 +415,9 @@ trait QueryConvenienceTrait
 	/**
 	 * Adds a raw OR WHERE not like clause.
 	 *
-	 * @param   string                      $column  Column name
-	 * @param   mixed                       $value   Value
-	 * @return  \mako\database\query\Query
+	 * @param  string                     $column Column name
+	 * @param  mixed                      $value  Value
+	 * @return \mako\database\query\Query
 	 */
 	public function orNotLikeRaw($column, $value)
 	{

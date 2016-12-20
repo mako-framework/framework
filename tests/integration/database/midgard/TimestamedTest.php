@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\tests\integration\database\midgard;
@@ -47,7 +47,6 @@ class TimestampedTest extends \ORMTestCase
 	/**
 	 *
 	 */
-
 	 public function testCreate()
 	 {
 	 	$timestamped = new TimestampedFoo;
@@ -62,7 +61,6 @@ class TimestampedTest extends \ORMTestCase
 	 /**
 	  *
 	  */
-
 	 public function testUpate()
 	 {
 	 	$timestamped = TimestampedFoo::get(2);
@@ -87,7 +85,6 @@ class TimestampedTest extends \ORMTestCase
 	 /**
 	  *
 	  */
-
 	 public function testTouch()
 	 {
 	 	$timestamped = TimestampedFoo::get(3);
@@ -102,7 +99,6 @@ class TimestampedTest extends \ORMTestCase
 	 /**
 	  *
 	  */
-
 	 public function testTouchRelation()
 	 {
 	 	$timestamped = TimestampedBar::get(1);

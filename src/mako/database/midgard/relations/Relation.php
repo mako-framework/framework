@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\midgard\relations;
@@ -15,7 +15,7 @@ use mako\database\midgard\ResultSet;
 /**
  * Base relation.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class Relation extends Query
 {
@@ -50,11 +50,11 @@ abstract class Relation extends Query
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\database\connections\Connection   $connection  Database connection
-	 * @param   \mako\database\midgard\ORM              $parent      Parent model
-	 * @param   \mako\database\midgard\ORM              $related     Related model
-	 * @param   string|null                             $foreignKey  Foreign key name
+	 * @access public
+	 * @param \mako\database\connections\Connection $connection Database connection
+	 * @param \mako\database\midgard\ORM            $parent     Parent model
+	 * @param \mako\database\midgard\ORM            $related    Related model
+	 * @param string|null                           $foreignKey Foreign key name
 	 */
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null)
 	{
@@ -70,8 +70,8 @@ abstract class Relation extends Query
 	/**
 	 * Returns the foreign key.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function getForeignKey()
 	{
@@ -86,9 +86,9 @@ abstract class Relation extends Query
 	/**
 	 * Returns the keys used to eagerly load records.
 	 *
-	 * @access  protected
-	 * @param   array  $results  Result set
-	 * @return  array
+	 * @access protected
+	 * @param  array $results Result set
+	 * @return array
 	 */
 	protected function keys(array $results)
 	{
@@ -105,7 +105,7 @@ abstract class Relation extends Query
 	/**
 	 * Sets the criterion used when lazy loading related records.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function lazyCriterion()
 	{
@@ -115,9 +115,9 @@ abstract class Relation extends Query
 	/**
 	 * Sets the criterion used when eager loading related records.
 	 *
-	 * @access  protected
-	 * @param   array                                      $keys  Parent keys
-	 * @return  \mako\database\midgard\relations\Relation
+	 * @access protected
+	 * @param  array                                     $keys Parent keys
+	 * @return \mako\database\midgard\relations\Relation
 	 */
 	protected function eagerCriterion(array $keys)
 	{
@@ -131,9 +131,9 @@ abstract class Relation extends Query
 	/**
 	 * Eager loads records in chunks.
 	 *
-	 * @access  protected
-	 * @param   array                             $keys  Parent keys
-	 * @return  \mako\database\midgard\ResultSet
+	 * @access protected
+	 * @param  array                            $keys Parent keys
+	 * @return \mako\database\midgard\ResultSet
 	 */
 	protected function eagerLoadChunked(array $keys)
 	{
@@ -157,7 +157,7 @@ abstract class Relation extends Query
 	/**
 	 * Adjusts the query.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function adjustQuery()
 	{
@@ -170,8 +170,8 @@ abstract class Relation extends Query
 	/**
 	 * Returns a single record from the database.
 	 *
-	 * @access  public
-	 * @return  \mako\database\midgard\ORM
+	 * @access public
+	 * @return \mako\database\midgard\ORM
 	 */
 	public function first()
 	{
@@ -183,8 +183,8 @@ abstract class Relation extends Query
 	/**
 	 * Returns a result set from the database.
 	 *
-	 * @access  public
-	 * @return  \mako\database\midgard\ResultSet
+	 * @access public
+	 * @return \mako\database\midgard\ResultSet
 	 */
 	public function all()
 	{

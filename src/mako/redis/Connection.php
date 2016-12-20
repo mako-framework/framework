@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\redis;
@@ -12,7 +12,7 @@ use mako\redis\RedisException;
 /**
  * Redis connection.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Connection
 {
@@ -40,10 +40,10 @@ class Connection
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string  $host        Redis host
-	 * @param   int     $port        Redis port
-	 * @param   bool    $persistent  Should the connection be persistent?
+	 * @access public
+	 * @param string $host       Redis host
+	 * @param int    $port       Redis port
+	 * @param bool   $persistent Should the connection be persistent?
 	 */
 	public function __construct(string $host, int $port = 6379, bool $persistent = false)
 	{
@@ -72,7 +72,7 @@ class Connection
 	/**
 	 * Destructor.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function __desctruct()
 	{
@@ -85,11 +85,11 @@ class Connection
 	/**
 	 * Creates a new connection.
 	 *
-	 * @access  public
-	 * @param   string                  $host        Redis host
-	 * @param   int                     $port        Redis port
-	 * @param   bool                    $persistent  Should the connection be persistent?
-	 * @return  \mako\redis\Connection
+	 * @access public
+	 * @param  string                 $host       Redis host
+	 * @param  int                    $port       Redis port
+	 * @param  bool                   $persistent Should the connection be persistent?
+	 * @return \mako\redis\Connection
 	 */
 	public static function create(string $host, int $port, bool $persistent = false): Connection
 	{
@@ -99,8 +99,8 @@ class Connection
 	/**
 	 * Gets line from the resource.
 	 *
-	 * @access  public
-	 * @return  string|false
+	 * @access public
+	 * @return string|false
 	 */
 	public function gets()
 	{
@@ -110,9 +110,9 @@ class Connection
 	/**
 	 * Reads n bytes from the resource.
 	 *
-	 * @access  public
-	 * @param   int           $bytes  Number of bytes to read
-	 * @return  string|false
+	 * @access public
+	 * @param  int          $bytes Number of bytes to read
+	 * @return string|false
 	 */
 	public function read(int $bytes)
 	{
@@ -134,9 +134,9 @@ class Connection
 	/**
 	 * Writes data to the resource.
 	 *
-	 * @access  public
-	 * @param   string     $data  Data to write
-	 * @return  int|false
+	 * @access public
+	 * @param  string    $data Data to write
+	 * @return int|false
 	 */
 	public function write(string $data)
 	{
@@ -146,8 +146,8 @@ class Connection
 	/**
 	 * Is the connection persistent?
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isPersistent(): bool
 	{
@@ -157,8 +157,8 @@ class Connection
 	/**
 	 * Returns the last command.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getLastCommand(): string
 	{

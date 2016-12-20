@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\query;
@@ -16,7 +16,7 @@ use mako\utility\Collection;
 /**
  * Result set.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ResultSet extends Collection implements JsonSerializable
 {
@@ -30,8 +30,8 @@ class ResultSet extends Collection implements JsonSerializable
 	/**
 	 * Sets the pagination.
 	 *
-	 * @access  public
-	 * @param   \mako\pagination\PaginationInterface  $pagination  Pagination
+	 * @access public
+	 * @param \mako\pagination\PaginationInterface $pagination Pagination
 	 */
 	public function setPagination(PaginationInterface $pagination)
 	{
@@ -41,8 +41,8 @@ class ResultSet extends Collection implements JsonSerializable
 	/**
 	 * Returns the pagination.
 	 *
-	 * @access  public
-	 * @return  \mako\pagination\PaginationInterface
+	 * @access public
+	 * @return \mako\pagination\PaginationInterface
 	 */
 	public function getPagination(): PaginationInterface
 	{
@@ -52,9 +52,9 @@ class ResultSet extends Collection implements JsonSerializable
 	/**
 	 * Returns an array containing only the values of chosen column.
 	 *
-	 * @access  public
-	 * @param   string  $column  Column name
-	 * @return  array
+	 * @access public
+	 * @param  string $column Column name
+	 * @return array
 	 */
 	public function pluck(string $column): array
 	{
@@ -64,8 +64,8 @@ class ResultSet extends Collection implements JsonSerializable
 	/**
 	 * Returns an array representation of the result set.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function toArray(): array
 	{
@@ -82,8 +82,8 @@ class ResultSet extends Collection implements JsonSerializable
 	/**
 	 * Returns data which can be serialized by json_encode().
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function jsonSerialize(): array
 	{
@@ -93,9 +93,9 @@ class ResultSet extends Collection implements JsonSerializable
 	/**
 	 * Returns a json representation of the result set.
 	 *
-	 * @access  public
-	 * @param   int     $options  JSON encode options
-	 * @return  string
+	 * @access public
+	 * @param  int    $options JSON encode options
+	 * @return string
 	 */
 	public function toJson(int $options = 0): string
 	{
@@ -105,8 +105,8 @@ class ResultSet extends Collection implements JsonSerializable
 	/**
 	 * Returns a json representation of the result set.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function __toString(): string
 	{

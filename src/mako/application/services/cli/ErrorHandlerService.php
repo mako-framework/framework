@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\services\cli;
@@ -16,15 +16,15 @@ use mako\error\handlers\CLIHandler;
 /**
  * Error handler service.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ErrorHandlerService extends Service
 {
 	/**
 	 * Helper method that ensures lazy loading of the logger.
 	 *
-	 * @access  protected
-	 * @param   \mako\error\ErrorHandler  $errorHandler  Error handler instance
+	 * @access protected
+	 * @param \mako\error\ErrorHandler $errorHandler Error handler instance
 	 */
 	protected function setLogger($errorHandler)
 	{

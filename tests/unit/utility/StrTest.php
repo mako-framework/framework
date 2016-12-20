@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\tests\unit\utility;
@@ -19,7 +19,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	 public function testNl2br()
 	 {
 	 	$this->assertEquals('Hello<br>World!', Str::nl2br("Hello\nWorld!"));
@@ -36,7 +35,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testBr2nl()
 	 {
 	 	$this->assertEquals("Hello\nWorld!", Str::br2nl("Hello<br>World!"));
@@ -47,7 +45,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testPluralize()
 	 {
 	 	// Regex rules
@@ -107,7 +104,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testCamel2underscored()
 	 {
 	 	$this->assertEquals('hello_world', Str::camel2underscored('helloWorld'));
@@ -119,7 +115,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testUnderscored2camel()
 	 {
 	 	$this->assertEquals('helloWorld', Str::underscored2camel('hello_world'));
@@ -131,7 +126,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testLimitChars()
 	 {
 	 	$this->assertEquals(str_repeat('x', 50), Str::limitChars(str_repeat('x', 50)));
@@ -143,7 +137,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testLimitWords()
 	 {
 	 	$this->assertEquals(trim(str_repeat('Hello ', 50)), Str::limitWords(trim(str_repeat('Hello ', 50))));
@@ -155,7 +148,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testSlug()
 	 {
 	 	$this->assertEquals('hello-world', Str::slug('hello world'));
@@ -167,7 +159,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testAscii()
 	 {
 	 	$this->assertEquals('hello', Str::ascii('hello'));
@@ -177,7 +168,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testAlternator()
 	 {
 	 	$alternator = Str::alternator(['foo', 'bar']);
@@ -197,7 +187,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testAutolink()
 	 {
 	 	$this->assertEquals('go to <a href="http://example.org">http://example.org</a>', Str::autolink('go to http://example.org'));
@@ -208,7 +197,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testMask()
 	 {
 	 	$this->assertEquals('**llo', Str::mask('hello'));
@@ -231,7 +219,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testIncrement()
 	 {
 	 	$this->assertEquals('foo_1', Str::increment('foo'));
@@ -247,7 +234,6 @@ class StrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testRandom()
 	 {
 	 	$this->assertEquals(32, mb_strlen(Str::random()));

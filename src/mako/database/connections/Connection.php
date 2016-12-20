@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\connections;
@@ -22,7 +22,7 @@ use mako\database\types\TypeInterface;
 /**
  * Database connection.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Connection
 {
@@ -120,11 +120,11 @@ class Connection
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string  $name                Connection name
-	 * @param   string  $queryCompiler       Query compiler
-	 * @param   string  $queryBuilderHelper  Query builder helper
-	 * @param   array   $config              Connection configuration
+	 * @access public
+	 * @param string $name               Connection name
+	 * @param string $queryCompiler      Query compiler
+	 * @param string $queryBuilderHelper Query builder helper
+	 * @param array  $config             Connection configuration
 	 */
 	public function __construct(string $name, string $queryCompiler, string $queryBuilderHelper, array $config)
 	{
@@ -160,8 +160,8 @@ class Connection
 	/**
 	 * Returns the connection name.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getName(): string
 	{
@@ -171,8 +171,8 @@ class Connection
 	/**
 	 * Returns a query builder helper instance.
 	 *
-	 * @access  public
-	 * @return  \mako\database\query\helpers\HelperInterface
+	 * @access public
+	 * @return \mako\database\query\helpers\HelperInterface
 	 */
 	public function getQueryBuilderHelper(): HelperInterface
 	{
@@ -184,9 +184,9 @@ class Connection
 	/**
 	 * Returns a query compiler instance.
 	 *
-	 * @access  public
-	 * @param   \mako\database\query\Query               $query  Query
-	 * @return  \mako\database\query\compilers\Compiler
+	 * @access public
+	 * @param  \mako\database\query\Query              $query Query
+	 * @return \mako\database\query\compilers\Compiler
 	 */
 	public function getQueryCompiler(Query $query): Compiler
 	{
@@ -198,8 +198,8 @@ class Connection
 	/**
 	 * Returns the PDO instance.
 	 *
-	 * @access  public
-	 * @return  \PDO
+	 * @access public
+	 * @return \PDO
 	 */
 	public function getPDO(): PDO
 	{
@@ -209,7 +209,7 @@ class Connection
 	/**
 	 * Enables the query log.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function enableLog()
 	{
@@ -219,7 +219,7 @@ class Connection
 	/**
 	 * Disables the query log.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function disableLog()
 	{
@@ -229,8 +229,8 @@ class Connection
 	/**
 	 * Creates a PDO instance.
 	 *
-	 * @access  protected
-	 * @return  \PDO
+	 * @access protected
+	 * @return \PDO
 	 */
 	protected function connect(): PDO
 	{
@@ -269,7 +269,7 @@ class Connection
 	/**
 	 * Creates a new PDO instance.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function reconnect()
 	{
@@ -279,8 +279,8 @@ class Connection
 	/**
 	 * Checks if the connection is alive.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isAlive(): bool
 	{
@@ -299,10 +299,10 @@ class Connection
 	/**
 	 * Prepares query for logging.
 	 *
-	 * @access  protected
-	 * @param   string     $query   SQL query
-	 * @param   array      $params  Query paramaters
-	 * @return  string
+	 * @access protected
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query paramaters
+	 * @return string
 	 */
 	protected function prepareQueryForLog(string $query, array $params): string
 	{
@@ -332,10 +332,10 @@ class Connection
 	/**
 	 * Adds a query to the query log.
 	 *
-	 * @access  protected
-	 * @param   string     $query   SQL query
-	 * @param   array      $params  Query parameters
-	 * @param   float      $start   Start time in microseconds
+	 * @access protected
+	 * @param string $query  SQL query
+	 * @param array  $params Query parameters
+	 * @param float  $start  Start time in microseconds
 	 */
 	protected function log(string $query, array $params, float $start)
 	{
@@ -349,7 +349,7 @@ class Connection
 	/**
 	 * Clears the query log.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function clearLog()
 	{
@@ -359,8 +359,8 @@ class Connection
 	/**
 	 * Returns the query log for the connection.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getLog(): array
 	{
@@ -370,10 +370,10 @@ class Connection
 	/**
 	 * Prepare query and params.
 	 *
-	 * @access  protected
-	 * @param   string     $query   SQL Query
-	 * @param   array      $params  Query parameters
-	 * @return  array
+	 * @access protected
+	 * @param  string $query  SQL Query
+	 * @param  array  $params Query parameters
+	 * @return array
 	 */
 	protected function prepareQueryAndParams(string $query, array $params): array
 	{
@@ -404,8 +404,8 @@ class Connection
 	/**
 	 * Should we try to reestablish the connection?
 	 *
-	 * @access  protected
-	 * @return  bool
+	 * @access protected
+	 * @return bool
 	 */
 	protected function isConnectionLostAndShouldItBeReestablished(): bool
 	{
@@ -415,10 +415,10 @@ class Connection
 	/**
 	 * Binds parameter to the prepared statement.
 	 *
-	 * @access  protected
-	 * @param   \PDOStatement  $statement  PDO statement
-	 * @param   int            $key        Parameter key
-	 * @param   mixed          $value      Parameter value
+	 * @access protected
+	 * @param \PDOStatement $statement PDO statement
+	 * @param int           $key       Parameter key
+	 * @param mixed         $value     Parameter value
 	 */
 	protected function bindParameter(PDOStatement $statement, int $key, $value)
 	{
@@ -458,10 +458,10 @@ class Connection
 	/**
 	 * Prepares a query.
 	 *
-	 * @access  protected
-	 * @param   string     $query   SQL query
-	 * @param   array      $params  Query parameters
-	 * @return  array
+	 * @access protected
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return array
 	 */
 	protected function prepare(string $query, array $params): array
 	{
@@ -504,9 +504,9 @@ class Connection
 	/**
 	 * Executes the prepared query and returns TRUE on success or FALSE on failure.
 	 *
-	 * @access  protected
-	 * @param   array      $prepared  Prepared query
-	 * @return  bool
+	 * @access protected
+	 * @param  array $prepared Prepared query
+	 * @return bool
 	 */
 	protected function execute(array $prepared): bool
 	{
@@ -528,10 +528,10 @@ class Connection
 	/**
 	 * Executes the query and returns TRUE on success or FALSE on failure.
 	 *
-	 * @access  public
-	 * @param   string  $query   SQL query
-	 * @param   array   $params  Query parameters
-	 * @return  bool
+	 * @access public
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return bool
 	 */
 	public function query(string $query, array $params = []): bool
 	{
@@ -541,10 +541,10 @@ class Connection
 	/**
 	 * Executes the query and return number of affected rows.
 	 *
-	 * @access  public
-	 * @param   string  $query   SQL query
-	 * @param   array   $params  Query parameters
-	 * @return  int
+	 * @access public
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return int
 	 */
 	public function queryAndCount(string $query, array $params = []): int
 	{
@@ -558,10 +558,10 @@ class Connection
 	/**
 	 * Returns the value of the first column of the first row of the result set.
 	 *
-	 * @access  public
-	 * @param   string  $query   SQL query
-	 * @param   array   $params  Query parameters
-	 * @return  mixed
+	 * @access public
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return mixed
 	 */
 	public function column(string $query, array $params = [])
 	{
@@ -575,10 +575,10 @@ class Connection
 	/**
 	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
 	 *
-	 * @access  public
-	 * @param   string  $query   SQL query
-	 * @param   array   $params  Query parameters
-	 * @return  array
+	 * @access public
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return array
 	 */
 	public function columns(string $query, array $params = []): array
 	{
@@ -588,11 +588,11 @@ class Connection
 	/**
 	 * Returns the first row of the result set.
 	 *
-	 * @access  public
-	 * @param   string    $query         SQL query
-	 * @param   array     $params        Query params
+	 * @access public
+	 * @param string $query  SQL query
+	 * @param array  $params Query params
 	 * @param   mixed     ...$fetchMode  Fetch mode
-	 * @return  mixed
+	 * @return mixed
 	 */
 	public function first(string $query, array $params = [], ...$fetchMode)
 	{
@@ -611,11 +611,11 @@ class Connection
 	/**
 	 * Returns an array containing all of the result set rows.
 	 *
-	 * @access  public
-	 * @param   string    $query         SQL query
-	 * @param   array     $params        Query parameters
+	 * @access public
+	 * @param string $query  SQL query
+	 * @param array  $params Query parameters
 	 * @param   mixed     ...$fetchMode  Fetch mode
-	 * @return  array
+	 * @return array
 	 */
 	public function all(string $query, array $params = [], ...$fetchMode): array
 	{
@@ -629,11 +629,11 @@ class Connection
 	/**
 	 * Returns a generator that lets you iterate over the results.
 	 *
-	 * @access  public
-	 * @param   string      $query         SQL query
-	 * @param   array       $params        Query params
+	 * @access public
+	 * @param string $query  SQL query
+	 * @param array  $params Query params
 	 * @param   mixed       ...$fetchMode  Fetch mode
-	 * @return  \Generator
+	 * @return \Generator
 	 */
 	public function yield(string $query, array $params = [], ...$fetchMode): Generator
 	{
@@ -662,8 +662,8 @@ class Connection
 	/**
 	 * Returns a query builder instance.
 	 *
-	 * @access  public
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @return \mako\database\query\Query
 	 */
 	public function builder(): Query
 	{
@@ -673,9 +673,9 @@ class Connection
 	/**
 	 * Returns a query builder instance where we have already chosen the table we want to query.
 	 *
-	 * @access  public
-	 * @param   string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw  $table  Database table or subquery
-	 * @return  \mako\database\query\Query
+	 * @access public
+	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
+	 * @return \mako\database\query\Query
 	 */
 	public function table($table): Query
 	{
@@ -685,8 +685,8 @@ class Connection
 	/**
 	 * Creates a new savepoint.
 	 *
-	 * @access  protected
-	 * @return  bool
+	 * @access protected
+	 * @return bool
 	 */
 	protected function createSavepoint(): bool
 	{
@@ -696,8 +696,8 @@ class Connection
 	/**
 	 * Rolls back to the previously created savepoint.
 	 *
-	 * @access  protected
-	 * @return  bool
+	 * @access protected
+	 * @return bool
 	 */
 	protected function rollBackSavepoint(): bool
 	{
@@ -707,8 +707,8 @@ class Connection
 	/**
 	 * Begin a transaction.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function beginTransaction(): bool
 	{
@@ -723,8 +723,8 @@ class Connection
 	/**
 	 * Commits a transaction.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function commitTransaction(): bool
 	{
@@ -739,8 +739,8 @@ class Connection
 	/**
 	 * Roll back a transaction.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function rollBackTransaction(): bool
 	{
@@ -766,8 +766,8 @@ class Connection
 	/**
 	 * Returns the transaction nesting level.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function getTransactionNestingLevel(): int
 	{
@@ -777,8 +777,8 @@ class Connection
 	/**
 	 * Returns TRUE if we're in a transaction and FALSE if not.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function inTransaction(): bool
 	{
@@ -788,9 +788,9 @@ class Connection
 	/**
 	 * Executes queries and rolls back the transaction if any of them fail.
 	 *
-	 * @access  public
-	 * @param   \Closure  $queries  Queries
-	 * @return  mixed
+	 * @access public
+	 * @param  \Closure $queries Queries
+	 * @return mixed
 	 */
 	public function transaction(Closure $queries)
 	{

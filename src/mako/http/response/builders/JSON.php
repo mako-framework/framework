@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\response\builders;
@@ -13,7 +13,7 @@ use mako\http\Response;
 /**
  * JSON builder.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class JSON implements ResponseBuilderInterface
 {
@@ -34,9 +34,9 @@ class JSON implements ResponseBuilderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   mixed  $data     Data
-	 * @param   int    $options  JSON encode options
+	 * @access public
+	 * @param mixed $data    Data
+	 * @param int   $options JSON encode options
 	 */
 	public function __construct($data, int $options = 0)
 	{

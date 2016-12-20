@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\web;
@@ -14,7 +14,7 @@ use mako\http\routing\Router;
 /**
  * Web application.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Application extends BaseApplication
 {

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\services;
@@ -17,15 +17,15 @@ use mako\validator\plugins\TokenValidator;
 /**
  * Validator factory service.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ValidatorFactoryService extends Service
 {
 	/**
 	 * Registers plugins.
 	 *
-	 * @access  protected
-	 * @param   \mako\validator\ValidatorFactory  $validatorFactory  Validator factory instance
+	 * @access protected
+	 * @param \mako\validator\ValidatorFactory $validatorFactory Validator factory instance
 	 */
 	protected function registerPlugins(ValidatorFactory $validatorFactory)
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cli\input\helpers;
@@ -10,9 +10,8 @@ namespace mako\cli\input\helpers;
 /**
  * Question helper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
-
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 
@@ -35,9 +34,9 @@ class Question
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\input\Input    $input   Input instance
-	 * @param   \mako\cli\output\Output  $output  Output instance
+	 * @access public
+	 * @param \mako\cli\input\Input   $input  Input instance
+	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Input $input, Output $output)
 	{
@@ -49,10 +48,10 @@ class Question
 	/**
 	 * Writes question to output and returns user input.
 	 *
-	 * @access  public
-	 * @param   string      $question  Question to ask
-	 * @param   null|mixed  $default   Default if no input is entered
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $question Question to ask
+	 * @param  null|mixed $default  Default if no input is entered
+	 * @return null|mixed
 	 */
 	public function ask(string $question, $default = null)
 	{

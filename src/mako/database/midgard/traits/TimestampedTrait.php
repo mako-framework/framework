@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\midgard\traits;
@@ -12,15 +12,15 @@ use DateTime;
 /**
  * Timestamped trait.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 trait TimestampedTrait
 {
 	/**
 	 * Returns trait hooks.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function getTimestampedTraitHooks(): array
 	{
@@ -92,8 +92,8 @@ trait TimestampedTrait
 	/**
 	 * Should we touch relations on insert?
 	 *
-	 * @access  protected
-	 * @return  bool
+	 * @access protected
+	 * @return bool
 	 */
 	protected function shouldTouchOnInsert(): bool
 	{
@@ -103,8 +103,8 @@ trait TimestampedTrait
 	/**
 	 * Should we touch relations on update?
 	 *
-	 * @access  protected
-	 * @return  bool
+	 * @access protected
+	 * @return bool
 	 */
 	protected function shouldTouchOnUpdate(): bool
 	{
@@ -114,8 +114,8 @@ trait TimestampedTrait
 	/**
 	 * Should we touch relations on delete?
 	 *
-	 * @access  protected
-	 * @return  bool
+	 * @access protected
+	 * @return bool
 	 */
 	protected function shouldTouchOnDelete(): bool
 	{
@@ -125,8 +125,8 @@ trait TimestampedTrait
 	/**
 	 * Returns the column that holds the "created at" timestamp.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getCreatedAtColumn(): string
 	{
@@ -136,8 +136,8 @@ trait TimestampedTrait
 	/**
 	 * Returns the column that holds the "updated at" timestamp.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getUpdatedAtColumn(): string
 	{
@@ -147,8 +147,8 @@ trait TimestampedTrait
 	/**
 	 * Returns the columns that we're casting.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function getCastColumns(): array
 	{
@@ -158,8 +158,8 @@ trait TimestampedTrait
 	/**
 	 * Returns the relations that we should touch.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function getRelationsToTouch(): array
 	{
@@ -169,8 +169,8 @@ trait TimestampedTrait
 	/**
 	 * Allows you to update the "updated at" timestamp without modifying any data.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function touch(): bool
 	{
@@ -187,7 +187,7 @@ trait TimestampedTrait
 	/**
 	 * Touches related records.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function touchRelated()
 	{

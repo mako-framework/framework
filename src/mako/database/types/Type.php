@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\types;
@@ -12,7 +12,7 @@ use mako\database\types\TypeInterface;
 /**
  * Abstract type.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class Type implements TypeInterface
 {
@@ -26,8 +26,8 @@ abstract class Type implements TypeInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   mixed   $value  Value
+	 * @access public
+	 * @param mixed $value Value
 	 */
 	public function __construct($value)
 	{

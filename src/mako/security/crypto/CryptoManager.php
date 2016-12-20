@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\security\crypto;
@@ -18,7 +18,7 @@ use mako\security\Key;
 /**
  * Crypto manager.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  *
  * @method  \mako\security\crypto\encrypters\EncrypterInterface  instance(string $configuration = null)
  * @method  string                                               encrypt(string $string)
@@ -29,9 +29,9 @@ class CryptoManager extends AdapterManager
 	/**
 	 * OpenSSL encrypter factory.
 	 *
-	 * @access  protected
-	 * @param   array                                     $configuration  Configuration
-	 * @return  \mako\security\crypto\encrypters\OpenSSL
+	 * @access protected
+	 * @param  array                                    $configuration Configuration
+	 * @return \mako\security\crypto\encrypters\OpenSSL
 	 */
 	protected function opensslFactory(array $configuration): OpenSSL
 	{
@@ -41,9 +41,9 @@ class CryptoManager extends AdapterManager
 	/**
 	 * Returns a crypto instance.
 	 *
-	 * @access  public
-	 * @param   string                        $configuration  Configuration name
-	 * @return  \mako\security\crypto\Crypto
+	 * @access public
+	 * @param  string                       $configuration Configuration name
+	 * @return \mako\security\crypto\Crypto
 	 */
 	protected function instantiate(string $configuration): Crypto
 	{

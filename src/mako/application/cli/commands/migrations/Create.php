@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\cli\commands\migrations;
@@ -16,7 +16,7 @@ use mako\reactor\Command;
 /**
  * Command that creates a migration.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Create extends Command
 {
@@ -46,11 +46,11 @@ class Create extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access  public
-	 * @param   \mako\application\Application  $application  Application instance
-	 * @param   \mako\file\FileSystem          $fileSystem   File system instance
-	 * @param   string                         $package      Package name
-	 * @param   string                         $description  Migration description
+	 * @access public
+	 * @param \mako\application\Application $application Application instance
+	 * @param \mako\file\FileSystem         $fileSystem  File system instance
+	 * @param string                        $package     Package name
+	 * @param string                        $description Migration description
 	 */
 	public function execute(Application $application, FileSystem $fileSystem, $package = null, $description = null)
 	{

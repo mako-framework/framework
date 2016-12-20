@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\session;
@@ -14,7 +14,7 @@ use mako\session\stores\StoreInterface;
 /**
  * Session class.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Session
 {
@@ -125,11 +125,11 @@ class Session
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\http\Request                   $request   Request instance
-	 * @param   \mako\http\Response                  $response  Response instance
-	 * @param   \mako\session\stores\StoreInterface  $store     Session store instance
-	 * @param   array                                $options   Session options
+	 * @access public
+	 * @param \mako\http\Request                  $request  Request instance
+	 * @param \mako\http\Response                 $response Response instance
+	 * @param \mako\session\stores\StoreInterface $store    Session store instance
+	 * @param array                               $options  Session options
 	 */
 	public function __construct(Request $request, Response $response, StoreInterface $store, array $options = [])
 	{
@@ -147,7 +147,7 @@ class Session
 	/**
 	 * Destructor.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function __destruct()
 	{
@@ -173,8 +173,8 @@ class Session
 	/**
 	 * Configures the session.
 	 *
-	 * @access  protected
-	 * @param   array      $options  Session options
+	 * @access protected
+	 * @param array $options Session options
 	 */
 	protected function configure(array $options)
 	{
@@ -193,7 +193,7 @@ class Session
 	/**
 	 * Starts the session.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function start()
 	{
@@ -231,8 +231,8 @@ class Session
 	/**
 	 * Generates a session id.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function generateId(): string
 	{
@@ -242,7 +242,7 @@ class Session
 	/**
 	 * Adds a session cookie to the response.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function setCookie()
 	{
@@ -254,7 +254,7 @@ class Session
 	/**
 	 * Loads the session data.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function loadData()
 	{
@@ -266,8 +266,8 @@ class Session
 	/**
 	 * Returns the session id.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getId(): string
 	{
@@ -277,9 +277,9 @@ class Session
 	/**
 	 * Regenerate the session id and returns it.
 	 *
-	 * @access  public
-	 * @param   bool    $keepOld  Keep the session data associated with the old session id?
-	 * @return  string
+	 * @access public
+	 * @param  bool   $keepOld Keep the session data associated with the old session id?
+	 * @return string
 	 */
 	public function regenerateId(bool $keepOld = false): string
 	{
@@ -304,8 +304,8 @@ class Session
 	/**
 	 * Returns all the seesion data.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getData(): array
 	{
@@ -315,9 +315,9 @@ class Session
 	/**
 	 * Store a value in the session.
 	 *
-	 * @access  public
-	 * @param   string  $key    Session key
-	 * @param   mixed   $value  Session data
+	 * @access public
+	 * @param string $key   Session key
+	 * @param mixed  $value Session data
 	 */
 	public function put(string $key, $value)
 	{
@@ -327,9 +327,9 @@ class Session
 	/**
 	 * Returns TRUE if key exists in the session and FALSE if not.
 	 *
-	 * @access  public
-	 * @param   string  $key  Session key
-	 * @return  bool
+	 * @access public
+	 * @param  string $key Session key
+	 * @return bool
 	 */
 	public function has(string $key): bool
 	{
@@ -339,10 +339,10 @@ class Session
 	/**
 	 * Returns a value from the session.
 	 *
-	 * @access  public
-	 * @param   string      $key      Session key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Session key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function get(string $key, $default = null)
 	{
@@ -352,11 +352,11 @@ class Session
 	/**
 	 * Gets a value from the session and replaces it.
 	 *
-	 * @access  public
-	 * @param   string      $key      Session key
-	 * @param   mixed       $value    Session data
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Session key
+	 * @param  mixed      $value   Session data
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function getAndPut(string $key, $value, $default = null)
 	{
@@ -370,10 +370,10 @@ class Session
 	/**
 	 * Gets a value from the session and removes it.
 	 *
-	 * @access  public
-	 * @param   string      $key      Session key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Session key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function getAndRemove(string $key, $default = null)
 	{
@@ -387,8 +387,8 @@ class Session
 	/**
 	 * Removes a value from the session.
 	 *
-	 * @access  public
-	 * @param   string  $key  Session key
+	 * @access public
+	 * @param string $key Session key
 	 */
 	public function remove(string $key)
 	{
@@ -398,10 +398,10 @@ class Session
 	/**
 	 * Store a flash value in the session.
 	 *
-	 * @access  public
-	 * @param   string  $key    Flash key
-	 * @param   mixed   $value  Flash data
-	 * @return  mixed
+	 * @access public
+	 * @param  string $key   Flash key
+	 * @param  mixed  $value Flash data
+	 * @return mixed
 	 */
 	public function putFlash(string $key, $value)
 	{
@@ -411,9 +411,9 @@ class Session
 	/**
 	 * Returns TRUE if key exists in the session and FALSE if not.
 	 *
-	 * @access  public
-	 * @param   string  $key  Session key
-	 * @return  bool
+	 * @access public
+	 * @param  string $key Session key
+	 * @return bool
 	 */
 	public function hasFlash(string $key): bool
 	{
@@ -423,10 +423,10 @@ class Session
 	/**
 	 * Returns a flash value from the session.
 	 *
-	 * @access  public
-	 * @param   string      $key      Session key
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $key     Session key
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function getFlash(string $key, $default = null)
 	{
@@ -436,8 +436,8 @@ class Session
 	/**
 	 * Removes a value from the session.
 	 *
-	 * @access  public
-	 * @param   string  $key  Session key
+	 * @access public
+	 * @param string $key Session key
 	 */
 	public function removeFlash(string $key)
 	{
@@ -447,8 +447,8 @@ class Session
 	/**
 	 * Extends the lifetime of the flash data by one request.
 	 *
-	 * @access  public
-	 * @param   array   $keys  Keys to preserve
+	 * @access public
+	 * @param array $keys Keys to preserve
 	 */
 	public function reflash(array $keys = [])
 	{
@@ -462,8 +462,8 @@ class Session
 	/**
 	 * Returns the session token.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getToken(): string
 	{
@@ -473,8 +473,8 @@ class Session
 	/**
 	 * Generates a new session token and returns it.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function regenerateToken(): string
 	{
@@ -484,9 +484,9 @@ class Session
 	/**
 	 * Validates the provided token.
 	 *
-	 * @access  public
-	 * @param   string  $token  Token to validate
-	 * @return  bool
+	 * @access public
+	 * @param  string $token Token to validate
+	 * @return bool
 	 */
 	public function validateToken(string $token): bool
 	{
@@ -496,8 +496,8 @@ class Session
 	/**
 	 * Returns random security token.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function generateOneTimeToken(): string
 	{
@@ -520,9 +520,9 @@ class Session
 	/**
 	 * Validates security token.
 	 *
-	 * @access  public
-	 * @param   string  $token  Security token
-	 * @return  bool
+	 * @access public
+	 * @param  string $token Security token
+	 * @return bool
 	 */
 	public function validateOneTimeToken(string $token): bool
 	{
@@ -545,7 +545,7 @@ class Session
 	/**
 	 * Clears all session data.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function clear()
 	{
@@ -555,7 +555,7 @@ class Session
 	/**
 	 * Destroys the session.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function destroy()
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cache\stores;
@@ -14,14 +14,14 @@ use mako\cache\stores\StoreInterface;
 /**
  * APCU store.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class APCU implements StoreInterface
 {
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function __construct()
 	{

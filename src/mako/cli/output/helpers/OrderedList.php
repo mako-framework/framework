@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cli\output\helpers;
@@ -12,7 +12,7 @@ use mako\cli\output\Output;
 /**
  * Ordered list helper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class OrderedList
 {
@@ -40,8 +40,8 @@ class OrderedList
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\output\Output  $output  Output instance
+	 * @access public
+	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Output $output)
 	{
@@ -53,10 +53,10 @@ class OrderedList
 	/**
 	 * Calculates the maximum width of a marker in a list.
 	 *
-	 * @access  protected
-	 * @param   array      $items   Items
-	 * @param   string     $marker  Item marker
-	 * @return  array
+	 * @access protected
+	 * @param  array  $items  Items
+	 * @param  string $marker Item marker
+	 * @return array
 	 */
 	protected function calculateWidth(array $items, string $marker): array
 	{
@@ -80,14 +80,14 @@ class OrderedList
 	/**
 	 * Builds a list item.
 	 *
-	 * @access  protected
-	 * @param   string     $item          Item
-	 * @param   string     $marker        Item marker
-	 * @param   int        $width         Item number width
-	 * @param   int        $number        Item number
-	 * @param   int        $nestingLevel  Nesting level
-	 * @param   int        $parentWidth   Parent width
-	 * @return  string
+	 * @access protected
+	 * @param  string $item         Item
+	 * @param  string $marker       Item marker
+	 * @param  int    $width        Item number width
+	 * @param  int    $number       Item number
+	 * @param  int    $nestingLevel Nesting level
+	 * @param  int    $parentWidth  Parent width
+	 * @return string
 	 */
 	protected function buildListItem(string $item, string $marker, int $width, int $number, int $nestingLevel, int $parentWidth): string
 	{
@@ -99,12 +99,12 @@ class OrderedList
 	/**
 	 * Builds an ordered list.
 	 *
-	 * @access  protected
-	 * @param   array      $items         Items
-	 * @param   string     $marker        Item marker
-	 * @param   int        $nestingLevel  Nesting level
-	 * @param   int        $parentWidth   Parent marker width
-	 * @return  string
+	 * @access protected
+	 * @param  array  $items        Items
+	 * @param  string $marker       Item marker
+	 * @param  int    $nestingLevel Nesting level
+	 * @param  int    $parentWidth  Parent marker width
+	 * @return string
 	 */
 	protected function buildList(array $items, string $marker, int $nestingLevel = 0, int $parentWidth = 0): string
 	{
@@ -130,10 +130,10 @@ class OrderedList
 	/**
 	 * Renders an ordered list.
 	 *
-	 * @access  public
-	 * @param   array   $items   Items
-	 * @param   string  $marker  Item marker
-	 * @return  string
+	 * @access public
+	 * @param  array  $items  Items
+	 * @param  string $marker Item marker
+	 * @return string
 	 */
 	public function render(array $items, string $marker = '%s.'): string
 	{
@@ -143,10 +143,10 @@ class OrderedList
 	/**
 	 * Draws an ordered list.
 	 *
-	 * @access  public
-	 * @param   array   $items   Items
-	 * @param   string  $marker  Item marker
-	 * @param   int     $writer  Output writer
+	 * @access public
+	 * @param array  $items  Items
+	 * @param string $marker Item marker
+	 * @param int    $writer Output writer
 	 */
 	public function draw(array $items, string $marker = '%s.', int $writer = Output::STANDARD)
 	{

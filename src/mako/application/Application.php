@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application;
@@ -22,7 +22,7 @@ use mako\syringe\Container;
 /**
  * Application.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class Application
 {
@@ -78,8 +78,8 @@ abstract class Application
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string  $applicationPath  Application path
+	 * @access public
+	 * @param string $applicationPath Application path
 	 */
 	public function __construct(string $applicationPath)
 	{
@@ -91,9 +91,9 @@ abstract class Application
 	/**
 	 * Starts the application and returns a singleton instance of the application.
 	 *
-	 * @access  public
-	 * @param   string                         $applicationPath  Application path
-	 * @return  \mako\application\Application
+	 * @access public
+	 * @param  string                        $applicationPath Application path
+	 * @return \mako\application\Application
 	 */
 	public static function start(string $applicationPath)
 	{
@@ -108,8 +108,8 @@ abstract class Application
 	/**
 	 * Returns a singleton instance of the application.
 	 *
-	 * @access  public
-	 * @return  \mako\application\Application
+	 * @access public
+	 * @return \mako\application\Application
 	 */
 	public static function instance()
 	{
@@ -124,8 +124,8 @@ abstract class Application
 	/**
 	 * Returns the IoC container instance.
 	 *
-	 * @access  public
-	 * @return  \mako\syringe\Container
+	 * @access public
+	 * @return \mako\syringe\Container
 	 */
 	public function getContainer(): Container
 	{
@@ -135,8 +135,8 @@ abstract class Application
 	/**
 	 * Returns the config instance.
 	 *
-	 * @access  public
-	 * @return  \mako\config\Config
+	 * @access public
+	 * @return \mako\config\Config
 	 */
 	public function getConfig(): Config
 	{
@@ -146,8 +146,8 @@ abstract class Application
 	/**
 	 * Returns the application charset.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getCharset(): string
 	{
@@ -157,8 +157,8 @@ abstract class Application
 	/**
 	 * Returns the application language.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getLanguage(): string
 	{
@@ -168,8 +168,8 @@ abstract class Application
 	/**
 	 * Sets the application language settings.
 	 *
-	 * @access  public
-	 * @param   array  $language  Application language settings
+	 * @access public
+	 * @param array $language Application language settings
 	 */
 	public function setLanguage(array $language)
 	{
@@ -184,8 +184,8 @@ abstract class Application
 	/**
 	 * Gets the application path.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getPath(): string
 	{
@@ -195,8 +195,8 @@ abstract class Application
 	/**
 	 * Returns all the application packages.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getPackages(): array
 	{
@@ -206,9 +206,9 @@ abstract class Application
 	/**
 	 * Returns a package by its name.
 	 *
-	 * @access  public
-	 * @param   string                     $package  Package name
-	 * @return  \mako\application\Package
+	 * @access public
+	 * @param  string                    $package Package name
+	 * @return \mako\application\Package
 	 */
 	public function getPackage(string $package): Package
 	{
@@ -223,9 +223,9 @@ abstract class Application
 	/**
 	 * Returns the application namespace.
 	 *
-	 * @access  public
-	 * @param   bool    $prefix  Prefix the namespace with a slash?
-	 * @return  string
+	 * @access public
+	 * @param  bool   $prefix Prefix the namespace with a slash?
+	 * @return string
 	 */
 	public function getNamespace(bool $prefix = false)
 	{
@@ -242,8 +242,8 @@ abstract class Application
 	/**
 	 * Is the application running in the CLI?
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isCommandLine(): bool
 	{
@@ -253,7 +253,7 @@ abstract class Application
 	/**
 	 * Returns the Mako environment. NULL is returned if no environment is specified.
 	 *
-	 * @return  string|null
+	 * @return string|null
 	 */
 	public function getEnvironment()
 	{
@@ -263,7 +263,7 @@ abstract class Application
 	/**
 	 * Configure.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function configure()
 	{
@@ -291,8 +291,8 @@ abstract class Application
 	/**
 	 * Registers services in the IoC container.
 	 *
-	 * @access  protected
-	 * @param   string     $type  Service type
+	 * @access protected
+	 * @param string $type Service type
 	 */
 	protected function serviceRegistrar(string $type)
 	{
@@ -305,7 +305,7 @@ abstract class Application
 	/**
 	 * Registers command line services.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function registerCLIServices()
 	{
@@ -315,7 +315,7 @@ abstract class Application
 	/**
 	 * Registers web services.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function registerWebServices()
 	{
@@ -325,7 +325,7 @@ abstract class Application
 	/**
 	 * Register services in the IoC container.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function registerServices()
 	{
@@ -348,7 +348,7 @@ abstract class Application
 	/**
 	 * Registers class aliases.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function registerClassAliases()
 	{
@@ -365,7 +365,7 @@ abstract class Application
 	/**
 	 * Loads the application bootstrap file.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function bootstrap()
 	{
@@ -380,8 +380,8 @@ abstract class Application
 	/**
 	 * Boots packages.
 	 *
-	 * @access  protected
-	 * @param   string     $type  Package type
+	 * @access protected
+	 * @param string $type Package type
 	 */
 	protected function packageBooter(string $type)
 	{
@@ -398,7 +398,7 @@ abstract class Application
 	/**
 	 * Boots command line packages.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function bootCliPackages()
 	{
@@ -408,7 +408,7 @@ abstract class Application
 	/**
 	 * Boots web packages.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function bootWebPackages()
 	{
@@ -418,7 +418,7 @@ abstract class Application
 	/**
 	 * Boot packages.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function bootPackages()
 	{
@@ -449,7 +449,7 @@ abstract class Application
 	/**
 	 * Sets up the framework core.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function initialize()
 	{
@@ -477,7 +477,7 @@ abstract class Application
 	/**
 	 * Boots the application.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function boot()
 	{
@@ -509,8 +509,8 @@ abstract class Application
 	/**
 	 * Loads middleware.
 	 *
-	 * @access  protected
-	 * @return  \mako\http\routing\Middleware
+	 * @access protected
+	 * @return \mako\http\routing\Middleware
 	 */
 	protected function loadMiddleware(): Middleware
 	{
@@ -527,8 +527,8 @@ abstract class Application
 	/**
 	 * Loads routes.
 	 *
-	 * @access  protected
-	 * @return  \mako\http\routing\Routes
+	 * @access protected
+	 * @return \mako\http\routing\Routes
 	 */
 	protected function loadRoutes(): Routes
 	{
@@ -545,8 +545,8 @@ abstract class Application
 	/**
 	 * Loads middleware and routes.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function loadRouting(): array
 	{
@@ -556,8 +556,7 @@ abstract class Application
 	/**
 	 * Runs the application.
 	 *
-	 * @access  public
+	 * @access public
 	 */
-
 	abstract public function run();
 }

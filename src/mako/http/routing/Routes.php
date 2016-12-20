@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\routing;
@@ -15,7 +15,7 @@ use mako\http\routing\Route;
 /**
  * Route collection.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Routes
 {
@@ -43,8 +43,8 @@ class Routes
 	/**
 	 * Returns the registered routes.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getRoutes()
 	{
@@ -54,9 +54,9 @@ class Routes
 	/**
 	 * Returns TRUE if the named route exists and FALSE if not.
 	 *
-	 * @access  public
-	 * @param   string  $name  Route name
-	 * @return  bool
+	 * @access public
+	 * @param  string $name Route name
+	 * @return bool
 	 */
 	public function hasNamedRoute(string $name): bool
 	{
@@ -66,9 +66,9 @@ class Routes
 	/**
 	 * Returns the named route.
 	 *
-	 * @access  public
-	 * @param   string                    $name  Route name
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  string                   $name Route name
+	 * @return \mako\http\routing\Route
 	 */
 	public function getNamedRoute(string $name): Route
 	{
@@ -83,9 +83,9 @@ class Routes
 	/**
 	 * Adds a grouped set of routes to the colleciton.
 	 *
-	 * @access  public
-	 * @param   array     $options  Group options
-	 * @param   \Closure  $routes   Route closure
+	 * @access public
+	 * @param array    $options Group options
+	 * @param \Closure $routes  Route closure
 	 */
 	public function group(array $options, Closure $routes)
 	{
@@ -99,12 +99,12 @@ class Routes
 	/**
 	 * Registers a route.
 	 *
-	 * @access  public
-	 * @param   array                    $methods  HTTP methods
-	 * @param   string                   $route    Route
-	 * @param   string|\Closure          $action   Route action
-	 * @param   string                   $name     Route name
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  array                    $methods HTTP methods
+	 * @param  string                   $route   Route
+	 * @param  string|\Closure          $action  Route action
+	 * @param  string                   $name    Route name
+	 * @return \mako\http\routing\Route
 	 */
 	protected function registerRoute(array $methods, string $route, $action, string $name = null): Route
 	{
@@ -134,11 +134,11 @@ class Routes
 	/**
 	 * Adds a route that responds to GET requests to the collection.
 	 *
-	 * @access  public
-	 * @param   string                    $route   Route
-	 * @param   string|\Closure           $action  Route action
-	 * @param   string                    $name    Route name
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  string                   $route  Route
+	 * @param  string|\Closure          $action Route action
+	 * @param  string                   $name   Route name
+	 * @return \mako\http\routing\Route
 	 */
 	public function get(string $route, $action, string $name = null): Route
 	{
@@ -148,11 +148,11 @@ class Routes
 	/**
 	 * Adds a route that responds to POST requests to the collection.
 	 *
-	 * @access  public
-	 * @param   string                    $route   Route
-	 * @param   string|\Closure           $action  Route action
-	 * @param   string                    $name    Route name
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  string                   $route  Route
+	 * @param  string|\Closure          $action Route action
+	 * @param  string                   $name   Route name
+	 * @return \mako\http\routing\Route
 	 */
 	public function post(string $route, $action, string $name = null): Route
 	{
@@ -162,11 +162,11 @@ class Routes
 	/**
 	 * Adds a route that responds to PUT requests to the collection.
 	 *
-	 * @access  public
-	 * @param   string                    $route   Route
-	 * @param   string|\Closure           $action  Route action
-	 * @param   string                    $name    Route name
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  string                   $route  Route
+	 * @param  string|\Closure          $action Route action
+	 * @param  string                   $name   Route name
+	 * @return \mako\http\routing\Route
 	 */
 	public function put(string $route, $action, string $name = null): Route
 	{
@@ -176,11 +176,11 @@ class Routes
 	/**
 	 * Adds a route that responds to PATCH requests to the collection.
 	 *
-	 * @access  public
-	 * @param   string                    $route   Route
-	 * @param   string|\Closure           $action  Route action
-	 * @param   string                    $name    Route name
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  string                   $route  Route
+	 * @param  string|\Closure          $action Route action
+	 * @param  string                   $name   Route name
+	 * @return \mako\http\routing\Route
 	 */
 	public function patch(string $route, $action, string $name = null): Route
 	{
@@ -190,11 +190,11 @@ class Routes
 	/**
 	 * Adds a route that responds to DELETE requests to the collection.
 	 *
-	 * @access  public
-	 * @param   string                    $route   Route
-	 * @param   string|\Closure           $action  Route action
-	 * @param   string                    $name    Route name
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  string                   $route  Route
+	 * @param  string|\Closure          $action Route action
+	 * @param  string                   $name   Route name
+	 * @return \mako\http\routing\Route
 	 */
 	public function delete(string $route, $action, string $name = null): Route
 	{
@@ -204,11 +204,11 @@ class Routes
 	/**
 	 * Adds a route that responts to all HTTP methods to the collection.
 	 *
-	 * @access  public
-	 * @param   string                    $route   Route
-	 * @param   string|\Closure           $action  Route action
-	 * @param   string                    $name    Route name
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  string                   $route  Route
+	 * @param  string|\Closure          $action Route action
+	 * @param  string                   $name   Route name
+	 * @return \mako\http\routing\Route
 	 */
 	public function all(string $route, $action, string $name = null): Route
 	{
@@ -218,12 +218,12 @@ class Routes
 	/**
 	 * Adds a route that respodns to the chosen HTTP methods to the collection.
 	 *
-	 * @access  public
-	 * @param   array                     $methods  Array of HTTP methods the route should respond to
-	 * @param   string                    $route    Route
-	 * @param   string|\Closure           $action   Route action
-	 * @param   string                    $name     Route name
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  array                    $methods Array of HTTP methods the route should respond to
+	 * @param  string                   $route   Route
+	 * @param  string|\Closure          $action  Route action
+	 * @param  string                   $name    Route name
+	 * @return \mako\http\routing\Route
 	 */
 	public function register(array $methods, string $route, $action, string $name = null): Route
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\types;
@@ -14,7 +14,7 @@ use mako\database\types\Type;
 /**
  * Large object type.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class LargeObject extends Type
 {

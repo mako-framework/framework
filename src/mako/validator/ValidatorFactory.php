@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\validator;
@@ -14,7 +14,7 @@ use mako\validator\plugins\ValidatorPluginInterface;
 /**
  * Validator factory.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ValidatorFactory
 {
@@ -35,8 +35,8 @@ class ValidatorFactory
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\i18n\I18n  $i18n  I18n instance
+	 * @access public
+	 * @param \mako\i18n\I18n $i18n I18n instance
 	 */
 	public function __construct(I18n $i18n)
 	{
@@ -46,10 +46,10 @@ class ValidatorFactory
 	/**
 	 * Creates and returns a validator instance.
 	 *
-	 * @access  public
-	 * @param   array                      $data   Array to validate
-	 * @param   array                      $rules  Array of validation rules
-	 * @return  \mako\validator\Validator
+	 * @access public
+	 * @param  array                     $data  Array to validate
+	 * @param  array                     $rules Array of validation rules
+	 * @return \mako\validator\Validator
 	 */
 	public function create(array $data, array $rules): Validator
 	{
@@ -66,8 +66,8 @@ class ValidatorFactory
 	/**
 	 * Register a validation plugin.
 	 *
-	 * @access  public
-	 * @param   \mako\validator\plugins\ValidatorPluginInterface  $plugin  Plugin instance
+	 * @access public
+	 * @param \mako\validator\plugins\ValidatorPluginInterface $plugin Plugin instance
 	 */
 	public function registerPlugin(ValidatorPluginInterface $plugin)
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\common;
@@ -16,7 +16,7 @@ use mako\syringe\Container;
 /**
  * Adapter manager.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class AdapterManager
 {
@@ -46,10 +46,10 @@ abstract class AdapterManager
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string                   $default         Default connection name
-	 * @param   array                    $configurations  Configurations
-	 * @param   \mako\syringe\Container  $container       IoC container instance
+	 * @access public
+	 * @param string                  $default        Default connection name
+	 * @param array                   $configurations Configurations
+	 * @param \mako\syringe\Container $container      IoC container instance
 	 */
 	public function __construct(string $default, array $configurations, Container $container)
 	{
@@ -63,9 +63,9 @@ abstract class AdapterManager
 	/**
 	 * Adds extension.
 	 *
-	 * @access  public
-	 * @param   string           $name        Adapter name
-	 * @param   string|\Closure  $adapter     Adapter
+	 * @access public
+	 * @param string          $name    Adapter name
+	 * @param string|\Closure $adapter Adapter
 	 */
 	public function extend(string $name, $adapter)
 	{
@@ -75,10 +75,10 @@ abstract class AdapterManager
 	/**
 	 * Factory.
 	 *
-	 * @access  protected
-	 * @param   string     $adapterName    Adapter name
-	 * @param   array      $configuration  Adapter configuration
-	 * @return  mixed
+	 * @access protected
+	 * @param  string $adapterName   Adapter name
+	 * @param  array  $configuration Adapter configuration
+	 * @return mixed
 	 */
 	protected function factory(string $adapterName, array $configuration = [])
 	{
@@ -104,18 +104,18 @@ abstract class AdapterManager
 	/**
 	 * Returns a new adapter instance.
 	 *
-	 * @access  public
-	 * @param   string  $configuration  Configuration name
-	 * @return  mixed
+	 * @access public
+	 * @param  string $configuration Configuration name
+	 * @return mixed
 	 */
 	abstract protected function instantiate(string $configuration);
 
 	/**
 	 * Returns an instance of the chosen adapter configuration.
 	 *
-	 * @access  public
-	 * @param   string  $configuration  Configuration name
-	 * @return  mixed
+	 * @access public
+	 * @param  string $configuration Configuration name
+	 * @return mixed
 	 */
 	public function instance(string $configuration = null)
 	{
@@ -132,10 +132,10 @@ abstract class AdapterManager
 	/**
 	 * Magic shortcut to the default configuration.
 	 *
-	 * @access  public
-	 * @param   string  $name       Method name
-	 * @param   array   $arguments  Method arguments
-	 * @return  mixed
+	 * @access public
+	 * @param  string $name      Method name
+	 * @param  array  $arguments Method arguments
+	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments)
 	{

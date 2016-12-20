@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\session\stores;
@@ -13,7 +13,7 @@ use mako\session\stores\StoreInterface;
 /**
  * File store.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class File implements StoreInterface
 {
@@ -41,10 +41,10 @@ class File implements StoreInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\file\FileSystem  $fileSystem      File system instance
-	 * @param   string                 $sessionPath     Session path
-	 * @param   bool|array             $classWhitelist  Class whitelist
+	 * @access public
+	 * @param \mako\file\FileSystem $fileSystem     File system instance
+	 * @param string                $sessionPath    Session path
+	 * @param bool|array            $classWhitelist Class whitelist
 	 */
 	public function __construct(FileSystem $fileSystem, $sessionPath, $classWhitelist = false)
 	{
@@ -58,9 +58,9 @@ class File implements StoreInterface
 	/**
 	 * Returns the path to the session file.
 	 *
-	 * @access  protected
-	 * @param   string     $sessionId  Session id
-	 * @return  string
+	 * @access protected
+	 * @param  string $sessionId Session id
+	 * @return string
 	 */
 	protected function sessionFile(string $sessionId): string
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cli\output\helpers;
@@ -12,7 +12,7 @@ use mako\cli\output\Output;
 /**
  * Terminal bell helper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Bell
 {
@@ -26,8 +26,8 @@ class Bell
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\output\Output  $output  Output instance
+	 * @access public
+	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Output $output)
 	{
@@ -37,8 +37,8 @@ class Bell
 	/**
 	 * Rings the terminal bell n times.
 	 *
-	 * @access  public
-	 * @param   int     $times  Number of times to ring the bell
+	 * @access public
+	 * @param int $times Number of times to ring the bell
 	 */
 	public function ring(int $times = 1)
 	{

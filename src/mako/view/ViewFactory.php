@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\view;
@@ -19,7 +19,7 @@ use mako\view\renderers\RendererInterface;
 /**
  * View factory.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ViewFactory
 {
@@ -84,11 +84,11 @@ class ViewFactory
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\file\FileSystem         $fileSystem  File system instance
-	 * @param   string                        $path        Default path
-	 * @param   string                        $charset     Charset
-	 * @param   null|\mako\syringe\Container  $container   Container
+	 * @access public
+	 * @param \mako\file\FileSystem        $fileSystem File system instance
+	 * @param string                       $path       Default path
+	 * @param string                       $charset    Charset
+	 * @param null|\mako\syringe\Container $container  Container
 	 */
 	public function __construct(FileSystem $fileSystem, string $path, string $charset = 'UTF-8', Container $container = null)
 	{
@@ -106,8 +106,8 @@ class ViewFactory
 	/**
 	 * Returns the charset.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getCharset(): string
 	{
@@ -117,9 +117,9 @@ class ViewFactory
 	/**
 	 * Sets the charset.
 	 *
-	 * @access  public
-	 * @param   string                  $charset  Charset
-	 * @return  \mako\view\ViewFactory
+	 * @access public
+	 * @param  string                 $charset Charset
+	 * @return \mako\view\ViewFactory
 	 */
 	public function setCharset(string $charset): ViewFactory
 	{
@@ -131,10 +131,10 @@ class ViewFactory
 	/**
 	 * Registers a custom view renderer.
 	 *
-	 * @access  public
-	 * @param   string                  $extension  Extension handled by the renderer
-	 * @param   string|\Closure         $renderer   Renderer class or closure that creates a renderer instance
-	 * @return  \mako\view\ViewFactory
+	 * @access public
+	 * @param  string                 $extension Extension handled by the renderer
+	 * @param  string|\Closure        $renderer  Renderer class or closure that creates a renderer instance
+	 * @return \mako\view\ViewFactory
 	 */
 	public function extend(string $extension, $renderer): ViewFactory
 	{
@@ -146,10 +146,10 @@ class ViewFactory
 	/**
 	 * Assign a global view variable that will be available in all views.
 	 *
-	 * @access  public
-	 * @param   string                  $name   Variable name
-	 * @param   mixed                   $value  View variable
-	 * @return  \mako\view\ViewFactory
+	 * @access public
+	 * @param  string                 $name  Variable name
+	 * @param  mixed                  $value View variable
+	 * @return \mako\view\ViewFactory
 	 */
 	public function assign(string $name, $value): ViewFactory
 	{
@@ -161,10 +161,10 @@ class ViewFactory
 	/**
 	 * Returns an array containing the view path and the renderer we should use.
 	 *
-	 * @access  protected
-	 * @param   string      $view            View
-	 * @param   bool        $throwException  Throw exception if view doesn't exist?
-	 * @return  array|bool
+	 * @access protected
+	 * @param  string     $view           View
+	 * @param  bool       $throwException Throw exception if view doesn't exist?
+	 * @return array|bool
 	 */
 	protected function getViewPathAndExtension(string $view, bool $throwException = true)
 	{
@@ -201,9 +201,9 @@ class ViewFactory
 	/**
 	 * Creates a renderer instance.
 	 *
-	 * @access  protected
-	 * @param   string|\Closure                         $renderer  Renderer class or closure
-	 * @return  \mako\view\renderers\RendererInterface
+	 * @access protected
+	 * @param  string|\Closure                        $renderer Renderer class or closure
+	 * @return \mako\view\renderers\RendererInterface
 	 */
 	protected function rendererFactory($renderer): RendererInterface
 	{
@@ -213,9 +213,9 @@ class ViewFactory
 	/**
 	 * Returns a renderer instance.
 	 *
-	 * @access  protected
-	 * @param   string                                  $extension  Extension associated with the renderer
-	 * @return  \mako\view\renderers\RendererInterface
+	 * @access protected
+	 * @param  string                                 $extension Extension associated with the renderer
+	 * @return \mako\view\renderers\RendererInterface
 	 */
 	protected function resolveRenderer(string $extension): RendererInterface
 	{
@@ -230,9 +230,9 @@ class ViewFactory
 	/**
 	 * Returns TRUE if the view exists and false if not.
 	 *
-	 * @access  public
-	 * @param   string  $view  View
-	 * @return  bool
+	 * @access public
+	 * @param  string $view View
+	 * @return bool
 	 */
 	public function exists(string $view): bool
 	{
@@ -242,10 +242,10 @@ class ViewFactory
 	/**
 	 * Creates and returns a view instance.
 	 *
-	 * @access  public
-	 * @param   string           $view       View
-	 * @param   array            $variables  View variables
-	 * @return  \mako\view\View
+	 * @access public
+	 * @param  string          $view      View
+	 * @param  array           $variables View variables
+	 * @return \mako\view\View
 	 */
 	public function create(string $view, array $variables = []): View
 	{
@@ -257,10 +257,10 @@ class ViewFactory
 	/**
 	 * Creates and returns a rendered view.
 	 *
-	 * @access  public
-	 * @param   string  $view       View
-	 * @param   array   $variables  View variables
-	 * @return  string
+	 * @access public
+	 * @param  string $view      View
+	 * @param  array  $variables View variables
+	 * @return string
 	 */
 	public function render(string $view, array $variables = []): string
 	{

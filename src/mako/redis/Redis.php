@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\redis;
@@ -17,7 +17,7 @@ use mako\utility\Str;
  *
  * Based on the protocol specification at http://redis.io/topics/protocol.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Redis
 {
@@ -80,9 +80,9 @@ class Redis
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\redis\Connection  $connection  Redis connection
-	 * @param   array                   $options     Options
+	 * @access public
+	 * @param \mako\redis\Connection $connection Redis connection
+	 * @param array                  $options    Options
 	 */
 	public function __construct(Connection $connection, array $options = [])
 	{
@@ -102,9 +102,9 @@ class Redis
 	/**
 	 * Creates a cluster client.
 	 *
-	 * @access  protected
-	 * @param   string             $server  Server string
-	 * @return  \mako\redis\Redis
+	 * @access protected
+	 * @param  string            $server Server string
+	 * @return \mako\redis\Redis
 	 */
 	protected function createClusterClient(string $server): Redis
 	{
@@ -118,9 +118,9 @@ class Redis
 	/**
 	 * Gets a cluster client.
 	 *
-	 * @access  protected
-	 * @param   string             $serverInfo  Cluster slot and server string
-	 * @return  \mako\redis\Redis
+	 * @access protected
+	 * @param  string            $serverInfo Cluster slot and server string
+	 * @return \mako\redis\Redis
 	 */
 	protected function getClusterClient(string $serverInfo): Redis
 	{
@@ -137,9 +137,9 @@ class Redis
 	/**
 	 * Handles redis error responses.
 	 *
-	 * @access  protected
-	 * @param   string     $response  Error response
-	 * @return  mixed
+	 * @access protected
+	 * @param  string $response Error response
+	 * @return mixed
 	 */
 	protected function handleErrorResponse(string $response)
 	{
@@ -161,9 +161,9 @@ class Redis
 	/**
 	 * Handles a status response.
 	 *
-	 * @access  protected
-	 * @param   string      $response  Redis response
-	 * @return  string
+	 * @access protected
+	 * @param  string $response Redis response
+	 * @return string
 	 */
 	protected function handleStatusResponse(string $response): string
 	{
@@ -173,9 +173,9 @@ class Redis
 	/**
 	 * Handles a integer response.
 	 *
-	 * @access  protected
-	 * @param   string      $response  Redis response
-	 * @return  int
+	 * @access protected
+	 * @param  string $response Redis response
+	 * @return int
 	 */
 	protected function handleIntegerResponse(string $response): int
 	{
@@ -185,9 +185,9 @@ class Redis
 	/**
 	 * Handles a bulk response.
 	 *
-	 * @access  protected
-	 * @param   string       $response  Redis response
-	 * @return  null|string
+	 * @access protected
+	 * @param  string      $response Redis response
+	 * @return null|string
 	 */
 	protected function handleBulkResponse(string $response)
 	{
@@ -204,9 +204,9 @@ class Redis
 	/**
 	 * Handles a multi-bulk response.
 	 *
-	 * @access  protected
-	 * @param   string      $response  Redis response
-	 * @return  null|array
+	 * @access protected
+	 * @param  string     $response Redis response
+	 * @return null|array
 	 */
 	protected function handleMultiBulkResponse(string $response)
 	{
@@ -230,8 +230,8 @@ class Redis
 	/**
 	 * Returns response from redis server.
 	 *
-	 * @access  protected
-	 * @return  mixed
+	 * @access protected
+	 * @return mixed
 	 */
 	protected function response()
 	{
@@ -262,9 +262,9 @@ class Redis
 	/**
 	 * Pipeline commands.
 	 *
-	 * @access  public
-	 * @param   \Closure  $pipeline  Pipelined commands
-	 * @return  array
+	 * @access public
+	 * @param  \Closure $pipeline Pipelined commands
+	 * @return array
 	 */
 	public function pipeline(Closure $pipeline): array
 	{
@@ -303,9 +303,9 @@ class Redis
 	/**
 	 * Executes raw Redis commands and returns the response.
 	 *
-	 * @access  public
-	 * @param   string  $command  Command
-	 * @return  mixed
+	 * @access public
+	 * @param  string $command Command
+	 * @return mixed
 	 */
 	public function rawCommand(string $command)
 	{
@@ -317,9 +317,9 @@ class Redis
 	/**
 	 * Builds command from method name.
 	 *
-	 * @access  protected
-	 * @param   string     $name  Method name
-	 * @return  array
+	 * @access protected
+	 * @param  string $name Method name
+	 * @return array
 	 */
 	protected function buildCommand(string $name): array
 	{
@@ -343,10 +343,10 @@ class Redis
 	/**
 	 * Sends command to Redis server and returns response.
 	 *
-	 * @access  public
-	 * @param   string  $name       Command name
-	 * @param   array   $arguments  Command arguments
-	 * @return  mixed
+	 * @access public
+	 * @param  string $name      Command name
+	 * @param  array  $arguments Command arguments
+	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments)
 	{

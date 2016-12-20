@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cache;
@@ -12,7 +12,7 @@ use mako\cache\stores\StoreInterface;
 /**
  * Cache wrapper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Cache
 {
@@ -33,9 +33,9 @@ class Cache
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cache\stores\StoreInterface  $store   Cache store
-	 * @param   null|string                        $prefix  Cache prefix
+	 * @access public
+	 * @param \mako\cache\stores\StoreInterface $store  Cache store
+	 * @param null|string                       $prefix Cache prefix
 	 */
 	public function __construct(StoreInterface $store, string $prefix = null)
 	{
@@ -47,9 +47,9 @@ class Cache
 	/**
 	 * Returns a prefixed cache key.
 	 *
-	 * @access  protected
-	 * @param   string     $key  Cache key
-	 * @return  string
+	 * @access protected
+	 * @param  string $key Cache key
+	 * @return string
 	 */
 	protected function prefixedKey(string $key): string
 	{
@@ -59,11 +59,11 @@ class Cache
 	/**
 	 * Store data in the cache.
 	 *
-	 * @access  public
-	 * @param   string  $key   Cache key
-	 * @param   mixed   $data  The data to store
-	 * @param   int     $ttl   Time to live
-	 * @return  bool
+	 * @access public
+	 * @param  string $key  Cache key
+	 * @param  mixed  $data The data to store
+	 * @param  int    $ttl  Time to live
+	 * @return bool
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
@@ -73,9 +73,9 @@ class Cache
 	/**
 	 * Returns TRUE if the cache key exists and FALSE if not.
 	 *
-	 * @access  public
-	 * @param   string   $key  Cache key
-	 * @return  bool
+	 * @access public
+	 * @param  string $key Cache key
+	 * @return bool
 	 */
 	public function has(string $key): bool
 	{
@@ -85,9 +85,9 @@ class Cache
 	/**
 	 * Fetch data from the cache.
 	 *
-	 * @access  public
-	 * @param   string  $key  Cache key
-	 * @return  mixed
+	 * @access public
+	 * @param  string $key Cache key
+	 * @return mixed
 	 */
 	public function get(string $key)
 	{
@@ -97,11 +97,11 @@ class Cache
 	/**
 	 * Fetch data from the cache or store it if it doesn't already exist.
 	 *
-	 * @access  public
-	 * @param   string    $key   Cache key
-	 * @param   callable  $data  Closure that returns the data we want to store
-	 * @param   int       $ttl   Time to live
-	 * @return  mixed
+	 * @access public
+	 * @param  string   $key  Cache key
+	 * @param  callable $data Closure that returns the data we want to store
+	 * @param  int      $ttl  Time to live
+	 * @return mixed
 	 */
 	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
@@ -111,11 +111,11 @@ class Cache
 	/**
 	 * Fetch data from the cache and replace it.
 	 *
-	 * @access  public
-	 * @param   string  $key   Cache key
-	 * @param   mixed   $data  The data to store
-	 * @param   int     $ttl   Time to live
-	 * @return  mixed
+	 * @access public
+	 * @param  string $key  Cache key
+	 * @param  mixed  $data The data to store
+	 * @param  int    $ttl  Time to live
+	 * @return mixed
 	 */
 	public function getAndPut(string $key, $data, int $ttl = 0)
 	{
@@ -128,9 +128,9 @@ class Cache
 	/**
 	 * Fetch data from the cache and remove it.
 	 *
-	 * @access  public
-	 * @param   string  $key  Cache key
-	 * @return  mixed
+	 * @access public
+	 * @param  string $key Cache key
+	 * @return mixed
 	 */
 	public function getAndRemove(string $key)
 	{
@@ -147,9 +147,9 @@ class Cache
 	/**
 	 * Delete data from the cache.
 	 *
-	 * @access  public
-	 * @param   string   $key  Cache key
-	 * @return  bool
+	 * @access public
+	 * @param  string $key Cache key
+	 * @return bool
 	 */
 	public function remove(string $key): bool
 	{
@@ -159,8 +159,8 @@ class Cache
 	/**
 	 * Clears the user cache.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function clear(): bool
 	{

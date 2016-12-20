@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\auth;
@@ -19,7 +19,7 @@ use mako\session\Session;
 /**
  * Gatekeeper authentication.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Gatekeeper
 {
@@ -145,13 +145,13 @@ class Gatekeeper
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\http\Request                           $request        Request instance
-	 * @param   \mako\http\Response                          $response       Response instance
-	 * @param   \mako\session\Session                        $session        Session instance
-	 * @param   \mako\auth\providers\UserProviderInterface   $userProvider   User provider
-	 * @param   \mako\auth\providers\GroupProviderInterface  $groupProvider  Group provider
-	 * @param   array                                        $options        Options
+	 * @access public
+	 * @param \mako\http\Request                          $request       Request instance
+	 * @param \mako\http\Response                         $response      Response instance
+	 * @param \mako\session\Session                       $session       Session instance
+	 * @param \mako\auth\providers\UserProviderInterface  $userProvider  User provider
+	 * @param \mako\auth\providers\GroupProviderInterface $groupProvider Group provider
+	 * @param array                                       $options       Options
 	 */
 	public function __construct(Request $request, Response $response, Session $session, UserProviderInterface $userProvider, GroupProviderInterface $groupProvider, array $options = [])
 	{
@@ -167,8 +167,8 @@ class Gatekeeper
 	/**
 	 * Configures the gatekeeper.
 	 *
-	 * @access  protected
-	 * @param   array      $options  Options
+	 * @access protected
+	 * @param array $options Options
 	 */
 	protected function configure(array $options)
 	{
@@ -202,8 +202,8 @@ class Gatekeeper
 	/**
 	 * Returns the user provider instance.
 	 *
-	 * @access  public
-	 * @return  \mako\auth\providers\UserProviderInterface
+	 * @access public
+	 * @return \mako\auth\providers\UserProviderInterface
 	 */
 	public function getUserProvider()
 	{
@@ -213,8 +213,8 @@ class Gatekeeper
 	/**
 	 * Returns the group provider instance.
 	 *
-	 * @access  public
-	 * @return  \mako\auth\providers\GroupProviderInterface
+	 * @access public
+	 * @return \mako\auth\providers\GroupProviderInterface
 	 */
 	public function getGroupProvider()
 	{
@@ -224,12 +224,12 @@ class Gatekeeper
 	/**
 	 * Creates a new user and returns the user object.
 	 *
-	 * @access  public
-	 * @param   string                         $email     Email address
-	 * @param   string                         $username  Username
-	 * @param   string                         $password  Password
-	 * @param   bool                           $activate  Will activate the user if set to true
-	 * @return  \mako\auth\user\UserInterface
+	 * @access public
+	 * @param  string                        $email    Email address
+	 * @param  string                        $username Username
+	 * @param  string                        $password Password
+	 * @param  bool                          $activate Will activate the user if set to true
+	 * @return \mako\auth\user\UserInterface
 	 */
 	public function createUser($email, $username, $password, $activate = false)
 	{
@@ -252,9 +252,9 @@ class Gatekeeper
 	/**
 	 * Creates a new group and returns the group object.
 	 *
-	 * @access  public
-	 * @param   string                           $name  Group name
-	 * @return  \mako\auth\group\GroupInterface
+	 * @access public
+	 * @param  string                          $name Group name
+	 * @return \mako\auth\group\GroupInterface
 	 */
 	public function createGroup($name)
 	{
@@ -266,9 +266,9 @@ class Gatekeeper
 	/**
 	 * Activates a user based on the provided auth token.
 	 *
-	 * @access  public
-	 * @param   string  $token  Auth token
-	 * @return  bool
+	 * @access public
+	 * @param  string $token Auth token
+	 * @return bool
 	 */
 	public function activateUser($token)
 	{
@@ -293,8 +293,8 @@ class Gatekeeper
 	/**
 	 * Checks if a user is logged in.
 	 *
-	 * @access  protected
-	 * @return  \mako\auth\user\UserInterface|null
+	 * @access protected
+	 * @return \mako\auth\user\UserInterface|null
 	 */
 	protected function check()
 	{
@@ -335,8 +335,8 @@ class Gatekeeper
 	/**
 	 * Returns FALSE if the user is logged in and TRUE if not.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isGuest()
 	{
@@ -346,8 +346,8 @@ class Gatekeeper
 	/**
 	 * Returns FALSE if the user isn't logged in and TRUE if it is.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isLoggedIn()
 	{
@@ -357,7 +357,7 @@ class Gatekeeper
 	/**
 	 * Sets the user.
 	 *
-	 * @param  \mako\auth\user\UserInterface  $user  User
+	 * @param \mako\auth\user\UserInterface $user User
 	 */
 	public function setUser(UserInterface $user)
 	{
@@ -367,8 +367,8 @@ class Gatekeeper
 	/**
 	 * Returns the authenticated user or NULL if no user is logged in.
 	 *
-	 * @access  public
-	 * @return  null|\mako\auth\user\UserInterface
+	 * @access public
+	 * @return null|\mako\auth\user\UserInterface
 	 */
 	public function getUser()
 	{
@@ -378,9 +378,9 @@ class Gatekeeper
 	/**
 	 * Gets a user by its unique identifier.
 	 *
-	 * @access  protected
-	 * @param   string                              $identifier  User identifier
-	 * @return  \mako\auth\user\UserInterface|bool
+	 * @access protected
+	 * @param  string                             $identifier User identifier
+	 * @return \mako\auth\user\UserInterface|bool
 	 */
 	protected function getByIdentifier($identifier)
 	{
@@ -399,11 +399,11 @@ class Gatekeeper
 	 * Returns TRUE if the email + password combination matches and the user is activated and not banned.
 	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT) will be retured in all other situations.
 	 *
-	 * @access  protected
-	 * @param   string     $identifier  User email or username
-	 * @param   string     $password    User password
-	 * @param   bool       $force       Skip the password check?
-	 * @return  bool|int
+	 * @access protected
+	 * @param  string   $identifier User email or username
+	 * @param  string   $password   User password
+	 * @param  bool     $force      Skip the password check?
+	 * @return bool|int
 	 */
 	protected function authenticate($identifier, $password, $force = false)
 	{
@@ -454,12 +454,12 @@ class Gatekeeper
 	 * Returns TRUE if the email + password combination matches and the user is activated and not banned.
 	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT, LOGIN_LOCKED) will be retured in all other situations.
 	 *
-	 * @access  public
-	 * @param   string    $identifier  User email
-	 * @param   string    $password    User password
-	 * @param   bool      $remember    Set a remember me cookie?
-	 * @param   bool      $force       Login the user without checking the password?
-	 * @return  bool|int
+	 * @access public
+	 * @param  string   $identifier User email
+	 * @param  string   $password   User password
+	 * @param  bool     $remember   Set a remember me cookie?
+	 * @param  bool     $force      Login the user without checking the password?
+	 * @return bool|int
 	 */
 	public function login($identifier, $password, $remember = false, $force = false)
 	{
@@ -492,10 +492,10 @@ class Gatekeeper
 	/**
 	 * Login a user without checking the password.
 	 *
-	 * @access  public
-	 * @param   mixed   $identifier  User email or username
-	 * @param   bool    $remember    Set a remember me cookie?
-	 * @return  bool
+	 * @access public
+	 * @param  mixed $identifier User email or username
+	 * @param  bool  $remember   Set a remember me cookie?
+	 * @return bool
 	 */
 	public function forceLogin($identifier, $remember = false)
 	{
@@ -505,8 +505,8 @@ class Gatekeeper
 	/**
 	 * Builds and returns a basic HTTP authentication response.
 	 *
-	 * @access  protected
-	 * @return  \mako\http\Response
+	 * @access protected
+	 * @return \mako\http\Response
 	 */
 	protected function basicHTTPAuthenticationResponse()
 	{
@@ -524,8 +524,8 @@ class Gatekeeper
 	/**
 	 * Returns a basic authentication response if login is required and NULL if not.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response|null
+	 * @access public
+	 * @return \mako\http\Response|null
 	 */
 	public function basicAuth()
 	{
@@ -540,7 +540,7 @@ class Gatekeeper
 	/**
 	 * Logs the user out.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function logout()
 	{

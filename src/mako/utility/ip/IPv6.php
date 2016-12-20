@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\utility\ip;
@@ -12,17 +12,17 @@ use Throwable;
 /**
  * IPv6 utilities.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class IPv6
 {
 	/**
 	 * Checks if an IP is in the specified range.
 	 *
-	 * @access  public
-	 * @param   string  $ip     IP address
-	 * @param   string  $range  Ip address or IP range
-	 * @return  bool
+	 * @access public
+	 * @param  string $ip    IP address
+	 * @param  string $range Ip address or IP range
+	 * @return bool
 	 */
 	public static function inRange(string $ip, string $range): bool
 	{

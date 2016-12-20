@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\error\handlers;
@@ -15,7 +15,7 @@ use mako\error\handlers\Handler;
 /**
  * CLI handler.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class CLIHandler extends Handler
 {
@@ -29,9 +29,9 @@ class CLIHandler extends Handler
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \Throwable               $exception  Throwable
-	 * @param   \mako\cli\output\Output  $output     Output
+	 * @access public
+	 * @param \Throwable              $exception Throwable
+	 * @param \mako\cli\output\Output $output    Output
 	 */
 	public function __construct(Throwable $exception, Output $output)
 	{
@@ -43,9 +43,9 @@ class CLIHandler extends Handler
 	/**
 	 * Escape formatting tags.
 	 *
-	 * @access  protected
-	 * @param   string     $string  String to escape
-	 * @return  string
+	 * @access protected
+	 * @param  string $string String to escape
+	 * @return string
 	 */
 	protected function escape(string $string): string
 	{
@@ -60,7 +60,7 @@ class CLIHandler extends Handler
 	/**
 	 * Returns a detailed error.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function getDetailedError()
 	{
@@ -83,7 +83,7 @@ class CLIHandler extends Handler
 	/**
 	 * Retruns a generic error.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function getGenericError()
 	{

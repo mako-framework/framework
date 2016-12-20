@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\cli\commands\app;
@@ -14,7 +14,7 @@ use mako\security\Key;
 /**
  * Command that generates an encryption key.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class GenerateKey extends Command
 {
@@ -38,8 +38,8 @@ class GenerateKey extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access  public
-	 * @param   \mako\application\Application  $application  Application instance
+	 * @access public
+	 * @param \mako\application\Application $application Application instance
 	 */
 	public function execute(Application $application)
 	{

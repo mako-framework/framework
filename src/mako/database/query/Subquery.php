@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\query;
@@ -14,7 +14,7 @@ use mako\database\query\Query;
 /**
  * Subquery container.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Subquery
 {
@@ -35,9 +35,9 @@ class Subquery
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \Closure|\mako\database\query\Query  $query  Query builder
-	 * @param   string                               $alias  Subquery alias
+	 * @access public
+	 * @param \Closure|\mako\database\query\Query $query Query builder
+	 * @param string                              $alias Subquery alias
 	 */
 	public function __construct($query, string $alias = null)
 	{
@@ -48,9 +48,9 @@ class Subquery
 	/**
 	 * Converts a subquery closure to query a builder instance.
 	 *
-	 * @access  public
-	 * @param   \mako\database\query\Query     $query  Query builder instance
-	 * @return  \mako\database\query\Subquery
+	 * @access public
+	 * @param  \mako\database\query\Query    $query Query builder instance
+	 * @return \mako\database\query\Subquery
 	 */
 	public function build(Query $query): Subquery
 	{
@@ -69,9 +69,9 @@ class Subquery
 	/**
 	 * Returns the compiled query.
 	 *
-	 * @access  public
-	 * @param   bool    $enclose  Should the query be enclosed in parentheses?
-	 * @return  array
+	 * @access public
+	 * @param  bool  $enclose Should the query be enclosed in parentheses?
+	 * @return array
 	 */
 	public function get(bool $enclose = true): array
 	{

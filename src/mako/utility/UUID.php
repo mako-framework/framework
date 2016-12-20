@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\utility;
@@ -12,9 +12,9 @@ use InvalidArgumentException;
 /**
  * Class that generates and validates UUIDs.
  *
- * @author  Frederic G. Østby
- * @author  Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
- * @author  Jack (http://stackoverflow.com/a/15875555)
+ * @author Frederic G. Østby
+ * @author Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
+ * @author Jack (http://stackoverflow.com/a/15875555)
  */
 class UUID
 {
@@ -49,9 +49,9 @@ class UUID
 	/**
 	 * Checks if a UUID is valid.
 	 *
-	 * @access  public
-	 * @param   string   $str  The UUID to validate
-	 * @return  bool
+	 * @access public
+	 * @param  string $str The UUID to validate
+	 * @return bool
 	 */
 	public static function validate(string $str): bool
 	{
@@ -61,9 +61,9 @@ class UUID
 	/**
 	 * Converts UUID to binary.
 	 *
-	 * @access  protected
-	 * @param   string     $namespace  UUID
-	 * @return  string
+	 * @access protected
+	 * @param  string $namespace UUID
+	 * @return string
 	 */
 	protected static function toBin(string $namespace): string
 	{
@@ -95,10 +95,10 @@ class UUID
 	/**
 	 * Returns a V3 UUID.
 	 *
-	 * @access  public
-	 * @param   string  $namespace  Namespace
-	 * @param   string  $name       Name
-	 * @return  string
+	 * @access public
+	 * @param  string $namespace Namespace
+	 * @param  string $name      Name
+	 * @return string
 	 */
 	public static function v3(string $namespace, string $name): string
 	{
@@ -138,8 +138,8 @@ class UUID
 	/**
 	 * Returns a V4 UUID.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public static function v4(): string
 	{
@@ -155,10 +155,10 @@ class UUID
 	/**
 	 * Returns a V5 UUID.
 	 *
-	 * @access  public
-	 * @param   string  $namespace  Namespace
-	 * @param   string  $name       Name
-	 * @return  string
+	 * @access public
+	 * @param  string $namespace Namespace
+	 * @param  string $name      Name
+	 * @return string
 	 */
 	public static function v5(string $namespace, string $name): string
 	{

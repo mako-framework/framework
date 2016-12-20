@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\response\senders;
@@ -15,7 +15,7 @@ use mako\http\response\senders\ResponseSenderInterface;
 /**
  * Stream response.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Stream implements ResponseSenderInterface
 {
@@ -36,8 +36,8 @@ class Stream implements ResponseSenderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \Closure  $stream  Stream
+	 * @access public
+	 * @param \Closure $stream Stream
 	 */
 	public function __construct(Closure $stream)
 	{
@@ -47,9 +47,9 @@ class Stream implements ResponseSenderInterface
 	/**
 	 * Flushes a chunck of data.
 	 *
-	 * @access  public
-	 * @param   string  $chunk       Chunck of data to flush
-	 * @param   bool    $flushEmpty  Flush empty chunk?
+	 * @access public
+	 * @param string $chunk      Chunck of data to flush
+	 * @param bool   $flushEmpty Flush empty chunk?
 	 */
 	public function flush(string $chunk = null, bool $flushEmpty = false)
 	{
@@ -76,7 +76,7 @@ class Stream implements ResponseSenderInterface
 	/**
 	 * Sends the stream.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function flow()
 	{

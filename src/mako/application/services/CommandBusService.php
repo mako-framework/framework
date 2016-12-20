@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\services;
@@ -13,7 +13,7 @@ use mako\commander\CommandBusInterface;
 /**
  * Command bus service.
  *
- * @author  Yamada Taro
+ * @author Yamada Taro
  */
 class CommandBusService extends Service
 {

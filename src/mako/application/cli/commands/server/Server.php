@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\cli\commands\server;
@@ -13,7 +13,7 @@ use mako\reactor\Command;
 /**
  * Server command.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Server extends Command
 {
@@ -55,11 +55,11 @@ class Server extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access  public
-	 * @param   \mako\application\Application  $application  Application instance
-	 * @param   int                            $port         Port
-	 * @param   string                         $address      Address
-	 * @param   null|string                    $docroot      Document root
+	 * @access public
+	 * @param \mako\application\Application $application Application instance
+	 * @param int                           $port        Port
+	 * @param string                        $address     Address
+	 * @param null|string                   $docroot     Document root
 	 */
 	public function execute(Application $application, $port = 8000, $address = 'localhost', $docroot = null)
 	{

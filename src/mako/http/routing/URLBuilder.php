@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\routing;
@@ -13,7 +13,7 @@ use mako\http\routing\Routes;
 /**
  * URL builder.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class URLBuilder
 {
@@ -48,10 +48,10 @@ class URLBuilder
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\http\Request         $request    Request instance
-	 * @param   \mako\http\routing\Routes  $routes     Route collection
-	 * @param   bool                       $cleanURLs  Create "clean" URLs?
+	 * @access public
+	 * @param \mako\http\Request        $request   Request instance
+	 * @param \mako\http\routing\Routes $routes    Route collection
+	 * @param bool                      $cleanURLs Create "clean" URLs?
 	 */
 	public function __construct(Request $request, Routes $routes, bool $cleanURLs = false)
 	{
@@ -70,9 +70,9 @@ class URLBuilder
 	/**
 	 * Returns TRUE if the pattern matches the current route and FALSE if not.
 	 *
-	 * @access  public
-	 * @param   string  $pattern  Pattern to match
-	 * @return  bool
+	 * @access public
+	 * @param  string $pattern Pattern to match
+	 * @return bool
 	 */
 	public function matches(string $pattern): bool
 	{
@@ -82,8 +82,8 @@ class URLBuilder
 	/**
 	 * Returns the base URL of the application.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function base(): string
 	{
@@ -93,12 +93,12 @@ class URLBuilder
 	/**
 	 * Returns the URL of the specified path.
 	 *
-	 * @access  public
-	 * @param   string   $path         Path
-	 * @param   array    $queryParams  Associative array used to build URL-encoded query string
-	 * @param   string   $separator    Argument separator
-	 * @param   mixed    $language     Request language
-	 * @return  string
+	 * @access public
+	 * @param  string $path        Path
+	 * @param  array  $queryParams Associative array used to build URL-encoded query string
+	 * @param  string $separator   Argument separator
+	 * @param  mixed  $language    Request language
+	 * @return string
 	 */
 	public function to(string $path, array $queryParams = [], string $separator = '&amp;', $language = true): string
 	{
@@ -115,13 +115,13 @@ class URLBuilder
 	/**
 	 * Returns the URL of a named route.
 	 *
-	 * @access  public
-	 * @param   string  $routeName    Route name
-	 * @param   array   $routeParams  Route parameters
-	 * @param   array   $queryParams  Associative array used to build URL-encoded query string
-	 * @param   string  $separator    Argument separator
-	 * @param   mixed   $language     Request language
-	 * @return  string
+	 * @access public
+	 * @param  string $routeName   Route name
+	 * @param  array  $routeParams Route parameters
+	 * @param  array  $queryParams Associative array used to build URL-encoded query string
+	 * @param  string $separator   Argument separator
+	 * @param  mixed  $language    Request language
+	 * @return string
 	 */
 	public function toRoute(string $routeName, array $routeParams = [], array $queryParams = [], string $separator = '&amp;', $language = true): string
 	{
@@ -148,11 +148,11 @@ class URLBuilder
 	/**
 	 * Returns the current URL of the request.
 	 *
-	 * @access  public
-	 * @param   array    $queryParams  Associative array used to build URL-encoded query string
-	 * @param   string   $separator    Argument separator
-	 * @param   mixed    $language     Request language
-	 * @return  string
+	 * @access public
+	 * @param  array  $queryParams Associative array used to build URL-encoded query string
+	 * @param  string $separator   Argument separator
+	 * @param  mixed  $language    Request language
+	 * @return string
 	 */
 	public function current(array $queryParams = [], string $separator = '&amp;', $language = true): string
 	{
@@ -164,12 +164,12 @@ class URLBuilder
 	/**
 	 * Returns the URL of the specified route.
 	 *
-	 * @access  public
-	 * @param   string   $route        URL segments
-	 * @param   mixed    $language     Request language
-	 * @param   array    $queryParams  Associative array used to build URL-encoded query string
-	 * @param   string   $separator    Argument separator
-	 * @return  string
+	 * @access public
+	 * @param  string $route       URL segments
+	 * @param  mixed  $language    Request language
+	 * @param  array  $queryParams Associative array used to build URL-encoded query string
+	 * @param  string $separator   Argument separator
+	 * @return string
 	 */
 	public function toLanguage(string $route, $language, array $queryParams = [], string $separator = '&amp;'): string
 	{
@@ -179,13 +179,13 @@ class URLBuilder
 	/**
 	 * Returns the URL of a named route.
 	 *
-	 * @access  public
-	 * @param   string  $routeName    Route name
-	 * @param   string  $language     Request language
-	 * @param   array   $routeParams  Route parameters
-	 * @param   array   $queryParams  Associative array used to build URL-encoded query string
-	 * @param   string  $separator    Argument separator
-	 * @return  string
+	 * @access public
+	 * @param  string $routeName   Route name
+	 * @param  string $language    Request language
+	 * @param  array  $routeParams Route parameters
+	 * @param  array  $queryParams Associative array used to build URL-encoded query string
+	 * @param  string $separator   Argument separator
+	 * @return string
 	 */
 	public function toRouteLanguage(string $routeName, string $language, array $routeParams = [], array $queryParams = [], string $separator = '&amp;'): string
 	{
@@ -195,11 +195,11 @@ class URLBuilder
 	/**
 	 * Returns the current URL of the request.
 	 *
-	 * @access  public
-	 * @param   string  $language     Request language
-	 * @param   array   $queryParams  Query parameters
-	 * @param   string  $separator    Argument separator
-	 * @return  string
+	 * @access public
+	 * @param  string $language    Request language
+	 * @param  array  $queryParams Query parameters
+	 * @param  string $separator   Argument separator
+	 * @return string
 	 */
 	public function currentLanguage(string $language, array $queryParams = [], string $separator = '&amp;'): string
 	{

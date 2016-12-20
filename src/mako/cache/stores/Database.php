@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cache\stores;
@@ -15,7 +15,7 @@ use mako\database\query\Query;
 /**
  * Database store.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Database implements StoreInterface
 {
@@ -45,10 +45,10 @@ class Database implements StoreInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\database\connections\Connection  $connection      Database connection
-	 * @param   string                                 $table           Database table
-	 * @param   bool|array                             $classWhitelist  Class whitelist
+	 * @access public
+	 * @param \mako\database\connections\Connection $connection     Database connection
+	 * @param string                                $table          Database table
+	 * @param bool|array                            $classWhitelist Class whitelist
 	 */
 	public function __construct(Connection $connection, string $table, $classWhitelist = false)
 	{
@@ -62,8 +62,8 @@ class Database implements StoreInterface
 	/**
 	 * Returns a query builder instance.
 	 *
-	 * @access  protected
-	 * @return  \mako\database\query\Query
+	 * @access protected
+	 * @return \mako\database\query\Query
 	 */
 	protected function table(): Query
 	{

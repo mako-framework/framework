@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\pixl\processors;
@@ -17,7 +17,7 @@ use mako\pixl\processors\ProcessorInterface;
 /**
  * GD processor.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class GD implements ProcessorInterface
 {
@@ -54,7 +54,7 @@ class GD implements ProcessorInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function __construct()
 	{
@@ -64,7 +64,7 @@ class GD implements ProcessorInterface
 	/**
 	 * Destructor.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function __destruct()
 	{
@@ -82,9 +82,9 @@ class GD implements ProcessorInterface
 	/**
 	 * Collects information about the image.
 	 *
-	 * @access  protected
-	 * @param   string     $file  Path to image file
-	 * @return  resource
+	 * @access protected
+	 * @param  string   $file Path to image file
+	 * @return resource
 	 */
 	protected function getImageInfo($file)
 	{
@@ -101,10 +101,10 @@ class GD implements ProcessorInterface
 	/**
 	 * Creates an image resource that we can work with.
 	 *
-	 * @access  protected
-	 * @param   string     $image      Path to image file
-	 * @param   array      $imageInfo  Image info
-	 * @return  resource
+	 * @access protected
+	 * @param  string   $image     Path to image file
+	 * @param  array    $imageInfo Image info
+	 * @return resource
 	 */
 	protected function createImageResource($image, $imageInfo)
 	{
@@ -127,9 +127,9 @@ class GD implements ProcessorInterface
 	/**
 	 * Converts HEX value to an RGB array.
 	 *
-	 * @access  protected
-	 * @param   string     $hex  HEX value
-	 * @return  array
+	 * @access protected
+	 * @param  string $hex HEX value
+	 * @return array
 	 */
 	protected function hexToRgb($hex)
 	{
@@ -416,7 +416,7 @@ class GD implements ProcessorInterface
 					$rgb = imagecolorat($this->image, $x, $y);
 
 					$r = (($rgb >> 16) & 0xFF) + $level;
-					$g = (($rgb >> 8) & 0xFF ) + $level;
+					$g = (($rgb >> 8) & 0xFF) + $level;
 					$b = ($rgb & 0xFF) + $level;
 
 					$r = ($r > 255) ? 255 : (($r < 0) ? 0 : $r);
@@ -548,7 +548,7 @@ class GD implements ProcessorInterface
 					$rgb = imagecolorat($this->image, $x, $y);
 
 					$r = (($rgb >> 16) & 0xFF) + $colorize['r'];
-					$g = (($rgb >> 8) & 0xFF ) + $colorize['g'];
+					$g = (($rgb >> 8) & 0xFF) + $colorize['g'];
 					$b = ($rgb & 0xFF) + $colorize['b'];
 
 					$r = ($r > 255) ? 255 : (($r < 0) ? 0 : $r);

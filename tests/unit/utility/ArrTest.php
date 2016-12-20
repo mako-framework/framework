@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\tests\unit\utility;
@@ -67,7 +67,6 @@ class ArrTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-
 	 public function testDelete()
 	 {
 	 	$arr = ['foo' => '123', 'bar' => ['baz' => '456', 'bax' => ['789']]];
@@ -86,7 +85,6 @@ class ArrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testRandom()
 	 {
 	 	$arr = ['foo', 'bar', 'baz'];
@@ -97,7 +95,6 @@ class ArrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testIsAssoc()
 	 {
 	 	$this->assertTrue(Arr::isAssoc(['foo' => 0, 'bar' => 1]));
@@ -110,7 +107,6 @@ class ArrTest extends PHPUnit_Framework_TestCase
 	 /**
 	  *
 	  */
-
 	 public function testPluck()
 	 {
 	 	$arr = [['foo' => 'bar'], ['foo' => 'baz']];

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\auth\group;
@@ -18,7 +18,7 @@ use mako\database\midgard\traits\TimestampedTrait;
 /**
  * Group.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Group extends ORM implements GroupInterface
 {
@@ -97,8 +97,8 @@ class Group extends ORM implements GroupInterface
 	/**
 	 * Group users.
 	 *
-	 * @access  public
-	 * @return  \mako\database\midgard\relations\ManyToMany
+	 * @access public
+	 * @return \mako\database\midgard\relations\ManyToMany
 	 */
 	public function users()
 	{

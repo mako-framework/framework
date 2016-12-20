@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\syringe;
@@ -10,17 +10,17 @@ namespace mako\syringe;
 /**
  * Class inspector.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ClassInspector
 {
 	/**
 	 * Returns an array of all traits used by a class.
 	 *
-	 * @access  public
-	 * @param   string|object  $class     Class name or class instance
-	 * @param   bool           $autoload  Autoload
-	 * @return  array
+	 * @access public
+	 * @param  string|object $class    Class name or class instance
+	 * @param  bool          $autoload Autoload
+	 * @return array
 	 */
 	public static function getTraits($class, bool $autoload = true): array
 	{

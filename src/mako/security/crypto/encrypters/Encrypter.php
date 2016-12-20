@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\security\crypto\encrypters;
@@ -10,7 +10,7 @@ namespace mako\security\crypto\encrypters;
 /**
  * Base encrypter.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class Encrypter
 {
@@ -31,11 +31,11 @@ abstract class Encrypter
 	/**
 	 * Generate a PBKDF2 key derivation of a supplied key.
 	 *
-	 * @access  protected
-	 * @param   string     $key      The key to derive
-	 * @param   string     $salt     The salt
-	 * @param   int        $keySize  The desired key size
-	 * @return  string
+	 * @access protected
+	 * @param  string $key     The key to derive
+	 * @param  string $salt    The salt
+	 * @param  int    $keySize The desired key size
+	 * @return string
 	 */
 	protected function deriveKey(string $key, string $salt, int $keySize): string
 	{

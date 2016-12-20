@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\commander;
@@ -17,7 +17,7 @@ use mako\syringe\Container;
 /**
  * Command bus.
  *
- * @author  Yamada Taro
+ * @author Yamada Taro
  */
 class CommandBus implements CommandBusInterface
 {
@@ -62,10 +62,10 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Adds middleware.
 	 *
-	 * @access  public
-	 * @param   string  $middleware  Middleware class
-	 * @param   bool    $inner       Add an inner layer?
-	 * @return  int
+	 * @access public
+	 * @param  string $middleware Middleware class
+	 * @param  bool   $inner      Add an inner layer?
+	 * @return int
 	 */
 	public function addMiddleware(string $middleware, bool $inner = true): int
 	{
@@ -75,10 +75,10 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Resolves the command.
 	 *
-	 * @access  protected
-	 * @param   \mako\commander\CommandInterface|string  $command     Command
-	 * @param   array                                    $parameters  Parameters
-	 * @return  \mako\commander\CommandInterface
+	 * @access protected
+	 * @param  \mako\commander\CommandInterface|string $command    Command
+	 * @param  array                                   $parameters Parameters
+	 * @return \mako\commander\CommandInterface
 	 */
 	protected function resolveCommand($command, array $parameters): CommandInterface
 	{
@@ -93,9 +93,9 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Resolves the command handler.
 	 *
-	 * @access  protected
-	 * @param   \mako\commander\CommandInterface         $command  Command
-	 * @return  \mako\commander\CommandHandlerInterface
+	 * @access protected
+	 * @param  \mako\commander\CommandInterface        $command Command
+	 * @return \mako\commander\CommandHandlerInterface
 	 */
 	protected function resolveCommandHandler(CommandInterface $command): CommandHandlerInterface
 	{
@@ -122,10 +122,10 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Executes the command handler.
 	 *
-	 * @access  protected
-	 * @param   \mako\commander\CommandHandlerInterface  $handler  Command handler
-	 * @param   \mako\commander\CommandInterface         $command  Command
-	 * @return  mixed
+	 * @access protected
+	 * @param  \mako\commander\CommandHandlerInterface $handler Command handler
+	 * @param  \mako\commander\CommandInterface        $command Command
+	 * @return mixed
 	 */
 	protected function executeCommandHandler(CommandHandlerInterface $handler, CommandInterface $command)
 	{
@@ -135,9 +135,9 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Handles the command.
 	 *
-	 * @access  protected
-	 * @param   \mako\commander\CommandInterface  $command  Command
-	 * @return  mixed
+	 * @access protected
+	 * @param  \mako\commander\CommandInterface $command Command
+	 * @return mixed
 	 */
 	protected function handle(CommandInterface $command)
 	{
@@ -154,9 +154,9 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Resolves the onion instance.
 	 *
-	 * @access  public
-	 * @param   array              $middleware  Middleware
-	 * @return  \mako\onion\Onion
+	 * @access public
+	 * @param  array             $middleware Middleware
+	 * @return \mako\onion\Onion
 	 */
 	protected function resolveOnion(array $middleware): Onion
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\midgard\relations;
@@ -15,7 +15,7 @@ use mako\database\midgard\relations\Relation;
 /**
  * Many to many relation.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ManyToMany extends Relation
 {
@@ -36,13 +36,13 @@ class ManyToMany extends Relation
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\database\connections\Connection  $connection     Database connection
-	 * @param   \mako\database\midgard\ORM             $parent         Parent model
-	 * @param   \mako\database\midgard\ORM             $related        Related model
-	 * @param   string|null                            $foreignKey     Foreign key name
-	 * @param   string|null                            $junctionTable  Junction table name
-	 * @param   string|null                            $junctionKey    Junction key name
+	 * @access public
+	 * @param \mako\database\connections\Connection $connection    Database connection
+	 * @param \mako\database\midgard\ORM            $parent        Parent model
+	 * @param \mako\database\midgard\ORM            $related       Related model
+	 * @param string|null                           $foreignKey    Foreign key name
+	 * @param string|null                           $junctionTable Junction table name
+	 * @param string|null                           $junctionKey   Junction key name
 	 */
 	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null, $junctionTable = null, $junctionKey = null)
 	{
@@ -60,8 +60,8 @@ class ManyToMany extends Relation
 	/**
 	 * Returns the the junction table.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function getJunctionTable()
 	{
@@ -80,8 +80,8 @@ class ManyToMany extends Relation
 	/**
 	 * Returns the the junction key.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function getJunctionKey()
 	{
@@ -96,7 +96,7 @@ class ManyToMany extends Relation
 	/**
 	 * Joins the junction table.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function junctionJoin()
 	{
@@ -114,9 +114,9 @@ class ManyToMany extends Relation
 	/**
 	 * Sets the criterion used when eager loading related records.
 	 *
-	 * @access  protected
-	 * @param   array                                     $keys  Parent keys
-	 * @return  \mako\database\midgard\relations\HasMany
+	 * @access protected
+	 * @param  array                                    $keys Parent keys
+	 * @return \mako\database\midgard\relations\HasMany
 	 */
 	protected function eagerCriterion(array $keys)
 	{
@@ -130,11 +130,11 @@ class ManyToMany extends Relation
 	/**
 	 * Eager loads related records and matches them with their parent records.
 	 *
-	 * @access  public
-	 * @param   array          $results   Parent records
-	 * @param   string         $relation  Relation name
-	 * @param   null|\Closure  $criteria  Relation criteria
-	 * @param   array          $includes  Includes passed from the parent record
+	 * @access public
+	 * @param array         $results  Parent records
+	 * @param string        $relation Relation name
+	 * @param null|\Closure $criteria Relation criteria
+	 * @param array         $includes Includes passed from the parent record
 	 */
 	public function eagerLoad(array &$results, $relation, $criteria, array $includes)
 	{
@@ -165,7 +165,7 @@ class ManyToMany extends Relation
 	/**
 	 * Adjusts the query.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function adjustQuery()
 	{
@@ -180,8 +180,8 @@ class ManyToMany extends Relation
 	/**
 	 * Returns a related result set from the database.
 	 *
-	 * @access  public
-	 * @return  \mako\database\midgard\ORM
+	 * @access public
+	 * @return \mako\database\midgard\ORM
 	 */
 	public function getRelated()
 	{
@@ -191,8 +191,8 @@ class ManyToMany extends Relation
 	/**
 	 * Returns a query builder instance to the junction table.
 	 *
-	 * @access  protected
-	 * @return  \mako\database\query\Query
+	 * @access protected
+	 * @return \mako\database\query\Query
 	 */
 	protected function junction()
 	{
@@ -202,9 +202,9 @@ class ManyToMany extends Relation
 	/**
 	 * Links related records.
 	 *
-	 * @access  public
-	 * @param   mixed   $id  Id, model or an array of ids and/or models
-	 * @return  bool
+	 * @access public
+	 * @param  mixed $id Id, model or an array of ids and/or models
+	 * @return bool
 	 */
 	public function link($id)
 	{
@@ -226,9 +226,9 @@ class ManyToMany extends Relation
 	/**
 	 * Unlinks related records.
 	 *
-	 * @access  public
-	 * @param   mixed   $id  Id, model or an array of ids and/or models
-	 * @return  bool
+	 * @access public
+	 * @param  mixed $id Id, model or an array of ids and/or models
+	 * @return bool
 	 */
 	public function unlink($id = null)
 	{
@@ -257,9 +257,9 @@ class ManyToMany extends Relation
 	/**
 	 * Synchronize related records.
 	 *
-	 * @access  public
-	 * @param   array   $ids  An array of ids and/or models
-	 * @return  bool
+	 * @access public
+	 * @param  array $ids An array of ids and/or models
+	 * @return bool
 	 */
 	public function synchronize(array $ids)
 	{

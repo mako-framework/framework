@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\security\crypto\encrypters;
@@ -10,25 +10,25 @@ namespace mako\security\crypto\encrypters;
 /**
  * Encrypter interface.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 interface EncrypterInterface
 {
 	/**
 	 * Encrypts string.
 	 *
-	 * @access  public
-	 * @param   string  $string  String to encrypt
-	 * @return  string
+	 * @access public
+	 * @param  string $string String to encrypt
+	 * @return string
 	 */
 	public function encrypt(string $string): string;
 
 	/**
 	 * Decrypts string.
 	 *
-	 * @access  public
-	 * @param   string       $string  String to decrypt
-	 * @return  string|bool
+	 * @access public
+	 * @param  string      $string String to decrypt
+	 * @return string|bool
 	 */
 	public function decrypt(string $string);
 }

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cli\output\helpers;
@@ -14,7 +14,7 @@ use RuntimeException;
 /**
  * Table helper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Table
 {
@@ -35,8 +35,8 @@ class Table
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\output\Output  $output  Output instance
+	 * @access public
+	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Output $output)
 	{
@@ -48,10 +48,10 @@ class Table
 	/**
 	 * Checks if the number of cells in each row matches the number of columns.
 	 *
-	 * @access  protected
-	 * @param   array      $columnNames  Array of column names
-	 * @param   array      $rows         Array of rows
-	 * @return  bool
+	 * @access protected
+	 * @param  array $columnNames Array of column names
+	 * @param  array $rows        Array of rows
+	 * @return bool
 	 */
 	protected function isValidInput(array $columnNames, array $rows): bool
 	{
@@ -74,9 +74,9 @@ class Table
 	/**
 	 * Returns the width of the string without formatting.
 	 *
-	 * @access  protected
-	 * @param   string     $string  String to strip
-	 * @return  string
+	 * @access protected
+	 * @param  string $string String to strip
+	 * @return string
 	 */
 	protected function stringWidthWithoutFormatting(string $string): string
 	{
@@ -86,10 +86,10 @@ class Table
 	/**
 	 * Returns an array containing the maximum width of each column.
 	 *
-	 * @access  protected
-	 * @param   array      $columnNames  Array of column names
-	 * @param   array      $rows         Array of rows
-	 * @return  array
+	 * @access protected
+	 * @param  array $columnNames Array of column names
+	 * @param  array $rows        Array of rows
+	 * @return array
 	 */
 	protected function getColumnWidths(array $columnNames, array $rows): array
 	{
@@ -125,10 +125,10 @@ class Table
 	/**
 	 * Builds a row separator.
 	 *
-	 * @access  protected
-	 * @param   array      $columnWidths  Array of column widths
-	 * @param   string     $separator     Separator character
-	 * @return  string
+	 * @access protected
+	 * @param  array  $columnWidths Array of column widths
+	 * @param  string $separator    Separator character
+	 * @return string
 	 */
 	protected function buildRowSeparator(array $columnWidths, string $separator = '-'): string
 	{
@@ -140,10 +140,10 @@ class Table
 	/**
 	 * Builds a table row.
 	 *
-	 * @access  protected
-	 * @param   array      $colums        Array of column values
-	 * @param   array      $columnWidths  Array of column widths
-	 * @return  string
+	 * @access protected
+	 * @param  array  $colums       Array of column values
+	 * @param  array  $columnWidths Array of column widths
+	 * @return string
 	 */
 	protected function buildTableRow(array $colums, array $columnWidths): string
 	{
@@ -160,10 +160,10 @@ class Table
 	/**
 	 * Renders a table.
 	 *
-	 * @access  public
-	 * @param   array   $columnNames  Array of column names
-	 * @param   array   $rows         Array of rows
-	 * @return  string
+	 * @access public
+	 * @param  array  $columnNames Array of column names
+	 * @param  array  $rows        Array of rows
+	 * @return string
 	 */
 	public function render(array $columnNames, array $rows): string
 	{
@@ -201,10 +201,10 @@ class Table
 	/**
 	 * Draws a table.
 	 *
-	 * @access  public
-	 * @param   array   $columnNames  Array of column names
-	 * @param   array   $rows         Array of rows
-	 * @param   int     $writer       Output writer
+	 * @access public
+	 * @param array $columnNames Array of column names
+	 * @param array $rows        Array of rows
+	 * @param int   $writer      Output writer
 	 */
 	public function draw(array $columnNames, array $rows, int $writer = Output::STANDARD)
 	{

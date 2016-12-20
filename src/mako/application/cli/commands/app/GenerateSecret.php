@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\cli\commands\app;
@@ -15,7 +15,7 @@ use mako\security\Key;
 /**
  * Command that generates a new application secret.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class GenerateSecret extends Command
 {
@@ -39,9 +39,9 @@ class GenerateSecret extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access  public
-	 * @param   \mako\application\Application  $application  Application instance
-	 * @param   \mako\file\FileSystem          $fileSystem   File system instance
+	 * @access public
+	 * @param \mako\application\Application $application Application instance
+	 * @param \mako\file\FileSystem         $fileSystem  File system instance
 	 */
 	public function execute(Application $application, FileSystem $fileSystem)
 	{

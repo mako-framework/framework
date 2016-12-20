@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\security;
@@ -10,7 +10,7 @@ namespace mako\security;
 /**
  * Signs and validates strings using MACs (message authentication codes).
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Signer
 {
@@ -31,8 +31,8 @@ class Signer
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string  $secret  Secret used to sign and validate strings
+	 * @access public
+	 * @param string $secret Secret used to sign and validate strings
 	 */
 	public function __construct(string $secret)
 	{
@@ -42,9 +42,9 @@ class Signer
 	/**
 	 * Returns the signature.
 	 *
-	 * @access  protected
-	 * @param   string     $string  The string you want to sign
-	 * @return  string
+	 * @access protected
+	 * @param  string $string The string you want to sign
+	 * @return string
 	 */
 	protected function getSignature(string $string): string
 	{
@@ -54,9 +54,9 @@ class Signer
 	/**
 	 * Returns a signed string.
 	 *
-	 * @access  public
-	 * @param   string  $string  The string you want to sign
-	 * @return  string
+	 * @access public
+	 * @param  string $string The string you want to sign
+	 * @return string
 	 */
 	public function sign(string $string): string
 	{
@@ -66,9 +66,9 @@ class Signer
 	/**
 	 * Returns the original string if the signature is valid or FALSE if not.
 	 *
-	 * @access  public
-	 * @param   string       $string  The string you want to validate
-	 * @return  string|bool
+	 * @access public
+	 * @param  string      $string The string you want to validate
+	 * @return string|bool
 	 */
 	public function validate(string $string)
 	{

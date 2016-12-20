@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\view;
@@ -12,7 +12,7 @@ use mako\view\renderers\RendererInterface;
 /**
  * View.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class View
 {
@@ -40,10 +40,10 @@ class View
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string                                  $path       View path
-	 * @param   array                                   $variables  View variables
-	 * @param   \mako\view\renderers\RendererInterface  $renderer   Renderer instance
+	 * @access public
+	 * @param string                                 $path      View path
+	 * @param array                                  $variables View variables
+	 * @param \mako\view\renderers\RendererInterface $renderer  Renderer instance
 	 */
 	public function __construct(string $path, array $variables, RendererInterface $renderer)
 	{
@@ -57,8 +57,8 @@ class View
 	/**
 	 * Returns the renderer instance.
 	 *
-	 * @access  public
-	 * @return  \mako\view\renderers\RendererInterface
+	 * @access public
+	 * @return \mako\view\renderers\RendererInterface
 	 */
 	public function getRenderer(): RendererInterface
 	{
@@ -68,10 +68,10 @@ class View
 	/**
 	 * Assign a local view variable.
 	 *
-	 * @access  public
-	 * @param   string           $name   Variable name
-	 * @param   mixed            $value  View variable
-	 * @return  \mako\view\View
+	 * @access public
+	 * @param  string          $name  Variable name
+	 * @param  mixed           $value View variable
+	 * @return \mako\view\View
 	 */
 	public function assign(string $name, $value): View
 	{
@@ -83,8 +83,8 @@ class View
 	/**
 	 * Returns the rendered view.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function render(): string
 	{

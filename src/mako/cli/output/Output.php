@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cli\output;
@@ -13,7 +13,7 @@ use mako\cli\output\writer\WriterInterface;
 /**
  * Output.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Output
 {
@@ -57,16 +57,15 @@ class Output
 	 *
 	 * @var bool
 	 */
-
 	 protected $muted = false;
 
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\output\writer\WriterInterface        $standard   Standard writer
-	 * @param   \mako\cli\output\writer\WriterInterface        $error      Error writer
-	 * @param   \mako\cli\output\formatter\FormatterInterface  $formatter  Formatter
+	 * @access public
+	 * @param \mako\cli\output\writer\WriterInterface       $standard  Standard writer
+	 * @param \mako\cli\output\writer\WriterInterface       $error     Error writer
+	 * @param \mako\cli\output\formatter\FormatterInterface $formatter Formatter
 	 */
 	public function __construct(WriterInterface $standard, WriterInterface $error, FormatterInterface $formatter = null)
 	{
@@ -80,8 +79,8 @@ class Output
 	/**
 	 * Sets the formatter.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\output\formatter\FormatterInterface  $formatter  Formatter
+	 * @access public
+	 * @param \mako\cli\output\formatter\FormatterInterface $formatter Formatter
 	 */
 	public function setFormatter(FormatterInterface $formatter)
 	{
@@ -91,8 +90,8 @@ class Output
 	/**
 	 * Returns the formatter.
 	 *
-	 * @access  public
-	 * @return  \mako\cli\output\formatter\FormatterInterface|null
+	 * @access public
+	 * @return \mako\cli\output\formatter\FormatterInterface|null
 	 */
 	public function getFormatter()
 	{
@@ -102,7 +101,7 @@ class Output
 	/**
 	 * Mutes the output.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function mute()
 	{
@@ -112,7 +111,7 @@ class Output
 	/**
 	 * Unmutes the output.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function unmute()
 	{
@@ -122,8 +121,8 @@ class Output
 	/**
 	 * Is the output muted?
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isMuted(): bool
 	{
@@ -133,9 +132,9 @@ class Output
 	/**
 	 * Writes string to output.
 	 *
-	 * @access  public
-	 * @param   string  $string  String to write
-	 * @param   int     $writer  Output type
+	 * @access public
+	 * @param string $string String to write
+	 * @param int    $writer Output type
 	 */
 	public function write(string $string, int $writer = Output::STANDARD)
 	{
@@ -164,8 +163,8 @@ class Output
 	/**
 	 * Writes string to output using the error writer.
 	 *
-	 * @access  public
-	 * @param   string  $string  String to write
+	 * @access public
+	 * @param string $string String to write
 	 */
 	public function error(string $string)
 	{
@@ -175,9 +174,9 @@ class Output
 	/**
 	 * Appends newline to string and writes it to output.
 	 *
-	 * @access  public
-	 * @param   string  $string  String to write
-	 * @param   int     $writer  Output type
+	 * @access public
+	 * @param string $string String to write
+	 * @param int    $writer Output type
 	 */
 	public function writeLn(string $string, int $writer = Output::STANDARD)
 	{
@@ -187,8 +186,8 @@ class Output
 	/**
 	 * Appends newline to string and writes it to output using the error writer.
 	 *
-	 * @access  public
-	 * @param   string  $string  String to write
+	 * @access public
+	 * @param string $string String to write
 	 */
 	public function errorLn(string $string)
 	{
@@ -198,7 +197,7 @@ class Output
 	/**
 	 * Clears the screen.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function clear()
 	{

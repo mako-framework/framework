@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\i18n\loaders;
@@ -16,7 +16,7 @@ use mako\i18n\loaders\LoaderInterface;
 /**
  * Language loader.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Loader implements LoaderInterface
 {
@@ -32,9 +32,9 @@ class Loader implements LoaderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
-	 * @param   string                 $path        Default path
+	 * @access public
+	 * @param \mako\file\FileSystem $fileSystem File system instance
+	 * @param string                $path       Default path
 	 */
 	public function __construct(FileSystem $fileSystem, string $path)
 	{

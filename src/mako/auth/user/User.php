@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\auth\user;
@@ -21,7 +21,7 @@ use mako\security\Password;
 /**
  * User.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class User extends ORM implements UserInterface, MemberInterface
 {
@@ -44,9 +44,9 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * Password mutator.
 	 *
-	 * @access  protected
-	 * @param   string     $password  Password
-	 * @return  string
+	 * @access protected
+	 * @param  string $password Password
+	 * @return string
 	 */
 	protected function passwordMutator($password)
 	{
@@ -56,8 +56,8 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * Generates a new token.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function generateToken()
 	{
@@ -322,8 +322,8 @@ class User extends ORM implements UserInterface, MemberInterface
 	/**
 	 * User groups.
 	 *
-	 * @access  public
-	 * @return  \mako\database\midgard\relations\ManyToMany
+	 * @access public
+	 * @return \mako\database\midgard\relations\ManyToMany
 	 */
 	public function groups()
 	{

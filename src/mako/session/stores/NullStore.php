@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\session\stores;
@@ -12,7 +12,7 @@ use mako\session\stores\StoreInterface;
 /**
  * Null store.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class NullStore implements StoreInterface
 {

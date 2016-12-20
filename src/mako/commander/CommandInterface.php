@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\commander;
@@ -10,7 +10,7 @@ namespace mako\commander;
 /**
  * Command interface.
  *
- * @author  Yamada Taro
+ * @author Yamada Taro
  */
 interface CommandInterface
 {

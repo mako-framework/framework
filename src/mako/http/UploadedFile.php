@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http;
@@ -14,7 +14,7 @@ use mako\http\exceptions\UploadException;
 /**
  * Uploaded file.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class UploadedFile extends SplFileInfo
 {
@@ -49,12 +49,12 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Constuctor.
 	 *
-	 * @access  public
-	 * @param   string  $path       File path
-	 * @param   string  $name       File name
-	 * @param   int     $size       File size
-	 * @param   string  $type       File mime type
-	 * @param   int     $errorCode  File error code
+	 * @access public
+	 * @param string $path      File path
+	 * @param string $name      File name
+	 * @param int    $size      File size
+	 * @param string $type      File mime type
+	 * @param int    $errorCode File error code
 	 */
 	public function __construct(string $path, string $name, int $size, string $type, int $errorCode)
 	{
@@ -72,8 +72,8 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns the file name.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getName(): string
 	{
@@ -83,8 +83,8 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns the size reported by the client in bytes.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function getReportedSize(): int
 	{
@@ -94,8 +94,8 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns the mime type reported by the client.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getReportedType(): string
 	{
@@ -105,8 +105,8 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Does the file have an error?
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function hasError(): bool
 	{
@@ -116,8 +116,8 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns the file error code.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function getErrorCode(): int
 	{
@@ -127,8 +127,8 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns a human friendly error message.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getErrorMessage(): string
 	{
@@ -158,8 +158,8 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns TRUE if the file has been uploaded and FALSE if not.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isUploaded(): bool
 	{
@@ -169,9 +169,9 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Moves the file to the desired path.
 	 *
-	 * @access  protected
-	 * @param   string     $path  Storage path
-	 * @return  bool
+	 * @access protected
+	 * @param  string $path Storage path
+	 * @return bool
 	 */
 	protected function moveUploadedFile(string $path): bool
 	{
@@ -181,9 +181,9 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Moves the file to the desired path.
 	 *
-	 * @access  public
-	 * @param   string  $path  Storage path
-	 * @return  bool
+	 * @access public
+	 * @param  string $path Storage path
+	 * @return bool
 	 */
 	public function moveTo(string $path): bool
 	{
@@ -194,7 +194,7 @@ class UploadedFile extends SplFileInfo
 
 		if($this->isUploaded() === false)
 		{
-			throw new UploadException(vsprintf("%s(): The file that you're trying to move was not uploaded.", [__METHOD__,]), -1);
+			throw new UploadException(vsprintf("%s(): The file that you're trying to move was not uploaded.", [__METHOD__]), -1);
 		}
 
 		return $this->moveUploadedFile($path);

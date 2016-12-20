@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\query\helpers;
@@ -13,7 +13,7 @@ use mako\database\query\helpers\HelperInterface;
 /**
  * Query builder postgres helper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Postgres implements HelperInterface
 {

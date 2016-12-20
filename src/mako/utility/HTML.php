@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\utility;
@@ -12,7 +12,7 @@ use mako\common\ExtendableTrait;
 /**
  * HTML helper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class HTML
 {
@@ -28,8 +28,8 @@ class HTML
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   bool    $xhtml  Should we return HXML?
+	 * @access public
+	 * @param bool $xhtml Should we return HXML?
 	 */
 	public function __construct(bool $xhtml = false)
 	{
@@ -39,9 +39,9 @@ class HTML
 	/**
 	 * Takes an array of attributes and turns it into a string.
 	 *
-	 * @access  public
-	 * @param   array   $attributes  Array of tags
-	 * @return  string
+	 * @access public
+	 * @param  array  $attributes Array of tags
+	 * @return string
 	 */
 	protected function attributes(array $attributes): string
 	{
@@ -63,11 +63,11 @@ class HTML
 	/**
 	 * Creates a HTML5 tag.
 	 *
-	 * @access  public
-	 * @param   string  $name        Tag name
-	 * @param   array   $attributes  Tag attributes
-	 * @param   string  $content     Tag content
-	 * @return  string
+	 * @access public
+	 * @param  string $name       Tag name
+	 * @param  array  $attributes Tag attributes
+	 * @param  string $content    Tag content
+	 * @return string
 	 */
 	public function tag(string $name, array $attributes = [], string $content = null): string
 	{
@@ -77,11 +77,11 @@ class HTML
 	/**
 	 * Helper method for building media tags.
 	 *
-	 * @access  protected
-	 * @param   string        $type        Tag type
-	 * @param   string|array  $files       File or array of files
-	 * @param   array         $attributes  Tag attributes
-	 * @return  string
+	 * @access protected
+	 * @param  string       $type       Tag type
+	 * @param  string|array $files      File or array of files
+	 * @param  array        $attributes Tag attributes
+	 * @return string
 	 */
 	protected function buildMedia(string $type, $files, array $attributes): string
 	{
@@ -98,10 +98,10 @@ class HTML
 	/**
 	 * Creates audio tag with support for multiple sources.
 	 *
-	 * @access  public
-	 * @param   string|array  $files       File or array of files
-	 * @param   array         $attributes  Tag attributes
-	 * @return  string
+	 * @access public
+	 * @param  string|array $files      File or array of files
+	 * @param  array        $attributes Tag attributes
+	 * @return string
 	 */
 	public function audio($files, array $attributes = []): string
 	{
@@ -111,10 +111,10 @@ class HTML
 	/**
 	 * Creates video tag with support for multiple sources.
 	 *
-	 * @access  public
-	 * @param   string|array  $files       File or array of files
-	 * @param   array         $attributes  Tag attributes
-	 * @return  string
+	 * @access public
+	 * @param  string|array $files      File or array of files
+	 * @param  array        $attributes Tag attributes
+	 * @return string
 	 */
 	public function video($files, array $attributes = []): string
 	{
@@ -124,11 +124,11 @@ class HTML
 	/**
 	 * Helper method for building list tags.
 	 *
-	 * @access  protected
-	 * @param   string     $type        Tag type
-	 * @param   array      $items       List items
-	 * @param   array      $attributes  Tag attributes
-	 * @return  string
+	 * @access protected
+	 * @param  string $type       Tag type
+	 * @param  array  $items      List items
+	 * @param  array  $attributes Tag attributes
+	 * @return string
 	 */
 	protected function buildList(string $type, array $items, array $attributes): string
 	{
@@ -152,10 +152,10 @@ class HTML
 	/**
 	 * Builds an un-ordered list.
 	 *
-	 * @access  public
-	 * @param   array   $items       List items
-	 * @param   array   $attributes  List attributes
-	 * @return  string
+	 * @access public
+	 * @param  array  $items      List items
+	 * @param  array  $attributes List attributes
+	 * @return string
 	 */
 	public function ul(array $items, array $attributes = []): string
 	{
@@ -165,10 +165,10 @@ class HTML
 	/**
 	 * Builds am ordered list.
 	 *
-	 * @access  public
-	 * @param   array   $items       List items
-	 * @param   array   $attributes  List attributes
-	 * @return  string
+	 * @access public
+	 * @param  array  $items      List items
+	 * @param  array  $attributes List attributes
+	 * @return string
 	 */
 	public function ol(array $items, array $attributes = []): string
 	{

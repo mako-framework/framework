@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\chrono;
@@ -13,7 +13,7 @@ use DateTimeZone;
 /**
  * Extension of the PHP DateTime class.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Time extends DateTime
 {
@@ -62,9 +62,9 @@ class Time extends DateTime
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string                     $time      A date/time string
-	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
+	 * @access public
+	 * @param string                    $time     A date/time string
+	 * @param null|string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
 	 */
 	public function __construct(string $time = 'now', $timeZone = null)
 	{
@@ -79,9 +79,9 @@ class Time extends DateTime
 	/**
 	 * Returns a new Time object.
 	 *
-	 * @access  public
-	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
-	 * @return  \mako\chrono\Time
+	 * @access public
+	 * @param  null|string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
+	 * @return \mako\chrono\Time
 	 */
 	public static function now($timeZone = null)
 	{
@@ -91,12 +91,12 @@ class Time extends DateTime
 	/**
 	 * Returns new Time object according to the specified date.
 	 *
-	 * @access  public
-	 * @param   int                        $year      Year
-	 * @param   int                        $month     Month (1 to 12)
-	 * @param   int                        $day       Day of month (1 to 31)
-	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
-	 * @return  \mako\chrono\Time
+	 * @access public
+	 * @param  int                       $year     Year
+	 * @param  int                       $month    Month (1 to 12)
+	 * @param  int                       $day      Day of month (1 to 31)
+	 * @param  null|string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
+	 * @return \mako\chrono\Time
 	 */
 	public static function createFromDate(int $year, int $month = null, int $day = null, $timeZone = null): Time
 	{
@@ -112,10 +112,10 @@ class Time extends DateTime
 	/**
 	 * Returns new Time object according to the specified timestamp.
 	 *
-	 * @access  public
-	 * @param   int                        $timestamp  Unix timestamp
-	 * @param   null|string|\DateTimeZone  $timeZone   A valid time zone or a DateTimeZone object
-	 * @return  \mako\chrono\Time
+	 * @access public
+	 * @param  int                       $timestamp Unix timestamp
+	 * @param  null|string|\DateTimeZone $timeZone  A valid time zone or a DateTimeZone object
+	 * @return \mako\chrono\Time
 	 */
 	public static function createFromTimestamp(int $timestamp, $timeZone = null): Time
 	{
@@ -129,10 +129,10 @@ class Time extends DateTime
 	/**
 	 * Returns new Time object according to the specified DOS timestamp.
 	 *
-	 * @access  public
-	 * @param   int                        $timestamp  DOS timestamp
-	 * @param   null|string|\DateTimeZone  $timeZone   A valid time zone or a DateTimeZone object
-	 * @return  \mako\chrono\Time
+	 * @access public
+	 * @param  int                       $timestamp DOS timestamp
+	 * @param  null|string|\DateTimeZone $timeZone  A valid time zone or a DateTimeZone object
+	 * @return \mako\chrono\Time
 	 */
 	public static function createFromDOSTimestamp(int $timestamp, $timeZone = null): Time
 	{
@@ -151,11 +151,11 @@ class Time extends DateTime
 	/**
 	 * Returns new Time object formatted according to the specified format.
 	 *
-	 * @access  public
-	 * @param   string                     $format    The format that the passed in string should be in
-	 * @param   string                     $time      String representing the time
-	 * @param   null|string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
-	 * @return  \mako\chrono\Time
+	 * @access public
+	 * @param  string                    $format   The format that the passed in string should be in
+	 * @param  string                    $time     String representing the time
+	 * @param  null|string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
+	 * @return \mako\chrono\Time
 	 */
 	public static function createFromFormat($format, $time, $timeZone = null): Time
 	{
@@ -179,9 +179,9 @@ class Time extends DateTime
 	/**
 	 * Sets the time zone for the Time object
 	 *
-	 * @access  public
-	 * @param   string|\DateTimeZone  $timeZone  A valid time zone or a DateTimeZone object
-	 * @return  \mako\chrono\Time
+	 * @access public
+	 * @param  string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
+	 * @return \mako\chrono\Time
 	 */
 	public function setTimeZone($timeZone): Time
 	{
@@ -196,9 +196,9 @@ class Time extends DateTime
 	/**
 	 * Move forward in time by x seconds.
 	 *
-	 * @access  public
-	 * @param   int                $seconds  Number of seconds
-	 * @return  \mako\chrono\Time
+	 * @access public
+	 * @param  int               $seconds Number of seconds
+	 * @return \mako\chrono\Time
 	 */
 	public function forward(int $seconds): Time
 	{
@@ -208,9 +208,9 @@ class Time extends DateTime
 	/**
 	 * Move backward in time by x seconds.
 	 *
-	 * @access  public
-	 * @param   int                $seconds  Number of seconds
-	 * @return  \mako\chrono\Time
+	 * @access public
+	 * @param  int               $seconds Number of seconds
+	 * @return \mako\chrono\Time
 	 */
 	public function rewind(int $seconds): Time
 	{
@@ -220,8 +220,8 @@ class Time extends DateTime
 	/**
 	 * Returns the DOS timestamp.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function getDOSTimestamp(): int
 	{
@@ -243,8 +243,8 @@ class Time extends DateTime
 	/**
 	 * Returns TRUE if the year is a leap year and FALSE if not.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function isLeapYear(): bool
 	{
@@ -261,8 +261,8 @@ class Time extends DateTime
 	/**
 	 * Returns an array containing the number of days in each month of the year.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function daysInMonths(): array
 	{
@@ -286,8 +286,8 @@ class Time extends DateTime
 	/**
 	 * Returns the number of days in the current or specified month.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function daysInMonth(): int
 	{
@@ -297,9 +297,9 @@ class Time extends DateTime
 	/**
 	 * Returns a formatted date string according to current locale settings.
 	 *
-	 * @access  public
-	 * @param   string  $format  Date format
-	 * @return  string
+	 * @access public
+	 * @param  string $format Date format
+	 * @return string
 	 */
 	public function formatLocalized(string $format): string
 	{

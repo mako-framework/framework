@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\query\compilers;
@@ -12,7 +12,7 @@ use mako\database\query\compilers\Compiler;
 /**
  * Compiles SQL Server queries.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class SQLServer extends Compiler
 {
@@ -32,9 +32,9 @@ class SQLServer extends Compiler
 	/**
 	 * Builds a JSON path.
 	 *
-	 * @access  protected
-	 * @param   array      $segments  Path segments
-	 * @return  string
+	 * @access protected
+	 * @param  array  $segments Path segments
+	 * @return string
 	 */
 	protected function buildJsonPath(array $segments): string
 	{

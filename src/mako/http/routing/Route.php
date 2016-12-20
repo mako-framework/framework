@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\routing;
@@ -14,7 +14,7 @@ use mako\utility\Arr;
 /**
  * Route.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Route
 {
@@ -91,11 +91,11 @@ class Route
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   array            $methods  Route methods
-	 * @param   string           $route    Route
-	 * @param   string|\Closure  $action   Route action
-	 * @param   string           $name     Route name
+	 * @access public
+	 * @param array           $methods Route methods
+	 * @param string          $route   Route
+	 * @param string|\Closure $action  Route action
+	 * @param string          $name    Route name
 	 */
 	public function __construct(array $methods, string $route, $action, string $name = null)
 	{
@@ -113,8 +113,8 @@ class Route
 	/**
 	 * Returns the HTTP methods the route responds to.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getMethods(): array
 	{
@@ -124,8 +124,8 @@ class Route
 	/**
 	 * Returns the route.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getRoute(): string
 	{
@@ -135,8 +135,8 @@ class Route
 	/**
 	 * Returns the route action.
 	 *
-	 * @access  public
-	 * @return  string|\Closure
+	 * @access public
+	 * @return string|\Closure
 	 */
 	public function getAction()
 	{
@@ -151,8 +151,8 @@ class Route
 	/**
 	 * Returns the route name.
 	 *
-	 * @access  public
-	 * @return  null|string
+	 * @access public
+	 * @return null|string
 	 */
 	public function getName()
 	{
@@ -162,8 +162,8 @@ class Route
 	/**
 	 * Returns the middleware.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getMiddleware(): array
 	{
@@ -173,8 +173,8 @@ class Route
 	/**
 	 * Sets the route parameters.
 	 *
-	 * @access  public
-	 * @param   array   $parameters  Parameters
+	 * @access public
+	 * @param array $parameters Parameters
 	 */
 	public function setParameters(array $parameters)
 	{
@@ -184,10 +184,10 @@ class Route
 	/**
 	 * Returns the named parameter value.
 	 *
-	 * @access  public
-	 * @param   string      $name     Parameter name
-	 * @param   null|mixed  $default  Default value
-	 * @return  null|mixed
+	 * @access public
+	 * @param  string     $name    Parameter name
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
 	 */
 	public function getParameter(string $name, $default = null)
 	{
@@ -197,9 +197,9 @@ class Route
 	/**
 	 * Sets the route action namespace.
 	 *
-	 * @access  public
-	 * @param   string                    $namespace  Route action namespace
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  string                   $namespace Route action namespace
+	 * @return \mako\http\routing\Route
 	 */
 	public function namespace(string $namespace): Route
 	{
@@ -211,9 +211,9 @@ class Route
 	/**
 	 * Adds a prefix to the route.
 	 *
-	 * @access  public
-	 * @param   string                    $prefix  Route prefix
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  string                   $prefix Route prefix
+	 * @return \mako\http\routing\Route
 	 */
 	public function prefix(string $prefix): Route
 	{
@@ -228,9 +228,9 @@ class Route
 	/**
 	 * Sets the custom constraints.
 	 *
-	 * @access  public
-	 * @param   array                     $constraints  Array of constraints
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  array                    $constraints Array of constraints
+	 * @return \mako\http\routing\Route
 	 */
 	public function when(array $constraints): Route
 	{
@@ -242,9 +242,9 @@ class Route
 	/**
 	 * Adds a set of middleware.
 	 *
-	 * @access  public
-	 * @param   array|string              $middleware  Middleware
-	 * @return  \mako\http\routing\Route
+	 * @access public
+	 * @param  array|string             $middleware Middleware
+	 * @return \mako\http\routing\Route
 	 */
 	public function middleware($middleware): Route
 	{
@@ -256,9 +256,9 @@ class Route
 	/**
 	 * Returns TRUE if the route allows the specified method or FALSE if not.
 	 *
-	 * @access  public
-	 * @param   string  $method  Method
-	 * @return  bool
+	 * @access public
+	 * @param  string $method Method
+	 * @return bool
 	 */
 	public function allows(string $method): bool
 	{
@@ -268,8 +268,8 @@ class Route
 	/**
 	 * Returns TRUE if the route has a trailing slash and FALSE if not.
 	 *
-	 * @access  public
-	 * @return  bool
+	 * @access public
+	 * @return bool
 	 */
 	public function hasTrailingSlash(): bool
 	{
@@ -279,8 +279,8 @@ class Route
 	/**
 	 * Returns the regex needed to match the route.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getRegex(): string
 	{

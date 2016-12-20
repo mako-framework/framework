@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\event;
@@ -10,7 +10,7 @@ namespace mako\event;
 /**
  * Event handler interface.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 interface EventHandlerInterface
 {

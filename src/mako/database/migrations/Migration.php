@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\migrations;
@@ -13,7 +13,7 @@ use mako\syringe\ContainerAwareTrait;
 /**
  * Base migration.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class Migration
 {
@@ -29,8 +29,8 @@ abstract class Migration
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
+	 * @access public
+	 * @param \mako\database\ConnectionManager $connectionManager Connection manager instance
 	 */
 	public function __construct(ConnectionManager $connectionManager)
 	{
@@ -40,8 +40,8 @@ abstract class Migration
 	/**
 	 * Returns the migration description.
 	 *
-	 * @access  public
-	 * @return  string|null
+	 * @access public
+	 * @return string|null
 	 */
 	public function getDescription()
 	{
@@ -51,16 +51,14 @@ abstract class Migration
 	/**
 	 * Makes changes to the database structure.
 	 *
-	 * @access  public
+	 * @access public
 	 */
-
 	abstract public function up();
 
 	/**
 	 * Reverts the database changes.
 	 *
-	 * @access  public
+	 * @access public
 	 */
-
 	abstract public function down();
 }

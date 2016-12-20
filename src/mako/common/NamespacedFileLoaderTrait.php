@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\common;
@@ -12,7 +12,7 @@ use RuntimeException;
 /**
  * Namespaced file loader trait.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 trait NamespacedFileLoaderTrait
 {
@@ -40,8 +40,8 @@ trait NamespacedFileLoaderTrait
 	/**
 	 * Sets the default path.
 	 *
-	 * @access  public
-	 * @param   string  $path  Path
+	 * @access public
+	 * @param string $path Path
 	 */
 	public function setPath(string $path)
 	{
@@ -51,8 +51,8 @@ trait NamespacedFileLoaderTrait
 	/**
 	 * Sets the extension.
 	 *
-	 * @access  public
-	 * @param   string  $extension  Extension
+	 * @access public
+	 * @param string $extension Extension
 	 */
 	public function setExtension(string $extension)
 	{
@@ -62,9 +62,9 @@ trait NamespacedFileLoaderTrait
 	/**
 	 * Registers a namespace.
 	 *
-	 * @access  public
-	 * @param   string  $namespace  Namespace name
-	 * @param   string  $path       Namespace path
+	 * @access public
+	 * @param string $namespace Namespace name
+	 * @param string $path      Namespace path
 	 */
 	public function registerNamespace(string $namespace, string $path)
 	{
@@ -74,11 +74,11 @@ trait NamespacedFileLoaderTrait
 	/**
 	 * Returns the path to the file.
 	 *
-	 * @access  protected
-	 * @param   string     $file       File name
-	 * @param   string     $extension  File extension
-	 * @param   string     $suffix     Path suffix
-	 * @return  string
+	 * @access protected
+	 * @param  string $file      File name
+	 * @param  string $extension File extension
+	 * @param  string $suffix    Path suffix
+	 * @return string
 	 */
 	protected function getFilePath(string $file, string $extension = null, string $suffix = null): string
 	{
@@ -117,11 +117,11 @@ trait NamespacedFileLoaderTrait
 	/**
 	 * Returns an array of cascading file paths.
 	 *
-	 * @access  protected
-	 * @param   string     $file       File name
-	 * @param   string     $extension  File extension
-	 * @param   string     $suffix     Path suffix
-	 * @return  array
+	 * @access protected
+	 * @param  string $file      File name
+	 * @param  string $extension File extension
+	 * @param  string $suffix    Path suffix
+	 * @return array
 	 */
 	protected function getCascadingFilePaths(string $file, string $extension = null, string $suffix = null): array
 	{

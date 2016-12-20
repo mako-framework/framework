@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\reactor\traits;
@@ -10,7 +10,7 @@ namespace mako\reactor\traits;
 /**
  * Suggestion trait.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 trait SuggestionTrait
 {
@@ -18,10 +18,10 @@ trait SuggestionTrait
 	 * Returns the string that resembles the provided string the most.
 	 * NULL is returned if no string with a similarity of 66% or more is found.
 	 *
-	 * @access  protected
-	 * @param   string       $string        String
-	 * @param   array        $alternatives  Alternatives
-	 * @return  null|string
+	 * @access protected
+	 * @param  string      $string       String
+	 * @param  array       $alternatives Alternatives
+	 * @return null|string
 	 */
 	protected function suggest(string $string, array $alternatives)
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\utility;
@@ -14,7 +14,7 @@ use mako\i18n\I18n;
 /**
  * Makes data more human friendly.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Humanizer
 {
@@ -28,8 +28,8 @@ class Humanizer
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\i18n\I18n  $i18n  I18n instance
+	 * @access public
+	 * @param \mako\i18n\I18n $i18n I18n instance
 	 */
 	public function __construct(I18n $i18n)
 	{
@@ -39,10 +39,10 @@ class Humanizer
 	/**
 	 * Returns a human friendly file size.
 	 *
-	 * @access  public
-	 * @param   int     $size    File size in bytes
-	 * @param   bool    $binary  True to use binary suffixes and false to use decimal suffixes
-	 * @return  string
+	 * @access public
+	 * @param  int    $size   File size in bytes
+	 * @param  bool   $binary True to use binary suffixes and false to use decimal suffixes
+	 * @return string
 	 */
 	public function fileSize($size, bool $binary = true): string
 	{
@@ -70,10 +70,10 @@ class Humanizer
 	/**
 	 * Returns a human friendly representation of the date.
 	 *
-	 * @access  public
-	 * @param   \DateTimeInterface  $dateTime    DateTime object
-	 * @param   string              $dateFormat  Default date format
-	 * @return  string
+	 * @access public
+	 * @param  \DateTimeInterface $dateTime   DateTime object
+	 * @param  string             $dateFormat Default date format
+	 * @return string
 	 */
 	public function day(DateTimeInterface $dateTime, string $dateFormat = 'Y-m-d, H:i'): string
 	{
@@ -98,11 +98,11 @@ class Humanizer
 	/**
 	 * Returns a human friendly representation of the time.
 	 *
-	 * @access  public
-	 * @param   \DateTimeInterface  $dateTime     DateTime object
-	 * @param   string              $dateFormat   Default date format
-	 * @param   string              $clockFormat  Default clock format
-	 * @return  string
+	 * @access public
+	 * @param  \DateTimeInterface $dateTime    DateTime object
+	 * @param  string             $dateFormat  Default date format
+	 * @param  string             $clockFormat Default clock format
+	 * @return string
 	 */
 	public function time(DateTimeInterface $dateTime, string $dateFormat = 'Y-m-d, H:i', string $clockFormat = ', H:i'): string
 	{

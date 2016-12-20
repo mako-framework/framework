@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cache\stores\traits;
@@ -10,7 +10,7 @@ namespace mako\cache\stores\traits;
 /**
  * Get or else trait.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 trait GetOrElseTrait
 {

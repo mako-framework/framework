@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\common;
@@ -12,7 +12,7 @@ use mako\common\ConfigurableTrait;
 /**
  * Connection manager.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class ConnectionManager
 {
@@ -28,18 +28,18 @@ abstract class ConnectionManager
 	/**
 	 * Connects to the chosen configuration and returns the connection.
 	 *
-	 * @access  public
-	 * @param   string  $connection  Connection name
-	 * @return  mixed
+	 * @access public
+	 * @param  string $connection Connection name
+	 * @return mixed
 	 */
 	abstract protected function connect(string $connection);
 
 	/**
 	 * Returns the chosen connection.
 	 *
-	 * @access  public
-	 * @param   string  $connection  Connection name
-	 * @return  mixed
+	 * @access public
+	 * @param  string $connection Connection name
+	 * @return mixed
 	 */
 	public function connection(string $connection = null)
 	{
@@ -56,10 +56,10 @@ abstract class ConnectionManager
 	/**
 	 * Magic shortcut to the default connection.
 	 *
-	 * @access  public
-	 * @param   string  $name       Method name
-	 * @param   array   $arguments  Method arguments
-	 * @return  mixed
+	 * @access public
+	 * @param  string $name      Method name
+	 * @param  array  $arguments Method arguments
+	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments)
 	{

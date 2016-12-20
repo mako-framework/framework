@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\common;
@@ -10,7 +10,7 @@ namespace mako\common;
 /**
  * Configurable trait.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 trait ConfigurableTrait
 {
@@ -31,9 +31,9 @@ trait ConfigurableTrait
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string  $default         Default connection name
-	 * @param   array   $configurations  Configurations
+	 * @access public
+	 * @param string $default        Default connection name
+	 * @param array  $configurations Configurations
 	 */
 	public function __construct(string $default, array $configurations)
 	{
@@ -45,9 +45,9 @@ trait ConfigurableTrait
 	/**
 	 * Adds a configuration.
 	 *
-	 * @access  public
-	 * @param   string  $name           Connection name
-	 * @param   array   $configuration  Configuration
+	 * @access public
+	 * @param string $name          Connection name
+	 * @param array  $configuration Configuration
 	 */
 	public function addConfiguration(string $name, array $configuration)
 	{
@@ -58,8 +58,8 @@ trait ConfigurableTrait
 	 * Removes a configuration.
 	 * It will also remove any active connection linked to the configuration.
 	 *
-	 * @access  public
-	 * @param   string  $name  Connection name
+	 * @access public
+	 * @param string $name Connection name
 	 */
 	public function removeConfiguration(string $name)
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\routing;
@@ -20,7 +20,7 @@ use mako\syringe\Container;
 /**
  * Route dispatcher.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Dispatcher
 {
@@ -71,13 +71,13 @@ class Dispatcher
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\http\Request             $request     Request instance
-	 * @param   \mako\http\Response            $response    Response instance
-	 * @param   \mako\http\routing\Middleware  $middleware  Middleware collection
-	 * @param   \mako\http\routing\Route       $route       The route we're dispatching
-	 * @param   array                          $parameters  Route parameters
-	 * @param   \mako\syringe\Container        $container   IoC container
+	 * @access public
+	 * @param \mako\http\Request            $request    Request instance
+	 * @param \mako\http\Response           $response   Response instance
+	 * @param \mako\http\routing\Middleware $middleware Middleware collection
+	 * @param \mako\http\routing\Route      $route      The route we're dispatching
+	 * @param array                         $parameters Route parameters
+	 * @param \mako\syringe\Container       $container  IoC container
 	 */
 	public function __construct(Request $request, Response $response, Middleware $middleware, Route $route, array $parameters = [], Container $container = null)
 	{
@@ -97,9 +97,9 @@ class Dispatcher
 	/**
 	 * Resolves the middleware.
 	 *
-	 * @access  protected
-	 * @param   string     $middleware  middleware
-	 * @return  array
+	 * @access protected
+	 * @param  string $middleware middleware
+	 * @return array
 	 */
 	protected function resolveMiddleware(string $middleware): array
 	{
@@ -113,9 +113,9 @@ class Dispatcher
 	/**
 	 * Adds route middleware to the stack.
 	 *
-	 * @access  protected
-	 * @param   \mako\onion\Onion  $onion       Middleware stack
-	 * @param   array              $middleware  Array of middleware
+	 * @access protected
+	 * @param \mako\onion\Onion $onion      Middleware stack
+	 * @param array             $middleware Array of middleware
 	 */
 	protected function addMiddlewareToStack(Onion $onion, array $middleware)
 	{
@@ -130,9 +130,9 @@ class Dispatcher
 	/**
 	 * Executes a closure action.
 	 *
-	 * @access  protected
-	 * @param   \Closure             $closure  Closure
-	 * @return  \mako\http\Response
+	 * @access protected
+	 * @param  \Closure            $closure Closure
+	 * @return \mako\http\Response
 	 */
 	protected function executeClosure(Closure $closure): Response
 	{
@@ -142,9 +142,9 @@ class Dispatcher
 	/**
 	 * Executs a controller action.
 	 *
-	 * @access  protected
-	 * @param   string               $controller  Controller
-	 * @return  \mako\http\Response
+	 * @access protected
+	 * @param  string              $controller Controller
+	 * @return \mako\http\Response
 	 */
 	protected function executeController(string $controller): Response
 	{
@@ -205,8 +205,8 @@ class Dispatcher
 	/**
 	 * Dispatches the route and returns the response.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @return \mako\http\Response
 	 */
 	public function dispatch(): Response
 	{

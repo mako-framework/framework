@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\cli\commands\migrations;
@@ -13,7 +13,7 @@ use mako\application\cli\commands\migrations\RollbackTrait;
 /**
  * Command that rolls back the last batch of migrations.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Reset extends Command
 {
@@ -40,8 +40,8 @@ class Reset extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access  public
-	 * @param   bool    $force  Force the schema reset?
+	 * @access public
+	 * @param bool $force Force the schema reset?
 	 */
 	public function execute($force = false)
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cache\stores;
@@ -15,7 +15,7 @@ use mako\cache\stores\traits\GetOrElseTrait;
 /**
  * Zend memory store.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ZendMemory implements StoreInterface
 {
@@ -24,7 +24,7 @@ class ZendMemory implements StoreInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function __construct()
 	{

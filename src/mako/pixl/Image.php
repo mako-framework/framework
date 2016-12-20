@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\pixl;
@@ -14,7 +14,7 @@ use mako\pixl\processors\ProcessorInterface;
 /**
  * Image manipulation class.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Image
 {
@@ -112,10 +112,10 @@ class Image
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
+	 * @access public
 	 *
-	 * @param   string                                    $image      Path to image file
-	 * @param   \mako\pixl\processors\ProcessorInterface  $processor  Processor instance
+	 * @param string                                   $image     Path to image file
+	 * @param \mako\pixl\processors\ProcessorInterface $processor Processor instance
 	 */
 	public function __construct($image, ProcessorInterface $processor)
 	{
@@ -138,9 +138,9 @@ class Image
 	/**
 	 * Makes sure that the quality is between 1 and 100.
 	 *
-	 * @access  protected
-	 * @param   int        $quality  Image quality
-	 * @return  int
+	 * @access protected
+	 * @param  int $quality Image quality
+	 * @return int
 	 */
 	protected function normalizeImageQuality($quality)
 	{
@@ -150,7 +150,7 @@ class Image
 	/**
 	 * Creates a snapshot of the image.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function snapshot()
 	{
@@ -160,7 +160,7 @@ class Image
 	/**
 	 * Retstores the image snapshot.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function restore()
 	{
@@ -170,8 +170,8 @@ class Image
 	/**
 	 * Returns the image width in pixels.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function getWidth()
 	{
@@ -181,8 +181,8 @@ class Image
 	/**
 	 * Returns the image height in pixels.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function getHeight()
 	{
@@ -192,8 +192,8 @@ class Image
 	/**
 	 * Returns an array containing the image dimensions in pixels.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getDimensions()
 	{
@@ -203,9 +203,9 @@ class Image
 	/**
 	 * Rotates the image using the given angle in degrees.
 	 *
-	 * @access  public
-	 * @param   int               $degrees  Degrees to rotate the image
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @param  int              $degrees Degrees to rotate the image
+	 * @return \mako\pixl\Image
 	 */
 	public function rotate($degrees)
 	{
@@ -217,10 +217,10 @@ class Image
 	/**
 	 * Resizes the image to the chosen size.
 	 *
-	 * @param   int               $width        Width of the image
-	 * @param   int               $height       Height of the image
-	 * @param   int               $aspectRatio  Aspect ratio
-	 * @return  \mako\pixl\Image
+	 * @param  int              $width       Width of the image
+	 * @param  int              $height      Height of the image
+	 * @param  int              $aspectRatio Aspect ratio
+	 * @return \mako\pixl\Image
 	 */
 	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE)
 	{
@@ -232,12 +232,12 @@ class Image
 	/**
 	 * Crops the image.
 	 *
-	 * @access  public
-	 * @param   int               $width   Width of the crop
-	 * @param   int               $height  Height of the crop
-	 * @param   int               $x       The X coordinate of the cropped region's top left corner
-	 * @param   int               $y       The Y coordinate of the cropped region's top left corner
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @param  int              $width  Width of the crop
+	 * @param  int              $height Height of the crop
+	 * @param  int              $x      The X coordinate of the cropped region's top left corner
+	 * @param  int              $y      The Y coordinate of the cropped region's top left corner
+	 * @return \mako\pixl\Image
 	 */
 	public function crop($width, $height, $x, $y)
 	{
@@ -249,9 +249,9 @@ class Image
 	/**
 	 * Flips the image.
 	 *
-	 * @access  public
-	 * @param   int               $direction  Direction to flip the image
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @param  int              $direction Direction to flip the image
+	 * @return \mako\pixl\Image
 	 */
 	public function flip($direction = Image::FLIP_HORIZONTAL)
 	{
@@ -263,11 +263,11 @@ class Image
 	/**
 	 * Adds a watermark to the image.
 	 *
-	 * @access  public
-	 * @param   string            $file      Path to the image file
-	 * @param   int               $position  Position of the watermark
-	 * @param   int               $opacity   Opacity of the watermark in percent
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @param  string           $file     Path to the image file
+	 * @param  int              $position Position of the watermark
+	 * @param  int              $opacity  Opacity of the watermark in percent
+	 * @return \mako\pixl\Image
 	 */
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
 	{
@@ -292,9 +292,9 @@ class Image
 	/**
 	 * Adjust image brightness.
 	 *
-	 * @access  public
-	 * @param   int               $level  Brightness level (-100 to 100)
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @param  int              $level Brightness level (-100 to 100)
+	 * @return \mako\pixl\Image
 	 */
 	public function brightness($level = 50)
 	{
@@ -312,8 +312,8 @@ class Image
 	/**
 	 * Converts image to greyscale.
 	 *
-	 * @access  public
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @return \mako\pixl\Image
 	 */
 	public function greyscale()
 	{
@@ -325,8 +325,8 @@ class Image
 	/**
 	 * Converts image to sepia.
 	 *
-	 * @access  public
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @return \mako\pixl\Image
 	 */
 	public function sepia()
 	{
@@ -338,9 +338,9 @@ class Image
 	/**
 	 * Colorizes the image.
 	 *
-	 * @access  public
-	 * @param   string            $color  Hex code for the color
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @param  string           $color Hex code for the color
+	 * @return \mako\pixl\Image
 	 */
 	public function colorize($color)
 	{
@@ -352,7 +352,7 @@ class Image
 	/**
 	 * Sharpens the image.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function sharpen()
 	{
@@ -364,9 +364,9 @@ class Image
 	/**
 	 * Pixelates the image.
 	 *
-	 * @access  public
-	 * @param   int               $pixelSize  Pixel size
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @param  int              $pixelSize Pixel size
+	 * @return \mako\pixl\Image
 	 */
 	public function pixelate($pixelSize = 10)
 	{
@@ -378,8 +378,8 @@ class Image
 	/**
 	 * Negates the image.
 	 *
-	 * @access  public
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @return \mako\pixl\Image
 	 */
 	public function negate()
 	{
@@ -391,10 +391,10 @@ class Image
 	/**
 	 * Adds a border to the image.
 	 *
-	 * @access  public
-	 * @param   string            $color      Hex code for the color
-	 * @param   int               $thickness  Thickness of the frame in pixels
-	 * @return  \mako\pixl\Image
+	 * @access public
+	 * @param  string           $color     Hex code for the color
+	 * @param  int              $thickness Thickness of the frame in pixels
+	 * @return \mako\pixl\Image
 	 */
 	public function border($color = '#000', $thickness = 5)
 	{
@@ -406,10 +406,10 @@ class Image
 	/**
 	 * Returns a string containing the image.
 	 *
-	 * @access  public
-	 * @param   string  $type     Image type
-	 * @param   int     $quality  Image quality 1-100
-	 * @return  string
+	 * @access public
+	 * @param  string $type    Image type
+	 * @param  int    $quality Image quality 1-100
+	 * @return string
 	 */
 	public function getImageBlob($type = null, $quality = 95)
 	{
@@ -419,9 +419,9 @@ class Image
 	/**
 	 * Saves image to file.
 	 *
-	 * @access  public
-	 * @param   string  $file     Path to the image file
-	 * @param   int     $quality  Image quality 1-100
+	 * @access public
+	 * @param string $file    Path to the image file
+	 * @param int    $quality Image quality 1-100
 	 */
 	public function save($file = null, $quality = 95)
 	{

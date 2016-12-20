@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\services;
@@ -18,18 +18,18 @@ use mako\syringe\Container;
 /**
  * Session service.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class SessionService extends Service
 {
 	/**
 	 * Returns a database store instance.
 	 *
-	 * @access  protected
-	 * @param   \mako\syringe\Container        $container       IoC container instance
-	 * @param   array                          $config          Store configuration
-	 * @param   bool|array                     $classWhitelist  Class whitelist
-	 * @return  \mako\session\stores\Database
+	 * @access protected
+	 * @param  \mako\syringe\Container       $container      IoC container instance
+	 * @param  array                         $config         Store configuration
+	 * @param  bool|array                    $classWhitelist Class whitelist
+	 * @return \mako\session\stores\Database
 	 */
 	protected function getDatabaseStore(Container $container, array $config, $classWhitelist)
 	{
@@ -39,11 +39,11 @@ class SessionService extends Service
 	/**
 	 * Returns a file store instance.
 	 *
-	 * @access  protected
-	 * @param   \mako\syringe\Container    $container       IoC container instance
-	 * @param   array                      $config          Store configuration
-	 * @param   bool|array                 $classWhitelist  Class whitelist
-	 * @return  \mako\session\stores\File
+	 * @access protected
+	 * @param  \mako\syringe\Container   $container      IoC container instance
+	 * @param  array                     $config         Store configuration
+	 * @param  bool|array                $classWhitelist Class whitelist
+	 * @return \mako\session\stores\File
 	 */
 	protected function getFileStore(Container $container, array $config, $classWhitelist)
 	{
@@ -53,11 +53,11 @@ class SessionService extends Service
 	/**
 	 * Returns a null store instance.
 	 *
-	 * @access  protected
-	 * @param   \mako\syringe\Container         $container       IoC container instance
-	 * @param   array                           $config          Store configuration
-	 * @param   bool|array                      $classWhitelist  Class whitelist
-	 * @return  \mako\session\stores\NullStore
+	 * @access protected
+	 * @param  \mako\syringe\Container        $container      IoC container instance
+	 * @param  array                          $config         Store configuration
+	 * @param  bool|array                     $classWhitelist Class whitelist
+	 * @return \mako\session\stores\NullStore
 	 */
 	protected function getNullStore(Container $container, array $config, $classWhitelist)
 	{
@@ -67,11 +67,11 @@ class SessionService extends Service
 	/**
 	 * Returns a redis store instance.
 	 *
-	 * @access  protected
-	 * @param   \mako\syringe\Container     $container       IoC container instance
-	 * @param   array                       $config          Store configuration
-	 * @param   bool|array                  $classWhitelist  Class whitelist
-	 * @return  \mako\session\stores\Redis
+	 * @access protected
+	 * @param  \mako\syringe\Container    $container      IoC container instance
+	 * @param  array                      $config         Store configuration
+	 * @param  bool|array                 $classWhitelist Class whitelist
+	 * @return \mako\session\stores\Redis
 	 */
 	protected function getRedisStore(Container $container, array $config, $classWhitelist)
 	{
@@ -81,11 +81,11 @@ class SessionService extends Service
 	/**
 	 * Returns a session store instance.
 	 *
-	 * @access  protected
-	 * @param   \mako\syringe\Container              $container       IoC container instance
-	 * @param   array                                $config          Session configuration
-	 * @param   bool|array                           $classWhitelist  Class whitelist
-	 * @return  \mako\session\stores\StoreInterface
+	 * @access protected
+	 * @param  \mako\syringe\Container             $container      IoC container instance
+	 * @param  array                               $config         Session configuration
+	 * @param  bool|array                          $classWhitelist Class whitelist
+	 * @return \mako\session\stores\StoreInterface
 	 */
 	protected function getSessionStore(Container $container, array $config, $classWhitelist)
 	{

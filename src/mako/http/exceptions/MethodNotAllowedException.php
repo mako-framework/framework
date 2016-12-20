@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\exceptions;
@@ -14,7 +14,7 @@ use mako\http\exceptions\RequestException;
 /**
  * Method not allowed exception.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class MethodNotAllowedException extends RequestException
 {
@@ -23,16 +23,15 @@ class MethodNotAllowedException extends RequestException
 	 *
 	 * @var array
 	 */
-
 	 protected $allowedMethods;
 
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   array       $allowedMethods  Allowed methods
-	 * @param   string      $message         Exception message
-	 * @param   \Throwable  $previous        Previous exception
+	 * @access public
+	 * @param array      $allowedMethods Allowed methods
+	 * @param string     $message        Exception message
+	 * @param \Throwable $previous       Previous exception
 	 */
 	public function __construct(array $allowedMethods = [], string $message = null, Throwable $previous = null)
 	{
@@ -44,8 +43,8 @@ class MethodNotAllowedException extends RequestException
 	/**
 	 * Returns the allowed methods.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getAllowedMethods()
 	{

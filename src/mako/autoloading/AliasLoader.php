@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\autoloading;
@@ -10,7 +10,7 @@ namespace mako\autoloading;
 /**
  * Alias loader.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class AliasLoader
 {
@@ -24,8 +24,8 @@ class AliasLoader
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   array   $aliases  Class aliases
+	 * @access public
+	 * @param array $aliases Class aliases
 	 */
 	public function __construct(array $aliases)
 	{
@@ -35,9 +35,9 @@ class AliasLoader
 	/**
 	 * Autoloads aliased classes.
 	 *
-	 * @access  public
-	 * @param   string  $alias  Class alias
-	 * @return  bool
+	 * @access public
+	 * @param  string $alias Class alias
+	 * @return bool
 	 */
 	public function load(string $alias): bool
 	{

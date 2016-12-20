@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\security\crypto\encrypters;
@@ -13,7 +13,7 @@ use mako\security\crypto\encrypters\EncrypterInterface;
 /**
  * OpenSSL encrypter.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class OpenSSL extends Encrypter implements EncrypterInterface
 {
@@ -41,9 +41,9 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string  $key     Encryption key
-	 * @param   string  $cipher  Cipher
+	 * @access public
+	 * @param string $key    Encryption key
+	 * @param string $cipher Cipher
 	 */
 	public function __construct(string $key, string $cipher = null)
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cli\output\helpers;
@@ -12,7 +12,7 @@ use mako\cli\output\Output;
 /**
  * Unordered list helper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class UnorderedList
 {
@@ -33,8 +33,8 @@ class UnorderedList
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\output\Output  $output  Output instance
+	 * @access public
+	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Output $output)
 	{
@@ -44,11 +44,11 @@ class UnorderedList
 	/**
 	 * Builds a list item.
 	 *
-	 * @access  protected
-	 * @param   string     $item          Item
-	 * @param   string     $marker        Item marker
-	 * @param   int        $nestingLevel  Nesting level
-	 * @return  string
+	 * @access protected
+	 * @param  string $item         Item
+	 * @param  string $marker       Item marker
+	 * @param  int    $nestingLevel Nesting level
+	 * @return string
 	 */
 	protected function buildListItem(string $item, string $marker, int $nestingLevel): string
 	{
@@ -58,11 +58,11 @@ class UnorderedList
 	/**
 	 * Builds an unordered list.
 	 *
-	 * @access  protected
-	 * @param   array      $items         Items
-	 * @param   string     $marker        Item marker
-	 * @param   int        $nestingLevel  Nesting level
-	 * @return  string
+	 * @access protected
+	 * @param  array  $items        Items
+	 * @param  string $marker       Item marker
+	 * @param  int    $nestingLevel Nesting level
+	 * @return string
 	 */
 	protected function buildList(array $items, string $marker, int $nestingLevel = 0): string
 	{
@@ -86,10 +86,10 @@ class UnorderedList
 	/**
 	 * Renders an unordered list.
 	 *
-	 * @access  public
-	 * @param   array   $items   Items
-	 * @param   string  $marker  Item marker
-	 * @return  string
+	 * @access public
+	 * @param  array  $items  Items
+	 * @param  string $marker Item marker
+	 * @return string
 	 */
 	public function render(array $items, string $marker = '*'): string
 	{
@@ -99,10 +99,10 @@ class UnorderedList
 	/**
 	 * Draws an unordered list.
 	 *
-	 * @access  public
-	 * @param   array   $items   Items
-	 * @param   string  $marker  Item marker
-	 * @param   int     $writer  Output writer
+	 * @access public
+	 * @param array  $items  Items
+	 * @param string $marker Item marker
+	 * @param int    $writer Output writer
 	 */
 	public function draw(array $items, string $marker = '*', int $writer = Output::STANDARD)
 	{

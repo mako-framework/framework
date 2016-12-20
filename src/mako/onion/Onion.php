@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\onion;
@@ -50,9 +50,9 @@ class Onion
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   null|\mako\syringe\Container  $container  Container
-	 * @param   null|string                   $method     Method to call on the decoracted class
+	 * @access public
+	 * @param null|\mako\syringe\Container $container Container
+	 * @param null|string                  $method    Method to call on the decoracted class
 	 */
 	public function __construct(Container $container = null, string $method = null)
 	{
@@ -64,11 +64,11 @@ class Onion
 	/**
 	 * Add a new middleware layer.
 	 *
-	 * @access  public
-	 * @param   string      $class       Class
-	 * @param   null|array  $parameters  Constructor parameters
-	 * @param   bool        $inner       Add an inner layer?
-	 * @return  int
+	 * @access public
+	 * @param  string     $class      Class
+	 * @param  null|array $parameters Constructor parameters
+	 * @param  bool       $inner      Add an inner layer?
+	 * @return int
 	 */
 	public function addLayer(string $class, array $parameters = null, bool $inner = true): int
 	{
@@ -80,10 +80,10 @@ class Onion
 	/**
 	 * Add a inner layer to the middleware stack.
 	 *
-	 * @access  public
-	 * @param   string      $class  Class
-	 * @param   null|array  $parameters  Constructor parameters
-	 * @return  int
+	 * @access public
+	 * @param  string     $class      Class
+	 * @param  null|array $parameters Constructor parameters
+	 * @return int
 	 */
 	public function addInnerLayer(string $class, array $parameters = null): int
 	{
@@ -93,10 +93,10 @@ class Onion
 	/**
 	 * Add an outer layer to the middleware stack.
 	 *
-	 * @access  public
-	 * @param   string      $class  Class
-	 * @param   null|array  $parameters  Constructor parameters
-	 * @return  int
+	 * @access public
+	 * @param  string     $class      Class
+	 * @param  null|array $parameters Constructor parameters
+	 * @return int
 	 */
 	public function addOuterLayer(string $class, array $parameters = null): int
 	{
@@ -106,9 +106,9 @@ class Onion
 	/**
 	 * Builds the core closure.
 	 *
-	 * @access  protected
-	 * @param   object     $object  The object that we're decorating
-	 * @return  \Closure
+	 * @access protected
+	 * @param  object   $object The object that we're decorating
+	 * @return \Closure
 	 */
 	protected function buildCoreClosure($object): Closure
 	{
@@ -123,10 +123,10 @@ class Onion
 	/**
 	 * Builds a layer closure.
 	 *
-	 * @access  protected
-	 * @param   object     $layer  Middleware object
-	 * @param   \Closure   $next   The next middleware layer
-	 * @return  \Closure
+	 * @access protected
+	 * @param  object   $layer Middleware object
+	 * @param  \Closure $next  The next middleware layer
+	 * @return \Closure
 	 */
 	protected function buildLayerClosure($layer, Closure $next): Closure
 	{
@@ -139,10 +139,10 @@ class Onion
 	/**
 	 * Returns the constructor parameters of the requested middleware.
 	 *
-	 * @access  protected
-	 * @param   array      $parameters  Parameters array
-	 * @param   string     $middleware  Middleware name
-	 * @return  array
+	 * @access protected
+	 * @param  array  $parameters Parameters array
+	 * @param  string $middleware Middleware name
+	 * @return array
 	 */
 	protected function getMiddlewareParameters(array $parameters, string $middleware): array
 	{
@@ -152,11 +152,11 @@ class Onion
 	/**
 	 * Executes the middleware stack.
 	 *
-	 * @access  public
-	 * @param   object  $object                The object that we're decorating
-	 * @param   array   $parameters            Parameters
-	 * @param   array   $middlewareParameters  Middleware constructor parameters
-	 * @return  mixed
+	 * @access public
+	 * @param  object $object               The object that we're decorating
+	 * @param  array  $parameters           Parameters
+	 * @param  array  $middlewareParameters Middleware constructor parameters
+	 * @return mixed
 	 */
 	public function peel($object, array $parameters = [], array $middlewareParameters = [])
 	{

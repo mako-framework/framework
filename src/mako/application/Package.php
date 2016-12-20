@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application;
@@ -15,7 +15,7 @@ use mako\syringe\Container;
 /**
  * Package.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class Package
 {
@@ -64,8 +64,8 @@ abstract class Package
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\syringe\Container  $container  IoC container instance
+	 * @access public
+	 * @param \mako\syringe\Container $container IoC container instance
 	 */
 	public function __construct(Container $container)
 	{
@@ -75,8 +75,8 @@ abstract class Package
 	/**
 	 * Returns the package name.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getName(): string
 	{
@@ -86,8 +86,8 @@ abstract class Package
 	/**
 	 * Returns the package namespace.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getFileNamespace(): string
 	{
@@ -102,9 +102,9 @@ abstract class Package
 	/**
 	 * Returns the class namespace.
 	 *
-	 * @access  public
-	 * @param   bool    $prefix  Prefix the namespace with a slash?
-	 * @return  string
+	 * @access public
+	 * @param  bool   $prefix Prefix the namespace with a slash?
+	 * @return string
 	 */
 	public function getClassNamespace(bool $prefix = false): string
 	{
@@ -119,8 +119,8 @@ abstract class Package
 	/**
 	 * Returns package path.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	public function getPath(): string
 	{
@@ -135,8 +135,8 @@ abstract class Package
 	/**
 	 * Returns the path to the package configuration files.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getConfigPath(): string
 	{
@@ -146,8 +146,8 @@ abstract class Package
 	/**
 	 * Returns the path to the package i18n strings.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getI18nPath(): string
 	{
@@ -157,8 +157,8 @@ abstract class Package
 	/**
 	 * Returns the path to the package views.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getViewPath(): string
 	{
@@ -168,8 +168,8 @@ abstract class Package
 	/**
 	 * Returns the package commands.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getCommands(): array
 	{
@@ -179,7 +179,7 @@ abstract class Package
 	/**
 	 * Gets executed at the end of the package boot sequence.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function bootstrap()
 	{
@@ -189,7 +189,7 @@ abstract class Package
 	/**
 	 * Boots the package.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function boot()
 	{

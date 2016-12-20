@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\response\senders;
@@ -18,7 +18,7 @@ use mako\http\response\senders\ResponseSenderInterface;
 /**
  * File response.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class File implements ResponseSenderInterface
 {
@@ -74,9 +74,9 @@ class File implements ResponseSenderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\file\FileSystem  $fileSystem  FileSytem instance
-	 * @param   string                 $file        File path
+	 * @access public
+	 * @param \mako\file\FileSystem $fileSystem FileSytem instance
+	 * @param string                $file       File path
 	 */
 	public function __construct(FileSystem $fileSystem, string $file)
 	{
@@ -95,9 +95,9 @@ class File implements ResponseSenderInterface
 	/**
 	 * Sets the file name.
 	 *
-	 * @access  public
-	 * @param   string                            $name  File name
-	 * @return  \mako\http\response\senders\File
+	 * @access public
+	 * @param  string                           $name File name
+	 * @return \mako\http\response\senders\File
 	 */
 	public function name(string $name): File
 	{
@@ -109,9 +109,9 @@ class File implements ResponseSenderInterface
 	/**
 	 * Sets the content disposition.
 	 *
-	 * @access  public
-	 * @param   string                            $disposition  Content disposition
-	 * @return  \mako\http\response\senders\File
+	 * @access public
+	 * @param  string                           $disposition Content disposition
+	 * @return \mako\http\response\senders\File
 	 */
 	public function disposition(string $disposition): File
 	{
@@ -123,9 +123,9 @@ class File implements ResponseSenderInterface
 	/**
 	 * Sets the content type.
 	 *
-	 * @access  public
-	 * @param   string                            $type  Mime type
-	 * @return  \mako\http\response\senders\File
+	 * @access public
+	 * @param  string                           $type Mime type
+	 * @return \mako\http\response\senders\File
 	 */
 	public function type(string $type): File
 	{
@@ -137,9 +137,9 @@ class File implements ResponseSenderInterface
 	/**
 	 * Sets the callback closure.
 	 *
-	 * @access  public
-	 * @param   \Closure                          $callback  Callback closure
-	 * @return  \mako\http\response\senders\File
+	 * @access public
+	 * @param  \Closure                         $callback Callback closure
+	 * @return \mako\http\response\senders\File
 	 */
 	public function done(Closure $callback): File
 	{
@@ -151,8 +151,8 @@ class File implements ResponseSenderInterface
 	/**
 	 * Returns the file name.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function getName(): string
 	{
@@ -162,8 +162,8 @@ class File implements ResponseSenderInterface
 	/**
 	 * Returns the content disposition.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function getDisposition(): string
 	{
@@ -173,8 +173,8 @@ class File implements ResponseSenderInterface
 	/**
 	 * Returns the content type.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function getContenType(): string
 	{
@@ -184,9 +184,9 @@ class File implements ResponseSenderInterface
 	/**
 	 * Calculates the content range that should be served.
 	 *
-	 * @access  protected
-	 * @param   string       $range  Request range
-	 * @return  array|false
+	 * @access protected
+	 * @param  string      $range Request range
+	 * @return array|false
 	 */
 	protected function calculateRange(string $range)
 	{
@@ -237,9 +237,9 @@ class File implements ResponseSenderInterface
 	/**
 	 * Sends the file.
 	 *
-	 * @access  protected
-	 * @param   int        $start  Starting point
-	 * @param   int        $end    Ending point
+	 * @access protected
+	 * @param int $start Starting point
+	 * @param int $end   Ending point
 	 */
 	protected function sendFile(int $start, int $end)
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\midgard\relations;
@@ -12,16 +12,16 @@ use mako\database\midgard\relations\Relation;
 /**
  * Has one or has many relation.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class HasOneOrMany extends Relation
 {
 	/**
 	 * Creates a related record.
 	 *
-	 * @access  public
-	 * @param   mixed                    $related  Related record
-	 * @return  \mako\database\midgard
+	 * @access public
+	 * @param  mixed                  $related Related record
+	 * @return \mako\database\midgard
 	 */
 	public function create($related)
 	{

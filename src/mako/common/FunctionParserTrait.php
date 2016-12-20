@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\common;
@@ -12,7 +12,7 @@ use RuntimeException;
 /**
  * Function parser trait.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 trait FunctionParserTrait
 {
@@ -21,9 +21,9 @@ trait FunctionParserTrait
 	 *
 	 * The return value is an array consisting of the function name and parameters.
 	 *
-	 * @access  protected
-	 * @param   string     $function  Function
-	 * @return  array
+	 * @access protected
+	 * @param  string $function Function
+	 * @return array
 	 */
 	protected function parseFunction(string $function): array
 	{

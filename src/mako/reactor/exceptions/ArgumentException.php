@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\reactor\exceptions;
@@ -14,7 +14,7 @@ use mako\reactor\exceptions\ReactorException;
 /**
  * Argument exception.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ArgumentException extends ReactorException
 {
@@ -28,11 +28,11 @@ class ArgumentException extends ReactorException
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string           $message   The Exception message to throw
-	 * @param   string           $name      Argument name
-	 * @param   int              $code      The Exception code
-	 * @param   \Throwable|null  $previous  The previous exception used for the exception chaining
+	 * @access public
+	 * @param string          $message  The Exception message to throw
+	 * @param string          $name     Argument name
+	 * @param int             $code     The Exception code
+	 * @param \Throwable|null $previous The previous exception used for the exception chaining
 	 */
 	public function __construct(string $message, string $name, int $code = 0, Throwable $previous = null)
 	{
@@ -44,8 +44,8 @@ class ArgumentException extends ReactorException
 	/**
 	 * Returns the name of the missing argument.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getName(): string
 	{

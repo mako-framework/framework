@@ -3,17 +3,16 @@
 namespace mako\common;
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
-
 use Closure;
 use BadMethodCallException;
 
 /**
  * Extendable trait.
  *
- * @author  Yamada Taro
+ * @author Yamada Taro
  */
 trait ExtendableTrait
 {
@@ -27,9 +26,9 @@ trait ExtendableTrait
 	/**
 	 * Extends the class.
 	 *
-	 * @access  public
-	 * @param   string    $methodName  Method name
-	 * @param   \Closure  $closure     Closure
+	 * @access public
+	 * @param string   $methodName Method name
+	 * @param \Closure $closure    Closure
 	 */
 	public static function extend(string $methodName, Closure $closure)
 	{
@@ -39,10 +38,10 @@ trait ExtendableTrait
 	/**
 	 * Executes class extensions.
 	 *
-	 * @access  public
-	 * @param   string  $name       Method name
-	 * @param   array   $arguments  Method arguments
-	 * @return  mixed
+	 * @access public
+	 * @param  string $name      Method name
+	 * @param  array  $arguments Method arguments
+	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments)
 	{
@@ -57,10 +56,10 @@ trait ExtendableTrait
 	/**
 	 * Executes class extensions.
 	 *
-	 * @access  public
-	 * @param   string  $name       Method name
-	 * @param   array   $arguments  Method arguments
-	 * @return  mixed
+	 * @access public
+	 * @param  string $name      Method name
+	 * @param  array  $arguments Method arguments
+	 * @return mixed
 	 */
 	public static function __callStatic(string $name, array $arguments)
 	{

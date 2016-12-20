@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\redis;
@@ -16,7 +16,7 @@ use mako\redis\Redis;
 /**
  * Redis connection manager.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  *
  * @method  \mako\redis\Redis  connection($connection = null)
  */
@@ -25,9 +25,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Connects to the chosen redis configuration and returns the connection.
 	 *
-	 * @access  public
-	 * @param   string             $connection  Connection name
-	 * @return  \mako\redis\Redis
+	 * @access public
+	 * @param  string            $connection Connection name
+	 * @return \mako\redis\Redis
 	 */
 	protected function connect(string $connection): Redis
 	{

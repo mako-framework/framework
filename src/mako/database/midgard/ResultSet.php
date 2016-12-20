@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\midgard;
@@ -13,14 +13,14 @@ use mako\database\query\ResultSet as BaseResultSet;
 /**
  * ORM result set.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ResultSet extends BaseResultSet
 {
 	/**
 	 * Clones all items when cloning the collection.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function __clone()
 	{
@@ -33,8 +33,8 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Excludes the chosen columns and relations from array and json representations of the collection.
 	 *
-	 * @access  public
-	 * @param   string|array|bool  $column  Column or relation to hide from the
+	 * @access public
+	 * @param string|array|bool $column Column or relation to hide from the
 	 */
 	public function protect($column)
 	{
@@ -47,8 +47,8 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Exposes the chosen columns and relations in the array and json representations of the collection.
 	 *
-	 * @access  public
-	 * @param   string|array|bool  $column  Column or relation to hide from the
+	 * @access public
+	 * @param string|array|bool $column Column or relation to hide from the
 	 */
 	public function expose($column)
 	{

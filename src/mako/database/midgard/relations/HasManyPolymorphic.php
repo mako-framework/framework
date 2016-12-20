@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\midgard\relations;
@@ -15,7 +15,7 @@ use mako\database\midgard\relations\HasOneOrManyPolymorphicTrait;
 /**
  * Has many polymorphic relation.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class HasManyPolymorphic extends HasMany
 {

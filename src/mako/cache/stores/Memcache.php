@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cache\stores;
@@ -15,7 +15,7 @@ use mako\cache\stores\traits\GetOrElseTrait;
 /**
  * Memcache store.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Memcache implements StoreInterface
 {
@@ -38,10 +38,10 @@ class Memcache implements StoreInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   array    $servers       Memcache servers
-	 * @param   int      $timeout       Timeout in seconds
-	 * @param   bool     $compressData  Compress data?
+	 * @access public
+	 * @param array $servers      Memcache servers
+	 * @param int   $timeout      Timeout in seconds
+	 * @param bool  $compressData Compress data?
 	 */
 	public function __construct(array $servers, int $timeout = 1, bool $compressData = false)
 	{

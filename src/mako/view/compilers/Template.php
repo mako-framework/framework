@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\view\compilers;
@@ -12,7 +12,7 @@ use mako\file\FileSystem;
 /**
  * Template compiler.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Template
 {
@@ -71,10 +71,10 @@ class Template
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\file\FileSystem  $fileSystem  File system instance
-	 * @param   string                 $cachePath   Cache path
-	 * @param   string                 $template    Path to template
+	 * @access public
+	 * @param \mako\file\FileSystem $fileSystem File system instance
+	 * @param string                $cachePath  Cache path
+	 * @param string                $template   Path to template
 	 */
 	public function __construct(FileSystem $fileSystem, string $cachePath, string $template)
 	{
@@ -88,9 +88,9 @@ class Template
 	/**
 	 * Collects verbatim blocks and replaces them with a palceholder.
 	 *
-	 * @access  protected
-	 * @param   string    $template  Template
-	 * @return  string
+	 * @access protected
+	 * @param  string $template Template
+	 * @return string
 	 */
 	protected function collectVerbatims(string $template): string
 	{
@@ -105,9 +105,9 @@ class Template
 	/**
 	 * Replaces verbatim placeholders with their original values.
 	 *
-	 * @access  protected
-	 * @param   string    $template  Template
-	 * @return  string
+	 * @access protected
+	 * @param  string $template Template
+	 * @return string
 	 */
 	public function insertVerbatims(string $template): string
 	{
@@ -122,9 +122,9 @@ class Template
 	/**
 	 * Compiles comments.
 	 *
-	 * @access  protected
-	 * @param   string     $template  Template
-	 * @return  string
+	 * @access protected
+	 * @param  string $template Template
+	 * @return string
 	 */
 	protected function comments(string $template): string
 	{
@@ -136,9 +136,9 @@ class Template
 	/**
 	 * Compiles template extensions.
 	 *
-	 * @access  protected
-	 * @param   string     $template  Template
-	 * @return  string
+	 * @access protected
+	 * @param  string $template Template
+	 * @return string
 	 */
 	protected function extensions(string $template): string
 	{
@@ -160,9 +160,9 @@ class Template
 	/**
 	 * Compiles view includes.
 	 *
-	 * @access  protected
-	 * @param   string     $template  Template
-	 * @return  string
+	 * @access protected
+	 * @param  string $template Template
+	 * @return string
 	 */
 	protected function views(string $template): string
 	{
@@ -178,9 +178,9 @@ class Template
 	/**
 	 * Compiles blocks.
 	 *
-	 * @access  protected
-	 * @param   string     $template  Template
-	 * @return  string
+	 * @access protected
+	 * @param  string $template Template
+	 * @return string
 	 */
 	protected function blocks(string $template): string
 	{
@@ -196,9 +196,9 @@ class Template
 	/**
 	 * Compiles control structures.
 	 *
-	 * @access  protected
-	 * @param   string     $template  Template
-	 * @return  string
+	 * @access protected
+	 * @param  string $template Template
+	 * @return string
 	 */
 	protected function controlStructures(string $template): string
 	{
@@ -214,9 +214,9 @@ class Template
 	/**
 	 * Compiles echos.
 	 *
-	 * @access  protected
-	 * @param   string     $template  Template
-	 * @return  string
+	 * @access protected
+	 * @param  string $template Template
+	 * @return string
 	 */
 	protected function echos(string $template): string
 	{
@@ -273,7 +273,7 @@ class Template
 	/**
 	 * Compiles templates into views.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function compile()
 	{

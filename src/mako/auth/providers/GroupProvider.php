@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\auth\providers;
@@ -12,7 +12,7 @@ use mako\auth\providers\GroupProviderInterface;
 /**
  * Group provider.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class GroupProvider implements GroupProviderInterface
 {
@@ -26,8 +26,8 @@ class GroupProvider implements GroupProviderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   string  $model  Model class
+	 * @access public
+	 * @param string $model Model class
 	 */
 	public function __construct($model)
 	{

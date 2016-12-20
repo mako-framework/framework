@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\syringe;
@@ -14,7 +14,7 @@ use mako\syringe\Container;
 /**
  * Container aware trait.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  *
  * @property  \mako\application\Application                 $app
  * @property  \mako\cli\input\Input                         $input
@@ -61,8 +61,8 @@ trait ContainerAwareTrait
 	/**
 	 * Sets the container instance.
 	 *
-	 * @access  public
-	 * @param   \mako\syringe\Container  $container  IoC container instance
+	 * @access public
+	 * @param \mako\syringe\Container $container IoC container instance
 	 */
 	public function setContainer(Container $container)
 	{
@@ -72,9 +72,9 @@ trait ContainerAwareTrait
 	/**
 	 * Resolves item from the container using overloading.
 	 *
-	 * @access  public
-	 * @param   string  $key  Key
-	 * @return  mixed
+	 * @access public
+	 * @param  string $key Key
+	 * @return mixed
 	 */
 	public function __get(string $key)
 	{

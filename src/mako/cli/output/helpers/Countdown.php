@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\cli\output\helpers;
@@ -12,7 +12,7 @@ use mako\cli\output\Output;
 /**
  * Countdown helper.
  *
- * @author  Yamada Taro
+ * @author Yamada Taro
  */
 class Countdown
 {
@@ -26,8 +26,8 @@ class Countdown
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\output\Output  $output  Output instance
+	 * @access public
+	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Output $output)
 	{
@@ -37,8 +37,8 @@ class Countdown
 	/**
 	 * Counts down from n.
 	 *
-	 * @access  public
-	 * @param   int     $from  Number of seconds to count down
+	 * @access public
+	 * @param int $from Number of seconds to count down
 	 */
 	public function draw(int $from = 5)
 	{

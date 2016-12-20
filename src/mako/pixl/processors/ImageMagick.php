@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\pixl\processors;
@@ -19,7 +19,7 @@ use mako\pixl\processors\ProcessorInterface;
 /**
  * ImageMagick processor.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ImageMagick implements ProcessorInterface
 {
@@ -42,7 +42,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * Destructor.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function __destruct()
 	{
@@ -60,9 +60,9 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * Add the hash character (#) if its missing.
 	 *
-	 * @access  public
-	 * @param   string  $hex  HEX value
-	 * @return  string
+	 * @access public
+	 * @param  string $hex HEX value
+	 * @return string
 	 */
 	public function normalizeHex($hex)
 	{

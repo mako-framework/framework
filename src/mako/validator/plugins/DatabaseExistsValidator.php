@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\validator\plugins;
@@ -13,7 +13,7 @@ use mako\validator\plugins\ValidatorPlugin;
 /**
  * Database exists plugin.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class DatabaseExistsValidator extends ValidatorPlugin
 {
@@ -34,8 +34,8 @@ class DatabaseExistsValidator extends ValidatorPlugin
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\database\ConnectionManager  $connectionManager  Connection manager instance
+	 * @access public
+	 * @param \mako\database\ConnectionManager $connectionManager Connection manager instance
 	 */
 	public function __construct(ConnectionManager $connectionManager)
 	{
@@ -45,11 +45,11 @@ class DatabaseExistsValidator extends ValidatorPlugin
 	/**
 	 * Checks that the value exists in the database table.
 	 *
-	 * @access  public
-	 * @param   null|string  $input   Input
-	 * @param   string       $table   Table name
-	 * @param   string       $column  Column name
-	 * @return  bool
+	 * @access public
+	 * @param  null|string $input  Input
+	 * @param  string      $table  Table name
+	 * @param  string      $column Column name
+	 * @return bool
 	 */
 	public function validate(string $input = null, string $table, string $column): bool
 	{

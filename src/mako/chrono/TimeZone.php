@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\chrono;
@@ -12,7 +12,7 @@ use DateTimeZone;
 /**
  * Extension of the PHP DateTimeZone class.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class TimeZone extends DateTimeZone
 {
@@ -20,8 +20,8 @@ class TimeZone extends DateTimeZone
 	 * Returns a list of time zones where the key is
 	 * a valid PHP time zone while the value is a presentable name.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public static function getTimeZones(): array
 	{
@@ -39,8 +39,8 @@ class TimeZone extends DateTimeZone
 	 * Returns an array of grouped time zones where the key is
 	 * a valid PHP timezone while the value is a presentable name.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public static function getGroupedTimeZones(): array
 	{

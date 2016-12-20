@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
- * @copyright  Pádraic Brady
- * @license    https://raw.githubusercontent.com/padraic/SecurityMultiTool/master/LICENSE
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
+ * @copyright Pádraic Brady
+ * @license   https://raw.githubusercontent.com/padraic/SecurityMultiTool/master/LICENSE
  */
 
 namespace mako\view\renderers;
@@ -12,8 +12,8 @@ namespace mako\view\renderers;
 /**
  * Escaper trait.
  *
- * @author  Frederic G. Østby
- * @author  Pádraic Brady
+ * @author Frederic G. Østby
+ * @author Pádraic Brady
  */
 trait EscaperTrait
 {
@@ -33,11 +33,11 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a HTML body context.
 	 *
-	 * @access  public
-	 * @param   null|string  $string        String to escape
-	 * @param   string       $charset       Character set
-	 * @param   bool         $doubleEncode  Should existing entities be encoded?
-	 * @return  string
+	 * @access public
+	 * @param  null|string $string       String to escape
+	 * @param  string      $charset      Character set
+	 * @param  bool        $doubleEncode Should existing entities be encoded?
+	 * @return string
 	 */
 	public function escapeHTML(string $string = null, string $charset, bool $doubleEncode = true): string
 	{
@@ -47,9 +47,9 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a URI or parameter context.
 	 *
-	 * @access  public
-	 * @param   null|string  $string  String to escape
-	 * @return  string
+	 * @access public
+	 * @param  null|string $string String to escape
+	 * @return string
 	 */
 	public function escapeURL(string $string = null): string
 	{
@@ -61,9 +61,9 @@ trait EscaperTrait
 	 *
 	 * (This method contains code from the SecurityMultiTool library).
 	 *
-	 * @access  protected
-	 * @param   array      $matches  Regex matches
-	 * @return  string
+	 * @access protected
+	 * @param  array  $matches Regex matches
+	 * @return string
 	 */
 	protected function attributeEscaper(array $matches): string
 	{
@@ -110,10 +110,10 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a HTML attribute context.
 	 *
-	 * @access  public
-	 * @param   null|string  $string   String to escape
-	 * @param   string       $charset  Character set
-	 * @return  string
+	 * @access public
+	 * @param  null|string $string  String to escape
+	 * @param  string      $charset Character set
+	 * @return string
 	 */
 	public function escapeAttribute(string $string = null, string $charset): string
 	{
@@ -137,9 +137,9 @@ trait EscaperTrait
 	 *
 	 * (This method contains code from the SecurityMultiTool library).
 	 *
-	 * @access  protected
-	 * @param   array      $matches  Regex matches
-	 * @return  string
+	 * @access protected
+	 * @param  array  $matches Regex matches
+	 * @return string
 	 */
 	protected function cssEscaper(array $matches): string
 	{
@@ -162,10 +162,10 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a CSS context.
 	 *
-	 * @access  public
-	 * @param   null|string  $string   String to escape
-	 * @param   string       $charset  Character set
-	 * @return  string
+	 * @access public
+	 * @param  null|string $string  String to escape
+	 * @param  string      $charset Character set
+	 * @return string
 	 */
 	public function escapeCSS(string $string = null, string $charset): string
 	{
@@ -194,9 +194,9 @@ trait EscaperTrait
 	 *
 	 * (This method contains code from the SecurityMultiTool library).
 	 *
-	 * @access  protected
-	 * @param   array      $matches  Regex matches
-	 * @return  string
+	 * @access protected
+	 * @param  array  $matches Regex matches
+	 * @return string
 	 */
 	protected function javascriptEscaper(array $matches): string
 	{
@@ -215,10 +215,10 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a Javascript context.
 	 *
-	 * @access  public
-	 * @param   null|string  $string   String to escape
-	 * @param   string       $charset  Character set
-	 * @return  string
+	 * @access public
+	 * @param  null|string $string  String to escape
+	 * @param  string      $charset Character set
+	 * @return string
 	 */
 	public function escapeJavascript(string $string = null, string $charset): string
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http;
@@ -19,7 +19,7 @@ use mako\view\View;
 /**
  * HTTP response.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Response
 {
@@ -194,10 +194,10 @@ class Response
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\http\Request     $request  Request instance
-	 * @param   string                 $charset  Response charset
-	 * @param   \mako\security\Signer  $signer   Signer instance used to sign cookies
+	 * @access public
+	 * @param \mako\http\Request    $request Request instance
+	 * @param string                $charset Response charset
+	 * @param \mako\security\Signer $signer  Signer instance used to sign cookies
 	 */
 	public function __construct(Request $request, string $charset = 'UTF-8', Signer $signer = null)
 	{
@@ -211,9 +211,9 @@ class Response
 	/**
 	 * Sets the response body.
 	 *
-	 * @access  public
-	 * @param   mixed                $body  Response body
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  mixed               $body Response body
+	 * @return \mako\http\Response
 	 */
 	public function body($body): Response
 	{
@@ -244,8 +244,8 @@ class Response
 	/**
 	 * Returns the response body.
 	 *
-	 * @access  public
-	 * @return  mixed
+	 * @access public
+	 * @return mixed
 	 */
 	public function getBody()
 	{
@@ -255,8 +255,8 @@ class Response
 	/**
 	 * Clears the response body.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @return \mako\http\Response
 	 */
 	public function clearBody(): Response
 	{
@@ -268,10 +268,10 @@ class Response
 	/**
 	 * Sets the response content type.
 	 *
-	 * @access  public
-	 * @param   string                $contentType  Content type
-	 * @param   string                $charset      Charset
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  string              $contentType Content type
+	 * @param  string              $charset     Charset
+	 * @return \mako\http\Response
 	 */
 	public function type(string $contentType, string $charset = null): Response
 	{
@@ -288,8 +288,8 @@ class Response
 	/**
 	 * Returns the response content type.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getType(): string
 	{
@@ -299,9 +299,9 @@ class Response
 	/**
 	 * Sets the response charset.
 	 *
-	 * @access  public
-	 * @param   string               $charset  Charset
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  string              $charset Charset
+	 * @return \mako\http\Response
 	 */
 	public function charset(string $charset): Response
 	{
@@ -313,8 +313,8 @@ class Response
 	/**
 	 * Returns the response charset.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getCharset(): string
 	{
@@ -324,9 +324,9 @@ class Response
 	/**
 	 * Sets the HTTP status code.
 	 *
-	 * @access  public
-	 * @param   int                  $statusCode  HTTP status code
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  int                 $statusCode HTTP status code
+	 * @return \mako\http\Response
 	 */
 	public function status(int $statusCode): Response
 	{
@@ -341,8 +341,8 @@ class Response
 	/**
 	 * Returns the HTTP status code.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function getStatus(): int
 	{
@@ -352,9 +352,9 @@ class Response
 	/**
 	 * Adds output filter that all output will be passed through before being sent.
 	 *
-	 * @access  public
-	 * @param   \Closure             $filter  Closure used to filter output
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  \Closure            $filter Closure used to filter output
+	 * @return \mako\http\Response
 	 */
 	public function filter(Closure $filter): Response
 	{
@@ -366,8 +366,8 @@ class Response
 	/**
 	 * Returns the response filters.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getFilters(): array
 	{
@@ -377,8 +377,8 @@ class Response
 	/**
 	 * Clears all output filters.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @return \mako\http\Response
 	 */
 	public function clearFilters(): Response
 	{
@@ -390,11 +390,11 @@ class Response
 	/**
 	 * Sets a response header.
 	 *
-	 * @access  public
-	 * @param   string               $name     Header name
-	 * @param   string               $value    Header value
-	 * @param   bool                $replace  Replace header?
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  string              $name    Header name
+	 * @param  string              $value   Header value
+	 * @param  bool                $replace Replace header?
+	 * @return \mako\http\Response
 	 */
 	public function header(string $name, string $value, bool $replace = true): Response
 	{
@@ -417,9 +417,9 @@ class Response
 	/**
 	 * Checks if the header exists in the response.
 	 *
-	 * @access  public
-	 * @param   string  $name  Header name
-	 * @return  bool
+	 * @access public
+	 * @param  string $name Header name
+	 * @return bool
 	 */
 	public function hasHeader(string $name): bool
 	{
@@ -429,9 +429,9 @@ class Response
 	/**
 	 * Removes a response header.
 	 *
-	 * @access  public
-	 * @param   string               $name   Header name
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  string              $name Header name
+	 * @return \mako\http\Response
 	 */
 	public function removeHeader(string $name): Response
 	{
@@ -443,8 +443,8 @@ class Response
 	/**
 	 * Returns the response headers.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @access public
+	 * @return array
 	 */
 	public function getHeaders(): array
 	{
@@ -454,8 +454,8 @@ class Response
 	/**
 	 * Clear the response headers.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @return \mako\http\Response
 	 */
 	public function clearHeaders(): Response
 	{
@@ -467,12 +467,12 @@ class Response
 	/**
 	 * Sets an unsigned cookie.
 	 *
-	 * @access  public
-	 * @param   string               $name     Cookie name
-	 * @param   string               $value    Cookie value
-	 * @param   int                  $ttl      Time to live - if omitted or set to 0 the cookie will expire when the browser closes
-	 * @param   array                $options  Cookie options
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  string              $name    Cookie name
+	 * @param  string              $value   Cookie value
+	 * @param  int                 $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	 * @param  array               $options Cookie options
+	 * @return \mako\http\Response
 	 */
 	public function cookie(string $name, string $value, int $ttl = 0, array $options = []): Response
 	{
@@ -488,12 +488,12 @@ class Response
 	/**
 	 * Sets a signed cookie.
 	 *
-	 * @access  public
-	 * @param   string               $name     Cookie name
-	 * @param   string               $value    Cookie value
-	 * @param   int                  $ttl      Time to live - if omitted or set to 0 the cookie will expire when the browser closes
-	 * @param   array                $options  Cookie options
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  string              $name    Cookie name
+	 * @param  string              $value   Cookie value
+	 * @param  int                 $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	 * @param  array               $options Cookie options
+	 * @return \mako\http\Response
 	 */
 	public function signedCookie(string $name, string $value, int $ttl = 0, array $options = []): Response
 	{
@@ -508,10 +508,10 @@ class Response
 	/**
 	 * Deletes a cookie.
 	 *
-	 * @access  public
-	 * @param   string               $name     Cookie name
-	 * @param   array                $options  Cookie options
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  string              $name    Cookie name
+	 * @param  array               $options Cookie options
+	 * @return \mako\http\Response
 	 */
 	public function deleteCookie(string $name, array $options = []): Response
 	{
@@ -521,9 +521,9 @@ class Response
 	/**
 	 * Checks if the cookie exists in the response.
 	 *
-	 * @access  public
-	 * @param   string  $name  Cookie name
-	 * @return  bool
+	 * @access public
+	 * @param  string $name Cookie name
+	 * @return bool
 	 */
 	public function hasCookie(string $name): bool
 	{
@@ -533,9 +533,9 @@ class Response
 	/**
 	 * Removes a cookie from the response.
 	 *
-	 * @access  public
-	 * @param   string               $name   Cookie name
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @param  string              $name Cookie name
+	 * @return \mako\http\Response
 	 */
 	public function removeCookie(string $name): Response
 	{
@@ -547,7 +547,7 @@ class Response
 	/**
 	 * Returns the response cookies.
 	 *
-	 * @access  public
+	 * @access public
 	 * @return array
 	 */
 	public function getCookies(): array
@@ -558,8 +558,8 @@ class Response
 	/**
 	 * Clear cookies.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @return \mako\http\Response
 	 */
 	public function clearCookies(): Response
 	{
@@ -571,8 +571,8 @@ class Response
 	/**
 	 * Clears the response body, filters, cookies and headers.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @return \mako\http\Response
 	 */
 	public function clear(): Response
 	{
@@ -587,7 +587,7 @@ class Response
 	/**
 	 * Sends response headers.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	public function sendHeaders()
 	{
@@ -629,8 +629,8 @@ class Response
 	/**
 	 * Enables ETag response cache.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @return \mako\http\Response
 	 */
 	public function cache(): Response
 	{
@@ -642,8 +642,8 @@ class Response
 	/**
 	 * Disables ETag response cache.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @return \mako\http\Response
 	 */
 	public function disableCaching(): Response
 	{
@@ -655,8 +655,8 @@ class Response
 	/**
 	 * Enables output compression.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @return \mako\http\Response
 	 */
 	public function compress(): Response
 	{
@@ -668,8 +668,8 @@ class Response
 	/**
 	 * Disables output compression.
 	 *
-	 * @access  public
-	 * @return  \mako\http\Response
+	 * @access public
+	 * @return \mako\http\Response
 	 */
 	public function disableCompression(): Response
 	{
@@ -681,7 +681,7 @@ class Response
 	/**
 	 * Send output to browser.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function send()
 	{

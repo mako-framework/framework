@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\http\routing;
@@ -18,7 +18,7 @@ use mako\http\exceptions\MethodNotAllowedException;
 /**
  * Router.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Router
 {
@@ -32,8 +32,8 @@ class Router
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\http\routing\Routes  $routes   Routes
+	 * @access public
+	 * @param \mako\http\routing\Routes $routes Routes
 	 */
 	public function __construct(Routes $routes)
 	{
@@ -43,9 +43,9 @@ class Router
 	/**
 	 * Returns a route with a closure action that redirects to the correct URL.
 	 *
-	 * @access  protected
-	 * @param   string                    $requestPath  The requested path
-	 * @return  \mako\http\routing\Route
+	 * @access protected
+	 * @param  string                   $requestPath The requested path
+	 * @return \mako\http\routing\Route
 	 */
 	protected function redirectRoute(string $requestPath): Route
 	{
@@ -67,9 +67,9 @@ class Router
 	/**
 	 * Returns an array of all allowed request methods for the requested route.
 	 *
-	 * @access  protected
-	 * @param   string     $requestPath  The requested path
-	 * @return  array
+	 * @access protected
+	 * @param  string $requestPath The requested path
+	 * @return array
 	 */
 	protected function getAllowedMethodsForMatchingRoutes(string $requestPath): array
 	{
@@ -89,9 +89,9 @@ class Router
 	/**
 	 * Returns a route with a closure action that sets the allow header.
 	 *
-	 * @access  protected
-	 * @param   string                    $requestPath  The requested path
-	 * @return  \mako\http\routing\Route
+	 * @access protected
+	 * @param  string                   $requestPath The requested path
+	 * @return \mako\http\routing\Route
 	 */
 	protected function optionsRoute(string $requestPath): Route
 	{
@@ -106,11 +106,11 @@ class Router
 	/**
 	 * Returns TRUE if the route matches the request path and FALSE if not.
 	 *
-	 * @access  protected
-	 * @param   \mako\http\routing\Route  $route       Route
-	 * @param   string                    $path        Request path
-	 * @param   array                     $parameters  Parameters
-	 * @return  bool
+	 * @access protected
+	 * @param  \mako\http\routing\Route $route      Route
+	 * @param  string                   $path       Request path
+	 * @param  array                    $parameters Parameters
+	 * @return bool
 	 */
 	protected function matches(Route $route, string $path, array &$parameters = []): bool
 	{
@@ -133,9 +133,9 @@ class Router
 	/**
 	 * Matches and returns the appropriate route along with its parameters.
 	 *
-	 * @access  public
-	 * @param   \mako\http\Request  $request  Request
-	 * @return  array
+	 * @access public
+	 * @param  \mako\http\Request $request Request
+	 * @return array
 	 */
 	public function route(Request $request): array
 	{

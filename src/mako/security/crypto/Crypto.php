@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\security\crypto;
@@ -16,7 +16,7 @@ use mako\security\Signer;
 /**
  * Crypto wrapper.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Crypto
 {
@@ -37,9 +37,9 @@ class Crypto
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\security\crypto\encrypters\EncrypterInterface  $adapter  Crypto adapter
-	 * @param   \mako\security\Signer                                $signer   Signer instance.
+	 * @access public
+	 * @param \mako\security\crypto\encrypters\EncrypterInterface $adapter Crypto adapter
+	 * @param \mako\security\Signer                               $signer  Signer instance.
 	 */
 	public function __construct(EncrypterInterface $adapter, Signer $signer)
 	{
@@ -51,9 +51,9 @@ class Crypto
 	/**
 	 * Encrypts string.
 	 *
-	 * @access  public
-	 * @param   string  $string  String to encrypt
-	 * @return  string
+	 * @access public
+	 * @param  string $string String to encrypt
+	 * @return string
 	 */
 	public function encrypt(string $string): string
 	{
@@ -63,9 +63,9 @@ class Crypto
 	/**
 	 * Decrypts string.
 	 *
-	 * @access  public
-	 * @param   string       $string  String to decrypt
-	 * @return  string|bool
+	 * @access public
+	 * @param  string      $string String to decrypt
+	 * @return string|bool
 	 */
 	public function decrypt(string $string)
 	{

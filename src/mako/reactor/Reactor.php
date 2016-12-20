@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\reactor;
@@ -23,7 +23,7 @@ use mako\syringe\Container;
 /**
  * Reactor.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Reactor
 {
@@ -74,11 +74,11 @@ class Reactor
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\input\Input     $input       Input
-	 * @param   \mako\cli\output\Output   $output      Output
-	 * @param   \mako\syringe\Container   $container   Container
-	 * @param   \mako\reactor\Dispatcher  $dispatcher  Command dispatcher
+	 * @access public
+	 * @param \mako\cli\input\Input    $input      Input
+	 * @param \mako\cli\output\Output  $output     Output
+	 * @param \mako\syringe\Container  $container  Container
+	 * @param \mako\reactor\Dispatcher $dispatcher Command dispatcher
 	 */
 	public function __construct(Input $input, Output $output, Container $container = null, Dispatcher $dispatcher = null)
 	{
@@ -94,9 +94,9 @@ class Reactor
 	/**
 	 * Registers a command.
 	 *
-	 * @access  public
-	 * @param   string  $command  Command
-	 * @param   string  $class    Command class
+	 * @access public
+	 * @param string $command Command
+	 * @param string $class   Command class
 	 */
 	public function registerCommand(string $command, string $class)
 	{
@@ -106,10 +106,10 @@ class Reactor
 	/**
 	 * Register a custom reactor option.
 	 *
-	 * @access  public
-	 * @param   string    $name         Option name
-	 * @param   string    $description  Option description
-	 * @param   \Closure  $handler      Option handler
+	 * @access public
+	 * @param string   $name        Option name
+	 * @param string   $description Option description
+	 * @param \Closure $handler     Option handler
 	 */
 	public function registerCustomOption(string $name, string $description, Closure $handler)
 	{
@@ -119,8 +119,8 @@ class Reactor
 	/**
 	 * Sets the reactor logo.
 	 *
-	 * @access  public
-	 * @param   string  $logo  ASCII logo
+	 * @access public
+	 * @param string $logo ASCII logo
 	 */
 	public function setLogo(string $logo)
 	{
@@ -130,7 +130,7 @@ class Reactor
 	/**
 	 * Handles custom reactor options.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function handleCustomOptions()
 	{
@@ -152,10 +152,10 @@ class Reactor
 	/**
 	 * Draws information table.
 	 *
-	 * @access  protected
-	 * @param   string     $heading  Table heading
-	 * @param   array      $headers  Table headers
-	 * @param   array      $rows     Table rows
+	 * @access protected
+	 * @param string $heading Table heading
+	 * @param array  $headers Table headers
+	 * @param array  $rows    Table rows
 	 */
 	protected function drawTable(string $heading, array $headers, array $rows)
 	{
@@ -178,8 +178,8 @@ class Reactor
 	/**
 	 * Returns an array of option information.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function getOptions(): array
 	{
@@ -198,7 +198,7 @@ class Reactor
 	/**
 	 * Displays reactor options of there are any.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function listOptions()
 	{
@@ -210,7 +210,7 @@ class Reactor
 	/**
 	 * Displays basic reactor information.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function displayReactorInfo()
 	{
@@ -237,8 +237,8 @@ class Reactor
 	/**
 	 * Returns an array of command information.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function getCommands(): array
 	{
@@ -257,7 +257,7 @@ class Reactor
 	/**
 	 * Lists available commands if there are any.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function listCommands()
 	{
@@ -269,9 +269,9 @@ class Reactor
 	/**
 	 * Dispatches a command.
 	 *
-	 * @access  protected
-	 * @param   string     $command  Command
-	 * @return  int
+	 * @access protected
+	 * @param  string $command Command
+	 * @return int
 	 */
 	protected function dispatch(string $command): int
 	{
@@ -297,8 +297,8 @@ class Reactor
 	/**
 	 * Run the reactor.
 	 *
-	 * @access  public
-	 * @return  int
+	 * @access public
+	 * @return int
 	 */
 	public function run(): int
 	{

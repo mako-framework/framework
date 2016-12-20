@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\cli\commands\migrations;
@@ -18,7 +18,7 @@ use mako\syringe\Container;
 /**
  * Base command.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class Command extends BaseCommand
 {
@@ -60,13 +60,13 @@ abstract class Command extends BaseCommand
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\cli\input\Input             $input        Input
-	 * @param   \mako\cli\output\Output           $output       Output
-	 * @param   \mako\application\Application     $application  Application
-	 * @param   \mako\file\FileSystem             $fileSystem   File system
-	 * @param   \mako\database\ConnectionManager  $database     Connection manager
-	 * @param   \mako\syringe\Container           $container     Container
+	 * @access public
+	 * @param \mako\cli\input\Input            $input       Input
+	 * @param \mako\cli\output\Output          $output      Output
+	 * @param \mako\application\Application    $application Application
+	 * @param \mako\file\FileSystem            $fileSystem  File system
+	 * @param \mako\database\ConnectionManager $database    Connection manager
+	 * @param \mako\syringe\Container          $container   Container
 	 */
 	public function __construct(Input $input, Output $output, Application $application, FileSystem $fileSystem, ConnectionManager $database, Container $container)
 	{
@@ -84,8 +84,8 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns the database connection.
 	 *
-	 * @access  protected
-	 * @return  \mako\database\connections\Connection
+	 * @access protected
+	 * @return \mako\database\connections\Connection
 	 */
 	protected function connection()
 	{
@@ -95,9 +95,9 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns the basename of the migration.
 	 *
-	 * @access  protected
-	 * @param   string     $migration  Task path
-	 * @return  string
+	 * @access protected
+	 * @param  string $migration Task path
+	 * @return string
 	 */
 	protected function getBaseName($migration)
 	{
@@ -107,8 +107,8 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns a query builder instance.
 	 *
-	 * @access  protected
-	 * @return  \mako\database\query\Query
+	 * @access protected
+	 * @return \mako\database\query\Query
 	 */
 	protected function builder()
 	{
@@ -118,8 +118,8 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns all application migrations.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function findApplicationMigrations()
 	{
@@ -136,8 +136,8 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns all package migrations.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function findPackageMigrations()
 	{
@@ -157,8 +157,8 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns an array of all outstanding migrations.
 	 *
-	 * @access  protected
-	 * @return  array
+	 * @access protected
+	 * @return array
 	 */
 	protected function getOutstanding()
 	{
@@ -199,8 +199,8 @@ abstract class Command extends BaseCommand
 	/**
 	 * Ouputs a migration list.
 	 *
-	 * @access  public
-	 * @param   array   $migrations  Migrations
+	 * @access public
+	 * @param array $migrations Migrations
 	 */
 	protected function outputMigrationList(array $migrations)
 	{
@@ -226,9 +226,9 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns a migration instance.
 	 *
-	 * @access  protected
-	 * @param   StdClass                             $migration  Migration object
-	 * @return  \mako\database\migrations\Migration
+	 * @access protected
+	 * @param  StdClass                            $migration Migration object
+	 * @return \mako\database\migrations\Migration
 	 */
 	protected function resolve($migration)
 	{
@@ -247,9 +247,9 @@ abstract class Command extends BaseCommand
 	/**
 	 * Executes a migration method.
 	 *
-	 * @access  protected
-	 * @param   string  $migration  Migration class
-	 * @param   string  $method     Migration method
+	 * @access protected
+	 * @param string $migration Migration class
+	 * @param string $method    Migration method
 	 */
 	protected function runMigration($migration, $method)
 	{

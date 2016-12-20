@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\error\handlers;
@@ -15,7 +15,7 @@ use mako\error\handlers\HandlerInterface;
 /**
  * Base handler.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 abstract class Handler implements HandlerInterface
 {
@@ -29,8 +29,8 @@ abstract class Handler implements HandlerInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \Throwable  $exception  Throwable
+	 * @access public
+	 * @param \Throwable $exception Throwable
 	 */
 	public function __construct(Throwable $exception)
 	{
@@ -40,9 +40,9 @@ abstract class Handler implements HandlerInterface
 	/**
 	 * Determines the exception type.
 	 *
-	 * @access  protected
-	 * @param   \Throwable  $exception  Throwable
-	 * @return  string
+	 * @access protected
+	 * @param  \Throwable $exception Throwable
+	 * @return string
 	 */
 	protected function determineExceptionType(Throwable $exception): string
 	{

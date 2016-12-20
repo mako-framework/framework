@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\reactor;
@@ -17,7 +17,7 @@ use mako\syringe\Container;
 /**
  * Command dispatcher.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Dispatcher
 {
@@ -33,8 +33,8 @@ class Dispatcher
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\syringe\Container  $container  Container
+	 * @access public
+	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(Container $container)
 	{
@@ -44,9 +44,9 @@ class Dispatcher
 	/**
 	 * Resolves the command.
 	 *
-	 * @access  protected
-	 * @param   string                 $command  Command class
-	 * @return  \mako\reactor\Command
+	 * @access protected
+	 * @param  string                $command Command class
+	 * @return \mako\reactor\Command
 	 */
 	protected function resolve(string $command): Command
 	{
@@ -56,9 +56,9 @@ class Dispatcher
 	/**
 	 * Checks for invalid arguments or options.
 	 *
-	 * @access  protected
-	 * @param   \mako\reactor\Command  $command            Command arguments
-	 * @param   array                  $providedArguments  Provided arguments
+	 * @access protected
+	 * @param \mako\reactor\Command $command           Command arguments
+	 * @param array                 $providedArguments Provided arguments
 	 */
 	protected function checkForInvalidArguments(Command $command, array $providedArguments)
 	{
@@ -81,10 +81,10 @@ class Dispatcher
 	/**
 	 * Checks for missing required arguments or options.
 	 *
-	 * @access  protected
-	 * @param   array   $commandArguments   Command arguments
-	 * @param   array   $providedArguments  Provided arguments
-	 * @param   string  $exception          Exception to throw
+	 * @access protected
+	 * @param array  $commandArguments  Command arguments
+	 * @param array  $providedArguments Provided arguments
+	 * @param string $exception         Exception to throw
 	 */
 	protected function checkForMissingArgumentsOrOptions(array $commandArguments, array $providedArguments, string $exception)
 	{
@@ -104,9 +104,9 @@ class Dispatcher
 	/**
 	 * Checks for missing required arguments.
 	 *
-	 * @access  protected
-	 * @param   \mako\reactor\Command  $command            Command instance
-	 * @param   array                  $providedArguments  Provided arguments
+	 * @access protected
+	 * @param \mako\reactor\Command $command           Command instance
+	 * @param array                 $providedArguments Provided arguments
 	 */
 	protected function checkForMissingArguments(Command $command, array $providedArguments)
 	{
@@ -116,9 +116,9 @@ class Dispatcher
 	/**
 	 * Checks for missing required options.
 	 *
-	 * @access  protected
-	 * @param   \mako\reactor\Command  $command            Command instance
-	 * @param   array                  $providedArguments  Provided arguments
+	 * @access protected
+	 * @param \mako\reactor\Command $command           Command instance
+	 * @param array                 $providedArguments Provided arguments
 	 */
 	protected function checkForMissingOptions(Command $command, array $providedArguments)
 	{
@@ -128,8 +128,8 @@ class Dispatcher
 	/**
 	 * Checks arguments and options.
 	 *
-	 * @param  \mako\reactor\Command  $command            Command instance
-	 * @param  array                  $providedArguments  Provided arguments
+	 * @param \mako\reactor\Command $command           Command instance
+	 * @param array                 $providedArguments Provided arguments
 	 */
 	protected function checkArgumentsAndOptions(Command $command, array $providedArguments)
 	{
@@ -146,10 +146,10 @@ class Dispatcher
 	/**
 	 * Executes the command.
 	 *
-	 * @access  protected
-	 * @param   \mako\reactor\Command  $command    Command instance
-	 * @param   array                  $arguments  Command arguments
-	 * @return  mixed
+	 * @access protected
+	 * @param  \mako\reactor\Command $command   Command instance
+	 * @param  array                 $arguments Command arguments
+	 * @return mixed
 	 */
 	protected function execute(Command $command, array $arguments)
 	{
@@ -159,10 +159,10 @@ class Dispatcher
 	/**
 	 * Dispatches the command.
 	 *
-	 * @access  public
-	 * @param   string  $command    Command class
-	 * @param   array   $arguments  Command arguments
-	 * @return  int
+	 * @access public
+	 * @param  string $command   Command class
+	 * @param  array  $arguments Command arguments
+	 * @return int
 	 */
 	public function dispatch(string $command, array $arguments): int
 	{

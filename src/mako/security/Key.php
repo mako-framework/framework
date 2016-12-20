@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\security;
@@ -10,16 +10,16 @@ namespace mako\security;
 /**
  * Key helpers.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Key
 {
 	/**
 	 * Converts a binary key into its hexadecimal representation.
 	 *
-	 * @access  public
-	 * @param   string  $key  Binary key
-	 * @return  string
+	 * @access public
+	 * @param  string $key Binary key
+	 * @return string
 	 */
 	public static function encode(string $key): string
 	{
@@ -29,9 +29,9 @@ class Key
 	/**
 	 * Converts a hexadecimal key into its binary representation.
 	 *
-	 * @access  public
-	 * @param   string  $key  Encoded key
-	 * @return  string
+	 * @access public
+	 * @param  string $key Encoded key
+	 * @return string
 	 */
 	public static function decode(string $key): string
 	{
@@ -46,9 +46,9 @@ class Key
 	/**
 	 * Generates a key.
 	 *
-	 * @access  public
-	 * @param   int     $length  Key length
-	 * @return  string
+	 * @access public
+	 * @param  int    $length Key length
+	 * @return string
 	 */
 	public static function generate(int $length = 32): string
 	{
@@ -58,9 +58,9 @@ class Key
 	/**
 	 * Generates a hex encoded key.
 	 *
-	 * @access  public
-	 * @param   int     $length  Key length
-	 * @return  string
+	 * @access public
+	 * @param  int    $length Key length
+	 * @return string
 	 */
 	public static function generateEncoded(int $length = 32): string
 	{

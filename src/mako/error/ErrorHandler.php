@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\error;
@@ -16,7 +16,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Error handler.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ErrorHandler
 {
@@ -51,7 +51,7 @@ class ErrorHandler
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function __construct()
 	{
@@ -74,7 +74,7 @@ class ErrorHandler
 	/**
 	 * Registers the exception handler.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function register()
 	{
@@ -110,8 +110,8 @@ class ErrorHandler
 	/**
 	 * Disables logging for an exception type.
 	 *
-	 * @access  public
-	 * @param   string|array  $exceptionType  Exception type or array of exception types
+	 * @access public
+	 * @param string|array $exceptionType Exception type or array of exception types
 	 */
 	public function disableLoggingFor($exceptionType)
 	{
@@ -121,7 +121,7 @@ class ErrorHandler
 	/**
 	 * Disables the shutdown handler.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function disableShutdownHandler()
 	{
@@ -131,9 +131,9 @@ class ErrorHandler
 	/**
 	 * Prepends an exception handler to the stack.
 	 *
-	 * @access  public
-	 * @param   string    $exceptionType  Exception type
-	 * @param   \Closure  $handler        Exception handler
+	 * @access public
+	 * @param string   $exceptionType Exception type
+	 * @param \Closure $handler       Exception handler
 	 */
 	public function handle(string $exceptionType, Closure $handler)
 	{
@@ -143,8 +143,8 @@ class ErrorHandler
 	/**
 	 * Clears all error handlers for an exception type.
 	 *
-	 * @access  public
-	 * @param   string  $exceptionType  Exception type
+	 * @access public
+	 * @param string $exceptionType Exception type
 	 */
 	public function clearHandlers(string $exceptionType)
 	{
@@ -160,9 +160,9 @@ class ErrorHandler
 	/**
 	 * Replaces all error handlers for an exception type with a new one.
 	 *
-	 * @access  public
-	 * @param   string    $exceptionType  Exception type
-	 * @param   \Closure  $handler        Exception handler
+	 * @access public
+	 * @param string   $exceptionType Exception type
+	 * @param \Closure $handler       Exception handler
 	 */
 	public function replaceHandlers(string $exceptionType, Closure $handler)
 	{
@@ -174,7 +174,7 @@ class ErrorHandler
 	/**
 	 * Clear output buffers.
 	 *
-	 * @access  protected
+	 * @access protected
 	 */
 	protected function clearOutputBuffers()
 	{
@@ -184,9 +184,9 @@ class ErrorHandler
 	/**
 	 * Should the exception be logged?
 	 *
-	 * @access  public
-	 * @param   \Throwable  $exception  An exception object
-	 * @return  bool
+	 * @access public
+	 * @param   \Throwable $exception An exception object
+	 * @return bool
 	 */
 	protected function shouldExceptionBeLogged(Throwable $exception): bool
 	{
@@ -209,8 +209,8 @@ class ErrorHandler
 	/**
 	 * Handles uncaught exceptions.
 	 *
-	 * @access  public
-	 * @param   \Throwable  $exception  An exception object
+	 * @access public
+	 * @param \Throwable $exception An exception object
 	 */
 	public function handler(Throwable $exception)
 	{

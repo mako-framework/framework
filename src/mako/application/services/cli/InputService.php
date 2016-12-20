@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\services\cli;
@@ -14,7 +14,7 @@ use mako\cli\input\reader\Reader;
 /**
  * Input service.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class InputService extends Service
 {

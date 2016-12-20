@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\auth\providers;
@@ -10,34 +10,34 @@ namespace mako\auth\providers;
 /**
  * Group provider interface.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 interface GroupProviderInterface
 {
 	/**
 	 * Creates and returns a group.
 	 *
-	 * @access  public
-	 * @param   string                           $name  Group name
-	 * @return  \mako\auth\group\GroupInterface
+	 * @access public
+	 * @param  string                          $name Group name
+	 * @return \mako\auth\group\GroupInterface
 	 */
 	public function createGroup($name);
 
 	/**
 	 * Fetches a group by its name.
 	 *
-	 * @access  public
-	 * @param   string                                $name  Group name
-	 * @return  \mako\auth\group\GroupInterface|bool
+	 * @access public
+	 * @param  string                               $name Group name
+	 * @return \mako\auth\group\GroupInterface|bool
 	 */
 	public function getByName($name);
 
 	/**
 	 * Fetches a group by its id.
 	 *
-	 * @access  public
-	 * @param   int                                   $id  Group id
-	 * @return  \mako\auth\group\GroupInterface|bool
+	 * @access public
+	 * @param  int                                  $id Group id
+	 * @return \mako\auth\group\GroupInterface|bool
 	 */
 	public function getById($id);
 }

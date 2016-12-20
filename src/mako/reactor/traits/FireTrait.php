@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\reactor\traits;
@@ -12,15 +12,15 @@ use Closure;
 /**
  * Fire trait.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 trait FireTrait
 {
 	/**
 	 * Returns path to the reactor executable.
 	 *
-	 * @access  protected
-	 * @return  string
+	 * @access protected
+	 * @return string
 	 */
 	protected function buildReactorPath(): string
 	{
@@ -30,10 +30,10 @@ trait FireTrait
 	/**
 	 * Returns command that we're going to execute.
 	 *
-	 * @access  protected
-	 * @param   string    $command          Command
-	 * @param   bool      $background       Is it a background process?
-	 * @param   bool      $sameEnvironment  Run command using the same environment?
+	 * @access protected
+	 * @param string $command         Command
+	 * @param bool   $background      Is it a background process?
+	 * @param bool   $sameEnvironment Run command using the same environment?
 	 */
 	protected function buildCommand(string $command, bool $background = false, bool $sameEnvironment = true): string
 	{
@@ -65,11 +65,11 @@ trait FireTrait
 	/**
 	 * Runs command as a separate process and feeds output to handler.
 	 *
-	 * @access  protected
-	 * @param   string     $command          Command
-	 * @param   \Closure   $handler          Output handler
-	 * @param   bool       $sameEnvironment  Run command using the same environment?
-	 * @return  int
+	 * @access protected
+	 * @param  string   $command         Command
+	 * @param  \Closure $handler         Output handler
+	 * @param  bool     $sameEnvironment Run command using the same environment?
+	 * @return int
 	 */
 	protected function fire(string $command, Closure $handler, bool $sameEnvironment = true): int
 	{
@@ -86,9 +86,9 @@ trait FireTrait
 	/**
 	 * Starts command as a background process.
 	 *
-	 * @access  protected
-	 * @param   string     $command          Command
-	 * @param   bool       $sameEnvironment  Run command using the same environment?
+	 * @access protected
+	 * @param string $command         Command
+	 * @param bool   $sameEnvironment Run command using the same environment?
 	 */
 	protected function fireAndForget(string $command, bool $sameEnvironment = true)
 	{

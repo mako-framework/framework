@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\validator\plugins;
@@ -10,23 +10,23 @@ namespace mako\validator\plugins;
 /**
  * Validator plugin interface.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 interface ValidatorPluginInterface
 {
 	/**
 	 * Returnst the rule name.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getRuleName(): string;
 
 	/**
 	 * Returnst the package name.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @access public
+	 * @return string
 	 */
 	public function getPackageName(): string;
 }

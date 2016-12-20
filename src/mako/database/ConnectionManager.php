@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database;
@@ -29,7 +29,7 @@ use mako\database\query\helpers\Postgres as PostgresHelper;
 /**
  * Database connection manager.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  *
  * @method  \mako\database\connections\Connection  connection($connection = null)
  */
@@ -89,9 +89,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Returns the normalized driver name.
 	 *
-	 * @access  protected
-	 * @param   string     $driver  Driver name
-	 * @return  string
+	 * @access protected
+	 * @param  string $driver Driver name
+	 * @return string
 	 */
 	protected function normalizeDriverName(string $driver): string
 	{
@@ -109,9 +109,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Returns the connection class.
 	 *
-	 * @access  protected
-	 * @param   string     $driver  Driver name
-	 * @return  string
+	 * @access protected
+	 * @param  string $driver Driver name
+	 * @return string
 	 */
 	protected function getConnectionClass(string $driver): string
 	{
@@ -121,9 +121,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Retuns the query compiler class.
 	 *
-	 * @access  protected
-	 * @param   string     $driver  Driver name
-	 * @return  string
+	 * @access protected
+	 * @param  string $driver Driver name
+	 * @return string
 	 */
 	protected function getQueryCompilerClass(string $driver): string
 	{
@@ -133,9 +133,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Retuns the query builder helper class.
 	 *
-	 * @access  protected
-	 * @param   string     $driver  Driver name
-	 * @return  string
+	 * @access protected
+	 * @param  string $driver Driver name
+	 * @return string
 	 */
 	protected function getQueryBuilderHelperClass(string $driver): string
 	{
@@ -145,9 +145,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Sets a driver alias.
 	 *
-	 * @access  public
-	 * @param   string        $driver  Driver name
-	 * @param   string|array  $alias   Alias or array of aliases
+	 * @access public
+	 * @param string       $driver Driver name
+	 * @param string|array $alias  Alias or array of aliases
 	 */
 	public function setDriverAlias(string $driver, $alias)
 	{
@@ -157,9 +157,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Sets a connection class.
 	 *
-	 * @access  public
-	 * @param   string  $driver  Driver name
-	 * @param   string  $class   Connection class
+	 * @access public
+	 * @param string $driver Driver name
+	 * @param string $class  Connection class
 	 */
 	public function setConnectionClass(string $driver, string $class)
 	{
@@ -169,9 +169,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Sets a query compiler class.
 	 *
-	 * @access  public
-	 * @param   string  $driver  Driver name
-	 * @param   string  $class   Query compiler class
+	 * @access public
+	 * @param string $driver Driver name
+	 * @param string $class  Query compiler class
 	 */
 	public function setQueryCompilerClass(string $driver, string $class)
 	{
@@ -181,9 +181,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Sets a query builder helper class.
 	 *
-	 * @access  public
-	 * @param   string  $driver  Driver name
-	 * @param   string  $class   Query builder helper class
+	 * @access public
+	 * @param string $driver Driver name
+	 * @param string $class  Query builder helper class
 	 */
 	public function setQueryBuilderHelperClass(string $driver, string $class)
 	{
@@ -193,9 +193,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Connects to the chosen database and returns the connection.
 	 *
-	 * @access  public
-	 * @param   string                                 $connectionName  Connection name
-	 * @return  \mako\database\connections\Connection
+	 * @access public
+	 * @param  string                                $connectionName Connection name
+	 * @return \mako\database\connections\Connection
 	 */
 	protected function connect(string $connectionName): Connection
 	{
@@ -220,7 +220,7 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Clears the query log of every connection.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function clearLogs()
 	{
@@ -233,9 +233,9 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Returns the query log for all connections.
 	 *
-	 * @access  public
-	 * @param   bool    $groupedByConnection  Group logs by connection?
-	 * @return  array
+	 * @access public
+	 * @param  bool  $groupedByConnection Group logs by connection?
+	 * @return array
 	 */
 	public function getLogs(bool $groupedByConnection = true): array
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\syringe;
@@ -20,7 +20,7 @@ use RuntimeException;
 /**
  * Inversion of control container.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Container
 {
@@ -55,9 +55,9 @@ class Container
 	/**
 	 * Parse the hint parameter.
 	 *
-	 * @access  protected
-	 * @param   string|array  $hint  Type hint or array contaning both type hint and alias
-	 * @return  string
+	 * @access protected
+	 * @param  string|array $hint Type hint or array contaning both type hint and alias
+	 * @return string
 	 */
 	protected function parseHint($hint): string
 	{
@@ -74,10 +74,10 @@ class Container
 	/**
 	 * Register a type hint.
 	 *
-	 * @access  public
-	 * @param   string|array     $hint       Type hint or array contaning both type hint and alias
-	 * @param   string|\Closure  $class      Class name or closure
-	 * @param   bool             $singleton  Should we return the same instance every time?
+	 * @access public
+	 * @param string|array    $hint      Type hint or array contaning both type hint and alias
+	 * @param string|\Closure $class     Class name or closure
+	 * @param bool            $singleton Should we return the same instance every time?
 	 */
 	public function register($hint, $class, bool $singleton = false)
 	{
@@ -87,9 +87,9 @@ class Container
 	/**
 	 * Register a type hint and return the same instance every time.
 	 *
-	 * @access  public
-	 * @param   string|array     $hint   Type hint or array contaning both type hint and alias
-	 * @param   string|\Closure  $class  Class name or closure
+	 * @access public
+	 * @param string|array    $hint  Type hint or array contaning both type hint and alias
+	 * @param string|\Closure $class Class name or closure
 	 */
 	public function registerSingleton($hint, $class)
 	{
@@ -99,9 +99,9 @@ class Container
 	/**
 	 * Register a singleton instance.
 	 *
-	 * @access  public
-	 * @param   string|array  $hint      Type hint or array contaning both type hint and alias
-	 * @param   object        $instance  Class instance
+	 * @access public
+	 * @param string|array $hint     Type hint or array contaning both type hint and alias
+	 * @param object       $instance Class instance
 	 */
 	public function registerInstance($hint, $instance)
 	{
@@ -111,10 +111,10 @@ class Container
 	/**
 	 * Registers a contextual dependency.
 	 *
-	 * @access  public
-	 * @param   string  $class           Class
-	 * @param   string  $interface       Interface
-	 * @param   string  $implementation  Implementation
+	 * @access public
+	 * @param string $class          Class
+	 * @param string $interface      Interface
+	 * @param string $implementation Implementation
 	 */
 	public function registerContextualDependency(string $class, string $interface, string $implementation)
 	{
@@ -124,9 +124,9 @@ class Container
 	/**
 	 * Return the name based on its alias. If no alias exists then we'll just return the value we received.
 	 *
-	 * @access  protected
-	 * @param   string     $alias  Alias
-	 * @return  string
+	 * @access protected
+	 * @param  string $alias Alias
+	 * @return string
 	 */
 	protected function resolveAlias(string $alias): string
 	{
@@ -138,9 +138,9 @@ class Container
 	/**
 	 * Resolves a type hint.
 	 *
-	 * @access  protected
-	 * @param   string           $hint  Type hint
-	 * @return  string|\Closure
+	 * @access protected
+	 * @param  string          $hint Type hint
+	 * @return string|\Closure
 	 */
 	protected function resolveHint(string $hint)
 	{
@@ -150,10 +150,10 @@ class Container
 	/**
 	 * Resolves a contextual dependency.
 	 *
-	 * @access  protected
-	 * @param   string     $class      Class
-	 * @param   string     $interface  Interface
-	 * @return  string
+	 * @access protected
+	 * @param  string $class     Class
+	 * @param  string $interface Interface
+	 * @return string
 	 */
 	protected function resolveContextualDependency(string $class, string $interface): string
 	{
@@ -163,10 +163,10 @@ class Container
 	/**
 	 * Merges the provided parameters with the reflection parameters.
 	 *
-	 * @access  public
-	 * @param   array   $reflectionParameters  Reflection parameters
-	 * @param   array   $providedParameters    Provided parameters
-	 * @return  array
+	 * @access public
+	 * @param  array $reflectionParameters Reflection parameters
+	 * @param  array $providedParameters   Provided parameters
+	 * @return array
 	 */
 	protected function mergeParameters(array $reflectionParameters, array $providedParameters): array
 	{
@@ -203,9 +203,9 @@ class Container
 	/**
 	 * Returns the name of the declaring function.
 	 *
-	 * @access  protected
-	 * @param   \ReflectionParameter  $parameter  ReflectionParameter instance
-	 * @return  string
+	 * @access protected
+	 * @param  \ReflectionParameter $parameter ReflectionParameter instance
+	 * @return string
 	 */
 	protected function getDeclaringFunction(ReflectionParameter $parameter): string
 	{
@@ -222,10 +222,10 @@ class Container
 	/**
 	 * Resolve a parameter.
 	 *
-	 * @access  protected
-	 * @param   \ReflectionParameter   $parameter  ReflectionParameter instance
-	 * @param   null|\ReflectionClass  $class      ReflectionClass instance
-	 * @return  mixed
+	 * @access protected
+	 * @param  \ReflectionParameter  $parameter ReflectionParameter instance
+	 * @param  null|\ReflectionClass $class     ReflectionClass instance
+	 * @return mixed
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ReflectionClass $class = null)
 	{
@@ -258,11 +258,11 @@ class Container
 	/**
 	 * Resolve parameters.
 	 *
-	 * @access  public
-	 * @param   array                  $reflectionParameters  Reflection parameters
-	 * @param   array                  $providedParameters    Provided Parameters
-	 * @param   null|\ReflectionClass  $class                 ReflectionClass instance
-	 * @return  array
+	 * @access public
+	 * @param  array                 $reflectionParameters Reflection parameters
+	 * @param  array                 $providedParameters   Provided Parameters
+	 * @param  null|\ReflectionClass $class                ReflectionClass instance
+	 * @return array
 	 */
 	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ReflectionClass $class = null): array
 	{
@@ -293,9 +293,9 @@ class Container
 	/**
 	 * Checks if a class is container aware.
 	 *
-	 * @access  protected
-	 * @param   object     $class  Class instance
-	 * @return  bool
+	 * @access protected
+	 * @param  object $class Class instance
+	 * @return bool
 	 */
 	protected function isContainerAware($class): bool
 	{
@@ -307,10 +307,10 @@ class Container
 	/**
 	 * Creates a class instance using a factory closure.
 	 *
-	 * @access  public
-	 * @param   \Closure  $factory     Class name or closure
-	 * @param   array     $parameters  Constructor parameters
-	 * @return  object
+	 * @access public
+	 * @param  \Closure $factory    Class name or closure
+	 * @param  array    $parameters Constructor parameters
+	 * @return object
 	 */
 	protected function closureFactory(Closure $factory, array $parameters)
 	{
@@ -331,10 +331,10 @@ class Container
 	/**
 	 * Creates a class instance using reflection.
 	 *
-	 * @access  public
-	 * @param   string  $class       Class name
-	 * @param   array   $parameters  Constructor parameters
-	 * @return  object
+	 * @access public
+	 * @param  string $class      Class name
+	 * @param  array  $parameters Constructor parameters
+	 * @return object
 	 */
 	protected function reflectionFactory(string $class, array $parameters)
 	{
@@ -374,10 +374,10 @@ class Container
 	/**
 	 * Creates a class instance.
 	 *
-	 * @access  public
-	 * @param   string|\Closure  $class       Class name or closure
-	 * @param   array            $parameters  Constructor parameters
-	 * @return  object
+	 * @access public
+	 * @param  string|\Closure $class      Class name or closure
+	 * @param  array           $parameters Constructor parameters
+	 * @return object
 	 */
 	protected function factory($class, array $parameters = [])
 	{
@@ -407,9 +407,9 @@ class Container
 	/**
 	 * Checks if a class is registered in the container.
 	 *
-	 * @access  public
-	 * @param   string  $class  Class name
-	 * @return  bool
+	 * @access public
+	 * @param  string $class Class name
+	 * @return bool
 	 */
 	public function has(string $class): bool
 	{
@@ -421,9 +421,9 @@ class Container
 	/**
 	 * Returns TRUE if a class has been registered as a singleton and FALSE if not.
 	 *
-	 * @access  public
-	 * @param   string  $class  Class name
-	 * @return  bool
+	 * @access public
+	 * @param  string $class Class name
+	 * @return bool
 	 */
 	public function isSingleton(string $class): bool
 	{
@@ -435,11 +435,11 @@ class Container
 	/**
 	 * Returns a class instance.
 	 *
-	 * @access  public
-	 * @param   string  $class           Class name
-	 * @param   array   $parameters      Constructor parameters
-	 * @param   bool    $reuseInstance   Reuse existing instance?
-	 * @return  object
+	 * @access public
+	 * @param  string $class         Class name
+	 * @param  array  $parameters    Constructor parameters
+	 * @param  bool   $reuseInstance Reuse existing instance?
+	 * @return object
 	 */
 	public function get(string $class, array $parameters = [], bool $reuseInstance = true)
 	{
@@ -471,10 +471,10 @@ class Container
 	/**
 	 * Returns a fresh class instance even if the class is registered as a singleton.
 	 *
-	 * @access  public
-	 * @param   string  $class       Class name
-	 * @param   array   $parameters  Constructor parameters
-	 * @return  object
+	 * @access public
+	 * @param  string $class      Class name
+	 * @param  array  $parameters Constructor parameters
+	 * @return object
 	 */
 	public function getFresh(string $class, array $parameters = [])
 	{
@@ -484,10 +484,10 @@ class Container
 	/**
 	 * Execute a callable and inject its dependencies.
 	 *
-	 * @access  public
-	 * @param   callable  $callable    Callable
-	 * @param   array     $parameters  Parameters
-	 * @return  object
+	 * @access public
+	 * @param  callable $callable   Callable
+	 * @param  array    $parameters Parameters
+	 * @return object
 	 */
 	public function call(callable $callable, array $parameters = [])
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\cli\commands\app;
@@ -17,7 +17,7 @@ use mako\utility\Str;
 /**
  * Command that lists all registered routes.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class ListRoutes extends Command
 {
@@ -41,8 +41,8 @@ class ListRoutes extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access  public
-	 * @param   \mako\application\Application  $application  Application instance
+	 * @access public
+	 * @param \mako\application\Application $application Application instance
 	 */
 	public function execute(Application $application)
 	{

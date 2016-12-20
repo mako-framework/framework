@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\validator\plugins;
@@ -13,7 +13,7 @@ use mako\validator\plugins\ValidatorPlugin;
 /**
  * One time token validator plugin.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class OneTimeTokenValidator extends ValidatorPlugin
 {
@@ -34,8 +34,8 @@ class OneTimeTokenValidator extends ValidatorPlugin
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\session\Session  $session  Session instance
+	 * @access public
+	 * @param \mako\session\Session $session Session instance
 	 */
 	public function __construct(Session $session)
 	{
@@ -45,9 +45,9 @@ class OneTimeTokenValidator extends ValidatorPlugin
 	/**
 	 * Validates a one time token.
 	 *
-	 * @access  public
-	 * @param   null|string  $input Input
-	 * @return  bool
+	 * @access public
+	 * @param  null|string $input Input
+	 * @return bool
 	 */
 	public function validate(string $input = null): bool
 	{

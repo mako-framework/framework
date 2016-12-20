@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\application\cli\commands\migrations;
@@ -12,7 +12,7 @@ use mako\application\cli\commands\migrations\Command;
 /**
  * Command that runs all outstanding migrations.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Up extends Command
 {
@@ -29,7 +29,7 @@ class Up extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access  public
+	 * @access public
 	 */
 	public function execute()
 	{

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\database\connections;
@@ -12,7 +12,7 @@ use mako\database\connections\Connection;
 /**
  * SQLServer database connection.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class SQLServer extends Connection
 {

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
  */
 
 namespace mako\session\stores;
@@ -13,7 +13,7 @@ use mako\session\stores\StoreInterface;
 /**
  * Redis store.
  *
- * @author  Frederic G. Østby
+ * @author Frederic G. Østby
  */
 class Redis implements StoreInterface
 {
@@ -34,9 +34,9 @@ class Redis implements StoreInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access  public
-	 * @param   \mako\redis\Redis  $redis           Redis client
-	 * @param   bool|array         $classWhitelist  Class whitelist
+	 * @access public
+	 * @param \mako\redis\Redis $redis          Redis client
+	 * @param bool|array        $classWhitelist Class whitelist
 	 */
 	public function __construct(RedisClient $redis, $classWhitelist = false)
 	{
