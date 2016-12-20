@@ -421,8 +421,6 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('hello,~world!', $response->getBody());
 	}
 
-
-
 	/**
 	 *
 	 */
