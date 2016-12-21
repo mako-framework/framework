@@ -120,7 +120,7 @@ class GD implements ProcessorInterface
 				return imagecreatefrompng($image);
 				break;
 			default:
-				throw new RuntimeException(vsprintf("%s(): Unable to open [ %s ]. Unsupported image type.", [__METHOD__, pathinfo($file, PATHINFO_EXTENSION)]));
+				throw new RuntimeException(vsprintf("%s(): Unable to open [ %s ]. Unsupported image type.", [__METHOD__, pathinfo($image, PATHINFO_EXTENSION)]));
 		}
 	}
 
