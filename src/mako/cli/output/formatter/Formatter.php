@@ -300,7 +300,7 @@ class Formatter implements FormatterInterface
 
 		preg_match_all(static::TAG_REGEX, $string, $matches, PREG_OFFSET_CAPTURE);
 
-		foreach($matches[0] as $key => $match)
+		foreach($matches[0] as $match)
 		{
 			list($tag, $pos) = $match;
 
