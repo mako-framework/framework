@@ -7,15 +7,15 @@
 
 namespace mako\syringe;
 
-use mako\syringe\ClassInspector;
-use mako\syringe\ContainerAwareTrait;
-
 use Closure;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionMethod;
 use ReflectionParameter;
 use RuntimeException;
+
+use mako\syringe\ClassInspector;
+use mako\syringe\ContainerAwareTrait;
 
 /**
  * Inversion of control container.
@@ -130,8 +130,6 @@ class Container
 	 */
 	protected function resolveAlias(string $alias): string
 	{
-		$alias = ltrim($alias, '\\');
-
 		return $this->aliases[$alias] ?? $alias;
 	}
 
@@ -190,7 +188,7 @@ class Container
 
 		$associativeReflectionParameters = [];
 
-		foreach($reflectionParameters as $key => $value)
+		foreach($reflectionParameters as $value)
 		{
 			$associativeReflectionParameters[$value->getName()] = $value;
 		}
