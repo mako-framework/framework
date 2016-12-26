@@ -17,6 +17,13 @@ use mako\cli\output\Output;
 class ProgressBar
 {
 	/**
+	 * Progressbar width.
+	 *
+	 * @var integer
+	 */
+	protected $width = 20;
+
+	/**
 	 * String that represents the empty part of the progess bar.
 	 *
 	 * @var string
@@ -76,6 +83,17 @@ class ProgressBar
 	}
 
 	/**
+	 * Sets the progress bar width.
+	 *
+	 * @access  public
+	 * @param int $width Progress bar width
+	 */
+	public function setWidth(int $width)
+	{
+		$this->width = $width;
+	}
+
+	/**
 	 * Sets the string that represents the empty part of the progess bar.
 	 *
 	 * @access public
@@ -101,20 +119,20 @@ class ProgressBar
 	 * Builds the progressbar.
 	 *
 	 * @access protected
-	 * @param  int    $percent Percent to fill
+	 * @param  float  $percent Percent to fill
 	 * @return string
 	 */
-	protected function buildProgressBar(int $percent): string
+	protected function buildProgressBar(float $percent): string
 	{
-		$fill = (int) floor($percent / 5);
+		$fill = (int) floor($percent * $this->width);
 
 		$progressBar  = str_pad($this->progress, strlen($this->items), '0', STR_PAD_LEFT) . '/' . $this->items . ' ';
 
 		$progressBar .= str_repeat($this->filledTemplate, $fill);
 
-		$progressBar .= str_repeat($this->emptyTemplate, (20 - $fill));
+		$progressBar .= str_repeat($this->emptyTemplate, ($this->width - $fill));
 
-		$progressBar .= str_pad(' '. $percent . '% ', 6, ' ', STR_PAD_LEFT);
+		$progressBar .= str_pad(' '. ((int) ($percent * 100)) . '% ', 6, ' ', STR_PAD_LEFT);
 
 		return $progressBar;
 	}
@@ -135,7 +153,7 @@ class ProgressBar
 
 		// Calculate percent
 
-		$percent = (int) ceil(min(($this->progress / $this->items) * 100, 100));
+		$percent = (float) min(($this->progress / $this->items), 1);
 
 		// Build progress bar
 

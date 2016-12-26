@@ -289,9 +289,11 @@ abstract class Command
 	{
 		$progressBar = new ProgressBar($this->output, $items, $redrawRate);
 
-		$progressBar->setEmptyTemplate('<red>-</red>');
+		$progressBar->setWidth(50);
 
-		$progressBar->setFilledTemplate('<green>=</green>');
+		$progressBar->setEmptyTemplate('<red>░</red>');
+
+		$progressBar->setFilledTemplate('<green>▓</green>');
 
 		$progressBar->draw();
 
