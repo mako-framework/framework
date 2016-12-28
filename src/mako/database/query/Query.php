@@ -12,7 +12,6 @@ use PDO;
 
 use mako\database\connections\Connection;
 use mako\database\query\Join;
-use mako\database\query\QueryConvenienceTrait;
 use mako\database\query\Raw;
 use mako\database\query\Result;
 use mako\database\query\ResultSet;
@@ -26,8 +25,6 @@ use mako\pagination\PaginationFactoryInterface;
  */
 class Query
 {
-	use QueryConvenienceTrait;
-
 	/**
 	 * Database connection.
 	 *
