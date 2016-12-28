@@ -14,7 +14,6 @@ use mako\http\Request;
 use mako\http\response\builders\ResponseBuilderInterface;
 use mako\http\response\senders\ResponseSenderInterface;
 use mako\security\Signer;
-use mako\view\View;
 
 /**
  * HTTP response.
@@ -217,11 +216,7 @@ class Response
 	 */
 	public function body($body): Response
 	{
-		if($body instanceof View)
-		{
-			$this->body = $body->render();
-		}
-		elseif($body instanceof $this)
+		if($body instanceof $this)
 		{
 			$this->body = $body->getBody();
 
