@@ -7,6 +7,7 @@
 
 namespace mako\reactor;
 
+use mako\reactor\Command;
 use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
 use mako\reactor\exceptions\MissingArgumentException;
@@ -175,6 +176,6 @@ class Dispatcher
 			$returnValue = $this->execute($command, $arguments);
 		}
 
-		return isset($returnValue) ? (is_int($returnValue) ? $returnValue : 0) : 0;
+		return isset($returnValue) ? (is_int($returnValue) ? $returnValue : Command::STATUS_SUCCESS) : Command::STATUS_SUCCESS;
 	}
 }

@@ -12,6 +12,7 @@ use Closure;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\cli\output\helpers\Table;
+use mako\reactor\Command;
 use mako\reactor\Dispatcher;
 use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
@@ -288,7 +289,7 @@ class Reactor
 
 			$this->listCommands();
 
-			return 0;
+			return Command::STATUS_ERROR;
 		}
 
 		return $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
@@ -309,38 +310,38 @@ class Reactor
 			$this->displayReactorInfo();
 
 			$this->listCommands();
+
+			return Command::STATUS_SUCCESS;
 		}
-		else
+
+		try
 		{
-			try
-			{
-				$exitCode = $this->dispatch($command);
-			}
-			catch(InvalidOptionException $e)
-			{
-				$message = 'Invalid option [ ' . $e->getName() . ' ].';
+			$exitCode = $this->dispatch($command);
+		}
+		catch(InvalidOptionException $e)
+		{
+			$message = 'Invalid option [ ' . $e->getName() . ' ].';
 
-				if(($suggestion = $e->getSuggestion()) !== null)
-				{
-					$message .= ' Did you mean [ ' . $suggestion . ' ]?';
-				}
+			if(($suggestion = $e->getSuggestion()) !== null)
+			{
+				$message .= ' Did you mean [ ' . $suggestion . ' ]?';
+			}
 
-				$this->output->errorLn('<red>' . $message . '</red>');
-			}
-			catch(InvalidArgumentException $e)
-			{
-				$this->output->errorLn('<red>Invalid argument [ ' . $e->getName() . ' ].</red>');
-			}
-			catch(MissingOptionException $e)
-			{
-				$this->output->errorLn('<red>Missing required option [ ' . $e->getName() . ' ].</red>');
-			}
-			catch(MissingArgumentException $e)
-			{
-				$this->output->errorLn('<red>Missing required argument [ ' . $e->getName() . ' ].</red>');
-			}
+			$this->output->errorLn('<red>' . $message . '</red>');
+		}
+		catch(InvalidArgumentException $e)
+		{
+			$this->output->errorLn('<red>Invalid argument [ ' . $e->getName() . ' ].</red>');
+		}
+		catch(MissingOptionException $e)
+		{
+			$this->output->errorLn('<red>Missing required option [ ' . $e->getName() . ' ].</red>');
+		}
+		catch(MissingArgumentException $e)
+		{
+			$this->output->errorLn('<red>Missing required argument [ ' . $e->getName() . ' ].</red>');
 		}
 
-		return $exitCode ?? 0;
+		return $exitCode ?? Command::STATUS_ERROR;
 	}
 }

@@ -31,6 +31,20 @@ abstract class Command
 	use ContainerAwareTrait;
 
 	/**
+	 * Success status code.
+	 *
+	 * @var integer
+	 */
+	const STATUS_SUCCESS = 0;
+
+	/**
+	 * Error status code.
+	 *
+	 * @var integer
+	 */
+	const STATUS_ERROR = 1;
+
+	/**
 	 * Input.
 	 *
 	 * @var \mako\cli\input\Input

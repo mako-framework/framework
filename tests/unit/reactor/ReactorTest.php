@@ -139,7 +139,7 @@ EOF;
 
 		$exitCode = $reactor->run();
 
-		$this->assertSame(0, $exitCode);
+		$this->assertSame(1, $exitCode);
 	}
 
 	/**
@@ -187,7 +187,7 @@ EOF;
 
 		$exitCode = $reactor->run();
 
-		$this->assertSame(0, $exitCode);
+		$this->assertSame(1, $exitCode);
 	}
 
 	/**
@@ -235,7 +235,7 @@ EOF;
 
 		$exitCode = $reactor->run();
 
-		$this->assertSame(0, $exitCode);
+		$this->assertSame(1, $exitCode);
 	}
 
 	/**
@@ -273,7 +273,7 @@ EOF;
 
 		$exitCode = $reactor->run();
 
-		$this->assertSame(0, $exitCode);
+		$this->assertSame(1, $exitCode);
 	}
 
 	/**
@@ -311,7 +311,7 @@ EOF;
 
 		$exitCode = $reactor->run();
 
-		$this->assertSame(0, $exitCode);
+		$this->assertSame(1, $exitCode);
 	}
 
 	/**
@@ -349,7 +349,7 @@ EOF;
 
 		$exitCode = $reactor->run();
 
-		$this->assertSame(0, $exitCode);
+		$this->assertSame(1, $exitCode);
 	}
 
 	/**
@@ -387,7 +387,7 @@ EOF;
 
 		$exitCode = $reactor->run();
 
-		$this->assertSame(0, $exitCode);
+		$this->assertSame(1, $exitCode);
 	}
 
 	/**
@@ -425,7 +425,7 @@ EOF;
 
 		$exitCode = $reactor->run();
 
-		$this->assertSame(0, $exitCode);
+		$this->assertSame(1, $exitCode);
 	}
 
 	/**
