@@ -12,6 +12,8 @@ use mako\application\Application as BaseApplication;
 use mako\application\cli\commands\app\GenerateKey;
 use mako\application\cli\commands\app\GenerateSecret;
 use mako\application\cli\commands\app\ListRoutes;
+use mako\application\cli\commands\cache\Clear;
+use mako\application\cli\commands\cache\Remove;
 use mako\application\cli\commands\migrations\Create;
 use mako\application\cli\commands\migrations\Down;
 use mako\application\cli\commands\migrations\Reset;
@@ -58,6 +60,15 @@ class Application extends BaseApplication
 			'app.routes'          => ListRoutes::class,
 			'server'              => Server::class,
 		];
+
+		if($this->container->has('cache'))
+		{
+			$commands = array_merge($commands,
+			[
+				'cache.remove' => Remove::class,
+				'cache.clear'  => Clear::class,
+			]);
+		}
 
 		if($this->container->has('database'))
 		{
