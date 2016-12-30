@@ -91,7 +91,7 @@ class Create extends Command
 		{
 			$this->error('Failed to create migration. Make sure that the migrations directory is writable.');
 
-			return;
+			return Command::STATUS_ERROR;
 		}
 
 		$this->write(vsprintf('Migration created at [ %s ].', [$path]));

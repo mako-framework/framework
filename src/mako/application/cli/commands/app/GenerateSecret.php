@@ -51,7 +51,7 @@ class GenerateSecret extends Command
 		{
 			$this->error('Unable to generate a new secret. Make sure that the [ app/config/application.php ] file is writable.');
 
-			return;
+			return Command::STATUS_ERROR;
 		}
 
 		$secret = Key::generateEncoded();
