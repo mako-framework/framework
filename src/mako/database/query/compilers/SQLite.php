@@ -8,6 +8,7 @@
 namespace mako\database\query\compilers;
 
 use mako\database\query\compilers\Compiler;
+use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 
 /**
  * Compiles SQLite queries.
@@ -17,38 +18,14 @@ use mako\database\query\compilers\Compiler;
  */
 class SQLite extends Compiler
 {
+	use JsonPathBuilderTrait;
+
 	/**
 	 * Date format.
 	 *
 	 * @var string
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
-
-	/**
-	 * Builds a JSON path.
-	 *
-	 * @access protected
-	 * @param  array  $segments Path segments
-	 * @return string
-	 */
-	protected function buildJsonPath(array $segments): string
-	{
-		$path = '';
-
-		foreach($segments as $segment)
-		{
-			if(is_numeric($segment))
-			{
-				$path .= '[' . $segment . ']';
-			}
-			else
-			{
-				$path .= '.' . '"' . str_replace(['"', "'"], ['\\\"', "''"], $segment) . '"';
-			}
-		}
-
-		return '$' . $path;
-	}
 
 	/**
 	 * {@inheritdoc}

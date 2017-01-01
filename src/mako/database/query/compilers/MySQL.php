@@ -8,6 +8,7 @@
 namespace mako\database\query\compilers;
 
 use mako\database\query\compilers\Compiler;
+use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 
 /**
  * Compiles MySQL queries.
@@ -16,6 +17,8 @@ use mako\database\query\compilers\Compiler;
  */
 class MySQL extends Compiler
 {
+	use JsonPathBuilderTrait;
+
 	/**
 	 * Date format.
 	 *
@@ -29,32 +32,6 @@ class MySQL extends Compiler
 	public function escapeIdentifier(string $identifier): string
 	{
 		return '`' . str_replace('`', '``', $identifier) . '`';
-	}
-
-	/**
-	 * Builds a JSON path.
-	 *
-	 * @access protected
-	 * @param  array  $segments Path segments
-	 * @return string
-	 */
-	protected function buildJsonPath(array $segments): string
-	{
-		$path = '';
-
-		foreach($segments as $segment)
-		{
-			if(is_numeric($segment))
-			{
-				$path .= '[' . $segment . ']';
-			}
-			else
-			{
-				$path .= '.' . '"' . str_replace(['"', "'"], ['\\\"', "''"], $segment) . '"';
-			}
-		}
-
-		return '$' . $path;
 	}
 
 	/**
