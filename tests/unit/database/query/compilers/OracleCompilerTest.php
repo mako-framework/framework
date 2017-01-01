@@ -173,7 +173,7 @@ class OracleCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_VALUE("json", \'$.foo[0].bar\') FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE("json", \'$."foo"[0]."bar"\') FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -184,7 +184,18 @@ class OracleCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_VALUE("json", \'$.foo[0]."bar\') FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE("json", \'$."foo"[0]."\\\"bar"\') FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->select(['json->foo->0->\'bar']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT JSON_VALUE("json", \'$."foo"[0]."\'\'bar"\') FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -195,7 +206,7 @@ class OracleCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_VALUE("json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE("json", \'$."foo"[0]."bar"\') AS "jsonvalue" FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -206,7 +217,7 @@ class OracleCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_VALUE("foobar"."json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE("foobar"."json", \'$."foo"[0]."bar"\') AS "jsonvalue" FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 

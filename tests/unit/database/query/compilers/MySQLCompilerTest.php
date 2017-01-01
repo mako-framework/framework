@@ -85,7 +85,7 @@ class MySQLCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT `json`->\'$."foo"[0]."\\"bar"\' FROM `foobar`', $query['sql']);
+		$this->assertEquals('SELECT `json`->\'$."foo"[0]."\\\"bar"\' FROM `foobar`', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//

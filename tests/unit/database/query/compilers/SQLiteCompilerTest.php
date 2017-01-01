@@ -61,7 +61,7 @@ class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_EXTRACT("json", \'$.foo[0].bar\') FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_EXTRACT("json", \'$."foo"[0]."bar"\') FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -72,7 +72,7 @@ class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_EXTRACT("json", \'$.foo[0].\'\'bar\') FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_EXTRACT("json", \'$."foo"[0]."\'\'bar"\') FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -83,7 +83,7 @@ class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_EXTRACT("json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_EXTRACT("json", \'$."foo"[0]."bar"\') AS "jsonvalue" FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -94,7 +94,7 @@ class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_EXTRACT("foobar"."json", \'$.foo[0].bar\') AS "jsonvalue" FROM "foobar"', $query['sql']);
+		$this->assertEquals('SELECT JSON_EXTRACT("foobar"."json", \'$."foo"[0]."bar"\') AS "jsonvalue" FROM "foobar"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -107,7 +107,7 @@ class SQLiteCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->update(['data->foo->bar->0' => 1]);
 
-		$this->assertEquals('UPDATE "foobar" SET "data" = JSON_SET("data", \'$.foo.bar[0]\', JSON(?))', $query['sql']);
+		$this->assertEquals('UPDATE "foobar" SET "data" = JSON_SET("data", \'$."foo"."bar"[0]\', JSON(?))', $query['sql']);
 		$this->assertEquals([1], $query['params']);
 	}
 }
