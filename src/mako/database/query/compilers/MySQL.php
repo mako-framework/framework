@@ -44,7 +44,14 @@ class MySQL extends Compiler
 
 		foreach($segments as $segment)
 		{
-			$path .= is_numeric($segment) ? '[' . $segment . ']' : '.' . '"' . str_replace('"', '\\"', $segment) . '"';
+			if(is_numeric($segment))
+			{
+				$path .= '[' . $segment . ']';
+			}
+			else
+			{
+				$path .= '.' . '"' . str_replace(['"', "'"], ['\\"', "''"], $segment) . '"';
+			}
 		}
 
 		return '$' . $path;
