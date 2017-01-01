@@ -92,6 +92,22 @@ class URLBuilderTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testBaseWithConfiguredURL()
+	{
+		$request = Mockery::mock('\mako\http\Request');
+
+		$request->shouldReceive('languagePrefix')->once()->andReturn('');
+
+		$request->shouldReceive('baseURL')->never();
+
+		$urlBuilder = new URLBuilder($request, $this->getRoutes(), false, 'http://example.com');
+
+		$this->assertEquals('http://example.com', $urlBuilder->base());
+	}
+
+	/**
+	 *
+	 */
 	public function testTo()
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes());

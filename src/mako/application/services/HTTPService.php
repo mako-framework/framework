@@ -85,7 +85,7 @@ class HTTPService extends Service
 
 		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], function($container) use ($config)
 		{
-			return new URLBuilder($container->get('request'), $container->get('routes'), $config['clean_urls']);
+			return new URLBuilder($container->get('request'), $container->get('routes'), $config['clean_urls'], $config['base_url']);
 		});
 	}
 }

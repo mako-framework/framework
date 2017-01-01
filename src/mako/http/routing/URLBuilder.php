@@ -39,6 +39,13 @@ class URLBuilder
 	protected $cleanURLs;
 
 	/**
+	 * Base URL.
+	 *
+	 * @var string
+	 */
+	protected $baseURL;
+
+	/**
 	 * Language prefix.
 	 *
 	 * @var string
@@ -52,12 +59,14 @@ class URLBuilder
 	 * @param \mako\http\Request        $request   Request instance
 	 * @param \mako\http\routing\Routes $routes    Route collection
 	 * @param bool                      $cleanURLs Create "clean" URLs?
+	 * @param string                    $baseURL   Base URL
 	 */
-	public function __construct(Request $request, Routes $routes, bool $cleanURLs = false)
+	public function __construct(Request $request, Routes $routes, bool $cleanURLs = false, string $baseURL = null)
 	{
 		$this->request   = $request;
 		$this->routes    = $routes;
 		$this->cleanURLs = $cleanURLs;
+		$this->baseURL   = $baseURL;
 
 		$language = $request->languagePrefix();
 
@@ -87,7 +96,12 @@ class URLBuilder
 	 */
 	public function base(): string
 	{
-		return $this->request->baseURL();
+		if(empty($this->baseURL))
+		{
+			$this->baseURL = $this->request->baseURL();
+		}
+
+		return $this->baseURL;
 	}
 
 	/**
