@@ -62,7 +62,7 @@ class MySQL extends Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		return $column . "->'" . $this->buildJsonPath($segments) . "'";
+		return $column . "->>'" . $this->buildJsonPath($segments) . "'";
 	}
 
 	/**
