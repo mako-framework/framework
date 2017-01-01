@@ -507,53 +507,6 @@ abstract class Application
 	}
 
 	/**
-	 * Loads middleware.
-	 *
-	 * @access protected
-	 * @return \mako\http\routing\Middleware
-	 */
-	protected function loadMiddleware(): Middleware
-	{
-		$loader = function($app, $container, $middleware)
-		{
-			include $this->applicationPath . '/routing/middleware.php';
-
-			return $middleware;
-		};
-
-		return $loader($this, $this->container, new Middleware);
-	}
-
-	/**
-	 * Loads routes.
-	 *
-	 * @access protected
-	 * @return \mako\http\routing\Routes
-	 */
-	protected function loadRoutes(): Routes
-	{
-		$loader = function($app, $container, $routes)
-		{
-			include $this->applicationPath . '/routing/routes.php';
-
-			return $routes;
-		};
-
-		return $loader($this, $this->container, $this->container->get('routes'));
-	}
-
-	/**
-	 * Loads middleware and routes.
-	 *
-	 * @access protected
-	 * @return array
-	 */
-	protected function loadRouting(): array
-	{
-		return [$this->loadMiddleware(), $this->loadRoutes()];
-	}
-
-	/**
 	 * Runs the application.
 	 *
 	 * @access public

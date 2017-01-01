@@ -33,17 +33,6 @@ use mako\reactor\Reactor;
 class Application extends BaseApplication
 {
 	/**
-	 * Returns the route collection.
-	 *
-	 * @access public
-	 * @return \mako\http\routing\Routes
-	 */
-	public function getRouteCollection(): Routes
-	{
-		return $this->loadRoutes();
-	}
-
-	/**
 	 * Returns all registered commands.
 	 *
 	 * @access protected

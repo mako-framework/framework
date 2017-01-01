@@ -9,6 +9,7 @@ namespace mako\application\web;
 
 use mako\application\Application as BaseApplication;
 use mako\http\routing\Dispatcher;
+use mako\http\routing\Middleware;
 use mako\http\routing\Router;
 
 /**
@@ -39,9 +40,11 @@ class Application extends BaseApplication
 			}
 		}
 
-		// Load middleware and routes
+		// Get middleware and routes
 
-		list($middleware, $routes) = $this->loadRouting();
+		$middleware = $this->container->get(Middleware::class);
+
+		$routes = $this->container->get('routes');
 
 		// Route the request
 

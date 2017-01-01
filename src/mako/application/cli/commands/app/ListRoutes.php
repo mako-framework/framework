@@ -9,8 +9,8 @@ namespace mako\application\cli\commands\app;
 
 use Closure;
 
-use mako\application\Application;
 use mako\file\FileSystem;
+use mako\http\routing\Routes;
 use mako\reactor\Command;
 use mako\utility\Str;
 
@@ -42,13 +42,15 @@ class ListRoutes extends Command
 	 * Executes the command.
 	 *
 	 * @access public
-	 * @param \mako\application\Application $application Application instance
+	 * @param \mako\http\routing\Routes $routes Route collection
 	 */
-	public function execute(Application $application)
+	public function execute(Routes $routes)
 	{
+		$routeCollection = [];
+
 		// Build table rows
 
-		foreach($application->getRouteCollection()->getRoutes() as $route)
+		foreach($routes->getRoutes() as $route)
 		{
 			// Normalize action name
 
@@ -56,13 +58,13 @@ class ListRoutes extends Command
 
 			// Build table row
 
-			$routes[] =
+			$routeCollection[] =
 			[
 				$route->getRoute(),
 				implode(', ', $route->getMethods()),
 				$action,
 				implode(', ', $route->getMiddleware()),
-				(string) $route->getName()
+				(string) $route->getName(),
 			];
 		}
 
@@ -77,6 +79,6 @@ class ListRoutes extends Command
 			'<green>Name</green>',
 		];
 
-		$this->table($headers, $routes);
+		$this->table($headers, $routeCollection);
 	}
 }
