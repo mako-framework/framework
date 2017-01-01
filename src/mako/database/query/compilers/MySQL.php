@@ -44,10 +44,10 @@ class MySQL extends Compiler
 
 		foreach($segments as $segment)
 		{
-			$path .= is_numeric($segment) ? '[' . $segment . ']' : '.' . $segment;
+			$path .= is_numeric($segment) ? '[' . $segment . ']' : '.' . '"' . str_replace('"', '\\"', $segment) . '"';
 		}
 
-		return '$' . str_replace('"', '""', $path);
+		return '$' . $path;
 	}
 
 	/**
@@ -55,7 +55,7 @@ class MySQL extends Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		return $column . '->"' . $this->buildJsonPath($segments) . '"';
+		return $column . "->'" . $this->buildJsonPath($segments) . "'";
 	}
 
 	/**

@@ -74,7 +74,7 @@ class MySQLCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT `json`->"$.foo[0].bar" FROM `foobar`', $query['sql']);
+		$this->assertEquals('SELECT `json`->\'$."foo"[0]."bar"\' FROM `foobar`', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -85,7 +85,7 @@ class MySQLCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT `json`->"$.foo[0].""bar" FROM `foobar`', $query['sql']);
+		$this->assertEquals('SELECT `json`->\'$."foo"[0]."\\"bar"\' FROM `foobar`', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -96,7 +96,7 @@ class MySQLCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT `json`->"$.foo[0].bar" AS `jsonvalue` FROM `foobar`', $query['sql']);
+		$this->assertEquals('SELECT `json`->\'$."foo"[0]."bar"\' AS `jsonvalue` FROM `foobar`', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -107,7 +107,7 @@ class MySQLCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT `foobar`.`json`->"$.foo[0].bar" AS `jsonvalue` FROM `foobar`', $query['sql']);
+		$this->assertEquals('SELECT `foobar`.`json`->\'$."foo"[0]."bar"\' AS `jsonvalue` FROM `foobar`', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -165,7 +165,7 @@ class MySQLCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->update(['data->foo->bar->0' => 1]);
 
-		$this->assertEquals('UPDATE `foobar` SET `data` = JSON_SET(`data`, \'$.foo.bar[0]\', CAST(? AS JSON))', $query['sql']);
+		$this->assertEquals('UPDATE `foobar` SET `data` = JSON_SET(`data`, \'$."foo"."bar"[0]\', CAST(? AS JSON))', $query['sql']);
 		$this->assertEquals([1], $query['params']);
 	}
 }
