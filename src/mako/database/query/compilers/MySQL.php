@@ -50,7 +50,7 @@ class MySQL extends Compiler
 			}
 			else
 			{
-				$path .= '.' . '"' . str_replace(['"', "'"], ['\\"', "''"], $segment) . '"';
+				$path .= '.' . '"' . str_replace(['"', "'"], ['\\\"', "''"], $segment) . '"';
 			}
 		}
 

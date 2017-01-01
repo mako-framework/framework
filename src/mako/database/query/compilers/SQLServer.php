@@ -42,10 +42,17 @@ class SQLServer extends Compiler
 
 		foreach($segments as $segment)
 		{
-			$path .= is_numeric($segment) ? '[' . $segment . ']' : '.' . $segment;
+			if(is_numeric($segment))
+			{
+				$path .= '[' . $segment . ']';
+			}
+			else
+			{
+				$path .= '.' . '"' . str_replace(['"', "'"], ['\\\"', "''"], $segment) . '"';
+			}
 		}
 
-		return '$' . str_replace("'", "''", $path);
+		return '$' . $path;
 	}
 
 	/**

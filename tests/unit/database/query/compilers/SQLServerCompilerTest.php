@@ -172,7 +172,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_VALUE([json], \'lax $.foo[0].bar\') FROM [foobar]', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE([json], \'lax $."foo"[0]."bar"\') FROM [foobar]', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -183,7 +183,18 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_VALUE([json], \'lax $.foo[0].\'\'bar\') FROM [foobar]', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE([json], \'lax $."foo"[0]."\'\'bar"\') FROM [foobar]', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->select(['json->foo->0->"bar']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT JSON_VALUE([json], \'lax $."foo"[0]."\\\"bar"\') FROM [foobar]', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -194,7 +205,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_VALUE([json], \'lax $.foo[0].bar\') AS [jsonvalue] FROM [foobar]', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE([json], \'lax $."foo"[0]."bar"\') AS [jsonvalue] FROM [foobar]', $query['sql']);
 		$this->assertEquals([], $query['params']);
 
 		//
@@ -205,7 +216,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT JSON_VALUE([foobar].[json], \'lax $.foo[0].bar\') AS [jsonvalue] FROM [foobar]', $query['sql']);
+		$this->assertEquals('SELECT JSON_VALUE([foobar].[json], \'lax $."foo"[0]."bar"\') AS [jsonvalue] FROM [foobar]', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -218,7 +229,7 @@ class SQLServerCompilerTest extends PHPUnit_Framework_TestCase
 
 		$query = $query->getCompiler()->update(['data->foo->bar->0' => 1]);
 
-		$this->assertEquals('UPDATE [foobar] SET [data] = JSON_MODIFY([data], \'lax $.foo.bar[0]\', JSON_QUERY(\'?\'))', $query['sql']);
+		$this->assertEquals('UPDATE [foobar] SET [data] = JSON_MODIFY([data], \'lax $."foo"."bar"[0]\', JSON_QUERY(\'?\'))', $query['sql']);
 		$this->assertEquals([1], $query['params']);
 	}
 
