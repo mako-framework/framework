@@ -1115,7 +1115,7 @@ class Query
 	 * @access public
 	 * @return \mako\database\query\Query
 	 */
-	public function clearOrdering()
+	public function clearOrderings()
 	{
 		$this->orderings = [];
 
@@ -1298,7 +1298,7 @@ class Query
 	 */
 	protected function paginationCount(): int
 	{
-		$clone = (clone $this)->clearOrdering();
+		$clone = (clone $this)->clearOrderings();
 
 		if(empty($this->groupings) && $this->distinct === false)
 		{
