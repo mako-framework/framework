@@ -1298,12 +1298,14 @@ class Query
 	 */
 	protected function paginationCount(): int
 	{
+		$clone = (clone $this)->clearOrdering();
+
 		if(empty($this->groupings) && $this->distinct === false)
 		{
-			return (clone $this)->clearOrdering()->count();
+			return $clone->count();
 		}
 
-		return $this->newInstance()->table(new Subquery((clone $this)->clearOrdering(), 'count'))->count();
+		return $this->newInstance()->table(new Subquery($clone, 'count'))->count();
 	}
 
 	/**
