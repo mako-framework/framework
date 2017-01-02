@@ -19,9 +19,9 @@ class Parser
 {
 	use FunctionParserTrait;
 
-	public function parse($function)
+	public function parse($function, $namedParameters = false)
 	{
-		return $this->parseFunction($function);
+		return $this->parseFunction($function, $namedParameters);
 	}
 }
 
@@ -51,13 +51,13 @@ class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
 	{
 		$parser = new Parser;
 
-		$this->assertSame(['foo', [1]], $parser->parse('foo:1'));
+		$this->assertSame(['foo', [1]], $parser->parse('foo(1)'));
 
-		$this->assertSame(['foo', ['1']], $parser->parse('foo:"1"'));
+		$this->assertSame(['foo', ['1']], $parser->parse('foo("1")'));
 
-		$this->assertSame(['foo', [true]], $parser->parse('foo:true'));
+		$this->assertSame(['foo', [true]], $parser->parse('foo(true)'));
 
-		$this->assertSame(['foo', [false]], $parser->parse('foo:false'));
+		$this->assertSame(['foo', [false]], $parser->parse('foo(false)'));
 	}
 
 	/**
@@ -67,11 +67,11 @@ class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
 	{
 		$parser = new Parser;
 
-		$this->assertSame(['foo', [1, 2, 3]], $parser->parse('foo:[1,2,3]'));
+		$this->assertSame(['foo', [1, 2, 3]], $parser->parse('foo(1,2,3)'));
 
-		$this->assertSame(['foo', [1, '2', 3]], $parser->parse('foo:[1,"2",3]'));
+		$this->assertSame(['foo', [1, '2', 3]], $parser->parse('foo(1,"2",3)'));
 
-		$this->assertSame(['foo', [1, 2, 3,['a', 'b', 'c']]], $parser->parse('foo:[1,2,3,["a","b","c"]]'));
+		$this->assertSame(['foo', [1, 2, 3, ['a', 'b', 'c']]], $parser->parse('foo(1,2,3,["a","b","c"])'));
 	}
 
 	/**
@@ -81,7 +81,7 @@ class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
 	{
 		$parser = new Parser;
 
-		$this->assertSame(['foo', ['a' => 1, 'b' => 2]], $parser->parse('foo:{"a":1,"b":2}'));
+		$this->assertSame(['foo', ['a' => 1, 'b' => 2]], $parser->parse('foo("a":1,"b":2)', true));
 	}
 
 	/**
@@ -91,6 +91,6 @@ class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
 	{
 		$parser = new Parser;
 
-		$parser->parse('foo:bar');
+		$parser->parse('foo(bar)');
 	}
 }

@@ -401,7 +401,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
-		$route->shouldReceive('getMiddleware')->once()->andReturn(['test:{"separator":"~"}']);
+		$route->shouldReceive('getMiddleware')->once()->andReturn(['test("separator":"~")']);
 
 		$route->shouldReceive('getAction')->once()->andReturn(function()
 		{

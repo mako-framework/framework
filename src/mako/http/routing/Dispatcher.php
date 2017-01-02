@@ -103,7 +103,7 @@ class Dispatcher
 	 */
 	protected function resolveMiddleware(string $middleware): array
 	{
-		list($middleware, $parameters) = $this->parseFunction($middleware);
+		list($middleware, $parameters) = $this->parseFunction($middleware, true);
 
 		$middleware = $this->middleware->get($middleware);
 

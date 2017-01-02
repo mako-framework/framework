@@ -17,30 +17,48 @@ use RuntimeException;
 trait FunctionParserTrait
 {
 	/**
-	 * Parses custom "function calls".
-	 *
-	 * The return value is an array consisting of the function name and parameters.
+	 * Splits function name and parameters into an array.
 	 *
 	 * @access protected
 	 * @param  string $function Function
 	 * @return array
 	 */
-	protected function parseFunction(string $function): array
+	protected function splitFunctionAndParameters(string $function): array
 	{
-		if(strpos($function, ':') === false)
+		if(preg_match('/([a-z0-9_]+)\((.*)\)/i', $function, $matches) !== 1)
+		{
+			throw new RuntimeException(vsprintf('%s(): [ %s ] does not match the expected function pattern.', [__METHOD__, $function]));
+		}
+
+		return [$matches[1], $matches[2]];
+	}
+
+	/**
+	 * Parses custom "function calls".
+	 *
+	 * The return value is an array consisting of the function name and parameters.
+	 *
+	 * @access protected
+	 * @param  string $function        Function
+	 * @param  bool   $namedParameters Are we expecting named parameters?
+	 * @return array
+	 */
+	protected function parseFunction(string $function, bool $namedParameters = false): array
+	{
+		if(strpos($function, '(') === false)
 		{
 			return [$function, []];
 		}
 
-		list($function, $parameters) = explode(':', $function, 2);
+		$function = $this->splitFunctionAndParameters($function);
 
-		$parameters = (array) json_decode($parameters, true);
+		$parameters = json_decode(($namedParameters ? '{' . $function[1] .'}' : '[' . $function[1] . ']'), true);
 
-		if(json_last_error() !== JSON_ERROR_NONE)
+		if($parameters === null && json_last_error() !== JSON_ERROR_NONE)
 		{
-			throw new RuntimeException(vsprintf('%s(): Function parameters must be valid JSON.', [__METHOD__]));
+			throw new RuntimeException(vsprintf('%s(): Failed to decode function parameters.', [__METHOD__]));
 		}
 
-		return [$function, $parameters];
+		return [$function[0], $parameters];
 	}
 }
