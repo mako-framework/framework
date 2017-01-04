@@ -215,3 +215,16 @@ CREATE TABLE "counters" (
 INSERT INTO "counters" ("id", "counter") VALUES (1, 0);
 INSERT INTO "counters" ("id", "counter") VALUES (2, 0);
 INSERT INTO "counters" ("id", "counter") VALUES (3, 0);
+
+------------------------------------------------------------
+-- NULLABLES
+------------------------------------------------------------
+
+DROP TABLE IF EXISTS "nullables";
+CREATE TABLE "nullables" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "value1" text DEFAULT NULL,
+  "value2" text DEFAULT NULL
+);
+
+INSERT INTO "nullables" ("id") VALUES (1);
