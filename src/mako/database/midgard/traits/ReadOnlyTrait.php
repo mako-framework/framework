@@ -45,7 +45,7 @@ trait ReadOnlyTrait
 				function($query)
 				{
 					throw new ReadOnlyException(vsprintf("%s(): Attempted to delete a read-only record.", [__METHOD__]));
-				}
+				},
 			],
 		];
 	}

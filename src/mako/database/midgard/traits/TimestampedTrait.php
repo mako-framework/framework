@@ -28,7 +28,7 @@ trait TimestampedTrait
 		[
 			'beforeInsert' =>
 			[
-				function($values, $query)
+				function($values, $query): array
 				{
 					$dateTime = new DateTime;
 
@@ -51,11 +51,11 @@ trait TimestampedTrait
 					{
 						$this->touchRelated();
 					}
-				}
+				},
 			],
 			'beforeUpdate' =>
 			[
-				function($values, $query)
+				function($values, $query): array
 				{
 					$dateTime = new DateTime;
 
@@ -74,7 +74,7 @@ trait TimestampedTrait
 					{
 						$this->touchRelated();
 					}
-				}
+				},
 			],
 			'afterDelete' =>
 			[
@@ -84,7 +84,7 @@ trait TimestampedTrait
 					{
 						$this->touchRelated();
 					}
-				}
+				},
 			],
 		];
 	}
