@@ -27,7 +27,7 @@ class NullableTest extends ORMTestCase
 
 			protected $tableName = 'nullables';
 
-			protected $nullables = ['value1'];
+			protected $nullable = ['value1'];
 		};
 	}
 

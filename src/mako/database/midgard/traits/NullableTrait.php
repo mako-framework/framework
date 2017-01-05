@@ -22,7 +22,7 @@ trait NullableTrait
 	 */
 	protected function getNullableColumns(): array
 	{
-		return property_exists($this, 'nullables') ? $this->nullables : [];
+		return property_exists($this, 'nullable') ? $this->nullable : [];
 	}
 
 	/**
