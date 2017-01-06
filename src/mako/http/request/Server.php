@@ -17,19 +17,12 @@ use mako\http\request\Parameters;
 class Server extends Parameters
 {
 	/**
-	 * Headers.
-	 *
-	 * @var array
-	 */
-	protected $headers;
-
-	/**
 	 * Returns all the request headers.
 	 *
-	 * @access protected
+	 * @access public
 	 * @return array
 	 */
-	protected function collectHeaders(): array
+	public function getHeaders(): array
 	{
 		$headers = [];
 
@@ -46,21 +39,5 @@ class Server extends Parameters
 		}
 
 		return $headers;
-	}
-
-	/**
-	 * Returns the request headers.
-	 *
-	 * @access public
-	 * @return array
-	 */
-	public function getHeaders(): array
-	{
-		if(!isset($this->headers))
-		{
-			$this->headers = $this->collectHeaders();
-		}
-
-		return $this->headers;
 	}
 }
