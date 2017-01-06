@@ -372,11 +372,11 @@ class FileSystem
 	/**
 	 *  Creates a directory.
 	 *
-	 *  @access public
-	 *  @param   string   $path       Path to directory
-	 *  @param   int      $mode       Mode
-	 *  @param   bool     $recursive  Recursive
-	 *  @return  bool
+	 * @access public
+	 * @param  string $path      Path to directory
+	 * @param  int    $mode      Mode
+	 * @param  bool   $recursive Recursive
+	 * @return bool
 	 */
 	public function createDirectory(string $path, int $mode = 0777, bool $recursive = false): bool
 	{
