@@ -97,27 +97,6 @@ class Request
 	protected $ip;
 
 	/**
-	 * Is this an Ajax request?
-	 *
-	 * @var bool
-	 */
-	protected $isAjax;
-
-	/**
-	 * Was the request made using HTTPS?
-	 *
-	 * @var bool
-	 */
-	protected $isSecure;
-
-	/**
-	 * Is PHP running as a CGI program?
-	 *
-	 * @var bool
-	 */
-	protected $isCGI;
-
-	/**
 	 * Base URL of the request.
 	 *
 	 * @var string
@@ -190,18 +169,13 @@ class Request
 		$this->files   = new Files($request['files'] ?? $_FILES);
 		$this->server  = new Server($request['server'] ?? $_SERVER);
 		$this->headers = new Headers($this->server->getHeaders());
-
 		$this->body    = $request['body'] ?? null;
-
-		// Collect request info
-
-		$this->collectRequestInfo();
 
 		// Set the request path and method
 
 		$languages = $request['languages'] ?? [];
 
-		$this->path = $request['path'] ?? $this->determinePath($languages);
+		$this->path = isset($request['path']) ? $this->stripLocaleSegment($languages, $request['path']) : $this->determinePath($languages);
 
 		$this->method = $request['method'] ?? $this->determineMethod();
 	}
@@ -285,7 +259,7 @@ class Request
 	 */
 	protected function determineMethod(): string
 	{
-		$method = strtoupper($this->server->get('REQUEST_METHOD', 'GET'));
+		$this->realMethod = $method = strtoupper($this->server->get('REQUEST_METHOD', 'GET'));
 
 		if($method === 'POST')
 		{
@@ -293,30 +267,6 @@ class Request
 		}
 
 		return $method;
-	}
-
-	/**
-	 * Collects information about the request.
-	 *
-	 * @access protected
-	 */
-	protected function collectRequestInfo()
-	{
-		// Is this an Ajax request?
-
-		$this->isAjax = $this->server->get('HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest';
-
-		// Was the request made using HTTPS?
-
-		$this->isSecure = filter_var($this->server->get('HTTPS', false), FILTER_VALIDATE_BOOLEAN);
-
-		// Is PHP running as a CGI program?
-
-		$this->isCGI = strpos(PHP_SAPI, 'cgi') !== false;
-
-		// Get the real request method that was used
-
-		$this->realMethod = strtoupper($this->server('REQUEST_METHOD', 'GET'));
 	}
 
 	/**
@@ -350,7 +300,7 @@ class Request
 	 */
 	public function setAttribute(string $name, $value)
 	{
-		$this->attributes[$name] = $value;
+		Arr::set($this->attributes, $name, $value);
 	}
 
 	/**
@@ -496,7 +446,7 @@ class Request
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
 	 */
-	public function cookie(string $name = null, $default = null)
+	public function cookie(string $name, $default = null)
 	{
 		return $this->cookies->get($name, $default);
 	}
@@ -714,7 +664,7 @@ class Request
 	 */
 	public function isAjax(): bool
 	{
-		return $this->isAjax;
+		return $this->server->get('HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest';
 	}
 
 	/**
@@ -725,7 +675,7 @@ class Request
 	 */
 	public function isSecure(): bool
 	{
-		return $this->isSecure;
+		return filter_var($this->server->get('HTTPS', false), FILTER_VALIDATE_BOOLEAN);
 	}
 
 	/**
@@ -747,7 +697,7 @@ class Request
 	 */
 	public function isCGI(): bool
 	{
-		return $this->isCGI;
+		return strpos(PHP_SAPI, 'cgi') !== false;
 	}
 
 	/**
@@ -762,15 +712,15 @@ class Request
 		{
 			// Get the protocol
 
-			$protocol = $this->isSecure ? 'https://' : 'http://';
+			$protocol = $this->isSecure() ? 'https://' : 'http://';
 
 			// Get the server name and port
 
-			if(($host = $this->header('host')) === null)
+			if(($host = $this->headers->get('host')) === null)
 			{
-				$host = $this->server('SERVER_NAME');
+				$host = $this->server->get('SERVER_NAME');
 
-				$port = $this->server('SERVER_PORT');
+				$port = $this->server->get('SERVER_PORT');
 
 				if($port !== null && $port != 80)
 				{
