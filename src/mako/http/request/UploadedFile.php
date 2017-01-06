@@ -5,11 +5,11 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\http;
+namespace mako\http\request;
 
 use SplFileInfo;
 
-use mako\http\exceptions\UploadException;
+use mako\http\request\exceptions\UploadException;
 
 /**
  * Uploaded file.

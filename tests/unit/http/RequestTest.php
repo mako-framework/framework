@@ -555,7 +555,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 	{
 		$request = new Request();
 
-		$request->signedCookie();
+		$request->signedCookie('foo');
 	}
 
 	/**
@@ -695,38 +695,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function testMagicGet()
-	{
-		$get = ['foo' => 'bar', 'baz' => ['bax']];
-
-		$request = new Request(['get' => $get]);
-
-		$this->assertNull($request->bar);
-
-		$this->assertEquals('bar', $request->foo);
-
-		$this->assertEquals('bax', $request->baz[0]);
-	}
-
-	/**
-	 *
-	 */
-	public function testMagicIsset()
-	{
-		$get = ['foo' => 'bar', 'baz' => ['bax']];
-
-		$request = new Request(['get' => $get]);
-
-		$this->assertFalse(isset($request->bar));
-
-		$this->assertTrue(isset($request->foo));
-
-		$this->assertTrue(isset($request->baz));
-	}
-
-	/**
-	 *
-	 */
 	public function testSetRoute()
 	{
 		$request = new Request();
@@ -786,8 +754,8 @@ class RequestTest extends PHPUnit_Framework_TestCase
 					'type'     => 'foo/bar',
 					'size'     => 123,
 					'error'    => 0,
-				]
-			]
+				],
+			],
 		];
 
 		$request = new Request($request);
@@ -796,7 +764,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$file = $request->file('upload');
 
-		$this->assertInstanceOf('mako\http\UploadedFile', $file);
+		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
 
 		$this->assertEquals('foo', $file->getName());
 
@@ -823,8 +791,8 @@ class RequestTest extends PHPUnit_Framework_TestCase
 					'type'     => ['foo/bar', 'foo/bar'],
 					'size'     => [123, 456],
 					'error'    => [0, 0],
-				]
-			]
+				],
+			],
 		];
 
 		$request = new Request($request);
@@ -833,7 +801,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$file = $request->file('upload.0');
 
-		$this->assertInstanceOf('mako\http\UploadedFile', $file);
+		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
 
 		$this->assertEquals('foo', $file->getName());
 
@@ -847,7 +815,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$file = $request->file('upload.1');
 
-		$this->assertInstanceOf('mako\http\UploadedFile', $file);
+		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
 
 		$this->assertEquals('bar', $file->getName());
 

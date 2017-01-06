@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\http\exceptions;
+namespace mako\http\request\exceptions;
 
 use RuntimeException;
 

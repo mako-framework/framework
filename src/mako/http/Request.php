@@ -9,7 +9,11 @@ namespace mako\http;
 
 use RuntimeException;
 
-use mako\http\UploadedFile;
+use mako\http\request\Cookies;
+use mako\http\request\Files;
+use mako\http\request\Headers;
+use mako\http\request\Parameters;
+use mako\http\request\Server;
 use mako\http\routing\Route;
 use mako\security\Signer;
 use mako\utility\Arr;
@@ -25,37 +29,44 @@ class Request
 	/**
 	 * Get data
 	 *
-	 * @var array
+	 * @var \mako\http\request\Parameters
 	 */
-	protected $get;
+	public $query;
 
 	/**
 	 * Post data
 	 *
-	 * @var array
+	 * @var \mako\http\request\Parameters
 	 */
-	protected $post;
+	public $post;
 
 	/**
 	 * Cookie data.
 	 *
-	 * @var array
+	 * @var \mako\http\request\Cookies
 	 */
-	protected $cookies;
+	public $cookies;
 
 	/**
 	 * File data.
 	 *
-	 * @var array
+	 * @var \mako\http\request\Files
 	 */
-	protected $files;
+	public $files;
 
 	/**
 	 * Server info.
 	 *
-	 * @var array
+	 * @var \mako\http\request\Server
 	 */
-	protected $server;
+	public $server;
+
+	/**
+	 * Request headers.
+	 *
+	 * @var \mako\http\request\Headers
+	 */
+	protected $headers;
 
 	/**
 	 * Raw request body.
@@ -65,60 +76,11 @@ class Request
 	protected $body;
 
 	/**
-	 * Signer instance.
-	 *
-	 * @var \mako\security\Signer
-	 */
-	protected $signer;
-
-	/**
 	 * Parsed request body.
 	 *
 	 * @var array
 	 */
 	protected $parsedBody;
-
-	/**
-	 * Uploaded files.
-	 *
-	 * @var array
-	 */
-	protected $uploadedFiles;
-
-	/**
-	 * Request headers.
-	 *
-	 * @var array
-	 */
-	protected $headers = [];
-
-	/**
-	 * Array of acceptable content types.
-	 *
-	 * @var array
-	 */
-	protected $acceptableContentTypes = [];
-
-	/**
-	 * Array of acceptable languages.
-	 *
-	 * @var array
-	 */
-	protected $acceptableLanguages = [];
-
-	/**
-	 * Array of acceptable charsets.
-	 *
-	 * @var array
-	 */
-	protected $acceptableCharsets = [];
-
-	/**
-	 * Array of acceptable encodings.
-	 *
-	 * @var array
-	 */
-	protected $acceptableEncodings = [];
 
 	/**
 	 * Array of trusted proxy IP addresses.
@@ -222,20 +184,14 @@ class Request
 	{
 		// Collect request data
 
-		$this->get     = $request['get'] ?? $_GET;
-		$this->post    = $request['post'] ?? $_POST;
-		$this->cookies = $request['cookies'] ?? $_COOKIE;
-		$this->files   = $request['files'] ?? $_FILES;
-		$this->server  = $request['server'] ?? $_SERVER;
+		$this->query   = new Parameters($request['get'] ?? $_GET);
+		$this->post    = new Parameters($request['post'] ?? $_POST);
+		$this->cookies = new Cookies($request['cookies'] ?? $_COOKIE, $signer);
+		$this->files   = new Files($request['files'] ?? $_FILES);
+		$this->server  = new Server($request['server'] ?? $_SERVER);
+		$this->headers = new Headers($this->server->getHeaders());
+
 		$this->body    = $request['body'] ?? null;
-
-		// Set the Signer instance
-
-		$this->signer = $signer;
-
-		// Collect the request headers
-
-		$this->headers = $this->collectHeaders();
 
 		// Collect request info
 
@@ -288,17 +244,19 @@ class Request
 	{
 		$path = '/';
 
-		if(isset($this->server['PATH_INFO']))
+		$server = $this->server->all();
+
+		if(isset($server['PATH_INFO']))
 		{
-			$path = $this->server['PATH_INFO'];
+			$path = $server['PATH_INFO'];
 		}
-		elseif(isset($this->server['REQUEST_URI']))
+		elseif(isset($server['REQUEST_URI']))
 		{
-			if($path = parse_url($this->server['REQUEST_URI'], PHP_URL_PATH))
+			if($path = parse_url($server['REQUEST_URI'], PHP_URL_PATH))
 			{
 				// Remove base path from the request path
 
-				$basePath = pathinfo($this->server['SCRIPT_NAME'], PATHINFO_DIRNAME);
+				$basePath = pathinfo($server['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
 				if($basePath !== '/' && stripos($path, $basePath) === 0)
 				{
@@ -327,79 +285,14 @@ class Request
 	 */
 	protected function determineMethod(): string
 	{
-		$method = strtoupper($this->server['REQUEST_METHOD'] ?? 'GET');
+		$method = strtoupper($this->server->get('REQUEST_METHOD', 'GET'));
 
 		if($method === 'POST')
 		{
-			return strtoupper($this->post['REQUEST_METHOD_OVERRIDE'] ?? $this->server['HTTP_X_HTTP_METHOD_OVERRIDE'] ?? 'POST');
+			return strtoupper($this->post->get('REQUEST_METHOD_OVERRIDE', $this->server->get('HTTP_X_HTTP_METHOD_OVERRIDE', 'POST')));
 		}
 
 		return $method;
-	}
-
-	/**
-	 * Parses a accpet header and returns the values in descending order of preference.
-	 *
-	 * @access protected
-	 * @param   string
-	 * @return array
-	 */
-	protected function parseAcceptHeader(string $headerValue): array
-	{
-		$groupedAccepts = [];
-
-		// Collect acceptable values
-
-		foreach(explode(',', $headerValue) as $accept)
-		{
-			$quality = 1;
-
-			if(strpos($accept, ';'))
-			{
-				// We have a quality so we need to split some more
-
-				list($accept, $quality) = explode(';', $accept, 2);
-
-				// Strip the "q=" part so that we're left with only the numeric value
-
-				$quality = substr(trim($quality), 2);
-			}
-
-			$groupedAccepts[$quality][] = trim($accept);
-		}
-
-		// Sort in descending order of preference
-
-		krsort($groupedAccepts);
-
-		// Flatten array and return it
-
-		return array_merge(...array_values($groupedAccepts));
-	}
-
-	/**
-	 * Returns all the request headers.
-	 *
-	 * @access protected
-	 * @return array
-	 */
-	protected function collectHeaders(): array
-	{
-		$headers = [];
-
-		foreach($this->server as $key => $value)
-		{
-			if(strpos($key, 'HTTP_') === 0)
-			{
-				$headers[substr($key, 5)] = $value;
-			}
-			elseif(in_array($key, ['CONTENT_LENGTH', 'CONTENT_MD5', 'CONTENT_TYPE']))
-			{
-				$headers[$key] = $value;
-			}
-		}
-
-		return $headers;
 	}
 
 	/**
@@ -411,11 +304,11 @@ class Request
 	{
 		// Is this an Ajax request?
 
-		$this->isAjax = (isset($this->server['HTTP_X_REQUESTED_WITH']) && ($this->server['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest'));
+		$this->isAjax = $this->server->get('HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest';
 
 		// Was the request made using HTTPS?
 
-		$this->isSecure = (!empty($this->server['HTTPS']) && filter_var($this->server['HTTPS'], FILTER_VALIDATE_BOOLEAN)) ? true : false;
+		$this->isSecure = filter_var($this->server->get('HTTPS', false), FILTER_VALIDATE_BOOLEAN);
 
 		// Is PHP running as a CGI program?
 
@@ -423,7 +316,7 @@ class Request
 
 		// Get the real request method that was used
 
-		$this->realMethod = isset($this->server['REQUEST_METHOD']) ? strtoupper($this->server['REQUEST_METHOD']) : 'GET';
+		$this->realMethod = strtoupper($this->server('REQUEST_METHOD', 'GET'));
 	}
 
 	/**
@@ -512,7 +405,7 @@ class Request
 	{
 		if($this->parsedBody === null)
 		{
-			switch($this->header('content-type'))
+			switch($this->headers->get('content-type'))
 			{
 				case 'application/x-www-form-urlencoded':
 					parse_str($this->body(), $this->parsedBody);
@@ -531,77 +424,6 @@ class Request
 	}
 
 	/**
-	 * Creates a UploadedFile object.
-	 *
-	 * @access protected
-	 * @param  array                   $file File info
-	 * @return \mako\http\UploadedFile
-	 */
-	protected function createUploadedFile(array $file): UploadedFile
-	{
-		return new UploadedFile($file['tmp_name'], $file['name'], $file['size'], $file['type'], $file['error']);
-	}
-
-	/**
-	 * Normalizes a multi file upload array to a more manageable format.
-	 *
-	 * @access protected
-	 * @param  array $files File upload array
-	 * @return array
-	 */
-	protected function normalizeMultiUpload(array $files): array
-	{
-		$normalized = [];
-
-		$keys = array_keys($files);
-
-		$count = count($files['name']);
-
-		for($i = 0; $i < $count; $i++)
-		{
-			foreach($keys as $key)
-			{
-				$normalized[$i][$key] = $files[$key][$i];
-			}
-		}
-
-		return $normalized;
-	}
-
-	/**
-	 * Returns an UploadedFile object or an array of UploadedFile objects.
-	 *
-	 * @access protected
-	 * @param  null|string                   $key     Array key
-	 * @param  null|mixed                    $default Default value
-	 * @return \mako\http\UploadedFile|array
-	 */
-	protected function getUploadedFile(string $key = null, $default = null)
-	{
-		if($this->uploadedFiles === null)
-		{
-			$this->uploadedFiles = [];
-
-			foreach($this->files as $name => $file)
-			{
-				if(is_array($file['name']))
-				{
-					foreach($this->normalizeMultiUpload($file) as $file)
-					{
-						$this->uploadedFiles[$name][] = $this->createUploadedFile($file);
-					}
-				}
-				else
-				{
-					$this->uploadedFiles[$name] = $this->createUploadedFile($file);
-				}
-			}
-		}
-
-		return ($key === null) ? $this->uploadedFiles : Arr::get($this->uploadedFiles, $key, $default);
-	}
-
-	/**
 	 * Fetch data from the GET parameters.
 	 *
 	 * @access public
@@ -611,7 +433,7 @@ class Request
 	 */
 	public function get(string $key = null, $default = null)
 	{
-		return ($key === null) ? $this->get : Arr::get($this->get, $key, $default);
+		return ($key === null) ? $this->query->all() : $this->query->get($key, $default);
 	}
 
 	/**
@@ -624,7 +446,7 @@ class Request
 	 */
 	public function post(string $key = null, $default = null)
 	{
-		return ($key === null) ? $this->post : Arr::get($this->post, $key, $default);
+		return ($key === null) ? $this->post->all() : $this->post->get($key, $default);
 	}
 
 	/**
@@ -667,29 +489,6 @@ class Request
 	}
 
 	/**
-	 * Fetch signed cookie data.
-	 *
-	 * @access public
-	 * @param  string     $name    Cookie name
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
-	 */
-	public function signedCookie(string $name = null, $default = null)
-	{
-		if(empty($this->signer))
-		{
-			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to read signed cookies.", [__METHOD__]));
-		}
-
-		if(isset($this->cookies[$name]) && ($value = $this->signer->validate($this->cookies[$name])) !== false)
-		{
-			return $value;
-		}
-
-		return $default;
-	}
-
-	/**
 	 * Fetch unsigned cookie data.
 	 *
 	 * @access public
@@ -699,7 +498,20 @@ class Request
 	 */
 	public function cookie(string $name = null, $default = null)
 	{
-		return $this->cookies[$name] ?? $default;
+		return $this->cookies->get($name, $default);
+	}
+
+	/**
+	 * Fetch signed cookie data.
+	 *
+	 * @access public
+	 * @param  string     $name    Cookie name
+	 * @param  null|mixed $default Default value
+	 * @return null|mixed
+	 */
+	public function signedCookie(string $name, $default = null)
+	{
+		return $this->cookies->getSigned($name, $default);
 	}
 
 	/**
@@ -712,7 +524,7 @@ class Request
 	 */
 	public function file(string $key = null, $default = null)
 	{
-		return $this->getUploadedFile($key, $default);
+		return ($key === null) ? $this->files->all() : $this->files->get($key, $default);
 	}
 
 	/**
@@ -725,7 +537,7 @@ class Request
 	 */
 	public function server(string $key = null, $default = null)
 	{
-		return ($key === null) ? $this->server : Arr::get($this->server, $key, $default);
+		return ($key === null) ? $this->server->all() : $this->server->get($key, $default);
 	}
 
 	/**
@@ -793,9 +605,7 @@ class Request
 	 */
 	public function header(string $name, $default = null)
 	{
-		$name = strtoupper(str_replace('-', '_', $name));
-
-		return $this->headers[$name] ?? $default;
+		return $this->headers->get($name, $default);
 	}
 
 	/**
@@ -806,12 +616,7 @@ class Request
 	 */
 	public function acceptableContentTypes(): array
 	{
-		if(empty($this->acceptableContentTypes))
-		{
-			$this->acceptableContentTypes = $this->parseAcceptHeader($this->header('accept'));
-		}
-
-		return $this->acceptableContentTypes;
+		return $this->headers->acceptableContentTypes();
 	}
 
 	/**
@@ -822,12 +627,7 @@ class Request
 	 */
 	public function acceptableLanguages(): array
 	{
-		if(empty($this->acceptableLanguages))
-		{
-			$this->acceptableLanguages = $this->parseAcceptHeader($this->header('accept-language'));
-		}
-
-		return $this->acceptableLanguages;
+		return $this->headers->acceptableLanguages();
 	}
 
 	/**
@@ -838,12 +638,7 @@ class Request
 	 */
 	public function acceptableCharsets(): array
 	{
-		if(empty($this->acceptableCharsets))
-		{
-			$this->acceptableCharsets = $this->parseAcceptHeader($this->header('accept-charset'));
-		}
-
-		return $this->acceptableCharsets;
+		return $this->headers->acceptableCharsets();
 	}
 
 	/**
@@ -854,12 +649,7 @@ class Request
 	 */
 	public function acceptableEncodings(): array
 	{
-		if(empty($this->acceptableEncodings))
-		{
-			$this->acceptableEncodings = $this->parseAcceptHeader($this->header('accept-encoding'));
-		}
-
-		return $this->acceptableEncodings;
+		return $this->headers->acceptableEncodings();
 	}
 
 	/**
@@ -883,11 +673,11 @@ class Request
 	{
 		if(empty($this->ip))
 		{
-			$ip = $this->server('REMOTE_ADDR');
+			$ip = $this->server->get('REMOTE_ADDR');
 
 			if(!empty($this->trustedProxies))
 			{
-				$ips = $this->server('HTTP_X_FORWARDED_FOR');
+				$ips = $this->server->get('HTTP_X_FORWARDED_FOR');
 
 				if(!empty($ips))
 				{
@@ -917,7 +707,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request was made using Ajax and FALSE if not.
+	 * Returns true if the request was made using Ajax and false if not.
 	 *
 	 * @access public
 	 * @return bool
@@ -928,7 +718,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request was made using HTTPS and FALSE if not.
+	 * Returns true if the request was made using HTTPS and false if not.
 	 *
 	 * @access public
 	 * @return bool
@@ -939,7 +729,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request method is considered safe and FALSE if not.
+	 * Returns true if the request method is considered safe and false if not.
 	 *
 	 * @access public
 	 * @return bool
@@ -990,7 +780,7 @@ class Request
 
 			// Get the base path
 
-			$path = $this->server('SCRIPT_NAME');
+			$path = $this->server->get('SCRIPT_NAME');
 
 			$path = str_replace(basename($path), '', $path);
 
@@ -1058,7 +848,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request method has been faked and FALSE if not.
+	 * Returns true if the request method has been faked and false if not.
 	 *
 	 * @access public
 	 * @return bool
@@ -1069,25 +859,25 @@ class Request
 	}
 
 	/**
-	 * Returns the basic HTTP authentication username or NULL.
+	 * Returns the basic HTTP authentication username or null.
 	 *
 	 * @access public
 	 * @return null|string
 	 */
 	public function username()
 	{
-		return $this->server('PHP_AUTH_USER');
+		return $this->server->get('PHP_AUTH_USER');
 	}
 
 	/**
-	 * Returns the basic HTTP authentication password or NULL.
+	 * Returns the basic HTTP authentication password or null.
 	 *
 	 * @access public
 	 * @return null|string
 	 */
 	public function password()
 	{
-		return $this->server('PHP_AUTH_PW');
+		return $this->server->get('PHP_AUTH_PW');
 	}
 
 	/**
@@ -1099,30 +889,6 @@ class Request
 	 */
 	public function referer($default = null)
 	{
-		return $this->header('referer', $default);
-	}
-
-	/**
-	 * Magic shortcut to fetch request data.
-	 *
-	 * @access public
-	 * @param  string     $key Array key
-	 * @return null|mixed
-	 */
-	public function __get(string $key)
-	{
-		return $this->data($key);
-	}
-
-	/**
-	 * Magic shortcut to check if request data exists.
-	 *
-	 * @access public
-	 * @param  string $key Array key
-	 * @return bool
-	 */
-	public function __isset(string $key)
-	{
-		return $this->data($key) !== null;
+		return $this->headers->get('referer', $default);
 	}
 }

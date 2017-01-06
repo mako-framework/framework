@@ -5,12 +5,12 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\http;
+namespace mako\tests\unit\http\request;
 
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
-use mako\http\UploadedFile;
+use mako\http\request\UploadedFile;
 
 /**
  * @group unit
@@ -146,8 +146,8 @@ class UploadedFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \mako\http\exceptions\UploadException
-	 * @expectedExceptionMessage mako\http\UploadedFile::moveTo(): The uploaded file exceeds the upload_max_filesize directive in php.ini.
+	 * @expectedException \mako\http\request\exceptions\UploadException
+	 * @expectedExceptionMessage mako\http\request\UploadedFile::moveTo(): The uploaded file exceeds the upload_max_filesize directive in php.ini.
 	 */
 	public function testMoveToWithError()
 	{
@@ -157,8 +157,8 @@ class UploadedFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \mako\http\exceptions\UploadException
-	 * @expectedExceptionMessage mako\http\UploadedFile::moveTo(): The file that you're trying to move was not uploaded.
+	 * @expectedException \mako\http\request\exceptions\UploadException
+	 * @expectedExceptionMessage mako\http\request\UploadedFile::moveTo(): The file that you're trying to move was not uploaded.
 	 */
 	public function testMoveToWithNonUploadedFile()
 	{
