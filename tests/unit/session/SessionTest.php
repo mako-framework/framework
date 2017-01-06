@@ -46,7 +46,13 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function getRequest()
 	{
-		return Mockery::mock('\mako\http\Request');
+		$request = Mockery::mock('\mako\http\Request');
+
+		$cookies = Mockery::mock('\mako\http\request\Cookies');
+
+		$request->cookies = $cookies;
+
+		return $request;
 	}
 
 	/**
@@ -56,7 +62,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('signedCookie')->once()->with('mako_session', false)->andReturn('foo123');
+		$request->cookies->shouldReceive('getSigned')->once()->with('mako_session', false)->andReturn('foo123');
 
 		return $request;
 	}
@@ -112,7 +118,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testStartWithCookie()
 	{
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
+		new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
 	}
 
 	/**
@@ -122,7 +128,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('signedCookie')->once()->with('mako_session', false)->andReturn(false);
+		$request->cookies->shouldReceive('getSigned')->once()->with('mako_session', false)->andReturn(false);
 
 		$response = $this->getResponse();
 
@@ -134,7 +140,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$store->shouldReceive('write')/*->once()*/->with('foobar', ['mako.flashdata' => [], 'mako.token' => 'foobar'], 1800);
 
-		$session = new TestSession($request, $response, $store);
+		new TestSession($request, $response, $store);
 	}
 
 	/**
@@ -166,7 +172,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new TestSession($this->getRequestWithCookie(), $response, $store);
 
-		$id = $session->regenerateId();
+		$session->regenerateId();
 	}
 
 	/**
@@ -186,7 +192,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$session = new TestSession($this->getRequestWithCookie(), $response, $store);
 
-		$id = $session->regenerateId(true);
+		$session->regenerateId(true);
 	}
 
 	/**

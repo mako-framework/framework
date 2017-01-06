@@ -174,7 +174,11 @@ class URLBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('get')->times(2)->andReturn([]);
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('all')->times(2)->andReturn([]);
+
+		$request->query = $query;
 
 		$urlBuilder = new URLBuilder($request, $this->getRoutes(), true);
 
@@ -194,7 +198,11 @@ class URLBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('get')->once()->andReturn(['foo' => 'bar']);
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
+
+		$request->query = $query;
 
 		$urlBuilder = new URLBuilder($request, $this->getRoutes(), true);
 

@@ -289,7 +289,7 @@ class File implements ResponseSenderInterface
 
 		// Get the requested byte range
 
-		$range = $request->header('range');
+		$range = $request->headers->get('range');
 
 		if($range !== null)
 		{

@@ -53,7 +53,7 @@ class Router
 		{
 			$url = $request->baseURL() . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
 
-			$get = $request->get();
+			$get = $request->query->all();
 
 			if(!empty($get))
 			{

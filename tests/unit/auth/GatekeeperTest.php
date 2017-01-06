@@ -232,7 +232,11 @@ class GatekeeperTest extends PHPUnit_Framework_TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('signedCookie')->times(3)->with('gatekeeper_auth_key', false)->andReturn(false);
+		$cookies = Mockery::mock('\mako\http\request\Cookies');
+
+		$cookies->shouldReceive('getSigned')->times(3)->with('gatekeeper_auth_key', false)->andReturn(false);
+
+		$request->cookies = $cookies;
 
 		$gatekeeper = new Gatekeeper($request, $this->getResponse(), $session, $this->getUserProvider(), $this->getGroupProvider());
 
@@ -262,7 +266,11 @@ class GatekeeperTest extends PHPUnit_Framework_TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('signedCookie')->times(3)->with('gatekeeper_auth_key', false)->andReturn('token');
+		$cookies = Mockery::mock('\mako\http\request\Cookies');
+
+		$cookies->shouldReceive('getSigned')->times(3)->with('gatekeeper_auth_key', false)->andReturn('token');
+
+		$request->cookies = $cookies;
 
 		$userProvider = $this->getUserProvider();
 

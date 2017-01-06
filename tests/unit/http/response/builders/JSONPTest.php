@@ -32,7 +32,11 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
-		$request->shouldReceive('get')->once()->with('callback', 'callback')->andReturn('callback');
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('get')->once()->with('callback', 'callback')->andReturn('callback');
+
+		$request->query = $query;
 
 		$response = Mockery::mock('mako\http\Response');
 
@@ -42,7 +46,7 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$jsonp = new JSONP([1,2,3]);
+		$jsonp = new JSONP([1, 2, 3]);
 
 		$jsonp->build($request, $response);
 	}
@@ -54,7 +58,11 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
-		$request->shouldReceive('get')->once()->with('callback', 'foobar')->andReturn('foobar');
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('get')->once()->with('callback', 'foobar')->andReturn('foobar');
+
+		$request->query = $query;
 
 		$response = Mockery::mock('mako\http\Response');
 
@@ -64,7 +72,7 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$jsonp = new JSONP([1,2,3]);
+		$jsonp = new JSONP([1, 2, 3]);
 
 		$jsonp->callback('foobar');
 
@@ -78,7 +86,11 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
-		$request->shouldReceive('get')->once()->with('callback', 'callback')->andReturn('foobar');
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('get')->once()->with('callback', 'callback')->andReturn('foobar');
+
+		$request->query = $query;
 
 		$response = Mockery::mock('mako\http\Response');
 
@@ -88,7 +100,7 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$jsonp = new JSONP([1,2,3]);
+		$jsonp = new JSONP([1, 2, 3]);
 
 		$jsonp->build($request, $response);
 	}
@@ -100,7 +112,11 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
-		$request->shouldReceive('get')->once()->with('callback', 'callback')->andReturn('foo-bar');
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('get')->once()->with('callback', 'callback')->andReturn('foo-bar');
+
+		$request->query = $query;
 
 		$response = Mockery::mock('mako\http\Response');
 
@@ -110,7 +126,7 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$jsonp = new JSONP([1,2,3]);
+		$jsonp = new JSONP([1, 2, 3]);
 
 		$jsonp->build($request, $response);
 	}
@@ -122,7 +138,11 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
-		$request->shouldReceive('get')->once()->with('function', 'callback')->andReturn('callback');
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('get')->once()->with('function', 'callback')->andReturn('callback');
+
+		$request->query = $query;
 
 		$response = Mockery::mock('mako\http\Response');
 
@@ -132,7 +152,7 @@ class JSONPTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$jsonp = new JSONP([1,2,3]);
+		$jsonp = new JSONP([1, 2, 3]);
 
 		$jsonp->key('function');
 

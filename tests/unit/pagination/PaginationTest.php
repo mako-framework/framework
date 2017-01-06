@@ -164,7 +164,11 @@ class PaginationTest extends PHPUnit_Framework_TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('get')->once()->andReturn(['page' => 1]);
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('all')->once()->andReturn(['page' => 1]);
+
+		$request->query = $query;
 
 		$urlBuilder = $this->getURLBuilder();
 
@@ -244,7 +248,11 @@ class PaginationTest extends PHPUnit_Framework_TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('get')->once()->andReturn(['page' => 2]);
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('all')->once()->andReturn(['page' => 2]);
+
+		$request->query = $query;
 
 		$urlBuilder = $this->getURLBuilder();
 
@@ -323,7 +331,11 @@ class PaginationTest extends PHPUnit_Framework_TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('get')->once()->andReturn(['page' => 10]);
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('all')->once()->andReturn(['page' => 10]);
+
+		$request->query = $query;
 
 		$urlBuilder = $this->getURLBuilder();
 

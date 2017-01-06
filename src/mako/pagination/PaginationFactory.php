@@ -95,7 +95,7 @@ class PaginationFactory implements PaginationFactoryInterface
 
 		$options = $options + $this->options;
 
-		$currentPage = max((int) $this->request->get($options['page_key'], 1), 1);
+		$currentPage = max((int) $this->request->query->get($options['page_key'], 1), 1);
 
 		$pagination = new Pagination($items, $itemsPerPage, $currentPage, $options);
 

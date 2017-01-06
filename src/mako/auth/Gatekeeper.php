@@ -306,7 +306,7 @@ class Gatekeeper
 
 			if($token === false)
 			{
-				$token = $this->request->signedCookie($this->authKey, false);
+				$token = $this->request->cookies->getSigned($this->authKey, false);
 
 				if($token !== false)
 				{

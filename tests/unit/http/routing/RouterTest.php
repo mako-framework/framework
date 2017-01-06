@@ -151,7 +151,11 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('languagePrefix')->once()->andReturn('en');
 
-		$request->shouldReceive('get')->once()->andReturn(['foo' => 'bar']);
+		$query = Mockery::mock('mako\http\request\Parameters');
+
+		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
+
+		$request->query = $query;
 
 		$returnValue = $closure($request);
 

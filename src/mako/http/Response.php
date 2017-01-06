@@ -588,7 +588,7 @@ class Response
 	{
 		// Send status header
 
-		$protocol = $this->request->server('SERVER_PROTOCOL', 'HTTP/1.1');
+		$protocol = $this->request->server->get('SERVER_PROTOCOL', 'HTTP/1.1');
 
 		header($protocol . ' ' . $this->statusCode . ' ' . $this->statusCodes[$this->statusCode]);
 
@@ -723,7 +723,7 @@ class Response
 
 				$this->header('ETag', $hash);
 
-				if(str_replace('-gzip', '', $this->request->header('if-none-match')) === $hash)
+				if(str_replace('-gzip', '', $this->request->headers->get('if-none-match')) === $hash)
 				{
 					$this->status(304);
 
