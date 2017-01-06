@@ -66,7 +66,7 @@ class Request
 	 *
 	 * @var \mako\http\request\Headers
 	 */
-	protected $headers;
+	public $headers;
 
 	/**
 	 * Raw request body.
