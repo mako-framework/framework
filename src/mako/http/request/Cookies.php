@@ -7,6 +7,7 @@
 
 namespace mako\http\request;
 
+use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use RuntimeException;
@@ -40,7 +41,7 @@ class Cookies implements Countable, IteratorAggregate
 	 * @param array                 $cookies Cookies
 	 * @param \mako\security\Signer $signer  Signer
 	 */
-	public function __construct(array $cookies, Signer $signer = null)
+	public function __construct(array $cookies = [], Signer $signer = null)
 	{
 		$this->cookies = $cookies;
 
@@ -90,6 +91,11 @@ class Cookies implements Countable, IteratorAggregate
 	 */
 	public function addSigned(string $name, string $value)
 	{
+		if(empty($this->signer))
+		{
+			throw new RuntimeException(vsprintf("%s(): A [ Signer ] instance is required to add signed cookies.", [__METHOD__]));
+		}
+
 		$this->cookies[$name] = $this->signer->sign($value);
 	}
 

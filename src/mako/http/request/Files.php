@@ -91,4 +91,17 @@ class Files extends Parameters
 
 		return $uploadedFiles;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function add(string $name, $value)
+	{
+		if(is_array($value))
+		{
+			$value = $this->createUploadedFile($value);
+		}
+
+		parent::add($name, $value);
+	}
 }
