@@ -513,7 +513,7 @@ abstract class ORM implements JsonSerializable
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
-	public function setRawColumn(string $name, $value)
+	public function setRawColumnValue(string $name, $value)
 	{
 		$this->columns[$name] = $this->cast($name, $value);
 	}
@@ -525,7 +525,7 @@ abstract class ORM implements JsonSerializable
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
-	public function setColumn(string $name, $value)
+	public function setColumnValue(string $name, $value)
 	{
 		$value = $this->cast($name, $value);
 
@@ -546,26 +546,19 @@ abstract class ORM implements JsonSerializable
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	public function getRawColumn(string $name)
+	public function getRawColumnValue(string $name)
 	{
-		if(array_key_exists($name, $this->columns))
-		{
-			return $this->columns[$name];
-		}
-		else
-		{
-			throw new RunTimeException(vsprintf("%s::%s(): Unknown column [ %s ].", [static::class, __FUNCTION__, $name]));
-		}
+		return $this->columns[$name];
 	}
 
 	/**
 	 * Returns a column value.
 	 *
-	 * @access protected
+	 * @access public
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	protected function getColumnValue(string $name)
+	public function getColumnValue(string $name)
 	{
 		if(method_exists($this, $name . 'Accessor'))
 		{
@@ -588,13 +581,13 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
-	 * Gets a column value.
+	 * Gets a column value or relation.
 	 *
 	 * @access public
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	public function getColumn(string $name)
+	public function getValue(string $name)
 	{
 		if(array_key_exists($name, $this->columns))
 		{
@@ -616,7 +609,7 @@ abstract class ORM implements JsonSerializable
 		}
 		else
 		{
-			throw new RunTimeException(vsprintf("%s(): Unknown column [ %s ].", [__METHOD__, $name]));
+			throw new RunTimeException(vsprintf("%s(): Unknown column or relation [ %s ].", [__METHOD__, $name]));
 		}
 	}
 
@@ -626,7 +619,7 @@ abstract class ORM implements JsonSerializable
 	 * @access public
 	 * @return array
 	 */
-	public function getRawColumns(): array
+	public function getRawColumnValues(): array
 	{
 		return $this->columns;
 	}
@@ -662,14 +655,14 @@ abstract class ORM implements JsonSerializable
 		{
 			foreach($columns as $column => $value)
 			{
-				$this->setRawColumn($column, $value);
+				$this->setRawColumnValue($column, $value);
 			}
 		}
 		else
 		{
 			foreach($columns as $column => $value)
 			{
-				$this->setColumn($column, $value);
+				$this->setColumnValue($column, $value);
 			}
 		}
 
@@ -685,11 +678,11 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function __set(string $name, $value)
 	{
-		$this->setColumn($name, $value);
+		$this->setColumnValue($name, $value);
 	}
 
 	/**
-	 * Get column value using overloading.
+	 * Get column value or relation using overloading.
 	 *
 	 * @access public
 	 * @param  string $name Column name
@@ -697,7 +690,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function __get(string $name)
 	{
-		return $this->getColumn($name);
+		return $this->getValue($name);
 	}
 
 	/**

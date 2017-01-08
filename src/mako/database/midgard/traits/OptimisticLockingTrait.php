@@ -91,7 +91,7 @@ trait OptimisticLockingTrait
 
 			if($model !== false)
 			{
-				$this->original = $this->columns = $model->getRawColumns();
+				$this->original = $this->columns = $model->getRawColumnValues();
 
 				$this->related = $model->getRelated();
 

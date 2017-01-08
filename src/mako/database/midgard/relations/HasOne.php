@@ -40,7 +40,7 @@ class HasOne extends HasOneOrMany
 
 		foreach($this->eagerLoadChunked($this->keys($results)) as $related)
 		{
-			$grouped[$related->getRawColumn($foreignKey)] = $related;
+			$grouped[$related->getRawColumnValue($foreignKey)] = $related;
 		}
 
 		foreach($results as $result)

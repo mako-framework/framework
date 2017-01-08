@@ -206,13 +206,13 @@ class ORMTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function testGetRawColumns()
+	public function testGetRawColumnValues()
 	{
 		$columns = ['id' => '1', 'username' => 'foo'];
 
 		$user = new TestUser1($columns);
 
-		$this->assertEquals($columns, $user->getRawColumns());
+		$this->assertEquals($columns, $user->getRawColumnValues());
 	}
 
 	/**
@@ -226,21 +226,25 @@ class ORMTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals([1, 2, 3], $user->array);
 
-		$this->assertEquals([1, 2, 3], $user->getColumn('array'));
+		$this->assertEquals([1, 2, 3], $user->getValue('array'));
 
-		$this->assertEquals([1, 2, 3], $user->getRawColumn('array'));
+		$this->assertEquals([1, 2, 3], $user->getColumnValue('array'));
+
+		$this->assertEquals([1, 2, 3], $user->getRawColumnValue('array'));
 
 		//
 
 		$user = new TestUser1();
 
-		$user->setColumn('array', [1, 2, 3]);
+		$user->setColumnValue('array', [1, 2, 3]);
 
 		$this->assertEquals([1, 2, 3], $user->array);
 
-		$this->assertEquals([1, 2, 3], $user->getColumn('array'));
+		$this->assertEquals([1, 2, 3], $user->getValue('array'));
 
-		$this->assertEquals([1, 2, 3], $user->getRawColumn('array'));
+		$this->assertEquals([1, 2, 3], $user->getColumnValue('array'));
+
+		$this->assertEquals([1, 2, 3], $user->getRawColumnValue('array'));
 
 		//
 
@@ -250,29 +254,33 @@ class ORMTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals([1, 2, 3], $user->array);
 
-		$this->assertEquals([1, 2, 3], $user->getColumn('array'));
+		$this->assertEquals([1, 2, 3], $user->getValue('array'));
 
-		$this->assertEquals('[1,2,3]', $user->getRawColumn('array'));
+		$this->assertEquals([1, 2, 3], $user->getColumnValue('array'));
+
+		$this->assertEquals('[1,2,3]', $user->getRawColumnValue('array'));
 
 		//
 
 		$user = new TestUser2();
 
-		$user->setColumn('array', [1, 2, 3]);
+		$user->setColumnValue('array', [1, 2, 3]);
 
 		$this->assertEquals([1, 2, 3], $user->array);
 
-		$this->assertEquals([1, 2, 3], $user->getColumn('array'));
+		$this->assertEquals([1, 2, 3], $user->getValue('array'));
 
-		$this->assertEquals('[1,2,3]', $user->getRawColumn('array'));
+		$this->assertEquals([1, 2, 3], $user->getColumnValue('array'));
+
+		$this->assertEquals('[1,2,3]', $user->getRawColumnValue('array'));
 
 		//
 
 		$user = new TestUser2();
 
-		$user->setRawColumn('array', [1, 2, 3]);
+		$user->setRawColumnValue('array', [1, 2, 3]);
 
-		$this->assertEquals([1, 2, 3], $user->getRawColumn('array'));
+		$this->assertEquals([1, 2, 3], $user->getRawColumnValue('array'));
 
 		//
 
@@ -290,13 +298,13 @@ class ORMTest extends PHPUnit_Framework_TestCase
 
 		$user->assign(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1]);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar'], $user->getRawColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar'], $user->getRawColumnValues());
 
 		//
 
 		$user = new TestUser3(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1]);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar'], $user->getRawColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar'], $user->getRawColumnValues());
 
 		//
 
@@ -304,13 +312,13 @@ class ORMTest extends PHPUnit_Framework_TestCase
 
 		$user->assign(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], false, false);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getRawColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getRawColumnValues());
 
 		//
 
 		$user = new TestUser3(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], false, false);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getRawColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getRawColumnValues());
 
 		//
 
@@ -318,13 +326,13 @@ class ORMTest extends PHPUnit_Framework_TestCase
 
 		$user->assign(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], false, false);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1], $user->getRawColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1], $user->getRawColumnValues());
 
 		//
 
 		$user = new TestUser3(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], false, false, true);
 
-		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getRawColumns());
+		$this->assertEquals(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], $user->getRawColumnValues());
 	}
 
 	/**
@@ -356,7 +364,11 @@ class ORMTest extends PHPUnit_Framework_TestCase
 
 		$this->assertNull($user->optional);
 
-		$this->assertNull($user->getRawColumn('optional'));
+		$this->assertNull($user->getValue('optional'));
+
+		$this->assertNull($user->getColumnValue('optional'));
+
+		$this->assertNull($user->getRawColumnValue('optional'));
 	}
 
 	/**

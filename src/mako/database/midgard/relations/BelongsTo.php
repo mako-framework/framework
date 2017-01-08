@@ -38,7 +38,7 @@ class BelongsTo extends Relation
 
 		foreach($results as $result)
 		{
-			$keys[] = $result->getRawColumn($this->getForeignKey());
+			$keys[] = $result->getRawColumnValue($this->getForeignKey());
 		}
 
 		return array_filter(array_unique($keys));
@@ -49,7 +49,7 @@ class BelongsTo extends Relation
 	 */
 	protected function lazyCriterion()
 	{
-		$this->where($this->model->getPrimaryKey(), '=', $this->parent->getRawColumn($this->getForeignKey()));
+		$this->where($this->model->getPrimaryKey(), '=', $this->parent->getRawColumnValue($this->getForeignKey()));
 	}
 
 	/**
@@ -100,7 +100,7 @@ class BelongsTo extends Relation
 
 		foreach($results as $result)
 		{
-			$result->setRelated($relation, $grouped[$result->getRawColumn($foreignKey)] ?? false);
+			$result->setRelated($relation, $grouped[$result->getRawColumnValue($foreignKey)] ?? false);
 		}
 	}
 
@@ -112,7 +112,7 @@ class BelongsTo extends Relation
 	 */
 	public function getRelated()
 	{
-		if($this->parent->getRawColumn($this->getForeignKey()) === null)
+		if($this->parent->getRawColumnValue($this->getForeignKey()) === null)
 		{
 			return false;
 		}
