@@ -625,6 +625,38 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
+	 * Sets column values.
+	 *
+	 * @access public
+	 * @param array $columns Column values
+	 * @param bool  $raw     Set raw values?
+	 */
+	protected function setColumValues(array $columns, bool $raw)
+	{
+		if($raw)
+		{
+			if(empty($this->getCastColumns()))
+			{
+				$this->columns = $columns;
+			}
+			else
+			{
+				foreach($columns as $column => $value)
+				{
+					$this->setRawColumnValue($column, $value);
+				}
+			}
+		}
+		else
+		{
+			foreach($columns as $column => $value)
+			{
+				$this->setColumnValue($column, $value);
+			}
+		}
+	}
+
+	/**
 	 * Assigns the column values to the model.
 	 *
 	 * @access public
@@ -651,20 +683,7 @@ abstract class ORM implements JsonSerializable
 
 		// Set column values
 
-		if($raw)
-		{
-			foreach($columns as $column => $value)
-			{
-				$this->setRawColumnValue($column, $value);
-			}
-		}
-		else
-		{
-			foreach($columns as $column => $value)
-			{
-				$this->setColumnValue($column, $value);
-			}
-		}
+		$this->setColumValues($columns, $raw);
 
 		return $this;
 	}
