@@ -627,7 +627,7 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Sets column values.
 	 *
-	 * @access public
+	 * @access protected
 	 * @param array $columns Column values
 	 * @param bool  $raw     Set raw values?
 	 */
