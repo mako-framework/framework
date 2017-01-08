@@ -80,7 +80,14 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @var array
 	 */
-	protected static $hooks = [];
+	protected static $traitHooks = [];
+
+	/**
+	 * Trait casts.
+	 *
+	 * @var array
+	 */
+	protected static $traitCasts = [];
 
 	/**
 	 * Table name.
@@ -177,7 +184,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function __construct(array $columns = [], bool $raw = false, bool $whitelist = true, bool $exists = false)
 	{
-		$this->registerHooks();
+		$this->registerTraits();
 
 		$this->assign($columns, $raw, $whitelist);
 
@@ -273,24 +280,32 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
-	 * Registers query builder hooks from traits.
+	 * Registers traits.
 	 *
 	 * @access protected
 	 */
-	protected function registerHooks()
+	protected function registerTraits()
 	{
-		if(!isset(static::$hooks[static::class]))
+		if(!isset(static::$traitHooks[static::class]))
 		{
-			static::$hooks[static::class] = [];
+			static::$traitHooks[static::class] = [];
+			static::$traitCasts[static::class] = [];
 
 			foreach(ClassInspector::getTraits(static::class) as $trait)
 			{
 				if(method_exists($this, $getter = 'get' . $this->getClassShortName($trait) . 'Hooks'))
 				{
-					static::$hooks[static::class] = array_merge_recursive(static::$hooks[static::class], $this->$getter());
+					static::$traitHooks[static::class] = array_merge_recursive(static::$traitHooks[static::class], $this->$getter());
+				}
+
+				if(method_exists($this, $getter = 'get' . $this->getClassShortName($trait) . 'Casts'))
+				{
+					static::$traitCasts[static::class] += $this->$getter();
 				}
 			}
 		}
+
+		$this->cast += static::$traitCasts[static::class];
 	}
 
 	/**
@@ -321,7 +336,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function getHooks(string $event): array
 	{
-		return isset(static::$hooks[static::class][$event]) ? $this->bindHooks(static::$hooks[static::class][$event]) : [];
+		return isset(static::$traitHooks[static::class][$event]) ? $this->bindHooks(static::$traitHooks[static::class][$event]) : [];
 	}
 
 	/**
@@ -462,17 +477,6 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
-	 * Returns the columns that we're casting.
-	 *
-	 * @access protected
-	 * @return array
-	 */
-	protected function getCastColumns(): array
-	{
-		return $this->cast;
-	}
-
-	/**
 	 * Cast value to the appropriate type.
 	 *
 	 * @access protected
@@ -482,11 +486,9 @@ abstract class ORM implements JsonSerializable
 	 */
 	protected function cast(string $name, $value)
 	{
-		$cast = $this->getCastColumns();
-
-		if(isset($cast[$name]) && $value !== null)
+		if(isset($this->cast[$name]) && $value !== null)
 		{
-			switch($cast[$name])
+			switch($this->cast[$name])
 			{
 				case 'int':
 					return (int) $value;
@@ -635,7 +637,7 @@ abstract class ORM implements JsonSerializable
 	{
 		if($raw)
 		{
-			if(empty($this->getCastColumns()))
+			if(empty($this->cast))
 			{
 				$this->columns = $columns;
 			}

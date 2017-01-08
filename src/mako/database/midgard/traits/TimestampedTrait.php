@@ -90,6 +90,17 @@ trait TimestampedTrait
 	}
 
 	/**
+	 * Returns trait casts.
+	 *
+	 * @access protected
+	 * @return array
+	 */
+	protected function getTimestampedTraitCasts(): array
+	{
+		return [$this->getCreatedAtColumn() => 'date', $this->getUpdatedAtColumn() => 'date'];
+	}
+
+	/**
 	 * Should we touch relations on insert?
 	 *
 	 * @access protected
@@ -142,17 +153,6 @@ trait TimestampedTrait
 	public function getUpdatedAtColumn(): string
 	{
 		return property_exists($this, 'updatedAtColumn') ? $this->updatedAtColumn : 'updated_at';
-	}
-
-	/**
-	 * Returns the columns that we're casting.
-	 *
-	 * @access protected
-	 * @return array
-	 */
-	protected function getCastColumns(): array
-	{
-		return $this->cast + [$this->getCreatedAtColumn() => 'date', $this->getUpdatedAtColumn() => 'date'];
 	}
 
 	/**
