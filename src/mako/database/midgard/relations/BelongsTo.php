@@ -36,9 +36,11 @@ class BelongsTo extends Relation
 	{
 		$keys = [];
 
+		$foreignKey = $this->getForeignKey();
+
 		foreach($results as $result)
 		{
-			$keys[] = $result->getRawColumnValue($this->getForeignKey());
+			$keys[] = $result->getRawColumnValue($foreignKey);
 		}
 
 		return array_filter(array_unique($keys));
