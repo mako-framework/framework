@@ -75,11 +75,11 @@ class CountdownTest extends PHPUnit_Framework_TestCase
 		$output->shouldReceive('write')->once()->with("\r1 ... ");
 		$output->shouldReceive('write')->once()->with("\r      \r");
 
-		$bell = new Countdown($output);
+		$countdown = new Countdown($output);
 
 		$usleep->enable();
 
-		$bell->draw();
+		$countdown->draw();
 
 		$usleep->disable();
 	}
@@ -103,11 +103,11 @@ class CountdownTest extends PHPUnit_Framework_TestCase
 		$output->shouldReceive('write')->once()->with("\r1 ... ");
 		$output->shouldReceive('write')->once()->with("\r      \r");
 
-		$bell = new Countdown($output);
+		$countdown = new Countdown($output);
 
 		$usleep->enable();
 
-		$bell->draw(2);
+		$countdown->draw(2);
 
 		$usleep->disable();
 	}
