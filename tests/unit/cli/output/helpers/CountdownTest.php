@@ -12,9 +12,10 @@ use PHPUnit_Framework_TestCase;
 
 use mako\cli\output\helpers\Countdown;
 
+use phpmock\MockBuilder;
+
 /**
  * @group unit
- * @group slow
  */
 class CountdownTest extends PHPUnit_Framework_TestCase
 {
@@ -29,8 +30,27 @@ class CountdownTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	protected function mockUsleep()
+	{
+		$builder = new MockBuilder;
+
+		$builder->setNamespace('mako\cli\output\helpers')
+		->setName("usleep")
+		->setFunction(function()
+		{
+			// Don't do anything
+		});
+
+		return $builder->build();
+	}
+
+	/**
+	 *
+	 */
 	public function testCountdownFromDefault()
 	{
+		$usleep = $this->mockUsleep();
+
 		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with("\r5     ");
@@ -57,7 +77,11 @@ class CountdownTest extends PHPUnit_Framework_TestCase
 
 		$bell = new Countdown($output);
 
+		$usleep->enable();
+
 		$bell->draw();
+
+		$usleep->disable();
 	}
 
 	/**
@@ -65,6 +89,8 @@ class CountdownTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCountdownFrom2()
 	{
+		$usleep = $this->mockUsleep();
+
 		$output = Mockery::mock('mako\cli\output\Output');
 
 		$output->shouldReceive('write')->once()->with("\r2     ");
@@ -79,6 +105,10 @@ class CountdownTest extends PHPUnit_Framework_TestCase
 
 		$bell = new Countdown($output);
 
+		$usleep->enable();
+
 		$bell->draw(2);
+
+		$usleep->disable();
 	}
 }
