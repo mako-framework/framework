@@ -533,11 +533,6 @@ class Validator
 
 		foreach($this->rules as $key => $rules)
 		{
-			if(is_string($rules))
-			{
-				$rules = str_getcsv(trim($rules, '|'), '|');
-			}
-
 			foreach($rules as $rule)
 			{
 				$package = null;
