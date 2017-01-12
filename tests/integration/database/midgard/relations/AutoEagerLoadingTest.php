@@ -63,7 +63,7 @@ class AutoEagerLoadingTest extends \ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "articles" WHERE "autoeagerloadinguser_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "articles" WHERE "auto_eager_loading_user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -89,10 +89,10 @@ class AutoEagerLoadingTest extends \ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "articles" WHERE "autoeagerloadinguser_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "articles" WHERE "auto_eager_loading_user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 
-		$this->assertEquals('SELECT * FROM "articles" WHERE "autoeagerloadinguser_id" = \'2\'', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
+		$this->assertEquals('SELECT * FROM "articles" WHERE "auto_eager_loading_user_id" = \'2\'', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
 
-		$this->assertEquals('SELECT * FROM "articles" WHERE "autoeagerloadinguser_id" = \'3\'', $this->connectionManager->connection('sqlite')->getLog()[3]['query']);
+		$this->assertEquals('SELECT * FROM "articles" WHERE "auto_eager_loading_user_id" = \'3\'', $this->connectionManager->connection('sqlite')->getLog()[3]['query']);
 	}
 }
