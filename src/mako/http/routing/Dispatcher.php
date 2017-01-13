@@ -103,11 +103,11 @@ class Dispatcher
 	 */
 	protected function resolveMiddleware(string $middleware): array
 	{
-		list($middleware, $parameters) = $this->parseFunction($middleware, true);
+		list($name, $parameters) = $this->parseFunction($middleware, true);
 
-		$middleware = $this->middleware->get($middleware);
+		$middleware = $this->middleware->get($name);
 
-		return ['middleware' => $middleware, 'parameters' => $parameters];
+		return ['name' => $name, 'middleware' => $middleware, 'parameters' => $parameters];
 	}
 
 	/**
@@ -119,11 +119,25 @@ class Dispatcher
 	 */
 	protected function addMiddlewareToStack(Onion $onion, array $middleware)
 	{
-		foreach($middleware as $layer)
+		if(empty($middleware) === false)
 		{
-			$layer = $this->resolveMiddleware($layer);
+			// Resolve middleware
 
-			$onion->addLayer($layer['middleware'], $layer['parameters']);
+			$resolved = [];
+
+			foreach($middleware as $layer)
+			{
+				$layer = $this->resolveMiddleware($layer);
+
+				$resolved[$layer['name']] = $layer;
+			}
+
+			// Add ordered middleware to stack
+
+			foreach($this->middleware->orderByPriority($resolved) as $layer)
+			{
+				$onion->addLayer($layer['middleware'], $layer['parameters']);
+			}
 		}
 	}
 

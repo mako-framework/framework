@@ -17,11 +17,48 @@ use RuntimeException;
 class Middleware
 {
 	/**
+	 * Middleware priority.
+	 *
+	 * @var array
+	 */
+	protected $priority = [];
+
+	/**
 	 * Registered middleware.
 	 *
 	 * @var array
 	 */
 	protected $middleware = [];
+
+	/**
+	 * Sets the middleware priority.
+	 *
+	 * @access public
+	 * @param array $priority Priority order
+	 */
+	public function setPriority(array $priority)
+	{
+		$this->priority = $priority;
+	}
+
+	/**
+	 * Orders resolved middleware by priority.
+	 *
+	 * @access public
+	 * @param  array $middelware Array of middleware
+	 * @return array
+	 */
+	public function orderByPriority(array $middleware): array
+	{
+		if(empty($this->priority))
+		{
+			return $middleware;
+		}
+
+		$priority = array_flip($this->priority);
+
+		return array_merge(array_intersect_key($priority, $middleware), array_diff_key($middleware, $priority), $middleware);
+	}
 
 	/**
 	 * Adds a middleware.

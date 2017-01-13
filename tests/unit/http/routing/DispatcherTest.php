@@ -358,14 +358,17 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * [testMiddleware description]
-	 * @return [type] [description]
+	 *
 	 */
 	public function testMiddleware()
 	{
 		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$middleware->shouldReceive('get')->once()->with('test')->andReturn(FooMiddleware::class);
+
+		$middleware->shouldReceive('orderByPriority')->once()
+		->with(['test' => ['name' => 'test', 'middleware' => FooMiddleware::class, 'parameters' => []]])
+		->andReturn(['test' => ['name' => 'test', 'middleware' => FooMiddleware::class, 'parameters' => []]]);
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -390,14 +393,17 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * [testMiddleware description]
-	 * @return [type] [description]
+	 *
 	 */
 	public function testMiddlewareWithArguments()
 	{
 		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
 		$middleware->shouldReceive('get')->once()->with('test')->andReturn(FooMiddleware::class);
+
+		$middleware->shouldReceive('orderByPriority')->once()
+		->with(['test' => ['name' => 'test', 'middleware' => FooMiddleware::class, 'parameters' => ['separator' => '~']]])
+		->andReturn(['test' => ['name' => 'test', 'middleware' => FooMiddleware::class, 'parameters' => ['separator' => '~']]]);
 
 		$route = Mockery::mock('\mako\http\routing\Route');
 
