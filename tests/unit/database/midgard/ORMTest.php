@@ -54,6 +54,8 @@ class TestUser2 extends TestUser1
 
 class TestUser3 extends TestUser1
 {
+	protected $foreignKeyName = 'testuser3';
+
 	protected $assignable = ['username', 'email'];
 }
 
@@ -150,7 +152,11 @@ class ORMTest extends PHPUnit_Framework_TestCase
 	{
 		$user = new TestUser1();
 
-		$this->assertEquals('testuser1_id', $user->getForeignKey());
+		$this->assertEquals('test_user1_id', $user->getForeignKey());
+
+		$user = new TestUser3();
+
+		$this->assertEquals('testuser3', $user->getForeignKey());
 	}
 
 	/**

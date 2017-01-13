@@ -97,6 +97,13 @@ abstract class ORM implements JsonSerializable
 	protected $tableName = null;
 
 	/**
+	 * Foreign key name.
+	 *
+	 * @var string
+	 */
+	protected $foreignKeyName = null;
+
+	/**
 	 * Primary key.
 	 *
 	 * @var string
@@ -417,7 +424,12 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function getForeignKey(): string
 	{
-		return strtolower($this->getClassShortName()) . '_id';
+		if(empty($this->foreignKeyName))
+		{
+			$this->foreignKeyName = Str::camel2underscored($this->getClassShortName()) . '_id';
+		}
+
+		return $this->foreignKeyName;
 	}
 
 	/**
