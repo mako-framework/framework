@@ -34,7 +34,7 @@ class Middleware
 	 * Sets the middleware priority.
 	 *
 	 * @access public
-	 * @param array $priority Priority order
+	 * @param array $priority Middleware priority
 	 */
 	public function setPriority(array $priority)
 	{
@@ -55,9 +55,30 @@ class Middleware
 			return $middleware;
 		}
 
-		$priority = array_flip($this->priority);
+		$priority = array_intersect_key($this->priority, $middleware) + array_fill_keys(array_keys(array_diff_key($middleware, $this->priority)), 100);
 
-		return array_merge(array_intersect_key($priority, $middleware), array_diff_key($middleware, $priority), $middleware);
+		// Sort the priority map using stable sorting
+
+		$position = 0;
+
+		foreach($priority as $key => $value)
+		{
+			$priority[$key] = [$position++, $value];
+		}
+
+		uasort($priority, function($a, $b)
+		{
+			return ($a[1] === $b[1]) ? ($a[0] > $b[0]) : (($a[1] > $b[1]) ? 1 : -1);
+		});
+
+		foreach($priority as $key => $value)
+		{
+			$priority[$key] = $value[1];
+		}
+
+		// Return sorted middleware list
+
+		return array_merge($priority, $middleware);
 	}
 
 	/**

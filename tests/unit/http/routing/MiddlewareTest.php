@@ -57,10 +57,10 @@ class MiddlewareTest extends PHPUnit_Framework_TestCase
 
 		$resolved =
 		[
-			'bar' => ['name' => 'bar', 'middleware' => 'middleware', 'parameters' => [1, 2, 3]],
-			'foo' => ['name' => 'foo', 'middleware' => 'middleware', 'parameters' => [4, 5, 6]],
-			'bax' => ['name' => 'bax', 'middleware' => 'middleware', 'parameters' => [7, 8, 9]],
-			'baz' => ['name' => 'baz', 'middleware' => 'middleware', 'parameters' => [0, 1, 2]],
+			'bar' => ['one'],
+			'foo' => ['two'],
+			'bax' => ['three'],
+			'baz' => ['four'],
 		];
 
 		$this->assertSame($resolved, $middleware->orderByPriority($resolved));
@@ -73,22 +73,24 @@ class MiddlewareTest extends PHPUnit_Framework_TestCase
 	{
 		$middleware = new Middleware;
 
-		$middleware->setPriority(['foo', 'baz', 'xxx']);
+		$middleware->setPriority(['foo' => 1, 'baz' => 2, 'xxx' => 3, 'yyy' => 101]);
 
 		$resolved =
 		[
-			'bar' => ['name' => 'bar', 'middleware' => 'middleware', 'parameters' => [1, 2, 3]],
-			'foo' => ['name' => 'foo', 'middleware' => 'middleware', 'parameters' => [4, 5, 6]],
-			'bax' => ['name' => 'bax', 'middleware' => 'middleware', 'parameters' => [7, 8, 9]],
-			'baz' => ['name' => 'baz', 'middleware' => 'middleware', 'parameters' => [0, 1, 2]],
+			'bar' => ['three'],
+			'foo' => ['one'],
+			'bax' => ['four'],
+			'yyy' => ['five'],
+			'baz' => ['two'],
 		];
 
 		$ordered =
 		[
-			'foo' => ['name' => 'foo', 'middleware' => 'middleware', 'parameters' => [4, 5, 6]],
-			'baz' => ['name' => 'baz', 'middleware' => 'middleware', 'parameters' => [0, 1, 2]],
-			'bar' => ['name' => 'bar', 'middleware' => 'middleware', 'parameters' => [1, 2, 3]],
-			'bax' => ['name' => 'bax', 'middleware' => 'middleware', 'parameters' => [7, 8, 9]],
+			'foo' => ['one'],
+			'baz' => ['two'],
+			'bar' => ['three'],
+			'bax' => ['four'],
+			'yyy' => ['five'],
 		];
 
 		$this->assertSame($ordered, $middleware->orderByPriority($resolved));
@@ -101,7 +103,7 @@ class MiddlewareTest extends PHPUnit_Framework_TestCase
 	{
 		$middleware = new Middleware;
 
-		$middleware->setPriority(['foo', 'baz']);
+		$middleware->setPriority(['foo' => 1, 'baz' => 2]);
 
 		$this->assertSame([], $middleware->orderByPriority([]));
 	}
