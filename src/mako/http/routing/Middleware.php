@@ -17,6 +17,13 @@ use RuntimeException;
 class Middleware
 {
 	/**
+	 * Default priority.
+	 *
+	 * @var int
+	 */
+	const DEFAULT_PRIORITY = 100;
+
+	/**
 	 * Middleware priority.
 	 *
 	 * @var array
@@ -55,7 +62,7 @@ class Middleware
 			return $middleware;
 		}
 
-		$priority = array_intersect_key($this->priority, $middleware) + array_fill_keys(array_keys(array_diff_key($middleware, $this->priority)), 100);
+		$priority = array_intersect_key($this->priority, $middleware) + array_fill_keys(array_keys(array_diff_key($middleware, $this->priority)), static::DEFAULT_PRIORITY);
 
 		// Sort the priority map using stable sorting
 
