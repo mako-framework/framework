@@ -52,7 +52,7 @@ class Middleware
 	 * Orders resolved middleware by priority.
 	 *
 	 * @access public
-	 * @param  array $middelware Array of middleware
+	 * @param  array $middleware Array of middleware
 	 * @return array
 	 */
 	public function orderByPriority(array $middleware): array
