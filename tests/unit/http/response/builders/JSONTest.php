@@ -79,6 +79,34 @@ class JSONTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testBuildWithJsonpWithInvalidCallback()
+	{
+		$query = Mockery::mock(Parameters::class);
+
+		$query->shouldReceive('get')->once()->with('callback')->andReturn('foo bar');
+
+		$request = Mockery::mock(Request::class);
+
+		$request->query = $query;
+
+		$response = Mockery::mock(Response::class);
+
+		$response->shouldReceive('type')->once()->with('text/javascript');
+
+		$response->shouldReceive('body')->once()->with('/**/callback([1,2,3]);');
+
+		//
+
+		$json = new JSON([1, 2, 3]);
+
+		$json->asJsonpWith('callback');
+
+		$json->build($request, $response);
+	}
+
+	/**
+	 *
+	 */
 	public function testBuildWithJsonpWithoutCallback()
 	{
 		$query = Mockery::mock(Parameters::class);
