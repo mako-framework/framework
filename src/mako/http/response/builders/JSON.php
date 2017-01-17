@@ -32,6 +32,13 @@ class JSON implements ResponseBuilderInterface
 	protected $options;
 
 	/**
+	 * Callback.
+	 *
+	 * @var string
+	 */
+	protected $callback;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access public
@@ -46,12 +53,54 @@ class JSON implements ResponseBuilderInterface
 	}
 
 	/**
+	 * Enables JSONP support.
+	 *
+	 * @access public
+	 * @param  string                            $callback Query string field
+	 * @return \mako\http\response\builders\JSON
+	 */
+	public function asJsonpWith(string $callback): JSON
+	{
+		$this->callback = $callback;
+
+		return $this;
+	}
+
+	/**
+	 * Ensures a valid callback name.
+	 *
+	 * @access protected
+	 * @param  string $callback Callback name
+	 * @return string
+	 */
+	protected function normalizeCallback(string $callback): string
+	{
+		if(preg_match('/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u', $callback) === 0)
+		{
+			return 'callback';
+		}
+
+		return $callback;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function build(Request $request, Response $response)
 	{
-		$response->type('application/json');
+		$json = json_encode($this->data, $this->options);
 
-		$response->body(json_encode($this->data, $this->options));
+		if(!empty($this->callback) && ($callback = $request->query->get($this->callback)) !== null)
+		{
+			$response->type('text/javascript');
+
+			$json = '/**/' . $this->normalizeCallback($callback) . '(' . $json . ');';
+		}
+		else
+		{
+			$response->type('application/json');
+		}
+
+		$response->body($json);
 	}
 }
