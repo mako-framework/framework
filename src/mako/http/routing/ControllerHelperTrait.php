@@ -10,7 +10,6 @@ namespace mako\http\routing;
 use Closure;
 
 use mako\http\response\builders\JSON;
-use mako\http\response\builders\JSONP;
 use mako\http\response\senders\File;
 use mako\http\response\senders\Redirect;
 use mako\http\response\senders\Stream;
@@ -80,17 +79,5 @@ trait ControllerHelperTrait
 	protected function jsonResponse($data, int $options = 0): JSON
 	{
 		return new JSON($data, $options);
-	}
-
-	/**
-	 * Returns a JSONP response builder.
-	 *
-	 * @param  mixed                             $data    Data
-	 * @param  int                               $options JSON encode coptions
-	 * @return \mako\http\response\builder\JSONP
-	 */
-	protected function jsonpResponse($data, int $options = 0): JSONP
-	{
-		return new JSONP($data, $options);
 	}
 }
