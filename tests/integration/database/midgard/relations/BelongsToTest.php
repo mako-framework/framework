@@ -143,7 +143,7 @@ class BelongsToTest extends \ORMTestCase
 		$profiles = BelongsToProfile::including(['user' => function($query)
 		{
 			$query->where('username', '=', 'does not exist');
-		}])->ascending('id')->all();
+		}, ])->ascending('id')->all();
 
 		foreach($profiles as $profile)
 		{

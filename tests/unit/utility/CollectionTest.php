@@ -27,9 +27,9 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$collection = new Collection([1,2,3]);
+		$collection = new Collection([1, 2, 3]);
 
-		$this->assertEquals([1,2,3], $collection->getItems());
+		$this->assertEquals([1, 2, 3], $collection->getItems());
 	}
 
 	/**
@@ -119,7 +119,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$collection = new Collection([1,2,3]);
+		$collection = new Collection([1, 2, 3]);
 
 		$this->assertTrue(isset($collection[0]));
 	}
@@ -129,7 +129,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetGet()
 	{
-		$collection = new Collection([1,2,3]);
+		$collection = new Collection([1, 2, 3]);
 
 		$this->assertEquals(1, $collection[0]);
 	}
@@ -170,7 +170,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetUnset()
 	{
-		$collection = new Collection([1,2,3]);
+		$collection = new Collection([1, 2, 3]);
 
 		unset($collection[1]);
 
@@ -190,7 +190,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$collection = new Collection([1,2,3]);
+		$collection = new Collection([1, 2, 3]);
 
 		$this->assertEquals(3, count($collection));
 
@@ -204,7 +204,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	{
 		$string = '';
 
-		foreach(new Collection([1,2,3]) as $item)
+		foreach(new Collection([1, 2, 3]) as $item)
 		{
 			$string .= $item;
 		}

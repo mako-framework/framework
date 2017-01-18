@@ -33,7 +33,7 @@ class RawTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetParameters()
 	{
-		$params = [1,2,3];
+		$params = [1, 2, 3];
 
 		$raw = new Raw('', $params);
 

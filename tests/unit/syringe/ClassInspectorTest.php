@@ -59,7 +59,7 @@ class ClassInspectorTest extends PHPUnit_Framework_TestCase
 		[
 			'mako\tests\unit\syringe\C' => 'mako\tests\unit\syringe\C',
 			'mako\tests\unit\syringe\B' => 'mako\tests\unit\syringe\B',
-			'mako\tests\unit\syringe\A' => 'mako\tests\unit\syringe\A'
+			'mako\tests\unit\syringe\A' => 'mako\tests\unit\syringe\A',
 		];
 
 		$this->assertEquals($expectedTraits, $traitsD);
