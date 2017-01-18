@@ -74,7 +74,7 @@ class UUID
 
 		// Get hexadecimal components of namespace
 
-		$nhex = str_replace(['-','{','}'], '', $namespace);
+		$nhex = str_replace(['-', '{', '}'], '', $namespace);
 
 		// Binary Value
 
