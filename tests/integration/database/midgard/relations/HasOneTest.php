@@ -143,7 +143,7 @@ class HasOneTest extends \ORMTestCase
 		$users = HasOneUser::including(['profile' => function($query)
 		{
 			$query->where('interests', '=', 'does not exist');
-		}])->ascending('id')->all();
+		}, ])->ascending('id')->all();
 
 		foreach($users as $user)
 		{

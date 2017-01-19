@@ -32,7 +32,7 @@ class Down extends Command
 			'batches' =>
 			[
 				'optional'    => true,
-				'description' => 'Number of batches to roll back'
+				'description' => 'Number of batches to roll back',
 			],
 		],
 	];

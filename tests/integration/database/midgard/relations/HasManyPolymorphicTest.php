@@ -162,7 +162,7 @@ class HasManyPolymorphicTest extends \ORMTestCase
 		$articles = HasManyPolymorphicArticle::including(['comments' => function($query)
 		{
 			$query->where('comment', '=', 'does not exist');
-		}])->ascending('id')->all();
+		}, ])->ascending('id')->all();
 
 		foreach($articles as $article)
 		{

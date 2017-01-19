@@ -151,7 +151,7 @@ class HasOnePolymorphicTest extends \ORMTestCase
 		$profiles = HasOnePolymorphicProfile::including(['image' => function($query)
 		{
 			$query->where('image', '=', 'does not exist');
-		}])->ascending('id')->all();
+		}, ])->ascending('id')->all();
 
 		foreach($profiles as $profile)
 		{

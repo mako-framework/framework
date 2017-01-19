@@ -4,7 +4,6 @@
  * @copyright Frederic G. Østby
  * @license   http://www.makoframework.com/license
  */
-
 use mako\database\ConnectionManager;
 
 abstract class BuilderTestCase extends PHPUnit_Framework_TestCase

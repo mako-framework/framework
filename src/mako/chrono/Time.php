@@ -279,7 +279,7 @@ class Time extends DateTime
 			30,
 			31,
 			30,
-			31
+			31,
 		];
 	}
 

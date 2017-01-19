@@ -154,7 +154,7 @@ class HasManyTest extends \ORMTestCase
 		$users = HasManyUser::including(['articles' => function($query)
 		{
 			$query->where('title', '=', 'does not exist');
-		}])->ascending('id')->all();
+		}, ])->ascending('id')->all();
 
 		foreach($users as $user)
 		{

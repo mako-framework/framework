@@ -188,7 +188,7 @@ class ManyToManyTest extends \ORMTestCase
 		$users = ManyToManyUser::including(['groups' => function($query)
 		{
 			$query->where('name', '=', 'does not exist');
-		}])->ascending('id')->all();
+		}, ])->ascending('id')->all();
 
 		foreach($users as $user)
 		{
