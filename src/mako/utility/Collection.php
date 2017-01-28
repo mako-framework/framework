@@ -55,6 +55,17 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
+	 * Returns all the values in the collection.
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function getValues(): array
+	{
+		return array_values($this->items);
+	}
+
+	/**
 	 * Resets the collection keys.
 	 *
 	 * @access public
@@ -306,5 +317,49 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	public function shuffle(): bool
 	{
 		return shuffle($this->items);
+	}
+
+	/**
+	 * Applies the callable on all items in the collection.
+	 *
+	 * @access public
+	 * @param callable $callable Callable
+	 */
+	public function each(callable $callable)
+	{
+		foreach($this->items as $key => $value)
+		{
+			$this->items[$key] = $callable($value, $key);
+		}
+	}
+
+	/**
+	 * Returns a new collection where the callable has
+	 * been applied to all the items.
+	 *
+	 * @access public
+	 * @param  callable                 $callable Callable
+	 * @return \mako\utility\Collection
+	 */
+	public function map(callable $callable)
+	{
+		return new static(array_map($callable, $this->items));
+	}
+
+	/**
+	 * Returns a new filtered collection.
+	 *
+	 * @access public
+	 * @param  callable                 $callable Filter
+	 * @return \mako\utility\Collection
+	 */
+	public function filter(callable $callable = null)
+	{
+		if($callable === null)
+		{
+			return new static(array_filter($this->items));
+		}
+
+		return new static(array_filter($this->items, $callable));
 	}
 }
