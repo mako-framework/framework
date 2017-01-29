@@ -400,4 +400,74 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals([0 => 1, 1 => 2, 2 => 4, 3 => 5, 4 => 6], $collection->getItems());
 
 	}
+
+	/**
+	 *
+	 */
+	public function testGetValues()
+	{
+		$collection = new Collection(['foo' => 'bar', 'baz' => 'bax']);
+
+		$this->assertSame(['bar', 'bax'], $collection->getValues());
+	}
+
+	/**
+	 *
+	 */
+	public function testEach()
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$collection->each(function($value, $key)
+		{
+			return $key . ':' . $value;
+		});
+
+		$this->assertSame(['0:1', '1:2', '2:3'], $collection->getItems());
+	}
+
+	/**
+	 *
+	 */
+	public function testMap()
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$mapped = $collection->map(function($value)
+		{
+			return $value + 1;
+		});
+
+		$this->assertSame([2, 3, 4], $mapped->getItems());
+
+		$this->assertSame([1, 2, 3], $collection->getItems());
+	}
+
+	/**
+	 *
+	 */
+	public function testFilter()
+	{
+		$collection = new Collection([1, null, 3]);
+
+		$filtered = $collection->filter();
+
+		$this->assertSame([1, 3], $filtered->getValues());
+
+		$this->assertSame([1, null, 3], $collection->getValues());
+
+		//
+
+		$collection = new Collection([1, 2, 3]);
+
+		$filtered = $collection->filter(function($value)
+		{
+			return $value !== 2;
+		});
+
+		$this->assertSame([1, 3], $filtered->getValues());
+
+		$this->assertSame([1, 2, 3], $collection->getValues());
+
+	}
 }
