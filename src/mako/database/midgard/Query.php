@@ -21,7 +21,7 @@ use mako\database\query\Query as QueryBuilder;
  *
  * @author Frederic G. Østby
  *
- * @method  \mako\database\midgard\ResultSet  paginate($itemsPerPage = null, array $options = [])
+ * @method \mako\database\midgard\ResultSet paginate($itemsPerPage = null, array $options = [])
  */
 class Query extends QueryBuilder
 {

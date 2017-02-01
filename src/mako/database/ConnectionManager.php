@@ -31,7 +31,7 @@ use mako\database\query\helpers\Postgres as PostgresHelper;
  *
  * @author Frederic G. Østby
  *
- * @method  \mako\database\connections\Connection  connection($connection = null)
+ * @method \mako\database\connections\Connection connection($connection = null)
  */
 class ConnectionManager extends BaseConnectionManager
 {

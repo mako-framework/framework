@@ -18,7 +18,7 @@ use mako\redis\Redis;
  *
  * @author Frederic G. Østby
  *
- * @method  \mako\redis\Redis  connection($connection = null)
+ * @method \mako\redis\Redis connection($connection = null)
  */
 class ConnectionManager extends BaseConnectionManager
 {

@@ -20,9 +20,9 @@ use mako\security\Key;
  *
  * @author Frederic G. Østby
  *
- * @method  \mako\security\crypto\encrypters\EncrypterInterface  instance(string $configuration = null)
- * @method  string                                               encrypt(string $string)
- * @method  string|bool                                          decrypt(string $string)
+ * @method \mako\security\crypto\encrypters\EncrypterInterface instance(string $configuration = null)
+ * @method string                                              encrypt(string $string)
+ * @method string|bool                                         decrypt(string $string)
  */
 class CryptoManager extends AdapterManager
 {
