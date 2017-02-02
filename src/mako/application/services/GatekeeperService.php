@@ -7,10 +7,10 @@
 
 namespace mako\application\services;
 
-use mako\application\services\Service;
-use mako\auth\Gatekeeper;
-use mako\auth\providers\GroupProvider;
-use mako\auth\providers\UserProvider;
+use mako\gatekeeper\Authentication;
+use mako\gatekeeper\adapters\Session;
+use mako\gatekeeper\repositories\group\GroupRepository;
+use mako\gatekeeper\repositories\user\UserRepository;
 
 /**
  * Gatekeeper service.
@@ -24,23 +24,35 @@ class GatekeeperService extends Service
 	 */
 	public function register()
 	{
-		$this->container->registerSingleton([Gatekeeper::class, 'gatekeeper'], function($container)
+		$this->container->registerSingleton([Authentication::class, 'gatekeeper'], function($container)
 		{
+			$request = $container->get('request');
+
+			$response = $container->get('response');
+
+			$session = $container->get('session');
+
 			$config = $container->get('config')->get('gatekeeper');
 
-			$userProvider = new UserProvider($config['user_model']);
+			$factory = function() use ($request, $response, $session, $config)
+			{
+				$userRepository = new UserRepository($config['user_model']);
 
-			$groupProvider = new GroupProvider($config['group_model']);
+				$userRepository->setIdentifier($config['identifier']);
 
-			$options =
-			[
-				'identifier'     => $config['identifier'],
-				'auth_key'       => $config['auth_key'],
-				'cookie_options' => $config['cookie_options'],
-				'throttling'     => $config['throttling'],
-			];
+				$groupRepository = new GroupRepository($config['group_model']);
 
-			return new Gatekeeper($container->get('request'), $container->get('response'), $container->get('session'), $userProvider, $groupProvider, $options);
+				$options =
+				[
+					'auth_key'       => $config['auth_key'],
+					'cookie_options' => $config['cookie_options'],
+					'throttling'     => $config['throttling'],
+				];
+
+				return new Session($userRepository, $groupRepository, $request, $response, $session, $options);
+			};
+
+			return new Authentication(['session', $factory]);
 		});
 	}
 }

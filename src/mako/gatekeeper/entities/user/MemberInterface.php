@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\auth\group;
+namespace mako\gatekeeper\entities\user;
 
 /**
  * Member interface.
@@ -21,5 +21,5 @@ interface MemberInterface
 	 * @param  string|int|array $group Group name, group id or an array of group names or group ids
 	 * @return bool
 	 */
-	public function isMemberOf($group);
+	public function isMemberOf($group): bool;
 }

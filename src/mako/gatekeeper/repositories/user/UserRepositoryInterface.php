@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
+ */
+
+namespace mako\gatekeeper\repositories\user;
+
+/**
+ * User repository interface.
+ *
+ * @author Frederic G. Østby
+ */
+interface UserRepositoryInterface
+{
+	/**
+	 * Creates and returns a user.
+	 *
+	 * @access public
+	 * @param  array                                              $properties User properties
+	 * @return \mako\gatekeeper\entities\user\UserEntityInterface
+	 */
+	public function createUser(array $properties = []);
+
+	/**
+	 * Fetches a user by its identifier.
+	 *
+	 * @access public
+	 * @param  mixed                                                   $identifier User identifier
+	 * @return \mako\gatekeeper\entities\user\UserEntityInterface|bool
+	 */
+	public function getByIdentifier($identifier);
+}

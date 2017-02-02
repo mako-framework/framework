@@ -16,31 +16,31 @@ use mako\syringe\Container;
  *
  * @author Frederic G. Østby
  *
- * @property  \mako\application\Application                 $app
- * @property  \mako\cli\input\Input                         $input
- * @property  \mako\cli\output\Output                       $output
- * @property  \mako\commander\CommandBusInterface           $bus
- * @property  \mako\file\FileSystem                         $fileSystem
- * @property  \mako\config\Config                           $config
- * @property  \mako\cache\CacheManager                      $cache
- * @property  \mako\security\crypto\CryptoManager           $crypto
- * @property  \mako\database\ConnectionManager              $database
- * @property  \mako\event\Event                             $event
- * @property  \mako\error\ErrorHandler                      $errorHandler
- * @property  \mako\auth\Gatekeeper                         $gatekeeper
- * @property  \mako\utility\Humanizer                       $humanizer
- * @property  \mako\i18n\I18n                               $i18n
- * @property  \Psr\Log\LoggerInterface                      $logger
- * @property  \mako\pagination\PaginationFactoryInterface   $pagination
- * @property  \mako\redis\ConnectionManager                 $redis
- * @property  \mako\http\Request                            $request
- * @property  \mako\http\Response                           $response
- * @property  \mako\http\routing\Routes                     $routes
- * @property  \mako\session\Session                         $session
- * @property  \mako\security\Signer                         $signer
- * @property  \mako\http\routing\URLBuilder                 $urlBuilder
- * @property  \mako\validator\ValidatorFactory              $validator
- * @property  \mako\view\ViewFactory                        $view
+ * @property \mako\application\Application               $app
+ * @property \mako\cli\input\Input                       $input
+ * @property \mako\cli\output\Output                     $output
+ * @property \mako\commander\CommandBusInterface         $bus
+ * @property \mako\file\FileSystem                       $fileSystem
+ * @property \mako\config\Config                         $config
+ * @property \mako\cache\CacheManager                    $cache
+ * @property \mako\security\crypto\CryptoManager         $crypto
+ * @property \mako\database\ConnectionManager            $database
+ * @property \mako\event\Event                           $event
+ * @property \mako\error\ErrorHandler                    $errorHandler
+ * @property \mako\gatekeeper\Authentication             $gatekeeper
+ * @property \mako\utility\Humanizer                     $humanizer
+ * @property \mako\i18n\I18n                             $i18n
+ * @property \Psr\Log\LoggerInterface                    $logger
+ * @property \mako\pagination\PaginationFactoryInterface $pagination
+ * @property \mako\redis\ConnectionManager               $redis
+ * @property \mako\http\Request                          $request
+ * @property \mako\http\Response                         $response
+ * @property \mako\http\routing\Routes                   $routes
+ * @property \mako\session\Session                       $session
+ * @property \mako\security\Signer                       $signer
+ * @property \mako\http\routing\URLBuilder               $urlBuilder
+ * @property \mako\validator\ValidatorFactory            $validator
+ * @property \mako\view\ViewFactory                      $view
  */
 trait ContainerAwareTrait
 {
