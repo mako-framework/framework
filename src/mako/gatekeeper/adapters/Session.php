@@ -47,45 +47,26 @@ class Session extends Adapter
 	protected $session;
 
 	/**
-	 * Auth key.
-	 *
-	 * @var string
-	 */
-	protected $authKey = 'gatekeeper_auth_key';
-
-	/**
-	 * Is brute force throttling enabled?
-	 *
-	 * @var bool
-	 */
-	protected $throttle = false;
-
-	/**
-	 * Maximum number of login attempts before the account gets locked.
-	 *
-	 * @var int
-	 */
-	protected $maxLoginAttempts = 5;
-
-	/**
-	 * Number of seconds for which the account gets locked after
-	 * reaching the maximum number of login attempts.
-	 *
-	 * @var int
-	 */
-	protected $lockTime = 300;
-
-	/**
-	 * Cookie options.
+	 * Adapter options.
 	 *
 	 * @var array
 	 */
-	protected $cookieOptions =
+	protected $options =
 	[
-		'path'     => '/',
-		'domain'   => '',
-		'secure'   => false,
-		'httponly' => true,
+		'auth_key'       => 'gatekeeper_auth_key',
+		'cookie_options' =>
+		[
+			'path'     => '/',
+			'domain'   => '',
+			'secure'   => false,
+			'httponly' => true,
+		],
+		'throttling'     =>
+		[
+			'enabled'      => false,
+			'max_attempts' => 5,
+			'lock_time'    => 300,
+		],
 	];
 
 	/**
@@ -111,7 +92,7 @@ class Session extends Adapter
 
 		$this->session = $session;
 
-		$this->configure($options);
+		$this->options = array_replace_recursive($this->options, $options);
 	}
 
 	/**
@@ -120,41 +101,6 @@ class Session extends Adapter
 	public function getName(): string
 	{
 		return 'session';
-	}
-
-	/**
-	 * Configures the adapter.
-	 *
-	 * @access protected
-	 * @param array $options Options
-	 */
-	protected function configure(array $options)
-	{
-		if(!empty($options))
-		{
-			// Configure throttling
-
-			if(isset($options['throttling']))
-			{
-				$this->throttle = isset($options['throttling']['enabled']) && $options['throttling']['enabled'] === true;
-
-				isset($options['throttling']['max_attemps']) && $this->maxLoginAttempts = $options['throttling']['max_attemps'];
-
-				isset($options['throttling']['lock_time']) && $this->lockTime = $options['throttling']['lock_time'];
-			}
-
-			// Configure the identifier
-
-			isset($options['identifier']) && $this->identifier = $options['identifier'];
-
-			// Configure the authentication key
-
-			isset($options['auth_key']) && $this->authKey = $options['auth_key'];
-
-			// Configure the cookie options
-
-			isset($options['cookie_options']) && $this->cookieOptions = $options['cookie_options'] + $this->cookieOptions;
-		}
 	}
 
 	/**
@@ -179,15 +125,15 @@ class Session extends Adapter
 		{
 			// Check if there'a user that can be logged in
 
-			$token = $this->session->get($this->authKey, false);
+			$token = $this->session->get($this->options['auth_key'], false);
 
 			if($token === false)
 			{
-				$token = $this->request->cookies->getSigned($this->authKey, false);
+				$token = $this->request->cookies->getSigned($this->options['auth_key'], false);
 
 				if($token !== false)
 				{
-					$this->session->put($this->authKey, $token);
+					$this->session->put($this->options['auth_key'], $token);
 				}
 			}
 
@@ -225,7 +171,7 @@ class Session extends Adapter
 
 		if($user !== false)
 		{
-			if($this->throttle && $user->isLocked())
+			if($this->options['throttling']['enabled'] && $user->isLocked())
 			{
 				return Authentication::LOGIN_LOCKED;
 			}
@@ -242,7 +188,7 @@ class Session extends Adapter
 					return Authentication::LOGIN_BANNED;
 				}
 
-				if($this->throttle)
+				if($this->options['throttling']['enabled'])
 				{
 					$user->resetThrottle();
 				}
@@ -253,9 +199,9 @@ class Session extends Adapter
 			}
 			else
 			{
-				if($this->throttle)
+				if($this->options['throttling']['enabled'])
 				{
-					$user->throttle($this->maxLoginAttempts, $this->lockTime);
+					$user->throttle($this->options['throttling']['max_attempts'], $this->options['throttling']['lock_time']);
 				}
 			}
 		}
@@ -290,11 +236,11 @@ class Session extends Adapter
 
 			$this->session->regenerateToken();
 
-			$this->session->put($this->authKey, $this->user->getAccessToken());
+			$this->session->put($this->options['auth_key'], $this->user->getAccessToken());
 
 			if($remember === true)
 			{
-				$this->response->signedCookie($this->authKey, $this->user->getAccessToken(), (3600 * 24 * 365), $this->cookieOptions);
+				$this->response->signedCookie($this->options['auth_key'], $this->user->getAccessToken(), (3600 * 24 * 365), $this->options['cookie_options']);
 			}
 
 			return true;
@@ -362,9 +308,9 @@ class Session extends Adapter
 
 		$this->session->regenerateToken();
 
-		$this->session->remove($this->authKey);
+		$this->session->remove($this->options['auth_key']);
 
-		$this->response->deleteCookie($this->authKey, $this->cookieOptions);
+		$this->response->deleteCookie($this->options['auth_key'], $this->options['cookie_options']);
 
 		$this->user = null;
 	}
