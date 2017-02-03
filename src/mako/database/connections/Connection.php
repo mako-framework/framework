@@ -227,6 +227,24 @@ class Connection
 	}
 
 	/**
+	 * Returns the connection options.
+	 *
+	 * @access protected
+	 * @return array
+	 */
+	protected function getConnectionOptions(): array
+	{
+		return
+		[
+			PDO::ATTR_PERSISTENT         => $this->usePersistentConnection,
+			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
+			PDO::ATTR_STRINGIFY_FETCHES  => false,
+			PDO::ATTR_EMULATE_PREPARES   => false,
+		];
+	}
+
+	/**
 	 * Creates a PDO instance.
 	 *
 	 * @access protected
@@ -236,18 +254,9 @@ class Connection
 	{
 		// Connect to the database
 
-		$options =
-		[
-			PDO::ATTR_PERSISTENT         => $this->usePersistentConnection,
-			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-			PDO::ATTR_STRINGIFY_FETCHES  => false,
-			PDO::ATTR_EMULATE_PREPARES   => false,
-		];
-
 		try
 		{
-			$pdo = new PDO($this->dsn, $this->username, $this->password, $options);
+			$pdo = new PDO($this->dsn, $this->username, $this->password, $this->getConnectionOptions());
 		}
 		catch(PDOException $e)
 		{
