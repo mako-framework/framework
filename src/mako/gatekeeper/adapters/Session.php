@@ -156,8 +156,8 @@ class Session extends Adapter
 	}
 
 	/**
-	 * Returns TRUE if the email + password combination matches and the user is activated and not banned.
-	 * A status code (LOGIN_ACTIVATING, LOGIN_BANNED or LOGIN_INCORRECT) will be retured in all other situations.
+	 * Returns true if the email + password combination matches and the user is activated and not banned.
+	 * A status code will be retured in all other situations.
 	 *
 	 * @access protected
 	 * @param  string   $identifier User email or username
@@ -282,7 +282,7 @@ class Session extends Adapter
 	}
 
 	/**
-	 * Returns a basic authentication response if login is required and NULL if not.
+	 * Returns a basic authentication response if login is required and null if not.
 	 *
 	 * @access public
 	 * @return \mako\http\Response|null
