@@ -60,11 +60,11 @@ class Connection
 			{
 				$this->isPersistent = true;
 
-				$this->connection = pfsockopen('tcp://' . $host, $port, $errNo, $errStr);
+				$this->connection = pfsockopen('tcp://' . $host, $port, $errNo);
 			}
 			else
 			{
-				$this->connection = fsockopen('tcp://' . $host, $port, $errNo, $errStr);
+				$this->connection = fsockopen('tcp://' . $host, $port, $errNo);
 			}
 		}
 		catch(Throwable $e)
