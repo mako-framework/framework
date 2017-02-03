@@ -7,6 +7,8 @@
 
 namespace mako\redis;
 
+use Throwable;
+
 use mako\redis\RedisException;
 
 /**
@@ -52,20 +54,22 @@ class Connection
 			$host = '[' . $host . ']';
 		}
 
-		if($persistent)
+		try
 		{
-			$this->isPersistent = true;
+			if($persistent)
+			{
+				$this->isPersistent = true;
 
-			$this->connection = @pfsockopen('tcp://' . $host, $port, $errNo, $errStr);
+				$this->connection = pfsockopen('tcp://' . $host, $port, $errNo, $errStr);
+			}
+			else
+			{
+				$this->connection = fsockopen('tcp://' . $host, $port, $errNo, $errStr);
+			}
 		}
-		else
+		catch(Throwable $e)
 		{
-			$this->connection = @fsockopen('tcp://' . $host, $port, $errNo, $errStr);
-		}
-
-		if(!$this->connection)
-		{
-			throw new RedisException(vsprintf("%s(): %s", [__METHOD__, $errStr]), (int) $errNo);
+			throw new RedisException(vsprintf("%s(): %s", [__METHOD__, $e->getMessage()]), (int) $errNo);
 		}
 	}
 
