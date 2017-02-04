@@ -52,6 +52,32 @@ class StoreTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testPutIfNotExistsExisting()
+	{
+		$store = $this->getStore();
+
+		$store->shouldReceive('has')->once()->with('foo')->andReturn(true);
+
+		$this->assertFalse($store->putIfNotExists('foo', 'bar'));
+	}
+
+	/**
+	 *
+	 */
+	public function testPutIfNotExistsNonExisting()
+	{
+		$store = $this->getStore();
+
+		$store->shouldReceive('has')->once()->with('foo')->andReturn(false);
+
+		$store->shouldReceive('put')->once()->with('foo', 'bar', 0);
+
+		$this->assertFalse($store->putIfNotExists('foo', 'bar'));
+	}
+
+	/**
+	 *
+	 */
 	public function testSetAndGetPrefix()
 	{
 		$store = $this->getStore();
@@ -87,16 +113,6 @@ class StoreTest extends PHPUnit_Framework_TestCase
 		$store->shouldReceive('put')->once()->with('foo', 'barfoo', 3600)->andReturn(true);
 
 		$this->assertEquals('foobar', $store->getAndPut('foo', 'barfoo', 3600));
-
-		//
-
-		$store = $this->getStore()->setPrefix('bar');
-
-		$store->shouldReceive('get')->once()->with('bar.foo')->andReturn('foobar');
-
-		$store->shouldReceive('put')->once()->with('bar.foo', 'barfoo', 3600)->andReturn(true);
-
-		$this->assertEquals('foobar', $store->getAndPut('foo', 'barfoo', 3600));
 	}
 
 	/**
@@ -109,16 +125,6 @@ class StoreTest extends PHPUnit_Framework_TestCase
 		$store->shouldReceive('get')->once()->with('foo')->andReturn(false);
 
 		$store->shouldReceive('put')->once()->with('foo', 'barfoo', 3600)->andReturn(true);
-
-		$this->assertEquals(false, $store->getAndPut('foo', 'barfoo', 3600));
-
-		//
-
-		$store = $this->getStore()->setPrefix('bar');
-
-		$store->shouldReceive('get')->once()->with('bar.foo')->andReturn(false);
-
-		$store->shouldReceive('put')->once()->with('bar.foo', 'barfoo', 3600)->andReturn(true);
 
 		$this->assertEquals(false, $store->getAndPut('foo', 'barfoo', 3600));
 	}
@@ -135,16 +141,6 @@ class StoreTest extends PHPUnit_Framework_TestCase
 		$store->shouldReceive('remove')->once()->with('foo')->andReturn(true);
 
 		$this->assertEquals('foobar', $store->getAndRemove('foo'));
-
-		//
-
-		$store = $this->getStore()->setPrefix('bar');
-
-		$store->shouldReceive('get')->once()->with('bar.foo')->andReturn('foobar');
-
-		$store->shouldReceive('remove')->once()->with('bar.foo')->andReturn(true);
-
-		$this->assertEquals('foobar', $store->getAndRemove('foo'));
 	}
 
 	/**
@@ -159,16 +155,6 @@ class StoreTest extends PHPUnit_Framework_TestCase
 		$store->shouldReceive('remove')->never();
 
 		$this->assertEquals(false, $store->getAndRemove('foo'));
-
-		//
-
-		$store = $this->getStore()->setPrefix('bar');
-
-		$store->shouldReceive('get')->once()->with('bar.foo')->andReturn(false);
-
-		$store->shouldReceive('remove')->never();
-
-		$this->assertEquals(false, $store->getAndRemove('foo'));
 	}
 
 	/**
@@ -178,25 +164,11 @@ class StoreTest extends PHPUnit_Framework_TestCase
 	{
 		$closure = function(){ return 'from closure'; };
 
-		//
-
 		$store = $this->getStore();
 
 		$store->shouldReceive('has')->with('foo')->andReturn(true);
 
 		$store->shouldReceive('get')->with('foo')->andReturn('from cache');
-
-		$cached = $store->getOrElse('foo', $closure);
-
-		$this->assertEquals('from cache', $cached);
-
-		//
-
-		$store = $this->getStore()->setPrefix('bar');
-
-		$store->shouldReceive('has')->with('bar.foo')->andReturn(true);
-
-		$store->shouldReceive('get')->with('bar.foo')->andReturn('from cache');
 
 		$cached = $store->getOrElse('foo', $closure);
 
@@ -211,25 +183,11 @@ class StoreTest extends PHPUnit_Framework_TestCase
 	{
 		$closure = function(){ return 'from closure'; };
 
-		//
-
 		$store = $this->getStore();
 
 		$store->shouldReceive('has')->with('foo')->andReturn(false);
 
 		$store->shouldReceive('put')->with('foo', 'from closure', 0);
-
-		$cached = $store->getOrElse('foo', $closure);
-
-		$this->assertEquals('from closure', $cached);
-
-		//
-
-		$store = $this->getStore()->setPrefix('bar');
-
-		$store->shouldReceive('has')->with('bar.foo')->andReturn(false);
-
-		$store->shouldReceive('put')->with('bar.foo', 'from closure', 0);
 
 		$cached = $store->getOrElse('foo', $closure);
 

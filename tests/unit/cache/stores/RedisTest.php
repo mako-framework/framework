@@ -40,7 +40,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', 123);
+		$client->shouldReceive('set')->once()->with('foo', 123)->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -50,7 +50,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', serialize('foo'));
+		$client->shouldReceive('set')->once()->with('foo', serialize('foo'))->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -60,9 +60,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', 123);
-
-		$client->shouldReceive('expire')->once()->with('foo', 3600);
+		$client->shouldReceive('setex')->once()->with('foo', 3600, 123)->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -72,13 +70,59 @@ class RedisTest extends PHPUnit_Framework_TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', serialize('foo'));
-
-		$client->shouldReceive('expire')->once()->with('foo', 3600);
+		$client->shouldReceive('setex')->once()->with('foo', 3600, serialize('foo'))->andReturn(true);
 
 		$redis = new Redis($client);
 
 		$redis->put('foo', 'foo', 3600);
+	}
+
+	/**
+	 *
+	 */
+	public function testPutIfNotExists()
+	{
+		$client = $this->getRedisClient();
+
+		$client->shouldReceive('setnx')->once()->with('foo', 123)->andReturn(true);
+
+		$redis = new Redis($client);
+
+		$redis->putIfNotExists('foo', 123);
+
+		//
+
+		$client = $this->getRedisClient();
+
+		$client->shouldReceive('setnx')->once()->with('foo', serialize('foo'))->andReturn(true);
+
+		$redis = new Redis($client);
+
+		$redis->putIfNotExists('foo', 'foo');
+
+		//
+
+		$client = $this->getRedisClient();
+
+		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
+
+		$client->shouldReceive('eval')->once()->with($lua, 1, 'foo', 3600, 123)->andReturn(true);
+
+		$redis = new Redis($client);
+
+		$redis->putIfNotExists('foo', 123, 3600);
+
+		//
+
+		$client = $this->getRedisClient();
+
+		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
+
+		$client->shouldReceive('eval')->once()->with($lua, 1, 'foo', 3600, serialize('foo'))->andReturn(true);
+
+		$redis = new Redis($client);
+
+		$redis->putIfNotExists('foo', 'foo', 3600);
 	}
 
 	/**

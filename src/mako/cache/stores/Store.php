@@ -61,6 +61,19 @@ abstract class Store implements StoreInterface
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	{
+		if($this->has($key) === false)
+		{
+			return $this->put($key, $data, $ttl);
+		}
+
+		return false;
+	}
+
+	/**
 	 * Fetch data from the cache and replace it.
 	 *
 	 * @access public
@@ -71,8 +84,6 @@ abstract class Store implements StoreInterface
 	 */
 	public function getAndPut(string $key, $data, int $ttl = 0)
 	{
-		$key = $this->getPrefixedKey($key);
-
 		$storedValue = $this->get($key);
 
 		$this->put($key, $data, $ttl);
@@ -89,8 +100,6 @@ abstract class Store implements StoreInterface
 	 */
 	public function getAndRemove(string $key)
 	{
-		$key = $this->getPrefixedKey($key);
-
 		$storedValue = $this->get($key);
 
 		if($storedValue !== false)
@@ -106,8 +115,6 @@ abstract class Store implements StoreInterface
 	 */
 	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
-		$key = $this->getPrefixedKey($key);
-
 		if(!$this->has($key))
 		{
 			$data = $data();

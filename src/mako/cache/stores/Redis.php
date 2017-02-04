@@ -52,14 +52,33 @@ class Redis extends Store
 	{
 		$key = $this->getPrefixedKey($key);
 
-		$this->redis->set($key, (is_numeric($data) ? $data : serialize($data)));
+		$data = (is_numeric($data) ? $data : serialize($data));
 
-		if($ttl !== 0)
+		if($ttl === 0)
 		{
-			$this->redis->expire($key, $ttl);
+			return (bool) $this->redis->set($key, $data);
 		}
 
-		return true;
+		return (bool) $this->redis->setex($key, $ttl, $data);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	{
+		$key = $this->getPrefixedKey($key);
+
+		$data = (is_numeric($data) ? $data : serialize($data));
+
+		if($ttl == 0)
+		{
+			return $this->redis->setnx($key, $data);
+		}
+
+		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
+
+		return (bool) $this->redis->eval($lua, 1, $key, $ttl, $data);
 	}
 
 	/**

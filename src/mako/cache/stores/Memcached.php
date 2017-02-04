@@ -78,6 +78,14 @@ class Memcached extends Store
 	/**
 	 * {@inheritdoc}
 	 */
+	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	{
+		return $this->memcached->add($this->getPrefixedKey($key), $data, $ttl);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function has(string $key): bool
 	{
 		return ($this->memcached->get($this->getPrefixedKey($key)) !== false);
