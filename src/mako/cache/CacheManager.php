@@ -72,7 +72,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function apcuFactory(array $configuration): APCU
 	{
-		return new APCU;
+		return (new APCU)->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -84,7 +84,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function fileFactory(array $configuration): File
 	{
-		return new File($this->container->get('fileSystem'), $configuration['path'], $this->classWhitelist);
+		return (new File($this->container->get('fileSystem'), $configuration['path'], $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -96,7 +96,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function databaseFactory(array $configuration): Database
 	{
-		return new Database($this->container->get('database')->connection($configuration['configuration']), $configuration['table'], $this->classWhitelist);
+		return (new Database($this->container->get('database')->connection($configuration['configuration']), $configuration['table'], $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -108,7 +108,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function memcacheFactory(array $configuration): Memcache
 	{
-		return new Memcache($configuration['servers'], $configuration['timeout'], $configuration['compress_data']);
+		return (new Memcache($configuration['servers'], $configuration['timeout'], $configuration['compress_data']))->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -120,7 +120,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function memcachedFactory(array $configuration): Memcached
 	{
-		return new Memcached($configuration['servers'], $configuration['timeout'], $configuration['compress_data']);
+		return (new Memcached($configuration['servers'], $configuration['timeout'], $configuration['compress_data']))->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -132,7 +132,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function memoryFactory(array $configuration): Memory
 	{
-		return new Memory;
+		return (new Memory)->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -144,7 +144,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function redisFactory(array $configuration): Redis
 	{
-		return new Redis($this->container->get('redis')->connection($configuration['configuration']), $this->classWhitelist);
+		return (new Redis($this->container->get('redis')->connection($configuration['configuration']), $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -156,7 +156,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function nullFactory(array $configuration): NullStore
 	{
-		return new NullStore;
+		return (new NullStore)->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -168,7 +168,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function wincacheFactory(array $configuration): WinCache
 	{
-		return new WinCache;
+		return (new WinCache)->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -180,7 +180,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function zenddiskFactory(array $configuration): ZendDisk
 	{
-		return new ZendDisk;
+		return (new ZendDisk)->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -192,7 +192,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function zendmemoryFactory(array $configuration): ZendMemory
 	{
-		return new ZendMemory;
+		return (new ZendMemory)->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -211,6 +211,6 @@ class CacheManager extends AdapterManager
 
 		$configuration = $this->configurations[$configuration];
 
-		return $this->factory($configuration['type'], $configuration)->setPrefix($configuration['prefix'] ?? '');
+		return $this->factory($configuration['type'], $configuration);
 	}
 }
