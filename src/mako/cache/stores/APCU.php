@@ -42,6 +42,14 @@ class APCU extends Store
 	/**
 	 * {@inheritdoc}
 	 */
+	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	{
+		return apcu_add($this->getPrefixedKey($key), $data, $ttl);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function has(string $key): bool
 	{
 		return apcu_exists($this->getPrefixedKey($key));

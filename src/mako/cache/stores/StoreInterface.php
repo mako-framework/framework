@@ -26,6 +26,17 @@ interface StoreInterface
 	public function put(string $key, $data, int $ttl = 0): bool;
 
 	/**
+	 * Store data in the cache if it doesn't already exist.
+	 *
+	 * @access public
+	 * @param  string $key  Cache key
+	 * @param  mixed  $data The data to store
+	 * @param  int    $ttl  Time to live
+	 * @return bool
+	 */
+	public function putIfNotExists(string $key, $data, int $ttl = 0): bool;
+
+	/**
 	 * Returns TRUE if the cache key exists and FALSE if not.
 	 *
 	 * @access public

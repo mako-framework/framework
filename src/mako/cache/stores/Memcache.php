@@ -80,6 +80,14 @@ class Memcache extends Store
 	/**
 	 * {@inheritdoc}
 	 */
+	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	{
+		return $this->memcache->add($this->getPrefixedKey($key), $data, $this->compressionLevel, $ttl);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function has(string $key): bool
 	{
 		return ($this->memcache->get($this->getPrefixedKey($key)) !== false);
