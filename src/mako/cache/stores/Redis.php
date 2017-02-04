@@ -73,7 +73,7 @@ class Redis extends Store
 
 		if($ttl == 0)
 		{
-			return $this->redis->setnx($key, $data);
+			return (bool) $this->redis->setnx($key, $data);
 		}
 
 		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
