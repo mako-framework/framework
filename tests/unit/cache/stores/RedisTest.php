@@ -128,6 +128,54 @@ class RedisTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testIncrement()
+	{
+		$client = $this->getRedisClient();
+
+		$client->shouldReceive('incrby')->once()->with('foo', 1)->andReturn(1);
+
+		$redis = new Redis($client);
+
+		$this->assertSame(1, $redis->increment('foo'));
+
+		//
+
+		$client = $this->getRedisClient();
+
+		$client->shouldReceive('incrby')->once()->with('foo', 10)->andReturn(10);
+
+		$redis = new Redis($client);
+
+		$this->assertSame(10, $redis->increment('foo', 10));
+	}
+
+	/**
+	 *
+	 */
+	public function testDecrement()
+	{
+		$client = $this->getRedisClient();
+
+		$client->shouldReceive('decrby')->once()->with('foo', 1)->andReturn(-1);
+
+		$redis = new Redis($client);
+
+		$this->assertSame(-1, $redis->decrement('foo'));
+
+		//
+
+		$client = $this->getRedisClient();
+
+		$client->shouldReceive('decrby')->once()->with('foo', 10)->andReturn(-10);
+
+		$redis = new Redis($client);
+
+		$this->assertSame(-10, $redis->decrement('foo', 10));
+	}
+
+	/**
+	 *
+	 */
 	public function testHas()
 	{
 		$client = $this->getRedisClient();

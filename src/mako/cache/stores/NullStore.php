@@ -7,6 +7,7 @@
 
 namespace mako\cache\stores;
 
+use mako\cache\stores\IncrementDecrementInterface;
 use mako\cache\stores\Store;
 
 /**
@@ -14,7 +15,7 @@ use mako\cache\stores\Store;
  *
  * @author Frederic G. Østby
  */
-class NullStore extends Store
+class NullStore extends Store implements IncrementDecrementInterface
 {
 	/**
 	 * {@inheritdoc}
@@ -22,6 +23,22 @@ class NullStore extends Store
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
 		return true;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function increment(string $key, int $step = 1)
+	{
+		return 0 + $step;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function decrement(string $key, int $step = 1)
+	{
+		return 0 - $step;
 	}
 
 	/**

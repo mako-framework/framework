@@ -9,6 +9,7 @@ namespace mako\cache\stores;
 
 use RuntimeException;
 
+use mako\cache\stores\IncrementDecrementInterface;
 use mako\cache\stores\Store;
 
 /**
@@ -16,7 +17,7 @@ use mako\cache\stores\Store;
  *
  * @author Frederic G. Østby
  */
-class APCU extends Store
+class APCU extends Store implements IncrementDecrementInterface
 {
 	/**
 	 * Constructor.
@@ -45,6 +46,22 @@ class APCU extends Store
 	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
 	{
 		return apcu_add($this->getPrefixedKey($key), $data, $ttl);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function increment(string $key, int $step = 1)
+	{
+		return apcu_inc($this->getPrefixedKey($key), $step);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function decrement(string $key, int $step = 1)
+	{
+		return apcu_dec($this->getPrefixedKey($key), $step);
 	}
 
 	/**

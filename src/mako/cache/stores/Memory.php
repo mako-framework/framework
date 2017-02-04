@@ -7,6 +7,7 @@
 
 namespace mako\cache\stores;
 
+use mako\cache\stores\IncrementDecrementInterface;
 use mako\cache\stores\Store;
 
 /**
@@ -14,7 +15,7 @@ use mako\cache\stores\Store;
  *
  * @author Frederic G. Østby
  */
-class Memory extends Store
+class Memory extends Store implements IncrementDecrementInterface
 {
 	/**
 	 * Cache data.
@@ -33,6 +34,36 @@ class Memory extends Store
 		$this->cache[$key] = ['data' => $data, 'ttl' => $ttl];
 
 		return true;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function increment(string $key, int $step = 1)
+	{
+		if($this->has($key))
+		{
+			return $this->cache[$key]['data'] = $this->cache[$key]['data'] + $step;
+		}
+
+		$this->put($key, $incremented = 0 + $step);
+
+		return $incremented;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function decrement(string $key, int $step = 1)
+	{
+		if($this->has($key))
+		{
+			return $this->cache[$key]['data'] = $this->cache[$key]['data'] - $step;
+		}
+
+		$this->put($key, $decremented = 0 - $step);
+
+		return $decremented;
 	}
 
 	/**

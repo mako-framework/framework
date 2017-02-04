@@ -7,6 +7,7 @@
 
 namespace mako\cache\stores;
 
+use mako\cache\stores\IncrementDecrementInterface;
 use mako\cache\stores\Store;
 use mako\redis\Redis as RedisClient;
 
@@ -15,7 +16,7 @@ use mako\redis\Redis as RedisClient;
  *
  * @author Frederic G. Østby
  */
-class Redis extends Store
+class Redis extends Store implements IncrementDecrementInterface
 {
 	/**
 	 * Redis client
@@ -79,6 +80,22 @@ class Redis extends Store
 		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
 
 		return (bool) $this->redis->eval($lua, 1, $key, $ttl, $data);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function increment(string $key, int $step = 1)
+	{
+		return $this->redis->incrby($this->getPrefixedKey($key), $step);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function decrement(string $key, int $step = 1)
+	{
+		return $this->redis->decrby($this->getPrefixedKey($key), $step);
 	}
 
 	/**

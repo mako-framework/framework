@@ -9,6 +9,7 @@ namespace mako\cache\stores;
 
 use Memcached as PHPMemcached;
 
+use mako\cache\stores\IncrementDecrementInterface;
 use mako\cache\stores\Store;
 
 /**
@@ -16,7 +17,7 @@ use mako\cache\stores\Store;
  *
  * @author Frederic G. Østby
  */
-class Memcached extends Store
+class Memcached extends Store implements IncrementDecrementInterface
 {
 	/**
 	 * Memcached instance.
@@ -36,6 +37,8 @@ class Memcached extends Store
 	public function __construct(array $servers, int $timeout = 1, bool $compressData = false)
 	{
 		$this->memcached = new PHPMemcached();
+
+		$this->memcached->setOption(PHPMemcached::OPT_BINARY_PROTOCOL, true);
 
 		if($timeout !== 1)
 		{
@@ -81,6 +84,22 @@ class Memcached extends Store
 	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
 	{
 		return $this->memcached->add($this->getPrefixedKey($key), $data, $ttl);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function increment(string $key, int $step = 1)
+	{
+		return $this->memcached->increment($this->getPrefixedKey($key), $step, $step);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function decrement(string $key, int $step = 1)
+	{
+		return $this->memcached->decrement($this->getPrefixedKey($key), $step, $step);
 	}
 
 	/**
