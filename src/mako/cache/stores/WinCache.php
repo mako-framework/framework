@@ -42,6 +42,14 @@ class WinCache extends Store
 	/**
 	 * {@inheritdoc}
 	 */
+	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	{
+		return wincache_ucache_add($this->getPrefixedKey($key), $data, $ttl);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function has(string $key): bool
 	{
 		return wincache_ucache_exists($this->getPrefixedKey($key));
