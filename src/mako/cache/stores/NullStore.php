@@ -7,18 +7,15 @@
 
 namespace mako\cache\stores;
 
-use mako\cache\stores\StoreInterface;
-use mako\cache\stores\traits\GetOrElseTrait;
+use mako\cache\stores\Store;
 
 /**
  * Null store.
  *
  * @author Frederic G. Østby
  */
-class NullStore implements StoreInterface
+class NullStore extends Store
 {
-	use GetOrElseTrait;
-
 	/**
 	 * {@inheritdoc}
 	 */

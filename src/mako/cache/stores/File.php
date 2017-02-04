@@ -7,8 +7,7 @@
 
 namespace mako\cache\stores;
 
-use mako\cache\stores\StoreInterface;
-use mako\cache\stores\traits\GetOrElseTrait;
+use mako\cache\stores\Store;
 use mako\file\FileSystem;
 
 /**
@@ -16,10 +15,8 @@ use mako\file\FileSystem;
  *
  * @author Frederic G. Østby
  */
-class File implements StoreInterface
+class File extends Store
 {
-	use GetOrElseTrait;
-
 	/**
 	 * File system instance.
 	 *
@@ -67,7 +64,7 @@ class File implements StoreInterface
 	 */
 	protected function cacheFile(string $key): string
 	{
-		return $this->cachePath . '/' . str_replace(['/', ':'], '_', $key) . '.php';
+		return $this->cachePath . '/' . str_replace(['/', ':'], '_', $this->getPrefixedKey($key)) . '.php';
 	}
 
 	/**

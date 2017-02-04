@@ -9,18 +9,15 @@ namespace mako\cache\stores;
 
 use Memcache as PHPMemcache;
 
-use mako\cache\stores\StoreInterface;
-use mako\cache\stores\traits\GetOrElseTrait;
+use mako\cache\stores\Store;
 
 /**
  * Memcache store.
  *
  * @author Frederic G. Østby
  */
-class Memcache implements StoreInterface
+class Memcache extends Store
 {
-	use GetOrElseTrait;
-
 	/**
 	 * Memcache instance.
 	 *
@@ -70,6 +67,8 @@ class Memcache implements StoreInterface
 			$ttl += time();
 		}
 
+		$key = $this->getPrefixedKey($key);
+
 		if($this->memcache->replace($key, $data, $this->compressionLevel, $ttl) === false)
 		{
 			return $this->memcache->set($key, $data, $this->compressionLevel, $ttl);
@@ -83,7 +82,7 @@ class Memcache implements StoreInterface
 	 */
 	public function has(string $key): bool
 	{
-		return ($this->memcache->get($key) !== false);
+		return ($this->memcache->get($this->getPrefixedKey($key)) !== false);
 	}
 
 	/**
@@ -91,7 +90,7 @@ class Memcache implements StoreInterface
 	 */
 	public function get(string $key)
 	{
-		return $this->memcache->get($key);
+		return $this->memcache->get($this->getPrefixedKey($key));
 	}
 
 	/**
@@ -99,7 +98,7 @@ class Memcache implements StoreInterface
 	 */
 	public function remove(string $key): bool
 	{
-		return $this->memcache->delete($key, 0);
+		return $this->memcache->delete($this->getPrefixedKey($key), 0);
 	}
 
 	/**

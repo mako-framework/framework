@@ -7,8 +7,7 @@
 
 namespace mako\cache\stores;
 
-use mako\cache\stores\StoreInterface;
-use mako\cache\stores\traits\GetOrElseTrait;
+use mako\cache\stores\Store;
 use mako\redis\Redis as RedisClient;
 
 /**
@@ -16,10 +15,8 @@ use mako\redis\Redis as RedisClient;
  *
  * @author Frederic G. Østby
  */
-class Redis implements StoreInterface
+class Redis extends Store
 {
-	use GetOrElseTrait;
-
 	/**
 	 * Redis client
 	 *
@@ -53,6 +50,8 @@ class Redis implements StoreInterface
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
+		$key = $this->getPrefixedKey($key);
+
 		$this->redis->set($key, (is_numeric($data) ? $data : serialize($data)));
 
 		if($ttl !== 0)
@@ -68,7 +67,7 @@ class Redis implements StoreInterface
 	 */
 	public function has(string $key): bool
 	{
-		return (bool) $this->redis->exists($key);
+		return (bool) $this->redis->exists($this->getPrefixedKey($key));
 	}
 
 	/**
@@ -76,7 +75,7 @@ class Redis implements StoreInterface
 	 */
 	public function get(string $key)
 	{
-		$data = $this->redis->get($key);
+		$data = $this->redis->get($this->getPrefixedKey($key));
 
 		return ($data === null) ? false : (is_numeric($data) ? $data : unserialize($data, ['allowed_classes' => $this->classWhitelist]));
 	}
@@ -86,7 +85,7 @@ class Redis implements StoreInterface
 	 */
 	public function remove(string $key): bool
 	{
-		return (bool) $this->redis->del($key);
+		return (bool) $this->redis->del($this->getPrefixedKey($key));
 	}
 
 	/**

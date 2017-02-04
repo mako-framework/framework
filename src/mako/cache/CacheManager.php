@@ -28,15 +28,15 @@ use mako\syringe\Container;
  *
  * @author Frederic G. Østby
  *
- * @method \mako\cache\Cache instance($configuration = null)
- * @method bool              put(string $key, $data, int $ttl = 0)
- * @method bool              has(string $key)
- * @method mixed             get(string $key)
- * @method mixed             getOrElse(string $key, callable $data, int $ttl = 0)
- * @method mixed             getAndPut(string $key, $data, int $ttl = 0)
- * @method mixed             getAndRemove(string $key)
- * @method bool              remove(string $key)
- * @method bool              clear()
+ * @method \mako\cache\stores\StoreInterface instance($configuration = null)
+ * @method bool                              put(string $key, $data, int $ttl = 0)
+ * @method bool                              has(string $key)
+ * @method mixed                             get(string $key)
+ * @method mixed                             getOrElse(string $key, callable $data, int $ttl = 0)
+ * @method mixed                             getAndPut(string $key, $data, int $ttl = 0)
+ * @method mixed                             getAndRemove(string $key)
+ * @method bool                              remove(string $key)
+ * @method bool                              clear()
  */
 class CacheManager extends AdapterManager
 {
@@ -199,10 +199,10 @@ class CacheManager extends AdapterManager
 	 * Returns a cache instance.
 	 *
 	 * @access public
-	 * @param  string            $configuration Configuration name
-	 * @return \mako\cache\Cache
+	 * @param  string                            $configuration Configuration name
+	 * @return \mako\cache\stores\StoreInterface
 	 */
-	protected function instantiate(string $configuration): Cache
+	protected function instantiate(string $configuration)
 	{
 		if(!isset($this->configurations[$configuration]))
 		{
@@ -211,6 +211,6 @@ class CacheManager extends AdapterManager
 
 		$configuration = $this->configurations[$configuration];
 
-		return new Cache($this->factory($configuration['type'], $configuration), $configuration['prefix'] ?? null);
+		return $this->factory($configuration['type'], $configuration)->setPrefix($configuration['prefix'] ?? '');
 	}
 }

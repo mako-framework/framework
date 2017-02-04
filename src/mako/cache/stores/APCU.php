@@ -9,14 +9,14 @@ namespace mako\cache\stores;
 
 use RuntimeException;
 
-use mako\cache\stores\StoreInterface;
+use mako\cache\stores\Store;
 
 /**
  * APCU store.
  *
  * @author Frederic G. Østby
  */
-class APCU implements StoreInterface
+class APCU extends Store
 {
 	/**
 	 * Constructor.
@@ -36,7 +36,7 @@ class APCU implements StoreInterface
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
-		return apcu_store($key, $data, $ttl);
+		return apcu_store($this->getPrefixedKey($key), $data, $ttl);
 	}
 
 	/**
@@ -44,7 +44,7 @@ class APCU implements StoreInterface
 	 */
 	public function has(string $key): bool
 	{
-		return apcu_exists($key);
+		return apcu_exists($this->getPrefixedKey($key));
 	}
 
 	/**
@@ -52,7 +52,7 @@ class APCU implements StoreInterface
 	 */
 	public function get(string $key)
 	{
-		return apcu_fetch($key);
+		return apcu_fetch($this->getPrefixedKey($key));
 	}
 
 	/**
@@ -60,7 +60,7 @@ class APCU implements StoreInterface
 	 */
 	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
-		return apcu_entry($key, $data, $ttl);
+		return apcu_entry($this->getPrefixedKey($key), $data, $ttl);
 	}
 
 	/**
@@ -68,7 +68,7 @@ class APCU implements StoreInterface
 	 */
 	public function remove(string $key): bool
 	{
-		return apcu_delete($key);
+		return apcu_delete($this->getPrefixedKey($key));
 	}
 
 	/**

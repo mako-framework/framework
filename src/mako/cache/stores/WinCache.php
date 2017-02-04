@@ -9,18 +9,15 @@ namespace mako\cache\stores;
 
 use RuntimeException;
 
-use mako\cache\stores\StoreInterface;
-use mako\cache\stores\traits\GetOrElseTrait;
+use mako\cache\stores\Store;
 
 /**
  * WinCache store.
  *
  * @author Frederic G. Østby
  */
-class WinCache implements StoreInterface
+class WinCache extends Store
 {
-	use GetOrElseTrait;
-
 	/**
 	 * Constructor.
 	 *
@@ -39,7 +36,7 @@ class WinCache implements StoreInterface
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
-		return wincache_ucache_set($key, $data, $ttl);
+		return wincache_ucache_set($this->getPrefixedKey($key), $data, $ttl);
 	}
 
 	/**
@@ -47,7 +44,7 @@ class WinCache implements StoreInterface
 	 */
 	public function has(string $key): bool
 	{
-		return wincache_ucache_exists($key);
+		return wincache_ucache_exists($this->getPrefixedKey($key));
 	}
 
 	/**
@@ -55,7 +52,7 @@ class WinCache implements StoreInterface
 	 */
 	public function get(string $key)
 	{
-		$cache = wincache_ucache_get($key, $success);
+		$cache = wincache_ucache_get($this->getPrefixedKey($key), $success);
 
 		if($success === true)
 		{
@@ -70,7 +67,7 @@ class WinCache implements StoreInterface
 	 */
 	public function remove(string $key): bool
 	{
-		return wincache_ucache_delete($key);
+		return wincache_ucache_delete($this->getPrefixedKey($key));
 	}
 
 	/**

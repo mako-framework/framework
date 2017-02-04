@@ -9,18 +9,15 @@ namespace mako\cache\stores;
 
 use RuntimeException;
 
-use mako\cache\stores\StoreInterface;
-use mako\cache\stores\traits\GetOrElseTrait;
+use mako\cache\stores\Store;
 
 /**
  * Zend memory store.
  *
  * @author Frederic G. Østby
  */
-class ZendMemory implements StoreInterface
+class ZendMemory extends Store
 {
-	use GetOrElseTrait;
-
 	/**
 	 * Constructor.
 	 *
@@ -39,7 +36,7 @@ class ZendMemory implements StoreInterface
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
-		return zend_shm_cache_store($key, $data, $ttl);
+		return zend_shm_cache_store($this->getPrefixedKey($key), $data, $ttl);
 	}
 
 	/**
@@ -47,7 +44,7 @@ class ZendMemory implements StoreInterface
 	 */
 	public function has(string $key): bool
 	{
-		return (zend_disk_cache_fetch($key) !== false);
+		return (zend_disk_cache_fetch($this->getPrefixedKey($key)) !== false);
 	}
 
 	/**
@@ -55,7 +52,7 @@ class ZendMemory implements StoreInterface
 	 */
 	public function get(string $key)
 	{
-		return zend_shm_cache_fetch($key);
+		return zend_shm_cache_fetch($this->getPrefixedKey($key));
 	}
 
 	/**
@@ -63,7 +60,7 @@ class ZendMemory implements StoreInterface
 	 */
 	public function remove(string $key): bool
 	{
-		return zend_shm_cache_delete($key);
+		return zend_shm_cache_delete($this->getPrefixedKey($key));
 	}
 
 	/**

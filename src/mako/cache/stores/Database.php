@@ -7,8 +7,7 @@
 
 namespace mako\cache\stores;
 
-use mako\cache\stores\StoreInterface;
-use mako\cache\stores\traits\GetOrElseTrait;
+use mako\cache\stores\Store;
 use mako\database\connections\Connection;
 use mako\database\query\Query;
 
@@ -17,10 +16,8 @@ use mako\database\query\Query;
  *
  * @author Frederic G. Østby
  */
-class Database implements StoreInterface
+class Database extends Store
 {
-	use GetOrElseTrait;
-
 	/**
 	 * Database connection
 	 *
@@ -77,6 +74,8 @@ class Database implements StoreInterface
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 
+		$key = $this->getPrefixedKey($key);
+
 		$this->remove($key);
 
 		return $this->table()->insert(['key' => $key, 'data' => serialize($data), 'lifetime' => $ttl]);
@@ -87,7 +86,7 @@ class Database implements StoreInterface
 	 */
 	public function has(string $key): bool
 	{
-		return (bool) $this->table()->where('key', '=', $key)->where('lifetime', '>', time())->count();
+		return (bool) $this->table()->where('key', '=', $this->getPrefixedKey($key))->where('lifetime', '>', time())->count();
 	}
 
 	/**
@@ -95,6 +94,8 @@ class Database implements StoreInterface
 	 */
 	public function get(string $key)
 	{
+		$key = $this->getPrefixedKey($key);
+
 		$cache = $this->table()->where('key', '=', $key)->first();
 
 		if($cache !== false)
@@ -115,7 +116,7 @@ class Database implements StoreInterface
 	 */
 	public function remove(string $key): bool
 	{
-		return (bool) $this->table()->where('key', '=', $key)->delete();
+		return (bool) $this->table()->where('key', '=', $this->getPrefixedKey($key))->delete();
 	}
 
 	/**

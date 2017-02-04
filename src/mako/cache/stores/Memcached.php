@@ -9,18 +9,15 @@ namespace mako\cache\stores;
 
 use Memcached as PHPMemcached;
 
-use mako\cache\stores\StoreInterface;
-use mako\cache\stores\traits\GetOrElseTrait;
+use mako\cache\stores\Store;
 
 /**
  * Memcached store.
  *
  * @author Frederic G. Østby
  */
-class Memcached implements StoreInterface
+class Memcached extends Store
 {
-	use GetOrElseTrait;
-
 	/**
 	 * Memcached instance.
 	 *
@@ -68,6 +65,8 @@ class Memcached implements StoreInterface
 			$ttl += time();
 		}
 
+		$key = $this->getPrefixedKey($key);
+
 		if($this->memcached->replace($key, $data, $ttl) === false)
 		{
 			return $this->memcached->set($key, $data, $ttl);
@@ -81,7 +80,7 @@ class Memcached implements StoreInterface
 	 */
 	public function has(string $key): bool
 	{
-		return ($this->memcached->get($key) !== false);
+		return ($this->memcached->get($this->getPrefixedKey($key)) !== false);
 	}
 
 	/**
@@ -89,7 +88,7 @@ class Memcached implements StoreInterface
 	 */
 	public function get(string $key)
 	{
-		return $this->memcached->get($key);
+		return $this->memcached->get($this->getPrefixedKey($key));
 	}
 
 	/**
@@ -97,7 +96,7 @@ class Memcached implements StoreInterface
 	 */
 	public function remove(string $key): bool
 	{
-		return $this->memcached->delete($key, 0);
+		return $this->memcached->delete($this->getPrefixedKey($key), 0);
 	}
 
 	/**
