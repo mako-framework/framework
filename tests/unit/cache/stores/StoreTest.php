@@ -166,8 +166,6 @@ class StoreTest extends PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('has')->with('foo')->andReturn(true);
-
 		$store->shouldReceive('get')->with('foo')->andReturn('from cache');
 
 		$cached = $store->getOrElse('foo', $closure);
@@ -185,7 +183,7 @@ class StoreTest extends PHPUnit_Framework_TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('has')->with('foo')->andReturn(false);
+		$store->shouldReceive('get')->with('foo')->andReturn(false);
 
 		$store->shouldReceive('put')->with('foo', 'from closure', 0);
 
