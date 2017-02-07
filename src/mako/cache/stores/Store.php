@@ -115,15 +115,15 @@ abstract class Store implements StoreInterface
 	 */
 	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
-		if(!$this->has($key))
+		$cached = $this->get($key);
+
+		if($cached === false)
 		{
-			$data = $data();
+			$cached = $data();
 
-			$this->put($key, $data, $ttl);
-
-			return $data;
+			$this->put($key, $cached, $ttl);
 		}
 
-		return $this->get($key);
+		return $cached;
 	}
 }
