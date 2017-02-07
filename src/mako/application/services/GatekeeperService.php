@@ -34,7 +34,7 @@ class GatekeeperService extends Service
 
 			$config = $container->get('config')->get('gatekeeper');
 
-			$factory = function() use ($request, $response, $session, $config)
+			return new Authentication('session', function() use ($request, $response, $session, $config)
 			{
 				$userRepository = new UserRepository($config['user_model']);
 
@@ -50,9 +50,7 @@ class GatekeeperService extends Service
 				];
 
 				return new Session($userRepository, $groupRepository, $request, $response, $session, $options);
-			};
-
-			return new Authentication(['session', $factory]);
+			});
 		});
 	}
 }
