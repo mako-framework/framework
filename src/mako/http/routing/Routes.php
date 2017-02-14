@@ -10,6 +10,7 @@ namespace mako\http\routing;
 use Closure;
 use RuntimeException;
 
+use mako\common\ExtendableTrait;
 use mako\http\routing\Route;
 
 /**
@@ -19,6 +20,8 @@ use mako\http\routing\Route;
  */
 class Routes
 {
+	use ExtendableTrait;
+
 	/**
 	 * Route groups.
 	 *
