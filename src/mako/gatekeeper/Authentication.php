@@ -79,36 +79,37 @@ class Authentication
 	 * Constructor.
 	 *
 	 * @access public
-	 * @param array|\mako\gatekeeper\adapters\AdapterInterace $adapter Adapter
+	 * @param string|\mako\gatekeeper\adapters\AdapterInterface $adapter Adapter name or adapter instance
+	 * @param null|\Closure                                     $factory Adapter factory
 	 */
-	public function __construct($adapter)
+	public function __construct($adapter, Closure $factory = null)
 	{
-		$this->registerDefaultAdapter($adapter);
+		$this->registerAdapter($adapter, $factory, true);
 	}
 
 	/**
-	 * Registers the default adapter.
+	 * Registers a adapter.
 	 *
-	 * @access protected
-	 * @param array|\mako\gatekeeper\adapters\AdapterInterace $adapter Adapter
+	 * @access public
+	 * @param string|\mako\gatekeeper\adapters\AdapterInterface $adapter     Adapter name or adapter instance
+	 * @param null|\Closure                                     $factory     Adapter factory
+	 * @param bool                                              $makeDefault Make it the default adapter?
 	 */
-	protected function registerDefaultAdapter($adapter)
+	protected function registerAdapter($adapter, Closure $factory = null, bool $makeDefault = false)
 	{
 		if($adapter instanceof AdapterInterface)
 		{
-			$name = $adapter->getName();
-
-			$this->adapters[$name] = $adapter;
-
+			$this->adapters[$name = $adapter->getName()] = $adapter;
 		}
 		else
 		{
-			list($name, $factory) = $adapter;
-
-			$this->adapterFactories[$name] = $factory;
+			$this->adapterFactories[$name = $adapter] = $factory;
 		}
 
-		$this->defaultAdapter = $name;
+		if($makeDefault)
+		{
+			$this->defaultAdapter = $name;
+		}
 	}
 
 	/**
@@ -116,19 +117,12 @@ class Authentication
 	 *
 	 * @access public
 	 * @param  string|\mako\gatekeeper\adapters\AdapterInterface $adapter Adapter name or adapter instance
-	 * @param  null|\Closure                                     $factory Adapter facvory
+	 * @param  null|\Closure                                     $factory Adapter factory
 	 * @return \mako\gatekeeper\Authentication
 	 */
 	public function extend($adapter, Closure $factory = null): Authentication
 	{
-		if($adapter instanceof AdapterInterface)
-		{
-			$this->adapters[$adapter->getName()] = $adapter;
-		}
-		else
-		{
-			$this->adapterFactories[$adapter] = $factory;
-		}
+		$this->registerAdapter($adapter, $factory);
 
 		return $this;
 	}

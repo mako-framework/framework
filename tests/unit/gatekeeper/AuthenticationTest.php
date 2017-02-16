@@ -40,7 +40,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase
 			return $adapter;
 		};
 
-		$authentication = new Authentication(['foobar', $factory]);
+		$authentication = new Authentication('foobar', $factory);
 
 		$authentication->hello();
 	}
