@@ -90,6 +90,13 @@ class Connection
 	protected $usePersistentConnection;
 
 	/**
+	 * PDO options.
+	 *
+	 * @var array
+	 */
+	protected $options;
+
+	/**
 	 * Queries that should be executed upon connecting.
 	 *
 	 * @var array
@@ -149,6 +156,8 @@ class Connection
 		$this->reconnect = $config['reconnect'] ?? false;
 
 		$this->usePersistentConnection = $config['persistent'] ?? false;
+
+		$this->options = $config['options'] ?? [];
 
 		$this->onConnectQueries = $config['queries'] ?? [];
 
@@ -234,7 +243,7 @@ class Connection
 	 */
 	protected function getConnectionOptions(): array
 	{
-		return
+		return $this->options +
 		[
 			PDO::ATTR_PERSISTENT         => $this->usePersistentConnection,
 			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -330,6 +339,10 @@ class Connection
 			elseif(is_object($param))
 			{
 				return get_class($param);
+			}
+			elseif(is_null($param))
+			{
+				return 'NULL';
 			}
 			else
 			{
