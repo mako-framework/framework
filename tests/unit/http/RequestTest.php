@@ -671,6 +671,30 @@ class RequestTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testJsonPutDataWithCharset()
+	{
+		$body = ['foo' => 'bar', 'baz' => ['bax']];
+
+		$server = $this->getServerData();
+
+		$server['HTTP_CONTENT_TYPE'] = 'application/json; charset=UTF-8';
+
+		$request = new Request(['server' => $server, 'body' => json_encode($body)]);
+
+		$this->assertNull($request->put('bar'));
+
+		$this->assertFalse($request->put('bar', false));
+
+		$this->assertEquals('bar', $request->put('foo'));
+
+		$this->assertEquals('bax', $request->put('baz.0'));
+
+		$this->assertEquals($body, $request->put());
+	}
+
+	/**
+	 *
+	 */
 	public function testURLEncodedPutData()
 	{
 		$body = ['foo' => 'bar', 'baz' => ['bax']];
@@ -786,8 +810,8 @@ class RequestTest extends PHPUnit_Framework_TestCase
 					'type'     => 'foo/bar',
 					'size'     => 123,
 					'error'    => 0,
-				]
-			]
+				],
+			],
 		];
 
 		$request = new Request($request);
@@ -823,8 +847,8 @@ class RequestTest extends PHPUnit_Framework_TestCase
 					'type'     => ['foo/bar', 'foo/bar'],
 					'size'     => [123, 456],
 					'error'    => [0, 0],
-				]
-			]
+				],
+			],
 		];
 
 		$request = new Request($request);

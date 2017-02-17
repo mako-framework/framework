@@ -512,7 +512,9 @@ class Request
 	{
 		if($this->parsedBody === null)
 		{
-			switch($this->header('content-type'))
+			$contentType = rtrim(strtok((string) $this->header('content-type'), ';'));
+
+			switch($contentType)
 			{
 				case 'application/x-www-form-urlencoded':
 					parse_str($this->body(), $this->parsedBody);
