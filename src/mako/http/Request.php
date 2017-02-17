@@ -355,7 +355,7 @@ class Request
 	{
 		if($this->parsedBody === null)
 		{
-			$contentType = rtrim(strtok((string) $this->header('content-type'), ';'));
+			$contentType = rtrim(strtok((string) $this->headers->get('content-type'), ';'));
 
 			switch($contentType)
 			{
