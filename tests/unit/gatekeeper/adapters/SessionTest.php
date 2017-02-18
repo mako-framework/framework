@@ -590,7 +590,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('Authentication required.', $response->getBody());
 
-		$this->assertEquals(['www-authenticate' => ['name' => 'WWW-Authenticate', 'value' => ['basic']]], $response->getHeaders());
+		$this->assertEquals(['WWW-Authenticate' => ['basic']], $response->getHeaders());
 	}
 
 	/**

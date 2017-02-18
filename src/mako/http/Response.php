@@ -445,7 +445,7 @@ class Response
 	 */
 	public function getHeaders(): array
 	{
-		return $this->headers;
+		return array_combine(array_column($this->headers, 'name'), array_column($this->headers, 'value'));
 	}
 
 	/**
