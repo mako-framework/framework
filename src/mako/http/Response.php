@@ -393,17 +393,19 @@ class Response
 	 */
 	public function header(string $name, string $value, bool $replace = true): Response
 	{
-		$name = strtolower($name);
+		$normalizedName = strtolower($name);
+
+		$this->headers[$normalizedName]['name'] = $name;
 
 		if($replace === true)
 		{
-			$this->headers[$name] = [$value];
+			$this->headers[$normalizedName]['value'] = [$value];
 		}
 		else
 		{
-			$headers = $this->headers[$name] ?? [];
+			$headers = $this->headers[$normalizedName]['value'] ?? [];
 
-			$this->headers[$name] = array_merge($headers, [$value]);
+			$this->headers[$normalizedName]['value'] = array_merge($headers, [$value]);
 		}
 
 		return $this;
@@ -605,11 +607,11 @@ class Response
 
 		// Send other headers
 
-		foreach($this->headers as $name => $headers)
+		foreach($this->headers as $header)
 		{
-			foreach($headers as $value)
+			foreach($header['value'] as $value)
 			{
-				header($name . ': ' . $value, false);
+				header($header['name'] . ': ' . $value, false);
 			}
 		}
 

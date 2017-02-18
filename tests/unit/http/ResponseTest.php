@@ -259,9 +259,9 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
 		$this->assertArrayHasKey('x-baz-bax', $headers);
 
-		$this->assertEquals(['foo bar'], $headers['x-foo-bar']);
+		$this->assertEquals(['foo bar'], $headers['x-foo-bar']['value']);
 
-		$this->assertEquals(['baz bax'], $headers['x-baz-bax']);
+		$this->assertEquals(['baz bax'], $headers['x-baz-bax']['value']);
 	}
 
 	/**
@@ -289,9 +289,9 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
 		$this->assertArrayHasKey('bar', $headers);
 
-		$this->assertEquals(['foo2'], $headers['foo']);
+		$this->assertEquals(['foo2'], $headers['foo']['value']);
 
-		$this->assertEquals(['bar1', 'bar2'], $headers['bar']);
+		$this->assertEquals(['bar1', 'bar2'], $headers['bar']['value']);
 	}
 
 	/**
