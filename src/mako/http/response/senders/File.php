@@ -283,9 +283,9 @@ class File implements ResponseSenderInterface
 
 		$response->type($this->getContenType());
 
-		$response->header('accept-ranges', $request->isSafe() ? 'bytes' : 'none');
+		$response->header('Accept-Ranges', $request->isSafe() ? 'bytes' : 'none');
 
-		$response->header('content-disposition', $this->getDisposition() . '; filename="' . $this->getName() . '"');
+		$response->header('Content-Disposition', $this->getDisposition() . '; filename="' . $this->getName() . '"');
 
 		// Get the requested byte range
 
@@ -314,7 +314,7 @@ class File implements ResponseSenderInterface
 
 				$range = ['start' => 0, 'end' => $this->fileSize - 1];
 
-				$response->header('content-length', $this->fileSize);
+				$response->header('Content-Length', $this->fileSize);
 			}
 			else
 			{
@@ -323,9 +323,9 @@ class File implements ResponseSenderInterface
 
 				$response->status(206);
 
-				$response->header('content-range', sprintf('bytes %s-%s/%s', $range['start'], $range['end'], $this->fileSize));
+				$response->header('Content-Range', sprintf('bytes %s-%s/%s', $range['start'], $range['end'], $this->fileSize));
 
-				$response->header('content-length', $range['end'] - $range['start'] + 1);
+				$response->header('Content-Length', $range['end'] - $range['start'] + 1);
 			}
 
 			// Send headers and the requested byte range

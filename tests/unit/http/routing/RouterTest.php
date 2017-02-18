@@ -217,7 +217,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('header')->once()->with('allow', 'POST,OPTIONS');
+		$response->shouldReceive('header')->once()->with('Allow', 'POST,OPTIONS');
 
 		$closure($response);
 	}

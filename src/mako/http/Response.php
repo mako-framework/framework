@@ -754,7 +754,7 @@ class Response
 
 				if(!array_key_exists('transfer-encoding', $this->headers))
 				{
-					$this->header('content-length', ob_get_length());
+					$this->header('Content-Length', ob_get_length());
 				}
 			}
 

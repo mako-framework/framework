@@ -323,7 +323,7 @@ class WebHandler extends Handler
 
 			if($this->exception instanceof MethodNotAllowedException)
 			{
-				$this->response->header('allows', implode(',', $this->exception->getAllowedMethods()));
+				$this->response->header('Allow', implode(',', $this->exception->getAllowedMethods()));
 			}
 		}
 		else

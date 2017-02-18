@@ -274,7 +274,7 @@ class Session extends Adapter
 
 		$response->body('Authentication required.');
 
-		$response->header('www-authenticate', 'basic');
+		$response->header('WWW-Authenticate', 'basic');
 
 		$response->status(401);
 
