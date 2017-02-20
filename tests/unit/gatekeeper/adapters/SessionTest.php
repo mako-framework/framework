@@ -576,8 +576,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$response = $this->getResponse();
 
-		$response->shouldReceive('body')->once()->with('Authentication required.');
-
 		$response->shouldReceive('header')->once()->with('WWW-Authenticate', 'basic');
 
 		$response->shouldReceive('status')->once()->with(401);
@@ -603,8 +601,6 @@ class SessionTest extends PHPUnit_Framework_TestCase
 		$request->shouldReceive('password')->once()->andReturn(null);
 
 		$response = $this->getResponse();
-
-		$response->shouldReceive('body')->once()->with('Authentication required.');
 
 		$response->shouldReceive('header')->once()->with('WWW-Authenticate', 'basic');
 

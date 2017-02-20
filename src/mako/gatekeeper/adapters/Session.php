@@ -281,8 +281,6 @@ class Session extends Adapter
 			$this->response->clear();
 		}
 
-		$this->response->body('Authentication required.');
-
 		$this->response->header('WWW-Authenticate', 'basic');
 
 		$this->response->status(401);
