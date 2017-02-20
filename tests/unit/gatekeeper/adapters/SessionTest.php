@@ -576,21 +576,49 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$response = $this->getResponse();
 
+		$response->shouldReceive('body')->once()->with('Authentication required.');
+
+		$response->shouldReceive('header')->once()->with('WWW-Authenticate', 'basic');
+
+		$response->shouldReceive('status')->once()->with(401);
+
 		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $response, $this->getSession()])->makePartial();
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
 		$adapter->shouldReceive('login')->once()->with(null, null)->andReturn(false);
 
-		$response = $adapter->basicAuth();
+		$this->assertFalse($adapter->basicAuth());
+	}
 
-		$this->assertInstanceOf(Response::class, $response);
+	/**
+	 *
+	 */
+	public function testBasicAuthWithClear()
+	{
+		$request = $this->getRequest();
 
-		$this->assertEquals(401, $response->getStatus());
+		$request->shouldReceive('username')->once()->andReturn(null);
 
-		$this->assertEquals('Authentication required.', $response->getBody());
+		$request->shouldReceive('password')->once()->andReturn(null);
 
-		$this->assertEquals(['WWW-Authenticate' => ['basic']], $response->getHeaders());
+		$response = $this->getResponse();
+
+		$response->shouldReceive('body')->once()->with('Authentication required.');
+
+		$response->shouldReceive('header')->once()->with('WWW-Authenticate', 'basic');
+
+		$response->shouldReceive('status')->once()->with(401);
+
+		$response->shouldReceive('clear')->once();
+
+		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $response, $this->getSession()])->makePartial();
+
+		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
+
+		$adapter->shouldReceive('login')->once()->with(null, null)->andReturn(false);
+
+		$this->assertFalse($adapter->basicAuth(true));
 	}
 
 	/**
@@ -602,7 +630,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(true);
 
-		$this->assertNull($adapter->basicAuth());
+		$this->assertTrue($adapter->basicAuth());
 	}
 
 	/**
@@ -622,7 +650,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$adapter->shouldReceive('login')->once()->with('foo@example.org', 'password')->andReturn(true);
 
-		$this->assertNull($adapter->basicAuth());
+		$this->assertTrue($adapter->basicAuth());
 	}
 
 	/**

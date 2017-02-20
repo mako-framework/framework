@@ -216,22 +216,7 @@ class Response
 	 */
 	public function body($body): Response
 	{
-		if($body instanceof $this)
-		{
-			$this->body = $body->getBody();
-
-			$this->statusCode = $body->getStatus();
-
-			$this->outputFilters = array_merge($this->outputFilters, $body->getFilters());
-
-			$this->headers = $this->headers + $body->getHeaders();
-
-			$this->cookies = $this->cookies + $body->getCookies();
-		}
-		else
-		{
-			$this->body = $body;
-		}
+		$this->body = $body;
 
 		return $this;
 	}

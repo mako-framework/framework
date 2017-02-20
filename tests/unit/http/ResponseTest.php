@@ -64,22 +64,6 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function testBodyWithResponse()
-	{
-		$response1 = new Response($this->getRequest());
-
-		$response1->body('Hello, world!');
-
-		$response2 = new Response($this->getRequest());
-
-		$response2->body($response1);
-
-		$this->assertEquals('Hello, world!', $response2->getBody());
-	}
-
-	/**
-	 *
-	 */
 	public function testBodyWithSender()
 	{
 		$response = new Response($this->getRequest());

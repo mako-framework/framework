@@ -263,38 +263,31 @@ class Session extends Adapter
 	}
 
 	/**
-	 * Builds and returns a basic HTTP authentication response.
-	 *
-	 * @access protected
-	 * @return \mako\http\Response
-	 */
-	protected function basicHTTPAuthenticationResponse(): Response
-	{
-		$response = new Response($this->request);
-
-		$response->body('Authentication required.');
-
-		$response->header('WWW-Authenticate', 'basic');
-
-		$response->status(401);
-
-		return $response;
-	}
-
-	/**
 	 * Returns a basic authentication response if login is required and null if not.
 	 *
 	 * @access public
-	 * @return \mako\http\Response|null
+	 * @param  bool $clearResponse Clear all previously set headers and cookies from the response?
+	 * @return bool
 	 */
-	public function basicAuth()
+	public function basicAuth(bool $clearResponse = false): bool
 	{
 		if($this->isLoggedIn() || $this->login($this->request->username(), $this->request->password()) === true)
 		{
-			return;
+			return true;
 		}
 
-		return $this->basicHTTPAuthenticationResponse();
+		if($clearResponse)
+		{
+			$this->response->clear();
+		}
+
+		$this->response->body('Authentication required.');
+
+		$this->response->header('WWW-Authenticate', 'basic');
+
+		$this->response->status(401);
+
+		return false;
 	}
 
 	/**
