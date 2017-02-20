@@ -225,7 +225,7 @@ class Session extends Adapter
 	{
 		if(empty($identifier))
 		{
-			return static::LOGIN_INCORRECT;
+			return Authentication::LOGIN_INCORRECT;
 		}
 
 		$authenticated = $this->authenticate($identifier, $password, $force);
