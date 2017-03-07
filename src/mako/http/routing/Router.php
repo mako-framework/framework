@@ -99,7 +99,7 @@ class Router
 
 		return new Route([], '', function(Response $response) use ($allowedMethods)
 		{
-			$response->header('allow', implode(',', $allowedMethods));
+			$response->header('Allow', implode(',', $allowedMethods));
 		});
 	}
 

@@ -64,22 +64,6 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function testBodyWithResponse()
-	{
-		$response1 = new Response($this->getRequest());
-
-		$response1->body('Hello, world!');
-
-		$response2 = new Response($this->getRequest());
-
-		$response2->body($response1);
-
-		$this->assertEquals('Hello, world!', $response2->getBody());
-	}
-
-	/**
-	 *
-	 */
 	public function testBodyWithSender()
 	{
 		$response = new Response($this->getRequest());
@@ -255,13 +239,13 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
 		$this->assertCount(2, $headers);
 
-		$this->assertArrayHasKey('x-foo-bar', $headers);
+		$this->assertArrayHasKey('X-Foo-Bar', $headers);
 
-		$this->assertArrayHasKey('x-baz-bax', $headers);
+		$this->assertArrayHasKey('X-Baz-Bax', $headers);
 
-		$this->assertEquals(['foo bar'], $headers['x-foo-bar']);
+		$this->assertEquals(['foo bar'], $headers['X-Foo-Bar']);
 
-		$this->assertEquals(['baz bax'], $headers['x-baz-bax']);
+		$this->assertEquals(['baz bax'], $headers['X-Baz-Bax']);
 	}
 
 	/**
@@ -326,7 +310,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
 		$this->assertCount(1, $headers);
 
-		$this->assertArrayHasKey('x-baz-bax', $headers);
+		$this->assertArrayHasKey('X-Baz-Bax', $headers);
 	}
 
 	/**

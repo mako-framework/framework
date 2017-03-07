@@ -214,7 +214,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('Hello, Kitty!', $response->getBody());
 
-		$this->assertEquals(['x-foo-bar' => ['Foo Bar']], $response->getHeaders());
+		$this->assertEquals(['X-Foo-Bar' => ['Foo Bar']], $response->getHeaders());
 	}
 
 	/**
@@ -244,7 +244,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('Hello, world!', $response->getBody());
 
-		$this->assertEquals(['x-foo-bar' => ['Foo Bar']], $response->getHeaders());
+		$this->assertEquals(['X-Foo-Bar' => ['Foo Bar']], $response->getHeaders());
 	}
 
 	/**
@@ -302,7 +302,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('Hello, world!', $response->getBody());
 
-		$this->assertEquals(['x-foo-bar' => ['Foo Bar']], $response->getHeaders());
+		$this->assertEquals(['X-Foo-Bar' => ['Foo Bar']], $response->getHeaders());
 	}
 
 	/**

@@ -216,22 +216,7 @@ class Response
 	 */
 	public function body($body): Response
 	{
-		if($body instanceof $this)
-		{
-			$this->body = $body->getBody();
-
-			$this->statusCode = $body->getStatus();
-
-			$this->outputFilters = array_merge($this->outputFilters, $body->getFilters());
-
-			$this->headers = $this->headers + $body->getHeaders();
-
-			$this->cookies = $this->cookies + $body->getCookies();
-		}
-		else
-		{
-			$this->body = $body;
-		}
+		$this->body = $body;
 
 		return $this;
 	}
@@ -393,17 +378,19 @@ class Response
 	 */
 	public function header(string $name, string $value, bool $replace = true): Response
 	{
-		$name = strtolower($name);
+		$normalizedName = strtolower($name);
+
+		$this->headers[$normalizedName]['name'] = $name;
 
 		if($replace === true)
 		{
-			$this->headers[$name] = [$value];
+			$this->headers[$normalizedName]['value'] = [$value];
 		}
 		else
 		{
-			$headers = $this->headers[$name] ?? [];
+			$headers = $this->headers[$normalizedName]['value'] ?? [];
 
-			$this->headers[$name] = array_merge($headers, [$value]);
+			$this->headers[$normalizedName]['value'] = array_merge($headers, [$value]);
 		}
 
 		return $this;
@@ -443,7 +430,7 @@ class Response
 	 */
 	public function getHeaders(): array
 	{
-		return $this->headers;
+		return array_column($this->headers, 'value', 'name');
 	}
 
 	/**
@@ -605,11 +592,11 @@ class Response
 
 		// Send other headers
 
-		foreach($this->headers as $name => $headers)
+		foreach($this->headers as $header)
 		{
-			foreach($headers as $value)
+			foreach($header['value'] as $value)
 			{
-				header($name . ': ' . $value, false);
+				header($header['name'] . ': ' . $value, false);
 			}
 		}
 
@@ -754,7 +741,7 @@ class Response
 
 				if(!array_key_exists('transfer-encoding', $this->headers))
 				{
-					$this->header('content-length', ob_get_length());
+					$this->header('Content-Length', ob_get_length());
 				}
 			}
 
