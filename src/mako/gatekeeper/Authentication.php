@@ -152,7 +152,7 @@ class Authentication
 	{
 		$factory = $this->adapterFactories[$name];
 
-		return $this->adapter[$name] = $factory();
+		return $this->adapters[$name] = $factory();
 	}
 
 	/**
