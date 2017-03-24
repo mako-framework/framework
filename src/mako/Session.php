@@ -88,7 +88,9 @@ class Session
 
 			session_name($config['session_name']);
 
-			session_start();
+			if (session_status() == PHP_SESSION_NONE) {
+				session_start();
+			}
 			
 			static::$instance = $adapter;
 		}

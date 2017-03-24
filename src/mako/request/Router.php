@@ -279,6 +279,10 @@ class Router
 			{
 				return false;
 			}
+			
+			// Convert all dots in segment to underscores
+			
+			$segment = str_replace('.', '_', $segment);
 
 			$path = $controllerPath . $segment;
 
