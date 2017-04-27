@@ -566,15 +566,27 @@ class Query
 	 * Adds a raw WHERE clause
 	 *
 	 * @access public
-	 * @param  string                     $column    Column name
-	 * @param  string                     $operator  Operator
-	 * @param  string                     $raw       Raw SQL
+	 * @param  string                     $column    Column name or raw SQL
+	 * @param  string|null|array          $operator  Operator or parameters
+	 * @param  string|null                $raw       Raw SQL
 	 * @param  string                     $separator Clause separator
 	 * @return \mako\database\query\Query
 	 */
-	public function whereRaw($column, $operator, $raw, $separator = 'AND')
+	public function whereRaw($column, $operator = null, $raw = null, $separator = 'AND')
 	{
-		return $this->where($column, $operator, new Raw($raw), $separator);
+		if($raw !== null)
+		{
+			return $this->where($column, $operator, new Raw($raw), $separator);
+		}
+
+		$this->wheres[] =
+		[
+			'type'      => 'whereRaw',
+			'raw'       => new Raw($column, is_array($operator) ? $operator : []),
+			'separator' => $separator,
+		];
+
+		return $this;
 	}
 
 	/**
@@ -595,12 +607,12 @@ class Query
 	 * Adds a raw OR WHERE clause.
 	 *
 	 * @access public
-	 * @param  string                     $column   Column name
-	 * @param  string                     $operator Operator
-	 * @param  string                     $raw      Raw SQL
+	 * @param  string                     $column   Column name or raw SQL
+	 * @param  string|null|array          $operator Operator or parameters
+	 * @param  string|null                $raw      Raw SQL
 	 * @return \mako\database\query\Query
 	 */
-	public function orWhereRaw($column, $operator, $raw)
+	public function orWhereRaw($column, $operator = null, $raw = null)
 	{
 		return $this->whereRaw($column, $operator, $raw, 'OR');
 	}

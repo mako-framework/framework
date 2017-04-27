@@ -473,6 +473,18 @@ class Compiler
 	}
 
 	/**
+	 * Compiles a raw WHERE condition.
+	 *
+	 * @access protected
+	 * @param  array  $where Where clause
+	 * @return string
+	 */
+	protected function whereRaw(array $where): string
+	{
+		return $this->raw($where['raw']);
+	}
+
+	/**
 	 * Compiles nested WHERE conditions.
 	 *
 	 * @access protected

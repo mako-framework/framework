@@ -332,6 +332,21 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithFullWhereRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->whereRaw('MATCH(foo) AGAINST (? IN BOOLEAN MODE)', ['bar']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE MATCH(foo) AGAINST (? IN BOOLEAN MODE)', $query['sql']);
+		$this->assertEquals(['bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithWheres()
 	{
 		$query = $this->getBuilder();
@@ -375,6 +390,22 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "foo" = SUBSTRING("foo", 1, 2)', $query['sql']);
 		$this->assertEquals(['bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithFullOrWhereRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', 'bar');
+		$query->orWhereRaw('MATCH(foo) AGAINST (? IN BOOLEAN MODE)', ['baz']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR MATCH(foo) AGAINST (? IN BOOLEAN MODE)', $query['sql']);
+		$this->assertEquals(['bar', 'baz'], $query['params']);
 	}
 
 	/**
