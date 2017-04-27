@@ -574,19 +574,19 @@ class Query
 	 */
 	public function whereRaw($column, $operator = null, $raw = null, $separator = 'AND')
 	{
-		if($raw !== null)
+		if($raw === null)
 		{
-			return $this->where($column, $operator, new Raw($raw), $separator);
+			$this->wheres[] =
+			[
+				'type'      => 'whereRaw',
+				'raw'       => new Raw($column, is_array($operator) ? $operator : []),
+				'separator' => $separator,
+			];
+
+			return $this;
 		}
 
-		$this->wheres[] =
-		[
-			'type'      => 'whereRaw',
-			'raw'       => new Raw($column, is_array($operator) ? $operator : []),
-			'separator' => $separator,
-		];
-
-		return $this;
+		return $this->where($column, $operator, new Raw($raw), $separator);
 	}
 
 	/**
