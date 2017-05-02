@@ -20,7 +20,12 @@ use mako\application\cli\commands\migrations\Reset;
 use mako\application\cli\commands\migrations\Status;
 use mako\application\cli\commands\migrations\Up;
 use mako\application\cli\commands\server\Server;
+use mako\cli\input\Input;
+use mako\cli\input\reader\Reader;
 use mako\cli\output\Output;
+use mako\cli\output\formatter\Formatter;
+use mako\cli\output\writer\Error;
+use mako\cli\output\writer\Standard;
 use mako\config\Config;
 use mako\http\routing\Routes;
 use mako\reactor\Reactor;
@@ -32,6 +37,126 @@ use mako\reactor\Reactor;
  */
 class Application extends BaseApplication
 {
+	/**
+	 * Reactor instance.
+	 *
+	 * @var \mako\reactor\Reactor
+	 */
+	protected $reactor;
+
+	/**
+	 * Creates a input instance.
+	 *
+	 * @access protected
+	 * @return \mako\cli\input\Input
+	 */
+	protected function inputFactory(): Input
+	{
+		return new Input(new Reader);
+	}
+
+	/**
+	 * Creates an output instance.
+	 *
+	 * @access protected
+	 * @return \mako\cli\output\Output
+	 */
+	protected function outputFactory(): Output
+	{
+		return new Output(new Standard, new Error, new Formatter);
+	}
+
+	/**
+	 * Creates a reactor instance.
+	 *
+	 * @access protected
+	 * @return \mako\reactor\Reactor
+	 */
+	protected function reactorFactory(): Reactor
+	{
+		return new Reactor($this->container->get('input'), $this->container->get('output'), $this->container);
+	}
+
+	/**
+	 * Loads the reactor ASCII logo.
+	 *
+	 * @access protected
+	 * @return string
+	 */
+	protected function loadLogo(): string
+	{
+		$logo = file_get_contents(__DIR__ . '/resources/logo.txt');
+
+		return str_replace('{version}', Mako::VERSION, $logo);
+	}
+
+	/**
+	 * Registers global reactor options.
+	 *
+	 * @access protected
+	 */
+	protected function registerGlobalReactorOptions()
+	{
+		$this->reactor->registerGlobalOption('env', 'Overrides the Mako environment', function(Config $config, $option)
+		{
+			putenv('MAKO_ENV=' . $option);
+
+			$config->setEnvironment($option);
+		}, 'init');
+
+		$this->reactor->registerGlobalOption('mute', 'Mutes all output', function(Output $output)
+		{
+			$output->mute();
+		}, 'init');
+
+		$this->reactor->registerGlobalOption('database', 'Overrides the default database connection', function(Config $config, $option)
+		{
+			$config->set('database.default', $option);
+		});
+	}
+
+	/**
+	 * Starts the reactor.
+	 *
+	 * @access protected
+	 */
+	protected function startReactor()
+	{
+		$this->container->registerSingleton([Input::class, 'input'], function()
+		{
+			return $this->inputFactory();
+		});
+
+		$this->container->registerSingleton([Output::class, 'output'], function()
+		{
+			return $this->outputFactory();
+		});
+
+		$this->reactor = $this->reactorFactory();
+
+		// Set logo
+
+		$this->reactor->setLogo($this->loadLogo());
+
+		// Register global options
+
+		$this->registerGlobalReactorOptions();
+
+		// Handle initialization options
+
+		$this->reactor->handleGlobalOptions('init');
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function initialize()
+	{
+		parent::initialize();
+
+		$this->startReactor();
+	}
+
 	/**
 	 * Returns all registered commands.
 	 *
@@ -88,62 +213,22 @@ class Application extends BaseApplication
 	}
 
 	/**
-	 * Loads the reactor ASCII logo.
-	 *
-	 * @access protected
-	 * @return string
-	 */
-	protected function loadLogo(): string
-	{
-		$logo = file_get_contents(__DIR__ . '/resources/logo.txt');
-
-		return str_replace('{version}', Mako::VERSION, $logo);
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
 	public function run()
 	{
 		ob_start();
 
-		$input = $this->container->get('input');
-
-		$output = $this->container->get('output');
-
-		// Create reactor and register custom options
-
-		$reactor = new Reactor($input, $output, $this->container);
-
-		$reactor->setLogo($this->loadLogo());
-
-		$reactor->registerCustomOption('env', 'Overrides the Mako environment', function(Config $config, $option)
-		{
-			putenv('MAKO_ENV=' . $option);
-
-			$config->setEnvironment($option);
-		});
-
-		$reactor->registerCustomOption('database', 'Overrides the default database connection', function(Config $config, $option)
-		{
-			$config->set('database.default', $option);
-		});
-
-		$reactor->registerCustomOption('mute', 'Mutes all output', function(Output $output)
-		{
-			$output->mute();
-		});
-
 		// Register reactor commands
 
 		foreach($this->getCommands() as $command => $class)
 		{
-			$reactor->registerCommand($command, $class);
+			$this->reactor->registerCommand($command, $class);
 		}
 
 		// Run the reactor
 
-		$exitCode = $reactor->run();
+		$exitCode = $this->reactor->run();
 
 		exit($exitCode);
 	}

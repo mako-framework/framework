@@ -99,7 +99,7 @@ EOF;
 
 		$reactor->setLogo('logo');
 
-		$reactor->registerCustomOption('option', 'option description', function(){});
+		$reactor->registerGlobalOption('option', 'option description', function(){});
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
@@ -502,7 +502,7 @@ EOF;
 
 		$reactor = new Reactor($input, $output, $container, $dispatcher);
 
-		$reactor->registerCustomOption('option', 'option description', $closure);
+		$reactor->registerGlobalOption('option', 'option description', $closure);
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 

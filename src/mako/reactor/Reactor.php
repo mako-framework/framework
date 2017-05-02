@@ -105,16 +105,17 @@ class Reactor
 	}
 
 	/**
-	 * Register a custom reactor option.
+	 * Register a global reactor option.
 	 *
 	 * @access public
 	 * @param string   $name        Option name
 	 * @param string   $description Option description
 	 * @param \Closure $handler     Option handler
+	 * @param string   $group       Option group
 	 */
-	public function registerCustomOption(string $name, string $description, Closure $handler)
+	public function registerGlobalOption(string $name, string $description, Closure $handler, string $group = 'default')
 	{
-		$this->options[$name] = ['description' => $description, 'handler' => $handler];
+		$this->options[$group][$name] = ['description' => $description, 'handler' => $handler];
 	}
 
 	/**
@@ -129,23 +130,27 @@ class Reactor
 	}
 
 	/**
-	 * Handles custom reactor options.
+	 * Handles global reactor options.
 	 *
-	 * @access protected
+	 * @access public
+	 * @param string $group Option group
 	 */
-	protected function handleCustomOptions()
+	public function handleGlobalOptions(string $group = 'default')
 	{
-		foreach($this->options as $name => $option)
+		if(isset($this->options[$group]))
 		{
-			$input = $this->input->getArgument($name);
-
-			if(!empty($input))
+			foreach($this->options[$group] as $name => $option)
 			{
-				$handler = $option['handler'];
+				$input = $this->input->getArgument($name);
 
-				$this->container->call($handler, ['option' => $input]);
+				if(!empty($input))
+				{
+					$handler = $option['handler'];
 
-				$this->input->removeArgument($name);
+					$this->container->call($handler, ['option' => $input]);
+
+					$this->input->removeArgument($name);
+				}
 			}
 		}
 	}
@@ -186,9 +191,12 @@ class Reactor
 	{
 		$options = [];
 
-		foreach($this->options as $name => $option)
+		foreach($this->options as $group)
 		{
-			$options[] = ['--' . $name, $option['description']];
+			foreach($group as $name => $option)
+			{
+				$options[] = ['--' . $name, $option['description']];
+			}
 		}
 
 		sort($options);
@@ -303,7 +311,7 @@ class Reactor
 	 */
 	public function run(): int
 	{
-		$this->handleCustomOptions();
+		$this->handleGlobalOptions();
 
 		if(($command = $this->input->getArgument(1)) === null)
 		{
