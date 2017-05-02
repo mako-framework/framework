@@ -437,7 +437,18 @@ abstract class Application
 	}
 
 	/**
-	 * Builds a configuration instance.
+	 * Creates a container instance.
+	 *
+	 * @access protected
+	 * @return \mako\syringe\Container
+	 */
+	protected function containerFactory(): Container
+	{
+		return new Container;
+	}
+
+	/**
+	 * Creates a configuration instance.
 	 *
 	 * @return \mako\config\Config
 	 */
@@ -455,7 +466,7 @@ abstract class Application
 	{
 		// Create IoC container instance and register it in itself so that it can be injected
 
-		$this->container = new Container();
+		$this->container = $this->containerFactory();
 
 		$this->container->registerInstance([Container::class, 'container'], $this->container);
 
@@ -465,7 +476,7 @@ abstract class Application
 
 		// Register file system instance
 
-		$this->container->registerInstance([FileSystem::class, 'fileSystem'], $fileSystem = new FileSystem());
+		$this->container->registerInstance([FileSystem::class, 'fileSystem'], new FileSystem);
 
 		// Register config instance
 
