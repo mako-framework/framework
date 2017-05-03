@@ -156,4 +156,19 @@ class DB2CompilerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY (SELECT 0)) AS mako_rownum FROM "foobar") AS mako1 WHERE mako_rownum BETWEEN 1 AND 10 FOR UPDATE WITH RS', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithPrefix()
+	{
+		$query = $this->getBuilder();
+
+		$query->prefix('/*PREFIX*/');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('/*PREFIX*/ SELECT * FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
 }

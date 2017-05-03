@@ -729,7 +729,8 @@ class Compiler
 	 */
 	public function select(): array
 	{
-		$sql  = $this->setOperations($this->query->getSetOperations());
+		$sql  = $this->query->getPrefix();
+		$sql .= $this->setOperations($this->query->getSetOperations());
 		$sql .= $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
 		$sql .= $this->columns($this->query->getColumns(), true);
 		$sql .= $this->from($this->query->getTable());
@@ -754,7 +755,8 @@ class Compiler
 	 */
 	public function insert(array $values): array
 	{
-		$sql  = 'INSERT INTO ';
+		$sql  = $this->query->getPrefix();
+		$sql .= 'INSERT INTO ';
 		$sql .= $this->escapeTable($this->query->getTable());
 		$sql .= ' (' . implode(', ', $this->escapeIdentifiers(array_keys($values))) . ')';
 		$sql .= ' VALUES';
@@ -804,7 +806,8 @@ class Compiler
 	 */
 	public function update(array $values): array
 	{
-		$sql  = 'UPDATE ';
+		$sql  = $this->query->getPrefix();
+		$sql .= 'UPDATE ';
 		$sql .= $this->escapeTable($this->query->getTable());
 		$sql .= ' SET ';
 		$sql .= $this->updateColumns($values);
@@ -821,7 +824,8 @@ class Compiler
 	 */
 	public function delete(): array
 	{
-		$sql  = 'DELETE FROM ';
+		$sql  = $this->query->getPrefix();
+		$sql .= 'DELETE FROM ';
 		$sql .= $this->escapeTable($this->query->getTable());
 		$sql .= $this->wheres($this->query->getWheres());
 

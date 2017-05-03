@@ -131,6 +131,13 @@ class Query
 	protected $lock = null;
 
 	/**
+	 * Prefix.
+	 *
+	 * @var null|string
+	 */
+	protected $prefix;
+
+	/**
 	 * Pagination factory.
 	 *
 	 * @var \mako\pagination\PaginationFactoryInterface
@@ -355,6 +362,17 @@ class Query
 	public function getLock()
 	{
 		return $this->lock;
+	}
+
+	/**
+	 * Returns the prefix.
+	 *
+	 * @access public
+	 * @return null|string
+	 */
+	public function getPrefix()
+	{
+		return $this->prefix;
 	}
 
 	/**
@@ -1172,6 +1190,22 @@ class Query
 	public function lock($lock = true)
 	{
 		$this->lock = $lock;
+
+		return $this;
+	}
+
+	/**
+	 * Adds a query prefix.
+	 *
+	 * @access public
+	 * @param  string                     $prefix Prefix
+	 * @return \mako\database\query\Query
+	 */
+	public function prefix($prefix)
+	{
+		$this->prefix = $prefix . ' ';
+
+		return $this;
 	}
 
 	/**

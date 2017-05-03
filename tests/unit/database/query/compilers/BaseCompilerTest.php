@@ -1499,6 +1499,21 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithPrefix()
+	{
+		$query = $this->getBuilder();
+
+		$query->prefix('/*PREFIX*/');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('/*PREFIX*/ SELECT * FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testBatch()
 	{
 		$builder = Mockery::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
