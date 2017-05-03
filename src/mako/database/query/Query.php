@@ -112,14 +112,14 @@ class Query
 	/**
 	 * Limit.
 	 *
-	 * @var int
+	 * @var null|int
 	 */
 	protected $limit = null;
 
 	/**
 	 * Offset.
 	 *
-	 * @var int
+	 * @var null|int
 	 */
 	protected $offset = null;
 
@@ -135,7 +135,7 @@ class Query
 	 *
 	 * @var null|string
 	 */
-	protected $prefix;
+	protected $prefix = null;
 
 	/**
 	 * Pagination factory.
