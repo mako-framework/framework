@@ -183,12 +183,12 @@ class I18n
 	 *
 	 * @access public
 	 * @param  float       $number             Number to format
-	 * @param  null|int    $decimals           Number of decimals
+	 * @param  int         $decimals           Number of decimals
 	 * @param  null|string $decimalPoint       Decimal point
 	 * @param  null|string $thousandsSeparator Thousands separator
 	 * @return string
 	 */
-	public function number(float $number, int $decimals = null, string $decimalPoint = null, string $thousandsSeparator = null): string
+	public function number(float $number, int $decimals = 0, string $decimalPoint = null, string $thousandsSeparator = null): string
 	{
 		static $defaults;
 
@@ -203,7 +203,7 @@ class I18n
 			];
 		}
 
-		return number_format($number, ($decimals ?: 0), ($decimalPoint ?: $defaults['decimal']), ($thousandsSeparator ?: $defaults['thousands']));
+		return number_format($number, $decimals, ($decimalPoint ?: $defaults['decimal']), ($thousandsSeparator ?: $defaults['thousands']));
 	}
 
 	/**
@@ -325,7 +325,7 @@ class I18n
 	{
 		return preg_replace_callback('/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu', function($matches)
 		{
-			return $this->number((float) $matches[7], ($matches[2] ?: null), $matches[4], $matches[6]);
+			return $this->number((float) $matches[7], ($matches[2] ?: 0), $matches[4], $matches[6]);
 		}, $string);
 	}
 
