@@ -308,15 +308,10 @@ class I18n
 	 */
 	protected function parsePluralizationTags(string $string): string
 	{
-		if(stripos($string, '</pluralize>') !== false)
+		return preg_replace_callback('/\<pluralize:([0-9]+)\>(\w*)\<\/pluralize\>/iu', function($matches)
 		{
-			$string = preg_replace_callback('/\<pluralize:([0-9]+)\>(\w*)\<\/pluralize\>/iu', function($matches)
-			{
-				return $this->pluralize($matches[2], (int) $matches[1]);
-			}, $string);
-		}
-
-		return $string;
+			return $this->pluralize($matches[2], (int) $matches[1]);
+		}, $string);
 	}
 
 	/**
@@ -328,12 +323,29 @@ class I18n
 	 */
 	protected function parseNumberTags(string $string): string
 	{
+		return preg_replace_callback('/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu', function($matches)
+		{
+			return $this->number((float) $matches[7], ($matches[2] ?: null), $matches[4], $matches[6]);
+		}, $string);
+	}
+
+	/**
+	 * Parses tags.
+	 *
+	 * @access protected
+	 * @param  string $string String to parse
+	 * @return string
+	 */
+	protected function parseTags(string $string): string
+	{
+		if(stripos($string, '</pluralize>') !== false)
+		{
+			$string = $this->parsePluralizationTags($string);
+		}
+
 		if(stripos($string, '</number>') !== false)
 		{
-			$string = preg_replace_callback('/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu', function($matches)
-			{
-				return $this->number((float) $matches[7], ($matches[2] ?: null), $matches[4], $matches[6]);
-			}, $string);
+			$string = $this->parseNumberTags($string);
 		}
 
 		return $string;
@@ -358,9 +370,7 @@ class I18n
 
 			if(stripos($string, '</') !== false)
 			{
-				$string = $this->parsePluralizationTags($string);
-
-				$string = $this->parseNumberTags($string);
+				$string = $this->parseTags($string);
 			}
 		}
 
