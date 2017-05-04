@@ -179,6 +179,34 @@ class I18n
 	}
 
 	/**
+	 * Format number according to locale or desired format.
+	 *
+	 * @access public
+	 * @param  float       $number             Number to format
+	 * @param  null|int    $decimals           Number of decimals
+	 * @param  null|string $decimalPoint       Decimal point
+	 * @param  null|string $thousandsSeparator Thousands separator
+	 * @return string
+	 */
+	public function number(float $number, int $decimals = null, string $decimalPoint = null, string $thousandsSeparator = null): string
+	{
+		static $defaults;
+
+		if(empty($defaults))
+		{
+			$localeconv = localeconv();
+
+			$defaults =
+			[
+				'decimal'   => $localeconv['decimal_point'] ?: '.',
+				'thousands' => $localeconv['thousands_sep'] ?: ',',
+			];
+		}
+
+		return number_format($number, ($decimals ?: 0), ($decimalPoint ?: $defaults['decimal']), ($thousandsSeparator ?: $defaults['thousands']));
+	}
+
+	/**
 	 * Loads language strings from cache.
 	 *
 	 * @access protected
@@ -282,9 +310,29 @@ class I18n
 	{
 		if(stripos($string, '</pluralize>') !== false)
 		{
-			$string = preg_replace_callback('/\<pluralize:([0-9]+)\>(.*)\<\/pluralize\>/iu', function($matches)
+			$string = preg_replace_callback('/\<pluralize:([0-9]+)\>(\w*)\<\/pluralize\>/iu', function($matches)
 			{
 				return $this->pluralize($matches[2], (int) $matches[1]);
+			}, $string);
+		}
+
+		return $string;
+	}
+
+	/**
+	 * Format numbers between number tags.
+	 *
+	 * @access protected
+	 * @param  string $string String to parse
+	 * @return string
+	 */
+	protected function parseNumberTags(string $string): string
+	{
+		if(stripos($string, '</number>') !== false)
+		{
+			$string = preg_replace_callback('/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu', function($matches)
+			{
+				return $this->number((float) $matches[7], ($matches[2] ?: null), $matches[4], $matches[6]);
 			}, $string);
 		}
 
@@ -306,7 +354,14 @@ class I18n
 
 		if(!empty($vars))
 		{
-			$string = $this->parsePluralizationTags(vsprintf($string, $vars));
+			$string = vsprintf($string, $vars);
+
+			if(stripos($string, '</') !== false)
+			{
+				$string = $this->parsePluralizationTags($string);
+
+				$string = $this->parseNumberTags($string);
+			}
 		}
 
 		return $string;

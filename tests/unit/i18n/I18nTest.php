@@ -24,6 +24,7 @@ class I18nTest extends PHPUnit_Framework_TestCase
 	[
 		'foo'	   => ['foo' => 'foostring', 'greeting' => 'hello %s'],
 		'bar'      => ['bar' => 'barstring', 'pluralization' => 'You have %1$u <pluralize:%1$u>apple</pluralize>.'],
+		'baz'      => ['number1' => 'You have <number>%s</number> apples.', 'number2' => '<number:3>%s</number>', 'number3' => '<number:3,:>%s</number>', 'number4' => '<number:3,:,;>%s</number>'],
 		'baz::baz' => ['baz' => 'bazstring'],
 	];
 
@@ -205,6 +206,22 @@ class I18nTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 *
+	 */
+	public function testNumber()
+	{
+		$loader = $this->getLoader();
+
+		$i18n = new I18n($loader, 'en_US');
+
+		$this->assertSame('1,234', $i18n->number(1234.123));
+
+		$this->assertSame('1,234.123', $i18n->number(1234.123, 3));
+
+		$this->assertSame('1;234:123', $i18n->number(1234.123, 3, ':', ';'));
+	}
+
+	/**
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage mako\i18n\I18n::pluralize(): The [ en_US ] language pack does not include any inflection rules.
 	 */
@@ -231,7 +248,7 @@ class I18nTest extends PHPUnit_Framework_TestCase
 		$loader->shouldReceive('loadInflection')->once()->with('en_US')->andReturn
 		(
 			[
-				'rules' => '',
+				'rules'     => '',
 				'pluralize' => function($string)
 				{
 					return str_replace('apple', 'apples', $string);
@@ -242,6 +259,26 @@ class I18nTest extends PHPUnit_Framework_TestCase
 		$i18n = new I18n($loader, 'en_US');
 
 		$this->assertEquals('You have 10 apples.', $i18n->get('bar.pluralization', [10]));
+	}
+
+	/**
+	 *
+	 */
+	public function testFormatNumbersInStrings()
+	{
+		$loader = $this->getLoader();
+
+		$loader->shouldReceive('loadStrings')->once()->with('en_US', 'baz')->andReturn($this->strings['baz']);
+
+		$i18n = new I18n($loader, 'en_US');
+
+		$this->assertEquals('You have 1,234 apples.', $i18n->get('baz.number1', [1234.123]));
+
+		$this->assertEquals('1,234.123', $i18n->get('baz.number2', [1234.123]));
+
+		$this->assertEquals('1,234:123', $i18n->get('baz.number3', [1234.123]));
+
+		$this->assertEquals('1;234:123', $i18n->get('baz.number4', [1234.123]));
 	}
 
 	/**
