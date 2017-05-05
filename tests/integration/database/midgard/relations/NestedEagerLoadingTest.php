@@ -80,9 +80,9 @@ class NestedEagerLoadingTest extends \ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "articles" WHERE "user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "articles" WHERE "articles"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 
-		$this->assertEquals('SELECT * FROM "article_comments" WHERE "article_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
+		$this->assertEquals('SELECT * FROM "article_comments" WHERE "article_comments"."article_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
 	}
 
 	/**
@@ -115,8 +115,8 @@ class NestedEagerLoadingTest extends \ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "articles" WHERE "user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "articles" WHERE "articles"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 
-		$this->assertEquals('SELECT * FROM "article_comments" WHERE "comment" = \'does not exist\' AND "article_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
+		$this->assertEquals('SELECT * FROM "article_comments" WHERE "comment" = \'does not exist\' AND "article_comments"."article_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
 	}
 }

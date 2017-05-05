@@ -64,7 +64,7 @@ class HasManyPolymorphicTest extends \ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "articles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "commentable_id" = \'1\' AND "commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "polymorphic_comments"."commentable_id" = \'1\' AND "polymorphic_comments"."commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -91,7 +91,7 @@ class HasManyPolymorphicTest extends \ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "articles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "commentable_id" = \'1\' AND "commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "polymorphic_comments"."commentable_id" = \'1\' AND "polymorphic_comments"."commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -119,11 +119,11 @@ class HasManyPolymorphicTest extends \ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "articles" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "commentable_id" = \'1\' AND "commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "polymorphic_comments"."commentable_id" = \'1\' AND "polymorphic_comments"."commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 
-		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "commentable_id" = \'2\' AND "commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\'', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
+		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "polymorphic_comments"."commentable_id" = \'2\' AND "polymorphic_comments"."commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\'', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
 
-		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "commentable_id" = \'3\' AND "commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\'', $this->connectionManager->connection('sqlite')->getLog()[3]['query']);
+		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "polymorphic_comments"."commentable_id" = \'3\' AND "polymorphic_comments"."commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\'', $this->connectionManager->connection('sqlite')->getLog()[3]['query']);
 	}
 
 	/**
@@ -151,7 +151,7 @@ class HasManyPolymorphicTest extends \ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "articles" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\' AND "commentable_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "polymorphic_comments"."commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\' AND "polymorphic_comments"."commentable_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -175,7 +175,7 @@ class HasManyPolymorphicTest extends \ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "articles" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\' AND "comment" = \'does not exist\' AND "commentable_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "polymorphic_comments" WHERE "polymorphic_comments"."commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\' AND "comment" = \'does not exist\' AND "polymorphic_comments"."commentable_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
