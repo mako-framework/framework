@@ -109,7 +109,7 @@ abstract class Relation extends Query
 	 */
 	protected function lazyCriterion()
 	{
-		$this->where($this->model->getTable() . '.' . $this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
+		$this->where($this->table . '.' . $this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
 	}
 
 	/**
@@ -123,7 +123,7 @@ abstract class Relation extends Query
 	{
 		$this->lazy = false;
 
-		$this->in($this->model->getTable() . '.' . $this->getForeignKey(), $keys);
+		$this->in($this->table . '.' . $this->getForeignKey(), $keys);
 
 		return $this;
 	}

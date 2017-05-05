@@ -94,7 +94,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->twice()->andReturn('tests');
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$query = new Query($this->getConnecion(), $model);
 

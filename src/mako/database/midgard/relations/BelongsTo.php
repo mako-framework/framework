@@ -51,7 +51,7 @@ class BelongsTo extends Relation
 	 */
 	protected function lazyCriterion()
 	{
-		$this->where($this->model->getTable() . '.' . $this->model->getPrimaryKey(), '=', $this->parent->getRawColumnValue($this->getForeignKey()));
+		$this->where($this->table . '.' . $this->model->getPrimaryKey(), '=', $this->parent->getRawColumnValue($this->getForeignKey()));
 	}
 
 	/**
@@ -65,7 +65,7 @@ class BelongsTo extends Relation
 	{
 		$this->lazy = false;
 
-		$this->in($this->model->getTable() . '.' . $this->model->getPrimaryKey(), $keys);
+		$this->in($this->table . '.' . $this->model->getPrimaryKey(), $keys);
 
 		return $this;
 	}

@@ -39,7 +39,7 @@ trait HasOneOrManyPolymorphicTrait
 
 		parent::__construct($connection, $parent, $related, $polymorphicType . '_id');
 
-		$this->where($this->model->getTable() . '.' . $this->polymorphicType, '=', $parent->getClass());
+		$this->where($this->table . '.' . $this->polymorphicType, '=', $parent->getClass());
 	}
 
 	/**
