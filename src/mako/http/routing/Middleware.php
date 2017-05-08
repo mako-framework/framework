@@ -41,11 +41,27 @@ class Middleware
 	 * Sets the middleware priority.
 	 *
 	 * @access public
-	 * @param array $priority Middleware priority
+	 * @param  array                         $priority Middleware priority
+	 * @return \mako\http\routing\Middleware
 	 */
 	public function setPriority(array $priority)
 	{
-		$this->priority = $priority;
+		$this->priority = $priority + $this->priority;
+
+		return $this;
+	}
+
+	/**
+	 * Resets middleware priority.
+	 *
+	 * @access public
+	 * @return \mako\http\routing\Middleware
+	 */
+	public function resetPriority()
+	{
+		$this->priority = [];
+
+		return $this;
 	}
 
 	/**
@@ -92,12 +108,15 @@ class Middleware
 	 * Adds a middleware.
 	 *
 	 * @access public
-	 * @param string $name       Middleware name
-	 * @param string $middleware Middleware class name
+	 * @param  string                        $name       Middleware name
+	 * @param  string                        $middleware Middleware class name
+	 * @return \mako\http\routing\Middleware
 	 */
 	public function register(string $name, string $middleware)
 	{
 		$this->middleware[$name] = $middleware;
+
+		return $this;
 	}
 
 	/**

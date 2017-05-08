@@ -53,8 +53,6 @@ class MiddlewareTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOrderByPriorityWithNoPriority()
 	{
-		$middleware = new Middleware;
-
 		$resolved =
 		[
 			'bar' => ['one'],
@@ -62,6 +60,8 @@ class MiddlewareTest extends PHPUnit_Framework_TestCase
 			'bax' => ['three'],
 			'baz' => ['four'],
 		];
+
+		$middleware = new Middleware;
 
 		$this->assertSame($resolved, $middleware->orderByPriority($resolved));
 	}
@@ -71,10 +71,6 @@ class MiddlewareTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOrderByPriorityWithPriority()
 	{
-		$middleware = new Middleware;
-
-		$middleware->setPriority(['foo' => 1, 'baz' => 2, 'xxx' => 3, 'yyy' => 101]);
-
 		$resolved =
 		[
 			'bar' => ['three'],
@@ -83,6 +79,12 @@ class MiddlewareTest extends PHPUnit_Framework_TestCase
 			'yyy' => ['five'],
 			'baz' => ['two'],
 		];
+
+		$middleware = new Middleware;
+
+		// Test middleare priority
+
+		$middleware->setPriority(['foo' => 1, 'baz' => 2, 'xxx' => 3, 'yyy' => 101]);
 
 		$ordered =
 		[
@@ -94,6 +96,27 @@ class MiddlewareTest extends PHPUnit_Framework_TestCase
 		];
 
 		$this->assertSame($ordered, $middleware->orderByPriority($resolved));
+
+		// Test middleware priority override
+
+		$middleware->setPriority(['foo' => 1, 'baz' => 2, 'xxx' => 3, 'yyy' => 1]);
+
+		$ordered =
+		[
+			'foo' => ['one'],
+			'yyy' => ['five'],
+			'baz' => ['two'],
+			'bar' => ['three'],
+			'bax' => ['four'],
+		];
+
+		$this->assertSame($ordered, $middleware->orderByPriority($resolved));
+
+		// Test middeware priority reset
+
+		$middleware->resetPriority();
+
+		$this->assertSame($resolved, $middleware->orderByPriority($resolved));
 	}
 
 	/**
