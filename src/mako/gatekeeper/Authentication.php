@@ -173,7 +173,7 @@ class Authentication
 	 * Magic shortcut to the default adapter.
 	 *
 	 * @access public
-	 * @param  string $name      Method name
+	 * @param  string $method    Method name
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
