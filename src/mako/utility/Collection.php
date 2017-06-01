@@ -9,7 +9,6 @@ namespace mako\utility;
 
 use ArrayAccess;
 use ArrayIterator;
-use Closure;
 use Countable;
 use IteratorAggregate;
 use OutOfBoundsException;
@@ -275,15 +274,15 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Sorts the collection using the specified comparator closure
+	 * Sorts the collection using the specified comparator callable
 	 * and returns TRUE on success and FALSE on failure.
 	 *
 	 * @access public
-	 * @param  \Closure $comparator               Comparator closure
+	 * @param  callable $comparator               Comparator callable
 	 * @param  bool     $maintainIndexAssociation Maintain index association?
 	 * @return bool
 	 */
-	public function sort(Closure $comparator, bool $maintainIndexAssociation = true): bool
+	public function sort(callable $comparator, bool $maintainIndexAssociation = true): bool
 	{
 		return $maintainIndexAssociation ? uasort($this->items, $comparator) : usort($this->items, $comparator);
 	}
