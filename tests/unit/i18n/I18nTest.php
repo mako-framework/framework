@@ -49,7 +49,7 @@ class I18nTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function getCache()
 	{
-		return Mockery::mock('mako\cache\Cache');
+		return Mockery::mock('mako\cache\stores\StoreInterface');
 	}
 
 	/**
