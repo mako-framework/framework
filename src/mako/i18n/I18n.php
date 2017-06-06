@@ -9,7 +9,7 @@ namespace mako\i18n;
 
 use RuntimeException;
 
-use mako\cache\Cache;
+use mako\cache\stores\StoreInterface;
 use mako\i18n\loaders\LoaderInterface;;
 use mako\utility\Arr;
 
@@ -51,7 +51,7 @@ class I18n
 	/**
 	 * Cache instance.
 	 *
-	 * @var \mako\cache\Cache
+	 * @var \mako\cache\stores\StoreInterface
 	 */
 	protected $cache;
 
@@ -68,9 +68,9 @@ class I18n
 	 * @access public
 	 * @param \mako\i18n\loaders\LoaderInterface $loader   Loader instance
 	 * @param string                             $language Default language pack name
-	 * @param \mako\cache\Cache                  $cache    Cache instance
+	 * @param \mako\cache\stores\StoreInterface  $cache    Cache instance
 	 */
-	public function __construct(LoaderInterface $loader, string $language, Cache $cache = null)
+	public function __construct(LoaderInterface $loader, string $language, StoreInterface $cache = null)
 	{
 		$this->loader = $loader;
 
@@ -110,9 +110,9 @@ class I18n
 	 * Sets the cache.
 	 *
 	 * @access public
-	 * @param \mako\cache\Cache $cache Cache instance
+	 * @param \mako\cache\stores\StoreInterface $cache Cache instance
 	 */
-	public function setCache(Cache $cache)
+	public function setCache(StoreInterface $cache)
 	{
 		$this->cache = $cache;
 	}
