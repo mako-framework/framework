@@ -23,6 +23,7 @@ use mako\gatekeeper\adapters\AdapterInterface;
  * @method null|\mako\gatekeeper\entities\user\UserEntityInterface    getUser()
  * @method bool                                                       isGuest()
  * @method bool                                                       isLoggedIn()
+ * @method bool                                                       basicAuth()
  */
 class Authentication
 {
