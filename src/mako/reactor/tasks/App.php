@@ -2,7 +2,7 @@
 
 namespace mako\reactor\tasks;
 
-use \mako\String;
+use \mako\Str;
 
 /**
  * App task.
@@ -116,7 +116,7 @@ class App extends \mako\reactor\Task
 			return $this->cli->stderr('Unable to generate a new secret. Make sure that the "app/config/application.php" file is writable.');
 		}
 
-		$secret = str_replace(array('"', '\''), array('|', '/'), String::random(String::ALNUM . String::SYMBOLS, 32));
+		$secret = str_replace(array('"', '\''), array('|', '/'), Str::random(Str::ALNUM . Str::SYMBOLS, 32));
 
 		$contents = file_get_contents($configFile);
 
