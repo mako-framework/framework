@@ -278,7 +278,7 @@ class Compiler
 
 		foreach($wheres as $where)
 		{
-			$sql[] = $where['separator'] . ' ' . $this->$where['type']($where);
+			$sql[] = $where['separator'] . ' ' . $this->{$where['type']}($where);
 		}
 
 		return ' WHERE ' . substr(implode(' ', $sql), 4); // substr to remove "AND "
