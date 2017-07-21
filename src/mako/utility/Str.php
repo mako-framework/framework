@@ -136,8 +136,8 @@ class Str
 	 * Returns the plural form of a noun (english only).
 	 *
 	 * @access public
-	 * @param  string $noun  Noun to pluralize
-	 * @param  int    $count Number of nouns
+	 * @param  string   $noun  Noun to pluralize
+	 * @param  null|int $count Number of nouns
 	 * @return string
 	 */
 	public static function pluralize(string $noun, int $count = null): string
@@ -322,6 +322,7 @@ class Str
 	/**
 	 * Returns a random string of the selected type and length.
 	 *
+	 * @access public
 	 * @param  string $pool   Character pool to use
 	 * @param  int    $length Desired string length
 	 * @return string

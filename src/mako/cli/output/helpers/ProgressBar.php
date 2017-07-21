@@ -71,7 +71,7 @@ class ProgressBar
 	 * @access public
 	 * @param \mako\cli\output\Output $output     Output instance
 	 * @param int                     $items      Total number of items
-	 * @param int                     $redrawRate Redraw rate
+	 * @param null|int                $redrawRate Redraw rate
 	 */
 	public function __construct(Output $output, int $items, int $redrawRate = null)
 	{

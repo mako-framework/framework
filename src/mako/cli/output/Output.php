@@ -63,9 +63,9 @@ class Output
 	 * Constructor.
 	 *
 	 * @access public
-	 * @param \mako\cli\output\writer\WriterInterface       $standard  Standard writer
-	 * @param \mako\cli\output\writer\WriterInterface       $error     Error writer
-	 * @param \mako\cli\output\formatter\FormatterInterface $formatter Formatter
+	 * @param \mako\cli\output\writer\WriterInterface            $standard  Standard writer
+	 * @param \mako\cli\output\writer\WriterInterface            $error     Error writer
+	 * @param null|\mako\cli\output\formatter\FormatterInterface $formatter Formatter
 	 */
 	public function __construct(WriterInterface $standard, WriterInterface $error, FormatterInterface $formatter = null)
 	{

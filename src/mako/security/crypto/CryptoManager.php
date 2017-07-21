@@ -12,7 +12,6 @@ use RuntimeException;
 use mako\common\AdapterManager;
 use mako\security\crypto\Crypto;
 use mako\security\crypto\encrypters\OpenSSL;
-use mako\security\crypto\padders\PKCS7;
 use mako\security\Key;
 
 /**

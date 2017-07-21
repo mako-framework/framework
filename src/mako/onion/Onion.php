@@ -9,7 +9,6 @@ namespace mako\onion;
 
 use Closure;
 
-use mako\onion\Core;
 use mako\syringe\Container;
 
 /**

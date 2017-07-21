@@ -227,7 +227,7 @@ abstract class Command extends BaseCommand
 	 * Returns a migration instance.
 	 *
 	 * @access protected
-	 * @param  StdClass                            $migration Migration object
+	 * @param  \StdClass                           $migration Migration object
 	 * @return \mako\database\migrations\Migration
 	 */
 	protected function resolve($migration)

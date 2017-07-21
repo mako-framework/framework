@@ -27,7 +27,6 @@ use mako\cli\output\formatter\Formatter;
 use mako\cli\output\writer\Error;
 use mako\cli\output\writer\Standard;
 use mako\config\Config;
-use mako\http\routing\Routes;
 use mako\reactor\Reactor;
 
 /**

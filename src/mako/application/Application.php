@@ -14,8 +14,6 @@ use mako\application\Package;
 use mako\autoloading\AliasLoader;
 use mako\config\Config;
 use mako\config\loaders\Loader;
-use mako\http\routing\Middleware;
-use mako\http\routing\Routes;
 use mako\file\FileSystem;
 use mako\syringe\Container;
 

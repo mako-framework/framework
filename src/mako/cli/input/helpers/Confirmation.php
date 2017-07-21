@@ -8,15 +8,14 @@
 namespace mako\cli\input\helpers;
 
 use mako\cli\input\helpers\Question;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
 
 /**
  * Confirmation helper.
  *
  * @author Frederic G. Østby
  */
-use mako\cli\input\Input;
-use mako\cli\output\Output;
-
 class Confirmation extends Question
 {
 	/**
@@ -90,9 +89,9 @@ class Confirmation extends Question
 	 * Asks user for confirmation and returns value corresponding to the chosen value.
 	 *
 	 * @access public
-	 * @param  string $question Question to ask
-	 * @param  string $default  Default answer
-	 * @param  array  $options  Answer options
+	 * @param  string     $question Question to ask
+	 * @param  string     $default  Default answer
+	 * @param  null|array $options  Answer options
 	 * @return bool
 	 */
 	public function ask(string $question, $default = 'n', array $options = null)

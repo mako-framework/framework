@@ -40,8 +40,9 @@ class Input
 	/**
 	 * Constructor.
 	 *
-	 * @var \mako\cli\input\reader\ReaderInterface $reader     Reader instance
-	 * @var null|array                             $arguments  Array of arguments passed to script
+	 * @access public
+	 * @param \mako\cli\input\reader\ReaderInterface $reader    Reader instance
+	 * @param null|array                             $arguments Array of arguments passed to script
 	 */
 	public function __construct(ReaderInterface $reader, array $arguments = null)
 	{

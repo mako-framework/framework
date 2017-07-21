@@ -10,15 +10,14 @@ namespace mako\cli\input\helpers;
 use RuntimeException;
 
 use mako\cli\input\helpers\Question;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
 
 /**
  * Secret helper.
  *
  * @author Frederic G. Østby
  */
-use mako\cli\input\Input;
-use mako\cli\output\Output;
-
 class Secret extends Question
 {
 	/**

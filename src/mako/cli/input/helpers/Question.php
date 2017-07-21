@@ -7,14 +7,14 @@
 
 namespace mako\cli\input\helpers;
 
+use mako\cli\input\Input;
+use mako\cli\output\Output;
+
 /**
  * Question helper.
  *
  * @author Frederic G. Østby
  */
-use mako\cli\input\Input;
-use mako\cli\output\Output;
-
 class Question
 {
 	/**
