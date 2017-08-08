@@ -40,7 +40,6 @@ class Down extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access public
 	 * @param string $batches Number of batches to roll back
 	 */
 	public function execute($batches = 1)

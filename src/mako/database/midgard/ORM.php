@@ -183,7 +183,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param array $columns   Column values
 	 * @param bool  $raw       Set raw values?
 	 * @param bool  $whitelist Remove columns that are not in the whitelist?
@@ -206,7 +205,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Making sure that cloning returns a "fresh copy" of the record.
 	 *
-	 * @access public
 	 */
 	public function __clone()
 	{
@@ -223,7 +221,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Set the connection manager.
 	 *
-	 * @access public
 	 * @param \mako\database\ConnectionManager $connectionManager Connection manager instance
 	 */
 	public static function setConnectionManager(ConnectionManager $connectionManager)
@@ -234,7 +231,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the connection of the model.
 	 *
-	 * @access public
 	 * @return \mako\database\connections\Connection
 	 */
 	public function getConnection(): Connection
@@ -250,7 +246,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Has the record been loaded from/saved to a database?
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function exists(): bool
@@ -260,8 +255,6 @@ abstract class ORM implements JsonSerializable
 
 	/**
 	 * Synchronizes the original values with the modified values.
-	 *
-	 * @access public
 	 */
 	public function synchronize()
 	{
@@ -271,7 +264,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Gets the date format from the query builder compiler.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function getDateFormat(): string
@@ -288,8 +280,6 @@ abstract class ORM implements JsonSerializable
 
 	/**
 	 * Registers traits.
-	 *
-	 * @access protected
 	 */
 	protected function registerTraits()
 	{
@@ -318,7 +308,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Binds the hooks to the current instance of "$this".
 	 *
-	 * @access protected
 	 * @param  array $hooks Array of hooks
 	 * @return array
 	 */
@@ -337,7 +326,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns hooks for the chosen event.
 	 *
-	 * @access public
 	 * @param  string $event Event name
 	 * @return array
 	 */
@@ -349,7 +337,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the short name of a class.
 	 *
-	 * @access protected
 	 * @param  string $className Class name
 	 * @return string
 	 */
@@ -370,7 +357,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the table name of the model.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getTable(): string
@@ -386,7 +372,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the primary key of the table.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getPrimaryKey(): string
@@ -397,7 +382,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the primary key type.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function getPrimaryKeyType(): int
@@ -408,7 +392,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the primary key value.
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function getPrimaryKeyValue()
@@ -419,7 +402,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the foreign key of the table.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getForeignKey(): string
@@ -435,7 +417,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the namespaced class name of the model.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getClass(): string
@@ -446,7 +427,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Sets the relations to eager load.
 	 *
-	 * @access public
 	 * @param array $includes Relations to eager load
 	 */
 	public function setIncludes(array $includes)
@@ -457,7 +437,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the relations to eager load.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getIncludes(): array
@@ -468,7 +447,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Sets eagerly loaded related records.
 	 *
-	 * @access public
 	 * @param string $relation Relation name
 	 * @param mixed  $related  Related record(s)
 	 */
@@ -480,7 +458,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the related records array.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getRelated(): array
@@ -491,7 +468,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Cast value to the appropriate type.
 	 *
-	 * @access protected
 	 * @param  string $name  Column name
 	 * @param  mixed  $value Column value
 	 * @return mixed
@@ -523,7 +499,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Sets a raw column value.
 	 *
-	 * @access public
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
@@ -535,7 +510,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Sets a column value.
 	 *
-	 * @access public
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
@@ -556,7 +530,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Gets a raw column value.
 	 *
-	 * @access public
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
@@ -568,7 +541,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a column value.
 	 *
-	 * @access public
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
@@ -585,7 +557,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns TRUE if it's probable that $name is a relation and FALSE if not.
 	 *
-	 * @access protected
 	 * @param  string $name Relation name
 	 * @return bool
 	 */
@@ -597,7 +568,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Gets a column value or relation.
 	 *
-	 * @access public
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
@@ -630,7 +600,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the columns array.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getRawColumnValues(): array
@@ -641,7 +610,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Sets column values.
 	 *
-	 * @access protected
 	 * @param array $columns Column values
 	 * @param bool  $raw     Set raw values?
 	 */
@@ -673,7 +641,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Assigns the column values to the model.
 	 *
-	 * @access public
 	 * @param  array                      $columns   Column values
 	 * @param  bool                       $raw       Set raw values?
 	 * @param  bool                       $whitelist Remove columns that are not in the whitelist?
@@ -705,7 +672,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Set column value using overloading.
 	 *
-	 * @access public
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
@@ -717,7 +683,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Get column value or relation using overloading.
 	 *
-	 * @access public
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
@@ -729,7 +694,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Checks if a column or relation is set using overloading.
 	 *
-	 * @access public
 	 * @param  string $name Column name
 	 * @return bool
 	 */
@@ -741,7 +705,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Unset column value or relation using overloading.
 	 *
-	 * @access public
 	 * @param string $name Column name
 	 */
 	public function __unset(string $name)
@@ -752,7 +715,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a query builder instance.
 	 *
-	 * @access public
 	 * @return \mako\database\midgard\Query
 	 */
 	public function builder(): Query
@@ -763,7 +725,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a record using the value of its primary key.
 	 *
-	 * @access public
 	 * @param  mixed                           $id      Primary key
 	 * @param  array                           $columns Columns to select
 	 * @return \mako\database\midgard\ORM|bool
@@ -776,7 +737,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Creates a new record and returns the model.
 	 *
-	 * @access public
 	 * @param  array                      $columns   Column values
 	 * @param  bool                       $raw       Set raw values?
 	 * @param  bool                       $whitelist Remove columns that are not in the whitelist?
@@ -794,7 +754,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a HasOne relation.
 	 *
-	 * @access protected
 	 * @param  string                                  $model      Related model
 	 * @param  string|null                             $foreignKey Foreign key name
 	 * @return \mako\database\midgard\relations\HasOne
@@ -809,7 +768,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a HasOnePolymorphic relation.
 	 *
-	 * @access protected
 	 * @param  string                                              $model           Related model
 	 * @param  string                                              $polymorphicType Polymorphic type
 	 * @return \mako\database\midgard\relations\HasManyPolymorphic
@@ -824,7 +782,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a HasMany relation.
 	 *
-	 * @access protected
 	 * @param  string                                   $model      Related model
 	 * @param  string|null                              $foreignKey Foreign key name
 	 * @return \mako\database\midgard\relations\HasMany
@@ -839,7 +796,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a HasManyPolymorphic relation.
 	 *
-	 * @access protected
 	 * @param  string                                              $model           Related model
 	 * @param  string                                              $polymorphicType Polymorphic type
 	 * @return \mako\database\midgard\relations\HasManyPolymorphic
@@ -854,7 +810,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a ManyToMany relation.
 	 *
-	 * @access protected
 	 * @param  string                                      $model         Related model
 	 * @param  string|null                                 $foreignKey    Foreign key name
 	 * @param  string|null                                 $junctionTable Junction table name
@@ -871,7 +826,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a BelongsTo relation.
 	 *
-	 * @access protected
 	 * @param  string                                     $model      Related model
 	 * @param  string|null                                $foreignKey Foreign key name
 	 * @return \mako\database\midgard\relations\BelongsTo
@@ -886,7 +840,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Has the record been modified?
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isModified(): bool
@@ -897,7 +850,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the modified column values of the record.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getModified(): array
@@ -918,7 +870,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Generates a primary key.
 	 *
-	 * @access protected
 	 * @return mixed
 	 */
 	protected function generatePrimaryKey()
@@ -929,7 +880,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Inserts a new record into the database.
 	 *
-	 * @access protected
 	 * @param \mako\database\midgard\Query $query Query builder
 	 */
 	protected function insertRecord(Query $query)
@@ -957,7 +907,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Updates an existing record.
 	 *
-	 * @access protected
 	 * @param  \mako\database\midgard\Query $query Query builder
 	 * @return bool
 	 */
@@ -971,7 +920,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Saves the record to the database.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function save(): bool
@@ -1006,7 +954,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Deletes a record from the database.
 	 *
-	 * @access protected
 	 * @param  \mako\database\midgard\Query $query Query builder
 	 * @return bool
 	 */
@@ -1018,7 +965,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Deletes a record from the database.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function delete(): bool
@@ -1044,7 +990,6 @@ abstract class ORM implements JsonSerializable
 	 * Excludes the chosen columns and relations from array and json representations of the record.
 	 * You expose all fields by passing FALSE.
 	 *
-	 * @access public
 	 * @param  string|array|bool          $column Column or relation to hide from the
 	 * @return \mako\database\midgard\ORM
 	 */
@@ -1066,7 +1011,6 @@ abstract class ORM implements JsonSerializable
 	 * Exposes the chosen columns and relations in the array and json representations of the record.
 	 * You can expose all fields by passing TRUE.
 	 *
-	 * @access public
 	 * @param  string|array|bool          $column Column or relation to hide from the
 	 * @return \mako\database\midgard\ORM
 	 */
@@ -1087,7 +1031,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns an array representation of the record.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function toArray(): array
@@ -1135,7 +1078,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns data which can be serialized by json_encode().
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function jsonSerialize(): array
@@ -1146,7 +1088,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a json representation of the record.
 	 *
-	 * @access public
 	 * @param  int    $options JSON encode options
 	 * @return string
 	 */
@@ -1158,7 +1099,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a json representation of the record.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function __toString(): string
@@ -1169,7 +1109,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Forwards method calls to the query builder.
 	 *
-	 * @access public
 	 * @param  string $name      Method name
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
@@ -1182,7 +1121,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Forwards static method calls to the query builder.
 	 *
-	 * @access public
 	 * @param  string $name      Method name
 	 * @param  array  $arguments Method arguments
 	 * @return mixed

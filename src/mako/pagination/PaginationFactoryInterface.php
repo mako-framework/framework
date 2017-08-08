@@ -20,7 +20,6 @@ interface PaginationFactoryInterface
 	/**
 	 * Creates and returns a pagination instance.
 	 *
-	 * @access public
 	 * @param  int                                  $items        Number of items
 	 * @param  null|int                             $itemsPerPage Number of items per page
 	 * @param  array                                $options      Pagination options

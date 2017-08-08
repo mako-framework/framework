@@ -34,7 +34,6 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\database\ConnectionManager $connectionManager Connection manager instance
 	 */
 	public function __construct(ConnectionManager $connectionManager)
@@ -45,11 +44,10 @@ class DatabaseUniqueValidator extends ValidatorPlugin
 	/**
 	 * Checks that the value doesn't exist in the database table.
 	 *
-	 * @access public
 	 * @param  null|string $input  Input
 	 * @param  string      $table  Table name
 	 * @param  string      $column Column name
-	 * @param  string      $value  Allowed value
+	 * @param  null|string $value  Allowed value
 	 * @return bool
 	 */
 	public function validate(string $input = null, string $table, string $column, string $value = null): bool

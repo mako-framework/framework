@@ -17,7 +17,6 @@ interface IncrementDecrementInterface
 	/**
 	 * Increments a stored number.
 	 *
-	 * @access public
 	 * @param  string   $key  Cache key
 	 * @param  int      $step Step
 	 * @return int|bool
@@ -27,7 +26,6 @@ interface IncrementDecrementInterface
 	/**
 	 * Decrements a stored number.
 	 *
-	 * @access public
 	 * @param  string   $key  Cache key
 	 * @param  int      $step Step
 	 * @return int|bool

@@ -112,8 +112,6 @@ class Image
 	/**
 	 * Constructor.
 	 *
-	 * @access public
-	 *
 	 * @param string                                   $image     Path to image file
 	 * @param \mako\pixl\processors\ProcessorInterface $processor Processor instance
 	 */
@@ -138,7 +136,6 @@ class Image
 	/**
 	 * Makes sure that the quality is between 1 and 100.
 	 *
-	 * @access protected
 	 * @param  int $quality Image quality
 	 * @return int
 	 */
@@ -149,8 +146,6 @@ class Image
 
 	/**
 	 * Creates a snapshot of the image.
-	 *
-	 * @access public
 	 */
 	public function snapshot()
 	{
@@ -159,8 +154,6 @@ class Image
 
 	/**
 	 * Retstores the image snapshot.
-	 *
-	 * @access public
 	 */
 	public function restore()
 	{
@@ -170,7 +163,6 @@ class Image
 	/**
 	 * Returns the image width in pixels.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function getWidth()
@@ -181,7 +173,6 @@ class Image
 	/**
 	 * Returns the image height in pixels.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function getHeight()
@@ -192,7 +183,6 @@ class Image
 	/**
 	 * Returns an array containing the image dimensions in pixels.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getDimensions()
@@ -203,7 +193,6 @@ class Image
 	/**
 	 * Rotates the image using the given angle in degrees.
 	 *
-	 * @access public
 	 * @param  int              $degrees Degrees to rotate the image
 	 * @return \mako\pixl\Image
 	 */
@@ -232,7 +221,6 @@ class Image
 	/**
 	 * Crops the image.
 	 *
-	 * @access public
 	 * @param  int              $width  Width of the crop
 	 * @param  int              $height Height of the crop
 	 * @param  int              $x      The X coordinate of the cropped region's top left corner
@@ -249,7 +237,6 @@ class Image
 	/**
 	 * Flips the image.
 	 *
-	 * @access public
 	 * @param  int              $direction Direction to flip the image
 	 * @return \mako\pixl\Image
 	 */
@@ -263,7 +250,6 @@ class Image
 	/**
 	 * Adds a watermark to the image.
 	 *
-	 * @access public
 	 * @param  string           $file     Path to the image file
 	 * @param  int              $position Position of the watermark
 	 * @param  int              $opacity  Opacity of the watermark in percent
@@ -292,7 +278,6 @@ class Image
 	/**
 	 * Adjust image brightness.
 	 *
-	 * @access public
 	 * @param  int              $level Brightness level (-100 to 100)
 	 * @return \mako\pixl\Image
 	 */
@@ -312,7 +297,6 @@ class Image
 	/**
 	 * Converts image to greyscale.
 	 *
-	 * @access public
 	 * @return \mako\pixl\Image
 	 */
 	public function greyscale()
@@ -325,7 +309,6 @@ class Image
 	/**
 	 * Converts image to sepia.
 	 *
-	 * @access public
 	 * @return \mako\pixl\Image
 	 */
 	public function sepia()
@@ -338,7 +321,6 @@ class Image
 	/**
 	 * Colorizes the image.
 	 *
-	 * @access public
 	 * @param  string           $color Hex code for the color
 	 * @return \mako\pixl\Image
 	 */
@@ -351,8 +333,6 @@ class Image
 
 	/**
 	 * Sharpens the image.
-	 *
-	 * @access public
 	 */
 	public function sharpen()
 	{
@@ -364,7 +344,6 @@ class Image
 	/**
 	 * Pixelates the image.
 	 *
-	 * @access public
 	 * @param  int              $pixelSize Pixel size
 	 * @return \mako\pixl\Image
 	 */
@@ -378,7 +357,6 @@ class Image
 	/**
 	 * Negates the image.
 	 *
-	 * @access public
 	 * @return \mako\pixl\Image
 	 */
 	public function negate()
@@ -391,7 +369,6 @@ class Image
 	/**
 	 * Adds a border to the image.
 	 *
-	 * @access public
 	 * @param  string           $color     Hex code for the color
 	 * @param  int              $thickness Thickness of the frame in pixels
 	 * @return \mako\pixl\Image
@@ -406,7 +383,6 @@ class Image
 	/**
 	 * Returns a string containing the image.
 	 *
-	 * @access public
 	 * @param  string $type    Image type
 	 * @param  int    $quality Image quality 1-100
 	 * @return string
@@ -419,7 +395,6 @@ class Image
 	/**
 	 * Saves image to file.
 	 *
-	 * @access public
 	 * @param string $file    Path to the image file
 	 * @param int    $quality Image quality 1-100
 	 */

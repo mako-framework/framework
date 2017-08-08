@@ -55,7 +55,6 @@ class Container
 	/**
 	 * Parse the hint parameter.
 	 *
-	 * @access protected
 	 * @param  string|array $hint Type hint or array contaning both type hint and alias
 	 * @return string
 	 */
@@ -74,7 +73,6 @@ class Container
 	/**
 	 * Register a type hint.
 	 *
-	 * @access public
 	 * @param string|array    $hint      Type hint or array contaning both type hint and alias
 	 * @param string|\Closure $class     Class name or closure
 	 * @param bool            $singleton Should we return the same instance every time?
@@ -87,7 +85,6 @@ class Container
 	/**
 	 * Register a type hint and return the same instance every time.
 	 *
-	 * @access public
 	 * @param string|array    $hint  Type hint or array contaning both type hint and alias
 	 * @param string|\Closure $class Class name or closure
 	 */
@@ -99,7 +96,6 @@ class Container
 	/**
 	 * Register a singleton instance.
 	 *
-	 * @access public
 	 * @param string|array $hint     Type hint or array contaning both type hint and alias
 	 * @param object       $instance Class instance
 	 */
@@ -111,7 +107,6 @@ class Container
 	/**
 	 * Registers a contextual dependency.
 	 *
-	 * @access public
 	 * @param string $class          Class
 	 * @param string $interface      Interface
 	 * @param string $implementation Implementation
@@ -124,7 +119,6 @@ class Container
 	/**
 	 * Return the name based on its alias. If no alias exists then we'll just return the value we received.
 	 *
-	 * @access protected
 	 * @param  string $alias Alias
 	 * @return string
 	 */
@@ -136,7 +130,6 @@ class Container
 	/**
 	 * Resolves a type hint.
 	 *
-	 * @access protected
 	 * @param  string          $hint Type hint
 	 * @return string|\Closure
 	 */
@@ -148,7 +141,6 @@ class Container
 	/**
 	 * Resolves a contextual dependency.
 	 *
-	 * @access protected
 	 * @param  string $class     Class
 	 * @param  string $interface Interface
 	 * @return string
@@ -161,7 +153,6 @@ class Container
 	/**
 	 * Merges the provided parameters with the reflection parameters.
 	 *
-	 * @access public
 	 * @param  array $reflectionParameters Reflection parameters
 	 * @param  array $providedParameters   Provided parameters
 	 * @return array
@@ -201,7 +192,6 @@ class Container
 	/**
 	 * Returns the name of the declaring function.
 	 *
-	 * @access protected
 	 * @param  \ReflectionParameter $parameter ReflectionParameter instance
 	 * @return string
 	 */
@@ -220,7 +210,6 @@ class Container
 	/**
 	 * Resolve a parameter.
 	 *
-	 * @access protected
 	 * @param  \ReflectionParameter  $parameter ReflectionParameter instance
 	 * @param  null|\ReflectionClass $class     ReflectionClass instance
 	 * @return mixed
@@ -256,7 +245,6 @@ class Container
 	/**
 	 * Resolve parameters.
 	 *
-	 * @access public
 	 * @param  array                 $reflectionParameters Reflection parameters
 	 * @param  array                 $providedParameters   Provided Parameters
 	 * @param  null|\ReflectionClass $class                ReflectionClass instance
@@ -291,7 +279,6 @@ class Container
 	/**
 	 * Checks if a class is container aware.
 	 *
-	 * @access protected
 	 * @param  object $class Class instance
 	 * @return bool
 	 */
@@ -305,7 +292,6 @@ class Container
 	/**
 	 * Creates a class instance using a factory closure.
 	 *
-	 * @access public
 	 * @param  \Closure $factory    Class name or closure
 	 * @param  array    $parameters Constructor parameters
 	 * @return object
@@ -329,7 +315,6 @@ class Container
 	/**
 	 * Creates a class instance using reflection.
 	 *
-	 * @access public
 	 * @param  string $class      Class name
 	 * @param  array  $parameters Constructor parameters
 	 * @return object
@@ -368,7 +353,6 @@ class Container
 	/**
 	 * Creates a class instance.
 	 *
-	 * @access public
 	 * @param  string|\Closure $class      Class name or closure
 	 * @param  array           $parameters Constructor parameters
 	 * @return object
@@ -401,7 +385,6 @@ class Container
 	/**
 	 * Checks if a class is registered in the container.
 	 *
-	 * @access public
 	 * @param  string $class Class name
 	 * @return bool
 	 */
@@ -415,7 +398,6 @@ class Container
 	/**
 	 * Returns TRUE if a class has been registered as a singleton and FALSE if not.
 	 *
-	 * @access public
 	 * @param  string $class Class name
 	 * @return bool
 	 */
@@ -429,7 +411,6 @@ class Container
 	/**
 	 * Returns a class instance.
 	 *
-	 * @access public
 	 * @param  string $class         Class name
 	 * @param  array  $parameters    Constructor parameters
 	 * @param  bool   $reuseInstance Reuse existing instance?
@@ -465,7 +446,6 @@ class Container
 	/**
 	 * Returns a fresh class instance even if the class is registered as a singleton.
 	 *
-	 * @access public
 	 * @param  string $class      Class name
 	 * @param  array  $parameters Constructor parameters
 	 * @return object
@@ -478,7 +458,6 @@ class Container
 	/**
 	 * Execute a callable and inject its dependencies.
 	 *
-	 * @access public
 	 * @param  callable $callable   Callable
 	 * @param  array    $parameters Parameters
 	 * @return object

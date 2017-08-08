@@ -17,7 +17,6 @@ interface UserRepositoryInterface
 	/**
 	 * Creates and returns a user.
 	 *
-	 * @access public
 	 * @param  array                                              $properties User properties
 	 * @return \mako\gatekeeper\entities\user\UserEntityInterface
 	 */
@@ -26,7 +25,6 @@ interface UserRepositoryInterface
 	/**
 	 * Fetches a user by its identifier.
 	 *
-	 * @access public
 	 * @param  mixed                                                   $identifier User identifier
 	 * @return \mako\gatekeeper\entities\user\UserEntityInterface|bool
 	 */

@@ -63,7 +63,6 @@ class Validator
 	/**
 	 * Class constructor.
 	 *
-	 * @access public
 	 * @param array           $input Array to validate
 	 * @param array           $rules Array of validation rules
 	 * @param \mako\i18n\I18n $i18n  I18n instance
@@ -81,7 +80,6 @@ class Validator
 	/**
 	 * Registers a validation plugin.
 	 *
-	 * @access public
 	 * @param \mako\validator\plugins\ValidatorPluginInterface $plugin Plugin instance
 	 */
 	public function registerPlugin(ValidatorPluginInterface $plugin)
@@ -92,7 +90,6 @@ class Validator
 	/**
 	 * Checks that the field isn't empty.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -104,7 +101,6 @@ class Validator
 	/**
 	 * Checks that the field value is long enough.
 	 *
-	 * @access protected
 	 * @param  null|string $input     Field value
 	 * @param  int         $minLength Minimum length
 	 * @return bool
@@ -117,7 +113,6 @@ class Validator
 	/**
 	 * Checks that the field value is short enough.
 	 *
-	 * @access protected
 	 * @param  null|string $input     Field value
 	 * @param  int         $maxLength Maximum length
 	 * @return bool
@@ -130,7 +125,6 @@ class Validator
 	/**
 	 * Checks that the field value is of the right length.
 	 *
-	 * @access protected
 	 * @param  null|string $input  Field value
 	 * @param  int         $length Exact length
 	 * @return bool
@@ -143,7 +137,6 @@ class Validator
 	/**
 	 * Checks that the field value is less than x.
 	 *
-	 * @access protected
 	 * @param  null|string $input    Field value
 	 * @param  int         $lessThan Maximum value + 1
 	 * @return bool
@@ -156,7 +149,6 @@ class Validator
 	/**
 	 * Checks that the field value is less than or equal to x.
 	 *
-	 * @access protected
 	 * @param  null|string $input             Field value
 	 * @param  int         $lessThanOrEqualTo Maximum value
 	 * @return bool
@@ -169,7 +161,6 @@ class Validator
 	/**
 	 * Checks that the field value is greater than x.
 	 *
-	 * @access protected
 	 * @param  null|string $input       Field value
 	 * @param  int         $greaterThan Minimum value - 1
 	 * @return bool
@@ -182,7 +173,6 @@ class Validator
 	/**
 	 * Checks that the field value is greater than or equal to x.
 	 *
-	 * @access protected
 	 * @param  null|string $input                Field value
 	 * @param  int         $greaterThanOrEqualTo Minimum value
 	 * @return bool
@@ -195,7 +185,6 @@ class Validator
 	/**
 	 * Checks that the field value is between x and y.
 	 *
-	 * @access protected
 	 * @param  null|string $input   Field value
 	 * @param  int         $minimum Minimum value
 	 * @param  int         $maximum Maximum value
@@ -209,7 +198,6 @@ class Validator
 	/**
 	 * Checks that the field value matches the value of another field.
 	 *
-	 * @access protected
 	 * @param  null|string $input     Field value
 	 * @param  string      $fieldName Field name
 	 * @return bool
@@ -222,7 +210,6 @@ class Validator
 	/**
 	 * Checks that the field value is different from the value of another field.
 	 *
-	 * @access protected
 	 * @param  null|string $input     Field value
 	 * @param  string      $fieldName Field name
 	 * @return bool
@@ -235,7 +222,6 @@ class Validator
 	/**
 	 * Checks that the field value matches a regex pattern.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @param  string      $regex Regex
 	 * @return bool
@@ -248,7 +234,6 @@ class Validator
 	/**
 	 * Checks that the field value is a integer.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -260,7 +245,6 @@ class Validator
 	/**
 	 * Checks that the field value is a float.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -272,7 +256,6 @@ class Validator
 	/**
 	 * Checks that the field value is a natural.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -284,7 +267,6 @@ class Validator
 	/**
 	 * Checks that the field value is a natural non zero.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -296,7 +278,6 @@ class Validator
 	/**
 	 * Checks that the field value is valid HEX.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -308,7 +289,6 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alpha characters.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -320,7 +300,6 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alpha unicode characters.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -332,7 +311,6 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alphanumeric characters.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -344,7 +322,6 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alphanumeric unicode characters.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -356,7 +333,6 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alphanumeric, dash and underscore characters.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -368,7 +344,6 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alphanumeric unicode, dash and underscore characters.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -380,7 +355,6 @@ class Validator
 	/**
 	 * Checks that the field value is a valid email address.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -392,7 +366,6 @@ class Validator
 	/**
 	 * Checks that the field value contains a valid MX record.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -411,7 +384,6 @@ class Validator
 	/**
 	 * Checks that the field value is an IP address.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -423,7 +395,6 @@ class Validator
 	/**
 	 * Checks that the field value is a valid URL.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -435,7 +406,6 @@ class Validator
 	/**
 	 * Checks that the field value contains one of the given values.
 	 *
-	 * @access protected
 	 * @param  null|string $input  Field value
 	 * @param  array       $values Valid values
 	 * @return bool
@@ -448,7 +418,6 @@ class Validator
 	/**
 	 * Checks that the field value does not contain one of the given values.
 	 *
-	 * @access protected
 	 * @param  null|string $input  Field value
 	 * @param  array       $values Invalid values
 	 * @return bool
@@ -461,7 +430,6 @@ class Validator
 	/**
 	 * Checks that the field value is a valid date.
 	 *
-	 * @access protected
 	 * @param  null|string $input  Field value
 	 * @param  string      $format Date format
 	 * @return bool
@@ -474,7 +442,6 @@ class Validator
 	/**
 	 * Checks that the field value is a valid date before the provided date.
 	 *
-	 * @access protected
 	 * @param  null|string $input  Field valies
 	 * @param  string      $format Date format
 	 * @param  string      $date   Date
@@ -493,7 +460,6 @@ class Validator
 	/**
 	 * Checks that the field value is a valid date after the provided date.
 	 *
-	 * @access protected
 	 * @param  null|string $input  Field valies
 	 * @param  string      $format Date format
 	 * @param  string      $date   Date
@@ -512,7 +478,6 @@ class Validator
 	/**
 	 * Checks that the field value is a valid UUID.
 	 *
-	 * @access protected
 	 * @param  null|string $input Field value
 	 * @return bool
 	 */
@@ -524,7 +489,6 @@ class Validator
 	/**
 	 * Parses the validation rules.
 	 *
-	 * @access protected
 	 * @return array
 	 */
 	protected function parseRules(): array
@@ -566,7 +530,6 @@ class Validator
 	/**
 	 * Returns the error message.
 	 *
-	 * @access protected
 	 * @param  string      $field      Field name
 	 * @param  string      $validator  Validator name
 	 * @param  array       $parameters Validator parameters
@@ -621,7 +584,6 @@ class Validator
 	/**
 	 * Excecutes the chosen validation rule.
 	 *
-	 * @access protected
 	 * @param  string $field     Name of the field that we're validating
 	 * @param  array  $validator Validator
 	 * @return bool
@@ -646,8 +608,6 @@ class Validator
 
 	/**
 	 * Runs all validation rules.
-	 *
-	 * @access public
 	 */
 	protected function process()
 	{
@@ -673,7 +633,6 @@ class Validator
 	/**
 	 * Returns TRUE if all rules passed and FALSE if validation failed.
 	 *
-	 * @access public
 	 * @param  array $errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool
 	 */
@@ -689,7 +648,6 @@ class Validator
 	/**
 	 * Returns FALSE if all rules passed and TRUE if validation failed.
 	 *
-	 * @access public
 	 * @param  array $errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool
 	 */
@@ -705,7 +663,6 @@ class Validator
 	/**
 	 * Returns the validation errors.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getErrors(): array

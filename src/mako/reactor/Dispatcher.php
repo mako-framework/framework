@@ -34,7 +34,6 @@ class Dispatcher
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(Container $container)
@@ -45,7 +44,6 @@ class Dispatcher
 	/**
 	 * Resolves the command.
 	 *
-	 * @access protected
 	 * @param  string                $command Command class
 	 * @return \mako\reactor\Command
 	 */
@@ -57,7 +55,6 @@ class Dispatcher
 	/**
 	 * Checks for invalid arguments or options.
 	 *
-	 * @access protected
 	 * @param \mako\reactor\Command $command           Command arguments
 	 * @param array                 $providedArguments Provided arguments
 	 */
@@ -82,7 +79,6 @@ class Dispatcher
 	/**
 	 * Checks for missing required arguments or options.
 	 *
-	 * @access protected
 	 * @param array  $commandArguments  Command arguments
 	 * @param array  $providedArguments Provided arguments
 	 * @param string $exception         Exception to throw
@@ -105,7 +101,6 @@ class Dispatcher
 	/**
 	 * Checks for missing required arguments.
 	 *
-	 * @access protected
 	 * @param \mako\reactor\Command $command           Command instance
 	 * @param array                 $providedArguments Provided arguments
 	 */
@@ -117,7 +112,6 @@ class Dispatcher
 	/**
 	 * Checks for missing required options.
 	 *
-	 * @access protected
 	 * @param \mako\reactor\Command $command           Command instance
 	 * @param array                 $providedArguments Provided arguments
 	 */
@@ -147,7 +141,6 @@ class Dispatcher
 	/**
 	 * Executes the command.
 	 *
-	 * @access protected
 	 * @param  \mako\reactor\Command $command   Command instance
 	 * @param  array                 $arguments Command arguments
 	 * @return mixed
@@ -160,7 +153,6 @@ class Dispatcher
 	/**
 	 * Dispatches the command.
 	 *
-	 * @access public
 	 * @param  string $command   Command class
 	 * @param  array  $arguments Command arguments
 	 * @return int

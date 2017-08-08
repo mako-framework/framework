@@ -17,7 +17,6 @@ interface FormatterInterface
 	/**
 	 * Returns formatted string.
 	 *
-	 * @access public
 	 * @param  string $string String to format
 	 * @return string
 	 */
@@ -26,7 +25,6 @@ interface FormatterInterface
 	/**
 	 * Returns a string where all formatting tags have been escaped.
 	 *
-	 * @access public
 	 * @param  string $string String to format
 	 * @return string
 	 */
@@ -35,7 +33,6 @@ interface FormatterInterface
 	/**
 	 * Returns a string where all formatting tags have been stripped.
 	 *
-	 * @access public
 	 * @param  string $string String to strip
 	 * @return string
 	 */

@@ -19,7 +19,6 @@ class Result implements JsonSerializable
 	/**
 	 * Returns an array representation of the result.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function toArray(): array
@@ -30,7 +29,6 @@ class Result implements JsonSerializable
 	/**
 	 * Returns data which can be serialized by json_encode().
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function jsonSerialize(): array
@@ -41,7 +39,6 @@ class Result implements JsonSerializable
 	/**
 	 * Returns a json representation of the result.
 	 *
-	 * @access public
 	 * @param  int    $options JSON encode options
 	 * @return string
 	 */
@@ -53,7 +50,6 @@ class Result implements JsonSerializable
 	/**
 	 * Returns a json representation of the result.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function __toString(): string

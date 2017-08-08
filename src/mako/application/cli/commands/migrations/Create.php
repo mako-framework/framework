@@ -46,7 +46,6 @@ class Create extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access public
 	 * @param \mako\application\Application $application Application instance
 	 * @param \mako\file\FileSystem         $fileSystem  File system instance
 	 * @param string                        $package     Package name

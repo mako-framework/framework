@@ -53,7 +53,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\http\Request $request Request
 	 * @param array              $options Options
 	 */
@@ -67,7 +66,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * Sets the URL builder instance.
 	 *
-	 * @access public
 	 * @param \mako\http\routing\URLBuilder $urlBuilder URL builder instance
 	 */
 	public function setURLBuilder(URLBuilder $urlBuilder)
@@ -78,7 +76,6 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * Sets the view factory builder instance.
 	 *
-	 * @access public
 	 * @param \mako\view\ViewFactory $viewFactory View factory instance
 	 */
 	public function setViewFactory(ViewFactory $viewFactory)

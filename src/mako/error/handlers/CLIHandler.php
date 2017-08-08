@@ -29,7 +29,6 @@ class CLIHandler extends Handler
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \Throwable              $exception Throwable
 	 * @param \mako\cli\output\Output $output    Output
 	 */
@@ -43,7 +42,6 @@ class CLIHandler extends Handler
 	/**
 	 * Escape formatting tags.
 	 *
-	 * @access protected
 	 * @param  string $string String to escape
 	 * @return string
 	 */
@@ -59,8 +57,6 @@ class CLIHandler extends Handler
 
 	/**
 	 * Returns a detailed error.
-	 *
-	 * @access protected
 	 */
 	protected function getDetailedError()
 	{
@@ -82,8 +78,6 @@ class CLIHandler extends Handler
 
 	/**
 	 * Retruns a generic error.
-	 *
-	 * @access protected
 	 */
 	protected function getGenericError()
 	{

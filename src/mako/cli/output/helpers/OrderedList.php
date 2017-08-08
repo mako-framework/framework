@@ -40,7 +40,6 @@ class OrderedList
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Output $output)
@@ -53,7 +52,6 @@ class OrderedList
 	/**
 	 * Calculates the maximum width of a marker in a list.
 	 *
-	 * @access protected
 	 * @param  array  $items  Items
 	 * @param  string $marker Item marker
 	 * @return array
@@ -80,7 +78,6 @@ class OrderedList
 	/**
 	 * Builds a list item.
 	 *
-	 * @access protected
 	 * @param  string $item         Item
 	 * @param  string $marker       Item marker
 	 * @param  int    $width        Item number width
@@ -99,7 +96,6 @@ class OrderedList
 	/**
 	 * Builds an ordered list.
 	 *
-	 * @access protected
 	 * @param  array  $items        Items
 	 * @param  string $marker       Item marker
 	 * @param  int    $nestingLevel Nesting level
@@ -130,7 +126,6 @@ class OrderedList
 	/**
 	 * Renders an ordered list.
 	 *
-	 * @access public
 	 * @param  array  $items  Items
 	 * @param  string $marker Item marker
 	 * @return string
@@ -143,7 +138,6 @@ class OrderedList
 	/**
 	 * Draws an ordered list.
 	 *
-	 * @access public
 	 * @param array  $items  Items
 	 * @param string $marker Item marker
 	 * @param int    $writer Output writer

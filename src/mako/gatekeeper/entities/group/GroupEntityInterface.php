@@ -17,7 +17,6 @@ interface GroupEntityInterface
 	/**
 	 * Returns the group id.
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function getId();
@@ -25,7 +24,6 @@ interface GroupEntityInterface
 	/**
 	 * Returns the group name.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getName(): string;

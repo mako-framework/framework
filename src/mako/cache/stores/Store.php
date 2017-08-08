@@ -26,7 +26,6 @@ abstract class Store implements StoreInterface
 	/**
 	 * Sets the cache key prefix.
 	 *
-	 * @access public
 	 * @param  string                   $prefix Prefix
 	 * @return \mako\cache\stores\Store
 	 */
@@ -40,7 +39,6 @@ abstract class Store implements StoreInterface
 	/**
 	 * Returns the cache key prefix.
 	 *
-	 * @access public
 	 * @return null|string
 	 */
 	public function getPrefix()
@@ -51,7 +49,6 @@ abstract class Store implements StoreInterface
 	/**
 	 * Returns a prefixed key.
 	 *
-	 * @access protected
 	 * @param  string $key Key
 	 * @return string
 	 */
@@ -76,7 +73,6 @@ abstract class Store implements StoreInterface
 	/**
 	 * Fetch data from the cache and replace it.
 	 *
-	 * @access public
 	 * @param  string $key  Cache key
 	 * @param  mixed  $data The data to store
 	 * @param  int    $ttl  Time to live
@@ -94,7 +90,6 @@ abstract class Store implements StoreInterface
 	/**
 	 * Fetch data from the cache and remove it.
 	 *
-	 * @access public
 	 * @param  string $key Cache key
 	 * @return mixed
 	 */

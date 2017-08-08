@@ -19,7 +19,6 @@ interface CommandHandlerInterface
 	/**
 	 * Handles a command.
 	 *
-	 * @access public
 	 * @param  \mako\commander\CommandInterface $command Command
 	 * @return mixed
 	 */

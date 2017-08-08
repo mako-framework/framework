@@ -38,7 +38,6 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string $model Model name
 	 */
 	public function __construct(string $model)
@@ -49,7 +48,6 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * Returns a model instance.
 	 *
-	 * @access protected
 	 * @return \mako\database\midgard\ORM
 	 */
 	protected function getModel()
@@ -79,7 +77,6 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * Sets the user identifier.
 	 *
-	 * @access public
 	 * @param string $identifier User identifier
 	 */
 	public function setIdentifier(string $identifier)
@@ -109,7 +106,6 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * Fetches a group by its name.
 	 *
-	 * @access public
 	 * @param  string                                     $name Group name
 	 * @return \mako\gatekeeper\entities\group\Group|bool
 	 */
@@ -121,7 +117,6 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * Fetches a group by its id.
 	 *
-	 * @access public
 	 * @param  int                                        $id Group id
 	 * @return \mako\gatekeeper\entities\group\Group|bool
 	 */

@@ -34,7 +34,6 @@ class DatabaseExistsValidator extends ValidatorPlugin
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\database\ConnectionManager $connectionManager Connection manager instance
 	 */
 	public function __construct(ConnectionManager $connectionManager)
@@ -45,7 +44,6 @@ class DatabaseExistsValidator extends ValidatorPlugin
 	/**
 	 * Checks that the value exists in the database table.
 	 *
-	 * @access public
 	 * @param  null|string $input  Input
 	 * @param  string      $table  Table name
 	 * @param  string      $column Column name

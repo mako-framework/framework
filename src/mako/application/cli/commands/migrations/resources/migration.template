@@ -15,8 +15,6 @@ class Migration_{{version}} extends Migration
 
 	/**
 	 * Makes changes to the database structure.
-	 *
-	 * @access public
 	 */
 	public function up()
 	{
@@ -25,8 +23,6 @@ class Migration_{{version}} extends Migration
 
 	/**
 	 * Reverts the database changes.
-	 *
-	 * @access public
 	 */
 	public function down()
 	{

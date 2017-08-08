@@ -19,7 +19,6 @@ trait FunctionParserTrait
 	/**
 	 * Splits function name and parameters into an array.
 	 *
-	 * @access protected
 	 * @param  string $function Function
 	 * @return array
 	 */
@@ -38,7 +37,6 @@ trait FunctionParserTrait
 	 *
 	 * The return value is an array consisting of the function name and parameters.
 	 *
-	 * @access protected
 	 * @param  string $function        Function
 	 * @param  bool   $namedParameters Are we expecting named parameters?
 	 * @return array

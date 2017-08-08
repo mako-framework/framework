@@ -68,7 +68,6 @@ class ProgressBar
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\cli\output\Output $output     Output instance
 	 * @param int                     $items      Total number of items
 	 * @param null|int                $redrawRate Redraw rate
@@ -85,7 +84,6 @@ class ProgressBar
 	/**
 	 * Sets the progress bar width.
 	 *
-	 * @access  public
 	 * @param int $width Progress bar width
 	 */
 	public function setWidth(int $width)
@@ -96,7 +94,6 @@ class ProgressBar
 	/**
 	 * Sets the string that represents the empty part of the progess bar.
 	 *
-	 * @access public
 	 * @param string $template Template
 	 */
 	public function setEmptyTemplate(string $template)
@@ -107,7 +104,6 @@ class ProgressBar
 	/**
 	 * Sets the string that represents the filled part of the progess bar.
 	 *
-	 * @access public
 	 * @param string $template Template
 	 */
 	public function setFilledTemplate(string $template)
@@ -118,7 +114,6 @@ class ProgressBar
 	/**
 	 * Builds the progressbar.
 	 *
-	 * @access protected
 	 * @param  float  $percent Percent to fill
 	 * @return string
 	 */
@@ -139,8 +134,6 @@ class ProgressBar
 
 	/**
 	 * Draws the progressbar.
-	 *
-	 * @access public
 	 */
 	public function draw()
 	{
@@ -173,8 +166,6 @@ class ProgressBar
 
 	/**
 	 * Move progress forward and redraws the progressbar.
-	 *
-	 * @access public
 	 */
 	public function advance()
 	{

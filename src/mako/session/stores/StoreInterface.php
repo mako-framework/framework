@@ -17,7 +17,6 @@ interface StoreInterface
 	/**
 	 * Writes session data.
 	 *
-	 * @access public
 	 * @param string $sessionId   Session id
 	 * @param array  $sessionData Session data
 	 * @param int    $dataTTL     TTL in seconds
@@ -27,7 +26,6 @@ interface StoreInterface
 	/**
 	 * Reads and returns session data.
 	 *
-	 * @access public
 	 * @param  string $sessionId Session id
 	 * @return array
 	 */
@@ -36,7 +34,6 @@ interface StoreInterface
 	/**
 	 * Destroys the session data assiciated with the provided id.
 	 *
-	 * @access public
 	 * @param string $sessionId Session id
 	 */
 	public function delete(string $sessionId);
@@ -44,7 +41,6 @@ interface StoreInterface
 	/**
 	 * Garbage collector that deletes expired session data.
 	 *
-	 * @access public
 	 * @param int $dataTTL Data TTL in seconds
 	 */
 	public function gc(int $dataTTL);

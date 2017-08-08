@@ -71,7 +71,6 @@ class Dispatcher
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\http\Request            $request    Request instance
 	 * @param \mako\http\Response           $response   Response instance
 	 * @param \mako\http\routing\Middleware $middleware Middleware collection
@@ -97,7 +96,6 @@ class Dispatcher
 	/**
 	 * Resolves the middleware.
 	 *
-	 * @access protected
 	 * @param  string $middleware middleware
 	 * @return array
 	 */
@@ -113,7 +111,6 @@ class Dispatcher
 	/**
 	 * Adds route middleware to the stack.
 	 *
-	 * @access protected
 	 * @param \mako\onion\Onion $onion      Middleware stack
 	 * @param array             $middleware Array of middleware
 	 */
@@ -144,7 +141,6 @@ class Dispatcher
 	/**
 	 * Executes a closure action.
 	 *
-	 * @access protected
 	 * @param  \Closure            $closure Closure
 	 * @return \mako\http\Response
 	 */
@@ -156,7 +152,6 @@ class Dispatcher
 	/**
 	 * Executs a controller action.
 	 *
-	 * @access protected
 	 * @param  string              $controller Controller
 	 * @return \mako\http\Response
 	 */
@@ -219,7 +214,6 @@ class Dispatcher
 	/**
 	 * Dispatches the route and returns the response.
 	 *
-	 * @access public
 	 * @return \mako\http\Response
 	 */
 	public function dispatch(): Response

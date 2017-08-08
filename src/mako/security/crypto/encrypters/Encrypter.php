@@ -31,7 +31,6 @@ abstract class Encrypter
 	/**
 	 * Generate a PBKDF2 key derivation of a supplied key.
 	 *
-	 * @access protected
 	 * @param  string $key     The key to derive
 	 * @param  string $salt    The salt
 	 * @param  int    $keySize The desired key size

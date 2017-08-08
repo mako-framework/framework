@@ -26,7 +26,6 @@ abstract class Service
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\syringe\Container $container IoC container instance
 	 */
 	public function __construct(Container $container)
@@ -36,8 +35,6 @@ abstract class Service
 
 	/**
 	 * Registers the service.
-	 *
-	 * @access public
 	 */
 	abstract public function register();
 }

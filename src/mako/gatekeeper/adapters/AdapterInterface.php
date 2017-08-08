@@ -20,7 +20,6 @@ interface AdapterInterface
 	/**
 	 * Returns the adapter name.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getName(): string;
@@ -28,7 +27,6 @@ interface AdapterInterface
 	/**
 	 * Sets the user repository.
 	 *
-	 * @access public
 	 * @param \mako\gatekeeper\repositories\user\UserRepositoryInterface $userRepository User repository
 	 */
 	public function setUserRepository(UserRepositoryInterface $userRepository);
@@ -36,7 +34,6 @@ interface AdapterInterface
 	/**
 	 * Returns the user repository.
 	 *
-	 * @access public
 	 * @return \mako\gatekeeper\repositories\user\UserRepositoryInterface
 	 */
 	public function getUserRepository();
@@ -44,7 +41,6 @@ interface AdapterInterface
 	/**
 	 * Sets the active user.
 	 *
-	 * @access public
 	 * @param \mako\gatekeeper\entities\user\UserEntityInterface $user User entity
 	 */
 	public function setUser(UserEntityInterface $user);
@@ -52,7 +48,6 @@ interface AdapterInterface
 	/**
 	 * Returns the active user or null if there isn't one.
 	 *
-	 * @access public
 	 * @return null|\mako\gatekeeper\entities\user\UserEntityInterface
 	 */
 	public function getUser();
@@ -60,7 +55,6 @@ interface AdapterInterface
 	/**
 	 * Returns true if we don't have an authenticated user and false if we do.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isGuest(): bool;
@@ -68,7 +62,6 @@ interface AdapterInterface
 	/**
 	 * Returns true if we have an authenticated user and false if we don't.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isLoggedIn(): bool;

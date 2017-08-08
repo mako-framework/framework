@@ -19,7 +19,6 @@ class Server extends Parameters
 	/**
 	 * Returns all the request headers.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getHeaders(): array

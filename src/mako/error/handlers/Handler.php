@@ -29,7 +29,6 @@ abstract class Handler implements HandlerInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \Throwable $exception Throwable
 	 */
 	public function __construct(Throwable $exception)
@@ -40,7 +39,6 @@ abstract class Handler implements HandlerInterface
 	/**
 	 * Determines the exception type.
 	 *
-	 * @access protected
 	 * @param  \Throwable $exception Throwable
 	 * @return string
 	 */

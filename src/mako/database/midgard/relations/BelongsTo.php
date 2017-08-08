@@ -57,7 +57,6 @@ class BelongsTo extends Relation
 	/**
 	 * Sets the criterion used when eager loading related records.
 	 *
-	 * @access protected
 	 * @param  array                                      $keys Parent keys
 	 * @return \mako\database\midgard\relations\BelongsTo
 	 */
@@ -73,7 +72,6 @@ class BelongsTo extends Relation
 	/**
 	 * Eager loads related records and matches them with their parent records.
 	 *
-	 * @access public
 	 * @param array         $results  Parent records
 	 * @param string        $relation Relation name
 	 * @param null|\Closure $criteria Relation criteria
@@ -109,7 +107,6 @@ class BelongsTo extends Relation
 	/**
 	 * Returns related a record from the database.
 	 *
-	 * @access public
 	 * @return \mako\database\midgard\ORM|false
 	 */
 	public function getRelated()

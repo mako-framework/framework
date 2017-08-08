@@ -41,8 +41,6 @@ class ImageMagick implements ProcessorInterface
 
 	/**
 	 * Destructor.
-	 *
-	 * @access public
 	 */
 	public function __destruct()
 	{
@@ -60,7 +58,6 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * Add the hash character (#) if its missing.
 	 *
-	 * @access public
 	 * @param  string $hex HEX value
 	 * @return string
 	 */

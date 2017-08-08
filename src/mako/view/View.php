@@ -40,7 +40,6 @@ class View
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string                                 $path      View path
 	 * @param array                                  $variables View variables
 	 * @param \mako\view\renderers\RendererInterface $renderer  Renderer instance
@@ -57,7 +56,6 @@ class View
 	/**
 	 * Returns the renderer instance.
 	 *
-	 * @access public
 	 * @return \mako\view\renderers\RendererInterface
 	 */
 	public function getRenderer(): RendererInterface
@@ -68,7 +66,6 @@ class View
 	/**
 	 * Assign a local view variable.
 	 *
-	 * @access public
 	 * @param  string          $name  Variable name
 	 * @param  mixed           $value View variable
 	 * @return \mako\view\View
@@ -83,7 +80,6 @@ class View
 	/**
 	 * Returns the rendered view.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function render(): string

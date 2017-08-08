@@ -34,7 +34,6 @@ class OneTimeTokenValidator extends ValidatorPlugin
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\session\Session $session Session instance
 	 */
 	public function __construct(Session $session)
@@ -45,7 +44,6 @@ class OneTimeTokenValidator extends ValidatorPlugin
 	/**
 	 * Validates a one time token.
 	 *
-	 * @access public
 	 * @param  null|string $input Input
 	 * @return bool
 	 */

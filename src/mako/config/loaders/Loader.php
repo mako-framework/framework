@@ -31,7 +31,6 @@ class Loader implements LoaderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\file\FileSystem $fileSystem File system instance
 	 * @param string                $path       Default path
 	 */

@@ -21,7 +21,6 @@ trait OptimisticLockingTrait
 	/**
 	 * Returns trait hooks.
 	 *
-	 * @access protected
 	 * @return array
 	 */
 	protected function getOptimisticLockingTraitHooks(): array
@@ -53,8 +52,6 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Making sure that cloning returns a "fresh copy" of the record.
-	 *
-	 * @access public
 	 */
 	public function __clone()
 	{
@@ -69,7 +66,6 @@ trait OptimisticLockingTrait
 	/**
 	 * Returns the optimistic locking column.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function getLockingColumn(): string
@@ -80,7 +76,6 @@ trait OptimisticLockingTrait
 	/**
 	 * Reloads the record from the database.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function reload(): bool
@@ -105,7 +100,6 @@ trait OptimisticLockingTrait
 	/**
 	 * Sets the optimistic locking version.
 	 *
-	 * @access public
 	 * @param int $version Locking version
 	 */
 	public function setLockVersion(int $version)
@@ -116,7 +110,6 @@ trait OptimisticLockingTrait
 	/**
 	 * Returns the optimistic locking version.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function getLockVersion(): int
@@ -127,7 +120,6 @@ trait OptimisticLockingTrait
 	/**
 	 * Updates an existing record.
 	 *
-	 * @access protected
 	 * @param  \mako\database\midgard\Query $query Query builder
 	 * @return bool
 	 */
@@ -154,7 +146,6 @@ trait OptimisticLockingTrait
 	/**
 	 * Deletes a record from the database.
 	 *
-	 * @access protected
 	 * @param  \mako\database\midgard\Query $query Query builder
 	 * @return bool
 	 */

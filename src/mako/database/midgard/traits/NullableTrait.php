@@ -17,7 +17,6 @@ trait NullableTrait
 	/**
 	 * Returns array of nullable columns.
 	 *
-	 * @access protected
 	 * @return array
 	 */
 	protected function getNullableColumns(): array
@@ -28,7 +27,6 @@ trait NullableTrait
 	/**
 	 * Will replace empty strings with null if the column is nullable.
 	 *
-	 * @access protected
 	 * @param  array $values Values
 	 * @return array
 	 */
@@ -50,7 +48,6 @@ trait NullableTrait
 	/**
 	 * Returns trait hooks.
 	 *
-	 * @access protected
 	 * @return array
 	 */
 	protected function getNullableTraitHooks(): array

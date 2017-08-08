@@ -39,7 +39,6 @@ class ListRoutes extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access public
 	 * @param \mako\http\routing\Routes $routes Route collection
 	 */
 	public function execute(Routes $routes)

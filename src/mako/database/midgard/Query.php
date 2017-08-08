@@ -35,7 +35,6 @@ class Query extends QueryBuilder
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\database\connections\Connection $connection Database connection
 	 * @param \mako\database\midgard\ORM            $model      Model to hydrate
 	 */
@@ -51,7 +50,6 @@ class Query extends QueryBuilder
 	/**
 	 * Returns the model.
 	 *
-	 * @access public
 	 * @return \mako\database\midgard\ORM
 	 */
 	public function getModel()
@@ -199,7 +197,6 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a record using the value of its primary key.
 	 *
-	 * @access public
 	 * @param  int                        $id      Primary key
 	 * @param  array                      $columns Columns to select
 	 * @return \mako\database\midgard\ORM
@@ -217,7 +214,6 @@ class Query extends QueryBuilder
 	/**
 	 * Adds relations to eager load.
 	 *
-	 * @access public
 	 * @param  string|array|bool            $includes Relation or array of relations to eager load
 	 * @return \mako\database\midgard\Query
 	 */
@@ -260,7 +256,6 @@ class Query extends QueryBuilder
 	/**
 	 * Removes relations to eager load.
 	 *
-	 * @access public
 	 * @param  string|array|bool            $excludes Relation or array of relations to exclude from eager loading
 	 * @return \mako\database\midgard\Query
 	 */
@@ -296,7 +291,6 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a hydrated model.
 	 *
-	 * @access protected
 	 * @param  object                     $result Database result
 	 * @return \mako\database\midgard\ORM
 	 */
@@ -310,7 +304,6 @@ class Query extends QueryBuilder
 	/**
 	 * Parses includes.
 	 *
-	 * @access protected
 	 * @return array
 	 */
 	protected function parseIncludes()
@@ -348,7 +341,6 @@ class Query extends QueryBuilder
 	/**
 	 * Load includes.
 	 *
-	 * @access protected
 	 * @param array $results Loaded records
 	 */
 	protected function loadIncludes(array $results)
@@ -366,7 +358,6 @@ class Query extends QueryBuilder
 	/**
 	 * Returns hydrated models.
 	 *
-	 * @access protected
 	 * @param  mixed $results Database results
 	 * @return array
 	 */
@@ -390,7 +381,6 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a single record from the database.
 	 *
-	 * @access public
 	 * @return \mako\database\midgard\ORM
 	 */
 	public function first()
@@ -408,7 +398,6 @@ class Query extends QueryBuilder
 	/**
 	 * Creates a result set.
 	 *
-	 * @access protected
 	 * @param  array                            $results Results
 	 * @return \mako\database\midgard\ResultSet
 	 */
@@ -420,7 +409,6 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a result set from the database.
 	 *
-	 * @access public
 	 * @return \mako\database\midgard\ResultSet
 	 */
 	public function all()
@@ -438,7 +426,6 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a generator that lets you iterate over the results.
 	 *
-	 * @access public
 	 * @return \Generator
 	 */
 	public function yield()
@@ -465,7 +452,6 @@ class Query extends QueryBuilder
 	/**
 	 * Magic method that allows us to call model scopes.
 	 *
-	 * @access public
 	 * @param  string                       $name      Method name
 	 * @param  array                        $arguments Method arguments
 	 * @return \mako\database\midgard\Query

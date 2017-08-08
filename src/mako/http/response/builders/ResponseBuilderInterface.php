@@ -20,7 +20,6 @@ interface ResponseBuilderInterface
 	/**
 	 * Builds the response.
 	 *
-	 * @access public
 	 * @param \mako\http\Request  $request  Request instance
 	 * @param \mako\http\Response $response Response instance
 	 */

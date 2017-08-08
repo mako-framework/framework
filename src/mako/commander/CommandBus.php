@@ -62,7 +62,6 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Adds middleware.
 	 *
-	 * @access public
 	 * @param  string $middleware Middleware class
 	 * @param  bool   $inner      Add an inner layer?
 	 * @return int
@@ -75,7 +74,6 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Resolves the command.
 	 *
-	 * @access protected
 	 * @param  \mako\commander\CommandInterface|string $command    Command
 	 * @param  array                                   $parameters Parameters
 	 * @return \mako\commander\CommandInterface
@@ -93,7 +91,6 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Resolves the command handler.
 	 *
-	 * @access protected
 	 * @param  \mako\commander\CommandInterface        $command Command
 	 * @return \mako\commander\CommandHandlerInterface
 	 */
@@ -122,7 +119,6 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Executes the command handler.
 	 *
-	 * @access protected
 	 * @param  \mako\commander\CommandHandlerInterface $handler Command handler
 	 * @param  \mako\commander\CommandInterface        $command Command
 	 * @return mixed
@@ -135,7 +131,6 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Handles the command.
 	 *
-	 * @access protected
 	 * @param  \mako\commander\CommandInterface $command Command
 	 * @return mixed
 	 */
@@ -154,7 +149,6 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * Resolves the onion instance.
 	 *
-	 * @access public
 	 * @param  array             $middleware Middleware
 	 * @return \mako\onion\Onion
 	 */

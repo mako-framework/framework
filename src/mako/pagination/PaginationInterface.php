@@ -18,7 +18,6 @@ interface PaginationInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param int   $items        Number of items
 	 * @param int   $itemsPerPage Number of items per page
 	 * @param int   $currentPage  The current page
@@ -29,7 +28,6 @@ interface PaginationInterface
 	/**
 	 * Returns the number of items.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function items(): int;
@@ -37,7 +35,6 @@ interface PaginationInterface
 	/**
 	 * Returns the number of items per page.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function itemsPerPage(): int;
@@ -45,7 +42,6 @@ interface PaginationInterface
 	/**
 	 * Returns the current page.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function currentPage(): int;
@@ -53,7 +49,6 @@ interface PaginationInterface
 	/**
 	 * Returns the number pages.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function numberOfPages(): int;
@@ -61,7 +56,6 @@ interface PaginationInterface
 	/**
 	 * Returns the limit.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function limit(): int;
@@ -69,7 +63,6 @@ interface PaginationInterface
 	/**
 	 * Returns the offset.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function offset(): int;

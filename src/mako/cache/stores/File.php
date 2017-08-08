@@ -41,7 +41,6 @@ class File extends Store
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\file\FileSystem $fileSystem     File system instance
 	 * @param string                $cachePath      Cache path
 	 * @param bool|array            $classWhitelist Class whitelist
@@ -58,7 +57,6 @@ class File extends Store
 	/**
 	 * Returns the path to the cache file.
 	 *
-	 * @access public
 	 * @param  string $key Cache key
 	 * @return string
 	 */

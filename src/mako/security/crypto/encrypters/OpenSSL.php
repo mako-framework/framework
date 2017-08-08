@@ -41,7 +41,6 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string      $key    Encryption key
 	 * @param null|string $cipher Cipher
 	 */

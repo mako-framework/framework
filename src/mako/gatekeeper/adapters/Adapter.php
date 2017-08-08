@@ -105,7 +105,6 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * Creates a new user and returns the user object.
 	 *
-	 * @access public
 	 * @param  string                              $email      Email address
 	 * @param  string                              $username   Username
 	 * @param  string                              $password   Password
@@ -129,7 +128,6 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * Creates a new group and returns the group object.
 	 *
-	 * @access public
 	 * @param  string                                $name       Group name
 	 * @param  array                                 $properties Additional group properties
 	 * @return \mako\gatekeeper\entities\group\Group
@@ -147,7 +145,6 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * Activates a user based on the provided auth token.
 	 *
-	 * @access public
 	 * @param  string                                   $token Auth token
 	 * @return \mako\gatekeeper\entities\user\User|bool
 	 */

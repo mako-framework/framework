@@ -35,7 +35,6 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string $location Location
 	 */
 	public function __construct(string $location)
@@ -46,7 +45,6 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the status code.
 	 *
-	 * @access public
 	 * @param  int                                  $status Status code
 	 * @return \mako\http\response\senders\Redirect
 	 */
@@ -60,7 +58,6 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the status code to 300.
 	 *
-	 * @access public
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function multipleChoices(): Redirect
@@ -73,7 +70,6 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the status code to 301.
 	 *
-	 * @access public
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function movedPermanently(): Redirect
@@ -86,7 +82,6 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the status code to 302.
 	 *
-	 * @access public
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function found(): Redirect
@@ -99,7 +94,6 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the status code to 303.
 	 *
-	 * @access public
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function seeOther(): Redirect
@@ -112,7 +106,6 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the status code to 304.
 	 *
-	 * @access public
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function notModified(): Redirect
@@ -125,7 +118,6 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the status code to 305.
 	 *
-	 * @access public
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function useProxy(): Redirect
@@ -138,7 +130,6 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the status code to 307.
 	 *
-	 * @access public
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function temporaryRedirect(): Redirect
@@ -151,7 +142,6 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the status code to 308.
 	 *
-	 * @access public
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function permanentRedirect(): Redirect

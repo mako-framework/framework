@@ -37,7 +37,6 @@ class Crypto
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\security\crypto\encrypters\EncrypterInterface $adapter Crypto adapter
 	 * @param \mako\security\Signer                               $signer  Signer instance.
 	 */
@@ -51,7 +50,6 @@ class Crypto
 	/**
 	 * Encrypts string.
 	 *
-	 * @access public
 	 * @param  string $string String to encrypt
 	 * @return string
 	 */
@@ -63,7 +61,6 @@ class Crypto
 	/**
 	 * Decrypts string.
 	 *
-	 * @access public
 	 * @param  string      $string String to decrypt
 	 * @return string|bool
 	 */

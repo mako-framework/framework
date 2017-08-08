@@ -17,7 +17,6 @@ interface GroupRepositoryInterface
 	/**
 	 * Creates and returns a group.
 	 *
-	 * @access public
 	 * @param  array                                                $properties Group properties
 	 * @return \mako\gatekeeper\entities\group\GroupEntityInterface
 	 */
@@ -26,7 +25,6 @@ interface GroupRepositoryInterface
 	/**
 	 * Gets a group by its identifier.
 	 *
-	 * @access public
 	 * @param  mixed                                                $identifier Group identifier
 	 * @return \mako\gatekeeper\entities\group\GroupEntityInterface
 	 */

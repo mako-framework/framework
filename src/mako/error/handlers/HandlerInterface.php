@@ -17,7 +17,6 @@ interface HandlerInterface
 	/**
 	 * Handles the exception.
 	 *
-	 * @access public
 	 * @param  bool      $showDetails Show error details?
 	 * @return void|bool
 	 */

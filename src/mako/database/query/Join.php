@@ -42,7 +42,6 @@ class Join
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param null|string $type  Join type
 	 * @param null|mixed  $table Table we are joining
 	 */
@@ -55,7 +54,6 @@ class Join
 	/**
 	 * Returns the join type.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getType(): string
@@ -66,7 +64,6 @@ class Join
 	/**
 	 * Returns the table name
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function getTable()
@@ -77,7 +74,6 @@ class Join
 	/**
 	 * Returns ON conditions.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getConditions(): array
@@ -88,7 +84,6 @@ class Join
 	/**
 	 * Adds a ON condition to the join.
 	 *
-	 * @access public
 	 * @param  string                    $column1   Column name
 	 * @param  null|string               $operator  Operator
 	 * @param  null|string               $column2   Column name
@@ -128,7 +123,6 @@ class Join
 	/**
 	 * Adds a raw ON condition to the join.
 	 *
-	 * @access public
 	 * @param  string                    $column1   Column name
 	 * @param  string                    $operator  Operator
 	 * @param  string                    $raw       Raw SQL
@@ -143,7 +137,6 @@ class Join
 	/**
 	 * Adds a OR ON condition to the join.
 	 *
-	 * @access public
 	 * @param  string                    $column1  Column name
 	 * @param  null|string               $operator Operator
 	 * @param  null|string               $column2  Column name
@@ -157,7 +150,6 @@ class Join
 	/**
 	 * Adds a raw OR ON condition to the join.
 	 *
-	 * @access public
 	 * @param  string                    $column1  Column name
 	 * @param  string                    $operator Operator
 	 * @param  string                    $raw      Raw SQL

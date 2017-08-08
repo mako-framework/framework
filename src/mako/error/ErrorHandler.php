@@ -50,8 +50,6 @@ class ErrorHandler
 
 	/**
 	 * Constructor.
-	 *
-	 * @access public
 	 */
 	public function __construct()
 	{
@@ -73,8 +71,6 @@ class ErrorHandler
 
 	/**
 	 * Registers the exception handler.
-	 *
-	 * @access protected
 	 */
 	protected function register()
 	{
@@ -100,7 +96,7 @@ class ErrorHandler
 	/**
 	 * Set logger instance.
 	 *
-	 * @var \Psr\Log\LoggerInterface
+	 * @param \Psr\Log\LoggerInterface $logger Logger instance
 	 */
 	public function setLogger(LoggerInterface $logger)
 	{
@@ -110,7 +106,6 @@ class ErrorHandler
 	/**
 	 * Disables logging for an exception type.
 	 *
-	 * @access public
 	 * @param string|array $exceptionType Exception type or array of exception types
 	 */
 	public function disableLoggingFor($exceptionType)
@@ -120,8 +115,6 @@ class ErrorHandler
 
 	/**
 	 * Disables the shutdown handler.
-	 *
-	 * @access public
 	 */
 	public function disableShutdownHandler()
 	{
@@ -131,7 +124,6 @@ class ErrorHandler
 	/**
 	 * Prepends an exception handler to the stack.
 	 *
-	 * @access public
 	 * @param string   $exceptionType Exception type
 	 * @param \Closure $handler       Exception handler
 	 */
@@ -143,7 +135,6 @@ class ErrorHandler
 	/**
 	 * Clears all error handlers for an exception type.
 	 *
-	 * @access public
 	 * @param string $exceptionType Exception type
 	 */
 	public function clearHandlers(string $exceptionType)
@@ -160,7 +151,6 @@ class ErrorHandler
 	/**
 	 * Replaces all error handlers for an exception type with a new one.
 	 *
-	 * @access public
 	 * @param string   $exceptionType Exception type
 	 * @param \Closure $handler       Exception handler
 	 */
@@ -173,8 +163,6 @@ class ErrorHandler
 
 	/**
 	 * Clear output buffers.
-	 *
-	 * @access protected
 	 */
 	protected function clearOutputBuffers()
 	{
@@ -184,8 +172,7 @@ class ErrorHandler
 	/**
 	 * Should the exception be logged?
 	 *
-	 * @access public
-	 * @param   \Throwable $exception An exception object
+	 * @param  \Throwable $exception An exception object
 	 * @return bool
 	 */
 	protected function shouldExceptionBeLogged(Throwable $exception): bool
@@ -209,7 +196,6 @@ class ErrorHandler
 	/**
 	 * Handles uncaught exceptions.
 	 *
-	 * @access public
 	 * @param \Throwable $exception An exception object
 	 */
 	public function handler(Throwable $exception)

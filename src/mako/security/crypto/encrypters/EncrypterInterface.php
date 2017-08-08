@@ -17,7 +17,6 @@ interface EncrypterInterface
 	/**
 	 * Encrypts string.
 	 *
-	 * @access public
 	 * @param  string $string String to encrypt
 	 * @return string
 	 */
@@ -26,7 +25,6 @@ interface EncrypterInterface
 	/**
 	 * Decrypts string.
 	 *
-	 * @access public
 	 * @param  string      $string String to decrypt
 	 * @return string|bool
 	 */

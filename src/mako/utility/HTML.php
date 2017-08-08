@@ -28,7 +28,6 @@ class HTML
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param bool $xhtml Should we return HXML?
 	 */
 	public function __construct(bool $xhtml = false)
@@ -39,7 +38,6 @@ class HTML
 	/**
 	 * Takes an array of attributes and turns it into a string.
 	 *
-	 * @access public
 	 * @param  array  $attributes Array of tags
 	 * @return string
 	 */
@@ -63,7 +61,6 @@ class HTML
 	/**
 	 * Creates a HTML5 tag.
 	 *
-	 * @access public
 	 * @param  string      $name       Tag name
 	 * @param  array       $attributes Tag attributes
 	 * @param  null|string $content    Tag content
@@ -77,7 +74,6 @@ class HTML
 	/**
 	 * Helper method for building media tags.
 	 *
-	 * @access protected
 	 * @param  string       $type       Tag type
 	 * @param  string|array $files      File or array of files
 	 * @param  array        $attributes Tag attributes
@@ -98,7 +94,6 @@ class HTML
 	/**
 	 * Creates audio tag with support for multiple sources.
 	 *
-	 * @access public
 	 * @param  string|array $files      File or array of files
 	 * @param  array        $attributes Tag attributes
 	 * @return string
@@ -111,7 +106,6 @@ class HTML
 	/**
 	 * Creates video tag with support for multiple sources.
 	 *
-	 * @access public
 	 * @param  string|array $files      File or array of files
 	 * @param  array        $attributes Tag attributes
 	 * @return string
@@ -124,7 +118,6 @@ class HTML
 	/**
 	 * Helper method for building list tags.
 	 *
-	 * @access protected
 	 * @param  string $type       Tag type
 	 * @param  array  $items      List items
 	 * @param  array  $attributes Tag attributes
@@ -152,7 +145,6 @@ class HTML
 	/**
 	 * Builds an un-ordered list.
 	 *
-	 * @access public
 	 * @param  array  $items      List items
 	 * @param  array  $attributes List attributes
 	 * @return string
@@ -165,7 +157,6 @@ class HTML
 	/**
 	 * Builds am ordered list.
 	 *
-	 * @access public
 	 * @param  array  $items      List items
 	 * @param  array  $attributes List attributes
 	 * @return string

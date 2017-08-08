@@ -65,10 +65,9 @@ class I18n
 	/**
 	 * Constructor.
 	 *
-	 * @access public
-	 * @param \mako\i18n\loaders\LoaderInterface $loader   Loader instance
-	 * @param string                             $language Default language pack name
-	 * @param \mako\cache\stores\StoreInterface  $cache    Cache instance
+	 * @param \mako\i18n\loaders\LoaderInterface     $loader   Loader instance
+	 * @param string                                 $language Default language pack name
+	 * @param null|\mako\cache\stores\StoreInterface $cache    Cache instance
 	 */
 	public function __construct(LoaderInterface $loader, string $language, StoreInterface $cache = null)
 	{
@@ -82,7 +81,6 @@ class I18n
 	/**
 	 * Destructor.
 	 *
-	 * @access public
 	 */
 	public function __destruct()
 	{
@@ -98,7 +96,6 @@ class I18n
 	/**
 	 * Returns the language loader.
 	 *
-	 * @access public
 	 * @return \mako\i18n\loaders\LoaderInterface
 	 */
 	public function getLoader(): LoaderInterface
@@ -109,7 +106,6 @@ class I18n
 	/**
 	 * Sets the cache.
 	 *
-	 * @access public
 	 * @param \mako\cache\stores\StoreInterface $cache Cache instance
 	 */
 	public function setCache(StoreInterface $cache)
@@ -120,7 +116,6 @@ class I18n
 	/**
 	 * Gets the current language
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getLanguage(): string
@@ -131,8 +126,7 @@ class I18n
 	/**
 	 * Sets the current language
 	 *
-	 * @access public
-	 * @param string $language Name of the language pack
+	 * @param null|string $language Name of the language pack
 	 */
 	public function setLanguage(string $language = null)
 	{
@@ -142,7 +136,6 @@ class I18n
 	/**
 	 * Loads inflection closure and rules.
 	 *
-	 * @access protected
 	 * @param string $language Name of the language pack
 	 */
 	protected function loadInflection(string $language)
@@ -153,10 +146,9 @@ class I18n
 	/**
 	 * Returns the plural form of a noun.
 	 *
-	 * @access public
-	 * @param  string $word     Noun to pluralize
-	 * @param  int    $count    Number of nouns
-	 * @param  string $language Language rules to use for pluralization
+	 * @param  string      $word     Noun to pluralize
+	 * @param  null|int    $count    Number of nouns
+	 * @param  null|string $language Language rules to use for pluralization
 	 * @return string
 	 */
 	public function pluralize(string $word, int $count = null, string $language = null): string
@@ -181,7 +173,6 @@ class I18n
 	/**
 	 * Format number according to locale or desired format.
 	 *
-	 * @access public
 	 * @param  float       $number             Number to format
 	 * @param  int         $decimals           Number of decimals
 	 * @param  null|string $decimalPoint       Decimal point
@@ -209,7 +200,6 @@ class I18n
 	/**
 	 * Loads language strings from cache.
 	 *
-	 * @access protected
 	 * @param  string $language Name of the language pack
 	 * @param  string $file     File from which we are loading the strings
 	 * @return bool
@@ -224,7 +214,6 @@ class I18n
 	/**
 	 * Loads all strings for the language.
 	 *
-	 * @access protected
 	 * @param string $language Name of the language pack
 	 * @param string $file     File from which we are loading the strings
 	 */
@@ -246,7 +235,6 @@ class I18n
 	/**
 	 * Parses the language key.
 	 *
-	 * @access protected
 	 * @param  string $key Language key
 	 * @return array
 	 */
@@ -258,7 +246,6 @@ class I18n
 	/**
 	 * Returns the language string.
 	 *
-	 * @access protected
 	 * @param  string      $key      Language key
 	 * @param  null|string $language Name of the language pack
 	 * @return string
@@ -280,9 +267,8 @@ class I18n
 	/**
 	 * Returns TRUE if the string exists and FALSE if not.
 	 *
-	 * @access public
-	 * @param  string $key      String to translate
-	 * @param  string $language Name of the language pack
+	 * @param  string      $key      String to translate
+	 * @param  null|string $language Name of the language pack
 	 * @return bool
 	 */
 	public function has(string $key, string $language = null): bool
@@ -302,7 +288,6 @@ class I18n
 	/**
 	 * Pluralize words between pluralization tags.
 	 *
-	 * @access protected
 	 * @param  string $string String to parse
 	 * @return string
 	 */
@@ -317,7 +302,6 @@ class I18n
 	/**
 	 * Format numbers between number tags.
 	 *
-	 * @access protected
 	 * @param  string $string String to parse
 	 * @return string
 	 */
@@ -332,7 +316,6 @@ class I18n
 	/**
 	 * Parses tags.
 	 *
-	 * @access protected
 	 * @param  string $string String to parse
 	 * @return string
 	 */
@@ -354,10 +337,9 @@ class I18n
 	/**
 	 * Returns the chosen string from the current language.
 	 *
-	 * @access public
-	 * @param  string $key      String to translate
-	 * @param  array  $vars     Array of values to replace in the translated text
-	 * @param  string $language Name of the language pack
+	 * @param  string      $key      String to translate
+	 * @param  array       $vars     Array of values to replace in the translated text
+	 * @param  null|string $language Name of the language pack
 	 * @return string
 	 */
 	public function get(string $key, array $vars = [], string $language = null): string

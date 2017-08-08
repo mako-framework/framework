@@ -28,7 +28,6 @@ class CryptoManager extends AdapterManager
 	/**
 	 * OpenSSL encrypter factory.
 	 *
-	 * @access protected
 	 * @param  array                                    $configuration Configuration
 	 * @return \mako\security\crypto\encrypters\OpenSSL
 	 */
@@ -40,7 +39,6 @@ class CryptoManager extends AdapterManager
 	/**
 	 * Returns a crypto instance.
 	 *
-	 * @access public
 	 * @param  string                       $configuration Configuration name
 	 * @return \mako\security\crypto\Crypto
 	 */

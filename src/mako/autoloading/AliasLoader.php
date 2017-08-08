@@ -24,7 +24,6 @@ class AliasLoader
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param array $aliases Class aliases
 	 */
 	public function __construct(array $aliases)
@@ -35,7 +34,6 @@ class AliasLoader
 	/**
 	 * Autoloads aliased classes.
 	 *
-	 * @access public
 	 * @param  string $alias Class alias
 	 * @return bool
 	 */

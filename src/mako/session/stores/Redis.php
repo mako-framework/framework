@@ -34,7 +34,6 @@ class Redis implements StoreInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\redis\Redis $redis          Redis client
 	 * @param bool|array        $classWhitelist Class whitelist
 	 */

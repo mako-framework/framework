@@ -17,7 +17,6 @@ interface SelfHandlingCommandInterface
 	/**
 	 * Handles the command.
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function handle();

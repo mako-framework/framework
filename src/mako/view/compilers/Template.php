@@ -71,7 +71,6 @@ class Template
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\file\FileSystem $fileSystem File system instance
 	 * @param string                $cachePath  Cache path
 	 * @param string                $template   Path to template
@@ -88,7 +87,6 @@ class Template
 	/**
 	 * Collects verbatim blocks and replaces them with a palceholder.
 	 *
-	 * @access protected
 	 * @param  string $template Template
 	 * @return string
 	 */
@@ -105,7 +103,6 @@ class Template
 	/**
 	 * Replaces verbatim placeholders with their original values.
 	 *
-	 * @access protected
 	 * @param  string $template Template
 	 * @return string
 	 */
@@ -122,7 +119,6 @@ class Template
 	/**
 	 * Compiles comments.
 	 *
-	 * @access protected
 	 * @param  string $template Template
 	 * @return string
 	 */
@@ -136,7 +132,6 @@ class Template
 	/**
 	 * Compiles template extensions.
 	 *
-	 * @access protected
 	 * @param  string $template Template
 	 * @return string
 	 */
@@ -160,7 +155,6 @@ class Template
 	/**
 	 * Compiles view includes.
 	 *
-	 * @access protected
 	 * @param  string $template Template
 	 * @return string
 	 */
@@ -178,7 +172,6 @@ class Template
 	/**
 	 * Compiles blocks.
 	 *
-	 * @access protected
 	 * @param  string $template Template
 	 * @return string
 	 */
@@ -196,7 +189,6 @@ class Template
 	/**
 	 * Compiles control structures.
 	 *
-	 * @access protected
 	 * @param  string $template Template
 	 * @return string
 	 */
@@ -214,7 +206,6 @@ class Template
 	/**
 	 * Compiles echos.
 	 *
-	 * @access protected
 	 * @param  string $template Template
 	 * @return string
 	 */
@@ -272,8 +263,6 @@ class Template
 
 	/**
 	 * Compiles templates into views.
-	 *
-	 * @access public
 	 */
 	public function compile()
 	{

@@ -49,7 +49,6 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Constuctor.
 	 *
-	 * @access public
 	 * @param string $path      File path
 	 * @param string $name      File name
 	 * @param int    $size      File size
@@ -72,7 +71,6 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns the file name.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getName(): string
@@ -83,7 +81,6 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns the size reported by the client in bytes.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function getReportedSize(): int
@@ -94,7 +91,6 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns the mime type reported by the client.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getReportedType(): string
@@ -105,7 +101,6 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Does the file have an error?
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function hasError(): bool
@@ -116,7 +111,6 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns the file error code.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function getErrorCode(): int
@@ -127,7 +121,6 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns a human friendly error message.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getErrorMessage(): string
@@ -158,7 +151,6 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Returns TRUE if the file has been uploaded and FALSE if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isUploaded(): bool
@@ -169,7 +161,6 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Moves the file to the desired path.
 	 *
-	 * @access protected
 	 * @param  string $path Storage path
 	 * @return bool
 	 */
@@ -181,7 +172,6 @@ class UploadedFile extends SplFileInfo
 	/**
 	 * Moves the file to the desired path.
 	 *
-	 * @access public
 	 * @param  string $path Storage path
 	 * @return bool
 	 */

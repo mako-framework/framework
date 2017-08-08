@@ -35,7 +35,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param array $items Collection items
 	 */
 	public function __construct(array $items = [])
@@ -46,7 +45,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns all the items in the collection.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getItems(): array
@@ -57,7 +55,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns all the values in the collection.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getValues(): array
@@ -67,8 +64,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Resets the collection keys.
-	 *
-	 * @access public
 	 */
 	public function resetKeys()
 	{
@@ -78,7 +73,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Adds a new item to the collection.
 	 *
-	 * @access public
 	 * @param int|string $key   Key
 	 * @param mixed      $value Value
 	 */
@@ -90,7 +84,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns TRUE if the item key exists and FALSE if not.
 	 *
-	 * @access public
 	 * @param  int|string $key Key
 	 * @return bool
 	 */
@@ -102,7 +95,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns an item from the collection.
 	 *
-	 * @access public
 	 * @param  int|string $key     Key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -115,7 +107,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Removes an item from the collection.
 	 *
-	 * @access public
 	 * @param int|string $key Key
 	 */
 	public function remove($key)
@@ -125,8 +116,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Clears the collection.
-	 *
-	 * @access public
 	 */
 	public function clear()
 	{
@@ -136,7 +125,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Checks whether or not an offset exists.
 	 *
-	 * @access public
 	 * @param  mixed $offset The offset to check for
 	 * @return bool
 	 */
@@ -148,7 +136,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns the value at the specified offset.
 	 *
-	 * @access public
 	 * @param  mixed $offset The offset to retrieve
 	 * @return mixed
 	 */
@@ -165,7 +152,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Assigns a value to the specified offset.
 	 *
-	 * @access public
 	 * @param mixed $offset The offset to assign the value to
 	 * @param mixed $value  The value to set
 	 */
@@ -184,7 +170,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Unsets an offset.
 	 *
-	 * @access public
 	 * @param mixed $offset The offset to unset
 	 */
 	public function offsetUnset($offset)
@@ -195,7 +180,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns the numner of items in the collection.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function count(): int
@@ -206,7 +190,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Retruns an array iterator object.
 	 *
-	 * @access public
 	 * @return \ArrayIterator
 	 */
 	public function getIterator(): ArrayIterator
@@ -228,7 +211,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Prepends the passed item to the front of the collection
 	 * and returns the new number of elements in the collection.
 	 *
-	 * @access public
 	 * @param  mixed $item Collection item
 	 * @return int
 	 */
@@ -241,7 +223,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Shifts the first value of the collection off and returns it,
 	 * shortening the collection by one element.
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function shift()
@@ -253,7 +234,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Pushes the passed variable onto the end of the collection
 	 * and returns the new number of elements in the collection.
 	 *
-	 * @access public
 	 * @param  mixed $item Collection item
 	 * @return int
 	 */
@@ -266,7 +246,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Pops and returns the last value of the collection,
 	 * shortening the collection by one element.
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function pop()
@@ -278,7 +257,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Sorts the collection using the specified comparator closure
 	 * and returns TRUE on success and FALSE on failure.
 	 *
-	 * @access public
 	 * @param  \Closure $comparator               Comparator closure
 	 * @param  bool     $maintainIndexAssociation Maintain index association?
 	 * @return bool
@@ -291,7 +269,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Chunks the collection into a collection containing $size sized collections.
 	 *
-	 * @access public
 	 * @param  int                      $size Chunk size
 	 * @return \mako\utility\Collection
 	 */
@@ -311,7 +288,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Shuffles the items in the collection and returns
 	 * TRUE on success and FALSE on failure.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function shuffle(): bool
@@ -322,7 +298,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Applies the callable on all items in the collection.
 	 *
-	 * @access public
 	 * @param callable $callable Callable
 	 */
 	public function each(callable $callable)
@@ -337,7 +312,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Returns a new collection where the callable has
 	 * been applied to all the items.
 	 *
-	 * @access public
 	 * @param  callable                 $callable Callable
 	 * @return \mako\utility\Collection
 	 */
@@ -349,7 +323,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns a new filtered collection.
 	 *
-	 * @access public
 	 * @param  null|callable            $callable Filter
 	 * @return \mako\utility\Collection
 	 */

@@ -17,7 +17,6 @@ interface UserEntityInterface
 	/**
 	 * Returns the user id.
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function getId();
@@ -25,7 +24,6 @@ interface UserEntityInterface
 	/**
 	 * Returns the user username.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getUsername(): string;

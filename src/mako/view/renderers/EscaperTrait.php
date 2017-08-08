@@ -33,7 +33,6 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a HTML body context.
 	 *
-	 * @access public
 	 * @param  null|string $string       String to escape
 	 * @param  string      $charset      Character set
 	 * @param  bool        $doubleEncode Should existing entities be encoded?
@@ -47,7 +46,6 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a URI or parameter context.
 	 *
-	 * @access public
 	 * @param  null|string $string String to escape
 	 * @return string
 	 */
@@ -61,7 +59,6 @@ trait EscaperTrait
 	 *
 	 * (This method contains code from the SecurityMultiTool library).
 	 *
-	 * @access protected
 	 * @param  array  $matches Regex matches
 	 * @return string
 	 */
@@ -110,7 +107,6 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a HTML attribute context.
 	 *
-	 * @access public
 	 * @param  null|string $string  String to escape
 	 * @param  string      $charset Character set
 	 * @return string
@@ -137,7 +133,6 @@ trait EscaperTrait
 	 *
 	 * (This method contains code from the SecurityMultiTool library).
 	 *
-	 * @access protected
 	 * @param  array  $matches Regex matches
 	 * @return string
 	 */
@@ -162,7 +157,6 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a CSS context.
 	 *
-	 * @access public
 	 * @param  null|string $string  String to escape
 	 * @param  string      $charset Character set
 	 * @return string
@@ -194,7 +188,6 @@ trait EscaperTrait
 	 *
 	 * (This method contains code from the SecurityMultiTool library).
 	 *
-	 * @access protected
 	 * @param  array  $matches Regex matches
 	 * @return string
 	 */
@@ -215,7 +208,6 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a Javascript context.
 	 *
-	 * @access public
 	 * @param  null|string $string  String to escape
 	 * @param  string      $charset Character set
 	 * @return string

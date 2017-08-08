@@ -75,11 +75,10 @@ class Reactor
 	/**
 	 * Constructor.
 	 *
-	 * @access public
-	 * @param \mako\cli\input\Input    $input      Input
-	 * @param \mako\cli\output\Output  $output     Output
-	 * @param \mako\syringe\Container  $container  Container
-	 * @param \mako\reactor\Dispatcher $dispatcher Command dispatcher
+	 * @param \mako\cli\input\Input         $input      Input
+	 * @param \mako\cli\output\Output       $output     Output
+	 * @param null|\mako\syringe\Container  $container  Container
+	 * @param null|\mako\reactor\Dispatcher $dispatcher Command dispatcher
 	 */
 	public function __construct(Input $input, Output $output, Container $container = null, Dispatcher $dispatcher = null)
 	{
@@ -95,7 +94,6 @@ class Reactor
 	/**
 	 * Registers a command.
 	 *
-	 * @access public
 	 * @param string $command Command
 	 * @param string $class   Command class
 	 */
@@ -107,7 +105,6 @@ class Reactor
 	/**
 	 * Register a global reactor option.
 	 *
-	 * @access public
 	 * @param string   $name        Option name
 	 * @param string   $description Option description
 	 * @param \Closure $handler     Option handler
@@ -121,7 +118,6 @@ class Reactor
 	/**
 	 * Sets the reactor logo.
 	 *
-	 * @access public
 	 * @param string $logo ASCII logo
 	 */
 	public function setLogo(string $logo)
@@ -132,7 +128,6 @@ class Reactor
 	/**
 	 * Handles global reactor options.
 	 *
-	 * @access public
 	 * @param string $group Option group
 	 */
 	public function handleGlobalOptions(string $group = 'default')
@@ -158,7 +153,6 @@ class Reactor
 	/**
 	 * Draws information table.
 	 *
-	 * @access protected
 	 * @param string $heading Table heading
 	 * @param array  $headers Table headers
 	 * @param array  $rows    Table rows
@@ -184,7 +178,6 @@ class Reactor
 	/**
 	 * Returns an array of option information.
 	 *
-	 * @access protected
 	 * @return array
 	 */
 	protected function getOptions(): array
@@ -206,8 +199,6 @@ class Reactor
 
 	/**
 	 * Displays reactor options of there are any.
-	 *
-	 * @access protected
 	 */
 	protected function listOptions()
 	{
@@ -218,8 +209,6 @@ class Reactor
 
 	/**
 	 * Displays basic reactor information.
-	 *
-	 * @access protected
 	 */
 	protected function displayReactorInfo()
 	{
@@ -246,7 +235,6 @@ class Reactor
 	/**
 	 * Returns an array of command information.
 	 *
-	 * @access protected
 	 * @return array
 	 */
 	protected function getCommands(): array
@@ -265,8 +253,6 @@ class Reactor
 
 	/**
 	 * Lists available commands if there are any.
-	 *
-	 * @access protected
 	 */
 	protected function listCommands()
 	{
@@ -278,7 +264,6 @@ class Reactor
 	/**
 	 * Dispatches a command.
 	 *
-	 * @access protected
 	 * @param  string $command Command
 	 * @return int
 	 */
@@ -306,7 +291,6 @@ class Reactor
 	/**
 	 * Run the reactor.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function run(): int

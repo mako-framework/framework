@@ -56,7 +56,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param array $headers Headers
 	 */
 	public function __construct(array $headers = [])
@@ -67,7 +66,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Returns the numner of headers.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function count(): int
@@ -78,7 +76,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Retruns an array iterator object.
 	 *
-	 * @access public
 	 * @return \ArrayIterator
 	 */
 	public function getIterator(): ArrayIterator
@@ -100,7 +97,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Adds a header.
 	 *
-	 * @access public
 	 * @param string $name  Header name
 	 * @param string $value Header value
 	 */
@@ -112,7 +108,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Returns true if the header exists and false if not.
 	 *
-	 * @access public
 	 * @param  string $name Header name
 	 * @return bool
 	 */
@@ -124,7 +119,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Gets a header value.
 	 *
-	 * @access public
 	 * @param  string     $name    Header name
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -137,7 +131,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Removes a header.
 	 *
-	 * @access public
 	 * @param string $name Header name
 	 */
 	public function remove(string $name)
@@ -148,7 +141,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Returns all the headers.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function all(): array
@@ -159,7 +151,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Parses a accpet header and returns the values in descending order of preference.
 	 *
-	 * @access protected
 	 * @param  null|string $headerValue Header value
 	 * @return array
 	 */
@@ -204,7 +195,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function acceptableContentTypes(): array
@@ -220,7 +210,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function acceptableLanguages(): array
@@ -236,7 +225,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function acceptableCharsets(): array
@@ -252,7 +240,6 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function acceptableEncodings(): array

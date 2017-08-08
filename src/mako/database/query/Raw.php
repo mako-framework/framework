@@ -31,7 +31,6 @@ class Raw
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string $sql        Raw SQL
 	 * @param array  $parameters Parameters
 	 */
@@ -45,7 +44,6 @@ class Raw
 	/**
 	 * Returns the raw SQL.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function get(): string
@@ -56,7 +54,6 @@ class Raw
 	/**
 	 * Returns the parameters.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getParameters(): array

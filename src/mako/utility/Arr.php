@@ -17,7 +17,6 @@ class Arr
 	/**
 	 * Sets an array value using "dot notation".
 	 *
-	 * @access public
 	 * @param array  $array Array you want to modify
 	 * @param string $path  Array path
 	 * @param mixed  $value Value to set
@@ -44,7 +43,6 @@ class Arr
 	/**
 	 * Search for an array value using "dot notation". Returns TRUE if the array key exists and FALSE if not.
 	 *
-	 * @access public
 	 * @param  array  $array Array we're goint to search
 	 * @param  string $path  Array path
 	 * @return bool
@@ -69,7 +67,6 @@ class Arr
 	/**
 	 * Returns value from array using "dot notation".
 	 *
-	 * @access public
 	 * @param  array      $array   Array we're going to search
 	 * @param  string     $path    Array path
 	 * @param  null|mixed $default Default return value
@@ -95,7 +92,6 @@ class Arr
 	/**
 	 * Deletes an array value using "dot notation".
 	 *
-	 * @access public
 	 * @param  array  $array Array you want to modify
 	 * @param  string $path  Array path
 	 * @return bool
@@ -124,7 +120,6 @@ class Arr
 	/**
 	 * Returns a random value from an array.
 	 *
-	 * @access public
 	 * @param  array $array Array you want to pick a random value from
 	 * @return mixed
 	 */
@@ -136,7 +131,6 @@ class Arr
 	/**
 	 * Returns TRUE if the array is associative and FALSE if not.
 	 *
-	 * @access public
 	 * @param  array $array Array to check
 	 * @return bool
 	 */
@@ -148,7 +142,6 @@ class Arr
 	/**
 	 * Returns the values from a single column of the input array, identified by the key.
 	 *
-	 * @access public
 	 * @param  array  $array Array to pluck from
 	 * @param  string $key   Array key
 	 * @return array

@@ -40,7 +40,6 @@ class Middleware
 	/**
 	 * Sets the middleware priority.
 	 *
-	 * @access public
 	 * @param  array                         $priority Middleware priority
 	 * @return \mako\http\routing\Middleware
 	 */
@@ -54,7 +53,6 @@ class Middleware
 	/**
 	 * Resets middleware priority.
 	 *
-	 * @access public
 	 * @return \mako\http\routing\Middleware
 	 */
 	public function resetPriority()
@@ -67,7 +65,6 @@ class Middleware
 	/**
 	 * Orders resolved middleware by priority.
 	 *
-	 * @access public
 	 * @param  array $middleware Array of middleware
 	 * @return array
 	 */
@@ -107,7 +104,6 @@ class Middleware
 	/**
 	 * Adds a middleware.
 	 *
-	 * @access public
 	 * @param  string                        $name       Middleware name
 	 * @param  string                        $middleware Middleware class name
 	 * @return \mako\http\routing\Middleware
@@ -122,7 +118,6 @@ class Middleware
 	/**
 	 * Returns the chosen middleware.
 	 *
-	 * @access public
 	 * @param  string $middleware Middleware name
 	 * @return string
 	 */

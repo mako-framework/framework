@@ -17,7 +17,6 @@ interface RendererInterface
 	/**
 	 * Returns the rendered view.
 	 *
-	 * @access public
 	 * @param  string $__view__      View path
 	 * @param  array  $__variables__ View variables
 	 * @return string

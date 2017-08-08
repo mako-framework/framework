@@ -193,7 +193,6 @@ class Response
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\http\Request         $request Request instance
 	 * @param string                     $charset Response charset
 	 * @param null|\mako\security\Signer $signer  Signer instance used to sign cookies
@@ -210,7 +209,6 @@ class Response
 	/**
 	 * Sets the response body.
 	 *
-	 * @access public
 	 * @param  mixed               $body Response body
 	 * @return \mako\http\Response
 	 */
@@ -224,7 +222,6 @@ class Response
 	/**
 	 * Returns the response body.
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function getBody()
@@ -235,7 +232,6 @@ class Response
 	/**
 	 * Clears the response body.
 	 *
-	 * @access public
 	 * @return \mako\http\Response
 	 */
 	public function clearBody(): Response
@@ -248,7 +244,6 @@ class Response
 	/**
 	 * Sets the response content type.
 	 *
-	 * @access public
 	 * @param  string              $contentType Content type
 	 * @param  null|string         $charset     Charset
 	 * @return \mako\http\Response
@@ -268,7 +263,6 @@ class Response
 	/**
 	 * Returns the response content type.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getType(): string
@@ -279,7 +273,6 @@ class Response
 	/**
 	 * Sets the response charset.
 	 *
-	 * @access public
 	 * @param  string              $charset Charset
 	 * @return \mako\http\Response
 	 */
@@ -293,7 +286,6 @@ class Response
 	/**
 	 * Returns the response charset.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getCharset(): string
@@ -304,7 +296,6 @@ class Response
 	/**
 	 * Sets the HTTP status code.
 	 *
-	 * @access public
 	 * @param  int                 $statusCode HTTP status code
 	 * @return \mako\http\Response
 	 */
@@ -321,7 +312,6 @@ class Response
 	/**
 	 * Returns the HTTP status code.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function getStatus(): int
@@ -332,7 +322,6 @@ class Response
 	/**
 	 * Adds output filter that all output will be passed through before being sent.
 	 *
-	 * @access public
 	 * @param  \Closure            $filter Closure used to filter output
 	 * @return \mako\http\Response
 	 */
@@ -346,7 +335,6 @@ class Response
 	/**
 	 * Returns the response filters.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getFilters(): array
@@ -357,7 +345,6 @@ class Response
 	/**
 	 * Clears all output filters.
 	 *
-	 * @access public
 	 * @return \mako\http\Response
 	 */
 	public function clearFilters(): Response
@@ -370,7 +357,6 @@ class Response
 	/**
 	 * Sets a response header.
 	 *
-	 * @access public
 	 * @param  string              $name    Header name
 	 * @param  string              $value   Header value
 	 * @param  bool                $replace Replace header?
@@ -399,7 +385,6 @@ class Response
 	/**
 	 * Checks if the header exists in the response.
 	 *
-	 * @access public
 	 * @param  string $name Header name
 	 * @return bool
 	 */
@@ -411,7 +396,6 @@ class Response
 	/**
 	 * Removes a response header.
 	 *
-	 * @access public
 	 * @param  string              $name Header name
 	 * @return \mako\http\Response
 	 */
@@ -425,7 +409,6 @@ class Response
 	/**
 	 * Returns the response headers.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getHeaders(): array
@@ -436,7 +419,6 @@ class Response
 	/**
 	 * Clear the response headers.
 	 *
-	 * @access public
 	 * @return \mako\http\Response
 	 */
 	public function clearHeaders(): Response
@@ -449,7 +431,6 @@ class Response
 	/**
 	 * Sets an unsigned cookie.
 	 *
-	 * @access public
 	 * @param  string              $name    Cookie name
 	 * @param  string              $value   Cookie value
 	 * @param  int                 $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
@@ -470,7 +451,6 @@ class Response
 	/**
 	 * Sets a signed cookie.
 	 *
-	 * @access public
 	 * @param  string              $name    Cookie name
 	 * @param  string              $value   Cookie value
 	 * @param  int                 $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
@@ -490,7 +470,6 @@ class Response
 	/**
 	 * Deletes a cookie.
 	 *
-	 * @access public
 	 * @param  string              $name    Cookie name
 	 * @param  array               $options Cookie options
 	 * @return \mako\http\Response
@@ -503,7 +482,6 @@ class Response
 	/**
 	 * Checks if the cookie exists in the response.
 	 *
-	 * @access public
 	 * @param  string $name Cookie name
 	 * @return bool
 	 */
@@ -515,7 +493,6 @@ class Response
 	/**
 	 * Removes a cookie from the response.
 	 *
-	 * @access public
 	 * @param  string              $name Cookie name
 	 * @return \mako\http\Response
 	 */
@@ -529,7 +506,6 @@ class Response
 	/**
 	 * Returns the response cookies.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getCookies(): array
@@ -540,7 +516,6 @@ class Response
 	/**
 	 * Clear cookies.
 	 *
-	 * @access public
 	 * @return \mako\http\Response
 	 */
 	public function clearCookies(): Response
@@ -553,7 +528,6 @@ class Response
 	/**
 	 * Clears the response body, filters, cookies and headers.
 	 *
-	 * @access public
 	 * @return \mako\http\Response
 	 */
 	public function clear(): Response
@@ -568,8 +542,6 @@ class Response
 
 	/**
 	 * Sends response headers.
-	 *
-	 * @access protected
 	 */
 	public function sendHeaders()
 	{
@@ -611,7 +583,6 @@ class Response
 	/**
 	 * Enables ETag response cache.
 	 *
-	 * @access public
 	 * @return \mako\http\Response
 	 */
 	public function cache(): Response
@@ -624,7 +595,6 @@ class Response
 	/**
 	 * Disables ETag response cache.
 	 *
-	 * @access public
 	 * @return \mako\http\Response
 	 */
 	public function disableCaching(): Response
@@ -637,7 +607,6 @@ class Response
 	/**
 	 * Enables output compression.
 	 *
-	 * @access public
 	 * @return \mako\http\Response
 	 */
 	public function compress(): Response
@@ -650,7 +619,6 @@ class Response
 	/**
 	 * Disables output compression.
 	 *
-	 * @access public
 	 * @return \mako\http\Response
 	 */
 	public function disableCompression(): Response
@@ -662,8 +630,6 @@ class Response
 
 	/**
 	 * Send output to browser.
-	 *
-	 * @access public
 	 */
 	public function send()
 	{

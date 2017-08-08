@@ -24,7 +24,6 @@ class ValidatorFactoryService extends Service
 	/**
 	 * Registers plugins.
 	 *
-	 * @access protected
 	 * @param \mako\validator\ValidatorFactory $validatorFactory Validator factory instance
 	 */
 	protected function registerPlugins(ValidatorFactory $validatorFactory)

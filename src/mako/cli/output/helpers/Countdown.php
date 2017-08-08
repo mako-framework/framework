@@ -26,7 +26,6 @@ class Countdown
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Output $output)
@@ -37,7 +36,6 @@ class Countdown
 	/**
 	 * Counts down from n.
 	 *
-	 * @access public
 	 * @param int $from Number of seconds to count down
 	 */
 	public function draw(int $from = 5)

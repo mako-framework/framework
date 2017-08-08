@@ -46,7 +46,6 @@ abstract class AdapterManager
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string                  $default        Default connection name
 	 * @param array                   $configurations Configurations
 	 * @param \mako\syringe\Container $container      IoC container instance
@@ -63,7 +62,6 @@ abstract class AdapterManager
 	/**
 	 * Adds extension.
 	 *
-	 * @access public
 	 * @param string          $name    Adapter name
 	 * @param string|\Closure $adapter Adapter
 	 */
@@ -75,7 +73,6 @@ abstract class AdapterManager
 	/**
 	 * Factory.
 	 *
-	 * @access protected
 	 * @param  string $adapterName   Adapter name
 	 * @param  array  $configuration Adapter configuration
 	 * @return mixed
@@ -104,7 +101,6 @@ abstract class AdapterManager
 	/**
 	 * Returns a new adapter instance.
 	 *
-	 * @access public
 	 * @param  string $configuration Configuration name
 	 * @return mixed
 	 */
@@ -113,7 +109,6 @@ abstract class AdapterManager
 	/**
 	 * Returns an instance of the chosen adapter configuration.
 	 *
-	 * @access public
 	 * @param  null|string $configuration Configuration name
 	 * @return mixed
 	 */
@@ -132,7 +127,6 @@ abstract class AdapterManager
 	/**
 	 * Magic shortcut to the default configuration.
 	 *
-	 * @access public
 	 * @param  string $name      Method name
 	 * @param  array  $arguments Method arguments
 	 * @return mixed

@@ -26,7 +26,6 @@ trait ExtendableTrait
 	/**
 	 * Extends the class.
 	 *
-	 * @access public
 	 * @param string   $methodName Method name
 	 * @param \Closure $closure    Closure
 	 */
@@ -38,7 +37,6 @@ trait ExtendableTrait
 	/**
 	 * Executes class extensions.
 	 *
-	 * @access public
 	 * @param  string $name      Method name
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
@@ -56,7 +54,6 @@ trait ExtendableTrait
 	/**
 	 * Executes class extensions.
 	 *
-	 * @access public
 	 * @param  string $name      Method name
 	 * @param  array  $arguments Method arguments
 	 * @return mixed

@@ -42,7 +42,6 @@ class Database extends Store
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\database\connections\Connection $connection     Database connection
 	 * @param string                                $table          Database table
 	 * @param bool|array                            $classWhitelist Class whitelist
@@ -59,7 +58,6 @@ class Database extends Store
 	/**
 	 * Returns a query builder instance.
 	 *
-	 * @access protected
 	 * @return \mako\database\query\Query
 	 */
 	protected function table(): Query

@@ -61,7 +61,6 @@ trait ContainerAwareTrait
 	/**
 	 * Sets the container instance.
 	 *
-	 * @access public
 	 * @param \mako\syringe\Container $container IoC container instance
 	 */
 	public function setContainer(Container $container)
@@ -72,7 +71,6 @@ trait ContainerAwareTrait
 	/**
 	 * Resolves item from the container using overloading.
 	 *
-	 * @access public
 	 * @param  string $key Key
 	 * @return mixed
 	 */

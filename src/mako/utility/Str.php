@@ -110,7 +110,6 @@ class Str
 	/**
 	 * Replaces newline with <br> or <br />.
 	 *
-	 * @access public
 	 * @param  string $string The input string
 	 * @param  bool   $xhtml  Should we return XHTML?
 	 * @return string
@@ -123,7 +122,6 @@ class Str
 	/**
 	 * Replaces <br> and <br /> with newline.
 	 *
-	 * @access public
 	 * @param  string $string The input string
 	 * @return string
 	 */
@@ -135,7 +133,6 @@ class Str
 	/**
 	 * Returns the plural form of a noun (english only).
 	 *
-	 * @access public
 	 * @param  string   $noun  Noun to pluralize
 	 * @param  null|int $count Number of nouns
 	 * @return string
@@ -168,7 +165,6 @@ class Str
 	/**
 	 * Converts camel case to underscored.
 	 *
-	 * @access public
 	 * @param  string $string The input string
 	 * @return string
 	 */
@@ -180,7 +176,6 @@ class Str
 	/**
 	 * Converts underscored to camel case.
 	 *
-	 * @access public
 	 * @param  string $string The input string
 	 * @param  bool   $upper  Return upper case camelCase?
 	 * @return string
@@ -193,7 +188,6 @@ class Str
 	/**
 	 * Limits the number of characters in a string.
 	 *
-	 * @access public
 	 * @param  string $string     The input string
 	 * @param  int    $characters Number of characters to allow
 	 * @param  string $sufix      Sufix to add if number of characters is reduced
@@ -207,7 +201,6 @@ class Str
 	/**
 	 * Limits the number of words in a string.
 	 *
-	 * @access public
 	 * @param  string $string The input string
 	 * @param  int    $words  Number of words to allow
 	 * @param  string $sufix  Sufix to add if number of words is reduced
@@ -228,7 +221,6 @@ class Str
 	/**
 	 * Creates a URL friendly string.
 	 *
-	 * @access public
 	 * @param  string $string The input string
 	 * @return string
 	 */
@@ -240,7 +232,6 @@ class Str
 	/**
 	 * Strips all non-ASCII characters.
 	 *
-	 * @access public
 	 * @param  string $string The input string
 	 * @return string
 	 */
@@ -252,7 +243,6 @@ class Str
 	/**
 	 * Returns a closure that will alternate between the defined strings.
 	 *
-	 * @access public
 	 * @param  array    $strings Array of strings to alternate between
 	 * @return \Closure
 	 */
@@ -269,7 +259,6 @@ class Str
 	/**
 	 * Converts URLs in a text into clickable links.
 	 *
-	 * @access public
 	 * @param  string $string     Text to scan for links
 	 * @param  array  $attributes Anchor attributes
 	 * @return string
@@ -285,7 +274,6 @@ class Str
 	/**
 	 * Returns a masked string where only the last n characters are visible.
 	 *
-	 * @access public
 	 * @param  string $string  String to mask
 	 * @param  int    $visible Number of characters to show
 	 * @param  string $mask    Character used to replace remaining characters
@@ -306,7 +294,6 @@ class Str
 	/**
 	 * Increments a string by appending a number to it or increasing the number.
 	 *
-	 * @access public
 	 * @param  string $string    String to increment
 	 * @param  int    $start     Starting number
 	 * @param  string $separator Separator
@@ -322,7 +309,6 @@ class Str
 	/**
 	 * Returns a random string of the selected type and length.
 	 *
-	 * @access public
 	 * @param  string $pool   Character pool to use
 	 * @param  int    $length Desired string length
 	 * @return string

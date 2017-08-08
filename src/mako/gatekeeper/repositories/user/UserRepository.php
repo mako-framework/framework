@@ -38,7 +38,6 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string $model Model name
 	 */
 	public function __construct(string $model)
@@ -49,7 +48,6 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Returns a model instance.
 	 *
-	 * @access protected
 	 * @return \mako\database\midgard\ORM
 	 */
 	protected function getModel()
@@ -83,7 +81,6 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Sets the user identifier.
 	 *
-	 * @access public
 	 * @param string $identifier User identifier
 	 */
 	public function setIdentifier(string $identifier)
@@ -115,7 +112,6 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Fetches a user by its action token.
 	 *
-	 * @access public
 	 * @param  string                                   $token Action token
 	 * @return \mako\gatekeeper\entities\user\User|bool
 	 */
@@ -127,7 +123,6 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Fetches a user by its access token.
 	 *
-	 * @access public
 	 * @param  string                                   $token Access token
 	 * @return \mako\gatekeeper\entities\user\User|bool
 	 */
@@ -139,7 +134,6 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Fetches a user by its email address.
 	 *
-	 * @access public
 	 * @param  string                                   $email Email address
 	 * @return \mako\gatekeeper\entities\user\User|bool
 	 */
@@ -151,7 +145,6 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Fetches a user by its username.
 	 *
-	 * @access public
 	 * @param  string                                   $username Username
 	 * @return \mako\gatekeeper\entities\user\User|bool
 	 */
@@ -163,7 +156,6 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Fetches a user by its id.
 	 *
-	 * @access public
 	 * @param  int                                      $id User id
 	 * @return \mako\gatekeeper\entities\user\User|bool
 	 */

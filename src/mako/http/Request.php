@@ -155,9 +155,8 @@ class Request
 	/**
 	 * Constructor.
 	 *
-	 * @access public
-	 * @param array                 $request Request data and options
-	 * @param \mako\security\Signer $signer  Signer instance used to validate signed cookies
+	 * @param array                      $request Request data and options
+	 * @param null|\mako\security\Signer $signer  Signer instance used to validate signed cookies
 	 */
 	public function __construct(array $request = [], Signer $signer = null)
 	{
@@ -183,7 +182,6 @@ class Request
 	/**
 	 * Strips the locale segment from the path.
 	 *
-	 * @access protected
 	 * @param  array  $languages Locale segments
 	 * @param  string $path      Path
 	 * @return string
@@ -210,7 +208,6 @@ class Request
 	/**
 	 * Determines the request path.
 	 *
-	 * @access protected
 	 * @param  array  $languages Locale segments
 	 * @return string
 	 */
@@ -254,7 +251,6 @@ class Request
 	/**
 	 * Determines the request method.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function determineMethod(): string
@@ -272,7 +268,6 @@ class Request
 	/**
 	 * Set the route that matched the request.
 	 *
-	 * @access public
 	 * @param \mako\http\routing\Route $route Route
 	 */
 	public function setRoute(Route $route)
@@ -283,7 +278,6 @@ class Request
 	/**
 	 * Returns the route that matched the request.
 	 *
-	 * @access public
 	 * @return null|\mako\http\routing\Route
 	 */
 	public function getRoute()
@@ -294,7 +288,6 @@ class Request
 	/**
 	 * Sets a request attribute.
 	 *
-	 * @access public
 	 * @param string $name  Attribute name
 	 * @param mixed  $value Attribute value
 	 */
@@ -306,7 +299,6 @@ class Request
 	/**
 	 * Gets a request attribute.
 	 *
-	 * @access public
 	 * @param  string     $name    Attribute name
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -319,7 +311,6 @@ class Request
 	/**
 	 * Returns the raw request body.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function body(): string
@@ -335,7 +326,6 @@ class Request
 	/**
 	 * Returns the raw request body as a stream.
 	 *
-	 * @access public
 	 * @return resource
 	 */
 	public function bodyAsStream()
@@ -346,7 +336,6 @@ class Request
 	/**
 	 * Parses the request body and returns the chosen value.
 	 *
-	 * @access protected
 	 * @param  null|string $key     Array key
 	 * @param  null|mixed  $default Default value
 	 * @return null|mixed
@@ -378,7 +367,6 @@ class Request
 	/**
 	 * Fetch data from the GET parameters.
 	 *
-	 * @access public
 	 * @param  string     $key     Array key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -391,7 +379,6 @@ class Request
 	/**
 	 * Fetch data from the POST parameters.
 	 *
-	 * @access public
 	 * @param  string     $key     Array key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -404,7 +391,6 @@ class Request
 	/**
 	 * Fetch data from the PUT parameters.
 	 *
-	 * @access public
 	 * @param  string     $key     Array key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -417,7 +403,6 @@ class Request
 	/**
 	 * Fetch data from the PATCH parameters.
 	 *
-	 * @access public
 	 * @param  string     $key     Array key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -430,7 +415,6 @@ class Request
 	/**
 	 * Fetch data from the DELETE parameters.
 	 *
-	 * @access public
 	 * @param  string     $key     Array key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -443,7 +427,6 @@ class Request
 	/**
 	 * Fetch unsigned cookie data.
 	 *
-	 * @access public
 	 * @param  string     $name    Cookie name
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -456,7 +439,6 @@ class Request
 	/**
 	 * Fetch signed cookie data.
 	 *
-	 * @access public
 	 * @param  string     $name    Cookie name
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -469,7 +451,6 @@ class Request
 	/**
 	 * Fetch uploaded file.
 	 *
-	 * @access public
 	 * @param  string     $key     Array key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -482,7 +463,6 @@ class Request
 	/**
 	 * Fetch server info.
 	 *
-	 * @access public
 	 * @param  string     $key     Array key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -495,7 +475,6 @@ class Request
 	/**
 	 * Checks if the keys exist in the data of the current request method.
 	 *
-	 * @access public
 	 * @param  string $key Array key
 	 * @return bool
 	 */
@@ -509,7 +488,6 @@ class Request
 	/**
 	 * Fetch data the current request method.
 	 *
-	 * @access public
 	 * @param  string     $key     Array key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -524,7 +502,6 @@ class Request
 	/**
 	 * Returns request data where keys not in the whitelist have been removed.
 	 *
-	 * @access public
 	 * @param  array $keys     Keys to whitelist
 	 * @param  array $defaults Default values
 	 * @return array
@@ -537,7 +514,6 @@ class Request
 	/**
 	 * Returns request data where keys in the blacklist have been removed.
 	 *
-	 * @access public
 	 * @param  array $keys     Keys to whitelist
 	 * @param  array $defaults Default values
 	 * @return array
@@ -550,7 +526,6 @@ class Request
 	/**
 	 * Returns a request header.
 	 *
-	 * @access public
 	 * @param  string     $name    Header name
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -563,7 +538,6 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function acceptableContentTypes(): array
@@ -574,7 +548,6 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function acceptableLanguages(): array
@@ -585,7 +558,6 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function acceptableCharsets(): array
@@ -596,7 +568,6 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function acceptableEncodings(): array
@@ -607,7 +578,6 @@ class Request
 	/**
 	 * Set the trusted proxies.
 	 *
-	 * @access public
 	 * @param array $trustedProxies Array of trusted proxy IP addresses
 	 */
 	public function setTrustedProxies(array $trustedProxies)
@@ -618,7 +588,6 @@ class Request
 	/**
 	 * Returns the ip of the client that made the request.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function ip(): string
@@ -661,7 +630,6 @@ class Request
 	/**
 	 * Returns true if the request was made using Ajax and false if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isAjax(): bool
@@ -672,7 +640,6 @@ class Request
 	/**
 	 * Returns true if the request was made using HTTPS and false if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isSecure(): bool
@@ -683,7 +650,6 @@ class Request
 	/**
 	 * Returns true if the request method is considered safe and false if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isSafe(): bool
@@ -694,7 +660,6 @@ class Request
 	/**
 	 * Is PHP running as a CGI program?
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isCGI(): bool
@@ -705,7 +670,6 @@ class Request
 	/**
 	 * Returns the base url of the request.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function baseURL(): string
@@ -747,7 +711,6 @@ class Request
 	/**
 	 * Returns the request path.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function path(): string
@@ -758,7 +721,6 @@ class Request
 	/**
 	 * Returns the request language.
 	 *
-	 * @access public
 	 * @return null|array
 	 */
 	public function language()
@@ -769,7 +731,6 @@ class Request
 	/**
 	 * Returns the request language prefix.
 	 *
-	 * @access public
 	 * @return null|string
 	 */
 	public function languagePrefix()
@@ -780,7 +741,6 @@ class Request
 	/**
 	 * Returns the request method that was used.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function method(): string
@@ -791,7 +751,6 @@ class Request
 	/**
 	 * Returns the real request method that was used.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function realMethod(): string
@@ -802,7 +761,6 @@ class Request
 	/**
 	 * Returns true if the request method has been faked and false if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isFaked(): bool
@@ -813,7 +771,6 @@ class Request
 	/**
 	 * Returns the basic HTTP authentication username or null.
 	 *
-	 * @access public
 	 * @return null|string
 	 */
 	public function username()
@@ -824,7 +781,6 @@ class Request
 	/**
 	 * Returns the basic HTTP authentication password or null.
 	 *
-	 * @access public
 	 * @return null|string
 	 */
 	public function password()
@@ -835,7 +791,6 @@ class Request
 	/**
 	 * Returns the referer.
 	 *
-	 * @access public
 	 * @param  null|mixed $default Value to return if no referer is set
 	 * @return null|mixed
 	 */

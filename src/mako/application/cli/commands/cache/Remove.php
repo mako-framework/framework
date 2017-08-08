@@ -50,7 +50,6 @@ class Remove extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access public
 	 * @param \mako\cache\CacheManager $cache         Cache manager
 	 * @param string                   $key           Cache Key
 	 * @param null|string              $configuration Configuration name

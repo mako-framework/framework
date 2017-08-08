@@ -28,8 +28,6 @@ class Status extends Command
 
 	/**
 	 * Executes the command.
-	 *
-	 * @access public
 	 */
 	public function execute()
 	{

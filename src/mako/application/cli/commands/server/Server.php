@@ -55,7 +55,6 @@ class Server extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access public
 	 * @param \mako\application\Application $application Application instance
 	 * @param int                           $port        Port
 	 * @param string                        $address     Address

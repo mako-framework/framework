@@ -41,7 +41,6 @@ class Config
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\config\loaders\LoaderInterface $loader      Config loader
 	 * @param null|string                          $environment Environment name
 	 */
@@ -65,7 +64,6 @@ class Config
 	/**
 	 * Returns the currently loaded configuration.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getLoadedConfiguration(): array
@@ -76,7 +74,6 @@ class Config
 	/**
 	 * Sets the environment.
 	 *
-	 * @access public
 	 * @param string $environment Environment name
 	 */
 	public function setEnvironment(string $environment)
@@ -87,7 +84,6 @@ class Config
 	/**
 	 * Parses the language key.
 	 *
-	 * @access protected
 	 * @param  string $key Language key
 	 * @return array
 	 */
@@ -99,7 +95,6 @@ class Config
 	/**
 	 * Loads the configuration file.
 	 *
-	 * @access protected
 	 * @param string $file File name
 	 */
 	protected function load(string $file)
@@ -110,7 +105,6 @@ class Config
 	/**
 	 * Returns config value or entire config array from a file.
 	 *
-	 * @access public
 	 * @param  string     $key     Config key
 	 * @param  null|mixed $default Default value to return if config value doesn't exist
 	 * @return null|mixed
@@ -130,7 +124,6 @@ class Config
 	/**
 	 * Sets a config value.
 	 *
-	 * @access public
 	 * @param string $key   Config key
 	 * @param mixed  $value Config value
 	 */
@@ -149,7 +142,6 @@ class Config
 	/**
 	 * Removes a value from the configuration.
 	 *
-	 * @access public
 	 * @param  string $key Config key
 	 * @return bool
 	 */

@@ -89,7 +89,6 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Returns the normalized driver name.
 	 *
-	 * @access protected
 	 * @param  string $driver Driver name
 	 * @return string
 	 */
@@ -109,7 +108,6 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Returns the connection class.
 	 *
-	 * @access protected
 	 * @param  string $driver Driver name
 	 * @return string
 	 */
@@ -121,7 +119,6 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Retuns the query compiler class.
 	 *
-	 * @access protected
 	 * @param  string $driver Driver name
 	 * @return string
 	 */
@@ -133,7 +130,6 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Retuns the query builder helper class.
 	 *
-	 * @access protected
 	 * @param  string $driver Driver name
 	 * @return string
 	 */
@@ -145,7 +141,6 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Sets a driver alias.
 	 *
-	 * @access public
 	 * @param string       $driver Driver name
 	 * @param string|array $alias  Alias or array of aliases
 	 */
@@ -157,7 +152,6 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Sets a connection class.
 	 *
-	 * @access public
 	 * @param string $driver Driver name
 	 * @param string $class  Connection class
 	 */
@@ -169,7 +163,6 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Sets a query compiler class.
 	 *
-	 * @access public
 	 * @param string $driver Driver name
 	 * @param string $class  Query compiler class
 	 */
@@ -181,7 +174,6 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Sets a query builder helper class.
 	 *
-	 * @access public
 	 * @param string $driver Driver name
 	 * @param string $class  Query builder helper class
 	 */
@@ -193,7 +185,6 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Connects to the chosen database and returns the connection.
 	 *
-	 * @access public
 	 * @param  string                                $connectionName Connection name
 	 * @return \mako\database\connections\Connection
 	 */
@@ -219,8 +210,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Clears the query log of every connection.
-	 *
-	 * @access public
 	 */
 	public function clearLogs()
 	{
@@ -233,7 +222,6 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Returns the query log for all connections.
 	 *
-	 * @access public
 	 * @param  bool  $groupedByConnection Group logs by connection?
 	 * @return array
 	 */
