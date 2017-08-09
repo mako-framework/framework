@@ -489,7 +489,7 @@ abstract class ORM implements JsonSerializable
 				case 'string':
 					return (string) $value;
 				default:
-					throw new RunTimeException(vsprintf("%s::%s(): Unsupported type [ %s ].", [static::class, __FUNCTION__, $cast[$name]]));
+					throw new RuntimeException(vsprintf("%s::%s(): Unsupported type [ %s ].", [static::class, __FUNCTION__, $this->cast[$name]]));
 			}
 		}
 
@@ -593,7 +593,7 @@ abstract class ORM implements JsonSerializable
 		}
 		else
 		{
-			throw new RunTimeException(vsprintf("%s(): Unknown column or relation [ %s ].", [__METHOD__, $name]));
+			throw new RuntimeException(vsprintf("%s(): Unknown column or relation [ %s ].", [__METHOD__, $name]));
 		}
 	}
 
