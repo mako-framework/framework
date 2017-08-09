@@ -7,8 +7,6 @@
 
 namespace mako\security\crypto;
 
-use RuntimeException;
-
 use mako\security\crypto\CryptoException;
 use mako\security\crypto\encrypters\EncrypterInterface;
 use mako\security\Signer;
