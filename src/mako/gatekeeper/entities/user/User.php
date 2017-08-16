@@ -354,7 +354,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	 */
 	public function isLocked(): bool
 	{
-		return $this->locked_until !== null;
+		return $this->locked_until !== null && $this->locked_until->getTimestamp() >= Time::now()->getTimestamp();
 	}
 
 	/**
