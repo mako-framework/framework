@@ -19,7 +19,6 @@ trait FireTrait
 	/**
 	 * Returns path to the reactor executable.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function buildReactorPath(): string
@@ -30,7 +29,6 @@ trait FireTrait
 	/**
 	 * Returns command that we're going to execute.
 	 *
-	 * @access protected
 	 * @param string $command         Command
 	 * @param bool   $background      Is it a background process?
 	 * @param bool   $sameEnvironment Run command using the same environment?
@@ -65,7 +63,6 @@ trait FireTrait
 	/**
 	 * Runs command as a separate process and feeds output to handler.
 	 *
-	 * @access protected
 	 * @param  string   $command         Command
 	 * @param  \Closure $handler         Output handler
 	 * @param  bool     $sameEnvironment Run command using the same environment?
@@ -86,7 +83,6 @@ trait FireTrait
 	/**
 	 * Starts command as a background process.
 	 *
-	 * @access protected
 	 * @param string $command         Command
 	 * @param bool   $sameEnvironment Run command using the same environment?
 	 */

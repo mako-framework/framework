@@ -31,7 +31,6 @@ trait ConfigurableTrait
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string $default        Default connection name
 	 * @param array  $configurations Configurations
 	 */
@@ -45,7 +44,6 @@ trait ConfigurableTrait
 	/**
 	 * Adds a configuration.
 	 *
-	 * @access public
 	 * @param string $name          Connection name
 	 * @param array  $configuration Configuration
 	 */
@@ -58,7 +56,6 @@ trait ConfigurableTrait
 	 * Removes a configuration.
 	 * It will also remove any active connection linked to the configuration.
 	 *
-	 * @access public
 	 * @param string $name Connection name
 	 */
 	public function removeConfiguration(string $name)

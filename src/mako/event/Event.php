@@ -36,7 +36,6 @@ class Event
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param null|\mako\syringe\Container $container IoC container
 	 */
 	public function __construct(Container $container = null)
@@ -47,7 +46,6 @@ class Event
 	/**
 	 * Registers an event handler.
 	 *
-	 * @access public
 	 * @param string          $name    Event name
 	 * @param string|\Closure $handler Event handler
 	 */
@@ -59,7 +57,6 @@ class Event
 	/**
 	 * Returns TRUE if an event listener is registered for the event and FALSE if not.
 	 *
-	 * @access public
 	 * @param  string $name Event name
 	 * @return bool
 	 */
@@ -71,7 +68,6 @@ class Event
 	/**
 	 * Returns an array of all registered events.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function events(): array
@@ -82,7 +78,6 @@ class Event
 	/**
 	 * Clears all events handlers for the specified event.
 	 *
-	 * @access public
 	 * @param string $name Event name
 	 */
 	public function clear(string $name)
@@ -93,7 +88,6 @@ class Event
 	/**
 	 * Overrides an event.
 	 *
-	 * @access public
 	 * @param string          $name    Event name
 	 * @param string|\Closure $handler Event handler
 	 */
@@ -107,7 +101,6 @@ class Event
 	/**
 	 * Executes a closure handler and returns the response.
 	 *
-	 * @access protected
 	 * @param  \Closure $handler    Event handler
 	 * @param  array    $parameters Parameters
 	 * @return mixed
@@ -120,7 +113,6 @@ class Event
 	/**
 	 * Resolves a class handler.
 	 *
-	 * @access protected
 	 * @param  string                            $handler Event handler class
 	 * @return \mako\event\EventHandlerInterface
 	 */
@@ -132,7 +124,6 @@ class Event
 	/**
 	 * Executes a class handler and returns the response.
 	 *
-	 * @access protected
 	 * @param  \mako\event\EventHandlerInterface $handler    Event handler
 	 * @param  array                             $parameters Parameters
 	 * @return mixed
@@ -145,7 +136,6 @@ class Event
 	/**
 	 * Executes the event handler and returns the response.
 	 *
-	 * @access protected
 	 * @param  string|\Closure $handler    Event handler
 	 * @param  array           $parameters Parameters
 	 * @return mixed
@@ -166,7 +156,6 @@ class Event
 	 * Runs all closures for an event and returns an array
 	 * contaning the return values of each event handler.
 	 *
-	 * @access public
 	 * @param  string $name       Event name
 	 * @param  array  $parameters Parameters
 	 * @param  bool   $break      Break if one of the closures returns false?

@@ -19,7 +19,6 @@ trait ReadOnlyTrait
 	/**
 	 * Returns trait hooks.
 	 *
-	 * @access protected
 	 * @return array
 	 */
 	protected function getReadOnlyTraitHooks(): array

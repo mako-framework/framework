@@ -20,8 +20,6 @@ class ZendDisk extends Store
 {
 	/**
 	 * Constructor.
-	 *
-	 * @access public
 	 */
 	public function __construct()
 	{

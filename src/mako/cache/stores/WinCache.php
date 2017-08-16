@@ -20,8 +20,6 @@ class WinCache extends Store
 {
 	/**
 	 * Constructor.
-	 *
-	 * @access public
 	 */
 	public function __construct()
 	{

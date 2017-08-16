@@ -17,7 +17,6 @@ trait JsonPathBuilderTrait
 	/**
 	 * Builds a JSON path.
 	 *
-	 * @access protected
 	 * @param  array  $segments Path segments
 	 * @return string
 	 */

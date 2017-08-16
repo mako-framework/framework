@@ -87,7 +87,6 @@ abstract class Command
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\cli\input\Input   $input  Input
 	 * @param \mako\cli\output\Output $output Output
 	 */
@@ -106,7 +105,6 @@ abstract class Command
 	/**
 	 * Returns the command description.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getCommandDescription(): string
@@ -117,7 +115,6 @@ abstract class Command
 	/**
 	 * Returns the command arguments.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getCommandArguments(): array
@@ -128,7 +125,6 @@ abstract class Command
 	/**
 	 * Returns the command options.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getCommandOptions(): array
@@ -139,7 +135,6 @@ abstract class Command
 	/**
 	 * Returns TRUE we should be strict about what arguments and options we allow and FALSE if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isStrict(): bool
@@ -150,7 +145,6 @@ abstract class Command
 	/**
 	 * Returns TRUE of the command should be executed and FALSE if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function shouldExecute(): bool
@@ -161,7 +155,6 @@ abstract class Command
 	/**
 	 * Draws an info table.
 	 *
-	 * @access protected
 	 * @param array $items Items
 	 */
 	protected function drawInfoTable(array $items)
@@ -180,8 +173,6 @@ abstract class Command
 
 	/**
 	 * Displays command details.
-	 *
-	 * @access protected
 	 */
 	protected function displayCommandDetails()
 	{
@@ -227,7 +218,6 @@ abstract class Command
 	/**
 	 * Writes n newlines to output.
 	 *
-	 * @access protected
 	 * @param int $lines  Number of newlines to write
 	 * @param int $writer Output writer
 	 */
@@ -239,7 +229,6 @@ abstract class Command
 	/**
 	 * Writes string to output.
 	 *
-	 * @access protected
 	 * @param string $string String to write
 	 * @param int    $writer Output writer
 	 */
@@ -251,7 +240,6 @@ abstract class Command
 	/**
 	 * Writes string to output using the error writer.
 	 *
-	 * @access protected
 	 * @param string $string String to write
 	 */
 	protected function error(string $string)
@@ -261,8 +249,6 @@ abstract class Command
 
 	/**
 	 * Clears the screen.
-	 *
-	 * @access protected
 	 */
 	protected function clear()
 	{
@@ -272,7 +258,6 @@ abstract class Command
 	/**
 	 * Rings the terminal bell n times.
 	 *
-	 * @access protected
 	 * @param int $times Number of times to ring the bell
 	 */
 	protected function bell(int $times = 1)
@@ -283,7 +268,6 @@ abstract class Command
 	/**
 	 * Counts down from n.
 	 *
-	 * @access protected
 	 * @param int $from Number of seconds to count down
 	 */
 	protected function countdown(int $from = 5)
@@ -294,9 +278,8 @@ abstract class Command
 	/**
 	 * Draws a progress bar and returns a progress bar instance.
 	 *
-	 * @access protected
 	 * @param  int                                  $items      Total number of items
-	 * @param  int                                  $redrawRate Redraw rate
+	 * @param  null|int                             $redrawRate Redraw rate
 	 * @return \mako\cli\output\helpers\ProgressBar
 	 */
 	protected function progressBar(int $items, int $redrawRate = null): ProgressBar
@@ -317,7 +300,6 @@ abstract class Command
 	/**
 	 * Draws a table.
 	 *
-	 * @access protected
 	 * @param array $columnNames Array of column names
 	 * @param array $rows        Array of rows
 	 * @param int   $writer      Output writer
@@ -329,7 +311,7 @@ abstract class Command
 
 	/**
 	 * Draws an ordered list.
-	 * @access protected
+	 *
 	 * @param array  $items  Items
 	 * @param string $marker Item marker
 	 * @param int    $writer Output writer
@@ -341,7 +323,7 @@ abstract class Command
 
 	/**
 	 * Draws an unordered list.
-	 * @access protected
+	 *
 	 * @param array  $items  Items
 	 * @param string $marker Item marker
 	 * @param int    $writer Output writer
@@ -354,7 +336,6 @@ abstract class Command
 	/**
 	 * Writes question to output and returns boolesn value corresponding to the chosen value.
 	 *
-	 * @access protected
 	 * @param  string $question Question to ask
 	 * @param  string $default  Default answer
 	 * @return bool
@@ -367,7 +348,6 @@ abstract class Command
 	/**
 	 * Writes question to output and returns user input.
 	 *
-	 * @access protected
 	 * @param  string     $question Question to ask
 	 * @param  null|mixed $default  Default if no input is entered
 	 * @return null|mixed
@@ -380,7 +360,6 @@ abstract class Command
 	/**
 	 * Writes question to output and returns hidden user input.
 	 *
-	 * @access protected
 	 * @param  string     $question Question to ask
 	 * @param  null|mixed $default  Default if no input is entered
 	 * @param  bool       $fallback Fall back to non-hidden input?

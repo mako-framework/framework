@@ -8,15 +8,14 @@
 namespace mako\cli\input\helpers;
 
 use mako\cli\input\helpers\Question;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
 
 /**
  * Confirmation helper.
  *
  * @author Frederic G. Østby
  */
-use mako\cli\input\Input;
-use mako\cli\output\Output;
-
 class Confirmation extends Question
 {
 	/**
@@ -36,7 +35,6 @@ class Confirmation extends Question
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\cli\input\Input   $input  Input instance
 	 * @param \mako\cli\output\Output $output Output instance
 	 */
@@ -50,7 +48,6 @@ class Confirmation extends Question
 	/**
 	 * Returns an array where all array keys lower case.
 	 *
-	 * @access protected
 	 * @param  array $array Array
 	 * @return array
 	 */
@@ -69,7 +66,6 @@ class Confirmation extends Question
 	/**
 	 * Returns a slash-separated list of valid options where the default one is highlighted as upper-case.
 	 *
-	 * @access public
 	 * @param  array  $options Answer options
 	 * @param  string $default Default answer
 	 * @return string
@@ -89,10 +85,9 @@ class Confirmation extends Question
 	/**
 	 * Asks user for confirmation and returns value corresponding to the chosen value.
 	 *
-	 * @access public
-	 * @param  string $question Question to ask
-	 * @param  string $default  Default answer
-	 * @param  array  $options  Answer options
+	 * @param  string     $question Question to ask
+	 * @param  string     $default  Default answer
+	 * @param  null|array $options  Answer options
 	 * @return bool
 	 */
 	public function ask(string $question, $default = 'n', array $options = null)

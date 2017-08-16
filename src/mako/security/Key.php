@@ -17,7 +17,6 @@ class Key
 	/**
 	 * Converts a binary key into its hexadecimal representation.
 	 *
-	 * @access public
 	 * @param  string $key Binary key
 	 * @return string
 	 */
@@ -29,7 +28,6 @@ class Key
 	/**
 	 * Converts a hexadecimal key into its binary representation.
 	 *
-	 * @access public
 	 * @param  string $key Encoded key
 	 * @return string
 	 */
@@ -46,7 +44,6 @@ class Key
 	/**
 	 * Generates a key.
 	 *
-	 * @access public
 	 * @param  int    $length Key length
 	 * @return string
 	 */
@@ -58,7 +55,6 @@ class Key
 	/**
 	 * Generates a hex encoded key.
 	 *
-	 * @access public
 	 * @param  int    $length Key length
 	 * @return string
 	 */

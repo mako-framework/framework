@@ -32,7 +32,6 @@ class Command extends BaseCommand
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\cli\input\Input   $input  Input
 	 * @param \mako\cli\output\Output $output Output
 	 * @param \mako\config\Config     $config Config
@@ -47,7 +46,6 @@ class Command extends BaseCommand
 	/**
 	 * Checks if the configuration exists.
 	 *
-	 * @access protected
 	 * @param  string $configuration Configuration name
 	 * @return bool
 	 */

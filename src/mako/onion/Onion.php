@@ -9,7 +9,6 @@ namespace mako\onion;
 
 use Closure;
 
-use mako\onion\Core;
 use mako\syringe\Container;
 
 /**
@@ -50,7 +49,6 @@ class Onion
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param null|\mako\syringe\Container $container Container
 	 * @param null|string                  $method    Method to call on the decoracted class
 	 */
@@ -64,7 +62,6 @@ class Onion
 	/**
 	 * Add a new middleware layer.
 	 *
-	 * @access public
 	 * @param  string     $class      Class
 	 * @param  null|array $parameters Constructor parameters
 	 * @param  bool       $inner      Add an inner layer?
@@ -80,7 +77,6 @@ class Onion
 	/**
 	 * Add a inner layer to the middleware stack.
 	 *
-	 * @access public
 	 * @param  string     $class      Class
 	 * @param  null|array $parameters Constructor parameters
 	 * @return int
@@ -93,7 +89,6 @@ class Onion
 	/**
 	 * Add an outer layer to the middleware stack.
 	 *
-	 * @access public
 	 * @param  string     $class      Class
 	 * @param  null|array $parameters Constructor parameters
 	 * @return int
@@ -106,7 +101,6 @@ class Onion
 	/**
 	 * Builds the core closure.
 	 *
-	 * @access protected
 	 * @param  object   $object The object that we're decorating
 	 * @return \Closure
 	 */
@@ -123,7 +117,6 @@ class Onion
 	/**
 	 * Builds a layer closure.
 	 *
-	 * @access protected
 	 * @param  object   $layer Middleware object
 	 * @param  \Closure $next  The next middleware layer
 	 * @return \Closure
@@ -139,7 +132,6 @@ class Onion
 	/**
 	 * Returns the constructor parameters of the requested middleware.
 	 *
-	 * @access protected
 	 * @param  array  $parameters Parameters array
 	 * @param  string $middleware Middleware name
 	 * @return array
@@ -152,7 +144,6 @@ class Onion
 	/**
 	 * Executes the middleware stack.
 	 *
-	 * @access public
 	 * @param  object $object               The object that we're decorating
 	 * @param  array  $parameters           Parameters
 	 * @param  array  $middlewareParameters Middleware constructor parameters

@@ -127,7 +127,6 @@ class Connection
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string $name               Connection name
 	 * @param string $queryCompiler      Query compiler
 	 * @param string $queryBuilderHelper Query builder helper
@@ -169,7 +168,6 @@ class Connection
 	/**
 	 * Returns the connection name.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getName(): string
@@ -180,7 +178,6 @@ class Connection
 	/**
 	 * Returns a query builder helper instance.
 	 *
-	 * @access public
 	 * @return \mako\database\query\helpers\HelperInterface
 	 */
 	public function getQueryBuilderHelper(): HelperInterface
@@ -193,7 +190,6 @@ class Connection
 	/**
 	 * Returns a query compiler instance.
 	 *
-	 * @access public
 	 * @param  \mako\database\query\Query              $query Query
 	 * @return \mako\database\query\compilers\Compiler
 	 */
@@ -207,7 +203,6 @@ class Connection
 	/**
 	 * Returns the PDO instance.
 	 *
-	 * @access public
 	 * @return \PDO
 	 */
 	public function getPDO(): PDO
@@ -217,8 +212,6 @@ class Connection
 
 	/**
 	 * Enables the query log.
-	 *
-	 * @access public
 	 */
 	public function enableLog()
 	{
@@ -227,8 +220,6 @@ class Connection
 
 	/**
 	 * Disables the query log.
-	 *
-	 * @access public
 	 */
 	public function disableLog()
 	{
@@ -238,7 +229,6 @@ class Connection
 	/**
 	 * Returns the connection options.
 	 *
-	 * @access protected
 	 * @return array
 	 */
 	protected function getConnectionOptions(): array
@@ -256,7 +246,6 @@ class Connection
 	/**
 	 * Creates a PDO instance.
 	 *
-	 * @access protected
 	 * @return \PDO
 	 */
 	protected function connect(): PDO
@@ -286,8 +275,6 @@ class Connection
 
 	/**
 	 * Creates a new PDO instance.
-	 *
-	 * @access public
 	 */
 	public function reconnect()
 	{
@@ -297,7 +284,6 @@ class Connection
 	/**
 	 * Checks if the connection is alive.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isAlive(): bool
@@ -317,7 +303,6 @@ class Connection
 	/**
 	 * Prepares query for logging.
 	 *
-	 * @access protected
 	 * @param  string $query  SQL query
 	 * @param  array  $params Query paramaters
 	 * @return string
@@ -354,7 +339,6 @@ class Connection
 	/**
 	 * Adds a query to the query log.
 	 *
-	 * @access protected
 	 * @param string $query  SQL query
 	 * @param array  $params Query parameters
 	 * @param float  $start  Start time in microseconds
@@ -370,8 +354,6 @@ class Connection
 
 	/**
 	 * Clears the query log.
-	 *
-	 * @access public
 	 */
 	public function clearLog()
 	{
@@ -381,7 +363,6 @@ class Connection
 	/**
 	 * Returns the query log for the connection.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getLog(): array
@@ -392,7 +373,6 @@ class Connection
 	/**
 	 * Prepare query and params.
 	 *
-	 * @access protected
 	 * @param  string $query  SQL Query
 	 * @param  array  $params Query parameters
 	 * @return array
@@ -426,7 +406,6 @@ class Connection
 	/**
 	 * Should we try to reestablish the connection?
 	 *
-	 * @access protected
 	 * @return bool
 	 */
 	protected function isConnectionLostAndShouldItBeReestablished(): bool
@@ -437,7 +416,6 @@ class Connection
 	/**
 	 * Binds parameter to the prepared statement.
 	 *
-	 * @access protected
 	 * @param \PDOStatement $statement PDO statement
 	 * @param int           $key       Parameter key
 	 * @param mixed         $value     Parameter value
@@ -480,7 +458,6 @@ class Connection
 	/**
 	 * Prepares a query.
 	 *
-	 * @access protected
 	 * @param  string $query  SQL query
 	 * @param  array  $params Query parameters
 	 * @return array
@@ -526,7 +503,6 @@ class Connection
 	/**
 	 * Executes the prepared query and returns TRUE on success or FALSE on failure.
 	 *
-	 * @access protected
 	 * @param  array $prepared Prepared query
 	 * @return bool
 	 */
@@ -550,7 +526,6 @@ class Connection
 	/**
 	 * Executes the query and returns TRUE on success or FALSE on failure.
 	 *
-	 * @access public
 	 * @param  string $query  SQL query
 	 * @param  array  $params Query parameters
 	 * @return bool
@@ -563,7 +538,6 @@ class Connection
 	/**
 	 * Executes the query and return number of affected rows.
 	 *
-	 * @access public
 	 * @param  string $query  SQL query
 	 * @param  array  $params Query parameters
 	 * @return int
@@ -580,7 +554,6 @@ class Connection
 	/**
 	 * Returns the value of the first column of the first row of the result set.
 	 *
-	 * @access public
 	 * @param  string $query  SQL query
 	 * @param  array  $params Query parameters
 	 * @return mixed
@@ -597,7 +570,6 @@ class Connection
 	/**
 	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
 	 *
-	 * @access public
 	 * @param  string $query  SQL query
 	 * @param  array  $params Query parameters
 	 * @return array
@@ -610,7 +582,6 @@ class Connection
 	/**
 	 * Returns the first row of the result set.
 	 *
-	 * @access public
 	 * @param string $query  SQL query
 	 * @param array  $params Query params
 	 * @param   mixed     ...$fetchMode  Fetch mode
@@ -633,7 +604,6 @@ class Connection
 	/**
 	 * Returns an array containing all of the result set rows.
 	 *
-	 * @access public
 	 * @param string $query  SQL query
 	 * @param array  $params Query parameters
 	 * @param   mixed     ...$fetchMode  Fetch mode
@@ -651,7 +621,6 @@ class Connection
 	/**
 	 * Returns a generator that lets you iterate over the results.
 	 *
-	 * @access public
 	 * @param string $query  SQL query
 	 * @param array  $params Query params
 	 * @param   mixed       ...$fetchMode  Fetch mode
@@ -684,7 +653,6 @@ class Connection
 	/**
 	 * Returns a query builder instance.
 	 *
-	 * @access public
 	 * @return \mako\database\query\Query
 	 */
 	public function builder(): Query
@@ -695,7 +663,6 @@ class Connection
 	/**
 	 * Returns a query builder instance where we have already chosen the table we want to query.
 	 *
-	 * @access public
 	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
 	 * @return \mako\database\query\Query
 	 */
@@ -707,7 +674,6 @@ class Connection
 	/**
 	 * Creates a new savepoint.
 	 *
-	 * @access protected
 	 * @return bool
 	 */
 	protected function createSavepoint(): bool
@@ -718,7 +684,6 @@ class Connection
 	/**
 	 * Rolls back to the previously created savepoint.
 	 *
-	 * @access protected
 	 * @return bool
 	 */
 	protected function rollBackSavepoint(): bool
@@ -729,7 +694,6 @@ class Connection
 	/**
 	 * Begin a transaction.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function beginTransaction(): bool
@@ -745,7 +709,6 @@ class Connection
 	/**
 	 * Commits a transaction.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function commitTransaction(): bool
@@ -761,7 +724,6 @@ class Connection
 	/**
 	 * Roll back a transaction.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function rollBackTransaction(): bool
@@ -788,7 +750,6 @@ class Connection
 	/**
 	 * Returns the transaction nesting level.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function getTransactionNestingLevel(): int
@@ -799,7 +760,6 @@ class Connection
 	/**
 	 * Returns TRUE if we're in a transaction and FALSE if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function inTransaction(): bool
@@ -810,7 +770,6 @@ class Connection
 	/**
 	 * Executes queries and rolls back the transaction if any of them fail.
 	 *
-	 * @access public
 	 * @param  \Closure $queries Queries
 	 * @return mixed
 	 */

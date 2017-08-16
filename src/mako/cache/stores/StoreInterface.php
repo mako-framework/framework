@@ -17,7 +17,6 @@ interface StoreInterface
 	/**
 	 * Store data in the cache.
 	 *
-	 * @access public
 	 * @param  string $key  Cache key
 	 * @param  mixed  $data The data to store
 	 * @param  int    $ttl  Time to live
@@ -28,7 +27,6 @@ interface StoreInterface
 	/**
 	 * Store data in the cache if it doesn't already exist.
 	 *
-	 * @access public
 	 * @param  string $key  Cache key
 	 * @param  mixed  $data The data to store
 	 * @param  int    $ttl  Time to live
@@ -39,7 +37,6 @@ interface StoreInterface
 	/**
 	 * Returns TRUE if the cache key exists and FALSE if not.
 	 *
-	 * @access public
 	 * @param  string $key Cache key
 	 * @return bool
 	 */
@@ -48,7 +45,6 @@ interface StoreInterface
 	/**
 	 * Fetch data from the cache.
 	 *
-	 * @access public
 	 * @param  string $key Cache key
 	 * @return mixed
 	 */
@@ -57,7 +53,6 @@ interface StoreInterface
 	/**
 	 * Fetch data from the cache or store it if it doesn't already exist.
 	 *
-	 * @access public
 	 * @param  string   $key      Cache key
 	 * @param  callable $callable Callable that returns the data we want to store
 	 * @param  int      $ttl      Time to live
@@ -68,7 +63,6 @@ interface StoreInterface
 	/**
 	 * Delete data from the cache.
 	 *
-	 * @access public
 	 * @param  string $key Cache key
 	 * @return bool
 	 */
@@ -77,7 +71,6 @@ interface StoreInterface
 	/**
 	 * Clears the cache.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function clear(): bool;

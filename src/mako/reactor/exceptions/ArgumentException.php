@@ -28,7 +28,6 @@ class ArgumentException extends ReactorException
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string          $message  The Exception message to throw
 	 * @param string          $name     Argument name
 	 * @param int             $code     The Exception code
@@ -44,7 +43,6 @@ class ArgumentException extends ReactorException
 	/**
 	 * Returns the name of the missing argument.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getName(): string

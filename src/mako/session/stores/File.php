@@ -41,7 +41,6 @@ class File implements StoreInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\file\FileSystem $fileSystem     File system instance
 	 * @param string                $sessionPath    Session path
 	 * @param bool|array            $classWhitelist Class whitelist
@@ -58,7 +57,6 @@ class File implements StoreInterface
 	/**
 	 * Returns the path to the session file.
 	 *
-	 * @access protected
 	 * @param  string $sessionId Session id
 	 * @return string
 	 */

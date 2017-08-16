@@ -72,7 +72,6 @@ class Session extends Adapter
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\gatekeeper\repositories\user\UserRepository   $userRepository  User repository
 	 * @param \mako\gatekeeper\repositories\group\GroupRepository $groupRepository Group repository
 	 * @param \mako\http\Request                                  $request         Request instance
@@ -159,7 +158,6 @@ class Session extends Adapter
 	 * Returns true if the email + password combination matches and the user is activated and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @access protected
 	 * @param  string   $identifier User email or username
 	 * @param  string   $password   User password
 	 * @param  bool     $force      Skip the password check?
@@ -214,7 +212,6 @@ class Session extends Adapter
 	 * Returns true if the identifier + password combination matches and the user is activated and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @access public
 	 * @param  string   $identifier User identifier
 	 * @param  string   $password   User password
 	 * @param  bool     $remember   Set a remember me cookie?
@@ -252,7 +249,6 @@ class Session extends Adapter
 	/**
 	 * Login a user without checking the password.
 	 *
-	 * @access public
 	 * @param  mixed $identifier User email or username
 	 * @param  bool  $remember   Set a remember me cookie?
 	 * @return bool
@@ -265,7 +261,6 @@ class Session extends Adapter
 	/**
 	 * Returns a basic authentication response if login is required and null if not.
 	 *
-	 * @access public
 	 * @param  bool $clearResponse Clear all previously set headers and cookies from the response?
 	 * @return bool
 	 */
@@ -290,8 +285,6 @@ class Session extends Adapter
 
 	/**
 	 * Logs the user out.
-	 *
-	 * @access public
 	 */
 	public function logout()
 	{

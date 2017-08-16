@@ -25,7 +25,6 @@ class SessionService extends Service
 	/**
 	 * Returns a database store instance.
 	 *
-	 * @access protected
 	 * @param  \mako\syringe\Container       $container      IoC container instance
 	 * @param  array                         $config         Store configuration
 	 * @param  bool|array                    $classWhitelist Class whitelist
@@ -39,7 +38,6 @@ class SessionService extends Service
 	/**
 	 * Returns a file store instance.
 	 *
-	 * @access protected
 	 * @param  \mako\syringe\Container   $container      IoC container instance
 	 * @param  array                     $config         Store configuration
 	 * @param  bool|array                $classWhitelist Class whitelist
@@ -53,7 +51,6 @@ class SessionService extends Service
 	/**
 	 * Returns a null store instance.
 	 *
-	 * @access protected
 	 * @param  \mako\syringe\Container        $container      IoC container instance
 	 * @param  array                          $config         Store configuration
 	 * @param  bool|array                     $classWhitelist Class whitelist
@@ -67,7 +64,6 @@ class SessionService extends Service
 	/**
 	 * Returns a redis store instance.
 	 *
-	 * @access protected
 	 * @param  \mako\syringe\Container    $container      IoC container instance
 	 * @param  array                      $config         Store configuration
 	 * @param  bool|array                 $classWhitelist Class whitelist
@@ -81,7 +77,6 @@ class SessionService extends Service
 	/**
 	 * Returns a session store instance.
 	 *
-	 * @access protected
 	 * @param  \mako\syringe\Container             $container      IoC container instance
 	 * @param  array                               $config         Session configuration
 	 * @param  bool|array                          $classWhitelist Class whitelist

@@ -27,7 +27,6 @@ trait ControllerHelperTrait
 	/**
 	 * Returns a file response container.
 	 *
-	 * @access public
 	 * @param  string                           $file File path
 	 * @return \mako\http\response\senders\File
 	 */
@@ -39,7 +38,6 @@ trait ControllerHelperTrait
 	/**
 	 * Returns a redirect response container.
 	 *
-	 * @access public
 	 * @param  string                               $location    Location
 	 * @param  array                                $routeParams Route parameters
 	 * @param  array                                $queryParams Associative array used to build URL-encoded query string
@@ -60,7 +58,6 @@ trait ControllerHelperTrait
 	/**
 	 * Returns a stream response container.
 	 *
-	 * @access public
 	 * @param  \Closure                           $stream Stream
 	 * @return \mako\http\response\senders\Stream
 	 */

@@ -53,7 +53,6 @@ class Compiler
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\database\query\Query $query Query builder
 	 */
 	public function __construct(Query $query)
@@ -64,7 +63,6 @@ class Compiler
 	/**
 	 * Sets the date format.
 	 *
-	 * @access public
 	 * @param  string $dateFormat Date format
 	 * @return string
 	 */
@@ -76,7 +74,6 @@ class Compiler
 	/**
 	 * Gets the date format.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public static function getDateFormat(): string
@@ -87,7 +84,6 @@ class Compiler
 	/**
 	 * Compiles a raw SQL statement.
 	 *
-	 * @access protected
 	 * @param  \mako\database\query\Raw $raw Raw SQL
 	 * @return string
 	 */
@@ -106,7 +102,6 @@ class Compiler
 	/**
 	 * Compiles subquery, merges parameters and returns subquery SQL.
 	 *
-	 * @access protected
 	 * @param  \mako\database\query\Subquery $query   Subquery container
 	 * @param  bool                          $enclose Should the query be enclosed in parentheses?
 	 * @return string
@@ -123,7 +118,6 @@ class Compiler
 	/**
 	 * Returns an escaped identifier.
 	 *
-	 * @access public
 	 * @param  string $identifier Identifier to escape
 	 * @return string
 	 */
@@ -135,7 +129,6 @@ class Compiler
 	/**
 	 * Returns an array of escaped identifiers.
 	 *
-	 * @access public
 	 * @param  array $identifiers Identifiers to escape
 	 * @return array
 	 */
@@ -147,7 +140,6 @@ class Compiler
 	/**
 	 * Does the string have a JSON path?
 	 *
-	 * @access protected
 	 * @param  string $string String
 	 * @return bool
 	 */
@@ -159,7 +151,6 @@ class Compiler
 	/**
 	 * Builds a JSON value getter.
 	 *
-	 * @access protected
 	 * @param  string $column   Column name
 	 * @param  array  $segments JSON path segments
 	 * @return string
@@ -172,7 +163,6 @@ class Compiler
 	/**
 	 * Builds a JSON value setter.
 	 *
-	 * @access protected
 	 * @param  string $column   Column name
 	 * @param  array  $segments JSON path segments
 	 * @param  string $param    Parameter
@@ -186,7 +176,6 @@ class Compiler
 	/**
 	 * Escapes a table name.
 	 *
-	 * @access public
 	 * @param  string $table Table name
 	 * @return string
 	 */
@@ -205,7 +194,6 @@ class Compiler
 	/**
 	 * Compiles set operations.
 	 *
-	 * @access protected
 	 * @param  array  $setOperations Set operations
 	 * @return string
 	 */
@@ -229,7 +217,6 @@ class Compiler
 	/**
 	 * Compiles a table.
 	 *
-	 * @access public
 	 * @param  mixed  $table Table
 	 * @return string
 	 */
@@ -256,7 +243,6 @@ class Compiler
 	/**
 	 * Escapes a column name.
 	 *
-	 * @access public
 	 * @param  string $column Column name
 	 * @return string
 	 */
@@ -282,11 +268,10 @@ class Compiler
 	/**
 	 * Compiles a column name.
 	 *
-	 * @access protected
-	 * @param   string     Column name
+	 * @param  string $column Column name
 	 * @return string
 	 */
-	protected function compileColumnName(string  $column): string
+	protected function compileColumnName(string $column): string
 	{
 		if($this->hasJsonPath($column))
 		{
@@ -303,7 +288,6 @@ class Compiler
 	/**
 	 * Compiles a column.
 	 *
-	 * @access public
 	 * @param  mixed  $column     Column
 	 * @param  bool   $allowAlias Allow aliases?
 	 * @return string
@@ -331,7 +315,6 @@ class Compiler
 	/**
 	 * Returns a comma-separated list of compiled columns.
 	 *
-	 * @access public
 	 * @param  array  $columns    Array of columns
 	 * @param  bool   $allowAlias Allow aliases?
 	 * @return string
@@ -351,7 +334,6 @@ class Compiler
 	/**
 	 * Compiles the FROM clause.
 	 *
-	 * @access protected
 	 * @param  mixed  $table Table
 	 * @return string
 	 */
@@ -363,7 +345,6 @@ class Compiler
 	/**
 	 * Returns raw SQL or a paramter placeholder.
 	 *
-	 * @access protected
 	 * @param  mixed  $param   Parameter
 	 * @param  bool   $enclose Should subqueries be enclosed in parentheses?
 	 * @return string
@@ -393,7 +374,6 @@ class Compiler
 	/**
 	 * Returns a comma-separated list of parameters.
 	 *
-	 * @access protected
 	 * @param  array  $params  Array of parameters
 	 * @param  bool   $enclose Should subqueries be enclosed in parentheses?
 	 * @return string
@@ -413,7 +393,6 @@ class Compiler
 	/**
 	 * Compiles BETWEEN clauses.
 	 *
-	 * @access protected
 	 * @param  array  $where Where clause
 	 * @return string
 	 */
@@ -425,7 +404,6 @@ class Compiler
 	/**
 	 * Compiles IN clauses.
 	 *
-	 * @access protected
 	 * @param  array  $where Where clause
 	 * @return string
 	 */
@@ -439,7 +417,6 @@ class Compiler
 	/**
 	 * Compiles IS NULL clauses.
 	 *
-	 * @access protected
 	 * @param  array  $where Where clause
 	 * @return string
 	 */
@@ -451,7 +428,6 @@ class Compiler
 	/**
 	 * Compiles EXISTS clauses.
 	 *
-	 * @access protected
 	 * @param  array  $where Exists clause
 	 * @return string
 	 */
@@ -463,7 +439,6 @@ class Compiler
 	/**
 	 * Compiles WHERE conditions.
 	 *
-	 * @access protected
 	 * @param  array  $where Where clause
 	 * @return string
 	 */
@@ -475,7 +450,6 @@ class Compiler
 	/**
 	 * Compiles a raw WHERE condition.
 	 *
-	 * @access protected
 	 * @param  array  $where Where clause
 	 * @return string
 	 */
@@ -487,7 +461,6 @@ class Compiler
 	/**
 	 * Compiles nested WHERE conditions.
 	 *
-	 * @access protected
 	 * @param  array  $where Where clause
 	 * @return string
 	 */
@@ -499,7 +472,6 @@ class Compiler
 	/**
 	 * Compiles WHERE conditions.
 	 *
-	 * @access protected
 	 * @param  array  $wheres Where conditions
 	 * @return string
 	 */
@@ -522,7 +494,6 @@ class Compiler
 	/**
 	 * Compiles WHERE clauses.
 	 *
-	 * @access protected
 	 * @param  array  $wheres Array of where clauses
 	 * @return string
 	 */
@@ -539,7 +510,6 @@ class Compiler
 	/**
 	 * Compiles a JOIN condition.
 	 *
-	 * @access protected
 	 * @param  array  $condition Join condition
 	 * @return string
 	 */
@@ -551,7 +521,6 @@ class Compiler
 	/**
 	 * Compiles nested JOIN condition.
 	 *
-	 * @access protected
 	 * @param  array  $condition Join condition
 	 * @return string
 	 */
@@ -565,7 +534,6 @@ class Compiler
 	/**
 	 * Compiles JOIN conditions.
 	 *
-	 * @access protected
 	 * @param  \mako\database\query\Join $join Join
 	 * @return string
 	 */
@@ -588,7 +556,6 @@ class Compiler
 	/**
 	 * Compiles JOIN clauses.
 	 *
-	 * @access protected
 	 * @param  array  $joins Array of joins
 	 * @return string
 	 */
@@ -612,7 +579,6 @@ class Compiler
 	/**
 	 * Compiles GROUP BY clauses.
 	 *
-	 * @access protected
 	 * @param  array  $groupings Array of column names
 	 * @return string
 	 */
@@ -624,7 +590,6 @@ class Compiler
 	/**
 	 * Compiles ORDER BY clauses.
 	 *
-	 * @access protected
 	 * @param  array  $orderings Array of order by clauses
 	 * @return string
 	 */
@@ -648,7 +613,6 @@ class Compiler
 	/**
 	 * Compiles HAVING conditions.
 	 *
-	 * @access protected
 	 * @param  array  $havings Having conditions
 	 * @return string
 	 */
@@ -671,7 +635,6 @@ class Compiler
 	/**
 	 * Compiles HAVING clauses.
 	 *
-	 * @access protected
 	 * @param  array  $havings Array of having clauses
 	 * @return string
 	 */
@@ -688,7 +651,6 @@ class Compiler
 	/**
 	 * Compiles LIMIT clauses.
 	 *
-	 * @access protected
 	 * @param  null|int $limit Limit
 	 * @return string
 	 */
@@ -700,7 +662,6 @@ class Compiler
 	/**
 	 * Compiles OFFSET clauses.
 	 *
-	 * @access protected
 	 * @param  null|int $offset Limit
 	 * @return string
 	 */
@@ -712,7 +673,6 @@ class Compiler
 	/**
 	 * Compiles locking clause.
 	 *
-	 * @access protected
 	 * @param   null|bool|string
 	 * @return string
 	 */
@@ -724,7 +684,6 @@ class Compiler
 	/**
 	 * Compiles a SELECT query.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function select(): array
@@ -749,7 +708,6 @@ class Compiler
 	/**
 	 * Compiles a INSERT query.
 	 *
-	 * @access public
 	 * @param  array $values Array of values
 	 * @return array
 	 */
@@ -768,7 +726,6 @@ class Compiler
 	/**
 	 * Compiles update columns.
 	 *
-	 * @access protected
 	 * @param  array  $columns Associative array of columns and values
 	 * @return string
 	 */
@@ -800,7 +757,6 @@ class Compiler
 	/**
 	 * Compiles a UPDATE query.
 	 *
-	 * @access public
 	 * @param  array $values Array of values
 	 * @return array
 	 */
@@ -819,7 +775,6 @@ class Compiler
 	/**
 	 * Compiles a DELETE query.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function delete(): array

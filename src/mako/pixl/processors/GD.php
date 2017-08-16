@@ -53,8 +53,6 @@ class GD implements ProcessorInterface
 
 	/**
 	 * Constructor.
-	 *
-	 * @access public
 	 */
 	public function __construct()
 	{
@@ -63,8 +61,6 @@ class GD implements ProcessorInterface
 
 	/**
 	 * Destructor.
-	 *
-	 * @access public
 	 */
 	public function __destruct()
 	{
@@ -82,7 +78,6 @@ class GD implements ProcessorInterface
 	/**
 	 * Collects information about the image.
 	 *
-	 * @access protected
 	 * @param  string   $file Path to image file
 	 * @return resource
 	 */
@@ -101,7 +96,6 @@ class GD implements ProcessorInterface
 	/**
 	 * Creates an image resource that we can work with.
 	 *
-	 * @access protected
 	 * @param  string   $image     Path to image file
 	 * @param  array    $imageInfo Image info
 	 * @return resource
@@ -127,7 +121,6 @@ class GD implements ProcessorInterface
 	/**
 	 * Converts HEX value to an RGB array.
 	 *
-	 * @access protected
 	 * @param  string $hex HEX value
 	 * @return array
 	 */

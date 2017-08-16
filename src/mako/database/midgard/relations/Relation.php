@@ -50,7 +50,6 @@ abstract class Relation extends Query
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\database\connections\Connection $connection Database connection
 	 * @param \mako\database\midgard\ORM            $parent     Parent model
 	 * @param \mako\database\midgard\ORM            $related    Related model
@@ -70,7 +69,6 @@ abstract class Relation extends Query
 	/**
 	 * Returns the foreign key.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function getForeignKey()
@@ -86,7 +84,6 @@ abstract class Relation extends Query
 	/**
 	 * Returns the keys used to eagerly load records.
 	 *
-	 * @access protected
 	 * @param  array $results Result set
 	 * @return array
 	 */
@@ -104,8 +101,6 @@ abstract class Relation extends Query
 
 	/**
 	 * Sets the criterion used when lazy loading related records.
-	 *
-	 * @access protected
 	 */
 	protected function lazyCriterion()
 	{
@@ -115,7 +110,6 @@ abstract class Relation extends Query
 	/**
 	 * Sets the criterion used when eager loading related records.
 	 *
-	 * @access protected
 	 * @param  array                                     $keys Parent keys
 	 * @return \mako\database\midgard\relations\Relation
 	 */
@@ -131,7 +125,6 @@ abstract class Relation extends Query
 	/**
 	 * Eager loads records in chunks.
 	 *
-	 * @access protected
 	 * @param  array                            $keys Parent keys
 	 * @return \mako\database\midgard\ResultSet
 	 */
@@ -156,8 +149,6 @@ abstract class Relation extends Query
 
 	/**
 	 * Adjusts the query.
-	 *
-	 * @access protected
 	 */
 	protected function adjustQuery()
 	{
@@ -170,7 +161,6 @@ abstract class Relation extends Query
 	/**
 	 * Returns a single record from the database.
 	 *
-	 * @access public
 	 * @return \mako\database\midgard\ORM
 	 */
 	public function first()
@@ -183,7 +173,6 @@ abstract class Relation extends Query
 	/**
 	 * Returns a result set from the database.
 	 *
-	 * @access public
 	 * @return \mako\database\midgard\ResultSet
 	 */
 	public function all()

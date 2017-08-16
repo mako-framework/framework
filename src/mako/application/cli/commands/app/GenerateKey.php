@@ -36,8 +36,6 @@ class GenerateKey extends Command
 
 	/**
 	 * Executes the command.
-	 *
-	 * @access public
 	 */
 	public function execute()
 	{

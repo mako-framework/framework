@@ -74,7 +74,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\file\FileSystem $fileSystem FileSytem instance
 	 * @param string                $file       File path
 	 */
@@ -95,7 +94,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Sets the file name.
 	 *
-	 * @access public
 	 * @param  string                           $name File name
 	 * @return \mako\http\response\senders\File
 	 */
@@ -109,7 +107,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Sets the content disposition.
 	 *
-	 * @access public
 	 * @param  string                           $disposition Content disposition
 	 * @return \mako\http\response\senders\File
 	 */
@@ -123,7 +120,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Sets the content type.
 	 *
-	 * @access public
 	 * @param  string                           $type Mime type
 	 * @return \mako\http\response\senders\File
 	 */
@@ -137,7 +133,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Sets the callback closure.
 	 *
-	 * @access public
 	 * @param  \Closure                         $callback Callback closure
 	 * @return \mako\http\response\senders\File
 	 */
@@ -151,7 +146,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Returns the file name.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function getName(): string
@@ -162,7 +156,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Returns the content disposition.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function getDisposition(): string
@@ -173,7 +166,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Returns the content type.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function getContenType(): string
@@ -184,7 +176,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Calculates the content range that should be served.
 	 *
-	 * @access protected
 	 * @param  string      $range Request range
 	 * @return array|false
 	 */
@@ -237,7 +228,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Sends the file.
 	 *
-	 * @access protected
 	 * @param int $start Starting point
 	 * @param int $end   Ending point
 	 */

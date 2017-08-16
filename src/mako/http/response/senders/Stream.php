@@ -36,7 +36,6 @@ class Stream implements ResponseSenderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \Closure $stream Stream
 	 */
 	public function __construct(Closure $stream)
@@ -47,9 +46,8 @@ class Stream implements ResponseSenderInterface
 	/**
 	 * Flushes a chunck of data.
 	 *
-	 * @access public
-	 * @param string $chunk      Chunck of data to flush
-	 * @param bool   $flushEmpty Flush empty chunk?
+	 * @param null|string $chunk      Chunck of data to flush
+	 * @param bool        $flushEmpty Flush empty chunk?
 	 */
 	public function flush(string $chunk = null, bool $flushEmpty = false)
 	{
@@ -75,8 +73,6 @@ class Stream implements ResponseSenderInterface
 
 	/**
 	 * Sends the stream.
-	 *
-	 * @access protected
 	 */
 	protected function flow()
 	{

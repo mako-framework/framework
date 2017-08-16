@@ -20,7 +20,6 @@ interface CommandBusInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param null|\mako\syringe\Container $container Container
 	 * @param null|\mako\onion\Onion       $onion     Onion
 	 */
@@ -29,7 +28,6 @@ interface CommandBusInterface
 	/**
 	 * Dispatches the command to the command handler and returns the result.
 	 *
-	 * @access public
 	 * @param  \mako\commander\CommandInterface|string $command    Command
 	 * @param  array                                   $parameters Parameters
 	 * @param  array                                   $middleware Middleware

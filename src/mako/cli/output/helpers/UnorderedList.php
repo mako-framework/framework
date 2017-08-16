@@ -33,7 +33,6 @@ class UnorderedList
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(Output $output)
@@ -44,7 +43,6 @@ class UnorderedList
 	/**
 	 * Builds a list item.
 	 *
-	 * @access protected
 	 * @param  string $item         Item
 	 * @param  string $marker       Item marker
 	 * @param  int    $nestingLevel Nesting level
@@ -58,7 +56,6 @@ class UnorderedList
 	/**
 	 * Builds an unordered list.
 	 *
-	 * @access protected
 	 * @param  array  $items        Items
 	 * @param  string $marker       Item marker
 	 * @param  int    $nestingLevel Nesting level
@@ -86,7 +83,6 @@ class UnorderedList
 	/**
 	 * Renders an unordered list.
 	 *
-	 * @access public
 	 * @param  array  $items  Items
 	 * @param  string $marker Item marker
 	 * @return string
@@ -99,7 +95,6 @@ class UnorderedList
 	/**
 	 * Draws an unordered list.
 	 *
-	 * @access public
 	 * @param array  $items  Items
 	 * @param string $marker Item marker
 	 * @param int    $writer Output writer

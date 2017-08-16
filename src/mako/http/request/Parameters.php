@@ -30,7 +30,6 @@ class Parameters implements Countable, IteratorAggregate
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param array $parameters Parameters
 	 */
 	public function __construct(array $parameters = [])
@@ -41,7 +40,6 @@ class Parameters implements Countable, IteratorAggregate
 	/**
 	 * Returns the numner of items in the collection.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function count(): int
@@ -52,7 +50,6 @@ class Parameters implements Countable, IteratorAggregate
 	/**
 	 * Retruns an array iterator object.
 	 *
-	 * @access public
 	 * @return \ArrayIterator
 	 */
 	public function getIterator(): ArrayIterator
@@ -63,7 +60,6 @@ class Parameters implements Countable, IteratorAggregate
 	/**
 	 * Adds a parameter.
 	 *
-	 * @access public
 	 * @param string $name  Parameter name
 	 * @param mixed  $value Parameter value
 	 */
@@ -75,7 +71,6 @@ class Parameters implements Countable, IteratorAggregate
 	/**
 	 * Returns true if the parameter exists and false if not.
 	 *
-	 * @access public
 	 * @param  string $name Parameter name
 	 * @return bool
 	 */
@@ -87,7 +82,6 @@ class Parameters implements Countable, IteratorAggregate
 	/**
 	 * Gets a parameter value.
 	 *
-	 * @access public
 	 * @param  string     $name    Parameter name
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -100,7 +94,6 @@ class Parameters implements Countable, IteratorAggregate
 	/**
 	 * Removes a parameter.
 	 *
-	 * @access public
 	 * @param string $name Parameter name
 	 */
 	public function remove(string $name)
@@ -111,7 +104,6 @@ class Parameters implements Countable, IteratorAggregate
 	/**
 	 * Returns all the parameters.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function all(): array

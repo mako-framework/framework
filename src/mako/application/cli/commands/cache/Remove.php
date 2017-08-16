@@ -9,7 +9,6 @@ namespace mako\application\cli\commands\cache;
 
 use mako\application\cli\commands\cache\Command;
 use mako\cache\CacheManager;
-use mako\security\Key;
 
 /**
  * Command that removes the chosen key from the cache.
@@ -51,10 +50,9 @@ class Remove extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access public
 	 * @param \mako\cache\CacheManager $cache         Cache manager
 	 * @param string                   $key           Cache Key
-	 * @param string                   $configuration Configuration name
+	 * @param null|string              $configuration Configuration name
 	 */
 	public function execute(CacheManager $cache, string $key, string $configuration = null)
 	{

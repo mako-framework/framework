@@ -40,8 +40,8 @@ class Input
 	/**
 	 * Constructor.
 	 *
-	 * @var \mako\cli\input\reader\ReaderInterface $reader     Reader instance
-	 * @var null|array                             $arguments  Array of arguments passed to script
+	 * @param \mako\cli\input\reader\ReaderInterface $reader    Reader instance
+	 * @param null|array                             $arguments Array of arguments passed to script
 	 */
 	public function __construct(ReaderInterface $reader, array $arguments = null)
 	{
@@ -53,7 +53,6 @@ class Input
 	/**
 	 * Returns a normalized argument name.
 	 *
-	 * @access public
 	 * @param  string $name Argument name to normalize
 	 * @return string
 	 */
@@ -65,7 +64,6 @@ class Input
 	/**
 	 * Parses parameters.
 	 *
-	 * @access protected
 	 * @param  array $arguments Arguments
 	 * @return array
 	 */
@@ -95,7 +93,6 @@ class Input
 	/**
 	 * Reads and returns user input.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function read(): string
@@ -106,7 +103,6 @@ class Input
 	/**
 	 * Returns all the arguments passed to the script.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	 public function getArguments(): array
@@ -117,7 +113,6 @@ class Input
 	/**
 	 * Returns the argument associated with the given name.
 	 *
-	 * @access public
 	 * @param  int|string $name    Parameter number or name
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -137,7 +132,6 @@ class Input
 	/**
 	 * Removes the argument associated with the given name.
 	 *
-	 * @access public
 	 * @param int|string $name Parameter number or name
 	 */
 	public function removeArgument($name)

@@ -27,7 +27,6 @@ use mako\cli\output\formatter\Formatter;
 use mako\cli\output\writer\Error;
 use mako\cli\output\writer\Standard;
 use mako\config\Config;
-use mako\http\routing\Routes;
 use mako\reactor\Reactor;
 
 /**
@@ -47,7 +46,6 @@ class Application extends BaseApplication
 	/**
 	 * Creates a input instance.
 	 *
-	 * @access protected
 	 * @return \mako\cli\input\Input
 	 */
 	protected function inputFactory(): Input
@@ -58,7 +56,6 @@ class Application extends BaseApplication
 	/**
 	 * Creates an output instance.
 	 *
-	 * @access protected
 	 * @return \mako\cli\output\Output
 	 */
 	protected function outputFactory(): Output
@@ -69,7 +66,6 @@ class Application extends BaseApplication
 	/**
 	 * Creates a reactor instance.
 	 *
-	 * @access protected
 	 * @return \mako\reactor\Reactor
 	 */
 	protected function reactorFactory(): Reactor
@@ -80,7 +76,6 @@ class Application extends BaseApplication
 	/**
 	 * Loads the reactor ASCII logo.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function loadLogo(): string
@@ -92,8 +87,6 @@ class Application extends BaseApplication
 
 	/**
 	 * Registers global reactor options.
-	 *
-	 * @access protected
 	 */
 	protected function registerGlobalReactorOptions()
 	{
@@ -117,8 +110,6 @@ class Application extends BaseApplication
 
 	/**
 	 * Starts the reactor.
-	 *
-	 * @access protected
 	 */
 	protected function startReactor()
 	{
@@ -160,7 +151,6 @@ class Application extends BaseApplication
 	/**
 	 * Returns all registered commands.
 	 *
-	 * @access protected
 	 * @return array
 	 */
 	protected function getCommands(): array

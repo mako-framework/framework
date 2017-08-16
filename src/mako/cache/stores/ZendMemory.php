@@ -20,8 +20,6 @@ class ZendMemory extends Store
 {
 	/**
 	 * Constructor.
-	 *
-	 * @access public
 	 */
 	public function __construct()
 	{

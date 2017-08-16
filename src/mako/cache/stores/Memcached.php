@@ -29,7 +29,6 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param array $servers      Memcache servers
 	 * @param int   $timeout      Timeout in seconds
 	 * @param bool  $compressData Compress data?

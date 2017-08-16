@@ -28,7 +28,6 @@ abstract class ConnectionManager
 	/**
 	 * Connects to the chosen configuration and returns the connection.
 	 *
-	 * @access public
 	 * @param  string $connection Connection name
 	 * @return mixed
 	 */
@@ -37,8 +36,7 @@ abstract class ConnectionManager
 	/**
 	 * Returns the chosen connection.
 	 *
-	 * @access public
-	 * @param  string $connection Connection name
+	 * @param  null|string $connection Connection name
 	 * @return mixed
 	 */
 	public function connection(string $connection = null)
@@ -56,7 +54,6 @@ abstract class ConnectionManager
 	/**
 	 * Magic shortcut to the default connection.
 	 *
-	 * @access public
 	 * @param  string $name      Method name
 	 * @param  array  $arguments Method arguments
 	 * @return mixed

@@ -105,7 +105,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param null|bool $hasAnsiSupport Do we have ANSI support?
 	 */
 	public function __construct(bool $hasAnsiSupport = null)
@@ -121,7 +120,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Do we have ANSI support?
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function hasAnsiSupport(): bool
@@ -132,7 +130,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Adds a user defined style.
 	 *
-	 * @access public
 	 * @param string       $name  Style name
 	 * @param string|array $style Style or array of styles
 	 */
@@ -144,7 +141,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Returns the tag name.
 	 *
-	 * @access protected
 	 * @param  string $tag Tag
 	 * @return string
 	 */
@@ -156,7 +152,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Returns TRUE if the tag is a closing tag and FALSE if not.
 	 *
-	 * @access public
 	 * @param  string $tag Tag to check
 	 * @return bool
 	 */
@@ -168,7 +163,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Returns ANSI SGR escape sequence for style reset.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function getSgrResetSequence(): string
@@ -179,7 +173,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Returns style codes associated with the tag name.
 	 *
-	 * @access protected
 	 * @param  string $tag Tag name
 	 * @return array
 	 */
@@ -207,7 +200,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Returns ANSI SGR escape sequence for the chosen style(s).
 	 *
-	 * @access protected
 	 * @param  string $tag Style name
 	 * @return string
 	 */
@@ -222,7 +214,6 @@ class Formatter implements FormatterInterface
 	 * Returns ANSI SGR escape sequence(s) for the chosen style(s) and
 	 * adds the tag name to the array of open tags.
 	 *
-	 * @access protected
 	 * @param  string $tag Tag name
 	 * @return string
 	 */
@@ -237,7 +228,6 @@ class Formatter implements FormatterInterface
 	 * Returns ANSI SGR escape sequence for style reset and
 	 * ANSI SGR escape sequence for parent style if the closed tag was nested.
 	 *
-	 * @access protected
 	 * @param  string $tag Tag name
 	 * @return string
 	 */
@@ -274,7 +264,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Strips escape character from escaped tags.
 	 *
-	 * @access protected
 	 * @param  string $string Input string
 	 * @return string
 	 */

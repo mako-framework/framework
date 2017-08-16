@@ -55,7 +55,6 @@ class URLBuilder
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\http\Request        $request   Request instance
 	 * @param \mako\http\routing\Routes $routes    Route collection
 	 * @param bool                      $cleanURLs Create "clean" URLs?
@@ -79,7 +78,6 @@ class URLBuilder
 	/**
 	 * Returns TRUE if the pattern matches the current route and FALSE if not.
 	 *
-	 * @access public
 	 * @param  string $pattern Pattern to match
 	 * @return bool
 	 */
@@ -91,7 +89,6 @@ class URLBuilder
 	/**
 	 * Returns the base URL of the application.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function base(): string
@@ -107,7 +104,6 @@ class URLBuilder
 	/**
 	 * Returns the URL of the specified path.
 	 *
-	 * @access public
 	 * @param  string $path        Path
 	 * @param  array  $queryParams Associative array used to build URL-encoded query string
 	 * @param  string $separator   Argument separator
@@ -129,7 +125,6 @@ class URLBuilder
 	/**
 	 * Returns the URL of a named route.
 	 *
-	 * @access public
 	 * @param  string $routeName   Route name
 	 * @param  array  $routeParams Route parameters
 	 * @param  array  $queryParams Associative array used to build URL-encoded query string
@@ -162,7 +157,6 @@ class URLBuilder
 	/**
 	 * Returns the current URL of the request.
 	 *
-	 * @access public
 	 * @param  array  $queryParams Associative array used to build URL-encoded query string
 	 * @param  string $separator   Argument separator
 	 * @param  mixed  $language    Request language
@@ -178,7 +172,6 @@ class URLBuilder
 	/**
 	 * Returns the URL of the specified route.
 	 *
-	 * @access public
 	 * @param  string $route       URL segments
 	 * @param  mixed  $language    Request language
 	 * @param  array  $queryParams Associative array used to build URL-encoded query string
@@ -193,7 +186,6 @@ class URLBuilder
 	/**
 	 * Returns the URL of a named route.
 	 *
-	 * @access public
 	 * @param  string $routeName   Route name
 	 * @param  string $language    Request language
 	 * @param  array  $routeParams Route parameters
@@ -209,7 +201,6 @@ class URLBuilder
 	/**
 	 * Returns the current URL of the request.
 	 *
-	 * @access public
 	 * @param  string $language    Request language
 	 * @param  array  $queryParams Query parameters
 	 * @param  string $separator   Argument separator

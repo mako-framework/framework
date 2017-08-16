@@ -17,7 +17,6 @@ interface ValidatorPluginInterface
 	/**
 	 * Returnst the rule name.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getRuleName(): string;
@@ -25,7 +24,6 @@ interface ValidatorPluginInterface
 	/**
 	 * Returnst the package name.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getPackageName(): string;

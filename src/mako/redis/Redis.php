@@ -80,7 +80,6 @@ class Redis
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\redis\Connection $connection Redis connection
 	 * @param array                  $options    Options
 	 */
@@ -102,7 +101,6 @@ class Redis
 	/**
 	 * Creates a cluster client.
 	 *
-	 * @access protected
 	 * @param  string            $server Server string
 	 * @return \mako\redis\Redis
 	 */
@@ -118,7 +116,6 @@ class Redis
 	/**
 	 * Gets a cluster client.
 	 *
-	 * @access protected
 	 * @param  string            $serverInfo Cluster slot and server string
 	 * @return \mako\redis\Redis
 	 */
@@ -137,7 +134,6 @@ class Redis
 	/**
 	 * Handles redis error responses.
 	 *
-	 * @access protected
 	 * @param  string $response Error response
 	 * @return mixed
 	 */
@@ -161,7 +157,6 @@ class Redis
 	/**
 	 * Handles a status response.
 	 *
-	 * @access protected
 	 * @param  string $response Redis response
 	 * @return string
 	 */
@@ -173,7 +168,6 @@ class Redis
 	/**
 	 * Handles a integer response.
 	 *
-	 * @access protected
 	 * @param  string $response Redis response
 	 * @return int
 	 */
@@ -185,7 +179,6 @@ class Redis
 	/**
 	 * Handles a bulk response.
 	 *
-	 * @access protected
 	 * @param  string      $response Redis response
 	 * @return null|string
 	 */
@@ -204,7 +197,6 @@ class Redis
 	/**
 	 * Handles a multi-bulk response.
 	 *
-	 * @access protected
 	 * @param  string     $response Redis response
 	 * @return null|array
 	 */
@@ -230,7 +222,6 @@ class Redis
 	/**
 	 * Returns response from redis server.
 	 *
-	 * @access protected
 	 * @return mixed
 	 */
 	protected function response()
@@ -262,7 +253,6 @@ class Redis
 	/**
 	 * Pipeline commands.
 	 *
-	 * @access public
 	 * @param  \Closure $pipeline Pipelined commands
 	 * @return array
 	 */
@@ -303,7 +293,6 @@ class Redis
 	/**
 	 * Executes raw Redis commands and returns the response.
 	 *
-	 * @access public
 	 * @param  string $command Command
 	 * @return mixed
 	 */
@@ -317,7 +306,6 @@ class Redis
 	/**
 	 * Builds command from method name.
 	 *
-	 * @access protected
 	 * @param  string $name Method name
 	 * @return array
 	 */
@@ -343,7 +331,6 @@ class Redis
 	/**
 	 * Sends command to Redis server and returns response.
 	 *
-	 * @access public
 	 * @param  string $name      Command name
 	 * @param  array  $arguments Command arguments
 	 * @return mixed

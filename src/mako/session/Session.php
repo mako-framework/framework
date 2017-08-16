@@ -125,7 +125,6 @@ class Session
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\http\Request                  $request  Request instance
 	 * @param \mako\http\Response                 $response Response instance
 	 * @param \mako\session\stores\StoreInterface $store    Session store instance
@@ -146,8 +145,6 @@ class Session
 
 	/**
 	 * Destructor.
-	 *
-	 * @access public
 	 */
 	public function __destruct()
 	{
@@ -173,7 +170,6 @@ class Session
 	/**
 	 * Configures the session.
 	 *
-	 * @access protected
 	 * @param array $options Session options
 	 */
 	protected function configure(array $options)
@@ -192,8 +188,6 @@ class Session
 
 	/**
 	 * Starts the session.
-	 *
-	 * @access protected
 	 */
 	protected function start()
 	{
@@ -231,7 +225,6 @@ class Session
 	/**
 	 * Generates a session id.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function generateId(): string
@@ -241,8 +234,6 @@ class Session
 
 	/**
 	 * Adds a session cookie to the response.
-	 *
-	 * @access protected
 	 */
 	protected function setCookie()
 	{
@@ -253,8 +244,6 @@ class Session
 
 	/**
 	 * Loads the session data.
-	 *
-	 * @access protected
 	 */
 	protected function loadData()
 	{
@@ -266,7 +255,6 @@ class Session
 	/**
 	 * Returns the session id.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getId(): string
@@ -277,7 +265,6 @@ class Session
 	/**
 	 * Regenerate the session id and returns it.
 	 *
-	 * @access public
 	 * @param  bool   $keepOld Keep the session data associated with the old session id?
 	 * @return string
 	 */
@@ -304,7 +291,6 @@ class Session
 	/**
 	 * Returns all the seesion data.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getData(): array
@@ -315,7 +301,6 @@ class Session
 	/**
 	 * Store a value in the session.
 	 *
-	 * @access public
 	 * @param string $key   Session key
 	 * @param mixed  $value Session data
 	 */
@@ -327,7 +312,6 @@ class Session
 	/**
 	 * Returns TRUE if key exists in the session and FALSE if not.
 	 *
-	 * @access public
 	 * @param  string $key Session key
 	 * @return bool
 	 */
@@ -339,7 +323,6 @@ class Session
 	/**
 	 * Returns a value from the session.
 	 *
-	 * @access public
 	 * @param  string     $key     Session key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -352,7 +335,6 @@ class Session
 	/**
 	 * Gets a value from the session and replaces it.
 	 *
-	 * @access public
 	 * @param  string     $key     Session key
 	 * @param  mixed      $value   Session data
 	 * @param  null|mixed $default Default value
@@ -370,7 +352,6 @@ class Session
 	/**
 	 * Gets a value from the session and removes it.
 	 *
-	 * @access public
 	 * @param  string     $key     Session key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -387,7 +368,6 @@ class Session
 	/**
 	 * Removes a value from the session.
 	 *
-	 * @access public
 	 * @param string $key Session key
 	 */
 	public function remove(string $key)
@@ -398,7 +378,6 @@ class Session
 	/**
 	 * Store a flash value in the session.
 	 *
-	 * @access public
 	 * @param  string $key   Flash key
 	 * @param  mixed  $value Flash data
 	 * @return mixed
@@ -411,7 +390,6 @@ class Session
 	/**
 	 * Returns TRUE if key exists in the session and FALSE if not.
 	 *
-	 * @access public
 	 * @param  string $key Session key
 	 * @return bool
 	 */
@@ -423,7 +401,6 @@ class Session
 	/**
 	 * Returns a flash value from the session.
 	 *
-	 * @access public
 	 * @param  string     $key     Session key
 	 * @param  null|mixed $default Default value
 	 * @return null|mixed
@@ -436,7 +413,6 @@ class Session
 	/**
 	 * Removes a value from the session.
 	 *
-	 * @access public
 	 * @param string $key Session key
 	 */
 	public function removeFlash(string $key)
@@ -447,7 +423,6 @@ class Session
 	/**
 	 * Extends the lifetime of the flash data by one request.
 	 *
-	 * @access public
 	 * @param array $keys Keys to preserve
 	 */
 	public function reflash(array $keys = [])
@@ -462,7 +437,6 @@ class Session
 	/**
 	 * Returns the session token.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getToken(): string
@@ -473,7 +447,6 @@ class Session
 	/**
 	 * Generates a new session token and returns it.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function regenerateToken(): string
@@ -484,7 +457,6 @@ class Session
 	/**
 	 * Validates the provided token.
 	 *
-	 * @access public
 	 * @param  string $token Token to validate
 	 * @return bool
 	 */
@@ -496,7 +468,6 @@ class Session
 	/**
 	 * Returns random security token.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function generateOneTimeToken(): string
@@ -520,7 +491,6 @@ class Session
 	/**
 	 * Validates security token.
 	 *
-	 * @access public
 	 * @param  string $token Security token
 	 * @return bool
 	 */
@@ -544,8 +514,6 @@ class Session
 
 	/**
 	 * Clears all session data.
-	 *
-	 * @access public
 	 */
 	public function clear()
 	{
@@ -554,8 +522,6 @@ class Session
 
 	/**
 	 * Destroys the session.
-	 *
-	 * @access public
 	 */
 	public function destroy()
 	{

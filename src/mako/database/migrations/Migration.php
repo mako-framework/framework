@@ -29,7 +29,6 @@ abstract class Migration
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\database\ConnectionManager $connectionManager Connection manager instance
 	 */
 	public function __construct(ConnectionManager $connectionManager)
@@ -40,7 +39,6 @@ abstract class Migration
 	/**
 	 * Returns the migration description.
 	 *
-	 * @access public
 	 * @return string|null
 	 */
 	public function getDescription()
@@ -50,15 +48,11 @@ abstract class Migration
 
 	/**
 	 * Makes changes to the database structure.
-	 *
-	 * @access public
 	 */
 	abstract public function up();
 
 	/**
 	 * Reverts the database changes.
-	 *
-	 * @access public
 	 */
 	abstract public function down();
 }

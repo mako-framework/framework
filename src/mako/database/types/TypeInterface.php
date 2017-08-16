@@ -17,7 +17,6 @@ interface TypeInterface
 	/**
 	 * Returns the PDO parameter type.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function getType(): int;
@@ -25,7 +24,6 @@ interface TypeInterface
 	/**
 	 * Returns the value.
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function getValue();

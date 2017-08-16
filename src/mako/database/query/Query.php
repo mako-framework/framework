@@ -147,7 +147,6 @@ class Query
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\database\connections\Connection $connection Database connection
 	 */
 	public function __construct(Connection $connection)
@@ -162,7 +161,6 @@ class Query
 	/**
 	 * Create a fresh compiler instance when we clone the query.
 	 *
-	 * @access public
 	 */
 	public function __clone()
 	{
@@ -174,7 +172,6 @@ class Query
 	/**
 	 * Returns a new query builder instance.
 	 *
-	 * @access public
 	 * @return \mako\database\query\Query
 	 */
 	public function newInstance()
@@ -185,7 +182,6 @@ class Query
 	/**
 	 * Sets the pagination factory.
 	 *
-	 * @access public
 	 * @param \mako\pagination\PaginationFactoryInterface|\Closure $factory Pagination factory
 	 */
 	public static function setPaginationFactory($factory)
@@ -196,7 +192,6 @@ class Query
 	/**
 	 * Gets the pagination factory.
 	 *
-	 * @access public
 	 * @return \mako\pagination\PaginationFactoryInterface
 	 */
 	public static function getPaginationFactory(): PaginationFactoryInterface
@@ -214,7 +209,6 @@ class Query
 	/**
 	 * Returns the connection instance.
 	 *
-	 * @access public
 	 * @return \mako\database\connections\Connection
 	 */
 	public function getConnection()
@@ -225,7 +219,6 @@ class Query
 	/**
 	 * Returns query compiler instance.
 	 *
-	 * @access public
 	 * @return \mako\database\query\compilers\Compiler
 	 */
 	public function getCompiler()
@@ -246,7 +239,6 @@ class Query
 	/**
 	 * Returns the database table.
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function getTable()
@@ -257,7 +249,6 @@ class Query
 	/**
 	 * Is it a distict select?
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isDistinct(): bool
@@ -268,7 +259,6 @@ class Query
 	/**
 	 * Returns the columns from which we are fetching data.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getColumns(): array
@@ -279,7 +269,6 @@ class Query
 	/**
 	 * Returns WHERE clauses.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getWheres(): array
@@ -290,7 +279,6 @@ class Query
 	/**
 	 * Returns JOIN clauses.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getJoins(): array
@@ -301,7 +289,6 @@ class Query
 	/**
 	 * Returns GROUP BY clauses.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getGroupings(): array
@@ -312,7 +299,6 @@ class Query
 	/**
 	 * Returns HAVING clauses.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getHavings(): array
@@ -323,7 +309,6 @@ class Query
 	/**
 	 * Returns ORDER BY clauses.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function getOrderings(): array
@@ -334,7 +319,6 @@ class Query
 	/**
 	 * Returns the limit.
 	 *
-	 * @access public
 	 * @return null|int
 	 */
 	public function getLimit()
@@ -345,7 +329,6 @@ class Query
 	/**
 	 * Returns the offset.
 	 *
-	 * @access public
 	 * @return null|int
 	 */
 	public function getOffset()
@@ -356,7 +339,6 @@ class Query
 	/**
 	 * Returns the lock.
 	 *
-	 * @access public
 	 * @return null|bool|string
 	 */
 	public function getLock()
@@ -367,7 +349,6 @@ class Query
 	/**
 	 * Returns the prefix.
 	 *
-	 * @access public
 	 * @return null|string
 	 */
 	public function getPrefix()
@@ -378,7 +359,6 @@ class Query
 	/**
 	 * Adds a set operation.
 	 *
-	 * @access protected
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query     Query
 	 * @param  string                                                            $operation Operation
 	 * @return \mako\database\query\Query
@@ -402,7 +382,6 @@ class Query
 	/**
 	 * Adds a UNION operation.
 	 *
-	 * @access public
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
 	 * @return \mako\database\query\Query
 	 */
@@ -414,7 +393,6 @@ class Query
 	/**
 	 * Adds a UNION ALL operation.
 	 *
-	 * @access public
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
 	 * @return \mako\database\query\Query
 	 */
@@ -426,7 +404,6 @@ class Query
 	/**
 	 * Adds a INTERSECT operation.
 	 *
-	 * @access public
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
 	 * @return \mako\database\query\Query
 	 */
@@ -438,7 +415,6 @@ class Query
 	/**
 	 * Adds a INTERSECT ALL operation.
 	 *
-	 * @access public
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
 	 * @return \mako\database\query\Query
 	 */
@@ -450,7 +426,6 @@ class Query
 	/**
 	 * Adds a EXCEPT operation.
 	 *
-	 * @access public
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
 	 * @return \mako\database\query\Query
 	 */
@@ -462,7 +437,6 @@ class Query
 	/**
 	 * Adds a EXCEPT ALL operation.
 	 *
-	 * @access public
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
 	 * @return \mako\database\query\Query
 	 */
@@ -474,7 +448,6 @@ class Query
 	/**
 	 * Sets table we want to query.
 	 *
-	 * @access public
 	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
 	 * @return \mako\database\query\Query
 	 */
@@ -493,7 +466,6 @@ class Query
 	/**
 	 * Alias of Query::table()
 	 *
-	 * @access public
 	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
 	 * @return \mako\database\query\Query
 	 */
@@ -505,7 +477,6 @@ class Query
 	/**
 	 * Alias of Query::table()
 	 *
-	 * @access public
 	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
 	 * @return \mako\database\query\Query
 	 */
@@ -517,7 +488,6 @@ class Query
 	/**
 	 * Sets the columns we want to select.
 	 *
-	 * @access public
 	 * @param  array                      $columns Array of columns we want to select from
 	 * @return \mako\database\query\Query
 	 */
@@ -543,7 +513,6 @@ class Query
 	/**
 	 * Adds a WHERE clause.
 	 *
-	 * @access public
 	 * @param  string|\Closure            $column    Column name or closure
 	 * @param  null|string                $operator  Operator
 	 * @param  null|mixed                 $value     Value
@@ -583,7 +552,6 @@ class Query
 	/**
 	 * Adds a raw WHERE clause
 	 *
-	 * @access public
 	 * @param  string                     $column    Column name or raw SQL
 	 * @param  string|null|array          $operator  Operator or parameters
 	 * @param  string|null                $raw       Raw SQL
@@ -610,7 +578,6 @@ class Query
 	/**
 	 * Adds a OR WHERE clause.
 	 *
-	 * @access public
 	 * @param  string|\Closure            $column   Column name or closure
 	 * @param  null|string                $operator Operator
 	 * @param  null|mixed                 $value    Value
@@ -624,7 +591,6 @@ class Query
 	/**
 	 * Adds a raw OR WHERE clause.
 	 *
-	 * @access public
 	 * @param  string                     $column   Column name or raw SQL
 	 * @param  string|null|array          $operator Operator or parameters
 	 * @param  string|null                $raw      Raw SQL
@@ -638,7 +604,6 @@ class Query
 	/**
 	 * Adds a BETWEEN clause.
 	 *
-	 * @access public
 	 * @param  string                     $column    Column name
 	 * @param  mixed                      $value1    First value
 	 * @param  mixed                      $value2    Second value
@@ -664,7 +629,6 @@ class Query
 	/**
 	 * Adds a OR BETWEEN clause.
 	 *
-	 * @access public
 	 * @param  string                     $column Column name
 	 * @param  mixed                      $value1 First value
 	 * @param  mixed                      $value2 Second value
@@ -678,7 +642,6 @@ class Query
 	/**
 	 * Adds a NOT BETWEEN clause.
 	 *
-	 * @access public
 	 * @param  string                     $column Column name
 	 * @param  mixed                      $value1 First value
 	 * @param  mixed                      $value2 Second value
@@ -692,7 +655,6 @@ class Query
 	/**
 	 * Adds a OR NOT BETWEEN clause.
 	 *
-	 * @access public
 	 * @param  string                     $column Column name
 	 * @param  mixed                      $value1 First value
 	 * @param  mixed                      $value2 Second value
@@ -706,7 +668,6 @@ class Query
 	/**
 	 * Adds a IN clause.
 	 *
-	 * @access public
 	 * @param  string                                                                $column    Column name
 	 * @param  array|\mako\database\query\Raw|\Closure|\mako\database\query\Subquery $values    Array of values or Subquery
 	 * @param  string                                                                $separator Clause separator
@@ -739,7 +700,6 @@ class Query
 	/**
 	 * Adds a OR IN clause.
 	 *
-	 * @access public
 	 * @param  string                     $column Column name
 	 * @param  mixed                      $values Array of values or Subquery
 	 * @return \mako\database\query\Query
@@ -752,7 +712,6 @@ class Query
 	/**
 	 * Adds a NOT IN clause.
 	 *
-	 * @access public
 	 * @param  string                     $column Column name
 	 * @param  mixed                      $values Array of values or Subquery
 	 * @return \mako\database\query\Query
@@ -765,7 +724,6 @@ class Query
 	/**
 	 * Adds a OR NOT IN clause.
 	 *
-	 * @access public
 	 * @param  string                     $column Column name
 	 * @param  mixed                      $values Array of values or Subquery
 	 * @return \mako\database\query\Query
@@ -778,7 +736,6 @@ class Query
 	/**
 	 * Adds a IS NULL clause.
 	 *
-	 * @access public
 	 * @param  mixed                      $column    Column name
 	 * @param  string                     $separator Clause separator
 	 * @param  bool                       $not       Not in?
@@ -800,7 +757,6 @@ class Query
 	/**
 	 * Adds a OR IS NULL clause.
 	 *
-	 * @access public
 	 * @param  mixed                      $column Column name
 	 * @return \mako\database\query\Query
 	 */
@@ -812,7 +768,6 @@ class Query
 	/**
 	 * Adds a IS NOT NULL clause.
 	 *
-	 * @access public
 	 * @param  mixed                      $column Column name
 	 * @return \mako\database\query\Query
 	 */
@@ -824,7 +779,6 @@ class Query
 	/**
 	 * Adds a OR IS NOT NULL clause.
 	 *
-	 * @access public
 	 * @param  mixed                      $column Column name
 	 * @return \mako\database\query\Query
 	 */
@@ -836,7 +790,6 @@ class Query
 	/**
 	 * Adds a EXISTS clause.
 	 *
-	 * @access public
 	 * @param  \Closure|\mako\database\query\Subquery $query     Subquery
 	 * @param  string                                 $separator Clause separator
 	 * @param  bool                                   $not       Not exists?
@@ -863,7 +816,6 @@ class Query
 	/**
 	 * Adds a OR EXISTS clause.
 	 *
-	 * @access public
 	 * @param  \Closure|\mako\database\query\Subquery $query Subquery
 	 * @return \mako\database\query\Query
 	 */
@@ -875,7 +827,6 @@ class Query
 	/**
 	 * Adds a NOT EXISTS clause.
 	 *
-	 * @access public
 	 * @param  \Closure|\mako\database\query\Subquery $query Subquery
 	 * @return \mako\database\query\Query
 	 */
@@ -887,7 +838,6 @@ class Query
 	/**
 	 * Adds a OR NOT EXISTS clause.
 	 *
-	 * @access public
 	 * @param  \Closure|\mako\database\query\Subquery $query Subquery
 	 * @return \mako\database\query\Query
 	 */
@@ -899,7 +849,6 @@ class Query
 	/**
 	 * Adds a JOIN clause.
 	 *
-	 * @access public
 	 * @param  string                     $table    Table name
 	 * @param  string|\Closure            $column1  Column name or closure
 	 * @param  string                     $operator Operator
@@ -936,7 +885,6 @@ class Query
 	/**
 	 * Adds a raw JOIN clause.
 	 *
-	 * @access public
 	 * @param  string                     $table    Table name
 	 * @param  string                     $column1  Column name or closure
 	 * @param  string                     $operator Operator
@@ -952,7 +900,6 @@ class Query
 	/**
 	 * Adds a LEFT OUTER JOIN clause.
 	 *
-	 * @access public
 	 * @param  string                     $table    Table name
 	 * @param  string|\Closure            $column1  Column name or closure
 	 * @param  string                     $operator Operator
@@ -967,7 +914,6 @@ class Query
 	/**
 	 * Adds a raw LEFT OUTER JOIN clause.
 	 *
-	 * @access public
 	 * @param  string                     $table    Table name
 	 * @param  string                     $column1  Column name or closure
 	 * @param  string                     $operator Operator
@@ -982,7 +928,6 @@ class Query
 	/**
 	 * Adds a GROUP BY clause.
 	 *
-	 * @access public
 	 * @param  string|array               $columns Column name or array of column names
 	 * @return \mako\database\query\Query
 	 */
@@ -996,7 +941,6 @@ class Query
 	/**
 	 * Adds a HAVING clause.
 	 *
-	 * @access public
 	 * @param  string                     $column    Column name
 	 * @param  string                     $operator  Operator
 	 * @param  mixed                      $value     Value
@@ -1019,7 +963,6 @@ class Query
 	/**
 	 * Adds a raw HAVING clause.
 	 *
-	 * @access public
 	 * @param  string                     $raw       Raw SQL
 	 * @param  string                     $operator  Operator
 	 * @param  mixed                      $value     Value
@@ -1034,7 +977,6 @@ class Query
 	/**
 	 * Adds a OR HAVING clause.
 	 *
-	 * @access public
 	 * @param  string                     $column   Column name
 	 * @param  string                     $operator Operator
 	 * @param  mixed                      $value    Value
@@ -1048,7 +990,6 @@ class Query
 	/**
 	 * Adds a raw OR HAVING clause.
 	 *
-	 * @access public
 	 * @param  string                     $raw      Raw SQL
 	 * @param  string                     $operator Operator
 	 * @param  mixed                      $value    Value
@@ -1062,7 +1003,6 @@ class Query
 	/**
 	 * Adds a ORDER BY clause.
 	 *
-	 * @access public
 	 * @param  string|array               $columns Column name or array of column names
 	 * @param  string                     $order   Sorting order
 	 * @return \mako\database\query\Query
@@ -1081,7 +1021,6 @@ class Query
 	/**
 	 * Adds a raw ORDER BY clause.
 	 *
-	 * @access public
 	 * @param  string                     $raw   Raw SQL
 	 * @param  string                     $order Sorting order
 	 * @return \mako\database\query\Query
@@ -1094,7 +1033,6 @@ class Query
 	/**
 	 * Adds an ascending ORDER BY clause.
 	 *
-	 * @access public
 	 * @param  string|array               $columns Column name or array of column names
 	 * @return \mako\database\query\Query
 	 */
@@ -1106,7 +1044,6 @@ class Query
 	/**
 	 * Adds a raw ascending ORDER BY clause.
 	 *
-	 * @access public
 	 * @param  string                     $raw Raw SQL
 	 * @return \mako\database\query\Query
 	 */
@@ -1118,7 +1055,6 @@ class Query
 	/**
 	 * Adds a descending ORDER BY clause.
 	 *
-	 * @access public
 	 * @param  string|array               $columns Column name or array of column names
 	 * @return \mako\database\query\Query
 	 */
@@ -1130,7 +1066,6 @@ class Query
 	/**
 	 * Adds a raw descending ORDER BY clause.
 	 *
-	 * @access public
 	 * @param  string                     $raw Raw SQL
 	 * @return \mako\database\query\Query
 	 */
@@ -1142,7 +1077,6 @@ class Query
 	/**
 	 * Clears the ordering clauses.
 	 *
-	 * @access public
 	 * @return \mako\database\query\Query
 	 */
 	public function clearOrderings()
@@ -1155,7 +1089,6 @@ class Query
 	/**
 	 * Adds a LIMIT clause.
 	 *
-	 * @access public
 	 * @param  int                        $limit Limit
 	 * @return \mako\database\query\Query
 	 */
@@ -1169,7 +1102,6 @@ class Query
 	/**
 	 * Adds a OFFSET clause.
 	 *
-	 * @access public
 	 * @param  int                        $offset Offset
 	 * @return \mako\database\query\Query
 	 */
@@ -1183,7 +1115,6 @@ class Query
 	/**
 	 * Enable lock.
 	 *
-	 * @access public
 	 * @param  bool|string                $lock TRUE for exclusive, FALSE for shared and string for custom
 	 * @return \mako\database\query\Query
 	 */
@@ -1197,7 +1128,6 @@ class Query
 	/**
 	 * Adds a query prefix.
 	 *
-	 * @access public
 	 * @param  string                     $prefix Prefix
 	 * @return \mako\database\query\Query
 	 */
@@ -1211,7 +1141,6 @@ class Query
 	/**
 	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
 	 *
-	 * @access public
 	 * @param  string $column The column to select
 	 * @return mixed
 	 */
@@ -1230,7 +1159,6 @@ class Query
 	/**
 	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
 	 *
-	 * @access public
 	 * @param  string $column The column to select
 	 * @return array
 	 */
@@ -1249,7 +1177,6 @@ class Query
 	/**
 	 * Executes a SELECT query and returns the first row of the result set.
 	 *
-	 * @access public
 	 * @param   mixed   ...$fetchMode  Fetch mode
 	 * @return mixed
 	 */
@@ -1263,7 +1190,6 @@ class Query
 	/**
 	 * Executes a SELECT query and returns the first row of the result set.
 	 *
-	 * @access public
 	 * @return mixed
 	 */
 	public function first()
@@ -1274,7 +1200,6 @@ class Query
 	/**
 	 * Creates a result set.
 	 *
-	 * @access protected
 	 * @param  array                          $results Results
 	 * @return \mako\database\query\ResultSet
 	 */
@@ -1286,7 +1211,6 @@ class Query
 	/**
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
 	 *
-	 * @access public
 	 * @param bool $returnResultSet Return result set?
 	 * @param   mixed                                 ...$fetchMode     Fetch mode
 	 * @return array|\mako\database\query\ResultSet
@@ -1303,7 +1227,6 @@ class Query
 	/**
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
 	 *
-	 * @access public
 	 * @return \mako\database\query\ResultSet
 	 */
 	public function all()
@@ -1314,7 +1237,6 @@ class Query
 	/**
 	 * Executes a SELECT query and returns a generator that lets you iterate over the results.
 	 *
-	 * @access protected
 	 * @param   mixed      ...$fetchMode  Fetch mode
 	 * @return \Generator
 	 */
@@ -1328,7 +1250,6 @@ class Query
 	/**
 	 * Executes a SELECT query and returns a generator that lets you iterate over the results.
 	 *
-	 * @access public
 	 * @return \Generator
 	 */
 	public function yield()
@@ -1339,7 +1260,6 @@ class Query
 	/**
 	 * Returns the number of records that the query will return.
 	 *
-	 * @access protected
 	 * @return int
 	 */
 	protected function paginationCount(): int
@@ -1357,7 +1277,6 @@ class Query
 	/**
 	 * Paginates the results using a pagination instance.
 	 *
-	 * @access public
 	 * @param  null|int                       $itemsPerPage Number of items per page
 	 * @param  array                          $options      Pagination options
 	 * @return \mako\database\query\ResultSet
@@ -1385,7 +1304,6 @@ class Query
 	/**
 	 * Fetches data in batches and passes them to the processor closure.
 	 *
-	 * @access public
 	 * @param \Closure $processor   Closure that processes the results
 	 * @param int      $batchSize   Batch size
 	 * @param int      $offsetStart Offset start
@@ -1425,7 +1343,6 @@ class Query
 	/**
 	 * Executes an aggregate query and returns the result.
 	 *
-	 * @access public
 	 * @param  string       $function Aggregate function
 	 * @param  string|array $column   Column name or array of column names
 	 * @return mixed
@@ -1442,7 +1359,6 @@ class Query
 	/**
 	 * Returns the minimum value for the chosen column.
 	 *
-	 * @access public
 	 * @param  string $column Column name
 	 * @return int
 	 */
@@ -1454,7 +1370,6 @@ class Query
 	/**
 	 * Returns the maximum value for the chosen column.
 	 *
-	 * @access public
 	 * @param  string $column Column name
 	 * @return int
 	 */
@@ -1466,7 +1381,6 @@ class Query
 	/**
 	 * Returns sum of all the values in the chosen column.
 	 *
-	 * @access public
 	 * @param  string $column Column name
 	 * @return int
 	 */
@@ -1478,7 +1392,6 @@ class Query
 	/**
 	 * Returns the average value for the chosen column.
 	 *
-	 * @access public
 	 * @param  string $column Column name
 	 * @return float
 	 */
@@ -1490,7 +1403,6 @@ class Query
 	/**
 	 * Returns the number of rows.
 	 *
-	 * @access public
 	 * @param  string $column Column name
 	 * @return int
 	 */
@@ -1502,7 +1414,6 @@ class Query
 	/**
 	 * Returns the number of distinct values of the chosen column.
 	 *
-	 * @access public
 	 * @param  string|array $column Column name or array of column names
 	 * @return int
 	 */
@@ -1514,7 +1425,6 @@ class Query
 	/**
 	 * Inserts data into the chosen table.
 	 *
-	 * @access public
 	 * @param  array $values Associative array of column values
 	 * @return bool
 	 */
@@ -1528,7 +1438,6 @@ class Query
 	/**
 	 * Inserts data into the chosen table and returns the auto increment id.
 	 *
-	 * @access public
 	 * @param  array    $values     Associative array of column values
 	 * @param  string   $primaryKey Primary key
 	 * @return int|bool
@@ -1541,7 +1450,6 @@ class Query
 	/**
 	 * Updates data from the chosen table.
 	 *
-	 * @access public
 	 * @param  array $values Associative array of column values
 	 * @return int
 	 */
@@ -1555,7 +1463,6 @@ class Query
 	/**
 	 * Increments column value.
 	 *
-	 * @access public
 	 * @param  string $column    Column name
 	 * @param  int    $increment Increment value
 	 * @return int
@@ -1568,7 +1475,6 @@ class Query
 	/**
 	 * Decrements column value.
 	 *
-	 * @access public
 	 * @param  string $column    Column name
 	 * @param  int    $decrement Decrement value
 	 * @return int
@@ -1581,7 +1487,6 @@ class Query
 	/**
 	 * Deletes data from the chosen table.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function delete()

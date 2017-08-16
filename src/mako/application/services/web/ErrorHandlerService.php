@@ -23,7 +23,6 @@ class ErrorHandlerService extends Service
 	/**
 	 * Helper method that ensures lazy loading of the logger.
 	 *
-	 * @access protected
 	 * @param \mako\error\ErrorHandler $errorHandler Error handler instance
 	 */
 	protected function setLogger($errorHandler)

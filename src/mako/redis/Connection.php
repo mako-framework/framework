@@ -42,7 +42,6 @@ class Connection
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string $host       Redis host
 	 * @param int    $port       Redis port
 	 * @param bool   $persistent Should the connection be persistent?
@@ -75,8 +74,6 @@ class Connection
 
 	/**
 	 * Destructor.
-	 *
-	 * @access public
 	 */
 	public function __desctruct()
 	{
@@ -89,7 +86,6 @@ class Connection
 	/**
 	 * Creates a new connection.
 	 *
-	 * @access public
 	 * @param  string                 $host       Redis host
 	 * @param  int                    $port       Redis port
 	 * @param  bool                   $persistent Should the connection be persistent?
@@ -103,7 +99,6 @@ class Connection
 	/**
 	 * Gets line from the resource.
 	 *
-	 * @access public
 	 * @return string|false
 	 */
 	public function gets()
@@ -114,7 +109,6 @@ class Connection
 	/**
 	 * Reads n bytes from the resource.
 	 *
-	 * @access public
 	 * @param  int          $bytes Number of bytes to read
 	 * @return string|false
 	 */
@@ -138,7 +132,6 @@ class Connection
 	/**
 	 * Writes data to the resource.
 	 *
-	 * @access public
 	 * @param  string    $data Data to write
 	 * @return int|false
 	 */
@@ -150,7 +143,6 @@ class Connection
 	/**
 	 * Is the connection persistent?
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isPersistent(): bool
@@ -161,7 +153,6 @@ class Connection
 	/**
 	 * Returns the last command.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getLastCommand(): string

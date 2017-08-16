@@ -27,7 +27,6 @@ trait HasOneOrManyPolymorphicTrait
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\database\connections\Connection $connection      Database connection
 	 * @param \mako\database\midgard\ORM            $parent          Parent model
 	 * @param \mako\database\midgard\ORM            $related         Related model
@@ -45,7 +44,6 @@ trait HasOneOrManyPolymorphicTrait
 	/**
 	 * Creates a related record.
 	 *
-	 * @access public
 	 * @param  mixed                  $related Related record
 	 * @return \mako\database\midgard
 	 */

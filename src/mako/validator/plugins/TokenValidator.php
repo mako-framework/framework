@@ -34,7 +34,6 @@ class TokenValidator extends ValidatorPlugin
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \mako\session\Session $session Session instance
 	 */
 	public function __construct(Session $session)
@@ -45,7 +44,6 @@ class TokenValidator extends ValidatorPlugin
 	/**
 	 * Validates a token.
 	 *
-	 * @access public
 	 * @param  null|string $input Input
 	 * @return bool
 	 */

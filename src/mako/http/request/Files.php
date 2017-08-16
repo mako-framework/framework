@@ -28,7 +28,6 @@ class Files extends Parameters
 	/**
 	 * Creates a UploadedFile object.
 	 *
-	 * @access protected
 	 * @param  array                           $file File info
 	 * @return \mako\http\request\UploadedFile
 	 */
@@ -40,7 +39,6 @@ class Files extends Parameters
 	/**
 	 * Normalizes a multi file upload array to a more manageable format.
 	 *
-	 * @access protected
 	 * @param  array $files File upload array
 	 * @return array
 	 */
@@ -66,7 +64,6 @@ class Files extends Parameters
 	/**
 	 * Converts the $_FILES array to an array of UploadedFile objects.
 	 *
-	 * @access protected
 	 * @param  array $files File upload array
 	 * @return array
 	 */

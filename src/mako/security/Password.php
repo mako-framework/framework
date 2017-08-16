@@ -27,7 +27,6 @@ class Password
 	/**
 	 * Normalizes the computing options.
 	 *
-	 * @access protected
 	 * @param  array $options Computing options
 	 * @return array
 	 */
@@ -46,7 +45,6 @@ class Password
 	/**
 	 * Set default computing cost.
 	 *
-	 * @access public
 	 * @param array $options Computing cost
 	 */
 	public static function setDefaultComputingOptions(array $options)
@@ -57,7 +55,6 @@ class Password
 	/**
 	 * Get default computing options.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public static function getDefaultComputingOptions(): array
@@ -68,7 +65,6 @@ class Password
 	/**
 	 * Returns a password hash.
 	 *
-	 * @access public
 	 * @param  string     $password Password
 	 * @param  null|array $options  Computing options
 	 * @return string
@@ -83,7 +79,6 @@ class Password
 	/**
 	 * Checks if the password needs to be rehashed.
 	 *
-	 * @access public
 	 * @param  string     $hash    Password hash to check
 	 * @param  null|array $options Computing options
 	 * @return bool
@@ -98,7 +93,6 @@ class Password
 	/**
 	 * Validates a password hash.
 	 *
-	 * @access public
 	 * @param  string $password Password
 	 * @param  string $hash     Password hash
 	 * @return bool

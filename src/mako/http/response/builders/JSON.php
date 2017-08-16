@@ -41,7 +41,6 @@ class JSON implements ResponseBuilderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param mixed $data    Data
 	 * @param int   $options JSON encode options
 	 */
@@ -55,7 +54,6 @@ class JSON implements ResponseBuilderInterface
 	/**
 	 * Enables JSONP support.
 	 *
-	 * @access public
 	 * @param  string                            $callback Query string field
 	 * @return \mako\http\response\builders\JSON
 	 */
@@ -69,7 +67,6 @@ class JSON implements ResponseBuilderInterface
 	/**
 	 * Ensures a valid callback name.
 	 *
-	 * @access protected
 	 * @param  string $callback Callback name
 	 * @return string
 	 */

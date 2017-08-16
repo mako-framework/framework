@@ -7,7 +7,6 @@
 
 namespace mako\database\midgard;
 
-use mako\utility\Arr;
 use mako\database\query\ResultSet as BaseResultSet;
 
 /**
@@ -20,7 +19,6 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Clones all items when cloning the collection.
 	 *
-	 * @access public
 	 */
 	public function __clone()
 	{
@@ -33,7 +31,6 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Excludes the chosen columns and relations from array and json representations of the collection.
 	 *
-	 * @access public
 	 * @param string|array|bool $column Column or relation to hide from the
 	 */
 	public function protect($column)
@@ -47,7 +44,6 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Exposes the chosen columns and relations in the array and json representations of the collection.
 	 *
-	 * @access public
 	 * @param string|array|bool $column Column or relation to hide from the
 	 */
 	public function expose($column)

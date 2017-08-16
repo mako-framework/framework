@@ -9,10 +9,8 @@ namespace mako\application\cli\commands\app;
 
 use Closure;
 
-use mako\file\FileSystem;
 use mako\http\routing\Routes;
 use mako\reactor\Command;
-use mako\utility\Str;
 
 /**
  * Command that lists all registered routes.
@@ -41,7 +39,6 @@ class ListRoutes extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @access public
 	 * @param \mako\http\routing\Routes $routes Route collection
 	 */
 	public function execute(Routes $routes)

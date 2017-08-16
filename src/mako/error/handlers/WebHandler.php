@@ -55,7 +55,6 @@ class WebHandler extends Handler
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \Throwable             $exception Throwable
 	 * @param \mako\http\Request     $request   Request instance
 	 * @param \mako\http\Response    $response  Response intance
@@ -77,7 +76,6 @@ class WebHandler extends Handler
 	/**
 	 * Should we return the error as JSON?
 	 *
-	 * @access protected
 	 * @return bool
 	 */
 	protected function returnAsJson(): bool
@@ -102,7 +100,6 @@ class WebHandler extends Handler
 	/**
 	 * Returns the source code of a trace frame.
 	 *
-	 * @access protected
 	 * @param  string     $file File path
 	 * @param  int        $line Frame line
 	 * @return bool|array
@@ -143,7 +140,6 @@ class WebHandler extends Handler
 	/**
 	 * Fixes the argument data and optionally ads source to each frame.
 	 *
-	 * @access protected
 	 * @param  array $trace Exception trace
 	 * @return array
 	 */
@@ -180,7 +176,6 @@ class WebHandler extends Handler
 	/**
 	 * Returns a detailed error page.
 	 *
-	 * @access protected
 	 * @param  bool   $returnAsJson Should we return JSON?
 	 * @return string
 	 */
@@ -243,7 +238,6 @@ class WebHandler extends Handler
 	/**
 	 * Retruns a generic error page.
 	 *
-	 * @access protected
 	 * @param  bool   $returnAsJson Should we return JSON?
 	 * @return string
 	 */

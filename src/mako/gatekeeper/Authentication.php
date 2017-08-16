@@ -78,7 +78,6 @@ class Authentication
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param string|\mako\gatekeeper\adapters\AdapterInterface $adapter Adapter name or adapter instance
 	 * @param null|\Closure                                     $factory Adapter factory
 	 */
@@ -90,7 +89,6 @@ class Authentication
 	/**
 	 * Registers a adapter.
 	 *
-	 * @access public
 	 * @param string|\mako\gatekeeper\adapters\AdapterInterface $adapter     Adapter name or adapter instance
 	 * @param null|\Closure                                     $factory     Adapter factory
 	 * @param bool                                              $makeDefault Make it the default adapter?
@@ -115,7 +113,6 @@ class Authentication
 	/**
 	 * Registers a new adapter.
 	 *
-	 * @access public
 	 * @param  string|\mako\gatekeeper\adapters\AdapterInterface $adapter Adapter name or adapter instance
 	 * @param  null|\Closure                                     $factory Adapter factory
 	 * @return \mako\gatekeeper\Authentication
@@ -130,7 +127,6 @@ class Authentication
 	/**
 	 * Sets the defaut adapter name.
 	 *
-	 * @access public
 	 * @param  string                          $name Adapter name
 	 * @return \mako\gatekeeper\Authentication
 	 */
@@ -144,7 +140,6 @@ class Authentication
 	/**
 	 * Resolves a adapter instance.
 	 *
-	 * @access protected
 	 * @param  string                                    $name Adapter name
 	 * @return \mako\gatekeeper\adapters\AdapterInterace
 	 */
@@ -158,7 +153,6 @@ class Authentication
 	/**
 	 * Returns a adapter instance.
 	 *
-	 * @access public
 	 * @param  null|string                               $name Adapter name
 	 * @return \mako\gatekeeper\adapters\AdapterInterace
 	 */
@@ -172,7 +166,6 @@ class Authentication
 	/**
 	 * Magic shortcut to the default adapter.
 	 *
-	 * @access public
 	 * @param  string $method    Method name
 	 * @param  array  $arguments Method arguments
 	 * @return mixed

@@ -35,7 +35,6 @@ class Subquery
 	/**
 	 * Constructor.
 	 *
-	 * @access public
 	 * @param \Closure|\mako\database\query\Query $query Query builder
 	 * @param string                              $alias Subquery alias
 	 */
@@ -48,7 +47,6 @@ class Subquery
 	/**
 	 * Converts a subquery closure to query a builder instance.
 	 *
-	 * @access public
 	 * @param  \mako\database\query\Query    $query Query builder instance
 	 * @return \mako\database\query\Subquery
 	 */
@@ -69,7 +67,6 @@ class Subquery
 	/**
 	 * Returns the compiled query.
 	 *
-	 * @access public
 	 * @param  bool  $enclose Should the query be enclosed in parentheses?
 	 * @return array
 	 */

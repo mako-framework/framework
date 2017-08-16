@@ -49,7 +49,6 @@ class UUID
 	/**
 	 * Checks if a UUID is valid.
 	 *
-	 * @access public
 	 * @param  string $str The UUID to validate
 	 * @return bool
 	 */
@@ -61,7 +60,6 @@ class UUID
 	/**
 	 * Converts UUID to binary.
 	 *
-	 * @access protected
 	 * @param  string $namespace UUID
 	 * @return string
 	 */
@@ -95,7 +93,6 @@ class UUID
 	/**
 	 * Returns a V3 UUID.
 	 *
-	 * @access public
 	 * @param  string $namespace Namespace
 	 * @param  string $name      Name
 	 * @return string
@@ -138,7 +135,6 @@ class UUID
 	/**
 	 * Returns a V4 UUID.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public static function v4(): string
@@ -155,7 +151,6 @@ class UUID
 	/**
 	 * Returns a V5 UUID.
 	 *
-	 * @access public
 	 * @param  string $namespace Namespace
 	 * @param  string $name      Name
 	 * @return string

@@ -41,7 +41,6 @@ class Group extends ORM implements GroupEntityInterface
 	/**
 	 * Group users.
 	 *
-	 * @access public
 	 * @return \mako\database\midgard\relations\ManyToMany
 	 */
 	public function users(): ManyToMany
@@ -60,7 +59,6 @@ class Group extends ORM implements GroupEntityInterface
 	/**
 	 * Sets the group name.
 	 *
-	 * @access public
 	 * @param string $name Group name
 	 */
 	public function setName(string $name)
@@ -79,7 +77,6 @@ class Group extends ORM implements GroupEntityInterface
 	/**
 	 * Adds a user to the group.
 	 *
-	 * @access public
 	 * @param  \mako\gatekeeper\entities\user\User $user User
 	 * @return bool
 	 */
@@ -101,7 +98,6 @@ class Group extends ORM implements GroupEntityInterface
 	/**
 	 * Removes a user from the group.
 	 *
-	 * @access public
 	 * @param  \mako\gatekeeper\entities\user\User $user User
 	 * @return bool
 	 */
@@ -123,7 +119,6 @@ class Group extends ORM implements GroupEntityInterface
 	/**
 	 * Returns TRUE if a user is a member of the group and FALSE if not.
 	 *
-	 * @access public
 	 * @param  \mako\gatekeeper\entities\user\User $user User
 	 * @return bool
 	 */

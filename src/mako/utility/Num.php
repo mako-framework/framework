@@ -19,7 +19,6 @@ class Num
 	/**
 	 * Converts arabic numerals (1-3999) to roman numerals.
 	 *
-	 * @access public
 	 * @param  int    $int Arabic numeral to convert
 	 * @return string
 	 */
@@ -76,7 +75,6 @@ class Num
 	/**
 	 * Converts roman numerals (I-MMMCMXCIX) to arabic numerals.
 	 *
-	 * @access public
 	 * @param  string $str Roman numeral to convert
 	 * @return int
 	 */

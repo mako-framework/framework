@@ -19,7 +19,6 @@ class HasOne extends HasOneOrMany
 	/**
 	 * Eager loads related records and matches them with their parent records.
 	 *
-	 * @access public
 	 * @param array         $results  Parent records
 	 * @param string        $relation Relation name
 	 * @param null|\Closure $criteria Relation criteria
@@ -52,7 +51,6 @@ class HasOne extends HasOneOrMany
 	/**
 	 * Returns related a record from the database.
 	 *
-	 * @access public
 	 * @return \mako\database\midgard\ORM|false
 	 */
 	public function getRelated()

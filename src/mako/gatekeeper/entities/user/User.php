@@ -61,7 +61,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * User groups.
 	 *
-	 * @access public
 	 * @return \mako\database\midgard\relations\ManyToMany
 	 */
 	public function groups(): ManyToMany
@@ -72,7 +71,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Password mutator.
 	 *
-	 * @access protected
 	 * @param  string $password Password
 	 * @return string
 	 */
@@ -84,7 +82,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Generates a new token.
 	 *
-	 * @access protected
 	 * @return string
 	 */
 	protected function generateToken(): string
@@ -103,7 +100,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Sets the user email address.
 	 *
-	 * @access public
 	 * @param string $email Email address
 	 */
 	public function setEmail($email)
@@ -114,7 +110,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns the user email address.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getEmail(): string
@@ -125,7 +120,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Sets the username.
 	 *
-	 * @access public
 	 * @param string $username Username
 	 */
 	public function setUsername(string $username)
@@ -144,7 +138,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Sets the user password.
 	 *
-	 * @access public
 	 * @param string $password Password
 	 */
 	public function setPassword(string $password)
@@ -155,7 +148,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns the user password hash.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getPassword(): string
@@ -166,7 +158,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Sets the user IP address.
 	 *
-	 * @access public
 	 * @param string $ip IP address
 	 */
 	public function setIp(string $ip)
@@ -177,7 +168,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns the user IP address.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getIp(): string
@@ -188,7 +178,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Generates a new action token.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function generateActionToken(): string
@@ -199,7 +188,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns the user action token.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getActionToken(): string
@@ -210,7 +198,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Generates a new access token.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function generateAccessToken(): string
@@ -221,7 +208,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns the user access token.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getAccessToken(): string
@@ -231,8 +217,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 
 	/**
 	 * Activates the user.
-	 *
-	 * @access public
 	 */
 	public function activate()
 	{
@@ -241,8 +225,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 
 	/**
 	 * Deactivates the user.
-	 *
-	 * @access public
 	 */
 	public function deactivate()
 	{
@@ -252,7 +234,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns TRUE of the user is activated and FALSE if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isActivated(): bool
@@ -262,8 +243,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 
 	/**
 	 * Bans the user.
-	 *
-	 * @access public
 	 */
 	public function ban()
 	{
@@ -272,8 +251,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 
 	/**
 	 * Unbans the user.
-	 *
-	 * @access public
 	 */
 	public function unban()
 	{
@@ -283,7 +260,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns TRUE if the user is banned and FALSE if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isBanned(): bool
@@ -294,7 +270,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns true if the provided password is correct and false if not.
 	 *
-	 * @access public
 	 * @param  string $password Privided password
 	 * @param  bool   $autoSave Autosave rehashed password?
 	 * @return bool
@@ -347,7 +322,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Locks the account until the given date.
 	 *
-	 * @access public
 	 * @param \DateTimeInterface $time Date
 	 */
 	public function lockUntil(DateTimeInterface $time)
@@ -358,7 +332,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns null if the account isn't locked and a date time instance if its locked.
 	 *
-	 * @access public
 	 * @return null|\mako\chrono\Time|\DateTimeInterface
 	 */
 	public function lockedUntil()
@@ -368,8 +341,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 
 	/**
 	 * Unlocks the account.
-	 *
-	 * @access public
 	 */
 	public function unlock()
 	{
@@ -379,18 +350,16 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns TRUE if the account is locked and FALSE if not.
 	 *
-	 * @access public
 	 * @return bool
 	 */
 	public function isLocked(): bool
 	{
-		return $this->locked_until !== null;
+		return $this->locked_until !== null && $this->locked_until->getTimestamp() >= Time::now()->getTimestamp();
 	}
 
 	/**
 	 * Returns the number of failed login attempts.
 	 *
-	 * @access public
 	 * @return int
 	 */
 	public function getFailedAttempts(): int
@@ -401,7 +370,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Gets the time of the last failed attempt.
 	 *
-	 * @access public
 	 * @return null|\mako\chrono\Time|\DateTimeInterface
 	 */
 	public function getLastFailAt()
@@ -412,7 +380,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Throttles login attempts.
 	 *
-	 * @access public
 	 * @param  int  $maxLoginAttempts Maximum number of failed login attempts
 	 * @param  int  $lockTime         Number of seconds for which the account gets locked after reaching the maximum number of login attempts
 	 * @param  bool $autoSave         Autosave changes?
@@ -453,7 +420,6 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Resets the login throttling.
 	 *
-	 * @access public
 	 * @param  bool $autoSave Autosave changes?
 	 * @return bool
 	 */

@@ -17,7 +17,6 @@ interface LoaderInterface
 	/**
 	 * Returns inflection rules or NULL if they doesn't exist.
 	 *
-	 * @access public
 	 * @param  string     $language Name of the language pack
 	 * @return array|null
 	 */
@@ -26,7 +25,6 @@ interface LoaderInterface
 	/**
 	 * Loads and returns language strings.
 	 *
-	 * @access public
 	 * @param  string $language Name of the language pack
 	 * @param  string $file     File we want to load
 	 * @return array

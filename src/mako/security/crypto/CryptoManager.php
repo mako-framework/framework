@@ -12,7 +12,6 @@ use RuntimeException;
 use mako\common\AdapterManager;
 use mako\security\crypto\Crypto;
 use mako\security\crypto\encrypters\OpenSSL;
-use mako\security\crypto\padders\PKCS7;
 use mako\security\Key;
 
 /**
@@ -29,7 +28,6 @@ class CryptoManager extends AdapterManager
 	/**
 	 * OpenSSL encrypter factory.
 	 *
-	 * @access protected
 	 * @param  array                                    $configuration Configuration
 	 * @return \mako\security\crypto\encrypters\OpenSSL
 	 */
@@ -41,7 +39,6 @@ class CryptoManager extends AdapterManager
 	/**
 	 * Returns a crypto instance.
 	 *
-	 * @access public
 	 * @param  string                       $configuration Configuration name
 	 * @return \mako\security\crypto\Crypto
 	 */
