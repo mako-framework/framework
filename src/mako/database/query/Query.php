@@ -160,13 +160,10 @@ class Query
 
 	/**
 	 * Create a fresh compiler instance when we clone the query.
-	 *
 	 */
 	public function __clone()
 	{
-		$compiler = get_class($this->compiler);
-
-		$this->compiler = new $compiler($this);
+		$this->compiler = $this->connection->getQueryCompiler($this);
 	}
 
 	/**
@@ -1315,6 +1312,8 @@ class Query
 
 		while(true)
 		{
+			$query = clone $this;
+
 			if($offsetEnd !== null && $offsetStart >= $offsetEnd)
 			{
 				break;
@@ -1322,10 +1321,10 @@ class Query
 
 			if($offsetStart !== 0)
 			{
-				$this->offset($offsetStart);
+				$query->offset($offsetStart);
 			}
 
-			$results = $this->all();
+			$results = $query->all();
 
 			if(count($results) > 0)
 			{
