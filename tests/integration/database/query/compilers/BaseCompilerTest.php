@@ -208,4 +208,38 @@ class BaseCompilerTest extends BuilderTestCase
 
 		$this->assertEquals('SELECT DISTINCT "id", "username" FROM "users" LIMIT 10 OFFSET 0', $this->connectionManager->connection()->getLog()[1]['query']);
 	}
+
+	/**
+	 *
+	 */
+	public function testBatch()
+	{
+		$query = new Query($this->connectionManager->connection());
+
+		$results = $query->table('users')->batch(function($results)
+		{
+
+		});
+
+		$this->assertEquals('SELECT * FROM "users" LIMIT 1000', $this->connectionManager->connection()->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "users" LIMIT 1000 OFFSET 1000', $this->connectionManager->connection()->getLog()[1]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBatchWithCriteria()
+	{
+		$query = new Query($this->connectionManager->connection());
+
+		$results = $query->table('users')->where('id', '!=', 'foobar')->batch(function($results)
+		{
+
+		});
+
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" != \'foobar\' LIMIT 1000', $this->connectionManager->connection()->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" != \'foobar\' LIMIT 1000 OFFSET 1000', $this->connectionManager->connection()->getLog()[1]['query']);
+	}
 }
