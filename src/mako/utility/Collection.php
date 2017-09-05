@@ -339,4 +339,25 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 		return new static(array_filter($this->items, $callable));
 	}
+
+	/**
+	 * Reject item based on the given criteria.
+	 * 
+	 * @param  mixed $criteria Filter
+	 * @return \mako\utility\Collection
+	 */
+	public function reject($criteria)
+	{
+		if (! is_callable($criteria)) {
+			return $this->reject(function($value) use ($criteria)
+			{
+			    return $value === $criteria;
+			});
+		}
+
+		return $this->map(function($value, $key) use ($criteria)  
+		{
+		    return $criteria($value, $key) ? null : $value;
+		})->filter();
+	}
 }
