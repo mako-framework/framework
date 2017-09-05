@@ -484,39 +484,4 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 		$this->assertSame([1, 2, 3], $collection->getValues());
 
 	}
-
-	/**
-	 *
-	 */
-	public function testReject()
-	{
-		$collection = new Collection([1, 2, 3]);
-
-		$result = $collection->reject(function($value) 
-		{
-		    return $value > 2;
-		});
-
-		$this->assertSame([1, 2], $result->getItems());
-		$this->assertSame([1, 2, 3], $collection->getItems());
-
-		// Also works with key
-		$collection = new Collection(['foo' => 1, 'bar' => 2, 3 => 3]);
-		
-		$result = $collection->reject(function($value, $key) 
-		{
-		    return is_int($key);
-		});
-
-		$this->assertSame(['foo' => 1, 'bar' => 2], $result->getItems());
-		$this->assertSame(['foo' => 1, 'bar' => 2, 3 => 3], $collection->getItems());
-
-		// Also works with single value
-		$collection = new Collection([1, 2, 3]);
-
-		$result = $collection->reject(3);
-
-		$this->assertSame([1, 2], $result->getItems());
-		$this->assertSame([1, 2, 3], $collection->getItems());
-	}
 }
