@@ -317,7 +317,11 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function map(callable $callable)
 	{
-		return new static(array_map($callable, $this->items));
+		$keys = array_keys($this->items);
+
+		$values = array_map($callable, $this->items, $keys);
+
+		return new static(array_combine($keys, $values));
 	}
 
 	/**

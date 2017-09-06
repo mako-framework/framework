@@ -431,16 +431,30 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testMap()
 	{
-		$collection = new Collection([1, 2, 3]);
+		$collection = new Collection(['first' => 1, 'second' => 2, 'third' => 3]);
 
-		$mapped = $collection->map(function($value)
+		$mapped1 = $collection->map(function($value) 
 		{
-			return $value + 1;
+		    return $value + 1;
 		});
 
-		$this->assertSame([2, 3, 4], $mapped->getItems());
+		$this->assertSame(['first' => 2, 'second' => 3, 'third' => 4], $mapped1->getItems());
 
-		$this->assertSame([1, 2, 3], $collection->getItems());
+		// With key passes as second argument.
+		$mapped2 = $collection->map(function($value, $key)
+		{
+			return $key . ':' . ($value + 1);
+		});
+
+		$this->assertSame([
+			'first' => 'first:2', 
+			'second' => 'second:3', 
+			'third' => 'third:4'
+		], $mapped2->getItems());
+
+		$this->assertSame(
+			['first' => 1, 'second' => 2, 'third' => 3], $collection->getItems()
+		);
 	}
 
 	/**
