@@ -105,7 +105,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param null|bool $hasAnsiSupport Do we have ANSI support?
+	 * @param bool|null $hasAnsiSupport Do we have ANSI support?
 	 */
 	public function __construct(bool $hasAnsiSupport = null)
 	{

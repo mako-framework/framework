@@ -17,9 +17,9 @@ class Arr
 	/**
 	 * Sets an array value using "dot notation".
 	 *
-	 * @param array  $array Array you want to modify
-	 * @param string $path  Array path
-	 * @param mixed  $value Value to set
+	 * @param array  &$array Array you want to modify
+	 * @param string $path   Array path
+	 * @param mixed  $value  Value to set
 	 */
 	public static function set(array &$array, string $path, $value)
 	{
@@ -69,8 +69,8 @@ class Arr
 	 *
 	 * @param  array      $array   Array we're going to search
 	 * @param  string     $path    Array path
-	 * @param  null|mixed $default Default return value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default return value
+	 * @return mixed|null
 	 */
 	public static function get(array $array, string $path, $default = null)
 	{
@@ -92,8 +92,8 @@ class Arr
 	/**
 	 * Deletes an array value using "dot notation".
 	 *
-	 * @param  array  $array Array you want to modify
-	 * @param  string $path  Array path
+	 * @param  array  &$array Array you want to modify
+	 * @param  string $path   Array path
 	 * @return bool
 	 */
 	public static function delete(array &$array, string $path): bool

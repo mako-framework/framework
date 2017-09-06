@@ -39,7 +39,7 @@ class Cookies implements Countable, IteratorAggregate
 	 * Constructor.
 	 *
 	 * @param array                      $cookies Cookies
-	 * @param null|\mako\security\Signer $signer  Signer
+	 * @param \mako\security\Signer|null $signer  Signer
 	 */
 	public function __construct(array $cookies = [], Signer $signer = null)
 	{
@@ -110,8 +110,8 @@ class Cookies implements Countable, IteratorAggregate
 	 * Gets a cookie value.
 	 *
 	 * @param  string     $name    Cookie name
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value
+	 * @return mixed|null
 	 */
 	public function get(string $name, $default = null)
 	{
@@ -122,8 +122,8 @@ class Cookies implements Countable, IteratorAggregate
 	 * Gets a signed cookie value.
 	 *
 	 * @param  string     $name    Cookie name
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value
+	 * @return mixed|null
 	 */
 	public function getSigned(string $name, $default = null)
 	{

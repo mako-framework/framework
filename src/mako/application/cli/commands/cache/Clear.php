@@ -46,7 +46,7 @@ class Clear extends Command
 	 * Executes the command.
 	 *
 	 * @param \mako\cache\CacheManager $cache         Cache manager
-	 * @param null|string              $configuration Configuration name
+	 * @param string|null              $configuration Configuration name
 	 */
 	public function execute(CacheManager $cache, string $configuration = null)
 	{

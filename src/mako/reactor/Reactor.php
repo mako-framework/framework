@@ -77,8 +77,8 @@ class Reactor
 	 *
 	 * @param \mako\cli\input\Input         $input      Input
 	 * @param \mako\cli\output\Output       $output     Output
-	 * @param null|\mako\syringe\Container  $container  Container
-	 * @param null|\mako\reactor\Dispatcher $dispatcher Command dispatcher
+	 * @param \mako\syringe\Container|null  $container  Container
+	 * @param \mako\reactor\Dispatcher|null $dispatcher Command dispatcher
 	 */
 	public function __construct(Input $input, Output $output, Container $container = null, Dispatcher $dispatcher = null)
 	{

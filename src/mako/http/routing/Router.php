@@ -102,9 +102,9 @@ class Router
 	/**
 	 * Returns TRUE if the route matches the request path and FALSE if not.
 	 *
-	 * @param  \mako\http\routing\Route $route      Route
-	 * @param  string                   $path       Request path
-	 * @param  array                    $parameters Parameters
+	 * @param  \mako\http\routing\Route $route       Route
+	 * @param  string                   $path        Request path
+	 * @param  array                    &$parameters Parameters
 	 * @return bool
 	 */
 	protected function matches(Route $route, string $path, array &$parameters = []): bool

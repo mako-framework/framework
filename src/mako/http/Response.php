@@ -195,7 +195,7 @@ class Response
 	 *
 	 * @param \mako\http\Request         $request Request instance
 	 * @param string                     $charset Response charset
-	 * @param null|\mako\security\Signer $signer  Signer instance used to sign cookies
+	 * @param \mako\security\Signer|null $signer  Signer instance used to sign cookies
 	 */
 	public function __construct(Request $request, string $charset = 'UTF-8', Signer $signer = null)
 	{
@@ -245,7 +245,7 @@ class Response
 	 * Sets the response content type.
 	 *
 	 * @param  string              $contentType Content type
-	 * @param  null|string         $charset     Charset
+	 * @param  string|null         $charset     Charset
 	 * @return \mako\http\Response
 	 */
 	public function type(string $contentType, string $charset = null): Response

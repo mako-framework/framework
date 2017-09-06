@@ -20,7 +20,7 @@ trait SuggestionTrait
 	 *
 	 * @param  string      $string       String
 	 * @param  array       $alternatives Alternatives
-	 * @return null|string
+	 * @return string|null
 	 */
 	protected function suggest(string $string, array $alternatives)
 	{

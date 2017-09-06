@@ -120,8 +120,8 @@ class Headers implements Countable, IteratorAggregate
 	 * Gets a header value.
 	 *
 	 * @param  string     $name    Header name
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value
+	 * @return mixed|null
 	 */
 	public function get(string $name, $default = null)
 	{
@@ -151,7 +151,7 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Parses a accpet header and returns the values in descending order of preference.
 	 *
-	 * @param  null|string $headerValue Header value
+	 * @param  string|null $headerValue Header value
 	 * @return array
 	 */
 	protected function parseAcceptHeader(string $headerValue = null): array

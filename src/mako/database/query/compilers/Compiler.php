@@ -651,7 +651,7 @@ class Compiler
 	/**
 	 * Compiles LIMIT clauses.
 	 *
-	 * @param  null|int $limit Limit
+	 * @param  int|null $limit Limit
 	 * @return string
 	 */
 	protected function limit(int $limit = null): string
@@ -662,7 +662,7 @@ class Compiler
 	/**
 	 * Compiles OFFSET clauses.
 	 *
-	 * @param  null|int $offset Limit
+	 * @param  int|null $offset Limit
 	 * @return string
 	 */
 	protected function offset(int $offset = null): string
@@ -673,7 +673,7 @@ class Compiler
 	/**
 	 * Compiles locking clause.
 	 *
-	 * @param   null|bool|string
+	 * @param   bool|string|null
 	 * @return string
 	 */
 	protected function lock($lock): string

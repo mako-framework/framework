@@ -63,7 +63,7 @@ class Time extends DateTime
 	 * Constructor.
 	 *
 	 * @param string                    $time     A date/time string
-	 * @param null|string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
+	 * @param string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
 	 */
 	public function __construct(string $time = 'now', $timeZone = null)
 	{
@@ -78,7 +78,7 @@ class Time extends DateTime
 	/**
 	 * Returns a new Time object.
 	 *
-	 * @param  null|string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
+	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\Time
 	 */
 	public static function now($timeZone = null)
@@ -90,9 +90,9 @@ class Time extends DateTime
 	 * Returns new Time object according to the specified date.
 	 *
 	 * @param  int                       $year     Year
-	 * @param  int                       $month    Month (1 to 12)
-	 * @param  int                       $day      Day of month (1 to 31)
-	 * @param  null|string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
+	 * @param  int|null                  $month    Month (1 to 12)
+	 * @param  int|null                  $day      Day of month (1 to 31)
+	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\Time
 	 */
 	public static function createFromDate(int $year, int $month = null, int $day = null, $timeZone = null): Time
@@ -110,7 +110,7 @@ class Time extends DateTime
 	 * Returns new Time object according to the specified timestamp.
 	 *
 	 * @param  int                       $timestamp Unix timestamp
-	 * @param  null|string|\DateTimeZone $timeZone  A valid time zone or a DateTimeZone object
+	 * @param  string|\DateTimeZone|null $timeZone  A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\Time
 	 */
 	public static function createFromTimestamp(int $timestamp, $timeZone = null): Time
@@ -126,7 +126,7 @@ class Time extends DateTime
 	 * Returns new Time object according to the specified DOS timestamp.
 	 *
 	 * @param  int                       $timestamp DOS timestamp
-	 * @param  null|string|\DateTimeZone $timeZone  A valid time zone or a DateTimeZone object
+	 * @param  string|\DateTimeZone|null $timeZone  A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\Time
 	 */
 	public static function createFromDOSTimestamp(int $timestamp, $timeZone = null): Time
@@ -148,7 +148,7 @@ class Time extends DateTime
 	 *
 	 * @param  string                    $format   The format that the passed in string should be in
 	 * @param  string                    $time     String representing the time
-	 * @param  null|string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
+	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\Time
 	 */
 	public static function createFromFormat($format, $time, $timeZone = null): Time

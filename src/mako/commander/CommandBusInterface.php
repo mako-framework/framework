@@ -20,8 +20,8 @@ interface CommandBusInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param null|\mako\syringe\Container $container Container
-	 * @param null|\mako\onion\Onion       $onion     Onion
+	 * @param \mako\syringe\Container|null $container Container
+	 * @param \mako\onion\Onion|null       $onion     Onion
 	 */
 	public function __construct(Container $container = null, Onion $onion = null);
 

@@ -431,30 +431,38 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testMap()
 	{
-		$collection = new Collection(['first' => 1, 'second' => 2, 'third' => 3]);
+		$collection = new Collection([1, 2, 3]);
 
-		$mapped1 = $collection->map(function($value) 
+		$mapped = $collection->map(function($value)
 		{
-		    return $value + 1;
+			return $value + 1;
 		});
 
-		$this->assertSame(['first' => 2, 'second' => 3, 'third' => 4], $mapped1->getItems());
+		$this->assertSame([2, 3, 4], $mapped->getItems());
 
-		// With key passes as second argument.
-		$mapped2 = $collection->map(function($value, $key)
+		$this->assertSame([1, 2, 3], $collection->getItems());
+
+		//
+
+		$collection = new Collection(['first' => 1, 'second' => 2, 'third' => 3]);
+
+		$mapped = $collection->map(function($value)
+		{
+			return $value + 1;
+		});
+
+		$this->assertSame(['first' => 2, 'second' => 3, 'third' => 4], $mapped->getItems());
+
+		// With key passes as second argument
+
+		$mapped = $collection->map(function($value, $key)
 		{
 			return $key . ':' . ($value + 1);
 		});
 
-		$this->assertSame([
-			'first' => 'first:2', 
-			'second' => 'second:3', 
-			'third' => 'third:4'
-		], $mapped2->getItems());
+		$this->assertSame(['first' => 'first:2', 'second' => 'second:3', 'third' => 'third:4'], $mapped->getItems());
 
-		$this->assertSame(
-			['first' => 1, 'second' => 2, 'third' => 3], $collection->getItems()
-		);
+		$this->assertSame(['first' => 1, 'second' => 2, 'third' => 3], $collection->getItems());
 	}
 
 	/**
@@ -483,5 +491,17 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame([1, 2, 3], $collection->getValues());
 
+		//
+
+		$collection = new Collection([1, 2, 3, 'foo' => 'bar', 4]);
+
+		$filtered = $collection->filter(function($value, $key)
+		{
+			return is_int($key);
+		});
+
+		$this->assertSame([1, 2, 3, 4], $filtered->getValues());
+
+		$this->assertSame([1, 2, 3, 'foo' => 'bar', 4], $collection->getItems());
 	}
 }

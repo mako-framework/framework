@@ -279,7 +279,7 @@ abstract class Command
 	 * Draws a progress bar and returns a progress bar instance.
 	 *
 	 * @param  int                                  $items      Total number of items
-	 * @param  null|int                             $redrawRate Redraw rate
+	 * @param  int|null                             $redrawRate Redraw rate
 	 * @return \mako\cli\output\helpers\ProgressBar
 	 */
 	protected function progressBar(int $items, int $redrawRate = null): ProgressBar
@@ -349,8 +349,8 @@ abstract class Command
 	 * Writes question to output and returns user input.
 	 *
 	 * @param  string     $question Question to ask
-	 * @param  null|mixed $default  Default if no input is entered
-	 * @return null|mixed
+	 * @param  mixed|null $default  Default if no input is entered
+	 * @return mixed|null
 	 */
 	protected function question(string $question, $default = null)
 	{
@@ -361,9 +361,9 @@ abstract class Command
 	 * Writes question to output and returns hidden user input.
 	 *
 	 * @param  string     $question Question to ask
-	 * @param  null|mixed $default  Default if no input is entered
+	 * @param  mixed|null $default  Default if no input is entered
 	 * @param  bool       $fallback Fall back to non-hidden input?
-	 * @return null|mixed
+	 * @return mixed|null
 	 */
 	protected function secret(string $question, $default = null, bool $fallback = false)
 	{

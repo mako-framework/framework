@@ -20,7 +20,7 @@ use mako\gatekeeper\adapters\AdapterInterface;
  * @method void                                                       setUserRepository(\mako\gatekeeper\repositories\user\UserRepositoryInterface $userRepository)
  * @method \mako\gatekeeper\repositories\user\UserRepositoryInterface getUserRepository()
  * @method void                                                       setUser(\mako\gatekeeper\entities\user\UserEntityInterface $user)
- * @method null|\mako\gatekeeper\entities\user\UserEntityInterface    getUser()
+ * @method \mako\gatekeeper\entities\user\UserEntityInterface|null    getUser()
  * @method bool                                                       isGuest()
  * @method bool                                                       isLoggedIn()
  */
@@ -79,7 +79,7 @@ class Authentication
 	 * Constructor.
 	 *
 	 * @param string|\mako\gatekeeper\adapters\AdapterInterface $adapter Adapter name or adapter instance
-	 * @param null|\Closure                                     $factory Adapter factory
+	 * @param \Closure|null                                     $factory Adapter factory
 	 */
 	public function __construct($adapter, Closure $factory = null)
 	{
@@ -90,7 +90,7 @@ class Authentication
 	 * Registers a adapter.
 	 *
 	 * @param string|\mako\gatekeeper\adapters\AdapterInterface $adapter     Adapter name or adapter instance
-	 * @param null|\Closure                                     $factory     Adapter factory
+	 * @param \Closure|null                                     $factory     Adapter factory
 	 * @param bool                                              $makeDefault Make it the default adapter?
 	 */
 	protected function registerAdapter($adapter, Closure $factory = null, bool $makeDefault = false)
@@ -114,7 +114,7 @@ class Authentication
 	 * Registers a new adapter.
 	 *
 	 * @param  string|\mako\gatekeeper\adapters\AdapterInterface $adapter Adapter name or adapter instance
-	 * @param  null|\Closure                                     $factory Adapter factory
+	 * @param  \Closure|null                                     $factory Adapter factory
 	 * @return \mako\gatekeeper\Authentication
 	 */
 	public function extend($adapter, Closure $factory = null): Authentication
@@ -140,8 +140,8 @@ class Authentication
 	/**
 	 * Resolves a adapter instance.
 	 *
-	 * @param  string                                    $name Adapter name
-	 * @return \mako\gatekeeper\adapters\AdapterInterace
+	 * @param  string                                     $name Adapter name
+	 * @return \mako\gatekeeper\adapters\AdapterInterface
 	 */
 	protected function resolveAdapter(string $name): AdapterInterface
 	{
@@ -153,8 +153,8 @@ class Authentication
 	/**
 	 * Returns a adapter instance.
 	 *
-	 * @param  null|string                               $name Adapter name
-	 * @return \mako\gatekeeper\adapters\AdapterInterace
+	 * @param  string|null                                $name Adapter name
+	 * @return \mako\gatekeeper\adapters\AdapterInterface
 	 */
 	public function adapter(string $name = null): AdapterInterface
 	{

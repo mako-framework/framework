@@ -64,7 +64,7 @@ class Output
 	 *
 	 * @param \mako\cli\output\writer\WriterInterface            $standard  Standard writer
 	 * @param \mako\cli\output\writer\WriterInterface            $error     Error writer
-	 * @param null|\mako\cli\output\formatter\FormatterInterface $formatter Formatter
+	 * @param \mako\cli\output\formatter\FormatterInterface|null $formatter Formatter
 	 */
 	public function __construct(WriterInterface $standard, WriterInterface $error, FormatterInterface $formatter = null)
 	{

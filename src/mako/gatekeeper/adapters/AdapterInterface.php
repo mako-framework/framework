@@ -48,7 +48,7 @@ interface AdapterInterface
 	/**
 	 * Returns the active user or null if there isn't one.
 	 *
-	 * @return null|\mako\gatekeeper\entities\user\UserEntityInterface
+	 * @return \mako\gatekeeper\entities\user\UserEntityInterface|null
 	 */
 	public function getUser();
 

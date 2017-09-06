@@ -52,7 +52,7 @@ class Remove extends Command
 	 *
 	 * @param \mako\cache\CacheManager $cache         Cache manager
 	 * @param string                   $key           Cache Key
-	 * @param null|string              $configuration Configuration name
+	 * @param string|null              $configuration Configuration name
 	 */
 	public function execute(CacheManager $cache, string $key, string $configuration = null)
 	{

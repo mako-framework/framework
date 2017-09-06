@@ -109,7 +109,7 @@ abstract class AdapterManager
 	/**
 	 * Returns an instance of the chosen adapter configuration.
 	 *
-	 * @param  null|string $configuration Configuration name
+	 * @param  string|null $configuration Configuration name
 	 * @return mixed
 	 */
 	public function instance(string $configuration = null)

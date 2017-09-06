@@ -87,7 +87,7 @@ class Confirmation extends Question
 	 *
 	 * @param  string     $question Question to ask
 	 * @param  string     $default  Default answer
-	 * @param  null|array $options  Answer options
+	 * @param  array|null $options  Answer options
 	 * @return bool
 	 */
 	public function ask(string $question, $default = 'n', array $options = null)

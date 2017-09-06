@@ -36,7 +36,7 @@ class Event
 	/**
 	 * Constructor.
 	 *
-	 * @param null|\mako\syringe\Container $container IoC container
+	 * @param \mako\syringe\Container|null $container IoC container
 	 */
 	public function __construct(Container $container = null)
 	{

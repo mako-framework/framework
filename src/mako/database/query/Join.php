@@ -42,8 +42,8 @@ class Join
 	/**
 	 * Constructor.
 	 *
-	 * @param null|string $type  Join type
-	 * @param null|mixed  $table Table we are joining
+	 * @param string|null $type  Join type
+	 * @param mixed|null  $table Table we are joining
 	 */
 	public function __construct(string $type = null, $table = null)
 	{
@@ -85,8 +85,8 @@ class Join
 	 * Adds a ON condition to the join.
 	 *
 	 * @param  string                    $column1   Column name
-	 * @param  null|string               $operator  Operator
-	 * @param  null|string               $column2   Column name
+	 * @param  string|null               $operator  Operator
+	 * @param  string|null               $column2   Column name
 	 * @param  string                    $separator Condition separator
 	 * @return \mako\database\query\Join
 	 */
@@ -138,8 +138,8 @@ class Join
 	 * Adds a OR ON condition to the join.
 	 *
 	 * @param  string                    $column1  Column name
-	 * @param  null|string               $operator Operator
-	 * @param  null|string               $column2  Column name
+	 * @param  string|null               $operator Operator
+	 * @param  string|null               $column2  Column name
 	 * @return \mako\database\query\Join
 	 */
 	public function orOn($column1, string $operator = null, $column2 = null): Join

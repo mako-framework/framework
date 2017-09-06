@@ -112,28 +112,28 @@ class Query
 	/**
 	 * Limit.
 	 *
-	 * @var null|int
+	 * @var int|null
 	 */
 	protected $limit = null;
 
 	/**
 	 * Offset.
 	 *
-	 * @var null|int
+	 * @var int|null
 	 */
 	protected $offset = null;
 
 	/**
 	 * Lock.
 	 *
-	 * @var null|bool|string
+	 * @var bool|string|null
 	 */
 	protected $lock = null;
 
 	/**
 	 * Prefix.
 	 *
-	 * @var null|string
+	 * @var string|null
 	 */
 	protected $prefix = null;
 
@@ -316,7 +316,7 @@ class Query
 	/**
 	 * Returns the limit.
 	 *
-	 * @return null|int
+	 * @return int|null
 	 */
 	public function getLimit()
 	{
@@ -326,7 +326,7 @@ class Query
 	/**
 	 * Returns the offset.
 	 *
-	 * @return null|int
+	 * @return int|null
 	 */
 	public function getOffset()
 	{
@@ -336,7 +336,7 @@ class Query
 	/**
 	 * Returns the lock.
 	 *
-	 * @return null|bool|string
+	 * @return bool|string|null
 	 */
 	public function getLock()
 	{
@@ -346,7 +346,7 @@ class Query
 	/**
 	 * Returns the prefix.
 	 *
-	 * @return null|string
+	 * @return string|null
 	 */
 	public function getPrefix()
 	{
@@ -511,8 +511,8 @@ class Query
 	 * Adds a WHERE clause.
 	 *
 	 * @param  string|\Closure            $column    Column name or closure
-	 * @param  null|string                $operator  Operator
-	 * @param  null|mixed                 $value     Value
+	 * @param  string|null                $operator  Operator
+	 * @param  mixed|null                 $value     Value
 	 * @param  string                     $separator Clause separator
 	 * @return \mako\database\query\Query
 	 */
@@ -550,7 +550,7 @@ class Query
 	 * Adds a raw WHERE clause
 	 *
 	 * @param  string                     $column    Column name or raw SQL
-	 * @param  string|null|array          $operator  Operator or parameters
+	 * @param  string|array|null          $operator  Operator or parameters
 	 * @param  string|null                $raw       Raw SQL
 	 * @param  string                     $separator Clause separator
 	 * @return \mako\database\query\Query
@@ -576,8 +576,8 @@ class Query
 	 * Adds a OR WHERE clause.
 	 *
 	 * @param  string|\Closure            $column   Column name or closure
-	 * @param  null|string                $operator Operator
-	 * @param  null|mixed                 $value    Value
+	 * @param  string|null                $operator Operator
+	 * @param  mixed|null                 $value    Value
 	 * @return \mako\database\query\Query
 	 */
 	public function orWhere($column, $operator = null, $value = null)
@@ -589,7 +589,7 @@ class Query
 	 * Adds a raw OR WHERE clause.
 	 *
 	 * @param  string                     $column   Column name or raw SQL
-	 * @param  string|null|array          $operator Operator or parameters
+	 * @param  string|array|null          $operator Operator or parameters
 	 * @param  string|null                $raw      Raw SQL
 	 * @return \mako\database\query\Query
 	 */
@@ -1274,7 +1274,7 @@ class Query
 	/**
 	 * Paginates the results using a pagination instance.
 	 *
-	 * @param  null|int                       $itemsPerPage Number of items per page
+	 * @param  int|null                       $itemsPerPage Number of items per page
 	 * @param  array                          $options      Pagination options
 	 * @return \mako\database\query\ResultSet
 	 */

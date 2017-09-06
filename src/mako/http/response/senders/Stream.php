@@ -46,7 +46,7 @@ class Stream implements ResponseSenderInterface
 	/**
 	 * Flushes a chunck of data.
 	 *
-	 * @param null|string $chunk      Chunck of data to flush
+	 * @param string|null $chunk      Chunck of data to flush
 	 * @param bool        $flushEmpty Flush empty chunk?
 	 */
 	public function flush(string $chunk = null, bool $flushEmpty = false)

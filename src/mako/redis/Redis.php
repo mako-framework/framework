@@ -180,7 +180,7 @@ class Redis
 	 * Handles a bulk response.
 	 *
 	 * @param  string      $response Redis response
-	 * @return null|string
+	 * @return string|null
 	 */
 	protected function handleBulkResponse(string $response)
 	{
@@ -198,7 +198,7 @@ class Redis
 	 * Handles a multi-bulk response.
 	 *
 	 * @param  string     $response Redis response
-	 * @return null|array
+	 * @return array|null
 	 */
 	protected function handleMultiBulkResponse(string $response)
 	{

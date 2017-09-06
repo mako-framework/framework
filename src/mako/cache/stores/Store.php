@@ -19,7 +19,7 @@ abstract class Store implements StoreInterface
 	/**
 	 * Prefix.
 	 *
-	 * @var null|string
+	 * @var string|null
 	 */
 	protected $prefix;
 
@@ -39,7 +39,7 @@ abstract class Store implements StoreInterface
 	/**
 	 * Returns the cache key prefix.
 	 *
-	 * @return null|string
+	 * @return string|null
 	 */
 	public function getPrefix()
 	{

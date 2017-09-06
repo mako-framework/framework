@@ -63,7 +63,7 @@ class HTML
 	 *
 	 * @param  string      $name       Tag name
 	 * @param  array       $attributes Tag attributes
-	 * @param  null|string $content    Tag content
+	 * @param  string|null $content    Tag content
 	 * @return string
 	 */
 	public function tag(string $name, array $attributes = [], string $content = null): string

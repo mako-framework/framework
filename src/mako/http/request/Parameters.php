@@ -83,8 +83,8 @@ class Parameters implements Countable, IteratorAggregate
 	 * Gets a parameter value.
 	 *
 	 * @param  string     $name    Parameter name
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value
+	 * @return mixed|null
 	 */
 	public function get(string $name, $default = null)
 	{

@@ -41,7 +41,7 @@ class Input
 	 * Constructor.
 	 *
 	 * @param \mako\cli\input\reader\ReaderInterface $reader    Reader instance
-	 * @param null|array                             $arguments Array of arguments passed to script
+	 * @param array|null                             $arguments Array of arguments passed to script
 	 */
 	public function __construct(ReaderInterface $reader, array $arguments = null)
 	{
@@ -114,8 +114,8 @@ class Input
 	 * Returns the argument associated with the given name.
 	 *
 	 * @param  int|string $name    Parameter number or name
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value
+	 * @return mixed|null
 	 */
 	public function getArgument($name, $default = null)
 	{

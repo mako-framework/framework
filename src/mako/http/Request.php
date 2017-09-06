@@ -156,7 +156,7 @@ class Request
 	 * Constructor.
 	 *
 	 * @param array                      $request Request data and options
-	 * @param null|\mako\security\Signer $signer  Signer instance used to validate signed cookies
+	 * @param \mako\security\Signer|null $signer  Signer instance used to validate signed cookies
 	 */
 	public function __construct(array $request = [], Signer $signer = null)
 	{
@@ -278,7 +278,7 @@ class Request
 	/**
 	 * Returns the route that matched the request.
 	 *
-	 * @return null|\mako\http\routing\Route
+	 * @return \mako\http\routing\Route|null
 	 */
 	public function getRoute()
 	{
@@ -300,8 +300,8 @@ class Request
 	 * Gets a request attribute.
 	 *
 	 * @param  string     $name    Attribute name
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value
+	 * @return mixed|null
 	 */
 	public function getAttribute(string $name, $default = null)
 	{
@@ -336,9 +336,9 @@ class Request
 	/**
 	 * Parses the request body and returns the chosen value.
 	 *
-	 * @param  null|string $key     Array key
-	 * @param  null|mixed  $default Default value
-	 * @return null|mixed
+	 * @param  string|null $key     Array key
+	 * @param  mixed|null  $default Default value
+	 * @return mixed|null
 	 */
 	protected function getParsed(string $key = null, $default = null)
 	{
@@ -367,9 +367,9 @@ class Request
 	/**
 	 * Fetch data from the GET parameters.
 	 *
-	 * @param  string     $key     Array key
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  string|null $key     Array key
+	 * @param  mixed|null  $default Default value
+	 * @return mixed|null
 	 */
 	public function get(string $key = null, $default = null)
 	{
@@ -379,9 +379,9 @@ class Request
 	/**
 	 * Fetch data from the POST parameters.
 	 *
-	 * @param  string     $key     Array key
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  string|null $key     Array key
+	 * @param  mixed|null  $default Default value
+	 * @return mixed|null
 	 */
 	public function post(string $key = null, $default = null)
 	{
@@ -391,9 +391,9 @@ class Request
 	/**
 	 * Fetch data from the PUT parameters.
 	 *
-	 * @param  string     $key     Array key
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  string|null $key     Array key
+	 * @param  mixed|null  $default Default value
+	 * @return mixed|null
 	 */
 	public function put(string $key = null, $default = null)
 	{
@@ -403,9 +403,9 @@ class Request
 	/**
 	 * Fetch data from the PATCH parameters.
 	 *
-	 * @param  string     $key     Array key
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  string|null $key     Array key
+	 * @param  mixed|null  $default Default value
+	 * @return mixed|null
 	 */
 	public function patch(string $key = null, $default = null)
 	{
@@ -415,9 +415,9 @@ class Request
 	/**
 	 * Fetch data from the DELETE parameters.
 	 *
-	 * @param  string     $key     Array key
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  string|null $key     Array key
+	 * @param  mixed|null  $default Default value
+	 * @return mixed|null
 	 */
 	public function delete(string $key = null, $default = null)
 	{
@@ -428,8 +428,8 @@ class Request
 	 * Fetch unsigned cookie data.
 	 *
 	 * @param  string     $name    Cookie name
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value
+	 * @return mixed|null
 	 */
 	public function cookie(string $name, $default = null)
 	{
@@ -440,8 +440,8 @@ class Request
 	 * Fetch signed cookie data.
 	 *
 	 * @param  string     $name    Cookie name
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value
+	 * @return mixed|null
 	 */
 	public function signedCookie(string $name, $default = null)
 	{
@@ -451,9 +451,9 @@ class Request
 	/**
 	 * Fetch uploaded file.
 	 *
-	 * @param  string     $key     Array key
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  string|null $key     Array key
+	 * @param  mixed|null  $default Default value
+	 * @return mixed|null
 	 */
 	public function file(string $key = null, $default = null)
 	{
@@ -463,9 +463,9 @@ class Request
 	/**
 	 * Fetch server info.
 	 *
-	 * @param  string     $key     Array key
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  string|null $key     Array key
+	 * @param  mixed|null  $default Default value
+	 * @return mixed|null
 	 */
 	public function server(string $key = null, $default = null)
 	{
@@ -488,9 +488,9 @@ class Request
 	/**
 	 * Fetch data the current request method.
 	 *
-	 * @param  string     $key     Array key
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  string|null $key     Array key
+	 * @param  mixed|null  $default Default value
+	 * @return mixed|null
 	 */
 	public function data(string $key = null, $default = null)
 	{
@@ -527,8 +527,8 @@ class Request
 	 * Returns a request header.
 	 *
 	 * @param  string     $name    Header name
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value
+	 * @return mixed|null
 	 */
 	public function header(string $name, $default = null)
 	{
@@ -721,7 +721,7 @@ class Request
 	/**
 	 * Returns the request language.
 	 *
-	 * @return null|array
+	 * @return array|null
 	 */
 	public function language()
 	{
@@ -731,7 +731,7 @@ class Request
 	/**
 	 * Returns the request language prefix.
 	 *
-	 * @return null|string
+	 * @return string|null
 	 */
 	public function languagePrefix()
 	{
@@ -771,7 +771,7 @@ class Request
 	/**
 	 * Returns the basic HTTP authentication username or null.
 	 *
-	 * @return null|string
+	 * @return string|null
 	 */
 	public function username()
 	{
@@ -781,7 +781,7 @@ class Request
 	/**
 	 * Returns the basic HTTP authentication password or null.
 	 *
-	 * @return null|string
+	 * @return string|null
 	 */
 	public function password()
 	{
@@ -791,8 +791,8 @@ class Request
 	/**
 	 * Returns the referer.
 	 *
-	 * @param  null|mixed $default Value to return if no referer is set
-	 * @return null|mixed
+	 * @param  mixed|null $default Value to return if no referer is set
+	 * @return mixed|null
 	 */
 	public function referer($default = null)
 	{

@@ -67,7 +67,7 @@ class I18n
 	 *
 	 * @param \mako\i18n\loaders\LoaderInterface     $loader   Loader instance
 	 * @param string                                 $language Default language pack name
-	 * @param null|\mako\cache\stores\StoreInterface $cache    Cache instance
+	 * @param \mako\cache\stores\StoreInterface|null $cache    Cache instance
 	 */
 	public function __construct(LoaderInterface $loader, string $language, StoreInterface $cache = null)
 	{
@@ -126,7 +126,7 @@ class I18n
 	/**
 	 * Sets the current language
 	 *
-	 * @param null|string $language Name of the language pack
+	 * @param string|null $language Name of the language pack
 	 */
 	public function setLanguage(string $language = null)
 	{
@@ -147,8 +147,8 @@ class I18n
 	 * Returns the plural form of a noun.
 	 *
 	 * @param  string      $word     Noun to pluralize
-	 * @param  null|int    $count    Number of nouns
-	 * @param  null|string $language Language rules to use for pluralization
+	 * @param  int|null    $count    Number of nouns
+	 * @param  string|null $language Language rules to use for pluralization
 	 * @return string
 	 */
 	public function pluralize(string $word, int $count = null, string $language = null): string
@@ -175,8 +175,8 @@ class I18n
 	 *
 	 * @param  float       $number             Number to format
 	 * @param  int         $decimals           Number of decimals
-	 * @param  null|string $decimalPoint       Decimal point
-	 * @param  null|string $thousandsSeparator Thousands separator
+	 * @param  string|null $decimalPoint       Decimal point
+	 * @param  string|null $thousandsSeparator Thousands separator
 	 * @return string
 	 */
 	public function number(float $number, int $decimals = 0, string $decimalPoint = null, string $thousandsSeparator = null): string
@@ -247,7 +247,7 @@ class I18n
 	 * Returns the language string.
 	 *
 	 * @param  string      $key      Language key
-	 * @param  null|string $language Name of the language pack
+	 * @param  string|null $language Name of the language pack
 	 * @return string
 	 */
 	protected function getString(string $key, string $language = null): string
@@ -268,7 +268,7 @@ class I18n
 	 * Returns TRUE if the string exists and FALSE if not.
 	 *
 	 * @param  string      $key      String to translate
-	 * @param  null|string $language Name of the language pack
+	 * @param  string|null $language Name of the language pack
 	 * @return bool
 	 */
 	public function has(string $key, string $language = null): bool
@@ -339,7 +339,7 @@ class I18n
 	 *
 	 * @param  string      $key      String to translate
 	 * @param  array       $vars     Array of values to replace in the translated text
-	 * @param  null|string $language Name of the language pack
+	 * @param  string|null $language Name of the language pack
 	 * @return string
 	 */
 	public function get(string $key, array $vars = [], string $language = null): string

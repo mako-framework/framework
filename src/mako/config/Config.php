@@ -42,7 +42,7 @@ class Config
 	 * Constructor.
 	 *
 	 * @param \mako\config\loaders\LoaderInterface $loader      Config loader
-	 * @param null|string                          $environment Environment name
+	 * @param string|null                          $environment Environment name
 	 */
 	public function __construct(LoaderInterface $loader, string $environment = null)
 	{
@@ -106,8 +106,8 @@ class Config
 	 * Returns config value or entire config array from a file.
 	 *
 	 * @param  string     $key     Config key
-	 * @param  null|mixed $default Default value to return if config value doesn't exist
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value to return if config value doesn't exist
+	 * @return mixed|null
 	 */
 	public function get(string $key, $default = null)
 	{

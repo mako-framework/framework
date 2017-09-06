@@ -95,8 +95,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Returns an item from the collection.
 	 *
 	 * @param  int|string $key     Key
-	 * @param  null|mixed $default Default value
-	 * @return null|mixed
+	 * @param  mixed|null $default Default value
+	 * @return mixed|null
 	 */
 	public function get($key, $default = null)
 	{
@@ -256,7 +256,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Sorts the collection using the specified comparator callable
 	 * and returns TRUE on success and FALSE on failure.
 	 *
-	 * @access public
 	 * @param  callable $comparator               Comparator callable
 	 * @param  bool     $maintainIndexAssociation Maintain index association?
 	 * @return bool
@@ -327,7 +326,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns a new filtered collection.
 	 *
-	 * @param  null|callable            $callable Filter
+	 * @param  callable|null            $callable Filter
 	 * @return \mako\utility\Collection
 	 */
 	public function filter(callable $callable = null)
@@ -337,6 +336,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 			return new static(array_filter($this->items));
 		}
 
-		return new static(array_filter($this->items, $callable));
+		return new static(array_filter($this->items, $callable, ARRAY_FILTER_USE_BOTH));
 	}
 }

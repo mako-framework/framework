@@ -33,7 +33,7 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a HTML body context.
 	 *
-	 * @param  null|string $string       String to escape
+	 * @param  string|null $string       String to escape
 	 * @param  string      $charset      Character set
 	 * @param  bool        $doubleEncode Should existing entities be encoded?
 	 * @return string
@@ -46,7 +46,7 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a URI or parameter context.
 	 *
-	 * @param  null|string $string String to escape
+	 * @param  string|null $string String to escape
 	 * @return string
 	 */
 	public function escapeURL(string $string = null): string
@@ -107,7 +107,7 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a HTML attribute context.
 	 *
-	 * @param  null|string $string  String to escape
+	 * @param  string|null $string  String to escape
 	 * @param  string      $charset Character set
 	 * @return string
 	 */
@@ -157,7 +157,7 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a CSS context.
 	 *
-	 * @param  null|string $string  String to escape
+	 * @param  string|null $string  String to escape
 	 * @param  string      $charset Character set
 	 * @return string
 	 */
@@ -208,7 +208,7 @@ trait EscaperTrait
 	/**
 	 * Returns a string that has been escaped for a Javascript context.
 	 *
-	 * @param  null|string $string  String to escape
+	 * @param  string|null $string  String to escape
 	 * @param  string      $charset Character set
 	 * @return string
 	 */

@@ -90,7 +90,7 @@ class Validator
 	/**
 	 * Checks that the field isn't empty.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateRequired(string $input = null): bool
@@ -101,7 +101,7 @@ class Validator
 	/**
 	 * Checks that the field value is long enough.
 	 *
-	 * @param  null|string $input     Field value
+	 * @param  string|null $input     Field value
 	 * @param  int         $minLength Minimum length
 	 * @return bool
 	 */
@@ -113,7 +113,7 @@ class Validator
 	/**
 	 * Checks that the field value is short enough.
 	 *
-	 * @param  null|string $input     Field value
+	 * @param  string|null $input     Field value
 	 * @param  int         $maxLength Maximum length
 	 * @return bool
 	 */
@@ -125,7 +125,7 @@ class Validator
 	/**
 	 * Checks that the field value is of the right length.
 	 *
-	 * @param  null|string $input  Field value
+	 * @param  string|null $input  Field value
 	 * @param  int         $length Exact length
 	 * @return bool
 	 */
@@ -137,7 +137,7 @@ class Validator
 	/**
 	 * Checks that the field value is less than x.
 	 *
-	 * @param  null|string $input    Field value
+	 * @param  string|null $input    Field value
 	 * @param  int         $lessThan Maximum value + 1
 	 * @return bool
 	 */
@@ -149,7 +149,7 @@ class Validator
 	/**
 	 * Checks that the field value is less than or equal to x.
 	 *
-	 * @param  null|string $input             Field value
+	 * @param  string|null $input             Field value
 	 * @param  int         $lessThanOrEqualTo Maximum value
 	 * @return bool
 	 */
@@ -161,7 +161,7 @@ class Validator
 	/**
 	 * Checks that the field value is greater than x.
 	 *
-	 * @param  null|string $input       Field value
+	 * @param  string|null $input       Field value
 	 * @param  int         $greaterThan Minimum value - 1
 	 * @return bool
 	 */
@@ -173,7 +173,7 @@ class Validator
 	/**
 	 * Checks that the field value is greater than or equal to x.
 	 *
-	 * @param  null|string $input                Field value
+	 * @param  string|null $input                Field value
 	 * @param  int         $greaterThanOrEqualTo Minimum value
 	 * @return bool
 	 */
@@ -185,7 +185,7 @@ class Validator
 	/**
 	 * Checks that the field value is between x and y.
 	 *
-	 * @param  null|string $input   Field value
+	 * @param  string|null $input   Field value
 	 * @param  int         $minimum Minimum value
 	 * @param  int         $maximum Maximum value
 	 * @return bool
@@ -198,7 +198,7 @@ class Validator
 	/**
 	 * Checks that the field value matches the value of another field.
 	 *
-	 * @param  null|string $input     Field value
+	 * @param  string|null $input     Field value
 	 * @param  string      $fieldName Field name
 	 * @return bool
 	 */
@@ -210,7 +210,7 @@ class Validator
 	/**
 	 * Checks that the field value is different from the value of another field.
 	 *
-	 * @param  null|string $input     Field value
+	 * @param  string|null $input     Field value
 	 * @param  string      $fieldName Field name
 	 * @return bool
 	 */
@@ -222,7 +222,7 @@ class Validator
 	/**
 	 * Checks that the field value matches a regex pattern.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @param  string      $regex Regex
 	 * @return bool
 	 */
@@ -234,7 +234,7 @@ class Validator
 	/**
 	 * Checks that the field value is a integer.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateInteger(string $input = null): bool
@@ -245,7 +245,7 @@ class Validator
 	/**
 	 * Checks that the field value is a float.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateFloat(string $input = null): bool
@@ -256,7 +256,7 @@ class Validator
 	/**
 	 * Checks that the field value is a natural.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateNatural(string $input = null): bool
@@ -267,7 +267,7 @@ class Validator
 	/**
 	 * Checks that the field value is a natural non zero.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateNaturalNonZero(string $input = null): bool
@@ -278,7 +278,7 @@ class Validator
 	/**
 	 * Checks that the field value is valid HEX.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateHex(string $input = null): bool
@@ -289,7 +289,7 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alpha characters.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateAlpha(string $input = null): bool
@@ -300,7 +300,7 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alpha unicode characters.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateAlphaUnicode(string $input = null): bool
@@ -311,7 +311,7 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alphanumeric characters.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateAlphanumeric(string $input = null): bool
@@ -322,7 +322,7 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alphanumeric unicode characters.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateAlphanumericUnicode(string $input = null): bool
@@ -333,7 +333,7 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alphanumeric, dash and underscore characters.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateAlphaDash(string $input = null): bool
@@ -344,7 +344,7 @@ class Validator
 	/**
 	 * Checks that the field value only contains valid alphanumeric unicode, dash and underscore characters.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateAlphaDashUnicode(string $input = null): bool
@@ -355,7 +355,7 @@ class Validator
 	/**
 	 * Checks that the field value is a valid email address.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateEmail(string $input = null): bool
@@ -366,7 +366,7 @@ class Validator
 	/**
 	 * Checks that the field value contains a valid MX record.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateEmailDomain(string $input = null): bool
@@ -384,7 +384,7 @@ class Validator
 	/**
 	 * Checks that the field value is an IP address.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateIp(string $input = null): bool
@@ -395,7 +395,7 @@ class Validator
 	/**
 	 * Checks that the field value is a valid URL.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateUrl(string $input = null): bool
@@ -406,7 +406,7 @@ class Validator
 	/**
 	 * Checks that the field value contains one of the given values.
 	 *
-	 * @param  null|string $input  Field value
+	 * @param  string|null $input  Field value
 	 * @param  array       $values Valid values
 	 * @return bool
 	 */
@@ -418,7 +418,7 @@ class Validator
 	/**
 	 * Checks that the field value does not contain one of the given values.
 	 *
-	 * @param  null|string $input  Field value
+	 * @param  string|null $input  Field value
 	 * @param  array       $values Invalid values
 	 * @return bool
 	 */
@@ -430,7 +430,7 @@ class Validator
 	/**
 	 * Checks that the field value is a valid date.
 	 *
-	 * @param  null|string $input  Field value
+	 * @param  string|null $input  Field value
 	 * @param  string      $format Date format
 	 * @return bool
 	 */
@@ -442,7 +442,7 @@ class Validator
 	/**
 	 * Checks that the field value is a valid date before the provided date.
 	 *
-	 * @param  null|string $input  Field valies
+	 * @param  string|null $input  Field valies
 	 * @param  string      $format Date format
 	 * @param  string      $date   Date
 	 * @return bool
@@ -460,7 +460,7 @@ class Validator
 	/**
 	 * Checks that the field value is a valid date after the provided date.
 	 *
-	 * @param  null|string $input  Field valies
+	 * @param  string|null $input  Field valies
 	 * @param  string      $format Date format
 	 * @param  string      $date   Date
 	 * @return bool
@@ -478,7 +478,7 @@ class Validator
 	/**
 	 * Checks that the field value is a valid UUID.
 	 *
-	 * @param  null|string $input Field value
+	 * @param  string|null $input Field value
 	 * @return bool
 	 */
 	protected function validateUuid(string $input = null): bool
@@ -533,7 +533,7 @@ class Validator
 	 * @param  string      $field      Field name
 	 * @param  string      $validator  Validator name
 	 * @param  array       $parameters Validator parameters
-	 * @param  null|string $package    Package name
+	 * @param  string|null $package    Package name
 	 * @return string
 	 */
 	protected function getErrorMessage(string $field, string $validator, array $parameters, string $package = null): string
@@ -633,7 +633,7 @@ class Validator
 	/**
 	 * Returns TRUE if all rules passed and FALSE if validation failed.
 	 *
-	 * @param  array $errors If $errors is provided, then it is filled with all the error messages
+	 * @param  array|null &$errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool
 	 */
 	public function isValid(array &$errors = null): bool
@@ -648,7 +648,7 @@ class Validator
 	/**
 	 * Returns FALSE if all rules passed and TRUE if validation failed.
 	 *
-	 * @param  array $errors If $errors is provided, then it is filled with all the error messages
+	 * @param  array|null &$errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool
 	 */
 	public function isInvalid(array &$errors = null): bool

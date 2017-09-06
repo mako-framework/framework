@@ -19,9 +19,9 @@ class HasOne extends HasOneOrMany
 	/**
 	 * Eager loads related records and matches them with their parent records.
 	 *
-	 * @param array         $results  Parent records
+	 * @param array         &$results Parent records
 	 * @param string        $relation Relation name
-	 * @param null|\Closure $criteria Relation criteria
+	 * @param \Closure|null $criteria Relation criteria
 	 * @param array         $includes Includes passed from the parent record
 	 */
 	public function eagerLoad(array &$results, $relation, $criteria, array $includes)

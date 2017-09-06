@@ -7,6 +7,8 @@
 
 namespace mako\reactor\exceptions;
 
+use Throwable;
+
 use mako\reactor\exceptions\ArgumentException;
 
 /**
@@ -30,7 +32,7 @@ class InvalidOptionException extends ArgumentException
 	 * @param string          $name       Argument name
 	 * @param string|null     $suggestion Suggestion
 	 * @param int             $code       The Exception code
-	 * @param null|\Throwable $previous   The previous exception used for the exception chaining
+	 * @param \Throwable|null $previous   The previous exception used for the exception chaining
 	 */
 	public function __construct(string $message, string $name, string $suggestion = null, int $code = 0, Throwable $previous = null)
 	{
@@ -42,7 +44,7 @@ class InvalidOptionException extends ArgumentException
 	/**
 	 * Returns a argument name suggestion.
 	 *
-	 * @return null|string
+	 * @return string|null
 	 */
 	public function getSuggestion()
 	{

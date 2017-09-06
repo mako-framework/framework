@@ -49,8 +49,8 @@ class Onion
 	/**
 	 * Constructor.
 	 *
-	 * @param null|\mako\syringe\Container $container Container
-	 * @param null|string                  $method    Method to call on the decoracted class
+	 * @param \mako\syringe\Container|null $container Container
+	 * @param string|null                  $method    Method to call on the decoracted class
 	 */
 	public function __construct(Container $container = null, string $method = null)
 	{
@@ -63,7 +63,7 @@ class Onion
 	 * Add a new middleware layer.
 	 *
 	 * @param  string     $class      Class
-	 * @param  null|array $parameters Constructor parameters
+	 * @param  array|null $parameters Constructor parameters
 	 * @param  bool       $inner      Add an inner layer?
 	 * @return int
 	 */
@@ -78,7 +78,7 @@ class Onion
 	 * Add a inner layer to the middleware stack.
 	 *
 	 * @param  string     $class      Class
-	 * @param  null|array $parameters Constructor parameters
+	 * @param  array|null $parameters Constructor parameters
 	 * @return int
 	 */
 	public function addInnerLayer(string $class, array $parameters = null): int
@@ -90,7 +90,7 @@ class Onion
 	 * Add an outer layer to the middleware stack.
 	 *
 	 * @param  string     $class      Class
-	 * @param  null|array $parameters Constructor parameters
+	 * @param  array|null $parameters Constructor parameters
 	 * @return int
 	 */
 	public function addOuterLayer(string $class, array $parameters = null): int

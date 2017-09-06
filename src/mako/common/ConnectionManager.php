@@ -36,7 +36,7 @@ abstract class ConnectionManager
 	/**
 	 * Returns the chosen connection.
 	 *
-	 * @param  null|string $connection Connection name
+	 * @param  string|null $connection Connection name
 	 * @return mixed
 	 */
 	public function connection(string $connection = null)

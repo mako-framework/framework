@@ -134,7 +134,7 @@ class Str
 	 * Returns the plural form of a noun (english only).
 	 *
 	 * @param  string   $noun  Noun to pluralize
-	 * @param  null|int $count Number of nouns
+	 * @param  int|null $count Number of nouns
 	 * @return string
 	 */
 	public static function pluralize(string $noun, int $count = null): string

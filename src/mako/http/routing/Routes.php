@@ -101,7 +101,7 @@ class Routes
 	 * @param  array                    $methods HTTP methods
 	 * @param  string                   $route   Route
 	 * @param  string|\Closure          $action  Route action
-	 * @param  null|string              $name    Route name
+	 * @param  string|null              $name    Route name
 	 * @return \mako\http\routing\Route
 	 */
 	protected function registerRoute(array $methods, string $route, $action, string $name = null): Route
@@ -134,7 +134,7 @@ class Routes
 	 *
 	 * @param  string                   $route  Route
 	 * @param  string|\Closure          $action Route action
-	 * @param  null|string              $name   Route name
+	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
 	public function get(string $route, $action, string $name = null): Route
@@ -147,7 +147,7 @@ class Routes
 	 *
 	 * @param  string                   $route  Route
 	 * @param  string|\Closure          $action Route action
-	 * @param  null|string              $name   Route name
+	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
 	public function post(string $route, $action, string $name = null): Route
@@ -160,7 +160,7 @@ class Routes
 	 *
 	 * @param  string                   $route  Route
 	 * @param  string|\Closure          $action Route action
-	 * @param  null|string              $name   Route name
+	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
 	public function put(string $route, $action, string $name = null): Route
@@ -173,7 +173,7 @@ class Routes
 	 *
 	 * @param  string                   $route  Route
 	 * @param  string|\Closure          $action Route action
-	 * @param  null|string              $name   Route name
+	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
 	public function patch(string $route, $action, string $name = null): Route
@@ -186,7 +186,7 @@ class Routes
 	 *
 	 * @param  string                   $route  Route
 	 * @param  string|\Closure          $action Route action
-	 * @param  null|string              $name   Route name
+	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
 	public function delete(string $route, $action, string $name = null): Route
@@ -199,7 +199,7 @@ class Routes
 	 *
 	 * @param  string                   $route  Route
 	 * @param  string|\Closure          $action Route action
-	 * @param  null|string              $name   Route name
+	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
 	public function all(string $route, $action, string $name = null): Route
@@ -213,7 +213,7 @@ class Routes
 	 * @param  array                    $methods Array of HTTP methods the route should respond to
 	 * @param  string                   $route   Route
 	 * @param  string|\Closure          $action  Route action
-	 * @param  null|string              $name    Route name
+	 * @param  string|null              $name    Route name
 	 * @return \mako\http\routing\Route
 	 */
 	public function register(array $methods, string $route, $action, string $name = null): Route

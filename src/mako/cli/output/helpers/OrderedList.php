@@ -33,7 +33,7 @@ class OrderedList
 	/**
 	 * Formatter instance.
 	 *
-	 * @var null|\mako\cli\output\formatter\FormatterInterface
+	 * @var \mako\cli\output\formatter\FormatterInterface|null
 	 */
 	protected $formatter;
 

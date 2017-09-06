@@ -21,7 +21,7 @@ interface HelperInterface
 	 *
 	 * @param  \mako\database\query\Query $query      Query builder instance
 	 * @param  array                      $values     Associative array of column values
-	 * @param  null|string                $primaryKey Primary key name
+	 * @param  string|null                $primaryKey Primary key name
 	 * @return int|bool
 	 */
 	public function insertAndGetId(Query $query, array $values, string $primaryKey = null);

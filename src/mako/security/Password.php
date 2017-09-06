@@ -66,7 +66,7 @@ class Password
 	 * Returns a password hash.
 	 *
 	 * @param  string     $password Password
-	 * @param  null|array $options  Computing options
+	 * @param  array|null $options  Computing options
 	 * @return string
 	 */
 	public static function hash(string $password, array $options = null): string
@@ -80,7 +80,7 @@ class Password
 	 * Checks if the password needs to be rehashed.
 	 *
 	 * @param  string     $hash    Password hash to check
-	 * @param  null|array $options Computing options
+	 * @param  array|null $options Computing options
 	 * @return bool
 	 */
 	public static function needsRehash(string $hash, array $options = null): bool

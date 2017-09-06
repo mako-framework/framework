@@ -21,7 +21,7 @@ interface PaginationFactoryInterface
 	 * Creates and returns a pagination instance.
 	 *
 	 * @param  int                                  $items        Number of items
-	 * @param  null|int                             $itemsPerPage Number of items per page
+	 * @param  int|null                             $itemsPerPage Number of items per page
 	 * @param  array                                $options      Pagination options
 	 * @return \mako\pagination\PaginationInterface
 	 */

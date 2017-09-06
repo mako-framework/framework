@@ -332,7 +332,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Returns null if the account isn't locked and a date time instance if its locked.
 	 *
-	 * @return null|\mako\chrono\Time|\DateTimeInterface
+	 * @return \mako\chrono\Time|\DateTimeInterface|null
 	 */
 	public function lockedUntil()
 	{
@@ -370,7 +370,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Gets the time of the last failed attempt.
 	 *
-	 * @return null|\mako\chrono\Time|\DateTimeInterface
+	 * @return \mako\chrono\Time|\DateTimeInterface|null
 	 */
 	public function getLastFailAt()
 	{

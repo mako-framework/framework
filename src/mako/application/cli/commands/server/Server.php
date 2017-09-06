@@ -58,7 +58,7 @@ class Server extends Command
 	 * @param \mako\application\Application $application Application instance
 	 * @param int                           $port        Port
 	 * @param string                        $address     Address
-	 * @param null|string                   $docroot     Document root
+	 * @param string|null                   $docroot     Document root
 	 */
 	public function execute(Application $application, $port = 8000, $address = 'localhost', $docroot = null)
 	{

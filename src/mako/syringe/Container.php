@@ -211,7 +211,7 @@ class Container
 	 * Resolve a parameter.
 	 *
 	 * @param  \ReflectionParameter  $parameter ReflectionParameter instance
-	 * @param  null|\ReflectionClass $class     ReflectionClass instance
+	 * @param  \ReflectionClass|null $class     ReflectionClass instance
 	 * @return mixed
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ReflectionClass $class = null)
@@ -247,7 +247,7 @@ class Container
 	 *
 	 * @param  array                 $reflectionParameters Reflection parameters
 	 * @param  array                 $providedParameters   Provided Parameters
-	 * @param  null|\ReflectionClass $class                ReflectionClass instance
+	 * @param  \ReflectionClass|null $class                ReflectionClass instance
 	 * @return array
 	 */
 	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ReflectionClass $class = null): array
