@@ -75,7 +75,7 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
-	public function testHasManyYield()
+	public function testManyToManyYield()
 	{
 		$user = ManyToManyUser::get(1);
 
@@ -126,6 +126,64 @@ class ManyToManyTest extends \ORMTestCase
 		$this->assertEquals('SELECT * FROM "groups" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
 		$this->assertEquals('SELECT "users".* FROM "users" INNER JOIN "groups_users" ON "groups_users"."user_id" = "users"."id" WHERE "groups_users"."group_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testManyToManyWithExtraColumns()
+	{
+		$user = ManyToManyUser::get(1);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertInstanceOf('mako\database\midgard\ResultSet', $groups);
+
+		$this->assertEquals(2, count($groups));
+
+		foreach($groups as $group)
+		{
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
+		}
+
+		$this->assertEquals('foobar', $groups[0]->extra);
+
+		$this->assertNull($groups[1]->extra);
+
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT "groups".*, "groups_users"."extra" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testManyToManyWithExtraColumnsWithAlias()
+	{
+		$user = ManyToManyUser::get(1);
+
+		$groups = $user->groups()->alongWith(['extra as additional'])->all();
+
+		$this->assertInstanceOf('mako\database\midgard\ResultSet', $groups);
+
+		$this->assertEquals(2, count($groups));
+
+		foreach($groups as $group)
+		{
+			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
+		}
+
+		$this->assertEquals('foobar', $groups[0]->additional);
+
+		$this->assertNull($groups[1]->additional);
+
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT "groups".*, "groups_users"."extra" AS "additional" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
