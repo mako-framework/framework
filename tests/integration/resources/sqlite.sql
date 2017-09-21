@@ -67,10 +67,11 @@ INSERT INTO "groups" ("id", "name") VALUES (4, 'manager');
 DROP TABLE IF EXISTS "groups_users";
 CREATE TABLE "groups_users" (
   "group_id" integer NOT NULL,
-  "user_id" integer NOT NULL
+  "user_id" integer NOT NULL,
+  "extra" NULL
 );
 
-INSERT INTO "groups_users" ("group_id", "user_id") VALUES (1, 1);
+INSERT INTO "groups_users" ("group_id", "user_id", "extra") VALUES (1, 1, 'foobar');
 INSERT INTO "groups_users" ("group_id", "user_id") VALUES (2, 1);
 INSERT INTO "groups_users" ("group_id", "user_id") VALUES (2, 2);
 INSERT INTO "groups_users" ("group_id", "user_id") VALUES (2, 3);

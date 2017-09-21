@@ -9,7 +9,6 @@ namespace mako\database\midgard\relations;
 
 use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
-use mako\database\midgard\ResultSet;
 use mako\database\midgard\relations\Relation;
 
 /**
@@ -34,6 +33,13 @@ class ManyToMany extends Relation
 	protected $junctionKey = null;
 
 	/**
+	 * Junction columns to include in the result.
+	 *
+	 * @var array
+	 */
+	protected $alongWith = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\database\connections\Connection $connection    Database connection
@@ -54,6 +60,34 @@ class ManyToMany extends Relation
 		$this->junctionJoin();
 
 		$this->columns = [$this->model->getTable() . '.*'];
+	}
+
+	/**
+	 * Columns to include with the result.
+	 * @param  array                                       $columns Columns
+	 * @return \mako\database\midgard\relations\ManyToMany
+	 */
+	public function alongWith(array $columns)
+	{
+		foreach($columns as $key => $value)
+		{
+			if(strpos($value, '.') === false)
+			{
+				$columns[$key] = $this->getJunctionTable() . '.' . $value;
+			}
+		}
+
+		$this->alongWith = $columns;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getColumns(): array
+	{
+		return array_merge($this->columns, $this->alongWith);
 	}
 
 	/**
