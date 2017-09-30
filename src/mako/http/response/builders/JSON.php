@@ -39,6 +39,13 @@ class JSON implements ResponseBuilderInterface
 	protected $callback;
 
 	/**
+	 * Status code.
+	 *
+	 * @var int
+	 */
+	protected $status;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param mixed $data    Data
@@ -60,6 +67,19 @@ class JSON implements ResponseBuilderInterface
 	public function asJsonpWith(string $callback): JSON
 	{
 		$this->callback = $callback;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the status code.
+	 *
+	 * @param  int                               $status Status code
+	 * @return \mako\http\response\builders\JSON
+	 */
+	public function status(int $status): JSON
+	{
+		$this->status = $status;
 
 		return $this;
 	}
@@ -96,6 +116,11 @@ class JSON implements ResponseBuilderInterface
 		else
 		{
 			$response->type('application/json');
+		}
+
+		if(!empty($this->status))
+		{
+			$response->status($this->status);
 		}
 
 		$response->body($json);
