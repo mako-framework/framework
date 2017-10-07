@@ -179,4 +179,17 @@ class MySQLCompilerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('UPDATE `foobar` SET `data` = JSON_SET(`data`, \'$."foo"."bar"[0]\', CAST(? AS JSON))', $query['sql']);
 		$this->assertEquals([1], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testBasicInsertWithNoValues()
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insert([]);
+
+		$this->assertEquals('INSERT INTO `foobar` () VALUES ()', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
 }

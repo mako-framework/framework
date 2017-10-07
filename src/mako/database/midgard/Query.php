@@ -73,7 +73,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-	public function insert(array $values)
+	public function insert(array $values = [])
 	{
 		// Execute "beforeInsert" hooks
 

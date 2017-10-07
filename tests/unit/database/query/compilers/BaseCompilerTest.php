@@ -1168,6 +1168,32 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testBasicInsert()
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insert(['foo' => 'bar']);
+
+		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?)', $query['sql']);
+		$this->assertEquals(['bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicInsertWithNoValues()
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insert([]);
+
+		$this->assertEquals('INSERT INTO "foobar" DEFAULT VALUES', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testBasicUpdate()
 	{
 		$query = $this->getBuilder();

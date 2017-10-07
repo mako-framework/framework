@@ -1427,7 +1427,7 @@ class Query
 	 * @param  array $values Associative array of column values
 	 * @return bool
 	 */
-	public function insert(array $values)
+	public function insert(array $values = [])
 	{
 		$query = $this->compiler->insert($values);
 
