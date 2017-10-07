@@ -66,11 +66,8 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function insertWithoutValues(): array
+	protected function insertWithoutValues(): string
 	{
-		$sql  = $sql  = $this->query->getPrefix();
-		$sql .= 'INSERT INTO ' . $this->escapeTable($this->query->getTable()) . ' () VALUES ()';
-
-		return ['sql' => $sql, 'params' => []];
+		return 'INSERT INTO ' . $this->escapeTable($this->query->getTable()) . ' () VALUES ()';
 	}
 }

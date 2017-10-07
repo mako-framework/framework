@@ -706,34 +706,30 @@ class Compiler
 	}
 
 	/**
-	 * Compiles a INSERT query with values.
+	 * Returns a INSERT query with values.
 	 *
-	 * @param  array $values Array of values
-	 * @return array
+	 * @param  array  $values Array of values
+	 * @return string
 	 */
-	protected function insertWithValues(array $values): array
+	protected function insertWithValues(array $values): string
 	{
-		$sql  = $this->query->getPrefix();
-		$sql .= 'INSERT INTO ';
+		$sql  = 'INSERT INTO ';
 		$sql .= $this->escapeTable($this->query->getTable());
 		$sql .= ' (' . implode(', ', $this->escapeIdentifiers(array_keys($values))) . ')';
 		$sql .= ' VALUES';
 		$sql .= ' (' . $this->params($values) . ')';
 
-		return ['sql' => $sql, 'params' => $this->params];
+		return $sql;
 	}
 
 	/**
-	 * Compiles a INSERT query without values.
+	 * Returns a INSERT query without values.
 	 *
-	 * @return array
+	 * @return string
 	 */
-	protected function insertWithoutValues(): array
+	protected function insertWithoutValues(): string
 	{
-		$sql  = $sql  = $this->query->getPrefix();
-		$sql .= 'INSERT INTO ' . $this->escapeTable($this->query->getTable()) . ' DEFAULT VALUES';
-
-		return ['sql' => $sql, 'params' => []];
+		return 'INSERT INTO ' . $this->escapeTable($this->query->getTable()) . ' DEFAULT VALUES';
 	}
 
 	/**
@@ -744,7 +740,18 @@ class Compiler
 	 */
 	public function insert(array $values = []): array
 	{
-		return empty($values) ? $this->insertWithoutValues() : $this->insertWithValues($values);
+		$sql = $this->query->getPrefix();
+
+		if(empty($values))
+		{
+			$sql .= $this->insertWithoutValues();
+		}
+		else
+		{
+			$sql .= $this->insertWithValues($values);
+		}
+
+		return ['sql' => $sql, 'params' => $this->params];
 	}
 
 	/**
