@@ -62,4 +62,15 @@ class MySQL extends Compiler
 
 		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' LOCK IN SHARE MODE' : ' ' . $lock);
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function insertWithoutValues(): array
+	{
+		$sql  = $sql  = $this->query->getPrefix();
+		$sql .= 'INSERT INTO ' . $this->escapeTable($this->query->getTable()) . ' () VALUES ()';
+
+		return ['sql' => $sql, 'params' => []];
+	}
 }
