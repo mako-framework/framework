@@ -46,19 +46,23 @@ class Loader implements LoaderInterface
 	 */
 	public function load(string $file, string $environment = null): array
 	{
+		$loaded = 0;
+
+		$config = [];
+
 		// Load configuration
 
-		foreach($this->getCascadingFilePaths($file) as $path)
+		foreach(array_reverse($this->getCascadingFilePaths($file)) as $path)
 		{
 			if($this->fileSystem->has($path))
 			{
-				$config = $this->fileSystem->include($path);
+				$loaded++;
 
-				break;
+				$config = array_replace_recursive($config, $this->fileSystem->include($path));
 			}
 		}
 
-		if(!isset($config))
+		if($loaded === 0)
 		{
 			throw new RuntimeException(vsprintf("%s(): The [ %s ] config file does not exist.", [__METHOD__, $file]));
 		}
