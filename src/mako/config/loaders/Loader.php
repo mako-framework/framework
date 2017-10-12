@@ -75,13 +75,11 @@ class Loader implements LoaderInterface
 
 			$namespaced = ($namespace === false) ? $environment . '.' . $file : substr_replace($file, $environment . '.', $namespace + 2, 0);
 
-			foreach($this->getCascadingFilePaths($namespaced) as $path)
+			foreach(array_reverse($this->getCascadingFilePaths($namespaced)) as $path)
 			{
 				if($this->fileSystem->has($path))
 				{
 					$config = array_replace_recursive($config, $this->fileSystem->include($path));
-
-					break;
 				}
 			}
 		}
