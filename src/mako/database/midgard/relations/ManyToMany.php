@@ -303,11 +303,17 @@ class ManyToMany extends Relation
 
 		// Link new relations
 
-		$success = $success && $this->link(array_diff($keys, $existing));
+		if(!empty($diff = array_diff($keys, $existing)))
+		{
+			$success = $success && $this->link($diff);
+		}
 
 		// Unlink old relations
 
-		$success = $success && $this->unlink(array_diff($existing, $keys));
+		if(!empty($diff = array_diff($existing, $keys)))
+		{
+			$success = $success && $this->unlink($diff);
+		}
 
 		// Return status
 
