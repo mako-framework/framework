@@ -21,31 +21,24 @@ use mako\error\handlers\WebHandler;
 class ErrorHandlerService extends Service
 {
 	/**
-	 * Helper method that ensures lazy loading of the logger.
-	 *
-	 * @param \mako\error\ErrorHandler $errorHandler Error handler instance
-	 */
-	protected function setLogger($errorHandler)
-	{
-		if($this->container->get('config')->get('application.error_handler.log_errors'))
-		{
-			$errorHandler->setLogger($this->container->get('logger'));
-		}
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
 	public function register()
 	{
 		$errorHandler = new ErrorHandler;
 
+		if($this->container->get('config')->get('application.error_handler.log_errors'))
+		{
+			$errorHandler->setLogger(function()
+			{
+				return 	$this->container->get('logger');
+			});
+		}
+
 		$displayErrors = $this->container->get('config')->get('application.error_handler.display_errors');
 
 		$errorHandler->handle(Throwable::class, function($exception) use ($errorHandler, $displayErrors)
 		{
-			$this->setLogger($errorHandler);
-
 			$webHandler = new WebHandler($exception, $this->container->get('request'), $this->container->get('response'), $this->container->get('view'));
 
 			return $webHandler->handle($displayErrors);
