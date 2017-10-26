@@ -94,13 +94,28 @@ class ErrorHandler
 	}
 
 	/**
-	 * Set logger instance.
+	 * Set logger instance or closure that returns a logger instance.
 	 *
-	 * @param \Psr\Log\LoggerInterface $logger Logger instance
+	 * @param \Closure|\Psr\Log\LoggerInterface $logger Logger
 	 */
-	public function setLogger(LoggerInterface $logger)
+	public function setLogger($logger)
 	{
 		$this->logger = $logger;
+	}
+
+	/**
+	 * Return logger instance.
+	 *
+	 * @return \Psr\Log\LoggerInterface
+	 */
+	public function getLogger(): LoggerInterface
+	{
+		if($this->logger instanceof Closure)
+		{
+			return ($this->logger)();
+		}
+
+		return $this->logger;
 	}
 
 	/**
@@ -223,7 +238,7 @@ class ErrorHandler
 
 			if($this->shouldExceptionBeLogged($exception))
 			{
-				$this->logger->error($exception, ['exception' => $exception]);
+				$this->getLogger()->error($exception, ['exception' => $exception]);
 			}
 		}
 		catch(Throwable $e)
