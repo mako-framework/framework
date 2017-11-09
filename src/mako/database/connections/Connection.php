@@ -580,6 +580,18 @@ class Connection
 	}
 
 	/**
+	 * Executes a SELECT query and returns an array where the first column is used as keys and the second as values.
+	 *
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return array
+	 */
+	public function pairs(string $query, array $params = []): array
+	{
+		return $this->all($query, $params, PDO::FETCH_KEY_PAIR);
+	}
+
+	/**
 	 * Returns the first row of the result set.
 	 *
 	 * @param string $query  SQL query

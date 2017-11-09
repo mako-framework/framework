@@ -74,6 +74,20 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
+	public function testPairs()
+	{
+		$query = new Query($this->connectionManager->connection());
+
+		$results = $query->table('users')->ascending('id')->limit(2)->pairs('username', 'email');
+
+		$this->assertEquals(['foo' => 'foo@example.org', 'bar' => 'bar@example.org'], $results);
+
+		$this->assertEquals('SELECT "username", "email" FROM "users" ORDER BY "id" ASC LIMIT 2', $this->connectionManager->connection()->getLog()[0]['query']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithPagination()
 	{
 		$pagination = Mockery::mock(PaginationInterface::class);

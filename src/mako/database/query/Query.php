@@ -1172,6 +1172,22 @@ class Query
 	}
 
 	/**
+	 * Executes a SELECT query and returns an array where the first column is used as keys and the second as values.
+	 *
+	 * @param  string $key   The column to use as keys
+	 * @param  string $value The column to use as values
+	 * @return array
+	 */
+	public function pairs($key, $value)
+	{
+		$this->select([$key, $value]);
+
+		$query = $this->compiler->select();
+
+		return $this->connection->pairs($query['sql'], $query['params']);
+	}
+
+	/**
 	 * Executes a SELECT query and returns the first row of the result set.
 	 *
 	 * @param   mixed   ...$fetchMode  Fetch mode
