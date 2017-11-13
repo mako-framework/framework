@@ -338,4 +338,15 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 		return new static(array_filter($this->items, $callable, ARRAY_FILTER_USE_BOTH));
 	}
+
+	/**
+	 * Merges two collections.
+	 *
+	 * @param  \mako\utility\Collection $collection Collection to merge
+	 * @return \mako\utility\Collection
+	 */
+	public function merge(Collection $collection): Collection
+	{
+		return new static(array_merge($this->items, $collection->getItems()));
+	}
 }

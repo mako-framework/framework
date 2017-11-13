@@ -504,4 +504,14 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame([1, 2, 3, 'foo' => 'bar', 4], $collection->getItems());
 	}
+
+	/**
+	 *
+	 */
+	public function testMerge()
+	{
+		$merged = (new Collection([1, 2, 3]))->merge(new Collection([4, 5, 6]));
+
+		$this->assertEquals([1, 2, 3, 4, 5, 6], $merged->getItems());
+	}
 }
