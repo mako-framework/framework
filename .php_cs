@@ -40,4 +40,5 @@ return Config::create()
 	'whitespace_after_comma_in_array' => true,
 	'trailing_comma_in_multiline_array' => true,
 ])
+->setRiskyAllowed(true)
 ->setFinder(Finder::create()->in(__DIR__));
