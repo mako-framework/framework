@@ -594,9 +594,9 @@ class Connection
 	/**
 	 * Returns the first row of the result set.
 	 *
-	 * @param string $query  SQL query
-	 * @param array  $params Query params
-	 * @param   mixed     ...$fetchMode  Fetch mode
+	 * @param  string $query        SQL query
+	 * @param  array  $params       Query params
+	 * @param  mixed  ...$fetchMode Fetch mode
 	 * @return mixed
 	 */
 	public function first(string $query, array $params = [], ...$fetchMode)
@@ -616,9 +616,9 @@ class Connection
 	/**
 	 * Returns an array containing all of the result set rows.
 	 *
-	 * @param string $query  SQL query
-	 * @param array  $params Query parameters
-	 * @param   mixed     ...$fetchMode  Fetch mode
+	 * @param  string $query        SQL query
+	 * @param  array  $params       Query parameters
+	 * @param  mixed  ...$fetchMode Fetch mode
 	 * @return array
 	 */
 	public function all(string $query, array $params = [], ...$fetchMode): array
@@ -633,9 +633,9 @@ class Connection
 	/**
 	 * Returns a generator that lets you iterate over the results.
 	 *
-	 * @param string $query  SQL query
-	 * @param array  $params Query params
-	 * @param   mixed       ...$fetchMode  Fetch mode
+	 * @param  string     $query        SQL query
+	 * @param  array      $params       Query params
+	 * @param  mixed      ...$fetchMode Fetch mode
 	 * @return \Generator
 	 */
 	public function yield(string $query, array $params = [], ...$fetchMode): Generator

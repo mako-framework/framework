@@ -1190,7 +1190,7 @@ class Query
 	/**
 	 * Executes a SELECT query and returns the first row of the result set.
 	 *
-	 * @param   mixed   ...$fetchMode  Fetch mode
+	 * @param  mixed ...$fetchMode Fetch mode
 	 * @return mixed
 	 */
 	protected function fetchFirst(...$fetchMode)
@@ -1224,8 +1224,8 @@ class Query
 	/**
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
 	 *
-	 * @param bool $returnResultSet Return result set?
-	 * @param   mixed                                 ...$fetchMode     Fetch mode
+	 * @param  bool                                 $returnResultSet Return result set?
+	 * @param  mixed                                ...$fetchMode    Fetch mode
 	 * @return array|\mako\database\query\ResultSet
 	 */
 	protected function fetchAll($returnResultSet, ...$fetchMode)
@@ -1250,7 +1250,7 @@ class Query
 	/**
 	 * Executes a SELECT query and returns a generator that lets you iterate over the results.
 	 *
-	 * @param   mixed      ...$fetchMode  Fetch mode
+	 * @param  mixed      ...$fetchMode Fetch mode
 	 * @return \Generator
 	 */
 	protected function fetchYield(...$fetchMode)
