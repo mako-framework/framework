@@ -11,7 +11,8 @@ use Throwable;
 
 use mako\application\services\Service;
 use mako\error\ErrorHandler;
-use mako\error\handlers\CLIHandler;
+use mako\error\handlers\cli\DevelopmentHandler;
+use mako\error\handlers\cli\ProductionHandler;
 
 /**
  * Error handler service.
@@ -35,14 +36,20 @@ class ErrorHandlerService extends Service
 			});
 		}
 
-		$displayErrors = $this->container->get('config')->get('application.error_handler.display_errors');
-
-		$errorHandler->handle(Throwable::class, function($exception) use ($errorHandler, $displayErrors)
+		if($this->container->get('config')->get('application.error_handler.display_errors'))
 		{
-			$webHandler = new CLIHandler($exception, $this->container->get('output'));
-
-			return $webHandler->handle($displayErrors);
-		});
+			$errorHandler->handle(Throwable::class, function($exception)
+			{
+				return (new DevelopmentHandler($this->container->get('output')))->handle($exception);
+			});
+		}
+		else
+		{
+			$errorHandler->handle(Throwable::class, function($exception)
+			{
+				return (new ProductionHandler($this->container->get('output')))->handle($exception);
+			});
+		}
 
 		$this->container->registerInstance([ErrorHandler::class, 'errorHandler'], $errorHandler);
 	}

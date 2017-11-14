@@ -11,6 +11,9 @@ use Closure;
 use ErrorException;
 use Throwable;
 
+use mako\error\handlers\HandlerInterface;
+use mako\syringe\Container;
+
 use Psr\Log\LoggerInterface;
 
 /**
@@ -20,6 +23,13 @@ use Psr\Log\LoggerInterface;
  */
 class ErrorHandler
 {
+	/**
+	 * Container.
+	 *
+	 * @var \mako\syringe\Container
+	 */
+	protected $container;
+
 	/**
 	 * Is the shutdown handler disabled?
 	 *
@@ -50,11 +60,27 @@ class ErrorHandler
 
 	/**
 	 * Constructor.
+	 *
+	 * @param \mako\syringe\Container|null $container Container
 	 */
-	public function __construct()
+	public function __construct(Container $container = null)
 	{
+		$this->container = $container ?? new Container;
+
 		// Add a basic exception handler to the stack
 
+		$this->fallbackHandler();
+
+		// Registers the exception handler
+
+		$this->register();
+	}
+
+	/**
+	 * Adds basic fallback handler to the stack.
+	 */
+	protected function fallbackHandler()
+	{
 		$this->handle(Throwable::class, function($e)
 		{
 			echo '[ ' . get_class($e) . '] ' . $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]';
@@ -63,10 +89,6 @@ class ErrorHandler
 
 			echo $e->getTraceAsString();
 		});
-
-		// Registers the exception handler
-
-		$this->register();
 	}
 
 	/**
@@ -139,10 +161,10 @@ class ErrorHandler
 	/**
 	 * Prepends an exception handler to the stack.
 	 *
-	 * @param string   $exceptionType Exception type
-	 * @param \Closure $handler       Exception handler
+	 * @param string          $exceptionType Exception type
+	 * @param string|\Closure $handler       Exception handler
 	 */
-	public function handle(string $exceptionType, Closure $handler)
+	public function handle(string $exceptionType, $handler)
 	{
 		array_unshift($this->handlers, ['exceptionType' => $exceptionType, 'handler' => $handler]);
 	}
@@ -209,6 +231,34 @@ class ErrorHandler
 	}
 
 	/**
+	 * Creates and returns an error handler instance.
+	 *
+	 * @param  string                                $handler Handler class name
+	 * @return \mako\error\handlers\HandlerInterface
+	 */
+	protected function handlerFactory(string $handler): HandlerInterface
+	{
+		return $this->container->get($handler);
+	}
+
+	/**
+	 * Handle the exception.
+	 *
+	 * @param  string|\Closure $handler   Exception handler
+	 * @param  \Throwable      $exception Exceotion
+	 * @return mixed
+	 */
+	protected function handleException($handler, Throwable $exception)
+	{
+		if($handler instanceof Closure)
+		{
+			return $handler($exception);
+		}
+
+		return $this->handlerFactory($handler)->handle($exception);
+	}
+
+	/**
 	 * Handles uncaught exceptions.
 	 *
 	 * @param \Throwable $exception An exception object
@@ -227,7 +277,7 @@ class ErrorHandler
 			{
 				if($exception instanceof $handler['exceptionType'])
 				{
-					if($handler['handler']($exception) !== null)
+					if($this->handleException($handler['handler'], $exception) !== null)
 					{
 						break;
 					}

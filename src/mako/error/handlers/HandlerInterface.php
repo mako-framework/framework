@@ -7,8 +7,10 @@
 
 namespace mako\error\handlers;
 
+use Throwable;
+
 /**
- * Store interface.
+ * Handler interface.
  *
  * @author Frederic G. Østby
  */
@@ -17,8 +19,8 @@ interface HandlerInterface
 	/**
 	 * Handles the exception.
 	 *
-	 * @param  bool      $showDetails Show error details?
-	 * @return void|bool
+	 * @param  \Throwable $exception Exception to handle
+	 * @return mixed
 	 */
-	public function handle(bool $showDetails = true);
+	public function handle(Throwable $exception);
 }

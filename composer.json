@@ -25,7 +25,8 @@
 	},
 	"require": {
 		"php": ">=7.0.0",
-		"monolog/monolog": "^1.22.0"
+		"monolog/monolog": "^1.22.0",
+		"filp/whoops": "^2.1"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "5.7.*",
