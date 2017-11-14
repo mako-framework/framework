@@ -98,6 +98,8 @@ class DevelopmentHandler implements HandlerInterface
 
 		$handler->setApplicationPaths([$this->app->getPath()]);
 
+		$handler->setPageTitle('Error');
+
 		return $handler;
 	}
 
