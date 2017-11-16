@@ -111,6 +111,13 @@ class Request
 	protected $path;
 
 	/**
+	 * Was this a "clean" request?
+	 *
+	 * @var string
+	 */
+	protected $isClean = true;
+
+	/**
 	 * Request language.
 	 *
 	 * @var array
@@ -239,6 +246,8 @@ class Request
 				if(stripos($path, '/index.php') === 0)
 				{
 					$path = mb_substr($path, 10);
+
+					$this->isClean = false;
 				}
 
 				$path = rawurldecode($path);
@@ -716,6 +725,16 @@ class Request
 	public function path(): string
 	{
 		return $this->path;
+	}
+
+	/**
+	 * Returns true if the resource was requested with a "clean" URL and false if not.
+	 *
+	 * @return bool
+	 */
+	public function isClean(): bool
+	{
+		return $this->isClean;
 	}
 
 	/**
