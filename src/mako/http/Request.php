@@ -719,6 +719,16 @@ class Request
 	}
 
 	/**
+	 * Returns true if the resource was requested with a "clean" URL and false if not.
+	 *
+	 * @return bool
+	 */
+	public function isClean(): bool
+	{
+		return strpos($this->server->get('REQUEST_URI'), $this->server->get('SCRIPT_NAME')) !== 0;
+	}
+
+	/**
 	 * Returns the request language.
 	 *
 	 * @return array|null

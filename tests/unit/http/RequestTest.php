@@ -351,6 +351,22 @@ class RequestTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testIsClean()
+	{
+		$request = new Request(['server' => ['SCRIPT_NAME' => '/index.php', 'REQUEST_URI' => '/index.php/foo']]);
+
+		$this->assertFalse($request->isClean());
+
+		//
+
+		$request = new Request(['server' => ['SCRIPT_NAME' => '/index.php', 'REQUEST_URI' => '/foo']]);
+
+		$this->assertTrue($request->isClean());
+	}
+
+	/**
+	 *
+	 */
 	public function testLanguage()
 	{
 		$server = $this->getServerData();
