@@ -26,9 +26,11 @@ class ErrorHandlerService extends Service
 	 */
 	public function register()
 	{
-		$errorHandler = new ErrorHandler;
+		$config = $this->container->get('config')->get('application.error_handler');
 
-		if($this->container->get('config')->get('application.error_handler.log_errors'))
+		$errorHandler = new ErrorHandler($this->container);
+
+		if($config['log_errors'])
 		{
 			$errorHandler->setLogger(function()
 			{
@@ -36,20 +38,7 @@ class ErrorHandlerService extends Service
 			});
 		}
 
-		if($this->container->get('config')->get('application.error_handler.display_errors'))
-		{
-			$errorHandler->handle(Throwable::class, function($exception)
-			{
-				return (new DevelopmentHandler($this->container->get('output')))->handle($exception);
-			});
-		}
-		else
-		{
-			$errorHandler->handle(Throwable::class, function($exception)
-			{
-				return (new ProductionHandler($this->container->get('output')))->handle($exception);
-			});
-		}
+		$errorHandler->handle(Throwable::class, $config['display_errors'] ? DevelopmentHandler::class : ProductionHandler::class);
 
 		$this->container->registerInstance([ErrorHandler::class, 'errorHandler'], $errorHandler);
 	}
