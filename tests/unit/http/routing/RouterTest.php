@@ -131,8 +131,6 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
-		$request->shouldReceive('isClean')->andReturn(true);
-
 		$routed = $router->route($request);
 
 		$this->assertInstanceOf('\mako\http\routing\Route', $routed[0]);
@@ -170,72 +168,6 @@ class RouterTest extends PHPUnit_Framework_TestCase
 		$response->shouldReceive('status')->once()->with(301);
 
 		$response->shouldReceive('header')->once()->with('Location', 'http://example.org/en/foo/?foo=bar');
-
-		$response->shouldReceive('sendHeaders')->once();
-
-		$returnValue->send($request, $response);
-	}
-
-	/**
-	 *
-	 */
-	public function testRedirectWithDirtyUrl()
-	{
-		$route = Mockery::mock('\mako\http\routing\Route');
-
-		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
-
-		$route->shouldReceive('allows')->andReturn(true);
-
-		$route->shouldReceive('hasTrailingSlash')->andReturn(true);
-
-		$router = $this->getRouter([$route]);
-
-		$request = $this->getRequest();
-
-		$request->shouldReceive('method')->andReturn('GET');
-
-		$request->shouldReceive('path')->andReturn('/foo');
-
-		$request->shouldReceive('isClean')->andReturn(false);
-
-		$routed = $router->route($request);
-
-		$this->assertInstanceOf('\mako\http\routing\Route', $routed[0]);
-
-		$this->assertInstanceOf('Closure', $routed[0]->getAction());
-
-		$this->assertSame([], $routed[1]);
-
-		$this->assertEmpty($routed[0]->getRoute());
-
-		$this->assertEmpty($routed[0]->getMethods());
-
-		//
-
-		$closure = $routed[0]->getAction();
-
-		$request->shouldReceive('baseURL')->once()->andReturn('http://example.org');
-
-		$request->shouldReceive('languagePrefix')->once()->andReturn('en');
-
-		$query = Mockery::mock('mako\http\request\Parameters');
-
-		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
-
-		$request->query = $query;
-
-		$returnValue = $closure($request);
-
-		$this->assertInstanceOf('mako\http\response\senders\Redirect', $returnValue);
-
-		//
-
-		$response = Mockery::mock('mako\http\Response');
-
-		$response->shouldReceive('status')->once()->with(301);
-
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org/index.php/en/foo/?foo=bar');
 
 		$response->shouldReceive('sendHeaders')->once();
 
