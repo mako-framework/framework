@@ -38,6 +38,8 @@ class URLBuilderTest extends PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('languagePrefix')->andReturn($langPrefix);
 
+		$request->shouldReceive('scriptName')->andReturn('index.php');
+
 		return $request;
 	}
 
@@ -97,6 +99,8 @@ class URLBuilderTest extends PHPUnit_Framework_TestCase
 		$request = Mockery::mock('\mako\http\Request');
 
 		$request->shouldReceive('languagePrefix')->once()->andReturn('');
+
+		$request->shouldReceive('scriptName')->andReturn('index.php');
 
 		$request->shouldReceive('baseURL')->never();
 

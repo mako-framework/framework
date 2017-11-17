@@ -46,6 +46,13 @@ class URLBuilder
 	protected $baseURL;
 
 	/**
+	 * Script name.
+	 *
+	 * @var string
+	 */
+	protected $scriptName;
+
+	/**
 	 * Language prefix.
 	 *
 	 * @var string
@@ -58,7 +65,7 @@ class URLBuilder
 	 * @param \mako\http\Request        $request   Request instance
 	 * @param \mako\http\routing\Routes $routes    Route collection
 	 * @param bool                      $cleanURLs Create "clean" URLs?
-	 * @param string                    $baseURL   Base URL
+	 * @param string|null               $baseURL   Base URL
 	 */
 	public function __construct(Request $request, Routes $routes, bool $cleanURLs = false, string $baseURL = null)
 	{
@@ -67,9 +74,9 @@ class URLBuilder
 		$this->cleanURLs = $cleanURLs;
 		$this->baseURL   = $baseURL;
 
-		$language = $request->languagePrefix();
+		$this->scriptName = $request->scriptName();
 
-		if(!empty($language))
+		if(!empty($language = $request->languagePrefix()))
 		{
 			$this->languagePrefix = '/' . $language;
 		}
@@ -112,7 +119,7 @@ class URLBuilder
 	 */
 	public function to(string $path, array $queryParams = [], string $separator = '&amp;', $language = true): string
 	{
-		$url = $this->base() . ($this->cleanURLs ? '' : '/index.php') . ($language === true ? $this->languagePrefix : (!$language ? '' : '/' . $language)) . $path;
+		$url = $this->base() . ($this->cleanURLs ? '' : '/' . $this->scriptName) . ($language === true ? $this->languagePrefix : (!$language ? '' : '/' . $language)) . $path;
 
 		if(!empty($queryParams))
 		{

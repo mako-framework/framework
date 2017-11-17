@@ -7,8 +7,6 @@
 
 namespace mako\http;
 
-use RuntimeException;
-
 use mako\http\request\Cookies;
 use mako\http\request\Files;
 use mako\http\request\Headers;
@@ -26,6 +24,13 @@ use mako\utility\ip\IP;
  */
 class Request
 {
+	/**
+	 * Script name.
+	 *
+	 * @var string
+	 */
+	protected $scriptName;
+
 	/**
 	 * Get data
 	 *
@@ -170,6 +175,10 @@ class Request
 		$this->headers = new Headers($this->server->getHeaders());
 		$this->body    = $request['body'] ?? null;
 
+		// Get the script name
+
+		$this->scriptName = basename($this->server->get('SCRIPT_FILENAME'));
+
 		// Set the request path and method
 
 		$languages = $request['languages'] ?? [];
@@ -236,9 +245,9 @@ class Request
 
 				// Remove "/index.php" from the path
 
-				if(stripos($path, '/index.php') === 0)
+				if(stripos($path, '/' . $this->scriptName) === 0)
 				{
-					$path = mb_substr($path, 10);
+					$path = mb_substr($path, (strlen($this->scriptName) + 1));
 				}
 
 				$path = rawurldecode($path);
@@ -263,6 +272,16 @@ class Request
 		}
 
 		return $method;
+	}
+
+	/**
+	 * Returns the base name of the script that handled the request.
+	 *
+	 * @return string
+	 */
+	public function scriptName(): string
+	{
+		return $this->scriptName;
 	}
 
 	/**

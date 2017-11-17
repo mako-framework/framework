@@ -199,6 +199,8 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
 		$request->shouldReceive('isClean')->andReturn(false);
 
+		$request->shouldReceive('scriptName')->andReturn('index.php');
+
 		$routed = $router->route($request);
 
 		$this->assertInstanceOf('\mako\http\routing\Route', $routed[0]);

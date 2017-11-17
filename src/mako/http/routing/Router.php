@@ -49,7 +49,7 @@ class Router
 	{
 		return new Route([], '', function(Request $request) use ($requestPath)
 		{
-			$url = $request->baseURL() . ($request->isClean() ? '' : '/index.php') . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
+			$url = $request->baseURL() . ($request->isClean() ? '' : '/' . $request->scriptName()) . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
 
 			$get = $request->query->all();
 

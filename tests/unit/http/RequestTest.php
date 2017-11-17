@@ -30,7 +30,8 @@ class RequestTest extends PHPUnit_Framework_TestCase
 	 */
 	public function getServerData()
 	{
-		return [
+		return
+		[
 			'HTTP_HOST' => 'example.local',
 			'HTTP_CONNECTION' => 'keep-alive',
 			'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,foo/bar; q=0.1,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -58,12 +59,32 @@ class RequestTest extends PHPUnit_Framework_TestCase
 			'QUERY_STRING' => '',
 			'REQUEST_TIME_FLOAT' => 1398338683.59,
 			'REQUEST_TIME' => 1398338683,
-			'REQUEST_URI' => '/test/',
+			'REQUEST_URI' => '/index.php/test/',
 			'SCRIPT_NAME' => '/index.php',
 			'PHP_SELF' => '/index.php/test/',
 			'SCRIPT_FILENAME' => '/var/www/index.php',
 			'PATH_INFO' => '/test/',
 		];
+	}
+
+	/**
+	 *
+	 */
+	public function testScriptName()
+	{
+		$server = $this->getServerData();
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertEquals('index.php', $request->scriptName());
+
+		//
+
+		$server['SCRIPT_FILENAME'] = '/var/www/app.php';
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertEquals('app.php', $request->scriptName());
 	}
 
 	/**
@@ -322,6 +343,16 @@ class RequestTest extends PHPUnit_Framework_TestCase
 		//
 
 		unset($server['PATH_INFO']);
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertEquals('/test/', $request->path());
+
+		//
+
+		$server['REQUEST_URI'] = '/app.php/test/';
+		$server['SCRIPT_NAME'] = '/app.php';
+		$server['SCRIPT_FILENAME'] = '/var/www/app.php';
 
 		$request = new Request(['server' => $server]);
 
