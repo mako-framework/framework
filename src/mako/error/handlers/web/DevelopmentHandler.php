@@ -19,6 +19,7 @@ use Whoops\Run as Whoops;
 use Whoops\Handler\HandlerInterface as WhoopsHandlerInterface;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PrettyPageHandler;
+use Whoops\Handler\XmlResponseHandler;
 
 /**
  * Development handler.
@@ -76,8 +77,6 @@ class DevelopmentHandler implements HandlerInterface
 		$this->app = $app;
 
 		$this->configureWhoops();
-
-		$this->response->clear()->disableCaching()->disableCompression();
 	}
 
 	/**
@@ -90,6 +89,11 @@ class DevelopmentHandler implements HandlerInterface
 		if($this->returnAsJson())
 		{
 			return new JsonResponseHandler;
+		}
+
+		if($this->returnAsXml())
+		{
+			return new XmlResponseHandler;
 		}
 
 		$handler = new PrettyPageHandler;
@@ -121,6 +125,9 @@ class DevelopmentHandler implements HandlerInterface
 	public function handle(Throwable $exception)
 	{
 		$this->response
+		->clear()
+		->disableCaching()
+		->disableCompression()
 		->body($this->whoops->handleException($exception))
 		->status($this->getStatusCode($exception))
 		->type(current($this->whoops->getHandlers())->contentType())

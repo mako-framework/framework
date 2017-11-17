@@ -26,18 +26,48 @@ trait HandlerHelperTrait
 	 */
 	protected function returnAsJson(): bool
 	{
-		$jsonMimeTypes = ['application/json', 'text/json'];
-
-		if($this->request->isAjax() || in_array($this->response->getType(), $jsonMimeTypes))
+		if(function_exists('json_encode'))
 		{
-			return true;
+			$jsonMimeTypes = ['application/json', 'text/json'];
+
+			if($this->request->isAjax() || in_array($this->response->getType(), $jsonMimeTypes))
+			{
+				return true;
+			}
+
+			$acceptableContentTypes = $this->request->acceptableContentTypes();
+
+			if(isset($acceptableContentTypes[0]) && in_array($acceptableContentTypes[0], $jsonMimeTypes))
+			{
+				return true;
+			}
 		}
 
-		$acceptableContentTypes = $this->request->acceptableContentTypes();
+		return false;
+	}
 
-		if(isset($acceptableContentTypes[0]) && in_array($acceptableContentTypes[0], $jsonMimeTypes))
+	/**
+	 * Should we return the error as XML?
+	 *
+	 * @return bool
+	 */
+	protected function returnAsXml(): bool
+	{
+		if(function_exists('simplexml_load_string'))
 		{
-			return true;
+			$xmlMimeTypes = ['application/xml', 'text/xml'];
+
+			if(in_array($this->response->getType(), $xmlMimeTypes))
+			{
+				return true;
+			}
+
+			$acceptableContentTypes = $this->request->acceptableContentTypes();
+
+			if(isset($acceptableContentTypes[0]) && in_array($acceptableContentTypes[0], $xmlMimeTypes))
+			{
+				return true;
+			}
 		}
 
 		return false;

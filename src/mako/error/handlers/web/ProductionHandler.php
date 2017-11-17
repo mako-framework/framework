@@ -67,12 +67,12 @@ class ProductionHandler implements HandlerInterface
 	}
 
 	/**
-	 * Return a JSON string.
+	 * Returns code and message.
 	 *
 	 * @param  Throwable $exception Exception
-	 * @return string
+	 * @return array
 	 */
-	protected function getExceptionAsJson(Throwable $exception): string
+	protected function getCodeAndMessage(Throwable $exception): array
 	{
 		$code = 500;
 
@@ -96,7 +96,37 @@ class ProductionHandler implements HandlerInterface
 			}
 		}
 
-		return json_encode(['code' => $code, 'message' => $message]);
+		return ['code' => $code, 'message' => $message];
+	}
+
+	/**
+	 * Return a JSON representation of the exception.
+	 *
+	 * @param  Throwable $exception Exception
+	 * @return string
+	 */
+	protected function getExceptionAsJson(Throwable $exception): string
+	{
+		return json_encode(['error' => $this->getCodeAndMessage($exception)]);
+	}
+
+	/**
+	 * Return a XML representation of the exception.
+	 *
+	 * @param  Throwable $exception Exception
+	 * @return string
+	 */
+	protected function getExceptionAsXml(Throwable $exception): string
+	{
+		$details = $this->getCodeAndMessage($exception);
+
+		$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><error />");
+
+		$xml->addChild('code', $details['code']);
+
+		$xml->addChild('message', $details['message']);
+
+		return $xml->asXML();
 	}
 
 	/**
@@ -135,6 +165,13 @@ class ProductionHandler implements HandlerInterface
 			$this->response->type('application/json');
 
 			return $this->getExceptionAsJson($exception);
+		}
+
+		if($this->returnAsXml())
+		{
+			$this->response->type('application/xml');
+
+			return $this->getExceptionAsXml($exception);
 		}
 
 		$this->response->type('text/html');
