@@ -81,6 +81,11 @@ class Memcache extends Store
 	 */
 	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
 	{
+		if($ttl !== 0)
+		{
+			$ttl += time();
+		}
+
 		return $this->memcache->add($this->getPrefixedKey($key), $data, $this->compressionLevel, $ttl);
 	}
 

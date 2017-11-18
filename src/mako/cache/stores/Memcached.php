@@ -82,6 +82,11 @@ class Memcached extends Store implements IncrementDecrementInterface
 	 */
 	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
 	{
+		if($ttl !== 0)
+		{
+			$ttl += time();
+		}
+
 		return $this->memcached->add($this->getPrefixedKey($key), $data, $ttl);
 	}
 
