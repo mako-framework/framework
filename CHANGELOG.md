@@ -9,7 +9,6 @@ Update using ```composer update```.
 * Added ```Collection::merge()``` method.
 * ```Collection::map()``` callables can now accept the item key as a second argument.
 * ```Collection::filter()``` callables can now accept the item key as a second argument.
-* It is now possible to filter collections on keys as
 * JSON responses can now set the response status code.
 * Mako is now using Whoops for displaying exception details.
 
