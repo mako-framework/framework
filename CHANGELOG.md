@@ -24,7 +24,7 @@ Update using ```composer update```.
 
 #### Bugfixes
 
-* ```ManyToMany::synchronize()``` will no longer cause exceptions when performing unnecessary queries.
+* ```ManyToMany::synchronize()``` will no longer execute unnecessary and invalid queries that cause exceptions.
 
 --------------------------------------------------------
 
