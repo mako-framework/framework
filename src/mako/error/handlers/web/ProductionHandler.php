@@ -10,7 +10,7 @@ namespace mako\error\handlers\web;
 use Throwable;
 
 use mako\error\handlers\HandlerInterface;
-use mako\error\handlers\web\HandlerHelperTrait;
+use mako\error\handlers\web\traits\HandlerHelperTrait;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\exceptions\RequestException;
@@ -61,8 +61,6 @@ class ProductionHandler implements HandlerInterface
 
 		$this->response = $response;
 
-		$this->response->clear()->disableCaching()->disableCompression();
-
 		$this->view->registerNamespace('mako-error', __DIR__ . '/views');
 	}
 
@@ -74,26 +72,21 @@ class ProductionHandler implements HandlerInterface
 	 */
 	protected function getCodeAndMessage(Throwable $exception): array
 	{
-		$code = 500;
+		$code = $this->getStatusCode($exception);
 
-		$message = 'An error has occurred while processing your request.';
-
-		if($exception instanceof RequestException)
+		switch($code)
 		{
-			$code = $exception->getCode();
-
-			switch($code)
-			{
-				case 403:
-					$message = 'You don\'t have permission to access the requested resource.';
-					break;
-				case 404:
-					$message = 'The resource you requested could not be found. It may have been moved or deleted.';
-					break;
-				case 405:
-					$message = 'The request method that was used is not supported by this resource.';
-					break;
-			}
+			case 403:
+				$message = 'You don\'t have permission to access the requested resource.';
+				break;
+			case 404:
+				$message = 'The resource you requested could not be found. It may have been moved or deleted.';
+				break;
+			case 405:
+				$message = 'The request method that was used is not supported by this resource.';
+				break;
+			default:
+				$message = 'An error has occurred while processing your request.';
 		}
 
 		return ['code' => $code, 'message' => $message];
@@ -184,10 +177,12 @@ class ProductionHandler implements HandlerInterface
 	 */
 	public function handle(Throwable $exception)
 	{
-		$this->response
+		$this->sendResponse($this->response
+		->clear()
+		->disableCaching()
+		->disableCompression()
 		->body($this->getBody($exception))
-		->status($this->getStatusCode($exception))
-		->send();
+		->status($this->getStatusCode($exception)), $exception);
 
 		return false;
 	}

@@ -11,7 +11,7 @@ use Throwable;
 
 use mako\application\Application;
 use mako\error\handlers\HandlerInterface;
-use mako\error\handlers\web\HandlerHelperTrait;
+use mako\error\handlers\web\traits\HandlerHelperTrait;
 use mako\http\Request;
 use mako\http\Response;
 
@@ -124,14 +124,13 @@ class DevelopmentHandler implements HandlerInterface
 	 */
 	public function handle(Throwable $exception)
 	{
-		$this->response
+		$this->sendResponse($this->response
 		->clear()
 		->disableCaching()
 		->disableCompression()
 		->body($this->whoops->handleException($exception))
 		->status($this->getStatusCode($exception))
-		->type(current($this->whoops->getHandlers())->contentType())
-		->send();
+		->type(current($this->whoops->getHandlers())->contentType()), $exception);
 
 		return false;
 	}

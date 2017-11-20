@@ -5,12 +5,13 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\error\handlers\web;
+namespace mako\error\handlers\web\traits;
 
 use Throwable;
 
-use mako\http\exceptions\MethodNotAllowedException;
+use mako\http\Response;
 use mako\http\exceptions\RequestException;
+use mako\http\exceptions\MethodNotAllowedException;
 
 /**
  * Handler helper trait.
@@ -81,16 +82,22 @@ trait HandlerHelperTrait
 	 */
 	protected function getStatusCode(Throwable $exception): int
 	{
-		if($exception instanceof RequestException)
-		{
-			$status = (int) $exception->getCode();
+		return ($exception instanceof RequestException) ? $exception->getCode() : 500;
+	}
 
-			if($exception instanceof MethodNotAllowedException)
-			{
-				$this->response->header('Allow', implode(',', $exception->getAllowedMethods()));
-			}
+	/**
+	 * Sends response and adds any aditional headers.
+	 *
+	 * @param \mako\http\Response $response  Response
+	 * @param \Throwable          $exception Exception
+	 */
+	protected function sendResponse(Response $response, Throwable $exception)
+	{
+		if($exception instanceof MethodNotAllowedException)
+		{
+			$this->response->header('Allow', implode(',', $exception->getAllowedMethods()));
 		}
 
-		return $status ?? 500;
+		$response->send();
 	}
 }
