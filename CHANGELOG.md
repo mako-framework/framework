@@ -1,3 +1,17 @@
+### 5.3.0 <small> (2017-??-??)</small>
+
+Update using ```composer update```.
+
+#### New
+
+* Added ```Connection::pairs()``` method.
+* Added ```Query::pairs()``` method.
+* Added ```Collection::merge()``` method.
+* JSON responses can now set the response status code.
+* Mako is now using Whoops for displaying exception details.
+
+--------------------------------------------------------
+
 ### 5.2.10 <small> (2017-11-18)</small>
 
 Update using ```composer update```.
