@@ -68,6 +68,13 @@ class ViewFactory
 	protected $globalVariables = [];
 
 	/**
+	 * Variables that should be auto assigned to views.
+	 *
+	 * @var array
+	 */
+	protected $autoAssignVariables = [];
+
+	/**
 	 * View cache.
 	 *
 	 * @var array
@@ -154,6 +161,23 @@ class ViewFactory
 	}
 
 	/**
+	 * Assign variables that should be auto assigned to views upon creation.
+	 *
+	 * @param  string                 $view      View name or array of view names
+	 * @param  callable               $variables Callable that returns an array of variables
+	 * @return \mako\view\ViewFactory
+	 */
+	public function autoAssign($view, callable $variables): ViewFactory
+	{
+		foreach((array) $view as $name)
+		{
+			$this->autoAssignVariables[$name] = $variables;
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Returns an array containing the view path and the renderer we should use.
 	 *
 	 * @param  string     $view           View
@@ -231,6 +255,45 @@ class ViewFactory
 	}
 
 	/**
+	 * Returns view specific auto assign variables.
+	 *
+	 * @param  string $view View
+	 * @return array
+	 */
+	protected function getAutoAssignVariablesForView(string $view): array
+	{
+		if(!isset($this->autoAssignVariables[$view]))
+		{
+			return [];
+		}
+
+		return ($this->autoAssignVariables[$view])();
+	}
+
+	/**
+	 * Returns auto assign variables for a view.
+	 *
+	 * @param  string $view View
+	 * @return array
+	 */
+	protected function getAutoAssignVariables(string $view): array
+	{
+		return $this->getAutoAssignVariablesForView($view) + $this->getAutoAssignVariablesForView('*');
+	}
+
+	/**
+	 * Returns array where variables have been merged in order of importance.
+	 *
+	 * @param  string $view      View
+	 * @param  array  $variables View variables
+	 * @return array
+	 */
+	protected function mergeVariables(string $view, array $variables): array
+	{
+		return $variables + $this->getAutoAssignVariables($view) + $this->globalVariables;
+	}
+
+	/**
 	 * Creates and returns a view instance.
 	 *
 	 * @param  string          $view      View
@@ -241,7 +304,7 @@ class ViewFactory
 	{
 		list($path, $extension) = $this->getViewPathAndExtension($view);
 
-		return new View($path, $variables + $this->globalVariables, $this->resolveRenderer($extension));
+		return new View($path, $this->mergeVariables($view, $variables), $this->resolveRenderer($extension));
 	}
 
 	/**

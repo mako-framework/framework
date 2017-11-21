@@ -54,6 +54,16 @@ class View
 	}
 
 	/**
+	 * Returns the assigned view variables.
+	 *
+	 * @return array
+	 */
+	public function getVariables(): array
+	{
+		return $this->variables;
+	}
+
+	/**
 	 * Returns the renderer instance.
 	 *
 	 * @return \mako\view\renderers\RendererInterface

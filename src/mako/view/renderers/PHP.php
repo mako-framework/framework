@@ -24,7 +24,7 @@ class PHP implements RendererInterface
 	 */
 	public function render(string $__view__, array $__variables__): string
 	{
-		extract($__variables__, EXTR_REFS | EXTR_SKIP);
+		extract($__variables__, EXTR_SKIP);
 
 		ob_start();
 
