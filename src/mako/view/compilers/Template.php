@@ -162,7 +162,7 @@ class Template
 	{
 		// Compile view includes with parameters
 
-		$template = preg_replace('/{{view:((((?!,(?![^()]*\))[^,]+).)+?),\s*\[(.*?)\]}})/i', '<?php echo $__viewfactory__->create($2, [$4] + get_defined_vars())->render(); ?>', $template);
+		$template = preg_replace('/{{\s*view:(.*?)\s*,(?![^\(]*\))\s*(.*?)\s*}}/i', '<?php echo $__viewfactory__->create($1, $2 + get_defined_vars())->render(); ?>', $template);
 
 		// Compile view includes without parameters
 

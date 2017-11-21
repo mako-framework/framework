@@ -209,11 +209,47 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	/**
 	 *
 	 */
+	public function testViewWithVariableParameters()
+	{
+		$template = '{{view:\'foo\', $foobar}}';
+
+		$compiled = '<?php echo $__viewfactory__->create(\'foo\', $foobar + get_defined_vars())->render(); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+
+	/**
+	 *
+	 */
 	public function testViewMethodWithArgumentsWithParameters()
 	{
 		$template = '{{view:$foo->bar(1, 2), [\'foo\' => \'bar\']}}';
 
 		$compiled = '<?php echo $__viewfactory__->create($foo->bar(1, 2), [\'foo\' => \'bar\'] + get_defined_vars())->render(); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+
+	/**
+	 *
+	 */
+	public function testViewMethodWithArgumentsWithVariabbleParameters()
+	{
+		$template = '{{view:$foo->bar(1, 2), $foobar}}';
+
+		$compiled = '<?php echo $__viewfactory__->create($foo->bar(1, 2), $foobar + get_defined_vars())->render(); ?>';
 
 		//
 
