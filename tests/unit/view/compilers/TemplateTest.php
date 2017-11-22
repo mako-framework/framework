@@ -104,7 +104,7 @@ class TemplateTest extends PHPUnit_Framework_TestCase
 	{
 		$template = "{% extends:'parent' %}\nHello, world!";
 
-		$compiled = '<?php $__view__ = $__viewfactory__->create(\'parent\'); $__renderer__ = $__view__->getRenderer(); extract($__view__->getVariables(), EXTR_SKIP); ?>
+		$compiled = '<?php $__view__ = $__viewfactory__->create(\'parent\'); $__renderer__ = $__view__->getRenderer(); ?>
 Hello, world!<?php echo $__view__->render(); ?>';
 
 		//
