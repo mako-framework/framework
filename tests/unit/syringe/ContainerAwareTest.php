@@ -17,7 +17,7 @@ use mako\syringe\Container;
 
 class Bax
 {
-	use \mako\syringe\ContainerAwareTrait;
+	use \mako\syringe\traits\ContainerAwareTrait;
 
 	public function getContainer()
 	{

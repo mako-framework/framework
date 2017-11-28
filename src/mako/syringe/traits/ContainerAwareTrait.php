@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\syringe;
+namespace mako\syringe\traits;
 
 use RuntimeException;
 

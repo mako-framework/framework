@@ -13,7 +13,7 @@ use mako\http\response\builders\JSON;
 use mako\http\response\senders\File;
 use mako\http\response\senders\Redirect;
 use mako\http\response\senders\Stream;
-use mako\syringe\ContainerAwareTrait;
+use mako\syringe\traits\ContainerAwareTrait;
 
 /**
  * Controller helper trait.

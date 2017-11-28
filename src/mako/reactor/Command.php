@@ -19,8 +19,7 @@ use mako\cli\output\helpers\OrderedList;
 use mako\cli\output\helpers\ProgressBar;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\helpers\UnorderedList;
-
-use mako\syringe\ContainerAwareTrait;
+use mako\syringe\traits\ContainerAwareTrait;
 
 /**
  * Base command.

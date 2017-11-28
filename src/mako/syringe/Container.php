@@ -15,7 +15,7 @@ use ReflectionParameter;
 use RuntimeException;
 
 use mako\syringe\ClassInspector;
-use mako\syringe\ContainerAwareTrait;
+use mako\syringe\traits\ContainerAwareTrait;
 
 /**
  * Inversion of control container.

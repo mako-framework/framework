@@ -13,6 +13,12 @@ Update using ```composer update```.
 * JSON responses can now set the response status code.
 * Mako is now using Whoops for displaying exception details.
 
+#### Changes
+
+* Moved the `ContainerAwareTrait` trait to the `mako\syringe\traits` namespace.
+* Moved the `ControllerHelperTrait` trait to the `mako\http\routing\traits` namespace.
+* The `Str::slug()` method now uses `rawurlencode` instead of `urlencode`.
+
 --------------------------------------------------------
 
 ### 5.2.10 <small> (2017-11-18)</small>

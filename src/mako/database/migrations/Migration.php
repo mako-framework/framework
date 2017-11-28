@@ -8,7 +8,7 @@
 namespace mako\database\migrations;
 
 use mako\database\ConnectionManager;
-use mako\syringe\ContainerAwareTrait;
+use mako\syringe\traits\ContainerAwareTrait;
 
 /**
  * Base migration.
