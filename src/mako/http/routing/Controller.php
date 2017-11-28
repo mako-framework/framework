@@ -7,7 +7,7 @@
 
 namespace mako\http\routing;
 
-use mako\http\routing\ControllerHelperTrait;
+use mako\http\routing\traits\ControllerHelperTrait;
 
 /**
  * Base controller.

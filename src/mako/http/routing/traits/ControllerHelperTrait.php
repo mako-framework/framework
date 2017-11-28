@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\http\routing;
+namespace mako\http\routing\traits;
 
 use Closure;
 
@@ -69,9 +69,9 @@ trait ControllerHelperTrait
 	/**
 	 * Returns a JSON response builder.
 	 *
-	 * @param  mixed                            $data    Data
-	 * @param  int                              $options JSON encode coptions
-	 * @return \mako\http\response\builder\JSON
+	 * @param  mixed                             $data    Data
+	 * @param  int                               $options JSON encode coptions
+	 * @return \mako\http\response\builders\JSON
 	 */
 	protected function jsonResponse($data, int $options = 0): JSON
 	{
