@@ -11,6 +11,7 @@ use mako\cli\input\Input;
 use mako\cli\input\helpers\Confirmation;
 use mako\cli\input\helpers\Question;
 use mako\cli\input\helpers\Secret;
+use mako\cli\input\helpers\Select;
 use mako\cli\output\Output;
 use mako\cli\output\helpers\Bell;
 use mako\cli\output\helpers\Countdown;
@@ -355,6 +356,18 @@ abstract class Command
 	protected function question(string $question, $default = null)
 	{
 		return (new Question($this->input, $this->output))->ask($question, $default);
+	}
+
+	/**
+	 * Prints out a list of options and returns the array key of the chosen value.
+	 *
+	 * @param  string $question Question to ask
+	 * @param  array  $options  Numeric array of options to choose from
+	 * @return int
+	 */
+	protected function select(string $question, array $options): int
+	{
+		return (new Select($this->input, $this->output))->ask($question, $options);
 	}
 
 	/**
