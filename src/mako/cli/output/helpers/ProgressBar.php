@@ -19,7 +19,7 @@ class ProgressBar
 	/**
 	 * Progressbar width.
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $width = 20;
 

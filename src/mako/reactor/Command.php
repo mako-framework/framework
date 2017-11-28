@@ -34,14 +34,14 @@ abstract class Command
 	/**
 	 * Success status code.
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	const STATUS_SUCCESS = 0;
 
 	/**
 	 * Error status code.
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	const STATUS_ERROR = 1;
 
