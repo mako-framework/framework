@@ -7,7 +7,7 @@
  * @license   https://raw.githubusercontent.com/padraic/SecurityMultiTool/master/LICENSE
  */
 
-namespace mako\view\renderers;
+namespace mako\view\renderers\traits;
 
 /**
  * Escaper trait.

@@ -11,8 +11,8 @@ use InvalidArgumentException;
 use RuntimeException;
 
 use mako\pixl\Image;
-use mako\pixl\processors\CalculateNewDimensionsTrait;
 use mako\pixl\processors\ProcessorInterface;
+use mako\pixl\processors\traits\CalculateNewDimensionsTrait;
 
 /**
  * GD processor.

@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\database\midgard\relations;
+namespace mako\database\midgard\relations\traits;
 
 use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
@@ -44,8 +44,8 @@ trait HasOneOrManyPolymorphicTrait
 	/**
 	 * Creates a related record.
 	 *
-	 * @param  mixed                  $related Related record
-	 * @return \mako\database\midgard
+	 * @param  mixed                      $related Related record
+	 * @return \mako\database\midgard\ORM
 	 */
 	public function create($related)
 	{

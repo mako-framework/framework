@@ -7,8 +7,8 @@
 
 namespace mako\view\renderers;
 
-use mako\view\renderers\EscaperTrait;
 use mako\view\renderers\RendererInterface;
+use mako\view\renderers\traits\EscaperTrait;
 
 /**
  * Plain PHP view renderer.
