@@ -17,6 +17,10 @@ Update using ```composer update```.
 
 * Moved the `ContainerAwareTrait` trait to the `mako\syringe\traits` namespace.
 * Moved the `ControllerHelperTrait` trait to the `mako\http\routing\traits` namespace.
+* Moved the `ConfigurableTrait` trait to the `mako\common\traits` namespace.
+* Moved the `ExtendableTrait` trait to the `mako\common\traits` namespace.
+* Moved the `FunctionParserTrait` trait to the `mako\common\traits` namespace.
+* Moved the `NamespacedFileLoaderTrait` trait to the `mako\common\traits` namespace.
 * The `Str::slug()` method now uses `rawurlencode` instead of `urlencode`.
 
 --------------------------------------------------------
