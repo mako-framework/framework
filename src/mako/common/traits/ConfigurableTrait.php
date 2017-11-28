@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\common;
+namespace mako\common\traits;
 
 /**
  * Configurable trait.

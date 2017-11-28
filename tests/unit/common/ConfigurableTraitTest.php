@@ -9,7 +9,7 @@ namespace mako\tests\unit\common;
 
 use PHPUnit_Framework_TestCase;
 
-use mako\common\ConfigurableTrait;
+use mako\common\traits\ConfigurableTrait;
 
 // --------------------------------------------------------------------------
 // START CLASSES

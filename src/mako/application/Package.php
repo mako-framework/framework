@@ -9,7 +9,7 @@ namespace mako\application;
 
 use ReflectionClass;
 
-use mako\common\NamespacedFileLoaderTrait;
+use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\syringe\Container;
 
 /**

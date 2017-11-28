@@ -10,7 +10,7 @@ namespace mako\common;
 use Closure;
 use RuntimeException;
 
-use mako\common\ConfigurableTrait;
+use mako\common\traits\ConfigurableTrait;
 use mako\syringe\Container;
 
 /**

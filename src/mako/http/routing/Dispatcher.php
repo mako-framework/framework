@@ -9,7 +9,7 @@ namespace mako\http\routing;
 
 use Closure;
 
-use mako\common\FunctionParserTrait;
+use mako\common\traits\FunctionParserTrait;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\Middleware;

@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\common;
+namespace mako\common\traits;
 
 /**
  * @copyright Frederic G. Østby

@@ -10,7 +10,7 @@ namespace mako\validator;
 use DateTime;
 use RuntimeException;
 
-use mako\common\FunctionParserTrait;
+use mako\common\traits\FunctionParserTrait;
 use mako\i18n\I18n;
 use mako\utility\Str;
 use mako\utility\UUID;

@@ -9,7 +9,7 @@ namespace mako\config\loaders;
 
 use RuntimeException;
 
-use mako\common\NamespacedFileLoaderTrait;
+use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
 
 /**

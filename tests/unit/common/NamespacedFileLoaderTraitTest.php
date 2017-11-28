@@ -9,7 +9,7 @@ namespace mako\tests\unit\common;
 
 use PHPUnit_Framework_TestCase;
 
-use mako\common\NamespacedFileLoaderTrait;
+use mako\common\traits\NamespacedFileLoaderTrait;
 
 // --------------------------------------------------------------------------
 // START CLASSES

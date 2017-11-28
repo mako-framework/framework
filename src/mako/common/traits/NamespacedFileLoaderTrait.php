@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\common;
+namespace mako\common\traits;
 
 use RuntimeException;
 
@@ -113,9 +113,9 @@ trait NamespacedFileLoaderTrait
 	/**
 	 * Returns an array of cascading file paths.
 	 *
-	 * @param  string $file      File name
-	 * @param  string $extension File extension
-	 * @param  string $suffix    Path suffix
+	 * @param  string      $file      File name
+	 * @param  string|null $extension File extension
+	 * @param  string|null $suffix    Path suffix
 	 * @return array
 	 */
 	protected function getCascadingFilePaths(string $file, string $extension = null, string $suffix = null): array

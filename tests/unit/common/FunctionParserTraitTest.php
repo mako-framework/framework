@@ -9,7 +9,7 @@ namespace mako\tests\unit\common;
 
 use PHPUnit_Framework_TestCase;
 
-use mako\common\FunctionParserTrait;
+use mako\common\traits\FunctionParserTrait;
 
 // --------------------------------------------------------------------------
 // START CLASSES

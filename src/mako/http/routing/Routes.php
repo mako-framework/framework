@@ -10,7 +10,7 @@ namespace mako\http\routing;
 use Closure;
 use RuntimeException;
 
-use mako\common\ExtendableTrait;
+use mako\common\traits\ExtendableTrait;
 use mako\http\routing\Route;
 
 /**

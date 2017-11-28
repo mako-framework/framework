@@ -7,7 +7,7 @@
 
 namespace mako\utility;
 
-use mako\common\ExtendableTrait;
+use mako\common\traits\ExtendableTrait;
 
 /**
  * HTML helper.

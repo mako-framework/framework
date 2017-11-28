@@ -13,7 +13,7 @@ use Countable;
 use IteratorAggregate;
 use OutOfBoundsException;
 
-use mako\common\ExtendableTrait;
+use mako\common\traits\ExtendableTrait;
 
 /**
  * Collection.
