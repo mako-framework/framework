@@ -12,6 +12,7 @@ use RuntimeException;
 use mako\common\ConnectionManager as BaseConnectionManager;
 use mako\database\connections\Connection;
 use mako\database\connections\DB2 as DB2Connection;
+use mako\database\connections\Firebird as FirebirdConnection;
 use mako\database\connections\Oracle as OracleConnection;
 use mako\database\connections\SQLServer as SQLServerConnection;
 use mako\database\query\compilers\Compiler;
@@ -54,9 +55,10 @@ class ConnectionManager extends BaseConnectionManager
 	 */
 	protected $connectionClasses =
 	[
-		'db2'    => DB2Connection::class,
-		'oracle' => OracleConnection::class,
-		'sqlsrv' => SQLServerConnection::class,
+		'db2'      => DB2Connection::class,
+		'firebird' => FirebirdConnection::class,
+		'oracle'   => OracleConnection::class,
+		'sqlsrv'   => SQLServerConnection::class,
 	];
 
 	/**
