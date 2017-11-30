@@ -244,31 +244,31 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	{
 		$session = $this->getSession();
 
-		$session->shouldReceive('get')->times(3)->with('gatekeeper_auth_key', false)->andReturn(false);
+		$session->shouldReceive('get')->times(1)->with('gatekeeper_auth_key', false)->andReturn(false);
 
-		$session->shouldReceive('put')->times(3)->with('gatekeeper_auth_key', 'token');
+		$session->shouldReceive('put')->times(1)->with('gatekeeper_auth_key', 'token');
 
-		$session->shouldReceive('regenerateId')->times(3);
+		$session->shouldReceive('regenerateId')->times(1);
 
-		$session->shouldReceive('regenerateToken')->times(3);
+		$session->shouldReceive('regenerateToken')->times(1);
 
-		$session->shouldReceive('remove')->times(3)->with('gatekeeper_auth_key');
+		$session->shouldReceive('remove')->times(1)->with('gatekeeper_auth_key');
 
 		$request = $this->getRequest();
 
 		$cookies = Mockery::mock('\mako\http\request\Cookies');
 
-		$cookies->shouldReceive('getSigned')->times(3)->with('gatekeeper_auth_key', false)->andReturn('token');
+		$cookies->shouldReceive('getSigned')->times(1)->with('gatekeeper_auth_key', false)->andReturn('token');
 
 		$request->cookies = $cookies;
 
 		$userRepository = $this->getUserRepository();
 
-		$userRepository->shouldReceive('getByAccessToken')->times(3)->with('token')->andReturn(false);
+		$userRepository->shouldReceive('getByAccessToken')->times(1)->with('token')->andReturn(false);
 
 		$response = $this->getResponse();
 
-		$response->shouldReceive('deleteCookie')->times(3)->with('gatekeeper_auth_key', $this->getCookieOptions());
+		$response->shouldReceive('deleteCookie')->times(1)->with('gatekeeper_auth_key', $this->getCookieOptions());
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $request, $response, $session);
 
