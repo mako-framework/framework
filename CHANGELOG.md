@@ -1,3 +1,13 @@
+### 5.2.11 <small> (2017-11-30)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* Fixes issue that prevents accidental login after logout. The issue would occur if the `mako\gatekeeper\adapters\Session::getUser()` method got called after the `mako\gatekeeper\adapters\Session::logout()` method if the user had a "remember me" cookie.
+
+--------------------------------------------------------
+
 ### 5.2.10 <small> (2017-11-18)</small>
 
 Update using ```composer update```.
