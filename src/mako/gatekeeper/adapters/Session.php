@@ -70,6 +70,13 @@ class Session extends Adapter
 	];
 
 	/**
+	 * Has the user logged out?
+	 *
+	 * @var bool
+	 */
+	protected $hasLoggedOut = false;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\gatekeeper\repositories\user\UserRepository   $userRepository  User repository
@@ -120,7 +127,7 @@ class Session extends Adapter
 	 */
 	public function getUser()
 	{
-		if(empty($this->user))
+		if(empty($this->user) && $this->hasLoggedOut === false)
 		{
 			// Check if there'a user that can be logged in
 
@@ -297,5 +304,7 @@ class Session extends Adapter
 		$this->response->deleteCookie($this->options['auth_key'], $this->options['cookie_options']);
 
 		$this->user = null;
+
+		$this->hasLoggedOut = true;
 	}
 }
