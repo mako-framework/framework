@@ -137,6 +137,24 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	/**
 	 *
 	 */
+	public function testCapture()
+	{
+		$template = '{% capture:foobar %}Hello{% endcapture %}';
+
+		$compiled = '<?php ob_start(); ?>Hello<?php $foobar = ob_get_clean(); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+
+	/**
+	 *
+	 */
 	public function testViewVariable()
 	{
 		$template = '{{view:$foo}}';

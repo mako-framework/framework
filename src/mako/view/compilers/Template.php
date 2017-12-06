@@ -62,6 +62,7 @@ class Template
 		'comments',
 		'extensions',
 		'views',
+		'captures',
 		'blocks',
 		'controlStructures',
 		'echos',
@@ -167,6 +168,17 @@ class Template
 		// Compile view includes without parameters
 
 		return preg_replace('/{{\s*view:(.*?)\s*}}/i', '<?php echo $__viewfactory__->create($1, get_defined_vars())->render(); ?>', $template);
+	}
+
+	/**
+	 * Compiles capture blocks.
+	 *
+	 * @param  string $template Template
+	 * @return string
+	 */
+	protected function captures(string $template): string
+	{
+		return preg_replace('/{%\s*capture:([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*?)\s*%}(.*?){%\s*endcapture\s*%}/is', '<?php ob_start(); ?>$2<?php $$1 = ob_get_clean(); ?>', $template);
 	}
 
 	/**
