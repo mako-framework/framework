@@ -91,6 +91,20 @@ class ManyToMany extends Relation
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	protected function aggregate($function, $column)
+	{
+		// Empty "alongWith" when performing aggregate queries
+
+		$this->alongWith = [];
+
+		// Execute parent and return results
+
+		return parent::aggregate($function, $column);
+	}
+
+	/**
 	 * Returns the the junction table.
 	 *
 	 * @return string

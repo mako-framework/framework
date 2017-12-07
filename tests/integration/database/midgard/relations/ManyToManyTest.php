@@ -189,6 +189,24 @@ class ManyToManyTest extends \ORMTestCase
 	/**
 	 *
 	 */
+	public function testManyToManyAggregateWithExtraColumns()
+	{
+		$user = ManyToManyUser::get(1);
+
+		$groups = $user->groups()->alongWith(['extra'])->count();
+
+		$this->assertEquals(2, $groups);
+
+		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT COUNT(*) FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+	}
+
+	/**
+	 *
+	 */
 	public function testLazyHasManyRelation()
 	{
 		$users = ManyToManyUser::ascending('id')->all();
