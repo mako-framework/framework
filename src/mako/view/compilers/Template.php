@@ -61,6 +61,7 @@ class Template
 		'collectVerbatims',
 		'comments',
 		'extensions',
+		'nospaces',
 		'views',
 		'captures',
 		'blocks',
@@ -149,6 +150,28 @@ class Template
 
 			$template .= '<?php echo $__view__->render(); ?>';
 		}
+
+		return $template;
+	}
+
+	/**
+	 * Compiles nospace blocks.
+	 *
+	 * @param  string $template Template
+	 * @return string
+	 */
+	protected function nospaces(string $template): string
+	{
+		// Compile regular nospace blocks
+
+		$template = preg_replace_callback('/{%\s*nospace\s*%}(.*?){%\s*endnospace\s*%}/is', function($matches)
+		{
+			return trim(preg_replace('/>\s+</', '><', $matches[1]));
+		}, $template);
+
+		// Compile buffered nospace blocks
+
+		$template = preg_replace('/{%\s*nospace:buffered\s*%}(.*?){%\s*endnospace\s*%}/is', '<?php ob_start(); ?>$1<?php echo trim(preg_replace(\'/>\s+</\', \'><\', ob_get_clean())); ?>', $template);
 
 		return $template;
 	}

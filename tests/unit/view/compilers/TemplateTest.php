@@ -155,6 +155,48 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	/**
 	 *
 	 */
+	public function testNospace()
+	{
+		$template = <<<EOF
+		{% nospace %}
+		<div>
+			<span>hello, world!</span>
+		</div>
+		{% endnospace %}
+EOF;
+
+		$compiled = '<div><span>hello, world!</span></div>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+
+	/**
+	 *
+	 */
+	public function testNospaceBuffered()
+	{
+		$template = '{% nospace:buffered %}hello{% endnospace %}';
+
+		$compiled = '<?php ob_start(); ?>hello<?php echo trim(preg_replace(\'/>\s+</\', \'><\', ob_get_clean())); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+
+	/**
+	 *
+	 */
 	public function testViewVariable()
 	{
 		$template = '{{view:$foo}}';
