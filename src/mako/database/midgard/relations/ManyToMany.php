@@ -227,6 +227,29 @@ class ManyToMany extends Relation
 	}
 
 	/**
+	 * Returns an array of ids.
+	 *
+	 * @param  mixed $id Id, model or an array of ids and/or models
+	 * @return array
+	 */
+	protected function getJunctionKeys($id): array
+	{
+		$ids = [];
+
+		foreach((is_array($id) ? $id : [$id]) as $value)
+		{
+			if($value instanceof $this->model)
+			{
+				$value = $value->getPrimaryKeyValue();
+			}
+
+			$ids[] = $value;
+		}
+
+		return $ids;
+	}
+
+	/**
 	 * Returns a query builder instance to the junction table.
 	 *
 	 * @return \mako\database\query\Query
@@ -246,14 +269,9 @@ class ManyToMany extends Relation
 	{
 		$success = true;
 
-		foreach((is_array($id) ? $id : [$id]) as $value)
+		foreach($this->getJunctionKeys($id) as $key)
 		{
-			if($value instanceof $this->model)
-			{
-				$value = $value->getPrimaryKeyValue();
-			}
-
-			$success = $success && $this->junction()->insert([$this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $value]);
+			$success = $success && $this->junction()->insert([$this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $key]);
 		}
 
 		return $success;
@@ -271,19 +289,7 @@ class ManyToMany extends Relation
 
 		if($id !== null)
 		{
-			$keys = [];
-
-			foreach((is_array($id) ? $id : [$id]) as $value)
-			{
-				if($value instanceof $this->model)
-				{
-					$value = $value->getPrimaryKeyValue();
-				}
-
-				$keys[] = $value;
-			}
-
-			$query->in($this->getJunctionKey(), $keys);
+			$query->in($this->getJunctionKey(), $this->getJunctionKeys($id));
 		}
 
 		return (bool) $query->delete();
@@ -299,17 +305,7 @@ class ManyToMany extends Relation
 	{
 		$success = true;
 
-		$keys = [];
-
-		foreach($ids as $value)
-		{
-			if($value instanceof $this->model)
-			{
-				$value = $value->getPrimaryKeyValue();
-			}
-
-			$keys[] = $value;
-		}
+		$keys = $this->getJunctionKeys($ids);
 
 		// Fetch existing links
 
