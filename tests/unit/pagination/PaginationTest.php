@@ -102,6 +102,28 @@ class PaginationTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testIsValidpage()
+	{
+		$pagination = new Pagination(200, 20, 1);
+
+		$this->assertTrue($pagination->isValidPage());
+
+		//
+
+		$pagination = new Pagination(200, 20, 10);
+
+		$this->assertTrue($pagination->isValidPage());
+
+		//
+
+		$pagination = new Pagination(200, 20, 11);
+
+		$this->assertFalse($pagination->isValidPage());
+	}
+
+	/**
+	 *
+	 */
 	public function testLimit()
 	{
 		$pagination = new Pagination(200, 20, 1);

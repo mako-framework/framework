@@ -13,6 +13,7 @@ Update using ```composer update```.
 * JSON responses can now set the response status code.
 * It is now possible to capture output in a template using the new `{% capture:name %}...{% endcapture %}` blocks.
 * Added `nospace` blocks to template syntax that will remove all whitespace between HTML tags.
+* Added `PaginationInterface::isValidPage()` method.
 * Mako is now using Whoops for displaying exception details.
 
 #### Changes

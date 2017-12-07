@@ -54,6 +54,13 @@ interface PaginationInterface
 	public function numberOfPages(): int;
 
 	/**
+	 * Returns true if we're on a valid page and false if not.
+	 *
+	 * @return bool
+	 */
+	public function isValidPage(): bool;
+
+	/**
 	 * Returns the limit.
 	 *
 	 * @return int

@@ -145,6 +145,14 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function isValidPage(): bool
+	{
+		return $this->currentPage <= $this->pages;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function numberOfPages(): int
 	{
 		return $this->pages;
