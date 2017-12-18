@@ -169,6 +169,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 			return 'Hello, world!';
 		});
 
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
@@ -198,6 +200,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 			return 'Hello, ' . $who . '!';
 		});
 
+		$route->shouldReceive('getParameters')->once()->andReturn(['who' => 'Kitty']);
+
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
@@ -208,7 +212,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, ['who' => 'Kitty'], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -228,6 +232,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\SimpleController::foo');
 
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
@@ -238,7 +244,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -258,6 +264,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\SimpleController::bar');
 
+		$route->shouldReceive('getParameters')->once()->andReturn(['who' => 'Kitty']);
+
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
@@ -268,7 +276,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, ['who' => 'Kitty'], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -286,6 +294,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithNullBeforeFilter::foo');
 
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
@@ -296,7 +306,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -315,6 +325,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithBeforeFilter::foo');
+
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
@@ -340,6 +352,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithAfterFilter::foo');
 
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
@@ -350,7 +364,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -379,13 +393,15 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 			return 'hello, world!';
 		});
 
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
 		$request = Mockery::mock('\mako\http\Request');
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
 		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -414,13 +430,15 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 			return 'hello, world!';
 		});
 
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
 		$request = Mockery::mock('\mako\http\Request');
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
 		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -437,6 +455,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\ControllerWithInjection::foo');
+
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
@@ -465,13 +485,15 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 			return $hello . ', ' . $world . '!';
 		});
 
+		$route->shouldReceive('getParameters')->once()->andReturn(['hello' => 'Hello', 'world' => 'world']);
+
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, ['hello' => 'Hello', 'world' => 'world']);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route);
 
 		$response = $dispatcher->dispatch();
 
@@ -492,6 +514,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 			return $request;
 		});
 
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
@@ -502,7 +526,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Request')->andReturn($request);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
 
 		$response = $dispatcher->dispatch();
 
@@ -520,6 +544,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\SimpleController::baz');
 
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
 		$request = Mockery::mock('\mako\http\Request');
@@ -530,7 +556,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, [], $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
 
 		$response = $dispatcher->dispatch();
 

@@ -175,6 +175,16 @@ class Route
 	}
 
 	/**
+	 * Returns all the route parameters.
+	 *
+	 * @return array
+	 */
+	public function getParameters(): array
+	{
+		return $this->parameters;
+	}
+
+	/**
 	 * Returns the named parameter value.
 	 *
 	 * @param  string     $name    Parameter name
@@ -183,7 +193,7 @@ class Route
 	 */
 	public function getParameter(string $name, $default = null)
 	{
-		return Arr::get($this->parameters, $name, $default);
+		return $this->parameters[$name] ?? $default;
 	}
 
 	/**
@@ -247,7 +257,7 @@ class Route
 	 * @param  string $method Method
 	 * @return bool
 	 */
-	public function allows(string $method): bool
+	public function allowsMethod(string $method): bool
 	{
 		return in_array($method, $this->methods);
 	}

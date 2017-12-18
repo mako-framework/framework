@@ -163,17 +163,17 @@ class RouteTest extends PHPUnit_Framework_TestCase
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
 
-		$this->assertTrue($route->allows('GET'));
+		$this->assertTrue($route->allowsMethod('GET'));
 
-		$this->assertFalse($route->allows('POST'));
+		$this->assertFalse($route->allowsMethod('POST'));
 
 		//
 
 		$route = new Route(['GET', 'POST'], '/foo', 'FooController::fooAction');
 
-		$this->assertTrue($route->allows('GET'));
+		$this->assertTrue($route->allowsMethod('GET'));
 
-		$this->assertTrue($route->allows('POST'));
+		$this->assertTrue($route->allowsMethod('POST'));
 	}
 
 	/**
@@ -361,7 +361,9 @@ class RouteTest extends PHPUnit_Framework_TestCase
 	{
 		$route = new Route(['GET'], '/', 'FooController::fooAction');
 
-		$route->setParameters(['foo' => 'bar', 'baz' => 'bax']);
+		$parameters = ['foo' => 'bar', 'baz' => 'bax'];
+
+		$route->setParameters($parameters);
 
 		$this->assertSame($route->getParameter('foo'), 'bar');
 
@@ -370,5 +372,7 @@ class RouteTest extends PHPUnit_Framework_TestCase
 		$this->assertNull($route->getParameter('nope'));
 
 		$this->assertTrue($route->getParameter('nope', true));
+
+		$this->assertSame($parameters, $route->getParameters());
 	}
 }

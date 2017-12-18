@@ -102,22 +102,25 @@ class Router
 	/**
 	 * Returns TRUE if the route matches the request path and FALSE if not.
 	 *
-	 * @param  \mako\http\routing\Route $route       Route
-	 * @param  string                   $path        Request path
-	 * @param  array                    &$parameters Parameters
+	 * @param  \mako\http\routing\Route $route Route
+	 * @param  string                   $path  Request path
 	 * @return bool
 	 */
-	protected function matches(Route $route, string $path, array &$parameters = []): bool
+	protected function matches(Route $route, string $path): bool
 	{
 		if(preg_match($route->getRegex(), $path, $parameters) > 0)
 		{
+			$filtered = [];
+
 			foreach($parameters as $key => $value)
 			{
-				if(is_int($key))
+				if(is_string($key))
 				{
-					unset($parameters[$key]);
+					$filtered[$key] = $value;
 				}
 			}
+
+			$route->setParameters($filtered);
 
 			return true;
 		}
@@ -128,14 +131,12 @@ class Router
 	/**
 	 * Matches and returns the appropriate route along with its parameters.
 	 *
-	 * @param  \mako\http\Request $request Request
-	 * @return array
+	 * @param  \mako\http\Request       $request Request
+	 * @return \mako\http\routing\Route
 	 */
-	public function route(Request $request): array
+	public function route(Request $request): Route
 	{
 		$matched = false;
-
-		$parameters = [];
 
 		$requestMethod = $request->method();
 
@@ -143,9 +144,9 @@ class Router
 
 		foreach($this->routes->getRoutes() as $route)
 		{
-			if($this->matches($route, $requestPath, $parameters))
+			if($this->matches($route, $requestPath))
 			{
-				if(!$route->allows($requestMethod))
+				if(!$route->allowsMethod($requestMethod))
 				{
 					$matched = true;
 
@@ -156,7 +157,7 @@ class Router
 
 				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/')
 				{
-					return [$this->redirectRoute($requestPath), []];
+					return $this->redirectRoute($requestPath);
 				}
 
 				// If this is an "OPTIONS" request then we'll collect all the allowed request methods
@@ -165,18 +166,16 @@ class Router
 
 				if($requestMethod === 'OPTIONS')
 				{
-					return [$this->optionsRoute($requestPath), []];
+					return $this->optionsRoute($requestPath);
 				}
 
-				// Assign parameters to the route and the route to the request
-
-				$route->setParameters($parameters);
+				// Assign the route to the request
 
 				$request->setRoute($route);
 
 				// Return the matched route and parameters
 
-				return [$route, $parameters];
+				return $route;
 			}
 		}
 

@@ -48,10 +48,10 @@ class Application extends BaseApplication
 
 		// Route the request
 
-		list($route, $parameters) = (new Router($routes))->route($request);
+		$route = (new Router($routes))->route($request);
 
 		// Dispatch the request and send the response
 
-		(new Dispatcher($request, $this->container->get('response'), $middleware, $route, $parameters, $this->container))->dispatch()->send();
+		(new Dispatcher($request, $this->container->get('response'), $middleware, $route, $this->container))->dispatch()->send();
 	}
 }

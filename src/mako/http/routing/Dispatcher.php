@@ -55,13 +55,6 @@ class Dispatcher
 	protected $route;
 
 	/**
-	 * Route parameters.
-	 *
-	 * @var array
-	 */
-	protected $parameters;
-
-	/**
 	 * IoC container instance.
 	 *
 	 * @var \mako\syringe\Container
@@ -75,10 +68,9 @@ class Dispatcher
 	 * @param \mako\http\Response           $response   Response instance
 	 * @param \mako\http\routing\Middleware $middleware Middleware collection
 	 * @param \mako\http\routing\Route      $route      The route we're dispatching
-	 * @param array                         $parameters Route parameters
-	 * @param \mako\syringe\Container       $container  IoC container
+	 * @param \mako\syringe\Container|null  $container  IoC container
 	 */
-	public function __construct(Request $request, Response $response, Middleware $middleware, Route $route, array $parameters = [], Container $container = null)
+	public function __construct(Request $request, Response $response, Middleware $middleware, Route $route, Container $container = null)
 	{
 		$this->request = $request;
 
@@ -87,8 +79,6 @@ class Dispatcher
 		$this->middleware = $middleware;
 
 		$this->route = $route;
-
-		$this->parameters = $parameters;
 
 		$this->container = $container ?? new Container;
 	}
@@ -141,21 +131,23 @@ class Dispatcher
 	/**
 	 * Executes a closure action.
 	 *
-	 * @param  \Closure            $closure Closure
+	 * @param  \Closure            $closure    Closure
+	 * @param  array               $parameters Parameters
 	 * @return \mako\http\Response
 	 */
-	protected function executeClosure(Closure $closure): Response
+	protected function executeClosure(Closure $closure, array $parameters): Response
 	{
-		return $this->response->body($this->container->call($closure, $this->parameters));
+		return $this->response->body($this->container->call($closure, $parameters));
 	}
 
 	/**
 	 * Executs a controller action.
 	 *
 	 * @param  string              $controller Controller
+	 * @param  array               $parameters Parameters
 	 * @return \mako\http\Response
 	 */
-	protected function executeController(string $controller): Response
+	protected function executeController(string $controller, array $parameters): Response
 	{
 		if(strpos($controller, '::') === false)
 		{
@@ -180,7 +172,7 @@ class Dispatcher
 			// The before action method didn't return any data so we can set the
 			// response body to whatever the route action returns
 
-			$this->response->body($this->container->call([$controller, $method], $this->parameters));
+			$this->response->body($this->container->call([$controller, $method], $parameters));
 
 			// Execute the after action method if we have one
 
@@ -208,7 +200,14 @@ class Dispatcher
 	{
 		$action = $this->route->getAction();
 
-		return $action instanceof Closure ? $this->executeClosure($action) : $this->executeController($action);
+		$parameters = $this->route->getParameters();
+
+		if($action instanceof Closure)
+		{
+			return $this->executeClosure($action, $parameters);
+		}
+
+		return $this->executeController($action, $parameters);
 	}
 
 	/**
