@@ -10,7 +10,7 @@ namespace mako\cli\output\formatter;
 use RuntimeException;
 
 /**
- * Request exception.
+ * Formatter exception.
  *
  * @author Frederic G. Østby
  */
