@@ -9,8 +9,6 @@ namespace mako\http\routing;
 
 use Closure;
 
-use mako\utility\Arr;
-
 /**
  * Route.
  *
