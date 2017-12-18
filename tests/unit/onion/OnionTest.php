@@ -15,6 +15,16 @@ use mako\onion\Onion;
 // START CLASSES
 // --------------------------------------------------------------------------
 
+interface FooMiddleware1Interface
+{
+
+}
+
+interface FooMiddleware2Interface
+{
+
+}
+
 class Foo
 {
 	public function handle()
@@ -23,7 +33,7 @@ class Foo
 	}
 }
 
-class FooMiddleware1
+class FooMiddleware1 implements FooMiddleware1Interface
 {
 	public function execute($next)
 	{
@@ -31,7 +41,7 @@ class FooMiddleware1
 	}
 }
 
-class FooMiddleware2
+class FooMiddleware2 implements FooMiddleware2Interface
 {
 	public function execute($next)
 	{
@@ -75,6 +85,21 @@ class BazMiddleware1
 	public function execute($next)
 	{
 		return str_replace(' ', $this->separator, $next());
+	}
+}
+
+class BazMiddleware2
+{
+	protected $parameters;
+
+	public function setParameters(array $parameters)
+	{
+		$this->parameters = $parameters;
+	}
+
+	public function execute($next)
+	{
+		return str_replace(' ', $this->parameters['separator'], $next());
 	}
 }
 
@@ -210,5 +235,66 @@ class OnionTest extends PHPUnit_Framework_TestCase
 		}, [], [BazMiddleware1::class => ['separator' => '_']]);
 
 		$this->assertSame('hello,_world!', $result);
+	}
+
+	/**
+	 *
+	 */
+	public function testMiddlewareWithSetterParameters()
+	{
+		$onion = new Onion(null, null, null, 'setParameters');
+
+		$onion->addLayer(BazMiddleware2::class, ['separator' => '_']);
+
+		$result = $onion->peel(function()
+		{
+			return 'hello, world!';
+		});
+
+		$this->assertSame('hello,_world!', $result);
+	}
+
+	/**
+	 *
+	 */
+	public function testMiddlewareWithSetterParametersAtRuntime()
+	{
+		$onion = new Onion(null, null, null, 'setParameters');
+
+		$onion->addLayer(BazMiddleware2::class);
+
+		$result = $onion->peel(function()
+		{
+			return 'hello, world!';
+		}, [], [BazMiddleware2::class => ['separator' => '_']]);
+
+		$this->assertSame('hello,_world!', $result);
+	}
+
+	/**
+	 * @expectedException mako\onion\OnionException
+	 * @expectedExceptionMessage The Onion instance expects middleware to be an instance of [ mako\tests\unit\onion\FooMiddleware2Interface ].
+	 */
+	public function testMiddlewareWithInvalidMiddlewareInterfaceExpectation()
+	{
+		$onion = new Onion(null, null, FooMiddleware2Interface::class);
+
+		$onion->addLayer(FooMiddleware1::class);
+
+		$onion->peel(new Foo);
+	}
+
+	/**
+	 *
+	 */
+	public function testMiddlewareWithValidMiddlewareInterfaceExpectation()
+	{
+		$onion = new Onion(null, null, FooMiddleware1Interface::class);
+
+		$onion->addLayer(FooMiddleware1::class);
+
+		$result = $onion->peel(new Foo);
+
+		$this->assertSame('MW1BfooMW1A', $result);
 	}
 }

@@ -9,6 +9,7 @@ namespace mako\onion;
 
 use Closure;
 
+use mako\onion\OnionException;
 use mako\syringe\Container;
 
 /**
@@ -19,6 +20,13 @@ use mako\syringe\Container;
 class Onion
 {
 	/**
+	 * Container.
+	 *
+	 * @var \mako\syringe\Container
+	 */
+	protected $container;
+
+	/**
 	 * Method to call on the decoracted class.
 	 *
 	 * @var string
@@ -26,11 +34,18 @@ class Onion
 	protected $method;
 
 	/**
-	 * Container.
+	 * Expected middleware interface.
 	 *
-	 * @var \mako\syringe\Container
+	 * @var string|null
 	 */
-	protected $container;
+	protected $expectedInterface;
+
+	/**
+	 * Middleware parameter setter method.
+	 *
+	 * @var string|null
+	 */
+	protected $parameterSetter;
 
 	/**
 	 * Middleware layers.
@@ -40,36 +55,42 @@ class Onion
 	protected $layers = [];
 
 	/**
-	 * Middleware constructor parameters.
+	 * Middleware parameters.
 	 *
 	 * @var array
 	 */
-	protected $middlewareConstructorParameters = [];
+	protected $parameters = [];
 
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\syringe\Container|null $container Container
-	 * @param string|null                  $method    Method to call on the decoracted class
+	 * @param \mako\syringe\Container|null $container         Container
+	 * @param string|null                  $method            Method to call on the decoracted class
+	 * @param string|null                  $expectedInterface Expected middleware interface
+	 * @param string|null                  $parameterSetter   Parameter setter name
 	 */
-	public function __construct(Container $container = null, string $method = null)
+	public function __construct(Container $container = null, string $method = null, string $expectedInterface = null, string $parameterSetter = null)
 	{
 		$this->container = $container ?? new Container;
 
 		$this->method = $method ?? 'handle';
+
+		$this->exeptedInterface = $expectedInterface;
+
+		$this->parameterSetter = $parameterSetter;
 	}
 
 	/**
 	 * Add a new middleware layer.
 	 *
 	 * @param  string     $class      Class
-	 * @param  array|null $parameters Constructor parameters
+	 * @param  array|null $parameters Middleware parameters
 	 * @param  bool       $inner      Add an inner layer?
 	 * @return int
 	 */
 	public function addLayer(string $class, array $parameters = null, bool $inner = true): int
 	{
-		$this->middlewareConstructorParameters[$class] = $parameters;
+		$this->parameters[$class] = $parameters;
 
 		return $inner ? array_unshift($this->layers, $class) : array_push($this->layers, $class);
 	}
@@ -78,7 +99,7 @@ class Onion
 	 * Add a inner layer to the middleware stack.
 	 *
 	 * @param  string     $class      Class
-	 * @param  array|null $parameters Constructor parameters
+	 * @param  array|null $parameters Middleware parameters
 	 * @return int
 	 */
 	public function addInnerLayer(string $class, array $parameters = null): int
@@ -90,7 +111,7 @@ class Onion
 	 * Add an outer layer to the middleware stack.
 	 *
 	 * @param  string     $class      Class
-	 * @param  array|null $parameters Constructor parameters
+	 * @param  array|null $parameters Middleware parameters
 	 * @return int
 	 */
 	public function addOuterLayer(string $class, array $parameters = null): int
@@ -130,7 +151,7 @@ class Onion
 	}
 
 	/**
-	 * Returns the constructor parameters of the requested middleware.
+	 * Returns the parameters of the requested middleware.
 	 *
 	 * @param  array  $parameters Parameters array
 	 * @param  string $middleware Middleware name
@@ -138,7 +159,43 @@ class Onion
 	 */
 	protected function getMiddlewareParameters(array $parameters, string $middleware): array
 	{
-		return ($parameters[$middleware] ?? []) + ($this->middlewareConstructorParameters[$middleware] ?? []);
+		return ($parameters[$middleware] ?? []) + ($this->parameters[$middleware] ?? []);
+	}
+
+	/**
+	 * Middleware factory.
+	 *
+	 * @param  string $layer                Class name
+	 * @param  array  $middlewareParameters Middleware parameters
+	 * @return object
+	 */
+	protected function middlewareFactory(string $layer, array $middlewareParameters)
+	{
+		// Merge middleware parameters
+
+		$parameters = $this->getMiddlewareParameters($middlewareParameters, $layer);
+
+		// Create middleware instance
+
+		$middleware = $this->parameterSetter === null ? $this->container->get($layer, $parameters) : $this->container->get($layer);
+
+		// Check if the middleware implements the expected interface
+
+		if($this->exeptedInterface !== null && ($middleware instanceof $this->exeptedInterface) === false)
+		{
+			throw new OnionException(vsprintf("The Onion instance expects middleware to be an instance of [ %s ].", [$this->exeptedInterface]));
+		}
+
+		// Set parameters if the middleware uses a setter
+
+		if($this->parameterSetter !== null)
+		{
+			$middleware->{$this->parameterSetter}($parameters);
+		}
+
+		// Return middleware instance
+
+		return $middleware;
 	}
 
 	/**
@@ -146,7 +203,7 @@ class Onion
 	 *
 	 * @param  object $object               The object that we're decorating
 	 * @param  array  $parameters           Parameters
-	 * @param  array  $middlewareParameters Middleware constructor parameters
+	 * @param  array  $middlewareParameters Middleware parameters
 	 * @return mixed
 	 */
 	public function peel($object, array $parameters = [], array $middlewareParameters = [])
@@ -155,7 +212,7 @@ class Onion
 
 		foreach($this->layers as $layer)
 		{
-			$layer = $this->container->get($layer, $this->getMiddlewareParameters($middlewareParameters, $layer));
+			$layer = $this->middlewareFactory($layer, $middlewareParameters);
 
 			$next = $this->buildLayerClosure($layer, $next);
 		}
