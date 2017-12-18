@@ -116,14 +116,17 @@ class Dispatcher
 			{
 				$layer = $this->resolveMiddleware($layer);
 
-				$resolved[$layer['name']] = $layer;
+				$resolved[$layer['name']][] = $layer;
 			}
 
 			// Add ordered middleware to stack
 
-			foreach($this->middleware->orderByPriority($resolved) as $layer)
+			foreach($this->middleware->orderByPriority($resolved) as $name)
 			{
-				$onion->addLayer($layer['middleware'], $layer['parameters']);
+				foreach($name as $layer)
+				{
+					$onion->addLayer($layer['middleware'], $layer['parameters']);
+				}
 			}
 		}
 	}
