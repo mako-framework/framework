@@ -506,7 +506,7 @@ class Validator
 					list($package, $rule) = explode('::', $rule, 2);
 				}
 
-				list($rule, $parameters) = $this->parseFunction($rule);
+				list($rule, $parameters) = $this->parseFunction($rule, false);
 
 				$validator = ['package' => $package, 'name' => $rule, 'parameters' => $parameters];
 
