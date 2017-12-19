@@ -14,6 +14,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\Middleware;
 use mako\http\routing\Route;
+use mako\http\routing\middleware\MiddlewareInterface;
 use mako\onion\Onion;
 use mako\syringe\Container;
 
@@ -220,7 +221,7 @@ class Dispatcher
 	 */
 	public function dispatch(): Response
 	{
-		$onion = new Onion($this->container);
+		$onion = new Onion($this->container, null, MiddlewareInterface::class, 'setParameters');
 
 		$this->addMiddlewareToStack($onion, $this->route->getMiddleware());
 

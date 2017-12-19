@@ -157,7 +157,7 @@ class Onion
 	 * @param  string $middleware Middleware name
 	 * @return array
 	 */
-	protected function getMiddlewareParameters(array $parameters, string $middleware): array
+	protected function mergeParameters(array $parameters, string $middleware): array
 	{
 		return ($parameters[$middleware] ?? []) + ($this->parameters[$middleware] ?? []);
 	}
@@ -165,25 +165,25 @@ class Onion
 	/**
 	 * Middleware factory.
 	 *
-	 * @param  string $layer                Class name
-	 * @param  array  $middlewareParameters Middleware parameters
+	 * @param  string $middleware Middleware class name
+	 * @param  array  $parameters Middleware parameters
 	 * @return object
 	 */
-	protected function middlewareFactory(string $layer, array $middlewareParameters)
+	protected function middlewareFactory(string $middleware, array $parameters)
 	{
 		// Merge middleware parameters
 
-		$parameters = $this->getMiddlewareParameters($middlewareParameters, $layer);
+		$parameters = $this->mergeParameters($parameters, $middleware);
 
 		// Create middleware instance
 
-		$middleware = $this->parameterSetter === null ? $this->container->get($layer, $parameters) : $this->container->get($layer);
+		$middleware = $this->parameterSetter === null ? $this->container->get($middleware, $parameters) : $this->container->get($middleware);
 
 		// Check if the middleware implements the expected interface
 
 		if($this->exeptedInterface !== null && ($middleware instanceof $this->exeptedInterface) === false)
 		{
-			throw new OnionException(vsprintf("The Onion instance expects middleware to be an instance of [ %s ].", [$this->exeptedInterface]));
+			throw new OnionException(vsprintf("The Onion instance expects the middleware to be an instance of [ %s ].", [$this->exeptedInterface]));
 		}
 
 		// Set parameters if the middleware uses a setter
@@ -212,9 +212,9 @@ class Onion
 
 		foreach($this->layers as $layer)
 		{
-			$layer = $this->middlewareFactory($layer, $middlewareParameters);
+			$middleware = $this->middlewareFactory($layer, $middlewareParameters);
 
-			$next = $this->buildLayerClosure($layer, $next);
+			$next = $this->buildLayerClosure($middleware, $next);
 		}
 
 		return $next(...$parameters);

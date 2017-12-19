@@ -273,7 +273,7 @@ class OnionTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException mako\onion\OnionException
-	 * @expectedExceptionMessage The Onion instance expects middleware to be an instance of [ mako\tests\unit\onion\FooMiddleware2Interface ].
+	 * @expectedExceptionMessage The Onion instance expects the middleware to be an instance of [ mako\tests\unit\onion\FooMiddleware2Interface ].
 	 */
 	public function testMiddlewareWithInvalidMiddlewareInterfaceExpectation()
 	{

@@ -14,7 +14,7 @@ use PHPUnit_Framework_TestCase;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\Dispatcher;
-use mako\http\routing\middleware\MiddlewareInterface;
+use mako\http\routing\middleware\Middleware;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -123,18 +123,11 @@ class ControllerWithInjection extends \mako\http\routing\Controller
 	}
 }
 
-class FooMiddleware implements MiddlewareInterface
+class FooMiddleware extends Middleware
 {
-	protected $separator;
-
-	public function __construct(string $separator = null)
-	{
-		$this->separator = $separator ?? '_';
-	}
-
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		return $response->body(str_replace(' ', $this->separator, $next($request, $response)->getBody()));
+		return $response->body(str_replace(' ', $this->getParameter('separator', '_'), $next($request, $response)->getBody()));
 	}
 }
 
