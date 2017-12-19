@@ -40,6 +40,11 @@ abstract class Middleware implements MiddlewareInterface
 	 */
 	protected function getParameter($key = 0, $default = null)
 	{
-		return $this->parameters[$key] ?? $default;
+		if(array_key_exists($key, $this->parameters))
+		{
+			return $this->parameters[$key];
+		}
+
+		return $default;
 	}
 }
