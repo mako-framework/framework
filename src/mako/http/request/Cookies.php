@@ -109,9 +109,9 @@ class Cookies implements Countable, IteratorAggregate
 	/**
 	 * Gets a cookie value.
 	 *
-	 * @param  string     $name    Cookie name
-	 * @param  mixed|null $default Default value
-	 * @return mixed|null
+	 * @param  string $name    Cookie name
+	 * @param  mixed  $default Default value
+	 * @return mixed
 	 */
 	public function get(string $name, $default = null)
 	{
@@ -121,9 +121,9 @@ class Cookies implements Countable, IteratorAggregate
 	/**
 	 * Gets a signed cookie value.
 	 *
-	 * @param  string     $name    Cookie name
-	 * @param  mixed|null $default Default value
-	 * @return mixed|null
+	 * @param  string $name    Cookie name
+	 * @param  mixed  $default Default value
+	 * @return mixed
 	 */
 	public function getSigned(string $name, $default = null)
 	{

@@ -119,9 +119,9 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Gets a header value.
 	 *
-	 * @param  string     $name    Header name
-	 * @param  mixed|null $default Default value
-	 * @return mixed|null
+	 * @param  string $name    Header name
+	 * @param  mixed  $default Default value
+	 * @return mixed
 	 */
 	public function get(string $name, $default = null)
 	{

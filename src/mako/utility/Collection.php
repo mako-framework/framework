@@ -95,8 +95,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Returns an item from the collection.
 	 *
 	 * @param  int|string $key     Key
-	 * @param  mixed|null $default Default value
-	 * @return mixed|null
+	 * @param  mixed      $default Default value
+	 * @return mixed
 	 */
 	public function get($key, $default = null)
 	{

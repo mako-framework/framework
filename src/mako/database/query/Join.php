@@ -43,7 +43,7 @@ class Join
 	 * Constructor.
 	 *
 	 * @param string|null $type  Join type
-	 * @param mixed|null  $table Table we are joining
+	 * @param mixed       $table Table we are joining
 	 */
 	public function __construct(string $type = null, $table = null)
 	{

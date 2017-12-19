@@ -67,10 +67,10 @@ class Arr
 	/**
 	 * Returns value from array using "dot notation".
 	 *
-	 * @param  array      $array   Array we're going to search
-	 * @param  string     $path    Array path
-	 * @param  mixed|null $default Default return value
-	 * @return mixed|null
+	 * @param  array  $array   Array we're going to search
+	 * @param  string $path    Array path
+	 * @param  mixed  $default Default return value
+	 * @return mixed
 	 */
 	public static function get(array $array, string $path, $default = null)
 	{

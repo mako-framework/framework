@@ -323,9 +323,9 @@ class Session
 	/**
 	 * Returns a value from the session.
 	 *
-	 * @param  string     $key     Session key
-	 * @param  mixed|null $default Default value
-	 * @return mixed|null
+	 * @param  string $key     Session key
+	 * @param  mixed  $default Default value
+	 * @return mixed
 	 */
 	public function get(string $key, $default = null)
 	{
@@ -335,10 +335,10 @@ class Session
 	/**
 	 * Gets a value from the session and replaces it.
 	 *
-	 * @param  string     $key     Session key
-	 * @param  mixed      $value   Session data
-	 * @param  mixed|null $default Default value
-	 * @return mixed|null
+	 * @param  string $key     Session key
+	 * @param  mixed  $value   Session data
+	 * @param  mixed  $default Default value
+	 * @return mixed
 	 */
 	public function getAndPut(string $key, $value, $default = null)
 	{
@@ -352,9 +352,9 @@ class Session
 	/**
 	 * Gets a value from the session and removes it.
 	 *
-	 * @param  string     $key     Session key
-	 * @param  mixed|null $default Default value
-	 * @return mixed|null
+	 * @param  string $key     Session key
+	 * @param  mixed  $default Default value
+	 * @return mixed
 	 */
 	public function getAndRemove(string $key, $default = null)
 	{
@@ -401,9 +401,9 @@ class Session
 	/**
 	 * Returns a flash value from the session.
 	 *
-	 * @param  string     $key     Session key
-	 * @param  mixed|null $default Default value
-	 * @return mixed|null
+	 * @param  string $key     Session key
+	 * @param  mixed  $default Default value
+	 * @return mixed
 	 */
 	public function getFlash(string $key, $default = null)
 	{

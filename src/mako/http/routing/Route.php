@@ -185,9 +185,9 @@ class Route
 	/**
 	 * Returns the named parameter value.
 	 *
-	 * @param  string     $name    Parameter name
-	 * @param  mixed|null $default Default value
-	 * @return mixed|null
+	 * @param  string $name    Parameter name
+	 * @param  mixed  $default Default value
+	 * @return mixed
 	 */
 	public function getParameter(string $name, $default = null)
 	{

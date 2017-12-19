@@ -105,9 +105,9 @@ class Config
 	/**
 	 * Returns config value or entire config array from a file.
 	 *
-	 * @param  string     $key     Config key
-	 * @param  mixed|null $default Default value to return if config value doesn't exist
-	 * @return mixed|null
+	 * @param  string $key     Config key
+	 * @param  mixed  $default Default value to return if config value doesn't exist
+	 * @return mixed
 	 */
 	public function get(string $key, $default = null)
 	{

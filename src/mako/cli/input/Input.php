@@ -114,8 +114,8 @@ class Input
 	 * Returns the argument associated with the given name.
 	 *
 	 * @param  int|string $name    Parameter number or name
-	 * @param  mixed|null $default Default value
-	 * @return mixed|null
+	 * @param  mixed      $default Default value
+	 * @return mixed
 	 */
 	public function getArgument($name, $default = null)
 	{

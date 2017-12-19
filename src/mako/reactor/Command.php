@@ -348,9 +348,9 @@ abstract class Command
 	/**
 	 * Writes question to output and returns user input.
 	 *
-	 * @param  string     $question Question to ask
-	 * @param  mixed|null $default  Default if no input is entered
-	 * @return mixed|null
+	 * @param  string $question Question to ask
+	 * @param  mixed  $default  Default if no input is entered
+	 * @return mixed
 	 */
 	protected function question(string $question, $default = null)
 	{
@@ -372,10 +372,10 @@ abstract class Command
 	/**
 	 * Writes question to output and returns hidden user input.
 	 *
-	 * @param  string     $question Question to ask
-	 * @param  mixed|null $default  Default if no input is entered
-	 * @param  bool       $fallback Fall back to non-hidden input?
-	 * @return mixed|null
+	 * @param  string $question Question to ask
+	 * @param  mixed  $default  Default if no input is entered
+	 * @param  bool   $fallback Fall back to non-hidden input?
+	 * @return mixed
 	 */
 	protected function secret(string $question, $default = null, bool $fallback = false)
 	{

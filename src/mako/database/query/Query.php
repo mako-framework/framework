@@ -512,7 +512,7 @@ class Query
 	 *
 	 * @param  string|\Closure            $column    Column name or closure
 	 * @param  string|null                $operator  Operator
-	 * @param  mixed|null                 $value     Value
+	 * @param  mixed                      $value     Value
 	 * @param  string                     $separator Clause separator
 	 * @return \mako\database\query\Query
 	 */
@@ -577,7 +577,7 @@ class Query
 	 *
 	 * @param  string|\Closure            $column   Column name or closure
 	 * @param  string|null                $operator Operator
-	 * @param  mixed|null                 $value    Value
+	 * @param  mixed                      $value    Value
 	 * @return \mako\database\query\Query
 	 */
 	public function orWhere($column, $operator = null, $value = null)

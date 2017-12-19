@@ -47,9 +47,9 @@ class Question
 	/**
 	 * Writes question to output and returns user input.
 	 *
-	 * @param  string     $question Question to ask
-	 * @param  mixed|null $default  Default if no input is entered
-	 * @return mixed|null
+	 * @param  string $question Question to ask
+	 * @param  mixed  $default  Default if no input is entered
+	 * @return mixed
 	 */
 	public function ask(string $question, $default = null)
 	{
