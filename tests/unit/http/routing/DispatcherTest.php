@@ -131,6 +131,14 @@ class FooMiddleware extends Middleware
 	}
 }
 
+class BarMiddleware extends Middleware
+{
+	public function execute(Request $request, Response $response, Closure $next): Response
+	{
+		return $response->body(str_replace(' ', $this->getParameter(0, '_'), $next($request, $response)->getBody()));
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -404,7 +412,44 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareWithArguments()
+	public function testMiddlewareWithUnnamedArguments()
+	{
+		$middleware = Mockery::mock('\mako\http\routing\Middleware');
+
+		$middleware->shouldReceive('get')->once()->with('test')->andReturn(BarMiddleware::class);
+
+		$middleware->shouldReceive('orderByPriority')->once()
+		->with(['test' => [['name' => 'test', 'middleware' => BarMiddleware::class, 'parameters' => [0 => '~']]]])
+		->andReturn(['test' => [['name' => 'test', 'middleware' => BarMiddleware::class, 'parameters' => [0 => '~']]]]);
+
+		$route = Mockery::mock('\mako\http\routing\Route');
+
+		$route->shouldReceive('getMiddleware')->once()->andReturn(['test("~")']);
+
+		$route->shouldReceive('getAction')->once()->andReturn(function()
+		{
+			return 'hello, world!';
+		});
+
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
+		$request = Mockery::mock('\mako\http\Request');
+
+		$response = Mockery::mock('\mako\http\Response')->makePartial();
+
+		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
+
+		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+
+		$response = $dispatcher->dispatch();
+
+		$this->assertEquals('hello,~world!', $response->getBody());
+	}
+
+	/**
+	 *
+	 */
+	public function testMiddlewareWithNamedArguments()
 	{
 		$middleware = Mockery::mock('\mako\http\routing\Middleware');
 
