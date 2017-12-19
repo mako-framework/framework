@@ -19,7 +19,7 @@ class Parser
 {
 	use FunctionParserTrait;
 
-	public function parse($function, $namedParameters = false)
+	public function parse($function, $namedParameters = null)
 	{
 		return $this->parseFunction($function, $namedParameters);
 	}
@@ -41,6 +41,16 @@ class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
 	{
 		$parser = new Parser;
 
+		$this->assertSame(['foo', []], $parser->parse('foo', false));
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicFunctionWithAutodetect()
+	{
+		$parser = new Parser;
+
 		$this->assertSame(['foo', []], $parser->parse('foo'));
 	}
 
@@ -48,6 +58,22 @@ class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
 	 *
 	 */
 	public function testFunctionWithOneParameter()
+	{
+		$parser = new Parser;
+
+		$this->assertSame(['foo', [1]], $parser->parse('foo(1)', false));
+
+		$this->assertSame(['foo', ['1']], $parser->parse('foo("1")', false));
+
+		$this->assertSame(['foo', [true]], $parser->parse('foo(true)', false));
+
+		$this->assertSame(['foo', [false]], $parser->parse('foo(false)', false));
+	}
+
+	/**
+	 *
+	 */
+	public function testFunctionWithOneParameterAndAutodetect()
 	{
 		$parser = new Parser;
 
@@ -67,11 +93,25 @@ class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
 	{
 		$parser = new Parser;
 
+		$this->assertSame(['foo', [1, 2, 3]], $parser->parse('foo(1,2,3)', false));
+
+		$this->assertSame(['foo', [1, '2', 3]], $parser->parse('foo(1,"2",3)', false));
+
+		$this->assertSame(['foo', [1, 2, 3, ['a', 'b', 'c'], ['bar' => 'baz']]], $parser->parse('foo(1,2,3,["a","b","c"],{"bar":"baz"})', false));
+	}
+
+	/**
+	 *
+	 */
+	public function testFunctionWithMultipleParametersAndAutodetect()
+	{
+		$parser = new Parser;
+
 		$this->assertSame(['foo', [1, 2, 3]], $parser->parse('foo(1,2,3)'));
 
 		$this->assertSame(['foo', [1, '2', 3]], $parser->parse('foo(1,"2",3)'));
 
-		$this->assertSame(['foo', [1, 2, 3, ['a', 'b', 'c']]], $parser->parse('foo(1,2,3,["a","b","c"])'));
+		$this->assertSame(['foo', [1, 2, 3, ['a', 'b', 'c'], ['bar' => 'baz']]], $parser->parse('foo(1,2,3,["a","b","c"],{"bar":"baz"})'));
 	}
 
 	/**
@@ -82,6 +122,16 @@ class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
 		$parser = new Parser;
 
 		$this->assertSame(['foo', ['a' => 1, 'b' => 2]], $parser->parse('foo("a":1,"b":2)', true));
+	}
+
+	/**
+	 *
+	 */
+	public function testFunctionWithNamedParametersAndAutodetect()
+	{
+		$parser = new Parser;
+
+		$this->assertSame(['foo', ['a' => 1, 'b' => 2]], $parser->parse('foo("a":1,"b":2)'));
 	}
 
 	/**
