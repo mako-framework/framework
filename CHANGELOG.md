@@ -25,6 +25,7 @@ Update using ```composer update```.
 * Moved the `FunctionParserTrait` trait to the `mako\common\traits` namespace.
 * Moved the `NamespacedFileLoaderTrait` trait to the `mako\common\traits` namespace.
 * The `Str::slug()` method now uses `rawurlencode` instead of `urlencode`.
+* All HTTP middleware must now implement the `mako\http\routing\middleware\MiddlewareInterface`.
 
 --------------------------------------------------------
 
