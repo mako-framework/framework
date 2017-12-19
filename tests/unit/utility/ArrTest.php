@@ -51,6 +51,16 @@ class ArrTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testHasNullValue()
+	{
+		$arr = ['foo' => null];
+
+		$this->assertTrue(Arr::has($arr, 'foo'));
+	}
+
+	/**
+	 *
+	 */
 	public function testGet()
 	{
 		$arr = ['foo' => '123', 'bar' => ['baz' => '456', 'bax' => ['789']]];
@@ -62,6 +72,16 @@ class ArrTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('789', Arr::get($arr, 'bar.bax.0'));
 
 		$this->assertEquals('abc', Arr::get($arr, 'bar.bax.1', 'abc'));
+	}
+
+	/**
+	 *
+	 */
+	public function testGetNullValue()
+	{
+		$arr = ['foo' => null];
+
+		$this->assertNull(Arr::get($arr, 'foo', 'bar'));
 	}
 
 	/**

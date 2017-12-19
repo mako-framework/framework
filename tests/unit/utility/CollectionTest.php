@@ -63,6 +63,16 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testHasNullValue()
+	{
+		$collection = new Collection(['foo' => null]);
+
+		$this->assertTrue($collection->has('foo'));
+	}
+
+	/**
+	 *
+	 */
 	public function testGet()
 	{
 		$collection = new Collection();
@@ -76,6 +86,16 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($collection->get('foo'));
 
 		$this->assertTrue($collection->get('foo', false));
+	}
+
+	/**
+	 *
+	 */
+	public function testGetNullValue()
+	{
+		$collection = new Collection(['foo' => null]);
+
+		$this->assertNull($collection->get('foo', 'bar'));
 	}
 
 	/**
@@ -132,6 +152,16 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 		$collection = new Collection([1, 2, 3]);
 
 		$this->assertEquals(1, $collection[0]);
+	}
+
+	/**
+	 *
+	 */
+	public function testOffsetGetNullValue()
+	{
+		$collection = new Collection(['foo' => null]);
+
+		$this->assertNull($collection['foo']);
 	}
 
 	/**

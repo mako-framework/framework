@@ -53,7 +53,7 @@ class Arr
 
 		foreach($segments as $segment)
 		{
-			if(!is_array($array) || !isset($array[$segment]))
+			if(!is_array($array) || !array_key_exists($segment, $array))
 			{
 				return false;
 			}
@@ -78,7 +78,7 @@ class Arr
 
 		foreach($segments as $segment)
 		{
-			if(!is_array($array) || !isset($array[$segment]))
+			if(!is_array($array) || !array_key_exists($segment, $array))
 			{
 				return $default;
 			}
