@@ -95,7 +95,7 @@ abstract class AdapterManager
 			return $this->container->get($adapter, $configuration);
 		}
 
-		throw new RuntimeException(vsprintf("%s(): A factory method for the [ %s ] adapter has not been defined.", [__METHOD__, $adapterName]));
+		throw new RuntimeException(vsprintf('A factory method for the [ %s ] adapter has not been defined.', [$adapterName]));
 	}
 
 	/**

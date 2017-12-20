@@ -95,7 +95,7 @@ abstract class Application
 	{
 		if(!empty(static::$instance))
 		{
-			throw new LogicException(vsprintf("%s(): The application has already been started.", [__METHOD__]));
+			throw new LogicException('The application has already been started.');
 		}
 
 		return static::$instance = new static($applicationPath);
@@ -110,7 +110,7 @@ abstract class Application
 	{
 		if(empty(static::$instance))
 		{
-			throw new LogicException(vsprintf("%s(): The application has not been started yet.", [__METHOD__]));
+			throw new LogicException('The application has not been started yet.');
 		}
 
 		return static::$instance;
@@ -201,7 +201,7 @@ abstract class Application
 	{
 		if(!isset($this->packages[$package]))
 		{
-			throw new RuntimeException(vsprintf("%s(): Unknown package [ %s ].", [__METHOD__, $package]));
+			throw new RuntimeException(vsprintf('Unknown package [ %s ].', [$package]));
 		}
 
 		return $this->packages[$package];

@@ -74,7 +74,7 @@ class Loader implements LoaderInterface
 
 		if($strings === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): The [ %s ] language file does not exist in the [ %s ] language pack.", [__METHOD__, $file, $language]));
+			throw new RuntimeException(vsprintf('The [ %s ] language file does not exist in the [ %s ] language pack.', [$file, $language]));
 		}
 
 		return $strings;

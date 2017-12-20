@@ -25,7 +25,7 @@ class ZendDisk extends Store
 	{
 		if(function_exists('zend_disk_cache_store') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Zend disk cache is not available on your system.", [__METHOD__]));
+			throw new RuntimeException('Zend disk cache is not available on your system.');
 		}
 	}
 

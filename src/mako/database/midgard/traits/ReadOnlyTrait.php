@@ -29,21 +29,21 @@ trait ReadOnlyTrait
 			[
 				function($values, $query)
 				{
-					throw new ReadOnlyException(vsprintf("%s(): Attempted to create a read-only record.", [__METHOD__]));
+					throw new ReadOnlyException('Attempted to create a read-only record.');
 				},
 			],
 			'beforeUpdate' =>
 			[
 				function($values, $query)
 				{
-					throw new ReadOnlyException(vsprintf("%s(): Attempted to update a read-only record.", [__METHOD__]));
+					throw new ReadOnlyException('Attempted to update a read-only record.');
 				},
 			],
 			'beforeDelete' =>
 			[
 				function($query)
 				{
-					throw new ReadOnlyException(vsprintf("%s(): Attempted to delete a read-only record.", [__METHOD__]));
+					throw new ReadOnlyException('Attempted to delete a read-only record.');
 				},
 			],
 		];

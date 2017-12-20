@@ -302,7 +302,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	{
 		if(!$this->exists)
 		{
-			throw new LogicException(vsprintf("%s(): You can only check memberships for users that exist in the database.", [__METHOD__]));
+			throw new LogicException('You can only check memberships for users that exist in the database.');
 		}
 
 		foreach((array) $group as $check)

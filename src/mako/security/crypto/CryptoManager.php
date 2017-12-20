@@ -46,7 +46,7 @@ class CryptoManager extends AdapterManager
 	{
 		if(!isset($this->configurations[$configuration]))
 		{
-			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the crypto configuration.", [__METHOD__, $configuration]));
+			throw new RuntimeException(vsprintf('[ %s ] has not been defined in the crypto configuration.', [$configuration]));
 		}
 
 		$configuration = $this->configurations[$configuration];

@@ -258,7 +258,7 @@ class Connection
 		}
 		catch(PDOException $e)
 		{
-			throw new RuntimeException(vsprintf("%s(): Failed to connect to the [ %s ] database. %s", [__METHOD__, $this->name, $e->getMessage()]));
+			throw new RuntimeException(vsprintf('Failed to connect to the [ %s ] database. %s', [$this->name, $e->getMessage()]));
 		}
 
 		// Run queries

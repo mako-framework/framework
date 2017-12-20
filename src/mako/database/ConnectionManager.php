@@ -194,7 +194,7 @@ class ConnectionManager extends BaseConnectionManager
 	{
 		if(!isset($this->configurations[$connectionName]))
 		{
-			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the database configuration.", [__METHOD__, $connectionName]));
+			throw new RuntimeException(vsprintf('[ %s ] has not been defined in the database configuration.', [$connectionName]));
 		}
 
 		$config = $this->configurations[$connectionName];

@@ -150,7 +150,7 @@ class Redis
 				return $this->getClusterClient($error)->rawCommand($this->connection->getLastCommand());
 				break;
 			default:
-				throw new RedisException(vsprintf("%s(): %s.", [__METHOD__, $response]));
+				throw new RedisException(vsprintf('%s.', [$response]));
 		}
 	}
 
@@ -246,7 +246,7 @@ class Redis
 				return $this->handleMultiBulkResponse($response);
 				break;
 			default:
-				throw new RedisException(vsprintf("%s(): Unable to handle server response.", [__METHOD__]));
+				throw new RedisException('Unable to handle server response.');
 		}
 	}
 

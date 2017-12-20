@@ -26,7 +26,7 @@ trait FunctionParserTrait
 	{
 		if(preg_match('/^([a-z0-9_:.]+)\((.*)\)$/i', $function, $matches) !== 1)
 		{
-			throw new RuntimeException(vsprintf('%s(): [ %s ] does not match the expected function pattern.', [__METHOD__, $function]));
+			throw new RuntimeException(vsprintf('[ %s ] does not match the expected function pattern.', [$function]));
 		}
 
 		return [$matches[1], $matches[2]];
@@ -59,7 +59,7 @@ trait FunctionParserTrait
 
 		if($parameters === null && json_last_error() !== JSON_ERROR_NONE)
 		{
-			throw new RuntimeException(vsprintf('%s(): Failed to decode function parameters.', [__METHOD__]));
+			throw new RuntimeException('Failed to decode function parameters.');
 		}
 
 		return [$function[0], $parameters];

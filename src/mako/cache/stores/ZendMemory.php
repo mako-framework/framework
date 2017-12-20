@@ -25,7 +25,7 @@ class ZendMemory extends Store
 	{
 		if(function_exists('zend_shm_cache_store') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Zend memory cache is not available on your system.", [__METHOD__]));
+			throw new RuntimeException('Zend memory cache is not available on your system.');
 		}
 	}
 

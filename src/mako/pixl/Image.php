@@ -125,7 +125,7 @@ class Image
 
 		if(file_exists($this->image) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): The image [ %s ] does not exist.", [__METHOD__, $this->image]));
+			throw new RuntimeException(vsprintf('The image [ %s ] does not exist.', [$this->image]));
 		}
 
 		// Set the image
@@ -261,7 +261,7 @@ class Image
 
 		if(file_exists($file) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): The watermark image [ %s ] does not exist.", [__METHOD__, $file]));
+			throw new RuntimeException(vsprintf('The watermark image [ %s ] does not exist.', [$file]));
 		}
 
 		// Make sure that opacity is between 0 and 100
@@ -408,7 +408,7 @@ class Image
 		{
 			if(!is_writable($file))
 			{
-				throw new RuntimeException(vsprintf("%s(): The file [ %s ] isn't writable.", [__METHOD__, $file]));
+				throw new RuntimeException(vsprintf('The file [ %s ] isn\'t writable.', [$file]));
 			}
 		}
 		else
@@ -417,7 +417,7 @@ class Image
 
 			if(!is_writable($pathInfo['dirname']))
 			{
-				throw new RuntimeException(vsprintf("%s(): The directory [ %s ] isn't writable.", [__METHOD__, $pathInfo['dirname']]));
+				throw new RuntimeException(vsprintf('The directory [ %s ] isn\'t writable.', [$pathInfo['dirname']]));
 			}
 		}
 

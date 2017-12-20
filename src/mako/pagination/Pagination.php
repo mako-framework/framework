@@ -215,12 +215,12 @@ class Pagination implements PaginationInterface
 		{
 			if(empty($this->request))
 			{
-				throw new RuntimeException(vsprintf("%s(): A [ Request ] instance is required to generate the pagination array.", [__METHOD__]));
+				throw new RuntimeException('A [ Request ] instance is required to generate the pagination array.');
 			}
 
 			if(empty($this->urlBuilder))
 			{
-				throw new RuntimeException(vsprintf("%s(): A [ URLBuilder ] instance is required to generate the pagination array.", [__METHOD__]));
+				throw new RuntimeException('A [ URLBuilder ] instance is required to generate the pagination array.');
 			}
 
 			$pagination = ['items' => $this->items, 'items_per_page' => $this->itemsPerPage, 'number_of_pages' => $this->pages];
@@ -293,7 +293,7 @@ class Pagination implements PaginationInterface
 	{
 		if(empty($this->viewFactory))
 		{
-			throw new RuntimeException(vsprintf("%s(): A [ ViewFactory ] instance is required to render pagination views.", [__METHOD__]));
+			throw new RuntimeException('A [ ViewFactory ] instance is required to render pagination views.');
 		}
 
 		return $this->viewFactory->create($view, $this->pagination())->render();

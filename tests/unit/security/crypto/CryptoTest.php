@@ -65,7 +65,7 @@ class CryptoTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\security\crypto\CryptoException
-	 * @expectedExceptionMessage mako\security\crypto\Crypto::decrypt(): Ciphertex has been modified or an invalid authentication key has been provided.
+	 * @expectedExceptionMessage Ciphertex has been modified or an invalid authentication key has been provided.
 	 */
 	public function testDecryptModifiedCiphertext()
 	{

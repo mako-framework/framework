@@ -183,7 +183,7 @@ class Onion
 
 		if($this->exeptedInterface !== null && ($middleware instanceof $this->exeptedInterface) === false)
 		{
-			throw new OnionException(vsprintf("The Onion instance expects the middleware to be an instance of [ %s ].", [$this->exeptedInterface]));
+			throw new OnionException(vsprintf('The Onion instance expects the middleware to be an instance of [ %s ].', [$this->exeptedInterface]));
 		}
 
 		// Set parameters if the middleware uses a setter

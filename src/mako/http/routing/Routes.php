@@ -74,7 +74,7 @@ class Routes
 	{
 		if(!isset($this->namedRoutes[$name]))
 		{
-			throw new RuntimeException(vsprintf("%s(): No route named [ %s ] has been defined.", [__METHOD__, $name]));
+			throw new RuntimeException(vsprintf('No route named [ %s ] has been defined.', [$name]));
 		}
 
 		return $this->namedRoutes[$name];

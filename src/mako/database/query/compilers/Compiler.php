@@ -157,7 +157,7 @@ class Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		throw new RuntimeException(vsprintf("%s(): The [ %s ] query compiler does not support the unified JSON field syntax.", [__METHOD__, static::class]));
+		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support the unified JSON field syntax.', [static::class]));
 	}
 
 	/**
@@ -170,7 +170,7 @@ class Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		throw new RuntimeException(vsprintf("%s(): The [ %s ] query compiler does not support the unified JSON field syntax.", [__METHOD__, static::class]));
+		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support the unified JSON field syntax.', [static::class]));
 	}
 
 	/**

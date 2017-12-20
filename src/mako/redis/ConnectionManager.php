@@ -32,7 +32,7 @@ class ConnectionManager extends BaseConnectionManager
 	{
 		if(!isset($this->configurations[$connection]))
 		{
-			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the redis configuration.", [__METHOD__, $connection]));
+			throw new RuntimeException(vsprintf('[ %s ] has not been defined in the redis configuration.', [$connection]));
 		}
 
 		$config = $this->configurations[$connection];

@@ -192,7 +192,7 @@ class CacheManager extends AdapterManager
 	{
 		if(!isset($this->configurations[$configuration]))
 		{
-			throw new RuntimeException(vsprintf("%s(): [ %s ] has not been defined in the cache configuration.", [__METHOD__, $configuration]));
+			throw new RuntimeException(vsprintf('[ %s ] has not been defined in the cache configuration.', [$configuration]));
 		}
 
 		$configuration = $this->configurations[$configuration];

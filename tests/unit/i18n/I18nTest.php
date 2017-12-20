@@ -223,7 +223,7 @@ class I18nTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage mako\i18n\I18n::pluralize(): The [ en_US ] language pack does not include any inflection rules.
+	 * @expectedExceptionMessage The [ en_US ] language pack does not include any inflection rules.
 	 */
 	public function testPluralizeWithoutPluralizationRules()
 	{

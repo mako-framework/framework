@@ -26,7 +26,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	{
 		if(function_exists('apcu_store') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): APCU is not available on your system.", [__METHOD__]));
+			throw new RuntimeException('APCU is not available on your system.');
 		}
 	}
 

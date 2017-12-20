@@ -131,7 +131,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\reactor\exceptions\InvalidArgumentException
-	 * @expectedExceptionMessage mako\reactor\Dispatcher::checkForInvalidArguments(): Invalid argument [ arg3 ].
+	 * @expectedExceptionMessage Invalid argument [ arg3 ].
 	 */
 	public function testDispatchWithInvalidArguments()
 	{
@@ -156,7 +156,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\reactor\exceptions\InvalidOptionException
-	 * @expectedExceptionMessage mako\reactor\Dispatcher::checkForInvalidArguments(): Invalid option [ bar ].
+	 * @expectedExceptionMessage Invalid option [ bar ].
 	 */
 	public function testDispatchWithInvalidOptions()
 	{
@@ -190,7 +190,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\reactor\exceptions\InvalidOptionException
-	 * @expectedExceptionMessage mako\reactor\Dispatcher::checkForInvalidArguments(): Invalid option [ boo ].
+	 * @expectedExceptionMessage Invalid option [ boo ].
 	 */
 	public function testDispatchWithInvalidOptionsAndSuggestion()
 	{
@@ -224,7 +224,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\reactor\exceptions\MissingArgumentException
-	 * @expectedExceptionMessage mako\reactor\Dispatcher::checkForMissingArgumentsOrOptions(): Missing required argument [ arg2 ].
+	 * @expectedExceptionMessage Missing required argument [ arg2 ].
 	 */
 	public function testDispatchWithMissingRequiredArguments()
 	{
@@ -249,7 +249,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\reactor\exceptions\MissingOptionException
-	 * @expectedExceptionMessage mako\reactor\Dispatcher::checkForMissingArgumentsOrOptions(): Missing required option [ foo ].
+	 * @expectedExceptionMessage Missing required option [ foo ].
 	 */
 	public function testDispatchWithMissingRequiredOptions()
 	{

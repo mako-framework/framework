@@ -68,7 +68,7 @@ class Crypto
 
 		if($string === false)
 		{
-			throw new CryptoException(vsprintf("%s(): Ciphertex has been modified or an invalid authentication key has been provided.", [__METHOD__]));
+			throw new CryptoException('Ciphertex has been modified or an invalid authentication key has been provided.');
 		}
 
 		return $this->adapter->decrypt($string);

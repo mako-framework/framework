@@ -602,7 +602,7 @@ class Validator
 		}
 		else
 		{
-			throw new RuntimeException(vsprintf("%s(): Call to undefined validation rule '%s'.", [__METHOD__, trim($validator['package'] . '::' . $validator['name'], '::')]));
+			throw new RuntimeException(vsprintf('Call to undefined validation rule [ %s ].', [trim($validator['package'] . '::' . $validator['name'], '::')]));
 		}
 	}
 

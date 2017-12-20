@@ -45,7 +45,7 @@ trait ExtendableTrait
 	{
 		if(!isset(static::$_extensions[$name]))
 		{
-			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [static::class, $name]));
+			throw new BadMethodCallException(vsprintf('Call to undefined method [ %s::%s() ].', [static::class, $name]));
 		}
 
 		return static::$_extensions[$name]->bindTo($this, static::class)(...$arguments);
@@ -62,7 +62,7 @@ trait ExtendableTrait
 	{
 		if(!isset(static::$_extensions[$name]))
 		{
-			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [static::class, $name]));
+			throw new BadMethodCallException(vsprintf('Call to undefined method [ %s::%s() ].', [static::class, $name]));
 		}
 
 		return static::$_extensions[$name]->bindTo(null, static::class)(...$arguments);

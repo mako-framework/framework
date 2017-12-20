@@ -174,7 +174,7 @@ class UserTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \LogicException
-	 * @expectedExceptionMessage mako\gatekeeper\entities\user\User::isMemberOf(): You can only check memberships for users that exist in the database.
+	 * @expectedExceptionMessage You can only check memberships for users that exist in the database.
 	 */
 	public function testIsMemberOfForNonExistingUser()
 	{

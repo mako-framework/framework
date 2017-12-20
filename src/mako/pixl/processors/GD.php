@@ -87,7 +87,7 @@ class GD implements ProcessorInterface
 
 		if($imageInfo === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): Unable to process the image [ %s ].", [__METHOD__, $file]));
+			throw new RuntimeException(vsprintf('Unable to process the image [ %s ].', [$file]));
 		}
 
 		return $imageInfo;
@@ -114,7 +114,7 @@ class GD implements ProcessorInterface
 				return imagecreatefrompng($image);
 				break;
 			default:
-				throw new RuntimeException(vsprintf("%s(): Unable to open [ %s ]. Unsupported image type.", [__METHOD__, pathinfo($image, PATHINFO_EXTENSION)]));
+				throw new RuntimeException(vsprintf('Unable to open [ %s ]. Unsupported image type.', [pathinfo($image, PATHINFO_EXTENSION)]));
 		}
 	}
 
@@ -130,7 +130,7 @@ class GD implements ProcessorInterface
 
 		if(preg_match('/^([a-f0-9]{3}){1,2}$/i', $hex) === 0)
 		{
-			throw new InvalidArgumentException(vsprintf("%s(): Invalid HEX value [ %s ].", [__METHOD__, $hex]));
+			throw new InvalidArgumentException(vsprintf('Invalid HEX value [ %s ].', [$hex]));
 		}
 
 		if(strlen($hex) === 3)
@@ -179,7 +179,7 @@ class GD implements ProcessorInterface
 	{
 		if(!is_resource($this->snapshot))
 		{
-			throw new RuntimeException(vsprintf("%s(): No snapshot to restore.", [__METHOD__]));
+			throw new RuntimeException('No snapshot to restore.');
 		}
 
 		$this->image = $this->snapshot;
@@ -680,7 +680,7 @@ class GD implements ProcessorInterface
 				imagepng($this->image, null, (9 - (round(($quality / 100) * 9))));
 				break;
 			default:
-				throw new RuntimeException(vsprintf("%s(): Unsupported image type [ %s ].", [__METHOD__, $type]));
+				throw new RuntimeException(vsprintf('Unsupported image type [ %s ].', [$type]));
 		}
 
 		return ob_get_clean();
@@ -713,7 +713,7 @@ class GD implements ProcessorInterface
 				imagepng($this->image, $file, (9 - (round(($quality / 100) * 9))));
 				break;
 			default:
-				throw new RuntimeException(vsprintf("%s(): Unable to save as [ %s ]. Unsupported image format.", [__METHOD__, $extension]));
+				throw new RuntimeException(vsprintf('Unable to save as [ %s ]. Unsupported image format.', [$extension]));
 		}
 	}
 }

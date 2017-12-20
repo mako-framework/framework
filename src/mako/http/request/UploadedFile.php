@@ -179,12 +179,12 @@ class UploadedFile extends SplFileInfo
 	{
 		if($this->hasError())
 		{
-			throw new UploadException(vsprintf("%s(): %s", [__METHOD__, $this->getErrorMessage()]), $this->getErrorCode());
+			throw new UploadException(vsprintf('%s', [$this->getErrorMessage()]), $this->getErrorCode());
 		}
 
 		if($this->isUploaded() === false)
 		{
-			throw new UploadException(vsprintf("%s(): The file that you're trying to move was not uploaded.", [__METHOD__]), -1);
+			throw new UploadException('The file that you\'re trying to move was not uploaded.', -1);
 		}
 
 		return $this->moveUploadedFile($path);

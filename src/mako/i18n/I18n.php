@@ -162,7 +162,7 @@ class I18n
 
 		if(empty($this->inflections[$language]))
 		{
-			throw new RuntimeException(vsprintf("%s(): The [ %s ] language pack does not include any inflection rules.", [__METHOD__, $language]));
+			throw new RuntimeException(vsprintf('The [ %s ] language pack does not include any inflection rules.', [$language]));
 		}
 
 		$pluralizer = $this->inflections[$language]['pluralize'];

@@ -52,7 +52,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \LogicException
-	 * @expectedExceptionMessage mako\gatekeeper\entities\group\Group::addUser(): You can only add a user to a group that exist in the database.
+	 * @expectedExceptionMessage You can only add a user to a group that exist in the database.
 	 */
 	public function testAddUserToNonExistingGroup()
 	{
@@ -65,7 +65,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \LogicException
-	 * @expectedExceptionMessage mako\gatekeeper\entities\group\Group::addUser(): You can only add a user that exist in the database to a group.
+	 * @expectedExceptionMessage You can only add a user that exist in the database to a group.
 	 */
 	public function testAddNonExistingUserToGroup()
 	{
@@ -80,7 +80,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \LogicException
-	 * @expectedExceptionMessage mako\gatekeeper\entities\group\Group::removeUser(): You can only remove a user from a group that exist in the database.
+	 * @expectedExceptionMessage You can only remove a user from a group that exist in the database.
 	 */
 	public function testRemoveUserFromNonExistingGroup()
 	{
@@ -93,7 +93,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
 	 /**
  	 * @expectedException \LogicException
- 	 * @expectedExceptionMessage mako\gatekeeper\entities\group\Group::removeUser(): You can only remove a user that exist in the database from a group.
+ 	 * @expectedExceptionMessage You can only remove a user that exist in the database from a group.
  	 */
  	public function testRemoveNonExistingUserFromGroup()
 	{
@@ -108,7 +108,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \LogicException
-	 * @expectedExceptionMessage mako\gatekeeper\entities\group\Group::isMember(): You can only check if a user is a member of a group that exist in the database.
+	 * @expectedExceptionMessage You can only check if a user is a member of a group that exist in the database.
 	 */
 	public function testIsMemberWithNonExistingGroup()
 	{
@@ -121,7 +121,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
 	 /**
  	 * @expectedException \LogicException
- 	 * @expectedExceptionMessage mako\gatekeeper\entities\group\Group::isMember(): You can only check if a user that exist in the database is a member of a group.
+ 	 * @expectedExceptionMessage You can only check if a user that exist in the database is a member of a group.
  	 */
  	public function testIsMemberWithNonExistingUser()
 	{

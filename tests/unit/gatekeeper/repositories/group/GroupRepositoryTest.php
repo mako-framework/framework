@@ -119,7 +119,7 @@ class GroupRepositoryTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessage mako\gatekeeper\repositories\group\GroupRepository::setIdentifier(): Invalid identifier [ nope ].
+	 * @expectedExceptionMessage Invalid identifier [ nope ].
 	 */
 	public function testSetInvalidIdentifier()
 	{

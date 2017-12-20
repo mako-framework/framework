@@ -460,7 +460,7 @@ class Query extends QueryBuilder
 	{
 		if(!method_exists($this->model, $name . 'Scope'))
 		{
-			throw new BadMethodCallException(vsprintf("Call to undefined method %s::%s().", [__CLASS__, $name]));
+			throw new BadMethodCallException(vsprintf('Call to undefined method %s::%s().', [static::class, $name]));
 		}
 
 		return $this->model->{$name . 'Scope'}(...array_merge([$this], $arguments));

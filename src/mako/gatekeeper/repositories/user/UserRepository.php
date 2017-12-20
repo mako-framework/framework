@@ -87,7 +87,7 @@ class UserRepository implements UserRepositoryInterface
 	{
 		if(!in_array($identifier, ['email', 'username', 'id']))
 		{
-			throw new InvalidArgumentException(vsprintf("%s(): Invalid identifier [ %s ].", [__METHOD__, $identifier]));
+			throw new InvalidArgumentException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
 		}
 
 		$this->identifier = $identifier;

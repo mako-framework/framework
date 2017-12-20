@@ -100,7 +100,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
-	 * @expectedExceptionMessage mako\cli\output\formatter\Formatter::getStyleCodes(): Undefined formatting tag [ fail ] detected.
+	 * @expectedExceptionMessage Undefined formatting tag [ fail ] detected.
 	 */
 	public function testUndefinedTagException()
 	{
@@ -111,7 +111,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
-	 * @expectedExceptionMessage mako\cli\output\formatter\Formatter::closeStyle(): Incorrectly nested formatting tag detected.
+	 * @expectedExceptionMessage Incorrectly nested formatting tag detected.
 	 */
 	public function testIncorrectTagNestingException()
 	{
@@ -122,7 +122,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
-	 * @expectedExceptionMessage mako\cli\output\formatter\Formatter::format(): Missing formatting close tag detected.
+	 * @expectedExceptionMessage Missing formatting close tag detected.
 	 */
 	public function testMissingCloseTagException()
 	{

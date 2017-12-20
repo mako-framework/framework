@@ -68,7 +68,7 @@ class Connection
 		}
 		catch(Throwable $e)
 		{
-			throw new RedisException(vsprintf("%s(): %s", [__METHOD__, $e->getMessage()]), (int) $errNo);
+			throw new RedisException(vsprintf('%s', [$e->getMessage()]), (int) $errNo);
 		}
 	}
 

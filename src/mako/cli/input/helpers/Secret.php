@@ -110,7 +110,7 @@ class Secret extends Question
 		}
 		else
 		{
-			throw new RuntimeException(vsprintf("%s(): Unable to hide the user input.", [__METHOD__]));
+			throw new RuntimeException('Unable to hide the user input.');
 		}
 	}
 }

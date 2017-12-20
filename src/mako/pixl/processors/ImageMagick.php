@@ -65,7 +65,7 @@ class ImageMagick implements ProcessorInterface
 	{
 		if(preg_match('/^(#?[a-f0-9]{3}){1,2}$/i', $hex) === 0)
 		{
-			throw new InvalidArgumentException(vsprintf("%s(): Invalid HEX value [ %s ].", [__METHOD__, $hex]));
+			throw new InvalidArgumentException(vsprintf('Invalid HEX value [ %s ].', [$hex]));
 		}
 
 		return (strpos($hex, '#') !== 0) ? '#' . $hex : $hex;
@@ -94,7 +94,7 @@ class ImageMagick implements ProcessorInterface
 	{
 		if(!($this->snapshot instanceof Imagick))
 		{
-			throw new RuntimeException(vsprintf("%s(): No snapshot to restore.", [__METHOD__]));
+			throw new RuntimeException('No snapshot to restore.');
 		}
 
 		$this->image = $this->snapshot;
@@ -300,7 +300,7 @@ class ImageMagick implements ProcessorInterface
 		{
 			if(!$this->image->setImageFormat($type))
 			{
-				throw new RuntimeException(vsprintf("%s(): Unsupported image type [ %s ].", [__METHOD__, $type]));
+				throw new RuntimeException(vsprintf('Unsupported image type [ %s ].', [$type]));
 			}
 		}
 

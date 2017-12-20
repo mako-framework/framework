@@ -140,7 +140,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage mako\syringe\Container::resolveParameter(): Unable to resolve the [ $bax ] parameter of [ mako\tests\unit\syringe\Fox::__construct ].
+	 * @expectedExceptionMessage Unable to resolve the [ $bax ] parameter of [ mako\tests\unit\syringe\Fox::__construct ].
 	 */
 	public function testClassInstantiationWithUnresolvableParameters()
 	{
@@ -226,7 +226,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage mako\syringe\Container::reflectionFactory(): Unable create a [ mako\tests\unit\syringe\StoreInterface ] instance.
+	 * @expectedExceptionMessage Unable to create a [ mako\tests\unit\syringe\StoreInterface ] instance.
 	 */
 	public function testInterfaceInstantiation()
 	{
@@ -271,7 +271,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage mako\syringe\Container::closureFactory(): The factory closure must return an object.
+	 * @expectedExceptionMessage The factory closure must return an object.
 	 */
 	public function testRegisterClosureWithoutReturnValue()
 	{
@@ -432,7 +432,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage mako\syringe\Container::resolveParameter(): Unable to resolve the [ $foo ] parameter of
+	 * @expectedExceptionMessage Unable to resolve the [ $foo ] parameter of
 	 *
 	 * The entire exception message isn't included in the test because of some HHVM incompatibility that causes the test to fail
 	 */

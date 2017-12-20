@@ -239,7 +239,7 @@ class Container
 
 		// We have exhausted all our options. All we can do now is throw an exception
 
-		throw new RuntimeException(vsprintf("%s(): Unable to resolve the [ $%s ] parameter of [ %s ].", [__METHOD__, $parameter->getName(), $this->getDeclaringFunction($parameter)]));
+		throw new RuntimeException(vsprintf('Unable to resolve the [ $%s ] parameter of [ %s ].', [$parameter->getName(), $this->getDeclaringFunction($parameter)]));
 	}
 
 	/**
@@ -306,7 +306,7 @@ class Container
 
 		if(is_object($instance) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): The factory closure must return an object.", [__METHOD__]));
+			throw new RuntimeException('The factory closure must return an object.');
 		}
 
 		return $instance;
@@ -327,7 +327,7 @@ class Container
 
 		if(!$class->isInstantiable())
 		{
-			throw new RuntimeException(vsprintf("%s(): Unable create a [ %s ] instance.", [__METHOD__, $class->getName()]));
+			throw new RuntimeException(vsprintf('Unable to create a [ %s ] instance.', [$class->getName()]));
 		}
 
 		// Get the class constructor

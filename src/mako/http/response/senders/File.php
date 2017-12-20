@@ -83,7 +83,7 @@ class File implements ResponseSenderInterface
 
 		if($this->fileSystem->has($file) === false || $this->fileSystem->isReadable($file) === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): File [ %s ] is not readable.", [__METHOD__, $file]));
+			throw new RuntimeException(vsprintf('File [ %s ] is not readable.', [$file]));
 		}
 
 		$this->filePath = $file;

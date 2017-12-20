@@ -150,7 +150,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 			return $this->items[$offset];
 		}
 
-		throw new OutOfBoundsException(vsprintf("%s(): Undefined offset [ %s ].", [__METHOD__, $offset]));
+		throw new OutOfBoundsException(vsprintf('Undefined offset [ %s ].', [$offset]));
 	}
 
 	/**

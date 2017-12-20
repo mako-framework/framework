@@ -166,7 +166,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \OutOfBoundsException
-	 * @expectedExceptionMessage mako\utility\Collection::offsetGet(): Undefined offset [ 0 ].
+	 * @expectedExceptionMessage Undefined offset [ 0 ].
 	 */
 	public function testOffsetGetWithUndefinedOffset()
 	{

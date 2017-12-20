@@ -178,7 +178,7 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \Exception
-	 * @expectedExceptionMessage mako\database\query\compilers\Compiler::buildJsonGet(): The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.
+	 * @expectedExceptionMessage The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.
 	 */
 	public function testSelectWithJSONColumn()
 	{
@@ -1206,7 +1206,7 @@ class BaseCompilerTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException \Exception
-	 * @expectedExceptionMessage mako\database\query\compilers\Compiler::buildJsonSet(): The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.
+	 * @expectedExceptionMessage The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.
 	 */
 	public function testUpdateWithJSONColumn()
 	{

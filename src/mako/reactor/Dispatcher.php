@@ -68,10 +68,10 @@ class Dispatcher
 			{
 				if(strpos($name, 'arg') === 0)
 				{
-					throw new InvalidArgumentException(vsprintf("%s(): Invalid argument [ %s ].", [__METHOD__, $name]), $name);
+					throw new InvalidArgumentException(vsprintf('Invalid argument [ %s ].', [$name]), $name);
 				}
 
-				throw new InvalidOptionException(vsprintf("%s(): Invalid option [ %s ].", [__METHOD__, $name]), $name, $this->suggest($name, $commandArguments));
+				throw new InvalidOptionException(vsprintf('Invalid option [ %s ].', [$name]), $name, $this->suggest($name, $commandArguments));
 			}
 		}
 	}
@@ -93,7 +93,7 @@ class Dispatcher
 			{
 				$type = $exception === MissingArgumentException::class ? 'argument' : 'option';
 
-				throw new $exception(vsprintf("%s(): Missing required %s [ %s ].", [__METHOD__, $type, $name]), $name);
+				throw new $exception(vsprintf('Missing required %s [ %s ].', [$type, $name]), $name);
 			}
 		}
 	}

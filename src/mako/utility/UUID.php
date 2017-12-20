@@ -67,7 +67,7 @@ class UUID
 	{
 		if(!static::validate($namespace))
 		{
-			throw new InvalidArgumentException(vsprintf("%s(): Provided namespace is not a valid UUID.", [__METHOD__]));
+			throw new InvalidArgumentException('The provided namespace is not a valid UUID.');
 		}
 
 		// Get hexadecimal components of namespace

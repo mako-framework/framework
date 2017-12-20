@@ -489,7 +489,7 @@ abstract class ORM implements JsonSerializable
 				case 'string':
 					return (string) $value;
 				default:
-					throw new RuntimeException(vsprintf("%s::%s(): Unsupported type [ %s ].", [static::class, __FUNCTION__, $this->cast[$name]]));
+					throw new RuntimeException(vsprintf('Unsupported type [ %s ].', [$this->cast[$name]]));
 			}
 		}
 
@@ -593,7 +593,7 @@ abstract class ORM implements JsonSerializable
 		}
 		else
 		{
-			throw new RuntimeException(vsprintf("%s(): Unknown column or relation [ %s ].", [__METHOD__, $name]));
+			throw new RuntimeException(vsprintf('Unknown column or relation [ %s ].', [$name]));
 		}
 	}
 
@@ -874,7 +874,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	protected function generatePrimaryKey()
 	{
-		throw new RuntimeException(vsprintf("%s(): The '%s::generatePrimaryKey()' method must be implemented.", [__METHOD__, static::class]));
+		throw new RuntimeException(vsprintf('The [ %s::generatePrimaryKey() ] method must be implemented.', [static::class]));
 	}
 
 	/**

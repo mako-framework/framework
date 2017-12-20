@@ -25,7 +25,7 @@ class WinCache extends Store
 	{
 		if(function_exists('wincache_ucache_set') === false)
 		{
-			throw new RuntimeException(vsprintf("%s(): WinCache is not available on your system.", [__METHOD__]));
+			throw new RuntimeException('WinCache is not available on your system.');
 		}
 	}
 

@@ -137,7 +137,7 @@ trait OptimisticLockingTrait
 		{
 			$this->columns[$lockingColumn]--;
 
-			throw new StaleRecordException(vsprintf("%s(): Attempted to update a stale record.", [__METHOD__]));
+			throw new StaleRecordException('Attempted to update a stale record.');
 		}
 
 		return $result;
@@ -159,7 +159,7 @@ trait OptimisticLockingTrait
 
 		if(!$deleted)
 		{
-			throw new StaleRecordException(vsprintf("%s(): Attempted to delete a stale record.", [__METHOD__]));
+			throw new StaleRecordException('Attempted to delete a stale record.');
 		}
 
 		return $deleted;

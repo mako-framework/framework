@@ -136,7 +136,7 @@ class Dispatcher
 
 		if(!isset($this->middleware[$name]))
 		{
-			throw new RuntimeException(vsprintf("No middleware named [ %s ] has been registered.", [$middleware]));
+			throw new RuntimeException(vsprintf('No middleware named [ %s ] has been registered.', [$middleware]));
 		}
 
 		return ['name' => $name, 'middleware' => $this->middleware[$name], 'parameters' => $parameters];
