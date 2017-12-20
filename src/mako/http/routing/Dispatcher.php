@@ -49,13 +49,6 @@ class Dispatcher
 	protected $middleware;
 
 	/**
-	 * Route to be dispatched.
-	 *
-	 * @var \mako\http\routing\Route
-	 */
-	protected $route;
-
-	/**
 	 * IoC container instance.
 	 *
 	 * @var \mako\syringe\Container
@@ -68,18 +61,15 @@ class Dispatcher
 	 * @param \mako\http\Request            $request    Request instance
 	 * @param \mako\http\Response           $response   Response instance
 	 * @param \mako\http\routing\Middleware $middleware Middleware collection
-	 * @param \mako\http\routing\Route      $route      The route we're dispatching
 	 * @param \mako\syringe\Container|null  $container  IoC container
 	 */
-	public function __construct(Request $request, Response $response, Middleware $middleware, Route $route, Container $container = null)
+	public function __construct(Request $request, Response $response, Middleware $middleware, Container $container = null)
 	{
 		$this->request = $request;
 
 		$this->response = $response;
 
 		$this->middleware = $middleware;
-
-		$this->route = $route;
 
 		$this->container = $container ?? new Container;
 	}
@@ -198,13 +188,14 @@ class Dispatcher
 	/**
 	 * Executes the route action.
 	 *
+	 * @param  \mako\http\routing\Route $route Route
 	 * @return \mako\http\Response
 	 */
-	protected function executeAction(): Response
+	protected function executeAction(Route $route): Response
 	{
-		$action = $this->route->getAction();
+		$action = $route->getAction();
 
-		$parameters = $this->route->getParameters();
+		$parameters = $route->getParameters();
 
 		if($action instanceof Closure)
 		{
@@ -217,17 +208,18 @@ class Dispatcher
 	/**
 	 * Dispatches the route and returns the response.
 	 *
+	 * @param  \mako\http\routing\Route $route Route
 	 * @return \mako\http\Response
 	 */
-	public function dispatch(): Response
+	public function dispatch(Route $route): Response
 	{
 		$onion = new Onion($this->container, null, MiddlewareInterface::class, 'setParameters');
 
-		$this->addMiddlewareToStack($onion, $this->route->getMiddleware());
+		$this->addMiddlewareToStack($onion, $route->getMiddleware());
 
-		return $onion->peel(function()
+		return $onion->peel(function() use ($route)
 		{
-			return $this->executeAction();
+			return $this->executeAction($route);
 		}, [$this->request, $this->response]);
 	}
 }

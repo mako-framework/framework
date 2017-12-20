@@ -10,6 +10,7 @@ namespace mako\application\services;
 use mako\application\services\Service;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\routing\Dispatcher;
 use mako\http\routing\Middleware;
 use mako\http\routing\URLBuilder;
 use mako\http\routing\Routes;
@@ -79,6 +80,15 @@ class HTTPService extends Service
 			->bindTo($app)($app, $container, $routes);
 
 			return $routes;
+		});
+
+		// Dispatcher
+
+		$this->container->registerSingleton(Dispatcher::class, function($container) use ($app)
+		{
+			$dispatcher = new Dispatcher($this->container->get('request'), $this->container->get('response'), $this->container->get(Middleware::class), $container);
+
+			return $dispatcher;
 		});
 
 		// URLBuilder

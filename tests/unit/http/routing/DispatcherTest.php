@@ -178,9 +178,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route);
+		$dispatcher = new Dispatcher($request, $response, $middleware);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Hello, world!', $response->getBody());
 	}
@@ -213,9 +213,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $container);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Hello, Kitty!', $response->getBody());
 
@@ -245,9 +245,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $container);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Hello, world!', $response->getBody());
 
@@ -277,9 +277,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $container);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Hello, Kitty!', $response->getBody());
 	}
@@ -307,9 +307,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $container);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Hello, world!', $response->getBody());
 
@@ -335,9 +335,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route);
+		$dispatcher = new Dispatcher($request, $response, $middleware);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Before action', $response->getBody());
 	}
@@ -365,9 +365,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $container);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('HELLO, WORLD!', $response->getBody());
 	}
@@ -402,9 +402,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $container);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('hello,_world!', $response->getBody());
 	}
@@ -439,9 +439,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $container);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('hello,~world!', $response->getBody());
 	}
@@ -476,9 +476,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $container);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('hello,~world!', $response->getBody());
 	}
@@ -502,9 +502,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route);
+		$dispatcher = new Dispatcher($request, $response, $middleware);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Hello, world!', $response->getBody());
 	}
@@ -531,9 +531,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route);
+		$dispatcher = new Dispatcher($request, $response, $middleware);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Hello, world!', $response->getBody());
 	}
@@ -564,9 +564,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Request')->andReturn($request);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $container);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertInstanceOf('mako\http\Request', $response->getBody());
 	}
@@ -594,9 +594,9 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 
 		$container->shouldReceive('get')->with('mako\http\Response')->andReturn($response);
 
-		$dispatcher = new Dispatcher($request, $response, $middleware, $route, $container);
+		$dispatcher = new Dispatcher($request, $response, $middleware, $container);
 
-		$response = $dispatcher->dispatch();
+		$response = $dispatcher->dispatch($route);
 
 		$this->assertInstanceOf('mako\tests\unit\http\routing\InjectMe', $response->getBody());
 	}
