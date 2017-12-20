@@ -8,11 +8,11 @@
 namespace mako\http\routing;
 
 use Closure;
+use RuntimeException;
 
 use mako\common\traits\FunctionParserTrait;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\routing\Middleware;
 use mako\http\routing\Route;
 use mako\http\routing\middleware\MiddlewareInterface;
 use mako\onion\Onion;
@@ -26,6 +26,13 @@ use mako\syringe\Container;
 class Dispatcher
 {
 	use FunctionParserTrait;
+
+	/**
+	 * Default middleware priority.
+	 *
+	 * @var int
+	 */
+	const MIDDLEWARE_DEFAULT_PRIORITY = 100;
 
 	/**
 	 * Request.
@@ -42,13 +49,6 @@ class Dispatcher
 	protected $response;
 
 	/**
-	 * Route middleware.
-	 *
-	 * @var \mako\http\routing\Middleware
-	 */
-	protected $middleware;
-
-	/**
 	 * IoC container instance.
 	 *
 	 * @var \mako\syringe\Container
@@ -56,22 +56,72 @@ class Dispatcher
 	protected $container;
 
 	/**
+	 * Route middleware.
+	 *
+	 * @var array
+	 */
+	protected $middleware = [];
+
+	/**
+	 * Middleware priority.
+	 *
+	 * @var array
+	 */
+	protected $middlewarePriority = [];
+
+	/**
 	 * Constructor.
 	 *
-	 * @param \mako\http\Request            $request    Request instance
-	 * @param \mako\http\Response           $response   Response instance
-	 * @param \mako\http\routing\Middleware $middleware Middleware collection
-	 * @param \mako\syringe\Container|null  $container  IoC container
+	 * @param \mako\http\Request           $request   Request instance
+	 * @param \mako\http\Response          $response  Response instance
+	 * @param \mako\syringe\Container|null $container IoC container
 	 */
-	public function __construct(Request $request, Response $response, Middleware $middleware, Container $container = null)
+	public function __construct(Request $request, Response $response, Container $container = null)
 	{
 		$this->request = $request;
 
 		$this->response = $response;
 
-		$this->middleware = $middleware;
-
 		$this->container = $container ?? new Container;
+	}
+
+	/**
+	 * Sets the middleware priority.
+	 *
+	 * @param  array                         $priority Middleware priority
+	 * @return \mako\http\routing\Dispatcher
+	 */
+	public function setMiddlewarePriority(array $priority): Dispatcher
+	{
+		$this->middlewarePriority = $priority + $this->middlewarePriority;
+
+		return $this;
+	}
+
+	/**
+	 * Resets middleware priority.
+	 *
+	 * @return \mako\http\routing\Dispatcher
+	 */
+	public function resetMiddlewarePriority(): Dispatcher
+	{
+		$this->middlewarePriority = [];
+
+		return $this;
+	}
+
+	/**
+	 * Registers middleware.
+	 *
+	 * @param  string                        $name       Middleware name
+	 * @param  string                        $middleware Middleware class name
+	 * @return \mako\http\routing\Dispatcher
+	 */
+	public function registerMiddleware(string $name, string $middleware): Dispatcher
+	{
+		$this->middleware[$name] = $middleware;
+
+		return $this;
 	}
 
 	/**
@@ -84,9 +134,51 @@ class Dispatcher
 	{
 		list($name, $parameters) = $this->parseFunction($middleware);
 
-		$middleware = $this->middleware->get($name);
+		if(!isset($this->middleware[$name]))
+		{
+			throw new RuntimeException(vsprintf("No middleware named [ %s ] has been registered.", [$middleware]));
+		}
 
-		return ['name' => $name, 'middleware' => $middleware, 'parameters' => $parameters];
+		return ['name' => $name, 'middleware' => $this->middleware[$name], 'parameters' => $parameters];
+	}
+
+	/**
+	 * Orders resolved middleware by priority.
+	 *
+	 * @param  array $middleware Array of middleware
+	 * @return array
+	 */
+	protected function orderMiddlewareByPriority(array $middleware): array
+	{
+		if(empty($this->middlewarePriority))
+		{
+			return $middleware;
+		}
+
+		$priority = array_intersect_key($this->middlewarePriority, $middleware) + array_fill_keys(array_keys(array_diff_key($middleware, $this->middlewarePriority)), static::MIDDLEWARE_DEFAULT_PRIORITY);
+
+		// Sort the priority map using stable sorting
+
+		$position = 0;
+
+		foreach($priority as $key => $value)
+		{
+			$priority[$key] = [$position++, $value];
+		}
+
+		uasort($priority, function($a, $b)
+		{
+			return ($a[1] === $b[1]) ? ($a[0] > $b[0]) : (($a[1] > $b[1]) ? 1 : -1);
+		});
+
+		foreach($priority as $key => $value)
+		{
+			$priority[$key] = $value[1];
+		}
+
+		// Return sorted middleware list
+
+		return array_merge($priority, $middleware);
 	}
 
 	/**
@@ -112,7 +204,7 @@ class Dispatcher
 
 			// Add ordered middleware to stack
 
-			foreach($this->middleware->orderByPriority($resolved) as $name)
+			foreach($this->orderMiddlewareByPriority($resolved) as $name)
 			{
 				foreach($name as $layer)
 				{

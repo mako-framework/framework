@@ -11,7 +11,6 @@ use mako\application\services\Service;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\Dispatcher;
-use mako\http\routing\Middleware;
 use mako\http\routing\URLBuilder;
 use mako\http\routing\Routes;
 
@@ -52,21 +51,6 @@ class HTTPService extends Service
 			return new Response($container->get('request'), $app->getCharset(), $container->get('signer'));
 		});
 
-		// Middleware
-
-		$this->container->registerSingleton(Middleware::class, function($container) use ($app)
-		{
-			$middleware = new Middleware;
-
-			(function($app, $container, $middleware)
-			{
-				include $app->getPath() . '/routing/middleware.php';
-			})
-			->bindTo($app)($app, $container, $middleware);
-
-			return $middleware;
-		});
-
 		// Routes
 
 		$this->container->registerSingleton([Routes::class, 'routes'], function($container) use ($app)
@@ -86,7 +70,13 @@ class HTTPService extends Service
 
 		$this->container->registerSingleton(Dispatcher::class, function($container) use ($app)
 		{
-			$dispatcher = new Dispatcher($this->container->get('request'), $this->container->get('response'), $this->container->get(Middleware::class), $container);
+			$dispatcher = new Dispatcher($this->container->get('request'), $this->container->get('response'), $container);
+
+			(function($app, $container, $dispatcher)
+			{
+				include $app->getPath() . '/routing/middleware.php';
+			})
+			->bindTo($app)($app, $container, $dispatcher);
 
 			return $dispatcher;
 		});
