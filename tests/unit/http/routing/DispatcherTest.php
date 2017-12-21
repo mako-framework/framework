@@ -416,6 +416,39 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testGlobalMiddleware()
+	{
+		$route = Mockery::mock('\mako\http\routing\Route');
+
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
+
+		$route->shouldReceive('getAction')->once()->andReturn(function()
+		{
+			return 'hello, world!';
+		});
+
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
+		$request = Mockery::mock('\mako\http\Request');
+
+		$response = Mockery::mock('\mako\http\Response')->makePartial();
+
+		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
+
+		$dispatcher = new Dispatcher($request, $response, $container);
+
+		$dispatcher->registerMiddleware('test', BazMiddleware::class);
+
+		$dispatcher->setMiddlewareAsGlobal(['test']);
+
+		$response = $dispatcher->dispatch($route);
+
+		$this->assertEquals('AA hello, world! AA', $response->getBody());
+	}
+
+	/**
+	 *
+	 */
 	public function testMiddlewarePriority()
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');

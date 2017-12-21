@@ -63,6 +63,13 @@ class Dispatcher
 	protected $middleware = [];
 
 	/**
+	 * Global middleware.
+	 *
+	 * @var array
+	 */
+	protected $gobalMiddleware = [];
+
+	/**
 	 * Middleware priority.
 	 *
 	 * @var array
@@ -120,6 +127,19 @@ class Dispatcher
 	public function registerMiddleware(string $name, string $middleware): Dispatcher
 	{
 		$this->middleware[$name] = $middleware;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the chosen middleware as global.
+	 *
+	 * @param  array                         $middleware Array of middleware names
+	 * @return \mako\http\routing\Dispatcher
+	 */
+	public function setMiddlewareAsGlobal(array $middleware): Dispatcher
+	{
+		$this->gobalMiddleware = $middleware;
 
 		return $this;
 	}
@@ -307,7 +327,7 @@ class Dispatcher
 	{
 		$onion = new Onion($this->container, null, MiddlewareInterface::class, 'setParameters');
 
-		$this->addMiddlewareToStack($onion, $route->getMiddleware());
+		$this->addMiddlewareToStack($onion, array_merge($this->gobalMiddleware, $route->getMiddleware()));
 
 		return $onion->peel(function() use ($route)
 		{
