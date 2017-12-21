@@ -188,7 +188,7 @@ class Dispatcher
 
 		uasort($priority, function($a, $b)
 		{
-			return ($a[1] === $b[1]) ? ($a[0] > $b[0]) : (($a[1] > $b[1]) ? 1 : -1);
+			return $a[1] === $b[1] ? ($a[0] > $b[0] ? 1 : -1) : ($a[1] > $b[1] ? 1 : -1);
 		});
 
 		foreach($priority as $key => $value)
