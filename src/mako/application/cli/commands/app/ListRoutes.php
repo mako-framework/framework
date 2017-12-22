@@ -61,6 +61,7 @@ class ListRoutes extends Command
 				implode(', ', $route->getMethods()),
 				$action,
 				implode(', ', $route->getMiddleware()),
+				implode(', ', $route->getConstraints()),
 				(string) $route->getName(),
 			];
 		}
@@ -72,10 +73,14 @@ class ListRoutes extends Command
 			'<green>Route</green>',
 			'<green>Allowed methods</green>',
 			'<green>Action</green>',
-			'<green>Middleware</green>',
+			'<green>Middleware *</green>',
+			'<green>Constraints **</green>',
 			'<green>Name</green>',
 		];
 
 		$this->table($headers, $routeCollection);
+
+		$this->write('<green>*</green> <faded>Global middleware is not listed.</faded>');
+		$this->write('<green>**</green> <faded>Global constraints are not listed.</faded>');
 	}
 }
