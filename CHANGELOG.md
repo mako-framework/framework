@@ -15,7 +15,8 @@ Update using ```composer update```.
 * Added `{% nospace %}...{% endnospace %}` blocks to template syntax that will remove all whitespace between HTML tags.
 * Added `PaginationInterface::isValidPage()` method.
 * Mako is now using Whoops for displaying exception details.
-* Now possible register route constraints with the router.
+* It is now possible register route constraints with the router.
+* It is now possible to set and update junction attributes.
 
 #### Changes
 
