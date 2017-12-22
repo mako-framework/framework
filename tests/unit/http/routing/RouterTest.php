@@ -13,6 +13,31 @@ use Mockery;
 use PHPUnit_Framework_TestCase;
 
 use mako\http\routing\Router;
+use mako\http\routing\constraints\Constraint;
+
+// --------------------------------------------------------------------------
+// START CLASSES
+// --------------------------------------------------------------------------
+
+class FooConstraint extends Constraint
+{
+	public function isSatisfied(): bool
+	{
+		return false;
+	}
+}
+
+class BarConstraint extends Constraint
+{
+	public function isSatisfied(): bool
+	{
+		return true;
+	}
+}
+
+// --------------------------------------------------------------------------
+// END CLASSES
+// --------------------------------------------------------------------------
 
 /**
  * @group unit
@@ -52,9 +77,9 @@ class RouterTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function getRouter($routes)
+	public function getRouter($routes, $container = null)
 	{
-		return new Router($this->getRouteCollection($routes));
+		return new Router($this->getRouteCollection($routes), $container);
 	}
 
 	/**
@@ -85,6 +110,8 @@ class RouterTest extends PHPUnit_Framework_TestCase
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+
+		$route->shouldReceive('getConstraints')->andReturn([]);
 
 		$route->shouldReceive('allowsMethod')->andReturn(false);
 
@@ -120,6 +147,8 @@ class RouterTest extends PHPUnit_Framework_TestCase
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+
+		$route->shouldReceive('getConstraints')->andReturn([]);
 
 		$route->shouldReceive('allowsMethod')->andReturn(true);
 
@@ -186,6 +215,8 @@ class RouterTest extends PHPUnit_Framework_TestCase
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+
+		$route->shouldReceive('getConstraints')->andReturn([]);
 
 		$route->shouldReceive('allowsMethod')->andReturn(true);
 
@@ -360,5 +391,102 @@ class RouterTest extends PHPUnit_Framework_TestCase
 		$routed = $router->route($request);
 
 		$this->assertSame($route, $routed);
+	}
+
+	/**
+	 *
+	 */
+	public function testSatisfiedConstraint()
+	{
+		$route = Mockery::mock('\mako\http\routing\Route');
+
+		$route->makePartial();
+
+		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+
+		$route->shouldReceive('getConstraints')->andReturn(['bar']);
+
+		$route->shouldReceive('allowsMethod')->andReturn(true);
+
+		$route->shouldReceive('hasTrailingSlash')->andReturn(false);
+
+		$route->shouldReceive('setParameters')->once()->with([]);
+
+		$container = Mockery::mock('\mako\syringe\Container');
+
+		$container->shouldReceive('get')->once()->with(BarConstraint::class)->andReturn(new BarConstraint);
+
+		$router = $this->getRouter([$route], $container);
+
+		$router->registerConstraint('bar', BarConstraint::class);
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('method')->andReturn('GET');
+
+		$request->shouldReceive('path')->andReturn('/foo');
+
+		$request->shouldReceive('setRoute')->once()->with($route);
+
+		$routed = $router->route($request);
+
+		$this->assertSame($route, $routed);
+	}
+
+	/**
+	 * @expectedException \mako\http\exceptions\NotFoundException
+	 */
+	public function testFailingConstraint()
+	{
+		$route = Mockery::mock('\mako\http\routing\Route');
+
+		$route->makePartial();
+
+		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+
+		$route->shouldReceive('getConstraints')->andReturn(['foo']);
+
+		$container = Mockery::mock('\mako\syringe\Container');
+
+		$container->shouldReceive('get')->once()->with(FooConstraint::class)->andReturn(new FooConstraint);
+
+		$router = $this->getRouter([$route], $container);
+
+		$router->registerConstraint('foo', FooConstraint::class);
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('method')->andReturn('GET');
+
+		$request->shouldReceive('path')->andReturn('/foo');
+
+		$routed = $router->route($request);
+
+		$this->assertSame($route, $routed);
+	}
+
+	/**
+	 * @expectedException RuntimeException
+	 * @expectedExceptionMessage No constraint named [ foo ] has been registered.
+	 */
+	public function testUnregisteredConstraint()
+	{
+		$route = Mockery::mock('\mako\http\routing\Route');
+
+		$route->makePartial();
+
+		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+
+		$route->shouldReceive('getConstraints')->andReturn(['foo']);
+
+		$router = $this->getRouter([$route]);
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('method')->andReturn('GET');
+
+		$request->shouldReceive('path')->andReturn('/foo');
+
+		$routed = $router->route($request);
 	}
 }

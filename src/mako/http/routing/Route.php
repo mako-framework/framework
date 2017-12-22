@@ -66,11 +66,11 @@ class Route
 	protected $hasTrailingSlash;
 
 	/**
-	 * Route constraints.
+	 * Route patterns.
 	 *
 	 * @var array
 	 */
-	protected $constraints = [];
+	protected $patterns = [];
 
 	/**
 	 * Middleware.
@@ -78,6 +78,13 @@ class Route
 	 * @var array
 	 */
 	protected $middleware = [];
+
+	/**
+	 * Constraints.
+	 *
+	 * @var array
+	 */
+	protected $constraints = [];
 
 	/**
 	 * Parameters.
@@ -163,6 +170,16 @@ class Route
 	}
 
 	/**
+	 * Returns the constraints.
+	 *
+	 * @return array
+	 */
+	public function getConstraints(): array
+	{
+		return $this->constraints;
+	}
+
+	/**
 	 * Sets the route parameters.
 	 *
 	 * @param array $parameters Parameters
@@ -224,14 +241,14 @@ class Route
 	}
 
 	/**
-	 * Sets the custom constraints.
+	 * Sets the custom patterns.
 	 *
-	 * @param  array                    $constraints Array of constraints
+	 * @param  array                    $patterns Array of patterns
 	 * @return \mako\http\routing\Route
 	 */
-	public function when(array $constraints): Route
+	public function when(array $patterns): Route
 	{
-		$this->constraints = $constraints + $this->constraints;
+		$this->patterns = $patterns + $this->patterns;
 
 		return $this;
 	}
@@ -245,6 +262,19 @@ class Route
 	public function middleware($middleware): Route
 	{
 		$this->middleware = array_merge($this->middleware, (array) $middleware);
+
+		return $this;
+	}
+
+	/**
+	 * Adds a set of constraints.
+	 *
+	 * @param  array|string             $constraint Constraint
+	 * @return \mako\http\routing\Route
+	 */
+	public function constraint($constraint): Route
+	{
+		$this->constraints = array_merge($this->constraints, (array) $constraint);
 
 		return $this;
 	}
@@ -284,11 +314,11 @@ class Route
 			$route = preg_replace('/\/{(\w+)}\?/', '(?:/{$1})?', $route);
 		}
 
-		if(!empty($this->constraints))
+		if(!empty($this->patterns))
 		{
-			foreach($this->constraints as $key => $constraint)
+			foreach($this->patterns as $key => $pattern)
 			{
-				$route = str_replace('{' . $key . '}', '(?P<' . $key . '>' . $constraint . ')', $route);
+				$route = str_replace('{' . $key . '}', '(?P<' . $key . '>' . $pattern . ')', $route);
 			}
 		}
 

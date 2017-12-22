@@ -41,7 +41,7 @@ class Application extends BaseApplication
 
 		// Route the request
 
-		$route = (new Router($this->container->get('routes')))->route($request);
+		$route = $this->container->get(Router::class)->route($request);
 
 		// Dispatch the request and send the response
 

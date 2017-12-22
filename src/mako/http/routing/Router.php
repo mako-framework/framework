@@ -7,6 +7,9 @@
 
 namespace mako\http\routing;
 
+use RuntimeException;
+
+use mako\common\traits\FunctionParserTrait;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\senders\Redirect;
@@ -14,6 +17,8 @@ use mako\http\routing\Route;
 use mako\http\routing\Routes;
 use mako\http\exceptions\NotFoundException;
 use mako\http\exceptions\MethodNotAllowedException;
+use mako\http\routing\constraints\ConstraintInterface;
+use mako\syringe\Container;
 
 /**
  * Router.
@@ -22,6 +27,8 @@ use mako\http\exceptions\MethodNotAllowedException;
  */
 class Router
 {
+	use FunctionParserTrait;
+
 	/**
 	 * Route collection.
 	 *
@@ -30,13 +37,64 @@ class Router
 	protected $routes;
 
 	/**
+	 * Container.
+	 *
+	 * @var \mako\syringe\Container
+	 */
+	protected $container;
+
+	/**
+	 * Constraints.
+	 *
+	 * @var array
+	 */
+	protected $constraints = [];
+
+	/**
+	 * Global constraints.
+	 *
+	 * @var array
+	 */
+	protected $globalConstraints = [];
+
+	/**
 	 * Constructor.
 	 *
-	 * @param \mako\http\routing\Routes $routes Routes
+	 * @param \mako\http\routing\Routes    $routes    Routes
+	 * @param \mako\syringe\Container|null $container Container
 	 */
-	public function __construct(Routes $routes)
+	public function __construct(Routes $routes, Container $container = null)
 	{
 		$this->routes  = $routes;
+
+		$this->container = $container ?? new Container;
+	}
+
+	/**
+	 * Registers constraint.
+	 *
+	 * @param  string                    $name       Constraint name
+	 * @param  string                    $constraint Constraint class name
+	 * @return \mako\http\routing\Router
+	 */
+	public function registerConstraint(string $name, string $constraint): Router
+	{
+		$this->constraints[$name] = $constraint;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the chosen constraint as global.
+	 *
+	 * @param  array                     $constraint Array of constraint names
+	 * @return \mako\http\routing\Router
+	 */
+	public function setConstraintAsGlobal(array $constraint): Router
+	{
+		$this->globalConstraints = $constraint;
+
+		return $this;
 	}
 
 	/**
@@ -129,6 +187,50 @@ class Router
 	}
 
 	/**
+	 * Constraint factory.
+	 *
+	 * @param  string                                             $constraint Constraint
+	 * @return \mako\http\routing\constraints\ConstraintInterface
+	 */
+	protected function constraintFactory(string $constraint): ConstraintInterface
+	{
+		list($constraint, $parameters) = $this->parseFunction($constraint);
+
+		if(!isset($this->constraints[$constraint]))
+		{
+			throw new RuntimeException(vsprintf('No constraint named [ %s ] has been registered.', [$constraint]));
+		}
+
+		$constraint = $this->container->get($this->constraints[$constraint]);
+
+		if(!empty($parameters))
+		{
+			$constraint->setParameters($parameters);
+		}
+
+		return $constraint;
+	}
+
+	/**
+	 * Returns true if all the route constraints are satisfied and false if not.
+	 *
+	 * @param  \mako\http\routing\Route $route Route
+	 * @return bool
+	 */
+	protected function constraintsAreSatisfied(Route $route): bool
+	{
+		foreach(array_merge($this->globalConstraints, $route->getConstraints()) as $constraint)
+		{
+			if($this->constraintFactory($constraint)->isSatisfied() === false)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Matches and returns the appropriate route along with its parameters.
 	 *
 	 * @param  \mako\http\Request       $request Request
@@ -144,7 +246,7 @@ class Router
 
 		foreach($this->routes->getRoutes() as $route)
 		{
-			if($this->matches($route, $requestPath))
+			if($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route))
 			{
 				if(!$route->allowsMethod($requestMethod))
 				{
@@ -185,11 +287,9 @@ class Router
 
 			throw new MethodNotAllowedException($this->getAllowedMethodsForMatchingRoutes($requestPath));
 		}
-		else
-		{
-			// No routes matched so we'll throw a 404 exception
 
-			throw new NotFoundException($requestMethod . ': ' . $requestPath);
-		}
+		// No routes matched so we'll throw a 404 exception
+
+		throw new NotFoundException($requestMethod . ': ' . $requestPath);
 	}
 }

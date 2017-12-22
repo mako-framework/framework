@@ -12,6 +12,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\Dispatcher;
 use mako\http\routing\URLBuilder;
+use mako\http\routing\Router;
 use mako\http\routing\Routes;
 
 /**
@@ -64,6 +65,21 @@ class HTTPService extends Service
 			->bindTo($app)($app, $container, $routes);
 
 			return $routes;
+		});
+
+		// Router
+
+		$this->container->registerSingleton(Router::class, function($container) use ($app)
+		{
+			$router = new Router($this->container->get(Routes::class), $container);
+
+			(function($app, $container, $router)
+			{
+				include $app->getPath() . '/routing/constraints.php';
+			})
+			->bindTo($app)($app, $container, $router);
+
+			return $router;
 		});
 
 		// Dispatcher
