@@ -419,4 +419,85 @@ class ManyToManyTest extends \ORMTestCase
 
 		$this->assertEquals(1, count($user->groups()->all()));
 	}
+
+	/**
+	 *
+	 */
+	public function testLinkWithSameAttributes()
+	{
+		$user = ManyToManyUser::get(3);
+
+		$group1 = ManyToManyGroup::get(1);
+		$group2 = ManyToManyGroup::get(4);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$user->groups()->link([$group1->id, $group2->id], ['extra' => 'barfoo']);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertEquals(3, count($groups));
+
+		$this->assertSame('barfoo', $groups[1]->extra);
+		$this->assertSame('barfoo', $groups[2]->extra);
+
+		$user->groups()->unlink([$group1->id, $group2->id]);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+	}
+
+	/**
+	 *
+	 */
+	public function testLinkWithDifferentAttributes()
+	{
+		$user = ManyToManyUser::get(3);
+
+		$group1 = ManyToManyGroup::get(1);
+		$group2 = ManyToManyGroup::get(4);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$user->groups()->link([$group1->id, $group2->id], [['extra' => 'barfoo'], ['extra' => 'bazbax']]);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertEquals(3, count($groups));
+
+		$this->assertSame('barfoo', $groups[1]->extra);
+		$this->assertSame('bazbax', $groups[2]->extra);
+
+		$user->groups()->unlink([$group1->id, $group2->id]);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+	}
+
+	/**
+	 *
+	 */
+	public function testUpdateLink()
+	{
+		$user = ManyToManyUser::get(1);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertEquals(2, count($groups));
+
+		$this->assertSame('foobar', $groups[0]->extra);
+		$this->assertSame(null, $groups[1]->extra);
+
+		$user->groups()->updateLink([$groups[0], $groups[1]], ['extra' => 'barfoo']);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertSame('barfoo', $groups[0]->extra);
+		$this->assertSame('barfoo', $groups[1]->extra);
+
+		$user->groups()->updateLink([$groups[0], $groups[1]], [['extra' => 'foobar'], ['extra' => null]]);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertSame('foobar', $groups[0]->extra);
+		$this->assertSame(null, $groups[1]->extra);
+	}
 }

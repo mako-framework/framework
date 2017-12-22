@@ -227,6 +227,16 @@ class ManyToMany extends Relation
 	}
 
 	/**
+	 * Returns a query builder instance to the junction table.
+	 *
+	 * @return \mako\database\query\Query
+	 */
+	protected function junction()
+	{
+		return $this->connection->builder()->table($this->getJunctionTable());
+	}
+
+	/**
 	 * Returns an array of ids.
 	 *
 	 * @param  mixed $id Id, model or an array of ids and/or models
@@ -250,28 +260,69 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * Returns a query builder instance to the junction table.
+	 * Get junction attributes.
 	 *
-	 * @return \mako\database\query\Query
+	 * @param  mixed $key        Key
+	 * @param  array $attributes Attributes
+	 * @return array
 	 */
-	protected function junction()
+	protected function getJunctionAttributes($key, array $attributes): array
 	{
-		return $this->connection->builder()->table($this->getJunctionTable());
+		if(isset($attributes[$key]))
+		{
+			return $attributes[$key];
+		}
+
+		return $attributes;
 	}
 
 	/**
 	 * Links related records.
 	 *
-	 * @param  mixed $id Id, model or an array of ids and/or models
+	 * @param  mixed $id         Id, model or an array of ids and/or models
+	 * @param  array $attributes Junction attributes
 	 * @return bool
 	 */
-	public function link($id)
+	public function link($id, array $attributes = []): bool
 	{
 		$success = true;
 
-		foreach($this->getJunctionKeys($id) as $key)
+		$foreignKey = $this->getForeignKey();
+
+		$foreignKeyValue = $this->parent->getPrimaryKeyValue();
+
+		$junctionKey = $this->getJunctionKey();
+
+		foreach($this->getJunctionKeys($id) as $key => $id)
 		{
-			$success = $success && $this->junction()->insert([$this->getForeignKey() => $this->parent->getPrimaryKeyValue(), $this->getJunctionKey() => $key]);
+			$columns = [$foreignKey  => $foreignKeyValue, $junctionKey => $id];
+
+			$success = $success && $this->junction()->insert($columns + $this->getJunctionAttributes($key, $attributes));
+		}
+
+		return $success;
+	}
+
+	/**
+	 * Updates junction attributes.
+	 *
+	 * @param  mixed $id         Id, model or an array of ids and/or models
+	 * @param  array $attributes Junction attributes
+	 * @return bool
+	 */
+	public function updateLink($id, array $attributes): bool
+	{
+		$success = true;
+
+		$foreignKey = $this->getForeignKey();
+
+		$foreignKeyValue = $this->parent->getPrimaryKeyValue();
+
+		$junctionKey = $this->getJunctionKey();
+
+		foreach($this->getJunctionKeys($id) as $key => $id)
+		{
+			$success = $success && (bool) $this->junction()->where($foreignKey, '=', $foreignKeyValue)->where($junctionKey, '=', $id)->update($this->getJunctionAttributes($key, $attributes));
 		}
 
 		return $success;
@@ -283,7 +334,7 @@ class ManyToMany extends Relation
 	 * @param  mixed $id Id, model or an array of ids and/or models
 	 * @return bool
 	 */
-	public function unlink($id = null)
+	public function unlink($id = null): bool
 	{
 		$query = $this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
 
@@ -301,7 +352,7 @@ class ManyToMany extends Relation
 	 * @param  array $ids An array of ids and/or models
 	 * @return bool
 	 */
-	public function synchronize(array $ids)
+	public function synchronize(array $ids): bool
 	{
 		$success = true;
 

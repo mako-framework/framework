@@ -98,66 +98,6 @@ class Router
 	}
 
 	/**
-	 * Returns a route with a closure action that redirects to the correct URL.
-	 *
-	 * @param  string                   $requestPath The requested path
-	 * @return \mako\http\routing\Route
-	 */
-	protected function redirectRoute(string $requestPath): Route
-	{
-		return new Route([], '', function(Request $request) use ($requestPath)
-		{
-			$url = $request->baseURL() . ($request->isClean() ? '' : '/' . $request->scriptName()) . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
-
-			$get = $request->query->all();
-
-			if(!empty($get))
-			{
-				$url = $url . '?' . http_build_query($get);
-			}
-
-			return (new Redirect($url))->status(301);
-		});
-	}
-
-	/**
-	 * Returns an array of all allowed request methods for the requested route.
-	 *
-	 * @param  string $requestPath The requested path
-	 * @return array
-	 */
-	protected function getAllowedMethodsForMatchingRoutes(string $requestPath): array
-	{
-		$methods = [];
-
-		foreach($this->routes->getRoutes() as $route)
-		{
-			if($this->matches($route, $requestPath))
-			{
-				$methods = array_merge($methods, $route->getMethods());
-			}
-		}
-
-		return array_unique($methods);
-	}
-
-	/**
-	 * Returns a route with a closure action that sets the allow header.
-	 *
-	 * @param  string                   $requestPath The requested path
-	 * @return \mako\http\routing\Route
-	 */
-	protected function optionsRoute(string $requestPath): Route
-	{
-		$allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
-
-		return new Route([], '', function(Response $response) use ($allowedMethods)
-		{
-			$response->header('Allow', implode(',', $allowedMethods));
-		});
-	}
-
-	/**
 	 * Returns TRUE if the route matches the request path and FALSE if not.
 	 *
 	 * @param  \mako\http\routing\Route $route Route
@@ -228,6 +168,66 @@ class Router
 		}
 
 		return true;
+	}
+
+	/**
+	 * Returns a route with a closure action that redirects to the correct URL.
+	 *
+	 * @param  string                   $requestPath The requested path
+	 * @return \mako\http\routing\Route
+	 */
+	protected function redirectRoute(string $requestPath): Route
+	{
+		return new Route([], '', function(Request $request) use ($requestPath)
+		{
+			$url = $request->baseURL() . ($request->isClean() ? '' : '/' . $request->scriptName()) . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
+
+			$get = $request->query->all();
+
+			if(!empty($get))
+			{
+				$url = $url . '?' . http_build_query($get);
+			}
+
+			return (new Redirect($url))->status(301);
+		});
+	}
+
+	/**
+	 * Returns an array of all allowed request methods for the requested route.
+	 *
+	 * @param  string $requestPath The requested path
+	 * @return array
+	 */
+	protected function getAllowedMethodsForMatchingRoutes(string $requestPath): array
+	{
+		$methods = [];
+
+		foreach($this->routes->getRoutes() as $route)
+		{
+			if($this->matches($route, $requestPath))
+			{
+				$methods = array_merge($methods, $route->getMethods());
+			}
+		}
+
+		return array_unique($methods);
+	}
+
+	/**
+	 * Returns a route with a closure action that sets the allow header.
+	 *
+	 * @param  string                   $requestPath The requested path
+	 * @return \mako\http\routing\Route
+	 */
+	protected function optionsRoute(string $requestPath): Route
+	{
+		$allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
+
+		return new Route([], '', function(Response $response) use ($allowedMethods)
+		{
+			$response->header('Allow', implode(',', $allowedMethods));
+		});
 	}
 
 	/**
