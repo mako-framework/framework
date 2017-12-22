@@ -466,6 +466,40 @@ class RouterTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @expectedException \mako\http\exceptions\NotFoundException
+	 */
+	public function testGlobalFailingConstraint()
+	{
+		$route = Mockery::mock('\mako\http\routing\Route');
+
+		$route->makePartial();
+
+		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+
+		$route->shouldReceive('getConstraints')->andReturn([]);
+
+		$container = Mockery::mock('\mako\syringe\Container');
+
+		$container->shouldReceive('get')->once()->with(FooConstraint::class)->andReturn(new FooConstraint);
+
+		$router = $this->getRouter([$route], $container);
+
+		$router->registerConstraint('foo', FooConstraint::class);
+
+		$router->setConstraintAsGlobal(['foo']);
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('method')->andReturn('GET');
+
+		$request->shouldReceive('path')->andReturn('/foo');
+
+		$routed = $router->route($request);
+
+		$this->assertSame($route, $routed);
+	}
+
+	/**
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage No constraint named [ foo ] has been registered.
 	 */
