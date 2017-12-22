@@ -247,7 +247,7 @@ class Dispatcher
 	}
 
 	/**
-	 * Executs a controller action.
+	 * Executes a controller action.
 	 *
 	 * @param  string              $controller Controller
 	 * @param  array               $parameters Parameters
