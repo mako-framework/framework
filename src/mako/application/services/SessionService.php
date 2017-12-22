@@ -25,7 +25,7 @@ class SessionService extends Service
 	/**
 	 * Returns a database store instance.
 	 *
-	 * @param  \mako\syringe\Container       $container      IoC container instance
+	 * @param  \mako\syringe\Container       $container      Container
 	 * @param  array                         $config         Store configuration
 	 * @param  bool|array                    $classWhitelist Class whitelist
 	 * @return \mako\session\stores\Database
@@ -38,7 +38,7 @@ class SessionService extends Service
 	/**
 	 * Returns a file store instance.
 	 *
-	 * @param  \mako\syringe\Container   $container      IoC container instance
+	 * @param  \mako\syringe\Container   $container      Container
 	 * @param  array                     $config         Store configuration
 	 * @param  bool|array                $classWhitelist Class whitelist
 	 * @return \mako\session\stores\File
@@ -51,7 +51,7 @@ class SessionService extends Service
 	/**
 	 * Returns a null store instance.
 	 *
-	 * @param  \mako\syringe\Container        $container      IoC container instance
+	 * @param  \mako\syringe\Container        $container      Container
 	 * @param  array                          $config         Store configuration
 	 * @param  bool|array                     $classWhitelist Class whitelist
 	 * @return \mako\session\stores\NullStore
@@ -64,7 +64,7 @@ class SessionService extends Service
 	/**
 	 * Returns a redis store instance.
 	 *
-	 * @param  \mako\syringe\Container    $container      IoC container instance
+	 * @param  \mako\syringe\Container    $container      Container
 	 * @param  array                      $config         Store configuration
 	 * @param  bool|array                 $classWhitelist Class whitelist
 	 * @return \mako\session\stores\Redis
@@ -77,7 +77,7 @@ class SessionService extends Service
 	/**
 	 * Returns a session store instance.
 	 *
-	 * @param  \mako\syringe\Container             $container      IoC container instance
+	 * @param  \mako\syringe\Container             $container      Container
 	 * @param  array                               $config         Session configuration
 	 * @param  bool|array                          $classWhitelist Class whitelist
 	 * @return \mako\session\stores\StoreInterface

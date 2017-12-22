@@ -51,7 +51,7 @@ abstract class Command extends BaseCommand
 	protected $database;
 
 	/**
-	 * IoC container.
+	 * Container.
 	 *
 	 * @var \mako\syringe\Container
 	 */

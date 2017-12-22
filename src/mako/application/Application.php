@@ -32,7 +32,7 @@ abstract class Application
 	protected static $instance;
 
 	/**
-	 * IoC container instance.
+	 * Container.
 	 *
 	 * @var \mako\syringe\Container;
 	 */
@@ -117,7 +117,7 @@ abstract class Application
 	}
 
 	/**
-	 * Returns the IoC container instance.
+	 * Returns the container instance.
 	 *
 	 * @return \mako\syringe\Container
 	 */
@@ -272,7 +272,7 @@ abstract class Application
 	}
 
 	/**
-	 * Registers services in the IoC container.
+	 * Registers services in the container.
 	 *
 	 * @param string $type Service type
 	 */
@@ -301,7 +301,7 @@ abstract class Application
 	}
 
 	/**
-	 * Register services in the IoC container.
+	 * Register services in the container.
 	 */
 	protected function registerServices()
 	{
@@ -426,7 +426,7 @@ abstract class Application
 	 */
 	protected function initialize()
 	{
-		// Create IoC container instance and register it in itself so that it can be injected
+		// Create container instance and register it in itself so that it can be injected
 
 		$this->container = $this->containerFactory();
 

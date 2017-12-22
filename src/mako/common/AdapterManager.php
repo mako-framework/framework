@@ -23,7 +23,7 @@ abstract class AdapterManager
 	use ConfigurableTrait;
 
 	/**
-	 * IoC container instance.
+	 * Container.
 	 *
 	 * @var \mako\syringe\Container
 	 */
@@ -48,7 +48,7 @@ abstract class AdapterManager
 	 *
 	 * @param string                  $default        Default connection name
 	 * @param array                   $configurations Configurations
-	 * @param \mako\syringe\Container $container      IoC container instance
+	 * @param \mako\syringe\Container $container      Container
 	 */
 	public function __construct(string $default, array $configurations, Container $container)
 	{

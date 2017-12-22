@@ -49,7 +49,7 @@ class Dispatcher
 	protected $response;
 
 	/**
-	 * IoC container instance.
+	 * Container.
 	 *
 	 * @var \mako\syringe\Container
 	 */
@@ -81,7 +81,7 @@ class Dispatcher
 	 *
 	 * @param \mako\http\Request           $request   Request instance
 	 * @param \mako\http\Response          $response  Response instance
-	 * @param \mako\syringe\Container|null $container IoC container
+	 * @param \mako\syringe\Container|null $container Container
 	 */
 	public function __construct(Request $request, Response $response, Container $container = null)
 	{

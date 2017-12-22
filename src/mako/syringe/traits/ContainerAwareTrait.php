@@ -45,7 +45,7 @@ use mako\syringe\Container;
 trait ContainerAwareTrait
 {
 	/**
-	 * IoC container instance.
+	 * Container.
 	 *
 	 * @var \mako\syringe\Container
 	 */
@@ -61,7 +61,7 @@ trait ContainerAwareTrait
 	/**
 	 * Sets the container instance.
 	 *
-	 * @param \mako\syringe\Container $container IoC container instance
+	 * @param \mako\syringe\Container $container Container
 	 */
 	public function setContainer(Container $container)
 	{
