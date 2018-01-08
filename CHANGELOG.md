@@ -29,6 +29,7 @@ Update using ```composer update```.
 * The `Str::slug()` method now uses `rawurlencode` instead of `urlencode`.
 * All HTTP middleware must now implement the `mako\http\routing\middleware\MiddlewareInterface`.
 * HTTP middleware is now registered with the route dispatcher.
+* The `Route::when()` method has been renamed to `patterns`.
 
 --------------------------------------------------------
 

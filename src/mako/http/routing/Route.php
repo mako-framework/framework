@@ -246,7 +246,7 @@ class Route
 	 * @param  array                    $patterns Array of patterns
 	 * @return \mako\http\routing\Route
 	 */
-	public function when(array $patterns): Route
+	public function patterns(array $patterns): Route
 	{
 		$this->patterns = $patterns + $this->patterns;
 

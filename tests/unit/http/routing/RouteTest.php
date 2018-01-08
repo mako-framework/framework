@@ -119,7 +119,7 @@ class RouteTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testMatchWithParameterConstraints()
 	{
-		$route = (new Route(['GET'], '/foo/{id}', 'FooController::fooAction'))->when(['id' => '[0-9]+']);
+		$route = (new Route(['GET'], '/foo/{id}', 'FooController::fooAction'))->patterns(['id' => '[0-9]+']);
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
 
@@ -129,7 +129,7 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$route = (new Route(['GET'], '/foo/{id}/', 'FooController::fooAction'))->when(['id' => '[0-9]+']);
+		$route = (new Route(['GET'], '/foo/{id}/', 'FooController::fooAction'))->patterns(['id' => '[0-9]+']);
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
 
@@ -297,7 +297,7 @@ class RouteTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$route = (new Route(['GET'], '/foo/{id}', 'FooController::fooAction'))->when(['id' => '[0-9]+']);
+		$route = (new Route(['GET'], '/foo/{id}', 'FooController::fooAction'))->patterns(['id' => '[0-9]+']);
 
 		$this->assertSame('#^/foo/(?P<id>[0-9]+)$#su', $route->getRegex());
 	}
