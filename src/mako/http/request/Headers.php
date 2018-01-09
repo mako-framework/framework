@@ -195,60 +195,64 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
+	 * @param  string|null $default Default content type
 	 * @return array
 	 */
-	public function acceptableContentTypes(): array
+	public function acceptableContentTypes(string $default = null): array
 	{
 		if(!isset($this->acceptableContentTypes))
 		{
 			$this->acceptableContentTypes = $this->parseAcceptHeader($this->get('accept'));
 		}
 
-		return $this->acceptableContentTypes;
+		return $this->acceptableContentTypes ?: (array) $default;
 	}
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
+	 * @param  string|null $default Default language
 	 * @return array
 	 */
-	public function acceptableLanguages(): array
+	public function acceptableLanguages(string $default = null): array
 	{
 		if(!isset($this->acceptableLanguages))
 		{
 			$this->acceptableLanguages = $this->parseAcceptHeader($this->get('accept-language'));
 		}
 
-		return $this->acceptableLanguages;
+		return $this->acceptableLanguages ?: (array) $default;
 	}
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
+	 * @param  string|null $default Default charset
 	 * @return array
 	 */
-	public function acceptableCharsets(): array
+	public function acceptableCharsets(string $default = null): array
 	{
 		if(!isset($this->acceptableCharsets))
 		{
 			$this->acceptableCharsets = $this->parseAcceptHeader($this->get('accept-charset'));
 		}
 
-		return $this->acceptableCharsets;
+		return $this->acceptableCharsets ?: (array) $default;
 	}
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
+	 * @param  string|null $default Default encoding
 	 * @return array
 	 */
-	public function acceptableEncodings(): array
+	public function acceptableEncodings(string $default = null): array
 	{
 		if(!isset($this->acceptableEncodings))
 		{
 			$this->acceptableEncodings = $this->parseAcceptHeader($this->get('accept-encoding'));
 		}
 
-		return $this->acceptableEncodings;
+		return $this->acceptableEncodings ?: (array) $default;
 	}
 }

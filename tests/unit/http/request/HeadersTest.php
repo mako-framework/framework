@@ -175,6 +175,16 @@ class HeadersTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testAcceptableContentTypesWithNoHeaders()
+	{
+		$headers = new Headers;
+
+		$this->assertSame(['default'], $headers->acceptableContentTypes('default'));
+	}
+
+	/**
+	 *
+	 */
 	public function testAcceptableLanguages()
 	{
 		$headers = new Headers($this->getAcceptHeaders());
@@ -185,11 +195,31 @@ class HeadersTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function acceptableCharsets()
+	public function testAcceptableLanguagesWithNoHeaders()
+	{
+		$headers = new Headers;
+
+		$this->assertSame(['default'], $headers->acceptableLanguages('default'));
+	}
+
+	/**
+	 *
+	 */
+	public function testAcceptableCharsets()
 	{
 		$headers = new Headers($this->getAcceptHeaders());
 
 		$this->assertSame(['UTF-8', 'UTF-16', 'FOO-1'], $headers->acceptableCharsets());
+	}
+
+	/**
+	 *
+	 */
+	public function acceptableCharsetsWithNoHeaders()
+	{
+		$headers = new Headers;
+
+		$this->assertSame(['default'], $headers->acceptableCharsets('default'));
 	}
 
 	/**
@@ -200,5 +230,15 @@ class HeadersTest extends PHPUnit_Framework_TestCase
 		$headers = new Headers($this->getAcceptHeaders());
 
 		$this->assertSame(['gzip', 'deflate', 'sdch', 'foobar'], $headers->acceptableEncodings());
+	}
+
+	/**
+	 *
+	 */
+	public function testAcceptableEncodingsWithNoHeaders()
+	{
+		$headers = new Headers;
+
+		$this->assertSame(['default'], $headers->acceptableEncodings('default'));
 	}
 }
