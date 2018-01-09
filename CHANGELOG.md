@@ -17,6 +17,14 @@ Update using ```composer update```.
 * Mako is now using Whoops for displaying exception details.
 * It is now possible register route constraints with the router.
 * It is now possible to set and update junction attributes.
+* Added `Request::getQuery()` method.
+* Added `Request::getPost()` method.
+* Added `Request::getHeaders()` method.
+* Added `Request::getCookies()` method.
+* Added `Request::getBody()` method.
+* Added `Request::getData()` method.
+* Added `Request::getFiles()` method.
+* Added `Request::getServer()` method.
 
 #### Changes
 
@@ -30,6 +38,31 @@ Update using ```composer update```.
 * All HTTP middleware must now implement the `mako\http\routing\middleware\MiddlewareInterface`.
 * HTTP middleware is now registered with the route dispatcher.
 * The `Route::when()` method has been renamed to `patterns`.
+* Renamed the `Request::body()` method to `getRawBody`.
+* Renamed the `Request::bodyAsStream` method `getBodyAsStream`.
+
+#### Deprecations
+
+* Deprecated the `Request::get()` method.
+* Deprecated the `Request::post()` method.
+* Deprecated the `Request::put()` method.
+* Deprecated the `Request::patch()` method.
+* Deprecated the `Request::delete()` method.
+* Deprecated the `Request::cookie()` method.
+* Deprecated the `Request::signedCookie()` method.
+* Deprecated the `Request::file()` method.
+* Deprecated the `Request::server()` method.
+* Deprecated the `Request::has()` method.
+* Deprecated the `Request::data()` method.
+* Deprecated the `Request::whitelisted()` method.
+* Deprecated the `Request::blacklisted()` method.
+* Deprecated the `Request::header()` method.
+* Deprecated the `Request::acceptableContentTypes()` method.
+* Deprecated the `Request::acceptableLanguages()` method.
+* Deprecated the `Request::acceptableCharsets()` method.
+* Deprecated the `Request::acceptableEncodings()` method.
+
+> Deprecated methods will be removed in 5.4.0.
 
 --------------------------------------------------------
 
