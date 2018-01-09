@@ -1,4 +1,4 @@
-### 5.3.0 <small> (2017-??-??)</small>
+### 5.3.0 <small> (2018-??-??)</small>
 
 Update using ```composer update```.
 
@@ -25,6 +25,8 @@ Update using ```composer update```.
 * Added `Request::getData()` method.
 * Added `Request::getFiles()` method.
 * Added `Request::getServer()` method.
+* Added `Parameters::whitelisted()` method.
+* Added `Parameters::blacklisted()` method.
 
 #### Changes
 
