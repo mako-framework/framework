@@ -41,7 +41,7 @@ Update using ```composer update```.
 * HTTP middleware is now registered with the route dispatcher.
 * The `Route::when()` method has been renamed to `patterns`.
 * Renamed the `Request::body()` method to `getRawBody`.
-* Renamed the `Request::bodyAsStream` method `getBodyAsStream`.
+* Renamed the `Request::bodyAsStream` method `getRawBodyAsStream`.
 
 #### Deprecations
 

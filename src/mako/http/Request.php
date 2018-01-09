@@ -347,7 +347,7 @@ class Request
 	 *
 	 * @return resource
 	 */
-	public function getBodyAsStream()
+	public function getRawBodyAsStream()
 	{
 		return fopen('php://input', 'r');
 	}
