@@ -190,7 +190,7 @@ class PaginationTest extends PHPUnit_Framework_TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 1]);
 
-		$request->query = $query;
+		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
 		$urlBuilder = $this->getURLBuilder();
 
@@ -274,7 +274,7 @@ class PaginationTest extends PHPUnit_Framework_TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 2]);
 
-		$request->query = $query;
+		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
 		$urlBuilder = $this->getURLBuilder();
 
@@ -357,7 +357,7 @@ class PaginationTest extends PHPUnit_Framework_TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 10]);
 
-		$request->query = $query;
+		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
 		$urlBuilder = $this->getURLBuilder();
 

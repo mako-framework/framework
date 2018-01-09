@@ -96,7 +96,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$acceptableContentTypes = ['text/html', 'application/xhtml+xml', 'image/webp', 'application/xml', '*/*', 'foo/bar'];
 
-		$this->assertEquals($acceptableContentTypes, (new Request(['server' => $server]))->acceptableContentTypes());
+		$this->assertEquals($acceptableContentTypes, (new Request(['server' => $server]))->getHeaders()->acceptableContentTypes());
 	}
 
 	/**
@@ -108,7 +108,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$acceptableLanguages = ['en-US', 'en', 'da', 'fr', 'nb', 'sv', 'foo'];
 
-		$this->assertEquals($acceptableLanguages, (new Request(['server' => $server]))->acceptableLanguages());
+		$this->assertEquals($acceptableLanguages, (new Request(['server' => $server]))->getHeaders()->acceptableLanguages());
 	}
 
 	/**
@@ -120,7 +120,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$acceptableCharsets = ['UTF-8', 'UTF-16', 'FOO-1'];
 
-		$this->assertEquals($acceptableCharsets, (new Request(['server' => $server]))->acceptableCharsets());
+		$this->assertEquals($acceptableCharsets, (new Request(['server' => $server]))->getHeaders()->acceptableCharsets());
 	}
 
 	/**
@@ -132,7 +132,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$acceptableEncodings = ['gzip', 'deflate', 'sdch', 'foobar'];
 
-		$this->assertEquals($acceptableEncodings, (new Request(['server' => $server]))->acceptableEncodings());
+		$this->assertEquals($acceptableEncodings, (new Request(['server' => $server]))->getHeaders()->acceptableEncodings());
 	}
 
 	/**
@@ -562,11 +562,11 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$request = new Request(['cookies' => $cookies]);
 
-		$this->assertNull($request->cookie('bar'));
+		$this->assertNull($request->getCookies()->get('bar'));
 
-		$this->assertFalse($request->cookie('bar', false));
+		$this->assertFalse($request->getCookies()->get('bar', false));
 
-		$this->assertEquals('bar', $request->cookie('foo'));
+		$this->assertEquals('bar', $request->getCookies()->get('foo'));
 	}
 
 	/**
@@ -584,15 +584,15 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$request = new Request(['cookies' => $cookies], $signer);
 
-		$this->assertNull($request->signedCookie('bar'));
+		$this->assertNull($request->getCookies()->getSigned('bar'));
 
-		$this->assertFalse($request->signedCookie('bar', false));
+		$this->assertFalse($request->getCookies()->getSigned('bar', false));
 
-		$this->assertEquals('bar', $request->signedCookie('foo'));
+		$this->assertEquals('bar', $request->getCookies()->getSigned('foo'));
 
-		$this->assertNull($request->signedCookie('baz'));
+		$this->assertNull($request->getCookies()->getSigned('baz'));
 
-		$this->assertFalse($request->signedCookie('baz', false));
+		$this->assertFalse($request->getCookies()->getSigned('baz', false));
 	}
 
 	/**
@@ -602,7 +602,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 	{
 		$request = new Request();
 
-		$request->signedCookie('foo');
+		$request->getCookies()->getSigned('foo');
 	}
 
 	/**
@@ -614,13 +614,13 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertNull($request->header('bar'));
+		$this->assertNull($request->getHeaders()->get('bar'));
 
-		$this->assertFalse($request->header('bar', false));
+		$this->assertFalse($request->getHeaders()->get('bar', false));
 
-		$this->assertEquals('keep-alive', $request->header('connection'));
+		$this->assertEquals('keep-alive', $request->getHeaders()->get('connection'));
 
-		$this->assertEquals('keep-alive', $request->header('ConNeCtIoN'));
+		$this->assertEquals('keep-alive', $request->getHeaders()->get('ConNeCtIoN'));
 	}
 
 	/**
@@ -632,13 +632,13 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertNull($request->server('bar'));
+		$this->assertNull($request->getServer()->get('bar'));
 
-		$this->assertFalse($request->server('bar', false));
+		$this->assertFalse($request->getServer()->get('bar', false));
 
-		$this->assertEquals('example.local', $request->server('HTTP_HOST'));
+		$this->assertEquals('example.local', $request->getServer()->get('HTTP_HOST'));
 
-		$this->assertEquals($server, $request->server());
+		$this->assertEquals($server, $request->getServer()->all());
 	}
 
 	/**
@@ -650,15 +650,15 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$request = new Request(['get' => $get]);
 
-		$this->assertNull($request->get('bar'));
+		$this->assertNull($request->getQuery()->get('bar'));
 
-		$this->assertFalse($request->get('bar', false));
+		$this->assertFalse($request->getQuery()->get('bar', false));
 
-		$this->assertEquals('bar', $request->get('foo'));
+		$this->assertEquals('bar', $request->getQuery()->get('foo'));
 
-		$this->assertEquals('bax', $request->get('baz.0'));
+		$this->assertEquals('bax', $request->getQuery()->get('baz.0'));
 
-		$this->assertEquals($get, $request->get());
+		$this->assertEquals($get, $request->getQuery()->all());
 	}
 
 	/**
@@ -670,15 +670,15 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$request = new Request(['post' => $post]);
 
-		$this->assertNull($request->post('bar'));
+		$this->assertNull($request->getPost()->get('bar'));
 
-		$this->assertFalse($request->post('bar', false));
+		$this->assertFalse($request->getPost()->get('bar', false));
 
-		$this->assertEquals('bar', $request->post('foo'));
+		$this->assertEquals('bar', $request->getPost()->get('foo'));
 
-		$this->assertEquals('bax', $request->post('baz.0'));
+		$this->assertEquals('bax', $request->getPost()->get('baz.0'));
 
-		$this->assertEquals($post, $request->post());
+		$this->assertEquals($post, $request->getPost()->all());
 	}
 
 	/**
@@ -688,7 +688,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 	{
 		$request = new Request(['body' => '{"foo":"bar","baz":["bax"]}']);
 
-		$this->assertEquals('{"foo":"bar","baz":["bax"]}', $request->body());
+		$this->assertEquals('{"foo":"bar","baz":["bax"]}', $request->getRawBody());
 	}
 
 	/**
@@ -704,15 +704,15 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$request = new Request(['server' => $server, 'body' => json_encode($body)]);
 
-		$this->assertNull($request->put('bar'));
+		$this->assertNull($request->getBody()->get('bar'));
 
-		$this->assertFalse($request->put('bar', false));
+		$this->assertFalse($request->getBody()->get('bar', false));
 
-		$this->assertEquals('bar', $request->put('foo'));
+		$this->assertEquals('bar', $request->getBody()->get('foo'));
 
-		$this->assertEquals('bax', $request->put('baz.0'));
+		$this->assertEquals('bax', $request->getBody()->get('baz.0'));
 
-		$this->assertEquals($body, $request->put());
+		$this->assertEquals($body, $request->getBody()->all());
 	}
 
 	/**
@@ -728,15 +728,15 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$request = new Request(['server' => $server, 'body' => json_encode($body)]);
 
-		$this->assertNull($request->put('bar'));
+		$this->assertNull($request->getBody()->get('bar'));
 
-		$this->assertFalse($request->put('bar', false));
+		$this->assertFalse($request->getBody()->get('bar', false));
 
-		$this->assertEquals('bar', $request->put('foo'));
+		$this->assertEquals('bar', $request->getBody()->get('foo'));
 
-		$this->assertEquals('bax', $request->put('baz.0'));
+		$this->assertEquals('bax', $request->getBody()->get('baz.0'));
 
-		$this->assertEquals($body, $request->put());
+		$this->assertEquals($body, $request->getBody()->all());
 	}
 
 	/**
@@ -752,15 +752,15 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		$request = new Request(['server' => $server, 'body' => http_build_query($body)]);
 
-		$this->assertNull($request->put('bar'));
+		$this->assertNull($request->getBody()->get('bar'));
 
-		$this->assertFalse($request->put('bar', false));
+		$this->assertFalse($request->getBody()->get('bar', false));
 
-		$this->assertEquals('bar', $request->put('foo'));
+		$this->assertEquals('bar', $request->getBody()->get('foo'));
 
-		$this->assertEquals('bax', $request->put('baz.0'));
+		$this->assertEquals('bax', $request->getBody()->get('baz.0'));
 
-		$this->assertEquals($body, $request->put());
+		$this->assertEquals($body, $request->getBody()->all());
 	}
 
 	/**
@@ -833,7 +833,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$file = $request->file('upload');
+		$file = $request->getFiles()->get('upload');
 
 		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
 
@@ -870,7 +870,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$file = $request->file('upload.0');
+		$file = $request->getFiles()->get('upload.0');
 
 		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
 
@@ -884,7 +884,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
 		//
 
-		$file = $request->file('upload.1');
+		$file = $request->getFiles()->get('upload.1');
 
 		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
 
@@ -904,10 +904,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
 	{
 		$request = new Request;
 
-		$this->assertEquals([], $request->file());
+		$this->assertEquals([], $request->getFiles()->all());
 
-		$this->assertNull($request->file('foo'));
+		$this->assertNull($request->getFiles()->get('foo'));
 
-		$this->assertFalse($request->file('foo', false));
+		$this->assertFalse($request->getFiles()->get('foo', false));
 	}
 }

@@ -14,6 +14,7 @@ use PHPUnit_Framework_TestCase;
 use mako\error\handlers\web\ProductionHandler;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\request\Headers;
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\view\ViewFactory;
 
@@ -43,11 +44,17 @@ class ProductionHandlerTest extends PHPUnit_Framework_TestCase
 
 		//
 
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('acceptableContentTypes')->twice()->andReturn([]);
+
+		//
+
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('isAjax')->once()->andReturn(false);
 
-		$request->shouldReceive('acceptableContentTypes')->twice()->andReturn([]);
+		$request->shouldReceive('getHeaders')->twice()->andReturn($headers);
 
 		//
 
@@ -91,11 +98,17 @@ class ProductionHandlerTest extends PHPUnit_Framework_TestCase
 
 		//
 
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('acceptableContentTypes')->twice()->andReturn([]);
+
+		//
+
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('isAjax')->once()->andReturn(false);
 
-		$request->shouldReceive('acceptableContentTypes')->twice()->andReturn([]);
+		$request->shouldReceive('getHeaders')->twice()->andReturn($headers);
 
 		//
 
@@ -191,11 +204,17 @@ class ProductionHandlerTest extends PHPUnit_Framework_TestCase
 
 		//
 
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('acceptableContentTypes')->once()->andReturn([]);
+
+		//
+
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('isAjax')->once()->andReturn(false);
 
-		$request->shouldReceive('acceptableContentTypes')->once()->andReturn([]);
+		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
 		//
 

@@ -36,7 +36,7 @@ trait HandlerHelperTrait
 				return true;
 			}
 
-			$acceptableContentTypes = $this->request->acceptableContentTypes();
+			$acceptableContentTypes = $this->request->getHeaders()->acceptableContentTypes();
 
 			if(isset($acceptableContentTypes[0]) && in_array($acceptableContentTypes[0], $jsonMimeTypes))
 			{
@@ -63,7 +63,7 @@ trait HandlerHelperTrait
 				return true;
 			}
 
-			$acceptableContentTypes = $this->request->acceptableContentTypes();
+			$acceptableContentTypes = $this->request->getHeaders()->acceptableContentTypes();
 
 			if(isset($acceptableContentTypes[0]) && in_array($acceptableContentTypes[0], $xmlMimeTypes))
 			{

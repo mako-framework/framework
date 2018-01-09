@@ -133,4 +133,48 @@ class ParametersTest extends PHPUnit_Framework_TestCase
 
 		$this->assertSame(['foo' => 'bar'], $parameters->all());
 	}
+
+	/**
+	 *
+	 */
+	public function testWhitelisted()
+	{
+		$parameters = new Parameters(['foo' => 'bar', 'baz' => 'bax']);
+
+		$this->assertSame(['foo' => 'bar'], $parameters->whitelisted(['foo']));
+
+		//
+
+		$parameters = new Parameters(['foo' => 'bar', 'baz' => 'bax']);
+
+		$this->assertSame(['baz' => 'bax'], $parameters->whitelisted(['baz']));
+
+		//
+
+		$parameters = new Parameters([]);
+
+		$this->assertSame(['foo' => 'default'], $parameters->whitelisted(['foo'], ['foo' => 'default']));
+	}
+
+	/**
+	 *
+	 */
+	public function testBlacklisted()
+	{
+		$parameters = new Parameters(['foo' => 'bar', 'baz' => 'bax']);
+
+		$this->assertSame(['baz' => 'bax'], $parameters->blacklisted(['foo']));
+
+		//
+
+		$parameters = new Parameters(['foo' => 'bar', 'baz' => 'bax']);
+
+		$this->assertSame(['foo' => 'bar'], $parameters->blacklisted(['baz']));
+
+		//
+
+		$parameters = new Parameters([]);
+
+		$this->assertSame(['foo' => 'default'], $parameters->blacklisted(['bar'], ['foo' => 'default']));
+	}
 }

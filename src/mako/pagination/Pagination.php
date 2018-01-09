@@ -225,7 +225,7 @@ class Pagination implements PaginationInterface
 
 			$pagination = ['items' => $this->items, 'items_per_page' => $this->itemsPerPage, 'number_of_pages' => $this->pages];
 
-			$params = $this->request->query->all();
+			$params = $this->request->getQuery()->all();
 
 			if($this->currentPage > 1)
 			{

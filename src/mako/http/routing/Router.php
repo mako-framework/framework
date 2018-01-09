@@ -182,7 +182,7 @@ class Router
 		{
 			$url = $request->baseURL() . ($request->isClean() ? '' : '/' . $request->scriptName()) . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
 
-			$get = $request->query->all();
+			$get = $request->getQuery()->all();
 
 			if(!empty($get))
 			{

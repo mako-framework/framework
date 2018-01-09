@@ -110,4 +110,28 @@ class Parameters implements Countable, IteratorAggregate
 	{
 		return $this->parameters;
 	}
+
+	/**
+	 * Returns request data where keys not in the whitelist have been removed.
+	 *
+	 * @param  array $keys     Keys to whitelist
+	 * @param  array $defaults Default values
+	 * @return array
+	 */
+	public function whitelisted(array $keys, array $defaults = []): array
+	{
+		return array_intersect_key($this->parameters, array_flip($keys)) + $defaults;
+	}
+
+	/**
+	 * Returns request data where keys in the blacklist have been removed.
+	 *
+	 * @param  array $keys     Keys to whitelist
+	 * @param  array $defaults Default values
+	 * @return array
+	 */
+	public function blacklisted(array $keys, array $defaults = []): array
+	{
+		return array_diff_key($this->parameters, array_flip($keys)) + $defaults;
+	}
 }

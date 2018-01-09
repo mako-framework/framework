@@ -50,7 +50,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$cookies = Mockery::mock('\mako\http\request\Cookies');
 
-		$request->cookies = $cookies;
+		$request->shouldReceive('getCookies')->andReturn($cookies);
 
 		return $request;
 	}
@@ -62,7 +62,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->cookies->shouldReceive('getSigned')->once()->with('mako_session', false)->andReturn('foo123');
+		$request->getCookies()->shouldReceive('getSigned')->once()->with('mako_session', false)->andReturn('foo123');
 
 		return $request;
 	}
@@ -128,7 +128,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->cookies->shouldReceive('getSigned')->once()->with('mako_session', false)->andReturn(false);
+		$request->getCookies()->shouldReceive('getSigned')->once()->with('mako_session', false)->andReturn(false);
 
 		$response = $this->getResponse();
 

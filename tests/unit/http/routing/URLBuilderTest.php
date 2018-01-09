@@ -182,7 +182,7 @@ class URLBuilderTest extends PHPUnit_Framework_TestCase
 
 		$query->shouldReceive('all')->times(2)->andReturn([]);
 
-		$request->query = $query;
+		$request->shouldReceive('getQuery')->times(2)->andReturn($query);
 
 		$urlBuilder = new URLBuilder($request, $this->getRoutes(), true);
 
@@ -206,7 +206,7 @@ class URLBuilderTest extends PHPUnit_Framework_TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
 
-		$request->query = $query;
+		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
 		$urlBuilder = new URLBuilder($request, $this->getRoutes(), true);
 

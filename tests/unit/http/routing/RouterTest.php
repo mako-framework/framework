@@ -188,7 +188,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
 
-		$request->query = $query;
+		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
 		$returnValue = $closure($request);
 
@@ -258,7 +258,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
 
-		$request->query = $query;
+		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
 		$returnValue = $closure($request);
 

@@ -226,7 +226,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$cookies->shouldReceive('getSigned')->times(3)->with('gatekeeper_auth_key', false)->andReturn(false);
 
-		$request->cookies = $cookies;
+		$request->shouldReceive('getCookies')->times(3)->andReturn($cookies);
 
 		$adapter = new Session($this->getUserRepository(), $this->getGroupRepository(), $request, $this->getResponse(), $session);
 
@@ -260,7 +260,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
 
 		$cookies->shouldReceive('getSigned')->times(1)->with('gatekeeper_auth_key', false)->andReturn('token');
 
-		$request->cookies = $cookies;
+		$request->shouldReceive('getCookies')->times(1)->andReturn($cookies);
 
 		$userRepository = $this->getUserRepository();
 

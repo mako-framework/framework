@@ -78,12 +78,12 @@ class Request
 	 *
 	 * @var string
 	 */
-	protected $body;
+	protected $rawBody;
 
 	/**
 	 * Parsed request body.
 	 *
-	 * @var array
+	 * @var \mako\http\request\Parameters
 	 */
 	protected $parsedBody;
 
@@ -173,7 +173,7 @@ class Request
 		$this->files   = new Files($request['files'] ?? $_FILES);
 		$this->server  = new Server($request['server'] ?? $_SERVER);
 		$this->headers = new Headers($this->server->getHeaders());
-		$this->body    = $request['body'] ?? null;
+		$this->rawBody = $request['body'] ?? null;
 
 		// Get the script name
 
@@ -332,14 +332,14 @@ class Request
 	 *
 	 * @return string
 	 */
-	public function body(): string
+	public function getRawBody(): string
 	{
-		if($this->body === null)
+		if($this->rawBody === null)
 		{
-			$this->body = file_get_contents('php://input');
+			$this->rawBody = file_get_contents('php://input');
 		}
 
-		return $this->body;
+		return $this->rawBody;
 	}
 
 	/**
@@ -347,7 +347,7 @@ class Request
 	 *
 	 * @return resource
 	 */
-	public function bodyAsStream()
+	public function getBodyAsStream()
 	{
 		return fopen('php://input', 'r');
 	}
@@ -355,37 +355,138 @@ class Request
 	/**
 	 * Parses the request body and returns the chosen value.
 	 *
+	 * @deprecated
 	 * @param  string|null $key     Array key
 	 * @param  mixed       $default Default value
 	 * @return mixed
 	 */
 	protected function getParsed(string $key = null, $default = null)
 	{
-		if($this->parsedBody === null)
+		return ($key === null) ? $this->getBody()->all() : $this->getBody()->get($key, $default);
+	}
+
+	/**
+	 * Returns the query string.
+	 *
+	 * @return \mako\http\request\Parameters
+	 */
+	public function getQuery(): Parameters
+	{
+		return $this->query;
+	}
+
+	/**
+	 * Returns the post data.
+	 *
+	 * @return \mako\http\request\Parameters
+	 */
+	public function getPost(): Parameters
+	{
+		return $this->post;
+	}
+
+	/**
+	 * Returns the cookies.
+	 *
+	 * @return \mako\http\request\Cookies
+	 */
+	public function getCookies(): Cookies
+	{
+		return $this->cookies;
+	}
+
+	/**
+	 * Returns the files.
+	 *
+	 * @return \mako\http\request\Files
+	 */
+	public function getFiles(): Files
+	{
+		return $this->files;
+	}
+
+	/**
+	 * Returns the files.
+	 *
+	 * @return \mako\http\request\Server
+	 */
+	public function getServer(): Server
+	{
+		return $this->server;
+	}
+
+	/**
+	 * Returns the files.
+	 *
+	 * @return \mako\http\request\Headers
+	 */
+	public function getHeaders(): Headers
+	{
+		return $this->headers;
+	}
+
+	/**
+	 * Converts the request body into an associative array.
+	 *
+	 * @return array
+	 */
+	protected function parseBody(): array
+	{
+		$contentType = rtrim(strtok((string) $this->headers->get('content-type'), ';'));
+
+		if($contentType === 'application/x-www-form-urlencoded')
 		{
-			$contentType = rtrim(strtok((string) $this->headers->get('content-type'), ';'));
+			$parsed = [];
 
-			switch($contentType)
-			{
-				case 'application/x-www-form-urlencoded':
-					parse_str($this->body(), $this->parsedBody);
-					break;
-				case 'text/json':
-				case 'application/json':
-					$this->parsedBody = json_decode($this->body(), true);
-					break;
-				default:
-					$this->parsedBody = [];
-			}
+			parse_str($this->getRawbody(), $parsed);
 
+			return $parsed;
+		}
+		elseif($contentType === 'application/json' || $contentType === 'text/json')
+		{
+			return json_decode($this->getRawbody(), true);
 		}
 
-		return ($key === null) ? $this->parsedBody : Arr::get($this->parsedBody, $key, $default);
+		return [];
+	}
+
+	/**
+	 * Returns the parsed request body.
+	 *
+	 * @return \mako\http\request\Parameters
+	 */
+	public function getBody(): Parameters
+	{
+		if($this->parsedBody === null)
+		{
+			$this->parsedBody = new Parameters($this->parseBody());
+		}
+
+		return $this->parsedBody;
+	}
+
+	/**
+	 * Returns the data of the current request method.
+	 *
+	 * @return \mako\http\request\Parameters
+	 */
+	public function getData(): Parameters
+	{
+		switch($this->realMethod)
+		{
+			case 'GET':
+				return $this->getQuery();
+			case 'POST':
+				return $this->getPost();
+			default:
+				return $this->getBody();
+		}
 	}
 
 	/**
 	 * Fetch data from the GET parameters.
 	 *
+	 * @deprecated
 	 * @param  string|null $key     Array key
 	 * @param  mixed       $default Default value
 	 * @return mixed
@@ -398,6 +499,7 @@ class Request
 	/**
 	 * Fetch data from the POST parameters.
 	 *
+	 * @deprecated
 	 * @param  string|null $key     Array key
 	 * @param  mixed       $default Default value
 	 * @return mixed
@@ -410,6 +512,7 @@ class Request
 	/**
 	 * Fetch data from the PUT parameters.
 	 *
+	 * @deprecated
 	 * @param  string|null $key     Array key
 	 * @param  mixed       $default Default value
 	 * @return mixed
@@ -422,6 +525,7 @@ class Request
 	/**
 	 * Fetch data from the PATCH parameters.
 	 *
+	 * @deprecated
 	 * @param  string|null $key     Array key
 	 * @param  mixed       $default Default value
 	 * @return mixed
@@ -434,6 +538,7 @@ class Request
 	/**
 	 * Fetch data from the DELETE parameters.
 	 *
+	 * @deprecated
 	 * @param  string|null $key     Array key
 	 * @param  mixed       $default Default value
 	 * @return mixed
@@ -446,6 +551,7 @@ class Request
 	/**
 	 * Fetch unsigned cookie data.
 	 *
+	 * @deprecated
 	 * @param  string $name    Cookie name
 	 * @param  mixed  $default Default value
 	 * @return mixed
@@ -458,6 +564,7 @@ class Request
 	/**
 	 * Fetch signed cookie data.
 	 *
+	 * @deprecated
 	 * @param  string $name    Cookie name
 	 * @param  mixed  $default Default value
 	 * @return mixed
@@ -470,6 +577,7 @@ class Request
 	/**
 	 * Fetch uploaded file.
 	 *
+	 * @deprecated
 	 * @param  string|null $key     Array key
 	 * @param  mixed       $default Default value
 	 * @return mixed
@@ -482,6 +590,7 @@ class Request
 	/**
 	 * Fetch server info.
 	 *
+	 * @deprecated
 	 * @param  string|null $key     Array key
 	 * @param  mixed       $default Default value
 	 * @return mixed
@@ -494,6 +603,7 @@ class Request
 	/**
 	 * Checks if the keys exist in the data of the current request method.
 	 *
+	 * @deprecated
 	 * @param  string $key Array key
 	 * @return bool
 	 */
@@ -507,6 +617,7 @@ class Request
 	/**
 	 * Fetch data the current request method.
 	 *
+	 * @deprecated
 	 * @param  string|null $key     Array key
 	 * @param  mixed       $default Default value
 	 * @return mixed
@@ -521,6 +632,7 @@ class Request
 	/**
 	 * Returns request data where keys not in the whitelist have been removed.
 	 *
+	 * @deprecated
 	 * @param  array $keys     Keys to whitelist
 	 * @param  array $defaults Default values
 	 * @return array
@@ -533,6 +645,7 @@ class Request
 	/**
 	 * Returns request data where keys in the blacklist have been removed.
 	 *
+	 * @deprecated
 	 * @param  array $keys     Keys to whitelist
 	 * @param  array $defaults Default values
 	 * @return array
@@ -545,6 +658,7 @@ class Request
 	/**
 	 * Returns a request header.
 	 *
+	 * @deprecated
 	 * @param  string $name    Header name
 	 * @param  mixed  $default Default value
 	 * @return mixed
@@ -557,6 +671,7 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
+	 * @deprecated
 	 * @return array
 	 */
 	public function acceptableContentTypes(): array
@@ -567,6 +682,7 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
+	 * @deprecated
 	 * @return array
 	 */
 	public function acceptableLanguages(): array
@@ -577,6 +693,7 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
+	 * @deprecated
 	 * @return array
 	 */
 	public function acceptableCharsets(): array
@@ -587,6 +704,7 @@ class Request
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
 	 *
+	 * @deprecated
 	 * @return array
 	 */
 	public function acceptableEncodings(): array

@@ -135,7 +135,7 @@ class Session extends Adapter
 
 			if($token === false)
 			{
-				$token = $this->request->cookies->getSigned($this->options['auth_key'], false);
+				$token = $this->request->getCookies()->getSigned($this->options['auth_key'], false);
 
 				if($token !== false)
 				{

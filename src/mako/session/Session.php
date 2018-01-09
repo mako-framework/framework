@@ -197,7 +197,7 @@ class Session
 
 		// Get the session id from the cookie or generate a new one if it doesn't exist.
 
-		$this->sessionId = $this->request->cookies->getSigned($this->cookieName, false);
+		$this->sessionId = $this->request->getCookies()->getSigned($this->cookieName, false);
 
 		if($this->sessionId === false)
 		{

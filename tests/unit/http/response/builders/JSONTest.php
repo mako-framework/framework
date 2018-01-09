@@ -83,7 +83,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
 
 		$request = Mockery::mock(Request::class);
 
-		$request->query = $query;
+		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
 		$response = Mockery::mock(Response::class);
 
@@ -111,7 +111,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
 
 		$request = Mockery::mock(Request::class);
 
-		$request->query = $query;
+		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
 		$response = Mockery::mock(Response::class);
 
@@ -139,7 +139,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
 
 		$request = Mockery::mock(Request::class);
 
-		$request->query = $query;
+		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
 		$response = Mockery::mock(Response::class);
 
