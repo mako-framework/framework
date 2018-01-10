@@ -15,7 +15,7 @@ Update using ```composer update```.
 * Added `{% nospace %}...{% endnospace %}` blocks to template syntax that will remove all whitespace between HTML tags.
 * Added `PaginationInterface::isValidPage()` method.
 * Mako is now using Whoops for displaying exception details.
-* It is now possible register route constraints with the router.
+* It is now possible to register route constraints with the router.
 * It is now possible to set and update junction attributes.
 * Added `Request::getQuery()` method.
 * Added `Request::getPost()` method.
@@ -65,6 +65,8 @@ Update using ```composer update```.
 * Deprecated the `Request::acceptableEncodings()` method.
 
 > Deprecated methods will be removed in 5.4.0.
+
+> Check out the upgrade guide for details on how to upgrade from `5.2.*.`
 
 --------------------------------------------------------
 
