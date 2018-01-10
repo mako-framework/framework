@@ -36,42 +36,42 @@ class Request
 	 *
 	 * @var \mako\http\request\Parameters
 	 */
-	public $query;
+	protected $query;
 
 	/**
 	 * Post data
 	 *
 	 * @var \mako\http\request\Parameters
 	 */
-	public $post;
+	protected $post;
 
 	/**
 	 * Cookie data.
 	 *
 	 * @var \mako\http\request\Cookies
 	 */
-	public $cookies;
+	protected $cookies;
 
 	/**
 	 * File data.
 	 *
 	 * @var \mako\http\request\Files
 	 */
-	public $files;
+	protected $files;
 
 	/**
 	 * Server info.
 	 *
 	 * @var \mako\http\request\Server
 	 */
-	public $server;
+	protected $server;
 
 	/**
 	 * Request headers.
 	 *
 	 * @var \mako\http\request\Headers
 	 */
-	public $headers;
+	protected $headers;
 
 	/**
 	 * Raw request body.
