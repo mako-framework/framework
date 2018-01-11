@@ -408,6 +408,20 @@ class ORMTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
+	public function testGetModifiedWithNullValues()
+	{
+		$user = new TestUser1(['foo' => null], true, false, true);
+
+		$this->assertEquals([], $user->getModified());
+
+		$user->foo = 789;
+
+		$this->assertEquals(['foo' => 789], $user->getModified());
+	}
+
+	/**
+	 *
+	 */
 	public function testCastingScalars()
 	{
 		$cast = new TestCastingScalars;
