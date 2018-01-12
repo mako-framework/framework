@@ -1,3 +1,17 @@
+### 5.3.1 <small> (2018-??-??)</small>
+
+Update using ```composer update```.
+
+#### Changes
+
+* The `GD` image processor now uses `imagecopyresampled` instead of `imagecopyresized` when resizing images.
+
+#### Improvements
+
+* Columns with `null` values will no longer be updated unnecessarily when using `ORM::save()`.
+
+--------------------------------------------------------
+
 ### 5.3.0 <small> (2018-01-10)</small>
 
 Update using ```composer update```.
