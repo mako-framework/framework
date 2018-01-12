@@ -255,7 +255,7 @@ class GD implements ProcessorInterface
 
 		imagefill($resized, 0, 0, $transparent);
 
-		imagecopyresized($resized, $this->image, 0, 0, 0, 0, $newWidth, $newHeight, $oldWidth, $oldHeight);
+		imagecopyresampled($resized, $this->image, 0, 0, 0, 0, $newWidth, $newHeight, $oldWidth, $oldHeight);
 
 		imagedestroy($this->image);
 
