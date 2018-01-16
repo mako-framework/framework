@@ -161,9 +161,16 @@ class Application extends BaseApplication
 		[
 			'app.generate_key'    => GenerateKey::class,
 			'app.generate_secret' => GenerateSecret::class,
-			'app.routes'          => ListRoutes::class,
-			'server'              => Server::class,
 		];
+
+		if($this->container->has('routes'))
+		{
+			$commands = array_merge($commands,
+			[
+				'app.routes' => ListRoutes::class,
+				'server'     => Server::class,
+			]);
+		}
 
 		if($this->container->has('cache'))
 		{
