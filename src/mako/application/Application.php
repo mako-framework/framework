@@ -32,6 +32,13 @@ abstract class Application
 	protected static $instance;
 
 	/**
+	 * Application start time.
+	 *
+	 * @var float
+	 */
+	protected $startTime;
+
+	/**
 	 * Container.
 	 *
 	 * @var \mako\syringe\Container;
@@ -80,6 +87,8 @@ abstract class Application
 	 */
 	public function __construct(string $applicationPath)
 	{
+		$this->startTime = microtime(true);
+
 		$this->applicationPath = $applicationPath;
 
 		$this->boot();
@@ -114,6 +123,16 @@ abstract class Application
 		}
 
 		return static::$instance;
+	}
+
+	/**
+	 * Returns the application start time.
+	 *
+	 * @return float
+	 */
+	public function getStartTime(): float
+	{
+		return $this->startTime;
 	}
 
 	/**
