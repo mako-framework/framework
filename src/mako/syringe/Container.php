@@ -53,6 +53,13 @@ class Container
 	protected $contextualDependencies = [];
 
 	/**
+	 * Instance replacers.
+	 *
+	 * @var array
+	 */
+	protected $replacers = [];
+
+	/**
 	 * Parse the hint parameter.
 	 *
 	 * @param  string|array $hint Type hint or array contaning both type hint and alias
@@ -125,6 +132,94 @@ class Container
 	protected function resolveAlias(string $alias): string
 	{
 		return $this->aliases[$alias] ?? $alias;
+	}
+
+	/**
+	 * Replaces previously resolved instances.
+	 *
+	 * @param string $hint Type hint
+	 */
+	protected function replaceInstances($hint)
+	{
+		if(isset($this->replacers[$hint]))
+		{
+			$instance = $this->get($hint);
+
+			foreach($this->replacers[$hint] as $replacer)
+			{
+				$replacer($instance);
+			}
+		}
+	}
+
+	/**
+	 * Registers replacers.
+	 *
+	 * @param string   $hint     Type hint
+	 * @param callable $replacer Instance replacer
+	 */
+	public function onReplace($hint, callable $replacer)
+	{
+		$hint = $this->resolveAlias($hint);
+
+		$this->replacers[$hint][] = $replacer;
+	}
+
+	/**
+	 * Replaces a registered type hint.
+	 *
+	 * @param string          $hint      Type hint
+	 * @param string|\Closure $class     Class name or closure
+	 * @param bool            $singleton Are we replacing a singleton?
+	 */
+	public function replace(string $hint, $class, bool $singleton = false)
+	{
+		$hint = $this->resolveAlias($hint);
+
+		if(!isset($this->hints[$hint]))
+		{
+			throw new RuntimeException(vsprintf('Unable to replace [ %s ] as it hasn\'t been registered.', [$hint]));
+		}
+
+		$this->hints[$hint]['class'] = $class;
+
+		if($singleton)
+		{
+			unset($this->instances[$hint]);
+		}
+
+		$this->replaceInstances($hint);
+	}
+
+	/**
+	 * Replaces a registered singleton type hint.
+	 *
+	 * @param string          $hint  Type hint
+	 * @param string|\Closure $class Class name or closure
+	 */
+	public function replaceSingleton(string $hint, $class)
+	{
+		$this->replace($hint, $class, true);
+	}
+
+	/**
+	 * Replaces a singleton instance.
+	 *
+	 * @param string|array $hint     Type hint or array contaning both type hint and alias
+	 * @param object       $instance Class instance
+	 */
+	public function replaceInstance(string $hint, $instance)
+	{
+		$hint = $this->resolveAlias($hint);
+
+		if(!isset($this->instances[$hint]))
+		{
+			throw new RuntimeException(vsprintf('Unable to replace [ %s ] as it hasn\'t been registered.', [$hint]));
+		}
+
+		$this->instances[$hint] = $instance;
+
+		$this->replaceInstances($hint);
 	}
 
 	/**
