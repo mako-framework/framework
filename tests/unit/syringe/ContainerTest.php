@@ -112,6 +112,41 @@ class ContextClassB
 	}
 }
 
+class ReplaceA
+{
+	protected $value;
+
+	public function __construct($value)
+	{
+		$this->value = $value;
+	}
+
+	public function getValue()
+	{
+		return $this->value;
+	}
+}
+
+class ReplaceB
+{
+	protected $replaceA;
+
+	public function __construct(ReplaceA $replaceA)
+	{
+		$this->replaceA = $replaceA;
+	}
+
+	public function setReplaceA(ReplaceA $replaceA)
+	{
+		$this->replaceA = $replaceA;
+	}
+
+	public function getReplaceAValue()
+	{
+		return $this->replaceA->getValue();
+	}
+}
+
 function syringeFunction($foo = 123, $bar = 456)
 {
 	return [$foo, $bar];
@@ -497,5 +532,225 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($container->isSingleton('foo'));
 
 		$this->assertTrue($container->isSingleton(stdClass::class));
+	}
+
+	/**
+	 *
+	 */
+	public function testReplaceRegisteredWithClosure()
+	{
+		$container = new Container;
+
+		$container->register(ReplaceA::class, function($container)
+		{
+			return new ReplaceA('original');
+		});
+
+		$container->register(ReplaceB::class, function($container)
+		{
+			$replaceB = new ReplaceB($container->get(ReplaceA::class));
+
+			$container->onReplace(ReplaceA::class, (function($replaceA)
+			{
+				$this->replaceA = $replaceA;
+			})->bindTo($replaceB, ReplaceB::class));
+
+			return $replaceB;
+		});
+
+		$replaceB = $container->get(ReplaceB::class);
+
+		$this->assertSame('original', $replaceB->getReplaceAValue());
+
+		$container->replace(ReplaceA::class, function($container)
+		{
+			return new ReplaceA('replacement');
+		});
+
+		$this->assertSame('replacement', $replaceB->getReplaceAValue());
+	}
+
+	/**
+	 *
+	 */
+	public function testReplaceRegisteredWithSetter()
+	{
+		$container = new Container;
+
+		$container->register(ReplaceA::class, function($container)
+		{
+			return new ReplaceA('original');
+		});
+
+		$container->register(ReplaceB::class, function($container)
+		{
+			$replaceB = new ReplaceB($container->get(ReplaceA::class));
+
+			$container->onReplace(ReplaceA::class, [$replaceB, 'setReplaceA']);
+
+			return $replaceB;
+		});
+
+		$replaceB = $container->get(ReplaceB::class);
+
+		$this->assertSame('original', $replaceB->getReplaceAValue());
+
+		$container->replace(ReplaceA::class, function($container)
+		{
+			return new ReplaceA('replacement');
+		});
+
+		$this->assertSame('replacement', $replaceB->getReplaceAValue());
+	}
+
+	/**
+	 *
+	 */
+	public function testReplaceRegisteredSingletonWithClosure()
+	{
+		$container = new Container;
+
+		$container->registerSingleton(ReplaceA::class, function($container)
+		{
+			return new ReplaceA('original');
+		});
+
+		$container->register(ReplaceB::class, function($container)
+		{
+			$replaceB = new ReplaceB($container->get(ReplaceA::class));
+
+			$container->onReplace(ReplaceA::class, (function($replaceA)
+			{
+				$this->replaceA = $replaceA;
+			})->bindTo($replaceB, ReplaceB::class));
+
+			return $replaceB;
+		});
+
+		$replaceB = $container->get(ReplaceB::class);
+
+		$this->assertSame('original', $replaceB->getReplaceAValue());
+
+		$container->replaceSingleton(ReplaceA::class, function($container)
+		{
+			return new ReplaceA('replacement');
+		});
+
+		$this->assertSame('replacement', $replaceB->getReplaceAValue());
+	}
+
+	/**
+	 *
+	 */
+	public function testReplaceRegistereSingletondWithSetter()
+	{
+		$container = new Container;
+
+		$container->registerSingleton(ReplaceA::class, function($container)
+		{
+			return new ReplaceA('original');
+		});
+
+		$container->register(ReplaceB::class, function($container)
+		{
+			$replaceB = new ReplaceB($container->get(ReplaceA::class));
+
+			$container->onReplace(ReplaceA::class, [$replaceB, 'setReplaceA']);
+
+			return $replaceB;
+		});
+
+		$replaceB = $container->get(ReplaceB::class);
+
+		$this->assertSame('original', $replaceB->getReplaceAValue());
+
+		$container->replaceSingleton(ReplaceA::class, function($container)
+		{
+			return new ReplaceA('replacement');
+		});
+
+		$this->assertSame('replacement', $replaceB->getReplaceAValue());
+	}
+
+	/**
+	 *
+	 */
+	public function testReplaceRegisteredInstanceWithClosure()
+	{
+		$container = new Container;
+
+		$container->registerInstance(ReplaceA::class, new ReplaceA('original'));
+
+		$container->register(ReplaceB::class, function($container)
+		{
+			$replaceB = new ReplaceB($container->get(ReplaceA::class));
+
+			$container->onReplace(ReplaceA::class, (function($replaceA)
+			{
+				$this->replaceA = $replaceA;
+			})->bindTo($replaceB, ReplaceB::class));
+
+			return $replaceB;
+		});
+
+		$replaceB = $container->get(ReplaceB::class);
+
+		$this->assertSame('original', $replaceB->getReplaceAValue());
+
+		$container->replaceInstance(ReplaceA::class, new ReplaceA('replacement'));
+
+		$this->assertSame('replacement', $replaceB->getReplaceAValue());
+	}
+
+	/**
+	 *
+	 */
+	public function testReplaceRegisterInstanceWithSetter()
+	{
+		$container = new Container;
+
+		$container->registerInstance(ReplaceA::class, new ReplaceA('original'));
+
+		$container->register(ReplaceB::class, function($container)
+		{
+			$replaceB = new ReplaceB($container->get(ReplaceA::class));
+
+			$container->onReplace(ReplaceA::class, [$replaceB, 'setReplaceA']);
+
+			return $replaceB;
+		});
+
+		$replaceB = $container->get(ReplaceB::class);
+
+		$this->assertSame('original', $replaceB->getReplaceAValue());
+
+		$container->replaceInstance(ReplaceA::class, new ReplaceA('replacement'));
+
+		$this->assertSame('replacement', $replaceB->getReplaceAValue());
+	}
+
+	/**
+	 * @expectedException RuntimeException
+	 * @expectedExceptionMessage Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn't been registered.
+	 */
+	public function testReplaceUnregistered()
+	{
+		$container = new Container;
+
+		$container->replace(ReplaceA::class, function($container)
+		{
+			return new ReplaceA('replacement');
+		});
+	}
+
+	/**
+	 * @expectedException RuntimeException
+	 * @expectedExceptionMessage Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn't been registered.
+	 */
+	public function testReplaceUnregisteredInstance()
+	{
+		$container = new Container;
+
+		$container->replaceInstance(ReplaceA::class, new ReplaceA('replacement'));
 	}
 }
