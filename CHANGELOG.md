@@ -2,6 +2,10 @@
 
 Update using ```composer update```.
 
+#### Bugfixes
+
+* The `GD` image processor will no longer fail when using uppercase file extensions when saving.
+
 #### Changes
 
 * The `GD` image processor now uses `imagecopyresampled` instead of `imagecopyresized` when resizing images.
