@@ -698,7 +698,7 @@ class GD implements ProcessorInterface
 
 		// Save image
 
-		switch($extension)
+		switch(strtolower($extension))
 		{
 			case 'gif':
 				imagegif($this->image, $file);
