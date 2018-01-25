@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\http\request;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\http\request\Headers;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class HeadersTest extends PHPUnit_Framework_TestCase
+class HeadersTest extends TestCase
 {
 	/**
 	 *

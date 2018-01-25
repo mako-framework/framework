@@ -8,9 +8,9 @@
 namespace mako\tests\unit\database\midgard;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\database\midgard\Query;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -33,16 +33,8 @@ class ScopedModel extends \mako\database\midgard\ORM
 /**
  * @group unit
  */
-class QueryTest extends PHPUnit_Framework_TestCase
+class QueryTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

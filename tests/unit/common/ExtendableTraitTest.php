@@ -7,9 +7,8 @@
 
 namespace mako\tests\unit\common;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\common\traits\ExtendableTrait;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -31,7 +30,7 @@ class Extended
 /**
  * @group unit
  */
-class ExtendableTraitTest extends PHPUnit_Framework_TestCase
+class ExtendableTraitTest extends TestCase
 {
 	/**
 	 *

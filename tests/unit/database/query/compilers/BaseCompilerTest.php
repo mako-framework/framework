@@ -8,26 +8,17 @@
 namespace mako\tests\unit\database\query\compilers;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
-use mako\database\Database;
 use mako\database\query\Query;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class BaseCompilerTest extends PHPUnit_Framework_TestCase
+class BaseCompilerTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

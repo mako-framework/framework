@@ -8,25 +8,17 @@
 namespace mako\tests\unit\security\crypto;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\security\crypto\Crypto;
 use mako\security\crypto\encrypters\EncrypterInterface;
 use mako\security\Signer;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class CryptoTest extends PHPUnit_Framework_TestCase
+class CryptoTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

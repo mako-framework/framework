@@ -8,23 +8,15 @@
 namespace mako\tests\unit\session\stores;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\session\stores\File;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class FileTest extends PHPUnit_Framework_TestCase
+class FileTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

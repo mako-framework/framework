@@ -8,23 +8,16 @@
 namespace mako\tests\unit\http;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\http\Request;
+use mako\http\routing\Route;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class RequestTest extends PHPUnit_Framework_TestCase
+class RequestTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */
@@ -770,9 +763,16 @@ class RequestTest extends PHPUnit_Framework_TestCase
 	{
 		$request = new Request();
 
-		$route = Mockery::mock('mako\http\routing\Route');
+		$route = Mockery::mock(Route::class);
 
 		$request->setRoute($route);
+
+		$route = (function()
+		{
+			return $this->route;
+		})->bindTo($request, Request::class)();
+
+		$this->assertInstanceOf(Route::class, $route);
 	}
 
 	/**

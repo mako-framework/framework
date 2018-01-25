@@ -7,24 +7,14 @@
 
 namespace mako\tests\unit\http\request;
 
-use Mockery;
-use PHPUnit_Framework_TestCase;
-
 use mako\http\request\UploadedFile;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class UploadedFileTest extends PHPUnit_Framework_TestCase
+class UploadedFileTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

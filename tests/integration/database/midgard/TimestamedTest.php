@@ -7,18 +7,21 @@
 
 namespace mako\tests\integration\database\midgard;
 
+use mako\tests\integration\ORMTestCase;
+use mako\tests\integration\TestORM;
+
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class TimestampedFoo extends \TestORM
+class TimestampedFoo extends TestORM
 {
 	use \mako\database\midgard\traits\TimestampedTrait;
 
 	protected $tableName = 'timestamped_foos';
 }
 
-class TimestampedBar extends \TestORM
+class TimestampedBar extends TestORM
 {
 	use \mako\database\midgard\traits\TimestampedTrait;
 
@@ -42,7 +45,7 @@ class TimestampedBar extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-class TimestampedTest extends \ORMTestCase
+class TimestampedTest extends ORMTestCase
 {
 	/**
 	 *

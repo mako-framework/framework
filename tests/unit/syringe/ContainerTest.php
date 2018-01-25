@@ -7,11 +7,10 @@
 
 namespace mako\tests\unit\syringe;
 
-use PHPUnit_Framework_TestCase;
-
 use stdClass;
 
 use mako\syringe\Container;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -159,7 +158,7 @@ function syringeFunction($foo = 123, $bar = 456)
 /**
  * @group unit
  */
-class ContainerTest extends PHPUnit_Framework_TestCase
+class ContainerTest extends TestCase
 {
 	/**
 	 *

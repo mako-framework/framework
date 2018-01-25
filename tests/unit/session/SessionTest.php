@@ -8,9 +8,9 @@
 namespace mako\tests\unit\session;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\session\Session;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -31,16 +31,8 @@ class TestSession extends Session
 /**
  * @group unit
  */
-class SessionTest extends PHPUnit_Framework_TestCase
+class SessionTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

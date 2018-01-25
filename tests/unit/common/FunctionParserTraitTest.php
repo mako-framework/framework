@@ -7,9 +7,8 @@
 
 namespace mako\tests\unit\common;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\common\traits\FunctionParserTrait;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -32,7 +31,7 @@ class Parser
 /**
  * @group unit
  */
-class FunctionParserTraitTest extends PHPUnit_Framework_TestCase
+class FunctionParserTraitTest extends TestCase
 {
 	/**
 	 *

@@ -7,12 +7,11 @@
 
 namespace mako\tests\unit\commander;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\commander\CommandBus;
 use mako\commander\CommandInterface;
 use mako\commander\CommandHandlerInterface;
 use mako\commander\SelfHandlingCommandInterface;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -109,7 +108,7 @@ class BazHandler implements CommandHandlerInterface
 /**
  * @group unit
  */
-class CommandBusTest extends PHPUnit_Framework_TestCase
+class CommandBusTest extends TestCase
 {
 	/**
 	 *

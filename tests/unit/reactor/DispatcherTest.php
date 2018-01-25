@@ -8,23 +8,15 @@
 namespace mako\tests\unit\reactor;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\reactor\Dispatcher;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class DispatcherTest extends PHPUnit_Framework_TestCase
+class DispatcherTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

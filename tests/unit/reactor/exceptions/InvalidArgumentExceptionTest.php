@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\reactor\exceptions;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\reactor\exceptions\InvalidArgumentException;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
+class InvalidArgumentExceptionTest extends TestCase
 {
 	/**
 	 *

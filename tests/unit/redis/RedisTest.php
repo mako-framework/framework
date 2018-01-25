@@ -8,23 +8,15 @@
 namespace mako\tests\unit\redis;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\redis\Redis;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class RedisTest extends PHPUnit_Framework_TestCase
+class RedisTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

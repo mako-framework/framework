@@ -7,27 +7,19 @@
 
 namespace mako\tests\unit\gatekeeper\entities\user;
 
-use Mockery;
 use DateTime;
-use PHPUnit_Framework_TestCase;
+use Mockery;
 
 use mako\chrono\Time;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\entities\group\Group;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class UserTest extends PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

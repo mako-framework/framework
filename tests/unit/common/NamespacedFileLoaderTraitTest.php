@@ -7,9 +7,8 @@
 
 namespace mako\tests\unit\common;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\common\traits\NamespacedFileLoaderTrait;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -37,7 +36,7 @@ class NamespacedFileLoader
 /**
  * @group unit
  */
-class NamespacedFileLoaderTest extends PHPUnit_Framework_TestCase
+class NamespacedFileLoaderTest extends TestCase
 {
 	/**
 	 *

@@ -8,7 +8,6 @@
 namespace mako\tests\unit\gatekeeper\adapters;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\gatekeeper\Authentication;
 use mako\gatekeeper\adapters\Session;
@@ -19,20 +18,13 @@ use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
 use mako\http\Response;
 use mako\session\Session as HttpSession;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class SessionTest extends PHPUnit_Framework_TestCase
+class SessionTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

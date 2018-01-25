@@ -10,12 +10,14 @@ namespace mako\tests\integration\database\midgard;
 use DateTime;
 
 use mako\utility\UUID;
+use mako\tests\integration\ORMTestCase;
+use mako\tests\integration\TestORM;
 
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class TestUser extends \TestORM
+class TestUser extends TestORM
 {
 	protected $tableName = 'users';
 }
@@ -33,18 +35,18 @@ class TestUserDateTime extends TestUser
 	protected $cast = ['created_at' => 'date'];
 }
 
-class UUIDKey extends \TestORM
+class UUIDKey extends TestORM
 {
 	protected $tableName = 'uuid_keys';
 
-	protected $primaryKeyType = \TestORM::PRIMARY_KEY_TYPE_UUID;
+	protected $primaryKeyType = TestORM::PRIMARY_KEY_TYPE_UUID;
 }
 
-class CustomKey extends \TestORM
+class CustomKey extends TestORM
 {
 	protected $tableName = 'custom_keys';
 
-	protected $primaryKeyType = \TestORM::PRIMARY_KEY_TYPE_CUSTOM;
+	protected $primaryKeyType = TestORM::PRIMARY_KEY_TYPE_CUSTOM;
 
 	protected function generatePrimaryKey()
 	{
@@ -52,14 +54,14 @@ class CustomKey extends \TestORM
 	}
 }
 
-class NoKey extends \TestORM
+class NoKey extends TestORM
 {
 	protected $tableName = 'no_keys';
 
-	protected $primaryKeyType = \TestORM::PRIMARY_KEY_TYPE_NONE;
+	protected $primaryKeyType = TestORM::PRIMARY_KEY_TYPE_NONE;
 }
 
-class Counter extends \TestORM
+class Counter extends TestORM
 {
 	protected $tableName = 'counters';
 }
@@ -74,7 +76,7 @@ class Counter extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-class ORMTest extends \ORMTestCase
+class ORMTest extends ORMTestCase
 {
 	/**
 	 *

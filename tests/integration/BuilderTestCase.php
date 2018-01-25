@@ -4,17 +4,26 @@
  * @copyright Frederic G. Østby
  * @license   http://www.makoframework.com/license
  */
-use mako\database\ConnectionManager;
 
-abstract class BuilderTestCase extends PHPUnit_Framework_TestCase
+namespace mako\tests\integration;
+
+use mako\database\ConnectionManager;
+use mako\tests\TestCase;
+
+/**
+ * Builder test case.
+ *
+ * @author Frederic G. Østby
+ */
+abstract class BuilderTestCase extends TestCase
 {
 	/**
-	 *
+	 * @var \mako\database\ConnectionManager
 	 */
 	protected $connectionManager;
 
 	/**
-	 *
+	 * {@inheritdoc}
 	 */
 	public function setup()
 	{
@@ -37,7 +46,7 @@ abstract class BuilderTestCase extends PHPUnit_Framework_TestCase
 
 		// Load test database into memory
 
-		$sql = file_get_contents(__DIR__ . '/sqlite.sql');
+		$sql = file_get_contents(__DIR__ . '/resources/sqlite.sql');
 
 		$this->connectionManager->connection()->getPDO()->exec($sql);
 	}

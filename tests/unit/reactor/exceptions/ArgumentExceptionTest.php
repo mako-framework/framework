@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\reactor\exceptions;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\reactor\exceptions\ArgumentException;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ArgumentExceptionTest extends PHPUnit_Framework_TestCase
+class ArgumentExceptionTest extends TestCase
 {
 	/**
 	 *

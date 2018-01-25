@@ -8,26 +8,17 @@
 namespace mako\tests\unit\gatekeeper\repositories\user;
 
 use Closure;
-
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\repositories\user\UserRepository;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class UserRepositoryTest extends PHPUnit_Framework_TestCase
+class UserRepositoryTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

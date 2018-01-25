@@ -9,12 +9,12 @@ namespace mako\tests\unit\http\routing;
 
 use Closure;
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\Dispatcher;
 use mako\http\routing\middleware\Middleware;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -170,16 +170,8 @@ class BaxMiddleware extends Middleware
 /**
  * @group unit
  */
-class DispatcherTest extends PHPUnit_Framework_TestCase
+class DispatcherTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

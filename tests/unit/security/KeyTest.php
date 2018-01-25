@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\security;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\security\Key;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class KeyTest extends PHPUnit_Framework_TestCase
+class KeyTest extends TestCase
 {
 	/**
 	 *

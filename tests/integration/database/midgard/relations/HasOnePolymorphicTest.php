@@ -7,11 +7,14 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use mako\tests\integration\ORMTestCase;
+use mako\tests\integration\TestORM;
+
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class HasOnePolymorphicProfile extends \TestORM
+class HasOnePolymorphicProfile extends TestORM
 {
 	protected $tableName = 'profiles';
 
@@ -21,7 +24,7 @@ class HasOnePolymorphicProfile extends \TestORM
 	}
 }
 
-class HasOnePolymorphicImage extends \TestORM
+class HasOnePolymorphicImage extends TestORM
 {
 	protected $tableName = 'images';
 }
@@ -36,7 +39,7 @@ class HasOnePolymorphicImage extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-class HasOnePolymorphicTest extends \ORMTestCase
+class HasOnePolymorphicTest extends ORMTestCase
 {
 	/**
 	 *

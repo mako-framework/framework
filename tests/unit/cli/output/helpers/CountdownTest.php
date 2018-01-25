@@ -8,25 +8,17 @@
 namespace mako\tests\unit\cli\output\helpers;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\cli\output\helpers\Countdown;
+use mako\tests\TestCase;
 
 use phpmock\MockBuilder;
 
 /**
  * @group unit
  */
-class CountdownTest extends PHPUnit_Framework_TestCase
+class CountdownTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

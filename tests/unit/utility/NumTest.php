@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\utility;
 
-use PHPUnit_Framework_TestCase;
-
+use mako\tests\TestCase;
 use mako\utility\Num;
 
 /**
  * @group unit
  */
-class NumTest extends PHPUnit_Framework_TestCase
+class NumTest extends TestCase
 {
 	/**
 	 *

@@ -8,27 +8,19 @@
 namespace mako\tests\unit\reactor;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
 use mako\reactor\exceptions\MissingArgumentException;
 use mako\reactor\exceptions\MissingOptionException;
 use mako\reactor\Reactor;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ReactorTest extends PHPUnit_Framework_TestCase
+class ReactorTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

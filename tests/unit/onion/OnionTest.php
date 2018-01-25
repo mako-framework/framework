@@ -7,9 +7,8 @@
 
 namespace mako\tests\unit\onion;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\onion\Onion;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -110,7 +109,7 @@ class BazMiddleware2
 /**
  * @group unit
  */
-class OnionTest extends PHPUnit_Framework_TestCase
+class OnionTest extends TestCase
 {
 	/**
 	 *

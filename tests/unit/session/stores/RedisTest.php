@@ -8,23 +8,15 @@
 namespace mako\tests\unit\session\stores;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\session\stores\Redis;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class RedisTest extends PHPUnit_Framework_TestCase
+class RedisTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */
@@ -99,5 +91,7 @@ class RedisTest extends PHPUnit_Framework_TestCase
 		$redis = new Redis($client);
 
 		$redis->gc(123);
+
+		$this->assertNull(null); // Hack to avoid test being marked as risky
 	}
 }

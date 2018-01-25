@@ -8,26 +8,18 @@
 namespace mako\tests\unit\view\compilers;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
+use mako\tests\TestCase;
 use mako\view\compilers\Template;
 
 /**
  * @group unit
  */
-class TemplateTest extends PHPUnit_Framework_TestCase
+class TemplateTest extends TestCase
 {
 	protected $cachePath = '/cache';
 
 	protected $templateName = 'template';
-
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
 
 	/**
 	 *

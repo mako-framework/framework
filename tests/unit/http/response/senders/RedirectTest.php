@@ -8,23 +8,15 @@
 namespace mako\tests\unit\http\response\builders;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\http\response\senders\Redirect;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class RedirectTest extends PHPUnit_Framework_TestCase
+class RedirectTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\redis;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\redis\Connection;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ConnectionTest extends PHPUnit_Framework_TestCase
+class ConnectionTest extends TestCase
 {
 	/**
 	 * @expectedException \mako\redis\RedisException

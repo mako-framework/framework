@@ -7,15 +7,14 @@
 
 namespace mako\tests\unit\security\crypto\encrypters;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\security\crypto\encrypters\OpenSSL;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  * @requires extension openssl
  */
-class OpenSSLTest extends PHPUnit_Framework_TestCase
+class OpenSSLTest extends TestCase
 {
 	/**
 	 *

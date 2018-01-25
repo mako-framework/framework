@@ -9,14 +9,14 @@ namespace mako\tests\unit\chrono;
 
 use DateTime;
 use DateTimeZone;
-use PHPUnit_Framework_TestCase;
 
 use mako\chrono\Time;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class TimeTest extends PHPUnit_Framework_TestCase
+class TimeTest extends TestCase
 {
 	/**
 	 *

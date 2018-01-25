@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\reactor\exceptions;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\reactor\exceptions\InvalidOptionException;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class InvalidOptionExceptionTest extends PHPUnit_Framework_TestCase
+class InvalidOptionExceptionTest extends TestCase
 {
 	/**
 	 *

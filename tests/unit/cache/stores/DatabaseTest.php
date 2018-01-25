@@ -8,23 +8,15 @@
 namespace mako\tests\unit\cache\stores;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\cache\stores\Database;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class DatabaseTest extends PHPUnit_Framework_TestCase
+class DatabaseTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

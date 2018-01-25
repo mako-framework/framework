@@ -7,26 +7,18 @@
 
 namespace mako\tests\unit\error\handlers\cli;
 
-use Mockery;
 use ErrorException;
-use PHPUnit_Framework_TestCase;
+use Mockery;
 
 use mako\cli\output\Output;
 use mako\error\handlers\cli\ProductionHandler;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ProductionHandlerTest extends PHPUnit_Framework_TestCase
+class ProductionHandlerTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

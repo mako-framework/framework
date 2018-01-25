@@ -8,23 +8,15 @@
 namespace mako\tests\unit\database\query\compilers;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\database\query\Query;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class FirebirdCompilerTest extends PHPUnit_Framework_TestCase
+class FirebirdCompilerTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\database\query;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\database\query\compilers\Compiler;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class CompilerTest extends PHPUnit_Framework_TestCase
+class CompilerTest extends TestCase
 {
 	/**
 	 *

@@ -10,10 +10,10 @@ namespace mako\tests\unit\http\routing;
 use Throwable;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\http\routing\Router;
 use mako\http\routing\constraints\Constraint;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -42,16 +42,8 @@ class BarConstraint extends Constraint
 /**
  * @group unit
  */
-class RouterTest extends PHPUnit_Framework_TestCase
+class RouterTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

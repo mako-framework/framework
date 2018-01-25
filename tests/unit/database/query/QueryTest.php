@@ -8,23 +8,15 @@
 namespace mako\tests\unit\database\query;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\database\query\Query;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class QueryTest extends PHPUnit_Framework_TestCase
+class QueryTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

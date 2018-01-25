@@ -7,10 +7,9 @@
 
 namespace mako\tests\integration\database\midgard;
 
-use ORMTestCase;
-
 use mako\database\midgard\ORM;
 use mako\database\midgard\traits\NullableTrait;
+use mako\tests\integration\ORMTestCase;
 
 class NullableTest extends ORMTestCase
 {

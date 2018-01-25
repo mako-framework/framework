@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\reactor\exceptions;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\reactor\exceptions\MissingArgumentException;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class MissingArgumentExceptionTest extends PHPUnit_Framework_TestCase
+class MissingArgumentExceptionTest extends TestCase
 {
 	/**
 	 *

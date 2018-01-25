@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\reactor\traits;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\reactor\traits\FireTrait;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class FireTraitTest extends PHPUnit_Framework_TestCase
+class FireTraitTest extends TestCase
 {
 	/**
 	 *

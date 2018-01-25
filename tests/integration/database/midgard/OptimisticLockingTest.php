@@ -7,11 +7,14 @@
 
 namespace mako\tests\integration\database\midgard;
 
+use mako\tests\integration\ORMTestCase;
+use mako\tests\integration\TestORM;
+
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class OptimisticLock extends \TestORM
+class OptimisticLock extends TestORM
 {
 	use \mako\database\midgard\traits\OptimisticLockingTrait;
 
@@ -28,7 +31,7 @@ class OptimisticLock extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-class OptimisticLockingTest extends \ORMTestCase
+class OptimisticLockingTest extends ORMTestCase
 {
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\StaleRecordException

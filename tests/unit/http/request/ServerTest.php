@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\http\request;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\http\request\Server;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ServerTest extends PHPUnit_Framework_TestCase
+class ServerTest extends TestCase
 {
 	/**
 	 *

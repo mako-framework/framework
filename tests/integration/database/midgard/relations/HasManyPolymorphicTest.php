@@ -7,11 +7,14 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use mako\tests\integration\ORMTestCase;
+use mako\tests\integration\TestORM;
+
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class HasManyPolymorphicArticle extends \TestORM
+class HasManyPolymorphicArticle extends TestORM
 {
 	protected $tableName = 'articles';
 
@@ -21,7 +24,7 @@ class HasManyPolymorphicArticle extends \TestORM
 	}
 }
 
-class HasManyPolymorphicComment extends \TestORM
+class HasManyPolymorphicComment extends TestORM
 {
 	protected $tableName = 'polymorphic_comments';
 }
@@ -36,7 +39,7 @@ class HasManyPolymorphicComment extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-class HasManyPolymorphicTest extends \ORMTestCase
+class HasManyPolymorphicTest extends ORMTestCase
 {
 	/**
 	 *

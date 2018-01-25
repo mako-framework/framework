@@ -7,11 +7,14 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use mako\tests\integration\ORMTestCase;
+use mako\tests\integration\TestORM;
+
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class NestedEagerLoadingUser extends \TestORM
+class NestedEagerLoadingUser extends TestORM
 {
 	protected $tableName = 'users';
 
@@ -21,7 +24,7 @@ class NestedEagerLoadingUser extends \TestORM
 	}
 }
 
-class NestedEagerLoadingArticle extends \TestORM
+class NestedEagerLoadingArticle extends TestORM
 {
 	protected $tableName = 'articles';
 
@@ -31,7 +34,7 @@ class NestedEagerLoadingArticle extends \TestORM
 	}
 }
 
-class NestedEagerLoadingComment extends \TestORM
+class NestedEagerLoadingComment extends TestORM
 {
 	protected $tableName = 'article_comments';
 }
@@ -46,7 +49,7 @@ class NestedEagerLoadingComment extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-class NestedEagerLoadingTest extends \ORMTestCase
+class NestedEagerLoadingTest extends ORMTestCase
 {
 	/**
 	 *

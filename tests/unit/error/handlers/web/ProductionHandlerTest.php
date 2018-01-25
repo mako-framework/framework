@@ -7,9 +7,8 @@
 
 namespace mako\tests\unit\error\handlers\web;
 
-use Mockery;
 use ErrorException;
-use PHPUnit_Framework_TestCase;
+use Mockery;
 
 use mako\error\handlers\web\ProductionHandler;
 use mako\http\Request;
@@ -17,20 +16,13 @@ use mako\http\Response;
 use mako\http\request\Headers;
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\view\ViewFactory;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ProductionHandlerTest extends PHPUnit_Framework_TestCase
+class ProductionHandlerTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

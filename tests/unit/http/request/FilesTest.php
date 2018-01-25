@@ -7,15 +7,14 @@
 
 namespace mako\tests\unit\http\request;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\http\request\Files;
 use mako\http\request\UploadedFile;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class FilesTest extends PHPUnit_Framework_TestCase
+class FilesTest extends TestCase
 {
 	/**
 	 *

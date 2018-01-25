@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\utility;
 
-use PHPUnit_Framework_TestCase;
-
+use mako\tests\TestCase;
 use mako\utility\HTML;
 
 /**
  * @group unit
  */
-class HTMLTest extends PHPUnit_Framework_TestCase
+class HTMLTest extends TestCase
 {
 	/**
 	 *

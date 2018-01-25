@@ -8,14 +8,16 @@
 namespace mako\tests\unit\i18n;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
+use mako\cache\stores\StoreInterface;
 use mako\i18n\I18n;
+use mako\i18n\loaders\LoaderInterface;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class I18nTest extends PHPUnit_Framework_TestCase
+class I18nTest extends TestCase
 {
 	/**
 	 *
@@ -31,17 +33,9 @@ class I18nTest extends PHPUnit_Framework_TestCase
 	/**
 	 *
 	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
-	/**
-	 *
-	 */
 	public function getLoader()
 	{
-		return Mockery::mock('mako\i18n\loaders\LoaderInterface');
+		return Mockery::mock(LoaderInterface::class);
 	}
 
 	/**
@@ -49,7 +43,7 @@ class I18nTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function getCache()
 	{
-		return Mockery::mock('mako\cache\stores\StoreInterface');
+		return Mockery::mock(StoreInterface::class);
 	}
 
 	/**
@@ -60,6 +54,13 @@ class I18nTest extends PHPUnit_Framework_TestCase
 		$i18n = new I18n($this->getLoader(), 'en_US');
 
 		$i18n->setCache($this->getCache());
+
+		$cache = (function()
+		{
+			return $this->cache;
+		})->bindTo($i18n, I18n::class)();
+
+		$this->assertInstanceOf(StoreInterface::class, $cache);
 	}
 
 	/**

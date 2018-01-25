@@ -7,9 +7,8 @@
 
 namespace mako\tests\unit\common;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\common\ConnectionManager as ConnectionManagerAbstract;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -50,7 +49,7 @@ class ConnectionManager extends ConnectionManagerAbstract
 /**
  * @group unit
  */
-class ConnectionManagerTest extends PHPUnit_Framework_TestCase
+class ConnectionManagerTest extends TestCase
 {
 	/**
 	 *

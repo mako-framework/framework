@@ -8,9 +8,9 @@
 namespace mako\tests\unit\reactor;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\reactor\Command;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -62,16 +62,8 @@ class Bar extends Command
 /**
  * @group unit
  */
-class CommandTest extends PHPUnit_Framework_TestCase
+class CommandTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

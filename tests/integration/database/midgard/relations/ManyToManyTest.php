@@ -7,11 +7,14 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use mako\tests\integration\ORMTestCase;
+use mako\tests\integration\TestORM;
+
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class ManyToManyUser extends \TestORM
+class ManyToManyUser extends TestORM
 {
 	protected $tableName = 'users';
 
@@ -21,7 +24,7 @@ class ManyToManyUser extends \TestORM
 	}
 }
 
-class ManyToManyGroup extends \TestORM
+class ManyToManyGroup extends TestORM
 {
 	protected $tableName = 'groups';
 
@@ -41,7 +44,7 @@ class ManyToManyGroup extends \TestORM
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-class ManyToManyTest extends \ORMTestCase
+class ManyToManyTest extends ORMTestCase
 {
 	/**
 	 *

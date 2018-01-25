@@ -8,25 +8,17 @@
 namespace mako\tests\unit\http;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\http\Response;
 use mako\http\response\builders\JSON;
 use mako\http\response\senders\Redirect;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ResponseTest extends PHPUnit_Framework_TestCase
+class ResponseTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

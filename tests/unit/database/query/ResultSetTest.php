@@ -7,15 +7,14 @@
 
 namespace mako\tests\unit\database\query;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\database\query\Result;
 use mako\database\query\ResultSet;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ResultSetTest extends PHPUnit_Framework_TestCase
+class ResultSetTest extends TestCase
 {
 	/**
 	 *

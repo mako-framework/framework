@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\http\routing;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\http\routing\Route;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class RouteTest extends PHPUnit_Framework_TestCase
+class RouteTest extends TestCase
 {
 	/**
 	 *

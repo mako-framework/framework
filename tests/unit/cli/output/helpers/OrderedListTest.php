@@ -8,23 +8,15 @@
 namespace mako\tests\unit\cli\output\helpers;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\cli\output\helpers\OrderedList;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class OrderedListTest extends PHPUnit_Framework_TestCase
+class OrderedListTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

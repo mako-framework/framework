@@ -8,23 +8,15 @@
 namespace mako\tests\unit\cli\output\helpers;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\cli\output\helpers\Bell;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class BellTest extends PHPUnit_Framework_TestCase
+class BellTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

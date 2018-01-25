@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\reactor\exceptions;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\reactor\exceptions\MissingOptionException;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class MissingOptionExceptionTest extends PHPUnit_Framework_TestCase
+class MissingOptionExceptionTest extends TestCase
 {
 	/**
 	 *

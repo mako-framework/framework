@@ -8,23 +8,15 @@
 namespace mako\tests\unit\cli\input\helpers;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\cli\input\helpers\Confirmation;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ConfirmationTest extends PHPUnit_Framework_TestCase
+class ConfirmationTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

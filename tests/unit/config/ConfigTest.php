@@ -8,23 +8,15 @@
 namespace mako\tests\unit\config;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\config\Config;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ConfigTest extends PHPUnit_Framework_TestCase
+class ConfigTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

@@ -7,12 +7,12 @@
 
 namespace mako\tests\integration\database\query\compilers;
 
+use Mockery;
+
 use mako\database\query\Query;
 use mako\pagination\PaginationFactoryInterface;
 use mako\pagination\PaginationInterface;
-
-use BuilderTestCase;
-use Mockery;
+use mako\tests\integration\BuilderTestCase;
 
 /**
  * @group integration
@@ -120,9 +120,9 @@ class BaseCompilerTest extends BuilderTestCase
 	{
 		$pagination = Mockery::mock(PaginationInterface::class);
 
-		$pagination->shouldReceive('limit')->once()->andReturn(10);
+		$pagination->shouldReceive('limit')->never();
 
-		$pagination->shouldReceive('offset')->once()->andReturn(0);
+		$pagination->shouldReceive('offset')->never();
 
 		$paginationFactory = Mockery::mock(PaginationFactoryInterface::class);
 

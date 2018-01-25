@@ -8,23 +8,15 @@
 namespace mako\tests\unit\cli\input\helpers;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\cli\input\helpers\Select;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class SelectTest extends PHPUnit_Framework_TestCase
+class SelectTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

@@ -8,23 +8,15 @@
 namespace mako\tests\unit\cli\input;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\cli\input\Input;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class InputTest extends PHPUnit_Framework_TestCase
+class InputTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

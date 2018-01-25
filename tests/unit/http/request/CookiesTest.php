@@ -8,14 +8,14 @@
 namespace mako\tests\unit\http\request;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\http\request\Cookies;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class CookiesTest extends PHPUnit_Framework_TestCase
+class CookiesTest extends TestCase
 {
 	/**
 	 *

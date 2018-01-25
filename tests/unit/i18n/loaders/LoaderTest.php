@@ -8,23 +8,15 @@
 namespace mako\tests\unit\i18n;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\i18n\loaders\Loader;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class LoaderTest extends PHPUnit_Framework_TestCase
+class LoaderTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

@@ -8,24 +8,16 @@
 namespace mako\tests\unit\gatekeeper\entities\group;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class GroupTest extends PHPUnit_Framework_TestCase
+class GroupTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

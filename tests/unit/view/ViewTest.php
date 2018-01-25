@@ -7,15 +7,14 @@
 
 namespace mako\tests\unit\view;
 
-use PHPUnit_Framework_TestCase;
-
+use mako\tests\TestCase;
 use mako\view\View;
 use mako\view\renderers\RendererInterface;
 
 /**
  * @group unit
  */
-class ViewTest extends PHPUnit_Framework_TestCase
+class ViewTest extends TestCase
 {
 	public function testView()
 	{

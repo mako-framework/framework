@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\reactor\traits;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\reactor\traits\SuggestionTrait;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class SuggestionTraitTest extends PHPUnit_Framework_TestCase
+class SuggestionTraitTest extends TestCase
 {
 	/**
 	 *

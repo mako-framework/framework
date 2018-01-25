@@ -8,23 +8,15 @@
 namespace mako\tests\unit\cli\output\helpers;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\cli\output\helpers\ProgressBar;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ProgressBarTest extends PHPUnit_Framework_TestCase
+class ProgressBarTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

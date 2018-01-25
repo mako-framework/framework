@@ -7,9 +7,8 @@
 
 namespace mako\tests\unit\syringe;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\syringe\ClassInspector;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -47,7 +46,7 @@ class E extends D
 /**
  * @group unit
  */
-class ClassInspectorTest extends PHPUnit_Framework_TestCase
+class ClassInspectorTest extends TestCase
 {
 	public function testGetClassTraits()
 	{

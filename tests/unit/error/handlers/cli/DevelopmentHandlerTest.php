@@ -7,28 +7,20 @@
 
 namespace mako\tests\unit\error\handlers\cli;
 
-use Mockery;
 use ErrorException;
+use Mockery;
 use RuntimeException;
-use PHPUnit_Framework_TestCase;
 
 use mako\cli\output\Output;
 use mako\cli\output\formatter\Formatter;
 use mako\error\handlers\cli\DevelopmentHandler;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class DevelopmentHandlerTest extends PHPUnit_Framework_TestCase
+class DevelopmentHandlerTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 * Returns output string.
 	 *

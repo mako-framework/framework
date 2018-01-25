@@ -8,23 +8,15 @@
 namespace mako\tests\unit\database\midgard;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\database\midgard\ResultSet;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ResultSetTest extends PHPUnit_Framework_TestCase
+class ResultSetTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

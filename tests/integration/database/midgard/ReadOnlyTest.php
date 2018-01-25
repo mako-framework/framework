@@ -9,6 +9,8 @@ namespace mako\tests\integration\database\midgard;
 
 use DateTime;
 
+use mako\tests\integration\ORMTestCase;
+
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
@@ -28,7 +30,7 @@ class TestUserReadOnly extends TestUser
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-class ReadOnlyTest extends \ORMTestCase
+class ReadOnlyTest extends ORMTestCase
 {
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException

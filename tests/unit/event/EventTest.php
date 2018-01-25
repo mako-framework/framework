@@ -8,10 +8,10 @@
 namespace mako\tests\unit\event;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\event\Event;
 use mako\event\EventHandlerInterface;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -32,16 +32,8 @@ class EventHanler implements EventHandlerInterface
 /**
  * @group unit
  */
-class EventTest extends PHPUnit_Framework_TestCase
+class EventTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

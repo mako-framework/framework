@@ -8,23 +8,15 @@
 namespace mako\tests\unit\http\routing;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\http\routing\URLBuilder;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class URLBuilderTest extends PHPUnit_Framework_TestCase
+class URLBuilderTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

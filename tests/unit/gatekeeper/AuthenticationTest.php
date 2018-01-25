@@ -8,24 +8,16 @@
 namespace mako\tests\unit\gatekeeper;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\gatekeeper\Authentication;
 use mako\gatekeeper\adapters\AdapterInterface;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class AuthenticationTest extends PHPUnit_Framework_TestCase
+class AuthenticationTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

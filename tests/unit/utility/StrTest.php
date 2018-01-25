@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\utility;
 
-use PHPUnit_Framework_TestCase;
-
+use mako\tests\TestCase;
 use mako\utility\Str;
 
 /**
  * @group unit
  */
-class StrTest extends PHPUnit_Framework_TestCase
+class StrTest extends TestCase
 {
 	/**
 	 *

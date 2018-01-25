@@ -8,23 +8,15 @@
 namespace mako\tests\unit\pixl;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\pixl\Image;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class ImageTest extends PHPUnit_Framework_TestCase
+class ImageTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

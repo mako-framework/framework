@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\utility;
 
-use PHPUnit_Framework_TestCase;
-
+use mako\tests\TestCase;
 use mako\utility\Arr;
 
 /**
  * @group unit
  */
-class ArrTest extends PHPUnit_Framework_TestCase
+class ArrTest extends TestCase
 {
 	/**
 	 *

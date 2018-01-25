@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\cli\output\formatter;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\cli\output\formatter\Formatter;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class OutputTest extends PHPUnit_Framework_TestCase
+class OutputTest extends TestCase
 {
 	/**
 	 *

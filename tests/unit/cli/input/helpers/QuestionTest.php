@@ -8,14 +8,14 @@
 namespace mako\tests\unit\cli\input\helpers;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\cli\input\helpers\Question;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class QuestionTest extends PHPUnit_Framework_TestCase
+class QuestionTest extends TestCase
 {
 	/**
 	 *

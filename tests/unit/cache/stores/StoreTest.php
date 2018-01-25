@@ -8,9 +8,9 @@
 namespace mako\tests\cache\stores;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\cache\stores\Store;
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -31,16 +31,8 @@ abstract class TestStore extends Store
 /**
  * @group unit
  */
-class StoreTest extends PHPUnit_Framework_TestCase
+class StoreTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

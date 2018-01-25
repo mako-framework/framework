@@ -9,7 +9,8 @@ namespace mako\tests\unit\database\midgard;
 
 use DateTime;
 use Mockery;
-use PHPUnit_Framework_TestCase;
+
+use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -105,16 +106,8 @@ class TestCastingDate extends \mako\database\midgard\ORM
 /**
  * @group unit
  */
-class ORMTest extends PHPUnit_Framework_TestCase
+class ORMTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

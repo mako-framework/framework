@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\http\exceptions;
 
-use PHPUnit_Framework_TestCase;
-
 use mako\http\exceptions\MethodNotAllowedException;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class MethodNotAllowedExceptionTest extends PHPUnit_Framework_TestCase
+class MethodNotAllowedExceptionTest extends TestCase
 {
 	/**
 	 *

@@ -8,23 +8,15 @@
 namespace mako\tests\unit\pagination;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 
 use mako\pagination\Pagination;
+use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class PaginationTest extends PHPUnit_Framework_TestCase
+class PaginationTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
 	/**
 	 *
 	 */

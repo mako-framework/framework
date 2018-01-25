@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\utility;
 
-use PHPUnit_Framework_TestCase;
-
+use mako\tests\TestCase;
 use mako\utility\Collection;
 
 /**
  * @group unit
  */
-class CollectionTest extends PHPUnit_Framework_TestCase
+class CollectionTest extends TestCase
 {
 	/**
 	 *
