@@ -20,14 +20,6 @@ class QuestionTest extends TestCase
 	/**
 	 *
 	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
-	/**
-	 *
-	 */
 	public function testQuestion()
 	{
 		$input = Mockery::mock('mako\cli\input\Input');

@@ -21,14 +21,6 @@ class HumanizerTest extends TestCase
 	/**
 	 *
 	 */
-	public function tearDown()
-	{
-		Mockery::close();
-	}
-
-	/**
-	 *
-	 */
 	public function getI18n()
 	{
 		$i18n = Mockery::mock('\mako\i18n\I18n');
