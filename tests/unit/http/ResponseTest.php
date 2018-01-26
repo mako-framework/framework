@@ -448,12 +448,41 @@ class ResponseTest extends TestCase
 
 		$response->cookie('foo', 'foo cookie');
 
-		$response->clear();
+		$this->assertInstanceOf(Response::class, $response->clear());
 
 		$this->assertNull($response->getBody());
 
 		$this->assertCount(0, $response->getHeaders());
 
 		$this->assertCount(0, $response->getCookies());
+	}
+
+	/**
+	 *
+	 */
+	public function testReset()
+	{
+		$response = new Response($this->getRequest());
+
+		$response->body('Hello, world!');
+
+		foreach($this->getHeaders() as $header => $value)
+		{
+			$response->header($header, $value);
+		}
+
+		$response->cookie('foo', 'foo cookie');
+
+		$response->status(404);
+
+		$this->assertInstanceOf(Response::class, $response->reset());
+
+		$this->assertNull($response->getBody());
+
+		$this->assertCount(0, $response->getHeaders());
+
+		$this->assertCount(0, $response->getCookies());
+
+		$this->assertSame(200, $response->getStatus());
 	}
 }

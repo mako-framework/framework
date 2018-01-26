@@ -22,6 +22,13 @@ use mako\security\Signer;
 class Response
 {
 	/**
+	 * Default status code.
+	 *
+	 * @var int
+	 */
+	const DEFAULT_STATUS = 200;
+
+	/**
 	 * Request instance.
 	 *
 	 * @var \mako\http\Request
@@ -61,7 +68,7 @@ class Response
 	 *
 	 * @var int
 	 */
-	protected $statusCode = 200;
+	protected $statusCode = self::DEFAULT_STATUS;
 
 	/**
 	 * Response headers.
@@ -494,6 +501,18 @@ class Response
 		$this->clearCookies();
 
 		return $this;
+	}
+
+	/**
+	 * Resets the response.
+	 *
+	 * @return \mako\http\Response
+	 */
+	public function reset(): Response
+	{
+		$this->statusCode = self::DEFAULT_STATUS;
+
+		return $this->clear();
 	}
 
 	/**
