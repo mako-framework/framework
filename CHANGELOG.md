@@ -15,6 +15,7 @@ Update using ```composer update```.
 
 #### Changes
 
+* The `Container::factory()` method is now public.
 * Removed `Request` methods that where deprecated in 5.3:
 	- Removed the `Request::get()` method.
 	- Removed the `Request::post()` method.
