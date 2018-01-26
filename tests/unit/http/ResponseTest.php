@@ -170,52 +170,6 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFilter()
-	{
-		$response = new Response($this->getRequest());
-
-		$response->filter(function($body)
-		{
-			return '';
-		});
-
-		$response->filter(function($body)
-		{
-			return '';
-		});
-
-		$this->assertTrue(is_array($response->getFilters()));
-
-		$this->assertCount(2, $response->getFilters());
-
-		$this->assertContainsOnlyInstancesOf('\Closure', $response->getFilters());
-	}
-
-	/**
-	 *
-	 */
-	public function testClearFilters()
-	{
-		$response = new Response($this->getRequest());
-
-		$response->filter(function($body)
-		{
-			return '';
-		});
-
-		$response->filter(function($body)
-		{
-			return '';
-		});
-
-		$response->clearFilters();
-
-		$this->assertCount(0, $response->getFilters());
-	}
-
-	/**
-	 *
-	 */
 	public function testHeader()
 	{
 		$response = new Response($this->getRequest());
@@ -487,11 +441,6 @@ class ResponseTest extends TestCase
 
 		$response->body('Hello, world!');
 
-		$response->filter(function($body)
-		{
-			return '';
-		});
-
 		foreach($this->getHeaders() as $header => $value)
 		{
 			$response->header($header, $value);
@@ -502,8 +451,6 @@ class ResponseTest extends TestCase
 		$response->clear();
 
 		$this->assertNull($response->getBody());
-
-		$this->assertCount(0, $response->getFilters());
 
 		$this->assertCount(0, $response->getHeaders());
 

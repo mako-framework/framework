@@ -7,7 +7,6 @@
 
 namespace mako\http;
 
-use Closure;
 use RuntimeException;
 
 use mako\http\Request;
@@ -91,13 +90,6 @@ class Response
 	 * @var bool
 	 */
 	protected $responseCache = false;
-
-	/**
-	 * Output filters.
-	 *
-	 * @var array
-	 */
-	protected $outputFilters = [];
 
 	/**
 	 * HTTP status codes.
@@ -320,41 +312,6 @@ class Response
 	}
 
 	/**
-	 * Adds output filter that all output will be passed through before being sent.
-	 *
-	 * @param  \Closure            $filter Closure used to filter output
-	 * @return \mako\http\Response
-	 */
-	public function filter(Closure $filter): Response
-	{
-		$this->outputFilters[] = $filter;
-
-		return $this;
-	}
-
-	/**
-	 * Returns the response filters.
-	 *
-	 * @return array
-	 */
-	public function getFilters(): array
-	{
-		return $this->outputFilters;
-	}
-
-	/**
-	 * Clears all output filters.
-	 *
-	 * @return \mako\http\Response
-	 */
-	public function clearFilters(): Response
-	{
-		$this->outputFilters = [];
-
-		return $this;
-	}
-
-	/**
 	 * Sets a response header.
 	 *
 	 * @param  string              $name    Header name
@@ -526,14 +483,13 @@ class Response
 	}
 
 	/**
-	 * Clears the response body, filters, cookies and headers.
+	 * Clears the response body, cookies and headers.
 	 *
 	 * @return \mako\http\Response
 	 */
 	public function clear(): Response
 	{
 		$this->clearBody();
-		$this->clearFilters();
 		$this->clearHeaders();
 		$this->clearCookies();
 
@@ -656,17 +612,9 @@ class Response
 				ob_start();
 			}
 
-			// Cast body to string so that everything is rendered
-			// before running through response filters
+			// Cast body to string in case it's an obect implementing __toString
 
 			$this->body = (string) $this->body;
-
-			// Run body through the response filters
-
-			foreach($this->outputFilters as $outputFilter)
-			{
-				$this->body = $outputFilter($this->body);
-			}
 
 			// Check ETag if response cache is enabled
 
