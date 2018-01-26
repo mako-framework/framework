@@ -167,7 +167,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$foo = $container->get('mako\tests\unit\syringe\Foo');
+		$foo = $container->factory('mako\tests\unit\syringe\Foo');
 
 		$this->assertInstanceOf('\StdClass', $foo->stdClass);
 	}
@@ -180,7 +180,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$foo = $container->get('mako\tests\unit\syringe\Fox');
+		$foo = $container->factory('mako\tests\unit\syringe\Fox');
 	}
 
 	/**
@@ -190,7 +190,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$bar = $container->get('mako\tests\unit\syringe\Bar');
+		$bar = $container->factory('mako\tests\unit\syringe\Bar');
 
 		$this->assertEquals(123, $bar->foo);
 		$this->assertEquals(456, $bar->bar);
@@ -203,7 +203,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$bar = $container->get('mako\tests\unit\syringe\Bar', ['abc', 'def']);
+		$bar = $container->factory('mako\tests\unit\syringe\Bar', ['abc', 'def']);
 
 		$this->assertEquals('abc', $bar->foo);
 		$this->assertEquals('def', $bar->bar);
@@ -212,7 +212,7 @@ class ContainerTest extends TestCase
 
 		$container = new Container;
 
-		$bar = $container->get('mako\tests\unit\syringe\Bar', [1 => 'def', 0 => 'abc']);
+		$bar = $container->factory('mako\tests\unit\syringe\Bar', [1 => 'def', 0 => 'abc']);
 
 		$this->assertEquals('abc', $bar->foo);
 		$this->assertEquals('def', $bar->bar);
@@ -225,7 +225,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$bar = $container->get('mako\tests\unit\syringe\Bar', ['bar' => 789]);
+		$bar = $container->factory('mako\tests\unit\syringe\Bar', ['bar' => 789]);
 
 		$this->assertEquals(123, $bar->foo);
 		$this->assertEquals(789, $bar->bar);
@@ -238,7 +238,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$bar = $container->get('mako\tests\unit\syringe\Bar', ['bar' => 'def', 0 => 'abc']);
+		$bar = $container->factory('mako\tests\unit\syringe\Bar', ['bar' => 'def', 0 => 'abc']);
 
 		$this->assertEquals('abc', $bar->foo);
 		$this->assertEquals('def', $bar->bar);
@@ -266,7 +266,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$baz = $container->get('mako\tests\unit\syringe\StoreInterface');
+		$baz = $container->factory('mako\tests\unit\syringe\StoreInterface');
 	}
 
 	/**
@@ -487,8 +487,8 @@ class ContainerTest extends TestCase
 		$container->registerContextualDependency(ContextClassA::class, ContextualInterface::class, ContextualImplementationA::class);
 		$container->registerContextualDependency(ContextClassB::class, ContextualInterface::class, ContextualImplementationB::class);
 
-		$a = $container->get(ContextClassA::class);
-		$b = $container->get(ContextClassB::class);
+		$a = $container->factory(ContextClassA::class);
+		$b = $container->factory(ContextClassB::class);
 
 		$this->assertInstanceOf(ContextualImplementationA::class, $a->implementation);
 		$this->assertInstanceOf(ContextualImplementationB::class, $b->implementation);

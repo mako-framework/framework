@@ -452,7 +452,7 @@ class Container
 	 * @param  array           $parameters Constructor parameters
 	 * @return object
 	 */
-	protected function factory($class, array $parameters = [])
+	public function factory($class, array $parameters = [])
 	{
 		// Instantiate class
 
