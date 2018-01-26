@@ -1,3 +1,52 @@
+### 5.4.0 <small> (2018-??-??)</small>
+
+Update using ```composer update```.
+
+#### New
+
+* Added `Application::startTime()` method.
+* The container now supports replacing previously registered/resolved items:
+	- Added `Container::replace()` method.
+	- Added `Container::replaceSingleton()` method.
+	- Added `Container::replaceInstance()` method.
+	- Added `Container::onReplace()` method.
+
+
+#### Changes
+
+* Removed `Request` methods that where deprecated in 5.3:
+	- Removed the `Request::get()` method.
+	- Removed the `Request::post()` method.
+	- Removed the `Request::put()` method.
+	- Removed the `Request::patch()` method.
+	- Removed the `Request::delete()` method.
+	- Removed the `Request::cookie()` method.
+	- Removed the `Request::signedCookie()` method.
+	- Removed the `Request::file()` method.
+	- Removed the `Request::server()` method.
+	- Removed the `Request::has()` method.
+	- Removed the `Request::data()` method.
+	- Removed the `Request::whitelisted()` method.
+	- Removed the `Request::blacklisted()` method.
+	- Removed the `Request::header()` method.
+	- Removed the `Request::acceptableContentTypes()` method.
+	- Removed the `Request::acceptableLanguages()` method.
+	- Removed the `Request::acceptableCharsets()` method.
+	- Removed the `Request::acceptableEncodings()` method.
+* Removed `Response` filters:
+	- Removed the `Response::filter()` method.
+	- Removed the `Response::getFilters()` method.
+	- Removed the `Response::clearFilters()` method.
+
+
+#### Improvements
+
+* Unit tests now run using PHPUnit 6.
+
+> Check out the upgrade guide for details on how to upgrade from `5.3.*.`
+
+--------------------------------------------------------
+
 ### 5.3.1 <small> (2018-01-24)</small>
 
 Update using ```composer update```.
