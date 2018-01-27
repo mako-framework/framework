@@ -155,14 +155,15 @@ class Container
 	/**
 	 * Registers replacers.
 	 *
-	 * @param string   $hint     Type hint
-	 * @param callable $replacer Instance replacer
+	 * @param string      $hint      Type hint
+	 * @param callable    $replacer  Instance replacer
+	 * @param string|null $eventName Event name
 	 */
-	public function onReplace($hint, callable $replacer)
+	public function onReplace($hint, callable $replacer, string $eventName = null)
 	{
 		$hint = $this->resolveAlias($hint);
 
-		$this->replacers[$hint][] = $replacer;
+		$eventName === null ? ($this->replacers[$hint][] = $replacer) : ($this->replacers[$hint][$eventName] = $replacer);
 	}
 
 	/**
