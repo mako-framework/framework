@@ -40,7 +40,6 @@ Update using ```composer update```.
 	- Removed the `Response::getFilters()` method.
 	- Removed the `Response::clearFilters()` method.
 
-
 #### Improvements
 
 * Unit tests now run using PHPUnit 6.
