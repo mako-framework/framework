@@ -7,6 +7,7 @@
 
 namespace mako\http;
 
+use mako\http\request\Body;
 use mako\http\request\Cookies;
 use mako\http\request\Files;
 use mako\http\request\Headers;
@@ -413,40 +414,17 @@ class Request
 	}
 
 	/**
-	 * Converts the request body into an associative array.
-	 *
-	 * @return array
-	 */
-	protected function parseBody(): array
-	{
-		$contentType = rtrim(strtok((string) $this->headers->get('content-type'), ';'));
-
-		if($contentType === 'application/x-www-form-urlencoded')
-		{
-			$parsed = [];
-
-			parse_str($this->getRawbody(), $parsed);
-
-			return $parsed;
-		}
-		elseif($contentType === 'application/json' || $contentType === 'text/json')
-		{
-			return json_decode($this->getRawbody(), true);
-		}
-
-		return [];
-	}
-
-	/**
 	 * Returns the parsed request body.
 	 *
-	 * @return \mako\http\request\Parameters
+	 * @return \mako\http\request\Body
 	 */
 	public function getBody(): Parameters
 	{
 		if($this->parsedBody === null)
 		{
-			$this->parsedBody = new Parameters($this->parseBody());
+			$contentType = rtrim(strtok((string) $this->headers->get('content-type'), ';'));
+
+			$this->parsedBody = new Body($this->getRawBody(), $contentType);
 		}
 
 		return $this->parsedBody;

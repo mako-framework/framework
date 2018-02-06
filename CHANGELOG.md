@@ -16,6 +16,7 @@ Update using ```composer update```.
 #### Changes
 
 * The `Container::factory()` method is now public.
+* The `Request::getBody()` method now returns an instance of `mako\http\request\Body`.
 * Removed `Request` methods that where deprecated in 5.3:
 	- Removed the `Request::get()` method.
 	- Removed the `Request::post()` method.
