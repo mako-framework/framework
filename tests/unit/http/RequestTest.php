@@ -687,6 +687,44 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
+	public function testContentTypeWithNoHeader()
+	{
+		$request = new Request;
+
+		$this->assertSame('', $request->contentType());
+	}
+
+	/**
+	 *
+	 */
+	public function testContentTypeWithHeader()
+	{
+		$server = $this->getServerData();
+
+		$server['HTTP_CONTENT_TYPE'] = 'application/json';
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertSame('application/json', $request->contentType());
+	}
+
+	/**
+	 *
+	 */
+	public function testContentTypeWithHeaderAndCharset()
+	{
+		$server = $this->getServerData();
+
+		$server['HTTP_CONTENT_TYPE'] = 'application/json; charset=UTF-8';
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertSame('application/json', $request->contentType());
+	}
+
+	/**
+	 *
+	 */
 	public function testJsonPutData()
 	{
 		$body = ['foo' => 'bar', 'baz' => ['bax']];
@@ -694,30 +732,6 @@ class RequestTest extends TestCase
 		$server = $this->getServerData();
 
 		$server['HTTP_CONTENT_TYPE'] = 'application/json';
-
-		$request = new Request(['server' => $server, 'body' => json_encode($body)]);
-
-		$this->assertNull($request->getBody()->get('bar'));
-
-		$this->assertFalse($request->getBody()->get('bar', false));
-
-		$this->assertEquals('bar', $request->getBody()->get('foo'));
-
-		$this->assertEquals('bax', $request->getBody()->get('baz.0'));
-
-		$this->assertEquals($body, $request->getBody()->all());
-	}
-
-	/**
-	 *
-	 */
-	public function testJsonPutDataWithCharset()
-	{
-		$body = ['foo' => 'bar', 'baz' => ['bax']];
-
-		$server = $this->getServerData();
-
-		$server['HTTP_CONTENT_TYPE'] = 'application/json; charset=UTF-8';
 
 		$request = new Request(['server' => $server, 'body' => json_encode($body)]);
 
