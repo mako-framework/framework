@@ -162,7 +162,7 @@ class Redis
 	 */
 	protected function handleStatusResponse(string $response): string
 	{
-		return trim(substr($response, 1));
+		return substr($response, 1);
 	}
 
 	/**
@@ -173,7 +173,7 @@ class Redis
 	 */
 	protected function handleIntegerResponse(string $response): int
 	{
-		return (int) trim(substr($response, 1));
+		return (int) substr($response, 1);
 	}
 
 	/**
@@ -209,7 +209,7 @@ class Redis
 
 		$data = [];
 
-		$count = substr($response, 1);
+		$count = (int) substr($response, 1);
 
 		for($i = 0; $i < $count; $i++)
 		{
