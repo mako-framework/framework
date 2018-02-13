@@ -10,6 +10,7 @@ Update using ```composer update```.
 	- Added `Container::replaceSingleton()` method.
 	- Added `Container::replaceInstance()` method.
 	- Added `Container::onReplace()` method.
+* Added `Request::contentType()` method.
 * Added `Response::reset()` method.
 
 

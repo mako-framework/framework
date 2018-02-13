@@ -89,6 +89,13 @@ class Request
 	protected $parsedBody;
 
 	/**
+	 * Content type.
+	 *
+	 * @var string
+	 */
+	protected $contentType;
+
+	/**
 	 * Array of trusted proxy IP addresses.
 	 *
 	 * @var array
@@ -276,6 +283,22 @@ class Request
 	}
 
 	/**
+	 * Returns the content type of the request body.
+	 * An empty string will be returned if the header is missing.
+	 *
+	 * @return string
+	 */
+	public function contentType(): string
+	{
+		if($this->contentType === null)
+		{
+			$this->contentType = rtrim(strtok((string) $this->headers->get('content-type'), ';'));
+		}
+
+		return $this->contentType;
+	}
+
+	/**
 	 * Returns the base name of the script that handled the request.
 	 *
 	 * @return string
@@ -422,9 +445,7 @@ class Request
 	{
 		if($this->parsedBody === null)
 		{
-			$contentType = rtrim(strtok((string) $this->headers->get('content-type'), ';'));
-
-			$this->parsedBody = new Body($this->getRawBody(), $contentType);
+			$this->parsedBody = new Body($this->getRawBody(), $this->contentType());
 		}
 
 		return $this->parsedBody;
