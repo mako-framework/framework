@@ -26,7 +26,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$4\r\nAUTH\r\n$6\r\nfoobar\r\n");
 
-		$connection->shouldReceive('gets')->once()->andReturn("+OK\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("+OK\r\n");
 
 		$redis = new Redis($connection, ['password' => 'foobar']);
 	}
@@ -40,7 +40,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->never()->with("*2\r\n$6\r\nSELECT\r\n$1\r\n0\r\n");
 
-		$connection->shouldReceive('gets')->never()->andReturn("+OK\r\n");
+		$connection->shouldReceive('readline')->never()->andReturn("+OK\r\n");
 
 		$redis = new Redis($connection, ['database' => 0]);
 	}
@@ -54,7 +54,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$6\r\nSELECT\r\n$1\r\n1\r\n");
 
-		$connection->shouldReceive('gets')->once()->andReturn("+OK\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("+OK\r\n");
 
 		$redis = new Redis($connection, ['database' => 1]);
 	}
@@ -68,7 +68,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once()->with("*3\r\n$3\r\nSET\r\n$1\r\nx\r\n$1\r\n0\r\n");
 
-		$connection->shouldReceive('gets')->once()->andReturn("+OK\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("+OK\r\n");
 
 		$redis = new Redis($connection);
 
@@ -84,7 +84,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$6\r\nCONFIG\r\n$7\r\nREWRITE\r\n");
 
-		$connection->shouldReceive('gets')->once()->andReturn("+OK\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("+OK\r\n");
 
 		$redis = new Redis($connection);
 
@@ -100,7 +100,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$7\r\nCLUSTER\r\n$16\r\nSET-CONFIG-EPOCH\r\n");
 
-		$connection->shouldReceive('gets')->once()->andReturn("+OK\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("+OK\r\n");
 
 		$redis = new Redis($connection);
 
@@ -116,7 +116,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('gets')->once()->andReturn("-ERR unknown command 'foobar'\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("-ERR unknown command 'foobar'\r\n");
 
 		$redis = new Redis($connection);
 
@@ -132,7 +132,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('gets')->once()->andReturn("+OK\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("+OK\r\n");
 
 		$redis = new Redis($connection);
 
@@ -148,7 +148,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('gets')->once()->andReturn(":1\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn(":1\r\n");
 
 		$redis = new Redis($connection);
 
@@ -164,7 +164,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('gets')->once()->andReturn("$6\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("$6\r\n");
 
 		$connection->shouldReceive('read')->once()->andReturn("foobar\r\n");
 
@@ -182,7 +182,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('gets')->once()->andReturn("$-1\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("$-1\r\n");
 
 		$redis = new Redis($connection);
 
@@ -198,13 +198,13 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('gets')->once()->andReturn("*2\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("*2\r\n");
 
-		$connection->shouldReceive('gets')->once()->andReturn("$3\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("$3\r\n");
 
 		$connection->shouldReceive('read')->once()->andReturn("foo\r\n");
 
-		$connection->shouldReceive('gets')->once()->andReturn("$3\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("$3\r\n");
 
 		$connection->shouldReceive('read')->once()->andReturn("bar\r\n");
 
@@ -222,11 +222,11 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('gets')->once()->andReturn("*2\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("*2\r\n");
 
-		$connection->shouldReceive('gets')->once()->andReturn(":3\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn(":3\r\n");
 
-		$connection->shouldReceive('gets')->once()->andReturn("$3\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("$3\r\n");
 
 		$connection->shouldReceive('read')->once()->andReturn("bar\r\n");
 
@@ -244,7 +244,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('gets')->once()->andReturn("*0\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("*0\r\n");
 
 		$redis = new Redis($connection);
 
@@ -260,7 +260,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('gets')->once()->andReturn("*-1\r\n");
+		$connection->shouldReceive('readline')->once()->andReturn("*-1\r\n");
 
 		$redis = new Redis($connection);
 
@@ -277,7 +277,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('gets')->once()->andReturn("foobar");
+		$connection->shouldReceive('readline')->once()->andReturn("foobar");
 
 		$redis = new Redis($connection);
 
