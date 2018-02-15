@@ -13,8 +13,11 @@ Update using ```composer update```.
 * Added `Request::contentType()` method.
 * Added `Response::reset()` method.
 * Added `mako\cli\output\Output::hasAnsiSupport()` method.
+* Added `mako\cli\output\Output::clearLine()` method.
+* Added `mako\cli\output\Output::clearLines()` method.
 * Added `mako\cli\output\formatter\Formatter::stripSGR()` method.
 * Added `mako\cli\output\formatter\FormatterInterface::stripTags()` method.
+* Added `mako\cli\output\helpers\ProgressBar::remove()` method.
 
 #### Changes
 

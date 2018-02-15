@@ -156,7 +156,39 @@ class OutputTest extends TestCase
 
 		$output = new Output($std, $err);
 
-		$output->clear("\e[H\e[2J");
+		$output->clear();
+	}
+
+	/**
+	 *
+	 */
+	public function testClearLine()
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		$std->shouldReceive('write')->once()->with("\r\33[2K");
+
+		$output = new Output($std, $err);
+
+		$output->clearLine();
+	}
+
+	/**
+	 *
+	 */
+	public function testClearLines()
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		$std->shouldReceive('write')->once()->with("\033[F");
+
+		$std->shouldReceive('write')->times(2)->with("\r\33[2K");
+
+		$output = new Output($std, $err);
+
+		$output->clearLines(2);
 	}
 
 	/**

@@ -176,4 +176,12 @@ class ProgressBar
 			$this->draw();
 		}
 	}
+
+	/**
+	 * Removes the progressbar.
+	 */
+	public function remove()
+	{
+		$this->output->clearLines($this->progress === $this->items ? 2 : 1);
+	}
 }

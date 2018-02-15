@@ -214,4 +214,30 @@ class Output
 	{
 		$this->write("\e[H\e[2J");
 	}
+
+	/**
+	 * Clears the current line.
+	 */
+	public function clearLine()
+	{
+		$this->write("\r\33[2K");
+	}
+
+	/**
+	 * Clears n lines.
+	 *
+	 * @param int $lines Number of lines to clear
+	 */
+	public function clearLines(int $lines)
+	{
+		for($i = 0; $i < $lines; $i++)
+		{
+			if($i > 0)
+			{
+				$this->write("\033[F");
+			}
+
+			$this->clearLine();
+		}
+	}
 }
