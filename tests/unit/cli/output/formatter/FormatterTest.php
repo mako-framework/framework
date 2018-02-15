@@ -62,11 +62,23 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStrip()
+	public function testStripTags()
 	{
 		$formatter = new Formatter();
 
-		$this->assertSame('foo', $formatter->strip('<blue>foo</blue>'));
+		$this->assertSame('foo', $formatter->stripTags('<blue>foo</blue>'));
+
+		$this->assertSame('\<blue>foo\</blue>', $formatter->stripTags('\<blue>foo\</blue>'));
+	}
+
+	/**
+	 *
+	 */
+	public function testStripSGR()
+	{
+		$formatter = new Formatter();
+
+		$this->assertSame('foo', $formatter->stripSGR($formatter->format('<blue>foo</blue>')));
 	}
 
 	/**

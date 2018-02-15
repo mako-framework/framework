@@ -13,7 +13,8 @@ Update using ```composer update```.
 * Added `Request::contentType()` method.
 * Added `Response::reset()` method.
 * Added `mako\cli\output\Output::hasAnsiSupport()` method.
-
+* Added `mako\cli\output\formatter\Formatter::stripSGR()` method.
+* Added `mako\cli\output\formatter\FormatterInterface::stripTags()` method.
 
 #### Changes
 
@@ -43,6 +44,7 @@ Update using ```composer update```.
 	- Removed the `Response::getFilters()` method.
 	- Removed the `Response::clearFilters()` method.
 * Removed the `mako\cli\output\formatter\Formatter::hasAnsiSupport()` method.
+* Removed the `mako\cli\output\formatter\FormatterInterface::strip()` method.
 
 #### Improvements
 

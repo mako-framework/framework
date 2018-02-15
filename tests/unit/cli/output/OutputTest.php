@@ -277,11 +277,13 @@ class OutputTest extends TestCase
 		$err       = $this->getWriter();
 		$formatter = $this->getFormatter();
 
-		$formatter->shouldReceive('strip')->once()->with('hello, world!')->andReturn('stripped');
-
-		$std->shouldReceive('write')->once()->with('stripped');
+		$formatter->shouldReceive('stripTags')->once()->with('hello, world!')->andReturn('stripped');
 
 		$std->shouldReceive('isDirect')->never();
+
+		$formatter->shouldReceive('format')->once()->with('stripped')->andReturn('formatted');
+
+		$std->shouldReceive('write')->once()->with('formatted');
 
 		$output = new Output($std, $err, $formatter, false);
 
@@ -297,11 +299,13 @@ class OutputTest extends TestCase
 		$err       = $this->getWriter();
 		$formatter = $this->getFormatter();
 
-		$formatter->shouldReceive('strip')->once()->with('hello, world!')->andReturn('stripped');
-
-		$std->shouldReceive('write')->once()->with('stripped');
-
 		$std->shouldReceive('isDirect')->once()->andReturn(false);
+
+		$formatter->shouldReceive('stripTags')->once()->with('hello, world!')->andReturn('stripped');
+
+		$formatter->shouldReceive('format')->once()->with('stripped')->andReturn('formatted');
+
+		$std->shouldReceive('write')->once()->with('formatted');
 
 		$output = new Output($std, $err, $formatter);
 

@@ -165,14 +165,12 @@ class Output
 
 		if($this->formatter !== null)
 		{
-			if($this->hasAnsiSupport && $writer->isDirect())
+			if($this->hasAnsiSupport === false || $writer->isDirect() === false)
 			{
-				$string = $this->formatter->format($string);
+				$string = $this->formatter->stripTags($string);
 			}
-			else
-			{
-				$string = $this->formatter->strip($string);
-			}
+
+			$string = $this->formatter->format($string);
 		}
 
 		$writer->write($string);

@@ -36,5 +36,5 @@ interface FormatterInterface
 	 * @param  string $string String to strip
 	 * @return string
 	 */
-	public function strip(string $string): string;
+	public function stripTags(string $string): string;
 }

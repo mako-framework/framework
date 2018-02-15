@@ -296,8 +296,19 @@ class Formatter implements FormatterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function strip(string $string): string
+	public function stripTags(string $string): string
 	{
-		return preg_replace(static::ANSI_SGR_SEQUENCE_REGEX, '', $this->format($string));
+		return preg_replace(static::TAG_REGEX, '', $string);
+	}
+
+	/**
+	 * Returns a string where all SGR sequences have been stripped.
+	 *
+	 * @param  string $string String to strip
+	 * @return string
+	 */
+	public function stripSGR(string $string): string
+	{
+		return preg_replace(static::ANSI_SGR_SEQUENCE_REGEX, '', $string);
 	}
 }
