@@ -112,9 +112,9 @@ class TableTest extends TestCase
 
 		$formatter = Mockery::mock('mako\cli\output\formatter\FormatterInterface');
 
-		$formatter->shouldReceive('strip')->times(2)->with('<blue>Col1</blue>')->andReturn('Col1');
+		$formatter->shouldReceive('stripTags')->times(2)->with('<blue>Col1</blue>')->andReturn('Col1');
 
-		$formatter->shouldReceive('strip')->times(2)->with('Cell1')->andReturn('Cell1');
+		$formatter->shouldReceive('stripTags')->times(2)->with('Cell1')->andReturn('Cell1');
 
 		$output->shouldReceive('getFormatter')->once()->andReturn($formatter);
 
