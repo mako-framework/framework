@@ -70,7 +70,7 @@ class OrderedList
 
 		$number = strlen($count);
 
-		$marker = strlen(sprintf($this->formatter === null ? $marker : $this->formatter->strip($marker), '')) + $number;
+		$marker = strlen(sprintf($this->formatter === null ? $marker : $this->formatter->stripTags($marker), '')) + $number;
 
 		return ['number' => $number, 'marker' => $marker];
 	}
