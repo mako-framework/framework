@@ -18,27 +18,9 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConstructor()
-	{
-		$formatter = new Formatter;
-
-		$this->assertInternalType('boolean', $formatter->hasAnsiSupport());
-
-		$formatter = new Formatter(true);
-
-		$this->assertTrue($formatter->hasAnsiSupport());
-
-		$formatter = new Formatter(false);
-
-		$this->assertFalse($formatter->hasAnsiSupport());
-	}
-
-	/**
-	 *
-	 */
 	public function testBasicFormatter()
 	{
-		$formatter = new Formatter(true);
+		$formatter = new Formatter();
 
 		$this->assertSame("\033[34mfoo\033[0m", $formatter->format('<blue>foo</blue>'));
 
@@ -50,7 +32,7 @@ class OutputTest extends TestCase
 	 */
 	public function testTagEscaping()
 	{
-		$formatter = new Formatter(true);
+		$formatter = new Formatter();
 
 		$this->assertSame('<blue>foo</blue>', $formatter->format('\<blue>foo\</blue>'));
 	}
@@ -60,7 +42,7 @@ class OutputTest extends TestCase
 	 */
 	public function testCustomStyle()
 	{
-		$formatter = new Formatter(true);
+		$formatter = new Formatter();
 
 		$formatter->addStyle('my_style', ['black', 'bg_green']);
 
@@ -70,19 +52,9 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFormattingWithoutAnsiSupport()
-	{
-		$formatter = new Formatter(false);
-
-		$this->assertSame('foo', $formatter->format('<blue>foo</blue>'));
-	}
-
-	/**
-	 *
-	 */
 	public function testEscape()
 	{
-		$formatter = new Formatter(true);
+		$formatter = new Formatter();
 
 		$this->assertSame('\<blue>foo\</blue>', $formatter->escape('<blue>foo</blue>'));
 	}
@@ -92,7 +64,7 @@ class OutputTest extends TestCase
 	 */
 	public function testStrip()
 	{
-		$formatter = new Formatter(true);
+		$formatter = new Formatter();
 
 		$this->assertSame('foo', $formatter->strip('<blue>foo</blue>'));
 	}
@@ -103,29 +75,29 @@ class OutputTest extends TestCase
 	 */
 	public function testUndefinedTagException()
 	{
-		$formatter = new Formatter(true);
+		$formatter = new Formatter();
 
 		$formatter->format('<fail>hello</fail>');
 	}
 
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
-	 * @expectedExceptionMessage Incorrectly nested formatting tag detected.
+	 * @expectedExceptionMessage Detected incorrectly nested formatting tag.
 	 */
 	public function testIncorrectTagNestingException()
 	{
-		$formatter = new Formatter(true);
+		$formatter = new Formatter();
 
 		$formatter->format('<blue>he<green>llo</blue></green>');
 	}
 
 	/**
 	 * @expectedException \mako\cli\output\formatter\FormatterException
-	 * @expectedExceptionMessage Missing formatting close tag detected.
+	 * @expectedExceptionMessage Detected missing formatting close tag.
 	 */
 	public function testMissingCloseTagException()
 	{
-		$formatter = new Formatter(true);
+		$formatter = new Formatter();
 
 		$formatter->format('<blue>hello');
 	}

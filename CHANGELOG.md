@@ -12,6 +12,7 @@ Update using ```composer update```.
 	- Added `Container::onReplace()` method.
 * Added `Request::contentType()` method.
 * Added `Response::reset()` method.
+* Added `mako\cli\output\Output::hasAnsiSupport()` method.
 
 
 #### Changes
@@ -41,10 +42,12 @@ Update using ```composer update```.
 	- Removed the `Response::filter()` method.
 	- Removed the `Response::getFilters()` method.
 	- Removed the `Response::clearFilters()` method.
+* Removed the `mako\cli\output\formatter\Formatter::hasAnsiSupport()` method.
 
 #### Improvements
 
 * Unit tests now run using PHPUnit 6.
+* Removed unnecessary function calls in Redis client.
 
 > Check out the upgrade guide for details on how to upgrade from `5.3.*.`
 

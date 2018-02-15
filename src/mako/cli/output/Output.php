@@ -53,6 +53,13 @@ class Output
 	protected $formatter;
 
 	/**
+	 * Do we have ANSI support?
+	 *
+	 * @var bool
+	 */
+	protected $hasAnsiSupport;
+
+	/**
 	 * Is the output muted?
 	 *
 	 * @var bool
@@ -62,17 +69,37 @@ class Output
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\cli\output\writer\WriterInterface            $standard  Standard writer
-	 * @param \mako\cli\output\writer\WriterInterface            $error     Error writer
-	 * @param \mako\cli\output\formatter\FormatterInterface|null $formatter Formatter
+	 * @param \mako\cli\output\writer\WriterInterface            $standard       Standard writer
+	 * @param \mako\cli\output\writer\WriterInterface            $error          Error writer
+	 * @param \mako\cli\output\formatter\FormatterInterface|null $formatter      Formatter
+	 * @param bool|null                                          $hasAnsiSupport Do we have ANSI support?
 	 */
-	public function __construct(WriterInterface $standard, WriterInterface $error, FormatterInterface $formatter = null)
+	public function __construct(WriterInterface $standard, WriterInterface $error, FormatterInterface $formatter = null, bool $hasAnsiSupport = null)
 	{
 		$this->standard = $standard;
 
 		$this->error = $error;
 
 		$this->formatter = $formatter;
+
+		// Determine if we have ansi support
+
+		if($hasAnsiSupport === null)
+		{
+			$hasAnsiSupport = DIRECTORY_SEPARATOR === '/' || (false !== getenv('ANSICON') || 'ON' === getenv('ConEmuANSI'));
+		}
+
+		$this->hasAnsiSupport = $hasAnsiSupport;
+	}
+
+	/**
+	 * Do we have ANSI support?
+	 *
+	 * @return bool
+	 */
+	public function hasAnsiSupport(): bool
+	{
+		return $this->hasAnsiSupport;
 	}
 
 	/**
@@ -138,7 +165,7 @@ class Output
 
 		if($this->formatter !== null)
 		{
-			if($writer->isDirect())
+			if($this->hasAnsiSupport && $writer->isDirect())
 			{
 				$string = $this->formatter->format($string);
 			}

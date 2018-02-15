@@ -82,13 +82,6 @@ class Formatter implements FormatterInterface
 	];
 
 	/**
-	 * Do we have ANSI support?
-	 *
-	 * @var bool
-	 */
-	protected $hasAnsiSupport;
-
-	/**
 	 * User styles.
 	 *
 	 * @var array
@@ -101,31 +94,6 @@ class Formatter implements FormatterInterface
 	 * @var array
 	 */
 	protected $openTags = [];
-
-	/**
-	 * Constructor.
-	 *
-	 * @param bool|null $hasAnsiSupport Do we have ANSI support?
-	 */
-	public function __construct(bool $hasAnsiSupport = null)
-	{
-		if($hasAnsiSupport === null)
-		{
-			$hasAnsiSupport = DIRECTORY_SEPARATOR === '/' || (false !== getenv('ANSICON') || 'ON' === getenv('ConEmuANSI'));
-		}
-
-		$this->hasAnsiSupport = $hasAnsiSupport;
-	}
-
-	/**
-	 * Do we have ANSI support?
-	 *
-	 * @return bool
-	 */
-	public function hasAnsiSupport(): bool
-	{
-		return $this->hasAnsiSupport;
-	}
 
 	/**
 	 * Adds a user defined style.
@@ -235,7 +203,7 @@ class Formatter implements FormatterInterface
 	{
 		if($this->getTagName($tag) !== end($this->openTags))
 		{
-			throw new FormatterException('Incorrectly nested formatting tag detected.');
+			throw new FormatterException('Detected incorrectly nested formatting tag.');
 		}
 
 		// Pop the tag off the array of open tags
@@ -297,22 +265,19 @@ class Formatter implements FormatterInterface
 
 			$offset = $pos + strlen($tag);
 
-			if($this->hasAnsiSupport)
+			if($this->isOpeningTag($tag))
 			{
-				if($this->isOpeningTag($tag))
-				{
-					$formatted .= $this->openStyle($tag);
-				}
-				else
-				{
-					$formatted .= $this->closeStyle($tag);
-				}
+				$formatted .= $this->openStyle($tag);
+			}
+			else
+			{
+				$formatted .= $this->closeStyle($tag);
 			}
 		}
 
 		if(!empty($this->openTags))
 		{
-			throw new FormatterException('Missing formatting close tag detected.');
+			throw new FormatterException('Detected missing formatting close tag.');
 		}
 
 		$formatted .= substr($string, $offset);

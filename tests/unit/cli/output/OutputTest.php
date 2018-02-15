@@ -36,6 +36,27 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
+	public function testHasAnsiSupport()
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		$output = new Output($std, $err, null, false);
+
+		$this->assertFalse($output->hasAnsiSupport());
+
+		$output = new Output($std, $err, null, true);
+
+		$this->assertTrue($output->hasAnsiSupport());
+
+		$output = new Output($std, $err);
+
+		$this->assertInternalType('boolean', $output->hasAnsiSupport());
+	}
+
+	/**
+	 *
+	 */
 	public function testWrite()
 	{
 		$std = $this->getWriter();
@@ -230,7 +251,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWriteWithFormatter()
+	public function testWriteWithFormatterWithAnsiSupport()
 	{
 		$std       = $this->getWriter();
 		$err       = $this->getWriter();
@@ -242,7 +263,27 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('isDirect')->once()->andReturn(true);
 
-		$output = new Output($std, $err, $formatter);
+		$output = new Output($std, $err, $formatter, true);
+
+		$output->write('hello, world!');
+	}
+
+	/**
+	 *
+	 */
+	public function testWriteWithFormatterWithoutAnsiSupport()
+	{
+		$std       = $this->getWriter();
+		$err       = $this->getWriter();
+		$formatter = $this->getFormatter();
+
+		$formatter->shouldReceive('strip')->once()->with('hello, world!')->andReturn('stripped');
+
+		$std->shouldReceive('write')->once()->with('stripped');
+
+		$std->shouldReceive('isDirect')->never();
+
+		$output = new Output($std, $err, $formatter, false);
 
 		$output->write('hello, world!');
 	}
