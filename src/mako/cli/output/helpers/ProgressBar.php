@@ -66,6 +66,13 @@ class ProgressBar
 	protected $output;
 
 	/**
+	 * Progress bar prefix.
+	 *
+	 * @var string
+	 */
+	protected $prefix;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\output\Output $output     Output instance
@@ -112,6 +119,16 @@ class ProgressBar
 	}
 
 	/**
+	 * Sets the progress bar prefix.
+	 *
+	 * @param string $prefix Progress bar prefix
+	 */
+	public function setPrefix(string $prefix)
+	{
+		$this->prefix = $prefix . ' ';
+	}
+
+	/**
 	 * Builds the progressbar.
 	 *
 	 * @param  float  $percent Percent to fill
@@ -154,7 +171,7 @@ class ProgressBar
 
 		// Draw progressbar
 
-		$this->output->write("\r" . $progressBar);
+		$this->output->write("\r" . $this->prefix . $progressBar);
 
 		// If we're done then we'll add a newline to the output
 

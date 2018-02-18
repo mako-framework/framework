@@ -130,6 +130,38 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
+	public function testProgressWithPrefix()
+	{
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 00/10 --------------------   0% ");
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 01/10 ==------------------  10% ");
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 02/10 ====----------------  20% ");
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 03/10 ======--------------  30% ");
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 04/10 ========------------  40% ");
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 05/10 ==========----------  50% ");
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 06/10 ============--------  60% ");
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 07/10 ==============------  70% ");
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 08/10 ================----  80% ");
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 09/10 ==================--  90% ");
+		$output->shouldReceive('write')->once()->with("\rProcessing files: 10/10 ==================== 100% ");
+		$output->shouldReceive('write')->once()->with(PHP_EOL);
+
+		$progressBar = new ProgressBar($output, 10);
+
+		$progressBar->setPrefix('Processing files:');
+
+		$progressBar->draw();
+
+		for($i = 0; $i < 10; $i++)
+		{
+			$progressBar->advance();
+		}
+	}
+
+	/**
+	 *
+	 */
 	public function testProgressWith100ItemsAndDefaultRedrawRate()
 	{
 		$output = Mockery::mock('mako\cli\output\Output');

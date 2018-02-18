@@ -280,9 +280,10 @@ abstract class Command
 	 *
 	 * @param  int                                  $items      Total number of items
 	 * @param  int|null                             $redrawRate Redraw rate
+	 * @param  string|null                          $prefix     Progress bar prefix
 	 * @return \mako\cli\output\helpers\ProgressBar
 	 */
-	protected function progressBar(int $items, int $redrawRate = null): ProgressBar
+	protected function progressBar(int $items, int $redrawRate = null, string $prefix = null): ProgressBar
 	{
 		$progressBar = new ProgressBar($this->output, $items, $redrawRate);
 
@@ -291,6 +292,11 @@ abstract class Command
 		$progressBar->setEmptyTemplate('<red>░</red>');
 
 		$progressBar->setFilledTemplate('<green>▓</green>');
+
+		if($prefix !== null)
+		{
+			$progressBar->setPrefix($prefix);
+		}
 
 		$progressBar->draw();
 
