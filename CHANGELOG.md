@@ -18,6 +18,8 @@ Update using ```composer update```.
 * Added `mako\cli\output\formatter\Formatter::stripSGR()` method.
 * Added `mako\cli\output\formatter\FormatterInterface::stripTags()` method.
 * Added `mako\cli\output\helpers\ProgressBar::remove()` method.
+* Added `mako\cli\output\helpers\ProgressBar::setPrefix()` method.
+	- Added optional `$prefix` parameter to the `Command::progressBar()` method.
 
 #### Changes
 
