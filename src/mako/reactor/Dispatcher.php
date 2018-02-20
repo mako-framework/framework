@@ -14,6 +14,7 @@ use mako\reactor\exceptions\MissingArgumentException;
 use mako\reactor\exceptions\MissingOptionException;
 use mako\reactor\traits\SuggestionTrait;
 use mako\syringe\Container;
+use mako\utility\Str;
 
 /**
  * Command dispatcher.
@@ -139,6 +140,20 @@ class Dispatcher
 	}
 
 	/**
+	 * Converts arguments to camel case.
+	 *
+	 * @param  array $arguments Arguments
+	 * @return array
+	 */
+	protected function convertArgumentsToCamelCase(array $arguments): array
+	{
+		return array_combine(array_map(function($key)
+		{
+			return Str::underscored2camel($key);
+		}, array_keys($arguments)), array_values($arguments));
+	}
+
+	/**
 	 * Executes the command.
 	 *
 	 * @param  \mako\reactor\Command $command   Command instance
@@ -147,7 +162,7 @@ class Dispatcher
 	 */
 	protected function execute(Command $command, array $arguments)
 	{
-		return $this->container->call([$command, 'execute'], $arguments);
+		return $this->container->call([$command, 'execute'], $this->convertArgumentsToCamelCase($arguments));
 	}
 
 	/**

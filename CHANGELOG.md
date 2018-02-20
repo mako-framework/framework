@@ -50,6 +50,7 @@ Update using ```composer update```.
 	- Removed the `Response::clearFilters()` method.
 * Removed the `mako\cli\output\formatter\Formatter::hasAnsiSupport()` method.
 * Removed the `mako\cli\output\formatter\FormatterInterface::strip()` method.
+* Arguments are now converted to camel case before being passed to the `execute` method of reactor commands.
 
 #### Improvements
 

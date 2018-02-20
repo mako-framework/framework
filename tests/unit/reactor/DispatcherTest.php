@@ -48,6 +48,34 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
+	public function testDispatchWithSnakeCaseArguments()
+	{
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$command = Mockery::mock('mako\reactor\Command');
+
+		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
+
+		$command->shouldReceive('isStrict')->once()->andReturn(false);
+
+		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
+
+		$command->shouldReceive('getCommandOptions')->once()->andReturn([]);
+
+		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
+
+		$container->shouldReceive('call')->once()->with([$command, 'execute'], ['fooSnake' => 1, 'barSnake' => 2]);
+
+		$dispatcher = new Dispatcher($container);
+
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo_snake' => 1, 'bar_snake' => 2]);
+
+		$this->assertSame(0, $exitCode);
+	}
+
+	/**
+	 *
+	 */
 	public function testDispatchWithExitCode()
 	{
 		$container = Mockery::mock('mako\syringe\Container');
