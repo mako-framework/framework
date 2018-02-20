@@ -20,6 +20,7 @@ Update using ```composer update```.
 * Added `mako\cli\output\helpers\ProgressBar::remove()` method.
 * Added `mako\cli\output\helpers\ProgressBar::setPrefix()` method.
 	- Added optional `$prefix` parameter to the `Command::progressBar()` method.
+* Added optional `$priority` parameter to the `mako\http\routing\Dispatcher::registerMiddleware()` method.
 
 #### Changes
 

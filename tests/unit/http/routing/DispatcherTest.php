@@ -491,6 +491,38 @@ class DispatcherTest extends TestCase
 	}
 
 	/**
+	 *
+	 */
+	public function testMiddlewareRegistrationWithPriority()
+	{
+		$route = Mockery::mock('\mako\http\routing\Route');
+
+		$route->shouldReceive('getMiddleware')->times(1)->andReturn(['a', 'b']);
+
+		$route->shouldReceive('getAction')->times(1)->andReturn(function()
+		{
+			return 'hello, world!';
+		});
+
+		$route->shouldReceive('getParameters')->times(1)->andReturn([]);
+
+		$request = Mockery::mock('\mako\http\Request');
+
+		$response = Mockery::mock('\mako\http\Response')->makePartial();
+
+		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
+
+		$dispatcher = new Dispatcher($request, $response, $container);
+
+		$dispatcher->registerMiddleware('a', BazMiddleware::class, 2);
+		$dispatcher->registerMiddleware('b', BaxMiddleware::class, 1);
+
+		$response = $dispatcher->dispatch($route);
+
+		$this->assertEquals('BB AA hello, world! AA BB', $response->getBody());
+	}
+
+	/**
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage No middleware named [ foobar ] has been registered.
 	 */

@@ -122,11 +122,17 @@ class Dispatcher
 	 *
 	 * @param  string                        $name       Middleware name
 	 * @param  string                        $middleware Middleware class name
+	 * @param  int|null                      $priority   Middleware priority
 	 * @return \mako\http\routing\Dispatcher
 	 */
-	public function registerMiddleware(string $name, string $middleware): Dispatcher
+	public function registerMiddleware(string $name, string $middleware, int $priority = null): Dispatcher
 	{
 		$this->middleware[$name] = $middleware;
+
+		if($priority !== null)
+		{
+			$this->middlewarePriority[$name] = $priority;
+		}
 
 		return $this;
 	}
