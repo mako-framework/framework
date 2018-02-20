@@ -212,7 +212,10 @@ class Output
 	 */
 	public function clear()
 	{
-		$this->write("\e[H\e[2J");
+		if($this->hasAnsiSupport)
+		{
+			$this->write("\e[H\e[2J");
+		}
 	}
 
 	/**
@@ -220,7 +223,10 @@ class Output
 	 */
 	public function clearLine()
 	{
-		$this->write("\r\33[2K");
+		if($this->hasAnsiSupport)
+		{
+			$this->write("\r\33[2K");
+		}
 	}
 
 	/**
@@ -230,14 +236,17 @@ class Output
 	 */
 	public function clearLines(int $lines)
 	{
-		for($i = 0; $i < $lines; $i++)
+		if($this->hasAnsiSupport)
 		{
-			if($i > 0)
+			for($i = 0; $i < $lines; $i++)
 			{
-				$this->write("\033[F");
-			}
+				if($i > 0)
+				{
+					$this->write("\033[F");
+				}
 
-			$this->clearLine();
+				$this->clearLine();
+			}
 		}
 	}
 }

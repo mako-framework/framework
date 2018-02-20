@@ -147,14 +147,14 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClear()
+	public function testClearWithAnsiSupport()
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
 		$std->shouldReceive('write')->once()->with("\e[H\e[2J");
 
-		$output = new Output($std, $err);
+		$output = new Output($std, $err, null, true);
 
 		$output->clear();
 	}
@@ -162,14 +162,29 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClearLine()
+	public function testClearWithNoAnsiSupport()
+ 	{
+ 		$std = $this->getWriter();
+ 		$err = $this->getWriter();
+
+ 		$std->shouldReceive('write')->never();
+
+ 		$output = new Output($std, $err, null, false);
+
+ 		$output->clear();
+ 	}
+
+	/**
+	 *
+	 */
+	public function testClearLineWithAnsiSupport()
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
 		$std->shouldReceive('write')->once()->with("\r\33[2K");
 
-		$output = new Output($std, $err);
+		$output = new Output($std, $err, null, true);
 
 		$output->clearLine();
 	}
@@ -177,7 +192,22 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClearLines()
+	public function testClearLineWithNoAnsiSupport()
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		$std->shouldReceive('write')->never();
+
+		$output = new Output($std, $err, null, false);
+
+		$output->clearLine();
+	}
+
+	/**
+	 *
+	 */
+	public function testClearLinesWithAnsiSupport()
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -186,7 +216,22 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->times(2)->with("\r\33[2K");
 
-		$output = new Output($std, $err);
+		$output = new Output($std, $err, null, true);
+
+		$output->clearLines(2);
+	}
+
+	/**
+	 *
+	 */
+	public function testClearLinesWithNoAnsiSupport()
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		$std->shouldReceive('write')->never();
+
+		$output = new Output($std, $err, null, false);
 
 		$output->clearLines(2);
 	}
