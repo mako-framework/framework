@@ -79,15 +79,17 @@ EOF;
 
 		$command->shouldReceive('getCommandDescription')->once()->andReturn('foo description');
 
-		$container->shouldReceive('get')->once()->andReturn($command);
-
 		//
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
 		//
 
-		$reactor = new Reactor($input, $output, $container, $dispatcher);
+		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+
+		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->andReturn($command);
 
 		$reactor->setLogo('logo');
 
@@ -165,15 +167,17 @@ EOF;
 
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$container->shouldReceive('get')->once()->andReturn($command);
-
 		//
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
 		//
 
-		$reactor = new Reactor($input, $output, $container, $dispatcher);
+		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+
+		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->andReturn($command);
 
 		$reactor->registerCommand('server', 'foobar');
 
@@ -213,15 +217,17 @@ EOF;
 
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$container->shouldReceive('get')->once()->andReturn($command);
-
 		//
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
 		//
 
-		$reactor = new Reactor($input, $output, $container, $dispatcher);
+		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+
+		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->andReturn($command);
 
 		$reactor->registerCommand('foobar', 'foobar');
 

@@ -8,6 +8,7 @@
 namespace mako\reactor;
 
 use Closure;
+use ReflectionClass;
 
 use mako\cli\input\Input;
 use mako\cli\output\Output;
@@ -233,6 +234,17 @@ class Reactor
 	}
 
 	/**
+	 * Instantiates command without calling the constructor.
+	 *
+	 * @param  string                $class Class name
+	 * @return \mako\reactor\Command
+	 */
+	protected function instantiateCommandWithoutConstructor(string $class): Command
+	{
+		return (new ReflectionClass($class))->newInstanceWithoutConstructor();
+	}
+
+	/**
 	 * Returns an array of command information.
 	 *
 	 * @return array
@@ -243,7 +255,9 @@ class Reactor
 
 		foreach($this->commands as $name => $class)
 		{
-			$info[$name] = [$name, $this->container->get($class)->getCommandDescription()];
+			$command = $this->instantiateCommandWithoutConstructor($class);
+
+			$info[$name] = [$name, $command->getCommandDescription()];
 		}
 
 		ksort($info);
