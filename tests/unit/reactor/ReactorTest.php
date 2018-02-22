@@ -75,7 +75,7 @@ EOF;
 
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('getCommandDescription')->once()->andReturn('foo description');
 
@@ -159,7 +159,7 @@ EOF;
 
 		//
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('getCommandDescription')->once()->andReturn('server description');
 
@@ -209,7 +209,7 @@ EOF;
 
 		//
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('getCommandDescription')->once()->andReturn('server description');
 

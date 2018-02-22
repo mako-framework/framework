@@ -24,7 +24,7 @@ class DispatcherTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
@@ -52,7 +52,7 @@ class DispatcherTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
@@ -80,7 +80,7 @@ class DispatcherTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
@@ -108,7 +108,7 @@ class DispatcherTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
@@ -136,7 +136,7 @@ class DispatcherTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(false);
 
@@ -157,7 +157,7 @@ class DispatcherTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
@@ -182,7 +182,7 @@ class DispatcherTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
@@ -216,7 +216,7 @@ class DispatcherTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
@@ -250,7 +250,7 @@ class DispatcherTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
@@ -275,7 +275,7 @@ class DispatcherTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$command = Mockery::mock('mako\reactor\Command');
+		$command = Mockery::mock('mako\reactor\CommandInterface');
 
 		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
