@@ -7,7 +7,7 @@
 
 namespace mako\reactor;
 
-use mako\reactor\Command;
+use mako\reactor\CommandInterface;
 use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
 use mako\reactor\exceptions\MissingArgumentException;
@@ -45,10 +45,10 @@ class Dispatcher
 	/**
 	 * Resolves the command.
 	 *
-	 * @param  string                $command Command class
-	 * @return \mako\reactor\Command
+	 * @param  string                         $command Command class
+	 * @return \mako\reactor\CommandInterface
 	 */
-	protected function resolve(string $command): Command
+	protected function resolve(string $command): CommandInterface
 	{
 		return $this->container->get($command);
 	}
@@ -56,10 +56,10 @@ class Dispatcher
 	/**
 	 * Checks for invalid arguments or options.
 	 *
-	 * @param \mako\reactor\Command $command           Command arguments
-	 * @param array                 $providedArguments Provided arguments
+	 * @param \mako\reactor\CommandInterface $command           Command arguments
+	 * @param array                          $providedArguments Provided arguments
 	 */
-	protected function checkForInvalidArguments(Command $command, array $providedArguments)
+	protected function checkForInvalidArguments(CommandInterface $command, array $providedArguments)
 	{
 		$commandArguments = array_keys($command->getCommandArguments() + $command->getCommandOptions());
 
@@ -102,10 +102,10 @@ class Dispatcher
 	/**
 	 * Checks for missing required arguments.
 	 *
-	 * @param \mako\reactor\Command $command           Command instance
-	 * @param array                 $providedArguments Provided arguments
+	 * @param \mako\reactor\CommandInterface $command           Command instance
+	 * @param array                          $providedArguments Provided arguments
 	 */
-	protected function checkForMissingArguments(Command $command, array $providedArguments)
+	protected function checkForMissingArguments(CommandInterface $command, array $providedArguments)
 	{
 		$this->checkForMissingArgumentsOrOptions($command->getCommandArguments(), $providedArguments, MissingArgumentException::class);
 	}
@@ -113,10 +113,10 @@ class Dispatcher
 	/**
 	 * Checks for missing required options.
 	 *
-	 * @param \mako\reactor\Command $command           Command instance
-	 * @param array                 $providedArguments Provided arguments
+	 * @param \mako\reactor\CommandInterface $command           Command instance
+	 * @param array                          $providedArguments Provided arguments
 	 */
-	protected function checkForMissingOptions(Command $command, array $providedArguments)
+	protected function checkForMissingOptions(CommandInterface $command, array $providedArguments)
 	{
 		$this->checkForMissingArgumentsOrOptions($command->getCommandOptions(), $providedArguments, MissingOptionException::class);
 	}
@@ -124,10 +124,10 @@ class Dispatcher
 	/**
 	 * Checks arguments and options.
 	 *
-	 * @param \mako\reactor\Command $command           Command instance
-	 * @param array                 $providedArguments Provided arguments
+	 * @param \mako\reactor\CommandInterface $command           Command instance
+	 * @param array                          $providedArguments Provided arguments
 	 */
-	protected function checkArgumentsAndOptions(Command $command, array $providedArguments)
+	protected function checkArgumentsAndOptions(CommandInterface $command, array $providedArguments)
 	{
 		if($command->isStrict())
 		{
@@ -156,11 +156,11 @@ class Dispatcher
 	/**
 	 * Executes the command.
 	 *
-	 * @param  \mako\reactor\Command $command   Command instance
-	 * @param  array                 $arguments Command arguments
+	 * @param  \mako\reactor\CommandInterface $command   Command instance
+	 * @param  array                          $arguments Command arguments
 	 * @return mixed
 	 */
-	protected function execute(Command $command, array $arguments)
+	protected function execute(CommandInterface $command, array $arguments)
 	{
 		return $this->container->call([$command, 'execute'], $this->convertArgumentsToCamelCase($arguments));
 	}
@@ -183,6 +183,6 @@ class Dispatcher
 			$returnValue = $this->execute($command, $arguments);
 		}
 
-		return isset($returnValue) ? (is_int($returnValue) ? $returnValue : Command::STATUS_SUCCESS) : Command::STATUS_SUCCESS;
+		return isset($returnValue) ? (is_int($returnValue) ? $returnValue : CommandInterface::STATUS_SUCCESS) : CommandInterface::STATUS_SUCCESS;
 	}
 }

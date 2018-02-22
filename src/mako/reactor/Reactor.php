@@ -11,9 +11,9 @@ use Closure;
 use ReflectionClass;
 
 use mako\cli\input\Input;
-use mako\cli\output\Output;
 use mako\cli\output\helpers\Table;
-use mako\reactor\Command;
+use mako\cli\output\Output;
+use mako\reactor\CommandInterface;
 use mako\reactor\Dispatcher;
 use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
@@ -236,10 +236,10 @@ class Reactor
 	/**
 	 * Instantiates command without calling the constructor.
 	 *
-	 * @param  string                $class Class name
-	 * @return \mako\reactor\Command
+	 * @param  string                         $class Class name
+	 * @return \mako\reactor\CommandInterface
 	 */
-	protected function instantiateCommandWithoutConstructor(string $class): Command
+	protected function instantiateCommandWithoutConstructor(string $class): CommandInterface
 	{
 		return (new ReflectionClass($class))->newInstanceWithoutConstructor();
 	}
@@ -296,7 +296,7 @@ class Reactor
 
 			$this->listCommands();
 
-			return Command::STATUS_ERROR;
+			return CommandInterface::STATUS_ERROR;
 		}
 
 		return $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
@@ -317,7 +317,7 @@ class Reactor
 
 			$this->listCommands();
 
-			return Command::STATUS_SUCCESS;
+			return CommandInterface::STATUS_SUCCESS;
 		}
 
 		try
@@ -348,6 +348,6 @@ class Reactor
 			$this->output->errorLn('<red>Missing required argument [ ' . $e->getName() . ' ].</red>');
 		}
 
-		return $exitCode ?? Command::STATUS_ERROR;
+		return $exitCode ?? CommandInterface::STATUS_ERROR;
 	}
 }
