@@ -57,6 +57,7 @@ Update using ```composer update```.
 
 * Unit tests now run using PHPUnit 6.
 * Removed unnecessary function calls in Redis client.
+* Various improvements and optimizations.
 
 > Check out the upgrade guide for details on how to upgrade from `5.3.*.`
 
