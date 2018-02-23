@@ -8,6 +8,7 @@
 namespace mako\tests\unit\reactor;
 
 use Mockery;
+use InvalidOptionException;
 
 use mako\reactor\Dispatcher;
 use mako\tests\TestCase;
@@ -25,8 +26,6 @@ class DispatcherTest extends TestCase
 		$container = Mockery::mock('mako\syringe\Container');
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
-
-		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
 		$command->shouldReceive('isStrict')->once()->andReturn(false);
 
@@ -54,8 +53,6 @@ class DispatcherTest extends TestCase
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
 
-		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
-
 		$command->shouldReceive('isStrict')->once()->andReturn(false);
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
@@ -81,8 +78,6 @@ class DispatcherTest extends TestCase
 		$container = Mockery::mock('mako\syringe\Container');
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
-
-		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
 		$command->shouldReceive('isStrict')->once()->andReturn(false);
 
@@ -110,8 +105,6 @@ class DispatcherTest extends TestCase
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
 
-		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
-
 		$command->shouldReceive('isStrict')->once()->andReturn(false);
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
@@ -130,26 +123,6 @@ class DispatcherTest extends TestCase
 	}
 
 	/**
-	 *
-	 */
-	public function testDispatchNoExecution()
-	{
-		$container = Mockery::mock('mako\syringe\Container');
-
-		$command = Mockery::mock('mako\reactor\CommandInterface');
-
-		$command->shouldReceive('shouldExecute')->once()->andReturn(false);
-
-		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
-
-		$dispatcher = new Dispatcher($container);
-
-		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar']);
-
-		$this->assertSame(0, $exitCode);
-	}
-
-	/**
 	 * @expectedException \mako\reactor\exceptions\InvalidArgumentException
 	 * @expectedExceptionMessage Invalid argument [ arg3 ].
 	 */
@@ -158,8 +131,6 @@ class DispatcherTest extends TestCase
 		$container = Mockery::mock('mako\syringe\Container');
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
-
-		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
 		$command->shouldReceive('isStrict')->once()->andReturn(true);
 
@@ -183,8 +154,6 @@ class DispatcherTest extends TestCase
 		$container = Mockery::mock('mako\syringe\Container');
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
-
-		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
 		$command->shouldReceive('isStrict')->once()->andReturn(true);
 
@@ -218,8 +187,6 @@ class DispatcherTest extends TestCase
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
 
-		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
-
 		$command->shouldReceive('isStrict')->once()->andReturn(true);
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
@@ -252,8 +219,6 @@ class DispatcherTest extends TestCase
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
 
-		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
-
 		$command->shouldReceive('isStrict')->once()->andReturn(false);
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn(['arg2' => ['optional' => false]]);
@@ -276,8 +241,6 @@ class DispatcherTest extends TestCase
 		$container = Mockery::mock('mako\syringe\Container');
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
-
-		$command->shouldReceive('shouldExecute')->once()->andReturn(true);
 
 		$command->shouldReceive('isStrict')->once()->andReturn(false);
 

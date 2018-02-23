@@ -176,12 +176,9 @@ class Dispatcher
 	{
 		$command = $this->resolve($command);
 
-		if($command->shouldExecute())
-		{
-			$this->checkArgumentsAndOptions($command, $arguments);
+		$this->checkArgumentsAndOptions($command, $arguments);
 
-			$returnValue = $this->execute($command, $arguments);
-		}
+		$returnValue = $this->execute($command, $arguments);
 
 		return isset($returnValue) ? (is_int($returnValue) ? $returnValue : CommandInterface::STATUS_SUCCESS) : CommandInterface::STATUS_SUCCESS;
 	}

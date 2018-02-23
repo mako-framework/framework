@@ -245,6 +245,8 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
 
+		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
+
 		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
 
 		//
@@ -282,6 +284,8 @@ EOF;
 		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
+
+		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
 
 		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
 
@@ -321,6 +325,8 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
 
+		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
+
 		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
 
 		//
@@ -358,6 +364,8 @@ EOF;
 		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
+
+		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
 
 		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
 
@@ -397,6 +405,8 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
 
+		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
+
 		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
 
 		//
@@ -434,6 +444,8 @@ EOF;
 		$input = Mockery::mock('mako\cli\input\Input');
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
+
+		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
 
 		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
 
@@ -474,6 +486,8 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
 
+		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
+
 		$input->shouldReceive('getArgument')->once()->with('option')->andReturn(true);
 
 		$input->shouldReceive('removeArgument')->once()->with('option');
@@ -507,5 +521,91 @@ EOF;
 		$exitCode = $reactor->run();
 
 		$this->assertSame(123, $exitCode);
+	}
+
+	/**
+	 *
+	 */
+	public function testDisplayCommandHelp()
+	{
+		$input = Mockery::mock('mako\cli\input\Input');
+
+		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
+
+		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(true);
+
+		//
+
+		$output = Mockery::mock('mako\cli\output\Output');
+
+		$output->shouldReceive('getFormatter')->andReturn(null);
+
+		$output->shouldReceive('write')->times(7)->with(PHP_EOL);
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Command:</yellow>');
+
+		$output->shouldReceive('writeLn')->once()->with('php reactor foo');
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Description:</yellow>');
+
+		$output->shouldReceive('writeLn')->once()->with('Command description.');
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Arguments:</yellow>');
+
+		$argumentsTable = <<<EOF
+------------------------------------------------------------------------------
+| <green>Name</green> | <green>Description</green> | <green>Optional</green> |
+------------------------------------------------------------------------------
+| arg2                | Argument description.      | true                    |
+------------------------------------------------------------------------------
+
+EOF;
+
+		$output->shouldReceive('write')->once()->with($argumentsTable, 1);
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Options:</yellow>');
+
+		$optionsTable = <<<EOF
+------------------------------------------------------------------------------
+| <green>Name</green> | <green>Description</green> | <green>Optional</green> |
+------------------------------------------------------------------------------
+| option              | Option description.        | true                    |
+------------------------------------------------------------------------------
+
+EOF;
+
+		$output->shouldReceive('write')->once()->with($optionsTable, 1);
+
+		//
+
+		$command = Mockery::mock('mako\reactor\CommandInterface');
+
+		$command->shouldReceive('getCommandDescription')->once()->andReturn('Command description.');
+
+		$command->shouldReceive('getCommandArguments')->once()->andReturn(['arg2' => ['optional' => true, 'description' => 'Argument description.']]);
+
+		$command->shouldReceive('getCommandOptions')->once()->andReturn(['option' => ['optional' => true, 'description' => 'Option description.']]);
+
+		//
+
+		$container = Mockery::mock('mako\syringe\Container');
+
+		//
+
+		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+
+		//
+
+		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+
+		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
+
+		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->with('mako\tests\unit\reactor\Foo')->andReturn($command);
+
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
 	}
 }

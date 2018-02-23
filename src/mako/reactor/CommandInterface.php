@@ -55,11 +55,4 @@ interface CommandInterface
 	 * @return bool
 	 */
 	public function isStrict(): bool;
-
-	/**
-	 * Returns TRUE of the command should be executed and FALSE if not.
-	 *
-	 * @return bool
-	 */
-	public function shouldExecute(): bool;
 }

@@ -199,7 +199,7 @@ class Reactor
 	}
 
 	/**
-	 * Displays reactor options of there are any.
+	 * Displays global reactor options of there are any.
 	 */
 	protected function listOptions()
 	{
@@ -276,6 +276,108 @@ class Reactor
 	}
 
 	/**
+	 * Displays reactor info and lists all available commands.
+	 *
+	 * @return int
+	 */
+	protected function displayReactorInfoAndCommandList(): int
+	{
+		$this->displayReactorInfo();
+
+		$this->listCommands();
+
+		return CommandInterface::STATUS_SUCCESS;
+	}
+
+	/**
+	 * Converst the argument and options arrays to table rows.
+	 *
+	 * @param  array $input Argument or option array
+	 * @return array
+	 */
+	protected function convertArgumentsAndOptionsArrayToRows(array $input): array
+	{
+		$rows = [];
+
+		foreach($input as $name => $info)
+		{
+			$rows[] = [$name, $info['description'], var_export($info['optional'], true)];
+		}
+
+		return $rows;
+	}
+
+	/**
+	 * Displays information about the chosen command.
+	 *
+	 * @param  string $command Command
+	 * @return int
+	 */
+	protected function displayCommandHelp(string $command): int
+	{
+		$commandInstance = $this->instantiateCommandWithoutConstructor($this->commands[$command]);
+
+		$this->output->writeLn('<yellow>Command:</yellow>');
+
+		$this->output->write(PHP_EOL);
+
+		$this->output->writeLn('php reactor ' . $command);
+
+		$this->output->write(PHP_EOL);
+
+		$this->output->writeLn('<yellow>Description:</yellow>');
+
+		$this->output->write(PHP_EOL);
+
+		$this->output->writeLn($commandInstance->getCommandDescription());
+
+		if(!empty($arguments = $commandInstance->getCommandArguments()))
+		{
+			$this->drawTable('Arguments:', ['Name', 'Description', 'Optional'], $this->convertArgumentsAndOptionsArrayToRows($arguments));
+		}
+
+		if(!empty($options = $commandInstance->getCommandOptions()))
+		{
+			$this->drawTable('Options:', ['Name', 'Description', 'Optional'], $this->convertArgumentsAndOptionsArrayToRows($options));
+		}
+
+		return CommandInterface::STATUS_SUCCESS;
+	}
+
+	/**
+	 * Returns true if the command exists and false if not.
+	 *
+	 * @param  string $command Command
+	 * @return bool
+	 */
+	protected function commandExists(string $command): bool
+	{
+		return isset($this->commands[$command]);
+	}
+
+	/**
+	 * Displays error message for unknown commands.
+	 *
+	 * @param  string $command Command
+	 * @return int
+	 */
+	protected function unknownCommand(string $command): int
+	{
+		$message = 'Unknown command [ ' . $command . ' ].';
+
+		if(($suggestion = $this->suggest($command, array_keys($this->commands))) !== null)
+		{
+			$message .= ' Did you mean [ ' . $suggestion . ' ]?';
+		}
+
+		$this->output->writeLn('<red>' . $message . '</red>');
+
+		$this->listCommands();
+
+		return CommandInterface::STATUS_ERROR;
+	}
+
+	/**
 	 * Dispatches a command.
 	 *
 	 * @param  string $command Command
@@ -283,46 +385,9 @@ class Reactor
 	 */
 	protected function dispatch(string $command): int
 	{
-		if(!isset($this->commands[$command]))
-		{
-			$message = 'Unknown command [ ' . $command . ' ].';
-
-			if(($suggestion = $this->suggest($command, array_keys($this->commands))) !== null)
-			{
-				$message .= ' Did you mean [ ' . $suggestion . ' ]?';
-			}
-
-			$this->output->writeLn('<red>' . $message . '</red>');
-
-			$this->listCommands();
-
-			return CommandInterface::STATUS_ERROR;
-		}
-
-		return $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
-	}
-
-	/**
-	 * Run the reactor.
-	 *
-	 * @return int
-	 */
-	public function run(): int
-	{
-		$this->handleGlobalOptions();
-
-		if(($command = $this->input->getArgument(1)) === null)
-		{
-			$this->displayReactorInfo();
-
-			$this->listCommands();
-
-			return CommandInterface::STATUS_SUCCESS;
-		}
-
 		try
 		{
-			$exitCode = $this->dispatch($command);
+			$exitCode = $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
 		}
 		catch(InvalidOptionException $e)
 		{
@@ -349,5 +414,32 @@ class Reactor
 		}
 
 		return $exitCode ?? CommandInterface::STATUS_ERROR;
+	}
+
+	/**
+	 * Run the reactor.
+	 *
+	 * @return int
+	 */
+	public function run(): int
+	{
+		$this->handleGlobalOptions();
+
+		if(($command = $this->input->getArgument(1)) === null)
+		{
+			return $this->displayReactorInfoAndCommandList();
+		}
+
+		if($this->commandExists($command) === false)
+		{
+			return $this->unknownCommand($command);
+		}
+
+		if($this->input->getArgument('help', false) !== false)
+		{
+			return $this->displayCommandHelp($command);
+		}
+
+		return $this->dispatch($command);
 	}
 }

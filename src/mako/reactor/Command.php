@@ -55,13 +55,6 @@ abstract class Command implements CommandInterface
 	protected $isStrict = false;
 
 	/**
-	 * Should the command be executed?
-	 *
-	 * @var bool
-	 */
-	protected $shouldExecute = true;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\input\Input   $input  Input
@@ -72,11 +65,6 @@ abstract class Command implements CommandInterface
 		$this->input = $input;
 
 		$this->output = $output;
-
-		if($this->input->getArgument('help') === true)
-		{
-			$this->displayCommandDetails();
-		}
 	}
 
 	/**
@@ -109,76 +97,5 @@ abstract class Command implements CommandInterface
 	public function isStrict(): bool
 	{
 		return $this->isStrict;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function shouldExecute(): bool
-	{
-		return $this->shouldExecute;
-	}
-
-	/**
-	 * Draws an info table.
-	 *
-	 * @param array $items Items
-	 */
-	protected function drawInfoTable(array $items)
-	{
-		$headers = ['Name', 'Description', 'Optional'];
-
-		$rows = [];
-
-		foreach($items as $name => $argument)
-		{
-			$rows[] = [$name, $argument['description'], var_export($argument['optional'], true)];
-		}
-
-		$this->table($headers, $rows);
-	}
-
-	/**
-	 * Displays command details.
-	 */
-	protected function displayCommandDetails()
-	{
-		$this->write('<yellow>Command:</yellow>');
-
-		$this->nl();
-
-		$this->write('php reactor ' . $this->input->getArgument(1));
-
-		$this->nl();
-
-		$this->write('<yellow>Description:</yellow>');
-
-		$this->nl();
-
-		$this->write($this->getCommandDescription());
-
-		if(!empty($this->commandInformation['arguments']))
-		{
-			$this->nl();
-
-			$this->write('<yellow>Arguments:</yellow>');
-
-			$this->nl();
-
-			$this->drawInfoTable($this->commandInformation['arguments']);
-		}
-
-		if(!empty($this->commandInformation['options']))
-		{
-			$this->nl();
-
-			$this->write('<yellow>Options:</yellow>');
-
-			$this->nl();
-
-			$this->drawInfoTable($this->commandInformation['options']);
-		}
-
-		$this->shouldExecute = false;
 	}
 }
