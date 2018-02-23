@@ -180,6 +180,6 @@ class Dispatcher
 
 		$returnValue = $this->execute($command, $arguments);
 
-		return isset($returnValue) ? (is_int($returnValue) ? $returnValue : CommandInterface::STATUS_SUCCESS) : CommandInterface::STATUS_SUCCESS;
+		return is_int($returnValue) ? $returnValue : CommandInterface::STATUS_SUCCESS;
 	}
 }
