@@ -248,7 +248,7 @@ class ImageMagick implements ProcessorInterface
 	 */
 	public function colorize($color)
 	{
-		$this->image->colorizeImage($this->normalizeHEX($color), 1.0);
+		$this->image->colorizeImage($this->normalizeHex($color), 1.0);
 	}
 
 	/**
@@ -288,7 +288,7 @@ class ImageMagick implements ProcessorInterface
 	{
 		$this->image->shaveImage($thickness, $thickness);
 
-		$this->image->borderImage($this->normalizeHEX($color), $thickness, $thickness);
+		$this->image->borderImage($this->normalizeHex($color), $thickness, $thickness);
 	}
 
 	/**
