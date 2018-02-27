@@ -39,7 +39,7 @@ class Compiler
 	/**
 	 * Query builder.
 	 *
-	 * @var mako\database\query\Query
+	 * @var \mako\database\query\Query
 	 */
 	protected $query;
 

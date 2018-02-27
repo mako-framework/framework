@@ -21,38 +21,11 @@ use mako\cli\output\Output;
 class Secret extends Question
 {
 	/**
-	 * Input instance.
-	 *
-	 * @var \mako\cli\input\Input
-	 */
-	protected $input;
-
-	/**
-	 * Output instance.
-	 *
-	 * @var \mako\cli\output\Output
-	 */
-	protected $ouput;
-
-	/**
 	 * Do we have stty support?
 	 *
 	 * @var bool
 	 */
 	protected static $hasStty;
-
-	/**
-	 * Constructor.
-	 *
-	 * @param \mako\cli\input\Input   $input  Input instance
-	 * @param \mako\cli\output\Output $output Output instance
-	 */
-	public function __construct(Input $input, Output $output)
-	{
-		$this->input = $input;
-
-		$this->output = $output;
-	}
 
 	/**
 	 * Do we have stty support?

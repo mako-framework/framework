@@ -41,7 +41,7 @@ class Memcache extends Store
 	 */
 	public function __construct(array $servers, int $timeout = 1, bool $compressData = false)
 	{
-		$this->memcache = new PHPMemcache();
+		$this->memcache = new PHPMemcache;
 
 		if($compressData === true)
 		{

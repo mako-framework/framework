@@ -35,7 +35,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	 */
 	public function __construct(array $servers, int $timeout = 1, bool $compressData = false)
 	{
-		$this->memcached = new PHPMemcached();
+		$this->memcached = new PHPMemcached;
 
 		$this->memcached->setOption(PHPMemcached::OPT_BINARY_PROTOCOL, true);
 

@@ -666,7 +666,7 @@ class GD implements ProcessorInterface
 		{
 			case 'gif':
 			case 'image/gif':
-				imagegif($this->image, null, $quality);
+				imagegif($this->image);
 				break;
 			case 'jpg':
 			case 'jpeg':

@@ -282,11 +282,11 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 
 		if($isValid && Password::needsRehash($this->password))
 		{
-			$user->password = $password;
+			$this->password = $password;
 
 			if($autoSave)
 			{
-				$user->save();
+				$this->save();
 			}
 		}
 

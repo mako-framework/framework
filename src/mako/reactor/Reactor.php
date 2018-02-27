@@ -53,6 +53,13 @@ class Reactor
 	protected $container;
 
 	/**
+	 * Dispatcher.
+	 *
+	 * @var \mako\reactor\Dispatcher
+	 */
+	protected $dispatcher;
+
+	/**
 	 * Commands.
 	 *
 	 * @var array

@@ -176,14 +176,14 @@ class Time extends DateTime
 	 * @param  string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\Time
 	 */
-	public function setTimeZone($timeZone): Time
+	public function setTimezone($timeZone): Time
 	{
 		if(($timeZone instanceof DateTimeZone) === false)
 		{
 			$timeZone = new DateTimeZone($timeZone);
 		}
 
-		return parent::setTimeZone($timeZone);
+		return parent::setTimezone($timeZone);
 	}
 
 	/**

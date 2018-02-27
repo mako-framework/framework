@@ -29,7 +29,7 @@ class Select
 	 *
 	 * @var \mako\cli\output\Output
 	 */
-	protected $ouput;
+	protected $output;
 
 	/**
 	 * Constructor.
