@@ -29,6 +29,7 @@ use mako\security\Password;
  * @property \mako\utility\Time               $created_at
  * @property \mako\utility\Time               $updated_at
  * @property string                           $email
+ * @property string                           $username
  * @property string                           $password
  * @property string                           $ip
  * @property string                           $action_token
