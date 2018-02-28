@@ -13,6 +13,8 @@ use Monolog\Logger;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 
+use Psr\Log\LoggerInterface;
+
 /**
  * Logger service.
  *
@@ -25,7 +27,7 @@ class LoggerService extends Service
 	 */
 	public function register()
 	{
-		$this->container->registerSingleton(['Psr\Log\LoggerInterface', 'logger'], function($container)
+		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function($container)
 		{
 			$logger = new Logger('mako');
 
