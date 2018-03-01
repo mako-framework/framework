@@ -63,6 +63,16 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
+### 5.3.2 <small> (2018-03-01)</small>
+
+Update using ```composer update```.
+
+#### Improvements
+
+* The `Request::getData()` method will now return the parsed body for POST requests that do not contain form data.
+
+--------------------------------------------------------
+
 ### 5.3.1 <small> (2018-01-24)</small>
 
 Update using ```composer update```.

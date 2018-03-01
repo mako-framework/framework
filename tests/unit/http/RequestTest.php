@@ -924,4 +924,56 @@ class RequestTest extends TestCase
 
 		$this->assertFalse($request->getFiles()->get('foo', false));
 	}
+
+	/**
+	 *
+	 */
+	public function testGetDataWithGetRequest()
+	{
+		$get = ['foo' => 'bar', 'baz' => ['bax']];
+
+		$request = new Request(['get' => $get]);
+
+		$this->assertSame($request->getData()->all(), $request->getQuery()->all());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetDataWithPostRequestWithFormData()
+	{
+		$post = ['foo' => 'bar', 'baz' => ['bax']];
+
+		//
+
+		$server = ['REQUEST_METHOD' => 'POST', 'CONTENT_TYPE' => 'application/x-www-form-urlencoded'] + $this->getServerData();
+
+		$request = new Request(['post' => $post, 'server' => $server]);
+
+		$this->assertSame($request->getData()->all(), $request->getPost()->all());
+
+		//
+
+		$server = ['REQUEST_METHOD' => 'POST', 'CONTENT_TYPE' => 'multipart/form-data'] + $this->getServerData();
+
+		$request = new Request(['post' => $post, 'server' => $server]);
+
+		$this->assertSame($request->getData()->all(), $request->getPost()->all());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetDataWithPostRequestWithoutFormData()
+	{
+		$body = ['foo' => 'bar', 'baz' => ['bax']];
+
+		//
+
+		$server = ['REQUEST_METHOD' => 'POST', 'CONTENT_TYPE' => 'application/json'] + $this->getServerData();
+
+		$request = new Request(['body' => json_encode($body), 'server' => $server]);
+
+		$this->assertSame($request->getData()->all(), $request->getBody()->all());
+	}
 }
