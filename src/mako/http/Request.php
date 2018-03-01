@@ -466,21 +466,39 @@ class Request
 	}
 
 	/**
+	 * Returns true if the request has form data and false if not.
+	 *
+	 * @return bool
+	 */
+	protected function hasFormData(): bool
+	{
+		$contentType = $this->headers->get('Content-Type');
+
+		if($contentType === 'application/x-www-form-urlencoded' || strpos($contentType, 'multipart/form-data') === 0)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Returns the data of the current request method.
 	 *
 	 * @return \mako\http\request\Parameters
 	 */
 	public function getData(): Parameters
 	{
-		switch($this->realMethod)
+		if($this->realMethod === 'GET')
 		{
-			case 'GET':
-				return $this->getQuery();
-			case 'POST':
-				return $this->getPost();
-			default:
-				return $this->getBody();
+			return $this->getQuery();
 		}
+		elseif($this->realMethod === 'POST' && $this->hasFormData())
+		{
+			return $this->getPost();
+		}
+
+		return $this->getBody();
 	}
 
 	/**
