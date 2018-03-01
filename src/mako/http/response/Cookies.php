@@ -133,6 +133,14 @@ class Cookies implements Countable, IteratorAggregate
 	}
 
 	/**
+	 * Clears all the cookies.
+	 */
+	public function clear()
+	{
+		$this->cookies = [];
+	}
+
+	/**
 	 * Returns all the cookies.
 	 *
 	 * @return array
@@ -140,13 +148,5 @@ class Cookies implements Countable, IteratorAggregate
 	public function all(): array
 	{
 		return $this->cookies;
-	}
-
-	/**
-	 * Clears all the cookies.
-	 */
-	public function clear()
-	{
-		$this->cookies = [];
 	}
 }

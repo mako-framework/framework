@@ -103,6 +103,14 @@ class Headers implements Countable, IteratorAggregate
 	}
 
 	/**
+	 * Clears all the headers.
+	 */
+	public function clear()
+	{
+		$this->headers = [];
+	}
+
+	/**
 	 * Returns all the headers.
 	 *
 	 * @return array
@@ -110,13 +118,5 @@ class Headers implements Countable, IteratorAggregate
 	public function all(): array
 	{
 		return array_column($this->headers, 'value', 'name');
-	}
-
-	/**
-	 * Clears all the headers.
-	 */
-	public function clear()
-	{
-		$this->headers = [];
 	}
 }
