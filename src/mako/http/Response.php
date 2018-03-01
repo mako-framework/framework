@@ -7,8 +7,6 @@
 
 namespace mako\http;
 
-use RuntimeException;
-
 use mako\http\Request;
 use mako\http\response\builders\ResponseBuilderInterface;
 use mako\http\response\Cookies;
