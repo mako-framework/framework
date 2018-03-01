@@ -458,7 +458,7 @@ class Request
 	 */
 	protected function hasFormData(): bool
 	{
-		$contentType = $this->headers->get('Content-Type');
+		$contentType = $this->headers->get('content-type');
 
 		if($contentType === 'application/x-www-form-urlencoded' || strpos($contentType, 'multipart/form-data') === 0)
 		{
