@@ -11,8 +11,9 @@ use Throwable;
 
 use Mockery;
 
-use mako\http\routing\Router;
+use mako\http\response\Headers;
 use mako\http\routing\constraints\Constraint;
+use mako\http\routing\Router;
 use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
@@ -188,11 +189,15 @@ class RouterTest extends TestCase
 
 		//
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org/en/foo/?foo=bar');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(301);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org/en/foo/?foo=bar');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -258,11 +263,15 @@ class RouterTest extends TestCase
 
 		//
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org/index.php/en/foo/?foo=bar');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(301);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org/index.php/en/foo/?foo=bar');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -310,9 +319,13 @@ class RouterTest extends TestCase
 
 		$closure = $routed->getAction();
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Allow', 'POST,OPTIONS');
+
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('header')->once()->with('Allow', 'POST,OPTIONS');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$closure($response);
 	}

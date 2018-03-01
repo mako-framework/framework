@@ -11,6 +11,8 @@ use RuntimeException;
 
 use mako\http\Request;
 use mako\http\response\builders\ResponseBuilderInterface;
+use mako\http\response\Cookies;
+use mako\http\response\Headers;
 use mako\http\response\senders\ResponseSenderInterface;
 use mako\security\Signer;
 
@@ -34,13 +36,6 @@ class Response
 	 * @var \mako\http\Request
 	 */
 	protected $request;
-
-	/**
-	 * Signer instance.
-	 *
-	 * @var \mako\security\Signer
-	 */
-	protected $signer;
 
 	/**
 	 * Response body.
@@ -73,16 +68,16 @@ class Response
 	/**
 	 * Response headers.
 	 *
-	 * @var array
+	 * @var \mako\http\response\Headers
 	 */
-	protected $headers = [];
+	protected $headers;
 
 	/**
 	 * Cookies.
 	 *
-	 * @var array
+	 * @var \mako\http\response\Cookies
 	 */
-	protected $cookies = [];
+	protected $cookies;
 
 	/**
 	 * Compress output?
@@ -202,7 +197,9 @@ class Response
 
 		$this->charset = $charset;
 
-		$this->signer = $signer;
+		$this->headers = new Headers;
+
+		$this->cookies = new Cookies($signer);
 	}
 
 	/**
@@ -319,8 +316,29 @@ class Response
 	}
 
 	/**
+	 * Returns response header collection.
+	 *
+	 * @return \mako\http\response\Headers
+	 */
+	public function getHeaders(): Headers
+	{
+		return $this->headers;
+	}
+
+	/**
+	 * Returns response cookie collection.
+	 *
+	 * @return \mako\http\response\Cookies
+	 */
+	public function getCookies(): Cookies
+	{
+		return $this->cookies;
+	}
+
+	/**
 	 * Sets a response header.
 	 *
+	 * @deprecated
 	 * @param  string              $name    Header name
 	 * @param  string              $value   Header value
 	 * @param  bool                $replace Replace header?
@@ -328,20 +346,7 @@ class Response
 	 */
 	public function header(string $name, string $value, bool $replace = true): Response
 	{
-		$normalizedName = strtolower($name);
-
-		$this->headers[$normalizedName]['name'] = $name;
-
-		if($replace === true)
-		{
-			$this->headers[$normalizedName]['value'] = [$value];
-		}
-		else
-		{
-			$headers = $this->headers[$normalizedName]['value'] ?? [];
-
-			$this->headers[$normalizedName]['value'] = array_merge($headers, [$value]);
-		}
+		$this->headers->add($name, $value, $replace);
 
 		return $this;
 	}
@@ -349,45 +354,38 @@ class Response
 	/**
 	 * Checks if the header exists in the response.
 	 *
+	 * @deprecated
 	 * @param  string $name Header name
 	 * @return bool
 	 */
 	public function hasHeader(string $name): bool
 	{
-		return isset($this->headers[strtolower($name)]);
+		return $this->headers->has($name);
 	}
 
 	/**
 	 * Removes a response header.
 	 *
+	 * @deprecated
 	 * @param  string              $name Header name
 	 * @return \mako\http\Response
 	 */
 	public function removeHeader(string $name): Response
 	{
-		unset($this->headers[strtolower($name)]);
+		$this->headers->remove($name);
 
 		return $this;
 	}
 
 	/**
-	 * Returns the response headers.
-	 *
-	 * @return array
-	 */
-	public function getHeaders(): array
-	{
-		return array_column($this->headers, 'value', 'name');
-	}
-
-	/**
 	 * Clear the response headers.
 	 *
+	 * @deprecated
 	 * @return \mako\http\Response
 	 */
 	public function clearHeaders(): Response
 	{
-		$this->headers = [];
+		$this->headers->clear();
 
 		return $this;
 	}
@@ -395,6 +393,7 @@ class Response
 	/**
 	 * Sets an unsigned cookie.
 	 *
+	 * @deprecated
 	 * @param  string              $name    Cookie name
 	 * @param  string              $value   Cookie value
 	 * @param  int                 $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
@@ -403,11 +402,7 @@ class Response
 	 */
 	public function cookie(string $name, string $value, int $ttl = 0, array $options = []): Response
 	{
-		$ttl = ($ttl === 0) ? 0 : (time() + $ttl);
-
-		$defaults = ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false];
-
-		$this->cookies[$name] = ['name' => $name, 'value' => $value, 'ttl' => $ttl] + $options + $defaults;
+		$this->cookies->add($name, $value, $ttl, $options);
 
 		return $this;
 	}
@@ -415,6 +410,7 @@ class Response
 	/**
 	 * Sets a signed cookie.
 	 *
+	 * @deprecated
 	 * @param  string              $name    Cookie name
 	 * @param  string              $value   Cookie value
 	 * @param  int                 $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
@@ -423,68 +419,61 @@ class Response
 	 */
 	public function signedCookie(string $name, string $value, int $ttl = 0, array $options = []): Response
 	{
-		if(empty($this->signer))
-		{
-			throw new RuntimeException('A [ Signer ] instance is required to sign cookies.');
-		}
+		$this->cookies->addSigned($name, $value, $ttl, $options);
 
-		return $this->cookie($name, $this->signer->sign($value), $ttl, $options);
+		return $this;
 	}
 
 	/**
 	 * Deletes a cookie.
 	 *
+	 * @deprecated
 	 * @param  string              $name    Cookie name
 	 * @param  array               $options Cookie options
 	 * @return \mako\http\Response
 	 */
 	public function deleteCookie(string $name, array $options = []): Response
 	{
-		return $this->cookie($name, '', -3600, $options);
-	}
-
-	/**
-	 * Checks if the cookie exists in the response.
-	 *
-	 * @param  string $name Cookie name
-	 * @return bool
-	 */
-	public function hasCookie(string $name): bool
-	{
-		return isset($this->cookies[$name]);
-	}
-
-	/**
-	 * Removes a cookie from the response.
-	 *
-	 * @param  string              $name Cookie name
-	 * @return \mako\http\Response
-	 */
-	public function removeCookie(string $name): Response
-	{
-		unset($this->cookies[$name]);
+		$this->cookies->delete($name, $options);
 
 		return $this;
 	}
 
 	/**
-	 * Returns the response cookies.
+	 * Checks if the cookie exists in the response.
 	 *
-	 * @return array
+	 * @deprecated
+	 * @param  string $name Cookie name
+	 * @return bool
 	 */
-	public function getCookies(): array
+	public function hasCookie(string $name): bool
 	{
-		return $this->cookies;
+		return $this->cookies->has($name);
+	}
+
+	/**
+	 * Removes a cookie from the response.
+	 *
+	 * @deprecated
+	 * @param  string              $name Cookie name
+	 * @return \mako\http\Response
+	 */
+	public function removeCookie(string $name): Response
+	{
+		$this->cookies->remove($name);
+
+		return $this;
 	}
 
 	/**
 	 * Clear cookies.
 	 *
+	 * @deprecated
 	 * @return \mako\http\Response
 	 */
 	public function clearCookies(): Response
 	{
-		$this->cookies = [];
+		$this->cookies->clear();
 
 		return $this;
 	}
@@ -497,8 +486,8 @@ class Response
 	public function clear(): Response
 	{
 		$this->clearBody();
-		$this->clearHeaders();
-		$this->clearCookies();
+		$this->headers->clear();
+		$this->cookies->clear();
 
 		return $this;
 	}
@@ -539,17 +528,17 @@ class Response
 
 		// Send other headers
 
-		foreach($this->headers as $header)
+		foreach($this->headers->all() as $name => $values)
 		{
-			foreach($header['value'] as $value)
+			foreach($values as $value)
 			{
-				header($header['name'] . ': ' . $value, false);
+				header($name . ': ' . $value, false);
 			}
 		}
 
 		// Send cookie headers
 
-		foreach($this->cookies as $cookie)
+		foreach($this->cookies->all() as $cookie)
 		{
 			setcookie($cookie['name'], $cookie['value'], $cookie['ttl'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
 		}
@@ -641,7 +630,7 @@ class Response
 			{
 				$hash = '"' . hash('sha256', $this->body) . '"';
 
-				$this->header('ETag', $hash);
+				$this->headers->add('ETag', $hash);
 
 				if(str_replace('-gzip', '', $this->request->getHeaders()->get('if-none-match')) === $hash)
 				{
@@ -674,7 +663,7 @@ class Response
 
 				if(!array_key_exists('transfer-encoding', $this->headers))
 				{
-					$this->header('Content-Length', ob_get_length());
+					$this->headers->add('Content-Length', ob_get_length());
 				}
 			}
 

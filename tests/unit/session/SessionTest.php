@@ -9,6 +9,7 @@ namespace mako\tests\unit\session;
 
 use Mockery;
 
+use mako\http\response\Cookies as ResponseCookies;
 use mako\session\Session;
 use mako\tests\TestCase;
 
@@ -70,11 +71,15 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function getResponseSetCookie()
+	public function getResponseSetCookie($getCookiesTimes = 1, &$responseCookies = null)
 	{
+		$responseCookies = Mockery::mock(ResponseCookies::class);
+
+		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foo123', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+
 		$response = $this->getResponse();
 
-		$response->shouldReceive('signedCookie')->once()->with('mako_session', 'foo123', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$response->shouldReceive('getCookies')->times($getCookiesTimes)->andReturn($responseCookies);
 
 		return $response;
 	}
@@ -122,9 +127,13 @@ class SessionTest extends TestCase
 
 		$request->getCookies()->shouldReceive('getSigned')->once()->with('mako_session', false)->andReturn(false);
 
+		$responseCookies = Mockery::mock(ResponseCookies::class);
+
+		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+
 		$response = $this->getResponse();
 
-		$response->shouldReceive('signedCookie')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
 
 		$store = $this->getStore();
 
@@ -150,9 +159,13 @@ class SessionTest extends TestCase
 	 */
 	public function testRegenerateId()
 	{
+		$responseCookies = Mockery::mock(ResponseCookies::class);
+
+		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+
 		$response = $this->getResponseSetCookie();
 
-		$response->shouldReceive('signedCookie')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
 
 		$store = $this->getStore();
 
@@ -172,9 +185,11 @@ class SessionTest extends TestCase
 	 */
 	public function testRegenerateIdAndKeepData()
 	{
-		$response = $this->getResponseSetCookie();
+		$response = $this->getResponseSetCookie(2, $responseCookies);
 
-		$response->shouldReceive('signedCookie')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+
+		//$response->shouldReceive('signedCookie')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
 
 		$store = $this->getStore();
 
@@ -452,9 +467,9 @@ class SessionTest extends TestCase
 	 */
 	public function testDestroy()
 	{
-		$response = $this->getResponseSetCookie();
+		$response = $this->getResponseSetCookie(2, $responseCookies);
 
-		$response->shouldReceive('deleteCookie')->once()->with('mako_session', ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$responseCookies->shouldReceive('delete')->once()->with('mako_session', ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
 
 		$store = $this->getStore();
 

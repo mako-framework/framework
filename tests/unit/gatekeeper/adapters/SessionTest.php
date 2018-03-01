@@ -9,14 +9,16 @@ namespace mako\tests\unit\gatekeeper\adapters;
 
 use Mockery;
 
-use mako\gatekeeper\Authentication;
 use mako\gatekeeper\adapters\Session;
+use mako\gatekeeper\Authentication;
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\response\Cookies as ResponseCookies;
+use mako\http\response\Headers as ResponseHeaders;
 use mako\session\Session as HttpSession;
 use mako\tests\TestCase;
 
@@ -260,7 +262,11 @@ class SessionTest extends TestCase
 
 		$response = $this->getResponse();
 
-		$response->shouldReceive('deleteCookie')->times(1)->with('gatekeeper_auth_key', $this->getCookieOptions());
+		$responseCookies = Mockery::mock(ResponseCookies::class);
+
+		$responseCookies->shouldReceive('delete')->once()->with('gatekeeper_auth_key', $this->getCookieOptions());
+
+		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $request, $response, $session);
 
@@ -432,9 +438,13 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
 
+		$responseCookies = Mockery::mock(ResponseCookies::class);
+
+		$responseCookies->shouldReceive('addSigned')->once()->with('gatekeeper_auth_key', 'token', 31536000, $this->getCookieOptions());
+
 		$response = $this->getResponse();
 
-		$response->shouldReceive('signedCookie')->once()->with('gatekeeper_auth_key', 'token', 31536000, $this->getCookieOptions());
+		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $response, $session);
 
@@ -566,9 +576,13 @@ class SessionTest extends TestCase
 
 		$request->shouldReceive('password')->once()->andReturn(null);
 
+		$responseHeaders = Mockery::mock(ResponseHeaders::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('WWW-Authenticate', 'basic');
+
 		$response = $this->getResponse();
 
-		$response->shouldReceive('header')->once()->with('WWW-Authenticate', 'basic');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('status')->once()->with(401);
 
@@ -592,9 +606,13 @@ class SessionTest extends TestCase
 
 		$request->shouldReceive('password')->once()->andReturn(null);
 
+		$responseHeaders = Mockery::mock(ResponseHeaders::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('WWW-Authenticate', 'basic');
+
 		$response = $this->getResponse();
 
-		$response->shouldReceive('header')->once()->with('WWW-Authenticate', 'basic');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('status')->once()->with(401);
 
@@ -654,9 +672,13 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('remove')->once()->with('gatekeeper_auth_key');
 
+		$responseCookies = Mockery::mock(ResponseCookies::class);
+
+		$responseCookies->shouldReceive('delete')->once()->with('gatekeeper_auth_key', $this->getCookieOptions());
+
 		$response = $this->getResponse();
 
-		$response->shouldReceive('deleteCookie')->once()->with('gatekeeper_auth_key', $this->getCookieOptions());
+		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
 
 		$adapter = new Session($this->getUserRepository(), $this->getGroupRepository(), $this->getRequest(), $response, $session);
 

@@ -239,7 +239,7 @@ class Session
 	{
 		$ttl = $this->cookieTTL === 0 ? 0 : $this->cookieTTL + time();
 
-		$this->response->signedCookie($this->cookieName, $this->sessionId, $ttl, $this->cookieOptions);
+		$this->response->getCookies()->addSigned($this->cookieName, $this->sessionId, $ttl, $this->cookieOptions);
 	}
 
 	/**
@@ -527,7 +527,7 @@ class Session
 	{
 		$this->store->delete($this->sessionId);
 
-		$this->response->deleteCookie($this->cookieName, $this->cookieOptions);
+		$this->response->getCookies()->delete($this->cookieName, $this->cookieOptions);
 
 		$this->destroyed = true;
 	}

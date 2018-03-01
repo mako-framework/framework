@@ -49,9 +49,24 @@ Update using ```composer update```.
 	- Removed the `Response::filter()` method.
 	- Removed the `Response::getFilters()` method.
 	- Removed the `Response::clearFilters()` method.
+* The `Response::getHeaders()` method now returns a response header collection.
+* The `Response::getCookies()` method now returns a response cookie collection.
 * Removed the `mako\cli\output\formatter\Formatter::hasAnsiSupport()` method.
 * Removed the `mako\cli\output\formatter\FormatterInterface::strip()` method.
 * Arguments are now converted to camel case before being passed to the `execute` method of reactor commands.
+
+#### Deprecations
+
+* Deprecated the `Response::header()` method.
+* Deprecated the `Response::hasHeader()` method.
+* Deprecated the `Response::removeHeader()` method.
+* Deprecated the `Response::clearHeaders()` method.
+* Deprecated the `Response::cookie()` method.
+* Deprecated the `Response::signedCookie()` method.
+* Deprecated the `Response::deleteCookie()` method.
+* Deprecated the `Response::hasCookie()` method.
+* Deprecated the `Response::removeCookie()` method.
+* Deprecated the `Response::clearCookies()` method.
 
 #### Improvements
 

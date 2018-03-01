@@ -160,7 +160,7 @@ class Redirect implements ResponseSenderInterface
 
 		$response->status($this->status);
 
-		$response->header('Location', $this->location);
+		$response->getHeaders()->add('Location', $this->location);
 
 		// Send headers
 

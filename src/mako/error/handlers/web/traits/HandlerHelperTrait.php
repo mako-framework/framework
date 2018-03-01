@@ -95,7 +95,7 @@ trait HandlerHelperTrait
 	{
 		if($exception instanceof MethodNotAllowedException)
 		{
-			$this->response->header('Allow', implode(',', $exception->getAllowedMethods()));
+			$this->response->getHeaders()->add('Allow', implode(',', $exception->getAllowedMethods()));
 		}
 
 		$response->send();

@@ -226,7 +226,7 @@ class Router
 
 		return new Route([], '', function(Response $response) use ($allowedMethods)
 		{
-			$response->header('Allow', implode(',', $allowedMethods));
+			$response->getHeaders()->add('Allow', implode(',', $allowedMethods));
 		});
 	}
 

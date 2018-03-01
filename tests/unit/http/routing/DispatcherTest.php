@@ -12,6 +12,7 @@ use Mockery;
 
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\response\Headers;
 use mako\http\routing\Dispatcher;
 use mako\http\routing\middleware\Middleware;
 use mako\tests\TestCase;
@@ -39,7 +40,7 @@ class SimpleController extends \mako\http\routing\Controller
 
 	public function foo()
 	{
-		$this->response->header('X-Foo-Bar', 'Foo Bar');
+		$this->response->getHeaders()->add('X-Foo-Bar', 'Foo Bar');
 
 		return 'Hello, world!';
 	}
@@ -79,7 +80,7 @@ class ControllerWithNullBeforeFilter extends \mako\http\routing\Controller
 
 	public function beforeAction()
 	{
-		$this->response->header('X-Foo-Bar', 'Foo Bar');
+		$this->response->getHeaders()->add('X-Foo-Bar', 'Foo Bar');
 	}
 
 	public function foo()
@@ -208,7 +209,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getAction')->once()->andReturn(function(Response $response, $who)
 		{
-			$response->header('X-Foo-Bar', 'Foo Bar');
+			$response->getHeaders()->add('X-Foo-Bar', 'Foo Bar');
 
 			return 'Hello, ' . $who . '!';
 		});
@@ -219,7 +220,13 @@ class DispatcherTest extends TestCase
 
 		$request = Mockery::mock('\mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('X-Foo-Bar', 'Foo Bar');
+
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
+
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
 
@@ -230,8 +237,6 @@ class DispatcherTest extends TestCase
 		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Hello, Kitty!', $response->getBody());
-
-		$this->assertEquals(['X-Foo-Bar' => ['Foo Bar']], $response->getHeaders());
 	}
 
 	/**
@@ -249,7 +254,13 @@ class DispatcherTest extends TestCase
 
 		$request = Mockery::mock('\mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('X-Foo-Bar', 'Foo Bar');
+
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
+
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
 
@@ -260,8 +271,6 @@ class DispatcherTest extends TestCase
 		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Hello, world!', $response->getBody());
-
-		$this->assertEquals(['X-Foo-Bar' => ['Foo Bar']], $response->getHeaders());
 	}
 
 	/**
@@ -307,7 +316,13 @@ class DispatcherTest extends TestCase
 
 		$request = Mockery::mock('\mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('X-Foo-Bar', 'Foo Bar');
+
 		$response = Mockery::mock('\mako\http\Response')->makePartial();
+
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$container = Mockery::mock('\mako\syringe\Container')->makePartial();
 
@@ -318,8 +333,6 @@ class DispatcherTest extends TestCase
 		$response = $dispatcher->dispatch($route);
 
 		$this->assertEquals('Hello, world!', $response->getBody());
-
-		$this->assertEquals(['X-Foo-Bar' => ['Foo Bar']], $response->getHeaders());
 	}
 
 	/**

@@ -9,6 +9,7 @@ namespace mako\tests\unit\http\response\builders;
 
 use Mockery;
 
+use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
 use mako\tests\TestCase;
 
@@ -24,11 +25,15 @@ class RedirectTest extends TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(302);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -46,11 +51,15 @@ class RedirectTest extends TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(304);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -70,11 +79,15 @@ class RedirectTest extends TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(300);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -94,11 +107,15 @@ class RedirectTest extends TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(301);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -118,11 +135,15 @@ class RedirectTest extends TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(302);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -142,11 +163,15 @@ class RedirectTest extends TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(303);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -166,11 +191,15 @@ class RedirectTest extends TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(304);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -190,11 +219,15 @@ class RedirectTest extends TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(305);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -214,11 +247,15 @@ class RedirectTest extends TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(307);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -238,11 +275,15 @@ class RedirectTest extends TestCase
 	{
 		$request = Mockery::mock('mako\http\Request');
 
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
 		$response = Mockery::mock('mako\http\Response');
 
 		$response->shouldReceive('status')->once()->with(308);
 
-		$response->shouldReceive('header')->once()->with('Location', 'http://example.org');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('sendHeaders')->once();
 

@@ -244,7 +244,7 @@ class Session extends Adapter
 
 			if($remember === true)
 			{
-				$this->response->signedCookie($this->options['auth_key'], $this->user->getAccessToken(), (3600 * 24 * 365), $this->options['cookie_options']);
+				$this->response->getCookies()->addSigned($this->options['auth_key'], $this->user->getAccessToken(), (3600 * 24 * 365), $this->options['cookie_options']);
 			}
 
 			return true;
@@ -283,7 +283,7 @@ class Session extends Adapter
 			$this->response->clear();
 		}
 
-		$this->response->header('WWW-Authenticate', 'basic');
+		$this->response->getHeaders()->add('WWW-Authenticate', 'basic');
 
 		$this->response->status(401);
 
@@ -301,7 +301,7 @@ class Session extends Adapter
 
 		$this->session->remove($this->options['auth_key']);
 
-		$this->response->deleteCookie($this->options['auth_key'], $this->options['cookie_options']);
+		$this->response->getCookies()->delete($this->options['auth_key'], $this->options['cookie_options']);
 
 		$this->user = null;
 

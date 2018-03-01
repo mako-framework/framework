@@ -11,12 +11,13 @@ use ErrorException;
 use Mockery;
 
 use mako\error\handlers\web\ProductionHandler;
-use mako\http\Request;
-use mako\http\Response;
-use mako\http\request\Headers;
 use mako\http\exceptions\MethodNotAllowedException;
-use mako\view\ViewFactory;
+use mako\http\Request;
+use mako\http\request\Headers as RequestHeaders;
+use mako\http\Response;
+use mako\http\response\Headers as ResponseHeaders;
 use mako\tests\TestCase;
+use mako\view\ViewFactory;
 
 /**
  * @group unit
@@ -36,9 +37,9 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$headers = Mockery::mock(Headers::class);
+		$responseHeaders = Mockery::mock(RequestHeaders::class);
 
-		$headers->shouldReceive('acceptableContentTypes')->twice()->andReturn([]);
+		$responseHeaders->shouldReceive('acceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
@@ -46,7 +47,7 @@ class ProductionHandlerTest extends TestCase
 
 		$request->shouldReceive('isAjax')->once()->andReturn(false);
 
-		$request->shouldReceive('getHeaders')->twice()->andReturn($headers);
+		$request->shouldReceive('getHeaders')->twice()->andReturn($responseHeaders);
 
 		//
 
@@ -90,9 +91,9 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$headers = Mockery::mock(Headers::class);
+		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
-		$headers->shouldReceive('acceptableContentTypes')->twice()->andReturn([]);
+		$requestHeaders->shouldReceive('acceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
@@ -100,7 +101,13 @@ class ProductionHandlerTest extends TestCase
 
 		$request->shouldReceive('isAjax')->once()->andReturn(false);
 
-		$request->shouldReceive('getHeaders')->twice()->andReturn($headers);
+		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
+
+		//
+
+		$responseHeaders = Mockery::mock(ResponseHeaders::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Allow', 'GET,POST');
 
 		//
 
@@ -120,7 +127,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('status')->once()->with(405)->andReturn($response);
 
-		$response->shouldReceive('header')->once()->with('Allow', 'GET,POST');
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$response->shouldReceive('send')->once();
 
@@ -196,9 +203,9 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$headers = Mockery::mock(Headers::class);
+		$responseHeaders = Mockery::mock(RequestHeaders::class);
 
-		$headers->shouldReceive('acceptableContentTypes')->once()->andReturn([]);
+		$responseHeaders->shouldReceive('acceptableContentTypes')->once()->andReturn([]);
 
 		//
 
@@ -206,7 +213,7 @@ class ProductionHandlerTest extends TestCase
 
 		$request->shouldReceive('isAjax')->once()->andReturn(false);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		$request->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		//
 
