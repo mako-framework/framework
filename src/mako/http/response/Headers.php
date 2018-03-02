@@ -59,11 +59,12 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Adds a response header.
 	 *
-	 * @param string $name    Header name
-	 * @param string $value   Header value
-	 * @param bool   $replace Replace header?
+	 * @param  string                      $name    Header name
+	 * @param  string                      $value   Header value
+	 * @param  bool                        $replace Replace header?
+	 * @return \mako\http\response\Headers
 	 */
-	public function add(string $name, string $value, bool $replace = true)
+	public function add(string $name, string $value, bool $replace = true): Headers
 	{
 		$normalizedName = $this->normalizeName($name);
 
@@ -79,6 +80,8 @@ class Headers implements Countable, IteratorAggregate
 
 			$this->headers[$normalizedName]['value'] = array_merge($headers, [$value]);
 		}
+
+		return $this;
 	}
 
 	/**
@@ -95,19 +98,26 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Removes a header.
 	 *
-	 * @param string $name Header name
+	 * @param  string                      $name Header name
+	 * @return \mako\http\response\Headers
 	 */
-	public function remove(string $name)
+	public function remove(string $name): Headers
 	{
 		unset($this->headers[$this->normalizeName($name)]);
+
+		return $this;
 	}
 
 	/**
 	 * Clears all the headers.
+	 *
+	 * @return \mako\http\response\Headers
 	 */
-	public function clear()
+	public function clear(): Headers
 	{
 		$this->headers = [];
+
+		return $this;
 	}
 
 	/**

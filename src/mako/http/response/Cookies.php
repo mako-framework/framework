@@ -81,44 +81,51 @@ class Cookies implements Countable, IteratorAggregate
 	/**
 	 * Set default options values.
 	 *
-	 * @param array $defaults Default option values
+	 * @param  array                       $defaults Default option values
+	 * @return \mako\http\response\Cookies
 	 */
-	public function setOptions(array $defaults)
+	public function setOptions(array $defaults): Cookies
 	{
 		$this->defaults = $defaults + $this->defaults;
+
+		return $this;
 	}
 
 	/**
 	 * Adds a unsigned cookie.
 	 *
-	 * @param string $name    Cookie name
-	 * @param string $value   Cookie value
-	 * @param int    $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
-	 * @param array  $options Cookie options
+	 * @param  string                      $name    Cookie name
+	 * @param  string                      $value   Cookie value
+	 * @param  int                         $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	 * @param  array                       $options Cookie options
+	 * @return \mako\http\response\Cookies
 	 */
-	public function add(string $name, string $value, int $ttl = 0, array $options = [])
+	public function add(string $name, string $value, int $ttl = 0, array $options = []): Cookies
 	{
 		$ttl = ($ttl === 0) ? 0 : (time() + $ttl);
 
 		$this->cookies[$name] = ['name' => $name, 'value' => $value, 'ttl' => $ttl] + $options + $this->defaults;
+
+		return $this;
 	}
 
 	/**
 	 * Adds a signed cookie.
 	 *
-	 * @param string $name    Cookie name
-	 * @param string $value   Cookie value
-	 * @param int    $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
-	 * @param array  $options Cookie options
+	 * @param  string                      $name    Cookie name
+	 * @param  string                      $value   Cookie value
+	 * @param  int                         $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
+	 * @param  array                       $options Cookie options
+	 * @return \mako\http\response\Cookies
 	 */
-	public function addSigned(string $name, string $value, int $ttl = 0, array $options = [])
+	public function addSigned(string $name, string $value, int $ttl = 0, array $options = []): Cookies
 	{
 		if(empty($this->signer))
 		{
 			throw new RuntimeException('A [ Signer ] instance is required to sign cookies.');
 		}
 
-		$this->add($name, $this->signer->sign($value), $ttl, $options);
+		return $this->add($name, $this->signer->sign($value), $ttl, $options);
 	}
 
 	/**
@@ -135,30 +142,40 @@ class Cookies implements Countable, IteratorAggregate
 	/**
 	 * Removes a cookie.
 	 *
-	 * @param string $name Cookie name
+	 * @param  string                      $name Cookie name
+	 * @return \mako\http\response\Cookies
 	 */
-	public function remove(string $name)
+	public function remove(string $name): Cookies
 	{
 		unset($this->cookies[$name]);
+
+		return $this;
 	}
 
 	/**
 	 * Deletes a cookie.
 	 *
-	 * @param string $name    Cookie name
-	 * @param array  $options Cookie options
+	 * @param  string                      $name    Cookie name
+	 * @param  array                       $options Cookie options
+	 * @return \mako\http\response\Cookies
 	 */
-	public function delete(string $name, array $options = [])
+	public function delete(string $name, array $options = []): Cookies
 	{
 		$this->add($name, '', -3600, $options);
+
+		return $this;
 	}
 
 	/**
 	 * Clears all the cookies.
+	 *
+	 * @return \mako\http\response\Cookies
 	 */
-	public function clear()
+	public function clear(): Cookies
 	{
 		$this->cookies = [];
+
+		return $this;
 	}
 
 	/**
