@@ -22,6 +22,19 @@ use mako\security\Signer;
 class Cookies implements Countable, IteratorAggregate
 {
 	/**
+	 * Default options.
+	 *
+	 * @var array
+	 */
+	protected $defaults =
+	[
+		'path'     => '/',
+		'domain'    => '',
+		'secure'   => false,
+		'httponly' => false,
+	];
+
+	/**
 	 * Cookies.
 	 *
 	 * @var array
@@ -66,6 +79,16 @@ class Cookies implements Countable, IteratorAggregate
 	}
 
 	/**
+	 * Set default options values.
+	 *
+	 * @param array $defaults Default option values
+	 */
+	public function setOptions(array $defaults)
+	{
+		$this->defaults = $defaults + $this->defaults;
+	}
+
+	/**
 	 * Adds a unsigned cookie.
 	 *
 	 * @param string $name    Cookie name
@@ -77,9 +100,7 @@ class Cookies implements Countable, IteratorAggregate
 	{
 		$ttl = ($ttl === 0) ? 0 : (time() + $ttl);
 
-		$defaults = ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false];
-
-		$this->cookies[$name] = ['name' => $name, 'value' => $value, 'ttl' => $ttl] + $options + $defaults;
+		$this->cookies[$name] = ['name' => $name, 'value' => $value, 'ttl' => $ttl] + $options + $this->defaults;
 	}
 
 	/**

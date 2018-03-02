@@ -143,7 +143,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOverrideDefaults()
+	public function testAddWithOptions()
 	{
 		$cookies = new Cookies;
 
@@ -157,6 +157,25 @@ class CookiesTest extends TestCase
 		$this->assertSame(false, $foo['httponly']);
 
 		$cookies->add('foo', 'bar', 0, ['path' => '/foo', 'domain' => 'example.org', 'secure' => true, 'httponly' => true]);
+
+		$foo = $cookies->all()['foo'];
+
+		$this->assertSame('/foo', $foo['path']);
+		$this->assertSame('example.org', $foo['domain']);
+		$this->assertSame(true, $foo['secure']);
+		$this->assertSame(true, $foo['httponly']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSetDefaults()
+	{
+		$cookies = new Cookies;
+
+		$cookies->setOptions(['path' => '/foo', 'domain' => 'example.org', 'secure' => true, 'httponly' => true]);
+
+		$cookies->add('foo', 'bar');
 
 		$foo = $cookies->all()['foo'];
 
