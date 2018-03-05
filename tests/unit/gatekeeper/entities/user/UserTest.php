@@ -8,12 +8,11 @@
 namespace mako\tests\unit\gatekeeper\entities\user;
 
 use DateTime;
-use Mockery;
-
 use mako\chrono\Time;
-use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\entities\group\Group;
+use mako\gatekeeper\entities\user\User;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

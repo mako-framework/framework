@@ -7,8 +7,6 @@
 
 namespace mako\http\routing\constraints;
 
-use mako\http\routing\constraints\ConstraintInterface;
-
 /**
  * Base constraint.
  *

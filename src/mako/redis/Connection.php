@@ -9,8 +9,6 @@ namespace mako\redis;
 
 use Throwable;
 
-use mako\redis\RedisException;
-
 /**
  * Redis connection.
  *

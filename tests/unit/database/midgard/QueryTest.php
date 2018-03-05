@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\database\midgard;
 
-use Mockery;
-
 use mako\database\midgard\Query;
 use mako\tests\TestCase;
+use Mockery;
 
 // --------------------------------------------------------------------------
 // START CLASSES

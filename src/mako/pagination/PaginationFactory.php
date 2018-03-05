@@ -9,9 +9,6 @@ namespace mako\pagination;
 
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
-use mako\pagination\Pagination;
-use mako\pagination\PaginationFactoryInterface;
-use mako\pagination\PaginationInterface;
 use mako\view\ViewFactory;
 
 /**

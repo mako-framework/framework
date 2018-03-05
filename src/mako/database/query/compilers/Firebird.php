@@ -7,8 +7,6 @@
 
 namespace mako\database\query\compilers;
 
-use mako\database\query\compilers\Compiler;
-
 /**
  * Compiles Firebird queries.
  *

@@ -7,14 +7,12 @@
 
 namespace mako\tests\unit\http\routing;
 
-use Throwable;
-
-use Mockery;
-
 use mako\http\response\Headers;
 use mako\http\routing\constraints\Constraint;
 use mako\http\routing\Router;
 use mako\tests\TestCase;
+use Mockery;
+use Throwable;
 
 // --------------------------------------------------------------------------
 // START CLASSES

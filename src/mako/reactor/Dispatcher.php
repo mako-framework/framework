@@ -7,7 +7,6 @@
 
 namespace mako\reactor;
 
-use mako\reactor\CommandInterface;
 use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
 use mako\reactor\exceptions\MissingArgumentException;

@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
-use Mockery;
-
 use mako\database\query\Query;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

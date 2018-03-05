@@ -7,8 +7,8 @@
 
 namespace mako\application\services;
 
-use mako\gatekeeper\Authentication;
 use mako\gatekeeper\adapters\Session;
+use mako\gatekeeper\Authentication;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 

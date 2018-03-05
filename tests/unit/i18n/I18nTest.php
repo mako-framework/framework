@@ -7,12 +7,11 @@
 
 namespace mako\tests\unit\i18n;
 
-use Mockery;
-
 use mako\cache\stores\StoreInterface;
 use mako\i18n\I18n;
 use mako\i18n\loaders\LoaderInterface;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

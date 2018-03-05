@@ -9,7 +9,6 @@ namespace mako\session\stores;
 
 use mako\database\connections\Connection;
 use mako\database\query\Query;
-use mako\session\stores\StoreInterface;
 
 /**
  * Database store.

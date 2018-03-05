@@ -9,8 +9,6 @@ namespace mako\database\connections;
 
 use PDOException;
 
-use mako\database\connections\Connection;
-
 /**
  * Firebird database connection.
  *

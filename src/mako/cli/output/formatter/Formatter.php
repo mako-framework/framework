@@ -7,9 +7,6 @@
 
 namespace mako\cli\output\formatter;
 
-use mako\cli\output\formatter\FormatterException;
-use mako\cli\output\formatter\FormatterInterface;
-
 /**
  * Formatter.
  *

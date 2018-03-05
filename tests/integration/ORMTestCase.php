@@ -7,9 +7,6 @@
 
 namespace mako\tests\integration;
 
-use mako\tests\integration\BuilderTestCase;
-use mako\tests\integration\TestORM;
-
 /**
  * ORM test case.
  *

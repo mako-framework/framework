@@ -8,13 +8,12 @@
 namespace mako\view;
 
 use Closure;
-use RuntimeException;
-
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
 use mako\syringe\Container;
 use mako\view\renderers\PHP;
 use mako\view\renderers\RendererInterface;
+use RuntimeException;
 
 /**
  * View factory.

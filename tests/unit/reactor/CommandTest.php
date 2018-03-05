@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\reactor;
 
-use Mockery;
-
 use mako\reactor\Command;
 use mako\tests\TestCase;
+use Mockery;
 
 // --------------------------------------------------------------------------
 // START CLASSES

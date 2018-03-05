@@ -7,9 +7,6 @@
 
 namespace mako\utility\ip;
 
-use mako\utility\ip\IPv4;
-use mako\utility\ip\IPv6;
-
 /**
  * IP utilities.
  *

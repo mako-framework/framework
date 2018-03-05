@@ -7,8 +7,6 @@
 
 namespace mako\database\connections;
 
-use mako\database\connections\Connection;
-
 /**
  * SQLServer database connection.
  *

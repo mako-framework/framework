@@ -8,7 +8,6 @@
 namespace mako\database\query;
 
 use JsonSerializable;
-
 use mako\pagination\PaginationInterface;
 use mako\utility\Arr;
 use mako\utility\Collection;

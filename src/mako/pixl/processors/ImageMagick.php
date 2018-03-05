@@ -10,11 +10,9 @@ namespace mako\pixl\processors;
 use Imagick;
 use ImagickPixel;
 use InvalidArgumentException;
-use RuntimeException;
-
 use mako\pixl\Image;
-use mako\pixl\processors\ProcessorInterface;
 use mako\pixl\processors\traits\CalculateNewDimensionsTrait;
+use RuntimeException;
 
 /**
  * ImageMagick processor.

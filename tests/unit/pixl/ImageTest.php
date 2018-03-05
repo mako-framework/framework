@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\pixl;
 
-use Mockery;
-
 use mako\pixl\Image;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

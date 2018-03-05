@@ -7,9 +7,6 @@
 
 namespace mako\http\request;
 
-use mako\http\request\Parameters;
-use mako\http\request\UploadedFile;
-
 /**
  * Files.
  *

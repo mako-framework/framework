@@ -7,8 +7,6 @@
 
 namespace mako\cli\input\reader;
 
-use mako\cli\input\reader\ReaderInterface;
-
 /**
  * Reader.
  *

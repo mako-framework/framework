@@ -7,14 +7,13 @@
 
 namespace mako\tests\unit\reactor;
 
-use Mockery;
-
 use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
 use mako\reactor\exceptions\MissingArgumentException;
 use mako\reactor\exceptions\MissingOptionException;
 use mako\reactor\Reactor;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

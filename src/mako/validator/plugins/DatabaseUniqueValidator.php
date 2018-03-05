@@ -8,7 +8,6 @@
 namespace mako\validator\plugins;
 
 use mako\database\ConnectionManager;
-use mako\validator\plugins\ValidatorPlugin;
 
 /**
  * Database unique plugin.

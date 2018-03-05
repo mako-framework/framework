@@ -9,8 +9,6 @@ namespace mako\http\exceptions;
 
 use Throwable;
 
-use mako\http\exceptions\RequestException;
-
 /**
  * Method not allowed exception.
  *

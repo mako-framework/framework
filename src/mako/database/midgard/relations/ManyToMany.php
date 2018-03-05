@@ -9,7 +9,6 @@ namespace mako\database\midgard\relations;
 
 use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
-use mako\database\midgard\relations\Relation;
 
 /**
  * Many to many relation.

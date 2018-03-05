@@ -8,7 +8,6 @@
 namespace mako\gatekeeper;
 
 use Closure;
-
 use mako\gatekeeper\adapters\AdapterInterface;
 
 /**

@@ -7,11 +7,10 @@
 
 namespace mako\tests\unit\http\response\builders;
 
-use Mockery;
-
 use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

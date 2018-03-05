@@ -7,10 +7,9 @@
 
 namespace mako\tests\cache\stores;
 
-use Mockery;
-
 use mako\cache\stores\Store;
 use mako\tests\TestCase;
+use Mockery;
 
 // --------------------------------------------------------------------------
 // START CLASSES

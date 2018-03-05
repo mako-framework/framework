@@ -8,7 +8,6 @@
 namespace mako\database\query\helpers;
 
 use mako\database\query\Query;
-use mako\database\query\helpers\HelperInterface;
 
 /**
  * Query builder postgres helper.

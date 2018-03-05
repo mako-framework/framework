@@ -9,8 +9,6 @@ namespace mako\gatekeeper\repositories\group;
 
 use InvalidArgumentException;
 
-use mako\gatekeeper\repositories\group\GroupRepositoryInterface;
-
 /**
  * Group repository.
  *

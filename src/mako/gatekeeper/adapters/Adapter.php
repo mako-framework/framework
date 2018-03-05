@@ -7,8 +7,6 @@
 
 namespace mako\gatekeeper\adapters;
 
-use mako\gatekeeper\adapters\AdapterInterface;
-use mako\gatekeeper\adapters\WithGroupsInterface;
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\entities\user\UserEntityInterface;

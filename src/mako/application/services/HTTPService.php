@@ -7,13 +7,12 @@
 
 namespace mako\application\services;
 
-use mako\application\services\Service;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\Dispatcher;
-use mako\http\routing\URLBuilder;
 use mako\http\routing\Router;
 use mako\http\routing\Routes;
+use mako\http\routing\URLBuilder;
 
 /**
  * HTTP service.

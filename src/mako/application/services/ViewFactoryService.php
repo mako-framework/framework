@@ -7,9 +7,8 @@
 
 namespace mako\application\services;
 
-use mako\application\services\Service;
-use mako\view\ViewFactory;
 use mako\view\renderers\Template;
+use mako\view\ViewFactory;
 
 /**
  * View factory service.

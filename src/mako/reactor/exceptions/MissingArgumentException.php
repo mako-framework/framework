@@ -7,8 +7,6 @@
 
 namespace mako\reactor\exceptions;
 
-use mako\reactor\exceptions\ArgumentException;
-
 /**
  * Missing argument exception.
  *

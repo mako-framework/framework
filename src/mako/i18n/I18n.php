@@ -7,11 +7,10 @@
 
 namespace mako\i18n;
 
-use RuntimeException;
-
 use mako\cache\stores\StoreInterface;
-use mako\i18n\loaders\LoaderInterface;;
+use mako\i18n\loaders\LoaderInterface;
 use mako\utility\Arr;
+use RuntimeException;
 
 /**
  * Internationalization class.

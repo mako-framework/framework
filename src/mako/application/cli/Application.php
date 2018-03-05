@@ -7,7 +7,6 @@
 
 namespace mako\application\cli;
 
-use mako\Mako;
 use mako\application\Application as BaseApplication;
 use mako\application\cli\commands\app\GenerateKey;
 use mako\application\cli\commands\app\GenerateSecret;
@@ -22,11 +21,12 @@ use mako\application\cli\commands\migrations\Up;
 use mako\application\cli\commands\server\Server;
 use mako\cli\input\Input;
 use mako\cli\input\reader\Reader;
-use mako\cli\output\Output;
 use mako\cli\output\formatter\Formatter;
+use mako\cli\output\Output;
 use mako\cli\output\writer\Error;
 use mako\cli\output\writer\Standard;
 use mako\config\Config;
+use mako\Mako;
 use mako\reactor\Reactor;
 
 /**

@@ -8,7 +8,6 @@
 namespace mako\http\routing\traits;
 
 use Closure;
-
 use mako\http\response\builders\JSON;
 use mako\http\response\senders\File;
 use mako\http\response\senders\Redirect;

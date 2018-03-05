@@ -7,8 +7,6 @@
 
 namespace mako\session\stores;
 
-use mako\session\stores\StoreInterface;
-
 /**
  * Null store.
  *

@@ -8,13 +8,12 @@
 namespace mako\tests\unit\error\handlers\cli;
 
 use ErrorException;
-use Mockery;
-use RuntimeException;
-
-use mako\cli\output\Output;
 use mako\cli\output\formatter\Formatter;
+use mako\cli\output\Output;
 use mako\error\handlers\cli\DevelopmentHandler;
 use mako\tests\TestCase;
+use Mockery;
+use RuntimeException;
 
 /**
  * @group unit

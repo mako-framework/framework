@@ -9,8 +9,6 @@ namespace mako\database\types;
 
 use PDO;
 
-use mako\database\types\Type;
-
 /**
  * Large object type.
  *

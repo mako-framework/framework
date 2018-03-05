@@ -9,12 +9,10 @@ namespace mako\error;
 
 use Closure;
 use ErrorException;
-use Throwable;
-
 use mako\error\handlers\HandlerInterface;
 use mako\syringe\Container;
-
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 /**
  * Error handler.

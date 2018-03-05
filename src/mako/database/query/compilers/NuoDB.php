@@ -7,8 +7,6 @@
 
 namespace mako\database\query\compilers;
 
-use mako\database\query\compilers\Compiler;
-
 /**
  * Compiles NuoDB queries.
  *

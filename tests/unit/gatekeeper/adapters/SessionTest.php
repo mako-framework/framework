@@ -7,8 +7,6 @@
 
 namespace mako\tests\unit\gatekeeper\adapters;
 
-use Mockery;
-
 use mako\gatekeeper\adapters\Session;
 use mako\gatekeeper\Authentication;
 use mako\gatekeeper\entities\group\Group;
@@ -21,6 +19,7 @@ use mako\http\response\Cookies as ResponseCookies;
 use mako\http\response\Headers as ResponseHeaders;
 use mako\session\Session as HttpSession;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\pagination;
 
-use Mockery;
-
 use mako\pagination\Pagination;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\view\compilers;
 
-use Mockery;
-
 use mako\tests\TestCase;
 use mako\view\compilers\Template;
+use Mockery;
 
 /**
  * @group unit

@@ -9,15 +9,14 @@ namespace mako\database\connections;
 
 use Closure;
 use Generator;
+use mako\database\query\compilers\Compiler;
+use mako\database\query\helpers\HelperInterface;
+use mako\database\query\Query;
+use mako\database\types\TypeInterface;
 use PDO;
 use PDOException;
 use PDOStatement;
 use RuntimeException;
-
-use mako\database\query\Query;
-use mako\database\query\compilers\Compiler;
-use mako\database\query\helpers\HelperInterface;
-use mako\database\types\TypeInterface;
 
 /**
  * Database connection.

@@ -7,8 +7,6 @@
 
 namespace mako\http\request;
 
-use mako\http\request\Parameters;
-
 /**
  * Body.
  *

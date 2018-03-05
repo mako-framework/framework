@@ -10,9 +10,8 @@ namespace mako\http\request;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use RuntimeException;
-
 use mako\security\Signer;
+use RuntimeException;
 
 /**
  * Cookies.

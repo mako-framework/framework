@@ -8,7 +8,6 @@
 namespace mako\tests\integration\database\midgard;
 
 use DateTime;
-
 use mako\tests\integration\ORMTestCase;
 
 // --------------------------------------------------------------------------

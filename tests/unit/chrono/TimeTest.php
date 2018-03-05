@@ -9,7 +9,6 @@ namespace mako\tests\unit\chrono;
 
 use DateTime;
 use DateTimeZone;
-
 use mako\chrono\Time;
 use mako\tests\TestCase;
 

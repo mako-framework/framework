@@ -9,9 +9,6 @@ namespace mako\cache\stores;
 
 use Memcached as PHPMemcached;
 
-use mako\cache\stores\IncrementDecrementInterface;
-use mako\cache\stores\Store;
-
 /**
  * Memcached store.
  *

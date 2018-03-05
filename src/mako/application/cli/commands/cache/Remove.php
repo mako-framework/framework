@@ -7,7 +7,6 @@
 
 namespace mako\application\cli\commands\cache;
 
-use mako\application\cli\commands\cache\Command;
 use mako\cache\CacheManager;
 
 /**

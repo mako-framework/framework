@@ -8,8 +8,6 @@
 namespace mako\event;
 
 use Closure;
-
-use mako\event\EventHandlerInterface;
 use mako\syringe\Container;
 
 /**

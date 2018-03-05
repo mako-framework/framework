@@ -7,8 +7,6 @@
 
 namespace mako\chrono\stopwatch;
 
-use mako\chrono\stopwatch\Lap;
-
 /**
  * Stopwatch.
  *

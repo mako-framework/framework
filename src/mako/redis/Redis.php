@@ -8,8 +8,6 @@
 namespace mako\redis;
 
 use Closure;
-
-use mako\redis\RedisException;
 use mako\utility\Str;
 
 /**

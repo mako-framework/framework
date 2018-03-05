@@ -7,9 +7,8 @@
 
 namespace mako\pixl;
 
-use RuntimeException;
-
 use mako\pixl\processors\ProcessorInterface;
+use RuntimeException;
 
 /**
  * Image manipulation class.

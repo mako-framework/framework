@@ -8,8 +8,6 @@
 namespace mako\onion;
 
 use Closure;
-
-use mako\onion\OnionException;
 use mako\syringe\Container;
 
 /**

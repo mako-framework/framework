@@ -8,15 +8,9 @@
 namespace mako\database\query;
 
 use Closure;
-use PDO;
-
 use mako\database\connections\Connection;
-use mako\database\query\Join;
-use mako\database\query\Raw;
-use mako\database\query\Result;
-use mako\database\query\ResultSet;
-use mako\database\query\Subquery;
 use mako\pagination\PaginationFactoryInterface;
+use PDO;
 
 /**
  * Query builder.

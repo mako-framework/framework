@@ -7,12 +7,11 @@
 
 namespace mako\tests\integration\database\query\compilers;
 
-use Mockery;
-
 use mako\database\query\Query;
 use mako\pagination\PaginationFactoryInterface;
 use mako\pagination\PaginationInterface;
 use mako\tests\integration\BuilderTestCase;
+use Mockery;
 
 /**
  * @group integration

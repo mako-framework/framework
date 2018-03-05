@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\redis;
 
-use Mockery;
-
 use mako\redis\Redis;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

@@ -7,7 +7,6 @@
 
 namespace mako\cache\stores;
 
-use mako\cache\stores\Store;
 use mako\database\connections\Connection;
 use mako\database\query\Query;
 

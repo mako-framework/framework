@@ -8,11 +8,10 @@
 namespace mako\tests\unit\gatekeeper\repositories\user;
 
 use Closure;
-use Mockery;
-
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

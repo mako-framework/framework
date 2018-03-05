@@ -8,7 +8,6 @@
 namespace mako\session\stores;
 
 use mako\file\FileSystem;
-use mako\session\stores\StoreInterface;
 
 /**
  * File store.

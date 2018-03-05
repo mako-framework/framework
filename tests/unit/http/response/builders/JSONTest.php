@@ -7,13 +7,12 @@
 
 namespace mako\tests\unit\http\response\builders;
 
-use Mockery;
-
 use mako\http\Request;
-use mako\http\Response;
 use mako\http\request\Parameters;
+use mako\http\Response;
 use mako\http\response\builders\JSON;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

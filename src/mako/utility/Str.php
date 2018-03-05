@@ -9,8 +9,6 @@ namespace mako\utility;
 
 use Closure;
 
-use mako\utility\HTML;
-
 /**
  * Collection of string manipulation methods.
  *

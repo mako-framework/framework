@@ -7,8 +7,8 @@
 
 namespace mako\http\exceptions;
 
-use Throwable;
 use RuntimeException;
+use Throwable;
 
 /**
  * Request exception.

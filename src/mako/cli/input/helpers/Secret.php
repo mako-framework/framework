@@ -9,10 +9,6 @@ namespace mako\cli\input\helpers;
 
 use RuntimeException;
 
-use mako\cli\input\helpers\Question;
-use mako\cli\input\Input;
-use mako\cli\output\Output;
-
 /**
  * Secret helper.
  *

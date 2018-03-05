@@ -8,12 +8,11 @@
 namespace mako\database\query\compilers;
 
 use DateTimeInterface;
-use RuntimeException;
-
 use mako\database\query\Join;
 use mako\database\query\Query;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
+use RuntimeException;
 
 /**
  * Compiles SQL queries.

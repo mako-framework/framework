@@ -10,7 +10,6 @@ namespace mako\http\request;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-
 use mako\utility\Arr;
 
 /**

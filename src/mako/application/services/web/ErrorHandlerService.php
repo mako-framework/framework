@@ -7,12 +7,11 @@
 
 namespace mako\application\services\web;
 
-use Throwable;
-
 use mako\application\services\Service;
 use mako\error\ErrorHandler;
 use mako\error\handlers\web\DevelopmentHandler;
 use mako\error\handlers\web\ProductionHandler;
+use Throwable;
 
 /**
  * Error handler service.

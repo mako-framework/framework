@@ -8,10 +8,9 @@
 namespace mako\tests\integration\database\midgard;
 
 use DateTime;
-
-use mako\utility\UUID;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
+use mako\utility\UUID;
 
 // --------------------------------------------------------------------------
 // START CLASSES

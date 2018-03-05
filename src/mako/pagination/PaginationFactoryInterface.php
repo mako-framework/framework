@@ -7,8 +7,6 @@
 
 namespace mako\pagination;
 
-use mako\pagination\PaginationInterface;
-
 /**
  * Pagination factory interface.
  *

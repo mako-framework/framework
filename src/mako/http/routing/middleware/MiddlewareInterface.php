@@ -8,7 +8,6 @@
 namespace mako\http\routing\middleware;
 
 use Closure;
-
 use mako\http\Request;
 use mako\http\Response;
 

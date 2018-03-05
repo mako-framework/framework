@@ -8,7 +8,6 @@
 namespace mako\gatekeeper\adapters;
 
 use mako\gatekeeper\Authentication;
-use mako\gatekeeper\adapters\Adapter;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;

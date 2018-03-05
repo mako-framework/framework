@@ -9,9 +9,6 @@ namespace mako\cache\stores;
 
 use RuntimeException;
 
-use mako\cache\stores\IncrementDecrementInterface;
-use mako\cache\stores\Store;
-
 /**
  * APCU store.
  *

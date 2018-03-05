@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\database\midgard;
 
-use Mockery;
-
 use mako\database\midgard\ResultSet;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

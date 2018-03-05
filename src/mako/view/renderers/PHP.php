@@ -7,7 +7,6 @@
 
 namespace mako\view\renderers;
 
-use mako\view\renderers\RendererInterface;
 use mako\view\renderers\traits\EscaperTrait;
 
 /**

@@ -7,14 +7,13 @@
 
 namespace mako\error\handlers\web;
 
-use Throwable;
-
 use mako\error\handlers\HandlerInterface;
 use mako\error\handlers\web\traits\HandlerHelperTrait;
+use mako\http\exceptions\RequestException;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\exceptions\RequestException;
 use mako\view\ViewFactory;
+use Throwable;
 
 /**
  * Production handler.

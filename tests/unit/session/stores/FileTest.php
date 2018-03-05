@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\session\stores;
 
-use Mockery;
-
 use mako\session\stores\File;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

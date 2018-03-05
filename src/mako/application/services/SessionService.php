@@ -7,7 +7,6 @@
 
 namespace mako\application\services;
 
-use mako\application\services\Service;
 use mako\session\Session;
 use mako\session\stores\Database;
 use mako\session\stores\File;

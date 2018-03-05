@@ -7,10 +7,6 @@
 
 namespace mako\commander;
 
-use mako\commander\CommandBusInterface;
-use mako\commander\CommandHandlerInterface;
-use mako\commander\CommandInterface;
-use mako\commander\SelfHandlingCommandInterface;
 use mako\onion\Onion;
 use mako\syringe\Container;
 

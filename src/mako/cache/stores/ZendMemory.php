@@ -9,8 +9,6 @@ namespace mako\cache\stores;
 
 use RuntimeException;
 
-use mako\cache\stores\Store;
-
 /**
  * Zend memory store.
  *

@@ -8,8 +8,6 @@
 namespace mako\tests\unit\error\handlers\web;
 
 use ErrorException;
-use Mockery;
-
 use mako\error\handlers\web\ProductionHandler;
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\http\Request;
@@ -18,6 +16,7 @@ use mako\http\Response;
 use mako\http\response\Headers as ResponseHeaders;
 use mako\tests\TestCase;
 use mako\view\ViewFactory;
+use Mockery;
 
 /**
  * @group unit

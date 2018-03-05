@@ -39,6 +39,10 @@ return Config::create()
 	'phpdoc_align' => true,
 	'whitespace_after_comma_in_array' => true,
 	'trailing_comma_in_multiline_array' => true,
+	'ordered_imports' => true,
+	'single_line_after_imports' => true,
+	'single_import_per_statement' => true,
+	'no_unused_imports' => true,
 ])
 ->setRiskyAllowed(true)
 ->setFinder(Finder::create()->in(__DIR__));

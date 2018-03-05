@@ -7,8 +7,6 @@
 
 namespace mako\cache\stores;
 
-use mako\cache\stores\StoreInterface;
-
 /**
  * Base store.
  *

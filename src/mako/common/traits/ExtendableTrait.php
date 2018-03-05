@@ -1,13 +1,14 @@
 <?php
 
-namespace mako\common\traits;
-
 /**
  * @copyright Frederic G. Østby
  * @license   http://www.makoframework.com/license
  */
-use Closure;
+
+namespace mako\common\traits;
+
 use BadMethodCallException;
+use Closure;
 
 /**
  * Extendable trait.

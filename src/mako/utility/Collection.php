@@ -11,9 +11,8 @@ use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use OutOfBoundsException;
-
 use mako\common\traits\ExtendableTrait;
+use OutOfBoundsException;
 
 /**
  * Collection.

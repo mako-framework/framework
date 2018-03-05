@@ -7,11 +7,9 @@
 
 namespace mako\i18n\loaders;
 
-use RuntimeException;
-
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
-use mako\i18n\loaders\LoaderInterface;
+use RuntimeException;
 
 /**
  * Language loader.

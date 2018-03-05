@@ -10,7 +10,6 @@ namespace mako\http\response\senders;
 use Closure;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\response\senders\ResponseSenderInterface;
 
 /**
  * Stream response.

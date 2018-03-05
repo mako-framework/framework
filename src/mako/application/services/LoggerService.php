@@ -7,12 +7,9 @@
 
 namespace mako\application\services;
 
-use mako\application\services\Service;
-
-use Monolog\Logger;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
-
+use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
 /**

@@ -9,14 +9,11 @@ namespace mako\gatekeeper\entities\user;
 
 use DateTimeInterface;
 use LogicException;
-
 use mako\chrono\Time;
 use mako\database\midgard\ORM;
 use mako\database\midgard\relations\ManyToMany;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\gatekeeper\entities\group\Group;
-use mako\gatekeeper\entities\user\MemberInterface;
-use mako\gatekeeper\entities\user\UserEntityInterface;
 use mako\security\Password;
 
 /**

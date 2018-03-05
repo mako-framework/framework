@@ -8,11 +8,9 @@
 namespace mako\tests\unit\gatekeeper\repositories\group;
 
 use Closure;
-use Mockery;
-
-use mako\gatekeeper\entities\group\Grup;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

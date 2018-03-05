@@ -10,7 +10,6 @@ namespace mako\tests\unit\http;
 use mako\http\response\Cookies;
 use mako\security\Signer;
 use mako\tests\TestCase;
-
 use Mockery;
 
 /**

@@ -8,7 +8,6 @@
 namespace mako\validator;
 
 use mako\i18n\I18n;
-use mako\validator\Validator;
 use mako\validator\plugins\ValidatorPluginInterface;
 
 /**

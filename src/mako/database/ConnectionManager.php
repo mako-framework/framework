@@ -7,9 +7,8 @@
 
 namespace mako\database;
 
-use RuntimeException;
-
 use mako\common\ConnectionManager as BaseConnectionManager;
+
 use mako\database\connections\Connection;
 use mako\database\connections\DB2 as DB2Connection;
 use mako\database\connections\Firebird as FirebirdConnection;
@@ -26,6 +25,7 @@ use mako\database\query\compilers\SQLite as SQLiteCompiler;
 use mako\database\query\compilers\SQLServer as SQLServerCompiler;
 use mako\database\query\helpers\Helper;
 use mako\database\query\helpers\Postgres as PostgresHelper;
+use RuntimeException;
 
 /**
  * Database connection manager.

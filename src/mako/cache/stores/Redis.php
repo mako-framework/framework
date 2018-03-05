@@ -7,8 +7,6 @@
 
 namespace mako\cache\stores;
 
-use mako\cache\stores\IncrementDecrementInterface;
-use mako\cache\stores\Store;
 use mako\redis\Redis as RedisClient;
 
 /**

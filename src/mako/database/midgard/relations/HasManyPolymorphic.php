@@ -7,7 +7,6 @@
 
 namespace mako\database\midgard\relations;
 
-use mako\database\midgard\relations\HasMany;
 use mako\database\midgard\relations\traits\HasOneOrManyPolymorphicTrait;
 
 /**

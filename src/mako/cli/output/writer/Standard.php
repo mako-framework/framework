@@ -7,8 +7,6 @@
 
 namespace mako\cli\output\writer;
 
-use mako\cli\output\writer\WriterInterface;
-
 /**
  * Standard writer.
  *

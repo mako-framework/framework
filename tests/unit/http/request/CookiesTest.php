@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\http\request;
 
-use Mockery;
-
 use mako\http\request\Cookies;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

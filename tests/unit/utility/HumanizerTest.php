@@ -8,10 +8,9 @@
 namespace mako\tests\unit\utility;
 
 use DateTime;
-use Mockery;
-
 use mako\tests\TestCase;
 use mako\utility\Humanizer;
+use Mockery;
 
 /**
  * @group unit

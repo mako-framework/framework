@@ -7,8 +7,6 @@
 
 namespace mako\database\types;
 
-use mako\database\types\TypeInterface;
-
 /**
  * Abstract type.
  *

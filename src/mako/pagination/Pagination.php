@@ -7,12 +7,10 @@
 
 namespace mako\pagination;
 
-use RuntimeException;
-
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
-use mako\pagination\PaginationInterface;
 use mako\view\ViewFactory;
+use RuntimeException;
 
 /**
  * Pagination class.

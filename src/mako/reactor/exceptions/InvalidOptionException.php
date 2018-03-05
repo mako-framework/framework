@@ -9,8 +9,6 @@ namespace mako\reactor\exceptions;
 
 use Throwable;
 
-use mako\reactor\exceptions\ArgumentException;
-
 /**
  * Invalid option exception.
  *

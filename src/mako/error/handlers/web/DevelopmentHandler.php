@@ -7,19 +7,17 @@
 
 namespace mako\error\handlers\web;
 
-use Throwable;
-
 use mako\application\Application;
 use mako\error\handlers\HandlerInterface;
 use mako\error\handlers\web\traits\HandlerHelperTrait;
 use mako\http\Request;
 use mako\http\Response;
-
-use Whoops\Run as Whoops;
+use Throwable;
 use Whoops\Handler\HandlerInterface as WhoopsHandlerInterface;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Handler\XmlResponseHandler;
+use Whoops\Run as Whoops;
 
 /**
  * Development handler.

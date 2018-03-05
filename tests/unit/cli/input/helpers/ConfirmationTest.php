@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\cli\input\helpers;
 
-use Mockery;
-
 use mako\cli\input\helpers\Confirmation;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

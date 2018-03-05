@@ -7,10 +7,9 @@
 
 namespace mako\error\handlers\cli;
 
-use Throwable;
-
 use mako\cli\output\Output;
 use mako\error\handlers\HandlerInterface;
+use Throwable;
 
 /**
  * Production handler.

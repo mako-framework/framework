@@ -8,7 +8,6 @@
 namespace mako\cli\output\helpers;
 
 use mako\cli\output\Output;
-
 use RuntimeException;
 
 /**

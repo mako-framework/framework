@@ -7,11 +7,10 @@
 
 namespace mako\tests\unit\event;
 
-use Mockery;
-
 use mako\event\Event;
 use mako\event\EventHandlerInterface;
 use mako\tests\TestCase;
+use Mockery;
 
 // --------------------------------------------------------------------------
 // START CLASSES

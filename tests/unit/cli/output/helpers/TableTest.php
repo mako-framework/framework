@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\cli\output\helpers;
 
-use Mockery;
-
 use mako\cli\output\helpers\Table;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

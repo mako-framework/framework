@@ -9,8 +9,6 @@ namespace mako\gatekeeper\repositories\user;
 
 use InvalidArgumentException;
 
-use mako\gatekeeper\repositories\user\UserRepositoryInterface;
-
 /**
  * User repository.
  *

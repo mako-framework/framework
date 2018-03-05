@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\config;
 
-use Mockery;
-
 use mako\config\Config;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

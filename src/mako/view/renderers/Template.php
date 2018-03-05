@@ -9,7 +9,6 @@ namespace mako\view\renderers;
 
 use mako\file\FileSystem;
 use mako\view\compilers\Template as Compiler;
-use mako\view\renderers\PHP;
 
 /**
  * Mako template view renderer.

@@ -7,9 +7,9 @@
 
 namespace mako\http\request;
 
-use SplFileInfo;
-
 use mako\http\request\exceptions\UploadException;
+
+use SplFileInfo;
 
 /**
  * Uploaded file.

@@ -7,12 +7,10 @@
 
 namespace mako\security\crypto;
 
-use RuntimeException;
-
 use mako\common\AdapterManager;
-use mako\security\crypto\Crypto;
 use mako\security\crypto\encrypters\OpenSSL;
 use mako\security\Key;
+use RuntimeException;
 
 /**
  * Crypto manager.

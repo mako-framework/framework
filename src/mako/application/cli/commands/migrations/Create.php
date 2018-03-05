@@ -7,11 +7,10 @@
 
 namespace mako\application\cli\commands\migrations;
 
-use Throwable;
-
 use mako\application\Application;
 use mako\file\FileSystem;
 use mako\reactor\Command;
+use Throwable;
 
 /**
  * Command that creates a migration.

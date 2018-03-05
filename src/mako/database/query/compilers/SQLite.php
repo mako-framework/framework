@@ -7,7 +7,6 @@
 
 namespace mako\database\query\compilers;
 
-use mako\database\query\compilers\Compiler;
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 
 /**

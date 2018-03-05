@@ -8,8 +8,8 @@
 namespace mako\tests\unit\commander;
 
 use mako\commander\CommandBus;
-use mako\commander\CommandInterface;
 use mako\commander\CommandHandlerInterface;
+use mako\commander\CommandInterface;
 use mako\commander\SelfHandlingCommandInterface;
 use mako\tests\TestCase;
 

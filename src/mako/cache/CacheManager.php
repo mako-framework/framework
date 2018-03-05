@@ -7,8 +7,6 @@
 
 namespace mako\cache;
 
-use RuntimeException;
-
 use mako\cache\stores\APCU;
 use mako\cache\stores\Database;
 use mako\cache\stores\File;
@@ -22,6 +20,7 @@ use mako\cache\stores\ZendDisk;
 use mako\cache\stores\ZendMemory;
 use mako\common\AdapterManager;
 use mako\syringe\Container;
+use RuntimeException;
 
 /**
  * Cache manager.

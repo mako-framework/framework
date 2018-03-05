@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\http\routing;
 
-use Mockery;
-
 use mako\http\routing\URLBuilder;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

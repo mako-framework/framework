@@ -7,8 +7,8 @@
 
 namespace mako\database\midgard\traits;
 
-use mako\database\midgard\traits\exceptions\StaleRecordException;
 use mako\database\midgard\Query;
+use mako\database\midgard\traits\exceptions\StaleRecordException;
 use mako\database\query\Raw;
 
 /**

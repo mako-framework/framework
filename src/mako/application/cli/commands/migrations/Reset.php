@@ -7,9 +7,6 @@
 
 namespace mako\application\cli\commands\migrations;
 
-use mako\application\cli\commands\migrations\Command;
-use mako\application\cli\commands\migrations\RollbackTrait;
-
 /**
  * Command that rolls back the last batch of migrations.
  *

@@ -7,11 +7,10 @@
 
 namespace mako\tests\unit\gatekeeper;
 
-use Mockery;
-
-use mako\gatekeeper\Authentication;
 use mako\gatekeeper\adapters\AdapterInterface;
+use mako\gatekeeper\Authentication;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

@@ -9,7 +9,6 @@ namespace mako\reactor;
 
 use mako\cli\input\Input;
 use mako\cli\output\Output;
-use mako\reactor\CommandInterface;
 use mako\reactor\traits\CommandHelperTrait;
 
 /**

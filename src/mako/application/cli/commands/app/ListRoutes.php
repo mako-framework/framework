@@ -8,7 +8,6 @@
 namespace mako\application\cli\commands\app;
 
 use Closure;
-
 use mako\http\routing\Routes;
 use mako\reactor\Command;
 

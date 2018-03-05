@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\i18n;
 
-use Mockery;
-
 use mako\i18n\loaders\Loader;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

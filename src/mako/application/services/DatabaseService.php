@@ -7,7 +7,6 @@
 
 namespace mako\application\services;
 
-use mako\application\services\Service;
 use mako\database\ConnectionManager;
 use mako\database\query\Query;
 

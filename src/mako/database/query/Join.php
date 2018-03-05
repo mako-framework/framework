@@ -9,8 +9,6 @@ namespace mako\database\query;
 
 use Closure;
 
-use mako\database\query\Raw;
-
 /**
  * Table join.
  *

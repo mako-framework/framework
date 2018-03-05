@@ -8,8 +8,8 @@
 namespace mako\tests\unit\view;
 
 use mako\tests\TestCase;
-use mako\view\View;
 use mako\view\renderers\RendererInterface;
+use mako\view\View;
 
 /**
  * @group unit

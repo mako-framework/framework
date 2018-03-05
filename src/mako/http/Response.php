@@ -7,7 +7,6 @@
 
 namespace mako\http;
 
-use mako\http\Request;
 use mako\http\response\builders\ResponseBuilderInterface;
 use mako\http\response\Cookies;
 use mako\http\response\Headers;

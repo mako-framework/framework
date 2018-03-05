@@ -8,11 +8,10 @@
 namespace mako\tests\unit\error\handlers\cli;
 
 use ErrorException;
-use Mockery;
-
 use mako\cli\output\Output;
 use mako\error\handlers\cli\ProductionHandler;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

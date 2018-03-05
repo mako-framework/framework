@@ -7,8 +7,6 @@
 
 namespace mako\http\routing\middleware;
 
-use mako\http\routing\middleware\MiddlewareInterface;
-
 /**
  * Base middleware.
  *

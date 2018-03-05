@@ -8,12 +8,10 @@
 namespace mako\http\response\senders;
 
 use Closure;
-use RuntimeException;
-
 use mako\file\FileSystem;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\response\senders\ResponseSenderInterface;
+use RuntimeException;
 
 /**
  * File response.

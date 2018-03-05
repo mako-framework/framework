@@ -7,8 +7,6 @@
 
 namespace mako\commander;
 
-use mako\commander\CommandInterface;
-
 /**
  * Command handler interface.
  *

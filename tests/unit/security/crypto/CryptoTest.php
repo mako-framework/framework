@@ -7,12 +7,11 @@
 
 namespace mako\tests\unit\security\crypto;
 
-use Mockery;
-
 use mako\security\crypto\Crypto;
 use mako\security\crypto\encrypters\EncrypterInterface;
 use mako\security\Signer;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

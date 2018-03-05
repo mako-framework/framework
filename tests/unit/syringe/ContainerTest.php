@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\syringe;
 
-use stdClass;
-
 use mako\syringe\Container;
 use mako\tests\TestCase;
+use stdClass;
 
 // --------------------------------------------------------------------------
 // START CLASSES

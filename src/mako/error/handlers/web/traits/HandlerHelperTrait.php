@@ -7,11 +7,10 @@
 
 namespace mako\error\handlers\web\traits;
 
-use Throwable;
-
-use mako\http\Response;
-use mako\http\exceptions\RequestException;
 use mako\http\exceptions\MethodNotAllowedException;
+use mako\http\exceptions\RequestException;
+use mako\http\Response;
+use Throwable;
 
 /**
  * Handler helper trait.

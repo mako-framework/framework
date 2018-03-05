@@ -7,11 +7,10 @@
 
 namespace mako\tests\unit\gatekeeper\entities\group;
 
-use Mockery;
-
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

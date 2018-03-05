@@ -9,8 +9,6 @@ namespace mako\reactor\exceptions;
 
 use Throwable;
 
-use mako\reactor\exceptions\ReactorException;
-
 /**
  * Argument exception.
  *

@@ -8,7 +8,6 @@
 namespace mako\validator\plugins;
 
 use mako\session\Session;
-use mako\validator\plugins\ValidatorPlugin;
 
 /**
  * Token validator plugin.

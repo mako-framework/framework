@@ -8,9 +8,8 @@
 namespace mako\tests\unit\database\midgard;
 
 use DateTime;
-use Mockery;
-
 use mako\tests\TestCase;
+use Mockery;
 
 // --------------------------------------------------------------------------
 // START CLASSES

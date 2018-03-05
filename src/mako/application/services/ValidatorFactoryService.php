@@ -7,12 +7,11 @@
 
 namespace mako\application\services;
 
-use mako\application\services\Service;
-use mako\validator\ValidatorFactory;
 use mako\validator\plugins\DatabaseExistsValidator;
 use mako\validator\plugins\DatabaseUniqueValidator;
 use mako\validator\plugins\OneTimeTokenValidator;
 use mako\validator\plugins\TokenValidator;
+use mako\validator\ValidatorFactory;
 
 /**
  * Validator factory service.

@@ -7,11 +7,10 @@
 
 namespace mako\tests\unit\http;
 
-use Mockery;
-
 use mako\http\Request;
 use mako\http\routing\Route;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

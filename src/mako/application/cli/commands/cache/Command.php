@@ -7,9 +7,9 @@
 
 namespace mako\application\cli\commands\cache;
 
-use mako\config\Config;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
+use mako\config\Config;
 use mako\reactor\Command as BaseCommand;
 use mako\reactor\traits\SuggestionTrait;
 

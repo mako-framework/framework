@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\cli\input;
 
-use Mockery;
-
 use mako\cli\input\Input;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

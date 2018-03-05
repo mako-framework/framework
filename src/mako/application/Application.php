@@ -8,14 +8,12 @@
 namespace mako\application;
 
 use LogicException;
-use RuntimeException;
-
-use mako\application\Package;
 use mako\autoloading\AliasLoader;
 use mako\config\Config;
 use mako\config\loaders\Loader;
 use mako\file\FileSystem;
 use mako\syringe\Container;
+use RuntimeException;
 
 /**
  * Application.

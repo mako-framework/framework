@@ -7,18 +7,15 @@
 
 namespace mako\http\routing;
 
-use RuntimeException;
-
 use mako\common\traits\FunctionParserTrait;
+use mako\http\exceptions\MethodNotAllowedException;
+use mako\http\exceptions\NotFoundException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\senders\Redirect;
-use mako\http\routing\Route;
-use mako\http\routing\Routes;
-use mako\http\exceptions\NotFoundException;
-use mako\http\exceptions\MethodNotAllowedException;
 use mako\http\routing\constraints\ConstraintInterface;
 use mako\syringe\Container;
+use RuntimeException;
 
 /**
  * Router.

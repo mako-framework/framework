@@ -8,10 +8,9 @@
 namespace mako\common;
 
 use Closure;
-use RuntimeException;
-
 use mako\common\traits\ConfigurableTrait;
 use mako\syringe\Container;
+use RuntimeException;
 
 /**
  * Adapter manager.

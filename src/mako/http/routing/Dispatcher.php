@@ -8,15 +8,13 @@
 namespace mako\http\routing;
 
 use Closure;
-use RuntimeException;
-
 use mako\common\traits\FunctionParserTrait;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\routing\Route;
 use mako\http\routing\middleware\MiddlewareInterface;
 use mako\onion\Onion;
 use mako\syringe\Container;
+use RuntimeException;
 
 /**
  * Route dispatcher.

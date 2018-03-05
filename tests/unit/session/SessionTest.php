@@ -7,11 +7,10 @@
 
 namespace mako\tests\unit\session;
 
-use Mockery;
-
 use mako\http\response\Cookies as ResponseCookies;
 use mako\session\Session;
 use mako\tests\TestCase;
+use Mockery;
 
 // --------------------------------------------------------------------------
 // START CLASSES

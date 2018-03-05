@@ -7,8 +7,6 @@
 
 namespace mako\application\cli\commands\migrations;
 
-use mako\application\cli\commands\migrations\Command;
-
 /**
  * Command that runs all outstanding migrations.
  *

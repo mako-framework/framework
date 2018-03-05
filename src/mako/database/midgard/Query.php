@@ -9,12 +9,9 @@ namespace mako\database\midgard;
 
 use BadMethodCallException;
 use Closure;
-use PDO;
-
 use mako\database\connections\Connection;
-use mako\database\midgard\ORM;
-use mako\database\midgard\ResultSet;
 use mako\database\query\Query as QueryBuilder;
+use PDO;
 
 /**
  * ORM query builder.

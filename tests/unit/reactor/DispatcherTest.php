@@ -7,11 +7,10 @@
 
 namespace mako\tests\unit\reactor;
 
-use Mockery;
 use InvalidOptionException;
-
 use mako\reactor\Dispatcher;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit

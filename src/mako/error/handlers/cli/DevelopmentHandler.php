@@ -8,10 +8,9 @@
 namespace mako\error\handlers\cli;
 
 use ErrorException;
-use Throwable;
-
 use mako\cli\output\Output;
 use mako\error\handlers\HandlerInterface;
+use Throwable;
 
 /**
  * Development handler.

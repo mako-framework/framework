@@ -7,8 +7,6 @@
 
 namespace mako\cli\input\helpers;
 
-use mako\cli\input\helpers\Question;
-
 /**
  * Confirmation helper.
  *

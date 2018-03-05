@@ -7,8 +7,6 @@
 
 namespace mako\reactor\exceptions;
 
-use mako\reactor\exceptions\ArgumentException;
-
 /**
  * Invalid argument exception.
  *

@@ -7,11 +7,9 @@
 
 namespace mako\tests\unit\cli\output\helpers;
 
-use Mockery;
-
 use mako\cli\output\helpers\Countdown;
 use mako\tests\TestCase;
-
+use Mockery;
 use phpmock\MockBuilder;
 
 /**

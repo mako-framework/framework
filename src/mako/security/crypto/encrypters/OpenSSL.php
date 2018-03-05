@@ -7,9 +7,6 @@
 
 namespace mako\security\crypto\encrypters;
 
-use mako\security\crypto\encrypters\Encrypter;
-use mako\security\crypto\encrypters\EncrypterInterface;
-
 /**
  * OpenSSL encrypter.
  *

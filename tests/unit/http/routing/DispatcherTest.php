@@ -8,14 +8,13 @@
 namespace mako\tests\unit\http\routing;
 
 use Closure;
-use Mockery;
-
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Headers;
 use mako\http\routing\Dispatcher;
 use mako\http\routing\middleware\Middleware;
 use mako\tests\TestCase;
+use Mockery;
 
 // --------------------------------------------------------------------------
 // START CLASSES
