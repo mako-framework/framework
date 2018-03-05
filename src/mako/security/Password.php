@@ -7,10 +7,6 @@
 
 namespace mako\security;
 
-use function password_hash;
-use function password_needs_rehash;
-use function password_verify;
-
 /**
  * Secure password hashing and validation.
  *

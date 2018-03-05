@@ -10,14 +10,6 @@ namespace mako\security\crypto\encrypters;
 use mako\security\crypto\encrypters\Encrypter;
 use mako\security\crypto\encrypters\EncrypterInterface;
 
-use function base64_decode;
-use function base64_encode;
-use function mb_substr;
-use function openssl_cipher_iv_length;
-use function openssl_decrypt;
-use function openssl_encrypt;
-use function openssl_random_pseudo_bytes;
-
 /**
  * OpenSSL encrypter.
  *

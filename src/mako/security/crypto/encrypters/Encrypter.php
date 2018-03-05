@@ -7,8 +7,6 @@
 
 namespace mako\security\crypto\encrypters;
 
-use function hash_pbkdf2;
-
 /**
  * Base encrypter.
  *
