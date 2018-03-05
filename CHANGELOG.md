@@ -1,3 +1,25 @@
+### 5.5.0 <small> (2018-??-??)</small>
+
+Update using ```composer update```.
+
+#### Changes
+
+* Removed `Response` methods that where deprecated in 5.4:
+	- Removed the `Response::header()` method.
+	- Removed the `Response::hasHeader()` method.
+	- Removed the `Response::removeHeader()` method.
+	- Removed the `Response::clearHeaders()` method.
+	- Removed the `Response::cookie()` method.
+	- Removed the `Response::signedCookie()` method.
+	- Removed the `Response::deleteCookie()` method.
+	- Removed the `Response::hasCookie()` method.
+	- Removed the `Response::removeCookie()` method.
+	- Removed the `Response::clearCookies()` method.
+
+> Check out the upgrade guide for details on how to upgrade from `5.4.*.`
+
+--------------------------------------------------------
+
 ### 5.4.0 <small> (2018-03-05)</small>
 
 Update using ```composer update```.
