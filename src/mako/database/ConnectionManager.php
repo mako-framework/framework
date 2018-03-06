@@ -8,7 +8,6 @@
 namespace mako\database;
 
 use mako\common\ConnectionManager as BaseConnectionManager;
-
 use mako\database\connections\Connection;
 use mako\database\connections\DB2 as DB2Connection;
 use mako\database\connections\Firebird as FirebirdConnection;
