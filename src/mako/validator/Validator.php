@@ -7,12 +7,51 @@
 
 namespace mako\validator;
 
-use DateTime;
+use Closure;
 use mako\common\traits\FunctionParserTrait;
 use mako\i18n\I18n;
-use mako\utility\Str;
-use mako\utility\UUID;
-use mako\validator\plugins\ValidatorPluginInterface;
+use mako\syringe\Container;
+use mako\utility\Arr;
+use mako\validator\rules\After;
+use mako\validator\rules\Alpha;
+use mako\validator\rules\Alphanumeric;
+use mako\validator\rules\AlphanumericDash;
+use mako\validator\rules\AlphanumericDashUnicode;
+use mako\validator\rules\AlphanumericUnicode;
+use mako\validator\rules\AlphaUnicode;
+use mako\validator\rules\Before;
+use mako\validator\rules\Between;
+use mako\validator\rules\database\Exists;
+use mako\validator\rules\database\Unique;
+use mako\validator\rules\Date;
+use mako\validator\rules\Different;
+use mako\validator\rules\Email;
+use mako\validator\rules\EmailDomain;
+use mako\validator\rules\ExactLength;
+use mako\validator\rules\FloatingPoint;
+use mako\validator\rules\GreaterThan;
+use mako\validator\rules\GreaterThanOrEqualTo;
+use mako\validator\rules\Hex;
+use mako\validator\rules\I18nAwareInterface;
+use mako\validator\rules\In;
+use mako\validator\rules\Integer;
+use mako\validator\rules\IP;
+use mako\validator\rules\LessThan;
+use mako\validator\rules\LessThanOrEqualTo;
+use mako\validator\rules\Match;
+use mako\validator\rules\MaxLength;
+use mako\validator\rules\MinLength;
+use mako\validator\rules\Natural;
+use mako\validator\rules\NaturalNonZero;
+use mako\validator\rules\NotIn;
+use mako\validator\rules\Regex;
+use mako\validator\rules\Required;
+use mako\validator\rules\RuleInterface;
+use mako\validator\rules\session\OneTimeToken;
+use mako\validator\rules\session\Token;
+use mako\validator\rules\URL;
+use mako\validator\rules\UUID;
+use mako\validator\rules\WithParametersInterface;
 use RuntimeException;
 
 /**
@@ -25,638 +64,440 @@ class Validator
 	use FunctionParserTrait;
 
 	/**
-	 * Holds the input data.
+	 * Input.
 	 *
 	 * @var array
 	 */
 	protected $input;
 
 	/**
-	 * Holds all the validation rules that we're goind to run.
+	 * Rule sets.
 	 *
 	 * @var array
 	 */
-	protected $rules = [];
+	protected $ruleSets;
 
 	/**
-	 * I18n instance.
+	 * I18n.
 	 *
 	 * @var \mako\i18n\I18n
 	 */
 	protected $i18n;
 
 	/**
-	 * Holds the returned errors.
+	 * Container.
+	 *
+	 * @var \mako\syringe\Container
+	 */
+	protected $container;
+
+	/**
+	 * Rules.
+	 *
+	 * @var array
+	 */
+	protected $rules =
+	[
+		'after'                    => After::class,
+		'alpha_dash_unicode'       => AlphanumericDashUnicode::class,
+		'alpha_dash'               => AlphanumericDash::class,
+		'alpha_unicode'            => AlphaUnicode::class,
+		'alpha'                    => Alpha::class,
+		'alphanumeric_unicode'     => AlphanumericUnicode::class,
+		'alphanumeric'             => Alphanumeric::class,
+		'before'                   => Before::class,
+		'between'                  => Between::class,
+		'date'                     => Date::class,
+		'different'                => Different::class,
+		'email_domain'             => EmailDomain::class,
+		'email'                    => Email::class,
+		'exact_length'             => ExactLength::class,
+		'exists'                   => Exists::class,
+		'float'                    => FloatingPoint::class,
+		'greater_than_or_equal_to' => GreaterThanOrEqualTo::class,
+		'greater_than'             => GreaterThan::class,
+		'hex'                      => Hex::class,
+		'in'                       => In::class,
+		'integer'                  => Integer::class,
+		'ip'                       => IP::class,
+		'less_than_or_equal_to'    => LessThanOrEqualTo::class,
+		'less_than'                => LessThan::class,
+		'match'                    => Match::class,
+		'max_length'               => MaxLength::class,
+		'min_length'               => MinLength::class,
+		'natural_non_zero'         => NaturalNonZero::class,
+		'natural'                  => Natural::class,
+		'not_in'                   => NotIn::class,
+		'one_time_token'           => OneTimeToken::class,
+		'regex'                    => Regex::class,
+		'required'                 => Required::class,
+		'token'                    => Token::class,
+		'unique'                   => Unique::class,
+		'url'                      => URL::class,
+		'uuid'                     => UUID::class,
+	];
+
+	/**
+	 * Original field names.
+	 *
+	 * @var array
+	 */
+	protected $originalFieldNames;
+
+	/**
+	 * Is the input valid?
+	 *
+	 * @var bool
+	 */
+	protected $isValid = true;
+
+	/**
+	 * Error messages.
 	 *
 	 * @var array
 	 */
 	protected $errors = [];
 
 	/**
-	 * Validator plugins.
+	 * Constructor.
 	 *
-	 * @var array
+	 * @param array                        $input     Input
+	 * @param array                        $ruleSets  Rule sets
+	 * @param \mako\i18n\I18n|null         $i18n      I18n
+	 * @param \mako\syringe\Container|null $container Container
 	 */
-	protected $plugins = [];
-
-	/**
-	 * Class constructor.
-	 *
-	 * @param array           $input Array to validate
-	 * @param array           $rules Array of validation rules
-	 * @param \mako\i18n\I18n $i18n  I18n instance
-	 */
-	public function __construct(array $input, array $rules, I18n $i18n = null)
+	public function __construct(array $input, array $ruleSets, I18n $i18n = null, Container $container = null)
 	{
-		$this->input = $input + array_fill_keys(array_keys($rules), null);
-		$this->rules = $rules;
+		$this->input = $input;
 
-		unset($this->input['*']);
+		$this->ruleSets = $this->expandFields($ruleSets);
 
 		$this->i18n = $i18n;
+
+		$this->container = $container ?? new Container;
 	}
 
 	/**
-	 * Registers a validation plugin.
+	 * Registers a custom validation rule.
 	 *
-	 * @param \mako\validator\plugins\ValidatorPluginInterface $plugin Plugin instance
+	 * @param  string                    $rule      Rule
+	 * @param  string                    $ruleClass Rule class
+	 * @return \mako\validator\Validator
 	 */
-	public function registerPlugin(ValidatorPluginInterface $plugin)
+	public function extend(string $rule, string $ruleClass): Validator
 	{
-		$this->plugins[$plugin->getPackageName() . $plugin->getRuleName()] = $plugin;
+		$this->rules[$rule] = $ruleClass;
+
+		return $this;
 	}
 
 	/**
-	 * Checks that the field isn't empty.
+	 * Returns true if the field name has a wildcard and false if not.
 	 *
-	 * @param  string|null $input Field value
+	 * @param  string $string Field name
 	 * @return bool
 	 */
-	protected function validateRequired(string $input = null): bool
+	protected function hasWilcard(string $string): bool
 	{
-		return !in_array($input, ['', null, []], true);
+		return strpos($string, '*') !== false;
 	}
 
 	/**
-	 * Checks that the field value is long enough.
+	 * Expands a wildcard field.
 	 *
-	 * @param  string|null $input     Field value
-	 * @param  int         $minLength Minimum length
-	 * @return bool
-	 */
-	protected function validateMinLength(string $input = null, int $minLength): bool
-	{
-		return (mb_strlen($input) >= $minLength);
-	}
-
-	/**
-	 * Checks that the field value is short enough.
-	 *
-	 * @param  string|null $input     Field value
-	 * @param  int         $maxLength Maximum length
-	 * @return bool
-	 */
-	protected function validateMaxLength(string $input = null, int $maxLength): bool
-	{
-		return (mb_strlen($input) <= $maxLength);
-	}
-
-	/**
-	 * Checks that the field value is of the right length.
-	 *
-	 * @param  string|null $input  Field value
-	 * @param  int         $length Exact length
-	 * @return bool
-	 */
-	protected function validateExactLength(string $input = null, int $length): bool
-	{
-		return (mb_strlen($input) === $length);
-	}
-
-	/**
-	 * Checks that the field value is less than x.
-	 *
-	 * @param  string|null $input    Field value
-	 * @param  int         $lessThan Maximum value + 1
-	 * @return bool
-	 */
-	protected function validateLessThan(string $input = null, int $lessThan): bool
-	{
-		return ((int) $input < $lessThan);
-	}
-
-	/**
-	 * Checks that the field value is less than or equal to x.
-	 *
-	 * @param  string|null $input             Field value
-	 * @param  int         $lessThanOrEqualTo Maximum value
-	 * @return bool
-	 */
-	protected function validateLessThanOrEqualTo(string $input = null, int $lessThanOrEqualTo): bool
-	{
-		return ((int) $input <= $lessThanOrEqualTo);
-	}
-
-	/**
-	 * Checks that the field value is greater than x.
-	 *
-	 * @param  string|null $input       Field value
-	 * @param  int         $greaterThan Minimum value - 1
-	 * @return bool
-	 */
-	protected function validateGreaterThan(string $input = null, int $greaterThan): bool
-	{
-		return ((int) $input > $greaterThan);
-	}
-
-	/**
-	 * Checks that the field value is greater than or equal to x.
-	 *
-	 * @param  string|null $input                Field value
-	 * @param  int         $greaterThanOrEqualTo Minimum value
-	 * @return bool
-	 */
-	protected function validateGreaterThanOrEqualTo(string $input = null, int $greaterThanOrEqualTo): bool
-	{
-		return ((int) $input >= $greaterThanOrEqualTo);
-	}
-
-	/**
-	 * Checks that the field value is between x and y.
-	 *
-	 * @param  string|null $input   Field value
-	 * @param  int         $minimum Minimum value
-	 * @param  int         $maximum Maximum value
-	 * @return bool
-	 */
-	protected function validateBetween(string $input = null, int $minimum, int $maximum): bool
-	{
-		return ((int) $input >= $minimum && (int) $input <= $maximum);
-	}
-
-	/**
-	 * Checks that the field value matches the value of another field.
-	 *
-	 * @param  string|null $input     Field value
-	 * @param  string      $fieldName Field name
-	 * @return bool
-	 */
-	protected function validateMatch(string $input = null, string $fieldName): bool
-	{
-		return ($input === $this->input[$fieldName]);
-	}
-
-	/**
-	 * Checks that the field value is different from the value of another field.
-	 *
-	 * @param  string|null $input     Field value
-	 * @param  string      $fieldName Field name
-	 * @return bool
-	 */
-	protected function validateDifferent(string $input = null, string $fieldName): bool
-	{
-		return ($input !== $this->input[$fieldName]);
-	}
-
-	/**
-	 * Checks that the field value matches a regex pattern.
-	 *
-	 * @param  string|null $input Field value
-	 * @param  string      $regex Regex
-	 * @return bool
-	 */
-	protected function validateRegex(string $input = null, string $regex): bool
-	{
-		return (bool) preg_match($regex, $input);
-	}
-
-	/**
-	 * Checks that the field value is a integer.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateInteger(string $input = null): bool
-	{
-		return (bool) preg_match('/(^(\-?)0$)|(^(\-?)[1-9]\d*$)/', $input);
-	}
-
-	/**
-	 * Checks that the field value is a float.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateFloat(string $input = null): bool
-	{
-		return (bool) preg_match('/(^(\-?)0\.\d+$)|(^(\-?)[1-9]\d*\.\d+$)/', $input);
-	}
-
-	/**
-	 * Checks that the field value is a natural.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateNatural(string $input = null): bool
-	{
-		return (bool) preg_match('/(^0$)|(^[1-9]\d*$)/', $input);
-	}
-
-	/**
-	 * Checks that the field value is a natural non zero.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateNaturalNonZero(string $input = null): bool
-	{
-		return (bool) preg_match('/(^[1-9]\d*$)/', $input);
-	}
-
-	/**
-	 * Checks that the field value is valid HEX.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateHex(string $input = null): bool
-	{
-		return (bool) preg_match('/^[a-f0-9]+$/i', $input);
-	}
-
-	/**
-	 * Checks that the field value only contains valid alpha characters.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateAlpha(string $input = null): bool
-	{
-		return (bool) preg_match('/^[a-z]+$/i', $input);
-	}
-
-	/**
-	 * Checks that the field value only contains valid alpha unicode characters.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateAlphaUnicode(string $input = null): bool
-	{
-		return (bool) preg_match('/^[\pL]+$/u', $input);
-	}
-
-	/**
-	 * Checks that the field value only contains valid alphanumeric characters.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateAlphanumeric(string $input = null): bool
-	{
-		return (bool) preg_match('/^[a-z0-9]+$/i', $input);
-	}
-
-	/**
-	 * Checks that the field value only contains valid alphanumeric unicode characters.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateAlphanumericUnicode(string $input = null): bool
-	{
-		return (bool) preg_match('/^[\pL0-9]+$/u', $input);
-	}
-
-	/**
-	 * Checks that the field value only contains valid alphanumeric, dash and underscore characters.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateAlphaDash(string $input = null): bool
-	{
-		return (bool) preg_match('/^[a-z0-9_-]+$/i', $input);
-	}
-
-	/**
-	 * Checks that the field value only contains valid alphanumeric unicode, dash and underscore characters.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateAlphaDashUnicode(string $input = null): bool
-	{
-		return (bool) preg_match('/^[\pL0-9_-]+$/u', $input);
-	}
-
-	/**
-	 * Checks that the field value is a valid email address.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateEmail(string $input = null): bool
-	{
-		return (bool) filter_var($input, FILTER_VALIDATE_EMAIL);
-	}
-
-	/**
-	 * Checks that the field value contains a valid MX record.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateEmailDomain(string $input = null): bool
-	{
-		if(empty($input) || strpos($input, '@') === false)
-		{
-			return false;
-		}
-
-		$email = explode('@', $input);
-
-		return checkdnsrr(array_pop($email), 'MX');
-	}
-
-	/**
-	 * Checks that the field value is an IP address.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateIp(string $input = null): bool
-	{
-		return (bool) filter_var($input, FILTER_VALIDATE_IP);
-	}
-
-	/**
-	 * Checks that the field value is a valid URL.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateUrl(string $input = null): bool
-	{
-		return (bool) filter_var($input, FILTER_VALIDATE_URL);
-	}
-
-	/**
-	 * Checks that the field value contains one of the given values.
-	 *
-	 * @param  string|null $input  Field value
-	 * @param  array       $values Valid values
-	 * @return bool
-	 */
-	protected function validateIn(string $input = null, array $values): bool
-	{
-		return in_array($input, $values);
-	}
-
-	/**
-	 * Checks that the field value does not contain one of the given values.
-	 *
-	 * @param  string|null $input  Field value
-	 * @param  array       $values Invalid values
-	 * @return bool
-	 */
-	protected function validateNotIn(string $input = null, array $values): bool
-	{
-		return !in_array($input, $values);
-	}
-
-	/**
-	 * Checks that the field value is a valid date.
-	 *
-	 * @param  string|null $input  Field value
-	 * @param  string      $format Date format
-	 * @return bool
-	 */
-	protected function validateDate(string $input = null, string $format): bool
-	{
-		return (bool) DateTime::createFromFormat($format, $input);
-	}
-
-	/**
-	 * Checks that the field value is a valid date before the provided date.
-	 *
-	 * @param  string|null $input  Field valies
-	 * @param  string      $format Date format
-	 * @param  string      $date   Date
-	 * @return bool
-	 */
-	protected function validateBefore(string $input = null, string $format, string $date): bool
-	{
-		if(($input = DateTime::createFromFormat($format, $input)) === false)
-		{
-			return false;
-		}
-
-		return ($input->getTimestamp() < DateTime::createFromFormat($format, $date)->getTimestamp());
-	}
-
-	/**
-	 * Checks that the field value is a valid date after the provided date.
-	 *
-	 * @param  string|null $input  Field valies
-	 * @param  string      $format Date format
-	 * @param  string      $date   Date
-	 * @return bool
-	 */
-	protected function validateAfter(string $input = null, string $format, string $date): bool
-	{
-		if(($input = DateTime::createFromFormat($format, $input)) === false)
-		{
-			return false;
-		}
-
-		return ($input->getTimestamp() > DateTime::createFromFormat($format, $date)->getTimestamp());
-	}
-
-	/**
-	 * Checks that the field value is a valid UUID.
-	 *
-	 * @param  string|null $input Field value
-	 * @return bool
-	 */
-	protected function validateUuid(string $input = null): bool
-	{
-		return UUID::validate($input);
-	}
-
-	/**
-	 * Parses the validation rules.
-	 *
+	 * @param  string|array $field Field
 	 * @return array
 	 */
-	protected function parseRules(): array
+	protected function expandWildcardField($field): array
 	{
-		$parsedRules = [];
+		$fields = (array) $field;
 
-		foreach($this->rules as $key => $rules)
+		$expanded = [];
+
+		foreach($fields as $field)
 		{
-			foreach($rules as $rule)
+			list($known, $rest) = array_map(function($value)
 			{
-				$package = null;
+				return trim($value, '.');
+			}, explode('*', $field, 2));
 
-				if(strpos($rule, '::') !== false)
-				{
-					list($package, $rule) = explode('::', $rule, 2);
-				}
+			if(is_array($value = Arr::get($this->input, $known)) === false)
+			{
+				continue;
+			}
 
-				list($rule, $parameters) = $this->parseFunction($rule, false);
-
-				$validator = ['package' => $package, 'name' => $rule, 'parameters' => $parameters];
-
-				if($key === '*')
-				{
-					foreach(array_keys($this->input) as $key)
-					{
-						$parsedRules[$key][$rule] = $validator;
-					}
-				}
-				else
-				{
-					$parsedRules[$key][$rule] = $validator;
-				}
+			foreach(array_keys($value) as $key)
+			{
+				$expanded[] = rtrim($known . '.' . $key . '.' . $rest, '.');
 			}
 		}
 
-		return $parsedRules;
+		if(isset($rest) && strpos($rest, '*') !== false)
+		{
+			return $this->expandWildcardField($expanded);
+		}
+
+		return $expanded;
+	}
+
+	/**
+	 * Saves original field name along with the expanded field name.
+	 *
+	 * @param array  $fields Expanded field names
+	 * @param string $field  Original field name
+	 */
+	protected function saveOriginalFieldNames(array $fields, string $field)
+	{
+		foreach($fields as $expanded)
+		{
+			$this->originalFieldNames[$expanded] = $field;
+		}
+	}
+
+	/**
+	 * Returns the original field name.
+	 *
+	 * @param  string $field Field name
+	 * @return string
+	 */
+	protected function getOriginalFieldName(string $field): string
+	{
+		return $this->originalFieldNames[$field] ?? $field;
+	}
+
+	/**
+	 * Expands fields.
+	 *
+	 * @param  array $ruleSets Rule sets
+	 * @return array
+	 */
+	protected function expandFields(array $ruleSets): array
+	{
+		$expanded = [];
+
+		foreach($ruleSets as $field => $ruleSet)
+		{
+			if($this->hasWilcard($field) === false)
+			{
+				$expanded = array_merge_recursive($expanded, [$field => $ruleSet]);
+
+				continue;
+			}
+
+			if(!empty($fields = $this->expandWildcardField($field)))
+			{
+				$this->saveOriginalFieldNames($fields, $field);
+
+				$fields = array_fill_keys($fields, $ruleSet);
+			}
+
+			$expanded = array_merge_recursive($expanded, $fields);
+		}
+
+		return $expanded;
+	}
+
+	/**
+	 * Adds validation rules to input field.
+	 *
+	 * @param  string                    $field   Input field
+	 * @param  array                     $ruleSet Rule set
+	 * @return \mako\validator\Validator
+	 */
+	public function addRules(string $field, array $ruleSet): Validator
+	{
+		$this->ruleSets = array_merge_recursive($this->ruleSets, $this->expandFields([$field => $ruleSet]));
+
+		return $this;
+	}
+
+	/**
+	 * Adds validation rules to input field if the condition is met.
+	 *
+	 * @param  string                    $field     Input field
+	 * @param  array                     $ruleSet   Rule set
+	 * @param  bool|\Closure             $condition Condition
+	 * @return \mako\validator\Validator
+	 */
+	public function addRulesIf(string $field, array $ruleSet, $condition): Validator
+	{
+		if($condition instanceof Closure)
+		{
+			$condition = $condition();
+		}
+
+		return $condition ? $this->addRule($field, $ruleSet) : $this;
+	}
+
+	/**
+	 * Parses the rule.
+	 *
+	 * @param  string $rule Rule
+	 * @return object
+	 */
+	protected function parseRule(string $rule)
+	{
+		$package = null;
+
+		if(preg_match('/^([a-z-]+)::(.*)/', $rule, $matches) === 1)
+		{
+			$package = $matches[1];
+		}
+
+		list($name, $parameters) = $this->parseFunction($rule, false);
+
+		return (object) compact('name', 'parameters', 'package');
+	}
+
+	/**
+	 * Returns the rule class name.
+	 *
+	 * @param  string $name Rule name
+	 * @return string
+	 */
+	protected function getRuleClassName(string $name): string
+	{
+		if(!isset($this->rules[$name]))
+		{
+			throw new RuntimeException(vsprintf('Call to undefined validation rule [ %s ].', [$name]));
+		}
+
+		return $this->rules[$name];
+	}
+
+	/**
+	 * Creates a rule instance.
+	 *
+	 * @param  string                              $name Rule name
+	 * @return \mako\validator\rules\RuleInterface
+	 */
+	protected function ruleFactory(string $name): RuleInterface
+	{
+		return $this->container->get($this->getRuleClassName($name));
+	}
+
+	/**
+	 * Returns true if the input field is considered empty and false if not.
+	 *
+	 * @param  mixed $value Value
+	 * @return bool
+	 */
+	protected function isInputFieldEmpty($value): bool
+	{
+		return in_array($value, ['', null, []], true);
 	}
 
 	/**
 	 * Returns the error message.
 	 *
-	 * @param  string      $field      Field name
-	 * @param  string      $validator  Validator name
-	 * @param  array       $parameters Validator parameters
-	 * @param  string|null $package    Package name
+	 * @param  \mako\validator\rules\RuleInterface $rule       Rule
+	 * @param  string                              $field      Field name
+	 * @param  object                              $parsedRule Parsed rule
 	 * @return string
 	 */
-	protected function getErrorMessage(string $field, string $validator, array $parameters, string $package = null): string
+	protected function getErrorMessage(RuleInterface $rule, $field, $parsedRule): string
 	{
-		$package = empty($package) ? '' : $package . '::';
+		$field = $this->getOriginalFieldName($field);
 
-		// We have a i18n instance so we can return a propper error message
-
-		if($this->i18n->has($package . 'validate.overrides.messages.' . $field . '.' . $validator))
+		if($this->i18n !== null && $rule instanceof I18nAwareInterface)
 		{
-			// Return custom field specific error message from the language file
-
-			return $this->i18n->get($package . 'validate.overrides.messages.' . $field . '.' . $validator, array_merge([$field], $parameters));
+			return $rule->setI18n($this->i18n)->getTranslatedErrorMessage($field, $parsedRule->name, $parsedRule->package);
 		}
-		else
-		{
-			// Try to translate field name
 
-			$translateFieldName = function($field) use ($package)
-			{
-				if($this->i18n->has($package . 'validate.overrides.fieldnames.' . $field))
-				{
-					$field = $this->i18n->get($package . 'validate.overrides.fieldnames.' . $field);
-				}
-				else
-				{
-					$field = str_replace('_', ' ', $field);
-				}
-
-				return $field;
-			};
-
-			if(in_array($validator, ['match', 'different']))
-			{
-				$field = [$translateFieldName($field), $translateFieldName(array_shift($parameters))];
-			}
-			else
-			{
-				$field = $translateFieldName($field);
-			}
-
-			// Return default validation error message from the language file
-
-			return $this->i18n->get($package . 'validate.' . $validator, array_merge((array) $field, $parameters));
-		}
+		return $rule->getErrorMessage($field);
 	}
 
 	/**
-	 * Excecutes the chosen validation rule.
+	 * Validates the field using the specified rule.
 	 *
-	 * @param  string $field     Name of the field that we're validating
-	 * @param  array  $validator Validator
+	 * @param  string $field Field name
+	 * @param  string $rule  Rule
 	 * @return bool
 	 */
-	protected function validate(string $field, array $validator): bool
+	protected function validate(string $field, string $rule): bool
 	{
-		$parameters = array_merge([$this->input[$field]], $validator['parameters']);
+		$parsedRule = $this->parseRule($rule);
 
-		if(method_exists($this, $rule = 'validate' . Str::underscored2camel($validator['name'])))
+		$rule = $this->ruleFactory($parsedRule->name);
+
+		// Just return true if the input field is empty and the rule doesn't validate empty input
+
+		if($this->isInputFieldEmpty($inputValue = Arr::get($this->input, $field)) && $rule->validateWhenEmpty() === false)
 		{
-			return $this->{$rule}(...$parameters);
+			return true;
 		}
-		elseif(isset($this->plugins[$rule = $validator['package'] . $validator['name']]))
+
+		// Set parameters if the rule requires it
+
+		if($rule instanceof WithParametersInterface)
 		{
-			return $this->plugins[$rule]->validate(...$parameters);
+			$rule->setParameters($parsedRule->parameters);
 		}
-		else
+
+		// Validate input
+
+		if($rule->validate($inputValue, $this->input) === false)
 		{
-			throw new RuntimeException(vsprintf('Call to undefined validation rule [ %s ].', [trim($validator['package'] . '::' . $validator['name'], '::')]));
+			$this->errors[$field] = $this->getErrorMessage($rule, $field, $parsedRule);
+
+			return $this->isValid = false;
 		}
+
+		return true;
 	}
 
 	/**
-	 * Runs all validation rules.
+	 * Processes all validation rules and returns an array containing
+	 * the validation status and potential error messages.
+	 *
+	 * @return array
 	 */
-	protected function process()
+	protected function process(): array
 	{
-		foreach($this->parseRules() as $field => $validators)
+		foreach($this->ruleSets as $field => $ruleSet)
 		{
-			if(in_array($this->input[$field], ['', null, []], true) && !array_key_exists('required', $validators))
-			{
-				continue; // Only validate fields that are required or not empty
-			}
+			// Ensure that we don't have any duplicated rules for a field
 
-			foreach($validators as $validator)
+			$ruleSet = array_unique($ruleSet);
+
+			// Validate field and stop as soon as one of the rules fail
+
+			foreach($ruleSet as $rule)
 			{
-				if($this->validate($field, $validator) === false)
+				if($this->validate($field, $rule) === false)
 				{
-					$this->errors[$field] = $this->getErrorMessage($field, $validator['name'], $validator['parameters'], $validator['package']);
-
 					break;
 				}
 			}
 		}
+
+		return [$this->isValid, $this->errors];
 	}
 
 	/**
-	 * Returns TRUE if all rules passed and FALSE if validation failed.
+	 * Returns true if all rules passed and false if validation failed.
 	 *
 	 * @param  array|null &$errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool
 	 */
 	public function isValid(array &$errors = null): bool
 	{
-		$this->process();
+		list($isValid, $errors) = $this->process();
 
-		$errors = $this->errors;
-
-		return empty($this->errors);
+		return $isValid === true;
 	}
 
 	/**
-	 * Returns FALSE if all rules passed and TRUE if validation failed.
+	 * Returns false if all rules passed and true if validation failed.
 	 *
 	 * @param  array|null &$errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool
 	 */
 	public function isInvalid(array &$errors = null): bool
 	{
-		$this->process();
+		list($isValid, $errors) = $this->process();
 
-		$errors = $this->errors;
-
-		return !empty($this->errors);
+		return $isValid === false;
 	}
 
 	/**

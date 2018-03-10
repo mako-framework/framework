@@ -8,7 +8,7 @@
 namespace mako\validator;
 
 use mako\i18n\I18n;
-use mako\validator\plugins\ValidatorPluginInterface;
+use mako\syringe\Container;
 
 /**
  * Validator factory.
@@ -25,48 +25,62 @@ class ValidatorFactory
 	protected $i18n;
 
 	/**
-	 * Array of registered plugins.
+	 * Container.
+	 *
+	 * @var \mako\syringe\Container
+	 */
+	protected $container;
+
+	/**
+	 * Custom rules.
 	 *
 	 * @var array
 	 */
-	protected $plugins = [];
+	protected $rules = [];
 
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\i18n\I18n $i18n I18n instance
+	 * @param \mako\i18n\I18n         $i18n      I18n instance
+	 * @param \mako\syringe\Container $container Container
 	 */
-	public function __construct(I18n $i18n)
+	public function __construct(I18n $i18n, Container $container)
 	{
 		$this->i18n = $i18n;
+
+		$this->container = $container;
+	}
+
+	/**
+	 * Registers a custom validation rule.
+	 *
+	 * @param  string                    $rule      Rule
+	 * @param  string                    $ruleClass Rule class
+	 * @return \mako\validator\Validator
+	 */
+	public function extend(string $rule, string $ruleClass): Validator
+	{
+		$this->rules[$rule] = $ruleClass;
+
+		return $this;
 	}
 
 	/**
 	 * Creates and returns a validator instance.
 	 *
-	 * @param  array                     $data  Array to validate
+	 * @param  array                     $input Array to validate
 	 * @param  array                     $rules Array of validation rules
 	 * @return \mako\validator\Validator
 	 */
-	public function create(array $data, array $rules): Validator
+	public function create(array $input, array $rules): Validator
 	{
-		$validator = new Validator($data, $rules, $this->i18n);
+		$validator = new Validator($input, $rules, $this->i18n, $this->container);
 
-		foreach($this->plugins as $plugin)
+		foreach($this->rules as $rule => $ruleClass)
 		{
-			$validator->registerPlugin($plugin);
+			$validator->extend($rule, $ruleClass);
 		}
 
 		return $validator;
-	}
-
-	/**
-	 * Register a validation plugin.
-	 *
-	 * @param \mako\validator\plugins\ValidatorPluginInterface $plugin Plugin instance
-	 */
-	public function registerPlugin(ValidatorPluginInterface $plugin)
-	{
-		$this->plugins[] = $plugin;
 	}
 }
