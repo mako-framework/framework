@@ -48,6 +48,8 @@ class AfterTest extends TestCase
 
 		$this->assertFalse($rule->validate('2018-03-10', []));
 
-		$this->assertSame('The foobar field must contain a date after 2018-03-11.', $rule->getErrorMessage('foobar'));
+		$this->assertFalse($rule->validate('2018-24-12', []));
+
+		$this->assertSame('The foobar field must contain a valid date after 2018-03-11.', $rule->getErrorMessage('foobar'));
 	}
 }

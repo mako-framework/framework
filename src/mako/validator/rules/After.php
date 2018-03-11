@@ -31,12 +31,14 @@ class After extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		if(($value = DateTime::createFromFormat($this->getParameter('format'), $value)) === false)
+		$date = DateTime::createFromFormat($this->getParameter('format'), $value);
+
+		if($date === false || $date->format($this->getParameter('format')) !== $value)
 		{
 			return false;
 		}
 
-		return ($value->getTimestamp() > DateTime::createFromFormat($this->getParameter('format'), $this->getParameter('date'))->getTimestamp());
+		return ($date->getTimestamp() > DateTime::createFromFormat($this->getParameter('format'), $this->getParameter('date'))->getTimestamp());
 	}
 
 	/**
@@ -44,6 +46,6 @@ class After extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s field must contain a date after %2$s.', $field, $this->parameters['date']);
+		return sprintf('The %1$s field must contain a valid date after %2$s.', $field, $this->parameters['date']);
 	}
 }
