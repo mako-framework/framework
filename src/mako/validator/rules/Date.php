@@ -31,7 +31,14 @@ class Date extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		return (bool) DateTime::createFromFormat($this->getParameter('format'), $value);
+		$date = DateTime::createFromFormat(($format = $this->getParameter('format')), $value);
+
+		if($date === false || $date->format($format) !== $value)
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
