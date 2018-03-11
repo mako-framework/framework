@@ -18,6 +18,16 @@ class MaxLengthTest extends TestCase
 	/**
 	 *
 	 */
+	public function testValidatesWhenEmpty()
+	{
+		$rule = new MaxLength;
+
+		$this->assertFalse($rule->validateWhenEmpty());
+	}
+
+	/**
+	 *
+	 */
 	public function testWithValidValue()
 	{
 		$rule = new MaxLength;

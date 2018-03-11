@@ -77,7 +77,7 @@ trait I18nAwareTrait
 				}
 			}
 
-			return array_merge([$field], $parameters);
+			return array_merge([$field], array_values($parameters));
 		}
 
 		return [$field];

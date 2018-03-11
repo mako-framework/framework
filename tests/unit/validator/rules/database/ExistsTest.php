@@ -22,6 +22,16 @@ class ExistsTest extends TestCase
 	/**
 	 *
 	 */
+	public function testValidatesWhenEmpty()
+	{
+		$rule = new Exists(Mockery::mock(ConnectionManager::class));
+
+		$this->assertFalse($rule->validateWhenEmpty());
+	}
+
+	/**
+	 *
+	 */
 	public function testWithValidValue()
 	{
 		$builder = Mockery::mock(Query::class);

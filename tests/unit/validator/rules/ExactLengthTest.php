@@ -18,6 +18,16 @@ class ExactLengthTest extends TestCase
 	/**
 	 *
 	 */
+	public function testValidatesWhenEmpty()
+	{
+		$rule = new ExactLength;
+
+		$this->assertFalse($rule->validateWhenEmpty());
+	}
+
+	/**
+	 *
+	 */
 	public function testWithValidValue()
 	{
 		$rule = new ExactLength;

@@ -18,6 +18,16 @@ class MinLengthTest extends TestCase
 	/**
 	 *
 	 */
+	public function testValidatesWhenEmpty()
+	{
+		$rule = new MinLength;
+
+		$this->assertFalse($rule->validateWhenEmpty());
+	}
+
+	/**
+	 *
+	 */
 	public function testWithValidValue()
 	{
 		$rule = new MinLength;

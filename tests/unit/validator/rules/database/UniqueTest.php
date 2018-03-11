@@ -22,6 +22,16 @@ class UniqueTest extends TestCase
 	/**
 	 *
 	 */
+	public function testValidatesWhenEmpty()
+	{
+		$rule = new Unique(Mockery::mock(ConnectionManager::class));
+
+		$this->assertFalse($rule->validateWhenEmpty());
+	}
+
+	/**
+	 *
+	 */
 	public function testWithValidValue()
 	{
 		$builder = Mockery::mock(Query::class);

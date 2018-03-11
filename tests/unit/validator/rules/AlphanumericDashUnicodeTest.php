@@ -18,6 +18,16 @@ class AlphanumericDashUnicodeTest extends TestCase
 	/**
 	 *
 	 */
+	public function testValidatesWhenEmpty()
+	{
+		$rule = new AlphanumericDashUnicode;
+
+		$this->assertFalse($rule->validateWhenEmpty());
+	}
+
+	/**
+	 *
+	 */
 	public function testWithValidValue()
 	{
 		$rule = new AlphanumericDashUnicode;

@@ -20,6 +20,16 @@ class OneTimeTokenTest extends TestCase
 	/**
 	 *
 	 */
+	public function testValidatesWhenEmpty()
+	{
+		$rule = new OneTimeToken(Mockery::mock(Session::class));
+
+		$this->assertTrue($rule->validateWhenEmpty());
+	}
+
+	/**
+	 *
+	 */
 	public function testWithValidValue()
 	{
 		$session = Mockery::mock(Session::class);

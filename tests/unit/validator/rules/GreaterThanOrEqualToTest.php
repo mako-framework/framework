@@ -18,6 +18,16 @@ class GreaterThanOrEqualToTest extends TestCase
 	/**
 	 *
 	 */
+	public function testValidatesWhenEmpty()
+	{
+		$rule = new GreaterThanOrEqualTo;
+
+		$this->assertFalse($rule->validateWhenEmpty());
+	}
+
+	/**
+	 *
+	 */
 	public function testWithValidValue()
 	{
 		$rule = new GreaterThanOrEqualTo;

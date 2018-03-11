@@ -20,6 +20,16 @@ class TokenTest extends TestCase
 	/**
 	 *
 	 */
+	public function testValidatesWhenEmpty()
+	{
+		$rule = new Token(Mockery::mock(Session::class));
+
+		$this->assertTrue($rule->validateWhenEmpty());
+	}
+
+	/**
+	 *
+	 */
 	public function testWithValidValue()
 	{
 		$session = Mockery::mock(Session::class);
