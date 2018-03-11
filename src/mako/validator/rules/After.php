@@ -31,14 +31,14 @@ class After extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		$date = DateTime::createFromFormat($this->getParameter('format'), $value);
+		$date = DateTime::createFromFormat(($format = $this->getParameter('format')), $value);
 
-		if($date === false || $date->format($this->getParameter('format')) !== $value)
+		if($date === false || $date->format($format) !== $value)
 		{
 			return false;
 		}
 
-		return ($date->getTimestamp() > DateTime::createFromFormat($this->getParameter('format'), $this->getParameter('date'))->getTimestamp());
+		return ($date->getTimestamp() > DateTime::createFromFormat($format, $this->getParameter('date'))->getTimestamp());
 	}
 
 	/**
