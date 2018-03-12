@@ -32,9 +32,9 @@ class MaxFilesize extends Rule implements RuleInterface, WithParametersInterface
 	 * Convert human friendly size to bytes.
 	 *
 	 * @param  int|string $size Size
-	 * @return int
+	 * @return int|float
 	 */
-	protected function convertToBytes($size): int
+	protected function convertToBytes($size)
 	{
 		switch(substr($size, -3))
 		{
@@ -46,6 +46,14 @@ class MaxFilesize extends Rule implements RuleInterface, WithParametersInterface
 				return substr($size, 0, -3) * (1024 ** 3);
 			case 'TiB':
 				return substr($size, 0, -3) * (1024 ** 4);
+			case 'PiB':
+				return substr($size, 0, -3) * (1024 ** 5);
+			case 'EiB':
+				return substr($size, 0, -3) * (1024 ** 6);
+			case 'ZiB':
+				return substr($size, 0, -3) * (1024 ** 7);
+			case 'YiB':
+				return substr($size, 0, -3) * (1024 ** 8);
 			default:
 				return (int) $size;
 		}

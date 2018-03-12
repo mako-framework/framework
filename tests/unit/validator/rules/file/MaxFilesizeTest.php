@@ -44,6 +44,10 @@ class MaxFilesizeTest extends TestCase
 		$this->assertSame(1024 ** 2, $rule->convert('1MiB'));
 		$this->assertSame(1024 ** 3, $rule->convert('1GiB'));
 		$this->assertSame(1024 ** 4, $rule->convert('1TiB'));
+		$this->assertSame(1024 ** 5, $rule->convert('1PiB'));
+		$this->assertSame(1024 ** 6, $rule->convert('1EiB'));
+		//$this->assertSame(1024 ** 7, $rule->convert('1ZiB'));
+		//$this->assertSame(1024 ** 8, $rule->convert('1YiB'));
 	}
 
 	/**
