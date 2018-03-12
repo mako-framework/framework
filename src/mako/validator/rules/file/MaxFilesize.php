@@ -58,8 +58,6 @@ class MaxFilesize extends Rule implements RuleInterface, WithParametersInterface
 	{
 		$maxSize = $this->convertToBytes($this->getParameter('maxSize'));
 
-		var_dump($maxSize);
-
 		return $value->getSize() <= $maxSize;
 	}
 
