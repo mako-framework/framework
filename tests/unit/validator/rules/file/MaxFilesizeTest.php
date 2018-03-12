@@ -46,8 +46,25 @@ class MaxFilesizeTest extends TestCase
 		$this->assertSame(1024 ** 4, $rule->convert('1TiB'));
 		$this->assertSame(1024 ** 5, $rule->convert('1PiB'));
 		$this->assertSame(1024 ** 6, $rule->convert('1EiB'));
-		//$this->assertSame(1024 ** 7, $rule->convert('1ZiB'));
-		//$this->assertSame(1024 ** 8, $rule->convert('1YiB'));
+		$this->assertSame(1024 ** 7, $rule->convert('1ZiB'));
+		$this->assertSame(1024 ** 8, $rule->convert('1YiB'));
+	}
+
+	/**
+	 * @expectedException RuntimeException
+	 * @expectedExceptionMessage Invalid unit type [ Foo ].
+	 */
+	public function testConvertToBytesWithInvalidUnit()
+	{
+		$rule = new class extends MaxFilesize
+		{
+			public function convert($size)
+			{
+				return $this->convertToBytes($size);
+			}
+		};
+
+		$this->assertSame(1024 ** 8, $rule->convert('1Foo'));
 	}
 
 	/**

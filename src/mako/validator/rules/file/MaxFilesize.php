@@ -11,6 +11,7 @@ use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\WithParametersTrait;
 use mako\validator\rules\WithParametersInterface;
+use RuntimeException;
 
 /**
  * Max filesize rule.
@@ -36,27 +37,34 @@ class MaxFilesize extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	protected function convertToBytes($size)
 	{
-		switch(substr($size, -3))
+		if(is_numeric($unit = substr($size, -3)) === false)
 		{
-			case 'KiB':
-				return substr($size, 0, -3) * 1024;
-			case 'MiB':
-				return substr($size, 0, -3) * (1024 ** 2);
-			case 'GiB':
-				return substr($size, 0, -3) * (1024 ** 3);
-			case 'TiB':
-				return substr($size, 0, -3) * (1024 ** 4);
-			case 'PiB':
-				return substr($size, 0, -3) * (1024 ** 5);
-			case 'EiB':
-				return substr($size, 0, -3) * (1024 ** 6);
-			case 'ZiB':
-				return substr($size, 0, -3) * (1024 ** 7);
-			case 'YiB':
-				return substr($size, 0, -3) * (1024 ** 8);
-			default:
-				return (int) $size;
+			$size = substr($size, 0, -3);
+
+			switch($unit)
+			{
+				case 'KiB':
+					return $size * 1024;
+				case 'MiB':
+					return $size * (1024 ** 2);
+				case 'GiB':
+					return $size * (1024 ** 3);
+				case 'TiB':
+					return $size * (1024 ** 4);
+				case 'PiB':
+					return $size * (1024 ** 5);
+				case 'EiB':
+					return $size * (1024 ** 6);
+				case 'ZiB':
+					return $size * (1024 ** 7);
+				case 'YiB':
+					return $size * (1024 ** 8);
+				default:
+					throw new RuntimeException(vsprintf('Invalid unit type [ %s ].', [$unit]));
+			}
 		}
+
+		return (int) $size;
 	}
 
 	/**
