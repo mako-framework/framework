@@ -54,11 +54,11 @@ class ValidatorFactory
 	/**
 	 * Registers a custom validation rule.
 	 *
-	 * @param  string                    $rule      Rule
-	 * @param  string                    $ruleClass Rule class
-	 * @return \mako\validator\Validator
+	 * @param  string                           $rule      Rule
+	 * @param  string                           $ruleClass Rule class
+	 * @return \mako\validator\ValidatorFactory
 	 */
-	public function extend(string $rule, string $ruleClass): Validator
+	public function extend(string $rule, string $ruleClass): ValidatorFactory
 	{
 		$this->rules[$rule] = $ruleClass;
 

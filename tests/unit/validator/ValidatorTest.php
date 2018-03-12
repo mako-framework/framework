@@ -9,6 +9,8 @@ namespace mako\tests\unit\validator;
 
 use mako\i18n\I18n;
 use mako\tests\TestCase;
+use mako\validator\rules\I18nAwareInterface;
+use mako\validator\rules\RuleInterface;
 use mako\validator\Validator;
 use Mockery;
 
@@ -18,7 +20,7 @@ use Mockery;
 class ValidatorTest extends TestCase
 {
 	/**
-	 * Rule set spy
+	 * Attribute spy
 	 *
 	 * @param  \mako\validator\Validator $validator Validator
 	 * @param  string                    $attribute Attribute name
@@ -312,16 +314,59 @@ class ValidatorTest extends TestCase
 
 		$ruleSets =
 		[
-			'foo' => ['max_length(4)'],
+			'foo' => ['bar::baz'],
 		];
 
 		$i18n = Mockery::mock(I18n::class);
 
-		$i18n->shouldReceive('has')->once()->andReturn(true);
+		$validator = Mockery::mock(Validator::class, [$input, $ruleSets, $i18n])->makePartial();
 
-		$i18n->shouldReceive('get')->once()->andReturn('custom message');
+		$validator->shouldAllowMockingProtectedMethods();
 
-		$validator = new Validator($input, $ruleSets, $i18n);
+		$rule = new class($this) implements RuleInterface, I18nAwareInterface
+		{
+			public function __construct($test)
+			{
+				$this->test = $test;
+			}
+
+			public function validateWhenEmpty(): bool
+			{
+				return false;
+			}
+
+			public function validate($value, array $input): bool
+			{
+				return false;
+			}
+
+			public function getErrorMessage(string $field): string
+			{
+
+			}
+
+			public function setI18n(I18n $i18n): RuleInterface
+			{
+				$this->i18n = $i18n;
+
+				$this->test->assertInstanceOf(I18n::class, $i18n);
+
+				return $this;
+			}
+
+			public function getTranslatedErrorMessage(string $field, string $rule, string $package = null): string
+			{
+				$this->test->assertSame('foo', $field);
+
+				$this->test->assertSame('bar::baz', $rule);
+
+				$this->test->assertSame('bar', $package);
+
+				return 'custom message';
+			}
+		};
+
+		$validator->shouldReceive('ruleFactory')->once()->with('bar::baz')->andReturn($rule);
 
 		$this->assertFalse($validator->isValid());
 
