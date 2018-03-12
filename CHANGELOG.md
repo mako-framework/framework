@@ -10,6 +10,7 @@ Update using ```composer update```.
 * Added `ValidatorFactory::extend()` method.
 * Added new validation rules:
 	- Added `mimetype` rule.
+	- Added `max_filesize` rule.
 
 #### Changes
 

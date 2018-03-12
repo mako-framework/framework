@@ -14,7 +14,7 @@ use SplFileInfo;
 /**
  * @group unit
  */
-class AlphaTest extends TestCase
+class MimetypeTest extends TestCase
 {
 	/**
 	 *
