@@ -326,7 +326,7 @@ class Validator
 			$condition = $condition();
 		}
 
-		return $condition ? $this->addRule($field, $ruleSet) : $this;
+		return $condition ? $this->addRules($field, $ruleSet) : $this;
 	}
 
 	/**

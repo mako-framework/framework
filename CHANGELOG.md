@@ -2,6 +2,13 @@
 
 Update using ```composer update```.
 
+#### New
+
+* Added `Validator::extend()` method.
+* Added `Validator::addRules()` method.
+* Added `Validator::addRulesIf()` method.
+* Added `ValidatorFactory::extend()` method.
+
 #### Changes
 
 * Removed `Response` methods that where deprecated in 5.4:
@@ -15,6 +22,12 @@ Update using ```composer update```.
 	- Removed the `Response::hasCookie()` method.
 	- Removed the `Response::removeCookie()` method.
 	- Removed the `Response::clearCookies()` method.
+* Removed `Validator::registerPlugin()` method.
+* Removed `ValidatorFactory::registerPlugin()` method.
+
+#### Improvements
+
+* New and improved input validation with support for nested arrays and file validation.
 
 > Check out the upgrade guide for details on how to upgrade from `5.4.*.`
 
