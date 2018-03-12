@@ -67,7 +67,10 @@ trait I18nAwareTrait
 	{
 		if($this instanceof WithParametersInterface)
 		{
-			$parameters = $this->parameters;
+			$parameters = array_map(function($value)
+			{
+				return is_array($value) ? implode(', ', $value) : $value;
+			}, $this->parameters);
 
 			if(property_exists($this, 'i18nFieldNameParameters'))
 			{

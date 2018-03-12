@@ -28,6 +28,7 @@ use mako\validator\rules\Different;
 use mako\validator\rules\Email;
 use mako\validator\rules\EmailDomain;
 use mako\validator\rules\ExactLength;
+use mako\validator\rules\file\Mimetype;
 use mako\validator\rules\FloatingPoint;
 use mako\validator\rules\GreaterThan;
 use mako\validator\rules\GreaterThanOrEqualTo;
@@ -124,6 +125,7 @@ class Validator
 		'less_than'                => LessThan::class,
 		'match'                    => Match::class,
 		'max_length'               => MaxLength::class,
+		'mimetype'                 => Mimetype::class,
 		'min_length'               => MinLength::class,
 		'natural_non_zero'         => NaturalNonZero::class,
 		'natural'                  => Natural::class,

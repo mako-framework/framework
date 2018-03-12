@@ -8,6 +8,8 @@ Update using ```composer update```.
 * Added `Validator::addRules()` method.
 * Added `Validator::addRulesIf()` method.
 * Added `ValidatorFactory::extend()` method.
+* Added new validation rules:
+	- Added `mimetype` rule.
 
 #### Changes
 
