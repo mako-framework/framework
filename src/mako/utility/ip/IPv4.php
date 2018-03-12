@@ -42,7 +42,7 @@ class IPv4
 			return false;
 		}
 
-		$netmaskDecimal = ~ (pow(2, (32 - $netmask)) - 1);
+		$netmaskDecimal = ~ ((2 ** (32 - $netmask)) - 1);
 
 		return ($ip2Long & $netmaskDecimal) === ($range2Long & $netmaskDecimal);
 	}
