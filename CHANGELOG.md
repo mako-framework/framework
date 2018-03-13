@@ -11,6 +11,7 @@ Update using ```composer update```.
 * Added new validation rules:
 	- Added `mimetype` rule.
 	- Added `max_filesize` rule.
+	- Added `is_uploaded` rule.
 
 #### Changes
 

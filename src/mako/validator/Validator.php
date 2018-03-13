@@ -28,6 +28,7 @@ use mako\validator\rules\Different;
 use mako\validator\rules\Email;
 use mako\validator\rules\EmailDomain;
 use mako\validator\rules\ExactLength;
+use mako\validator\rules\file\IsUploaded;
 use mako\validator\rules\file\MaxFilesize;
 use mako\validator\rules\file\Mimetype;
 use mako\validator\rules\FloatingPoint;
@@ -122,6 +123,7 @@ class Validator
 		'in'                       => In::class,
 		'integer'                  => Integer::class,
 		'ip'                       => IP::class,
+		'is_uploaded'              => IsUploaded::class,
 		'less_than_or_equal_to'    => LessThanOrEqualTo::class,
 		'less_than'                => LessThan::class,
 		'match'                    => Match::class,
