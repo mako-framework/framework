@@ -31,6 +31,6 @@ class IsUploaded extends Rule implements RuleInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s did not successfully upload.', $field);
+		return sprintf('The %1$s must be an uploaded file.', $field);
 	}
 }

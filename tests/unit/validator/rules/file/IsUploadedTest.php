@@ -60,6 +60,6 @@ class IsUploadedTest extends TestCase
 
 		$this->assertFalse($rule->validate($uploadedFile, []));
 
-		$this->assertSame('The foobar did not successfully upload.', $rule->getErrorMessage('foobar'));
+		$this->assertSame('The foobar must be an uploaded file.', $rule->getErrorMessage('foobar'));
 	}
 }
