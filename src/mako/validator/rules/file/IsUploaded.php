@@ -23,7 +23,7 @@ class IsUploaded extends Rule implements RuleInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		return $value instanceof UploadedFile && $value->isUploaded();
+		return $value instanceof UploadedFile && $value->isUploaded() && $value->hasError() === false;
 	}
 
 	/**

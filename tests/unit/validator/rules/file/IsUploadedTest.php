@@ -38,6 +38,8 @@ class IsUploadedTest extends TestCase
 
 		$uploadedFile->shouldReceive('isUploaded')->once()->andReturnTrue();
 
+		$uploadedFile->shouldReceive('hasError')->once()->andReturnFalse();
+
 		$this->assertTrue($rule->validate($uploadedFile, []));
 	}
 
@@ -57,6 +59,18 @@ class IsUploadedTest extends TestCase
 		$uploadedFile = Mockery::mock(UploadedFile::class);
 
 		$uploadedFile->shouldReceive('isUploaded')->once()->andReturnFalse();
+
+		$this->assertFalse($rule->validate($uploadedFile, []));
+
+		//
+
+		$rule = new IsUploaded;
+
+		$uploadedFile = Mockery::mock(UploadedFile::class);
+
+		$uploadedFile->shouldReceive('isUploaded')->once()->andReturnTrue();
+
+		$uploadedFile->shouldReceive('hasError')->once()->andReturnTrue();
 
 		$this->assertFalse($rule->validate($uploadedFile, []));
 
