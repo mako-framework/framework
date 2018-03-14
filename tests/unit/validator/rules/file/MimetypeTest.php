@@ -47,6 +47,14 @@ class MimetypeTest extends TestCase
 		$rule->setParameters(['image/png']);
 
 		$this->assertTrue($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
+
+		//
+
+		$rule = new Mimetype;
+
+		$rule->setParameters([['image/jpeg', 'image/png']]);
+
+		$this->assertTrue($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
 	}
 
 	/**
