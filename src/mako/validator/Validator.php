@@ -209,44 +209,6 @@ class Validator
 	}
 
 	/**
-	 * Expands a wildcard field.
-	 *
-	 * @param  string|array $field Field
-	 * @return array
-	 */
-	protected function expandWildcardField($field): array
-	{
-		$fields = (array) $field;
-
-		$expanded = [];
-
-		foreach($fields as $field)
-		{
-			list($known, $rest) = array_map(function($value)
-			{
-				return trim($value, '.');
-			}, explode('*', $field, 2));
-
-			if(is_array($value = Arr::get($this->input, $known)) === false)
-			{
-				continue;
-			}
-
-			foreach(array_keys($value) as $key)
-			{
-				$expanded[] = rtrim($known . '.' . $key . '.' . $rest, '.');
-			}
-		}
-
-		if(isset($rest) && strpos($rest, '*') !== false)
-		{
-			return $this->expandWildcardField($expanded);
-		}
-
-		return $expanded;
-	}
-
-	/**
 	 * Saves original field name along with the expanded field name.
 	 *
 	 * @param array  $fields Expanded field names
@@ -290,7 +252,7 @@ class Validator
 				continue;
 			}
 
-			if(!empty($fields = $this->expandWildcardField($field)))
+			if(!empty($fields = Arr::expandKey($this->input, $field)))
 			{
 				$this->saveOriginalFieldNames($fields, $field);
 

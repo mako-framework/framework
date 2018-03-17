@@ -9,6 +9,7 @@ namespace mako\tests\unit\utility;
 
 use mako\tests\TestCase;
 use mako\utility\Arr;
+use stdClass;
 
 /**
  * @group unit
@@ -134,16 +135,44 @@ class ArrTest extends TestCase
 
 	 	//
 
-	 	$obj1 = new \StdClass;
+	 	$obj1 = new stdClass;
 
 	 	$obj1->foo = 'bar';
 
-	 	$obj2 = new \StdClass;
+	 	$obj2 = new stdClass;
 
 	 	$obj2->foo = 'baz';
 
 	 	$arr = [$obj1, $obj2];
 
 	 	$this->assertEquals(['bar', 'baz'], Arr::pluck($arr, 'foo'));
+	 }
+
+	 /**
+	  *
+	  */
+	 public function testExpandKey()
+	 {
+		$arr = ['foo' => ['bar' => [1, 2], 'baz' => [1, 2]]];
+
+		$this->assertSame(['foo'], Arr::expandKey($arr, '*'));
+
+		$this->assertSame(['foo.bar', 'foo.baz'], Arr::expandKey($arr, '*.*'));
+
+		$this->assertSame(['foo.bar.0', 'foo.bar.1', 'foo.baz.0', 'foo.baz.1'], Arr::expandKey($arr, '*.*.*'));
+
+		$this->assertSame(['foo.bar'], Arr::expandKey($arr, '*.bar'));
+
+		$this->assertSame(['foo.bar.0', 'foo.bar.1'], Arr::expandKey($arr, '*.bar.*'));
+
+		$this->assertSame(['foo.bar', 'foo.baz'], Arr::expandKey($arr, 'foo.*'));
+
+		$this->assertSame(['foo.baz.0', 'foo.baz.1'], Arr::expandKey($arr, 'foo.baz.*'));
+
+		$this->assertSame(['foo.bar.1', 'foo.baz.1'], Arr::expandKey($arr, 'foo.*.1'));
+
+		$this->assertSame([], Arr::expandKey($arr, 'bax.*'));
+
+		$this->assertSame([], Arr::expandKey($arr, 'foo.bax.*'));
 	 }
 }

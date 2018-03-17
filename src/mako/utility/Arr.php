@@ -7,6 +7,8 @@
 
 namespace mako\utility;
 
+use RuntimeException;
+
 /**
  * Array helper.
  *
@@ -152,5 +154,60 @@ class Arr
 		{
 			return is_object($value) ? $value->$key : $value[$key];
 		}, $array);
+	}
+
+	/**
+	 * Expands a wildcard key to an array of "dot notation" keys.
+	 *
+	 * @param  array  $array Array
+	 * @param  string $key   Wildcard key
+	 * @return array
+	 */
+	public static function expandKey(array $array, string $key): array
+	{
+		if(strpos($key, '*') === false)
+		{
+			throw new RuntimeException('The key must contain at least one wildcard character.');
+		}
+
+		$keys = (array) $key;
+
+		start:
+
+		$expanded = [];
+
+		foreach($keys as $key)
+		{
+			list($first, $remaining) = array_map(function($value)
+			{
+				return trim($value, '.');
+			}, explode('*', $key, 2));
+
+			if(empty($first))
+			{
+				$value = $array;
+			}
+			else
+			{
+				if(is_array($value = static::get($array, $first)) === false)
+				{
+					continue;
+				}
+			}
+
+			foreach(array_keys($value) as $key)
+			{
+				$expanded[] = trim($first . '.' . $key . '.' . $remaining, '.');
+			}
+		}
+
+		if(strpos($remaining, '*') !== false)
+		{
+			$keys = $expanded;
+
+			goto start;
+		}
+
+		return $expanded;
 	}
 }
