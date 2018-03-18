@@ -44,8 +44,6 @@ class ProductionHandlerTest extends TestCase
 
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('isAjax')->once()->andReturn(false);
-
 		$request->shouldReceive('getHeaders')->twice()->andReturn($responseHeaders);
 
 		//
@@ -97,8 +95,6 @@ class ProductionHandlerTest extends TestCase
 		//
 
 		$request = Mockery::mock(Request::class);
-
-		$request->shouldReceive('isAjax')->once()->andReturn(false);
 
 		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
 
@@ -157,11 +153,11 @@ class ProductionHandlerTest extends TestCase
 
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('isAjax')->once()->andReturn(true);
-
 		//
 
 		$response = Mockery::mock(Response::class);
+
+		$response->shouldReceive('getType')->once()->andReturn('application/json');
 
 		$response->shouldReceive('clear')->once()->andReturn($response);
 
@@ -209,8 +205,6 @@ class ProductionHandlerTest extends TestCase
 		//
 
 		$request = Mockery::mock(Request::class);
-
-		$request->shouldReceive('isAjax')->once()->andReturn(false);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 

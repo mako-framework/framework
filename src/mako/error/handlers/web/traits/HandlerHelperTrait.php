@@ -20,24 +20,27 @@ use Throwable;
 trait HandlerHelperTrait
 {
 	/**
-	 * Should we return the error as JSON?
+	 * Checks if we meet the requirements to return as a specific type.
 	 *
+	 * @param  string $function Required function
+	 * @param  array  $mimes    Mimetypes
+	 * @param  string $partial  Partial mimetype
 	 * @return bool
 	 */
-	protected function returnAsJson(): bool
+	protected function returnAs(string $function, array $mimes, string $partial)
 	{
-		if(function_exists('json_encode'))
+		if(function_exists($function))
 		{
-			$jsonMimeTypes = ['application/json', 'text/json'];
+			$responseType = $this->response->getType();
 
-			if($this->request->isAjax() || in_array($this->response->getType(), $jsonMimeTypes))
+			if(in_array($responseType, $mimes) || strpos($responseType, $partial) !== false)
 			{
 				return true;
 			}
 
-			$acceptableContentTypes = $this->request->getHeaders()->acceptableContentTypes();
+			$accepts = $this->request->getHeaders()->acceptableContentTypes();
 
-			if(isset($acceptableContentTypes[0]) && in_array($acceptableContentTypes[0], $jsonMimeTypes))
+			if(isset($accepts[0]) && (in_array($accepts[0], $mimes) || strpos($accepts[0], $partial) !== false))
 			{
 				return true;
 			}
@@ -47,30 +50,23 @@ trait HandlerHelperTrait
 	}
 
 	/**
+	 * Should we return the error as JSON?
+	 *
+	 * @return bool
+	 */
+	protected function returnAsJson(): bool
+	{
+		return $this->returnAs('json_encode', ['application/json', 'text/json'], '+json');
+	}
+
+	/**
 	 * Should we return the error as XML?
 	 *
 	 * @return bool
 	 */
 	protected function returnAsXml(): bool
 	{
-		if(function_exists('simplexml_load_string'))
-		{
-			$xmlMimeTypes = ['application/xml', 'text/xml'];
-
-			if(in_array($this->response->getType(), $xmlMimeTypes))
-			{
-				return true;
-			}
-
-			$acceptableContentTypes = $this->request->getHeaders()->acceptableContentTypes();
-
-			if(isset($acceptableContentTypes[0]) && in_array($acceptableContentTypes[0], $xmlMimeTypes))
-			{
-				return true;
-			}
-		}
-
-		return false;
+		return $this->returnAs('simplexml_load_string', ['application/xml', 'text/xml'], '+xml');
 	}
 
 	/**
