@@ -1,3 +1,13 @@
+### 5.0.25, 5.1.4, 5.2.12, 5.3.3, 5.4.1, 5.5.1 <small> (2018-03-20)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* Migrations will no longer fail with empty description.
+
+--------------------------------------------------------
+
 ### 5.5.0 <small> (2018-03-20)</small>
 
 Update using ```composer update```.
