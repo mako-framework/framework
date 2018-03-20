@@ -41,11 +41,11 @@ abstract class Migration
 	 * Returns the migration description.
 	 *
 	 * @access public
-	 * @return string|null
+	 * @return string
 	 */
-	public function getDescription()
+	public function getDescription(): string
 	{
-		return isset($this->description) && !empty($this->description) ? $this->description : null;
+		return !empty($this->description) ? $this->description : '';
 	}
 
 	/**
