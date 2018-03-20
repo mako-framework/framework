@@ -1,4 +1,4 @@
-### 5.5.0 <small> (2018-??-??)</small>
+### 5.5.0 <small> (2018-03-20)</small>
 
 Update using ```composer update```.
 
