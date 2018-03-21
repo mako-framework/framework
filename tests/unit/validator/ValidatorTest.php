@@ -37,6 +37,20 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
+	public function testRule()
+	{
+		$this->assertSame('foobar', Validator::rule('foobar'));
+
+		$this->assertSame('foobar(1,2,3)', Validator::rule('foobar', 1, 2, 3));
+
+		$this->assertSame('foobar("hello\"world")', Validator::rule('foobar', 'hello"world'));
+
+		$this->assertSame('foobar([1,2,3])', Validator::rule('foobar', [1, 2, 3]));
+	}
+
+	/**
+	 *
+	 */
 	public function testExtend()
 	{
 		$validator = new Validator([], []);
