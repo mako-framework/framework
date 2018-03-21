@@ -184,6 +184,23 @@ class Validator
 	}
 
 	/**
+	 * Rule builder.
+	 *
+	 * @param  string $ruleName      Rule name
+	 * @param  mixed  ...$parameters Rule parameters
+	 * @return string
+	 */
+	public static function rule(string $ruleName, ...$parameters): string
+	{
+		if(empty($parameters))
+		{
+			return $ruleName;
+		}
+
+		return $ruleName . '(' . substr(json_encode($parameters), 1, -1) . ')';
+	}
+
+	/**
 	 * Registers a custom validation rule.
 	 *
 	 * @param  string                    $rule      Rule
