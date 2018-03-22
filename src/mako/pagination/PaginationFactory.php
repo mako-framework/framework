@@ -95,9 +95,15 @@ class PaginationFactory implements PaginationFactoryInterface
 
 		$pagination->setRequest($this->request);
 
-		$pagination->setURLBuilder($this->urlBuilder);
+		if(!empty($this->urlBuilder))
+		{
+			$pagination->setURLBuilder($this->urlBuilder);
+		}
 
-		$pagination->setViewFactory($this->viewFactory);
+		if(!empty($this->viewFactory))
+		{
+			$pagination->setViewFactory($this->viewFactory);
+		}
 
 		return $pagination;
 	}

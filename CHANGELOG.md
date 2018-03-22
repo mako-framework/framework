@@ -1,3 +1,13 @@
+### 5.5.3 <small> (2018-03-22)</small>
+
+Update using ```composer update```.
+
+#### Improvements
+
+* The pagination factory no longer requires the view and http services.
+
+--------------------------------------------------------
+
 ### 5.5.2 <small> (2018-03-21)</small>
 
 Update using ```composer update```.
