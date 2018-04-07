@@ -494,11 +494,28 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoEmptyElse()
+	public function testEchoEmptyElseWithPipeOr()
 	{
 		$template = '{{$foo || \'bar\'}}';
 
-		$compiled = '<?php echo $this->escapeHTML((!empty($foo) ? $foo : \'bar\'), $__charset__); ?>';
+		$compiled = '<?php echo $this->escapeHTML((empty($foo) ? \'bar\' : $foo), $__charset__); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+	/**
+	 *
+	 */
+	public function testEchoEmptyElseWithOr()
+	{
+		$template = '{{$foo or \'bar\'}}';
+
+		$compiled = '<?php echo $this->escapeHTML((empty($foo) ? \'bar\' : $foo), $__charset__); ?>';
 
 		//
 

@@ -250,11 +250,11 @@ class Template
 
 		$emptyElse = function($matches)
 		{
-			if(preg_match('/(.*)\|\|(.*)/', $matches) !== 0)
+			if(preg_match('/(.*)((\|\|)|(\s+or\s+))(.+)/', $matches) !== 0)
 			{
-				return preg_replace_callback('/(.*)\s*\|\|\s*(.*)/', function($matches)
+				return preg_replace_callback('/(.*)((\|\|)|(\s+or\s+))(.+)/', function($matches)
 				{
-					return '(!empty(' . trim($matches[1]) . ') ? ' . trim($matches[1]) . ' : ' . trim($matches[2]) . ')';
+					return '(empty(' . trim($matches[1]) . ') ? ' . trim($matches[5]) . ' : ' . trim($matches[1]) . ')';
 				}, $matches);
 			}
 
