@@ -1,3 +1,14 @@
+### 5.5.4 <small> (2018-04-??)</small>
+
+Update using ```composer update```.
+
+#### Improvements
+
+* You can now use `or` in addition to `||` when printing template variables.
+* You can now prefix variable names with a `$` in template capture blocks.
+
+--------------------------------------------------------
+
 ### 5.5.3 <small> (2018-03-22)</small>
 
 Update using ```composer update```.
