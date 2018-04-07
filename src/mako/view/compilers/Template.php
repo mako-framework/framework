@@ -201,7 +201,10 @@ class Template
 	 */
 	protected function captures(string $template): string
 	{
-		return preg_replace('/{%\s*capture:([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*?)\s*%}(.*?){%\s*endcapture\s*%}/is', '<?php ob_start(); ?>$2<?php $$1 = ob_get_clean(); ?>', $template);
+		return preg_replace_callback('/{%\s*capture:(\$?[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*?)\s*%}(.*?){%\s*endcapture\s*%}/is', function($matches)
+		{
+			return '<?php ob_start(); ?>' . $matches[2] . '<?php $' . ltrim($matches[1], '$') . ' = ob_get_clean(); ?>';
+		}, $template);
 	}
 
 	/**
@@ -250,11 +253,11 @@ class Template
 
 		$emptyElse = function($matches)
 		{
-			if(preg_match('/(.*)\|\|(.*)/', $matches) !== 0)
+			if(preg_match('/(.*)((\|\|)|(\s+or\s+))(.+)/', $matches) !== 0)
 			{
-				return preg_replace_callback('/(.*)\s*\|\|\s*(.*)/', function($matches)
+				return preg_replace_callback('/(.*)((\|\|)|(\s+or\s+))(.+)/', function($matches)
 				{
-					return '(!empty(' . trim($matches[1]) . ') ? ' . trim($matches[1]) . ' : ' . trim($matches[2]) . ')';
+					return '(empty(' . trim($matches[1]) . ') ? ' . trim($matches[5]) . ' : ' . trim($matches[1]) . ')';
 				}, $matches);
 			}
 

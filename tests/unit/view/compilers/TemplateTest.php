@@ -128,9 +128,27 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	/**
 	 *
 	 */
-	public function testCapture()
+	public function testCaptureWithPlainVariableName()
 	{
 		$template = '{% capture:foobar %}Hello{% endcapture %}';
+
+		$compiled = '<?php ob_start(); ?>Hello<?php $foobar = ob_get_clean(); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+
+	/**
+	 *
+	 */
+	public function testCaptureWithDollarVariableName()
+	{
+		$template = '{% capture:$foobar %}Hello{% endcapture %}';
 
 		$compiled = '<?php ob_start(); ?>Hello<?php $foobar = ob_get_clean(); ?>';
 
@@ -494,11 +512,28 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoEmptyElse()
+	public function testEchoEmptyElseWithPipeOr()
 	{
 		$template = '{{$foo || \'bar\'}}';
 
-		$compiled = '<?php echo $this->escapeHTML((!empty($foo) ? $foo : \'bar\'), $__charset__); ?>';
+		$compiled = '<?php echo $this->escapeHTML((empty($foo) ? \'bar\' : $foo), $__charset__); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+	/**
+	 *
+	 */
+	public function testEchoEmptyElseWithOr()
+	{
+		$template = '{{$foo or \'bar\'}}';
+
+		$compiled = '<?php echo $this->escapeHTML((empty($foo) ? \'bar\' : $foo), $__charset__); ?>';
 
 		//
 
