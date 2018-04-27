@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
+use mako\database\query\compilers\Compiler;
 use mako\database\query\Query;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
@@ -21,6 +22,20 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSetAndGetDateFormat()
+	{
+		$format = Compiler::getDateFormat();
+
+		Compiler::setDateFormat('foobar');
+
+		$this->assertSame('foobar', Compiler::getDateFormat());
+
+		Compiler::setDateFormat($format);
+	}
+
+	/**
+	 *
+	 */
 	protected function getConnection()
 	{
 		$connection = Mockery::mock('\mako\database\connections\Connection');
@@ -29,7 +44,7 @@ class BaseCompilerTest extends TestCase
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function($query)
 		{
-			return new \mako\database\query\compilers\Compiler($query);
+			return new Compiler($query);
 		});
 
 		$connection->shouldReceive('column')->andReturn(null);

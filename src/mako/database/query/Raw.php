@@ -46,7 +46,7 @@ class Raw
 	 *
 	 * @return string
 	 */
-	public function get(): string
+	public function getSql(): string
 	{
 		return $this->sql;
 	}

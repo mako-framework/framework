@@ -24,7 +24,7 @@ class RawTest extends TestCase
 
 		$raw = new Raw($sql);
 
-		$this->assertSame($sql, $raw->get());
+		$this->assertSame($sql, $raw->getSql());
 	}
 
 	/**

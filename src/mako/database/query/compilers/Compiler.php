@@ -96,7 +96,7 @@ class Compiler
 			$this->params = array_merge($this->params, $parameters);
 		}
 
-		return $raw->get();
+		return $raw->getSql();
 	}
 
 	/**
