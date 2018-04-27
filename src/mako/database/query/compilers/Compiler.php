@@ -7,6 +7,7 @@
 
 namespace mako\database\query\compilers;
 
+use Closure;
 use DateTimeInterface;
 use mako\database\query\Join;
 use mako\database\query\Query;
@@ -101,15 +102,36 @@ class Compiler
 	/**
 	 * Compiles subquery, merges parameters and returns subquery SQL.
 	 *
-	 * @param  \mako\database\query\Subquery $query   Subquery container
-	 * @param  bool                          $enclose Should the query be enclosed in parentheses?
+	 * @param  \mako\database\query\Subquery $subquery Subquery container
+	 * @param  bool                          $enclose  Should the subquery be enclosed in parentheses?
 	 * @return string
 	 */
-	protected function subquery(Subquery $query, bool $enclose = true): string
+	protected function subquery(Subquery $subquery, bool $enclose = true): string
 	{
-		$query = $query->build($this->query)->get($enclose);
+		$query = $subquery->getQuery();
+
+		if($query instanceof Closure)
+		{
+			$builder = $query;
+
+			$query = $this->query->newInstance();
+
+			$builder($query);
+		}
+
+		$query = $query->getCompiler()->select();
 
 		$this->params = array_merge($this->params, $query['params']);
+
+		if($enclose)
+		{
+			$query['sql'] = '(' . $query['sql'] . ')';
+		}
+
+		if(($alias = $subquery->getAlias()) !== null)
+		{
+			$query['sql'] .= ' AS ' . $this->escapeIdentifier($alias);
+		}
 
 		return $query['sql'];
 	}

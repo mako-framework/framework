@@ -7,8 +7,6 @@
 
 namespace mako\database\query;
 
-use Closure;
-
 /**
  * Subquery container.
  *
@@ -17,9 +15,9 @@ use Closure;
 class Subquery
 {
 	/**
-	 * Query builder.
+	 * Builder closure or query builder instance.
 	 *
-	 * @var \mako\database\query\Query
+	 * @var \Closure|\mako\database\query\Query
 	 */
 	protected $query;
 
@@ -33,8 +31,8 @@ class Subquery
 	/**
 	 * Constructor.
 	 *
-	 * @param \Closure|\mako\database\query\Query $query Query builder
-	 * @param string                              $alias Subquery alias
+	 * @param \Closure|\mako\database\query\Query $query Builder closure or query builder instance
+	 * @param string|null                         $alias Subquery alias
 	 */
 	public function __construct($query, string $alias = null)
 	{
@@ -43,42 +41,22 @@ class Subquery
 	}
 
 	/**
-	 * Converts a subquery closure to query a builder instance.
+	 * Returns the subquery alias.
 	 *
-	 * @param  \mako\database\query\Query    $query Query builder instance
-	 * @return \mako\database\query\Subquery
+	 * @return string|null
 	 */
-	public function build(Query $query): Subquery
+	public function getAlias()
 	{
-		if($this->query instanceof Closure)
-		{
-			$subquery = $this->query;
-
-			$this->query = $query->newInstance();
-
-			$subquery($this->query);
-		}
-
-		return $this;
+		return $this->alias;
 	}
 
 	/**
-	 * Returns the compiled query.
+	 * Returns the builder closure or query builder instance.
 	 *
-	 * @param  bool  $enclose Should the query be enclosed in parentheses?
-	 * @return array
+	 * @return \Closure|\mako\database\query\Query
 	 */
-	public function get(bool $enclose = true): array
+	public function getQuery()
 	{
-		$query = $this->query->getCompiler()->select();
-
-		$query['sql'] = $enclose ? '(' . $query['sql'] . ')' : $query['sql'];
-
-		if($this->alias !== null)
-		{
-			$query['sql'] .= ' AS ' . $this->query->getCompiler()->escapeIdentifier($this->alias);
-		}
-
-		return $query;
+		return $this->query;
 	}
 }
