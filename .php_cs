@@ -25,6 +25,7 @@ return Config::create()
 	'no_alias_functions' => true,
 	'no_blank_lines_after_phpdoc' => true,
 	'no_closing_tag' => true,
+	'no_empty_statement' => true,
 	'no_extra_consecutive_blank_lines' => true,
 	'no_leading_import_slash' => true,
 	'no_leading_namespace_whitespace' => true,
