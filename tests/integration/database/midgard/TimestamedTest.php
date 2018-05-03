@@ -47,9 +47,9 @@ class TimestampedBar extends TestORM
  */
 class TimestampedTest extends ORMTestCase
 {
-	/**
-	 *
-	 */
+	 /**
+	  *
+	  */
 	 public function testCreate()
 	 {
 	 	$timestamped = new TimestampedFoo;

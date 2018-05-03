@@ -82,7 +82,7 @@ class GroupTest extends TestCase
 		$group->removeUser($user);
 	}
 
-	 /**
+ 	/**
  	 * @expectedException \LogicException
  	 * @expectedExceptionMessage You can only remove a user that exist in the database from a group.
  	 */
@@ -110,7 +110,7 @@ class GroupTest extends TestCase
 		$group->isMember($user);
 	}
 
-	 /**
+ 	/**
  	 * @expectedException \LogicException
  	 * @expectedExceptionMessage You can only check if a user that exist in the database is a member of a group.
  	 */

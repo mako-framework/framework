@@ -153,7 +153,7 @@ class StoreTest extends TestCase
 	 */
 	public function testGetOrElseExisting()
 	{
-		$closure = function(){ return 'from closure'; };
+		$closure = function() { return 'from closure'; };
 
 		$store = $this->getStore();
 
@@ -170,7 +170,7 @@ class StoreTest extends TestCase
 	 */
 	public function testGetOrElseNonExisting()
 	{
-		$closure = function(){ return 'from closure'; };
+		$closure = function() { return 'from closure'; };
 
 		$store = $this->getStore();
 

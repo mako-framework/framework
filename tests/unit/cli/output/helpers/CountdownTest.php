@@ -25,7 +25,7 @@ class CountdownTest extends TestCase
 		$builder = new MockBuilder;
 
 		$builder->setNamespace('mako\cli\output\helpers')
-		->setName("usleep")
+		->setName('usleep')
 		->setFunction(function()
 		{
 			// Don't do anything

@@ -49,7 +49,7 @@ class File implements ResponseSenderInterface
 	protected $fileName;
 
 	/**
-	 * Content disposition
+	 * Content disposition.
 	 *
 	 * @var string
 	 */

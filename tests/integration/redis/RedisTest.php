@@ -40,7 +40,7 @@ class RedisTest extends TestCase
 		}
 		catch(RedisException $e)
 		{
-			$this->markTestSkipped("Unable to connect to redis server.");
+			$this->markTestSkipped('Unable to connect to redis server.');
 		}
 	}
 

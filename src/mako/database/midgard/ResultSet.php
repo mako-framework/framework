@@ -18,7 +18,6 @@ class ResultSet extends BaseResultSet
 {
 	/**
 	 * Clones all items when cloning the collection.
-	 *
 	 */
 	public function __clone()
 	{

@@ -18,7 +18,7 @@ use mako\database\query\Query;
 class Database extends Store
 {
 	/**
-	 * Database connection
+	 * Database connection.
 	 *
 	 * @var \mako\database\connections\Connection
 	 */

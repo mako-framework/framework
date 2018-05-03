@@ -79,7 +79,6 @@ class I18n
 
 	/**
 	 * Destructor.
-	 *
 	 */
 	public function __destruct()
 	{
@@ -113,7 +112,7 @@ class I18n
 	}
 
 	/**
-	 * Gets the current language
+	 * Gets the current language.
 	 *
 	 * @return string
 	 */
@@ -123,7 +122,7 @@ class I18n
 	}
 
 	/**
-	 * Sets the current language
+	 * Sets the current language.
 	 *
 	 * @param string|null $language Name of the language pack
 	 */

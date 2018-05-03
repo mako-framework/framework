@@ -92,7 +92,7 @@ EOF;
 
 		$reactor->setLogo('logo');
 
-		$reactor->registerGlobalOption('option', 'option description', function(){});
+		$reactor->registerGlobalOption('option', 'option description', function() {});
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
@@ -478,7 +478,7 @@ EOF;
 	 */
 	public function testCommandWithCustomOption()
 	{
-		$closure = function(){};
+		$closure = function() {};
 
 		//
 		$input = Mockery::mock('mako\cli\input\Input');

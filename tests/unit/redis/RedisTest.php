@@ -276,7 +276,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('write')->once();
 
-		$connection->shouldReceive('readLine')->once()->andReturn("foobar");
+		$connection->shouldReceive('readLine')->once()->andReturn('foobar');
 
 		$redis = new Redis($connection);
 

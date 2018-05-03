@@ -17,7 +17,7 @@ use mako\redis\Redis as RedisClient;
 class Redis implements StoreInterface
 {
 	/**
-	 * Redis client
+	 * Redis client.
 	 *
 	 * @var \mako\redis\Redis
 	 */

@@ -33,14 +33,14 @@ class Request
 	protected $scriptName;
 
 	/**
-	 * Get data
+	 * Get data.
 	 *
 	 * @var \mako\http\request\Parameters
 	 */
 	protected $query;
 
 	/**
-	 * Post data
+	 * Post data.
 	 *
 	 * @var \mako\http\request\Parameters
 	 */

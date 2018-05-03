@@ -58,24 +58,24 @@ class Str
 	 */
 	protected static $pluralizationRules =
 	[
-		'/(quiz)$/i'                     => "$1zes",
-		'/([m|l])ouse$/i'                => "$1ice",
-		'/(.+)(e|i)x$/'                  => "$1ices",
-		'/(z|x|ch|ss|sh)$/i'             => "$1es",
-		'/([^aeiouy]|qu)y$/i'            => "$1ies",
-		'/(hive)$/i'                     => "$1s",
-		'/(?:([^f])fe|([lr])f)$/i'       => "$1$2ves",
-		'/(shea|lea|loa|thie)f$/i'       => "$1ves",
-		'/sis$/i'                        => "ses",
-		'/([ti])um$/i'                   => "$1a",
-		'/(tomat|potat|ech|her|vet)o$/i' => "$1oes",
-		'/(bu)s$/i'                      => "$1ses",
-		'/(octop|vir)us$/'               => "$1i",
-		'/(ax|test)is$/i'                => "$1es",
-		'/(us)$/i'                       => "$1es",
-		'/((.*)(?<!hu))man$/i'           => "$1men",
-		'/s$/i'                          => "s",
-		'/$/'                            => "s",
+		'/(quiz)$/i'                     => '$1zes',
+		'/([m|l])ouse$/i'                => '$1ice',
+		'/(.+)(e|i)x$/'                  => '$1ices',
+		'/(z|x|ch|ss|sh)$/i'             => '$1es',
+		'/([^aeiouy]|qu)y$/i'            => '$1ies',
+		'/(hive)$/i'                     => '$1s',
+		'/(?:([^f])fe|([lr])f)$/i'       => '$1$2ves',
+		'/(shea|lea|loa|thie)f$/i'       => '$1ves',
+		'/sis$/i'                        => 'ses',
+		'/([ti])um$/i'                   => '$1a',
+		'/(tomat|potat|ech|her|vet)o$/i' => '$1oes',
+		'/(bu)s$/i'                      => '$1ses',
+		'/(octop|vir)us$/'               => '$1i',
+		'/(ax|test)is$/i'                => '$1es',
+		'/(us)$/i'                       => '$1es',
+		'/((.*)(?<!hu))man$/i'           => '$1men',
+		'/s$/i'                          => 's',
+		'/$/'                            => 's',
 	];
 
 	/**
@@ -168,7 +168,7 @@ class Str
 	 */
 	public static function camel2underscored(string $string): string
 	{
-		return mb_strtolower(preg_replace('/([^A-Z])([A-Z])/u', "$1_$2", $string));
+		return mb_strtolower(preg_replace('/([^A-Z])([A-Z])/u', '$1_$2', $string));
 	}
 
 	/**
@@ -180,7 +180,7 @@ class Str
 	 */
 	public static function underscored2camel(string $string, bool $upper = false): string
 	{
-		return preg_replace_callback(($upper ? '/(?:^|_)(.?)/u' : '/_(.?)/u'), function($matches){ return mb_strtoupper($matches[1]); }, $string);
+		return preg_replace_callback(($upper ? '/(?:^|_)(.?)/u' : '/_(.?)/u'), function($matches) { return mb_strtoupper($matches[1]); }, $string);
 	}
 
 	/**

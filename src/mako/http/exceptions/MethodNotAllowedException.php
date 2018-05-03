@@ -21,7 +21,7 @@ class MethodNotAllowedException extends RequestException
 	 *
 	 * @var array
 	 */
-	 protected $allowedMethods;
+	protected $allowedMethods;
 
 	/**
 	 * Constructor.

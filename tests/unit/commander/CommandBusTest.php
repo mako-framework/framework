@@ -112,7 +112,6 @@ class CommandBusTest extends TestCase
 {
 	/**
 	 *
-	 *
 	 */
 	public function testCommandWithoutSuffix()
 	{

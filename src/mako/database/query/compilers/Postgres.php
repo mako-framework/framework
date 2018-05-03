@@ -49,7 +49,7 @@ class Postgres extends Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		return $column . " = JSONB_SET(" . $column . ", '{" . str_replace("'", "''", implode(',', $segments)) . "}', '" . $param . "')";
+		return $column . ' = JSONB_SET(' . $column . ", '{" . str_replace("'", "''", implode(',', $segments)) . "}', '" . $param . "')";
 	}
 
 	/**

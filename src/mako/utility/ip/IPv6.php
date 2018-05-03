@@ -39,22 +39,22 @@ class IPv6
 			}
 		}
 
-		$binNetmask = str_repeat("f", $netmask / 4);
+		$binNetmask = str_repeat('f', $netmask / 4);
 
 		switch($netmask % 4)
 		{
 			case 1:
-				$binNetmask .= "8";
+				$binNetmask .= '8';
 				break;
 			case 2:
-				$binNetmask .= "c";
+				$binNetmask .= 'c';
 				break;
 			case 3:
-				$binNetmask .= "e";
+				$binNetmask .= 'e';
 				break;
 		}
 
-		$binNetmask = pack("H*", str_pad($binNetmask, 32, '0'));
+		$binNetmask = pack('H*', str_pad($binNetmask, 32, '0'));
 
 		try
 		{

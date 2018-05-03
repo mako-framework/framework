@@ -87,9 +87,9 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	 public function testDelete()
-	 {
-	 	$arr = ['foo' => '123', 'bar' => ['baz' => '456', 'bax' => ['789']]];
+	public function testDelete()
+	{
+		$arr = ['foo' => '123', 'bar' => ['baz' => '456', 'bax' => ['789']]];
 
 		$this->assertTrue(Arr::delete($arr, 'foo'));
 
@@ -100,59 +100,59 @@ class ArrTest extends TestCase
 		$this->assertFalse(Arr::delete($arr, 'nope.nope'));
 
 		$this->assertEquals(['bar' => ['bax' => []]], $arr);
-	 }
+	}
 
-	 /**
-	  *
-	  */
-	 public function testRandom()
-	 {
-	 	$arr = ['foo', 'bar', 'baz'];
+	/**
+	 *
+	 */
+	public function testRandom()
+	{
+		$arr = ['foo', 'bar', 'baz'];
 
-	 	$this->assertTrue(in_array(Arr::random($arr), $arr));
-	 }
+		$this->assertTrue(in_array(Arr::random($arr), $arr));
+	}
 
-	 /**
-	  *
-	  */
-	 public function testIsAssoc()
-	 {
-	 	$this->assertTrue(Arr::isAssoc(['foo' => 0, 'bar' => 1]));
+	/**
+	 *
+	 */
+	public function testIsAssoc()
+	{
+		$this->assertTrue(Arr::isAssoc(['foo' => 0, 'bar' => 1]));
 
-	 	$this->assertFalse(Arr::isAssoc([0 => 'foo', 1 => 'bar']));
+		$this->assertFalse(Arr::isAssoc([0 => 'foo', 1 => 'bar']));
 
-	 	$this->assertFalse(Arr::isAssoc(['foo' => 0, 1 => 'bar']));
-	 }
+		$this->assertFalse(Arr::isAssoc(['foo' => 0, 1 => 'bar']));
+	}
 
-	 /**
-	  *
-	  */
-	 public function testPluck()
-	 {
-	 	$arr = [['foo' => 'bar'], ['foo' => 'baz']];
+	/**
+	 *
+	 */
+	public function testPluck()
+	{
+		$arr = [['foo' => 'bar'], ['foo' => 'baz']];
 
-	 	$this->assertEquals(['bar', 'baz'], Arr::pluck($arr, 'foo'));
+		$this->assertEquals(['bar', 'baz'], Arr::pluck($arr, 'foo'));
 
-	 	//
+		//
 
-	 	$obj1 = new stdClass;
+		$obj1 = new stdClass;
 
-	 	$obj1->foo = 'bar';
+		$obj1->foo = 'bar';
 
-	 	$obj2 = new stdClass;
+		$obj2 = new stdClass;
 
-	 	$obj2->foo = 'baz';
+		$obj2->foo = 'baz';
 
-	 	$arr = [$obj1, $obj2];
+		$arr = [$obj1, $obj2];
 
-	 	$this->assertEquals(['bar', 'baz'], Arr::pluck($arr, 'foo'));
-	 }
+		$this->assertEquals(['bar', 'baz'], Arr::pluck($arr, 'foo'));
+	}
 
-	 /**
-	  *
-	  */
-	 public function testExpandKey()
-	 {
+	/**
+	 *
+	 */
+	public function testExpandKey()
+	{
 		$arr = ['foo' => ['bar' => [1, 2], 'baz' => [1, 2]]];
 
 		$this->assertSame(['foo'], Arr::expandKey($arr, '*'));
@@ -174,5 +174,5 @@ class ArrTest extends TestCase
 		$this->assertSame([], Arr::expandKey($arr, 'bax.*'));
 
 		$this->assertSame([], Arr::expandKey($arr, 'foo.bax.*'));
-	 }
+	}
 }

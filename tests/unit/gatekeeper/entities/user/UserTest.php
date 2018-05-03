@@ -282,20 +282,20 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	 public function testThrottleWithLimitReached()
- 	{
- 		$user = new User(['last_fail_at' => Time::now()->rewind(3500), 'failed_attempts' => 1, 'locked_until' => null]);
+	public function testThrottleWithLimitReached()
+	{
+		$user = new User(['last_fail_at' => Time::now()->rewind(3500), 'failed_attempts' => 1, 'locked_until' => null]);
 
- 		$user->throttle(2, 3600, false);
+		$user->throttle(2, 3600, false);
 
- 		$this->assertSame(2, $user->getFailedAttempts());
+		$this->assertSame(2, $user->getFailedAttempts());
 
- 		$this->assertTrue($user->isLocked());
+		$this->assertTrue($user->isLocked());
 
- 		$this->assertInstanceOf(Time::class, $user->getLastFailAt());
+		$this->assertInstanceOf(Time::class, $user->getLastFailAt());
 
 		$this->assertInstanceOf(Time::class, $user->lockedUntil());
- 	}
+	}
 
 	/**
 	 *

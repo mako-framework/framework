@@ -35,7 +35,7 @@ class Input
 	 *
 	 * @var array
 	 */
-	 protected $arguments;
+	protected $arguments;
 
 	/**
 	 * Constructor.
@@ -105,10 +105,10 @@ class Input
 	 *
 	 * @return array
 	 */
-	 public function getArguments(): array
-	 {
-	 	return $this->arguments;
-	 }
+	public function getArguments(): array
+	{
+		return $this->arguments;
+	}
 
 	/**
 	 * Returns the argument associated with the given name.

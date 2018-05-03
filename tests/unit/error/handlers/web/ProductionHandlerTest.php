@@ -140,7 +140,7 @@ class ProductionHandlerTest extends TestCase
 	{
 		if(function_exists('json_encode') === false)
 		{
-			$this->markTestSkipped("JSON support is missing.");
+			$this->markTestSkipped('JSON support is missing.');
 
 			return;
 		}
@@ -187,7 +187,7 @@ class ProductionHandlerTest extends TestCase
 	{
 		if(function_exists('simplexml_load_string') === false)
 		{
-			$this->markTestSkipped("XML support is missing.");
+			$this->markTestSkipped('XML support is missing.');
 
 			return;
 		}

@@ -205,7 +205,7 @@ class QueryTest extends TestCase
 	 */
 	public function testIncludesWithCriterion()
 	{
-		$closure1 = function(){};
+		$closure1 = function() {};
 
 		$model = $this->getModel();
 
@@ -221,7 +221,7 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function(){};
+		$closure1 = function() {};
 
 		$model = $this->getModel();
 
@@ -237,8 +237,8 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function(){};
-		$closure2 = function(){};
+		$closure1 = function() {};
+		$closure2 = function() {};
 
 		$model = $this->getModel();
 
@@ -328,7 +328,7 @@ class QueryTest extends TestCase
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function(){}]);
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function() {}]);
 
 		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
 
@@ -342,7 +342,7 @@ class QueryTest extends TestCase
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function(){}, 'baz']);
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function() {}, 'baz']);
 
 		$model->shouldReceive('setIncludes')->once()->with([1 => 'baz'])->andReturn($model);
 
@@ -352,8 +352,8 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function(){};
-		$closure2 = function(){};
+		$closure1 = function() {};
+		$closure2 = function() {};
 
 		$model = $this->getModel();
 
@@ -369,8 +369,8 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function(){};
-		$closure2 = function(){};
+		$closure1 = function() {};
+		$closure2 = function() {};
 
 		$model = $this->getModel();
 

@@ -42,7 +42,7 @@ class EventTest extends TestCase
 
 		$this->assertFalse($event->has('foo'));
 
-		$event->register('foo', function(){});
+		$event->register('foo', function() {});
 
 		$this->assertTrue($event->has('foo'));
 	}
@@ -56,7 +56,7 @@ class EventTest extends TestCase
 
 		$this->assertEmpty($event->events());
 
-		$event->register('foo', function(){});
+		$event->register('foo', function() {});
 
 		$this->assertSame(['foo'], $event->events());
 	}
@@ -68,7 +68,7 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function(){});
+		$event->register('foo', function() {});
 
 		$this->assertTrue($event->has('foo'));
 
@@ -84,11 +84,11 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function(){ return 'foo'; });
+		$event->register('foo', function() { return 'foo'; });
 
-		$event->register('foo', function(){ return 'bar'; });
+		$event->register('foo', function() { return 'bar'; });
 
-		$event->register('foo', function(){ return 'baz'; });
+		$event->register('foo', function() { return 'baz'; });
 
 		$this->assertSame(['foo', 'bar', 'baz'], $event->trigger('foo'));
 	}
@@ -100,9 +100,9 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function($foo){ return 'one' . $foo; });
+		$event->register('foo', function($foo) { return 'one' . $foo; });
 
-		$event->register('foo', function($foo){ return 'one' . $foo; });
+		$event->register('foo', function($foo) { return 'one' . $foo; });
 
 		$this->assertSame(['onefoo', 'onefoo'], $event->trigger('foo', ['foo']));
 	}
@@ -114,9 +114,9 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function($foo, $bar){ return 'one' . $foo . $bar; });
+		$event->register('foo', function($foo, $bar) { return 'one' . $foo . $bar; });
 
-		$event->register('foo', function($foo, $bar){ return 'two' . $foo . $bar; });
+		$event->register('foo', function($foo, $bar) { return 'two' . $foo . $bar; });
 
 		$this->assertSame(['onefoobar', 'twofoobar'], $event->trigger('foo', ['bar' => 'bar', 'foo' => 'foo']));
 	}
@@ -128,11 +128,11 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function(){ return 'foo'; });
+		$event->register('foo', function() { return 'foo'; });
 
-		$event->register('foo', function(){ return false; });
+		$event->register('foo', function() { return false; });
 
-		$event->register('foo', function(){ return 'baz'; });
+		$event->register('foo', function() { return 'baz'; });
 
 		$this->assertSame(['foo', false], $event->trigger('foo', [], true));
 	}
@@ -144,11 +144,11 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function(){ return 'foo'; });
+		$event->register('foo', function() { return 'foo'; });
 
 		$this->assertSame(['foo'], $event->trigger('foo'));
 
-		$event->override('foo', function(){ return 'bar'; });
+		$event->override('foo', function() { return 'bar'; });
 
 		$this->assertSame(['bar'], $event->trigger('foo'));
 	}
@@ -160,7 +160,7 @@ class EventTest extends TestCase
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
-		$closure = function(){ return 'foo'; };
+		$closure = function() { return 'foo'; };
 
 		$container->shouldReceive('call')->once()->with($closure, [])->andReturn('foo');
 

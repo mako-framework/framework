@@ -326,7 +326,7 @@ class RouteTest extends TestCase
 	 */
 	public function testClosureNamespace()
 	{
-		$route = (new Route(['GET'], '/', function(){}))->namespace('app\controllers');
+		$route = (new Route(['GET'], '/', function() {}))->namespace('app\controllers');
 
 		$this->assertInstanceOf('Closure', $route->getAction());
 	}

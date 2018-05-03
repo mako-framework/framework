@@ -455,7 +455,7 @@ class Query
 	}
 
 	/**
-	 * Alias of Query::table()
+	 * Alias of Query::table().
 	 *
 	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
 	 * @return \mako\database\query\Query
@@ -466,7 +466,7 @@ class Query
 	}
 
 	/**
-	 * Alias of Query::table()
+	 * Alias of Query::table().
 	 *
 	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
 	 * @return \mako\database\query\Query
@@ -541,7 +541,7 @@ class Query
 	}
 
 	/**
-	 * Adds a raw WHERE clause
+	 * Adds a raw WHERE clause.
 	 *
 	 * @param  string                     $column    Column name or raw SQL
 	 * @param  string|array|null          $operator  Operator or parameters

@@ -20,7 +20,7 @@ use Mockery;
 class ValidatorTest extends TestCase
 {
 	/**
-	 * Attribute spy
+	 * Attribute spy.
 	 *
 	 * @param  \mako\validator\Validator $validator Validator
 	 * @param  string                    $attribute Attribute name

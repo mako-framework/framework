@@ -202,7 +202,6 @@ abstract class ORM implements JsonSerializable
 
 	/**
 	 * Making sure that cloning returns a "fresh copy" of the record.
-	 *
 	 */
 	public function __clone()
 	{

@@ -171,7 +171,7 @@ class Time extends DateTime
 	}
 
 	/**
-	 * Sets the time zone for the Time object
+	 * Sets the time zone for the Time object.
 	 *
 	 * @param  string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\Time

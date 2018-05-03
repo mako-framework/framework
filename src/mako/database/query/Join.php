@@ -60,7 +60,7 @@ class Join
 	}
 
 	/**
-	 * Returns the table name
+	 * Returns the table name.
 	 *
 	 * @return mixed
 	 */

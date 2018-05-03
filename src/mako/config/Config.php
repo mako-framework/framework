@@ -22,7 +22,7 @@ class Config
 	 *
 	 * @var \mako\config\loaders\LoaderInterface
 	 */
-	 protected $loader;
+	protected $loader;
 
 	/**
 	 * Environment name.

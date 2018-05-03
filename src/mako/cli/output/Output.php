@@ -25,7 +25,7 @@ class Output
 	const STANDARD = 1;
 
 	/**
-	 * Error output
+	 * Error output.
 	 *
 	 * @var int
 	 */
@@ -46,7 +46,7 @@ class Output
 	protected $error;
 
 	/**
-	 * Formatter
+	 * Formatter.
 	 *
 	 * @var \mako\cli\output\formatter\FormatterInterface|null
 	 */
@@ -64,7 +64,7 @@ class Output
 	 *
 	 * @var bool
 	 */
-	 protected $muted = false;
+	protected $muted = false;
 
 	/**
 	 * Constructor.

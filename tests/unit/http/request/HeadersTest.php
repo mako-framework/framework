@@ -17,7 +17,6 @@ class HeadersTest extends TestCase
 {
 	/**
 	 *
-	 *
 	 */
 	protected function getAcceptHeaders()
 	{

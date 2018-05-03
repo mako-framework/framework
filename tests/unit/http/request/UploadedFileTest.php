@@ -157,9 +157,6 @@ class UploadedFileTest extends TestCase
 		$file->moveTo(__FILE__);
 	}
 
-	/**
-	 *
-	 */
 	/*public function testMoveToWithoutError()
 	{
 		$file = Mockery::mock('mako\http\UploadedFile[isUploaded|moveUploadedFile]', [__FILE__, 'foo.bar', 123, 'foo/bar', 0]);

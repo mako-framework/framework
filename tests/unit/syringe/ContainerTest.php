@@ -310,7 +310,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->register(['mako\tests\unit\syringe\Bar', 'bar'], function(){});
+		$container->register(['mako\tests\unit\syringe\Bar', 'bar'], function() {});
 
 		$bar = $container->get('bar');
 	}
@@ -473,7 +473,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->call(function($foo){});
+		$container->call(function($foo) {});
 	}
 
 	/**

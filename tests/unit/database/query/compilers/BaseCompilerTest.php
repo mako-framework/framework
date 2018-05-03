@@ -520,7 +520,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->in('foo', new Raw("SELECT id FROM barfoo"));
+		$query->in('foo', new Raw('SELECT id FROM barfoo'));
 
 		$query = $query->getCompiler()->select();
 
@@ -537,7 +537,7 @@ class BaseCompilerTest extends TestCase
 
 		$query->where('id', '>', 1);
 
-		$query->in('foo', new Raw("SELECT id FROM barfoo WHERE id > ?", [2]));
+		$query->in('foo', new Raw('SELECT id FROM barfoo WHERE id > ?', [2]));
 
 		$query->where('id', '<', 3);
 

@@ -15,7 +15,7 @@ namespace mako\database\query;
 class Raw
 {
 	/**
-	 * Raw SQL
+	 * Raw SQL.
 	 *
 	 * @var string
 	 */

@@ -17,7 +17,7 @@ use mako\redis\Redis as RedisClient;
 class Redis extends Store implements IncrementDecrementInterface
 {
 	/**
-	 * Redis client
+	 * Redis client.
 	 *
 	 * @var \mako\redis\Redis
 	 */

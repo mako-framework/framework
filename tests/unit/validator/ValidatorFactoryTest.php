@@ -25,7 +25,7 @@ use Mockery;
 class ValidatorFactoryTest extends TestCase
 {
 	/**
-	 * Attribute spy
+	 * Attribute spy.
 	 *
 	 * @param  \mako\validator\Validator $validator Validator factory
 	 * @param  string                    $attribute Attribute name
