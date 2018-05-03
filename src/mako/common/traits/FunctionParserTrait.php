@@ -55,7 +55,7 @@ trait FunctionParserTrait
 			$namedParameters = preg_match('/^"[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*"\s*:/', $function[1]) === 1;
 		}
 
-		$parameters = json_decode(($namedParameters ? '{' . $function[1] .'}' : '[' . $function[1] . ']'), true);
+		$parameters = json_decode(($namedParameters ? '{' . $function[1] . '}' : '[' . $function[1] . ']'), true);
 
 		if($parameters === null && json_last_error() !== JSON_ERROR_NONE)
 		{

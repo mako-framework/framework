@@ -56,6 +56,6 @@ class Clear extends Command
 
 		$cache->instance($configuration)->clear();
 
-		$this->write('Cleared the [ <yellow>'. ($configuration ?? 'default') . '</yellow> ] cache.');
+		$this->write('Cleared the [ <yellow>' . ($configuration ?? 'default') . '</yellow> ] cache.');
 	}
 }

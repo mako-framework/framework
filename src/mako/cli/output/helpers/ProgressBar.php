@@ -144,7 +144,7 @@ class ProgressBar
 
 		$progressBar .= str_repeat($this->emptyTemplate, ($this->width - $fill));
 
-		$progressBar .= str_pad(' '. ((int) ($percent * 100)) . '% ', 6, ' ', STR_PAD_LEFT);
+		$progressBar .= str_pad(' ' . ((int) ($percent * 100)) . '% ', 6, ' ', STR_PAD_LEFT);
 
 		return $progressBar;
 	}

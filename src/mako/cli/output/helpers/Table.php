@@ -147,7 +147,7 @@ class Table
 			$cells[] = $value . str_repeat(' ', $columnWidths[$key] - $this->stringWidthWithoutFormatting($value));
 		}
 
-	 	return '| ' . implode(' | ', $cells) .  ' |' . PHP_EOL;
+	 	return '| ' . implode(' | ', $cells) . ' |' . PHP_EOL;
 	}
 
 	/**

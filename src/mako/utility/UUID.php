@@ -84,7 +84,7 @@ class UUID
 
 		for($i = 0; $i < $nhexLength; $i+=2)
 		{
-			$nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));
+			$nstr .= chr(hexdec($nhex[$i] . $nhex[$i+1]));
 		}
 
 		return $nstr;

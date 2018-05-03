@@ -39,6 +39,6 @@ class GenerateKey extends Command
 	 */
 	public function execute()
 	{
-		$this->write('Your encryption key: "<yellow>'. Key::generateEncoded() . '</yellow>".');
+		$this->write('Your encryption key: "<yellow>' . Key::generateEncoded() . '</yellow>".');
 	}
 }
