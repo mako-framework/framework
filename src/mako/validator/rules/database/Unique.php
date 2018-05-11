@@ -58,8 +58,14 @@ class Unique extends Rule implements RuleInterface, WithParametersInterface
 
 		$count = $this->database->connection($this->getParameter('connection', true))
 		->table($this->getParameter('table'))
-		->where($this->getParameter('column'), '=', $value)
-		->count();
+		->where($this->getParameter('column'), '=', $value);
+
+		if($allowed !== null)
+		{
+			$count->where($this->getParameter('column'), '!=', $allowed);
+		}
+
+		$count = $count->count();
 
 		return $count === 0;
 	}
