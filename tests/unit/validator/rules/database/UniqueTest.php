@@ -58,7 +58,35 @@ class UniqueTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValueAndNoQuery()
+	public function testWithValidValueAndAllowedValue()
+	{
+		$builder = Mockery::mock(Query::class);
+
+		$builder->shouldReceive('where')->once()->with('email', '=', 'foo@example.org')->andReturn($builder);
+
+		$builder->shouldReceive('where')->once()->with('email', '!=', 'bar@example.org')->andReturn($builder);
+
+		$builder->shouldReceive('count')->once()->andReturn(0);
+
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('table')->once()->with('users')->andReturn($builder);
+
+		$database = Mockery::mock(ConnectionManager::class);
+
+		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
+
+		$rule = new Unique($database);
+
+		$rule->setParameters(['users', 'email', 'bar@example.org', 'foobar']);
+
+		$this->assertTrue($rule->validate('foo@example.org', []));
+	}
+
+	/**
+	 *
+	 */
+	public function testWithSameValueAsTheAllowedValue()
 	{
 		$database = Mockery::mock(ConnectionManager::class);
 
