@@ -1,3 +1,13 @@
+### 5.5.5 <small> (2018-05-11)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* Fixed issue where the `unique` rule would fail when used with case-insensitive databases.
+
+--------------------------------------------------------
+
 ### 5.5.4 <small> (2018-04-07)</small>
 
 Update using ```composer update```.
