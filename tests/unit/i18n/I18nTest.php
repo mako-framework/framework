@@ -222,7 +222,7 @@ class I18nTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 * @expectedException \mako\i18n\I18nException
 	 * @expectedExceptionMessage The [ en_US ] language pack does not include any inflection rules.
 	 */
 	public function testPluralizeWithoutPluralizationRules()
@@ -313,5 +313,29 @@ class I18nTest extends TestCase
 		$i18n = new I18n($loader, 'en_US', $cache);
 
 		$this->assertEquals('foostring', $i18n->get('foo.foo'));
+	}
+
+	/**
+	 *
+	 */
+	public function testHasWithoutValidKey()
+	{
+		$loader = $this->getLoader();
+
+		$i18n = new I18n($loader, 'en_US');
+
+		$this->assertFalse($i18n->has('foobar'));
+	}
+
+	/**
+	 *
+	 */
+	public function testGetWithoutValidKey()
+	{
+		$loader = $this->getLoader();
+
+		$i18n = new I18n($loader, 'en_US');
+
+		$this->assertSame('foobar', $i18n->get('foobar'));
 	}
 }
