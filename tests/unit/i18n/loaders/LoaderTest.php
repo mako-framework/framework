@@ -55,8 +55,8 @@ class LoaderTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage The [ /app/i18n/en_US/strings/foobar.php ] language file does not exist in the [ en_US ] language pack.
+	 * @expectedException \mako\i18n\loaders\LoaderException
+	 * @expectedExceptionMessage The [ en_US ] language pack does not have a [ /app/i18n/en_US/strings/foobar.php ] file.
 	 */
 	public function testBasicNonExistingStringLoading()
 	{

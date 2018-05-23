@@ -10,7 +10,6 @@ namespace mako\i18n;
 use mako\cache\stores\StoreInterface;
 use mako\i18n\loaders\LoaderInterface;
 use mako\utility\Arr;
-use RuntimeException;
 
 /**
  * Internationalization class.
@@ -161,7 +160,7 @@ class I18n
 
 		if(empty($this->inflections[$language]))
 		{
-			throw new RuntimeException(vsprintf('The [ %s ] language pack does not include any inflection rules.', [$language]));
+			throw new I18nException(vsprintf('The [ %s ] language pack does not include any inflection rules.', [$language]));
 		}
 
 		$pluralizer = $this->inflections[$language]['pluralize'];
@@ -239,7 +238,7 @@ class I18n
 	 */
 	protected function parseKey(string $key): array
 	{
-		return explode('.', $key, 2);
+		return (strpos($key, '.') === false) ? [$key, null] : explode('.', $key, 2);
 	}
 
 	/**
@@ -254,6 +253,11 @@ class I18n
 		$language = $language ?? $this->language;
 
 		list($file, $string) = $this->parseKey($key);
+
+		if($string === null)
+		{
+			return $key;
+		}
 
 		if(!isset($this->strings[$language][$file]))
 		{
@@ -275,6 +279,11 @@ class I18n
 		$language = $language ?? $this->language;
 
 		list($file, $string) = $this->parseKey($key);
+
+		if($string === null)
+		{
+			return false;
+		}
 
 		if(!isset($this->strings[$language][$file]))
 		{

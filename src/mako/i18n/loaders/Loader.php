@@ -9,7 +9,6 @@ namespace mako\i18n\loaders;
 
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
-use RuntimeException;
 
 /**
  * Language loader.
@@ -72,7 +71,7 @@ class Loader implements LoaderInterface
 
 		if($strings === false)
 		{
-			throw new RuntimeException(vsprintf('The [ %s ] language file does not exist in the [ %s ] language pack.', [$file, $language]));
+			throw new LoaderException(vsprintf('The [ %s ] language pack does not have a [ %s ] file.', [$language, $file]));
 		}
 
 		return $strings;
