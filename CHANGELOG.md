@@ -1,3 +1,13 @@
+### 5.5.6 <small> (2018-05-23)</small>
+
+Update using ```composer update```.
+
+#### Improvements
+
+* Improved handling of invalid i18n keys.
+
+--------------------------------------------------------
+
 ### 5.5.5 <small> (2018-05-11)</small>
 
 Update using ```composer update```.
