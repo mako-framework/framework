@@ -79,7 +79,7 @@ class Str
 	];
 
 	/**
-	 * Irregular noun.
+	 * Irregular nouns.
 	 *
 	 * @var array
 	 */
@@ -92,8 +92,10 @@ class Str
 		'equipment'   => 'equipment',
 		'fish'        => 'fish',
 		'foot'        => 'feet',
-		'goose'       => 'geese',
+		'furniture'   => 'furniture',
 		'gold'        => 'gold',
+		'goose'       => 'geese',
+		'hardware'    => 'hardware',
 		'information' => 'information',
 		'money'       => 'money',
 		'ox'          => 'oxen',
@@ -101,6 +103,7 @@ class Str
 		'series'      => 'series',
 		'sex'         => 'sexes',
 		'sheep'       => 'sheep',
+		'software'    => 'software',
 		'species'     => 'species',
 		'tooth'       => 'teeth',
 	];
