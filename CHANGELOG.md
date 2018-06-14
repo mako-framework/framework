@@ -1,3 +1,14 @@
+### 5.5.7 <small> (2018-06-14)</small>
+
+Update using ```composer update```.
+
+#### Improvements
+
+* The `Str::slug()` method no longer strips dashes from the input string.
+* Added `hardware`, `software` and `furniture` to the list of irregular words used by `Str::pluralize()`.
+
+--------------------------------------------------------
+
 ### 5.5.6 <small> (2018-05-23)</small>
 
 Update using ```composer update```.
