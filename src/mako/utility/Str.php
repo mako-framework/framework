@@ -227,7 +227,7 @@ class Str
 	 */
 	public static function slug(string $string): string
 	{
-		return rawurlencode(mb_strtolower(preg_replace('/\s{1,}/', '-', trim(preg_replace('/[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]/', '', $string)))));
+		return rawurlencode(mb_strtolower(preg_replace('/\s{1,}/', '-', trim(preg_replace('/[\x0-\x1F\x21-\x2C\x2E-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]/', '', $string)))));
 	}
 
 	/**
