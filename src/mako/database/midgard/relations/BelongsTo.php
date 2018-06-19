@@ -75,7 +75,7 @@ class BelongsTo extends Relation
 	 * @param \Closure|null $criteria Relation criteria
 	 * @param array         $includes Includes passed from the parent record
 	 */
-	public function eagerLoad(array &$results, $relation, $criteria, array $includes)
+	public function eagerLoad(array &$results, string $relation, $criteria, array $includes)
 	{
 		$this->model->setIncludes($includes);
 

@@ -54,7 +54,7 @@ abstract class Relation extends Query
 	 * @param \mako\database\midgard\ORM            $related    Related model
 	 * @param string|null                           $foreignKey Foreign key name
 	 */
-	public function __construct(Connection $connection, ORM $parent, ORM $related, $foreignKey = null)
+	public function __construct(Connection $connection, ORM $parent, ORM $related, string $foreignKey = null)
 	{
 		parent::__construct($connection, $related);
 
@@ -160,7 +160,7 @@ abstract class Relation extends Query
 	/**
 	 * Returns a single record from the database.
 	 *
-	 * @return \mako\database\midgard\ORM
+	 * @return \mako\database\midgard\ORM|false
 	 */
 	public function first()
 	{

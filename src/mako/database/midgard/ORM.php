@@ -14,6 +14,7 @@ use mako\chrono\Time;
 use mako\database\ConnectionManager;
 use mako\database\connections\Connection;
 use mako\database\midgard\relations\BelongsTo;
+use mako\database\midgard\relations\BelongsToPolymorphic;
 use mako\database\midgard\relations\HasMany;
 use mako\database\midgard\relations\HasManyPolymorphic;
 use mako\database\midgard\relations\HasOne;
@@ -832,6 +833,20 @@ abstract class ORM implements JsonSerializable
 		$related = new $model;
 
 		return new BelongsTo($related->getConnection(), $this, $related, $foreignKey);
+	}
+
+	/**
+	 * Returns a BelongsToPolymorphic relation.
+	 *
+	 * @param  string                                                $model           Related model
+	 * @param  string                                                $polymorphicType Polymorphic type
+	 * @return \mako\database\midgard\relations\BelongsToPolymorphic
+	 */
+	protected function belongsToPolymorphic(string $model, string $polymorphicType): BelongsToPolymorphic
+	{
+		$related = new $model;
+
+		return new BelongsToPolymorphic($related->getConnection(), $this, $related, $polymorphicType);
 	}
 
 	/**

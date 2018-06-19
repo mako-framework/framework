@@ -32,7 +32,7 @@ trait HasOneOrManyPolymorphicTrait
 	 * @param \mako\database\midgard\ORM            $related         Related model
 	 * @param string                                $polymorphicType Polymorphic type
 	 */
-	public function __construct(Connection $connection, ORM $parent, ORM $related, $polymorphicType)
+	public function __construct(Connection $connection, ORM $parent, ORM $related, string $polymorphicType)
 	{
 		$this->polymorphicType = $polymorphicType . '_type';
 

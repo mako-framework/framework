@@ -378,7 +378,7 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a single record from the database.
 	 *
-	 * @return \mako\database\midgard\ORM
+	 * @return \mako\database\midgard\ORM|false
 	 */
 	public function first()
 	{
