@@ -1,3 +1,17 @@
+### 5.6.0 <small> (2018-??-??)</small>
+
+Update using ```composer update```.
+
+#### New
+
+* Added `BelongsToPolymorphic` relation.
+
+#### Changes
+
+* Renamed `ORM::exists()` to `ORM::isPersisted()` to avoid collision with `Query::exists()`.
+
+--------------------------------------------------------
+
 ### 5.5.7 <small> (2018-06-14)</small>
 
 Update using ```composer update```.

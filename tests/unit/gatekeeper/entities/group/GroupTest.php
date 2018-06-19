@@ -62,7 +62,7 @@ class GroupTest extends TestCase
 	{
 		$user = Mockery::mock(User::class);
 
-		$user->shouldReceive('exists')->once()->andReturn(false);
+		$user->shouldReceive('isPersisted')->once()->andReturn(false);
 
 		$group = new Group([], false, true, true);
 
@@ -90,7 +90,7 @@ class GroupTest extends TestCase
 	{
 		$user = Mockery::mock(User::class);
 
-		$user->shouldReceive('exists')->once()->andReturn(false);
+		$user->shouldReceive('isPersisted')->once()->andReturn(false);
 
 		$group = new Group([], false, true, true);
 
@@ -118,7 +118,7 @@ class GroupTest extends TestCase
 	{
 		$user = Mockery::mock(User::class);
 
-		$user->shouldReceive('exists')->once()->andReturn(false);
+		$user->shouldReceive('isPersisted')->once()->andReturn(false);
 
 		$group = new Group([], false, true, true);
 

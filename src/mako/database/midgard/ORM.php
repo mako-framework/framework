@@ -246,7 +246,7 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @return bool
 	 */
-	public function exists(): bool
+	public function isPersisted(): bool
 	{
 		return $this->exists;
 	}

@@ -128,7 +128,7 @@ class Query extends QueryBuilder
 	 */
 	public function increment($column, $increment = 1)
 	{
-		if($this->model->exists())
+		if($this->model->isPersisted())
 		{
 			$this->model->{$column} += $increment;
 
@@ -137,7 +137,7 @@ class Query extends QueryBuilder
 
 		$updated = parent::increment($column, $increment);
 
-		if($this->model->exists())
+		if($this->model->isPersisted())
 		{
 			$this->model->synchronize();
 		}
@@ -150,7 +150,7 @@ class Query extends QueryBuilder
 	 */
 	public function decrement($column, $decrement = 1)
 	{
-		if($this->model->exists())
+		if($this->model->isPersisted())
 		{
 			$this->model->{$column} -= $decrement;
 
@@ -159,7 +159,7 @@ class Query extends QueryBuilder
 
 		$updated = parent::decrement($column, $decrement);
 
-		if($this->model->exists())
+		if($this->model->isPersisted())
 		{
 			$this->model->synchronize();
 		}
