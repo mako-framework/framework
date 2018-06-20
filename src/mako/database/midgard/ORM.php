@@ -119,9 +119,17 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Has the record been loaded from/saved to a database?
 	 *
+	 * @deprecated
 	 * @var bool
 	 */
 	protected $exists = false;
+
+	/**
+	 * Has the record been loaded from/saved to a database?
+	 *
+	 * @var bool
+	 */
+	protected $isPersisted = false;
 
 	/**
 	 * Column values.
@@ -182,20 +190,20 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Constructor.
 	 *
-	 * @param array $columns   Column values
-	 * @param bool  $raw       Set raw values?
-	 * @param bool  $whitelist Remove columns that are not in the whitelist?
-	 * @param bool  $exists    Does the record come from a database?
+	 * @param array $columns     Column values
+	 * @param bool  $raw         Set raw values?
+	 * @param bool  $whitelist   Remove columns that are not in the whitelist?
+	 * @param bool  $isPersisted Does the record come from a database?
 	 */
-	public function __construct(array $columns = [], bool $raw = false, bool $whitelist = true, bool $exists = false)
+	public function __construct(array $columns = [], bool $raw = false, bool $whitelist = true, bool $isPersisted = false)
 	{
 		$this->registerTraits();
 
 		$this->assign($columns, $raw, $whitelist);
 
-		if($exists)
+		if($isPersisted)
 		{
-			$this->exists = true;
+			$this->isPersisted = $this->exists = true;
 
 			$this->synchronize();
 		}
@@ -206,11 +214,11 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function __clone()
 	{
-		if($this->exists)
+		if($this->isPersisted)
 		{
-			$this->exists   = false;
-			$this->original = [];
-			$this->related  = [];
+			$this->isPersisted = $this->exists = false;
+			$this->original    = [];
+			$this->related     = [];
 
 			unset($this->columns[$this->primaryKey]);
 		}
@@ -244,11 +252,22 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Has the record been loaded from/saved to a database?
 	 *
+	 * @deprecated
+	 * @return bool
+	 */
+	public function exists(): bool
+	{
+		return $this->isPersisted;
+	}
+
+	/**
+	 * Has the record been loaded from/saved to a database?
+	 *
 	 * @return bool
 	 */
 	public function isPersisted(): bool
 	{
-		return $this->exists;
+		return $this->isPersisted;
 	}
 
 	/**
@@ -655,7 +674,7 @@ abstract class ORM implements JsonSerializable
 
 		// Remove the primary key if the model has already beed loaded
 
-		if($this->exists && isset($columns[$this->primaryKey]))
+		if($this->isPersisted && isset($columns[$this->primaryKey]))
 		{
 			unset($columns[$this->primaryKey]);
 		}
@@ -938,13 +957,13 @@ abstract class ORM implements JsonSerializable
 	{
 		$success = true;
 
-		if(!$this->exists)
+		if(!$this->isPersisted)
 		{
 			// This is a new record so we need to insert it into the database.
 
 			$this->insertRecord($this->builder());
 
-			$this->exists = true;
+			$this->isPersisted = $this->exists = true;
 		}
 		elseif($this->isModified())
 		{
@@ -981,15 +1000,15 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function delete(): bool
 	{
-		if($this->exists)
+		if($this->isPersisted)
 		{
 			$deleted = $this->deleteRecord($this->builder());
 
 			if($deleted)
 			{
-				$this->exists   = false;
-				$this->original = [];
-				$this->related  = [];
+				$this->isPersisted = $this->exists = false;
+				$this->original    = [];
+				$this->related     = [];
 			}
 
 			return $deleted;

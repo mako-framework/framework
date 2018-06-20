@@ -298,7 +298,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	 */
 	public function isMemberOf($group): bool
 	{
-		if(!$this->exists)
+		if(!$this->isPersisted)
 		{
 			throw new LogicException('You can only check memberships for users that exist in the database.');
 		}

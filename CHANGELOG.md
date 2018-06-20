@@ -5,10 +5,13 @@ Update using ```composer update```.
 #### New
 
 * Added `BelongsToPolymorphic` relation.
+* Added `ORM::$isPersisted` property.
+* Added `ORM::isPersisted()` method.
 
-#### Changes
+#### Deprecations
 
-* Renamed `ORM::exists()` to `ORM::isPersisted()` to avoid collision with `Query::exists()`.
+* Deprecated the `ORM::$exists` property.
+* Deprecated the `ORM::exists()` method.
 
 --------------------------------------------------------
 

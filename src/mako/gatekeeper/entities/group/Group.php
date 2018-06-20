@@ -80,7 +80,7 @@ class Group extends ORM implements GroupEntityInterface
 	 */
 	public function addUser(User $user): bool
 	{
-		if(!$this->exists)
+		if(!$this->isPersisted)
 		{
 			throw new LogicException('You can only add a user to a group that exist in the database.');
 		}
@@ -101,7 +101,7 @@ class Group extends ORM implements GroupEntityInterface
 	 */
 	public function removeUser(User $user): bool
 	{
-		if(!$this->exists)
+		if(!$this->isPersisted)
 		{
 			throw new LogicException('You can only remove a user from a group that exist in the database.');
 		}
@@ -122,7 +122,7 @@ class Group extends ORM implements GroupEntityInterface
 	 */
 	public function isMember(User $user)
 	{
-		if(!$this->exists)
+		if(!$this->isPersisted)
 		{
 			throw new LogicException('You can only check if a user is a member of a group that exist in the database.');
 		}

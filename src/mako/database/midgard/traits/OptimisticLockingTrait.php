@@ -55,7 +55,7 @@ trait OptimisticLockingTrait
 	 */
 	public function __clone()
 	{
-		if($this->exists)
+		if($this->isPersisted)
 		{
 			unset($this->columns[$this->getLockingColumn()]);
 
@@ -80,7 +80,7 @@ trait OptimisticLockingTrait
 	 */
 	public function reload(): bool
 	{
-		if($this->exists)
+		if($this->isPersisted)
 		{
 			$model = static::get($this->getPrimaryKeyValue());
 

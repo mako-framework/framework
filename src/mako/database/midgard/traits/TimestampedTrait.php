@@ -46,7 +46,7 @@ trait TimestampedTrait
 			[
 				function($inserted)
 				{
-					if($this->shouldTouchOnInsert() && $inserted && $this->exists)
+					if($this->shouldTouchOnInsert() && $inserted && $this->isPersisted)
 					{
 						$this->touchRelated();
 					}
@@ -69,7 +69,7 @@ trait TimestampedTrait
 			[
 				function($updated)
 				{
-					if($this->shouldTouchOnUpdate() && $updated > 0 && $this->exists)
+					if($this->shouldTouchOnUpdate() && $updated > 0 && $this->isPersisted)
 					{
 						$this->touchRelated();
 					}
@@ -79,7 +79,7 @@ trait TimestampedTrait
 			[
 				function($deleted)
 				{
-					if($this->shouldTouchOnDelete() && $deleted > 0 && $this->exists)
+					if($this->shouldTouchOnDelete() && $deleted > 0 && $this->isPersisted)
 					{
 						$this->touchRelated();
 					}
@@ -165,7 +165,7 @@ trait TimestampedTrait
 	 */
 	public function touch(): bool
 	{
-		if($this->exists)
+		if($this->isPersisted)
 		{
 			$this->columns[$this->getUpdatedAtColumn()] = null;
 
