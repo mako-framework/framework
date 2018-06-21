@@ -7,6 +7,7 @@ Update using ```composer update```.
 * Added `BelongsToPolymorphic` relation.
 * Added `ORM::$isPersisted` property.
 * Added `ORM::isPersisted()` method.
+* It is now possible to use aggregate methods (`count`, `min`, `max`, etc...) in a subquery context.
 
 #### Deprecations
 

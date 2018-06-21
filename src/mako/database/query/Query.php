@@ -132,6 +132,13 @@ class Query
 	protected $prefix = null;
 
 	/**
+	 * Is the query in subquery context?
+	 *
+	 * @var bool
+	 */
+	protected $inSubqueryContext = false;
+
+	/**
 	 * Pagination factory.
 	 *
 	 * @var \mako\pagination\PaginationFactoryInterface
@@ -168,6 +175,18 @@ class Query
 	public function newInstance()
 	{
 		return new self($this->connection);
+	}
+
+	/**
+	 * Sets the query to subquery context.
+	 *
+	 * @return \mako\database\query\Query
+	 */
+	public function inSubqueryContext()
+	{
+		$this->inSubqueryContext = true;
+
+		return $this;
 	}
 
 	/**
@@ -1350,7 +1369,8 @@ class Query
 	}
 
 	/**
-	 * Executes an aggregate query and returns the result.
+	 * Sets the selected column of the query to the chosen aggreate.
+	 * Executes the query and returns the result if not in subquery context.
 	 *
 	 * @param  string       $function Aggregate function
 	 * @param  string|array $column   Column name or array of column names
@@ -1360,9 +1380,14 @@ class Query
 	{
 		$aggregate = new Raw(sprintf($function, $this->compiler->columns(is_array($column) ? $column : [$column])));
 
-		$query = $this->select([$aggregate])->compiler->select();
+		$this->select([$aggregate]);
 
-		return $this->connection->column($query['sql'], $query['params']);
+		if($this->inSubqueryContext === false)
+		{
+			$query = $this->compiler->select();
+
+			return $this->connection->column($query['sql'], $query['params']);
+		}
 	}
 
 	/**

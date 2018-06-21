@@ -8,6 +8,7 @@
 namespace mako\tests\integration\database\query\compilers;
 
 use mako\database\query\Query;
+use mako\database\query\Subquery;
 use mako\pagination\PaginationFactoryInterface;
 use mako\pagination\PaginationInterface;
 use mako\tests\integration\BuilderTestCase;
@@ -254,5 +255,24 @@ class BaseCompilerTest extends BuilderTestCase
 		$this->assertEquals('SELECT * FROM "users" WHERE "id" != \'foobar\' LIMIT 1000', $this->connectionManager->connection()->getLog()[0]['query']);
 
 		$this->assertEquals('SELECT * FROM "users" WHERE "id" != \'foobar\' LIMIT 1000 OFFSET 1000', $this->connectionManager->connection()->getLog()[1]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSubQueryWithAggregate()
+	{
+		$query = new Query($this->connectionManager->connection());
+
+		$result = $query->table('users')->select([new Subquery(function($query)
+		{
+			$query->table('users')->count();
+		}, 'count')])->first();
+
+		$this->assertInstanceOf('mako\database\query\Result', $result);
+
+		$this->assertSame(1, count($this->connectionManager->connection()->getLog()));
+
+		$this->assertEquals('SELECT (SELECT COUNT(*) FROM "users") AS "count" FROM "users" LIMIT 1', $this->connectionManager->connection()->getLog()[0]['query']);
 	}
 }

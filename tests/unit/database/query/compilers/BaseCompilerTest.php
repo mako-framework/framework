@@ -108,6 +108,22 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBasicSelectWithSubqueryWithAggregate()
+	{
+		$query = $this->getBuilder(new Subquery(function($query)
+		{
+			$query->table('foobar')->min('foobar');
+		}));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM (SELECT MIN("foobar") FROM "foobar")', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testBasicSelectWithSubqueryWithTableAlias()
 	{
 		$query = $this->getBuilder(new Subquery(function($query)
