@@ -100,7 +100,7 @@ class Request
 	 *
 	 * @var array
 	 */
-	protected $trustedProxies;
+	protected $trustedProxies = [];
 
 	/**
 	 * Ip address of the client that made the request.
@@ -108,6 +108,13 @@ class Request
 	 * @var string
 	 */
 	protected $ip;
+
+	/**
+	 * Base path of the request.
+	 *
+	 * @var string
+	 */
+	protected $basePath;
 
 	/**
 	 * Base URL of the request.
@@ -504,7 +511,7 @@ class Request
 	 */
 	public function ip(): string
 	{
-		if(empty($this->ip))
+		if($this->ip === null)
 		{
 			$ip = $this->server->get('REMOTE_ADDR');
 
@@ -580,13 +587,30 @@ class Request
 	}
 
 	/**
+	 * Returns the base path of the request.
+	 *
+	 * @return string
+	 */
+	public function basePath(): string
+	{
+		if($this->basePath === null)
+		{
+			$path = $this->server->get('SCRIPT_NAME');
+
+			$this->basePath = rtrim(str_replace(basename($path), '', $path), '/');
+		}
+
+		return $this->basePath;
+	}
+
+	/**
 	 * Returns the base url of the request.
 	 *
 	 * @return string
 	 */
 	public function baseURL(): string
 	{
-		if(empty($this->baseURL))
+		if($this->baseURL === null)
 		{
 			// Get the protocol
 
@@ -606,15 +630,9 @@ class Request
 				}
 			}
 
-			// Get the base path
+			// Put them all together along with the base path
 
-			$path = $this->server->get('SCRIPT_NAME');
-
-			$path = str_replace(basename($path), '', $path);
-
-			// Put them all together
-
-			$this->baseURL = rtrim($protocol . $host . $path, '/');
+			$this->baseURL = $protocol . $host . $this->basePath();
 		}
 
 		return $this->baseURL;

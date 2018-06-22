@@ -262,6 +262,28 @@ class RequestTest extends TestCase
 	}
 
 	/**
+	 * [testBasePath description].
+	 */
+	public function testBasePath()
+	{
+		$server = $this->getServerData();
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertEquals('', $request->basePath());
+
+		//
+
+		$server = $this->getServerData();
+
+		$server['SCRIPT_NAME'] = '/foo/bar/index.php';
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertEquals('/foo/bar', $request->basePath());
+	}
+
+	/**
 	 *
 	 */
 	public function testBaseURL()
@@ -319,6 +341,16 @@ class RequestTest extends TestCase
 		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('https://example.local:8080', $request->baseURL());
+
+		//
+
+		$server = $this->getServerData();
+
+		$server['SCRIPT_NAME'] = '/foo/bar/index.php';
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertEquals('http://example.local/foo/bar', $request->baseURL());
 	}
 
 	/**

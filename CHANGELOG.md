@@ -4,6 +4,7 @@ Update using ```composer update```.
 
 #### New
 
+* Added `Request::basePath()` method.
 * Added `BelongsToPolymorphic` relation.
 * Added `ORM::$isPersisted` property.
 * Added `ORM::isPersisted()` method.
