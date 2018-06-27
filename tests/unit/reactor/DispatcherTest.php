@@ -38,7 +38,7 @@ class DispatcherTest extends TestCase
 
 		$dispatcher = new Dispatcher($container);
 
-		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar']);
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar'], []);
 
 		$this->assertSame(0, $exitCode);
 	}
@@ -64,7 +64,7 @@ class DispatcherTest extends TestCase
 
 		$dispatcher = new Dispatcher($container);
 
-		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo_snake' => 1, 'bar_snake' => 2]);
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo_snake' => 1, 'bar_snake' => 2], []);
 
 		$this->assertSame(0, $exitCode);
 	}
@@ -90,7 +90,7 @@ class DispatcherTest extends TestCase
 
 		$dispatcher = new Dispatcher($container);
 
-		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar']);
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar'], []);
 
 		$this->assertSame(123, $exitCode);
 	}
@@ -116,7 +116,7 @@ class DispatcherTest extends TestCase
 
 		$dispatcher = new Dispatcher($container);
 
-		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar']);
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo', 'bar'], []);
 
 		$this->assertSame(0, $exitCode);
 	}
@@ -141,7 +141,7 @@ class DispatcherTest extends TestCase
 
 		$dispatcher = new Dispatcher($container);
 
-		$dispatcher->dispatch('foo\bar\Command', ['arg3' => null]);
+		$dispatcher->dispatch('foo\bar\Command', ['arg3' => null], []);
 	}
 
 	/**
@@ -166,7 +166,7 @@ class DispatcherTest extends TestCase
 
 		try
 		{
-			$dispatcher->dispatch('foo\bar\Command', ['bar' => null]);
+			$dispatcher->dispatch('foo\bar\Command', ['bar' => null], []);
 		}
 		catch(InvalidOptionException $e)
 		{
@@ -198,7 +198,7 @@ class DispatcherTest extends TestCase
 
 		try
 		{
-			$dispatcher->dispatch('foo\bar\Command', ['boo' => null]);
+			$dispatcher->dispatch('foo\bar\Command', ['boo' => null], []);
 		}
 		catch(InvalidOptionException $e)
 		{
@@ -228,7 +228,7 @@ class DispatcherTest extends TestCase
 
 		$dispatcher = new Dispatcher($container);
 
-		$dispatcher->dispatch('foo\bar\Command', []);
+		$dispatcher->dispatch('foo\bar\Command', [], []);
 	}
 
 	/**
@@ -251,6 +251,6 @@ class DispatcherTest extends TestCase
 
 		$dispatcher = new Dispatcher($container);
 
-		$dispatcher->dispatch('foo\bar\Command', []);
+		$dispatcher->dispatch('foo\bar\Command', [], []);
 	}
 }

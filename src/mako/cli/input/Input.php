@@ -128,14 +128,4 @@ class Input
 
 		return isset($this->arguments[$name]) ? $this->arguments[$name] : $default;
 	}
-
-	/**
-	 * Removes the argument associated with the given name.
-	 *
-	 * @param int|string $name Parameter number or name
-	 */
-	public function removeArgument($name)
-	{
-		unset($this->arguments[$name]);
-	}
 }

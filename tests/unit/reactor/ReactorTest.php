@@ -262,7 +262,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andThrow(new InvalidArgumentException('foo', 'bar'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidArgumentException('foo', 'bar'));
 
 		//
 
@@ -302,7 +302,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andThrow(new InvalidOptionException('foo', 'bar'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidOptionException('foo', 'bar'));
 
 		//
 
@@ -342,7 +342,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andThrow(new InvalidOptionException('foo', 'bar', 'baz'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidOptionException('foo', 'bar', 'baz'));
 
 		//
 
@@ -382,7 +382,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andThrow(new MissingArgumentException('foo', 'bar'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new MissingArgumentException('foo', 'bar'));
 
 		//
 
@@ -422,7 +422,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andThrow(new MissingOptionException('foo', 'bar'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new MissingOptionException('foo', 'bar'));
 
 		//
 
@@ -460,7 +460,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo']);
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], []);
 
 		//
 
@@ -489,9 +489,7 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with('option')->andReturn(true);
 
-		$input->shouldReceive('removeArgument')->once()->with('option');
-
-		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
+		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo', 'option']);
 
 		//
 
@@ -507,7 +505,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'])->andReturn(123);
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo', 'option'], ['option'])->andReturn(123);
 
 		//
 

@@ -148,8 +148,6 @@ class Reactor
 					$handler = $option['handler'];
 
 					$this->container->call($handler, ['option' => $input]);
-
-					$this->input->removeArgument($name);
 				}
 			}
 		}
@@ -382,6 +380,23 @@ class Reactor
 	}
 
 	/**
+	 * Returns the names of the global options.
+	 *
+	 * @return array
+	 */
+	protected function getGlobalOptionNames(): array
+	{
+		$names = [];
+
+		foreach($this->options as $group)
+		{
+			$names = array_merge($names, array_keys($group));
+		}
+
+		return $names;
+	}
+
+	/**
 	 * Dispatches a command.
 	 *
 	 * @param  string $command Command
@@ -391,7 +406,7 @@ class Reactor
 	{
 		try
 		{
-			$exitCode = $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
+			$exitCode = $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments(), $this->getGlobalOptionNames());
 		}
 		catch(InvalidOptionException $e)
 		{

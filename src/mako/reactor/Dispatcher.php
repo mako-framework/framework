@@ -57,14 +57,17 @@ class Dispatcher
 	 *
 	 * @param \mako\reactor\CommandInterface $command           Command arguments
 	 * @param array                          $providedArguments Provided arguments
+	 * @param array                          $globalOptions     Global options
 	 */
-	protected function checkForInvalidArguments(CommandInterface $command, array $providedArguments)
+	protected function checkForInvalidArguments(CommandInterface $command, array $providedArguments, array $globalOptions)
 	{
 		$commandArguments = array_keys($command->getCommandArguments() + $command->getCommandOptions());
 
+		$defaultAndGlobalOptions = array_merge(['arg0', 'arg1'], $globalOptions);
+
 		foreach(array_keys($providedArguments) as $name)
 		{
-			if(!in_array($name, ['arg0', 'arg1']) && !in_array($name, $commandArguments))
+			if(!in_array($name, $defaultAndGlobalOptions) && !in_array($name, $commandArguments))
 			{
 				if(strpos($name, 'arg') === 0)
 				{
@@ -125,12 +128,13 @@ class Dispatcher
 	 *
 	 * @param \mako\reactor\CommandInterface $command           Command instance
 	 * @param array                          $providedArguments Provided arguments
+	 * @param array                          $globalOptions     Global options
 	 */
-	protected function checkArgumentsAndOptions(CommandInterface $command, array $providedArguments)
+	protected function checkArgumentsAndOptions(CommandInterface $command, array $providedArguments, array $globalOptions)
 	{
 		if($command->isStrict())
 		{
-			$this->checkForInvalidArguments($command, $providedArguments);
+			$this->checkForInvalidArguments($command, $providedArguments, $globalOptions);
 		}
 
 		$this->checkForMissingArguments($command, $providedArguments);
@@ -167,15 +171,16 @@ class Dispatcher
 	/**
 	 * Dispatches the command.
 	 *
-	 * @param  string $command   Command class
-	 * @param  array  $arguments Command arguments
+	 * @param  string $command       Command class
+	 * @param  array  $arguments     Command arguments
+	 * @param  array  $globalOptions Global options
 	 * @return int
 	 */
-	public function dispatch(string $command, array $arguments): int
+	public function dispatch(string $command, array $arguments, array $globalOptions): int
 	{
 		$command = $this->resolve($command);
 
-		$this->checkArgumentsAndOptions($command, $arguments);
+		$this->checkArgumentsAndOptions($command, $arguments, $globalOptions);
 
 		$returnValue = $this->execute($command, $arguments);
 
