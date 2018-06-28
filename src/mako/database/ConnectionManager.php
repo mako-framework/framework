@@ -13,6 +13,7 @@ use mako\database\connections\DB2 as DB2Connection;
 use mako\database\connections\Firebird as FirebirdConnection;
 use mako\database\connections\Oracle as OracleConnection;
 use mako\database\connections\Postgres as PostgresConnection;
+use mako\database\connections\SQLite as SQLiteConnection;
 use mako\database\connections\SQLServer as SQLServerConnection;
 use mako\database\query\compilers\Compiler;
 use mako\database\query\compilers\DB2 as DB2Compiler;
@@ -59,6 +60,7 @@ class ConnectionManager extends BaseConnectionManager
 		'firebird' => FirebirdConnection::class,
 		'oracle'   => OracleConnection::class,
 		'pgsql'    => PostgresConnection::class,
+		'sqlite'   => SQLiteConnection::class,
 		'sqlsrv'   => SQLServerConnection::class,
 	];
 
