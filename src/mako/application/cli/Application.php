@@ -101,11 +101,6 @@ class Application extends BaseApplication
 		{
 			$output->mute();
 		}, 'init');
-
-		$this->reactor->registerGlobalOption('database', 'Overrides the default database connection', function(Config $config, $option)
-		{
-			$config->set('database.default', $option);
-		});
 	}
 
 	/**

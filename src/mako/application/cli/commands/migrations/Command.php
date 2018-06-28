@@ -12,7 +12,6 @@ use mako\application\Application;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\database\ConnectionManager;
-use mako\database\connections\Connection;
 use mako\database\migrations\Migration;
 use mako\database\query\Query;
 use mako\file\FileSystem;
@@ -86,13 +85,33 @@ abstract class Command extends BaseCommand
 	}
 
 	/**
-	 * Returns the database connection.
+	 * Returns the default connection name of the application.
 	 *
-	 * @return \mako\database\connections\Connection
+	 * @return string
 	 */
-	protected function connection(): Connection
+	protected function getDefaultConnectionName(): string
 	{
-		return $this->database->connection();
+		return $this->application->getConfig()->get('database.default');
+	}
+
+	/**
+	 * Returns the connection name for which we are running migrations.
+	 *
+	 * @return string
+	 */
+	protected function getConnectionName(): string
+	{
+		return $this->input->getArgument('database', $this->getDefaultConnectionName());
+	}
+
+	/**
+	 * Returns a query builder instance.
+	 *
+	 * @return \mako\database\query\Query
+	 */
+	protected function builder(): Query
+	{
+		return $this->database->connection($this->getConnectionName())->builder()->table('mako_migrations');
 	}
 
 	/**
@@ -104,16 +123,6 @@ abstract class Command extends BaseCommand
 	protected function getBaseName($migration): string
 	{
 		return basename($migration, '.php');
-	}
-
-	/**
-	 * Returns a query builder instance.
-	 *
-	 * @return \mako\database\query\Query
-	 */
-	protected function builder(): Query
-	{
-		return $this->connection($this->input->getArgument('database'))->builder()->table('mako_migrations');
 	}
 
 	/**
@@ -188,17 +197,17 @@ abstract class Command extends BaseCommand
 	{
 		$migrations = $this->findMigrations();
 
-		$connectionName = $this->input->getArgument('database');
+		$connectionName = $this->getConnectionName();
 
-		$defaultConnectionName = $this->application->getConfig()->get('database.default');
+		$defaultConnectionName = $this->getDefaultConnectionName();
 
 		foreach($migrations as $key => $migration)
 		{
 			$migrationConnectionName = (new ReflectionClass($this->getFullyQualifiedMigration($migration)))
 			->newInstanceWithoutConstructor()
-			->getConnectionName();
+			->getConnectionName() ?? $defaultConnectionName;
 
-			if($connectionName !== $migrationConnectionName && $defaultConnectionName !== $migrationConnectionName)
+			if($connectionName !== $migrationConnectionName)
 			{
 				unset($migrations[$key]);
 			}

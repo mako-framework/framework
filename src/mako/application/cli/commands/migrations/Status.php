@@ -22,6 +22,14 @@ class Status extends Command
 	protected $commandInformation =
 	[
 		'description' => 'Checks if there are any outstanding migrations.',
+		'options'     =>
+		[
+			'database' =>
+			[
+				'optional'    => true,
+				'description' => 'Sets which database connection to use',
+			],
+		],
 	];
 
 	/**

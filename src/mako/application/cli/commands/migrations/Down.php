@@ -33,6 +33,11 @@ class Down extends Command
 				'optional'    => true,
 				'description' => 'Number of batches to roll back',
 			],
+			'database' =>
+			[
+				'optional'    => true,
+				'description' => 'Sets which database connection to use',
+			],
 		],
 	];
 

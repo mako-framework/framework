@@ -22,6 +22,14 @@ class Up extends Command
 	protected $commandInformation =
 	[
 		'description' => 'Runs all outstanding migrations.',
+		'options'     =>
+		[
+			'database' =>
+			[
+				'optional'    => true,
+				'description' => 'Sets which database connection to use',
+			],
+		],
 	];
 
 	/**

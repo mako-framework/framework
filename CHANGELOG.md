@@ -9,6 +9,12 @@ Update using ```composer update```.
 * Added `ORM::$isPersisted` property.
 * Added `ORM::isPersisted()` method.
 * It is now possible to use aggregate methods (`count`, `min`, `max`, etc...) in a subquery context.
+* Migrations are now executed in a transaction if possible (Postgres).
+* Added multi database support to migrations.
+
+#### Changes
+
+* Removed the global `--database` reactor option.
 
 #### Deprecations
 

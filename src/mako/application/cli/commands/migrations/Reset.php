@@ -33,6 +33,11 @@ class Reset extends Command
 				'optional'    => true,
 				'description' => 'Force the schema reset?',
 			],
+			'database' =>
+			[
+				'optional'    => true,
+				'description' => 'Sets which database connection to use',
+			],
 		],
 	];
 
