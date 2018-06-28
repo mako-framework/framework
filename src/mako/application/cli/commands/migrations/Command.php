@@ -239,7 +239,7 @@ abstract class Command extends BaseCommand
 	}
 
 	/**
-	 * Ouputs a migration list.
+	 * Outputs a migration list.
 	 *
 	 * @param array $migrations Migrations
 	 */
