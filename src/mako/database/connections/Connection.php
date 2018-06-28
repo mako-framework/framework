@@ -124,6 +124,13 @@ class Connection
 	protected $log = [];
 
 	/**
+	 * Does the connection support transactional DDL?
+	 *
+	 * @var bool
+	 */
+	protected $supportsTransactionalDDL = false;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param string $name               Connection name
@@ -162,6 +169,16 @@ class Connection
 		// Connect to the database
 
 		$this->pdo = $this->connect();
+	}
+
+	/**
+	 * Does the connection support transactional DDL?
+	 *
+	 * @return bool
+	 */
+	public function supportsTransactionalDDL(): bool
+	{
+		return $this->supportsTransactionalDDL;
 	}
 
 	/**

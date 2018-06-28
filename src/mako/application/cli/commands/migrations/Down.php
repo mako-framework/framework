@@ -7,6 +7,8 @@
 
 namespace mako\application\cli\commands\migrations;
 
+use mako\application\cli\commands\migrations\traits\RollbackTrait;
+
 /**
  * Command that rolls back the last batch of migrations.
  *
@@ -37,9 +39,9 @@ class Down extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @param string $batches Number of batches to roll back
+	 * @param int $batches Number of batches to roll back
 	 */
-	public function execute($batches = 1)
+	public function execute(int $batches = 1)
 	{
 		$this->rollback($batches);
 	}

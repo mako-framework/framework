@@ -5,7 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\application\cli\commands\migrations;
+namespace mako\application\cli\commands\migrations\traits;
+
+use mako\database\query\ResultSet;
 
 /**
  * Rollback trait.
@@ -17,10 +19,10 @@ trait RollbackTrait
 	/**
 	 * Returns an array of migrations to roll back.
 	 *
-	 * @param  int   $batches Number of batches to roll back
-	 * @return array
+	 * @param  int                            $batches Number of batches to roll back
+	 * @return \mako\database\query\ResultSet
 	 */
-	protected function getBatch($batches)
+	protected function getBatch(int $batches): ResultSet
 	{
 		$query = $this->builder();
 
@@ -35,9 +37,9 @@ trait RollbackTrait
 	/**
 	 * Rolls back n batches.
 	 *
-	 * @param string $batches Number of batches to roll back
+	 * @param int $batches Number of batches to roll back
 	 */
-	public function rollback($batches = 1)
+	public function rollback(int $batches = 1)
 	{
 		$migrations = $this->getBatch($batches);
 
@@ -51,8 +53,6 @@ trait RollbackTrait
 		foreach($migrations as $migration)
 		{
 			$this->runMigration($migration, 'down');
-
-			$this->builder()->where('version', '=', $migration->version)->delete();
 		}
 
 		$this->write('Rolled back the following migrations:' . PHP_EOL);

@@ -7,6 +7,8 @@
 
 namespace mako\application\cli\commands\migrations;
 
+use mako\application\cli\commands\migrations\traits\RollbackTrait;
+
 /**
  * Command that rolls back the last batch of migrations.
  *
@@ -39,7 +41,7 @@ class Reset extends Command
 	 *
 	 * @param bool $force Force the schema reset?
 	 */
-	public function execute($force = false)
+	public function execute(bool $force = false)
 	{
 		if($force || $this->confirm('<yellow>Are you sure you want to reset your database?</yellow>'))
 		{

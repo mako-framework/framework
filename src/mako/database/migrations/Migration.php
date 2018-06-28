@@ -8,6 +8,7 @@
 namespace mako\database\migrations;
 
 use mako\database\ConnectionManager;
+use mako\database\connections\Connection;
 use mako\syringe\traits\ContainerAwareTrait;
 
 /**
@@ -18,6 +19,27 @@ use mako\syringe\traits\ContainerAwareTrait;
 abstract class Migration
 {
 	use ContainerAwareTrait;
+
+	/**
+	 * Should a transaction be used if possible?
+	 *
+	 * @var bool
+	 */
+	protected $useTransaction = true;
+
+	/**
+	 * Connection name.
+	 *
+	 * @var null|string
+	 */
+	protected $connectionName = null;
+
+	/**
+	 * Migration description.
+	 *
+	 * @var null|string
+	 */
+	protected $description;
 
 	/**
 	 * Connection manager instance.
@@ -34,6 +56,41 @@ abstract class Migration
 	public function __construct(ConnectionManager $connectionManager)
 	{
 		$this->database = $connectionManager;
+	}
+
+	/**
+	 * Returns the connection name.
+	 *
+	 * @return null|string
+	 */
+	public function getConnectionName()
+	{
+		return $this->connectionName;
+	}
+
+	/**
+	 * Returns the chosen connection.
+	 *
+	 * @return \mako\database\connections\Connection
+	 */
+	public function getConnection(): Connection
+	{
+		return $this->database->connection($this->connectionName);
+	}
+
+	/**
+	 * Should we execute this migration in a transaction?
+	 *
+	 * @return bool
+	 */
+	public function useTransaction(): bool
+	{
+		if($this->useTransaction && $this->getConnection()->supportsTransactionalDDL())
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

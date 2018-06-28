@@ -7,13 +7,18 @@
 
 namespace mako\application\cli\commands\migrations;
 
+use Closure;
 use mako\application\Application;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\database\ConnectionManager;
+use mako\database\connections\Connection;
+use mako\database\migrations\Migration;
+use mako\database\query\Query;
 use mako\file\FileSystem;
 use mako\reactor\Command as BaseCommand;
 use mako\syringe\Container;
+use ReflectionClass;
 
 /**
  * Base command.
@@ -85,7 +90,7 @@ abstract class Command extends BaseCommand
 	 *
 	 * @return \mako\database\connections\Connection
 	 */
-	protected function connection()
+	protected function connection(): Connection
 	{
 		return $this->database->connection();
 	}
@@ -96,7 +101,7 @@ abstract class Command extends BaseCommand
 	 * @param  string $migration Task path
 	 * @return string
 	 */
-	protected function getBaseName($migration)
+	protected function getBaseName($migration): string
 	{
 		return basename($migration, '.php');
 	}
@@ -106,9 +111,9 @@ abstract class Command extends BaseCommand
 	 *
 	 * @return \mako\database\query\Query
 	 */
-	protected function builder()
+	protected function builder(): Query
 	{
-		return $this->connection()->builder()->table('mako_migrations');
+		return $this->connection($this->input->getArgument('database'))->builder()->table('mako_migrations');
 	}
 
 	/**
@@ -116,13 +121,13 @@ abstract class Command extends BaseCommand
 	 *
 	 * @return array
 	 */
-	protected function findApplicationMigrations()
+	protected function findApplicationMigrations(): array
 	{
 		$migrations = [];
 
 		foreach($this->fileSystem->glob($this->application->getPath() . '/migrations/*.php') as $migration)
 		{
-			$migrations[] = (object) ['package'   => null, 'version' => $this->getBasename($migration)];
+			$migrations[] = (object) ['package' => null, 'version' => $this->getBasename($migration)];
 		}
 
 		return $migrations;
@@ -133,7 +138,7 @@ abstract class Command extends BaseCommand
 	 *
 	 * @return array
 	 */
-	protected function findPackageMigrations()
+	protected function findPackageMigrations(): array
 	{
 		$migrations = [];
 
@@ -149,21 +154,67 @@ abstract class Command extends BaseCommand
 	}
 
 	/**
+	 * Finds all migrations.
+	 *
+	 * @return array
+	 */
+	protected function findMigrations(): array
+	{
+		return array_merge($this->findApplicationMigrations(), $this->findPackageMigrations());
+	}
+
+	/**
+	 * Returns the fully qualified class name of a migration.
+	 *
+	 * @param  object $migration Migration
+	 * @return string
+	 */
+	protected function getFullyQualifiedMigration($migration): string
+	{
+		if(empty($migration->package))
+		{
+			return $this->application->getNamespace(true) . '\\migrations\\' . $migration->version;
+		}
+
+		return $this->application->getPackage($migration->package)->getClassNamespace(true) . '\\migrations\\' . $migration->version;
+	}
+
+	/**
+	 * Returns migrations filtered by connection name.
+	 *
+	 * @return array
+	 */
+	protected function getMigrationsFilteredByConnection(): array
+	{
+		$migrations = $this->findMigrations();
+
+		$connectionName = $this->input->getArgument('database');
+
+		$defaultConnectionName = $this->application->getConfig()->get('database.default');
+
+		foreach($migrations as $key => $migration)
+		{
+			$migrationConnectionName = (new ReflectionClass($this->getFullyQualifiedMigration($migration)))
+			->newInstanceWithoutConstructor()
+			->getConnectionName();
+
+			if($connectionName !== $migrationConnectionName && $defaultConnectionName !== $migrationConnectionName)
+			{
+				unset($migrations[$key]);
+			}
+		}
+
+		return $migrations;
+	}
+
+	/**
 	 * Returns an array of all outstanding migrations.
 	 *
 	 * @return array
 	 */
-	protected function getOutstanding()
+	protected function getOutstanding(): array
 	{
-		$migrations = [];
-
-		// Find all migrations
-
-		$migrations = array_merge($migrations, $this->findApplicationMigrations());
-
-		$migrations = array_merge($migrations, $this->findPackageMigrations());
-
-		// Filter and sort migrations
+		$migrations = $this->getMigrationsFilteredByConnection();
 
 		if(!empty($migrations))
 		{
@@ -183,8 +234,6 @@ abstract class Command extends BaseCommand
 				return strcmp($a->version, $b->version);
 			});
 		}
-
-		// Return outstanding migrations
 
 		return $migrations;
 	}
@@ -218,31 +267,65 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns a migration instance.
 	 *
-	 * @param  \StdClass                           $migration Migration object
+	 * @param  object                              $migration Migration meta
 	 * @return \mako\database\migrations\Migration
 	 */
-	protected function resolve($migration)
+	protected function resolve($migration): Migration
 	{
-		if(empty($migration->package))
-		{
-			$namespace = $this->application->getNamespace(true) . '\\migrations\\';
-		}
-		else
-		{
-			$namespace = $this->application->getPackage($migration->package)->getClassNamespace(true) . '\\migrations\\';
-		}
+		return $this->container->get($this->getFullyQualifiedMigration($migration));
+	}
 
-		return $this->container->get($namespace . $migration->version);
+	/**
+	 * [buildMigrationWrapper description].
+	 *
+	 * @param  object                              $migration         Migration meta
+	 * @param  \mako\database\migrations\Migration $migrationInstance Migration instance
+	 * @param  string                              $method            Migration method
+	 * @param  int|null                            $batch             Migration batch
+	 * @return \Closure
+	 */
+	protected function buildMigrationWrapper($migration, Migration $migrationInstance, string $method, int $batch = null): Closure
+	{
+		return function() use ($migration, $migrationInstance, $method, $batch)
+		{
+			$this->container->call([$migrationInstance, $method]);
+
+			switch($method)
+			{
+				case 'up':
+					$this->builder()->insert(['batch' => $batch, 'package' => $migration->package, 'version' => $migration->version]);
+					break;
+				case 'down':
+					$this->builder()->where('version', '=', $migration->version)->delete();
+					break;
+
+			}
+		};
 	}
 
 	/**
 	 * Executes a migration method.
 	 *
-	 * @param string $migration Migration class
-	 * @param string $method    Migration method
+	 * @param object   $migration Migration meta
+	 * @param string   $method    Migration method
+	 * @param int|null $batch     Batch
 	 */
-	protected function runMigration($migration, $method)
+	protected function runMigration($migration, string $method, int $batch = null)
 	{
-		$this->container->call([$this->resolve($migration), $method]);
+		$migrationInstance = $this->resolve($migration);
+
+		$migrationWrapper = $this->buildMigrationWrapper($migration, $migrationInstance, $method, $batch);
+
+		if($migrationInstance->useTransaction())
+		{
+			$migrationInstance->getConnection()->transaction(function() use ($migrationWrapper)
+			{
+				$migrationWrapper();
+			});
+
+			return;
+		}
+
+		$migrationWrapper();
 	}
 }

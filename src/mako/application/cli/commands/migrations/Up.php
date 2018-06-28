@@ -42,9 +42,7 @@ class Up extends Command
 
 		foreach($migrations as $migration)
 		{
-			$this->runMigration($migration, 'up');
-
-			$this->builder()->insert(['batch' => $batch, 'package' => $migration->package, 'version' => $migration->version]);
+			$this->runMigration($migration, 'up', $batch);
 		}
 
 		$this->write('Ran the following migrations:' . PHP_EOL);
