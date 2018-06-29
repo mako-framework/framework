@@ -144,6 +144,21 @@ class PostgresCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithSharedLockMethod()
+	{
+		$query = $this->getBuilder();
+
+		$query->sharedLock();
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" FOR SHARE', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithCustomLock()
 	{
 		$query = $this->getBuilder();

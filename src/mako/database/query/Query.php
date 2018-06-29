@@ -1136,6 +1136,16 @@ class Query
 	}
 
 	/**
+	 * Enable shared lock.
+	 *
+	 * @return \mako\database\query\Query
+	 */
+	public function sharedLock()
+	{
+		return $this->lock(false);
+	}
+
+	/**
 	 * Adds a query prefix.
 	 *
 	 * @param  string                     $prefix Prefix

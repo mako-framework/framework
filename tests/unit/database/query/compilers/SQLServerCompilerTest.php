@@ -257,6 +257,21 @@ class SQLServerCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithSharedLockMethod()
+	{
+		$query = $this->getBuilder();
+
+		$query->sharedLock();
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM [foobar] WITH (HOLDLOCK, ROWLOCK)', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithCustomLock()
 	{
 		$query = $this->getBuilder();
