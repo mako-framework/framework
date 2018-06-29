@@ -52,7 +52,7 @@ class Reset extends Command
 		{
 			$this->nl();
 
-			$this->rollback(0);
+			$this->rollback();
 
 			return;
 		}

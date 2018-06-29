@@ -7,8 +7,6 @@
 
 namespace mako\application\cli\commands\migrations\traits;
 
-use mako\database\query\ResultSet;
-
 /**
  * Rollback trait.
  *
@@ -17,31 +15,13 @@ use mako\database\query\ResultSet;
 trait RollbackTrait
 {
 	/**
-	 * Returns an array of migrations to roll back.
-	 *
-	 * @param  int                            $batches Number of batches to roll back
-	 * @return \mako\database\query\ResultSet
-	 */
-	protected function getBatch(int $batches): ResultSet
-	{
-		$query = $this->builder();
-
-		if($batches > 0)
-		{
-			$query->where('batch', '>', ($this->builder()->max('batch') - $batches));
-		}
-
-		return $query->select(['version', 'package'])->orderBy('version', 'desc')->all();
-	}
-
-	/**
 	 * Rolls back n batches.
 	 *
-	 * @param int $batches Number of batches to roll back
+	 * @param int|null $batches Number of batches to roll back
 	 */
-	public function rollback(int $batches = 1)
+	public function rollback(int $batches = null)
 	{
-		$migrations = $this->getBatch($batches);
+		$migrations = $this->getMigrated($batches);
 
 		if($migrations->isEmpty())
 		{

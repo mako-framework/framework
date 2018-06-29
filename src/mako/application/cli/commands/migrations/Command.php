@@ -13,7 +13,9 @@ use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\database\ConnectionManager;
 use mako\database\migrations\Migration;
+
 use mako\database\query\Query;
+use mako\database\query\ResultSet;
 use mako\file\FileSystem;
 use mako\reactor\Command as BaseCommand;
 use mako\syringe\Container;
@@ -217,6 +219,24 @@ abstract class Command extends BaseCommand
 	}
 
 	/**
+	 * Returns migrations that have been run.
+	 *
+	 * @param  int|null                       $batches Number of batches fetch
+	 * @return \mako\database\query\ResultSet
+	 */
+	protected function getMigrated(int $batches = null): ResultSet
+	{
+		$query = $this->builder();
+
+		if($batches !== null && $batches > 0)
+		{
+			$query->where('batch', '>', ($this->builder()->max('batch') - $batches));
+		}
+
+		return $query->select(['version', 'package'])->descending('version')->all();
+	}
+
+	/**
 	 * Returns an array of all outstanding migrations.
 	 *
 	 * @return array
@@ -227,11 +247,11 @@ abstract class Command extends BaseCommand
 
 		if(!empty($migrations))
 		{
-			foreach($this->builder()->all() as $ran)
+			foreach($this->getMigrated() as $migrated)
 			{
 				foreach($migrations as $key => $migration)
 				{
-					if($ran->package === $migration->package && $ran->version === $migration->version)
+					if($migrated->package === $migration->package && $migrated->version === $migration->version)
 					{
 						unset($migrations[$key]);
 					}
