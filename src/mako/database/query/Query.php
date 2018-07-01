@@ -1452,7 +1452,7 @@ class Query
 	 */
 	public function count($column = '*')
 	{
-		return $this->aggregate('COUNT(%s)', $column);
+		return (int) $this->aggregate('COUNT(%s)', $column);
 	}
 
 	/**
@@ -1463,7 +1463,7 @@ class Query
 	 */
 	public function countDistinct($column)
 	{
-		return $this->aggregate('COUNT(DISTINCT %s)', $column);
+		return (int) $this->aggregate('COUNT(DISTINCT %s)', $column);
 	}
 
 	/**
