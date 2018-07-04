@@ -1388,9 +1388,7 @@ class Query
 	 */
 	protected function aggregate($function, $column)
 	{
-		$aggregate = new Raw(sprintf($function, $this->compiler->columns(is_array($column) ? $column : [$column])));
-
-		$this->select([$aggregate]);
+		$this->select([new Raw(sprintf($function, $this->compiler->columns(is_array($column) ? $column : [$column])))]);
 
 		if($this->inSubqueryContext === false)
 		{
