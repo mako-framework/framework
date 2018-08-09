@@ -16,15 +16,15 @@ use RuntimeException;
  */
 class APCU extends Store implements IncrementDecrementInterface
 {
-    /**
-     * Whether to use atomic updates for getOrElse.
-     *
-     * This is a workaround for a known issue in ext-apcu, which breaks the apcu_entry
-     * function. See issue #244.
-     *
-     * @var bool
-     */
-    protected $atomicGetSet = true;
+	/**
+	 *  * Whether to use atomic updates for getOrElse.
+	 *
+	 * This is a workaround for a known issue in ext-apcu, which breaks the apcu_entry
+	 * function. See issue #244.
+	 *
+	 * @var bool
+	 */
+	protected $atomicGetOrElse = true;
 
 	/**
 	 * Constructor.
@@ -40,14 +40,15 @@ class APCU extends Store implements IncrementDecrementInterface
 	/**
 	 * Set whether to use atomic get/set for getOrElse.
 	 *
-	 * @param  bool $toUse the new state.
-	 * @return APCU self
+	 * @param  bool                    $toUse the new state.
+	 * @return \mako\cache\stores\APCU
 	 */
-	public function useAtomicGetSet(bool $toUse): self
-    {
-        $this->atomicGetSet = $toUse;
-        return $this;
-    }
+	public function useAtomicGetSet(bool $toUse): APCU
+	{
+		$this->atomicGetOrElse = $toUse;
+
+		return $this;
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -102,11 +103,12 @@ class APCU extends Store implements IncrementDecrementInterface
 	 */
 	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
-	    if ($this->atomicGetSet) {
-            return apcu_entry($this->getPrefixedKey($key), $data, $ttl);
-        } else {
-	        return parent::getOrElse($key, $data, $ttl);
-        }
+		if($this->atomicGetOrElse)
+		{
+			return apcu_entry($this->getPrefixedKey($key), $data, $ttl);
+		}
+
+		return parent::getOrElse($key, $data, $ttl);
 	}
 
 	/**
