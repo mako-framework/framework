@@ -16,6 +16,16 @@ use RuntimeException;
  */
 class APCU extends Store implements IncrementDecrementInterface
 {
+    /**
+     * Whether to use atomic updates for getOrElse.
+     *
+     * This is a workaround for a known issue in ext-apcu, which breaks the apcu_entry
+     * function. See issue #244.
+     *
+     * @var bool
+     */
+    protected $atomicGetSet = true;
+
 	/**
 	 * Constructor.
 	 */
@@ -26,6 +36,18 @@ class APCU extends Store implements IncrementDecrementInterface
 			throw new RuntimeException('APCU is not available on your system.');
 		}
 	}
+
+	/**
+	 * Set whether to use atomic get/set for getOrElse.
+	 *
+	 * @param  bool $toUse the new state.
+	 * @return APCU self
+	 */
+	public function useAtomicGetSet(bool $toUse): self
+    {
+        $this->atomicGetSet = $toUse;
+        return $this;
+    }
 
 	/**
 	 * {@inheritdoc}
@@ -80,7 +102,11 @@ class APCU extends Store implements IncrementDecrementInterface
 	 */
 	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
-		return apcu_entry($this->getPrefixedKey($key), $data, $ttl);
+	    if ($this->atomicGetSet) {
+            return apcu_entry($this->getPrefixedKey($key), $data, $ttl);
+        } else {
+	        return parent::getOrElse($key, $data, $ttl);
+        }
 	}
 
 	/**
