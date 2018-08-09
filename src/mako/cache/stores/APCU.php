@@ -43,7 +43,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	 * @param  bool                    $toUse the new state.
 	 * @return \mako\cache\stores\APCU
 	 */
-	public function useAtomicGetSet(bool $toUse): APCU
+	public function useAtomicGetOrElse(bool $toUse): APCU
 	{
 		$this->atomicGetOrElse = $toUse;
 
