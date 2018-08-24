@@ -12,6 +12,7 @@ Update using ```composer update```.
 * It is now possible to use aggregate methods (`count`, `min`, `max`, etc...) in a subquery context.
 * Migrations are now executed in a transaction if possible (Postgres, SQLite).
 * Added multi database support to migrations.
+* Added an option to opt out of atomic `getOrElse` for APCU caching. Use the `atomic_get_or_else` key.
 
 #### Changes
 
