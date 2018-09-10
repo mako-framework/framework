@@ -7,7 +7,6 @@
 
 namespace mako\file;
 
-use DirectoryIterator;
 use FilesystemIterator;
 use SplFileObject;
 
@@ -138,15 +137,7 @@ class FileSystem
 	{
 		if(is_dir($path))
 		{
-			foreach(new DirectoryIterator($path) as $file)
-			{
-				if(!$file->isDot())
-				{
-					return false;
-				}
-			}
-
-			return true;
+			return (new FilesystemIterator($path))->valid() === false;
 		}
 
 		return filesize($path) === 0;
