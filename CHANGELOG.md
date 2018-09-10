@@ -13,6 +13,7 @@ Update using ```composer update```.
 * Migrations are now executed in a transaction if possible (Postgres, SQLite).
 * Added multi database support to migrations.
 * Added an option to opt out of atomic `getOrElse` for APCU caching. Use the `atomic_get_or_else` key.
+* Added `ConnectionManager::close()` method.
 
 #### Changes
 

@@ -52,6 +52,18 @@ abstract class ConnectionManager
 	}
 
 	/**
+	 * Closes the chosen connection.
+	 *
+	 * @param  string|null $connection Connection name
+	 */
+	public function close(string $connection = null)
+	{
+		$connection = $connection ?? $this->default;
+
+		unset($this->connections[$connection]);
+	}
+
+	/**
 	 * Magic shortcut to the default connection.
 	 *
 	 * @param  string $name      Method name
