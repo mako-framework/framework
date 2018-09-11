@@ -244,7 +244,7 @@ class Redis
 				return $this->handleMultiBulkResponse($response);
 				break;
 			default:
-				throw new RedisException('Unable to handle server response.');
+				throw new RedisException(vsprintf('Unable to handle server response [ %s ].', [$response]));
 		}
 	}
 
