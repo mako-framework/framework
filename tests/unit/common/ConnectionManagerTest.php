@@ -105,6 +105,30 @@ class ConnectionManagerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testExecuteAndClose()
+	{
+		$manager = new ConnectionManager('foo', []);
+
+		$getConnections = (function()
+		{
+			return $this->connections;
+		})->bindTo($manager, ConnectionManager::class);
+
+		$returnValue = $manager->executeAndClose(function() use ($getConnections)
+		{
+			$this->assertTrue(isset($getConnections()['foo']));
+
+			return 123;
+		});
+
+		$this->assertSame(123, $returnValue);
+
+		$this->assertFalse(isset($getConnections()['foo']));
+	}
+
+	/**
+	 *
+	 */
 	public function testCallForwarding()
 	{
 		$manager = new ConnectionManager('foo', []);

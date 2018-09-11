@@ -7,6 +7,7 @@
 
 namespace mako\common;
 
+use Closure;
 use mako\common\traits\ConfigurableTrait;
 
 /**
@@ -54,13 +55,29 @@ abstract class ConnectionManager
 	/**
 	 * Closes the chosen connection.
 	 *
-	 * @param  string|null $connection Connection name
+	 * @param string|null $connection Connection name
 	 */
 	public function close(string $connection = null)
 	{
 		$connection = $connection ?? $this->default;
 
 		unset($this->connections[$connection]);
+	}
+
+	/**
+	 * Executes the passed closure using the chosen connection before closing it.
+	 *
+	 * @param  \Closure    $closure    Closure to execute
+	 * @param  string|null $connection Connection name
+	 * @return mixed
+	 */
+	public function executeAndClose(Closure $closure, string $connection = null)
+	{
+		$returnValue = $closure($this->connection($connection));
+
+		$this->close($connection);
+
+		return $returnValue;
 	}
 
 	/**
