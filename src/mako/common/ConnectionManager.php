@@ -65,8 +65,8 @@ abstract class ConnectionManager
 		{
 			if(method_exists($this->connections[$connection], 'close'))
 			{
-				// Call close on the connection object in case there's still
-				// a reference to the connection that hasn't been garbage collected
+				// Call close on the connection object in case there's a reference
+				// to the connection that won't be garbage collected immediately
 
 				$this->connections[$connection]->close();
 			}
