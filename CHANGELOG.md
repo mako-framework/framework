@@ -15,6 +15,7 @@ Update using ```composer update```.
 * Added an option to opt out of atomic `getOrElse` for APCU caching. Use the `atomic_get_or_else` key.
 * Added `ConnectionManager::close()` method.
 * Added `ConnectionManager::executeAndClose()` method.
+* Added `Connection::close()` method (to the database base connection class).
 
 #### Changes
 

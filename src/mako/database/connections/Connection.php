@@ -172,6 +172,14 @@ class Connection
 	}
 
 	/**
+	 * Closes the database connection.
+	 */
+	public function close()
+	{
+		$this->pdo = null;
+	}
+
+	/**
 	 * Does the connection support transactional DDL?
 	 *
 	 * @return bool
