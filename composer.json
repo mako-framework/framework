@@ -31,7 +31,8 @@
 	"require": {
 		"php": ">=7.0.0",
 		"monolog/monolog": "^1.22.0",
-		"filp/whoops": "^2.1"
+		"filp/whoops": "^2.1",
+		"symfony/var-dumper": "^3.4 || ^4.1"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^6.5",
