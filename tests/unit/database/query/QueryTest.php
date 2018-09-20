@@ -42,11 +42,14 @@ class QueryTest extends TestCase
 		$this->assertSame('foobar', $query->getTable());
 	}
 
+	/**
+	 *
+	 */
 	public function testInto()
 	{
 		$query = $this->getQuery();
 
-		$query->from('foobar');
+		$query->into('foobar');
 
 		$this->assertSame('foobar', $query->getTable());
 	}
