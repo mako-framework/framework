@@ -1406,7 +1406,7 @@ class Query
 	 */
 	public function min($column)
 	{
-		return $this->aggregate('MIN(%s)', $column);
+		return (int) $this->aggregate('MIN(%s)', $column);
 	}
 
 	/**
@@ -1417,7 +1417,7 @@ class Query
 	 */
 	public function max($column)
 	{
-		return $this->aggregate('MAX(%s)', $column);
+		return (int) $this->aggregate('MAX(%s)', $column);
 	}
 
 	/**
@@ -1428,7 +1428,7 @@ class Query
 	 */
 	public function sum($column)
 	{
-		return $this->aggregate('SUM(%s)', $column);
+		return (int) $this->aggregate('SUM(%s)', $column);
 	}
 
 	/**
@@ -1439,7 +1439,7 @@ class Query
 	 */
 	public function avg($column)
 	{
-		return $this->aggregate('AVG(%s)', $column);
+		return (float) $this->aggregate('AVG(%s)', $column);
 	}
 
 	/**
