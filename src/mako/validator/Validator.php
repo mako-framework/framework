@@ -39,6 +39,7 @@ use mako\validator\rules\I18nAwareInterface;
 use mako\validator\rules\In;
 use mako\validator\rules\Integer;
 use mako\validator\rules\IP;
+use mako\validator\rules\JSON;
 use mako\validator\rules\LessThan;
 use mako\validator\rules\LessThanOrEqualTo;
 use mako\validator\rules\Match;
@@ -124,6 +125,7 @@ class Validator
 		'integer'                  => Integer::class,
 		'ip'                       => IP::class,
 		'is_uploaded'              => IsUploaded::class,
+		'json'                     => JSON::class,
 		'less_than_or_equal_to'    => LessThanOrEqualTo::class,
 		'less_than'                => LessThan::class,
 		'match'                    => Match::class,

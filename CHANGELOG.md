@@ -16,6 +16,7 @@ Update using ```composer update```.
 * Added `ConnectionManager::close()` method.
 * Added `ConnectionManager::executeAndClose()` method.
 * Added `Connection::close()` method (to the database base connection class).
+* Added new `JSON` validation rule.
 
 #### Changes
 
