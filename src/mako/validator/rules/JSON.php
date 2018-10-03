@@ -19,7 +19,7 @@ class JSON extends Rule implements RuleInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		return ! (json_decode($value) === null && json_last_error() !== JSON_ERROR_NONE);
+		return (json_decode($value) === null && json_last_error() !== JSON_ERROR_NONE) === false;
 	}
 
 	/**
