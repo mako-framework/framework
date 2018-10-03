@@ -13,7 +13,6 @@ use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\database\ConnectionManager;
 use mako\database\migrations\Migration;
-
 use mako\database\query\Query;
 use mako\database\query\ResultSet;
 use mako\file\FileSystem;
