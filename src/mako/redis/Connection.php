@@ -111,7 +111,7 @@ class Connection
 	}
 
 	/**
-	 * Gets line from the resource.
+	 * Gets line from the server.
 	 *
 	 * @return string
 	 */
@@ -128,7 +128,7 @@ class Connection
 	}
 
 	/**
-	 * Reads n bytes from the resource.
+	 * Reads n bytes from the server.
 	 *
 	 * @param  int    $bytes Number of bytes to read
 	 * @return string
@@ -158,15 +158,13 @@ class Connection
 	}
 
 	/**
-	 * Writes data to the resource.
+	 * Writes data to the server.
 	 *
 	 * @param  string $data Data to write
 	 * @return int
 	 */
 	public function write(string $data): int
 	{
-		$this->lastCommand = $data;
-
 		$totalBytesWritten = 0;
 
 		$bytesLeft = strlen($data);
@@ -197,15 +195,5 @@ class Connection
 	public function isPersistent(): bool
 	{
 		return $this->isPersistent;
-	}
-
-	/**
-	 * Returns the last command.
-	 *
-	 * @return string
-	 */
-	public function getLastCommand(): string
-	{
-		return $this->lastCommand;
 	}
 }

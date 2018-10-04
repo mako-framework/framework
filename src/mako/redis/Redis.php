@@ -76,6 +76,13 @@ class Redis
 	protected $clusterClients = [];
 
 	/**
+	 * Last command.
+	 *
+	 * @var string
+	 */
+	protected $lastCommand;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\redis\Connection $connection Redis connection
@@ -145,7 +152,7 @@ class Redis
 		{
 			case 'MOVED':
 			case 'ASK':
-				return $this->getClusterClient($error)->rawCommand($this->connection->getLastCommand());
+				return $this->getClusterClient($error)->sendCommandAndGetResponse($this->lastCommand);
 				break;
 			default:
 				throw new RedisException(vsprintf('%s.', [$response]));
@@ -211,7 +218,7 @@ class Redis
 
 		for($i = 0; $i < $count; $i++)
 		{
-			$data[] = $this->response();
+			$data[] = $this->getResponse();
 		}
 
 		return $data;
@@ -222,7 +229,7 @@ class Redis
 	 *
 	 * @return mixed
 	 */
-	protected function response()
+	protected function getResponse()
 	{
 		$response = trim($this->connection->readLine());
 
@@ -249,6 +256,18 @@ class Redis
 	}
 
 	/**
+	 * Sends command to server.
+	 *
+	 * @param string $command Command
+	 */
+	protected function sendCommandToServer(string $command)
+	{
+		$this->lastCommand = $command;
+
+		$this->connection->write($command);
+	}
+
+	/**
 	 * Pipeline commands.
 	 *
 	 * @param  \Closure $pipeline Pipelined commands
@@ -270,11 +289,11 @@ class Redis
 
 		$commands = count($this->commands);
 
-		$this->connection->write(implode('', $this->commands));
+		$this->sendCommandToServer(implode('', $this->commands));
 
 		for($i = 0; $i < $commands; $i++)
 		{
-			$responses[] = $this->response();
+			$responses[] = $this->getResponse();
 		}
 
 		// Reset pipelining
@@ -294,11 +313,11 @@ class Redis
 	 * @param  string $command Command
 	 * @return mixed
 	 */
-	public function rawCommand(string $command)
+	protected function sendCommandAndGetResponse(string $command)
 	{
-		$this->connection->write($command);
+		$this->sendCommandToServer($command);
 
-		return $this->response();
+		return $this->getResponse();
 	}
 
 	/**
@@ -358,7 +377,7 @@ class Redis
 		{
 			// Send command to server and return response
 
-			return $this->rawCommand($command);
+			return $this->sendCommandAndGetResponse($command);
 		}
 	}
 }
