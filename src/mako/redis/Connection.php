@@ -95,22 +95,45 @@ class Connection
 	}
 
 	/**
+	 * Appends the read error reason to the error message if possible.
+	 *
+	 * @param  string $message Error message
+	 * @return string
+	 */
+	protected function appendReadErrorReason($message): string
+	{
+		if(stream_get_meta_data($this->connection)['timed_out'])
+		{
+			return $message . ' The stream timed out while waiting for data.';
+		}
+
+		return $message;
+	}
+
+	/**
 	 * Gets line from the resource.
 	 *
-	 * @return string|false
+	 * @return string
 	 */
-	public function readLine()
+	public function readLine(): string
 	{
-		return fgets($this->connection);
+		$line = fgets($this->connection);
+
+		if($line === false || $line === '')
+		{
+			throw new RedisException($this->appendReadErrorReason('Failed to read line from the server.'));
+		}
+
+		return $line;
 	}
 
 	/**
 	 * Reads n bytes from the resource.
 	 *
-	 * @param  int          $bytes Number of bytes to read
-	 * @return string|false
+	 * @param  int    $bytes Number of bytes to read
+	 * @return string
 	 */
-	public function read(int $bytes)
+	public function read(int $bytes): string
 	{
 		$bytesLeft = $bytes;
 
@@ -118,7 +141,14 @@ class Connection
 
 		do
 		{
-			$data .= fread($this->connection, min($bytesLeft, 4096));
+			$chunk = fread($this->connection, min($bytesLeft, 4096));
+
+			if($chunk === false || $chunk === '')
+			{
+				throw new RedisException($this->appendReadErrorReason('Failed to read data from the server.'));
+			}
+
+			$data .= $chunk;
 
 			$bytesLeft = $bytes - strlen($data);
 		}
@@ -130,12 +160,33 @@ class Connection
 	/**
 	 * Writes data to the resource.
 	 *
-	 * @param  string    $data Data to write
-	 * @return int|false
+	 * @param  string $data Data to write
+	 * @return int
 	 */
-	public function write(string $data)
+	public function write(string $data): int
 	{
-		return fwrite($this->connection, $this->lastCommand = $data);
+		$this->lastCommand = $data;
+
+		$totalBytesWritten = 0;
+
+		$bytesLeft = strlen($data);
+
+		do
+		{
+			$totalBytesWritten += $bytesWritten = fwrite($this->connection, $data);
+
+			if($bytesWritten === false || $bytesWritten === 0)
+			{
+				throw new RedisException('Failed to write data to the server.');
+			}
+
+			$bytesLeft -= $bytesWritten;
+
+			$data = substr($data, $bytesWritten);
+		}
+		while($bytesLeft > 0);
+
+		return $totalBytesWritten;
 	}
 
 	/**
