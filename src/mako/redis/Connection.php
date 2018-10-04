@@ -82,16 +82,13 @@ class Connection
 	}
 
 	/**
-	 * Creates a new connection.
+	 * Is the connection persistent?
 	 *
-	 * @param  string                 $host       Redis host
-	 * @param  int                    $port       Redis port
-	 * @param  bool                   $persistent Should the connection be persistent?
-	 * @return \mako\redis\Connection
+	 * @return bool
 	 */
-	public static function create(string $host, int $port, bool $persistent = false): Connection
+	public function isPersistent(): bool
 	{
-		return new static($host, $port, $persistent);
+		return $this->isPersistent;
 	}
 
 	/**
@@ -185,15 +182,5 @@ class Connection
 		while($bytesLeft > 0);
 
 		return $totalBytesWritten;
-	}
-
-	/**
-	 * Is the connection persistent?
-	 *
-	 * @return bool
-	 */
-	public function isPersistent(): bool
-	{
-		return $this->isPersistent;
 	}
 }
