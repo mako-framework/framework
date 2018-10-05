@@ -28,14 +28,14 @@ class Connection
 	 *
 	 * @var bool
 	 */
-	protected $isPersistent = false;
+	protected $isPersistent;
 
 	/**
-	 * Last command.
+	 * Timeout.
 	 *
-	 * @var string
+	 * @var int
 	 */
-	protected $lastCommand;
+	protected $timeout;
 
 	/**
 	 * Constructor.
@@ -54,7 +54,7 @@ class Connection
 
 		// Connect to the server
 
-		$this->connection = $this->createConnection($host, $port, $persistent, $timeout);
+		$this->connection = $this->createConnection($host, $port, $this->isPersistent = $persistent, $this->timeout = $timeout);
 
 		// Set timeout for read/write operations
 
@@ -87,8 +87,6 @@ class Connection
 		{
 			if($persistent)
 			{
-				$this->isPersistent = true;
-
 				return pfsockopen('tcp://' . $host, $port, $errNo, $errStr, $timeout);
 			}
 
@@ -108,6 +106,16 @@ class Connection
 	public function isPersistent(): bool
 	{
 		return $this->isPersistent;
+	}
+
+	/**
+	 * Returns the timeout value of the connection.
+	 *
+	 * @return int
+	 */
+	public function getTimeout(): int
+	{
+		return $this->timeout;
 	}
 
 	/**

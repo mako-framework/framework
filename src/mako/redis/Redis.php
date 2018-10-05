@@ -113,7 +113,7 @@ class Redis
 	{
 		list($server, $port) = explode(':', $server, 2);
 
-		$connection = new Connection($server, $port, $this->connection->isPersistent());
+		$connection = new Connection($server, $port, $this->connection->isPersistent(), $this->connection->getTimeout());
 
 		return new static($connection, ['password' => $this->password, 'database' => $this->database]);
 	}
