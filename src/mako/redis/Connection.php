@@ -64,7 +64,7 @@ class Connection
 	/**
 	 * Destructor.
 	 */
-	public function __desctruct()
+	public function __destruct()
 	{
 		if(!$this->isPersistent && is_resource($this->connection))
 		{
