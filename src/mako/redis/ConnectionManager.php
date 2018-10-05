@@ -34,6 +34,6 @@ class ConnectionManager extends BaseConnectionManager
 
 		$config = $this->configurations[$connection];
 
-		return new Redis(new Connection($config['host'], $config['port'], $config['persistent'] ?? false), $config);
+		return new Redis(new Connection($config['host'], $config['port'], $config['persistent'] ?? false, $config['timeout'] ?? 60), $config);
 	}
 }

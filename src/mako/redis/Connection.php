@@ -43,31 +43,22 @@ class Connection
 	 * @param string $host       Redis host
 	 * @param int    $port       Redis port
 	 * @param bool   $persistent Should the connection be persistent?
+	 * @param int    $timeout    Timeout in seconds
 	 */
-	public function __construct(string $host, int $port = 6379, bool $persistent = false)
+	public function __construct(string $host, int $port = 6379, bool $persistent = false, int $timeout = 60)
 	{
 		if(filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false)
 		{
 			$host = '[' . $host . ']';
 		}
 
-		try
-		{
-			if($persistent)
-			{
-				$this->isPersistent = true;
+		// Connect to the server
 
-				$this->connection = pfsockopen('tcp://' . $host, $port, $errNo);
-			}
-			else
-			{
-				$this->connection = fsockopen('tcp://' . $host, $port, $errNo);
-			}
-		}
-		catch(Throwable $e)
-		{
-			throw new RedisException(vsprintf('%s', [$e->getMessage()]), (int) $errNo);
-		}
+		$this->connection = $this->createConnection($host, $port, $persistent, $timeout);
+
+		// Set timeout for read/write operations
+
+		stream_set_timeout($this->connection, $timeout);
 	}
 
 	/**
@@ -78,6 +69,34 @@ class Connection
 		if(!$this->isPersistent && is_resource($this->connection))
 		{
 			fclose($this->connection);
+		}
+	}
+
+	/**
+	 * Creates a socket connection to the server.
+	 *
+	 * @param  string   $host       Redis host
+	 * @param  int      $port       Redis port
+	 * @param  bool     $persistent Should the connection be persistent?
+	 * @param  int      $timeout    Timeout in seconds
+	 * @return resource
+	 */
+	protected function createConnection(string $host, int $port, bool $persistent, int $timeout)
+	{
+		try
+		{
+			if($persistent)
+			{
+				$this->isPersistent = true;
+
+				return pfsockopen('tcp://' . $host, $port, $errNo, $errStr, $timeout);
+			}
+
+			return fsockopen('tcp://' . $host, $port, $errNo, $errStr, $timeout);
+		}
+		catch(Throwable $e)
+		{
+			throw new RedisException(vsprintf('%s', [$e->getMessage()]), (int) $errNo);
 		}
 	}
 
