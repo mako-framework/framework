@@ -19,7 +19,7 @@ use mako\validator\rules\AlphanumericDash;
 use mako\validator\rules\AlphanumericDashUnicode;
 use mako\validator\rules\AlphanumericUnicode;
 use mako\validator\rules\AlphaUnicode;
-use mako\validator\rules\Arr;
+use mako\validator\rules\Arr as ArrRule;
 use mako\validator\rules\Before;
 use mako\validator\rules\Between;
 use mako\validator\rules\database\Exists;
@@ -110,7 +110,7 @@ class Validator
 		'alpha'                    => Alpha::class,
 		'alphanumeric_unicode'     => AlphanumericUnicode::class,
 		'alphanumeric'             => Alphanumeric::class,
-		'array'                    => Arr::class,
+		'array'                    => ArrRule::class,
 		'before'                   => Before::class,
 		'between'                  => Between::class,
 		'date'                     => Date::class,
