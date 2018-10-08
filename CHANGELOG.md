@@ -16,7 +16,8 @@ Update using ```composer update```.
 * Added `ConnectionManager::close()` method.
 * Added `ConnectionManager::executeAndClose()` method.
 * Added `Connection::close()` method (to the database base connection class).
-* Added new `JSON` validation rule.
+* Added new `json` validation rule.
+* Added new `array` validation rule.
 * It is now possible to set a custom timeout for Redis connections.
 
 #### Changes
