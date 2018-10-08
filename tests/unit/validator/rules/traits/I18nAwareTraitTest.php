@@ -101,6 +101,8 @@ class I18nAwareTraitTest extends TestCase
 
 		$i18n->shouldReceive('get')->once()->with('validate.overrides.fieldnames.foobar')->andReturn('foobaz');
 
+		$i18n->shouldReceive('has')->once()->with('validate.barfoo')->andReturn(true);
+
 		$i18n->shouldReceive('get')->once()->with('validate.barfoo', ['foobaz'])->andReturn('translated');
 
 		$rule->setI18n($i18n);
@@ -141,7 +143,40 @@ class I18nAwareTraitTest extends TestCase
 
 		$i18n->shouldReceive('get')->once()->with('validate.overrides.fieldnames.foovalue')->andReturn('foofield');
 
+		$i18n->shouldReceive('has')->once()->with('validate.barfoo')->andReturn(true);
+
 		$i18n->shouldReceive('get')->once()->with('validate.barfoo', ['foobaz', 'foofield', 'barvalue'])->andReturn('translated');
+
+		$rule->setI18n($i18n);
+
+		$this->assertSame('translated', $rule->getTranslatedErrorMessage('foobar', 'barfoo'));
+	}
+
+	/**
+	 *
+	 */
+	public function testDefaultI18nMessage()
+	{
+		$rule = new class implements RuleInterface
+		{
+			use I18nAwareTrait;
+
+			function validateWhenEmpty(): bool { return false; }
+
+			public function validate($value, array $input): bool { return true; }
+
+			public function getErrorMessage(string $field): string { return ''; }
+		};
+
+		$i18n = Mockery::mock(I18n::class);
+
+		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnFalse();
+
+		$i18n->shouldReceive('has')->once()->with('validate.overrides.fieldnames.foobar')->andReturnFalse();
+
+		$i18n->shouldReceive('has')->once()->with('validate.barfoo')->andReturn(true);
+
+		$i18n->shouldReceive('get')->once()->with('validate.barfoo', ['foobar'])->andReturn('translated');
 
 		$rule->setI18n($i18n);
 
@@ -161,7 +196,7 @@ class I18nAwareTraitTest extends TestCase
 
 			public function validate($value, array $input): bool { return true; }
 
-			public function getErrorMessage(string $field): string { return ''; }
+			public function getErrorMessage(string $field): string { return 'fallback'; }
 		};
 
 		$i18n = Mockery::mock(I18n::class);
@@ -170,10 +205,10 @@ class I18nAwareTraitTest extends TestCase
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.fieldnames.foobar')->andReturnFalse();
 
-		$i18n->shouldReceive('get')->once()->with('validate.barfoo', ['foobar'])->andReturn('translated');
+		$i18n->shouldReceive('has')->once()->with('validate.barfoo')->andReturn(false);
 
 		$rule->setI18n($i18n);
 
-		$this->assertSame('translated', $rule->getTranslatedErrorMessage('foobar', 'barfoo'));
+		$this->assertSame('fallback', $rule->getTranslatedErrorMessage('foobar', 'barfoo'));
 	}
 }

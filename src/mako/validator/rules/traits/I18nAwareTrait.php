@@ -104,8 +104,15 @@ trait I18nAwareTrait
 
 		$field = $this->translateFieldName($field, $package);
 
-		// Return default error message
+		// Return default error message from language file if we have one
 
-		return $this->i18n->get($package . 'validate.' . $rule, $this->getI18nParameters($field, $package));
+		if($this->i18n->has(($i18nKey = $package . 'validate.' . $rule)))
+		{
+			return $this->i18n->get($package . 'validate.' . $rule, $this->getI18nParameters($field, $package));
+		}
+
+		// Return default error message from rule
+
+		return $this->getErrorMessage($field);
 	}
 }
