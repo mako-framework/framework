@@ -20,14 +20,14 @@ class ValidatorFactory
 	/**
 	 * I18n instance.
 	 *
-	 * @var \mako\i18n\I18n
+	 * @var \mako\i18n\I18n|null
 	 */
 	protected $i18n;
 
 	/**
 	 * Container.
 	 *
-	 * @var \mako\syringe\Container
+	 * @var \mako\syringe\Container|null
 	 */
 	protected $container;
 
@@ -41,10 +41,10 @@ class ValidatorFactory
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\i18n\I18n         $i18n      I18n instance
-	 * @param \mako\syringe\Container $container Container
+	 * @param \mako\i18n\I18n|null         $i18n      I18n instance
+	 * @param \mako\syringe\Container|null $container Container
 	 */
-	public function __construct(I18n $i18n, Container $container)
+	public function __construct(I18n $i18n = null, Container $container = null)
 	{
 		$this->i18n = $i18n;
 
