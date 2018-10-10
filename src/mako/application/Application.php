@@ -297,7 +297,7 @@ abstract class Application
 	{
 		foreach($this->config->get('application.services.' . $type) as $service)
 		{
-			(new $service($this->container))->register();
+			(new $service($this->container, $this->config))->register();
 		}
 	}
 

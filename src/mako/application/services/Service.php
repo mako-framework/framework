@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use mako\config\Config;
 use mako\syringe\Container;
 
 /**
@@ -24,13 +25,23 @@ abstract class Service
 	protected $container;
 
 	/**
+	 * Config.
+	 *
+	 * @var \mako\config\Config
+	 */
+	protected $config;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\syringe\Container $container Container
+	 * @param \mako\config\Config     $config    Config
 	 */
-	public function __construct(Container $container)
+	public function __construct(Container $container, Config $config)
 	{
 		$this->container = $container;
+
+		$this->config = $config;
 	}
 
 	/**

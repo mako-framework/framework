@@ -28,7 +28,7 @@ class HTTPService extends Service
 	{
 		$app = $this->container->get('app');
 
-		$config = $this->container->get('config')->get('application');
+		$config = $this->config->get('application');
 
 		// Request
 

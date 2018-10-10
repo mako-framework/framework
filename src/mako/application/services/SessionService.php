@@ -111,11 +111,9 @@ class SessionService extends Service
 		{
 			// Get configuration
 
-			$config = $container->get('config');
+			$classWhitelist = $this->config->get('application.deserialization_whitelist');
 
-			$classWhitelist = $config->get('application.deserialization_whitelist');
-
-			$config = $config->get('session');
+			$config = $this->config->get('session');
 
 			// Get session store instance
 

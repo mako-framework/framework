@@ -24,7 +24,7 @@ class PaginationFactoryService extends Service
 	{
 		$this->container->registerSingleton([PaginationFactoryInterface::class, 'pagination'], function($container)
 		{
-			$paginationFactory = new PaginationFactory($container->get('request'), $container->get('config')->get('pagination'));
+			$paginationFactory = new PaginationFactory($container->get('request'), $this->config->get('pagination'));
 
 			if($container->has('urlBuilder'))
 			{

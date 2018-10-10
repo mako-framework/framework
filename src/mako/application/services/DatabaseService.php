@@ -32,7 +32,7 @@ class DatabaseService extends Service
 				});
 			}
 
-			$config = $container->get('config')->get('database');
+			$config = $this->config->get('database');
 
 			return new ConnectionManager($config['default'], $config['configurations']);
 		});

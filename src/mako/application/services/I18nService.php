@@ -26,7 +26,7 @@ class I18nService extends Service
 		{
 			$app = $container->get('app');
 
-			$cache = $container->get('config')->get('application')['language_cache'];
+			$cache = $this->config->get('application.language_cache');
 
 			$i18n = new I18n(new Loader($container->get('fileSystem'), $app->getPath() . '/resources/i18n'), $app->getLanguage());
 

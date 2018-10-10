@@ -25,11 +25,9 @@ class CacheService extends Service
 		{
 			// Get configuration
 
-			$config = $container->get('config');
+			$classWhitelist = $this->config->get('application.deserialization_whitelist');
 
-			$classWhitelist = $config->get('application.deserialization_whitelist');
-
-			$config = $config->get('cache');
+			$config = $this->config->get('cache');
 
 			// Create and return cache manager
 

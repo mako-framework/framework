@@ -32,7 +32,7 @@ class GatekeeperService extends Service
 
 			$session = $container->get('session');
 
-			$config = $container->get('config')->get('gatekeeper');
+			$config = $this->config->get('gatekeeper');
 
 			return new Authentication('session', function() use ($request, $response, $session, $config)
 			{
