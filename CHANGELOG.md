@@ -29,6 +29,10 @@ Update using ```composer update```.
 * Deprecated the `ORM::$exists` property.
 * Deprecated the `ORM::exists()` method.
 
+#### Improvements
+
+* Various improvements and optimizations.
+
 --------------------------------------------------------
 
 ### 5.5.7 <small> (2018-06-14)</small>
