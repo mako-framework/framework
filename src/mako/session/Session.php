@@ -26,13 +26,6 @@ class Session
 	const MAX_TOKENS = 20;
 
 	/**
-	 * Has the session been started yet?
-	 *
-	 * @var bool
-	 */
-	protected $started = false;
-
-	/**
 	 * Has the session been destroyed?
 	 *
 	 * @var bool
@@ -174,10 +167,6 @@ class Session
 	 */
 	protected function start()
 	{
-		// Set the started flag to true
-
-		$this->started = true;
-
 		// Get the session id from the cookie or generate a new one if it doesn't exist.
 
 		$this->sessionId = $this->request->getCookies()->getSigned($this->cookieName, false);
@@ -216,7 +205,7 @@ class Session
 
 		// Write session data
 
-		if($this->started && !$this->destroyed)
+		if(!$this->destroyed)
 		{
 			$this->store->write($this->sessionId, $this->sessionData, $this->dataTTL);
 		}
