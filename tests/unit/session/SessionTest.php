@@ -22,6 +22,11 @@ class TestSession extends Session
 	{
 		return 'foobar';
 	}
+
+	public function commit()
+	{
+		parent::commit();
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -98,13 +103,20 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function getDefaultStore($sessionData = [])
+	public function getDefaultStore($sessionData = [], $commit = false)
 	{
 		$store = $this->getStore();
 
 		$store->shouldReceive('read')->once()->with('foo123')->andReturn(['foo' => 'bar', 'mako.flashdata' => []]);
 
-		$store->shouldReceive('write')->once()->with('foo123', $sessionData, 1800);
+		if($commit !== false)
+		{
+			$store->shouldReceive('write'); // Need an expectation for the shutdown function
+		}
+		else
+		{
+			$store->shouldReceive('write')->times()->with('foo123', $sessionData, 1800);
+		}
 
 		return $store;
 	}
@@ -115,6 +127,16 @@ class SessionTest extends TestCase
 	public function testStartWithCookie()
 	{
 		new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']));
+	}
+
+	/**
+	 *
+	 */
+	public function testCommit()
+	{
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar'], true));
+
+		$session->commit();
 	}
 
 	/**

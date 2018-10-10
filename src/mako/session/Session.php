@@ -141,30 +141,13 @@ class Session
 		$this->configure($options);
 
 		$this->start();
-	}
 
-	/**
-	 * Destructor.
-	 */
-	public function __destruct()
-	{
-		// Replace old flash data with new
-
-		$this->sessionData['mako.flashdata'] = $this->flashData;
-
-		// Write session data
-
-		if($this->started && !$this->destroyed)
+		register_shutdown_function(function()
 		{
-			$this->store->write($this->sessionId, $this->sessionData, $this->dataTTL);
-		}
+			$this->commit();
 
-		// Garbage collection
-
-		if(mt_rand(1, 100) === 100)
-		{
-			$this->store->gc($this->dataTTL);
-		}
+			$this->gc();
+		});
 	}
 
 	/**
@@ -220,6 +203,34 @@ class Session
 		}
 
 		$this->token = $this->sessionData['mako.token'];
+	}
+
+	/**
+	 * Writes data to session store.
+	 */
+	protected function commit()
+	{
+		// Replace old flash data with new
+
+		$this->sessionData['mako.flashdata'] = $this->flashData;
+
+		// Write session data
+
+		if($this->started && !$this->destroyed)
+		{
+			$this->store->write($this->sessionId, $this->sessionData, $this->dataTTL);
+		}
+	}
+
+	/**
+	 * Calls the session store garbage collector.
+	 */
+	protected function gc()
+	{
+		if(mt_rand(1, 100) === 100)
+		{
+			$this->store->gc($this->dataTTL);
+		}
 	}
 
 	/**
