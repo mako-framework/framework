@@ -33,6 +33,8 @@ Update using ```composer update```.
 
 * Various improvements and optimizations.
 
+> Check out the upgrade guide for details on how to upgrade from `5.5.*.`
+
 --------------------------------------------------------
 
 ### 5.5.7 <small> (2018-06-14)</small>
