@@ -118,12 +118,13 @@ class Session
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\http\Request                  $request  Request instance
-	 * @param \mako\http\Response                 $response Response instance
-	 * @param \mako\session\stores\StoreInterface $store    Session store instance
-	 * @param array                               $options  Session options
+	 * @param \mako\http\Request                  $request    Request instance
+	 * @param \mako\http\Response                 $response   Response instance
+	 * @param \mako\session\stores\StoreInterface $store      Session store instance
+	 * @param array                               $options    Session options
+	 * @param bool                                $autoCommit Should the session data be commited automatically?
 	 */
-	public function __construct(Request $request, Response $response, StoreInterface $store, array $options = [])
+	public function __construct(Request $request, Response $response, StoreInterface $store, array $options = [], $autoCommit = true)
 	{
 		$this->request = $request;
 
@@ -135,9 +136,12 @@ class Session
 
 		$this->start();
 
-		register_shutdown_function(function()
+		register_shutdown_function(function() use ($autoCommit)
 		{
-			$this->commit();
+			if($autoCommit)
+			{
+				$this->commit();
+			}
 
 			$this->gc();
 		});
@@ -197,7 +201,7 @@ class Session
 	/**
 	 * Writes data to session store.
 	 */
-	protected function commit()
+	public function commit()
 	{
 		// Replace old flash data with new
 
