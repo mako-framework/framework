@@ -54,6 +54,13 @@ class Session
 	protected $store;
 
 	/**
+	 * Should the session data be commited automatically?
+	 *
+	 * @var bool
+	 */
+	protected $autoCommit;
+
+	/**
 	 * Data TTL in seconds.
 	 *
 	 * @var int
@@ -132,19 +139,24 @@ class Session
 
 		$this->store = $store;
 
+		$this->autoCommit = $autoCommit;
+
+		$this->gc();
+
 		$this->configure($options);
 
 		$this->start();
+	}
 
-		register_shutdown_function(function() use ($autoCommit)
+	/**
+	 * Destructor.
+	 */
+	public function __destruct()
+	{
+		if($this->autoCommit)
 		{
-			if($autoCommit)
-			{
-				$this->commit();
-			}
-
-			$this->gc();
-		});
+			$this->commit();
+		}
 	}
 
 	/**

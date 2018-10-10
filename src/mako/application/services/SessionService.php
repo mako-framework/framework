@@ -81,7 +81,7 @@ class SessionService extends Service
 	 * @param  bool|array                          $classWhitelist Class whitelist
 	 * @return \mako\session\stores\StoreInterface
 	 */
-	protected function getSessionStore(Container $container, array $config, $classWhitelist)
+	protected function getStore(Container $container, array $config, $classWhitelist)
 	{
 		$config = $config['configurations'][$config['configuration']];
 
@@ -111,13 +111,9 @@ class SessionService extends Service
 		{
 			// Get configuration
 
-			$classWhitelist = $this->config->get('application.deserialization_whitelist');
-
 			$config = $this->config->get('session');
 
-			// Get session store instance
-
-			$sessionStore = $this->getSessionStore($container, $config, $classWhitelist);
+			$classWhitelist = $this->config->get('application.deserialization_whitelist');
 
 			// Build options array
 
@@ -131,7 +127,7 @@ class SessionService extends Service
 
 			// Create session and return it
 
-			return new Session($container->get('request'), $container->get('response'), $sessionStore, $options);
+			return new Session($container->get('request'), $container->get('response'), $this->getStore($container, $config, $classWhitelist), $options);
 		});
 	}
 }
