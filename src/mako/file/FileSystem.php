@@ -235,6 +235,18 @@ class FileSystem
 	}
 
 	/**
+	 * Renames a file or directory.
+	 *
+	 * @param  string $oldName Old name
+	 * @param  string $newName New name
+	 * @return bool
+	 */
+	public function rename(string $oldName, string $newName): bool
+	{
+		return rename($oldName, $newName);
+	}
+
+	/**
 	 * Deletes the file from disk.
 	 *
 	 * @param  string $file Path to file
