@@ -8,7 +8,6 @@
 namespace mako\tests;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 /**
