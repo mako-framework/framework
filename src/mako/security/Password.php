@@ -11,6 +11,7 @@ namespace mako\security;
  * Secure password hashing and validation.
  *
  * @author Frederic G. Østby
+ * @deprecated
  */
 class Password
 {

@@ -14,7 +14,8 @@ use mako\database\midgard\ORM;
 use mako\database\midgard\relations\ManyToMany;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\gatekeeper\entities\group\Group;
-use mako\security\Password;
+use mako\security\password\Bcrypt;
+use mako\security\password\HasherInterface;
 
 /**
  * User.
@@ -67,6 +68,16 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	}
 
 	/**
+	 * Returns a hasher instance.
+	 *
+	 * @return \mako\security\password\HasherInterface
+	 */
+	protected function getHasher(): HasherInterface
+	{
+		return new Bcrypt;
+	}
+
+	/**
 	 * Password mutator.
 	 *
 	 * @param  string $password Password
@@ -74,7 +85,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	 */
 	protected function passwordMutator(string $password): string
 	{
-		return Password::hash($password);
+		return $this->getHasher()->create($password);
 	}
 
 	/**
@@ -274,11 +285,13 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	 */
 	public function validatePassword(string $password, $autoSave = true): bool
 	{
-		$isValid = Password::validate($password, $this->password);
+		$hasher = $this->getHasher();
+
+		$isValid = $hasher->verify($password, $this->password);
 
 		// Check if the password needs to be rehashed IF the provided password is valid
 
-		if($isValid && Password::needsRehash($this->password))
+		if($isValid && $hasher->needsRehash($this->password))
 		{
 			$this->password = $password;
 

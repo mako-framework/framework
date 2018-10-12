@@ -20,6 +20,7 @@ Update using ```composer update```.
 * Added new `array` validation rule.
 * Added `FileSystem::rename()` method.
 * It is now possible to set a custom timeout for Redis connections.
+* Added new `Bcrypt` hasher class.
 
 #### Changes
 
@@ -29,6 +30,7 @@ Update using ```composer update```.
 
 * Deprecated the `ORM::$exists` property.
 * Deprecated the `ORM::exists()` method.
+* Deprecated the `mako\security\Password` class.
 
 #### Improvements
 
