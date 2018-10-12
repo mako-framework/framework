@@ -20,7 +20,10 @@ Update using ```composer update```.
 * Added new `array` validation rule.
 * Added `FileSystem::rename()` method.
 * It is now possible to set a custom timeout for Redis connections.
-* Added new `Bcrypt` hasher class.
+* Added new password hashing library:
+	- Added new `Bcrypt` hasher class.
+	- Added new `Argon2i` hasher class.
+	- Added new `Argon2id` hasher class.
 
 #### Changes
 
