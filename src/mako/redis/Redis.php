@@ -126,7 +126,7 @@ class Redis
 	 */
 	protected function getClusterClient(string $serverInfo): Redis
 	{
-		list($slot, $server) = explode(' ', $serverInfo, 2);
+		list(, $server) = explode(' ', $serverInfo, 2);
 
 		if(!isset($this->clusterClients[$server]))
 		{
