@@ -7,34 +7,23 @@
 
 namespace mako\tests\unit\security\password;
 
-use mako\security\password\Bcrypt;
+use mako\security\password\Argon2i;
 use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class BcryptTest extends TestCase
+class Argon2iTest extends TestCase
 {
 	/**
 	 *
 	 */
-	public function testNormalizeOptions()
+	public function setUp()
 	{
-		$hasher = new class extends Bcrypt
+		if(!defined('PASSWORD_ARGON2I'))
 		{
-			public function normalizeOptions(array $options): array
-			{
-				return parent::normalizeOptions($options);
-			}
-		};
-
-		$this->assertSame(['cost' => 10], $hasher->normalizeOptions([]));
-
-		$this->assertSame(['cost' => 10], $hasher->normalizeOptions(['cost' => 10]));
-
-		$this->assertSame(['cost' => 31], $hasher->normalizeOptions(['cost' => 40]));
-
-		$this->assertSame(['cost' => 4], $hasher->normalizeOptions(['cost' => 1]));
+			$this->markTestSkipped('PHP has not been compiled with Argon2i support.');
+		}
 	}
 
 	/**
@@ -44,7 +33,7 @@ class BcryptTest extends TestCase
 	{
 		$password = 'foobar';
 
-		$hasher = new Bcrypt(['cost' => 4]);
+		$hasher = new Argon2i(['time_cost' => 1]);
 
 		$hash1 = $hasher->create($password);
 
@@ -55,10 +44,6 @@ class BcryptTest extends TestCase
 		$this->assertNotEquals($password, $hash2);
 
 		$this->assertNotEquals($hash1, $hash2);
-
-		$this->assertEquals(60, strlen($hash1));
-
-		$this->assertEquals(60, strlen($hash2));
 	}
 
 	/**
@@ -68,7 +53,7 @@ class BcryptTest extends TestCase
 	{
 		$password = 'foobar';
 
-		$hasher = new Bcrypt(['cost' => 4]);
+		$hasher = new Argon2i;
 
 		$hash = $hasher->create($password);
 
@@ -84,8 +69,8 @@ class BcryptTest extends TestCase
 	{
 		$password = 'foobar';
 
-		$hasher1 = new Bcrypt(['cost' => 4]);
-		$hasher2 = new Bcrypt(['cost' => 5]);
+		$hasher1 = new Argon2i(['time_cost' => 1]);
+		$hasher2 = new Argon2i(['time_cost' => 2]);
 
 		$hash = $hasher1->create($password);
 
