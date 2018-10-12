@@ -204,8 +204,8 @@ class Container
 	/**
 	 * Replaces a singleton instance.
 	 *
-	 * @param string|array $hint     Type hint or array contaning both type hint and alias
-	 * @param object       $instance Class instance
+	 * @param string $hint     Type hint
+	 * @param object $instance Class instance
 	 */
 	public function replaceInstance(string $hint, $instance)
 	{
