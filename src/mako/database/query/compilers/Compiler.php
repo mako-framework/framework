@@ -763,7 +763,14 @@ class Compiler
 	{
 		$sql = $this->query->getPrefix();
 
-		$sql .= empty($values) ? $this->insertWithoutValues() : $this->insertWithValues($values);
+		if(empty($values))
+		{
+			$sql .= $this->insertWithoutValues();
+		}
+		else
+		{
+			$sql .= $this->insertWithValues($values);
+		}
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}
