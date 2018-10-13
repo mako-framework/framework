@@ -761,8 +761,7 @@ class Compiler
 	 */
 	public function insert(array $values = []): array
 	{
-		$sql = $this->query->getPrefix();
-
+		$sql  = $this->query->getPrefix();
 		$sql .= empty($values) ? $this->insertWithoutValues() : $this->insertWithValues($values);
 
 		return ['sql' => $sql, 'params' => $this->params];
