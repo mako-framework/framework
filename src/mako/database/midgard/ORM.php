@@ -759,7 +759,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  bool                       $whitelist Remove columns that are not in the whitelist?
 	 * @return \mako\database\midgard\ORM
 	 */
-	public static function create(array $columns, bool $raw = false, bool $whitelist = true): ORM
+	public static function create(array $columns = [], bool $raw = false, bool $whitelist = true): ORM
 	{
 		$model = new static($columns, $raw, $whitelist);
 
