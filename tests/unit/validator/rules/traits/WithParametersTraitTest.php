@@ -58,7 +58,7 @@ class WithParametersTraitTest extends TestCase
 
 	/**
 	 * @expectedException RuntimeException
-	 * @expectedExceptionMessage Missing required parameter [ baz ].
+	 * @expectedExceptionMessageRegExp /Missing required parameter \[ baz \] for validation rule \[ (.*) \]\./
 	 */
 	public function testGetMissingRequiredParameter()
 	{

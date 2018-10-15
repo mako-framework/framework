@@ -35,7 +35,7 @@ trait WithParametersTrait
 	{
 		if($optional === false && !isset($this->parameters[$name]))
 		{
-			throw new RuntimeException(vsprintf('Missing required parameter [ %s ].', [$name, static::class]));
+			throw new RuntimeException(vsprintf('Missing required parameter [ %s ] for validation rule [ %s ].', [$name, static::class]));
 		}
 
 		return $this->parameters[$name];
