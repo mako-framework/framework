@@ -5,6 +5,8 @@ Update using ```composer update```.
 #### Changes
 
 * Removed the deprecated ``mako\security\Password`` class.
+* Removed the deprecated `ORM::$exists` property.
+* Removed the deprecated `ORM::exists()` method.
 
 --------------------------------------------------------
 
@@ -28,7 +30,7 @@ Update using ```composer update```.
 * Added `Connection::close()` method (to the database base connection class).
 * Added new `json` validation rule.
 * Added new `array` validation rule.
-* You an now specify which IP version you're validating when using the `ip` validation rule.
+* You can now specify which IP version you're validating when using the `ip` validation rule.
 * Added `FileSystem::rename()` method.
 * It is now possible to set a custom timeout for Redis connections.
 * Added new password hashing library:

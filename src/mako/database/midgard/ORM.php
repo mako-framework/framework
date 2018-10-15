@@ -119,14 +119,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Has the record been loaded from/saved to a database?
 	 *
-	 * @deprecated
-	 * @var bool
-	 */
-	protected $exists = false;
-
-	/**
-	 * Has the record been loaded from/saved to a database?
-	 *
 	 * @var bool
 	 */
 	protected $isPersisted = false;
@@ -203,7 +195,7 @@ abstract class ORM implements JsonSerializable
 
 		if($isPersisted)
 		{
-			$this->isPersisted = $this->exists = true;
+			$this->isPersisted = true;
 
 			$this->synchronize();
 		}
@@ -216,7 +208,7 @@ abstract class ORM implements JsonSerializable
 	{
 		if($this->isPersisted)
 		{
-			$this->isPersisted = $this->exists = false;
+			$this->isPersisted = false;
 			$this->original    = [];
 			$this->related     = [];
 
@@ -247,17 +239,6 @@ abstract class ORM implements JsonSerializable
 		}
 
 		return static::$connectionManager->connection($this->connectionName);
-	}
-
-	/**
-	 * Has the record been loaded from/saved to a database?
-	 *
-	 * @deprecated
-	 * @return bool
-	 */
-	public function exists(): bool
-	{
-		return $this->isPersisted;
 	}
 
 	/**
@@ -963,7 +944,7 @@ abstract class ORM implements JsonSerializable
 
 			$this->insertRecord($this->builder());
 
-			$this->isPersisted = $this->exists = true;
+			$this->isPersisted = true;
 		}
 		elseif($this->isModified())
 		{
