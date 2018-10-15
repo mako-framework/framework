@@ -1,3 +1,13 @@
+### 5.7.0 <small> (2018-??-??)</small>
+
+Update using ```composer update```.
+
+#### Changes
+
+* Removed the deprecated ``mako\security\Password`` class.
+
+--------------------------------------------------------
+
 ### 5.6.0 <small> (2018-10-15)</small>
 
 Update using ```composer update```.
