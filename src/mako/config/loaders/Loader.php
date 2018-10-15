@@ -9,7 +9,6 @@ namespace mako\config\loaders;
 
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
-use RuntimeException;
 
 /**
  *  Loader.
@@ -63,7 +62,7 @@ class Loader implements LoaderInterface
 
 		if($loaded === 0)
 		{
-			throw new RuntimeException(vsprintf('The [ %s ] config file does not exist.', [$file]));
+			throw new LoaderException(vsprintf('The [ %s ] config file does not exist.', [$file]));
 		}
 
 		// Merge environment specific configuration

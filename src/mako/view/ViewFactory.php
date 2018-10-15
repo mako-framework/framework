@@ -13,7 +13,6 @@ use mako\file\FileSystem;
 use mako\syringe\Container;
 use mako\view\renderers\PHP;
 use mako\view\renderers\RendererInterface;
-use RuntimeException;
 
 /**
  * View factory.
@@ -206,7 +205,7 @@ class ViewFactory
 
 			if($throwException)
 			{
-				throw new RuntimeException(vsprintf('The [ %s ] view does not exist.', [$view]));
+				throw new ViewException(vsprintf('The [ %s ] view does not exist.', [$view]));
 			}
 
 			return false;

@@ -41,7 +41,7 @@ class ConfigTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 * @expectedException \mako\config\loaders\LoaderException
 	 */
 	public function testLoadNonExistingFile()
 	{
