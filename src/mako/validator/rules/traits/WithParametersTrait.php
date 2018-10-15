@@ -38,6 +38,6 @@ trait WithParametersTrait
 			throw new RuntimeException(vsprintf('Missing required parameter [ %s ] for validation rule [ %s ].', [$name, static::class]));
 		}
 
-		return $this->parameters[$name];
+		return $this->parameters[$name] ?? null;
 	}
 }
