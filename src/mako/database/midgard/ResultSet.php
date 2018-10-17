@@ -52,4 +52,22 @@ class ResultSet extends BaseResultSet
 			$item->expose($column);
 		}
 	}
+
+	/**
+	 * Eager loads relations on the collection.
+	 *
+	 * @param  string|array                     $includes Relation or array of relations to eager load
+	 * @return \mako\database\midgard\ResultSet
+	 */
+	public function include($includes): ResultSet
+	{
+		$items = $this->items;
+
+		(function() use ($items)
+		{
+			$this->loadIncludes($items);
+		})->bindTo($this->items[0]->builder()->including($includes), Query::class)();
+
+		return $this;
+	}
 }

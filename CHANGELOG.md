@@ -2,6 +2,11 @@
 
 Update using ```composer update```.
 
+#### New
+
+* It is now possible to eager load relations on a loaded model using the `include` method.
+* It is now possible to eager load relations on a result set using the `include` method.
+
 #### Changes
 
 * Removed the deprecated ``mako\security\Password`` class.

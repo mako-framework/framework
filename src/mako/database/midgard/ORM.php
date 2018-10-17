@@ -454,6 +454,24 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
+	 * Eager loads relations on the model.
+	 *
+	 * @param  string|array               $includes Relation or array of relations to eager load
+	 * @return \mako\database\midgard\ORM
+	 */
+	public function include($includes): ORM
+	{
+		$model = $this;
+
+		(function() use ($model)
+		{
+			$this->loadIncludes([$model]);
+		})->bindTo($this->builder()->including($includes), Query::class)();
+
+		return $this;
+	}
+
+	/**
 	 * Returns the related records array.
 	 *
 	 * @return array
@@ -564,17 +582,6 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
-	 * Loads and caches the relation.
-	 *
-	 * @param  string $name Relation name
-	 * @return mixed
-	 */
-	public function loadRelation(string $name)
-	{
-		return $this->related[$name] = $this->{$name}()->getRelated();
-	}
-
-	/**
 	 * Gets a column value or relation.
 	 *
 	 * @param  string $name           Column name
@@ -599,7 +606,7 @@ abstract class ORM implements JsonSerializable
 		{
 			// The column is a relation. Lazy load the record(s) and cache them
 
-			return $this->loadRelation($name);
+			return $this->related[$name] = $this->{$name}()->getRelated();
 		}
 
 		if($throwException)
