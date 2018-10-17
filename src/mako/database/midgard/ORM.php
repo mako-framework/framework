@@ -335,7 +335,7 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns the short name of a class.
 	 *
-	 * @param  string $className Class name
+	 * @param  string|null $className Class name
 	 * @return string
 	 */
 	protected function getClassShortName(string $className = null): string
@@ -564,12 +564,24 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
-	 * Gets a column value or relation.
+	 * Loads and caches the relation.
 	 *
-	 * @param  string $name Column name
+	 * @param  string $name Relation name
 	 * @return mixed
 	 */
-	public function getValue(string $name)
+	public function loadRelation(string $name)
+	{
+		return $this->related[$name] = $this->{$name}()->getRelated();
+	}
+
+	/**
+	 * Gets a column value or relation.
+	 *
+	 * @param  string $name           Column name
+	 * @param  bool   $throwException Should we throw an exception for non existing columns or relations?
+	 * @return mixed
+	 */
+	public function getValue(string $name, bool $throwException = true)
 	{
 		if(array_key_exists($name, $this->columns))
 		{
@@ -585,11 +597,12 @@ abstract class ORM implements JsonSerializable
 		}
 		elseif($this->isRelation($name))
 		{
-			// The column is a relation. Lazy load the records and cache them
+			// The column is a relation. Lazy load the record(s) and cache them
 
-			return $this->related[$name] = $this->{$name}()->getRelated();
+			return $this->loadRelation($name);
 		}
-		else
+
+		if($throwException)
 		{
 			throw new RuntimeException(vsprintf('Unknown column or relation [ %s ].', [$name]));
 		}
@@ -692,12 +705,17 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Checks if a column or relation is set using overloading.
 	 *
-	 * @param  string $name Column name
+	 * @param  string $name Column or relation name
 	 * @return bool
 	 */
 	public function __isset(string $name)
 	{
-		return isset($this->columns[$name]) || isset($this->related[$name]) || ($this->isRelation($name) && $this->$name && isset($this->related[$name]));
+		if(isset($this->columns[$name]) || isset($this->related[$name]))
+		{
+			return true;
+		}
+
+		return $this->getValue($name, false) !== null;
 	}
 
 	/**
@@ -766,9 +784,9 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a HasOnePolymorphic relation.
 	 *
-	 * @param  string                                              $model           Related model
-	 * @param  string                                              $polymorphicType Polymorphic type
-	 * @return \mako\database\midgard\relations\HasManyPolymorphic
+	 * @param  string                                             $model           Related model
+	 * @param  string                                             $polymorphicType Polymorphic type
+	 * @return \mako\database\midgard\relations\HasOnePolymorphic
 	 */
 	protected function hasOnePolymorphic(string $model, string $polymorphicType): HasOnePolymorphic
 	{
