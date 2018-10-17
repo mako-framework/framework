@@ -463,10 +463,10 @@ abstract class ORM implements JsonSerializable
 	{
 		$model = $this;
 
-		(function() use ($model)
+		(function() use ($includes, $model)
 		{
-			$this->loadIncludes([$model]);
-		})->bindTo($this->builder()->including($includes), Query::class)();
+			$this->including($includes)->loadIncludes([$model]);
+		})->bindTo($this->builder(), Query::class)();
 
 		return $this;
 	}
