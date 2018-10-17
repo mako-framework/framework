@@ -715,7 +715,7 @@ abstract class ORM implements JsonSerializable
 			return true;
 		}
 
-		return $this->getValue($name, false) !== null;
+		return $this->isRelation($name) && $this->getValue($name, false) !== null;
 	}
 
 	/**
