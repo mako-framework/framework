@@ -454,6 +454,17 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
+	 * Returns true if the model has included the relationship and false if not.
+	 *
+	 * @param  string $relation Relation name
+	 * @return bool
+	 */
+	public function includes(string $relation): bool
+	{
+		return array_key_exists($relation, $this->related);
+	}
+
+	/**
 	 * Eager loads relations on the model.
 	 *
 	 * @param  string|array               $includes Relation or array of relations to eager load

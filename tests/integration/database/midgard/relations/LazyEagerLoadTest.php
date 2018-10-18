@@ -48,13 +48,13 @@ class LazyEagerLoadTest extends ORMTestCase
 	{
 		$user = LazyHasManyUser::get(1);
 
-		$this->assertFalse(array_key_exists('articles', $user->getRelated()));
+		$this->assertFalse($user->includes('articles'));
 
 		$this->assertEquals(1, count($this->connectionManager->connection('sqlite')->getLog()));
 
 		$user->include('articles');
 
-		$this->assertTrue(array_key_exists('articles', $user->getRelated()));
+		$this->assertTrue($user->includes('articles'));
 
 		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
 
@@ -70,11 +70,11 @@ class LazyEagerLoadTest extends ORMTestCase
 	{
 		$users = LazyHasManyUser::where('id', '=', 1)->all();
 
-		$this->assertFalse(array_key_exists('articles', $users[0]->getRelated()));
+		$this->assertFalse($users[0]->includes('articles'));
 
 		$users->include('articles');
 
-		$this->assertTrue(array_key_exists('articles', $users[0]->getRelated()));
+		$this->assertTrue($users[0]->includes('articles'));
 
 		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
 
