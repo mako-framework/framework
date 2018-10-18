@@ -6,7 +6,7 @@ Update using ```composer update```.
 
 * It is now possible to eager load relations on a loaded model using the `ORM::include()` method.
 * It is now possible to eager load relations on a result set using the `ResultSet::include()` method.
-* Added `ORM::includes()` method that returns true if a relation has been loaded and false if not.
+* Added `ORM::includes()` method that returns `true` if a relation has been loaded and `false` if not.
 
 #### Changes
 
