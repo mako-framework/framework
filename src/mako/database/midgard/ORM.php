@@ -595,11 +595,10 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Gets a column value or relation.
 	 *
-	 * @param  string $name           Column name
-	 * @param  bool   $throwException Should we throw an exception for non existing columns or relations?
+	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	public function getValue(string $name, bool $throwException = true)
+	public function getValue(string $name)
 	{
 		if(array_key_exists($name, $this->columns))
 		{
@@ -620,10 +619,9 @@ abstract class ORM implements JsonSerializable
 			return $this->related[$name] = $this->{$name}()->getRelated();
 		}
 
-		if($throwException)
-		{
-			throw new RuntimeException(vsprintf('Unknown column or relation [ %s ].', [$name]));
-		}
+		// All options have been exhausted so we'll throw an exception
+
+		throw new RuntimeException(vsprintf('Unknown column or relation [ %s ].', [$name]));
 	}
 
 	/**
@@ -733,7 +731,7 @@ abstract class ORM implements JsonSerializable
 			return true;
 		}
 
-		return $this->isRelation($name) && $this->getValue($name, false) !== null;
+		return $this->isRelation($name) && $this->getValue($name) !== null;
 	}
 
 	/**
