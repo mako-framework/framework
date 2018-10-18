@@ -161,7 +161,7 @@ class Session extends Adapter
 	}
 
 	/**
-	 * Returns true if the email + password combination matches and the user is activated and not banned.
+	 * Returns true if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
 	 * @param  string   $identifier User email or username
@@ -215,7 +215,7 @@ class Session extends Adapter
 
 	/**
 	 * Logs in a user with a valid identifier/password combination.
-	 * Returns true if the identifier + password combination matches and the user is activated and not banned.
+	 * Returns true if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
 	 * @param  string   $identifier User identifier
@@ -254,14 +254,16 @@ class Session extends Adapter
 
 	/**
 	 * Login a user without checking the password.
+	 * Returns true if the identifier exists and the user is activated, not locked and not banned.
+	 * A status code will be retured in all other situations.
 	 *
-	 * @param  mixed $identifier User email or username
-	 * @param  bool  $remember   Set a remember me cookie?
-	 * @return bool
+	 * @param  mixed    $identifier User identifier
+	 * @param  bool     $remember   Set a remember me cookie?
+	 * @return bool|int
 	 */
-	public function forceLogin($identifier, $remember = false): bool
+	public function forceLogin($identifier, $remember = false)
 	{
-		return ($this->login($identifier, null, $remember, true) === true);
+		return $this->login($identifier, null, $remember, true);
 	}
 
 	/**

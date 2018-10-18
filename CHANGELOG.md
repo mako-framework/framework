@@ -13,6 +13,7 @@ Update using ```composer update```.
 * Removed the deprecated ``mako\security\Password`` class.
 * Removed the deprecated `ORM::$exists` property.
 * Removed the deprecated `ORM::exists()` method.
+* The gatekeeper `forceLogin` method now returns `true` if the login is successful and a status code if not.
 
 --------------------------------------------------------
 
