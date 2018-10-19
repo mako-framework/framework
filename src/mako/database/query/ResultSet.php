@@ -81,7 +81,12 @@ class ResultSet extends Collection implements JsonSerializable
 	 */
 	public function jsonSerialize(): array
 	{
-		return $this->toArray();
+		if($this->pagination === null)
+		{
+			return $this->toArray();
+		}
+
+		return ['data' => $this->toArray(), 'pagination' => $this->pagination->toArray()];
 	}
 
 	/**
@@ -92,7 +97,7 @@ class ResultSet extends Collection implements JsonSerializable
 	 */
 	public function toJson(int $options = 0): string
 	{
-		return json_encode($this->toArray(), $options);
+		return json_encode($this->jsonSerialize(), $options);
 	}
 
 	/**

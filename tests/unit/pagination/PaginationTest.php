@@ -139,6 +139,16 @@ class PaginationTest extends TestCase
 	}
 
 	/**
+	 *
+	 */
+	public function testToArrayWithoutRequestAndUrlBuilder()
+	{
+		$pagination = new Pagination(200, 20, 1);
+
+		$this->assertEquals(['current_page' => 1, 'number_of_pages' => 10, 'items' => 200, 'items_per_page' => 20], $pagination->toArray());
+	}
+
+	/**
 	 * @expectedException \RuntimeException
 	 */
 	public function testRenderException()
@@ -185,7 +195,7 @@ class PaginationTest extends TestCase
 
 		$urlBuilder = $this->getURLBuilder();
 
-		$urlBuilder->shouldReceive('current')->once()->with(['page' => 1])->andReturn('http://example.org/?page=1');
+		$urlBuilder->shouldReceive('current')->twice()->with(['page' => 1])->andReturn('http://example.org/?page=1');
 		$urlBuilder->shouldReceive('current')->twice()->with(['page' => 2])->andReturn('http://example.org/?page=2');
 		$urlBuilder->shouldReceive('current')->once()->with(['page' => 3])->andReturn('http://example.org/?page=3');
 		$urlBuilder->shouldReceive('current')->once()->with(['page' => 4])->andReturn('http://example.org/?page=4');
@@ -196,13 +206,15 @@ class PaginationTest extends TestCase
 
 		$paginationArray =
 		[
+			'current_page'    => 1,
+			'number_of_pages' => 10,
 			'items'           => 200,
 			'items_per_page'  => 20,
-			'number_of_pages' => 10,
+			'first'           => 'http://example.org/?page=1',
 			'last'            => 'http://example.org/?page=10',
 			'next'            => 'http://example.org/?page=2',
-
-			'pages'=>
+			'previous'        => null,
+			'pages'           =>
 			[
 				0 =>
 				[
@@ -280,15 +292,15 @@ class PaginationTest extends TestCase
 
 		$paginationArray =
 		[
+			'current_page'    => 2,
+			'number_of_pages' => 10,
 			'items'           => 200,
 			'items_per_page'  => 20,
-			'number_of_pages' => 10,
 			'first'           => 'http://example.org/?page=1',
-			'previous'        => 'http://example.org/?page=1',
 			'last'            => 'http://example.org/?page=10',
 			'next'            => 'http://example.org/?page=3',
-
-			'pages'=>
+			'previous'        => 'http://example.org/?page=1',
+			'pages'           =>
 			[
 				0 =>
 				[
@@ -340,6 +352,9 @@ class PaginationTest extends TestCase
 		$pagination->render('partials.pagination');
 	}
 
+	/**
+	 *
+	 */
 	public function testRenderPage10()
 	{
 		$request = $this->getRequest();
@@ -357,19 +372,21 @@ class PaginationTest extends TestCase
 		$urlBuilder->shouldReceive('current')->once()->with(['page' => 7])->andReturn('http://example.org/?page=7');
 		$urlBuilder->shouldReceive('current')->once()->with(['page' => 8])->andReturn('http://example.org/?page=8');
 		$urlBuilder->shouldReceive('current')->twice()->with(['page' => 9])->andReturn('http://example.org/?page=9');
-		$urlBuilder->shouldReceive('current')->once()->with(['page' => 10])->andReturn('http://example.org/?page=10');
+		$urlBuilder->shouldReceive('current')->twice()->with(['page' => 10])->andReturn('http://example.org/?page=10');
 
 		$viewFactory = $this->getViewFactory();
 
 		$paginationArray =
 		[
+			'current_page'    => 10,
+			'number_of_pages' => 10,
 			'items'           => 200,
 			'items_per_page'  => 20,
-			'number_of_pages' => 10,
-			'first'    => 'http://example.org/?page=1',
-			'previous' => 'http://example.org/?page=9',
-
-			'pages'=>
+			'first'           => 'http://example.org/?page=1',
+			'last'            => 'http://example.org/?page=10',
+			'next'            => null,
+			'previous'        => 'http://example.org/?page=9',
+			'pages'           =>
 			[
 				0 =>
 				[

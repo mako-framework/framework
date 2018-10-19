@@ -7,6 +7,7 @@
 
 namespace mako\pagination;
 
+use JsonSerializable;
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
 use mako\view\ViewFactory;
@@ -18,7 +19,7 @@ use RuntimeException;
  * @author Frederic G. Østby
  * @author Yamada Taro
  */
-class Pagination implements PaginationInterface
+class Pagination implements JsonSerializable, PaginationInterface
 {
 	/**
 	 * Number of items.
@@ -72,6 +73,13 @@ class Pagination implements PaginationInterface
 	 * @var \mako\http\Request
 	 */
 	protected $request;
+
+	/**
+	 * Query parameter cache.
+	 *
+	 * @var array
+	 */
+	protected $params;
 
 	/**
 	 * URL builder instance.
@@ -203,6 +211,60 @@ class Pagination implements PaginationInterface
 	}
 
 	/**
+	 * Builds a url to the desired page.
+	 *
+	 * @param  int    $page Page
+	 * @return string
+	 */
+	protected function buildPageUrl(int $page): string
+	{
+		if($this->params === null)
+		{
+			$this->params = $this->request->getQuery()->all();
+		}
+
+		return $this->urlBuilder->current(array_merge($this->params, [$this->options['page_key'] => $page]));
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function toArray(): array
+	{
+		$pagination =
+		[
+			'current_page'    => $this->currentPage,
+			'number_of_pages' => $this->pages,
+			'items'           => $this->items,
+			'items_per_page'  => $this->itemsPerPage,
+		];
+
+		if($this->urlBuilder !== null && $this->request !== null)
+		{
+			$pagination +=
+			[
+
+				'first'    => $this->buildPageUrl(1),
+				'last'     => $this->buildPageUrl($this->pages),
+				'next'     => $this->currentPage < $this->pages ? $this->buildPageUrl($this->currentPage + 1) : null,
+				'previous' => $this->currentPage > 1 ? $this->buildPageUrl($this->currentPage - 1) : null,
+			];
+		}
+
+		return $pagination;
+	}
+
+	/**
+	 * Returns data which can be serialized by json_encode().
+	 *
+	 * @return array
+	 */
+	public function jsonSerialize(): array
+	{
+		return $this->toArray();
+	}
+
+	/**
 	 * Builds and returns the pagination array.
 	 *
 	 * @return array
@@ -221,27 +283,13 @@ class Pagination implements PaginationInterface
 				throw new RuntimeException('A [ URLBuilder ] instance is required to generate the pagination array.');
 			}
 
-			$pagination = ['items' => $this->items, 'items_per_page' => $this->itemsPerPage, 'number_of_pages' => $this->pages];
-
-			$params = $this->request->getQuery()->all();
-
-			if($this->currentPage > 1)
-			{
-				$pagination['first']    = $this->urlBuilder->current(array_merge($params, [$this->options['page_key'] => 1]));
-				$pagination['previous'] = $this->urlBuilder->current(array_merge($params, [$this->options['page_key'] => ($this->currentPage - 1)]));
-			}
-
-			if($this->currentPage < $this->pages)
-			{
-				$pagination['last'] = $this->urlBuilder->current(array_merge($params, [$this->options['page_key'] => $this->pages]));
-				$pagination['next'] = $this->urlBuilder->current(array_merge($params, [$this->options['page_key'] => ($this->currentPage + 1)]));
-			}
+			$pagination = $this->toArray();
 
 			if($this->options['max_page_links'] !== 0)
 			{
 				if($this->pages > $this->options['max_page_links'])
 				{
-					$start = max(($this->currentPage) - ceil($this->options['max_page_links'] / 2), 0);
+					$start = (int) max(($this->currentPage) - ceil($this->options['max_page_links'] / 2), 0);
 
 					$end = $start + $this->options['max_page_links'];
 
@@ -268,9 +316,9 @@ class Pagination implements PaginationInterface
 				{
 					$pagination['pages'][] =
 					[
-						'url'        => $this->urlBuilder->current(array_merge($params, [$this->options['page_key'] => $i])),
+						'url'        => $this->buildPageUrl($i),
 						'number'     => $i,
-						'is_current' => ($i == $this->currentPage),
+						'is_current' => $i === $this->currentPage,
 					];
 				}
 			}

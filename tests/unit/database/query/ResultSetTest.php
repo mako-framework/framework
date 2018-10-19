@@ -8,8 +8,12 @@
 namespace mako\tests\unit\database\query;
 
 use mako\database\query\Result;
+
 use mako\database\query\ResultSet;
+use mako\pagination\PaginationInterface;
 use mako\tests\TestCase;
+
+use Mockery;
 
 /**
  * @group unit
@@ -44,6 +48,27 @@ class ResultSetTest extends TestCase
 		$resultSet = new ResultSet([$result]);
 
 		$this->assertEquals('[{"foo":1,"bar":2}]', json_encode($resultSet));
+	}
+
+	/**
+	 *
+	 */
+	public function testJsonSerializeWithPagination()
+	{
+		$result = new Result;
+
+		$result->foo = 1;
+		$result->bar = 2;
+
+		$resultSet = new ResultSet([$result]);
+
+		$pagination = Mockery::mock(PaginationInterface::class);
+
+		$pagination->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar']);
+
+		$resultSet->setPagination($pagination);
+
+		$this->assertEquals('{"data":[{"foo":1,"bar":2}],"pagination":{"foo":"bar"}}', json_encode($resultSet));
 	}
 
 	/**

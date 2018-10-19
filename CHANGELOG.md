@@ -7,6 +7,8 @@ Update using ```composer update```.
 * It is now possible to eager load relations on a loaded model using the `ORM::include()` method.
 * It is now possible to eager load relations on a result set using the `ResultSet::include()` method.
 * Added `ORM::includes()` method that returns `true` if a relation has been loaded and `false` if not.
+* Added `PaginationInterface::toArray()` method.
+* The `Pagination` class now implements the `JsonSerializable` interface.
 
 #### Changes
 
@@ -14,6 +16,7 @@ Update using ```composer update```.
 * Removed the deprecated `ORM::$exists` property.
 * Removed the deprecated `ORM::exists()` method.
 * The gatekeeper `forceLogin` method now returns `true` if the login is successful and a status code if not.
+* The JSON representation of a result set returned by the `Query::paginate()` method will now be an object where the results are available as `data` and pagination information will be available as `pagination` (`{"data":[...], "pagination":{...}}`).
 
 --------------------------------------------------------
 

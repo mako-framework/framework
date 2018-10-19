@@ -73,4 +73,11 @@ interface PaginationInterface
 	 * @return int
 	 */
 	public function offset(): int;
+
+	/**
+	 * Returns an array representation of the pagination object.
+	 *
+	 * @return array
+	 */
+	public function toArray(): array;
 }
