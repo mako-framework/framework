@@ -367,10 +367,7 @@ class Query extends QueryBuilder
 			$hydrated[] = $this->hydrateModel($result);
 		}
 
-		if(!empty($hydrated))
-		{
-			$this->loadIncludes($hydrated);
-		}
+		$this->loadIncludes($hydrated);
 
 		return $hydrated;
 	}
