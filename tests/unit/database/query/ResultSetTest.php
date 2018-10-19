@@ -8,11 +8,9 @@
 namespace mako\tests\unit\database\query;
 
 use mako\database\query\Result;
-
 use mako\database\query\ResultSet;
 use mako\pagination\PaginationInterface;
 use mako\tests\TestCase;
-
 use Mockery;
 
 /**
