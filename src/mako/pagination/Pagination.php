@@ -223,7 +223,7 @@ class Pagination implements JsonSerializable, PaginationInterface
 			$this->params = $this->request->getQuery()->all();
 		}
 
-		return $this->urlBuilder->current(array_merge($this->params, [$this->options['page_key'] => $page]));
+		return $this->urlBuilder->current([$this->options['page_key'] => $page] + $this->params);
 	}
 
 	/**
