@@ -10,6 +10,7 @@ Update using ```composer update```.
 * Added `PaginationInterface::toArray()` method.
 * Added `PaginationInterface::toJSON()` method.
 * The `PaginationInterface` interface now extends the `JsonSerializable` interface.
+* The query builder now supports basic tuple comparisons.
 
 #### Changes
 

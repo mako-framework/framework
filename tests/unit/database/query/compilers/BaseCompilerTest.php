@@ -338,6 +338,21 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithTupleWhere()
+	{
+		$query = $this->getBuilder();
+
+		$query->where(['foo', 'bar'], '=', ['baz', 'bax']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE ("foo", "bar") = (?, ?)', $query['sql']);
+		$this->assertEquals(['baz', 'bax'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithRawWhere()
 	{
 		$query = $this->getBuilder();
@@ -362,6 +377,21 @@ class BaseCompilerTest extends TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = SUBSTRING("foo", 1, 2)', $query['sql']);
+		$this->assertEmpty($query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithTupleWhereRaw()
+	{
+		$query = $this->getBuilder();
+
+		$query->whereRaw(['foo', 'bar'], '=', '(SELECT foo, bar FROM foobar LIMIT 1)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE ("foo", "bar") = (SELECT foo, bar FROM foobar LIMIT 1)', $query['sql']);
 		$this->assertEmpty($query['params']);
 	}
 

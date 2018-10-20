@@ -465,6 +465,15 @@ class Compiler
 	 */
 	protected function where(array $where): string
 	{
+		if(is_array($where['column']))
+		{
+			$column = '(' . $this->columns($where['column'], false) . ')';
+
+			$value = is_array($where['value']) ? '(' . $this->params($where['value']) . ')' : $this->param($where['value']);
+
+			return $column . ' ' . $where['operator'] . ' ' . $value;
+		}
+
 		return $this->column($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
 	}
 

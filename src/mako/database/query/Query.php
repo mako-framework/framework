@@ -523,7 +523,7 @@ class Query
 	/**
 	 * Adds a WHERE clause.
 	 *
-	 * @param  string|\Closure            $column    Column name or closure
+	 * @param  string|array|\Closure      $column    Column name, an array of column names or closure
 	 * @param  string|null                $operator  Operator
 	 * @param  mixed                      $value     Value
 	 * @param  string                     $separator Clause separator
@@ -562,7 +562,7 @@ class Query
 	/**
 	 * Adds a raw WHERE clause.
 	 *
-	 * @param  string                     $column    Column name or raw SQL
+	 * @param  string|array               $column    Column name, an array of column names or raw SQL
 	 * @param  string|array|null          $operator  Operator or parameters
 	 * @param  string|null                $raw       Raw SQL
 	 * @param  string                     $separator Clause separator
@@ -588,7 +588,7 @@ class Query
 	/**
 	 * Adds a OR WHERE clause.
 	 *
-	 * @param  string|\Closure            $column   Column name or closure
+	 * @param  string|array|\Closure      $column   Column name, an array of column names or closure
 	 * @param  string|null                $operator Operator
 	 * @param  mixed                      $value    Value
 	 * @return \mako\database\query\Query
@@ -601,7 +601,7 @@ class Query
 	/**
 	 * Adds a raw OR WHERE clause.
 	 *
-	 * @param  string                     $column   Column name or raw SQL
+	 * @param  string|array               $column   Column name, and array of column names or raw SQL
 	 * @param  string|array|null          $operator Operator or parameters
 	 * @param  string|null                $raw      Raw SQL
 	 * @return \mako\database\query\Query
