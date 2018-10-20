@@ -404,7 +404,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testToJSON()
 	{
-		$user = TestUser::get(1)->toJSON();
+		$user = TestUser::get(1)->toJson();
 
 		$this->assertEquals('{"id":"1","created_at":"2014-04-30 14:40:01","username":"foo","email":"foo@example.org"}', $user);
 	}

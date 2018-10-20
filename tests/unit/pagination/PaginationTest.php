@@ -149,6 +149,26 @@ class PaginationTest extends TestCase
 	}
 
 	/**
+	 *
+	 */
+	public function testToJsonWithoutRequestAndUrlBuilder()
+	{
+		$pagination = new Pagination(200, 20, 1);
+
+		$this->assertEquals('{"current_page":1,"number_of_pages":10,"items":200,"items_per_page":20}', $pagination->toJson());
+	}
+
+	/**
+	 *
+	 */
+	public function testJsonEncodeWithoutRequestAndUrlBuilder()
+	{
+		$pagination = new Pagination(200, 20, 1);
+
+		$this->assertEquals('{"current_page":1,"number_of_pages":10,"items":200,"items_per_page":20}', json_encode($pagination));
+	}
+
+	/**
 	 * @expectedException \RuntimeException
 	 */
 	public function testRenderException()

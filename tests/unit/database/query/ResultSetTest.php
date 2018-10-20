@@ -81,7 +81,7 @@ class ResultSetTest extends TestCase
 
 		$resultSet = new ResultSet([$result]);
 
-		$this->assertEquals('[{"foo":1,"bar":2}]', $resultSet->toJSON());
+		$this->assertEquals('[{"foo":1,"bar":2}]', $resultSet->toJson());
 	}
 
 	/**

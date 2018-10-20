@@ -51,7 +51,7 @@ class ResultTest extends TestCase
 		$result->foo = 1;
 		$result->bar = 2;
 
-		$this->assertEquals('{"foo":1,"bar":2}', $result->toJSON());
+		$this->assertEquals('{"foo":1,"bar":2}', $result->toJson());
 	}
 
 	/**

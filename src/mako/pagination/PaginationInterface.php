@@ -7,13 +7,15 @@
 
 namespace mako\pagination;
 
+use JsonSerializable;
+
 /**
  * Pagination interface.
  *
  * @author Frederic G. Østby
  * @author Yamada Taro
  */
-interface PaginationInterface
+interface PaginationInterface extends JsonSerializable
 {
 	/**
 	 * Constructor.
@@ -80,4 +82,12 @@ interface PaginationInterface
 	 * @return array
 	 */
 	public function toArray(): array;
+
+	/**
+	 * Returns a json representation of the pagination object.
+	 *
+	 * @param  int    $options JSON encode options
+	 * @return string
+	 */
+	public function toJson(int $options = 0): string;
 }

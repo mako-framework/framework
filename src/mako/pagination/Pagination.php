@@ -7,7 +7,6 @@
 
 namespace mako\pagination;
 
-use JsonSerializable;
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
 use mako\view\ViewFactory;
@@ -19,7 +18,7 @@ use RuntimeException;
  * @author Frederic G. Østby
  * @author Yamada Taro
  */
-class Pagination implements JsonSerializable, PaginationInterface
+class Pagination implements PaginationInterface
 {
 	/**
 	 * Number of items.
@@ -262,6 +261,14 @@ class Pagination implements JsonSerializable, PaginationInterface
 	public function jsonSerialize(): array
 	{
 		return $this->toArray();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function toJson(int $options = 0): string
+	{
+		return json_encode($this->toArray(), $options);
 	}
 
 	/**
