@@ -19,6 +19,7 @@ use mako\security\password\HasherInterface;
 
 use function hash;
 use function is_int;
+use function random_bytes;
 
 /**
  * User.
