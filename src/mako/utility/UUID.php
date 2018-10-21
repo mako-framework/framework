@@ -17,6 +17,7 @@ use function ord;
 use function preg_match;
 use function random_bytes;
 use function sha1;
+use function sprintf;
 use function str_replace;
 use function str_split;
 use function strlen;

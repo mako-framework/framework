@@ -29,6 +29,7 @@ use mako\database\query\helpers\Postgres as PostgresHelper;
 use RuntimeException;
 
 use function array_merge;
+use function explode;
 use function in_array;
 use function vsprintf;
 

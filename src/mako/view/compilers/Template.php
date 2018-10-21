@@ -9,6 +9,7 @@ namespace mako\view\compilers;
 
 use mako\file\FileSystem;
 
+use function ltrim;
 use function md5;
 use function preg_match;
 use function preg_replace;

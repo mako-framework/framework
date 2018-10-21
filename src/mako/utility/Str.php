@@ -18,6 +18,7 @@ use function preg_match;
 use function preg_quote;
 use function preg_replace;
 use function preg_replace_callback;
+use function random_int;
 use function rawurlencode;
 use function str_pad;
 use function str_repeat;

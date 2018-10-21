@@ -26,6 +26,7 @@ use function fseek;
 use function ftell;
 use function ob_end_clean;
 use function ob_get_level;
+use function sprintf;
 use function substr;
 use function vsprintf;
 

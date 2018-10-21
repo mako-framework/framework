@@ -9,6 +9,7 @@ namespace mako\http\request;
 
 use function json_decode;
 use function parse_str;
+use function strpos;
 
 /**
  * Body.

@@ -19,9 +19,11 @@ use RuntimeException;
 
 use function array_merge;
 use function array_unique;
+use function http_build_query;
 use function implode;
 use function is_string;
 use function preg_match;
+use function rtrim;
 use function substr;
 use function vsprintf;
 
