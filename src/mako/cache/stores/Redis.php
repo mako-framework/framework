@@ -9,6 +9,10 @@ namespace mako\cache\stores;
 
 use mako\redis\Redis as RedisClient;
 
+use function is_numeric;
+use function serialize;
+use function unserialize;
+
 /**
  * Redis store.
  *

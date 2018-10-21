@@ -11,6 +11,12 @@ use Closure;
 use mako\http\Request;
 use mako\http\Response;
 
+use function flush;
+use function ob_end_clean;
+use function ob_get_level;
+use function printf;
+use function strlen;
+
 /**
  * Stream response.
  *

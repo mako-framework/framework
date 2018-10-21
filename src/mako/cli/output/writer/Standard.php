@@ -7,6 +7,9 @@
 
 namespace mako\cli\output\writer;
 
+use function fstat;
+use function fwrite;
+
 /**
  * Standard writer.
  *

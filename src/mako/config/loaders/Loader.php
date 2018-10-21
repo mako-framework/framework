@@ -10,6 +10,12 @@ namespace mako\config\loaders;
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
 
+use function array_replace_recursive;
+use function array_reverse;
+use function strpos;
+use function substr_replace;
+use function vsprintf;
+
 /**
  *  Loader.
  *

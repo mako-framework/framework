@@ -12,6 +12,8 @@ use mako\pagination\PaginationInterface;
 use mako\utility\Arr;
 use mako\utility\Collection;
 
+use function json_encode;
+
 /**
  * Result set.
  *

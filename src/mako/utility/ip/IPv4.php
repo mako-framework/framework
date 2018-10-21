@@ -7,6 +7,10 @@
 
 namespace mako\utility\ip;
 
+use function explode;
+use function ip2long;
+use function strpos;
+
 /**
  * IPv4 utilities.
  *

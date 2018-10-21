@@ -10,6 +10,8 @@ namespace mako\cli\input\helpers;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 
+use function trim;
+
 /**
  * Question helper.
  *

@@ -10,6 +10,12 @@ namespace mako\commander;
 use mako\onion\Onion;
 use mako\syringe\Container;
 
+use function get_class;
+use function strlen;
+use function strrpos;
+use function substr;
+use function substr_replace;
+
 /**
  * Command bus.
  *

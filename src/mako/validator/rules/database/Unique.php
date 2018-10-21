@@ -13,6 +13,8 @@ use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\WithParametersTrait;
 use mako\validator\rules\WithParametersInterface;
 
+use function sprintf;
+
 /**
  * Unique rule.
  *

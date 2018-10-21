@@ -10,6 +10,8 @@ namespace mako\redis;
 use mako\common\ConnectionManager as BaseConnectionManager;
 use RuntimeException;
 
+use function vsprintf;
+
 /**
  * Redis connection manager.
  *

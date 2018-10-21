@@ -11,6 +11,8 @@ use Closure;
 use mako\http\routing\Routes;
 use mako\reactor\Command;
 
+use function implode;
+
 /**
  * Command that lists all registered routes.
  *

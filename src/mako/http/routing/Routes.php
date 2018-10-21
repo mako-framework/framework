@@ -11,6 +11,9 @@ use Closure;
 use mako\common\traits\ExtendableTrait;
 use RuntimeException;
 
+use function array_pop;
+use function vsprintf;
+
 /**
  * Route collection.
  *

@@ -12,6 +12,8 @@ use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\ValidatesWhenEmptyTrait;
 
+use function sprintf;
+
 /**
  * One-time token rule.
  *

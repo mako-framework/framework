@@ -14,6 +14,24 @@ use IteratorAggregate;
 use mako\common\traits\ExtendableTrait;
 use OutOfBoundsException;
 
+use function array_chunk;
+use function array_combine;
+use function array_filter;
+use function array_key_exists;
+use function array_keys;
+use function array_map;
+use function array_merge;
+use function array_pop;
+use function array_push;
+use function array_shift;
+use function array_unshift;
+use function array_values;
+use function count;
+use function shuffle;
+use function uasort;
+use function usort;
+use function vsprintf;
+
 /**
  * Collection.
  *

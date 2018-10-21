@@ -9,6 +9,9 @@ namespace mako\database\query;
 
 use JsonSerializable;
 
+use function get_object_vars;
+use function json_encode;
+
 /**
  * Result.
  *

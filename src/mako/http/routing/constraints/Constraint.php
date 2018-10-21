@@ -7,6 +7,8 @@
 
 namespace mako\http\routing\constraints;
 
+use function array_key_exists;
+
 /**
  * Base constraint.
  *

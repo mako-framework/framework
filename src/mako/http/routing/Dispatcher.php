@@ -16,6 +16,17 @@ use mako\onion\Onion;
 use mako\syringe\Container;
 use RuntimeException;
 
+use function array_diff_key;
+use function array_fill_keys;
+use function array_intersect_key;
+use function array_keys;
+use function array_merge;
+use function explode;
+use function method_exists;
+use function strpos;
+use function uasort;
+use function vsprintf;
+
 /**
  * Route dispatcher.
  *

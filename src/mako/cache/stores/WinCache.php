@@ -9,6 +9,14 @@ namespace mako\cache\stores;
 
 use RuntimeException;
 
+use function function_exists;
+use function wincache_ucache_add;
+use function wincache_ucache_clear;
+use function wincache_ucache_delete;
+use function wincache_ucache_exists;
+use function wincache_ucache_get;
+use function wincache_ucache_set;
+
 /**
  * WinCache store.
  *

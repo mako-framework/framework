@@ -7,6 +7,10 @@
 
 namespace mako\syringe;
 
+use function array_pop;
+use function class_uses;
+use function get_parent_class;
+
 /**
  * Class inspector.
  *

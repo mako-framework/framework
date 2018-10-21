@@ -12,6 +12,11 @@ use mako\http\exceptions\RequestException;
 use mako\http\Response;
 use Throwable;
 
+use function function_exists;
+use function implode;
+use function in_array;
+use function strpos;
+
 /**
  * Handler helper trait.
  *

@@ -9,6 +9,10 @@ namespace mako\utility;
 
 use InvalidArgumentException;
 
+use function preg_match;
+use function str_repeat;
+use function str_split;
+
 /**
  * Class containing number helper methods.
  *

@@ -20,6 +20,11 @@ use mako\reactor\Command as BaseCommand;
 use mako\syringe\Container;
 use ReflectionClass;
 
+use function array_merge;
+use function basename;
+use function strcmp;
+use function usort;
+
 /**
  * Base command.
  *

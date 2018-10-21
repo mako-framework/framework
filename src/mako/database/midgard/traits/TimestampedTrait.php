@@ -9,6 +9,10 @@ namespace mako\database\midgard\traits;
 
 use DateTime;
 
+use function array_shift;
+use function explode;
+use function property_exists;
+
 /**
  * Timestamped trait.
  *

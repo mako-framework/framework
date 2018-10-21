@@ -10,6 +10,11 @@ namespace mako\onion;
 use Closure;
 use mako\syringe\Container;
 
+use function array_merge;
+use function array_push;
+use function array_unshift;
+use function vsprintf;
+
 /**
  * Middleware stack.
  *

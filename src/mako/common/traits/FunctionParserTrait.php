@@ -9,6 +9,12 @@ namespace mako\common\traits;
 
 use RuntimeException;
 
+use function json_decode;
+use function json_last_error;
+use function preg_match;
+use function strpos;
+use function vsprintf;
+
 /**
  * Function parser trait.
  *

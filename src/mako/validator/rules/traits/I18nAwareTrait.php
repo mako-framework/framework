@@ -11,6 +11,14 @@ use mako\i18n\I18n;
 use mako\validator\rules\RuleInterface;
 use mako\validator\rules\WithParametersInterface;
 
+use function array_map;
+use function array_merge;
+use function array_values;
+use function implode;
+use function is_array;
+use function property_exists;
+use function str_replace;
+
 /**
  * I18n aware trait.
  *

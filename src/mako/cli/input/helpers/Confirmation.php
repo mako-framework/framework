@@ -7,6 +7,12 @@
 
 namespace mako\cli\input\helpers;
 
+use function array_keys;
+use function implode;
+use function mb_strtolower;
+use function mb_strtoupper;
+use function trim;
+
 /**
  * Confirmation helper.
  *

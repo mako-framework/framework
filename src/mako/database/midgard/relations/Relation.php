@@ -11,6 +11,12 @@ use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
 use mako\database\midgard\Query;
 
+use function array_chunk;
+use function array_merge;
+use function array_shift;
+use function array_unique;
+use function count;
+
 /**
  * Base relation.
  *

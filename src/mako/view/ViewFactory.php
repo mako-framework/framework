@@ -14,6 +14,8 @@ use mako\syringe\Container;
 use mako\view\renderers\PHP;
 use mako\view\renderers\RendererInterface;
 
+use function vsprintf;
+
 /**
  * View factory.
  *

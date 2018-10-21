@@ -9,6 +9,12 @@ namespace mako\cache\stores;
 
 use RuntimeException;
 
+use function function_exists;
+use function zend_disk_cache_fetch;
+use function zend_shm_cache_clear;
+use function zend_shm_cache_delete;
+use function zend_shm_cache_store;
+
 /**
  * Zend memory store.
  *

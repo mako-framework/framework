@@ -25,6 +25,21 @@ use mako\utility\Str;
 use mako\utility\UUID;
 use RuntimeException;
 
+use function array_diff;
+use function array_diff_key;
+use function array_flip;
+use function array_intersect_key;
+use function array_key_exists;
+use function array_merge_recursive;
+use function array_unique;
+use function count;
+use function in_array;
+use function json_encode;
+use function method_exists;
+use function strrpos;
+use function substr;
+use function vsprintf;
+
 /**
  * ORM.
  *

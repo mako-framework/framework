@@ -12,6 +12,8 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
+use function date;
+
 /**
  * Logger service.
  *

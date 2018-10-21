@@ -9,6 +9,9 @@ namespace mako\session\stores;
 
 use mako\redis\Redis as RedisClient;
 
+use function serialize;
+use function unserialize;
+
 /**
  * Redis store.
  *

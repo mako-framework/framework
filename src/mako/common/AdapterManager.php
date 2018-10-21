@@ -12,6 +12,9 @@ use mako\common\traits\ConfigurableTrait;
 use mako\syringe\Container;
 use RuntimeException;
 
+use function method_exists;
+use function vsprintf;
+
 /**
  * Adapter manager.
  *

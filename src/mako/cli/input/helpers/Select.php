@@ -10,6 +10,9 @@ namespace mako\cli\input\helpers;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 
+use function array_values;
+use function trim;
+
 /**
  * Select helper.
  *

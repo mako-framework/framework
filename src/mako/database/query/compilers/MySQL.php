@@ -9,6 +9,8 @@ namespace mako\database\query\compilers;
 
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 
+use function str_replace;
+
 /**
  * Compiles MySQL queries.
  *

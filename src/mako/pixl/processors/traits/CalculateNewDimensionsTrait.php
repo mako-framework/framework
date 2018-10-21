@@ -9,6 +9,9 @@ namespace mako\pixl\processors\traits;
 
 use mako\pixl\Image;
 
+use function min;
+use function round;
+
 /**
  * Calculate new image dimensions.
  *

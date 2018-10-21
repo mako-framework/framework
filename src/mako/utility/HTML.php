@@ -9,6 +9,9 @@ namespace mako\utility;
 
 use mako\common\traits\ExtendableTrait;
 
+use function is_array;
+use function is_int;
+
 /**
  * HTML helper.
  *

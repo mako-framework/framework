@@ -11,6 +11,11 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 
+use function array_column;
+use function array_merge;
+use function count;
+use function strtolower;
+
 /**
  * Headers.
  *

@@ -9,6 +9,9 @@ namespace mako\validator\rules;
 
 use mako\validator\rules\traits\WithParametersTrait;
 
+use function mb_strlen;
+use function sprintf;
+
 /**
  * Max length rule.
  *

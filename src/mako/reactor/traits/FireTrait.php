@@ -9,6 +9,12 @@ namespace mako\reactor\traits;
 
 use Closure;
 
+use function feof;
+use function fread;
+use function pclose;
+use function popen;
+use function strpos;
+
 /**
  * Fire trait.
  *

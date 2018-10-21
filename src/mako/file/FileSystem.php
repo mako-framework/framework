@@ -10,6 +10,28 @@ namespace mako\file;
 use FilesystemIterator;
 use SplFileObject;
 
+use function file_exists;
+use function file_get_contents;
+use function file_put_contents;
+use function filemtime;
+use function filesize;
+use function finfo_close;
+use function finfo_file;
+use function finfo_open;
+use function function_exists;
+use function glob;
+use function hash_file;
+use function hash_hmac_file;
+use function is_dir;
+use function is_file;
+use function is_readable;
+use function is_writable;
+use function mkdir;
+use function pathinfo;
+use function rename;
+use function rmdir;
+use function unlink;
+
 /**
  * File system.
  *

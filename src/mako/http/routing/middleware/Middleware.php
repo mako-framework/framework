@@ -7,6 +7,8 @@
 
 namespace mako\http\routing\middleware;
 
+use function array_key_exists;
+
 /**
  * Base middleware.
  *

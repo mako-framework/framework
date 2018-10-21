@@ -10,6 +10,8 @@ namespace mako\validator\rules;
 use DateTime;
 use mako\validator\rules\traits\WithParametersTrait;
 
+use function sprintf;
+
 /**
  * Before rule.
  *

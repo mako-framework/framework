@@ -7,6 +7,8 @@
 
 namespace mako\cache\stores;
 
+use function time;
+
 /**
  * Memory store.
  *

@@ -10,6 +10,8 @@ namespace mako\cli\output;
 use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\writer\WriterInterface;
 
+use function getenv;
+
 /**
  * Output.
  *

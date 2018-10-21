@@ -9,6 +9,14 @@ namespace mako\cli\output\helpers;
 
 use mako\cli\output\Output;
 
+use function ceil;
+use function floor;
+use function max;
+use function min;
+use function str_pad;
+use function str_repeat;
+use function strlen;
+
 /**
  * Progress bar helper.
  *

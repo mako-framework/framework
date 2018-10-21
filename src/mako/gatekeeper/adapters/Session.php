@@ -15,6 +15,8 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\session\Session as HttpSession;
 
+use function array_replace_recursive;
+
 /**
  * Session adapter.
  *

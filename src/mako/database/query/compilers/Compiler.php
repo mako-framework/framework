@@ -15,6 +15,19 @@ use mako\database\query\Raw;
 use mako\database\query\Subquery;
 use RuntimeException;
 
+use function array_keys;
+use function array_map;
+use function array_merge;
+use function array_shift;
+use function explode;
+use function implode;
+use function is_array;
+use function sprintf;
+use function str_replace;
+use function stripos;
+use function strpos;
+use function vsprintf;
+
 /**
  * Compiles SQL queries.
  *

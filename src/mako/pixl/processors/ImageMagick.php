@@ -14,6 +14,10 @@ use mako\pixl\Image;
 use mako\pixl\processors\traits\CalculateNewDimensionsTrait;
 use RuntimeException;
 
+use function preg_match;
+use function strpos;
+use function vsprintf;
+
 /**
  * ImageMagick processor.
  *

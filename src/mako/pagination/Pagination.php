@@ -12,6 +12,10 @@ use mako\http\routing\URLBuilder;
 use mako\view\ViewFactory;
 use RuntimeException;
 
+use function ceil;
+use function json_encode;
+use function max;
+
 /**
  * Pagination class.
  *

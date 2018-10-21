@@ -7,6 +7,9 @@
 
 namespace mako\autoloading;
 
+use function array_key_exists;
+use function class_alias;
+
 /**
  * Alias loader.
  *

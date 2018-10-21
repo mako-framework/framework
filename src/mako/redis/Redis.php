@@ -10,6 +10,18 @@ namespace mako\redis;
 use Closure;
 use mako\utility\Str;
 
+use function array_merge;
+use function count;
+use function explode;
+use function implode;
+use function str_replace;
+use function strlen;
+use function strpos;
+use function strtoupper;
+use function substr;
+use function trim;
+use function vsprintf;
+
 /**
  * Redis client.
  *

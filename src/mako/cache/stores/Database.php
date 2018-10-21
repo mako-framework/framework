@@ -10,6 +10,10 @@ namespace mako\cache\stores;
 use mako\database\connections\Connection;
 use mako\database\query\Query;
 
+use function serialize;
+use function time;
+use function unserialize;
+
 /**
  * Database store.
  *

@@ -11,6 +11,15 @@ use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\syringe\Container;
 use ReflectionClass;
 
+use function class_uses;
+use function dirname;
+use function in_array;
+use function realpath;
+use function str_replace;
+use function strrpos;
+use function strtolower;
+use function substr;
+
 /**
  * Package.
  *

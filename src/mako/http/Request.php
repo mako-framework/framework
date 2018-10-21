@@ -18,6 +18,28 @@ use mako\security\Signer;
 use mako\utility\Arr;
 use mako\utility\ip\IP;
 
+use function array_map;
+use function basename;
+use function end;
+use function explode;
+use function file_get_contents;
+use function filter_var;
+use function fopen;
+use function in_array;
+use function ltrim;
+use function mb_strlen;
+use function mb_substr;
+use function parse_url;
+use function pathinfo;
+use function rawurldecode;
+use function rtrim;
+use function str_replace;
+use function stripos;
+use function strlen;
+use function strpos;
+use function strtok;
+use function strtoupper;
+
 /**
  * Executes requets.
  *

@@ -59,6 +59,17 @@ use mako\validator\rules\UUID;
 use mako\validator\rules\WithParametersInterface;
 use RuntimeException;
 
+use function array_fill_keys;
+use function array_merge_recursive;
+use function array_unique;
+use function compact;
+use function in_array;
+use function json_encode;
+use function preg_match;
+use function strpos;
+use function substr;
+use function vsprintf;
+
 /**
  * Input validation.
  *

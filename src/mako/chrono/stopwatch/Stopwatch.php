@@ -7,6 +7,10 @@
 
 namespace mako\chrono\stopwatch;
 
+use function count;
+use function end;
+use function microtime;
+
 /**
  * Stopwatch.
  *

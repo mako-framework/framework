@@ -18,6 +18,25 @@ use PDOException;
 use PDOStatement;
 use RuntimeException;
 
+use function array_shift;
+use function array_splice;
+use function count;
+use function get_class;
+use function is_array;
+use function is_bool;
+use function is_float;
+use function is_int;
+use function is_null;
+use function is_object;
+use function is_resource;
+use function microtime;
+use function preg_replace;
+use function preg_replace_callback;
+use function str_repeat;
+use function strpos;
+use function trim;
+use function vsprintf;
+
 /**
  * Database connection.
  *
@@ -333,7 +352,7 @@ class Connection
 	 */
 	protected function prepareQueryForLog(string $query, array $params): string
 	{
-		return preg_replace_callback('/\?/', function($matches) use (&$params)
+		return preg_replace_callback('/\?/', function() use (&$params)
 		{
 			$param = array_shift($params);
 

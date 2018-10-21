@@ -10,6 +10,8 @@ namespace mako\common\traits;
 use BadMethodCallException;
 use Closure;
 
+use function vsprintf;
+
 /**
  * Extendable trait.
  *

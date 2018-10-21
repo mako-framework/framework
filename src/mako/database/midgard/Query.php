@@ -13,6 +13,19 @@ use mako\database\connections\Connection;
 use mako\database\query\Query as QueryBuilder;
 use PDO;
 
+use function array_filter;
+use function array_keys;
+use function array_merge;
+use function array_udiff;
+use function array_unique;
+use function in_array;
+use function is_numeric;
+use function is_string;
+use function method_exists;
+use function strpos;
+use function substr;
+use function vsprintf;
+
 /**
  * ORM query builder.
  *

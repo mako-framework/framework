@@ -9,6 +9,11 @@ namespace mako\http\routing;
 
 use mako\http\Request;
 
+use function http_build_query;
+use function preg_match;
+use function preg_replace;
+use function strpos;
+
 /**
  * URL builder.
  *

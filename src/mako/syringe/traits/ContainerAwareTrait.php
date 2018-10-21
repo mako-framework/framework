@@ -10,6 +10,8 @@ namespace mako\syringe\traits;
 use mako\syringe\Container;
 use RuntimeException;
 
+use function vsprintf;
+
 /**
  * Container aware trait.
  *

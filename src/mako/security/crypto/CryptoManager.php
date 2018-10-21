@@ -12,6 +12,8 @@ use mako\security\crypto\encrypters\OpenSSL;
 use mako\security\Key;
 use RuntimeException;
 
+use function vsprintf;
+
 /**
  * Crypto manager.
  *

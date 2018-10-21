@@ -7,6 +7,10 @@
 
 namespace mako\http\request;
 
+use function in_array;
+use function strpos;
+use function substr;
+
 /**
  * Server.
  *

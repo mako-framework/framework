@@ -11,6 +11,17 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 
+use function array_merge;
+use function array_values;
+use function count;
+use function explode;
+use function krsort;
+use function str_replace;
+use function strpos;
+use function strtoupper;
+use function substr;
+use function trim;
+
 /**
  * Headers.
  *

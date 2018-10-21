@@ -10,6 +10,9 @@ namespace mako\http\response\builders;
 use mako\http\Request;
 use mako\http\Response;
 
+use function json_encode;
+use function preg_match;
+
 /**
  * JSON builder.
  *

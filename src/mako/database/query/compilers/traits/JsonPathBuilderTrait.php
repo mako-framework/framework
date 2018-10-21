@@ -7,6 +7,9 @@
 
 namespace mako\database\query\compilers\traits;
 
+use function is_numeric;
+use function str_replace;
+
 /**
  * JSON path builder trait.
  *

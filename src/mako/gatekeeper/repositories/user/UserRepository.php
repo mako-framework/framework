@@ -9,6 +9,9 @@ namespace mako\gatekeeper\repositories\user;
 
 use InvalidArgumentException;
 
+use function in_array;
+use function vsprintf;
+
 /**
  * User repository.
  *

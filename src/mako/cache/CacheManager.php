@@ -22,6 +22,8 @@ use mako\common\AdapterManager;
 use mako\syringe\Container;
 use RuntimeException;
 
+use function vsprintf;
+
 /**
  * Cache manager.
  *

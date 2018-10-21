@@ -7,6 +7,9 @@
 
 namespace mako\database\midgard\traits;
 
+use function in_array;
+use function property_exists;
+
 /**
  * Nullable trait.
  *

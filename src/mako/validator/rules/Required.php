@@ -9,6 +9,9 @@ namespace mako\validator\rules;
 
 use mako\validator\rules\traits\ValidatesWhenEmptyTrait;
 
+use function in_array;
+use function sprintf;
+
 /**
  * Required rule.
  *

@@ -7,6 +7,8 @@
 
 namespace mako\database\query\compilers;
 
+use function trim;
+
 /**
  * Compiles DB2 queries.
  *

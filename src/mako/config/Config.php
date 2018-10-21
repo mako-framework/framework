@@ -10,6 +10,9 @@ namespace mako\config;
 use mako\config\loaders\LoaderInterface;
 use mako\utility\Arr;
 
+use function explode;
+use function strpos;
+
 /**
  * Config class.
  *

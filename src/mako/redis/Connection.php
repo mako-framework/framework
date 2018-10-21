@@ -9,6 +9,21 @@ namespace mako\redis;
 
 use Throwable;
 
+use function fclose;
+use function fgets;
+use function filter_var;
+use function fread;
+use function fsockopen;
+use function fwrite;
+use function is_resource;
+use function min;
+use function pfsockopen;
+use function stream_get_meta_data;
+use function stream_set_timeout;
+use function strlen;
+use function substr;
+use function vsprintf;
+
 /**
  * Redis connection.
  *

@@ -9,6 +9,8 @@ namespace mako\validator\rules;
 
 use mako\validator\rules\traits\WithParametersTrait;
 
+use function sprintf;
+
 /**
  * Greater than or equal to rule.
  *

@@ -9,6 +9,11 @@ namespace mako\validator\rules\traits;
 
 use RuntimeException;
 
+use function array_combine;
+use function array_fill;
+use function count;
+use function vsprintf;
+
 /**
  * With parameters trait.
  *

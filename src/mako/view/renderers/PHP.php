@@ -9,6 +9,10 @@ namespace mako\view\renderers;
 
 use mako\view\renderers\traits\EscaperTrait;
 
+use function extract;
+use function ob_get_clean;
+use function ob_start;
+
 /**
  * Plain PHP view renderer.
  *

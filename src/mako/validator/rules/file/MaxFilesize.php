@@ -13,6 +13,11 @@ use mako\validator\rules\traits\WithParametersTrait;
 use mako\validator\rules\WithParametersInterface;
 use RuntimeException;
 
+use function is_numeric;
+use function sprintf;
+use function substr;
+use function vsprintf;
+
 /**
  * Max filesize rule.
  *

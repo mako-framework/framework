@@ -12,6 +12,10 @@ use mako\database\connections\Connection;
 use mako\pagination\PaginationFactoryInterface;
 use PDO;
 
+use function count;
+use function is_array;
+use function sprintf;
+
 /**
  * Query builder.
  *

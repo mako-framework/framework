@@ -9,6 +9,8 @@ namespace mako\cache\stores;
 
 use Memcached as PHPMemcached;
 
+use function time;
+
 /**
  * Memcached store.
  *

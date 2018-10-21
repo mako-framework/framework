@@ -9,6 +9,8 @@ namespace mako\validator\rules;
 
 use mako\utility\UUID as UUIDGenerator;
 
+use function sprintf;
+
 /**
  * UUID rule.
  *

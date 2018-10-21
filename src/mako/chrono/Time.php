@@ -10,6 +10,11 @@ namespace mako\chrono;
 use DateTime;
 use DateTimeZone;
 
+use function getdate;
+use function min;
+use function mktime;
+use function strftime;
+
 /**
  * Extension of the PHP DateTime class.
  *

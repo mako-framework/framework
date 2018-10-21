@@ -8,9 +8,15 @@
 namespace mako\database\midgard\relations;
 
 use Closure;
-
 use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
+
+use function array_diff;
+use function array_merge;
+use function implode;
+use function is_array;
+use function sort;
+use function strpos;
 
 /**
  * Many to many relation.

@@ -12,6 +12,10 @@ use mako\file\FileSystem;
 use mako\reactor\Command;
 use Throwable;
 
+use function gmdate;
+use function str_replace;
+use function vsprintf;
+
 /**
  * Command that creates a migration.
  *

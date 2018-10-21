@@ -12,6 +12,10 @@ use mako\cli\output\Output;
 use mako\error\handlers\HandlerInterface;
 use Throwable;
 
+use function array_keys;
+use function get_class;
+use function in_array;
+
 /**
  * Development handler.
  *

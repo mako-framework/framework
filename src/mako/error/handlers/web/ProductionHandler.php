@@ -15,6 +15,9 @@ use mako\http\Response;
 use mako\view\ViewFactory;
 use Throwable;
 
+use function json_encode;
+use function simplexml_load_string;
+
 /**
  * Production handler.
  *

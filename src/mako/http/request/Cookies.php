@@ -13,6 +13,8 @@ use IteratorAggregate;
 use mako\security\Signer;
 use RuntimeException;
 
+use function count;
+
 /**
  * Cookies.
  *

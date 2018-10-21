@@ -9,6 +9,13 @@ namespace mako\utility\ip;
 
 use Throwable;
 
+use function explode;
+use function inet_pton;
+use function pack;
+use function str_pad;
+use function str_repeat;
+use function strpos;
+
 /**
  * IPv6 utilities.
  *

@@ -28,6 +28,10 @@ use mako\database\query\helpers\Helper;
 use mako\database\query\helpers\Postgres as PostgresHelper;
 use RuntimeException;
 
+use function array_merge;
+use function in_array;
+use function vsprintf;
+
 /**
  * Database connection manager.
  *

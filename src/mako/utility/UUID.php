@@ -9,6 +9,20 @@ namespace mako\utility;
 
 use InvalidArgumentException;
 
+use function bin2hex;
+use function chr;
+use function hexdec;
+use function md5;
+use function ord;
+use function preg_match;
+use function random_bytes;
+use function sha1;
+use function str_replace;
+use function str_split;
+use function strlen;
+use function substr;
+use function vsprintf;
+
 /**
  * Class that generates and validates UUIDs.
  *

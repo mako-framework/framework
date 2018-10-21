@@ -15,6 +15,14 @@ use ReflectionMethod;
 use ReflectionParameter;
 use RuntimeException;
 
+use function array_merge;
+use function array_replace;
+use function array_values;
+use function is_array;
+use function is_numeric;
+use function is_object;
+use function vsprintf;
+
 /**
  * Inversion of control container.
  *

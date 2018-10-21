@@ -10,6 +10,8 @@ namespace mako\i18n\loaders;
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
 
+use function vsprintf;
+
 /**
  * Language loader.
  *

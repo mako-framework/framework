@@ -7,6 +7,8 @@
 
 namespace mako\chrono\stopwatch;
 
+use function microtime;
+
 /**
  * Stopwatch lap.
  *

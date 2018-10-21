@@ -20,6 +20,8 @@ use mako\cli\output\helpers\UnorderedList;
 use mako\cli\output\Output;
 use mako\syringe\traits\ContainerAwareTrait;
 
+use function str_repeat;
+
 /**
  * Controller helper trait.
  *

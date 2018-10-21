@@ -13,6 +13,18 @@ use mako\http\response\Headers;
 use mako\http\response\senders\ResponseSenderInterface;
 use mako\security\Signer;
 
+use function array_key_exists;
+use function hash;
+use function header;
+use function in_array;
+use function ob_end_flush;
+use function ob_get_length;
+use function ob_get_level;
+use function ob_start;
+use function setcookie;
+use function str_replace;
+use function stripos;
+
 /**
  * HTTP response.
  *

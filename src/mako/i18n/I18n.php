@@ -11,6 +11,14 @@ use mako\cache\stores\StoreInterface;
 use mako\i18n\loaders\LoaderInterface;
 use mako\utility\Arr;
 
+use function explode;
+use function localeconv;
+use function number_format;
+use function preg_replace_callback;
+use function stripos;
+use function strpos;
+use function vsprintf;
+
 /**
  * Internationalization class.
  *

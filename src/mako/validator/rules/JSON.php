@@ -7,6 +7,10 @@
 
 namespace mako\validator\rules;
 
+use function json_decode;
+use function json_last_error;
+use function sprintf;
+
 /**
  * JSON rule.
  *

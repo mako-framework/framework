@@ -9,6 +9,18 @@
 
 namespace mako\view\renderers\traits;
 
+use function bin2hex;
+use function ctype_digit;
+use function hexdec;
+use function htmlspecialchars;
+use function mb_convert_encoding;
+use function ord;
+use function preg_replace_callback;
+use function rawurlencode;
+use function sprintf;
+use function strlen;
+use function strtoupper;
+
 /**
  * Escaper trait.
  *

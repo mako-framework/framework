@@ -9,6 +9,11 @@ namespace mako\session\stores;
 
 use mako\file\FileSystem;
 
+use function is_array;
+use function serialize;
+use function time;
+use function unserialize;
+
 /**
  * File store.
  *

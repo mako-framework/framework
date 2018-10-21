@@ -7,6 +7,12 @@
 
 namespace mako\validator\rules;
 
+use function array_pop;
+//use function checkdnsrr;
+use function explode;
+use function sprintf;
+use function strpos;
+
 /**
  * Email domain rule.
  *

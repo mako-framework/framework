@@ -7,6 +7,8 @@
 
 namespace mako\database\query\compilers;
 
+use function str_replace;
+
 /**
  * Compiles NuoDB queries.
  *

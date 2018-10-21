@@ -11,6 +11,8 @@ use mako\application\Application as BaseApplication;
 use mako\http\routing\Dispatcher;
 use mako\http\routing\Router;
 
+use function ob_start;
+
 /**
  * Web application.
  *

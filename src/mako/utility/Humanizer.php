@@ -10,6 +10,13 @@ namespace mako\utility;
 use DateTimeInterface;
 use mako\i18n\I18n;
 
+use function abs;
+use function date;
+use function floor;
+use function log;
+use function round;
+use function time;
+
 /**
  * Makes data more human friendly.
  *

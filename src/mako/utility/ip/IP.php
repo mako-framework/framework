@@ -7,6 +7,8 @@
 
 namespace mako\utility\ip;
 
+use function strpos;
+
 /**
  * IP utilities.
  *

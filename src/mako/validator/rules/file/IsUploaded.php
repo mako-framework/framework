@@ -11,6 +11,8 @@ use mako\http\request\UploadedFile;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
 
+use function sprintf;
+
 /**
  * Is uploaded rule.
  *

@@ -12,6 +12,13 @@ use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\WithParametersTrait;
 use mako\validator\rules\WithParametersInterface;
 
+use function finfo_close;
+use function finfo_file;
+use function finfo_open;
+use function implode;
+use function in_array;
+use function sprintf;
+
 /**
  * Mimetype rule.
  *

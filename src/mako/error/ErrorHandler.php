@@ -14,6 +14,17 @@ use mako\syringe\Container;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
+use function array_merge;
+use function array_unique;
+use function array_unshift;
+use function error_get_last;
+use function error_reporting;
+use function get_class;
+use function ob_end_clean;
+use function ob_get_level;
+use function register_shutdown_function;
+use function set_exception_handler;
+
 /**
  * Error handler.
  *

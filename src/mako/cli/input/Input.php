@@ -9,6 +9,12 @@ namespace mako\cli\input;
 
 use mako\cli\input\reader\ReaderInterface;
 
+use function explode;
+use function is_int;
+use function preg_match;
+use function str_replace;
+use function substr;
+
 /**
  * Input.
  *

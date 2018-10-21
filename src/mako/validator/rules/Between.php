@@ -9,6 +9,8 @@ namespace mako\validator\rules;
 
 use mako\validator\rules\traits\WithParametersTrait;
 
+use function sprintf;
+
 /**
  * Between rule.
  *

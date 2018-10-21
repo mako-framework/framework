@@ -10,6 +10,11 @@ namespace mako\application\cli\commands\server;
 use mako\application\Application;
 use mako\reactor\Command;
 
+use function dirname;
+use function gethostbyname;
+use function gethostname;
+use function passthru;
+
 /**
  * Server command.
  *

@@ -7,6 +7,9 @@
 
 namespace mako\validator\rules;
 
+use function is_array;
+use function sprintf;
+
 /**
  * Arr rule.
  *

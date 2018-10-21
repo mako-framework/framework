@@ -7,6 +7,9 @@
 
 namespace mako\cli\input\reader;
 
+use function fgets;
+use function trim;
+
 /**
  * Reader.
  *

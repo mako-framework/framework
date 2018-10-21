@@ -9,6 +9,14 @@ namespace mako\http\routing;
 
 use Closure;
 
+use function array_merge;
+use function in_array;
+use function preg_replace;
+use function str_replace;
+use function strpos;
+use function substr;
+use function trim;
+
 /**
  * Route.
  *

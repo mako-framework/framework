@@ -9,6 +9,14 @@ namespace mako\cache\stores;
 
 use mako\file\FileSystem;
 
+use function is_array;
+use function is_int;
+use function serialize;
+use function str_replace;
+use function time;
+use function trim;
+use function unserialize;
+
 /**
  * File store.
  *

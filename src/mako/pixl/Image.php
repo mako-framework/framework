@@ -10,6 +10,13 @@ namespace mako\pixl;
 use mako\pixl\processors\ProcessorInterface;
 use RuntimeException;
 
+use function file_exists;
+use function is_writable;
+use function max;
+use function min;
+use function pathinfo;
+use function vsprintf;
+
 /**
  * Image manipulation class.
  *

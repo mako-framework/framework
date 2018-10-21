@@ -7,6 +7,10 @@
 
 namespace mako\http\request;
 
+use function array_keys;
+use function count;
+use function is_array;
+
 /**
  * Files.
  *

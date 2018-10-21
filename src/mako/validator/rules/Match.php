@@ -10,6 +10,8 @@ namespace mako\validator\rules;
 use mako\utility\Arr;
 use mako\validator\rules\traits\WithParametersTrait;
 
+use function sprintf;
+
 /**
  * Match rule.
  *

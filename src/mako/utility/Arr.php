@@ -9,6 +9,19 @@ namespace mako\utility;
 
 use RuntimeException;
 
+use function array_filter;
+use function array_key_exists;
+use function array_keys;
+use function array_map;
+use function array_rand;
+use function array_shift;
+use function count;
+use function explode;
+use function is_array;
+use function is_object;
+use function strpos;
+use function trim;
+
 /**
  * Array helper.
  *

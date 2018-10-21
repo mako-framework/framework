@@ -29,6 +29,12 @@ use mako\config\Config;
 use mako\Mako;
 use mako\reactor\Reactor;
 
+use function array_merge;
+use function file_get_contents;
+use function ob_start;
+use function putenv;
+use function str_replace;
+
 /**
  * CLI application.
  *

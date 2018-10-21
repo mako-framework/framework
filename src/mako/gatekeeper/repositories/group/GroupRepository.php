@@ -9,6 +9,9 @@ namespace mako\gatekeeper\repositories\group;
 
 use InvalidArgumentException;
 
+use function in_array;
+use function vsprintf;
+
 /**
  * Group repository.
  *

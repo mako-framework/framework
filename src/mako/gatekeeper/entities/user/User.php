@@ -17,6 +17,9 @@ use mako\gatekeeper\entities\group\Group;
 use mako\security\password\Bcrypt;
 use mako\security\password\HasherInterface;
 
+use function hash;
+use function is_int;
+
 /**
  * User.
  *

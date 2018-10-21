@@ -11,6 +11,17 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\session\stores\StoreInterface;
 
+use function array_flip;
+use function array_intersect_key;
+use function array_merge;
+use function array_slice;
+use function array_unshift;
+use function hash;
+use function hash_equals;
+use function mt_rand;
+use function random_bytes;
+use function time;
+
 /**
  * Session class.
  *

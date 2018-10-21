@@ -10,6 +10,14 @@ namespace mako\view\renderers;
 use mako\file\FileSystem;
 use mako\view\compilers\Template as Compiler;
 
+use function array_merge;
+use function array_pop;
+use function current;
+use function md5;
+use function ob_get_clean;
+use function ob_start;
+use function str_replace;
+
 /**
  * Mako template view renderer.
  *

@@ -9,6 +9,9 @@ namespace mako\cli\output\helpers;
 
 use mako\cli\output\Output;
 
+use function is_array;
+use function str_repeat;
+
 /**
  * Unordered list helper.
  *

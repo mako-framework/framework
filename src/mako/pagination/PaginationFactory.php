@@ -11,6 +11,8 @@ use mako\http\Request;
 use mako\http\routing\URLBuilder;
 use mako\view\ViewFactory;
 
+use function max;
+
 /**
  * Pagination factory.
  *

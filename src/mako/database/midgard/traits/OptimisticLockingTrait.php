@@ -11,6 +11,8 @@ use mako\database\midgard\Query;
 use mako\database\midgard\traits\exceptions\StaleRecordException;
 use mako\database\query\Raw;
 
+use function property_exists;
+
 /**
  * Optimistic locking trait.
  *

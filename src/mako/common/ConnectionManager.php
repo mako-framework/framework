@@ -10,6 +10,8 @@ namespace mako\common;
 use Closure;
 use mako\common\traits\ConfigurableTrait;
 
+use function method_exists;
+
 /**
  * Connection manager.
  *

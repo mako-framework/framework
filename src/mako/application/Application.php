@@ -15,6 +15,18 @@ use mako\file\FileSystem;
 use mako\syringe\Container;
 use RuntimeException;
 
+use function basename;
+use function date_default_timezone_set;
+use function getenv;
+use function mb_internal_encoding;
+use function mb_language;
+use function mb_regex_encoding;
+use function microtime;
+use function rtrim;
+use function setlocale;
+use function spl_autoload_register;
+use function vsprintf;
+
 /**
  * Application.
  *

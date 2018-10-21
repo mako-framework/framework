@@ -9,6 +9,9 @@ namespace mako\chrono;
 
 use DateTimeZone;
 
+use function explode;
+use function str_replace;
+
 /**
  * Extension of the PHP DateTimeZone class.
  *

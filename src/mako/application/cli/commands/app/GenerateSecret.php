@@ -12,6 +12,8 @@ use mako\file\FileSystem;
 use mako\reactor\Command;
 use mako\security\Key;
 
+use function preg_replace;
+
 /**
  * Command that generates a new application secret.
  *

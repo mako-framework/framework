@@ -10,6 +10,13 @@ namespace mako\cli\output\helpers;
 use mako\cli\output\Output;
 use RuntimeException;
 
+use function array_sum;
+use function array_values;
+use function count;
+use function implode;
+use function mb_strwidth;
+use function str_repeat;
+
 /**
  * Table helper.
  *

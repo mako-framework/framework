@@ -15,6 +15,16 @@ use mako\reactor\traits\SuggestionTrait;
 use mako\syringe\Container;
 use mako\utility\Str;
 
+use function array_combine;
+use function array_keys;
+use function array_map;
+use function array_merge;
+use function array_values;
+use function in_array;
+use function is_int;
+use function strpos;
+use function vsprintf;
+
 /**
  * Command dispatcher.
  *

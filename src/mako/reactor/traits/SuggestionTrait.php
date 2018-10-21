@@ -7,6 +7,8 @@
 
 namespace mako\reactor\traits;
 
+use function similar_text;
+
 /**
  * Suggestion trait.
  *

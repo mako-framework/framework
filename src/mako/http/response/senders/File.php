@@ -13,6 +13,22 @@ use mako\http\Request;
 use mako\http\Response;
 use RuntimeException;
 
+use function basename;
+use function connection_aborted;
+use function count;
+use function explode;
+use function fclose;
+use function feof;
+use function flush;
+use function fopen;
+use function fread;
+use function fseek;
+use function ftell;
+use function ob_end_clean;
+use function ob_get_level;
+use function substr;
+use function vsprintf;
+
 /**
  * File response.
  *

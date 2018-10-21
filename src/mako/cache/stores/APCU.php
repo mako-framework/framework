@@ -9,6 +9,17 @@ namespace mako\cache\stores;
 
 use RuntimeException;
 
+use function apcu_add;
+use function apcu_clear_cache;
+use function apcu_dec;
+use function apcu_delete;
+use function apcu_entry;
+use function apcu_exists;
+use function apcu_fetch;
+use function apcu_inc;
+use function apcu_store;
+use function function_exists;
+
 /**
  * APCU store.
  *
@@ -17,7 +28,7 @@ use RuntimeException;
 class APCU extends Store implements IncrementDecrementInterface
 {
 	/**
-	 *  * Whether to use atomic updates for getOrElse.
+	 * Whether to use atomic updates for getOrElse.
 	 *
 	 * This is a workaround for a known issue in ext-apcu, which breaks the apcu_entry
 	 * function. See issue #244.

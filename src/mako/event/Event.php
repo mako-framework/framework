@@ -10,6 +10,8 @@ namespace mako\event;
 use Closure;
 use mako\syringe\Container;
 
+use function array_keys;
+
 /**
  * Event listener.
  *

@@ -19,6 +19,8 @@ use Whoops\Handler\PrettyPageHandler;
 use Whoops\Handler\XmlResponseHandler;
 use Whoops\Run as Whoops;
 
+use function current;
+
 /**
  * Development handler.
  *

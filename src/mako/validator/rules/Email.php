@@ -7,6 +7,9 @@
 
 namespace mako\validator\rules;
 
+use function filter_var;
+use function sprintf;
+
 /**
  * Email rule.
  *

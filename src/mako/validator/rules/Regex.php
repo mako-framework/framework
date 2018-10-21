@@ -9,6 +9,9 @@ namespace mako\validator\rules;
 
 use mako\validator\rules\traits\WithParametersTrait;
 
+use function preg_match;
+use function sprintf;
+
 /**
  * Regex rule.
  *

@@ -9,6 +9,15 @@ namespace mako\view\compilers;
 
 use mako\file\FileSystem;
 
+use function md5;
+use function preg_match;
+use function preg_replace;
+use function preg_replace_callback;
+use function sprintf;
+use function strpos;
+use function substr;
+use function trim;
+
 /**
  * Template compiler.
  *

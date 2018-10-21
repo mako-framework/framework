@@ -19,6 +19,13 @@ use mako\reactor\traits\SuggestionTrait;
 use mako\syringe\Container;
 use ReflectionClass;
 
+use function array_keys;
+use function array_map;
+use function array_merge;
+use function ksort;
+use function sort;
+use function var_export;
+
 /**
  * Reactor.
  *

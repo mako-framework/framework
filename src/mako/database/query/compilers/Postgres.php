@@ -7,6 +7,11 @@
 
 namespace mako\database\query\compilers;
 
+use function array_pop;
+use function implode;
+use function is_numeric;
+use function str_replace;
+
 /**
  * Compiles Postgres queries.
  *

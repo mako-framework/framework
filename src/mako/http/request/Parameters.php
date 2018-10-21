@@ -12,6 +12,10 @@ use Countable;
 use IteratorAggregate;
 use mako\utility\Arr;
 
+use function array_flip;
+use function array_intersect_key;
+use function count;
+
 /**
  * Parameters.
  *

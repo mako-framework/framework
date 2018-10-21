@@ -10,6 +10,10 @@ namespace mako\validator\rules;
 use mako\validator\rules\traits\WithParametersTrait;
 use RuntimeException;
 
+use function filter_var;
+use function sprintf;
+use function vsprintf;
+
 /**
  * IP rule.
  *

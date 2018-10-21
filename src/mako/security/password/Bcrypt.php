@@ -7,6 +7,9 @@
 
 namespace mako\security\password;
 
+use function max;
+use function min;
+
 /**
  * Bcrypt hasher.
  *

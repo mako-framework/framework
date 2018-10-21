@@ -17,6 +17,14 @@ use mako\http\routing\constraints\ConstraintInterface;
 use mako\syringe\Container;
 use RuntimeException;
 
+use function array_merge;
+use function array_unique;
+use function implode;
+use function is_string;
+use function preg_match;
+use function substr;
+use function vsprintf;
+
 /**
  * Router.
  *

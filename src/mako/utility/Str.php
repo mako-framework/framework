@@ -9,6 +9,22 @@ namespace mako\utility;
 
 use Closure;
 
+use function count;
+use function mb_strlen;
+use function mb_strtolower;
+use function mb_strtoupper;
+use function mb_substr;
+use function preg_match;
+use function preg_quote;
+use function preg_replace;
+use function preg_replace_callback;
+use function rawurlencode;
+use function str_pad;
+use function str_repeat;
+use function str_replace;
+use function strlen;
+use function trim;
+
 /**
  * Collection of string manipulation methods.
  *

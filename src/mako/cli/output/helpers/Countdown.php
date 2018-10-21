@@ -9,6 +9,12 @@ namespace mako\cli\output\helpers;
 
 use mako\cli\output\Output;
 
+use function str_pad;
+use function str_repeat;
+use function strlen;
+
+//use function usleep;
+
 /**
  * Countdown helper.
  *

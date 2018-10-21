@@ -12,6 +12,52 @@ use mako\pixl\Image;
 use mako\pixl\processors\traits\CalculateNewDimensionsTrait;
 use RuntimeException;
 
+use function abs;
+use function array_map;
+use function array_sum;
+use function function_exists;
+use function getimagesize;
+use function hexdec;
+use function imagealphablending;
+use function imagecolorallocate;
+use function imagecolorallocatealpha;
+use function imagecolorat;
+use function imagecolortransparent;
+use function imageconvolution;
+use function imagecopy;
+use function imagecopyresampled;
+use function imagecreatefromgif;
+use function imagecreatefromjpeg;
+use function imagecreatefrompng;
+use function imagecreatetruecolor;
+use function imagedestroy;
+use function imagefill;
+use function imagefilledrectangle;
+use function imagefilter;
+use function imagegif;
+use function imagejpeg;
+use function imagelayereffect;
+use function imagepng;
+use function imagerectangle;
+use function imagerotate;
+use function imagesavealpha;
+use function imagesetpixel;
+use function imagesx;
+use function imagesy;
+use function is_resource;
+use function min;
+use function ob_get_clean;
+use function ob_start;
+use function pathinfo;
+use function preg_match;
+use function round;
+use function str_repeat;
+use function str_replace;
+use function strlen;
+use function strtolower;
+use function substr;
+use function vsprintf;
+
 /**
  * GD processor.
  *
