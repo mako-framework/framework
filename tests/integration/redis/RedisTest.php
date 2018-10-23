@@ -36,7 +36,7 @@ class RedisTest extends TestCase
 	{
 		try
 		{
-			$this->redis = new Redis(new Connection('localhost'));
+			$this->redis = new Redis(new Connection('localhost', 6379, false, 60, 'test'));
 		}
 		catch(RedisException $e)
 		{
@@ -55,6 +55,18 @@ class RedisTest extends TestCase
 
 			$this->redis = null;
 		}
+	}
+
+	/**
+	 *
+	 */
+	public function testGetConnectionAndGetName()
+	{
+		$connection = $this->redis->getConnection();
+
+		$this->assertInstanceOf(Connection::class, $connection);
+
+		$this->assertSame('test', $connection->getName());
 	}
 
 	/**

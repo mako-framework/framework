@@ -53,15 +53,25 @@ class Connection
 	protected $timeout;
 
 	/**
+	 * Connection name.
+	 *
+	 * @var string|null
+	 */
+	protected $name;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param string $host       Redis host
-	 * @param int    $port       Redis port
-	 * @param bool   $persistent Should the connection be persistent?
-	 * @param int    $timeout    Timeout in seconds
+	 * @param string      $host       Redis host
+	 * @param int         $port       Redis port
+	 * @param bool        $persistent Should the connection be persistent?
+	 * @param int         $timeout    Timeout in seconds
+	 * @param string|null $name       Connection name
 	 */
-	public function __construct(string $host, int $port = 6379, bool $persistent = false, int $timeout = 60)
+	public function __construct(string $host, int $port = 6379, bool $persistent = false, int $timeout = 60, string $name = null)
 	{
+		$this->name = $name;
+
 		if(filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false)
 		{
 			$host = '[' . $host . ']';
@@ -109,7 +119,9 @@ class Connection
 		}
 		catch(Throwable $e)
 		{
-			throw new RedisException(vsprintf('%s', [$e->getMessage()]), (int) $errNo);
+			$message = $this->name === null ? 'Failed to connect' : vsprintf('Failed to connect to [ %s ]', [$this->name]);
+
+			throw new RedisException(vsprintf('%s. %s', [$message, $e->getMessage()]), (int) $errNo);
 		}
 	}
 
@@ -131,6 +143,16 @@ class Connection
 	public function getTimeout(): int
 	{
 		return $this->timeout;
+	}
+
+	/**
+	 * Returns the connection name.
+	 *
+	 * @return string|null
+	 */
+	public function getName()
+	{
+		return $this->name;
 	}
 
 	/**

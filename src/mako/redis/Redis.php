@@ -116,6 +116,26 @@ class Redis
 	}
 
 	/**
+	 * Returns the connection.
+	 *
+	 * @return \mako\redis\Connection
+	 */
+	public function getConnection(): Connection
+	{
+		return $this->connection;
+	}
+
+	/**
+	 * Returns the cluster clients.
+	 *
+	 * @return array
+	 */
+	public function getClusterClients(): array
+	{
+		return $this->clusterClients;
+	}
+
+	/**
 	 * Creates a cluster client.
 	 *
 	 * @param  string            $server Server string
@@ -125,7 +145,13 @@ class Redis
 	{
 		list($server, $port) = explode(':', $server, 2);
 
-		$connection = new Connection($server, $port, $this->connection->isPersistent(), $this->connection->getTimeout());
+		$isPersistent = $this->connection->isPersistent();
+
+		$timeout = $this->connection->getTimeout();
+
+		$name = $this->connection->getName();
+
+		$connection = new Connection($server, $port, $isPersistent, $timeout, $name);
 
 		return new static($connection, ['password' => $this->password, 'database' => $this->database]);
 	}
