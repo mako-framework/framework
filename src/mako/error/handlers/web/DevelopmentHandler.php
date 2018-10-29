@@ -100,14 +100,22 @@ class DevelopmentHandler implements HandlerInterface
 
 		$handler->handleUnconditionally(true);
 
-		$config = $this->app->getConfig();
-		if ($config->get('application.error_handler.hide_session_cookie')) {
-			$handler->blacklist('_COOKIE', $config->get('session.session_name'));
-		}
-
 		$handler->setApplicationPaths([$this->app->getPath()]);
 
 		$handler->setPageTitle('Error');
+
+		$blacklist = $this->app->getConfig()->get('application.error_handler.debug_blacklist');
+
+		if(!empty($blacklist))
+		{
+			foreach($blacklist as $superglobal => $keys)
+			{
+				foreach($keys as $key)
+				{
+					$handler->blacklist($superglobal, $key);
+				}
+			}
+		}
 
 		return $handler;
 	}
