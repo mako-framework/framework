@@ -11,6 +11,7 @@ Update using ```composer update```.
 * Added `PaginationInterface::toJSON()` method.
 * The `PaginationInterface` interface now extends the `JsonSerializable` interface.
 * The query builder now supports basic tuple comparisons.
+* It is now possible to provide a list of superglobal keys to blacklist from the Whoops error view
 
 #### Changes
 
