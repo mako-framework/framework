@@ -7,9 +7,14 @@
 
 namespace mako\tests\unit\http\routing;
 
+use mako\http\Request;
+use mako\http\request\Parameters;
+use mako\http\Response;
 use mako\http\response\Headers;
 use mako\http\routing\constraints\Constraint;
 use mako\http\routing\Router;
+use mako\http\routing\Routes;
+use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
 use Throwable;
@@ -48,29 +53,11 @@ class RouterTest extends TestCase
 	 */
 	public function getRequest()
 	{
-		$request = Mockery::mock('\mako\http\Request');
+		$request = Mockery::mock(Request::class);
+
+		$request->makePartial();
 
 		return $request;
-	}
-
-	/**
-	 *
-	 */
-	public function getRouteCollection($routes)
-	{
-		$collection = Mockery::mock('\mako\http\routing\Routes');
-
-		$collection->shouldReceive('getRoutes')->andReturn($routes);
-
-		return $collection;
-	}
-
-	/**
-	 *
-	 */
-	public function getRouter($routes, $container = null)
-	{
-		return new Router($this->getRouteCollection($routes), $container);
 	}
 
 	/**
@@ -78,13 +65,11 @@ class RouterTest extends TestCase
 	 */
 	public function testPageNotFound()
 	{
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes = new Routes;
 
-		$route->shouldReceive('allowsMethod')->andReturn(true);
+		$routes->get('/bar', 'Foo::bar');
 
-		$route->shouldReceive('getRegex')->andReturn('#^/bar$#s');
-
-		$router = $this->getRouter([$route]);
+		$router = new Router($routes);
 
 		$request = $this->getRequest();
 
@@ -100,19 +85,11 @@ class RouterTest extends TestCase
 	 */
 	public function testMethodNotAllowed()
 	{
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes = new Routes;
 
-		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+		$routes->post('/foo', 'Foo::bar');
 
-		$route->shouldReceive('getConstraints')->andReturn([]);
-
-		$route->shouldReceive('allowsMethod')->andReturn(false);
-
-		$route->shouldReceive('setParameters')/*->once()*/->with([]);
-
-		$route->shouldReceive('getMethods')->andReturn(['POST', 'OPTIONS']);
-
-		$router = $this->getRouter([$route]);
+		$router = new Router($routes);
 
 		$request = $this->getRequest();
 
@@ -137,19 +114,11 @@ class RouterTest extends TestCase
 	 */
 	public function testRedirect()
 	{
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes = new Routes;
 
-		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+		$routes->get('/foo/', 'Foo::bar');
 
-		$route->shouldReceive('getConstraints')->andReturn([]);
-
-		$route->shouldReceive('allowsMethod')->andReturn(true);
-
-		$route->shouldReceive('hasTrailingSlash')->andReturn(true);
-
-		$route->shouldReceive('setParameters')->once()->with([]);
-
-		$router = $this->getRouter([$route]);
+		$router = new Router($routes);
 
 		$request = $this->getRequest();
 
@@ -157,33 +126,33 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
-		$request->shouldReceive('isClean')->andReturn(true);
-
 		$routed = $router->route($request);
 
 		$this->assertInstanceOf('\mako\http\routing\Route', $routed);
-
-		$this->assertInstanceOf('Closure', $routed->getAction());
 
 		$this->assertEmpty($routed->getRoute());
 
 		$this->assertEmpty($routed->getMethods());
 
+		$action = $routed->getAction();
+
+		$this->assertInstanceOf('Closure', $action);
+
 		//
 
-		$closure = $routed->getAction();
+		$request->shouldReceive('isClean')->andReturn(true);
 
 		$request->shouldReceive('baseURL')->once()->andReturn('http://example.org');
 
 		$request->shouldReceive('languagePrefix')->once()->andReturn('en');
 
-		$query = Mockery::mock('mako\http\request\Parameters');
+		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
 
 		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
-		$returnValue = $closure($request);
+		$returnValue = $action($request);
 
 		$this->assertInstanceOf('mako\http\response\senders\Redirect', $returnValue);
 
@@ -193,7 +162,7 @@ class RouterTest extends TestCase
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org/en/foo/?foo=bar');
 
-		$response = Mockery::mock('mako\http\Response');
+		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('status')->once()->with(301);
 
@@ -209,19 +178,11 @@ class RouterTest extends TestCase
 	 */
 	public function testRedirectWithDirtyUrl()
 	{
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes = new Routes;
 
-		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+		$routes->get('/foo/', 'Foo::bar');
 
-		$route->shouldReceive('getConstraints')->andReturn([]);
-
-		$route->shouldReceive('allowsMethod')->andReturn(true);
-
-		$route->shouldReceive('hasTrailingSlash')->andReturn(true);
-
-		$route->shouldReceive('setParameters')->once()->with([]);
-
-		$router = $this->getRouter([$route]);
+		$router = new Router($routes);
 
 		$request = $this->getRequest();
 
@@ -229,35 +190,35 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
-		$request->shouldReceive('isClean')->andReturn(false);
-
-		$request->shouldReceive('scriptName')->andReturn('index.php');
-
 		$routed = $router->route($request);
 
 		$this->assertInstanceOf('\mako\http\routing\Route', $routed);
-
-		$this->assertInstanceOf('Closure', $routed->getAction());
 
 		$this->assertEmpty($routed->getRoute());
 
 		$this->assertEmpty($routed->getMethods());
 
+		$action = $routed->getAction();
+
+		$this->assertInstanceOf('Closure', $action);
+
 		//
 
-		$closure = $routed->getAction();
+		$request->shouldReceive('isClean')->andReturn(false);
+
+		$request->shouldReceive('scriptName')->andReturn('index.php');
 
 		$request->shouldReceive('baseURL')->once()->andReturn('http://example.org');
 
 		$request->shouldReceive('languagePrefix')->once()->andReturn('en');
 
-		$query = Mockery::mock('mako\http\request\Parameters');
+		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
 
 		$request->shouldReceive('getQuery')->once()->andReturn($query);
 
-		$returnValue = $closure($request);
+		$returnValue = $action($request);
 
 		$this->assertInstanceOf('mako\http\response\senders\Redirect', $returnValue);
 
@@ -283,21 +244,11 @@ class RouterTest extends TestCase
 	 */
 	public function testOptionsRequest()
 	{
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes = new Routes;
 
-		$route->makePartial();
+		$routes->post('/foo', 'Foo::bar');
 
-		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
-
-		$route->shouldReceive('allowsMethod')->andReturn(true);
-
-		$route->shouldReceive('hasTrailingSlash')->andReturn(false);
-
-		$route->shouldReceive('getMethods')->andReturn(['POST', 'OPTIONS']);
-
-		$route->shouldReceive('setParameters')/*->once()*/->with([]);
-
-		$router = $this->getRouter([$route]);
+		$router = new Router($routes);
 
 		$request = $this->getRequest();
 
@@ -309,15 +260,11 @@ class RouterTest extends TestCase
 
 		$this->assertInstanceOf('mako\http\routing\Route', $routed);
 
-		$this->assertInstanceOf('Closure', $routed->getAction());
+		$action = $routed->getAction();
 
-		$this->assertEmpty($routed->getRoute());
-
-		$this->assertEmpty($routed->getMethods());
+		$this->assertInstanceOf('Closure', $action);
 
 		//
-
-		$closure = $routed->getAction();
 
 		$responseHeaders = Mockery::mock(Headers::class);
 
@@ -327,7 +274,7 @@ class RouterTest extends TestCase
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
-		$closure($response);
+		$action($response);
 	}
 
 	/**
@@ -335,19 +282,13 @@ class RouterTest extends TestCase
 	 */
 	public function testSuccessfulRoute()
 	{
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes = new Routes;
 
-		$route->makePartial();
+		$routes->post('/foo', 'Foo::bar', 'post.foo');
 
-		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
+		$routes->get('/foo', 'Foo::bar', 'get.foo');
 
-		$route->shouldReceive('allowsMethod')->andReturn(true);
-
-		$route->shouldReceive('hasTrailingSlash')->andReturn(false);
-
-		$route->shouldReceive('setParameters')->once()->with([]);
-
-		$router = $this->getRouter([$route]);
+		$router = new Router($routes);
 
 		$request = $this->getRequest();
 
@@ -355,11 +296,11 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
-		$request->shouldReceive('setRoute')->once()->with($route);
-
 		$routed = $router->route($request);
 
-		$this->assertSame($route, $routed);
+		$this->assertSame('get.foo', $routed->getName());
+
+		$this->assertSame($routed, $request->getRoute());
 	}
 
 	/**
@@ -367,23 +308,13 @@ class RouterTest extends TestCase
 	 */
 	public function testSuccessfulRouteWithParameters()
 	{
-		$params = ['id' => '123'];
+		$routes = new Routes;
 
-		//
+		$routes->post('/foo/{id}', 'Foo::bar', 'post.foo');
 
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes->get('/foo/{id}', 'Foo::bar', 'get.foo');
 
-		$route->makePartial();
-
-		$route->shouldReceive('getRegex')->andReturn('#^/foo/(?P<id>[^/]++)$#s');
-
-		$route->shouldReceive('allowsMethod')->andReturn(true);
-
-		$route->shouldReceive('hasTrailingSlash')->andReturn(false);
-
-		$route->shouldReceive('setParameters')->once()->with($params);
-
-		$router = $this->getRouter([$route]);
+		$router = new Router($routes);
 
 		$request = $this->getRequest();
 
@@ -391,11 +322,13 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('path')->andReturn('/foo/123');
 
-		$request->shouldReceive('setRoute')->once()->with($route);
-
 		$routed = $router->route($request);
 
-		$this->assertSame($route, $routed);
+		$this->assertSame('get.foo', $routed->getName());
+
+		$this->assertSame($routed, $request->getRoute());
+
+		$this->assertSame(['id' => '123'], $routed->getParameters());
 	}
 
 	/**
@@ -403,25 +336,15 @@ class RouterTest extends TestCase
 	 */
 	public function testSatisfiedConstraint()
 	{
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes = new Routes;
 
-		$route->makePartial();
-
-		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
-
-		$route->shouldReceive('getConstraints')->andReturn(['bar']);
-
-		$route->shouldReceive('allowsMethod')->andReturn(true);
-
-		$route->shouldReceive('hasTrailingSlash')->andReturn(false);
-
-		$route->shouldReceive('setParameters')->once()->with([]);
+		$routes->get('/foo', 'Foo::bar', 'get.foo')->constraint('bar');
 
 		$container = Mockery::mock('\mako\syringe\Container');
 
 		$container->shouldReceive('get')->once()->with(BarConstraint::class)->andReturn(new BarConstraint);
 
-		$router = $this->getRouter([$route], $container);
+		$router = new Router($routes, $container);
 
 		$router->registerConstraint('bar', BarConstraint::class);
 
@@ -431,11 +354,11 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
-		$request->shouldReceive('setRoute')->once()->with($route);
-
 		$routed = $router->route($request);
 
-		$this->assertSame($route, $routed);
+		$this->assertSame('get.foo', $routed->getName());
+
+		$this->assertSame($routed, $request->getRoute());
 	}
 
 	/**
@@ -443,21 +366,15 @@ class RouterTest extends TestCase
 	 */
 	public function testFailingConstraint()
 	{
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes = new Routes;
 
-		$route->makePartial();
+		$routes->get('/foo', 'Foo::bar', 'get.foo')->constraint('foo');
 
-		$route->shouldReceive('allowsMethod')->andReturn(true);
-
-		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
-
-		$route->shouldReceive('getConstraints')->andReturn(['foo']);
-
-		$container = Mockery::mock('\mako\syringe\Container');
+		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->times(2)->with(FooConstraint::class)->andReturn(new FooConstraint);
 
-		$router = $this->getRouter([$route], $container);
+		$router = new Router($routes, $container);
 
 		$router->registerConstraint('foo', FooConstraint::class);
 
@@ -467,9 +384,7 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
-		$routed = $router->route($request);
-
-		$this->assertSame($route, $routed);
+		$router->route($request);
 	}
 
 	/**
@@ -477,21 +392,15 @@ class RouterTest extends TestCase
 	 */
 	public function testGlobalFailingConstraint()
 	{
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes = new Routes;
 
-		$route->makePartial();
+		$routes->get('/foo', 'Foo::bar', 'get.foo');
 
-		$route->shouldReceive('allowsMethod')->andReturn(true);
-
-		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
-
-		$route->shouldReceive('getConstraints')->andReturn([]);
-
-		$container = Mockery::mock('\mako\syringe\Container');
+		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->times(2)->with(FooConstraint::class)->andReturn(new FooConstraint);
 
-		$router = $this->getRouter([$route], $container);
+		$router = new Router($routes, $container);
 
 		$router->registerConstraint('foo', FooConstraint::class);
 
@@ -503,9 +412,7 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('path')->andReturn('/foo');
 
-		$routed = $router->route($request);
-
-		$this->assertSame($route, $routed);
+		$router->route($request);
 	}
 
 	/**
@@ -514,17 +421,11 @@ class RouterTest extends TestCase
 	 */
 	public function testUnregisteredConstraint()
 	{
-		$route = Mockery::mock('\mako\http\routing\Route');
+		$routes = new Routes;
 
-		$route->makePartial();
+		$routes->get('/foo', 'Foo::bar', 'get.foo')->constraint('foo');
 
-		$route->shouldReceive('allowsMethod')->andReturn(true);
-
-		$route->shouldReceive('getRegex')->andReturn('#^/foo$#s');
-
-		$route->shouldReceive('getConstraints')->andReturn(['foo']);
-
-		$router = $this->getRouter([$route]);
+		$router = new Router($routes);
 
 		$request = $this->getRequest();
 

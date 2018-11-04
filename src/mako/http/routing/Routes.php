@@ -38,6 +38,13 @@ class Routes
 	protected  $routes = [];
 
 	/**
+	 * Routes grouped by request method.
+	 *
+	 * @var array
+	 */
+	protected $groupedRoutes = [];
+
+	/**
 	 * Named routes.
 	 *
 	 * @var array
@@ -49,9 +56,20 @@ class Routes
 	 *
 	 * @return array
 	 */
-	public function getRoutes()
+	public function getRoutes(): array
 	{
 		return $this->routes;
+	}
+
+	/**
+	 * Returns the registered routes that accept the request method.
+	 *
+	 * @param  string $method Request method
+	 * @return array
+	 */
+	public function getRoutesByMethod(string $method): array
+	{
+		return $this->groupedRoutes[$method] ?? [];
 	}
 
 	/**
@@ -110,6 +128,11 @@ class Routes
 		$route = new Route($methods, $route, $action, $name);
 
 		$this->routes[] = $route;
+
+		foreach($methods as $method)
+		{
+			$this->groupedRoutes[$method][] = $route;
+		}
 
 		if($name !== null)
 		{

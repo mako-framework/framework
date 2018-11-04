@@ -249,9 +249,9 @@ class Router
 
 		$requestPath = $request->path();
 
-		foreach($this->routes->getRoutes() as $route)
+		foreach($this->routes->getRoutesByMethod($requestMethod) as $route)
 		{
-			if($route->allowsMethod($requestMethod) && $this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route))
+			if($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route))
 			{
 				// Redirect to URL with trailing slash if the route should have one
 
