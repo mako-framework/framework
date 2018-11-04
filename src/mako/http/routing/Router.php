@@ -245,23 +245,14 @@ class Router
 	 */
 	public function route(Request $request): Route
 	{
-		$matched = false;
-
 		$requestMethod = $request->method();
 
 		$requestPath = $request->path();
 
 		foreach($this->routes->getRoutes() as $route)
 		{
-			if($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route))
+			if($route->allowsMethod($requestMethod) && $this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route))
 			{
-				if(!$route->allowsMethod($requestMethod))
-				{
-					$matched = true;
-
-					continue;
-				}
-
 				// Redirect to URL with trailing slash if the route should have one
 
 				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/')
@@ -288,14 +279,14 @@ class Router
 			}
 		}
 
-		if($matched)
-		{
-			// We found a matching route but it does not allow the request method so we'll throw a 405 exception
+		// Check if there are any routes that match the pattern and constaints for other request methods
 
-			throw new MethodNotAllowedException($this->getAllowedMethodsForMatchingRoutes($requestPath));
+		if(!empty(($allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath))))
+		{
+			throw new MethodNotAllowedException($allowedMethods);
 		}
 
-		// No routes matched so we'll throw a 404 exception
+		// No routes matched so we'll throw a not found exception
 
 		throw new NotFoundException($requestMethod . ': ' . $requestPath);
 	}
