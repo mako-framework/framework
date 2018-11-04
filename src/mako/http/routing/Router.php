@@ -212,7 +212,7 @@ class Router
 
 		foreach($this->routes->getRoutes() as $route)
 		{
-			if($this->matches($route, $requestPath))
+			if($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route))
 			{
 				$methods = array_merge($methods, $route->getMethods());
 			}
