@@ -48,18 +48,6 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAppend()
-	{
-		$collection = new Collection;
-
-		$collection->append('foo');
-
-		$this->assertEquals('foo', $collection[0]);
-	}
-
-	/**
-	 *
-	 */
 	public function testHas()
 	{
 		$collection = new Collection();

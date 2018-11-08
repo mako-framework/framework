@@ -98,16 +98,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Appends a new item to the collection.
-	 *
-	 * @param mixed $value Value
-	 */
-	public function append($value)
-	{
-		$this->items[] = $value;
-	}
-
-	/**
 	 * Returns TRUE if the item key exists and FALSE if not.
 	 *
 	 * @param  int|string $key Key
