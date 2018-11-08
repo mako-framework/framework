@@ -261,15 +261,13 @@ class Container
 	 */
 	protected function mergeParameters(array $reflectionParameters, array $providedParameters): array
 	{
-		$relectionParameterNameCache = [];
-
 		// Make reflection parameter array associative
 
 		$associativeReflectionParameters = [];
 
 		foreach($reflectionParameters as $value)
 		{
-			$associativeReflectionParameters[$relectionParameterNameCache[] = $value->getName()] = $value;
+			$associativeReflectionParameters[$value->getName()] = $value;
 		}
 
 		// Make the provided parameter array associative
@@ -280,7 +278,7 @@ class Container
 		{
 			if(is_int($key))
 			{
-				$associativeProvidedParameters[$relectionParameterNameCache[$key]] = $value;
+				$associativeProvidedParameters[$reflectionParameters[$key]->getName()] = $value;
 			}
 			else
 			{
