@@ -19,7 +19,7 @@ use function array_merge;
 use function array_replace;
 use function array_values;
 use function is_array;
-use function is_numeric;
+use function is_int;
 use function is_object;
 use function vsprintf;
 
@@ -261,21 +261,7 @@ class Container
 	 */
 	protected function mergeParameters(array $reflectionParameters, array $providedParameters): array
 	{
-		// Make the provided parameter array associative
-
-		$associativeProvidedParameters = [];
-
-		foreach($providedParameters as $key => $value)
-		{
-			if(is_numeric($key))
-			{
-				$associativeProvidedParameters[$reflectionParameters[$key]->getName()] = $value;
-			}
-			else
-			{
-				$associativeProvidedParameters[$key] = $value;
-			}
-		}
+		$relectionParameterNameCache = [];
 
 		// Make reflection parameter array associative
 
@@ -283,7 +269,23 @@ class Container
 
 		foreach($reflectionParameters as $value)
 		{
-			$associativeReflectionParameters[$value->getName()] = $value;
+			$associativeReflectionParameters[$relectionParameterNameCache[] = $value->getName()] = $value;
+		}
+
+		// Make the provided parameter array associative
+
+		$associativeProvidedParameters = [];
+
+		foreach($providedParameters as $key => $value)
+		{
+			if(is_int($key))
+			{
+				$associativeProvidedParameters[$relectionParameterNameCache[$key]] = $value;
+			}
+			else
+			{
+				$associativeProvidedParameters[$key] = $value;
+			}
 		}
 
 		// Return merged parameters
