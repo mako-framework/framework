@@ -217,6 +217,19 @@ class Session extends Adapter
 	}
 
 	/**
+	 * Sets a remember me cookie.
+	 */
+	protected function setRememberMeCookie()
+	{
+		if($this->options['cookie_options']['secure'] && !$this->request->isSecure())
+		{
+			throw new RuntimeException('Attempted to set a secure cookie over a non-secure connection.');
+		}
+
+		$this->response->getCookies()->addSigned($this->options['auth_key'], $this->user->getAccessToken(), (3600 * 24 * 365), $this->options['cookie_options']);
+	}
+
+	/**
 	 * Logs in a user with a valid identifier/password combination.
 	 * Returns true if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
@@ -246,12 +259,7 @@ class Session extends Adapter
 
 			if($remember === true)
 			{
-				if($this->options['cookie_options']['secure'] && !$this->request->isSecure())
-				{
-					throw new RuntimeException('Attempted to set a secure cookie over a non-secure connection.');
-				}
-
-				$this->response->getCookies()->addSigned($this->options['auth_key'], $this->user->getAccessToken(), (3600 * 24 * 365), $this->options['cookie_options']);
+				$this->setRememberMeCookie();
 			}
 
 			return true;
