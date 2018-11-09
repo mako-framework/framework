@@ -20,7 +20,7 @@ Update using ```composer update```.
 * Removed the deprecated `ORM::exists()` method.
 * The gatekeeper `forceLogin` method now returns `true` if the login is successful and a status code if not.
 * The JSON representation of a result set returned by the `Query::paginate()` method will now be an object where the results are available as `data` and pagination information will be available as `pagination` (`{"data":[...], "pagination":{...}}`).
-* An exception will be thrown if trying to set a secure session or Gatekeeper cookie over a non-secure connection.
+* An exception will be thrown when trying to set a secure session or gatekeeper cookie over a non-secure connection.
 
 --------------------------------------------------------
 
