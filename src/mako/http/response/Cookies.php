@@ -31,7 +31,7 @@ class Cookies implements Countable, IteratorAggregate
 	protected $defaults =
 	[
 		'path'     => '/',
-		'domain'    => '',
+		'domain'   => '',
 		'secure'   => false,
 		'httponly' => false,
 	];
