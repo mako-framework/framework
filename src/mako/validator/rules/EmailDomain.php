@@ -8,7 +8,7 @@
 namespace mako\validator\rules;
 
 use function array_pop;
-//use function checkdnsrr;
+use function checkdnsrr;
 use function explode;
 use function sprintf;
 use function strpos;
@@ -21,6 +21,17 @@ use function strpos;
 class EmailDomain extends Rule implements RuleInterface
 {
 	/**
+	 * Returns true if the domain has a MX record and false if not.
+	 *
+	 * @param  string $domain Domain
+	 * @return bool
+	 */
+	protected function hasMXRecord(string $domain): bool
+	{
+		return checkdnsrr($domain, 'MX');
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
@@ -32,7 +43,7 @@ class EmailDomain extends Rule implements RuleInterface
 
 		$email = explode('@', $value);
 
-		return checkdnsrr(array_pop($email), 'MX');
+		return $this->hasMXRecord(array_pop($email));
 	}
 
 	/**
