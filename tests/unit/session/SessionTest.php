@@ -36,7 +36,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function getRequest()
+	protected function getRequest()
 	{
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -50,7 +50,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function getRequestWithCookie()
+	protected function getRequestWithCookie()
 	{
 		$request = $this->getRequest();
 
@@ -62,7 +62,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function getResponse()
+	protected function getResponse()
 	{
 		return Mockery::mock('\mako\http\Response');
 	}
@@ -70,11 +70,11 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function getResponseSetCookie($getCookiesTimes = 1, &$responseCookies = null)
+	protected function getResponseSetCookie($getCookiesTimes = 1, &$responseCookies = null)
 	{
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
-		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foo123', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foo123', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => true]);
 
 		$response = $this->getResponse();
 
@@ -86,7 +86,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function getStore()
+	protected function getStore()
 	{
 		$store = Mockery::mock('\mako\session\stores\StoreInterface');
 
@@ -98,7 +98,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function getDefaultStore($sessionData = [], $commit = false)
+	protected function getDefaultStore($sessionData = [], $commit = false)
 	{
 		$store = $this->getStore();
 
@@ -118,6 +118,39 @@ class SessionTest extends TestCase
 	public function testStartWithCookie()
 	{
 		new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']), [], false);
+	}
+
+	/**
+	 * @expectedException RuntimeException
+	 * @expectedExceptionMessage Attempted to set a secure cookie over a non-secure connection.
+	 */
+	public function testStartWithSecureCookieOverNonSecureConnection()
+	{
+		$request = $this->getRequestWithCookie();
+
+		$request->shouldReceive('isSecure')->once()->andReturn(false);
+
+		new TestSession($request, $this->getResponse(), $this->getStore(), ['cookie_options' => ['secure' => true]], false);
+	}
+
+	/**
+	 *
+	 */
+	public function testStartWithSecureCookieOverSecureConnection()
+	{
+		$request = $this->getRequestWithCookie();
+
+		$request->shouldReceive('isSecure')->once()->andReturn(true);
+
+		$responseCookies = Mockery::mock(ResponseCookies::class);
+
+		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foo123', 0, ['path' => '/', 'domain' => '', 'secure' => true, 'httponly' => true]);
+
+		$response = $this->getResponse();
+
+		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
+
+		new TestSession($request, $response, $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']), ['cookie_options' => ['secure' => true]], false);
 	}
 
 	/**
@@ -141,7 +174,7 @@ class SessionTest extends TestCase
 
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
-		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => true]);
 
 		$response = $this->getResponse();
 
@@ -175,7 +208,7 @@ class SessionTest extends TestCase
 	{
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
-		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => true]);
 
 		$response = $this->getResponseSetCookie();
 
@@ -203,9 +236,7 @@ class SessionTest extends TestCase
 	{
 		$response = $this->getResponseSetCookie(2, $responseCookies);
 
-		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
-
-		//$response->shouldReceive('signedCookie')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => true]);
 
 		$store = $this->getStore();
 
@@ -507,7 +538,7 @@ class SessionTest extends TestCase
 	{
 		$response = $this->getResponseSetCookie(2, $responseCookies);
 
-		$responseCookies->shouldReceive('delete')->once()->with('mako_session', ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => false]);
+		$responseCookies->shouldReceive('delete')->once()->with('mako_session', ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => true]);
 
 		$store = $this->getStore();
 

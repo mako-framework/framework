@@ -451,6 +451,87 @@ class SessionTest extends TestCase
 	}
 
 	/**
+	 * @expectedException RuntimeException
+	 * @expectedExceptionMessage Attempted to set a secure cookie over a non-secure connection.
+	 */
+	public function testSuccessfulLoginWithRememberMeWithSecureCookieOverNonSecureConnection()
+	{
+		$user = $this->getUser();
+
+		$user->shouldReceive('validatePassword')->once()->with('password')->andReturn(true);
+
+		$user->shouldReceive('isActivated')->once()->andReturn(true);
+
+		$user->shouldReceive('isBanned')->once()->andReturn(false);
+
+		$user->shouldReceive('getAccessToken')->once()->andReturn('token');
+
+		$userRepository = $this->getUserRepository();
+
+		$userRepository->shouldReceive('getByIdentifier')->once()->with('foo@example.org')->andReturn($user);
+
+		$session = $this->getSession();
+
+		$session->shouldReceive('regenerateId')->once();
+
+		$session->shouldReceive('regenerateToken')->once();
+
+		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('isSecure')->once()->andReturn(false);
+
+		$adapter = new Session($userRepository, $this->getGroupRepository(), $request, $this->getResponse(), $session, ['cookie_options' => ['secure' => true]]);
+
+		$this->assertTrue($adapter->login('foo@example.org', 'password', true));
+	}
+
+	/**
+	 *
+	 */
+	public function testSuccessfulLoginWithRememberMeWithSecureCookieOverSecureConnection()
+	{
+		$user = $this->getUser();
+
+		$user->shouldReceive('validatePassword')->once()->with('password')->andReturn(true);
+
+		$user->shouldReceive('isActivated')->once()->andReturn(true);
+
+		$user->shouldReceive('isBanned')->once()->andReturn(false);
+
+		$user->shouldReceive('getAccessToken')->twice()->andReturn('token');
+
+		$userRepository = $this->getUserRepository();
+
+		$userRepository->shouldReceive('getByIdentifier')->once()->with('foo@example.org')->andReturn($user);
+
+		$session = $this->getSession();
+
+		$session->shouldReceive('regenerateId')->once();
+
+		$session->shouldReceive('regenerateToken')->once();
+
+		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('isSecure')->once()->andReturn(true);
+
+		$responseCookies = Mockery::mock(ResponseCookies::class);
+
+		$responseCookies->shouldReceive('addSigned')->once()->with('gatekeeper_auth_key', 'token', 31536000, ['secure' => true] + $this->getCookieOptions());
+
+		$response = $this->getResponse();
+
+		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
+
+		$adapter = new Session($userRepository, $this->getGroupRepository(), $request, $response, $session, ['cookie_options' => ['secure' => true]]);
+
+		$this->assertTrue($adapter->login('foo@example.org', 'password', true));
+	}
+
+	/**
 	 *
 	 */
 	public function testForcedLogin()

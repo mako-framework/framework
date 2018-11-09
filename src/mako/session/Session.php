@@ -10,6 +10,7 @@ namespace mako\session;
 use mako\http\Request;
 use mako\http\Response;
 use mako\session\stores\StoreInterface;
+use RuntimeException;
 
 use function array_flip;
 use function array_intersect_key;
@@ -102,7 +103,7 @@ class Session
 		'path'     => '/',
 		'domain'   => '',
 		'secure'   => false,
-		'httponly' => false,
+		'httponly' => true,
 	];
 
 	/**
@@ -185,7 +186,10 @@ class Session
 
 			$this->cookieName = $options['name'] ?? $this->cookieName;
 
-			isset($options['cookie_options']) && $this->cookieOptions = $options['cookie_options'] + $this->cookieOptions;
+			if(isset($options['cookie_options']))
+			{
+				$this->cookieOptions = $options['cookie_options'] + $this->cookieOptions;
+			}
 		}
 	}
 
@@ -264,6 +268,11 @@ class Session
 	 */
 	protected function setCookie()
 	{
+		if($this->cookieOptions['secure'] && !$this->request->isSecure())
+		{
+			throw new RuntimeException('Attempted to set a secure cookie over a non-secure connection.');
+		}
+
 		$ttl = $this->cookieTTL === 0 ? 0 : $this->cookieTTL + time();
 
 		$this->response->getCookies()->addSigned($this->cookieName, $this->sessionId, $ttl, $this->cookieOptions);
