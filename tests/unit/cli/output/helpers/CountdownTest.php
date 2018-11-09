@@ -8,9 +8,9 @@
 namespace mako\tests\unit\cli\output\helpers;
 
 use mako\cli\output\helpers\Countdown;
+use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
-use phpmock\MockBuilder;
 
 /**
  * @group unit
@@ -20,28 +20,9 @@ class CountdownTest extends TestCase
 	/**
 	 *
 	 */
-	protected function mockUsleep()
-	{
-		$builder = new MockBuilder;
-
-		$builder->setNamespace('mako\cli\output\helpers')
-		->setName('usleep')
-		->setFunction(function()
-		{
-			// Don't do anything
-		});
-
-		return $builder->build();
-	}
-
-	/**
-	 *
-	 */
 	public function testCountdownFromDefault()
 	{
-		$usleep = $this->mockUsleep();
-
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r5     ");
 		$output->shouldReceive('write')->once()->with("\r5 .   ");
@@ -65,13 +46,13 @@ class CountdownTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r1 ... ");
 		$output->shouldReceive('write')->once()->with("\r      \r");
 
-		$countdown = new Countdown($output);
+		$countdown = Mockery::mock(Countdown::class, [$output])->shouldAllowMockingProtectedMethods();
 
-		$usleep->enable();
+		$countdown->makePartial();
+
+		$countdown->shouldReceive('sleep')->times(20);
 
 		$countdown->draw();
-
-		$usleep->disable();
 	}
 
 	/**
@@ -79,9 +60,7 @@ class CountdownTest extends TestCase
 	 */
 	public function testCountdownFrom2()
 	{
-		$usleep = $this->mockUsleep();
-
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r2     ");
 		$output->shouldReceive('write')->once()->with("\r2 .   ");
@@ -93,12 +72,12 @@ class CountdownTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r1 ... ");
 		$output->shouldReceive('write')->once()->with("\r      \r");
 
-		$countdown = new Countdown($output);
+		$countdown = Mockery::mock(Countdown::class, [$output])->shouldAllowMockingProtectedMethods();
 
-		$usleep->enable();
+		$countdown->makePartial();
+
+		$countdown->shouldReceive('sleep')->times(8);
 
 		$countdown->draw(2);
-
-		$usleep->disable();
 	}
 }

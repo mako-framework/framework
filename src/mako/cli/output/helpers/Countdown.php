@@ -12,8 +12,7 @@ use mako\cli\output\Output;
 use function str_pad;
 use function str_repeat;
 use function strlen;
-
-//use function usleep;
+use function usleep;
 
 /**
  * Countdown helper.
@@ -22,6 +21,13 @@ use function strlen;
  */
 class Countdown
 {
+	/**
+	 * Sleep time in microseconds.
+	 *
+	 * @var int
+	 */
+	const SLEEP_TIME = 250000;
+
 	/**
 	 * Output instance.
 	 *
@@ -37,6 +43,14 @@ class Countdown
 	public function __construct(Output $output)
 	{
 		$this->output = $output;
+	}
+
+	/**
+	 * Delay execution by SLEEP_TIME microseconds.
+	 */
+	protected function sleep()
+	{
+		usleep(static::SLEEP_TIME);
 	}
 
 	/**
@@ -60,7 +74,7 @@ class Countdown
 
 				$this->output->write("\r" . str_pad($numbers . ' ' . str_repeat('.', $dots) . ' ', $totalLength, ' '));
 
-				usleep(250000);
+				$this->sleep();
 			}
 			while($dots++ < 3);
 
