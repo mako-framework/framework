@@ -29,6 +29,7 @@ use function is_int;
 use function is_null;
 use function is_object;
 use function is_resource;
+use function is_string;
 use function microtime;
 use function preg_replace;
 use function preg_replace_callback;
