@@ -15,13 +15,13 @@ use RuntimeException;
 use function array_flip;
 use function array_intersect_key;
 use function array_merge;
+use function array_replace_recursive;
 use function array_slice;
 use function array_unshift;
 use function hash;
 use function hash_equals;
 use function mt_rand;
 use function random_bytes;
-use function time;
 
 /**
  * Session class.
@@ -73,37 +73,22 @@ class Session
 	protected $autoCommit;
 
 	/**
-	 * Data TTL in seconds.
-	 *
-	 * @var int
-	 */
-	protected $dataTTL = 1800;
-
-	/**
-	 * Cookie TTL in seconds.
-	 *
-	 * @var int
-	 */
-	protected $cookieTTL = 0;
-
-	/**
-	 * Cookie name.
-	 *
-	 * @var string
-	 */
-	protected $cookieName = 'mako_session';
-
-	/**
-	 * Cookie options.
+	 * Session options.
 	 *
 	 * @var array
 	 */
-	protected $cookieOptions =
+	protected $options =
 	[
-		'path'     => '/',
-		'domain'   => '',
-		'secure'   => false,
-		'httponly' => true,
+		'name'           => 'mako_session',
+		'data_ttl'       => 1800,
+		'cookie_ttl'     => 0,
+		'cookie_options' =>
+		[
+			'path'     => '/',
+			'domain'   => '',
+			'secure'   => false,
+			'httponly' => true,
+		],
 	];
 
 	/**
@@ -153,9 +138,9 @@ class Session
 
 		$this->autoCommit = $autoCommit;
 
-		$this->gc();
+		$this->options = array_replace_recursive($this->options, $options);
 
-		$this->configure($options);
+		$this->gc();
 
 		$this->start();
 	}
@@ -172,35 +157,13 @@ class Session
 	}
 
 	/**
-	 * Configures the session.
-	 *
-	 * @param array $options Session options
-	 */
-	protected function configure(array $options)
-	{
-		if(!empty($options))
-		{
-			$this->dataTTL = $options['data_ttl'] ?? $this->dataTTL;
-
-			$this->cookieTTL = $options['cookie_ttl'] ?? $this->cookieTTL;
-
-			$this->cookieName = $options['name'] ?? $this->cookieName;
-
-			if(isset($options['cookie_options']))
-			{
-				$this->cookieOptions = $options['cookie_options'] + $this->cookieOptions;
-			}
-		}
-	}
-
-	/**
 	 * Starts the session.
 	 */
 	protected function start()
 	{
 		// Get the session id from the cookie or generate a new one if it doesn't exist.
 
-		$this->sessionId = $this->request->getCookies()->getSigned($this->cookieName, false);
+		$this->sessionId = $this->request->getCookies()->getSigned($this->options['name'], false);
 
 		if($this->sessionId === false)
 		{
@@ -238,7 +201,7 @@ class Session
 
 		if(!$this->destroyed)
 		{
-			$this->store->write($this->sessionId, $this->sessionData, $this->dataTTL);
+			$this->store->write($this->sessionId, $this->sessionData, $this->options['data_ttl']);
 		}
 	}
 
@@ -249,7 +212,7 @@ class Session
 	{
 		if(mt_rand(1, 100) === 100)
 		{
-			$this->store->gc($this->dataTTL);
+			$this->store->gc($this->options['data_ttl']);
 		}
 	}
 
@@ -268,14 +231,12 @@ class Session
 	 */
 	protected function setCookie()
 	{
-		if($this->cookieOptions['secure'] && !$this->request->isSecure())
+		if($this->options['cookie_options']['secure'] && !$this->request->isSecure())
 		{
 			throw new RuntimeException('Attempted to set a secure cookie over a non-secure connection.');
 		}
 
-		$ttl = $this->cookieTTL === 0 ? 0 : $this->cookieTTL + time();
-
-		$this->response->getCookies()->addSigned($this->cookieName, $this->sessionId, $ttl, $this->cookieOptions);
+		$this->response->getCookies()->addSigned($this->options['name'], $this->sessionId, $this->options['cookie_ttl'], $this->options['cookie_options']);
 	}
 
 	/**
@@ -563,7 +524,7 @@ class Session
 	{
 		$this->store->delete($this->sessionId);
 
-		$this->response->getCookies()->delete($this->cookieName, $this->cookieOptions);
+		$this->response->getCookies()->delete($this->options['name'], $this->options['cookie_options']);
 
 		$this->destroyed = true;
 	}
