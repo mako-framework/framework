@@ -44,13 +44,14 @@ class CookiesTest extends TestCase
 		{
 			$this->assertTrue(is_array($cookie));
 
+			$this->assertArrayHasKey('raw', $cookie);
 			$this->assertArrayHasKey('name', $cookie);
 			$this->assertArrayHasKey('value', $cookie);
-			$this->assertArrayHasKey('ttl', $cookie);
-			$this->assertArrayHasKey('path', $cookie);
-			$this->assertArrayHasKey('domain', $cookie);
-			$this->assertArrayHasKey('secure', $cookie);
-			$this->assertArrayHasKey('httponly', $cookie);
+			$this->assertArrayHasKey('expires', $cookie['options']);
+			$this->assertArrayHasKey('path', $cookie['options']);
+			$this->assertArrayHasKey('domain', $cookie['options']);
+			$this->assertArrayHasKey('secure', $cookie['options']);
+			$this->assertArrayHasKey('httponly', $cookie['options']);
 		}
 	}
 
@@ -120,7 +121,7 @@ class CookiesTest extends TestCase
 
 		$cookies->delete('foo');
 
-		$this->assertTrue($cookies->all()['foo']['ttl'] + 100 < time());
+		$this->assertTrue($cookies->all()['foo']['options']['expires'] + 100 < time());
 	}
 
 	/**
@@ -150,19 +151,19 @@ class CookiesTest extends TestCase
 
 		$foo = $cookies->all()['foo'];
 
-		$this->assertSame('/', $foo['path']);
-		$this->assertSame('', $foo['domain']);
-		$this->assertSame(false, $foo['secure']);
-		$this->assertSame(false, $foo['httponly']);
+		$this->assertSame('/', $foo['options']['path']);
+		$this->assertSame('', $foo['options']['domain']);
+		$this->assertSame(false, $foo['options']['secure']);
+		$this->assertSame(false, $foo['options']['httponly']);
 
 		$cookies->add('foo', 'bar', 0, ['path' => '/foo', 'domain' => 'example.org', 'secure' => true, 'httponly' => true]);
 
 		$foo = $cookies->all()['foo'];
 
-		$this->assertSame('/foo', $foo['path']);
-		$this->assertSame('example.org', $foo['domain']);
-		$this->assertSame(true, $foo['secure']);
-		$this->assertSame(true, $foo['httponly']);
+		$this->assertSame('/foo', $foo['options']['path']);
+		$this->assertSame('example.org', $foo['options']['domain']);
+		$this->assertSame(true, $foo['options']['secure']);
+		$this->assertSame(true, $foo['options']['httponly']);
 	}
 
 	/**
@@ -178,9 +179,25 @@ class CookiesTest extends TestCase
 
 		$foo = $cookies->all()['foo'];
 
-		$this->assertSame('/foo', $foo['path']);
-		$this->assertSame('example.org', $foo['domain']);
-		$this->assertSame(true, $foo['secure']);
-		$this->assertSame(true, $foo['httponly']);
+		$this->assertSame('/foo', $foo['options']['path']);
+		$this->assertSame('example.org', $foo['options']['domain']);
+		$this->assertSame(true, $foo['options']['secure']);
+		$this->assertSame(true, $foo['options']['httponly']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSetRaw()
+	{
+		$cookies = new Cookies;
+
+		$cookies->add('foo', 'bar', 0, [], true);
+
+		$this->assertTrue($cookies->all()['foo']['raw']);
+
+		$cookies->add('foo', 'bar', 0, []);
+
+		$this->assertFalse($cookies->all()['foo']['raw']);
 	}
 }

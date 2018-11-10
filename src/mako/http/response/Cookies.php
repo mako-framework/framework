@@ -100,13 +100,20 @@ class Cookies implements Countable, IteratorAggregate
 	 * @param  string                      $value   Cookie value
 	 * @param  int                         $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
 	 * @param  array                       $options Cookie options
+	 * @param  bool                        $raw     Set the cookie without urlencoding the value?
 	 * @return \mako\http\response\Cookies
 	 */
-	public function add(string $name, string $value, int $ttl = 0, array $options = []): Cookies
+	public function add(string $name, string $value, int $ttl = 0, array $options = [], bool $raw = false): Cookies
 	{
-		$ttl = ($ttl === 0) ? 0 : (time() + $ttl);
+		$expires = ($ttl === 0) ? 0 : (time() + $ttl);
 
-		$this->cookies[$name] = ['name' => $name, 'value' => $value, 'ttl' => $ttl] + $options + $this->defaults;
+		$this->cookies[$name] =
+		[
+			'raw'     => $raw,
+			'name'    => $name,
+			'value'   => $value,
+			'options' => ['expires' => $expires] + $options + $this->defaults,
+		];
 
 		return $this;
 	}

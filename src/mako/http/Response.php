@@ -406,7 +406,14 @@ class Response
 
 		foreach($this->cookies->all() as $cookie)
 		{
-			setcookie($cookie['name'], $cookie['value'], $cookie['ttl'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
+			if($cookie['raw'])
+			{
+				setrawcookie($cookie['name'], $cookie['value'], $cookie['options']['expires'], $cookie['options']['path'], $cookie['options']['domain'], $cookie['options']['secure'], $cookie['options']['httponly']);
+			}
+			else
+			{
+				setcookie($cookie['name'], $cookie['value'], $cookie['options']['expires'], $cookie['options']['path'], $cookie['options']['domain'], $cookie['options']['secure'], $cookie['options']['httponly']);
+			}
 		}
 	}
 
