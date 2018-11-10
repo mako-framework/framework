@@ -22,6 +22,7 @@ use function ob_get_length;
 use function ob_get_level;
 use function ob_start;
 use function setcookie;
+use function setrawcookie;
 use function str_replace;
 use function stripos;
 
