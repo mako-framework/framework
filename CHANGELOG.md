@@ -35,7 +35,7 @@ Update using ```composer update```.
 
 * Deprecated the `FileSystem::mime()` method.
 * Deprecated the `FileSystem::hash()` method.
-* Deprecated the `FileSystem;;hmac()` method.
+* Deprecated the `FileSystem::hmac()` method.
 
 --------------------------------------------------------
 
