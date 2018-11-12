@@ -20,7 +20,7 @@ Update using ```composer update```.
 	- `FileInfo::validateHash()`.
 	- `FileInfo::getHmac()`.
 	- `FileInfo::validateHmac()`.
-* Added `FileSystem::info()` methdo that returns a `FileInfo` object.
+* Added `FileSystem::info()` method that returns a `FileInfo` object.
 
 #### Changes
 
