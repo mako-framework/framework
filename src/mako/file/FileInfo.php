@@ -26,9 +26,9 @@ class FileInfo extends SplFileInfo
 	/**
 	 * Returns the MIME type of the file.
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	public function getMimeType(): string
+	public function getMimeType()
 	{
 		$info = finfo_open(FILEINFO_MIME_TYPE);
 
@@ -36,15 +36,15 @@ class FileInfo extends SplFileInfo
 
 		finfo_close($info);
 
-		return $mime;
+		return $mime ?: null;
 	}
 
 	/**
 	 * Returns the file extension appropriate for a the MIME type detected in the file.
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	public function getMimeTypeExtension(): string
+	public function getMimeTypeExtension()
 	{
 		$info = finfo_open(FILEINFO_EXTENSION);
 
@@ -52,7 +52,7 @@ class FileInfo extends SplFileInfo
 
 		finfo_close($info);
 
-		return $mime;
+		return $mime ?: null;
 	}
 
 	/**
