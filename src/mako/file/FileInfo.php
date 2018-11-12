@@ -40,7 +40,7 @@ class FileInfo extends SplFileInfo
 	}
 
 	/**
-	 * Returns the file extension appropiate for a the MIME type detected in the file.
+	 * Returns the file extension appropriate for a the MIME type detected in the file.
 	 *
 	 * @return string
 	 */
