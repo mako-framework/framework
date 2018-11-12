@@ -40,19 +40,19 @@ class FileInfo extends SplFileInfo
 	}
 
 	/**
-	 * Returns the file extension appropriate for a the MIME type detected in the file.
+	 * Returns the MIME encoding of the file.
 	 *
 	 * @return string|null
 	 */
-	public function getMimeTypeExtension()
+	public function getMimeEncoding()
 	{
-		$info = finfo_open(FILEINFO_EXTENSION);
+		$info = finfo_open(FILEINFO_MIME_ENCODING);
 
-		$mime = finfo_file($info, $this->getPathname());
+		$encoding = finfo_file($info, $this->getPathname());
 
 		finfo_close($info);
 
-		return $mime ?: null;
+		return $encoding ?: null;
 	}
 
 	/**

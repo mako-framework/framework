@@ -15,7 +15,7 @@ Update using ```composer update```.
 * It is now possible to set raw cookies.
 * Added `FileInfo` class that extends `SplFileInfo` with the following methods:
 	- `FileInfo::getMimeType()`.
-	- `FileInfo::getMimeTypeExtension()`.
+	- `FileInfo::getMimeEncoding()`.
 	- `FileInfo::getHash()`.
 	- `FileInfo::validateHash()`.
 	- `FileInfo::getHmac()`.
