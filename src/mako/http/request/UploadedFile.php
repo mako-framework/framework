@@ -7,8 +7,8 @@
 
 namespace mako\http\request;
 
+use mako\file\FileInfo;
 use mako\http\request\exceptions\UploadException;
-use SplFileInfo;
 
 use function is_uploaded_file;
 use function move_uploaded_file;
@@ -19,7 +19,7 @@ use function vsprintf;
  *
  * @author Frederic G. Østby
  */
-class UploadedFile extends SplFileInfo
+class UploadedFile extends FileInfo
 {
 	/**
 	 * File name.

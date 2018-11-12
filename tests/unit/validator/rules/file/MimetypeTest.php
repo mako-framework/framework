@@ -7,9 +7,9 @@
 
 namespace mako\tests\unit\validator\rules\file;
 
+use mako\file\FileInfo;
 use mako\tests\TestCase;
 use mako\validator\rules\file\Mimetype;
-use SplFileInfo;
 
 /**
  * @group unit
@@ -46,7 +46,7 @@ class MimetypeTest extends TestCase
 
 		$rule->setParameters(['image/png']);
 
-		$this->assertTrue($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
+		$this->assertTrue($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
 
 		//
 
@@ -54,7 +54,7 @@ class MimetypeTest extends TestCase
 
 		$rule->setParameters([['image/jpeg', 'image/png']]);
 
-		$this->assertTrue($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
+		$this->assertTrue($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
 	}
 
 	/**
@@ -66,7 +66,7 @@ class MimetypeTest extends TestCase
 
 		$rule->setParameters([['text/plain', 'application/json']]);
 
-		$this->assertFalse($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
+		$this->assertFalse($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
 
 		$this->assertSame('The foobar must be a file of type: text/plain, application/json.', $rule->getErrorMessage('foobar'));
 	}

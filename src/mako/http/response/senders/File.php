@@ -185,7 +185,7 @@ class File implements ResponseSenderInterface
 	 */
 	protected function getContenType(): string
 	{
-		return $this->contentType ?? ($this->fileSystem->mime($this->filePath) ?: 'application/octet-stream');
+		return $this->contentType ?? $this->fileSystem->info($this->filePath)->getMimeType();
 	}
 
 	/**

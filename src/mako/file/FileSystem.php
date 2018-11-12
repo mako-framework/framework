@@ -15,13 +15,7 @@ use function file_get_contents;
 use function file_put_contents;
 use function filemtime;
 use function filesize;
-use function finfo_close;
-use function finfo_file;
-use function finfo_open;
-use function function_exists;
 use function glob;
-use function hash_file;
-use function hash_hmac_file;
 use function is_dir;
 use function is_file;
 use function is_readable;
@@ -39,83 +33,6 @@ use function unlink;
  */
 class FileSystem
 {
-	/**
-	 * Mime types.
-	 *
-	 * @var array
-	 */
-	protected $mimeTypes =
-	[
-		'aac'        => 'audio/aac',
-		'atom'       => 'application/atom+xml',
-		'avi'        => 'video/avi',
-		'bmp'        => 'image/x-ms-bmp',
-		'c'          => 'text/x-c',
-		'class'      => 'application/octet-stream',
-		'css'        => 'text/css',
-		'csv'        => 'text/csv',
-		'deb'        => 'application/x-deb',
-		'dll'        => 'application/x-msdownload',
-		'dmg'        => 'application/x-apple-diskimage',
-		'doc'        => 'application/msword',
-		'docx'       => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-		'exe'        => 'application/octet-stream',
-		'flv'        => 'video/x-flv',
-		'gif'        => 'image/gif',
-		'gz'         => 'application/x-gzip',
-		'h'          => 'text/x-c',
-		'htm'        => 'text/html',
-		'html'       => 'text/html',
-		'ics'        => 'text/calendar',
-		'ical'       => 'text/calendar',
-		'ini'        => 'text/plain',
-		'jar'        => 'application/java-archive',
-		'java'       => 'text/x-java',
-		'jpeg'       => 'image/jpeg',
-		'jpg'        => 'image/jpeg',
-		'js'         => 'text/javascript',
-		'json'       => 'application/json',
-		'jp2'        => 'image/jp2',
-		'mid'        => 'audio/midi',
-		'midi'       => 'audio/midi',
-		'mka'        => 'audio/x-matroska',
-		'mkv'        => 'video/x-matroska',
-		'mp3'        => 'audio/mpeg',
-		'mp4'        => 'video/mp4',
-		'mpeg'       => 'video/mpeg',
-		'mpg'        => 'video/mpeg',
-		'm4a'        => 'video/mp4',
-		'm4v'        => 'video/mp4',
-		'odt'        => 'application/vnd.oasis.opendocument.text',
-		'ogg'        => 'audio/ogg',
-		'pdf'        => 'application/pdf',
-		'php'        => 'text/x-php',
-		'png'        => 'image/png',
-		'psd'        => 'image/vnd.adobe.photoshop',
-		'py'         => 'application/x-python',
-		'ra'         => 'audio/vnd.rn-realaudio',
-		'ram'        => 'audio/vnd.rn-realaudio',
-		'rar'        => 'application/x-rar-compressed',
-		'rss'        => 'application/rss+xml',
-		'safariextz' => 'application/x-safari-extension',
-		'sh'         => 'text/x-shellscript',
-		'shtml'      => 'text/html',
-		'swf'        => 'application/x-shockwave-flash',
-		'tar'        => 'application/x-tar',
-		'tif'        => 'image/tiff',
-		'tiff'       => 'image/tiff',
-		'torrent'    => 'application/x-bittorrent',
-		'txt'        => 'text/plain',
-		'wav'        => 'audio/wav',
-		'webp'       => 'image/webp',
-		'wma'        => 'audio/x-ms-wma',
-		'xls'        => 'application/vnd.ms-excel',
-		'xml'        => 'text/xml',
-		'zip'        => 'application/zip',
-		'3gp'        => 'video/3gpp',
-		'3g2'        => 'video/3gpp2',
-	];
-
 	/**
 	 * Returns TRUE if a file exists and FALSE if not.
 	 *
@@ -223,37 +140,14 @@ class FileSystem
 	/**
 	 * Returns the mime type of the file.
 	 *
-	 * @param  string      $file  Path to file
-	 * @param  bool        $guess (optinal) Guess mime type if finfo_open doesn't exist?
+	 * @deprecated
+	 *
+	 * @param  string      $file Path to file
 	 * @return string|bool
 	 */
-	public function mime(string $file, bool $guess = true)
+	public function mime(string $file)
 	{
-		if(function_exists('finfo_open'))
-		{
-			// Get mime using the file information functions
-
-			$info = finfo_open(FILEINFO_MIME_TYPE);
-
-			$mime = finfo_file($info, $file);
-
-			finfo_close($info);
-
-			return $mime;
-		}
-		else
-		{
-			if($guess === true)
-			{
-				// Just guess mime by using the file extension
-
-				$extension = pathinfo($file, PATHINFO_EXTENSION);
-
-				return $this->mimeTypes[$extension] ?? false;
-			}
-
-			return false;
-		}
+		return $this->info($file)->getMimeType();
 	}
 
 	/**
@@ -436,6 +330,8 @@ class FileSystem
 	/**
 	 * Generate a hash value using the contents of the given file.
 	 *
+	 * @deprecated
+	 *
 	 * @param  string $file      Path to file
 	 * @param  string $algorithm Hashing algorithm
 	 * @param  bool   $raw       Output raw binary data?
@@ -443,11 +339,13 @@ class FileSystem
 	 */
 	public function hash(string $file, string $algorithm = 'sha256', bool $raw = false): string
 	{
-		return hash_file($algorithm, $file, $raw);
+		return $this->info($file)->getHash($algorithm, $raw);
 	}
 
 	/**
 	 * Generate a keyed hash value using the HMAC method.
+	 *
+	 * @deprecated
 	 *
 	 * @param  string $file      Path to file
 	 * @param  string $key       Shared secret key
@@ -457,7 +355,18 @@ class FileSystem
 	 */
 	public function hmac(string $file, string $key, string $algorithm = 'sha256', bool $raw = false): string
 	{
-		return hash_hmac_file($algorithm, $file, $key, $raw);
+		return $this->info($file)->getHmac($key, $algorithm, $raw);
+	}
+
+	/**
+	 * Returns a FileInfo object.
+	 *
+	 * @param  string              $file Path to file
+	 * @return \mako\file\FileInfo
+	 */
+	public function info(string $file): FileInfo
+	{
+		return new FileInfo($file);
 	}
 
 	/**

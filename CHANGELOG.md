@@ -13,6 +13,14 @@ Update using ```composer update```.
 * The query builder now supports basic tuple comparisons.
 * It is now possible to provide a list of superglobal keys to blacklist from the Whoops error view
 * It is now possible to set raw cookies.
+* Added `FileInfo` class that extends `SplFileInfo` with the following methods:
+	- `FileInfo::getMimeType()`.
+	- `FileInfo::getMimeTypeExtension()`.
+	- `FileInfo::getHash()`.
+	- `FileInfo::validateHash()`.
+	- `FileInfo::getHmac()`.
+	- `FileInfo::validateHmac()`.
+* Added `FileSystem::info()` methdo that returns a `FileInfo` object.
 
 #### Changes
 
@@ -22,6 +30,12 @@ Update using ```composer update```.
 * The gatekeeper `forceLogin` method now returns `true` if the login is successful and a status code if not.
 * The JSON representation of a result set returned by the `Query::paginate()` method will now be an object where the results are available as `data` and pagination information will be available as `pagination` (`{"data":[...], "pagination":{...}}`).
 * An exception will be thrown when trying to set a secure session or gatekeeper cookie over a non-secure connection.
+
+#### Deprecations
+
+* Deprecated the `FileSystem::mime()` method.
+* Deprecated the `FileSystem::hash()` method.
+* Deprecated the `FileSystem;;hmac()` method.
 
 --------------------------------------------------------
 
