@@ -21,6 +21,8 @@ Update using ```composer update```.
 	- `FileInfo::getHmac()`.
 	- `FileInfo::validateHmac()`.
 * Added `FileSystem::info()` method that returns a `FileInfo` object.
+* Added `hash` validation rule.
+* Added `hmac` validation rule.
 
 #### Changes
 

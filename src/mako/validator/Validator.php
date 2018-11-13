@@ -29,6 +29,8 @@ use mako\validator\rules\Different;
 use mako\validator\rules\Email;
 use mako\validator\rules\EmailDomain;
 use mako\validator\rules\ExactLength;
+use mako\validator\rules\file\Hash;
+use mako\validator\rules\file\Hmac;
 use mako\validator\rules\file\IsUploaded;
 use mako\validator\rules\file\MaxFilesize;
 use mako\validator\rules\file\Mimetype;
@@ -133,7 +135,9 @@ class Validator
 		'float'                    => FloatingPoint::class,
 		'greater_than_or_equal_to' => GreaterThanOrEqualTo::class,
 		'greater_than'             => GreaterThan::class,
+		'hash'                     => Hash::class,
 		'hex'                      => Hex::class,
+		'hmac'                     => Hmac::class,
 		'in'                       => In::class,
 		'integer'                  => Integer::class,
 		'ip'                       => IP::class,
