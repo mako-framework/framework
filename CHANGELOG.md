@@ -44,6 +44,12 @@ Update using ```composer update```.
 * Deprecated the `FileSystem::hash()` method.
 * Deprecated the `FileSystem::hmac()` method.
 
+#### Improvements
+
+* Various improvements and optimizations.
+
+> Check out the upgrade guide for details on how to upgrade from `5.6.*.`
+
 --------------------------------------------------------
 
 ### 5.6.0 <small> (2018-10-15)</small>
