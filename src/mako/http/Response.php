@@ -13,7 +13,6 @@ use mako\http\response\Headers;
 use mako\http\response\senders\ResponseSenderInterface;
 use mako\security\Signer;
 
-use function array_key_exists;
 use function hash;
 use function header;
 use function in_array;
@@ -353,7 +352,9 @@ class Response
 	public function clear(): Response
 	{
 		$this->clearBody();
+
 		$this->headers->clear();
+
 		$this->cookies->clear();
 
 		return $this;
@@ -506,7 +507,7 @@ class Response
 
 				$this->headers->add('ETag', $hash);
 
-				if(str_replace('-gzip', '', $this->request->getHeaders()->get('if-none-match')) === $hash)
+				if(str_replace('-gzip', '', $this->request->getHeaders()->get('If-None-Match')) === $hash)
 				{
 					$this->status(304);
 
@@ -535,7 +536,7 @@ class Response
 
 				// Add the content-length header
 
-				if(!array_key_exists('transfer-encoding', $this->headers))
+				if(!$this->headers->has('Transfer-Encoding'))
 				{
 					$this->headers->add('Content-Length', ob_get_length());
 				}
