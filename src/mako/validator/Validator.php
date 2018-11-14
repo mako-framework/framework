@@ -31,6 +31,10 @@ use mako\validator\rules\EmailDomain;
 use mako\validator\rules\ExactLength;
 use mako\validator\rules\file\Hash;
 use mako\validator\rules\file\Hmac;
+use mako\validator\rules\file\image\AspectRatio;
+use mako\validator\rules\file\image\ExactDimensions;
+use mako\validator\rules\file\image\MaxDimensions;
+use mako\validator\rules\file\image\MinDimensions;
 use mako\validator\rules\file\IsUploaded;
 use mako\validator\rules\file\MaxFilesize;
 use mako\validator\rules\file\Mimetype;
@@ -124,12 +128,14 @@ class Validator
 		'alphanumeric_unicode'     => AlphanumericUnicode::class,
 		'alphanumeric'             => Alphanumeric::class,
 		'array'                    => ArrRule::class,
+		'aspect_ratio'             => AspectRatio::class,
 		'before'                   => Before::class,
 		'between'                  => Between::class,
 		'date'                     => Date::class,
 		'different'                => Different::class,
 		'email_domain'             => EmailDomain::class,
 		'email'                    => Email::class,
+		'exact_dimensions'         => ExactDimensions::class,
 		'exact_length'             => ExactLength::class,
 		'exists'                   => Exists::class,
 		'float'                    => FloatingPoint::class,
@@ -146,9 +152,11 @@ class Validator
 		'less_than_or_equal_to'    => LessThanOrEqualTo::class,
 		'less_than'                => LessThan::class,
 		'match'                    => Match::class,
+		'max_dimensions'           => MaxDimensions::class,
 		'max_filesize'             => MaxFilesize::class,
 		'max_length'               => MaxLength::class,
 		'mimetype'                 => Mimetype::class,
+		'min_dimensions'           => MinDimensions::class,
 		'min_length'               => MinLength::class,
 		'natural_non_zero'         => NaturalNonZero::class,
 		'natural'                  => Natural::class,

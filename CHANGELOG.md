@@ -21,8 +21,13 @@ Update using ```composer update```.
 	- `FileInfo::getHmac()`.
 	- `FileInfo::validateHmac()`.
 * Added `FileSystem::info()` method that returns a `FileInfo` object.
-* Added `hash` validation rule.
-* Added `hmac` validation rule.
+* Added new validation rules:
+	- Added `hash` rule.
+	- Added `hmac`rule.
+	- Added `aspect_ratio` rule.
+	- Added `exact_dimensions` rule.
+	- Added `max_dimensions` rule.
+	- Added `min_dimensions` rule.
 
 #### Changes
 
