@@ -201,12 +201,9 @@ class Arr
 			{
 				$value = $array;
 			}
-			else
+			elseif(is_array($value = static::get($array, $first)) === false)
 			{
-				if(is_array($value = static::get($array, $first)) === false)
-				{
-					continue;
-				}
+				continue;
 			}
 
 			foreach(array_keys($value) as $key)
