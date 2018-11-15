@@ -163,10 +163,14 @@ class Arr
 	 */
 	public static function pluck(array $array, string $key): array
 	{
-		return array_map(function($value) use ($key)
+		$plucked = [];
+
+		foreach($array as $value)
 		{
-			return is_object($value) ? $value->$key : $value[$key];
-		}, $array);
+			$plucked[] = is_object($value) ? $value->$key : $value[$key];
+		}
+
+		return $plucked;
 	}
 
 	/**

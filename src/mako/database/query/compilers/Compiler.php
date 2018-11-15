@@ -16,7 +16,6 @@ use mako\database\query\Subquery;
 use RuntimeException;
 
 use function array_keys;
-use function array_map;
 use function array_merge;
 use function array_shift;
 use function explode;
@@ -168,7 +167,12 @@ class Compiler
 	 */
 	public function escapeIdentifiers(array $identifiers): array
 	{
-		return array_map([$this, 'escapeIdentifier'], $identifiers);
+		foreach($identifiers as $key => $identifier)
+		{
+			$identifiers[$key] = $this->escapeIdentifier($identifier);
+		}
+
+		return $identifiers;
 	}
 
 	/**
