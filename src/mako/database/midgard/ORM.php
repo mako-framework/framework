@@ -1036,7 +1036,7 @@ abstract class ORM implements JsonSerializable
 
 			if($deleted)
 			{
-				$this->isPersisted = $this->exists = false;
+				$this->isPersisted = false;
 				$this->original    = [];
 				$this->related     = [];
 			}
