@@ -306,7 +306,12 @@ class Container
 			return 'Closure';
 		}
 
-		return $parameter->getDeclaringClass()->getName() . '::' . $declaringFunction->getName();
+		if(($class = $parameter->getDeclaringClass()) === null)
+		{
+			return $declaringFunction->getName();
+		}
+
+		return $class->getName() . '::' . $declaringFunction->getName();
 	}
 
 	/**
