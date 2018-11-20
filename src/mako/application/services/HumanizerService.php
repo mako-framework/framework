@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use mako\i18n\I18n;
 use mako\utility\Humanizer;
 
 /**
@@ -23,7 +24,7 @@ class HumanizerService extends Service
 	{
 		$this->container->registerSingleton([Humanizer::class, 'humanizer'], function($container)
 		{
-			return new Humanizer($container->get('i18n'));
+			return new Humanizer($container->get(I18n::class));
 		});
 	}
 }

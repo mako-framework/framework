@@ -19,6 +19,7 @@ use mako\application\cli\commands\migrations\Reset;
 use mako\application\cli\commands\migrations\Status;
 use mako\application\cli\commands\migrations\Up;
 use mako\application\cli\commands\server\Server;
+use mako\cache\CacheManager;
 use mako\cli\input\Input;
 use mako\cli\input\reader\Reader;
 use mako\cli\output\formatter\Formatter;
@@ -26,6 +27,8 @@ use mako\cli\output\Output;
 use mako\cli\output\writer\Error;
 use mako\cli\output\writer\Standard;
 use mako\config\Config;
+use mako\database\ConnectionManager as DatabaseConnectionManager;
+use mako\http\routing\Routes;
 use mako\Mako;
 use mako\reactor\Reactor;
 
@@ -76,7 +79,7 @@ class Application extends BaseApplication
 	 */
 	protected function reactorFactory(): Reactor
 	{
-		return new Reactor($this->container->get('input'), $this->container->get('output'), $this->container);
+		return new Reactor($this->container->get(Input::class), $this->container->get(Output::class), $this->container);
 	}
 
 	/**
@@ -164,7 +167,7 @@ class Application extends BaseApplication
 			'app.generate_secret' => GenerateSecret::class,
 		];
 
-		if($this->container->has('routes'))
+		if($this->container->has(Routes::class))
 		{
 			$commands = array_merge($commands,
 			[
@@ -173,7 +176,7 @@ class Application extends BaseApplication
 			]);
 		}
 
-		if($this->container->has('cache'))
+		if($this->container->has(CacheManager::class))
 		{
 			$commands = array_merge($commands,
 			[
@@ -182,7 +185,7 @@ class Application extends BaseApplication
 			]);
 		}
 
-		if($this->container->has('database'))
+		if($this->container->has(DatabaseConnectionManager::class))
 		{
 			$commands = array_merge($commands,
 			[

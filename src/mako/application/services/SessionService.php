@@ -7,6 +7,11 @@
 
 namespace mako\application\services;
 
+use mako\database\ConnectionManager as DatabaseConnectionManager;
+use mako\file\FileSystem;
+use mako\http\Request;
+use mako\http\Response;
+use mako\redis\ConnectionManager as RedisConnectionManager;
 use mako\session\Session;
 use mako\session\stores\Database;
 use mako\session\stores\File;
@@ -31,7 +36,7 @@ class SessionService extends Service
 	 */
 	protected function getDatabaseStore(Container $container, array $config, $classWhitelist)
 	{
-		return new Database($container->get('database')->connection($config['configuration']), $config['table'], $classWhitelist);
+		return new Database($container->get(DatabaseConnectionManager::class)->connection($config['configuration']), $config['table'], $classWhitelist);
 	}
 
 	/**
@@ -44,7 +49,7 @@ class SessionService extends Service
 	 */
 	protected function getFileStore(Container $container, array $config, $classWhitelist)
 	{
-		return new File($container->get('fileSystem'), $config['path'], $classWhitelist);
+		return new File($container->get(FileSystem::class), $config['path'], $classWhitelist);
 	}
 
 	/**
@@ -70,7 +75,7 @@ class SessionService extends Service
 	 */
 	protected function getRedisStore(Container $container, array $config, $classWhitelist)
 	{
-		return new Redis($container->get('redis')->connection($config['configuration']), $classWhitelist);
+		return new Redis($container->get(RedisConnectionManager::class)->connection($config['configuration']), $classWhitelist);
 	}
 
 	/**
@@ -127,7 +132,7 @@ class SessionService extends Service
 
 			// Create session and return it
 
-			return new Session($container->get('request'), $container->get('response'), $this->getStore($container, $config, $classWhitelist), $options);
+			return new Session($container->get(Request::class), $container->get(Response::class), $this->getStore($container, $config, $classWhitelist), $options);
 		});
 	}
 }

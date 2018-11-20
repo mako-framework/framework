@@ -10,6 +10,7 @@ namespace mako\security\crypto;
 use mako\common\AdapterManager;
 use mako\security\crypto\encrypters\OpenSSL;
 use mako\security\Key;
+use mako\security\Signer;
 use RuntimeException;
 
 use function vsprintf;
@@ -51,6 +52,6 @@ class CryptoManager extends AdapterManager
 
 		$configuration = $this->configurations[$configuration];
 
-		return new Crypto($this->factory($configuration['library'], $configuration), $this->container->get('signer'));
+		return new Crypto($this->factory($configuration['library'], $configuration), $this->container->get(Signer::class));
 	}
 }

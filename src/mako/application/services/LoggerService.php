@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use mako\application\Application;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -30,7 +31,7 @@ class LoggerService extends Service
 		{
 			$logger = new Logger('mako');
 
-			$handler = new StreamHandler($container->get('app')->getPath() . '/storage/logs/' . date('Y-m-d') . '.mako', Logger::DEBUG);
+			$handler = new StreamHandler($container->get(Application::class)->getPath() . '/storage/logs/' . date('Y-m-d') . '.mako', Logger::DEBUG);
 
 			$handler->setFormatter(new LineFormatter(null, null, true, true));
 

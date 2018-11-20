@@ -370,12 +370,10 @@ abstract class Application
 	 */
 	protected function bootstrap()
 	{
-		$bootstrap = function($app, $container)
+		(function($app, $container)
 		{
 			include $this->applicationPath . '/bootstrap.php';
-		};
-
-		$bootstrap($this, $this->container);
+		})($this, $this->container);
 	}
 
 	/**
@@ -447,7 +445,7 @@ abstract class Application
 	 */
 	protected function configFactory(): Config
 	{
-		return new Config(new Loader($this->container->get('fileSystem'), $this->applicationPath . '/config'), $this->getEnvironment());
+		return new Config(new Loader($this->container->get(FileSystem::class), $this->applicationPath . '/config'), $this->getEnvironment());
 	}
 
 	/**

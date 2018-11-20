@@ -11,6 +11,7 @@ use mako\application\services\Service;
 use mako\error\ErrorHandler;
 use mako\error\handlers\cli\DevelopmentHandler;
 use mako\error\handlers\cli\ProductionHandler;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 /**
@@ -25,7 +26,7 @@ class ErrorHandlerService extends Service
 	 */
 	public function register()
 	{
-		$config = $this->container->get('config')->get('application.error_handler');
+		$config = $this->config->get('application.error_handler');
 
 		$errorHandler = new ErrorHandler($this->container);
 
@@ -33,7 +34,7 @@ class ErrorHandlerService extends Service
 		{
 			$errorHandler->setLogger(function()
 			{
-				return 	$this->container->get('logger');
+				return 	$this->container->get(LoggerInterface::class);
 			});
 		}
 

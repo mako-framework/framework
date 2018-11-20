@@ -11,6 +11,9 @@ use mako\gatekeeper\adapters\Session;
 use mako\gatekeeper\Authentication;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
+use mako\http\Request;
+use mako\http\Response;
+use mako\session\Session as HttpSession;
 
 /**
  * Gatekeeper service.
@@ -26,11 +29,11 @@ class GatekeeperService extends Service
 	{
 		$this->container->registerSingleton([Authentication::class, 'gatekeeper'], function($container)
 		{
-			$request = $container->get('request');
+			$request = $container->get(Request::class);
 
-			$response = $container->get('response');
+			$response = $container->get(Response::class);
 
-			$session = $container->get('session');
+			$session = $container->get(HttpSession::class);
 
 			$config = $this->config->get('gatekeeper');
 

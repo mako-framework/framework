@@ -19,6 +19,9 @@ use mako\cache\stores\WinCache;
 use mako\cache\stores\ZendDisk;
 use mako\cache\stores\ZendMemory;
 use mako\common\AdapterManager;
+use mako\database\ConnectionManager as DatabaseConnectionManager;
+use mako\file\FileSystem;
+use mako\redis\ConnectionManager as RedisConnectionManager;
 use mako\syringe\Container;
 use RuntimeException;
 
@@ -81,7 +84,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function fileFactory(array $configuration): File
 	{
-		return (new File($this->container->get('fileSystem'), $configuration['path'], $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
+		return (new File($this->container->get(FileSystem::class), $configuration['path'], $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -92,7 +95,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function databaseFactory(array $configuration): Database
 	{
-		return (new Database($this->container->get('database')->connection($configuration['configuration']), $configuration['table'], $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
+		return (new Database($this->container->get(DatabaseConnectionManager::class)->connection($configuration['configuration']), $configuration['table'], $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -136,7 +139,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function redisFactory(array $configuration): Redis
 	{
-		return (new Redis($this->container->get('redis')->connection($configuration['configuration']), $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
+		return (new Redis($this->container->get(RedisConnectionManager::class)->connection($configuration['configuration']), $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**

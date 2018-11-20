@@ -8,8 +8,10 @@
 namespace mako\application\web;
 
 use mako\application\Application as BaseApplication;
+use mako\http\Request;
 use mako\http\routing\Dispatcher;
 use mako\http\routing\Router;
+use mako\i18n\I18n;
 
 use function ob_start;
 
@@ -27,7 +29,7 @@ class Application extends BaseApplication
 	{
 		ob_start();
 
-		$request = $this->container->get('request');
+		$request = $this->container->get(Request::class);
 
 		// Override the application language?
 
@@ -35,9 +37,9 @@ class Application extends BaseApplication
 		{
 			$this->setLanguage($language);
 
-			if($this->container->has('i18n'))
+			if($this->container->has(I18n::class))
 			{
-				$this->container->get('i18n')->setLanguage($this->language);
+				$this->container->get(I18n::class)->setLanguage($this->language);
 			}
 		}
 

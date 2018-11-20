@@ -7,12 +7,14 @@
 
 namespace mako\application\services;
 
+use mako\application\Application;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\Dispatcher;
 use mako\http\routing\Router;
 use mako\http\routing\Routes;
 use mako\http\routing\URLBuilder;
+use mako\security\Signer;
 
 /**
  * HTTP service.
@@ -26,7 +28,7 @@ class HTTPService extends Service
 	 */
 	public function register()
 	{
-		$app = $this->container->get('app');
+		$app = $this->container->get(Application::class);
 
 		$config = $this->config->get('application');
 
@@ -34,7 +36,7 @@ class HTTPService extends Service
 
 		$this->container->registerSingleton([Request::class, 'request'], function($container) use ($config)
 		{
-			$request = new Request(['languages' => $config['languages']], $container->get('signer'));
+			$request = new Request(['languages' => $config['languages']], $container->get(Signer::class));
 
 			if(!empty($config['trusted_proxies']))
 			{
@@ -48,7 +50,7 @@ class HTTPService extends Service
 
 		$this->container->registerSingleton([Response::class, 'response'], function($container) use ($app)
 		{
-			return new Response($container->get('request'), $app->getCharset(), $container->get('signer'));
+			return new Response($container->get(Request::class), $app->getCharset(), $container->get(Signer::class));
 		});
 
 		// Routes
@@ -70,7 +72,7 @@ class HTTPService extends Service
 
 		$this->container->registerSingleton(Router::class, function($container) use ($app)
 		{
-			$router = new Router($this->container->get(Routes::class), $container);
+			$router = new Router($container->get(Routes::class), $container);
 
 			(function($app, $container, $router)
 			{
@@ -85,7 +87,7 @@ class HTTPService extends Service
 
 		$this->container->registerSingleton(Dispatcher::class, function($container) use ($app)
 		{
-			$dispatcher = new Dispatcher($this->container->get('request'), $this->container->get('response'), $container);
+			$dispatcher = new Dispatcher($container->get(Request::class), $container->get(Response::class), $container);
 
 			(function($app, $container, $dispatcher)
 			{
@@ -100,7 +102,7 @@ class HTTPService extends Service
 
 		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], function($container) use ($config)
 		{
-			return new URLBuilder($container->get('request'), $container->get('routes'), $config['clean_urls'], $config['base_url']);
+			return new URLBuilder($container->get(Request::class), $container->get(Routes::class), $config['clean_urls'], $config['base_url']);
 		});
 	}
 }

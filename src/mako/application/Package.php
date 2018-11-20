@@ -8,7 +8,10 @@
 namespace mako\application;
 
 use mako\common\traits\NamespacedFileLoaderTrait;
+use mako\config\Config;
+use mako\i18n\I18n;
 use mako\syringe\Container;
+use mako\view\ViewFactory;
 use ReflectionClass;
 
 use function class_uses;
@@ -190,7 +193,7 @@ abstract class Package
 	{
 		// Register configuration namespace
 
-		$configLoader = $this->container->get('config')->getLoader();
+		$configLoader = $this->container->get(Config::class)->getLoader();
 
 		if(in_array(NamespacedFileLoaderTrait::class, class_uses($configLoader)))
 		{
@@ -199,9 +202,9 @@ abstract class Package
 
 		// Register i18n namespace
 
-		if(($path = $this->getI18nPath()) !== false && $this->container->has('i18n'))
+		if(($path = $this->getI18nPath()) !== false && $this->container->has(I18n::class))
 		{
-			$i18nLoader = $this->container->get('i18n')->getLoader();
+			$i18nLoader = $this->container->get(I18n::class)->getLoader();
 
 			if(in_array(NamespacedFileLoaderTrait::class, class_uses($i18nLoader)))
 			{
@@ -211,9 +214,9 @@ abstract class Package
 
 		// Register view namespace
 
-		if(($path = $this->getViewPath()) !== false && $this->container->has('view'))
+		if(($path = $this->getViewPath()) !== false && $this->container->has(ViewFactory::class))
 		{
-			$this->container->get('view')->registerNamespace($this->getFileNamespace(), $path);
+			$this->container->get(ViewFactory::class)->registerNamespace($this->getFileNamespace(), $path);
 		}
 
 		// Bootstrap package

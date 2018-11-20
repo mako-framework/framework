@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use mako\i18n\I18n;
 use mako\validator\ValidatorFactory;
 
 /**
@@ -23,7 +24,7 @@ class ValidatorFactoryService extends Service
 	{
 		$this->container->registerSingleton([ValidatorFactory::class, 'validator'], function($container)
 		{
-			return new ValidatorFactory($container->has('i18n') ? $container->get('i18n') : null, $container);
+			return new ValidatorFactory($container->has(I18n::class) ? $container->get(I18n::class) : null, $container);
 		});
 	}
 }

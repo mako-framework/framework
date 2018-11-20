@@ -9,6 +9,7 @@ namespace mako\application\services;
 
 use mako\database\ConnectionManager;
 use mako\database\query\Query;
+use mako\pagination\PaginationFactoryInterface;
 
 /**
  * Database service.
@@ -24,11 +25,11 @@ class DatabaseService extends Service
 	{
 		$this->container->registerSingleton([ConnectionManager::class, 'database'], function($container)
 		{
-			if($container->has('pagination'))
+			if($container->has(PaginationFactoryInterface::class))
 			{
 				Query::setPaginationFactory(function() use ($container)
 				{
-					return $container->get('pagination');
+					return $container->get(PaginationFactoryInterface::class);
 				});
 			}
 
