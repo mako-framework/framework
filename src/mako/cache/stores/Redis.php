@@ -73,7 +73,7 @@ class Redis extends Store implements IncrementDecrementInterface
 
 		$data = (is_numeric($data) ? $data : serialize($data));
 
-		if($ttl == 0)
+		if($ttl === 0)
 		{
 			return (bool) $this->redis->setnx($key, $data);
 		}
