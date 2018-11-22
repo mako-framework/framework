@@ -44,7 +44,7 @@ trait ControllerHelperTrait
 	 * @param  mixed                                $language    Request language
 	 * @return \mako\http\response\senders\Redirect
 	 */
-	protected function redirectResponse(string $location, array $routeParams = [], array $queryParams = [], string $separator = '&amp;', $language = true): Redirect
+	protected function redirectResponse(string $location, array $routeParams = [], array $queryParams = [], string $separator = '&', $language = true): Redirect
 	{
 		if($this->routes->hasNamedRoute($location))
 		{

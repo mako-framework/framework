@@ -111,11 +111,11 @@ class URLBuilderTest extends TestCase
 
 		$this->assertEquals('http://example.org/index.php/foo?bar=baz', $urlBuilder->to('/foo', ['bar' => 'baz']));
 
-		$this->assertEquals('http://example.org/index.php/foo?bar=baz&amp;baz=bar', $urlBuilder->to('/foo', ['bar' => 'baz', 'baz' => 'bar']));
+		$this->assertEquals('http://example.org/index.php/foo?bar=baz&baz=bar', $urlBuilder->to('/foo', ['bar' => 'baz', 'baz' => 'bar']));
 
-		$this->assertEquals('http://example.org/index.php/foo?bar=baz&baz=bar', $urlBuilder->to('/foo', ['bar' => 'baz', 'baz' => 'bar'], '&'));
+		$this->assertEquals('http://example.org/index.php/foo?bar=baz&amp;baz=bar', $urlBuilder->to('/foo', ['bar' => 'baz', 'baz' => 'bar'], '&amp;'));
 
-		$this->assertEquals('http://example.org/index.php/no-nb/foo', $urlBuilder->to('/foo', [], '&amp;', 'no-nb'));
+		$this->assertEquals('http://example.org/index.php/no-nb/foo', $urlBuilder->to('/foo', [], '&', 'no-nb'));
 
 		//
 
@@ -155,11 +155,11 @@ class URLBuilderTest extends TestCase
 
 		$this->assertEquals('http://example.org/article/1', $urlBuilder->toRoute('bar', ['id' => 1, 'slug' => null]));
 
-		$this->assertEquals('http://example.org/article/1/bar?bar=baz&amp;baz=bar', $urlBuilder->toRoute('foo', ['id' => 1, 'slug' => 'bar'], ['bar' => 'baz', 'baz' => 'bar']));
+		$this->assertEquals('http://example.org/article/1/bar?bar=baz&baz=bar', $urlBuilder->toRoute('foo', ['id' => 1, 'slug' => 'bar'], ['bar' => 'baz', 'baz' => 'bar']));
 
-		$this->assertEquals('http://example.org/article/1/bar?bar=baz&baz=bar', $urlBuilder->toRoute('foo', ['id' => 1, 'slug' => 'bar'], ['bar' => 'baz', 'baz' => 'bar'], '&'));
+		$this->assertEquals('http://example.org/article/1/bar?bar=baz&amp;baz=bar', $urlBuilder->toRoute('foo', ['id' => 1, 'slug' => 'bar'], ['bar' => 'baz', 'baz' => 'bar'], '&amp;'));
 
-		$this->assertEquals('http://example.org/no-nb/article/1/bar', $urlBuilder->toRoute('foo', ['id' => 1, 'slug' => 'bar'], [], '&amp', 'no-nb'));
+		$this->assertEquals('http://example.org/no-nb/article/1/bar', $urlBuilder->toRoute('foo', ['id' => 1, 'slug' => 'bar'], [], '&', 'no-nb'));
 	}
 
 	/**
@@ -179,9 +179,9 @@ class URLBuilderTest extends TestCase
 
 		$this->assertEquals('http://example.org/foo/bar', $urlBuilder->current());
 
-		$this->assertEquals('http://example.org/foo/bar?bar=baz&amp;baz=bar', $urlBuilder->current(['bar' => 'baz', 'baz' => 'bar']));
+		$this->assertEquals('http://example.org/foo/bar?bar=baz&baz=bar', $urlBuilder->current(['bar' => 'baz', 'baz' => 'bar']));
 
-		$this->assertEquals('http://example.org/foo/bar?bar=baz&baz=bar', $urlBuilder->current(['bar' => 'baz', 'baz' => 'bar'], '&'));
+		$this->assertEquals('http://example.org/foo/bar?bar=baz&amp;baz=bar', $urlBuilder->current(['bar' => 'baz', 'baz' => 'bar'], '&amp;'));
 
 		$this->assertEquals('http://example.org/no-nb/foo/bar', $urlBuilder->current([], '&amp', 'no-nb'));
 	}

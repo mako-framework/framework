@@ -37,6 +37,7 @@ Update using ```composer update```.
 * The gatekeeper `forceLogin` method now returns `true` if the login is successful and a status code if not.
 * The JSON representation of a result set returned by the `Query::paginate()` method will now be an object where the results are available as `data` and pagination information will be available as `pagination` (`{"data":[...], "pagination":{...}}`).
 * An exception will be thrown when trying to set a secure session or gatekeeper cookie over a non-secure connection.
+* The URL builder will now separate query string parameters with `&` instead of `&amp;`.
 
 #### Deprecations
 
