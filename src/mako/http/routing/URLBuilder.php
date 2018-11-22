@@ -127,7 +127,7 @@ class URLBuilder
 
 		if(!empty($queryParams))
 		{
-			$url .= '?' . http_build_query($queryParams, '', $separator);
+			$url .= '?' . http_build_query($queryParams, '', $separator, PHP_QUERY_RFC3986);
 		}
 
 		return $url;

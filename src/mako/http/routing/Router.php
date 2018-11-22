@@ -193,7 +193,7 @@ class Router
 
 			if(!empty($get))
 			{
-				$url = $url . '?' . http_build_query($get);
+				$url = $url . '?' . http_build_query($get, '', '&', PHP_QUERY_RFC3986);
 			}
 
 			return (new Redirect($url))->status(301);
