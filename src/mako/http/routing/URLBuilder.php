@@ -76,7 +76,7 @@ class URLBuilder
 		$this->request   = $request;
 		$this->routes    = $routes;
 		$this->cleanURLs = $cleanURLs;
-		$this->baseURL   = $baseURL;
+		$this->baseURL   = $baseURL ?? $this->request->baseURL();
 
 		$this->scriptName = $request->scriptName();
 
@@ -104,11 +104,6 @@ class URLBuilder
 	 */
 	public function base(): string
 	{
-		if(empty($this->baseURL))
-		{
-			$this->baseURL = $this->request->baseURL();
-		}
-
 		return $this->baseURL;
 	}
 
@@ -123,7 +118,7 @@ class URLBuilder
 	 */
 	public function to(string $path, array $queryParams = [], string $separator = '&', $language = true): string
 	{
-		$url = $this->base() . ($this->cleanURLs ? '' : '/' . $this->scriptName) . ($language === true ? $this->languagePrefix : (!$language ? '' : '/' . $language)) . $path;
+		$url = $this->baseURL . ($this->cleanURLs ? '' : '/' . $this->scriptName) . ($language === true ? $this->languagePrefix : (!$language ? '' : '/' . $language)) . $path;
 
 		if(!empty($queryParams))
 		{
