@@ -38,6 +38,7 @@ Update using ```composer update```.
 * The JSON representation of a result set returned by the `Query::paginate()` method will now be an object where the results are available as `data` and pagination information will be available as `pagination` (`{"data":[...], "pagination":{...}}`).
 * An exception will be thrown when trying to set a secure session or gatekeeper cookie over a non-secure connection.
 * The URL builder will now separate query string parameters with `&` instead of `&amp;`.
+* The URL builder will now encode query string parameters using PHP_QUERY_RFC3986.
 
 #### Deprecations
 
