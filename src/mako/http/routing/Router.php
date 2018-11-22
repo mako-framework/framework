@@ -189,11 +189,11 @@ class Router
 		{
 			$url = $request->baseURL() . ($request->isClean() ? '' : '/' . $request->scriptName()) . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
 
-			$get = $request->getQuery()->all();
+			$query = $request->getQuery()->all();
 
-			if(!empty($get))
+			if(!empty($query))
 			{
-				$url = $url . '?' . http_build_query($get, '', '&', PHP_QUERY_RFC3986);
+				$url .= '?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986);
 			}
 
 			return (new Redirect($url))->status(301);
