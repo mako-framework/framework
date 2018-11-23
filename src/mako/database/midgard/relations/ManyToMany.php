@@ -94,12 +94,12 @@ class ManyToMany extends Relation
 	 */
 	public function getColumns(): array
 	{
-		if(!$this->lazy)
+		if($this->lazy)
 		{
-			return array_merge($this->columns, $this->alongWith, [$this->getJunctionTable() . '.' . $this->getForeignKey()]);
+			return array_merge($this->columns, $this->alongWith);
 		}
 
-		return array_merge($this->columns, $this->alongWith);
+		return array_merge($this->columns, $this->alongWith, [$this->getJunctionTable() . '.' . $this->getForeignKey()]);
 	}
 
 	/**
