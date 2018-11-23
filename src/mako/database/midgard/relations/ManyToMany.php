@@ -94,6 +94,11 @@ class ManyToMany extends Relation
 	 */
 	public function getColumns(): array
 	{
+		if(!$this->lazy)
+		{
+			return array_merge($this->columns, $this->alongWith, [$this->getJunctionTable() . '.' . $this->getForeignKey()]);
+		}
+
 		return array_merge($this->columns, $this->alongWith);
 	}
 
@@ -208,19 +213,6 @@ class ManyToMany extends Relation
 		{
 			$result->setRelated($relation, $this->createResultSet($grouped[$result->getPrimaryKeyValue()] ?? []));
 		}
-	}
-
-	/**
-	 * Adjusts the query.
-	 */
-	protected function adjustQuery()
-	{
-		if(!$this->lazy)
-		{
-			$this->columns = array_merge($this->columns, [$this->getJunctionTable() . '.' . $this->getForeignKey()]);
-		}
-
-		parent::adjustQuery();
 	}
 
 	/**
