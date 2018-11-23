@@ -76,7 +76,7 @@ class URLBuilder
 		$this->request   = $request;
 		$this->routes    = $routes;
 		$this->cleanURLs = $cleanURLs;
-		$this->baseURL   = $baseURL ?? $this->request->baseURL();
+		$this->baseURL   = $baseURL ?: $this->request->baseURL();
 
 		$this->scriptName = $request->scriptName();
 
