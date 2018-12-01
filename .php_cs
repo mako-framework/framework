@@ -61,7 +61,6 @@ return Config::create()
 	'single_blank_line_before_namespace' => true,
 	'single_import_per_statement' => true,
 	'single_line_after_imports' => true,
-	'single_line_comment_style' => true,
 	'single_quote' => true,
 	'space_after_semicolon' => true,
 	'standardize_not_equals' => true,
