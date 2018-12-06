@@ -19,7 +19,7 @@ class Mako
 	 *
 	 * @var string
 	 */
-	const VERSION = '5.6.0';
+	const VERSION = '5.7.0';
 
 	/**
 	 * Mako major version.
@@ -33,7 +33,7 @@ class Mako
 	 *
 	 * @var int
 	 */
-	const VERSION_MINOR = 6;
+	const VERSION_MINOR = 7;
 
 	/**
 	 * Mako patch version.
