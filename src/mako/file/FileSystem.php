@@ -138,19 +138,6 @@ class FileSystem
 	}
 
 	/**
-	 * Returns the mime type of the file.
-	 *
-	 * @deprecated
-	 *
-	 * @param  string      $file Path to file
-	 * @return string|bool
-	 */
-	public function mime(string $file)
-	{
-		return $this->info($file)->getMimeType();
-	}
-
-	/**
 	 * Renames a file or directory.
 	 *
 	 * @param  string $oldName Old name
@@ -325,37 +312,6 @@ class FileSystem
 	public function requireOnce(string $file)
 	{
 		return require_once $file;
-	}
-
-	/**
-	 * Generate a hash value using the contents of the given file.
-	 *
-	 * @deprecated
-	 *
-	 * @param  string $file      Path to file
-	 * @param  string $algorithm Hashing algorithm
-	 * @param  bool   $raw       Output raw binary data?
-	 * @return string
-	 */
-	public function hash(string $file, string $algorithm = 'sha256', bool $raw = false): string
-	{
-		return $this->info($file)->getHash($algorithm, $raw);
-	}
-
-	/**
-	 * Generate a keyed hash value using the HMAC method.
-	 *
-	 * @deprecated
-	 *
-	 * @param  string $file      Path to file
-	 * @param  string $key       Shared secret key
-	 * @param  string $algorithm Hashing algorithm
-	 * @param  bool   $raw       Output raw binary data?
-	 * @return string
-	 */
-	public function hmac(string $file, string $key, string $algorithm = 'sha256', bool $raw = false): string
-	{
-		return $this->info($file)->getHmac($key, $algorithm, $raw);
 	}
 
 	/**
