@@ -29,7 +29,7 @@ class I18nAwareTraitTest extends TestCase
 		{
 			use I18nAwareTrait;
 
-			function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool { return false; }
 
 			public function validate($value, array $input): bool { return true; }
 
@@ -59,7 +59,7 @@ class I18nAwareTraitTest extends TestCase
 
 			protected $parameters = ['foo' => 'foovalue', 'bar' => 'barvalue'];
 
-			function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool { return false; }
 
 			public function validate($value, array $input): bool { return true; }
 
@@ -86,7 +86,7 @@ class I18nAwareTraitTest extends TestCase
 		{
 			use I18nAwareTrait;
 
-			function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool { return false; }
 
 			public function validate($value, array $input): bool { return true; }
 
@@ -124,7 +124,7 @@ class I18nAwareTraitTest extends TestCase
 
 			protected $i18nFieldNameParameters = ['foo'];
 
-			function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool { return false; }
 
 			public function validate($value, array $input): bool { return true; }
 
@@ -161,7 +161,7 @@ class I18nAwareTraitTest extends TestCase
 		{
 			use I18nAwareTrait;
 
-			function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool { return false; }
 
 			public function validate($value, array $input): bool { return true; }
 
@@ -192,7 +192,7 @@ class I18nAwareTraitTest extends TestCase
 		{
 			use I18nAwareTrait;
 
-			function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool { return false; }
 
 			public function validate($value, array $input): bool { return true; }
 

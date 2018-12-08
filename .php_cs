@@ -44,6 +44,7 @@ return Config::create()
 	'no_unused_imports' => true,
 	'no_whitespace_before_comma_in_array' => true,
 	'no_whitespace_in_blank_line' => true,
+	'normalize_index_brace' => true,
 	'object_operator_without_whitespace' => true,
 	'ordered_imports' => true,
 	'phpdoc_align' => true,
@@ -70,6 +71,7 @@ return Config::create()
 	'switch_case_space' => true,
 	'trailing_comma_in_multiline_array' => true,
 	'trim_array_spaces' => true,
+	'visibility_required' => true,
 	'whitespace_after_comma_in_array' => true,
 ])
 ->setRiskyAllowed(true)

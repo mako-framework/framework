@@ -35,7 +35,7 @@ class Routes
 	 *
 	 * @var array
 	 */
-	protected  $routes = [];
+	protected $routes = [];
 
 	/**
 	 * Routes grouped by request method.
