@@ -131,9 +131,9 @@ class I18n
 	/**
 	 * Sets the current language.
 	 *
-	 * @param string|null $language Name of the language pack
+	 * @param string $language Name of the language pack
 	 */
-	public function setLanguage(?string $language = null): void
+	public function setLanguage(string $language): void
 	{
 		$this->language = $language;
 	}

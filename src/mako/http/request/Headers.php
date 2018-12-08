@@ -165,7 +165,7 @@ class Headers implements Countable, IteratorAggregate
 	 * @param  string|null $headerValue Header value
 	 * @return array
 	 */
-	protected function parseAcceptHeader(?string $headerValue = null): array
+	protected function parseAcceptHeader(?string $headerValue): array
 	{
 		$groupedAccepts = [];
 
