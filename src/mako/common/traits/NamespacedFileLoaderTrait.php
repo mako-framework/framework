@@ -98,7 +98,7 @@ trait NamespacedFileLoaderTrait
 
 			if(!isset($this->namespaces[$namespace]))
 			{
-				throw new RuntimeException(vsprintf('The [ %s ] namespace does not exist.', [$namespace]));
+				throw new RuntimeException(vsprintf('The [ %s ] namespace does not exist.', [$namespace]));
 			}
 
 			$path = $this->namespaces[$namespace];

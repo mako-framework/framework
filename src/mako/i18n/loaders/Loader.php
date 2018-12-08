@@ -75,7 +75,7 @@ class Loader implements LoaderInterface
 
 		if($strings === false)
 		{
-			throw new LoaderException(vsprintf('The [ %s ] language pack does not have a [ %s ] file.', [$language, $file]));
+			throw new LoaderException(vsprintf('The [ %s ] language pack does not have a [ %s ] file.', [$language, $file]));
 		}
 
 		return $strings;

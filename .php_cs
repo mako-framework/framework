@@ -10,6 +10,7 @@ return Config::create()
 	'blank_line_after_namespace' => true,
 	'blank_line_after_opening_tag' => true,
 	'cast_spaces' => true,
+	'combine_nested_dirname' => true,
 	'concat_space' => ['spacing' => 'one'],
 	'elseif' => true,
 	'encoding' => true,
@@ -44,6 +45,7 @@ return Config::create()
 	'no_unused_imports' => true,
 	'no_whitespace_before_comma_in_array' => true,
 	'no_whitespace_in_blank_line' => true,
+	'non_printable_character' => true,
 	'normalize_index_brace' => true,
 	'object_operator_without_whitespace' => true,
 	'ordered_imports' => true,
@@ -72,8 +74,8 @@ return Config::create()
 	'trailing_comma_in_multiline_array' => true,
 	'trim_array_spaces' => true,
 	'visibility_required' => true,
-	'whitespace_after_comma_in_array' => true,
 	'void_return' => true,
+	'whitespace_after_comma_in_array' => true,
 ])
 ->setRiskyAllowed(true)
 ->setFinder(Finder::create()->in(__DIR__));

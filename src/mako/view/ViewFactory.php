@@ -207,7 +207,7 @@ class ViewFactory
 
 			if($throwException)
 			{
-				throw new ViewException(vsprintf('The [ %s ] view does not exist.', [$view]));
+				throw new ViewException(vsprintf('The [ %s ] view does not exist.', [$view]));
 			}
 
 			return false;

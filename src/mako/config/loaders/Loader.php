@@ -68,7 +68,7 @@ class Loader implements LoaderInterface
 
 		if($loaded === 0)
 		{
-			throw new LoaderException(vsprintf('The [ %s ] config file does not exist.', [$file]));
+			throw new LoaderException(vsprintf('The [ %s ] config file does not exist.', [$file]));
 		}
 
 		// Merge environment specific configuration

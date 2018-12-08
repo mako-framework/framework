@@ -96,6 +96,6 @@ class Create extends Command
 			return Command::STATUS_ERROR;
 		}
 
-		$this->write(vsprintf('Migration created at [ %s ].', [$path]));
+		$this->write(vsprintf('Migration created at [ %s ].', [$path]));
 	}
 }
