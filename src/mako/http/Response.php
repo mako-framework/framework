@@ -200,7 +200,7 @@ class Response
 	 * @param string                     $charset Response charset
 	 * @param \mako\security\Signer|null $signer  Signer instance used to sign cookies
 	 */
-	public function __construct(Request $request, string $charset = 'UTF-8', Signer $signer = null)
+	public function __construct(Request $request, string $charset = 'UTF-8', ?Signer $signer = null)
 	{
 		$this->request = $request;
 
@@ -253,7 +253,7 @@ class Response
 	 * @param  string|null         $charset     Charset
 	 * @return \mako\http\Response
 	 */
-	public function type(string $contentType, string $charset = null): Response
+	public function type(string $contentType, ?string $charset = null): Response
 	{
 		$this->contentType = $contentType;
 

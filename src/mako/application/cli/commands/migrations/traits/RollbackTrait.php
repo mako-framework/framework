@@ -19,7 +19,7 @@ trait RollbackTrait
 	 *
 	 * @param int|null $batches Number of batches to roll back
 	 */
-	public function rollback(int $batches = null)
+	public function rollback(?int $batches = null)
 	{
 		$migrations = $this->getMigrated($batches);
 

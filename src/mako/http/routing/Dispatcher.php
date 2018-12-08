@@ -92,7 +92,7 @@ class Dispatcher
 	 * @param \mako\http\Response          $response  Response instance
 	 * @param \mako\syringe\Container|null $container Container
 	 */
-	public function __construct(Request $request, Response $response, Container $container = null)
+	public function __construct(Request $request, Response $response, ?Container $container = null)
 	{
 		$this->request = $request;
 
@@ -134,7 +134,7 @@ class Dispatcher
 	 * @param  int|null                      $priority   Middleware priority
 	 * @return \mako\http\routing\Dispatcher
 	 */
-	public function registerMiddleware(string $name, string $middleware, int $priority = null): Dispatcher
+	public function registerMiddleware(string $name, string $middleware, ?int $priority = null): Dispatcher
 	{
 		$this->middleware[$name] = $middleware;
 

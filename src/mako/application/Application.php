@@ -269,7 +269,7 @@ abstract class Application
 	 *
 	 * @return string|null
 	 */
-	public function getEnvironment()
+	public function getEnvironment(): ?string
 	{
 		return getenv('MAKO_ENV') ?: null;
 	}

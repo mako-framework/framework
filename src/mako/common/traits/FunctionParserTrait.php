@@ -47,7 +47,7 @@ trait FunctionParserTrait
 	 * @param  bool|null $namedParameters Are we expecting named parameters?
 	 * @return array
 	 */
-	protected function parseFunction(string $function, bool $namedParameters = null): array
+	protected function parseFunction(string $function, ?bool $namedParameters = null): array
 	{
 		if(strpos($function, '(') === false)
 		{

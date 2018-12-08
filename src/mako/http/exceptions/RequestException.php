@@ -24,7 +24,7 @@ class RequestException extends RuntimeException
 	 * @param string|null     $message  Exception message
 	 * @param \Throwable|null $previous Previous exception
 	 */
-	public function __construct(int $code, string $message = null, Throwable $previous = null)
+	public function __construct(int $code, ?string $message = null, ?Throwable $previous = null)
 	{
 		parent::__construct($message, $code, $previous);
 	}

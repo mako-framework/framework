@@ -42,7 +42,7 @@ abstract class ConnectionManager
 	 * @param  string|null $connection Connection name
 	 * @return mixed
 	 */
-	public function connection(string $connection = null)
+	public function connection(?string $connection = null)
 	{
 		$connection = $connection ?? $this->default;
 
@@ -59,7 +59,7 @@ abstract class ConnectionManager
 	 *
 	 * @param string|null $connection Connection name
 	 */
-	public function close(string $connection = null)
+	public function close(?string $connection = null)
 	{
 		$connection = $connection ?? $this->default;
 
@@ -84,7 +84,7 @@ abstract class ConnectionManager
 	 * @param  string|null $connection Connection name
 	 * @return mixed
 	 */
-	public function executeAndClose(Closure $closure, string $connection = null)
+	public function executeAndClose(Closure $closure, ?string $connection = null)
 	{
 		$returnValue = $closure($this->connection($connection));
 

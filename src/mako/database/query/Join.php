@@ -43,7 +43,7 @@ class Join
 	 * @param string|null $type  Join type
 	 * @param mixed       $table Table we are joining
 	 */
-	public function __construct(string $type = null, $table = null)
+	public function __construct(?string $type = null, $table = null)
 	{
 		$this->type  = $type;
 		$this->table = $table;
@@ -82,13 +82,13 @@ class Join
 	/**
 	 * Adds a ON condition to the join.
 	 *
-	 * @param  string                    $column1   Column name
-	 * @param  string|null               $operator  Operator
-	 * @param  string|null               $column2   Column name
-	 * @param  string                    $separator Condition separator
+	 * @param  string                                $column1   Column name
+	 * @param  string|null                           $operator  Operator
+	 * @param  string|\mako\database\query\Raw||null $column2   Column name
+	 * @param  string                                $separator Condition separator
 	 * @return \mako\database\query\Join
 	 */
-	public function on($column1, string $operator = null, $column2 = null, string $separator = 'AND'): Join
+	public function on($column1, ?string $operator = null, $column2 = null, string $separator = 'AND'): Join
 	{
 		if($column1 instanceof Closure)
 		{
@@ -135,12 +135,12 @@ class Join
 	/**
 	 * Adds a OR ON condition to the join.
 	 *
-	 * @param  string                    $column1  Column name
-	 * @param  string|null               $operator Operator
-	 * @param  string|null               $column2  Column name
+	 * @param  string                               $column1  Column name
+	 * @param  string|null                          $operator Operator
+	 * @param  string|mako\database\query\Raw||null $column2  Column name
 	 * @return \mako\database\query\Join
 	 */
-	public function orOn($column1, string $operator = null, $column2 = null): Join
+	public function orOn($column1, ?string $operator = null, $column2 = null): Join
 	{
 		return $this->on($column1, $operator, $column2, 'OR');
 	}

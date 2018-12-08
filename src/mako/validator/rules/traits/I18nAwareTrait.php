@@ -97,7 +97,7 @@ trait I18nAwareTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTranslatedErrorMessage(string $field, string $rule, string $package = null): string
+	public function getTranslatedErrorMessage(string $field, string $rule, ?string $package = null): string
 	{
 		$package = empty($package) ? '' : '::' . $package;
 

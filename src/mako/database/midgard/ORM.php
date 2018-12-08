@@ -353,7 +353,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string|null $className Class name
 	 * @return string
 	 */
-	protected function getClassShortName(string $className = null): string
+	protected function getClassShortName(?string $className = null): string
 	{
 		$class = $className ?? static::class;
 
@@ -805,7 +805,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string|null                             $foreignKey Foreign key name
 	 * @return \mako\database\midgard\relations\HasOne
 	 */
-	protected function hasOne(string $model, string $foreignKey = null): HasOne
+	protected function hasOne(string $model, ?string $foreignKey = null): HasOne
 	{
 		$related = new $model;
 
@@ -833,7 +833,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string|null                              $foreignKey Foreign key name
 	 * @return \mako\database\midgard\relations\HasMany
 	 */
-	protected function hasMany(string $model, string $foreignKey = null): HasMany
+	protected function hasMany(string $model, ?string $foreignKey = null): HasMany
 	{
 		$related = new $model;
 
@@ -863,7 +863,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string|null                                 $junctionKey   Junction key name
 	 * @return \mako\database\midgard\relations\ManyToMany
 	 */
-	protected function manyToMany(string $model, string $foreignKey = null, string $junctionTable = null, string $junctionKey = null): ManyToMany
+	protected function manyToMany(string $model, ?string $foreignKey = null, ?string $junctionTable = null, ?string $junctionKey = null): ManyToMany
 	{
 		$related = new $model;
 
@@ -877,7 +877,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string|null                                $foreignKey Foreign key name
 	 * @return \mako\database\midgard\relations\BelongsTo
 	 */
-	protected function belongsTo(string $model, string $foreignKey = null): BelongsTo
+	protected function belongsTo(string $model, ?string $foreignKey = null): BelongsTo
 	{
 		$related = new $model;
 

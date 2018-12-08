@@ -71,7 +71,7 @@ class URLBuilder
 	 * @param bool                      $cleanURLs Create "clean" URLs?
 	 * @param string|null               $baseURL   Base URL
 	 */
-	public function __construct(Request $request, Routes $routes, bool $cleanURLs = false, string $baseURL = null)
+	public function __construct(Request $request, Routes $routes, bool $cleanURLs = false, ?string $baseURL = null)
 	{
 		$this->request   = $request;
 		$this->routes    = $routes;

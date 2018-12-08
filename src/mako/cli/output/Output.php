@@ -76,7 +76,7 @@ class Output
 	 * @param \mako\cli\output\formatter\FormatterInterface|null $formatter      Formatter
 	 * @param bool|null                                          $hasAnsiSupport Do we have ANSI support?
 	 */
-	public function __construct(WriterInterface $standard, WriterInterface $error, FormatterInterface $formatter = null, bool $hasAnsiSupport = null)
+	public function __construct(WriterInterface $standard, WriterInterface $error, ?FormatterInterface $formatter = null, ?bool $hasAnsiSupport = null)
 	{
 		$this->standard = $standard;
 
@@ -119,7 +119,7 @@ class Output
 	 *
 	 * @return \mako\cli\output\formatter\FormatterInterface|null
 	 */
-	public function getFormatter()
+	public function getFormatter(): ?FormatterInterface
 	{
 		return $this->formatter;
 	}

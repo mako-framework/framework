@@ -54,7 +54,7 @@ class Stream implements ResponseSenderInterface
 	 * @param string|null $chunk      Chunck of data to flush
 	 * @param bool        $flushEmpty Flush empty chunk?
 	 */
-	public function flush(string $chunk = null, bool $flushEmpty = false)
+	public function flush(?string $chunk = null, bool $flushEmpty = false)
 	{
 		if($this->isCGI)
 		{

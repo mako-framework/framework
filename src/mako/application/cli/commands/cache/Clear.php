@@ -47,7 +47,7 @@ class Clear extends Command
 	 * @param \mako\cache\CacheManager $cache         Cache manager
 	 * @param string|null              $configuration Configuration name
 	 */
-	public function execute(CacheManager $cache, string $configuration = null)
+	public function execute(CacheManager $cache, ?string $configuration = null)
 	{
 		if($configuration !== null && $this->checkConfigurationExistence($configuration) === false)
 		{

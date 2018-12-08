@@ -114,7 +114,7 @@ abstract class AdapterManager
 	 * @param  string|null $configuration Configuration name
 	 * @return mixed
 	 */
-	public function instance(string $configuration = null)
+	public function instance(?string $configuration = null)
 	{
 		$configuration = $configuration ?? $this->default;
 

@@ -69,7 +69,7 @@ class HTML
 	 * @param  string|null $content    Tag content
 	 * @return string
 	 */
-	public function tag(string $name, array $attributes = [], string $content = null): string
+	public function tag(string $name, array $attributes = [], ?string $content = null): string
 	{
 		return '<' . $name . $this->attributes($attributes) . (($content === null) ? ($this->xhtml ? ' />' : '>') : '>' . $content . '</' . $name . '>');
 	}

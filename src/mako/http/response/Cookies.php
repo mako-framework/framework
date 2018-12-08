@@ -55,7 +55,7 @@ class Cookies implements Countable, IteratorAggregate
 	 *
 	 * @param \mako\security\Signer|null $signer Signer
 	 */
-	public function __construct(Signer $signer = null)
+	public function __construct(?Signer $signer = null)
 	{
 		$this->signer = $signer;
 	}

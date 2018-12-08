@@ -32,7 +32,7 @@ class InvalidOptionException extends ArgumentException
 	 * @param int             $code       The Exception code
 	 * @param \Throwable|null $previous   The previous exception used for the exception chaining
 	 */
-	public function __construct(string $message, string $name, string $suggestion = null, int $code = 0, Throwable $previous = null)
+	public function __construct(string $message, string $name, ?string $suggestion = null, int $code = 0, ?Throwable $previous = null)
 	{
 		parent::__construct($message, $name, $code, $previous);
 
@@ -44,7 +44,7 @@ class InvalidOptionException extends ArgumentException
 	 *
 	 * @return string|null
 	 */
-	public function getSuggestion()
+	public function getSuggestion(): ?string
 	{
 		return $this->suggestion;
 	}

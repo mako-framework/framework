@@ -24,7 +24,7 @@ trait SuggestionTrait
 	 * @param  array       $alternatives Alternatives
 	 * @return string|null
 	 */
-	protected function suggest(string $string, array $alternatives)
+	protected function suggest(string $string, array $alternatives): ?string
 	{
 		$suggestion = false;
 

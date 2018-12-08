@@ -44,7 +44,7 @@ class Loader implements LoaderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function loadInflection(string $language)
+	public function loadInflection(string $language): ?array
 	{
 		$path = $this->getFilePath('inflection', null, $language);
 
@@ -52,6 +52,8 @@ class Loader implements LoaderInterface
 		{
 			return $this->fileSystem->include($path);
 		}
+
+		return null;
 	}
 
 	/**

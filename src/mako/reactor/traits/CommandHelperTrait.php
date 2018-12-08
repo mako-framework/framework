@@ -99,7 +99,7 @@ trait CommandHelperTrait
 	 * @param  string|null                          $prefix     Progress bar prefix
 	 * @return \mako\cli\output\helpers\ProgressBar
 	 */
-	protected function progressBar(int $items, int $redrawRate = null, string $prefix = null): ProgressBar
+	protected function progressBar(int $items, ?int $redrawRate = null, ?string $prefix = null): ProgressBar
 	{
 		$progressBar = new ProgressBar($this->output, $items, $redrawRate);
 

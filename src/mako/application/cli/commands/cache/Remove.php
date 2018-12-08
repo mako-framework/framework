@@ -53,7 +53,7 @@ class Remove extends Command
 	 * @param string                   $key           Cache Key
 	 * @param string|null              $configuration Configuration name
 	 */
-	public function execute(CacheManager $cache, string $key, string $configuration = null)
+	public function execute(CacheManager $cache, string $key, ?string $configuration = null)
 	{
 		if($configuration !== null && $this->checkConfigurationExistence($configuration) === false)
 		{

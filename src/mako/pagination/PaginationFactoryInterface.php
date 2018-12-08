@@ -23,5 +23,5 @@ interface PaginationFactoryInterface
 	 * @param  array                                $options      Pagination options
 	 * @return \mako\pagination\PaginationInterface
 	 */
-	public function create(int $items, int $itemsPerPage = null, array $options = []): PaginationInterface;
+	public function create(int $items, ?int $itemsPerPage = null, array $options = []): PaginationInterface;
 }

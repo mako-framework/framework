@@ -28,7 +28,7 @@ class FileInfo extends SplFileInfo
 	 *
 	 * @return string|null
 	 */
-	public function getMimeType()
+	public function getMimeType(): ?string
 	{
 		$info = finfo_open(FILEINFO_MIME_TYPE);
 
@@ -44,7 +44,7 @@ class FileInfo extends SplFileInfo
 	 *
 	 * @return string|null
 	 */
-	public function getMimeEncoding()
+	public function getMimeEncoding(): ?string
 	{
 		$info = finfo_open(FILEINFO_MIME_ENCODING);
 

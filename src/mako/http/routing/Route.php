@@ -109,7 +109,7 @@ class Route
 	 * @param string|\Closure $action  Route action
 	 * @param string|null     $name    Route name
 	 */
-	public function __construct(array $methods, string $route, $action, string $name = null)
+	public function __construct(array $methods, string $route, $action, ?string $name = null)
 	{
 		$this->methods = $methods;
 
@@ -162,7 +162,7 @@ class Route
 	 *
 	 * @return string|null
 	 */
-	public function getName()
+	public function getName(): ?string
 	{
 		return $this->name;
 	}

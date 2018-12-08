@@ -56,7 +56,7 @@ class ManyToMany extends Relation
 	 * @param string|null                           $junctionTable Junction table name
 	 * @param string|null                           $junctionKey   Junction key name
 	 */
-	public function __construct(Connection $connection, ORM $parent, ORM $related, string $foreignKey = null, string $junctionTable = null, string $junctionKey = null)
+	public function __construct(Connection $connection, ORM $parent, ORM $related, ?string $foreignKey = null, ?string $junctionTable = null, ?string $junctionKey = null)
 	{
 		$this->junctionTable = $junctionTable;
 
@@ -189,7 +189,7 @@ class ManyToMany extends Relation
 	 * @param \Closure|null $criteria Relation criteria
 	 * @param array         $includes Includes passed from the parent record
 	 */
-	public function eagerLoad(array &$results, string $relation, Closure $criteria = null, array $includes)
+	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes)
 	{
 		$this->model->setIncludes($includes);
 

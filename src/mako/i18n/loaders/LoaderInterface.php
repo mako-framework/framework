@@ -20,7 +20,7 @@ interface LoaderInterface
 	 * @param  string     $language Name of the language pack
 	 * @return array|null
 	 */
-	public function loadInflection(string $language);
+	public function loadInflection(string $language): ?array;
 
 	/**
 	 * Loads and returns language strings.

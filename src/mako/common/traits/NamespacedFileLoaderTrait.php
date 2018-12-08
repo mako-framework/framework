@@ -82,7 +82,7 @@ trait NamespacedFileLoaderTrait
 	 * @param  string|null $suffix    Path suffix
 	 * @return string
 	 */
-	protected function getFilePath(string $file, string $extension = null, string $suffix = null): string
+	protected function getFilePath(string $file, ?string $extension = null, ?string $suffix = null): string
 	{
 		if(strpos($file, '::') === false)
 		{
@@ -124,7 +124,7 @@ trait NamespacedFileLoaderTrait
 	 * @param  string|null $suffix    Path suffix
 	 * @return array
 	 */
-	protected function getCascadingFilePaths(string $file, string $extension = null, string $suffix = null): array
+	protected function getCascadingFilePaths(string $file, ?string $extension = null, ?string $suffix = null): array
 	{
 		$paths = [];
 

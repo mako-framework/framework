@@ -23,7 +23,7 @@ interface CommandBusInterface
 	 * @param \mako\syringe\Container|null $container Container
 	 * @param \mako\onion\Onion|null       $onion     Onion
 	 */
-	public function __construct(Container $container = null, Onion $onion = null);
+	public function __construct(?Container $container = null, ?Onion $onion = null);
 
 	/**
 	 * Dispatches the command to the command handler and returns the result.

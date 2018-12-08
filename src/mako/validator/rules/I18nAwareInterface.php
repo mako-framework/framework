@@ -32,5 +32,5 @@ interface I18nAwareInterface
 	 * @param  string|null $package Package name
 	 * @return string
 	 */
-	public function getTranslatedErrorMessage(string $field, string $rule, string $package = null): string;
+	public function getTranslatedErrorMessage(string $field, string $rule, ?string $package = null): string;
 }

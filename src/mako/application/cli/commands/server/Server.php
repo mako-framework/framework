@@ -65,7 +65,7 @@ class Server extends Command
 	 * @param string                        $address     Address
 	 * @param string|null                   $docroot     Document root
 	 */
-	public function execute(Application $application, $port = 8000, $address = 'localhost', $docroot = null)
+	public function execute(Application $application, int $port = 8000, string $address = 'localhost', ?string $docroot = null)
 	{
 		$docroot = $docroot ?? dirname($application->getPath()) . '/public';
 

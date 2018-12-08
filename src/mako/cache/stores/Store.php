@@ -39,7 +39,7 @@ abstract class Store implements StoreInterface
 	 *
 	 * @return string|null
 	 */
-	public function getPrefix()
+	public function getPrefix(): ?string
 	{
 		return $this->prefix;
 	}

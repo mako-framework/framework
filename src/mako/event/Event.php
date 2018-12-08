@@ -38,7 +38,7 @@ class Event
 	 *
 	 * @param \mako\syringe\Container|null $container Container
 	 */
-	public function __construct(Container $container = null)
+	public function __construct(?Container $container = null)
 	{
 		$this->container = $container ?? new Container;
 	}

@@ -351,7 +351,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  callable|null            $callable Filter
 	 * @return \mako\utility\Collection
 	 */
-	public function filter(callable $callable = null)
+	public function filter(?callable $callable = null)
 	{
 		if($callable === null)
 		{

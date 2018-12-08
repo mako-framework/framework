@@ -72,7 +72,7 @@ class Onion
 	 * @param string|null                  $expectedInterface Expected middleware interface
 	 * @param string|null                  $parameterSetter   Parameter setter name
 	 */
-	public function __construct(Container $container = null, string $method = null, string $expectedInterface = null, string $parameterSetter = null)
+	public function __construct(?Container $container = null, ?string $method = null, ?string $expectedInterface = null, ?string $parameterSetter = null)
 	{
 		$this->container = $container ?? new Container;
 
@@ -91,7 +91,7 @@ class Onion
 	 * @param  bool       $inner      Add an inner layer?
 	 * @return int
 	 */
-	public function addLayer(string $class, array $parameters = null, bool $inner = true): int
+	public function addLayer(string $class, ?array $parameters = null, bool $inner = true): int
 	{
 		$this->parameters[$class] = $parameters;
 
@@ -105,7 +105,7 @@ class Onion
 	 * @param  array|null $parameters Middleware parameters
 	 * @return int
 	 */
-	public function addInnerLayer(string $class, array $parameters = null): int
+	public function addInnerLayer(string $class, ?array $parameters = null): int
 	{
 		return $this->addLayer($class, $parameters);
 	}
@@ -117,7 +117,7 @@ class Onion
 	 * @param  array|null $parameters Middleware parameters
 	 * @return int
 	 */
-	public function addOuterLayer(string $class, array $parameters = null): int
+	public function addOuterLayer(string $class, ?array $parameters = null): int
 	{
 		return $this->addLayer($class, $parameters, false);
 	}

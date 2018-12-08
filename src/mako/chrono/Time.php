@@ -100,7 +100,7 @@ class Time extends DateTime
 	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\Time
 	 */
-	public static function createFromDate(int $year, int $month = null, int $day = null, $timeZone = null): Time
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, $timeZone = null): Time
 	{
 		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
 

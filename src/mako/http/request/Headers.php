@@ -165,7 +165,7 @@ class Headers implements Countable, IteratorAggregate
 	 * @param  string|null $headerValue Header value
 	 * @return array
 	 */
-	protected function parseAcceptHeader(string $headerValue = null): array
+	protected function parseAcceptHeader(?string $headerValue = null): array
 	{
 		$groupedAccepts = [];
 
@@ -209,7 +209,7 @@ class Headers implements Countable, IteratorAggregate
 	 * @param  string|null $default Default content type
 	 * @return array
 	 */
-	public function acceptableContentTypes(string $default = null): array
+	public function acceptableContentTypes(?string $default = null): array
 	{
 		if(!isset($this->acceptableContentTypes))
 		{
@@ -225,7 +225,7 @@ class Headers implements Countable, IteratorAggregate
 	 * @param  string|null $default Default language
 	 * @return array
 	 */
-	public function acceptableLanguages(string $default = null): array
+	public function acceptableLanguages(?string $default = null): array
 	{
 		if(!isset($this->acceptableLanguages))
 		{
@@ -241,7 +241,7 @@ class Headers implements Countable, IteratorAggregate
 	 * @param  string|null $default Default charset
 	 * @return array
 	 */
-	public function acceptableCharsets(string $default = null): array
+	public function acceptableCharsets(?string $default = null): array
 	{
 		if(!isset($this->acceptableCharsets))
 		{
@@ -257,7 +257,7 @@ class Headers implements Countable, IteratorAggregate
 	 * @param  string|null $default Default encoding
 	 * @return array
 	 */
-	public function acceptableEncodings(string $default = null): array
+	public function acceptableEncodings(?string $default = null): array
 	{
 		if(!isset($this->acceptableEncodings))
 		{

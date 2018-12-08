@@ -155,7 +155,7 @@ class Str
 	 * @param  int|null $count Number of nouns
 	 * @return string
 	 */
-	public static function pluralize(string $noun, int $count = null): string
+	public static function pluralize(string $noun, ?int $count = null): string
 	{
 		if($count !== 1)
 		{

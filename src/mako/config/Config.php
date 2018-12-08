@@ -47,7 +47,7 @@ class Config
 	 * @param \mako\config\loaders\LoaderInterface $loader      Config loader
 	 * @param string|null                          $environment Environment name
 	 */
-	public function __construct(LoaderInterface $loader, string $environment = null)
+	public function __construct(LoaderInterface $loader, ?string $environment = null)
 	{
 		$this->loader = $loader;
 

@@ -54,7 +54,7 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function __construct(Container $container = null, Onion $onion = null)
+	public function __construct(?Container $container = null, ?Onion $onion = null)
 	{
 		$this->container = $container ?? new Container;
 

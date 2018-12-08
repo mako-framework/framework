@@ -80,7 +80,7 @@ class Authentication
 	 * @param string|\mako\gatekeeper\adapters\AdapterInterface $adapter Adapter name or adapter instance
 	 * @param \Closure|null                                     $factory Adapter factory
 	 */
-	public function __construct($adapter, Closure $factory = null)
+	public function __construct($adapter, ?Closure $factory = null)
 	{
 		$this->registerAdapter($adapter, $factory, true);
 	}
@@ -92,7 +92,7 @@ class Authentication
 	 * @param \Closure|null                                     $factory     Adapter factory
 	 * @param bool                                              $makeDefault Make it the default adapter?
 	 */
-	protected function registerAdapter($adapter, Closure $factory = null, bool $makeDefault = false)
+	protected function registerAdapter($adapter, ?Closure $factory = null, bool $makeDefault = false)
 	{
 		if($adapter instanceof AdapterInterface)
 		{
@@ -116,7 +116,7 @@ class Authentication
 	 * @param  \Closure|null                                     $factory Adapter factory
 	 * @return \mako\gatekeeper\Authentication
 	 */
-	public function extend($adapter, Closure $factory = null): Authentication
+	public function extend($adapter, ?Closure $factory = null): Authentication
 	{
 		$this->registerAdapter($adapter, $factory);
 
@@ -155,7 +155,7 @@ class Authentication
 	 * @param  string|null                                $name Adapter name
 	 * @return \mako\gatekeeper\adapters\AdapterInterface
 	 */
-	public function adapter(string $name = null): AdapterInterface
+	public function adapter(?string $name = null): AdapterInterface
 	{
 		$name = $name ?: $this->defaultAdapter;
 

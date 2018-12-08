@@ -49,7 +49,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 * @param string      $key    Encryption key
 	 * @param string|null $cipher Cipher
 	 */
-	public function __construct(string $key, string $cipher = null)
+	public function __construct(string $key, ?string $cipher = null)
 	{
 		$this->key = $key;
 

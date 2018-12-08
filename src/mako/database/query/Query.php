@@ -335,7 +335,7 @@ class Query
 	 *
 	 * @return int|null
 	 */
-	public function getLimit()
+	public function getLimit(): ?int
 	{
 		return $this->limit;
 	}
@@ -345,7 +345,7 @@ class Query
 	 *
 	 * @return int|null
 	 */
-	public function getOffset()
+	public function getOffset(): ?int
 	{
 		return $this->offset;
 	}
@@ -365,7 +365,7 @@ class Query
 	 *
 	 * @return string|null
 	 */
-	public function getPrefix()
+	public function getPrefix(): ?string
 	{
 		return $this->prefix;
 	}
@@ -533,7 +533,7 @@ class Query
 	 * @param  string                     $separator Clause separator
 	 * @return \mako\database\query\Query
 	 */
-	public function where($column, $operator = null, $value = null, $separator = 'AND')
+	public function where($column, ?string $operator = null, $value = null, string $separator = 'AND')
 	{
 		if($column instanceof Closure)
 		{
@@ -572,7 +572,7 @@ class Query
 	 * @param  string                     $separator Clause separator
 	 * @return \mako\database\query\Query
 	 */
-	public function whereRaw($column, $operator = null, $raw = null, $separator = 'AND')
+	public function whereRaw($column, $operator = null, ?string $raw = null, string $separator = 'AND')
 	{
 		if($raw === null)
 		{
@@ -597,7 +597,7 @@ class Query
 	 * @param  mixed                      $value    Value
 	 * @return \mako\database\query\Query
 	 */
-	public function orWhere($column, $operator = null, $value = null)
+	public function orWhere($column, ?string $operator = null, $value = null)
 	{
 		return $this->where($column, $operator, $value, 'OR');
 	}
@@ -610,7 +610,7 @@ class Query
 	 * @param  string|null                $raw      Raw SQL
 	 * @return \mako\database\query\Query
 	 */
-	public function orWhereRaw($column, $operator = null, $raw = null)
+	public function orWhereRaw($column, $operator = null, ?string $raw = null)
 	{
 		return $this->whereRaw($column, $operator, $raw, 'OR');
 	}
@@ -625,7 +625,7 @@ class Query
 	 * @param  bool                       $not       Not between?
 	 * @return \mako\database\query\Query
 	 */
-	public function between($column, $value1, $value2, $separator = 'AND', $not = false)
+	public function between($column, $value1, $value2, string $separator = 'AND', bool $not = false)
 	{
 		$this->wheres[] =
 		[
@@ -688,7 +688,7 @@ class Query
 	 * @param  bool                                                                  $not       Not in?
 	 * @return \mako\database\query\Query
 	 */
-	public function in($column, $values, $separator = 'AND', $not = false)
+	public function in($column, $values, string $separator = 'AND', bool $not = false)
 	{
 		if($values instanceof Raw || $values instanceof Subquery)
 		{
@@ -1321,7 +1321,7 @@ class Query
 	 * @param  array                          $options      Pagination options
 	 * @return \mako\database\query\ResultSet
 	 */
-	public function paginate($itemsPerPage = null, array $options = [])
+	public function paginate(?int $itemsPerPage = null, array $options = [])
 	{
 		$count = $this->paginationCount();
 

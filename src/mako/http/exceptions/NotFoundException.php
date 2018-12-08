@@ -22,7 +22,7 @@ class NotFoundException extends RequestException
 	 * @param string|null     $message  Exception message
 	 * @param \Throwable|null $previous Previous exception
 	 */
-	public function __construct(string $message = null, Throwable $previous = null)
+	public function __construct(?string $message = null, ?Throwable $previous = null)
 	{
 		parent::__construct(404, $message, $previous);
 	}

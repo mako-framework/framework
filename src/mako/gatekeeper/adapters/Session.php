@@ -9,6 +9,7 @@ namespace mako\gatekeeper\adapters;
 
 use mako\gatekeeper\Authentication;
 use mako\gatekeeper\entities\user\User;
+use mako\gatekeeper\entities\user\UserEntityInterface;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
@@ -127,7 +128,7 @@ class Session extends Adapter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getUser()
+	public function getUser(): ?UserEntityInterface
 	{
 		if(empty($this->user) && $this->hasLoggedOut === false)
 		{

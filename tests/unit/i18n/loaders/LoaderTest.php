@@ -31,7 +31,7 @@ class LoaderTest extends TestCase
 	{
 		$fileSystem->shouldReceive('has')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('include')->once()->with('/app/i18n/en_US/inflection.php')->andReturn('inflection');
+		$fileSystem->shouldReceive('include')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(['inflection']);
 
 		return $fileSystem;
 	}
@@ -122,11 +122,11 @@ class LoaderTest extends TestCase
 
 		$fileSystem->shouldReceive('has')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('include')->once()->with('/app/i18n/en_US/inflection.php')->andReturn('inflection');
+		$fileSystem->shouldReceive('include')->once()->with('/app/i18n/en_US/inflection.php')->andReturn(['inflection']);
 
 		$loader = new Loader($fileSystem, '/app/i18n');
 
-		$this->assertEquals('inflection', $loader->loadInflection('en_US'));
+		$this->assertEquals(['inflection'], $loader->loadInflection('en_US'));
 	}
 
 	/**

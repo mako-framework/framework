@@ -75,7 +75,7 @@ class I18n
 	 * @param string                                 $language Default language pack name
 	 * @param \mako\cache\stores\StoreInterface|null $cache    Cache instance
 	 */
-	public function __construct(LoaderInterface $loader, string $language, StoreInterface $cache = null)
+	public function __construct(LoaderInterface $loader, string $language, ?StoreInterface $cache = null)
 	{
 		$this->loader = $loader;
 
@@ -133,7 +133,7 @@ class I18n
 	 *
 	 * @param string|null $language Name of the language pack
 	 */
-	public function setLanguage(string $language = null)
+	public function setLanguage(?string $language = null)
 	{
 		$this->language = $language;
 	}
@@ -156,7 +156,7 @@ class I18n
 	 * @param  string|null $language Language rules to use for pluralization
 	 * @return string
 	 */
-	public function pluralize(string $word, int $count = null, string $language = null): string
+	public function pluralize(string $word, ?int $count = null, ?string $language = null): string
 	{
 		$language = $language ?? $this->language;
 
@@ -184,7 +184,7 @@ class I18n
 	 * @param  string|null $thousandsSeparator Thousands separator
 	 * @return string
 	 */
-	public function number(float $number, int $decimals = 0, string $decimalPoint = null, string $thousandsSeparator = null): string
+	public function number(float $number, int $decimals = 0, ?string $decimalPoint = null, ?string $thousandsSeparator = null): string
 	{
 		static $defaults;
 
@@ -255,7 +255,7 @@ class I18n
 	 * @param  string|null $language Name of the language pack
 	 * @return string
 	 */
-	protected function getString(string $key, string $language = null): string
+	protected function getString(string $key, ?string $language = null): string
 	{
 		$language = $language ?? $this->language;
 
@@ -281,7 +281,7 @@ class I18n
 	 * @param  string|null $language Name of the language pack
 	 * @return bool
 	 */
-	public function has(string $key, string $language = null): bool
+	public function has(string $key, ?string $language = null): bool
 	{
 		$language = $language ?? $this->language;
 
@@ -357,7 +357,7 @@ class I18n
 	 * @param  string|null $language Name of the language pack
 	 * @return string
 	 */
-	public function get(string $key, array $vars = [], string $language = null): string
+	public function get(string $key, array $vars = [], ?string $language = null): string
 	{
 		$string = $this->getString($key, $language);
 

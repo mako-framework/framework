@@ -225,7 +225,7 @@ class Redis
 	 * @param  string      $response Redis response
 	 * @return string|null
 	 */
-	protected function handleBulkResponse(string $response)
+	protected function handleBulkResponse(string $response): ?string
 	{
 		if($response === '$-1')
 		{
@@ -243,7 +243,7 @@ class Redis
 	 * @param  string     $response Redis response
 	 * @return array|null
 	 */
-	protected function handleMultiBulkResponse(string $response)
+	protected function handleMultiBulkResponse(string $response): ?array
 	{
 		if($response === '*-1')
 		{

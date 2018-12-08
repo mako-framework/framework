@@ -164,7 +164,7 @@ class Container
 	 * @param callable    $replacer  Instance replacer
 	 * @param string|null $eventName Event name
 	 */
-	public function onReplace($hint, callable $replacer, string $eventName = null)
+	public function onReplace($hint, callable $replacer, ?string $eventName = null)
 	{
 		$hint = $this->resolveAlias($hint);
 
@@ -320,7 +320,7 @@ class Container
 	 * @param  \ReflectionClass|null $class     ReflectionClass instance
 	 * @return mixed
 	 */
-	protected function resolveParameter(ReflectionParameter $parameter, ReflectionClass $class = null)
+	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null)
 	{
 		if(($parameterClass = $parameter->getClass()) !== null)
 		{
@@ -356,7 +356,7 @@ class Container
 	 * @param  \ReflectionClass|null $class                ReflectionClass instance
 	 * @return array
 	 */
-	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ReflectionClass $class = null): array
+	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ?ReflectionClass $class = null): array
 	{
 		if(empty($reflectionParameters))
 		{

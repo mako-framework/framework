@@ -199,7 +199,7 @@ class Validator
 	 * @param \mako\i18n\I18n|null         $i18n      I18n
 	 * @param \mako\syringe\Container|null $container Container
 	 */
-	public function __construct(array $input, array $ruleSets, I18n $i18n = null, Container $container = null)
+	public function __construct(array $input, array $ruleSets, ?I18n $i18n = null, ?Container $container = null)
 	{
 		$this->input = $input;
 
@@ -492,7 +492,7 @@ class Validator
 	 * @param  array|null &$errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool
 	 */
-	public function isValid(array &$errors = null): bool
+	public function isValid(?array &$errors = null): bool
 	{
 		[$isValid, $errors] = $this->process();
 
@@ -505,7 +505,7 @@ class Validator
 	 * @param  array|null &$errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool
 	 */
-	public function isInvalid(array &$errors = null): bool
+	public function isInvalid(?array &$errors = null): bool
 	{
 		[$isValid, $errors] = $this->process();
 

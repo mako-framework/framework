@@ -87,7 +87,7 @@ class ProgressBar
 	 * @param int                     $items      Total number of items
 	 * @param int|null                $redrawRate Redraw rate
 	 */
-	public function __construct(Output $output, int $items, int $redrawRate = null)
+	public function __construct(Output $output, int $items, ?int $redrawRate = null)
 	{
 		$this->output = $output;
 

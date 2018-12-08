@@ -50,7 +50,7 @@ interface AdapterInterface
 	 *
 	 * @return \mako\gatekeeper\entities\user\UserEntityInterface|null
 	 */
-	public function getUser();
+	public function getUser(): ?UserEntityInterface;
 
 	/**
 	 * Returns true if we don't have an authenticated user and false if we do.

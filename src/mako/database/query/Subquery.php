@@ -34,7 +34,7 @@ class Subquery
 	 * @param \Closure|\mako\database\query\Query $query Builder closure or query builder instance
 	 * @param string|null                         $alias Subquery alias
 	 */
-	public function __construct($query, string $alias = null)
+	public function __construct($query, ?string $alias = null)
 	{
 		$this->query = $query;
 		$this->alias = $alias;
@@ -45,7 +45,7 @@ class Subquery
 	 *
 	 * @return string|null
 	 */
-	public function getAlias()
+	public function getAlias(): ?string
 	{
 		return $this->alias;
 	}

@@ -68,7 +68,7 @@ class Connection
 	 * @param int         $timeout    Timeout in seconds
 	 * @param string|null $name       Connection name
 	 */
-	public function __construct(string $host, int $port = 6379, bool $persistent = false, int $timeout = 60, string $name = null)
+	public function __construct(string $host, int $port = 6379, bool $persistent = false, int $timeout = 60, ?string $name = null)
 	{
 		$this->name = $name;
 
@@ -150,7 +150,7 @@ class Connection
 	 *
 	 * @return string|null
 	 */
-	public function getName()
+	public function getName(): ?string
 	{
 		return $this->name;
 	}

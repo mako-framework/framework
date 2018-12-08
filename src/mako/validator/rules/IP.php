@@ -35,7 +35,7 @@ class IP extends Rule implements RuleInterface
 	 *
 	 * @return int|null
 	 */
-	protected function getFlags()
+	protected function getFlags(): ?int
 	{
 		if(($version = $this->getParameter('version', true)) === null)
 		{

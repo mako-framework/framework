@@ -228,7 +228,7 @@ abstract class Command extends BaseCommand
 	 * @param  int|null                       $batches Number of batches fetch
 	 * @return \mako\database\query\ResultSet
 	 */
-	protected function getMigrated(int $batches = null): ResultSet
+	protected function getMigrated(?int $batches = null): ResultSet
 	{
 		$query = $this->builder();
 
@@ -317,7 +317,7 @@ abstract class Command extends BaseCommand
 	 * @param  int|null                            $batch             Migration batch
 	 * @return \Closure
 	 */
-	protected function buildMigrationWrapper($migration, Migration $migrationInstance, string $method, int $batch = null): Closure
+	protected function buildMigrationWrapper($migration, Migration $migrationInstance, string $method, ?int $batch = null): Closure
 	{
 		return function() use ($migration, $migrationInstance, $method, $batch)
 		{
@@ -343,7 +343,7 @@ abstract class Command extends BaseCommand
 	 * @param string   $method    Migration method
 	 * @param int|null $batch     Batch
 	 */
-	protected function runMigration($migration, string $method, int $batch = null)
+	protected function runMigration($migration, string $method, ?int $batch = null)
 	{
 		$migrationInstance = $this->resolve($migration);
 

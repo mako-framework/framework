@@ -92,7 +92,7 @@ class Reactor
 	 * @param \mako\syringe\Container|null  $container  Container
 	 * @param \mako\reactor\Dispatcher|null $dispatcher Command dispatcher
 	 */
-	public function __construct(Input $input, Output $output, Container $container = null, Dispatcher $dispatcher = null)
+	public function __construct(Input $input, Output $output, ?Container $container = null, ?Dispatcher $dispatcher = null)
 	{
 		$this->input = $input;
 

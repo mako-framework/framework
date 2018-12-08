@@ -200,7 +200,7 @@ class Request
 	 * @param array                      $request Request data and options
 	 * @param \mako\security\Signer|null $signer  Signer instance used to validate signed cookies
 	 */
-	public function __construct(array $request = [], Signer $signer = null)
+	public function __construct(array $request = [], ?Signer $signer = null)
 	{
 		// Collect request data
 
@@ -352,7 +352,7 @@ class Request
 	 *
 	 * @return \mako\http\routing\Route|null
 	 */
-	public function getRoute()
+	public function getRoute(): ?Route
 	{
 		return $this->route;
 	}
@@ -685,7 +685,7 @@ class Request
 	 *
 	 * @return array|null
 	 */
-	public function language()
+	public function language(): ?array
 	{
 		return $this->language;
 	}
@@ -695,7 +695,7 @@ class Request
 	 *
 	 * @return string|null
 	 */
-	public function languagePrefix()
+	public function languagePrefix(): ?string
 	{
 		return $this->languagePrefix;
 	}
@@ -735,7 +735,7 @@ class Request
 	 *
 	 * @return string|null
 	 */
-	public function username()
+	public function username(): ?string
 	{
 		return $this->server->get('PHP_AUTH_USER');
 	}
@@ -745,7 +745,7 @@ class Request
 	 *
 	 * @return string|null
 	 */
-	public function password()
+	public function password(): ?string
 	{
 		return $this->server->get('PHP_AUTH_PW');
 	}
