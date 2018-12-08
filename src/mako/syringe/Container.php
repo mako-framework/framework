@@ -144,7 +144,7 @@ class Container
 	 *
 	 * @param string $hint Type hint
 	 */
-	protected function replaceInstances($hint)
+	protected function replaceInstances(string $hint)
 	{
 		if(isset($this->replacers[$hint]))
 		{
@@ -164,7 +164,7 @@ class Container
 	 * @param callable    $replacer  Instance replacer
 	 * @param string|null $eventName Event name
 	 */
-	public function onReplace($hint, callable $replacer, ?string $eventName = null)
+	public function onReplace(string $hint, callable $replacer, ?string $eventName = null)
 	{
 		$hint = $this->resolveAlias($hint);
 
