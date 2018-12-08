@@ -169,7 +169,7 @@ class Authentication
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
-	public function __call(string $method, $arguments)
+	public function __call(string $method, array $arguments)
 	{
 		return $this->adapter()->$method(...$arguments);
 	}
