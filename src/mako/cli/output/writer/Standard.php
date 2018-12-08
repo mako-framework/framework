@@ -40,7 +40,7 @@ class Standard implements WriterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function write(string $string)
+	public function write(string $string): void
 	{
 		fwrite(STDOUT, $string);
 	}

@@ -113,7 +113,7 @@ class I18n
 	 *
 	 * @param \mako\cache\stores\StoreInterface $cache Cache instance
 	 */
-	public function setCache(StoreInterface $cache)
+	public function setCache(StoreInterface $cache): void
 	{
 		$this->cache = $cache;
 	}
@@ -133,7 +133,7 @@ class I18n
 	 *
 	 * @param string|null $language Name of the language pack
 	 */
-	public function setLanguage(?string $language = null)
+	public function setLanguage(?string $language = null): void
 	{
 		$this->language = $language;
 	}
@@ -143,7 +143,7 @@ class I18n
 	 *
 	 * @param string $language Name of the language pack
 	 */
-	protected function loadInflection(string $language)
+	protected function loadInflection(string $language): void
 	{
 		$this->inflections[$language] = $this->loader->loadInflection($language);
 	}
@@ -222,7 +222,7 @@ class I18n
 	 * @param string $language Name of the language pack
 	 * @param string $file     File from which we are loading the strings
 	 */
-	protected function loadStrings(string $language, string $file)
+	protected function loadStrings(string $language, string $file): void
 	{
 		if($this->cache !== null)
 		{

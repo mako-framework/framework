@@ -40,7 +40,7 @@ class Error implements WriterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function write(string $string)
+	public function write(string $string): void
 	{
 		fwrite(STDERR, $string);
 	}

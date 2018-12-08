@@ -75,7 +75,7 @@ class Cookies implements Countable, IteratorAggregate
 	 * @param string $name  Cookie name
 	 * @param string $value Cookie value
 	 */
-	public function add(string $name, string $value)
+	public function add(string $name, string $value): void
 	{
 		$this->cookies[$name] = $value;
 	}
@@ -86,7 +86,7 @@ class Cookies implements Countable, IteratorAggregate
 	 * @param string $name  Cookie name
 	 * @param string $value Cookie value
 	 */
-	public function addSigned(string $name, string $value)
+	public function addSigned(string $name, string $value): void
 	{
 		if(empty($this->signer))
 		{
@@ -146,7 +146,7 @@ class Cookies implements Countable, IteratorAggregate
 	 *
 	 * @param string $name Cookie name
 	 */
-	public function remove(string $name)
+	public function remove(string $name): void
 	{
 		unset($this->cookies[$name]);
 	}

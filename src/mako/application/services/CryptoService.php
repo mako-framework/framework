@@ -19,7 +19,7 @@ class CryptoService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([CryptoManager::class, 'crypto'], function($container)
 		{

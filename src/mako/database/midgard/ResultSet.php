@@ -32,7 +32,7 @@ class ResultSet extends BaseResultSet
 	 *
 	 * @param string|array|bool $column Column or relation to hide from the
 	 */
-	public function protect($column)
+	public function protect($column): void
 	{
 		foreach($this->items as $item)
 		{
@@ -45,7 +45,7 @@ class ResultSet extends BaseResultSet
 	 *
 	 * @param string|array|bool $column Column or relation to hide from the
 	 */
-	public function expose($column)
+	public function expose($column): void
 	{
 		foreach($this->items as $item)
 		{
@@ -63,7 +63,7 @@ class ResultSet extends BaseResultSet
 	{
 		$items = $this->items;
 
-		(function() use ($includes, $items)
+		(function() use ($includes, $items): void
 		{
 			$this->including($includes)->loadIncludes($items);
 		})->bindTo($this->items[0]->builder(), Query::class)();

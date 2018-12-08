@@ -312,7 +312,7 @@ class Template
 	/**
 	 * Compiles templates into views.
 	 */
-	public function compile()
+	public function compile(): void
 	{
 		// Get teplate contents
 

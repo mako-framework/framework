@@ -92,7 +92,7 @@ trait FireTrait
 	 * @param string $command         Command
 	 * @param bool   $sameEnvironment Run command using the same environment?
 	 */
-	protected function fireAndForget(string $command, bool $sameEnvironment = true)
+	protected function fireAndForget(string $command, bool $sameEnvironment = true): void
 	{
 		pclose(popen($this->buildCommand($command, true, $sameEnvironment), 'r'));
 	}

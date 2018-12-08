@@ -153,7 +153,7 @@ class ManyToMany extends Relation
 	/**
 	 * Joins the junction table.
 	 */
-	protected function junctionJoin()
+	protected function junctionJoin(): void
 	{
 		$this->join($this->getJunctionTable(), $this->getJunctionTable() . '.' . $this->getJunctionKey(), '=', $this->model->getTable() . '.' . $this->model->getPrimaryKey());
 	}
@@ -161,7 +161,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function lazyCriterion()
+	protected function lazyCriterion(): void
 	{
 		$this->where($this->getJunctionTable() . '.' . $this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
 	}
@@ -189,7 +189,7 @@ class ManyToMany extends Relation
 	 * @param \Closure|null $criteria Relation criteria
 	 * @param array         $includes Includes passed from the parent record
 	 */
-	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes)
+	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes): void
 	{
 		$this->model->setIncludes($includes);
 

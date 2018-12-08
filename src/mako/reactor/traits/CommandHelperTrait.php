@@ -37,7 +37,7 @@ trait CommandHelperTrait
 	 * @param int $lines  Number of newlines to write
 	 * @param int $writer Output writer
 	 */
-	protected function nl(int $lines = 1, int $writer = Output::STANDARD)
+	protected function nl(int $lines = 1, int $writer = Output::STANDARD): void
 	{
 		$this->output->write(str_repeat(PHP_EOL, $lines), $writer);
 	}
@@ -48,7 +48,7 @@ trait CommandHelperTrait
 	 * @param string $string String to write
 	 * @param int    $writer Output writer
 	 */
-	protected function write(string $string, int $writer = Output::STANDARD)
+	protected function write(string $string, int $writer = Output::STANDARD): void
 	{
 		$this->output->writeLn($string, $writer);
 	}
@@ -58,7 +58,7 @@ trait CommandHelperTrait
 	 *
 	 * @param string $string String to write
 	 */
-	protected function error(string $string)
+	protected function error(string $string): void
 	{
 		$this->output->errorLn('<red>' . $string . '</red>');
 	}
@@ -66,7 +66,7 @@ trait CommandHelperTrait
 	/**
 	 * Clears the screen.
 	 */
-	protected function clear()
+	protected function clear(): void
 	{
 		$this->output->clear();
 	}
@@ -76,7 +76,7 @@ trait CommandHelperTrait
 	 *
 	 * @param int $times Number of times to ring the bell
 	 */
-	protected function bell(int $times = 1)
+	protected function bell(int $times = 1): void
 	{
 		(new Bell($this->output))->ring($times);
 	}
@@ -86,7 +86,7 @@ trait CommandHelperTrait
 	 *
 	 * @param int $from Number of seconds to count down
 	 */
-	protected function countdown(int $from = 5)
+	protected function countdown(int $from = 5): void
 	{
 		(new Countdown($this->output))->draw($from);
 	}
@@ -126,7 +126,7 @@ trait CommandHelperTrait
 	 * @param array $rows        Array of rows
 	 * @param int   $writer      Output writer
 	 */
-	protected function table(array $columnNames, array $rows, int $writer = Output::STANDARD)
+	protected function table(array $columnNames, array $rows, int $writer = Output::STANDARD): void
 	{
 		(new Table($this->output))->draw($columnNames, $rows, $writer);
 	}
@@ -138,7 +138,7 @@ trait CommandHelperTrait
 	 * @param string $marker Item marker
 	 * @param int    $writer Output writer
 	 */
-	protected function ol(array $items, string $marker = '<yellow>%s</yellow>.', int $writer = Output::STANDARD)
+	protected function ol(array $items, string $marker = '<yellow>%s</yellow>.', int $writer = Output::STANDARD): void
 	{
 		(new OrderedList($this->output))->draw($items, $marker, $writer);
 	}
@@ -150,7 +150,7 @@ trait CommandHelperTrait
 	 * @param string $marker Item marker
 	 * @param int    $writer Output writer
 	 */
-	protected function ul(array $items, string $marker = '<yellow>*</yellow>', int $writer = Output::STANDARD)
+	protected function ul(array $items, string $marker = '<yellow>*</yellow>', int $writer = Output::STANDARD): void
 	{
 		(new UnorderedList($this->output))->draw($items, $marker, $writer);
 	}

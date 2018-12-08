@@ -40,7 +40,7 @@ class Bell
 	 *
 	 * @param int $times Number of times to ring the bell
 	 */
-	public function ring(int $times = 1)
+	public function ring(int $times = 1): void
 	{
 		$this->output->write(str_repeat("\x07", $times));
 	}

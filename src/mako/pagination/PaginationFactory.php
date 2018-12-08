@@ -67,7 +67,7 @@ class PaginationFactory implements PaginationFactoryInterface
 	 *
 	 * @param \mako\http\routing\URLBuilder $urlBuilder URL builder instance
 	 */
-	public function setURLBuilder(URLBuilder $urlBuilder)
+	public function setURLBuilder(URLBuilder $urlBuilder): void
 	{
 		$this->urlBuilder = $urlBuilder;
 	}
@@ -77,7 +77,7 @@ class PaginationFactory implements PaginationFactoryInterface
 	 *
 	 * @param \mako\view\ViewFactory $viewFactory View factory instance
 	 */
-	public function setViewFactory(ViewFactory $viewFactory)
+	public function setViewFactory(ViewFactory $viewFactory): void
 	{
 		$this->viewFactory = $viewFactory;
 	}

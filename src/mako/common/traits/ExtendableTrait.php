@@ -32,7 +32,7 @@ trait ExtendableTrait
 	 * @param string   $methodName Method name
 	 * @param \Closure $closure    Closure
 	 */
-	public static function extend(string $methodName, Closure $closure)
+	public static function extend(string $methodName, Closure $closure): void
 	{
 		static::$_extensions[$methodName] = $closure;
 	}

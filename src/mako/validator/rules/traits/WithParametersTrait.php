@@ -24,7 +24,7 @@ trait WithParametersTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setParameters(array $parameters)
+	public function setParameters(array $parameters): void
 	{
 		$this->parameters = array_combine($this->parameters, $parameters + array_fill(0, count($this->parameters), null));
 	}

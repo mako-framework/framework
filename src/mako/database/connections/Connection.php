@@ -194,7 +194,7 @@ class Connection
 	/**
 	 * Closes the database connection.
 	 */
-	public function close()
+	public function close(): void
 	{
 		$this->pdo = null;
 	}
@@ -257,7 +257,7 @@ class Connection
 	/**
 	 * Enables the query log.
 	 */
-	public function enableLog()
+	public function enableLog(): void
 	{
 		$this->enableLog = true;
 	}
@@ -265,7 +265,7 @@ class Connection
 	/**
 	 * Disables the query log.
 	 */
-	public function disableLog()
+	public function disableLog(): void
 	{
 		$this->enableLog = false;
 	}
@@ -320,7 +320,7 @@ class Connection
 	/**
 	 * Creates a new PDO instance.
 	 */
-	public function reconnect()
+	public function reconnect(): void
 	{
 		$this->pdo = $this->connect();
 	}
@@ -391,7 +391,7 @@ class Connection
 	 * @param array  $params Query parameters
 	 * @param float  $start  Start time in microseconds
 	 */
-	protected function log(string $query, array $params, float $start)
+	protected function log(string $query, array $params, float $start): void
 	{
 		$time = microtime(true) - $start;
 
@@ -403,7 +403,7 @@ class Connection
 	/**
 	 * Clears the query log.
 	 */
-	public function clearLog()
+	public function clearLog(): void
 	{
 		$this->log = [];
 	}
@@ -468,7 +468,7 @@ class Connection
 	 * @param int           $key       Parameter key
 	 * @param mixed         $value     Parameter value
 	 */
-	protected function bindParameter(PDOStatement $statement, int $key, $value)
+	protected function bindParameter(PDOStatement $statement, int $key, $value): void
 	{
 		if(is_string($value))
 		{

@@ -24,7 +24,7 @@ class ErrorHandlerService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$config = $this->config->get('application.error_handler');
 

@@ -153,7 +153,7 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function send(Request $request, Response $response)
+	public function send(Request $request, Response $response): void
 	{
 		// Set status and location header
 

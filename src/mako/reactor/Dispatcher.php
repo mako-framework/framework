@@ -69,7 +69,7 @@ class Dispatcher
 	 * @param array                          $providedArguments Provided arguments
 	 * @param array                          $globalOptions     Global options
 	 */
-	protected function checkForInvalidArguments(CommandInterface $command, array $providedArguments, array $globalOptions)
+	protected function checkForInvalidArguments(CommandInterface $command, array $providedArguments, array $globalOptions): void
 	{
 		$commandArguments = array_keys($command->getCommandArguments() + $command->getCommandOptions());
 
@@ -96,7 +96,7 @@ class Dispatcher
 	 * @param array  $providedArguments Provided arguments
 	 * @param string $exception         Exception to throw
 	 */
-	protected function checkForMissingArgumentsOrOptions(array $commandArguments, array $providedArguments, string $exception)
+	protected function checkForMissingArgumentsOrOptions(array $commandArguments, array $providedArguments, string $exception): void
 	{
 		$providedArguments = array_keys($providedArguments);
 
@@ -117,7 +117,7 @@ class Dispatcher
 	 * @param \mako\reactor\CommandInterface $command           Command instance
 	 * @param array                          $providedArguments Provided arguments
 	 */
-	protected function checkForMissingArguments(CommandInterface $command, array $providedArguments)
+	protected function checkForMissingArguments(CommandInterface $command, array $providedArguments): void
 	{
 		$this->checkForMissingArgumentsOrOptions($command->getCommandArguments(), $providedArguments, MissingArgumentException::class);
 	}
@@ -128,7 +128,7 @@ class Dispatcher
 	 * @param \mako\reactor\CommandInterface $command           Command instance
 	 * @param array                          $providedArguments Provided arguments
 	 */
-	protected function checkForMissingOptions(CommandInterface $command, array $providedArguments)
+	protected function checkForMissingOptions(CommandInterface $command, array $providedArguments): void
 	{
 		$this->checkForMissingArgumentsOrOptions($command->getCommandOptions(), $providedArguments, MissingOptionException::class);
 	}
@@ -140,7 +140,7 @@ class Dispatcher
 	 * @param array                          $providedArguments Provided arguments
 	 * @param array                          $globalOptions     Global options
 	 */
-	protected function checkArgumentsAndOptions(CommandInterface $command, array $providedArguments, array $globalOptions)
+	protected function checkArgumentsAndOptions(CommandInterface $command, array $providedArguments, array $globalOptions): void
 	{
 		if($command->isStrict())
 		{

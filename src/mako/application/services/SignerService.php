@@ -20,7 +20,7 @@ class SignerService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([Signer::class, 'signer'], function()
 		{

@@ -220,7 +220,7 @@ class Session extends Adapter
 	/**
 	 * Sets a remember me cookie.
 	 */
-	protected function setRememberMeCookie()
+	protected function setRememberMeCookie(): void
 	{
 		if($this->options['cookie_options']['secure'] && !$this->request->isSecure())
 		{
@@ -311,7 +311,7 @@ class Session extends Adapter
 	/**
 	 * Logs the user out.
 	 */
-	public function logout()
+	public function logout(): void
 	{
 		$this->session->regenerateId();
 

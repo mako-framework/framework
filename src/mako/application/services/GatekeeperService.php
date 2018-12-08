@@ -25,7 +25,7 @@ class GatekeeperService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([Authentication::class, 'gatekeeper'], function($container)
 		{

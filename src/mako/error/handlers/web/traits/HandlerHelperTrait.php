@@ -91,7 +91,7 @@ trait HandlerHelperTrait
 	 * @param \mako\http\Response $response  Response
 	 * @param \Throwable          $exception Exception
 	 */
-	protected function sendResponse(Response $response, Throwable $exception)
+	protected function sendResponse(Response $response, Throwable $exception): void
 	{
 		if($exception instanceof MethodNotAllowedException)
 		{

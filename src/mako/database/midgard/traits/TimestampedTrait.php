@@ -48,7 +48,7 @@ trait TimestampedTrait
 			],
 			'afterInsert' =>
 			[
-				function($inserted)
+				function($inserted): void
 				{
 					if($this->shouldTouchOnInsert() && $inserted && $this->isPersisted)
 					{
@@ -71,7 +71,7 @@ trait TimestampedTrait
 			],
 			'afterUpdate' =>
 			[
-				function($updated)
+				function($updated): void
 				{
 					if($this->shouldTouchOnUpdate() && $updated > 0 && $this->isPersisted)
 					{
@@ -81,7 +81,7 @@ trait TimestampedTrait
 			],
 			'afterDelete' =>
 			[
-				function($deleted)
+				function($deleted): void
 				{
 					if($this->shouldTouchOnDelete() && $deleted > 0 && $this->isPersisted)
 					{
@@ -182,7 +182,7 @@ trait TimestampedTrait
 	/**
 	 * Touches related records.
 	 */
-	protected function touchRelated()
+	protected function touchRelated(): void
 	{
 		foreach($this->getRelationsToTouch() as $touch)
 		{

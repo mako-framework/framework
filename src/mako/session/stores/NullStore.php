@@ -17,7 +17,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function write(string $sessionId, array $sessionData, int $dataTTL)
+	public function write(string $sessionId, array $sessionData, int $dataTTL): void
 	{
 
 	}
@@ -33,7 +33,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function delete(string $sessionId)
+	public function delete(string $sessionId): void
 	{
 
 	}
@@ -41,7 +41,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function gc(int $dataTTL)
+	public function gc(int $dataTTL): void
 	{
 
 	}

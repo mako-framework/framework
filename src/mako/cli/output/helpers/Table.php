@@ -204,7 +204,7 @@ class Table
 	 * @param array $rows        Array of rows
 	 * @param int   $writer      Output writer
 	 */
-	public function draw(array $columnNames, array $rows, int $writer = Output::STANDARD)
+	public function draw(array $columnNames, array $rows, int $writer = Output::STANDARD): void
 	{
 		$this->output->write($this->render($columnNames, $rows), $writer);
 	}

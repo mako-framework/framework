@@ -79,7 +79,7 @@ class Config
 	 *
 	 * @param string $environment Environment name
 	 */
-	public function setEnvironment(string $environment)
+	public function setEnvironment(string $environment): void
 	{
 		$this->environment = $environment;
 	}
@@ -100,7 +100,7 @@ class Config
 	 *
 	 * @param string $file File name
 	 */
-	protected function load(string $file)
+	protected function load(string $file): void
 	{
 		$this->configuration[$file] = $this->loader->load($file, $this->environment);
 	}
@@ -130,7 +130,7 @@ class Config
 	 * @param string $key   Config key
 	 * @param mixed  $value Config value
 	 */
-	public function set(string $key, $value)
+	public function set(string $key, $value): void
 	{
 		[$file] = $this->parseKey($key);
 

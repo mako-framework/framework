@@ -71,7 +71,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function write(string $sessionId, array $sessionData, int $dataTTL)
+	public function write(string $sessionId, array $sessionData, int $dataTTL): void
 	{
 		$sessionData = serialize($sessionData);
 
@@ -102,7 +102,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function delete(string $sessionId)
+	public function delete(string $sessionId): void
 	{
 		$this->table()->where('id', '=', $sessionId)->delete();
 	}
@@ -110,7 +110,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function gc(int $dataTTL)
+	public function gc(int $dataTTL): void
 	{
 		$this->table()->where('expires', '<', time())->delete();
 	}

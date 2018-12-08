@@ -154,7 +154,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param string       $driver Driver name
 	 * @param string|array $alias  Alias or array of aliases
 	 */
-	public function setDriverAlias(string $driver, $alias)
+	public function setDriverAlias(string $driver, $alias): void
 	{
 		$this->driverAliases[$driver] = (array) $alias;
 	}
@@ -165,7 +165,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param string $driver Driver name
 	 * @param string $class  Connection class
 	 */
-	public function setConnectionClass(string $driver, string $class)
+	public function setConnectionClass(string $driver, string $class): void
 	{
 		$this->connectionClasses[$driver] = $class;
 	}
@@ -176,7 +176,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param string $driver Driver name
 	 * @param string $class  Query compiler class
 	 */
-	public function setQueryCompilerClass(string $driver, string $class)
+	public function setQueryCompilerClass(string $driver, string $class): void
 	{
 		$this->queryCompilerClasses[$driver] = $class;
 	}
@@ -187,7 +187,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param string $driver Driver name
 	 * @param string $class  Query builder helper class
 	 */
-	public function setQueryBuilderHelperClass(string $driver, string $class)
+	public function setQueryBuilderHelperClass(string $driver, string $class): void
 	{
 		$this->queryBuilderHelperClasses[$driver] = $class;
 	}
@@ -221,7 +221,7 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Clears the query log of every connection.
 	 */
-	public function clearLogs()
+	public function clearLogs(): void
 	{
 		foreach($this->connections as $connection)
 		{

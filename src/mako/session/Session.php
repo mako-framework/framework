@@ -159,7 +159,7 @@ class Session
 	/**
 	 * Starts the session.
 	 */
-	protected function start()
+	protected function start(): void
 	{
 		// Get the session id from the cookie or generate a new one if it doesn't exist.
 
@@ -191,7 +191,7 @@ class Session
 	/**
 	 * Writes data to session store.
 	 */
-	public function commit()
+	public function commit(): void
 	{
 		// Replace old flash data with new
 
@@ -208,7 +208,7 @@ class Session
 	/**
 	 * Calls the session store garbage collector.
 	 */
-	protected function gc()
+	protected function gc(): void
 	{
 		if(mt_rand(1, 100) === 100)
 		{
@@ -229,7 +229,7 @@ class Session
 	/**
 	 * Adds a session cookie to the response.
 	 */
-	protected function setCookie()
+	protected function setCookie(): void
 	{
 		if($this->options['cookie_options']['secure'] && !$this->request->isSecure())
 		{
@@ -242,7 +242,7 @@ class Session
 	/**
 	 * Loads the session data.
 	 */
-	protected function loadData()
+	protected function loadData(): void
 	{
 		$data = $this->store->read($this->sessionId);
 
@@ -301,7 +301,7 @@ class Session
 	 * @param string $key   Session key
 	 * @param mixed  $value Session data
 	 */
-	public function put(string $key, $value)
+	public function put(string $key, $value): void
 	{
 		$this->sessionData[$key] = $value;
 	}
@@ -367,7 +367,7 @@ class Session
 	 *
 	 * @param string $key Session key
 	 */
-	public function remove(string $key)
+	public function remove(string $key): void
 	{
 		unset($this->sessionData[$key]);
 	}
@@ -412,7 +412,7 @@ class Session
 	 *
 	 * @param string $key Session key
 	 */
-	public function removeFlash(string $key)
+	public function removeFlash(string $key): void
 	{
 		unset($this->sessionData['mako.flashdata'][$key]);
 	}
@@ -422,7 +422,7 @@ class Session
 	 *
 	 * @param array $keys Keys to preserve
 	 */
-	public function reflash(array $keys = [])
+	public function reflash(array $keys = []): void
 	{
 		$flashData = $this->sessionData['mako.flashdata'] ?? [];
 
@@ -512,7 +512,7 @@ class Session
 	/**
 	 * Clears all session data.
 	 */
-	public function clear()
+	public function clear(): void
 	{
 		$this->sessionData = [];
 	}
@@ -520,7 +520,7 @@ class Session
 	/**
 	 * Destroys the session.
 	 */
-	public function destroy()
+	public function destroy(): void
 	{
 		$this->store->delete($this->sessionId);
 

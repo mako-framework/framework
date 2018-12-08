@@ -97,16 +97,16 @@ class Application extends BaseApplication
 	/**
 	 * Registers global reactor options.
 	 */
-	protected function registerGlobalReactorOptions()
+	protected function registerGlobalReactorOptions(): void
 	{
-		$this->reactor->registerGlobalOption('env', 'Overrides the Mako environment', function(Config $config, $option)
+		$this->reactor->registerGlobalOption('env', 'Overrides the Mako environment', function(Config $config, $option): void
 		{
 			putenv('MAKO_ENV=' . $option);
 
 			$config->setEnvironment($option);
 		}, 'init');
 
-		$this->reactor->registerGlobalOption('mute', 'Mutes all output', function(Output $output)
+		$this->reactor->registerGlobalOption('mute', 'Mutes all output', function(Output $output): void
 		{
 			$output->mute();
 		}, 'init');
@@ -115,7 +115,7 @@ class Application extends BaseApplication
 	/**
 	 * Starts the reactor.
 	 */
-	protected function startReactor()
+	protected function startReactor(): void
 	{
 		$this->container->registerSingleton([Input::class, 'input'], function()
 		{
@@ -145,7 +145,7 @@ class Application extends BaseApplication
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function initialize()
+	protected function initialize(): void
 	{
 		parent::initialize();
 
@@ -216,7 +216,7 @@ class Application extends BaseApplication
 	/**
 	 * {@inheritdoc}
 	 */
-	public function run()
+	public function run(): void
 	{
 		ob_start();
 

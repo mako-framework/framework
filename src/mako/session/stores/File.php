@@ -72,7 +72,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function write(string $sessionId, array $sessionData, int $dataTTL)
+	public function write(string $sessionId, array $sessionData, int $dataTTL): void
 	{
 		if($this->fileSystem->isWritable($this->sessionPath))
 		{
@@ -98,7 +98,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function delete(string $sessionId)
+	public function delete(string $sessionId): void
 	{
 		if($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isWritable($this->sessionFile($sessionId)))
 		{
@@ -109,7 +109,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function gc(int $dataTTL)
+	public function gc(int $dataTTL): void
 	{
 		$files = $this->fileSystem->glob($this->sessionPath . '/*');
 

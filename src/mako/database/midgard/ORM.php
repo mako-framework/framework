@@ -236,7 +236,7 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @param \mako\database\ConnectionManager $connectionManager Connection manager instance
 	 */
-	public static function setConnectionManager(ConnectionManager $connectionManager)
+	public static function setConnectionManager(ConnectionManager $connectionManager): void
 	{
 		static::$connectionManager = $connectionManager;
 	}
@@ -269,7 +269,7 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Synchronizes the original values with the modified values.
 	 */
-	public function synchronize()
+	public function synchronize(): void
 	{
 		$this->original = $this->columns;
 	}
@@ -294,7 +294,7 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Registers traits.
 	 */
-	protected function registerTraits()
+	protected function registerTraits(): void
 	{
 		if(!isset(static::$traitHooks[static::class]))
 		{
@@ -442,7 +442,7 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @param array $includes Relations to eager load
 	 */
-	public function setIncludes(array $includes)
+	public function setIncludes(array $includes): void
 	{
 		$this->including = $includes;
 	}
@@ -463,7 +463,7 @@ abstract class ORM implements JsonSerializable
 	 * @param string $relation Relation name
 	 * @param mixed  $related  Related record(s)
 	 */
-	public function setRelated(string $relation, $related)
+	public function setRelated(string $relation, $related): void
 	{
 		$this->related[$relation] = $related;
 	}
@@ -489,7 +489,7 @@ abstract class ORM implements JsonSerializable
 	{
 		$model = $this;
 
-		(function() use ($includes, $model)
+		(function() use ($includes, $model): void
 		{
 			$this->including($includes)->loadIncludes([$model]);
 		})->bindTo($this->builder(), Query::class)();
@@ -544,7 +544,7 @@ abstract class ORM implements JsonSerializable
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
-	public function setRawColumnValue(string $name, $value)
+	public function setRawColumnValue(string $name, $value): void
 	{
 		$this->columns[$name] = $this->cast($name, $value);
 	}
@@ -555,7 +555,7 @@ abstract class ORM implements JsonSerializable
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
-	public function setColumnValue(string $name, $value)
+	public function setColumnValue(string $name, $value): void
 	{
 		$value = $this->cast($name, $value);
 
@@ -655,7 +655,7 @@ abstract class ORM implements JsonSerializable
 	 * @param array $columns Column values
 	 * @param bool  $raw     Set raw values?
 	 */
-	protected function setColumValues(array $columns, bool $raw)
+	protected function setColumValues(array $columns, bool $raw): void
 	{
 		if($raw)
 		{
@@ -717,7 +717,7 @@ abstract class ORM implements JsonSerializable
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
-	public function __set(string $name, $value)
+	public function __set(string $name, $value): void
 	{
 		$this->setColumnValue($name, $value);
 	}
@@ -754,7 +754,7 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @param string $name Column name
 	 */
-	public function __unset(string $name)
+	public function __unset(string $name): void
 	{
 		unset($this->columns[$name], $this->related[$name]);
 	}
@@ -943,7 +943,7 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @param \mako\database\midgard\Query $query Query builder
 	 */
-	protected function insertRecord(Query $query)
+	protected function insertRecord(Query $query): void
 	{
 		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
 		{

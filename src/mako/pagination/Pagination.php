@@ -188,7 +188,7 @@ class Pagination implements PaginationInterface
 	 *
 	 * @param \mako\http\Request $request Request
 	 */
-	public function setRequest(Request $request)
+	public function setRequest(Request $request): void
 	{
 		$this->request = $request;
 	}
@@ -198,7 +198,7 @@ class Pagination implements PaginationInterface
 	 *
 	 * @param \mako\http\routing\URLBuilder $urlBuilder URL builder instance
 	 */
-	public function setURLBuilder(URLBuilder $urlBuilder)
+	public function setURLBuilder(URLBuilder $urlBuilder): void
 	{
 		$this->urlBuilder = $urlBuilder;
 	}
@@ -208,7 +208,7 @@ class Pagination implements PaginationInterface
 	 *
 	 * @param \mako\view\ViewFactory $viewFactory View factory instance
 	 */
-	public function setViewFactory(ViewFactory $viewFactory)
+	public function setViewFactory(ViewFactory $viewFactory): void
 	{
 		$this->viewFactory = $viewFactory;
 	}

@@ -110,7 +110,7 @@ class SessionService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([Session::class, 'session'], function($container)
 		{

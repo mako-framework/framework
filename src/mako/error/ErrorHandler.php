@@ -88,9 +88,9 @@ class ErrorHandler
 	/**
 	 * Adds basic fallback handler to the stack.
 	 */
-	protected function fallbackHandler()
+	protected function fallbackHandler(): void
 	{
-		$this->handle(Throwable::class, function($e)
+		$this->handle(Throwable::class, function($e): void
 		{
 			echo '[ ' . get_class($e) . '] ' . $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]';
 
@@ -103,11 +103,11 @@ class ErrorHandler
 	/**
 	 * Registers the exception handler.
 	 */
-	protected function register()
+	protected function register(): void
 	{
 		// Allows us to handle "fatal" errors
 
-		register_shutdown_function(function()
+		register_shutdown_function(function(): void
 		{
 			$e = error_get_last();
 
@@ -129,7 +129,7 @@ class ErrorHandler
 	 *
 	 * @param \Closure|\Psr\Log\LoggerInterface $logger Logger
 	 */
-	public function setLogger($logger)
+	public function setLogger($logger): void
 	{
 		$this->logger = $logger;
 	}
@@ -154,7 +154,7 @@ class ErrorHandler
 	 *
 	 * @param string|array $exceptionType Exception type or array of exception types
 	 */
-	public function disableLoggingFor($exceptionType)
+	public function disableLoggingFor($exceptionType): void
 	{
 		$this->disableLoggingFor = array_unique(array_merge($this->disableLoggingFor, (array) $exceptionType));
 	}
@@ -162,7 +162,7 @@ class ErrorHandler
 	/**
 	 * Disables the shutdown handler.
 	 */
-	public function disableShutdownHandler()
+	public function disableShutdownHandler(): void
 	{
 		$this->disableShutdownHandler = true;
 	}
@@ -173,7 +173,7 @@ class ErrorHandler
 	 * @param string          $exceptionType Exception type
 	 * @param string|\Closure $handler       Exception handler
 	 */
-	public function handle(string $exceptionType, $handler)
+	public function handle(string $exceptionType, $handler): void
 	{
 		array_unshift($this->handlers, ['exceptionType' => $exceptionType, 'handler' => $handler]);
 	}
@@ -183,7 +183,7 @@ class ErrorHandler
 	 *
 	 * @param string $exceptionType Exception type
 	 */
-	public function clearHandlers(string $exceptionType)
+	public function clearHandlers(string $exceptionType): void
 	{
 		foreach($this->handlers as $key => $handler)
 		{
@@ -200,7 +200,7 @@ class ErrorHandler
 	 * @param string   $exceptionType Exception type
 	 * @param \Closure $handler       Exception handler
 	 */
-	public function replaceHandlers(string $exceptionType, Closure $handler)
+	public function replaceHandlers(string $exceptionType, Closure $handler): void
 	{
 		$this->clearHandlers($exceptionType);
 
@@ -210,7 +210,7 @@ class ErrorHandler
 	/**
 	 * Clear output buffers.
 	 */
-	protected function clearOutputBuffers()
+	protected function clearOutputBuffers(): void
 	{
 		while(ob_get_level() > 0) ob_end_clean();
 	}
@@ -272,7 +272,7 @@ class ErrorHandler
 	 *
 	 * @param \Throwable $exception An exception object
 	 */
-	public function handler(Throwable $exception)
+	public function handler(Throwable $exception): void
 	{
 		try
 		{

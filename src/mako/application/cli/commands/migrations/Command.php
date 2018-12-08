@@ -276,7 +276,7 @@ abstract class Command extends BaseCommand
 	 *
 	 * @param array $migrations Migrations
 	 */
-	protected function outputMigrationList(array $migrations)
+	protected function outputMigrationList(array $migrations): void
 	{
 		$tableBody = [];
 
@@ -319,7 +319,7 @@ abstract class Command extends BaseCommand
 	 */
 	protected function buildMigrationWrapper(object $migration, Migration $migrationInstance, string $method, ?int $batch = null): Closure
 	{
-		return function() use ($migration, $migrationInstance, $method, $batch)
+		return function() use ($migration, $migrationInstance, $method, $batch): void
 		{
 			$this->container->call([$migrationInstance, $method]);
 
@@ -343,7 +343,7 @@ abstract class Command extends BaseCommand
 	 * @param string   $method    Migration method
 	 * @param int|null $batch     Batch
 	 */
-	protected function runMigration(object $migration, string $method, ?int $batch = null)
+	protected function runMigration(object $migration, string $method, ?int $batch = null): void
 	{
 		$migrationInstance = $this->resolve($migration);
 
@@ -351,7 +351,7 @@ abstract class Command extends BaseCommand
 
 		if($migrationInstance->useTransaction())
 		{
-			$migrationInstance->getConnection()->transaction(function() use ($migrationWrapper)
+			$migrationInstance->getConnection()->transaction(function() use ($migrationWrapper): void
 			{
 				$migrationWrapper();
 			});

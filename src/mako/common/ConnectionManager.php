@@ -59,7 +59,7 @@ abstract class ConnectionManager
 	 *
 	 * @param string|null $connection Connection name
 	 */
-	public function close(?string $connection = null)
+	public function close(?string $connection = null): void
 	{
 		$connection = $connection ?? $this->default;
 

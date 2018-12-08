@@ -80,7 +80,7 @@ class GroupRepository implements GroupRepositoryInterface
 	 *
 	 * @param string $identifier User identifier
 	 */
-	public function setIdentifier(string $identifier)
+	public function setIdentifier(string $identifier): void
 	{
 		if(!in_array($identifier, ['name', 'id']))
 		{

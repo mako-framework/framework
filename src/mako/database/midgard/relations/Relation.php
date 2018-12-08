@@ -107,7 +107,7 @@ abstract class Relation extends Query
 	/**
 	 * Sets the criterion used when lazy loading related records.
 	 */
-	protected function lazyCriterion()
+	protected function lazyCriterion(): void
 	{
 		$this->where($this->table . '.' . $this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
 	}
@@ -155,7 +155,7 @@ abstract class Relation extends Query
 	/**
 	 * Adjusts the query.
 	 */
-	protected function adjustQuery()
+	protected function adjustQuery(): void
 	{
 		if(!$this->lazy)
 		{

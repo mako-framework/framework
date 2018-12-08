@@ -375,7 +375,7 @@ class Response
 	/**
 	 * Sends response headers.
 	 */
-	public function sendHeaders()
+	public function sendHeaders(): void
 	{
 		// Send status header
 
@@ -472,7 +472,7 @@ class Response
 	/**
 	 * Send output to browser.
 	 */
-	public function send()
+	public function send(): void
 	{
 		if($this->body instanceof ResponseSenderInterface)
 		{

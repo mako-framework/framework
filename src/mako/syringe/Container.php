@@ -89,7 +89,7 @@ class Container
 	 * @param string|\Closure $class     Class name or closure
 	 * @param bool            $singleton Should we return the same instance every time?
 	 */
-	public function register($hint, $class, bool $singleton = false)
+	public function register($hint, $class, bool $singleton = false): void
 	{
 		$this->hints[$this->parseHint($hint)] = ['class' => $class, 'singleton' => $singleton];
 	}
@@ -100,7 +100,7 @@ class Container
 	 * @param string|array    $hint  Type hint or array contaning both type hint and alias
 	 * @param string|\Closure $class Class name or closure
 	 */
-	public function registerSingleton($hint, $class)
+	public function registerSingleton($hint, $class): void
 	{
 		$this->register($hint, $class, true);
 	}
@@ -111,7 +111,7 @@ class Container
 	 * @param string|array $hint     Type hint or array contaning both type hint and alias
 	 * @param object       $instance Class instance
 	 */
-	public function registerInstance($hint, object $instance)
+	public function registerInstance($hint, object $instance): void
 	{
 		$this->instances[$this->parseHint($hint)] = $instance;
 	}
@@ -123,7 +123,7 @@ class Container
 	 * @param string $interface      Interface
 	 * @param string $implementation Implementation
 	 */
-	public function registerContextualDependency(string $class, string $interface, string $implementation)
+	public function registerContextualDependency(string $class, string $interface, string $implementation): void
 	{
 		$this->contextualDependencies[$class][$interface] = $implementation;
 	}
@@ -144,7 +144,7 @@ class Container
 	 *
 	 * @param string $hint Type hint
 	 */
-	protected function replaceInstances(string $hint)
+	protected function replaceInstances(string $hint): void
 	{
 		if(isset($this->replacers[$hint]))
 		{
@@ -164,7 +164,7 @@ class Container
 	 * @param callable    $replacer  Instance replacer
 	 * @param string|null $eventName Event name
 	 */
-	public function onReplace(string $hint, callable $replacer, ?string $eventName = null)
+	public function onReplace(string $hint, callable $replacer, ?string $eventName = null): void
 	{
 		$hint = $this->resolveAlias($hint);
 
@@ -178,7 +178,7 @@ class Container
 	 * @param string|\Closure $class     Class name or closure
 	 * @param bool            $singleton Are we replacing a singleton?
 	 */
-	public function replace(string $hint, $class, bool $singleton = false)
+	public function replace(string $hint, $class, bool $singleton = false): void
 	{
 		$hint = $this->resolveAlias($hint);
 
@@ -203,7 +203,7 @@ class Container
 	 * @param string          $hint  Type hint
 	 * @param string|\Closure $class Class name or closure
 	 */
-	public function replaceSingleton(string $hint, $class)
+	public function replaceSingleton(string $hint, $class): void
 	{
 		$this->replace($hint, $class, true);
 	}
@@ -214,7 +214,7 @@ class Container
 	 * @param string $hint     Type hint
 	 * @param object $instance Class instance
 	 */
-	public function replaceInstance(string $hint, object $instance)
+	public function replaceInstance(string $hint, object $instance): void
 	{
 		$hint = $this->resolveAlias($hint);
 

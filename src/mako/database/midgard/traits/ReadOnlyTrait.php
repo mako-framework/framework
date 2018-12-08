@@ -27,21 +27,21 @@ trait ReadOnlyTrait
 		[
 			'beforeInsert' =>
 			[
-				function($values, $query)
+				function($values, $query): void
 				{
 					throw new ReadOnlyException('Attempted to create a read-only record.');
 				},
 			],
 			'beforeUpdate' =>
 			[
-				function($values, $query)
+				function($values, $query): void
 				{
 					throw new ReadOnlyException('Attempted to update a read-only record.');
 				},
 			],
 			'beforeDelete' =>
 			[
-				function($query)
+				function($query): void
 				{
 					throw new ReadOnlyException('Attempted to delete a read-only record.');
 				},

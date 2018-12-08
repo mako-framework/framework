@@ -246,7 +246,7 @@ class File implements ResponseSenderInterface
 	 * @param int $start Starting point
 	 * @param int $end   Ending point
 	 */
-	protected function sendFile(int $start, int $end)
+	protected function sendFile(int $start, int $end): void
 	{
 		// Erase output buffers and disable output buffering
 
@@ -282,7 +282,7 @@ class File implements ResponseSenderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function send(Request $request, Response $response)
+	public function send(Request $request, Response $response): void
 	{
 		// Add headers that should always be included
 

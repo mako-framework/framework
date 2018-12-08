@@ -115,7 +115,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	 *
 	 * @param string $email Email address
 	 */
-	public function setEmail($email)
+	public function setEmail($email): void
 	{
 		$this->email = $email;
 	}
@@ -135,7 +135,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	 *
 	 * @param string $username Username
 	 */
-	public function setUsername(string $username)
+	public function setUsername(string $username): void
 	{
 		$this->username = $username;
 	}
@@ -153,7 +153,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	 *
 	 * @param string $password Password
 	 */
-	public function setPassword(string $password)
+	public function setPassword(string $password): void
 	{
 		$this->password = $password;
 	}
@@ -173,7 +173,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	 *
 	 * @param string $ip IP address
 	 */
-	public function setIp(string $ip)
+	public function setIp(string $ip): void
 	{
 		$this->ip = $ip;
 	}
@@ -231,7 +231,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Activates the user.
 	 */
-	public function activate()
+	public function activate(): void
 	{
 		$this->activated = 1;
 	}
@@ -239,7 +239,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Deactivates the user.
 	 */
-	public function deactivate()
+	public function deactivate(): void
 	{
 		$this->activated = 0;
 	}
@@ -257,7 +257,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Bans the user.
 	 */
-	public function ban()
+	public function ban(): void
 	{
 		$this->banned = 1;
 	}
@@ -265,7 +265,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Unbans the user.
 	 */
-	public function unban()
+	public function unban(): void
 	{
 		$this->banned = 0;
 	}
@@ -339,7 +339,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	 *
 	 * @param \DateTimeInterface $time Date
 	 */
-	public function lockUntil(DateTimeInterface $time)
+	public function lockUntil(DateTimeInterface $time): void
 	{
 		$this->locked_until = $time;
 	}
@@ -357,7 +357,7 @@ class User extends ORM implements MemberInterface, UserEntityInterface
 	/**
 	 * Unlocks the account.
 	 */
-	public function unlock()
+	public function unlock(): void
 	{
 		$this->locked_until = null;
 	}

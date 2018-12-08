@@ -25,7 +25,7 @@ class Application extends BaseApplication
 	/**
 	 * {@inheritdoc}
 	 */
-	public function run()
+	public function run(): void
 	{
 		ob_start();
 

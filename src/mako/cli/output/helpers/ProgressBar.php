@@ -101,7 +101,7 @@ class ProgressBar
 	 *
 	 * @param int $width Progress bar width
 	 */
-	public function setWidth(int $width)
+	public function setWidth(int $width): void
 	{
 		$this->width = $width;
 	}
@@ -111,7 +111,7 @@ class ProgressBar
 	 *
 	 * @param string $template Template
 	 */
-	public function setEmptyTemplate(string $template)
+	public function setEmptyTemplate(string $template): void
 	{
 		$this->emptyTemplate = $template;
 	}
@@ -121,7 +121,7 @@ class ProgressBar
 	 *
 	 * @param string $template Template
 	 */
-	public function setFilledTemplate(string $template)
+	public function setFilledTemplate(string $template): void
 	{
 		$this->filledTemplate = $template;
 	}
@@ -131,7 +131,7 @@ class ProgressBar
 	 *
 	 * @param string $prefix Progress bar prefix
 	 */
-	public function setPrefix(string $prefix)
+	public function setPrefix(string $prefix): void
 	{
 		$this->prefix = $prefix . ' ';
 	}
@@ -160,7 +160,7 @@ class ProgressBar
 	/**
 	 * Draws the progressbar.
 	 */
-	public function draw()
+	public function draw(): void
 	{
 		// Don't draw progess bar if there are 0 items
 
@@ -192,7 +192,7 @@ class ProgressBar
 	/**
 	 * Move progress forward and redraws the progressbar.
 	 */
-	public function advance()
+	public function advance(): void
 	{
 		$this->progress++;
 
@@ -205,7 +205,7 @@ class ProgressBar
 	/**
 	 * Removes the progressbar.
 	 */
-	public function remove()
+	public function remove(): void
 	{
 		$this->output->clearLines($this->progress === $this->items ? 2 : 1);
 	}

@@ -42,7 +42,7 @@ class ListRoutes extends Command
 	 *
 	 * @param \mako\http\routing\Routes $routes Route collection
 	 */
-	public function execute(Routes $routes)
+	public function execute(Routes $routes): void
 	{
 		$routeCollection = [];
 

@@ -109,7 +109,7 @@ class Reactor
 	 * @param string $command Command
 	 * @param string $class   Command class
 	 */
-	public function registerCommand(string $command, string $class)
+	public function registerCommand(string $command, string $class): void
 	{
 		$this->commands[$command] = $class;
 	}
@@ -122,7 +122,7 @@ class Reactor
 	 * @param \Closure $handler     Option handler
 	 * @param string   $group       Option group
 	 */
-	public function registerGlobalOption(string $name, string $description, Closure $handler, string $group = 'default')
+	public function registerGlobalOption(string $name, string $description, Closure $handler, string $group = 'default'): void
 	{
 		$this->options[$group][$name] = ['description' => $description, 'handler' => $handler];
 	}
@@ -132,7 +132,7 @@ class Reactor
 	 *
 	 * @param string $logo ASCII logo
 	 */
-	public function setLogo(string $logo)
+	public function setLogo(string $logo): void
 	{
 		$this->logo = $logo;
 	}
@@ -142,7 +142,7 @@ class Reactor
 	 *
 	 * @param string $group Option group
 	 */
-	public function handleGlobalOptions(string $group = 'default')
+	public function handleGlobalOptions(string $group = 'default'): void
 	{
 		if(isset($this->options[$group]))
 		{
@@ -167,7 +167,7 @@ class Reactor
 	 * @param array  $headers Table headers
 	 * @param array  $rows    Table rows
 	 */
-	protected function drawTable(string $heading, array $headers, array $rows)
+	protected function drawTable(string $heading, array $headers, array $rows): void
 	{
 		if(!empty($rows))
 		{
@@ -210,7 +210,7 @@ class Reactor
 	/**
 	 * Displays global reactor options of there are any.
 	 */
-	protected function listOptions()
+	protected function listOptions(): void
 	{
 		$options = $this->getOptions();
 
@@ -220,7 +220,7 @@ class Reactor
 	/**
 	 * Displays basic reactor information.
 	 */
-	protected function displayReactorInfo()
+	protected function displayReactorInfo(): void
 	{
 		// Display basic reactor information
 
@@ -277,7 +277,7 @@ class Reactor
 	/**
 	 * Lists available commands if there are any.
 	 */
-	protected function listCommands()
+	protected function listCommands(): void
 	{
 		$commands = $this->getCommands();
 

@@ -192,7 +192,7 @@ class Route
 	 *
 	 * @param array $parameters Parameters
 	 */
-	public function setParameters(array $parameters)
+	public function setParameters(array $parameters): void
 	{
 		$this->parameters = $parameters;
 	}

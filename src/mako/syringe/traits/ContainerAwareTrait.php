@@ -64,7 +64,7 @@ trait ContainerAwareTrait
 	 *
 	 * @param \mako\syringe\Container $container Container
 	 */
-	public function setContainer(Container $container)
+	public function setContainer(Container $container): void
 	{
 		$this->container = $container;
 	}

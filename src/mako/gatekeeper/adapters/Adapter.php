@@ -47,7 +47,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUserRepository(UserRepositoryInterface $userRepository)
+	public function setUserRepository(UserRepositoryInterface $userRepository): void
 	{
 		$this->userRepository = $userRepository;
 	}
@@ -63,7 +63,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setGroupRepository(GroupRepositoryInterface $groupRepository)
+	public function setGroupRepository(GroupRepositoryInterface $groupRepository): void
 	{
 		$this->groupRepository = $groupRepository;
 	}
@@ -79,7 +79,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUser(UserEntityInterface $user)
+	public function setUser(UserEntityInterface $user): void
 	{
 		$this->user = $user;
 	}

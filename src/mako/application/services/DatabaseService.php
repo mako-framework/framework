@@ -21,7 +21,7 @@ class DatabaseService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([ConnectionManager::class, 'database'], function($container)
 		{

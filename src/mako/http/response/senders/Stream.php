@@ -54,7 +54,7 @@ class Stream implements ResponseSenderInterface
 	 * @param string|null $chunk      Chunck of data to flush
 	 * @param bool        $flushEmpty Flush empty chunk?
 	 */
-	public function flush(?string $chunk = null, bool $flushEmpty = false)
+	public function flush(?string $chunk = null, bool $flushEmpty = false): void
 	{
 		if($this->isCGI)
 		{
@@ -79,7 +79,7 @@ class Stream implements ResponseSenderInterface
 	/**
 	 * Sends the stream.
 	 */
-	protected function flow()
+	protected function flow(): void
 	{
 		// Erase output buffers and disable output buffering
 
@@ -99,7 +99,7 @@ class Stream implements ResponseSenderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function send(Request $request, Response $response)
+	public function send(Request $request, Response $response): void
 	{
 		$this->isCGI = $request->isCGI();
 

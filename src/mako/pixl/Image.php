@@ -153,7 +153,7 @@ class Image
 	/**
 	 * Creates a snapshot of the image.
 	 */
-	public function snapshot()
+	public function snapshot(): void
 	{
 		$this->processor->snapshot();
 	}
@@ -161,7 +161,7 @@ class Image
 	/**
 	 * Retstores the image snapshot.
 	 */
-	public function restore()
+	public function restore(): void
 	{
 		$this->processor->restore();
 	}
@@ -404,7 +404,7 @@ class Image
 	 * @param string $file    Path to the image file
 	 * @param int    $quality Image quality 1-100
 	 */
-	public function save($file = null, $quality = 95)
+	public function save($file = null, $quality = 95): void
 	{
 		$file = $file ?? $this->image;
 

@@ -199,7 +199,7 @@ class Query
 	 *
 	 * @param \mako\pagination\PaginationFactoryInterface|\Closure $factory Pagination factory
 	 */
-	public static function setPaginationFactory($factory)
+	public static function setPaginationFactory($factory): void
 	{
 		static::$paginationFactory = $factory;
 	}
@@ -1350,7 +1350,7 @@ class Query
 	 * @param int      $offsetStart Offset start
 	 * @param int|null $offsetEnd   Offset end
 	 */
-	public function batch(Closure $processor, int $batchSize = 1000, int $offsetStart = 0, ?int $offsetEnd = null)
+	public function batch(Closure $processor, int $batchSize = 1000, int $offsetStart = 0, ?int $offsetEnd = null): void
 	{
 		$this->limit($batchSize);
 

@@ -59,7 +59,7 @@ class Group extends ORM implements GroupEntityInterface
 	 *
 	 * @param string $name Group name
 	 */
-	public function setName(string $name)
+	public function setName(string $name): void
 	{
 		$this->name = $name;
 	}

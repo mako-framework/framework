@@ -81,7 +81,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Resets the collection keys.
 	 */
-	public function resetKeys()
+	public function resetKeys(): void
 	{
 		$this->items = array_values($this->items);
 	}
@@ -92,7 +92,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param int|string $key   Key
 	 * @param mixed      $value Value
 	 */
-	public function put($key, $value)
+	public function put($key, $value): void
 	{
 		$this->items[$key] = $value;
 	}
@@ -130,7 +130,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @param int|string $key Key
 	 */
-	public function remove($key)
+	public function remove($key): void
 	{
 		unset($this->items[$key]);
 	}
@@ -138,7 +138,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Clears the collection.
 	 */
-	public function clear()
+	public function clear(): void
 	{
 		$this->items = [];
 	}
@@ -176,7 +176,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param mixed $offset The offset to assign the value to
 	 * @param mixed $value  The value to set
 	 */
-	public function offsetSet($offset, $value)
+	public function offsetSet($offset, $value): void
 	{
 		if($offset === null)
 		{
@@ -193,7 +193,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @param mixed $offset The offset to unset
 	 */
-	public function offsetUnset($offset)
+	public function offsetUnset($offset): void
 	{
 		unset($this->items[$offset]);
 	}
@@ -321,7 +321,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @param callable $callable Callable
 	 */
-	public function each(callable $callable)
+	public function each(callable $callable): void
 	{
 		foreach($this->items as $key => $value)
 		{

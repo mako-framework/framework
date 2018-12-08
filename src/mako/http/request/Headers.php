@@ -111,7 +111,7 @@ class Headers implements Countable, IteratorAggregate
 	 * @param string $name  Header name
 	 * @param string $value Header value
 	 */
-	public function add(string $name, string $value)
+	public function add(string $name, string $value): void
 	{
 		$this->headers[$this->normalizeName($name)] = $value;
 	}
@@ -144,7 +144,7 @@ class Headers implements Countable, IteratorAggregate
 	 *
 	 * @param string $name Header name
 	 */
-	public function remove(string $name)
+	public function remove(string $name): void
 	{
 		unset($this->headers[$this->normalizeName($name)]);
 	}

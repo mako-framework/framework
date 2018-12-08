@@ -258,7 +258,7 @@ class Validator
 	 * @param array  $fields Expanded field names
 	 * @param string $field  Original field name
 	 */
-	protected function saveOriginalFieldNames(array $fields, string $field)
+	protected function saveOriginalFieldNames(array $fields, string $field): void
 	{
 		foreach($fields as $expanded)
 		{

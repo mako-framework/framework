@@ -33,7 +33,7 @@ class ResultSet extends Collection implements JsonSerializable
 	 *
 	 * @param \mako\pagination\PaginationInterface $pagination Pagination
 	 */
-	public function setPagination(PaginationInterface $pagination)
+	public function setPagination(PaginationInterface $pagination): void
 	{
 		$this->pagination = $pagination;
 	}

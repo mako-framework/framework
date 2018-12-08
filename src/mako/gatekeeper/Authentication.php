@@ -92,7 +92,7 @@ class Authentication
 	 * @param \Closure|null                                     $factory     Adapter factory
 	 * @param bool                                              $makeDefault Make it the default adapter?
 	 */
-	protected function registerAdapter($adapter, ?Closure $factory = null, bool $makeDefault = false)
+	protected function registerAdapter($adapter, ?Closure $factory = null, bool $makeDefault = false): void
 	{
 		if($adapter instanceof AdapterInterface)
 		{

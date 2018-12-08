@@ -93,7 +93,7 @@ class Files extends Parameters
 	/**
 	 * {@inheritdoc}
 	 */
-	public function add(string $name, $value)
+	public function add(string $name, $value): void
 	{
 		if(is_array($value))
 		{

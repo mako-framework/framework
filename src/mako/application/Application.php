@@ -190,7 +190,7 @@ abstract class Application
 	 *
 	 * @param array $language Application language settings
 	 */
-	public function setLanguage(array $language)
+	public function setLanguage(array $language): void
 	{
 		$this->language = $language['strings'];
 
@@ -277,7 +277,7 @@ abstract class Application
 	/**
 	 * Configure.
 	 */
-	protected function configure()
+	protected function configure(): void
 	{
 		$config = $this->config->get('application');
 
@@ -305,7 +305,7 @@ abstract class Application
 	 *
 	 * @param string $type Service type
 	 */
-	protected function serviceRegistrar(string $type)
+	protected function serviceRegistrar(string $type): void
 	{
 		foreach($this->config->get('application.services.' . $type) as $service)
 		{
@@ -316,7 +316,7 @@ abstract class Application
 	/**
 	 * Registers command line services.
 	 */
-	protected function registerCLIServices()
+	protected function registerCLIServices(): void
 	{
 		$this->serviceRegistrar('cli');
 	}
@@ -324,7 +324,7 @@ abstract class Application
 	/**
 	 * Registers web services.
 	 */
-	protected function registerWebServices()
+	protected function registerWebServices(): void
 	{
 		$this->serviceRegistrar('web');
 	}
@@ -332,7 +332,7 @@ abstract class Application
 	/**
 	 * Register services in the container.
 	 */
-	protected function registerServices()
+	protected function registerServices(): void
 	{
 		// Register core services
 
@@ -353,7 +353,7 @@ abstract class Application
 	/**
 	 * Registers class aliases.
 	 */
-	protected function registerClassAliases()
+	protected function registerClassAliases(): void
 	{
 		$aliases = $this->config->get('application.class_aliases');
 
@@ -368,9 +368,9 @@ abstract class Application
 	/**
 	 * Loads the application bootstrap file.
 	 */
-	protected function bootstrap()
+	protected function bootstrap(): void
 	{
-		(function($app, $container)
+		(function($app, $container): void
 		{
 			include $this->applicationPath . '/bootstrap.php';
 		})($this, $this->container);
@@ -381,7 +381,7 @@ abstract class Application
 	 *
 	 * @param string $type Package type
 	 */
-	protected function packageBooter(string $type)
+	protected function packageBooter(string $type): void
 	{
 		foreach($this->config->get('application.packages.' . $type) as $package)
 		{
@@ -396,7 +396,7 @@ abstract class Application
 	/**
 	 * Boots command line packages.
 	 */
-	protected function bootCliPackages()
+	protected function bootCliPackages(): void
 	{
 		$this->packageBooter('cli');
 	}
@@ -404,7 +404,7 @@ abstract class Application
 	/**
 	 * Boots web packages.
 	 */
-	protected function bootWebPackages()
+	protected function bootWebPackages(): void
 	{
 		$this->packageBooter('web');
 	}
@@ -412,7 +412,7 @@ abstract class Application
 	/**
 	 * Boot packages.
 	 */
-	protected function bootPackages()
+	protected function bootPackages(): void
 	{
 		$this->packageBooter('core');
 
@@ -451,7 +451,7 @@ abstract class Application
 	/**
 	 * Sets up the framework core.
 	 */
-	protected function initialize()
+	protected function initialize(): void
 	{
 		// Create container instance and register it in itself so that it can be injected
 
@@ -477,7 +477,7 @@ abstract class Application
 	/**
 	 * Boots the application.
 	 */
-	protected function boot()
+	protected function boot(): void
 	{
 		// Set up the framework core
 

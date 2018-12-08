@@ -26,7 +26,7 @@ abstract class Constraint implements ConstraintInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setParameters(array $parameters)
+	public function setParameters(array $parameters): void
 	{
 		$this->parameters = $parameters;
 	}

@@ -49,7 +49,7 @@ class Event
 	 * @param string          $name    Event name
 	 * @param string|\Closure $handler Event handler
 	 */
-	public function register(string $name, $handler)
+	public function register(string $name, $handler): void
 	{
 		$this->events[$name][] = $handler;
 	}
@@ -80,7 +80,7 @@ class Event
 	 *
 	 * @param string $name Event name
 	 */
-	public function clear(string $name)
+	public function clear(string $name): void
 	{
 		unset($this->events[$name]);
 	}
@@ -91,7 +91,7 @@ class Event
 	 * @param string          $name    Event name
 	 * @param string|\Closure $handler Event handler
 	 */
-	public function override(string $name, $handler)
+	public function override(string $name, $handler): void
 	{
 		$this->clear($name);
 

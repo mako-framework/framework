@@ -25,7 +25,7 @@ class LoggerService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function($container)
 		{

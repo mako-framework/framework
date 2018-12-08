@@ -196,7 +196,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function open($image)
+	public function open($image): void
 	{
 		$this->imageInfo = $this->getImageInfo($image);
 
@@ -206,7 +206,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function snapshot()
+	public function snapshot(): void
 	{
 		$width  = imagesx($this->image);
 		$height = imagesy($this->image);
@@ -219,7 +219,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function restore()
+	public function restore(): void
 	{
 		if(!is_resource($this->snapshot))
 		{
@@ -258,7 +258,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function rotate($degrees)
+	public function rotate($degrees): void
 	{
 		$width  = imagesx($this->image);
 		$height = imagesy($this->image);
@@ -286,7 +286,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE)
+	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE): void
 	{
 		$oldWidth  = imagesx($this->image);
 		$oldHeight = imagesy($this->image);
@@ -311,7 +311,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function crop($width, $height, $x, $y)
+	public function crop($width, $height, $x, $y): void
 	{
 		$oldWidth  = imagesx($this->image);
 		$oldHeight = imagesy($this->image);
@@ -334,7 +334,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function flip($direction = Image::FLIP_HORIZONTAL)
+	public function flip($direction = Image::FLIP_HORIZONTAL): void
 	{
 		$width  = imagesx($this->image);
 		$height = imagesy($this->image);
@@ -374,7 +374,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
+	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100): void
 	{
 		$watermark = $this->createImageResource($file, $this->getImageInfo($file));
 
@@ -429,7 +429,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function brightness($level = 50)
+	public function brightness($level = 50): void
 	{
 		$level *= 2.5;
 
@@ -473,7 +473,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function greyscale()
+	public function greyscale(): void
 	{
 		if($this->hasFilters)
 		{
@@ -520,7 +520,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sepia()
+	public function sepia(): void
 	{
 		$width  = imagesx($this->image);
 		$height = imagesy($this->image);
@@ -559,7 +559,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function colorize($color)
+	public function colorize($color): void
 	{
 		$rgb = $this->hexToRgb($color);
 
@@ -605,7 +605,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sharpen()
+	public function sharpen(): void
 	{
 		$sharpen = [[-1.2, -1, -1.2], [-1, 20, -1], [-1.2, -1, -1.2]];
 
@@ -617,7 +617,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function pixelate($pixelSize = 10)
+	public function pixelate($pixelSize = 10): void
 	{
 		if($this->hasFilters)
 		{
@@ -637,7 +637,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function negate()
+	public function negate(): void
 	{
 		if($this->hasFilters)
 		{
@@ -669,7 +669,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function border($color = '#000', $thickness = 5)
+	public function border($color = '#000', $thickness = 5): void
 	{
 		$width  = imagesx($this->image);
 		$height = imagesy($this->image);
@@ -734,7 +734,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function save($file, $quality = 95)
+	public function save($file, $quality = 95): void
 	{
 		// Get the file extension
 

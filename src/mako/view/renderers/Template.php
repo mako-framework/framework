@@ -93,7 +93,7 @@ class Template extends PHP
 	 *
 	 * @param string $view View path
 	 */
-	protected function compile(string $view)
+	protected function compile(string $view): void
 	{
 		(new Compiler($this->fileSystem, $this->cachePath, $view))->compile();
 	}
@@ -103,7 +103,7 @@ class Template extends PHP
 	 *
 	 * @param string $name Block name
 	 */
-	public function open(string $name)
+	public function open(string $name): void
 	{
 		ob_start() && $this->openBlocks[] = $name;
 	}
@@ -123,7 +123,7 @@ class Template extends PHP
 	 *
 	 * @param string $name Block name
 	 */
-	public function output(string $name)
+	public function output(string $name): void
 	{
 		$parent = $this->close();
 

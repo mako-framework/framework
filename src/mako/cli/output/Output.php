@@ -109,7 +109,7 @@ class Output
 	 *
 	 * @param \mako\cli\output\formatter\FormatterInterface $formatter Formatter
 	 */
-	public function setFormatter(FormatterInterface $formatter)
+	public function setFormatter(FormatterInterface $formatter): void
 	{
 		$this->formatter = $formatter;
 	}
@@ -127,7 +127,7 @@ class Output
 	/**
 	 * Mutes the output.
 	 */
-	public function mute()
+	public function mute(): void
 	{
 		$this->muted = true;
 	}
@@ -135,7 +135,7 @@ class Output
 	/**
 	 * Unmutes the output.
 	 */
-	public function unmute()
+	public function unmute(): void
 	{
 		$this->muted = false;
 	}
@@ -156,7 +156,7 @@ class Output
 	 * @param string $string String to write
 	 * @param int    $writer Output type
 	 */
-	public function write(string $string, int $writer = Output::STANDARD)
+	public function write(string $string, int $writer = Output::STANDARD): void
 	{
 		if($this->muted)
 		{
@@ -183,7 +183,7 @@ class Output
 	 *
 	 * @param string $string String to write
 	 */
-	public function error(string $string)
+	public function error(string $string): void
 	{
 		$this->write($string, static::ERROR);
 	}
@@ -194,7 +194,7 @@ class Output
 	 * @param string $string String to write
 	 * @param int    $writer Output type
 	 */
-	public function writeLn(string $string, int $writer = Output::STANDARD)
+	public function writeLn(string $string, int $writer = Output::STANDARD): void
 	{
 		$this->write($string . PHP_EOL, $writer);
 	}
@@ -204,7 +204,7 @@ class Output
 	 *
 	 * @param string $string String to write
 	 */
-	public function errorLn(string $string)
+	public function errorLn(string $string): void
 	{
 		$this->writeLn($string, static::ERROR);
 	}
@@ -212,7 +212,7 @@ class Output
 	/**
 	 * Clears the screen.
 	 */
-	public function clear()
+	public function clear(): void
 	{
 		if($this->hasAnsiSupport)
 		{
@@ -223,7 +223,7 @@ class Output
 	/**
 	 * Clears the current line.
 	 */
-	public function clearLine()
+	public function clearLine(): void
 	{
 		if($this->hasAnsiSupport)
 		{
@@ -236,7 +236,7 @@ class Output
 	 *
 	 * @param int $lines Number of lines to clear
 	 */
-	public function clearLines(int $lines)
+	public function clearLines(int $lines): void
 	{
 		if($this->hasAnsiSupport)
 		{

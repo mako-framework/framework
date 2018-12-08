@@ -48,7 +48,7 @@ class Countdown
 	/**
 	 * Delay execution by SLEEP_TIME microseconds.
 	 */
-	protected function sleep()
+	protected function sleep(): void
 	{
 		usleep(static::SLEEP_TIME);
 	}
@@ -58,7 +58,7 @@ class Countdown
 	 *
 	 * @param int $from Number of seconds to count down
 	 */
-	public function draw(int $from = 5)
+	public function draw(int $from = 5): void
 	{
 		$dots = 0;
 

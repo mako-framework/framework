@@ -67,7 +67,7 @@ abstract class AdapterManager
 	 * @param string          $name    Adapter name
 	 * @param string|\Closure $adapter Adapter
 	 */
-	public function extend(string $name, $adapter)
+	public function extend(string $name, $adapter): void
 	{
 		$this->extensions[$name] = $adapter;
 	}

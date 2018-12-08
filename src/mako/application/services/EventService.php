@@ -19,7 +19,7 @@ class EventService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([Event::class, 'event'], function($container)
 		{

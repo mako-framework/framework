@@ -26,7 +26,7 @@ class HTTPService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$app = $this->container->get(Application::class);
 
@@ -59,7 +59,7 @@ class HTTPService extends Service
 		{
 			$routes = new Routes;
 
-			(function($app, $container, $routes)
+			(function($app, $container, $routes): void
 			{
 				include $app->getPath() . '/routing/routes.php';
 			})
@@ -74,7 +74,7 @@ class HTTPService extends Service
 		{
 			$router = new Router($container->get(Routes::class), $container);
 
-			(function($app, $container, $router)
+			(function($app, $container, $router): void
 			{
 				include $app->getPath() . '/routing/constraints.php';
 			})
@@ -89,7 +89,7 @@ class HTTPService extends Service
 		{
 			$dispatcher = new Dispatcher($container->get(Request::class), $container->get(Response::class), $container);
 
-			(function($app, $container, $dispatcher)
+			(function($app, $container, $dispatcher): void
 			{
 				include $app->getPath() . '/routing/middleware.php';
 			})

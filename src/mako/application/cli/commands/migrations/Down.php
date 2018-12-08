@@ -46,7 +46,7 @@ class Down extends Command
 	 *
 	 * @param int $batches Number of batches to roll back
 	 */
-	public function execute(int $batches = 1)
+	public function execute(int $batches = 1): void
 	{
 		$this->rollback($batches);
 	}

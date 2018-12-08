@@ -298,7 +298,7 @@ class Redis
 	 *
 	 * @param string $command Command
 	 */
-	protected function sendCommandToServer(string $command)
+	protected function sendCommandToServer(string $command): void
 	{
 		$this->lastCommand = $command;
 

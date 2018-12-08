@@ -20,7 +20,7 @@ class CommandBusService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([CommandBusInterface::class, 'commander'], function($container)
 		{

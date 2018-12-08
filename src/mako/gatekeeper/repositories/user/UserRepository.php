@@ -84,7 +84,7 @@ class UserRepository implements UserRepositoryInterface
 	 *
 	 * @param string $identifier User identifier
 	 */
-	public function setIdentifier(string $identifier)
+	public function setIdentifier(string $identifier): void
 	{
 		if(!in_array($identifier, ['email', 'username', 'id']))
 		{

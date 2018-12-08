@@ -354,7 +354,7 @@ class Query extends QueryBuilder
 	 *
 	 * @param array $results Loaded records
 	 */
-	protected function loadIncludes(array $results)
+	protected function loadIncludes(array $results): void
 	{
 		$includes = $this->parseIncludes();
 
@@ -447,7 +447,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null)
+	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null): void
 	{
 		if(empty($this->orderings))
 		{

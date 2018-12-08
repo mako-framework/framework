@@ -73,6 +73,7 @@ return Config::create()
 	'trim_array_spaces' => true,
 	'visibility_required' => true,
 	'whitespace_after_comma_in_array' => true,
+	'void_return' => true,
 ])
 ->setRiskyAllowed(true)
 ->setFinder(Finder::create()->in(__DIR__));

@@ -20,7 +20,7 @@ class ValidatorFactoryService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([ValidatorFactory::class, 'validator'], function($container)
 		{

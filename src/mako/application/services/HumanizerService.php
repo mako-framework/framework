@@ -20,7 +20,7 @@ class HumanizerService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([Humanizer::class, 'humanizer'], function($container)
 		{

@@ -23,7 +23,7 @@ class PaginationFactoryService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([PaginationFactoryInterface::class, 'pagination'], function($container)
 		{

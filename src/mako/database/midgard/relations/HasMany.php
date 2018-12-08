@@ -24,7 +24,7 @@ class HasMany extends HasOneOrMany
 	 * @param \Closure|null $criteria Relation criteria
 	 * @param array         $includes Includes passed from the parent record
 	 */
-	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes)
+	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes): void
 	{
 		$this->model->setIncludes($includes);
 

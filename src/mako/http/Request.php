@@ -342,7 +342,7 @@ class Request
 	 *
 	 * @param \mako\http\routing\Route $route Route
 	 */
-	public function setRoute(Route $route)
+	public function setRoute(Route $route): void
 	{
 		$this->route = $route;
 	}
@@ -363,7 +363,7 @@ class Request
 	 * @param string $name  Attribute name
 	 * @param mixed  $value Attribute value
 	 */
-	public function setAttribute(string $name, $value)
+	public function setAttribute(string $name, $value): void
 	{
 		Arr::set($this->attributes, $name, $value);
 	}
@@ -521,7 +521,7 @@ class Request
 	 *
 	 * @param array $trustedProxies Array of trusted proxy IP addresses
 	 */
-	public function setTrustedProxies(array $trustedProxies)
+	public function setTrustedProxies(array $trustedProxies): void
 	{
 		$this->trustedProxies = $trustedProxies;
 	}

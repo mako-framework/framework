@@ -48,7 +48,7 @@ trait NamespacedFileLoaderTrait
 	 *
 	 * @param string $path Path
 	 */
-	public function setPath(string $path)
+	public function setPath(string $path): void
 	{
 		$this->path = $path;
 	}
@@ -58,7 +58,7 @@ trait NamespacedFileLoaderTrait
 	 *
 	 * @param string $extension Extension
 	 */
-	public function setExtension(string $extension)
+	public function setExtension(string $extension): void
 	{
 		$this->extension = $extension;
 	}
@@ -69,7 +69,7 @@ trait NamespacedFileLoaderTrait
 	 * @param string $namespace Namespace name
 	 * @param string $path      Namespace path
 	 */
-	public function registerNamespace(string $namespace, string $path)
+	public function registerNamespace(string $namespace, string $path): void
 	{
 		$this->namespaces[$namespace] = $path;
 	}

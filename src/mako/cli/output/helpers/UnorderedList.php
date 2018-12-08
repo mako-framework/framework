@@ -102,7 +102,7 @@ class UnorderedList
 	 * @param string $marker Item marker
 	 * @param int    $writer Output writer
 	 */
-	public function draw(array $items, string $marker = '*', int $writer = Output::STANDARD)
+	public function draw(array $items, string $marker = '*', int $writer = Output::STANDARD): void
 	{
 		$this->output->write($this->render($items, $marker), $writer);
 	}

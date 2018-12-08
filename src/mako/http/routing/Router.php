@@ -231,7 +231,7 @@ class Router
 	{
 		$allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
 
-		return new Route([], '', function(Response $response) use ($allowedMethods)
+		return new Route([], '', function(Response $response) use ($allowedMethods): void
 		{
 			$response->getHeaders()->add('Allow', implode(',', $allowedMethods));
 		});

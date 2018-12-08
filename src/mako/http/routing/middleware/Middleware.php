@@ -26,7 +26,7 @@ abstract class Middleware implements MiddlewareInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setParameters(array $parameters)
+	public function setParameters(array $parameters): void
 	{
 		$this->parameters = $parameters;
 	}

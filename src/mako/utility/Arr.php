@@ -36,7 +36,7 @@ class Arr
 	 * @param string $path   Array path
 	 * @param mixed  $value  Value to set
 	 */
-	public static function set(array &$array, string $path, $value)
+	public static function set(array &$array, string $path, $value): void
 	{
 		$segments = explode('.', $path);
 

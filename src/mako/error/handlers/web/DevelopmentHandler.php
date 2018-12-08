@@ -123,7 +123,7 @@ class DevelopmentHandler implements HandlerInterface
 	/**
 	 * Configure Whoops.
 	 */
-	protected function configureWhoops()
+	protected function configureWhoops(): void
 	{
 		$this->whoops->pushHandler($this->getWhoopsHandler());
 

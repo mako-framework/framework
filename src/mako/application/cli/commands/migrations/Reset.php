@@ -46,7 +46,7 @@ class Reset extends Command
 	 *
 	 * @param bool $force Force the schema reset?
 	 */
-	public function execute(bool $force = false)
+	public function execute(bool $force = false): void
 	{
 		if($force || $this->confirm('<yellow>Are you sure you want to reset your database?</yellow>'))
 		{

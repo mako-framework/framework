@@ -181,7 +181,7 @@ abstract class Package
 	/**
 	 * Gets executed at the end of the package boot sequence.
 	 */
-	protected function bootstrap()
+	protected function bootstrap(): void
 	{
 		// Nothing here
 	}
@@ -189,7 +189,7 @@ abstract class Package
 	/**
 	 * Boots the package.
 	 */
-	public function boot()
+	public function boot(): void
 	{
 		// Register configuration namespace
 

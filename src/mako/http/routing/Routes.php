@@ -105,7 +105,7 @@ class Routes
 	 * @param array    $options Group options
 	 * @param \Closure $routes  Route closure
 	 */
-	public function group(array $options, Closure $routes)
+	public function group(array $options, Closure $routes): void
 	{
 		$this->groups[] = $options;
 

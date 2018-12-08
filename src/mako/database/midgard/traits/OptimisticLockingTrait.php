@@ -104,7 +104,7 @@ trait OptimisticLockingTrait
 	 *
 	 * @param int $version Locking version
 	 */
-	public function setLockVersion(int $version)
+	public function setLockVersion(int $version): void
 	{
 		$this->columns[$this->getLockingColumn()] = $version;
 	}

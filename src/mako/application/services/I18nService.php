@@ -23,7 +23,7 @@ class I18nService extends Service
 	/**
 	 * {@inheritdoc}
 	 */
-	public function register()
+	public function register(): void
 	{
 		$this->container->registerSingleton([I18n::class, 'i18n'], function($container)
 		{

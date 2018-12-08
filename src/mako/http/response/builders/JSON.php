@@ -106,7 +106,7 @@ class JSON implements ResponseBuilderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function build(Request $request, Response $response)
+	public function build(Request $request, Response $response): void
 	{
 		$json = json_encode($this->data, $this->options);
 

@@ -222,7 +222,7 @@ class Dispatcher
 	 * @param \mako\onion\Onion $onion      Middleware stack
 	 * @param array             $middleware Array of middleware
 	 */
-	protected function addMiddlewareToStack(Onion $onion, array $middleware)
+	protected function addMiddlewareToStack(Onion $onion, array $middleware): void
 	{
 		if(empty($middleware) === false)
 		{

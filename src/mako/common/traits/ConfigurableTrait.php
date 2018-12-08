@@ -47,7 +47,7 @@ trait ConfigurableTrait
 	 * @param string $name          Connection name
 	 * @param array  $configuration Configuration
 	 */
-	public function addConfiguration(string $name, array $configuration)
+	public function addConfiguration(string $name, array $configuration): void
 	{
 		$this->configurations[$name] = $configuration;
 	}
@@ -58,7 +58,7 @@ trait ConfigurableTrait
 	 *
 	 * @param string $name Connection name
 	 */
-	public function removeConfiguration(string $name)
+	public function removeConfiguration(string $name): void
 	{
 		unset($this->configurations[$name], $this->connections[$name]);
 	}

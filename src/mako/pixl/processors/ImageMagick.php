@@ -76,7 +76,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function open($image)
+	public function open($image): void
 	{
 		$this->image = new Imagick($image);
 	}
@@ -84,7 +84,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function snapshot()
+	public function snapshot(): void
 	{
 		$this->snapshot = clone $this->image;
 	}
@@ -92,7 +92,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function restore()
+	public function restore(): void
 	{
 		if(!($this->snapshot instanceof Imagick))
 		{
@@ -131,7 +131,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function rotate($degrees)
+	public function rotate($degrees): void
 	{
 		$this->image->rotateImage(new ImagickPixel('none'), (360 - $degrees));
 	}
@@ -139,7 +139,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE)
+	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE): void
 	{
 		$oldWidth  = $this->image->getImageWidth();
 		$oldHeight = $this->image->getImageHeight();
@@ -152,7 +152,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function crop($width, $height, $x, $y)
+	public function crop($width, $height, $x, $y): void
 	{
 		$this->image->cropImage($width, $height, $x, $y);
 	}
@@ -160,7 +160,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function flip($direction = Image::FLIP_HORIZONTAL)
+	public function flip($direction = Image::FLIP_HORIZONTAL): void
 	{
 		if($direction ===  Image::FLIP_VERTICAL)
 		{
@@ -179,7 +179,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
+	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100): void
 	{
 		$watermark = new Imagick($file);
 
@@ -224,7 +224,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function brightness($level = 50)
+	public function brightness($level = 50): void
 	{
 		$this->image->modulateImage(100 + $level, 100, 100);
 	}
@@ -232,7 +232,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function greyscale()
+	public function greyscale(): void
 	{
 		$this->image->setImageType(Imagick::IMGTYPE_GRAYSCALE);
 	}
@@ -240,7 +240,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sepia()
+	public function sepia(): void
 	{
 		$this->image->sepiaToneImage(80);
 	}
@@ -248,7 +248,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function colorize($color)
+	public function colorize($color): void
 	{
 		$this->image->colorizeImage($this->normalizeHex($color), 1.0);
 	}
@@ -256,7 +256,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sharpen()
+	public function sharpen(): void
 	{
 		$this->image->sharpenImage(0, 1);
 	}
@@ -264,7 +264,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function pixelate($pixelSize = 10)
+	public function pixelate($pixelSize = 10): void
 	{
 		$width = $this->image->getImageWidth();
 
@@ -278,7 +278,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function negate()
+	public function negate(): void
 	{
 		$this->image->negateImage(false);
 	}
@@ -286,7 +286,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function border($color = '#000', $thickness = 5)
+	public function border($color = '#000', $thickness = 5): void
 	{
 		$this->image->shaveImage($thickness, $thickness);
 
@@ -318,7 +318,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function save($file, $quality = 95)
+	public function save($file, $quality = 95): void
 	{
 		// Set image quality
 
