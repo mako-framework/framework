@@ -8,6 +8,7 @@
 namespace mako\database\query;
 
 use Closure;
+use Generator;
 use mako\database\connections\Connection;
 use mako\pagination\PaginationFactoryInterface;
 use PDO;
@@ -618,7 +619,7 @@ class Query
 	/**
 	 * Adds a BETWEEN clause.
 	 *
-	 * @param  string                     $column    Column name
+	 * @param  mixed                      $column    Column name
 	 * @param  mixed                      $value1    First value
 	 * @param  mixed                      $value2    Second value
 	 * @param  string                     $separator Clause separator
@@ -643,7 +644,7 @@ class Query
 	/**
 	 * Adds a OR BETWEEN clause.
 	 *
-	 * @param  string                     $column Column name
+	 * @param  mixed                      $column Column name
 	 * @param  mixed                      $value1 First value
 	 * @param  mixed                      $value2 Second value
 	 * @return \mako\database\query\Query
@@ -656,7 +657,7 @@ class Query
 	/**
 	 * Adds a NOT BETWEEN clause.
 	 *
-	 * @param  string                     $column Column name
+	 * @param  mixed                      $column Column name
 	 * @param  mixed                      $value1 First value
 	 * @param  mixed                      $value2 Second value
 	 * @return \mako\database\query\Query
@@ -669,7 +670,7 @@ class Query
 	/**
 	 * Adds a OR NOT BETWEEN clause.
 	 *
-	 * @param  string                     $column Column name
+	 * @param  mixed                      $column Column name
 	 * @param  mixed                      $value1 First value
 	 * @param  mixed                      $value2 Second value
 	 * @return \mako\database\query\Query
@@ -682,7 +683,7 @@ class Query
 	/**
 	 * Adds a IN clause.
 	 *
-	 * @param  string                                                                $column    Column name
+	 * @param  mixed                                                                 $column    Column name
 	 * @param  array|\mako\database\query\Raw|\Closure|\mako\database\query\Subquery $values    Array of values or Subquery
 	 * @param  string                                                                $separator Clause separator
 	 * @param  bool                                                                  $not       Not in?
@@ -714,7 +715,7 @@ class Query
 	/**
 	 * Adds a OR IN clause.
 	 *
-	 * @param  string                     $column Column name
+	 * @param  mixed                      $column Column name
 	 * @param  mixed                      $values Array of values or Subquery
 	 * @return \mako\database\query\Query
 	 */
@@ -726,7 +727,7 @@ class Query
 	/**
 	 * Adds a NOT IN clause.
 	 *
-	 * @param  string                     $column Column name
+	 * @param  mixed                      $column Column name
 	 * @param  mixed                      $values Array of values or Subquery
 	 * @return \mako\database\query\Query
 	 */
@@ -738,7 +739,7 @@ class Query
 	/**
 	 * Adds a OR NOT IN clause.
 	 *
-	 * @param  string                     $column Column name
+	 * @param  mixed                      $column Column name
 	 * @param  mixed                      $values Array of values or Subquery
 	 * @return \mako\database\query\Query
 	 */
@@ -755,7 +756,7 @@ class Query
 	 * @param  bool                       $not       Not in?
 	 * @return \mako\database\query\Query
 	 */
-	public function isNull($column, $separator = 'AND', $not = false)
+	public function isNull($column, string $separator = 'AND', bool $not = false)
 	{
 		$this->wheres[] =
 		[
@@ -809,7 +810,7 @@ class Query
 	 * @param  bool                                   $not       Not exists?
 	 * @return \mako\database\query\Query
 	 */
-	public function exists($query, $separator = 'AND', $not = false)
+	public function exists($query, string $separator = 'AND', bool $not = false)
 	{
 		if($query instanceof Closure)
 		{
@@ -871,7 +872,7 @@ class Query
 	 * @param  bool                       $raw      Raw join?
 	 * @return \mako\database\query\Query
 	 */
-	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
+	public function join($table, $column1 = null, $operator = null, $column2 = null, string $type = 'INNER', bool $raw = false)
 	{
 		$join = new Join($type, $table);
 
@@ -906,7 +907,7 @@ class Query
 	 * @param  string                     $type     Join type
 	 * @return \mako\database\query\Query
 	 */
-	public function joinRaw($table, $column1, $operator, $raw, $type = 'INNER')
+	public function joinRaw($table, $column1, $operator, $raw, string $type = 'INNER')
 	{
 		return $this->join($table, $column1, $operator, $raw, $type, true);
 	}
@@ -961,7 +962,7 @@ class Query
 	 * @param  string                     $separator Clause separator
 	 * @return \mako\database\query\Query
 	 */
-	public function having($column, $operator, $value, $separator = 'AND')
+	public function having($column, $operator, $value, string $separator = 'AND')
 	{
 		$this->havings[] =
 		[
@@ -983,7 +984,7 @@ class Query
 	 * @param  string                     $separator Clause separator
 	 * @return \mako\database\query\Query
 	 */
-	public function havingRaw($raw, $operator, $value, $separator = 'AND')
+	public function havingRaw($raw, $operator, $value, string $separator = 'AND')
 	{
 		return $this->having(new Raw($raw), $operator, $value, $separator);
 	}
@@ -1021,7 +1022,7 @@ class Query
 	 * @param  string                     $order   Sorting order
 	 * @return \mako\database\query\Query
 	 */
-	public function orderBy($columns, $order = 'ASC')
+	public function orderBy($columns, string $order = 'ASC')
 	{
 		$this->orderings[] =
 		[
@@ -1039,7 +1040,7 @@ class Query
 	 * @param  string                     $order Sorting order
 	 * @return \mako\database\query\Query
 	 */
-	public function orderByRaw($raw, $order = 'ASC')
+	public function orderByRaw($raw, string $order = 'ASC')
 	{
 		return $this->orderBy(new Raw($raw), $order);
 	}
@@ -1280,7 +1281,7 @@ class Query
 	 * @param  mixed      ...$fetchMode Fetch mode
 	 * @return \Generator
 	 */
-	protected function fetchYield(...$fetchMode)
+	protected function fetchYield(...$fetchMode): Generator
 	{
 		$query = $this->compiler->select();
 
@@ -1292,7 +1293,7 @@ class Query
 	 *
 	 * @return \Generator
 	 */
-	public function yield()
+	public function yield(): Generator
 	{
 		yield from $this->fetchYield(PDO::FETCH_CLASS, Result::class);
 	}
@@ -1347,9 +1348,9 @@ class Query
 	 * @param \Closure $processor   Closure that processes the results
 	 * @param int      $batchSize   Batch size
 	 * @param int      $offsetStart Offset start
-	 * @param int      $offsetEnd   Offset end
+	 * @param int|null $offsetEnd   Offset end
 	 */
-	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null)
+	public function batch(Closure $processor, int $batchSize = 1000, int $offsetStart = 0, ?int $offsetEnd = null)
 	{
 		$this->limit($batchSize);
 
@@ -1390,7 +1391,7 @@ class Query
 	 * @param  string|array $column   Column name or array of column names
 	 * @return mixed
 	 */
-	protected function aggregate($function, $column)
+	protected function aggregate(string $function, $column)
 	{
 		$this->select([new Raw(sprintf($function, $this->compiler->columns(is_array($column) ? $column : [$column])))]);
 
@@ -1406,7 +1407,7 @@ class Query
 	 * Returns the minimum value for the chosen column.
 	 *
 	 * @param  string $column Column name
-	 * @return int
+	 * @return mixed
 	 */
 	public function min($column)
 	{
@@ -1417,7 +1418,7 @@ class Query
 	 * Returns the maximum value for the chosen column.
 	 *
 	 * @param  string $column Column name
-	 * @return int
+	 * @return mixed
 	 */
 	public function max($column)
 	{
@@ -1428,7 +1429,7 @@ class Query
 	 * Returns sum of all the values in the chosen column.
 	 *
 	 * @param  string $column Column name
-	 * @return int
+	 * @return mixed
 	 */
 	public function sum($column)
 	{
@@ -1439,7 +1440,7 @@ class Query
 	 * Returns the average value for the chosen column.
 	 *
 	 * @param  string $column Column name
-	 * @return float
+	 * @return mixed
 	 */
 	public function avg($column)
 	{
@@ -1452,7 +1453,7 @@ class Query
 	 * @param  string $column Column name
 	 * @return int
 	 */
-	public function count($column = '*')
+	public function count($column = '*'): int
 	{
 		return (int) $this->aggregate('COUNT(%s)', $column);
 	}
@@ -1463,7 +1464,7 @@ class Query
 	 * @param  string|array $column Column name or array of column names
 	 * @return int
 	 */
-	public function countDistinct($column)
+	public function countDistinct($column): int
 	{
 		return (int) $this->aggregate('COUNT(DISTINCT %s)', $column);
 	}
@@ -1474,7 +1475,7 @@ class Query
 	 * @param  array $values Associative array of column values
 	 * @return bool
 	 */
-	public function insert(array $values = [])
+	public function insert(array $values = []): bool
 	{
 		$query = $this->compiler->insert($values);
 
@@ -1488,7 +1489,7 @@ class Query
 	 * @param  string   $primaryKey Primary key
 	 * @return int|bool
 	 */
-	public function insertAndGetId(array $values, $primaryKey = 'id')
+	public function insertAndGetId(array $values, string $primaryKey = 'id')
 	{
 		return $this->helper->insertAndGetId($this, $values, $primaryKey);
 	}
@@ -1499,7 +1500,7 @@ class Query
 	 * @param  array $values Associative array of column values
 	 * @return int
 	 */
-	public function update(array $values)
+	public function update(array $values): int
 	{
 		$query = $this->compiler->update($values);
 
@@ -1513,7 +1514,7 @@ class Query
 	 * @param  int    $increment Increment value
 	 * @return int
 	 */
-	public function increment($column, $increment = 1)
+	public function increment($column, int $increment = 1): int
 	{
 		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' + ' . (int) $increment)]);
 	}
@@ -1525,7 +1526,7 @@ class Query
 	 * @param  int    $decrement Decrement value
 	 * @return int
 	 */
-	public function decrement($column, $decrement = 1)
+	public function decrement($column, int $decrement = 1): int
 	{
 		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' - ' . (int) $decrement)]);
 	}
@@ -1535,7 +1536,7 @@ class Query
 	 *
 	 * @return int
 	 */
-	public function delete()
+	public function delete(): int
 	{
 		$query = $this->compiler->delete();
 

@@ -9,6 +9,7 @@ namespace mako\database\midgard;
 
 use BadMethodCallException;
 use Closure;
+use Generator;
 use mako\database\connections\Connection;
 use mako\database\query\Query as QueryBuilder;
 use PDO;
@@ -83,7 +84,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-	public function insert(array $values = [])
+	public function insert(array $values = []): bool
 	{
 		// Execute "beforeInsert" hooks
 
@@ -111,7 +112,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-	public function update(array $values)
+	public function update(array $values): int
 	{
 		// Execute "beforeUpdate" hooks
 
@@ -139,7 +140,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-	public function increment($column, $increment = 1)
+	public function increment($column, int $increment = 1): int
 	{
 		if($this->model->isPersisted())
 		{
@@ -161,7 +162,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-	public function decrement($column, $decrement = 1)
+	public function decrement($column, int $decrement = 1): int
 	{
 		if($this->model->isPersisted())
 		{
@@ -183,7 +184,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritdoc}
 	 */
-	public function delete()
+	public function delete(): int
 	{
 		// Execute "beforeDelete" hooks
 
@@ -207,7 +208,7 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a record using the value of its primary key.
 	 *
-	 * @param  int                        $id      Primary key
+	 * @param  int|string                 $id      Primary key
 	 * @param  array                      $columns Columns to select
 	 * @return \mako\database\midgard\ORM
 	 */
@@ -435,7 +436,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return \Generator
 	 */
-	public function yield()
+	public function yield(): Generator
 	{
 		foreach($this->fetchYield(PDO::FETCH_ASSOC) as $row)
 		{
