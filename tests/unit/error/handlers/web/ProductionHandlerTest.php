@@ -26,7 +26,7 @@ class ProductionHandlerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegularError()
+	public function testRegularError(): void
 	{
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
@@ -76,7 +76,7 @@ class ProductionHandlerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRequestException()
+	public function testRequestException(): void
 	{
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
@@ -136,7 +136,7 @@ class ProductionHandlerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegularErrorWithJsonResponse()
+	public function testRegularErrorWithJsonResponse(): void
 	{
 		if(function_exists('json_encode') === false)
 		{
@@ -183,7 +183,7 @@ class ProductionHandlerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegularErrorWithXmlResponse()
+	public function testRegularErrorWithXmlResponse(): void
 	{
 		if(function_exists('simplexml_load_string') === false)
 		{

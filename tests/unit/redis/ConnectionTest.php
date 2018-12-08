@@ -19,7 +19,7 @@ class ConnectionTest extends TestCase
 	 * @expectedException \mako\redis\RedisException
 	 * @expectedExceptionMessageRegExp /^Failed to connect\./
 	 */
-	public function testFailedConnection()
+	public function testFailedConnection(): void
 	{
 		$connection = new Connection('foobar.nope', 7777);
 	}
@@ -28,7 +28,7 @@ class ConnectionTest extends TestCase
 	 * @expectedException \mako\redis\RedisException
 	 * @expectedExceptionMessageRegExp /^Failed to connect to \[ test \]\./
 	 */
-	public function testFailedConnectionWithName()
+	public function testFailedConnectionWithName(): void
 	{
 		$connection = new Connection('foobar.nope', 7777, false, 60, 'test');
 	}

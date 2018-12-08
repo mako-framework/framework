@@ -18,7 +18,7 @@ class SignerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSign()
+	public function testSign(): void
 	{
 		$string = 'hello, world!';
 
@@ -34,7 +34,7 @@ class SignerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidateValid()
+	public function testValidateValid(): void
 	{
 		$string = 'hello, world!';
 
@@ -48,7 +48,7 @@ class SignerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidateInvalid()
+	public function testValidateInvalid(): void
 	{
 		$string = 'hello, world!';
 

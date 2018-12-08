@@ -18,7 +18,7 @@ class StopwatchTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStart()
+	public function testStart(): void
 	{
 		$stopwatch = new Stopwatch;
 
@@ -30,7 +30,7 @@ class StopwatchTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLap()
+	public function testLap(): void
 	{
 		$stopwatch = new Stopwatch;
 
@@ -48,7 +48,7 @@ class StopwatchTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetLaps()
+	public function testGetLaps(): void
 	{
 		$stopwatch = new Stopwatch;
 
@@ -62,7 +62,7 @@ class StopwatchTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetLapCount()
+	public function testGetLapCount(): void
 	{
 		$stopwatch = new Stopwatch;
 
@@ -78,7 +78,7 @@ class StopwatchTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStop()
+	public function testStop(): void
 	{
 		$stopwatch = new Stopwatch;
 
@@ -99,7 +99,7 @@ class StopwatchTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetElapsedTime()
+	public function testGetElapsedTime(): void
 	{
 		$stopwatch = new Stopwatch;
 
@@ -115,7 +115,7 @@ class StopwatchTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsRunning()
+	public function testIsRunning(): void
 	{
 		$stopwatch = new Stopwatch;
 

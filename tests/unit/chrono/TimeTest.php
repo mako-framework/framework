@@ -20,7 +20,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConstructor()
+	public function testConstructor(): void
 	{
 		$time = new Time;
 
@@ -48,7 +48,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNow()
+	public function testNow(): void
 	{
 		$time = Time::now();
 
@@ -70,7 +70,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreateFromDate()
+	public function testCreateFromDate(): void
 	{
 		$time = Time::createFromDate(1983);
 
@@ -110,7 +110,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreateFromTimestamp()
+	public function testCreateFromTimestamp(): void
 	{
 		$time = Time::createFromTimestamp(431093532);
 
@@ -132,7 +132,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreateFromDOSTimestamp()
+	public function testCreateFromDOSTimestamp(): void
 	{
 		$time = Time::createFromDOSTimestamp(119431558);
 
@@ -142,7 +142,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreateFromFormat()
+	public function testCreateFromFormat(): void
 	{
 		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33');
 
@@ -164,7 +164,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetTimeZone()
+	public function testSetTimeZone(): void
 	{
 		$time = new Time;
 
@@ -176,7 +176,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testForward()
+	public function testForward(): void
 	{
 		$time = Time::createFromTimestamp(431093532);
 
@@ -188,7 +188,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRewind()
+	public function testRewind(): void
 	{
 		$time = Time::createFromTimestamp(431093532);
 
@@ -200,7 +200,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetDOSTimestamp()
+	public function testGetDOSTimestamp(): void
 	{
 		$time = Time::createFromTimestamp(431093532);
 
@@ -210,7 +210,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsLeapYear()
+	public function testIsLeapYear(): void
 	{
 		$time = Time::createFromDate(1983);
 
@@ -226,7 +226,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDaysInMonth()
+	public function testDaysInMonth(): void
 	{
 		$time = Time::createFromDate(1983, 1);
 
@@ -308,7 +308,7 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFormatLocalized()
+	public function testFormatLocalized(): void
 	{
 		$time = Time::createFromDate(1983, 8, 30);
 

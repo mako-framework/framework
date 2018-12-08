@@ -18,7 +18,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetItems()
+	public function testGetItems(): void
 	{
 		$collection = new Collection();
 
@@ -34,7 +34,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPut()
+	public function testPut(): void
 	{
 		$collection = new Collection();
 
@@ -48,7 +48,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$collection = new Collection();
 
@@ -62,7 +62,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHasNullValue()
+	public function testHasNullValue(): void
 	{
 		$collection = new Collection(['foo' => null]);
 
@@ -72,7 +72,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$collection = new Collection();
 
@@ -90,7 +90,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetNullValue()
+	public function testGetNullValue(): void
 	{
 		$collection = new Collection(['foo' => null]);
 
@@ -100,7 +100,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemove()
+	public function testRemove(): void
 	{
 		$collection = new Collection();
 
@@ -116,7 +116,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClear()
+	public function testClear(): void
 	{
 		$collection = new Collection([1, 2, 3]);
 
@@ -130,7 +130,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOffsetExists()
+	public function testOffsetExists(): void
 	{
 		$collection = new Collection();
 
@@ -146,7 +146,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOffsetGet()
+	public function testOffsetGet(): void
 	{
 		$collection = new Collection([1, 2, 3]);
 
@@ -156,7 +156,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOffsetGetNullValue()
+	public function testOffsetGetNullValue(): void
 	{
 		$collection = new Collection(['foo' => null]);
 
@@ -167,7 +167,7 @@ class CollectionTest extends TestCase
 	 * @expectedException \OutOfBoundsException
 	 * @expectedExceptionMessage Undefined offset [ 0 ].
 	 */
-	public function testOffsetGetWithUndefinedOffset()
+	public function testOffsetGetWithUndefinedOffset(): void
 	{
 		$collection = new Collection();
 
@@ -177,7 +177,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOffsetSet()
+	public function testOffsetSet(): void
 	{
 		$collection = new Collection();
 
@@ -197,7 +197,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOffsetUnset()
+	public function testOffsetUnset(): void
 	{
 		$collection = new Collection([1, 2, 3]);
 
@@ -209,7 +209,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCount()
+	public function testCount(): void
 	{
 		$collection = new Collection();
 
@@ -229,7 +229,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIteration()
+	public function testIteration(): void
 	{
 		$string = '';
 
@@ -244,7 +244,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsEmpty()
+	public function testIsEmpty(): void
 	{
 		$collection = new Collection();
 
@@ -260,7 +260,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUnshift()
+	public function testUnshift(): void
 	{
 		$collection = new Collection([1, 2, 3]);
 
@@ -274,7 +274,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testShift()
+	public function testShift(): void
 	{
 		$collection = new Collection([1, 2, 3]);
 
@@ -288,7 +288,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPush()
+	public function testPush(): void
 	{
 		$collection = new Collection([1, 2, 3]);
 
@@ -302,7 +302,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPop()
+	public function testPop(): void
 	{
 		$collection = new Collection([1, 2, 3]);
 
@@ -316,7 +316,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSort()
+	public function testSort(): void
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
 
@@ -336,7 +336,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSortWithoutMaintainingIndexAssociation()
+	public function testSortWithoutMaintainingIndexAssociation(): void
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
 
@@ -356,7 +356,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testChunk()
+	public function testChunk(): void
 	{
 		$collection = new Collection([1, 2, 3, 4, 5, 6]);
 
@@ -374,7 +374,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testShuffle()
+	public function testShuffle(): void
 	{
 		$collection = new Collection([1, 2]);
 
@@ -386,9 +386,9 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExtending()
+	public function testExtending(): void
 	{
-		Collection::extend('increaseByOne', function()
+		Collection::extend('increaseByOne', function(): void
 		{
 			foreach($this->items as $key => $value)
 			{
@@ -406,7 +406,7 @@ class CollectionTest extends TestCase
 	/**
 	 * @expectedException \BadMethodCallException
 	 */
-	public function testException()
+	public function testException(): void
 	{
 		$collection = new Collection();
 
@@ -416,7 +416,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testResetKeys()
+	public function testResetKeys(): void
 	{
 		$collection = new Collection([1, 2, 3, 4, 5, 6]);
 
@@ -433,7 +433,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetValues()
+	public function testGetValues(): void
 	{
 		$collection = new Collection(['foo' => 'bar', 'baz' => 'bax']);
 
@@ -443,7 +443,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testEach()
+	public function testEach(): void
 	{
 		$collection = new Collection([1, 2, 3]);
 
@@ -458,7 +458,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMap()
+	public function testMap(): void
 	{
 		$collection = new Collection([1, 2, 3]);
 
@@ -497,7 +497,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFilter()
+	public function testFilter(): void
 	{
 		$collection = new Collection([1, null, 3]);
 
@@ -537,7 +537,7 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMerge()
+	public function testMerge(): void
 	{
 		$merged = (new Collection([1, 2, 3]))->merge(new Collection([4, 5, 6]));
 

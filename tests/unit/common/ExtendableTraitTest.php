@@ -35,7 +35,7 @@ class ExtendableTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExtending()
+	public function testExtending(): void
 	{
 		Extended::extend('foo', function()
 		{
@@ -55,7 +55,7 @@ class ExtendableTraitTest extends TestCase
 	/**
 	 * @expectedException \BadMethodCallException
 	 */
-	public function testException()
+	public function testException(): void
 	{
 		$collection = new Extended();
 

@@ -18,7 +18,7 @@ class FireTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuildReactorPath()
+	public function testBuildReactorPath(): void
 	{
 		$class = new class
 		{
@@ -49,7 +49,7 @@ class FireTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuildCommandWithoutEnv()
+	public function testBuildCommandWithoutEnv(): void
 	{
 		$class = new class
 		{
@@ -94,7 +94,7 @@ class FireTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuildBackgroundCommandWithoutEnv()
+	public function testBuildBackgroundCommandWithoutEnv(): void
 	{
 		$class = new class
 		{
@@ -139,7 +139,7 @@ class FireTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuildCommandWithEnv()
+	public function testBuildCommandWithEnv(): void
 	{
 		$class = new class
 		{
@@ -184,7 +184,7 @@ class FireTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuildCommandWithEnvWithManualOverride()
+	public function testBuildCommandWithEnvWithManualOverride(): void
 	{
 		$class = new class
 		{
@@ -229,7 +229,7 @@ class FireTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuildCommandWithEnvWithoutUsingSame()
+	public function testBuildCommandWithEnvWithoutUsingSame(): void
 	{
 		$class = new class
 		{

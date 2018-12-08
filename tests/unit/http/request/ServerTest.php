@@ -18,7 +18,7 @@ class ServerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetHeaders()
+	public function testGetHeaders(): void
 	{
 		$headers =
 		[

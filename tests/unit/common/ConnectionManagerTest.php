@@ -54,7 +54,7 @@ class ConnectionManagerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConnection()
+	public function testConnection(): void
 	{
 		$manager = new ConnectionManager('foo', []);
 
@@ -74,7 +74,7 @@ class ConnectionManagerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClose()
+	public function testClose(): void
 	{
 		$manager = new ConnectionManager('foo', []);
 
@@ -105,7 +105,7 @@ class ConnectionManagerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExecuteAndClose()
+	public function testExecuteAndClose(): void
 	{
 		$manager = new ConnectionManager('foo', []);
 
@@ -129,7 +129,7 @@ class ConnectionManagerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCallForwarding()
+	public function testCallForwarding(): void
 	{
 		$manager = new ConnectionManager('foo', []);
 

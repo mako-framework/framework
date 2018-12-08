@@ -20,7 +20,7 @@ class TokenTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new Token(Mockery::mock(Session::class));
 
@@ -30,7 +30,7 @@ class TokenTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$session = Mockery::mock(Session::class);
 
@@ -44,7 +44,7 @@ class TokenTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$session = Mockery::mock(Session::class);
 

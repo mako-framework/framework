@@ -19,7 +19,7 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSet()
+	public function testSet(): void
 	{
 		$arr = [];
 
@@ -35,7 +35,7 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$arr = ['foo' => '123', 'bar' => ['baz' => '456', 'bax' => ['789']]];
 
@@ -51,7 +51,7 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHasNullValue()
+	public function testHasNullValue(): void
 	{
 		$arr = ['foo' => null];
 
@@ -61,7 +61,7 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$arr = ['foo' => '123', 'bar' => ['baz' => '456', 'bax' => ['789']]];
 
@@ -77,7 +77,7 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetNullValue()
+	public function testGetNullValue(): void
 	{
 		$arr = ['foo' => null];
 
@@ -87,7 +87,7 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDelete()
+	public function testDelete(): void
 	{
 		$arr = ['foo' => '123', 'bar' => ['baz' => '456', 'bax' => ['789']]];
 
@@ -105,7 +105,7 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRandom()
+	public function testRandom(): void
 	{
 		$arr = ['foo', 'bar', 'baz'];
 
@@ -115,7 +115,7 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsAssoc()
+	public function testIsAssoc(): void
 	{
 		$this->assertTrue(Arr::isAssoc(['foo' => 0, 'bar' => 1]));
 
@@ -127,7 +127,7 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPluck()
+	public function testPluck(): void
 	{
 		$arr = [['foo' => 'bar'], ['foo' => 'baz']];
 
@@ -151,7 +151,7 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExpandKey()
+	public function testExpandKey(): void
 	{
 		$arr = ['foo' => ['bar' => [1, 2], 'baz' => [1, 2]]];
 

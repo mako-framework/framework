@@ -18,7 +18,7 @@ class NullStoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWrite()
+	public function testWrite(): void
 	{
 		$null = new NullStore;
 
@@ -30,7 +30,7 @@ class NullStoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRead()
+	public function testRead(): void
 	{
 		$null = new NullStore;
 
@@ -40,7 +40,7 @@ class NullStoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDelete()
+	public function testDelete(): void
 	{
 		$null = new NullStore;
 
@@ -53,7 +53,7 @@ class NullStoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGc()
+	public function testGc(): void
 	{
 		$null = new NullStore;
 

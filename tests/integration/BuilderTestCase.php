@@ -25,7 +25,7 @@ abstract class BuilderTestCase extends TestCase
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setup()
+	public function setup(): void
 	{
 		// Set up connection manager
 

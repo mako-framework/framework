@@ -18,7 +18,7 @@ class Argon2idTest extends TestCase
 	/**
 	 *
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		if(!defined('PASSWORD_ARGON2ID'))
 		{
@@ -29,7 +29,7 @@ class Argon2idTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreate()
+	public function testCreate(): void
 	{
 		$password = 'foobar';
 
@@ -49,7 +49,7 @@ class Argon2idTest extends TestCase
 	/**
 	 *
 	 */
-	public function testVerify()
+	public function testVerify(): void
 	{
 		$password = 'foobar';
 
@@ -65,7 +65,7 @@ class Argon2idTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNeedsRehash()
+	public function testNeedsRehash(): void
 	{
 		$password = 'foobar';
 

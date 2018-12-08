@@ -18,7 +18,7 @@ class RawTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$sql = 'SELECT * FROM "foo"';
 
@@ -30,7 +30,7 @@ class RawTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetParameters()
+	public function testGetParameters(): void
 	{
 		$params = [1, 2, 3];
 

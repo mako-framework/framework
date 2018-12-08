@@ -20,7 +20,7 @@ class HashTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new Hash;
 
@@ -30,7 +30,7 @@ class HashTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new Hash;
 
@@ -46,7 +46,7 @@ class HashTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new Hash;
 

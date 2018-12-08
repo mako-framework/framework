@@ -23,7 +23,7 @@ class I18nAwareTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCustomErrorMessage()
+	public function testCustomErrorMessage(): void
 	{
 		$rule = new class implements RuleInterface
 		{
@@ -50,7 +50,7 @@ class I18nAwareTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCustomErrorMessageWithParameters()
+	public function testCustomErrorMessageWithParameters(): void
 	{
 		$rule = new class implements RuleInterface, WithParametersInterface
 		{
@@ -80,7 +80,7 @@ class I18nAwareTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTranslatedFieldName()
+	public function testTranslatedFieldName(): void
 	{
 		$rule = new class implements RuleInterface
 		{
@@ -113,7 +113,7 @@ class I18nAwareTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTranslatedFieldNames()
+	public function testTranslatedFieldNames(): void
 	{
 		$rule = new class implements RuleInterface, WithParametersInterface
 		{
@@ -155,7 +155,7 @@ class I18nAwareTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDefaultI18nMessage()
+	public function testDefaultI18nMessage(): void
 	{
 		$rule = new class implements RuleInterface
 		{
@@ -186,7 +186,7 @@ class I18nAwareTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDefaultMessage()
+	public function testDefaultMessage(): void
 	{
 		$rule = new class implements RuleInterface
 		{

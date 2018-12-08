@@ -18,7 +18,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicMatch()
+	public function testBasicMatch(): void
 	{
 		$route = new Route(['GET'], '/', 'FooController::fooAction');
 
@@ -44,7 +44,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMatchWithParameter()
+	public function testMatchWithParameter(): void
 	{
 		$route = new Route(['GET'], '/foo/{id}', 'FooController::fooAction');
 
@@ -68,7 +68,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMatchWithParameters()
+	public function testMatchWithParameters(): void
 	{
 		$route = new Route(['GET'], '/foo/{id}/{slug}', 'FooController::fooAction');
 
@@ -92,7 +92,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMatchWithOptionalParameters()
+	public function testMatchWithOptionalParameters(): void
 	{
 		$route = new Route(['GET'], '/foo/{id}/{slug}?', 'FooController::fooAction');
 
@@ -116,7 +116,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMatchWithParameterConstraints()
+	public function testMatchWithParameterConstraints(): void
 	{
 		$route = (new Route(['GET'], '/foo/{id}', 'FooController::fooAction'))->patterns(['id' => '[0-9]+']);
 
@@ -142,7 +142,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHasTrailingSlash()
+	public function testHasTrailingSlash(): void
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
 
@@ -158,7 +158,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAllows()
+	public function testAllows(): void
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
 
@@ -178,7 +178,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetMethods()
+	public function testGetMethods(): void
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
 
@@ -194,7 +194,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetRoute()
+	public function testGetRoute(): void
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
 
@@ -204,7 +204,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetAction()
+	public function testGetAction(): void
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction');
 
@@ -214,7 +214,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetName()
+	public function testGetName(): void
 	{
 		$route = new Route(['GET'], '/foo', 'FooController::fooAction', 'foo');
 
@@ -224,7 +224,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPrefix()
+	public function testPrefix(): void
 	{
 		$route = (new Route(['GET'], '/foo', 'FooController::fooAction'))->prefix('bar');
 
@@ -246,7 +246,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetRegex()
+	public function testGetRegex(): void
 	{
 		$route = new Route(['GET'], '/', 'FooController::fooAction');
 
@@ -304,7 +304,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNamespace()
+	public function testNamespace(): void
 	{
 		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->namespace('app\controllers');
 
@@ -314,7 +314,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNestedNamespace()
+	public function testNestedNamespace(): void
 	{
 		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->namespace('app')->namespace('controllers');
 
@@ -324,9 +324,9 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClosureNamespace()
+	public function testClosureNamespace(): void
 	{
-		$route = (new Route(['GET'], '/', function() {}))->namespace('app\controllers');
+		$route = (new Route(['GET'], '/', function(): void {}))->namespace('app\controllers');
 
 		$this->assertInstanceOf('Closure', $route->getAction());
 	}
@@ -334,7 +334,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddleware()
+	public function testMiddleware(): void
 	{
 		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->middleware('foo');
 
@@ -356,7 +356,7 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetParameters()
+	public function testSetAndGetParameters(): void
 	{
 		$route = new Route(['GET'], '/', 'FooController::fooAction');
 

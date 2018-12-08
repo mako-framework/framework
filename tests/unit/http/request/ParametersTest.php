@@ -18,7 +18,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCountEmptySet()
+	public function testCountEmptySet(): void
 	{
 		$parameters = new Parameters;
 
@@ -28,7 +28,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCountSet()
+	public function testCountSet(): void
 	{
 		$parameters = new Parameters(['foo' => 'bar']);
 
@@ -38,7 +38,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIterateEmpySet()
+	public function testIterateEmpySet(): void
 	{
 		$parameters = new Parameters;
 
@@ -55,7 +55,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIterateSet()
+	public function testIterateSet(): void
 	{
 		$parameters = new Parameters(['foo' => 'bar']);
 
@@ -72,7 +72,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAdd()
+	public function testAdd(): void
 	{
 		$parameters = new Parameters;
 
@@ -86,7 +86,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$parameters = new Parameters(['foo' => 'bar']);
 
@@ -98,7 +98,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$parameters = new Parameters(['foo' => 'bar']);
 
@@ -112,7 +112,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemove()
+	public function testRemove(): void
 	{
 		$parameters = new Parameters(['foo' => 'bar']);
 
@@ -126,7 +126,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAll()
+	public function testAll(): void
 	{
 		$parameters = new Parameters(['foo' => 'bar']);
 
@@ -136,7 +136,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWhitelisted()
+	public function testWhitelisted(): void
 	{
 		$parameters = new Parameters(['foo' => 'bar', 'baz' => 'bax']);
 
@@ -158,7 +158,7 @@ class ParametersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBlacklisted()
+	public function testBlacklisted(): void
 	{
 		$parameters = new Parameters(['foo' => 'bar', 'baz' => 'bax']);
 

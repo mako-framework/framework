@@ -25,7 +25,7 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testAllReturnType()
+	public function testAllReturnType(): void
 	{
 		$query = new Query($this->connectionManager->connection());
 
@@ -41,7 +41,7 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testFirstReturnType()
+	public function testFirstReturnType(): void
 	{
 		$query = new Query($this->connectionManager->connection());
 
@@ -55,7 +55,7 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testYieldReturnType()
+	public function testYieldReturnType(): void
 	{
 		$query = new Query($this->connectionManager->connection());
 
@@ -74,7 +74,7 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testPairs()
+	public function testPairs(): void
 	{
 		$query = new Query($this->connectionManager->connection());
 
@@ -88,7 +88,7 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testSelectWithPagination()
+	public function testSelectWithPagination(): void
 	{
 		$pagination = Mockery::mock(PaginationInterface::class);
 
@@ -116,7 +116,7 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testSelectWithPaginationAndZeroResults()
+	public function testSelectWithPaginationAndZeroResults(): void
 	{
 		$pagination = Mockery::mock(PaginationInterface::class);
 
@@ -142,7 +142,7 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testSelectWithPaginationAndOrdering()
+	public function testSelectWithPaginationAndOrdering(): void
 	{
 		$pagination = Mockery::mock(PaginationInterface::class);
 
@@ -170,7 +170,7 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testSelectWithPaginationAndGrouping()
+	public function testSelectWithPaginationAndGrouping(): void
 	{
 		$pagination = Mockery::mock(PaginationInterface::class);
 
@@ -198,7 +198,7 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testSelectWithPaginationAndDistinct()
+	public function testSelectWithPaginationAndDistinct(): void
 	{
 		$pagination = Mockery::mock(PaginationInterface::class);
 
@@ -226,11 +226,11 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testBatch()
+	public function testBatch(): void
 	{
 		$query = new Query($this->connectionManager->connection());
 
-		$results = $query->table('users')->batch(function($results)
+		$results = $query->table('users')->batch(function($results): void
 		{
 
 		});
@@ -243,11 +243,11 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testBatchWithCriteria()
+	public function testBatchWithCriteria(): void
 	{
 		$query = new Query($this->connectionManager->connection());
 
-		$results = $query->table('users')->where('id', '!=', 'foobar')->batch(function($results)
+		$results = $query->table('users')->where('id', '!=', 'foobar')->batch(function($results): void
 		{
 
 		});
@@ -260,11 +260,11 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
-	public function testSubQueryWithAggregate()
+	public function testSubQueryWithAggregate(): void
 	{
 		$query = new Query($this->connectionManager->connection());
 
-		$result = $query->table('users')->select([new Subquery(function($query)
+		$result = $query->table('users')->select([new Subquery(function($query): void
 		{
 			$query->table('users')->count();
 		}, 'count')])->first();

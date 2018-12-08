@@ -18,7 +18,7 @@ class BodyTest extends TestCase
 	/**
 	 *
 	 */
-	public function testJsonBody()
+	public function testJsonBody(): void
 	{
 		$data =
 		[
@@ -34,7 +34,7 @@ class BodyTest extends TestCase
 	/**
 	 *
 	 */
-	public function testInvalidJsonBody()
+	public function testInvalidJsonBody(): void
 	{
 		$body = new Body('', 'application/json');
 
@@ -44,7 +44,7 @@ class BodyTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUrlencodedBody()
+	public function testUrlencodedBody(): void
 	{
 		$data =
 		[
@@ -60,7 +60,7 @@ class BodyTest extends TestCase
 	/**
 	 *
 	 */
-	public function testInvalidUrlencodedBody()
+	public function testInvalidUrlencodedBody(): void
 	{
 		$body = new Body('', 'application/x-www-form-urlencoded');
 
@@ -70,7 +70,7 @@ class BodyTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUnsupportedBody()
+	public function testUnsupportedBody(): void
 	{
 		$body = new Body('foo:bar', 'foo/bar');
 

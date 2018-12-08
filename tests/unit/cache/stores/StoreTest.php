@@ -43,7 +43,7 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPutIfNotExistsExisting()
+	public function testPutIfNotExistsExisting(): void
 	{
 		$store = $this->getStore();
 
@@ -55,7 +55,7 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPutIfNotExistsNonExisting()
+	public function testPutIfNotExistsNonExisting(): void
 	{
 		$store = $this->getStore();
 
@@ -69,7 +69,7 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetPrefix()
+	public function testSetAndGetPrefix(): void
 	{
 		$store = $this->getStore();
 
@@ -81,7 +81,7 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetPrefixedKey()
+	public function testGetPrefixedKey(): void
 	{
 		$store = $this->getStore();
 
@@ -95,7 +95,7 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetAndPutExisting()
+	public function testGetAndPutExisting(): void
 	{
 		$store = $this->getStore();
 
@@ -109,7 +109,7 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetAndPutNonExisting()
+	public function testGetAndPutNonExisting(): void
 	{
 		$store = $this->getStore();
 
@@ -123,7 +123,7 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetAndRemoveExisting()
+	public function testGetAndRemoveExisting(): void
 	{
 		$store = $this->getStore();
 
@@ -137,7 +137,7 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetAndRemoveNonExisting()
+	public function testGetAndRemoveNonExisting(): void
 	{
 		$store = $this->getStore();
 
@@ -151,7 +151,7 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetOrElseExisting()
+	public function testGetOrElseExisting(): void
 	{
 		$closure = function() { return 'from closure'; };
 
@@ -168,7 +168,7 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetOrElseNonExisting()
+	public function testGetOrElseNonExisting(): void
 	{
 		$closure = function() { return 'from closure'; };
 

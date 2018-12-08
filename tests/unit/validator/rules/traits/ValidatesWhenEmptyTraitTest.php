@@ -18,7 +18,7 @@ class ValidatesWhenEmptyTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function test()
+	public function test(): void
 	{
 		$rule = new class
 		{

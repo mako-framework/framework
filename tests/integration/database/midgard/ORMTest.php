@@ -80,7 +80,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$user = TestUser::get(1);
 
@@ -98,7 +98,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testGetNonExistent()
+	public function testGetNonExistent(): void
 	{
 		$user = TestUser::get(999);
 
@@ -108,7 +108,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testFirst()
+	public function testFirst(): void
 	{
 		$users = TestUser::first();
 
@@ -118,7 +118,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testAll()
+	public function testAll(): void
 	{
 		$users = TestUser::all();
 
@@ -133,7 +133,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testYield()
+	public function testYield(): void
 	{
 		$users = TestUser::yield();
 
@@ -148,7 +148,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLimitColumnsFirst()
+	public function testLimitColumnsFirst(): void
 	{
 		$user = TestUser::select(['username', 'email'])->where('id', '=', 1)->first();
 
@@ -158,7 +158,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLimitColumnsAll()
+	public function testLimitColumnsAll(): void
 	{
 		$users = TestUser::select(['username', 'email'])->all();
 
@@ -168,7 +168,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testJoin()
+	public function testJoin(): void
 	{
 		$users = TestUser::join('articles', 'articles.user_id', '=', 'users.id')->distinct()->all();
 
@@ -182,7 +182,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testSave()
+	public function testSave(): void
 	{
 		$dateTime = new DateTime;
 
@@ -210,7 +210,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testCreate()
+	public function testCreate(): void
 	{
 		$dateTime = new DateTime;
 
@@ -230,7 +230,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testUpdate()
+	public function testUpdate(): void
 	{
 		$dateTime = new DateTime;
 
@@ -254,7 +254,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testDelete()
+	public function testDelete(): void
 	{
 		$dateTime = new DateTime;
 
@@ -270,7 +270,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testClone()
+	public function testClone(): void
 	{
 		$user = TestUser::get(1);
 
@@ -294,7 +294,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testCloneResultSet()
+	public function testCloneResultSet(): void
 	{
 		$count = TestUser::count();
 
@@ -326,7 +326,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testScoped()
+	public function testScoped(): void
 	{
 		$users = TestUserScoped::withArticles()->all();
 
@@ -336,7 +336,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testDateTime()
+	public function testDateTime(): void
 	{
 		$user = TestUserDateTime::get(1);
 
@@ -346,7 +346,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testUUIDKey()
+	public function testUUIDKey(): void
 	{
 		$uuid = UUIDKey::create(['value' => 'foo']);
 
@@ -360,7 +360,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testCustomKey()
+	public function testCustomKey(): void
 	{
 		$custom = CustomKey::create(['value' => 'foo']);
 
@@ -374,7 +374,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testNoKey()
+	public function testNoKey(): void
 	{
 		$none = NoKey::create(['value' => 'foo']);
 
@@ -392,7 +392,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testToArray()
+	public function testToArray(): void
 	{
 		$user = TestUser::get(1)->toArray();
 
@@ -402,7 +402,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testToJSON()
+	public function testToJSON(): void
 	{
 		$user = TestUser::get(1)->toJson();
 
@@ -412,7 +412,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testQueryForwarding()
+	public function testQueryForwarding(): void
 	{
 		$user = TestUser::where('id', '=', 1)->first();
 
@@ -422,7 +422,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testIncrement()
+	public function testIncrement(): void
 	{
 		Counter::increment('counter');
 
@@ -446,7 +446,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testDecrement()
+	public function testDecrement(): void
 	{
 		Counter::decrement('counter');
 
@@ -470,7 +470,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testIncrement10()
+	public function testIncrement10(): void
 	{
 		Counter::increment('counter', 10);
 
@@ -494,7 +494,7 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testDecrement10()
+	public function testDecrement10(): void
 	{
 		Counter::decrement('counter', 10);
 

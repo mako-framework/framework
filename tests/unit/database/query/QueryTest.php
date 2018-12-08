@@ -33,7 +33,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFrom()
+	public function testFrom(): void
 	{
 		$query = $this->getQuery();
 
@@ -45,7 +45,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testInto()
+	public function testInto(): void
 	{
 		$query = $this->getQuery();
 

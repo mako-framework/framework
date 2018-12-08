@@ -51,7 +51,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testItems()
+	public function testItems(): void
 	{
 
 		$pagination = new Pagination(200, 20, 1);
@@ -62,7 +62,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testItemsPerPage()
+	public function testItemsPerPage(): void
 	{
 
 		$pagination = new Pagination(200, 20, 1);
@@ -73,7 +73,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCurrentPage()
+	public function testCurrentPage(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -83,7 +83,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNumberOfPages()
+	public function testNumberOfPages(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -93,7 +93,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsValidpage()
+	public function testIsValidpage(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -115,7 +115,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLimit()
+	public function testLimit(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -125,7 +125,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOffset()
+	public function testOffset(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -141,7 +141,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToArrayWithoutRequestAndUrlBuilder()
+	public function testToArrayWithoutRequestAndUrlBuilder(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -151,7 +151,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToJsonWithoutRequestAndUrlBuilder()
+	public function testToJsonWithoutRequestAndUrlBuilder(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -161,7 +161,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testJsonEncodeWithoutRequestAndUrlBuilder()
+	public function testJsonEncodeWithoutRequestAndUrlBuilder(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -171,7 +171,7 @@ class PaginationTest extends TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testRenderException()
+	public function testRenderException(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -181,7 +181,7 @@ class PaginationTest extends TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testPaginateExceptionWithNoRequest()
+	public function testPaginateExceptionWithNoRequest(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -191,7 +191,7 @@ class PaginationTest extends TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testPaginateExceptionWithNoUrlBuilder()
+	public function testPaginateExceptionWithNoUrlBuilder(): void
 	{
 		$pagination = new Pagination(200, 20, 1);
 
@@ -203,7 +203,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRenderPage1()
+	public function testRenderPage1(): void
 	{
 		$request = $this->getRequest();
 
@@ -289,7 +289,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRenderPage2()
+	public function testRenderPage2(): void
 	{
 		$request = $this->getRequest();
 
@@ -375,7 +375,7 @@ class PaginationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRenderPage10()
+	public function testRenderPage10(): void
 	{
 		$request = $this->getRequest();
 

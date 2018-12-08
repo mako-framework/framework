@@ -17,7 +17,7 @@ abstract class ORMTestCase extends BuilderTestCase
 	/**
 	 *{@inheritdoc}
 	 */
-	public function setup()
+	public function setup(): void
 	{
 		parent::setup();
 
@@ -29,7 +29,7 @@ abstract class ORMTestCase extends BuilderTestCase
 	/**
 	 * {@inheritdoc}
 	 */
-	public function tearDown()
+	public function tearDown(): void
 	{
 		$this->connectionManager->connection('sqlite')->clearLog();
 	}

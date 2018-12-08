@@ -19,7 +19,7 @@ class BellTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRing()
+	public function testRing(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -33,7 +33,7 @@ class BellTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRingMultipleTimes()
+	public function testRingMultipleTimes(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 

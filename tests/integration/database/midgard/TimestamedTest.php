@@ -50,7 +50,7 @@ class TimestampedTest extends ORMTestCase
 	 /**
 	  *
 	  */
-	 public function testCreate()
+	 public function testCreate(): void
 	 {
 	 	$timestamped = new TimestampedFoo;
 
@@ -64,7 +64,7 @@ class TimestampedTest extends ORMTestCase
 	 /**
 	  *
 	  */
-	 public function testUpate()
+	 public function testUpate(): void
 	 {
 	 	$timestamped = TimestampedFoo::get(2);
 
@@ -88,7 +88,7 @@ class TimestampedTest extends ORMTestCase
 	 /**
 	  *
 	  */
-	 public function testTouch()
+	 public function testTouch(): void
 	 {
 	 	$timestamped = TimestampedFoo::get(3);
 
@@ -102,7 +102,7 @@ class TimestampedTest extends ORMTestCase
 	 /**
 	  *
 	  */
-	 public function testTouchRelation()
+	 public function testTouchRelation(): void
 	 {
 	 	$timestamped = TimestampedBar::get(1);
 

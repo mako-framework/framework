@@ -18,7 +18,7 @@ class KeyTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGenerate()
+	public function testGenerate(): void
 	{
 		$key = Key::generate(16);
 
@@ -32,7 +32,7 @@ class KeyTest extends TestCase
 	/**
 	 *
 	 */
-	public function testEncodeAndDecode()
+	public function testEncodeAndDecode(): void
 	{
 		$key = Key::generate(16);
 
@@ -50,7 +50,7 @@ class KeyTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGenerateEncoded()
+	public function testGenerateEncoded(): void
 	{
 		$key = Key::generateEncoded(16);
 

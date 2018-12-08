@@ -44,7 +44,7 @@ class SQLiteCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithJSONColumn()
+	public function testSelectWithJSONColumn(): void
 	{
 		$query = $this->getBuilder();
 
@@ -92,7 +92,7 @@ class SQLiteCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUpdateWithJSONColumn()
+	public function testUpdateWithJSONColumn(): void
 	{
 		$query = $this->getBuilder();
 

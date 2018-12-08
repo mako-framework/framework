@@ -18,7 +18,7 @@ class AlphanumericDashUnicodeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new AlphanumericDashUnicode;
 
@@ -28,7 +28,7 @@ class AlphanumericDashUnicodeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new AlphanumericDashUnicode;
 
@@ -38,7 +38,7 @@ class AlphanumericDashUnicodeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new AlphanumericDashUnicode;
 

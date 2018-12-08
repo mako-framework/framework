@@ -20,7 +20,7 @@ class HmacTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new Hmac;
 
@@ -30,7 +30,7 @@ class HmacTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new Hmac;
 
@@ -46,7 +46,7 @@ class HmacTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new Hmac;
 

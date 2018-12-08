@@ -41,7 +41,7 @@ class ContainerAwareTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasic()
+	public function testBasic(): void
 	{
 		$container = new Container;
 
@@ -53,7 +53,7 @@ class ContainerAwareTest extends TestCase
 	/**
 	 *
 	 */
-	public function testContainerAwareChild()
+	public function testContainerAwareChild(): void
 	{
 		$container = new Container;
 

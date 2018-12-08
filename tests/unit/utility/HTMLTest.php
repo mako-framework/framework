@@ -18,7 +18,7 @@ class HTMLTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTag()
+	public function testTag(): void
 	{
 		$html = new HTML;
 
@@ -46,7 +46,7 @@ class HTMLTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAudio()
+	public function testAudio(): void
 	{
 		$html = new HTML;
 
@@ -74,7 +74,7 @@ class HTMLTest extends TestCase
 	/**
 	 *
 	 */
-	public function testVideo()
+	public function testVideo(): void
 	{
 		$html = new HTML;
 
@@ -102,7 +102,7 @@ class HTMLTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUl()
+	public function testUl(): void
 	{
 		$html = new HTML;
 
@@ -130,7 +130,7 @@ class HTMLTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOl()
+	public function testOl(): void
 	{
 		$html = new HTML;
 
@@ -158,7 +158,7 @@ class HTMLTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExtending()
+	public function testExtending(): void
 	{
 		HTML::extend('foo', function($content = null, $attributes = [])
 		{
@@ -187,7 +187,7 @@ class HTMLTest extends TestCase
 	/**
 	 * @expectedException \BadMethodCallException
 	 */
-	public function testException()
+	public function testException(): void
 	{
 		$html = new HTML;
 

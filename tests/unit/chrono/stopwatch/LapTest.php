@@ -18,7 +18,7 @@ class LapTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStart()
+	public function testStart(): void
 	{
 		$lap = new Lap;
 
@@ -30,7 +30,7 @@ class LapTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStop()
+	public function testStop(): void
 	{
 		$lap = new Lap;
 
@@ -46,7 +46,7 @@ class LapTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsRunning()
+	public function testIsRunning(): void
 	{
 		$lap = new Lap;
 

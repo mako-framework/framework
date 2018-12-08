@@ -63,7 +63,7 @@ class RouterTest extends TestCase
 	/**
 	 * @expectedException \mako\http\exceptions\NotFoundException
 	 */
-	public function testPageNotFound()
+	public function testPageNotFound(): void
 	{
 		$routes = new Routes;
 
@@ -83,7 +83,7 @@ class RouterTest extends TestCase
 	/**
 	 * @expectedException \mako\http\exceptions\MethodNotAllowedException
 	 */
-	public function testMethodNotAllowed()
+	public function testMethodNotAllowed(): void
 	{
 		$routes = new Routes;
 
@@ -112,7 +112,7 @@ class RouterTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRedirect()
+	public function testRedirect(): void
 	{
 		$routes = new Routes;
 
@@ -176,7 +176,7 @@ class RouterTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRedirectWithDirtyUrl()
+	public function testRedirectWithDirtyUrl(): void
 	{
 		$routes = new Routes;
 
@@ -242,7 +242,7 @@ class RouterTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOptionsRequest()
+	public function testOptionsRequest(): void
 	{
 		$routes = new Routes;
 
@@ -280,7 +280,7 @@ class RouterTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSuccessfulRoute()
+	public function testSuccessfulRoute(): void
 	{
 		$routes = new Routes;
 
@@ -306,7 +306,7 @@ class RouterTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSuccessfulRouteWithParameters()
+	public function testSuccessfulRouteWithParameters(): void
 	{
 		$routes = new Routes;
 
@@ -334,7 +334,7 @@ class RouterTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSatisfiedConstraint()
+	public function testSatisfiedConstraint(): void
 	{
 		$routes = new Routes;
 
@@ -364,7 +364,7 @@ class RouterTest extends TestCase
 	/**
 	 * @expectedException \mako\http\exceptions\NotFoundException
 	 */
-	public function testFailingConstraint()
+	public function testFailingConstraint(): void
 	{
 		$routes = new Routes;
 
@@ -390,7 +390,7 @@ class RouterTest extends TestCase
 	/**
 	 * @expectedException \mako\http\exceptions\NotFoundException
 	 */
-	public function testGlobalFailingConstraint()
+	public function testGlobalFailingConstraint(): void
 	{
 		$routes = new Routes;
 
@@ -419,7 +419,7 @@ class RouterTest extends TestCase
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage No constraint named [ foo ] has been registered.
 	 */
-	public function testUnregisteredConstraint()
+	public function testUnregisteredConstraint(): void
 	{
 		$routes = new Routes;
 

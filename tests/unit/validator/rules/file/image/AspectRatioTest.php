@@ -20,7 +20,7 @@ class AspectRatioTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new AspectRatio;
 
@@ -30,7 +30,7 @@ class AspectRatioTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$fileInfo = Mockery::mock(FileInfo::class);
 
@@ -46,7 +46,7 @@ class AspectRatioTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$fileInfo = Mockery::mock(FileInfo::class);
 

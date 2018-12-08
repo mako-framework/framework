@@ -18,7 +18,7 @@ class HexTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new Hex;
 
@@ -28,7 +28,7 @@ class HexTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new Hex;
 
@@ -38,7 +38,7 @@ class HexTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new Hex;
 

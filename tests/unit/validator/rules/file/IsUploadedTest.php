@@ -20,7 +20,7 @@ class IsUploadedTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new IsUploaded;
 
@@ -30,7 +30,7 @@ class IsUploadedTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new IsUploaded;
 
@@ -46,7 +46,7 @@ class IsUploadedTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new IsUploaded;
 

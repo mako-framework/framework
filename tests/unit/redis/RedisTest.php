@@ -19,7 +19,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAuth()
+	public function testAuth(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -33,7 +33,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testZeroDatabase()
+	public function testZeroDatabase(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -47,7 +47,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNonZeroDatabase()
+	public function testNonZeroDatabase(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -61,7 +61,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMethodCall()
+	public function testMethodCall(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -77,7 +77,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultiWordMethodCall()
+	public function testMultiWordMethodCall(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -93,7 +93,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDashSeparatedCommand()
+	public function testDashSeparatedCommand(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -109,7 +109,7 @@ class RedisTest extends TestCase
 	/**
 	 * @expectedException mako\redis\RedisException
 	 */
-	public function testException()
+	public function testException(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -125,7 +125,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStatusReply()
+	public function testStatusReply(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -141,7 +141,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIntegerReply()
+	public function testIntegerReply(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -157,7 +157,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBulkReply()
+	public function testBulkReply(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -175,7 +175,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBulkNullReply()
+	public function testBulkNullReply(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -191,7 +191,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultiBulkReply()
+	public function testMultiBulkReply(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -215,7 +215,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultiBulkMixedReply()
+	public function testMultiBulkMixedReply(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -237,7 +237,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultiBulkEmptyReply()
+	public function testMultiBulkEmptyReply(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -253,7 +253,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultiBulkNullReply()
+	public function testMultiBulkNullReply(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 
@@ -270,7 +270,7 @@ class RedisTest extends TestCase
 	 * @expectedException \mako\redis\RedisException
 	 * @expectedExcetionMessage \mako\redis\Redis::response(): Unable to handle server response.
 	 */
-	public function testInvalidResponse()
+	public function testInvalidResponse(): void
 	{
 		$connection = Mockery::mock('mako\redis\Connection');
 

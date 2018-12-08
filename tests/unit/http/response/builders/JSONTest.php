@@ -22,7 +22,7 @@ class JSONTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuild()
+	public function testBuild(): void
 	{
 		$request = Mockery::mock(Request::class);
 
@@ -42,7 +42,7 @@ class JSONTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuildWithStatus()
+	public function testBuildWithStatus(): void
 	{
 		$request = Mockery::mock(Request::class);
 
@@ -66,7 +66,7 @@ class JSONTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuildWithJsonpWithCallback()
+	public function testBuildWithJsonpWithCallback(): void
 	{
 		$query = Mockery::mock(Parameters::class);
 
@@ -94,7 +94,7 @@ class JSONTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuildWithJsonpWithInvalidCallback()
+	public function testBuildWithJsonpWithInvalidCallback(): void
 	{
 		$query = Mockery::mock(Parameters::class);
 
@@ -122,7 +122,7 @@ class JSONTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBuildWithJsonpWithoutCallback()
+	public function testBuildWithJsonpWithoutCallback(): void
 	{
 		$query = Mockery::mock(Parameters::class);
 

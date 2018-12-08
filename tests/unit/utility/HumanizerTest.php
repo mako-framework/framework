@@ -48,7 +48,7 @@ class HumanizerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFileSizeBinary()
+	public function testFileSizeBinary(): void
 	{
 		$humanizer = $this->getHumanizer();
 
@@ -164,7 +164,7 @@ class HumanizerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFileSizeDecimal()
+	public function testFileSizeDecimal(): void
 	{
 		$humanizer = $this->getHumanizer();
 
@@ -262,7 +262,7 @@ class HumanizerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDay()
+	public function testDay(): void
 	{
 		$humanizer = $this->getHumanizer();
 
@@ -300,7 +300,7 @@ class HumanizerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTime()
+	public function testTime(): void
 	{
 		$humanizer = $this->getHumanizer();
 

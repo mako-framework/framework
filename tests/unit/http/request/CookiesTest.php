@@ -19,7 +19,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCountEmptySet()
+	public function testCountEmptySet(): void
 	{
 		$cookies = new Cookies;
 
@@ -29,7 +29,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCountSet()
+	public function testCountSet(): void
 	{
 		$cookies = new Cookies(['foo' => 'bar']);
 
@@ -39,7 +39,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIterateEmpySet()
+	public function testIterateEmpySet(): void
 	{
 		$cookies = new Cookies;
 
@@ -56,7 +56,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIterateSet()
+	public function testIterateSet(): void
 	{
 		$cookies = new Cookies(['foo' => 'bar']);
 
@@ -73,7 +73,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAdd()
+	public function testAdd(): void
 	{
 		$cookies = new Cookies;
 
@@ -87,7 +87,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAddSigned()
+	public function testAddSigned(): void
 	{
 		$signer = Mockery::mock('mako\security\Signer');
 
@@ -105,7 +105,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$cookies = new Cookies(['foo' => 'bar']);
 
@@ -117,7 +117,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$cookies = new Cookies(['foo' => 'bar']);
 
@@ -131,7 +131,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetSigned()
+	public function testGetSigned(): void
 	{
 		$signer = Mockery::mock('mako\security\Signer');
 
@@ -149,7 +149,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemove()
+	public function testRemove(): void
 	{
 		$cookies = new Cookies(['foo' => 'bar']);
 
@@ -163,7 +163,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAll()
+	public function testAll(): void
 	{
 		$cookies = new Cookies(['foo' => 'bar']);
 

@@ -18,7 +18,7 @@ class NaturalNonZeroTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new NaturalNonZero;
 
@@ -28,7 +28,7 @@ class NaturalNonZeroTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new NaturalNonZero;
 
@@ -39,7 +39,7 @@ class NaturalNonZeroTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new NaturalNonZero;
 

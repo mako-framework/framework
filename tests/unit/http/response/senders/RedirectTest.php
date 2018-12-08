@@ -20,7 +20,7 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSend()
+	public function testSend(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
 
@@ -46,7 +46,7 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSendWithStatus()
+	public function testSendWithStatus(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
 
@@ -74,7 +74,7 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSendWithStatus300()
+	public function testSendWithStatus300(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
 
@@ -102,7 +102,7 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSendWithStatus301()
+	public function testSendWithStatus301(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
 
@@ -130,7 +130,7 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSendWithStatus302()
+	public function testSendWithStatus302(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
 
@@ -158,7 +158,7 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSendWithStatus303()
+	public function testSendWithStatus303(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
 
@@ -186,7 +186,7 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSendWithStatus304()
+	public function testSendWithStatus304(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
 
@@ -214,7 +214,7 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSendWithStatus305()
+	public function testSendWithStatus305(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
 
@@ -242,7 +242,7 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSendWithStatus307()
+	public function testSendWithStatus307(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
 
@@ -270,7 +270,7 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSendWithStatus308()
+	public function testSendWithStatus308(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
 

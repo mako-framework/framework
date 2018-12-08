@@ -18,7 +18,7 @@ class SuggestionTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNoSuggestionFound()
+	public function testNoSuggestionFound(): void
 	{
 		$class = new class
 		{
@@ -36,7 +36,7 @@ class SuggestionTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSuggestionFound()
+	public function testSuggestionFound(): void
 	{
 		$class = new class
 		{

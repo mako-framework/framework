@@ -18,7 +18,7 @@ class InvalidArgumentExceptionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testException()
+	public function testException(): void
 	{
 		$exception = new InvalidArgumentException('foo', 'bar');
 

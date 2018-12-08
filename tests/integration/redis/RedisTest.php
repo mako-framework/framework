@@ -32,7 +32,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		try
 		{
@@ -47,7 +47,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function tearDown()
+	public function tearDown(): void
 	{
 		if($this->redis !== null)
 		{
@@ -60,7 +60,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetConnectionAndGetName()
+	public function testGetConnectionAndGetName(): void
 	{
 		$connection = $this->redis->getConnection();
 
@@ -72,7 +72,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPing()
+	public function testPing(): void
 	{
 		$this->assertEquals('PONG', $this->redis->ping());
 	}
@@ -80,7 +80,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSet()
+	public function testSet(): void
 	{
 		$this->assertEquals('OK', $this->redis->set('myKey', 'hello'));
 	}
@@ -88,7 +88,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$this->assertEquals('OK', $this->redis->set('myKey', 'hello'));
 
@@ -100,7 +100,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIncr()
+	public function testIncr(): void
 	{
 		$this->assertEquals('OK', $this->redis->set('myKey', 10));
 
@@ -110,7 +110,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testEval()
+	public function testEval(): void
 	{
 		$this->assertEquals(['foo', 'bar', 'baz', 'bax'], $this->redis->eval('return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}', 2, 'foo', 'bar', 'baz', 'bax'));
 	}
@@ -118,11 +118,11 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPipeline()
+	public function testPipeline(): void
 	{
 		$this->assertEquals('OK', $this->redis->set('myKey', 0));
 
-		$this->assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], $this->redis->pipeline(function($redis)
+		$this->assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], $this->redis->pipeline(function($redis): void
 		{
 			for($i = 0; $i < 10; $i++)
 			{
@@ -136,7 +136,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultipleWordCommands()
+	public function testMultipleWordCommands(): void
 	{
 		$this->assertEquals('OK', $this->redis->clientSetname('mako-redis'));
 
@@ -146,7 +146,7 @@ class RedisTest extends TestCase
 	/**
 	 * @expectedException \mako\redis\RedisException
 	 */
-	public function testUnknownCommand()
+	public function testUnknownCommand(): void
 	{
 		$this->redis->fooBarBaz();
 	}
@@ -154,7 +154,7 @@ class RedisTest extends TestCase
 	/**
 	 * @expectedException \mako\redis\RedisException
 	 */
-	public function testMissingParameter()
+	public function testMissingParameter(): void
 	{
 		$this->redis->set('foo');
 	}

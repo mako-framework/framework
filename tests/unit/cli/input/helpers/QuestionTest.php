@@ -19,7 +19,7 @@ class QuestionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testQuestion()
+	public function testQuestion(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -37,7 +37,7 @@ class QuestionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testQuestionWithNoInputAndNullDefault()
+	public function testQuestionWithNoInputAndNullDefault(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -55,7 +55,7 @@ class QuestionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testQuestionWithNoInputAndCustomDefault()
+	public function testQuestionWithNoInputAndCustomDefault(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 

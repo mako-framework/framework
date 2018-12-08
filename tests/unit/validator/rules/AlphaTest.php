@@ -18,7 +18,7 @@ class AlphaTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new Alpha;
 
@@ -28,7 +28,7 @@ class AlphaTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new Alpha;
 
@@ -38,7 +38,7 @@ class AlphaTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new Alpha;
 

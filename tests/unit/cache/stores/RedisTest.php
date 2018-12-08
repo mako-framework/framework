@@ -27,7 +27,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPut()
+	public function testPut(): void
 	{
 		$client = $this->getRedisClient();
 
@@ -71,7 +71,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPutIfNotExists()
+	public function testPutIfNotExists(): void
 	{
 		$client = $this->getRedisClient();
 
@@ -119,7 +119,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIncrement()
+	public function testIncrement(): void
 	{
 		$client = $this->getRedisClient();
 
@@ -143,7 +143,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDecrement()
+	public function testDecrement(): void
 	{
 		$client = $this->getRedisClient();
 
@@ -167,7 +167,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$client = $this->getRedisClient();
 
@@ -195,7 +195,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$client = $this->getRedisClient();
 
@@ -223,7 +223,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemove()
+	public function testRemove(): void
 	{
 		$client = $this->getRedisClient();
 
@@ -251,7 +251,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClear()
+	public function testClear(): void
 	{
 		$client = $this->getRedisClient();
 

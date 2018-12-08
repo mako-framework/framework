@@ -37,7 +37,7 @@ class TemplateTest extends TestCase
 	/**
 	 *
 	 */
-	public function testVerbatim()
+	public function testVerbatim(): void
 	{
 		$template = '{% verbatim %}{{$hello}}{% endverbatim %}';
 
@@ -55,7 +55,7 @@ class TemplateTest extends TestCase
 	/**
 	 *
 	 */
-	public function testComment()
+	public function testComment(): void
 	{
 		$template = 'Hello,{# this is a comment #} world!';
 
@@ -73,7 +73,7 @@ class TemplateTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultiLineComment()
+	public function testMultiLineComment(): void
 	{
 		$template = "Hello,{# this \n is \n a \n comment #} world!";
 
@@ -91,7 +91,7 @@ class TemplateTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExtends()
+	public function testExtends(): void
 	{
 		$template = "{% extends:'parent' %}\nHello, world!";
 
@@ -110,7 +110,7 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	/**
 	 *
 	 */
-	public function testView()
+	public function testView(): void
 	{
 		$template = '{{view:\'foo\'}}';
 
@@ -128,7 +128,7 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	/**
 	 *
 	 */
-	public function testCaptureWithPlainVariableName()
+	public function testCaptureWithPlainVariableName(): void
 	{
 		$template = '{% capture:foobar %}Hello{% endcapture %}';
 
@@ -146,7 +146,7 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	/**
 	 *
 	 */
-	public function testCaptureWithDollarVariableName()
+	public function testCaptureWithDollarVariableName(): void
 	{
 		$template = '{% capture:$foobar %}Hello{% endcapture %}';
 
@@ -164,7 +164,7 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	/**
 	 *
 	 */
-	public function testNospace()
+	public function testNospace(): void
 	{
 		$template = <<<EOF
 		{% nospace %}
@@ -188,7 +188,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testNospaceBuffered()
+	public function testNospaceBuffered(): void
 	{
 		$template = '{% nospace:buffered %}hello{% endnospace %}';
 
@@ -206,7 +206,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testViewVariable()
+	public function testViewVariable(): void
 	{
 		$template = '{{view:$foo}}';
 
@@ -224,7 +224,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testViewMethod()
+	public function testViewMethod(): void
 	{
 		$template = '{{view:$foo->bar()}}';
 
@@ -242,7 +242,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testViewMethodWithArguments()
+	public function testViewMethodWithArguments(): void
 	{
 		$template = '{{view:$foo->bar(1, 2)}}';
 
@@ -260,7 +260,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testViewWithParameters()
+	public function testViewWithParameters(): void
 	{
 		$template = '{{view:\'foo\', [\'foo\' => \'bar\']}}';
 
@@ -278,7 +278,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testViewWithVariableParameters()
+	public function testViewWithVariableParameters(): void
 	{
 		$template = '{{view:\'foo\', $foobar}}';
 
@@ -296,7 +296,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testViewMethodWithArgumentsWithParameters()
+	public function testViewMethodWithArgumentsWithParameters(): void
 	{
 		$template = '{{view:$foo->bar(1, 2), [\'foo\' => \'bar\']}}';
 
@@ -314,7 +314,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testViewMethodWithArgumentsWithVariabbleParameters()
+	public function testViewMethodWithArgumentsWithVariabbleParameters(): void
 	{
 		$template = '{{view:$foo->bar(1, 2), $foobar}}';
 
@@ -332,7 +332,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testBlockDefinition()
+	public function testBlockDefinition(): void
 	{
 		$template = '{% block:foo %}Hello, world!{% endblock %}';
 
@@ -350,7 +350,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testBlockOutput()
+	public function testBlockOutput(): void
 	{
 		$template = '{{ block:foo }}Hello, world!{{ endblock }}';
 
@@ -368,7 +368,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testControlStructures()
+	public function testControlStructures(): void
 	{
 		$template = '{% if(1 === 1) %}foo{% elseif(1 === 1) %}bar{% else if(1 === 1) %}baz{% else %}bax{% endif %}';
 
@@ -386,7 +386,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEcho()
+	public function testEcho(): void
 	{
 		$template = '{{$foo}}';
 
@@ -404,7 +404,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoRaw()
+	public function testEchoRaw(): void
 	{
 		$template = '{{raw:$foo}}';
 
@@ -422,7 +422,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoPreserve()
+	public function testEchoPreserve(): void
 	{
 		$template = '{{preserve:$foo}}';
 
@@ -440,7 +440,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoJS()
+	public function testEchoJS(): void
 	{
 		$template = '{{js:$foo}}';
 
@@ -458,7 +458,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoCSS()
+	public function testEchoCSS(): void
 	{
 		$template = '{{css:$foo}}';
 
@@ -476,7 +476,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoAttribute()
+	public function testEchoAttribute(): void
 	{
 		$template = '{{attribute:$foo}}';
 
@@ -494,7 +494,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoURL()
+	public function testEchoURL(): void
 	{
 		$template = '{{url:$foo}}';
 
@@ -512,7 +512,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoEmptyElseWithPipeOr()
+	public function testEchoEmptyElseWithPipeOr(): void
 	{
 		$template = '{{$foo || \'bar\'}}';
 
@@ -529,7 +529,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoEmptyElseWithOr()
+	public function testEchoEmptyElseWithOr(): void
 	{
 		$template = '{{$foo or \'bar\'}}';
 

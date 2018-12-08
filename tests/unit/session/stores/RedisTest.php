@@ -27,7 +27,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWrite()
+	public function testWrite(): void
 	{
 		$client = $this->getRedisClient();
 
@@ -41,7 +41,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRead()
+	public function testRead(): void
 	{
 		$client = $this->getRedisClient();
 
@@ -69,7 +69,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDelete()
+	public function testDelete(): void
 	{
 		$client = $this->getRedisClient();
 
@@ -83,7 +83,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGc()
+	public function testGc(): void
 	{
 		$client = $this->getRedisClient();
 

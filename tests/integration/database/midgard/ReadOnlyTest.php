@@ -34,7 +34,7 @@ class ReadOnlyTest extends ORMTestCase
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
 	 */
-	public function saveReadOnly()
+	public function saveReadOnly(): void
 	{
 		$dateTime = new DateTime;
 
@@ -52,7 +52,7 @@ class ReadOnlyTest extends ORMTestCase
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
 	 */
-	public function testCreateReadOnly()
+	public function testCreateReadOnly(): void
 	{
 		$dateTime = new DateTime;
 
@@ -62,7 +62,7 @@ class ReadOnlyTest extends ORMTestCase
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
 	 */
-	public function testUpdateReadOnly()
+	public function testUpdateReadOnly(): void
 	{
 		$user = TestUserReadOnly::get(1);
 
@@ -74,7 +74,7 @@ class ReadOnlyTest extends ORMTestCase
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
 	 */
-	public function testDeleteReadOnly()
+	public function testDeleteReadOnly(): void
 	{
 		$user = TestUserReadOnly::get(1);
 

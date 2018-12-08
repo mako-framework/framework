@@ -20,7 +20,7 @@ class GroupTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetId()
+	public function testGetId(): void
 	{
 		$group = new Group(['id' => 1]);
 
@@ -30,7 +30,7 @@ class GroupTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetName()
+	public function testSetAndGetName(): void
 	{
 		$group = new Group(['name' => 'foobar']);
 
@@ -45,7 +45,7 @@ class GroupTest extends TestCase
 	 * @expectedException \LogicException
 	 * @expectedExceptionMessage You can only add a user to a group that exist in the database.
 	 */
-	public function testAddUserToNonExistingGroup()
+	public function testAddUserToNonExistingGroup(): void
 	{
 		$user = Mockery::mock(User::class);
 
@@ -58,7 +58,7 @@ class GroupTest extends TestCase
 	 * @expectedException \LogicException
 	 * @expectedExceptionMessage You can only add a user that exist in the database to a group.
 	 */
-	public function testAddNonExistingUserToGroup()
+	public function testAddNonExistingUserToGroup(): void
 	{
 		$user = Mockery::mock(User::class);
 
@@ -73,7 +73,7 @@ class GroupTest extends TestCase
 	 * @expectedException \LogicException
 	 * @expectedExceptionMessage You can only remove a user from a group that exist in the database.
 	 */
-	public function testRemoveUserFromNonExistingGroup()
+	public function testRemoveUserFromNonExistingGroup(): void
 	{
 		$user = Mockery::mock(User::class);
 
@@ -86,7 +86,7 @@ class GroupTest extends TestCase
  	 * @expectedException \LogicException
  	 * @expectedExceptionMessage You can only remove a user that exist in the database from a group.
  	 */
- 	public function testRemoveNonExistingUserFromGroup()
+ 	public function testRemoveNonExistingUserFromGroup(): void
 	{
 		$user = Mockery::mock(User::class);
 
@@ -101,7 +101,7 @@ class GroupTest extends TestCase
 	 * @expectedException \LogicException
 	 * @expectedExceptionMessage You can only check if a user is a member of a group that exist in the database.
 	 */
-	public function testIsMemberWithNonExistingGroup()
+	public function testIsMemberWithNonExistingGroup(): void
 	{
 		$user = Mockery::mock(User::class);
 
@@ -114,7 +114,7 @@ class GroupTest extends TestCase
  	 * @expectedException \LogicException
  	 * @expectedExceptionMessage You can only check if a user that exist in the database is a member of a group.
  	 */
- 	public function testIsMemberWithNonExistingUser()
+ 	public function testIsMemberWithNonExistingUser(): void
 	{
 		$user = Mockery::mock(User::class);
 

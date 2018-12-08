@@ -19,7 +19,7 @@ class ResultSetTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPluck()
+	public function testPluck(): void
 	{
 		$resultSet = new ResultSet([['foo' => 'bar'], ['foo' => 'bar']]);
 
@@ -39,7 +39,7 @@ class ResultSetTest extends TestCase
 	/**
 	 *
 	 */
-	public function testProtect()
+	public function testProtect(): void
 	{
 		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('protect')->once()->with('foo')->getMock();
 
@@ -53,7 +53,7 @@ class ResultSetTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExpose()
+	public function testExpose(): void
 	{
 		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('expose')->once()->with('foo')->getMock();
 
@@ -67,7 +67,7 @@ class ResultSetTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToArray()
+	public function testToArray(): void
 	{
 		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
 
@@ -81,7 +81,7 @@ class ResultSetTest extends TestCase
 	/**
 	 *
 	 */
-	public function testJsonSerialize()
+	public function testJsonSerialize(): void
 	{
 		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
 
@@ -95,7 +95,7 @@ class ResultSetTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToJson()
+	public function testToJson(): void
 	{
 		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
 
@@ -109,7 +109,7 @@ class ResultSetTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToString()
+	public function testToString(): void
 	{
 		$mock1 = Mockery::mock('\mako\database\midgard\ORM')->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar'])->getMock();
 

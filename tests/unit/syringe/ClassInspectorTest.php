@@ -48,7 +48,7 @@ class E extends D
  */
 class ClassInspectorTest extends TestCase
 {
-	public function testGetClassTraits()
+	public function testGetClassTraits(): void
 	{
 		$traitsD = ClassInspector::getTraits('mako\tests\unit\syringe\D');
 

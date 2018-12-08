@@ -18,7 +18,7 @@ class LessThanTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new LessThan;
 
@@ -28,7 +28,7 @@ class LessThanTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new LessThan;
 
@@ -41,7 +41,7 @@ class LessThanTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new LessThan;
 

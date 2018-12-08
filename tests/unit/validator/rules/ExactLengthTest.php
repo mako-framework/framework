@@ -18,7 +18,7 @@ class ExactLengthTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new ExactLength;
 
@@ -28,7 +28,7 @@ class ExactLengthTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new ExactLength;
 
@@ -40,7 +40,7 @@ class ExactLengthTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new ExactLength;
 

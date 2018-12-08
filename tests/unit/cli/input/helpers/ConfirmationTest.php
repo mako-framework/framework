@@ -19,7 +19,7 @@ class ConfirmationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConfirmationYes()
+	public function testConfirmationYes(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -37,7 +37,7 @@ class ConfirmationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConfirmationNo()
+	public function testConfirmationNo(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -55,7 +55,7 @@ class ConfirmationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConfirmationDefaultNo()
+	public function testConfirmationDefaultNo(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -73,7 +73,7 @@ class ConfirmationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConfirmationDefaultYes()
+	public function testConfirmationDefaultYes(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -91,7 +91,7 @@ class ConfirmationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConfirmationYesCustom()
+	public function testConfirmationYesCustom(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -109,7 +109,7 @@ class ConfirmationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConfirmationWithInvalidInput()
+	public function testConfirmationWithInvalidInput(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 

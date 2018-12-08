@@ -36,13 +36,13 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegisterAndHas()
+	public function testRegisterAndHas(): void
 	{
 		$event = new Event;
 
 		$this->assertFalse($event->has('foo'));
 
-		$event->register('foo', function() {});
+		$event->register('foo', function(): void {});
 
 		$this->assertTrue($event->has('foo'));
 	}
@@ -50,13 +50,13 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testEvents()
+	public function testEvents(): void
 	{
 		$event = new Event;
 
 		$this->assertEmpty($event->events());
 
-		$event->register('foo', function() {});
+		$event->register('foo', function(): void {});
 
 		$this->assertSame(['foo'], $event->events());
 	}
@@ -64,11 +64,11 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClear()
+	public function testClear(): void
 	{
 		$event = new Event;
 
-		$event->register('foo', function() {});
+		$event->register('foo', function(): void {});
 
 		$this->assertTrue($event->has('foo'));
 
@@ -80,7 +80,7 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTrigger()
+	public function testTrigger(): void
 	{
 		$event = new Event;
 
@@ -96,7 +96,7 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTriggerWithParams()
+	public function testTriggerWithParams(): void
 	{
 		$event = new Event;
 
@@ -110,7 +110,7 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTriggerWithNamedParams()
+	public function testTriggerWithNamedParams(): void
 	{
 		$event = new Event;
 
@@ -124,7 +124,7 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTriggerWithBreak()
+	public function testTriggerWithBreak(): void
 	{
 		$event = new Event;
 
@@ -140,7 +140,7 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOverride()
+	public function testOverride(): void
 	{
 		$event = new Event;
 
@@ -156,7 +156,7 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testContainerWithClosureHandler()
+	public function testContainerWithClosureHandler(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
@@ -174,7 +174,7 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testContainerWithClassHandler()
+	public function testContainerWithClassHandler(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
@@ -194,7 +194,7 @@ class EventTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClassHandler()
+	public function testClassHandler(): void
 	{
 		$event = new Event;
 

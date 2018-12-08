@@ -23,7 +23,7 @@ class ReactorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNoInput()
+	public function testNoInput(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -92,7 +92,7 @@ EOF;
 
 		$reactor->setLogo('logo');
 
-		$reactor->registerGlobalOption('option', 'option description', function() {});
+		$reactor->registerGlobalOption('option', 'option description', function(): void {});
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
@@ -104,7 +104,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testUknownCommand()
+	public function testUknownCommand(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -138,7 +138,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testUknownCommandWithSuggestion()
+	public function testUknownCommandWithSuggestion(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -188,7 +188,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testUknownCommandWithNoSuggestion()
+	public function testUknownCommandWithNoSuggestion(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -238,7 +238,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommandWithInvalidArguments()
+	public function testCommandWithInvalidArguments(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -278,7 +278,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommandWithInvalidOptions()
+	public function testCommandWithInvalidOptions(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -318,7 +318,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommandWithInvalidOptionsAndSuggestion()
+	public function testCommandWithInvalidOptionsAndSuggestion(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -358,7 +358,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommandWithMissingRequiredArguments()
+	public function testCommandWithMissingRequiredArguments(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -398,7 +398,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommandWithMissingRequiredOption()
+	public function testCommandWithMissingRequiredOption(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -438,7 +438,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommand()
+	public function testCommand(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -476,9 +476,9 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommandWithCustomOption()
+	public function testCommandWithCustomOption(): void
 	{
-		$closure = function() {};
+		$closure = function(): void {};
 
 		//
 		$input = Mockery::mock('mako\cli\input\Input');
@@ -523,7 +523,7 @@ EOF;
 	/**
 	 *
 	 */
-	public function testDisplayCommandHelp()
+	public function testDisplayCommandHelp(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 

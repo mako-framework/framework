@@ -44,7 +44,7 @@ class BelongsToPolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testBasicBelongsToPolymorphicRelation()
+	public function testBasicBelongsToPolymorphicRelation(): void
 	{
 		$image = BelongsToPolymorphicImage::get(1);
 

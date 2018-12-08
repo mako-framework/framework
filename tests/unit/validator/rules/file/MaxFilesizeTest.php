@@ -19,7 +19,7 @@ class MaxFilesizeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new MaxFilesize;
 
@@ -29,7 +29,7 @@ class MaxFilesizeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConvertToBytes()
+	public function testConvertToBytes(): void
 	{
 		$rule = new class extends MaxFilesize
 		{
@@ -54,7 +54,7 @@ class MaxFilesizeTest extends TestCase
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage Invalid unit type [ Foo ].
 	 */
-	public function testConvertToBytesWithInvalidUnit()
+	public function testConvertToBytesWithInvalidUnit(): void
 	{
 		$rule = new class extends MaxFilesize
 		{
@@ -70,7 +70,7 @@ class MaxFilesizeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new MaxFilesize;
 
@@ -82,7 +82,7 @@ class MaxFilesizeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new MaxFilesize;
 

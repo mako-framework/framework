@@ -35,7 +35,7 @@ class DevelopmentHandlerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testErrorException()
+	public function testErrorException(): void
 	{
 		$formatter = Mockery::mock(Formatter::class);
 
@@ -67,7 +67,7 @@ class DevelopmentHandlerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRuntimeException()
+	public function testRuntimeException(): void
 	{
 		$formatter = Mockery::mock(Formatter::class);
 

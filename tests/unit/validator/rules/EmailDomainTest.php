@@ -19,7 +19,7 @@ class EmailDomainTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new EmailDomain;
 
@@ -29,7 +29,7 @@ class EmailDomainTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = Mockery::mock(EmailDomain::class)->shouldAllowMockingProtectedMethods();
 
@@ -43,7 +43,7 @@ class EmailDomainTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = Mockery::mock(EmailDomain::class)->shouldAllowMockingProtectedMethods();
 

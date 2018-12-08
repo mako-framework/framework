@@ -49,7 +49,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testBasicManyToManyRelation1()
+	public function testBasicManyToManyRelation1(): void
 	{
 		$user = ManyToManyUser::get(1);
 
@@ -78,7 +78,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testManyToManyYield()
+	public function testManyToManyYield(): void
 	{
 		$user = ManyToManyUser::get(1);
 
@@ -107,7 +107,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testBasicManyToManyRelation2()
+	public function testBasicManyToManyRelation2(): void
 	{
 		$group = ManyToManyGroup::get(1);
 
@@ -134,7 +134,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testManyToManyWithExtraColumns()
+	public function testManyToManyWithExtraColumns(): void
 	{
 		$user = ManyToManyUser::get(1);
 
@@ -163,7 +163,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testManyToManyWithExtraColumnsWithAlias()
+	public function testManyToManyWithExtraColumnsWithAlias(): void
 	{
 		$user = ManyToManyUser::get(1);
 
@@ -192,7 +192,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testManyToManyAggregateWithExtraColumns()
+	public function testManyToManyAggregateWithExtraColumns(): void
 	{
 		$user = ManyToManyUser::get(1);
 
@@ -210,7 +210,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLazyHasManyRelation()
+	public function testLazyHasManyRelation(): void
 	{
 		$users = ManyToManyUser::ascending('id')->all();
 
@@ -238,7 +238,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerHasManyRelation()
+	public function testEagerHasManyRelation(): void
 	{
 		$users = ManyToManyUser::including('groups')->ascending('id')->all();
 
@@ -262,9 +262,9 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerHasManyRelationWithConstraint()
+	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$users = ManyToManyUser::including(['groups' => function($query)
+		$users = ManyToManyUser::including(['groups' => function($query): void
 		{
 			$query->where('name', '=', 'does not exist');
 		}, ])->ascending('id')->all();
@@ -286,7 +286,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLinkAndUnlinkUsingId()
+	public function testLinkAndUnlinkUsingId(): void
 	{
 		$user = ManyToManyUser::get(3);
 
@@ -324,7 +324,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLinkAndUnlinkUsingModel()
+	public function testLinkAndUnlinkUsingModel(): void
 	{
 		$user = ManyToManyUser::get(3);
 
@@ -362,7 +362,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLinkAndUnlinkUsingArrayOfIds()
+	public function testLinkAndUnlinkUsingArrayOfIds(): void
 	{
 		$user = ManyToManyUser::get(3);
 
@@ -383,7 +383,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLinkAndUnlinkUsingArrayOfModels()
+	public function testLinkAndUnlinkUsingArrayOfModels(): void
 	{
 		$user = ManyToManyUser::get(3);
 
@@ -404,7 +404,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testSynchronizeUsingArrayOfIds()
+	public function testSynchronizeUsingArrayOfIds(): void
 	{
 		$user = ManyToManyUser::get(3);
 
@@ -426,7 +426,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLinkWithSameAttributes()
+	public function testLinkWithSameAttributes(): void
 	{
 		$user = ManyToManyUser::get(3);
 
@@ -452,7 +452,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLinkWithDifferentAttributes()
+	public function testLinkWithDifferentAttributes(): void
 	{
 		$user = ManyToManyUser::get(3);
 
@@ -478,7 +478,7 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testUpdateLink()
+	public function testUpdateLink(): void
 	{
 		$user = ManyToManyUser::get(1);
 

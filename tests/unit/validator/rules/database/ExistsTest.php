@@ -22,7 +22,7 @@ class ExistsTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new Exists(Mockery::mock(ConnectionManager::class));
 
@@ -32,7 +32,7 @@ class ExistsTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$builder = Mockery::mock(Query::class);
 
@@ -58,7 +58,7 @@ class ExistsTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$builder = Mockery::mock(Query::class);
 

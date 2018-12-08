@@ -44,7 +44,7 @@ class LazyEagerLoadTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testIncludeOnModel()
+	public function testIncludeOnModel(): void
 	{
 		$user = LazyHasManyUser::get(1);
 
@@ -66,7 +66,7 @@ class LazyEagerLoadTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testIncludeOnResultSet()
+	public function testIncludeOnResultSet(): void
 	{
 		$users = LazyHasManyUser::where('id', '=', 1)->all();
 

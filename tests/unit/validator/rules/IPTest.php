@@ -18,7 +18,7 @@ class IPTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new IP;
 
@@ -28,7 +28,7 @@ class IPTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new IP;
 
@@ -39,7 +39,7 @@ class IPTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new IP;
 
@@ -51,7 +51,7 @@ class IPTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValueIpV4()
+	public function testWithValidValueIpV4(): void
 	{
 		$rule = new IP;
 
@@ -63,7 +63,7 @@ class IPTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValueIpV4()
+	public function testWithInvalidValueIpV4(): void
 	{
 		$rule = new IP;
 
@@ -77,7 +77,7 @@ class IPTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValueIpV6()
+	public function testWithValidValueIpV6(): void
 	{
 		$rule = new IP;
 
@@ -89,7 +89,7 @@ class IPTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValueIpV6()
+	public function testWithInvalidValueIpV6(): void
 	{
 		$rule = new IP;
 
@@ -104,7 +104,7 @@ class IPTest extends TestCase
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage Invalid IP version [ v7 ]. The accepted versions are v4 and v6.
 	 */
-	public function testWithInvalidVersion()
+	public function testWithInvalidVersion(): void
 	{
 		$rule = new IP;
 

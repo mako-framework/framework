@@ -35,7 +35,7 @@ class DatabaseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWrite()
+	public function testWrite(): void
 	{
 		$builder = $this->getQueryBuilder();
 
@@ -79,7 +79,7 @@ class DatabaseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRead()
+	public function testRead(): void
 	{
 		$builder = $this->getQueryBuilder();
 
@@ -127,7 +127,7 @@ class DatabaseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDelete()
+	public function testDelete(): void
 	{
 		$builder = $this->getQueryBuilder();
 
@@ -149,7 +149,7 @@ class DatabaseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGc()
+	public function testGc(): void
 	{
 		$builder = $this->getQueryBuilder();
 

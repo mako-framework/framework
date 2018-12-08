@@ -18,7 +18,7 @@ class MaxLengthTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new MaxLength;
 
@@ -28,7 +28,7 @@ class MaxLengthTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new MaxLength;
 
@@ -41,7 +41,7 @@ class MaxLengthTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new MaxLength;
 

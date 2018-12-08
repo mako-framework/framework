@@ -21,7 +21,7 @@ class ProductionHandlerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegularError()
+	public function testRegularError(): void
 	{
 		$output = Mockery::mock(Output::class);
 

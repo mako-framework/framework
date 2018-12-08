@@ -38,7 +38,7 @@ class Foo extends Command
 		],
 	];
 
-	public function execute()
+	public function execute(): void
 	{
 
 	}
@@ -66,7 +66,7 @@ class CommandTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsStrict()
+	public function testIsStrict(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -90,7 +90,7 @@ class CommandTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetCommandDescription()
+	public function testGetCommandDescription(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -114,7 +114,7 @@ class CommandTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetCommandArguments()
+	public function testGetCommandArguments(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -138,7 +138,7 @@ class CommandTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetCommandOptions()
+	public function testGetCommandOptions(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 

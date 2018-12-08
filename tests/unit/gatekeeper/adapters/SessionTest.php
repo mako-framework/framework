@@ -101,7 +101,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetUserRepository()
+	public function testGetUserRepository(): void
 	{
 		$adapter = new Session($this->getUserRepository(), $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
@@ -111,7 +111,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetGroupProvider()
+	public function testGetGroupProvider(): void
 	{
 		$adapter = new Session($this->getUserRepository(), $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
@@ -121,7 +121,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreateUser()
+	public function testCreateUser(): void
 	{
 		$request = $this->getRequest();
 
@@ -139,7 +139,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreateAndActivateUser()
+	public function testCreateAndActivateUser(): void
 	{
 		$request = $this->getRequest();
 
@@ -157,7 +157,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreateGroup()
+	public function testCreateGroup(): void
 	{
 		$groupRepository = $this->getGroupRepository();
 
@@ -171,7 +171,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testActivateUserWithInvalidToken()
+	public function testActivateUserWithInvalidToken(): void
 	{
 		$userRepository = $this->getUserRepository();
 
@@ -185,7 +185,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testActivateUserWithValidToken()
+	public function testActivateUserWithValidToken(): void
 	{
 		$user = $this->getUser();
 
@@ -207,7 +207,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAutenticationWithNoSessionAndNoCookie()
+	public function testAutenticationWithNoSessionAndNoCookie(): void
 	{
 		$session = $this->getSession();
 
@@ -233,7 +233,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAthenticationWithNoSessionAndInvalidToken()
+	public function testAthenticationWithNoSessionAndInvalidToken(): void
 	{
 		$session = $this->getSession();
 
@@ -279,7 +279,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAuthentication()
+	public function testAuthentication(): void
 	{
 		$session = $this->getSession();
 
@@ -307,7 +307,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoginWithWrongEmail()
+	public function testLoginWithWrongEmail(): void
 	{
 		$userRepository = $this->getUserRepository();
 
@@ -321,7 +321,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoginWithWrongPassword()
+	public function testLoginWithWrongPassword(): void
 	{
 		$userRepository = $this->getUserRepository();
 
@@ -339,7 +339,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoginForNonActivatedUser()
+	public function testLoginForNonActivatedUser(): void
 	{
 		$userRepository = $this->getUserRepository();
 
@@ -359,7 +359,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoginForBannedUser()
+	public function testLoginForBannedUser(): void
 	{
 		$userRepository = $this->getUserRepository();
 
@@ -381,7 +381,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSuccessfulLogin()
+	public function testSuccessfulLogin(): void
 	{
 		$user = $this->getUser();
 
@@ -413,7 +413,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSuccessfulLoginWithRememberMe()
+	public function testSuccessfulLoginWithRememberMe(): void
 	{
 		$user = $this->getUser();
 
@@ -454,7 +454,7 @@ class SessionTest extends TestCase
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage Attempted to set a secure cookie over a non-secure connection.
 	 */
-	public function testSuccessfulLoginWithRememberMeWithSecureCookieOverNonSecureConnection()
+	public function testSuccessfulLoginWithRememberMeWithSecureCookieOverNonSecureConnection(): void
 	{
 		$user = $this->getUser();
 
@@ -490,7 +490,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSuccessfulLoginWithRememberMeWithSecureCookieOverSecureConnection()
+	public function testSuccessfulLoginWithRememberMeWithSecureCookieOverSecureConnection(): void
 	{
 		$user = $this->getUser();
 
@@ -534,7 +534,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testForcedLogin()
+	public function testForcedLogin(): void
 	{
 		$user = $this->getUser();
 
@@ -566,7 +566,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoginWithWrongPasswordAndThrottling()
+	public function testLoginWithWrongPasswordAndThrottling(): void
 	{
 		$user = $this->getUser();
 
@@ -590,7 +590,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSuccessfulLoginWithThrottling()
+	public function testSuccessfulLoginWithThrottling(): void
 	{
 		$user = $this->getUser();
 
@@ -628,7 +628,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoginWithLockedAccount()
+	public function testLoginWithLockedAccount(): void
 	{
 		$user = $this->getUser();
 
@@ -648,7 +648,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicAuth()
+	public function testBasicAuth(): void
 	{
 		$request = $this->getRequest();
 
@@ -678,7 +678,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicAuthWithClear()
+	public function testBasicAuthWithClear(): void
 	{
 		$request = $this->getRequest();
 
@@ -710,7 +710,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicAuthIsLoggedIn()
+	public function testBasicAuthIsLoggedIn(): void
 	{
 		$adapter = Mockery::mock(Session::class . '[isLoggedIn]', [$this->getUserRepository(), $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession()])->makePartial();
 
@@ -722,7 +722,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicAuthLoggingIn()
+	public function testBasicAuthLoggingIn(): void
 	{
 		$request = $this->getRequest();
 
@@ -742,7 +742,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLogout()
+	public function testLogout(): void
 	{
 		$session = $this->getSession();
 
@@ -768,7 +768,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetUser()
+	public function testSetUser(): void
 	{
 		$adapter = new Session($this->getUserRepository(), $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 

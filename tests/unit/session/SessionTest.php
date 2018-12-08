@@ -115,7 +115,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStartWithCookie()
+	public function testStartWithCookie(): void
 	{
 		new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']), [], false);
 	}
@@ -124,7 +124,7 @@ class SessionTest extends TestCase
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage Attempted to set a secure cookie over a non-secure connection.
 	 */
-	public function testStartWithSecureCookieOverNonSecureConnection()
+	public function testStartWithSecureCookieOverNonSecureConnection(): void
 	{
 		$request = $this->getRequestWithCookie();
 
@@ -136,7 +136,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStartWithSecureCookieOverSecureConnection()
+	public function testStartWithSecureCookieOverSecureConnection(): void
 	{
 		$request = $this->getRequestWithCookie();
 
@@ -156,7 +156,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCommit()
+	public function testCommit(): void
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar'], true), [], false);
 
@@ -166,7 +166,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStartWithoutCookie()
+	public function testStartWithoutCookie(): void
 	{
 		$request = $this->getRequest();
 
@@ -194,7 +194,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetId()
+	public function testGetId(): void
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']), [], false);
 
@@ -204,7 +204,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegenerateId()
+	public function testRegenerateId(): void
 	{
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
@@ -232,7 +232,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegenerateIdAndKeepData()
+	public function testRegenerateIdAndKeepData(): void
 	{
 		$response = $this->getResponseSetCookie(2, $responseCookies);
 
@@ -254,7 +254,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetData()
+	public function testGetData(): void
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']), [], false);
 
@@ -264,7 +264,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPut()
+	public function testPut(): void
 	{
 		$store = $this->getStore();
 
@@ -282,7 +282,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']), [], false);
 
@@ -294,7 +294,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']), [], false);
 
@@ -308,7 +308,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemove()
+	public function testRemove(): void
 	{
 		$store = $this->getStore();
 
@@ -326,7 +326,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPutFlash()
+	public function testPutFlash(): void
 	{
 		$store = $this->getStore();
 
@@ -344,7 +344,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHasFlash()
+	public function testHasFlash(): void
 	{
 		$store = $this->getStore();
 
@@ -364,7 +364,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemoveFlash()
+	public function testRemoveFlash(): void
 	{
 		$store = $this->getStore();
 
@@ -386,7 +386,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testReflash()
+	public function testReflash(): void
 	{
 		$store = $this->getStore();
 
@@ -404,7 +404,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testReflashWithKeys()
+	public function testReflashWithKeys(): void
 	{
 		$store = $this->getStore();
 
@@ -422,7 +422,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetToken()
+	public function testGetToken(): void
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']), [], false);
 
@@ -432,7 +432,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegenerateToken()
+	public function testRegenerateToken(): void
 	{
 		$store = $this->getStore();
 
@@ -456,7 +456,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidateToken()
+	public function testValidateToken(): void
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']), [], false);
 
@@ -468,7 +468,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGenerateOneTimeToken()
+	public function testGenerateOneTimeToken(): void
 	{
 		$store = $this->getStore();
 
@@ -488,7 +488,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidateNonExistentOneTimeToken()
+	public function testValidateNonExistentOneTimeToken(): void
 	{
 		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako.flashdata' => [], 'mako.token' => 'foobar']), [], false);
 
@@ -498,7 +498,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidateExistingOneTimeToken()
+	public function testValidateExistingOneTimeToken(): void
 	{
 		$store = $this->getStore();
 
@@ -516,7 +516,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClear()
+	public function testClear(): void
 	{
 		$store = $this->getStore();
 
@@ -534,7 +534,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDestroy()
+	public function testDestroy(): void
 	{
 		$response = $this->getResponseSetCookie(2, $responseCookies);
 
@@ -558,7 +558,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetAndPutExisting()
+	public function testGetAndPutExisting(): void
 	{
 		$store = $this->getStore();
 
@@ -576,7 +576,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetAndPutNonExisting()
+	public function testGetAndPutNonExisting(): void
 	{
 		$store = $this->getStore();
 
@@ -594,7 +594,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetAndRemoveExisting()
+	public function testGetAndRemoveExisting(): void
 	{
 		$store = $this->getStore();
 
@@ -612,7 +612,7 @@ class SessionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetAndRemoveNonExisting()
+	public function testGetAndRemoveNonExisting(): void
 	{
 		$store = $this->getStore();
 

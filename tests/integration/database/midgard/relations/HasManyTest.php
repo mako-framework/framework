@@ -44,7 +44,7 @@ class HasManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testBasicHasManyRelation()
+	public function testBasicHasManyRelation(): void
 	{
 		$user = HasManyUser::get(1);
 
@@ -71,7 +71,7 @@ class HasManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testHasManyYield()
+	public function testHasManyYield(): void
 	{
 		$user = HasManyUser::get(1);
 
@@ -96,7 +96,7 @@ class HasManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLazyHasManyRelation()
+	public function testLazyHasManyRelation(): void
 	{
 		$users = HasManyUser::ascending('id')->all();
 
@@ -126,7 +126,7 @@ class HasManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerHasManyRelation()
+	public function testEagerHasManyRelation(): void
 	{
 		$users = HasManyUser::including('articles')->ascending('id')->all();
 
@@ -152,9 +152,9 @@ class HasManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerHasManyRelationWithConstraint()
+	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$users = HasManyUser::including(['articles' => function($query)
+		$users = HasManyUser::including(['articles' => function($query): void
 		{
 			$query->where('title', '=', 'does not exist');
 		}, ])->ascending('id')->all();
@@ -176,7 +176,7 @@ class HasManyTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testCreateRelated()
+	public function testCreateRelated(): void
 	{
 		$user = HasManyUser::get(1);
 

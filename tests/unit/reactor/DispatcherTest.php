@@ -20,7 +20,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDispatch()
+	public function testDispatch(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
@@ -46,7 +46,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDispatchWithSnakeCaseArguments()
+	public function testDispatchWithSnakeCaseArguments(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
@@ -72,7 +72,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDispatchWithExitCode()
+	public function testDispatchWithExitCode(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
@@ -98,7 +98,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDispatchWithNonIntExitCode()
+	public function testDispatchWithNonIntExitCode(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
@@ -125,7 +125,7 @@ class DispatcherTest extends TestCase
 	 * @expectedException \mako\reactor\exceptions\InvalidArgumentException
 	 * @expectedExceptionMessage Invalid argument [ arg3 ].
 	 */
-	public function testDispatchWithInvalidArguments()
+	public function testDispatchWithInvalidArguments(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
@@ -148,7 +148,7 @@ class DispatcherTest extends TestCase
 	 * @expectedException \mako\reactor\exceptions\InvalidOptionException
 	 * @expectedExceptionMessage Invalid option [ bar ].
 	 */
-	public function testDispatchWithInvalidOptions()
+	public function testDispatchWithInvalidOptions(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
@@ -180,7 +180,7 @@ class DispatcherTest extends TestCase
 	 * @expectedException \mako\reactor\exceptions\InvalidOptionException
 	 * @expectedExceptionMessage Invalid option [ boo ].
 	 */
-	public function testDispatchWithInvalidOptionsAndSuggestion()
+	public function testDispatchWithInvalidOptionsAndSuggestion(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
@@ -212,7 +212,7 @@ class DispatcherTest extends TestCase
 	 * @expectedException \mako\reactor\exceptions\MissingArgumentException
 	 * @expectedExceptionMessage Missing required argument [ arg2 ].
 	 */
-	public function testDispatchWithMissingRequiredArguments()
+	public function testDispatchWithMissingRequiredArguments(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 
@@ -235,7 +235,7 @@ class DispatcherTest extends TestCase
 	 * @expectedException \mako\reactor\exceptions\MissingOptionException
 	 * @expectedExceptionMessage Missing required option [ foo ].
 	 */
-	public function testDispatchWithMissingRequiredOptions()
+	public function testDispatchWithMissingRequiredOptions(): void
 	{
 		$container = Mockery::mock('mako\syringe\Container');
 

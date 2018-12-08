@@ -37,7 +37,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRule()
+	public function testRule(): void
 	{
 		$this->assertSame('foobar', Validator::rule('foobar'));
 
@@ -51,7 +51,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExtend()
+	public function testExtend(): void
 	{
 		$validator = new Validator([], []);
 
@@ -67,7 +67,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicRules()
+	public function testBasicRules(): void
 	{
 		$ruleSets =
 		[
@@ -83,7 +83,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAddRules()
+	public function testAddRules(): void
 	{
 		$validator = new Validator([], []);
 
@@ -98,7 +98,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAddRulesIf()
+	public function testAddRulesIf(): void
 	{
 		$validator = new Validator([], []);
 
@@ -116,7 +116,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWildcardEpansion()
+	public function testWildcardEpansion(): void
 	{
 		$input =
 		[
@@ -157,7 +157,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNestedWildcardEpansion()
+	public function testNestedWildcardEpansion(): void
 	{
 		$input =
 		[
@@ -198,7 +198,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWildcardEpansionWithNoInput()
+	public function testWildcardEpansionWithNoInput(): void
 	{
 		$ruleSets =
 		[
@@ -213,7 +213,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidateOnEmptyFieldWithRuleThatDoesntValidateEmptyInput()
+	public function testValidateOnEmptyFieldWithRuleThatDoesntValidateEmptyInput(): void
 	{
 		$input =
 		[
@@ -241,7 +241,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidateOnEmptyFieldWithRuleThatValidatesEmptyInput()
+	public function testValidateOnEmptyFieldWithRuleThatValidatesEmptyInput(): void
 	{
 		$input =
 		[
@@ -271,7 +271,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testThatErrorMessagesForExpandedFieldsUseTheOriginalName()
+	public function testThatErrorMessagesForExpandedFieldsUseTheOriginalName(): void
 	{
 		$input =
 		[
@@ -295,7 +295,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testThatParametersGetPassedToRule()
+	public function testThatParametersGetPassedToRule(): void
 	{
 		$input =
 		[
@@ -319,7 +319,7 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetErrorMessageWithI18n()
+	public function testGetErrorMessageWithI18n(): void
 	{
 		$input =
 		[

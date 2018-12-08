@@ -39,7 +39,7 @@ class LoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicStringLoading()
+	public function testBasicStringLoading(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -56,9 +56,9 @@ class LoaderTest extends TestCase
 
 	/**
 	 * @expectedException \mako\i18n\loaders\LoaderException
-	 * @expectedExceptionMessage The [ en_US ] language pack does not have a [ /app/i18n/en_US/strings/foobar.php ] file.
+	 * @expectedExceptionMessage The [ en_US ] language pack does not have a [ /app/i18n/en_US/strings/foobar.php ] file.
 	 */
-	public function testBasicNonExistingStringLoading()
+	public function testBasicNonExistingStringLoading(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -72,7 +72,7 @@ class LoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStringLoadingWithPackages()
+	public function testStringLoadingWithPackages(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -94,7 +94,7 @@ class LoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStringLoadingWithPackagesOverride()
+	public function testStringLoadingWithPackagesOverride(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -116,7 +116,7 @@ class LoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoadInflection()
+	public function testLoadInflection(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -132,7 +132,7 @@ class LoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoadNonExistingInflection()
+	public function testLoadNonExistingInflection(): void
 	{
 		$fileSystem = $this->getFileSystem();
 

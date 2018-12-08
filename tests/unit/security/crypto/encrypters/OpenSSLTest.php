@@ -19,7 +19,7 @@ class OpenSSLTest extends TestCase
 	/**
 	 *
 	 */
-	public function testEncrypt()
+	public function testEncrypt(): void
 	{
 		$string = 'hello, world!';
 
@@ -39,7 +39,7 @@ class OpenSSLTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDecrypt()
+	public function testDecrypt(): void
 	{
 		$string = 'hello, world!';
 
@@ -57,7 +57,7 @@ class OpenSSLTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDecryptWithInvalidBase64()
+	public function testDecryptWithInvalidBase64(): void
 	{
 		$openSSL = new OpenSSL('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK');
 

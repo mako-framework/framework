@@ -35,7 +35,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHasAnsiSupport()
+	public function testHasAnsiSupport(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -56,7 +56,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWrite()
+	public function testWrite(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -71,7 +71,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWriteWithErrorParam()
+	public function testWriteWithErrorParam(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -86,7 +86,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWriteLn()
+	public function testWriteLn(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -101,7 +101,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWriteLnWithErrorParam()
+	public function testWriteLnWithErrorParam(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -116,7 +116,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testError()
+	public function testError(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -131,7 +131,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testErrorLn()
+	public function testErrorLn(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -146,7 +146,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClearWithAnsiSupport()
+	public function testClearWithAnsiSupport(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -161,7 +161,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClearWithNoAnsiSupport()
+	public function testClearWithNoAnsiSupport(): void
  	{
  		$std = $this->getWriter();
  		$err = $this->getWriter();
@@ -176,7 +176,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClearLineWithAnsiSupport()
+	public function testClearLineWithAnsiSupport(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -191,7 +191,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClearLineWithNoAnsiSupport()
+	public function testClearLineWithNoAnsiSupport(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -206,7 +206,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClearLinesWithAnsiSupport()
+	public function testClearLinesWithAnsiSupport(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -223,7 +223,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClearLinesWithNoAnsiSupport()
+	public function testClearLinesWithNoAnsiSupport(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -238,7 +238,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMute()
+	public function testMute(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -257,7 +257,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUnmute()
+	public function testUnmute(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -282,7 +282,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetNullFormatter()
+	public function testGetNullFormatter(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
@@ -295,7 +295,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetFormatter()
+	public function testGetFormatter(): void
 	{
 		$std       = $this->getWriter();
 		$err       = $this->getWriter();
@@ -309,7 +309,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetFormatter()
+	public function testSetFormatter(): void
 	{
 		$std       = $this->getWriter();
 		$err       = $this->getWriter();
@@ -327,7 +327,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWriteWithFormatterWithAnsiSupport()
+	public function testWriteWithFormatterWithAnsiSupport(): void
 	{
 		$std       = $this->getWriter();
 		$err       = $this->getWriter();
@@ -347,7 +347,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWriteWithFormatterWithoutAnsiSupport()
+	public function testWriteWithFormatterWithoutAnsiSupport(): void
 	{
 		$std       = $this->getWriter();
 		$err       = $this->getWriter();
@@ -369,7 +369,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWriteWithFormatterAndRedirectedOutput()
+	public function testWriteWithFormatterAndRedirectedOutput(): void
 	{
 		$std       = $this->getWriter();
 		$err       = $this->getWriter();

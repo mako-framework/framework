@@ -44,7 +44,7 @@ class HasManyPolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testBasicHasManyRelation()
+	public function testBasicHasManyRelation(): void
 	{
 		$article = HasManyPolymorphicArticle::get(1);
 
@@ -73,7 +73,7 @@ class HasManyPolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testHasManyYield()
+	public function testHasManyYield(): void
 	{
 		$article = HasManyPolymorphicArticle::get(1);
 
@@ -100,7 +100,7 @@ class HasManyPolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLazyHasManyRelation()
+	public function testLazyHasManyRelation(): void
 	{
 		$articles = HasManyPolymorphicArticle::ascending('id')->all();
 
@@ -132,7 +132,7 @@ class HasManyPolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerHasManyRelation()
+	public function testEagerHasManyRelation(): void
 	{
 		$articles = HasManyPolymorphicArticle::including('comments')->ascending('id')->all();
 
@@ -160,9 +160,9 @@ class HasManyPolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerHasManyRelationWithConstraint()
+	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$articles = HasManyPolymorphicArticle::including(['comments' => function($query)
+		$articles = HasManyPolymorphicArticle::including(['comments' => function($query): void
 		{
 			$query->where('comment', '=', 'does not exist');
 		}, ])->ascending('id')->all();
@@ -184,7 +184,7 @@ class HasManyPolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testCreateRelated()
+	public function testCreateRelated(): void
 	{
 		$article = HasManyPolymorphicArticle::get(1);
 

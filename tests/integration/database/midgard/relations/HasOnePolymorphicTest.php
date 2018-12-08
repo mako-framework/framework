@@ -44,7 +44,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testBasicHasOneRelation()
+	public function testBasicHasOneRelation(): void
 	{
 		$profile = HasOnePolymorphicProfile::get(1);
 
@@ -66,7 +66,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testHasOneYield()
+	public function testHasOneYield(): void
 	{
 		$profile = HasOnePolymorphicProfile::get(1);
 
@@ -99,7 +99,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLazyHasOneRelation()
+	public function testLazyHasOneRelation(): void
 	{
 		$profiles = HasOnePolymorphicProfile::ascending('id')->all();
 
@@ -126,7 +126,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerHasOneRelation()
+	public function testEagerHasOneRelation(): void
 	{
 		$profiles = HasOnePolymorphicProfile::including('image')->ascending('id')->all();
 
@@ -149,9 +149,9 @@ class HasOnePolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerHasOneRelationWithConstraint()
+	public function testEagerHasOneRelationWithConstraint(): void
 	{
-		$profiles = HasOnePolymorphicProfile::including(['image' => function($query)
+		$profiles = HasOnePolymorphicProfile::including(['image' => function($query): void
 		{
 			$query->where('image', '=', 'does not exist');
 		}, ])->ascending('id')->all();
@@ -171,7 +171,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testCreateRelated()
+	public function testCreateRelated(): void
 	{
 		$profile = new HasOnePolymorphicProfile;
 

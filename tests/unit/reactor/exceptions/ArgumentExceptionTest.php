@@ -18,7 +18,7 @@ class ArgumentExceptionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testException()
+	public function testException(): void
 	{
 		$exception = new ArgumentException('foo', 'bar');
 

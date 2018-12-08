@@ -16,7 +16,7 @@ use mako\view\View;
  */
 class ViewTest extends TestCase
 {
-	public function testView()
+	public function testView(): void
 	{
 		$variables =
 		[

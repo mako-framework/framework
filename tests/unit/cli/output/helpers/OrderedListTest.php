@@ -19,7 +19,7 @@ class OrderedListTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicList()
+	public function testBasicList(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -38,7 +38,7 @@ class OrderedListTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNestedLists()
+	public function testNestedLists(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -61,7 +61,7 @@ class OrderedListTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCustomMarker()
+	public function testCustomMarker(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -80,7 +80,7 @@ class OrderedListTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDraw()
+	public function testDraw(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -101,7 +101,7 @@ class OrderedListTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDrawWithCustomMarker()
+	public function testDrawWithCustomMarker(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 

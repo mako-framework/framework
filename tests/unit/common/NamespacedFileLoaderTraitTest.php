@@ -41,7 +41,7 @@ class NamespacedFileLoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetPath()
+	public function testGetPath(): void
 	{
 		$loader = new NamespacedFileLoader;
 
@@ -55,7 +55,7 @@ class NamespacedFileLoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetExtension()
+	public function testSetExtension(): void
 	{
 		$loader = new NamespacedFileLoader;
 
@@ -67,7 +67,7 @@ class NamespacedFileLoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetPath()
+	public function testSetPath(): void
 	{
 		$loader = new NamespacedFileLoader;
 
@@ -79,7 +79,7 @@ class NamespacedFileLoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetPathWithCustomExtension()
+	public function testGetPathWithCustomExtension(): void
 	{
 		$loader = new NamespacedFileLoader;
 
@@ -93,7 +93,7 @@ class NamespacedFileLoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetPathWithSuffix()
+	public function testGetPathWithSuffix(): void
 	{
 		$loader = new NamespacedFileLoader;
 
@@ -107,7 +107,7 @@ class NamespacedFileLoaderTest extends TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testGetPathWithSuffixUnknownNamespace()
+	public function testGetPathWithSuffixUnknownNamespace(): void
 	{
 		$loader = new NamespacedFileLoader;
 
@@ -119,7 +119,7 @@ class NamespacedFileLoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetCascadingPath()
+	public function testGetCascadingPath(): void
 	{
 		$loader = new NamespacedFileLoader;
 
@@ -133,7 +133,7 @@ class NamespacedFileLoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetCascadingPathWithCustomExtension()
+	public function testGetCascadingPathWithCustomExtension(): void
 	{
 		$loader = new NamespacedFileLoader;
 
@@ -147,7 +147,7 @@ class NamespacedFileLoaderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetCascadingPathWithSuffix()
+	public function testGetCascadingPathWithSuffix(): void
 	{
 		$loader = new NamespacedFileLoader;
 

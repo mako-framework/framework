@@ -19,7 +19,7 @@ class TableTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicTable()
+	public function testBasicTable(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -40,7 +40,7 @@ class TableTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTableWithMultipleRows()
+	public function testTableWithMultipleRows(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -62,7 +62,7 @@ class TableTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTableWithMultipleColumns()
+	public function testTableWithMultipleColumns(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -83,7 +83,7 @@ class TableTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTableWithMultipleColumnsAndRows()
+	public function testTableWithMultipleColumnsAndRows(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -105,7 +105,7 @@ class TableTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStyledContent()
+	public function testStyledContent(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -132,7 +132,7 @@ class TableTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDraw()
+	public function testDraw(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -155,7 +155,7 @@ class TableTest extends TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testInvalidInput()
+	public function testInvalidInput(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 

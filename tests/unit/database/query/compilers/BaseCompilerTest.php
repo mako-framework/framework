@@ -22,7 +22,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetDateFormat()
+	public function testSetAndGetDateFormat(): void
 	{
 		$format = Compiler::getDateFormat();
 
@@ -63,7 +63,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicSelect()
+	public function testBasicSelect(): void
 	{
 		$query = $this->getBuilder();
 
@@ -76,9 +76,9 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicSelectWithClosure()
+	public function testBasicSelectWithClosure(): void
 	{
-		$query = $this->getBuilder(function($query)
+		$query = $this->getBuilder(function($query): void
 		{
 			$query->table('foobar');
 		});
@@ -92,9 +92,9 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicSelectWithSubquery()
+	public function testBasicSelectWithSubquery(): void
 	{
-		$query = $this->getBuilder(new Subquery(function($query)
+		$query = $this->getBuilder(new Subquery(function($query): void
 		{
 			$query->table('foobar');
 		}));
@@ -108,9 +108,9 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicSelectWithSubqueryWithAggregate()
+	public function testBasicSelectWithSubqueryWithAggregate(): void
 	{
-		$query = $this->getBuilder(new Subquery(function($query)
+		$query = $this->getBuilder(new Subquery(function($query): void
 		{
 			$query->table('foobar')->min('foobar');
 		}));
@@ -124,9 +124,9 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicSelectWithSubqueryWithTableAlias()
+	public function testBasicSelectWithSubqueryWithTableAlias(): void
 	{
-		$query = $this->getBuilder(new Subquery(function($query)
+		$query = $this->getBuilder(new Subquery(function($query): void
 		{
 			$query->table('foobar');
 		}, 'table_alias'));
@@ -140,7 +140,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDistinctSelect()
+	public function testDistinctSelect(): void
 	{
 		$query = $this->getBuilder();
 
@@ -155,7 +155,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithCloumns()
+	public function testSelectWithCloumns(): void
 	{
 		$query = $this->getBuilder();
 
@@ -170,7 +170,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithCloumnAlias()
+	public function testSelectWithCloumnAlias(): void
 	{
 		$query = $this->getBuilder();
 
@@ -185,7 +185,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithTablePrefix()
+	public function testSelectWithTablePrefix(): void
 	{
 		$query = $this->getBuilder();
 
@@ -201,7 +201,7 @@ class BaseCompilerTest extends TestCase
 	 * @expectedException \Exception
 	 * @expectedExceptionMessage The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.
 	 */
-	public function testSelectWithJSONColumn()
+	public function testSelectWithJSONColumn(): void
 	{
 		$query = $this->getBuilder();
 
@@ -213,11 +213,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithSubqueryColumn()
+	public function testSelectWithSubqueryColumn(): void
 	{
 		$query = $this->getBuilder();
 
-		$query->select(['foo', new Subquery(function($query)
+		$query->select(['foo', new Subquery(function($query): void
 		{
 			$query->table('barfoo')->select(['baz'])->limit(1);
 		}, 'baz')]);
@@ -231,7 +231,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLimit()
+	public function testSelectWithLimit(): void
 	{
 		$query = $this->getBuilder();
 
@@ -246,7 +246,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLimitAndOffset()
+	public function testSelectWithLimitAndOffset(): void
 	{
 		$query = $this->getBuilder();
 
@@ -263,7 +263,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithExclusiveLock()
+	public function testSelectWithExclusiveLock(): void
 	{
 		$query = $this->getBuilder();
 
@@ -278,7 +278,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithSharedLock()
+	public function testSelectWithSharedLock(): void
 	{
 		$query = $this->getBuilder();
 
@@ -293,7 +293,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithSharedLockMethod()
+	public function testSelectWithSharedLockMethod(): void
 	{
 		$query = $this->getBuilder();
 
@@ -308,7 +308,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithCustomLock()
+	public function testSelectWithCustomLock(): void
 	{
 		$query = $this->getBuilder();
 
@@ -323,7 +323,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithWhere()
+	public function testSelectWithWhere(): void
 	{
 		$query = $this->getBuilder();
 
@@ -338,7 +338,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithTupleWhere()
+	public function testSelectWithTupleWhere(): void
 	{
 		$query = $this->getBuilder();
 
@@ -353,7 +353,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithRawWhere()
+	public function testSelectWithRawWhere(): void
 	{
 		$query = $this->getBuilder();
 
@@ -368,7 +368,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithWhereRaw()
+	public function testSelectWithWhereRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -383,7 +383,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithTupleWhereRaw()
+	public function testSelectWithTupleWhereRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -398,7 +398,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithFullWhereRaw()
+	public function testSelectWithFullWhereRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -413,7 +413,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithWheres()
+	public function testSelectWithWheres(): void
 	{
 		$query = $this->getBuilder();
 
@@ -429,7 +429,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOrWhere()
+	public function testSelectWithOrWhere(): void
 	{
 		$query = $this->getBuilder();
 
@@ -445,7 +445,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOrWhereRaw()
+	public function testSelectWithOrWhereRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -461,7 +461,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithFullOrWhereRaw()
+	public function testSelectWithFullOrWhereRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -477,11 +477,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithNestedWheres()
+	public function testSelectWithNestedWheres(): void
 	{
 		$query = $this->getBuilder();
 
-		$query->where(function($query)
+		$query->where(function($query): void
 		{
 			$query->where('foo', '=', 'bar');
 			$query->where('bar', '=', 'foo');
@@ -496,7 +496,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithBetween()
+	public function testSelectWithBetween(): void
 	{
 		$query = $this->getBuilder();
 
@@ -511,7 +511,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithBetweenAndOrBetween()
+	public function testSelectWithBetweenAndOrBetween(): void
 	{
 		$query = $this->getBuilder();
 
@@ -528,7 +528,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithNotBetween()
+	public function testSelectWithNotBetween(): void
 	{
 		$query = $this->getBuilder();
 
@@ -543,7 +543,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithNotBetweenAndOrNotBetween()
+	public function testSelectWithNotBetweenAndOrNotBetween(): void
 	{
 		$query = $this->getBuilder();
 
@@ -560,7 +560,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithInAndOrIn()
+	public function testSelectWithInAndOrIn(): void
 	{
 		$query = $this->getBuilder();
 
@@ -577,7 +577,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithRawIn()
+	public function testSelectWithRawIn(): void
 	{
 		$query = $this->getBuilder();
 
@@ -592,7 +592,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithRawWithBoundParameters()
+	public function testSelectWithRawWithBoundParameters(): void
 	{
 		$query = $this->getBuilder();
 
@@ -611,11 +611,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithClosureIn()
+	public function testSelectWithClosureIn(): void
 	{
 		$query = $this->getBuilder();
 
-		$query->in('foo', function($query)
+		$query->in('foo', function($query): void
 		{
 			$query->table('barfoo')->select(['id']);
 		});
@@ -629,7 +629,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithNotIn()
+	public function testSelectWithNotIn(): void
 	{
 		$query = $this->getBuilder();
 
@@ -644,7 +644,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithNotInAndOrNotIn()
+	public function testSelectWithNotInAndOrNotIn(): void
 	{
 		$query = $this->getBuilder();
 
@@ -661,7 +661,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithIsNull()
+	public function testSelectWithIsNull(): void
 	{
 		$query = $this->getBuilder();
 
@@ -676,7 +676,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithIsNullAndOrNull()
+	public function testSelectWithIsNullAndOrNull(): void
 	{
 		$query = $this->getBuilder();
 
@@ -693,7 +693,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithIsNotNull()
+	public function testSelectWithIsNotNull(): void
 	{
 		$query = $this->getBuilder();
 
@@ -708,7 +708,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithIsNotNullAndOrNotNull()
+	public function testSelectWithIsNotNullAndOrNotNull(): void
 	{
 		$query = $this->getBuilder();
 
@@ -725,7 +725,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithExistsSubquery()
+	public function testSelectWithExistsSubquery(): void
 	{
 		$query = $this->getBuilder();
 
@@ -740,7 +740,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithExistsSubqueryAndOrExists()
+	public function testSelectWithExistsSubqueryAndOrExists(): void
 	{
 		$query = $this->getBuilder();
 
@@ -757,11 +757,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithExistsClosure()
+	public function testSelectWithExistsClosure(): void
 	{
 		$query = $this->getBuilder();
 
-		$query->exists(function($query)
+		$query->exists(function($query): void
 		{
 			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
 		});
@@ -775,7 +775,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithNotExists()
+	public function testSelectWithNotExists(): void
 	{
 		$query = $this->getBuilder();
 
@@ -790,7 +790,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithNotExistsAndOrNotExists()
+	public function testSelectWithNotExistsAndOrNotExists(): void
 	{
 		$query = $this->getBuilder();
 
@@ -807,7 +807,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithJoin()
+	public function testSelectWithJoin(): void
 	{
 		$query = $this->getBuilder();
 
@@ -822,7 +822,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithJoinRaw()
+	public function testSelectWithJoinRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -837,7 +837,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLeftJoin()
+	public function testSelectWithLeftJoin(): void
 	{
 		$query = $this->getBuilder();
 
@@ -852,7 +852,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLeftJoinRaw()
+	public function testSelectWithLeftJoinRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -867,11 +867,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithComplexJoin()
+	public function testSelectWithComplexJoin(): void
 	{
 		$query = $this->getBuilder();
 
-		$query->join('barfoo', function($join)
+		$query->join('barfoo', function($join): void
 		{
 			$join->on('barfoo.foobar_id', '=', 'foobar.id');
 			$join->orOn('barfoo.foobar_id', '!=', 'foobar.id');
@@ -886,14 +886,14 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithComplexNestedJoin()
+	public function testSelectWithComplexNestedJoin(): void
 	{
 		$query = $this->getBuilder();
 
-		$query->join('barfoo', function($join)
+		$query->join('barfoo', function($join): void
 		{
 			$join->on('barfoo.foobar_id', '=', 'foobar.id');
-			$join->on(function($join)
+			$join->on(function($join): void
 			{
 				$join->on('barfoo.foobar_id', '=', 'foobar.id');
 				$join->orOn('barfoo.foobar_id', '!=', 'foobar.id');
@@ -909,11 +909,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithComplexRawJoin()
+	public function testSelectWithComplexRawJoin(): void
 	{
 		$query = $this->getBuilder();
 
-		$query->join('barfoo', function($join)
+		$query->join('barfoo', function($join): void
 		{
 			$join->onRaw('barfoo.foobar_id', '=', 'SUBSTRING("foo", 1, 2)');
 			$join->orOnRaw('barfoo.foobar_id', '!=', 'SUBSTRING("foo", 1, 2)');
@@ -928,11 +928,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithSubqueryJoin()
+	public function testSelectWithSubqueryJoin(): void
 	{
 		$query = $this->getBuilder();
 
-		$query->join(new Subquery(function($query)
+		$query->join(new Subquery(function($query): void
 		{
 			$query->table('barfoo')->where('id', '>', 1);
 		}, 'barfoo'), 'barfoo.foobar_id', '=', 'foobar.id');
@@ -946,7 +946,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithRawSubqueryJoin()
+	public function testSelectWithRawSubqueryJoin(): void
 	{
 		$query = $this->getBuilder();
 
@@ -961,7 +961,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithGroupBy()
+	public function testSelectWithGroupBy(): void
 	{
 		$query = $this->getBuilder('orders');
 
@@ -978,7 +978,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithGroupByArray()
+	public function testSelectWithGroupByArray(): void
 	{
 		$query = $this->getBuilder('orders');
 
@@ -995,7 +995,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithHaving()
+	public function testSelectWithHaving(): void
 	{
 		$query = $this->getBuilder('orders');
 
@@ -1013,7 +1013,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithHavingRaw()
+	public function testSelectWithHavingRaw(): void
 	{
 		$query = $this->getBuilder('orders');
 
@@ -1031,7 +1031,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithHavingAndOrHaving()
+	public function testSelectWithHavingAndOrHaving(): void
 	{
 		$query = $this->getBuilder('orders');
 
@@ -1050,7 +1050,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithHavinRawgAndOrHavingRaw()
+	public function testSelectWithHavinRawgAndOrHavingRaw(): void
 	{
 		$query = $this->getBuilder('orders');
 
@@ -1069,7 +1069,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOrder()
+	public function testSelectWithOrder(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1084,7 +1084,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOrderArray()
+	public function testSelectWithOrderArray(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1099,7 +1099,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOrderRaw()
+	public function testSelectWithOrderRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1114,7 +1114,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOrderDescending()
+	public function testSelectWithOrderDescending(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1129,7 +1129,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOrderDescendingRaw()
+	public function testSelectWithOrderDescendingRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1144,7 +1144,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOrderAscending()
+	public function testSelectWithOrderAscending(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1159,7 +1159,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOrderAscendingRaw()
+	public function testSelectWithOrderAscendingRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1174,7 +1174,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithMultipleOrder()
+	public function testSelectWithMultipleOrder(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1190,7 +1190,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectClearOrderings()
+	public function testSelectClearOrderings(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1206,7 +1206,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicDelete()
+	public function testBasicDelete(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1219,7 +1219,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDeleteWithWhere()
+	public function testDeleteWithWhere(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1234,7 +1234,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicInsert()
+	public function testBasicInsert(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1247,7 +1247,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicInsertWithNoValues()
+	public function testBasicInsertWithNoValues(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1260,7 +1260,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicUpdate()
+	public function testBasicUpdate(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1274,7 +1274,7 @@ class BaseCompilerTest extends TestCase
 	 * @expectedException \Exception
 	 * @expectedExceptionMessage The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.
 	 */
-	public function testUpdateWithJSONColumn()
+	public function testUpdateWithJSONColumn(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1284,7 +1284,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUpdateWithWhere()
+	public function testUpdateWithWhere(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1299,7 +1299,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCountAggregate()
+	public function testCountAggregate(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1323,7 +1323,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCountDistinctAggregate()
+	public function testCountDistinctAggregate(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1338,7 +1338,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCountDistinctAggregateWithMultipleColumns()
+	public function testCountDistinctAggregateWithMultipleColumns(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1353,7 +1353,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAvgAggregate()
+	public function testAvgAggregate(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1368,7 +1368,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMaxAggregate()
+	public function testMaxAggregate(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1383,7 +1383,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMinAggregate()
+	public function testMinAggregate(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1398,7 +1398,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSumAggregate()
+	public function testSumAggregate(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1413,7 +1413,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAggregateWithRaw()
+	public function testAggregateWithRaw(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1428,7 +1428,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testColumnWithoutParam()
+	public function testColumnWithoutParam(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1445,7 +1445,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testColumnWithParam()
+	public function testColumnWithParam(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1460,11 +1460,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUnion()
+	public function testUnion(): void
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->union(function($query)
+		$query->union(function($query): void
 		{
 			$query->table('sales2015');
 		});
@@ -1478,16 +1478,16 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultipleUnions()
+	public function testMultipleUnions(): void
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->union(function($query)
+		$query->union(function($query): void
 		{
 			$query->table('sales2014');
 		});
 
-		$query->union(function($query)
+		$query->union(function($query): void
 		{
 			$query->table('sales2015');
 		});
@@ -1501,11 +1501,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUnionAll()
+	public function testUnionAll(): void
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->unionAll(function($query)
+		$query->unionAll(function($query): void
 		{
 			$query->table('sales2015');
 		});
@@ -1519,11 +1519,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIntersect()
+	public function testIntersect(): void
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->intersect(function($query)
+		$query->intersect(function($query): void
 		{
 			$query->table('sales2015');
 		});
@@ -1537,11 +1537,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIntersectAll()
+	public function testIntersectAll(): void
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->intersectAll(function($query)
+		$query->intersectAll(function($query): void
 		{
 			$query->table('sales2015');
 		});
@@ -1555,11 +1555,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExcept()
+	public function testExcept(): void
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->except(function($query)
+		$query->except(function($query): void
 		{
 			$query->table('sales2015');
 		});
@@ -1573,11 +1573,11 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExceptAll()
+	public function testExceptAll(): void
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->exceptAll(function($query)
+		$query->exceptAll(function($query): void
 		{
 			$query->table('sales2015');
 		});
@@ -1591,7 +1591,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithPrefix()
+	public function testSelectWithPrefix(): void
 	{
 		$query = $this->getBuilder();
 
@@ -1606,7 +1606,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBatch()
+	public function testBatch(): void
 	{
 		$builder = Mockery::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
 
@@ -1624,7 +1624,7 @@ class BaseCompilerTest extends TestCase
 
 		$batches = 0;
 
-		$builder->ascending('id')->batch(function($results) use (&$batches)
+		$builder->ascending('id')->batch(function($results) use (&$batches): void
 		{
 			$this->assertEquals([5], $results);
 
@@ -1651,7 +1651,7 @@ class BaseCompilerTest extends TestCase
 
 		$batches = 0;
 
-		$builder->ascending('id')->batch(function($results) use (&$batches)
+		$builder->ascending('id')->batch(function($results) use (&$batches): void
 		{
 			$this->assertEquals([5], $results);
 
@@ -1674,7 +1674,7 @@ class BaseCompilerTest extends TestCase
 
 		$batches = 0;
 
-		$builder->ascending('id')->batch(function($results) use (&$batches)
+		$builder->ascending('id')->batch(function($results) use (&$batches): void
 		{
 			$this->assertEquals([5], $results);
 

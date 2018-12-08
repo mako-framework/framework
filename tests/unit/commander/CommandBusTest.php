@@ -113,7 +113,7 @@ class CommandBusTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCommandWithoutSuffix()
+	public function testCommandWithoutSuffix(): void
 	{
 		$bus = new CommandBus;
 
@@ -125,7 +125,7 @@ class CommandBusTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelfHandlingCommand()
+	public function testSelfHandlingCommand(): void
 	{
 		$bus = new CommandBus;
 
@@ -137,7 +137,7 @@ class CommandBusTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelfHandlingCommandInstanced()
+	public function testSelfHandlingCommandInstanced(): void
 	{
 		$bus = new CommandBus;
 
@@ -149,7 +149,7 @@ class CommandBusTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCommand()
+	public function testCommand(): void
 	{
 		$bus = new CommandBus;
 
@@ -161,7 +161,7 @@ class CommandBusTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCommandInstanced()
+	public function testCommandInstanced(): void
 	{
 		$bus = new CommandBus;
 
@@ -173,7 +173,7 @@ class CommandBusTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddleware()
+	public function testMiddleware(): void
 	{
 		$bus = new CommandBus;
 
@@ -199,7 +199,7 @@ class CommandBusTest extends TestCase
 	/**
 	 *
 	 */
-	public function testOneTimeMiddleware()
+	public function testOneTimeMiddleware(): void
 	{
 		$bus = new CommandBus;
 

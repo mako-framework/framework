@@ -36,7 +36,7 @@ class OptimisticLockingTest extends ORMTestCase
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\StaleRecordException
 	 */
-	public function testOptimisticLockUpdate()
+	public function testOptimisticLockUpdate(): void
 	{
 		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
 
@@ -54,7 +54,7 @@ class OptimisticLockingTest extends ORMTestCase
 	/**
 	 * @expectedException \mako\database\midgard\traits\exceptions\StaleRecordException
 	 */
-	public function testOptimisticLockDelete()
+	public function testOptimisticLockDelete(): void
 	{
 		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
 
@@ -70,7 +70,7 @@ class OptimisticLockingTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testOptimisticLockReload()
+	public function testOptimisticLockReload(): void
 	{
 		$optimisticLock = OptimisticLock::get(1);
 
@@ -88,7 +88,7 @@ class OptimisticLockingTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testOptimisticLockReloadNonExistent()
+	public function testOptimisticLockReloadNonExistent(): void
 	{
 		$optimisticLock = new OptimisticLock;
 
@@ -100,7 +100,7 @@ class OptimisticLockingTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testOptimisticLockInsert()
+	public function testOptimisticLockInsert(): void
 	{
 		$optimisticLock = new OptimisticLock;
 

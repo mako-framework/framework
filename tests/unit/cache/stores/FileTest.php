@@ -35,7 +35,7 @@ class FileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPut()
+	public function testPut(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -57,7 +57,7 @@ class FileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -103,7 +103,7 @@ class FileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -153,7 +153,7 @@ class FileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemove()
+	public function testRemove(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -179,7 +179,7 @@ class FileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClear()
+	public function testClear(): void
 	{
 		$fileSystem = $this->getFileSystem();
 

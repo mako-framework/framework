@@ -27,7 +27,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConstructor()
+	public function testConstructor(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -39,7 +39,7 @@ class ImageTest extends TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testConstructorWithNonExistingFile()
+	public function testConstructorWithNonExistingFile(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -49,7 +49,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRotate()
+	public function testRotate(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -65,7 +65,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testResizeToPercent()
+	public function testResizeToPercent(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -81,7 +81,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testResizeToPixelSize()
+	public function testResizeToPixelSize(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -97,7 +97,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testResizeToPixelWithRestriction()
+	public function testResizeToPixelWithRestriction(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -113,7 +113,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCrop()
+	public function testCrop(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -129,7 +129,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFlipHorizontal()
+	public function testFlipHorizontal(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -157,7 +157,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFlipVertical()
+	public function testFlipVertical(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -173,7 +173,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWatermark()
+	public function testWatermark(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -189,7 +189,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWatermarkPosition()
+	public function testWatermarkPosition(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -205,7 +205,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWatermarkOpacity()
+	public function testWatermarkOpacity(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -221,7 +221,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWatermarkOpacityNormalization()
+	public function testWatermarkOpacityNormalization(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -249,7 +249,7 @@ class ImageTest extends TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testWatermarkWithNonExistingFile()
+	public function testWatermarkWithNonExistingFile(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -263,7 +263,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBrigtness()
+	public function testBrigtness(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -291,7 +291,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBrigtnessNormalization()
+	public function testBrigtnessNormalization(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -319,7 +319,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGreyscale()
+	public function testGreyscale(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -335,7 +335,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSepia()
+	public function testSepia(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -351,7 +351,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testColorize()
+	public function testColorize(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -367,7 +367,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPixelate()
+	public function testPixelate(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -395,7 +395,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNegate()
+	public function testNegate(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -411,7 +411,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBorder()
+	public function testBorder(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -427,7 +427,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBorderWithCustomColor()
+	public function testBorderWithCustomColor(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -443,7 +443,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBorderWithCustomColorAndThickness()
+	public function testBorderWithCustomColorAndThickness(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -459,7 +459,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetImageBlob()
+	public function testGetImageBlob(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -475,7 +475,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetImageBlobWithType()
+	public function testGetImageBlobWithType(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -491,7 +491,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetImageBlobWithTypeAndQuality()
+	public function testGetImageBlobWithTypeAndQuality(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -507,7 +507,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetImageBlobNormalizeQuality()
+	public function testGetImageBlobNormalizeQuality(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -535,7 +535,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSharpen()
+	public function testSharpen(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -551,7 +551,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSnapshot()
+	public function testSnapshot(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -567,7 +567,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRestore()
+	public function testRestore(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -583,7 +583,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetWidth()
+	public function testGetWidth(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -599,7 +599,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetHeight()
+	public function testGetHeight(): void
 	{
 		$processor = $this->getProcessor();
 
@@ -615,7 +615,7 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetDimensions()
+	public function testGetDimensions(): void
 	{
 		$processor = $this->getProcessor();
 

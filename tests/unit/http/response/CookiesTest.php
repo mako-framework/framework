@@ -20,7 +20,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCountable()
+	public function testCountable(): void
 	{
 		$cookies = new Cookies;
 
@@ -34,7 +34,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIterable()
+	public function testIterable(): void
 	{
 		$cookies = new Cookies;
 
@@ -58,7 +58,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAddSigned()
+	public function testAddSigned(): void
 	{
 		$signer = Mockery::mock(Signer::class);
 
@@ -75,7 +75,7 @@ class CookiesTest extends TestCase
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage A [ Signer ] instance is required to sign cookies.
 	 */
-	public function testAddSignedWithoutSigner()
+	public function testAddSignedWithoutSigner(): void
 	{
 		$cookies = new Cookies;
 
@@ -85,7 +85,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$cookies = new Cookies;
 
@@ -99,7 +99,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemove()
+	public function testRemove(): void
 	{
 		$cookies = new Cookies;
 
@@ -115,7 +115,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDelete()
+	public function testDelete(): void
 	{
 		$cookies = new Cookies;
 
@@ -127,7 +127,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClear()
+	public function testClear(): void
 	{
 		$cookies = new Cookies;
 
@@ -143,7 +143,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAddWithOptions()
+	public function testAddWithOptions(): void
 	{
 		$cookies = new Cookies;
 
@@ -169,7 +169,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetDefaults()
+	public function testSetDefaults(): void
 	{
 		$cookies = new Cookies;
 
@@ -188,7 +188,7 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetRaw()
+	public function testSetRaw(): void
 	{
 		$cookies = new Cookies;
 

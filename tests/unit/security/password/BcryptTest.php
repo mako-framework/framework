@@ -18,7 +18,7 @@ class BcryptTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNormalizeOptions()
+	public function testNormalizeOptions(): void
 	{
 		$hasher = new class extends Bcrypt
 		{
@@ -40,7 +40,7 @@ class BcryptTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreate()
+	public function testCreate(): void
 	{
 		$password = 'foobar';
 
@@ -64,7 +64,7 @@ class BcryptTest extends TestCase
 	/**
 	 *
 	 */
-	public function testVerify()
+	public function testVerify(): void
 	{
 		$password = 'foobar';
 
@@ -80,7 +80,7 @@ class BcryptTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNeedsRehash()
+	public function testNeedsRehash(): void
 	{
 		$password = 'foobar';
 

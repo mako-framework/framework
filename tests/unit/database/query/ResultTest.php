@@ -18,7 +18,7 @@ class ResultTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToArray()
+	public function testToArray(): void
 	{
 		$result = new Result;
 
@@ -31,7 +31,7 @@ class ResultTest extends TestCase
 	/**
 	 *
 	 */
-	public function testJsonSerialize()
+	public function testJsonSerialize(): void
 	{
 		$result = new Result;
 
@@ -44,7 +44,7 @@ class ResultTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToJSON()
+	public function testToJSON(): void
 	{
 		$result = new Result;
 
@@ -57,7 +57,7 @@ class ResultTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToString()
+	public function testToString(): void
 	{
 		$result = new Result;
 

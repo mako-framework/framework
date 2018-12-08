@@ -19,7 +19,7 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testProgressWithZeroItems()
+	public function testProgressWithZeroItems(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -33,7 +33,7 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicProgress()
+	public function testBasicProgress(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -63,7 +63,7 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testProgressWithCustomWidth()
+	public function testProgressWithCustomWidth(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -95,7 +95,7 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testProgressWithCustomTemplates()
+	public function testProgressWithCustomTemplates(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -129,7 +129,7 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testProgressWithPrefix()
+	public function testProgressWithPrefix(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -161,7 +161,7 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testProgressWith100ItemsAndDefaultRedrawRate()
+	public function testProgressWith100ItemsAndDefaultRedrawRate(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -180,7 +180,7 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testProgressWith1000ItemsAndDefaultRedrawRate()
+	public function testProgressWith1000ItemsAndDefaultRedrawRate(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -199,7 +199,7 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testProgressWith1000ItemsAndCustomtRedrawRate()
+	public function testProgressWith1000ItemsAndCustomtRedrawRate(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -218,7 +218,7 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemoveIncomplete()
+	public function testRemoveIncomplete(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 
@@ -236,7 +236,7 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemoveComplete()
+	public function testRemoveComplete(): void
 	{
 		$output = Mockery::mock('mako\cli\output\Output');
 

@@ -18,7 +18,7 @@ class UploadedFileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetPath()
+	public function testGetPath(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
@@ -28,7 +28,7 @@ class UploadedFileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetName()
+	public function testGetName(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
@@ -38,7 +38,7 @@ class UploadedFileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetReportedSize()
+	public function testGetReportedSize(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
@@ -48,7 +48,7 @@ class UploadedFileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetReportedType()
+	public function testGetReportedType(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
@@ -58,7 +58,7 @@ class UploadedFileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHasError()
+	public function testHasError(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
@@ -72,7 +72,7 @@ class UploadedFileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetErrorCode()
+	public function testGetErrorCode(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
@@ -86,7 +86,7 @@ class UploadedFileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetErrorMessage()
+	public function testGetErrorMessage(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', UPLOAD_ERR_OK);
 
@@ -128,7 +128,7 @@ class UploadedFileTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsUploadedFile()
+	public function testIsUploadedFile(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
@@ -139,7 +139,7 @@ class UploadedFileTest extends TestCase
 	 * @expectedException \mako\http\request\exceptions\UploadException
 	 * @expectedExceptionMessage The uploaded file exceeds the upload_max_filesize directive in php.ini.
 	 */
-	public function testMoveToWithError()
+	public function testMoveToWithError(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', UPLOAD_ERR_INI_SIZE);
 
@@ -150,7 +150,7 @@ class UploadedFileTest extends TestCase
 	 * @expectedException \mako\http\request\exceptions\UploadException
 	 * @expectedExceptionMessage The file that you're trying to move was not uploaded.
 	 */
-	public function testMoveToWithNonUploadedFile()
+	public function testMoveToWithNonUploadedFile(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 

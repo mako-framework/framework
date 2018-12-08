@@ -69,7 +69,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConstructor()
+	public function testConstructor(): void
 	{
 		$model = $this->getModel();
 
@@ -81,7 +81,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testJoin()
+	public function testJoin(): void
 	{
 		$model = $this->getModel();
 
@@ -97,7 +97,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$model = $this->getModel();
 
@@ -117,7 +117,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetWithColumns()
+	public function testGetWithColumns(): void
 	{
 		$model = $this->getModel();
 
@@ -139,7 +139,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSingleInclude()
+	public function testSingleInclude(): void
 	{
 		$model = $this->getModel();
 
@@ -185,7 +185,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIncludes()
+	public function testIncludes(): void
 	{
 		$model = $this->getModel();
 
@@ -203,9 +203,9 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIncludesWithCriterion()
+	public function testIncludesWithCriterion(): void
 	{
-		$closure1 = function() {};
+		$closure1 = function(): void {};
 
 		$model = $this->getModel();
 
@@ -221,7 +221,7 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function() {};
+		$closure1 = function(): void {};
 
 		$model = $this->getModel();
 
@@ -237,8 +237,8 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function() {};
-		$closure2 = function() {};
+		$closure1 = function(): void {};
+		$closure2 = function(): void {};
 
 		$model = $this->getModel();
 
@@ -256,7 +256,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIncludeNone()
+	public function testIncludeNone(): void
 	{
 		$model = $this->getModel();
 
@@ -272,7 +272,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSingleExlude()
+	public function testSingleExlude(): void
 	{
 		$model = $this->getModel();
 
@@ -290,7 +290,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExcludes()
+	public function testExcludes(): void
 	{
 		$model = $this->getModel();
 
@@ -322,13 +322,13 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExludeWithCriterion()
+	public function testExludeWithCriterion(): void
 	{
 		$model = $this->getModel();
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function() {}]);
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function(): void {}]);
 
 		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
 
@@ -342,7 +342,7 @@ class QueryTest extends TestCase
 
 		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
-		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function() {}, 'baz']);
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function(): void {}, 'baz']);
 
 		$model->shouldReceive('setIncludes')->once()->with([1 => 'baz'])->andReturn($model);
 
@@ -352,8 +352,8 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function() {};
-		$closure2 = function() {};
+		$closure1 = function(): void {};
+		$closure2 = function(): void {};
 
 		$model = $this->getModel();
 
@@ -369,8 +369,8 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function() {};
-		$closure2 = function() {};
+		$closure1 = function(): void {};
+		$closure2 = function(): void {};
 
 		$model = $this->getModel();
 
@@ -388,7 +388,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExcludeAll()
+	public function testExcludeAll(): void
 	{
 		$model = $this->getModel();
 
@@ -404,7 +404,7 @@ class QueryTest extends TestCase
 	/**
 	 * @expectedException \BadMethodCallException
 	 */
-	public function testScopeException()
+	public function testScopeException(): void
 	{
 		$model = new ScopedModel();
 
@@ -416,7 +416,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testScope()
+	public function testScope(): void
 	{
 		$model = new ScopedModel();
 
@@ -430,7 +430,7 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBatch()
+	public function testBatch(): void
 	{
 		$model = Mockery::mock('\mako\database\midgard\ORM');
 
@@ -442,7 +442,7 @@ class QueryTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn([]);
 
-		$query->batch(function($results)
+		$query->batch(function($results): void
 		{
 
 		});
@@ -459,7 +459,7 @@ class QueryTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn([]);
 
-		$query->descending('barfoo')->batch(function($results)
+		$query->descending('barfoo')->batch(function($results): void
 		{
 
 		});

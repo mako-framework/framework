@@ -20,7 +20,7 @@ class AuthenticationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConstructorWithFactory()
+	public function testConstructorWithFactory(): void
 	{
 		$factory = function()
 		{
@@ -39,7 +39,7 @@ class AuthenticationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConstructorWithInstance()
+	public function testConstructorWithInstance(): void
 	{
 		$adapter = Mockery::mock(AdapterInterface::class);
 
@@ -55,7 +55,7 @@ class AuthenticationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExtendWithFactory()
+	public function testExtendWithFactory(): void
 	{
 		$adapter = Mockery::mock(AdapterInterface::class);
 
@@ -78,7 +78,7 @@ class AuthenticationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExtendWithInstance()
+	public function testExtendWithInstance(): void
 	{
 		$adapter = Mockery::mock(AdapterInterface::class);
 
@@ -98,7 +98,7 @@ class AuthenticationTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExtendWithInstanceAndNewDefault()
+	public function testExtendWithInstanceAndNewDefault(): void
 	{
 		$adapter = Mockery::mock(AdapterInterface::class);
 

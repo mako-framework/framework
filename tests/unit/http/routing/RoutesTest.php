@@ -18,7 +18,7 @@ class RoutesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRouteRegistration1()
+	public function testRouteRegistration1(): void
 	{
 		$routes = new Routes();
 
@@ -34,7 +34,7 @@ class RoutesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRouteRegistration2()
+	public function testRouteRegistration2(): void
 	{
 		$routes = new Routes();
 
@@ -72,7 +72,7 @@ class RoutesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNamedRoute()
+	public function testNamedRoute(): void
 	{
 		$routes = new Routes();
 
@@ -88,7 +88,7 @@ class RoutesTest extends TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testNamedRouteException()
+	public function testNamedRouteException(): void
 	{
 		$routes = new Routes();
 
@@ -98,11 +98,11 @@ class RoutesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGroup()
+	public function testGroup(): void
 	{
 		$routes = new Routes();
 
-		$routes->group(['prefix' => 'baz'], function($routes)
+		$routes->group(['prefix' => 'baz'], function($routes): void
 		{
 			$routes->get('/foo', 'FooController::fooAction');
 
@@ -119,13 +119,13 @@ class RoutesTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNestedGroup()
+	public function testNestedGroup(): void
 	{
 		$routes = new Routes();
 
-		$routes->group(['prefix' => 'baz'], function($routes)
+		$routes->group(['prefix' => 'baz'], function($routes): void
 		{
-			$routes->group(['prefix' => 'bax'], function($routes)
+			$routes->group(['prefix' => 'bax'], function($routes): void
 			{
 				$routes->get('/foo', 'FooController::fooAction');
 

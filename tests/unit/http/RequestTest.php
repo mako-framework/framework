@@ -62,7 +62,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testScriptName()
+	public function testScriptName(): void
 	{
 		$server = $this->getServerData();
 
@@ -82,7 +82,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAcceptableContentTypes()
+	public function testAcceptableContentTypes(): void
 	{
 		$server = $this->getServerData();
 
@@ -94,7 +94,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAcceptableLanguages()
+	public function testAcceptableLanguages(): void
 	{
 		$server = $this->getServerData();
 
@@ -106,7 +106,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAcceptableCharsets()
+	public function testAcceptableCharsets(): void
 	{
 		$server = $this->getServerData();
 
@@ -118,7 +118,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAcceptableEncodings()
+	public function testAcceptableEncodings(): void
 	{
 		$server = $this->getServerData();
 
@@ -130,7 +130,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIP()
+	public function testIP(): void
 	{
 		$server = $this->getServerData();
 
@@ -184,7 +184,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsAjax()
+	public function testIsAjax(): void
 	{
 		$server = $this->getServerData();
 
@@ -204,7 +204,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsSecure()
+	public function testIsSecure(): void
 	{
 		$server = $this->getServerData();
 
@@ -264,7 +264,7 @@ class RequestTest extends TestCase
 	/**
 	 * [testBasePath description].
 	 */
-	public function testBasePath()
+	public function testBasePath(): void
 	{
 		$server = $this->getServerData();
 
@@ -286,7 +286,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBaseURL()
+	public function testBaseURL(): void
 	{
 		$server = $this->getServerData();
 
@@ -356,7 +356,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPath()
+	public function testPath(): void
 	{
 		$server = $this->getServerData();
 
@@ -392,7 +392,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPathWithLanguage()
+	public function testPathWithLanguage(): void
 	{
 		$server = $this->getServerData();
 
@@ -406,7 +406,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsClean()
+	public function testIsClean(): void
 	{
 		$request = new Request(['server' => ['SCRIPT_NAME' => '/index.php', 'REQUEST_URI' => '/index.php/foo']]);
 
@@ -422,7 +422,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLanguage()
+	public function testLanguage(): void
 	{
 		$server = $this->getServerData();
 
@@ -436,7 +436,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLanguagePrefix()
+	public function testLanguagePrefix(): void
 	{
 		$server = $this->getServerData();
 
@@ -450,7 +450,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMethod()
+	public function testMethod(): void
 	{
 		$server = $this->getServerData();
 
@@ -484,7 +484,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRealMethod()
+	public function testRealMethod(): void
 	{
 		$server = $this->getServerData();
 
@@ -512,7 +512,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsFaked()
+	public function testIsFaked(): void
 	{
 		$server = $this->getServerData();
 
@@ -540,7 +540,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUsername()
+	public function testUsername(): void
 	{
 		$server = $this->getServerData();
 
@@ -560,7 +560,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPassword()
+	public function testPassword(): void
 	{
 		$server = $this->getServerData();
 
@@ -580,7 +580,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCookie()
+	public function testCookie(): void
 	{
 		$cookies = ['foo' => 'bar'];
 
@@ -596,7 +596,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSignedCookie()
+	public function testSignedCookie(): void
 	{
 		$signer = Mockery::mock('\mako\security\Signer');
 
@@ -622,7 +622,7 @@ class RequestTest extends TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testSignedCookieException()
+	public function testSignedCookieException(): void
 	{
 		$request = new Request();
 
@@ -632,7 +632,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHeader()
+	public function testHeader(): void
 	{
 		$server = $this->getServerData();
 
@@ -650,7 +650,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testServer()
+	public function testServer(): void
 	{
 		$server = $this->getServerData();
 
@@ -668,7 +668,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$get = ['foo' => 'bar', 'baz' => ['bax']];
 
@@ -688,7 +688,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPost()
+	public function testPost(): void
 	{
 		$post = ['foo' => 'bar', 'baz' => ['bax']];
 
@@ -708,7 +708,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBody()
+	public function testBody(): void
 	{
 		$request = new Request(['body' => '{"foo":"bar","baz":["bax"]}']);
 
@@ -718,7 +718,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testContentTypeWithNoHeader()
+	public function testContentTypeWithNoHeader(): void
 	{
 		$request = new Request;
 
@@ -728,7 +728,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testContentTypeWithHeader()
+	public function testContentTypeWithHeader(): void
 	{
 		$server = $this->getServerData();
 
@@ -742,7 +742,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testContentTypeWithHeaderAndCharset()
+	public function testContentTypeWithHeaderAndCharset(): void
 	{
 		$server = $this->getServerData();
 
@@ -756,7 +756,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testJsonPutData()
+	public function testJsonPutData(): void
 	{
 		$body = ['foo' => 'bar', 'baz' => ['bax']];
 
@@ -780,7 +780,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testURLEncodedPutData()
+	public function testURLEncodedPutData(): void
 	{
 		$body = ['foo' => 'bar', 'baz' => ['bax']];
 
@@ -804,7 +804,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetRoute()
+	public function testSetRoute(): void
 	{
 		$request = new Request();
 
@@ -823,7 +823,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetRoute()
+	public function testGetRoute(): void
 	{
 		$request = new Request();
 
@@ -839,7 +839,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetAttribute()
+	public function testSetAndGetAttribute(): void
 	{
 		$request = new Request();
 
@@ -857,7 +857,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFile()
+	public function testFile(): void
 	{
 		$request =
 		[
@@ -894,7 +894,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFileMultiUpload()
+	public function testFileMultiUpload(): void
 	{
 		$request =
 		[
@@ -945,7 +945,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFileNone()
+	public function testFileNone(): void
 	{
 		$request = new Request;
 
@@ -959,7 +959,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetDataWithGetRequest()
+	public function testGetDataWithGetRequest(): void
 	{
 		$get = ['foo' => 'bar', 'baz' => ['bax']];
 
@@ -971,7 +971,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetDataWithPostRequestWithFormData()
+	public function testGetDataWithPostRequestWithFormData(): void
 	{
 		$post = ['foo' => 'bar', 'baz' => ['bax']];
 
@@ -995,7 +995,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetDataWithPostRequestWithoutFormData()
+	public function testGetDataWithPostRequestWithoutFormData(): void
 	{
 		$body = ['foo' => 'bar', 'baz' => ['bax']];
 

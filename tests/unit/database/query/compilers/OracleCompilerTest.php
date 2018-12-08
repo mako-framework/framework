@@ -44,7 +44,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithNoLimit()
+	public function testSelectWithNoLimit(): void
 	{
 		$query = $this->getBuilder();
 
@@ -58,7 +58,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLimit()
+	public function testSelectWithLimit(): void
 	{
 		$query = $this->getBuilder();
 
@@ -73,7 +73,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLimitAndOrder()
+	public function testSelectWithLimitAndOrder(): void
 	{
 		$query = $this->getBuilder();
 
@@ -90,7 +90,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOffset()
+	public function testSelectWithOffset(): void
 	{
 		$query = $this->getBuilder();
 
@@ -105,7 +105,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithOffsetAndOrder()
+	public function testSelectWithOffsetAndOrder(): void
 	{
 		$query = $this->getBuilder();
 
@@ -122,7 +122,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLimitAndOffset()
+	public function testSelectWithLimitAndOffset(): void
 	{
 		$query = $this->getBuilder();
 
@@ -138,7 +138,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLimitOffsetAndOrder()
+	public function testSelectWithLimitOffsetAndOrder(): void
 	{
 		$query = $this->getBuilder();
 
@@ -156,7 +156,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithJSONColumn()
+	public function testSelectWithJSONColumn(): void
 	{
 		$query = $this->getBuilder();
 
@@ -215,7 +215,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithExclusiveLock()
+	public function testSelectWithExclusiveLock(): void
 	{
 		$query = $this->getBuilder();
 
@@ -230,7 +230,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithSharedLock()
+	public function testSelectWithSharedLock(): void
 	{
 		$query = $this->getBuilder();
 
@@ -245,7 +245,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithSharedLockMethod()
+	public function testSelectWithSharedLockMethod(): void
 	{
 		$query = $this->getBuilder();
 
@@ -260,7 +260,7 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithCustomLock()
+	public function testSelectWithCustomLock(): void
 	{
 		$query = $this->getBuilder();
 

@@ -110,7 +110,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetTableName()
+	public function testGetTableName(): void
 	{
 		$user = new TestUser1();
 
@@ -120,7 +120,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetPrimaryKey()
+	public function testGetPrimaryKey(): void
 	{
 		$user = new TestUser1();
 
@@ -130,7 +130,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetPrimaryKeyValue()
+	public function testGetPrimaryKeyValue(): void
 	{
 		$user = new TestUser1(['id' => '1']);
 
@@ -140,7 +140,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetForeignKey()
+	public function testGetForeignKey(): void
 	{
 		$user = new TestUser1();
 
@@ -154,7 +154,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetClass()
+	public function testGetClass(): void
 	{
 		$user = new TestUser1();
 
@@ -164,7 +164,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetLockVersion()
+	public function testSetAndGetLockVersion(): void
 	{
 		$user = new TestUser2([], true, false, true);
 
@@ -176,7 +176,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetIncludes()
+	public function testSetAndGetIncludes(): void
 	{
 		$user = new TestUser1();
 
@@ -190,7 +190,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetRelated()
+	public function testSetAndGetRelated(): void
 	{
 		$user = new TestUser1();
 
@@ -204,7 +204,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetRawColumnValues()
+	public function testGetRawColumnValues(): void
 	{
 		$columns = ['id' => '1', 'username' => 'foo'];
 
@@ -216,7 +216,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetandGetColumn()
+	public function testSetandGetColumn(): void
 	{
 		$user = new TestUser1();
 
@@ -290,7 +290,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAssign()
+	public function testAssign(): void
 	{
 		$user = new TestUser3();
 
@@ -336,7 +336,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTableNameGuessing()
+	public function testTableNameGuessing(): void
 	{
 		$apple = new ORMTestApple;
 
@@ -346,7 +346,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDateTimeColumns()
+	public function testDateTimeColumns(): void
 	{
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
@@ -356,7 +356,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetColumnWithNullValue()
+	public function testGetColumnWithNullValue(): void
 	{
 		$user = new TestUser4();
 
@@ -372,7 +372,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsModified()
+	public function testIsModified(): void
 	{
 		$user = new TestUser1(['foo' => 123, 'bar' => 456], true, false, true);
 
@@ -386,7 +386,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetModified()
+	public function testGetModified(): void
 	{
 		$user = new TestUser1(['foo' => 123, 'bar' => 456], true, false, true);
 
@@ -400,7 +400,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetModifiedWithNullValues()
+	public function testGetModifiedWithNullValues(): void
 	{
 		$user = new TestUser1(['foo' => null], true, false, true);
 
@@ -414,7 +414,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCastingScalars()
+	public function testCastingScalars(): void
 	{
 		$cast = new TestCastingScalars;
 
@@ -500,7 +500,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCastingDate()
+	public function testCastingDate(): void
 	{
 		$cast = new TestCastingDate;
 
@@ -526,7 +526,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToArray()
+	public function testToArray(): void
 	{
 		$user = new TestUser4();
 
@@ -542,7 +542,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testJsonSerialize()
+	public function testJsonSerialize(): void
 	{
 		$user = new TestUser4();
 
@@ -556,7 +556,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToJson()
+	public function testToJson(): void
 	{
 		$user = new TestUser4();
 
@@ -572,7 +572,7 @@ class ORMTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToString()
+	public function testToString(): void
 	{
 		$user = new TestUser4();
 

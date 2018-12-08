@@ -36,7 +36,7 @@ class FunctionParserTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicFunction()
+	public function testBasicFunction(): void
 	{
 		$parser = new Parser;
 
@@ -46,7 +46,7 @@ class FunctionParserTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicFunctionWithAutodetect()
+	public function testBasicFunctionWithAutodetect(): void
 	{
 		$parser = new Parser;
 
@@ -56,7 +56,7 @@ class FunctionParserTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFunctionWithOneParameter()
+	public function testFunctionWithOneParameter(): void
 	{
 		$parser = new Parser;
 
@@ -72,7 +72,7 @@ class FunctionParserTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFunctionWithOneParameterAndAutodetect()
+	public function testFunctionWithOneParameterAndAutodetect(): void
 	{
 		$parser = new Parser;
 
@@ -88,7 +88,7 @@ class FunctionParserTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFunctionWithMultipleParameters()
+	public function testFunctionWithMultipleParameters(): void
 	{
 		$parser = new Parser;
 
@@ -102,7 +102,7 @@ class FunctionParserTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFunctionWithMultipleParametersAndAutodetect()
+	public function testFunctionWithMultipleParametersAndAutodetect(): void
 	{
 		$parser = new Parser;
 
@@ -116,7 +116,7 @@ class FunctionParserTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFunctionWithNamedParameters()
+	public function testFunctionWithNamedParameters(): void
 	{
 		$parser = new Parser;
 
@@ -126,7 +126,7 @@ class FunctionParserTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFunctionWithNamedParametersAndAutodetect()
+	public function testFunctionWithNamedParametersAndAutodetect(): void
 	{
 		$parser = new Parser;
 
@@ -136,7 +136,7 @@ class FunctionParserTraitTest extends TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testFunctionWithInvalidJson()
+	public function testFunctionWithInvalidJson(): void
 	{
 		$parser = new Parser;
 

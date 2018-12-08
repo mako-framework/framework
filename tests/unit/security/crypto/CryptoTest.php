@@ -21,7 +21,7 @@ class CryptoTest extends TestCase
 	/**
 	 *
 	 */
-	public function testEncrypt()
+	public function testEncrypt(): void
 	{
 		$encrypter = Mockery::mock(EncrypterInterface::class);
 
@@ -39,7 +39,7 @@ class CryptoTest extends TestCase
 	/**
 	 *
 	 */
-	public function testDecrypt()
+	public function testDecrypt(): void
 	{
 		$signer = Mockery::mock(Signer::class);
 
@@ -58,7 +58,7 @@ class CryptoTest extends TestCase
 	 * @expectedException \mako\security\crypto\CryptoException
 	 * @expectedExceptionMessage Ciphertex has been modified or an invalid authentication key has been provided.
 	 */
-	public function testDecryptModifiedCiphertext()
+	public function testDecryptModifiedCiphertext(): void
 	{
 		$signer = Mockery::mock(Signer::class);
 

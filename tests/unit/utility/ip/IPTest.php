@@ -18,7 +18,7 @@ class IPTest extends TestCase
 	/**
 	 *
 	 */
-	public function testInRange()
+	public function testInRange(): void
 	{
 		$this->assertTrue(IP::inRange('127.0.0.40', '127.0.0.0/24'));
 		$this->assertFalse(IP::inRange('127.0.0.1', '127.0.0.0/32'));

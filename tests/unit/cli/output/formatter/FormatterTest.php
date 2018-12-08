@@ -18,7 +18,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicFormatter()
+	public function testBasicFormatter(): void
 	{
 		$formatter = new Formatter();
 
@@ -30,7 +30,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTagEscaping()
+	public function testTagEscaping(): void
 	{
 		$formatter = new Formatter();
 
@@ -40,7 +40,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCustomStyle()
+	public function testCustomStyle(): void
 	{
 		$formatter = new Formatter();
 
@@ -52,7 +52,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testEscape()
+	public function testEscape(): void
 	{
 		$formatter = new Formatter();
 
@@ -62,7 +62,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStripTags()
+	public function testStripTags(): void
 	{
 		$formatter = new Formatter();
 
@@ -74,7 +74,7 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStripSGR()
+	public function testStripSGR(): void
 	{
 		$formatter = new Formatter();
 
@@ -85,7 +85,7 @@ class OutputTest extends TestCase
 	 * @expectedException \mako\cli\output\formatter\FormatterException
 	 * @expectedExceptionMessage Undefined formatting tag [ fail ] detected.
 	 */
-	public function testUndefinedTagException()
+	public function testUndefinedTagException(): void
 	{
 		$formatter = new Formatter();
 
@@ -96,7 +96,7 @@ class OutputTest extends TestCase
 	 * @expectedException \mako\cli\output\formatter\FormatterException
 	 * @expectedExceptionMessage Detected incorrectly nested formatting tag.
 	 */
-	public function testIncorrectTagNestingException()
+	public function testIncorrectTagNestingException(): void
 	{
 		$formatter = new Formatter();
 
@@ -107,7 +107,7 @@ class OutputTest extends TestCase
 	 * @expectedException \mako\cli\output\formatter\FormatterException
 	 * @expectedExceptionMessage Detected missing formatting close tag.
 	 */
-	public function testMissingCloseTagException()
+	public function testMissingCloseTagException(): void
 	{
 		$formatter = new Formatter();
 

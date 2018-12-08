@@ -33,7 +33,7 @@ class NullableTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testInsert()
+	public function testInsert(): void
 	{
 		$nullable = $this->getNullable();
 
@@ -57,7 +57,7 @@ class NullableTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testUpdate()
+	public function testUpdate(): void
 	{
 		$nullable = $this->getNullable();
 

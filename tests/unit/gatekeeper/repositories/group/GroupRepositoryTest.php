@@ -41,9 +41,9 @@ class GroupRepositoryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreateGroup()
+	public function testCreateGroup(): void
 	{
-		$repository = $this->getRepository(function($group)
+		$repository = $this->getRepository(function($group): void
 		{
 			$group->shouldReceive('save')->once();
 		});
@@ -56,9 +56,9 @@ class GroupRepositoryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetByName()
+	public function testGetByName(): void
 	{
-		$repository = $this->getRepository(function($group)
+		$repository = $this->getRepository(function($group): void
 		{
 			$group->shouldReceive('where')->once()->with('name', '=', 'foobar')->andReturn($group);
 
@@ -71,9 +71,9 @@ class GroupRepositoryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetById()
+	public function testGetById(): void
 	{
-		$repository = $this->getRepository(function($group)
+		$repository = $this->getRepository(function($group): void
 		{
 			$group->shouldReceive('where')->once()->with('id', '=', 1)->andReturn($group);
 
@@ -86,9 +86,9 @@ class GroupRepositoryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetByIdentifier()
+	public function testGetByIdentifier(): void
 	{
-		$repository = $this->getRepository(function($group)
+		$repository = $this->getRepository(function($group): void
 		{
 			$group->shouldReceive('where')->once()->with('name', '=', 'foobar')->andReturn($group);
 
@@ -110,7 +110,7 @@ class GroupRepositoryTest extends TestCase
 	 * @expectedException \InvalidArgumentException
 	 * @expectedExceptionMessage Invalid identifier [ nope ].
 	 */
-	public function testSetInvalidIdentifier()
+	public function testSetInvalidIdentifier(): void
 	{
 		$this->getRepository()->setIdentifier('nope');
 	}

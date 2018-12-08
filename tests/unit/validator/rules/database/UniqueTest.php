@@ -22,7 +22,7 @@ class UniqueTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new Unique(Mockery::mock(ConnectionManager::class));
 
@@ -32,7 +32,7 @@ class UniqueTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$builder = Mockery::mock(Query::class);
 
@@ -58,7 +58,7 @@ class UniqueTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValueAndAllowedValue()
+	public function testWithValidValueAndAllowedValue(): void
 	{
 		$builder = Mockery::mock(Query::class);
 
@@ -86,7 +86,7 @@ class UniqueTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithSameValueAsTheAllowedValue()
+	public function testWithSameValueAsTheAllowedValue(): void
 	{
 		$database = Mockery::mock(ConnectionManager::class);
 
@@ -100,7 +100,7 @@ class UniqueTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$builder = Mockery::mock(Query::class);
 

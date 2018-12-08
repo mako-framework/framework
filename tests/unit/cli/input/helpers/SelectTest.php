@@ -19,7 +19,7 @@ class SelectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectAndPickFirstOption()
+	public function testSelectAndPickFirstOption(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -39,7 +39,7 @@ class SelectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectAndPickSecondOption()
+	public function testSelectAndPickSecondOption(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 
@@ -59,7 +59,7 @@ class SelectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectAndPickFirstOptionAfterPickingInvalidOption()
+	public function testSelectAndPickFirstOptionAfterPickingInvalidOption(): void
 	{
 		$input = Mockery::mock('mako\cli\input\Input');
 

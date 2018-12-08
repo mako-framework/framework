@@ -18,7 +18,7 @@ class MethodNotAllowedExceptionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFailedConnection()
+	public function testFailedConnection(): void
 	{
 		$exception = new MethodNotAllowedException(['GET', 'POST']);
 

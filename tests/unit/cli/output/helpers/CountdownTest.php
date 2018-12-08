@@ -20,7 +20,7 @@ class CountdownTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCountdownFromDefault()
+	public function testCountdownFromDefault(): void
 	{
 		$output = Mockery::mock(Output::class);
 
@@ -58,7 +58,7 @@ class CountdownTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCountdownFrom2()
+	public function testCountdownFrom2(): void
 	{
 		$output = Mockery::mock(Output::class);
 

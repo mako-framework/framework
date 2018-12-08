@@ -44,7 +44,7 @@ class MySQLCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicSelect()
+	public function testBasicSelect(): void
 	{
 		$query = $this->getBuilder();
 
@@ -57,7 +57,7 @@ class MySQLCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithJSONColumn()
+	public function testSelectWithJSONColumn(): void
 	{
 		$query = $this->getBuilder();
 
@@ -116,7 +116,7 @@ class MySQLCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithExclusiveLock()
+	public function testSelectWithExclusiveLock(): void
 	{
 		$query = $this->getBuilder();
 
@@ -131,7 +131,7 @@ class MySQLCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithSharedLock()
+	public function testSelectWithSharedLock(): void
 	{
 		$query = $this->getBuilder();
 
@@ -146,7 +146,7 @@ class MySQLCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithSharedLockMethod()
+	public function testSelectWithSharedLockMethod(): void
 	{
 		$query = $this->getBuilder();
 
@@ -161,7 +161,7 @@ class MySQLCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithCustomLock()
+	public function testSelectWithCustomLock(): void
 	{
 		$query = $this->getBuilder();
 
@@ -176,7 +176,7 @@ class MySQLCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUpdateWithJSONColumn()
+	public function testUpdateWithJSONColumn(): void
 	{
 		$query = $this->getBuilder();
 
@@ -189,7 +189,7 @@ class MySQLCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicInsertWithNoValues()
+	public function testBasicInsertWithNoValues(): void
 	{
 		$query = $this->getBuilder();
 

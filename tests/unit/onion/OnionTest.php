@@ -91,7 +91,7 @@ class BazMiddleware2
 {
 	protected $parameters;
 
-	public function setParameters(array $parameters)
+	public function setParameters(array $parameters): void
 	{
 		$this->parameters = $parameters;
 	}
@@ -114,7 +114,7 @@ class OnionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddleware()
+	public function testMiddleware(): void
 	{
 		$onion = new Onion;
 
@@ -140,7 +140,7 @@ class OnionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareWithParams()
+	public function testMiddlewareWithParams(): void
 	{
 		$onion = new Onion;
 
@@ -155,7 +155,7 @@ class OnionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareWithClosureAndParams()
+	public function testMiddlewareWithClosureAndParams(): void
 	{
 		$onion = new Onion;
 
@@ -173,7 +173,7 @@ class OnionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAddInnerLayer()
+	public function testAddInnerLayer(): void
 	{
 		$onion = new Onion;
 
@@ -189,7 +189,7 @@ class OnionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAddOuterLayer()
+	public function testAddOuterLayer(): void
 	{
 		$onion = new Onion;
 
@@ -205,7 +205,7 @@ class OnionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareWithConstructorParameters()
+	public function testMiddlewareWithConstructorParameters(): void
 	{
 		$onion = new Onion;
 
@@ -222,7 +222,7 @@ class OnionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareWithConstructorParametersAtRuntime()
+	public function testMiddlewareWithConstructorParametersAtRuntime(): void
 	{
 		$onion = new Onion;
 
@@ -239,7 +239,7 @@ class OnionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareWithSetterParameters()
+	public function testMiddlewareWithSetterParameters(): void
 	{
 		$onion = new Onion(null, null, null, 'setParameters');
 
@@ -256,7 +256,7 @@ class OnionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareWithSetterParametersAtRuntime()
+	public function testMiddlewareWithSetterParametersAtRuntime(): void
 	{
 		$onion = new Onion(null, null, null, 'setParameters');
 
@@ -274,7 +274,7 @@ class OnionTest extends TestCase
 	 * @expectedException mako\onion\OnionException
 	 * @expectedExceptionMessage The Onion instance expects the middleware to be an instance of [ mako\tests\unit\onion\FooMiddleware2Interface ].
 	 */
-	public function testMiddlewareWithInvalidMiddlewareInterfaceExpectation()
+	public function testMiddlewareWithInvalidMiddlewareInterfaceExpectation(): void
 	{
 		$onion = new Onion(null, null, FooMiddleware2Interface::class);
 
@@ -286,7 +286,7 @@ class OnionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareWithValidMiddlewareInterfaceExpectation()
+	public function testMiddlewareWithValidMiddlewareInterfaceExpectation(): void
 	{
 		$onion = new Onion(null, null, FooMiddleware1Interface::class);
 

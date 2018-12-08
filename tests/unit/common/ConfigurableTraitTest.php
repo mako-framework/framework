@@ -36,7 +36,7 @@ class ConfigurableTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testConstructor()
+	public function testConstructor(): void
 	{
 		$configurable = new Configurable('foo', ['foo' => ['foo_config']]);
 
@@ -46,7 +46,7 @@ class ConfigurableTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAddConfiguration()
+	public function testAddConfiguration(): void
 	{
 		$configurable = new Configurable('foo', ['foo' => ['foo_config']]);
 
@@ -58,7 +58,7 @@ class ConfigurableTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRemoveConfiguration()
+	public function testRemoveConfiguration(): void
 	{
 		$configurable = new Configurable('foo', ['foo' => ['foo_config']]);
 

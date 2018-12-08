@@ -18,7 +18,7 @@ class IPv6Test extends TestCase
 	/**
 	 *
 	 */
-	public function testInRange()
+	public function testInRange(): void
 	{
 		$this->assertTrue(IPv6::inRange('::1', '::1'));
 		$this->assertTrue(IPv6::inRange('0:0:0:0:0:0:0:1', '::1'));

@@ -44,7 +44,7 @@ class BelongsToTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testBasicBelongsToRelation()
+	public function testBasicBelongsToRelation(): void
 	{
 		$profile = BelongsToProfile::get(1);
 
@@ -64,7 +64,7 @@ class BelongsToTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testBelongsToYield()
+	public function testBelongsToYield(): void
 	{
 		$profile = BelongsToProfile::get(1);
 
@@ -95,7 +95,7 @@ class BelongsToTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLazyBelongsToRelation()
+	public function testLazyBelongsToRelation(): void
 	{
 		$profiles = BelongsToProfile::ascending('id')->all();
 
@@ -120,7 +120,7 @@ class BelongsToTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerBelongsToRelation()
+	public function testEagerBelongsToRelation(): void
 	{
 		$profiles = BelongsToProfile::including('user')->ascending('id')->all();
 
@@ -141,9 +141,9 @@ class BelongsToTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerBelongsToRelationWithConstraint()
+	public function testEagerBelongsToRelationWithConstraint(): void
 	{
-		$profiles = BelongsToProfile::including(['user' => function($query)
+		$profiles = BelongsToProfile::including(['user' => function($query): void
 		{
 			$query->where('username', '=', 'does not exist');
 		}, ])->ascending('id')->all();

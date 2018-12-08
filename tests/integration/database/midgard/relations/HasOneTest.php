@@ -44,7 +44,7 @@ class HasOneTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testBasicHasOneRelation()
+	public function testBasicHasOneRelation(): void
 	{
 		$user = HasOneUser::get(1);
 
@@ -64,7 +64,7 @@ class HasOneTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testBelongsToYield()
+	public function testBelongsToYield(): void
 	{
 		$user = HasOneUser::get(1);
 
@@ -95,7 +95,7 @@ class HasOneTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testLazyHasOneRelation()
+	public function testLazyHasOneRelation(): void
 	{
 		$users = HasOneUser::ascending('id')->all();
 
@@ -120,7 +120,7 @@ class HasOneTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerHasOneRelation()
+	public function testEagerHasOneRelation(): void
 	{
 		$users = HasOneUser::including('profile')->ascending('id')->all();
 
@@ -141,9 +141,9 @@ class HasOneTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testEagerHasOneRelationWithConstraint()
+	public function testEagerHasOneRelationWithConstraint(): void
 	{
-		$users = HasOneUser::including(['profile' => function($query)
+		$users = HasOneUser::including(['profile' => function($query): void
 		{
 			$query->where('interests', '=', 'does not exist');
 		}, ])->ascending('id')->all();
@@ -163,7 +163,7 @@ class HasOneTest extends ORMTestCase
 	/**
 	 *
 	 */
-	public function testCreateRelated()
+	public function testCreateRelated(): void
 	{
 		$user = new HasOneUser();
 

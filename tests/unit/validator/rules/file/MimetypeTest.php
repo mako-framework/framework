@@ -19,7 +19,7 @@ class MimetypeTest extends TestCase
 	/**
 	 *
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		if(function_exists('finfo_open') === false)
 		{
@@ -30,7 +30,7 @@ class MimetypeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatesWhenEmpty()
+	public function testValidatesWhenEmpty(): void
 	{
 		$rule = new Mimetype;
 
@@ -40,7 +40,7 @@ class MimetypeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithValidValue()
+	public function testWithValidValue(): void
 	{
 		$rule = new Mimetype;
 
@@ -60,7 +60,7 @@ class MimetypeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithInvalidValue()
+	public function testWithInvalidValue(): void
 	{
 		$rule = new Mimetype;
 

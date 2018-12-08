@@ -18,7 +18,7 @@ class MissingArgumentExceptionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testException()
+	public function testException(): void
 	{
 		$exception = new MissingArgumentException('foo', 'bar');
 

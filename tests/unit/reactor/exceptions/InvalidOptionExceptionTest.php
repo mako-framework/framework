@@ -18,7 +18,7 @@ class InvalidOptionExceptionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testException()
+	public function testException(): void
 	{
 		$exception = new InvalidOptionException('foo', 'bar', 'baz');
 

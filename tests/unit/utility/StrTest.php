@@ -18,7 +18,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNl2br()
+	public function testNl2br(): void
 	{
 		$this->assertEquals('Hello<br>World!', Str::nl2br("Hello\nWorld!"));
 		$this->assertEquals('Hello<br>World!', Str::nl2br("Hello\rWorld!"));
@@ -34,7 +34,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBr2nl()
+	public function testBr2nl(): void
 	{
 		$this->assertEquals("Hello\nWorld!", Str::br2nl('Hello<br>World!'));
 		$this->assertEquals("Hello\nWorld!", Str::br2nl('Hello<br/>World!'));
@@ -44,7 +44,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPluralize()
+	public function testPluralize(): void
 	{
 		// Regex rules
 
@@ -103,7 +103,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCamel2underscored()
+	public function testCamel2underscored(): void
 	{
 		$this->assertEquals('hello_world', Str::camel2underscored('helloWorld'));
 		$this->assertEquals('hello_world', Str::camel2underscored('HelloWorld'));
@@ -114,7 +114,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUnderscored2camel()
+	public function testUnderscored2camel(): void
 	{
 		$this->assertEquals('helloWorld', Str::underscored2camel('hello_world'));
 		$this->assertEquals('HelloWorld', Str::underscored2camel('hello_world', true));
@@ -125,7 +125,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLimitChars()
+	public function testLimitChars(): void
 	{
 		$this->assertEquals(str_repeat('x', 50), Str::limitChars(str_repeat('x', 50)));
 		$this->assertEquals(str_repeat('x', 100) . '...', Str::limitChars(str_repeat('x', 200)));
@@ -136,7 +136,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLimitWords()
+	public function testLimitWords(): void
 	{
 		$this->assertEquals(trim(str_repeat('Hello ', 50)), Str::limitWords(trim(str_repeat('Hello ', 50))));
 		$this->assertEquals(trim(str_repeat('Hello ', 100)) . '...', Str::limitWords(trim(str_repeat('Hello ', 200))));
@@ -147,7 +147,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSlug()
+	public function testSlug(): void
 	{
 		$this->assertEquals('hello-world', Str::slug('Hello, world!'));
 	 	$this->assertEquals('hello-world', Str::slug('HELLO WORLD'));
@@ -159,7 +159,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAscii()
+	public function testAscii(): void
 	{
 		$this->assertEquals('hello', Str::ascii('hello'));
 		$this->assertEquals('l', Str::ascii('øl'));
@@ -168,7 +168,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAlternator()
+	public function testAlternator(): void
 	{
 		$alternator = Str::alternator(['foo', 'bar']);
 
@@ -187,7 +187,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAutolink()
+	public function testAutolink(): void
 	{
 		$this->assertEquals('go to <a href="http://example.org">http://example.org</a>', Str::autolink('go to http://example.org'));
 		$this->assertEquals('go to <a href="http://example.org">http://example.org</a>', Str::autolink('go to <a href="http://example.org">http://example.org</a>'));
@@ -197,7 +197,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMask()
+	public function testMask(): void
 	{
 		$this->assertEquals('**llo', Str::mask('hello'));
 		$this->assertEquals('**lle', Str::mask('kølle'));
@@ -219,7 +219,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIncrement()
+	public function testIncrement(): void
 	{
 		$this->assertEquals('foo_1', Str::increment('foo'));
 		$this->assertEquals('foo_2', Str::increment('foo_1'));
@@ -234,7 +234,7 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRandom()
+	public function testRandom(): void
 	{
 		$this->assertEquals(32, mb_strlen(Str::random()));
 		$this->assertEquals(16, mb_strlen(Str::random(Str::ALNUM, 16)));

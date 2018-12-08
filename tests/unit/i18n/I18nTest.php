@@ -48,7 +48,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetCache()
+	public function testSetCache(): void
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
 
@@ -65,7 +65,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetLanguage()
+	public function testGetLanguage(): void
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
 
@@ -75,7 +75,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetLanguage()
+	public function testSetLanguage(): void
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
 
@@ -89,7 +89,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetLoader()
+	public function testGetLoader(): void
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
 
@@ -99,7 +99,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$loader = $this->getLoader();
 
@@ -127,7 +127,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$loader = $this->getLoader();
 
@@ -149,7 +149,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetWithLang()
+	public function testGetWithLang(): void
 	{
 		$loader = $this->getLoader();
 
@@ -171,7 +171,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testParameters()
+	public function testParameters(): void
 	{
 		$loader = $this->getLoader();
 
@@ -185,7 +185,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPluralize()
+	public function testPluralize(): void
 	{
 		$loader = $this->getLoader();
 
@@ -208,7 +208,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNumber()
+	public function testNumber(): void
 	{
 		$loader = $this->getLoader();
 
@@ -225,7 +225,7 @@ class I18nTest extends TestCase
 	 * @expectedException \mako\i18n\I18nException
 	 * @expectedExceptionMessage The [ en_US ] language pack does not include any inflection rules.
 	 */
-	public function testPluralizeWithoutPluralizationRules()
+	public function testPluralizeWithoutPluralizationRules(): void
 	{
 		$loader = $this->getLoader();
 
@@ -239,7 +239,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPluralizeInStrings()
+	public function testPluralizeInStrings(): void
 	{
 		$loader = $this->getLoader();
 
@@ -264,7 +264,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFormatNumbersInStrings()
+	public function testFormatNumbersInStrings(): void
 	{
 		$loader = $this->getLoader();
 
@@ -284,7 +284,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCacheLoad()
+	public function testCacheLoad(): void
 	{
 		$cache = $this->getCache();
 
@@ -298,7 +298,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCacheSave()
+	public function testCacheSave(): void
 	{
 		$loader = $this->getLoader();
 
@@ -318,7 +318,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHasWithoutValidKey()
+	public function testHasWithoutValidKey(): void
 	{
 		$loader = $this->getLoader();
 
@@ -330,7 +330,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetWithoutValidKey()
+	public function testGetWithoutValidKey(): void
 	{
 		$loader = $this->getLoader();
 

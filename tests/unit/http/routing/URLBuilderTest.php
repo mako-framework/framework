@@ -59,7 +59,7 @@ class URLBuilderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMatches()
+	public function testMatches(): void
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes());
 
@@ -75,7 +75,7 @@ class URLBuilderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBase()
+	public function testBase(): void
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes());
 
@@ -85,7 +85,7 @@ class URLBuilderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBaseWithConfiguredURL()
+	public function testBaseWithConfiguredURL(): void
 	{
 		$request = Mockery::mock('\mako\http\Request');
 
@@ -103,7 +103,7 @@ class URLBuilderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTo()
+	public function testTo(): void
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes());
 
@@ -137,7 +137,7 @@ class URLBuilderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToRoute()
+	public function testToRoute(): void
 	{
 		$urlBuilder = new URLBuilder($this->getRequest(), $this->getRoutes(), true);
 
@@ -165,7 +165,7 @@ class URLBuilderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToCurrent()
+	public function testToCurrent(): void
 	{
 		$request = $this->getRequest();
 
@@ -189,7 +189,7 @@ class URLBuilderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testToCurrentWithQueryParams()
+	public function testToCurrentWithQueryParams(): void
 	{
 		$request = $this->getRequest();
 

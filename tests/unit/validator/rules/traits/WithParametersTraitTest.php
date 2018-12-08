@@ -18,7 +18,7 @@ class WithParametersTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetParameters()
+	public function testSetParameters(): void
 	{
 		$rule = new class
 		{
@@ -35,7 +35,7 @@ class WithParametersTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetParameter()
+	public function testGetParameter(): void
 	{
 		$rule = new class
 		{
@@ -60,7 +60,7 @@ class WithParametersTraitTest extends TestCase
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessageRegExp /Missing required parameter \[ baz \] for validation rule \[ (.*) \]\./
 	 */
-	public function testGetMissingRequiredParameter()
+	public function testGetMissingRequiredParameter(): void
 	{
 		$rule = new class
 		{

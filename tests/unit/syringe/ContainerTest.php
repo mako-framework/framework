@@ -61,7 +61,7 @@ class Baq
 {
 	public $baq;
 
-	public function setBaq($baq = 123)
+	public function setBaq($baq = 123): void
 	{
 		$this->baq = $baq;
 	}
@@ -134,7 +134,7 @@ class ReplaceB
 		$this->replaceA = $replaceA;
 	}
 
-	public function setReplaceA(ReplaceA $replaceA)
+	public function setReplaceA(ReplaceA $replaceA): void
 	{
 		$this->replaceA = $replaceA;
 	}
@@ -162,7 +162,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasic()
+	public function testBasic(): void
 	{
 		$container = new Container;
 
@@ -175,7 +175,7 @@ class ContainerTest extends TestCase
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage Unable to resolve the [ $bax ] parameter of [ mako\tests\unit\syringe\Fox::__construct ].
 	 */
-	public function testClassInstantiationWithUnresolvableParameters()
+	public function testClassInstantiationWithUnresolvableParameters(): void
 	{
 		$container = new Container;
 
@@ -185,7 +185,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testParametersFromReflection()
+	public function testParametersFromReflection(): void
 	{
 		$container = new Container;
 
@@ -198,7 +198,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNumericParameters()
+	public function testNumericParameters(): void
 	{
 		$container = new Container;
 
@@ -220,7 +220,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAssociativeParameters()
+	public function testAssociativeParameters(): void
 	{
 		$container = new Container;
 
@@ -233,7 +233,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMixedParameters()
+	public function testMixedParameters(): void
 	{
 		$container = new Container;
 
@@ -246,7 +246,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testImplementationInjection()
+	public function testImplementationInjection(): void
 	{
 		$container = new Container;
 
@@ -261,7 +261,7 @@ class ContainerTest extends TestCase
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage Unable to create a [ mako\tests\unit\syringe\StoreInterface ] instance.
 	 */
-	public function testInterfaceInstantiation()
+	public function testInterfaceInstantiation(): void
 	{
 		$container = new Container;
 
@@ -271,7 +271,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetUsingAlias()
+	public function testGetUsingAlias(): void
 	{
 		$container = new Container;
 
@@ -285,7 +285,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegisterClosure()
+	public function testRegisterClosure(): void
 	{
 		$container = new Container;
 
@@ -305,7 +305,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegisterInstance()
+	public function testRegisterInstance(): void
 	{
 		$container = new Container;
 
@@ -325,7 +325,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$container = new Container;
 
@@ -343,7 +343,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegisterSingleton()
+	public function testRegisterSingleton(): void
 	{
 		$container = new Container;
 
@@ -360,7 +360,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCallClosure()
+	public function testCallClosure(): void
 	{
 		$closure = function(Bar $bar)
 		{
@@ -407,7 +407,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCallMethod()
+	public function testCallMethod(): void
 	{
 		$baq = new Baq;
 
@@ -431,7 +431,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCallFunction()
+	public function testCallFunction(): void
 	{
 		$container = new Container;
 
@@ -456,17 +456,17 @@ class ContainerTest extends TestCase
 	 *
 	 * The entire exception message isn't included in the test because of some HHVM incompatibility that causes the test to fail
 	 */
-	public function testCallMethodWithUnresolvableParameters()
+	public function testCallMethodWithUnresolvableParameters(): void
 	{
 		$container = new Container;
 
-		$container->call(function($foo) {});
+		$container->call(function($foo): void {});
 	}
 
 	/**
 	 *
 	 */
-	public function testContextualDependencies()
+	public function testContextualDependencies(): void
 	{
 		$container = new Container;
 
@@ -483,7 +483,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsSingletonWithRegisteredInstance()
+	public function testIsSingletonWithRegisteredInstance(): void
 	{
 		$container = new Container;
 
@@ -501,7 +501,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsSingletonWithFactory()
+	public function testIsSingletonWithFactory(): void
 	{
 		$container = new Container;
 
@@ -522,7 +522,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testReplaceRegisteredWithClosure()
+	public function testReplaceRegisteredWithClosure(): void
 	{
 		$container = new Container;
 
@@ -535,7 +535,7 @@ class ContainerTest extends TestCase
 		{
 			$replaceB = new ReplaceB($container->get(ReplaceA::class));
 
-			$container->onReplace(ReplaceA::class, (function($replaceA)
+			$container->onReplace(ReplaceA::class, (function($replaceA): void
 			{
 				$this->replaceA = $replaceA;
 			})->bindTo($replaceB, ReplaceB::class));
@@ -558,7 +558,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testReplaceRegisteredWithSetter()
+	public function testReplaceRegisteredWithSetter(): void
 	{
 		$container = new Container;
 
@@ -591,7 +591,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testReplaceRegisteredSingletonWithClosure()
+	public function testReplaceRegisteredSingletonWithClosure(): void
 	{
 		$container = new Container;
 
@@ -604,7 +604,7 @@ class ContainerTest extends TestCase
 		{
 			$replaceB = new ReplaceB($container->get(ReplaceA::class));
 
-			$container->onReplace(ReplaceA::class, (function($replaceA)
+			$container->onReplace(ReplaceA::class, (function($replaceA): void
 			{
 				$this->replaceA = $replaceA;
 			})->bindTo($replaceB, ReplaceB::class));
@@ -627,7 +627,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testReplaceRegistereSingletondWithSetter()
+	public function testReplaceRegistereSingletondWithSetter(): void
 	{
 		$container = new Container;
 
@@ -660,7 +660,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testReplaceRegisteredInstanceWithClosure()
+	public function testReplaceRegisteredInstanceWithClosure(): void
 	{
 		$container = new Container;
 
@@ -670,7 +670,7 @@ class ContainerTest extends TestCase
 		{
 			$replaceB = new ReplaceB($container->get(ReplaceA::class));
 
-			$container->onReplace(ReplaceA::class, (function($replaceA)
+			$container->onReplace(ReplaceA::class, (function($replaceA): void
 			{
 				$this->replaceA = $replaceA;
 			})->bindTo($replaceB, ReplaceB::class));
@@ -690,7 +690,7 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testReplaceRegisterInstanceWithSetter()
+	public function testReplaceRegisterInstanceWithSetter(): void
 	{
 		$container = new Container;
 
@@ -718,7 +718,7 @@ class ContainerTest extends TestCase
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn't been registered.
 	 */
-	public function testReplaceUnregistered()
+	public function testReplaceUnregistered(): void
 	{
 		$container = new Container;
 
@@ -732,7 +732,7 @@ class ContainerTest extends TestCase
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn't been registered.
 	 */
-	public function testReplaceUnregisteredInstance()
+	public function testReplaceUnregisteredInstance(): void
 	{
 		$container = new Container;
 

@@ -77,7 +77,7 @@ class ControllerWithNullBeforeFilter extends \mako\http\routing\Controller
 		$this->response = $response;
 	}
 
-	public function beforeAction()
+	public function beforeAction(): void
 	{
 		$this->response->getHeaders()->add('X-Foo-Bar', 'Foo Bar');
 	}
@@ -97,7 +97,7 @@ class ControllerWithAfterFilter extends \mako\http\routing\Controller
 		$this->response = $response;
 	}
 
-	public function afterAction()
+	public function afterAction(): void
 	{
 		$this->response->body(strtoupper($this->response->getBody()));
 	}
@@ -175,7 +175,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClosureAction()
+	public function testClosureAction(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -202,7 +202,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClosureActionWithParams()
+	public function testClosureActionWithParams(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -241,7 +241,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testControllerAction()
+	public function testControllerAction(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -275,7 +275,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testControllerActionWithParams()
+	public function testControllerActionWithParams(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -303,7 +303,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testControllerWithNullBeforeFilter()
+	public function testControllerWithNullBeforeFilter(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -337,7 +337,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testControllerWithBeforeFilter()
+	public function testControllerWithBeforeFilter(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -361,7 +361,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testControllerActionWithAfterFilter()
+	public function testControllerActionWithAfterFilter(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -389,7 +389,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddleware()
+	public function testMiddleware(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -420,7 +420,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGlobalMiddleware()
+	public function testGlobalMiddleware(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -453,7 +453,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewarePriority()
+	public function testMiddlewarePriority(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -505,7 +505,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareRegistrationWithPriority()
+	public function testMiddlewareRegistrationWithPriority(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -538,7 +538,7 @@ class DispatcherTest extends TestCase
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage No middleware named [ foobar ] has been registered.
 	 */
-	public function testUnregisteredMiddleware()
+	public function testUnregisteredMiddleware(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -558,7 +558,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareWithUnnamedArguments()
+	public function testMiddlewareWithUnnamedArguments(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -589,7 +589,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMiddlewareWithNamedArguments()
+	public function testMiddlewareWithNamedArguments(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -620,7 +620,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testControllerInjection()
+	public function testControllerInjection(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -644,7 +644,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClosureWithReversedParameterOrder()
+	public function testClosureWithReversedParameterOrder(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -671,7 +671,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClosureParameterInjection()
+	public function testClosureParameterInjection(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 
@@ -702,7 +702,7 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
-	public function testControllerActionParameterInjection()
+	public function testControllerActionParameterInjection(): void
 	{
 		$route = Mockery::mock('\mako\http\routing\Route');
 

@@ -22,7 +22,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetId()
+	public function testGetId(): void
 	{
 		$user = new User(['id' => 1]);
 
@@ -32,7 +32,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetEmail()
+	public function testSetAndGetEmail(): void
 	{
 		$user = new User(['email' => 'foo@example.org']);
 
@@ -46,7 +46,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetUsername()
+	public function testSetAndGetUsername(): void
 	{
 		$user = new User(['username' => 'foo']);
 
@@ -60,7 +60,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetPassword()
+	public function testSetAndGetPassword(): void
 	{
 		$user = new User(['password' => 'hash'], true);
 
@@ -76,7 +76,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetIp()
+	public function testSetAndGetIp(): void
 	{
 		$user = new User(['ip' => '::1']);
 
@@ -90,7 +90,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGenerateActionTokenAndGetActionToken()
+	public function testGenerateActionTokenAndGetActionToken(): void
 	{
 		$user = new User(['action_token' => 'token']);
 
@@ -104,7 +104,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGenerateAccessTokenAndGetAccessToken()
+	public function testGenerateAccessTokenAndGetAccessToken(): void
 	{
 		$user = new User(['access_token' => 'token']);
 
@@ -118,7 +118,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testActiveDeactivateAndIsActivated()
+	public function testActiveDeactivateAndIsActivated(): void
 	{
 		$user = new User(['activated' => 0]);
 
@@ -136,7 +136,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBanUnbanAndIsBanne()
+	public function testBanUnbanAndIsBanne(): void
 	{
 		$user = new User(['banned' => 0]);
 
@@ -154,7 +154,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidatePassword()
+	public function testValidatePassword(): void
 	{
 		$user = new User(['password' => 'test']);
 
@@ -167,7 +167,7 @@ class UserTest extends TestCase
 	 * @expectedException \LogicException
 	 * @expectedExceptionMessage You can only check memberships for users that exist in the database.
 	 */
-	public function testIsMemberOfForNonExistingUser()
+	public function testIsMemberOfForNonExistingUser(): void
 	{
 		$user = new User;
 
@@ -177,7 +177,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsMemberof()
+	public function testIsMemberof(): void
 	{
 		$user = new User([], false, true, true);
 
@@ -210,7 +210,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLockUntilLockedUntilUnlockandIsLocked()
+	public function testLockUntilLockedUntilUnlockandIsLocked(): void
 	{
 		$user = new User(['locked_until' => null]);
 
@@ -240,7 +240,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetFailedAttempts()
+	public function testGetFailedAttempts(): void
 	{
 		$user = new User(['failed_attempts' => 3]);
 
@@ -250,7 +250,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function getLastFailAt()
+	public function getLastFailAt(): void
 	{
 		$user = new User(['last_fail_at' => '2017-02-02 12:01:02']);
 
@@ -264,7 +264,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testThrottle()
+	public function testThrottle(): void
 	{
 		$user = new User(['last_fail_at' => null, 'failed_attempts' => 0, 'locked_until' => null]);
 
@@ -282,7 +282,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testThrottleWithLimitReached()
+	public function testThrottleWithLimitReached(): void
 	{
 		$user = new User(['last_fail_at' => Time::now()->rewind(3500), 'failed_attempts' => 1, 'locked_until' => null]);
 
@@ -300,7 +300,7 @@ class UserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testResetThrottle()
+	public function testResetThrottle(): void
 	{
 		$user = new User(['last_fail_at' => Time::now(), 'failed_attempts' => 1, 'locked_until' => Time::now()]);
 

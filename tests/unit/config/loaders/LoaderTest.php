@@ -27,7 +27,7 @@ class ConfigTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoad()
+	public function testLoad(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -43,7 +43,7 @@ class ConfigTest extends TestCase
 	/**
 	 * @expectedException \mako\config\loaders\LoaderException
 	 */
-	public function testLoadNonExistingFile()
+	public function testLoadNonExistingFile(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -57,7 +57,7 @@ class ConfigTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoadPackage()
+	public function testLoadPackage(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -77,7 +77,7 @@ class ConfigTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoadPackageOverride()
+	public function testLoadPackageOverride(): void
 	{
 		$fileSystem = $this->getFileSystem();
 
@@ -99,7 +99,7 @@ class ConfigTest extends TestCase
 	/**
 	 *
 	 */
-	public function testLoadEvironmentOverride()
+	public function testLoadEvironmentOverride(): void
 	{
 		$fileSystem = $this->getFileSystem();
 

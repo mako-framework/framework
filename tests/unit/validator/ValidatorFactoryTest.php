@@ -42,7 +42,7 @@ class ValidatorFactoryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCreate()
+	public function testCreate(): void
 	{
 		$i18n = Mockery::mock(I18n::class);
 
@@ -66,7 +66,7 @@ class ValidatorFactoryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testExtend()
+	public function testExtend(): void
 	{
 		$i18n = Mockery::mock(I18n::class);
 

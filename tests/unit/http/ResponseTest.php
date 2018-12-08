@@ -43,7 +43,7 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBody()
+	public function testBody(): void
 	{
 		$response = new Response($this->getRequest());
 
@@ -55,7 +55,7 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBodyWithSender()
+	public function testBodyWithSender(): void
 	{
 		$response = new Response($this->getRequest());
 
@@ -67,7 +67,7 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBodyWithBuilder()
+	public function testBodyWithBuilder(): void
 	{
 		$response = new Response($this->getRequest());
 
@@ -79,7 +79,7 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClearBody()
+	public function testClearBody(): void
 	{
 		$response = new Response($this->getRequest());
 
@@ -93,7 +93,7 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testType()
+	public function testType(): void
 	{
 		$response = new Response($this->getRequest());
 
@@ -111,7 +111,7 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testTypeWithCharset()
+	public function testTypeWithCharset(): void
 	{
 		$response = new Response($this->getRequest());
 
@@ -125,7 +125,7 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCharset()
+	public function testCharset(): void
 	{
 		$response = new Response($this->getRequest());
 
@@ -143,7 +143,7 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStatus()
+	public function testStatus(): void
 	{
 		$response = new Response($this->getRequest());
 
@@ -169,7 +169,7 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClear()
+	public function testClear(): void
 	{
 		$response = new Response($this->getRequest());
 
@@ -194,7 +194,7 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testReset()
+	public function testReset(): void
 	{
 		$response = new Response($this->getRequest());
 

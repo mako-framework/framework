@@ -18,7 +18,7 @@ class IPv4Test extends TestCase
 	/**
 	 *
 	 */
-	public function testInRange()
+	public function testInRange(): void
 	{
 		$this->assertTrue(IPv4::inRange('127.0.0.1', '127.0.0.1'));
 		$this->assertTrue(IPv4::inRange('127.0.0.1', '127.0.0.0/1'));

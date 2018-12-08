@@ -27,7 +27,7 @@ class InputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRead()
+	public function testRead(): void
 	{
 		$reader = $this->getReader();
 
@@ -43,7 +43,7 @@ class InputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetArguments()
+	public function testGetArguments(): void
 	{
 		$reader = $this->getReader();
 
@@ -57,7 +57,7 @@ class InputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetNumericArgument()
+	public function testGetNumericArgument(): void
 	{
 		$reader = $this->getReader();
 
@@ -77,7 +77,7 @@ class InputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetNamedArgument()
+	public function testGetNamedArgument(): void
 	{
 		$reader = $this->getReader();
 
@@ -93,7 +93,7 @@ class InputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetNormalizedNamedArgument()
+	public function testGetNormalizedNamedArgument(): void
 	{
 		$reader = $this->getReader();
 
@@ -109,7 +109,7 @@ class InputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetBooleanNamedArgument()
+	public function testGetBooleanNamedArgument(): void
 	{
 		$reader = $this->getReader();
 
@@ -123,7 +123,7 @@ class InputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetMissingArgument()
+	public function testGetMissingArgument(): void
 	{
 		$reader = $this->getReader();
 

@@ -18,7 +18,7 @@ class NumTest extends TestCase
 	/**
 	 *
 	 */
-	public function testArabic2roman()
+	public function testArabic2roman(): void
 	{
 		$this->assertEquals('VII', Num::arabic2roman(7));
 		$this->assertEquals('MMMCMXCIX', Num::arabic2roman(3999));
@@ -27,7 +27,7 @@ class NumTest extends TestCase
 	/**
 	 * @expectedException InvalidArgumentException
 	 */
-	public function testArabic2romanException()
+	public function testArabic2romanException(): void
 	{
 		Num::arabic2roman(9999);
 	}
@@ -35,7 +35,7 @@ class NumTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRoman2arabic()
+	public function testRoman2arabic(): void
 	{
 		$this->assertEquals(7, Num::roman2arabic('VII'));
 		$this->assertEquals(3999, Num::roman2arabic('MMMCMXCIX'));
@@ -44,7 +44,7 @@ class NumTest extends TestCase
 	/**
 	 * @expectedException InvalidArgumentException
 	 */
-	public function testRoman2arabicException()
+	public function testRoman2arabicException(): void
 	{
 		Num::roman2arabic('XXXXXXXXXX');
 	}

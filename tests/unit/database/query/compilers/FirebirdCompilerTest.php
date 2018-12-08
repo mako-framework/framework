@@ -44,7 +44,7 @@ class FirebirdCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLimit()
+	public function testSelectWithLimit(): void
 	{
 		$query = $this->getBuilder();
 
@@ -59,7 +59,7 @@ class FirebirdCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithLimitAndOffset()
+	public function testSelectWithLimitAndOffset(): void
 	{
 		$query = $this->getBuilder();
 
@@ -75,7 +75,7 @@ class FirebirdCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithExclusiveLock()
+	public function testSelectWithExclusiveLock(): void
 	{
 		$query = $this->getBuilder();
 
@@ -90,7 +90,7 @@ class FirebirdCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithSharedLock()
+	public function testSelectWithSharedLock(): void
 	{
 		$query = $this->getBuilder();
 
@@ -105,7 +105,7 @@ class FirebirdCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithSharedLockMethod()
+	public function testSelectWithSharedLockMethod(): void
 	{
 		$query = $this->getBuilder();
 
@@ -120,7 +120,7 @@ class FirebirdCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithCustomLock()
+	public function testSelectWithCustomLock(): void
 	{
 		$query = $this->getBuilder();
 
