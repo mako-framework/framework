@@ -37,7 +37,7 @@ class ExactDimensions extends Rule implements RuleInterface, WithParametersInter
 	 */
 	public function validate($value, array $input): bool
 	{
-		list($width, $height) = $this->getImageSize($value);
+		[$width, $height] = $this->getImageSize($value);
 
 		return $this->getParameter('width') == $width && $this->getParameter('height') == $height;
 	}

@@ -94,7 +94,7 @@ trait NamespacedFileLoaderTrait
 		{
 			// The file is namespaced so we'll use the namespace path
 
-			list($namespace, $file) = explode('::', $file, 2);
+			[$namespace, $file] = explode('::', $file, 2);
 
 			if(!isset($this->namespaces[$namespace]))
 			{
@@ -142,7 +142,7 @@ trait NamespacedFileLoaderTrait
 
 			// Prepend the cascading file
 
-			list($package, $file) = explode('::', $file);
+			[$package, $file] = explode('::', $file);
 
 			$suffix = 'packages' . DIRECTORY_SEPARATOR . $package . (($suffix !== null) ? DIRECTORY_SEPARATOR . $suffix : '');
 

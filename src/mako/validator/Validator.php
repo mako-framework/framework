@@ -347,7 +347,7 @@ class Validator
 	 * @param  string $rule Rule
 	 * @return object
 	 */
-	protected function parseRule(string $rule)
+	protected function parseRule(string $rule): object
 	{
 		$package = null;
 
@@ -356,7 +356,7 @@ class Validator
 			$package = $matches[1];
 		}
 
-		list($name, $parameters) = $this->parseFunction($rule, false);
+		[$name, $parameters] = $this->parseFunction($rule, false);
 
 		return (object) compact('name', 'parameters', 'package');
 	}
@@ -494,7 +494,7 @@ class Validator
 	 */
 	public function isValid(array &$errors = null): bool
 	{
-		list($isValid, $errors) = $this->process();
+		[$isValid, $errors] = $this->process();
 
 		return $isValid === true;
 	}
@@ -507,7 +507,7 @@ class Validator
 	 */
 	public function isInvalid(array &$errors = null): bool
 	{
-		list($isValid, $errors) = $this->process();
+		[$isValid, $errors] = $this->process();
 
 		return $isValid === false;
 	}

@@ -515,7 +515,7 @@ class Connection
 	{
 		// Prepare query and parameters
 
-		list($query, $params) = $this->prepareQueryAndParams($query, $params);
+		[$query, $params] = $this->prepareQueryAndParams($query, $params);
 
 		// Create prepared statement
 

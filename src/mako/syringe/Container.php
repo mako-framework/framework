@@ -20,7 +20,6 @@ use function array_replace;
 use function array_values;
 use function is_array;
 use function is_int;
-use function is_object;
 use function vsprintf;
 
 /**
@@ -75,7 +74,7 @@ class Container
 	{
 		if(is_array($hint))
 		{
-			list($hint, $alias) = $hint;
+			[$hint, $alias] = $hint;
 
 			$this->aliases[$alias] = $hint;
 		}
@@ -403,20 +402,11 @@ class Container
 	 * @param  array    $parameters Constructor parameters
 	 * @return object
 	 */
-	protected function closureFactory(Closure $factory, array $parameters)
+	protected function closureFactory(Closure $factory, array $parameters): object
 	{
 		// Pass the container as the first parameter followed by the the provided parameters
 
-		$instance = $factory(...array_merge([$this], $parameters));
-
-		// Check that the factory closure returned an object
-
-		if(is_object($instance) === false)
-		{
-			throw new RuntimeException('The factory closure must return an object.');
-		}
-
-		return $instance;
+		return $factory(...array_merge([$this], $parameters));
 	}
 
 	/**
@@ -426,7 +416,7 @@ class Container
 	 * @param  array  $parameters Constructor parameters
 	 * @return object
 	 */
-	protected function reflectionFactory(string $class, array $parameters)
+	protected function reflectionFactory(string $class, array $parameters): object
 	{
 		$class = new ReflectionClass($class);
 
@@ -464,7 +454,7 @@ class Container
 	 * @param  array           $parameters Constructor parameters
 	 * @return object
 	 */
-	public function factory($class, array $parameters = [])
+	public function factory($class, array $parameters = []): object
 	{
 		// Instantiate class
 
@@ -523,7 +513,7 @@ class Container
 	 * @param  bool   $reuseInstance Reuse existing instance?
 	 * @return object
 	 */
-	public function get(string $class, array $parameters = [], bool $reuseInstance = true)
+	public function get(string $class, array $parameters = [], bool $reuseInstance = true): object
 	{
 		$class = $this->resolveAlias($class);
 
@@ -557,7 +547,7 @@ class Container
 	 * @param  array  $parameters Constructor parameters
 	 * @return object
 	 */
-	public function getFresh(string $class, array $parameters = [])
+	public function getFresh(string $class, array $parameters = []): object
 	{
 		return $this->get($class, $parameters, false);
 	}
@@ -567,7 +557,7 @@ class Container
 	 *
 	 * @param  callable $callable   Callable
 	 * @param  array    $parameters Parameters
-	 * @return object
+	 * @return mixed
 	 */
 	public function call(callable $callable, array $parameters = [])
 	{

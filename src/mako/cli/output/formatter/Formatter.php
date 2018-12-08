@@ -269,7 +269,7 @@ class Formatter implements FormatterInterface
 
 		foreach($matches[0] as $match)
 		{
-			list($tag, $pos) = $match;
+			[$tag, $pos] = $match;
 
 			$formatted .= substr($string, $offset, $pos - $offset);
 

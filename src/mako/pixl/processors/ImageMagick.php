@@ -144,7 +144,7 @@ class ImageMagick implements ProcessorInterface
 		$oldWidth  = $this->image->getImageWidth();
 		$oldHeight = $this->image->getImageHeight();
 
-		list($newWidth, $newHeight) = $this->calculateNewDimensions($width, $height, $oldWidth, $oldHeight, $aspectRatio);
+		[$newWidth, $newHeight] = $this->calculateNewDimensions($width, $height, $oldWidth, $oldHeight, $aspectRatio);
 
 		$this->image->scaleImage($newWidth, $newHeight);
 	}

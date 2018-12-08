@@ -195,7 +195,7 @@ class Arr
 
 		foreach($keys as $key)
 		{
-			list($first, $remaining) = array_map('trim', explode('*', $key, 2), ['.', '.']);
+			[$first, $remaining] = array_map('trim', explode('*', $key, 2), ['.', '.']);
 
 			if(empty($first))
 			{

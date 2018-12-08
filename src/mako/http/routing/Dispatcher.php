@@ -167,7 +167,7 @@ class Dispatcher
 	 */
 	protected function resolveMiddleware(string $middleware): array
 	{
-		list($name, $parameters) = $this->parseFunction($middleware);
+		[$name, $parameters] = $this->parseFunction($middleware);
 
 		if(!isset($this->middleware[$name]))
 		{
@@ -276,7 +276,7 @@ class Dispatcher
 		}
 		else
 		{
-			list($controller, $method) = explode('::', $controller, 2);
+			[$controller, $method] = explode('::', $controller, 2);
 		}
 
 		$controller = $this->container->get($controller);

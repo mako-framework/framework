@@ -291,7 +291,7 @@ class GD implements ProcessorInterface
 		$oldWidth  = imagesx($this->image);
 		$oldHeight = imagesy($this->image);
 
-		list($newWidth, $newHeight) = $this->calculateNewDimensions($width, $height, $oldWidth, $oldHeight, $aspectRatio);
+		[$newWidth, $newHeight] = $this->calculateNewDimensions($width, $height, $oldWidth, $oldHeight, $aspectRatio);
 
 		$resized = imagecreatetruecolor($newWidth, $newHeight);
 

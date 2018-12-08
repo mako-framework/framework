@@ -38,7 +38,7 @@ class IPv6
 		}
 		else
 		{
-			list($range, $netmask) = explode('/', $range, 2);
+			[$range, $netmask] = explode('/', $range, 2);
 
 			if($netmask < 1 || $netmask > 128)
 			{

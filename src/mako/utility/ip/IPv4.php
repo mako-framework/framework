@@ -33,7 +33,7 @@ class IPv4
 		}
 		else
 		{
-			list($range, $netmask) = explode('/', $range, 2);
+			[$range, $netmask] = explode('/', $range, 2);
 
 			if($netmask < 0 || $netmask > 32)
 			{

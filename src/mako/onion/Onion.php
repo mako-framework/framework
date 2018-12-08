@@ -172,7 +172,7 @@ class Onion
 	 * @param  array  $parameters Middleware parameters
 	 * @return object
 	 */
-	protected function middlewareFactory(string $middleware, array $parameters)
+	protected function middlewareFactory(string $middleware, array $parameters): object
 	{
 		// Merge middleware parameters
 

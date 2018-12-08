@@ -303,19 +303,6 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage The factory closure must return an object.
-	 */
-	public function testRegisterClosureWithoutReturnValue()
-	{
-		$container = new Container;
-
-		$container->register(['mako\tests\unit\syringe\Bar', 'bar'], function() {});
-
-		$bar = $container->get('bar');
-	}
-
-	/**
 	 *
 	 */
 	public function testRegisterInstance()

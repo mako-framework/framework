@@ -141,7 +141,7 @@ class Router
 	 */
 	protected function constraintFactory(string $constraint): ConstraintInterface
 	{
-		list($constraint, $parameters) = $this->parseFunction($constraint);
+		[$constraint, $parameters] = $this->parseFunction($constraint);
 
 		if(!isset($this->constraints[$constraint]))
 		{

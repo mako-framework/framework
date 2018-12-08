@@ -143,7 +143,7 @@ class Redis
 	 */
 	protected function createClusterClient(string $server): Redis
 	{
-		list($server, $port) = explode(':', $server, 2);
+		[$server, $port] = explode(':', $server, 2);
 
 		$isPersistent = $this->connection->isPersistent();
 
@@ -164,7 +164,7 @@ class Redis
 	 */
 	protected function getClusterClient(string $serverInfo): Redis
 	{
-		list(, $server) = explode(' ', $serverInfo, 2);
+		[, $server] = explode(' ', $serverInfo, 2);
 
 		if(!isset($this->clusterClients[$server]))
 		{
@@ -184,7 +184,7 @@ class Redis
 	{
 		$response = substr($response, 1);
 
-		list($type, $error) = explode(' ', $response, 2);
+		[$type, $error] = explode(' ', $response, 2);
 
 		switch($type)
 		{

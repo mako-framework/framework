@@ -302,7 +302,7 @@ class ViewFactory
 	 */
 	public function create(string $view, array $variables = []): View
 	{
-		list($path, $extension) = $this->getViewPathAndExtension($view);
+		[$path, $extension] = $this->getViewPathAndExtension($view);
 
 		return new View($path, $this->mergeVariables($view, $variables), $this->resolveRenderer($extension));
 	}

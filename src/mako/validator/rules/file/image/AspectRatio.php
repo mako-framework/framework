@@ -37,7 +37,7 @@ class AspectRatio extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		list($width, $height) = $this->getImageSize($value);
+		[$width, $height] = $this->getImageSize($value);
 
 		return ($this->getParameter('width') / $this->getParameter('height')) == ($width / $height);
 	}

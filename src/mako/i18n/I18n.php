@@ -259,7 +259,7 @@ class I18n
 	{
 		$language = $language ?? $this->language;
 
-		list($file, $string) = $this->parseKey($key);
+		[$file, $string] = $this->parseKey($key);
 
 		if($string === null)
 		{
@@ -285,7 +285,7 @@ class I18n
 	{
 		$language = $language ?? $this->language;
 
-		list($file, $string) = $this->parseKey($key);
+		[$file, $string] = $this->parseKey($key);
 
 		if($string === null)
 		{

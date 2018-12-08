@@ -83,7 +83,7 @@ class Input
 		{
 			if(preg_match(static::NAMED_ARGUMENT_REGEX, $argument) === 1)
 			{
-				list($name, $value) = explode('=', substr($argument, 2), 2) + [null, null];
+				[$name, $value] = explode('=', substr($argument, 2), 2) + [null, null];
 
 				$parsed[$this->normalizeArgumentName($name)] = $value === null ? true : $value;
 			}

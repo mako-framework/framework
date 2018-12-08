@@ -184,7 +184,7 @@ class Headers implements Countable, IteratorAggregate
 			{
 				// We have a quality so we need to split some more
 
-				list($accept, $quality) = explode(';', $accept, 2);
+				[$accept, $quality] = explode(';', $accept, 2);
 
 				// Strip the "q=" part so that we're left with only the numeric value
 

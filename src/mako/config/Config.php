@@ -114,7 +114,7 @@ class Config
 	 */
 	public function get(string $key, $default = null)
 	{
-		list($file, $path) = $this->parseKey($key);
+		[$file, $path] = $this->parseKey($key);
 
 		if(!isset($this->configuration[$file]))
 		{
@@ -132,7 +132,7 @@ class Config
 	 */
 	public function set(string $key, $value)
 	{
-		list($file) = $this->parseKey($key);
+		[$file] = $this->parseKey($key);
 
 		if(!isset($this->configuration[$file]))
 		{

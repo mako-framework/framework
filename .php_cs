@@ -18,6 +18,7 @@ return Config::create()
 	'function_to_constant' => true,
 	'function_typehint_space' => true,
 	'linebreak_after_opening_tag' => true,
+	'list_syntax' => ['syntax' => 'short'],
 	'logical_operators' => true,
 	'lowercase_cast' => true,
 	'lowercase_constants' => true,
