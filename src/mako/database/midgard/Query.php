@@ -302,10 +302,10 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a hydrated model.
 	 *
-	 * @param  object                     $result Database result
+	 * @param  array                      $result Database result
 	 * @return \mako\database\midgard\ORM
 	 */
-	protected function hydrateModel($result)
+	protected function hydrateModel(array $result)
 	{
 		$model = $this->model->getClass();
 

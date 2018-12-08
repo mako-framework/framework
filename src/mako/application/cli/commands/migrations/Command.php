@@ -184,7 +184,7 @@ abstract class Command extends BaseCommand
 	 * @param  object $migration Migration
 	 * @return string
 	 */
-	protected function getFullyQualifiedMigration($migration): string
+	protected function getFullyQualifiedMigration(object $migration): string
 	{
 		if(empty($migration->package))
 		{
@@ -303,7 +303,7 @@ abstract class Command extends BaseCommand
 	 * @param  object                              $migration Migration meta
 	 * @return \mako\database\migrations\Migration
 	 */
-	protected function resolve($migration): Migration
+	protected function resolve(object $migration): Migration
 	{
 		return $this->container->get($this->getFullyQualifiedMigration($migration));
 	}
@@ -317,7 +317,7 @@ abstract class Command extends BaseCommand
 	 * @param  int|null                            $batch             Migration batch
 	 * @return \Closure
 	 */
-	protected function buildMigrationWrapper($migration, Migration $migrationInstance, string $method, ?int $batch = null): Closure
+	protected function buildMigrationWrapper(object $migration, Migration $migrationInstance, string $method, ?int $batch = null): Closure
 	{
 		return function() use ($migration, $migrationInstance, $method, $batch)
 		{
@@ -343,7 +343,7 @@ abstract class Command extends BaseCommand
 	 * @param string   $method    Migration method
 	 * @param int|null $batch     Batch
 	 */
-	protected function runMigration($migration, string $method, ?int $batch = null)
+	protected function runMigration(object $migration, string $method, ?int $batch = null)
 	{
 		$migrationInstance = $this->resolve($migration);
 

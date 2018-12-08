@@ -128,7 +128,7 @@ class Onion
 	 * @param  object   $object The object that we're decorating
 	 * @return \Closure
 	 */
-	protected function buildCoreClosure($object): Closure
+	protected function buildCoreClosure(object $object): Closure
 	{
 		return function(...$arguments) use ($object)
 		{
@@ -145,7 +145,7 @@ class Onion
 	 * @param  \Closure $next  The next middleware layer
 	 * @return \Closure
 	 */
-	protected function buildLayerClosure($layer, Closure $next): Closure
+	protected function buildLayerClosure(object $layer, Closure $next): Closure
 	{
 		return function(...$arguments) use ($layer, $next)
 		{
@@ -209,7 +209,7 @@ class Onion
 	 * @param  array  $middlewareParameters Middleware parameters
 	 * @return mixed
 	 */
-	public function peel($object, array $parameters = [], array $middlewareParameters = [])
+	public function peel(object $object, array $parameters = [], array $middlewareParameters = [])
 	{
 		$next = $this->buildCoreClosure($object);
 

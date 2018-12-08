@@ -407,7 +407,7 @@ class Validator
 	 * @param  object                              $parsedRule Parsed rule
 	 * @return string
 	 */
-	protected function getErrorMessage(RuleInterface $rule, $field, $parsedRule): string
+	protected function getErrorMessage(RuleInterface $rule, string $field, object $parsedRule): string
 	{
 		$field = $this->getOriginalFieldName($field);
 

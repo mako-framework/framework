@@ -111,7 +111,7 @@ class Container
 	 * @param string|array $hint     Type hint or array contaning both type hint and alias
 	 * @param object       $instance Class instance
 	 */
-	public function registerInstance($hint, $instance)
+	public function registerInstance($hint, object $instance)
 	{
 		$this->instances[$this->parseHint($hint)] = $instance;
 	}
@@ -214,7 +214,7 @@ class Container
 	 * @param string $hint     Type hint
 	 * @param object $instance Class instance
 	 */
-	public function replaceInstance(string $hint, $instance)
+	public function replaceInstance(string $hint, object $instance)
 	{
 		$hint = $this->resolveAlias($hint);
 
@@ -388,7 +388,7 @@ class Container
 	 * @param  object $class Class instance
 	 * @return bool
 	 */
-	protected function isContainerAware($class): bool
+	protected function isContainerAware(object $class): bool
 	{
 		$traits = ClassInspector::getTraits($class);
 
