@@ -188,7 +188,7 @@ class Headers implements Countable, IteratorAggregate
 
 				// Strip the "q=" part so that we're left with only the numeric value
 
-				$quality = (int) substr(trim($quality), 2);
+				$quality = substr(trim($quality), 2);
 			}
 
 			$groupedAccepts[$quality][] = trim($accept);
