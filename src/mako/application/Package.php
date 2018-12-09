@@ -9,6 +9,7 @@ namespace mako\application;
 
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\config\Config;
+use mako\file\FileSystem;
 use mako\i18n\I18n;
 use mako\syringe\Container;
 use mako\view\ViewFactory;
@@ -17,7 +18,6 @@ use ReflectionClass;
 use function class_uses;
 use function dirname;
 use function in_array;
-use function is_dir;
 use function str_replace;
 use function strrpos;
 use function strtolower;
@@ -191,9 +191,11 @@ abstract class Package
 	 */
 	public function boot(): void
 	{
+		$fileSystem = $this->container->get(FileSystem::class);
+
 		// Register configuration namespace
 
-		if(is_dir($path = $this->getConfigPath()))
+		if($fileSystem->isDirectory($path = $this->getConfigPath()))
 		{
 			$configLoader = $this->container->get(Config::class)->getLoader();
 
@@ -205,7 +207,7 @@ abstract class Package
 
 		// Register i18n namespace
 
-		if(is_dir($path = $this->getI18nPath()) !== false && $this->container->has(I18n::class))
+		if($fileSystem->isDirectory($path = $this->getI18nPath()) && $this->container->has(I18n::class))
 		{
 			$i18nLoader = $this->container->get(I18n::class)->getLoader();
 
@@ -217,7 +219,7 @@ abstract class Package
 
 		// Register view namespace
 
-		if(is_dir($path = $this->getViewPath()) !== false && $this->container->has(ViewFactory::class))
+		if($fileSystem->isDirectory($path = $this->getViewPath()) && $this->container->has(ViewFactory::class))
 		{
 			$this->container->get(ViewFactory::class)->registerNamespace($this->getFileNamespace(), $path);
 		}
