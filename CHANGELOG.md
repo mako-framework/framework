@@ -14,7 +14,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.7.0 <small> (2018-12-06)</small>
 
-
 #### New
 
 * It is now possible to eager load relations on a loaded model using the `ORM::include()` method.
@@ -44,7 +43,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 #### Changes
 
-* Removed the deprecated ``mako\security\Password`` class.
+* Removed the deprecated `mako\security\Password` class.
 * Removed the deprecated `ORM::$exists` property.
 * Removed the deprecated `ORM::exists()` method.
 * The gatekeeper `forceLogin` method now returns `true` if the login is successful and a status code if not.
@@ -68,7 +67,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.6.0 <small> (2018-10-15)</small>
-
 
 #### New
 
@@ -114,7 +112,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.5.7 <small> (2018-06-14)</small>
 
-
 #### Improvements
 
 * The `Str::slug()` method no longer strips dashes from the input string.
@@ -124,7 +121,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.5.6 <small> (2018-05-23)</small>
 
-
 #### Improvements
 
 * Improved handling of invalid i18n keys.
@@ -133,7 +129,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.5.5 <small> (2018-05-11)</small>
 
-
 #### Bugfixes
 
 * Fixed issue where the `unique` rule would fail when used with case-insensitive databases.
@@ -141,7 +136,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.5.4 <small> (2018-04-07)</small>
-
 
 #### Improvements
 
@@ -152,7 +146,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.5.3 <small> (2018-03-22)</small>
 
-
 #### Improvements
 
 * The pagination factory no longer requires the view and http services.
@@ -160,7 +153,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.5.2 <small> (2018-03-21)</small>
-
 
 #### New
 
@@ -170,7 +162,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.25, 5.1.4, 5.2.12, 5.3.3, 5.4.1, 5.5.1 <small> (2018-03-20)</small>
 
-
 #### Bugfixes
 
 * Migrations will no longer fail with empty description.
@@ -178,7 +169,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.5.0 <small> (2018-03-20)</small>
-
 
 #### New
 
@@ -216,7 +206,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.4.0 <small> (2018-03-05)</small>
-
 
 #### New
 
@@ -296,7 +285,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.3.2 <small> (2018-03-01)</small>
 
-
 #### Improvements
 
 * The `Request::getData()` method will now return the parsed body for POST requests that do not contain form data.
@@ -304,7 +292,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.3.1 <small> (2018-01-24)</small>
-
 
 #### Bugfixes
 
@@ -321,7 +308,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.3.0 <small> (2018-01-10)</small>
-
 
 #### New
 
@@ -393,7 +379,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.2.11 <small> (2017-11-30)</small>
 
-
 #### Bugfixes
 
 * Fixes issue that prevents accidental login after logout. The issue would occur if the `mako\gatekeeper\adapters\Session::getUser()` method got called after the `mako\gatekeeper\adapters\Session::logout()` method if the user had a "remember me" cookie.
@@ -401,7 +386,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.2.10 <small> (2017-11-18)</small>
-
 
 #### Bugfixes
 
@@ -411,7 +395,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.2.9 <small> (2017-10-26)</small>
 
-
 #### Bugfixes
 
 * Errors will now be logged even if the default error handler isn't called.
@@ -419,7 +402,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.2.8 <small> (2017-10-13)</small>
-
 
 #### Bugfixes
 
@@ -429,7 +411,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.2.7 <small> (2017-10-12)</small>
 
-
 #### Bugfixes
 
 * Package config overrides will now merge properly with original config.
@@ -437,7 +418,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.2.6 <small> (2017-10-11)</small>
-
 
 #### Bugfixes
 
@@ -447,7 +427,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.2.5 <small> (2017-10-07)</small>
 
-
 #### New
 
 * Now possible to insert databases rows with only default values.
@@ -455,7 +434,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.2.4 <small> (2017-09-21)</small>
-
 
 #### New
 
@@ -465,7 +443,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.2.3 <small> (2017-08-22)</small>
 
-
 #### Bugfixes
 
 * Batch queries will no longer fail when having criteria.
@@ -473,7 +450,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.2.2 <small> (2017-08-16)</small>
-
 
 #### Bugfixes
 
@@ -483,7 +459,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.2.1 <small> (2017-06-06)</small>
 
-
 #### Bugfixes
 
 * Fixed language cache bug that was introduced in 5.2.0.
@@ -491,7 +466,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.2.0 <small> (2017-05-08)</small>
-
 
 #### New
 
@@ -526,7 +500,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.1.3 <small> (2017-02-17)</small>
 
-
 #### Bugfixes
 
 * Request::getParsed() no longer fails if the content type header contains a character set.
@@ -534,7 +507,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.1.2 <small> (2017-01-25)</small>
-
 
 #### Changes
 
@@ -544,7 +516,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.1.1 <small> (2017-01-17)</small>
 
-
 #### Changes
 
 * JSONP responses are now handled by the JSON response builder.
@@ -552,7 +523,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.1.0 <small> (2017-01-16)</small>
-
 
 #### New
 
@@ -583,7 +553,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.23 <small> (2017-01-01)</small>
 
-
 #### Bugfixes
 
 * Query compiler will now properly escape JSON path segments.
@@ -592,7 +561,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.0.22 <small>(2016-12-28)</small>
-
 
 #### New
 
@@ -615,7 +583,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.21 <small>(2016-12-15)</small>
 
-
 #### New
 
 * Now possible to return a status/exit code from reactor commands.
@@ -623,7 +590,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.0.20 <small>(2016-12-12)</small>
-
 
 #### Bugfixes
 
@@ -633,7 +599,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.19 <small>(2016-12-10)</small>
 
-
 #### Bugfixes
 
 * CLI error handler will no longer fail when displaying a generic error message.
@@ -641,7 +606,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.0.18 <small>(2016-12-07)</small>
-
 
 #### New
 
@@ -655,7 +619,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.0.17 <small>(2016-12-01)</small>
-
 
 #### New
 
@@ -673,7 +636,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.16 <small>(2016-11-24)</small>
 
-
 #### Bugfixes
 
 * Don't resolve singletons multiple times when using the container aware trait.
@@ -682,7 +644,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.15 <small>(2016-11-17)</small>
 
-
 #### Bugfixes
 
 * Fixed an issue where strict reactor commands would fail when called with a "global" option.
@@ -690,7 +651,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.0.14 <small>(2016-11-08)</small>
-
 
 #### Bugfixes
 
@@ -704,7 +664,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.13 <small>(2016-11-02)</small>
 
-
 #### Bugfixes
 
 * ```ORM::toArray()``` will no longer try to convert ```false``` to an array.
@@ -713,7 +672,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.12 <small>(2016-11-01)</small>
 
-
 #### Bugfixes
 
 * Corrected the return type of the ```View::assign()``` method.
@@ -721,7 +679,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.0.11 <small>(2016-10-14)</small>
-
 
 #### Bugfixes
 
@@ -736,7 +693,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.10 <small>(2016-10-11)</small>
 
-
 #### Bugfixes
 
 * The redis client will no longer assume that it has recieved the data it asked for.
@@ -745,7 +701,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.9 <small>(2016-10-11)</small>
 
-
 #### Bugfixes
 
 * The Redis client now reads data in 4096 byte chunks to avoid issues with large values.
@@ -753,7 +708,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.0.8 <small>(2016-10-11)</small>
-
 
 #### Changes
 
@@ -767,7 +721,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.7 <small>(2016-10-08)</small>
 
-
 #### New
 
 * Added ```Connection::yield()``` and ```Query::yield()``` methods that allow you to iterate over result sets using a generator.
@@ -776,7 +729,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.6 <small>(2016-10-06)</small>
 
-
 #### Bugfixes
 
 * Fixed  ```Query::first()``` fetch mode bug.
@@ -784,7 +736,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.0.5 <small>(2016-10-06)</small>
-
 
 #### Bugfixes
 
@@ -798,7 +749,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.4 <small>(2016-10-05)</small>
 
-
 #### Changes
 
 * Simplified stack trace for JSON error responses.
@@ -806,7 +756,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.0.3 <small>(2016-10-05)</small>
-
 
 #### Bugfixes
 
@@ -816,7 +765,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.2 <small>(2016-10-05)</small>
 
-
 #### Bugfixes
 
 * The output escaper now accepts null values.
@@ -825,7 +773,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.0.1 <small>(2016-10-05)</small>
 
-
 #### Bugfixes
 
 * Fixed validation bug.
@@ -833,7 +780,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 5.0.0 <small>(2016-10-04)</small>
-
 
 #### New
 
@@ -919,7 +865,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.5.14 <small>(2016-08-30)</small>
 
-
 #### Bugfixes
 
 * Fixed the docblock return type for ```CacheManager::instance()```.
@@ -927,7 +872,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.5.13 <small>(2016-08-09)</small>
-
 
 #### Improvements
 
@@ -937,7 +881,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.5.12 <small>(2016-08-02)</small>
 
-
 #### Bugfixes
 
 * ```URLBuilder::toRoute()``` will now allow falsy parameters (0, 0.0, '0').
@@ -945,7 +888,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.5.11 <small>(2016-06-29)</small>
-
 
 #### Bugfixes
 
@@ -959,7 +901,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.5.10 <small>(2016-02-03)</small>
 
-
 #### Improvements
 
 * Cache will now throw an exception if the store is unavailable.
@@ -967,7 +908,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.5.9 <small>(2015-11-26)</small>
-
 
 #### Bugfixes
 
@@ -981,7 +921,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.5.8 <small>(2015-11-17)</small>
 
-
 #### Improvements
 
 * PHP7 compatibility.
@@ -989,7 +928,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.5.7 <small>(2015-11-04)</small>
-
 
 #### Bugfixes
 
@@ -1004,7 +942,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.3.5, 4.4.6 <small>(2015-11-04)</small>
 
-
 #### Bugfixes
 
 * The ```before``` and ```after``` validation filters will now work as expected.
@@ -1014,7 +951,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.5.6 <small>(2015-09-11)</small>
 
-
 #### Improvements
 
 * Only include ```pages``` array in pagination data when ```max_page_links``` > 0.
@@ -1023,7 +959,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.5.5 <small>(2015-07-08)</small>
 
-
 #### Bugfixes
 
 * Clean URLs should now work as expected when using the local development server.
@@ -1031,7 +966,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.5.4 <small>(2015-06-17)</small>
-
 
 #### Bugfixes
 
@@ -1047,7 +981,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.5.3 <small>(2015-05-07)</small>
 
-
 #### Changes
 
 * The ```Pagination::paginate()``` method is now public.
@@ -1055,7 +988,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.5.2 <small>(2015-04-24)</small>
-
 
 #### Bugfixes
 
@@ -1065,7 +997,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.5.1 <small>(2015-04-20)</small>
 
-
 #### Bugfixes
 
 * Now possible to eager load more than 1000 unique ids when using SQLite and Oracle ([#151](https://github.com/mako-framework/framework/issues/151)).
@@ -1073,7 +1004,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.5.0 <small>(2015-04-15)</small>
-
 
 #### New
 
@@ -1107,7 +1037,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.4.5 <small>(2015-03-06)</small>
 
-
 #### Bugfixes
 
 * Fixed bug in ```app.routes``` command.
@@ -1115,7 +1044,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.3.4, 4.4.4 <small>(2015-02-19)</small>
-
 
 #### Bugfixes
 
@@ -1125,7 +1053,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.4.3 <small>(2015-02-04)</small>
 
-
 #### Improvements
 
 * ```Query::column()``` and ```Query::first()``` will now generate a more optimized query.
@@ -1134,7 +1061,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.4.2 <small>(2015-02-03)</small>
 
-
 #### Improvements
 
 * The command line error handler will now include the error location in the output.
@@ -1142,7 +1068,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.4.1 <small>(2015-02-02)</small>
-
 
 #### New
 
@@ -1164,7 +1089,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.4.0 <small>(2015-01-26)</small>
-
 
 #### New
 
@@ -1197,7 +1121,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.0.11, 4.1.5, 4.2.3, 4.3.3 <small>(2015-01-19)</small>
 
-
 #### Bugfixes
 
 * Gatekeeper will use the provided "auth_key" configuration value.
@@ -1205,7 +1128,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.3.2 <small>(2014-12-07)</small>
-
 
 #### Bugfixes
 
@@ -1215,7 +1137,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.3.1 <small>(2014-12-02)</small>
 
-
 #### Bugfixes
 
 * Fixed routing bug.
@@ -1223,7 +1144,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.3.0 <small>(2014-11-27)</small>
-
 
 #### New
 
@@ -1252,7 +1172,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.0.10, 4.1.4, 4.2.2 <small>(2014-11-21)</small>
 
-
 #### Bugfixes
 
 * Fixed query builder bug.
@@ -1261,7 +1180,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.0.9, 4.1.3, 4.2.1 <small>(2014-11-14)</small>
 
-
 #### Bugfixes
 
 * Fixed MCrypt autoloading issue ([#120](https://github.com/mako-framework/framework/issues/120)).
@@ -1269,7 +1187,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.2.0 <small>(2014-09-26)</small>
-
 
 #### New
 
@@ -1300,7 +1217,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.1.2 <small>(2014-09-05)</small>
 
-
 #### Bugfixes
 
 * Fixed issue with date casting in the ORM.
@@ -1309,7 +1225,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.0.8, 4.1.1 <small>(2014-09-01)</small>
 
-
 #### Bugfixes
 
 * Added missing returns in gatekeeper user implementation.
@@ -1317,7 +1232,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.1.0 <small>(2014-08-20)</small>
-
 
 #### New
 
@@ -1353,7 +1267,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.0.7 <small>(2014-08-18)</small>
 
-
 #### New
 
 * Now possible to configure the date output format when converting ORM records to array and/or json.
@@ -1366,7 +1279,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.0.6 <small>(2014-08-5)</small>
 
-
 #### Improvements
 
 * Improved ORM::toArray() and ORM::toJson methods.
@@ -1375,7 +1287,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.0.5 <small>(2014-07-24)</small>
 
-
 #### Bugfixes
 
 * Fixed bug in the file based cache store.
@@ -1383,7 +1294,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.0.4 <small>(2014-07-04)</small>
-
 
 #### Bugfixes
 
@@ -1394,7 +1304,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.0.3 <small>(2014-07-02)</small>
 
-
 #### Improvements
 
 * The error handler is no longer loading external JavaScript libraries.
@@ -1402,7 +1311,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 --------------------------------------------------------
 
 ### 4.0.2 <small>(2014-07-01)</small>
-
 
 #### Changes
 
@@ -1416,13 +1324,11 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 4.0.1 <small>(2014-06-26)</small>
 
-
 #### Bugfixes
 
 * Fixed bug where User::isMemberOf would return NULL if group id was used instead of group name.
 
 --------------------------------------------------------
-
 
 ### 4.0.0 <small>(2014-06-26)</small>
 
