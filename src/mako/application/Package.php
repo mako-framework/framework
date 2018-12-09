@@ -132,7 +132,7 @@ abstract class Package
 	{
 		if($this->path === null)
 		{
-			$this->path = realpath(dirname((new ReflectionClass($this))->getFileName()) . '/..');
+			$this->path = dirname((new ReflectionClass($this))->getFileName(), 2);
 		}
 
 		return $this->path;
@@ -145,7 +145,7 @@ abstract class Package
 	 */
 	public function getConfigPath(): string
 	{
-		return realpath($this->getPath() . '/config');
+		return $this->getPath() . '/config';
 	}
 
 	/**
@@ -155,7 +155,7 @@ abstract class Package
 	 */
 	public function getI18nPath(): string
 	{
-		return realpath($this->getPath() . '/resources/i18n');
+		return $this->getPath() . '/resources/i18n';
 	}
 
 	/**
@@ -165,7 +165,7 @@ abstract class Package
 	 */
 	public function getViewPath(): string
 	{
-		return realpath($this->getPath() . '/resources/views');
+		return $this->getPath() . '/resources/views';
 	}
 
 	/**
