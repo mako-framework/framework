@@ -17,7 +17,7 @@ use ReflectionClass;
 use function class_uses;
 use function dirname;
 use function in_array;
-use function realpath;
+use function is_dir;
 use function str_replace;
 use function strrpos;
 use function strtolower;
@@ -193,16 +193,19 @@ abstract class Package
 	{
 		// Register configuration namespace
 
-		$configLoader = $this->container->get(Config::class)->getLoader();
-
-		if(in_array(NamespacedFileLoaderTrait::class, class_uses($configLoader)))
+		if(is_dir($path = $this->getConfigPath()))
 		{
-			$configLoader->registerNamespace($this->getFileNamespace(), $this->getConfigPath());
+			$configLoader = $this->container->get(Config::class)->getLoader();
+
+			if(in_array(NamespacedFileLoaderTrait::class, class_uses($configLoader)))
+			{
+				$configLoader->registerNamespace($this->getFileNamespace(), $path);
+			}
 		}
 
 		// Register i18n namespace
 
-		if(($path = $this->getI18nPath()) !== false && $this->container->has(I18n::class))
+		if(is_dir($path = $this->getI18nPath()) !== false && $this->container->has(I18n::class))
 		{
 			$i18nLoader = $this->container->get(I18n::class)->getLoader();
 
@@ -214,7 +217,7 @@ abstract class Package
 
 		// Register view namespace
 
-		if(($path = $this->getViewPath()) !== false && $this->container->has(ViewFactory::class))
+		if(is_dir($path = $this->getViewPath()) !== false && $this->container->has(ViewFactory::class))
 		{
 			$this->container->get(ViewFactory::class)->registerNamespace($this->getFileNamespace(), $path);
 		}
