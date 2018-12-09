@@ -16,7 +16,7 @@ class Migration_{{version}} extends Migration
 	/**
 	 * Makes changes to the database structure.
 	 */
-	public function up()
+	public function up(): void
 	{
 		$this->getConnection()->query
 		(
@@ -27,7 +27,7 @@ class Migration_{{version}} extends Migration
 	/**
 	 * Reverts the database changes.
 	 */
-	public function down()
+	public function down(): void
 	{
 		$this->getConnection()->query
 		(

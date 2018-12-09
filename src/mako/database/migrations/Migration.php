@@ -106,10 +106,10 @@ abstract class Migration
 	/**
 	 * Makes changes to the database structure.
 	 */
-	abstract public function up();
+	abstract public function up(): void;
 
 	/**
 	 * Reverts the database changes.
 	 */
-	abstract public function down();
+	abstract public function down(): void;
 }
