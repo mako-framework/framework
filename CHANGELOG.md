@@ -14,7 +14,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 ### 5.7.0 <small> (2018-12-06)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -70,7 +69,6 @@ Update using ```composer update```.
 
 ### 5.6.0 <small> (2018-10-15)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -116,7 +114,6 @@ Update using ```composer update```.
 
 ### 5.5.7 <small> (2018-06-14)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -127,7 +124,6 @@ Update using ```composer update```.
 
 ### 5.5.6 <small> (2018-05-23)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -137,7 +133,6 @@ Update using ```composer update```.
 
 ### 5.5.5 <small> (2018-05-11)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -147,7 +142,6 @@ Update using ```composer update```.
 
 ### 5.5.4 <small> (2018-04-07)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -158,7 +152,6 @@ Update using ```composer update```.
 
 ### 5.5.3 <small> (2018-03-22)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -168,7 +161,6 @@ Update using ```composer update```.
 
 ### 5.5.2 <small> (2018-03-21)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -178,7 +170,6 @@ Update using ```composer update```.
 
 ### 5.0.25, 5.1.4, 5.2.12, 5.3.3, 5.4.1, 5.5.1 <small> (2018-03-20)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -188,7 +179,6 @@ Update using ```composer update```.
 
 ### 5.5.0 <small> (2018-03-20)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -227,7 +217,6 @@ Update using ```composer update```.
 
 ### 5.4.0 <small> (2018-03-05)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -307,7 +296,6 @@ Update using ```composer update```.
 
 ### 5.3.2 <small> (2018-03-01)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -317,7 +305,6 @@ Update using ```composer update```.
 
 ### 5.3.1 <small> (2018-01-24)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -335,7 +322,6 @@ Update using ```composer update```.
 
 ### 5.3.0 <small> (2018-01-10)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -407,7 +393,6 @@ Update using ```composer update```.
 
 ### 5.2.11 <small> (2017-11-30)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -417,7 +402,6 @@ Update using ```composer update```.
 
 ### 5.2.10 <small> (2017-11-18)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -427,7 +411,6 @@ Update using ```composer update```.
 
 ### 5.2.9 <small> (2017-10-26)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -437,7 +420,6 @@ Update using ```composer update```.
 
 ### 5.2.8 <small> (2017-10-13)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -447,7 +429,6 @@ Update using ```composer update```.
 
 ### 5.2.7 <small> (2017-10-12)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -457,7 +438,6 @@ Update using ```composer update```.
 
 ### 5.2.6 <small> (2017-10-11)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -467,7 +447,6 @@ Update using ```composer update```.
 
 ### 5.2.5 <small> (2017-10-07)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -477,7 +456,6 @@ Update using ```composer update```.
 
 ### 5.2.4 <small> (2017-09-21)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -487,7 +465,6 @@ Update using ```composer update```.
 
 ### 5.2.3 <small> (2017-08-22)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -497,7 +474,6 @@ Update using ```composer update```.
 
 ### 5.2.2 <small> (2017-08-16)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -507,7 +483,6 @@ Update using ```composer update```.
 
 ### 5.2.1 <small> (2017-06-06)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -517,7 +492,6 @@ Update using ```composer update```.
 
 ### 5.2.0 <small> (2017-05-08)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -552,7 +526,6 @@ Update using ```composer update```.
 
 ### 5.1.3 <small> (2017-02-17)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -562,7 +535,6 @@ Update using ```composer update```.
 
 ### 5.1.2 <small> (2017-01-25)</small>
 
-Update using ```composer update```.
 
 #### Changes
 
@@ -572,7 +544,6 @@ Update using ```composer update```.
 
 ### 5.1.1 <small> (2017-01-17)</small>
 
-Update using ```composer update```.
 
 #### Changes
 
@@ -582,7 +553,6 @@ Update using ```composer update```.
 
 ### 5.1.0 <small> (2017-01-16)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -613,7 +583,6 @@ Update using ```composer update```.
 
 ### 5.0.23 <small> (2017-01-01)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -624,7 +593,6 @@ Update using ```composer update```.
 
 ### 5.0.22 <small>(2016-12-28)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -647,7 +615,6 @@ Update using ```composer update```.
 
 ### 5.0.21 <small>(2016-12-15)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -657,7 +624,6 @@ Update using ```composer update```.
 
 ### 5.0.20 <small>(2016-12-12)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -667,7 +633,6 @@ Update using ```composer update```.
 
 ### 5.0.19 <small>(2016-12-10)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -677,7 +642,6 @@ Update using ```composer update```.
 
 ### 5.0.18 <small>(2016-12-07)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -692,7 +656,6 @@ Update using ```composer update```.
 
 ### 5.0.17 <small>(2016-12-01)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -710,7 +673,6 @@ Update using ```composer update```.
 
 ### 5.0.16 <small>(2016-11-24)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -720,7 +682,6 @@ Update using ```composer update```.
 
 ### 5.0.15 <small>(2016-11-17)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -730,7 +691,6 @@ Update using ```composer update```.
 
 ### 5.0.14 <small>(2016-11-08)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -744,7 +704,6 @@ Update using ```composer update```.
 
 ### 5.0.13 <small>(2016-11-02)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -754,7 +713,6 @@ Update using ```composer update```.
 
 ### 5.0.12 <small>(2016-11-01)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -764,7 +722,6 @@ Update using ```composer update```.
 
 ### 5.0.11 <small>(2016-10-14)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -779,7 +736,6 @@ Update using ```composer update```.
 
 ### 5.0.10 <small>(2016-10-11)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -789,7 +745,6 @@ Update using ```composer update```.
 
 ### 5.0.9 <small>(2016-10-11)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -799,7 +754,6 @@ Update using ```composer update```.
 
 ### 5.0.8 <small>(2016-10-11)</small>
 
-Update using ```composer update```.
 
 #### Changes
 
@@ -813,7 +767,6 @@ Update using ```composer update```.
 
 ### 5.0.7 <small>(2016-10-08)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -823,7 +776,6 @@ Update using ```composer update```.
 
 ### 5.0.6 <small>(2016-10-06)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -833,7 +785,6 @@ Update using ```composer update```.
 
 ### 5.0.5 <small>(2016-10-06)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -847,7 +798,6 @@ Update using ```composer update```.
 
 ### 5.0.4 <small>(2016-10-05)</small>
 
-Update using ```composer update```.
 
 #### Changes
 
@@ -857,7 +807,6 @@ Update using ```composer update```.
 
 ### 5.0.3 <small>(2016-10-05)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -867,7 +816,6 @@ Update using ```composer update```.
 
 ### 5.0.2 <small>(2016-10-05)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -877,7 +825,6 @@ Update using ```composer update```.
 
 ### 5.0.1 <small>(2016-10-05)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -887,7 +834,6 @@ Update using ```composer update```.
 
 ### 5.0.0 <small>(2016-10-04)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -973,7 +919,6 @@ Update using ```composer update```.
 
 ### 4.5.14 <small>(2016-08-30)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -983,7 +928,6 @@ Update using ```composer update```.
 
 ### 4.5.13 <small>(2016-08-09)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -993,7 +937,6 @@ Update using ```composer update```.
 
 ### 4.5.12 <small>(2016-08-02)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1003,7 +946,6 @@ Update using ```composer update```.
 
 ### 4.5.11 <small>(2016-06-29)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1017,7 +959,6 @@ Update using ```composer update```.
 
 ### 4.5.10 <small>(2016-02-03)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -1027,7 +968,6 @@ Update using ```composer update```.
 
 ### 4.5.9 <small>(2015-11-26)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1041,7 +981,6 @@ Update using ```composer update```.
 
 ### 4.5.8 <small>(2015-11-17)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -1051,7 +990,6 @@ Update using ```composer update```.
 
 ### 4.5.7 <small>(2015-11-04)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1066,7 +1004,6 @@ Update using ```composer update```.
 
 ### 4.3.5, 4.4.6 <small>(2015-11-04)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1077,7 +1014,6 @@ Update using ```composer update```.
 
 ### 4.5.6 <small>(2015-09-11)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -1087,7 +1023,6 @@ Update using ```composer update```.
 
 ### 4.5.5 <small>(2015-07-08)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1097,7 +1032,6 @@ Update using ```composer update```.
 
 ### 4.5.4 <small>(2015-06-17)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1113,7 +1047,6 @@ Update using ```composer update```.
 
 ### 4.5.3 <small>(2015-05-07)</small>
 
-Update using ```composer update```.
 
 #### Changes
 
@@ -1123,7 +1056,6 @@ Update using ```composer update```.
 
 ### 4.5.2 <small>(2015-04-24)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1133,7 +1065,6 @@ Update using ```composer update```.
 
 ### 4.5.1 <small>(2015-04-20)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1143,7 +1074,6 @@ Update using ```composer update```.
 
 ### 4.5.0 <small>(2015-04-15)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -1177,7 +1107,6 @@ Update using ```composer update```.
 
 ### 4.4.5 <small>(2015-03-06)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1187,7 +1116,6 @@ Update using ```composer update```.
 
 ### 4.3.4, 4.4.4 <small>(2015-02-19)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1197,7 +1125,6 @@ Update using ```composer update```.
 
 ### 4.4.3 <small>(2015-02-04)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -1207,7 +1134,6 @@ Update using ```composer update```.
 
 ### 4.4.2 <small>(2015-02-03)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -1217,7 +1143,6 @@ Update using ```composer update```.
 
 ### 4.4.1 <small>(2015-02-02)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -1240,7 +1165,6 @@ Update using ```composer update```.
 
 ### 4.4.0 <small>(2015-01-26)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -1273,7 +1197,6 @@ Update using ```composer update```.
 
 ### 4.0.11, 4.1.5, 4.2.3, 4.3.3 <small>(2015-01-19)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1283,7 +1206,6 @@ Update using ```composer update```.
 
 ### 4.3.2 <small>(2014-12-07)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1293,7 +1215,6 @@ Update using ```composer update```.
 
 ### 4.3.1 <small>(2014-12-02)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1303,7 +1224,6 @@ Update using ```composer update```.
 
 ### 4.3.0 <small>(2014-11-27)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -1332,7 +1252,6 @@ Update using ```composer update```.
 
 ### 4.0.10, 4.1.4, 4.2.2 <small>(2014-11-21)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1342,7 +1261,6 @@ Update using ```composer update```.
 
 ### 4.0.9, 4.1.3, 4.2.1 <small>(2014-11-14)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1352,7 +1270,6 @@ Update using ```composer update```.
 
 ### 4.2.0 <small>(2014-09-26)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -1383,7 +1300,6 @@ Update using ```composer update```.
 
 ### 4.1.2 <small>(2014-09-05)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1393,7 +1309,6 @@ Update using ```composer update```.
 
 ### 4.0.8, 4.1.1 <small>(2014-09-01)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1403,7 +1318,6 @@ Update using ```composer update```.
 
 ### 4.1.0 <small>(2014-08-20)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -1439,7 +1353,6 @@ Update using ```composer update```.
 
 ### 4.0.7 <small>(2014-08-18)</small>
 
-Update using ```composer update```.
 
 #### New
 
@@ -1453,7 +1366,6 @@ Update using ```composer update```.
 
 ### 4.0.6 <small>(2014-08-5)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -1463,7 +1375,6 @@ Update using ```composer update```.
 
 ### 4.0.5 <small>(2014-07-24)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1473,7 +1384,6 @@ Update using ```composer update```.
 
 ### 4.0.4 <small>(2014-07-04)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -1484,7 +1394,6 @@ Update using ```composer update```.
 
 ### 4.0.3 <small>(2014-07-02)</small>
 
-Update using ```composer update```.
 
 #### Improvements
 
@@ -1494,7 +1403,6 @@ Update using ```composer update```.
 
 ### 4.0.2 <small>(2014-07-01)</small>
 
-Update using ```composer update```.
 
 #### Changes
 
@@ -1508,7 +1416,6 @@ Update using ```composer update```.
 
 ### 4.0.1 <small>(2014-06-26)</small>
 
-Update using ```composer update```.
 
 #### Bugfixes
 
