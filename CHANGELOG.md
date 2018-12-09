@@ -1,12 +1,14 @@
 ### 6.0.0 <small> (2019-??-??)</small>
 
-Applications built using Mako `5.7.0` should run on Mako `6.0.0` without any modifications. The major version bump is due to dropped support for PHP `7.0` and `7.1`.
+The major version bump is due to dropped support for PHP `7.0` and `7.1`. Application built using Mako `5.7.0` should run on Mako `6.0.0` with few to no modifications.
 
 #### Changes
 
 * Removed the deprecated `FileSystem::mime()` method.
 * Removed the deprecated `FileSystem::hash()` method.
 * Removed the deprecated `FileSystem::hmac()` method.
+
+> Check out the upgrade guide for details on how to upgrade from `5.7.*.`
 
 --------------------------------------------------------
 

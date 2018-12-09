@@ -47,5 +47,5 @@ abstract class Service
 	/**
 	 * Registers the service.
 	 */
-	abstract public function register();
+	abstract public function register(): void;
 }
