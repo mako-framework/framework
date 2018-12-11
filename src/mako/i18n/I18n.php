@@ -203,6 +203,17 @@ class I18n
 	}
 
 	/**
+	 * Parses the language key.
+	 *
+	 * @param  string $key Language key
+	 * @return array
+	 */
+	protected function parseKey(string $key): array
+	{
+		return strpos($key, '.') === false ? [$key, null] : explode('.', $key, 2);
+	}
+
+	/**
 	 * Loads language strings from cache.
 	 *
 	 * @param  string $language Name of the language pack
@@ -238,40 +249,20 @@ class I18n
 	}
 
 	/**
-	 * Parses the language key.
+	 * Returns all strings from the chosen language file.
 	 *
-	 * @param  string $key Language key
+	 * @param  string $language Name of the language pack
+	 * @param  string $file     File from which we are getting the strings
 	 * @return array
 	 */
-	protected function parseKey(string $key): array
+	protected function getStrings(string $language, string $file): array
 	{
-		return (strpos($key, '.') === false) ? [$key, null] : explode('.', $key, 2);
-	}
-
-	/**
-	 * Returns the language string.
-	 *
-	 * @param  string      $key      Language key
-	 * @param  string|null $language Name of the language pack
-	 * @return string
-	 */
-	protected function getString(string $key, ?string $language = null): string
-	{
-		$language = $language ?? $this->language;
-
-		[$file, $string] = $this->parseKey($key);
-
-		if($string === null)
-		{
-			return $key;
-		}
-
 		if(!isset($this->strings[$language][$file]))
 		{
 			$this->loadStrings($language, $file);
 		}
 
-		return Arr::get($this->strings[$language][$file], $string, $key);
+		return $this->strings[$language][$file];
 	}
 
 	/**
@@ -283,8 +274,6 @@ class I18n
 	 */
 	public function has(string $key, ?string $language = null): bool
 	{
-		$language = $language ?? $this->language;
-
 		[$file, $string] = $this->parseKey($key);
 
 		if($string === null)
@@ -292,12 +281,7 @@ class I18n
 			return false;
 		}
 
-		if(!isset($this->strings[$language][$file]))
-		{
-			$this->loadStrings($language, $file);
-		}
-
-		return Arr::has($this->strings[$language][$file], $string);
+		return Arr::has($this->getStrings($language ?? $this->language, $file), $string);
 	}
 
 	/**
@@ -359,7 +343,14 @@ class I18n
 	 */
 	public function get(string $key, array $vars = [], ?string $language = null): string
 	{
-		$string = $this->getString($key, $language);
+		[$file, $string] = $this->parseKey($key);
+
+		if($string === null)
+		{
+			return $key;
+		}
+
+		$string = Arr::get($this->getStrings($language ?? $this->language, $file), $string, $key);
 
 		if(!empty($vars))
 		{
