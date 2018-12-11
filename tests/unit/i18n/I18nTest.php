@@ -27,6 +27,7 @@ class I18nTest extends TestCase
 		'bar'      => ['bar' => 'barstring', 'pluralization' => 'You have %1$u <pluralize:%1$u>apple</pluralize>.'],
 		'baz'      => ['number1' => 'You have <number>%s</number> apples.', 'number2' => '<number:3>%s</number>', 'number3' => '<number:3,:>%s</number>', 'number4' => '<number:3,:,;>%s</number>'],
 		'baz::baz' => ['baz' => 'bazstring'],
+		'nested'   => ['foo' => ['bar' => 'baz']],
 	];
 
 	/**
@@ -109,6 +110,8 @@ class I18nTest extends TestCase
 
 		$loader->shouldReceive('loadStrings')->once()->with('en_US', 'baz::baz')->andReturn($this->strings['baz::baz']);
 
+		$loader->shouldReceive('loadStrings')->once()->with('en_US', 'nested')->andReturn($this->strings['nested']);
+
 		$i18n = new I18n($loader, 'en_US');
 
 		$this->assertTrue($i18n->has('foo.foo'));
@@ -117,11 +120,15 @@ class I18nTest extends TestCase
 
 		$this->assertTrue($i18n->has('baz::baz.baz'));
 
+		$this->assertTrue($i18n->has('nested.foo.bar'));
+
 		$this->assertFalse($i18n->has('foo.nope'));
 
 		$this->assertFalse($i18n->has('bar.nope'));
 
 		$this->assertFalse($i18n->has('baz::baz.nope'));
+
+		$this->assertFalse($i18n->has('nested.foo'));
 	}
 
 	/**

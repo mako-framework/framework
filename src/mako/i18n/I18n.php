@@ -281,7 +281,9 @@ class I18n
 			return false;
 		}
 
-		return Arr::has($this->getStrings($language ?? $this->language, $file), $string);
+		$strings = $this->getStrings($language ?? $this->language, $file);
+
+		return Arr::has($strings, $string) && is_string(Arr::get($strings, $string));
 	}
 
 	/**
