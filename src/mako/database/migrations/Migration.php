@@ -30,14 +30,14 @@ abstract class Migration
 	/**
 	 * Connection name.
 	 *
-	 * @var null|string
+	 * @var string|null
 	 */
-	protected $connectionName = null;
+	protected $connectionName;
 
 	/**
 	 * Migration description.
 	 *
-	 * @var null|string
+	 * @var string|null
 	 */
 	protected $description;
 
@@ -61,9 +61,9 @@ abstract class Migration
 	/**
 	 * Returns the connection name.
 	 *
-	 * @return null|string
+	 * @return string|null
 	 */
-	public function getConnectionName()
+	public function getConnectionName(): ?string
 	{
 		return $this->connectionName;
 	}
