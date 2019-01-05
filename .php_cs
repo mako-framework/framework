@@ -48,7 +48,7 @@ return Config::create()
 	'non_printable_character' => true,
 	'normalize_index_brace' => true,
 	'object_operator_without_whitespace' => true,
-	'ordered_imports' => true,
+	'ordered_imports' => ['imports_order' => ['class', 'function', 'const']],
 	'phpdoc_align' => true,
 	'phpdoc_indent' => true,
 	'phpdoc_no_access' => true,

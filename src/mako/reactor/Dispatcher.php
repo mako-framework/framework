@@ -162,7 +162,7 @@ class Dispatcher
 	{
 		return array_combine(array_map(function($key)
 		{
-			return Str::underscored2camel($key);
+			return Str::underscored2camel(str_replace('-', '_', $key));
 		}, array_keys($arguments)), array_values($arguments));
 	}
 

@@ -12,6 +12,14 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 
 --------------------------------------------------------
 
+### 5.7.1 <small> (2019-01-05)</small>
+
+#### New
+
+* Added optional `--exit-code` option to `migrate.status` command.
+
+--------------------------------------------------------
+
 ### 5.7.0 <small> (2018-12-06)</small>
 
 #### New
