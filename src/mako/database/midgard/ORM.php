@@ -631,7 +631,7 @@ abstract class ORM implements JsonSerializable
 		{
 			// The column is a relation. Lazy load the record(s) and cache them
 
-			return $this->related[$name] = $this->{$name}()->getRelated();
+			return $this->related[$name] = $this->$name()->getRelated();
 		}
 
 		// All options have been exhausted so we'll throw an exception
@@ -1176,7 +1176,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function __call(string $name, array $arguments)
 	{
-		return $this->builder()->{$name}(...$arguments);
+		return $this->builder()->$name(...$arguments);
 	}
 
 	/**
@@ -1188,6 +1188,6 @@ abstract class ORM implements JsonSerializable
 	 */
 	public static function __callStatic(string $name, array $arguments)
 	{
-		return (new static)->builder()->{$name}(...$arguments);
+		return (new static)->builder()->$name(...$arguments);
 	}
 }

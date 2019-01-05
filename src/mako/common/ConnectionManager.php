@@ -102,6 +102,6 @@ abstract class ConnectionManager
 	 */
 	public function __call(string $name, array $arguments)
 	{
-		return $this->connection()->{$name}(...$arguments);
+		return $this->connection()->$name(...$arguments);
 	}
 }

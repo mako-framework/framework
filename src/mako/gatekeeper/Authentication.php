@@ -165,12 +165,12 @@ class Authentication
 	/**
 	 * Magic shortcut to the default adapter.
 	 *
-	 * @param  string $method    Method name
+	 * @param  string $name      Method name
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
-	public function __call(string $method, array $arguments)
+	public function __call(string $name, array $arguments)
 	{
-		return $this->adapter()->$method(...$arguments);
+		return $this->adapter()->$name(...$arguments);
 	}
 }

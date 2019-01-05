@@ -144,7 +144,7 @@ class Query extends QueryBuilder
 	{
 		if($this->model->isPersisted())
 		{
-			$this->model->{$column} += $increment;
+			$this->model->$column += $increment;
 
 			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
 		}
@@ -166,7 +166,7 @@ class Query extends QueryBuilder
 	{
 		if($this->model->isPersisted())
 		{
-			$this->model->{$column} -= $decrement;
+			$this->model->$column -= $decrement;
 
 			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
 		}
@@ -362,7 +362,7 @@ class Query extends QueryBuilder
 		{
 			$forward = $includes['forward'][$include] ?? [];
 
-			$results[0]->{$include}()->eagerLoad($results, $include, $criteria, $forward);
+			$results[0]->$include()->eagerLoad($results, $include, $criteria, $forward);
 		}
 	}
 

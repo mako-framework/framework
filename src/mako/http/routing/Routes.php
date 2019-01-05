@@ -145,7 +145,7 @@ class Routes
 			{
 				foreach($group as $option => $value)
 				{
-					$route->{$option}($value);
+					$route->$option($value);
 				}
 			}
 		}
