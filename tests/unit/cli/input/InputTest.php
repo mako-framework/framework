@@ -93,22 +93,6 @@ class InputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetNormalizedNamedArgument(): void
-	{
-		$reader = $this->getReader();
-
-		$arguments = ['--foo-bar=baz'];
-
-		$input = new Input($reader, $arguments);
-
-		$this->assertSame('baz', $input->getArgument('foo-bar'));
-
-		$this->assertSame('baz', $input->getArgument('foo_bar'));
-	}
-
-	/**
-	 *
-	 */
 	public function testGetBooleanNamedArgument(): void
 	{
 		$reader = $this->getReader();
