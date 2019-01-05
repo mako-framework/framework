@@ -262,7 +262,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidArgumentException('foo', 'bar'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidArgumentException('Invalid argument [ bar ].', 'bar'));
 
 		//
 
@@ -302,7 +302,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidOptionException('foo', 'bar'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidOptionException('Invalid option [ bar ].', 'bar'));
 
 		//
 
@@ -342,7 +342,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidOptionException('foo', 'bar', 'baz'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidOptionException('Invalid option [ bar ].', 'bar', 'baz'));
 
 		//
 
@@ -382,7 +382,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new MissingArgumentException('foo', 'bar'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new MissingArgumentException('Missing required argument [ bar ].', 'bar'));
 
 		//
 
@@ -422,7 +422,7 @@ EOF;
 
 		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new MissingOptionException('foo', 'bar'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new MissingOptionException('Missing required option [ bar ].', 'bar'));
 
 		//
 

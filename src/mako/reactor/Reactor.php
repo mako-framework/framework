@@ -11,10 +11,8 @@ use Closure;
 use mako\cli\input\Input;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\Output;
-use mako\reactor\exceptions\InvalidArgumentException;
+use mako\reactor\exceptions\ArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
-use mako\reactor\exceptions\MissingArgumentException;
-use mako\reactor\exceptions\MissingOptionException;
 use mako\reactor\traits\SuggestionTrait;
 use mako\syringe\Container;
 use ReflectionClass;
@@ -415,28 +413,16 @@ class Reactor
 		{
 			$exitCode = $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments(), $this->getGlobalOptionNames());
 		}
-		catch(InvalidOptionException $e)
+		catch(ArgumentException $e)
 		{
-			$message = 'Invalid option [ ' . $e->getName() . ' ].';
+			$message = $e->getMessage();
 
-			if(($suggestion = $e->getSuggestion()) !== null)
+			if($e instanceof InvalidOptionException && ($suggestion = $e->getSuggestion()) !== null)
 			{
 				$message .= ' Did you mean [ ' . $suggestion . ' ]?';
 			}
 
 			$this->output->errorLn('<red>' . $message . '</red>');
-		}
-		catch(InvalidArgumentException $e)
-		{
-			$this->output->errorLn('<red>Invalid argument [ ' . $e->getName() . ' ].</red>');
-		}
-		catch(MissingOptionException $e)
-		{
-			$this->output->errorLn('<red>Missing required option [ ' . $e->getName() . ' ].</red>');
-		}
-		catch(MissingArgumentException $e)
-		{
-			$this->output->errorLn('<red>Missing required argument [ ' . $e->getName() . ' ].</red>');
 		}
 
 		return $exitCode ?? CommandInterface::STATUS_ERROR;
