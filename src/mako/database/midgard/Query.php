@@ -464,7 +464,7 @@ class Query extends QueryBuilder
 	 * @param  array                        $arguments Method arguments
 	 * @return \mako\database\midgard\Query
 	 */
-	public function __call($name, array $arguments)
+	public function __call(string $name, array $arguments)
 	{
 		if(!method_exists($this->model, $name . 'Scope'))
 		{
