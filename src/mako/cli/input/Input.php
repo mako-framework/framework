@@ -12,7 +12,6 @@ use mako\cli\input\reader\ReaderInterface;
 use function explode;
 use function is_int;
 use function preg_match;
-use function str_replace;
 use function substr;
 
 /**
@@ -57,17 +56,6 @@ class Input
 	}
 
 	/**
-	 * Returns a normalized argument name.
-	 *
-	 * @param  string $name Argument name to normalize
-	 * @return string
-	 */
-	protected function normalizeArgumentName(string $name): string
-	{
-		return str_replace('-', '_', $name);
-	}
-
-	/**
 	 * Parses parameters.
 	 *
 	 * @param  array $arguments Arguments
@@ -85,7 +73,7 @@ class Input
 			{
 				list($name, $value) = explode('=', substr($argument, 2), 2) + [null, null];
 
-				$parsed[$this->normalizeArgumentName($name)] = $value === null ? true : $value;
+				$parsed[$name] = $value === null ? true : $value;
 			}
 			else
 			{
@@ -129,8 +117,6 @@ class Input
 		{
 			$name = 'arg' . $name;
 		}
-
-		$name = $this->normalizeArgumentName($name);
 
 		return isset($this->arguments[$name]) ? $this->arguments[$name] : $default;
 	}

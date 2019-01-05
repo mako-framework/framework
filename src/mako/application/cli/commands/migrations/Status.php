@@ -32,13 +32,21 @@ class Status extends Command
 				'optional'    => true,
 				'description' => 'Sets which database connection to use',
 			],
+			'exit-code' =>
+			[
+				'optional'    => true,
+				'description' => 'Exits with 1 if there are outstanding migrations and 0 if there are none',
+			],
 		],
 	];
 
 	/**
 	 * Executes the command.
+	 *
+	 * @param  bool $exitCode Override exit code?
+	 * @return int
 	 */
-	public function execute()
+	public function execute($exitCode = false): int
 	{
 		$migrations = $this->getOutstanding();
 
@@ -54,5 +62,7 @@ class Status extends Command
 		{
 			$this->write('<green>There are no outstanding migrations.</green>');
 		}
+
+		return ($exitCode && $count > 0) ? Command::STATUS_ERROR : Command::STATUS_SUCCESS;
 	}
 }

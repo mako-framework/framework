@@ -44,7 +44,7 @@ return Config::create()
 	'no_whitespace_before_comma_in_array' => true,
 	'no_whitespace_in_blank_line' => true,
 	'object_operator_without_whitespace' => true,
-	'ordered_imports' => true,
+	'ordered_imports' => ['imports_order' => ['class', 'function', 'const']],
 	'phpdoc_align' => true,
 	'phpdoc_indent' => true,
 	'phpdoc_no_access' => true,
