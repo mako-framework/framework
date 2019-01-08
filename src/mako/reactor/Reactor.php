@@ -417,14 +417,7 @@ class Reactor
 		}
 		catch(InvalidOptionException $e)
 		{
-			$message = $e->getMessage();
-
-			if(($suggestion = $e->getSuggestion()) !== null)
-			{
-				$message .= ' Did you mean [ ' . $suggestion . ' ]?';
-			}
-
-			$this->output->errorLn('<red>' . $message . '</red>');
+			$this->output->errorLn('<red>' . $e->getMessageWithSuggestion() . '</red>');
 		}
 		catch(InvalidArgumentException | MissingOptionException | MissingArgumentException $e)
 		{

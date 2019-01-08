@@ -48,4 +48,21 @@ class InvalidOptionException extends ArgumentException
 	{
 		return $this->suggestion;
 	}
+
+	/**
+	 * Returns the exception message with a suggestion.
+	 *
+	 * @return string
+	 */
+	public function getMessageWithSuggestion(): string
+	{
+		$message = $this->getMessage();
+
+		if($this->suggestion !== null)
+		{
+			$message .= ' Did you mean [ ' . $this->suggestion . ' ]?';
+		}
+
+		return $message;
+	}
 }
