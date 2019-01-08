@@ -11,8 +11,10 @@ use Closure;
 use mako\cli\input\Input;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\Output;
-use mako\reactor\exceptions\ArgumentException;
+use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
+use mako\reactor\exceptions\MissingArgumentException;
+use mako\reactor\exceptions\MissingOptionException;
 use mako\reactor\traits\SuggestionTrait;
 use mako\syringe\Container;
 use ReflectionClass;
@@ -413,16 +415,20 @@ class Reactor
 		{
 			$exitCode = $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments(), $this->getGlobalOptionNames());
 		}
-		catch(ArgumentException $e)
+		catch(InvalidOptionException $e)
 		{
 			$message = $e->getMessage();
 
-			if($e instanceof InvalidOptionException && ($suggestion = $e->getSuggestion()) !== null)
+			if(($suggestion = $e->getSuggestion()) !== null)
 			{
 				$message .= ' Did you mean [ ' . $suggestion . ' ]?';
 			}
 
 			$this->output->errorLn('<red>' . $message . '</red>');
+		}
+		catch(InvalidArgumentException | MissingOptionException | MissingArgumentException $e)
+		{
+			$this->output->errorLn('<red>' . $e->getMessage() . '</red>');
 		}
 
 		return $exitCode ?? CommandInterface::STATUS_ERROR;
