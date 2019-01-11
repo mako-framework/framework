@@ -166,14 +166,11 @@ class Router
 	 */
 	protected function constraintsAreSatisfied(Route $route): bool
 	{
-		if(!empty(($constraints = $route->getConstraints())) || !empty($this->globalConstraints))
+		foreach(array_merge($this->globalConstraints, $route->getConstraints()) as $constraint)
 		{
-			foreach(array_merge($this->globalConstraints, $constraints) as $constraint)
+			if($this->constraintFactory($constraint)->isSatisfied() === false)
 			{
-				if($this->constraintFactory($constraint)->isSatisfied() === false)
-				{
-					return false;
-				}
+				return false;
 			}
 		}
 
