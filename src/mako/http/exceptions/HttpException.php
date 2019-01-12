@@ -18,6 +18,13 @@ use Throwable;
 class HttpException extends RuntimeException
 {
 	/**
+	 * Default message.
+	 *
+	 * @var string|null
+	 */
+	protected $defaultMessage;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param int             $code     Exception code
@@ -26,6 +33,6 @@ class HttpException extends RuntimeException
 	 */
 	public function __construct(int $code, ?string $message = null, ?Throwable $previous = null)
 	{
-		parent::__construct($message, $code, $previous);
+		parent::__construct($message ?: $this->defaultMessage, $code, $previous);
 	}
 }

@@ -17,6 +17,11 @@ use Throwable;
 class NotFoundException extends HttpException
 {
 	/**
+	 * {@inheritdoc}
+	 */
+	protected $defaultMessage = 'The resource you requested could not be found. It may have been moved or deleted.';
+
+	/**
 	 * Constructor.
 	 *
 	 * @param string|null     $message  Exception message
