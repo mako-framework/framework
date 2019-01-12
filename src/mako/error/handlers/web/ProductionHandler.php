@@ -72,26 +72,19 @@ class ProductionHandler implements HandlerInterface
 	 * @param  Throwable $exception Exception
 	 * @return array
 	 */
-	protected function getCodeAndMessage(Throwable $exception): array
+	protected function getStatusCodeAndMessage(Throwable $exception): array
 	{
-		$code = $this->getStatusCode($exception);
-
-		switch($code)
+		if($exception instanceof HttpException)
 		{
-			case 403:
-				$message = 'You don\'t have permission to access the requested resource.';
-				break;
-			case 404:
-				$message = 'The resource you requested could not be found. It may have been moved or deleted.';
-				break;
-			case 405:
-				$message = 'The request method that was used is not supported by this resource.';
-				break;
-			default:
-				$message = 'An error has occurred while processing your request.';
+			$message = $exception->getMessage();
 		}
 
-		return ['code' => $code, 'message' => $message];
+		if(empty($message))
+		{
+			$message = 'An error has occurred while processing your request.';
+		}
+
+		return ['code' => $this->getStatusCode($exception), 'message' => $message];
 	}
 
 	/**
@@ -102,7 +95,7 @@ class ProductionHandler implements HandlerInterface
 	 */
 	protected function getExceptionAsJson(Throwable $exception): string
 	{
-		return json_encode(['error' => $this->getCodeAndMessage($exception)]);
+		return json_encode(['error' => $this->getStatusCodeAndMessage($exception)]);
 	}
 
 	/**
@@ -113,7 +106,7 @@ class ProductionHandler implements HandlerInterface
 	 */
 	protected function getExceptionAsXml(Throwable $exception): string
 	{
-		$details = $this->getCodeAndMessage($exception);
+		$details = $this->getStatusCodeAndMessage($exception);
 
 		$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><error />");
 
