@@ -90,7 +90,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function getColumns(): array
 	{
@@ -103,7 +103,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	protected function aggregate($function, $column)
 	{

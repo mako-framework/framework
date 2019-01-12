@@ -22,6 +22,7 @@ use function array_merge;
 use function array_values;
 use function in_array;
 use function is_int;
+use function str_replace;
 use function strpos;
 use function vsprintf;
 

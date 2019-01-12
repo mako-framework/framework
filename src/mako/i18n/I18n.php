@@ -12,6 +12,7 @@ use mako\i18n\loaders\LoaderInterface;
 use mako\utility\Arr;
 
 use function explode;
+use function is_string;
 use function localeconv;
 use function number_format;
 use function preg_replace_callback;
