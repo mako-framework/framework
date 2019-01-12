@@ -15,7 +15,7 @@ use Throwable;
  *
  * @author Frederic G. Østby
  */
-class RequestException extends RuntimeException
+abstract class RequestException extends RuntimeException
 {
 	/**
 	 * Constructor.
