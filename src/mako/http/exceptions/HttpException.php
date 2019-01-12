@@ -11,11 +11,11 @@ use RuntimeException;
 use Throwable;
 
 /**
- * Request exception.
+ * HTTP exception.
  *
  * @author Frederic G. Østby
  */
-abstract class RequestException extends RuntimeException
+class HttpException extends RuntimeException
 {
 	/**
 	 * Constructor.

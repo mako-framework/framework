@@ -7,7 +7,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 * Removed the deprecated `FileSystem::mime()` method.
 * Removed the deprecated `FileSystem::hash()` method.
 * Removed the deprecated `FileSystem::hmac()` method.
-* The `RequestException` class is now abstract.
+* The `RequestException` class is has been renamed to `HttpException`.
 
 > Check out the upgrade guide for details on how to upgrade from `5.7.*.`
 

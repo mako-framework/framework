@@ -14,7 +14,7 @@ use Throwable;
  *
  * @author Frederic G. Østby
  */
-class NotFoundException extends RequestException
+class NotFoundException extends HttpException
 {
 	/**
 	 * Constructor.

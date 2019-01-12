@@ -9,7 +9,7 @@ namespace mako\error\handlers\web;
 
 use mako\error\handlers\HandlerInterface;
 use mako\error\handlers\web\traits\HandlerHelperTrait;
-use mako\http\exceptions\RequestException;
+use mako\http\exceptions\HttpException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\view\ViewFactory;
@@ -134,7 +134,7 @@ class ProductionHandler implements HandlerInterface
 	{
 		$view = 'error';
 
-		if($exception instanceof RequestException)
+		if($exception instanceof HttpException)
 		{
 			$code = $exception->getCode();
 

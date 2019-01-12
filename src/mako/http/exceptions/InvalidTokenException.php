@@ -14,7 +14,7 @@ use Throwable;
  *
  * @author Frederic G. Østby
  */
-class InvalidTokenException extends RequestException
+class InvalidTokenException extends HttpException
 {
 	/**
 	 * Constructor.

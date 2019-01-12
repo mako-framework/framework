@@ -14,7 +14,7 @@ use Throwable;
  *
  * @author Frederic G. Østby
  */
-class ForbiddenException extends RequestException
+class ForbiddenException extends HttpException
 {
 	/**
 	 * Constructor.

@@ -7,8 +7,8 @@
 
 namespace mako\error\handlers\web\traits;
 
+use mako\http\exceptions\HttpException;
 use mako\http\exceptions\MethodNotAllowedException;
-use mako\http\exceptions\RequestException;
 use mako\http\Response;
 use Throwable;
 
@@ -82,7 +82,7 @@ trait HandlerHelperTrait
 	 */
 	protected function getStatusCode(Throwable $exception): int
 	{
-		return ($exception instanceof RequestException) ? $exception->getCode() : 500;
+		return ($exception instanceof HttpException) ? $exception->getCode() : 500;
 	}
 
 	/**
