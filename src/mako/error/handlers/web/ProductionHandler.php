@@ -67,9 +67,9 @@ class ProductionHandler implements HandlerInterface
 	}
 
 	/**
-	 * Returns code and message.
+	 * Returns status code and message.
 	 *
-	 * @param  Throwable $exception Exception
+	 * @param  \Throwable $exception Exception
 	 * @return array
 	 */
 	protected function getStatusCodeAndMessage(Throwable $exception): array
@@ -90,7 +90,7 @@ class ProductionHandler implements HandlerInterface
 	/**
 	 * Return a JSON representation of the exception.
 	 *
-	 * @param  Throwable $exception Exception
+	 * @param  \Throwable $exception Exception
 	 * @return string
 	 */
 	protected function getExceptionAsJson(Throwable $exception): string
@@ -101,7 +101,7 @@ class ProductionHandler implements HandlerInterface
 	/**
 	 * Return a XML representation of the exception.
 	 *
-	 * @param  Throwable $exception Exception
+	 * @param  \Throwable $exception Exception
 	 * @return string
 	 */
 	protected function getExceptionAsXml(Throwable $exception): string
