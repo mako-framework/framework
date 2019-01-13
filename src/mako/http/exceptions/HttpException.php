@@ -28,11 +28,11 @@ class HttpException extends RuntimeException
 	 * Constructor.
 	 *
 	 * @param int             $code     Exception code
-	 * @param string|null     $message  Exception message
+	 * @param string          $message  Exception message
 	 * @param \Throwable|null $previous Previous exception
 	 */
-	public function __construct(int $code, ?string $message = null, ?Throwable $previous = null)
+	public function __construct(int $code, string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct($message ?: $this->defaultMessage, $code, $previous);
+		parent::__construct($message ?: (string) $this->defaultMessage, $code, $previous);
 	}
 }

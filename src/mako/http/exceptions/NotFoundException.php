@@ -24,10 +24,10 @@ class NotFoundException extends HttpException
 	/**
 	 * Constructor.
 	 *
-	 * @param string|null     $message  Exception message
+	 * @param string          $message  Exception message
 	 * @param \Throwable|null $previous Previous exception
 	 */
-	public function __construct(?string $message = null, ?Throwable $previous = null)
+	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
 		parent::__construct(404, $message, $previous);
 	}
