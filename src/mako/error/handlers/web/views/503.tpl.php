@@ -1,9 +1,8 @@
 {% extends:'mako-error::error' %}
 
-{% block:title %}503 Service Unavailable{% endblock %}
+{% block:title %}Service Unavailable{% endblock %}
 
 {% block:message %}
-	<h1>503 <small>Service Unavailable</small></h1>
-	<hr>
+	<h1>503</h1>
 	<p>The service is currently unavailable.</p>
 {% endblock %}

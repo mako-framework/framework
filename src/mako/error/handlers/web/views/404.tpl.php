@@ -1,9 +1,8 @@
 {% extends:'mako-error::error' %}
 
-{% block:title %}404 Not Found{% endblock %}
+{% block:title %}Not Found{% endblock %}
 
 {% block:message %}
-	<h1>404 <small>Not Found</small></h1>
-	<hr>
+	<h1>404</h1>
 	<p>The resource you requested could not be found. It may have been moved or deleted.</p>
 {% endblock %}

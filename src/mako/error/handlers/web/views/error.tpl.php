@@ -6,39 +6,43 @@
 		<style type="text/css">
 		body
 		{
-			background:#eee;
-			padding:0px;
-			margin:0px;
+			background: #FEFEFE;
+			color: #333333;
+			padding: 0;
+			margin: 0;
 			height: 100%;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 			font-size: 100%;
-			color:#333;
-			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 			line-height: 100%;
 		}
-		h1
+		.container
 		{
-			font-size: 4em;
-		}
-		small
-		{
-			font-size: 0.7em;
-			color: #999;
-			font-weight: normal;
-		}
-		hr
-		{
-			border:0px;
-			border-bottom:1px #ddd solid;
-		}
-		.container {
 			height: 100vh;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 		}
-		.message
+	 	.container h1
+		{
+			padding: 0;
+			margin: 0;
+			width: auto;
+			display: inline-block;
+			font-size: 6em;
+			line-height: 1em;
+			border-bottom: 4px #2DB28A solid
+		}
+		.container .message
 		{
 			width: 700px;
+			max-width: 80%;
+			background: #EEEEEE;
+			padding: 2em;
+			border-radius: 2em;
+		}
+		.container .message p
+		{
+			font-size: 1.1em;
 		}
 		</style>
 	</head>
@@ -47,8 +51,7 @@
 			<div class="message">
 				{{block:message}}
 					<h1>Error</h1>
-					<hr>
-					<p>Aw, snap! An error has occurred while processing your request.</p>
+					<p>An error has occurred while processing your request.</p>
 				{{endblock}}
 			</div>
 		</div>
