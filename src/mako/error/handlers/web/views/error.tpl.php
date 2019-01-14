@@ -2,11 +2,10 @@
 <html lang="en">
 	<head>
 		<meta charset="{{$__charset__ }}">
-		<title>Error</title>
+		<title>{{block:title}}Error{{endblock}}</title>
 		<style type="text/css">
 		body
 		{
-			height:100%;
 			background:#eee;
 			padding:0px;
 			margin:0px;
@@ -20,25 +19,38 @@
 		{
 			font-size: 4em;
 		}
+		small
+		{
+			font-size: 0.7em;
+			color: #999;
+			font-weight: normal;
+		}
 		hr
 		{
 			border:0px;
 			border-bottom:1px #ddd solid;
 		}
+		.container {
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 		.message
 		{
 			width: 700px;
-			margin: 15% auto;
 		}
 		</style>
 	</head>
 	<body>
-
-		<div class="message">
-			<h1>Error</h1>
-			<hr>
-			<p>Aw, snap! An error has occurred while processing your request.</p>
+		<div class="container">
+			<div class="message">
+				{{block:message}}
+					<h1>Error</h1>
+					<hr>
+					<p>Aw, snap! An error has occurred while processing your request.</p>
+				{{endblock}}
+			</div>
 		</div>
-
 	</body>
 </html>
