@@ -492,7 +492,7 @@ class GD implements ProcessorInterface
 
 			for($i = 0; $i <= 255; $i++)
 			{
-			    $greys[$i] = imagecolorallocate($temp, $i, $i, $i);
+				$greys[$i] = imagecolorallocate($temp, $i, $i, $i);
 			}
 
 			// Convert pixels to greyscale
