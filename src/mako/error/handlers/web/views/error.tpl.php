@@ -34,11 +34,7 @@
 		}
 		.container .message
 		{
-			width: 700px;
-			max-width: 80%;
-			background: #EEEEEE;
 			padding: 2em;
-			border-radius: 2em;
 		}
 		.container .message p
 		{
