@@ -55,6 +55,7 @@ use mako\validator\rules\MinLength;
 use mako\validator\rules\Natural;
 use mako\validator\rules\NaturalNonZero;
 use mako\validator\rules\NotIn;
+use mako\validator\rules\Optional;
 use mako\validator\rules\Regex;
 use mako\validator\rules\Required;
 use mako\validator\rules\RuleInterface;
@@ -162,6 +163,7 @@ class Validator
 		'natural'                  => Natural::class,
 		'not_in'                   => NotIn::class,
 		'one_time_token'           => OneTimeToken::class,
+		'optional'                 => Optional::class,
 		'regex'                    => Regex::class,
 		'required'                 => Required::class,
 		'token'                    => Token::class,
@@ -426,7 +428,7 @@ class Validator
 	 * @param  string $rule  Rule
 	 * @return bool
 	 */
-	protected function validate(string $field, string $rule): bool
+	protected function validateField(string $field, string $rule): bool
 	{
 		$parsedRule = $this->parseRule($rule);
 
@@ -476,7 +478,7 @@ class Validator
 
 			foreach($ruleSet as $rule)
 			{
-				if($this->validate($field, $rule) === false)
+				if($this->validateField($field, $rule) === false)
 				{
 					break;
 				}
@@ -510,6 +512,31 @@ class Validator
 		[$isValid, $errors] = $this->process();
 
 		return $isValid === false;
+	}
+
+	/**
+	 * Validates the input and returns an array containing validated data.
+	 *
+	 * @return array
+	 */
+	public function validate(): array
+	{
+		if($this->isInvalid())
+		{
+			throw new ValidatorException($this->errors);
+		}
+
+		$validated = [];
+
+		foreach(array_keys($this->ruleSets) as $validatedKey)
+		{
+			if(Arr::has($this->input, $validatedKey))
+			{
+				Arr::set($validated, $validatedKey, Arr::get($this->input, $validatedKey));
+			}
+		}
+
+		return $validated;
 	}
 
 	/**

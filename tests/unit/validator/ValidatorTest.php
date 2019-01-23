@@ -8,11 +8,16 @@
 namespace mako\tests\unit\validator;
 
 use mako\i18n\I18n;
+
 use mako\tests\TestCase;
 use mako\validator\rules\I18nAwareInterface;
+
 use mako\validator\rules\RuleInterface;
 use mako\validator\Validator;
+
+use mako\validator\ValidatorException;
 use Mockery;
+use Throwable;
 
 /**
  * @group unit
@@ -385,5 +390,50 @@ class ValidatorTest extends TestCase
 		$this->assertFalse($validator->isValid());
 
 		$this->assertSame(['foo' => 'custom message'], $validator->getErrors());
+	}
+
+	/**
+	 *
+	 */
+	public function testValidate(): void
+	{
+		$input = ['username' => 'foo', 'password' => 'bar', 'bio' => 'Hello, world!'];
+
+		$rules = ['username' => ['required'], 'password' => ['required']];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertSame(['username' => 'foo', 'password' => 'bar'], $validator->validate());
+
+		//
+
+		$rules = ['username' => ['required'], 'password' => ['required'], 'bio' => ['optional']];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertSame($input, $validator->validate());
+	}
+
+	/**
+	 *
+	 */
+	public function testValidateWithError(): void
+	{
+		$input = ['username' => 'foo'];
+
+		$rules = ['username' => ['required'], 'password' => ['required']];
+
+		$validator = new Validator($input, $rules);
+
+		try
+		{
+			$validator->validate();
+		}
+		catch(Throwable $e)
+		{
+			$this->assertInstanceOf(ValidatorException::class, $e);
+
+			$this->assertSame(['password' => 'The password field is required.'], $e->getErrors());
+		}
 	}
 }

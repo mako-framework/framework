@@ -2,6 +2,11 @@
 
 The major version bump is due to dropped support for PHP `7.0` and `7.1`. Application built using Mako `5.7.0` should run on Mako `6.0.0` with just a few simple modifications.
 
+#### New
+
+* Added `optional` validation rule.
+* Added `Validator::validate()` method that returns the validated input on success and throws an `ValidatorException` on failure.
+
 #### Changes
 
 * Removed the deprecated `FileSystem::mime()` method.
