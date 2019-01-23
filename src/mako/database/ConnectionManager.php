@@ -196,6 +196,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * Connects to the chosen database and returns the connection.
 	 *
 	 * @param  string                                $connectionName Connection name
+	 * @throws \RuntimeException
 	 * @return \mako\database\connections\Connection
 	 */
 	protected function connect(string $connectionName): Connection

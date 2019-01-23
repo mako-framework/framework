@@ -66,9 +66,11 @@ class Dispatcher
 	/**
 	 * Checks for invalid arguments or options.
 	 *
-	 * @param \mako\reactor\CommandInterface $command           Command arguments
-	 * @param array                          $providedArguments Provided arguments
-	 * @param array                          $globalOptions     Global options
+	 * @param  \mako\reactor\CommandInterface                    $command           Command arguments
+	 * @param  array                                             $providedArguments Provided arguments
+	 * @param  array                                             $globalOptions     Global options
+	 * @throws \mako\reactor\exceptions\InvalidArgumentException
+	 * @throws \mako\reactor\exceptions\InvalidOptionException
 	 */
 	protected function checkForInvalidArguments(CommandInterface $command, array $providedArguments, array $globalOptions): void
 	{
@@ -93,9 +95,10 @@ class Dispatcher
 	/**
 	 * Checks for missing required arguments or options.
 	 *
-	 * @param array  $commandArguments  Command arguments
-	 * @param array  $providedArguments Provided arguments
-	 * @param string $exception         Exception to throw
+	 * @param  array                                      $commandArguments  Command arguments
+	 * @param  array                                      $providedArguments Provided arguments
+	 * @param  string                                     $exception         Exception to throw
+	 * @throws \mako\reactor\exceptions\ArgumentException
 	 */
 	protected function checkForMissingArgumentsOrOptions(array $commandArguments, array $providedArguments, string $exception): void
 	{

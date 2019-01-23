@@ -76,6 +76,7 @@ class Group extends ORM implements GroupEntityInterface
 	 * Adds a user to the group.
 	 *
 	 * @param  \mako\gatekeeper\entities\user\User $user User
+	 * @throws \LogicException
 	 * @return bool
 	 */
 	public function addUser(User $user): bool
@@ -97,6 +98,7 @@ class Group extends ORM implements GroupEntityInterface
 	 * Removes a user from the group.
 	 *
 	 * @param  \mako\gatekeeper\entities\user\User $user User
+	 * @throws \LogicException
 	 * @return bool
 	 */
 	public function removeUser(User $user): bool
@@ -118,6 +120,7 @@ class Group extends ORM implements GroupEntityInterface
 	 * Returns TRUE if a user is a member of the group and FALSE if not.
 	 *
 	 * @param  \mako\gatekeeper\entities\user\User $user User
+	 * @throws \LogicException
 	 * @return bool
 	 */
 	public function isMember(User $user)

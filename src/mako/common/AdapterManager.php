@@ -75,8 +75,9 @@ abstract class AdapterManager
 	/**
 	 * Factory.
 	 *
-	 * @param  string $adapterName   Adapter name
-	 * @param  array  $configuration Adapter configuration
+	 * @param  string            $adapterName   Adapter name
+	 * @param  array             $configuration Adapter configuration
+	 * @throws \RuntimeException
 	 * @return mixed
 	 */
 	protected function factory(string $adapterName, array $configuration = [])

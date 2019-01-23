@@ -33,6 +33,7 @@ class IP extends Rule implements RuleInterface
 	/**
 	 * Returns the filter flags.
 	 *
+	 * @throws \RuntimeException
 	 * @return int|null
 	 */
 	protected function getFlags(): ?int

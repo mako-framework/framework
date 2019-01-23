@@ -219,6 +219,8 @@ class Session extends Adapter
 
 	/**
 	 * Sets a remember me cookie.
+	 *
+	 * @throws \RuntimeException
 	 */
 	protected function setRememberMeCookie(): void
 	{

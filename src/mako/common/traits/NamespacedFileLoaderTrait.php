@@ -77,9 +77,10 @@ trait NamespacedFileLoaderTrait
 	/**
 	 * Returns the path to the file.
 	 *
-	 * @param  string      $file      File name
-	 * @param  string|null $extension File extension
-	 * @param  string|null $suffix    Path suffix
+	 * @param  string            $file      File name
+	 * @param  string|null       $extension File extension
+	 * @param  string|null       $suffix    Path suffix
+	 * @throws \RuntimeException
 	 * @return string
 	 */
 	protected function getFilePath(string $file, ?string $extension = null, ?string $suffix = null): string

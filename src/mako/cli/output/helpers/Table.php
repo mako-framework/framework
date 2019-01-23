@@ -160,8 +160,9 @@ class Table
 	/**
 	 * Renders a table.
 	 *
-	 * @param  array  $columnNames Array of column names
-	 * @param  array  $rows        Array of rows
+	 * @param  array             $columnNames Array of column names
+	 * @param  array             $rows        Array of rows
+	 * @throws \RuntimeException
 	 * @return string
 	 */
 	public function render(array $columnNames, array $rows): string

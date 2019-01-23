@@ -24,6 +24,8 @@ class ZendDisk extends Store
 {
 	/**
 	 * Constructor.
+	 *
+	 * @throws \RuntimeException
 	 */
 	public function __construct()
 	{

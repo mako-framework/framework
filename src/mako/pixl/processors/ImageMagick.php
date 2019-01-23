@@ -60,7 +60,8 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * Add the hash character (#) if its missing.
 	 *
-	 * @param  string $hex HEX value
+	 * @param  string                    $hex HEX value
+	 * @throws \InvalidArgumentException
 	 * @return string
 	 */
 	public function normalizeHex($hex)

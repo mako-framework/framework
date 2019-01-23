@@ -58,7 +58,8 @@ class Crypto
 	/**
 	 * Decrypts string.
 	 *
-	 * @param  string      $string String to decrypt
+	 * @param  string                                $string String to decrypt
+	 * @throws \mako\security\crypto\CryptoException
 	 * @return string|bool
 	 */
 	public function decrypt(string $string)

@@ -137,6 +137,7 @@ class Router
 	 * Constraint factory.
 	 *
 	 * @param  string                                             $constraint Constraint
+	 * @throws \RuntimeException
 	 * @return \mako\http\routing\constraints\ConstraintInterface
 	 */
 	protected function constraintFactory(string $constraint): ConstraintInterface
@@ -240,7 +241,9 @@ class Router
 	/**
 	 * Matches and returns the appropriate route along with its parameters.
 	 *
-	 * @param  \mako\http\Request       $request Request
+	 * @param  \mako\http\Request                              $request Request
+	 * @throws \mako\http\exceptions\MethodNotAllowedException
+	 * @throws \mako\http\exceptions\NotFoundException
 	 * @return \mako\http\routing\Route
 	 */
 	public function route(Request $request): Route

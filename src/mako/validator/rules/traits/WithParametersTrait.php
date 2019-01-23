@@ -32,8 +32,9 @@ trait WithParametersTrait
 	/**
 	 * Returns the parameter value.
 	 *
-	 * @param  string $name     Parameter name
-	 * @param  bool   $optional Is the parameter optional?
+	 * @param  string            $name     Parameter name
+	 * @param  bool              $optional Is the parameter optional?
+	 * @throws \RuntimeException
 	 * @return mixed
 	 */
 	protected function getParameter($name, $optional = false)

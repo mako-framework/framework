@@ -37,7 +37,8 @@ class MaxFilesize extends Rule implements RuleInterface, WithParametersInterface
 	/**
 	 * Convert human friendly size to bytes.
 	 *
-	 * @param  int|string $size Size
+	 * @param  int|string        $size Size
+	 * @throws \RuntimeException
 	 * @return int|float
 	 */
 	protected function convertToBytes($size)

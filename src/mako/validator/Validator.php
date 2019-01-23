@@ -67,6 +67,7 @@ use mako\validator\rules\WithParametersInterface;
 use RuntimeException;
 
 use function array_fill_keys;
+use function array_keys;
 use function array_merge_recursive;
 use function array_unique;
 use function compact;
@@ -366,7 +367,8 @@ class Validator
 	/**
 	 * Returns the rule class name.
 	 *
-	 * @param  string $name Rule name
+	 * @param  string            $name Rule name
+	 * @throws \RuntimeException
 	 * @return string
 	 */
 	protected function getRuleClassName(string $name): string
@@ -517,6 +519,7 @@ class Validator
 	/**
 	 * Validates the input and returns an array containing validated data.
 	 *
+	 * @throws \mako\validator\ValidatorException
 	 * @return array
 	 */
 	public function validate(): array

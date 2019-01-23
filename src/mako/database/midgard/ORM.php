@@ -510,8 +510,9 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Cast value to the appropriate type.
 	 *
-	 * @param  string $name  Column name
-	 * @param  mixed  $value Column value
+	 * @param  string            $name  Column name
+	 * @param  mixed             $value Column value
+	 * @throws \RuntimeException
 	 * @return mixed
 	 */
 	protected function cast(string $name, $value)
@@ -610,7 +611,8 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Gets a column value or relation.
 	 *
-	 * @param  string $name Column name
+	 * @param  string            $name Column name
+	 * @throws \RuntimeException
 	 * @return mixed
 	 */
 	public function getValue(string $name)
@@ -931,6 +933,7 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Generates a primary key.
 	 *
+	 * @throws \RuntimeException
 	 * @return mixed
 	 */
 	protected function generatePrimaryKey()

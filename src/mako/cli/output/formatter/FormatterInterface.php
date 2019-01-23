@@ -17,7 +17,8 @@ interface FormatterInterface
 	/**
 	 * Returns formatted string.
 	 *
-	 * @param  string $string String to format
+	 * @param  string                                        $string String to format
+	 * @throws \mako\cli\output\formatter\FormatterException
 	 * @return string
 	 */
 	public function format(string $string): string;

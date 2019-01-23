@@ -177,7 +177,8 @@ class Redis
 	/**
 	 * Handles redis error responses.
 	 *
-	 * @param  string $response Error response
+	 * @param  string                     $response Error response
+	 * @throws \mako\redis\RedisException
 	 * @return mixed
 	 */
 	protected function handleErrorResponse(string $response)
@@ -265,6 +266,7 @@ class Redis
 	/**
 	 * Returns response from redis server.
 	 *
+	 * @throws \mako\redis\RedisException
 	 * @return mixed
 	 */
 	protected function getResponse()

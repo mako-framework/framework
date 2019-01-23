@@ -17,7 +17,8 @@ interface HasherInterface
 	/**
 	 * Creates a password hash.
 	 *
-	 * @param  string $password Password
+	 * @param  string                                  $password Password
+	 * @throws \mako\security\password\HasherException
 	 * @return string
 	 */
 	public function create(string $password): string;

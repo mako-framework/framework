@@ -125,6 +125,7 @@ class Cookies implements Countable, IteratorAggregate
 	 * @param  string                      $value   Cookie value
 	 * @param  int                         $ttl     Time to live - if omitted or set to 0 the cookie will expire when the browser closes
 	 * @param  array                       $options Cookie options
+	 * @throws \RuntimeException
 	 * @return \mako\http\response\Cookies
 	 */
 	public function addSigned(string $name, string $value, int $ttl = 0, array $options = []): Cookies

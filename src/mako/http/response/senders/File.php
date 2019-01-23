@@ -89,8 +89,9 @@ class File implements ResponseSenderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\file\FileSystem $fileSystem FileSytem instance
-	 * @param string                $file       File path
+	 * @param  \mako\file\FileSystem $fileSystem FileSytem instance
+	 * @param  string                $file       File path
+	 * @throws \RuntimeException
 	 */
 	public function __construct(FileSystem $fileSystem, string $file)
 	{

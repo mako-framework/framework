@@ -30,6 +30,8 @@ interface ProcessorInterface
 
 	/**
 	 * Restores an image snapshot.
+	 *
+	 * @throws \RuntimeException
 	 */
 	public function restore();
 
@@ -148,8 +150,9 @@ interface ProcessorInterface
 	/**
 	 * Returns a string containing the image.
 	 *
-	 * @param  string $type    Image type
-	 * @param  int    $quality Image quality 1-100
+	 * @param  string            $type    Image type
+	 * @param  int               $quality Image quality 1-100
+	 * @throws \RuntimeException
 	 * @return string
 	 */
 	public function getImageBlob($type = null, $quality = 95);
@@ -157,8 +160,9 @@ interface ProcessorInterface
 	/**
 	 * Saves image to file.
 	 *
-	 * @param string $file    Path to the image file
-	 * @param int    $quality Image quality 1-100
+	 * @param  string            $file    Path to the image file
+	 * @param  int               $quality Image quality 1-100
+	 * @throws \RuntimeException
 	 */
 	public function save($file, $quality = 95);
 }

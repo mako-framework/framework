@@ -107,7 +107,9 @@ abstract class Application
 	/**
 	 * Starts the application and returns a singleton instance of the application.
 	 *
+	 *
 	 * @param  string                        $applicationPath Application path
+	 * @throws \LogicException
 	 * @return \mako\application\Application
 	 */
 	public static function start(string $applicationPath)
@@ -123,6 +125,7 @@ abstract class Application
 	/**
 	 * Returns a singleton instance of the application.
 	 *
+	 * @throws \LogicException
 	 * @return \mako\application\Application
 	 */
 	public static function instance()
@@ -224,6 +227,7 @@ abstract class Application
 	 * Returns a package by its name.
 	 *
 	 * @param  string                    $package Package name
+	 * @throws \RuntimeException
 	 * @return \mako\application\Package
 	 */
 	public function getPackage(string $package): Package

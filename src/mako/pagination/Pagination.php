@@ -278,6 +278,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * Builds and returns the pagination array.
 	 *
+	 * @throws \RuntimeException
 	 * @return array
 	 */
 	public function pagination(): array
@@ -343,7 +344,8 @@ class Pagination implements PaginationInterface
 	/**
 	 * Renders and returns the pagination partial.
 	 *
-	 * @param  string $view Pagination view
+	 * @param  string            $view Pagination view
+	 * @throws \RuntimeException
 	 * @return string
 	 */
 	public function render(string $view): string

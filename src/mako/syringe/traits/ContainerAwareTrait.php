@@ -72,7 +72,8 @@ trait ContainerAwareTrait
 	/**
 	 * Resolves item from the container using overloading.
 	 *
-	 * @param  string $key Key
+	 * @param  string            $key Key
+	 * @throws \RuntimeException
 	 * @return mixed
 	 */
 	public function __get(string $key)

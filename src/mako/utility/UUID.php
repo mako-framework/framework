@@ -75,7 +75,8 @@ class UUID
 	/**
 	 * Converts UUID to binary.
 	 *
-	 * @param  string $namespace UUID
+	 * @param  string                    $namespace UUID
+	 * @throws \InvalidArgumentException
 	 * @return string
 	 */
 	protected static function toBin(string $namespace): string

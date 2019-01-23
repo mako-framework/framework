@@ -168,8 +168,9 @@ class Onion
 	/**
 	 * Middleware factory.
 	 *
-	 * @param  string $middleware Middleware class name
-	 * @param  array  $parameters Middleware parameters
+	 * @param  string                     $middleware Middleware class name
+	 * @param  array                      $parameters Middleware parameters
+	 * @throws \mako\onion\OnionException
 	 * @return object
 	 */
 	protected function middlewareFactory(string $middleware, array $parameters): object

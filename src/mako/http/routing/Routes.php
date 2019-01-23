@@ -87,6 +87,7 @@ class Routes
 	 * Returns the named route.
 	 *
 	 * @param  string                   $name Route name
+	 * @throws \RuntimeException
 	 * @return \mako\http\routing\Route
 	 */
 	public function getNamedRoute(string $name): Route

@@ -25,8 +25,9 @@ interface LoaderInterface
 	/**
 	 * Loads and returns language strings.
 	 *
-	 * @param  string $language Name of the language pack
-	 * @param  string $file     File we want to load
+	 * @param  string                             $language Name of the language pack
+	 * @param  string                             $file     File we want to load
+	 * @throws \mako\i18n\loaders\LoaderException
 	 * @return array
 	 */
 	public function loadStrings(string $language, string $file): array;

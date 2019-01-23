@@ -83,8 +83,9 @@ class Cookies implements Countable, IteratorAggregate
 	/**
 	 * Adds a signed cookie.
 	 *
-	 * @param string $name  Cookie name
-	 * @param string $value Cookie value
+	 * @param  string            $name  Cookie name
+	 * @param  string            $value Cookie value
+	 * @throws \RuntimeException
 	 */
 	public function addSigned(string $name, string $value): void
 	{
@@ -122,8 +123,9 @@ class Cookies implements Countable, IteratorAggregate
 	/**
 	 * Gets a signed cookie value.
 	 *
-	 * @param  string $name    Cookie name
-	 * @param  mixed  $default Default value
+	 * @param  string            $name    Cookie name
+	 * @param  mixed             $default Default value
+	 * @throws \RuntimeException
 	 * @return mixed
 	 */
 	public function getSigned(string $name, $default = null)

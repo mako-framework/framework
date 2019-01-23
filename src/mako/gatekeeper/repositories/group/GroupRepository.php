@@ -78,7 +78,8 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * Sets the user identifier.
 	 *
-	 * @param string $identifier User identifier
+	 * @param  string                    $identifier User identifier
+	 * @throws \InvalidArgumentException
 	 */
 	public function setIdentifier(string $identifier): void
 	{

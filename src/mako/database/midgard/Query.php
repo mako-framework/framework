@@ -462,6 +462,7 @@ class Query extends QueryBuilder
 	 *
 	 * @param  string                       $name      Method name
 	 * @param  array                        $arguments Method arguments
+	 * @throws \BadMethodCallException
 	 * @return \mako\database\midgard\Query
 	 */
 	public function __call(string $name, array $arguments)

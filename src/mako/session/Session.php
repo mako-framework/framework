@@ -228,6 +228,8 @@ class Session
 
 	/**
 	 * Adds a session cookie to the response.
+	 *
+	 * @throws \RuntimeException
 	 */
 	protected function setCookie(): void
 	{

@@ -189,8 +189,9 @@ class Compiler
 	/**
 	 * Builds a JSON value getter.
 	 *
-	 * @param  string $column   Column name
-	 * @param  array  $segments JSON path segments
+	 * @param  string            $column   Column name
+	 * @param  array             $segments JSON path segments
+	 * @throws \RuntimeException
 	 * @return string
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
@@ -201,9 +202,10 @@ class Compiler
 	/**
 	 * Builds a JSON value setter.
 	 *
-	 * @param  string $column   Column name
-	 * @param  array  $segments JSON path segments
-	 * @param  string $param    Parameter
+	 * @param  string            $column   Column name
+	 * @param  array             $segments JSON path segments
+	 * @param  string            $param    Parameter
+	 * @throws \RuntimeException
 	 * @return string
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string

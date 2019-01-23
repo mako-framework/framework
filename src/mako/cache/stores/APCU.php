@@ -39,6 +39,8 @@ class APCU extends Store implements IncrementDecrementInterface
 
 	/**
 	 * Constructor.
+	 *
+	 * @throws \RuntimeException
 	 */
 	public function __construct()
 	{
