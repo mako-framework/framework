@@ -157,7 +157,7 @@ class Authentication
 	 */
 	public function adapter(?string $name = null): AdapterInterface
 	{
-		$name = $name ?: $this->defaultAdapter;
+		$name = $name ?? $this->defaultAdapter;
 
 		return $this->adapters[$name] ?? $this->resolveAdapter($name);
 	}
