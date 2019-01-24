@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="{{$__charset__ }}">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>{{block:title}}Error{{endblock}}</title>
 		<style type="text/css">
 		body
