@@ -11,14 +11,15 @@
 			color: #333333;
 			padding: 0;
 			margin: 0;
-			height: 100%;
 			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 			font-size: 100%;
 			line-height: 100%;
 		}
 		.container
 		{
-			height: 100vh;
+			position: absolute;
+			height: 100%;
+			width: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
