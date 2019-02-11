@@ -76,7 +76,7 @@ class Dispatcher
 	 *
 	 * @var array
 	 */
-	protected $gobalMiddleware = [];
+	protected $globalMiddleware = [];
 
 	/**
 	 * Middleware priority.
@@ -154,7 +154,7 @@ class Dispatcher
 	 */
 	public function setMiddlewareAsGlobal(array $middleware): Dispatcher
 	{
-		$this->gobalMiddleware = $middleware;
+		$this->globalMiddleware = $middleware;
 
 		return $this;
 	}
@@ -343,7 +343,7 @@ class Dispatcher
 	{
 		$onion = new Onion($this->container, null, MiddlewareInterface::class, 'setParameters');
 
-		$this->addMiddlewareToStack($onion, array_merge($this->gobalMiddleware, $route->getMiddleware()));
+		$this->addMiddlewareToStack($onion, array_merge($this->globalMiddleware, $route->getMiddleware()));
 
 		return $onion->peel(function() use ($route)
 		{
