@@ -7,6 +7,7 @@
 
 namespace mako\validator;
 
+use mako\utility\Arr;
 use RuntimeException;
 use Throwable;
 
@@ -23,6 +24,13 @@ class ValidatorException extends RuntimeException
 	 * @var array
 	 */
 	protected $errors;
+
+	/**
+	 * Exception meta.
+	 *
+	 * @var array
+	 */
+	protected $meta = [];
 
 	/**
 	 * Constructor.
@@ -47,5 +55,28 @@ class ValidatorException extends RuntimeException
 	public function getErrors(): array
 	{
 		return $this->errors;
+	}
+
+	/**
+	 * Adds meta.
+	 *
+	 * @param string $key   Meta key
+	 * @param mixed  $value Meta value
+	 */
+	public function addMeta(string $key, $value): void
+	{
+		Arr::set($this->meta, $key, $value);
+	}
+
+	/**
+	 * Gets meta.
+	 *
+	 * @param  string $key     Meta key
+	 * @param  mixed  $default Default return value
+	 * @return mixed
+	 */
+	public function getMeta(string $key, $default = null)
+	{
+		return Arr::get($this->meta, $key, $default);
 	}
 }
