@@ -8,15 +8,10 @@
 namespace mako\tests\unit\validator;
 
 use mako\i18n\I18n;
-
 use mako\syringe\Container;
-
 use mako\tests\TestCase;
-
 use mako\validator\Validator;
-
 use mako\validator\ValidatorFactory;
-
 use Mockery;
 
 /**
