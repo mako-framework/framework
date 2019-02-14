@@ -519,14 +519,14 @@ class Validator
 	/**
 	 * Validates the input and returns an array containing validated data.
 	 *
-	 * @throws \mako\validator\ValidatorException
+	 * @throws \mako\validator\ValidationException
 	 * @return array
 	 */
 	public function validate(): array
 	{
 		if($this->isInvalid())
 		{
-			throw new ValidatorException($this->errors);
+			throw new ValidationException($this->errors);
 		}
 
 		$validated = [];

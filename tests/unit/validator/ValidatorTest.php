@@ -11,8 +11,8 @@ use mako\i18n\I18n;
 use mako\tests\TestCase;
 use mako\validator\rules\I18nAwareInterface;
 use mako\validator\rules\RuleInterface;
+use mako\validator\ValidationException;
 use mako\validator\Validator;
-use mako\validator\ValidatorException;
 use Mockery;
 use Throwable;
 
@@ -428,7 +428,7 @@ class ValidatorTest extends TestCase
 		}
 		catch(Throwable $e)
 		{
-			$this->assertInstanceOf(ValidatorException::class, $e);
+			$this->assertInstanceOf(ValidationException::class, $e);
 
 			$this->assertSame(['password' => 'The password field is required.'], $e->getErrors());
 		}

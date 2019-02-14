@@ -12,11 +12,11 @@ use RuntimeException;
 use Throwable;
 
 /**
- * Validator exception.
+ * Validation exception.
  *
  * @author Frederic G. Østby
  */
-class ValidatorException extends RuntimeException
+class ValidationException extends RuntimeException
 {
 	/**
 	 * Validation errors.

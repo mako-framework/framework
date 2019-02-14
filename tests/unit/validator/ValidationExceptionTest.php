@@ -8,12 +8,12 @@
 namespace mako\tests\unit\validator;
 
 use mako\tests\TestCase;
-use mako\validator\ValidatorException;
+use mako\validator\ValidationException;
 
 /**
  * @group unit
  */
-class ValidatorExceptionTest extends TestCase
+class ValidationExceptionTest extends TestCase
 {
 	/**
 	 *
@@ -22,7 +22,7 @@ class ValidatorExceptionTest extends TestCase
 	{
 		$errors = ['foo' => 'bar'];
 
-		$exception = new ValidatorException($errors);
+		$exception = new ValidationException($errors);
 
 		$this->assertSame($errors, $exception->getErrors());
 	}
@@ -32,7 +32,7 @@ class ValidatorExceptionTest extends TestCase
 	 */
 	public function testMeta(): void
 	{
-		$exception = new ValidatorException([]);
+		$exception = new ValidationException([]);
 
 		$exception->addMeta('foo', 'bar');
 
