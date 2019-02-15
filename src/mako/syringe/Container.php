@@ -457,20 +457,16 @@ class Container
 
 		$constructor = $class->getConstructor();
 
+		// If we don't have a constructor then we'll just return a new instance
+
 		if($constructor === null)
 		{
-			// No constructor has been defined so we'll just return a new instance
-
 			return $class->newInstance();
 		}
 
-		// The class has a constructor. Lets get its parameters.
+		// The class had a constructor so we'll return a new instance using our resolved parameters
 
-		$constructorParameters = $constructor->getParameters();
-
-		// Create and return a new instance using our resolved parameters
-
-		return $class->newInstanceArgs($this->resolveParameters($constructorParameters, $parameters, $class));
+		return $class->newInstanceArgs($this->resolveParameters($constructor->getParameters(), $parameters, $class));
 	}
 
 	/**
