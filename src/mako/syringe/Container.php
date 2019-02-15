@@ -328,10 +328,10 @@ class Container
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null)
 	{
+		// Resolve the parameter through the container if it should be a class instance
+
 		if(($parameterClass = $parameter->getClass()) !== null)
 		{
-			// The parameter should be a class instance. Try to resolve it though the container
-
 			$parameterClassName = $parameterClass->getName();
 
 			if($class !== null)
@@ -354,17 +354,17 @@ class Container
 			}
 		}
 
+		// If the parameter has a default when we'll use that
+
 		if($parameter->isDefaultValueAvailable())
 		{
-			// The parameter has a default value so we'll use that
-
 			return $parameter->getDefaultValue();
 		}
 
+		// The parameter is nullable so we'll just return null
+
 		if($parameter->hasType() && $parameter->allowsNull())
 		{
-			// The parameter is nullable so we'll just return null
-
 			return null;
 		}
 
