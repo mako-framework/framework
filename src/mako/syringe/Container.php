@@ -8,12 +8,14 @@
 namespace mako\syringe;
 
 use Closure;
+use mako\syringe\exceptions\ContainerException;
+use mako\syringe\exceptions\UnableToInstantiateException;
+use mako\syringe\exceptions\UnableToResolveParameterException;
 use mako\syringe\traits\ContainerAwareTrait;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionMethod;
 use ReflectionParameter;
-use RuntimeException;
 
 use function array_merge;
 use function array_replace;
@@ -174,10 +176,10 @@ class Container
 	/**
 	 * Replaces a registered type hint.
 	 *
-	 * @param  string            $hint      Type hint
-	 * @param  string|\Closure   $class     Class name or closure
-	 * @param  bool              $singleton Are we replacing a singleton?
-	 * @throws \RuntimeException
+	 * @param  string                                      $hint      Type hint
+	 * @param  string|\Closure                             $class     Class name or closure
+	 * @param  bool                                        $singleton Are we replacing a singleton?
+	 * @throws \mako\syringe\exceptions\ContainerException
 	 */
 	public function replace(string $hint, $class, bool $singleton = false): void
 	{
@@ -185,7 +187,7 @@ class Container
 
 		if(!isset($this->hints[$hint]))
 		{
-			throw new RuntimeException(vsprintf('Unable to replace [ %s ] as it hasn\'t been registered.', [$hint]));
+			throw new ContainerException(vsprintf('Unable to replace [ %s ] as it hasn\'t been registered.', [$hint]));
 		}
 
 		$this->hints[$hint]['class'] = $class;
@@ -212,9 +214,9 @@ class Container
 	/**
 	 * Replaces a singleton instance.
 	 *
-	 * @param  string            $hint     Type hint
-	 * @param  object            $instance Class instance
-	 * @throws \RuntimeException
+	 * @param  string                                      $hint     Type hint
+	 * @param  object                                      $instance Class instance
+	 * @throws \mako\syringe\exceptions\ContainerException
 	 */
 	public function replaceInstance(string $hint, object $instance): void
 	{
@@ -222,7 +224,7 @@ class Container
 
 		if(!isset($this->instances[$hint]))
 		{
-			throw new RuntimeException(vsprintf('Unable to replace [ %s ] as it hasn\'t been registered.', [$hint]));
+			throw new ContainerException(vsprintf('Unable to replace [ %s ] as it hasn\'t been registered.', [$hint]));
 		}
 
 		$this->instances[$hint] = $instance;
@@ -318,9 +320,10 @@ class Container
 	/**
 	 * Resolve a parameter.
 	 *
-	 * @param  \ReflectionParameter  $parameter ReflectionParameter instance
-	 * @param  \ReflectionClass|null $class     ReflectionClass instance
-	 * @throws \RuntimeException
+	 * @param  \ReflectionParameter                                       $parameter ReflectionParameter instance
+	 * @param  \ReflectionClass|null                                      $class     ReflectionClass instance
+	 * @throws \mako\syringe\exceptions\UnableToInstantiateException
+	 * @throws \mako\syringe\exceptions\UnableToResolveParameterException
 	 * @return mixed
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null)
@@ -336,7 +339,19 @@ class Container
 				$parameterClassName = $this->resolveContextualDependency($class->getName(), $parameterClassName);
 			}
 
-			return $this->get($parameterClassName);
+			try
+			{
+				return $this->get($parameterClassName);
+			}
+			catch(UnableToInstantiateException|UnableToResolveParameterException $e)
+			{
+				if($parameter->allowsNull())
+				{
+					return null;
+				}
+
+				throw $e;
+			}
 		}
 
 		if($parameter->isDefaultValueAvailable())
@@ -346,9 +361,16 @@ class Container
 			return $parameter->getDefaultValue();
 		}
 
+		if($parameter->hasType() && $parameter->allowsNull())
+		{
+			// The parameter is nullable so we'll just return null
+
+			return null;
+		}
+
 		// We have exhausted all our options. All we can do now is throw an exception
 
-		throw new RuntimeException(vsprintf('Unable to resolve the [ $%s ] parameter of [ %s ].', [$parameter->getName(), $this->getDeclaringFunction($parameter)]));
+		throw new UnableToResolveParameterException(vsprintf('Unable to resolve the [ $%s ] parameter of [ %s ].', [$parameter->getName(), $this->getDeclaringFunction($parameter)]));
 	}
 
 	/**
@@ -415,9 +437,9 @@ class Container
 	/**
 	 * Creates a class instance using reflection.
 	 *
-	 * @param  string            $class      Class name
-	 * @param  array             $parameters Constructor parameters
-	 * @throws \RuntimeException
+	 * @param  string                                                $class      Class name
+	 * @param  array                                                 $parameters Constructor parameters
+	 * @throws \mako\syringe\exceptions\UnableToInstantiateException
 	 * @return object
 	 */
 	protected function reflectionFactory(string $class, array $parameters): object
@@ -428,7 +450,7 @@ class Container
 
 		if(!$class->isInstantiable())
 		{
-			throw new RuntimeException(vsprintf('Unable to create a [ %s ] instance.', [$class->getName()]));
+			throw new UnableToInstantiateException(vsprintf('Unable to create a [ %s ] instance.', [$class->getName()]));
 		}
 
 		// Get the class constructor

@@ -150,6 +150,36 @@ function syringeFunction($foo = 123, $bar = 456)
 	return [$foo, $bar];
 }
 
+class ImpossibleToResolveDependencyA
+{
+	public $store;
+
+	public function __construct(StoreInterface $store = null)
+	{
+		$this->store = $store;
+	}
+}
+
+class ImpossibleToResolveDependencyB
+{
+	public $store;
+
+	public function __construct(?StoreInterface $store = null)
+	{
+		$this->store = $store;
+	}
+}
+
+class ImpossibleToResolveDependencyC
+{
+	public $store;
+
+	public function __construct(?StoreInterface $store)
+	{
+		$this->store = $store;
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -172,7 +202,7 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 * @expectedException \mako\syringe\exceptions\UnableToResolveParameterException
 	 * @expectedExceptionMessage Unable to resolve the [ $bax ] parameter of [ mako\tests\unit\syringe\Fox::__construct ].
 	 */
 	public function testClassInstantiationWithUnresolvableParameters(): void
@@ -258,7 +288,7 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 * @expectedException \mako\syringe\exceptions\UnableToInstantiateException
 	 * @expectedExceptionMessage Unable to create a [ mako\tests\unit\syringe\StoreInterface ] instance.
 	 */
 	public function testInterfaceInstantiation(): void
@@ -451,7 +481,7 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 * @expectedException \mako\syringe\exceptions\UnableToResolveParameterException
 	 * @expectedExceptionMessage Unable to resolve the [ $foo ] parameter of
 	 *
 	 * The entire exception message isn't included in the test because of some HHVM incompatibility that causes the test to fail
@@ -715,7 +745,7 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException RuntimeException
+	 * @expectedException \mako\syringe\exceptions\ContainerException
 	 * @expectedExceptionMessage Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn't been registered.
 	 */
 	public function testReplaceUnregistered(): void
@@ -729,7 +759,7 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException RuntimeException
+	 * @expectedException \mako\syringe\exceptions\ContainerException
 	 * @expectedExceptionMessage Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn't been registered.
 	 */
 	public function testReplaceUnregisteredInstance(): void
@@ -737,5 +767,30 @@ class ContainerTest extends TestCase
 		$container = new Container;
 
 		$container->replaceInstance(ReplaceA::class, new ReplaceA('replacement'));
+	}
+
+	public function testImpossibleToResolveDendenciesThatAreNullable(): void
+	{
+		$container = new Container;
+
+		$this->assertInstanceOf(ImpossibleToResolveDependencyA::class, $object = $container->get(ImpossibleToResolveDependencyA::class));
+
+		$this->assertNull($object->store);
+
+		//
+
+		$container = new Container;
+
+		$this->assertInstanceOf(ImpossibleToResolveDependencyB::class, $object = $container->get(ImpossibleToResolveDependencyB::class));
+
+		$this->assertNull($object->store);
+
+		//
+
+		$container = new Container;
+
+		$this->assertInstanceOf(ImpossibleToResolveDependencyC::class, $object = $container->get(ImpossibleToResolveDependencyC::class));
+
+		$this->assertNull($object->store);
 	}
 }
