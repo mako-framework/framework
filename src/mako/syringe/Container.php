@@ -328,7 +328,7 @@ class Container
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null)
 	{
-		// Resolve the parameter through the container if it should be a class instance
+		// If the parameter should be a class instance then we'll try to resolve it using the container
 
 		if(($parameterClass = $parameter->getClass()) !== null)
 		{
@@ -354,7 +354,7 @@ class Container
 			}
 		}
 
-		// If the parameter has a default when we'll use that
+		// If the parameter has a default value then we'll use that
 
 		if($parameter->isDefaultValueAvailable())
 		{
