@@ -12,7 +12,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Headers;
 use mako\http\routing\Dispatcher;
-use mako\http\routing\middleware\Middleware;
+use mako\http\routing\middleware\MiddlewareInterface;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -123,7 +123,7 @@ class ControllerWithInjection extends \mako\http\routing\Controller
 	}
 }
 
-class FooMiddleware extends Middleware
+class FooMiddleware implements MiddlewareInterface
 {
 	protected $separator;
 
@@ -138,7 +138,7 @@ class FooMiddleware extends Middleware
 	}
 }
 
-class BazMiddleware extends Middleware
+class BazMiddleware implements MiddlewareInterface
 {
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
@@ -150,7 +150,7 @@ class BazMiddleware extends Middleware
 	}
 }
 
-class BaxMiddleware extends Middleware
+class BaxMiddleware implements MiddlewareInterface
 {
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
