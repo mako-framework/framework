@@ -149,12 +149,7 @@ class Router
 			throw new RuntimeException(vsprintf('No constraint named [ %s ] has been registered.', [$constraint]));
 		}
 
-		$constraint = $this->container->get($this->constraints[$constraint]);
-
-		if(!empty($parameters))
-		{
-			$constraint->setParameters($parameters);
-		}
+		$constraint = $this->container->get($this->constraints[$constraint], $parameters);
 
 		return $constraint;
 	}

@@ -13,6 +13,10 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 * Removed the deprecated `FileSystem::hash()` method.
 * Removed the deprecated `FileSystem::hmac()` method.
 * The `RequestException` class has been renamed to `HttpException`.
+* Removed the `Constraint` base class. Constraints should implement the `ConstraintInterface` instead.
+* Constraints now injects parameters through the constructor.
+* Removed the `Middleware` base class. Middleware should implement the `MiddlewareInterface` instead.
+* Middleware now injects parameters through the constructor.
 
 #### New
 

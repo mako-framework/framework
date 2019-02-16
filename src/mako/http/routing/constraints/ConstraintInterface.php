@@ -15,13 +15,6 @@ namespace mako\http\routing\constraints;
 interface ConstraintInterface
 {
 	/**
-	 * Sets the constraint parameters.
-	 *
-	 * @param array $parameters Middleware parameters
-	 */
-	public function setParameters(array $parameters);
-
-	/**
 	 * Returns true if the constraint is satisfied and false if not.
 	 *
 	 * @return bool

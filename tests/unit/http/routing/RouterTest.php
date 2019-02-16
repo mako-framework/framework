@@ -11,7 +11,7 @@ use mako\http\Request;
 use mako\http\request\Parameters;
 use mako\http\Response;
 use mako\http\response\Headers;
-use mako\http\routing\constraints\Constraint;
+use mako\http\routing\constraints\ConstraintInterface;
 use mako\http\routing\Router;
 use mako\http\routing\Routes;
 use mako\syringe\Container;
@@ -23,7 +23,7 @@ use Throwable;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class FooConstraint extends Constraint
+class FooConstraint implements ConstraintInterface
 {
 	public function isSatisfied(): bool
 	{
@@ -31,7 +31,7 @@ class FooConstraint extends Constraint
 	}
 }
 
-class BarConstraint extends Constraint
+class BarConstraint implements ConstraintInterface
 {
 	public function isSatisfied(): bool
 	{
@@ -342,7 +342,7 @@ class RouterTest extends TestCase
 
 		$container = Mockery::mock('\mako\syringe\Container');
 
-		$container->shouldReceive('get')->once()->with(BarConstraint::class)->andReturn(new BarConstraint);
+		$container->shouldReceive('get')->once()->with(BarConstraint::class, [])->andReturn(new BarConstraint);
 
 		$router = new Router($routes, $container);
 
@@ -372,7 +372,7 @@ class RouterTest extends TestCase
 
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->times(2)->with(FooConstraint::class)->andReturn(new FooConstraint);
+		$container->shouldReceive('get')->times(2)->with(FooConstraint::class, [])->andReturn(new FooConstraint);
 
 		$router = new Router($routes, $container);
 
@@ -398,7 +398,7 @@ class RouterTest extends TestCase
 
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->times(2)->with(FooConstraint::class)->andReturn(new FooConstraint);
+		$container->shouldReceive('get')->times(2)->with(FooConstraint::class, [])->andReturn(new FooConstraint);
 
 		$router = new Router($routes, $container);
 
