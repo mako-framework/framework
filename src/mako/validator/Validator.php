@@ -61,6 +61,7 @@ use mako\validator\rules\Required;
 use mako\validator\rules\RuleInterface;
 use mako\validator\rules\session\OneTimeToken;
 use mako\validator\rules\session\Token;
+use mako\validator\rules\TimeZone;
 use mako\validator\rules\URL;
 use mako\validator\rules\UUID;
 use RuntimeException;
@@ -166,6 +167,7 @@ class Validator
 		'optional'                 => Optional::class,
 		'regex'                    => Regex::class,
 		'required'                 => Required::class,
+		'time_zone'                => TimeZone::class,
 		'token'                    => Token::class,
 		'unique'                   => Unique::class,
 		'url'                      => URL::class,
