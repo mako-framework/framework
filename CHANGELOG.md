@@ -13,6 +13,9 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 * Removed the deprecated `FileSystem::hash()` method.
 * Removed the deprecated `FileSystem::hmac()` method.
 * The `RequestException` class has been renamed to `HttpException`.
+
+#### New
+
 * The container now supports parameters that are nullable but not optional.
 * The container will no longer throw an exception when unable to resolve a nullable or optional class dependency.
 
