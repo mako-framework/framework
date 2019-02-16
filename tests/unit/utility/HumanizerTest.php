@@ -50,7 +50,7 @@ class HumanizerTest extends TestCase
 	 */
 	public function testFileSizeBinary(): void
 	{
-		$humanizer = $this->getHumanizer();
+		$humanizer = new Humanizer;
 
 		$this->assertEquals('0 byte', $humanizer->fileSize(0));
 
@@ -166,7 +166,7 @@ class HumanizerTest extends TestCase
 	 */
 	public function testFileSizeDecimal(): void
 	{
-		$humanizer = $this->getHumanizer();
+		$humanizer = new Humanizer;
 
 		$this->assertEquals('0 byte', $humanizer->fileSize(0, false));
 

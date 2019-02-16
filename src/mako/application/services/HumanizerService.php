@@ -24,7 +24,7 @@ class HumanizerService extends Service
 	{
 		$this->container->registerSingleton([Humanizer::class, 'humanizer'], function($container)
 		{
-			return new Humanizer($container->get(I18n::class));
+			return new Humanizer($container->has(I18n::class) ? $container->get(I18n::class) : null);
 		});
 	}
 }

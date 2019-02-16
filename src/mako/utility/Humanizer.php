@@ -27,16 +27,16 @@ class Humanizer
 	/**
 	 * I18n instance.
 	 *
-	 * @var \mako\i18n\I18n
+	 * @var \mako\i18n\I18n|null
 	 */
 	protected $i18n;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\i18n\I18n $i18n I18n instance
+	 * @param \mako\i18n\I18n|null $i18n I18n instance
 	 */
-	public function __construct(I18n $i18n)
+	public function __construct(?I18n $i18n = null)
 	{
 		$this->i18n = $i18n;
 	}
