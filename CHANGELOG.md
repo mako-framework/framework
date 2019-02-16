@@ -1,6 +1,6 @@
 ### 6.0.0 <small> (2019-??-??)</small>
 
-The major version bump is due to dropped support for PHP `7.0` and `7.1`. Application built using Mako `5.7.0` should run on Mako `6.0.0` with just a few simple modifications.
+The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applications built using Mako `5.7.0` should run on Mako `6.0.0` with just a few simple modifications.
 
 #### New
 
