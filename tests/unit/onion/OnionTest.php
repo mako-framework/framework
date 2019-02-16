@@ -87,21 +87,6 @@ class BazMiddleware1
 	}
 }
 
-class BazMiddleware2
-{
-	protected $parameters;
-
-	public function setParameters(array $parameters): void
-	{
-		$this->parameters = $parameters;
-	}
-
-	public function execute($next)
-	{
-		return str_replace(' ', $this->parameters['separator'], $next());
-	}
-}
-
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -232,40 +217,6 @@ class OnionTest extends TestCase
 		{
 			return 'hello, world!';
 		}, [], [BazMiddleware1::class => ['separator' => '_']]);
-
-		$this->assertSame('hello,_world!', $result);
-	}
-
-	/**
-	 *
-	 */
-	public function testMiddlewareWithSetterParameters(): void
-	{
-		$onion = new Onion(null, null, null, 'setParameters');
-
-		$onion->addLayer(BazMiddleware2::class, ['separator' => '_']);
-
-		$result = $onion->peel(function()
-		{
-			return 'hello, world!';
-		});
-
-		$this->assertSame('hello,_world!', $result);
-	}
-
-	/**
-	 *
-	 */
-	public function testMiddlewareWithSetterParametersAtRuntime(): void
-	{
-		$onion = new Onion(null, null, null, 'setParameters');
-
-		$onion->addLayer(BazMiddleware2::class);
-
-		$result = $onion->peel(function()
-		{
-			return 'hello, world!';
-		}, [], [BazMiddleware2::class => ['separator' => '_']]);
 
 		$this->assertSame('hello,_world!', $result);
 	}

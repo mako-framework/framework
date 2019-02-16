@@ -19,13 +19,6 @@ use mako\http\Response;
 interface MiddlewareInterface
 {
 	/**
-	 * Sets the middleware parameters.
-	 *
-	 * @param array $parameters Middleware parameters
-	 */
-	public function setParameters(array $parameters);
-
-	/**
 	 * Executes the middleware.
 	 *
 	 * @param  \mako\http\Request  $request  Request

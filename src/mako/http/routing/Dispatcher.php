@@ -341,7 +341,7 @@ class Dispatcher
 	 */
 	public function dispatch(Route $route): Response
 	{
-		$onion = new Onion($this->container, null, MiddlewareInterface::class, 'setParameters');
+		$onion = new Onion($this->container, null, MiddlewareInterface::class);
 
 		$this->addMiddlewareToStack($onion, array_merge($this->globalMiddleware, $route->getMiddleware()));
 

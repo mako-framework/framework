@@ -44,13 +44,6 @@ class Onion
 	protected $expectedInterface;
 
 	/**
-	 * Middleware parameter setter method.
-	 *
-	 * @var string|null
-	 */
-	protected $parameterSetter;
-
-	/**
 	 * Middleware layers.
 	 *
 	 * @var array
@@ -70,17 +63,14 @@ class Onion
 	 * @param \mako\syringe\Container|null $container         Container
 	 * @param string|null                  $method            Method to call on the decoracted class
 	 * @param string|null                  $expectedInterface Expected middleware interface
-	 * @param string|null                  $parameterSetter   Parameter setter name
 	 */
-	public function __construct(?Container $container = null, ?string $method = null, ?string $expectedInterface = null, ?string $parameterSetter = null)
+	public function __construct(?Container $container = null, ?string $method = null, ?string $expectedInterface = null)
 	{
 		$this->container = $container ?? new Container;
 
 		$this->method = $method ?? 'handle';
 
 		$this->expectedInterface = $expectedInterface;
-
-		$this->parameterSetter = $parameterSetter;
 	}
 
 	/**
@@ -181,20 +171,13 @@ class Onion
 
 		// Create middleware instance
 
-		$middleware = $this->parameterSetter === null ? $this->container->get($middleware, $parameters) : $this->container->get($middleware);
+		$middleware = $this->container->get($middleware, $parameters);
 
 		// Check if the middleware implements the expected interface
 
 		if($this->expectedInterface !== null && ($middleware instanceof $this->expectedInterface) === false)
 		{
 			throw new OnionException(vsprintf('The Onion instance expects the middleware to be an instance of [ %s ].', [$this->expectedInterface]));
-		}
-
-		// Set parameters if the middleware uses a setter
-
-		if($this->parameterSetter !== null)
-		{
-			$middleware->{$this->parameterSetter}($parameters);
 		}
 
 		// Return middleware instance

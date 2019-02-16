@@ -125,17 +125,16 @@ class ControllerWithInjection extends \mako\http\routing\Controller
 
 class FooMiddleware extends Middleware
 {
-	public function execute(Request $request, Response $response, Closure $next): Response
-	{
-		return $response->body(str_replace(' ', $this->getParameter('separator', '_'), $next($request, $response)->getBody()));
-	}
-}
+	protected $separator;
 
-class BarMiddleware extends Middleware
-{
+	public function __construct($separator = '_')
+	{
+		$this->separator = $separator;
+	}
+
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		return $response->body(str_replace(' ', $this->getParameter(0, '_'), $next($request, $response)->getBody()));
+		return $response->body(str_replace(' ', $this->separator, $next($request, $response)->getBody()));
 	}
 }
 
@@ -579,7 +578,7 @@ class DispatcherTest extends TestCase
 
 		$dispatcher = new Dispatcher($request, $response, $container);
 
-		$dispatcher->registerMiddleware('test', BarMiddleware::class);
+		$dispatcher->registerMiddleware('test', FooMiddleware::class);
 
 		$response = $dispatcher->dispatch($route);
 
