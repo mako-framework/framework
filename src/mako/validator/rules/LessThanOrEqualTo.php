@@ -7,8 +7,6 @@
 
 namespace mako\validator\rules;
 
-use mako\validator\rules\traits\WithParametersTrait;
-
 use function sprintf;
 
 /**
@@ -16,23 +14,38 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class LessThanOrEqualTo extends Rule implements RuleInterface, WithParametersInterface
+class LessThanOrEqualTo extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Less than or equal to.
+	 *
+	 * @var mixed
+	 */
+	protected $lessThanOrEqualTo;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param mixed $lessThanOrEqualTo Less than or equal to
+	 */
+	public function __construct($lessThanOrEqualTo)
+	{
+		$this->lessThanOrEqualTo = $lessThanOrEqualTo;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['lessThanOrEqualTo'];
+	protected $i18nParameters = ['lessThanOrEqualTo'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return (int) $value <= $this->getParameter('lessThanOrEqualTo');
+		return (int) $value <= $this->lessThanOrEqualTo;
 	}
 
 	/**
@@ -40,6 +53,6 @@ class LessThanOrEqualTo extends Rule implements RuleInterface, WithParametersInt
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The value of the %1$s field must be less than or equal to %2$s.', $field, $this->parameters['lessThanOrEqualTo']);
+		return sprintf('The value of the %1$s field must be less than or equal to %2$s.', $field, $this->lessThanOrEqualTo);
 	}
 }

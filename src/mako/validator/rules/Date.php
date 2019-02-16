@@ -8,7 +8,6 @@
 namespace mako\validator\rules;
 
 use DateTime;
-use mako\validator\rules\traits\WithParametersTrait;
 
 use function sprintf;
 
@@ -17,25 +16,40 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class Date extends Rule implements RuleInterface, WithParametersInterface
+class Date extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Date format.
+	 *
+	 * @var string
+	 */
+	protected $format;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param string $format Date format
+	 */
+	public function __construct(string $format)
+	{
+		$this->format = $format;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['format'];
+	protected $i18nParameters = ['format'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		$date = DateTime::createFromFormat(($format = $this->getParameter('format')), $value);
+		$date = DateTime::createFromFormat($this->format, $value);
 
-		if($date === false || $date->format($format) !== $value)
+		if($date === false || $date->format($this->format) !== $value)
 		{
 			return false;
 		}

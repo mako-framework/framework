@@ -20,7 +20,7 @@ class GreaterThanOrEqualToTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new GreaterThanOrEqualTo;
+		$rule = new GreaterThanOrEqualTo(3);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class GreaterThanOrEqualToTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new GreaterThanOrEqualTo;
-
-		$rule->setParameters([3]);
+		$rule = new GreaterThanOrEqualTo(3);
 
 		$this->assertTrue($rule->validate(3, []));
 		$this->assertTrue($rule->validate('3', []));
@@ -43,9 +41,7 @@ class GreaterThanOrEqualToTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new GreaterThanOrEqualTo;
-
-		$rule->setParameters([3]);
+		$rule = new GreaterThanOrEqualTo(3);
 
 		$this->assertFalse($rule->validate(2, []));
 		$this->assertFalse($rule->validate('2', []));

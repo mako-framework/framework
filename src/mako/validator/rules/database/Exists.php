@@ -10,8 +10,6 @@ namespace mako\validator\rules\database;
 use mako\database\ConnectionManager;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
-use mako\validator\rules\traits\WithParametersTrait;
-use mako\validator\rules\WithParametersInterface;
 
 use function sprintf;
 
@@ -20,16 +18,28 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class Exists extends Rule implements RuleInterface, WithParametersInterface
+class Exists extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Table.
+	 *
+	 * @var string
+	 */
+	protected $table;
 
 	/**
-	 * Parameters.
+	 * Column.
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $parameters = ['table', 'column', 'connection'];
+	protected $column;
+
+	/**
+	 * Connection.
+	 *
+	 * @var string|null
+	 */
+	protected $connection;
 
 	/**
 	 * Connection manager.
@@ -39,12 +49,28 @@ class Exists extends Rule implements RuleInterface, WithParametersInterface
 	protected $database;
 
 	/**
+	 * I18n parameters.
+	 *
+	 * @var array
+	 */
+	protected $i18nParameters = ['table', 'column', 'connection'];
+
+	/**
 	 * Constructor.
 	 *
-	 * @param \mako\database\ConnectionManager $database Connection manager
+	 * @param string                           $table      Table
+	 * @param string                           $column     Column
+	 * @param string|null                      $connection Connection
+	 * @param \mako\database\ConnectionManager $database   Connection manager
 	 */
-	public function __construct(ConnectionManager $database)
+	public function __construct(string $table, string $column, ?string $connection, ConnectionManager $database)
 	{
+		$this->table = $table;
+
+		$this->column = $column;
+
+		$this->connection = $connection;
+
 		$this->database = $database;
 	}
 
@@ -53,9 +79,9 @@ class Exists extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		$count = $this->database->connection($this->getParameter('connection', true))
-		->table($this->getParameter('table'))
-		->where($this->getParameter('column'), '=', $value)
+		$count = $this->database->connection($this->connection)
+		->table($this->table)
+		->where($this->column, '=', $value)
 		->count();
 
 		return $count !== 0;

@@ -20,7 +20,7 @@ class ExactLengthTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new ExactLength;
+		$rule = new ExactLength(3);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class ExactLengthTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new ExactLength;
-
-		$rule->setParameters([3]);
+		$rule = new ExactLength(3);
 
 		$this->assertTrue($rule->validate('foo', []));
 	}
@@ -42,9 +40,7 @@ class ExactLengthTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new ExactLength;
-
-		$rule->setParameters([3]);
+		$rule = new ExactLength(3);
 
 		$this->assertFalse($rule->validate('foobar', []));
 

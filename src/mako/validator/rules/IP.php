@@ -7,7 +7,6 @@
 
 namespace mako\validator\rules;
 
-use mako\validator\rules\traits\WithParametersTrait;
 use RuntimeException;
 
 use function filter_var;
@@ -21,14 +20,29 @@ use function vsprintf;
  */
 class IP extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * IP version.
+	 *
+	 * @var string|null
+	 */
+	protected $version;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param string|null $version IP version
+	 */
+	public function __construct(?string $version = null)
+	{
+		$this->version = $version;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['version'];
+	protected $i18nParameters = ['version'];
 
 	/**
 	 * Returns the filter flags.
@@ -38,19 +52,19 @@ class IP extends Rule implements RuleInterface
 	 */
 	protected function getFlags(): ?int
 	{
-		if(($version = $this->getParameter('version', true)) === null)
+		if($this->version === null)
 		{
 			return null;
 		}
 
-		switch($version)
+		switch($this->version)
 		{
 			case 'v4':
 				return FILTER_FLAG_IPV4;
 			case 'v6':
 				return FILTER_FLAG_IPV6;
 			default:
-				throw new RuntimeException(vsprintf('Invalid IP version [ %s ]. The accepted versions are v4 and v6.', [$version]));
+				throw new RuntimeException(vsprintf('Invalid IP version [ %s ]. The accepted versions are v4 and v6.', [$this->version]));
 		}
 	}
 
@@ -61,7 +75,7 @@ class IP extends Rule implements RuleInterface
 	 */
 	protected function getVersion(): string
 	{
-		switch($this->getParameter('version', true))
+		switch($this->version)
 		{
 			case 'v4':
 				return 'IPv4';

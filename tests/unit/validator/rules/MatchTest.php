@@ -20,7 +20,7 @@ class MatchTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Match;
+		$rule = new Match('barfoo');
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class MatchTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new Match;
-
-		$rule->setParameters(['barfoo']);
+		$rule = new Match('barfoo');
 
 		$this->assertTrue($rule->validate('bar', ['barfoo' => 'bar']));
 	}
@@ -42,9 +40,7 @@ class MatchTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new Match;
-
-		$rule->setParameters(['barfoo']);
+		$rule = new Match('barfoo');
 
 		$this->assertFalse($rule->validate('foo', ['barfoo' => 'bar']));
 

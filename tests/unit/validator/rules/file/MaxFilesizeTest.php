@@ -21,7 +21,7 @@ class MaxFilesizeTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new MaxFilesize;
+		$rule = new MaxFilesize(0);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -31,7 +31,7 @@ class MaxFilesizeTest extends TestCase
 	 */
 	public function testConvertToBytes(): void
 	{
-		$rule = new class extends MaxFilesize
+		$rule = new class(0) extends MaxFilesize
 		{
 			public function convert($size)
 			{
@@ -56,7 +56,7 @@ class MaxFilesizeTest extends TestCase
 	 */
 	public function testConvertToBytesWithInvalidUnit(): void
 	{
-		$rule = new class extends MaxFilesize
+		$rule = new class(0) extends MaxFilesize
 		{
 			public function convert($size)
 			{
@@ -72,9 +72,7 @@ class MaxFilesizeTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new MaxFilesize;
-
-		$rule->setParameters(['1MiB']);
+		$rule = new MaxFilesize('1MiB');
 
 		$this->assertTrue($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
 	}
@@ -84,9 +82,7 @@ class MaxFilesizeTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new MaxFilesize;
-
-		$rule->setParameters(['0.5KiB']);
+		$rule = new MaxFilesize('0.5KiB');
 
 		$this->assertFalse($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
 

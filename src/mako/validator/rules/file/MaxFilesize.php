@@ -9,8 +9,6 @@ namespace mako\validator\rules\file;
 
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
-use mako\validator\rules\traits\WithParametersTrait;
-use mako\validator\rules\WithParametersInterface;
 use RuntimeException;
 
 use function is_numeric;
@@ -23,16 +21,31 @@ use function vsprintf;
  *
  * @author Frederic G. Østby
  */
-class MaxFilesize extends Rule implements RuleInterface, WithParametersInterface
+class MaxFilesize extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Max size.
+	 *
+	 * @var int|string
+	 */
+	protected $maxSize;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param int|string $maxSize Max size
+	 */
+	public function __construct($maxSize)
+	{
+		$this->maxSize = $maxSize;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['maxSize'];
+	protected $i18nParameters = ['maxSize'];
 
 	/**
 	 * Convert human friendly size to bytes.
@@ -78,9 +91,7 @@ class MaxFilesize extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		$maxSize = $this->convertToBytes($this->getParameter('maxSize'));
-
-		return $value->getSize() <= $maxSize;
+		return $value->getSize() <= $this->convertToBytes($this->maxSize);
 	}
 
 	/**
@@ -88,6 +99,6 @@ class MaxFilesize extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s must be less than %2$s in size.', $field, $this->parameters['maxSize']);
+		return sprintf('The %1$s must be less than %2$s in size.', $field, $this->maxSize);
 	}
 }

@@ -8,7 +8,6 @@
 namespace mako\validator\rules;
 
 use DateTime;
-use mako\validator\rules\traits\WithParametersTrait;
 
 use function sprintf;
 
@@ -17,30 +16,55 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class Before extends Rule implements RuleInterface, WithParametersInterface
+class Before extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Date format.
+	 *
+	 * @var string
+	 */
+	protected $format;
 
 	/**
-	 * Parameters.
+	 * Date.
+	 *
+	 * @var string
+	 */
+	protected $date;
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['format', 'date'];
+	protected $i18nParameters = ['format', 'date'];
+
+	/**
+	 * Constructor.
+	 *
+	 * @param string $format Date format
+	 * @param string $date   Date
+	 */
+	public function __construct(string $format, string $date)
+	{
+		$this->format = $format;
+
+		$this->date = $date;
+	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		$date = DateTime::createFromFormat(($format = $this->getParameter('format')), $value);
+		$date = DateTime::createFromFormat($this->format, $value);
 
-		if($date === false || $date->format($format) !== $value)
+		if($date === false || $date->format($this->format) !== $value)
 		{
 			return false;
 		}
 
-		return ($date->getTimestamp() < DateTime::createFromFormat($format, $this->getParameter('date'))->getTimestamp());
+		return ($date->getTimestamp() < DateTime::createFromFormat($this->format, $this->date)->getTimestamp());
 	}
 
 	/**
@@ -48,6 +72,6 @@ class Before extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s field must contain a valid date before %2$s.', $field, $this->parameters['date']);
+		return sprintf('The %1$s field must contain a valid date before %2$s.', $field, $this->date);
 	}
 }

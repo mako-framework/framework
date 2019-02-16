@@ -9,8 +9,6 @@ namespace mako\validator\rules\file;
 
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
-use mako\validator\rules\traits\WithParametersTrait;
-use mako\validator\rules\WithParametersInterface;
 
 use function sprintf;
 
@@ -19,25 +17,58 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class Hmac extends Rule implements RuleInterface, WithParametersInterface
+class Hmac extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * HMAC.
+	 *
+	 * @var string
+	 */
+	protected $hmac;
 
 	/**
-	 * Parameters.
+	 * Key.
+	 *
+	 * @var string
+	 */
+	protected $key;
+
+	/**
+	 * Algorithm.
+	 *
+	 * @var string
+	 */
+	protected $algorithm;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param string $hmac      Hmac
+	 * @param string $key       Key
+	 * @param string $algorithm Algorithm
+	 */
+	public function __construct(string $hmac, string $key, string $algorithm = 'sha256')
+	{
+		$this->hmac = $hmac;
+
+		$this->key = $key;
+
+		$this->algorithm = $algorithm;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['hmac', 'key', 'algorithm'];
+	protected $i18nParameters = ['hmac', 'key', 'algorithm'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		$algorithm = $this->getParameter('algorithm', true) ?? 'sha256';
-
-		return $value->validateHmac($this->getParameter('hmac'), $this->getParameter('key'), $algorithm);
+		return $value->validateHmac($this->hmac, $this->key, $this->algorithm);
 	}
 
 	/**

@@ -7,8 +7,6 @@
 
 namespace mako\validator\rules;
 
-use mako\validator\rules\traits\WithParametersTrait;
-
 use function mb_strlen;
 use function sprintf;
 
@@ -17,23 +15,38 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class ExactLength extends Rule implements RuleInterface, WithParametersInterface
+class ExactLength extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Length.
+	 *
+	 * @var int
+	 */
+	protected $length;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param int $length Length
+	 */
+	public function __construct(int $length)
+	{
+		$this->length = $length;
+	}
+
+	/**
+	 * I18 parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['length'];
+	protected $i18nParameters = ['length'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return mb_strlen($value) === $this->getParameter('length');
+		return mb_strlen($value) === $this->length;
 	}
 
 	/**
@@ -41,6 +54,6 @@ class ExactLength extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The value of the %1$s field must be exactly %2$s characters long.', $field, $this->parameters['length']);
+		return sprintf('The value of the %1$s field must be exactly %2$s characters long.', $field, $this->length);
 	}
 }

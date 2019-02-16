@@ -24,7 +24,7 @@ class ExistsTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Exists(Mockery::mock(ConnectionManager::class));
+		$rule = new Exists('table', 'column', null, Mockery::mock(ConnectionManager::class));
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -48,9 +48,7 @@ class ExistsTest extends TestCase
 
 		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
 
-		$rule = new Exists($database);
-
-		$rule->setParameters(['users', 'email', 'foobar']);
+		$rule = new Exists('users', 'email', 'foobar', $database);
 
 		$this->assertTrue($rule->validate('foo@example.org', []));
 	}
@@ -74,9 +72,7 @@ class ExistsTest extends TestCase
 
 		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
 
-		$rule = new Exists($database);
-
-		$rule->setParameters(['users', 'email', 'foobar']);
+		$rule = new Exists('users', 'email', 'foobar', $database);
 
 		$this->assertFalse($rule->validate('foo@example.org', []));
 

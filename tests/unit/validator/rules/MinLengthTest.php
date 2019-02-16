@@ -20,7 +20,7 @@ class MinLengthTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new MinLength;
+		$rule = new MinLength(3);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class MinLengthTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new MinLength;
-
-		$rule->setParameters([3]);
+		$rule = new MinLength(3);
 
 		$this->assertTrue($rule->validate('foo', []));
 		$this->assertTrue($rule->validate('foobar', []));
@@ -43,9 +41,7 @@ class MinLengthTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new MinLength;
-
-		$rule->setParameters([9]);
+		$rule = new MinLength(9);
 
 		$this->assertFalse($rule->validate('foobar', []));
 

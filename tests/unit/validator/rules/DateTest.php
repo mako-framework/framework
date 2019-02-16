@@ -20,7 +20,7 @@ class DateTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Date;
+		$rule = new Date('Y-m-d');
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class DateTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new Date;
-
-		$rule->setParameters(['Y-m-d']);
+		$rule = new Date('Y-m-d');
 
 		$this->assertTrue($rule->validate('2018-12-24', []));
 	}
@@ -42,9 +40,7 @@ class DateTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new Date;
-
-		$rule->setParameters(['Y-m-d']);
+		$rule = new Date('Y-m-d');
 
 		$this->assertFalse($rule->validate('2018-24-12', []));
 

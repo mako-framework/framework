@@ -7,8 +7,6 @@
 
 namespace mako\validator\rules;
 
-use mako\validator\rules\traits\WithParametersTrait;
-
 use function preg_match;
 use function sprintf;
 
@@ -17,23 +15,38 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class Regex extends Rule implements RuleInterface, WithParametersInterface
+class Regex extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Regex.
+	 *
+	 * @var string
+	 */
+	protected $regex;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param string $regex Regex
+	 */
+	public function __construct(string $regex)
+	{
+		$this->regex = $regex;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['regex'];
+	protected $i18nParameters = ['regex'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return preg_match($this->getParameter('regex'), $value) === 1;
+		return preg_match($this->regex, $value) === 1;
 	}
 
 	/**

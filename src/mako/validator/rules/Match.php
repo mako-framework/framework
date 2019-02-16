@@ -8,7 +8,6 @@
 namespace mako\validator\rules;
 
 use mako\utility\Arr;
-use mako\validator\rules\traits\WithParametersTrait;
 
 use function sprintf;
 
@@ -17,16 +16,31 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class Match extends Rule implements RuleInterface, WithParametersInterface
+class Match extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Field name.
+	 *
+	 * @var string
+	 */
+	protected $field;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param string $field Field name
+	 */
+	public function __construct(string $field)
+	{
+		$this->field = $field;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['field'];
+	protected $i18nParameters = ['field'];
 
 	/**
 	 * Parameters holding additional i18n field names.
@@ -40,7 +54,7 @@ class Match extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		return Arr::has($input, $this->getParameter('field')) && $value === Arr::get($input, $this->getParameter('field'));
+		return Arr::has($input, $this->field) && $value === Arr::get($input, $this->field);
 	}
 
 	/**
@@ -48,6 +62,6 @@ class Match extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The values of the %1$s field and %2$s field must match.', $field, $this->parameters['field']);
+		return sprintf('The values of the %1$s field and %2$s field must match.', $field, $this->field);
 	}
 }

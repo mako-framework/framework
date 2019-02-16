@@ -22,7 +22,7 @@ class HashTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Hash;
+		$rule = new Hash('hash');
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -32,9 +32,7 @@ class HashTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new Hash;
-
-		$rule->setParameters(['hash']);
+		$rule = new Hash('hash');
 
 		$fileInfo = Mockery::mock(FileInfo::class);
 
@@ -48,9 +46,7 @@ class HashTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new Hash;
-
-		$rule->setParameters(['hash']);
+		$rule = new Hash('hash');
 
 		$fileInfo = Mockery::mock(FileInfo::class);
 

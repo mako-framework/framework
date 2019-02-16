@@ -53,9 +53,7 @@ class IPTest extends TestCase
 	 */
 	public function testWithValidValueIpV4(): void
 	{
-		$rule = new IP;
-
-		$rule->setParameters(['v4']);
+		$rule = new IP('v4');
 
 		$this->assertTrue($rule->validate('127.0.0.1', []));
 	}
@@ -65,9 +63,7 @@ class IPTest extends TestCase
 	 */
 	public function testWithInvalidValueIpV4(): void
 	{
-		$rule = new IP;
-
-		$rule->setParameters(['v4']);
+		$rule = new IP('v4');
 
 		$this->assertFalse($rule->validate('::1', []));
 
@@ -79,9 +75,7 @@ class IPTest extends TestCase
 	 */
 	public function testWithValidValueIpV6(): void
 	{
-		$rule = new IP;
-
-		$rule->setParameters(['v6']);
+		$rule = new IP('v6');
 
 		$this->assertTrue($rule->validate('::1', []));
 	}
@@ -91,9 +85,7 @@ class IPTest extends TestCase
 	 */
 	public function testWithInvalidValueIpV6(): void
 	{
-		$rule = new IP;
-
-		$rule->setParameters(['v6']);
+		$rule = new IP('v6');
 
 		$this->assertFalse($rule->validate('127.0.0.1', []));
 
@@ -106,9 +98,7 @@ class IPTest extends TestCase
 	 */
 	public function testWithInvalidVersion(): void
 	{
-		$rule = new IP;
-
-		$rule->setParameters(['v7']);
+		$rule = new IP('v7');
 
 		$this->assertTrue($rule->validate('::1', []));
 	}

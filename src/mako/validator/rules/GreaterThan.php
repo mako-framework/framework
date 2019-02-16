@@ -7,8 +7,6 @@
 
 namespace mako\validator\rules;
 
-use mako\validator\rules\traits\WithParametersTrait;
-
 use function sprintf;
 
 /**
@@ -16,23 +14,38 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class GreaterThan extends Rule implements RuleInterface, WithParametersInterface
+class GreaterThan extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Greater than.
+	 *
+	 * @var mixed
+	 */
+	protected $greaterThan;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param mixed $greaterThan Greater than
+	 */
+	public function __construct($greaterThan)
+	{
+		$this->greaterThan = $greaterThan;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['greaterThan'];
+	protected $i18nParameters = ['greaterThan'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return (int) $value > $this->getParameter('greaterThan');
+		return (int) $value > $this->greaterThan;
 	}
 
 	/**
@@ -40,6 +53,6 @@ class GreaterThan extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The value of the %1$s field must be greater than %2$s.', $field, $this->parameters['greaterThan']);
+		return sprintf('The value of the %1$s field must be greater than %2$s.', $field, $this->greaterThan);
 	}
 }

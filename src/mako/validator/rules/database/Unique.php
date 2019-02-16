@@ -10,8 +10,6 @@ namespace mako\validator\rules\database;
 use mako\database\ConnectionManager;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
-use mako\validator\rules\traits\WithParametersTrait;
-use mako\validator\rules\WithParametersInterface;
 
 use function sprintf;
 
@@ -20,16 +18,35 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class Unique extends Rule implements RuleInterface, WithParametersInterface
+class Unique extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Table.
+	 *
+	 * @var string
+	 */
+	protected $table;
 
 	/**
-	 * Parameters.
+	 * Column.
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $parameters = ['table', 'column', 'allowed', 'connection'];
+	protected $column;
+
+	/**
+	 * Allowed value.
+	 *
+	 * @var mixed
+	 */
+	protected $allowed;
+
+	/**
+	 * Connection.
+	 *
+	 * @var string|null
+	 */
+	protected $connection;
 
 	/**
 	 * Connection manager.
@@ -39,12 +56,31 @@ class Unique extends Rule implements RuleInterface, WithParametersInterface
 	protected $database;
 
 	/**
+	 * I18n parameters.
+	 *
+	 * @var array
+	 */
+	protected $i18nParameters = ['table', 'column', 'allowed', 'connection'];
+
+	/**
 	 * Constructor.
 	 *
-	 * @param \mako\database\ConnectionManager $database Connection manager
+	 * @param string                           $table      Table
+	 * @param string                           $column     Column
+	 * @param mixed                            $allowed    Allowed value
+	 * @param string|null                      $connection Connection
+	 * @param \mako\database\ConnectionManager $database   Connection manager
 	 */
-	public function __construct(ConnectionManager $database)
+	public function __construct(string $table, string $column, $allowed = null, ?string $connection, ConnectionManager $database)
 	{
+		$this->table = $table;
+
+		$this->column = $column;
+
+		$this->allowed = $allowed;
+
+		$this->connection = $connection;
+
 		$this->database = $database;
 	}
 
@@ -53,18 +89,18 @@ class Unique extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		if(($allowed = $this->getParameter('allowed', true)) !== null && $allowed === $value)
+		if($this->allowed !== null && $this->allowed === $value)
 		{
 			return true;
 		}
 
-		$count = $this->database->connection($this->getParameter('connection', true))
-		->table($this->getParameter('table'))
-		->where($this->getParameter('column'), '=', $value);
+		$count = $this->database->connection($this->connection)
+		->table($this->table)
+		->where($this->column, '=', $value);
 
-		if($allowed !== null)
+		if($this->allowed !== null)
 		{
-			$count->where($this->getParameter('column'), '!=', $allowed);
+			$count->where($this->column, '!=', $this->allowed);
 		}
 
 		$count = $count->count();

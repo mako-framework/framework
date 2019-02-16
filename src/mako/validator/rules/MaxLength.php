@@ -7,8 +7,6 @@
 
 namespace mako\validator\rules;
 
-use mako\validator\rules\traits\WithParametersTrait;
-
 use function mb_strlen;
 use function sprintf;
 
@@ -17,23 +15,38 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class MaxLength extends Rule implements RuleInterface, WithParametersInterface
+class MaxLength extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Max length.
+	 *
+	 * @var int
+	 */
+	protected $maxLength;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param int $maxLength Max length
+	 */
+	public function __construct(int $maxLength)
+	{
+		$this->maxLength = $maxLength;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['maxLength'];
+	protected $i18nParameters = ['maxLength'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return mb_strlen($value) <= $this->getParameter('maxLength');
+		return mb_strlen($value) <= $this->maxLength;
 	}
 
 	/**
@@ -41,6 +54,6 @@ class MaxLength extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The value of the %1$s field must be at most %2$s characters long.', $field, $this->parameters['maxLength']);
+		return sprintf('The value of the %1$s field must be at most %2$s characters long.', $field, $this->maxLength);
 	}
 }

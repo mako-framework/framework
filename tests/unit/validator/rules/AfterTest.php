@@ -20,7 +20,7 @@ class AfterTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new After;
+		$rule = new After('Y-m-d', '2018-03-11');
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class AfterTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new After;
-
-		$rule->setParameters(['Y-m-d', '2018-03-11']);
+		$rule = new After('Y-m-d', '2018-03-11');
 
 		$this->assertTrue($rule->validate('2018-03-12', []));
 	}
@@ -42,9 +40,7 @@ class AfterTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new After;
-
-		$rule->setParameters(['Y-m-d', '2018-03-11']);
+		$rule = new After('Y-m-d', '2018-03-11');
 
 		$this->assertFalse($rule->validate('2018-03-10', []));
 

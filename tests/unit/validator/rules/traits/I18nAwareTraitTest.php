@@ -11,8 +11,6 @@ use mako\i18n\I18n;
 use mako\tests\TestCase;
 use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\I18nAwareTrait;
-use mako\validator\rules\traits\WithParametersTrait;
-use mako\validator\rules\WithParametersInterface;
 use Mockery;
 
 /**
@@ -52,12 +50,15 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testCustomErrorMessageWithParameters(): void
 	{
-		$rule = new class implements RuleInterface, WithParametersInterface
+		$rule = new class implements RuleInterface
 		{
 			use I18nAwareTrait;
-			use WithParametersTrait;
 
-			protected $parameters = ['foo' => 'foovalue', 'bar' => 'barvalue'];
+			protected $foo = 'foovalue';
+
+			protected $bar = 'barvalue';
+
+			protected $i18nParameters = ['foo', 'bar'];
 
 			public function validateWhenEmpty(): bool { return false; }
 
@@ -115,12 +116,15 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testTranslatedFieldNames(): void
 	{
-		$rule = new class implements RuleInterface, WithParametersInterface
+		$rule = new class implements RuleInterface
 		{
 			use I18nAwareTrait;
-			use WithParametersTrait;
 
-			protected $parameters = ['foo' => 'foovalue', 'bar' => 'barvalue'];
+			protected $foo = 'foovalue';
+
+			protected $bar = 'barvalue';
+
+			protected $i18nParameters = ['foo', 'bar'];
 
 			protected $i18nFieldNameParameters = ['foo'];
 

@@ -20,7 +20,7 @@ class LessThanTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new LessThan;
+		$rule = new LessThan(3);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class LessThanTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new LessThan;
-
-		$rule->setParameters([3]);
+		$rule = new LessThan(3);
 
 		$this->assertTrue($rule->validate(2, []));
 		$this->assertTrue($rule->validate('2', []));
@@ -43,9 +41,7 @@ class LessThanTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new LessThan;
-
-		$rule->setParameters([3]);
+		$rule = new LessThan(3);
 
 		$this->assertFalse($rule->validate(3, []));
 		$this->assertFalse($rule->validate('3', []));

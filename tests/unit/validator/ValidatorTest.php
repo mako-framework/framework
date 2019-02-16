@@ -382,7 +382,7 @@ class ValidatorTest extends TestCase
 			}
 		};
 
-		$validator->shouldReceive('ruleFactory')->once()->with('bar::baz')->andReturn($rule);
+		$validator->shouldReceive('ruleFactory')->once()->with('bar::baz', [])->andReturn($rule);
 
 		$this->assertFalse($validator->isValid());
 

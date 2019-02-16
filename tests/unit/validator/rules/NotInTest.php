@@ -20,7 +20,7 @@ class NotInTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new NotIn;
+		$rule = new NotIn([1, 2, 3]);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class NotInTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new NotIn;
-
-		$rule->setParameters([[1, 2, 3]]);
+		$rule = new NotIn([1, 2, 3]);
 
 		$this->assertTrue($rule->validate(0, []));
 		$this->assertTrue($rule->validate(4, []));
@@ -43,9 +41,7 @@ class NotInTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new NotIn;
-
-		$rule->setParameters([[1, 2, 3]]);
+		$rule = new NotIn([1, 2, 3]);
 
 		$this->assertFalse($rule->validate(1, []));
 		$this->assertFalse($rule->validate(2, []));

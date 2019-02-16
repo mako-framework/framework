@@ -32,7 +32,7 @@ class MimetypeTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Mimetype;
+		$rule = new Mimetype('image/png');
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -42,17 +42,13 @@ class MimetypeTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new Mimetype;
-
-		$rule->setParameters(['image/png']);
+		$rule = new Mimetype('image/png');
 
 		$this->assertTrue($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
 
 		//
 
-		$rule = new Mimetype;
-
-		$rule->setParameters([['image/jpeg', 'image/png']]);
+		$rule = new Mimetype(['image/jpeg', 'image/png']);
 
 		$this->assertTrue($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
 	}
@@ -62,9 +58,7 @@ class MimetypeTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new Mimetype;
-
-		$rule->setParameters([['text/plain', 'application/json']]);
+		$rule = new Mimetype(['text/plain', 'application/json']);
 
 		$this->assertFalse($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
 

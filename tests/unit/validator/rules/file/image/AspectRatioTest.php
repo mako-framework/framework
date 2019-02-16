@@ -22,7 +22,7 @@ class AspectRatioTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new AspectRatio;
+		$rule = new AspectRatio(1, 1);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -34,11 +34,9 @@ class AspectRatioTest extends TestCase
 	{
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		$rule = Mockery::mock(AspectRatio::class)->shouldAllowMockingProtectedMethods()->makePartial();
+		$rule = Mockery::mock(AspectRatio::class, [4, 3])->shouldAllowMockingProtectedMethods()->makePartial();
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([800, 600]);
-
-		$rule->setParameters([4, 3]);
 
 		$this->assertTrue($rule->validate($fileInfo, []));
 	}
@@ -50,11 +48,9 @@ class AspectRatioTest extends TestCase
 	{
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		$rule = Mockery::mock(AspectRatio::class)->shouldAllowMockingProtectedMethods()->makePartial();
+		$rule = Mockery::mock(AspectRatio::class, [14, 9])->shouldAllowMockingProtectedMethods()->makePartial();
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([800, 600]);
-
-		$rule->setParameters([14, 9]);
 
 		$this->assertFalse($rule->validate($fileInfo, []));
 

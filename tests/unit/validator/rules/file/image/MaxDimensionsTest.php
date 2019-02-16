@@ -22,7 +22,7 @@ class MaxDimensionsTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new MaxDimensions;
+		$rule = new MaxDimensions(800, 600);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -34,11 +34,9 @@ class MaxDimensionsTest extends TestCase
 	{
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		$rule = Mockery::mock(MaxDimensions::class)->shouldAllowMockingProtectedMethods()->makePartial();
+		$rule = Mockery::mock(MaxDimensions::class, [800, 600])->shouldAllowMockingProtectedMethods()->makePartial();
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([800, 600]);
-
-		$rule->setParameters([800, 600]);
 
 		$this->assertTrue($rule->validate($fileInfo, []));
 	}
@@ -50,11 +48,9 @@ class MaxDimensionsTest extends TestCase
 	{
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		$rule = Mockery::mock(MaxDimensions::class)->shouldAllowMockingProtectedMethods()->makePartial();
+		$rule = Mockery::mock(MaxDimensions::class, [800, 600])->shouldAllowMockingProtectedMethods()->makePartial();
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([801, 401]);
-
-		$rule->setParameters([800, 600]);
 
 		$this->assertFalse($rule->validate($fileInfo, []));
 

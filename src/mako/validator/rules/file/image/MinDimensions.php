@@ -10,8 +10,6 @@ namespace mako\validator\rules\file\image;
 use mako\validator\rules\file\image\traits\GetImageSizeTrait;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
-use mako\validator\rules\traits\WithParametersTrait;
-use mako\validator\rules\WithParametersInterface;
 
 use function sprintf;
 
@@ -20,17 +18,43 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class MinDimensions extends Rule implements RuleInterface, WithParametersInterface
+class MinDimensions extends Rule implements RuleInterface
 {
 	use GetImageSizeTrait;
-	use WithParametersTrait;
 
 	/**
-	 * Parameters.
+	 * Width.
+	 *
+	 * @var int
+	 */
+	protected $width;
+
+	/**
+	 * Height.
+	 *
+	 * @var int
+	 */
+	protected $height;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param int $width  Width
+	 * @param int $height Height
+	 */
+	public function __construct(int $width, int $height)
+	{
+		$this->width = $width;
+
+		$this->height = $height;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['width', 'height'];
+	protected $i18nParameters = ['width', 'height'];
 
 	/**
 	 * {@inheritdoc}
@@ -39,7 +63,7 @@ class MinDimensions extends Rule implements RuleInterface, WithParametersInterfa
 	{
 		[$width, $height] = $this->getImageSize($value);
 
-		return $this->getParameter('width') <= $width && $this->getParameter('height') <= $height;
+		return $this->width <= $width && $this->height <= $height;
 	}
 
 	/**
@@ -47,6 +71,6 @@ class MinDimensions extends Rule implements RuleInterface, WithParametersInterfa
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s falls short of the minimum dimensions of %2$sx%3$s pixels.', $field, $this->getParameter('width'), $this->getParameter('height'));
+		return sprintf('The %1$s falls short of the minimum dimensions of %2$sx%3$s pixels.', $field, $this->width, $this->height);
 	}
 }

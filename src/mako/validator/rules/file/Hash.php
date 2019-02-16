@@ -9,8 +9,6 @@ namespace mako\validator\rules\file;
 
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
-use mako\validator\rules\traits\WithParametersTrait;
-use mako\validator\rules\WithParametersInterface;
 
 use function sprintf;
 
@@ -19,25 +17,48 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class Hash extends Rule implements RuleInterface, WithParametersInterface
+class Hash extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Hash.
+	 *
+	 * @var string
+	 */
+	protected $hash;
 
 	/**
-	 * Parameters.
+	 * Algorithm.
+	 *
+	 * @var string
+	 */
+	protected $algorithm;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param string $hash      Hash
+	 * @param string $algorithm Algorithm
+	 */
+	public function __construct(string $hash, string $algorithm = 'sha256')
+	{
+		$this->hash = $hash;
+
+		$this->algorithm = $algorithm;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['hash', 'algorithm'];
+	protected $i18nParameters = ['hash', 'algorithm'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		$algorithm = $this->getParameter('algorithm', true) ?? 'sha256';
-
-		return $value->validateHash($this->getParameter('hash'), $algorithm);
+		return $value->validateHash($this->hash, $this->algorithm);
 	}
 
 	/**

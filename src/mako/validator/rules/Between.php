@@ -7,8 +7,6 @@
 
 namespace mako\validator\rules;
 
-use mako\validator\rules\traits\WithParametersTrait;
-
 use function sprintf;
 
 /**
@@ -16,23 +14,48 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class Between extends Rule implements RuleInterface, WithParametersInterface
+class Between extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Minimum value.
+	 *
+	 * @var mixed
+	 */
+	protected $minimum;
 
 	/**
-	 * Parameters.
+	 * Maximum value.
+	 *
+	 * @var mixed
+	 */
+	protected $maximum;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param mixed $minimum Minimum value
+	 * @param mixed $maximum Maximum value
+	 */
+	public function __construct($minimum, $maximum)
+	{
+		$this->minimum = $minimum;
+
+		$this->maximum = $maximum;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['minimum', 'maximum'];
+	protected $i18nParameters = ['minimum', 'maximum'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return (int) $value >= $this->getParameter('minimum') && (int) $value <= $this->getParameter('maximum');
+		return (int) $value >= $this->minimum && (int) $value <= $this->maximum;
 	}
 
 	/**
@@ -40,6 +63,6 @@ class Between extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The value of the %1$s field must be between %2$s and %3$s.', $field, $this->parameters['minimum'], $this->parameters['maximum']);
+		return sprintf('The value of the %1$s field must be between %2$s and %3$s.', $field, $this->minimum, $this->maximum);
 	}
 }

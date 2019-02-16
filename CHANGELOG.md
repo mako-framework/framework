@@ -17,6 +17,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 * Constraints now injects parameters through the constructor.
 * Removed the `Middleware` base class. Middleware should implement the `MiddlewareInterface` instead.
 * Middleware now injects parameters through the constructor.
+* Validator rule parameters are now injected via the constructor.
 
 #### New
 

@@ -20,7 +20,7 @@ class RegexTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Regex;
+		$rule = new Regex('/^[a-z]+$/i');
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class RegexTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new Regex;
-
-		$rule->setParameters(['/^[a-z]+$/i']);
+		$rule = new Regex('/^[a-z]+$/i');
 
 		$this->assertTrue($rule->validate('foobar', []));
 	}
@@ -42,9 +40,7 @@ class RegexTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new Regex;
-
-		$rule->setParameters(['/^[a-z]+$/i']);
+		$rule = new Regex('/^[a-z]+$/i');
 
 		$this->assertFalse($rule->validate('foobar1', []));
 

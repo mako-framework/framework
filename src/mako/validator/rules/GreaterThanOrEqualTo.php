@@ -7,8 +7,6 @@
 
 namespace mako\validator\rules;
 
-use mako\validator\rules\traits\WithParametersTrait;
-
 use function sprintf;
 
 /**
@@ -16,23 +14,38 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class GreaterThanOrEqualTo extends Rule implements RuleInterface, WithParametersInterface
+class GreaterThanOrEqualTo extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Greater than or equal to.
+	 *
+	 * @var mixed
+	 */
+	protected $greaterThanOrEqualTo;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param mixed $greaterThanOrEqualTo Greater than or equal to
+	 */
+	public function __construct($greaterThanOrEqualTo)
+	{
+		$this->greaterThanOrEqualTo = $greaterThanOrEqualTo;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['greaterThanOrEqualTo'];
+	protected $i18nParameters = ['greaterThanOrEqualTo'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return (int) $value >= $this->getParameter('greaterThanOrEqualTo');
+		return (int) $value >= $this->greaterThanOrEqualTo;
 	}
 
 	/**
@@ -40,6 +53,6 @@ class GreaterThanOrEqualTo extends Rule implements RuleInterface, WithParameters
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The value of the %1$s field must be greater than or equal to %2$s.', $field, $this->parameters['greaterThanOrEqualTo']);
+		return sprintf('The value of the %1$s field must be greater than or equal to %2$s.', $field, $this->greaterThanOrEqualTo);
 	}
 }

@@ -24,7 +24,7 @@ class UniqueTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Unique(Mockery::mock(ConnectionManager::class));
+		$rule = new Unique('table', 'column', null, null, Mockery::mock(ConnectionManager::class));
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -48,9 +48,7 @@ class UniqueTest extends TestCase
 
 		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
 
-		$rule = new Unique($database);
-
-		$rule->setParameters(['users', 'email', null, 'foobar']);
+		$rule = new Unique('users', 'email', null, 'foobar', $database);
 
 		$this->assertTrue($rule->validate('foo@example.org', []));
 	}
@@ -76,9 +74,7 @@ class UniqueTest extends TestCase
 
 		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
 
-		$rule = new Unique($database);
-
-		$rule->setParameters(['users', 'email', 'bar@example.org', 'foobar']);
+		$rule = new Unique('users', 'email', 'bar@example.org', 'foobar', $database);
 
 		$this->assertTrue($rule->validate('foo@example.org', []));
 	}
@@ -90,9 +86,7 @@ class UniqueTest extends TestCase
 	{
 		$database = Mockery::mock(ConnectionManager::class);
 
-		$rule = new Unique($database);
-
-		$rule->setParameters(['users', 'email', 'foo@example.org', 'foobar']);
+		$rule = new Unique('users', 'email', 'foo@example.org', 'foobar', $database);
 
 		$this->assertTrue($rule->validate('foo@example.org', []));
 	}
@@ -116,9 +110,7 @@ class UniqueTest extends TestCase
 
 		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
 
-		$rule = new Unique($database);
-
-		$rule->setParameters(['users', 'email', null, 'foobar']);
+		$rule = new Unique('users', 'email', null, 'foobar', $database);
 
 		$this->assertFalse($rule->validate('foo@example.org', []));
 

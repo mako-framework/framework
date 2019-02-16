@@ -9,7 +9,6 @@ namespace mako\validator\rules\traits;
 
 use mako\i18n\I18n;
 use mako\validator\rules\RuleInterface;
-use mako\validator\rules\WithParametersInterface;
 
 use function array_map;
 use function array_merge;
@@ -73,12 +72,12 @@ trait I18nAwareTrait
 	 */
 	protected function getI18nParameters(string $field, string $package): array
 	{
-		if($this instanceof WithParametersInterface)
+		if(property_exists($this, 'i18nParameters'))
 		{
 			$parameters = array_map(function($value)
 			{
 				return is_array($value) ? implode(', ', $value) : $value;
-			}, $this->parameters);
+			}, array_intersect_key(get_object_vars($this), array_flip($this->i18nParameters)));
 
 			if(property_exists($this, 'i18nFieldNameParameters'))
 			{

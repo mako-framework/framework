@@ -20,7 +20,7 @@ class InTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new In;
+		$rule = new In([1, 2, 3]);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class InTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new In;
-
-		$rule->setParameters([[1, 2, 3]]);
+		$rule = new In([1, 2, 3]);
 
 		$this->assertTrue($rule->validate(1, []));
 		$this->assertTrue($rule->validate(2, []));
@@ -44,9 +42,7 @@ class InTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new In;
-
-		$rule->setParameters([[1, 2, 3]]);
+		$rule = new In([1, 2, 3]);
 
 		$this->assertFalse($rule->validate(0, []));
 

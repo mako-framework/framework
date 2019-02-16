@@ -22,7 +22,7 @@ class HmacTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Hmac;
+		$rule = new Hmac('hash', 'key');
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -32,9 +32,7 @@ class HmacTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new Hmac;
-
-		$rule->setParameters(['hash', 'key']);
+		$rule = new Hmac('hash', 'key');
 
 		$fileInfo = Mockery::mock(FileInfo::class);
 
@@ -48,9 +46,7 @@ class HmacTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new Hmac;
-
-		$rule->setParameters(['hash', 'key']);
+		$rule = new Hmac('hash', 'key');
 
 		$fileInfo = Mockery::mock(FileInfo::class);
 

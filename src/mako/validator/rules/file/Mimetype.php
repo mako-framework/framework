@@ -9,8 +9,6 @@ namespace mako\validator\rules\file;
 
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
-use mako\validator\rules\traits\WithParametersTrait;
-use mako\validator\rules\WithParametersInterface;
 
 use function implode;
 use function in_array;
@@ -21,25 +19,38 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class Mimetype extends Rule implements RuleInterface, WithParametersInterface
+class Mimetype extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
-
 	/**
-	 * Parameters.
+	 * Mimetypes.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['mimetype'];
+	protected $mimetypes;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param string|array $mimetype Mimetype or array of mimetypes
+	 */
+	public function __construct($mimetype)
+	{
+		$this->mimetypes = (array) $mimetype;
+	}
+
+	/**
+	 * I18n parameters.
+	 *
+	 * @var array
+	 */
+	protected $i18nParameters = ['mimetypes'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		$mimetypes = (array) $this->getParameter('mimetype');
-
-		return in_array($value->getMimeType(), $mimetypes);
+		return in_array($value->getMimeType(), $this->mimetypes);
 	}
 
 	/**
@@ -47,6 +58,6 @@ class Mimetype extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s must be a file of type: %2$s.', $field, implode(', ', $this->parameters['mimetype']));
+		return sprintf('The %1$s must be a file of type: %2$s.', $field, implode(', ', $this->mimetypes));
 	}
 }

@@ -20,7 +20,7 @@ class MaxLengthTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new MaxLength;
+		$rule = new MaxLength(6);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class MaxLengthTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new MaxLength;
-
-		$rule->setParameters([6]);
+		$rule = new MaxLength(6);
 
 		$this->assertTrue($rule->validate('foo', []));
 		$this->assertTrue($rule->validate('foobar', []));
@@ -43,9 +41,7 @@ class MaxLengthTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new MaxLength;
-
-		$rule->setParameters([6]);
+		$rule = new MaxLength(6);
 
 		$this->assertFalse($rule->validate('foobarbaz', []));
 

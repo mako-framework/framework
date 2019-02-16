@@ -20,7 +20,7 @@ class DifferentTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Different;
+		$rule = new Different('barfoo');
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,9 +30,7 @@ class DifferentTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new Different;
-
-		$rule->setParameters(['barfoo']);
+		$rule = new Different('barfoo');
 
 		$this->assertTrue($rule->validate('foo', ['barfoo' => 'bar']));
 	}
@@ -42,9 +40,7 @@ class DifferentTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new Different;
-
-		$rule->setParameters(['barfoo']);
+		$rule = new Different('barfoo');
 
 		$this->assertFalse($rule->validate('bar', ['barfoo' => 'bar']));
 

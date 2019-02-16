@@ -7,8 +7,6 @@
 
 namespace mako\validator\rules;
 
-use mako\validator\rules\traits\WithParametersTrait;
-
 use function sprintf;
 
 /**
@@ -16,23 +14,38 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class LessThan extends Rule implements RuleInterface, WithParametersInterface
+class LessThan extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
+	/**
+	 * Less than.
+	 *
+	 * @var mixed
+	 */
+	protected $lessThan;
 
 	/**
-	 * Parameters.
+	 * Constructor.
+	 *
+	 * @param mixed $lessThan Less than
+	 */
+	public function __construct($lessThan)
+	{
+		$this->lessThan = $lessThan;
+	}
+
+	/**
+	 * I18n parameters.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['lessThan'];
+	protected $i18nParameters = ['lessThan'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return (int) $value < $this->getParameter('lessThan');
+		return (int) $value < $this->lessThan;
 	}
 
 	/**
@@ -40,6 +53,6 @@ class LessThan extends Rule implements RuleInterface, WithParametersInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The value of the %1$s field must be less than %2$s.', $field, $this->parameters['lessThan']);
+		return sprintf('The value of the %1$s field must be less than %2$s.', $field, $this->lessThan);
 	}
 }

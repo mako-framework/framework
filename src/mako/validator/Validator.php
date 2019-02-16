@@ -63,7 +63,6 @@ use mako\validator\rules\session\OneTimeToken;
 use mako\validator\rules\session\Token;
 use mako\validator\rules\URL;
 use mako\validator\rules\UUID;
-use mako\validator\rules\WithParametersInterface;
 use RuntimeException;
 
 use function array_fill_keys;
@@ -384,12 +383,13 @@ class Validator
 	/**
 	 * Creates a rule instance.
 	 *
-	 * @param  string                              $name Rule name
+	 * @param  string                              $name       Rule name
+	 * @param  array                               $parameters Rule parameters
 	 * @return \mako\validator\rules\RuleInterface
 	 */
-	protected function ruleFactory(string $name): RuleInterface
+	protected function ruleFactory(string $name, array $parameters): RuleInterface
 	{
-		return $this->container->get($this->getRuleClassName($name));
+		return $this->container->get($this->getRuleClassName($name), $parameters);
 	}
 
 	/**
@@ -434,20 +434,13 @@ class Validator
 	{
 		$parsedRule = $this->parseRule($rule);
 
-		$rule = $this->ruleFactory($parsedRule->name);
+		$rule = $this->ruleFactory($parsedRule->name, $parsedRule->parameters);
 
 		// Just return true if the input field is empty and the rule doesn't validate empty input
 
 		if($this->isInputFieldEmpty($inputValue = Arr::get($this->input, $field)) && $rule->validateWhenEmpty() === false)
 		{
 			return true;
-		}
-
-		// Set parameters if the rule requires it
-
-		if($rule instanceof WithParametersInterface)
-		{
-			$rule->setParameters($parsedRule->parameters);
 		}
 
 		// Validate input

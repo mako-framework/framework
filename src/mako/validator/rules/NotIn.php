@@ -7,8 +7,6 @@
 
 namespace mako\validator\rules;
 
-use mako\validator\rules\traits\WithParametersTrait;
-
 use function in_array;
 use function sprintf;
 
@@ -17,23 +15,38 @@ use function sprintf;
  *
  * @author Frederic G. Østby
  */
-class NotIn extends Rule implements RuleInterface, WithParametersInterface
+class NotIn extends Rule implements RuleInterface
 {
-	use WithParametersTrait;
-
 	/**
-	 * Parameters.
+	 * Disallowed values.
 	 *
 	 * @var array
 	 */
-	protected $parameters = ['values'];
+	protected $values;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param array $values Disallowed values
+	 */
+	public function __construct(array $values)
+	{
+		$this->values = $values;
+	}
+
+	/**
+	 * I18n parameters.
+	 *
+	 * @var array
+	 */
+	protected $i18nParameters = ['values'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return !in_array($value, $this->getParameter('values'));
+		return !in_array($value, $this->values);
 	}
 
 	/**
