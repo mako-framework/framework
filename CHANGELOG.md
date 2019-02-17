@@ -5,6 +5,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 #### New
 
 * Added `optional` validation rule.
+* Added `time_zone` validation rule.
 * Added `Validator::validate()` method that returns the validated input on success and throws an `ValidationException` on failure.
 
 #### Changes
