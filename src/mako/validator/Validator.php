@@ -521,7 +521,7 @@ class Validator
 	{
 		if($this->isInvalid())
 		{
-			throw new ValidationException($this->errors);
+			throw new ValidationException($this->errors, 'Invalid input.');
 		}
 
 		$validated = [];
