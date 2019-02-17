@@ -7,6 +7,8 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 * Added `optional` validation rule.
 * Added `time_zone` validation rule.
 * Added `Validator::validate()` method that returns the validated input on success and throws an `ValidationException` on failure.
+* The container now supports parameters that are nullable but not optional.
+* The container will no longer throw an exception when unable to resolve a nullable or optional class dependency.
 
 #### Changes
 
@@ -19,11 +21,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 * Removed the `Middleware` base class. Middleware should implement the `MiddlewareInterface` instead.
 * Middleware now injects parameters through the constructor.
 * Validator rule parameters are now injected via the constructor.
-
-#### New
-
-* The container now supports parameters that are nullable but not optional.
-* The container will no longer throw an exception when unable to resolve a nullable or optional class dependency.
 
 > Check out the upgrade guide for details on how to upgrade from `5.7.*.`
 
