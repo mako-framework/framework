@@ -53,7 +53,7 @@ class Exists extends Rule implements RuleInterface
 	 *
 	 * @var array
 	 */
-	protected $i18nParameters = ['table', 'column', 'connection'];
+	protected $i18nParameters = ['table', 'column'];
 
 	/**
 	 * Constructor.

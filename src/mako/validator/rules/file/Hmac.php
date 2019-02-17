@@ -61,7 +61,7 @@ class Hmac extends Rule implements RuleInterface
 	 *
 	 * @var array
 	 */
-	protected $i18nParameters = ['hmac', 'key', 'algorithm'];
+	protected $i18nParameters = ['hmac', 'algorithm'];
 
 	/**
 	 * {@inheritdoc}

@@ -60,7 +60,7 @@ class Unique extends Rule implements RuleInterface
 	 *
 	 * @var array
 	 */
-	protected $i18nParameters = ['table', 'column', 'allowed', 'connection'];
+	protected $i18nParameters = ['table', 'column'];
 
 	/**
 	 * Constructor.
