@@ -10,9 +10,12 @@ namespace mako\validator\rules\traits;
 use mako\i18n\I18n;
 use mako\validator\rules\RuleInterface;
 
+use function array_flip;
+use function array_intersect_key;
 use function array_map;
 use function array_merge;
 use function array_values;
+use function get_object_vars;
 use function implode;
 use function is_array;
 use function property_exists;
