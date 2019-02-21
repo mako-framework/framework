@@ -31,9 +31,11 @@ class LoggerService extends Service
 	 */
 	protected function getContext(): array
 	{
-		if($this->container->has(Authentication::class) && ($user = $this->container->get(Authentication::class)->getUser()) !== null)
+		if($this->container->has(Authentication::class))
 		{
-			return ['user_id' => $user->getId()];
+			$user = $this->container->get(Authentication::class)->getUser();
+
+			return ['user_id' => $user !== null ? $user->getId() : null];
 		}
 
 		return [];
