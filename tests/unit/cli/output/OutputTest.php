@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\cli\output;
 
+use mako\cli\Environment;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -35,22 +36,24 @@ class OutputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHasAnsiSupport(): void
+	public function testGetEnvironment(): void
 	{
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		$output = new Output($std, $err, null, false);
-
-		$this->assertFalse($output->hasAnsiSupport());
-
-		$output = new Output($std, $err, null, true);
-
-		$this->assertTrue($output->hasAnsiSupport());
-
 		$output = new Output($std, $err);
 
-		$this->assertInternalType('boolean', $output->hasAnsiSupport());
+		$this->assertInstanceOf(Environment::class, $output->getEnvironment());
+
+		//
+
+		$env = new Environment;
+
+		$output = new Output($std, $err, null, $env);
+
+		$this->assertInstanceOf(Environment::class, $output->getEnvironment());
+
+		$this->assertSame($env, $output->getEnvironment());
 	}
 
 	/**
@@ -153,7 +156,11 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->once()->with("\e[H\e[2J");
 
-		$output = new Output($std, $err, null, true);
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
+
+		$output = new Output($std, $err, null, $env);
 
 		$output->clear();
 	}
@@ -168,7 +175,11 @@ class OutputTest extends TestCase
 
  		$std->shouldReceive('write')->never();
 
- 		$output = new Output($std, $err, null, false);
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
+
+ 		$output = new Output($std, $err, null, $env);
 
  		$output->clear();
  	}
@@ -183,7 +194,11 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->once()->with("\r\33[2K");
 
-		$output = new Output($std, $err, null, true);
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
+
+		$output = new Output($std, $err, null, $env);
 
 		$output->clearLine();
 	}
@@ -198,7 +213,11 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->never();
 
-		$output = new Output($std, $err, null, false);
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
+
+		$output = new Output($std, $err, null, $env);
 
 		$output->clearLine();
 	}
@@ -215,7 +234,11 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->times(2)->with("\r\33[2K");
 
-		$output = new Output($std, $err, null, true);
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
+
+		$output = new Output($std, $err, null, $env);
 
 		$output->clearLines(2);
 	}
@@ -230,7 +253,11 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->never();
 
-		$output = new Output($std, $err, null, false);
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
+
+		$output = new Output($std, $err, null, $env);
 
 		$output->clearLines(2);
 	}
@@ -319,7 +346,7 @@ class OutputTest extends TestCase
 
 		$this->assertSame(null, $output->getFormatter());
 
-		$output->setFormatter($this->getFormatter());
+		$output->setFormatter($formatter);
 
 		$this->assertInstanceOf('mako\cli\output\formatter\FormatterInterface', $output->getFormatter());
 	}
@@ -339,7 +366,11 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('isDirect')->once()->andReturn(true);
 
-		$output = new Output($std, $err, $formatter, true);
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
+
+		$output = new Output($std, $err, $formatter, $env);
 
 		$output->write('hello, world!');
 	}
@@ -361,7 +392,11 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->once()->with('formatted');
 
-		$output = new Output($std, $err, $formatter, false);
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
+
+		$output = new Output($std, $err, $formatter, $env);
 
 		$output->write('hello, world!');
 	}

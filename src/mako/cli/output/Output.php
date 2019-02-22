@@ -7,10 +7,9 @@
 
 namespace mako\cli\output;
 
+use mako\cli\Environment;
 use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\writer\WriterInterface;
-
-use function getenv;
 
 /**
  * Output.
@@ -55,11 +54,11 @@ class Output
 	protected $formatter;
 
 	/**
-	 * Do we have ANSI support?
+	 * Environment.
 	 *
-	 * @var bool
+	 * @var \mako\cli\Environment
 	 */
-	protected $hasAnsiSupport;
+	protected $environment;
 
 	/**
 	 * Is the output muted?
@@ -71,12 +70,12 @@ class Output
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\cli\output\writer\WriterInterface            $standard       Standard writer
-	 * @param \mako\cli\output\writer\WriterInterface            $error          Error writer
-	 * @param \mako\cli\output\formatter\FormatterInterface|null $formatter      Formatter
-	 * @param bool|null                                          $hasAnsiSupport Do we have ANSI support?
+	 * @param \mako\cli\output\writer\WriterInterface            $standard    Standard writer
+	 * @param \mako\cli\output\writer\WriterInterface            $error       Error writer
+	 * @param \mako\cli\output\formatter\FormatterInterface|null $formatter   Formatter
+	 * @param \mako\cli\Environment|null                         $environment Environment
 	 */
-	public function __construct(WriterInterface $standard, WriterInterface $error, ?FormatterInterface $formatter = null, ?bool $hasAnsiSupport = null)
+	public function __construct(WriterInterface $standard, WriterInterface $error, ?FormatterInterface $formatter = null, ?Environment $environment = null)
 	{
 		$this->standard = $standard;
 
@@ -84,24 +83,7 @@ class Output
 
 		$this->formatter = $formatter;
 
-		// Determine if we have ansi support
-
-		if($hasAnsiSupport === null)
-		{
-			$hasAnsiSupport = DIRECTORY_SEPARATOR === '/' || (false !== getenv('ANSICON') || 'ON' === getenv('ConEmuANSI'));
-		}
-
-		$this->hasAnsiSupport = $hasAnsiSupport;
-	}
-
-	/**
-	 * Do we have ANSI support?
-	 *
-	 * @return bool
-	 */
-	public function hasAnsiSupport(): bool
-	{
-		return $this->hasAnsiSupport;
+		$this->environment = $environment ?? new Environment;
 	}
 
 	/**
@@ -122,6 +104,16 @@ class Output
 	public function getFormatter(): ?FormatterInterface
 	{
 		return $this->formatter;
+	}
+
+	/**
+	 * Returns the environment.
+	 *
+	 * @return \mako\cli\Environment
+	 */
+	public function getEnvironment(): Environment
+	{
+		return $this->environment;
 	}
 
 	/**
@@ -167,7 +159,7 @@ class Output
 
 		if($this->formatter !== null)
 		{
-			if($this->hasAnsiSupport === false || $writer->isDirect() === false)
+			if($this->environment->hasAnsiSupport() === false || $writer->isDirect() === false)
 			{
 				$string = $this->formatter->stripTags($string);
 			}
@@ -214,7 +206,7 @@ class Output
 	 */
 	public function clear(): void
 	{
-		if($this->hasAnsiSupport)
+		if($this->environment->hasAnsiSupport())
 		{
 			$this->write("\e[H\e[2J");
 		}
@@ -225,7 +217,7 @@ class Output
 	 */
 	public function clearLine(): void
 	{
-		if($this->hasAnsiSupport)
+		if($this->environment->hasAnsiSupport())
 		{
 			$this->write("\r\33[2K");
 		}
@@ -238,7 +230,7 @@ class Output
 	 */
 	public function clearLines(int $lines): void
 	{
-		if($this->hasAnsiSupport)
+		if($this->environment->hasAnsiSupport())
 		{
 			for($i = 0; $i < $lines; $i++)
 			{

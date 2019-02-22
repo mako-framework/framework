@@ -1,6 +1,6 @@
 ### 6.0.0 <small> (2019-??-??)</small>
 
-The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applications built using Mako `5.7.0` should run on Mako `6.0.0` with just a few simple modifications.
+The major version bump is due to dropped support for PHP `7.0` and `7.1`. Most applications built using Mako `5.7.0` should run on Mako `6.0.0` with just a few simple adjustments.
 
 #### New
 
@@ -10,6 +10,12 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 * The container now supports parameters that are nullable but not optional.
 * The container will now inject `null` when unable to resolve a nullable or optional class dependency.
 * Added `Logger` class that extends the monolog logger with functionality to set global log context parameters (the gatekeeper user id will automatically be added if possible).
+* Added the `mako\cli\Environment` class with the following methods:
+	- `Environment::getDimensions()`
+	- `Environment::getWidth()`
+	- `Environment::getHeight()`
+	- `Environment::hasAnsiSupport()`
+* Added `Output::getEnvironment()` method.
 
 #### Changes
 
@@ -22,6 +28,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Applic
 * Removed the `Middleware` base class. Middleware should implement the `MiddlewareInterface` instead.
 * Middleware now injects parameters through the constructor.
 * Validator rule parameters are now injected via the constructor.
+* Removed the `Output::hasAnsiSupport()` method.
 
 > Check out the upgrade guide for details on how to upgrade from `5.7.*.`
 
