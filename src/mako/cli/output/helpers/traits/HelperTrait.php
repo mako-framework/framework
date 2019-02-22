@@ -24,8 +24,6 @@ trait HelperTrait
 	 */
 	protected function stringWidthWithoutFormatting(string $string): int
 	{
-		$formatter = $this->output->getFormatter();
-
-		return (int) mb_strwidth($formatter !== null ? $formatter->stripTags($string) : $string);
+		return (int) mb_strwidth($this->formatter !== null ? $this->formatter->stripTags($string) : $string);
 	}
 }

@@ -34,6 +34,13 @@ class Table
 	protected $output;
 
 	/**
+	 * Formatter.
+	 *
+	 * @var \mako\cli\output\formatter\FormatterInterface|null
+	 */
+	protected $formatter;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\output\Output $output Output instance
@@ -41,6 +48,8 @@ class Table
 	public function __construct(Output $output)
 	{
 		$this->output = $output;
+
+		$this->formatter = $output->getFormatter();
 	}
 
 	/**

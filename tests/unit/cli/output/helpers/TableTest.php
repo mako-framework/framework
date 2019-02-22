@@ -25,7 +25,7 @@ class TableTest extends TestCase
 	{
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->andReturn(null);
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
 		$table = new Table($output);
 
@@ -46,7 +46,7 @@ class TableTest extends TestCase
 	{
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->andReturn(null);
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
 		$table = new Table($output);
 
@@ -68,7 +68,7 @@ class TableTest extends TestCase
 	{
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->andReturn(null);
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
 		$table = new Table($output);
 
@@ -89,7 +89,7 @@ class TableTest extends TestCase
 	{
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->andReturn(null);
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
 		$table = new Table($output);
 
@@ -117,7 +117,7 @@ class TableTest extends TestCase
 
 		$formatter->shouldReceive('stripTags')->times(2)->with('Cell1')->andReturn('Cell1');
 
-		$output->shouldReceive('getFormatter')->andReturn($formatter);
+		$output->shouldReceive('getFormatter')->once()->andReturn($formatter);
 
 		$table = new Table($output);
 
@@ -138,7 +138,7 @@ class TableTest extends TestCase
 	{
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->andReturn(null);
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
 		$expected  = '';
 		$expected .= '---------' . PHP_EOL;
@@ -160,6 +160,8 @@ class TableTest extends TestCase
 	public function testInvalidInput(): void
 	{
 		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
 		$table = new Table($output);
 

@@ -80,6 +80,13 @@ class Alert
 	protected $width;
 
 	/**
+	 * Formatter.
+	 *
+	 * @var \mako\cli\output\formatter\FormatterInterface|null
+	 */
+	protected $formatter;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\output\Output $output Output instance
@@ -90,6 +97,8 @@ class Alert
 		$this->output = $output;
 
 		$this->width = $width ?? $output->getEnvironment()->getWidth();
+
+		$this->formatter = $output->getFormatter();
 	}
 
 	/**
@@ -105,6 +114,22 @@ class Alert
 	}
 
 	/**
+	 * Escapes style tags if we have a formatter.
+	 *
+	 * @param  string $string string
+	 * @return string
+	 */
+	protected function escape(string $string): string
+	{
+		if($this->formatter !== null)
+		{
+			return $this->formatter->escape($string);
+		}
+
+		return $string;
+	}
+
+	/**
 	 * Formats the string.
 	 *
 	 * @param  string $string String
@@ -112,18 +137,13 @@ class Alert
 	 */
 	protected function format(string $string): string
 	{
-		if(($formatter = $this->output->getFormatter()) !== null)
-		{
-			$string = $formatter->stripTags($string);
-		}
-
 		$lineWidth = $this->width - (static::PADDING * 2);
 
 		$lines = explode(PHP_EOL, PHP_EOL . $this->wordWrap($string, $lineWidth) . PHP_EOL);
 
 		foreach($lines as $key => $value)
 		{
-			$value = $value . str_repeat(' ', $lineWidth - mb_strlen($value));
+			$value = $this->escape($value) . str_repeat(' ', $lineWidth - mb_strlen($value));
 
 			$lines[$key] = sprintf('%1$s%2$s%1$s', str_repeat(' ', static::PADDING), $value);
 		}
