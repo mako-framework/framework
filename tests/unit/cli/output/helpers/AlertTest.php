@@ -47,6 +47,25 @@ class AlertTest extends TestCase
 	/**
 	 *
 	 */
+	public function testRenderWithWidth(): void
+	{
+		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('getFormatter')->andReturn(null);
+
+		$alert = new Alert($output, 15);
+
+		$expected  = '               ' . PHP_EOL;
+		$expected .= ' This is just  ' . PHP_EOL;
+		$expected .= ' a test!       ' . PHP_EOL;
+		$expected .= '               ' . PHP_EOL;
+
+		$this->assertSame($expected, $alert->render('This is just a test!'));
+	}
+
+	/**
+	 *
+	 */
 	public function testDraw(): void
 	{
 		$expected  = '               ' . PHP_EOL;

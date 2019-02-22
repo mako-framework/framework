@@ -73,13 +73,23 @@ class Alert
 	protected $output;
 
 	/**
+	 * Alert width.
+	 *
+	 * @var int
+	 */
+	protected $width;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\output\Output $output Output instance
+	 * @param int|null                $width  Alert width
 	 */
-	public function __construct(Output $output)
+	public function __construct(Output $output, ?int $width = null)
 	{
 		$this->output = $output;
+
+		$this->width = $width ?? $output->getEnvironment()->getWidth();
 	}
 
 	/**
@@ -107,7 +117,7 @@ class Alert
 			$string = $formatter->stripTags($string);
 		}
 
-		$lineWidth = $this->output->getEnvironment()->getWidth() - (static::PADDING * 2);
+		$lineWidth = $this->width - (static::PADDING * 2);
 
 		$lines = explode(PHP_EOL, PHP_EOL . $this->wordWrap($string, $lineWidth) . PHP_EOL);
 
