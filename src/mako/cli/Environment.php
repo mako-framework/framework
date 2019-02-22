@@ -7,7 +7,10 @@
 
 namespace mako\cli;
 
+use function current;
+use function exec;
 use function getenv;
+use function preg_match;
 
 /**
  * Environment.
@@ -54,7 +57,7 @@ class Environment
 	 */
 	protected function getDimensionsForUnixLike(): ?array
 	{
-		// Attempts to get dimensions from environment
+		// Attempt to get dimensions from environment
 
 		if(($width = getenv('COLUMNS')) !== false && ($height = getenv('LINES')) !== false)
 		{
