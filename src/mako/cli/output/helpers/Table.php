@@ -7,6 +7,7 @@
 
 namespace mako\cli\output\helpers;
 
+use mako\cli\output\helpers\traits\HelperTrait;
 use mako\cli\output\Output;
 use RuntimeException;
 
@@ -14,7 +15,6 @@ use function array_sum;
 use function array_values;
 use function count;
 use function implode;
-use function mb_strwidth;
 use function str_repeat;
 
 /**
@@ -24,19 +24,14 @@ use function str_repeat;
  */
 class Table
 {
+	use HelperTrait;
+
 	/**
 	 * Output instance.
 	 *
 	 * @var \mako\cli\output\Output
 	 */
 	protected $output;
-
-	/**
-	 * Formatter instance.
-	 *
-	 * @var \mako\cli\output\formatter\FormatterInterface|null
-	 */
-	protected $formatter;
 
 	/**
 	 * Constructor.
@@ -46,8 +41,6 @@ class Table
 	public function __construct(Output $output)
 	{
 		$this->output = $output;
-
-		$this->formatter = $this->output->getFormatter();
 	}
 
 	/**
@@ -73,17 +66,6 @@ class Table
 		}
 
 		return true;
-	}
-
-	/**
-	 * Returns the width of the string without formatting.
-	 *
-	 * @param  string $string String to strip
-	 * @return string
-	 */
-	protected function stringWidthWithoutFormatting(string $string): string
-	{
-		return mb_strwidth($this->formatter !== null ? $this->formatter->stripTags($string) : $string);
 	}
 
 	/**

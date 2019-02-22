@@ -8,6 +8,7 @@
 namespace mako\tests\unit\cli\output\helpers;
 
 use mako\cli\output\helpers\Bell;
+use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -21,7 +22,7 @@ class BellTest extends TestCase
 	 */
 	public function testRing(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\x07");
 
@@ -35,7 +36,7 @@ class BellTest extends TestCase
 	 */
 	public function testRingMultipleTimes(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\x07\x07\x07");
 

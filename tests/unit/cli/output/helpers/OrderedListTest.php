@@ -8,6 +8,7 @@
 namespace mako\tests\unit\cli\output\helpers;
 
 use mako\cli\output\helpers\OrderedList;
+use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -21,7 +22,7 @@ class OrderedListTest extends TestCase
 	 */
 	public function testBasicList(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
@@ -40,7 +41,7 @@ class OrderedListTest extends TestCase
 	 */
 	public function testNestedLists(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
@@ -63,7 +64,7 @@ class OrderedListTest extends TestCase
 	 */
 	public function testCustomMarker(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
@@ -82,7 +83,7 @@ class OrderedListTest extends TestCase
 	 */
 	public function testDraw(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
@@ -103,7 +104,7 @@ class OrderedListTest extends TestCase
 	 */
 	public function testDrawWithCustomMarker(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 

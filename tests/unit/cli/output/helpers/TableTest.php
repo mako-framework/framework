@@ -7,7 +7,9 @@
 
 namespace mako\tests\unit\cli\output\helpers;
 
+use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\helpers\Table;
+use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -21,9 +23,9 @@ class TableTest extends TestCase
 	 */
 	public function testBasicTable(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		$output->shouldReceive('getFormatter')->andReturn(null);
 
 		$table = new Table($output);
 
@@ -42,9 +44,9 @@ class TableTest extends TestCase
 	 */
 	public function testTableWithMultipleRows(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		$output->shouldReceive('getFormatter')->andReturn(null);
 
 		$table = new Table($output);
 
@@ -64,9 +66,9 @@ class TableTest extends TestCase
 	 */
 	public function testTableWithMultipleColumns(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		$output->shouldReceive('getFormatter')->andReturn(null);
 
 		$table = new Table($output);
 
@@ -85,9 +87,9 @@ class TableTest extends TestCase
 	 */
 	public function testTableWithMultipleColumnsAndRows(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		$output->shouldReceive('getFormatter')->andReturn(null);
 
 		$table = new Table($output);
 
@@ -107,15 +109,15 @@ class TableTest extends TestCase
 	 */
 	public function testStyledContent(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
-		$formatter = Mockery::mock('mako\cli\output\formatter\FormatterInterface');
+		$formatter = Mockery::mock(FormatterInterface::class);
 
 		$formatter->shouldReceive('stripTags')->times(2)->with('<blue>Col1</blue>')->andReturn('Col1');
 
 		$formatter->shouldReceive('stripTags')->times(2)->with('Cell1')->andReturn('Cell1');
 
-		$output->shouldReceive('getFormatter')->once()->andReturn($formatter);
+		$output->shouldReceive('getFormatter')->andReturn($formatter);
 
 		$table = new Table($output);
 
@@ -134,9 +136,9 @@ class TableTest extends TestCase
 	 */
 	public function testDraw(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		$output->shouldReceive('getFormatter')->andReturn(null);
 
 		$expected  = '';
 		$expected .= '---------' . PHP_EOL;
@@ -145,7 +147,7 @@ class TableTest extends TestCase
 		$expected .= '| Cell1 |' . PHP_EOL;
 		$expected .= '---------' . PHP_EOL;
 
-		$output->shouldReceive('write')->once()->with($expected, 1);
+		$output->shouldReceive('write')->once()->with($expected, Output::STANDARD);
 
 		$table = new Table($output);
 
@@ -157,9 +159,7 @@ class TableTest extends TestCase
 	 */
 	public function testInvalidInput(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
-
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		$output = Mockery::mock(Output::class);
 
 		$table = new Table($output);
 

@@ -8,6 +8,7 @@
 namespace mako\tests\unit\cli\output\helpers;
 
 use mako\cli\output\helpers\ProgressBar;
+use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -21,7 +22,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWithZeroItems(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->never();
 
@@ -35,7 +36,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testBasicProgress(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 --------------------   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ==------------------  10% ");
@@ -65,7 +66,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWithCustomWidth(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 ----------------------------------------   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ====------------------------------------  10% ");
@@ -97,7 +98,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWithCustomTemplates(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 ____________________   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ++__________________  10% ");
@@ -131,7 +132,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWithPrefix(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\rProcessing files: 00/10 --------------------   0% ");
 		$output->shouldReceive('write')->once()->with("\rProcessing files: 01/10 ==------------------  10% ");
@@ -163,7 +164,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWith100ItemsAndDefaultRedrawRate(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(102);
 
@@ -182,7 +183,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWith1000ItemsAndDefaultRedrawRate(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(102);
 
@@ -201,7 +202,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWith1000ItemsAndCustomtRedrawRate(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(1002);
 
@@ -220,7 +221,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testRemoveIncomplete(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 --------------------   0% ");
 
@@ -238,7 +239,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testRemoveComplete(): void
 	{
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 --------------------   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ==------------------  10% ");

@@ -11,6 +11,7 @@ use mako\cli\input\helpers\Confirmation;
 use mako\cli\input\helpers\Question;
 use mako\cli\input\helpers\Secret;
 use mako\cli\input\helpers\Select;
+use mako\cli\output\helpers\Alert;
 use mako\cli\output\helpers\Bell;
 use mako\cli\output\helpers\Countdown;
 use mako\cli\output\helpers\OrderedList;
@@ -69,6 +70,18 @@ trait CommandHelperTrait
 	protected function clear(): void
 	{
 		$this->output->clear();
+	}
+
+	/**
+	 * Draws an alert.
+	 *
+	 * @param string $message  Message
+	 * @param string $template Alert template
+	 * @param int    $writer   Output writer
+	 */
+	protected function alert(string $message, string $template = Alert::DEFAULT, int $writer = Output::STANDARD): void
+	{
+		(new Alert($this->output))->draw($message, $template, $writer);
 	}
 
 	/**
