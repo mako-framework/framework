@@ -11,6 +11,7 @@ use mako\cli\output\Output;
 
 use function explode;
 use function implode;
+use function mb_strlen;
 use function preg_replace;
 use function sprintf;
 use function str_repeat;
