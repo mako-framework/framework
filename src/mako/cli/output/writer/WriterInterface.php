@@ -26,5 +26,5 @@ interface WriterInterface
 	 *
 	 * @param string $string String to write
 	 */
-	public function write(string $string);
+	public function write(string $string): void;
 }
