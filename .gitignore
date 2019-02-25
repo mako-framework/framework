@@ -1,5 +1,6 @@
 .DS_Store
 .php_cs.cache
-composer.phar
-composer.lock
+.phpunit.result.cache
 /vendor
+composer.lock
+composer.phar
