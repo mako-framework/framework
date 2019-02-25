@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\utility;
 
+use BadMethodCallException;
 use mako\tests\TestCase;
 use mako\utility\HTML;
 
@@ -185,10 +186,12 @@ class HTMLTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \BadMethodCallException
+	 *
 	 */
 	public function testException(): void
 	{
+		$this->expectException(BadMethodCallException::class);
+
 		$html = new HTML;
 
 		$html->nope();

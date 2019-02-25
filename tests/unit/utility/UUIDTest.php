@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\utility;
 
+use InvalidArgumentException;
 use mako\tests\TestCase;
 use mako\utility\UUID;
 
@@ -58,10 +59,12 @@ class UUIDTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \InvalidArgumentException
+	 *
 	 */
 	public function testV3WithInvalidNamespace(): void
 	{
+		$this->expectException(InvalidArgumentException::class);
+
 		UUID::v3('nope', 'foobar');
 	}
 
@@ -96,10 +99,12 @@ class UUIDTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \InvalidArgumentException
+	 *
 	 */
 	public function testV5WithInvalidNamespace(): void
 	{
+		$this->expectException(InvalidArgumentException::class);
+
 		UUID::v5('nope', 'foobar');
 	}
 }

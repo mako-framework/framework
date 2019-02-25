@@ -8,6 +8,7 @@
 namespace mako\tests\unit\cli\output\formatter;
 
 use mako\cli\output\formatter\Formatter;
+use mako\cli\output\formatter\FormatterException;
 use mako\tests\TestCase;
 
 /**
@@ -82,33 +83,42 @@ class OutputTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\cli\output\formatter\FormatterException
-	 * @expectedExceptionMessage Undefined formatting tag [ fail ] detected.
+	 *
 	 */
 	public function testUndefinedTagException(): void
 	{
+		$this->expectException(FormatterException::class);
+
+		$this->expectExceptionMessage('Undefined formatting tag [ fail ] detected.');
+
 		$formatter = new Formatter();
 
 		$formatter->format('<fail>hello</fail>');
 	}
 
 	/**
-	 * @expectedException \mako\cli\output\formatter\FormatterException
-	 * @expectedExceptionMessage Detected incorrectly nested formatting tag.
+	 *
 	 */
 	public function testIncorrectTagNestingException(): void
 	{
+		$this->expectException(FormatterException::class);
+
+		$this->expectExceptionMessage('Detected incorrectly nested formatting tag.');
+
 		$formatter = new Formatter();
 
 		$formatter->format('<blue>he<green>llo</blue></green>');
 	}
 
 	/**
-	 * @expectedException \mako\cli\output\formatter\FormatterException
-	 * @expectedExceptionMessage Detected missing formatting close tag.
+	 *
 	 */
 	public function testMissingCloseTagException(): void
 	{
+		$this->expectException(FormatterException::class);
+
+		$this->expectExceptionMessage('Detected missing formatting close tag');
+
 		$formatter = new Formatter();
 
 		$formatter->format('<blue>hello');

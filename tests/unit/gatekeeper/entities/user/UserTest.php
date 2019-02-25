@@ -8,6 +8,7 @@
 namespace mako\tests\unit\gatekeeper\entities\user;
 
 use DateTime;
+use LogicException;
 use mako\chrono\Time;
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
@@ -164,11 +165,14 @@ class UserTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage You can only check memberships for users that exist in the database.
+	 *
 	 */
 	public function testIsMemberOfForNonExistingUser(): void
 	{
+		$this->expectException(LogicException::class);
+
+		$this->expectExceptionMessage('You can only check memberships for users that exist in the database.');
+
 		$user = new User;
 
 		$user->isMemberOf('group');

@@ -422,15 +422,15 @@ class ORMTest extends TestCase
 		$cast->integer  = '1';
 		$cast->float    = '1.1';
 
-		$this->assertInternalType('boolean', $cast->boolean);
+		$this->assertIsBool($cast->boolean);
 
 		$this->assertSame(true, $cast->boolean);
 
-		$this->assertInternalType('integer', $cast->integer);
+		$this->assertIsInt($cast->integer);
 
 		$this->assertSame(1, $cast->integer);
 
-		$this->assertInternalType('float', $cast->float);
+		$this->assertIsFloat($cast->float);
 
 		$this->assertSame(1.1, $cast->float);
 
@@ -442,15 +442,15 @@ class ORMTest extends TestCase
 		$cast->integer  = '1';
 		$cast->float    = '1.1';
 
-		$this->assertInternalType('boolean', $cast->boolean);
+		$this->assertIsBool($cast->boolean);
 
 		$this->assertSame(false, $cast->boolean);
 
-		$this->assertInternalType('integer', $cast->integer);
+		$this->assertIsInt($cast->integer);
 
 		$this->assertSame(1, $cast->integer);
 
-		$this->assertInternalType('float', $cast->float);
+		$this->assertIsFloat($cast->float);
 
 		$this->assertSame(1.1, $cast->float);
 
@@ -458,15 +458,15 @@ class ORMTest extends TestCase
 
 		$cast = new TestCastingScalars(['boolean' => '1', 'integer' => '1', 'float' => '1.13'], true, false, true);
 
-		$this->assertInternalType('boolean', $cast->boolean);
+		$this->assertIsBool($cast->boolean);
 
 		$this->assertSame(true, $cast->boolean);
 
-		$this->assertInternalType('integer', $cast->integer);
+		$this->assertIsInt($cast->integer);
 
 		$this->assertSame(1, $cast->integer);
 
-		$this->assertInternalType('float', $cast->float);
+		$this->assertIsFloat($cast->float);
 
 		$this->assertSame(1.13, $cast->float);
 
@@ -474,26 +474,26 @@ class ORMTest extends TestCase
 
 		$cast = new TestCastingScalars(['boolean' => '0', 'integer' => '1', 'float' => '1'], true, false, true);
 
-		$this->assertInternalType('boolean', $cast->boolean);
+		$this->assertIsBool($cast->boolean);
 
 		$this->assertSame(false, $cast->boolean);
 
-		$this->assertInternalType('integer', $cast->integer);
+		$this->assertIsInt($cast->integer);
 
 		$this->assertSame(1, $cast->integer);
 
-		$this->assertInternalType('float', $cast->float);
+		$this->assertIsFloat($cast->float);
 
 		$this->assertSame(1.0, $cast->float);
 
 		//
 
 		$cast = new TestCastingScalars(['boolean' => 't'], true, false, true);
-		$this->assertInternalType('boolean', $cast->boolean);
+		$this->assertIsBool($cast->boolean);
 		$this->assertSame(true, $cast->boolean);
 
 		$cast = new TestCastingScalars(['boolean' => 'f'], true, false, true);
-		$this->assertInternalType('boolean', $cast->boolean);
+		$this->assertIsBool($cast->boolean);
 		$this->assertSame(false, $cast->boolean);
 	}
 

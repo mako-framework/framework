@@ -8,6 +8,9 @@
 namespace mako\tests\unit\syringe;
 
 use mako\syringe\Container;
+use mako\syringe\exceptions\ContainerException;
+use mako\syringe\exceptions\UnableToInstantiateException;
+use mako\syringe\exceptions\UnableToResolveParameterException;
 use mako\tests\TestCase;
 use stdClass;
 
@@ -202,11 +205,14 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\syringe\exceptions\UnableToResolveParameterException
-	 * @expectedExceptionMessage Unable to resolve the [ $bax ] parameter of [ mako\tests\unit\syringe\Fox::__construct ].
+	 *
 	 */
 	public function testClassInstantiationWithUnresolvableParameters(): void
 	{
+		$this->expectException(UnableToResolveParameterException::class);
+
+		$this->expectExceptionMessage('Unable to resolve the [ $bax ] parameter of [ mako\tests\unit\syringe\Fox::__construct ].');
+
 		$container = new Container;
 
 		$foo = $container->factory('mako\tests\unit\syringe\Fox');
@@ -288,11 +294,14 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\syringe\exceptions\UnableToInstantiateException
-	 * @expectedExceptionMessage Unable to create a [ mako\tests\unit\syringe\StoreInterface ] instance.
+	 *
 	 */
 	public function testInterfaceInstantiation(): void
 	{
+		$this->expectException(UnableToInstantiateException::class);
+
+		$this->expectExceptionMessage('Unable to create a [ mako\tests\unit\syringe\StoreInterface ] instance.');
+
 		$container = new Container;
 
 		$baz = $container->factory('mako\tests\unit\syringe\StoreInterface');
@@ -481,13 +490,14 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\syringe\exceptions\UnableToResolveParameterException
-	 * @expectedExceptionMessage Unable to resolve the [ $foo ] parameter of
-	 *
-	 * The entire exception message isn't included in the test because of some HHVM incompatibility that causes the test to fail
+	 * The entire exception message isn't included in the test because of some HHVM incompatibility that causes the test to fail.
 	 */
 	public function testCallMethodWithUnresolvableParameters(): void
 	{
+		$this->expectException(UnableToResolveParameterException::class);
+
+		$this->expectExceptionMessage('Unable to resolve the [ $foo ] parameter of');
+
 		$container = new Container;
 
 		$container->call(function($foo): void {});
@@ -745,11 +755,14 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\syringe\exceptions\ContainerException
-	 * @expectedExceptionMessage Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn't been registered.
+	 *
 	 */
 	public function testReplaceUnregistered(): void
 	{
+		$this->expectException(ContainerException::class);
+
+		$this->expectExceptionMessage('Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn\'t been registered.');
+
 		$container = new Container;
 
 		$container->replace(ReplaceA::class, function($container)
@@ -759,16 +772,22 @@ class ContainerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\syringe\exceptions\ContainerException
-	 * @expectedExceptionMessage Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn't been registered.
+	 *
 	 */
 	public function testReplaceUnregisteredInstance(): void
 	{
+		$this->expectException(ContainerException::class);
+
+		$this->expectExceptionMessage('Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn\'t been registered.');
+
 		$container = new Container;
 
 		$container->replaceInstance(ReplaceA::class, new ReplaceA('replacement'));
 	}
 
+	/**
+	 *
+	 */
 	public function testImpossibleToResolveDendenciesThatAreNullable(): void
 	{
 		$container = new Container;

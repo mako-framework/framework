@@ -7,8 +7,11 @@
 
 namespace mako\tests\unit\reactor;
 
-use InvalidOptionException;
 use mako\reactor\Dispatcher;
+use mako\reactor\exceptions\InvalidArgumentException;
+use mako\reactor\exceptions\InvalidOptionException;
+use mako\reactor\exceptions\MissingArgumentException;
+use mako\reactor\exceptions\MissingOptionException;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -122,11 +125,14 @@ class DispatcherTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\reactor\exceptions\InvalidArgumentException
-	 * @expectedExceptionMessage Invalid argument [ arg3 ].
+	 *
 	 */
 	public function testDispatchWithInvalidArguments(): void
 	{
+		$this->expectException(InvalidArgumentException::class);
+
+		$this->expectExceptionMessage('Invalid argument [ arg3 ].');
+
 		$container = Mockery::mock('mako\syringe\Container');
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
@@ -145,11 +151,14 @@ class DispatcherTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\reactor\exceptions\InvalidOptionException
-	 * @expectedExceptionMessage Invalid option [ bar ].
+	 *
 	 */
 	public function testDispatchWithInvalidOptions(): void
 	{
+		$this->expectException(InvalidOptionException::class);
+
+		$this->expectExceptionMessage('Invalid option [ bar ].');
+
 		$container = Mockery::mock('mako\syringe\Container');
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
@@ -177,11 +186,14 @@ class DispatcherTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\reactor\exceptions\InvalidOptionException
-	 * @expectedExceptionMessage Invalid option [ boo ].
+	 *
 	 */
 	public function testDispatchWithInvalidOptionsAndSuggestion(): void
 	{
+		$this->expectException(InvalidOptionException::class);
+
+		$this->expectExceptionMessage('Invalid option [ boo ].');
+
 		$container = Mockery::mock('mako\syringe\Container');
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
@@ -209,11 +221,14 @@ class DispatcherTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\reactor\exceptions\MissingArgumentException
-	 * @expectedExceptionMessage Missing required argument [ arg2 ].
+	 *
 	 */
 	public function testDispatchWithMissingRequiredArguments(): void
 	{
+		$this->expectException(MissingArgumentException::class);
+
+		$this->expectExceptionMessage('Missing required argument [ arg2 ].');
+
 		$container = Mockery::mock('mako\syringe\Container');
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');
@@ -232,11 +247,14 @@ class DispatcherTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\reactor\exceptions\MissingOptionException
-	 * @expectedExceptionMessage Missing required option [ foo ].
+	 *
 	 */
 	public function testDispatchWithMissingRequiredOptions(): void
 	{
+		$this->expectException(MissingOptionException::class);
+
+		$this->expectExceptionMessage('Missing required option [ foo ].');
+
 		$container = Mockery::mock('mako\syringe\Container');
 
 		$command = Mockery::mock('mako\reactor\CommandInterface');

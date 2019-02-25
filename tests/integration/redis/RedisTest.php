@@ -144,18 +144,22 @@ class RedisTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\redis\RedisException
+	 *
 	 */
 	public function testUnknownCommand(): void
 	{
+		$this->expectException(RedisException::class);
+
 		$this->redis->fooBarBaz();
 	}
 
 	/**
-	 * @expectedException \mako\redis\RedisException
+	 *
 	 */
 	public function testMissingParameter(): void
 	{
+		$this->expectException(RedisException::class);
+
 		$this->redis->set('foo');
 	}
 }

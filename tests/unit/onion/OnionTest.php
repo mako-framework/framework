@@ -8,6 +8,7 @@
 namespace mako\tests\unit\onion;
 
 use mako\onion\Onion;
+use mako\onion\OnionException;
 use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
@@ -222,11 +223,14 @@ class OnionTest extends TestCase
 	}
 
 	/**
-	 * @expectedException mako\onion\OnionException
-	 * @expectedExceptionMessage The Onion instance expects the middleware to be an instance of [ mako\tests\unit\onion\FooMiddleware2Interface ].
+	 *
 	 */
 	public function testMiddlewareWithInvalidMiddlewareInterfaceExpectation(): void
 	{
+		$this->expectException(OnionException::class);
+
+		$this->expectExceptionMessage('The Onion instance expects the middleware to be an instance of [ mako\tests\unit\onion\FooMiddleware2Interface ].');
+
 		$onion = new Onion(null, null, FooMiddleware2Interface::class);
 
 		$onion->addLayer(FooMiddleware1::class);

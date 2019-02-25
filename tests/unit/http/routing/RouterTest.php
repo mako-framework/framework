@@ -7,6 +7,8 @@
 
 namespace mako\tests\unit\http\routing;
 
+use mako\http\exceptions\MethodNotAllowedException;
+use mako\http\exceptions\NotFoundException;
 use mako\http\Request;
 use mako\http\request\Parameters;
 use mako\http\Response;
@@ -17,6 +19,7 @@ use mako\http\routing\Routes;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use RuntimeException;
 use Throwable;
 
 // --------------------------------------------------------------------------
@@ -61,10 +64,12 @@ class RouterTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\http\exceptions\NotFoundException
+	 *
 	 */
 	public function testPageNotFound(): void
 	{
+		$this->expectException(NotFoundException::class);
+
 		$routes = new Routes;
 
 		$routes->get('/bar', 'Foo::bar');
@@ -81,10 +86,12 @@ class RouterTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\http\exceptions\MethodNotAllowedException
+	 *
 	 */
 	public function testMethodNotAllowed(): void
 	{
+		$this->expectException(MethodNotAllowedException::class);
+
 		$routes = new Routes;
 
 		$routes->post('/foo', 'Foo::bar');
@@ -362,10 +369,12 @@ class RouterTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\http\exceptions\NotFoundException
+	 *
 	 */
 	public function testFailingConstraint(): void
 	{
+		$this->expectException(NotFoundException::class);
+
 		$routes = new Routes;
 
 		$routes->get('/foo', 'Foo::bar', 'get.foo')->constraint('foo');
@@ -388,10 +397,12 @@ class RouterTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\http\exceptions\NotFoundException
+	 *
 	 */
 	public function testGlobalFailingConstraint(): void
 	{
+		$this->expectException(NotFoundException::class);
+
 		$routes = new Routes;
 
 		$routes->get('/foo', 'Foo::bar', 'get.foo');
@@ -416,11 +427,14 @@ class RouterTest extends TestCase
 	}
 
 	/**
-	 * @expectedException RuntimeException
-	 * @expectedExceptionMessage No constraint named [ foo ] has been registered.
+	 *
 	 */
 	public function testUnregisteredConstraint(): void
 	{
+		$this->expectException(RuntimeException::class);
+
+		$this->expectExceptionMessage('No constraint named [ foo ] has been registered.');
+
 		$routes = new Routes;
 
 		$routes->get('/foo', 'Foo::bar', 'get.foo')->constraint('foo');

@@ -11,6 +11,7 @@ use mako\http\Request;
 use mako\http\routing\Route;
 use mako\tests\TestCase;
 use Mockery;
+use RuntimeException;
 
 /**
  * @group unit
@@ -620,10 +621,12 @@ class RequestTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 *
 	 */
 	public function testSignedCookieException(): void
 	{
+		$this->expectException(RuntimeException::class);
+
 		$request = new Request();
 
 		$request->getCookies()->getSigned('foo');

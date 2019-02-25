@@ -10,6 +10,7 @@ namespace mako\tests\unit\pixl;
 use mako\pixl\Image;
 use mako\tests\TestCase;
 use Mockery;
+use RuntimeException;
 
 /**
  * @group unit
@@ -37,10 +38,12 @@ class ImageTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 *
 	 */
 	public function testConstructorWithNonExistingFile(): void
 	{
+		$this->expectException(RuntimeException::class);
+
 		$processor = $this->getProcessor();
 
 		$image = new Image('foobar.png', $processor);
@@ -247,10 +250,12 @@ class ImageTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 *
 	 */
 	public function testWatermarkWithNonExistingFile(): void
 	{
+		$this->expectException(RuntimeException::class);
+
 		$processor = $this->getProcessor();
 
 		$processor->shouldReceive('open')->with(__FILE__)->once();

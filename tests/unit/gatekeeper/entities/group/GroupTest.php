@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\gatekeeper\entities\group;
 
+use LogicException;
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
 use mako\tests\TestCase;
@@ -42,11 +43,14 @@ class GroupTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage You can only add a user to a group that exist in the database.
+	 *
 	 */
 	public function testAddUserToNonExistingGroup(): void
 	{
+		$this->expectException(LogicException::class);
+
+		$this->expectExceptionMessage('You can only add a user to a group that exist in the database.');
+
 		$user = Mockery::mock(User::class);
 
 		$group = new Group();
@@ -55,11 +59,14 @@ class GroupTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage You can only add a user that exist in the database to a group.
+	 *
 	 */
 	public function testAddNonExistingUserToGroup(): void
 	{
+		$this->expectException(LogicException::class);
+
+		$this->expectExceptionMessage('You can only add a user that exist in the database to a group.');
+
 		$user = Mockery::mock(User::class);
 
 		$user->shouldReceive('isPersisted')->once()->andReturn(false);
@@ -70,11 +77,14 @@ class GroupTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage You can only remove a user from a group that exist in the database.
+	 *
 	 */
 	public function testRemoveUserFromNonExistingGroup(): void
 	{
+		$this->expectException(LogicException::class);
+
+		$this->expectExceptionMessage('You can only remove a user from a group that exist in the database.');
+
 		$user = Mockery::mock(User::class);
 
 		$group = new Group();
@@ -83,11 +93,14 @@ class GroupTest extends TestCase
 	}
 
  	/**
- 	 * @expectedException \LogicException
- 	 * @expectedExceptionMessage You can only remove a user that exist in the database from a group.
+ 	 *
  	 */
  	public function testRemoveNonExistingUserFromGroup(): void
 	{
+		$this->expectException(LogicException::class);
+
+		$this->expectExceptionMessage('You can only remove a user that exist in the database from a group.');
+
 		$user = Mockery::mock(User::class);
 
 		$user->shouldReceive('isPersisted')->once()->andReturn(false);
@@ -98,11 +111,14 @@ class GroupTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage You can only check if a user is a member of a group that exist in the database.
+	 *
 	 */
 	public function testIsMemberWithNonExistingGroup(): void
 	{
+		$this->expectException(LogicException::class);
+
+		$this->expectExceptionMessage('You can only check if a user is a member of a group that exist in the database.');
+
 		$user = Mockery::mock(User::class);
 
 		$group = new Group();
@@ -111,11 +127,14 @@ class GroupTest extends TestCase
 	}
 
  	/**
- 	 * @expectedException \LogicException
- 	 * @expectedExceptionMessage You can only check if a user that exist in the database is a member of a group.
+ 	 *
  	 */
  	public function testIsMemberWithNonExistingUser(): void
 	{
+		$this->expectException(LogicException::class);
+
+		$this->expectExceptionMessage('You can only check if a user that exist in the database is a member of a group.');
+
 		$user = Mockery::mock(User::class);
 
 		$user->shouldReceive('isPersisted')->once()->andReturn(false);

@@ -8,6 +8,7 @@
 namespace mako\tests\unit\redis;
 
 use mako\redis\Redis;
+use mako\redis\RedisException;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -107,10 +108,12 @@ class RedisTest extends TestCase
 	}
 
 	/**
-	 * @expectedException mako\redis\RedisException
+	 *
 	 */
 	public function testException(): void
 	{
+		$this->expectException(RedisException::class);
+
 		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();
@@ -267,11 +270,14 @@ class RedisTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\redis\RedisException
-	 * @expectedExcetionMessage \mako\redis\Redis::response(): Unable to handle server response.
+	 *
 	 */
 	public function testInvalidResponse(): void
 	{
+		$this->expectException(RedisException::class);
+
+		$this->expectExceptionMessage('Unable to handle server response [ foobar ].');
+
 		$connection = Mockery::mock('mako\redis\Connection');
 
 		$connection->shouldReceive('write')->once();

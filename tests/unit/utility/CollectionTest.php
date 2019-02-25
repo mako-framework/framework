@@ -7,8 +7,10 @@
 
 namespace mako\tests\unit\utility;
 
+use BadMethodCallException;
 use mako\tests\TestCase;
 use mako\utility\Collection;
+use OutOfBoundsException;
 
 /**
  * @group unit
@@ -164,11 +166,14 @@ class CollectionTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \OutOfBoundsException
-	 * @expectedExceptionMessage Undefined offset [ 0 ].
+	 *
 	 */
 	public function testOffsetGetWithUndefinedOffset(): void
 	{
+		$this->expectException(OutOfBoundsException::class);
+
+		$this->expectExceptionMessage('Undefined offset [ 0 ].');
+
 		$collection = new Collection();
 
 		$collection[0];
@@ -404,10 +409,12 @@ class CollectionTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \BadMethodCallException
+	 *
 	 */
 	public function testException(): void
 	{
+		$this->expectException(BadMethodCallException::class);
+
 		$collection = new Collection();
 
 		$collection->nope();

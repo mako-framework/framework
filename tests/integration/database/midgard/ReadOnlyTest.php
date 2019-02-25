@@ -8,6 +8,7 @@
 namespace mako\tests\integration\database\midgard;
 
 use DateTime;
+use mako\database\midgard\traits\exceptions\ReadOnlyException;
 use mako\tests\integration\ORMTestCase;
 
 // --------------------------------------------------------------------------
@@ -32,10 +33,12 @@ class TestUserReadOnly extends TestUser
 class ReadOnlyTest extends ORMTestCase
 {
 	/**
-	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
+	 *
 	 */
 	public function saveReadOnly(): void
 	{
+		$this->expectException(ReadOnlyException::class);
+
 		$dateTime = new DateTime;
 
 		$user = new TestUserReadOnly();
@@ -50,20 +53,24 @@ class ReadOnlyTest extends ORMTestCase
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
+	 *
 	 */
 	public function testCreateReadOnly(): void
 	{
+		$this->expectException(ReadOnlyException::class);
+
 		$dateTime = new DateTime;
 
 		$user = TestUserReadOnly::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
+	 *
 	 */
 	public function testUpdateReadOnly(): void
 	{
+		$this->expectException(ReadOnlyException::class);
+
 		$user = TestUserReadOnly::get(1);
 
 		$user->username = 'bax';
@@ -72,10 +79,12 @@ class ReadOnlyTest extends ORMTestCase
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\traits\exceptions\ReadOnlyException
+	 *
 	 */
 	public function testDeleteReadOnly(): void
 	{
+		$this->expectException(ReadOnlyException::class);
+
 		$user = TestUserReadOnly::get(1);
 
 		$user->delete();

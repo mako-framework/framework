@@ -9,6 +9,7 @@ namespace mako\tests\unit\common;
 
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\tests\TestCase;
+use RuntimeException;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -105,10 +106,12 @@ class NamespacedFileLoaderTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 *
 	 */
 	public function testGetPathWithSuffixUnknownNamespace(): void
 	{
+		$this->expectException(RuntimeException::class);
+
 		$loader = new NamespacedFileLoader;
 
 		$this->assertSame('/foo.php', $loader->getPath('foo'));

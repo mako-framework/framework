@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\http\request;
 
+use mako\http\request\exceptions\UploadException;
 use mako\http\request\UploadedFile;
 use mako\tests\TestCase;
 
@@ -136,22 +137,28 @@ class UploadedFileTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\http\request\exceptions\UploadException
-	 * @expectedExceptionMessage The uploaded file exceeds the upload_max_filesize directive in php.ini.
+	 *
 	 */
 	public function testMoveToWithError(): void
 	{
+		$this->expectException(UploadException::class);
+
+		$this->expectExceptionMessage('The uploaded file exceeds the upload_max_filesize directive in php.ini.');
+
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', UPLOAD_ERR_INI_SIZE);
 
 		$file->moveTo(__FILE__);
 	}
 
 	/**
-	 * @expectedException \mako\http\request\exceptions\UploadException
-	 * @expectedExceptionMessage The file that you're trying to move was not uploaded.
+	 *
 	 */
 	public function testMoveToWithNonUploadedFile(): void
 	{
+		$this->expectException(UploadException::class);
+
+		$this->expectExceptionMessage('The file that you\'re trying to move was not uploaded.');
+
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
 		$file->moveTo(__FILE__);

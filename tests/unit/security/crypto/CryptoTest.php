@@ -8,6 +8,7 @@
 namespace mako\tests\unit\security\crypto;
 
 use mako\security\crypto\Crypto;
+use mako\security\crypto\CryptoException;
 use mako\security\crypto\encrypters\EncrypterInterface;
 use mako\security\Signer;
 use mako\tests\TestCase;
@@ -55,11 +56,14 @@ class CryptoTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\security\crypto\CryptoException
-	 * @expectedExceptionMessage Ciphertex has been modified or an invalid authentication key has been provided.
+	 *
 	 */
 	public function testDecryptModifiedCiphertext(): void
 	{
+		$this->expectException(CryptoException::class);
+
+		$this->expectExceptionMessage('Ciphertex has been modified or an invalid authentication key has been provided.');
+
 		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('validate')->once()->with('signedbarfoo')->andReturn(false);

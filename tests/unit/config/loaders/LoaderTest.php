@@ -8,6 +8,7 @@
 namespace mako\tests\unit\config\loaders;
 
 use mako\config\loaders\Loader;
+use mako\config\loaders\LoaderException;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -41,10 +42,12 @@ class ConfigTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\config\loaders\LoaderException
+	 *
 	 */
 	public function testLoadNonExistingFile(): void
 	{
+		$this->expectException(LoaderException::class);
+
 		$fileSystem = $this->getFileSystem();
 
 		$fileSystem->shouldReceive('has')->once()->with('/app/config/settings.php')->andReturn(false);

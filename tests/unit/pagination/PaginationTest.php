@@ -10,6 +10,7 @@ namespace mako\tests\unit\pagination;
 use mako\pagination\Pagination;
 use mako\tests\TestCase;
 use Mockery;
+use RuntimeException;
 
 /**
  * @group unit
@@ -169,30 +170,36 @@ class PaginationTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 *
 	 */
 	public function testRenderException(): void
 	{
+		$this->expectException(RuntimeException::class);
+
 		$pagination = new Pagination(200, 20, 1);
 
 		$pagination->render('partials.pagination');
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 *
 	 */
 	public function testPaginateExceptionWithNoRequest(): void
 	{
+		$this->expectException(RuntimeException::class);
+
 		$pagination = new Pagination(200, 20, 1);
 
 		$pagination->pagination();
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 *
 	 */
 	public function testPaginateExceptionWithNoUrlBuilder(): void
 	{
+		$this->expectException(RuntimeException::class);
+
 		$pagination = new Pagination(200, 20, 1);
 
 		$pagination->setRequest($this->getRequest());

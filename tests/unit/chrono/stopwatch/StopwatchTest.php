@@ -88,7 +88,7 @@ class StopwatchTest extends TestCase
 
 		$stopwatch->lap();
 
-		$this->assertInternalType('float', $stopwatch->stop());
+		$this->assertIsFloat($stopwatch->stop());
 
 		foreach($stopwatch->getLaps() as $lap)
 		{
@@ -105,7 +105,7 @@ class StopwatchTest extends TestCase
 
 		$stopwatch->start();
 
-		$this->assertInternalType('float', $stopwatch->getElapsedTime());
+		$this->assertIsFloat($stopwatch->getElapsedTime());
 
 		$stopped = $stopwatch->stop();
 

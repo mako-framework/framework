@@ -12,6 +12,7 @@ use mako\cli\output\helpers\Table;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
+use RuntimeException;
 
 /**
  * @group unit
@@ -155,10 +156,12 @@ class TableTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 *
 	 */
 	public function testInvalidInput(): void
 	{
+		$this->expectException(RuntimeException::class);
+
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->once()->andReturn(null);

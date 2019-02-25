@@ -8,6 +8,8 @@
 namespace mako\tests\unit\gatekeeper\repositories\group;
 
 use Closure;
+use InvalidArgumentException;
+use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\tests\TestCase;
 use Mockery;
@@ -107,11 +109,14 @@ class GroupRepositoryTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessage Invalid identifier [ nope ].
+	 *
 	 */
 	public function testSetInvalidIdentifier(): void
 	{
+		$this->expectException(InvalidArgumentException::class);
+
+		$this->expectExceptionMessage('Invalid identifier [ nope ].');
+
 		$this->getRepository()->setIdentifier('nope');
 	}
 }

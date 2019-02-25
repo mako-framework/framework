@@ -9,6 +9,7 @@ namespace mako\tests\unit\validator\rules\file;
 
 use mako\tests\TestCase;
 use mako\validator\rules\file\MaxFilesize;
+use RuntimeException;
 use SplFileInfo;
 
 /**
@@ -51,11 +52,14 @@ class MaxFilesizeTest extends TestCase
 	}
 
 	/**
-	 * @expectedException RuntimeException
-	 * @expectedExceptionMessage Invalid unit type [ Foo ].
+	 *
 	 */
 	public function testConvertToBytesWithInvalidUnit(): void
 	{
+		$this->expectException(RuntimeException::class);
+
+		$this->expectExceptionMessage('Invalid unit type [ Foo ].');
+
 		$rule = new class(0) extends MaxFilesize
 		{
 			public function convert($size)

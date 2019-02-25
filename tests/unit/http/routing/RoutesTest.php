@@ -9,6 +9,7 @@ namespace mako\tests\unit\http\routing;
 
 use mako\http\routing\Routes;
 use mako\tests\TestCase;
+use RuntimeException;
 
 /**
  * @group unit
@@ -86,10 +87,12 @@ class RoutesTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 *
 	 */
 	public function testNamedRouteException(): void
 	{
+		$this->expectException(RuntimeException::class);
+
 		$routes = new Routes();
 
 		$routes->getNamedRoute('foo');

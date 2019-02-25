@@ -8,6 +8,7 @@
 namespace mako\tests\unit\i18n;
 
 use mako\i18n\loaders\Loader;
+use mako\i18n\loaders\LoaderException;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -55,11 +56,14 @@ class LoaderTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\i18n\loaders\LoaderException
-	 * @expectedExceptionMessage The [ en_US ] language pack does not have a [ /app/i18n/en_US/strings/foobar.php ] file.
+	 *
 	 */
 	public function testBasicNonExistingStringLoading(): void
 	{
+		$this->expectException(LoaderException::class);
+
+		$this->expectExceptionMessage('The [ en_US ] language pack does not have a [ /app/i18n/en_US/strings/foobar.php ] file.');
+
 		$fileSystem = $this->getFileSystem();
 
 		$fileSystem->shouldReceive('has')->once()->with('/app/i18n/en_US/strings/foobar.php')->andReturn(false);

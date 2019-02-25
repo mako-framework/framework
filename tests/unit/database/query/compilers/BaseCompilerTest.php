@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
+use Exception;
 use mako\database\query\compilers\Compiler;
 use mako\database\query\Query;
 use mako\database\query\Raw;
@@ -198,11 +199,14 @@ class BaseCompilerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Exception
-	 * @expectedExceptionMessage The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.
+	 *
 	 */
 	public function testSelectWithJSONColumn(): void
 	{
+		$this->expectException(Exception::class);
+
+		$this->expectExceptionMessage('The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.');
+
 		$query = $this->getBuilder();
 
 		$query->select(['json->0->bar']);
@@ -1271,11 +1275,14 @@ class BaseCompilerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Exception
-	 * @expectedExceptionMessage The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.
+	 *
 	 */
 	public function testUpdateWithJSONColumn(): void
 	{
+		$this->expectException(Exception::class);
+
+		$this->expectExceptionMessage('The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.');
+
 		$query = $this->getBuilder();
 
 		$query = $query->getCompiler()->update(['data->foo->bar->0' => 1]);

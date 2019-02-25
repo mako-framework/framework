@@ -9,6 +9,7 @@ namespace mako\tests\unit\validator\rules;
 
 use mako\tests\TestCase;
 use mako\validator\rules\IP;
+use RuntimeException;
 
 /**
  * @group unit
@@ -93,11 +94,14 @@ class IPTest extends TestCase
 	}
 
 	/**
-	 * @expectedException RuntimeException
-	 * @expectedExceptionMessage Invalid IP version [ v7 ]. The accepted versions are v4 and v6.
+	 *
 	 */
 	public function testWithInvalidVersion(): void
 	{
+		$this->expectException(RuntimeException::class);
+
+		$this->expectExceptionMessage('Invalid IP version [ v7 ]. The accepted versions are v4 and v6.');
+
 		$rule = new IP('v7');
 
 		$this->assertTrue($rule->validate('::1', []));

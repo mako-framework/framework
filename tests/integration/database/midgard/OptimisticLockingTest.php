@@ -7,6 +7,7 @@
 
 namespace mako\tests\integration\database\midgard;
 
+use mako\database\midgard\traits\exceptions\StaleRecordException;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 
@@ -34,10 +35,12 @@ class OptimisticLock extends TestORM
 class OptimisticLockingTest extends ORMTestCase
 {
 	/**
-	 * @expectedException \mako\database\midgard\traits\exceptions\StaleRecordException
+	 *
 	 */
 	public function testOptimisticLockUpdate(): void
 	{
+		$this->expectException(StaleRecordException::class);
+
 		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
 
 		$record2 = OptimisticLock::ascending('id')->limit(1)->first();
@@ -52,10 +55,12 @@ class OptimisticLockingTest extends ORMTestCase
 	}
 
 	/**
-	 * @expectedException \mako\database\midgard\traits\exceptions\StaleRecordException
+	 *
 	 */
 	public function testOptimisticLockDelete(): void
 	{
+		$this->expectException(StaleRecordException::class);
+
 		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
 
 		$record2 = OptimisticLock::ascending('id')->limit(1)->first();

@@ -9,6 +9,7 @@ namespace mako\tests\unit\i18n;
 
 use mako\cache\stores\StoreInterface;
 use mako\i18n\I18n;
+use mako\i18n\I18nException;
 use mako\i18n\loaders\LoaderInterface;
 use mako\tests\TestCase;
 use Mockery;
@@ -229,11 +230,14 @@ class I18nTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \mako\i18n\I18nException
-	 * @expectedExceptionMessage The [ en_US ] language pack does not include any inflection rules.
+	 *
 	 */
 	public function testPluralizeWithoutPluralizationRules(): void
 	{
+		$this->expectException(I18nException::class);
+
+		$this->expectExceptionMessage('The [ en_US ] language pack does not include any inflection rules.');
+
 		$loader = $this->getLoader();
 
 		$loader->shouldReceive('loadInflection')->once()->with('en_US')->andReturn(null);

@@ -15,6 +15,7 @@ use mako\http\routing\Dispatcher;
 use mako\http\routing\middleware\MiddlewareInterface;
 use mako\tests\TestCase;
 use Mockery;
+use RuntimeException;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -534,11 +535,14 @@ class DispatcherTest extends TestCase
 	}
 
 	/**
-	 * @expectedException RuntimeException
-	 * @expectedExceptionMessage No middleware named [ foobar ] has been registered.
+	 *
 	 */
 	public function testUnregisteredMiddleware(): void
 	{
+		$this->expectException(RuntimeException::class);
+
+		$this->expectExceptionMessage('No middleware named [ foobar ] has been registered.');
+
 		$route = Mockery::mock('\mako\http\routing\Route');
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn(['foobar']);

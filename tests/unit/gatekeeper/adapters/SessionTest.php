@@ -20,6 +20,7 @@ use mako\http\response\Headers as ResponseHeaders;
 use mako\session\Session as HttpSession;
 use mako\tests\TestCase;
 use Mockery;
+use RuntimeException;
 
 /**
  * @group unit
@@ -451,11 +452,14 @@ class SessionTest extends TestCase
 	}
 
 	/**
-	 * @expectedException RuntimeException
-	 * @expectedExceptionMessage Attempted to set a secure cookie over a non-secure connection.
+	 *
 	 */
 	public function testSuccessfulLoginWithRememberMeWithSecureCookieOverNonSecureConnection(): void
 	{
+		$this->expectException(RuntimeException::class);
+
+		$this->expectExceptionMessage('Attempted to set a secure cookie over a non-secure connection.');
+
 		$user = $this->getUser();
 
 		$user->shouldReceive('validatePassword')->once()->with('password')->andReturn(true);

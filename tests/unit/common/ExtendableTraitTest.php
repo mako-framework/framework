@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\common;
 
+use BadMethodCallException;
 use mako\common\traits\ExtendableTrait;
 use mako\tests\TestCase;
 
@@ -53,10 +54,12 @@ class ExtendableTraitTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \BadMethodCallException
+	 *
 	 */
 	public function testException(): void
 	{
+		$this->expectException(BadMethodCallException::class);
+
 		$collection = new Extended();
 
 		$collection->nope();

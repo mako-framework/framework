@@ -9,6 +9,7 @@ namespace mako\tests\unit\common;
 
 use mako\common\traits\FunctionParserTrait;
 use mako\tests\TestCase;
+use RuntimeException;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -134,10 +135,12 @@ class FunctionParserTraitTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
+	 *
 	 */
 	public function testFunctionWithInvalidJson(): void
 	{
+		$this->expectException(RuntimeException::class);
+
 		$parser = new Parser;
 
 		$parser->parse('foo(bar)');
