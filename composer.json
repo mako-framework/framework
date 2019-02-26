@@ -48,8 +48,8 @@
 		}
 	},
 	"suggest": {
-		"ext-openssl": "Required to use the crypto library.",
-		"ext-pdo": "Required to use the database library.",
-		"ext-simplexml": "Required if you want the error handlers to be able to serve XML."
+		"ext-openssl": "Required to use the crypto library",
+		"ext-pdo": "Required to use the database library",
+		"ext-simplexml": "Required if you want the error handlers to be able to serve XML"
 	}
 }
