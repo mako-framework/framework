@@ -30,6 +30,8 @@
 	},
 	"require": {
 		"php": ">=7.2.0",
+		"ext-json": "*",
+		"ext-mbstring": "*",
 		"monolog/monolog": "^1.24.0",
 		"filp/whoops": "^2.3",
 		"symfony/var-dumper": "^4.2"
@@ -44,5 +46,10 @@
 		"branch-alias": {
 			 "dev-master": "6.0-dev"
 		}
+	},
+	"suggest": {
+		"ext-openssl": "Required to use the crypto library",
+		"ext-pdo": "Required to use the database library",
+		"ext-simplexml": "Required if you want the error handlers to be able to serve XML"
 	}
 }
