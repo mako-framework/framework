@@ -8,7 +8,7 @@
 namespace mako\application\services;
 
 use mako\gatekeeper\adapters\Session;
-use mako\gatekeeper\Authentication;
+use mako\gatekeeper\Gatekeeper;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
@@ -27,7 +27,7 @@ class GatekeeperService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([Authentication::class, 'gatekeeper'], function($container)
+		$this->container->registerSingleton([Gatekeeper::class, 'gatekeeper'], function($container)
 		{
 			$request = $container->get(Request::class);
 
@@ -37,7 +37,7 @@ class GatekeeperService extends Service
 
 			$config = $this->config->get('gatekeeper');
 
-			return new Authentication('session', function() use ($request, $response, $session, $config)
+			return new Gatekeeper('session', function() use ($request, $response, $session, $config)
 			{
 				$userRepository = new UserRepository($config['user_model']);
 

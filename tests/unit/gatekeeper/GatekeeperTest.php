@@ -8,14 +8,14 @@
 namespace mako\tests\unit\gatekeeper;
 
 use mako\gatekeeper\adapters\AdapterInterface;
-use mako\gatekeeper\Authentication;
+use mako\gatekeeper\Gatekeeper;
 use mako\tests\TestCase;
 use Mockery;
 
 /**
  * @group unit
  */
-class AuthenticationTest extends TestCase
+class GatekeeperTest extends TestCase
 {
 	/**
 	 *
@@ -31,7 +31,7 @@ class AuthenticationTest extends TestCase
 			return $adapter;
 		};
 
-		$authentication = new Authentication('foobar', $factory);
+		$authentication = new Gatekeeper('foobar', $factory);
 
 		$authentication->hello();
 	}
@@ -47,7 +47,7 @@ class AuthenticationTest extends TestCase
 
 		$adapter->shouldReceive('hello')->once();
 
-		$authentication = new Authentication($adapter);
+		$authentication = new Gatekeeper($adapter);
 
 		$authentication->hello();
 	}
@@ -61,7 +61,7 @@ class AuthenticationTest extends TestCase
 
 		$adapter->shouldReceive('getName')->once()->andReturn('foobar');
 
-		$authentication = new Authentication($adapter);
+		$authentication = new Gatekeeper($adapter);
 
 		$authentication->extend('barfoo', function()
 		{
@@ -84,7 +84,7 @@ class AuthenticationTest extends TestCase
 
 		$adapter->shouldReceive('getName')->once()->andReturn('foobar');
 
-		$authentication = new Authentication($adapter);
+		$authentication = new Gatekeeper($adapter);
 
 		$adapter = Mockery::mock(AdapterInterface::class);
 
@@ -104,7 +104,7 @@ class AuthenticationTest extends TestCase
 
 		$adapter->shouldReceive('getName')->once()->andReturn('foobar');
 
-		$authentication = new Authentication($adapter);
+		$authentication = new Gatekeeper($adapter);
 
 		$adapter = Mockery::mock(AdapterInterface::class);
 

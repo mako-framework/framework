@@ -29,6 +29,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1`. Most a
 * Middleware parameters are now injected through the constructor.
 * Validator rule parameters are now injected via the constructor.
 * Removed the `Output::hasAnsiSupport()` method.
+* The `mako\gatekeeper\Authentication` class has been renamed to `mako\gatekeeper\Gatekeeper`.
 
 > Check out the upgrade guide for details on how to upgrade from `5.7.*.`
 

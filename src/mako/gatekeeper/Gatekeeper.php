@@ -11,7 +11,7 @@ use Closure;
 use mako\gatekeeper\adapters\AdapterInterface;
 
 /**
- * Authentication.
+ * Gatekeeper.
  *
  * @author Frederic G. Østby
  *
@@ -23,7 +23,7 @@ use mako\gatekeeper\adapters\AdapterInterface;
  * @method bool                                                       isGuest()
  * @method bool                                                       isLoggedIn()
  */
-class Authentication
+class Gatekeeper
 {
 	/**
 	 * Status code for banned users.
@@ -114,9 +114,9 @@ class Authentication
 	 *
 	 * @param  string|\mako\gatekeeper\adapters\AdapterInterface $adapter Adapter name or adapter instance
 	 * @param  \Closure|null                                     $factory Adapter factory
-	 * @return \mako\gatekeeper\Authentication
+	 * @return \mako\gatekeeper\Gatekeeper
 	 */
-	public function extend($adapter, ?Closure $factory = null): Authentication
+	public function extend($adapter, ?Closure $factory = null): Gatekeeper
 	{
 		$this->registerAdapter($adapter, $factory);
 
@@ -126,10 +126,10 @@ class Authentication
 	/**
 	 * Sets the defaut adapter name.
 	 *
-	 * @param  string                          $name Adapter name
-	 * @return \mako\gatekeeper\Authentication
+	 * @param  string                      $name Adapter name
+	 * @return \mako\gatekeeper\Gatekeeper
 	 */
-	public function useAsDefaultAdapter(string $name): Authentication
+	public function useAsDefaultAdapter(string $name): Gatekeeper
 	{
 		$this->defaultAdapter = $name;
 

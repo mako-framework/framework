@@ -28,7 +28,7 @@ use function vsprintf;
  * @property \mako\database\ConnectionManager            $database
  * @property \mako\event\Event                           $event
  * @property \mako\error\ErrorHandler                    $errorHandler
- * @property \mako\gatekeeper\Authentication             $gatekeeper
+ * @property \mako\gatekeeper\Gatekeeper                 $gatekeeper
  * @property \mako\utility\Humanizer                     $humanizer
  * @property \mako\i18n\I18n                             $i18n
  * @property \Psr\Log\LoggerInterface                    $logger

@@ -8,7 +8,7 @@
 namespace mako\application\services;
 
 use mako\application\Application;
-use mako\gatekeeper\Authentication;
+use mako\gatekeeper\Gatekeeper;
 use mako\logger\Logger;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\HandlerInterface;
@@ -31,9 +31,9 @@ class LoggerService extends Service
 	 */
 	protected function getContext(): array
 	{
-		if($this->container->has(Authentication::class))
+		if($this->container->has(Gatekeeper::class))
 		{
-			$user = $this->container->get(Authentication::class)->getUser();
+			$user = $this->container->get(Gatekeeper::class)->getUser();
 
 			return ['user_id' => $user !== null ? $user->getId() : null];
 		}

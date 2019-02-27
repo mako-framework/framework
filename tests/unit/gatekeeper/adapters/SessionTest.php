@@ -8,9 +8,9 @@
 namespace mako\tests\unit\gatekeeper\adapters;
 
 use mako\gatekeeper\adapters\Session;
-use mako\gatekeeper\Authentication;
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
+use mako\gatekeeper\Gatekeeper;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
@@ -316,7 +316,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
-		$this->assertEquals(Authentication::LOGIN_INCORRECT, $adapter->login('foo@example.org', 'password'));
+		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $adapter->login('foo@example.org', 'password'));
 	}
 
 	/**
@@ -334,7 +334,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
-		$this->assertEquals(Authentication::LOGIN_INCORRECT, $adapter->login('foo@example.org', 'password'));
+		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $adapter->login('foo@example.org', 'password'));
 	}
 
 	/**
@@ -354,7 +354,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
-		$this->assertEquals(Authentication::LOGIN_ACTIVATING, $adapter->login('foo@example.org', 'password'));
+		$this->assertEquals(Gatekeeper::LOGIN_ACTIVATING, $adapter->login('foo@example.org', 'password'));
 	}
 
 	/**
@@ -376,7 +376,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
-		$this->assertEquals(Authentication::LOGIN_BANNED, $adapter->login('foo@example.org', 'password'));
+		$this->assertEquals(Gatekeeper::LOGIN_BANNED, $adapter->login('foo@example.org', 'password'));
 	}
 
 	/**
@@ -588,7 +588,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession(), $options);
 
-		$this->assertEquals(Authentication::LOGIN_INCORRECT, $adapter->login('foo@example.org', 'password'));
+		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $adapter->login('foo@example.org', 'password'));
 	}
 
 	/**
@@ -646,7 +646,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession(), $options);
 
-		$this->assertEquals(Authentication::LOGIN_LOCKED, $adapter->login('foo@example.org', 'password'));
+		$this->assertEquals(Gatekeeper::LOGIN_LOCKED, $adapter->login('foo@example.org', 'password'));
 	}
 
 	/**

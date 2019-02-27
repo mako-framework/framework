@@ -7,9 +7,9 @@
 
 namespace mako\gatekeeper\adapters;
 
-use mako\gatekeeper\Authentication;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\entities\user\UserEntityInterface;
+use mako\gatekeeper\Gatekeeper;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
@@ -181,19 +181,19 @@ class Session extends Adapter
 		{
 			if($this->options['throttling']['enabled'] && $user->isLocked())
 			{
-				return Authentication::LOGIN_LOCKED;
+				return Gatekeeper::LOGIN_LOCKED;
 			}
 
 			if($force || $user->validatePassword($password))
 			{
 				if(!$user->isActivated())
 				{
-					return Authentication::LOGIN_ACTIVATING;
+					return Gatekeeper::LOGIN_ACTIVATING;
 				}
 
 				if($user->isBanned())
 				{
-					return Authentication::LOGIN_BANNED;
+					return Gatekeeper::LOGIN_BANNED;
 				}
 
 				if($this->options['throttling']['enabled'])
@@ -214,7 +214,7 @@ class Session extends Adapter
 			}
 		}
 
-		return Authentication::LOGIN_INCORRECT;
+		return Gatekeeper::LOGIN_INCORRECT;
 	}
 
 	/**
@@ -247,7 +247,7 @@ class Session extends Adapter
 	{
 		if(empty($identifier))
 		{
-			return Authentication::LOGIN_INCORRECT;
+			return Gatekeeper::LOGIN_INCORRECT;
 		}
 
 		$authenticated = $this->authenticate($identifier, $password, $force);
