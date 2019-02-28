@@ -29,16 +29,10 @@ class GatekeeperService extends Service
 	{
 		$this->container->registerSingleton([Gatekeeper::class, 'gatekeeper'], function($container)
 		{
-			$request = $container->get(Request::class);
-
-			$response = $container->get(Response::class);
-
-			$session = $container->get(HttpSession::class);
-
-			$config = $this->config->get('gatekeeper');
-
-			return new Gatekeeper('session', function() use ($request, $response, $session, $config)
+			return new Gatekeeper('session', function() use ($container)
 			{
+				$config = $this->config->get('gatekeeper');
+
 				$userRepository = new UserRepository($config['user_model']);
 
 				$userRepository->setIdentifier($config['identifier']);
@@ -51,6 +45,12 @@ class GatekeeperService extends Service
 					'cookie_options' => $config['cookie_options'],
 					'throttling'     => $config['throttling'],
 				];
+
+				$request = $container->get(Request::class);
+
+				$response = $container->get(Response::class);
+
+				$session = $container->get(HttpSession::class);
 
 				return new Session($userRepository, $groupRepository, $request, $response, $session, $options);
 			});
