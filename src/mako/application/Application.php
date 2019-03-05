@@ -100,8 +100,6 @@ abstract class Application
 		$this->startTime = microtime(true);
 
 		$this->applicationPath = $applicationPath;
-
-		$this->boot();
 	}
 
 	/**
@@ -112,14 +110,16 @@ abstract class Application
 	 * @throws \LogicException
 	 * @return \mako\application\Application
 	 */
-	public static function start(string $applicationPath)
+	public static function start(string $applicationPath): Application
 	{
 		if(!empty(static::$instance))
 		{
 			throw new LogicException('The application has already been started.');
 		}
 
-		return static::$instance = new static($applicationPath);
+		static::$instance = new static($applicationPath);
+
+		return static::$instance->boot();
 	}
 
 	/**
@@ -128,7 +128,7 @@ abstract class Application
 	 * @throws \LogicException
 	 * @return \mako\application\Application
 	 */
-	public static function instance()
+	public static function instance(): Application
 	{
 		if(empty(static::$instance))
 		{
@@ -480,8 +480,10 @@ abstract class Application
 
 	/**
 	 * Boots the application.
+	 *
+	 * @return \mako\application\Application
 	 */
-	protected function boot(): void
+	public function boot(): Application
 	{
 		// Set up the framework core
 
@@ -506,6 +508,10 @@ abstract class Application
 		// Boot packages
 
 		$this->bootPackages();
+
+		// Return application instnace
+
+		return $this;
 	}
 
 	/**
