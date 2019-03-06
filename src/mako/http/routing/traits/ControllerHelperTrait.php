@@ -57,12 +57,14 @@ trait ControllerHelperTrait
 	/**
 	 * Returns a stream response container.
 	 *
-	 * @param  \Closure                           $stream Stream
+	 * @param  \Closure                           $stream      Stream
+	 * @param  string|null                        $contentType Content type
+	 * @param  string|null                        $charset     Character set
 	 * @return \mako\http\response\senders\Stream
 	 */
-	protected function streamResponse(Closure $stream): Stream
+	protected function streamResponse(Closure $stream, ?string $contentType = null, ?string $charset = null): Stream
 	{
-		return new Stream($stream);
+		return new Stream($stream, $contentType, $charset);
 	}
 
 	/**
@@ -70,10 +72,12 @@ trait ControllerHelperTrait
 	 *
 	 * @param  mixed                             $data    Data
 	 * @param  int                               $options JSON encode coptions
+	 * @param  int|null                          $status  Status code
+	 * @param  string|null                       $charset Character set
 	 * @return \mako\http\response\builders\JSON
 	 */
-	protected function jsonResponse($data, int $options = 0): JSON
+	protected function jsonResponse($data, int $options = 0, ?int $status = null, ?string $charset = null): JSON
 	{
-		return new JSON($data, $options);
+		return new JSON($data, $options, $status, $charset);
 	}
 }

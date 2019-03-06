@@ -39,13 +39,59 @@ class Stream implements ResponseSenderInterface
 	protected $stream;
 
 	/**
+	 * Content type.
+	 *
+	 * @var string|null
+	 */
+	protected $contentType;
+
+	/**
+	 * Character set.
+	 *
+	 * @var string|null
+	 */
+	protected $charset;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param \Closure $stream Stream
+	 * @param \Closure    $stream      Stream
+	 * @param string|null $contentType Content type
+	 * @param string|null $charset     Character set
 	 */
-	public function __construct(Closure $stream)
+	public function __construct(Closure $stream, ?string $contentType = null, ?string $charset = null)
 	{
 		$this->stream = $stream;
+
+		$this->contentType = $contentType;
+
+		$this->charset = $charset;
+	}
+
+	/**
+	 * Set the content type.
+	 *
+	 * @param  string                             $contentType [description]
+	 * @return \mako\http\response\senders\Stream
+	 */
+	public function setType(string $contentType): Stream
+	{
+		$this->contentType = $contentType;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the status code.
+	 *
+	 * @param  string                             $charset Character set
+	 * @return \mako\http\response\senders\Stream
+	 */
+	public function setCharset(string $charset): Stream
+	{
+		$this->charset = $charset;
+
+		return $this;
 	}
 
 	/**
@@ -107,6 +153,16 @@ class Stream implements ResponseSenderInterface
 		{
 			$response->getHeaders()->add('Content-Encoding', 'chunked');
 			$response->getHeaders()->add('Transfer-Encoding', 'chunked');
+		}
+
+		if(!empty($this->contentType))
+		{
+			$response->setType($this->contentType);
+		}
+
+		if(!empty($this->charset))
+		{
+			$response->setCharset($this->charset);
 		}
 
 		$response->sendHeaders();

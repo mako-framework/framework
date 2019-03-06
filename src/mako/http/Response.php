@@ -61,7 +61,7 @@ class Response
 	protected $contentType = 'text/html';
 
 	/**
-	 * Response charset.
+	 * Response character set.
 	 *
 	 * @var string
 	 */
@@ -197,7 +197,7 @@ class Response
 	 * Constructor.
 	 *
 	 * @param \mako\http\Request         $request Request instance
-	 * @param string                     $charset Response charset
+	 * @param string                     $charset Response character set
 	 * @param \mako\security\Signer|null $signer  Signer instance used to sign cookies
 	 */
 	public function __construct(Request $request, string $charset = 'UTF-8', ?Signer $signer = null)
@@ -276,9 +276,9 @@ class Response
 	}
 
 	/**
-	 * Sets the response charset.
+	 * Sets the response character set.
 	 *
-	 * @param  string              $charset Charset
+	 * @param  string              $charset Character set
 	 * @return \mako\http\Response
 	 */
 	public function setCharset(string $charset): Response
@@ -289,7 +289,7 @@ class Response
 	}
 
 	/**
-	 * Returns the response charset.
+	 * Returns the response character set.
 	 *
 	 * @return string
 	 */

@@ -66,6 +66,54 @@ class JSONTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBuildWithCharset(): void
+	{
+		$request = Mockery::mock(Request::class);
+
+		$response = Mockery::mock(Response::class);
+
+		$response->shouldReceive('setType')->once()->with('application/json');
+
+		$response->shouldReceive('setCharset')->once()->with('UTF-8');
+
+		$response->shouldReceive('setBody')->once()->with('[1,2,3]');
+
+		//
+
+		$json = new JSON([1, 2, 3]);
+
+		$json->setCharset('UTF-8');
+
+		$json->build($request, $response);
+	}
+
+	/**
+	 *
+	 */
+	public function testBuildWithStatusAndCharsetFromConstructor(): void
+	{
+		$request = Mockery::mock(Request::class);
+
+		$response = Mockery::mock(Response::class);
+
+		$response->shouldReceive('setType')->once()->with('application/json');
+
+		$response->shouldReceive('setStatus')->once()->with(200);
+
+		$response->shouldReceive('setCharset')->once()->with('UTF-8');
+
+		$response->shouldReceive('setBody')->once()->with('[1,2,3]');
+
+		//
+
+		$json = new JSON([1, 2, 3], 0, 200, 'UTF-8');
+
+		$json->build($request, $response);
+	}
+
+	/**
+	 *
+	 */
 	public function testBuildWithJsonpWithCallback(): void
 	{
 		$query = Mockery::mock(Parameters::class);

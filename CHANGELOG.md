@@ -16,6 +16,9 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a f
 	- `Environment::getHeight()`
 	- `Environment::hasAnsiSupport()`
 * Added `Output::getEnvironment()` method.
+* Added `JSON::setCharset()` method.
+* Added `Stream::contentType()` method.
+* Added `Stream::setCharset()` method.
 
 #### Changes
 

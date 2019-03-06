@@ -37,28 +37,41 @@ class JSON implements ResponseBuilderInterface
 	/**
 	 * Callback.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $callback;
 
 	/**
 	 * Status code.
 	 *
-	 * @var int
+	 * @var int|null
 	 */
 	protected $status;
 
 	/**
+	 * Character set.
+	 *
+	 * @var string|null
+	 */
+	protected $charset;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param mixed $data    Data
-	 * @param int   $options JSON encode options
+	 * @param mixed       $data    Data
+	 * @param int         $options JSON encode options
+	 * @param int|null    $status  Status code
+	 * @param string|null $charset Character set
 	 */
-	public function __construct($data, int $options = 0)
+	public function __construct($data, int $options = 0, ?int $status = null, ?string $charset = null)
 	{
 		$this->data = $data;
 
 		$this->options = $options;
+
+		$this->status = $status;
+
+		$this->charset = $charset;
 	}
 
 	/**
@@ -83,6 +96,19 @@ class JSON implements ResponseBuilderInterface
 	public function setStatus(int $status): JSON
 	{
 		$this->status = $status;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the status code.
+	 *
+	 * @param  string                            $charset Character set
+	 * @return \mako\http\response\builders\JSON
+	 */
+	public function setCharset(string $charset): JSON
+	{
+		$this->charset = $charset;
 
 		return $this;
 	}
@@ -124,6 +150,11 @@ class JSON implements ResponseBuilderInterface
 		if(!empty($this->status))
 		{
 			$response->setStatus($this->status);
+		}
+
+		if(!empty($this->charset))
+		{
+			$response->setCharset($this->charset);
 		}
 
 		$response->setBody($json);
