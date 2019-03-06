@@ -113,7 +113,7 @@ class File implements ResponseSenderInterface
 	 * @param  string                           $name File name
 	 * @return \mako\http\response\senders\File
 	 */
-	public function name(string $name): File
+	public function setName(string $name): File
 	{
 		$this->fileName = $name;
 
@@ -126,7 +126,7 @@ class File implements ResponseSenderInterface
 	 * @param  string                           $disposition Content disposition
 	 * @return \mako\http\response\senders\File
 	 */
-	public function disposition(string $disposition): File
+	public function setDisposition(string $disposition): File
 	{
 		$this->disposition = $disposition;
 
@@ -139,7 +139,7 @@ class File implements ResponseSenderInterface
 	 * @param  string                           $type Mime type
 	 * @return \mako\http\response\senders\File
 	 */
-	public function type(string $type): File
+	public function setType(string $type): File
 	{
 		$this->contentType = $type;
 
