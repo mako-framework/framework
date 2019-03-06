@@ -751,13 +751,13 @@ class Request
 	}
 
 	/**
-	 * Returns the referer.
+	 * Returns the referrer.
 	 *
-	 * @param  mixed $default Value to return if no referer is set
+	 * @param  mixed $default Value to return if no referrer is set
 	 * @return mixed
 	 */
-	public function getReferer($default = null)
+	public function getReferrer($default = null)
 	{
-		return $this->headers->get('referer', $default);
+		return $this->headers->get('referer', $default); // Referrer should be left misspelled here as it's a part of the HTTP spec
 	}
 }

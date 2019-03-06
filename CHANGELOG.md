@@ -42,7 +42,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a f
 * The `Request::realMethod()` method has been renamed to `Request::getRealMethod()`.
 * The `Request::username()` method has been renamed to `Request::getUsername()`.
 * The `Request::password()` method has been renamed to `Request::getPassword()`.
-* The `Request::referer()` method has been renamed to `Request::getReferer()`.
+* The `Request::referer()` method has been renamed to `Request::getReferrer()`.
 * The `Headers::acceptableContentTypes()` method has been renamed to `Headers::getAcceptableContentTypes()`.
 * The `Headers::acceptableLanguages()` method has been renamed to `Headers::getAcceptableLanguages()`.
 * The `Headers::acceptableCharsets()` method has been renamed to `Headers::getAcceptableCharsets()`.
