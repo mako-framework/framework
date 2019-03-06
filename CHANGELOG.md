@@ -7,7 +7,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 * Added `optional` validation rule.
 * Added `time_zone` validation rule.
 * Added `Validator::validate()` method that returns the validated input on success and throws an `ValidationException` on failure.
-* The container now supports parameters that are nullable but not optional.
 * The container will now inject `null` when unable to resolve a nullable or optional class dependency.
 * Added `Logger` class that extends the monolog logger with functionality to set global log context parameters (the gatekeeper user id will automatically be added if possible).
 * Added the `mako\cli\Environment` class with the following methods:
