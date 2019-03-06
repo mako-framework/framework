@@ -58,11 +58,11 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->twice()->andReturn('text/html');
 
-		$response->shouldReceive('type')->once()->with('text/html');
+		$response->shouldReceive('setType')->once()->with('text/html');
 
-		$response->shouldReceive('body')->once()->with('rendered')->andReturn($response);
+		$response->shouldReceive('setBody')->once()->with('rendered')->andReturn($response);
 
-		$response->shouldReceive('status')->once()->with(500)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(500)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 
@@ -116,11 +116,11 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->twice()->andReturn('text/html');
 
-		$response->shouldReceive('type')->once()->with('text/html');
+		$response->shouldReceive('setType')->once()->with('text/html');
 
-		$response->shouldReceive('body')->once()->with('rendered')->andReturn($response);
+		$response->shouldReceive('setBody')->once()->with('rendered')->andReturn($response);
 
-		$response->shouldReceive('status')->once()->with(405)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(405)->andReturn($response);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -165,11 +165,11 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('disableCompression')->once()->andReturn($response);
 
-		$response->shouldReceive('type')->once()->with('application/json');
+		$response->shouldReceive('setType')->once()->with('application/json');
 
-		$response->shouldReceive('body')->once()->with('{"error":{"code":500,"message":"An error has occurred while processing your request."}}')->andReturn($response);
+		$response->shouldReceive('setBody')->once()->with('{"error":{"code":500,"message":"An error has occurred while processing your request."}}')->andReturn($response);
 
-		$response->shouldReceive('status')->once()->with(500)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(500)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 
@@ -220,13 +220,13 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->twice()->andReturn('application/xml');
 
-		$response->shouldReceive('type')->once()->with('application/xml');
+		$response->shouldReceive('setType')->once()->with('application/xml');
 
-		$response->shouldReceive('body')->once()->with('<?xml version="1.0" encoding="utf-8"?>
+		$response->shouldReceive('setBody')->once()->with('<?xml version="1.0" encoding="utf-8"?>
 <error><code>500</code><message>An error has occurred while processing your request.</message></error>
 ')->andReturn($response);
 
-		$response->shouldReceive('status')->once()->with(500)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(500)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 

@@ -150,19 +150,19 @@ class ProductionHandler implements HandlerInterface
 	{
 		if($this->returnAsJson())
 		{
-			$this->response->type('application/json');
+			$this->response->setType('application/json');
 
 			return $this->getExceptionAsJson($exception);
 		}
 
 		if($this->returnAsXml())
 		{
-			$this->response->type('application/xml');
+			$this->response->setType('application/xml');
 
 			return $this->getExceptionAsXml($exception);
 		}
 
-		$this->response->type('text/html');
+		$this->response->setType('text/html');
 
 		return $this->getExceptionAsRenderedView($exception);
 	}
@@ -176,8 +176,8 @@ class ProductionHandler implements HandlerInterface
 		->clear()
 		->disableCaching()
 		->disableCompression()
-		->body($this->getBody($exception))
-		->status($this->getStatusCode($exception)), $exception);
+		->setBody($this->getBody($exception))
+		->setStatus($this->getStatusCode($exception)), $exception);
 
 		return false;
 	}

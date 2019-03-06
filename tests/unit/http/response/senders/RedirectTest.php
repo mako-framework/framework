@@ -30,7 +30,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(302);
+		$response->shouldReceive('setStatus')->once()->with(302);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -56,7 +56,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(304);
+		$response->shouldReceive('setStatus')->once()->with(304);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -66,7 +66,7 @@ class RedirectTest extends TestCase
 
 		$redirect = new Redirect('http://example.org');
 
-		$redirect->status(304);
+		$redirect->setStatus(304);
 
 		$redirect->send($request, $response);
 	}
@@ -84,7 +84,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(300);
+		$response->shouldReceive('setStatus')->once()->with(300);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -112,7 +112,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(301);
+		$response->shouldReceive('setStatus')->once()->with(301);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -140,7 +140,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(302);
+		$response->shouldReceive('setStatus')->once()->with(302);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -168,7 +168,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(303);
+		$response->shouldReceive('setStatus')->once()->with(303);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -196,7 +196,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(304);
+		$response->shouldReceive('setStatus')->once()->with(304);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -224,7 +224,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(305);
+		$response->shouldReceive('setStatus')->once()->with(305);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -252,7 +252,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(307);
+		$response->shouldReceive('setStatus')->once()->with(307);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -280,7 +280,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(308);
+		$response->shouldReceive('setStatus')->once()->with(308);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 

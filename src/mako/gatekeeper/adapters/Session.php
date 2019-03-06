@@ -119,7 +119,7 @@ class Session extends Adapter
 	{
 		$properties = $properties +
 		[
-			'ip' => $this->request->ip(),
+			'ip' => $this->request->getIp(),
 		];
 
 		return parent::createUser($email, $username, $password, $activate, $properties);
@@ -293,7 +293,7 @@ class Session extends Adapter
 	 */
 	public function basicAuth(bool $clearResponse = false): bool
 	{
-		if($this->isLoggedIn() || $this->login($this->request->username(), $this->request->password()) === true)
+		if($this->isLoggedIn() || $this->login($this->request->getUsername(), $this->request->getPassword()) === true)
 		{
 			return true;
 		}
@@ -305,7 +305,7 @@ class Session extends Adapter
 
 		$this->response->getHeaders()->add('WWW-Authenticate', 'basic');
 
-		$this->response->status(401);
+		$this->response->setStatus(401);
 
 		return false;
 	}

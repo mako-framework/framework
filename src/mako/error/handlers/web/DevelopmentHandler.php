@@ -141,9 +141,9 @@ class DevelopmentHandler implements HandlerInterface
 		->clear()
 		->disableCaching()
 		->disableCompression()
-		->body($this->whoops->handleException($exception))
-		->status($this->getStatusCode($exception))
-		->type(current($this->whoops->getHandlers())->contentType()), $exception);
+		->setBody($this->whoops->handleException($exception))
+		->setStatus($this->getStatusCode($exception))
+		->setType(current($this->whoops->getHandlers())->contentType()), $exception);
 
 		return false;
 	}

@@ -217,7 +217,7 @@ class Response
 	 * @param  mixed               $body Response body
 	 * @return \mako\http\Response
 	 */
-	public function body($body): Response
+	public function setBody($body): Response
 	{
 		$this->body = $body;
 
@@ -253,7 +253,7 @@ class Response
 	 * @param  string|null         $charset     Charset
 	 * @return \mako\http\Response
 	 */
-	public function type(string $contentType, ?string $charset = null): Response
+	public function setType(string $contentType, ?string $charset = null): Response
 	{
 		$this->contentType = $contentType;
 
@@ -281,7 +281,7 @@ class Response
 	 * @param  string              $charset Charset
 	 * @return \mako\http\Response
 	 */
-	public function charset(string $charset): Response
+	public function setCharset(string $charset): Response
 	{
 		$this->charset = $charset;
 
@@ -304,7 +304,7 @@ class Response
 	 * @param  int                 $statusCode HTTP status code
 	 * @return \mako\http\Response
 	 */
-	public function status(int $statusCode): Response
+	public function setStatus(int $statusCode): Response
 	{
 		if(isset($this->statusCodes[$statusCode]))
 		{
@@ -426,7 +426,7 @@ class Response
 	 *
 	 * @return \mako\http\Response
 	 */
-	public function cache(): Response
+	public function enableCaching(): Response
 	{
 		$this->responseCache = true;
 
@@ -450,7 +450,7 @@ class Response
 	 *
 	 * @return \mako\http\Response
 	 */
-	public function compress(): Response
+	public function enableCompression(): Response
 	{
 		$this->outputCompression = true;
 
@@ -511,7 +511,7 @@ class Response
 
 				if(str_replace('-gzip', '', $this->request->getHeaders()->get('If-None-Match')) === $hash)
 				{
-					$this->status(304);
+					$this->setStatus(304);
 
 					$sendBody = false;
 				}

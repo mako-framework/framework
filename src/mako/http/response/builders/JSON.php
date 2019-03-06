@@ -80,7 +80,7 @@ class JSON implements ResponseBuilderInterface
 	 * @param  int                               $status Status code
 	 * @return \mako\http\response\builders\JSON
 	 */
-	public function status(int $status): JSON
+	public function setStatus(int $status): JSON
 	{
 		$this->status = $status;
 
@@ -112,20 +112,20 @@ class JSON implements ResponseBuilderInterface
 
 		if(!empty($this->callback) && ($callback = $request->getQuery()->get($this->callback)) !== null)
 		{
-			$response->type('text/javascript');
+			$response->setType('text/javascript');
 
 			$json = '/**/' . $this->normalizeCallback($callback) . '(' . $json . ');';
 		}
 		else
 		{
-			$response->type('application/json');
+			$response->setType('application/json');
 		}
 
 		if(!empty($this->status))
 		{
-			$response->status($this->status);
+			$response->setStatus($this->status);
 		}
 
-		$response->body($json);
+		$response->setBody($json);
 	}
 }

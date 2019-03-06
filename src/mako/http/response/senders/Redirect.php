@@ -47,7 +47,7 @@ class Redirect implements ResponseSenderInterface
 	 * @param  int                                  $status Status code
 	 * @return \mako\http\response\senders\Redirect
 	 */
-	public function status(int $status): Redirect
+	public function setStatus(int $status): Redirect
 	{
 		$this->status = $status;
 
@@ -157,7 +157,7 @@ class Redirect implements ResponseSenderInterface
 	{
 		// Set status and location header
 
-		$response->status($this->status);
+		$response->setStatus($this->status);
 
 		$response->getHeaders()->add('Location', $this->location);
 

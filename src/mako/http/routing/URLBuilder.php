@@ -79,11 +79,11 @@ class URLBuilder
 
 		$this->cleanURLs = $cleanURLs;
 
-		$this->baseURL = $baseURL ?? $this->request->baseURL();
+		$this->baseURL = $baseURL ?? $this->request->getBaseURL();
 
-		$this->scriptName = $request->scriptName();
+		$this->scriptName = $request->getScriptName();
 
-		if(!empty($language = $request->languagePrefix()))
+		if(!empty($language = $request->getLanguagePrefix()))
 		{
 			$this->languagePrefix = '/' . $language;
 		}
@@ -97,7 +97,7 @@ class URLBuilder
 	 */
 	public function matches(string $pattern): bool
 	{
-		return (bool) preg_match('#' . $pattern . '#', $this->request->path());
+		return (bool) preg_match('#' . $pattern . '#', $this->request->getPath());
 	}
 
 	/**
@@ -175,7 +175,7 @@ class URLBuilder
 	{
 		$queryParams = $queryParams ?: $this->request->getQuery()->all();
 
-		return $this->to($this->request->path(), $queryParams, $separator, $language);
+		return $this->to($this->request->getPath(), $queryParams, $separator, $language);
 	}
 
 	/**

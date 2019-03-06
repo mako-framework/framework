@@ -28,9 +28,9 @@ class JSONTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('type')->once()->with('application/json');
+		$response->shouldReceive('setType')->once()->with('application/json');
 
-		$response->shouldReceive('body')->once()->with('[1,2,3]');
+		$response->shouldReceive('setBody')->once()->with('[1,2,3]');
 
 		//
 
@@ -48,17 +48,17 @@ class JSONTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('type')->once()->with('application/json');
+		$response->shouldReceive('setType')->once()->with('application/json');
 
-		$response->shouldReceive('status')->once()->with(400);
+		$response->shouldReceive('setStatus')->once()->with(400);
 
-		$response->shouldReceive('body')->once()->with('[1,2,3]');
+		$response->shouldReceive('setBody')->once()->with('[1,2,3]');
 
 		//
 
 		$json = new JSON([1, 2, 3]);
 
-		$json->status(400);
+		$json->setStatus(400);
 
 		$json->build($request, $response);
 	}
@@ -78,9 +78,9 @@ class JSONTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('type')->once()->with('text/javascript');
+		$response->shouldReceive('setType')->once()->with('text/javascript');
 
-		$response->shouldReceive('body')->once()->with('/**/jsonp([1,2,3]);');
+		$response->shouldReceive('setBody')->once()->with('/**/jsonp([1,2,3]);');
 
 		//
 
@@ -106,9 +106,9 @@ class JSONTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('type')->once()->with('text/javascript');
+		$response->shouldReceive('setType')->once()->with('text/javascript');
 
-		$response->shouldReceive('body')->once()->with('/**/callback([1,2,3]);');
+		$response->shouldReceive('setBody')->once()->with('/**/callback([1,2,3]);');
 
 		//
 
@@ -134,9 +134,9 @@ class JSONTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('type')->once()->with('application/json');
+		$response->shouldReceive('setType')->once()->with('application/json');
 
-		$response->shouldReceive('body')->once()->with('[1,2,3]');
+		$response->shouldReceive('setBody')->once()->with('[1,2,3]');
 
 		//
 

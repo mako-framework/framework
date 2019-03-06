@@ -78,9 +78,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('GET');
+		$request->shouldReceive('getMethod')->andReturn('GET');
 
-		$request->shouldReceive('path')->andReturn('/foo');
+		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		$router->route($request);
 	}
@@ -100,9 +100,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('GET');
+		$request->shouldReceive('getMethod')->andReturn('GET');
 
-		$request->shouldReceive('path')->andReturn('/foo');
+		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		try
 		{
@@ -129,9 +129,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('GET');
+		$request->shouldReceive('getMethod')->andReturn('GET');
 
-		$request->shouldReceive('path')->andReturn('/foo');
+		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		$routed = $router->route($request);
 
@@ -149,9 +149,9 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('isClean')->andReturn(true);
 
-		$request->shouldReceive('baseURL')->once()->andReturn('http://example.org');
+		$request->shouldReceive('getBaseURL')->once()->andReturn('http://example.org');
 
-		$request->shouldReceive('languagePrefix')->once()->andReturn('en');
+		$request->shouldReceive('getLanguagePrefix')->once()->andReturn('en');
 
 		$query = Mockery::mock(Parameters::class);
 
@@ -171,7 +171,7 @@ class RouterTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('status')->once()->with(301);
+		$response->shouldReceive('setStatus')->once()->with(301);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -193,9 +193,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('GET');
+		$request->shouldReceive('getMethod')->andReturn('GET');
 
-		$request->shouldReceive('path')->andReturn('/foo');
+		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		$routed = $router->route($request);
 
@@ -213,11 +213,11 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('isClean')->andReturn(false);
 
-		$request->shouldReceive('scriptName')->andReturn('index.php');
+		$request->shouldReceive('getScriptName')->andReturn('index.php');
 
-		$request->shouldReceive('baseURL')->once()->andReturn('http://example.org');
+		$request->shouldReceive('getBaseURL')->once()->andReturn('http://example.org');
 
-		$request->shouldReceive('languagePrefix')->once()->andReturn('en');
+		$request->shouldReceive('getLanguagePrefix')->once()->andReturn('en');
 
 		$query = Mockery::mock(Parameters::class);
 
@@ -237,7 +237,7 @@ class RouterTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('status')->once()->with(301);
+		$response->shouldReceive('setStatus')->once()->with(301);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -259,9 +259,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('OPTIONS');
+		$request->shouldReceive('getMethod')->andReturn('OPTIONS');
 
-		$request->shouldReceive('path')->andReturn('/foo');
+		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		$routed = $router->route($request);
 
@@ -299,9 +299,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('GET');
+		$request->shouldReceive('getMethod')->andReturn('GET');
 
-		$request->shouldReceive('path')->andReturn('/foo');
+		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		$routed = $router->route($request);
 
@@ -325,9 +325,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('GET');
+		$request->shouldReceive('getMethod')->andReturn('GET');
 
-		$request->shouldReceive('path')->andReturn('/foo/123');
+		$request->shouldReceive('getPath')->andReturn('/foo/123');
 
 		$routed = $router->route($request);
 
@@ -357,9 +357,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('GET');
+		$request->shouldReceive('getMethod')->andReturn('GET');
 
-		$request->shouldReceive('path')->andReturn('/foo');
+		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		$routed = $router->route($request);
 
@@ -389,9 +389,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('GET');
+		$request->shouldReceive('getMethod')->andReturn('GET');
 
-		$request->shouldReceive('path')->andReturn('/foo');
+		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		$router->route($request);
 	}
@@ -419,9 +419,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('GET');
+		$request->shouldReceive('getMethod')->andReturn('GET');
 
-		$request->shouldReceive('path')->andReturn('/foo');
+		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		$router->route($request);
 	}
@@ -443,9 +443,9 @@ class RouterTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$request->shouldReceive('method')->andReturn('GET');
+		$request->shouldReceive('getMethod')->andReturn('GET');
 
-		$request->shouldReceive('path')->andReturn('/foo');
+		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		$router->route($request);
 	}

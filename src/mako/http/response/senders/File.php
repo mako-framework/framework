@@ -287,7 +287,7 @@ class File implements ResponseSenderInterface
 	{
 		// Add headers that should always be included
 
-		$response->type($this->getContenType());
+		$response->setType($this->getContenType());
 
 		$response->getHeaders()->add('Accept-Ranges', $request->isSafe() ? 'bytes' : 'none');
 
@@ -307,7 +307,7 @@ class File implements ResponseSenderInterface
 			// Not an acceptable range so we'll just send an empty response
 			// along with a "requested range not satisfiable" status
 
-			$response->status(416);
+			$response->setStatus(416);
 
 			$response->sendHeaders();
 		}
@@ -327,7 +327,7 @@ class File implements ResponseSenderInterface
 				// Valid range so we'll need to tell the client which range we're sending
 				// and set the content-length header value to the length of the byte range
 
-				$response->status(206);
+				$response->setStatus(206);
 
 				$response->getHeaders()->add('Content-Range', sprintf('bytes %s-%s/%s', $range['start'], $range['end'], $this->fileSize));
 

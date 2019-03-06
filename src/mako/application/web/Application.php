@@ -33,7 +33,7 @@ class Application extends BaseApplication
 
 		// Override the application language?
 
-		if(($language = $request->language()) !== null)
+		if(($language = $request->getLanguage()) !== null)
 		{
 			$this->setLanguage($language);
 

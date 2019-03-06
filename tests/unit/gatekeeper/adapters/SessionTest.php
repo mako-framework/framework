@@ -126,7 +126,7 @@ class SessionTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('ip')->once()->andReturn('127.0.0.1');
+		$request->shouldReceive('getIp')->once()->andReturn('127.0.0.1');
 
 		$userRepository = $this->getUserRepository();
 
@@ -144,7 +144,7 @@ class SessionTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('ip')->once()->andReturn('127.0.0.1');
+		$request->shouldReceive('getIp')->once()->andReturn('127.0.0.1');
 
 		$userRepository = $this->getUserRepository();
 
@@ -656,9 +656,9 @@ class SessionTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('username')->once()->andReturn(null);
+		$request->shouldReceive('getUsername')->once()->andReturn(null);
 
-		$request->shouldReceive('password')->once()->andReturn(null);
+		$request->shouldReceive('getPassword')->once()->andReturn(null);
 
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
@@ -668,7 +668,7 @@ class SessionTest extends TestCase
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
-		$response->shouldReceive('status')->once()->with(401);
+		$response->shouldReceive('setStatus')->once()->with(401);
 
 		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $response, $this->getSession()])->makePartial();
 
@@ -686,9 +686,9 @@ class SessionTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('username')->once()->andReturn(null);
+		$request->shouldReceive('getUsername')->once()->andReturn(null);
 
-		$request->shouldReceive('password')->once()->andReturn(null);
+		$request->shouldReceive('getPassword')->once()->andReturn(null);
 
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
@@ -698,7 +698,7 @@ class SessionTest extends TestCase
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
-		$response->shouldReceive('status')->once()->with(401);
+		$response->shouldReceive('setStatus')->once()->with(401);
 
 		$response->shouldReceive('clear')->once();
 
@@ -730,9 +730,9 @@ class SessionTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		$request->shouldReceive('username')->once()->andReturn('foo@example.org');
+		$request->shouldReceive('getUsername')->once()->andReturn('foo@example.org');
 
-		$request->shouldReceive('password')->once()->andReturn('password');
+		$request->shouldReceive('getPassword')->once()->andReturn('password');
 
 		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $this->getResponse(), $this->getSession()])->makePartial();
 

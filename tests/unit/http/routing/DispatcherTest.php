@@ -100,7 +100,7 @@ class ControllerWithAfterFilter extends \mako\http\routing\Controller
 
 	public function afterAction(): void
 	{
-		$this->response->body(strtoupper($this->response->getBody()));
+		$this->response->setBody(strtoupper($this->response->getBody()));
 	}
 
 	public function foo()
@@ -135,7 +135,7 @@ class FooMiddleware implements MiddlewareInterface
 
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		return $response->body(str_replace(' ', $this->separator, $next($request, $response)->getBody()));
+		return $response->setBody(str_replace(' ', $this->separator, $next($request, $response)->getBody()));
 	}
 }
 
@@ -145,7 +145,7 @@ class BazMiddleware implements MiddlewareInterface
 	{
 		$response = $next($request, $response);
 
-		$response->body('AA ' . $response->getBody() . ' AA');
+		$response->setBody('AA ' . $response->getBody() . ' AA');
 
 		return $response;
 	}
@@ -157,7 +157,7 @@ class BaxMiddleware implements MiddlewareInterface
 	{
 		$response = $next($request, $response);
 
-		$response->body('BB ' . $response->getBody() . ' BB');
+		$response->setBody('BB ' . $response->getBody() . ' BB');
 
 		return $response;
 	}

@@ -47,7 +47,7 @@ class ResponseTest extends TestCase
 	{
 		$response = new Response($this->getRequest());
 
-		$response->body('Hello, world!');
+		$response->setBody('Hello, world!');
 
 		$this->assertEquals('Hello, world!', $response->getBody());
 	}
@@ -59,7 +59,7 @@ class ResponseTest extends TestCase
 	{
 		$response = new Response($this->getRequest());
 
-		$response->body(new Redirect('foobar'));
+		$response->setBody(new Redirect('foobar'));
 
 		$this->assertInstanceOf('\mako\http\response\senders\Redirect', $response->getBody());
 	}
@@ -71,7 +71,7 @@ class ResponseTest extends TestCase
 	{
 		$response = new Response($this->getRequest());
 
-		$response->body(new JSON('foobar'));
+		$response->setBody(new JSON('foobar'));
 
 		$this->assertInstanceOf('\mako\http\response\builders\JSON', $response->getBody());
 	}
@@ -83,7 +83,7 @@ class ResponseTest extends TestCase
 	{
 		$response = new Response($this->getRequest());
 
-		$response->body('Hello, world!');
+		$response->setBody('Hello, world!');
 
 		$response->clearBody();
 
@@ -103,7 +103,7 @@ class ResponseTest extends TestCase
 
 		$response = new Response($this->getRequest());
 
-		$response->type('application/json');
+		$response->setType('application/json');
 
 		$this->assertEquals('application/json', $response->getType());
 	}
@@ -115,7 +115,7 @@ class ResponseTest extends TestCase
 	{
 		$response = new Response($this->getRequest());
 
-		$response->type('application/json', 'iso-8859-1');
+		$response->setType('application/json', 'iso-8859-1');
 
 		$this->assertEquals('application/json', $response->getType());
 
@@ -135,7 +135,7 @@ class ResponseTest extends TestCase
 
 		$response = new Response($this->getRequest());
 
-		$response->charset('iso-8859-1');
+		$response->setCharset('iso-8859-1');
 
 		$this->assertEquals('iso-8859-1', $response->getCharset());
 	}
@@ -153,7 +153,7 @@ class ResponseTest extends TestCase
 
 		$response = new Response($this->getRequest());
 
-		$response->status(404);
+		$response->setStatus(404);
 
 		$this->assertEquals(404, $response->getStatus());
 
@@ -161,7 +161,7 @@ class ResponseTest extends TestCase
 
 		$response = new Response($this->getRequest());
 
-		$response->status(999); // Invalid status code
+		$response->setStatus(999); // Invalid status code
 
 		$this->assertEquals(200, $response->getStatus());
 	}
@@ -173,7 +173,7 @@ class ResponseTest extends TestCase
 	{
 		$response = new Response($this->getRequest());
 
-		$response->body('Hello, world!');
+		$response->setBody('Hello, world!');
 
 		foreach($this->getHeaders() as $header => $value)
 		{
@@ -198,7 +198,7 @@ class ResponseTest extends TestCase
 	{
 		$response = new Response($this->getRequest());
 
-		$response->body('Hello, world!');
+		$response->setBody('Hello, world!');
 
 		foreach($this->getHeaders() as $header => $value)
 		{
@@ -207,7 +207,7 @@ class ResponseTest extends TestCase
 
 		$response->getCookies()->add('foo', 'foo cookie');
 
-		$response->status(404);
+		$response->setStatus(404);
 
 		$this->assertInstanceOf(Response::class, $response->reset());
 

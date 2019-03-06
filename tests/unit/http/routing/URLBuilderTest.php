@@ -23,13 +23,13 @@ class URLBuilderTest extends TestCase
 	{
 		$request = Mockery::mock('\mako\http\Request');
 
-		$request->shouldReceive('path')->andReturn('/foo/bar');
+		$request->shouldReceive('getPath')->andReturn('/foo/bar');
 
-		$request->shouldReceive('baseURL')->andReturn('http://example.org');
+		$request->shouldReceive('getBaseURL')->andReturn('http://example.org');
 
-		$request->shouldReceive('languagePrefix')->andReturn($langPrefix);
+		$request->shouldReceive('getLanguagePrefix')->andReturn($langPrefix);
 
-		$request->shouldReceive('scriptName')->andReturn('index.php');
+		$request->shouldReceive('getScriptName')->andReturn('index.php');
 
 		return $request;
 	}
@@ -89,11 +89,11 @@ class URLBuilderTest extends TestCase
 	{
 		$request = Mockery::mock('\mako\http\Request');
 
-		$request->shouldReceive('languagePrefix')->once()->andReturn('');
+		$request->shouldReceive('getLanguagePrefix')->once()->andReturn('');
 
-		$request->shouldReceive('scriptName')->andReturn('index.php');
+		$request->shouldReceive('getScriptName')->andReturn('index.php');
 
-		$request->shouldReceive('baseURL')->never();
+		$request->shouldReceive('getBaseURL')->never();
 
 		$urlBuilder = new URLBuilder($request, $this->getRoutes(), false, 'http://example.com');
 

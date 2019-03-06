@@ -183,7 +183,7 @@ class Router
 	{
 		return new Route([], '', function(Request $request) use ($requestPath)
 		{
-			$url = $request->baseURL() . ($request->isClean() ? '' : '/' . $request->scriptName()) . rtrim('/' . $request->languagePrefix(), '/') . $requestPath . '/';
+			$url = $request->getBaseURL() . ($request->isClean() ? '' : '/' . $request->getScriptName()) . rtrim('/' . $request->getLanguagePrefix(), '/') . $requestPath . '/';
 
 			$query = $request->getQuery()->all();
 
@@ -192,7 +192,7 @@ class Router
 				$url .= '?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986);
 			}
 
-			return (new Redirect($url))->status(301);
+			return (new Redirect($url))->setStatus(301);
 		});
 	}
 
@@ -243,9 +243,9 @@ class Router
 	 */
 	public function route(Request $request): Route
 	{
-		$requestMethod = $request->method();
+		$requestMethod = $request->getMethod();
 
-		$requestPath = $request->path();
+		$requestPath = $request->getPath();
 
 		foreach($this->routes->getRoutesByMethod($requestMethod) as $route)
 		{

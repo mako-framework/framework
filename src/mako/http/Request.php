@@ -317,7 +317,7 @@ class Request
 	 *
 	 * @return string
 	 */
-	public function contentType(): string
+	public function getContentType(): string
 	{
 		if($this->contentType === null)
 		{
@@ -332,7 +332,7 @@ class Request
 	 *
 	 * @return string
 	 */
-	public function scriptName(): string
+	public function getScriptName(): string
 	{
 		return $this->scriptName;
 	}
@@ -474,7 +474,7 @@ class Request
 	{
 		if($this->parsedBody === null)
 		{
-			$this->parsedBody = new Body($this->getRawBody(), $this->contentType());
+			$this->parsedBody = new Body($this->getRawBody(), $this->getContentType());
 		}
 
 		return $this->parsedBody;
@@ -487,7 +487,7 @@ class Request
 	 */
 	protected function hasFormData(): bool
 	{
-		$contentType = $this->contentType();
+		$contentType = $this->getContentType();
 
 		if($contentType === 'application/x-www-form-urlencoded' || $contentType === 'multipart/form-data')
 		{
@@ -531,7 +531,7 @@ class Request
 	 *
 	 * @return string
 	 */
-	public function ip(): string
+	public function getIp(): string
 	{
 		if($this->ip === null)
 		{
@@ -613,7 +613,7 @@ class Request
 	 *
 	 * @return string
 	 */
-	public function basePath(): string
+	public function getBasePath(): string
 	{
 		if($this->basePath === null)
 		{
@@ -630,7 +630,7 @@ class Request
 	 *
 	 * @return string
 	 */
-	public function baseURL(): string
+	public function getBaseURL(): string
 	{
 		if($this->baseURL === null)
 		{
@@ -654,7 +654,7 @@ class Request
 
 			// Put them all together along with the base path
 
-			$this->baseURL = $protocol . $host . $this->basePath();
+			$this->baseURL = $protocol . $host . $this->getBasePath();
 		}
 
 		return $this->baseURL;
@@ -665,7 +665,7 @@ class Request
 	 *
 	 * @return string
 	 */
-	public function path(): string
+	public function getPath(): string
 	{
 		return $this->path;
 	}
@@ -685,7 +685,7 @@ class Request
 	 *
 	 * @return array|null
 	 */
-	public function language(): ?array
+	public function getLanguage(): ?array
 	{
 		return $this->language;
 	}
@@ -695,7 +695,7 @@ class Request
 	 *
 	 * @return string|null
 	 */
-	public function languagePrefix(): ?string
+	public function getLanguagePrefix(): ?string
 	{
 		return $this->languagePrefix;
 	}
@@ -705,7 +705,7 @@ class Request
 	 *
 	 * @return string
 	 */
-	public function method(): string
+	public function getMethod(): string
 	{
 		return $this->method;
 	}
@@ -715,7 +715,7 @@ class Request
 	 *
 	 * @return string
 	 */
-	public function realMethod(): string
+	public function getRealMethod(): string
 	{
 		return $this->realMethod;
 	}
@@ -735,7 +735,7 @@ class Request
 	 *
 	 * @return string|null
 	 */
-	public function username(): ?string
+	public function getUsername(): ?string
 	{
 		return $this->server->get('PHP_AUTH_USER');
 	}
@@ -745,7 +745,7 @@ class Request
 	 *
 	 * @return string|null
 	 */
-	public function password(): ?string
+	public function getPassword(): ?string
 	{
 		return $this->server->get('PHP_AUTH_PW');
 	}
@@ -756,7 +756,7 @@ class Request
 	 * @param  mixed $default Value to return if no referer is set
 	 * @return mixed
 	 */
-	public function referer($default = null)
+	public function getReferer($default = null)
 	{
 		return $this->headers->get('referer', $default);
 	}

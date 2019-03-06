@@ -69,7 +69,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('index.php', $request->scriptName());
+		$this->assertEquals('index.php', $request->getScriptName());
 
 		//
 
@@ -77,7 +77,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('app.php', $request->scriptName());
+		$this->assertEquals('app.php', $request->getScriptName());
 	}
 
 	/**
@@ -137,7 +137,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('10.17.12.209', $request->ip());
+		$this->assertEquals('10.17.12.209', $request->getIp());
 
 		// Should fall back to localhost if an invalid IP is detected
 
@@ -145,7 +145,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('127.0.0.1', $request->ip());
+		$this->assertEquals('127.0.0.1', $request->getIp());
 
 		// Should ignore the X-Forwarded-For header if no list of trusted proxies is specified
 
@@ -155,7 +155,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('127.0.0.1', $request->ip());
+		$this->assertEquals('127.0.0.1', $request->getIp());
 
 		// Should return the IP forwarded by the first trusted proxy
 
@@ -163,7 +163,7 @@ class RequestTest extends TestCase
 
 		$request->setTrustedProxies(['10.17.12.213']);
 
-		$this->assertEquals('10.17.12.212', $request->ip());
+		$this->assertEquals('10.17.12.212', $request->getIp());
 
 		// Should return the IP forwarded by the first trusted proxy
 
@@ -171,7 +171,7 @@ class RequestTest extends TestCase
 
 		$request->setTrustedProxies(['10.17.12.212', '10.17.12.213']);
 
-		$this->assertEquals('10.17.13.1', $request->ip());
+		$this->assertEquals('10.17.13.1', $request->getIp());
 
 		// Should return the IP forwarded by the first trusted proxy
 
@@ -179,7 +179,7 @@ class RequestTest extends TestCase
 
 		$request->setTrustedProxies(['10.17.12.0/24']);
 
-		$this->assertEquals('10.17.13.1', $request->ip());
+		$this->assertEquals('10.17.13.1', $request->getIp());
 	}
 
 	/**
@@ -271,7 +271,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('', $request->basePath());
+		$this->assertEquals('', $request->getBasePath());
 
 		//
 
@@ -281,7 +281,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('/foo/bar', $request->basePath());
+		$this->assertEquals('/foo/bar', $request->getBasePath());
 	}
 
 	/**
@@ -293,7 +293,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('http://example.local', $request->baseURL());
+		$this->assertEquals('http://example.local', $request->getBaseURL());
 
 		//
 
@@ -303,7 +303,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('https://example.local', $request->baseURL());
+		$this->assertEquals('https://example.local', $request->getBaseURL());
 
 		//
 
@@ -315,7 +315,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('https://example.local:8080', $request->baseURL());
+		$this->assertEquals('https://example.local:8080', $request->getBaseURL());
 
 		//
 
@@ -327,7 +327,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('https://example.local', $request->baseURL());
+		$this->assertEquals('https://example.local', $request->getBaseURL());
 
 		//
 
@@ -341,7 +341,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('https://example.local:8080', $request->baseURL());
+		$this->assertEquals('https://example.local:8080', $request->getBaseURL());
 
 		//
 
@@ -351,7 +351,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('http://example.local/foo/bar', $request->baseURL());
+		$this->assertEquals('http://example.local/foo/bar', $request->getBaseURL());
 	}
 
 	/**
@@ -363,7 +363,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('/test/', $request->path());
+		$this->assertEquals('/test/', $request->getPath());
 
 		//
 
@@ -371,7 +371,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('/test/', $request->path());
+		$this->assertEquals('/test/', $request->getPath());
 
 		//
 
@@ -381,13 +381,13 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('/test/', $request->path());
+		$this->assertEquals('/test/', $request->getPath());
 
 		//
 
 		$request = new Request(['server' => $server, 'path' => '/foo/bar']);
 
-		$this->assertEquals('/foo/bar', $request->path());
+		$this->assertEquals('/foo/bar', $request->getPath());
 	}
 
 	/**
@@ -401,7 +401,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server, 'languages' => ['no' => ['strings' => 'nb_NO', 'locale' => [LC_ALL => ['nb_NO.UTF-8', 'nb_NO.utf8', 'C'], LC_NUMERIC => 'C']]]]);
 
-		$this->assertEquals('/test/', $request->path());
+		$this->assertEquals('/test/', $request->getPath());
 	}
 
 	/**
@@ -431,7 +431,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server, 'languages' => ['no' => ['strings' => 'nb_NO', 'locale' => [LC_ALL => ['nb_NO.UTF-8', 'nb_NO.utf8', 'C'], LC_NUMERIC => 'C']]]]);
 
-		$this->assertEquals(['strings' => 'nb_NO', 'locale' => [LC_ALL => ['nb_NO.UTF-8', 'nb_NO.utf8', 'C'], LC_NUMERIC => 'C']], $request->language());
+		$this->assertEquals(['strings' => 'nb_NO', 'locale' => [LC_ALL => ['nb_NO.UTF-8', 'nb_NO.utf8', 'C'], LC_NUMERIC => 'C']], $request->getLanguage());
 	}
 
 	/**
@@ -445,7 +445,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server, 'languages' => ['no' => ['strings' => 'nb_NO', 'locale' => [LC_ALL => ['nb_NO.UTF-8', 'nb_NO.utf8', 'C'], LC_NUMERIC => 'C']]]]);
 
-		$this->assertEquals('no', $request->languagePrefix());
+		$this->assertEquals('no', $request->getLanguagePrefix());
 	}
 
 	/**
@@ -457,13 +457,13 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('GET', $request->method());
+		$this->assertEquals('GET', $request->getMethod());
 
 		//
 
 		$request = new Request(['server' => $server, 'method' => 'PATCH']);
 
-		$this->assertEquals('PATCH', $request->method());
+		$this->assertEquals('PATCH', $request->getMethod());
 
 		//
 
@@ -471,7 +471,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server, 'post' => ['REQUEST_METHOD_OVERRIDE' => 'PUT']]);
 
-		$this->assertEquals('PUT', $request->method());
+		$this->assertEquals('PUT', $request->getMethod());
 
 		//
 
@@ -479,7 +479,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('OPTIONS', $request->method());
+		$this->assertEquals('OPTIONS', $request->getMethod());
 	}
 
 	/**
@@ -491,7 +491,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('GET', $request->realMethod());
+		$this->assertEquals('GET', $request->getRealMethod());
 
 		//
 
@@ -499,7 +499,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server, 'post' => ['REQUEST_METHOD_OVERRIDE' => 'PUT']]);
 
-		$this->assertEquals('POST', $request->realMethod());
+		$this->assertEquals('POST', $request->getRealMethod());
 
 		//
 
@@ -507,7 +507,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('POST', $request->realMethod());
+		$this->assertEquals('POST', $request->getRealMethod());
 	}
 
 	/**
@@ -547,7 +547,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertNull($request->username());
+		$this->assertNull($request->getUsername());
 
 		//
 
@@ -555,7 +555,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('foobar', $request->username());
+		$this->assertEquals('foobar', $request->getUsername());
 	}
 
 	/**
@@ -567,7 +567,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertNull($request->password());
+		$this->assertNull($request->getPassword());
 
 		//
 
@@ -575,7 +575,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('foobar', $request->password());
+		$this->assertEquals('foobar', $request->getPassword());
 	}
 
 	/**
@@ -725,7 +725,7 @@ class RequestTest extends TestCase
 	{
 		$request = new Request;
 
-		$this->assertSame('', $request->contentType());
+		$this->assertSame('', $request->getContentType());
 	}
 
 	/**
@@ -739,7 +739,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertSame('application/json', $request->contentType());
+		$this->assertSame('application/json', $request->getContentType());
 	}
 
 	/**
@@ -753,7 +753,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertSame('application/json', $request->contentType());
+		$this->assertSame('application/json', $request->getContentType());
 	}
 
 	/**
