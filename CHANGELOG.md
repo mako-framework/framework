@@ -1,6 +1,6 @@
 ### 6.0.0 <small> (2019-??-??)</small>
 
-The major version bump is due to dropped support for PHP `7.0` and `7.1` and a few breaking changes. Most applications built using Mako `5.7.0` should run on Mako `6.0.0` with just a few simple adjustments.
+The major version bump is due to dropped support for PHP `7.0` and `7.1` and a several breaking changes. Most applications built using Mako `5.7.0` should run on Mako `6.0.0` with just a few simple adjustments.
 
 #### New
 
@@ -33,31 +33,34 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a f
 * Validator rule parameters are now injected via the constructor.
 * Removed the `Output::hasAnsiSupport()` method.
 * The `mako\gatekeeper\Authentication` class has been renamed to `mako\gatekeeper\Gatekeeper`.
-* The `Request::contentType()` method has been renamed to `Request::getContentType()`.
-* The `Request::scriptName()` method has been renamed to `Request::getScriptName()`.
-* The `Request::ip()` method has been renamed to `Request::getIp()`.
-* The `Request::basePath()` method has been renamed to `Request::getBasePath()`.
-* The `Request::baseURL()` method has been renamed to `Request::getBaseURL()`.
-* The `Request::path()` method has been renamed to `Request::getPath()`.
-* The `Request::language()` method has been renamed to `Request::getLanguage()`.
-* The `Request::languagePrefix()` method has been renamed to `Request::getLanguagePrefix()`.
-* The `Request::method()` method has been renamed to `Request::getMethod()`.
-* The `Request::realMethod()` method has been renamed to `Request::getRealMethod()`.
-* The `Request::username()` method has been renamed to `Request::getUsername()`.
-* The `Request::password()` method has been renamed to `Request::getPassword()`.
-* The `Request::referer()` method has been renamed to `Request::getReferrer()`.
-* The `Headers::acceptableContentTypes()` method has been renamed to `Headers::getAcceptableContentTypes()`.
-* The `Headers::acceptableLanguages()` method has been renamed to `Headers::getAcceptableLanguages()`.
-* The `Headers::acceptableCharsets()` method has been renamed to `Headers::getAcceptableCharsets()`.
-* The `Headers::acceptableEncodings()` method has been renamed to `Headers::getAcceptableEncodings()`.
-* The `Response::body()` method has been renamed to `Response::setBody()`.
-* The `Response::charset()` method has been renamed to `Response::setCharset()`.
-* The `Response::status()` method has been renamed to `Response::setStatus()`.
-* The `Response::type()` method has been renamed to `Response::setType()`.
-* The `Response::cache()` method has been renamed to `Response::enableCaching()`.
-* The `Response::compress()` method has been renamed to `Response::enableCompression()`.
-* The `JSON::status()` method has been renamed to `JSON::setStatus()`.
-* The `Redirect::status()` method has been renamed to `Redirect::setStatus()`.
+* Several of the `mako\http\Request` methods have been renamed for consistency:
+	- The `Request::contentType()` method has been renamed to `Request::getContentType()`.
+	- The `Request::scriptName()` method has been renamed to `Request::getScriptName()`.
+	- The `Request::ip()` method has been renamed to `Request::getIp()`.
+	- The `Request::basePath()` method has been renamed to `Request::getBasePath()`.
+	- The `Request::baseURL()` method has been renamed to `Request::getBaseURL()`.
+	- The `Request::path()` method has been renamed to `Request::getPath()`.
+	- The `Request::language()` method has been renamed to `Request::getLanguage()`.
+	- The `Request::languagePrefix()` method has been renamed to `Request::getLanguagePrefix()`.
+	- The `Request::method()` method has been renamed to `Request::getMethod()`.
+	- The `Request::realMethod()` method has been renamed to `Request::getRealMethod()`.
+	- The `Request::username()` method has been renamed to `Request::getUsername()`.
+	- The `Request::password()` method has been renamed to `Request::getPassword()`.
+	- The `Request::referer()` method has been renamed to `Request::getReferrer()`.
+* Several of the `mako\http\request\Headers` methods have been renamed for consistency:
+	- The `Headers::acceptableContentTypes()` method has been renamed to `Headers::getAcceptableContentTypes()`.
+	- The `Headers::acceptableLanguages()` method has been renamed to `Headers::getAcceptableLanguages()`.
+	- The `Headers::acceptableCharsets()` method has been renamed to `Headers::getAcceptableCharsets()`.
+	- The `Headers::acceptableEncodings()` method has been renamed to `Headers::getAcceptableEncodings()`.
+* Several of the `mako\http\Response` methods have been renamed for consistency:
+	- The `Response::body()` method has been renamed to `Response::setBody()`.
+	- The `Response::charset()` method has been renamed to `Response::setCharset()`.
+	- The `Response::status()` method has been renamed to `Response::setStatus()`.
+	- The `Response::type()` method has been renamed to `Response::setType()`.
+	- The `Response::cache()` method has been renamed to `Response::enableCaching()`.
+	- The `Response::compress()` method has been renamed to `Response::enableCompression()`.
+	- The `JSON::status()` method has been renamed to `JSON::setStatus()`.
+	- The `Redirect::status()` method has been renamed to `Redirect::setStatus()`.
 
 > Check out the upgrade guide for details on how to upgrade from `5.7.*.`
 
