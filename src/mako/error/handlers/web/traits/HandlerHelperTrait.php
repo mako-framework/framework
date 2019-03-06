@@ -43,7 +43,7 @@ trait HandlerHelperTrait
 				return true;
 			}
 
-			$accepts = $this->request->getHeaders()->acceptableContentTypes();
+			$accepts = $this->request->getHeaders()->getAcceptableContentTypes();
 
 			if(isset($accepts[0]) && (in_array($accepts[0], $mimes) || strpos($accepts[0], $partial) !== false))
 			{

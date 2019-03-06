@@ -38,7 +38,7 @@ class ProductionHandlerTest extends TestCase
 
 		$responseHeaders = Mockery::mock(RequestHeaders::class);
 
-		$responseHeaders->shouldReceive('acceptableContentTypes')->twice()->andReturn([]);
+		$responseHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
@@ -90,7 +90,7 @@ class ProductionHandlerTest extends TestCase
 
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
-		$requestHeaders->shouldReceive('acceptableContentTypes')->twice()->andReturn([]);
+		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
@@ -200,7 +200,7 @@ class ProductionHandlerTest extends TestCase
 
 		$responseHeaders = Mockery::mock(RequestHeaders::class);
 
-		$responseHeaders->shouldReceive('acceptableContentTypes')->once()->andReturn([]);
+		$responseHeaders->shouldReceive('getAcceptableContentTypes')->once()->andReturn([]);
 
 		//
 

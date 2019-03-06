@@ -89,7 +89,7 @@ class RequestTest extends TestCase
 
 		$acceptableContentTypes = ['text/html', 'application/xhtml+xml', 'image/webp', 'application/xml', '*/*', 'foo/bar'];
 
-		$this->assertEquals($acceptableContentTypes, (new Request(['server' => $server]))->getHeaders()->acceptableContentTypes());
+		$this->assertEquals($acceptableContentTypes, (new Request(['server' => $server]))->getHeaders()->getAcceptableContentTypes());
 	}
 
 	/**
@@ -101,7 +101,7 @@ class RequestTest extends TestCase
 
 		$acceptableLanguages = ['en-US', 'en', 'da', 'fr', 'nb', 'sv', 'foo'];
 
-		$this->assertEquals($acceptableLanguages, (new Request(['server' => $server]))->getHeaders()->acceptableLanguages());
+		$this->assertEquals($acceptableLanguages, (new Request(['server' => $server]))->getHeaders()->getAcceptableLanguages());
 	}
 
 	/**
@@ -113,7 +113,7 @@ class RequestTest extends TestCase
 
 		$acceptableCharsets = ['UTF-8', 'UTF-16', 'FOO-1'];
 
-		$this->assertEquals($acceptableCharsets, (new Request(['server' => $server]))->getHeaders()->acceptableCharsets());
+		$this->assertEquals($acceptableCharsets, (new Request(['server' => $server]))->getHeaders()->getAcceptableCharsets());
 	}
 
 	/**
@@ -125,7 +125,7 @@ class RequestTest extends TestCase
 
 		$acceptableEncodings = ['gzip', 'deflate', 'sdch', 'foobar'];
 
-		$this->assertEquals($acceptableEncodings, (new Request(['server' => $server]))->getHeaders()->acceptableEncodings());
+		$this->assertEquals($acceptableEncodings, (new Request(['server' => $server]))->getHeaders()->getAcceptableEncodings());
 	}
 
 	/**

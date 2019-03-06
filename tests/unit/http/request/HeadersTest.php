@@ -167,7 +167,7 @@ class HeadersTest extends TestCase
 	{
 		$headers = new Headers($this->getAcceptHeaders());
 
-		$this->assertSame(['text/html', 'application/xhtml+xml', 'image/webp', 'application/xml', '*/*', 'foo/bar'], $headers->acceptableContentTypes());
+		$this->assertSame(['text/html', 'application/xhtml+xml', 'image/webp', 'application/xml', '*/*', 'foo/bar'], $headers->getAcceptableContentTypes());
 	}
 
 	/**
@@ -177,7 +177,7 @@ class HeadersTest extends TestCase
 	{
 		$headers = new Headers;
 
-		$this->assertSame(['default'], $headers->acceptableContentTypes('default'));
+		$this->assertSame(['default'], $headers->getAcceptableContentTypes('default'));
 	}
 
 	/**
@@ -187,7 +187,7 @@ class HeadersTest extends TestCase
 	{
 		$headers = new Headers($this->getAcceptHeaders());
 
-		$this->assertSame(['en-US', 'en', 'da', 'fr', 'nb', 'sv', 'foo'], $headers->acceptableLanguages());
+		$this->assertSame(['en-US', 'en', 'da', 'fr', 'nb', 'sv', 'foo'], $headers->getAcceptableLanguages());
 	}
 
 	/**
@@ -197,7 +197,7 @@ class HeadersTest extends TestCase
 	{
 		$headers = new Headers;
 
-		$this->assertSame(['default'], $headers->acceptableLanguages('default'));
+		$this->assertSame(['default'], $headers->getAcceptableLanguages('default'));
 	}
 
 	/**
@@ -207,7 +207,7 @@ class HeadersTest extends TestCase
 	{
 		$headers = new Headers($this->getAcceptHeaders());
 
-		$this->assertSame(['UTF-8', 'UTF-16', 'FOO-1'], $headers->acceptableCharsets());
+		$this->assertSame(['UTF-8', 'UTF-16', 'FOO-1'], $headers->getAcceptableCharsets());
 	}
 
 	/**
@@ -217,7 +217,7 @@ class HeadersTest extends TestCase
 	{
 		$headers = new Headers;
 
-		$this->assertSame(['default'], $headers->acceptableCharsets('default'));
+		$this->assertSame(['default'], $headers->getAcceptableCharsets('default'));
 	}
 
 	/**
@@ -227,7 +227,7 @@ class HeadersTest extends TestCase
 	{
 		$headers = new Headers($this->getAcceptHeaders());
 
-		$this->assertSame(['gzip', 'deflate', 'sdch', 'foobar'], $headers->acceptableEncodings());
+		$this->assertSame(['gzip', 'deflate', 'sdch', 'foobar'], $headers->getAcceptableEncodings());
 	}
 
 	/**
@@ -237,6 +237,6 @@ class HeadersTest extends TestCase
 	{
 		$headers = new Headers;
 
-		$this->assertSame(['default'], $headers->acceptableEncodings('default'));
+		$this->assertSame(['default'], $headers->getAcceptableEncodings('default'));
 	}
 }
