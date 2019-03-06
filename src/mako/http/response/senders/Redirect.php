@@ -29,16 +29,19 @@ class Redirect implements ResponseSenderInterface
 	 *
 	 * @var int
 	 */
-	protected $status = 302;
+	protected $status;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param string $location Location
+	 * @param int    $status   Status code
 	 */
-	public function __construct(string $location)
+	public function __construct(string $location, int $status = 302)
 	{
 		$this->location = $location;
+
+		$this->status = $status;
 	}
 
 	/**

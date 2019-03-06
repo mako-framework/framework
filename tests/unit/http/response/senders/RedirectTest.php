@@ -46,6 +46,32 @@ class RedirectTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSendWithConstructorStatus(): void
+	{
+		$request = Mockery::mock('mako\http\Request');
+
+		$responseHeaders = Mockery::mock(Headers::class);
+
+		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
+
+		$response = Mockery::mock('mako\http\Response');
+
+		$response->shouldReceive('setStatus')->once()->with(304);
+
+		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+
+		$response->shouldReceive('sendHeaders')->once();
+
+		//
+
+		$redirect = new Redirect('http://example.org', 304);
+
+		$redirect->send($request, $response);
+	}
+
+	/**
+	 *
+	 */
 	public function testSendWithStatus(): void
 	{
 		$request = Mockery::mock('mako\http\Request');
