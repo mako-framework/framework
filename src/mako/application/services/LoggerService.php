@@ -31,7 +31,7 @@ class LoggerService extends Service
 	 */
 	protected function getContext(): array
 	{
-		if($this->container->has(Gatekeeper::class))
+		if($this->container->get(Application::class)->isCommandLine() === false && $this->container->has(Gatekeeper::class))
 		{
 			$user = $this->container->get(Gatekeeper::class)->getUser();
 
