@@ -7,7 +7,6 @@
 
 namespace mako\application\services;
 
-use mako\application\Application;
 use mako\file\FileSystem;
 use mako\view\renderers\Template;
 use mako\view\ViewFactory;
@@ -26,15 +25,13 @@ class ViewFactoryService extends Service
 	{
 		$this->container->registerSingleton([ViewFactory::class, 'view'], function($container)
 		{
-			$app = $container->get(Application::class);
-
-			$applicationPath = $app->getPath();
+			$applicationPath = $this->app->getPath();
 
 			$fileSystem = $container->get(FileSystem::class);
 
 			// Create factory instance
 
-			$factory = new ViewFactory($fileSystem, $applicationPath . '/resources/views', $app->getCharset(), $container);
+			$factory = new ViewFactory($fileSystem, $applicationPath . '/resources/views', $this->app->getCharset(), $container);
 
 			// Register template renderer
 

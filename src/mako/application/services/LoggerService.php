@@ -7,7 +7,6 @@
 
 namespace mako\application\services;
 
-use mako\application\Application;
 use mako\gatekeeper\Gatekeeper;
 use mako\logger\Logger;
 use Monolog\Formatter\LineFormatter;
@@ -31,7 +30,7 @@ class LoggerService extends Service
 	 */
 	protected function getContext(): array
 	{
-		if($this->container->get(Application::class)->isCommandLine() === false && $this->container->has(Gatekeeper::class))
+		if($this->app->isCommandLine() === false && $this->container->has(Gatekeeper::class))
 		{
 			$user = $this->container->get(Gatekeeper::class)->getUser();
 
@@ -48,7 +47,7 @@ class LoggerService extends Service
 	 */
 	protected function getHandler(): HandlerInterface
 	{
-		$handler = new StreamHandler($this->container->get(Application::class)->getPath() . '/storage/logs/' . date('Y-m-d') . '.mako');
+		$handler = new StreamHandler($this->app->getPath() . '/storage/logs/' . date('Y-m-d') . '.mako');
 
 		$formatter = new LineFormatter(null, null, true, true);
 

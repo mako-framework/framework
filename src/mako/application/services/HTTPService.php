@@ -7,7 +7,6 @@
 
 namespace mako\application\services;
 
-use mako\application\Application;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\Dispatcher;
@@ -28,8 +27,6 @@ class HTTPService extends Service
 	 */
 	public function register(): void
 	{
-		$app = $this->container->get(Application::class);
-
 		$config = $this->config->get('application');
 
 		// Request
@@ -48,14 +45,14 @@ class HTTPService extends Service
 
 		// Response
 
-		$this->container->registerSingleton([Response::class, 'response'], function($container) use ($app)
+		$this->container->registerSingleton([Response::class, 'response'], function($container)
 		{
-			return new Response($container->get(Request::class), $app->getCharset(), $container->get(Signer::class));
+			return new Response($container->get(Request::class), $this->app->getCharset(), $container->get(Signer::class));
 		});
 
 		// Routes
 
-		$this->container->registerSingleton([Routes::class, 'routes'], function($container) use ($app)
+		$this->container->registerSingleton([Routes::class, 'routes'], function($container)
 		{
 			$routes = new Routes;
 
@@ -63,14 +60,14 @@ class HTTPService extends Service
 			{
 				include $app->getPath() . '/routing/routes.php';
 			})
-			->bindTo($app)($app, $container, $routes);
+			->bindTo($this->app)($this->app, $container, $routes);
 
 			return $routes;
 		});
 
 		// Router
 
-		$this->container->registerSingleton(Router::class, function($container) use ($app)
+		$this->container->registerSingleton(Router::class, function($container)
 		{
 			$router = new Router($container->get(Routes::class), $container);
 
@@ -78,14 +75,14 @@ class HTTPService extends Service
 			{
 				include $app->getPath() . '/routing/constraints.php';
 			})
-			->bindTo($app)($app, $container, $router);
+			->bindTo($this->app)($this->app, $container, $router);
 
 			return $router;
 		});
 
 		// Dispatcher
 
-		$this->container->registerSingleton(Dispatcher::class, function($container) use ($app)
+		$this->container->registerSingleton(Dispatcher::class, function($container)
 		{
 			$dispatcher = new Dispatcher($container->get(Request::class), $container->get(Response::class), $container);
 
@@ -93,7 +90,7 @@ class HTTPService extends Service
 			{
 				include $app->getPath() . '/routing/middleware.php';
 			})
-			->bindTo($app)($app, $container, $dispatcher);
+			->bindTo($this->app)($this->app, $container, $dispatcher);
 
 			return $dispatcher;
 		});
