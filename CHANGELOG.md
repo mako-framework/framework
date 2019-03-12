@@ -18,12 +18,14 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 * Added `JSON::setCharset()` method.
 * Added `Stream::setType()` method.
 * Added `Stream::setCharset()` method.
+* Added `scope` method to the ORM query builder.
 
 #### Changes
 
 * Removed the deprecated `FileSystem::mime()` method.
 * Removed the deprecated `FileSystem::hash()` method.
 * Removed the deprecated `FileSystem::hmac()` method.
+* The ORM query builder no longer supports "magic" scope methods. Use the `scope` method instead.
 * The `RequestException` class has been renamed to `HttpException`.
 * Removed the `Constraint` base class. Constraints should implement the `ConstraintInterface` instead.
 * Constraints parameters are now injected through the constructor.

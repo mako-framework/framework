@@ -7,11 +7,11 @@
 
 namespace mako\database\midgard;
 
-use BadMethodCallException;
 use Closure;
 use Generator;
 use mako\database\connections\Connection;
 use mako\database\query\Query as QueryBuilder;
+use mako\utility\Str;
 use PDO;
 
 use function array_filter;
@@ -22,10 +22,8 @@ use function array_unique;
 use function in_array;
 use function is_numeric;
 use function is_string;
-use function method_exists;
 use function strpos;
 use function substr;
-use function vsprintf;
 
 /**
  * ORM query builder.
@@ -458,20 +456,14 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * Magic method that allows us to call model scopes.
+	 * Calls a scope method on the model.
 	 *
-	 * @param  string                       $name      Method name
-	 * @param  array                        $arguments Method arguments
-	 * @throws \BadMethodCallException
+	 * @param  string                       $scope        Scope
+	 * @param  mixed                        ...$arguments Arguments
 	 * @return \mako\database\midgard\Query
 	 */
-	public function __call(string $name, array $arguments)
+	public function scope(string $scope, ...$arguments)
 	{
-		if(!method_exists($this->model, $name . 'Scope'))
-		{
-			throw new BadMethodCallException(vsprintf('Call to undefined method %s::%s().', [static::class, $name]));
-		}
-
-		return $this->model->{$name . 'Scope'}(...array_merge([$this], $arguments));
+		return $this->model->{Str::underscored2camel($scope) . 'Scope'}(...array_merge([$this], $arguments));
 	}
 }

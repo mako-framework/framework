@@ -7,7 +7,6 @@
 
 namespace mako\tests\unit\database\midgard;
 
-use BadMethodCallException;
 use mako\database\midgard\Query;
 use mako\tests\TestCase;
 use Mockery;
@@ -405,27 +404,13 @@ class QueryTest extends TestCase
 	/**
 	 *
 	 */
-	public function testScopeException(): void
-	{
-		$this->expectException(BadMethodCallException::class);
-
-		$model = new ScopedModel();
-
-		$query = new Query($this->getConnecion(), $model);
-
-		$query->unpopular();
-	}
-
-	/**
-	 *
-	 */
 	public function testScope(): void
 	{
 		$model = new ScopedModel();
 
 		$query = new Query($this->getConnecion(), $model);
 
-		$query->popular();
+		$query->scope('popular');
 
 		$this->assertEquals($query->getTable(), 'barfoo');
 	}

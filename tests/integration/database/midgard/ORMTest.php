@@ -328,7 +328,17 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testScoped(): void
 	{
-		$users = TestUserScoped::withArticles()->all();
+		$users = TestUserScoped::scope('withArticles')->all();
+
+		$this->assertEquals(2, count($users));
+	}
+
+	/**
+	 *
+	 */
+	public function testScopedSnakeCase(): void
+	{
+		$users = TestUserScoped::scope('with_articles')->all();
 
 		$this->assertEquals(2, count($users));
 	}
