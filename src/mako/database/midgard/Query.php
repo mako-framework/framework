@@ -464,6 +464,8 @@ class Query extends QueryBuilder
 	 */
 	public function scope(string $scope, ...$arguments)
 	{
-		return $this->model->{Str::underscored2camel($scope) . 'Scope'}(...array_merge([$this], $arguments));
+		$this->model->{Str::underscored2camel($scope) . 'Scope'}(...array_merge([$this], $arguments));
+
+		return $this;
 	}
 }

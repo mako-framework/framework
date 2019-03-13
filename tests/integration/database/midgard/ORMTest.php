@@ -23,9 +23,9 @@ class TestUser extends TestORM
 
 class TestUserScoped extends TestUser
 {
-	public function withArticlesScope($query)
+	public function withArticlesScope($query): void
 	{
-		return $query->join('articles', 'articles.user_id', '=', 'users.id')->distinct();
+		$query->join('articles', 'articles.user_id', '=', 'users.id')->distinct();
 	}
 }
 
