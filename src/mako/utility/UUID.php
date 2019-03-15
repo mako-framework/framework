@@ -99,7 +99,7 @@ class UUID
 			throw new InvalidArgumentException('The provided string is not a valid UUID.');
 		}
 
-		$hex = str_replace(['urn:uuid:', '-', '{', '}'], '', $uuid);
+		$hex = str_replace(['urn:uuid:', '{', '}', '-'], '', $uuid);
 
 		$binary = '';
 
