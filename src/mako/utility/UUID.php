@@ -66,6 +66,13 @@ class UUID
 	const X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
+	 * The "nil" UUID.
+	 *
+	 * @var string
+	 */
+	const NIL = '00000000-0000-0000-0000-000000000000';
+
+	/**
 	 * Checks if a UUID is valid.
 	 *
 	 * @param  string $uuid The UUID to validate
