@@ -121,35 +121,15 @@ class UUID
 	 */
 	public static function v3(string $namespace, string $name): string
 	{
-		// Calculate hash value
-
 		$hash = md5(self::toBinary($namespace) . $name);
 
 		return sprintf
 		(
-			'%08s-%04s-%04x-%04x-%12s',
-
-			// 32 bits for "time_low"
-
+			'%s-%s-%x-%x-%s',
 			substr($hash, 0, 8),
-
-			// 16 bits for "time_mid"
-
 			substr($hash, 8, 4),
-
-			// 16 bits for "time_hi_and_version",
-			// four most significant bits holds version number 3
-
 			(hexdec(substr($hash, 12, 4)) & 0x0fff) | 0x3000,
-
-			// 16 bits, 8 bits for "clk_seq_hi_res",
-			// 8 bits for "clk_seq_low",
-			// two most significant bits holds zero and one for variant DCE1.1
-
 			(hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000,
-
-			// 48 bits for "node"
-
 			substr($hash, 20, 12)
 		);
 	}
@@ -179,35 +159,15 @@ class UUID
 	 */
 	public static function v5(string $namespace, string $name): string
 	{
-		// Calculate hash value
-
 		$hash = sha1(static::toBinary($namespace) . $name);
 
 		return sprintf
 		(
-			'%08s-%04s-%04x-%04x-%12s',
-
-			// 32 bits for "time_low"
-
+			'%s-%s-%x-%x-%s',
 			substr($hash, 0, 8),
-
-			// 16 bits for "time_mid"
-
 			substr($hash, 8, 4),
-
-			// 16 bits for "time_hi_and_version",
-			// four most significant bits holds version number 5
-
 			(hexdec(substr($hash, 12, 4)) & 0x0fff) | 0x5000,
-
-			// 16 bits, 8 bits for "clk_seq_hi_res",
-			// 8 bits for "clk_seq_low",
-			// two most significant bits holds zero and one for variant DCE1.1
-
 			(hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000,
-
-			// 48 bits for "node"
-
 			substr($hash, 20, 12)
 		);
 	}
@@ -219,11 +179,9 @@ class UUID
 	 */
 	public static function sequential(): string
 	{
-		$timestamp = explode(' ', microtime(false));
+		$time = explode(' ', microtime());
 
-		$timestamp = $timestamp[1] . substr($timestamp[0], 2, 5);
-
-		$random = hex2bin(dechex($timestamp) . bin2hex(random_bytes(10)));
+		$random = hex2bin(dechex($time[1] . substr($time[0], 2, 5)) . bin2hex(random_bytes(10)));
 
 		$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
 
