@@ -68,12 +68,14 @@ class UUID
 	/**
 	 * Checks if a UUID is valid.
 	 *
-	 * @param  string $str The UUID to validate
+	 * @param  string $uuid The UUID to validate
 	 * @return bool
 	 */
-	public static function validate(string $str): bool
+	public static function validate(string $uuid): bool
 	{
-		return (bool) preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i', $str);
+		$uuid = str_replace(['urn:uuid:', '{', '}'], '', $uuid);
+
+		return (bool) preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i', $uuid);
 	}
 
 	/**
@@ -90,7 +92,7 @@ class UUID
 			throw new InvalidArgumentException('The provided string is not a valid UUID.');
 		}
 
-		$hex = str_replace(['-', '{', '}'], '', $uuid);
+		$hex = str_replace(['urn:uuid:', '-', '{', '}'], '', $uuid);
 
 		$binary = '';
 

@@ -37,6 +37,10 @@ class UUIDTest extends TestCase
 	{
 		$this->assertTrue(UUID::validate('6ba7b814-9dad-11d1-80b4-00c04fd430c8'));
 
+		$this->assertTrue(UUID::validate('{6ba7b814-9dad-11d1-80b4-00c04fd430c8}'));
+
+		$this->assertTrue(UUID::validate('urn:uuid:6ba7b814-9dad-11d1-80b4-00c04fd430c8'));
+
 		$this->assertFalse(UUID::validate('6ba7b814-9dad-11d1-80b4-00c04fd430cx'));
 	}
 
@@ -45,7 +49,15 @@ class UUIDTest extends TestCase
 	 */
 	public function testToBinary(): void
 	{
-		$this->assertEquals(16, strlen(UUID::toBinary('6ba7b814-9dad-11d1-80b4-00c04fd430c8')));
+		$this->assertEquals(16, strlen($uuid1 = UUID::toBinary('6ba7b814-9dad-11d1-80b4-00c04fd430c8')));
+
+		$this->assertEquals(16, strlen($uuid2 = UUID::toBinary('{6ba7b814-9dad-11d1-80b4-00c04fd430c8}')));
+
+		$this->assertEquals(16, strlen($uuid3 = UUID::toBinary('urn:uuid:6ba7b814-9dad-11d1-80b4-00c04fd430c8')));
+
+		$this->assertSame($uuid1, $uuid2);
+
+		$this->assertSame($uuid2, $uuid3);
 	}
 
 	/**
