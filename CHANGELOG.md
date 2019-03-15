@@ -19,6 +19,9 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 * Added `Stream::setType()` method.
 * Added `Stream::setCharset()` method.
 * Added `scope` method to the ORM query builder.
+* Added `UUID::toBinary()` method.
+* Added `UUID::toHexadecimal()` method.
+* Added `UUID::sequential()` method.
 
 #### Changes
 

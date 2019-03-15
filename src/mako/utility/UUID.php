@@ -11,8 +11,12 @@ use InvalidArgumentException;
 
 use function bin2hex;
 use function chr;
+use function dechex;
+use function explode;
+use function hex2bin;
 use function hexdec;
 use function md5;
+use function microtime;
 use function ord;
 use function preg_match;
 use function random_bytes;
@@ -20,7 +24,6 @@ use function sha1;
 use function sprintf;
 use function str_replace;
 use function str_split;
-use function strlen;
 use function substr;
 use function vsprintf;
 
@@ -73,37 +76,40 @@ class UUID
 	}
 
 	/**
-	 * Converts UUID to binary.
+	 * Converts a UUID from its hexadecimal representation to a binary string.
 	 *
-	 * @param  string                    $namespace UUID
+	 * @param  string                    $uuid UUID
 	 * @throws \InvalidArgumentException
 	 * @return string
 	 */
-	protected static function toBin(string $namespace): string
+	public static function toBinary(string $uuid): string
 	{
-		if(!static::validate($namespace))
+		if(!static::validate($uuid))
 		{
-			throw new InvalidArgumentException('The provided namespace is not a valid UUID.');
+			throw new InvalidArgumentException('The provided string is not a valid UUID.');
 		}
 
-		// Get hexadecimal components of namespace
+		$hex = str_replace(['-', '{', '}'], '', $uuid);
 
-		$nhex = str_replace(['-', '{', '}'], '', $namespace);
+		$binary = '';
 
-		// Binary Value
-
-		$nstr = '';
-
-		// Convert Namespace UUID to bits
-
-		$nhexLength = strlen($nhex);
-
-		for($i = 0; $i < $nhexLength; $i+=2)
+		for($i = 0; $i < 32; $i += 2)
 		{
-			$nstr .= chr(hexdec($nhex[$i] . $nhex[$i+1]));
+			$binary .= chr(hexdec($hex[$i] . $hex[$i + 1]));
 		}
 
-		return $nstr;
+		return $binary;
+	}
+
+	/**
+	 * Converts a binary UUID to its hexadecimal representation.
+	 *
+	 * @param  string $bytes Binary representation of a UUID
+	 * @return string
+	 */
+	public static function toHexadecimal(string $bytes): string
+	{
+		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($bytes), 4));
 	}
 
 	/**
@@ -117,7 +123,7 @@ class UUID
 	{
 		// Calculate hash value
 
-		$hash = md5(self::toBin($namespace) . $name);
+		$hash = md5(self::toBinary($namespace) . $name);
 
 		return sprintf
 		(
@@ -175,7 +181,7 @@ class UUID
 	{
 		// Calculate hash value
 
-		$hash = sha1(static::toBin($namespace) . $name);
+		$hash = sha1(static::toBinary($namespace) . $name);
 
 		return sprintf
 		(
@@ -204,5 +210,25 @@ class UUID
 
 			substr($hash, 20, 12)
 		);
+	}
+
+	/**
+	 * Returns a sequential (COMB) v4 UUID.
+	 *
+	 * @return string
+	 */
+	public static function sequential(): string
+	{
+		$timestamp = explode(' ', microtime(false));
+
+		$timestamp = $timestamp[1] . substr($timestamp[0], 2, 5);
+
+		$random = hex2bin(dechex($timestamp) . bin2hex(random_bytes(10)));
+
+		$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
+
+		$random[8] = chr(ord($random[8]) & 0x3f | 0x80);
+
+		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($random), 4));
 	}
 }

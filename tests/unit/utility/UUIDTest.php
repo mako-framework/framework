@@ -43,6 +43,28 @@ class UUIDTest extends TestCase
 	/**
 	 *
 	 */
+	public function testToBinary(): void
+	{
+		$this->assertEquals(16, strlen(UUID::toBinary('6ba7b814-9dad-11d1-80b4-00c04fd430c8')));
+	}
+
+	/**
+	 *
+	 */
+	public function testToHexadecimal(): void
+	{
+		$uuid = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
+
+		$bin = UUID::toBinary('6ba7b814-9dad-11d1-80b4-00c04fd430c8');
+
+		$hex = UUID::toHexadecimal($bin);
+
+		$this->assertSame($uuid, $hex);
+	}
+
+	/**
+	 *
+	 */
 	public function testV3(): void
 	{
 		$this->assertEquals(3, substr(UUID::v3(UUID::DNS, 'hello'), 14, 1));
@@ -106,5 +128,24 @@ class UUIDTest extends TestCase
 		$this->expectException(InvalidArgumentException::class);
 
 		UUID::v5('nope', 'foobar');
+	}
+
+	/**
+	 *
+	 */
+	public function testSequential(): void
+	{
+		$prev = UUID::sequential();
+
+		for($i = 0; $i < 100; $i++)
+		{
+			usleep(10); // We need to sleep since they can not be guaranteed to be 100% sequential due to the time presision
+
+			$uuid = UUID::sequential();
+
+			$this->assertLessThan($uuid, $prev);
+
+			$prev = $uuid;
+		}
 	}
 }
