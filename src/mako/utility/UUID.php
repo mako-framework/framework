@@ -109,6 +109,11 @@ class UUID
 	 */
 	public static function toHexadecimal(string $bytes): string
 	{
+		if(strlen($bytes) !== 16)
+		{
+			throw new InvalidArgumentException('The input must be exactly 16 bytes.');
+		}
+
 		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($bytes), 4));
 	}
 

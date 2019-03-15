@@ -51,6 +51,16 @@ class UUIDTest extends TestCase
 	/**
 	 *
 	 */
+	public function testToBinaryWithInvalidInput(): void
+	{
+		$this->expectException(InvalidArgumentException::class);
+
+		$this->assertEquals(16, strlen(UUID::toBinary('nope')));
+	}
+
+	/**
+	 *
+	 */
 	public function testToHexadecimal(): void
 	{
 		$uuid = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
@@ -60,6 +70,16 @@ class UUIDTest extends TestCase
 		$hex = UUID::toHexadecimal($bin);
 
 		$this->assertSame($uuid, $hex);
+	}
+
+	/**
+	 *
+	 */
+	public function testToHexadecimalWithInvalidInput(): void
+	{
+		$this->expectException(InvalidArgumentException::class);
+
+		$hex = UUID::toHexadecimal('nope');
 	}
 
 	/**
