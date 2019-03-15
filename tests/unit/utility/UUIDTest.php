@@ -55,7 +55,7 @@ class UUIDTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->assertEquals(16, strlen(UUID::toBinary('nope')));
+		UUID::toBinary('nope');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class UUIDTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$hex = UUID::toHexadecimal('nope');
+		UUID::toHexadecimal('nope');
 	}
 
 	/**
