@@ -24,6 +24,7 @@ use function sha1;
 use function sprintf;
 use function str_replace;
 use function str_split;
+use function strlen;
 use function substr;
 use function vsprintf;
 
