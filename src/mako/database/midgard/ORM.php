@@ -127,7 +127,7 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Does this table have an auto increment primary index?
 	 *
-	 * @var bool
+	 * @var int
 	 */
 	protected $primaryKeyType = ORM::PRIMARY_KEY_TYPE_INCREMENTING;
 
