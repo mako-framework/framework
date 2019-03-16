@@ -24,7 +24,7 @@ Please use the provided template when creating issues 🙂
 
 | What         | Version                  |
 |--------------|--------------------------|
-| PHP Version  | 7.x.x                    |
-| Mako Version | 5.x.x                    |
+| PHP Version  | x.x.x                    |
+| Mako Version | x.x.x                    |
 | OS           | -                        |
 | Database     | -                        |
