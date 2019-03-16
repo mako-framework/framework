@@ -51,7 +51,7 @@ abstract class Application
 	/**
 	 * Container.
 	 *
-	 * @var \mako\syringe\Container;
+	 * @var \mako\syringe\Container
 	 */
 	protected $container;
 
