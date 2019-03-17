@@ -482,10 +482,10 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Eager loads relations on the model.
 	 *
-	 * @param  string|array               $includes Relation or array of relations to eager load
-	 * @return \mako\database\midgard\ORM
+	 * @param  string|array $includes Relation or array of relations to eager load
+	 * @return $this
 	 */
-	public function include($includes): ORM
+	public function include($includes)
 	{
 		$model = $this;
 
@@ -685,12 +685,12 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Assigns the column values to the model.
 	 *
-	 * @param  array                      $columns   Column values
-	 * @param  bool                       $raw       Set raw values?
-	 * @param  bool                       $whitelist Remove columns that are not in the whitelist?
-	 * @return \mako\database\midgard\ORM
+	 * @param  array $columns   Column values
+	 * @param  bool  $raw       Set raw values?
+	 * @param  bool  $whitelist Remove columns that are not in the whitelist?
+	 * @return $this
 	 */
-	public function assign(array $columns, bool $raw = false, bool $whitelist = true): ORM
+	public function assign(array $columns, bool $raw = false, bool $whitelist = true)
 	{
 		// Remove columns that are not in the whitelist
 
@@ -774,9 +774,9 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a record using the value of its primary key.
 	 *
-	 * @param  mixed                           $id      Primary key
-	 * @param  array                           $columns Columns to select
-	 * @return \mako\database\midgard\ORM|bool
+	 * @param  mixed  $id      Primary key
+	 * @param  array  $columns Columns to select
+	 * @return static
 	 */
 	public static function get($id, array $columns = [])
 	{
@@ -786,12 +786,12 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Creates a new record and returns the model.
 	 *
-	 * @param  array                      $columns   Column values
-	 * @param  bool                       $raw       Set raw values?
-	 * @param  bool                       $whitelist Remove columns that are not in the whitelist?
-	 * @return \mako\database\midgard\ORM
+	 * @param  array  $columns   Column values
+	 * @param  bool   $raw       Set raw values?
+	 * @param  bool   $whitelist Remove columns that are not in the whitelist?
+	 * @return static
 	 */
-	public static function create(array $columns = [], bool $raw = false, bool $whitelist = true): ORM
+	public static function create(array $columns = [], bool $raw = false, bool $whitelist = true)
 	{
 		$model = new static($columns, $raw, $whitelist);
 
@@ -1054,10 +1054,10 @@ abstract class ORM implements JsonSerializable
 	 * Excludes the chosen columns and relations from array and json representations of the record.
 	 * You expose all fields by passing FALSE.
 	 *
-	 * @param  string|array|bool          $column Column or relation to hide from the
-	 * @return \mako\database\midgard\ORM
+	 * @param  string|array|bool $column Column or relation to hide from the
+	 * @return $this
 	 */
-	public function protect($column): ORM
+	public function protect($column)
 	{
 		if($column === false)
 		{
@@ -1075,10 +1075,10 @@ abstract class ORM implements JsonSerializable
 	 * Exposes the chosen columns and relations in the array and json representations of the record.
 	 * You can expose all fields by passing TRUE.
 	 *
-	 * @param  string|array|bool          $column Column or relation to hide from the
-	 * @return \mako\database\midgard\ORM
+	 * @param  string|array|bool $column Column or relation to hide from the
+	 * @return $this
 	 */
-	public function expose($column): ORM
+	public function expose($column)
 	{
 		if($column === true)
 		{

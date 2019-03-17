@@ -194,9 +194,9 @@ class UUID
 	 */
 	public static function sequential(): string
 	{
-		$time = explode(' ', microtime());
+		[$usec, $sec] = explode(' ', microtime());
 
-		$random = hex2bin(dechex($time[1] . substr($time[0], 2, 5)) . bin2hex(random_bytes(10)));
+		$random = hex2bin(dechex($sec . substr($usec, 2, 5)) . bin2hex(random_bytes(10)));
 
 		$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
 

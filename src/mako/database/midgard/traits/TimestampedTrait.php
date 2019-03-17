@@ -31,7 +31,7 @@ trait TimestampedTrait
 		[
 			'beforeInsert' =>
 			[
-				function($values, $query): array
+				function(array $values, $query): array
 				{
 					$dateTime = new DateTime;
 
@@ -58,7 +58,7 @@ trait TimestampedTrait
 			],
 			'beforeUpdate' =>
 			[
-				function($values, $query): array
+				function(array $values, $query): array
 				{
 					$dateTime = new DateTime;
 

@@ -7,7 +7,6 @@
 
 namespace mako\validator\rules;
 
-use function array_pop;
 use function checkdnsrr;
 use function explode;
 use function sprintf;
@@ -41,9 +40,9 @@ class EmailDomain extends Rule implements RuleInterface
 			return false;
 		}
 
-		$email = explode('@', $value);
+		[, $domain] = explode('@', $value);
 
-		return $this->hasMXRecord(array_pop($email));
+		return $this->hasMXRecord($domain);
 	}
 
 	/**

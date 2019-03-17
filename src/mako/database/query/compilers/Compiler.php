@@ -272,9 +272,9 @@ class Compiler
 		}
 		elseif(stripos($table, ' AS ') !== false)
 		{
-			$table = explode(' ', $table, 3);
+			[$table, , $alias] = explode(' ', $table, 3);
 
-			return sprintf('%s AS %s', $this->escapeTable($table[0]), $this->escapeTable($table[2]));
+			return sprintf('%s AS %s', $this->escapeTable($table), $this->escapeTable($alias));
 		}
 
 		return $this->escapeTable($table);
@@ -344,9 +344,9 @@ class Compiler
 		}
 		elseif($allowAlias && stripos($column, ' AS ') !== false)
 		{
-			$column = explode(' ', $column, 3);
+			[$column, , $alias] = explode(' ', $column, 3);
 
-			return sprintf('%s AS %s', $this->compileColumnName($column[0]), $this->compileColumnName($column[2]));
+			return sprintf('%s AS %s', $this->compileColumnName($column), $this->compileColumnName($alias));
 		}
 
 		return $this->compileColumnName($column);

@@ -106,11 +106,11 @@ abstract class Application
 	 * Starts the application and returns a singleton instance of the application.
 	 *
 	 *
-	 * @param  string                        $applicationPath Application path
+	 * @param  string          $applicationPath Application path
 	 * @throws \LogicException
-	 * @return \mako\application\Application
+	 * @return static
 	 */
-	public static function start(string $applicationPath): Application
+	public static function start(string $applicationPath)
 	{
 		if(!empty(static::$instance))
 		{
@@ -126,9 +126,9 @@ abstract class Application
 	 * Returns a singleton instance of the application.
 	 *
 	 * @throws \LogicException
-	 * @return \mako\application\Application
+	 * @return static
 	 */
-	public static function instance(): Application
+	public static function instance()
 	{
 		if(empty(static::$instance))
 		{
@@ -481,9 +481,9 @@ abstract class Application
 	/**
 	 * Boots the application.
 	 *
-	 * @return \mako\application\Application
+	 * @return $this
 	 */
-	public function boot(): Application
+	public function boot()
 	{
 		// Set up the framework core
 

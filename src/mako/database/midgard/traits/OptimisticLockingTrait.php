@@ -31,7 +31,7 @@ trait OptimisticLockingTrait
 		[
 			'beforeInsert' =>
 			[
-				function($values, $query): array
+				function(array $values, $query): array
 				{
 					$lockingColumn = $this->getLockingColumn();
 
@@ -42,7 +42,7 @@ trait OptimisticLockingTrait
 			],
 			'beforeUpdate' =>
 			[
-				function($values, $query): array
+				function(array $values, $query): array
 				{
 					$lockingColumn = $this->getLockingColumn();
 
