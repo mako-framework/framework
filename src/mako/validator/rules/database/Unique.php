@@ -103,9 +103,7 @@ class Unique extends Rule implements RuleInterface
 			$count->where($this->column, '!=', $this->allowed);
 		}
 
-		$count = $count->count();
-
-		return $count === 0;
+		return $count->count() === 0;
 	}
 
 	/**

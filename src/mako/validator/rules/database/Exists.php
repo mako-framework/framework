@@ -79,12 +79,10 @@ class Exists extends Rule implements RuleInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		$count = $this->database->connection($this->connection)
+		return $this->database->connection($this->connection)
 		->table($this->table)
 		->where($this->column, '=', $value)
-		->count();
-
-		return $count !== 0;
+		->count() !== 0;
 	}
 
 	/**
