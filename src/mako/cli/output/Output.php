@@ -87,6 +87,17 @@ class Output
 	}
 
 	/**
+	 * Returns the chosen writer.
+	 *
+	 * @param  int                                     $writer Writer
+	 * @return \mako\cli\output\writer\WriterInterface
+	 */
+	public function getWriter(int $writer = Output::STANDARD): WriterInterface
+	{
+		return ($writer === static::STANDARD) ? $this->standard : $this->error;
+	}
+
+	/**
 	 * Sets the formatter.
 	 *
 	 * @param \mako\cli\output\formatter\FormatterInterface $formatter Formatter
@@ -155,7 +166,7 @@ class Output
 			return;
 		}
 
-		$writer = ($writer === static::STANDARD) ? $this->standard : $this->error;
+		$writer = $this->getWriter($writer);
 
 		if($this->formatter !== null)
 		{
@@ -199,6 +210,18 @@ class Output
 	public function errorLn(string $string): void
 	{
 		$this->writeLn($string, static::ERROR);
+	}
+
+	/**
+	 * Dumps a value to the output.
+	 *
+	 * @param  mixed $value  Value
+	 * @param  int   $writer Output type
+	 * @return void
+	 */
+	public function dump($value, int $writer = Output::STANDARD): void
+	{
+		$this->getWriter($writer)->write(var_export($value, true) . PHP_EOL);
 	}
 
 	/**

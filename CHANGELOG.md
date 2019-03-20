@@ -22,6 +22,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 * Added `UUID::toBinary()` method.
 * Added `UUID::toHexadecimal()` method.
 * Added `UUID::sequential()` method.
+* Added `Output::dump()` method.
 
 #### Changes
 

@@ -9,6 +9,7 @@ namespace mako\tests\unit\cli\output;
 
 use mako\cli\Environment;
 use mako\cli\output\Output;
+use mako\cli\output\writer\WriterInterface;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -31,6 +32,21 @@ class OutputTest extends TestCase
 	public function getFormatter()
 	{
 		return Mockery::mock('mako\cli\output\formatter\FormatterInterface');
+	}
+
+	/**
+	 *
+	 */
+	public function testGetWriter(): void
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		$output = new Output($std, $err);
+
+		$this->assertInstanceOf(WriterInterface::class, $output->getWriter());
+		$this->assertInstanceOf(WriterInterface::class, $output->getWriter(Output::STANDARD));
+		$this->assertInstanceOf(WriterInterface::class, $output->getWriter(Output::ERROR));
 	}
 
 	/**
@@ -421,5 +437,20 @@ class OutputTest extends TestCase
 		$output = new Output($std, $err, $formatter);
 
 		$output->write('hello, world!');
+	}
+
+	/**
+	 *
+	 */
+	public function testDump(): void
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		$std->shouldReceive('write')->once()->with("'foobar'" . PHP_EOL);
+
+		$output = new Output($std, $err);
+
+		$output->dump('foobar');
 	}
 }
