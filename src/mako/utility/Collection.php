@@ -291,8 +291,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Chunks the collection into a collection containing $size sized collections.
 	 *
-	 * @param  int                      $size Chunk size
-	 * @return \mako\utility\Collection
+	 * @param  int    $size Chunk size
+	 * @return static
 	 */
 	public function chunk(int $size)
 	{
@@ -334,8 +334,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Returns a new collection where the callable has
 	 * been applied to all the items.
 	 *
-	 * @param  callable                 $callable Callable
-	 * @return \mako\utility\Collection
+	 * @param  callable $callable Callable
+	 * @return static
 	 */
 	public function map(callable $callable)
 	{
@@ -349,8 +349,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns a new filtered collection.
 	 *
-	 * @param  callable|null            $callable Filter
-	 * @return \mako\utility\Collection
+	 * @param  callable|null $callable Filter
+	 * @return static
 	 */
 	public function filter(?callable $callable = null)
 	{
@@ -366,9 +366,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Merges two collections.
 	 *
 	 * @param  \mako\utility\Collection $collection Collection to merge
-	 * @return \mako\utility\Collection
+	 * @return static
 	 */
-	public function merge(Collection $collection): Collection
+	public function merge(Collection $collection)
 	{
 		return new static(array_merge($this->items, $collection->getItems()));
 	}
