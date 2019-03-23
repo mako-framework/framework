@@ -203,7 +203,7 @@ class Image
 	 * @param  int              $degrees Degrees to rotate the image
 	 * @return \mako\pixl\Image
 	 */
-	public function rotate($degrees)
+	public function rotate($degrees): Image
 	{
 		$this->processor->rotate($degrees);
 
@@ -218,7 +218,7 @@ class Image
 	 * @param  int              $aspectRatio Aspect ratio
 	 * @return \mako\pixl\Image
 	 */
-	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE)
+	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE): Image
 	{
 		$this->processor->resize($width, $height, $aspectRatio);
 
@@ -234,7 +234,7 @@ class Image
 	 * @param  int              $y      The Y coordinate of the cropped region's top left corner
 	 * @return \mako\pixl\Image
 	 */
-	public function crop($width, $height, $x, $y)
+	public function crop($width, $height, $x, $y): Image
 	{
 		$this->processor->crop($width, $height, $x, $y);
 
@@ -247,7 +247,7 @@ class Image
 	 * @param  int              $direction Direction to flip the image
 	 * @return \mako\pixl\Image
 	 */
-	public function flip($direction = Image::FLIP_HORIZONTAL)
+	public function flip($direction = Image::FLIP_HORIZONTAL): Image
 	{
 		$this->processor->flip($direction);
 
@@ -263,7 +263,7 @@ class Image
 	 * @throws \RuntimeException
 	 * @return \mako\pixl\Image
 	 */
-	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100)
+	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100): Image
 	{
 		// Check if the image exists
 
@@ -289,7 +289,7 @@ class Image
 	 * @param  int              $level Brightness level (-100 to 100)
 	 * @return \mako\pixl\Image
 	 */
-	public function brightness($level = 50)
+	public function brightness($level = 50): Image
 	{
 		// Normalize brighness level
 
@@ -307,7 +307,7 @@ class Image
 	 *
 	 * @return \mako\pixl\Image
 	 */
-	public function greyscale()
+	public function greyscale(): Image
 	{
 		$this->processor->greyscale();
 
@@ -319,7 +319,7 @@ class Image
 	 *
 	 * @return \mako\pixl\Image
 	 */
-	public function sepia()
+	public function sepia(): Image
 	{
 		$this->processor->sepia();
 
@@ -332,7 +332,7 @@ class Image
 	 * @param  string           $color Hex code for the color
 	 * @return \mako\pixl\Image
 	 */
-	public function colorize($color)
+	public function colorize($color): Image
 	{
 		$this->processor->colorize($color);
 
@@ -342,7 +342,7 @@ class Image
 	/**
 	 * Sharpens the image.
 	 */
-	public function sharpen()
+	public function sharpen(): Image
 	{
 		$this->processor->sharpen();
 
@@ -355,7 +355,7 @@ class Image
 	 * @param  int              $pixelSize Pixel size
 	 * @return \mako\pixl\Image
 	 */
-	public function pixelate($pixelSize = 10)
+	public function pixelate($pixelSize = 10): Image
 	{
 		$this->processor->pixelate($pixelSize);
 
@@ -367,7 +367,7 @@ class Image
 	 *
 	 * @return \mako\pixl\Image
 	 */
-	public function negate()
+	public function negate(): Image
 	{
 		$this->processor->negate();
 
@@ -381,7 +381,7 @@ class Image
 	 * @param  int              $thickness Thickness of the frame in pixels
 	 * @return \mako\pixl\Image
 	 */
-	public function border($color = '#000', $thickness = 5)
+	public function border($color = '#000', $thickness = 5): Image
 	{
 		$this->processor->border($color, $thickness);
 

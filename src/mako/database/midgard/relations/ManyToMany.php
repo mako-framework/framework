@@ -71,8 +71,8 @@ class ManyToMany extends Relation
 
 	/**
 	 * Columns to include with the result.
-	 * @param  array                                       $columns Columns
-	 * @return \mako\database\midgard\relations\ManyToMany
+	 * @param  array $columns Columns
+	 * @return $this
 	 */
 	public function alongWith(array $columns)
 	{
@@ -169,8 +169,8 @@ class ManyToMany extends Relation
 	/**
 	 * Sets the criterion used when eager loading related records.
 	 *
-	 * @param  array                                    $keys Parent keys
-	 * @return \mako\database\midgard\relations\HasMany
+	 * @param  array $keys Parent keys
+	 * @return $this
 	 */
 	protected function eagerCriterion(array $keys)
 	{

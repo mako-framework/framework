@@ -24,8 +24,8 @@ abstract class Store implements StoreInterface
 	/**
 	 * Sets the cache key prefix.
 	 *
-	 * @param  string                   $prefix Prefix
-	 * @return \mako\cache\stores\Store
+	 * @param  string $prefix Prefix
+	 * @return $this
 	 */
 	public function setPrefix(string $prefix)
 	{

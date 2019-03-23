@@ -115,8 +115,8 @@ abstract class Relation extends Query
 	/**
 	 * Sets the criterion used when eager loading related records.
 	 *
-	 * @param  array                                     $keys Parent keys
-	 * @return \mako\database\midgard\relations\Relation
+	 * @param  array $keys Parent keys
+	 * @return $this
 	 */
 	protected function eagerCriterion(array $keys)
 	{
