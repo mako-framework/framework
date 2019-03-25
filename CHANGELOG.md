@@ -66,6 +66,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 	- The `Response::compress()` method has been renamed to `Response::enableCompression()`.
 	- The `JSON::status()` method has been renamed to `JSON::setStatus()`.
 	- The `Redirect::status()` method has been renamed to `Redirect::setStatus()`.
+* The `ExtendableTrait::extend()` method has been renamed to `ExtendableTrait::addMethod()`.
 
 > Check out the upgrade guide for details on how to upgrade from `5.7.*.`
 

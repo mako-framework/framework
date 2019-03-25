@@ -393,7 +393,7 @@ class CollectionTest extends TestCase
 	 */
 	public function testExtending(): void
 	{
-		Collection::extend('increaseByOne', function(): void
+		Collection::addMethod('increaseByOne', function(): void
 		{
 			foreach($this->items as $key => $value)
 			{

@@ -27,12 +27,12 @@ trait ExtendableTrait
 	protected static $_extensions;
 
 	/**
-	 * Extends the class.
+	 * Adds a method to the class.
 	 *
 	 * @param string   $methodName Method name
 	 * @param \Closure $closure    Closure
 	 */
-	public static function extend(string $methodName, Closure $closure): void
+	public static function addMethod(string $methodName, Closure $closure): void
 	{
 		static::$_extensions[$methodName] = $closure;
 	}
