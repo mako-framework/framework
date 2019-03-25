@@ -11,6 +11,8 @@ use mako\cli\Environment;
 use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\writer\WriterInterface;
 
+use function var_export;
+
 /**
  * Output.
  *
