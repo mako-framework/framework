@@ -31,9 +31,9 @@ class GatekeeperTest extends TestCase
 			return $adapter;
 		};
 
-		$authentication = new Gatekeeper('foobar', $factory);
+		$gatekeeper = new Gatekeeper(['foobar', $factory]);
 
-		$authentication->hello();
+		$gatekeeper->hello();
 	}
 
 	/**
@@ -47,9 +47,9 @@ class GatekeeperTest extends TestCase
 
 		$adapter->shouldReceive('hello')->once();
 
-		$authentication = new Gatekeeper($adapter);
+		$gatekeeper = new Gatekeeper($adapter);
 
-		$authentication->hello();
+		$gatekeeper->hello();
 	}
 
 	/**
@@ -61,18 +61,20 @@ class GatekeeperTest extends TestCase
 
 		$adapter->shouldReceive('getName')->once()->andReturn('foobar');
 
-		$authentication = new Gatekeeper($adapter);
+		$gatekeeper = new Gatekeeper($adapter);
 
-		$authentication->extend('barfoo', function()
+		$factory = function()
 		{
 			$adapter = Mockery::mock(AdapterInterface::class);
 
 			$adapter->shouldReceive('getName')->once()->andReturn('barfoo');
 
 			return $adapter;
-		});
+		};
 
-		$this->assertSame('barfoo', $authentication->adapter('barfoo')->getName());
+		$gatekeeper->extend(['barfoo', $factory]);
+
+		$this->assertSame('barfoo', $gatekeeper->adapter('barfoo')->getName());
 	}
 
 	/**
@@ -84,15 +86,15 @@ class GatekeeperTest extends TestCase
 
 		$adapter->shouldReceive('getName')->once()->andReturn('foobar');
 
-		$authentication = new Gatekeeper($adapter);
+		$gatekeeper = new Gatekeeper($adapter);
 
 		$adapter = Mockery::mock(AdapterInterface::class);
 
 		$adapter->shouldReceive('getName')->twice()->andReturn('barfoo');
 
-		$authentication->extend($adapter);
+		$gatekeeper->extend($adapter);
 
-		$this->assertSame('barfoo', $authentication->adapter('barfoo')->getName());
+		$this->assertSame('barfoo', $gatekeeper->adapter('barfoo')->getName());
 	}
 
 	/**
@@ -104,14 +106,14 @@ class GatekeeperTest extends TestCase
 
 		$adapter->shouldReceive('getName')->once()->andReturn('foobar');
 
-		$authentication = new Gatekeeper($adapter);
+		$gatekeeper = new Gatekeeper($adapter);
 
 		$adapter = Mockery::mock(AdapterInterface::class);
 
 		$adapter->shouldReceive('getName')->twice()->andReturn('barfoo');
 
-		$authentication->extend($adapter)->useAsDefaultAdapter('barfoo');
+		$gatekeeper->extend($adapter)->useAsDefaultAdapter('barfoo');
 
-		$this->assertSame('barfoo', $authentication->getName());
+		$this->assertSame('barfoo', $gatekeeper->getName());
 	}
 }

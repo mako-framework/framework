@@ -29,7 +29,9 @@ class GatekeeperService extends Service
 	{
 		$this->container->registerSingleton([Gatekeeper::class, 'gatekeeper'], function($container)
 		{
-			return new Gatekeeper('session', function() use ($container)
+			// Adapter factory
+
+			$factory = function() use ($container)
 			{
 				$config = $this->config->get('gatekeeper');
 
@@ -53,7 +55,11 @@ class GatekeeperService extends Service
 				$session = $container->get(HttpSession::class);
 
 				return new Session($userRepository, $groupRepository, $request, $response, $session, $options);
-			});
+			};
+
+			// Create and return the gatekepper instance
+
+			return new Gatekeeper(['session', $factory]);
 		});
 	}
 }

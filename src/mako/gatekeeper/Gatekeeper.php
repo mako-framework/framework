@@ -77,48 +77,67 @@ class Gatekeeper
 	/**
 	 * Constructor.
 	 *
-	 * @param string|\mako\gatekeeper\adapters\AdapterInterface $adapter Adapter name or adapter instance
-	 * @param \Closure|null                                     $factory Adapter factory
+	 * @param array|\mako\gatekeeper\adapters\AdapterInterface $adapter Array containing the adapter name and closure factory or an adapter instance
 	 */
-	public function __construct($adapter, ?Closure $factory = null)
+	public function __construct($adapter)
 	{
-		$this->registerAdapter($adapter, $factory, true);
+		$this->defaultAdapter = $this->registerAdapter($adapter);
 	}
 
 	/**
-	 * Registers a adapter.
+	 * Registers an adapter instance.
 	 *
-	 * @param string|\mako\gatekeeper\adapters\AdapterInterface $adapter     Adapter name or adapter instance
-	 * @param \Closure|null                                     $factory     Adapter factory
-	 * @param bool                                              $makeDefault Make it the default adapter?
+	 * @param  \mako\gatekeeper\adapters\AdapterInterface $adapter Adapter instance
+	 * @return string
 	 */
-	protected function registerAdapter($adapter, ?Closure $factory = null, bool $makeDefault = false): void
+	protected function registerAdapterInstance(AdapterInterface $adapter): string
+	{
+		$this->adapters[$name = $adapter->getName()] = $adapter;
+
+		return $name;
+	}
+
+	/**
+	 * Registers an adapter factory.
+	 *
+	 * @param  string   $name    Adapter name
+	 * @param  \Closure $factory Adapter factory
+	 * @return string
+	 */
+	protected function registerAdapterFactory(string $name, Closure $factory): string
+	{
+		$this->adapterFactories[$name] = $factory;
+
+		return $name;
+	}
+
+	/**
+	 * Registers an adapter.
+	 *
+	 * @param  array|\mako\gatekeeper\adapters\AdapterInterface $adapter Array containing the adapter name and closure factory or an adapter instance
+	 * @return string
+	 */
+	protected function registerAdapter($adapter): string
 	{
 		if($adapter instanceof AdapterInterface)
 		{
-			$this->adapters[$name = $adapter->getName()] = $adapter;
-		}
-		else
-		{
-			$this->adapterFactories[$name = $adapter] = $factory;
+			return $this->registerAdapterInstance($adapter);
 		}
 
-		if($makeDefault)
-		{
-			$this->defaultAdapter = $name;
-		}
+		[$name, $factory] = $adapter;
+
+		return $this->registerAdapterFactory($name, $factory);
 	}
 
 	/**
 	 * Registers a new adapter.
 	 *
-	 * @param  string|\mako\gatekeeper\adapters\AdapterInterface $adapter Adapter name or adapter instance
-	 * @param  \Closure|null                                     $factory Adapter factory
+	 * @param  array|\mako\gatekeeper\adapters\AdapterInterface $adapter Array containing the adapter name and closure factory or an adapter instance
 	 * @return \mako\gatekeeper\Gatekeeper
 	 */
-	public function extend($adapter, ?Closure $factory = null): Gatekeeper
+	public function extend($adapter): Gatekeeper
 	{
-		$this->registerAdapter($adapter, $factory);
+		$this->registerAdapter($adapter);
 
 		return $this;
 	}
@@ -137,12 +156,12 @@ class Gatekeeper
 	}
 
 	/**
-	 * Resolves a adapter instance.
+	 * Creates an adapter instance using a factory.
 	 *
 	 * @param  string                                     $name Adapter name
 	 * @return \mako\gatekeeper\adapters\AdapterInterface
 	 */
-	protected function resolveAdapter(string $name): AdapterInterface
+	protected function adapterFactory(string $name): AdapterInterface
 	{
 		$factory = $this->adapterFactories[$name];
 
@@ -150,7 +169,7 @@ class Gatekeeper
 	}
 
 	/**
-	 * Returns a adapter instance.
+	 * Returns an adapter instance.
 	 *
 	 * @param  string|null                                $name Adapter name
 	 * @return \mako\gatekeeper\adapters\AdapterInterface
@@ -159,7 +178,7 @@ class Gatekeeper
 	{
 		$name = $name ?? $this->defaultAdapter;
 
-		return $this->adapters[$name] ?? $this->resolveAdapter($name);
+		return $this->adapters[$name] ?? $this->adapterFactory($name);
 	}
 
 	/**
