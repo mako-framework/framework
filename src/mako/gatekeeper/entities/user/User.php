@@ -47,7 +47,8 @@ use function random_bytes;
  */
 class User extends ORM implements AuthorizableInterface, MemberInterface, UserEntityInterface
 {
-	use AuthorizableTrait, TimestampedTrait;
+	use AuthorizableTrait;
+	use TimestampedTrait;
 
 	/**
 	 * Table name.
