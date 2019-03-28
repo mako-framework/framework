@@ -8,6 +8,8 @@
 namespace mako\gatekeeper\repositories\user;
 
 use InvalidArgumentException;
+use mako\gatekeeper\authorization\AuthorizableInterface;
+use mako\gatekeeper\authorization\AuthorizerInterface;
 
 use function in_array;
 use function vsprintf;
@@ -30,6 +32,13 @@ class UserRepository implements UserRepositoryInterface
 	protected $model;
 
 	/**
+	 * Authorizer.
+	 *
+	 * @var \mako\gatekeeper\authorization\AuthorizerInterface|null
+	 */
+	protected $authorizer;
+
+	/**
 	 * User identifier.
 	 *
 	 * @var string
@@ -39,11 +48,14 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param string $model Model name
+	 * @param string                                                  $model      Model name
+	 * @param \mako\gatekeeper\authorization\AuthorizerInterface|null $authorizer Authorizer
 	 */
-	public function __construct(string $model)
+	public function __construct(string $model, ?AuthorizerInterface $authorizer = null)
 	{
 		$this->model = $model;
+
+		$this->authorizer = $authorizer;
 	}
 
 	/**
@@ -56,6 +68,38 @@ class UserRepository implements UserRepositoryInterface
 		$model = $this->model;
 
 		return new $model;
+	}
+
+	/**
+	 * Sets the user identifier.
+	 *
+	 * @param  string                    $identifier User identifier
+	 * @throws \InvalidArgumentException
+	 */
+	public function setIdentifier(string $identifier): void
+	{
+		if(!in_array($identifier, ['email', 'username', 'id']))
+		{
+			throw new InvalidArgumentException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
+		}
+
+		$this->identifier = $identifier;
+	}
+
+	/**
+	 * Sets the authorizer.
+	 *
+	 * @param  \mako\gatekeeper\entities\user\User|bool $user User
+	 * @return \mako\gatekeeper\entities\user\User|bool
+	 */
+	protected function setAuthorizer($user)
+	{
+		if($user !== false && $this->authorizer !== null && $user instanceof AuthorizableInterface)
+		{
+			$user->setAuthorizer($this->authorizer);
+		}
+
+		return $user;
 	}
 
 	/**
@@ -76,23 +120,62 @@ class UserRepository implements UserRepositoryInterface
 
 		$user->save();
 
-		return $user;
+		return $this->setAuthorizer($user);
 	}
 
 	/**
-	 * Sets the user identifier.
+	 * Fetches a user by its action token.
 	 *
-	 * @param  string                    $identifier User identifier
-	 * @throws \InvalidArgumentException
+	 * @param  string                                   $token Action token
+	 * @return \mako\gatekeeper\entities\user\User|bool
 	 */
-	public function setIdentifier(string $identifier): void
+	public function getByActionToken(string $token)
 	{
-		if(!in_array($identifier, ['email', 'username', 'id']))
-		{
-			throw new InvalidArgumentException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
-		}
+		return $this->setAuthorizer($this->getModel()->where('action_token', '=', $token)->first());
+	}
 
-		$this->identifier = $identifier;
+	/**
+	 * Fetches a user by its access token.
+	 *
+	 * @param  string                                   $token Access token
+	 * @return \mako\gatekeeper\entities\user\User|bool
+	 */
+	public function getByAccessToken(string $token)
+	{
+		return $this->setAuthorizer($this->getModel()->where('access_token', '=', $token)->first());
+	}
+
+	/**
+	 * Fetches a user by its email address.
+	 *
+	 * @param  string                                   $email Email address
+	 * @return \mako\gatekeeper\entities\user\User|bool
+	 */
+	public function getByEmail(string $email)
+	{
+		return $this->setAuthorizer($this->getModel()->where('email', '=', $email)->first());
+	}
+
+	/**
+	 * Fetches a user by its username.
+	 *
+	 * @param  string                                   $username Username
+	 * @return \mako\gatekeeper\entities\user\User|bool
+	 */
+	public function getByUsername(string $username)
+	{
+		return $this->setAuthorizer($this->getModel()->where('username', '=', $username)->first());
+	}
+
+	/**
+	 * Fetches a user by its id.
+	 *
+	 * @param  int                                      $id User id
+	 * @return \mako\gatekeeper\entities\user\User|bool
+	 */
+	public function getById(int $id)
+	{
+		return $this->setAuthorizer($this->getModel()->where('id', '=', $id)->first());
 	}
 
 	/**
@@ -109,60 +192,5 @@ class UserRepository implements UserRepositoryInterface
 			case 'id':
 				return $this->getById($identifier);
 		}
-	}
-
-	/**
-	 * Fetches a user by its action token.
-	 *
-	 * @param  string                                   $token Action token
-	 * @return \mako\gatekeeper\entities\user\User|bool
-	 */
-	public function getByActionToken(string $token)
-	{
-		return $this->getModel()->where('action_token', '=', $token)->first();
-	}
-
-	/**
-	 * Fetches a user by its access token.
-	 *
-	 * @param  string                                   $token Access token
-	 * @return \mako\gatekeeper\entities\user\User|bool
-	 */
-	public function getByAccessToken(string $token)
-	{
-		return $this->getModel()->where('access_token', '=', $token)->first();
-	}
-
-	/**
-	 * Fetches a user by its email address.
-	 *
-	 * @param  string                                   $email Email address
-	 * @return \mako\gatekeeper\entities\user\User|bool
-	 */
-	public function getByEmail(string $email)
-	{
-		return $this->getModel()->where('email', '=', $email)->first();
-	}
-
-	/**
-	 * Fetches a user by its username.
-	 *
-	 * @param  string                                   $username Username
-	 * @return \mako\gatekeeper\entities\user\User|bool
-	 */
-	public function getByUsername(string $username)
-	{
-		return $this->getModel()->where('username', '=', $username)->first();
-	}
-
-	/**
-	 * Fetches a user by its id.
-	 *
-	 * @param  int                                      $id User id
-	 * @return \mako\gatekeeper\entities\user\User|bool
-	 */
-	public function getById(int $id)
-	{
-		return $this->getModel()->where('id', '=', $id)->first();
 	}
 }

@@ -13,6 +13,8 @@ use mako\chrono\Time;
 use mako\database\midgard\ORM;
 use mako\database\midgard\relations\ManyToMany;
 use mako\database\midgard\traits\TimestampedTrait;
+use mako\gatekeeper\authorization\AuthorizableInterface;
+use mako\gatekeeper\authorization\traits\AuthorizableTrait;
 use mako\gatekeeper\entities\group\Group;
 use mako\security\password\Bcrypt;
 use mako\security\password\HasherInterface;
@@ -43,9 +45,9 @@ use function random_bytes;
  * @property \mako\utility\Time|null          $locked_until
  * @property \mako\database\midgard\ResultSet $groups
  */
-class User extends ORM implements MemberInterface, UserEntityInterface
+class User extends ORM implements AuthorizableInterface, MemberInterface, UserEntityInterface
 {
-	use TimestampedTrait;
+	use AuthorizableTrait, TimestampedTrait;
 
 	/**
 	 * Table name.

@@ -8,6 +8,8 @@
 namespace mako\application\services;
 
 use mako\gatekeeper\adapters\Session;
+use mako\gatekeeper\authorization\Authorizer;
+use mako\gatekeeper\authorization\AuthorizerInterface;
 use mako\gatekeeper\Gatekeeper;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
@@ -27,15 +29,31 @@ class GatekeeperService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([Gatekeeper::class, 'gatekeeper'], function($container)
+		$config = $this->config->get('gatekeeper');
+
+		// Register the authorizer
+
+		$this->container->registerSingleton([AuthorizerInterface::class, 'authorizer'], function($container) use ($config)
+		{
+			$authorizer = new Authorizer($container);
+
+			foreach($config['policies'] as $entity => $policy)
+			{
+				$authorizer->registerPolicy($entity, $policy);
+			}
+
+			return $authorizer;
+		});
+
+		// Register gatekeeper
+
+		$this->container->registerSingleton([Gatekeeper::class, 'gatekeeper'], function($container) use ($config)
 		{
 			// Adapter factory
 
-			$factory = function() use ($container)
+			$factory = function() use ($container, $config)
 			{
-				$config = $this->config->get('gatekeeper');
-
-				$userRepository = new UserRepository($config['user_model']);
+				$userRepository = new UserRepository($config['user_model'], $container->get(AuthorizerInterface::class));
 
 				$userRepository->setIdentifier($config['identifier']);
 
