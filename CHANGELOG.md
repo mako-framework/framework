@@ -1,3 +1,11 @@
+### 6.1.0 <small> (2019-??-??)</small>
+
+#### New
+
+* The server command will make up to 10 attempts to find an available port if the default one is in use
+
+--------------------------------------------------------
+
 ### 6.0.0 <small> (2019-03-30)</small>
 
 The major version bump is due to dropped support for PHP `7.0` and `7.1` and a several breaking changes. Most applications built using Mako `5.7.0` should run on Mako `6.0.0` with just a few simple adjustments.
