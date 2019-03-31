@@ -49,10 +49,11 @@ class Create extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @param \mako\application\Application $application Application instance
-	 * @param \mako\file\FileSystem         $fileSystem  File system instance
-	 * @param string                        $package     Package name
-	 * @param string                        $description Migration description
+	 * @param  \mako\application\Application $application Application instance
+	 * @param  \mako\file\FileSystem         $fileSystem  File system instance
+	 * @param  string                        $package     Package name
+	 * @param  string                        $description Migration description
+	 * @return int|void
 	 */
 	public function execute(Application $application, FileSystem $fileSystem, $package = null, $description = null)
 	{
@@ -93,7 +94,7 @@ class Create extends Command
 		{
 			$this->error('Failed to create migration. Make sure that the migrations directory is writable.');
 
-			return Command::STATUS_ERROR;
+			return static::STATUS_ERROR;
 		}
 
 		$this->write(vsprintf('Migration created at [ %s ].', [$path]));

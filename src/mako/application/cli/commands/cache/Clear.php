@@ -44,14 +44,15 @@ class Clear extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @param \mako\cache\CacheManager $cache         Cache manager
-	 * @param string|null              $configuration Configuration name
+	 * @param  \mako\cache\CacheManager $cache         Cache manager
+	 * @param  string|null              $configuration Configuration name
+	 * @return int|void
 	 */
 	public function execute(CacheManager $cache, ?string $configuration = null)
 	{
 		if($configuration !== null && $this->checkConfigurationExistence($configuration) === false)
 		{
-			return Command::STATUS_ERROR;
+			return static::STATUS_ERROR;
 		}
 
 		$cache->instance($configuration)->clear();

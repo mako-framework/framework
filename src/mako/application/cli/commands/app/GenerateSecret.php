@@ -41,8 +41,9 @@ class GenerateSecret extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @param \mako\application\Application $application Application instance
-	 * @param \mako\file\FileSystem         $fileSystem  File system instance
+	 * @param  \mako\application\Application $application Application instance
+	 * @param  \mako\file\FileSystem         $fileSystem  File system instance
+	 * @return int|void
 	 */
 	public function execute(Application $application, FileSystem $fileSystem)
 	{
@@ -52,7 +53,7 @@ class GenerateSecret extends Command
 		{
 			$this->error('Unable to generate a new secret. Make sure that the [ app/config/application.php ] file is writable.');
 
-			return Command::STATUS_ERROR;
+			return static::STATUS_ERROR;
 		}
 
 		$secret = Key::generateEncoded();

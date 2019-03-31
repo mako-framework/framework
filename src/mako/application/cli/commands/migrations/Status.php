@@ -63,6 +63,6 @@ class Status extends Command
 			$this->write('<green>There are no outstanding migrations.</green>');
 		}
 
-		return ($exitCode && $count > 0) ? Command::STATUS_ERROR : Command::STATUS_SUCCESS;
+		return ($exitCode && $count > 0) ? static::STATUS_ERROR : static::STATUS_SUCCESS;
 	}
 }
