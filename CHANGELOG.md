@@ -3,6 +3,7 @@
 #### New
 
 * The server command will make up to 10 attempts to find an available port if the default one is in use.
+* Added `Container::hasInstanceOf()` method.
 
 > Check out the upgrade guide for details on how to upgrade from `6.0.*.`
 

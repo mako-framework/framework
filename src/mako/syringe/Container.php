@@ -502,7 +502,7 @@ class Container
 	}
 
 	/**
-	 * Checks if a class is registered in the container.
+	 * Returns true if the class is registered in the container false if not.
 	 *
 	 * @param  string $class Class name
 	 * @return bool
@@ -512,6 +512,17 @@ class Container
 		$class = $this->resolveAlias($class);
 
 		return (isset($this->hints[$class]) || isset($this->instances[$class]));
+	}
+
+	/**
+	 * Returns true if there's an instance of the class in the container and false if not.
+	 *
+	 * @param  string $class
+	 * @return bool
+	 */
+	public function hasInstanceOf(string $class): bool
+	{
+		return isset($this->instances[$this->resolveAlias($class)]);
 	}
 
 	/**

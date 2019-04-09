@@ -382,6 +382,27 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testHasInstanceOf(): void
+	{
+		$container = new Container;
+
+		$container->registerSingleton([Bar::class, 'bar'], function()
+		{
+			return new Bar(uniqid(), uniqid());
+		});
+
+		$this->assertFalse($container->hasInstanceOf(Bar::class));
+		$this->assertFalse($container->hasInstanceOf('bar'));
+
+		$container->get(Bar::class);
+
+		$this->assertTrue($container->hasInstanceOf(Bar::class));
+		$this->assertTrue($container->hasInstanceOf('bar'));
+	}
+
+	/**
+	 *
+	 */
 	public function testRegisterSingleton(): void
 	{
 		$container = new Container;
