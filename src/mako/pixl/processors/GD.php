@@ -562,6 +562,48 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function bitonal(): void
+	{
+		if($this->hasFilters)
+		{
+			imagefilter($this->image, IMG_FILTER_GRAYSCALE);
+			imagefilter($this->image, IMG_FILTER_CONTRAST, -2000);
+		}
+		else
+		{
+			$width  = imagesx($this->image);
+			$height = imagesy($this->image);
+
+			$temp = imagecreatetruecolor($width, $height);
+
+			// Colorize pixels
+
+			for($x = 0; $x < $width; $x++)
+			{
+				for($y = 0; $y < $height; $y++)
+				{
+					$rgb = imagecolorat($this->image, $x, $y);
+
+					if((((($rgb >> 16) & 0xFF) + (($rgb >> 8) & 0xFF) + ($rgb & 0xFF)) / 3) > 0x7F)
+					{
+						imagesetpixel($temp, $x, $y, imagecolorallocate($temp, 0xFF, 0xFF, 0xFF));
+					}
+					else
+					{
+						imagesetpixel($temp, $x, $y, imagecolorallocate($temp, 0, 0, 0));
+					}
+				}
+			}
+
+			imagedestroy($this->image);
+
+			$this->image = $temp;
+		}
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function colorize($color): void
 	{
 		$rgb = $this->hexToRgb($color);

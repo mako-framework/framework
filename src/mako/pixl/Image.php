@@ -327,6 +327,18 @@ class Image
 	}
 
 	/**
+	 * Converts image to bitonal.
+	 *
+	 * @return \mako\pixl\Image
+	 */
+	public function bitonal(): Image
+	{
+		$this->processor->bitonal();
+
+		return $this;
+	}
+
+	/**
 	 * Colorizes the image.
 	 *
 	 * @param  string           $color Hex code for the color
