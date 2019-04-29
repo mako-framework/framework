@@ -249,6 +249,14 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function bitonal(): void
+	{
+		$this->image->quantizeImage(2, Imagick::COLORSPACE_GRAY, 5, false, true);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function colorize($color): void
 	{
 		$this->image->colorizeImage($this->normalizeHex($color), 1.0);

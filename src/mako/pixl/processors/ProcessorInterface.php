@@ -116,6 +116,11 @@ interface ProcessorInterface
 	public function sepia();
 
 	/**
+	 * Converts image to bitonal.
+	 */
+	public function bitonal();
+
+	/**
 	 * Colorize the image.
 	 *
 	 * @param string $color Hex value

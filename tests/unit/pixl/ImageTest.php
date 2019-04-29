@@ -356,6 +356,22 @@ class ImageTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBitonal(): void
+	{
+		$processor = $this->getProcessor();
+
+		$processor->shouldReceive('open')->with(__FILE__)->once();
+
+		$processor->shouldReceive('bitonal')->once();
+
+		$image = new Image(__FILE__, $processor);
+
+		$image->bitonal();
+	}
+
+	/**
+	 *
+	 */
 	public function testColorize(): void
 	{
 		$processor = $this->getProcessor();
