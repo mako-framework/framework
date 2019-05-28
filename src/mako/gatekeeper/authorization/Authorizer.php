@@ -76,15 +76,15 @@ class Authorizer implements AuthorizerInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function can(?UserEntityInterface $user, string $action, $entity): bool
+	public function can(?UserEntityInterface $user, string $action, $entity, ...$parameters): bool
 	{
 		$policy = $this->policyFactory($entity);
 
-		if(($isAuthorized = $policy->before($user, $action, $entity)) !== null)
+		if(($isAuthorized = $policy->before($user, $action, $entity, ...$parameters)) !== null)
 		{
 			return $isAuthorized;
 		}
 
-		return $policy->$action($user, $entity);
+		return $policy->$action($user, $entity, ...$parameters);
 	}
 }

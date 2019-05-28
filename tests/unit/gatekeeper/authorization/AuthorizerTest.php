@@ -41,6 +41,14 @@ class BeforeFalsePolicy extends Policy
 	}
 }
 
+class BeforeTruePolicyWithAdditionalParameters extends Policy
+{
+	public function before(?UserEntityInterface $user, string $action, $entity, ...$parameters): ?bool
+	{
+		return $parameters === [1, 2, 3];
+	}
+}
+
 class BeforeNullPolicy extends Policy
 {
 
@@ -90,11 +98,27 @@ class AuthorizerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBeforeTrueWithAdditionalParameters(): void
+	{
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->with(BeforeTruePolicyWithAdditionalParameters::class)->once()->andReturn(new BeforeTruePolicyWithAdditionalParameters);
+
+		$authorizer = new Authorizer($container);
+
+		$authorizer->registerPolicy(TestEntity::class, BeforeTruePolicyWithAdditionalParameters::class);
+
+		$this->assertTrue($authorizer->can(null, 'update', TestEntity::class, 1, 2, 3));
+	}
+
+	/**
+	 *
+	 */
 	public function testBeforeNullWithTrue(): void
 	{
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeFalsePolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
 		{
 			public function update(): bool
 			{
@@ -104,7 +128,7 @@ class AuthorizerTest extends TestCase
 
 		$authorizer = new Authorizer($container);
 
-		$authorizer->registerPolicy(TestEntity::class, BeforeFalsePolicy::class);
+		$authorizer->registerPolicy(TestEntity::class, BeforeNullPolicy::class);
 
 		$this->assertTrue($authorizer->can(null, 'update', TestEntity::class));
 	}
@@ -116,7 +140,7 @@ class AuthorizerTest extends TestCase
 	{
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeFalsePolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
 		{
 			public function update(): bool
 			{
@@ -126,9 +150,31 @@ class AuthorizerTest extends TestCase
 
 		$authorizer = new Authorizer($container);
 
-		$authorizer->registerPolicy(TestEntity::class, BeforeFalsePolicy::class);
+		$authorizer->registerPolicy(TestEntity::class, BeforeNullPolicy::class);
 
 		$this->assertFalse($authorizer->can(null, 'update', TestEntity::class));
+	}
+
+	/**
+	 *
+	 */
+	public function testBeforeNullWithAdditionalParametersAndTrue(): void
+	{
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
+		{
+			public function update($user, $entity, ...$params): bool
+			{
+				return $params === [1, 2, 3];
+			}
+		});
+
+		$authorizer = new Authorizer($container);
+
+		$authorizer->registerPolicy(TestEntity::class, BeforeNullPolicy::class);
+
+		$this->assertTrue($authorizer->can(null, 'update', TestEntity::class, 1, 2, 3));
 	}
 
 	/**
@@ -151,6 +197,24 @@ class AuthorizerTest extends TestCase
 		$authorizer->registerPolicy(TestEntity::class, BeforeTruePolicy::class);
 
 		$this->assertTrue($authorizer->can(null, 'update', TestEntity::class));
+
+		//
+
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->with(BeforeTruePolicy::class)->once()->andReturn(new class implements PolicyInterface
+		{
+			public function before(?UserEntityInterface $user, string $action, $entity, ...$parameters): ?bool
+			{
+				return $user === null && $action === 'update' && $entity === TestEntity::class && $parameters === [1, 2, 3];
+			}
+		});
+
+		$authorizer = new Authorizer($container);
+
+		$authorizer->registerPolicy(TestEntity::class, BeforeTruePolicy::class);
+
+		$this->assertTrue($authorizer->can(null, 'update', TestEntity::class, 1, 2, 3));
 	}
 
 	/**
@@ -160,7 +224,7 @@ class AuthorizerTest extends TestCase
 	{
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeFalsePolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
 		{
 			public function update($user, $entity): bool
 			{
@@ -170,9 +234,45 @@ class AuthorizerTest extends TestCase
 
 		$authorizer = new Authorizer($container);
 
-		$authorizer->registerPolicy(TestEntity::class, BeforeFalsePolicy::class);
+		$authorizer->registerPolicy(TestEntity::class, BeforeNullPolicy::class);
 
 		$this->assertTrue($authorizer->can(null, 'update', TestEntity::class));
+
+		//
+
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
+		{
+			public function update($user, $entity, ...$parameters): bool
+			{
+				return $user === null && $entity === TestEntity::class && $parameters === [1, 2, 3];
+			}
+		});
+
+		$authorizer = new Authorizer($container);
+
+		$authorizer->registerPolicy(TestEntity::class, BeforeNullPolicy::class);
+
+		$this->assertTrue($authorizer->can(null, 'update', TestEntity::class, 1, 2, 3));
+
+		//
+
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
+		{
+			public function update($user, $entity, $one, $two, $three): bool
+			{
+				return $user === null && $entity === TestEntity::class && $one === 1 && $two === 2 && $three === 3;
+			}
+		});
+
+		$authorizer = new Authorizer($container);
+
+		$authorizer->registerPolicy(TestEntity::class, BeforeNullPolicy::class);
+
+		$this->assertTrue($authorizer->can(null, 'update', TestEntity::class, 1, 2, 3));
 	}
 
 	/**

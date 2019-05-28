@@ -25,9 +25,10 @@ interface AuthorizableInterface
 	/**
 	 * Returns true if allowed to perform the action on the entity and false if not.
 	 *
-	 * @param  string        $action Action
-	 * @param  object|string $entity Entity
+	 * @param  string        $action        Action
+	 * @param  object|string $entity        Entity
+	 * @param  mixed         ...$parameters Additional parameters
 	 * @return bool
 	 */
-	public function can(string $action, $entity): bool;
+	public function can(string $action, $entity, ...$parameters): bool;
 }
