@@ -11,6 +11,16 @@
 
 --------------------------------------------------------
 
+### 5.7.2, 6.0.1 <small> (2019-05-21)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* Images will now be rotated in the same direction when using ImageMagick and GD.
+
+--------------------------------------------------------
+
 ### 6.0.0 <small> (2019-03-30)</small>
 
 The major version bump is due to dropped support for PHP `7.0` and `7.1` and a several breaking changes. Most applications built using Mako `5.7.0` should run on Mako `6.0.0` with just a few simple adjustments.
