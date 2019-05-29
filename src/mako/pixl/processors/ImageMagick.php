@@ -134,7 +134,7 @@ class ImageMagick implements ProcessorInterface
 	 */
 	public function rotate($degrees): void
 	{
-		$this->image->rotateImage(new ImagickPixel('none'), (360 - $degrees));
+		$this->image->rotateImage(new ImagickPixel('none'), $degrees);
 	}
 
 	/**
