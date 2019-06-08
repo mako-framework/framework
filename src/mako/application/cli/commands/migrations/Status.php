@@ -30,11 +30,13 @@ class Status extends Command
 			'database' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'd',
 				'description' => 'Sets which database connection to use',
 			],
 			'exit-code' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'e',
 				'description' => 'Exits with 1 if there are outstanding migrations and 0 if there are none',
 			],
 		],

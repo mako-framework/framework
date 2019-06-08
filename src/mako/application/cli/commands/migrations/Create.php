@@ -36,11 +36,13 @@ class Create extends Command
 			'package' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'p',
 				'description' => 'Package name',
 			],
 			'description' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'd',
 				'description' => 'Migration description',
 			],
 		],

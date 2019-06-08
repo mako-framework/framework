@@ -78,13 +78,20 @@ class Dispatcher
 
 		$defaultAndGlobalOptions = array_merge(['arg0', 'arg1'], $globalOptions);
 
+		$shorthandOptions = array_column($command->getCommandOptions(), 'shorthand');
+
 		foreach(array_keys($providedArguments) as $name)
 		{
-			if(!in_array($name, $defaultAndGlobalOptions) && !in_array($name, $commandArguments))
+			if(!in_array($name, $defaultAndGlobalOptions) && !in_array($name, $commandArguments) && !in_array($name, $shorthandOptions))
 			{
 				if(strpos($name, 'arg') === 0)
 				{
 					throw new InvalidArgumentException(vsprintf('Invalid argument [ %s ].', [$name]), $name);
+				}
+
+				if(strlen($name) === 1)
+				{
+					throw new InvalidOptionException(vsprintf('Invalid shorthand option [ %s ].', [$name]), $name, $this->suggest($name, $shorthandOptions));
 				}
 
 				throw new InvalidOptionException(vsprintf('Invalid option [ %s ].', [$name]), $name, $this->suggest($name, $commandArguments));
@@ -157,15 +164,31 @@ class Dispatcher
 	}
 
 	/**
-	 * Converts arguments to camel case.
+	 * Converts arguments from shorthand form to full form, and full form to camel case.
 	 *
+	 * @param  array $options   Options
 	 * @param  array $arguments Arguments
 	 * @return array
 	 */
-	protected function convertArgumentsToCamelCase(array $arguments): array
+	protected function convertArguments(array $options, array $arguments): array
 	{
-		return array_combine(array_map(function($key)
+		$shorthandOptions =  [];
+
+		foreach($options as $key => $option)
 		{
+			if(array_key_exists('shorthand', $option))
+			{
+				$shorthandOptions[$option['shorthand']] = $key;
+			}
+		}
+
+		return array_combine(array_map(function($key) use ($shorthandOptions)
+		{
+			if(strlen($key) === 1 && count($shorthandOptions))
+			{
+				$key = $shorthandOptions[$key];
+			}
+
 			return Str::underscored2camel(str_replace('-', '_', $key));
 		}, array_keys($arguments)), array_values($arguments));
 	}
@@ -179,7 +202,7 @@ class Dispatcher
 	 */
 	protected function execute(CommandInterface $command, array $arguments)
 	{
-		return $this->container->call([$command, 'execute'], $this->convertArgumentsToCamelCase($arguments));
+		return $this->container->call([$command, 'execute'], $this->convertArguments($command->getCommandOptions(), $arguments));
 	}
 
 	/**

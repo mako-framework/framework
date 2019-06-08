@@ -33,7 +33,7 @@ class DispatcherTest extends TestCase
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
 
-		$command->shouldReceive('getCommandOptions')->once()->andReturn([]);
+		$command->shouldReceive('getCommandOptions')->twice()->andReturn([]);
 
 		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
 
@@ -59,7 +59,7 @@ class DispatcherTest extends TestCase
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
 
-		$command->shouldReceive('getCommandOptions')->once()->andReturn([]);
+		$command->shouldReceive('getCommandOptions')->twice()->andReturn([]);
 
 		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
 
@@ -68,6 +68,58 @@ class DispatcherTest extends TestCase
 		$dispatcher = new Dispatcher($container);
 
 		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['foo_snake' => 1, 'bar_snake' => 2], []);
+
+		$this->assertSame(0, $exitCode);
+	}
+
+	/**
+	 *
+	 */
+	public function testDispatchWithShorthandArguments(): void
+	{
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$command = Mockery::mock('mako\reactor\CommandInterface');
+
+		$command->shouldReceive('isStrict')->once()->andReturn(false);
+
+		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
+
+		$command->shouldReceive('getCommandOptions')->twice()->andReturn(['fooSnake' => ['shorthand' => 'f']]);
+
+		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
+
+		$container->shouldReceive('call')->once()->with([$command, 'execute'], ['fooSnake' => 1, 'barSnake' => 2]);
+
+		$dispatcher = new Dispatcher($container);
+
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['f' => 1, 'bar_snake' => 2], []);
+
+		$this->assertSame(0, $exitCode);
+	}
+
+	/**
+	 *
+	 */
+	public function testDispatchWithMixedShorthandArguments(): void
+	{
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$command = Mockery::mock('mako\reactor\CommandInterface');
+
+		$command->shouldReceive('isStrict')->once()->andReturn(false);
+
+		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
+
+		$command->shouldReceive('getCommandOptions')->twice()->andReturn(['fooSnake' => ['shorthand' => 'f'], 'barSnake' => ['shorthand' => 'b']]);
+
+		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
+
+		$container->shouldReceive('call')->once()->with([$command, 'execute'], ['fooSnake' => 1, 'barSnake' => 2]);
+
+		$dispatcher = new Dispatcher($container);
+
+		$exitCode = $dispatcher->dispatch('foo\bar\Command', ['f' => 1, 'b' => 2], []);
 
 		$this->assertSame(0, $exitCode);
 	}
@@ -85,7 +137,7 @@ class DispatcherTest extends TestCase
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
 
-		$command->shouldReceive('getCommandOptions')->once()->andReturn([]);
+		$command->shouldReceive('getCommandOptions')->twice()->andReturn([]);
 
 		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
 
@@ -111,7 +163,7 @@ class DispatcherTest extends TestCase
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
 
-		$command->shouldReceive('getCommandOptions')->once()->andReturn([]);
+		$command->shouldReceive('getCommandOptions')->twice()->andReturn([]);
 
 		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
 
@@ -141,7 +193,7 @@ class DispatcherTest extends TestCase
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn(['arg2' => []]);
 
-		$command->shouldReceive('getCommandOptions')->once()->andReturn([]);
+		$command->shouldReceive('getCommandOptions')->twice()->andReturn([]);
 
 		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
 
@@ -167,7 +219,7 @@ class DispatcherTest extends TestCase
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
 
-		$command->shouldReceive('getCommandOptions')->once()->andReturn(['foo' => []]);
+		$command->shouldReceive('getCommandOptions')->twice()->andReturn(['foo' => []]);
 
 		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
 
@@ -176,6 +228,41 @@ class DispatcherTest extends TestCase
 		try
 		{
 			$dispatcher->dispatch('foo\bar\Command', ['bar' => null], []);
+		}
+		catch(InvalidOptionException $e)
+		{
+			$this->assertNull($e->getSuggestion());
+
+			throw $e;
+		}
+	}
+
+	/**
+	 *
+	 */
+	public function testDispatchWithInvalidShorthandOptions(): void
+	{
+		$this->expectException(InvalidOptionException::class);
+
+		$this->expectExceptionMessage('Invalid shorthand option [ b ].');
+
+		$container = Mockery::mock('mako\syringe\Container');
+
+		$command = Mockery::mock('mako\reactor\CommandInterface');
+
+		$command->shouldReceive('isStrict')->once()->andReturn(true);
+
+		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
+
+		$command->shouldReceive('getCommandOptions')->twice()->andReturn(['foo' => []]);
+
+		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
+
+		$dispatcher = new Dispatcher($container);
+
+		try
+		{
+			$dispatcher->dispatch('foo\bar\Command', ['b' => null], []);
 		}
 		catch(InvalidOptionException $e)
 		{
@@ -202,7 +289,7 @@ class DispatcherTest extends TestCase
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn([]);
 
-		$command->shouldReceive('getCommandOptions')->once()->andReturn(['foo' => []]);
+		$command->shouldReceive('getCommandOptions')->twice()->andReturn(['foo' => []]);
 
 		$container->shouldReceive('get')->once()->with('foo\bar\Command')->andReturn($command);
 

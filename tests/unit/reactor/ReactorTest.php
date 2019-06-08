@@ -563,11 +563,11 @@ EOF;
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Options:</yellow>');
 
 		$optionsTable = <<<EOF
-------------------------------------------------------------------------------
-| <green>Name</green> | <green>Description</green> | <green>Optional</green> |
-------------------------------------------------------------------------------
-| option              | Option description.        | true                    |
-------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+| <green>Name</green> | <green>Shorthand</green> | <green>Description</green> | <green>Optional</green> |
+---------------------------------------------------------------------------------------------------------
+| option              | -o                       | Option description.        | true                    |
+---------------------------------------------------------------------------------------------------------
 
 EOF;
 
@@ -581,7 +581,7 @@ EOF;
 
 		$command->shouldReceive('getCommandArguments')->once()->andReturn(['arg2' => ['optional' => true, 'description' => 'Argument description.']]);
 
-		$command->shouldReceive('getCommandOptions')->once()->andReturn(['option' => ['optional' => true, 'description' => 'Option description.']]);
+		$command->shouldReceive('getCommandOptions')->once()->andReturn(['option' => ['shorthand' => 'o', 'optional' => true, 'description' => 'Option description.']]);
 
 		//
 

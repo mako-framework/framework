@@ -47,16 +47,19 @@ class Server extends Command
 			'port' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'p',
 				'description' => 'Port to run the server on',
 			],
 			'address' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'a',
 				'description' => 'Address to run the server on',
 			],
 			'docroot' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'd',
 				'description' => 'Path to the document root',
 			],
 		],

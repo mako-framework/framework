@@ -36,6 +36,7 @@ class Clear extends Command
 			'configuration' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'c',
 				'description' => 'Configuration name',
 			],
 		],

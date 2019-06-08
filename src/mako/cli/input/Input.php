@@ -29,6 +29,13 @@ class Input
 	const NAMED_ARGUMENT_REGEX = '/--([a-z0-9-_]+)(=(.*))?/iu';
 
 	/**
+	 * Regex that matches shorthand arguments.
+	 *
+	 * @var string
+	 */
+	const SHORTHAND_ARGUMENT_REGEX = '/-[a-z](=(.*))?/iu';
+
+	/**
 	 * Reader.
 	 *
 	 * @var \mako\cli\input\reader\ReaderInterface
@@ -72,6 +79,12 @@ class Input
 			if(preg_match(static::NAMED_ARGUMENT_REGEX, $argument) === 1)
 			{
 				[$name, $value] = explode('=', substr($argument, 2), 2) + [null, null];
+
+				$parsed[$name] = $value === null ? true : $value;
+			}
+			elseif(preg_match(static::SHORTHAND_ARGUMENT_REGEX, $argument) === 1)
+			{
+				[$name, $value] = explode('=', substr($argument, 1), 2) + [null, null];
 
 				$parsed[$name] = $value === null ? true : $value;
 			}

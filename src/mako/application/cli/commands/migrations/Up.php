@@ -27,6 +27,7 @@ class Up extends Command
 			'database' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'd',
 				'description' => 'Sets which database connection to use',
 			],
 		],

@@ -25,6 +25,7 @@ class Foo extends Command
 			'option' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'o',
 				'description' => 'Option description.',
 			],
 		],
@@ -150,7 +151,7 @@ class CommandTest extends TestCase
 
 		$foo = new Foo($input, $output);
 
-		$this->assertEquals(['option' => ['optional' => true, 'description' => 'Option description.']], $foo->getCommandOptions());
+		$this->assertEquals(['option' => ['optional' => true, 'shorthand' => 'o', 'description' => 'Option description.']], $foo->getCommandOptions());
 
 		//
 

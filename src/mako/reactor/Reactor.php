@@ -299,18 +299,36 @@ class Reactor
 	}
 
 	/**
-	 * Converst the argument and options arrays to table rows.
+	 * Converts the argument and options arrays to table rows.
 	 *
-	 * @param  array $input Argument or option array
+	 * @param  array $input Argument array
 	 * @return array
 	 */
-	protected function convertArgumentsAndOptionsArrayToRows(array $input): array
+	protected function convertArgumentsToRows(array $input): array
 	{
 		$rows = [];
 
 		foreach($input as $name => $info)
 		{
 			$rows[] = [$name, $info['description'], var_export($info['optional'], true)];
+		}
+
+		return $rows;
+	}
+
+	/**
+	 * Converts the argument and options arrays to table rows.
+	 *
+	 * @param  array $input Option array
+	 * @return array
+	 */
+	protected function convertOptionsToRows(array $input): array
+	{
+		$rows = [];
+
+		foreach($input as $name => $info)
+		{
+			$rows[] = [$name, (isset($info['shorthand']) ? '-' . $info['shorthand'] : ''), $info['description'], var_export($info['optional'], true)];
 		}
 
 		return $rows;
@@ -342,12 +360,12 @@ class Reactor
 
 		if(!empty($arguments = $commandInstance->getCommandArguments()))
 		{
-			$this->drawTable('Arguments:', ['Name', 'Description', 'Optional'], $this->convertArgumentsAndOptionsArrayToRows($arguments));
+			$this->drawTable('Arguments:', ['Name', 'Description', 'Optional'], $this->convertArgumentsToRows($arguments));
 		}
 
 		if(!empty($options = $commandInstance->getCommandOptions()))
 		{
-			$this->drawTable('Options:', ['Name', 'Description', 'Optional'], $this->convertArgumentsAndOptionsArrayToRows($options));
+			$this->drawTable('Options:', ['Name', 'Shorthand', 'Description', 'Optional'], $this->convertOptionsToRows($options));
 		}
 
 		return CommandInterface::STATUS_SUCCESS;

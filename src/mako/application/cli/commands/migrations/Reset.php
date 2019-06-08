@@ -31,11 +31,13 @@ class Reset extends Command
 			'force' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'f',
 				'description' => 'Force the schema reset?',
 			],
 			'database' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'd',
 				'description' => 'Sets which database connection to use',
 			],
 		],

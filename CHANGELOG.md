@@ -6,6 +6,7 @@
 * Added `Container::hasInstanceOf()` method.
 * It is now possible to send additional arguments to authorization policy methods.
 * Added bitonal filter to the image library ([#258](https://github.com/mako-framework/framework/pull/258)).
+* Added shorthand options to commands, for example `-p` for `--port`.
 
 > Check out the upgrade guide for details on how to upgrade from `6.0.*.`
 

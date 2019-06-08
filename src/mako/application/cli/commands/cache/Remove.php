@@ -36,11 +36,13 @@ class Remove extends Command
 			'key' =>
 			[
 				'optional'    => false,
+				'shorthand'   => 'k',
 				'description' => 'Cache key',
 			],
 			'configuration' =>
 			[
 				'optional'    => true,
+				'shorthand'   => 'c',
 				'description' => 'Configuration name',
 			],
 		],
