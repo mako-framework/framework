@@ -47,4 +47,20 @@ class AuthorizableTest extends TestCase
 
 		$this->assertTrue($authorizable->can('action', 'entity'));
 	}
+
+	/**
+	 *
+	 */
+	public function testSetAuthorizerAndCanWithAdditionalParams(): void
+	{
+		$authorizable = new User;
+
+		$authorizer = Mockery::mock(AuthorizerInterface::class);
+
+		$authorizer->shouldReceive('can')->with($authorizable, 'action', 'entity', 'one', 'two', 'three')->andReturn(true);
+
+		$authorizable->setAuthorizer($authorizer);
+
+		$this->assertTrue($authorizable->can('action', 'entity', 'one', 'two', 'three'));
+	}
 }

@@ -22,7 +22,7 @@ class AuthorizationTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithSuccess(): void
+	public function testSuccess(): void
 	{
 		$class = new class
 		{
@@ -48,7 +48,33 @@ class AuthorizationTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithFailure(): void
+	public function testSuccessWithAdditionalParameters(): void
+	{
+		$class = new class
+		{
+			use AuthorizationTrait;
+
+			public function test(): void
+			{
+				$this->authorize('action', 'entity', 'one', 'two', 'three');
+			}
+		};
+
+		$class->gatekeeper = Mockery::mock(Gatekeeper::class);
+
+		$class->gatekeeper->shouldReceive('getUser')->once()->andReturn(null);
+
+		$class->authorizer = Mockery::mock(AuthorizerInterface::class);
+
+		$class->authorizer->shouldReceive('can')->once()->with(null, 'action', 'entity', 'one', 'two', 'three')->andReturn(true);
+
+		$class->test();
+	}
+
+	/**
+	 *
+	 */
+	public function testFailure(): void
 	{
 		$this->expectException(ForbiddenException::class);
 
