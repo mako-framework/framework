@@ -40,8 +40,8 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection();
 
-		$collection->put('foo', 'bar');
-		$collection->put(0, 'baz');
+		$this->assertInstanceOf(Collection::class, $collection->put('foo', 'bar'));
+		$this->assertInstanceOf(Collection::class, $collection->put(0, 'baz'));
 
 		$this->assertEquals('bar', $collection['foo']);
 		$this->assertEquals('baz', $collection[0]);
@@ -110,7 +110,7 @@ class CollectionTest extends TestCase
 
 		$this->assertTrue($collection->has('foo'));
 
-		$collection->remove('foo');
+		$this->assertInstanceOf(Collection::class, $collection->remove('foo'));
 
 		$this->assertFalse($collection->has('foo'));
 	}
@@ -124,7 +124,7 @@ class CollectionTest extends TestCase
 
 		$this->assertEquals(3, $collection->count());
 
-		$collection->clear();
+		$this->assertInstanceOf(Collection::class, $collection->clear());
 
 		$this->assertEquals(0, $collection->count());
 	}
@@ -431,7 +431,7 @@ class CollectionTest extends TestCase
 
 		$this->assertEquals([0 => 1, 1 => 2, 3 => 4, 4 => 5, 5 => 6], $collection->getItems());
 
-		$collection->resetKeys();
+		$this->assertInstanceOf(Collection::class, $collection->resetKeys());
 
 		$this->assertEquals([0 => 1, 1 => 2, 2 => 4, 3 => 5, 4 => 6], $collection->getItems());
 
@@ -454,10 +454,10 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([1, 2, 3]);
 
-		$collection->each(function($value, $key)
+		$this->assertInstanceOf(Collection::class, $collection->each(function($value, $key)
 		{
 			return $key . ':' . $value;
-		});
+		}));
 
 		$this->assertSame(['0:1', '1:2', '2:3'], $collection->getItems());
 	}

@@ -80,21 +80,28 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Resets the collection keys.
+	 *
+	 * @return $this
 	 */
-	public function resetKeys(): void
+	public function resetKeys()
 	{
 		$this->items = array_values($this->items);
+
+		return $this;
 	}
 
 	/**
 	 * Adds a new item to the collection.
 	 *
-	 * @param int|string $key   Key
-	 * @param mixed      $value Value
+	 * @param  int|string $key   Key
+	 * @param  mixed      $value Value
+	 * @return $this
 	 */
-	public function put($key, $value): void
+	public function put($key, $value)
 	{
 		$this->items[$key] = $value;
+
+		return $this;
 	}
 
 	/**
@@ -128,19 +135,26 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Removes an item from the collection.
 	 *
-	 * @param int|string $key Key
+	 * @param  int|string $key Key
+	 * @return $this
 	 */
-	public function remove($key): void
+	public function remove($key)
 	{
 		unset($this->items[$key]);
+
+		return $this;
 	}
 
 	/**
 	 * Clears the collection.
+	 *
+	 * @return $this
 	 */
-	public function clear(): void
+	public function clear()
 	{
 		$this->items = [];
+
+		return $this;
 	}
 
 	/**
@@ -320,14 +334,17 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Applies the callable on all items in the collection.
 	 *
-	 * @param callable $callable Callable
+	 * @param  callable $callable Callable
+	 * @return $this
 	 */
-	public function each(callable $callable): void
+	public function each(callable $callable)
 	{
 		foreach($this->items as $key => $value)
 		{
 			$this->items[$key] = $callable($value, $key);
 		}
+
+		return $this;
 	}
 
 	/**
