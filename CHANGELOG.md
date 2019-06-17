@@ -7,11 +7,11 @@
 * It is now possible to send additional arguments to authorization policy methods.
 * Added bitonal filter to the image library ([#258](https://github.com/mako-framework/framework/pull/258)).
 * The following Collection methods are now chainable:
-	- `resetKeys`
-	- `put`
-	- `remove`
 	- `clear`
 	- `each`
+	- `put`
+	- `remove`
+	- `resetKeys`
 	- `shuffle`
 	- `sort`
 
