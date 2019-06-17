@@ -325,7 +325,7 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
 
-		$collection->sort(function($a, $b)
+		$this->assertInstanceOf(Collection::class, $collection->sort(function($a, $b)
 		{
 			if($a == $b)
 			{
@@ -333,7 +333,7 @@ class CollectionTest extends TestCase
 			}
 
 			return ($a < $b) ? -1 : 1;
-		});
+		}));
 
 		$this->assertSame([1 => 1, 0 => 2, 2 => 3, 5 => 4, 3 => 5, 4 => 6], $collection->getItems());
 	}
@@ -345,7 +345,7 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
 
-		$collection->sort(function($a, $b)
+		$this->assertInstanceOf(Collection::class, $collection->sort(function($a, $b)
 		{
 			if($a == $b)
 			{
@@ -353,7 +353,7 @@ class CollectionTest extends TestCase
 			}
 
 			return ($a < $b) ? -1 : 1;
-		}, false);
+		}, false));
 
 		$this->assertSame([1, 2, 3, 4, 5, 6], $collection->getItems());
 	}
@@ -383,7 +383,7 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([1, 2]);
 
-		$collection->shuffle();
+		$this->assertInstanceOf(Collection::class, $collection->shuffle());
 
 		$this->assertTrue(($collection[0] === 1 || $collection[0] === 2));
 	}

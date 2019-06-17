@@ -12,6 +12,8 @@
 	- `remove`
 	- `clear`
 	- `each`
+	- `shuffle`
+	- `sort`
 
 > Check out the upgrade guide for details on how to upgrade from `6.0.*.`
 

@@ -295,11 +295,20 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @param  callable $comparator               Comparator callable
 	 * @param  bool     $maintainIndexAssociation Maintain index association?
-	 * @return bool
+	 * @return $this
 	 */
-	public function sort(callable $comparator, bool $maintainIndexAssociation = true): bool
+	public function sort(callable $comparator, bool $maintainIndexAssociation = true)
 	{
-		return $maintainIndexAssociation ? uasort($this->items, $comparator) : usort($this->items, $comparator);
+		if($maintainIndexAssociation)
+		{
+			uasort($this->items, $comparator);
+		}
+		else
+		{
+			usort($this->items, $comparator);
+		}
+
+		return $this;
 	}
 
 	/**
@@ -324,11 +333,13 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Shuffles the items in the collection and returns
 	 * TRUE on success and FALSE on failure.
 	 *
-	 * @return bool
+	 * @return $this
 	 */
-	public function shuffle(): bool
+	public function shuffle()
 	{
-		return shuffle($this->items);
+		shuffle($this->items);
+
+		return $this;
 	}
 
 	/**
