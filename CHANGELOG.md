@@ -15,7 +15,13 @@
 	- `shuffle`
 	- `sort`
 
+#### Deprecations
+
+* The `{{$foo || 'Default}}` template syntax has been deprecated, use the `{{$foo or 'Default'}}` syntax instead.
+
 > Check out the upgrade guide for details on how to upgrade from `6.0.*.`
+
+> Deprecated features will be removed in `6.2.0`.
 
 --------------------------------------------------------
 
