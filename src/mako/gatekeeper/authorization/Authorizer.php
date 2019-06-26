@@ -80,7 +80,7 @@ class Authorizer implements AuthorizerInterface
 	{
 		$policy = $this->policyFactory($entity);
 
-		if(($isAuthorized = $policy->before($user, $action, $entity, ...$parameters)) !== null)
+		if(($isAuthorized = $policy->before($user, $action, $entity)) !== null)
 		{
 			return $isAuthorized;
 		}
