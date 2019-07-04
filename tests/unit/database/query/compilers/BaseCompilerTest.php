@@ -1485,6 +1485,36 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testUnionWithQuery(): void
+	{
+		$sales2015 = $this->getBuilder('sales2015');
+
+		$query = $this->getBuilder()->union($sales2015)->table('sales2016');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "sales2015" UNION SELECT * FROM "sales2016"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testUnionWithSubquery(): void
+	{
+		$sales2015 = $this->getBuilder('sales2015');
+
+		$query = $this->getBuilder()->union(new Subquery($sales2015))->table('sales2016');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "sales2015" UNION SELECT * FROM "sales2016"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testMultipleUnions(): void
 	{
 		$query = $this->getBuilder('sales2016');
