@@ -204,7 +204,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function __construct(array $columns = [], bool $raw = false, bool $whitelist = true, bool $isPersisted = false)
 	{
-		$this->registerTraits();
+		$this->registerHooksAndCasts();
 
 		$this->assign($columns, $raw, $whitelist);
 
@@ -292,9 +292,9 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
-	 * Registers traits.
+	 * Registers hooks and casts.
 	 */
-	protected function registerTraits(): void
+	protected function registerHooksAndCasts(): void
 	{
 		if(!isset(static::$traitHooks[static::class]))
 		{
