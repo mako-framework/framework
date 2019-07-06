@@ -65,8 +65,8 @@ class MySQL extends Compiler
 				[
 					'column' => $where['column'],
 					'not'    => $where['operator'] !== '=',
-					'value1' => $where['value'] . ' 00:00:00',
-					'value2' => $where['value'] . ' 23:59:59',
+					'value1' => $where['value'] . ' 00:00:00.000000',
+					'value2' => $where['value'] . ' 23:59:59.999999',
 				];
 
 				return $this->between($where);
@@ -78,10 +78,10 @@ class MySQL extends Compiler
 				{
 					case '>=':
 					case '<':
-						$suffix = ' 00:00:00';
+						$suffix = ' 00:00:00.000000';
 						break;
 					default:
-						$suffix = ' 23:59:59';
+						$suffix = ' 23:59:59.999999';
 				}
 
 				return $this->column($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value'] . $suffix);
