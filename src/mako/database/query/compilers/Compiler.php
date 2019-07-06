@@ -477,6 +477,18 @@ class Compiler
 	}
 
 	/**
+	 * Compiles date comparison clauses.
+	 *
+	 * @param  array             $where
+	 * @throws \RuntimeException
+	 * @return string
+	 */
+	protected function whereDate(array $where): string
+	{
+		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support date comparisons.', [static::class]));
+	}
+
+	/**
 	 * Compiles WHERE conditions.
 	 *
 	 * @param  array  $where Where clause

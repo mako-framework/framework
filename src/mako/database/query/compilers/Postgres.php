@@ -60,6 +60,45 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function whereDate(array $where): string
+	{
+		switch($where['operator'])
+		{
+			case '=':
+			case '!=':
+			case '<>':
+				$where =
+				[
+					'column' => $where['column'],
+					'not'    => $where['operator'] !== '=',
+					'value1' => $where['value'] . ' 00:00:00.000000',
+					'value2' => $where['value'] . ' 23:59:59.999999',
+				];
+
+				return $this->between($where);
+			case '>':
+			case '>=':
+			case '<':
+			case '<=':
+				switch($where['operator'])
+				{
+					case '>=':
+					case '<':
+						$suffix = ' 00:00:00.000000';
+						break;
+					default:
+						$suffix = ' 23:59:59.999999';
+				}
+
+				return $this->column($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value'] . $suffix);
+			default:
+				return $this->column($where['column']) . '::date::char(10) ' . $where['operator'] . ' ' . $this->param($where['value']);
+		}
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function lock($lock): string
 	{
 		if($lock === null)

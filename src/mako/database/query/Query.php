@@ -8,6 +8,7 @@
 namespace mako\database\query;
 
 use Closure;
+use DateTimeInterface;
 use Generator;
 use mako\database\connections\Connection;
 use mako\pagination\PaginationFactoryInterface;
@@ -859,6 +860,43 @@ class Query
 	public function orNotExists($query)
 	{
 		return $this->exists($query, 'OR', true);
+	}
+
+	/**
+	 * Adds a date comparison clause.
+	 *
+	 * @param  string                         $column
+	 * @param  string                         $operator
+	 * @param  string|\DateTimeInterface|null $date
+	 * @param  string                         $separator
+	 * @return $this
+	 */
+	public function whereDate(string $column, string $operator, $date, string $separator = 'AND')
+	{
+
+		$this->wheres[] =
+		[
+			'type'      => 'whereDate',
+			'column'    => $column,
+			'operator'  => $operator,
+			'value'     => $date instanceof DateTimeInterface ? $date->format('Y-m-d') : $date,
+			'separator' => $separator,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a date comparison clause.
+	 *
+	 * @param  string                         $column
+	 * @param  string                         $operator
+	 * @param  string|\DateTimeInterface|null $date
+	 * @return $this
+	 */
+	public function orWhereDate(string $column, string $operator, $date)
+	{
+		return $this->whereDate($column, $operator, $date, 'OR');
 	}
 
 	/**

@@ -201,4 +201,112 @@ class PostgresCompilerTest extends TestCase
 		$this->assertEquals('UPDATE "foobar" SET "data" = JSONB_SET("data", \'{foo,\'\'bar,0}\', \'?\')', $query['sql']);
 		$this->assertEquals([1], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testWhereDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '=', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['2019-07-05 00:00:00.000000', '2019-07-05 23:59:59.999999'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '!=', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" NOT BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['2019-07-05 00:00:00.000000', '2019-07-05 23:59:59.999999'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '<>', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" NOT BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['2019-07-05 00:00:00.000000', '2019-07-05 23:59:59.999999'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '>', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" > ?', $query['sql']);
+		$this->assertEquals(['2019-07-05 23:59:59.999999'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '>=', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" >= ?', $query['sql']);
+		$this->assertEquals(['2019-07-05 00:00:00.000000'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '<', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" < ?', $query['sql']);
+		$this->assertEquals(['2019-07-05 00:00:00.000000'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '<=', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" <= ?', $query['sql']);
+		$this->assertEquals(['2019-07-05 23:59:59.999999'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', 'LIKE', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "date"::date::char(10) LIKE ?', $query['sql']);
+		$this->assertEquals(['2019-07-05'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrWhereDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', 'bar');
+		$query->orWhereDate('date', '=', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "date" BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['bar', '2019-07-05 00:00:00.000000', '2019-07-05 23:59:59.999999'], $query['params']);
+	}
 }

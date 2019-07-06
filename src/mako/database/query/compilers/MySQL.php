@@ -54,6 +54,45 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function whereDate(array $where): string
+	{
+		switch($where['operator'])
+		{
+			case '=':
+			case '!=':
+			case '<>':
+				$where =
+				[
+					'column' => $where['column'],
+					'not'    => $where['operator'] !== '=',
+					'value1' => $where['value'] . ' 00:00:00',
+					'value2' => $where['value'] . ' 23:59:59',
+				];
+
+				return $this->between($where);
+			case '>':
+			case '>=':
+			case '<':
+			case '<=':
+				switch($where['operator'])
+				{
+					case '>=':
+					case '<':
+						$suffix = ' 00:00:00';
+						break;
+					default:
+						$suffix = ' 23:59:59';
+				}
+
+				return $this->column($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value'] . $suffix);
+			default:
+				return 'DATE(' . $this->column($where['column']) . ') ' . $where['operator'] . ' ' . $this->param($where['value']);
+		}
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function lock($lock): string
 	{
 		if($lock === null)
