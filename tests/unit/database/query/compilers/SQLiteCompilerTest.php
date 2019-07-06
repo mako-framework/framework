@@ -114,7 +114,7 @@ class SQLiteCompilerTest extends TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" BETWEEN ? AND ?', $query['sql']);
-		$this->assertEquals(['2019-07-05 00:00:00', '2019-07-05 23:59:59'], $query['params']);
+		$this->assertEquals(['2019-07-05 00:00:00.000', '2019-07-05 23:59:59.999'], $query['params']);
 
 		//
 
@@ -125,7 +125,7 @@ class SQLiteCompilerTest extends TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" NOT BETWEEN ? AND ?', $query['sql']);
-		$this->assertEquals(['2019-07-05 00:00:00', '2019-07-05 23:59:59'], $query['params']);
+		$this->assertEquals(['2019-07-05 00:00:00.000', '2019-07-05 23:59:59.999'], $query['params']);
 
 		//
 
@@ -136,7 +136,7 @@ class SQLiteCompilerTest extends TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" NOT BETWEEN ? AND ?', $query['sql']);
-		$this->assertEquals(['2019-07-05 00:00:00', '2019-07-05 23:59:59'], $query['params']);
+		$this->assertEquals(['2019-07-05 00:00:00.000', '2019-07-05 23:59:59.999'], $query['params']);
 
 		//
 
@@ -147,7 +147,7 @@ class SQLiteCompilerTest extends TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" > ?', $query['sql']);
-		$this->assertEquals(['2019-07-05 23:59:59'], $query['params']);
+		$this->assertEquals(['2019-07-05 23:59:59.999'], $query['params']);
 
 		//
 
@@ -158,7 +158,7 @@ class SQLiteCompilerTest extends TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" >= ?', $query['sql']);
-		$this->assertEquals(['2019-07-05 00:00:00'], $query['params']);
+		$this->assertEquals(['2019-07-05 00:00:00.000'], $query['params']);
 
 		//
 
@@ -169,7 +169,7 @@ class SQLiteCompilerTest extends TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" < ?', $query['sql']);
-		$this->assertEquals(['2019-07-05 00:00:00'], $query['params']);
+		$this->assertEquals(['2019-07-05 00:00:00.000'], $query['params']);
 
 		//
 
@@ -180,7 +180,7 @@ class SQLiteCompilerTest extends TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" <= ?', $query['sql']);
-		$this->assertEquals(['2019-07-05 23:59:59'], $query['params']);
+		$this->assertEquals(['2019-07-05 23:59:59.999'], $query['params']);
 
 		//
 
@@ -207,6 +207,6 @@ class SQLiteCompilerTest extends TestCase
 		$query = $query->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "date" BETWEEN ? AND ?', $query['sql']);
-		$this->assertEquals(['bar', '2019-07-05 00:00:00', '2019-07-05 23:59:59'], $query['params']);
+		$this->assertEquals(['bar', '2019-07-05 00:00:00.000', '2019-07-05 23:59:59.999'], $query['params']);
 	}
 }
