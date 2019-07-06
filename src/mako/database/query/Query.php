@@ -373,6 +373,23 @@ class Query
 	}
 
 	/**
+	 * Executes the closure if the compiler is of the correct class.
+	 *
+	 * @param  string   $compilerClass
+	 * @param  \Closure $query
+	 * @return $this
+	 */
+	public function forCompiler(string $compilerClass, Closure $query)
+	{
+		if($this->compiler instanceof $compilerClass)
+		{
+			$query($this);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Adds a set operation.
 	 *
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query     Query
