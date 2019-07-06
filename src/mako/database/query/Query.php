@@ -865,10 +865,10 @@ class Query
 	/**
 	 * Adds a date comparison clause.
 	 *
-	 * @param  string                         $column
-	 * @param  string                         $operator
-	 * @param  string|\DateTimeInterface|null $date
-	 * @param  string                         $separator
+	 * @param  string                    $column
+	 * @param  string                    $operator
+	 * @param  string|\DateTimeInterface $date
+	 * @param  string                    $separator
 	 * @return $this
 	 */
 	public function whereDate(string $column, string $operator, $date, string $separator = 'AND')
@@ -889,9 +889,9 @@ class Query
 	/**
 	 * Adds a date comparison clause.
 	 *
-	 * @param  string                         $column
-	 * @param  string                         $operator
-	 * @param  string|\DateTimeInterface|null $date
+	 * @param  string                    $column
+	 * @param  string                    $operator
+	 * @param  string|\DateTimeInterface $date
 	 * @return $this
 	 */
 	public function orWhereDate(string $column, string $operator, $date)
