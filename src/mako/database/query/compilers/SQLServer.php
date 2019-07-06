@@ -67,6 +67,14 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function whereDate(array $where): string
+	{
+		return 'CAST(' . $this->column($where['column']) . ' AS DATE) ' . $where['operator'] . ' ' . $this->param($where['value']);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function orderings(array $orderings): string
 	{
 		if(empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null))

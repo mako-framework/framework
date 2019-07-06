@@ -131,4 +131,112 @@ class FirebirdCompilerTest extends TestCase
 		$this->assertEquals('SELECT * FROM "foobar" CUSTOM LOCK', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testWhereDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '=', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE CAST("date" AS DATE) = ?', $query['sql']);
+		$this->assertEquals(['2019-07-05'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '!=', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE CAST("date" AS DATE) != ?', $query['sql']);
+		$this->assertEquals(['2019-07-05'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '<>', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE CAST("date" AS DATE) <> ?', $query['sql']);
+		$this->assertEquals(['2019-07-05'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '>', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE CAST("date" AS DATE) > ?', $query['sql']);
+		$this->assertEquals(['2019-07-05'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '>=', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE CAST("date" AS DATE) >= ?', $query['sql']);
+		$this->assertEquals(['2019-07-05'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '<', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE CAST("date" AS DATE) < ?', $query['sql']);
+		$this->assertEquals(['2019-07-05'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', '<=', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE CAST("date" AS DATE) <= ?', $query['sql']);
+		$this->assertEquals(['2019-07-05'], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereDate('date', 'LIKE', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE CAST("date" AS DATE) LIKE ?', $query['sql']);
+		$this->assertEquals(['2019-07-05'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrWhereDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', 'bar');
+		$query->orWhereDate('date', '=', '2019-07-05');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR CAST("date" AS DATE) = ?', $query['sql']);
+		$this->assertEquals(['bar', '2019-07-05'], $query['params']);
+	}
 }

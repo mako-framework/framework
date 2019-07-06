@@ -24,6 +24,14 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function whereDate(array $where): string
+	{
+		return 'CAST(' . $this->column($where['column']) . ' AS DATE) ' . $where['operator'] . ' ' . $this->param($where['value']);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function limit(int $limit = null): string
 	{
 		$offset = $this->query->getOffset();
