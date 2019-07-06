@@ -14,6 +14,7 @@
 	- `resetKeys`
 	- `shuffle`
 	- `sort`
+* Added `Query::forCompiler()` method that can be used to add dialect specific SQL to queries. 
 
 #### Deprecations
 
