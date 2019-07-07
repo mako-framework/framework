@@ -61,6 +61,7 @@ return Config::create()
 	'pow_to_exponentiation' => true,
 	'return_type_declaration' => true,
 	'short_scalar_cast' => true,
+	'simple_to_complex_string_variable' => true,
 	'single_blank_line_at_eof' => true,
 	'single_blank_line_before_namespace' => true,
 	'single_import_per_statement' => true,
