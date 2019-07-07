@@ -65,7 +65,7 @@ class Humanizer
 
 			$e = floor(log($size, $base));
 
-			return round($size / ($base ** $e), 2) . ' ' . $terms[$e];
+			return round($size / ($base ** $e), 2) . " {$terms[$e]}";
 		}
 
 		return '0 byte';

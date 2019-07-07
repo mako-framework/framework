@@ -252,7 +252,7 @@ abstract class Application
 
 		if($prefix)
 		{
-			$namespace = '\\' . $namespace;
+			$namespace = "\\{$namespace}";
 		}
 
 		return $namespace;
@@ -311,7 +311,7 @@ abstract class Application
 	 */
 	protected function serviceRegistrar(string $type): void
 	{
-		foreach($this->config->get('application.services.' . $type) as $service)
+		foreach($this->config->get("application.services.{$type}") as $service)
 		{
 			(new $service($this, $this->container, $this->config))->register();
 		}
@@ -376,7 +376,7 @@ abstract class Application
 	{
 		(function($app, $container): void
 		{
-			include $this->applicationPath . '/bootstrap.php';
+			include "{$this->applicationPath}/bootstrap.php";
 		})($this, $this->container);
 	}
 
@@ -387,7 +387,7 @@ abstract class Application
 	 */
 	protected function packageBooter(string $type): void
 	{
-		foreach($this->config->get('application.packages.' . $type) as $package)
+		foreach($this->config->get("application.packages.{$type}") as $package)
 		{
 			$package = new $package($this->container);
 
@@ -449,7 +449,7 @@ abstract class Application
 	 */
 	protected function configFactory(): Config
 	{
-		return new Config(new Loader($this->container->get(FileSystem::class), $this->applicationPath . '/config'), $this->getEnvironment());
+		return new Config(new Loader($this->container->get(FileSystem::class), "{$this->applicationPath}/config"), $this->getEnvironment());
 	}
 
 	/**

@@ -71,7 +71,7 @@ class ImageMagick implements ProcessorInterface
 			throw new InvalidArgumentException(vsprintf('Invalid HEX value [ %s ].', [$hex]));
 		}
 
-		return (strpos($hex, '#') !== 0) ? '#' . $hex : $hex;
+		return (strpos($hex, '#') !== 0) ? "#{$hex}" : $hex;
 	}
 
 	/**

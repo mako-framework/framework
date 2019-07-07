@@ -101,7 +101,7 @@ class Application extends BaseApplication
 	{
 		$this->reactor->registerGlobalOption('env', 'Overrides the Mako environment', function(Config $config, $option): void
 		{
-			putenv('MAKO_ENV=' . $option);
+			putenv("MAKO_ENV={$option}");
 
 			$config->setEnvironment($option);
 		}, 'init');

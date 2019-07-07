@@ -74,7 +74,7 @@ class Connection
 
 		if(filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false)
 		{
-			$host = '[' . $host . ']';
+			$host = "[{$host}]";
 		}
 
 		// Connect to the server
@@ -113,10 +113,10 @@ class Connection
 		{
 			if($persistent)
 			{
-				return pfsockopen('tcp://' . $host, $port, $errNo, $errStr, $timeout);
+				return pfsockopen("tcp://{$host}", $port, $errNo, $errStr, $timeout);
 			}
 
-			return fsockopen('tcp://' . $host, $port, $errNo, $errStr, $timeout);
+			return fsockopen("tcp://{$host}", $port, $errNo, $errStr, $timeout);
 		}
 		catch(Throwable $e)
 		{
@@ -166,7 +166,7 @@ class Connection
 	{
 		if(stream_get_meta_data($this->connection)['timed_out'])
 		{
-			return $message . ' The stream timed out while waiting for data.';
+			return "{$message} The stream timed out while waiting for data.";
 		}
 
 		return $message;

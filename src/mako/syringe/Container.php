@@ -314,7 +314,7 @@ class Container
 			return $declaringFunction->getName();
 		}
 
-		return $class->getName() . '::' . $declaringFunction->getName();
+		return "{$class->getName()}::{$declaringFunction->getName()}";
 	}
 
 	/**

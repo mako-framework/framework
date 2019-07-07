@@ -381,7 +381,7 @@ class Response
 
 		$protocol = $this->request->getServer()->get('SERVER_PROTOCOL', 'HTTP/1.1');
 
-		header($protocol . ' ' . $this->statusCode . ' ' . $this->statusCodes[$this->statusCode]);
+		header("{$protocol} {$this->statusCode} {$this->statusCodes[$this->statusCode]}");
 
 		// Send content type header
 
@@ -389,10 +389,10 @@ class Response
 
 		if(stripos($contentType, 'text/') === 0 || in_array($contentType, ['application/json', 'application/xml', 'application/rss+xml', 'application/atom+xml']))
 		{
-			$contentType .= '; charset=' . $this->charset;
+			$contentType .= "; charset={$this->charset}";
 		}
 
-		header('Content-Type: ' . $contentType);
+		header("Content-Type: {$contentType}");
 
 		// Send other headers
 
@@ -400,7 +400,7 @@ class Response
 		{
 			foreach($values as $value)
 			{
-				header($name . ': ' . $value, false);
+				header("{$name}: {$value}", false);
 			}
 		}
 

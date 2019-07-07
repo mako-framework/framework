@@ -133,7 +133,7 @@ class ProgressBar
 	 */
 	public function setPrefix(string $prefix): void
 	{
-		$this->prefix = $prefix . ' ';
+		$this->prefix = "{$prefix} ";
 	}
 
 	/**
@@ -146,7 +146,7 @@ class ProgressBar
 	{
 		$fill = (int) floor($percent * $this->width);
 
-		$progressBar  = str_pad($this->progress, strlen($this->items), '0', STR_PAD_LEFT) . '/' . $this->items . ' ';
+		$progressBar  = str_pad($this->progress, strlen($this->items), '0', STR_PAD_LEFT) . '/' . "{$this->items} ";
 
 		$progressBar .= str_repeat($this->filledTemplate, $fill);
 
@@ -179,7 +179,7 @@ class ProgressBar
 
 		// Draw progressbar
 
-		$this->output->write("\r" . $this->prefix . $progressBar);
+		$this->output->write("\r{$this->prefix}{$progressBar}");
 
 		// If we're done then we'll add a newline to the output
 

@@ -226,7 +226,7 @@ class Str
 	 */
 	public static function limitWords(string $string, int $words = 100, string $sufix = '...'): string
 	{
-		preg_match('/^\s*+(?:\S++\s*+){1,' . $words . '}/', $string, $matches);
+		preg_match("/^\s*+(?:\S++\s*+){1,{$words}}/", $string, $matches);
 
 		if(isset($matches[0]) && mb_strlen($matches[0]) < mb_strlen($string))
 		{
@@ -321,7 +321,7 @@ class Str
 	{
 		preg_match('/(.+)' . preg_quote($separator) . '([0-9]+)$/', $string, $matches);
 
-		return isset($matches[2]) ? $matches[1] . $separator . ((int) $matches[2] + 1) : $string . $separator . $start;
+		return isset($matches[2]) ? "{$matches[1]}{$separator}" . ((int) $matches[2] + 1) : "{$string}{$separator}{$start}";
 	}
 
 	/**

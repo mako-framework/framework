@@ -31,13 +31,13 @@ class ViewFactoryService extends Service
 
 			// Create factory instance
 
-			$factory = new ViewFactory($fileSystem, $applicationPath . '/resources/views', $this->app->getCharset(), $container);
+			$factory = new ViewFactory($fileSystem, "{$applicationPath}/resources/views", $this->app->getCharset(), $container);
 
 			// Register template renderer
 
 			$factory->extend('.tpl.php', function() use ($applicationPath, $fileSystem)
 			{
-				return new Template($fileSystem, $applicationPath . '/storage/cache/views');
+				return new Template($fileSystem, "{$applicationPath}/storage/cache/views");
 			});
 
 			// Return factory instance

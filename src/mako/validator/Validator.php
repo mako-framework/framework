@@ -228,7 +228,7 @@ class Validator
 			return $ruleName;
 		}
 
-		return $ruleName . '(' . substr(json_encode($parameters), 1, -1) . ')';
+		return "{$ruleName}(" . substr(json_encode($parameters), 1, -1) . ')';
 	}
 
 	/**

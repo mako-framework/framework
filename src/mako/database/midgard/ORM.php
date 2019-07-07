@@ -303,12 +303,12 @@ abstract class ORM implements JsonSerializable
 
 			foreach(ClassInspector::getTraits(static::class) as $trait)
 			{
-				if(method_exists($this, $getter = 'get' . $this->getClassShortName($trait) . 'Hooks'))
+				if(method_exists($this, $getter = "get{$this->getClassShortName($trait)}Hooks"))
 				{
 					static::$traitHooks[static::class] = array_merge_recursive(static::$traitHooks[static::class], $this->$getter());
 				}
 
-				if(method_exists($this, $getter = 'get' . $this->getClassShortName($trait) . 'Casts'))
+				if(method_exists($this, $getter = "get{$this->getClassShortName($trait)}Casts"))
 				{
 					static::$traitCasts[static::class] += $this->$getter();
 				}
@@ -560,9 +560,9 @@ abstract class ORM implements JsonSerializable
 	{
 		$value = $this->cast($name, $value);
 
-		if(method_exists($this, $name . 'Mutator'))
+		if(method_exists($this, "{$name}Mutator"))
 		{
-			$this->columns[$name] = $this->{$name . 'Mutator'}($value);
+			$this->columns[$name] = $this->{"{$name}Mutator"}($value);
 		}
 		else
 		{
@@ -589,9 +589,9 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function getColumnValue(string $name)
 	{
-		if(method_exists($this, $name . 'Accessor'))
+		if(method_exists($this, "{$name}Accessor"))
 		{
-			return $this->{$name . 'Accessor'}($this->columns[$name]);
+			return $this->{"{$name}Accessor"}($this->columns[$name]);
 		}
 
 		return $this->columns[$name];

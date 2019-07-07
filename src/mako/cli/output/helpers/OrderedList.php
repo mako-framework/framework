@@ -95,7 +95,7 @@ class OrderedList
 	{
 		$marker = str_repeat(' ', $width - strlen($number)) . sprintf($marker, $number);
 
-		return str_repeat($this->padding, $nestingLevel) . str_repeat(' ', $parentWidth) . $marker . ' ' . $item . PHP_EOL;
+		return str_repeat($this->padding, $nestingLevel) . str_repeat(' ', $parentWidth) . "{$marker} {$item}" . PHP_EOL;
 	}
 
 	/**

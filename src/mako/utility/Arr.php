@@ -209,7 +209,7 @@ class Arr
 
 			foreach(array_keys($value) as $key)
 			{
-				$expanded[] = trim($first . '.' . $key . '.' . $remaining, '.');
+				$expanded[] = trim("{$first}.{$key}.{$remaining}", '.');
 			}
 		}
 

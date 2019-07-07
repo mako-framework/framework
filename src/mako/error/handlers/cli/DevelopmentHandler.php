@@ -103,13 +103,13 @@ class DevelopmentHandler implements HandlerInterface
 		if(!empty($exception->getFile()))
 		{
 			$message .= PHP_EOL . PHP_EOL;
-			$message .= 'Error location: ' . $this->escape($exception->getFile());
-			$message .= ' on line ' . $this->escape($exception->getLine());
+			$message .= "Error location: {$this->escape($exception->getFile())}";
+			$message .= " on line {$this->escape($exception->getLine())}";
 		}
 
 		$trace = $this->escape($exception->getTraceAsString());
 
-		$this->output->errorLn('<bg_red><white>' . $type . ': ' . $message . PHP_EOL . PHP_EOL . $trace . PHP_EOL . '</white></bg_red>');
+		$this->output->errorLn("<bg_red><white>{$type}: {$message}" . PHP_EOL . PHP_EOL . $trace . PHP_EOL . '</white></bg_red>');
 
 		return false;
 	}

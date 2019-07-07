@@ -58,7 +58,7 @@ class HTTPService extends Service
 
 			(function($app, $container, $routes): void
 			{
-				include $app->getPath() . '/routing/routes.php';
+				include "{$app->getPath()}/routing/routes.php";
 			})
 			->bindTo($this->app)($this->app, $container, $routes);
 
@@ -73,7 +73,7 @@ class HTTPService extends Service
 
 			(function($app, $container, $router): void
 			{
-				include $app->getPath() . '/routing/constraints.php';
+				include "{$app->getPath()}/routing/constraints.php";
 			})
 			->bindTo($this->app)($this->app, $container, $router);
 
@@ -88,7 +88,7 @@ class HTTPService extends Service
 
 			(function($app, $container, $dispatcher): void
 			{
-				include $app->getPath() . '/routing/middleware.php';
+				include "{$app->getPath()}/routing/middleware.php";
 			})
 			->bindTo($this->app)($this->app, $container, $dispatcher);
 

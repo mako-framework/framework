@@ -69,7 +69,7 @@ class Confirmation extends Question
 	{
 		$options = $options === null ? ['y' => true, 'n' => false] : $this->normalizeKeys($options);
 
-		$input = parent::ask(trim($question) . ' [' . $this->getOptions($options, $default) . '] ');
+		$input = parent::ask(trim($question) . " [{$this->getOptions($options, $default)}] ");
 
 		$input = mb_strtolower(empty($input) ? $default : $input);
 

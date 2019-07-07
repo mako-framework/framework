@@ -43,10 +43,10 @@ class Postgres extends Compiler
 
 		if(empty($pieces))
 		{
-			return $column . "->>{$last}";
+			return "{$column}->>{$last}";
 		}
 
-		return $column . '->' . implode('->', $pieces) . "->>{$last}";
+		return "{$column}->" . implode('->', $pieces) . "->>{$last}";
 	}
 
 	/**
@@ -85,8 +85,8 @@ class Postgres extends Compiler
 				[
 					'column' => $where['column'],
 					'not'    => $where['operator'] !== '=',
-					'value1' => $where['value'] . ' 00:00:00.000000',
-					'value2' => $where['value'] . ' 23:59:59.999999',
+					'value1' => "{$where['value']} 00:00:00.000000",
+					'value2' => "{$where['value']} 23:59:59.999999",
 				];
 
 				return $this->between($where);
@@ -104,7 +104,7 @@ class Postgres extends Compiler
 						$suffix = ' 23:59:59.999999';
 				}
 
-				return "{$this->column($where['column'])} {$where['operator']} {$this->param($where['value'] . $suffix)}";
+				return "{$this->column($where['column'])} {$where['operator']} {$this->param("{$where['value']}{$suffix}")}";
 			default:
 				return "{$this->column($where['column'])}::date::char(10) {$where['operator']} {$this->param($where['value'])}";
 		}

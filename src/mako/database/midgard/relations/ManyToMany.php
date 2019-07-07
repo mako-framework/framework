@@ -66,7 +66,7 @@ class ManyToMany extends Relation
 
 		$this->junctionJoin();
 
-		$this->columns = [$this->model->getTable() . '.*'];
+		$this->columns = ["{$this->model->getTable()}.*"];
 	}
 
 	/**
@@ -80,7 +80,7 @@ class ManyToMany extends Relation
 		{
 			if(strpos($value, '.') === false)
 			{
-				$columns[$key] = $this->getJunctionTable() . '.' . $value;
+				$columns[$key] = "{$this->getJunctionTable()}.{$value}";
 			}
 		}
 
@@ -99,7 +99,7 @@ class ManyToMany extends Relation
 			return array_merge($this->columns, $this->alongWith);
 		}
 
-		return array_merge($this->columns, $this->alongWith, [$this->getJunctionTable() . '.' . $this->getForeignKey()]);
+		return array_merge($this->columns, $this->alongWith, ["{$this->getJunctionTable()}.{$this->getForeignKey()}"]);
 	}
 
 	/**
@@ -155,7 +155,7 @@ class ManyToMany extends Relation
 	 */
 	protected function junctionJoin(): void
 	{
-		$this->join($this->getJunctionTable(), $this->getJunctionTable() . '.' . $this->getJunctionKey(), '=', $this->model->getTable() . '.' . $this->model->getPrimaryKey());
+		$this->join($this->getJunctionTable(), "{$this->getJunctionTable()}.{$this->getJunctionKey()}", '=', "{$this->model->getTable()}.{$this->model->getPrimaryKey()}");
 	}
 
 	/**
@@ -163,7 +163,7 @@ class ManyToMany extends Relation
 	 */
 	protected function lazyCriterion(): void
 	{
-		$this->where($this->getJunctionTable() . '.' . $this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
+		$this->where("{$this->getJunctionTable()}.{$this->getForeignKey()}", '=', $this->parent->getPrimaryKeyValue());
 	}
 
 	/**
@@ -176,7 +176,7 @@ class ManyToMany extends Relation
 	{
 		$this->lazy = false;
 
-		$this->in($this->getJunctionTable() . '.' . $this->getForeignKey(), $keys);
+		$this->in("{$this->getJunctionTable()}.{$this->getForeignKey()}", $keys);
 
 		return $this;
 	}

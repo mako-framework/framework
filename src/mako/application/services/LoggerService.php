@@ -47,7 +47,7 @@ class LoggerService extends Service
 	 */
 	protected function getHandler(): HandlerInterface
 	{
-		$handler = new StreamHandler($this->app->getPath() . '/storage/logs/' . date('Y-m-d') . '.mako');
+		$handler = new StreamHandler("{$this->app->getPath()}/storage/logs/" . date('Y-m-d') . '.mako');
 
 		$formatter = new LineFormatter(null, null, true, true);
 

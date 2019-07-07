@@ -1274,7 +1274,7 @@ class Query
 	 */
 	public function prefix($prefix)
 	{
-		$this->prefix = $prefix . ' ';
+		$this->prefix = "{$prefix} ";
 
 		return $this;
 	}
@@ -1632,7 +1632,7 @@ class Query
 	 */
 	public function increment($column, int $increment = 1): int
 	{
-		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' + ' . (int) $increment)]);
+		return $this->update([$column => new Raw("{$this->compiler->escapeIdentifier($column)} + " . (int) $increment)]);
 	}
 
 	/**
@@ -1644,7 +1644,7 @@ class Query
 	 */
 	public function decrement($column, int $decrement = 1): int
 	{
-		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' - ' . (int) $decrement)]);
+		return $this->update([$column => new Raw("{$this->compiler->escapeIdentifier($column)} - " . (int) $decrement)]);
 	}
 
 	/**

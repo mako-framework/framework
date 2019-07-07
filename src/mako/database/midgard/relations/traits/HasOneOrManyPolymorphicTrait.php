@@ -34,11 +34,11 @@ trait HasOneOrManyPolymorphicTrait
 	 */
 	public function __construct(Connection $connection, ORM $parent, ORM $related, string $polymorphicType)
 	{
-		$this->polymorphicType = $polymorphicType . '_type';
+		$this->polymorphicType = "{$polymorphicType}_type";
 
-		parent::__construct($connection, $parent, $related, $polymorphicType . '_id');
+		parent::__construct($connection, $parent, $related, "{$polymorphicType}_id");
 
-		$this->where($this->table . '.' . $this->polymorphicType, '=', $parent->getClass());
+		$this->where("{$this->table}.{$this->polymorphicType}", '=', $parent->getClass());
 	}
 
 	/**

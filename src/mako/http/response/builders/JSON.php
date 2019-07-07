@@ -140,7 +140,7 @@ class JSON implements ResponseBuilderInterface
 		{
 			$response->setType('text/javascript');
 
-			$json = '/**/' . $this->normalizeCallback($callback) . '(' . $json . ');';
+			$json = "/**/{$this->normalizeCallback($callback)}({$json});";
 		}
 		else
 		{

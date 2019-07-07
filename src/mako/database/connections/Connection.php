@@ -536,7 +536,7 @@ class Connection
 				goto prepare;
 			}
 
-			throw new PDOException($e->getMessage() . ' [ ' . $this->prepareQueryForLog($query, $params) . ' ] ', (int) $e->getCode(), $e->getPrevious());
+			throw new PDOException("{$e->getMessage()} [ {$this->prepareQueryForLog($query, $params)} ].", (int) $e->getCode(), $e->getPrevious());
 		}
 
 		// Bind parameters
@@ -741,7 +741,7 @@ class Connection
 	 */
 	protected function createSavepoint(): bool
 	{
-		return $this->pdo->exec('SAVEPOINT transactionNestingLevel' . $this->transactionNestingLevel) !== false;
+		return $this->pdo->exec("SAVEPOINT transactionNestingLevel{$this->transactionNestingLevel}") !== false;
 	}
 
 	/**
@@ -751,7 +751,7 @@ class Connection
 	 */
 	protected function rollBackSavepoint(): bool
 	{
-		return $this->pdo->exec('ROLLBACK TO SAVEPOINT transactionNestingLevel' . $this->transactionNestingLevel) !== false;
+		return $this->pdo->exec("ROLLBACK TO SAVEPOINT transactionNestingLevel{$this->transactionNestingLevel}") !== false;
 	}
 
 	/**

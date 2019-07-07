@@ -48,6 +48,33 @@ class I18nAwareTraitTest extends TestCase
 	/**
 	 *
 	 */
+	public function testCustomErrorMessageFromPackage(): void
+	{
+		$rule = new class implements RuleInterface
+		{
+			use I18nAwareTrait;
+
+			public function validateWhenEmpty(): bool { return false; }
+
+			public function validate($value, array $input): bool { return true; }
+
+			public function getErrorMessage(string $field): string { return ''; }
+		};
+
+		$i18n = Mockery::mock(I18n::class);
+
+		$i18n->shouldReceive('has')->once()->with('package::validate.overrides.messages.foobar.barfoo')->andReturnTrue();
+
+		$i18n->shouldReceive('get')->once()->with('package::validate.overrides.messages.foobar.barfoo', ['foobar'])->andReturn('translated');
+
+		$rule->setI18n($i18n);
+
+		$this->assertSame('translated', $rule->getTranslatedErrorMessage('foobar', 'barfoo', 'package'));
+	}
+
+	/**
+	 *
+	 */
 	public function testCustomErrorMessageWithParameters(): void
 	{
 		$rule = new class implements RuleInterface

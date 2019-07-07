@@ -102,7 +102,7 @@ trait EscaperTrait
 
 		if(isset($this->htmlNamedEntityMap[$ord]))
 		{
-			return '&' . $this->htmlNamedEntityMap[$ord] . ';';
+			return "&{$this->htmlNamedEntityMap[$ord]};";
 		}
 
 		// Per OWASP recommendations, we'll use upper hex entities

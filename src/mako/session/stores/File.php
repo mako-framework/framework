@@ -66,7 +66,7 @@ class File implements StoreInterface
 	 */
 	protected function sessionFile(string $sessionId): string
 	{
-		return $this->sessionPath . '/' . $sessionId;
+		return "{$this->sessionPath}/{$sessionId}";
 	}
 
 	/**
@@ -111,7 +111,7 @@ class File implements StoreInterface
 	 */
 	public function gc(int $dataTTL): void
 	{
-		$files = $this->fileSystem->glob($this->sessionPath . '/*');
+		$files = $this->fileSystem->glob("{$this->sessionPath}/*");
 
 		if(is_array($files))
 		{

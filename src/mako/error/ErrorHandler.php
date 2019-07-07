@@ -92,7 +92,7 @@ class ErrorHandler
 	{
 		$this->handle(Throwable::class, function($e): void
 		{
-			echo '[ ' . get_class($e) . '] ' . $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]';
+			echo '[ ' . get_class($e) . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]";
 
 			echo PHP_EOL;
 
@@ -308,7 +308,7 @@ class ErrorHandler
 
 			// One of the exception handlers failed so we'll just show the user a generic error screen
 
-			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]' . PHP_EOL;
+			echo "{$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL;
 		}
 
 		exit(1);

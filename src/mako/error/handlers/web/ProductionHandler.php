@@ -131,13 +131,13 @@ class ProductionHandler implements HandlerInterface
 		{
 			$code = $exception->getCode();
 
-			if($this->view->exists('mako-error::' . $code))
+			if($this->view->exists("mako-error::{$code}"))
 			{
 				$view = $code;
 			}
 		}
 
-		return $this->view->render('mako-error::' . $view);
+		return $this->view->render("mako-error::{$view}");
 	}
 
 	/**

@@ -53,7 +53,7 @@ class UnorderedList
 	 */
 	protected function buildListItem(string $item, string $marker, int $nestingLevel): string
 	{
-		return str_repeat($this->padding, $nestingLevel) . $marker . ' ' . $item . PHP_EOL;
+		return str_repeat($this->padding, $nestingLevel) . "{$marker} {$item}" . PHP_EOL;
 	}
 
 	/**

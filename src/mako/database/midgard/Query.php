@@ -73,7 +73,7 @@ class Query extends QueryBuilder
 	{
 		if(empty($this->joins) && $this->columns === ['*'])
 		{
-			$this->select([$this->table . '.*']);
+			$this->select(["{$this->table}.*"]);
 		}
 
 		return parent::join($table, $column1, $operator, $column2, $type, $raw);

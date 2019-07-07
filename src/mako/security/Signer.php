@@ -61,7 +61,7 @@ class Signer
 	 */
 	public function sign(string $string): string
 	{
-		return $this->getSignature($string) . $string;
+		return "{$this->getSignature($string)}$string";
 	}
 
 	/**
