@@ -14,7 +14,14 @@
 	- `resetKeys`
 	- `shuffle`
 	- `sort`
-* Added `Query::forCompiler()` method that can be used to add dialect specific SQL to queries. 
+* Added `Query::forCompiler()` method that can be used to add dialect specific SQL to queries.
+* Added query builder date helpers:
+	- `Query::whereDate()`
+	- `Query::orWhereDate()`
+	- `Query::betweenDate()`
+	- `Query::orBetweenDate()`
+	- `Query::notBetweenDate()`
+	- `Query::orNotBetweenDate()`
 
 #### Deprecations
 
