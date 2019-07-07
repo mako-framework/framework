@@ -38,7 +38,7 @@ class SQLServer extends Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		return 'JSON_VALUE(' . $column . ", 'lax " . $this->buildJsonPath($segments) . "')";
+		return "JSON_VALUE({$column}, 'lax {$this->buildJsonPath($segments)}')";
 	}
 
 	/**
@@ -46,7 +46,7 @@ class SQLServer extends Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		return $column . ' = JSON_MODIFY(' . $column . ", 'lax " . $this->buildJsonPath($segments) . "', JSON_QUERY('" . $param . "'))";
+		return "{$column} = JSON_MODIFY({$column}, 'lax {$this->buildJsonPath($segments)}', JSON_QUERY('{$param}'))";
 	}
 
 	/**
@@ -58,7 +58,7 @@ class SQLServer extends Compiler
 
 		if(($lock = $this->query->getLock()) !== null)
 		{
-			$from .= $lock === true ? ' WITH (UPDLOCK, ROWLOCK)' : ($lock === false ? ' WITH (HOLDLOCK, ROWLOCK)' : ' ' . $lock);
+			$from .= $lock === true ? ' WITH (UPDLOCK, ROWLOCK)' : ($lock === false ? ' WITH (HOLDLOCK, ROWLOCK)' : " {$lock}");
 		}
 
 		return $from;
@@ -67,9 +67,17 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function betweenDate(array $where): string
+	{
+		return "CAST({$this->column($where['column'])} AS DATE)" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function whereDate(array $where): string
 	{
-		return 'CAST(' . $this->column($where['column']) . ' AS DATE) ' . $where['operator'] . ' ' . $this->param($where['value']);
+		return "CAST({$this->column($where['column'])} AS DATE) {$where['operator']} {$this->param($where['value'])}";
 	}
 
 	/**
@@ -97,7 +105,7 @@ class SQLServer extends Compiler
 			return '';
 		}
 
-		return ' OFFSET ' . ($offset ?: 0) . ' ROWS FETCH NEXT ' . $limit . ' ROWS ONLY';
+		return ' OFFSET ' . ($offset ?: 0) . " ROWS FETCH NEXT {$limit} ROWS ONLY";
 	}
 
 	/**
@@ -109,7 +117,7 @@ class SQLServer extends Compiler
 
 		if($limit === null && $offset !== null)
 		{
-			return ' OFFSET ' . $offset . ' ROWS';
+			return " OFFSET {$offset} ROWS";
 		}
 
 		return '';

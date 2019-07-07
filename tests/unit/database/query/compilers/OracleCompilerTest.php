@@ -275,6 +275,67 @@ class OracleCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBetweenDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->betweenDate('date', '2019-07-05', '2019-07-06');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['2019-07-05', '2019-07-06'], $query['params']);
+	}
+	/**
+	 *
+	 */
+	public function testOrBetweenDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', 'bar');
+		$query->orBetweenDate('date', '2019-07-05', '2019-07-06');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR TO_CHAR("date", \'YYYY-MM-DD\') BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['bar', '2019-07-05', '2019-07-06'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testNotBetweenDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->notBetweenDate('date', '2019-07-05', '2019-07-06');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') NOT BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['2019-07-05', '2019-07-06'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrNotBetweenDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', 'bar');
+		$query->orNotbetweenDate('date', '2019-07-05', '2019-07-06');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR TO_CHAR("date", \'YYYY-MM-DD\') NOT BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['bar', '2019-07-05', '2019-07-06'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testWhereDate(): void
 	{
 		$query = $this->getBuilder();
@@ -283,7 +344,7 @@ class OracleCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') = TO_CHAR(TO_DATE(?, \'YYYY-MM-DD\'), \'YYYY-MM-DD\')', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') = ?', $query['sql']);
 		$this->assertEquals(['2019-07-05'], $query['params']);
 
 		//
@@ -294,7 +355,7 @@ class OracleCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') != TO_CHAR(TO_DATE(?, \'YYYY-MM-DD\'), \'YYYY-MM-DD\')', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') != ?', $query['sql']);
 		$this->assertEquals(['2019-07-05'], $query['params']);
 
 		//
@@ -305,7 +366,7 @@ class OracleCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') <> TO_CHAR(TO_DATE(?, \'YYYY-MM-DD\'), \'YYYY-MM-DD\')', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') <> ?', $query['sql']);
 		$this->assertEquals(['2019-07-05'], $query['params']);
 
 		//
@@ -316,7 +377,7 @@ class OracleCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') > TO_CHAR(TO_DATE(?, \'YYYY-MM-DD\'), \'YYYY-MM-DD\')', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') > ?', $query['sql']);
 		$this->assertEquals(['2019-07-05'], $query['params']);
 
 		//
@@ -327,7 +388,7 @@ class OracleCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') >= TO_CHAR(TO_DATE(?, \'YYYY-MM-DD\'), \'YYYY-MM-DD\')', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') >= ?', $query['sql']);
 		$this->assertEquals(['2019-07-05'], $query['params']);
 
 		//
@@ -338,7 +399,7 @@ class OracleCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') < TO_CHAR(TO_DATE(?, \'YYYY-MM-DD\'), \'YYYY-MM-DD\')', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') < ?', $query['sql']);
 		$this->assertEquals(['2019-07-05'], $query['params']);
 
 		//
@@ -349,7 +410,7 @@ class OracleCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') <= TO_CHAR(TO_DATE(?, \'YYYY-MM-DD\'), \'YYYY-MM-DD\')', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') <= ?', $query['sql']);
 		$this->assertEquals(['2019-07-05'], $query['params']);
 
 		//
@@ -360,7 +421,7 @@ class OracleCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') LIKE TO_CHAR(TO_DATE(?, \'YYYY-MM-DD\'), \'YYYY-MM-DD\')', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE TO_CHAR("date", \'YYYY-MM-DD\') LIKE ?', $query['sql']);
 		$this->assertEquals(['2019-07-05'], $query['params']);
 	}
 
@@ -376,7 +437,7 @@ class OracleCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR TO_CHAR("date", \'YYYY-MM-DD\') = TO_CHAR(TO_DATE(?, \'YYYY-MM-DD\'), \'YYYY-MM-DD\')', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR TO_CHAR("date", \'YYYY-MM-DD\') = ?', $query['sql']);
 		$this->assertEquals(['bar', '2019-07-05'], $query['params']);
 	}
 }

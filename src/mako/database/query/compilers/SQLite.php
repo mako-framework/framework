@@ -31,7 +31,7 @@ class SQLite extends Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		return 'JSON_EXTRACT(' . $column . ", '" . $this->buildJsonPath($segments) . "')";
+		return "JSON_EXTRACT({$column}, '{$this->buildJsonPath($segments)}')";
 	}
 
 	/**
@@ -39,7 +39,21 @@ class SQLite extends Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		return $column . ' = JSON_SET(' . $column . ", '" . $this->buildJsonPath($segments) . "', JSON(" . $param . '))';
+		return $column . " = JSON_SET({$column}, '{$this->buildJsonPath($segments)}', JSON({$param}))";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function betweenDate(array $where): string
+	{
+		return $this->between
+		([
+			'column' => $where['column'],
+			'not'    => $where['not'],
+			'value1' => "{$where['value1']} 00:00:00.000",
+			'value2' => "{$where['value2']} 23:59:59.999",
+		]);
 	}
 
 	/**
@@ -75,9 +89,9 @@ class SQLite extends Compiler
 						$suffix = ' 23:59:59.999';
 				}
 
-				return $this->column($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value'] . $suffix);
+				return "{$this->column($where['column'])} {$where['operator']} {$this->param($where['value'] . $suffix)}";
 			default:
-				return "strftime('%Y-%m-%d', " . $this->column($where['column']) . ') ' . $where['operator'] . ' ' . $this->param($where['value']);
+				return "strftime('%Y-%m-%d', {$this->column($where['column'])}) {$where['operator']} {$this->param($where['value'])}";
 		}
 	}
 }

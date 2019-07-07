@@ -41,6 +41,6 @@ class NuoDB extends Compiler
 			return '';
 		}
 
-		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' LOCK IN SHARE MODE' : ' ' . $lock);
+		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' LOCK IN SHARE MODE' : " {$lock}");
 	}
 }

@@ -36,9 +36,17 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function betweenDate(array $where): string
+	{
+		return "TO_CHAR({$this->column($where['column'])}, 'YYYY-MM-DD')" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function whereDate(array $where): string
 	{
-		return "TO_CHAR({$this->column($where['column'])}, 'YYYY-MM-DD') {$where['operator']} TO_CHAR(TO_DATE({$this->param($where['value'])}, 'YYYY-MM-DD'), 'YYYY-MM-DD')";
+		return "TO_CHAR({$this->column($where['column'])}, 'YYYY-MM-DD') {$where['operator']} {$this->param($where['value'])}";
 	}
 
 	/**

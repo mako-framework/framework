@@ -31,7 +31,7 @@ trait JsonPathBuilderTrait
 		{
 			if(is_numeric($segment))
 			{
-				$path .= '[' . $segment . ']';
+				$path .= "[{$segment}]";
 			}
 			else
 			{
@@ -39,6 +39,6 @@ trait JsonPathBuilderTrait
 			}
 		}
 
-		return '$' . $path;
+		return "\${$path}";
 	}
 }

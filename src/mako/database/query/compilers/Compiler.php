@@ -21,7 +21,6 @@ use function array_shift;
 use function explode;
 use function implode;
 use function is_array;
-use function sprintf;
 use function str_replace;
 use function stripos;
 use function strpos;
@@ -137,12 +136,12 @@ class Compiler
 
 		if($enclose)
 		{
-			$query['sql'] = '(' . $query['sql'] . ')';
+			$query['sql'] = "({$query['sql']})";
 		}
 
 		if(($alias = $subquery->getAlias()) !== null)
 		{
-			$query['sql'] .= ' AS ' . $this->escapeIdentifier($alias);
+			$query['sql'] .= " AS {$this->escapeIdentifier($alias)}";
 		}
 
 		return $query['sql'];
@@ -248,7 +247,7 @@ class Compiler
 
 		foreach($setOperations as $setOperation)
 		{
-			$sql .= $this->subquery($setOperation['query'], false) . ' ' . $setOperation['operation'] . ' ';
+			$sql .= "{$this->subquery($setOperation['query'], false)} {$setOperation['operation']} ";
 		}
 
 		return $sql;
@@ -274,7 +273,7 @@ class Compiler
 		{
 			[$table, , $alias] = explode(' ', $table, 3);
 
-			return sprintf('%s AS %s', $this->escapeTable($table), $this->escapeTable($alias));
+			return "{$this->escapeTable($table)} AS {$this->escapeTable($alias)}";
 		}
 
 		return $this->escapeTable($table);
@@ -346,7 +345,7 @@ class Compiler
 		{
 			[$column, , $alias] = explode(' ', $column, 3);
 
-			return sprintf('%s AS %s', $this->compileColumnName($column), $this->compileColumnName($alias));
+			return "{$this->compileColumnName($column)} AS {$this->compileColumnName($alias)}";
 		}
 
 		return $this->compileColumnName($column);
@@ -379,7 +378,7 @@ class Compiler
 	 */
 	protected function from($table): string
 	{
-		return ' FROM ' . $this->table($table);
+		return " FROM {$this->table($table)}";
 	}
 
 	/**
@@ -438,7 +437,19 @@ class Compiler
 	 */
 	protected function between(array $where): string
 	{
-		return $this->column($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . $this->param($where['value1']) . ' AND ' . $this->param($where['value2']);
+		return $this->column($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
+	}
+
+	/**
+	 * Compiles date range clauses.
+	 *
+	 * @param  array             $where
+	 * @throws \RuntimeException
+	 * @return string
+	 */
+	protected function betweenDate(array $where): string
+	{
+		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support date ranges.', [static::class]));
 	}
 
 	/**
@@ -451,7 +462,7 @@ class Compiler
 	{
 		$values = $this->params($where['values'], false);
 
-		return $this->column($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . '(' . $values . ')';
+		return $this->column($where['column']) . ($where['not'] ? ' NOT IN ' : ' IN ') . "({$values})";
 	}
 
 	/**
@@ -477,18 +488,6 @@ class Compiler
 	}
 
 	/**
-	 * Compiles date comparison clauses.
-	 *
-	 * @param  array             $where
-	 * @throws \RuntimeException
-	 * @return string
-	 */
-	protected function whereDate(array $where): string
-	{
-		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support date comparisons.', [static::class]));
-	}
-
-	/**
 	 * Compiles WHERE conditions.
 	 *
 	 * @param  array  $where Where clause
@@ -502,10 +501,22 @@ class Compiler
 
 			$value = is_array($where['value']) ? '(' . $this->params($where['value']) . ')' : $this->param($where['value']);
 
-			return $column . ' ' . $where['operator'] . ' ' . $value;
+			return "{$column} {$where['operator']} {$value}";
 		}
 
-		return $this->column($where['column']) . ' ' . $where['operator'] . ' ' . $this->param($where['value']);
+		return "{$this->column($where['column'])} {$where['operator']} {$this->param($where['value'])}";
+	}
+
+	/**
+	 * Compiles date comparison clauses.
+	 *
+	 * @param  array             $where
+	 * @throws \RuntimeException
+	 * @return string
+	 */
+	protected function whereDate(array $where): string
+	{
+		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support date comparisons.', [static::class]));
 	}
 
 	/**
@@ -527,7 +538,7 @@ class Compiler
 	 */
 	protected function nestedWhere(array $where): string
 	{
-		return '(' . $this->whereConditions($where['query']->getWheres()) . ')';
+		return "({$this->whereConditions($where['query']->getWheres())})";
 	}
 
 	/**
@@ -565,7 +576,7 @@ class Compiler
 			return '';
 		}
 
-		return ' WHERE ' . $this->whereConditions($wheres);
+		return " WHERE {$this->whereConditions($wheres)}";
 	}
 
 	/**
@@ -576,7 +587,7 @@ class Compiler
 	 */
 	protected function joinCondition(array $condition): string
 	{
-		return $this->column($condition['column1']) . ' ' . $condition['operator'] . ' ' . $this->column($condition['column2']);
+		return "{$this->column($condition['column1'])} {$condition['operator']} {$this->column($condition['column2'])}";
 	}
 
 	/**
@@ -589,7 +600,7 @@ class Compiler
 	{
 		$conditions = $this->joinConditions($condition['join']);
 
-		return '(' . $conditions . ')';
+		return "({$conditions})";
 	}
 
 	/**
@@ -631,7 +642,7 @@ class Compiler
 
 		foreach($joins as $join)
 		{
-			$sql[] = $join->getType() . ' JOIN ' . $this->table($join->getTable()) . ' ON ' . $this->joinConditions($join);
+			$sql[] = "{$join->getType()} JOIN {$this->table($join->getTable())} ON {$this->joinConditions($join)}";
 		}
 
 		return ' ' . implode(' ', $sql);
@@ -645,7 +656,7 @@ class Compiler
 	 */
 	protected function groupings(array $groupings): string
 	{
-		return empty($groupings) ? '' : ' GROUP BY ' . $this->columns($groupings);
+		return empty($groupings) ? '' : " GROUP BY {$this->columns($groupings)}";
 	}
 
 	/**
@@ -665,7 +676,7 @@ class Compiler
 
 		foreach($orderings as $order)
 		{
-			$sql[] = $this->columns($order['column']) . ' ' . $order['order'];
+			$sql[] = "{$this->columns($order['column'])} {$order['order']}";
 		}
 
 		return ' ORDER BY ' . implode(', ', $sql);
@@ -685,7 +696,7 @@ class Compiler
 
 		foreach($havings as $having)
 		{
-			$conditions[] = ($conditionCounter > 0 ? $having['separator'] . ' ' : null) . $this->column($having['column']) . ' ' . $having['operator'] . ' ' . $this->param($having['value']);
+			$conditions[] = ($conditionCounter > 0 ? $having['separator'] . ' ' : null) . "{$this->column($having['column'])} {$having['operator']} {$this->param($having['value'])}";
 
 			$conditionCounter++;
 		}
@@ -706,7 +717,7 @@ class Compiler
 			return '';
 		}
 
-		return ' HAVING ' . $this->havingCondictions($havings);
+		return " HAVING {$this->havingCondictions($havings)}";
 	}
 
 	/**
@@ -717,7 +728,7 @@ class Compiler
 	 */
 	protected function limit(?int $limit = null): string
 	{
-		return ($limit === null) ? '' : ' LIMIT ' . $limit;
+		return ($limit === null) ? '' : " LIMIT {$limit}";
 	}
 
 	/**
@@ -728,7 +739,7 @@ class Compiler
 	 */
 	protected function offset(?int $offset = null): string
 	{
-		return ($offset === null) ? '' : ' OFFSET ' . $offset;
+		return ($offset === null) ? '' : " OFFSET {$offset}";
 	}
 
 	/**
@@ -778,7 +789,7 @@ class Compiler
 		$sql .= $this->escapeTable($this->query->getTable());
 		$sql .= ' (' . implode(', ', $this->escapeIdentifiers(array_keys($values))) . ')';
 		$sql .= ' VALUES';
-		$sql .= ' (' . $this->params($values) . ')';
+		$sql .= " ({$this->params($values)})";
 
 		return $sql;
 	}
@@ -790,7 +801,7 @@ class Compiler
 	 */
 	protected function insertWithoutValues(): string
 	{
-		return 'INSERT INTO ' . $this->escapeTable($this->query->getTable()) . ' DEFAULT VALUES';
+		return "INSERT INTO {$this->escapeTable($this->query->getTable())} DEFAULT VALUES";
 	}
 
 	/**
@@ -839,7 +850,7 @@ class Compiler
 			}
 			else
 			{
-				$pieces[] = $this->escapeColumn($column) . ' = ' . $param;
+				$pieces[] = "{$this->escapeColumn($column)} = {$param}";
 			}
 		}
 

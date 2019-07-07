@@ -205,6 +205,70 @@ class PostgresCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBetweenDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->betweenDate('date', '2019-07-05', '2019-07-06');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['2019-07-05 00:00:00.000000', '2019-07-06 23:59:59.999999'], $query['params']);
+
+	}
+
+	/**
+	 *
+	 */
+	public function testOrBetweenDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', 'bar');
+		$query->orBetweenDate('date', '2019-07-05', '2019-07-06');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "date" BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['bar', '2019-07-05 00:00:00.000000', '2019-07-06 23:59:59.999999'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testNotBetweenDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->notBetweenDate('date', '2019-07-05', '2019-07-06');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "date" NOT BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['2019-07-05 00:00:00.000000', '2019-07-06 23:59:59.999999'], $query['params']);
+
+	}
+
+	/**
+	 *
+	 */
+	public function testOrNotBetweenDate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', 'bar');
+		$query->orNotBetweenDate('date', '2019-07-05', '2019-07-06');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "date" NOT BETWEEN ? AND ?', $query['sql']);
+		$this->assertEquals(['bar', '2019-07-05 00:00:00.000000', '2019-07-06 23:59:59.999999'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testWhereDate(): void
 	{
 		$query = $this->getBuilder();
