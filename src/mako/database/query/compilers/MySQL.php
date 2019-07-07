@@ -40,7 +40,7 @@ class MySQL extends Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		return $column . "->>'" . $this->buildJsonPath($segments) . "'";
+		return "{$column}->>'{$this->buildJsonPath($segments)}'";
 	}
 
 	/**
@@ -48,7 +48,60 @@ class MySQL extends Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		return $column . ' = JSON_SET(' . $column . ", '" . $this->buildJsonPath($segments) . "', CAST(" . $param . ' AS JSON))';
+		return "{$column} = JSON_SET({$column}, '{$this->buildJsonPath($segments)}', CAST({$param} AS JSON))";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function betweenDate(array $where): string
+	{
+		return $this->between
+		([
+			'column' => $where['column'],
+			'not'    => $where['not'],
+			'value1' => "{$where['value1']} 00:00:00.000000",
+			'value2' => "{$where['value2']} 23:59:59.999999",
+		]);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function whereDate(array $where): string
+	{
+		switch($where['operator'])
+		{
+			case '=':
+			case '!=':
+			case '<>':
+				$where =
+				[
+					'column' => $where['column'],
+					'not'    => $where['operator'] !== '=',
+					'value1' => $where['value'] . ' 00:00:00.000000',
+					'value2' => $where['value'] . ' 23:59:59.999999',
+				];
+
+				return $this->between($where);
+			case '>':
+			case '>=':
+			case '<':
+			case '<=':
+				switch($where['operator'])
+				{
+					case '>=':
+					case '<':
+						$suffix = ' 00:00:00.000000';
+						break;
+					default:
+						$suffix = ' 23:59:59.999999';
+				}
+
+				return "{$this->column($where['column'])} {$where['operator']} {$this->param($where['value'] . $suffix)}";
+			default:
+				return "DATE({$this->column($where['column'])}) {$where['operator']} {$this->param($where['value'])}";
+		}
 	}
 
 	/**
@@ -61,7 +114,7 @@ class MySQL extends Compiler
 			return '';
 		}
 
-		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' LOCK IN SHARE MODE' : ' ' . $lock);
+		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' LOCK IN SHARE MODE' : " {$lock}");
 	}
 
 	/**
@@ -69,6 +122,6 @@ class MySQL extends Compiler
 	 */
 	protected function insertWithoutValues(): string
 	{
-		return 'INSERT INTO ' . $this->escapeTable($this->query->getTable()) . ' () VALUES ()';
+		return "INSERT INTO {$this->escapeTable($this->query->getTable())} () VALUES ()";
 	}
 }

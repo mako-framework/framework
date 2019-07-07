@@ -8,6 +8,7 @@
 namespace mako\database\query;
 
 use Closure;
+use DateTimeInterface;
 use Generator;
 use mako\database\connections\Connection;
 use mako\pagination\PaginationFactoryInterface;
@@ -634,6 +635,43 @@ class Query
 	}
 
 	/**
+	 * Adds a date comparison clause.
+	 *
+	 * @param  string                    $column
+	 * @param  string                    $operator
+	 * @param  string|\DateTimeInterface $date
+	 * @param  string                    $separator
+	 * @return $this
+	 */
+	public function whereDate(string $column, string $operator, $date, string $separator = 'AND')
+	{
+
+		$this->wheres[] =
+		[
+			'type'      => 'whereDate',
+			'column'    => $column,
+			'operator'  => $operator,
+			'value'     => $date instanceof DateTimeInterface ? $date->format('Y-m-d') : $date,
+			'separator' => $separator,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a date comparison clause.
+	 *
+	 * @param  string                    $column
+	 * @param  string                    $operator
+	 * @param  string|\DateTimeInterface $date
+	 * @return $this
+	 */
+	public function orWhereDate(string $column, string $operator, $date)
+	{
+		return $this->whereDate($column, $operator, $date, 'OR');
+	}
+
+	/**
 	 * Adds a BETWEEN clause.
 	 *
 	 * @param  mixed  $column    Column name
@@ -695,6 +733,67 @@ class Query
 	public function orNotBetween($column, $value1, $value2)
 	{
 		return $this->between($column, $value1, $value2, 'OR', true);
+	}
+
+	/**
+	 * Adds a date range clause.
+	 *
+	 * @param  string                    $column
+	 * @param  string|\DateTimeInterface $date1
+	 * @param  string|\DateTimeInterface $date2
+	 * @param  string                    $separator
+	 * @param  bool                      $not
+	 * @return $this
+	 */
+	public function betweenDate(string $column, $date1, $date2, string $separator = 'AND', bool $not = false)
+	{
+		$this->wheres[] =
+		[
+			'type'      => 'betweenDate',
+			'column'    => $column,
+			'value1'    => $date1 instanceof DateTimeInterface ? $date1->format('Y-m-d') : $date1,
+			'value2'    => $date2 instanceof DateTimeInterface ? $date2->format('Y-m-d') : $date2,
+			'separator' => $separator,
+			'not'       => $not,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a date range clause.
+	 *
+	 * @param string                    $column
+	 * @param string|\DateTimeInterface $date1
+	 * @param string|\DateTimeInterface $date2
+	 */
+	public function orBetweenDate(string $column, $date1, $date2)
+	{
+		return $this->betweenDate($column, $date1, $date2, 'OR');
+	}
+
+	/**
+	 * Adds a date range clause.
+	 *
+	 * @param string                    $column
+	 * @param string|\DateTimeInterface $date1
+	 * @param string|\DateTimeInterface $date2
+	 */
+	public function notBetweenDate(string $column, $date1, $date2)
+	{
+		return $this->betweenDate($column, $date1, $date2, 'AND', true);
+	}
+
+	/**
+	 * Adds a date range clause.
+	 *
+	 * @param string                    $column
+	 * @param string|\DateTimeInterface $date1
+	 * @param string|\DateTimeInterface $date2
+	 */
+	public function orNotBetweenDate(string $column, $date1, $date2)
+	{
+		return $this->betweenDate($column, $date1, $date2, 'OR', true);
 	}
 
 	/**

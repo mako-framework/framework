@@ -43,10 +43,10 @@ class Postgres extends Compiler
 
 		if(empty($pieces))
 		{
-			return $column . '->>' . $last;
+			return $column . "->>{$last}";
 		}
 
-		return $column . '->' . implode('->', $pieces) . '->>' . $last;
+		return $column . '->' . implode('->', $pieces) . "->>{$last}";
 	}
 
 	/**
@@ -54,7 +54,60 @@ class Postgres extends Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		return $column . ' = JSONB_SET(' . $column . ", '{" . str_replace("'", "''", implode(',', $segments)) . "}', '" . $param . "')";
+		return $column . " = JSONB_SET({$column}, '{" . str_replace("'", "''", implode(',', $segments)) . "}', '{$param}')";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function betweenDate(array $where): string
+	{
+		return $this->between
+		([
+			'column' => $where['column'],
+			'not'    => $where['not'],
+			'value1' => "{$where['value1']} 00:00:00.000000",
+			'value2' => "{$where['value2']} 23:59:59.999999",
+		]);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function whereDate(array $where): string
+	{
+		switch($where['operator'])
+		{
+			case '=':
+			case '!=':
+			case '<>':
+				$where =
+				[
+					'column' => $where['column'],
+					'not'    => $where['operator'] !== '=',
+					'value1' => $where['value'] . ' 00:00:00.000000',
+					'value2' => $where['value'] . ' 23:59:59.999999',
+				];
+
+				return $this->between($where);
+			case '>':
+			case '>=':
+			case '<':
+			case '<=':
+				switch($where['operator'])
+				{
+					case '>=':
+					case '<':
+						$suffix = ' 00:00:00.000000';
+						break;
+					default:
+						$suffix = ' 23:59:59.999999';
+				}
+
+				return "{$this->column($where['column'])} {$where['operator']} {$this->param($where['value'] . $suffix)}";
+			default:
+				return "{$this->column($where['column'])}::date::char(10) {$where['operator']} {$this->param($where['value'])}";
+		}
 	}
 
 	/**
@@ -67,6 +120,6 @@ class Postgres extends Compiler
 			return '';
 		}
 
-		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' FOR SHARE' : ' ' . $lock);
+		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' FOR SHARE' : " {$lock}");
 	}
 }

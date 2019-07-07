@@ -33,7 +33,7 @@ class DB2 extends Compiler
 			return '';
 		}
 
-		return $lock === true ? ' FOR UPDATE WITH RS' : ($lock === false ? ' FOR READ ONLY WITH RS' : ' ' . $lock);
+		return $lock === true ? ' FOR UPDATE WITH RS' : ($lock === false ? ' FOR READ ONLY WITH RS' : " {$lock}");
 	}
 
 	/**
@@ -61,7 +61,7 @@ class DB2 extends Compiler
 		$sql .= $this->setOperations($this->query->getSetOperations());
 		$sql .= $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
 		$sql .= $this->columns($this->query->getColumns());
-		$sql .= ', ROW_NUMBER() OVER (' . $order . ') AS mako_rownum';
+		$sql .= ", ROW_NUMBER() OVER ({$order}) AS mako_rownum";
 		$sql .= $this->from($this->query->getTable());
 		$sql .= $this->joins($this->query->getJoins());
 		$sql .= $this->wheres($this->query->getWheres());
@@ -73,7 +73,7 @@ class DB2 extends Compiler
 		$limit  = $offset + $this->query->getLimit();
 		$offset = $offset + 1;
 
-		$sql  = 'SELECT * FROM (' . $sql . ') AS mako1 WHERE mako_rownum BETWEEN ' . $offset . ' AND ' . $limit;
+		$sql  = "SELECT * FROM ({$sql}) AS mako1 WHERE mako_rownum BETWEEN {$offset} AND {$limit}";
 		$sql .= $this->lock($this->query->getLock());
 
 		return ['sql' => $sql, 'params' => $this->params];

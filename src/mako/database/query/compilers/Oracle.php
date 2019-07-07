@@ -30,7 +30,23 @@ class Oracle extends Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		return 'JSON_VALUE(' . $column . ", '" . $this->buildJsonPath($segments) . "')";
+		return "JSON_VALUE({$column}, '{$this->buildJsonPath($segments)}')";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function betweenDate(array $where): string
+	{
+		return "TO_CHAR({$this->column($where['column'])}, 'YYYY-MM-DD')" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function whereDate(array $where): string
+	{
+		return "TO_CHAR({$this->column($where['column'])}, 'YYYY-MM-DD') {$where['operator']} {$this->param($where['value'])}";
 	}
 
 	/**
@@ -43,7 +59,7 @@ class Oracle extends Compiler
 			return '';
 		}
 
-		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' FOR UPDATE' : ' ' . $lock);
+		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' FOR UPDATE' : " {$lock}");
 	}
 
 	/**
@@ -73,10 +89,10 @@ class Oracle extends Compiler
 
 		if($offset === null)
 		{
-			return ' FETCH FIRST ' . $limit . ' ROWS ONLY';
+			return " FETCH FIRST {$limit} ROWS ONLY";
 		}
 
-		return ' OFFSET ' . $offset . ' ROWS FETCH NEXT ' . $limit . ' ROWS ONLY';
+		return " OFFSET {$offset} ROWS FETCH NEXT {$limit} ROWS ONLY";
 	}
 
 	/**
@@ -88,7 +104,7 @@ class Oracle extends Compiler
 
 		if($limit === null && $offset !== null)
 		{
-			return ' OFFSET ' . $offset . ' ROWS';
+			return " OFFSET {$offset} ROWS";
 		}
 
 		return '';
