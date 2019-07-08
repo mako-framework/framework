@@ -107,6 +107,19 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function offset(?int $offset): string
+	{
+		if($offset === null)
+		{
+			return '';
+		}
+
+		return ($this->query->getLimit() === null) ? " LIMIT 18446744073709551615 OFFSET {$offset}" : " OFFSET {$offset}";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function lock($lock): string
 	{
 		if($lock === null)

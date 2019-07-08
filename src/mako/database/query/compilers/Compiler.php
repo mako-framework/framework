@@ -726,7 +726,7 @@ class Compiler
 	 * @param  int|null $limit Limit
 	 * @return string
 	 */
-	protected function limit(?int $limit = null): string
+	protected function limit(?int $limit): string
 	{
 		return ($limit === null) ? '' : " LIMIT {$limit}";
 	}
@@ -737,7 +737,7 @@ class Compiler
 	 * @param  int|null $offset Limit
 	 * @return string
 	 */
-	protected function offset(?int $offset = null): string
+	protected function offset(?int $offset): string
 	{
 		return ($offset === null) ? '' : " OFFSET {$offset}";
 	}

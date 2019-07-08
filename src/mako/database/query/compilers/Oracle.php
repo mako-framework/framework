@@ -78,14 +78,14 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function limit(int $limit = null): string
+	protected function limit(?int $limit): string
 	{
-		$offset = $this->query->getOffset();
-
 		if($limit === null)
 		{
 			return '';
 		}
+
+		$offset = $this->query->getOffset();
 
 		if($offset === null)
 		{
@@ -98,7 +98,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function offset(int $offset = null): string
+	protected function offset(?int $offset): string
 	{
 		$limit = $this->query->getLimit();
 

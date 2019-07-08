@@ -94,4 +94,17 @@ class SQLite extends Compiler
 				return "strftime('%Y-%m-%d', {$this->column($where['column'])}) {$where['operator']} {$this->param($where['value'])}";
 		}
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function offset(?int $offset): string
+	{
+		if($offset === null)
+		{
+			return '';
+		}
+
+		return ($this->query->getLimit() === null) ? " LIMIT -1 OFFSET {$offset}" : " OFFSET {$offset}";
+	}
 }

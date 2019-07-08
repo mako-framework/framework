@@ -52,7 +52,7 @@ class FirebirdCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM "foobar" ROWS 1  TO 10', $query['sql']);
+		$this->assertEquals('SELECT * FROM "foobar" ROWS 1 TO 10', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 

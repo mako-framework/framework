@@ -250,6 +250,21 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithOffset(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->offset(10);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" OFFSET 10', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithLimitAndOffset(): void
 	{
 		$query = $this->getBuilder();

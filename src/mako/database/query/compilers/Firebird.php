@@ -40,17 +40,17 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function limit(int $limit = null): string
+	protected function limit(?int $limit): string
 	{
 		$offset = $this->query->getOffset();
 
-		return ($offset === null) ? ($limit === null) ? '' :' ROWS 1 ' : ' ROWS ' . ($offset + 1);
+		return ($offset === null) ? (($limit === null) ? '' : ' ROWS 1') : ' ROWS ' . ($offset + 1);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function offset(int $offset = null): string
+	protected function offset(?int $offset): string
 	{
 		$limit = $this->query->getLimit();
 
