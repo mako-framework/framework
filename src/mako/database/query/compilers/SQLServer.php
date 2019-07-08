@@ -98,14 +98,12 @@ class SQLServer extends Compiler
 	 */
 	protected function limit(?int $limit): string
 	{
-		$offset = $this->query->getOffset();
-
 		if($limit === null)
 		{
 			return '';
 		}
 
-		return ' OFFSET ' . ($offset ?: 0) . " ROWS FETCH NEXT {$limit} ROWS ONLY";
+		return ' OFFSET ' . ($this->query->getOffset() ?: 0) . " ROWS FETCH NEXT {$limit} ROWS ONLY";
 	}
 
 	/**
@@ -113,9 +111,7 @@ class SQLServer extends Compiler
 	 */
 	protected function offset(?int $offset): string
 	{
-		$limit = $this->query->getLimit();
-
-		if($limit === null && $offset !== null)
+		if($this->query->getLimit() === null && $offset !== null)
 		{
 			return " OFFSET {$offset} ROWS";
 		}

@@ -100,9 +100,7 @@ class Oracle extends Compiler
 	 */
 	protected function offset(?int $offset): string
 	{
-		$limit = $this->query->getLimit();
-
-		if($limit === null && $offset !== null)
+		if($this->query->getLimit() === null && $offset !== null)
 		{
 			return " OFFSET {$offset} ROWS";
 		}
