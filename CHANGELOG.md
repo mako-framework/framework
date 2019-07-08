@@ -22,6 +22,7 @@
 	- `Query::orBetweenDate()`
 	- `Query::notBetweenDate()`
 	- `Query::orNotBetweenDate()`
+* MySQL and SQLite query builder queries now support offsets without limits.
 
 #### Deprecations
 
