@@ -20,9 +20,7 @@ class SQLite extends Compiler
 	use JsonPathBuilderTrait;
 
 	/**
-	 * Date format.
-	 *
-	 * @var string
+	 * {@inheritdoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
@@ -50,7 +48,7 @@ class SQLite extends Compiler
 		$date1 = "{$where['value1']} 00:00:00.000";
 		$date2 = "{$where['value2']} 23:59:59.999";
 
-		return $this->compileColumnName($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($date1)} AND {$this->param($date2)}";
+		return $this->compileColumnName($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->simpleParam($date1)} AND {$this->simpleParam($date2)}";
 	}
 
 	/**
@@ -86,9 +84,9 @@ class SQLite extends Compiler
 						$suffix = ' 23:59:59.999';
 				}
 
-				return "{$this->compileColumnName($where['column'])} {$where['operator']} {$this->param("{$where['value']}{$suffix}")}";
+				return "{$this->compileColumnName($where['column'])} {$where['operator']} {$this->simpleParam("{$where['value']}{$suffix}")}";
 			default:
-				return "strftime('%Y-%m-%d', {$this->compileColumnName($where['column'])}) {$where['operator']} {$this->param($where['value'])}";
+				return "strftime('%Y-%m-%d', {$this->compileColumnName($where['column'])}) {$where['operator']} {$this->simpleParam($where['value'])}";
 		}
 	}
 

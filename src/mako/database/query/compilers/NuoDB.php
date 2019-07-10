@@ -17,9 +17,7 @@ use function str_replace;
 class NuoDB extends Compiler
 {
 	/**
-	 * Date format.
-	 *
-	 * @var string
+	 * {@inheritdoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 

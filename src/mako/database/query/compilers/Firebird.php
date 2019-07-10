@@ -15,9 +15,7 @@ namespace mako\database\query\compilers;
 class Firebird extends Compiler
 {
 	/**
-	 * Date format.
-	 *
-	 * @var string
+	 * {@inheritdoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 

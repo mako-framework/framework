@@ -17,9 +17,7 @@ use function trim;
 class DB2 extends Compiler
 {
 	/**
-	 * Date format.
-	 *
-	 * @var string
+	 * {@inheritdoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 

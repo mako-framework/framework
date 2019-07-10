@@ -41,7 +41,7 @@ class Compiler
 	const JSON_PATH_SEPARATOR = '->';
 
 	/**
-	 * Date format.
+	 * Datetime format.
 	 *
 	 * @var string
 	 */
@@ -442,6 +442,37 @@ class Compiler
 		foreach($params as $param)
 		{
 			$pieces[] = $this->param($param, $enclose);
+		}
+
+		return implode(', ', $pieces);
+	}
+
+	/**
+	 * Returns a parameter placeholder.
+	 *
+	 * @param  mixed  $param Parameter
+	 * @return string
+	 */
+	protected function simpleParam($param): string
+	{
+		$this->params[] = $param;
+
+		return '?';
+	}
+
+	/**
+	 * Returns a comma-separated list of parameter placeholders.
+	 *
+	 * @param  array  $params Parameters
+	 * @return string
+	 */
+	protected function simpleParams(array $params): string
+	{
+		$pieces = [];
+
+		foreach($params as $param)
+		{
+			$pieces[] = $this->simpleParam($param);
 		}
 
 		return implode(', ', $pieces);

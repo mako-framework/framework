@@ -21,9 +21,7 @@ class MySQL extends Compiler
 	use JsonPathBuilderTrait;
 
 	/**
-	 * Date format.
-	 *
-	 * @var string
+	 * {@inheritdoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
@@ -59,7 +57,7 @@ class MySQL extends Compiler
 		$date1 = "{$where['value1']} 00:00:00.000000";
 		$date2 = "{$where['value2']} 23:59:59.999999";
 
-		return $this->compileColumnName($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($date1)} AND {$this->param($date2)}";
+		return $this->compileColumnName($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->simpleParam($date1)} AND {$this->simpleParam($date2)}";
 	}
 
 	/**
@@ -95,9 +93,9 @@ class MySQL extends Compiler
 						$suffix = ' 23:59:59.999999';
 				}
 
-				return "{$this->compileColumnName($where['column'])} {$where['operator']} {$this->param("{$where['value']}{$suffix}")}";
+				return "{$this->compileColumnName($where['column'])} {$where['operator']} {$this->simpleParam("{$where['value']}{$suffix}")}";
 			default:
-				return "DATE({$this->compileColumnName($where['column'])}) {$where['operator']} {$this->param($where['value'])}";
+				return "DATE({$this->compileColumnName($where['column'])}) {$where['operator']} {$this->simpleParam($where['value'])}";
 		}
 	}
 
