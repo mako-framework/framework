@@ -325,6 +325,24 @@ class Compiler
 	}
 
 	/**
+	 * Returns a comma-separated list of column names.
+	 *
+	 * @param  array  $columns Array of column names
+	 * @return string
+	 */
+	protected function compileColumnNames(array $columns): string
+	{
+		$pieces = [];
+
+		foreach($columns as $column)
+		{
+			$pieces[] = $this->compileColumnName($column);
+		}
+
+		return implode(', ', $pieces);
+	}
+
+	/**
 	 * Compiles a column.
 	 *
 	 * @param  mixed  $column     Column
@@ -430,6 +448,69 @@ class Compiler
 	}
 
 	/**
+	 * Compiles WHERE conditions.
+	 *
+	 * @param  array  $where Where clause
+	 * @return string
+	 */
+	protected function where(array $where): string
+	{
+		if(is_array($where['column']))
+		{
+			$column = "({$this->columns($where['column'], false)})";
+
+			$value = is_array($where['value']) ? "({$this->params($where['value'])})" : $this->param($where['value']);
+
+			return "{$column} {$where['operator']} {$value}";
+		}
+
+		return "{$this->column($where['column'])} {$where['operator']} {$this->param($where['value'])}";
+	}
+
+	/**
+	 * Compiles a raw WHERE condition.
+	 *
+	 * @param  array  $where Where clause
+	 * @return string
+	 */
+	protected function whereRaw(array $where): string
+	{
+		return $this->raw($where['raw']);
+	}
+
+	/**
+	 * Compiles date comparison clauses.
+	 *
+	 * @param  array             $where
+	 * @throws \RuntimeException
+	 * @return string
+	 */
+	protected function whereDate(array $where): string
+	{
+		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support date comparisons.', [static::class]));
+	}
+
+	/**
+	 * Compiles column comparison clauses.
+	 *
+	 * @param  array  $where
+	 * @return string
+	 */
+	public function whereColumn(array $where): string
+	{
+		if(is_array($where['column1']))
+		{
+			$column1 = "({$this->compileColumnNames($where['column1'])})";
+
+			$column2 = is_array($where['column2']) ? "({$this->compileColumnNames($where['column2'])})" : $this->compileColumnName($where['column2']);
+
+			return "{$column1} {$where['operator']} {$column2}";
+		}
+
+		return "{$this->compileColumnName($where['column1'])} {$where['operator']} {$this->compileColumnName($where['column2'])}";
+	}
+
+	/**
 	 * Compiles BETWEEN clauses.
 	 *
 	 * @param  array  $where Where clause
@@ -485,49 +566,6 @@ class Compiler
 	protected function exists(array $where): string
 	{
 		return ($where['not'] ? 'NOT EXISTS ' : 'EXISTS ') . $this->subquery($where['query']);
-	}
-
-	/**
-	 * Compiles WHERE conditions.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
-	 */
-	protected function where(array $where): string
-	{
-		if(is_array($where['column']))
-		{
-			$column = "({$this->columns($where['column'], false)})";
-
-			$value = is_array($where['value']) ? "({$this->params($where['value'])})" : $this->param($where['value']);
-
-			return "{$column} {$where['operator']} {$value}";
-		}
-
-		return "{$this->column($where['column'])} {$where['operator']} {$this->param($where['value'])}";
-	}
-
-	/**
-	 * Compiles date comparison clauses.
-	 *
-	 * @param  array             $where
-	 * @throws \RuntimeException
-	 * @return string
-	 */
-	protected function whereDate(array $where): string
-	{
-		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support date comparisons.', [static::class]));
-	}
-
-	/**
-	 * Compiles a raw WHERE condition.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
-	 */
-	protected function whereRaw(array $where): string
-	{
-		return $this->raw($where['raw']);
 	}
 
 	/**

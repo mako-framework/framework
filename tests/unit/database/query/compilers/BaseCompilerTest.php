@@ -496,6 +496,63 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testWhereColumn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->whereColumn('foo', '=', 'bar');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = "bar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrWhereColumn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', 1);
+		$query->orWhereColumn('bar', '=', 'baz');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "bar" = "baz"', $query['sql']);
+		$this->assertEquals([1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testWhereColumnWithTuple(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->whereColumn(['foo', 'bar'], '=', 'baz');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE ("foo", "bar") = "baz"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->whereColumn(['foo', 'bar'], '=', ['baz', 'bax']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE ("foo", "bar") = ("baz", "bax")', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithNestedWheres(): void
 	{
 		$query = $this->getBuilder();

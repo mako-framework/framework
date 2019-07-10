@@ -672,6 +672,41 @@ class Query
 	}
 
 	/**
+	 * Adds a column comparison clause.
+	 *
+	 * @param  string|array $column1
+	 * @param  string       $operator
+	 * @param  string|array $column2
+	 * @return $this
+	 */
+	public function whereColumn($column1, string $operator, $column2, string $separator = 'AND')
+	{
+		$this->wheres[] =
+		[
+			'type'      => 'whereColumn',
+			'column1'   => $column1,
+			'operator'  => $operator,
+			'column2'   => $column2,
+			'separator' => $separator,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a column comparison clause.
+	 *
+	 * @param  string|array $column1
+	 * @param  string       $operator
+	 * @param  string|array $column2
+	 * @return $this
+	 */
+	public function orWhereColumn($column1, string $operator, $column2)
+	{
+		return $this->whereColumn($column1, $operator, $column2, 'OR');
+	}
+
+	/**
 	 * Adds a BETWEEN clause.
 	 *
 	 * @param  mixed  $column    Column name
