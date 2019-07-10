@@ -36,7 +36,7 @@ class Oracle extends Compiler
 	 */
 	protected function betweenDate(array $where): string
 	{
-		return "TO_CHAR({$this->compileColumnName($where['column'])}, 'YYYY-MM-DD')" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
+		return "TO_CHAR({$this->columnName($where['column'])}, 'YYYY-MM-DD')" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Oracle extends Compiler
 	 */
 	protected function whereDate(array $where): string
 	{
-		return "TO_CHAR({$this->compileColumnName($where['column'])}, 'YYYY-MM-DD') {$where['operator']} {$this->param($where['value'])}";
+		return "TO_CHAR({$this->columnName($where['column'])}, 'YYYY-MM-DD') {$where['operator']} {$this->param($where['value'])}";
 	}
 
 	/**

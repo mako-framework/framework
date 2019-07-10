@@ -63,7 +63,7 @@ class Postgres extends Compiler
 		$date1 = "{$where['value1']} 00:00:00.000000";
 		$date2 = "{$where['value2']} 23:59:59.999999";
 
-		return $this->compileColumnName($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->simpleParam($date1)} AND {$this->simpleParam($date2)}";
+		return $this->columnName($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->simpleParam($date1)} AND {$this->simpleParam($date2)}";
 	}
 
 	/**
@@ -99,9 +99,9 @@ class Postgres extends Compiler
 						$suffix = ' 23:59:59.999999';
 				}
 
-				return "{$this->compileColumnName($where['column'])} {$where['operator']} {$this->simpleParam("{$where['value']}{$suffix}")}";
+				return "{$this->columnName($where['column'])} {$where['operator']} {$this->simpleParam("{$where['value']}{$suffix}")}";
 			default:
-				return "{$this->compileColumnName($where['column'])}::date::char(10) {$where['operator']} {$this->simpleParam($where['value'])}";
+				return "{$this->columnName($where['column'])}::date::char(10) {$where['operator']} {$this->simpleParam($where['value'])}";
 		}
 	}
 

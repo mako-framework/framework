@@ -218,7 +218,7 @@ class Compiler
 	 * @param  string $table Table name
 	 * @return string
 	 */
-	public function escapeTable(string $table): string
+	public function escapeTableName(string $table): string
 	{
 		$segments = [];
 
@@ -273,10 +273,10 @@ class Compiler
 		{
 			[$table, , $alias] = explode(' ', $table, 3);
 
-			return "{$this->escapeTable($table)} AS {$this->escapeTable($alias)}";
+			return "{$this->escapeTableName($table)} AS {$this->escapeTableName($alias)}";
 		}
 
-		return $this->escapeTable($table);
+		return $this->escapeTableName($table);
 	}
 
 	/**
@@ -285,7 +285,7 @@ class Compiler
 	 * @param  string $column Column name
 	 * @return string
 	 */
-	public function escapeColumn(string $column): string
+	public function escapeColumnName(string $column): string
 	{
 		$segments = [];
 
@@ -310,18 +310,18 @@ class Compiler
 	 * @param  string $column Column name
 	 * @return string
 	 */
-	protected function compileColumnName(string $column): string
+	protected function columnName(string $column): string
 	{
 		if($this->hasJsonPath($column))
 		{
 			$segments = explode(static::JSON_PATH_SEPARATOR, $column);
 
-			$column = $this->escapeColumn(array_shift($segments));
+			$column = $this->escapeColumnName(array_shift($segments));
 
 			return $this->buildJsonGet($column, $segments);
 		}
 
-		return $this->escapeColumn($column);
+		return $this->escapeColumnName($column);
 	}
 
 	/**
@@ -330,13 +330,13 @@ class Compiler
 	 * @param  array  $columns Array of column names
 	 * @return string
 	 */
-	protected function compileColumnNames(array $columns): string
+	protected function columnNames(array $columns): string
 	{
 		$pieces = [];
 
 		foreach($columns as $column)
 		{
-			$pieces[] = $this->compileColumnName($column);
+			$pieces[] = $this->columnName($column);
 		}
 
 		return implode(', ', $pieces);
@@ -363,10 +363,10 @@ class Compiler
 		{
 			[$column, , $alias] = explode(' ', $column, 3);
 
-			return "{$this->compileColumnName($column)} AS {$this->compileColumnName($alias)}";
+			return "{$this->columnName($column)} AS {$this->columnName($alias)}";
 		}
 
-		return $this->compileColumnName($column);
+		return $this->columnName($column);
 	}
 
 	/**
@@ -488,7 +488,7 @@ class Compiler
 	{
 		if(is_array($where['column']))
 		{
-			$column = "({$this->compileColumnNames($where['column'])})";
+			$column = "({$this->columnNames($where['column'])})";
 
 			$value = is_array($where['value']) ? "({$this->params($where['value'])})" : $this->param($where['value']);
 
@@ -531,14 +531,14 @@ class Compiler
 	{
 		if(is_array($where['column1']))
 		{
-			$column1 = "({$this->compileColumnNames($where['column1'])})";
+			$column1 = "({$this->columnNames($where['column1'])})";
 
-			$column2 = is_array($where['column2']) ? "({$this->compileColumnNames($where['column2'])})" : $this->compileColumnName($where['column2']);
+			$column2 = is_array($where['column2']) ? "({$this->columnNames($where['column2'])})" : $this->columnName($where['column2']);
 
 			return "{$column1} {$where['operator']} {$column2}";
 		}
 
-		return "{$this->compileColumnName($where['column1'])} {$where['operator']} {$this->compileColumnName($where['column2'])}";
+		return "{$this->columnName($where['column1'])} {$where['operator']} {$this->columnName($where['column2'])}";
 	}
 
 	/**
@@ -855,7 +855,7 @@ class Compiler
 	protected function insertWithValues(array $values): string
 	{
 		$sql  = 'INSERT INTO ';
-		$sql .= $this->escapeTable($this->query->getTable());
+		$sql .= $this->escapeTableName($this->query->getTable());
 		$sql .= ' (' . implode(', ', $this->escapeIdentifiers(array_keys($values))) . ')';
 		$sql .= ' VALUES';
 		$sql .= " ({$this->params($values)})";
@@ -870,7 +870,7 @@ class Compiler
 	 */
 	protected function insertWithoutValues(): string
 	{
-		return "INSERT INTO {$this->escapeTable($this->query->getTable())} DEFAULT VALUES";
+		return "INSERT INTO {$this->escapeTableName($this->query->getTable())} DEFAULT VALUES";
 	}
 
 	/**
@@ -913,13 +913,13 @@ class Compiler
 			{
 				$segments = explode(static::JSON_PATH_SEPARATOR, $column);
 
-				$column = $this->escapeColumn(array_shift($segments));
+				$column = $this->escapeColumnName(array_shift($segments));
 
 				$pieces[] = $this->buildJsonSet($column, $segments, $param);
 			}
 			else
 			{
-				$pieces[] = "{$this->escapeColumn($column)} = {$param}";
+				$pieces[] = "{$this->escapeColumnName($column)} = {$param}";
 			}
 		}
 
@@ -936,7 +936,7 @@ class Compiler
 	{
 		$sql  = $this->query->getPrefix();
 		$sql .= 'UPDATE ';
-		$sql .= $this->escapeTable($this->query->getTable());
+		$sql .= $this->escapeTableName($this->query->getTable());
 		$sql .= ' SET ';
 		$sql .= $this->updateColumns($values);
 		$sql .= $this->wheres($this->query->getWheres());
@@ -953,7 +953,7 @@ class Compiler
 	{
 		$sql  = $this->query->getPrefix();
 		$sql .= 'DELETE FROM ';
-		$sql .= $this->escapeTable($this->query->getTable());
+		$sql .= $this->escapeTableName($this->query->getTable());
 		$sql .= $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];

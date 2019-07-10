@@ -24,7 +24,7 @@ class Firebird extends Compiler
 	 */
 	protected function betweenDate(array $where): string
 	{
-		return "CAST({$this->compileColumnName($where['column'])} AS DATE)" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
+		return "CAST({$this->columnName($where['column'])} AS DATE)" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
 	}
 
 	/**
@@ -32,7 +32,7 @@ class Firebird extends Compiler
 	 */
 	protected function whereDate(array $where): string
 	{
-		return "CAST({$this->compileColumnName($where['column'])} AS DATE) {$where['operator']} {$this->param($where['value'])}";
+		return "CAST({$this->columnName($where['column'])} AS DATE) {$where['operator']} {$this->param($where['value'])}";
 	}
 
 	/**
