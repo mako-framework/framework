@@ -517,7 +517,7 @@ class Container
 	/**
 	 * Returns true if there's an instance of the class in the container and false if not.
 	 *
-	 * @param  string $class
+	 * @param  string $class Class name
 	 * @return bool
 	 */
 	public function hasInstanceOf(string $class): bool

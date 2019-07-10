@@ -375,8 +375,8 @@ class Query
 	/**
 	 * Executes the closure if the compiler is of the correct class.
 	 *
-	 * @param  string   $compilerClass
-	 * @param  \Closure $query
+	 * @param  string   $compilerClass Compiler class name
+	 * @param  \Closure $query         Closure
 	 * @return $this
 	 */
 	public function forCompiler(string $compilerClass, Closure $query)
@@ -637,10 +637,10 @@ class Query
 	/**
 	 * Adds a date comparison clause.
 	 *
-	 * @param  string                    $column
-	 * @param  string                    $operator
-	 * @param  string|\DateTimeInterface $date
-	 * @param  string                    $separator
+	 * @param  string                    $column    Column name
+	 * @param  string                    $operator  Operator
+	 * @param  string|\DateTimeInterface $date      Date
+	 * @param  string                    $separator Separator
 	 * @return $this
 	 */
 	public function whereDate(string $column, string $operator, $date, string $separator = 'AND')
@@ -661,9 +661,9 @@ class Query
 	/**
 	 * Adds a date comparison clause.
 	 *
-	 * @param  string                    $column
-	 * @param  string                    $operator
-	 * @param  string|\DateTimeInterface $date
+	 * @param  string                    $column   Column name
+	 * @param  string                    $operator Operator
+	 * @param  string|\DateTimeInterface $date     Date
 	 * @return $this
 	 */
 	public function orWhereDate(string $column, string $operator, $date)
@@ -674,9 +674,9 @@ class Query
 	/**
 	 * Adds a column comparison clause.
 	 *
-	 * @param  string|array $column1
-	 * @param  string       $operator
-	 * @param  string|array $column2
+	 * @param  string|array $column1  Column name of array of column names
+	 * @param  string       $operator Operator
+	 * @param  string|array $column2  Column name of array of column names
 	 * @return $this
 	 */
 	public function whereColumn($column1, string $operator, $column2, string $separator = 'AND')
@@ -696,9 +696,9 @@ class Query
 	/**
 	 * Adds a column comparison clause.
 	 *
-	 * @param  string|array $column1
-	 * @param  string       $operator
-	 * @param  string|array $column2
+	 * @param  string|array $column1  Column name of array of column names
+	 * @param  string       $operator Operator
+	 * @param  string|array $column2  Column name of array of column names
 	 * @return $this
 	 */
 	public function orWhereColumn($column1, string $operator, $column2)
@@ -773,11 +773,11 @@ class Query
 	/**
 	 * Adds a date range clause.
 	 *
-	 * @param  string                    $column
-	 * @param  string|\DateTimeInterface $date1
-	 * @param  string|\DateTimeInterface $date2
-	 * @param  string                    $separator
-	 * @param  bool                      $not
+	 * @param  string                    $column    Column name
+	 * @param  string|\DateTimeInterface $date1     First date
+	 * @param  string|\DateTimeInterface $date2     Second date
+	 * @param  string                    $separator Separator
+	 * @param  bool                      $not       Not between?
 	 * @return $this
 	 */
 	public function betweenDate(string $column, $date1, $date2, string $separator = 'AND', bool $not = false)
@@ -798,9 +798,9 @@ class Query
 	/**
 	 * Adds a date range clause.
 	 *
-	 * @param string                    $column
-	 * @param string|\DateTimeInterface $date1
-	 * @param string|\DateTimeInterface $date2
+	 * @param string                    $column Column name
+	 * @param string|\DateTimeInterface $date1  First date
+	 * @param string|\DateTimeInterface $date2  Second date
 	 */
 	public function orBetweenDate(string $column, $date1, $date2)
 	{
@@ -810,9 +810,9 @@ class Query
 	/**
 	 * Adds a date range clause.
 	 *
-	 * @param string                    $column
-	 * @param string|\DateTimeInterface $date1
-	 * @param string|\DateTimeInterface $date2
+	 * @param string                    $column Column name
+	 * @param string|\DateTimeInterface $date1  First date
+	 * @param string|\DateTimeInterface $date2  Second date
 	 */
 	public function notBetweenDate(string $column, $date1, $date2)
 	{
@@ -822,9 +822,9 @@ class Query
 	/**
 	 * Adds a date range clause.
 	 *
-	 * @param string                    $column
-	 * @param string|\DateTimeInterface $date1
-	 * @param string|\DateTimeInterface $date2
+	 * @param string                    $column Column name
+	 * @param string|\DateTimeInterface $date1  First date
+	 * @param string|\DateTimeInterface $date2  Second date
 	 */
 	public function orNotBetweenDate(string $column, $date1, $date2)
 	{

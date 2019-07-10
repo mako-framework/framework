@@ -457,7 +457,7 @@ class Compiler
 	{
 		if(is_array($where['column']))
 		{
-			$column = "({$this->columns($where['column'], false)})";
+			$column = "({$this->compileColumnNames($where['column'])})";
 
 			$value = is_array($where['value']) ? "({$this->params($where['value'])})" : $this->param($where['value']);
 

@@ -62,13 +62,10 @@ class Postgres extends Compiler
 	 */
 	protected function betweenDate(array $where): string
 	{
-		return $this->between
-		([
-			'column' => $where['column'],
-			'not'    => $where['not'],
-			'value1' => "{$where['value1']} 00:00:00.000000",
-			'value2' => "{$where['value2']} 23:59:59.999999",
-		]);
+		$date1 = "{$where['value1']} 00:00:00.000000";
+		$date2 = "{$where['value2']} 23:59:59.999999";
+
+		return $this->compileColumnName($where['column']) . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($date1)} AND {$this->param($date2)}";
 	}
 
 	/**
@@ -85,11 +82,11 @@ class Postgres extends Compiler
 				[
 					'column' => $where['column'],
 					'not'    => $where['operator'] !== '=',
-					'value1' => "{$where['value']} 00:00:00.000000",
-					'value2' => "{$where['value']} 23:59:59.999999",
+					'value1' => $where['value'],
+					'value2' => $where['value'],
 				];
 
-				return $this->between($where);
+				return $this->betweenDate($where);
 			case '>':
 			case '>=':
 			case '<':
@@ -104,9 +101,9 @@ class Postgres extends Compiler
 						$suffix = ' 23:59:59.999999';
 				}
 
-				return "{$this->column($where['column'])} {$where['operator']} {$this->param("{$where['value']}{$suffix}")}";
+				return "{$this->compileColumnName($where['column'])} {$where['operator']} {$this->param("{$where['value']}{$suffix}")}";
 			default:
-				return "{$this->column($where['column'])}::date::char(10) {$where['operator']} {$this->param($where['value'])}";
+				return "{$this->compileColumnName($where['column'])}::date::char(10) {$where['operator']} {$this->param($where['value'])}";
 		}
 	}
 
