@@ -231,29 +231,6 @@ class Compiler
 	}
 
 	/**
-	 * Compiles set operations.
-	 *
-	 * @param  array  $setOperations Set operations
-	 * @return string
-	 */
-	protected function setOperations(array $setOperations): string
-	{
-		if(empty($setOperations))
-		{
-			return '';
-		}
-
-		$sql = '';
-
-		foreach($setOperations as $setOperation)
-		{
-			$sql .= "{$this->subquery($setOperation['query'], false)} {$setOperation['operation']} ";
-		}
-
-		return $sql;
-	}
-
-	/**
 	 * Compiles a table.
 	 *
 	 * @param  mixed  $table Table
@@ -310,7 +287,7 @@ class Compiler
 	 * @param  string $column Column name
 	 * @return string
 	 */
-	protected function columnName(string $column): string
+	public function columnName(string $column): string
 	{
 		if($this->hasJsonPath($column))
 		{
@@ -330,7 +307,7 @@ class Compiler
 	 * @param  array  $columns Array of column names
 	 * @return string
 	 */
-	protected function columnNames(array $columns): string
+	public function columnNames(array $columns): string
 	{
 		$pieces = [];
 
@@ -386,6 +363,29 @@ class Compiler
 		}
 
 		return implode(', ', $pieces);
+	}
+
+	/**
+	 * Compiles set operations.
+	 *
+	 * @param  array  $setOperations Set operations
+	 * @return string
+	 */
+	protected function setOperations(array $setOperations): string
+	{
+		if(empty($setOperations))
+		{
+			return '';
+		}
+
+		$sql = '';
+
+		foreach($setOperations as $setOperation)
+		{
+			$sql .= "{$this->subquery($setOperation['query'], false)} {$setOperation['operation']} ";
+		}
+
+		return $sql;
 	}
 
 	/**
