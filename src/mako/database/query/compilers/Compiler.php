@@ -389,17 +389,6 @@ class Compiler
 	}
 
 	/**
-	 * Compiles the FROM clause.
-	 *
-	 * @param  mixed  $table Table
-	 * @return string
-	 */
-	protected function from($table): string
-	{
-		return " FROM {$this->table($table)}";
-	}
-
-	/**
 	 * Returns raw SQL or a paramter placeholder.
 	 *
 	 * @param  mixed  $param   Parameter
@@ -476,6 +465,17 @@ class Compiler
 		}
 
 		return implode(', ', $pieces);
+	}
+
+	/**
+	 * Compiles the FROM clause.
+	 *
+	 * @param  mixed  $table Table
+	 * @return string
+	 */
+	protected function from($table): string
+	{
+		return " FROM {$this->table($table)}";
 	}
 
 	/**
