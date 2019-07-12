@@ -551,7 +551,7 @@ EOF;
 	{
 		$template = '{{$foo, default: \'bar\'}}';
 
-		$compiled = '<?php echo $this->escapeHTML((empty($foo) ? \'bar\' : $foo), $__charset__); ?>';
+		$compiled = '<?php echo $this->escapeHTML((empty($foo) ? (isset($foo) && ($foo === 0 || $foo === 0.0) ? $foo : \'bar\') : $foo), $__charset__); ?>';
 
 		//
 
@@ -569,7 +569,7 @@ EOF;
 	{
 		$template = '{{raw: $foo, default: \'bar\'}}';
 
-		$compiled = '<?php echo (empty($foo) ? \'bar\' : $foo); ?>';
+		$compiled = '<?php echo (empty($foo) ? (isset($foo) && ($foo === 0 || $foo === 0.0) ? $foo : \'bar\') : $foo); ?>';
 
 		//
 
