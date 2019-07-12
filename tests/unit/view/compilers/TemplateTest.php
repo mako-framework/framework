@@ -561,4 +561,22 @@ EOF;
 
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
+
+	/**
+	 *
+	 */
+	public function testEchoRawEmptyElseWithDefault(): void
+	{
+		$template = '{{raw: $foo, default: \'bar\'}}';
+
+		$compiled = '<?php echo (empty($foo) ? \'bar\' : $foo); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
 }
