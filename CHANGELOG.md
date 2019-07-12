@@ -28,7 +28,7 @@
 
 #### Deprecations
 
-* The `{{$foo || 'Default}}` and ``{{$foo or 'Default}}` template syntax has been deprecated and will be removed in `7.0` use the `{{$foo, default:'Default'}}` syntax instead.
+* The `{{$foo || 'Default}}` and ``{{$foo or 'Default}}` template syntax has been deprecated and will be removed in `7.0` use the `{{$foo, default: 'Default'}}` syntax instead.
 
 > Check out the upgrade guide for details on how to upgrade from `6.0.*.`
 
