@@ -24,14 +24,13 @@
 	- `Query::notBetweenDate()`
 	- `Query::orNotBetweenDate()`
 * MySQL and SQLite query builder queries now support offsets without limits.
+* Added new syntax for default values in templates.
 
 #### Deprecations
 
-* The `{{$foo || 'Default}}` template syntax has been deprecated, use the `{{$foo or 'Default'}}` syntax instead.
+* The `{{$foo || 'Default}}` and ``{{$foo or 'Default}}` template syntax has been deprecated and will be removed in `7.0` use the `{{$foo, default:'Default'}}` syntax instead.
 
 > Check out the upgrade guide for details on how to upgrade from `6.0.*.`
-
-> Deprecated features will be removed in `6.2.0`.
 
 --------------------------------------------------------
 
