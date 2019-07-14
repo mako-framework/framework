@@ -506,14 +506,15 @@ class Connection
 	}
 
 	/**
-	 * Prepares a query.
+	 * Prepares and executes a query.
 	 *
-	 * @param  string        $query  SQL query
-	 * @param  array         $params Query parameters
+	 * @param  string        $query    SQL query
+	 * @param  array         $params   Query parameters
+	 * @param  bool          &$success Was the query executed successfully?
 	 * @throws \PDOException
-	 * @return array
+	 * @return \PDOStatement
 	 */
-	protected function prepare(string $query, array $params): array
+	protected function prepareAndExecute(string $query, array $params, bool &$success = null): PDOStatement
 	{
 		// Prepare query and parameters
 
@@ -546,32 +547,21 @@ class Connection
 			$this->bindParameter($statement, $key, $value);
 		}
 
-		// Return query, parameters and the prepared statement
+		// Execute the query and return the statement
 
-		return ['query' => $query, 'params' => $params, 'statement' => $statement];
-	}
-
-	/**
-	 * Executes the prepared query and returns TRUE on success or FALSE on failure.
-	 *
-	 * @param  array $prepared Prepared query
-	 * @return bool
-	 */
-	protected function execute(array $prepared): bool
-	{
 		if($this->enableLog)
 		{
 			$start = microtime(true);
 		}
 
-		$result = $prepared['statement']->execute();
+		$success = $statement->execute();
 
 		if($this->enableLog)
 		{
-			$this->log($prepared['query'], $prepared['params'], $start);
+			$this->log($query, $params, $start);
 		}
 
-		return $result;
+		return $statement;
 	}
 
 	/**
@@ -583,7 +573,9 @@ class Connection
 	 */
 	public function query(string $query, array $params = []): bool
 	{
-		return $this->execute($this->prepare($query, $params));
+		$this->prepareAndExecute($query, $params, $success);
+
+		return $success;
 	}
 
 	/**
@@ -595,11 +587,7 @@ class Connection
 	 */
 	public function queryAndCount(string $query, array $params = []): int
 	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
-
-		return $prepared['statement']->rowCount();
+		return $this->prepareAndExecute($query, $params)->rowCount();
 	}
 
 	/**
@@ -611,11 +599,7 @@ class Connection
 	 */
 	public function column(string $query, array $params = [])
 	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
-
-		return $prepared['statement']->fetchColumn();
+		return $this->prepareAndExecute($query, $params)->fetchColumn();
 	}
 
 	/**
@@ -645,23 +629,21 @@ class Connection
 	/**
 	 * Returns the first row of the result set.
 	 *
-	 * @param  string $query        SQL query
-	 * @param  array  $params       Query params
-	 * @param  mixed  ...$fetchMode Fetch mode
-	 * @return mixed
+	 * @param  string     $query        SQL query
+	 * @param  array      $params       Query params
+	 * @param  mixed      ...$fetchMode Fetch mode
+	 * @return mixed|bool
 	 */
 	public function first(string $query, array $params = [], ...$fetchMode)
 	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
+		$statement = $this->prepareAndExecute($query, $params);
 
 		if(!empty($fetchMode))
 		{
-			$prepared['statement']->setFetchMode(...$fetchMode);
+			$statement->setFetchMode(...$fetchMode);
 		}
 
-		return $prepared['statement']->fetch();
+		return $statement->fetch();
 	}
 
 	/**
@@ -674,11 +656,7 @@ class Connection
 	 */
 	public function all(string $query, array $params = [], ...$fetchMode): array
 	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
-
-		return $prepared['statement']->fetchAll(...$fetchMode);
+		return $this->prepareAndExecute($query, $params)->fetchAll(...$fetchMode);
 	}
 
 	/**
@@ -691,25 +669,23 @@ class Connection
 	 */
 	public function yield(string $query, array $params = [], ...$fetchMode): Generator
 	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
+		$statement = $this->prepareAndExecute($query, $params);
 
 		if(!empty($fetchMode))
 		{
-			$prepared['statement']->setFetchMode(...$fetchMode);
+			$statement->setFetchMode(...$fetchMode);
 		}
 
 		try
 		{
-			while($row = $prepared['statement']->fetch())
+			while($row = $statement->fetch())
 			{
 				yield $row;
 			}
 		}
 		finally
 		{
-			$prepared['statement']->closeCursor();
+			$statement->closeCursor();
 		}
 	}
 
