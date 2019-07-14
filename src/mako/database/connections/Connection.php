@@ -593,9 +593,9 @@ class Connection
 	/**
 	 * Returns the value of the first column of the first row of the result set.
 	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return mixed
+	 * @param  string     $query  SQL query
+	 * @param  array      $params Query parameters
+	 * @return mixed|null
 	 */
 	public function column(string $query, array $params = [])
 	{
