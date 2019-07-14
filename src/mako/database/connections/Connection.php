@@ -595,7 +595,7 @@ class Connection
 	 *
 	 * @param  string     $query  SQL query
 	 * @param  array      $params Query parameters
-	 * @return mixed|null
+	 * @return mixed|bool
 	 */
 	public function column(string $query, array $params = [])
 	{
