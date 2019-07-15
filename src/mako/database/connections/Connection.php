@@ -591,42 +591,6 @@ class Connection
 	}
 
 	/**
-	 * Returns the value of the first column of the first row of the result set.
-	 *
-	 * @param  string     $query  SQL query
-	 * @param  array      $params Query parameters
-	 * @return mixed|bool
-	 */
-	public function column(string $query, array $params = [])
-	{
-		return $this->prepareAndExecute($query, $params)->fetchColumn();
-	}
-
-	/**
-	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return array
-	 */
-	public function columns(string $query, array $params = []): array
-	{
-		return $this->all($query, $params, PDO::FETCH_COLUMN);
-	}
-
-	/**
-	 * Executes a SELECT query and returns an array where the first column is used as keys and the second as values.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return array
-	 */
-	public function pairs(string $query, array $params = []): array
-	{
-		return $this->all($query, $params, PDO::FETCH_KEY_PAIR);
-	}
-
-	/**
 	 * Returns the first row of the result set.
 	 *
 	 * @param  string     $query        SQL query
@@ -657,6 +621,42 @@ class Connection
 	public function all(string $query, array $params = [], ...$fetchMode): array
 	{
 		return $this->prepareAndExecute($query, $params)->fetchAll(...$fetchMode);
+	}
+
+	/**
+	 * Returns the value of the first column of the first row of the result set.
+	 *
+	 * @param  string     $query  SQL query
+	 * @param  array      $params Query parameters
+	 * @return mixed|bool
+	 */
+	public function column(string $query, array $params = [])
+	{
+		return $this->prepareAndExecute($query, $params)->fetchColumn();
+	}
+
+	/**
+	 * Returns an array containing the values of the indicated 0-indexed column.
+	 *
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return array
+	 */
+	public function columns(string $query, array $params = []): array
+	{
+		return $this->all($query, $params, PDO::FETCH_COLUMN);
+	}
+
+	/**
+	 * Returns an array where the first column is used as keys and the second as values.
+	 *
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return array
+	 */
+	public function pairs(string $query, array $params = []): array
+	{
+		return $this->all($query, $params, PDO::FETCH_KEY_PAIR);
 	}
 
 	/**

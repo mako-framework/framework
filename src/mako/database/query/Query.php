@@ -1315,58 +1315,6 @@ class Query
 	}
 
 	/**
-	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
-	 *
-	 * @param  string $column The column to select
-	 * @return mixed
-	 */
-	public function column($column = null)
-	{
-		if($column !== null)
-		{
-			$this->select([$column]);
-		}
-
-		$query = $this->limit(1)->compiler->select();
-
-		return $this->connection->column($query['sql'], $query['params']);
-	}
-
-	/**
-	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
-	 *
-	 * @param  string $column The column to select
-	 * @return array
-	 */
-	public function columns($column = null)
-	{
-		if($column !== null)
-		{
-			$this->select([$column]);
-		}
-
-		$query = $this->compiler->select();
-
-		return $this->connection->columns($query['sql'], $query['params']);
-	}
-
-	/**
-	 * Executes a SELECT query and returns an array where the first column is used as keys and the second as values.
-	 *
-	 * @param  string $key   The column to use as keys
-	 * @param  string $value The column to use as values
-	 * @return array
-	 */
-	public function pairs($key, $value)
-	{
-		$this->select([$key, $value]);
-
-		$query = $this->compiler->select();
-
-		return $this->connection->pairs($query['sql'], $query['params']);
-	}
-
-	/**
 	 * Executes a SELECT query and returns the first row of the result set.
 	 *
 	 * @param  mixed ...$fetchMode Fetch mode
@@ -1424,6 +1372,58 @@ class Query
 	public function all()
 	{
 		return $this->fetchAll(true, PDO::FETCH_CLASS, Result::class);
+	}
+
+	/**
+	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
+	 *
+	 * @param  string $column The column to select
+	 * @return mixed
+	 */
+	public function column($column = null)
+	{
+		if($column !== null)
+		{
+			$this->select([$column]);
+		}
+
+		$query = $this->limit(1)->compiler->select();
+
+		return $this->connection->column($query['sql'], $query['params']);
+	}
+
+	/**
+	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
+	 *
+	 * @param  string $column The column to select
+	 * @return array
+	 */
+	public function columns($column = null)
+	{
+		if($column !== null)
+		{
+			$this->select([$column]);
+		}
+
+		$query = $this->compiler->select();
+
+		return $this->connection->columns($query['sql'], $query['params']);
+	}
+
+	/**
+	 * Executes a SELECT query and returns an array where the first column is used as keys and the second as values.
+	 *
+	 * @param  string $key   The column to use as keys
+	 * @param  string $value The column to use as values
+	 * @return array
+	 */
+	public function pairs($key, $value)
+	{
+		$this->select([$key, $value]);
+
+		$query = $this->compiler->select();
+
+		return $this->connection->pairs($query['sql'], $query['params']);
 	}
 
 	/**
