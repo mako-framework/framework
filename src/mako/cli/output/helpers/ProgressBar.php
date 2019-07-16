@@ -146,15 +146,11 @@ class ProgressBar
 	{
 		$fill = (int) floor($percent * $this->width);
 
-		$progressBar  = str_pad($this->progress, strlen($this->items), '0', STR_PAD_LEFT) . '/' . "{$this->items} ";
-
-		$progressBar .= str_repeat($this->filledTemplate, $fill);
-
-		$progressBar .= str_repeat($this->emptyTemplate, ($this->width - $fill));
-
-		$progressBar .= str_pad(' ' . ((int) ($percent * 100)) . '% ', 6, ' ', STR_PAD_LEFT);
-
-		return $progressBar;
+		return str_pad($this->progress, strlen($this->items), '0', STR_PAD_LEFT)
+		. "/{$this->items} "
+		. str_repeat($this->filledTemplate, $fill)
+		. str_repeat($this->emptyTemplate, ($this->width - $fill))
+		. str_pad(' ' . ((int) ($percent * 100)) . '% ', 6, ' ', STR_PAD_LEFT);
 	}
 
 	/**

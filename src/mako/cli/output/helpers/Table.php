@@ -167,11 +167,9 @@ class Table
 
 		// Build table header
 
-		$table = $this->buildRowSeparator($columnWidths);
-
-		$table .= $this->buildTableRow($columnNames, $columnWidths);
-
-		$table .= $this->buildRowSeparator($columnWidths);
+		$table = $this->buildRowSeparator($columnWidths)
+		. $this->buildTableRow($columnNames, $columnWidths)
+		. $this->buildRowSeparator($columnWidths);
 
 		// Add table rows
 

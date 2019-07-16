@@ -862,20 +862,20 @@ class Compiler
 	 */
 	public function select(): array
 	{
-		$sql  = $this->query->getPrefix();
-		$sql .= $this->commonTableExpressions($this->query->getCommonTableExpressions());
-		$sql .= $this->setOperations($this->query->getSetOperations());
-		$sql .= $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
-		$sql .= $this->columns($this->query->getColumns(), true);
-		$sql .= $this->from($this->query->getTable());
-		$sql .= $this->joins($this->query->getJoins());
-		$sql .= $this->wheres($this->query->getWheres());
-		$sql .= $this->groupings($this->query->getGroupings());
-		$sql .= $this->havings($this->query->getHavings());
-		$sql .= $this->orderings($this->query->getOrderings());
-		$sql .= $this->limit($this->query->getLimit());
-		$sql .= $this->offset($this->query->getOffset());
-		$sql .= $this->lock($this->query->getLock());
+		$sql = $this->query->getPrefix()
+		. $this->commonTableExpressions($this->query->getCommonTableExpressions())
+		. $this->setOperations($this->query->getSetOperations())
+		. ($this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ')
+		. $this->columns($this->query->getColumns(), true)
+		. $this->from($this->query->getTable())
+		. $this->joins($this->query->getJoins())
+		. $this->wheres($this->query->getWheres())
+		. $this->groupings($this->query->getGroupings())
+		. $this->havings($this->query->getHavings())
+		. $this->orderings($this->query->getOrderings())
+		. $this->limit($this->query->getLimit())
+		. $this->offset($this->query->getOffset())
+		. $this->lock($this->query->getLock());
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}
@@ -888,8 +888,10 @@ class Compiler
 	 */
 	protected function insertWithValues(array $values): string
 	{
-		$sql  = "INSERT INTO {$this->escapeTableName($this->query->getTable())} ";
-		$sql .= "({$this->escapeIdentifiers(array_keys($values))}) VALUES ({$this->params($values)})";
+		$sql = "INSERT INTO {$this->escapeTableName($this->query->getTable())} "
+		. "({$this->escapeIdentifiers(array_keys($values))})"
+		. ' VALUES '
+		. "({$this->params($values)})";
 
 		return $sql;
 	}
@@ -965,12 +967,12 @@ class Compiler
 	 */
 	public function update(array $values): array
 	{
-		$sql  = $this->query->getPrefix();
-		$sql .= 'UPDATE ';
-		$sql .= $this->escapeTableName($this->query->getTable());
-		$sql .= ' SET ';
-		$sql .= $this->updateColumns($values);
-		$sql .= $this->wheres($this->query->getWheres());
+		$sql = $this->query->getPrefix()
+		. 'UPDATE '
+		. $this->escapeTableName($this->query->getTable())
+		. ' SET '
+		. $this->updateColumns($values)
+		. $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}
@@ -982,10 +984,10 @@ class Compiler
 	 */
 	public function delete(): array
 	{
-		$sql  = $this->query->getPrefix();
-		$sql .= 'DELETE FROM ';
-		$sql .= $this->escapeTableName($this->query->getTable());
-		$sql .= $this->wheres($this->query->getWheres());
+		$sql = $this->query->getPrefix()
+		. 'DELETE FROM '
+		. $this->escapeTableName($this->query->getTable())
+		. $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}
