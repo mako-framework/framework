@@ -8,7 +8,6 @@
 namespace mako\tests\unit\database\query\compilers;
 
 use mako\database\query\Query;
-use mako\database\query\Raw;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -49,7 +48,7 @@ class DB2CompilerTest extends TestCase
 	{
 		$query = $this->getBuilder(null);
 
-		$query = $query->select([new Raw('1, 2, 3')])->getCompiler()->select();
+		$query = $query->selectRaw('1, 2, 3')->getCompiler()->select();
 
 		$this->assertEquals('SELECT 1, 2, 3 FROM SYSIBM.SYSDUMMY1', $query['sql']);
 		$this->assertEquals([], $query['params']);

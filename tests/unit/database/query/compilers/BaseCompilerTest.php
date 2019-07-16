@@ -81,7 +81,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder(null);
 
-		$query = $query->select([new Raw('1, 2, 3')])->getCompiler()->select();
+		$query = $query->selectRaw('1, 2, 3')->getCompiler()->select();
 
 		$this->assertEquals('SELECT 1, 2, 3', $query['sql']);
 		$this->assertEquals([], $query['params']);

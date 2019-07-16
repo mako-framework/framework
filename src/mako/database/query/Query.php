@@ -589,6 +589,19 @@ class Query
 	}
 
 	/**
+	 * Sets the columns we want to select using raw SQL.
+	 *
+	 * @param  string $sql Raw sql
+	 * @return $this
+	 */
+	public function selectRaw(string $sql)
+	{
+		$this->columns = [new Raw($sql)];
+
+		return $this;
+	}
+
+	/**
 	 * Select distinct?
 	 *
 	 * @return $this
