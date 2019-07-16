@@ -61,6 +61,13 @@ class Query
 	protected $distinct = false;
 
 	/**
+	 * Common table expressions.
+	 *
+	 * @var array
+	 */
+	protected $commonTableExpressions = ['recursive' => false, 'ctes' => []];
+
+	/**
 	 * Set operations.
 	 *
 	 * @var array
@@ -243,6 +250,16 @@ class Query
 	}
 
 	/**
+	 * Returns the common set operations.
+	 *
+	 * @return array
+	 */
+	public function getCommonTableExpressions(): array
+	{
+		return $this->commonTableExpressions;
+	}
+
+	/**
 	 * Returns the set operations.
 	 *
 	 * @return array
@@ -387,6 +404,46 @@ class Query
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Adds a common table expression.
+	 *
+	 * @param  string                                                            $name    Table name
+	 * @param  array                                                             $columns Column names
+	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
+	 * @return $this
+	 */
+	public function with(string $name, array $columns = [], $query)
+	{
+		if(($query instanceof Subquery) === false)
+		{
+			$query = new Subquery($query);
+		}
+
+		$this->commonTableExpressions['ctes'][] =
+		[
+			'name'    => $name,
+			'columns' => $columns,
+			'query'   => $query,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a recursive common table expression.
+	 *
+	 * @param  string                                                            $name    Table name
+	 * @param  array                                                             $columns Column names
+	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
+	 * @return $this
+	 */
+	public function withRecursive(string $name, array $columns = [], $query)
+	{
+		$this->commonTableExpressions['recursive'] = true;
+
+		return $this->with($name, $columns, $query);
 	}
 
 	/**

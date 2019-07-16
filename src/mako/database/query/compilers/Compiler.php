@@ -113,11 +113,12 @@ class Compiler
 	/**
 	 * Compiles subquery, merges parameters and returns subquery SQL.
 	 *
-	 * @param  \mako\database\query\Subquery $subquery Subquery container
-	 * @param  bool                          $enclose  Should the subquery be enclosed in parentheses?
+	 * @param  \mako\database\query\Subquery $subquery  Subquery container
+	 * @param  bool                          $enclose   Should the subquery be enclosed in parentheses?
+	 * @param  bool                          $withAlias Should we add an alias if possible?
 	 * @return string
 	 */
-	protected function subquery(Subquery $subquery, bool $enclose = true): string
+	protected function subquery(Subquery $subquery, bool $enclose = true, bool $withAlias = true): string
 	{
 		$query = $subquery->getQuery();
 
@@ -139,7 +140,7 @@ class Compiler
 			$query['sql'] = "({$query['sql']})";
 		}
 
-		if(($alias = $subquery->getAlias()) !== null)
+		if($withAlias && ($alias = $subquery->getAlias()) !== null)
 		{
 			$query['sql'] .= " AS {$this->escapeIdentifier($alias)}";
 		}
@@ -161,17 +162,17 @@ class Compiler
 	/**
 	 * Returns an array of escaped identifiers.
 	 *
-	 * @param  array $identifiers Identifiers to escape
-	 * @return array
+	 * @param  array  $identifiers Identifiers to escape
+	 * @return string
 	 */
-	public function escapeIdentifiers(array $identifiers): array
+	public function escapeIdentifiers(array $identifiers): string
 	{
 		foreach($identifiers as $key => $identifier)
 		{
 			$identifiers[$key] = $this->escapeIdentifier($identifier);
 		}
 
-		return $identifiers;
+		return implode(', ', $identifiers);
 	}
 
 	/**
@@ -366,6 +367,40 @@ class Compiler
 	}
 
 	/**
+	 * Compiles common table expressions.
+	 *
+	 * @param  array  $commonTableExpressions Common table expressions
+	 * @return string
+	 */
+	protected function commonTableExpressions(array $commonTableExpressions): string
+	{
+		['recursive' => $recursive, 'ctes' => $ctes] = $commonTableExpressions;
+
+		if(empty($ctes))
+		{
+			return '';
+		}
+
+		$expressions = [];
+
+		foreach($ctes as $cte)
+		{
+			$expression = "{$this->escapeIdentifier($cte['name'])} ";
+
+			if(empty($cte['columns']) === false)
+			{
+				$expression .= "({$this->escapeIdentifiers($cte['columns'])}) ";
+			}
+
+			$expression .= "AS ({$this->subquery($cte['query'], false, false)})";
+
+			$expressions[] = $expression;
+		}
+
+		return ($recursive ? 'WITH RECURSIVE ' : 'WITH ') . implode(', ', $expressions) . ' ';
+	}
+
+	/**
 	 * Compiles set operations.
 	 *
 	 * @param  array  $setOperations Set operations
@@ -382,7 +417,7 @@ class Compiler
 
 		foreach($setOperations as $setOperation)
 		{
-			$sql .= "{$this->subquery($setOperation['query'], false)} {$setOperation['operation']} ";
+			$sql .= "{$this->subquery($setOperation['query'], false, false)} {$setOperation['operation']} ";
 		}
 
 		return $sql;
@@ -475,7 +510,7 @@ class Compiler
 	 */
 	protected function from($table): string
 	{
-		return " FROM {$this->table($table)}";
+		return $table === null ? '' : " FROM {$this->table($table)}";
 	}
 
 	/**
@@ -830,6 +865,7 @@ class Compiler
 	public function select(): array
 	{
 		$sql  = $this->query->getPrefix();
+		$sql .= $this->commonTableExpressions($this->query->getCommonTableExpressions());
 		$sql .= $this->setOperations($this->query->getSetOperations());
 		$sql .= $this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ';
 		$sql .= $this->columns($this->query->getColumns(), true);
@@ -854,11 +890,8 @@ class Compiler
 	 */
 	protected function insertWithValues(array $values): string
 	{
-		$sql  = 'INSERT INTO ';
-		$sql .= $this->escapeTableName($this->query->getTable());
-		$sql .= ' (' . implode(', ', $this->escapeIdentifiers(array_keys($values))) . ')';
-		$sql .= ' VALUES';
-		$sql .= " ({$this->params($values)})";
+		$sql  = "INSERT INTO {$this->escapeTableName($this->query->getTable())} ";
+		$sql .= "({$this->escapeIdentifiers(array_keys($values))}) VALUES ({$this->params($values)})";
 
 		return $sql;
 	}
