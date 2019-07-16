@@ -385,16 +385,14 @@ class Compiler
 
 		foreach($ctes as $cte)
 		{
-			$expression = "{$this->escapeIdentifier($cte['name'])} ";
+			$expression = $this->escapeIdentifier($cte['name']);
 
 			if(empty($cte['columns']) === false)
 			{
-				$expression .= "({$this->escapeIdentifiers($cte['columns'])}) ";
+				$expression .= " ({$this->escapeIdentifiers($cte['columns'])})";
 			}
 
-			$expression .= "AS ({$this->subquery($cte['query'], false, false)})";
-
-			$expressions[] = $expression;
+			$expressions[] = "{$expression} AS ({$this->subquery($cte['query'], false, false)})";
 		}
 
 		return ($recursive ? 'WITH RECURSIVE ' : 'WITH ') . implode(', ', $expressions) . ' ';
