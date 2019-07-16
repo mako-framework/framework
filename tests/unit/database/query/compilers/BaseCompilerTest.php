@@ -1805,4 +1805,103 @@ class BaseCompilerTest extends TestCase
 
 		$this->assertEquals(2, $batches);
 	}
+
+	/**
+	 *
+	 */
+	public function testCommonTableExpression(): void
+	{
+		$query = $this->getBuilder('cte');
+
+		$query->with('cte', [], function($query)
+		{
+			$query->table('articles');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('WITH "cte" AS (SELECT * FROM "articles") SELECT * FROM "cte"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testCommonTableExpressionWithColumns(): void
+	{
+		$query = $this->getBuilder('cte');
+
+		$query->with('cte', ['title', 'content'], function($query)
+		{
+			$query->table('articles')->select(['title', 'content']);
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('WITH "cte" ("title", "content") AS (SELECT "title", "content" FROM "articles") SELECT * FROM "cte"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testRecursiveCommonTableExpression(): void
+	{
+		$query = $this->getBuilder('cte');
+
+		$query->withRecursive('cte', [], function($query)
+		{
+			$query->table('articles');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('WITH RECURSIVE "cte" AS (SELECT * FROM "articles") SELECT * FROM "cte"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testMultipleCommonTableExpressions(): void
+	{
+		$query = $this->getBuilder('cte2');
+
+		$query->with('cte1', [], function($query)
+		{
+			$query->table('articles');
+		});
+
+		$query->with('cte2', [], function($query)
+		{
+			$query->table('cte1');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('WITH "cte1" AS (SELECT * FROM "articles"), "cte2" AS (SELECT * FROM "cte1") SELECT * FROM "cte2"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testNestedCommonTableExpression(): void
+	{
+		$query = $this->getBuilder('cte');
+
+		$query->with('cte', ['a', 'b', 'c'], function($query)
+		{
+			$query->with('cte2', [], function($query)
+			{
+				$query->selectRaw('1, 2, 3');
+			})
+			->table('cte2');
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('WITH "cte" ("a", "b", "c") AS (WITH "cte2" AS (SELECT 1, 2, 3) SELECT * FROM "cte2") SELECT * FROM "cte"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
 }
