@@ -15,6 +15,8 @@
 	- `shuffle`
 	- `sort`
 * Added support for common table expressions to the query builder.
+	- `Query::with()`
+	- `Query::withRecursive()`
 * Added `Query::forCompiler()` method that can be used to add dialect specific SQL to queries.
 * Added `Query::selectRaw()` method.
 * Added `Query::whereColumn()` method.
