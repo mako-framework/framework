@@ -1813,7 +1813,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->with('cte', [], function($query)
+		$query->with('cte', [], function($query): void
 		{
 			$query->table('articles');
 		});
@@ -1831,7 +1831,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->with('cte', ['title', 'content'], function($query)
+		$query->with('cte', ['title', 'content'], function($query): void
 		{
 			$query->table('articles')->select(['title', 'content']);
 		});
@@ -1849,7 +1849,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->withRecursive('cte', [], function($query)
+		$query->withRecursive('cte', [], function($query): void
 		{
 			$query->table('articles');
 		});
@@ -1867,12 +1867,12 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte2');
 
-		$query->with('cte1', [], function($query)
+		$query->with('cte1', [], function($query): void
 		{
 			$query->table('articles');
 		});
 
-		$query->with('cte2', [], function($query)
+		$query->with('cte2', [], function($query): void
 		{
 			$query->table('cte1');
 		});
@@ -1890,9 +1890,9 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->with('cte', ['a', 'b', 'c'], function($query)
+		$query->with('cte', ['a', 'b', 'c'], function($query): void
 		{
-			$query->with('cte2', [], function($query)
+			$query->with('cte2', [], function($query): void
 			{
 				$query->selectRaw('1, 2, 3');
 			})
