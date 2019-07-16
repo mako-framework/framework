@@ -131,21 +131,21 @@ class Compiler
 			$builder($query);
 		}
 
-		$query = $query->getCompiler()->select();
+		['sql' => $sql, 'params' => $params] = $query->getCompiler()->select();
 
-		$this->params = array_merge($this->params, $query['params']);
+		$this->params = array_merge($this->params, $params);
 
 		if($enclose)
 		{
-			$query['sql'] = "({$query['sql']})";
+			$sql = "({$sql})";
 		}
 
 		if($withAlias && ($alias = $subquery->getAlias()) !== null)
 		{
-			$query['sql'] .= " AS {$this->escapeIdentifier($alias)}";
+			$sql .= " AS {$this->escapeIdentifier($alias)}";
 		}
 
-		return $query['sql'];
+		return $sql;
 	}
 
 	/**
