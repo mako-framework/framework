@@ -77,6 +77,19 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBasicSelectWithoutTable(): void
+	{
+		$query = $this->getBuilder(null);
+
+		$query = $query->select([new Raw('1, 2, 3')])->getCompiler()->select();
+
+		$this->assertEquals('SELECT 1, 2, 3', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testBasicSelectWithClosure(): void
 	{
 		$query = $this->getBuilder(function($query): void

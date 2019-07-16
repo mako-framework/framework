@@ -8,6 +8,7 @@
 namespace mako\tests\unit\database\query\compilers;
 
 use mako\database\query\Query;
+use mako\database\query\Raw;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -39,6 +40,19 @@ class FirebirdCompilerTest extends TestCase
 	protected function getBuilder($table = 'foobar')
 	{
 		return (new Query($this->getConnection()))->table($table);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicSelectWithoutTable(): void
+	{
+		$query = $this->getBuilder(null);
+
+		$query = $query->select([new Raw('1, 2, 3')])->getCompiler()->select();
+
+		$this->assertEquals('SELECT 1, 2, 3 FROM RDB$DATABASE', $query['sql']);
+		$this->assertEquals([], $query['params']);
 	}
 
 	/**
