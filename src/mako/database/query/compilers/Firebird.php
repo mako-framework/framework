@@ -22,6 +22,14 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function from($table): string
+	{
+		return $table === null ? ' FROM RDB$DATABASE' : parent::from($table);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function betweenDate(array $where): string
 	{
 		return "CAST({$this->columnName($where['column'])} AS DATE)" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";

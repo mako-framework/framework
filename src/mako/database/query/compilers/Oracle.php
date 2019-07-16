@@ -34,6 +34,14 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function from($table): string
+	{
+		return $table === null ? ' FROM "DUAL"' : parent::from($table);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function betweenDate(array $where): string
 	{
 		return "TO_CHAR({$this->columnName($where['column'])}, 'YYYY-MM-DD')" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";

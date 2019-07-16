@@ -44,6 +44,19 @@ class FirebirdCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBasicSelectWithoutTable(): void
+	{
+		$query = $this->getBuilder(null);
+
+		$query = $query->selectRaw('1, 2, 3')->getCompiler()->select();
+
+		$this->assertEquals('SELECT 1, 2, 3 FROM RDB$DATABASE', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithLimit(): void
 	{
 		$query = $this->getBuilder();

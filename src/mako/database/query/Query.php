@@ -61,6 +61,13 @@ class Query
 	protected $distinct = false;
 
 	/**
+	 * Common table expressions.
+	 *
+	 * @var array
+	 */
+	protected $commonTableExpressions = ['recursive' => false, 'ctes' => []];
+
+	/**
 	 * Set operations.
 	 *
 	 * @var array
@@ -243,6 +250,16 @@ class Query
 	}
 
 	/**
+	 * Returns the common set operations.
+	 *
+	 * @return array
+	 */
+	public function getCommonTableExpressions(): array
+	{
+		return $this->commonTableExpressions;
+	}
+
+	/**
 	 * Returns the set operations.
 	 *
 	 * @return array
@@ -390,6 +407,46 @@ class Query
 	}
 
 	/**
+	 * Adds a common table expression.
+	 *
+	 * @param  string                                                            $name    Table name
+	 * @param  array                                                             $columns Column names
+	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
+	 * @return $this
+	 */
+	public function with(string $name, array $columns = [], $query)
+	{
+		if(($query instanceof Subquery) === false)
+		{
+			$query = new Subquery($query);
+		}
+
+		$this->commonTableExpressions['ctes'][] =
+		[
+			'name'    => $name,
+			'columns' => $columns,
+			'query'   => $query,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a recursive common table expression.
+	 *
+	 * @param  string                                                            $name    Table name
+	 * @param  array                                                             $columns Column names
+	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
+	 * @return $this
+	 */
+	public function withRecursive(string $name, array $columns = [], $query)
+	{
+		$this->commonTableExpressions['recursive'] = true;
+
+		return $this->with($name, $columns, $query);
+	}
+
+	/**
 	 * Adds a set operation.
 	 *
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query     Query
@@ -481,7 +538,7 @@ class Query
 	/**
 	 * Sets table we want to query.
 	 *
-	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
+	 * @param  null|string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
 	 * @return $this
 	 */
 	public function table($table)
@@ -527,6 +584,19 @@ class Query
 	public function select(array $columns)
 	{
 		$this->columns = $columns;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the columns we want to select using raw SQL.
+	 *
+	 * @param  string $sql Raw sql
+	 * @return $this
+	 */
+	public function selectRaw(string $sql)
+	{
+		$this->columns = [new Raw($sql)];
 
 		return $this;
 	}

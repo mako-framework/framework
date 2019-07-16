@@ -14,7 +14,9 @@
 	- `resetKeys`
 	- `shuffle`
 	- `sort`
+* Added support for common table expressions to the query builder.
 * Added `Query::forCompiler()` method that can be used to add dialect specific SQL to queries.
+* Added `Query::selectRaw()` method.
 * Added `Query::whereColumn()` method.
 * Added query builder date helpers:
 	- `Query::whereDate()`
@@ -24,6 +26,7 @@
 	- `Query::notBetweenDate()`
 	- `Query::orNotBetweenDate()`
 * MySQL and SQLite query builder queries now support offsets without limits.
+* The query builder now supports select queries without a table.
 * Added new syntax for default values in templates.
 
 #### Deprecations

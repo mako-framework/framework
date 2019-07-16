@@ -44,6 +44,19 @@ class DB2CompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBasicSelectWithoutTable(): void
+	{
+		$query = $this->getBuilder(null);
+
+		$query = $query->selectRaw('1, 2, 3')->getCompiler()->select();
+
+		$this->assertEquals('SELECT 1, 2, 3 FROM SYSIBM.SYSDUMMY1', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithNoLimit(): void
 	{
 		$query = $this->getBuilder();

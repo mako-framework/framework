@@ -24,6 +24,14 @@ class DB2 extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function from($table): string
+	{
+		return $table === null ? ' FROM SYSIBM.SYSDUMMY1' : parent::from($table);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function lock($lock): string
 	{
 		if($lock === null)
