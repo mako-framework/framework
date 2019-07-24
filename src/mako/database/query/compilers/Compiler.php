@@ -113,12 +113,11 @@ class Compiler
 	/**
 	 * Compiles subquery, merges parameters and returns subquery SQL.
 	 *
-	 * @param  \mako\database\query\Subquery $subquery  Subquery container
-	 * @param  bool                          $enclose   Should the subquery be enclosed in parentheses?
-	 * @param  bool                          $withAlias Should we add an alias if possible?
+	 * @param  \mako\database\query\Subquery $subquery Subquery container
+	 * @param  bool                          $enclose  Should the subquery be enclosed in parentheses?
 	 * @return string
 	 */
-	protected function subquery(Subquery $subquery, bool $enclose = true, bool $withAlias = true): string
+	protected function subquery(Subquery $subquery, bool $enclose = true): string
 	{
 		$query = $subquery->getQuery();
 
@@ -138,11 +137,11 @@ class Compiler
 		if($enclose)
 		{
 			$sql = "({$sql})";
-		}
 
-		if($withAlias && ($alias = $subquery->getAlias()) !== null)
-		{
-			$sql .= " AS {$this->escapeIdentifier($alias)}";
+			if(($alias = $subquery->getAlias()) !== null)
+			{
+				$sql .= " AS {$this->escapeIdentifier($alias)}";
+			}
 		}
 
 		return $sql;
@@ -392,7 +391,7 @@ class Compiler
 				$expression .= " ({$this->escapeIdentifiers($cte['columns'])})";
 			}
 
-			$expressions[] = "{$expression} AS ({$this->subquery($cte['query'], false, false)})";
+			$expressions[] = "{$expression} AS ({$this->subquery($cte['query'], false)})";
 		}
 
 		return ($recursive ? 'WITH RECURSIVE ' : 'WITH ') . implode(', ', $expressions) . ' ';
@@ -415,7 +414,7 @@ class Compiler
 
 		foreach($setOperations as $setOperation)
 		{
-			$sql .= "{$this->subquery($setOperation['query'], false, false)} {$setOperation['operation']} ";
+			$sql .= "{$this->subquery($setOperation['query'], false)} {$setOperation['operation']} ";
 		}
 
 		return $sql;
