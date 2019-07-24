@@ -1610,7 +1610,7 @@ class Query
 	 *
 	 * @param  string       $function Aggregate function
 	 * @param  string|array $column   Column name or array of column names
-	 * @return mixed
+	 * @return array|void
 	 */
 	protected function aggregate(string $function, $column)
 	{
