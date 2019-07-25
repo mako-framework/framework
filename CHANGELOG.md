@@ -31,7 +31,7 @@
 * The query builder now supports select queries without a table.
 * Added new syntax for default values in templates.
 * The production web error handler no longer requires a view factory instance.
-* Added `application.storage_path` config key.
+* It is now easier to override the storage path of compiled templates and log files using the new `application.storage_path` config key.
 
 #### Deprecations
 
