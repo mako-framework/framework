@@ -28,13 +28,6 @@ class ProductionHandler implements HandlerInterface
 	use HandlerHelperTrait;
 
 	/**
-	 * View factory instance.
-	 *
-	 * @var \mako\view\ViewFactory
-	 */
-	protected $view;
-
-	/**
 	 * Request instance.
 	 *
 	 * @var \mako\http\Request
@@ -47,6 +40,13 @@ class ProductionHandler implements HandlerInterface
 	 * @var \mako\http\Response
 	 */
 	protected $response;
+
+	/**
+	 * View factory instance.
+	 *
+	 * @var \mako\view\ViewFactory|null
+	 */
+	protected $view;
 
 	/**
 	 * Constructor.
