@@ -15,6 +15,7 @@ use Monolog\Handler\StreamHandler;
 use Psr\Log\LoggerInterface;
 
 use function date;
+use function ucfirst;
 
 /**
  * Logger service.
@@ -53,11 +54,11 @@ class LoggerService extends Service
 	}
 
 	/**
-	 * Returns the default handler.
+	 * Returns a stream handler.
 	 *
 	 * @return \Monolog\Handler\HandlerInterface
 	 */
-	protected function getHandler(): HandlerInterface
+	protected function getStreamHandler(): HandlerInterface
 	{
 		$handler = new StreamHandler($this->getStoragePath());
 
@@ -71,6 +72,19 @@ class LoggerService extends Service
 	}
 
 	/**
+	 * Returns a log handler.
+	 *
+	 * @param  string                            $handler Handler name
+	 * @return \Monolog\Handler\HandlerInterface
+	 */
+	protected function getHandler(string $handler): HandlerInterface
+	{
+		$method = 'get' . ucfirst($handler) . 'Handler';
+
+		return $this->{$method}();
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function register(): void
@@ -81,7 +95,10 @@ class LoggerService extends Service
 
 			$logger->setContext($this->getContext());
 
-			$logger->pushHandler($this->getHandler());
+			foreach((array) $this->config->get('application.log_handler', ['stream']) as $handler)
+			{
+				$logger->pushHandler($this->getHandler($handler));
+			}
 
 			return $logger;
 		});
