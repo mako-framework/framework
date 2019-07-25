@@ -32,6 +32,7 @@
 * Added new syntax for default values in templates.
 * The production web error handler no longer requires a view factory instance.
 * It is now easier to override the storage path of compiled templates and log files using the new `application.storage_path` config key.
+* It is now possible to disable logging of specific exceptions types using the new `application.error_handler.disable_logging_for` config key.
 
 #### Deprecations
 
