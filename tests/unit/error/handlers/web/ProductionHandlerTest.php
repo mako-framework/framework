@@ -26,16 +26,8 @@ class ProductionHandlerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegularError(): void
+	public function testRegularErrorWithView(): void
 	{
-		$viewFactory = Mockery::mock(ViewFactory::class);
-
-		$viewFactory->shouldReceive('registerNamespace')->once();
-
-		$viewFactory->shouldReceive('render')->once()->with('mako-error::error')->andReturn('rendered');
-
-		//
-
 		$responseHeaders = Mockery::mock(RequestHeaders::class);
 
 		$responseHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
@@ -68,7 +60,15 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new ProductionHandler($viewFactory, $request, $response);
+		$viewFactory = Mockery::mock(ViewFactory::class);
+
+		$viewFactory->shouldReceive('registerNamespace')->once();
+
+		$viewFactory->shouldReceive('render')->once()->with('mako-error::error')->andReturn('rendered');
+
+		//
+
+		$handler = new ProductionHandler($request, $response, $viewFactory);
 
 		$this->assertFalse($handler->handle(new ErrorException));
 	}
@@ -76,18 +76,8 @@ class ProductionHandlerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testHttpException(): void
+	public function testHttpExceptionWithView(): void
 	{
-		$viewFactory = Mockery::mock(ViewFactory::class);
-
-		$viewFactory->shouldReceive('registerNamespace')->once();
-
-		$viewFactory->shouldReceive('exists')->once()->with('mako-error::405')->andReturn(true);
-
-		$viewFactory->shouldReceive('render')->once()->with('mako-error::405')->andReturn('rendered');
-
-		//
-
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
@@ -128,9 +118,61 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new ProductionHandler($viewFactory, $request, $response);
+		$viewFactory = Mockery::mock(ViewFactory::class);
+
+		$viewFactory->shouldReceive('registerNamespace')->once();
+
+		$viewFactory->shouldReceive('exists')->once()->with('mako-error::405')->andReturn(true);
+
+		$viewFactory->shouldReceive('render')->once()->with('mako-error::405')->andReturn('rendered');
+
+		//
+
+		$handler = new ProductionHandler($request, $response, $viewFactory);
 
 		$this->assertFalse($handler->handle(new MethodNotAllowedException(['GET', 'POST'])));
+	}
+
+	/**
+	 *
+	 */
+	public function testRegularErrorWithoutView(): void
+	{
+		$responseHeaders = Mockery::mock(RequestHeaders::class);
+
+		$responseHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
+
+		//
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->twice()->andReturn($responseHeaders);
+
+		//
+
+		$response = Mockery::mock(Response::class);
+
+		$response->shouldReceive('clear')->once()->andReturn($response);
+
+		$response->shouldReceive('disableCaching')->once()->andReturn($response);
+
+		$response->shouldReceive('disableCompression')->once()->andReturn($response);
+
+		$response->shouldReceive('getType')->twice()->andReturn('text/plain');
+
+		$response->shouldReceive('setType')->once()->with('text/plain');
+
+		$response->shouldReceive('setBody')->once()->with('An error has occurred while processing your request.')->andReturn($response);
+
+		$response->shouldReceive('setStatus')->once()->with(500)->andReturn($response);
+
+		$response->shouldReceive('send')->once();
+
+		//
+
+		$handler = new ProductionHandler($request, $response);
+
+		$this->assertFalse($handler->handle(new ErrorException));
 	}
 
 	/**
@@ -144,12 +186,6 @@ class ProductionHandlerTest extends TestCase
 
 			return;
 		}
-
-		$viewFactory = Mockery::mock(ViewFactory::class);
-
-		$viewFactory->shouldReceive('registerNamespace')->once();
-
-		//
 
 		$request = Mockery::mock(Request::class);
 
@@ -175,7 +211,7 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new ProductionHandler($viewFactory, $request, $response);
+		$handler = new ProductionHandler($request, $response);
 
 		$this->assertFalse($handler->handle(new ErrorException));
 	}
@@ -191,12 +227,6 @@ class ProductionHandlerTest extends TestCase
 
 			return;
 		}
-
-		$viewFactory = Mockery::mock(ViewFactory::class);
-
-		$viewFactory->shouldReceive('registerNamespace')->once();
-
-		//
 
 		$responseHeaders = Mockery::mock(RequestHeaders::class);
 
@@ -232,7 +262,7 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new ProductionHandler($viewFactory, $request, $response);
+		$handler = new ProductionHandler($request, $response);
 
 		$this->assertFalse($handler->handle(new ErrorException));
 	}

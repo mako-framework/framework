@@ -286,6 +286,6 @@ class Router
 
 		// No routes matched so we'll throw a not found exception
 
-		throw new NotFoundException("{$requestMethod}: {$requestPath}");
+		throw new NotFoundException;
 	}
 }
