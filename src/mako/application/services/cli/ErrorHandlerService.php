@@ -36,6 +36,11 @@ class ErrorHandlerService extends Service
 			{
 				return 	$this->container->get(LoggerInterface::class);
 			});
+
+			if(!empty($config['disable_logging_for']))
+			{
+				$errorHandler->disableLoggingFor($config['disable_logging_for']);
+			}
 		}
 
 		$errorHandler->handle(Throwable::class, $config['display_errors'] ? DevelopmentHandler::class : ProductionHandler::class);
