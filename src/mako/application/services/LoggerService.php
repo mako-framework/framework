@@ -56,9 +56,9 @@ class LoggerService extends Service
 	/**
 	 * Returns a stream handler.
 	 *
-	 * @return \Monolog\Handler\HandlerInterface
+	 * @return \Monolog\Handler\StreamHandler
 	 */
-	protected function getStreamHandler(): HandlerInterface
+	protected function getStreamHandler(): StreamHandler
 	{
 		$handler = new StreamHandler($this->getStoragePath());
 
