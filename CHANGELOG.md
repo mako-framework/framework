@@ -32,11 +32,14 @@
 * Added new syntax for default values in templates.
 * The production web error handler no longer requires a view factory instance.
 * It is now easier to override the storage path of compiled templates and log files using the new `application.storage_path` config key.
-* It is now possible to disable logging of specific exceptions types using the new `application.error_handler.disable_logging_for` config key.
+* Added `ErrorHandler::dontLog()` method.
+* It is now possible to disable logging of specific exceptions types using the new `application.error_handler.dont_log` config key.
 
 #### Deprecations
 
 * The `{{$foo || 'Default}}` and `{{$foo or 'Default}}` template syntax has been deprecated and will be removed in `7.0` use the `{{$foo, default: 'Default'}}` syntax instead.
+
+* The `ErrorHandler::disableLoggingFor()` method has been deprecated and will be removed in `7.0`. Use the new `ErrorHandler::dontLog()` method instead.
 
 > Check out the upgrade guide for details on how to upgrade from `6.0.*.`
 

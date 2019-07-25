@@ -65,7 +65,7 @@ class ErrorHandler
 	 *
 	 * @var array
 	 */
-	protected $disableLoggingFor = [];
+	protected $dontLog = [];
 
 	/**
 	 * Constructor.
@@ -152,11 +152,23 @@ class ErrorHandler
 	/**
 	 * Disables logging for an exception type.
 	 *
+	 * @deprecated
+	 * @param string|array $exceptionType Exception type or array of exception types
+	 */
+	public function dontLog($exceptionType): void
+	{
+		$this->dontLog = array_unique(array_merge($this->dontLog, (array) $exceptionType));
+	}
+
+	/**
+	 * Disables logging for an exception type.
+	 *
+	 * @deprecated
 	 * @param string|array $exceptionType Exception type or array of exception types
 	 */
 	public function disableLoggingFor($exceptionType): void
 	{
-		$this->disableLoggingFor = array_unique(array_merge($this->disableLoggingFor, (array) $exceptionType));
+		$this->dontLog($exceptionType);
 	}
 
 	/**
@@ -228,7 +240,7 @@ class ErrorHandler
 			return false;
 		}
 
-		foreach($this->disableLoggingFor as $exceptionType)
+		foreach($this->dontLog as $exceptionType)
 		{
 			if($exception instanceof $exceptionType)
 			{

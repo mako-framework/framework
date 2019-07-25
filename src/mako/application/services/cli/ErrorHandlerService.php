@@ -37,9 +37,9 @@ class ErrorHandlerService extends Service
 				return 	$this->container->get(LoggerInterface::class);
 			});
 
-			if(!empty($config['disable_logging_for']))
+			if(!empty($config['dont_log']))
 			{
-				$errorHandler->disableLoggingFor($config['disable_logging_for']);
+				$errorHandler->dontLog($config['dont_log']);
 			}
 		}
 
