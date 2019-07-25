@@ -41,13 +41,25 @@ class LoggerService extends Service
 	}
 
 	/**
+	 * Returns the storage path.
+	 *
+	 * @return string
+	 */
+	protected function getStoragePath(): string
+	{
+		$base = $this->config->get('application.storage_path') ?? "{$this->app->getPath()}/storage";
+
+		return "{$base}/logs/" . date('Y-m-d') . '.mako';
+	}
+
+	/**
 	 * Returns the default handler.
 	 *
 	 * @return \Monolog\Handler\HandlerInterface
 	 */
 	protected function getHandler(): HandlerInterface
 	{
-		$handler = new StreamHandler("{$this->app->getPath()}/storage/logs/" . date('Y-m-d') . '.mako');
+		$handler = new StreamHandler($this->getStoragePath());
 
 		$formatter = new LineFormatter(null, null, true, true);
 

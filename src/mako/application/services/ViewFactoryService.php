@@ -19,25 +19,35 @@ use mako\view\ViewFactory;
 class ViewFactoryService extends Service
 {
 	/**
+	 * Returns the storage path.
+	 *
+	 * @return string
+	 */
+	protected function getStoragePath(): string
+	{
+		$base = $this->config->get('application.storage_path') ?? "{$this->app->getPath()}/storage";
+
+		return "{$base}/cache/views";
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function register(): void
 	{
 		$this->container->registerSingleton([ViewFactory::class, 'view'], function($container)
 		{
-			$applicationPath = $this->app->getPath();
-
 			$fileSystem = $container->get(FileSystem::class);
 
 			// Create factory instance
 
-			$factory = new ViewFactory($fileSystem, "{$applicationPath}/resources/views", $this->app->getCharset(), $container);
+			$factory = new ViewFactory($fileSystem, "{$this->app->getPath()}/resources/views", $this->app->getCharset(), $container);
 
 			// Register template renderer
 
-			$factory->extend('.tpl.php', function() use ($applicationPath, $fileSystem)
+			$factory->extend('.tpl.php', function() use ($fileSystem)
 			{
-				return new Template($fileSystem, "{$applicationPath}/storage/cache/views");
+				return new Template($fileSystem, $this->getStoragePath());
 			});
 
 			// Return factory instance
