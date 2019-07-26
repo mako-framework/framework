@@ -152,7 +152,6 @@ class ErrorHandler
 	/**
 	 * Disables logging for an exception type.
 	 *
-	 * @deprecated
 	 * @param string|array $exceptionType Exception type or array of exception types
 	 */
 	public function dontLog($exceptionType): void
@@ -163,7 +162,7 @@ class ErrorHandler
 	/**
 	 * Disables logging for an exception type.
 	 *
-	 * @deprecated
+	 * @deprecated (remove in version 7.0)
 	 * @param string|array $exceptionType Exception type or array of exception types
 	 */
 	public function disableLoggingFor($exceptionType): void
