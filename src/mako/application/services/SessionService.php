@@ -17,6 +17,7 @@ use mako\session\stores\Database;
 use mako\session\stores\File;
 use mako\session\stores\NullStore;
 use mako\session\stores\Redis;
+use mako\session\stores\StoreInterface;
 use mako\syringe\Container;
 
 /**
@@ -47,7 +48,7 @@ class SessionService extends Service
 	 * @param  bool|array                $classWhitelist Class whitelist
 	 * @return \mako\session\stores\File
 	 */
-	protected function getFileStore(Container $container, array $config, $classWhitelist)
+	protected function getFileStore(Container $container, array $config, $classWhitelist): File
 	{
 		return new File($container->get(FileSystem::class), $config['path'], $classWhitelist);
 	}
@@ -60,7 +61,7 @@ class SessionService extends Service
 	 * @param  bool|array                     $classWhitelist Class whitelist
 	 * @return \mako\session\stores\NullStore
 	 */
-	protected function getNullStore(Container $container, array $config, $classWhitelist)
+	protected function getNullStore(Container $container, array $config, $classWhitelist): NullStore
 	{
 		return new NullStore;
 	}
@@ -73,7 +74,7 @@ class SessionService extends Service
 	 * @param  bool|array                 $classWhitelist Class whitelist
 	 * @return \mako\session\stores\Redis
 	 */
-	protected function getRedisStore(Container $container, array $config, $classWhitelist)
+	protected function getRedisStore(Container $container, array $config, $classWhitelist): Redis
 	{
 		return new Redis($container->get(RedisConnectionManager::class)->connection($config['configuration']), $classWhitelist);
 	}
@@ -86,25 +87,11 @@ class SessionService extends Service
 	 * @param  bool|array                          $classWhitelist Class whitelist
 	 * @return \mako\session\stores\StoreInterface
 	 */
-	protected function getStore(Container $container, array $config, $classWhitelist)
+	protected function getStore(Container $container, array $config, $classWhitelist): StoreInterface
 	{
 		$config = $config['configurations'][$config['configuration']];
 
-		switch($config['type'])
-		{
-			case 'database':
-				return $this->getDatabaseStore($container, $config, $classWhitelist);
-				break;
-			case 'file':
-				return $this->getFileStore($container, $config, $classWhitelist);
-				break;
-			case 'null':
-				return $this->getNullStore($container, $config, $classWhitelist);
-				break;
-			case 'redis':
-				return $this->getRedisStore($container, $config, $classWhitelist);
-				break;
-		}
+		return $this->{"get{$config['type']}Store"}($container, $config, $classWhitelist);
 	}
 
 	/**

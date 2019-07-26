@@ -15,7 +15,6 @@ use Monolog\Handler\StreamHandler;
 use Psr\Log\LoggerInterface;
 
 use function date;
-use function ucfirst;
 
 /**
  * Logger service.
@@ -79,9 +78,7 @@ class LoggerService extends Service
 	 */
 	protected function getHandler(string $handler): HandlerInterface
 	{
-		$method = 'get' . ucfirst($handler) . 'Handler';
-
-		return $this->{$method}();
+		return $this->{"get{$handler}Handler"}();
 	}
 
 	/**
