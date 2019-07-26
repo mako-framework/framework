@@ -263,7 +263,7 @@ class Template
 
 		$emptyElse = function($matches)
 		{
-			/* @deprecated (remove in version 7.0) */
+			/* @deprecated 7.0 */
 			if(preg_match('/(.*)((\|\|)|(\s+or\s+))(.+)/', $matches) !== 0)
 			{
 				return preg_replace_callback('/(.*)((\|\|)|(\s+or\s+))(.+)/', function($matches)

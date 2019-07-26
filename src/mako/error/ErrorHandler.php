@@ -162,7 +162,7 @@ class ErrorHandler
 	/**
 	 * Disables logging for an exception type.
 	 *
-	 * @deprecated (remove in version 7.0)
+	 * @deprecated 7.0
 	 * @param string|array $exceptionType Exception type or array of exception types
 	 */
 	public function disableLoggingFor($exceptionType): void
