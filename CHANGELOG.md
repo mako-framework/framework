@@ -35,8 +35,8 @@
 * Added `ErrorHandler::dontLog()` method.
 * It is now possible to disable logging of specific exceptions types using the new `application.error_handler.dont_log` config key.
 * Added new collection methods:
- - `Collection::with()`
- - `Collection::without()`
+	- `Collection::with()`
+	- `Collection::without()`
 
 #### Deprecations
 
