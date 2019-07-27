@@ -396,7 +396,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns a new collection where all items not in the provided list have been removed.
 	 *
-	 * @param  array  $keys
+	 * @param  array  $keys Keys
 	 * @return static
 	 */
 	public function with(array $keys)
@@ -407,7 +407,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns a new collection where all items in the provided list have been removed.
 	 *
-	 * @param  array  $keys
+	 * @param  array  $keys Keys
 	 * @return static
 	 */
 	public function without(array $keys)
