@@ -16,7 +16,10 @@ use OutOfBoundsException;
 
 use function array_chunk;
 use function array_combine;
+use function array_diff_key;
 use function array_filter;
+use function array_flip;
+use function array_intersect_key;
 use function array_key_exists;
 use function array_keys;
 use function array_map;
@@ -393,7 +396,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns a new collection where all items not in the provided list have been removed.
 	 *
-	 * @param array $keys
+	 * @param  array  $keys
 	 * @return static
 	 */
 	public function with(array $keys)
@@ -404,7 +407,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns a new collection where all items in the provided list have been removed.
 	 *
-	 * @param array $keys
+	 * @param  array  $keys
 	 * @return static
 	 */
 	public function without(array $keys)
