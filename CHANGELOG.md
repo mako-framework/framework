@@ -34,6 +34,9 @@
 * It is now easier to override the storage path of compiled templates and log files using the new `application.storage_path` config key.
 * Added `ErrorHandler::dontLog()` method.
 * It is now possible to disable logging of specific exceptions types using the new `application.error_handler.dont_log` config key.
+* Added new collection methods:
+ - `Collection::with()`
+ - `Collection::without()`
 
 #### Deprecations
 

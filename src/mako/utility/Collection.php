@@ -391,6 +391,28 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
+	 * Returns a new collection where all items not in the provided list have been removed.
+	 *
+	 * @param array $keys
+	 * @return static
+	 */
+	public function with(array $keys)
+	{
+		return new static(array_intersect_key($this->items, array_flip($keys)));
+	}
+
+	/**
+	 * Returns a new collection where all items in the provided list have been removed.
+	 *
+	 * @param array $keys
+	 * @return static
+	 */
+	public function without(array $keys)
+	{
+		return new static(array_diff_key($this->items, array_flip($keys)));
+	}
+
+	/**
 	 * Merges two collections.
 	 *
 	 * @param  \mako\utility\Collection $collection Collection to merge

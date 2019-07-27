@@ -544,6 +544,46 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
+	public function testWith(): void
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$collection = $collection->with([0, 1]);
+
+		$this->assertSame([1, 2], $collection->getItems());
+
+		//
+
+		$collection = new Collection([]);
+
+		$collection = $collection->with([0, 1]);
+
+		$this->assertSame([], $collection->getItems());
+	}
+
+	/**
+	 *
+	 */
+	public function testWithout(): void
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$collection = $collection->without([2]);
+
+		$this->assertSame([1, 2], $collection->getItems());
+
+		//
+
+		$collection = new Collection([]);
+
+		$collection = $collection->without([2]);
+
+		$this->assertSame([], $collection->getItems());
+	}
+
+	/**
+	 *
+	 */
 	public function testMerge(): void
 	{
 		$merged = (new Collection([1, 2, 3]))->merge(new Collection([4, 5, 6]));
