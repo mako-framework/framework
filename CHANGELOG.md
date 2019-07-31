@@ -50,8 +50,6 @@
 
 ### 5.7.2, 6.0.1 <small> (2019-05-21)</small>
 
-Update using ```composer update```.
-
 #### Bugfixes
 
 * Images will now be rotated in the same direction when using ImageMagick and GD.
