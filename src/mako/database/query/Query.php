@@ -744,9 +744,10 @@ class Query
 	/**
 	 * Adds a column comparison clause.
 	 *
-	 * @param  string|array $column1  Column name of array of column names
-	 * @param  string       $operator Operator
-	 * @param  string|array $column2  Column name of array of column names
+	 * @param  string|array $column1   Column name of array of column names
+	 * @param  string       $operator  Operator
+	 * @param  string|array $column2   Column name of array of column names
+	 * @param  string       $separator Separator
 	 * @return $this
 	 */
 	public function whereColumn($column1, string $operator, $column2, string $separator = 'AND')
