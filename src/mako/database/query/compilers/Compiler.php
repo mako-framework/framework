@@ -544,7 +544,7 @@ class Compiler
 	/**
 	 * Compiles date comparison clauses.
 	 *
-	 * @param  array             $where
+	 * @param  array             $where Where clause
 	 * @throws \RuntimeException
 	 * @return string
 	 */
@@ -556,10 +556,10 @@ class Compiler
 	/**
 	 * Compiles column comparison clauses.
 	 *
-	 * @param  array  $where
+	 * @param  array  $where Where clause
 	 * @return string
 	 */
-	public function whereColumn(array $where): string
+	protected function whereColumn(array $where): string
 	{
 		if(is_array($where['column1']))
 		{
@@ -587,7 +587,7 @@ class Compiler
 	/**
 	 * Compiles date range clauses.
 	 *
-	 * @param  array             $where
+	 * @param  array             $where Where clause
 	 * @throws \RuntimeException
 	 * @return string
 	 */
