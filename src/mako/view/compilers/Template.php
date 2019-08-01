@@ -263,20 +263,18 @@ class Template
 
 		$emptyElse = function($matches)
 		{
-			/* @deprecated 7.0 */
-			if(preg_match('/(.*)((\|\|)|(\s+or\s+))(.+)/', $matches) !== 0)
-			{
-				return preg_replace_callback('/(.*)((\|\|)|(\s+or\s+))(.+)/', function($matches)
-				{
-					return '(empty(' . trim($matches[1]) . ') ? ' . trim($matches[5]) . ' : ' . trim($matches[1]) . ')';
-				}, $matches);
-			}
-
 			if(preg_match('/(.*)((,\s*default:\s*))(.+)/', $matches) !== 0)
 			{
 				return preg_replace_callback('/(.*)(,\s*default:\s*)(.+)/', function($matches)
 				{
 					return '(empty(' . trim($matches[1]) . ') ? (isset(' . trim($matches[1]) . ') && (' . trim($matches[1]) . ' === 0 || ' . trim($matches[1]) . ' === 0.0 || ' . trim($matches[1]) . ' === \'0\') ? ' . trim($matches[1]) . ' : ' . trim($matches[3]) . ') : ' . trim($matches[1]) . ')';
+				}, $matches);
+			}
+			elseif(preg_match('/(.*)((\|\|)|(\s+or\s+))(.+)/', $matches) !== 0)
+			{
+				return preg_replace_callback('/(.*)((\|\|)|(\s+or\s+))(.+)/', function($matches)
+				{
+					return '(empty(' . trim($matches[1]) . ') ? ' . trim($matches[5]) . ' : ' . trim($matches[1]) . ')';
 				}, $matches);
 			}
 
