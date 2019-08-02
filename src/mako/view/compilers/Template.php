@@ -152,7 +152,7 @@ class Template
 		// Replace first occurance of extends tag with an empty string
 		// and append the template with a view tag
 
-		if(preg_match('/^{%\s*extends:(.*?)\s*%}/i', $template, $matches) > 0)
+		if(preg_match('/^{%\s*extends:(.*?)\s*%}/i', $template, $matches) === 1)
 		{
 			$replacement = '<?php $__view__ = $__viewfactory__->create(' . $matches[1] . '); $__renderer__ = $__view__->getRenderer(); ?>';
 
@@ -263,14 +263,14 @@ class Template
 
 		$emptyElse = function($matches)
 		{
-			if(preg_match('/(.*)((,\s*default:\s*))(.+)/', $matches) !== 0)
+			if(preg_match('/(.*)((,\s*default:\s*))(.+)/', $matches) === 1)
 			{
 				return preg_replace_callback('/(.*)(,\s*default:\s*)(.+)/', function($matches)
 				{
 					return '(empty(' . trim($matches[1]) . ') ? (isset(' . trim($matches[1]) . ') && (' . trim($matches[1]) . ' === 0 || ' . trim($matches[1]) . ' === 0.0 || ' . trim($matches[1]) . ' === \'0\') ? ' . trim($matches[1]) . ' : ' . trim($matches[3]) . ') : ' . trim($matches[1]) . ')';
 				}, $matches);
 			}
-			elseif(preg_match('/(.*)((\|\|)|(\s+or\s+))(.+)/', $matches) !== 0)
+			elseif(preg_match('/(.*)((\|\|)|(\s+or\s+))(.+)/', $matches) === 1)
 			{
 				return preg_replace_callback('/(.*)((\|\|)|(\s+or\s+))(.+)/', function($matches)
 				{
@@ -285,27 +285,27 @@ class Template
 
 		return preg_replace_callback('/{{\s*(.*?)\s*}}/', function($matches) use ($emptyElse)
 		{
-			if(preg_match('/raw\s*:(.*)/i', $matches[1]) > 0)
+			if(preg_match('/raw\s*:(.*)/i', $matches[1]) === 1)
 			{
 				return sprintf('<?php echo %s; ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/preserve\s*:(.*)/i', $matches[1]) > 0)
+			elseif(preg_match('/preserve\s*:(.*)/i', $matches[1]) === 1)
 			{
 				return sprintf('<?php echo $this->escapeHTML(%s, $__charset__, false); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/attribute\s*:(.*)/i', $matches[1]) > 0)
+			elseif(preg_match('/attribute\s*:(.*)/i', $matches[1]) === 1)
 			{
 				return sprintf('<?php echo $this->escapeAttribute(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/js\s*:(.*)/i', $matches[1]) > 0)
+			elseif(preg_match('/js\s*:(.*)/i', $matches[1]) === 1)
 			{
 				return sprintf('<?php echo $this->escapeJavascript(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/css\s*:(.*)/i', $matches[1]) > 0)
+			elseif(preg_match('/css\s*:(.*)/i', $matches[1]) === 1)
 			{
 				return sprintf('<?php echo $this->escapeCSS(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/url\s*:(.*)/i', $matches[1]) > 0)
+			elseif(preg_match('/url\s*:(.*)/i', $matches[1]) === 1)
 			{
 				return sprintf('<?php echo $this->escapeURL(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}

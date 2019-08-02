@@ -113,7 +113,7 @@ class Router
 	 */
 	protected function matches(Route $route, string $path): bool
 	{
-		if(preg_match($route->getRegex(), $path, $parameters) > 0)
+		if(preg_match($route->getRegex(), $path, $parameters) === 1)
 		{
 			$filtered = [];
 

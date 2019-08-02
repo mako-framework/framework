@@ -121,7 +121,7 @@ class JSON implements ResponseBuilderInterface
 	 */
 	protected function normalizeCallback(string $callback): string
 	{
-		if(preg_match('/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u', $callback) === 0)
+		if(preg_match('/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u', $callback) !== 1)
 		{
 			return 'callback';
 		}

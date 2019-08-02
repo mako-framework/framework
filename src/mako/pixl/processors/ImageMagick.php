@@ -66,7 +66,7 @@ class ImageMagick implements ProcessorInterface
 	 */
 	public function normalizeHex($hex)
 	{
-		if(preg_match('/^(#?[a-f0-9]{3}){1,2}$/i', $hex) === 0)
+		if(preg_match('/^(#?[a-f0-9]{3}){1,2}$/i', $hex) !== 1)
 		{
 			throw new InvalidArgumentException(vsprintf('Invalid HEX value [ %s ].', [$hex]));
 		}

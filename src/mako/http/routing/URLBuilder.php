@@ -97,7 +97,7 @@ class URLBuilder
 	 */
 	public function matches(string $pattern): bool
 	{
-		return (bool) preg_match("#{$pattern}#", $this->request->getPath());
+		return preg_match("#{$pattern}#", $this->request->getPath()) === 1;
 	}
 
 	/**
