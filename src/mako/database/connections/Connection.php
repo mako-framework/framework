@@ -506,14 +506,15 @@ class Connection
 	}
 
 	/**
-	 * Prepares a query.
+	 * Prepares and executes a query.
 	 *
-	 * @param  string        $query  SQL query
-	 * @param  array         $params Query parameters
+	 * @param  string        $query    SQL query
+	 * @param  array         $params   Query parameters
+	 * @param  bool          &$success Was the query executed successfully?
 	 * @throws \PDOException
-	 * @return array
+	 * @return \PDOStatement
 	 */
-	protected function prepare(string $query, array $params): array
+	protected function prepareAndExecute(string $query, array $params, bool &$success = null): PDOStatement
 	{
 		// Prepare query and parameters
 
@@ -536,7 +537,7 @@ class Connection
 				goto prepare;
 			}
 
-			throw new PDOException($e->getMessage() . ' [ ' . $this->prepareQueryForLog($query, $params) . ' ] ', (int) $e->getCode(), $e->getPrevious());
+			throw new PDOException("{$e->getMessage()} [ {$this->prepareQueryForLog($query, $params)} ].", (int) $e->getCode(), $e->getPrevious());
 		}
 
 		// Bind parameters
@@ -546,32 +547,21 @@ class Connection
 			$this->bindParameter($statement, $key, $value);
 		}
 
-		// Return query, parameters and the prepared statement
+		// Execute the query and return the statement
 
-		return ['query' => $query, 'params' => $params, 'statement' => $statement];
-	}
-
-	/**
-	 * Executes the prepared query and returns TRUE on success or FALSE on failure.
-	 *
-	 * @param  array $prepared Prepared query
-	 * @return bool
-	 */
-	protected function execute(array $prepared): bool
-	{
 		if($this->enableLog)
 		{
 			$start = microtime(true);
 		}
 
-		$result = $prepared['statement']->execute();
+		$success = $statement->execute();
 
 		if($this->enableLog)
 		{
-			$this->log($prepared['query'], $prepared['params'], $start);
+			$this->log($query, $params, $start);
 		}
 
-		return $result;
+		return $statement;
 	}
 
 	/**
@@ -583,7 +573,9 @@ class Connection
 	 */
 	public function query(string $query, array $params = []): bool
 	{
-		return $this->execute($this->prepare($query, $params));
+		$this->prepareAndExecute($query, $params, $success);
+
+		return $success;
 	}
 
 	/**
@@ -595,73 +587,27 @@ class Connection
 	 */
 	public function queryAndCount(string $query, array $params = []): int
 	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
-
-		return $prepared['statement']->rowCount();
-	}
-
-	/**
-	 * Returns the value of the first column of the first row of the result set.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return mixed
-	 */
-	public function column(string $query, array $params = [])
-	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
-
-		return $prepared['statement']->fetchColumn();
-	}
-
-	/**
-	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return array
-	 */
-	public function columns(string $query, array $params = []): array
-	{
-		return $this->all($query, $params, PDO::FETCH_COLUMN);
-	}
-
-	/**
-	 * Executes a SELECT query and returns an array where the first column is used as keys and the second as values.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return array
-	 */
-	public function pairs(string $query, array $params = []): array
-	{
-		return $this->all($query, $params, PDO::FETCH_KEY_PAIR);
+		return $this->prepareAndExecute($query, $params)->rowCount();
 	}
 
 	/**
 	 * Returns the first row of the result set.
 	 *
-	 * @param  string $query        SQL query
-	 * @param  array  $params       Query params
-	 * @param  mixed  ...$fetchMode Fetch mode
-	 * @return mixed
+	 * @param  string     $query        SQL query
+	 * @param  array      $params       Query params
+	 * @param  mixed      ...$fetchMode Fetch mode
+	 * @return mixed|bool
 	 */
 	public function first(string $query, array $params = [], ...$fetchMode)
 	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
+		$statement = $this->prepareAndExecute($query, $params);
 
 		if(!empty($fetchMode))
 		{
-			$prepared['statement']->setFetchMode(...$fetchMode);
+			$statement->setFetchMode(...$fetchMode);
 		}
 
-		return $prepared['statement']->fetch();
+		return $statement->fetch();
 	}
 
 	/**
@@ -674,11 +620,43 @@ class Connection
 	 */
 	public function all(string $query, array $params = [], ...$fetchMode): array
 	{
-		$prepared = $this->prepare($query, $params);
+		return $this->prepareAndExecute($query, $params)->fetchAll(...$fetchMode);
+	}
 
-		$this->execute($prepared);
+	/**
+	 * Returns the value of the first column of the first row of the result set.
+	 *
+	 * @param  string     $query  SQL query
+	 * @param  array      $params Query parameters
+	 * @return mixed|bool
+	 */
+	public function column(string $query, array $params = [])
+	{
+		return $this->prepareAndExecute($query, $params)->fetchColumn();
+	}
 
-		return $prepared['statement']->fetchAll(...$fetchMode);
+	/**
+	 * Returns an array containing the values of the indicated 0-indexed column.
+	 *
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return array
+	 */
+	public function columns(string $query, array $params = []): array
+	{
+		return $this->all($query, $params, PDO::FETCH_COLUMN);
+	}
+
+	/**
+	 * Returns an array where the first column is used as keys and the second as values.
+	 *
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return array
+	 */
+	public function pairs(string $query, array $params = []): array
+	{
+		return $this->all($query, $params, PDO::FETCH_KEY_PAIR);
 	}
 
 	/**
@@ -691,25 +669,23 @@ class Connection
 	 */
 	public function yield(string $query, array $params = [], ...$fetchMode): Generator
 	{
-		$prepared = $this->prepare($query, $params);
-
-		$this->execute($prepared);
+		$statement = $this->prepareAndExecute($query, $params);
 
 		if(!empty($fetchMode))
 		{
-			$prepared['statement']->setFetchMode(...$fetchMode);
+			$statement->setFetchMode(...$fetchMode);
 		}
 
 		try
 		{
-			while($row = $prepared['statement']->fetch())
+			while($row = $statement->fetch())
 			{
 				yield $row;
 			}
 		}
 		finally
 		{
-			$prepared['statement']->closeCursor();
+			$statement->closeCursor();
 		}
 	}
 
@@ -726,7 +702,7 @@ class Connection
 	/**
 	 * Returns a query builder instance where we have already chosen the table we want to query.
 	 *
-	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
+	 * @param  null|string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
 	 * @return \mako\database\query\Query
 	 */
 	public function table($table): Query
@@ -741,7 +717,7 @@ class Connection
 	 */
 	protected function createSavepoint(): bool
 	{
-		return $this->pdo->exec('SAVEPOINT transactionNestingLevel' . $this->transactionNestingLevel) !== false;
+		return $this->pdo->exec("SAVEPOINT transactionNestingLevel{$this->transactionNestingLevel}") !== false;
 	}
 
 	/**
@@ -751,7 +727,7 @@ class Connection
 	 */
 	protected function rollBackSavepoint(): bool
 	{
-		return $this->pdo->exec('ROLLBACK TO SAVEPOINT transactionNestingLevel' . $this->transactionNestingLevel) !== false;
+		return $this->pdo->exec("ROLLBACK TO SAVEPOINT transactionNestingLevel{$this->transactionNestingLevel}") !== false;
 	}
 
 	/**

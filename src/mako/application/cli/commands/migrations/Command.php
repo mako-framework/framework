@@ -140,7 +140,7 @@ abstract class Command extends BaseCommand
 	{
 		$migrations = [];
 
-		foreach($this->fileSystem->glob($this->application->getPath() . '/migrations/*.php') as $migration)
+		foreach($this->fileSystem->glob("{$this->application->getPath()}/migrations/*.php") as $migration)
 		{
 			$migrations[] = (object) ['package' => null, 'version' => $this->getBasename($migration)];
 		}
@@ -159,7 +159,7 @@ abstract class Command extends BaseCommand
 
 		foreach($this->application->getPackages() as $package)
 		{
-			foreach($this->fileSystem->glob($package->getPath() . '/src/migrations/*.php') as $migration)
+			foreach($this->fileSystem->glob("{$package->getPath()}/src/migrations/*.php") as $migration)
 			{
 				$migrations[] = (object) ['package' => $package->getName(), 'version' => $this->getBasename($migration)];
 			}
@@ -188,10 +188,10 @@ abstract class Command extends BaseCommand
 	{
 		if(empty($migration->package))
 		{
-			return $this->application->getNamespace(true) . '\\migrations\\' . $migration->version;
+			return $this->application->getNamespace(true) . "\\migrations\\{$migration->version}";
 		}
 
-		return $this->application->getPackage($migration->package)->getClassNamespace(true) . '\\migrations\\' . $migration->version;
+		return $this->application->getPackage($migration->package)->getClassNamespace(true) . "\\migrations\\{$migration->version}";
 	}
 
 	/**
@@ -286,7 +286,7 @@ abstract class Command extends BaseCommand
 
 			if(!empty($migration->package))
 			{
-				$name .= ' (' . $migration->package . ')';
+				$name .= " ({$migration->package})";
 			}
 
 			$description = $this->resolve($migration)->getDescription();

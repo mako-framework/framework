@@ -55,7 +55,7 @@ class HTML
 				$attribute = $value;
 			}
 
-			$attr .= ' ' . $attribute . '="' . $value . '"';
+			$attr .= " {$attribute}=\"{$value}\"";
 		}
 
 		return $attr;
@@ -71,7 +71,7 @@ class HTML
 	 */
 	public function tag(string $name, array $attributes = [], ?string $content = null): string
 	{
-		return '<' . $name . $this->attributes($attributes) . (($content === null) ? ($this->xhtml ? ' />' : '>') : '>' . $content . '</' . $name . '>');
+		return "<{$name}{$this->attributes($attributes)}" . (($content === null) ? ($this->xhtml ? ' />' : '>') : ">{$content}</{$name}>");
 	}
 
 	/**

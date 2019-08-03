@@ -105,7 +105,7 @@ class UUID
 
 		for($i = 0; $i < 32; $i += 2)
 		{
-			$binary .= chr(hexdec($hex[$i] . $hex[$i + 1]));
+			$binary .= chr(hexdec("{$hex[$i]}{$hex[$i + 1]}"));
 		}
 
 		return $binary;

@@ -62,7 +62,7 @@ class Select
 			$output .= ($key + 1) . ') ' . $option . PHP_EOL;
 		}
 
-		return $output . '> ';
+		return "{$output}> ";
 	}
 
 	/**

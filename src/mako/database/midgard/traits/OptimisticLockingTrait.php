@@ -46,7 +46,7 @@ trait OptimisticLockingTrait
 				{
 					$lockingColumn = $this->getLockingColumn();
 
-					return $values + [$lockingColumn => new Raw($query->getCompiler()->escapeIdentifier($lockingColumn) . ' + 1')];
+					return $values + [$lockingColumn => new Raw("{$query->getCompiler()->escapeIdentifier($lockingColumn)} + 1")];
 				},
 			],
 		];

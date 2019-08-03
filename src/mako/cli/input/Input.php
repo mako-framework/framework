@@ -128,7 +128,7 @@ class Input
 	{
 		if(is_int($name))
 		{
-			$name = 'arg' . $name;
+			$name = "arg{$name}";
 		}
 
 		return isset($this->arguments[$name]) ? $this->arguments[$name] : $default;

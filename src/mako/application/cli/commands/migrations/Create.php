@@ -63,17 +63,17 @@ class Create extends Command
 
 		if(empty($package))
 		{
-			$namespace = $application->getNamespace() . '\\migrations';
+			$namespace = "{$application->getNamespace()}\\migrations";
 
-			$path = $application->getPath() . '/migrations/';
+			$path = "{$application->getPath()}/migrations/";
 		}
 		else
 		{
 			$package = $application->getPackage($package);
 
-			$namespace = $package->getClassNamespace() . '\\migrations';
+			$namespace = "{$package->getClassNamespace()}\\migrations";
 
-			$path = $package->getPath() . '/src/migrations/';
+			$path = "{$package->getPath()}/src/migrations/";
 		}
 
 		$path .= 'Migration_' . ($version = gmdate('YmdHis')) . '.php';

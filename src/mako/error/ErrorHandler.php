@@ -65,7 +65,7 @@ class ErrorHandler
 	 *
 	 * @var array
 	 */
-	protected $disableLoggingFor = [];
+	protected $dontLog = [];
 
 	/**
 	 * Constructor.
@@ -92,7 +92,7 @@ class ErrorHandler
 	{
 		$this->handle(Throwable::class, function($e): void
 		{
-			echo '[ ' . get_class($e) . '] ' . $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]';
+			echo '[ ' . get_class($e) . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]";
 
 			echo PHP_EOL;
 
@@ -154,9 +154,20 @@ class ErrorHandler
 	 *
 	 * @param string|array $exceptionType Exception type or array of exception types
 	 */
+	public function dontLog($exceptionType): void
+	{
+		$this->dontLog = array_unique(array_merge($this->dontLog, (array) $exceptionType));
+	}
+
+	/**
+	 * Disables logging for an exception type.
+	 *
+	 * @deprecated 7.0
+	 * @param string|array $exceptionType Exception type or array of exception types
+	 */
 	public function disableLoggingFor($exceptionType): void
 	{
-		$this->disableLoggingFor = array_unique(array_merge($this->disableLoggingFor, (array) $exceptionType));
+		$this->dontLog($exceptionType);
 	}
 
 	/**
@@ -228,7 +239,7 @@ class ErrorHandler
 			return false;
 		}
 
-		foreach($this->disableLoggingFor as $exceptionType)
+		foreach($this->dontLog as $exceptionType)
 		{
 			if($exception instanceof $exceptionType)
 			{
@@ -308,7 +319,7 @@ class ErrorHandler
 
 			// One of the exception handlers failed so we'll just show the user a generic error screen
 
-			echo $e->getMessage() . ' on line [ ' . $e->getLine() . ' ] in [ ' . $e->getFile() . ' ]' . PHP_EOL;
+			echo "{$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL;
 		}
 
 		exit(1);

@@ -291,7 +291,7 @@ class File implements ResponseSenderInterface
 
 		$response->getHeaders()->add('Accept-Ranges', $request->isSafe() ? 'bytes' : 'none');
 
-		$response->getHeaders()->add('Content-Disposition', $this->getDisposition() . '; filename="' . $this->getName() . '"');
+		$response->getHeaders()->add('Content-Disposition', "{$this->getDisposition()}; filename=\"{$this->getName()}\"");
 
 		// Get the requested byte range
 

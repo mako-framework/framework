@@ -82,7 +82,7 @@ abstract class AdapterManager
 	 */
 	protected function factory(string $adapterName, array $configuration = [])
 	{
-		if(method_exists($this, ($method = $adapterName . 'Factory')))
+		if(method_exists($this, ($method = "{$adapterName}Factory")))
 		{
 			return $this->$method($configuration);
 		}

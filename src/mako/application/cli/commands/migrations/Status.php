@@ -56,7 +56,7 @@ class Status extends Command
 		{
 			$message = $count === 1 ? 'There is %s outstanding migration:' : 'There are %s outstanding migrations:';
 
-			$this->write(vsprintf($message, ['<yellow>' . $count . '</yellow>']) . PHP_EOL);
+			$this->write(vsprintf($message, ["<yellow>{$count}</yellow>"]) . PHP_EOL);
 
 			$this->outputMigrationList($migrations);
 		}

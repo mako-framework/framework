@@ -63,7 +63,7 @@ class Loader implements LoaderInterface
 	{
 		$strings = false;
 
-		foreach($this->getCascadingFilePaths($file, null, $language . '/strings') as $file)
+		foreach($this->getCascadingFilePaths($file, null, "{$language}/strings") as $file)
 		{
 			if($this->fileSystem->has($file))
 			{

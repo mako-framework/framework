@@ -36,10 +36,14 @@ class AlertTest extends TestCase
 
 		$alert = new Alert($output);
 
-		$expected  = '               ' . PHP_EOL;
-		$expected .= ' This is just  ' . PHP_EOL;
-		$expected .= ' a test!       ' . PHP_EOL;
-		$expected .= '               ' . PHP_EOL;
+		$expected = '               '
+		. PHP_EOL
+		. ' This is just  '
+		. PHP_EOL
+		. ' a test!       '
+		. PHP_EOL
+		. '               '
+		. PHP_EOL;
 
 		$this->assertSame($expected, $alert->render('This is just a test!'));
 	}
@@ -55,10 +59,14 @@ class AlertTest extends TestCase
 
 		$alert = new Alert($output, 15);
 
-		$expected  = '               ' . PHP_EOL;
-		$expected .= ' This is just  ' . PHP_EOL;
-		$expected .= ' a test!       ' . PHP_EOL;
-		$expected .= '               ' . PHP_EOL;
+		$expected = '               '
+		. PHP_EOL
+		. ' This is just  '
+		. PHP_EOL
+		. ' a test!       '
+		. PHP_EOL
+		. '               '
+		. PHP_EOL;
 
 		$this->assertSame($expected, $alert->render('This is just a test!'));
 	}
@@ -68,10 +76,14 @@ class AlertTest extends TestCase
 	 */
 	public function testDraw(): void
 	{
-		$expected  = '               ' . PHP_EOL;
-		$expected .= ' This is just  ' . PHP_EOL;
-		$expected .= ' a test!       ' . PHP_EOL;
-		$expected .= '               ' . PHP_EOL;
+		$expected  = '               '
+		. PHP_EOL
+		. ' This is just  '
+		. PHP_EOL
+		. ' a test!       '
+		. PHP_EOL
+		. '               '
+		. PHP_EOL;
 
 		$output = Mockery::mock(Output::class);
 

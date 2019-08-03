@@ -71,7 +71,7 @@ class Secret extends Question
 
 				$answer = $this->input->read();
 
-				exec('stty ' . $settings);
+				exec("stty {$settings}");
 			}
 
 			$this->output->write(PHP_EOL);

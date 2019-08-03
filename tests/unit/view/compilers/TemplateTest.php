@@ -543,4 +543,40 @@ EOF;
 
 		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
 	}
+
+	/**
+	 *
+	 */
+	public function testEchoEmptyElseWithDefault(): void
+	{
+		$template = '{{$foo, default: \'bar\'}}';
+
+		$compiled = '<?php echo $this->escapeHTML((empty($foo) ? (isset($foo) && ($foo === 0 || $foo === 0.0 || $foo === \'0\') ? $foo : \'bar\') : $foo), $__charset__); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+
+	/**
+	 *
+	 */
+	public function testEchoRawEmptyElseWithDefault(): void
+	{
+		$template = '{{raw: $foo, default: \'bar\'}}';
+
+		$compiled = '<?php echo (empty($foo) ? (isset($foo) && ($foo === 0 || $foo === 0.0 || $foo === \'0\') ? $foo : \'bar\') : $foo); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
 }

@@ -77,7 +77,7 @@ class Loader implements LoaderInterface
 		{
 			$namespace = strpos($file, '::');
 
-			$namespaced = ($namespace === false) ? $environment . '.' . $file : substr_replace($file, $environment . '.', $namespace + 2, 0);
+			$namespaced = ($namespace === false) ? "{$environment}.{$file}" : substr_replace($file, "{$environment}.", $namespace + 2, 0);
 
 			foreach(array_reverse($this->getCascadingFilePaths($namespaced)) as $path)
 			{

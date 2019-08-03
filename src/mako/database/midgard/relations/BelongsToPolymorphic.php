@@ -27,6 +27,6 @@ class BelongsToPolymorphic extends BelongsTo
 	 */
 	public function __construct(Connection $connection, ORM $parent, ORM $related, string $polymorphicType)
 	{
-		parent::__construct($connection, $parent, $related, $polymorphicType . '_id');
+		parent::__construct($connection, $parent, $related, "{$polymorphicType}_id");
 	}
 }

@@ -22,11 +22,11 @@ if(isset($_SERVER['QUERY_STRING']))
 
 // Check if the file exists
 
-if($requestURI !== '/' && file_exists($documentRoot . '/' . $requestURI))
+if($requestURI !== '/' && file_exists("{$documentRoot}/{$requestURI}"))
 {
 	return false; // serve the requested resource as-is.
 }
 
 // File doesn't exist. Route request to index.php
 
-require $documentRoot . '/index.php';
+require "{$documentRoot}/index.php";

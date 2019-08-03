@@ -26,7 +26,7 @@ class Postgres implements HelperInterface
 			return false;
 		}
 
-		$sequence = $query->getTable() . '_' . $primaryKey . '_seq';
+		$sequence = "{$query->getTable()}_{$primaryKey}_seq";
 
 		return $query->getConnection()->getPDO()->lastInsertId($sequence);
 	}

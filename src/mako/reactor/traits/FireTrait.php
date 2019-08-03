@@ -43,19 +43,19 @@ trait FireTrait
 	{
 		if($sameEnvironment && strpos($command, '--env=') === false && ($environment = $this->app->getEnvironment()) !== null)
 		{
-			$command .= ' --env=' . $environment;
+			$command .= " --env={$environment}";
 		}
 
-		$command = PHP_BINARY . ' ' . $this->buildReactorPath() . ' ' . $command . ' 2>&1';
+		$command = PHP_BINARY . " {$this->buildReactorPath()} {$command} 2>&1";
 
 		if(DIRECTORY_SEPARATOR === '\\')
 		{
 			if($background)
 			{
-				$command = '/b ' . $command;
+				$command = "/b {$command}";
 			}
 
-			return 'start ' . $command;
+			return "start {$command}";
 		}
 
 		if($background)

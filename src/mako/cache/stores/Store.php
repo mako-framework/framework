@@ -52,7 +52,7 @@ abstract class Store implements StoreInterface
 	 */
 	protected function getPrefixedKey(string $key): string
 	{
-		return empty($this->prefix) ? $key : $this->prefix . '.' . $key;
+		return empty($this->prefix) ? $key : "{$this->prefix}.{$key}";
 	}
 
 	/**

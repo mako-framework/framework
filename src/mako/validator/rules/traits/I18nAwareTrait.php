@@ -56,7 +56,7 @@ trait I18nAwareTrait
 	{
 		// Return custom field name if we have one
 
-		if($this->i18n->has(($i18nKey = $package . 'validate.overrides.fieldnames.' . $field)))
+		if($this->i18n->has(($i18nKey = "{$package}validate.overrides.fieldnames.{$field}")))
 		{
 			return $this->i18n->get($i18nKey);
 		}
@@ -101,11 +101,11 @@ trait I18nAwareTrait
 	 */
 	public function getTranslatedErrorMessage(string $field, string $rule, ?string $package = null): string
 	{
-		$package = empty($package) ? '' : '::' . $package;
+		$package = empty($package) ? '' : "{$package}::";
 
 		// Return custom error message if we have one
 
-		if($this->i18n->has(($i18nKey = $package . 'validate.overrides.messages.' . $field . '.' . $rule)))
+		if($this->i18n->has(($i18nKey = "{$package}validate.overrides.messages.{$field}.{$rule}")))
 		{
 			return $this->i18n->get($i18nKey, $this->getI18nParameters($field, $package));
 		}
@@ -116,9 +116,9 @@ trait I18nAwareTrait
 
 		// Return default error message from language file if we have one
 
-		if($this->i18n->has(($i18nKey = $package . 'validate.' . $rule)))
+		if($this->i18n->has(($i18nKey = "{$package}validate.{$rule}")))
 		{
-			return $this->i18n->get($package . 'validate.' . $rule, $this->getI18nParameters($field, $package));
+			return $this->i18n->get("{$package}validate.{$rule}", $this->getI18nParameters($field, $package));
 		}
 
 		// Return default error message from rule

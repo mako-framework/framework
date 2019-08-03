@@ -139,7 +139,7 @@ class Route
 	 */
 	public function getRoute(): string
 	{
-		return $this->prefix . $this->route;
+		return "{$this->prefix}{$this->route}";
 	}
 
 	/**
@@ -154,7 +154,7 @@ class Route
 			return $this->action;
 		}
 
-		return $this->namespace . $this->action;
+		return "{$this->namespace}{$this->action}";
 	}
 
 	/**
@@ -227,7 +227,7 @@ class Route
 	 */
 	public function namespace(string $namespace): Route
 	{
-		$this->namespace .= $namespace . '\\';
+		$this->namespace .= "{$namespace}\\";
 
 		return $this;
 	}
@@ -326,7 +326,7 @@ class Route
 		{
 			foreach($this->patterns as $key => $pattern)
 			{
-				$route = str_replace('{' . $key . '}', '(?P<' . $key . '>' . $pattern . ')', $route);
+				$route = str_replace("{{$key}}", "(?P<{$key}>{$pattern})", $route);
 			}
 		}
 
@@ -337,6 +337,6 @@ class Route
 			$route .= '?';
 		}
 
-		return '#^' . $route . '$#su';
+		return "#^{$route}$#su";
 	}
 }

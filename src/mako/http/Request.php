@@ -236,7 +236,7 @@ class Request
 	{
 		foreach($languages as $key => $language)
 		{
-			if($path === '/' . $key || strpos($path, '/' . $key . '/') === 0)
+			if($path === "/{$key}" || strpos($path, "/{$key}/") === 0)
 			{
 				$this->language = $language;
 
@@ -282,7 +282,7 @@ class Request
 
 				// Remove "/index.php" from the path
 
-				if(stripos($path, '/' . $this->scriptName) === 0)
+				if(stripos($path, "/{$this->scriptName}") === 0)
 				{
 					$path = mb_substr($path, (strlen($this->scriptName) + 1));
 				}
@@ -648,13 +648,13 @@ class Request
 
 				if($port !== null && $port != 80)
 				{
-					$host = $host . ':' . $port;
+					$host = "{$host}:{$port}";
 				}
 			}
 
 			// Put them all together along with the base path
 
-			$this->baseURL = $protocol . $host . $this->getBasePath();
+			$this->baseURL = "{$protocol}{$host}{$this->getBasePath()}";
 		}
 
 		return $this->baseURL;

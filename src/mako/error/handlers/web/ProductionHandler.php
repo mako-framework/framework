@@ -28,13 +28,6 @@ class ProductionHandler implements HandlerInterface
 	use HandlerHelperTrait;
 
 	/**
-	 * View factory instance.
-	 *
-	 * @var \mako\view\ViewFactory
-	 */
-	protected $view;
-
-	/**
 	 * Request instance.
 	 *
 	 * @var \mako\http\Request
@@ -49,21 +42,31 @@ class ProductionHandler implements HandlerInterface
 	protected $response;
 
 	/**
+	 * View factory instance.
+	 *
+	 * @var \mako\view\ViewFactory|null
+	 */
+	protected $view;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param \mako\view\ViewFactory $view     View factory
-	 * @param \mako\http\Request     $request  Request
-	 * @param \mako\http\Response    $response Response
+	 * @param \mako\http\Request          $request  Request
+	 * @param \mako\http\Response         $response Response
+	 * @param \mako\view\ViewFactory|null $view     View factory
 	 */
-	public function __construct(ViewFactory $view, Request $request, Response $response)
+	public function __construct(Request $request, Response $response, ?ViewFactory $view = null)
 	{
-		$this->view = $view;
-
 		$this->request = $request;
 
 		$this->response = $response;
 
-		$this->view->registerNamespace('mako-error', __DIR__ . '/views');
+		if($view !== null)
+		{
+			$this->view = $view;
+
+			$this->view->registerNamespace('mako-error', __DIR__ . '/views');
+		}
 	}
 
 	/**
@@ -106,13 +109,13 @@ class ProductionHandler implements HandlerInterface
 	 */
 	protected function getExceptionAsXml(Throwable $exception): string
 	{
-		$details = $this->getStatusCodeAndMessage($exception);
+		['code' => $code, 'message' => $message] = $this->getStatusCodeAndMessage($exception);
 
 		$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><error />");
 
-		$xml->addChild('code', $details['code']);
+		$xml->addChild('code', $code);
 
-		$xml->addChild('message', $details['message']);
+		$xml->addChild('message', $message);
 
 		return $xml->asXML();
 	}
@@ -131,13 +134,26 @@ class ProductionHandler implements HandlerInterface
 		{
 			$code = $exception->getCode();
 
-			if($this->view->exists('mako-error::' . $code))
+			if($this->view->exists("mako-error::{$code}"))
 			{
 				$view = $code;
 			}
 		}
 
-		return $this->view->render('mako-error::' . $view);
+		return $this->view->render("mako-error::{$view}");
+	}
+
+	/**
+	 * Returns a plain text representation of the error.
+	 *
+	 * @param  \Throwable $exception Exception
+	 * @return string
+	 */
+	protected function getExceptionAsPlainText(Throwable $exception): string
+	{
+		['message' => $message] = $this->getStatusCodeAndMessage($exception);
+
+		return $message;
 	}
 
 	/**
@@ -162,9 +178,16 @@ class ProductionHandler implements HandlerInterface
 			return $this->getExceptionAsXml($exception);
 		}
 
-		$this->response->setType('text/html');
+		if($this->view !== null)
+		{
+			$this->response->setType('text/html');
 
-		return $this->getExceptionAsRenderedView($exception);
+			return $this->getExceptionAsRenderedView($exception);
+		}
+
+		$this->response->setType('text/plain');
+
+		return $this->getExceptionAsPlainText($exception);
 	}
 
 	/**

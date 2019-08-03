@@ -69,7 +69,7 @@ class File extends Store
 	 */
 	protected function cacheFile(string $key): string
 	{
-		return $this->cachePath . '/' . str_replace(['/', ':'], '_', $this->getPrefixedKey($key)) . '.php';
+		return "{$this->cachePath}/" . str_replace(['/', ':'], '_', $this->getPrefixedKey($key)) . '.php';
 	}
 
 	/**
@@ -166,7 +166,7 @@ class File extends Store
 	 */
 	public function clear(): bool
 	{
-		$files = $this->fileSystem->glob($this->cachePath . '/*');
+		$files = $this->fileSystem->glob("{$this->cachePath}/*");
 
 		if(is_array($files))
 		{

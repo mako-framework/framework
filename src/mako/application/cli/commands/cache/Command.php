@@ -58,11 +58,11 @@ class Command extends BaseCommand
 
 		if(!in_array($configuration, $configurations))
 		{
-			$message = 'The [ ' . $configuration . ' ] configuration does not exist.';
+			$message = "The [ {$configuration} ] configuration does not exist.";
 
 			if(($suggestion = $this->suggest($configuration, $configurations)) !== null)
 			{
-				$message .= ' Did you mean [ ' . $suggestion . ' ]?';
+				$message .= " Did you mean [ {$suggestion} ]?";
 			}
 
 			$this->error($message);

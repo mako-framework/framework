@@ -1,4 +1,10 @@
-### 6.1.0 <small> (2019-??-??)</small>
+### 6.?.? (2019-??-??)
+
+#### New
+
+* Added optional shorthand options to commands, for example `-p` for `--port`.
+
+### 6.1.0 <small> (2019-08-02)</small>
 
 #### New
 
@@ -6,15 +12,49 @@
 * Added `Container::hasInstanceOf()` method.
 * It is now possible to send additional arguments to authorization policy methods.
 * Added bitonal filter to the image library ([#258](https://github.com/mako-framework/framework/pull/258)).
-* Added shorthand options to commands, for example `-p` for `--port`.
+* Added new collection methods:
+	- `Collection::with()`
+	- `Collection::without()`
+* The following Collection methods are now chainable:
+	- `clear`
+	- `each`
+	- `put`
+	- `remove`
+	- `resetKeys`
+	- `shuffle`
+	- `sort`
+* Added support for common table expressions to the query builder.
+	- `Query::with()`
+	- `Query::withRecursive()`
+* Added `Query::forCompiler()` method that can be used to add dialect specific SQL to queries.
+* Added `Query::selectRaw()` method.
+* Added `Query::whereColumn()` method.
+* Added query builder date helpers:
+	- `Query::whereDate()`
+	- `Query::orWhereDate()`
+	- `Query::betweenDate()`
+	- `Query::orBetweenDate()`
+	- `Query::notBetweenDate()`
+	- `Query::orNotBetweenDate()`
+* MySQL and SQLite query builder queries now support offsets without limits.
+* The query builder now supports select queries without a table.
+* Added new syntax for default values in templates.
+* The production web error handler no longer requires a view factory instance.
+* It is now easier to override the storage path of compiled templates and log files using the new `application.storage_path` config key.
+* Added `ErrorHandler::dontLog()` method.
+* It is now possible to disable logging of specific exceptions types using the new `application.error_handler.dont_log` config key.
+
+#### Deprecations
+
+* The `{{$foo || 'Default}}` and `{{$foo or 'Default}}` template syntax has been deprecated and will be removed in `7.0` use the `{{$foo, default: 'Default'}}` syntax instead.
+
+* The `ErrorHandler::disableLoggingFor()` method has been deprecated and will be removed in `7.0`. Use the new `ErrorHandler::dontLog()` method instead.
 
 > Check out the upgrade guide for details on how to upgrade from `6.0.*.`
 
 --------------------------------------------------------
 
 ### 5.7.2, 6.0.1 <small> (2019-05-21)</small>
-
-Update using ```composer update```.
 
 #### Bugfixes
 

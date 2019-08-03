@@ -228,7 +228,7 @@ class Validator
 			return $ruleName;
 		}
 
-		return $ruleName . '(' . substr(json_encode($parameters), 1, -1) . ')';
+		return "{$ruleName}(" . substr(json_encode($parameters), 1, -1) . ')';
 	}
 
 	/**
@@ -488,10 +488,10 @@ class Validator
 	/**
 	 * Returns true if all rules passed and false if validation failed.
 	 *
-	 * @param  array|null &$errors If $errors is provided, then it is filled with all the error messages
+	 * @param  array &$errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool
 	 */
-	public function isValid(?array &$errors = null): bool
+	public function isValid(array &$errors = null): bool
 	{
 		[$isValid, $errors] = $this->process();
 
@@ -501,10 +501,10 @@ class Validator
 	/**
 	 * Returns false if all rules passed and true if validation failed.
 	 *
-	 * @param  array|null &$errors If $errors is provided, then it is filled with all the error messages
+	 * @param  array &$errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool
 	 */
-	public function isInvalid(?array &$errors = null): bool
+	public function isInvalid(array &$errors = null): bool
 	{
 		[$isValid, $errors] = $this->process();
 

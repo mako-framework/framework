@@ -8,6 +8,7 @@
 namespace mako\database\query;
 
 use Closure;
+use DateTimeInterface;
 use Generator;
 use mako\database\connections\Connection;
 use mako\pagination\PaginationFactoryInterface;
@@ -58,6 +59,13 @@ class Query
 	 * @var bool
 	 */
 	protected $distinct = false;
+
+	/**
+	 * Common table expressions.
+	 *
+	 * @var array
+	 */
+	protected $commonTableExpressions = ['recursive' => false, 'ctes' => []];
 
 	/**
 	 * Set operations.
@@ -242,6 +250,16 @@ class Query
 	}
 
 	/**
+	 * Returns the common set operations.
+	 *
+	 * @return array
+	 */
+	public function getCommonTableExpressions(): array
+	{
+		return $this->commonTableExpressions;
+	}
+
+	/**
 	 * Returns the set operations.
 	 *
 	 * @return array
@@ -372,6 +390,63 @@ class Query
 	}
 
 	/**
+	 * Executes the closure if the compiler is of the correct class.
+	 *
+	 * @param  string   $compilerClass Compiler class name
+	 * @param  \Closure $query         Closure
+	 * @return $this
+	 */
+	public function forCompiler(string $compilerClass, Closure $query)
+	{
+		if($this->compiler instanceof $compilerClass)
+		{
+			$query($this);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Adds a common table expression.
+	 *
+	 * @param  string                                                            $name    Table name
+	 * @param  array                                                             $columns Column names
+	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
+	 * @return $this
+	 */
+	public function with(string $name, array $columns = [], $query)
+	{
+		if(($query instanceof Subquery) === false)
+		{
+			$query = new Subquery($query);
+		}
+
+		$this->commonTableExpressions['ctes'][] =
+		[
+			'name'    => $name,
+			'columns' => $columns,
+			'query'   => $query,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a recursive common table expression.
+	 *
+	 * @param  string                                                            $name    Table name
+	 * @param  array                                                             $columns Column names
+	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
+	 * @return $this
+	 */
+	public function withRecursive(string $name, array $columns = [], $query)
+	{
+		$this->commonTableExpressions['recursive'] = true;
+
+		return $this->with($name, $columns, $query);
+	}
+
+	/**
 	 * Adds a set operation.
 	 *
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query     Query
@@ -463,7 +538,7 @@ class Query
 	/**
 	 * Sets table we want to query.
 	 *
-	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
+	 * @param  null|string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
 	 * @return $this
 	 */
 	public function table($table)
@@ -509,6 +584,19 @@ class Query
 	public function select(array $columns)
 	{
 		$this->columns = $columns;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the columns we want to select using raw SQL.
+	 *
+	 * @param  string $sql Raw sql
+	 * @return $this
+	 */
+	public function selectRaw(string $sql)
+	{
+		$this->columns = [new Raw($sql)];
 
 		return $this;
 	}
@@ -617,6 +705,79 @@ class Query
 	}
 
 	/**
+	 * Adds a date comparison clause.
+	 *
+	 * @param  string                    $column    Column name
+	 * @param  string                    $operator  Operator
+	 * @param  string|\DateTimeInterface $date      Date
+	 * @param  string                    $separator Separator
+	 * @return $this
+	 */
+	public function whereDate(string $column, string $operator, $date, string $separator = 'AND')
+	{
+
+		$this->wheres[] =
+		[
+			'type'      => 'whereDate',
+			'column'    => $column,
+			'operator'  => $operator,
+			'value'     => $date instanceof DateTimeInterface ? $date->format('Y-m-d') : $date,
+			'separator' => $separator,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a date comparison clause.
+	 *
+	 * @param  string                    $column   Column name
+	 * @param  string                    $operator Operator
+	 * @param  string|\DateTimeInterface $date     Date
+	 * @return $this
+	 */
+	public function orWhereDate(string $column, string $operator, $date)
+	{
+		return $this->whereDate($column, $operator, $date, 'OR');
+	}
+
+	/**
+	 * Adds a column comparison clause.
+	 *
+	 * @param  string|array $column1   Column name of array of column names
+	 * @param  string       $operator  Operator
+	 * @param  string|array $column2   Column name of array of column names
+	 * @param  string       $separator Separator
+	 * @return $this
+	 */
+	public function whereColumn($column1, string $operator, $column2, string $separator = 'AND')
+	{
+		$this->wheres[] =
+		[
+			'type'      => 'whereColumn',
+			'column1'   => $column1,
+			'operator'  => $operator,
+			'column2'   => $column2,
+			'separator' => $separator,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a column comparison clause.
+	 *
+	 * @param  string|array $column1  Column name of array of column names
+	 * @param  string       $operator Operator
+	 * @param  string|array $column2  Column name of array of column names
+	 * @return $this
+	 */
+	public function orWhereColumn($column1, string $operator, $column2)
+	{
+		return $this->whereColumn($column1, $operator, $column2, 'OR');
+	}
+
+	/**
 	 * Adds a BETWEEN clause.
 	 *
 	 * @param  mixed  $column    Column name
@@ -678,6 +839,67 @@ class Query
 	public function orNotBetween($column, $value1, $value2)
 	{
 		return $this->between($column, $value1, $value2, 'OR', true);
+	}
+
+	/**
+	 * Adds a date range clause.
+	 *
+	 * @param  string                    $column    Column name
+	 * @param  string|\DateTimeInterface $date1     First date
+	 * @param  string|\DateTimeInterface $date2     Second date
+	 * @param  string                    $separator Separator
+	 * @param  bool                      $not       Not between?
+	 * @return $this
+	 */
+	public function betweenDate(string $column, $date1, $date2, string $separator = 'AND', bool $not = false)
+	{
+		$this->wheres[] =
+		[
+			'type'      => 'betweenDate',
+			'column'    => $column,
+			'value1'    => $date1 instanceof DateTimeInterface ? $date1->format('Y-m-d') : $date1,
+			'value2'    => $date2 instanceof DateTimeInterface ? $date2->format('Y-m-d') : $date2,
+			'separator' => $separator,
+			'not'       => $not,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a date range clause.
+	 *
+	 * @param string                    $column Column name
+	 * @param string|\DateTimeInterface $date1  First date
+	 * @param string|\DateTimeInterface $date2  Second date
+	 */
+	public function orBetweenDate(string $column, $date1, $date2)
+	{
+		return $this->betweenDate($column, $date1, $date2, 'OR');
+	}
+
+	/**
+	 * Adds a date range clause.
+	 *
+	 * @param string                    $column Column name
+	 * @param string|\DateTimeInterface $date1  First date
+	 * @param string|\DateTimeInterface $date2  Second date
+	 */
+	public function notBetweenDate(string $column, $date1, $date2)
+	{
+		return $this->betweenDate($column, $date1, $date2, 'AND', true);
+	}
+
+	/**
+	 * Adds a date range clause.
+	 *
+	 * @param string                    $column Column name
+	 * @param string|\DateTimeInterface $date1  First date
+	 * @param string|\DateTimeInterface $date2  Second date
+	 */
+	public function orNotBetweenDate(string $column, $date1, $date2)
+	{
+		return $this->betweenDate($column, $date1, $date2, 'OR', true);
 	}
 
 	/**
@@ -1158,61 +1380,9 @@ class Query
 	 */
 	public function prefix($prefix)
 	{
-		$this->prefix = $prefix . ' ';
+		$this->prefix = "{$prefix} ";
 
 		return $this;
-	}
-
-	/**
-	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
-	 *
-	 * @param  string $column The column to select
-	 * @return mixed
-	 */
-	public function column($column = null)
-	{
-		if($column !== null)
-		{
-			$this->select([$column]);
-		}
-
-		$query = $this->limit(1)->compiler->select();
-
-		return $this->connection->column($query['sql'], $query['params']);
-	}
-
-	/**
-	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
-	 *
-	 * @param  string $column The column to select
-	 * @return array
-	 */
-	public function columns($column = null)
-	{
-		if($column !== null)
-		{
-			$this->select([$column]);
-		}
-
-		$query = $this->compiler->select();
-
-		return $this->connection->columns($query['sql'], $query['params']);
-	}
-
-	/**
-	 * Executes a SELECT query and returns an array where the first column is used as keys and the second as values.
-	 *
-	 * @param  string $key   The column to use as keys
-	 * @param  string $value The column to use as values
-	 * @return array
-	 */
-	public function pairs($key, $value)
-	{
-		$this->select([$key, $value]);
-
-		$query = $this->compiler->select();
-
-		return $this->connection->pairs($query['sql'], $query['params']);
 	}
 
 	/**
@@ -1273,6 +1443,58 @@ class Query
 	public function all()
 	{
 		return $this->fetchAll(true, PDO::FETCH_CLASS, Result::class);
+	}
+
+	/**
+	 * Executes a SELECT query and returns the value of the chosen column of the first row of the result set.
+	 *
+	 * @param  string $column The column to select
+	 * @return mixed
+	 */
+	public function column($column = null)
+	{
+		if($column !== null)
+		{
+			$this->select([$column]);
+		}
+
+		$query = $this->limit(1)->compiler->select();
+
+		return $this->connection->column($query['sql'], $query['params']);
+	}
+
+	/**
+	 * Executes a SELECT query and returns an array containing the values of the indicated 0-indexed column.
+	 *
+	 * @param  string $column The column to select
+	 * @return array
+	 */
+	public function columns($column = null)
+	{
+		if($column !== null)
+		{
+			$this->select([$column]);
+		}
+
+		$query = $this->compiler->select();
+
+		return $this->connection->columns($query['sql'], $query['params']);
+	}
+
+	/**
+	 * Executes a SELECT query and returns an array where the first column is used as keys and the second as values.
+	 *
+	 * @param  string $key   The column to use as keys
+	 * @param  string $value The column to use as values
+	 * @return array
+	 */
+	public function pairs($key, $value)
+	{
+		$this->select([$key, $value]);
+
+		$query = $this->compiler->select();
+
+		return $this->connection->pairs($query['sql'], $query['params']);
 	}
 
 	/**
@@ -1389,7 +1611,7 @@ class Query
 	 *
 	 * @param  string       $function Aggregate function
 	 * @param  string|array $column   Column name or array of column names
-	 * @return mixed
+	 * @return array|void
 	 */
 	protected function aggregate(string $function, $column)
 	{
@@ -1516,7 +1738,7 @@ class Query
 	 */
 	public function increment($column, int $increment = 1): int
 	{
-		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' + ' . (int) $increment)]);
+		return $this->update([$column => new Raw("{$this->compiler->escapeIdentifier($column)} + " . (int) $increment)]);
 	}
 
 	/**
@@ -1528,7 +1750,7 @@ class Query
 	 */
 	public function decrement($column, int $decrement = 1): int
 	{
-		return $this->update([$column => new Raw($this->compiler->escapeIdentifier($column) . ' - ' . (int) $decrement)]);
+		return $this->update([$column => new Raw("{$this->compiler->escapeIdentifier($column)} - " . (int) $decrement)]);
 	}
 
 	/**

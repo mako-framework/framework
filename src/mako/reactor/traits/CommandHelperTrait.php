@@ -61,7 +61,7 @@ trait CommandHelperTrait
 	 */
 	protected function error(string $string): void
 	{
-		$this->output->errorLn('<red>' . $string . '</red>');
+		$this->output->errorLn("<red>{$string}</red>");
 	}
 
 	/**

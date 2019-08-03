@@ -40,8 +40,8 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection();
 
-		$collection->put('foo', 'bar');
-		$collection->put(0, 'baz');
+		$this->assertInstanceOf(Collection::class, $collection->put('foo', 'bar'));
+		$this->assertInstanceOf(Collection::class, $collection->put(0, 'baz'));
 
 		$this->assertEquals('bar', $collection['foo']);
 		$this->assertEquals('baz', $collection[0]);
@@ -110,7 +110,7 @@ class CollectionTest extends TestCase
 
 		$this->assertTrue($collection->has('foo'));
 
-		$collection->remove('foo');
+		$this->assertInstanceOf(Collection::class, $collection->remove('foo'));
 
 		$this->assertFalse($collection->has('foo'));
 	}
@@ -124,7 +124,7 @@ class CollectionTest extends TestCase
 
 		$this->assertEquals(3, $collection->count());
 
-		$collection->clear();
+		$this->assertInstanceOf(Collection::class, $collection->clear());
 
 		$this->assertEquals(0, $collection->count());
 	}
@@ -325,7 +325,7 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
 
-		$collection->sort(function($a, $b)
+		$this->assertInstanceOf(Collection::class, $collection->sort(function($a, $b)
 		{
 			if($a == $b)
 			{
@@ -333,7 +333,7 @@ class CollectionTest extends TestCase
 			}
 
 			return ($a < $b) ? -1 : 1;
-		});
+		}));
 
 		$this->assertSame([1 => 1, 0 => 2, 2 => 3, 5 => 4, 3 => 5, 4 => 6], $collection->getItems());
 	}
@@ -345,7 +345,7 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
 
-		$collection->sort(function($a, $b)
+		$this->assertInstanceOf(Collection::class, $collection->sort(function($a, $b)
 		{
 			if($a == $b)
 			{
@@ -353,7 +353,7 @@ class CollectionTest extends TestCase
 			}
 
 			return ($a < $b) ? -1 : 1;
-		}, false);
+		}, false));
 
 		$this->assertSame([1, 2, 3, 4, 5, 6], $collection->getItems());
 	}
@@ -383,7 +383,7 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([1, 2]);
 
-		$collection->shuffle();
+		$this->assertInstanceOf(Collection::class, $collection->shuffle());
 
 		$this->assertTrue(($collection[0] === 1 || $collection[0] === 2));
 	}
@@ -431,7 +431,7 @@ class CollectionTest extends TestCase
 
 		$this->assertEquals([0 => 1, 1 => 2, 3 => 4, 4 => 5, 5 => 6], $collection->getItems());
 
-		$collection->resetKeys();
+		$this->assertInstanceOf(Collection::class, $collection->resetKeys());
 
 		$this->assertEquals([0 => 1, 1 => 2, 2 => 4, 3 => 5, 4 => 6], $collection->getItems());
 
@@ -454,10 +454,10 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([1, 2, 3]);
 
-		$collection->each(function($value, $key)
+		$this->assertInstanceOf(Collection::class, $collection->each(function($value, $key)
 		{
 			return $key . ':' . $value;
-		});
+		}));
 
 		$this->assertSame(['0:1', '1:2', '2:3'], $collection->getItems());
 	}
@@ -539,6 +539,46 @@ class CollectionTest extends TestCase
 		$this->assertSame([1, 2, 3, 4], $filtered->getValues());
 
 		$this->assertSame([1, 2, 3, 'foo' => 'bar', 4], $collection->getItems());
+	}
+
+	/**
+	 *
+	 */
+	public function testWith(): void
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$collection = $collection->with([0, 1]);
+
+		$this->assertSame([1, 2], $collection->getItems());
+
+		//
+
+		$collection = new Collection([]);
+
+		$collection = $collection->with([0, 1]);
+
+		$this->assertSame([], $collection->getItems());
+	}
+
+	/**
+	 *
+	 */
+	public function testWithout(): void
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$collection = $collection->without([2]);
+
+		$this->assertSame([1, 2], $collection->getItems());
+
+		//
+
+		$collection = new Collection([]);
+
+		$collection = $collection->without([2]);
+
+		$this->assertSame([], $collection->getItems());
 	}
 
 	/**

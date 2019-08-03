@@ -121,13 +121,13 @@ class Server extends Command
 		// Tell the user where the server will be running
 
 		$message  = 'Starting <green>Mako</green> development server at ';
-		$message .= '<underlined>http://' . $host . ':' . $availablePort . '</underlined> ';
+		$message .= "<underlined>http://{$host}:{$availablePort}</underlined> ";
 		$message .= '<yellow>(ctrl+c to stop)</yellow> ...';
 
 		$this->write($message);
 
 		// Start the server
 
-		passthru(PHP_BINDIR . '/php -S ' . $address . ':' . $availablePort . ' -t ' . $docroot . ' ' . __DIR__ . '/router.php');
+		passthru(PHP_BINDIR . "/php -S {$address}:{$availablePort} -t {$docroot} " . __DIR__ . '/router.php');
 	}
 }

@@ -16,7 +16,10 @@ use OutOfBoundsException;
 
 use function array_chunk;
 use function array_combine;
+use function array_diff_key;
 use function array_filter;
+use function array_flip;
+use function array_intersect_key;
 use function array_key_exists;
 use function array_keys;
 use function array_map;
@@ -80,21 +83,28 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Resets the collection keys.
+	 *
+	 * @return $this
 	 */
-	public function resetKeys(): void
+	public function resetKeys()
 	{
 		$this->items = array_values($this->items);
+
+		return $this;
 	}
 
 	/**
 	 * Adds a new item to the collection.
 	 *
-	 * @param int|string $key   Key
-	 * @param mixed      $value Value
+	 * @param  int|string $key   Key
+	 * @param  mixed      $value Value
+	 * @return $this
 	 */
-	public function put($key, $value): void
+	public function put($key, $value)
 	{
 		$this->items[$key] = $value;
+
+		return $this;
 	}
 
 	/**
@@ -128,19 +138,26 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Removes an item from the collection.
 	 *
-	 * @param int|string $key Key
+	 * @param  int|string $key Key
+	 * @return $this
 	 */
-	public function remove($key): void
+	public function remove($key)
 	{
 		unset($this->items[$key]);
+
+		return $this;
 	}
 
 	/**
 	 * Clears the collection.
+	 *
+	 * @return $this
 	 */
-	public function clear(): void
+	public function clear()
 	{
 		$this->items = [];
+
+		return $this;
 	}
 
 	/**
@@ -281,11 +298,20 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @param  callable $comparator               Comparator callable
 	 * @param  bool     $maintainIndexAssociation Maintain index association?
-	 * @return bool
+	 * @return $this
 	 */
-	public function sort(callable $comparator, bool $maintainIndexAssociation = true): bool
+	public function sort(callable $comparator, bool $maintainIndexAssociation = true)
 	{
-		return $maintainIndexAssociation ? uasort($this->items, $comparator) : usort($this->items, $comparator);
+		if($maintainIndexAssociation)
+		{
+			uasort($this->items, $comparator);
+		}
+		else
+		{
+			usort($this->items, $comparator);
+		}
+
+		return $this;
 	}
 
 	/**
@@ -310,24 +336,29 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Shuffles the items in the collection and returns
 	 * TRUE on success and FALSE on failure.
 	 *
-	 * @return bool
+	 * @return $this
 	 */
-	public function shuffle(): bool
+	public function shuffle()
 	{
-		return shuffle($this->items);
+		shuffle($this->items);
+
+		return $this;
 	}
 
 	/**
 	 * Applies the callable on all items in the collection.
 	 *
-	 * @param callable $callable Callable
+	 * @param  callable $callable Callable
+	 * @return $this
 	 */
-	public function each(callable $callable): void
+	public function each(callable $callable)
 	{
 		foreach($this->items as $key => $value)
 		{
 			$this->items[$key] = $callable($value, $key);
 		}
+
+		return $this;
 	}
 
 	/**
@@ -360,6 +391,28 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 		}
 
 		return new static(array_filter($this->items, $callable, ARRAY_FILTER_USE_BOTH));
+	}
+
+	/**
+	 * Returns a new collection where all items not in the provided list have been removed.
+	 *
+	 * @param  array  $keys Keys
+	 * @return static
+	 */
+	public function with(array $keys)
+	{
+		return new static(array_intersect_key($this->items, array_flip($keys)));
+	}
+
+	/**
+	 * Returns a new collection where all items in the provided list have been removed.
+	 *
+	 * @param  array  $keys Keys
+	 * @return static
+	 */
+	public function without(array $keys)
+	{
+		return new static(array_diff_key($this->items, array_flip($keys)));
 	}
 
 	/**

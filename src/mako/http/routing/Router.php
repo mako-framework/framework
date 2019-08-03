@@ -113,7 +113,7 @@ class Router
 	 */
 	protected function matches(Route $route, string $path): bool
 	{
-		if(preg_match($route->getRegex(), $path, $parameters) > 0)
+		if(preg_match($route->getRegex(), $path, $parameters) === 1)
 		{
 			$filtered = [];
 
@@ -183,7 +183,7 @@ class Router
 	{
 		return new Route([], '', function(Request $request) use ($requestPath)
 		{
-			$url = $request->getBaseURL() . ($request->isClean() ? '' : '/' . $request->getScriptName()) . rtrim('/' . $request->getLanguagePrefix(), '/') . $requestPath . '/';
+			$url = $request->getBaseURL() . ($request->isClean() ? '' : "/{$request->getScriptName()}") . rtrim("/{$request->getLanguagePrefix()}", '/') . "{$requestPath}/";
 
 			$query = $request->getQuery()->all();
 
@@ -286,6 +286,6 @@ class Router
 
 		// No routes matched so we'll throw a not found exception
 
-		throw new NotFoundException($requestMethod . ': ' . $requestPath);
+		throw new NotFoundException;
 	}
 }

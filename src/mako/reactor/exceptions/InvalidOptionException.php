@@ -60,7 +60,7 @@ class InvalidOptionException extends ArgumentException
 
 		if($this->suggestion !== null)
 		{
-			$message .= ' Did you mean [ ' . $this->suggestion . ' ]?';
+			$message .= " Did you mean [ {$this->suggestion} ]?";
 		}
 
 		return $message;

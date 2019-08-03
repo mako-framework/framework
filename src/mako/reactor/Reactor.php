@@ -173,13 +173,13 @@ class Reactor
 		{
 			$this->output->write(PHP_EOL);
 
-			$this->output->writeLn('<yellow>' . $heading . '</yellow>');
+			$this->output->writeLn("<yellow>{$heading}</yellow>");
 
 			$this->output->write(PHP_EOL);
 
 			$table = new Table($this->output);
 
-			$headers = array_map(function($value) { return '<green>' . $value . '</green>'; }, $headers);
+			$headers = array_map(function($value) { return "<green>{$value}</green>"; }, $headers);
 
 			$table->draw($headers, $rows);
 		}
@@ -198,7 +198,7 @@ class Reactor
 		{
 			foreach($group as $name => $option)
 			{
-				$options[] = ['--' . $name, $option['description']];
+				$options[] = ["--{$name}", $option['description']];
 			}
 		}
 
@@ -348,7 +348,7 @@ class Reactor
 
 		$this->output->write(PHP_EOL);
 
-		$this->output->writeLn('php reactor ' . $command);
+		$this->output->writeLn("php reactor {$command}");
 
 		$this->output->write(PHP_EOL);
 
@@ -390,14 +390,14 @@ class Reactor
 	 */
 	protected function unknownCommand(string $command): int
 	{
-		$message = 'Unknown command [ ' . $command . ' ].';
+		$message = "Unknown command [ {$command} ].";
 
 		if(($suggestion = $this->suggest($command, array_keys($this->commands))) !== null)
 		{
-			$message .= ' Did you mean [ ' . $suggestion . ' ]?';
+			$message .= " Did you mean [ {$suggestion} ]?";
 		}
 
-		$this->output->writeLn('<red>' . $message . '</red>');
+		$this->output->writeLn("<red>{$message}</red>");
 
 		$this->listCommands();
 
@@ -435,11 +435,11 @@ class Reactor
 		}
 		catch(InvalidOptionException $e)
 		{
-			$this->output->errorLn('<red>' . $e->getMessageWithSuggestion() . '</red>');
+			$this->output->errorLn("<red>{$e->getMessageWithSuggestion()}</red>");
 		}
 		catch(InvalidArgumentException | MissingOptionException | MissingArgumentException $e)
 		{
-			$this->output->errorLn('<red>' . $e->getMessage() . '</red>');
+			$this->output->errorLn("<red>{$e->getMessage()}</red>");
 		}
 
 		return $exitCode ?? CommandInterface::STATUS_ERROR;

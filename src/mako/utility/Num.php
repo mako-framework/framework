@@ -86,7 +86,7 @@ class Num
 	 */
 	public static function roman2arabic(string $str): int
 	{
-		if(empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) === 0)
+		if(empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) !== 1)
 		{
 			throw new InvalidArgumentException('Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.');
 		}

@@ -68,7 +68,7 @@ class Environment
 
 		exec('stty size', $output, $status);
 
-		if($status === 0 && preg_match('/^([0-9]+) ([0-9]+)$/', current($output), $matches))
+		if($status === 0 && preg_match('/^([0-9]+) ([0-9]+)$/', current($output), $matches) === 1)
 		{
 			return ['width' => (int) $matches[2], 'height' => (int) $matches[1]];
 		}

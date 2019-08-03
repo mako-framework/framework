@@ -120,7 +120,7 @@ abstract class Package
 			$this->classNamespace = substr(static::class, 0, strrpos(static::class, '\\'));
 		}
 
-		return $prefix ? '\\' . $this->classNamespace : $this->classNamespace;
+		return $prefix ? "\\{$this->classNamespace}" : $this->classNamespace;
 	}
 
 	/**
@@ -145,7 +145,7 @@ abstract class Package
 	 */
 	public function getConfigPath(): string
 	{
-		return $this->getPath() . '/config';
+		return "{$this->getPath()}/config";
 	}
 
 	/**
@@ -155,7 +155,7 @@ abstract class Package
 	 */
 	public function getI18nPath(): string
 	{
-		return $this->getPath() . '/resources/i18n';
+		return "{$this->getPath()}/resources/i18n";
 	}
 
 	/**
@@ -165,7 +165,7 @@ abstract class Package
 	 */
 	public function getViewPath(): string
 	{
-		return $this->getPath() . '/resources/views';
+		return "{$this->getPath()}/resources/views";
 	}
 
 	/**

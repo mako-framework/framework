@@ -85,7 +85,7 @@ class URLBuilder
 
 		if(!empty($language = $request->getLanguagePrefix()))
 		{
-			$this->languagePrefix = '/' . $language;
+			$this->languagePrefix = "/{$language}";
 		}
 	}
 
@@ -97,7 +97,7 @@ class URLBuilder
 	 */
 	public function matches(string $pattern): bool
 	{
-		return (bool) preg_match('#' . $pattern . '#', $this->request->getPath());
+		return preg_match("#{$pattern}#", $this->request->getPath()) === 1;
 	}
 
 	/**
@@ -121,7 +121,7 @@ class URLBuilder
 	 */
 	public function to(string $path, array $queryParams = [], string $separator = '&', $language = true): string
 	{
-		$url = $this->baseURL . ($this->cleanURLs ? '' : '/' . $this->scriptName) . ($language === true ? $this->languagePrefix : (!$language ? '' : '/' . $language)) . $path;
+		$url = $this->baseURL . ($this->cleanURLs ? '' : "/{$this->scriptName}") . ($language === true ? $this->languagePrefix : (!$language ? '' : "/{$language}")) . $path;
 
 		if(!empty($queryParams))
 		{
@@ -152,7 +152,7 @@ class URLBuilder
 				continue;
 			}
 
-			$route = preg_replace('/{' . $key . '}\??/', $value, $route, 1);
+			$route = preg_replace("/{{$key}}\??/", $value, $route, 1);
 		}
 
 		if(strpos($route, '?') !== false)

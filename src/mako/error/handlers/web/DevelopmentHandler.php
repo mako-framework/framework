@@ -125,7 +125,7 @@ class DevelopmentHandler implements HandlerInterface
 	 */
 	protected function configureWhoops(): void
 	{
-		$this->whoops->pushHandler($this->getWhoopsHandler());
+		$this->whoops->prependHandler($this->getWhoopsHandler());
 
 		$this->whoops->writeToOutput(false);
 

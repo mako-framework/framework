@@ -15,26 +15,48 @@ namespace mako\database\query\compilers;
 class Firebird extends Compiler
 {
 	/**
-	 * Date format.
-	 *
-	 * @var string
+	 * {@inheritdoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function limit(int $limit = null): string
+	protected function from($table): string
 	{
-		$offset = $this->query->getOffset();
-
-		return ($offset === null) ? ($limit === null) ? '' :' ROWS 1 ' : ' ROWS ' . ($offset + 1);
+		return $table === null ? ' FROM RDB$DATABASE' : parent::from($table);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function offset(int $offset = null): string
+	protected function betweenDate(array $where): string
+	{
+		return "CAST({$this->columnName($where['column'])} AS DATE)" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function whereDate(array $where): string
+	{
+		return "CAST({$this->columnName($where['column'])} AS DATE) {$where['operator']} {$this->param($where['value'])}";
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function limit(?int $limit): string
+	{
+		$offset = $this->query->getOffset();
+
+		return ($offset === null) ? (($limit === null) ? '' : ' ROWS 1') : ' ROWS ' . ($offset + 1);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function offset(?int $offset): string
 	{
 		$limit = $this->query->getLimit();
 
@@ -51,6 +73,6 @@ class Firebird extends Compiler
 			return '';
 		}
 
-		return $lock === true ? ' FOR UPDATE WITH LOCK' : ($lock === false ? ' WITH LOCK' : ' ' . $lock);
+		return $lock === true ? ' FOR UPDATE WITH LOCK' : ($lock === false ? ' WITH LOCK' : " {$lock}");
 	}
 }

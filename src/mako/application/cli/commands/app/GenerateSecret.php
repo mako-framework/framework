@@ -47,7 +47,7 @@ class GenerateSecret extends Command
 	 */
 	public function execute(Application $application, FileSystem $fileSystem)
 	{
-		$configFile = $application->getPath() . '/config/application.php';
+		$configFile = "{$application->getPath()}/config/application.php";
 
 		if(!$fileSystem->isWritable($configFile))
 		{
@@ -60,7 +60,7 @@ class GenerateSecret extends Command
 
 		$contents = $fileSystem->get($configFile);
 
-		$contents = preg_replace('/\'secret\'(\s*)=>(\s*)\'(.*)\',/', '\'secret\'$1=>$2\'' . $secret . '\',', $contents);
+		$contents = preg_replace("/'secret'(\s*)=>(\s*)'(.*)',/", "'secret'$1=>$2'{$secret}',", $contents);
 
 		$fileSystem->put($configFile, $contents);
 

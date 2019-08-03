@@ -267,29 +267,30 @@ class Formatter implements FormatterInterface
 
 		$formatted = '';
 
-		preg_match_all(static::TAG_REGEX, $string, $matches, PREG_OFFSET_CAPTURE);
-
-		foreach($matches[0] as $match)
+		if(preg_match_all(static::TAG_REGEX, $string, $matches, PREG_OFFSET_CAPTURE) > 0)
 		{
-			[$tag, $pos] = $match;
-
-			$formatted .= substr($string, $offset, $pos - $offset);
-
-			$offset = $pos + strlen($tag);
-
-			if($this->isOpeningTag($tag))
+			foreach($matches[0] as $match)
 			{
-				$formatted .= $this->openStyle($tag);
-			}
-			else
-			{
-				$formatted .= $this->closeStyle($tag);
-			}
-		}
+				[$tag, $pos] = $match;
 
-		if(!empty($this->openTags))
-		{
-			throw new FormatterException('Detected missing formatting close tag.');
+				$formatted .= substr($string, $offset, $pos - $offset);
+
+				$offset = $pos + strlen($tag);
+
+				if($this->isOpeningTag($tag))
+				{
+					$formatted .= $this->openStyle($tag);
+				}
+				else
+				{
+					$formatted .= $this->closeStyle($tag);
+				}
+			}
+
+			if(!empty($this->openTags))
+			{
+				throw new FormatterException('Detected missing formatting close tag.');
+			}
 		}
 
 		$formatted .= substr($string, $offset);

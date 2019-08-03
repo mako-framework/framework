@@ -23,7 +23,7 @@ class Oracle extends Connection
 	{
 		try
 		{
-			$this->pdo->query('SELECT 1 FROM DUAL');
+			$this->pdo->query('SELECT 1 FROM "DUAL"');
 		}
 		catch(PDOException $e)
 		{
