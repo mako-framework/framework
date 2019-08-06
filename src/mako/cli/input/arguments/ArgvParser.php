@@ -308,16 +308,16 @@ class ArgvParser
 
 		if($value !== null && $argument->isBool())
 		{
-			$continue = $value;
+			$chained = $value;
 
 			$value = null;
 		}
 
 		$this->storeOptionValue($argument, $token, $value, $tokens);
 
-		if(isset($continue))
+		if(isset($chained))
 		{
-			$this->parseAlias("-{$continue}", $tokens);
+			$this->parseAlias("-{$chained}", $tokens);
 		}
     }
 
