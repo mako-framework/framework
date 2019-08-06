@@ -186,7 +186,7 @@ class ArgvParserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testChainedAliases()
+	public function testChainedAliases(): void
 	{
 		$parser = new ArgvParser(['ls', '-laitfoo'],
 		[
