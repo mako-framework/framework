@@ -190,6 +190,8 @@ class ArgumentTest extends TestCase
 
 		$this->assertTrue($argument->isBool());
 
+		$this->assertTrue($argument->isOptional());
+
 		//
 
 		$argument = new Argument('--test');
