@@ -230,4 +230,52 @@ class ArgvParserTest extends TestCase
 
 		$this->assertSame($expected, $parser->parse());
 	}
+
+	/**
+	 *
+	 */
+	public function testGetArgumentValue(): void
+	{
+		$parser = new ArgvParser(['--test1', 'foobar'],
+		[
+			new Argument('-t|--test1'),
+			new Argument('-T|--test2', '', Argument::IS_OPTIONAL),
+		]);
+
+		$this->assertSame('foobar', $parser->getArgumentValue('--test1'));
+
+		$this->assertSame('foobar', $parser->getArgumentValue('-t'));
+
+		$this->assertNull($parser->getArgumentValue('--test2'));
+
+		$this->assertNull($parser->getArgumentValue('-T'));
+
+		$this->assertNull($parser->getArgumentValue('nope'));
+	}
+
+	/**
+	 *
+	 */
+	public function testDefaultValues(): void
+	{
+		$parser = new ArgvParser([],
+		[
+			new Argument('--bool', '', Argument::IS_BOOL | Argument::IS_OPTIONAL),
+			new Argument('--array1', '', Argument::IS_ARRAY | Argument::IS_OPTIONAL),
+			new Argument('--array2', '', Argument::IS_ARRAY | Argument::IS_OPTIONAL, ['foo', 'bar']),
+			new Argument('--basic1', '', Argument::IS_OPTIONAL),
+			new Argument('--basic2', '', Argument::IS_OPTIONAL, 'foo'),
+		]);
+
+		$expected =
+		[
+			'bool'   => false,
+			'array1' => [],
+			'array2' => ['foo', 'bar'],
+			'basic1' => null,
+			'basic2' => 'foo',
+		];
+
+		$this->assertSame($expected, $parser->parse());
+	}
 }

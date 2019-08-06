@@ -102,12 +102,19 @@ class Argument
      */
     protected $description;
 
-    /**
-     * Argument options.
-     *
-     * @var int
-     */
-    protected $options = 0;
+	/**
+	 * Argument options.
+	 *
+	 * @var int
+	 */
+	protected $options;
+
+	/**
+	 * Default value.
+	 *
+	 * @var mixed
+	 */
+	protected $default;
 
     /**
      * Constructor.
@@ -115,8 +122,9 @@ class Argument
      * @param string $name        Argument name
      * @param string $description Argument description
      * @param int    $options     Argument options
+     * @param mixed  $default     Default return value (only used by optional arguments)
      */
-    public function __construct(string $name, string $description = '', int $options = 0)
+    public function __construct(string $name, string $description = '', int $options = 0, $default = null)
     {
         [$name, $alias, $isPositional] = $this->parseName($name);
 
@@ -134,6 +142,18 @@ class Argument
 		{
 			$this->options |= static::IS_OPTIONAL;
 		}
+
+		$this->default = $default ?? ($this->isBool() ? false : ($this->isArray() ? [] : null));
+	}
+
+	/**
+	 * Gets the default return value.
+	 *
+	 * @return mixed
+	 */
+	public function getDefaultValue()
+	{
+		return $this->default;
 	}
 
 	/**

@@ -386,17 +386,37 @@ class ArgvParser
 
             foreach($this->arguments as $normalizedName => $argument)
             {
-                if($argument->isBool() && !isset($this->parsed[$normalizedName]))
-                {
-                    $this->parsed[$normalizedName] = false;
-                }
-                elseif(!$argument->isOptional() && !isset($this->parsed[$normalizedName]))
-                {
-                    throw new MissingArgumentException(vsprintf('Missing required argument [ %s ].', [$argument->getName()]));
-                }
+				if(!isset($this->parsed[$normalizedName]))
+				{
+					if(!$argument->isOptional())
+					{
+						throw new MissingArgumentException(vsprintf('Missing required argument [ %s ].', [$argument->getName()]));
+					}
+
+					$this->parsed[$normalizedName] = $argument->getDefaultValue();
+				}
             }
         }
 
         return $this->parsed;
-    }
+	}
+
+	/**
+	 * Returns the value of a parsed argument.
+	 *
+	 * @param  string $argument Argument name
+	 * @param  mixed  $default  Default value
+	 * @return mixed
+	 */
+	public function getArgumentValue(string $argument, $default = null)
+	{
+		$parsed = $this->parse();
+
+		if(isset($this->map[$argument]))
+		{
+			return $parsed[$this->map[$argument]] ?? $default;
+		}
+
+		return $default;
+	}
 }

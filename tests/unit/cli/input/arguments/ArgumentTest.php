@@ -230,4 +230,32 @@ class ArgumentTest extends TestCase
 
 		$this->assertFalse($argument->isOptional());
 	}
+
+	/**
+	 *
+	 */
+	public function testDefaultValues(): void
+	{
+		$argument = new Argument('--test');
+
+		$this->assertNull($argument->getDefaultValue());
+
+		//
+
+		$argument = new Argument('--test', '', Argument::IS_ARRAY);
+
+		$this->assertSame([], $argument->getDefaultValue());
+
+		//
+
+		$argument = new Argument('--test', '', Argument::IS_BOOL);
+
+		$this->assertFalse($argument->getDefaultValue());
+
+		//
+
+		$argument = new Argument('--test', '', 0, 'default');
+
+		$this->assertSame('default', $argument->getDefaultValue());
+	}
 }
