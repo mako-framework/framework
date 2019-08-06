@@ -128,7 +128,12 @@ class Argument
 
         $this->description = $description;
 
-        $this->options = $this->getValidatedOptions($options);
+		$this->options = $this->getValidatedOptions($options);
+
+		if($this->isBool() && !$this->isOptional())
+		{
+			$this->options |= static::IS_OPTIONAL;
+		}
 	}
 
 	/**
