@@ -382,7 +382,8 @@ class ArgvParser
                 }
             }
 
-            // Ensure that all required arguments are set
+			// Ensure that all required arguments are set
+			// and fill in default values for missing optional arguments
 
             foreach($this->arguments as $normalizedName => $argument)
             {
