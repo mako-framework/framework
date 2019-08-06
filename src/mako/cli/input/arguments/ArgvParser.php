@@ -302,9 +302,23 @@ class ArgvParser
         if(strlen($token) > 2)
         {
             [$token, $value] = [substr($token, 0, 2), substr($token, 2)];
-        }
+		}
 
-        $this->storeOptionValue($this->getArgument($token), $token, $value, $tokens);
+		$argument = $this->getArgument($token);
+
+		if($value !== null && $argument->isBool())
+		{
+			$continue = $value;
+
+			$value = null;
+		}
+
+		$this->storeOptionValue($argument, $token, $value, $tokens);
+
+		if(isset($continue))
+		{
+			$this->parseAlias("-{$continue}", $tokens);
+		}
     }
 
     /**

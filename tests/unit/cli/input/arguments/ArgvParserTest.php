@@ -182,4 +182,52 @@ class ArgvParserTest extends TestCase
 
 		$this->assertSame($exptected, $parser->parse());
 	}
+
+	/**
+	 *
+	 */
+	public function testChainedAliases()
+	{
+		$parser = new ArgvParser(['ls', '-laitfoo'],
+		[
+			new Argument('script'),
+			new Argument('-l|--long', '', Argument::IS_BOOL),
+			new Argument('-a|--all', '', Argument::IS_BOOL),
+			new Argument('-i|--inode', '', Argument::IS_BOOL),
+			new Argument('-t|--test', ''),
+		]);
+
+		$expected =
+		[
+			'script' => 'ls',
+			'long'   => true,
+			'all'    => true,
+			'inode'  => true,
+			'test'   => 'foo',
+		];
+
+		$this->assertSame($expected, $parser->parse());
+
+		//
+
+		$parser = new ArgvParser(['ls', '-lait', 'foo'],
+		[
+			new Argument('script'),
+			new Argument('-l|--long', '', Argument::IS_BOOL),
+			new Argument('-a|--all', '', Argument::IS_BOOL),
+			new Argument('-i|--inode', '', Argument::IS_BOOL),
+			new Argument('-t|--test', ''),
+		]);
+
+		$expected =
+		[
+			'script' => 'ls',
+			'long'   => true,
+			'all'    => true,
+			'inode'  => true,
+			'test'   => 'foo',
+		];
+
+		$this->assertSame($expected, $parser->parse());
+	}
 }
