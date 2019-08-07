@@ -17,13 +17,6 @@ use Throwable;
 class InvalidArgumentException extends ArgumentException
 {
 	/**
-	 * Suggestion.
-	 *
-	 * @var string
-	 */
-	protected $suggestion;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string          $message    The Exception message to throw
@@ -33,35 +26,11 @@ class InvalidArgumentException extends ArgumentException
 	 */
 	public function __construct(string $message, ?string $suggestion = null, int $code = 0, ?Throwable $previous = null)
 	{
-		parent::__construct($message, $code, $previous);
-
-		$this->suggestion = $suggestion;
-	}
-
-	/**
-	 * Returns a argument name suggestion.
-	 *
-	 * @return string|null
-	 */
-	public function getSuggestion(): ?string
-	{
-		return $this->suggestion;
-	}
-
-	/**
-	 * Returns the exception message with a suggestion.
-	 *
-	 * @return string
-	 */
-	public function getMessageWithSuggestion(): string
-	{
-		$message = $this->getMessage();
-
-		if($this->suggestion !== null)
+		if($suggestion !== null)
 		{
-			$message .= " Did you mean [ {$this->suggestion} ]?";
+			$message .= " Did you mean [ {$suggestion} ]?";
 		}
 
-		return $message;
+		parent::__construct($message, $code, $previous);
 	}
 }

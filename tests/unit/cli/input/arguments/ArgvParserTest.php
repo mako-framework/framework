@@ -62,6 +62,20 @@ class ArgvParserTest extends TestCase
 	/**
 	 *
 	 */
+	public function testParserWithUnknownOptionAndSuggestion(): void
+	{
+		$this->expectException(InvalidArgumentException::class);
+
+		$this->expectExceptionMessage('Unknown argument [ --hast ]. Did you mean [ --host ]?');
+
+		$parser = new ArgvParser(['--hast'], [new Argument('--host')]);
+
+		$parser->parse();
+	}
+
+	/**
+	 *
+	 */
 	public function testAmbiguousArgumentNames(): void
 	{
 		$this->expectException(RuntimeException::class);

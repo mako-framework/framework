@@ -10,8 +10,9 @@ use mako\cli\input\arguments\exceptions\ArgumentException;
 use mako\cli\input\arguments\exceptions\InvalidArgumentException;
 use mako\cli\input\arguments\exceptions\MissingArgumentException;
 use mako\cli\input\arguments\exceptions\UnexpectedValueException;
-use RuntimeException;
+use mako\common\traits\SuggestionTrait;
 
+use RuntimeException;
 use function array_shift;
 use function current;
 use function explode;
@@ -28,6 +29,8 @@ use function vsprintf;
  */
 class ArgvParser
 {
+	use SuggestionTrait;
+
     /**
      * Regex that matches integers.
      *
@@ -98,7 +101,18 @@ class ArgvParser
     public function getArguments(): array
     {
         return $this->arguments;
-    }
+	}
+
+	/**
+	 * Tries to find a suggestion for the invalid argument name.
+	 *
+	 * @param  string      $name Invalid argument name
+	 * @return string|null
+	 */
+	protected function findArgumentSuggestion(string $name): ?string
+	{
+		return $this->suggest($name, array_keys($this->map));
+	}
 
     /**
      * Returns an argument based on its name.
@@ -110,7 +124,7 @@ class ArgvParser
     {
         if(!isset($this->map[$name]))
         {
-            throw new InvalidArgumentException(vsprintf('Unknown argument [ %s ].', [$name]));
+            throw new InvalidArgumentException(vsprintf('Unknown argument [ %s ].', [$name]), $this->findArgumentSuggestion($name));
         }
 
         return $this->arguments[$this->map[$name]];
