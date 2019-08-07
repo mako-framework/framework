@@ -405,11 +405,11 @@ class ArgvParser
 
             // Parse input
 
-            $tokens = $this->argv;
-
-			$positionals = $this->positionals;
+			$tokens = $this->argv;
 
 			$parseOptions = true;
+
+			$positionals = $this->positionals;
 
             while(($token = array_shift($tokens)) !== null)
             {
