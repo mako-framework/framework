@@ -11,11 +11,11 @@ use Closure;
 use mako\cli\input\Input;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\Output;
+use mako\common\traits\SuggestionTrait;
 use mako\reactor\exceptions\InvalidArgumentException;
 use mako\reactor\exceptions\InvalidOptionException;
 use mako\reactor\exceptions\MissingArgumentException;
 use mako\reactor\exceptions\MissingOptionException;
-use mako\reactor\traits\SuggestionTrait;
 use mako\syringe\Container;
 use ReflectionClass;
 

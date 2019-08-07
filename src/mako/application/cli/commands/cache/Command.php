@@ -9,9 +9,9 @@ namespace mako\application\cli\commands\cache;
 
 use mako\cli\input\Input;
 use mako\cli\output\Output;
+use mako\common\traits\SuggestionTrait;
 use mako\config\Config;
 use mako\reactor\Command as BaseCommand;
-use mako\reactor\traits\SuggestionTrait;
 
 use function array_keys;
 use function in_array;
