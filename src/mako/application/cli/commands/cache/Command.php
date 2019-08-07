@@ -21,7 +21,7 @@ use function in_array;
  *
  * @author Frederic G. Østby
  */
-class Command extends BaseCommand
+abstract class Command extends BaseCommand
 {
 	use SuggestionTrait;
 

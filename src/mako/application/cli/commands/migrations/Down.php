@@ -8,6 +8,7 @@
 namespace mako\application\cli\commands\migrations;
 
 use mako\application\cli\commands\migrations\traits\RollbackTrait;
+use mako\cli\input\arguments\Argument;
 
 /**
  * Command that rolls back the last batch of migrations.
@@ -19,27 +20,21 @@ class Down extends Command
 	use RollbackTrait;
 
 	/**
-	 * Command information.
-	 *
-	 * @var array
+	 * {@inheritdoc}
 	 */
-	protected $commandInformation =
-	[
-		'description' => 'Rolls back the last batch of migrations.',
-		'options'     =>
+	protected $description = 'Rolls back the last batch of migrations.';
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getArguments(): array
+	{
+		return
 		[
-			'batches' =>
-			[
-				'optional'    => true,
-				'description' => 'Number of batches to roll back',
-			],
-			'database' =>
-			[
-				'optional'    => true,
-				'description' => 'Sets which database connection to use',
-			],
-		],
-	];
+			new Argument('-b|--batches', 'Number of batches to roll back', Argument::IS_OPTIONAL | Argument::IS_INT),
+			new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
+		];
+	}
 
 	/**
 	 * Executes the command.

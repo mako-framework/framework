@@ -22,21 +22,9 @@ use function preg_replace;
 class GenerateSecret extends Command
 {
 	/**
-	 * Make the command strict.
-	 *
-	 * @var bool
+	 * {@inheritdoc}
 	 */
-	protected $isStrict = true;
-
-	/**
-	 * Command information.
-	 *
-	 * @var array
-	 */
-	protected $commandInformation =
-	[
-		'description' => 'Generates a new application secret.',
-	];
+	protected $description = 'Generates a new application secret.';
 
 	/**
 	 * Executes the command.

@@ -33,13 +33,6 @@ use function usort;
 abstract class Command extends BaseCommand
 {
 	/**
-	 * Make the command strict.
-	 *
-	 * @var bool
-	 */
-	protected $isStrict = true;
-
-	/**
 	 * Application.
 	 *
 	 * @var \mako\application\Application
@@ -107,7 +100,7 @@ abstract class Command extends BaseCommand
 	 */
 	protected function getConnectionName(): string
 	{
-		return $this->input->getArgument('database', $this->getDefaultConnectionName());
+		return $this->input->getArgument('--database', $this->getDefaultConnectionName());
 	}
 
 	/**

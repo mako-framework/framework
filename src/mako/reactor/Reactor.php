@@ -184,7 +184,12 @@ class Reactor
 
 		foreach($arguments as $argument)
 		{
-			$argInfo[] = [$argument->getName(), $argument->getDescription(), $argument->isOptional() ? 'Yes' : 'No'];
+			$argInfo[] =
+			[
+				implode(' | ', array_filter([$argument->getAlias(), $argument->getName()])),
+				$argument->getDescription(),
+				$argument->isOptional() ? 'Yes' : 'No',
+			];
 		}
 
 		$this->drawTable($heading, ['Name', 'Description', 'Optional'], $argInfo);
