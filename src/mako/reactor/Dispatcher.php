@@ -10,6 +10,7 @@ namespace mako\reactor;
 use mako\common\traits\SuggestionTrait;
 use mako\syringe\Container;
 
+use function array_filter;
 use function is_int;
 
 /**

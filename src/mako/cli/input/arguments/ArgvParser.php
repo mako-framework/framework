@@ -11,8 +11,9 @@ use mako\cli\input\arguments\exceptions\InvalidArgumentException;
 use mako\cli\input\arguments\exceptions\MissingArgumentException;
 use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\common\traits\SuggestionTrait;
-
 use RuntimeException;
+
+use function array_keys;
 use function array_shift;
 use function current;
 use function explode;

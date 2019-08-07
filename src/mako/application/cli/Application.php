@@ -30,10 +30,11 @@ use mako\cli\output\writer\Error;
 use mako\cli\output\writer\Standard;
 use mako\database\ConnectionManager as DatabaseConnectionManager;
 use mako\http\routing\Routes;
-
 use mako\Mako;
 use mako\reactor\Reactor;
+
 use function array_merge;
+use function array_shift;
 use function file_get_contents;
 use function ob_start;
 use function putenv;
