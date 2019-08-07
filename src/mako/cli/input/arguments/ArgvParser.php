@@ -407,15 +407,21 @@ class ArgvParser
 
             $tokens = $this->argv;
 
-            $positionals = $this->positionals;
+			$positionals = $this->positionals;
+
+			$parseOptions = true;
 
             while(($token = array_shift($tokens)) !== null)
             {
-                if(strpos($token, '--') === 0)
+				if($token === '--')
+				{
+					$parseOptions = false;
+				}
+                elseif($parseOptions && strpos($token, '--') === 0)
                 {
                     $this->parseOption($token, $tokens);
                 }
-                elseif(strpos($token, '-') === 0)
+                elseif($parseOptions && strpos($token, '-') === 0)
                 {
                     $this->parseAlias($token, $tokens);
                 }
