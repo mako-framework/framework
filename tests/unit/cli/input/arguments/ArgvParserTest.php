@@ -292,4 +292,28 @@ class ArgvParserTest extends TestCase
 
 		$this->assertSame($expected, $parser->parse());
 	}
+
+	/**
+	 *
+	 */
+	public function testIgnoreUnknownValues(): void
+	{
+		$parser = new ArgvParser(['script', '--bool', 'pos1', 'pos2', 'pos3', '--int=1', '--float', '1.1', '-a123', '-A', '123'],
+		[
+			new Argument('script'),
+			new Argument('--bool', '', Argument::IS_BOOL),
+			new Argument('--float', '', Argument::IS_FLOAT),
+			new Argument('-a|--alias1'),
+		]);
+
+		$exptected =
+		[
+			'script' => 'script',
+			'bool'   => true,
+			'float'  => 1.1,
+			'alias1' => '123',
+		];
+
+		$this->assertSame($exptected, $parser->parse(true));
+	}
 }
