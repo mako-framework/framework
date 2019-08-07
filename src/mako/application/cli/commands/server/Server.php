@@ -26,6 +26,11 @@ use function sprintf;
  */
 class Server extends Command
 {
+	/**
+	 * Number of ports to try before giving up.
+	 *
+	 * @var int
+	 */
 	const MAX_PORTS_TO_TRY = 10;
 
 	/**
