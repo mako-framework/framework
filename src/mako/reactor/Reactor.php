@@ -22,7 +22,6 @@ use function array_keys;
 use function array_map;
 use function implode;
 use function ksort;
-use function var_export;
 
 /**
  * Reactor.
@@ -276,24 +275,6 @@ class Reactor
 		$this->listCommands();
 
 		return CommandInterface::STATUS_SUCCESS;
-	}
-
-	/**
-	 * Converst the argument and options arrays to table rows.
-	 *
-	 * @param  array $input Argument or option array
-	 * @return array
-	 */
-	protected function convertArgumentsAndOptionsArrayToRows(array $input): array
-	{
-		$rows = [];
-
-		foreach($input as $name => $info)
-		{
-			$rows[] = [$name, $info['description'], var_export($info['optional'], true)];
-		}
-
-		return $rows;
 	}
 
 	/**
