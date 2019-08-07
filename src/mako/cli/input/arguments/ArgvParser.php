@@ -37,14 +37,14 @@ class ArgvParser
      *
      * @var string
      */
-    const REGEX_INT = '/(^(\-?)0$)|(^(\-?)[1-9]\d*$)/';
+    const REGEX_INT = '/^([+-]?[1-9]\d*|0)$/';
 
     /**
      * Regex that matches floats.
      *
      * @var string
      */
-    const REGEX_FLOAT = '/(^(\-?)0\.\d+$)|(^(\-?)[1-9]\d*\.\d+$)/';
+    const REGEX_FLOAT = '/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/';
 
     /**
      * Argv.
