@@ -359,12 +359,13 @@ class ArgvParser
     /**
      * Parses a positional argument.
      *
-     * @param  string $token       Token
-     * @param  array  $positionals Remaining positional arguments
-     * @param  array  $tokens      Remaining tokens
+     * @param  string $token        Token
+     * @param  array  $positionals  Remaining positional arguments
+     * @param  array  $tokens       Remaining tokens
+     * @param  bool   $parseOptions Are we still parsing options?
      * @return void
      */
-    protected function parsePositional(string $token, array &$positionals, array &$tokens): void
+    protected function parsePositional(string $token, array &$positionals, array &$tokens, bool $parseOptions): void
     {
         if(empty($positionals))
         {
@@ -382,7 +383,7 @@ class ArgvParser
         {
             $this->storeValue($argument, null, $token);
 
-            if(!$argument->isArray() || ($next = current($tokens)) === false || strpos($next, '-') === 0)
+            if(!$argument->isArray() || ($next = current($tokens)) === false || ($parseOptions && strpos($next, '-') === 0))
             {
                 break;
             }
@@ -427,7 +428,7 @@ class ArgvParser
                 }
                 else
                 {
-                    $this->parsePositional($token, $positionals, $tokens);
+                    $this->parsePositional($token, $positionals, $tokens, $parseOptions);
                 }
             }
 

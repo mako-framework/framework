@@ -202,7 +202,7 @@ class ArgvParserTest extends TestCase
 	 */
 	public function testDisablingOfOptionParsing(): void
 	{
-		$parser = new ArgvParser(['--bool', '--', '--int', 'foo', 'bar'],
+		$parser = new ArgvParser(['--bool', '--', '--int', '--foo', 'bar', '--'],
 		[
 			new Argument('array', '', Argument::IS_ARRAY),
 			new Argument('--bool', '', Argument::IS_BOOL),
@@ -212,7 +212,7 @@ class ArgvParserTest extends TestCase
 		$exptected =
 		[
 			'bool'  => true,
-			'array' => ['--int', 'foo', 'bar'],
+			'array' => ['--int', '--foo', 'bar', '--'],
 			'int'   => null,
 		];
 
