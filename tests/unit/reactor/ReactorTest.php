@@ -437,7 +437,8 @@ EOF;
 | <green>Name</green> | <green>Description</green> | <green>Optional</green> |
 ------------------------------------------------------------------------------
 | argument            | Argument description.      | Yes                     |
-| --option            | Option description.        | Yes                     |
+| --option1           | Option description.        | Yes                     |
+| -o | --option2      | Option description.        | No                      |
 ------------------------------------------------------------------------------
 
 EOF;
@@ -453,7 +454,8 @@ EOF;
 		$command->shouldReceive('getArguments')->once()->andReturn
 		([
 			new Argument('argument', 'Argument description.', Argument::IS_OPTIONAL),
-			new Argument('--option', 'Option description.', Argument::IS_OPTIONAL),
+			new Argument('--option1', 'Option description.', Argument::IS_OPTIONAL),
+			new Argument('-o|--option2', 'Option description.'),
 		]);
 
 		//
