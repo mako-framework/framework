@@ -7,23 +7,19 @@
 
 namespace mako\reactor;
 
-use Closure;
+use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\exceptions\ArgumentException;
+use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\cli\input\Input;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\Output;
 use mako\common\traits\SuggestionTrait;
-use mako\reactor\exceptions\InvalidArgumentException;
-use mako\reactor\exceptions\InvalidOptionException;
-use mako\reactor\exceptions\MissingArgumentException;
-use mako\reactor\exceptions\MissingOptionException;
 use mako\syringe\Container;
 use ReflectionClass;
 
 use function array_keys;
 use function array_map;
-use function array_merge;
 use function ksort;
-use function sort;
 use function var_export;
 
 /**
@@ -71,13 +67,6 @@ class Reactor
 	protected $commands = [];
 
 	/**
-	 * Options.
-	 *
-	 * @var array
-	 */
-	protected $options = [];
-
-	/**
 	 * Logo.
 	 *
 	 * @var string
@@ -101,6 +90,39 @@ class Reactor
 		$this->container = $container ?? new Container;
 
 		$this->dispatcher = $dispatcher ?? new Dispatcher($this->container);
+
+		// Register default reactor arguments
+
+		$this->input->getArgumentParser()->addArguments
+		([
+			new Argument('command', 'Command name', Argument::IS_OPTIONAL),
+			new Argument('--help', 'Displays helpful information', Argument::IS_BOOL),
+		]);
+
+		// Preparse arguments and ignore unknown arguments so that we
+		// don't trigger any errors before the command arguments get registered
+
+		$this->input->getArgumentParser()->parse(true);
+	}
+
+	/**
+	 * Returns the input.
+	 *
+	 * @return \mako\cli\input\Input
+	 */
+	public function getInput(): Input
+	{
+		return $this->input;
+	}
+
+	/**
+	 * Returns the output.
+	 *
+	 * @return \mako\cli\input\Output
+	 */
+	public function getOutput(): Output
+	{
+		return $this->output;
 	}
 
 	/**
@@ -115,19 +137,6 @@ class Reactor
 	}
 
 	/**
-	 * Register a global reactor option.
-	 *
-	 * @param string   $name        Option name
-	 * @param string   $description Option description
-	 * @param \Closure $handler     Option handler
-	 * @param string   $group       Option group
-	 */
-	public function registerGlobalOption(string $name, string $description, Closure $handler, string $group = 'default'): void
-	{
-		$this->options[$group][$name] = ['description' => $description, 'handler' => $handler];
-	}
-
-	/**
 	 * Sets the reactor logo.
 	 *
 	 * @param string $logo ASCII logo
@@ -135,29 +144,6 @@ class Reactor
 	public function setLogo(string $logo): void
 	{
 		$this->logo = $logo;
-	}
-
-	/**
-	 * Handles global reactor options.
-	 *
-	 * @param string $group Option group
-	 */
-	public function handleGlobalOptions(string $group = 'default'): void
-	{
-		if(isset($this->options[$group]))
-		{
-			foreach($this->options[$group] as $name => $option)
-			{
-				$input = $this->input->getArgument($name);
-
-				if(!empty($input))
-				{
-					$handler = $option['handler'];
-
-					$this->container->call($handler, ['option' => $input]);
-				}
-			}
-		}
 	}
 
 	/**
@@ -186,35 +172,22 @@ class Reactor
 	}
 
 	/**
-	 * Returns an array of option information.
+	 * Draws an argument table.
 	 *
-	 * @return array
+	 * @param  string $heading   Table heading
+	 * @param  array  $arguments Arguments
+	 * @return void
 	 */
-	protected function getOptions(): array
+	public function drawArgumentTable(string $heading, array $arguments): void
 	{
-		$options = [];
+		$argInfo = [];
 
-		foreach($this->options as $group)
+		foreach($arguments as $argument)
 		{
-			foreach($group as $name => $option)
-			{
-				$options[] = ["--{$name}", $option['description']];
-			}
+			$argInfo[] = [$argument->getName(), $argument->getDescription(), $argument->isOptional() ? 'Yes' : 'No'];
 		}
 
-		sort($options);
-
-		return $options;
-	}
-
-	/**
-	 * Displays global reactor options of there are any.
-	 */
-	protected function listOptions(): void
-	{
-		$options = $this->getOptions();
-
-		$this->drawTable('Global options:', ['Option', 'Description'], $options);
+		$this->drawTable($heading, ['Name', 'Description', 'Optional'], $argInfo);
 	}
 
 	/**
@@ -237,9 +210,9 @@ class Reactor
 
 		$this->output->writeLn('php reactor [command] [arguments] [options]');
 
-		// Display reactor options if there are any
+		// Display global arguments and options if there are any
 
-		$this->listOptions();
+		$this->drawArgumentTable('Global arguments and options:', $this->input->getArgumentParser()->getArguments());
 	}
 
 	/**
@@ -266,7 +239,7 @@ class Reactor
 		{
 			$command = $this->instantiateCommandWithoutConstructor($class);
 
-			$info[$name] = [$name, $command->getCommandDescription()];
+			$info[$name] = [$name, $command->getDescription()];
 		}
 
 		ksort($info);
@@ -338,17 +311,9 @@ class Reactor
 
 		$this->output->write(PHP_EOL);
 
-		$this->output->writeLn($commandInstance->getCommandDescription());
+		$this->output->writeLn($commandInstance->getDescription());
 
-		if(!empty($arguments = $commandInstance->getCommandArguments()))
-		{
-			$this->drawTable('Arguments:', ['Name', 'Description', 'Optional'], $this->convertArgumentsAndOptionsArrayToRows($arguments));
-		}
-
-		if(!empty($options = $commandInstance->getCommandOptions()))
-		{
-			$this->drawTable('Options:', ['Name', 'Description', 'Optional'], $this->convertArgumentsAndOptionsArrayToRows($options));
-		}
+		$this->drawArgumentTable('Arguments and options:', $commandInstance->getArguments());
 
 		return CommandInterface::STATUS_SUCCESS;
 	}
@@ -387,23 +352,6 @@ class Reactor
 	}
 
 	/**
-	 * Returns the names of the global options.
-	 *
-	 * @return array
-	 */
-	protected function getGlobalOptionNames(): array
-	{
-		$names = [];
-
-		foreach($this->options as $group)
-		{
-			$names = array_merge($names, array_keys($group));
-		}
-
-		return $names;
-	}
-
-	/**
 	 * Dispatches a command.
 	 *
 	 * @param  string $command Command
@@ -413,18 +361,29 @@ class Reactor
 	{
 		try
 		{
-			$exitCode = $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments(), $this->getGlobalOptionNames());
+			$exitCode = $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
 		}
-		catch(InvalidOptionException $e)
-		{
-			$this->output->errorLn("<red>{$e->getMessageWithSuggestion()}</red>");
-		}
-		catch(InvalidArgumentException | MissingOptionException | MissingArgumentException $e)
+		catch(ArgumentException | UnexpectedValueException $e)
 		{
 			$this->output->errorLn("<red>{$e->getMessage()}</red>");
 		}
 
 		return $exitCode ?? CommandInterface::STATUS_ERROR;
+	}
+
+	/**
+	 * Registers the command arguments and dispatches the command.
+	 *
+	 * @param  string $command
+	 * @return int
+	 */
+	protected function registerCommandArgumentsAndDispatch(string $command): int
+	{
+		$commandInstance = $this->instantiateCommandWithoutConstructor($this->commands[$command]);
+
+		$this->input->getArgumentParser()->addArguments($commandInstance->getArguments());
+
+		return $this->dispatch($command);
 	}
 
 	/**
@@ -434,9 +393,9 @@ class Reactor
 	 */
 	public function run(): int
 	{
-		$this->handleGlobalOptions();
+		$command = $this->input->getArgument('command');
 
-		if(($command = $this->input->getArgument(1)) === null)
+		if($command === null)
 		{
 			return $this->displayReactorInfoAndCommandList();
 		}
@@ -446,11 +405,11 @@ class Reactor
 			return $this->unknownCommand($command);
 		}
 
-		if($this->input->getArgument('help', false) !== false)
+		if($this->input->getArgument('--help') === true)
 		{
 			return $this->displayCommandHelp($command);
 		}
 
-		return $this->dispatch($command);
+		return $this->registerCommandArgumentsAndDispatch($command);
 	}
 }

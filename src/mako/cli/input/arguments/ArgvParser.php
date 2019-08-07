@@ -73,12 +73,19 @@ class ArgvParser
      */
     protected $positionals = [];
 
-    /**
-     * Parsed arguments.
-     *
-     * @var array
-     */
-    protected $parsed = [];
+	/**
+	 * Parsed arguments.
+	 *
+	 * @var array
+	 */
+	protected $parsed = [];
+
+	/**
+	 * Should unknown arguments be ignored?
+	 *
+	 * @var bool
+	 */
+	protected $ignoreUnknownArguments = false;
 
     /**
      * Constructor.
@@ -117,14 +124,19 @@ class ArgvParser
     /**
      * Returns an argument based on its name.
      *
-     * @param  string   $name Argument name
-     * @return Argument
+     * @param  string                                  $name Argument name
+     * @return \mako\cli\input\arguments\Argument|null
      */
-    protected function getArgument(string $name): Argument
+    protected function getArgument(string $name): ?Argument
     {
         if(!isset($this->map[$name]))
         {
-            throw new InvalidArgumentException(vsprintf('Unknown argument [ %s ].', [$name]), $this->findArgumentSuggestion($name));
+			if($this->ignoreUnknownArguments === false)
+			{
+				throw new InvalidArgumentException(vsprintf('Unknown argument [ %s ].', [$name]), $this->findArgumentSuggestion($name));
+			}
+
+			return null;
         }
 
         return $this->arguments[$this->map[$name]];
@@ -297,9 +309,14 @@ class ArgvParser
         if(strpos($token, '=') !== false)
         {
             [$token, $value] = explode('=', $token, 2);
-        }
+		}
 
-        $this->storeOptionValue($this->getArgument($token), $token, $value, $tokens);
+		if(($argument = $this->getArgument($token)) === null)
+		{
+			return;
+		}
+
+        $this->storeOptionValue($argument, $token, $value, $tokens);
     }
 
     /**
@@ -318,7 +335,10 @@ class ArgvParser
             [$token, $value] = [substr($token, 0, 2), substr($token, 2)];
 		}
 
-		$argument = $this->getArgument($token);
+		if(($argument = $this->getArgument($token)) === null)
+		{
+			return;
+		}
 
 		if($value !== null && $argument->isBool())
 		{
@@ -347,7 +367,12 @@ class ArgvParser
     {
         if(empty($positionals))
         {
-            throw new InvalidArgumentException('Unknown positional argument.');
+			if($this->ignoreUnknownArguments === false)
+			{
+				throw new InvalidArgumentException(vsprintf('Unknown positional argument with value [ %s ].', [$token]));
+			}
+
+			return;
         }
 
         $argument = $this->arguments[array_shift($positionals)];
@@ -368,12 +393,15 @@ class ArgvParser
     /**
      * Parses the arguments.
      *
+     * @param  bool  $ignoreUnknownArguments Should unknown arguments be ignored?
      * @return array
      */
-    public function parse(): array
+    public function parse(bool $ignoreUnknownArguments = false): array
     {
         if(empty($this->parsed))
         {
+			$this->ignoreUnknownArguments = $ignoreUnknownArguments;
+
             // Parse input
 
             $tokens = $this->argv;
@@ -419,13 +447,14 @@ class ArgvParser
 	/**
 	 * Returns the value of a parsed argument.
 	 *
-	 * @param  string $argument Argument name
-	 * @param  mixed  $default  Default value
+	 * @param  string $argument               Argument name
+	 * @param  mixed  $default                Default value
+	 * @param  bool   $ignoreUnknownArguments Should unknown arguments be ignored?
 	 * @return mixed
 	 */
-	public function getArgumentValue(string $argument, $default = null)
+	public function getArgumentValue(string $argument, $default = null, bool $ignoreUnknownArguments = false)
 	{
-		$parsed = $this->parse();
+		$parsed = $this->parse($ignoreUnknownArguments);
 
 		if(isset($this->map[$argument]))
 		{

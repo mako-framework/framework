@@ -7,12 +7,15 @@
 
 namespace mako\tests\unit\reactor;
 
+use mako\cli\input\arguments\Argument;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
 use mako\reactor\Command;
 use mako\tests\TestCase;
 use Mockery;
 
 // --------------------------------------------------------------------------
-// START CLASSES
+// START CLASSES @deprecated 7.0
 // --------------------------------------------------------------------------
 
 class Foo extends Command
@@ -24,7 +27,7 @@ class Foo extends Command
 		[
 			'option' =>
 			[
-				'optional'    => true,
+				'optional'    => false,
 				'description' => 'Option description.',
 			],
 		],
@@ -66,96 +69,74 @@ class CommandTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsStrict(): void
+	public function testGetDescription(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgument')->with('help')->andReturn(false);
+		$output = Mockery::mock(Output::class);
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		// @deprecated 7.0
+
+		$command = new Foo($input, $output);
+
+		$this->assertEquals('Command description.', $command->getDescription());
+
+		// @deprecated 7.0
+
+		$command = new Bar($input, $output);
+
+		$this->assertEquals('', $command->getDescription());
 
 		//
 
-		$foo = new Foo($input, $output);
+		$command = new class ($input, $output) extends Command
+		{
+			protected $description = 'Command description.';
+		};
 
-		$this->assertFalse($foo->isStrict());
-
-		//
-
-		$bar = new Bar($input, $output);
-
-		$this->assertTrue($bar->isStrict());
+		$this->assertEquals('Command description.', $command->getDescription());
 	}
 
 	/**
 	 *
 	 */
-	public function testGetCommandDescription(): void
+	public function testGetArguments(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgument')->with('help')->andReturn(false);
+		$output = Mockery::mock(Output::class);
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		// @deprecated 7.0
 
-		//
+		$command = new Foo($input, $output);
 
-		$foo = new Foo($input, $output);
+		$arguments = $command->getArguments();
 
-		$this->assertEquals('Command description.', $foo->getCommandDescription());
+		$this->assertTrue(count($arguments) === 2);
 
-		//
+		$this->assertInstanceOf(Argument::class, $arguments[0]);
 
-		$foo = new Bar($input, $output);
+		$this->assertInstanceOf(Argument::class, $arguments[1]);
 
-		$this->assertEquals('', $foo->getCommandDescription());
-	}
+		$this->assertSame('arg2', $arguments[0]->getName());
 
-	/**
-	 *
-	 */
-	public function testGetCommandArguments(): void
-	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		$this->assertSame('--option', $arguments[1]->getName());
 
-		$input->shouldReceive('getArgument')->with('help')->andReturn(false);
+		$this->assertSame('Argument description.', $arguments[0]->getDescription());
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		$this->assertSame('Option description.', $arguments[1]->getDescription());
+
+		$this->assertTrue($arguments[0]->isOptional());
+
+		$this->assertFalse($arguments[1]->isOptional());
 
 		//
 
-		$foo = new Foo($input, $output);
+		$command = new class ($input, $output) extends Command
+		{
 
-		$this->assertEquals(['arg2' => ['optional' => true, 'description' => 'Argument description.']], $foo->getCommandArguments());
+		};
 
-		//
-
-		$foo = new Bar($input, $output);
-
-		$this->assertEquals([], $foo->getCommandOptions());
-	}
-
-	/**
-	 *
-	 */
-	public function testGetCommandOptions(): void
-	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->with('help')->andReturn(false);
-
-		$output = Mockery::mock('mako\cli\output\Output');
-
-		//
-
-		$foo = new Foo($input, $output);
-
-		$this->assertEquals(['option' => ['optional' => true, 'description' => 'Option description.']], $foo->getCommandOptions());
-
-		//
-
-		$foo = new Bar($input, $output);
-
-		$this->assertEquals([], $foo->getCommandOptions());
+		$this->assertEquals([], $command->getArguments());
 	}
 }

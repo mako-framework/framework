@@ -7,7 +7,9 @@
 
 namespace mako\tests\unit\cli\input;
 
+use mako\cli\input\arguments\ArgvParser;
 use mako\cli\input\Input;
+use mako\cli\input\reader\ReaderInterface;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -21,7 +23,7 @@ class InputTest extends TestCase
 	 */
 	public function getReader()
 	{
-		return Mockery::mock('mako\cli\input\reader\ReaderInterface');
+		return Mockery::mock(ReaderInterface::class);
 	}
 
 	/**
@@ -33,7 +35,7 @@ class InputTest extends TestCase
 
 		$reader->shouldReceive('read')->once()->andReturn('user input');
 
-		$arguments = [];
+		$arguments = Mockery::mock(ArgvParser::class);
 
 		$input = new Input($reader, $arguments);
 
@@ -43,82 +45,46 @@ class InputTest extends TestCase
 	/**
 	 *
 	 */
+	public function testGetArgumentParser(): void
+	{
+		$reader = $this->getReader();
+
+		$arguments = Mockery::mock(ArgvParser::class);
+
+		$input = new Input($reader, $arguments);
+
+		$this->assertInstanceOf(ArgvParser::class, $input->getArgumentParser());
+	}
+
+	/**
+	 *
+	 */
 	public function testGetArguments(): void
 	{
 		$reader = $this->getReader();
 
-		$arguments = ['foo', 'bar', 'baz', '--named=baz'];
+		$arguments = Mockery::mock(ArgvParser::class);
+
+		$arguments->shouldReceive('parse')->once()->andReturn(['foo' => 'bar']);
 
 		$input = new Input($reader, $arguments);
 
-		$this->assertSame(['arg0' => 'foo', 'arg1' => 'bar', 'arg2' => 'baz', 'named' => 'baz'], $input->getArguments());
+		$this->assertSame(['foo' => 'bar'], $input->getArguments());
 	}
 
 	/**
 	 *
 	 */
-	public function testGetNumericArgument(): void
+	public function testGetArgument(): void
 	{
 		$reader = $this->getReader();
 
-		$arguments = ['foo', 'bar'];
+		$arguments = Mockery::mock(ArgvParser::class);
+
+		$arguments->shouldReceive('getArgumentValue')->once()->with('name', 'default')->andReturn('value');
 
 		$input = new Input($reader, $arguments);
 
-		$this->assertSame('foo', $input->getArgument(0));
-
-		$this->assertSame('foo', $input->getArgument('arg0'));
-
-		$this->assertSame('bar', $input->getArgument(1));
-
-		$this->assertSame('bar', $input->getArgument('arg1'));
-	}
-
-	/**
-	 *
-	 */
-	public function testGetNamedArgument(): void
-	{
-		$reader = $this->getReader();
-
-		$arguments = ['--foo=bar', '--baz=bax'];
-
-		$input = new Input($reader, $arguments);
-
-		$this->assertSame('bar', $input->getArgument('foo'));
-
-		$this->assertSame('bax', $input->getArgument('baz'));
-	}
-
-	/**
-	 *
-	 */
-	public function testGetBooleanNamedArgument(): void
-	{
-		$reader = $this->getReader();
-
-		$arguments = ['--foo'];
-
-		$input = new Input($reader, $arguments);
-
-		$this->assertSame(true, $input->getArgument('foo'));
-	}
-
-	/**
-	 *
-	 */
-	public function testGetMissingArgument(): void
-	{
-		$reader = $this->getReader();
-
-		$arguments = ['--foo'];
-
-		$input = new Input($reader, $arguments);
-
-		$this->assertSame(true, $input->getArgument('foo'));
-
-		$this->assertSame(null, $input->getArgument('bar'));
-
-		$this->assertSame(false, $input->getArgument('bar', false));
+		$this->assertSame('value', $input->getArgument('name', 'default'));
 	}
 }

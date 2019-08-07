@@ -14,6 +14,11 @@ use mako\reactor\exceptions\MissingOptionException;
 use mako\reactor\Reactor;
 use mako\tests\TestCase;
 use Mockery;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
+use mako\syringe\Container;
+use mako\reactor\CommandInterface;
+use mako\reactor\Dispatcher;
 
 /**
  * @group unit
@@ -25,15 +30,15 @@ class ReactorTest extends TestCase
 	 */
 	public function testNoInput(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn(null);
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn(null);
 
-		$input->shouldReceive('getArgument')->once()->with('option')->andReturn(null);
+		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
 
 		//
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
@@ -45,14 +50,15 @@ class ReactorTest extends TestCase
 
 		$output->shouldReceive('writeLn')->once()->with('php reactor [command] [arguments] [options]');
 
-		$output->shouldReceive('writeLn')->once()->with('<yellow>Global options:</yellow>');
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Global arguments and options:</yellow>');
 
 $optionsTable = <<<EOF
-------------------------------------------------------
-| <green>Option</green> | <green>Description</green> |
-------------------------------------------------------
-| --option              | option description         |
-------------------------------------------------------
+-------------------------------------------------------------------
+| <green>Option</green> | <green>Description</green>   | Optional |
+-------------------------------------------------------------------
+| command               | Command name                 | true     |
+| --help                | Displays helpful information | true     |
+-------------------------------------------------------------------
 
 EOF;
 		$output->shouldReceive('write')->once()->with($optionsTable, 1);
@@ -72,15 +78,15 @@ EOF;
 
 		//
 
-		$container = Mockery::mock('mako\syringe\Container');
+		$container = Mockery::mock(Container::class);
 
-		$command = Mockery::mock('mako\reactor\CommandInterface');
+		$command = Mockery::mock(CommandInterface::class);
 
-		$command->shouldReceive('getCommandDescription')->once()->andReturn('foo description');
+		$command->shouldReceive('getDescription')->once()->andReturn('foo description');
 
 		//
 
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 
@@ -91,8 +97,6 @@ EOF;
 		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->andReturn($command);
 
 		$reactor->setLogo('logo');
-
-		$reactor->registerGlobalOption('option', 'option description', function(): void {});
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 

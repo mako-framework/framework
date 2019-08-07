@@ -33,26 +33,12 @@ interface CommandInterface
 	 *
 	 * @return string
 	 */
-	public function getCommandDescription(): string;
+	public function getDescription(): string;
 
 	/**
 	 * Returns the command arguments.
 	 *
 	 * @return array
 	 */
-	public function getCommandArguments(): array;
-
-	/**
-	 * Returns the command options.
-	 *
-	 * @return array
-	 */
-	public function getCommandOptions(): array;
-
-	/**
-	 * Returns TRUE we should be strict about what arguments and options we allow and FALSE if not.
-	 *
-	 * @return bool
-	 */
-	public function isStrict(): bool;
+	public function getArguments(): array;
 }

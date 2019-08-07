@@ -38,7 +38,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('Unknown positional argument.');
+		$this->expectExceptionMessage('Unknown positional argument with value [ script ].');
 
 		$parser = new ArgvParser(['script']);
 
