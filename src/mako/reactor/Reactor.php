@@ -17,8 +17,10 @@ use mako\common\traits\SuggestionTrait;
 use mako\syringe\Container;
 use ReflectionClass;
 
+use function array_filter;
 use function array_keys;
 use function array_map;
+use function implode;
 use function ksort;
 use function var_export;
 
