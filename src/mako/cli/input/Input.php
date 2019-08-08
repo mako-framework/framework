@@ -34,14 +34,14 @@ class Input
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\cli\input\reader\ReaderInterface    $reader    Reader instance
-	 * @param \mako\cli\input\arguments\ArgvParser|null $arguments Argument parser
+	 * @param \mako\cli\input\reader\ReaderInterface $reader    Reader instance
+	 * @param \mako\cli\input\arguments\ArgvParser   $arguments Argument parser
 	 */
-	public function __construct(ReaderInterface $reader, ?ArgvParser $arguments = null)
+	public function __construct(ReaderInterface $reader, ArgvParser $arguments)
 	{
 		$this->reader = $reader;
 
-		$this->arguments = $arguments ?? new ArgvParser($_SERVER['argv']);
+		$this->arguments = $arguments;
 	}
 
 	/**
