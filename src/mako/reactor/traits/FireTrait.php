@@ -35,9 +35,10 @@ trait FireTrait
 	/**
 	 * Returns command that we're going to execute.
 	 *
-	 * @param string $command         Command
-	 * @param bool   $background      Is it a background process?
-	 * @param bool   $sameEnvironment Run command using the same environment?
+	 * @param  string $command         Command
+	 * @param  bool   $background      Is it a background process?
+	 * @param  bool   $sameEnvironment Run command using the same environment?
+	 * @return string
 	 */
 	protected function buildCommand(string $command, bool $background = false, bool $sameEnvironment = true): string
 	{

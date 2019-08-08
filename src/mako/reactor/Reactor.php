@@ -119,7 +119,7 @@ class Reactor
 	/**
 	 * Returns the output.
 	 *
-	 * @return \mako\cli\input\Output
+	 * @return \mako\cli\output\Output
 	 */
 	public function getOutput(): Output
 	{

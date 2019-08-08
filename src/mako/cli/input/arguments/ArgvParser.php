@@ -33,47 +33,47 @@ class ArgvParser
 {
 	use SuggestionTrait;
 
-    /**
-     * Regex that matches integers.
-     *
-     * @var string
-     */
-    const INT_REGEX = '/^([+-]?[1-9]\d*|0)$/';
+	/**
+	 * Regex that matches integers.
+	 *
+	 * @var string
+	 */
+	const INT_REGEX = '/^([+-]?[1-9]\d*|0)$/';
 
-    /**
-     * Regex that matches floats.
-     *
-     * @var string
-     */
-    const FLOAT_REGEX = '/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/';
+	/**
+	 * Regex that matches floats.
+	 *
+	 * @var string
+	 */
+	const FLOAT_REGEX = '/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/';
 
-    /**
-     * Argv.
-     *
-     * @var array
-     */
-    protected $argv;
+	/**
+	 * Argv.
+	 *
+	 * @var array
+	 */
+	protected $argv;
 
-    /**
-     * Arguments.
-     *
-     * @var array
-     */
-    protected $arguments = [];
+	/**
+	 * Arguments.
+	 *
+	 * @var array
+	 */
+	protected $arguments = [];
 
-    /**
-     * Map.
-     *
-     * @var array
-     */
-    protected $map = [];
+	/**
+	 * Map.
+	 *
+	 * @var array
+	 */
+	protected $map = [];
 
-    /**
-     * Positional arguments.
-     *
-     * @var array
-     */
-    protected $positionals = [];
+	/**
+	 * Positional arguments.
+	 *
+	 * @var array
+	 */
+	protected $positionals = [];
 
 	/**
 	 * Parsed arguments.
@@ -89,27 +89,27 @@ class ArgvParser
 	 */
 	protected $ignoreUnknownArguments = false;
 
-    /**
-     * Constructor.
-     *
-     * @param array $argv      Argv
-     * @param array $arguments Array of arguments
-     */
-    public function __construct(array $argv, array $arguments = [])
-    {
-        $this->argv = $argv;
+	/**
+	 * Constructor.
+	 *
+	 * @param array $argv      Argv
+	 * @param array $arguments Array of arguments
+	 */
+	public function __construct(array $argv, array $arguments = [])
+	{
+		$this->argv = $argv;
 
-       $this->addArguments($arguments);
-    }
+	   $this->addArguments($arguments);
+	}
 
-    /**
-     * Returns the registered arguments.
-     *
-     * @return array
-     */
-    public function getArguments(): array
-    {
-        return $this->arguments;
+	/**
+	 * Returns the registered arguments.
+	 *
+	 * @return array
+	 */
+	public function getArguments(): array
+	{
+		return $this->arguments;
 	}
 
 	/**
@@ -123,194 +123,194 @@ class ArgvParser
 		return $this->suggest($name, array_keys($this->map));
 	}
 
-    /**
-     * Returns an argument based on its name.
-     *
-     * @param  string                                  $name Argument name
-     * @return \mako\cli\input\arguments\Argument|null
-     */
-    protected function getArgument(string $name): ?Argument
-    {
-        if(!isset($this->map[$name]))
-        {
+	/**
+	 * Returns an argument based on its name.
+	 *
+	 * @param  string                                  $name Argument name
+	 * @return \mako\cli\input\arguments\Argument|null
+	 */
+	protected function getArgument(string $name): ?Argument
+	{
+		if(!isset($this->map[$name]))
+		{
 			if($this->ignoreUnknownArguments === false)
 			{
 				throw new InvalidArgumentException(vsprintf('Unknown argument [ %s ].', [$name]), $this->findArgumentSuggestion($name));
 			}
 
 			return null;
-        }
+		}
 
-        return $this->arguments[$this->map[$name]];
-    }
+		return $this->arguments[$this->map[$name]];
+	}
 
-    /**
-     * Add argument.
-     *
-     * @param  Argument $argument Argument
-     * @return void
-     */
-    public function addArgument(Argument $argument): void
-    {
-        $name = $argument->getName();
+	/**
+	 * Add argument.
+	 *
+	 * @param  Argument $argument Argument
+	 * @return void
+	 */
+	public function addArgument(Argument $argument): void
+	{
+		$name = $argument->getName();
 
-        $normalizedName = $argument->getNormalizedName();
+		$normalizedName = $argument->getNormalizedName();
 
-        // Ensure that the argument name is unique
+		// Ensure that the argument name is unique
 
-        if(isset($this->arguments[$normalizedName]))
-        {
-            throw new RuntimeException(vsprintf('Ambiguous argument name. [ %s ] will collide with [ %s ].', [$name, $this->arguments[$normalizedName]->getName()]));
-        }
+		if(isset($this->arguments[$normalizedName]))
+		{
+			throw new RuntimeException(vsprintf('Ambiguous argument name. [ %s ] will collide with [ %s ].', [$name, $this->arguments[$normalizedName]->getName()]));
+		}
 
-        // Check if the argument has an alias and that it's unique
+		// Check if the argument has an alias and that it's unique
 
-        if(!empty($alias = $argument->getAlias()))
-        {
-            if(isset($this->map[$alias]))
-            {
-                throw new RuntimeException(vsprintf('Duplicate alias detected [ %s ]. The alias of [ %s ] will collide with the alias of [ %s ].', [$alias, $name, $this->getArgument($alias)->getName()]));
-            }
+		if(!empty($alias = $argument->getAlias()))
+		{
+			if(isset($this->map[$alias]))
+			{
+				throw new RuntimeException(vsprintf('Duplicate alias detected [ %s ]. The alias of [ %s ] will collide with the alias of [ %s ].', [$alias, $name, $this->getArgument($alias)->getName()]));
+			}
 
-            $this->map[$alias] = $normalizedName;
-        }
+			$this->map[$alias] = $normalizedName;
+		}
 
-        // Add to array of positionals if it's a positional argument
+		// Add to array of positionals if it's a positional argument
 
-        if($argument->isPositional())
-        {
-            $this->positionals[] = $name;
-        }
+		if($argument->isPositional())
+		{
+			$this->positionals[] = $name;
+		}
 
-        // Add mapping and argument
+		// Add mapping and argument
 
-        $this->map[$name] = $normalizedName;
+		$this->map[$name] = $normalizedName;
 
-        $this->arguments[$normalizedName] = $argument;
+		$this->arguments[$normalizedName] = $argument;
 
-        // Reset the parsed array since we have added new arguments
+		// Reset the parsed array since we have added new arguments
 
-        $this->parsed = [];
-    }
+		$this->parsed = [];
+	}
 
-    /**
-     * Add arguments.
-     *
-     * @param  array $arguments Array of arguments
-     * @return void
-     */
-    public function addArguments(array $arguments): void
-    {
-        foreach($arguments as $argument)
-        {
-            $this->addArgument($argument);
-        }
-    }
+	/**
+	 * Add arguments.
+	 *
+	 * @param  array $arguments Array of arguments
+	 * @return void
+	 */
+	public function addArguments(array $arguments): void
+	{
+		foreach($arguments as $argument)
+		{
+			$this->addArgument($argument);
+		}
+	}
 
-    /**
-     * Casts the value to the desired type.
-     *
-     * @param  Argument              $argument Argument
-     * @param  string|null           $token    Token
-     * @param  string|bool           $value    Value
-     * @return string|bool|float|int
-     */
-    protected function castValue(Argument $argument, ?string $token, $value)
-    {
-        if($argument->isInt())
-        {
-            if(preg_match(static::INT_REGEX, $value) !== 1)
-            {
-                throw new UnexpectedValueException(vsprintf('The [ %s ] argument expects an integer.', [$token ?? $argument->getName()]));
-            }
+	/**
+	 * Casts the value to the desired type.
+	 *
+	 * @param  Argument              $argument Argument
+	 * @param  string|null           $token    Token
+	 * @param  string|bool           $value    Value
+	 * @return string|bool|float|int
+	 */
+	protected function castValue(Argument $argument, ?string $token, $value)
+	{
+		if($argument->isInt())
+		{
+			if(preg_match(static::INT_REGEX, $value) !== 1)
+			{
+				throw new UnexpectedValueException(vsprintf('The [ %s ] argument expects an integer.', [$token ?? $argument->getName()]));
+			}
 
-            $value = (int) $value;
-        }
-        elseif($argument->isFloat())
-        {
-            if(preg_match(static::FLOAT_REGEX, $value) !== 1)
-            {
-                throw new UnexpectedValueException(vsprintf('The [ %s ] argument expects a float.', [$token ?? $argument->getName()]));
-            }
+			$value = (int) $value;
+		}
+		elseif($argument->isFloat())
+		{
+			if(preg_match(static::FLOAT_REGEX, $value) !== 1)
+			{
+				throw new UnexpectedValueException(vsprintf('The [ %s ] argument expects a float.', [$token ?? $argument->getName()]));
+			}
 
-            $value = (float) $value;
-        }
+			$value = (float) $value;
+		}
 
-        return $value;
-    }
+		return $value;
+	}
 
-    /**
-     * Store the value.
-     *
-     * @param  Argument    $argument Argument
-     * @param  string|null $token    Token
-     * @param  string|bool $value    Value
-     * @return void
-     */
-    protected function storeValue(Argument $argument, ?string $token, $value): void
-    {
-        if($value === null)
-        {
-            throw new ArgumentException(vsprintf('Missing value for argument [ %s ].', [$token]));
-        }
+	/**
+	 * Store the value.
+	 *
+	 * @param  Argument    $argument Argument
+	 * @param  string|null $token    Token
+	 * @param  string|bool $value    Value
+	 * @return void
+	 */
+	protected function storeValue(Argument $argument, ?string $token, $value): void
+	{
+		if($value === null)
+		{
+			throw new ArgumentException(vsprintf('Missing value for argument [ %s ].', [$token]));
+		}
 
-       $value = $this->castValue($argument, $token, $value);
+	   $value = $this->castValue($argument, $token, $value);
 
-        if($argument->isArray())
-        {
-            $this->parsed[$argument->getNormalizedName()][] = $value;
-        }
-        else
-        {
-            $this->parsed[$argument->getNormalizedName()] = $value;
-        }
-    }
+		if($argument->isArray())
+		{
+			$this->parsed[$argument->getNormalizedName()][] = $value;
+		}
+		else
+		{
+			$this->parsed[$argument->getNormalizedName()] = $value;
+		}
+	}
 
-    /**
-     * Stores option values.
-     *
-     * @param  Argument    $argument Argument
-     * @param  string      $token    Token
-     * @param  string|null $value    Value
-     * @param  array       $tokens   Remaining tokens
-     * @return void
-     */
-    protected function storeOptionValue(Argument $argument, string $token, ?string $value, array &$tokens): void
-    {
-        if($argument->isBool())
-        {
-            if($value !== null)
-            {
-                throw new ArgumentException(vsprintf('The [ %s ] argument is a boolean and does not accept values.', [$token]));
-            }
+	/**
+	 * Stores option values.
+	 *
+	 * @param  Argument    $argument Argument
+	 * @param  string      $token    Token
+	 * @param  string|null $value    Value
+	 * @param  array       &$tokens  Remaining tokens
+	 * @return void
+	 */
+	protected function storeOptionValue(Argument $argument, string $token, ?string $value, array &$tokens): void
+	{
+		if($argument->isBool())
+		{
+			if($value !== null)
+			{
+				throw new ArgumentException(vsprintf('The [ %s ] argument is a boolean and does not accept values.', [$token]));
+			}
 
-            $value = true;
-        }
-        else
-        {
-            if(($next = current($tokens)) !== false && strpos($next, '-') !== 0)
-            {
-                $value = array_shift($tokens);
-            }
-        }
+			$value = true;
+		}
+		else
+		{
+			if(($next = current($tokens)) !== false && strpos($next, '-') !== 0)
+			{
+				$value = array_shift($tokens);
+			}
+		}
 
-        $this->storeValue($argument, $token, $value);
-    }
+		$this->storeValue($argument, $token, $value);
+	}
 
-    /**
-     * Parses an option.
-     *
-     * @param  string $token  Token
-     * @param  array  $tokens Remaining tokens
-     * @return void
-     */
-    protected function parseOption(string $token, array &$tokens): void
-    {
-        $value = null;
+	/**
+	 * Parses an option.
+	 *
+	 * @param  string $token   Token
+	 * @param  array  &$tokens Remaining tokens
+	 * @return void
+	 */
+	protected function parseOption(string $token, array &$tokens): void
+	{
+		$value = null;
 
-        if(strpos($token, '=') !== false)
-        {
-            [$token, $value] = explode('=', $token, 2);
+		if(strpos($token, '=') !== false)
+		{
+			[$token, $value] = explode('=', $token, 2);
 		}
 
 		if(($argument = $this->getArgument($token)) === null)
@@ -318,23 +318,23 @@ class ArgvParser
 			return;
 		}
 
-        $this->storeOptionValue($argument, $token, $value, $tokens);
-    }
+		$this->storeOptionValue($argument, $token, $value, $tokens);
+	}
 
-    /**
-     * Parses an alias.
-     *
-     * @param  string $token  Token
-     * @param  array  $tokens Remaining tokens
-     * @return void
-     */
-    protected function parseAlias(string $token, array &$tokens): void
-    {
-        $value = null;
+	/**
+	 * Parses an alias.
+	 *
+	 * @param  string $token   Token
+	 * @param  array  &$tokens Remaining tokens
+	 * @return void
+	 */
+	protected function parseAlias(string $token, array &$tokens): void
+	{
+		$value = null;
 
-        if(strlen($token) > 2)
-        {
-            [$token, $value] = [substr($token, 0, 2), substr($token, 2)];
+		if(strlen($token) > 2)
+		{
+			[$token, $value] = [substr($token, 0, 2), substr($token, 2)];
 		}
 
 		if(($argument = $this->getArgument($token)) === null)
@@ -355,57 +355,57 @@ class ArgvParser
 		{
 			$this->parseAlias("-{$chained}", $tokens);
 		}
-    }
+	}
 
-    /**
-     * Parses a positional argument.
-     *
-     * @param  string $token        Token
-     * @param  array  $positionals  Remaining positional arguments
-     * @param  array  $tokens       Remaining tokens
-     * @param  bool   $parseOptions Are we still parsing options?
-     * @return void
-     */
-    protected function parsePositional(string $token, array &$positionals, array &$tokens, bool $parseOptions): void
-    {
-        if(empty($positionals))
-        {
+	/**
+	 * Parses a positional argument.
+	 *
+	 * @param  string $token        Token
+	 * @param  array  &$positionals Remaining positional arguments
+	 * @param  array  &$tokens      Remaining tokens
+	 * @param  bool   $parseOptions Are we still parsing options?
+	 * @return void
+	 */
+	protected function parsePositional(string $token, array &$positionals, array &$tokens, bool $parseOptions): void
+	{
+		if(empty($positionals))
+		{
 			if($this->ignoreUnknownArguments === false)
 			{
 				throw new InvalidArgumentException(vsprintf('Unknown positional argument with value [ %s ].', [$token]));
 			}
 
 			return;
-        }
+		}
 
-        $argument = $this->arguments[array_shift($positionals)];
+		$argument = $this->arguments[array_shift($positionals)];
 
-        while(true)
-        {
-            $this->storeValue($argument, null, $token);
+		while(true)
+		{
+			$this->storeValue($argument, null, $token);
 
-            if(!$argument->isArray() || ($next = current($tokens)) === false || ($parseOptions && strpos($next, '-') === 0))
-            {
-                break;
-            }
+			if(!$argument->isArray() || ($next = current($tokens)) === false || ($parseOptions && strpos($next, '-') === 0))
+			{
+				break;
+			}
 
-            $token = array_shift($tokens);
-        }
-    }
+			$token = array_shift($tokens);
+		}
+	}
 
-    /**
-     * Parses the arguments.
-     *
-     * @param  bool  $ignoreUnknownArguments Should unknown arguments be ignored?
-     * @return array
-     */
-    public function parse(bool $ignoreUnknownArguments = false): array
-    {
-        if(empty($this->parsed))
-        {
+	/**
+	 * Parses the arguments.
+	 *
+	 * @param  bool  $ignoreUnknownArguments Should unknown arguments be ignored?
+	 * @return array
+	 */
+	public function parse(bool $ignoreUnknownArguments = false): array
+	{
+		if(empty($this->parsed))
+		{
 			$this->ignoreUnknownArguments = $ignoreUnknownArguments;
 
-            // Parse input
+			// Parse input
 
 			$tokens = $this->argv;
 
@@ -413,31 +413,31 @@ class ArgvParser
 
 			$positionals = $this->positionals;
 
-            while(($token = array_shift($tokens)) !== null)
-            {
+			while(($token = array_shift($tokens)) !== null)
+			{
 				if($token === '--')
 				{
 					$parseOptions = false;
 				}
-                elseif($parseOptions && strpos($token, '--') === 0)
-                {
-                    $this->parseOption($token, $tokens);
-                }
-                elseif($parseOptions && strpos($token, '-') === 0)
-                {
-                    $this->parseAlias($token, $tokens);
-                }
-                else
-                {
-                    $this->parsePositional($token, $positionals, $tokens, $parseOptions);
-                }
-            }
+				elseif($parseOptions && strpos($token, '--') === 0)
+				{
+					$this->parseOption($token, $tokens);
+				}
+				elseif($parseOptions && strpos($token, '-') === 0)
+				{
+					$this->parseAlias($token, $tokens);
+				}
+				else
+				{
+					$this->parsePositional($token, $positionals, $tokens, $parseOptions);
+				}
+			}
 
 			// Ensure that all required arguments are set
 			// and fill in default values for missing optional arguments
 
-            foreach($this->arguments as $normalizedName => $argument)
-            {
+			foreach($this->arguments as $normalizedName => $argument)
+			{
 				if(!isset($this->parsed[$normalizedName]))
 				{
 					if(!$argument->isOptional())
@@ -447,10 +447,10 @@ class ArgvParser
 
 					$this->parsed[$normalizedName] = $argument->getDefaultValue();
 				}
-            }
-        }
+			}
+		}
 
-        return $this->parsed;
+		return $this->parsed;
 	}
 
 	/**

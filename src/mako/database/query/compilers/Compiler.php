@@ -842,7 +842,7 @@ class Compiler
 	/**
 	 * Compiles locking clause.
 	 *
-	 * @param   bool|string|null
+	 * @param  bool|string|null $lock Lock
 	 * @return string
 	 */
 	protected function lock($lock): string
