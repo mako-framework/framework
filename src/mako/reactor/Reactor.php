@@ -120,7 +120,7 @@ class Reactor
 
 		// Mute the output if we're told to do so
 
-		if($arguments->getArgumentValue('--mute'))
+		if($arguments->getArgumentValue('--mute') === true)
 		{
 			$this->output->mute();
 		}
