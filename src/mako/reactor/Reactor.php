@@ -351,19 +351,6 @@ class Reactor
 	}
 
 	/**
-	 * Dispatches a command.
-	 *
-	 * @param  string $command Command
-	 * @return int
-	 */
-	protected function dispatch(string $command): int
-	{
-		$exitCode = $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
-
-		return $exitCode ?? CommandInterface::STATUS_ERROR;
-	}
-
-	/**
 	 * Registers the command arguments and dispatches the command.
 	 *
 	 * @param  string $command
@@ -375,7 +362,7 @@ class Reactor
 
 		$this->input->getArgumentParser()->clearCache()->addArguments($commandInstance->getArguments());
 
-		return $this->dispatch($command);
+		return $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
 	}
 
 	/**
