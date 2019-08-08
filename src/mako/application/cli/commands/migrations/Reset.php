@@ -31,8 +31,8 @@ class Reset extends Command
 	{
 		return
 		[
-			new Argument('-f|--force', 'Force the schema reset?', Argument::IS_BOOL),
 			new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
+			new Argument('-f|--force', 'Force the schema reset?', Argument::IS_BOOL),
 		];
 	}
 

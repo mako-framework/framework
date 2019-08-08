@@ -31,8 +31,8 @@ class Status extends Command
 	{
 		return
 		[
-			new Argument('-e|--exit-code', 'Exits with 1 if there are outstanding migrations and 0 if there are none', Argument::IS_BOOL),
 			new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
+			new Argument('-e|--exit-code', 'Exits with 1 if there are outstanding migrations and 0 if there are none', Argument::IS_BOOL),
 		];
 	}
 

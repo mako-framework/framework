@@ -29,8 +29,8 @@ class Remove extends Command
 	{
 		return
 		[
-			new Argument('-k|--key', 'Cache key'),
 			new Argument('-c|--configuration', 'Configuration name', Argument::IS_OPTIONAL),
+			new Argument('-k|--key', 'Cache key'),
 		];
 	}
 

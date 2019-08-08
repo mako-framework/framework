@@ -45,9 +45,9 @@ class Server extends Command
 	{
 		return
 		[
-			new Argument('-p|--port', 'Port to run the server on', Argument::IS_OPTIONAL | Argument::IS_INT),
 			new Argument('-a|--address', 'Address to run the server on', Argument::IS_OPTIONAL),
 			new Argument('-d|--docroot', 'Path to the document root', Argument::IS_OPTIONAL),
+			new Argument('-p|--port', 'Port to run the server on', Argument::IS_OPTIONAL | Argument::IS_INT),
 		];
 	}
 

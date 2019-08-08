@@ -36,8 +36,8 @@ class Create extends Command
 	{
 		return
 		[
-			new Argument('-p|--package', 'Package name', Argument::IS_OPTIONAL),
 			new Argument('-d|--description', 'Migration description', Argument::IS_OPTIONAL),
+			new Argument('-p|--package', 'Package name', Argument::IS_OPTIONAL),
 		];
 	}
 
