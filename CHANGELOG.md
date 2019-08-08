@@ -1,3 +1,13 @@
+### 5.7.3, 6.0.2 <small> (2019-08-08)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* Package validation rule i18n messages will now work as expected.
+
+--------------------------------------------------------
+
 ### 5.7.2, 6.0.1 <small> (2019-05-21)</small>
 
 Update using ```composer update```.
