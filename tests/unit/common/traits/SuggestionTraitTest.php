@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\reactor\traits;
+namespace mako\tests\unit\common\traits;
 
-use mako\reactor\traits\SuggestionTrait;
+use mako\common\traits\SuggestionTrait;
 use mako\tests\TestCase;
 
 /**

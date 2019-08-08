@@ -5,14 +5,16 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\reactor\exceptions;
+namespace mako\cli\input\arguments\exceptions;
+
+use RuntimeException;
 
 /**
- * Invalid argument exception.
+ * Argument exception.
  *
  * @author Frederic G. Østby
  */
-class InvalidArgumentException extends ArgumentException
+class ArgumentException extends RuntimeException
 {
 
 }

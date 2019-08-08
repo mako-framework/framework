@@ -8,6 +8,7 @@
 namespace mako\application\cli\commands\cache;
 
 use mako\cache\CacheManager;
+use mako\cli\input\arguments\Argument;
 
 /**
  * Command that clears the cache.
@@ -17,29 +18,20 @@ use mako\cache\CacheManager;
 class Clear extends Command
 {
 	/**
-	 * Make the command strict.
-	 *
-	 * @var bool
+	 * {@inheritdoc}
 	 */
-	protected $isStrict = true;
+	protected $description = 'Clears the cache.';
 
 	/**
-	 * Command information.
-	 *
-	 * @var array
+	 * {@inheritdoc}
 	 */
-	protected $commandInformation =
-	[
-		'description' => 'Clears the cache.',
-		'options'     =>
+	public function getArguments(): array
+	{
+		return
 		[
-			'configuration' =>
-			[
-				'optional'    => true,
-				'description' => 'Configuration name',
-			],
-		],
-	];
+			new Argument('-c|--configuration', 'Configuration name', Argument::IS_OPTIONAL),
+		];
+	}
 
 	/**
 	 * Executes the command.

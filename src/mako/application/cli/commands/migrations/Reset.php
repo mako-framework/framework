@@ -8,6 +8,7 @@
 namespace mako\application\cli\commands\migrations;
 
 use mako\application\cli\commands\migrations\traits\RollbackTrait;
+use mako\cli\input\arguments\Argument;
 
 /**
  * Command that rolls back the last batch of migrations.
@@ -19,27 +20,21 @@ class Reset extends Command
 	use RollbackTrait;
 
 	/**
-	 * Command information.
-	 *
-	 * @var array
+	 * {@inheritdoc}
 	 */
-	protected $commandInformation =
-	[
-		'description' => 'Rolls back the last batch of migrations.',
-		'options'     =>
+	protected $description = 'Resets the database schema.';
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getArguments(): array
+	{
+		return
 		[
-			'force' =>
-			[
-				'optional'    => true,
-				'description' => 'Force the schema reset?',
-			],
-			'database' =>
-			[
-				'optional'    => true,
-				'description' => 'Sets which database connection to use',
-			],
-		],
-	];
+			new Argument('-f|--force', 'Force the schema reset?', Argument::IS_BOOL),
+			new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
+		];
+	}
 
 	/**
 	 * Executes the command.

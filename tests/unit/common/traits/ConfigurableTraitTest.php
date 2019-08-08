@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\common;
+namespace mako\tests\unit\common\traits;
 
 use mako\common\traits\ConfigurableTrait;
 use mako\tests\TestCase;

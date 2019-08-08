@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\common;
+namespace mako\tests\unit\common\traits;
 
 use BadMethodCallException;
 use mako\common\traits\ExtendableTrait;

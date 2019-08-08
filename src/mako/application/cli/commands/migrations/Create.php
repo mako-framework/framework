@@ -8,6 +8,7 @@
 namespace mako\application\cli\commands\migrations;
 
 use mako\application\Application;
+use mako\cli\input\arguments\Argument;
 use mako\file\FileSystem;
 use mako\reactor\Command;
 use Throwable;
@@ -24,27 +25,21 @@ use function vsprintf;
 class Create extends Command
 {
 	/**
-	 * Command information.
-	 *
-	 * @var array
+	 * {@inheritdoc}
 	 */
-	protected $commandInformation =
-	[
-		'description' => 'Creates a new migration.',
-		'options'     =>
+	protected $description = 'Creates a new migration.';
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getArguments(): array
+	{
+		return
 		[
-			'package' =>
-			[
-				'optional'    => true,
-				'description' => 'Package name',
-			],
-			'description' =>
-			[
-				'optional'    => true,
-				'description' => 'Migration description',
-			],
-		],
-	];
+			new Argument('-p|--package', 'Package name', Argument::IS_OPTIONAL),
+			new Argument('-d|--description', 'Migration description', Argument::IS_OPTIONAL),
+		];
+	}
 
 	/**
 	 * Executes the command.

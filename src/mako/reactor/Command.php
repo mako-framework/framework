@@ -7,6 +7,7 @@
 
 namespace mako\reactor;
 
+use mako\cli\input\arguments\Argument;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\reactor\traits\CommandHelperTrait;
@@ -35,8 +36,16 @@ abstract class Command implements CommandInterface
 	protected $output;
 
 	/**
+	 * Command description.
+	 *
+	 * @var string
+	 */
+	protected $description;
+
+	/**
 	 * Command information.
 	 *
+	 * @deprecated 7.0
 	 * @var array
 	 */
 	protected $commandInformation =
@@ -45,13 +54,6 @@ abstract class Command implements CommandInterface
 		'arguments'   => [],
 		'options'     => [],
 	];
-
-	/**
-	 * Should we be strict about what arguments and options we allow?
-	 *
-	 * @var bool
-	 */
-	protected $isStrict = false;
 
 	/**
 	 * Constructor.
@@ -69,32 +71,34 @@ abstract class Command implements CommandInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getCommandDescription(): string
+	public function getDescription(): string
 	{
-		return $this->commandInformation['description'] ?? '';
+		return $this->description ?? $this->commandInformation['description'] ?? '';
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getCommandArguments(): array
+	public function getArguments(): array
 	{
-		return $this->commandInformation['arguments'] ?? [];
-	}
+		$arguments = [];
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getCommandOptions(): array
-	{
-		return $this->commandInformation['options'] ?? [];
-	}
+		if(!empty($this->commandInformation['arguments']))
+		{
+			foreach($this->commandInformation['arguments'] as $name => $argument)
+			{
+				$arguments[] = new Argument($name, $argument['description'], $argument['optional'] ? Argument::IS_OPTIONAL : 0);
+			}
+		}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function isStrict(): bool
-	{
-		return $this->isStrict;
+		if(!empty($this->commandInformation['options']))
+		{
+			foreach($this->commandInformation['options'] as $name => $argument)
+			{
+				$arguments[] = new Argument("--{$name}", $argument['description'], $argument['optional'] ? Argument::IS_OPTIONAL : 0);
+			}
+		}
+
+		return $arguments;
 	}
 }

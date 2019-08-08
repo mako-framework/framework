@@ -7,6 +7,8 @@
 
 namespace mako\application\cli\commands\migrations;
 
+use mako\cli\input\arguments\Argument;
+
 use function count;
 use function vsprintf;
 
@@ -18,27 +20,21 @@ use function vsprintf;
 class Status extends Command
 {
 	/**
-	 * Command information.
-	 *
-	 * @var array
+	 * {@inheritdoc}
 	 */
-	protected $commandInformation =
-	[
-		'description' => 'Checks if there are any outstanding migrations.',
-		'options'     =>
+	protected $description = 'Checks if there are any outstanding migrations.';
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getArguments(): array
+	{
+		return
 		[
-			'database' =>
-			[
-				'optional'    => true,
-				'description' => 'Sets which database connection to use',
-			],
-			'exit-code' =>
-			[
-				'optional'    => true,
-				'description' => 'Exits with 1 if there are outstanding migrations and 0 if there are none',
-			],
-		],
-	];
+			new Argument('-e|--exit-code', 'Exits with 1 if there are outstanding migrations and 0 if there are none', Argument::IS_BOOL),
+			new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
+		];
+	}
 
 	/**
 	 * Executes the command.

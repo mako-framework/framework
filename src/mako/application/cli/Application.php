@@ -20,19 +20,21 @@ use mako\application\cli\commands\migrations\Status;
 use mako\application\cli\commands\migrations\Up;
 use mako\application\cli\commands\server\Server;
 use mako\cache\CacheManager;
+use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\ArgvParser;
 use mako\cli\input\Input;
 use mako\cli\input\reader\Reader;
 use mako\cli\output\formatter\Formatter;
 use mako\cli\output\Output;
 use mako\cli\output\writer\Error;
 use mako\cli\output\writer\Standard;
-use mako\config\Config;
 use mako\database\ConnectionManager as DatabaseConnectionManager;
 use mako\http\routing\Routes;
 use mako\Mako;
 use mako\reactor\Reactor;
 
 use function array_merge;
+use function array_shift;
 use function file_get_contents;
 use function ob_start;
 use function putenv;
@@ -59,7 +61,11 @@ class Application extends BaseApplication
 	 */
 	protected function inputFactory(): Input
 	{
-		return new Input(new Reader);
+		$argv = $_SERVER['argv'];
+
+		array_shift($argv); // Remove the script name
+
+		return new Input(new Reader, new ArgvParser($argv));
 	}
 
 	/**
@@ -95,21 +101,41 @@ class Application extends BaseApplication
 	}
 
 	/**
-	 * Registers global reactor options.
+	 * Registers global arguments.
 	 */
-	protected function registerGlobalReactorOptions(): void
+	protected function registerGlobalArguments(): void
 	{
-		$this->reactor->registerGlobalOption('env', 'Overrides the Mako environment', function(Config $config, $option): void
-		{
-			putenv("MAKO_ENV={$option}");
+		$this->reactor->getInput()->getArgumentParser()->addArguments
+		([
+			new Argument('--env', 'Overrides the Mako environment', Argument::IS_OPTIONAL),
+			new Argument('--mute', 'Mutes all output', Argument::IS_BOOL),
+		]);
+	}
 
-			$config->setEnvironment($option);
-		}, 'init');
+	/**
+	 * Handles global arguments.
+	 *
+	 * @return void
+	 */
+	protected function handleGlobalArguments(): void
+	{
+		$arguments = $this->reactor->getInput()->getArgumentParser()->parse(true);
 
-		$this->reactor->registerGlobalOption('mute', 'Mutes all output', function(Output $output): void
+		// Set the environment if we got one
+
+		if($arguments['env'] !== null)
 		{
-			$output->mute();
-		}, 'init');
+			putenv("MAKO_ENV={$arguments['env']}");
+
+			$this->config->setEnvironment($arguments['env']);
+		}
+
+		// Mute the output if we are told to do so
+
+		if($arguments['mute'] === true)
+		{
+			$this->reactor->getOutput()->mute();
+		}
 	}
 
 	/**
@@ -133,13 +159,13 @@ class Application extends BaseApplication
 
 		$this->reactor->setLogo($this->loadLogo());
 
-		// Register global options
+		// Register global arguments
 
-		$this->registerGlobalReactorOptions();
+		$this->registerGlobalArguments();
 
-		// Handle initialization options
+		// Handle initialization arguments
 
-		$this->reactor->handleGlobalOptions('init');
+		$this->handleGlobalArguments();
 	}
 
 	/**

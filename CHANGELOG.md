@@ -1,3 +1,23 @@
+### 6.2.0 <small> (2019-??-??)</small>
+
+#### New
+
+* New and improved command line argument parser.
+
+#### Changes
+
+* Commands are now required to define their arguments.
+* The `Command::$isStrict` property doesn't do anything as all commands are required to define their arguments.
+
+#### Deprecations
+
+* The `Command::$isStrict` property is deprecated and will be removed in `7.0`.
+* The `Command::$commandInformation` property is deprecated and will be removed in `7.0`.
+
+> Check out the upgrade guide for details on how to upgrade from `6.1.*.`
+
+--------------------------------------------------------
+
 ### 6.1.0 <small> (2019-08-02)</small>
 
 #### New

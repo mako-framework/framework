@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\reactor\traits;
+namespace mako\common\traits;
 
 use function similar_text;
 

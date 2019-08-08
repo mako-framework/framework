@@ -7,11 +7,16 @@
 
 namespace mako\tests\unit\reactor;
 
-use mako\reactor\exceptions\InvalidArgumentException;
-use mako\reactor\exceptions\InvalidOptionException;
-use mako\reactor\exceptions\MissingArgumentException;
-use mako\reactor\exceptions\MissingOptionException;
+use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\ArgvParser;
+use mako\cli\input\arguments\exceptions\InvalidArgumentException;
+use mako\cli\input\arguments\exceptions\UnexpectedValueException;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
+use mako\reactor\CommandInterface;
+use mako\reactor\Dispatcher;
 use mako\reactor\Reactor;
+use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -25,15 +30,19 @@ class ReactorTest extends TestCase
 	 */
 	public function testNoInput(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn(null);
-
-		$input->shouldReceive('getArgument')->once()->with('option')->andReturn(null);
+		$argvParser = new ArgvParser([]);
 
 		//
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn(null);
+
+		//
+
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
@@ -45,14 +54,15 @@ class ReactorTest extends TestCase
 
 		$output->shouldReceive('writeLn')->once()->with('php reactor [command] [arguments] [options]');
 
-		$output->shouldReceive('writeLn')->once()->with('<yellow>Global options:</yellow>');
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Global arguments and options:</yellow>');
 
 $optionsTable = <<<EOF
-------------------------------------------------------
-| <green>Option</green> | <green>Description</green> |
-------------------------------------------------------
-| --option              | option description         |
-------------------------------------------------------
+--------------------------------------------------------------------------------
+| <green>Name</green> | <green>Description</green>   | <green>Optional</green> |
+--------------------------------------------------------------------------------
+| command             | Command name                 | Yes                     |
+| --help              | Displays helpful information | Yes                     |
+--------------------------------------------------------------------------------
 
 EOF;
 		$output->shouldReceive('write')->once()->with($optionsTable, 1);
@@ -72,15 +82,15 @@ EOF;
 
 		//
 
-		$container = Mockery::mock('mako\syringe\Container');
+		$container = Mockery::mock(Container::class);
 
-		$command = Mockery::mock('mako\reactor\CommandInterface');
+		$command = Mockery::mock(CommandInterface::class);
 
-		$command->shouldReceive('getCommandDescription')->once()->andReturn('foo description');
+		$command->shouldReceive('getDescription')->once()->andReturn('foo description');
 
 		//
 
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 
@@ -91,8 +101,6 @@ EOF;
 		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->andReturn($command);
 
 		$reactor->setLogo('logo');
-
-		$reactor->registerGlobalOption('option', 'option description', function(): void {});
 
 		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
 
@@ -106,13 +114,19 @@ EOF;
 	 */
 	public function testUknownCommand(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foobar');
+		$argvParser = new ArgvParser([]);
 
 		//
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foobar');
+
+		//
+
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
@@ -120,11 +134,11 @@ EOF;
 
 		//
 
-		$container = Mockery::mock('mako\syringe\Container');
+		$container = Mockery::mock(Container::class);
 
 		//
 
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 
@@ -140,13 +154,19 @@ EOF;
 	 */
 	public function testUknownCommandWithSuggestion(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('sevrer');
+		$argvParser = new ArgvParser([]);
 
 		//
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('sevrer');
+
+		//
+
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(3);
 
@@ -158,17 +178,17 @@ EOF;
 
 		//
 
-		$command = Mockery::mock('mako\reactor\CommandInterface');
+		$command = Mockery::mock(CommandInterface::class);
 
-		$command->shouldReceive('getCommandDescription')->once()->andReturn('server description');
-
-		//
-
-		$container = Mockery::mock('mako\syringe\Container');
+		$command->shouldReceive('getDescription')->once()->andReturn('server description');
 
 		//
 
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+		$container = Mockery::mock(Container::class);
+
+		//
+
+		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 
@@ -190,13 +210,19 @@ EOF;
 	 */
 	public function testUknownCommandWithNoSuggestion(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('sevrer');
+		$argvParser = new ArgvParser([]);
 
 		//
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('sevrer');
+
+		//
+
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(3);
 
@@ -208,17 +234,17 @@ EOF;
 
 		//
 
-		$command = Mockery::mock('mako\reactor\CommandInterface');
+		$command = Mockery::mock(CommandInterface::class);
 
-		$command->shouldReceive('getCommandDescription')->once()->andReturn('server description');
-
-		//
-
-		$container = Mockery::mock('mako\syringe\Container');
+		$command->shouldReceive('getDescription')->once()->andReturn('server description');
 
 		//
 
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+		$container = Mockery::mock(Container::class);
+
+		//
+
+		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 
@@ -240,69 +266,35 @@ EOF;
 	 */
 	public function testCommandWithInvalidArguments(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
-
-		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
-
-		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
+		$argvParser = new ArgvParser([]);
 
 		//
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
+
+		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
+
+		$input->shouldReceive('getArguments')->once()->andReturn(['command' => 'foo']);
+
+		//
+
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('errorLn')->once()->with('<red>Invalid argument [ bar ].</red>');
 
 		//
 
-		$container = Mockery::mock('mako\syringe\Container');
+		$container = Mockery::mock(Container::class);
 
 		//
 
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+		$dispatcher = Mockery::mock(Dispatcher::class);
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidArgumentException('Invalid argument [ bar ].', 'bar'));
-
-		//
-
-		$reactor = new Reactor($input, $output, $container, $dispatcher);
-
-		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
-
-		$exitCode = $reactor->run();
-
-		$this->assertSame(1, $exitCode);
-	}
-
-	/**
-	 *
-	 */
-	public function testCommandWithInvalidOptions(): void
-	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
-
-		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
-
-		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
-
-		//
-
-		$output = Mockery::mock('mako\cli\output\Output');
-
-		$output->shouldReceive('errorLn')->once()->with('<red>Invalid option [ bar ].</red>');
-
-		//
-
-		$container = Mockery::mock('mako\syringe\Container');
-
-		//
-
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
-
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidOptionException('Invalid option [ bar ].', 'bar'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['command' => 'foo'])->andThrow(new InvalidArgumentException('Invalid argument [ bar ].'));
 
 		//
 
@@ -318,111 +310,37 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommandWithInvalidOptionsAndSuggestion(): void
+	public function testCommandWithInvalidInput(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
-
-		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
-
-		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
+		$argvParser = new ArgvParser([]);
 
 		//
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		$input = Mockery::mock(Input::class);
 
-		$output->shouldReceive('errorLn')->once()->with('<red>Invalid option [ bar ]. Did you mean [ baz ]?</red>');
+		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
 
-		//
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
 
-		$container = Mockery::mock('mako\syringe\Container');
+		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
 
-		//
-
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
-
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new InvalidOptionException('Invalid option [ bar ].', 'bar', 'baz'));
+		$input->shouldReceive('getArguments')->once()->andReturn(['command' => 'foo']);
 
 		//
 
-		$reactor = new Reactor($input, $output, $container, $dispatcher);
+		$output = Mockery::mock(Output::class);
 
-		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
-
-		$exitCode = $reactor->run();
-
-		$this->assertSame(1, $exitCode);
-	}
-
-	/**
-	 *
-	 */
-	public function testCommandWithMissingRequiredArguments(): void
-	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
-
-		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
-
-		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
+		$output->shouldReceive('errorLn')->once()->with('<red>Unexpected value.</red>');
 
 		//
 
-		$output = Mockery::mock('mako\cli\output\Output');
-
-		$output->shouldReceive('errorLn')->once()->with('<red>Missing required argument [ bar ].</red>');
+		$container = Mockery::mock(Container::class);
 
 		//
 
-		$container = Mockery::mock('mako\syringe\Container');
+		$dispatcher = Mockery::mock(Dispatcher::class);
 
-		//
-
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
-
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new MissingArgumentException('Missing required argument [ bar ].', 'bar'));
-
-		//
-
-		$reactor = new Reactor($input, $output, $container, $dispatcher);
-
-		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
-
-		$exitCode = $reactor->run();
-
-		$this->assertSame(1, $exitCode);
-	}
-
-	/**
-	 *
-	 */
-	public function testCommandWithMissingRequiredOption(): void
-	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
-
-		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
-
-		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
-
-		//
-
-		$output = Mockery::mock('mako\cli\output\Output');
-
-		$output->shouldReceive('errorLn')->once()->with('<red>Missing required option [ bar ].</red>');
-
-		//
-
-		$container = Mockery::mock('mako\syringe\Container');
-
-		//
-
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
-
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], [])->andThrow(new MissingOptionException('Missing required option [ bar ].', 'bar'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['command' => 'foo'])->andThrow(new UnexpectedValueException('Unexpected value.'));
 
 		//
 
@@ -440,27 +358,33 @@ EOF;
 	 */
 	public function testCommand(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
-
-		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
-
-		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo']);
+		$argvParser = new ArgvParser([]);
 
 		//
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
+
+		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
+
+		$input->shouldReceive('getArguments')->once()->andReturn(['command' => 'foo']);
 
 		//
 
-		$container = Mockery::mock('mako\syringe\Container');
+		$output = Mockery::mock(Output::class);
 
 		//
 
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+		$container = Mockery::mock(Container::class);
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo'], []);
+		//
+
+		$dispatcher = Mockery::mock(Dispatcher::class);
+
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['command' => 'foo']);
 
 		//
 
@@ -476,68 +400,27 @@ EOF;
 	/**
 	 *
 	 */
-	public function testCommandWithCustomOption(): void
-	{
-		$closure = function(): void {};
-
-		//
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
-
-		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(false);
-
-		$input->shouldReceive('getArgument')->once()->with('option')->andReturn(true);
-
-		$input->shouldReceive('getArguments')->once()->andReturn(['reactor', 'foo', 'option']);
-
-		//
-
-		$output = Mockery::mock('mako\cli\output\Output');
-
-		//
-
-		$container = Mockery::mock('mako\syringe\Container');
-
-		$container->shouldReceive('call')->once()->with($closure, ['option' => true]);
-
-		//
-
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
-
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['reactor', 'foo', 'option'], ['option'])->andReturn(123);
-
-		//
-
-		$reactor = new Reactor($input, $output, $container, $dispatcher);
-
-		$reactor->registerGlobalOption('option', 'option description', $closure);
-
-		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
-
-		$exitCode = $reactor->run();
-
-		$this->assertSame(123, $exitCode);
-	}
-
-	/**
-	 *
-	 */
 	public function testDisplayCommandHelp(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
-
-		$input->shouldReceive('getArgument')->once()->with(1)->andReturn('foo');
-
-		$input->shouldReceive('getArgument')->once()->with('help', false)->andReturn(true);
+		$argvParser = new ArgvParser([]);
 
 		//
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
+
+		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(true);
+
+		//
+
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
-		$output->shouldReceive('write')->times(7)->with(PHP_EOL);
+		$output->shouldReceive('write')->times(5)->with(PHP_EOL);
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Command:</yellow>');
 
@@ -547,49 +430,41 @@ EOF;
 
 		$output->shouldReceive('writeLn')->once()->with('Command description.');
 
-		$output->shouldReceive('writeLn')->once()->with('<yellow>Arguments:</yellow>');
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Arguments and options:</yellow>');
 
 		$argumentsTable = <<<EOF
 ------------------------------------------------------------------------------
 | <green>Name</green> | <green>Description</green> | <green>Optional</green> |
 ------------------------------------------------------------------------------
-| arg2                | Argument description.      | true                    |
+| argument            | Argument description.      | Yes                     |
+| --option1           | Option description.        | Yes                     |
+| -o | --option2      | Option description.        | No                      |
 ------------------------------------------------------------------------------
 
 EOF;
 
 		$output->shouldReceive('write')->once()->with($argumentsTable, 1);
 
-		$output->shouldReceive('writeLn')->once()->with('<yellow>Options:</yellow>');
+		//
 
-		$optionsTable = <<<EOF
-------------------------------------------------------------------------------
-| <green>Name</green> | <green>Description</green> | <green>Optional</green> |
-------------------------------------------------------------------------------
-| option              | Option description.        | true                    |
-------------------------------------------------------------------------------
+		$command = Mockery::mock(CommandInterface::class);
 
-EOF;
+		$command->shouldReceive('getDescription')->once()->andReturn('Command description.');
 
-		$output->shouldReceive('write')->once()->with($optionsTable, 1);
+		$command->shouldReceive('getArguments')->once()->andReturn
+		([
+			new Argument('argument', 'Argument description.', Argument::IS_OPTIONAL),
+			new Argument('--option1', 'Option description.', Argument::IS_OPTIONAL),
+			new Argument('-o|--option2', 'Option description.'),
+		]);
 
 		//
 
-		$command = Mockery::mock('mako\reactor\CommandInterface');
-
-		$command->shouldReceive('getCommandDescription')->once()->andReturn('Command description.');
-
-		$command->shouldReceive('getCommandArguments')->once()->andReturn(['arg2' => ['optional' => true, 'description' => 'Argument description.']]);
-
-		$command->shouldReceive('getCommandOptions')->once()->andReturn(['option' => ['optional' => true, 'description' => 'Option description.']]);
+		$container = Mockery::mock(Container::class);
 
 		//
 
-		$container = Mockery::mock('mako\syringe\Container');
-
-		//
-
-		$dispatcher = Mockery::mock('mako\reactor\Dispatcher');
+		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 

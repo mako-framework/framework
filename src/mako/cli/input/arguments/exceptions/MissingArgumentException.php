@@ -5,14 +5,14 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\reactor\exceptions;
+namespace mako\cli\input\arguments\exceptions;
 
 /**
- * Missing option exception.
+ * Missing argument exception.
  *
  * @author Frederic G. Østby
  */
-class MissingOptionException extends ArgumentException
+class MissingArgumentException extends ArgumentException
 {
 
 }

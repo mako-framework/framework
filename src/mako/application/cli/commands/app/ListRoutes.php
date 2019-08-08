@@ -21,21 +21,9 @@ use function implode;
 class ListRoutes extends Command
 {
 	/**
-	 * Make the command strict.
-	 *
-	 * @var bool
+	 * {@inheritdoc}
 	 */
-	protected $isStrict = true;
-
-	/**
-	 * Command information.
-	 *
-	 * @var array
-	 */
-	protected $commandInformation =
-	[
-		'description' => 'Lists all registered routes.',
-	];
+	protected $description = 'Lists all registered routes.';
 
 	/**
 	 * Executes the command.

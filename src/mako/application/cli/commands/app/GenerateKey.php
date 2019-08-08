@@ -18,21 +18,9 @@ use mako\security\Key;
 class GenerateKey extends Command
 {
 	/**
-	 * Make the command strict.
-	 *
-	 * @var bool
+	 * {@inheritdoc}
 	 */
-	protected $isStrict = true;
-
-	/**
-	 * Command information.
-	 *
-	 * @var array
-	 */
-	protected $commandInformation =
-	[
-		'description' => 'Generates a 256-bit encryption key.',
-	];
+	protected $description = 'Generates a 256-bit encryption key.';
 
 	/**
 	 * Executes the command.
