@@ -101,7 +101,7 @@ trait I18nAwareTrait
 	 */
 	public function getTranslatedErrorMessage(string $field, string $rule, ?string $package = null): string
 	{
-		$package = empty($package) ? '' : "{$package}::";
+		$rule = str_replace(($package = empty($package) ? '' : "{$package}::"), '', $rule);
 
 		// Return custom error message if we have one
 
