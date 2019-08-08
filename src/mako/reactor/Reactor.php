@@ -369,7 +369,7 @@ class Reactor
 	{
 		$commandInstance = $this->instantiateCommandWithoutConstructor($this->commands[$command]);
 
-		$this->input->getArgumentParser()->addArguments($commandInstance->getArguments());
+		$this->input->getArgumentParser()->clearCache()->addArguments($commandInstance->getArguments());
 
 		return $this->dispatch($command);
 	}

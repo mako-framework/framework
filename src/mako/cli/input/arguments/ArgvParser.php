@@ -145,6 +145,18 @@ class ArgvParser
 	}
 
 	/**
+	 * Clears the parsed argument cache.
+	 *
+	 * @return $this
+	 */
+	public function clearCache()
+	{
+		$this->parsed = [];
+
+		return $this;
+	}
+
+	/**
 	 * Add argument.
 	 *
 	 * @param  Argument $argument Argument
@@ -190,7 +202,7 @@ class ArgvParser
 
 		// Reset the parsed array since we have added new arguments
 
-		$this->parsed = [];
+		$this->clearCache();
 	}
 
 	/**
