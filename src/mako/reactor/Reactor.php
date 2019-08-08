@@ -92,18 +92,38 @@ class Reactor
 
 		$this->dispatcher = $dispatcher ?? new Dispatcher($this->container);
 
+		$this->setup();
+	}
+
+	/**
+	 * Setup the reactor.
+	 *
+	 * @return void
+	 */
+	protected function setup(): void
+	{
+		$arguments = $this->input->getArgumentParser();
+
 		// Register default reactor arguments
 
-		$this->input->getArgumentParser()->addArguments
+		$arguments->addArguments
 		([
 			new Argument('command', 'Command name', Argument::IS_OPTIONAL),
 			new Argument('--help', 'Displays helpful information', Argument::IS_BOOL),
+			new Argument('--mute', 'Mutes all output', Argument::IS_BOOL),
 		]);
 
 		// Preparse arguments and ignore unknown arguments so that we
 		// don't trigger any errors before the command arguments get registered
 
-		$this->input->getArgumentParser()->parse(true);
+		$arguments->parse(true);
+
+		// Mute the output if we're told to do so
+
+		if($arguments->getArgumentValue('--mute'))
+		{
+			$this->output->mute();
+		}
 	}
 
 	/**

@@ -101,25 +101,24 @@ class Application extends BaseApplication
 	}
 
 	/**
-	 * Registers global arguments.
-	 */
-	protected function registerGlobalArguments(): void
-	{
-		$this->reactor->getInput()->getArgumentParser()->addArguments
-		([
-			new Argument('--env', 'Overrides the Mako environment', Argument::IS_OPTIONAL),
-			new Argument('--mute', 'Mutes all output', Argument::IS_BOOL),
-		]);
-	}
-
-	/**
-	 * Handles global arguments.
+	 * Register and handle global arguments.
 	 *
 	 * @return void
 	 */
-	protected function handleGlobalArguments(): void
+	protected function registerAndhandleGlobalArguments(): void
 	{
-		$arguments = $this->reactor->getInput()->getArgumentParser()->parse(true);
+		$arguments = $this->reactor->getInput()->getArgumentParser();
+
+		// Register global arguments
+
+		$arguments->addArguments
+		([
+			new Argument('--env', 'Overrides the Mako environment', Argument::IS_OPTIONAL),
+		]);
+
+		// Get arguments
+
+		$arguments = $arguments->parse(true);
 
 		// Set the environment if we got one
 
@@ -128,13 +127,6 @@ class Application extends BaseApplication
 			putenv("MAKO_ENV={$arguments['env']}");
 
 			$this->config->setEnvironment($arguments['env']);
-		}
-
-		// Mute the output if we are told to do so
-
-		if($arguments['mute'] === true)
-		{
-			$this->reactor->getOutput()->mute();
 		}
 	}
 
@@ -159,13 +151,9 @@ class Application extends BaseApplication
 
 		$this->reactor->setLogo($this->loadLogo());
 
-		// Register global arguments
+		// Register and handle global arguments
 
-		$this->registerGlobalArguments();
-
-		// Handle initialization arguments
-
-		$this->handleGlobalArguments();
+		$this->registerAndhandleGlobalArguments();
 	}
 
 	/**

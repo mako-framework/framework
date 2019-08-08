@@ -62,6 +62,94 @@ $optionsTable = <<<EOF
 --------------------------------------------------------------------------------
 | command             | Command name                 | Yes                     |
 | --help              | Displays helpful information | Yes                     |
+| --mute              | Mutes all output             | Yes                     |
+--------------------------------------------------------------------------------
+
+EOF;
+		$output->shouldReceive('write')->once()->with($optionsTable, 1);
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Available commands:</yellow>');
+
+$commandsTable = <<<EOF
+-------------------------------------------------------
+| <green>Command</green> | <green>Description</green> |
+-------------------------------------------------------
+| foo                    | foo description            |
+-------------------------------------------------------
+
+EOF;
+
+		$output->shouldReceive('write')->once()->with($commandsTable, 1);
+
+		//
+
+		$container = Mockery::mock(Container::class);
+
+		$command = Mockery::mock(CommandInterface::class);
+
+		$command->shouldReceive('getDescription')->once()->andReturn('foo description');
+
+		//
+
+		$dispatcher = Mockery::mock(Dispatcher::class);
+
+		//
+
+		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+
+		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->andReturn($command);
+
+		$reactor->setLogo('logo');
+
+		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
+
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
+	}
+
+	/**
+	 *
+	 */
+	public function testNoInputWithMute(): void
+	{
+		$argvParser = new ArgvParser(['--mute']);
+
+		//
+
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn(null);
+
+		//
+
+		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('mute')->once();
+
+		$output->shouldReceive('getFormatter')->andReturn(null);
+
+		$output->shouldReceive('write')->times(6)->with(PHP_EOL);
+
+		$output->shouldReceive('writeLn')->once()->with('logo');
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Usage:</yellow>');
+
+		$output->shouldReceive('writeLn')->once()->with('php reactor [command] [arguments] [options]');
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Global arguments and options:</yellow>');
+
+$optionsTable = <<<EOF
+--------------------------------------------------------------------------------
+| <green>Name</green> | <green>Description</green>   | <green>Optional</green> |
+--------------------------------------------------------------------------------
+| command             | Command name                 | Yes                     |
+| --help              | Displays helpful information | Yes                     |
+| --mute              | Mutes all output             | Yes                     |
 --------------------------------------------------------------------------------
 
 EOF;
