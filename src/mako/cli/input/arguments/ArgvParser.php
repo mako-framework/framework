@@ -159,7 +159,7 @@ class ArgvParser
 	/**
 	 * Add argument.
 	 *
-	 * @param  Argument $argument Argument
+	 * @param  \mako\cli\input\arguments\Argument $argument Argument
 	 * @return void
 	 */
 	public function addArgument(Argument $argument): void
@@ -222,9 +222,9 @@ class ArgvParser
 	/**
 	 * Casts the value to the desired type.
 	 *
-	 * @param  Argument              $argument Argument
-	 * @param  string|null           $token    Token
-	 * @param  string|bool           $value    Value
+	 * @param  \mako\cli\input\arguments\Argument $argument Argument
+	 * @param  string|null                        $token    Token
+	 * @param  string|bool                        $value    Value
 	 * @return string|bool|float|int
 	 */
 	protected function castValue(Argument $argument, ?string $token, $value)
@@ -254,9 +254,9 @@ class ArgvParser
 	/**
 	 * Store the value.
 	 *
-	 * @param  Argument    $argument Argument
-	 * @param  string|null $token    Token
-	 * @param  string|bool $value    Value
+	 * @param  \mako\cli\input\arguments\Argument $argument Argument
+	 * @param  string|null                        $token    Token
+	 * @param  string|bool                        $value    Value
 	 * @return void
 	 */
 	protected function storeValue(Argument $argument, ?string $token, $value): void
@@ -281,10 +281,10 @@ class ArgvParser
 	/**
 	 * Stores option values.
 	 *
-	 * @param  Argument    $argument Argument
-	 * @param  string      $token    Token
-	 * @param  string|null $value    Value
-	 * @param  array       &$tokens  Remaining tokens
+	 * @param  \mako\cli\input\arguments\Argument $argument Argument
+	 * @param  string                             $token    Token
+	 * @param  string|null                        $value    Value
+	 * @param  array                              &$tokens  Remaining tokens
 	 * @return void
 	 */
 	protected function storeOptionValue(Argument $argument, string $token, ?string $value, array &$tokens): void
