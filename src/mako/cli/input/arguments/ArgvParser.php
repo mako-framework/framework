@@ -38,14 +38,14 @@ class ArgvParser
      *
      * @var string
      */
-    const REGEX_INT = '/^([+-]?[1-9]\d*|0)$/';
+    const INT_REGEX = '/^([+-]?[1-9]\d*|0)$/';
 
     /**
      * Regex that matches floats.
      *
      * @var string
      */
-    const REGEX_FLOAT = '/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/';
+    const FLOAT_REGEX = '/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/';
 
     /**
      * Argv.
@@ -219,7 +219,7 @@ class ArgvParser
     {
         if($argument->isInt())
         {
-            if(preg_match(static::REGEX_INT, $value) !== 1)
+            if(preg_match(static::INT_REGEX, $value) !== 1)
             {
                 throw new UnexpectedValueException(vsprintf('The [ %s ] argument expects an integer.', [$token ?? $argument->getName()]));
             }
@@ -228,7 +228,7 @@ class ArgvParser
         }
         elseif($argument->isFloat())
         {
-            if(preg_match(static::REGEX_FLOAT, $value) !== 1)
+            if(preg_match(static::FLOAT_REGEX, $value) !== 1)
             {
                 throw new UnexpectedValueException(vsprintf('The [ %s ] argument expects a float.', [$token ?? $argument->getName()]));
             }

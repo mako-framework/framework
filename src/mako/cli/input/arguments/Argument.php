@@ -65,14 +65,14 @@ class Argument
 	 *
 	 * @var string
 	 */
-	const REGEX_NAME = '/^(--)?(?!.*(--|__|-_|_-))[a-z][a-z0-9-_]+(?<!(-|_))$/i';
+	const NAME_REGEX = '/^(--)?(?!.*(--|__|-_|_-))[a-z][a-z0-9-_]+(?<!(-|_))$/i';
 
 	/**
 	 * Regex that matches allowed aliases.
 	 *
 	 * @var string
 	 */
-	const REGEX_ALIAS = '/^-[a-z]$/i';
+	const ALIAS_REGEX = '/^-[a-z]$/i';
 
     /**
      * Argument name.
@@ -164,7 +164,7 @@ class Argument
 	 */
 	protected function getValidatedName(string $name): string
     {
-        if(preg_match(static::REGEX_NAME, $name) !== 1)
+        if(preg_match(static::NAME_REGEX, $name) !== 1)
         {
             throw new RuntimeException(vsprintf('Invalid argument name [ %s ].', [$name]));
 		}
@@ -180,7 +180,7 @@ class Argument
      */
     protected function getValidatedAlias(string $alias): string
     {
-        if(preg_match(static::REGEX_ALIAS, $alias) !== 1)
+        if(preg_match(static::ALIAS_REGEX, $alias) !== 1)
         {
             throw new RuntimeException(vsprintf('Invalid argument alias [ %s ].', [$alias]));
         }
