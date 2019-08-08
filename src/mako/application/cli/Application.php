@@ -22,6 +22,8 @@ use mako\application\cli\commands\server\Server;
 use mako\cache\CacheManager;
 use mako\cli\input\arguments\Argument;
 use mako\cli\input\arguments\ArgvParser;
+use mako\cli\input\arguments\exceptions\ArgumentException;
+use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\cli\input\Input;
 use mako\cli\input\reader\Reader;
 use mako\cli\output\formatter\Formatter;
@@ -31,6 +33,7 @@ use mako\cli\output\writer\Standard;
 use mako\database\ConnectionManager as DatabaseConnectionManager;
 use mako\http\routing\Routes;
 use mako\Mako;
+use mako\reactor\CommandInterface;
 use mako\reactor\Reactor;
 
 use function array_merge;
@@ -118,7 +121,16 @@ class Application extends BaseApplication
 
 		// Get arguments
 
-		$arguments = $arguments->parse(true);
+		try
+		{
+			$arguments = $arguments->parse(true);
+		}
+		catch(ArgumentException | UnexpectedValueException $e)
+		{
+			$this->reactor->getOutput()->errorLn("<red>{$e->getMessage()}</red>");
+
+			exit(CommandInterface::STATUS_ERROR);
+		}
 
 		// Set the environment if we got one
 
@@ -243,8 +255,6 @@ class Application extends BaseApplication
 
 		// Run the reactor
 
-		$exitCode = $this->reactor->run();
-
-		exit($exitCode);
+		exit($this->reactor->run());
 	}
 }

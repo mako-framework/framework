@@ -40,6 +40,8 @@ class ReactorTest extends TestCase
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn(null);
 
+		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
+
 		//
 
 		$output = Mockery::mock(Output::class);
@@ -124,6 +126,8 @@ EOF;
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn(null);
+
+		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(true);
 
 		//
 
@@ -212,6 +216,8 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foobar');
 
+		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
+
 		//
 
 		$output = Mockery::mock(Output::class);
@@ -251,6 +257,8 @@ EOF;
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('sevrer');
+
+		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
 
 		//
 
@@ -308,6 +316,8 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('sevrer');
 
+		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
+
 		//
 
 		$output = Mockery::mock(Output::class);
@@ -364,6 +374,8 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
 
+		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
+
 		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
 
 		$input->shouldReceive('getArguments')->once()->andReturn(['command' => 'foo']);
@@ -409,6 +421,8 @@ EOF;
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
+
+		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
 
 		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
 
@@ -456,6 +470,8 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
 
+		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
+
 		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
 
 		$input->shouldReceive('getArguments')->once()->andReturn(['command' => 'foo']);
@@ -499,6 +515,8 @@ EOF;
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
+
+		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
 
 		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(true);
 

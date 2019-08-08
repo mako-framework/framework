@@ -91,39 +91,6 @@ class Reactor
 		$this->container = $container ?? new Container;
 
 		$this->dispatcher = $dispatcher ?? new Dispatcher($this->container);
-
-		$this->setup();
-	}
-
-	/**
-	 * Setup the reactor.
-	 *
-	 * @return void
-	 */
-	protected function setup(): void
-	{
-		$arguments = $this->input->getArgumentParser();
-
-		// Register default reactor arguments
-
-		$arguments->addArguments
-		([
-			new Argument('command', 'Command name', Argument::IS_OPTIONAL),
-			new Argument('--help', 'Displays helpful information', Argument::IS_BOOL),
-			new Argument('--mute', 'Mutes all output', Argument::IS_BOOL),
-		]);
-
-		// Preparse arguments and ignore unknown arguments so that we
-		// don't trigger any errors before the command arguments get registered
-
-		$arguments->parse(true);
-
-		// Mute the output if we're told to do so
-
-		if($arguments->getArgumentValue('--mute') === true)
-		{
-			$this->output->mute();
-		}
 	}
 
 	/**
@@ -168,6 +135,30 @@ class Reactor
 	}
 
 	/**
+	 * Setup the reactor.
+	 *
+	 * @return void
+	 */
+	protected function setup(): void
+	{
+		$arguments = $this->input->getArgumentParser();
+
+		// Register default reactor arguments
+
+		$arguments->addArguments
+		([
+			new Argument('command', 'Command name', Argument::IS_OPTIONAL),
+			new Argument('--help', 'Displays helpful information', Argument::IS_BOOL),
+			new Argument('--mute', 'Mutes all output', Argument::IS_BOOL),
+		]);
+
+		// Preparse arguments and ignore unknown arguments so that we
+		// don't trigger any errors before the command arguments get registered
+
+		$arguments->parse(true);
+	}
+
+	/**
 	 * Draws information table.
 	 *
 	 * @param string $heading Table heading
@@ -199,7 +190,7 @@ class Reactor
 	 * @param  array  $arguments Arguments
 	 * @return void
 	 */
-	public function drawArgumentTable(string $heading, array $arguments): void
+	protected function drawArgumentTable(string $heading, array $arguments): void
 	{
 		$argInfo = [];
 
@@ -298,35 +289,6 @@ class Reactor
 	}
 
 	/**
-	 * Displays information about the chosen command.
-	 *
-	 * @param  string $command Command
-	 * @return int
-	 */
-	protected function displayCommandHelp(string $command): int
-	{
-		$commandInstance = $this->instantiateCommandWithoutConstructor($this->commands[$command]);
-
-		$this->output->writeLn('<yellow>Command:</yellow>');
-
-		$this->output->write(PHP_EOL);
-
-		$this->output->writeLn("php reactor {$command}");
-
-		$this->output->write(PHP_EOL);
-
-		$this->output->writeLn('<yellow>Description:</yellow>');
-
-		$this->output->write(PHP_EOL);
-
-		$this->output->writeLn($commandInstance->getDescription());
-
-		$this->drawArgumentTable('Arguments and options:', $commandInstance->getArguments());
-
-		return CommandInterface::STATUS_SUCCESS;
-	}
-
-	/**
 	 * Returns true if the command exists and false if not.
 	 *
 	 * @param  string $command Command
@@ -360,6 +322,35 @@ class Reactor
 	}
 
 	/**
+	 * Displays information about the chosen command.
+	 *
+	 * @param  string $command Command
+	 * @return int
+	 */
+	protected function displayCommandHelp(string $command): int
+	{
+		$commandInstance = $this->instantiateCommandWithoutConstructor($this->commands[$command]);
+
+		$this->output->writeLn('<yellow>Command:</yellow>');
+
+		$this->output->write(PHP_EOL);
+
+		$this->output->writeLn("php reactor {$command}");
+
+		$this->output->write(PHP_EOL);
+
+		$this->output->writeLn('<yellow>Description:</yellow>');
+
+		$this->output->write(PHP_EOL);
+
+		$this->output->writeLn($commandInstance->getDescription());
+
+		$this->drawArgumentTable('Arguments and options:', $commandInstance->getArguments());
+
+		return CommandInterface::STATUS_SUCCESS;
+	}
+
+	/**
 	 * Dispatches a command.
 	 *
 	 * @param  string $command Command
@@ -367,14 +358,7 @@ class Reactor
 	 */
 	protected function dispatch(string $command): int
 	{
-		try
-		{
-			$exitCode = $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
-		}
-		catch(ArgumentException | UnexpectedValueException $e)
-		{
-			$this->output->errorLn("<red>{$e->getMessage()}</red>");
-		}
+		$exitCode = $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
 
 		return $exitCode ?? CommandInterface::STATUS_ERROR;
 	}
@@ -401,23 +385,37 @@ class Reactor
 	 */
 	public function run(): int
 	{
-		$command = $this->input->getArgument('command');
-
-		if($command === null)
+		try
 		{
-			return $this->displayReactorInfoAndCommandList();
-		}
+			$this->setup();
 
-		if($this->commandExists($command) === false)
+			if($this->input->getArgument('--mute') === true)
+			{
+				$this->output->mute();
+			}
+
+			if(($command = $this->input->getArgument('command')) === null)
+			{
+				return $this->displayReactorInfoAndCommandList();
+			}
+
+			if($this->commandExists($command) === false)
+			{
+				return $this->unknownCommand($command);
+			}
+
+			if($this->input->getArgument('--help') === true)
+			{
+				return $this->displayCommandHelp($command);
+			}
+
+			return $this->registerCommandArgumentsAndDispatch($command);
+		}
+		catch(ArgumentException | UnexpectedValueException $e)
 		{
-			return $this->unknownCommand($command);
-		}
+			$this->output->errorLn("<red>{$e->getMessage()}</red>");
 
-		if($this->input->getArgument('--help') === true)
-		{
-			return $this->displayCommandHelp($command);
+			return CommandInterface::STATUS_ERROR;
 		}
-
-		return $this->registerCommandArgumentsAndDispatch($command);
 	}
 }
