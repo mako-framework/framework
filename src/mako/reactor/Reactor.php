@@ -229,7 +229,11 @@ class Reactor
 
 		// Display global arguments and options if there are any
 
-		$this->drawArgumentTable('Global arguments and options:', $this->input->getArgumentParser()->getArguments());
+		$arguments = $this->input->getArgumentParser()->getArguments();
+
+		ksort($arguments);
+
+		$this->drawArgumentTable('Global arguments and options:', $arguments);
 	}
 
 	/**
