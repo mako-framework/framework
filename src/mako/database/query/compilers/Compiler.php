@@ -188,9 +188,8 @@ class Compiler
 	/**
 	 * Builds a JSON value getter.
 	 *
-	 * @param  string            $column   Column name
-	 * @param  array             $segments JSON path segments
-	 * @throws \RuntimeException
+	 * @param  string $column   Column name
+	 * @param  array  $segments JSON path segments
 	 * @return string
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
@@ -201,10 +200,9 @@ class Compiler
 	/**
 	 * Builds a JSON value setter.
 	 *
-	 * @param  string            $column   Column name
-	 * @param  array             $segments JSON path segments
-	 * @param  string            $param    Parameter
-	 * @throws \RuntimeException
+	 * @param  string $column   Column name
+	 * @param  array  $segments JSON path segments
+	 * @param  string $param    Parameter
 	 * @return string
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
@@ -544,8 +542,7 @@ class Compiler
 	/**
 	 * Compiles date comparison clauses.
 	 *
-	 * @param  array             $where Where clause
-	 * @throws \RuntimeException
+	 * @param  array  $where Where clause
 	 * @return string
 	 */
 	protected function whereDate(array $where): string
@@ -587,8 +584,7 @@ class Compiler
 	/**
 	 * Compiles date range clauses.
 	 *
-	 * @param  array             $where Where clause
-	 * @throws \RuntimeException
+	 * @param  array  $where Where clause
 	 * @return string
 	 */
 	protected function betweenDate(array $where): string

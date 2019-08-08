@@ -41,7 +41,6 @@ class CryptoManager extends AdapterManager
 	 * Returns a crypto instance.
 	 *
 	 * @param  string                       $configuration Configuration name
-	 * @throws \RuntimeException
 	 * @return \mako\security\crypto\Crypto
 	 */
 	protected function instantiate(string $configuration): Crypto

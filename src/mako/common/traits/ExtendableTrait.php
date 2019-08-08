@@ -40,9 +40,8 @@ trait ExtendableTrait
 	/**
 	 * Executes class extensions.
 	 *
-	 * @param  string                  $name      Method name
-	 * @param  array                   $arguments Method arguments
-	 * @throws \BadMethodCallException
+	 * @param  string $name      Method name
+	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments)
@@ -58,9 +57,8 @@ trait ExtendableTrait
 	/**
 	 * Executes class extensions.
 	 *
-	 * @param  string                  $name      Method name
-	 * @param  array                   $arguments Method arguments
-	 * @throws \BadMethodCallException
+	 * @param  string $name      Method name
+	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
 	public static function __callStatic(string $name, array $arguments)

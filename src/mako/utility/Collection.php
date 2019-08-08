@@ -174,8 +174,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns the value at the specified offset.
 	 *
-	 * @param  mixed                 $offset The offset to retrieve
-	 * @throws \OutOfBoundsException
+	 * @param  mixed $offset The offset to retrieve
 	 * @return mixed
 	 */
 	public function offsetGet($offset)

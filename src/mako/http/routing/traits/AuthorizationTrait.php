@@ -19,10 +19,9 @@ trait AuthorizationTrait
 	/**
 	 * Throws a ForbiddenException if the user is not allowed to perform the action on the entity.
 	 *
-	 * @param  string                                   $action        Action
-	 * @param  object|string                            $entity        Entity instance or class name
-	 * @param  mixed                                    ...$parameters Additional parameters
-	 * @throws \mako\http\exceptions\ForbiddenException
+	 * @param string        $action        Action
+	 * @param object|string $entity        Entity instance or class name
+	 * @param mixed         ...$parameters Additional parameters
 	 */
 	protected function authorize(string $action, $entity, ...$parameters): void
 	{

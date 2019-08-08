@@ -118,9 +118,8 @@ class Image
 	/**
 	 * Constructor.
 	 *
-	 * @param  string                                   $image     Path to image file
-	 * @param  \mako\pixl\processors\ProcessorInterface $processor Processor instance
-	 * @throws \RuntimeException
+	 * @param string                                   $image     Path to image file
+	 * @param \mako\pixl\processors\ProcessorInterface $processor Processor instance
 	 */
 	public function __construct($image, ProcessorInterface $processor)
 	{
@@ -257,10 +256,9 @@ class Image
 	/**
 	 * Adds a watermark to the image.
 	 *
-	 * @param  string            $file     Path to the image file
-	 * @param  int               $position Position of the watermark
-	 * @param  int               $opacity  Opacity of the watermark in percent
-	 * @throws \RuntimeException
+	 * @param  string           $file     Path to the image file
+	 * @param  int              $position Position of the watermark
+	 * @param  int              $opacity  Opacity of the watermark in percent
 	 * @return \mako\pixl\Image
 	 */
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100): Image
@@ -415,9 +413,8 @@ class Image
 	/**
 	 * Saves image to file.
 	 *
-	 * @param  string            $file    Path to the image file
-	 * @param  int               $quality Image quality 1-100
-	 * @throws \RuntimeException
+	 * @param string $file    Path to the image file
+	 * @param int    $quality Image quality 1-100
 	 */
 	public function save($file = null, $quality = 95): void
 	{

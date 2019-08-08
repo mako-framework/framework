@@ -122,8 +122,7 @@ class GD implements ProcessorInterface
 	/**
 	 * Collects information about the image.
 	 *
-	 * @param  string            $file Path to image file
-	 * @throws \RuntimeException
+	 * @param  string   $file Path to image file
 	 * @return resource
 	 */
 	protected function getImageInfo($file)
@@ -141,9 +140,8 @@ class GD implements ProcessorInterface
 	/**
 	 * Creates an image resource that we can work with.
 	 *
-	 * @param  string            $image     Path to image file
-	 * @param  array             $imageInfo Image info
-	 * @throws \RuntimeException
+	 * @param  string   $image     Path to image file
+	 * @param  array    $imageInfo Image info
 	 * @return resource
 	 */
 	protected function createImageResource($image, $imageInfo)
@@ -167,8 +165,7 @@ class GD implements ProcessorInterface
 	/**
 	 * Converts HEX value to an RGB array.
 	 *
-	 * @param  string                    $hex HEX value
-	 * @throws \InvalidArgumentException
+	 * @param  string $hex HEX value
 	 * @return array
 	 */
 	protected function hexToRgb($hex)

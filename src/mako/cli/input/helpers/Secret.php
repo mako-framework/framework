@@ -47,10 +47,9 @@ class Secret extends Question
 	/**
 	 * Writes question to output and returns hidden user input.
 	 *
-	 * @param  string            $question Question to ask
-	 * @param  mixed             $default  Default if no input is entered
-	 * @param  bool              $fallback Fall back to non-hidden input?
-	 * @throws \RuntimeException
+	 * @param  string $question Question to ask
+	 * @param  mixed  $default  Default if no input is entered
+	 * @param  bool   $fallback Fall back to non-hidden input?
 	 * @return mixed
 	 */
 	public function ask(string $question, $default = null, bool $fallback = false)

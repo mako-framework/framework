@@ -100,11 +100,10 @@ class Connection
 	/**
 	 * Creates a socket connection to the server.
 	 *
-	 * @param  string                     $host       Redis host
-	 * @param  int                        $port       Redis port
-	 * @param  bool                       $persistent Should the connection be persistent?
-	 * @param  int                        $timeout    Timeout in seconds
-	 * @throws \mako\redis\RedisException
+	 * @param  string   $host       Redis host
+	 * @param  int      $port       Redis port
+	 * @param  bool     $persistent Should the connection be persistent?
+	 * @param  int      $timeout    Timeout in seconds
 	 * @return resource
 	 */
 	protected function createConnection(string $host, int $port, bool $persistent, int $timeout)
@@ -175,7 +174,6 @@ class Connection
 	/**
 	 * Gets line from the server.
 	 *
-	 * @throws \mako\redis\RedisException
 	 * @return string
 	 */
 	public function readLine(): string
@@ -193,8 +191,7 @@ class Connection
 	/**
 	 * Reads n bytes from the server.
 	 *
-	 * @param  int                        $bytes Number of bytes to read
-	 * @throws \mako\redis\RedisException
+	 * @param  int    $bytes Number of bytes to read
 	 * @return string
 	 */
 	public function read(int $bytes): string
@@ -224,8 +221,7 @@ class Connection
 	/**
 	 * Writes data to the server.
 	 *
-	 * @param  string                     $data Data to write
-	 * @throws \mako\redis\RedisException
+	 * @param  string $data Data to write
 	 * @return int
 	 */
 	public function write(string $data): int

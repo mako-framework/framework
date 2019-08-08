@@ -175,8 +175,7 @@ class UploadedFile extends FileInfo
 	/**
 	 * Moves the file to the desired path.
 	 *
-	 * @param  string                                        $path Storage path
-	 * @throws \mako\http\request\exceptions\UploadException
+	 * @param  string $path Storage path
 	 * @return bool
 	 */
 	public function moveTo(string $path): bool

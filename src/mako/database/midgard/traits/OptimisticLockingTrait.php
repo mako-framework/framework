@@ -122,8 +122,7 @@ trait OptimisticLockingTrait
 	/**
 	 * Updates an existing record.
 	 *
-	 * @param  \mako\database\midgard\Query                                  $query Query builder
-	 * @throws \mako\database\midgard\traits\exceptions\StaleRecordException
+	 * @param  \mako\database\midgard\Query $query Query builder
 	 * @return bool
 	 */
 	protected function updateRecord(Query $query): bool
@@ -149,8 +148,7 @@ trait OptimisticLockingTrait
 	/**
 	 * Deletes a record from the database.
 	 *
-	 * @param  \mako\database\midgard\Query                                  $query Query builder
-	 * @throws \mako\database\midgard\traits\exceptions\StaleRecordException
+	 * @param  \mako\database\midgard\Query $query Query builder
 	 * @return bool
 	 */
 	protected function deleteRecord(Query $query): bool

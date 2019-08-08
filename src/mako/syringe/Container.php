@@ -176,10 +176,9 @@ class Container
 	/**
 	 * Replaces a registered type hint.
 	 *
-	 * @param  string                                      $hint      Type hint
-	 * @param  string|\Closure                             $class     Class name or closure
-	 * @param  bool                                        $singleton Are we replacing a singleton?
-	 * @throws \mako\syringe\exceptions\ContainerException
+	 * @param string          $hint      Type hint
+	 * @param string|\Closure $class     Class name or closure
+	 * @param bool            $singleton Are we replacing a singleton?
 	 */
 	public function replace(string $hint, $class, bool $singleton = false): void
 	{
@@ -214,9 +213,8 @@ class Container
 	/**
 	 * Replaces a singleton instance.
 	 *
-	 * @param  string                                      $hint     Type hint
-	 * @param  object                                      $instance Class instance
-	 * @throws \mako\syringe\exceptions\ContainerException
+	 * @param string $hint     Type hint
+	 * @param object $instance Class instance
 	 */
 	public function replaceInstance(string $hint, object $instance): void
 	{
@@ -320,10 +318,8 @@ class Container
 	/**
 	 * Resolve a parameter.
 	 *
-	 * @param  \ReflectionParameter                                       $parameter ReflectionParameter instance
-	 * @param  \ReflectionClass|null                                      $class     ReflectionClass instance
-	 * @throws \mako\syringe\exceptions\UnableToInstantiateException
-	 * @throws \mako\syringe\exceptions\UnableToResolveParameterException
+	 * @param  \ReflectionParameter  $parameter ReflectionParameter instance
+	 * @param  \ReflectionClass|null $class     ReflectionClass instance
 	 * @return mixed
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null)
@@ -437,9 +433,8 @@ class Container
 	/**
 	 * Creates a class instance using reflection.
 	 *
-	 * @param  string                                                $class      Class name
-	 * @param  array                                                 $parameters Constructor parameters
-	 * @throws \mako\syringe\exceptions\UnableToInstantiateException
+	 * @param  string $class      Class name
+	 * @param  array  $parameters Constructor parameters
 	 * @return object
 	 */
 	protected function reflectionFactory(string $class, array $parameters): object

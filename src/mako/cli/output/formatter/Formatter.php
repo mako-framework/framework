@@ -151,8 +151,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * Returns style codes associated with the tag name.
 	 *
-	 * @param  string                                        $tag Tag name
-	 * @throws \mako\cli\output\formatter\FormatterException
+	 * @param  string $tag Tag name
 	 * @return array
 	 */
 	protected function getStyleCodes(string $tag): array
@@ -207,8 +206,7 @@ class Formatter implements FormatterInterface
 	 * Returns ANSI SGR escape sequence for style reset and
 	 * ANSI SGR escape sequence for parent style if the closed tag was nested.
 	 *
-	 * @param  string                                        $tag Tag name
-	 * @throws \mako\cli\output\formatter\FormatterException
+	 * @param  string $tag Tag name
 	 * @return string
 	 */
 	protected function closeStyle(string $tag): string

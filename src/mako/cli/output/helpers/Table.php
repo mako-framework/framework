@@ -151,9 +151,8 @@ class Table
 	/**
 	 * Renders a table.
 	 *
-	 * @param  array             $columnNames Array of column names
-	 * @param  array             $rows        Array of rows
-	 * @throws \RuntimeException
+	 * @param  array  $columnNames Array of column names
+	 * @param  array  $rows        Array of rows
 	 * @return string
 	 */
 	public function render(array $columnNames, array $rows): string

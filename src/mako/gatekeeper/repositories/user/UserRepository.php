@@ -73,8 +73,7 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Sets the user identifier.
 	 *
-	 * @param  string                    $identifier User identifier
-	 * @throws \InvalidArgumentException
+	 * @param string $identifier User identifier
 	 */
 	public function setIdentifier(string $identifier): void
 	{

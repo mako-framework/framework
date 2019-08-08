@@ -290,7 +290,6 @@ class Connection
 	/**
 	 * Creates a PDO instance.
 	 *
-	 * @throws \RuntimeException
 	 * @return \PDO
 	 */
 	protected function connect(): PDO
@@ -511,7 +510,6 @@ class Connection
 	 * @param  string        $query    SQL query
 	 * @param  array         $params   Query parameters
 	 * @param  bool          &$success Was the query executed successfully?
-	 * @throws \PDOException
 	 * @return \PDOStatement
 	 */
 	protected function prepareAndExecute(string $query, array $params, bool &$success = null): PDOStatement
@@ -809,8 +807,7 @@ class Connection
 	/**
 	 * Executes queries and rolls back the transaction if any of them fail.
 	 *
-	 * @param  \Closure      $queries Queries
-	 * @throws \PDOException
+	 * @param  \Closure $queries Queries
 	 * @return mixed
 	 */
 	public function transaction(Closure $queries)

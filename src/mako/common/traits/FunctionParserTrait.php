@@ -25,8 +25,7 @@ trait FunctionParserTrait
 	/**
 	 * Splits function name and parameters into an array.
 	 *
-	 * @param  string            $function Function
-	 * @throws \RuntimeException
+	 * @param  string $function Function
 	 * @return array
 	 */
 	protected function splitFunctionAndParameters(string $function): array
@@ -44,9 +43,8 @@ trait FunctionParserTrait
 	 *
 	 * The return value is an array consisting of the function name and parameters.
 	 *
-	 * @param  string            $function        Function
-	 * @param  bool|null         $namedParameters Are we expecting named parameters?
-	 * @throws \RuntimeException
+	 * @param  string    $function        Function
+	 * @param  bool|null $namedParameters Are we expecting named parameters?
 	 * @return array
 	 */
 	protected function parseFunction(string $function, ?bool $namedParameters = null): array

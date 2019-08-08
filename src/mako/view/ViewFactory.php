@@ -180,9 +180,8 @@ class ViewFactory
 	/**
 	 * Returns an array containing the view path and the renderer we should use.
 	 *
-	 * @param  string                   $view           View
-	 * @param  bool                     $throwException Throw exception if view doesn't exist?
-	 * @throws \mako\view\ViewException
+	 * @param  string     $view           View
+	 * @param  bool       $throwException Throw exception if view doesn't exist?
 	 * @return array|bool
 	 */
 	protected function getViewPathAndExtension(string $view, bool $throwException = true)

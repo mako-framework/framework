@@ -368,8 +368,7 @@ class Validator
 	/**
 	 * Returns the rule class name.
 	 *
-	 * @param  string            $name Rule name
-	 * @throws \RuntimeException
+	 * @param  string $name Rule name
 	 * @return string
 	 */
 	protected function getRuleClassName(string $name): string
@@ -514,7 +513,6 @@ class Validator
 	/**
 	 * Validates the input and returns an array containing validated data.
 	 *
-	 * @throws \mako\validator\ValidationException
 	 * @return array
 	 */
 	public function validate(): array

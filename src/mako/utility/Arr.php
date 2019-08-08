@@ -176,9 +176,8 @@ class Arr
 	/**
 	 * Expands a wildcard key to an array of "dot notation" keys.
 	 *
-	 * @param  array             $array Array
-	 * @param  string            $key   Wildcard key
-	 * @throws \RuntimeException
+	 * @param  array  $array Array
+	 * @param  string $key   Wildcard key
 	 * @return array
 	 */
 	public static function expandKey(array $array, string $key): array

@@ -162,8 +162,7 @@ class Dispatcher
 	/**
 	 * Resolves the middleware.
 	 *
-	 * @param  string            $middleware middleware
-	 * @throws \RuntimeException
+	 * @param  string $middleware middleware
 	 * @return array
 	 */
 	protected function resolveMiddleware(string $middleware): array

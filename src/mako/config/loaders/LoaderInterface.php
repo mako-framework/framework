@@ -17,9 +17,8 @@ interface LoaderInterface
 	/**
 	 * Loads the configuration file.
 	 *
-	 * @param  string                               $file        File name
-	 * @param  string|null                          $environment Environment
-	 * @throws \mako\config\loaders\LoaderException
+	 * @param  string      $file        File name
+	 * @param  string|null $environment Environment
 	 * @return array
 	 */
 	public function load(string $file, ?string $environment = null): array;

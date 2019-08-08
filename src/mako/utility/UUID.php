@@ -88,8 +88,7 @@ class UUID
 	/**
 	 * Converts a UUID from its hexadecimal representation to a binary string.
 	 *
-	 * @param  string                    $uuid UUID
-	 * @throws \InvalidArgumentException
+	 * @param  string $uuid UUID
 	 * @return string
 	 */
 	public static function toBinary(string $uuid): string

@@ -152,10 +152,9 @@ class I18n
 	/**
 	 * Returns the plural form of a noun.
 	 *
-	 * @param  string                   $word     Noun to pluralize
-	 * @param  int|null                 $count    Number of nouns
-	 * @param  string|null              $language Language rules to use for pluralization
-	 * @throws \mako\i18n\I18nException
+	 * @param  string      $word     Noun to pluralize
+	 * @param  int|null    $count    Number of nouns
+	 * @param  string|null $language Language rules to use for pluralization
 	 * @return string
 	 */
 	public function pluralize(string $word, ?int $count = null, ?string $language = null): string

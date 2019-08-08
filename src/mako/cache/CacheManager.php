@@ -190,7 +190,6 @@ class CacheManager extends AdapterManager
 	 * Returns a cache instance.
 	 *
 	 * @param  string                            $configuration Configuration name
-	 * @throws \RuntimeException
 	 * @return \mako\cache\stores\StoreInterface
 	 */
 	protected function instantiate(string $configuration)
