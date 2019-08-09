@@ -276,7 +276,7 @@ class ResponseTest extends TestCase
 
 		$response = new Response($request);
 
-		$response->getHeaders()->add('Cache-Control', 'no-cache');
+		$response->getHeaders()->add('Cache-Control', 'no-store');
 
 		$this->assertFalse($response->isCacheable());
 	}

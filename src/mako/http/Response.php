@@ -438,7 +438,7 @@ class Response
 			return false;
 		}
 
-		if($this->headers->hasValue('Cache-Control', 'no-cache', false) || $this->headers->hasValue('Cache-Control', 'private', false))
+		if($this->headers->hasValue('Cache-Control', 'no-store', false) || $this->headers->hasValue('Cache-Control', 'private', false))
 		{
 			return false;
 		}
