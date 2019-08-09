@@ -481,7 +481,7 @@ class Request
 	}
 
 	/**
-	 * Returns true if the request has form data and false if not.
+	 * Returns TRUE if the request has form data and FALSE if not.
 	 *
 	 * @return bool
 	 */
@@ -569,7 +569,7 @@ class Request
 	}
 
 	/**
-	 * Returns true if the request was made using Ajax and false if not.
+	 * Returns TRUE if the request was made using Ajax and FALSE if not.
 	 *
 	 * @return bool
 	 */
@@ -579,7 +579,7 @@ class Request
 	}
 
 	/**
-	 * Returns true if the request was made using HTTPS and false if not.
+	 * Returns TRUE if the request was made using HTTPS and FALSE if not.
 	 *
 	 * @return bool
 	 */
@@ -589,7 +589,7 @@ class Request
 	}
 
 	/**
-	 * Returns true if the request method is considered safe and false if not.
+	 * Returns TRUE if the request method is considered safe and FALSE if not.
 	 *
 	 * @return bool
 	 */
@@ -599,7 +599,7 @@ class Request
 	}
 
 	/**
-	 * Returns true if the request method is considered idempotent and false if not.
+	 * Returns TRUE if the request method is considered idempotent and FALSE if not.
 	 *
 	 * @return bool
 	 */
@@ -609,7 +609,7 @@ class Request
 	}
 
 	/**
-	 * Returns true if the request method is considered cacheable and false if not.
+	 * Returns TRUE if the request method is considered cacheable and FALSE if not.
 	 *
 	 * @return bool
 	 */
@@ -691,7 +691,7 @@ class Request
 	}
 
 	/**
-	 * Returns true if the resource was requested with a "clean" URL and false if not.
+	 * Returns TRUE if the resource was requested with a "clean" URL and FALSE if not.
 	 *
 	 * @return bool
 	 */
@@ -741,7 +741,7 @@ class Request
 	}
 
 	/**
-	 * Returns true if the request method has been faked and false if not.
+	 * Returns TRUE if the request method has been faked and FALSE if not.
 	 *
 	 * @return bool
 	 */

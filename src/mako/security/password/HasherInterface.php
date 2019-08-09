@@ -32,7 +32,7 @@ interface HasherInterface
 	public function verify(string $password, string $hash): bool;
 
 	/**
-	 * Returns true if the password needs rehashing and false if not.
+	 * Returns TRUE if the password needs rehashing and FALSE if not.
 	 *
 	 * @param  string $hash Hash
 	 * @return bool

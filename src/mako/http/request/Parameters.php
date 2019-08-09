@@ -73,7 +73,7 @@ class Parameters implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns true if the parameter exists and false if not.
+	 * Returns TRUE if the parameter exists and FALSE if not.
 	 *
 	 * @param  string $name Parameter name
 	 * @return bool

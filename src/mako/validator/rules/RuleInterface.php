@@ -15,14 +15,14 @@ namespace mako\validator\rules;
 interface RuleInterface
 {
 	/**
-	 * Returns true if the rule should be executed when the input is empty and false if not.
+	 * Returns TRUE if the rule should be executed when the input is empty and FALSE if not.
 	 *
 	 * @return bool
 	 */
 	public function validateWhenEmpty(): bool;
 
 	/**
-	 * Returns true if the rule succeeds and false if not.
+	 * Returns TRUE if the rule succeeds and FALSE if not.
 	 *
 	 * @param  mixed $value Value to validate
 	 * @param  array $input Input

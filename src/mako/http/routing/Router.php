@@ -154,7 +154,7 @@ class Router
 	}
 
 	/**
-	 * Returns true if all the route constraints are satisfied and false if not.
+	 * Returns TRUE if all the route constraints are satisfied and FALSE if not.
 	 *
 	 * @param  \mako\http\routing\Route $route Route
 	 * @return bool

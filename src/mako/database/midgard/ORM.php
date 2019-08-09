@@ -469,7 +469,7 @@ abstract class ORM implements JsonSerializable
 	}
 
 	/**
-	 * Returns true if the model has included the relationship and false if not.
+	 * Returns TRUE if the model has included the relationship and FALSE if not.
 	 *
 	 * @param  string $relation Relation name
 	 * @return bool

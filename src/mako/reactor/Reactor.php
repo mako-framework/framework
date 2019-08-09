@@ -293,7 +293,7 @@ class Reactor
 	}
 
 	/**
-	 * Returns true if the command exists and false if not.
+	 * Returns TRUE if the command exists and FALSE if not.
 	 *
 	 * @param  string $command Command
 	 * @return bool

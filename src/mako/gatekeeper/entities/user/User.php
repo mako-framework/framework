@@ -284,7 +284,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	}
 
 	/**
-	 * Returns true if the provided password is correct and false if not.
+	 * Returns TRUE if the provided password is correct and FALSE if not.
 	 *
 	 * @param  string $password Privided password
 	 * @param  bool   $autoSave Autosave rehashed password?

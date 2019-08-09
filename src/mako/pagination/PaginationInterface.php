@@ -56,7 +56,7 @@ interface PaginationInterface extends JsonSerializable
 	public function numberOfPages(): int;
 
 	/**
-	 * Returns true if we're on a valid page and false if not.
+	 * Returns TRUE if we're on a valid page and FALSE if not.
 	 *
 	 * @return bool
 	 */

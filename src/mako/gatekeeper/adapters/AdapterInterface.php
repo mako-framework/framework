@@ -53,14 +53,14 @@ interface AdapterInterface
 	public function getUser(): ?UserEntityInterface;
 
 	/**
-	 * Returns true if we don't have an authenticated user and false if we do.
+	 * Returns TRUE if we don't have an authenticated user and FALSE if we do.
 	 *
 	 * @return bool
 	 */
 	public function isGuest(): bool;
 
 	/**
-	 * Returns true if we have an authenticated user and false if we don't.
+	 * Returns TRUE if we have an authenticated user and FALSE if we don't.
 	 *
 	 * @return bool
 	 */

@@ -25,7 +25,7 @@ interface AuthorizerInterface
 	public function registerPolicy(string $entityClass, string $policyClass): void;
 
 	/**
-	 * Returns true if the user is allowed to perform the action on the entity.
+	 * Returns TRUE if the user is allowed to perform the action on the entity.
 	 *
 	 * @param  \mako\gatekeeper\entities\user\UserEntityInterface|null $user          User entity
 	 * @param  string                                                  $action        Action

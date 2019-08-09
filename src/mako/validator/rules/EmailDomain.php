@@ -20,7 +20,7 @@ use function strpos;
 class EmailDomain extends Rule implements RuleInterface
 {
 	/**
-	 * Returns true if the domain has a MX record and false if not.
+	 * Returns TRUE if the domain has a MX record and FALSE if not.
 	 *
 	 * @param  string $domain Domain
 	 * @return bool

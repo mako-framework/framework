@@ -15,7 +15,7 @@ namespace mako\http\routing\constraints;
 interface ConstraintInterface
 {
 	/**
-	 * Returns true if the constraint is satisfied and false if not.
+	 * Returns TRUE if the constraint is satisfied and FALSE if not.
 	 *
 	 * @return bool
 	 */

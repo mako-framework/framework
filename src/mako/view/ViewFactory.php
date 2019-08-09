@@ -244,7 +244,7 @@ class ViewFactory
 	}
 
 	/**
-	 * Returns TRUE if the view exists and false if not.
+	 * Returns TRUE if the view exists and FALSE if not.
 	 *
 	 * @param  string $view View
 	 * @return bool

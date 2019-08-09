@@ -35,7 +35,7 @@ trait AuthorizableTrait
 	}
 
 	/**
-	 * Returns true if allowed to perform the action on the entity and false if not.
+	 * Returns TRUE if allowed to perform the action on the entity and FALSE if not.
 	 *
 	 * @param  string        $action        Action
 	 * @param  object|string $entity        Entity

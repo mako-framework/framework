@@ -246,7 +246,7 @@ class Validator
 	}
 
 	/**
-	 * Returns true if the field name has a wildcard and false if not.
+	 * Returns TRUE if the field name has a wildcard and FALSE if not.
 	 *
 	 * @param  string $string Field name
 	 * @return bool
@@ -394,7 +394,7 @@ class Validator
 	}
 
 	/**
-	 * Returns true if the input field is considered empty and false if not.
+	 * Returns TRUE if the input field is considered empty and FALSE if not.
 	 *
 	 * @param  mixed $value Value
 	 * @return bool
@@ -485,7 +485,7 @@ class Validator
 	}
 
 	/**
-	 * Returns true if all rules passed and false if validation failed.
+	 * Returns TRUE if all rules passed and FALSE if validation failed.
 	 *
 	 * @param  array &$errors If $errors is provided, then it is filled with all the error messages
 	 * @return bool

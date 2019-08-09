@@ -68,7 +68,7 @@ class FileInfo extends SplFileInfo
 	}
 
 	/**
-	 * Returns true if the file matches the provided hash and false if not.
+	 * Returns TRUE if the file matches the provided hash and FALSE if not.
 	 *
 	 * @param  string $hash      Hash
 	 * @param  string $algorithm Hashing algorithm
@@ -94,7 +94,7 @@ class FileInfo extends SplFileInfo
 	}
 
 	/**
-	 * Returns true if the file matches the provided HMAC and false if not.
+	 * Returns TRUE if the file matches the provided HMAC and FALSE if not.
 	 *
 	 * @param  string $hmac      HMAC
 	 * @param  string $key       Key

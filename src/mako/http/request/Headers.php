@@ -117,7 +117,7 @@ class Headers implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns true if the header exists and false if not.
+	 * Returns TRUE if the header exists and FALSE if not.
 	 *
 	 * @param  string $name Header name
 	 * @return bool
