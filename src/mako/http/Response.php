@@ -503,7 +503,7 @@ class Response
 
 			// Check ETag if response cache is enabled
 
-			if($this->responseCache === true && $this->request->isCacheable())
+			if($this->responseCache === true)
 			{
 				$hash = '"' . hash('sha256', $this->body) . '"';
 
