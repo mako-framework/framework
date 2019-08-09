@@ -422,6 +422,31 @@ class Response
 	}
 
 	/**
+	 * Is the response cacheable?
+	 *
+	 * @return bool
+	 */
+	public function isCacheable(): bool
+	{
+		if($this->request->isCacheable() === false)
+		{
+			return false;
+		}
+
+		if(in_array($this->statusCode, [200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501]) === false)
+		{
+			return false;
+		}
+
+		if($this->headers->hasValue('Cache-Control', 'no-cache', false) || $this->headers->hasValue('Cache-Control', 'private', false))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Enables ETag response cache.
 	 *
 	 * @return \mako\http\Response
@@ -503,7 +528,7 @@ class Response
 
 			// Check ETag if response cache is enabled
 
-			if($this->responseCache === true)
+			if($this->responseCache === true && $this->isCacheable())
 			{
 				$hash = '"' . hash('sha256', $this->body) . '"';
 
@@ -517,7 +542,7 @@ class Response
 				}
 			}
 
-			if($sendBody && !in_array($this->statusCode, [100, 101, 102, 103, 204, 304]))
+			if($sendBody && in_array($this->statusCode, [100, 101, 102, 103, 204, 304]) === false)
 			{
 				// Start compressed output buffering if output compression is enabled
 

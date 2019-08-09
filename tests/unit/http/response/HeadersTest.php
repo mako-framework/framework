@@ -63,6 +63,24 @@ class HeadersTest extends TestCase
 	/**
 	 *
 	 */
+	public function testHasValue(): void
+	{
+		$headers = new Headers;
+
+		$headers->add('Cache-Control', 'private');
+
+		$this->assertTrue($headers->hasValue('Cache-Control', 'private'));
+
+		$this->assertTrue($headers->hasValue('cache-control', 'PRIVATE', false));
+
+		$this->assertFalse($headers->hasValue('cache-control', 'PRIVATE'));
+
+		$this->assertFalse($headers->hasValue('Cache-Control', 'no-cache'));
+	}
+
+	/**
+	 *
+	 */
 	public function testRemove(): void
 	{
 		$headers = new Headers;

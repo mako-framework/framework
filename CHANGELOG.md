@@ -5,6 +5,7 @@
 * New and improved command line argument parser.
 * Added `Request::isCacheable()` method.
 * Added `Request::isIdempotent()` method.
+* Added `Response::isCacheable()` method.
 
 #### Changes
 

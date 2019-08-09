@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\http;
 
+use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
 use mako\http\response\senders\Redirect;
@@ -23,7 +24,7 @@ class ResponseTest extends TestCase
 	 */
 	public function getRequest()
 	{
-		$request = Mockery::mock('\mako\http\Request');
+		$request = Mockery::mock(Request::class);
 
 		return $request;
 	}
@@ -218,5 +219,65 @@ class ResponseTest extends TestCase
 		$this->assertCount(0, $response->getCookies());
 
 		$this->assertSame(200, $response->getStatus());
+	}
+
+	/**
+	 *
+	 */
+	public function testIsCacheable(): void
+	{
+		$request = $this->getRequest();
+
+		$request->shouldReceive('isCacheable')->once()->andReturn(true);
+
+		$response = new Response($request);
+
+		$this->assertTrue($response->isCacheable());
+
+		//
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('isCacheable')->once()->andReturn(false);
+
+		$response = new Response($request);
+
+		$this->assertFalse($response->isCacheable());
+
+		//
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('isCacheable')->once()->andReturn(true);
+
+		$response = new Response($request);
+
+		$response->setStatus(400);
+
+		$this->assertFalse($response->isCacheable());
+
+		//
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('isCacheable')->once()->andReturn(true);
+
+		$response = new Response($request);
+
+		$response->getHeaders()->add('Cache-Control', 'private');
+
+		$this->assertFalse($response->isCacheable());
+
+		//
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('isCacheable')->once()->andReturn(true);
+
+		$response = new Response($request);
+
+		$response->getHeaders()->add('Cache-Control', 'no-cache');
+
+		$this->assertFalse($response->isCacheable());
 	}
 }

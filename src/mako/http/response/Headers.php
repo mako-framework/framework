@@ -12,8 +12,10 @@ use Countable;
 use IteratorAggregate;
 
 use function array_column;
+use function array_map;
 use function array_merge;
 use function count;
+use function in_array;
 use function strtolower;
 
 /**
@@ -90,7 +92,7 @@ class Headers implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns true if the header exists and false if not.
+	 * Returns TRUE if the header exists and FALSE if not.
 	 *
 	 * @param  string $name Header name
 	 * @return bool
@@ -98,6 +100,29 @@ class Headers implements Countable, IteratorAggregate
 	public function has(string $name): bool
 	{
 		return isset($this->headers[$this->normalizeName($name)]);
+	}
+
+	/**
+	 * Return TRUE if the header has the value and FALSE if not.
+	 *
+	 * @param  string $name          Header name
+	 * @param  string $value         Header value
+	 * @param  string $caseSensitive Should the comparison be case-sensitive?
+	 * @return bool
+	 */
+	public function hasValue(string $name, string $value, bool $caseSensitive = true): bool
+	{
+		if($this->has($name))
+		{
+			if($caseSensitive)
+			{
+				return in_array($value, $this->headers[$this->normalizeName($name)]['value']);
+			}
+
+			return in_array(strtolower($value), array_map('strtolower', $this->headers[$this->normalizeName($name)]['value']));
+		}
+
+		return false;
 	}
 
 	/**
