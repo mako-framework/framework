@@ -1085,7 +1085,7 @@ class RequestTest extends TestCase
 		{
 			$request = new Request(['server' => ['REQUEST_METHOD' => $method]]);
 
-			$this->assertSame($isCacheable, $request->isIdempotent());
+			$this->assertSame($isCacheable, $request->isCacheable());
 		}
 	}
 }
