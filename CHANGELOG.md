@@ -3,11 +3,14 @@
 #### New
 
 * New and improved command line argument parser.
+* Added `Request::isCacheable()` method.
+* Added `Request::isIdempotent()` method.
 
 #### Changes
 
 * Commands are now required to define their arguments.
 * The `Command::$isStrict` property doesn't do anything as all commands are required to define their arguments.
+* The `OPTIONS` and `TRACE` request methods are now also considdered safe by the `Request::isSafe()` method.
 
 #### Deprecations
 

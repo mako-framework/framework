@@ -503,7 +503,7 @@ class Response
 
 			// Check ETag if response cache is enabled
 
-			if($this->responseCache === true)
+			if($this->responseCache === true && $this->request->isCacheable())
 			{
 				$hash = '"' . hash('sha256', $this->body) . '"';
 
@@ -517,7 +517,7 @@ class Response
 				}
 			}
 
-			if($sendBody && !in_array($this->statusCode, [100, 101, 102, 204, 304]))
+			if($sendBody && !in_array($this->statusCode, [100, 101, 102, 103, 204, 304]))
 			{
 				// Start compressed output buffering if output compression is enabled
 

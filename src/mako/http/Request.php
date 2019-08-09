@@ -595,6 +595,26 @@ class Request
 	 */
 	public function isSafe(): bool
 	{
+		return in_array($this->method, ['GET', 'HEAD', 'OPTIONS', 'TRACE']);
+	}
+
+	/**
+	 * Returns true if the request method is considered idempotent and false if not.
+	 *
+	 * @return bool
+	 */
+	public function isIdempotent(): bool
+	{
+		return in_array($this->method, ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'PUT', 'TRACE']);
+	}
+
+	/**
+	 * Returns true if the request method is considered cacheable and false if not.
+	 *
+	 * @return bool
+	 */
+	public function isCacheable(): bool
+	{
 		return in_array($this->method, ['GET', 'HEAD']);
 	}
 

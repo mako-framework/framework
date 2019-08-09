@@ -1010,4 +1010,82 @@ class RequestTest extends TestCase
 
 		$this->assertSame($request->getData()->all(), $request->getBody()->all());
 	}
+
+	/**
+	 *
+	 */
+	public function testIsSafe(): void
+	{
+		$methods =
+		[
+			'CONNECT' => false,
+			'DELETE'  => false,
+			'GET'     => true,
+			'HEAD'    => true,
+			'OPTIONS' => true,
+			'PATCH'   => false,
+			'POST'    => false,
+			'PUT'     => false,
+			'TRACE'   => true,
+		];
+
+		foreach($methods as $method => $isSafe)
+		{
+			$request = new Request(['server' => ['REQUEST_METHOD' => $method]]);
+
+			$this->assertSame($isSafe, $request->isSafe());
+		}
+	}
+
+	/**
+	 *
+	 */
+	public function testIsIdempotent(): void
+	{
+		$methods =
+		[
+			'CONNECT' => false,
+			'DELETE'  => true,
+			'GET'     => true,
+			'HEAD'    => true,
+			'OPTIONS' => true,
+			'PATCH'   => false,
+			'POST'    => false,
+			'PUT'     => true,
+			'TRACE'   => true,
+		];
+
+		foreach($methods as $method => $isIdempotent)
+		{
+			$request = new Request(['server' => ['REQUEST_METHOD' => $method]]);
+
+			$this->assertSame($isIdempotent, $request->isIdempotent());
+		}
+	}
+
+	/**
+	 *
+	 */
+	public function testIsCacheable(): void
+	{
+		$methods =
+		[
+			'CONNECT' => false,
+			'DELETE'  => false,
+			'GET'     => true,
+			'HEAD'    => true,
+			'OPTIONS' => false,
+			'PATCH'   => false,
+			'POST'    => false,
+			'PUT'     => false,
+			'TRACE'   => false,
+		];
+
+		foreach($methods as $method => $isCacheable)
+		{
+			$request = new Request(['server' => ['REQUEST_METHOD' => $method]]);
+
+			$this->assertSame($isCacheable, $request->isIdempotent());
+		}
+	}
 }
