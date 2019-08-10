@@ -1,4 +1,4 @@
-### 5.7.4 <small> (2019-08-10)</small>
+### 5.7.5 <small> (2019-08-10)</small>
 
 Update using ```composer update```.
 
