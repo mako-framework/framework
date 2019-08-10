@@ -38,7 +38,7 @@ class ExtendableTraitTest extends TestCase
 	 */
 	public function testExtending(): void
 	{
-		Extended::addMethod('foo', function()
+		Extended::addMethod('foo', static function()
 		{
 			return static::$foo;
 		});
