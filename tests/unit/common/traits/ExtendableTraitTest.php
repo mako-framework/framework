@@ -19,7 +19,7 @@ class Extended
 {
 	use ExtendableTrait;
 
-	//protected static $foo = 'foo';
+	protected static $foo = 'foo';
 
 	protected $bar = 'bar';
 }
@@ -38,17 +38,17 @@ class ExtendableTraitTest extends TestCase
 	 */
 	public function testExtending(): void
 	{
-		/*Extended::addMethod('foo', function()
+		Extended::addMethod('foo', function()
 		{
 			return static::$foo;
-		});*/
+		});
 
 		Extended::addMethod('bar', function()
 		{
 			return $this->bar;
 		});
 
-		//$this->assertSame('foo', Extended::foo());
+		$this->assertSame('foo', Extended::foo());
 
 		$this->assertSame('bar', (new Extended)->bar());
 	}
