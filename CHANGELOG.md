@@ -1,3 +1,11 @@
+### 5.7.5, 6.0.4 <small> (2019-08-10)</small>
+
+#### Bugfixes
+
+* Fixed breaking change introduced in 5.7.4 and 6.0.4.
+
+--------------------------------------------------------
+
 ### 5.7.4, 6.0.3 <small> (2019-08-10)</small>
 
 #### Bugfixes
