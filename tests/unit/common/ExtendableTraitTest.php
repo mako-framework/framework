@@ -5,8 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\common;
+namespace mako\tests\unit\common\traits;
 
+use BadMethodCallException;
 use mako\common\traits\ExtendableTrait;
 use mako\tests\TestCase;
 
@@ -18,7 +19,7 @@ class Extended
 {
 	use ExtendableTrait;
 
-	//protected static $foo = 'foo';
+	protected static $foo = 'foo';
 
 	protected $bar = 'bar';
 }
@@ -37,26 +38,28 @@ class ExtendableTraitTest extends TestCase
 	 */
 	public function testExtending()
 	{
-		/*Extended::extend('foo', function()
+		Extended::extend('foo', static function()
 		{
 			return static::$foo;
-		});*/
+		});
 
 		Extended::extend('bar', function()
 		{
 			return $this->bar;
 		});
 
-		//$this->assertSame('foo', Extended::foo());
+		$this->assertSame('foo', Extended::foo());
 
 		$this->assertSame('bar', (new Extended)->bar());
 	}
 
 	/**
-	 * @expectedException \BadMethodCallException
+	 *
 	 */
 	public function testException()
 	{
+		$this->expectException(BadMethodCallException::class);
+
 		$collection = new Extended();
 
 		$collection->nope();
