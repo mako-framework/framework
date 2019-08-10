@@ -191,7 +191,6 @@ class Redis
 			case 'MOVED':
 			case 'ASK':
 				return $this->getClusterClient($error)->sendCommandAndGetResponse($this->lastCommand);
-				break;
 			default:
 				throw new RedisException(vsprintf('%s.', [$response]));
 		}
@@ -275,19 +274,14 @@ class Redis
 		{
 			case '-': // error reply
 				return $this->handleErrorResponse($response);
-				break;
 			case '+': // status reply
 				return $this->handleStatusResponse($response);
-				break;
 			case ':': // integer reply
 				return $this->handleIntegerResponse($response);
-				break;
 			case '$': // bulk reply
 				return $this->handleBulkResponse($response);
-				break;
 			case '*': // multi-bulk reply
 				return $this->handleMultiBulkResponse($response);
-				break;
 			default:
 				throw new RedisException(vsprintf('Unable to handle server response [ %s ].', [$response]));
 		}
