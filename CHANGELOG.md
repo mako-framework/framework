@@ -1,3 +1,13 @@
+### 5.7.4 <small> (2019-08-10)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* PHP 7.4 compatibility.
+
+--------------------------------------------------------
+
 ### 5.7.3 <small> (2019-08-08)</small>
 
 Update using ```composer update```.

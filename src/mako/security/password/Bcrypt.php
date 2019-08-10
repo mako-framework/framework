@@ -35,7 +35,7 @@ class Bcrypt extends Hasher
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getAlgorithm(): int
+	protected function getAlgorithm()
 	{
 		return PASSWORD_BCRYPT;
 	}
