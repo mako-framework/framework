@@ -353,6 +353,8 @@ abstract class Application
 
 	/**
 	 * Registers class aliases.
+	 *
+	 * @deprecated 7.0
 	 */
 	protected function registerClassAliases(): void
 	{

@@ -17,6 +17,7 @@
 
 * The `Command::$isStrict` property is deprecated and will be removed in `7.0`.
 * The `Command::$commandInformation` property is deprecated and will be removed in `7.0`.
+* The `application.class_aliases` config key is deprecated and will be removed in `7.0`.
 
 > Check out the upgrade guide for details on how to upgrade from `6.1.*.`
 
