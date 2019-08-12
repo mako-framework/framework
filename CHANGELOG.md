@@ -15,7 +15,6 @@
 
 #### Deprecations
 
-* The `Command::$isStrict` property is deprecated and will be removed in `7.0`.
 * The `Command::$commandInformation` property is deprecated and will be removed in `7.0`.
 * The `application.class_aliases` config key is deprecated and will be removed in `7.0`.
 * The `ZendDisk` cache store is deprecated and will be removed in `7.0`.

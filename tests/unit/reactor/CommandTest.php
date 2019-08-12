@@ -49,8 +49,6 @@ class Foo extends Command
 
 class Bar extends Command
 {
-	protected $isStrict = true;
-
 	protected $commandInformation =
 	[
 
