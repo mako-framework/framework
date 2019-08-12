@@ -18,6 +18,7 @@ use function zend_shm_cache_store;
 /**
  * Zend memory store.
  *
+ * @deprecated 7.0
  * @author Frederic G. Østby
  */
 class ZendMemory extends Store

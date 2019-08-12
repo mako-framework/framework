@@ -18,6 +18,7 @@ use function zend_disk_cache_store;
 /**
  * Zend disk store.
  *
+ * @deprecated 7.0
  * @author Frederic G. Østby
  */
 class ZendDisk extends Store
