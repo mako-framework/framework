@@ -279,8 +279,6 @@ class RouterTest extends TestCase
 
 		$response = Mockery::mock('mako\http\Response');
 
-		$response->shouldReceive('setStatus')->once()->with(204);
-
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
 		$action($response);

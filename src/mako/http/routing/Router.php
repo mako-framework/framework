@@ -229,8 +229,6 @@ class Router
 
 		return new Route([], '', function(Response $response) use ($allowedMethods): void
 		{
-			$response->setStatus(204);
-
 			$response->getHeaders()->add('Allow', implode(',', $allowedMethods));
 		});
 	}
@@ -251,11 +249,17 @@ class Router
 		{
 			if($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route))
 			{
-				// Redirect to URL with trailing slash if the route should have one
+				// If the matching route is missing its trailing slash then we'll
+				// redirect it (but only if it's a GET or HEAD request)
 
-				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/' && in_array($requestMethod, ['GET', 'HEAD']))
+				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/')
 				{
-					return $this->redirectRoute($requestPath);
+					if(in_array($requestMethod, ['GET', 'HEAD']))
+					{
+						return $this->redirectRoute($requestPath);
+					}
+
+					goto notFound;
 				}
 
 				// If this is an "OPTIONS" request then we'll collect all the allowed request methods
@@ -285,6 +289,8 @@ class Router
 		}
 
 		// No routes matched so we'll throw a not found exception
+
+		notFound:
 
 		throw new NotFoundException;
 	}
