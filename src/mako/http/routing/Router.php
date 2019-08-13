@@ -21,6 +21,7 @@ use function array_merge;
 use function array_unique;
 use function http_build_query;
 use function implode;
+use function in_array;
 use function is_string;
 use function preg_match;
 use function rtrim;
@@ -250,7 +251,7 @@ class Router
 			{
 				// Redirect to URL with trailing slash if the route should have one
 
-				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/')
+				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/' && in_array($requestMethod, ['GET', 'HEAD']))
 				{
 					return $this->redirectRoute($requestPath);
 				}
