@@ -183,6 +183,30 @@ class RouterTest extends TestCase
 	/**
 	 *
 	 */
+	public function testPostWithMissingTrailingSlash(): void
+	{
+		$this->expectException(NotFoundException::class);
+
+		//
+
+		$routes = new Routes;
+
+		$routes->post('/foo/', 'Foo::bar');
+
+		$router = new Router($routes);
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('getMethod')->andReturn('POST');
+
+		$request->shouldReceive('getPath')->andReturn('/foo');
+
+		$routed = $router->route($request);
+	}
+
+	/**
+	 *
+	 */
 	public function testRedirectWithDirtyUrl(): void
 	{
 		$routes = new Routes;
