@@ -11,6 +11,12 @@ use mako\utility\Arr;
 use RuntimeException;
 use Throwable;
 
+use function array_map;
+use function implode;
+use function mb_convert_case;
+use function mb_substr;
+use function rtrim;
+
 /**
  * Validation exception.
  *
@@ -55,6 +61,23 @@ class ValidationException extends RuntimeException
 	public function getErrors(): array
 	{
 		return $this->errors;
+	}
+
+	/**
+	 * Returns the exception message along with the validation errors.
+	 *
+	 * @return string
+	 */
+	public function getMessageWithErrors(): string
+	{
+		$message = rtrim($this->message, '.');
+
+		$errors = implode(', ', array_map(function($value)
+		{
+			return rtrim(mb_convert_case(mb_substr($value, 0, 1), MB_CASE_LOWER) . mb_substr($value, 1), '.');
+		}, $this->errors));
+
+		return "{$message}: {$errors}.";
 	}
 
 	/**

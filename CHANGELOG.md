@@ -6,6 +6,7 @@
 * Added `Request::isCacheable()` method.
 * Added `Request::isIdempotent()` method.
 * Added `Response::isCacheable()` method.
+* Added `ValidationException::getMessageWithErrors()` method.
 
 #### Changes
 

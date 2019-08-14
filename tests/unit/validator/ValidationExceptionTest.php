@@ -30,6 +30,22 @@ class ValidationExceptionTest extends TestCase
 	/**
 	 *
 	 */
+	public function testGetMessageWithErrors(): void
+	{
+		$errors =
+		[
+			'foo' => 'The foo field is required.',
+			'bar' => 'The bar field is required.',
+		];
+
+		$exception = new ValidationException($errors, 'Invalid input.');
+
+		$this->assertSame('Invalid input: the foo field is required, the bar field is required.', $exception->getMessageWithErrors());
+	}
+
+	/**
+	 *
+	 */
 	public function testMeta(): void
 	{
 		$exception = new ValidationException([]);
