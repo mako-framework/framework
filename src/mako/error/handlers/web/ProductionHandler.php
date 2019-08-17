@@ -12,7 +12,7 @@ use mako\error\handlers\web\traits\HandlerHelperTrait;
 use mako\http\exceptions\HttpException;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\traits\RespondWithTrait;
+use mako\http\traits\ContentNegotiationTrait;
 use mako\view\ViewFactory;
 use Throwable;
 
@@ -27,8 +27,8 @@ use function simplexml_load_string;
  */
 class ProductionHandler implements HandlerInterface
 {
+	use ContentNegotiationTrait;
 	use HandlerHelperTrait;
-	use RespondWithTrait;
 
 	/**
 	 * Request instance.

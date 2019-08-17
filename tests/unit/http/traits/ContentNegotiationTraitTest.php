@@ -10,14 +10,14 @@ namespace mako\tests\unit\http\traits;
 use mako\http\Request;
 use mako\http\request\Headers;
 use mako\http\Response;
-use mako\http\traits\RespondWithTrait;
+use mako\http\traits\ContentNegotiationTrait;
 use mako\tests\TestCase;
 use Mockery;
 
 /**
  * @group unit
  */
-class RespondWithTraitTest extends TestCase
+class ContentNegotiationTraitTest extends TestCase
 {
 	/**
 	 * Undocumented function.
@@ -30,7 +30,7 @@ class RespondWithTraitTest extends TestCase
 	{
 		return new class ($request, $response)
 		{
-			use RespondWithTrait;
+			use ContentNegotiationTrait;
 
 			protected $request;
 
@@ -43,9 +43,24 @@ class RespondWithTraitTest extends TestCase
 				$this->response = $response;
 			}
 
-			public function test(array $mimeTypes, ?string $suffix = null): bool
+			public function testExpectsType(array $mimeTypes, ?string $suffix = null): bool
 			{
-				return $this->respondWith($mimeTypes, $suffix);
+				return $this->expectsType($mimeTypes, $suffix);
+			}
+
+			public function testExpectsJson(): bool
+			{
+				return $this->expectsJson();
+			}
+
+			public function testExpectsXml(): bool
+			{
+				return $this->expectsXml();
+			}
+
+			public function testRespondWithType(array $mimeTypes, ?string $suffix = null): bool
+			{
+				return $this->respondWithType($mimeTypes, $suffix);
 			}
 
 			public function testRespondWithJson(): bool
@@ -63,7 +78,169 @@ class RespondWithTraitTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRespondWith(): void
+	public function testExpectsType(): void
+	{
+		//
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['application/json']);
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response = Mockery::mock(Response::class);
+
+		$test = $this->getTestClass($request, $response);
+
+		$this->assertTrue($test->testExpectsType(['application/json']));
+
+		//
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar+json']);
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response = Mockery::mock(Response::class);
+
+		$test = $this->getTestClass($request, $response);
+
+		$this->assertTrue($test->testExpectsType(['application/json'], '+json'));
+
+		//
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar']);
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response = Mockery::mock(Response::class);
+
+		$test = $this->getTestClass($request, $response);
+
+		$this->assertFalse($test->testExpectsType(['application/json'], '+json'));
+	}
+
+	/**
+	 *
+	 */
+	public function testExpectsJson(): void
+	{
+		//
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['application/json']);
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response = Mockery::mock(Response::class);
+
+		$test = $this->getTestClass($request, $response);
+
+		$this->assertTrue($test->testExpectsJson());
+
+		//
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar+json']);
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response = Mockery::mock(Response::class);
+
+		$test = $this->getTestClass($request, $response);
+
+		$this->assertTrue($test->testExpectsJson());
+
+		//
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar']);
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response = Mockery::mock(Response::class);
+
+		$test = $this->getTestClass($request, $response);
+
+		$this->assertFalse($test->testExpectsJson());
+	}
+
+	/**
+	 *
+	 */
+	public function testExpectsXml(): void
+	{
+		//
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['application/xml']);
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response = Mockery::mock(Response::class);
+
+		$test = $this->getTestClass($request, $response);
+
+		$this->assertTrue($test->testExpectsXml());
+
+		//
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar+xml']);
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response = Mockery::mock(Response::class);
+
+		$test = $this->getTestClass($request, $response);
+
+		$this->assertTrue($test->testExpectsXml());
+
+		//
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar']);
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response = Mockery::mock(Response::class);
+
+		$test = $this->getTestClass($request, $response);
+
+		$this->assertFalse($test->testExpectsXml());
+	}
+
+	/**
+	 *
+	 */
+	public function testRespondWithType(): void
 	{
 		$request = Mockery::mock(Request::class);
 
@@ -73,7 +250,7 @@ class RespondWithTraitTest extends TestCase
 
 		$test = $this->getTestClass($request, $response);
 
-		$this->assertTrue($test->test(['application/json']));
+		$this->assertTrue($test->testRespondWithType(['application/json']));
 
 		//
 
@@ -85,7 +262,7 @@ class RespondWithTraitTest extends TestCase
 
 		$test = $this->getTestClass($request, $response);
 
-		$this->assertTrue($test->test(['application/json'], '+json'));
+		$this->assertTrue($test->testRespondWithType(['application/json'], '+json'));
 
 		//
 
@@ -103,7 +280,7 @@ class RespondWithTraitTest extends TestCase
 
 		$test = $this->getTestClass($request, $response);
 
-		$this->assertFalse($test->test(['application/json'], '+json'));
+		$this->assertFalse($test->testRespondWithType(['application/json'], '+json'));
 
 		//
 
@@ -121,7 +298,7 @@ class RespondWithTraitTest extends TestCase
 
 		$test = $this->getTestClass($request, $response);
 
-		$this->assertTrue($test->test(['application/json']));
+		$this->assertTrue($test->testRespondWithType(['application/json']));
 
 		//
 
@@ -139,7 +316,7 @@ class RespondWithTraitTest extends TestCase
 
 		$test = $this->getTestClass($request, $response);
 
-		$this->assertTrue($test->test(['application/json'], '+json'));
+		$this->assertTrue($test->testRespondWithType(['application/json'], '+json'));
 
 		//
 
@@ -157,7 +334,7 @@ class RespondWithTraitTest extends TestCase
 
 		$test = $this->getTestClass($request, $response);
 
-		$this->assertFalse($test->test(['application/json'], '+json'));
+		$this->assertFalse($test->testRespondWithType(['application/json'], '+json'));
 	}
 
 	/**
