@@ -5,22 +5,25 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\error\handlers\web\traits;
+namespace mako\error\handlers\web;
 
 use mako\http\exceptions\HttpException;
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\http\Response;
+use mako\http\traits\ContentNegotiationTrait;
 use Throwable;
 
 use function implode;
 
 /**
- * Handler helper trait.
+ * Base handler.
  *
  * @author Frederic G. Østby
  */
-trait HandlerHelperTrait
+abstract class Handler
 {
+	use ContentNegotiationTrait;
+
 	/**
 	 * Returns the status code that we should send.
 	 *

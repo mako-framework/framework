@@ -9,10 +9,8 @@ namespace mako\error\handlers\web;
 
 use mako\application\Application;
 use mako\error\handlers\HandlerInterface;
-use mako\error\handlers\web\traits\HandlerHelperTrait;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\traits\ContentNegotiationTrait;
 use Throwable;
 use Whoops\Handler\HandlerInterface as WhoopsHandlerInterface;
 use Whoops\Handler\JsonResponseHandler;
@@ -28,11 +26,8 @@ use function function_exists;
  *
  * @author Frederic G. Østby
  */
-class DevelopmentHandler implements HandlerInterface
+class DevelopmentHandler extends Handler implements HandlerInterface
 {
-	use ContentNegotiationTrait;
-	use HandlerHelperTrait;
-
 	/**
 	 * Whoops.
 	 *
