@@ -12,9 +12,11 @@ use mako\error\handlers\web\traits\HandlerHelperTrait;
 use mako\http\exceptions\HttpException;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\traits\RespondWithTrait;
 use mako\view\ViewFactory;
 use Throwable;
 
+use function function_exists;
 use function json_encode;
 use function simplexml_load_string;
 
@@ -26,6 +28,7 @@ use function simplexml_load_string;
 class ProductionHandler implements HandlerInterface
 {
 	use HandlerHelperTrait;
+	use RespondWithTrait;
 
 	/**
 	 * Request instance.
@@ -164,14 +167,14 @@ class ProductionHandler implements HandlerInterface
 	 */
 	protected function getBody(Throwable $exception): string
 	{
-		if($this->returnAsJson())
+		if(function_exists('json_encode') && $this->respondWithJson())
 		{
 			$this->response->setType('application/json');
 
 			return $this->getExceptionAsJson($exception);
 		}
 
-		if($this->returnAsXml())
+		if(function_exists('simplexml_load_string') && $this->respondWithXml())
 		{
 			$this->response->setType('application/xml');
 

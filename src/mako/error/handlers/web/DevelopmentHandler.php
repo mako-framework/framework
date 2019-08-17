@@ -12,6 +12,7 @@ use mako\error\handlers\HandlerInterface;
 use mako\error\handlers\web\traits\HandlerHelperTrait;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\traits\RespondWithTrait;
 use Throwable;
 use Whoops\Handler\HandlerInterface as WhoopsHandlerInterface;
 use Whoops\Handler\JsonResponseHandler;
@@ -20,6 +21,7 @@ use Whoops\Handler\XmlResponseHandler;
 use Whoops\Run as Whoops;
 
 use function current;
+use function function_exists;
 
 /**
  * Development handler.
@@ -29,6 +31,7 @@ use function current;
 class DevelopmentHandler implements HandlerInterface
 {
 	use HandlerHelperTrait;
+	use RespondWithTrait;
 
 	/**
 	 * Whoops.
@@ -86,12 +89,12 @@ class DevelopmentHandler implements HandlerInterface
 	 */
 	protected function getWhoopsHandler(): WhoopsHandlerInterface
 	{
-		if($this->returnAsJson())
+		if(function_exists('json_encode') && $this->respondWithJson())
 		{
 			return new JsonResponseHandler;
 		}
 
-		if($this->returnAsXml())
+		if(function_exists('simplexml_load_string') && $this->respondWithXml())
 		{
 			return new XmlResponseHandler;
 		}

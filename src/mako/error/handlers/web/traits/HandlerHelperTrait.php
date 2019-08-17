@@ -12,10 +12,7 @@ use mako\http\exceptions\MethodNotAllowedException;
 use mako\http\Response;
 use Throwable;
 
-use function function_exists;
 use function implode;
-use function in_array;
-use function strpos;
 
 /**
  * Handler helper trait.
@@ -24,56 +21,6 @@ use function strpos;
  */
 trait HandlerHelperTrait
 {
-	/**
-	 * Checks if we meet the requirements to return as a specific type.
-	 *
-	 * @param  string $function Required function
-	 * @param  array  $mimes    Mimetypes
-	 * @param  string $partial  Partial mimetype
-	 * @return bool
-	 */
-	protected function returnAs(string $function, array $mimes, string $partial)
-	{
-		if(function_exists($function))
-		{
-			$responseType = $this->response->getType();
-
-			if(in_array($responseType, $mimes) || strpos($responseType, $partial) !== false)
-			{
-				return true;
-			}
-
-			$accepts = $this->request->getHeaders()->getAcceptableContentTypes();
-
-			if(isset($accepts[0]) && (in_array($accepts[0], $mimes) || strpos($accepts[0], $partial) !== false))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Should we return the error as JSON?
-	 *
-	 * @return bool
-	 */
-	protected function returnAsJson(): bool
-	{
-		return $this->returnAs('json_encode', ['application/json', 'text/json'], '+json');
-	}
-
-	/**
-	 * Should we return the error as XML?
-	 *
-	 * @return bool
-	 */
-	protected function returnAsXml(): bool
-	{
-		return $this->returnAs('simplexml_load_string', ['application/xml', 'text/xml'], '+xml');
-	}
-
 	/**
 	 * Returns the status code that we should send.
 	 *
