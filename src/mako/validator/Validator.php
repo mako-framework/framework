@@ -37,7 +37,7 @@ use mako\validator\rules\file\image\MaxDimensions;
 use mako\validator\rules\file\image\MinDimensions;
 use mako\validator\rules\file\IsUploaded;
 use mako\validator\rules\file\MaxFilesize;
-use mako\validator\rules\file\Mimetype;
+use mako\validator\rules\file\MimeType;
 use mako\validator\rules\FloatingPoint;
 use mako\validator\rules\GreaterThan;
 use mako\validator\rules\GreaterThanOrEqualTo;
@@ -157,7 +157,7 @@ class Validator
 		'max_dimensions'           => MaxDimensions::class,
 		'max_filesize'             => MaxFilesize::class,
 		'max_length'               => MaxLength::class,
-		'mimetype'                 => Mimetype::class,
+		'mimetype'                 => MimeType::class,
 		'min_dimensions'           => MinDimensions::class,
 		'min_length'               => MinLength::class,
 		'natural_non_zero'         => NaturalNonZero::class,

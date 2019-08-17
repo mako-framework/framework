@@ -15,27 +15,27 @@ use function in_array;
 use function sprintf;
 
 /**
- * Mimetype rule.
+ * Mime type rule.
  *
  * @author Frederic G. Østby
  */
-class Mimetype extends Rule implements RuleInterface
+class MimeType extends Rule implements RuleInterface
 {
 	/**
-	 * Mimetypes.
+	 * Mime types.
 	 *
 	 * @var array
 	 */
-	protected $mimetypes;
+	protected $mimeTypes;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param string|array $mimetype Mimetype or array of mimetypes
+	 * @param string|array $mimeType Mime type or array of mime types
 	 */
-	public function __construct($mimetype)
+	public function __construct($mimeType)
 	{
-		$this->mimetypes = (array) $mimetype;
+		$this->mimeTypes = (array) $mimeType;
 	}
 
 	/**
@@ -43,14 +43,14 @@ class Mimetype extends Rule implements RuleInterface
 	 *
 	 * @var array
 	 */
-	protected $i18nParameters = ['mimetypes'];
+	protected $i18nParameters = ['mimeTypes'];
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return in_array($value->getMimeType(), $this->mimetypes);
+		return in_array($value->getMimeType(), $this->mimeTypes);
 	}
 
 	/**
@@ -58,6 +58,6 @@ class Mimetype extends Rule implements RuleInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s must be a file of type: %2$s.', $field, implode(', ', $this->mimetypes));
+		return sprintf('The %1$s must be a file of type: %2$s.', $field, implode(', ', $this->mimeTypes));
 	}
 }

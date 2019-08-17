@@ -9,12 +9,12 @@ namespace mako\tests\unit\validator\rules\file;
 
 use mako\file\FileInfo;
 use mako\tests\TestCase;
-use mako\validator\rules\file\Mimetype;
+use mako\validator\rules\file\MimeType;
 
 /**
  * @group unit
  */
-class MimetypeTest extends TestCase
+class MimeTypeTest extends TestCase
 {
 	/**
 	 *
@@ -32,7 +32,7 @@ class MimetypeTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Mimetype('image/png');
+		$rule = new MimeType('image/png');
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -42,13 +42,13 @@ class MimetypeTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new Mimetype('image/png');
+		$rule = new MimeType('image/png');
 
 		$this->assertTrue($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
 
 		//
 
-		$rule = new Mimetype(['image/jpeg', 'image/png']);
+		$rule = new MimeType(['image/jpeg', 'image/png']);
 
 		$this->assertTrue($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
 	}
@@ -58,7 +58,7 @@ class MimetypeTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new Mimetype(['text/plain', 'application/json']);
+		$rule = new MimeType(['text/plain', 'application/json']);
 
 		$this->assertFalse($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
 
