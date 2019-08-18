@@ -7,7 +7,11 @@
 
 namespace mako\http\request;
 
+use mako\http\exceptions\BadRequestException;
+
+use function is_array;
 use function json_decode;
+use function json_last_error;
 use function parse_str;
 use function strpos;
 
@@ -46,9 +50,17 @@ class Body extends Parameters
 
 			return $parsed;
 		}
-		elseif($contentType === 'application/json' || $contentType === 'text/json' || strpos($contentType, '+json') !== false)
+
+		if($contentType === 'application/json' || $contentType === 'text/json' || strpos($contentType, '+json') !== false)
 		{
-			return json_decode($rawBody, true) ?? [];
+			$parsed = json_decode($rawBody, true) ?? [];
+
+			if(json_last_error() !== JSON_ERROR_NONE || is_array($parsed) === false)
+			{
+				throw new BadRequestException;
+			}
+
+			return $parsed;
 		}
 
 		return [];

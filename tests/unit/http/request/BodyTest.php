@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\http\request;
 
+use mako\http\exceptions\BadRequestException;
 use mako\http\request\Body;
 use mako\tests\TestCase;
 
@@ -36,6 +37,8 @@ class BodyTest extends TestCase
 	 */
 	public function testInvalidJsonBody(): void
 	{
+		$this->expectException(BadRequestException::class);
+
 		$body = new Body('', 'application/json');
 
 		$this->assertSame([], $body->all());
