@@ -53,7 +53,7 @@ class Body extends Parameters
 
 		if($contentType === 'application/json' || $contentType === 'text/json' || strpos($contentType, '+json') !== false)
 		{
-			$parsed = json_decode($rawBody, true) ?? [];
+			$parsed = json_decode($rawBody, true);
 
 			if(json_last_error() !== JSON_ERROR_NONE || is_array($parsed) === false)
 			{
