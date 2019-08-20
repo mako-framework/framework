@@ -538,7 +538,7 @@ class Query
 	/**
 	 * Sets table we want to query.
 	 *
-	 * @param  null|string|array|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
+	 * @param  string|array|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw|null $table Database table or subquery
 	 * @return $this
 	 */
 	public function table($table)
