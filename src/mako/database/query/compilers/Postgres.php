@@ -30,21 +30,21 @@ class Postgres extends Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		$pieces = [];
+		$sql = [];
 
 		foreach($segments as $segment)
 		{
-			$pieces[] = is_numeric($segment) ? $segment : "'" . str_replace("'", "''", $segment) . "'";
+			$sql[] = is_numeric($segment) ? $segment : "'" . str_replace("'", "''", $segment) . "'";
 		}
 
-		$last = array_pop($pieces);
+		$last = array_pop($sql);
 
-		if(empty($pieces))
+		if(empty($sql))
 		{
 			return "{$column}->>{$last}";
 		}
 
-		return "{$column}->" . implode('->', $pieces) . "->>{$last}";
+		return "{$column}->" . implode('->', $sql) . "->>{$last}";
 	}
 
 	/**

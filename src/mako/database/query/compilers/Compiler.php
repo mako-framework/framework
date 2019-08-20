@@ -325,14 +325,14 @@ class Compiler
 	 */
 	public function columnNames(array $columns): string
 	{
-		$pieces = [];
+		$sql = [];
 
 		foreach($columns as $column)
 		{
-			$pieces[] = $this->columnName($column);
+			$sql[] = $this->columnName($column);
 		}
 
-		return implode(', ', $pieces);
+		return implode(', ', $sql);
 	}
 
 	/**
@@ -371,14 +371,14 @@ class Compiler
 	 */
 	public function columns(array $columns, bool $allowAlias = false): string
 	{
-		$pieces = [];
+		$sql = [];
 
 		foreach($columns as $column)
 		{
-			$pieces[] = $this->column($column, $allowAlias);
+			$sql[] = $this->column($column, $allowAlias);
 		}
 
-		return implode(', ', $pieces);
+		return implode(', ', $sql);
 	}
 
 	/**
@@ -474,14 +474,14 @@ class Compiler
 	 */
 	protected function params(array $params, bool $enclose = true): string
 	{
-		$pieces = [];
+		$sql = [];
 
 		foreach($params as $param)
 		{
-			$pieces[] = $this->param($param, $enclose);
+			$sql[] = $this->param($param, $enclose);
 		}
 
-		return implode(', ', $pieces);
+		return implode(', ', $sql);
 	}
 
 	/**
@@ -505,14 +505,14 @@ class Compiler
 	 */
 	protected function simpleParams(array $params): string
 	{
-		$pieces = [];
+		$sql = [];
 
 		foreach($params as $param)
 		{
-			$pieces[] = $this->simpleParam($param);
+			$sql[] = $this->simpleParam($param);
 		}
 
-		return implode(', ', $pieces);
+		return implode(', ', $sql);
 	}
 
 	/**
@@ -954,7 +954,7 @@ class Compiler
 	 */
 	protected function updateColumns(array $columns): string
 	{
-		$pieces = [];
+		$sql = [];
 
 		foreach($columns as $column => $value)
 		{
@@ -966,15 +966,15 @@ class Compiler
 
 				$column = $this->escapeColumnName(array_shift($segments));
 
-				$pieces[] = $this->buildJsonSet($column, $segments, $param);
+				$sql[] = $this->buildJsonSet($column, $segments, $param);
 			}
 			else
 			{
-				$pieces[] = "{$this->escapeColumnName($column)} = {$param}";
+				$sql[] = "{$this->escapeColumnName($column)} = {$param}";
 			}
 		}
 
-		return implode(', ', $pieces);
+		return implode(', ', $sql);
 	}
 
 	/**
