@@ -90,6 +90,19 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithMultipleTables(): void
+	{
+		$query = $this->getBuilder(['foo', 'bar']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foo", "bar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testBasicSelectWithClosure(): void
 	{
 		$query = $this->getBuilder(function($query): void

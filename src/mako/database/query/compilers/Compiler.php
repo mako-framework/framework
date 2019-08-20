@@ -255,6 +255,24 @@ class Compiler
 	}
 
 	/**
+	 * Returns a comma-separated list of tables.
+	 *
+	 * @param  array  $tables Array of tables
+	 * @return string
+	 */
+	public function tables(array $tables): string
+	{
+		$sql = [];
+
+		foreach($tables as $table)
+		{
+			$sql[] = $this->table($table);
+		}
+
+		return implode(', ', $sql);
+	}
+
+	/**
 	 * Escapes a column name.
 	 *
 	 * @param  string $column Column name
@@ -505,7 +523,12 @@ class Compiler
 	 */
 	protected function from($table): string
 	{
-		return $table === null ? '' : " FROM {$this->table($table)}";
+		if($table === null)
+		{
+			return '';
+		}
+
+		return ' FROM ' . (is_array($table) ? $this->tables($table) : $this->table($table));
 	}
 
 	/**
