@@ -7,6 +7,7 @@
 * Added `Request::isIdempotent()` method.
 * Added `Response::isCacheable()` method.
 * Added `ValidationException::getMessageWithErrors()` method.
+* The query builder now supports multiple tables in the `FROM` clause.
 
 #### Changes
 
