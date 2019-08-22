@@ -24,7 +24,7 @@ class Subquery
 	/**
 	 * Alias.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $alias = null;
 
@@ -38,6 +38,19 @@ class Subquery
 	{
 		$this->query = $query;
 		$this->alias = $alias;
+	}
+
+	/**
+	 * Sets the subquery alias.
+	 *
+	 * @param  string                        $alias
+	 * @return \mako\database\query\Subquery
+	 */
+	public function as(string $alias): Subquery
+	{
+		$this->alias = $alias;
+
+		return $this;
 	}
 
 	/**
