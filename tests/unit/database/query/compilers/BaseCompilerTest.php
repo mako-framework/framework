@@ -103,22 +103,6 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicSelectWithClosure(): void
-	{
-		$query = $this->getBuilder(function($query): void
-		{
-			$query->table('foobar');
-		});
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT * FROM (SELECT * FROM "foobar") AS "mako0"', $query['sql']);
-		$this->assertEquals([], $query['params']);
-	}
-
-	/**
-	 *
-	 */
 	public function testBasicSelectWithSubquery(): void
 	{
 		$query = $this->getBuilder(new Subquery(function($query): void
