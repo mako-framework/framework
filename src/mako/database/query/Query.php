@@ -411,7 +411,7 @@ class Query
 	 *
 	 * @param  string                                                            $name    Table name
 	 * @param  array                                                             $columns Column names
-	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
+	 * @param  \mako\database\query\Subquery $query   Query
 	 * @return $this
 	 */
 	public function with(string $name, array $columns = [], $query)
@@ -436,7 +436,7 @@ class Query
 	 *
 	 * @param  string                                                            $name    Table name
 	 * @param  array                                                             $columns Column names
-	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
+	 * @param  \mako\database\query\Subquery $query   Query
 	 * @return $this
 	 */
 	public function withRecursive(string $name, array $columns = [], $query)
@@ -449,7 +449,7 @@ class Query
 	/**
 	 * Adds a set operation.
 	 *
-	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query     Query
+	 * @param  \mako\database\query\Subquery $query     Query
 	 * @param  string                                                            $operation Operation
 	 * @return $this
 	 */
@@ -472,7 +472,7 @@ class Query
 	/**
 	 * Adds a UNION operation.
 	 *
-	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
+	 * @param  \mako\database\query\Subquery $query Query
 	 * @return $this
 	 */
 	public function union($query)
@@ -483,7 +483,7 @@ class Query
 	/**
 	 * Adds a UNION ALL operation.
 	 *
-	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
+	 * @param  \mako\database\query\Subquery $query Query
 	 * @return $this
 	 */
 	public function unionAll($query)
@@ -494,7 +494,7 @@ class Query
 	/**
 	 * Adds a INTERSECT operation.
 	 *
-	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
+	 * @param  \mako\database\query\Subquery $query Query
 	 * @return $this
 	 */
 	public function intersect($query)
@@ -505,7 +505,7 @@ class Query
 	/**
 	 * Adds a INTERSECT ALL operation.
 	 *
-	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
+	 * @param  \mako\database\query\Subquery $query Query
 	 * @return $this
 	 */
 	public function intersectAll($query)
@@ -516,7 +516,7 @@ class Query
 	/**
 	 * Adds a EXCEPT operation.
 	 *
-	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
+	 * @param  \mako\database\query\Subquery $query Query
 	 * @return $this
 	 */
 	public function except($query)
@@ -527,7 +527,7 @@ class Query
 	/**
 	 * Adds a EXCEPT ALL operation.
 	 *
-	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query Query
+	 * @param  \mako\database\query\Subquery $query Query
 	 * @return $this
 	 */
 	public function exceptAll($query)
@@ -538,7 +538,7 @@ class Query
 	/**
 	 * Sets table we want to query.
 	 *
-	 * @param  string|array|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw|null $table Database table or subquery
+	 * @param  string|array|\mako\database\query\Subquery|\mako\database\query\Raw|null $table Database table or subquery
 	 * @return $this
 	 */
 	public function table($table)
@@ -556,7 +556,7 @@ class Query
 	/**
 	 * Alias of Query::table().
 	 *
-	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
+	 * @param  string|array|\mako\database\query\Subquery|\mako\database\query\Raw|null $table Database table or subquery
 	 * @return $this
 	 */
 	public function from($table)
@@ -567,7 +567,7 @@ class Query
 	/**
 	 * Alias of Query::table().
 	 *
-	 * @param  string|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw $table Database table or subquery
+	 * @param  string|array|\mako\database\query\Subquery|\mako\database\query\Raw|null $table Database table or subquery
 	 * @return $this
 	 */
 	public function into($table)
@@ -905,10 +905,10 @@ class Query
 	/**
 	 * Adds a IN clause.
 	 *
-	 * @param  mixed                                                                 $column    Column name
-	 * @param  array|\mako\database\query\Raw|\Closure|\mako\database\query\Subquery $values    Array of values or Subquery
-	 * @param  string                                                                $separator Clause separator
-	 * @param  bool                                                                  $not       Not in?
+	 * @param  mixed                                                        $column    Column name
+	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery $values    Array of values or Subquery
+	 * @param  string                                                       $separator Clause separator
+	 * @param  bool                                                         $not       Not in?
 	 * @return $this
 	 */
 	public function in($column, $values, string $separator = 'AND', bool $not = false)
@@ -938,7 +938,7 @@ class Query
 	 * Adds a OR IN clause.
 	 *
 	 * @param  mixed $column Column name
-	 * @param  mixed $values Array of values or Subquery
+	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
 	public function orIn($column, $values)
@@ -950,7 +950,7 @@ class Query
 	 * Adds a NOT IN clause.
 	 *
 	 * @param  mixed $column Column name
-	 * @param  mixed $values Array of values or Subquery
+	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
 	public function notIn($column, $values)
@@ -962,7 +962,7 @@ class Query
 	 * Adds a OR NOT IN clause.
 	 *
 	 * @param  mixed $column Column name
-	 * @param  mixed $values Array of values or Subquery
+	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
 	public function orNotIn($column, $values)
@@ -1027,9 +1027,9 @@ class Query
 	/**
 	 * Adds a EXISTS clause.
 	 *
-	 * @param  \Closure|\mako\database\query\Subquery $query     Subquery
-	 * @param  string                                 $separator Clause separator
-	 * @param  bool                                   $not       Not exists?
+	 * @param  \mako\database\query\Subquery $query     Subquery
+	 * @param  string                        $separator Clause separator
+	 * @param  bool                          $not       Not exists?
 	 * @return $this
 	 */
 	public function exists($query, string $separator = 'AND', bool $not = false)
@@ -1053,7 +1053,7 @@ class Query
 	/**
 	 * Adds a OR EXISTS clause.
 	 *
-	 * @param  \Closure|\mako\database\query\Subquery $query Subquery
+	 * @param  \mako\database\query\Subquery $query Subquery
 	 * @return $this
 	 */
 	public function orExists($query)
@@ -1064,7 +1064,7 @@ class Query
 	/**
 	 * Adds a NOT EXISTS clause.
 	 *
-	 * @param  \Closure|\mako\database\query\Subquery $query Subquery
+	 * @param  \mako\database\query\Subquery $query Subquery
 	 * @return $this
 	 */
 	public function notExists($query)
@@ -1075,7 +1075,7 @@ class Query
 	/**
 	 * Adds a OR NOT EXISTS clause.
 	 *
-	 * @param  \Closure|\mako\database\query\Subquery $query Subquery
+	 * @param  \mako\database\query\Subquery $query Subquery
 	 * @return $this
 	 */
 	public function orNotExists($query)
