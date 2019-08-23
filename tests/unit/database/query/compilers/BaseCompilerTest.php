@@ -717,10 +717,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->in('foo', function($query): void
+		$query->in('foo', new Subquery(function($query): void
 		{
 			$query->table('barfoo')->select(['id']);
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -863,10 +863,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->exists(function($query): void
+		$query->exists(new Subquery(function($query): void
 		{
 			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1569,10 +1569,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->union(function($query): void
+		$query->union(new Subquery(function($query): void
 		{
 			$query->table('sales2015');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1584,21 +1584,6 @@ class BaseCompilerTest extends TestCase
 	 *
 	 */
 	public function testUnionWithQuery(): void
-	{
-		$sales2015 = $this->getBuilder('sales2015');
-
-		$query = $this->getBuilder()->union($sales2015)->table('sales2016');
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT * FROM "sales2015" UNION SELECT * FROM "sales2016"', $query['sql']);
-		$this->assertEquals([], $query['params']);
-	}
-
-	/**
-	 *
-	 */
-	public function testUnionWithSubquery(): void
 	{
 		$sales2015 = $this->getBuilder('sales2015');
 
@@ -1617,15 +1602,15 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->union(function($query): void
+		$query->union(new Subquery(function($query): void
 		{
 			$query->table('sales2014');
-		});
+		}));
 
-		$query->union(function($query): void
+		$query->union(new Subquery(function($query): void
 		{
 			$query->table('sales2015');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1640,10 +1625,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->unionAll(function($query): void
+		$query->unionAll(new Subquery(function($query): void
 		{
 			$query->table('sales2015');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1658,10 +1643,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->intersect(function($query): void
+		$query->intersect(new Subquery(function($query): void
 		{
 			$query->table('sales2015');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1676,10 +1661,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->intersectAll(function($query): void
+		$query->intersectAll(new Subquery(function($query): void
 		{
 			$query->table('sales2015');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1694,10 +1679,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->except(function($query): void
+		$query->except(new Subquery(function($query): void
 		{
 			$query->table('sales2015');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1712,10 +1697,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('sales2016');
 
-		$query->exceptAll(function($query): void
+		$query->exceptAll(new Subquery(function($query): void
 		{
 			$query->table('sales2015');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1826,10 +1811,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->with('cte', [], function($query): void
+		$query->with('cte', [], new Subquery(function($query): void
 		{
 			$query->table('articles');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1844,10 +1829,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->with('cte', ['title', 'content'], function($query): void
+		$query->with('cte', ['title', 'content'], new Subquery(function($query): void
 		{
 			$query->table('articles')->select(['title', 'content']);
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1862,10 +1847,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->withRecursive('cte', [], function($query): void
+		$query->withRecursive('cte', [], new Subquery(function($query): void
 		{
 			$query->table('articles');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1880,15 +1865,15 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte2');
 
-		$query->with('cte1', [], function($query): void
+		$query->with('cte1', [], new Subquery(function($query): void
 		{
 			$query->table('articles');
-		});
+		}));
 
-		$query->with('cte2', [], function($query): void
+		$query->with('cte2', [], new Subquery(function($query): void
 		{
 			$query->table('cte1');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1903,14 +1888,14 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->with('cte', ['a', 'b', 'c'], function($query): void
+		$query->with('cte', ['a', 'b', 'c'], new Subquery(function($query): void
 		{
-			$query->with('cte2', [], function($query): void
+			$query->with('cte2', [], new Subquery(function($query): void
 			{
 				$query->selectRaw('1, 2, 3');
-			})
+			}))
 			->table('cte2');
-		});
+		}));
 
 		$query = $query->getCompiler()->select();
 
