@@ -22,25 +22,25 @@
 * The `ZendDisk` cache store is deprecated and will be removed in `7.0`.
 * The `ZendMemory` cache store is deprecated and will be removed in `7.0`.
 * Passing a `Closure` or `Query` instance to represent a subquery to the following methods is deprecated and will stop working in `7.0` (an instance of `Subquery` should be passed instead):
-	- Query::table()
-	- Query::from()
-	- Query::into()
-	- Query::in()
-	- Query::notIn()
-	- Query::orIn()
-	- Query::orNotIn()
-	- Query::exists()
-	- Query::orExists()
-	- Query::notExists()
-	- Query::orNotExists()
-	- Query::union()
-	- Query::unionAll()
-	- Query::intersect()
-	- Query::intersectAll()
-	- Query::except()
-	- Query::exceptAll()
-	- Query::with()
-	- Query::withRecursive()
+	- `Query::table()`
+	- `Query::from()`
+	- `Query::into()`
+	- `Query::in()`
+	- `Query::notIn()`
+	- `Query::orIn()`
+	- `Query::orNotIn()`
+	- `Query::exists()`
+	- `Query::orExists()`
+	- `Query::notExists()`
+	- `Query::orNotExists()`
+	- `Query::union()`
+	- `Query::unionAll()`
+	- `Query::intersect()`
+	- `Query::intersectAll()`
+	- `Query::except()`
+	- `Query::exceptAll()`
+	- `Query::with()`
+	- `Query::withRecursive()`
 
 > Check out the upgrade guide for details on how to upgrade from `6.1.*.`
 
