@@ -409,8 +409,8 @@ class Query
 	/**
 	 * Adds a common table expression.
 	 *
-	 * @param  string                                                            $name    Table name
-	 * @param  array                                                             $columns Column names
+	 * @param  string                        $name    Table name
+	 * @param  array                         $columns Column names
 	 * @param  \mako\database\query\Subquery $query   Query
 	 * @return $this
 	 */
@@ -434,8 +434,8 @@ class Query
 	/**
 	 * Adds a recursive common table expression.
 	 *
-	 * @param  string                                                            $name    Table name
-	 * @param  array                                                             $columns Column names
+	 * @param  string                        $name    Table name
+	 * @param  array                         $columns Column names
 	 * @param  \mako\database\query\Subquery $query   Query
 	 * @return $this
 	 */
@@ -450,7 +450,7 @@ class Query
 	 * Adds a set operation.
 	 *
 	 * @param  \mako\database\query\Subquery $query     Query
-	 * @param  string                                                            $operation Operation
+	 * @param  string                        $operation Operation
 	 * @return $this
 	 */
 	protected function setOperation($query, string $operation)
@@ -937,7 +937,7 @@ class Query
 	/**
 	 * Adds a OR IN clause.
 	 *
-	 * @param  mixed $column Column name
+	 * @param  mixed                                                        $column Column name
 	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
@@ -949,7 +949,7 @@ class Query
 	/**
 	 * Adds a NOT IN clause.
 	 *
-	 * @param  mixed $column Column name
+	 * @param  mixed                                                        $column Column name
 	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
@@ -961,7 +961,7 @@ class Query
 	/**
 	 * Adds a OR NOT IN clause.
 	 *
-	 * @param  mixed $column Column name
+	 * @param  mixed                                                        $column Column name
 	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
