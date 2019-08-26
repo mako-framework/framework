@@ -186,7 +186,7 @@ class Query
 	 * @param  array $ignore Properties that should be left in their current state
 	 * @return $this
 	 */
-	public function reset(array $leave = [])
+	protected function reset(array $leave = [])
 	{
 		$leave = array_merge(['connection', 'helper', 'compiler', 'paginationFactory'], $leave);
 
