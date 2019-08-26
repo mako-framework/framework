@@ -890,9 +890,9 @@ class Compiler
 	public function select(): array
 	{
 		$sql = $this->query->getPrefix()
-		. $this->commonTableExpressions($this->query->getCommonTableExpressions())
 		. $this->setOperations($this->query->getSetOperations())
 		. ($this->hasSetOperations ? '(' : '')
+		. $this->commonTableExpressions($this->query->getCommonTableExpressions())
 		. ($this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ')
 		. $this->columns($this->query->getColumns(), true)
 		. $this->from($this->query->getTable())

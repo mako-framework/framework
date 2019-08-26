@@ -183,7 +183,7 @@ class Query
 	/**
 	 * Resets the query to its default state.
 	 *
-	 * @param  array $ignore Properties that should be left in their current state
+	 * @param  array $leave Properties that should be left in their current state
 	 * @return $this
 	 */
 	protected function reset(array $leave = [])

@@ -65,9 +65,9 @@ class DB2 extends Compiler
 		}
 
 		$sql = $this->query->getPrefix()
-		. $this->commonTableExpressions($this->query->getCommonTableExpressions())
 		. $this->setOperations($this->query->getSetOperations())
 		. ($this->hasSetOperations ? '(' : '')
+		. $this->commonTableExpressions($this->query->getCommonTableExpressions())
 		. ($this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ')
 		. $this->columns($this->query->getColumns())
 		. ", ROW_NUMBER() OVER ({$order}) AS mako_rownum"
