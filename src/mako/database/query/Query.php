@@ -427,8 +427,8 @@ class Query
 	/**
 	 * Adds a common table expression.
 	 *
-	 * @param  string                        $name    Table name
-	 * @param  array                         $columns Column names
+	 * @param  string                                                            $name    Table name
+	 * @param  array                                                             $columns Column names
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
 	 * @return $this
 	 */
@@ -452,8 +452,8 @@ class Query
 	/**
 	 * Adds a recursive common table expression.
 	 *
-	 * @param  string                        $name    Table name
-	 * @param  array                         $columns Column names
+	 * @param  string                                                            $name    Table name
+	 * @param  array                                                             $columns Column names
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
 	 * @return $this
 	 */
@@ -468,7 +468,7 @@ class Query
 	 * Adds a set operation.
 	 *
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery|null $query     Query
-	 * @param  string                             $operation Operation
+	 * @param  string                                                                 $operation Operation
 	 * @return $this
 	 */
 	protected function setOperation($query = null, string $operation)
@@ -934,10 +934,10 @@ class Query
 	/**
 	 * Adds a IN clause.
 	 *
-	 * @param  mixed                                                        $column    Column name
+	 * @param  mixed                                                                 $column    Column name
 	 * @param  array|\mako\database\query\Raw|\Closure|\mako\database\query\Subquery $values    Array of values or Subquery
-	 * @param  string                                                       $separator Clause separator
-	 * @param  bool                                                         $not       Not in?
+	 * @param  string                                                                $separator Clause separator
+	 * @param  bool                                                                  $not       Not in?
 	 * @return $this
 	 */
 	public function in($column, $values, string $separator = 'AND', bool $not = false)
@@ -966,7 +966,7 @@ class Query
 	/**
 	 * Adds a OR IN clause.
 	 *
-	 * @param  mixed                                                        $column Column name
+	 * @param  mixed                                                                 $column Column name
 	 * @param  array|\mako\database\query\Raw|\Closure|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
@@ -978,7 +978,7 @@ class Query
 	/**
 	 * Adds a NOT IN clause.
 	 *
-	 * @param  mixed                                                        $column Column name
+	 * @param  mixed                                                                 $column Column name
 	 * @param  array|\mako\database\query\Raw|\Closure|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
@@ -990,7 +990,7 @@ class Query
 	/**
 	 * Adds a OR NOT IN clause.
 	 *
-	 * @param  mixed                                                        $column Column name
+	 * @param  mixed                                                                 $column Column name
 	 * @param  array|\mako\database\query\Raw|\Closure|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
@@ -1057,8 +1057,8 @@ class Query
 	 * Adds a EXISTS clause.
 	 *
 	 * @param  \Closure|\mako\database\query\Subquery $query     Subquery
-	 * @param  string                        $separator Clause separator
-	 * @param  bool                          $not       Not exists?
+	 * @param  string                                 $separator Clause separator
+	 * @param  bool                                   $not       Not exists?
 	 * @return $this
 	 */
 	public function exists($query, string $separator = 'AND', bool $not = false)
