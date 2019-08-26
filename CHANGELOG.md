@@ -21,6 +21,7 @@
 * The `application.class_aliases` config key is deprecated and will be removed in `7.0`.
 * The `ZendDisk` cache store is deprecated and will be removed in `7.0`.
 * The `ZendMemory` cache store is deprecated and will be removed in `7.0`.
+* Passring a `Query` instance to the `Subquery` constructor is deprecated and will stop working in `7.0` a closure should be passed instead.
 * Passing a `Closure` or `Query` instance to represent a subquery to the following methods is deprecated and will stop working in `7.0` (an instance of `Subquery` should be passed instead):
 	- `Query::table()`
 	- `Query::from()`
@@ -33,14 +34,16 @@
 	- `Query::orExists()`
 	- `Query::notExists()`
 	- `Query::orNotExists()`
+	- `Query::with()`
+	- `Query::withRecursive()`
+* Passing a `Closure`, `Query` or `Subquery` instance to the following methods is deprecated and will stop working in `7.0` (see the documentation):
 	- `Query::union()`
 	- `Query::unionAll()`
 	- `Query::intersect()`
 	- `Query::intersectAll()`
 	- `Query::except()`
 	- `Query::exceptAll()`
-	- `Query::with()`
-	- `Query::withRecursive()`
+* Support for `DB2` databases is deprecated and will be removed in `7.0`.
 
 > Check out the upgrade guide for details on how to upgrade from `6.1.*.`
 

@@ -12,6 +12,7 @@ use PDOException;
 /**
  * DB2 database connection.
  *
+ * @deprecated 7.0
  * @author Frederic G. Østby
  */
 class DB2 extends Connection

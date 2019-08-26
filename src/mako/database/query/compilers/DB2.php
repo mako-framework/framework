@@ -12,6 +12,7 @@ use function trim;
 /**
  * Compiles DB2 queries.
  *
+ * @deprecated 7.0
  * @author Frederic G. Østby
  */
 class DB2 extends Compiler
@@ -64,7 +65,9 @@ class DB2 extends Compiler
 		}
 
 		$sql = $this->query->getPrefix()
+		. $this->commonTableExpressions($this->query->getCommonTableExpressions())
 		. $this->setOperations($this->query->getSetOperations())
+		. ($this->hasSetOperations ? '(' : '')
 		. ($this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ')
 		. $this->columns($this->query->getColumns())
 		. ", ROW_NUMBER() OVER ({$order}) AS mako_rownum"
@@ -80,7 +83,8 @@ class DB2 extends Compiler
 		$offset = $offset + 1;
 
 		$sql = "SELECT * FROM ({$sql}) AS mako1 WHERE mako_rownum BETWEEN {$offset} AND {$limit}"
-		. $this->lock($this->query->getLock());
+		. $this->lock($this->query->getLock())
+		. ($this->hasSetOperations ? ')' : '');
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}
