@@ -182,20 +182,15 @@ class Query
 
 	/**
 	 * Resets the query to its default state.
-	 *
-	 * @param  array $leave Properties that should be left in their current state
-	 * @return $this
 	 */
-	protected function reset(array $leave = [])
+	protected function reset(): void
 	{
-		$leave = array_merge(['connection', 'helper', 'compiler', 'paginationFactory'], $leave);
+		$leave = ['connection', 'helper', 'compiler', 'paginationFactory'];
 
 		foreach(array_diff_key(get_class_vars(self::class), array_flip($leave)) as $property => $default)
 		{
 			$this->{$property} = $default;
 		}
-
-		return $this;
 	}
 
 	/**
@@ -475,13 +470,17 @@ class Query
 	{
 		if($query === null)
 		{
-			$self = clone $this;
+			$previous = clone $this;
 
-			$self->setOperations = [];
+			$previous->setOperations = [];
 
-			$this->setOperations[] = ['query' => new Subquery($self), 'operation' => $operation];
+			$setOperations = array_merge($this->setOperations, [['query' => new Subquery($previous), 'operation' => $operation]]);
 
-			return $this->reset(['setOperations']);
+			$this->reset();
+
+			$this->setOperations = $setOperations;
+
+			return $this;
 		}
 
 		if(($query instanceof Subquery) === false)
