@@ -14,7 +14,11 @@ use mako\database\connections\Connection;
 use mako\pagination\PaginationFactoryInterface;
 use PDO;
 
+use function array_diff_key;
+use function array_flip;
+use function array_merge;
 use function count;
+use function get_class_vars;
 use function is_array;
 use function sprintf;
 
