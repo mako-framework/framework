@@ -118,7 +118,22 @@ class Compiler
 	}
 
 	/**
-	 * Compiles subquery, merges parameters and returns subquery SQL.
+	 * Compiles a subselect and merges the parameters.
+	 *
+	 * @param  \mako\database\query\Query $query Query
+	 * @return string
+	 */
+	protected function subselect(Query $query): string
+	{
+		['sql' => $sql, 'params' => $params] = $query->getCompiler()->select();
+
+		$this->params = array_merge($this->params, $params);
+
+		return $sql;
+	}
+
+	/**
+	 * Compiles a subquery.
 	 *
 	 * @param  \mako\database\query\Subquery $subquery Subquery container
 	 * @param  bool                          $enclose  Should the subquery be enclosed in parentheses?
@@ -137,9 +152,7 @@ class Compiler
 			$builder($query);
 		}
 
-		['sql' => $sql, 'params' => $params] = $query->getCompiler()->select();
-
-		$this->params = array_merge($this->params, $params);
+		$sql = $this->subselect($query);
 
 		if($enclose)
 		{
