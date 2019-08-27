@@ -62,13 +62,6 @@ class Compiler
 	protected $params = [];
 
 	/**
-	 * Does the query have any set operations?
-	 *
-	 * @var bool
-	 */
-	protected $hasSetOperations = false;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\database\query\Query $query Query builder
@@ -446,13 +439,11 @@ class Compiler
 			return '';
 		}
 
-		$this->hasSetOperations = true;
-
 		$sql = '';
 
 		foreach($setOperations as $setOperation)
 		{
-			$sql .= "({$this->subquery($setOperation['query'], false)}) {$setOperation['operation']} ";
+			$sql .= "{$this->subquery($setOperation['query'], false)} {$setOperation['operation']} ";
 		}
 
 		return $sql;
@@ -904,7 +895,6 @@ class Compiler
 	{
 		$sql = $this->query->getPrefix()
 		. $this->setOperations($this->query->getSetOperations())
-		. ($this->hasSetOperations ? '(' : '')
 		. $this->commonTableExpressions($this->query->getCommonTableExpressions())
 		. ($this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ')
 		. $this->columns($this->query->getColumns(), true)
@@ -916,8 +906,7 @@ class Compiler
 		. $this->orderings($this->query->getOrderings())
 		. $this->limit($this->query->getLimit())
 		. $this->offset($this->query->getOffset())
-		. $this->lock($this->query->getLock())
-		. ($this->hasSetOperations ? ')' : '');
+		. $this->lock($this->query->getLock());
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}

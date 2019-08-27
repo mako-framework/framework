@@ -1,3 +1,11 @@
+### 6.2.1 <small> (2019-08-27)</small>
+
+#### Bugfixes
+
+* Fixed breaking change introduced in `6.2.0`.
+
+--------------------------------------------------------
+
 ### 6.2.0 <small> (2019-08-26)</small>
 
 #### New
@@ -52,7 +60,7 @@
 
 #### Bugfixes
 
-* Fixed breaking change introduced in 5.7.4, 6.0.4 and 6.1.2.
+* Fixed breaking change introduced in `5.7.4`, `6.0.4` and `6.1.2`.
 
 --------------------------------------------------------
 
@@ -60,7 +68,7 @@
 
 #### Bugfixes
 
-* PHP 7.4 compatibility.
+* PHP `7.4` compatibility.
 
 --------------------------------------------------------
 
