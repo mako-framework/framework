@@ -21,7 +21,6 @@
 * The `application.class_aliases` config key is deprecated and will be removed in `7.0`.
 * The `ZendDisk` cache store is deprecated and will be removed in `7.0`.
 * The `ZendMemory` cache store is deprecated and will be removed in `7.0`.
-* Passring a `Query` instance to the `Subquery` constructor is deprecated and will stop working in `7.0` a closure should be passed instead.
 * Passing a `Closure` or `Query` instance to represent a subquery to the following methods is deprecated and will stop working in `7.0`:
 	- `Query::table()`
 	- `Query::from()`
