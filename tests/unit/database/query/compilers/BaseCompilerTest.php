@@ -103,12 +103,26 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicSelectWithSubquery(): void
+	public function testBasicSelectWithSubqueryUsingClosure(): void
 	{
 		$query = $this->getBuilder(new Subquery(function($query): void
 		{
 			$query->table('foobar');
 		}));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM (SELECT * FROM "foobar")', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicSelectWithSubqueryUsingQuery(): void
+	{
+
+		$query = $this->getBuilder(new Subquery($this->getBuilder(('foobar'))));
 
 		$query = $query->getCompiler()->select();
 
@@ -815,7 +829,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->exists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'))));
+		$query->exists(new Subquery(function($query): void
+		{
+			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -830,9 +847,15 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->exists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'))));
+		$query->exists(new Subquery(function($query): void
+		{
+			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
+		}));
 
-		$query->orExists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('barbaz.id'))));
+		$query->orExists(new Subquery(function($query): void
+		{
+			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('barbaz.id'));
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -865,7 +888,10 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->notExists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'))));
+		$query->notExists(new Subquery(function($query): void
+		{
+			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -880,9 +906,15 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->notExists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'))));
+		$query->notExists(new Subquery(function($query): void
+		{
+			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
+		}));
 
-		$query->orNotExists(new Subquery($this->getBuilder('barfoo')->where('barfoo.foobar_id', '=', new Raw('barbaz.id'))));
+		$query->orNotExists(new Subquery(function($query): void
+		{
+			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('barbaz.id'));
+		}));
 
 		$query = $query->getCompiler()->select();
 
@@ -1723,12 +1755,12 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testUnionsWithLimits(): void
 	{
-		$query = $this->getBuilder(new Subquery(function($query)
+		$query = $this->getBuilder(new Subquery(function($query): void
 		{
 			$query->table('sales2015')->limit(10);
 		}, 'limitedsales2015'))
 		->union()
-		->table(new Subquery(function($query){
+		->table(new Subquery(function($query): void {
 			$query->table('sales2016')->limit(10);
 		}, 'limitedsales2016'));
 
