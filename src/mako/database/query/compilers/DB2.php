@@ -66,7 +66,6 @@ class DB2 extends Compiler
 
 		$sql = $this->query->getPrefix()
 		. $this->setOperations($this->query->getSetOperations())
-		. ($this->hasSetOperations ? '(' : '')
 		. $this->commonTableExpressions($this->query->getCommonTableExpressions())
 		. ($this->query->isDistinct() ? 'SELECT DISTINCT ' : 'SELECT ')
 		. $this->columns($this->query->getColumns())
@@ -83,8 +82,7 @@ class DB2 extends Compiler
 		$offset = $offset + 1;
 
 		$sql = "SELECT * FROM ({$sql}) AS mako1 WHERE mako_rownum BETWEEN {$offset} AND {$limit}"
-		. $this->lock($this->query->getLock())
-		. ($this->hasSetOperations ? ')' : '');
+		. $this->lock($this->query->getLock());
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}

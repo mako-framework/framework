@@ -1560,7 +1560,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") UNION (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" UNION SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1575,7 +1575,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") UNION (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" UNION SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1598,7 +1598,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2014") UNION (SELECT * FROM "sales2015") UNION (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2014" UNION SELECT * FROM "sales2015" UNION SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1616,7 +1616,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") UNION ALL (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" UNION ALL SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1634,7 +1634,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") INTERSECT (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" INTERSECT SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1652,7 +1652,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") INTERSECT ALL (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" INTERSECT ALL SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1670,7 +1670,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") EXCEPT (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" EXCEPT SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1688,7 +1688,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") EXCEPT ALL (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" EXCEPT ALL SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1701,7 +1701,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") UNION (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" UNION SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1714,24 +1714,27 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") UNION (SELECT * FROM "sales2016") UNION (SELECT * FROM "sales2017")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" UNION SELECT * FROM "sales2016" UNION SELECT * FROM "sales2017"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-	public function testUnionWithOrder(): void
+	public function testUnionsWithLimits(): void
 	{
-		$query = $this->getBuilder(new Subquery(function($query): void
+		$query = $this->getBuilder(new Subquery(function($query)
 		{
-			$query->table('sales2015')->union()->table('sales2016');
-		}, 'sales'))
-		->descending('date');
+			$query->table('sales2015')->limit(10);
+		}, 'limitedsales2015'))
+		->union()
+		->table(new Subquery(function($query){
+			$query->table('sales2016')->limit(10);
+		}, 'limitedsales2016'));
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('SELECT * FROM ((SELECT * FROM "sales2015") UNION (SELECT * FROM "sales2016")) AS "sales" ORDER BY "date" DESC', $query['sql']);
+		$this->assertEquals('SELECT * FROM (SELECT * FROM "sales2015" LIMIT 10) AS "limitedsales2015" UNION SELECT * FROM (SELECT * FROM "sales2016" LIMIT 10) AS "limitedsales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1744,7 +1747,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") UNION ALL (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" UNION ALL SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1757,7 +1760,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") INTERSECT (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" INTERSECT SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1770,7 +1773,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") INTERSECT ALL (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" INTERSECT ALL SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1783,7 +1786,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") EXCEPT (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" EXCEPT SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
@@ -1796,7 +1799,7 @@ class BaseCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->select();
 
-		$this->assertEquals('(SELECT * FROM "sales2015") EXCEPT ALL (SELECT * FROM "sales2016")', $query['sql']);
+		$this->assertEquals('SELECT * FROM "sales2015" EXCEPT ALL SELECT * FROM "sales2016"', $query['sql']);
 		$this->assertEquals([], $query['params']);
 	}
 
