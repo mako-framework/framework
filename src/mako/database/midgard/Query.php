@@ -42,6 +42,13 @@ class Query extends QueryBuilder
 	protected $model;
 
 	/**
+	 * Class name of the model we're hydrating.
+	 *
+	 * @var string
+	 */
+	protected $modelClass;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\database\connections\Connection $connection Database connection
@@ -52,6 +59,8 @@ class Query extends QueryBuilder
 		parent::__construct($connection);
 
 		$this->model = $model;
+
+		$this->modelClass = $model->getClass();
 
 		$this->table = $model->getTable();
 	}
@@ -305,7 +314,7 @@ class Query extends QueryBuilder
 	 */
 	protected function hydrateModel(array $result)
 	{
-		$model = $this->model->getClass();
+		$model = $this->modelClass;
 
 		return new $model($result, true, false, true);
 	}

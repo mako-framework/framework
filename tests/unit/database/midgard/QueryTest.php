@@ -7,7 +7,11 @@
 
 namespace mako\tests\unit\database\midgard;
 
+use mako\database\connections\Connection;
+use mako\database\midgard\ORM;
 use mako\database\midgard\Query;
+use mako\database\query\compilers\Compiler;
+use mako\database\query\helpers\HelperInterface;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -39,11 +43,11 @@ class QueryTest extends TestCase
 	 */
 	public function getConnecion()
 	{
-		$connection = Mockery::mock('\mako\database\connections\Connection');
+		$connection = Mockery::mock(Connection::class);
 
-		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock('\mako\database\query\helpers\HelperInterface'));
+		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
-		$connection->shouldReceive('getQueryCompiler')->andReturn(Mockery::mock('\mako\database\query\compilers\Compiler'));
+		$connection->shouldReceive('getQueryCompiler')->andReturn(Mockery::mock(Compiler::class));
 
 		return $connection;
 	}
@@ -53,7 +57,11 @@ class QueryTest extends TestCase
 	 */
 	public function getModel()
 	{
-		$model = Mockery::mock('\mako\database\midgard\ORM');
+		$model = Mockery::mock(ORM::class);
+
+		$model->shouldReceive('getClass')->once()->andReturn('Test');
+
+		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		return $model;
 	}
@@ -63,7 +71,7 @@ class QueryTest extends TestCase
 	 */
 	public function getQuery($model)
 	{
-		return Mockery::mock('\mako\database\midgard\Query', [$this->getConnecion(), $model]);
+		return Mockery::mock(Query::class, [$this->getConnecion(), $model]);
 	}
 
 	/**
@@ -73,9 +81,7 @@ class QueryTest extends TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
-		$query = $this->getQuery($model);
+		$this->getQuery($model);
 	}
 
 	/**
@@ -84,8 +90,6 @@ class QueryTest extends TestCase
 	public function testJoin(): void
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$query = new Query($this->getConnecion(), $model);
 
@@ -101,11 +105,9 @@ class QueryTest extends TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		$query = Mockery::mock('\mako\database\midgard\Query[where,first]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock(Query::class . '[where,first]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($query);
 
@@ -121,11 +123,9 @@ class QueryTest extends TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		$query = Mockery::mock('\mako\database\midgard\Query[select,where,first]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock(Query::class . '[select,where,first]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('select')->once()->with(['foo', 'bar']);
 
@@ -143,8 +143,6 @@ class QueryTest extends TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
 		$model->shouldReceive('getIncludes')->once()->andReturn([]);
 
 		$model->shouldReceive('setIncludes')->once()->with(['foo'])->andReturn($model);
@@ -157,8 +155,6 @@ class QueryTest extends TestCase
 
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
 		$model->shouldReceive('getIncludes')->once()->andReturn(['bar']);
 
 		$model->shouldReceive('setIncludes')->once()->with(['bar', 'foo'])->andReturn($model);
@@ -170,8 +166,6 @@ class QueryTest extends TestCase
 		//
 
 		$model = $this->getModel();
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getIncludes')->once()->andReturn(['foo']);
 
@@ -188,8 +182,6 @@ class QueryTest extends TestCase
 	public function testIncludes(): void
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getIncludes')->once()->andReturn([]);
 
@@ -209,8 +201,6 @@ class QueryTest extends TestCase
 
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
 		$model->shouldReceive('getIncludes')->once()->andReturn([]);
 
 		$model->shouldReceive('setIncludes')->once()->with(['foo', 'bar' => $closure1])->andReturn($model);
@@ -224,8 +214,6 @@ class QueryTest extends TestCase
 		$closure1 = function(): void {};
 
 		$model = $this->getModel();
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getIncludes')->once()->andReturn(['bar']);
 
@@ -241,8 +229,6 @@ class QueryTest extends TestCase
 		$closure2 = function(): void {};
 
 		$model = $this->getModel();
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getIncludes')->once()->andReturn(['bar' => $closure1]);
 
@@ -260,8 +246,6 @@ class QueryTest extends TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
 		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
 
 		$query = new Query($this->getConnecion(), $model);
@@ -275,8 +259,6 @@ class QueryTest extends TestCase
 	public function testSingleExlude(): void
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar']);
 
@@ -294,8 +276,6 @@ class QueryTest extends TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
 		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar']);
 
 		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
@@ -307,8 +287,6 @@ class QueryTest extends TestCase
 		//
 
 		$model = $this->getModel();
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar', 'baz']);
 
@@ -326,8 +304,6 @@ class QueryTest extends TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
 		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function(): void {}]);
 
 		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
@@ -339,8 +315,6 @@ class QueryTest extends TestCase
 		//
 
 		$model = $this->getModel();
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function(): void {}, 'baz']);
 
@@ -357,8 +331,6 @@ class QueryTest extends TestCase
 
 		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
 		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => $closure1, 'baz' => $closure2]);
 
 		$model->shouldReceive('setIncludes')->once()->with(['baz' => $closure2])->andReturn($model);
@@ -373,8 +345,6 @@ class QueryTest extends TestCase
 		$closure2 = function(): void {};
 
 		$model = $this->getModel();
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => $closure1, 'baz' => $closure2]);
 
@@ -391,8 +361,6 @@ class QueryTest extends TestCase
 	public function testExcludeAll(): void
 	{
 		$model = $this->getModel();
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
 
 		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
 
@@ -420,13 +388,11 @@ class QueryTest extends TestCase
 	 */
 	public function testBatch(): void
 	{
-		$model = Mockery::mock('\mako\database\midgard\ORM');
-
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
+		$model = $this->getModel();
 
 		$model->shouldReceive('getPrimaryKey')->andReturn('foobar');
 
-		$query = Mockery::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock(Query::class . '[all]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('all')->once()->andReturn([]);
 
@@ -439,11 +405,9 @@ class QueryTest extends TestCase
 
 		//
 
-		$model = Mockery::mock('\mako\database\midgard\ORM');
+		$model = $this->getModel();
 
-		$model->shouldReceive('getTable')->once()->andReturn('tests');
-
-		$query = Mockery::mock('\mako\database\midgard\Query[all]', [$this->getConnecion(), $model]);
+		$query = Mockery::mock(Query::class . '[all]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('all')->once()->andReturn([]);
 
