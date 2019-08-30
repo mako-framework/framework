@@ -20,6 +20,18 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
+	public function testMutable(): void
+	{
+		$time1 = new Time;
+
+		$time2 = $time1->forward(10);
+
+		$this->assertSame($time1, $time2);
+	}
+
+	/**
+	 *
+	 */
 	public function testConstructor(): void
 	{
 		$time = new Time;

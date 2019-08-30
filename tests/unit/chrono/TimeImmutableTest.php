@@ -20,6 +20,18 @@ class TimeImmutableTest extends TestCase
 	/**
 	 *
 	 */
+	public function testImmutable(): void
+	{
+		$time1 = new TimeImmutable();
+
+		$time2 = $time1->forward(10);
+
+		$this->assertNotSame($time1, $time2);
+	}
+
+	/**
+	 *
+	 */
 	public function testConstructor(): void
 	{
 		$time = new TimeImmutable;
