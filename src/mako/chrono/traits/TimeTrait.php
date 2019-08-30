@@ -34,7 +34,7 @@ trait TimeTrait
 	 * @param  string|\DateTimeZone|null  $timeZone A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\TimeInterface
 	 */
-	public static function now($timeZone = null)
+	public static function now($timeZone = null): TimeInterface
 	{
 		return new static('now', $timeZone);
 	}

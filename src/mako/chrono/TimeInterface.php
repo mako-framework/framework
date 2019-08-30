@@ -7,12 +7,14 @@
 
 namespace mako\chrono;
 
+use DateTimeInterface;
+
 /**
  * Time interface.
  *
  * @author Frederic G. Østby
  */
-interface TimeInterface
+interface TimeInterface extends DateTimeInterface
 {
 	/**
 	 * Number of seconds in a minute.
@@ -62,7 +64,7 @@ interface TimeInterface
 	 * @param  string|\DateTimeZone|null  $timeZone A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\TimeInterface
 	 */
-	public static function now($timeZone = null);
+	public static function now($timeZone = null): TimeInterface;
 
 	/**
 	 * Returns new Time object according to the specified date.
