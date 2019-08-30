@@ -29,7 +29,7 @@ trait TimeTrait
 	}
 
 	/**
-	 * Returns a new Time object.
+	 * Returns a new instance set to the current time.
 	 *
 	 * @param  string|\DateTimeZone|null  $timeZone A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\TimeInterface
@@ -40,7 +40,7 @@ trait TimeTrait
 	}
 
 	/**
-	 * Returns new Time object according to the specified date.
+	 * Returns a new instance according to the specified date.
 	 *
 	 * @param  int                        $year     Year
 	 * @param  int|null                   $month    Month (1 to 12)
@@ -60,9 +60,9 @@ trait TimeTrait
 	}
 
 	/**
-	 * Returns new Time object according to the specified timestamp.
+	 * Returns a new instance according to the specified UNIX timestamp.
 	 *
-	 * @param  int                        $timestamp Unix timestamp
+	 * @param  int                        $timestamp UNIX timestamp
 	 * @param  string|\DateTimeZone|null  $timeZone  A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\TimeInterface
 	 */
@@ -72,7 +72,7 @@ trait TimeTrait
 	}
 
 	/**
-	 * Returns new Time object according to the specified DOS timestamp.
+	 * Returns a new instance according to the specified DOS timestamp.
 	 *
 	 * @param  int                        $timestamp DOS timestamp
 	 * @param  string|\DateTimeZone|null  $timeZone  A valid time zone or a DateTimeZone object
@@ -93,7 +93,7 @@ trait TimeTrait
 	}
 
 	/**
-	 * Returns new Time object formatted according to the specified format.
+	 * Returns a new instance according to the specified time string.
 	 *
 	 * @param  string                     $format   The format that the passed in string should be in
 	 * @param  string                     $time     String representing the time
@@ -120,7 +120,7 @@ trait TimeTrait
 	}
 
 	/**
-	 * Sets the time zone for the Time object.
+	 * Sets the time zone.
 	 *
 	 * @param  string|\DateTimeZone       $timeZone A valid time zone or a DateTimeZone object
 	 * @return \mako\chrono\TimeInterface
