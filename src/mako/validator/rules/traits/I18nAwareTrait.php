@@ -36,7 +36,10 @@ trait I18nAwareTrait
 	protected $i18n;
 
 	/**
-	 * {@inheritdoc}
+	 * Sets the I18n instance.
+	 *
+	 * @param  \mako\i18n\I18n                     $i18n I18n
+	 * @return \mako\validator\rules\RuleInterface
 	 */
 	public function setI18n(I18n $i18n): RuleInterface
 	{
@@ -97,7 +100,12 @@ trait I18nAwareTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Returns the translated error message.
+	 *
+	 * @param  string      $field   Field name
+	 * @param  string      $rule    Rule name
+	 * @param  string|null $package Package name
+	 * @return string
 	 */
 	public function getTranslatedErrorMessage(string $field, string $rule, ?string $package = null): string
 	{
