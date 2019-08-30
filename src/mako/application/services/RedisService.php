@@ -33,7 +33,7 @@ class RedisService extends Service
 
 		// Register the default connection
 
-		$this->container->registerSingleton(Redis::class, static function ($container)
+		$this->container->registerSingleton(Redis::class, static function($container)
 		{
 			return $container->get(ConnectionManager::class)->connection();
 		});
